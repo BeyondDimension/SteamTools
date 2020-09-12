@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="SteamTools.Views.Control.TaskBarPopup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:metro2="http://schemes.grabacr.net/winfx/2015/personal/controls"
+             xmlns:vm="clr-namespace:SteamTools.ViewModels.Control" 
+             xmlns:services="clr-namespace:SteamTools.Services" 
+             xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             xmlns:livet="http://schemas.livet-mvvm.net/2011/wpf"
+             mc:Ignorable="d" 
+             Height="250" Width="170"
+             FontSize="14"
+		     DataContext="{Binding}">
+    <Border>
+        <Grid>
+            <Rectangle Stroke="{DynamicResource AccentBrushKey}"
+							   StrokeThickness="3">
+                <Rectangle.Effect>
+                    <BlurEffect Radius="8" />
+                </Rectangle.Effect>
+            </Rectangle>
+            <Border Background="{DynamicResource ThemeBrushKey}"
+							BorderBrush="{DynamicResource AccentBrushKey}"
+							BorderThickness=".99">
+                <Grid Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <WrapPanel Grid.Row="0">
+                        <Image Source="pack://application:,,,/Resources/Asstes/app.ico" Width="64" Height="64"></Image>
+                        <TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.WinTitle}"
+                               Foreground="{StaticResource ActiveForegroundBrushKey}" VerticalAlignment="Center"/>
+                    </WrapPanel>
+                    <StackPanel Grid.Row="1">
+                        <Rectangle Height=".99"
+									   Fill="{DynamicResource InactiveForegroundBrushKey}"
+									   Margin="0,8" />
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" HorizontalAlignment="Right">
+                        <metro:LinkButton 
+                               Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Exit}"
+                               Foreground="{StaticResource ActiveForegroundBrushKey}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <livet:LivetCallMethodAction MethodName="ExitApplication"
+																	 MethodTarget="{Binding}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </metro:LinkButton>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

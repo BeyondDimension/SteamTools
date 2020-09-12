@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<SolidColorBrush x:Key="FleetExpeditionBrushKey"
+					 Color="#FF204080" />
+
+	<SolidColorBrush x:Key="FleetRepairingBrushKey"
+					 Color="#FF5A4020" />
+
+	<SolidColorBrush x:Key="FleetReSortieBrushKey"
+					 Color="#FF5A2020" />
+
+</ResourceDictionary>

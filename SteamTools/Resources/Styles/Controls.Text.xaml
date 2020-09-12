@@ -1,0 +1,182 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:s="clr-namespace:System;assembly=mscorlib">
+
+	<!-- ReSharper disable once InconsistentNaming -->
+	<Style x:Key="_TextBaseStyleKey"
+		   TargetType="{x:Type TextBlock}"
+		   BasedOn="{StaticResource {x:Type TextBlock}}">
+		<Setter Property="VerticalAlignment"
+				Value="Center" />
+		<Style.Triggers>
+			<Trigger Property="IsEnabled"
+					 Value="False">
+				<Setter Property="Foreground"
+						Value="{DynamicResource InactiveForegroundBrushKey}" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+	<!-- ReSharper disable once InconsistentNaming -->
+	<Style x:Key="_TextElementBaseStyleKey"
+		   TargetType="{x:Type Run}">
+		<Style.Triggers>
+			<Trigger Property="IsEnabled"
+					 Value="False">
+				<Setter Property="Foreground"
+						Value="{DynamicResource InactiveForegroundBrushKey}" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+
+
+	<FontFamily x:Key="DefaultFontFamilyKey">Meiryo UI, Segoe UI</FontFamily>
+	<s:Double x:Key="DefaultFontSizeKey">12</s:Double>
+	<Style x:Key="DefaultTextStyleKey"
+		   TargetType="{x:Type TextBlock}"
+		   BasedOn="{StaticResource _TextBaseStyleKey}">
+		<Setter Property="FontFamily"
+				Value="{DynamicResource DefaultFontFamilyKey}" />
+		<Setter Property="FontSize"
+				Value="{DynamicResource DefaultFontSizeKey}" />
+		<Setter Property="Foreground"
+				Value="{DynamicResource ForegroundBrushKey}" />
+		<Setter Property="TextTrimming"
+				Value="WordEllipsis" />
+		<Setter Property="TextWrapping"
+				Value="Wrap" />
+	</Style>
+	<Style x:Key="DefaultTextElementStyleKey"
+		   TargetType="{x:Type Run}"
+		   BasedOn="{StaticResource _TextElementBaseStyleKey}">
+		<Setter Property="FontFamily"
+				Value="{DynamicResource DefaultFontFamilyKey}" />
+		<Setter Property="FontSize"
+				Value="{DynamicResource DefaultFontSizeKey}" />
+		<Setter Property="Foreground"
+				Value="{DynamicResource ForegroundBrushKey}" />
+	</Style>
+
+
+
+	<FontFamily x:Key="DetailFontFamilyKey">Meiryo UI, Segoe UI</FontFamily>
+	<s:Double x:Key="DetailFontSizeKey">10.5</s:Double>
+	<Style x:Key="DetailTextStyleKey"
+		   TargetType="{x:Type TextBlock}"
+		   BasedOn="{StaticResource _TextBaseStyleKey}">
+		<Setter Property="FontFamily"
+				Value="{DynamicResource DetailFontFamilyKey}" />
+		<Setter Property="FontSize"
+				Value="{DynamicResource DetailFontSizeKey}" />
+		<Setter Property="Foreground"
+				Value="{DynamicResource ForegroundBrushKey}" />
+		<Setter Property="TextTrimming"
+				Value="WordEllipsis" />
+		<Setter Property="TextWrapping"
+				Value="Wrap" />
+	</Style>
+	<Style x:Key="DetailTextElementStyleKey"
+		   TargetType="{x:Type Run}"
+		   BasedOn="{StaticResource _TextElementBaseStyleKey}">
+		<Setter Property="FontFamily"
+				Value="{DynamicResource DetailFontFamilyKey}" />
+		<Setter Property="FontSize"
+				Value="{DynamicResource DetailFontSizeKey}" />
+		<Setter Property="Foreground"
+				Value="{DynamicResource ForegroundBrushKey}" />
+	</Style>
+
+
+
+	<FontFamily x:Key="EmphaticFontFamilyKey">Meiryo UI, Segoe UI</FontFamily>
+	<s:Double x:Key="EmphaticFontSizeKey">15</s:Double>
+	<Style x:Key="EmphaticTextStyleKey"
+		   TargetType="{x:Type TextBlock}"
+		   BasedOn="{StaticResource _TextBaseStyleKey}">
+		<Setter Property="FontFamily"
+				Value="{DynamicResource EmphaticFontFamilyKey}" />
+		<Setter Property="FontSize"
+				Value="{DynamicResource EmphaticFontSizeKey}" />
+		<Setter Property="Foreground"
+				Value="{DynamicResource ActiveForegroundBrushKey}" />
+		<Setter Property="TextTrimming"
+				Value="WordEllipsis" />
+		<Setter Property="TextWrapping"
+				Value="Wrap" />
+	</Style>
+	<Style x:Key="EmphaticTextElementStyleKey"
+		   TargetType="{x:Type Run}"
+		   BasedOn="{StaticResource _TextElementBaseStyleKey}">
+		<Setter Property="FontFamily"
+				Value="{DynamicResource EmphaticFontFamilyKey}" />
+		<Setter Property="FontSize"
+				Value="{DynamicResource EmphaticFontSizeKey}" />
+		<Setter Property="Foreground"
+				Value="{DynamicResource ActiveForegroundBrushKey}" />
+	</Style>
+
+
+
+	<FontFamily x:Key="CaptionFontFamilyKey">Meiryo UI, Segoe UI Light</FontFamily>
+	<s:Double x:Key="CaptionFontSizeKey">16</s:Double>
+	<Style x:Key="CaptionTextStyleKey"
+		   TargetType="{x:Type TextBlock}"
+		   BasedOn="{StaticResource _TextBaseStyleKey}">
+		<Setter Property="FontFamily"
+				Value="{DynamicResource CaptionFontFamilyKey}" />
+		<Setter Property="FontSize"
+				Value="{DynamicResource CaptionFontSizeKey}" />
+		<Setter Property="Foreground"
+				Value="{DynamicResource ActiveForegroundBrushKey}" />
+		<Setter Property="TextTrimming"
+				Value="WordEllipsis" />
+		<Setter Property="Opacity"
+				Value="0.85" />
+	</Style>
+	<Style x:Key="CaptionTextElementStyleKey"
+		   TargetType="{x:Type Run}"
+		   BasedOn="{StaticResource _TextElementBaseStyleKey}">
+		<Setter Property="FontFamily"
+				Value="{DynamicResource CaptionFontFamilyKey}" />
+		<Setter Property="FontSize"
+				Value="{DynamicResource CaptionFontSizeKey}" />
+		<Setter Property="Foreground"
+				Value="{DynamicResource ActiveForegroundBrushKey}" />
+	</Style>
+
+
+
+	<FontFamily x:Key="HeaderFontFamilyKey">Meiryo UI, Segoe UI Light</FontFamily>
+	<s:Double x:Key="HeaderFontSizeKey">14</s:Double>
+	<Style x:Key="HeaderTextStyleKey"
+		   TargetType="{x:Type TextBlock}"
+		   BasedOn="{StaticResource _TextBaseStyleKey}">
+		<Setter Property="FontFamily"
+				Value="{DynamicResource HeaderFontFamilyKey}" />
+		<Setter Property="FontSize"
+				Value="{DynamicResource HeaderFontSizeKey}" />
+		<Setter Property="Foreground"
+				Value="{DynamicResource ForegroundBrushKey}" />
+		<Setter Property="TextTrimming"
+				Value="WordEllipsis" />
+	</Style>
+	<Style x:Key="HeaderTextElementStyleKey"
+		   TargetType="{x:Type Run}"
+		   BasedOn="{StaticResource _TextElementBaseStyleKey}">
+		<Setter Property="FontFamily"
+				Value="{DynamicResource HeaderFontFamilyKey}" />
+		<Setter Property="FontSize"
+				Value="{DynamicResource HeaderFontSizeKey}" />
+		<Setter Property="Foreground"
+				Value="{DynamicResource ForegroundBrushKey}" />
+	</Style>
+
+
+
+
+
+
+
+
+</ResourceDictionary>

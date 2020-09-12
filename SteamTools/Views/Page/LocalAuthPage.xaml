@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="SteamTools.Views.Page.LocalAuthPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:viewModel="clr-namespace:SteamTools.ViewModels"
+      mc:Ignorable="d" 
+	  d:DesignWidth="300"
+	  d:DesignHeight="200"
+      d:DataContext="{d:DesignInstance viewModel:LocalAuthPageModel}"
+      Background="{DynamicResource ThemeBrushKey}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ListView Name="AuthList" Grid.Column="0" Padding="0" Background="Transparent" BorderThickness="0" ItemsSource="{Binding SteamUsers}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel Width="238"
+                                   Background="{DynamicResource ThemeBrushKey}">
+
+                        <Image Source="pack://application:,,,/Resources/Asstes/app.ico" Width="48"></Image>
+                        <TextBlock Text="{Binding PersonaName}"
+                                       Foreground="{DynamicResource AccentForegroundBrushKey}"
+                                       VerticalAlignment="Center" FontSize="24"
+                                       TextAlignment="Center" Width="Auto"/>
+                    </DockPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</UserControl>

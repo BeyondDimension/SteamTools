@@ -1,0 +1,88 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:metro2="http://schemes.grabacr.net/winfx/2015/personal/controls">
+
+    <Style x:Key="MetroListBox" TargetType="{x:Type ListBox}">
+        <Setter Property="OverridesDefaultStyle"
+				Value="True" />
+        <Setter Property="Background"
+				Value="Transparent" />
+        <Setter Property="BorderBrush"
+				Value="{DynamicResource BorderBrushKey}" />
+        <Setter Property="BorderThickness"
+				Value="0,0,0,.99" />
+        <Setter Property="FocusVisualStyle"
+				Value="{x:Null}" />
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="IsSelected"
+												Value="{Binding IsSelected, Mode=TwoWay}" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <StackPanel>
+                                    <metro2:CallMethodButton x:Name="Button"
+																				 MethodName="Select"
+																				 Margin="0,2"
+																				 Background="Transparent">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type metro2:CallMethodButton}">
+                                                <Border Background="{TemplateBinding Background}">
+                                                    <ContentPresenter />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                        <ItemsPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+											VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                    </metro2:CallMethodButton>
+                                </StackPanel>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver"
+																 Value="True">
+                                        <Setter TargetName="Button"
+																	Property="Background"
+																	Value="{DynamicResource ActiveBackgroundBrushKey}" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected"
+																 Value="True">
+                                        <Setter TargetName="Button"
+																	Property="Background"
+																	Value="{DynamicResource AccentBrushKey}" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBox}">
+                    <Border BorderThickness="{TemplateBinding BorderThickness}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							Background="{TemplateBinding Background}"
+							Padding="{TemplateBinding Padding}">
+                        <ScrollViewer Style="{DynamicResource {x:Static GridView.GridViewScrollViewerStyleKey}}"
+									  HorizontalScrollBarVisibility="Auto"
+									  CanContentScroll="True">
+                            <ItemsPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+											VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="ItemsControl.AlternationIndex"
+					 Value="1">
+                <Setter Property="Background"
+						Value="{DynamicResource SemiactiveBackgroundBrushKey}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+
+</ResourceDictionary>

@@ -1,0 +1,180 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<!--<TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>-->
+		<TargetFrameworks>net472</TargetFrameworks>
+		<UseWPF>true</UseWPF>
+		<RootNamespace>SteamTools</RootNamespace>
+		<ApplicationIcon>Resources\Asstes\app.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
+		<PlatformTarget>AnyCPU</PlatformTarget>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+		<PackageReference Include="MetroRadiance" Version="2.4.0" />
+		<PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.0.8" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Resources\Asstes\app.ico" />
+		<None Remove="Resources\Asstes\bell.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MetroRadiance" Version="2.4.0" />
+		<PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.0.8" />
+		<PackageReference Include="LivetCask" Version="3.0.1" />
+		<PackageReference Include="MetroTrilithon" Version="0.3.0" />
+		<PackageReference Include="MetroTrilithon.Desktop" Version="0.2.3" />
+		<PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+		<PackageReference Include="SharpVectors.Reloaded" Version="1.6.0" />
+		<PackageReference Include="System.Reactive" Version="4.4.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Resources\Asstes\app.ico" />
+		<Resource Include="Resources\Asstes\bell.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ApplicationDefinition Update="App.xaml">
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:Compile</Generator>
+		</ApplicationDefinition>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="App.xaml.cs">
+			<SubType>Code</SubType>
+			<DependentUpon>App.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Properties\Settings.Designer.cs">
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Settings.settings</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Control\StatusBar.xaml.cs">
+			<DependentUpon>StatusBar.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Control\TaskBarPopup.xaml.cs">
+			<DependentUpon>TaskBarPopup.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\MainWindow.xaml.cs">
+			<SubType>Code</SubType>
+			<DependentUpon>MainWindow.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Page\CommunityProxyPage.xaml.cs">
+			<DependentUpon>CommunityProxyPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Page\DebugPage.xaml.cs">
+			<DependentUpon>DebugPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Page\LocalAuthPage.xaml.cs">
+			<DependentUpon>LocalAuthPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Page\SettingsPage.xaml.cs">
+			<DependentUpon>SettingsPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Page\SwitchSteamAccountPage.xaml.cs">
+			<DependentUpon>SwitchSteamAccountPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Page\WelcomePage.xaml.cs">
+			<DependentUpon>WelcomePage.xaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resource.en-US.resx">
+			<DependentUpon>Resources.resx</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+			<SubType>Designer</SubType>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Page Update="Resources\NotifyIconResources.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Resources\Styles\Colors.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Resources\Styles\Controls.HorizontalFlatListBox.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Resources\Styles\Controls.ListBox.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Resources\Styles\Controls.ListView.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Resources\Styles\Controls.PinButton.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Resources\Styles\Controls.TabControl.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Resources\Styles\Controls.Text.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Resources\Styles\Controls.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Views\Control\StatusBar.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Views\Control\TaskBarPopup.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Views\MainWindow.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Views\Page\CommunityProxyPage.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Views\Page\DebugPage.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Views\Page\LocalAuthPage.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Views\Page\SettingsPage.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Views\Page\SwitchSteamAccountPage.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Views\Page\WelcomePage.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Resources\Globalization\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\SteamTool.Core\SteamTool.Core.csproj" />
+		<ProjectReference Include="..\SteamTools.Composition\SteamTool.Composition.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
+
+</Project>
