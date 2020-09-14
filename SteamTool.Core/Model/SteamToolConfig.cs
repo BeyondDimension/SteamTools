@@ -16,6 +16,9 @@ namespace SteamTool.Core.Model
         /// <summary>
         /// 保存用户
         /// </summary>
-        public List<SteamUser> SteamUsers { get; set; }
+        public List<SteamUser> SteamUsers { get; set; } 
+
+
+        public bool EnableTextLog { get; set; }
     }
 }

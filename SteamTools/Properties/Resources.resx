@@ -136,7 +136,7 @@
     <value>自动挂卡</value>
   </data>
   <data name="LastloginTime" xml:space="preserve">
-    <value>最后登录时间:{0:yyyy-MM-dd HH:mm:ss}</value>
+    <value>{0:yyyy-MM-dd HH:mm:ss}</value>
   </data>
   <data name="NotificationString" xml:space="preserve">
     <value>{0}条通知</value>

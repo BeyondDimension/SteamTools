@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:tb="http://www.hardcodet.net/taskbar"
                     xmlns:vm="clr-namespace:SteamTools.ViewModels" 
-                    xmlns:controls="clr-namespace:SteamTools.Views.Control"
+                    xmlns:controls="clr-namespace:SteamTools.Views.Controls"
                     xmlns:prop="clr-namespace:SteamTools.Properties">
 
     <!--后台托盘-->

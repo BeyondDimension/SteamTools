@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Configurations>Debug;Release;发布</Configurations>
+    <AssemblyName>SteamTool.WebApi.Service</AssemblyName>
+    <RootNamespace>SteamTool.WebApi.Service</RootNamespace>
+  </PropertyGroup>
+
+</Project>

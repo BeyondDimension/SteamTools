@@ -13,7 +13,7 @@ namespace SteamTools.ViewModels
     {
         // ----- Tab items
         public WelcomePageViewModel WelcomePage { get; }
-        public ChangeSteamAccountPageModel AccountPage { get; }
+        public SwitchSteamAccountPage AccountPage { get; }
         public LocalAuthPageModel LocalAuthPage { get; }
         public SettingsPageViewModel SettingsPage { get; }
         public CommunityProxyPageViewModel CommunityProxyPage { get; }
@@ -61,7 +61,7 @@ namespace SteamTools.ViewModels
             this.TabItems = new List<TabItemViewModel>
             {
                 (this.WelcomePage = new WelcomePageViewModel(this).AddTo(this)),
-                (this.AccountPage = new ChangeSteamAccountPageModel().AddTo(this)),
+                (this.AccountPage = new SwitchSteamAccountPage().AddTo(this)),
                 (this.LocalAuthPage = new LocalAuthPageModel().AddTo(this)),
                 (this.CommunityProxyPage = new CommunityProxyPageViewModel().AddTo(this)),
                 //(this.Expeditions = new ExpeditionsViewModel(this.Fleets).AddTo(this)),

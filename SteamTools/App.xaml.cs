@@ -22,6 +22,7 @@ namespace SteamTools
     {
         public static Application Instance => Current as Application;
 
+        #region 托盘图标
         private TaskbarIcon _TaskBar;
 
         public TaskbarIcon Taskbar
@@ -36,11 +37,7 @@ namespace SteamTools
                 }
             }
         }
-
-
-        public App()
-        {
-        }
+        #endregion
 
         // 检查是否是管理员身份 
         //  VS 不是管理员模式时 会导致调试时程序重启
@@ -81,14 +78,19 @@ namespace SteamTools
         /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e)
         {
-            // 開発中に多重起動検知ついてると起動できなくて鬱陶しいので
-            // デバッグ時は外すんじゃもん
-#if !DEBUG            
+            #region Release Code
+#if !DEBUG
             CheckAdministrator();
             ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
 #else
             ThemeService.Current.Register(this, Theme.Dark, Accent.Blue);
 #endif
+            #endregion
+
+            #region Initialize SteamService
+
+            #endregion
+
             #region 托盘加载
 
             this.Taskbar = (TaskbarIcon)FindResource("Taskbar");

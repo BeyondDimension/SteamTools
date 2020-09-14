@@ -115,7 +115,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 最后登录时间:{0:yyyy-MM-dd HH:mm:ss} 的本地化字符串。
+        ///   查找类似 {0:yyyy-MM-dd HH:mm:ss} 的本地化字符串。
         /// </summary>
         public static string LastloginTime {
             get {

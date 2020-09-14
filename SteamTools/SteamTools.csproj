@@ -10,7 +10,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
-		<PlatformTarget>AnyCPU</PlatformTarget>
+		<PlatformTarget>x86</PlatformTarget>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
@@ -63,32 +63,32 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Settings.settings</DependentUpon>
 		</Compile>
-		<Compile Update="Views\Control\StatusBar.xaml.cs">
+		<Compile Update="Views\Controls\StatusBar.xaml.cs">
 			<DependentUpon>StatusBar.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="Views\Control\TaskBarPopup.xaml.cs">
+		<Compile Update="Views\Controls\TaskBarPopup.xaml.cs">
 			<DependentUpon>TaskBarPopup.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="Views\MainWindow.xaml.cs">
 			<SubType>Code</SubType>
 			<DependentUpon>MainWindow.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="Views\Page\CommunityProxyPage.xaml.cs">
+		<Compile Update="Views\Pages\CommunityProxyPage.xaml.cs">
 			<DependentUpon>CommunityProxyPage.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="Views\Page\DebugPage.xaml.cs">
+		<Compile Update="Views\Pages\DebugPage.xaml.cs">
 			<DependentUpon>DebugPage.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="Views\Page\LocalAuthPage.xaml.cs">
+		<Compile Update="Views\Pages\LocalAuthPage.xaml.cs">
 			<DependentUpon>LocalAuthPage.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="Views\Page\SettingsPage.xaml.cs">
+		<Compile Update="Views\Pages\SettingsPage.xaml.cs">
 			<DependentUpon>SettingsPage.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="Views\Page\SwitchSteamAccountPage.xaml.cs">
+		<Compile Update="Views\Pages\SwitchSteamAccountPage.xaml.cs">
 			<DependentUpon>SwitchSteamAccountPage.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="Views\Page\WelcomePage.xaml.cs">
+		<Compile Update="Views\Pages\WelcomePage.xaml.cs">
 			<DependentUpon>WelcomePage.xaml</DependentUpon>
 		</Compile>
 	</ItemGroup>
@@ -132,31 +132,31 @@
 		<Page Update="Resources\Styles\Controls.xaml">
 			<SubType>Designer</SubType>
 		</Page>
-		<Page Update="Views\Control\StatusBar.xaml">
+		<Page Update="Views\Controls\StatusBar.xaml">
 			<SubType>Designer</SubType>
 		</Page>
-		<Page Update="Views\Control\TaskBarPopup.xaml">
+		<Page Update="Views\Controls\TaskBarPopup.xaml">
 			<SubType>Designer</SubType>
 		</Page>
 		<Page Update="Views\MainWindow.xaml">
 			<SubType>Designer</SubType>
 		</Page>
-		<Page Update="Views\Page\CommunityProxyPage.xaml">
+		<Page Update="Views\Pages\CommunityProxyPage.xaml">
 			<SubType>Designer</SubType>
 		</Page>
-		<Page Update="Views\Page\DebugPage.xaml">
+		<Page Update="Views\Pages\DebugPage.xaml">
 			<SubType>Designer</SubType>
 		</Page>
-		<Page Update="Views\Page\LocalAuthPage.xaml">
+		<Page Update="Views\Pages\LocalAuthPage.xaml">
 			<SubType>Designer</SubType>
 		</Page>
-		<Page Update="Views\Page\SettingsPage.xaml">
+		<Page Update="Views\Pages\SettingsPage.xaml">
 			<SubType>Designer</SubType>
 		</Page>
-		<Page Update="Views\Page\SwitchSteamAccountPage.xaml">
+		<Page Update="Views\Pages\SwitchSteamAccountPage.xaml">
 			<SubType>Designer</SubType>
 		</Page>
-		<Page Update="Views\Page\WelcomePage.xaml">
+		<Page Update="Views\Pages\WelcomePage.xaml">
 			<SubType>Designer</SubType>
 		</Page>
 	</ItemGroup>
@@ -168,6 +168,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\SteamTool.Core\SteamTool.Core.csproj" />
 		<ProjectReference Include="..\SteamTools.Composition\SteamTool.Composition.csproj" />
+		<ProjectReference Include="..\SteamTools.Steam.Service\SteamTool.Steam.Service.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

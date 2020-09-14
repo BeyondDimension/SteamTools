@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
-        xmlns:pages="clr-namespace:SteamTools.Views.Page"
-        xmlns:controls="clr-namespace:SteamTools.Views.Control"
+        xmlns:pages="clr-namespace:SteamTools.Views.Pages"
+        xmlns:controls="clr-namespace:SteamTools.Views.Controls"
         xmlns:vm="clr-namespace:SteamTools.ViewModels"
         xmlns:prop="clr-namespace:SteamTools.Properties"
         mc:Ignorable="d"
@@ -13,10 +13,11 @@
         Title="{x:Static prop:Resources.WinTitle}"
         Width="700"
         Height="500"
-                   MinWidth="700"
-                   MinHeight="500"
-        FontFamily="MicroSoft YaHei"
+        MinWidth="600"
+        MinHeight="400"
         Background="{DynamicResource ThemeBrushKey}"
+		Foreground="{DynamicResource ActiveForegroundBrushKey}"
+		FontFamily="{DynamicResource DefaultFontFamilyKey}"
         IsRestoringWindowPlacement="True"
         UseLayoutRounding="True"
         TextOptions.TextFormattingMode="Display"
@@ -69,8 +70,7 @@
             </Grid.ColumnDefinitions>
 
             <ScrollViewer VerticalScrollBarVisibility="Auto" PanningMode="Both">
-                <Grid MinWidth="90"
-				    Background="{DynamicResource ActiveBackgroundBrushKey}">
+                <Grid MinWidth="90" Background="{DynamicResource ActiveBackgroundBrushKey}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -132,7 +132,7 @@
                     <DataTemplate DataType="{x:Type vm:LocalAuthPageModel}">
                         <pages:LocalAuthPage />
                     </DataTemplate>
-                    <DataTemplate DataType="{x:Type vm:ChangeSteamAccountPageModel}">
+                    <DataTemplate DataType="{x:Type vm:SwitchSteamAccountPage}">
                         <pages:SwitchSteamAccountPage />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type vm:CommunityProxyPageViewModel}">
