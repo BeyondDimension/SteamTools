@@ -19,12 +19,12 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="23" />
         </Grid.ColumnDefinitions>
-        <TextBlock Text="{Binding NotificationMessage}" FontFamily="MicroSoft YaHei" VerticalAlignment="Center" Padding="6" Style="{DynamicResource DefaultTextStyleKey}" Foreground="{DynamicResource AccentForegroundBrushKey}"></TextBlock>
+        <TextBlock Text="{Binding StatusText}" FontFamily="MicroSoft YaHei" VerticalAlignment="Center" Padding="6" Style="{DynamicResource DefaultTextStyleKey}" Foreground="{DynamicResource AccentForegroundBrushKey}" />
         <!--<ContentControl Grid.Column="1"
 						Content="{Binding}">
         </ContentControl>-->
-        <metro:CaptionButton Grid.Column="2"
-                                 ToolTip="{Binding Path=NotificationNum,StringFormat=Resources.NotificationString,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
+        <metro:CaptionButton Grid.Column="2" VerticalAlignment="Center"
+                                 ToolTip="{Binding Path=Badge,StringFormat=Resources.NotificationString,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 								 Style="{DynamicResource StatusButtonStyleKey}" >
             <svgc:SvgViewbox IsHitTestVisible="False"  Source="pack://application:,,,/Resources/Asstes/bell.svg" Width="11" />
         </metro:CaptionButton>

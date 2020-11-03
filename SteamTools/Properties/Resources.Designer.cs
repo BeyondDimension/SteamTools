@@ -97,11 +97,29 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 删除证书 的本地化字符串。
+        /// </summary>
+        public static string DeleteCertificate {
+            get {
+                return ResourceManager.GetString("DeleteCertificate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 退出 的本地化字符串。
         /// </summary>
         public static string Exit {
             get {
                 return ResourceManager.GetString("Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开个人资料页 的本地化字符串。
+        /// </summary>
+        public static string HeadImageTootlip {
+            get {
+                return ResourceManager.GetString("HeadImageTootlip", resourceCulture);
             }
         }
         
@@ -124,11 +142,38 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 本地反代 的本地化字符串。
+        /// </summary>
+        public static string LocalProxy {
+            get {
+                return ResourceManager.GetString("LocalProxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 {0}条通知 的本地化字符串。
         /// </summary>
         public static string NotificationString {
             get {
                 return ResourceManager.GetString("NotificationString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 离线 的本地化字符串。
+        /// </summary>
+        public static string Offline {
+            get {
+                return ResourceManager.GetString("Offline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 在线 的本地化字符串。
+        /// </summary>
+        public static string Online {
+            get {
+                return ResourceManager.GetString("Online", resourceCulture);
             }
         }
         
@@ -160,7 +205,25 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 社区修复 的本地化字符串。
+        ///   查找类似 安装证书 的本地化字符串。
+        /// </summary>
+        public static string SetupCertificate {
+            get {
+                return ResourceManager.GetString("SetupCertificate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启动服务 的本地化字符串。
+        /// </summary>
+        public static string StartService {
+            get {
+                return ResourceManager.GetString("StartService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 社区反代 的本地化字符串。
         /// </summary>
         public static string Steam302 {
             get {
@@ -174,6 +237,24 @@ namespace SteamTools.Properties {
         public static string SteamAuth {
             get {
                 return ResourceManager.GetString("SteamAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 停止服务 的本地化字符串。
+        /// </summary>
+        public static string StopService {
+            get {
+                return ResourceManager.GetString("StopService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 重启Steam并以该账号登录 的本地化字符串。
+        /// </summary>
+        public static string UserChangeTootlip {
+            get {
+                return ResourceManager.GetString("UserChangeTootlip", resourceCulture);
             }
         }
         
@@ -196,7 +277,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Steam工具箱 的本地化字符串。
+        ///   查找类似 Keylol工具箱 的本地化字符串。
         /// </summary>
         public static string WinTitle {
             get {

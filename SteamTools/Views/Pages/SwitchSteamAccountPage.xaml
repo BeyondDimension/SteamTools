@@ -5,37 +5,88 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModel="clr-namespace:SteamTools.ViewModels"
       xmlns:prop="clr-namespace:SteamTools.Properties"
-      xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
+      xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls" 
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:livet="http://schemas.livet-mvvm.net/2011/wpf"
+      xmlns:services="clr-namespace:SteamTools.Services"
+      x:Name="u"
       mc:Ignorable="d" 
 	  d:DesignWidth="800"
       d:DataContext="{d:DesignInstance viewModel:SwitchSteamAccountPage}"
       Background="{DynamicResource ThemeBrushKey}"
       >
-    <ItemsControl
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <ItemsControl
             Foreground="{DynamicResource HighlightForegroundBrushKey}"
             Name="UserList" 
             ItemsSource="{Binding SteamUsers}">
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <StackPanel Margin="10">
-                    <DockPanel>
-                        <Image Source="{Binding AvatarFull}" Width="64" Height="64"></Image>
-                        <Separator Opacity="0" Width="30"/>
-                        <TextBlock Text="{Binding PersonaName}"
-                                       VerticalAlignment="Center" FontSize="24"
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="20,10">
+                        <DockPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding AvatarMedium}" Width="64" Height="64" Cursor="Hand" ToolTip="{Binding Resources.HeadImageTootlip,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <livet:LivetCallMethodAction
+                                            MethodName="HeadImage_OnClick"
+                                            MethodParameter="{Binding ProfileUrl}"
+                                            MethodTarget="{Binding DataContext,ElementName=u}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Image>
+                                <Path VerticalAlignment="Bottom" Margin="-10,0" Data="M 0,0 A 5,5 45 1 1 0,1 Z">
+                                    <Path.Style>
+                                        <Style TargetType="Path">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path= OnlineState}" Value="online">
+                                                    <Setter Property="Visibility"  Value="Visible"></Setter>
+                                                    <Setter Property="Fill" Value="#08D969"></Setter>
+                                                    <Setter Property="ToolTip" Value="{Binding Resources.Online,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"></Setter>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path= OnlineState}" Value="offline">
+                                                    <Setter Property="Visibility"  Value="Visible"></Setter>
+                                                    <Setter Property="Fill" Value="#adadad"></Setter>
+                                                    <Setter Property="ToolTip" Value="{Binding Resources.Offline,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
+                            </StackPanel>
+                            <Separator Opacity="0" Width="30"/>
+                            <metro:LinkButton Text="{Binding SteamID}" ToolTip="{Binding Resources.UserChangeTootlip,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" VerticalAlignment="Center" FontSize="24" Width="Auto">
+                                <!--<metro:LinkButton.InputBindings >
+                                <MouseBinding Command="{Binding DataContext.SteamIdOnClick,ElementName=u}" MouseAction="LeftClick"></MouseBinding>
+                            </metro:LinkButton.InputBindings>-->
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <livet:LivetCallMethodAction
+                                            MethodName="SteamId_OnClick"
+                                            MethodParameter="{Binding AccountName}"
+                                            MethodTarget="{Binding DataContext,ElementName=u}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </metro:LinkButton>
+                            <Separator Opacity="0" Width="30"/>
+                            <TextBlock Text="{Binding SteamId64}"
+                                       VerticalAlignment="Center" FontSize="12"
                                        TextAlignment="Center" Width="Auto"/>
-                        <Separator Opacity="0" Width="30"/>
-                        <TextBlock Text="{Binding LastLoginTime,StringFormat={x:Static prop:Resources.LastloginTime}}"
+                            <Image Source="/Resources/Asstes/Copy.png" Margin="6,0" Width="16"></Image>
+                            <Separator Opacity="0" Width="30"/>
+
+                            <TextBlock  HorizontalAlignment="Right" Text="{Binding LastLoginTime,StringFormat={x:Static prop:Resources.LastloginTime},Mode=OneWay}"
                                        VerticalAlignment="Center" FontSize="14"
                                        TextAlignment="Center" Width="Auto"/>
-                        <Button HorizontalAlignment="Right" Height="30">以当前帐户登录</Button>
-                    </DockPanel>
+                            <!--<Button HorizontalAlignment="Right" Height="30">以当前帐户登录</Button>-->
+                        </DockPanel>
 
-                    <Rectangle Height=".99"
+                        <Rectangle Height=".99"
 									   Fill="{DynamicResource InactiveForegroundBrushKey}"
 									   Margin="0,8" />
-                </StackPanel>
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
 </UserControl>

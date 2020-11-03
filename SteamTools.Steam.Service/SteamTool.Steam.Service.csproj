@@ -5,10 +5,11 @@
     <Configurations>Debug;Release;发布</Configurations>
     <AssemblyName>SteamTool.Steam.Service</AssemblyName>
     <RootNamespace>SteamTool.Steam.Service</RootNamespace>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>

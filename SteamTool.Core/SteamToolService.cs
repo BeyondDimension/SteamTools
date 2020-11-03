@@ -43,7 +43,7 @@ namespace SteamTool.Core
             Process[] processes = Process.GetProcesses();
             foreach (Process process in processes)
             {
-                if (process.ProcessName == "Steam" || process.ProcessName == "SteamService" || process.ProcessName == "steamwebhelper")
+                if (process.ProcessName.ToLower() == "steam" || process.ProcessName.ToLower() == "steamService" || process.ProcessName.ToLower() == "steamwebhelper")
                 {
                     process.Kill();
                 }
@@ -85,7 +85,7 @@ namespace SteamTool.Core
                     {
                         SteamId64 = Convert.ToInt64(item.Key.ToString()),
                         AccountName = i.AccountName.ToString(),
-                        PersonaName = i.PersonaName.ToString(),
+                        SteamID = i.PersonaName.ToString(),
                         RememberPassword = Convert.ToBoolean(Convert.ToInt64(i.RememberPassword.ToString())),
                         MostRecent = Convert.ToBoolean(Convert.ToInt64(i.MostRecent.ToString())),
                         Timestamp = Convert.ToInt64(i.Timestamp.ToString())

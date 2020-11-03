@@ -25,5 +25,11 @@ namespace SteamTools
         {
             InitializeComponent();
         }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            (App.Current.MainWindow.DataContext as MainWindowViewModel).Visible = true;
+        }
     }
 }

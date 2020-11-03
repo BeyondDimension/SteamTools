@@ -60,6 +60,25 @@ namespace SteamTools.ViewModels
 
 		#endregion
 
+
+		private string _StatusText;
+		/// <summary>
+		/// 获取状态栏中显示的状态
+		/// </summary>
+		public virtual string StatusText
+		{
+			get { return this._StatusText; }
+			protected set
+			{
+				if (this._StatusText != value)
+				{
+					this._StatusText = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+
 		protected TabItemViewModel()
 		{
 			if (Models.Helper.IsInDesignMode) return;

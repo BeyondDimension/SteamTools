@@ -31,7 +31,14 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <WrapPanel Grid.Row="0">
-                        <Image Source="pack://application:,,,/Resources/Asstes/app.ico" Width="64" Height="64"></Image>
+                        <Image Source="pack://application:,,,/Resources/Asstes/app.ico" Width="64" Height="64" Cursor="Hand">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <livet:LivetCallMethodAction MethodName="ShowWindow"
+																	 MethodTarget="{Binding}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Image>
                         <TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.WinTitle}"
                                Foreground="{StaticResource ActiveForegroundBrushKey}" VerticalAlignment="Center"/>
                     </WrapPanel>

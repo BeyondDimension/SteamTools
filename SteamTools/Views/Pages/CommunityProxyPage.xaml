@@ -4,9 +4,66 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SteamTools.Views.Pages"
+             xmlns:viewModel="clr-namespace:SteamTools.ViewModels"
+             xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls" 
+             xmlns:services="clr-namespace:SteamTools.Services"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:livet="http://schemas.livet-mvvm.net/2011/wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModel:CommunityProxyPageViewModel}"
+             Background="{DynamicResource ThemeBrushKey}">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Border Margin="5"  Grid.Row="0"
+						Grid.Column="0" Style="{StaticResource MetroBorderStyle}">
+            <StackPanel>
+                <TextBlock Text="{Binding Resources.LocalProxy,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
+                <Rectangle Height=".99"
+								   Margin="0,7,0,3"
+								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
+                <CheckBox Style="{DynamicResource SliderCheckBox}" Margin="5" HorizontalAlignment="Center" IsChecked="{Binding ProxyStatus}" >
+                    <TextBlock FontSize="16" Foreground="{DynamicResource ActiveForegroundBrushKey}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path= ProxyStatus}" Value="False">
+                                        <Setter Property="Text" Value="{Binding Resources.StartService,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path= ProxyStatus}" Value="True">
+                                        <Setter Property="Text" Value="{Binding Resources.StopService,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </CheckBox>
+                <StackPanel Margin="10" VerticalAlignment="Bottom">
+                    <Button Content="{Binding Resources.DeleteCertificate,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" FontSize="18" Height="40">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <livet:LivetCallMethodAction
+                                            MethodName="DeleteCertificate_OnClick"
+                                            MethodTarget="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <GroupBox Margin="5" Style="{StaticResource MetroGroupBoxStyle}" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+            <GroupBox.Header>
+                支持列表
+            </GroupBox.Header>
+        </GroupBox>
+
+
     </Grid>
 </UserControl>

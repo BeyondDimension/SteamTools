@@ -29,10 +29,8 @@
 		</Style.Triggers>
 	</Style>
 
-
-
-	<FontFamily x:Key="DefaultFontFamilyKey">Meiryo UI, Segoe UI</FontFamily>
-	<s:Double x:Key="DefaultFontSizeKey">12</s:Double>
+    <FontFamily x:Key="DefaultFontFamilyKey">Microsoft YaHei</FontFamily>
+	<s:Double x:Key="DefaultFontSizeKey">16</s:Double>
 	<Style x:Key="DefaultTextStyleKey"
 		   TargetType="{x:Type TextBlock}"
 		   BasedOn="{StaticResource _TextBaseStyleKey}">
@@ -60,8 +58,8 @@
 
 
 
-	<FontFamily x:Key="DetailFontFamilyKey">Meiryo UI, Segoe UI</FontFamily>
-	<s:Double x:Key="DetailFontSizeKey">10.5</s:Double>
+    <FontFamily x:Key="DetailFontFamilyKey">Microsoft YaHei</FontFamily>
+	<s:Double x:Key="DetailFontSizeKey">12</s:Double>
 	<Style x:Key="DetailTextStyleKey"
 		   TargetType="{x:Type TextBlock}"
 		   BasedOn="{StaticResource _TextBaseStyleKey}">
@@ -89,8 +87,8 @@
 
 
 
-	<FontFamily x:Key="EmphaticFontFamilyKey">Meiryo UI, Segoe UI</FontFamily>
-	<s:Double x:Key="EmphaticFontSizeKey">15</s:Double>
+    <FontFamily x:Key="EmphaticFontFamilyKey">Microsoft YaHei</FontFamily>
+	<s:Double x:Key="EmphaticFontSizeKey">18</s:Double>
 	<Style x:Key="EmphaticTextStyleKey"
 		   TargetType="{x:Type TextBlock}"
 		   BasedOn="{StaticResource _TextBaseStyleKey}">
@@ -118,8 +116,8 @@
 
 
 
-	<FontFamily x:Key="CaptionFontFamilyKey">Meiryo UI, Segoe UI Light</FontFamily>
-	<s:Double x:Key="CaptionFontSizeKey">16</s:Double>
+    <FontFamily x:Key="CaptionFontFamilyKey">Microsoft YaHei Light</FontFamily>
+	<s:Double x:Key="CaptionFontSizeKey">18</s:Double>
 	<Style x:Key="CaptionTextStyleKey"
 		   TargetType="{x:Type TextBlock}"
 		   BasedOn="{StaticResource _TextBaseStyleKey}">
@@ -147,8 +145,8 @@
 
 
 
-	<FontFamily x:Key="HeaderFontFamilyKey">Meiryo UI, Segoe UI Light</FontFamily>
-	<s:Double x:Key="HeaderFontSizeKey">14</s:Double>
+    <FontFamily x:Key="HeaderFontFamilyKey">Microsoft YaHei Light</FontFamily>
+	<s:Double x:Key="HeaderFontSizeKey">16</s:Double>
 	<Style x:Key="HeaderTextStyleKey"
 		   TargetType="{x:Type TextBlock}"
 		   BasedOn="{StaticResource _TextBaseStyleKey}">

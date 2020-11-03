@@ -35,7 +35,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{868B3B33-14B
 		Lib\MetroRadiance.Chrome.Externals.dll = Lib\MetroRadiance.Chrome.Externals.dll
 		Lib\MetroRadiance.Core.dll = Lib\MetroRadiance.Core.dll
 		Lib\MetroRadiance.dll = Lib\MetroRadiance.dll
+		C:\Users\Dark\Desktop\Titanium-Web-Proxy-master\Titanium-Web-Proxy-master\src\Titanium.Web.Proxy\obj\Debug\netstandard2.0\Titanium.Web.Proxy.dll = C:\Users\Dark\Desktop\Titanium-Web-Proxy-master\Titanium-Web-Proxy-master\src\Titanium.Web.Proxy\obj\Debug\netstandard2.0\Titanium.Web.Proxy.dll
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Proxy.Test", "SteamTool.Proxy.Test\SteamTool.Proxy.Test.csproj", "{4C441E34-FA65-4425-8242-4EB767BA9B95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,6 +101,12 @@ Global
 		{C03E4CF5-D68F-4CAC-B002-3A6799ED9E15}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C03E4CF5-D68F-4CAC-B002-3A6799ED9E15}.发布|Any CPU.ActiveCfg = Release|Any CPU
 		{C03E4CF5-D68F-4CAC-B002-3A6799ED9E15}.发布|Any CPU.Build.0 = Release|Any CPU
+		{4C441E34-FA65-4425-8242-4EB767BA9B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C441E34-FA65-4425-8242-4EB767BA9B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C441E34-FA65-4425-8242-4EB767BA9B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C441E34-FA65-4425-8242-4EB767BA9B95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C441E34-FA65-4425-8242-4EB767BA9B95}.发布|Any CPU.ActiveCfg = Release|Any CPU
+		{4C441E34-FA65-4425-8242-4EB767BA9B95}.发布|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +121,7 @@ Global
 		{D4157059-D31A-4A21-AF4C-2D458F768041} = {F62E508E-B374-4149-B9AC-0A8090AA6CD1}
 		{89C01C37-797E-4350-BEB8-90023C18E1BA} = {350F425C-AF5A-4ED2-BDDC-B905A4E63A14}
 		{C03E4CF5-D68F-4CAC-B002-3A6799ED9E15} = {D245A82C-66B2-4CD5-881C-3ED4332FC91D}
+		{4C441E34-FA65-4425-8242-4EB767BA9B95} = {D245A82C-66B2-4CD5-881C-3ED4332FC91D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5214732D-5A99-44C5-9F02-56348CC457EF}

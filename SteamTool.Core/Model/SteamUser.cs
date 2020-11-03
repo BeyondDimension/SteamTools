@@ -20,17 +20,37 @@ namespace SteamTool.Core.Model
         /// <summary>
         /// 个人资料链接
         /// </summary>
-        public string ProfileUrl { get; set; }
+        public string ProfileUrl => string.Format("https://steamcommunity.com/profiles/{0}", SteamId64);
 
         /// <summary>
-        /// 大头像链接
+        /// 在线状态
+        /// </summary>
+        public string OnlineState { get; set; }
+
+        /// <summary>
+        /// 公开状态
+        /// </summary>
+        public string PrivacyState { get; set; }
+
+        /// <summary>
+        /// 头像链接
+        /// </summary>
+        public string AvatarIcon { get; set; }
+
+        /// <summary>
+        /// 头像链接
+        /// </summary>
+        public string AvatarMedium { get; set; }
+
+        /// <summary>
+        /// 头像链接
         /// </summary>
         public string AvatarFull { get; set; }
 
         /// <summary>
         /// 昵称
         /// </summary>
-        public string PersonaName { get; set; }
+        public string SteamID { get; set; }
 
         /// <summary>
         /// 用户名

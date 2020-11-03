@@ -9,7 +9,6 @@
         xmlns:vm="clr-namespace:SteamTools.ViewModels"
         xmlns:prop="clr-namespace:SteamTools.Properties"
         mc:Ignorable="d"
-		d:DataContext="{d:DesignInstance vm:MainWindowViewModel}"
         Title="{x:Static prop:Resources.WinTitle}"
         Width="700"
         Height="500"
@@ -17,11 +16,12 @@
         MinHeight="400"
         Background="{DynamicResource ThemeBrushKey}"
 		Foreground="{DynamicResource ActiveForegroundBrushKey}"
-		FontFamily="{DynamicResource DefaultFontFamilyKey}"
+		FontFamily="{StaticResource DefaultFontFamilyKey}"
         IsRestoringWindowPlacement="True"
         UseLayoutRounding="True"
         TextOptions.TextFormattingMode="Display"
         WindowStartupLocation="CenterScreen"
+        d:DataContext="{d:DesignInstance vm:MainWindowViewModel}"
         Icon="pack://application:,,,/Resources/Asstes/app.ico">
     <metro:MetroWindow.DataContext>
         <vm:MainWindowViewModel/>
@@ -53,8 +53,7 @@
                            Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=Title}"
                            TextTrimming="CharacterEllipsis"
                            Foreground="{DynamicResource ForegroundBrushKey}"
-                           FontFamily="MicroSoft YaHei"
-                           FontSize="14"
+                           FontSize="16"
                            VerticalAlignment="Center" />
                 <metro:SystemButtons Grid.Column="2"
                                         Grid.Row="0"
@@ -69,7 +68,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto" PanningMode="Both">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" PanningMode="Both" >
                 <Grid MinWidth="90" Background="{DynamicResource ActiveBackgroundBrushKey}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

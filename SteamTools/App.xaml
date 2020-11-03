@@ -12,7 +12,6 @@
                 <ResourceDictionary Source="pack://application:,,,/MetroRadiance;component/Themes/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Resources/Styles/Controls.xaml" />
 
-
                 <!--托盘-->
                 <ResourceDictionary Source="pack://application:,,,/Resources/NotifyIconResources.xaml" />
             </ResourceDictionary.MergedDictionaries>

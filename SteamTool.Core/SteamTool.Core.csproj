@@ -2,11 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Gameloop.Vdf" Version="0.6.1" />
-    <PackageReference Include="log4net" Version="2.0.10" />
+    <PackageReference Include="log4net" Version="2.0.11" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Ninject" Version="3.3.4" />

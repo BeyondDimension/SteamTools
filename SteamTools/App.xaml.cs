@@ -12,6 +12,8 @@ using MetroTrilithon.Lifetime;
 using System.Runtime.CompilerServices;
 using Livet;
 using Hardcodet.Wpf.TaskbarNotification;
+using SteamTool.Proxy;
+using System.Threading;
 
 namespace SteamTools
 {
@@ -72,6 +74,16 @@ namespace SteamTools
             }
         }
 
+        private void CheckProgramRuning()
+        {
+            Mutex mutex = new Mutex(true, System.Diagnostics.Process.GetCurrentProcess().ProcessName, out var isAppRunning);
+            if (!isAppRunning)
+            {
+                MessageBox.Show("程序已运行，不能再次打开！");
+                Application.Current.Shutdown();
+            }
+        }
+
         /// <summary>
         /// 启动时
         /// </summary>
@@ -86,6 +98,7 @@ namespace SteamTools
             ThemeService.Current.Register(this, Theme.Dark, Accent.Blue);
 #endif
             #endregion
+            CheckProgramRuning();
 
             #region Initialize SteamService
 
@@ -106,8 +119,10 @@ namespace SteamTools
         /// <param name="e"></param>
         protected override void OnExit(ExitEventArgs e)
         {
+
             this.Taskbar.Icon = null; //避免托盘图标没有自动消失
             this.Taskbar.Dispose();
+            HttpProxy.Current.Dispose();
             base.OnExit(e);
         }
 

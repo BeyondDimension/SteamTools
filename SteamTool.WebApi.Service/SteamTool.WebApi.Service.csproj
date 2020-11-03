@@ -5,6 +5,15 @@
     <Configurations>Debug;Release;发布</Configurations>
     <AssemblyName>SteamTool.WebApi.Service</AssemblyName>
     <RootNamespace>SteamTool.WebApi.Service</RootNamespace>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ninject" Version="3.3.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SteamTool.Core\SteamTool.Core.csproj" />
+  </ItemGroup>
 
 </Project>

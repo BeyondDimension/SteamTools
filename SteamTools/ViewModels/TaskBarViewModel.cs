@@ -34,9 +34,7 @@ namespace SteamTools.ViewModels
 
     public class TaskBarViewModel : Livet.ViewModel
     {
-        /// <summary>
-        /// 如果窗口没显示，就显示窗口
-        /// </summary>
+
         public ICommand ShowWindowCommand
         {
             get
@@ -46,13 +44,17 @@ namespace SteamTools.ViewModels
                     CanExecuteFunc = () => true,
                     CommandAction = () =>
                     {
-                        App.Current.MainWindow = App.Current.MainWindow ?? new MainWindow();
-                        App.Current.MainWindow.Show();
-                        //App.Current.MainWindow.Focus();
-                        FlashTaskBar.FlashWindow(new WindowInteropHelper(App.Current.MainWindow).Handle);
+                        var mainWindow = (App.Current.MainWindow.DataContext as MainWindowViewModel);
+                        mainWindow.Visible = !mainWindow.Visible;
                     }
                 };
             }
+        }
+
+        public void ShowWindow()
+        { 
+            var mainWindow = (App.Current.MainWindow.DataContext as MainWindowViewModel);
+            mainWindow.Visible = !mainWindow.Visible;
         }
 
         /// <summary>

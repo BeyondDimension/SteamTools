@@ -6,7 +6,9 @@
              xmlns:local="clr-namespace:SteamTools.Views.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Margin="10,0,10,10">
+    <Grid Margin="10,0,10,10">
+        <RichTextBox Background="Transparent" FontSize="16" Foreground="{StaticResource HighlightForegroundBrushKey}">
             
-    </StackPanel>
+        </RichTextBox>
+    </Grid>
 </UserControl>
