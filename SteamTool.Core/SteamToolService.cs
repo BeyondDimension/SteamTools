@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Gameloop.Vdf.Linq;
 using Microsoft.Win32;
-using SteamTool.Core.Model;
+using SteamTool.Model;
 
 namespace SteamTool.Core
 {

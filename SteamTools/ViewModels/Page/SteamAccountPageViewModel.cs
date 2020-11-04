@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MetroRadiance.UI;
-using SteamTool.Core.Model;
+using SteamTool.Model;
 using SteamTool.Core;
 using SteamTool.Service;
 using SteamTool.WebApi.Service.SteamDb;
@@ -15,7 +15,7 @@ using System.Diagnostics;
 
 namespace SteamTools.ViewModels
 {
-    public class SwitchSteamAccountPage : TabItemViewModel
+    public class SteamAccountPageViewModel : TabItemViewModel
     {
         private readonly SteamToolService steamService = SteamToolCore.Instance.Get<SteamToolService>();
         private readonly SteamDbApiService webApiService = WebApiService.Instance.Get<SteamDbApiService>();
@@ -26,7 +26,7 @@ namespace SteamTools.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
-        public SwitchSteamAccountPage()
+        public SteamAccountPageViewModel()
         {
             SteamUsers = GlobalVariable.Instance.LocalSteamUser;
             Task.Run(() =>

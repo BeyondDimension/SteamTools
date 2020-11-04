@@ -117,133 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
-    <value>关于</value>
+  <data name="Hosts_Exists" xml:space="preserve">
+    <value>写入的Hosts已经存在</value>
   </data>
-  <data name="ASF" xml:space="preserve">
-    <value>ArchiSteamFarm</value>
+  <data name="Hosts_ReadError" xml:space="preserve">
+    <value>读取Hosts时发生错误</value>
   </data>
-  <data name="ASF_Plus" xml:space="preserve">
-    <value>ASF Plus</value>
+  <data name="Hosts_ReadSuccess" xml:space="preserve">
+    <value>读取Hosts成功</value>
   </data>
-  <data name="BorderlessWindow" xml:space="preserve">
-    <value>无边框窗口化</value>
+  <data name="Hosts_UpdateSuccess" xml:space="preserve">
+    <value>写入Hosts成功</value>
   </data>
-  <data name="Common" xml:space="preserve">
-    <value>通用</value>
-  </data>
-  <data name="CommonSettings" xml:space="preserve">
-    <value>通用设置</value>
-  </data>
-  <data name="CommunityFix" xml:space="preserve">
-    <value>社区修复</value>
-  </data>
-  <data name="CSGO" xml:space="preserve">
-    <value>CSGO</value>
-  </data>
-  <data name="Debug" xml:space="preserve">
-    <value>Debug</value>
-  </data>
-  <data name="DeleteCertificate" xml:space="preserve">
-    <value>删除证书</value>
-  </data>
-  <data name="Epic" xml:space="preserve">
-    <value>EPIC</value>
-  </data>
-  <data name="Exit" xml:space="preserve">
-    <value>退出</value>
-  </data>
-  <data name="GameRelated" xml:space="preserve">
-    <value>游戏功能</value>
-  </data>
-  <data name="GOG" xml:space="preserve">
-    <value>GOG Galaxy</value>
-  </data>
-  <data name="HeadImageTootlip" xml:space="preserve">
-    <value>打开个人资料页</value>
-  </data>
-  <data name="IdleCard" xml:space="preserve">
-    <value>自动挂卡</value>
-  </data>
-  <data name="LastloginTime" xml:space="preserve">
-    <value>{0:yyyy-MM-dd HH:mm:ss}</value>
-  </data>
-  <data name="LocalProxy" xml:space="preserve">
-    <value>本地反代</value>
-  </data>
-  <data name="MHW" xml:space="preserve">
-    <value>怪物猎人:世界</value>
-  </data>
-  <data name="NotificationString" xml:space="preserve">
-    <value>{0}条通知</value>
-  </data>
-  <data name="Offline" xml:space="preserve">
-    <value>离线</value>
-  </data>
-  <data name="Online" xml:space="preserve">
-    <value>在线</value>
-  </data>
-  <data name="Origin" xml:space="preserve">
-    <value>Origin</value>
-  </data>
-  <data name="OtherPlatform" xml:space="preserve">
-    <value>其它平台</value>
-  </data>
-  <data name="ProxyConfig" xml:space="preserve">
-    <value>反代配置</value>
-  </data>
-  <data name="Ready" xml:space="preserve">
-    <value>就绪</value>
-  </data>
-  <data name="Sam" xml:space="preserve">
-    <value>成就解锁</value>
-  </data>
-  <data name="Sekiro" xml:space="preserve">
-    <value>只狼:影逝二度</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>设置</value>
-  </data>
-  <data name="SetupCertificate" xml:space="preserve">
-    <value>安装证书</value>
-  </data>
-  <data name="StartService" xml:space="preserve">
-    <value>启动服务</value>
-  </data>
-  <data name="Steam" xml:space="preserve">
-    <value>Steam</value>
-  </data>
-  <data name="Steam302" xml:space="preserve">
-    <value>社区反代</value>
-  </data>
-  <data name="SteamAuth" xml:space="preserve">
-    <value>本地令牌</value>
-  </data>
-  <data name="StopService" xml:space="preserve">
-    <value>停止服务</value>
-  </data>
-  <data name="Supported_ProxyServices" xml:space="preserve">
-    <value>支持的代理服务</value>
-  </data>
-  <data name="Theme" xml:space="preserve">
-    <value>主题</value>
-  </data>
-  <data name="Uplay" xml:space="preserve">
-    <value>Uplay</value>
-  </data>
-  <data name="UserChangeTootlip" xml:space="preserve">
-    <value>重启Steam并以该账号登录</value>
-  </data>
-  <data name="UserFastChange" xml:space="preserve">
-    <value>帐户切换</value>
-  </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>起始页</value>
-  </data>
-  <data name="WinStore" xml:space="preserve">
-    <value>MicroSoft Store</value>
-  </data>
-  <data name="WinTitle" xml:space="preserve">
-    <value>Keylol工具箱</value>
+  <data name="Hosts_WirteError" xml:space="preserve">
+    <value>写入Hosts时发生错误</value>
   </data>
 </root>

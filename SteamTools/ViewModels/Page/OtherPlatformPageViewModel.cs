@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SteamTools.ViewModels
 {
-    public class LocalAuthPageModel: TabItemViewModel
+    public class OtherPlatformPageViewModel : TabItemViewModel
     {
         public override string Name
         {
-            get { return Properties.Resources.SteamAuth; }
+            get { return Properties.Resources.OtherPlatform; }
             protected set { throw new NotImplementedException(); }
         }
 

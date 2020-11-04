@@ -40,6 +40,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{868B3B33-14B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Proxy.Test", "SteamTool.Proxy.Test\SteamTool.Proxy.Test.csproj", "{4C441E34-FA65-4425-8242-4EB767BA9B95}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamTool.Model", "SteamTool.Model\SteamTool.Model.csproj", "{BDBACE3A-0138-4930-95F6-82562EA03F7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,12 @@ Global
 		{4C441E34-FA65-4425-8242-4EB767BA9B95}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C441E34-FA65-4425-8242-4EB767BA9B95}.发布|Any CPU.ActiveCfg = Release|Any CPU
 		{4C441E34-FA65-4425-8242-4EB767BA9B95}.发布|Any CPU.Build.0 = Release|Any CPU
+		{BDBACE3A-0138-4930-95F6-82562EA03F7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDBACE3A-0138-4930-95F6-82562EA03F7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDBACE3A-0138-4930-95F6-82562EA03F7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDBACE3A-0138-4930-95F6-82562EA03F7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDBACE3A-0138-4930-95F6-82562EA03F7A}.发布|Any CPU.ActiveCfg = Release|Any CPU
+		{BDBACE3A-0138-4930-95F6-82562EA03F7A}.发布|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,6 +130,7 @@ Global
 		{89C01C37-797E-4350-BEB8-90023C18E1BA} = {350F425C-AF5A-4ED2-BDDC-B905A4E63A14}
 		{C03E4CF5-D68F-4CAC-B002-3A6799ED9E15} = {D245A82C-66B2-4CD5-881C-3ED4332FC91D}
 		{4C441E34-FA65-4425-8242-4EB767BA9B95} = {D245A82C-66B2-4CD5-881C-3ED4332FC91D}
+		{BDBACE3A-0138-4930-95F6-82562EA03F7A} = {350F425C-AF5A-4ED2-BDDC-B905A4E63A14}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5214732D-5A99-44C5-9F02-56348CC457EF}

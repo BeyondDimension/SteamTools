@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="10,0,10,10">
-        <RichTextBox Background="Transparent" FontSize="16" Foreground="{StaticResource HighlightForegroundBrushKey}">
+        <RichTextBox Background="Transparent" FontSize="22" Foreground="{StaticResource HighlightForegroundBrushKey}">
             
         </RichTextBox>
     </Grid>

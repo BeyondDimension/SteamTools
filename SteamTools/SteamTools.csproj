@@ -13,6 +13,10 @@
 		<!--<PublishSingleFile>true</PublishSingleFile>-->
 
 		<ApplicationManifest>app.manifest</ApplicationManifest>
+
+		<AssemblyName>SteamTools</AssemblyName>
+
+		<StartupObject>SteamTools.Program</StartupObject>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
@@ -89,6 +93,12 @@
 		<Compile Update="Views\Pages\LocalAuthPage.xaml.cs">
 			<DependentUpon>LocalAuthPage.xaml</DependentUpon>
 		</Compile>
+		<Compile Update="Views\Pages\OtherPlatformPage - 复制.xaml.cs">
+		  <DependentUpon>OtherPlatformPage.xaml.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Pages\SettingsPage - 复制.xaml.cs">
+		  <DependentUpon>SettingsPage.xaml</DependentUpon>
+		</Compile>
 		<Compile Update="Views\Pages\SettingsPage.xaml.cs">
 			<DependentUpon>SettingsPage.xaml</DependentUpon>
 		</Compile>
@@ -160,6 +170,12 @@
 		<Page Update="Views\Pages\LocalAuthPage.xaml">
 			<SubType>Designer</SubType>
 		</Page>
+		<Page Update="Views\Pages\GameRelatedPage.xaml">
+		  <SubType>Designer</SubType>
+		</Page>
+		<Page Update="Views\Pages\OtherPlatformPage.xaml">
+		  <SubType>Designer</SubType>
+		</Page>
 		<Page Update="Views\Pages\SettingsPage.xaml">
 			<SubType>Designer</SubType>
 		</Page>
@@ -203,6 +219,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="Log\Log4net.config">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="Properties\Settings.settings">
 			<Generator>SettingsSingleFileGenerator</Generator>
 			<LastGenOutput>Settings.Designer.cs</LastGenOutput>

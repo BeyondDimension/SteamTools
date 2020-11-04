@@ -10,10 +10,10 @@
         xmlns:prop="clr-namespace:SteamTools.Properties"
         mc:Ignorable="d"
         Title="{x:Static prop:Resources.WinTitle}"
-        Width="700"
-        Height="500"
-        MinWidth="600"
-        MinHeight="400"
+        Width="800"
+        Height="600"
+        MinWidth="700"
+        MinHeight="500"
         Background="{DynamicResource ThemeBrushKey}"
 		Foreground="{DynamicResource ActiveForegroundBrushKey}"
 		FontFamily="{StaticResource DefaultFontFamilyKey}"
@@ -128,14 +128,20 @@
                     <DataTemplate DataType="{x:Type vm:SettingsPageViewModel}">
                         <pages:SettingsPage />
                     </DataTemplate>
-                    <DataTemplate DataType="{x:Type vm:LocalAuthPageModel}">
+                    <DataTemplate DataType="{x:Type vm:LocalAuthPageViewModel}">
                         <pages:LocalAuthPage />
                     </DataTemplate>
-                    <DataTemplate DataType="{x:Type vm:SwitchSteamAccountPage}">
+                    <DataTemplate DataType="{x:Type vm:SteamAccountPageViewModel}">
                         <pages:SwitchSteamAccountPage />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type vm:CommunityProxyPageViewModel}">
                         <pages:CommunityProxyPage />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:OtherPlatformPageViewModel}">
+                        <pages:OtherPlatformPage />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:GameRelatedPageViewModel}">
+                        <pages:GameRelatedPage />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type vm:DebugPageViewModel}">
                         <pages:DebugPage />

@@ -12,18 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SteamTool.Model;
+using MetroRadiance.UI;
 
 namespace SteamTools.Views.Pages
 {
     /// <summary>
-    /// SwitchSteamAccount.xaml 的交互逻辑
+    /// SwitchTheme.xaml 的交互逻辑
     /// </summary>
-    public partial class SwitchSteamAccountPage : UserControl
+    public partial class GameRelatedPage : UserControl
     {
-        public SwitchSteamAccountPage()
+        public GameRelatedPage()
         {
             InitializeComponent();
         }
     }
+
 }

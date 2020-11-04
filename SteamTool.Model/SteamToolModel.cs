@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace SteamTool.Core.Model
+namespace SteamTool.Model
 {
-    public class SteamToolConfig
+    public class SteamToolModel
     {
         /// <summary>
         /// 启动参数
@@ -16,7 +14,7 @@ namespace SteamTool.Core.Model
         /// <summary>
         /// 保存用户
         /// </summary>
-        public List<SteamUser> SteamUsers { get; set; } 
+        public List<SteamUser> SteamUsers { get; set; }
 
 
         public bool EnableTextLog { get; set; }

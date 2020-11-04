@@ -4,7 +4,7 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:control="clr-namespace:SteamTools.Views.Pages" 
-             xmlns:res="clr-namespace:SteamTools.Properties"
+             xmlns:services="clr-namespace:SteamTools.Services"
 			 mc:Ignorable="d"
 			 d:DesignWidth="600"
 			 d:DesignHeight="400">
@@ -25,54 +25,14 @@
 
         <TabItem>
             <TabItem.Header>
-                <TextBlock Text="{x:Static res:Resources.CommunityFix}"
+                <TextBlock Text="{Binding Resources.Common,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 							   Style="{StaticResource TabHeaderTextStyleKey}" />
             </TabItem.Header>
         </TabItem>
 
         <TabItem>
             <TabItem.Header>
-                <TextBlock Text="{x:Static res:Resources.SteamAuth}"
-                               Style="{StaticResource TabHeaderTextStyleKey}" />
-            </TabItem.Header>
-
-        </TabItem>
-
-        <TabItem>
-            <TabItem.Header>
-                <TextBlock Text="{x:Static res:Resources.ASF}"
-                               Style="{StaticResource TabHeaderTextStyleKey}" />
-            </TabItem.Header>
-
-        </TabItem>
-
-        <TabItem>
-            <TabItem.Header>
-                <TextBlock Text="{x:Static res:Resources.IdleCard}"
-                               Style="{StaticResource TabHeaderTextStyleKey}" />
-            </TabItem.Header>
-
-        </TabItem>
-
-        <TabItem>
-            <TabItem.Header>
-                <TextBlock Text="{x:Static res:Resources.Sam}"
-                               Style="{StaticResource TabHeaderTextStyleKey}" />
-            </TabItem.Header>
-
-        </TabItem>
-
-        <TabItem>
-            <TabItem.Header>
-                <TextBlock Text="{x:Static res:Resources.UserFastChange}"
-							   Style="{StaticResource TabHeaderTextStyleKey}" />
-            </TabItem.Header>
-
-        </TabItem>
-
-        <TabItem>
-            <TabItem.Header>
-                <TextBlock Text="{x:Static res:Resources.Settings}"
+                <TextBlock Text="{Binding Resources.Theme,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
                                Style="{StaticResource TabHeaderTextStyleKey}" />
             </TabItem.Header>
 
@@ -176,12 +136,5 @@
             </ScrollViewer>
         </TabItem>
 
-        <TabItem>
-            <TabItem.Header>
-                <TextBlock Text="{x:Static res:Resources.About}"
-                               Style="{StaticResource TabHeaderTextStyleKey}" />
-            </TabItem.Header>
-
-        </TabItem>
     </TabControl>
 </UserControl>

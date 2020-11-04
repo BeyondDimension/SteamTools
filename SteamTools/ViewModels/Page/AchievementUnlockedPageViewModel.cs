@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SteamTools.ViewModels
 {
-    public class AchievementUnlockedPageModel : TabItemViewModel
+    public class AchievementUnlockedPageViewModel : TabItemViewModel
     {
 
         public override string Name

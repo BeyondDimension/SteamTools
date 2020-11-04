@@ -4,7 +4,7 @@ using System.Text;
 using System.Xml;
 using Newtonsoft.Json;
 using SteamTool.Core;
-using SteamTool.Core.Model;
+using SteamTool.Model;
 
 namespace SteamTool.WebApi.Service.SteamDb
 {

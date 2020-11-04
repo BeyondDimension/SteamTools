@@ -18,11 +18,15 @@ namespace SteamTools.ViewModels
     {
         // ----- Tab items
         public WelcomePageViewModel WelcomePage { get; }
-        public SwitchSteamAccountPage AccountPage { get; }
-        public LocalAuthPageModel LocalAuthPage { get; }
-        public AchievementUnlockedPageModel AchievementUnlockedPage { get; }
-        public SettingsPageViewModel SettingsPage { get; }
         public CommunityProxyPageViewModel CommunityProxyPage { get; }
+        public SteamAccountPageViewModel AccountPage { get; }
+        public LocalAuthPageViewModel LocalAuthPage { get; }
+        public AchievementUnlockedPageViewModel AchievementUnlockedPage { get; }
+        public ArchiSteamFarmPlusPageViewModel AsfPlusPage { get; }
+        public SteamIdlePageViewModel SteamIdlePage { get; }
+        public SettingsPageViewModel SettingsPage { get; }
+        public OtherPlatformPageViewModel OtherPlatformPage { get; }
+        public GameRelatedPageViewModel GameRelatedPage { get; }
 
         public IList<TabItemViewModel> TabItems { get; set; }
         public IList<TabItemViewModel> SystemTabItems { get; set; }
@@ -87,9 +91,13 @@ namespace SteamTools.ViewModels
             {
                 (this.WelcomePage = new WelcomePageViewModel(this).AddTo(this)),
                 (this.CommunityProxyPage = new CommunityProxyPageViewModel().AddTo(this)),
-                (this.AccountPage = new SwitchSteamAccountPage().AddTo(this)),
-                (this.LocalAuthPage = new LocalAuthPageModel().AddTo(this)),
-                (this.AchievementUnlockedPage = new AchievementUnlockedPageModel().AddTo(this)),
+                (this.AccountPage = new SteamAccountPageViewModel().AddTo(this)),
+                (this.LocalAuthPage = new LocalAuthPageViewModel().AddTo(this)),
+                (this.AchievementUnlockedPage = new AchievementUnlockedPageViewModel().AddTo(this)),
+                (this.AsfPlusPage = new ArchiSteamFarmPlusPageViewModel().AddTo(this)),
+                (this.SteamIdlePage = new SteamIdlePageViewModel().AddTo(this)),
+                (this.OtherPlatformPage = new OtherPlatformPageViewModel().AddTo(this)),
+                (this.GameRelatedPage = new GameRelatedPageViewModel().AddTo(this)),
                 //(this.Expeditions = new ExpeditionsViewModel(this.Fleets).AddTo(this)),
             };
             this.SystemTabItems = new List<TabItemViewModel>

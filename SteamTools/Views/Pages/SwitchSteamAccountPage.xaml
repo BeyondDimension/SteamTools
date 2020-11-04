@@ -12,7 +12,7 @@
       x:Name="u"
       mc:Ignorable="d" 
 	  d:DesignWidth="800"
-      d:DataContext="{d:DesignInstance viewModel:SwitchSteamAccountPage}"
+      d:DataContext="{d:DesignInstance viewModel:SteamAccountPageViewModel}"
       Background="{DynamicResource ThemeBrushKey}"
       >
     <ScrollViewer VerticalScrollBarVisibility="Auto">

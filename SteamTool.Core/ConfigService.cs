@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using SteamTool.Core.Model;
+using SteamTool.Core;
 using Newtonsoft.Json;
 using System.Reflection;
+using SteamTool.Model;
 
 namespace SteamTool.Core
 {
@@ -17,18 +18,18 @@ namespace SteamTool.Core
         private readonly string ConfigPath =
             Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{Assembly.GetCallingAssembly().GetName().Name}.{ConfigFileName}");
 
-        public SteamToolConfig SteamToolConfig { get; set; }
+        public SteamToolModel SteamToolModel { get; set; }
 
         public void SaveConfig()
         {
-            var jsonData = JsonConvert.SerializeObject(SteamToolConfig);
+            var jsonData = JsonConvert.SerializeObject(SteamToolModel);
             File.WriteAllText(ConfigPath, jsonData, Encoding.UTF8);
         }
 
-        public SteamToolConfig ReadConfig()
+        public SteamToolModel ReadConfig()
         {
-            SteamToolConfig = JsonConvert.DeserializeObject<SteamToolConfig>(File.ReadAllText(ConfigPath, Encoding.UTF8));
-            return SteamToolConfig;
+            SteamToolModel = JsonConvert.DeserializeObject<SteamToolModel>(File.ReadAllText(ConfigPath, Encoding.UTF8));
+            return SteamToolModel;
         }
     }
 }

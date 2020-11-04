@@ -12,7 +12,6 @@ namespace SteamTool.Core
     public class VdfService
     {
 
-
         /// <summary>
         /// 获取VDF类型内容
         /// </summary>

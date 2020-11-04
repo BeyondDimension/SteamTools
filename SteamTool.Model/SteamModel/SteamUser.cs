@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SteamTool.Core.Model
+namespace SteamTool.Model
 {
     public class SteamUser
     {
-
         public string SteamId3 { get; set; }
         public int SteamId3_Int { get; }
 

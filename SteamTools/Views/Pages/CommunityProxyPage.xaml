@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SteamTools.Views.Pages"
              xmlns:viewModel="clr-namespace:SteamTools.ViewModels"
-             xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls" 
+             xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
              xmlns:services="clr-namespace:SteamTools.Services"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:livet="http://schemas.livet-mvvm.net/2011/wpf"
@@ -19,15 +19,15 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border Margin="5"  Grid.Row="0"
 						Grid.Column="0" Style="{StaticResource MetroBorderStyle}">
             <StackPanel>
                 <TextBlock Text="{Binding Resources.LocalProxy,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
                 <Rectangle Height=".99"
-								   Margin="0,7,0,3"
+								   Margin="0,7,0,5"
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
                 <CheckBox Style="{DynamicResource SliderCheckBox}" Margin="5" HorizontalAlignment="Center" IsChecked="{Binding ProxyStatus}" >
                     <TextBlock FontSize="16" Foreground="{DynamicResource ActiveForegroundBrushKey}">
@@ -45,7 +45,28 @@
                         </TextBlock.Style>
                     </TextBlock>
                 </CheckBox>
+            </StackPanel>
+        </Border>
+
+        <Border Margin="5"  Grid.Row="1"
+						Grid.Column="0" Style="{StaticResource MetroBorderStyle}">
+            <StackPanel>
+                <TextBlock Text="{Binding Resources.ProxyConfig,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
+                <Rectangle Height=".99"
+								   Margin="0,7,0,3"
+								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
+                
                 <StackPanel Margin="10" VerticalAlignment="Bottom">
+                    <Button Content="{Binding Resources.SetupCertificate,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" FontSize="18" Height="40">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <livet:LivetCallMethodAction
+                                            MethodName="SetupCertificate_OnClick"
+                                            MethodTarget="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Separator Opacity="0" Height="10"/>
                     <Button Content="{Binding Resources.DeleteCertificate,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" FontSize="18" Height="40">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
@@ -58,12 +79,21 @@
                 </StackPanel>
             </StackPanel>
         </Border>
-        <GroupBox Margin="5" Style="{StaticResource MetroGroupBoxStyle}" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
-            <GroupBox.Header>
-                支持列表
+        <!--<GroupBox Margin="5" Style="{StaticResource MetroGroupBoxStyle}" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+            <GroupBox.Header > 
+                支持的服务
             </GroupBox.Header>
-        </GroupBox>
+        </GroupBox>-->
+        <Border Margin="5"  Grid.RowSpan="2"
+						Grid.Column="1" Style="{StaticResource MetroBorderStyle}">
+            <StackPanel>
+                <TextBlock Text="{Binding Resources.Supported_ProxyServices,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
+                <Rectangle Height=".99"
+								   Margin="0,7,0,3"
+								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
 
+            </StackPanel>
+        </Border>
 
     </Grid>
 </UserControl>
