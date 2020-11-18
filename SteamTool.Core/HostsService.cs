@@ -77,7 +77,7 @@ namespace SteamTool.Core
                 dataLines.Add($"{ip} {domain} {HostTag}");
                 File.WriteAllLines(HostsPath, dataLines);
 
-                File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
+                //File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
                 result.ResultType = OperationResultType.Success;
                 result.Message = Resources.Hosts_UpdateSuccess;
             }
@@ -95,6 +95,11 @@ namespace SteamTool.Core
         {
             var result = new OperationResult(OperationResultType.Error, Resources.Hosts_WirteError);
 
+            if (hosts.Count == 0) 
+            {
+                return result;
+            }
+
             //操作前取消只读属性
             File.SetAttributes(HostsPath, FileAttributes.Normal);
 
@@ -108,9 +113,9 @@ namespace SteamTool.Core
                 {
                     if (!temp[0].StartsWith("#"))
                     {
-                        foreach (var item in hosts)
+                        foreach (var (ip, domain) in hosts)
                         {
-                            if (temp.Contains(item.domain))
+                            if (temp.Contains(domain))
                             {
                                 //相同域名直接修改删除
                                 return false;
@@ -121,14 +126,14 @@ namespace SteamTool.Core
                 return true;
             });
 
-            foreach (var item in hosts)
+            foreach (var (ip, domain) in hosts)
             {
-                dataLines.Add($"{item.ip} {item.domain} {HostTag}");
+                dataLines.Add($"{ip} {domain} {HostTag}");
             }
             try
             {
                 File.WriteAllLines(HostsPath, dataLines);
-                File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
+                //File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
                 result.ResultType = OperationResultType.Success;
                 result.Message = Resources.Hosts_UpdateSuccess;
             }
@@ -169,7 +174,7 @@ namespace SteamTool.Core
             {
                 File.WriteAllLines(HostsPath, dataLines);
 
-                File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
+                //File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
                 result.ResultType = OperationResultType.Success;
                 result.Message = Resources.Hosts_UpdateSuccess;
             }
@@ -209,7 +214,7 @@ namespace SteamTool.Core
             try
             {
                 File.WriteAllLines(HostsPath, dataLines);
-                File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
+                //File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
                 result.ResultType = OperationResultType.Success;
                 result.Message = Resources.Hosts_UpdateSuccess;
             }
@@ -221,6 +226,11 @@ namespace SteamTool.Core
                 return result;
             }
             return result;
+        }
+
+        public void StartNotepadEditHosts() 
+        {
+            System.Diagnostics.Process.Start("notepad.exe", HostsPath);
         }
     }
 }

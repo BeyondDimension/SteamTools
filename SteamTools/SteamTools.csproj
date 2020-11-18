@@ -3,11 +3,11 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<!--<TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>-->
-		<TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
+		<TargetFrameworks>net472;net5.0-windows</TargetFrameworks>
 		<UseWPF>true</UseWPF>
 		<RootNamespace>SteamTools</RootNamespace>
 		<ApplicationIcon>Resources\Asstes\app.ico</ApplicationIcon>
-		<LangVersion>8.0</LangVersion>
+		<LangVersion>9.0</LangVersion>
 		<SignAssembly>false</SignAssembly>
 		<!--<PublishTrimmed>true</PublishTrimmed>-->
 		<!--<PublishSingleFile>true</PublishSingleFile>-->
@@ -16,11 +16,43 @@
 
 		<AssemblyName>SteamTools</AssemblyName>
 
-		<StartupObject>SteamTools.Program</StartupObject>
+		<StartupObject>SteamTools.App</StartupObject>
+
+		<AnalysisLevel>5.0</AnalysisLevel>
+
+		<EnableNETAnalyzers>false</EnableNETAnalyzers>
+
+		<Copyright>Copyright © 2018 - 2020 软妹币玩家</Copyright>
+
+		<Authors>软妹币玩家</Authors>
+
+		<Company>rmbgame.net</Company>
+
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+
+		<Description>SteamTools</Description>
+
+		<Platforms>AnyCPU;x86</Platforms>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
 		<PlatformTarget>x86</PlatformTarget>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|x86'">
+	  <PlatformTarget>x86</PlatformTarget>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
+	  <DebugType>none</DebugType>
+	  <DebugSymbols>false</DebugSymbols>
+	  <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|x86'">
+	  <DebugType>none</DebugType>
+	  <DebugSymbols>false</DebugSymbols>
+	  <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
@@ -30,7 +62,11 @@
 	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
 		<PackageReference Include="LivetCask" Version="3.0.2" />
 	</ItemGroup>
-
+	
+	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0-windows'">
+		<PackageReference Include="LivetCask" Version="3.0.2" />
+	</ItemGroup>
+	
 	<ItemGroup>
 		<None Remove="Resources\Asstes\app.ico" />
 		<None Remove="Resources\Asstes\bell.svg" />
@@ -38,12 +74,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.13" />
-		<PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
+		<PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.14" />
+		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
 		<PackageReference Include="SharpVectors.Reloaded" Version="1.6.0" />
-		<PackageReference Include="System.Reactive" Version="4.4.1" />
+		<PackageReference Include="StatefulModel.Standard" Version="0.1.0" />
+		<PackageReference Include="System.Reactive" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -89,6 +126,9 @@
 		</Compile>
 		<Compile Update="Views\Pages\DebugPage.xaml.cs">
 			<DependentUpon>DebugPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Pages\LocalAuthPage - 复制.xaml.cs">
+		  <DependentUpon>LocalAuthPage.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="Views\Pages\LocalAuthPage.xaml.cs">
 			<DependentUpon>LocalAuthPage.xaml</DependentUpon>
@@ -167,6 +207,13 @@
 		<Page Update="Views\Pages\DebugPage.xaml">
 			<SubType>Designer</SubType>
 		</Page>
+		<Page Update="Views\Pages\ArchiSteamFarmPlusPage.xaml">
+		  <SubType>Designer</SubType>
+		</Page>
+		<Page Update="Views\Pages\SteamAppPage.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		  <SubType>Designer</SubType>
+		</Page>
 		<Page Update="Views\Pages\LocalAuthPage.xaml">
 			<SubType>Designer</SubType>
 		</Page>
@@ -190,12 +237,12 @@
 	<ItemGroup>
 		<Folder Include="Resources\Asstes\Font\" />
 		<Folder Include="Resources\Globalization\" />
+		<Folder Include="scripts\" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\SteamTool.Core\SteamTool.Core.csproj" />
 		<ProjectReference Include="..\SteamTool.Proxy\SteamTool.Proxy.csproj" />
-		<ProjectReference Include="..\SteamTool.WebApi.Service\SteamTool.WebApi.Service.csproj" />
 		<ProjectReference Include="..\SteamTools.Composition\SteamTool.Composition.csproj" />
 		<ProjectReference Include="..\SteamTools.Steam.Service\SteamTool.Steam.Service.csproj" />
 	</ItemGroup>
@@ -219,12 +266,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="Log\Log4net.config">
+		<None Update="log\Log4net.config">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Properties\Settings.settings">
 			<Generator>SettingsSingleFileGenerator</Generator>
 			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+		<None Update="scripts\Steam自动探索队列.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 

@@ -7,13 +7,12 @@
         xmlns:pages="clr-namespace:SteamTools.Views.Pages"
         xmlns:controls="clr-namespace:SteamTools.Views.Controls"
         xmlns:vm="clr-namespace:SteamTools.ViewModels"
+        xmlns:vmc="clr-namespace:SteamTools.ViewModels.Control"
         xmlns:prop="clr-namespace:SteamTools.Properties"
         mc:Ignorable="d"
         Title="{x:Static prop:Resources.WinTitle}"
         Width="800"
         Height="600"
-        MinWidth="700"
-        MinHeight="500"
         Background="{DynamicResource ThemeBrushKey}"
 		Foreground="{DynamicResource ActiveForegroundBrushKey}"
 		FontFamily="{StaticResource DefaultFontFamilyKey}"
@@ -23,9 +22,6 @@
         WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance vm:MainWindowViewModel}"
         Icon="pack://application:,,,/Resources/Asstes/app.ico">
-    <metro:MetroWindow.DataContext>
-        <vm:MainWindowViewModel/>
-    </metro:MetroWindow.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -128,6 +124,9 @@
                     <DataTemplate DataType="{x:Type vm:SettingsPageViewModel}">
                         <pages:SettingsPage />
                     </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:SteamAppPageViewModel}">
+                        <pages:SteamAppPage />
+                    </DataTemplate>
                     <DataTemplate DataType="{x:Type vm:LocalAuthPageViewModel}">
                         <pages:LocalAuthPage />
                     </DataTemplate>
@@ -151,7 +150,7 @@
         </Grid>
 
         <!--Footer-->
-        <controls:StatusBar Grid.Row="2">
+        <controls:StatusBar Grid.Row="2" DataContext="{Binding StatusBar}">
         </controls:StatusBar>
 
     </Grid>

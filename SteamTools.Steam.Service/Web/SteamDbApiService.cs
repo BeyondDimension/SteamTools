@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 using Newtonsoft.Json;
 using SteamTool.Core;
 using SteamTool.Model;
 
-namespace SteamTool.WebApi.Service.SteamDb
+namespace SteamTool.Steam.Service.Web
 {
     public class SteamDbApiService
     {
@@ -21,30 +22,30 @@ namespace SteamTool.WebApi.Service.SteamDb
         private readonly HttpServices httpServices = SteamToolCore.Instance.Get<HttpServices>();
 
 
-        public SteamUser GetUserInfo(long steamId64)
+        public async Task<SteamUser> GetUserInfo(long steamId64)
         {
-            var r = httpServices.Get(string.Format(UserInfoUrl, steamId64));
-            var userInfo = JsonConvert.DeserializeObject<SteamUser>(r.Result);
+            var r = await httpServices.Get(string.Format(UserInfoUrl, steamId64));
+            var userInfo = JsonConvert.DeserializeObject<SteamUser>(r);
             return userInfo;
         }
 
-        public List<SteamUser> GetUserInfo(long[] steamId64s)
+        public async Task<List<SteamUser>> GetUserInfo(long[] steamId64s)
         {
             var users = new List<SteamUser>();
             foreach (var i in steamId64s) 
             {
-                var r = httpServices.Get(string.Format(UserInfoUrl, i));
-                var userInfo = JsonConvert.DeserializeObject<SteamUser>(r.Result);
+                var r = await httpServices.Get(string.Format(UserInfoUrl, i));
+                var userInfo = JsonConvert.DeserializeObject<SteamUser>(r);
                 users.Add(userInfo);
             }
             return users;
         }
 
 
-        public SteamApp GetAppInfo(long appId) 
+        public async Task<SteamApp> GetAppInfo(long appId) 
         {
-            var r = httpServices.Get(string.Format(AppInfoUrl, appId));
-            var steamApp = JsonConvert.DeserializeObject<SteamApp>(r.Result);
+            var r = await httpServices.Get(string.Format(AppInfoUrl, appId));
+            var steamApp = JsonConvert.DeserializeObject<SteamApp>(r);
             return steamApp;
         }
 

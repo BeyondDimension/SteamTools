@@ -21,13 +21,14 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Border Margin="5"  Grid.Row="0"
+        <Border Padding="5"  Grid.Row="0"
 						Grid.Column="0" Style="{StaticResource MetroBorderStyle}">
             <StackPanel>
                 <TextBlock Text="{Binding Resources.LocalProxy,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
                 <Rectangle Height=".99"
-								   Margin="0,7,0,5"
+								   Margin="0,7,0,6"
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
                 <CheckBox Style="{DynamicResource SliderCheckBox}" Margin="5" HorizontalAlignment="Center" IsChecked="{Binding ProxyStatus}" >
                     <TextBlock FontSize="16" Foreground="{DynamicResource ActiveForegroundBrushKey}">
@@ -48,16 +49,18 @@
             </StackPanel>
         </Border>
 
-        <Border Margin="5"  Grid.Row="1"
+        <Border Padding="5"  Grid.Row="1"
 						Grid.Column="0" Style="{StaticResource MetroBorderStyle}">
             <StackPanel>
                 <TextBlock Text="{Binding Resources.ProxyConfig,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
                 <Rectangle Height=".99"
 								   Margin="0,7,0,3"
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
-                
+
                 <StackPanel Margin="10" VerticalAlignment="Bottom">
-                    <Button Content="{Binding Resources.SetupCertificate,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" FontSize="18" Height="40">
+                    <CheckBox Content="{Binding Resources.AutoRunProxyService,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" HorizontalAlignment="Center"></CheckBox>
+                    <Separator Opacity="0" Height="10"/>
+                    <Button Content="{Binding Resources.SetupCertificate,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" FontSize="14" Height="30">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <livet:LivetCallMethodAction
@@ -66,8 +69,8 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
-                    <Separator Opacity="0" Height="10"/>
-                    <Button Content="{Binding Resources.DeleteCertificate,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" FontSize="18" Height="40">
+                    <Separator Opacity="0" Height="5"/>
+                    <Button Content="{Binding Resources.DeleteCertificate,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" FontSize="14" Height="30">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <livet:LivetCallMethodAction
@@ -76,24 +79,125 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
+                    <Separator Opacity="0" Height="5"/>
+                    <Button Content="{Binding Resources.EditHostsFile,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"  FontSize="14" Height="30">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <livet:LivetCallMethodAction
+                                            MethodName="EditHostsFile_OnClick"
+                                            MethodTarget="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+
+
                 </StackPanel>
+
             </StackPanel>
         </Border>
-        <!--<GroupBox Margin="5" Style="{StaticResource MetroGroupBoxStyle}" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+
+        <!--<GroupBox Padding="5" Style="{StaticResource MetroGroupBoxStyle}" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
             <GroupBox.Header > 
                 支持的服务
             </GroupBox.Header>
         </GroupBox>-->
-        <Border Margin="5"  Grid.RowSpan="2"
+        <Border Padding="5"  Grid.RowSpan="2"
 						Grid.Column="1" Style="{StaticResource MetroBorderStyle}">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Margin="0,0,0,6">
+                    <TextBlock Text="{Binding Resources.Supported_ProxyServices,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
+                </StackPanel>
+                <ListBox DockPanel.Dock="Bottom" 
+                         BorderThickness="0"
+                         Style="{StaticResource MetroListBox}"
+                         ItemsSource="{Binding SupportedServices}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel Height="30">
+                                <CheckBox HorizontalAlignment="Left"  Content="{Binding DomainTag}" IsChecked="{Binding IsEnbale}">
+                                </CheckBox>
+                                <TextBlock HorizontalAlignment="Right"  Text="{Binding Domains[0]}"
+                                           TextAlignment="Center" VerticalAlignment="Center"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </Border>
+
+        <!--#region 脚本配置-->
+        <Border Padding="5"  Grid.Row="2"
+						Grid.Column="0" Style="{StaticResource MetroBorderStyle}">
             <StackPanel>
-                <TextBlock Text="{Binding Resources.Supported_ProxyServices,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
+                <TextBlock Text="{Binding Resources.ScriptSettings,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
                 <Rectangle Height=".99"
 								   Margin="0,7,0,3"
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
+                <CheckBox Style="{DynamicResource SliderCheckBox}" Margin="5" HorizontalAlignment="Center" IsChecked="{Binding ScriptServiceEnable}" >
+                    <TextBlock FontSize="16" Foreground="{DynamicResource ActiveForegroundBrushKey}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path= ProxyStatus}" Value="False">
+                                        <Setter Property="Text" Value="{Binding Resources.EnableScriptService,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path= ProxyStatus}" Value="True">
+                                        <Setter Property="Text" Value="{Binding Resources.DisableScriptService,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </CheckBox>
+                <Separator Opacity="0" Height="5"/>
+                <StackPanel>
+                    <Button Content="{Binding Resources.ImportScript,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"  FontSize="14" Height="30" Margin="10,0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <livet:LivetCallMethodAction
+                                            MethodName="EditHostsFile_OnClick"
+                                            MethodTarget="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Separator Opacity="0" Height="5"/>
+                    <Button Content="{Binding Resources.Open_ScriptFolder,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"  FontSize="14" Height="30" Margin="10,0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <livet:LivetCallMethodAction
+                                            MethodName="EditHostsFile_OnClick"
+                                            MethodTarget="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </StackPanel>
 
             </StackPanel>
-        </Border>
 
+        </Border>
+        <Border  Grid.Row="2"
+						Grid.Column="1" Style="{StaticResource MetroBorderStyle}">
+            <DockPanel>
+                <StackPanel Margin="0,0,0,6" DockPanel.Dock="Top">
+                <TextBlock  Text="{Binding Resources.ScriptList,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
+                </StackPanel>
+                <ListBox DockPanel.Dock="Bottom" 
+                         BorderThickness="0"
+                         Style="{StaticResource MetroListBox}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel Height="30" Margin="5,0">
+                                <CheckBox HorizontalAlignment="Left"  Content="{Binding DomainTag}" IsChecked="{Binding IsEnbale}">
+                                </CheckBox>
+                                <TextBlock HorizontalAlignment="Right"  Text="{Binding Domain}"
+                                           FontSize="20" 
+                                           TextAlignment="Center" VerticalAlignment="Center"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </Border>
+        <!--#endregion-->
     </Grid>
 </UserControl>

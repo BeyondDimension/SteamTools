@@ -24,6 +24,8 @@ namespace SteamTool.Model
 
         /// <summary>
         /// 公开状态
+        /// friendsonly
+        /// public
         /// </summary>
         public string PrivacyState { get; set; }
 

@@ -7,22 +7,27 @@ using System.Windows;
 using System.Reflection;
 using System.Security.Principal;
 using MetroRadiance.UI;
-using Application = System.Windows.Application;
 using MetroTrilithon.Lifetime;
 using System.Runtime.CompilerServices;
 using Livet;
 using Hardcodet.Wpf.TaskbarNotification;
 using SteamTool.Proxy;
 using System.Threading;
+using System.IO;
+using MetroTrilithon.Desktop;
+using SteamTool.Core.Common;
+using SteamTools.Services;
+using MetroTrilithon.Mvvm;
 
 namespace SteamTools
 {
     /// <summary>
     /// App.xaml 的交互逻辑
     /// </summary>
-    public partial class App : Application, INotifyPropertyChanged, IDisposableHolder
+    public partial class App :  INotifyPropertyChanged, IDisposableHolder
     {
-        public static Application Instance => Current as Application;
+
+        public static Application Instance => Current;
 
         #region 托盘图标
         private TaskbarIcon _TaskBar;
@@ -41,6 +46,9 @@ namespace SteamTools
         }
         #endregion
 
+
+        #region 暂时没用
+        /*
         // 检查是否是管理员身份 
         //  VS 不是管理员模式时 会导致调试时程序重启
         private void CheckAdministrator()
@@ -73,16 +81,9 @@ namespace SteamTools
                 Application.Current.Shutdown();
             }
         }
+        */
+        #endregion
 
-        private void CheckProgramRuning()
-        {
-            Mutex mutex = new Mutex(true, System.Diagnostics.Process.GetCurrentProcess().ProcessName, out var isAppRunning);
-            if (!isAppRunning)
-            {
-                MessageBox.Show("程序已运行，不能再次打开！");
-                Application.Current.Shutdown();
-            }
-        }
 
         /// <summary>
         /// 启动时
@@ -90,28 +91,50 @@ namespace SteamTools
         /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e)
         {
-            #region Release Code
 #if !DEBUG
-            CheckAdministrator();
-            ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
-#else
-            ThemeService.Current.Register(this, Theme.Dark, Accent.Blue);
+			var appInstance = new MetroTrilithon.Desktop.ApplicationInstance().AddTo(this);
+			if (appInstance.IsFirst)
 #endif
-            #endregion
-            CheckProgramRuning();
+            {
+                Logger.EnableTextLog = true;
+                this.DispatcherUnhandledException += App_DispatcherUnhandledException;
+                DispatcherHelper.UIDispatcher = this.Dispatcher;
 
-            #region Initialize SteamService
+                ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
+                WindowService.Current.AddTo(this).Initialize();
+                SteamConnectService.Current.Initialize();
 
-            #endregion
+                this.MainWindow = WindowService.Current.GetMainWindow();
+                this.MainWindow.Show();
 
-            #region 托盘加载
+                //托盘加载
+                this.Taskbar = (TaskbarIcon)FindResource("Taskbar");
 
-            this.Taskbar = (TaskbarIcon)FindResource("Taskbar");
-
-            #endregion
-
-            base.OnStartup(e);
+                base.OnStartup(e);
+            }
+#if !DEBUG
+			else
+			{
+				this.Shutdown();
+			}
+#endif
         }
+
+        private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            try
+            {
+                Logger.Error($"{Assembly.GetExecutingAssembly().GetName().Name} Run Error : {Environment.NewLine}", e.Exception);
+                MessageBox.Show(e.Exception.ToString(), "发生错误");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+
+            Current.Shutdown();
+        }
+
 
         /// <summary>
         /// 程序退出
@@ -122,9 +145,10 @@ namespace SteamTools
 
             this.Taskbar.Icon = null; //避免托盘图标没有自动消失
             this.Taskbar.Dispose();
-            HttpProxy.Current.Dispose();
+            ProxyService.Current.Proxy.Dispose();
             base.OnExit(e);
         }
+
 
         #region INotifyPropertyChanged members
 
@@ -148,6 +172,7 @@ namespace SteamTools
 
         void IDisposable.Dispose()
         {
+            GC.SuppressFinalize(this);
             this.compositeDisposable.Dispose();
         }
 

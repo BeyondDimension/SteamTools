@@ -2,13 +2,22 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:services="clr-namespace:SteamTools.Services" 
              xmlns:local="clr-namespace:SteamTools.Views.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="10,0,10,10">
-        <RichTextBox Background="Transparent" FontSize="22" Foreground="{StaticResource HighlightForegroundBrushKey}">
-            
+    <Grid>
+        <RichTextBox Background="Transparent" FontSize="22" 
+                     Foreground="{StaticResource HighlightForegroundBrushKey}">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="Steam运行状态："></Run>
+                    <Run Text="{Binding Source={x:Static services:SteamConnectService.Current}, Path=IsConnectToSteam,Mode=OneWay}"></Run>
+                    <LineBreak/>
+                    <Run Text="{Binding DebugText}"></Run>
+                </Paragraph>
+            </FlowDocument>
         </RichTextBox>
     </Grid>
 </UserControl>

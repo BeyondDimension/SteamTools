@@ -20,5 +20,19 @@ namespace SteamTool.Proxy.Test
             Console.WriteLine(result.ToString());
         }
 
+
+        [TestMethod]
+        public void TestPingDomain()
+        {
+            var result = DnsResolution.PingDomain("steamcommunity-a.akamaihd.net");
+            Console.WriteLine(result.ToString());
+        }
+
+        [TestMethod]
+        public void TestGetHostByIPAddress()
+        {
+            var result = DnsResolution.GetHostByIPAddress("162.159.137.232");
+            Console.WriteLine(result.ToString());
+        }
     }
 }

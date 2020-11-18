@@ -21,7 +21,7 @@ namespace SteamTool.Core.Common
         static Logger()
         {
             ILoggerRepository repository = LogManager.CreateRepository(Assembly.GetCallingAssembly().GetName().Name);
-            XmlConfigurator.Configure(repository, new FileInfo(@"Log\Log4net.config"));
+            XmlConfigurator.Configure(repository, new FileInfo(@"log\Log4net.config"));
             _textLog = LogManager.GetLogger(repository.Name, "TextLog");
         }
 

@@ -1,5 +1,7 @@
 ﻿using Ninject;
 using SteamTool.Steam.Service;
+using SteamTool.Steam.Service.Local;
+using SteamTool.Steam.Service.Web;
 using System;
 
 namespace SteamTool.Steam.Service
@@ -16,7 +18,12 @@ namespace SteamTool.Steam.Service
 
         public SteamService()
         {
-            Kernel.Bind<SteamDLLService>().To<SteamDLLService>();
+            Kernel.Bind<SteamworksApiService_1>().To<SteamworksApiService_1>();
+            Kernel.Bind<SteamworksApiService>().To<SteamworksApiService>();
+
+
+            Kernel.Bind<SteamDbApiService>().To<SteamDbApiService>();
+            Kernel.Bind<SteamworksWebApiService>().To<SteamworksWebApiService>();
         }
 
         public TInterface Get<TInterface>()

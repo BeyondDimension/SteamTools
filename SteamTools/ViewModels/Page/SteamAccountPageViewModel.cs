@@ -7,18 +7,19 @@ using System.Threading.Tasks;
 using MetroRadiance.UI;
 using SteamTool.Model;
 using SteamTool.Core;
-using SteamTool.Service;
-using SteamTool.WebApi.Service.SteamDb;
 using SteamTools.Models;
 using Microsoft.Xaml.Behaviors.Core;
 using System.Diagnostics;
+using SteamTool.Steam.Service.Web;
+using SteamTool.Steam.Service;
+using SteamTools.Services;
 
 namespace SteamTools.ViewModels
 {
     public class SteamAccountPageViewModel : TabItemViewModel
     {
         private readonly SteamToolService steamService = SteamToolCore.Instance.Get<SteamToolService>();
-        private readonly SteamDbApiService webApiService = WebApiService.Instance.Get<SteamDbApiService>();
+        private readonly SteamDbApiService webApiService = SteamService.Instance.Get<SteamDbApiService>();
 
         public override string Name
         {
@@ -26,25 +27,27 @@ namespace SteamTools.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
-        public SteamAccountPageViewModel()
+        internal override void Initialize()
         {
-            SteamUsers = GlobalVariable.Instance.LocalSteamUser;
-            Task.Run(() =>
-             {
-                 SteamUser[] users = new SteamUser[SteamUsers.Count];
-                 SteamUsers.CopyTo(users);
-                 for (var i = 0; i < SteamUsers.Count; i++)
-                 {
-                     var temp = users[i];
-                     users[i] = webApiService.GetUserInfo(SteamUsers[i].SteamId64);
-                     users[i].AccountName = temp.AccountName;
-                     users[i].RememberPassword = temp.RememberPassword;
-                     users[i].MostRecent = temp.MostRecent;
-                     users[i].Timestamp = temp.Timestamp;
-                     users[i].LastLoginTime = temp.LastLoginTime;
-                 }
-                 SteamUsers = users.ToList();
-             }).ContinueWith(s => s.Dispose());
+            StatusService.Current.Notify("加载本地Steam用户数据");
+            Task.Run(async () =>
+            {
+                SteamUsers = steamService.GetAllUser();
+                SteamUser[] users = new SteamUser[SteamUsers.Count];
+                SteamUsers.CopyTo(users);
+                for (var i = 0; i < SteamUsers.Count; i++)
+                {
+                    var temp = users[i];
+                    users[i] = await webApiService.GetUserInfo(SteamUsers[i].SteamId64);
+                    users[i].AccountName = temp.AccountName;
+                    users[i].RememberPassword = temp.RememberPassword;
+                    users[i].MostRecent = temp.MostRecent;
+                    users[i].Timestamp = temp.Timestamp;
+                    users[i].LastLoginTime = temp.LastLoginTime;
+                }
+                SteamUsers = users.ToList();
+                StatusService.Current.Notify("加载本地Steam用户数据完成");
+            }).ContinueWith(s => s.Dispose());
         }
 
         /// <summary>
@@ -72,7 +75,7 @@ namespace SteamTools.ViewModels
             steamService.StartSteam();
         }
 
-        public void HeadImage_OnClick(string parameter)
+        public static void HeadImage_OnClick(string parameter)
         {
             Process.Start(parameter);
         }

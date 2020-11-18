@@ -13,9 +13,9 @@ namespace SteamTool.Proxy
         public string Name { get; set; }
 
         /// <summary>
-        /// 代理域名
+        /// 代理域名合集
         /// </summary>
-        public string Domain { get; set; }
+        public List<string> Domains { get; set; }
 
         /// <summary>
         /// 端口
@@ -25,7 +25,7 @@ namespace SteamTool.Proxy
         /// <summary>
         /// 转发域名
         /// </summary>
-        public string ProxyDomain { get; set; }
+        public string ToDomain { get; set; }
 
         /// <summary>
         /// 转发域名IP
@@ -41,6 +41,7 @@ namespace SteamTool.Proxy
         /// 启用该域名代理
         /// </summary>
         public bool IsEnbale { get; set; }
+
 
         public IEnumerable<string> Hosts { get; set; }
 

@@ -1,5 +1,5 @@
 ﻿using SteamTool.Core;
-using SteamTool.Proxy.Model;
+using SteamTool.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,19 +20,18 @@ namespace SteamTool.Proxy
 {
     public class HttpProxy : IDisposable
     {
-        // singleton
-        public readonly static HttpProxy Current = new HttpProxy();
-
         private readonly HostsService hostsService = SteamToolCore.Instance.Get<HostsService>();
         private readonly ProxyServer proxyServer = new ProxyServer();
 
         public bool IsCertificate => proxyServer.CertificateManager == null;
 
-        public List<ProxyDomainModel> ProxyDomains { get; set; }
+        public List<ProxyDomainModel> ProxyDomains { get; }
+        public List<ProxyScript> Scripts { get; set; }
+        public bool IsEnableScript { get; set; }
 
-        public HttpProxy()
+        public HttpProxy(List<ProxyDomainModel> proxyDomains)
         {
-            ProxyDomains = DefaultData.ProxyDomains;
+            ProxyDomains = proxyDomains;
         }
 
         public bool ProxyRunning => proxyServer.ProxyRunning;
@@ -65,57 +64,73 @@ namespace SteamTool.Proxy
 
             foreach (var item in ProxyDomains)
             {
-                if (item.IsEnbale && e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(item.Domain))
+                if (!item.IsEnbale)
                 {
-                    IPAddress iP = null;
-                    if (!string.IsNullOrEmpty(item.ProxyIPAddres))
+                    continue;
+                }
+                foreach (var host in item.Domains)
+                {
+                    if (e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(host))
                     {
-                        iP = IPAddress.Parse(item.ProxyIPAddres);
-                    }
-                    var iPs = await Dns.GetHostAddressesAsync(item.ProxyDomain);
-                    if (iPs.Length > 0)
-                    {
-                        iP = iPs[0];
-                    }
-                    if (iP != null)
-                    {
-                        e.HttpClient.UpStreamEndPoint = new IPEndPoint(IPAddress.Parse(iP.ToString()), item.Port);
-                    }
-                    if (e.HttpClient.ConnectRequest?.ClientHelloInfo != null)
-                    {
-                        if (!string.IsNullOrEmpty(item.ServerName))
+                        IPAddress iP = null;
+                        if (!string.IsNullOrEmpty(item.ProxyIPAddres))
                         {
-                            var sni = e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions["server_name"];
-                            e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions["server_name"] =
-                                new Titanium.Web.Proxy.StreamExtended.Models.SslExtension(sni.Value, sni.Name, item.ServerName, sni.Position);
+                            iP = IPAddress.Parse(item.ProxyIPAddres);
                         }
                         else
                         {
-                            e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions.Remove("server_name");
+                            var iPs = await Dns.GetHostAddressesAsync(item.ToDomain);
+                            if (iPs.Length > 0)
+                            {
+                                iP = iPs[0];
+                            }
+                        }
+                        if (iP != null)
+                        {
+                            e.HttpClient.UpStreamEndPoint = new IPEndPoint(IPAddress.Parse(iP.ToString()), item.Port);
+                        }
+                        if (e.HttpClient.ConnectRequest?.ClientHelloInfo != null)
+                        {
+                            if (!string.IsNullOrEmpty(item.ServerName))
+                            {
+                                var sni = e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions["server_name"];
+                                e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions["server_name"] =
+                                    new Titanium.Web.Proxy.StreamExtended.Models.SslExtension(sni.Value, sni.Name, item.ServerName, sni.Position);
+                            }
+                            else
+                            {
+                                e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions.Remove("server_name");
+                            }
                         }
                     }
                 }
             }
-        }
 
+        }
         public async Task OnResponse(object sender, SessionEventArgs e)
         {
             // read response headers
             //var responseHeaders = e.HttpClient.Response.Headers;
             //if (!e.ProxySession.Request.Host.Equals("medeczane.sgk.gov.tr")) return;
-            if (e.HttpClient.Request.Method == "GET" || e.HttpClient.Request.Method == "POST")
-            {
-                if (e.HttpClient.Response.StatusCode == 200)
+            //if (e.HttpClient.Request.Method == "GET" || e.HttpClient.Request.Method == "POST")
+            //{
+            //    if (e.HttpClient.Response.StatusCode == 200)
+            //    {
+            //        if (e.HttpClient.Response.ContentType != null && e.HttpClient.Response.ContentType.Trim().ToLower().Contains("text/html"))
+            //        {
+            //            byte[] bodyBytes = await e.GetResponseBody();
+            //            e.SetResponseBody(bodyBytes);
+            //            string body = await e.GetResponseBodyAsString();
+            //            e.SetResponseBodyString(body);
+            //        }
+            //    }
+            //}
+
+            //if (IsEnableScript)
+                foreach (var item in Scripts)
                 {
-                    if (e.HttpClient.Response.ContentType != null && e.HttpClient.Response.ContentType.Trim().ToLower().Contains("text/html"))
-                    {
-                        byte[] bodyBytes = await e.GetResponseBody();
-                        e.SetResponseBody(bodyBytes);
-                        string body = await e.GetResponseBodyAsString();
-                        e.SetResponseBodyString(body);
-                    }
+
                 }
-            }
         }
 
         // 允许重写默认的证书验证逻辑
@@ -152,7 +167,7 @@ namespace SteamTool.Proxy
 
             proxyServer.CertificateManager.SaveFakeCertificates = true;
             proxyServer.CertificateManager.EnsureRootCertificate();
-            proxyServer.CertificateManager.TrustRootCertificate(true);
+            //proxyServer.CertificateManager.TrustRootCertificate(true);
 
             return proxyServer.CertificateManager.RootCertificate != null;
         }
@@ -177,7 +192,13 @@ namespace SteamTool.Proxy
         public void StartProxy()
         {
             if (proxyServer.CertificateManager.RootCertificate == null)
-                SetupCertificate();
+            {
+                var isOk = SetupCertificate();
+                if (!isOk)
+                {
+                    return;
+                }
+            }
 
             #region 写入Hosts
             var hosts = new List<(string, string)>();
@@ -196,7 +217,7 @@ namespace SteamTool.Proxy
 
             #region 启动代理
             proxyServer.BeforeRequest += OnRequest;
-            //proxyServer.BeforeResponse += OnResponse;
+            proxyServer.BeforeResponse += OnResponse;
             //proxyServer.ServerCertificateValidationCallback += OnCertificateValidation;
             //proxyServer.ClientCertificateSelectionCallback += OnCertificateSelection;
 
@@ -220,8 +241,16 @@ namespace SteamTool.Proxy
                 //GenericCertificate = proxyServer.CertificateManager.RootCertificate
                 //GenericCertificateName= "steamcommunity-a.akamaihd.net"
             };
+
             proxyServer.AddEndPoint(transparentEndPoint);
-            proxyServer.Start();
+            try
+            {
+                proxyServer.Start();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
             //proxyServer.UpStreamHttpProxy = new ExternalProxy() { HostName = "localhost", Port = 8888 };
             //proxyServer.UpStreamHttpsProxy = new ExternalProxy() { HostName = "localhost", Port = 8888 };
             #endregion
@@ -237,12 +266,15 @@ namespace SteamTool.Proxy
 
         public void StopProxy()
         {
-            proxyServer.BeforeRequest -= OnRequest;
-            proxyServer.BeforeResponse -= OnResponse;
-            proxyServer.ServerCertificateValidationCallback -= OnCertificateValidation;
-            proxyServer.ClientCertificateSelectionCallback -= OnCertificateSelection;
-            proxyServer.Stop();
-            hostsService.RemoveHostsByTag();
+            if (proxyServer.ProxyRunning)
+            {
+                proxyServer.BeforeRequest -= OnRequest;
+                proxyServer.BeforeResponse -= OnResponse;
+                proxyServer.ServerCertificateValidationCallback -= OnCertificateValidation;
+                proxyServer.ClientCertificateSelectionCallback -= OnCertificateSelection;
+                proxyServer.Stop();
+                hostsService.RemoveHostsByTag();
+            }
         }
 
         public void Dispose()

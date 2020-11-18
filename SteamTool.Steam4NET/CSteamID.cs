@@ -211,8 +211,7 @@ namespace Steam4NET
             if ( obj == null )
                 return false;
 
-            CSteamID sid = obj as CSteamID;
-            if ( ( System.Object )sid == null )
+            if (!(obj is CSteamID sid))
                 return false;
 
             return steamid.Data == sid.steamid.Data;

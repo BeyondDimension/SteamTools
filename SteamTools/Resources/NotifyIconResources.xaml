@@ -7,7 +7,8 @@
 
     <!--后台托盘-->
     <tb:TaskbarIcon x:Key="Taskbar" 
-                            ToolTipText="{x:Static prop:Resources.WinTitle}" 
+                            ToolTipText="{x:Static prop:Resources.WinTitle}"
+                            LeftClickCommand="{Binding ShowWindowCommand}"
                             DoubleClickCommand="{Binding ShowWindowCommand}"
                             IconSource="pack://application:,,,/Resources/Asstes/app.ico"
                             PopupActivation="RightClick">

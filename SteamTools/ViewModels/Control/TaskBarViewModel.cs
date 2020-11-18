@@ -45,7 +45,7 @@ namespace SteamTools.ViewModels
                     CommandAction = () =>
                     {
                         var mainWindow = (App.Current.MainWindow.DataContext as MainWindowViewModel);
-                        mainWindow.Visible = !mainWindow.Visible;
+                        mainWindow.Visible = false;
                     }
                 };
             }
@@ -56,7 +56,6 @@ namespace SteamTools.ViewModels
             var mainWindow = (App.Current.MainWindow.DataContext as MainWindowViewModel);
             mainWindow.Visible = !mainWindow.Visible;
         }
-
         /// <summary>
         /// 关闭软件
         /// </summary>

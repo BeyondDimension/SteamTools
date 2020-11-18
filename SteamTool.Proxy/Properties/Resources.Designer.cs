@@ -22,7 +22,7 @@ namespace SteamTool.Proxy.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace SteamTool.Proxy.Properties {
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SteamTool.Proxy.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace SteamTool.Proxy.Properties {
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace SteamTool.Proxy.Properties {
         /// <summary>
         ///   查找类似 Discord语音 的本地化字符串。
         /// </summary>
-        internal static string Discord {
+        public static string Discord {
             get {
                 return ResourceManager.GetString("Discord", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace SteamTool.Proxy.Properties {
         /// <summary>
         ///   查找类似 Google(recaptcha)验证码 的本地化字符串。
         /// </summary>
-        internal static string GoogleRecaptchaCode {
+        public static string GoogleRecaptchaCode {
             get {
                 return ResourceManager.GetString("GoogleRecaptchaCode", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace SteamTool.Proxy.Properties {
         /// <summary>
         ///   查找类似 Origin游戏下载(Akamai) 的本地化字符串。
         /// </summary>
-        internal static string OriginDownload {
+        public static string OriginDownload {
             get {
                 return ResourceManager.GetString("OriginDownload", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace SteamTool.Proxy.Properties {
         /// <summary>
         ///   查找类似 Steam好友聊天 的本地化字符串。
         /// </summary>
-        internal static string SteamChat {
+        public static string SteamChat {
             get {
                 return ResourceManager.GetString("SteamChat", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace SteamTool.Proxy.Properties {
         /// <summary>
         ///   查找类似 Steam社区 的本地化字符串。
         /// </summary>
-        internal static string SteamCommunity {
+        public static string SteamCommunity {
             get {
                 return ResourceManager.GetString("SteamCommunity", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace SteamTool.Proxy.Properties {
         /// <summary>
         ///   查找类似 Steam图片 的本地化字符串。
         /// </summary>
-        internal static string SteamImage {
+        public static string SteamImage {
             get {
                 return ResourceManager.GetString("SteamImage", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace SteamTool.Proxy.Properties {
         /// <summary>
         ///   查找类似 Steam商店 的本地化字符串。
         /// </summary>
-        internal static string SteamStore {
+        public static string SteamStore {
             get {
                 return ResourceManager.GetString("SteamStore", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace SteamTool.Proxy.Properties {
         /// <summary>
         ///   查找类似 Twitch直播 的本地化字符串。
         /// </summary>
-        internal static string Twitch {
+        public static string Twitch {
             get {
                 return ResourceManager.GetString("Twitch", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace SteamTool.Proxy.Properties {
         /// <summary>
         ///   查找类似 Uplay更新 的本地化字符串。
         /// </summary>
-        internal static string UplayUpdate {
+        public static string UplayUpdate {
             get {
                 return ResourceManager.GetString("UplayUpdate", resourceCulture);
             }

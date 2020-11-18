@@ -6,15 +6,20 @@
     <AssemblyName>SteamTool.Steam.Service</AssemblyName>
     <RootNamespace>SteamTool.Steam.Service</RootNamespace>
     <LangVersion>8.0</LangVersion>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\SteamTool.Core\SteamTool.Core.csproj" />
-    <ProjectReference Include="..\SteamTool.Steam4NET\SteamTool.Steam4NET.csproj" />
+    <ProjectReference Include="..\SteamTool.SteamAPI\SteamTool.SteamAPI.csproj" />
   </ItemGroup>
 
 </Project>

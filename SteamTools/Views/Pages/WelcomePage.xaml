@@ -3,6 +3,142 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	  xmlns:metro2="http://schemes.grabacr.net/winfx/2015/personal/controls"
+      xmlns:viewModel="clr-namespace:SteamTools.ViewModels"
+      xmlns:models="clr-namespace:SteamTools.Models"
       xmlns:local="clr-namespace:SteamTools.Views.Pages"
-      mc:Ignorable="d">
+      mc:Ignorable="d"
+      d:DesignWidth="600"
+	  d:DesignHeight="400"
+	  Background="{DynamicResource ThemeBrushKey}"
+      d:DataContext="{d:DesignInstance viewModel:WelcomePageViewModel}"
+      >
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1"
+			  Margin="0,8,0,0"
+			  Visibility="{Binding ElementName=InformationTab, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="1" 
+                   Source="pack://application:,,,/Resources/Asstes/app.ico" 
+                   Width="200" Height="200"   
+                   HorizontalAlignment="Right"
+						  VerticalAlignment="Bottom"
+						  Margin="0,0,30,-4"
+						  Opacity="0.25">
+            </Image>
+            <Border Grid.Column="0"
+					BorderBrush="{DynamicResource BorderBrushKey}"
+					BorderThickness=".99,0,.99,0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+							  PanningMode="Both"
+							  Padding="10,0,20,14">
+                    <StackPanel Margin="0,-9,0,0">
+                        <TextBlock>
+							<Run Text="{Binding Source={x:Static models:ProductInfo.Product}, Mode=OneWay}"
+								 FontFamily="Segoe UI Light"
+								 FontSize="30"
+								 Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+							<LineBreak />
+							<Run Text="{Binding Source={x:Static models:ProductInfo.Title}, Mode=OneWay}"
+								 FontSize="16" />
+                        </TextBlock>
+
+                        <TextBlock Margin="0,8,0,0">
+							<Run Text="{Binding Source={x:Static models:ProductInfo.VersionString}, StringFormat=Version {0}, Mode=OneWay}"
+								 FontFamily="Segoe UI Light"
+								 FontSize="20"
+								 Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+                        </TextBlock>
+
+                        <Rectangle Height=".99"
+								   Margin="0,12"
+								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
+
+                        <TextBlock FontFamily="Segoe UI">
+							<Run Text="Developer:" />
+							<metro2:HyperlinkEx Uri="https://rmbgame.net">
+								<Run Text="@软妹币玩家" />
+							</metro2:HyperlinkEx>
+                        </TextBlock>
+
+                        <Rectangle Height=".99"
+								   Margin="0,12"
+								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
+
+                        <TextBlock FontFamily="Segoe UI"
+								   Margin="0,10,0,0"
+								   TextWrapping="Wrap">
+
+                        </TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <Rectangle x:Name="Dummy"
+					   Grid.Column="1"
+					   Margin="16,0,31,0" />
+
+            <Border Grid.Column="1">
+                <FlowDocumentScrollViewer Padding="0,-18,0,0"
+										  HorizontalScrollBarVisibility="Hidden">
+                    <FlowDocument FontSize="12"
+								  Foreground="{DynamicResource ForegroundBrushKey}"
+								  FontFamily="Meiryo UI"
+								  TextAlignment="Left"
+								  MaxPageWidth="390">
+                        <Paragraph>
+                            <Run Foreground="White"
+								 FontSize="20"
+								 Text="欢迎" />
+                        </Paragraph>
+                        <Paragraph Language="zh-cn">
+                            <Run Text="「提督業も忙しい！」は、艦これを遊びやすくするためのツールです。" />
+                            <LineBreak />
+                            <LineBreak />
+                            <Run Text="艦これ本体は内蔵された Web ブラウザー (Chromium) 上で動作します。艦これのサーバーに対して一切の負荷をかけないように設計・開発しており、通信内容の変更やサーバーに対する情報の送信、マクロ・チートの類は一切行っていません。" />
+                        </Paragraph>
+                        <Paragraph Language="zh-cn">
+                            <Run Text="現在、艦これ本体の第二期への移行に伴い、Chromium エンジンで暫定対応しています。また、未検証の通信内容も多く、意図しない挙動となる可能性があることをご了承ください。" />
+                        </Paragraph>
+                        <Paragraph>
+                            <InlineUIContainer>
+                                <CheckBox IsChecked="{Binding ClearCacheOnNextStartup}"
+										  Content="次回起動時にキャッシュを削除する" />
+                            </InlineUIContainer>
+                            <LineBreak />
+                            <InlineUIContainer>
+                                <Rectangle Width="{Binding ElementName=Dummy, Path=ActualWidth}"
+										   Height=".99"
+										   Style="{DynamicResource SeparatorRectangleStyleKey}"
+										   Margin="0,16,0,0"
+										   SnapsToDevicePixels="True" />
+                            </InlineUIContainer>
+                        </Paragraph>
+                        <Paragraph Language="zh-cn">
+                            <Run Text="ツールは不定期に更新されています。適宜、更新の確認をお願いします。" />
+                            <LineBreak />
+                            <LineBreak />
+                            <Run Text="Project home:" />
+                            <metro2:HyperlinkEx Uri="http://grabacr.net/kancolleviewer">
+                                <Run Text="http://grabacr.net/kancolleviewer" />
+                            </metro2:HyperlinkEx>
+                            <LineBreak />
+                            <Run Text="Source code:" />
+                            <metro2:HyperlinkEx Uri="https://github.com/Grabacr07/KanColleViewer">
+                                <Run Text="https://github.com/Grabacr07/KanColleViewer" />
+                            </metro2:HyperlinkEx>
+                        </Paragraph>
+                    </FlowDocument>
+                </FlowDocumentScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
 </UserControl>

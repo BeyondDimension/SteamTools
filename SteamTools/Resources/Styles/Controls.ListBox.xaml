@@ -10,50 +10,43 @@
         <Setter Property="BorderBrush"
 				Value="{DynamicResource BorderBrushKey}" />
         <Setter Property="BorderThickness"
-				Value="0,0,0,.99" />
+				Value=".99,.99,0,.99" />
         <Setter Property="FocusVisualStyle"
 				Value="{x:Null}" />
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="IsSelected"
-												Value="{Binding IsSelected, Mode=TwoWay}" />
+                    <Setter Property="Foreground"
+							Value="{DynamicResource ActiveForegroundBrushKey}" />
+                    <Setter Property="Height"
+							Value="38" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <StackPanel>
-                                    <metro2:CallMethodButton x:Name="Button"
-																				 MethodName="Select"
-																				 Margin="0,2"
-																				 Background="Transparent">
-                                        <Button.Template>
-                                            <ControlTemplate TargetType="{x:Type metro2:CallMethodButton}">
-                                                <Border Background="{TemplateBinding Background}">
-                                                    <ContentPresenter />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Button.Template>
-                                        <ItemsPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-											VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                                    </metro2:CallMethodButton>
-                                </StackPanel>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver"
-																 Value="True">
-                                        <Setter TargetName="Button"
-																	Property="Background"
-																	Value="{DynamicResource ActiveBackgroundBrushKey}" />
-                                    </Trigger>
-                                    <Trigger Property="IsSelected"
-																 Value="True">
-                                        <Setter TargetName="Button"
-																	Property="Background"
-																	Value="{DynamicResource AccentBrushKey}" />
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter />
+                                </Border>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
+                    <Setter Property="FocusVisualStyle"
+							Value="{DynamicResource {x:Static SystemParameters.FocusVisualStyleKey}}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected"
+								 Value="True">
+                            <Setter Property="Background"
+									Value="{DynamicResource ThemeBrushKey}" />
+                            <Setter Property="Foreground"
+									Value="{DynamicResource AccentHighlightBrushKey}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver"
+								 Value="True">
+                            <Setter Property="Background"
+									Value="{DynamicResource ActiveBackgroundBrushKey}" />
+                            <Setter Property="Foreground"
+									Value="{DynamicResource ActiveForegroundBrushKey}" />
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
             </Setter.Value>
         </Setter>
@@ -67,8 +60,7 @@
                         <ScrollViewer Style="{DynamicResource {x:Static GridView.GridViewScrollViewerStyleKey}}"
 									  HorizontalScrollBarVisibility="Auto"
 									  CanContentScroll="True">
-                            <ItemsPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-											VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            <ItemsPresenter />
                         </ScrollViewer>
                     </Border>
                 </ControlTemplate>

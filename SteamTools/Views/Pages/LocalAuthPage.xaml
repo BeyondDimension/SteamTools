@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
 	  d:DesignWidth="300"
 	  d:DesignHeight="200"
-      d:DataContext="{d:DesignInstance viewModel:LocalAuthPageModel}">
+      d:DataContext="{d:DesignInstance viewModel:LocalAuthPageViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>

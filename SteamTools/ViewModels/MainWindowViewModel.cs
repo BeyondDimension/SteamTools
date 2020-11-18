@@ -11,16 +11,19 @@ using SteamTool.Core;
 using SteamTools.Win32;
 using System.Windows;
 using System.Windows.Interop;
+using SteamTools.Services;
+using SteamTools.Properties;
 
 namespace SteamTools.ViewModels
 {
-    public class MainWindowViewModel : Livet.ViewModel
+    public class MainWindowViewModel : MainWindowViewModelBase
     {
         // ----- Tab items
         public WelcomePageViewModel WelcomePage { get; }
         public CommunityProxyPageViewModel CommunityProxyPage { get; }
         public SteamAccountPageViewModel AccountPage { get; }
         public LocalAuthPageViewModel LocalAuthPage { get; }
+        public SteamAppPageViewModel SteamAppPage { get; }
         public AchievementUnlockedPageViewModel AchievementUnlockedPage { get; }
         public ArchiSteamFarmPlusPageViewModel AsfPlusPage { get; }
         public SteamIdlePageViewModel SteamIdlePage { get; }
@@ -50,22 +53,6 @@ namespace SteamTools.ViewModels
 
         #endregion
 
-        #region Badge 変更通知
-        private int _Badge = 0;
-        public int Badge
-        {
-            get { return this._Badge; }
-            set
-            {
-                if (this._Badge != value)
-                {
-                    this._Badge = value;
-                    this.RaisePropertyChanged();
-                }
-            }
-        }
-        #endregion
-
         private bool _Visible;
         public bool Visible
         {
@@ -85,13 +72,12 @@ namespace SteamTools.ViewModels
 
         public MainWindowViewModel()
         {
-            this.Initialize();
-
             this.TabItems = new List<TabItemViewModel>
             {
                 (this.WelcomePage = new WelcomePageViewModel(this).AddTo(this)),
                 (this.CommunityProxyPage = new CommunityProxyPageViewModel().AddTo(this)),
                 (this.AccountPage = new SteamAccountPageViewModel().AddTo(this)),
+                (this.SteamAppPage = new SteamAppPageViewModel().AddTo(this)),
                 (this.LocalAuthPage = new LocalAuthPageViewModel().AddTo(this)),
                 (this.AchievementUnlockedPage = new AchievementUnlockedPageViewModel().AddTo(this)),
                 (this.AsfPlusPage = new ArchiSteamFarmPlusPageViewModel().AddTo(this)),
@@ -111,13 +97,23 @@ namespace SteamTools.ViewModels
 				#endregion
 			};
             this.SelectedItem = this.TabItems.FirstOrDefault();
+            this.Initialize();
         }
 
-        public void Initialize()
+        public async new void Initialize()
         {
-            //加载本地steam记住登陆用户
-            SteamToolService steamService = SteamToolCore.Instance.Get<SteamToolService>();
-            GlobalVariable.Instance.LocalSteamUser = steamService.GetAllUser();
+            base.Initialize();
+            //await Task.Yield();
+            await Task.Run(() =>
+            {
+                foreach (var item in this.TabItems)
+                {
+                    if (item == SteamAppPage)
+                        continue;
+                    item.Initialize();
+                }
+            }).ContinueWith(s => s.Dispose());
+            StatusService.Current.Set(Resources.Ready);
         }
 
         /// <summary>

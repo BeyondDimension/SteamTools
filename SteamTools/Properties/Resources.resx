@@ -120,11 +120,20 @@
   <data name="About" xml:space="preserve">
     <value>关于</value>
   </data>
+  <data name="Application" xml:space="preserve">
+    <value>应用程序</value>
+  </data>
+  <data name="AppLogo_ImageTootlip" xml:space="preserve">
+    <value>打开商店页</value>
+  </data>
   <data name="ASF" xml:space="preserve">
     <value>ArchiSteamFarm</value>
   </data>
   <data name="ASF_Plus" xml:space="preserve">
     <value>ASF Plus</value>
+  </data>
+  <data name="AutoRunProxyService" xml:space="preserve">
+    <value>自动启动代理服务</value>
   </data>
   <data name="BorderlessWindow" xml:space="preserve">
     <value>无边框窗口化</value>
@@ -139,7 +148,7 @@
     <value>社区修复</value>
   </data>
   <data name="CSGO" xml:space="preserve">
-    <value>CSGO</value>
+    <value>CS:GO</value>
   </data>
   <data name="Debug" xml:space="preserve">
     <value>Debug</value>
@@ -147,11 +156,29 @@
   <data name="DeleteCertificate" xml:space="preserve">
     <value>删除证书</value>
   </data>
+  <data name="DisableScriptService" xml:space="preserve">
+    <value>禁用脚本</value>
+  </data>
+  <data name="EditHostsFile" xml:space="preserve">
+    <value>编辑Hosts文件</value>
+  </data>
+  <data name="EnableScriptService" xml:space="preserve">
+    <value>启用脚本</value>
+  </data>
   <data name="Epic" xml:space="preserve">
     <value>EPIC</value>
   </data>
   <data name="Exit" xml:space="preserve">
     <value>退出</value>
+  </data>
+  <data name="Game" xml:space="preserve">
+    <value>游戏</value>
+  </data>
+  <data name="GameList" xml:space="preserve">
+    <value>游戏列表</value>
+  </data>
+  <data name="GameName" xml:space="preserve">
+    <value>游戏名称</value>
   </data>
   <data name="GameRelated" xml:space="preserve">
     <value>游戏功能</value>
@@ -165,14 +192,29 @@
   <data name="IdleCard" xml:space="preserve">
     <value>自动挂卡</value>
   </data>
+  <data name="ImportScript" xml:space="preserve">
+    <value>导入脚本</value>
+  </data>
   <data name="LastloginTime" xml:space="preserve">
     <value>{0:yyyy-MM-dd HH:mm:ss}</value>
   </data>
   <data name="LocalProxy" xml:space="preserve">
     <value>本地反代</value>
   </data>
+  <data name="Logo" xml:space="preserve">
+    <value>封面</value>
+  </data>
+  <data name="Media" xml:space="preserve">
+    <value>媒体</value>
+  </data>
   <data name="MHW" xml:space="preserve">
     <value>怪物猎人:世界</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>音乐</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
   </data>
   <data name="NotificationString" xml:space="preserve">
     <value>{0}条通知</value>
@@ -182,6 +224,9 @@
   </data>
   <data name="Online" xml:space="preserve">
     <value>在线</value>
+  </data>
+  <data name="Open_ScriptFolder" xml:space="preserve">
+    <value>打开脚本文件夹</value>
   </data>
   <data name="Origin" xml:space="preserve">
     <value>Origin</value>
@@ -197,6 +242,15 @@
   </data>
   <data name="Sam" xml:space="preserve">
     <value>成就解锁</value>
+  </data>
+  <data name="ScriptList" xml:space="preserve">
+    <value>脚本列表</value>
+  </data>
+  <data name="ScriptSettings" xml:space="preserve">
+    <value>脚本配置</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
   </data>
   <data name="Sekiro" xml:space="preserve">
     <value>只狼:影逝二度</value>
@@ -216,17 +270,32 @@
   <data name="Steam302" xml:space="preserve">
     <value>社区反代</value>
   </data>
+  <data name="SteamApp_SearchTextBox_Prompt" xml:space="preserve">
+    <value>输入游戏名称或appid搜索</value>
+  </data>
   <data name="SteamAuth" xml:space="preserve">
     <value>本地令牌</value>
+  </data>
+  <data name="Steam_Not_Runing_Tips" xml:space="preserve">
+    <value>Steam未运行（部分功能不可用）</value>
   </data>
   <data name="StopService" xml:space="preserve">
     <value>停止服务</value>
   </data>
   <data name="Supported_ProxyServices" xml:space="preserve">
-    <value>支持的代理服务</value>
+    <value>支持的代理服务（修改实时生效）</value>
   </data>
   <data name="Theme" xml:space="preserve">
     <value>主题</value>
+  </data>
+  <data name="Tool" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>未知</value>
   </data>
   <data name="Uplay" xml:space="preserve">
     <value>Uplay</value>
@@ -237,6 +306,9 @@
   <data name="UserFastChange" xml:space="preserve">
     <value>帐户切换</value>
   </data>
+  <data name="Video" xml:space="preserve">
+    <value>视频</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>起始页</value>
   </data>
@@ -244,6 +316,6 @@
     <value>MicroSoft Store</value>
   </data>
   <data name="WinTitle" xml:space="preserve">
-    <value>Keylol工具箱</value>
+    <value>Steam++</value>
   </data>
 </root>

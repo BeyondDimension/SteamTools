@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style x:Key="MetroListView" TargetType="{x:Type ListView}">
+    <Style TargetType="{x:Type ListView}">
         <Setter Property="OverridesDefaultStyle"
 				Value="True" />
         <Setter Property="Background"
@@ -33,6 +33,7 @@
         </Setter>
         <Setter Property="ItemContainerStyle" Value="{DynamicResource MetroListViewItem}" />
     </Style>
+    
     <Style x:Key="MetroListViewItem" TargetType="{x:Type ListViewItem}">
         <Setter Property="OverridesDefaultStyle"
 							Value="True" />
@@ -59,6 +60,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style x:Key="{x:Static GridView.GridViewScrollViewerStyleKey}"
 		   TargetType="ScrollViewer">
         <Setter Property="FocusVisualStyle"
@@ -138,6 +140,7 @@
 		   TargetType="{x:Type ListViewItem}">
         <Setter Property="OverridesDefaultStyle"
 				Value="True" />
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Background"
 				Value="Transparent" />
         <Setter Property="BorderBrush"
