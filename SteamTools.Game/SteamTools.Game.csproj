@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFrameworks>net472;net5.0-windows</TargetFrameworks>
     <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
@@ -23,6 +23,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SteamTools.Steam.Service\SteamTool.Steam.Service.csproj" />
   </ItemGroup>
 
 </Project>

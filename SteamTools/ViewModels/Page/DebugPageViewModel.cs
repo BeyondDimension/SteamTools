@@ -33,11 +33,26 @@ namespace SteamTools.ViewModels
 
         public DebugPageViewModel()
         {
-            //var test = SteamNetService.Current.APIService.Initialize();
-            //DebugText += SteamNetService.Current.APIService.IsConnectToSteam;
-            //DebugText += Environment.NewLine;
-            //DebugText += SteamNetService.Current.APIService.GetSteamId64();
-            //DebugText += Environment.NewLine;
+
+        }
+
+        internal override void Initialize()
+        {
+            Task.Run(() =>
+            {
+                DebugText += SteamConnectService.Current.IsConnectToSteam;
+                DebugText += Environment.NewLine;
+                DebugText += SteamConnectService.Current.ApiService.GetSteamId64();
+                DebugText += Environment.NewLine;
+                DebugText += SteamConnectService.Current.ApiService.IsSteamChinaLauncher();
+                DebugText += Environment.NewLine;
+                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.IsAppInstalled(730);
+                DebugText += Environment.NewLine;
+                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.IsSubscribedFromFamilySharing();
+                DebugText += Environment.NewLine;
+                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.GetAppInstallDir(730);
+                DebugText += Environment.NewLine;
+            }).ContinueWith(s => s.Dispose());
         }
     }
 }

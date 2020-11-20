@@ -12,13 +12,6 @@ namespace SteamTool.Steam.Service.Web
     {
         public const string AppListUrl = "https://api.steampowered.com/ISteamApps/GetAppList/v2";
 
-        private const string AppInfoUrl = "https://steamdb.ml/api/v1/apps/{0}";
-
-        private const string AppLogoUrl = "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/{0}/{1}.jpg";
-        private const string AppIconUrl = "http://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{0}/{1}.ico";
-        private const string AppImageUrl = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/{1}";
-        private const string AppHeaderImageUrl = "https://cdn.cloudflare.steamstatic.com/steam/apps/{0}/header.jpg";
-
         private readonly HttpServices httpServices = SteamToolCore.Instance.Get<HttpServices>();
 
         public async Task<string> GetAllSteamAppsString()

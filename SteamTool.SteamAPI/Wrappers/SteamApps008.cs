@@ -22,6 +22,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
 using SAM.API.Interfaces;
 
 namespace SAM.API.Wrappers
@@ -49,6 +50,59 @@ namespace SAM.API.Wrappers
                 this.Functions.GetCurrentGameLanguage,
                 this.ObjectAddress);
             return NativeStrings.PointerToString(languagePointer);
+        }
+        #endregion
+
+        #region IsDlcInstalled
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        private delegate bool NativeIsDlcInstalled(IntPtr self, uint appid);
+        public bool IsDlcInstalled(uint appid)
+        {
+            return this.Call<bool, NativeIsDlcInstalled>(this.Functions.IsDlcInstalled, this.ObjectAddress, appid);
+        }
+        #endregion
+
+        #region IsAppInstalled
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        private delegate bool NativeIsAppInstalled(IntPtr self, uint appid);
+        public bool IsAppInstalled(uint appid)
+        {
+            return this.Call<bool, NativeIsAppInstalled>(this.Functions.IsAppInstalled, this.ObjectAddress, appid);
+        }
+        #endregion
+
+        #region IsSubscribedFromFamilySharing
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        private delegate bool NativeIsSubscribedFromFamilySharing(IntPtr self);
+        public bool IsSubscribedFromFamilySharing()
+        {
+            return this.Call<bool, NativeIsSubscribedFromFamilySharing>(this.Functions.IsSubscribedFromFamilySharing, this.ObjectAddress);
+        }
+        #endregion
+
+        #region IsSubscribedFromFreeWeekend
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        private delegate bool NativeIsSubscribedFromFreeWeekend(IntPtr self);
+        public bool IsSubscribedFromFreeWeekend()
+        {
+            return this.Call<bool, NativeIsSubscribedFromFreeWeekend>(this.Functions.IsSubscribedFromFreeWeekend, this.ObjectAddress);
+        }
+        #endregion
+
+        #region GetAppInstallDir
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        private delegate IntPtr NativeGetAppInstallDir(IntPtr self, uint appid, IntPtr pchFolder, uint cchFolderBufferSize);
+        public string GetAppInstallDir(uint appID)
+        {
+            IntPtr mempchFolder = Helpers.TakeMemory();
+            string pchFolder;
+            this.GetFunction<NativeGetAppInstallDir>(this.Functions.GetAppInstallDir)(this.ObjectAddress, appID,mempchFolder, (1024 * 32));
+            pchFolder = Helpers.MemoryToString(mempchFolder);
+            return pchFolder;
         }
         #endregion
     }

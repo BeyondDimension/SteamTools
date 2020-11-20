@@ -26,31 +26,21 @@ using SAM.API.Interfaces;
 
 namespace SAM.API.Wrappers
 {
-    public class SteamUser012 : NativeWrapper<ISteamUser012>
+    public class SteamUser019 : NativeWrapper<ISteamUser019>
     {
-        #region IsLoggedIn
-        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        [return: MarshalAs(UnmanagedType.I1)]
-        private delegate bool NativeLoggedOn(IntPtr self);
-
-        public bool IsLoggedIn()
-        {
-            return this.Call<bool, NativeLoggedOn>(this.Functions.LoggedOn, this.ObjectAddress);
-        }
-        #endregion
 
         #region GetSteamID
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         private delegate void NativeGetSteamId(IntPtr self, out ulong steamId);
 
-        public ulong GetSteamId64()
+        public ulong GetSteamId()
         {
             var call = this.GetFunction<NativeGetSteamId>(this.Functions.GetSteamID);
             ulong steamId;
             call(this.ObjectAddress, out steamId);
             return steamId;
         }
-        public ulong GetSteamId()
+        public ulong GetSteamId32()
         {
             var call = this.GetFunction<NativeGetSteamId>(this.Functions.GetSteamID);
             ulong steamId;
@@ -59,5 +49,16 @@ namespace SAM.API.Wrappers
             return steamId;
         }
         #endregion
+
+        #region GetPlayerSteamLevel
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        private delegate IntPtr NativeGetPlayerSteamLevel(IntPtr self);
+        public IntPtr GetPlayerSteamLevel()
+        {
+            var result = this.Call<IntPtr, NativeGetPlayerSteamLevel>(this.Functions.GetPlayerSteamLevel, this.ObjectAddress);
+            return result;
+        }
+        #endregion
+
     }
 }

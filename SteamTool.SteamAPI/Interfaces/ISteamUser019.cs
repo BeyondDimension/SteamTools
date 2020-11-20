@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 namespace SAM.API.Interfaces
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct ISteamUser012
+    public struct ISteamUser019
     {
         public IntPtr GetHSteamUser;
         public IntPtr LoggedOn;
@@ -44,5 +44,6 @@ namespace SAM.API.Interfaces
         public IntPtr EndAuthSession;
         public IntPtr CancelAuthTicket;
         public IntPtr UserHasLicenseForApp;
+        public IntPtr GetPlayerSteamLevel;
     }
 }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SteamTool.Model;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Net;
 using System.Text;
 
@@ -40,7 +42,7 @@ namespace SteamTool.Proxy
         /// <summary>
         /// 启用该域名代理
         /// </summary>
-        public bool IsEnbale { get; set; }
+        public bool IsEnable { get; set; }
 
 
         public IEnumerable<string> Hosts { get; set; }
@@ -48,29 +50,32 @@ namespace SteamTool.Proxy
         public DomainTag DomainTag { get; set; }
     }
 
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum DomainTag : byte
     {
         /// <summary>
         /// steam社区
         /// </summary>
+        [Description("steam社区")]
         SteamCommunity = 0,
         /// <summary>
         /// steam商店
         /// </summary>
+        [Description("steam商店")]
         SteamStore = 1,
-
+        [Description("steam部分图片修复")]
         SteamImage = 2,
-
+        [Description("steam好友服务")]
         SteamChat = 3,
-
+        [Description("Discord语音")]
         Discord = 4,
-
+        [Description("Twitch直播")]
         Twitch = 5,
-
+        [Description("Origin下载加速(Akamai)")]
         OriginGameDownload = 6,
-
+        [Description("Uplay更新防劫持")]
         UplayUpdate = 7,
-
+        [Description("Google(Recaptcha)")]
         GoogleCode = 8,
     }
 }

@@ -5,9 +5,9 @@ using System.Text;
 
 namespace SteamTool.Model
 {
-    public class SteamApp: IComparable<SteamApp>
+    public class SteamApp : IComparable<SteamApp>
     {
-        public SteamApp() 
+        public SteamApp()
         {
 
         }
@@ -20,11 +20,15 @@ namespace SteamTool.Model
 
         public string Logo { get; set; }
 
+        public string Icon { get; set; }
+
         public SteamAppTypeEnum Type { get; set; }
 
-        public string LogoUrl  => $@"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{AppId}/{Logo}.jpg";
+        public string LogoUrl => string.IsNullOrEmpty(Logo) ? null : string.Format(Const.STEAMAPP_LOGO_URL, AppId, Logo);
 
-        public string HeaderLogoUrl => $@"https://steamcdn-a.akamaihd.net/steam/apps/{AppId}/header.jpg";
+        public string HeaderLogoUrl => string.Format(Const.STEAMAPP_CAPSULE_URL, AppId);
+
+        public string IconUrl => string.IsNullOrEmpty(Icon) ? null : string.Format(Const.STEAMAPP_LOGO_URL, AppId, Icon);
 
         public Process Process { get; set; }
 

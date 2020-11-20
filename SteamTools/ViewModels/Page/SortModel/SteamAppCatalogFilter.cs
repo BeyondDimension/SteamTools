@@ -84,25 +84,6 @@ namespace SteamTools.ViewModels
         }
         #endregion
 
-        #region Config 变更通知
-        private bool _Config;
-
-        public bool Config
-        {
-            get { return this._Config; }
-            set
-            {
-                if (this._Config != value)
-                {
-                    this._Config = value;
-                    this.RaisePropertyChanged();
-                    this.Update();
-                }
-            }
-        }
-
-        #endregion
-
         #region Demo 变更通知
         private bool _Demo;
 
@@ -236,6 +217,82 @@ namespace SteamTools.ViewModels
 
         #endregion
 
+        #region Guide 变更通知
+        private bool _Guide;
+
+        public bool Guide
+        {
+            get { return this._Guide; }
+            set
+            {
+                if (this._Guide != value)
+                {
+                    this._Guide = value;
+                    this.RaisePropertyChanged();
+                    this.Update();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Driver 变更通知
+        private bool _Driver;
+
+        public bool Driver
+        {
+            get { return this._Driver; }
+            set
+            {
+                if (this._Driver != value)
+                {
+                    this._Driver = value;
+                    this.RaisePropertyChanged();
+                    this.Update();
+                }
+            }
+        }
+
+        #endregion
+
+        #region HideApp Config 变更通知
+        private bool _Config;
+
+        public bool Config
+        {
+            get { return this._Config; }
+            set
+            {
+                if (this._Config != value)
+                {
+                    this._Config = value;
+                    this.RaisePropertyChanged();
+                    this.Update();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Hardware 变更通知
+        private bool _Hardware;
+
+        public bool Hardware
+        {
+            get { return this._Hardware; }
+            set
+            {
+                if (this._Hardware != value)
+                {
+                    this._Hardware = value;
+                    this.RaisePropertyChanged();
+                    this.Update();
+                }
+            }
+        }
+
+        #endregion
+
         #region Unknown 变更通知
         private bool _Unknown;
 
@@ -280,6 +337,12 @@ namespace SteamTools.ViewModels
             if (Tool && app.Type == SteamAppTypeEnum.Tool)
                 return true;
             if (Video && app.Type == SteamAppTypeEnum.Video)
+                return true;
+            if (Driver && app.Type == SteamAppTypeEnum.Driver)
+                return true;
+            if (Guide && app.Type == SteamAppTypeEnum.Guide)
+                return true;
+            if (Hardware && app.Type == SteamAppTypeEnum.Hardware)
                 return true;
             if (Unknown && app.Type == SteamAppTypeEnum.Unknown)
                 return true;

@@ -8,12 +8,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <RichTextBox Background="Transparent" FontSize="22" 
+        <RichTextBox Background="Transparent" FontSize="22" BorderThickness="0"
                      Foreground="{StaticResource HighlightForegroundBrushKey}">
             <FlowDocument>
                 <Paragraph>
                     <Run Text="Steam运行状态："></Run>
                     <Run Text="{Binding Source={x:Static services:SteamConnectService.Current}, Path=IsConnectToSteam,Mode=OneWay}"></Run>
+                    <LineBreak/>
+                    <LineBreak/>
                     <LineBreak/>
                     <Run Text="{Binding DebugText}"></Run>
                 </Paragraph>

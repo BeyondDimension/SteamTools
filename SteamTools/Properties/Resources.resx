@@ -120,8 +120,11 @@
   <data name="About" xml:space="preserve">
     <value>关于</value>
   </data>
+  <data name="AchievementManager" xml:space="preserve">
+    <value>{0} 成就管理</value>
+  </data>
   <data name="Application" xml:space="preserve">
-    <value>应用程序</value>
+    <value>软件</value>
   </data>
   <data name="AppLogo_ImageTootlip" xml:space="preserve">
     <value>打开商店页</value>
@@ -150,14 +153,23 @@
   <data name="CSGO" xml:space="preserve">
     <value>CS:GO</value>
   </data>
+  <data name="CurrentAppInstalled" xml:space="preserve">
+    <value>当前APP已安装</value>
+  </data>
   <data name="Debug" xml:space="preserve">
     <value>Debug</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
   </data>
   <data name="DeleteCertificate" xml:space="preserve">
     <value>删除证书</value>
   </data>
   <data name="DisableScriptService" xml:space="preserve">
     <value>禁用脚本</value>
+  </data>
+  <data name="Driver" xml:space="preserve">
+    <value>驱动</value>
   </data>
   <data name="EditHostsFile" xml:space="preserve">
     <value>编辑Hosts文件</value>
@@ -186,14 +198,26 @@
   <data name="GOG" xml:space="preserve">
     <value>GOG Galaxy</value>
   </data>
+  <data name="Guide" xml:space="preserve">
+    <value>指南</value>
+  </data>
+  <data name="Hardware" xml:space="preserve">
+    <value>硬件</value>
+  </data>
   <data name="HeadImageTootlip" xml:space="preserve">
     <value>打开个人资料页</value>
+  </data>
+  <data name="HideApp" xml:space="preserve">
+    <value>隐藏软件</value>
   </data>
   <data name="IdleCard" xml:space="preserve">
     <value>自动挂卡</value>
   </data>
   <data name="ImportScript" xml:space="preserve">
     <value>导入脚本</value>
+  </data>
+  <data name="Install" xml:space="preserve">
+    <value>安装</value>
   </data>
   <data name="LastloginTime" xml:space="preserve">
     <value>{0:yyyy-MM-dd HH:mm:ss}</value>
@@ -205,13 +229,13 @@
     <value>封面</value>
   </data>
   <data name="Media" xml:space="preserve">
-    <value>媒体</value>
+    <value>预告片</value>
   </data>
   <data name="MHW" xml:space="preserve">
     <value>怪物猎人:世界</value>
   </data>
   <data name="Music" xml:space="preserve">
-    <value>音乐</value>
+    <value>原声音轨</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>名称</value>
@@ -228,14 +252,26 @@
   <data name="Open_ScriptFolder" xml:space="preserve">
     <value>打开脚本文件夹</value>
   </data>
+  <data name="Operating" xml:space="preserve">
+    <value>操作</value>
+  </data>
   <data name="Origin" xml:space="preserve">
     <value>Origin</value>
   </data>
   <data name="OtherPlatform" xml:space="preserve">
     <value>其它平台</value>
   </data>
+  <data name="Play" xml:space="preserve">
+    <value>播放</value>
+  </data>
   <data name="ProxyConfig" xml:space="preserve">
     <value>反代配置</value>
+  </data>
+  <data name="ProxyRun" xml:space="preserve">
+    <value>反向代理启动</value>
+  </data>
+  <data name="ProxyStop" xml:space="preserve">
+    <value>反向代理关闭</value>
   </data>
   <data name="Ready" xml:space="preserve">
     <value>就绪</value>

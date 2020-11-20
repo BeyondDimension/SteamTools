@@ -1,0 +1,72 @@
+﻿<metro:MetroWindow x:Class="SteamTools.MessageDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:livet="http://schemas.livet-mvvm.net/2011/wpf"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
+		xmlns:metro2="http://schemes.grabacr.net/winfx/2015/personal/controls"
+        xmlns:controls="clr-namespace:SteamTools.Views.Controls"
+        xmlns:services="clr-namespace:SteamTools.Services"
+        mc:Ignorable="d"
+        Title="MessageDialog" 
+        Style="{DynamicResource MetroDialogStyleKey}"
+        WindowStartupLocation="CenterOwner"
+		SizeToContent="Height">
+    <Grid>
+        <i:Interaction.Triggers>
+            <livet:InteractionMessageTrigger Messenger="{Binding Messenger}"
+										 MessageKey="Window.WindowAction">
+                <livet:WindowInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
+            </livet:InteractionMessageTrigger>
+            <livet:InteractionMessageTrigger Messenger="{Binding Messenger}"
+										 MessageKey="Window.Transition">
+                <livet:TransitionInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
+            </livet:InteractionMessageTrigger>
+        </i:Interaction.Triggers>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Margin="12">
+                <DockPanel>
+                    <!--<controls:AppIcon Width="40"
+							  Background="Transparent" />-->
+
+                    <TextBlock Text="「提督業も忙しい！」 を終了します。よろしいですか？"
+						   FontSize="14"
+						   Foreground="{DynamicResource ActiveForegroundBrushKey}"
+						   Margin="12,0,0,0"
+						   HorizontalAlignment="Left"
+						   VerticalAlignment="Center" />
+                </DockPanel>
+
+                <Border Height="12" />
+
+                <Rectangle Height=".99"
+					   Style="{DynamicResource SeparatorRectangleStyleKey}" />
+            </StackPanel>
+
+            <WrapPanel Grid.Row="1"
+				   HorizontalAlignment="Right"
+				   Margin="6,-6,6,6">
+                <metro2:CallMethodButton Content="OK"
+									 MethodName="OK"
+									 IsDefault="True"
+									 MinWidth="110"
+									 Padding="30,6"
+									 Margin="6" />
+                <metro2:CallMethodButton Content="キャンセル"
+									 MethodName="Cancel"
+									 IsCancel="True"
+									 MinWidth="110"
+									 Padding="30,6"
+									 Margin="6" />
+            </WrapPanel>
+        </Grid>
+    </Grid>
+</metro:MetroWindow>

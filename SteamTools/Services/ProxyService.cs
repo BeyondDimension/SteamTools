@@ -1,27 +1,30 @@
 ﻿using Livet;
 using SteamTool.Proxy;
 using SteamTool.Proxy.Properties;
-using SteamTools.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using SteamTool.Model;
+using SteamTools.Models;
 
 namespace SteamTools.Services
 {
-    public class ProxyService: NotificationObject
+    public class ProxyService : NotificationObject
     {
         public static ProxyService Current { get; } = new ProxyService();
 
-        public HttpProxy Proxy { get; }
+        public HttpProxy Proxy { get; set; }
 
-        public ProxyService() 
+        public void Initialize()
         {
-            Proxy = new HttpProxy(ProxyDomains);
+            Proxy = new HttpProxy(ProxyDomains, ProductInfo.Title);
+            InitJsScript();
         }
 
-        public static List<ProxyDomainModel> ProxyDomains => new List<ProxyDomainModel>
+        private List<ProxyDomainModel> _ProxyDomains = new List<ProxyDomainModel>
         {
             new ProxyDomainModel{
                 Name=Resources.SteamCommunity,
@@ -29,7 +32,7 @@ namespace SteamTools.Services
                 ToDomain = "steamstore-a.akamaihd.net",
                 Hosts = new List<string>{ "steamcommunity.com", "www.steamcommunity.com"},
                 DomainTag = DomainTag.SteamCommunity,
-                IsEnbale= true,
+                IsEnable= true,
             },
             new ProxyDomainModel{
                 Name=Resources.SteamStore,
@@ -37,7 +40,7 @@ namespace SteamTools.Services
                 ToDomain = "steamstore-a.akamaihd.net",
                 Hosts = new List<string>{ "store.steampowered.com", "api.steampowered.com"},
                 DomainTag = DomainTag.SteamStore,
-                IsEnbale= false,
+                IsEnable= true,
             },
             new ProxyDomainModel{
                 Name=Resources.SteamImage,
@@ -45,7 +48,7 @@ namespace SteamTools.Services
                 ToDomain = "steamstore-a.akamaihd.net",
                 Hosts = new List<string>{ "steamcdn-a.akamaihd.net"},
                 DomainTag = DomainTag.SteamImage,
-                IsEnbale= false,
+                IsEnable= false,
             },
             new ProxyDomainModel{
                 Name=Resources.SteamChat,
@@ -53,7 +56,7 @@ namespace SteamTools.Services
                 ToDomain = "steamstore-a.akamaihd.net",
                 Hosts = new List<string>{ "steam-chat.com"},
                 DomainTag = DomainTag.SteamChat,
-                IsEnbale= false,
+                IsEnable= false,
             },
             //new ProxyDomainModel{
             //    Name=Resources.Discord,
@@ -85,7 +88,7 @@ namespace SteamTools.Services
             //        "pax.discordapp.com",
             //    },
             //    DomainTag = DomainTag.Discord,
-            //    IsEnbale= true,
+            //    IsEnable= true,
             //},
             //new ProxyDomainModel{
             //    Name=Resources.Twitch,
@@ -133,7 +136,7 @@ namespace SteamTools.Services
             //    //"usher.ttvnw.net",
             //    },
             //    DomainTag = DomainTag.Twitch,
-            //    IsEnbale= false,
+            //    IsEnable= false,
             //},
             //new ProxyDomainModel{
             //    Name=Resources.OriginDownload,
@@ -141,7 +144,7 @@ namespace SteamTools.Services
             //    ToDomain = "origin-a.akamaihd.net",
             //    Hosts = new List<string>{ "origin-a.akamaihd.net"},
             //    DomainTag = DomainTag.OriginGameDownload,
-            //    IsEnbale= false,
+            //    IsEnable= false,
             //},
             //new ProxyDomainModel{
             //    Name=Resources.UplayUpdate,
@@ -149,7 +152,7 @@ namespace SteamTools.Services
             //    ToDomain = "static3.cdn.ubi.com",
             //    Hosts = new List<string>{ "static3.cdn.ubi.com"},
             //    DomainTag = DomainTag.UplayUpdate,
-            //    IsEnbale= false,
+            //    IsEnable= false,
             //},
             new ProxyDomainModel{
                 Name=Resources.GoogleRecaptchaCode,
@@ -157,9 +160,77 @@ namespace SteamTools.Services
                 ToDomain = "kh.google.com",
                 Hosts = new List<string>{ "www.google.com"},
                 DomainTag = DomainTag.GoogleCode,
-                IsEnbale= false,
+                IsEnable= false,
             },
         };
+        public List<ProxyDomainModel> ProxyDomains
+        {
+            get => _ProxyDomains;
+            set
+            {
+                if (_ProxyDomains != value)
+                {
+                    _ProxyDomains = value;
+                    Proxy.ProxyDomains = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
+        private bool _IsEnableScript;
+        public bool IsEnableScript
+        {
+            get => _IsEnableScript;
+            set
+            {
+                if (_IsEnableScript != value)
+                {
+                    _IsEnableScript = value;
+                    Proxy.IsEnableScript = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
+        private List<ProxyScript> _ProxyScripts;
+        public List<ProxyScript> ProxyScripts
+        {
+            get => _ProxyScripts;
+            set
+            {
+                if (_ProxyScripts != value)
+                {
+                    _ProxyScripts = value;
+                    Proxy.Scripts = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 加载js脚本列表
+        /// </summary>
+        public void InitJsScript()
+        {
+            var scripts = new List<ProxyScript>();
+            var dir = new DirectoryInfo(Const.SCRIPT_DIR);
+            if (!dir.Exists)
+            {
+                dir.Create();
+                return;
+            }
+            foreach (var file in dir.GetFiles())
+            {
+                if (file.Extension.Equals(".js", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (ProxyScript.TryParse(file.FullName, out var script))
+                        scripts.Add(script);
+                    else
+                        scripts.Add(new ProxyScript { FilePath = file.FullName, Name = Resources.Not_Support_JS });
+                }
+            }
+            ProxyScripts = scripts;
+        }
 
     }
 }

@@ -5,10 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Net.Sockets;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Titanium.Web.Proxy;
@@ -25,13 +21,15 @@ namespace SteamTool.Proxy
 
         public bool IsCertificate => proxyServer.CertificateManager == null;
 
-        public List<ProxyDomainModel> ProxyDomains { get; }
+        public List<ProxyDomainModel> ProxyDomains { get; set; }
         public List<ProxyScript> Scripts { get; set; }
         public bool IsEnableScript { get; set; }
+        public string CertificateName { get; }
 
-        public HttpProxy(List<ProxyDomainModel> proxyDomains)
+        public HttpProxy(List<ProxyDomainModel> proxyDomains,string certificateName)
         {
             ProxyDomains = proxyDomains;
+            CertificateName = certificateName;
         }
 
         public bool ProxyRunning => proxyServer.ProxyRunning;
@@ -61,10 +59,12 @@ namespace SteamTool.Proxy
             }
             */
             #endregion
-
+#if DEBUG
+            Debug.WriteLine("OnRequest" + e.HttpClient.Request.RequestUri.AbsoluteUri);
+#endif
             foreach (var item in ProxyDomains)
             {
-                if (!item.IsEnbale)
+                if (!item.IsEnable)
                 {
                     continue;
                 }
@@ -112,25 +112,46 @@ namespace SteamTool.Proxy
             // read response headers
             //var responseHeaders = e.HttpClient.Response.Headers;
             //if (!e.ProxySession.Request.Host.Equals("medeczane.sgk.gov.tr")) return;
-            //if (e.HttpClient.Request.Method == "GET" || e.HttpClient.Request.Method == "POST")
-            //{
-            //    if (e.HttpClient.Response.StatusCode == 200)
-            //    {
-            //        if (e.HttpClient.Response.ContentType != null && e.HttpClient.Response.ContentType.Trim().ToLower().Contains("text/html"))
-            //        {
-            //            byte[] bodyBytes = await e.GetResponseBody();
-            //            e.SetResponseBody(bodyBytes);
-            //            string body = await e.GetResponseBodyAsString();
-            //            e.SetResponseBodyString(body);
-            //        }
-            //    }
-            //}
-
-            //if (IsEnableScript)
-                foreach (var item in Scripts)
+#if DEBUG
+            Debug.WriteLine("OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
+#endif
+            if (IsEnableScript)
+            {
+                foreach (var script in Scripts)
                 {
-
+                    if (script.IsEnable)
+                    {
+                        if (e.HttpClient.Request.Method == "GET")
+                        {
+                            if (e.HttpClient.Response.StatusCode == 200)
+                            {
+                                if (e.HttpClient.Response.ContentType != null && e.HttpClient.Response.ContentType.Trim().ToLower().Contains("text/html"))
+                                {
+                                    foreach (var host in script.Exclude)
+                                    {
+                                        if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
+                                            goto close;
+                                    }
+                                    foreach (var host in script.Match)
+                                    {
+                                        if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
+                                        {
+                                            var doc = await e.GetResponseBodyAsString();
+                                            var index = doc.LastIndexOf("</body>");
+                                            var temp = $"<script type=\"text/javascript\">{script.@Content}</script>";
+                                            doc = doc.Insert(index, temp);
+                                            e.SetResponseBodyString(doc);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                close:;
                 }
+            }
+
+
         }
 
         // 允许重写默认的证书验证逻辑
@@ -157,8 +178,8 @@ namespace SteamTool.Proxy
             //    .CreateServerCertificate($"{Assembly.GetCallingAssembly().GetName().Name} Certificate")
             //    .ContinueWith(c => proxyServer.CertificateManager.RootCertificate = c.Result);
 
-            proxyServer.CertificateManager.RootCertificateIssuerName = $"{Assembly.GetCallingAssembly().GetName().Name}";
-            proxyServer.CertificateManager.RootCertificateName = $"{Assembly.GetCallingAssembly().GetName().Name} Certificate";
+            proxyServer.CertificateManager.RootCertificateIssuerName = $"{CertificateName}";
+            proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
             proxyServer.CertificateManager.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.DefaultWindows;
 
             // 可选地设置证书引擎
@@ -169,7 +190,7 @@ namespace SteamTool.Proxy
             proxyServer.CertificateManager.EnsureRootCertificate();
             //proxyServer.CertificateManager.TrustRootCertificate(true);
 
-            return proxyServer.CertificateManager.RootCertificate != null;
+            return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
 
         public bool DeleteCertificate()
@@ -189,14 +210,14 @@ namespace SteamTool.Proxy
             return true;
         }
 
-        public void StartProxy()
+        public bool StartProxy()
         {
-            if (proxyServer.CertificateManager.RootCertificate == null)
+            if (!IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
             {
                 var isOk = SetupCertificate();
                 if (!isOk)
                 {
-                    return;
+                    return false;
                 }
             }
 
@@ -204,7 +225,7 @@ namespace SteamTool.Proxy
             var hosts = new List<(string, string)>();
             foreach (var proxyDomain in ProxyDomains)
             {
-                if (proxyDomain.IsEnbale)
+                if (proxyDomain.IsEnable)
                 {
                     foreach (var host in proxyDomain.Hosts)
                     {
@@ -250,6 +271,7 @@ namespace SteamTool.Proxy
             catch (Exception ex)
             {
                 Logger.Error(ex);
+                return false;
             }
             //proxyServer.UpStreamHttpProxy = new ExternalProxy() { HostName = "localhost", Port = 8888 };
             //proxyServer.UpStreamHttpsProxy = new ExternalProxy() { HostName = "localhost", Port = 8888 };
@@ -260,7 +282,7 @@ namespace SteamTool.Proxy
                 Debug.WriteLine("Listening on '{0}' endpoint at Ip {1} and port: {2} ",
                     endPoint.GetType().Name, endPoint.IpAddress, endPoint.Port);
 #endif
-
+            return true;
 
         }
 
@@ -274,6 +296,18 @@ namespace SteamTool.Proxy
                 proxyServer.ClientCertificateSelectionCallback -= OnCertificateSelection;
                 proxyServer.Stop();
                 hostsService.RemoveHostsByTag();
+            }
+        }
+
+
+        public bool IsCertificateInstalled(X509Certificate2 certificate2)
+        {
+            if (certificate2 == null)
+                return false;
+            using (var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser))
+            {
+                store.Open(OpenFlags.MaxAllowed);
+                return store.Certificates.Contains(certificate2);
             }
         }
 

@@ -17,6 +17,9 @@ using MetroTrilithon.Mvvm;
 using System.Reactive.Linq;
 using System.Diagnostics;
 using SteamTool.Core.Common;
+using SteamTools.Properties;
+using SteamTools.Views;
+using System.Globalization;
 
 namespace SteamTools.ViewModels
 {
@@ -140,10 +143,42 @@ namespace SteamTools.ViewModels
             this.Update();
         }
 
-
         public void LogoImage_Click(uint appid)
         {
             Process.Start(string.Format(Const.STORE_APP_URL, appid.ToString()));
+        }
+
+        public void UnlockAchievement_Click(SteamApp app)
+        {
+            switch (app.Type)
+            {
+                default:
+                    //var achievement = new AchievementWindowViewModel();
+                    //WindowService.Current.MainWindow.Transition(achievement, typeof(AchievementWindow));
+                    var nApp = app.Clone();
+                    nApp.Process = Process.Start($"{ProductInfo.Title}.exe", app.AppId.ToString(CultureInfo.InvariantCulture));
+                    
+                    SteamConnectService.Current.RuningSteamApps.Add(nApp);
+                    break;
+            }
+        }
+
+        public void InstallSteamApp_Click(SteamApp app)
+        {
+            switch (app.Type)
+            {
+                case SteamAppTypeEnum.Media:
+                    Process.Start(string.Format(Const.STEAM_MEDIA_URL, app.AppId.ToString()));
+                    break;
+                default:
+                    if (SteamConnectService.Current.ApiService.IsAppInstalled(app.AppId))
+                    {
+                        TaskbarService.Current.Notify(Resources.CurrentAppInstalled);
+                        return;
+                    }
+                    Process.Start(string.Format(Const.STEAM_INSTALL_URL, app.AppId.ToString()));
+                    break;
+            }
         }
     }
 }

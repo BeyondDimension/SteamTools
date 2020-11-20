@@ -15,6 +15,7 @@ namespace SteamTools.ViewModels
 {
     public abstract class MainWindowViewModelBase: WindowViewModel
     {
+		public bool IsMainWindow { get; }
 
 		#region StatusBar 变更通知
 
@@ -39,12 +40,13 @@ namespace SteamTools.ViewModels
 		{
 			this.Title = ProductInfo.Title;
 			this.CanClose = false;
-
-			//((INotifyPropertyChanged)App.Instance).Subscribe(nameof(App.State), this.RaiseCanCloseChanged).AddTo(this);
-			//KanColleClient.Current.Subscribe(nameof(KanColleClient.IsInSortie), this.RaiseCanCloseChanged).AddTo(this);
-			//GeneralSettings.ExitConfirmationType.Subscribe(_ => this.RaiseCanCloseChanged());
 		}
-
+		protected MainWindowViewModelBase(bool isMainWindow)
+		{
+			this.Title = ProductInfo.Title;
+			this.IsMainWindow = isMainWindow;
+			this.CanClose = false;
+		}
 
 		/// <summary>
 		/// 使用<see cref ="TransitionMode.NewOrActive" />从当前窗口转换到指定窗口。

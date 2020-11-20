@@ -7,13 +7,14 @@
 	  xmlns:metro2="clr-namespace:MetroTrilithon.UI.Controls;assembly=MetroTrilithon.Desktop"
       xmlns:viewModel="clr-namespace:SteamTools.ViewModels"
       xmlns:services="clr-namespace:SteamTools.Services"
+      xmlns:model="clr-namespace:SteamTool.Model;assembly=SteamTool.Model"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:livet="http://schemas.livet-mvvm.net/2011/wpf"
       mc:Ignorable="d" 
       x:Name="u"
-	  d:DesignWidth="600"
-	  d:DesignHeight="300"
+	  d:DesignWidth="800"
+	  d:DesignHeight="400"
 	  Background="{DynamicResource ThemeBrushKey}"
       d:DataContext="{d:DesignInstance viewModel:SteamAppPageViewModel}">
     <Grid>
@@ -90,22 +91,43 @@
                         <WrapPanel Grid.Column="2">
                             <CheckBox Content="{Binding Resources.Game,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Game, Mode=TwoWay}" />
+                            
                             <CheckBox Content="{Binding Resources.Application,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Application, Mode=TwoWay}" />
+                            
                             <CheckBox Content="Demo"
 												  IsChecked="{Binding Demo, Mode=TwoWay}" />
+                            
                             <CheckBox Content="DLC"
 												  IsChecked="{Binding DLC, Mode=TwoWay}" />
+                            
                             <CheckBox Content="{Binding Resources.Media,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Media, Mode=TwoWay}" />
+                            
                             <CheckBox Content="{Binding Resources.Music,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Music, Mode=TwoWay}" />
+                            
                             <CheckBox Content="{Binding Resources.Tool,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Tool, Mode=TwoWay}" />
+                            
                             <CheckBox Content="{Binding Resources.Video,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Video, Mode=TwoWay}" />
+                            
+                            <CheckBox Content="{Binding Resources.Guide,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
+												  IsChecked="{Binding Guide, Mode=TwoWay}" />
+                            
+                            <CheckBox Content="{Binding Resources.Driver,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
+												  IsChecked="{Binding Driver, Mode=TwoWay}" />
+                            
+                            <CheckBox Content="{Binding Resources.HideApp,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
+												  IsChecked="{Binding Config, Mode=TwoWay}" />
+                            
+                            <CheckBox Content="{Binding Resources.Hardware,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
+												  IsChecked="{Binding Hardware, Mode=TwoWay}" />
+                            
                             <CheckBox Content="{Binding Resources.Unknown,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Unknown, Mode=TwoWay}" />
+                            
                         </WrapPanel>
                     </Grid>
                 </StackPanel>
@@ -118,7 +140,7 @@
         <Border Grid.Row="1" Margin="8"
 					BorderBrush="{DynamicResource BorderBrushKey}"
 					BorderThickness=".99">
-            <ListView ItemsSource="{Binding Games}"
+            <ListView ItemsSource="{Binding Games,Mode=OneWay}"
 						  ItemContainerStyle="{DynamicResource GridViewItemContainerStyleKey}"
 						  ScrollViewer.PanningMode="Both">
                 <ListView.Resources>
@@ -224,24 +246,8 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <!--Name-->
-                        <GridViewColumn Width="316">
-                            <GridViewColumn.Header>
-                                <metro2:SortButton MethodName="Sort"
-													   MethodParameter="{x:Static viewModel:SteamAppSortWorker.NameColumn}">
-                                    <TextBlock Text="{Binding Resources.Name,Source={x:Static services:ResourceService.Current},Mode=OneWay}"/>
-                                </metro2:SortButton>
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox BorderThickness="0" IsReadOnly="True"  Text="{Binding Name, Mode=OneWay}"
-												   Margin="0,3" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-
                         <!--Type-->
-                        <GridViewColumn Width="50">
+                        <GridViewColumn Width="60">
                             <GridViewColumn.Header>
                                 <metro2:SortButton MethodName="Sort"
 													   MethodParameter="{x:Static viewModel:SteamAppSortWorker.TypeColumn}">
@@ -252,6 +258,68 @@
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Type, Mode=OneWay}"
 												   Margin="0,3" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <!--Name-->
+                        <GridViewColumn Width="266">
+                            <GridViewColumn.Header>
+                                <metro2:SortButton MethodName="Sort"
+													   MethodParameter="{x:Static viewModel:SteamAppSortWorker.NameColumn}">
+                                    <TextBlock Text="{Binding Resources.Name,Source={x:Static services:ResourceService.Current},Mode=OneWay}"/>
+                                </metro2:SortButton>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox DockPanel.Dock="Left" Width="300" BorderThickness="0" IsReadOnly="True"  Text="{Binding Name, Mode=OneWay}"
+												   Margin="0,3"  />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <!--Operating-->
+                        <GridViewColumn Width="80">
+                            <GridViewColumn.Header>
+                                <TextBlock Text="{Binding Resources.Operating,Source={x:Static services:ResourceService.Current},Mode=OneWay}"/>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Resources/Asstes/unlock.png" Margin="6,0" Width="24" Cursor="Hand" ToolTip="{Binding Resources.Sam,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                    <livet:LivetCallMethodAction
+                                                            MethodName="UnlockAchievement_Click"
+                                                            MethodParameter="{Binding}"
+                                                            MethodTarget="{Binding DataContext,ElementName=u}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Image>
+                                        <Image Margin="6,0" Width="24" Cursor="Hand">
+                                            <Image.Style>
+                                                <Style TargetType="{x:Type Image}">
+                                                    <Setter Property="Source" Value="/Resources/Asstes/install-line.png" />
+                                                    <Setter Property="ToolTip" Value="{Binding Resources.Install,Source={x:Static services:ResourceService.Current},Mode=OneWay}" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Type}" Value="Media">
+                                                            <Setter Property="Source" Value="/Resources/Asstes/play.png" />
+                                                            <Setter Property="ToolTip" Value="{Binding Resources.Play,Source={x:Static services:ResourceService.Current},Mode=OneWay}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                    <livet:LivetCallMethodAction
+                                                            MethodName="InstallSteamApp_Click"
+                                                            MethodParameter="{Binding}"
+                                                            MethodTarget="{Binding DataContext,ElementName=u}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Image>
+                                    </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

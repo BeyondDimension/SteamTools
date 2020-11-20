@@ -10,7 +10,6 @@ using MetroRadiance.UI;
 using MetroTrilithon.Lifetime;
 using System.Runtime.CompilerServices;
 using Livet;
-using Hardcodet.Wpf.TaskbarNotification;
 using SteamTool.Proxy;
 using System.Threading;
 using System.IO;
@@ -18,72 +17,27 @@ using MetroTrilithon.Desktop;
 using SteamTool.Core.Common;
 using SteamTools.Services;
 using MetroTrilithon.Mvvm;
+using Hardcodet.Wpf.TaskbarNotification;
+using SteamTools.Models;
 
 namespace SteamTools
 {
     /// <summary>
     /// App.xaml 的交互逻辑
     /// </summary>
-    public partial class App :  INotifyPropertyChanged, IDisposableHolder
+    public partial class App : INotifyPropertyChanged, IDisposableHolder
     {
+        public static App Instance => Current as App;
 
-        public static Application Instance => Current;
-
-        #region 托盘图标
-        private TaskbarIcon _TaskBar;
-
-        public TaskbarIcon Taskbar
+        private void IsRenameProgram()
         {
-            get { return this._TaskBar; }
-            set
+            string strFullPath = Path.GetFileName(Assembly.GetExecutingAssembly().Location);
+            if ($"{ProductInfo.Title}.exe" != strFullPath)
             {
-                if (this._TaskBar != value)
-                {
-                    this._TaskBar = value;
-                    this.RaisePropertyChanged();
-                }
+                MessageBox.Show("禁止修改程序名称", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                this.Shutdown();
             }
         }
-        #endregion
-
-
-        #region 暂时没用
-        /*
-        // 检查是否是管理员身份 
-        //  VS 不是管理员模式时 会导致调试时程序重启
-        private void CheckAdministrator()
-        {
-            var wi = WindowsIdentity.GetCurrent();
-            var wp = new WindowsPrincipal(wi);
-
-            bool runAsAdmin = wp.IsInRole(WindowsBuiltInRole.Administrator);
-
-            if (!runAsAdmin)
-            {
-                // It is not possible to launch a ClickOnce app as administrator directly,
-                // so instead we launch the app as administrator in a new process.
-                var processInfo = new ProcessStartInfo(Assembly.GetExecutingAssembly().CodeBase)
-                {
-                    // The following properties run the new process as administrator
-                    UseShellExecute = true,
-                    Verb = "runas"
-                };
-
-                // Start the new process
-                try
-                {
-                    Process.Start(processInfo);
-                }
-                catch (Exception)
-                {
-                }
-
-                Application.Current.Shutdown();
-            }
-        }
-        */
-        #endregion
-
 
         /// <summary>
         /// 启动时
@@ -92,31 +46,50 @@ namespace SteamTools
         protected override void OnStartup(StartupEventArgs e)
         {
 #if !DEBUG
-			var appInstance = new MetroTrilithon.Desktop.ApplicationInstance().AddTo(this);
-			if (appInstance.IsFirst)
+            var appInstance = new MetroTrilithon.Desktop.ApplicationInstance().AddTo(this);
+            if (appInstance.IsFirst)
 #endif
             {
+                IsRenameProgram();
+
+#if DEBUG
+                if (e.Args.Length != 0)
+                {
+                    this.ProcessCommandLineParameter(e.Args);
+                    base.OnStartup(e);
+                    return;
+                }
+#endif
+
                 Logger.EnableTextLog = true;
                 this.DispatcherUnhandledException += App_DispatcherUnhandledException;
                 DispatcherHelper.UIDispatcher = this.Dispatcher;
 
+                //托盘加载
+                TaskbarService.Current.Taskbar = (TaskbarIcon)FindResource("Taskbar");
                 ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
                 WindowService.Current.AddTo(this).Initialize();
+                ProxyService.Current.Initialize();
                 SteamConnectService.Current.Initialize();
 
                 this.MainWindow = WindowService.Current.GetMainWindow();
                 this.MainWindow.Show();
 
-                //托盘加载
-                this.Taskbar = (TaskbarIcon)FindResource("Taskbar");
-
+#if !DEBUG
+                appInstance.CommandLineArgsReceived += (sender, args) =>
+                {
+                    // 检测到多次启动时将主窗口置于最前面
+                    this.Dispatcher.Invoke(() => WindowService.Current.MainWindow.Activate());
+                    this.ProcessCommandLineParameter(args.CommandLineArgs);
+                };
+#endif
                 base.OnStartup(e);
             }
 #if !DEBUG
-			else
-			{
-				this.Shutdown();
-			}
+            else
+            {
+                appInstance.SendCommandLineArgs(e.Args);
+            }
 #endif
         }
 
@@ -135,20 +108,51 @@ namespace SteamTools
             Current.Shutdown();
         }
 
-
         /// <summary>
         /// 程序退出
         /// </summary>
         /// <param name="e"></param>
         protected override void OnExit(ExitEventArgs e)
         {
-
-            this.Taskbar.Icon = null; //避免托盘图标没有自动消失
-            this.Taskbar.Dispose();
-            ProxyService.Current.Proxy.Dispose();
+            if (TaskbarService.Current.Taskbar != null)
+            {
+                //TaskbarService.Current.Taskbar.Icon = null; //避免托盘图标没有自动消失
+                TaskbarService.Current.Taskbar.Icon.Dispose();
+            }
+            if (ProxyService.Current.Proxy != null)
+            {
+                ProxyService.Current.Proxy.Dispose();
+            }
+            foreach (var app in SteamConnectService.Current.RuningSteamApps)
+            {
+                if (!app.Process.HasExited)
+                    app.Process.Kill();
+            }
             base.OnExit(e);
         }
 
+        private void ProcessCommandLineParameter(string[] args)
+        {
+            Debug.WriteLine("多重启动通知: " + args.ToString(" "));
+            // 当使用命令行参数多次启动时，您可以执行某些操作
+            IsRenameProgram();
+            if (args.Length == 0)
+                this.Shutdown();
+            if (!int.TryParse(args[0], out var appId))
+                this.Shutdown();
+
+            Logger.EnableTextLog = true;
+            this.DispatcherUnhandledException += App_DispatcherUnhandledException;
+            DispatcherHelper.UIDispatcher = this.Dispatcher;
+
+            ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
+            WindowService.Current.AddTo(this).Initialize(appId);
+            //SteamConnectService.Current.Initialize();
+
+            this.MainWindow = WindowService.Current.GetMainWindow();
+            this.MainWindow.Show();
+
+        }
 
         #region INotifyPropertyChanged members
 

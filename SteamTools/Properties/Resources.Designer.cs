@@ -70,7 +70,16 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 应用程序 的本地化字符串。
+        ///   查找类似 {0} 成就管理 的本地化字符串。
+        /// </summary>
+        public static string AchievementManager {
+            get {
+                return ResourceManager.GetString("AchievementManager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 软件 的本地化字符串。
         /// </summary>
         public static string Application {
             get {
@@ -160,11 +169,29 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 当前APP已安装 的本地化字符串。
+        /// </summary>
+        public static string CurrentAppInstalled {
+            get {
+                return ResourceManager.GetString("CurrentAppInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Debug 的本地化字符串。
         /// </summary>
         public static string Debug {
             get {
                 return ResourceManager.GetString("Debug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 删除 的本地化字符串。
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
             }
         }
         
@@ -183,6 +210,15 @@ namespace SteamTools.Properties {
         public static string DisableScriptService {
             get {
                 return ResourceManager.GetString("DisableScriptService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 驱动 的本地化字符串。
+        /// </summary>
+        public static string Driver {
+            get {
+                return ResourceManager.GetString("Driver", resourceCulture);
             }
         }
         
@@ -268,11 +304,38 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 指南 的本地化字符串。
+        /// </summary>
+        public static string Guide {
+            get {
+                return ResourceManager.GetString("Guide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 硬件 的本地化字符串。
+        /// </summary>
+        public static string Hardware {
+            get {
+                return ResourceManager.GetString("Hardware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 打开个人资料页 的本地化字符串。
         /// </summary>
         public static string HeadImageTootlip {
             get {
                 return ResourceManager.GetString("HeadImageTootlip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 隐藏软件 的本地化字符串。
+        /// </summary>
+        public static string HideApp {
+            get {
+                return ResourceManager.GetString("HideApp", resourceCulture);
             }
         }
         
@@ -291,6 +354,15 @@ namespace SteamTools.Properties {
         public static string ImportScript {
             get {
                 return ResourceManager.GetString("ImportScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 安装 的本地化字符串。
+        /// </summary>
+        public static string Install {
+            get {
+                return ResourceManager.GetString("Install", resourceCulture);
             }
         }
         
@@ -322,7 +394,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 媒体 的本地化字符串。
+        ///   查找类似 预告片 的本地化字符串。
         /// </summary>
         public static string Media {
             get {
@@ -340,7 +412,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 音乐 的本地化字符串。
+        ///   查找类似 原声音轨 的本地化字符串。
         /// </summary>
         public static string Music {
             get {
@@ -394,6 +466,15 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 操作 的本地化字符串。
+        /// </summary>
+        public static string Operating {
+            get {
+                return ResourceManager.GetString("Operating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Origin 的本地化字符串。
         /// </summary>
         public static string Origin {
@@ -412,11 +493,38 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 播放 的本地化字符串。
+        /// </summary>
+        public static string Play {
+            get {
+                return ResourceManager.GetString("Play", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 反代配置 的本地化字符串。
         /// </summary>
         public static string ProxyConfig {
             get {
                 return ResourceManager.GetString("ProxyConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 反向代理启动 的本地化字符串。
+        /// </summary>
+        public static string ProxyRun {
+            get {
+                return ResourceManager.GetString("ProxyRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 反向代理关闭 的本地化字符串。
+        /// </summary>
+        public static string ProxyStop {
+            get {
+                return ResourceManager.GetString("ProxyStop", resourceCulture);
             }
         }
         

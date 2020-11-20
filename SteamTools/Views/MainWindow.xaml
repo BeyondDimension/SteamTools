@@ -1,27 +1,66 @@
 ﻿<metro:MetroWindow x:Class="SteamTools.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"				   
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:livet="http://schemas.livet-mvvm.net/2011/wpf"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mtti="http://schemes.grabacr.net/winfx/2015/personal/interactivity"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
         xmlns:pages="clr-namespace:SteamTools.Views.Pages"
         xmlns:controls="clr-namespace:SteamTools.Views.Controls"
         xmlns:vm="clr-namespace:SteamTools.ViewModels"
         xmlns:vmc="clr-namespace:SteamTools.ViewModels.Control"
-        xmlns:prop="clr-namespace:SteamTools.Properties"
+        xmlns:services="clr-namespace:SteamTools.Services"
         mc:Ignorable="d"
-        Title="{x:Static prop:Resources.WinTitle}"
-        Width="800"
+        Width="840"
         Height="600"
+        MinHeight="550"
+        Title="{Binding Title}"
         Background="{DynamicResource ThemeBrushKey}"
 		Foreground="{DynamicResource ActiveForegroundBrushKey}"
 		FontFamily="{StaticResource DefaultFontFamilyKey}"
         IsRestoringWindowPlacement="True"
         UseLayoutRounding="True"
         TextOptions.TextFormattingMode="Display"
+        SnapsToDevicePixels="True"
         WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance vm:MainWindowViewModel}"
         Icon="pack://application:,,,/Resources/Asstes/app.ico">
+    <i:Interaction.Behaviors>
+        <livet:WindowCloseCancelBehavior CloseCanceledCallbackMethodTarget="{Binding}"
+										 CloseCanceledCallbackMethodName="CloseCanceledCallback"
+										 CanClose="{Binding CanClose}" />
+    </i:Interaction.Behaviors>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="ContentRendered">
+            <livet:LivetCallMethodAction MethodTarget="{Binding}"
+										 MethodName="Initialize" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closed">
+            <livet:DataContextDisposeAction />
+        </i:EventTrigger>
+
+        <livet:InteractionMessageTrigger Messenger="{Binding Messenger}"
+										 MessageKey="Window.WindowAction">
+            <livet:WindowInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
+        </livet:InteractionMessageTrigger>
+        <livet:InteractionMessageTrigger Messenger="{Binding Messenger}"
+										 MessageKey="Window.Transition">
+            <livet:TransitionInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False"
+													  IsOwned="False" />
+        </livet:InteractionMessageTrigger>
+        <livet:InteractionMessageTrigger Messenger="{Binding Messenger}"
+										 MessageKey="Window.Transition.Child">
+            <livet:TransitionInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False"
+													  IsOwned="True" />
+        </livet:InteractionMessageTrigger>
+        <livet:InteractionMessageTrigger Messenger="{Binding Messenger}"
+										 MessageKey="Window.UpdateTaskbar">
+            <mtti:TaskbarMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
+        </livet:InteractionMessageTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

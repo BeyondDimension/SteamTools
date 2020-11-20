@@ -30,9 +30,9 @@ namespace SAM.API
     public class Client : IDisposable
     {
         public Wrappers.SteamClient018 SteamClient { get; set; }
-        public Wrappers.SteamUser012 SteamUser { get; set; }
+        public Wrappers.SteamUser019 SteamUser { get; set; }
         public Wrappers.SteamUserStats007 SteamUserStats { get; set; }
-        public Wrappers.SteamUtils005 SteamUtils { get; set; }
+        public Wrappers.SteamUtils009 SteamUtils { get; set; }
         public Wrappers.SteamApps001 SteamApps001 { get; set; }
         public Wrappers.SteamApps008 SteamApps008 { get; set; }
         public bool IsConnectToSteam { get; set; }
@@ -43,7 +43,7 @@ namespace SAM.API
 
         private readonly List<ICallback> _Callbacks = new List<ICallback>();
 
-        public bool Initialize(long appId)
+        public bool Initialize(int appId)
         {
             if (string.IsNullOrEmpty(Steam.GetInstallPath()) == true)
             {
@@ -78,7 +78,7 @@ namespace SAM.API
                 throw new ClientInitializeException(ClientInitializeFailure.ConnectToGlobalUser, "failed to connect to global user");
             }
 
-            this.SteamUtils = this.SteamClient.GetSteamUtils004(this._Pipe);
+            this.SteamUtils = this.SteamClient.GetSteamUtils009(this._Pipe);
             if (appId > 0 && this.SteamUtils.GetAppId() != (uint)appId)
             {
                 throw new ClientInitializeException(ClientInitializeFailure.AppIdMismatch, "appID mismatch");

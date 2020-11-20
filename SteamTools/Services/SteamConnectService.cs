@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Livet;
 using SteamTool.Core.Common;
 using SteamTool.Model;
@@ -42,6 +41,21 @@ namespace SteamTools.Services
                 }
             }
         }
+
+        private IList<SteamApp> _RuningSteamApps = new List<SteamApp>();
+        public IList<SteamApp> RuningSteamApps
+        {
+            get => _RuningSteamApps;
+            set
+            {
+                if (_RuningSteamApps != value)
+                {
+                    _RuningSteamApps = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
 
         private SteamUser _CurrentSteamUser;
         public SteamUser CurrentSteamUser
@@ -88,6 +102,9 @@ namespace SteamTools.Services
                                  CurrentSteamUser = await steamDbApiService.GetUserInfo(ApiService.GetSteamId64());
                                  var mainViewModel = (WindowService.Current.MainWindow as MainWindowViewModel);
                                  mainViewModel.SteamAppPage.Initialize();
+#if DEBUG
+                                 mainViewModel.SystemTabItems[mainViewModel.SystemTabItems.Count - 1].Initialize();
+#endif
                              }
                          }
                      }
@@ -101,5 +118,16 @@ namespace SteamTools.Services
              });
         }
 
+        public void Initialize(int appid)
+        {
+            if (Process.GetProcessesByName("steam").Length > 0)
+            {
+                IsConnectToSteam = ApiService.Initialize(appid);
+                if (IsConnectToSteam)
+                {
+
+                }
+            }
+        }
     }
 }

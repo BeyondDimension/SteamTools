@@ -123,6 +123,9 @@
   <data name="GoogleRecaptchaCode" xml:space="preserve">
     <value>Google(recaptcha)验证码</value>
   </data>
+  <data name="Not_Support_JS" xml:space="preserve">
+    <value>不支持的脚本文件</value>
+  </data>
   <data name="OriginDownload" xml:space="preserve">
     <value>Origin游戏下载(Akamai)</value>
   </data>

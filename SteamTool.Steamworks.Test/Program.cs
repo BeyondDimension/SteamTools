@@ -11,28 +11,30 @@ namespace SteamTool.Steamworks.Test
             //
             // Init Client
             //
-            //SteamClient.Init(730);
+            SteamClient.Init(0);
 
 
-            //foreach (var a in SteamUserStats.Achievements)
-            //{
-            //    Console.WriteLine($"{a.Identifier}");
-            //    Console.WriteLine($"	a.State: {a.State}");
-            //    Console.WriteLine($"	a.UnlockTime: {a.UnlockTime}");
-            //    Console.WriteLine($"	a.Name: {a.Name}");
-            //    Console.WriteLine($"	a.Description: {a.Description}");
-            //    Console.WriteLine($"	a.GlobalUnlocked:	{a.GlobalUnlocked}");
-            //    a.GetIconAsync().Wait();
-            //    var icon = a;
+            foreach (var a in SteamUserStats.Achievements)
+            {
+                Console.WriteLine($"{a.Identifier}");
+                Console.WriteLine($"	a.State: {a.State}");
+                Console.WriteLine($"	a.UnlockTime: {a.UnlockTime}");
+                Console.WriteLine($"	a.Name: {a.Name}");
+                Console.WriteLine($"	a.Description: {a.Description}");
+                Console.WriteLine($"	a.GlobalUnlocked:	{a.GlobalUnlocked}");
+                a.GetIconAsync().Wait();
+                var icon = a;
 
-            //    Console.WriteLine($"	a.Icon:	{icon}");
-            //}
+                Console.WriteLine($"	a.Icon:	{icon}");
+            }
 
             Console.WriteLine($"User.SteamID: {SteamClient.SteamId.Value}");
 
             var deaths = new Stat("deaths");
             Console.WriteLine($"{deaths.Name} {deaths.GetInt()} times");
             Console.WriteLine($"{deaths.Name} {deaths.GetFloat()} times");
+
+            Console.WriteLine($"User.SteamLevel: {SteamUser.SteamLevel}");
 
             Console.ReadKey();
         }

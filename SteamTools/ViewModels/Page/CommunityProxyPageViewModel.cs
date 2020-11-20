@@ -7,6 +7,11 @@ using SteamTool.Proxy;
 using SteamTool.Core;
 using SteamTools.Services;
 using MetroTrilithon.Mvvm;
+using SteamTools.Properties;
+using Microsoft.Win32;
+using System.Diagnostics;
+using System.IO;
+using SteamTool.Model;
 
 namespace SteamTools.ViewModels
 {
@@ -18,20 +23,6 @@ namespace SteamTools.ViewModels
         {
             get { return Properties.Resources.Steam302; }
             protected set { throw new NotImplementedException(); }
-        }
-
-        private List<ProxyDomainModel> _SupportedServices;
-        public List<ProxyDomainModel> SupportedServices
-        {
-            get { return _SupportedServices; }
-            set
-            {
-                if (this._SupportedServices != value)
-                {
-                    this._SupportedServices = value;
-                    this.RaisePropertyChanged();
-                }
-            }
         }
 
         #region 代理状态变更通知
@@ -46,13 +37,13 @@ namespace SteamTools.ViewModels
                     this._ProxyStatus = value;
                     if (value)
                     {
-                        ProxyService.Current.Proxy.StartProxy();
-                        StatusService.Current.Notify("代理已启动");
+                        ProxyStatus = ProxyService.Current.Proxy.StartProxy();
+                        StatusService.Current.Notify(Resources.ProxyRun);
                     }
                     else
                     {
                         ProxyService.Current.Proxy.StopProxy();
-                        StatusService.Current.Notify("代理已关闭");
+                        StatusService.Current.Notify(Resources.ProxyStop);
                     }
                     this.RaisePropertyChanged();
                 }
@@ -60,34 +51,6 @@ namespace SteamTools.ViewModels
         }
         #endregion
 
-
-        #region 脚本启用状态
-        private bool _ScriptServiceEnable;
-        public bool ScriptServiceEnable
-        {
-            get { return _ScriptServiceEnable; }
-            set
-            {
-                if (this._ScriptServiceEnable != value)
-                {
-                    this._ScriptServiceEnable = value;
-                    this.RaisePropertyChanged();
-                }
-            }
-        }
-        #endregion
-
-        public void Update()
-        {
-            SupportedServices = ProxyService.ProxyDomains;
-        }
-
-        internal override void Initialize()
-        {
-            //HttpProxy.Current.SetupCertificate();
-            ProxyService.Current.Subscribe(nameof(ProxyService.ProxyDomains), this.Update).AddTo(this);
-            this.Update();
-        }
 
         public void SetupCertificate_OnClick()
         {
@@ -102,6 +65,39 @@ namespace SteamTools.ViewModels
         public void EditHostsFile_OnClick()
         {
             hostsService.StartNotepadEditHosts();
+        }
+
+        public void OpenSelectFileDialog_Click()
+        {
+            var fileDialog = new OpenFileDialog
+            {
+                Filter = "脚本文件|*.js",
+                Title = Resources.ImportScript,
+                //AddExtension = true,
+                Multiselect = true
+            };
+            if (fileDialog.ShowDialog().Value && fileDialog.FileNames.Length > 0)
+            {
+                foreach (var file in fileDialog.FileNames)
+                {
+                    File.Copy(file, $@"{Const.SCRIPT_DIR}\{Path.GetFileName(file)}", true);
+                }
+                ProxyService.Current.InitJsScript();
+            }
+        }
+
+        public void OpenScriptFileDir_Click()
+        {
+            Process.Start(Const.SCRIPT_DIR);
+        }
+
+        public void DeleteScript_OnClick(string path)
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+                ProxyService.Current.InitJsScript();
+            }
         }
     }
 }

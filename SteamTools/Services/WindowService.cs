@@ -13,7 +13,8 @@ namespace SteamTools.Services
     public class WindowService : NotificationObject, IDisposableHolder
     {
         public static WindowService Current { get; } = new WindowService();
-
+        private MainWindowViewModel mainWindow;
+        private AchievementWindowViewModel achievementWindow;
         private readonly LivetCompositeDisposable compositeDisposable = new LivetCompositeDisposable();
 
         /// <summary>
@@ -22,36 +23,33 @@ namespace SteamTools.Services
         public MainWindowViewModelBase MainWindow { get; private set; }
 
 
-        public void Initialize()
+        public void Initialize(int appid = 0)
         {
-            this.MainWindow = new MainWindowViewModel();
-
-            //KanColleClient.Current.Subscribe(nameof(KanColleClient.IsStarted), this.UpdateMode).AddTo(this);
+            if (appid < 1)
+            {
+                this.mainWindow = new MainWindowViewModel(true);
+                this.MainWindow = mainWindow;
+            }
+            else
+            {
+                this.achievementWindow = new AchievementWindowViewModel(true);
+                achievementWindow.Initialize(appid);
+                this.MainWindow = achievementWindow;
+            }
         }
-
-        //public void ClearZoomFactor()
-        //{
-        //	this.kanColleWindow?.Messenger.Raise(new InteractionMessage { MessageKey = "WebBrowser.Zoom" });
-        //}
-
-        //public void SetLocationLeft()
-        //{
-        //	this.kanColleWindow?.Messenger.Raise(new SetWindowLocationMessage { MessageKey = "Window.Location", Left = 0.0 });
-        //}
-
 
         public Window GetMainWindow()
         {
-            return new MainWindow { DataContext = this.MainWindow, };
+            if (this.MainWindow == this.mainWindow)
+            {
+                return new MainWindow { DataContext = this.MainWindow, };
+            }
+            if (this.MainWindow == this.achievementWindow)
+            {
+                return new AchievementWindow { DataContext = this.MainWindow, };
+            }
+            throw new InvalidOperationException();
         }
-
-
-        //private void UpdateMode()
-        //{
-        //	this.Mode = KanColleClient.Current.IsStarted
-        //		? KanColleClient.Current.IsInSortie ? WindowServiceMode.InSortie : WindowServiceMode.Started
-        //		: WindowServiceMode.NotStarted;
-        //}
 
         #region disposable members
 

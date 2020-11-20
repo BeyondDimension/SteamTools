@@ -70,8 +70,10 @@ namespace SteamTools.ViewModels
             }
         }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(bool isMainWindow) : base(isMainWindow)
         {
+            this.Title = Resources.WinTitle;
+
             this.TabItems = new List<TabItemViewModel>
             {
                 (this.WelcomePage = new WelcomePageViewModel(this).AddTo(this)),

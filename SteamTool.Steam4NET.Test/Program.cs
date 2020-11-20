@@ -38,11 +38,11 @@ namespace SteamTool.Steam4NET.Test
 
 
             TSteamError steamError = new TSteamError();
-            
+
 
             Console.Write("GetVersion: ");
             StringBuilder version = new StringBuilder();
-            if(steam006.GetVersion(version) != 0)
+            if (steam006.GetVersion(version) != 0)
             {
                 Console.WriteLine("Ok (" + version.ToString() + ")");
             }
@@ -55,7 +55,7 @@ namespace SteamTool.Steam4NET.Test
             steam006.ClearError(ref steamError);
 
             Console.Write("Startup: ");
-            if(steam006.Startup(0, ref steamError) != 0)
+            if (steam006.Startup(0, ref steamError) != 0)
             {
                 Console.WriteLine("Ok");
             }
@@ -79,7 +79,7 @@ namespace SteamTool.Steam4NET.Test
 
             Console.Write("WriteFile: ");
             byte[] fileContent = System.Text.UTF8Encoding.UTF8.GetBytes("test");
-            if(steam006.WriteFile(fileContent, (uint)fileContent.Length, hFile, ref steamError) == fileContent.Length)
+            if (steam006.WriteFile(fileContent, (uint)fileContent.Length, hFile, ref steamError) == fileContent.Length)
             {
                 Console.WriteLine("Ok");
             }
@@ -90,7 +90,7 @@ namespace SteamTool.Steam4NET.Test
             }
 
             Console.Write("CloseFile: ");
-            if(steam006.CloseFile(hFile, ref steamError) == 0)
+            if (steam006.CloseFile(hFile, ref steamError) == 0)
             {
                 Console.WriteLine("Ok");
             }
@@ -116,8 +116,6 @@ namespace SteamTool.Steam4NET.Test
                 Console.WriteLine("clientengine is null !");
                 return -1;
             }
-
-            Console.ReadKey();
 
             int pipe = steamclient.CreateSteamPipe();
             if (pipe == 0)
@@ -181,40 +179,40 @@ namespace SteamTool.Steam4NET.Test
             //    return -1;
             //}
 
-            uint a = steam006.RequestAccountsByEmailAddressEmail("kuku127@msn.com", ref steamError);
+            //uint a = steam006.RequestAccountsByEmailAddressEmail("kuku127@msn.com", ref steamError);
             //Console.WriteLine(steamError.nDetailedErrorCode);
             //Console.ReadLine();
 
             Console.Write("Waiting for stats... ");
 
-            CallbackMsg_t callbackMsg = new CallbackMsg_t();
-            bool statsReceived = false;
-            while (!statsReceived)
-            {
-                while (Steamworks.GetCallback(pipe, ref callbackMsg) && !statsReceived)
-                {
-                    Console.WriteLine(callbackMsg.m_iCallback);
-                    if (callbackMsg.m_iCallback == UserStatsReceived_t.k_iCallback)
-                    {
-                        UserStatsReceived_t userStatsReceived = (UserStatsReceived_t)Marshal.PtrToStructure(callbackMsg.m_pubParam, typeof(UserStatsReceived_t));
-                        if (userStatsReceived.m_steamIDUser == steamuser.GetSteamID() && userStatsReceived.m_nGameID == steamutils.GetAppID())
-                        {
-                            if (userStatsReceived.m_eResult == EResult.k_EResultOK)
-                            {
-                                Console.WriteLine("Ok");
-                                statsReceived = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Failed (" + userStatsReceived.m_eResult + ")");
-                                return -1;
-                            }
-                        }
-                    }
-                    Steamworks.FreeLastCallback(pipe);
-                }
-                System.Threading.Thread.Sleep(100);
-            }
+            //CallbackMsg_t callbackMsg = new CallbackMsg_t();
+            //bool statsReceived = false;
+            //while (!statsReceived)
+            //{
+            //    while (Steamworks.GetCallback(pipe, ref callbackMsg) && !statsReceived)
+            //    {
+            //        Console.WriteLine(callbackMsg.m_iCallback);
+            //        if (callbackMsg.m_iCallback == UserStatsReceived_t.k_iCallback)
+            //        {
+            //            UserStatsReceived_t userStatsReceived = (UserStatsReceived_t)Marshal.PtrToStructure(callbackMsg.m_pubParam, typeof(UserStatsReceived_t));
+            //            if (userStatsReceived.m_steamIDUser == steamuser.GetSteamID() && userStatsReceived.m_nGameID == steamutils.GetAppID())
+            //            {
+            //                if (userStatsReceived.m_eResult == EResult.k_EResultOK)
+            //                {
+            //                    Console.WriteLine("Ok");
+            //                    statsReceived = true;
+            //                }
+            //                else
+            //                {
+            //                    Console.WriteLine("Failed (" + userStatsReceived.m_eResult + ")");
+            //                    return -1;
+            //                }
+            //            }
+            //        }
+            //        Steamworks.FreeLastCallback(pipe);
+            //    }
+            //    System.Threading.Thread.Sleep(100);
+            //}
 
             Console.WriteLine("Stats for the current game :");
             uint numStats = userstats002.GetNumStats(steamutils.GetAppID());
@@ -291,18 +289,18 @@ namespace SteamTool.Steam4NET.Test
             Marshal.FreeHGlobal(pData);
 
 
-            //Console.Write("Games running: ");
-            //for(int i = 0; i < clientuser.NumGamesRunning(); i++)
-            //{
-            //    CGameID gameID = clientuser.GetRunningGameID(i);
-            //    Console.Write(gameID);
-            //    if(i + 1 < clientuser.NumGamesRunning())
-            //        Console.Write(", ");
-            //    else
-            //        Console.Write("\n");
-            //}
+            Console.Write("Games running: ");
+            for(int i = 0; i < clientuser.NumGamesRunning(); i++)
+            {
+                CGameID gameID = clientuser.GetRunningGameID(i);
+                Console.Write(gameID);
+                if(i + 1 < clientuser.NumGamesRunning())
+                    Console.Write(", ");
+                else
+                    Console.Write("\n");
+            }
 
-            Console.WriteLine("Current user SteamID: " + steamuser.GetSteamID());
+            Console.ReadKey();
 
             FriendSessionStateInfo_t sessionStateInfo = clientfriends.GetFriendSessionStateInfo(clientuser.GetSteamID());
 
@@ -350,6 +348,7 @@ namespace SteamTool.Steam4NET.Test
 
             Marshal.FreeHGlobal(pData);
 
+            Console.ReadKey();
             return 0;
         }
     }

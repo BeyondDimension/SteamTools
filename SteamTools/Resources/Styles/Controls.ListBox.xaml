@@ -57,8 +57,8 @@
 							BorderBrush="{TemplateBinding BorderBrush}"
 							Background="{TemplateBinding Background}"
 							Padding="{TemplateBinding Padding}">
-                        <ScrollViewer Style="{DynamicResource {x:Static GridView.GridViewScrollViewerStyleKey}}"
-									  HorizontalScrollBarVisibility="Auto"
+                        <ScrollViewer 
+									  VerticalScrollBarVisibility="Auto"
 									  CanContentScroll="True">
                             <ItemsPresenter />
                         </ScrollViewer>

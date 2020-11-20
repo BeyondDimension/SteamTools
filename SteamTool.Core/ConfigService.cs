@@ -18,7 +18,7 @@ namespace SteamTool.Core
         private readonly string ConfigPath =
             Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{Assembly.GetCallingAssembly().GetName().Name}.{ConfigFileName}");
 
-        public SteamToolModel SteamToolModel { get; set; }
+        public SettingsModel SteamToolModel { get; set; }
 
         public void SaveConfig()
         {
@@ -26,9 +26,9 @@ namespace SteamTool.Core
             File.WriteAllText(ConfigPath, jsonData, Encoding.UTF8);
         }
 
-        public SteamToolModel ReadConfig()
+        public SettingsModel ReadConfig()
         {
-            SteamToolModel = JsonConvert.DeserializeObject<SteamToolModel>(File.ReadAllText(ConfigPath, Encoding.UTF8));
+            SteamToolModel = JsonConvert.DeserializeObject<SettingsModel>(File.ReadAllText(ConfigPath, Encoding.UTF8));
             return SteamToolModel;
         }
     }

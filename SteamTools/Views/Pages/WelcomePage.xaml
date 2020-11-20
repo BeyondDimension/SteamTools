@@ -19,8 +19,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1"
-			  Margin="0,8,0,0"
-			  Visibility="{Binding ElementName=InformationTab, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+			  Margin="0,8,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -110,8 +109,8 @@
                         </Paragraph>
                         <Paragraph>
                             <InlineUIContainer>
-                                <CheckBox IsChecked="{Binding ClearCacheOnNextStartup}"
-										  Content="次回起動時にキャッシュを削除する" />
+                                <!--<CheckBox IsChecked="{Binding ClearCacheOnNextStartup}"
+										  Content="下次启动不再显示" />-->
                             </InlineUIContainer>
                             <LineBreak />
                             <InlineUIContainer>

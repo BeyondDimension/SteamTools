@@ -22,7 +22,7 @@ namespace SteamTool.Core
             Kernel.Bind<RegistryKeyService>().To<RegistryKeyService>();
             Kernel.Bind<SteamToolService>().To<SteamToolService>();
             Kernel.Bind<VdfService>().To<VdfService>();
-            Kernel.Bind<HttpServices>().To<HttpServices>();
+            Kernel.Bind<HttpServices>().ToConstant(new HttpServices());
             Kernel.Bind<HostsService>().To<HostsService>();
         }
 

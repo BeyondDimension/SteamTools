@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 namespace SAM.API.Interfaces
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct ISteamUtils005
+    public struct ISteamUtils009
     {
         public IntPtr GetSecondsSinceAppActive;
         public IntPtr GetSecondsSinceComputerActive;
@@ -46,6 +46,8 @@ namespace SAM.API.Interfaces
         public IntPtr GetIPCCallCount;
         public IntPtr SetWarningMessageHook;
         public IntPtr IsOverlayEnabled;
+        public IntPtr IsSteamChinaLauncher;
+        public IntPtr IsSteamRunningInVR;
         public IntPtr OverlayNeedsPresent;
     }
 }

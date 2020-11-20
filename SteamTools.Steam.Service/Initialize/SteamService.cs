@@ -18,8 +18,8 @@ namespace SteamTool.Steam.Service
 
         public SteamService()
         {
-            Kernel.Bind<SteamworksApiService_1>().To<SteamworksApiService_1>();
-            Kernel.Bind<SteamworksApiService>().To<SteamworksApiService>();
+            //Kernel.Bind<SteamworksApiService_1>().To<SteamworksApiService_1>();
+            Kernel.Bind<SteamworksApiService>().ToConstant(new SteamworksApiService());
 
 
             Kernel.Bind<SteamDbApiService>().To<SteamDbApiService>();

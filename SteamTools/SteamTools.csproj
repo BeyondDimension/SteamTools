@@ -69,8 +69,12 @@
 	
 	<ItemGroup>
 		<None Remove="Resources\Asstes\app.ico" />
-		<None Remove="Resources\Asstes\bell.svg" />
 		<None Remove="Resources\Asstes\Copy.png" />
+		<None Remove="Resources\Asstes\delete.png" />
+		<None Remove="Resources\Asstes\install-line.png" />
+		<None Remove="Resources\Asstes\play.png" />
+		<None Remove="Resources\Asstes\unlock.png" />
+		<None Remove="Resources\Asstes\unlock1.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -78,15 +82,18 @@
 		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-		<PackageReference Include="SharpVectors.Reloaded" Version="1.6.0" />
 		<PackageReference Include="StatefulModel.Standard" Version="0.1.0" />
 		<PackageReference Include="System.Reactive" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Resource Include="Resources\Asstes\app.ico" />
-		<Resource Include="Resources\Asstes\bell.svg" />
-		<Resource Include="Resources\Asstes\Copy.png" />
+		<Resource Include="Resources\Asstes\copy.png" />
+		<Resource Include="Resources\Asstes\delete.png" />
+		<Resource Include="Resources\Asstes\install-line.png" />
+		<Resource Include="Resources\Asstes\play.png" />
+		<Resource Include="Resources\Asstes\unlock.png" />
+		<Resource Include="Resources\Asstes\unlock1.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -237,7 +244,6 @@
 	<ItemGroup>
 		<Folder Include="Resources\Asstes\Font\" />
 		<Folder Include="Resources\Globalization\" />
-		<Folder Include="scripts\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -273,7 +279,13 @@
 			<Generator>SettingsSingleFileGenerator</Generator>
 			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
 		</None>
+		<None Update="scripts\GM.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="scripts\Steam自动探索队列.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="scripts\Steam解锁区域限制.js">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

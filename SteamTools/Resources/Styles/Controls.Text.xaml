@@ -2,173 +2,175 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:s="clr-namespace:System;assembly=mscorlib">
 
-	<!-- ReSharper disable once InconsistentNaming -->
-	<Style x:Key="_TextBaseStyleKey"
+    <!-- ReSharper disable once InconsistentNaming -->
+    <Style x:Key="_TextBaseStyleKey"
 		   TargetType="{x:Type TextBlock}"
 		   BasedOn="{StaticResource {x:Type TextBlock}}">
-		<Setter Property="VerticalAlignment"
+        <Setter Property="VerticalAlignment"
 				Value="Center" />
-		<Style.Triggers>
-			<Trigger Property="IsEnabled"
+        <Style.Triggers>
+            <Trigger Property="IsEnabled"
 					 Value="False">
-				<Setter Property="Foreground"
+                <Setter Property="Foreground"
 						Value="{DynamicResource InactiveForegroundBrushKey}" />
-			</Trigger>
-		</Style.Triggers>
-	</Style>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
-	<!-- ReSharper disable once InconsistentNaming -->
-	<Style x:Key="_TextElementBaseStyleKey"
+    <!-- ReSharper disable once InconsistentNaming -->
+    <Style x:Key="_TextElementBaseStyleKey"
 		   TargetType="{x:Type Run}">
-		<Style.Triggers>
-			<Trigger Property="IsEnabled"
+        <Style.Triggers>
+            <Trigger Property="IsEnabled"
 					 Value="False">
-				<Setter Property="Foreground"
+                <Setter Property="Foreground"
 						Value="{DynamicResource InactiveForegroundBrushKey}" />
-			</Trigger>
-		</Style.Triggers>
-	</Style>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
-    <FontFamily x:Key="DefaultFontFamilyKey">Microsoft YaHei</FontFamily>
-	<s:Double x:Key="DefaultFontSizeKey">16</s:Double>
-	<Style x:Key="DefaultTextStyleKey"
+
+
+    <FontFamily x:Key="DefaultFontFamilyKey">Microsoft YaHei UI</FontFamily>
+    <s:Double x:Key="DefaultFontSizeKey">12</s:Double>
+    <Style x:Key="DefaultTextStyleKey"
 		   TargetType="{x:Type TextBlock}"
 		   BasedOn="{StaticResource _TextBaseStyleKey}">
-		<Setter Property="FontFamily"
+        <Setter Property="FontFamily"
 				Value="{DynamicResource DefaultFontFamilyKey}" />
-		<Setter Property="FontSize"
+        <Setter Property="FontSize"
 				Value="{DynamicResource DefaultFontSizeKey}" />
-		<Setter Property="Foreground"
+        <Setter Property="Foreground"
 				Value="{DynamicResource ForegroundBrushKey}" />
-		<Setter Property="TextTrimming"
+        <Setter Property="TextTrimming"
 				Value="WordEllipsis" />
-		<Setter Property="TextWrapping"
+        <Setter Property="TextWrapping"
 				Value="Wrap" />
-	</Style>
-	<Style x:Key="DefaultTextElementStyleKey"
+    </Style>
+    <Style x:Key="DefaultTextElementStyleKey"
 		   TargetType="{x:Type Run}"
 		   BasedOn="{StaticResource _TextElementBaseStyleKey}">
-		<Setter Property="FontFamily"
+        <Setter Property="FontFamily"
 				Value="{DynamicResource DefaultFontFamilyKey}" />
-		<Setter Property="FontSize"
+        <Setter Property="FontSize"
 				Value="{DynamicResource DefaultFontSizeKey}" />
-		<Setter Property="Foreground"
+        <Setter Property="Foreground"
 				Value="{DynamicResource ForegroundBrushKey}" />
-	</Style>
+    </Style>
 
 
 
-    <FontFamily x:Key="DetailFontFamilyKey">Microsoft YaHei</FontFamily>
-	<s:Double x:Key="DetailFontSizeKey">12</s:Double>
-	<Style x:Key="DetailTextStyleKey"
+    <FontFamily x:Key="DetailFontFamilyKey">Microsoft YaHei UI</FontFamily>
+    <s:Double x:Key="DetailFontSizeKey">10.5</s:Double>
+    <Style x:Key="DetailTextStyleKey"
 		   TargetType="{x:Type TextBlock}"
 		   BasedOn="{StaticResource _TextBaseStyleKey}">
-		<Setter Property="FontFamily"
+        <Setter Property="FontFamily"
 				Value="{DynamicResource DetailFontFamilyKey}" />
-		<Setter Property="FontSize"
+        <Setter Property="FontSize"
 				Value="{DynamicResource DetailFontSizeKey}" />
-		<Setter Property="Foreground"
+        <Setter Property="Foreground"
 				Value="{DynamicResource ForegroundBrushKey}" />
-		<Setter Property="TextTrimming"
+        <Setter Property="TextTrimming"
 				Value="WordEllipsis" />
-		<Setter Property="TextWrapping"
+        <Setter Property="TextWrapping"
 				Value="Wrap" />
-	</Style>
-	<Style x:Key="DetailTextElementStyleKey"
+    </Style>
+    <Style x:Key="DetailTextElementStyleKey"
 		   TargetType="{x:Type Run}"
 		   BasedOn="{StaticResource _TextElementBaseStyleKey}">
-		<Setter Property="FontFamily"
+        <Setter Property="FontFamily"
 				Value="{DynamicResource DetailFontFamilyKey}" />
-		<Setter Property="FontSize"
+        <Setter Property="FontSize"
 				Value="{DynamicResource DetailFontSizeKey}" />
-		<Setter Property="Foreground"
+        <Setter Property="Foreground"
 				Value="{DynamicResource ForegroundBrushKey}" />
-	</Style>
+    </Style>
 
 
 
-    <FontFamily x:Key="EmphaticFontFamilyKey">Microsoft YaHei</FontFamily>
-	<s:Double x:Key="EmphaticFontSizeKey">18</s:Double>
-	<Style x:Key="EmphaticTextStyleKey"
+    <FontFamily x:Key="EmphaticFontFamilyKey">Microsoft YaHei UI</FontFamily>
+    <s:Double x:Key="EmphaticFontSizeKey">15</s:Double>
+    <Style x:Key="EmphaticTextStyleKey"
 		   TargetType="{x:Type TextBlock}"
 		   BasedOn="{StaticResource _TextBaseStyleKey}">
-		<Setter Property="FontFamily"
+        <Setter Property="FontFamily"
 				Value="{DynamicResource EmphaticFontFamilyKey}" />
-		<Setter Property="FontSize"
+        <Setter Property="FontSize"
 				Value="{DynamicResource EmphaticFontSizeKey}" />
-		<Setter Property="Foreground"
+        <Setter Property="Foreground"
 				Value="{DynamicResource ActiveForegroundBrushKey}" />
-		<Setter Property="TextTrimming"
+        <Setter Property="TextTrimming"
 				Value="WordEllipsis" />
-		<Setter Property="TextWrapping"
+        <Setter Property="TextWrapping"
 				Value="Wrap" />
-	</Style>
-	<Style x:Key="EmphaticTextElementStyleKey"
+    </Style>
+    <Style x:Key="EmphaticTextElementStyleKey"
 		   TargetType="{x:Type Run}"
 		   BasedOn="{StaticResource _TextElementBaseStyleKey}">
-		<Setter Property="FontFamily"
+        <Setter Property="FontFamily"
 				Value="{DynamicResource EmphaticFontFamilyKey}" />
-		<Setter Property="FontSize"
+        <Setter Property="FontSize"
 				Value="{DynamicResource EmphaticFontSizeKey}" />
-		<Setter Property="Foreground"
+        <Setter Property="Foreground"
 				Value="{DynamicResource ActiveForegroundBrushKey}" />
-	</Style>
+    </Style>
 
 
 
-    <FontFamily x:Key="CaptionFontFamilyKey">Microsoft YaHei Light</FontFamily>
-	<s:Double x:Key="CaptionFontSizeKey">18</s:Double>
-	<Style x:Key="CaptionTextStyleKey"
+    <FontFamily x:Key="CaptionFontFamilyKey">Microsoft YaHei UI Light</FontFamily>
+    <s:Double x:Key="CaptionFontSizeKey">16</s:Double>
+    <Style x:Key="CaptionTextStyleKey"
 		   TargetType="{x:Type TextBlock}"
 		   BasedOn="{StaticResource _TextBaseStyleKey}">
-		<Setter Property="FontFamily"
+        <Setter Property="FontFamily"
 				Value="{DynamicResource CaptionFontFamilyKey}" />
-		<Setter Property="FontSize"
+        <Setter Property="FontSize"
 				Value="{DynamicResource CaptionFontSizeKey}" />
-		<Setter Property="Foreground"
+        <Setter Property="Foreground"
 				Value="{DynamicResource ActiveForegroundBrushKey}" />
-		<Setter Property="TextTrimming"
+        <Setter Property="TextTrimming"
 				Value="WordEllipsis" />
-		<Setter Property="Opacity"
+        <Setter Property="Opacity"
 				Value="0.85" />
-	</Style>
-	<Style x:Key="CaptionTextElementStyleKey"
+    </Style>
+    <Style x:Key="CaptionTextElementStyleKey"
 		   TargetType="{x:Type Run}"
 		   BasedOn="{StaticResource _TextElementBaseStyleKey}">
-		<Setter Property="FontFamily"
+        <Setter Property="FontFamily"
 				Value="{DynamicResource CaptionFontFamilyKey}" />
-		<Setter Property="FontSize"
+        <Setter Property="FontSize"
 				Value="{DynamicResource CaptionFontSizeKey}" />
-		<Setter Property="Foreground"
+        <Setter Property="Foreground"
 				Value="{DynamicResource ActiveForegroundBrushKey}" />
-	</Style>
+    </Style>
 
 
 
-    <FontFamily x:Key="HeaderFontFamilyKey">Microsoft YaHei Light</FontFamily>
-	<s:Double x:Key="HeaderFontSizeKey">16</s:Double>
-	<Style x:Key="HeaderTextStyleKey"
+    <FontFamily x:Key="HeaderFontFamilyKey">Microsoft YaHei UI Light</FontFamily>
+    <s:Double x:Key="HeaderFontSizeKey">14</s:Double>
+    <Style x:Key="HeaderTextStyleKey"
 		   TargetType="{x:Type TextBlock}"
 		   BasedOn="{StaticResource _TextBaseStyleKey}">
-		<Setter Property="FontFamily"
+        <Setter Property="FontFamily"
 				Value="{DynamicResource HeaderFontFamilyKey}" />
-		<Setter Property="FontSize"
+        <Setter Property="FontSize"
 				Value="{DynamicResource HeaderFontSizeKey}" />
-		<Setter Property="Foreground"
+        <Setter Property="Foreground"
 				Value="{DynamicResource ForegroundBrushKey}" />
-		<Setter Property="TextTrimming"
+        <Setter Property="TextTrimming"
 				Value="WordEllipsis" />
-	</Style>
-	<Style x:Key="HeaderTextElementStyleKey"
+    </Style>
+    <Style x:Key="HeaderTextElementStyleKey"
 		   TargetType="{x:Type Run}"
 		   BasedOn="{StaticResource _TextElementBaseStyleKey}">
-		<Setter Property="FontFamily"
+        <Setter Property="FontFamily"
 				Value="{DynamicResource HeaderFontFamilyKey}" />
-		<Setter Property="FontSize"
+        <Setter Property="FontSize"
 				Value="{DynamicResource HeaderFontSizeKey}" />
-		<Setter Property="Foreground"
+        <Setter Property="Foreground"
 				Value="{DynamicResource ForegroundBrushKey}" />
-	</Style>
+    </Style>
 
 
 

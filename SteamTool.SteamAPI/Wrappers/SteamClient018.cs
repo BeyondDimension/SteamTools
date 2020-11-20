@@ -116,9 +116,9 @@ namespace SAM.API.Wrappers
         #endregion
 
         #region GetSteamUser012
-        public SteamUser012 GetSteamUser012(int user, int pipe)
+        public SteamUser019 GetSteamUser012(int user, int pipe)
         {
-            return this.GetISteamUser<SteamUser012>(user, pipe, "SteamUser012");
+            return this.GetISteamUser<SteamUser019>(user, pipe, "SteamUser019");
         }
         #endregion
 
@@ -173,9 +173,9 @@ namespace SAM.API.Wrappers
         #endregion
 
         #region GetSteamUtils004
-        public SteamUtils005 GetSteamUtils004(int pipe)
+        public SteamUtils009 GetSteamUtils009(int pipe)
         {
-            return this.GetISteamUtils<SteamUtils005>(pipe, "SteamUtils005");
+            return this.GetISteamUtils<SteamUtils009>(pipe, "SteamUtils009");
         }
         #endregion
 

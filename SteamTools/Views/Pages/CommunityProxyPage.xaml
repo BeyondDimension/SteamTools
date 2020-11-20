@@ -10,6 +10,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:livet="http://schemas.livet-mvvm.net/2011/wpf"
              mc:Ignorable="d" 
+             x:Name="u"
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModel:CommunityProxyPageViewModel}"
              Background="{DynamicResource ThemeBrushKey}">
@@ -104,17 +105,20 @@
         <Border Padding="5"  Grid.RowSpan="2"
 						Grid.Column="1" Style="{StaticResource MetroBorderStyle}">
             <DockPanel>
-                <StackPanel DockPanel.Dock="Top" Margin="0,0,0,6">
+                <StackPanel DockPanel.Dock="Top">
                     <TextBlock Text="{Binding Resources.Supported_ProxyServices,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
+                    <Rectangle Height=".99"
+								   Margin="0,7,0,6"
+								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
                 </StackPanel>
                 <ListBox DockPanel.Dock="Bottom" 
                          BorderThickness="0"
                          Style="{StaticResource MetroListBox}"
-                         ItemsSource="{Binding SupportedServices}">
+                         ItemsSource="{Binding ProxyDomains,Source={x:Static services:ProxyService.Current}, Mode=TwoWay}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <DockPanel Height="30">
-                                <CheckBox HorizontalAlignment="Left"  Content="{Binding DomainTag}" IsChecked="{Binding IsEnbale}">
+                            <DockPanel Height="30" ToolTip="{Binding DomainTag}">
+                                <CheckBox HorizontalAlignment="Left"  Content="{Binding Name}" IsChecked="{Binding IsEnable}">
                                 </CheckBox>
                                 <TextBlock HorizontalAlignment="Right"  Text="{Binding Domains[0]}"
                                            TextAlignment="Center" VerticalAlignment="Center"/>
@@ -133,15 +137,15 @@
                 <Rectangle Height=".99"
 								   Margin="0,7,0,3"
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
-                <CheckBox Style="{DynamicResource SliderCheckBox}" Margin="5" HorizontalAlignment="Center" IsChecked="{Binding ScriptServiceEnable}" >
+                <CheckBox Style="{DynamicResource SliderCheckBox}" Margin="5" HorizontalAlignment="Center" IsChecked="{Binding IsEnableScript,Source={x:Static services:ProxyService.Current}, Mode=TwoWay}" >
                     <TextBlock FontSize="16" Foreground="{DynamicResource ActiveForegroundBrushKey}">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path= ProxyStatus}" Value="False">
+                                    <DataTrigger Binding="{Binding Path= IsEnableScript,Source={x:Static services:ProxyService.Current}, Mode=OneWay}" Value="False">
                                         <Setter Property="Text" Value="{Binding Resources.EnableScriptService,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"></Setter>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path= ProxyStatus}" Value="True">
+                                    <DataTrigger Binding="{Binding Path= IsEnableScript,Source={x:Static services:ProxyService.Current}, Mode=OneWay}" Value="True">
                                         <Setter Property="Text" Value="{Binding Resources.DisableScriptService,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"></Setter>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -155,7 +159,7 @@
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <livet:LivetCallMethodAction
-                                            MethodName="EditHostsFile_OnClick"
+                                            MethodName="OpenSelectFileDialog_Click"
                                             MethodTarget="{Binding}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -165,7 +169,7 @@
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <livet:LivetCallMethodAction
-                                            MethodName="EditHostsFile_OnClick"
+                                            MethodName="OpenScriptFileDir_Click"
                                             MethodTarget="{Binding}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -176,26 +180,68 @@
 
         </Border>
         <Border  Grid.Row="2"
-						Grid.Column="1" Style="{StaticResource MetroBorderStyle}">
+						Grid.Column="1" 
+                        Padding="5" Style="{StaticResource MetroBorderStyle}">
             <DockPanel>
-                <StackPanel Margin="0,0,0,6" DockPanel.Dock="Top">
-                <TextBlock  Text="{Binding Resources.ScriptList,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
+                <StackPanel DockPanel.Dock="Top">
+                    <TextBlock  Text="{Binding Resources.ScriptList,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
+                    <Rectangle Height=".99"
+								   Margin="0,7,0,3"
+								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
                 </StackPanel>
-                <ListBox DockPanel.Dock="Bottom" 
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl DockPanel.Dock="Bottom" 
                          BorderThickness="0"
-                         Style="{StaticResource MetroListBox}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <DockPanel Height="30" Margin="5,0">
-                                <CheckBox HorizontalAlignment="Left"  Content="{Binding DomainTag}" IsChecked="{Binding IsEnbale}">
-                                </CheckBox>
-                                <TextBlock HorizontalAlignment="Right"  Text="{Binding Domain}"
-                                           FontSize="20" 
-                                           TextAlignment="Center" VerticalAlignment="Center"/>
-                            </DockPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                         ItemsSource="{Binding ProxyScripts,Source={x:Static services:ProxyService.Current}, Mode=OneWay}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderThickness=".99"
+								BorderBrush="{DynamicResource BorderBrushKey}"
+								Margin="0,4"
+								Padding="5">
+                                    <StackPanel>
+                                        <DockPanel>
+                                            <CheckBox  IsChecked="{Binding IsEnable,Mode=TwoWay}">
+                                                <TextBlock Style="{DynamicResource DefaultTextStyleKey}">
+                                            <Run Text="{Binding Name}" Style="{DynamicResource EmphaticTextElementStyleKey}">
+                                            </Run>
+                                            			<Run Text=" " />
+			<Run Text="version" />
+			<Run Text="{Binding Version, Mode=OneWay}" />
+			<Run Text=" / " />
+			<Run Text="{Binding Author, Mode=OneWay}" />
+                                                </TextBlock>
+                                            </CheckBox>
+                                            <!--<metro:LinkButton HorizontalAlignment="Right" Text="{Binding Resources.Delete,Source={x:Static services:ResourceService.Current}, Mode=OneWay}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Click">
+                                                        <livet:LivetCallMethodAction
+                                                            MethodName="DeleteScript_OnClick"
+                                                            MethodParameter="{Binding FilePath}"
+                                                            MethodTarget="{Binding DataContext,ElementName=u}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </metro:LinkButton>-->
+                                            <Image HorizontalAlignment="Right" Source="/Resources/Asstes/delete.png" Width="16" Height="16" Cursor="Hand" ToolTip="{Binding Resources.Delete,Source={x:Static services:ResourceService.Current}}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                        <livet:LivetCallMethodAction
+                                                            MethodName="DeleteScript_OnClick"
+                                                            MethodParameter="{Binding FilePath}"
+                                                            MethodTarget="{Binding DataContext,ElementName=u}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </Image>
+                                        </DockPanel>
+                                        <Border Height="4" />
+                                        <TextBlock Text="{Binding Description, Mode=OneWay}"
+				   Style="{DynamicResource DefaultTextStyleKey}" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
             </DockPanel>
         </Border>
         <!--#endregion-->

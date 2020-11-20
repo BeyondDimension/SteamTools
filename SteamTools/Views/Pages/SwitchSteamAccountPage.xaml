@@ -27,7 +27,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{Binding AvatarMedium}" Width="64" Height="64" Cursor="Hand" ToolTip="{Binding Resources.HeadImageTootlip,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:EventTrigger EventName="MouseLeftButtonUp">
                                             <livet:LivetCallMethodAction
                                             MethodName="HeadImage_OnClick"
                                             MethodParameter="{Binding ProfileUrl}"

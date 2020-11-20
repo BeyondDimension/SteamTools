@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:SteamTools.Views.Controls"
             xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
             xmlns:services="clr-namespace:SteamTools.Services"
-            xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
             xmlns:vm="clr-namespace:SteamTools.ViewModels"
             mc:Ignorable="d"
             d:DesignHeight="25" d:DesignWidth="780">

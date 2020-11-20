@@ -26,7 +26,7 @@ using SAM.API.Interfaces;
 
 namespace SAM.API.Wrappers
 {
-    public class SteamUtils005 : NativeWrapper<ISteamUtils005>
+    public class SteamUtils009 : NativeWrapper<ISteamUtils009>
     {
         #region GetConnectedUniverse
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
@@ -47,6 +47,29 @@ namespace SAM.API.Wrappers
             var result = this.Call<IntPtr, NativeGetIPCountry>(this.Functions.GetIPCountry, this.ObjectAddress);
             return NativeStrings.PointerToString(result);
         }
+        #endregion
+
+        #region IsSteamChinaLauncher
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        private delegate bool NativeIsSteamChinaLauncher(IntPtr self);
+        public bool IsSteamChinaLauncher()
+        {
+            var result = this.Call<bool, NativeIsSteamChinaLauncher>(this.Functions.IsSteamChinaLauncher, this.ObjectAddress);
+            return result;
+        }
+        #endregion
+
+        #region IsSteamRunningInVR
+
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        private delegate bool NativeIsSteamRunningInVR(IntPtr self);
+        public bool IsSteamRunningInVR()
+        {
+            return this.Call<bool, NativeIsSteamRunningInVR>(this.Functions.IsSteamRunningInVR, this.ObjectAddress);
+        }
+
         #endregion
 
         #region GetImageSize
