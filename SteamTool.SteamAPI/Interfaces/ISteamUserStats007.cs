@@ -58,5 +58,7 @@ namespace SAM.API.Interfaces
         public IntPtr GetDownloadedLeaderboardEntry;
         public IntPtr UploadLeaderboardScore;
         public IntPtr GetNumberOfCurrentPlayers;
+        public IntPtr GetAchievementAchievedPercent;
+        public IntPtr RequestGlobalAchievementPercentages;
     }
 }

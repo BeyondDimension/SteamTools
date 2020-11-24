@@ -34,7 +34,7 @@ namespace SteamTools
             string strFullPath = Path.GetFileName(Assembly.GetExecutingAssembly().Location);
             if ($"{ProductInfo.Title}.exe" != strFullPath)
             {
-                MessageBox.Show("禁止修改程序名称", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                //MessageBox.Show(SteamTools.Properties.Resources.ReNameErrorInfo, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 this.Shutdown();
             }
         }
@@ -50,8 +50,6 @@ namespace SteamTools
             if (appInstance.IsFirst)
 #endif
             {
-                IsRenameProgram();
-
 #if DEBUG
                 if (e.Args.Length != 0)
                 {
@@ -83,6 +81,7 @@ namespace SteamTools
                     this.ProcessCommandLineParameter(args.CommandLineArgs);
                 };
 #endif
+
                 base.OnStartup(e);
             }
 #if !DEBUG
@@ -98,11 +97,13 @@ namespace SteamTools
             try
             {
                 Logger.Error($"{Assembly.GetExecutingAssembly().GetName().Name} Run Error : {Environment.NewLine}", e.Exception);
-                MessageBox.Show(e.Exception.ToString(), "发生错误");
+                MessageBox.Show(e.Exception.ToString(), "Error");
+                //WindowService.Current.ShowDialogWindow(e.Exception.Message, "Error");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Debug.WriteLine(ex); 
+                MessageBox.Show(ex.Message, "Error");
             }
 
             Current.Shutdown();
@@ -135,9 +136,6 @@ namespace SteamTools
         {
             Debug.WriteLine("多重启动通知: " + args.ToString(" "));
             // 当使用命令行参数多次启动时，您可以执行某些操作
-            IsRenameProgram();
-            if (args.Length == 0)
-                this.Shutdown();
             if (!int.TryParse(args[0], out var appId))
                 this.Shutdown();
 

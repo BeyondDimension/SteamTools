@@ -19,18 +19,18 @@
         <ItemsControl
             Foreground="{DynamicResource HighlightForegroundBrushKey}"
             Name="UserList" 
-            ItemsSource="{Binding SteamUsers}">
+            ItemsSource="{Binding SteamUsers,Mode=OneWay}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="20,10">
                         <DockPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{Binding AvatarMedium}" Width="64" Height="64" Cursor="Hand" ToolTip="{Binding Resources.HeadImageTootlip,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
+                                <Image Source="{Binding AvatarMedium,Mode=OneWay}" Width="64" Height="64" Cursor="Hand" ToolTip="{Binding Resources.HeadImageTootlip,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="MouseLeftButtonUp">
                                             <livet:LivetCallMethodAction
                                             MethodName="HeadImage_OnClick"
-                                            MethodParameter="{Binding ProfileUrl}"
+                                            MethodParameter="{Binding ProfileUrl,Mode=OneWay}"
                                             MethodTarget="{Binding DataContext,ElementName=u}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
@@ -39,12 +39,12 @@
                                     <Path.Style>
                                         <Style TargetType="Path">
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Path= OnlineState}" Value="online">
+                                                <DataTrigger Binding="{Binding Path= OnlineState,Mode=OneWay}" Value="online">
                                                     <Setter Property="Visibility"  Value="Visible"></Setter>
                                                     <Setter Property="Fill" Value="#08D969"></Setter>
                                                     <Setter Property="ToolTip" Value="{Binding Resources.Online,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"></Setter>
                                                 </DataTrigger>
-                                                <DataTrigger Binding="{Binding Path= OnlineState}" Value="offline">
+                                                <DataTrigger Binding="{Binding Path= OnlineState,Mode=OneWay}" Value="offline">
                                                     <Setter Property="Visibility"  Value="Visible"></Setter>
                                                     <Setter Property="Fill" Value="#adadad"></Setter>
                                                     <Setter Property="ToolTip" Value="{Binding Resources.Offline,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"></Setter>
@@ -55,7 +55,7 @@
                                 </Path>
                             </StackPanel>
                             <Separator Opacity="0" Width="30"/>
-                            <metro:LinkButton Text="{Binding SteamID}" ToolTip="{Binding Resources.UserChangeTootlip,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" VerticalAlignment="Center" FontSize="24" Width="Auto">
+                            <metro:LinkButton Text="{Binding SteamID,Mode=OneWay}" ToolTip="{Binding Resources.UserChangeTootlip,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" VerticalAlignment="Center" FontSize="24" Width="Auto">
                                 <!--<metro:LinkButton.InputBindings >
                                 <MouseBinding Command="{Binding DataContext.SteamIdOnClick,ElementName=u}" MouseAction="LeftClick"></MouseBinding>
                             </metro:LinkButton.InputBindings>-->
@@ -63,21 +63,18 @@
                                     <i:EventTrigger EventName="Click">
                                         <livet:LivetCallMethodAction
                                             MethodName="SteamId_OnClick"
-                                            MethodParameter="{Binding AccountName}"
+                                            MethodParameter="{Binding AccountName,Mode=OneWay}"
                                             MethodTarget="{Binding DataContext,ElementName=u}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </metro:LinkButton>
                             <Separator Opacity="0" Width="30"/>
-                            <TextBox Text="{Binding AccountName}" Background="Transparent" BorderThickness="0"  VerticalAlignment="Center" Foreground="{DynamicResource ActiveForegroundBrushKey}" IsReadOnly="True"></TextBox>
+                            <TextBox Text="{Binding AccountName,Mode=OneWay}" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ActiveForegroundBrushKey}" IsReadOnly="True">
+                            </TextBox>
                             <Separator Opacity="0" Width="30"/>
-                            <TextBox Text="{Binding SteamId64}" Background="Transparent" BorderThickness="0"  VerticalAlignment="Center" Foreground="{DynamicResource ActiveForegroundBrushKey}" IsReadOnly="True"></TextBox>
-                            <!--<TextBlock Text="{Binding SteamId64}"
-                                       VerticalAlignment="Center" FontSize="12"
-                                       TextAlignment="Center" Width="Auto"/>-->
-                            <!--<Image Source="/Resources/Asstes/Copy.png" Margin="6,0" Width="16"></Image>-->
+                            <!--<TextBox Text="{Binding SteamId3_Int,Mode=OneWay}" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ActiveForegroundBrushKey}" IsReadOnly="True" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>-->
+                            <TextBox Text="{Binding SteamId64,Mode=OneWay}" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ActiveForegroundBrushKey}" IsReadOnly="True" VerticalAlignment="Center"></TextBox>
                             <Separator Opacity="0" Width="30"/>
-
                             <TextBlock  HorizontalAlignment="Right" Text="{Binding LastLoginTime,StringFormat={x:Static prop:Resources.LastloginTime},Mode=OneWay}"
                                        VerticalAlignment="Center" FontSize="14"
                                        TextAlignment="Center" Width="Auto"/>

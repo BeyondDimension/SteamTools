@@ -14,7 +14,7 @@
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModel:CommunityProxyPageViewModel}"
              Background="{DynamicResource ThemeBrushKey}">
-    <Grid>
+    <Grid Margin="5,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="3*" />
@@ -31,7 +31,7 @@
                 <Rectangle Height=".99"
 								   Margin="0,7,0,6"
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
-                <CheckBox Style="{DynamicResource SliderCheckBox}" Margin="5" HorizontalAlignment="Center" IsChecked="{Binding ProxyStatus}" >
+                <CheckBox x:Name="service" Style="{DynamicResource SliderCheckBox}" Margin="5" HorizontalAlignment="Center" IsChecked="{Binding ProxyStatus}" >
                     <TextBlock FontSize="16" Foreground="{DynamicResource ActiveForegroundBrushKey}">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
@@ -60,6 +60,7 @@
 
                 <StackPanel Margin="10" VerticalAlignment="Bottom">
                     <CheckBox Content="{Binding Resources.AutoRunProxyService,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" HorizontalAlignment="Center"></CheckBox>
+                    <CheckBox Content="{Binding Resources.GOG_Plugin_Support,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" HorizontalAlignment="Center" IsChecked="True"></CheckBox>
                     <Separator Opacity="0" Height="10"/>
                     <Button Content="{Binding Resources.SetupCertificate,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" FontSize="14" Height="30">
                         <i:Interaction.Triggers>
@@ -112,9 +113,10 @@
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
                 </StackPanel>
                 <ListBox DockPanel.Dock="Bottom" 
+                         IsEnabled="{Binding ElementName=service,Path=IsChecked,Mode=OneWay,Converter={StaticResource ReverseBooleanConverter}}"
                          BorderThickness="0"
                          Style="{StaticResource MetroListBox}"
-                         ItemsSource="{Binding ProxyDomains,Source={x:Static services:ProxyService.Current}, Mode=TwoWay}">
+                         ItemsSource="{Binding ProxyDomains.Value,Source={x:Static services:ProxyService.Current}, Mode=OneWay}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel Height="30" ToolTip="{Binding DomainTag}">
@@ -201,7 +203,7 @@
 								Padding="5">
                                     <StackPanel>
                                         <DockPanel>
-                                            <CheckBox  IsChecked="{Binding IsEnable,Mode=TwoWay}">
+                                            <CheckBox  IsChecked="{Binding Enable,Mode=TwoWay}">
                                                 <TextBlock Style="{DynamicResource DefaultTextStyleKey}">
                                             <Run Text="{Binding Name}" Style="{DynamicResource EmphaticTextElementStyleKey}">
                                             </Run>

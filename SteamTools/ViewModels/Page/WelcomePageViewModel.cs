@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SteamTool.Steam.Service;
+using SteamTool.Model;
+using SteamTools.Services;
 
 namespace SteamTools.ViewModels
 {
@@ -24,11 +25,8 @@ namespace SteamTools.ViewModels
 		}
 
         internal override void Initialize()
-        {
-            //Task.Run(() =>
-            //{
+		{
 
-            //}).ContinueWith(s => s.Dispose());
-        }
+		}
     }
 }

@@ -18,9 +18,9 @@ namespace SteamTool.Core
         private readonly RegistryKeyService registryKeyService = SteamToolCore.Instance.Get<RegistryKeyService>();
         private readonly VdfService vdfService = SteamToolCore.Instance.Get<VdfService>();
 
-        public string SteamPath { get; }
+        public string SteamPath { get; set; }
 
-        public string SteamExePath { get; }
+        public string SteamExePath { get; set; }
 
         public const string UserVdfPath = "/config/loginusers.vdf";
 

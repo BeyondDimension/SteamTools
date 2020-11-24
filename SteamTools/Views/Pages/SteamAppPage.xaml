@@ -91,43 +91,43 @@
                         <WrapPanel Grid.Column="2">
                             <CheckBox Content="{Binding Resources.Game,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Game, Mode=TwoWay}" />
-                            
+
                             <CheckBox Content="{Binding Resources.Application,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Application, Mode=TwoWay}" />
-                            
+
                             <CheckBox Content="Demo"
 												  IsChecked="{Binding Demo, Mode=TwoWay}" />
-                            
+
                             <CheckBox Content="DLC"
 												  IsChecked="{Binding DLC, Mode=TwoWay}" />
-                            
+
                             <CheckBox Content="{Binding Resources.Media,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Media, Mode=TwoWay}" />
-                            
+
                             <CheckBox Content="{Binding Resources.Music,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Music, Mode=TwoWay}" />
-                            
+
                             <CheckBox Content="{Binding Resources.Tool,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Tool, Mode=TwoWay}" />
-                            
+
                             <CheckBox Content="{Binding Resources.Video,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Video, Mode=TwoWay}" />
-                            
+
                             <CheckBox Content="{Binding Resources.Guide,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Guide, Mode=TwoWay}" />
-                            
+
                             <CheckBox Content="{Binding Resources.Driver,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Driver, Mode=TwoWay}" />
-                            
+
                             <CheckBox Content="{Binding Resources.HideApp,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Config, Mode=TwoWay}" />
-                            
+
                             <CheckBox Content="{Binding Resources.Hardware,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Hardware, Mode=TwoWay}" />
-                            
+
                             <CheckBox Content="{Binding Resources.Unknown,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Unknown, Mode=TwoWay}" />
-                            
+
                         </WrapPanel>
                     </Grid>
                 </StackPanel>
@@ -299,12 +299,18 @@
                                         <Image Margin="6,0" Width="24" Cursor="Hand">
                                             <Image.Style>
                                                 <Style TargetType="{x:Type Image}">
-                                                    <Setter Property="Source" Value="/Resources/Asstes/install-line.png" />
-                                                    <Setter Property="ToolTip" Value="{Binding Resources.Install,Source={x:Static services:ResourceService.Current},Mode=OneWay}" />
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Type}" Value="Media">
+                                                        <DataTrigger Binding="{Binding Type,Mode=OneWay}" Value="Media">
                                                             <Setter Property="Source" Value="/Resources/Asstes/play.png" />
                                                             <Setter Property="ToolTip" Value="{Binding Resources.Play,Source={x:Static services:ResourceService.Current},Mode=OneWay}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsInstalled,Mode=OneWay}" Value="True">
+                                                            <Setter Property="Source" Value="/Resources/Asstes/play.png" />
+                                                            <Setter Property="ToolTip" Value="{Binding Resources.RunGame,Source={x:Static services:ResourceService.Current},Mode=OneWay}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsInstalled,Mode=OneWay}" Value="False">
+                                                            <Setter Property="Source" Value="/Resources/Asstes/install-line.png" />
+                                                            <Setter Property="ToolTip" Value="{Binding Resources.Install,Source={x:Static services:ResourceService.Current},Mode=OneWay}" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>

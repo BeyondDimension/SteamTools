@@ -27,29 +27,6 @@ namespace SteamTools.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
-        internal override void Initialize()
-        {
-            StatusService.Current.Notify("加载本地Steam用户数据");
-            Task.Run(async () =>
-            {
-                SteamUsers = steamService.GetAllUser();
-                SteamUser[] users = new SteamUser[SteamUsers.Count];
-                SteamUsers.CopyTo(users);
-                for (var i = 0; i < SteamUsers.Count; i++)
-                {
-                    var temp = users[i];
-                    users[i] = await webApiService.GetUserInfo(SteamUsers[i].SteamId64);
-                    users[i].AccountName = temp.AccountName;
-                    users[i].RememberPassword = temp.RememberPassword;
-                    users[i].MostRecent = temp.MostRecent;
-                    users[i].Timestamp = temp.Timestamp;
-                    users[i].LastLoginTime = temp.LastLoginTime;
-                }
-                SteamUsers = users.ToList();
-                StatusService.Current.Notify("加载本地Steam用户数据完成");
-            }).ContinueWith(s => s.Dispose());
-        }
-
         /// <summary>
         /// steam记住的用户列表
         /// </summary>
@@ -67,6 +44,29 @@ namespace SteamTools.ViewModels
                 }
             }
         }
+
+        internal override void Initialize()
+        {
+            StatusService.Current.Notify("加载本地Steam用户数据");
+            Task.Run(async () =>
+            {
+                SteamUsers = steamService.GetAllUser();
+                var users = SteamUsers.ToArray();
+                for (var i = 0; i < SteamUsers.Count; i++)
+                {
+                    var temp = users[i];
+                    users[i] = await webApiService.GetUserInfo(SteamUsers[i].SteamId64);
+                    users[i].AccountName = temp.AccountName;
+                    users[i].RememberPassword = temp.RememberPassword;
+                    users[i].MostRecent = temp.MostRecent;
+                    users[i].Timestamp = temp.Timestamp;
+                    users[i].LastLoginTime = temp.LastLoginTime;
+                }
+                SteamUsers = users.ToList();
+                StatusService.Current.Notify("加载本地Steam用户数据完成");
+            }).ContinueWith(s => s.Dispose());
+        }
+
 
         public void SteamId_OnClick(string parameter)
         {

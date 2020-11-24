@@ -13,8 +13,34 @@ namespace SteamTools.ViewModels
     {
         public DialogWindowViewModel() : base()
         {
-            this.Title = string.Format(Resources.AchievementManager, Resources.WinTitle);
+            this.DialogResult = false;
         }
 
+        private string _Content;
+
+        public string Content
+        {
+            get { return _Content; }
+            set
+            {
+                if (this._Content != value)
+                {
+                    this._Content = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
+        public void OK()
+        {
+            this.DialogResult = true;
+            this.Close();
+        }
+
+        public void Cancel()
+        {
+            this.DialogResult = false;
+            this.Close();
+        }
     }
 }

@@ -8,10 +8,13 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MetroRadiance.Interop.Win32;
+using MetroRadiance.UI.Controls;
 using SteamTools.ViewModels;
 
 namespace SteamTools
@@ -19,7 +22,7 @@ namespace SteamTools
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow
+    public partial class MainWindow: MetroWindow
     {
         public MainWindow()
         {
@@ -28,7 +31,15 @@ namespace SteamTools
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
-            e.Cancel = true;
+            e.Cancel = true; 
+            if (this.WindowSettings != null)
+            {
+                var hwnd = new WindowInteropHelper(this).Handle;
+                var placement = User32.GetWindowPlacement(hwnd);
+
+                this.WindowSettings.Placement = this.IsRestoringWindowPlacement ? (WINDOWPLACEMENT?)placement : null;
+                this.WindowSettings.Save();
+            }
             (App.Current.MainWindow.DataContext as MainWindowViewModel).Visible = true;
         }
     }

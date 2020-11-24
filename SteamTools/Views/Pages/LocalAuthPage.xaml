@@ -10,10 +10,9 @@
       d:DataContext="{d:DesignInstance viewModel:LocalAuthPageViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <ListView Name="AuthList" Grid.Column="0" Padding="0" Background="Transparent" BorderThickness="0" ItemsSource="{Binding SteamUsers}">
-
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <DockPanel Width="238"

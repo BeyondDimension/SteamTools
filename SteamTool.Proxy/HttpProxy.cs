@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Titanium.Web.Proxy;
 using Titanium.Web.Proxy.EventArguments;
 using Titanium.Web.Proxy.Http;
 using Titanium.Web.Proxy.Models;
+using SteamTool.Model;
 
 namespace SteamTool.Proxy
 {
@@ -21,12 +23,12 @@ namespace SteamTool.Proxy
 
         public bool IsCertificate => proxyServer.CertificateManager == null;
 
-        public List<ProxyDomainModel> ProxyDomains { get; set; }
+        public IReadOnlyCollection<ProxyDomainModel> ProxyDomains { get; set; }
         public List<ProxyScript> Scripts { get; set; }
         public bool IsEnableScript { get; set; }
         public string CertificateName { get; }
 
-        public HttpProxy(List<ProxyDomainModel> proxyDomains,string certificateName)
+        public HttpProxy(IReadOnlyCollection<ProxyDomainModel> proxyDomains, string certificateName)
         {
             ProxyDomains = proxyDomains;
             CertificateName = certificateName;
@@ -105,7 +107,6 @@ namespace SteamTool.Proxy
                     }
                 }
             }
-
         }
         public async Task OnResponse(object sender, SessionEventArgs e)
         {
@@ -119,7 +120,7 @@ namespace SteamTool.Proxy
             {
                 foreach (var script in Scripts)
                 {
-                    if (script.IsEnable)
+                    if (script.Enable)
                     {
                         if (e.HttpClient.Request.Method == "GET")
                         {
@@ -137,7 +138,44 @@ namespace SteamTool.Proxy
                                         if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
                                         {
                                             var doc = await e.GetResponseBodyAsString();
-                                            var index = doc.LastIndexOf("</body>");
+                                            if (script.Require.Length > 0)
+                                            {
+                                                //var headIndex = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
+                                                //doc = doc.Insert(headIndex, "<meta http-equiv=\"Content-Security-Policy\" content=\"default - src 'self' data: gap: https://ssl.gstatic.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *\">");
+                                                var t = e.HttpClient.Response.Headers.GetFirstHeader("Content-Security-Policy");
+                                                if (!string.IsNullOrEmpty(t.Value))
+                                                {
+                                                    //var tt = t.Value.Split(';');
+                                                    //for (var i = 0; i < tt.Length; i++)
+                                                    //{
+                                                    //    if (tt[i].Contains("script-src"))
+                                                    //    {
+                                                    //        var cc = tt[i].Split(' ').ToList();
+                                                    //        foreach (var req in script.Require)
+                                                    //        {
+                                                    //            var u = new Uri(req);
+                                                    //            cc.Add($"{u.Scheme}://{u.Host}/");
+                                                    //        }
+                                                    //        tt[i] = string.Join(" ", cc);
+                                                    //    }
+                                                    //}
+                                                    //var result = string.Join(";", tt);
+                                                    e.HttpClient.Response.Headers.RemoveHeader(t);
+                                                    //e.HttpClient.Response.Headers.AddHeader("Content-Security-Policy", result);
+                                                }
+#if DEBUG
+                                                Debug.WriteLine(t);
+#endif
+                                                foreach (var req in script.Require)
+                                                {
+                                                    var headIndex = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
+                                                    //<script type="text/javascript" src=""></script>
+                                                    //var result = await httpServices.Get(req);
+                                                    var temp1 = $"<script type=\"text/javascript\" src=\"{req}\"></script>\n";
+                                                    doc = doc.Insert(headIndex, temp1);
+                                                }
+                                            }
+                                            var index = doc.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
                                             var temp = $"<script type=\"text/javascript\">{script.@Content}</script>";
                                             doc = doc.Insert(index, temp);
                                             e.SetResponseBodyString(doc);
@@ -167,6 +205,7 @@ namespace SteamTool.Proxy
         public Task OnCertificateSelection(object sender, CertificateSelectionEventArgs e)
         {
             // set e.clientCertificate to override
+
             return Task.CompletedTask;
         }
 
@@ -177,16 +216,15 @@ namespace SteamTool.Proxy
             //proxyServer.CertificateManager
             //    .CreateServerCertificate($"{Assembly.GetCallingAssembly().GetName().Name} Certificate")
             //    .ContinueWith(c => proxyServer.CertificateManager.RootCertificate = c.Result);
-
-            proxyServer.CertificateManager.RootCertificateIssuerName = $"{CertificateName}";
+            proxyServer.CertificateManager.PfxFilePath = $@"{CertificateName}.Certificate.pfx";
+            proxyServer.CertificateManager.RootCertificateIssuerName = CertificateName;
             proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
             proxyServer.CertificateManager.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.DefaultWindows;
 
             // 可选地设置证书引擎
             // 在Mono之下，只有BouncyCastle将得到支持
             //proxyServer.CertificateManager.CertificateEngine = Network.CertificateEngine.BouncyCastle;
-
-            proxyServer.CertificateManager.SaveFakeCertificates = true;
+            proxyServer.CertificateManager.SaveFakeCertificates = false;
             proxyServer.CertificateManager.EnsureRootCertificate();
             //proxyServer.CertificateManager.TrustRootCertificate(true);
 
@@ -195,13 +233,18 @@ namespace SteamTool.Proxy
 
         public bool DeleteCertificate()
         {
-            if (ProxyRunning || proxyServer.CertificateManager.RootCertificate == null)
+            if (ProxyRunning)
                 return false;
             using (var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser))
             {
                 store.Open(OpenFlags.MaxAllowed);
-                if (store.Certificates.Contains(proxyServer.CertificateManager.RootCertificate))
-                    store.Remove(proxyServer.CertificateManager.RootCertificate);
+                var test = store.Certificates.Find(X509FindType.FindByIssuerName, CertificateName, true);
+                foreach (var item in test)
+                {
+                    store.Remove(item);
+                }
+                //if (store.Certificates.Contains(proxyServer.CertificateManager.RootCertificate))
+                //    store.Remove(proxyServer.CertificateManager.RootCertificate);
             }
             proxyServer.CertificateManager.ClearRootCertificate();
             proxyServer.CertificateManager.RemoveTrustedRootCertificate(true);
@@ -220,6 +263,8 @@ namespace SteamTool.Proxy
                     return false;
                 }
             }
+
+            WirtePemCertificateToGoGSteamPlugins();
 
             #region 写入Hosts
             var hosts = new List<(string, string)>();
@@ -262,7 +307,6 @@ namespace SteamTool.Proxy
                 //GenericCertificate = proxyServer.CertificateManager.RootCertificate
                 //GenericCertificateName= "steamcommunity-a.akamaihd.net"
             };
-
             proxyServer.AddEndPoint(transparentEndPoint);
             try
             {
@@ -299,16 +343,46 @@ namespace SteamTool.Proxy
             }
         }
 
+        public bool WirtePemCertificateToGoGSteamPlugins()
+        {
+            var local = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            var gogPlugins = Path.Combine(local, "GOG.com", "Galaxy", "plugins", "installed");
+            if (Directory.Exists(gogPlugins))
+            {
+                foreach (var dir in Directory.GetDirectories(gogPlugins))
+                {
+                    if (dir.Contains("steam"))
+                    {
+                        var pem = proxyServer.CertificateManager.RootCertificate.GetPublicPemCertificateString();
+                        var certifi = Path.Combine(local, dir, "certifi", "cacert.pem");
+                        if (File.Exists(certifi))
+                        {
+                            var file = File.ReadAllText(certifi);
+                            var s = file.Substring(Const.HostTag, Const.HostTag, true);
+                            if (string.IsNullOrEmpty(s))
+                            {
+                                File.AppendAllText(certifi, "\r\n" + pem);
+                            }
+                            else if (s.Trim() != pem.Trim())
+                            {
+                                var index = file.IndexOf(Const.HostTag);
+                                File.WriteAllText(certifi, file.Remove(index, s.Length) + pem);
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
 
         public bool IsCertificateInstalled(X509Certificate2 certificate2)
         {
             if (certificate2 == null)
                 return false;
-            using (var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser))
-            {
-                store.Open(OpenFlags.MaxAllowed);
-                return store.Certificates.Contains(certificate2);
-            }
+            using var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
+            store.Open(OpenFlags.MaxAllowed);
+            return store.Certificates.Contains(certificate2);
         }
 
         public void Dispose()

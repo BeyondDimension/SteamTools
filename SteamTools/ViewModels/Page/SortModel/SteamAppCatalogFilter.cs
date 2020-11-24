@@ -58,8 +58,23 @@ namespace SteamTools.ViewModels
         {
             if (string.IsNullOrEmpty(Text))
                 return true;
-            if (!string.IsNullOrEmpty(Text) && (app.Name.IndexOf(this.Text, StringComparison.OrdinalIgnoreCase) > -1 || app.AppId.ToString().IndexOf(this.Text, StringComparison.OrdinalIgnoreCase) > -1))
-                return true;
+            if (!string.IsNullOrEmpty(Text))
+            {
+                if (app.Name.IndexOf(this.Text, StringComparison.OrdinalIgnoreCase) > -1 || app.AppId.ToString().IndexOf(this.Text, StringComparison.OrdinalIgnoreCase) > -1)
+                {
+                    return true;
+                }
+                //var num = 0;
+                //foreach (var i in Text)
+                //{
+                //    if (app.Name.IndexOf(i.ToString(), StringComparison.OrdinalIgnoreCase) > -1)
+                //    {
+                //        num++;
+                //    }
+                //}
+                //if (num == Text.Length)
+                //    return true;
+            }
             return false;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using SteamTool.Core.Common;
 using SteamTool.Core.Properties;
+using SteamTool.Model;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -14,7 +15,6 @@ namespace SteamTool.Core
     {
         public readonly static string HostsPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.System)}\drivers\etc\hosts";
 
-        public string HostTag { get; set; } = $"#S302";
 
         public OperationResult<List<string>> ReadHostsAllLines()
         {
@@ -74,7 +74,7 @@ namespace SteamTool.Core
 
             try
             {
-                dataLines.Add($"{ip} {domain} {HostTag}");
+                dataLines.Add($"{ip} {domain} {Const.HostTag}");
                 File.WriteAllLines(HostsPath, dataLines);
 
                 //File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
@@ -128,7 +128,7 @@ namespace SteamTool.Core
 
             foreach (var (ip, domain) in hosts)
             {
-                dataLines.Add($"{ip} {domain} {HostTag}");
+                dataLines.Add($"{ip} {domain} {Const.HostTag}");
             }
             try
             {
@@ -205,7 +205,7 @@ namespace SteamTool.Core
                 {
                     if (!temp[0].StartsWith("#"))
                     {
-                        return !temp.Contains(HostTag);
+                        return !temp.Contains(Const.HostTag);
                     }
                 }
                 return true;

@@ -5,10 +5,10 @@ namespace SteamTool.Model
     public class SteamUser
     {
         public string SteamId3 { get; set; }
-        public int SteamId3_Int { get; }
+        public long SteamId3_Int => ((SteamId64 >> (ushort)0) & 0xFFFFFFFF);
 
         public string SteamId32 { get; set; }
-        public int SteamId32_Int { get; }
+        public long SteamId32_Int { get; set; }
 
         public long SteamId64 { get; set; }
 

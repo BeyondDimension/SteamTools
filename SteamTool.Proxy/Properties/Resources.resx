@@ -120,6 +120,9 @@
   <data name="Discord" xml:space="preserve">
     <value>Discord语音</value>
   </data>
+  <data name="GOG" xml:space="preserve">
+    <value>GOG Galaxy</value>
+  </data>
   <data name="GoogleRecaptchaCode" xml:space="preserve">
     <value>Google(recaptcha)验证码</value>
   </data>

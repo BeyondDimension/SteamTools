@@ -18,7 +18,18 @@ namespace SteamTools.Models
 		private static readonly Lazy<string> versionLazy = new Lazy<string>(() => $"{Version.ToString(3)}{(IsBetaRelease ? " β" : "")}{(Version.Revision == 0 ? "" : " rev." + Version.Revision)}");
 		private static readonly Lazy<IReadOnlyCollection<Library>> librariesLazy = new Lazy<IReadOnlyCollection<Library>>(() => new List<Library>
 		{
-
+			new Library("MetroRadiance", new Uri("https://github.com/Grabacr07/MetroRadiance")),
+			new Library("MetroTrilithon", new Uri("https://github.com/Grabacr07/MetroTrilithon")),
+			new Library("Livet", new Uri("https://github.com/runceel/Livet")),
+			new Library("StatefulModel", new Uri("https://github.com/ugaya40/StatefulModel")),
+			new Library("Hardcodet.NotifyIcon", new Uri("https://github.com/HavenDV/Hardcodet.NotifyIcon.Wpf.NetCore")),
+			new Library("System.Reactive", new Uri("https://github.com/dotnet/reactive")),
+			new Library("Titanium-Web-Proxy", new Uri("https://github.com/justcoding121/Titanium-Web-Proxy")),
+			new Library("Ninject", new Uri("http://www.ninject.org/")),
+			new Library("log4net", new Uri("https://logging.apache.org/log4net/")),
+			new Library("SteamAchievementManager", new Uri("https://github.com/gibbed/SteamAchievementManager")),
+			new Library("ArchiSteamFarm", new Uri("https://github.com/JustArchiNET/ArchiSteamFarm")),
+			new Library("SteamDesktopAuthenticator", new Uri("https://github.com/Jessecar96/SteamDesktopAuthenticator")),
 		});
 
 

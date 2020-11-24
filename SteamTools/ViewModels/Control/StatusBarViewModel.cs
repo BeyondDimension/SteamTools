@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SteamTools.ViewModels.Control
+namespace SteamTools.ViewModels
 {
     public class StatusBarViewModel: Livet.ViewModel
     {

@@ -147,7 +147,7 @@ namespace SAM.API.Wrappers
         #region GetSteamUserStats007
         public SteamUserStats007 GetSteamUserStats006(int user, int pipe)
         {
-            return this.GetISteamUserStats<SteamUserStats007>(user, pipe, "STEAMUSERSTATS_INTERFACE_VERSION007");
+            return this.GetISteamUserStats<SteamUserStats007>(user, pipe, "STEAMUSERSTATS_INTERFACE_VERSION011");
         }
         #endregion
 

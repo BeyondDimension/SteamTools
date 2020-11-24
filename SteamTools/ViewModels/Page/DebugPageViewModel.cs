@@ -44,7 +44,7 @@ namespace SteamTools.ViewModels
                 DebugText += Environment.NewLine;
                 DebugText += SteamConnectService.Current.ApiService.GetSteamId64();
                 DebugText += Environment.NewLine;
-                DebugText += SteamConnectService.Current.ApiService.IsSteamChinaLauncher();
+                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamUtils.GetAppId();
                 DebugText += Environment.NewLine;
                 DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.IsAppInstalled(730);
                 DebugText += Environment.NewLine;
@@ -53,6 +53,10 @@ namespace SteamTools.ViewModels
                 DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.GetAppInstallDir(730);
                 DebugText += Environment.NewLine;
             }).ContinueWith(s => s.Dispose());
+        }
+
+        public void Test_OnClick()
+        {
         }
     }
 }

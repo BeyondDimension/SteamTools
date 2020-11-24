@@ -39,6 +39,16 @@ namespace SAM.API.Wrappers
         }
         #endregion
 
+        #region RequestCurrentStats
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        private delegate IntPtr NativeRequestGlobalAchievementPercentages(IntPtr self);
+
+        public IntPtr RequestGlobalAchievementPercentages()
+        {
+            return this.Call<IntPtr, NativeRequestGlobalAchievementPercentages>(this.Functions.RequestGlobalAchievementPercentages, this.ObjectAddress);
+        }
+        #endregion
+
         #region GetStatValue (int)
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         [return: MarshalAs(UnmanagedType.I1)]
@@ -119,6 +129,40 @@ namespace SAM.API.Wrappers
             {
                 var call = this.GetFunction<NativeGetAchievement>(this.Functions.GetAchievement);
                 return call(this.ObjectAddress, nativeName.Handle, out isAchieved);
+            }
+        }
+        #endregion
+
+        #region GetAchievementAndUnlockTime
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        private delegate bool NativeGetAchievementAndUnlockTime(
+            IntPtr self,
+            IntPtr name,
+            [MarshalAs(UnmanagedType.I1)] out bool isAchieved, out int unlockTime);
+
+        public bool GetAchievementAndUnlockTime(string name, out bool isAchieved, out int unlockTime)
+        {
+            using (var nativeName = NativeStrings.StringToStringHandle(name))
+            {
+                var call = this.GetFunction<NativeGetAchievementAndUnlockTime>(this.Functions.GetAchievementAndUnlockTime);
+                return call(this.ObjectAddress, nativeName.Handle, out isAchieved, out unlockTime);
+            }
+        }
+        #endregion
+
+        #region GetAchievementAchievedPercent
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        private delegate bool NativeGetAchievementAchievedPercent(
+            IntPtr self,
+            IntPtr name, out float unlockTime);
+
+        public bool GetAchievementAchievedPercent(string name,out float percent)
+        {
+            using (var nativeName = NativeStrings.StringToStringHandle(name))
+            {
+                var call = this.GetFunction<NativeGetAchievementAchievedPercent>(this.Functions.GetAchievementAchievedPercent);
+                return call(this.ObjectAddress, nativeName.Handle,out percent);
             }
         }
         #endregion

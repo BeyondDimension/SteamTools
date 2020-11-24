@@ -70,6 +70,15 @@ namespace SteamTool.Proxy.Properties {
         }
         
         /// <summary>
+        ///   查找类似 GOG Galaxy 的本地化字符串。
+        /// </summary>
+        public static string GOG {
+            get {
+                return ResourceManager.GetString("GOG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Google(recaptcha)验证码 的本地化字符串。
         /// </summary>
         public static string GoogleRecaptchaCode {

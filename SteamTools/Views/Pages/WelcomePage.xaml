@@ -6,6 +6,7 @@
 	  xmlns:metro2="http://schemes.grabacr.net/winfx/2015/personal/controls"
       xmlns:viewModel="clr-namespace:SteamTools.ViewModels"
       xmlns:models="clr-namespace:SteamTools.Models"
+      xmlns:services="clr-namespace:SteamTools.Services"
       xmlns:local="clr-namespace:SteamTools.Views.Pages"
       mc:Ignorable="d"
       d:DesignWidth="600"
@@ -96,7 +97,10 @@
                         <Paragraph>
                             <Run Foreground="White"
 								 FontSize="20"
-								 Text="欢迎" />
+								 Text="欢迎，" />
+                            <Run Foreground="White"
+								 FontSize="20"
+								 Text="{Binding CurrentSteamUser.SteamID,Source={x:Static services:SteamConnectService.Current},Mode=OneWay}" />
                         </Paragraph>
                         <Paragraph Language="zh-cn">
                             <Run Text="「提督業も忙しい！」は、艦これを遊びやすくするためのツールです。" />

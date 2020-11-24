@@ -4,10 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:services="clr-namespace:SteamTools.Services" 
+             xmlns:viewModel="clr-namespace:SteamTools.ViewModels"
              xmlns:local="clr-namespace:SteamTools.Views.Pages"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:livet="http://schemas.livet-mvvm.net/2011/wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModel:DebugPageViewModel}">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
         <RichTextBox Background="Transparent" FontSize="22" BorderThickness="0"
                      Foreground="{StaticResource HighlightForegroundBrushKey}">
             <FlowDocument>
@@ -21,5 +29,14 @@
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
+        <Button Grid.Row="1" Content="Test">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <livet:LivetCallMethodAction
+                                            MethodName="Test_OnClick"
+                                            MethodTarget="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
     </Grid>
 </UserControl>

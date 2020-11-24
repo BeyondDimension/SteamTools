@@ -77,5 +77,7 @@ namespace SteamTool.Proxy
         UplayUpdate = 7,
         [Description("Google(Recaptcha)")]
         GoogleCode = 8,
+        [Description("GOG.COM")]
+        GOG = 8,
     }
 }

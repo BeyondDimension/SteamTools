@@ -120,8 +120,8 @@
   <data name="About" xml:space="preserve">
     <value>关于</value>
   </data>
-  <data name="AchievementManager" xml:space="preserve">
-    <value>{0} 成就管理</value>
+  <data name="AchievementInfo" xml:space="preserve">
+    <value>成就解锁</value>
   </data>
   <data name="Application" xml:space="preserve">
     <value>软件</value>
@@ -141,6 +141,9 @@
   <data name="BorderlessWindow" xml:space="preserve">
     <value>无边框窗口化</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
   <data name="Common" xml:space="preserve">
     <value>通用</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="CommunityFix" xml:space="preserve">
     <value>社区修复</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>确定</value>
   </data>
   <data name="CSGO" xml:space="preserve">
     <value>CS:GO</value>
@@ -165,8 +171,14 @@
   <data name="DeleteCertificate" xml:space="preserve">
     <value>删除证书</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>说明</value>
+  </data>
   <data name="DisableScriptService" xml:space="preserve">
     <value>禁用脚本</value>
+  </data>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>我了解修改统计数据功能可能会有意外，并确定依然要使用此功能，造成的意外由本人承担，本程序不承担任何责任。</value>
   </data>
   <data name="Driver" xml:space="preserve">
     <value>驱动</value>
@@ -195,8 +207,20 @@
   <data name="GameRelated" xml:space="preserve">
     <value>游戏功能</value>
   </data>
+  <data name="Game_Install" xml:space="preserve">
+    <value>已安装</value>
+  </data>
+  <data name="Game_Total" xml:space="preserve">
+    <value>合计</value>
+  </data>
+  <data name="Game_UnInstall" xml:space="preserve">
+    <value>未安装</value>
+  </data>
   <data name="GOG" xml:space="preserve">
     <value>GOG Galaxy</value>
+  </data>
+  <data name="GOG_Plugin_Support" xml:space="preserve">
+    <value>支持GOG插件代理</value>
   </data>
   <data name="Guide" xml:space="preserve">
     <value>指南</value>
@@ -218,6 +242,9 @@
   </data>
   <data name="Install" xml:space="preserve">
     <value>安装</value>
+  </data>
+  <data name="IsProtection" xml:space="preserve">
+    <value>受保护</value>
   </data>
   <data name="LastloginTime" xml:space="preserve">
     <value>{0:yyyy-MM-dd HH:mm:ss}</value>
@@ -249,6 +276,15 @@
   <data name="Online" xml:space="preserve">
     <value>在线</value>
   </data>
+  <data name="OnRefresh" xml:space="preserve">
+    <value>刷新成绩和统计</value>
+  </data>
+  <data name="OnRest" xml:space="preserve">
+    <value>复位成就和/统计</value>
+  </data>
+  <data name="OnStore" xml:space="preserve">
+    <value>保存并应用成就和统计</value>
+  </data>
   <data name="Open_ScriptFolder" xml:space="preserve">
     <value>打开脚本文件夹</value>
   </data>
@@ -276,6 +312,9 @@
   <data name="Ready" xml:space="preserve">
     <value>就绪</value>
   </data>
+  <data name="RunGame" xml:space="preserve">
+    <value>启动游戏</value>
+  </data>
   <data name="Sam" xml:space="preserve">
     <value>成就解锁</value>
   </data>
@@ -300,6 +339,9 @@
   <data name="StartService" xml:space="preserve">
     <value>启动服务</value>
   </data>
+  <data name="StatisticsInfo" xml:space="preserve">
+    <value>统计修改</value>
+  </data>
   <data name="Steam" xml:space="preserve">
     <value>Steam</value>
   </data>
@@ -319,7 +361,7 @@
     <value>停止服务</value>
   </data>
   <data name="Supported_ProxyServices" xml:space="preserve">
-    <value>支持的代理服务（修改实时生效）</value>
+    <value>支持的代理服务</value>
   </data>
   <data name="Theme" xml:space="preserve">
     <value>主题</value>
@@ -332,6 +374,12 @@
   </data>
   <data name="Unknown" xml:space="preserve">
     <value>未知</value>
+  </data>
+  <data name="UnlockTime" xml:space="preserve">
+    <value>解锁于</value>
+  </data>
+  <data name="Unsupported_Operation" xml:space="preserve">
+    <value>不支持的操作</value>
   </data>
   <data name="Uplay" xml:space="preserve">
     <value>Uplay</value>

@@ -70,11 +70,11 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 {0} 成就管理 的本地化字符串。
+        ///   查找类似 成就解锁 的本地化字符串。
         /// </summary>
-        public static string AchievementManager {
+        public static string AchievementInfo {
             get {
-                return ResourceManager.GetString("AchievementManager", resourceCulture);
+                return ResourceManager.GetString("AchievementInfo", resourceCulture);
             }
         }
         
@@ -133,6 +133,15 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 取消 的本地化字符串。
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 通用 的本地化字符串。
         /// </summary>
         public static string Common {
@@ -156,6 +165,15 @@ namespace SteamTools.Properties {
         public static string CommunityFix {
             get {
                 return ResourceManager.GetString("CommunityFix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定 的本地化字符串。
+        /// </summary>
+        public static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
             }
         }
         
@@ -205,11 +223,29 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 说明 的本地化字符串。
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 禁用脚本 的本地化字符串。
         /// </summary>
         public static string DisableScriptService {
             get {
                 return ResourceManager.GetString("DisableScriptService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 我了解修改统计数据功能可能会有意外，并确定依然要使用此功能，造成的意外由本人承担，本程序不承担任何责任。 的本地化字符串。
+        /// </summary>
+        public static string Disclaimer {
+            get {
+                return ResourceManager.GetString("Disclaimer", resourceCulture);
             }
         }
         
@@ -268,6 +304,33 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 已安装 的本地化字符串。
+        /// </summary>
+        public static string Game_Install {
+            get {
+                return ResourceManager.GetString("Game_Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 合计 的本地化字符串。
+        /// </summary>
+        public static string Game_Total {
+            get {
+                return ResourceManager.GetString("Game_Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 未安装 的本地化字符串。
+        /// </summary>
+        public static string Game_UnInstall {
+            get {
+                return ResourceManager.GetString("Game_UnInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 游戏列表 的本地化字符串。
         /// </summary>
         public static string GameList {
@@ -300,6 +363,15 @@ namespace SteamTools.Properties {
         public static string GOG {
             get {
                 return ResourceManager.GetString("GOG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 支持GOG插件代理 的本地化字符串。
+        /// </summary>
+        public static string GOG_Plugin_Support {
+            get {
+                return ResourceManager.GetString("GOG_Plugin_Support", resourceCulture);
             }
         }
         
@@ -363,6 +435,15 @@ namespace SteamTools.Properties {
         public static string Install {
             get {
                 return ResourceManager.GetString("Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 受保护 的本地化字符串。
+        /// </summary>
+        public static string IsProtection {
+            get {
+                return ResourceManager.GetString("IsProtection", resourceCulture);
             }
         }
         
@@ -457,6 +538,33 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 刷新成绩和统计 的本地化字符串。
+        /// </summary>
+        public static string OnRefresh {
+            get {
+                return ResourceManager.GetString("OnRefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 复位成就和/统计 的本地化字符串。
+        /// </summary>
+        public static string OnRest {
+            get {
+                return ResourceManager.GetString("OnRest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存并应用成就和统计 的本地化字符串。
+        /// </summary>
+        public static string OnStore {
+            get {
+                return ResourceManager.GetString("OnStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 打开脚本文件夹 的本地化字符串。
         /// </summary>
         public static string Open_ScriptFolder {
@@ -538,6 +646,15 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 启动游戏 的本地化字符串。
+        /// </summary>
+        public static string RunGame {
+            get {
+                return ResourceManager.GetString("RunGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 成就解锁 的本地化字符串。
         /// </summary>
         public static string Sam {
@@ -610,6 +727,15 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 统计修改 的本地化字符串。
+        /// </summary>
+        public static string StatisticsInfo {
+            get {
+                return ResourceManager.GetString("StatisticsInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam 的本地化字符串。
         /// </summary>
         public static string Steam {
@@ -664,7 +790,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 支持的代理服务（修改实时生效） 的本地化字符串。
+        ///   查找类似 支持的代理服务 的本地化字符串。
         /// </summary>
         public static string Supported_ProxyServices {
             get {
@@ -705,6 +831,24 @@ namespace SteamTools.Properties {
         public static string Unknown {
             get {
                 return ResourceManager.GetString("Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 解锁于 的本地化字符串。
+        /// </summary>
+        public static string UnlockTime {
+            get {
+                return ResourceManager.GetString("UnlockTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 不支持的操作 的本地化字符串。
+        /// </summary>
+        public static string Unsupported_Operation {
+            get {
+                return ResourceManager.GetString("Unsupported_Operation", resourceCulture);
             }
         }
         

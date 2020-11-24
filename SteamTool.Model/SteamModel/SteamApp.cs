@@ -16,6 +16,8 @@ namespace SteamTool.Model
 
         public uint AppId { get; set; }
 
+        public bool IsInstalled { get; set; }
+
         public string Name { get; set; }
 
         public string Logo { get; set; }

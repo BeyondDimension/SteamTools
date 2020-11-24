@@ -10,7 +10,6 @@
         xmlns:pages="clr-namespace:SteamTools.Views.Pages"
         xmlns:controls="clr-namespace:SteamTools.Views.Controls"
         xmlns:vm="clr-namespace:SteamTools.ViewModels"
-        xmlns:vmc="clr-namespace:SteamTools.ViewModels.Control"
         xmlns:services="clr-namespace:SteamTools.Services"
         mc:Ignorable="d"
         Width="840"
@@ -20,11 +19,11 @@
         Background="{DynamicResource ThemeBrushKey}"
 		Foreground="{DynamicResource ActiveForegroundBrushKey}"
 		FontFamily="{StaticResource DefaultFontFamilyKey}"
-        IsRestoringWindowPlacement="True"
         UseLayoutRounding="True"
         TextOptions.TextFormattingMode="Display"
         SnapsToDevicePixels="True"
         WindowStartupLocation="CenterScreen"
+        IsRestoringWindowPlacement="True"
         d:DataContext="{d:DesignInstance vm:MainWindowViewModel}"
         Icon="pack://application:,,,/Resources/Asstes/app.ico">
     <i:Interaction.Behaviors>
@@ -41,7 +40,6 @@
         <i:EventTrigger EventName="Closed">
             <livet:DataContextDisposeAction />
         </i:EventTrigger>
-
         <livet:InteractionMessageTrigger Messenger="{Binding Messenger}"
 										 MessageKey="Window.WindowAction">
             <livet:WindowInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
@@ -61,6 +59,7 @@
             <mtti:TaskbarMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
         </livet:InteractionMessageTrigger>
     </i:Interaction.Triggers>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

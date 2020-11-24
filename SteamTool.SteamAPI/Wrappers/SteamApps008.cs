@@ -53,6 +53,20 @@ namespace SAM.API.Wrappers
         }
         #endregion
 
+        #region GetAvailableGameLanguages
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        private delegate IntPtr NativeGetAvailableGameLanguages(IntPtr self);
+
+        public string GetAvailableGameLanguages()
+        {
+            var languagePointer = this.Call<IntPtr, NativeGetAvailableGameLanguages>(
+                this.Functions.GetAvailableGameLanguages,
+                this.ObjectAddress);
+            return NativeStrings.PointerToString(languagePointer);
+        }
+
+        #endregion
+
         #region IsDlcInstalled
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         [return: MarshalAs(UnmanagedType.I1)]

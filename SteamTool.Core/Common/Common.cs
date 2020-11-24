@@ -37,15 +37,15 @@ namespace SteamTool.Core.Common
             }
         }
 
-
         /// <summary>
         /// 获取两个字符串中间的字符串
         /// </summary>
         /// <param name="str">要处理的字符串,例ABCD</param>
         /// <param name="str1">第1个字符串,例AB</param>
         /// <param name="str2">第2个字符串,例D</param>
+        /// <param name="isContains">是否包含标志字符串</param>
         /// <returns>例返回C</returns>
-        public static string Substring(this string str, string str1, string str2)
+        public static string Substring(this string str, string str1, string str2, bool isContains = false)
         {
             int i1 = str.IndexOf(str1);
             if (i1 < 0) //找不到返回空
@@ -58,10 +58,11 @@ namespace SteamTool.Core.Common
             {
                 return "";
             }
-
-            return str.Substring(i1 + str1.Length, i2 - i1 - str1.Length);
+            if (isContains)
+                return str.Substring(i1, i2 - i1 + str1.Length);
+            else
+                return str.Substring(i1 + str1.Length, i2 - i1 - str1.Length);
         }
-
 
 
         public static string GetValue(this Match match, Func<Match, bool> action)

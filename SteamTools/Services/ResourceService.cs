@@ -23,8 +23,18 @@ namespace SteamTools.Services
         private readonly string[] supportedCultureNames =
         {
             "zh-CN", // Resources.resx
-			"en-US",
             "zh-TW",
+            "en",
+        };
+
+        /// <summary>
+        /// 支持的语言Steam平台名称
+        /// </summary>
+        private readonly Dictionary<string, string> supportedCultureSteamNames = new Dictionary<string, string>
+        {
+            { "zh-CN","schinese"},
+            { "zh-TW","tchinese"},
+            { "en","english"},
         };
 
         /// <summary>
@@ -54,6 +64,7 @@ namespace SteamTools.Services
                 })
                 .Where(x => x != null)
                 .ToList();
+            SteamTools.Properties.Resources.Culture = this.SupportedCultures.First();
         }
 
         /// <summary>
@@ -66,6 +77,10 @@ namespace SteamTools.Services
             this.OnPropertyChanged(nameof(this.Resources));
         }
 
+        public string GetCurrentCultureSteamLanguageName() 
+        {
+            return supportedCultureSteamNames[SteamTools.Properties.Resources.Culture.Name];
+        }
 
         #region PropertyChanged event
 

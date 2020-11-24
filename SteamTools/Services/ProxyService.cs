@@ -20,16 +20,16 @@ namespace SteamTools.Services
 
         public void Initialize()
         {
-            Proxy = new HttpProxy(ProxyDomains, ProductInfo.Title);
+            Proxy = new HttpProxy(ProxyDomains.Value, ProductInfo.Title);
             InitJsScript();
         }
 
-        private List<ProxyDomainModel> _ProxyDomains = new List<ProxyDomainModel>
+        private Lazy<IReadOnlyCollection<ProxyDomainModel>> _ProxyDomains = new Lazy<IReadOnlyCollection<ProxyDomainModel>>(() => new List<ProxyDomainModel>
         {
             new ProxyDomainModel{
                 Name=Resources.SteamCommunity,
                 Domains = new List<string>{"steamcommunity.com" },
-                ToDomain = "steamstore-a.akamaihd.net",
+                ToDomain = "steamcommunity-a.akamaihd.net",
                 Hosts = new List<string>{ "steamcommunity.com", "www.steamcommunity.com"},
                 DomainTag = DomainTag.SteamCommunity,
                 IsEnable= true,
@@ -61,8 +61,8 @@ namespace SteamTools.Services
             //new ProxyDomainModel{
             //    Name=Resources.Discord,
             //    Domains = new List<string>{ "discordapp.com" },
-            //    //ToDomain = "discord.com",
-            //    ProxyIPAddres="104.16.10.231",
+            //    ToDomain = "discord.com",
+            //    //ProxyIPAddres="104.16.10.231",
             //    Hosts = new List<string>{
             //        "discordapp.com",
             //        "dl.discordapp.net",
@@ -88,64 +88,64 @@ namespace SteamTools.Services
             //        "pax.discordapp.com",
             //    },
             //    DomainTag = DomainTag.Discord,
-            //    IsEnable= true,
-            //},
-            //new ProxyDomainModel{
-            //    Name=Resources.Twitch,
-            //    Domains = new List<string>{ "twitch.tv" },
-            //    ToDomain="twitch.map.fastly.net",
-            //    Hosts = new List<string>{
-            //    "twitch.tv",
-            //    "www.twitch.tv",
-            //    "m.twitch.tv",
-            //    "app.twitch.tv",
-            //    "music.twitch.tv",
-            //    "badges.twitch.tv",
-            //    "blog.twitch.tv",
-            //    "inspector.twitch.tv",
-            //    "stream.twitch.tv",
-            //    "dev.twitch.tv",
-            //    "clips.twitch.tv",
-            //    "spade.twitch.tv",
-            //    "gql.twitch.tv",
-            //    "vod-secure.twitch.tv",
-            //    "vod-storyboards.twitch.tv",
-            //    "trowel.twitch.tv",
-            //    "countess.twitch.tv",
-            //    "extension-files.twitch.tv",
-            //    "vod-metro.twitch.tv",
-            //    "pubster.twitch.tv",
-            //    "help.twitch.tv",
-            //    "passport.twitch.tv",
-            //    "id.twitch.tv",
-            //    "link.twitch.tv",
-            //    "id-cdn.twitch.tv",
-            //    "player.twitch.tv",
-            //    "api.twitch.tv",
-            //    "cvp.twitch.tv",
-            //    "pubsub-edge.twitch.tv",
-            //    "clips-media-assets2.twitch.tv",
-            //    "client-event-reporter.twitch.tv",
-            //    "gds-vhs-drops-campaign-images.twitch.tv",
-            //    "us-west-2.uploads-regional.twitch.tv",
-            //    "assets.help.twitch.tv",
-            //    "discuss.dev.twitch.tv",
-            //    "irc-ws.chat.twitch.tv",
-            //    "irc-ws-r.chat.twitch.tv",
-            //    //"platform.twitter.com",
-            //    //"usher.ttvnw.net",
-            //    },
-            //    DomainTag = DomainTag.Twitch,
             //    IsEnable= false,
             //},
-            //new ProxyDomainModel{
-            //    Name=Resources.OriginDownload,
-            //    Domains = new List<string>{"origin-a.akamaihd.net" },
-            //    ToDomain = "origin-a.akamaihd.net",
-            //    Hosts = new List<string>{ "origin-a.akamaihd.net"},
-            //    DomainTag = DomainTag.OriginGameDownload,
-            //    IsEnable= false,
-            //},
+            new ProxyDomainModel{
+                Name=Resources.Twitch,
+                Domains = new List<string>{ "twitch.tv" },
+                ToDomain="twitch.map.fastly.net",
+                Hosts = new List<string>{
+                "twitch.tv",
+                "www.twitch.tv",
+                "m.twitch.tv",
+                "app.twitch.tv",
+                "music.twitch.tv",
+                "badges.twitch.tv",
+                "blog.twitch.tv",
+                "inspector.twitch.tv",
+                "stream.twitch.tv",
+                "dev.twitch.tv",
+                "clips.twitch.tv",
+                "spade.twitch.tv",
+                "gql.twitch.tv",
+                "vod-secure.twitch.tv",
+                "vod-storyboards.twitch.tv",
+                "trowel.twitch.tv",
+                "countess.twitch.tv",
+                "extension-files.twitch.tv",
+                "vod-metro.twitch.tv",
+                "pubster.twitch.tv",
+                "help.twitch.tv",
+                "passport.twitch.tv",
+                "id.twitch.tv",
+                "link.twitch.tv",
+                "id-cdn.twitch.tv",
+                "player.twitch.tv",
+                "api.twitch.tv",
+                "cvp.twitch.tv",
+                "clips-media-assets2.twitch.tv",
+                "client-event-reporter.twitch.tv",
+                "gds-vhs-drops-campaign-images.twitch.tv",
+                "us-west-2.uploads-regional.twitch.tv",
+                "assets.help.twitch.tv",
+                "discuss.dev.twitch.tv",
+                "pubsub-edge.twitch.tv",
+                "irc-ws.chat.twitch.tv",
+                "irc-ws-r.chat.twitch.tv",
+                //"platform.twitter.com",
+                //"usher.ttvnw.net",
+                },
+                DomainTag = DomainTag.Twitch,
+                IsEnable= false,
+            },
+            new ProxyDomainModel{
+                Name=Resources.OriginDownload,
+                Domains = new List<string>{"origin-a.akamaihd.net" },
+                ToDomain = "cctv4-lh.akamaihd.net",
+                Hosts = new List<string>{ "origin-a.akamaihd.net"},
+                DomainTag = DomainTag.OriginGameDownload,
+                IsEnable= false,
+            },
             //new ProxyDomainModel{
             //    Name=Resources.UplayUpdate,
             //    Domains = new List<string>{"static3.cdn.ubi.com" },
@@ -155,6 +155,38 @@ namespace SteamTools.Services
             //    IsEnable= false,
             //},
             new ProxyDomainModel{
+                Name=Resources.GOG,
+                Domains = new List<string>{ "gog.com" },
+                ToDomain = "api.gog.com",
+                Hosts = new List<string>{
+                "www.gog.com",
+                "images.gog.com",
+                "images-1.gog.com",
+                "images-2.gog.com",
+                "images-3.gog.com",
+                "images-4.gog.com",
+                "webinstallers.gog.com",
+                "menu.gog.com",
+                "auth.gog.com",
+                "login.gog.com",
+                //"api.gog.com",
+                "reviews.gog.com",
+                "insights-collector.gog.com",
+                "remote-config.gog.com",
+                "external-accounts.gog.com",
+                "chat.gog.com",
+                "presence.gog.com",
+                "external-users.gog.com",
+                "gamesdb.gog.com",
+                "gameplay.gog.com",
+                "cfg.gog.com",
+                "notifications.gog.com",
+                "users.gog.com",
+                },
+                DomainTag = DomainTag.GOG,
+                IsEnable= false,
+            },
+            new ProxyDomainModel{
                 Name=Resources.GoogleRecaptchaCode,
                 Domains = new List<string>{"www.google.com" },
                 ToDomain = "kh.google.com",
@@ -162,8 +194,8 @@ namespace SteamTools.Services
                 DomainTag = DomainTag.GoogleCode,
                 IsEnable= false,
             },
-        };
-        public List<ProxyDomainModel> ProxyDomains
+        });
+        public Lazy<IReadOnlyCollection<ProxyDomainModel>> ProxyDomains
         {
             get => _ProxyDomains;
             set
@@ -171,7 +203,7 @@ namespace SteamTools.Services
                 if (_ProxyDomains != value)
                 {
                     _ProxyDomains = value;
-                    Proxy.ProxyDomains = value;
+                    Proxy.ProxyDomains = value.Value;
                     this.RaisePropertyChanged();
                 }
             }

@@ -73,8 +73,10 @@
 		<None Remove="Resources\Asstes\delete.png" />
 		<None Remove="Resources\Asstes\install-line.png" />
 		<None Remove="Resources\Asstes\play.png" />
+		<None Remove="Resources\Asstes\refresh.png" />
+		<None Remove="Resources\Asstes\restore.png" />
+		<None Remove="Resources\Asstes\save.png" />
 		<None Remove="Resources\Asstes\unlock.png" />
-		<None Remove="Resources\Asstes\unlock1.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -92,8 +94,10 @@
 		<Resource Include="Resources\Asstes\delete.png" />
 		<Resource Include="Resources\Asstes\install-line.png" />
 		<Resource Include="Resources\Asstes\play.png" />
+		<Resource Include="Resources\Asstes\refresh.png" />
+		<Resource Include="Resources\Asstes\restore.png" />
+		<Resource Include="Resources\Asstes\save.png" />
 		<Resource Include="Resources\Asstes\unlock.png" />
-		<Resource Include="Resources\Asstes\unlock1.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -158,7 +162,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Update="Properties\Resource.en-US.resx">
+		<EmbeddedResource Update="Properties\Resource.en.resx">
+			<DependentUpon>Resources.resx</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\Resource.zh-TW.resx">
 			<DependentUpon>Resources.resx</DependentUpon>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Properties\Resources.resx">

@@ -28,6 +28,7 @@ namespace SteamTools.Services
         public readonly SteamworksWebApiService SteamworksWebApiService = SteamService.Instance.Get<SteamworksWebApiService>();
         public readonly SteamDbApiService steamDbApiService = SteamService.Instance.Get<SteamDbApiService>();
 
+        #region Steam游戏列表
         private IReadOnlyCollection<SteamApp> _SteamApps;
         public IReadOnlyCollection<SteamApp> SteamApps
         {
@@ -41,7 +42,9 @@ namespace SteamTools.Services
                 }
             }
         }
+        #endregion
 
+        #region 运行中的游戏列表
         private IList<SteamApp> _RuningSteamApps = new List<SteamApp>();
         public IList<SteamApp> RuningSteamApps
         {
@@ -55,8 +58,9 @@ namespace SteamTools.Services
                 }
             }
         }
+        #endregion
 
-
+        #region 当前steam登录用户
         private SteamUser _CurrentSteamUser;
         public SteamUser CurrentSteamUser
         {
@@ -70,7 +74,9 @@ namespace SteamTools.Services
                 }
             }
         }
+        #endregion
 
+        #region 连接steamclient是否成功
         private bool _IsConnectToSteam;
         public bool IsConnectToSteam
         {
@@ -84,7 +90,7 @@ namespace SteamTools.Services
                 }
             }
         }
-
+        #endregion
 
         public void Initialize()
         {
@@ -111,7 +117,7 @@ namespace SteamTools.Services
                      else
                      {
                          IsConnectToSteam = false;
-                         StatusService.Current.Set(Resources.Steam_Not_Runing_Tips);
+                         StatusService.Current.Notify(Resources.Steam_Not_Runing_Tips);
                      }
                      await Task.Delay(1500);
                  }
@@ -123,10 +129,6 @@ namespace SteamTools.Services
             if (Process.GetProcessesByName("steam").Length > 0)
             {
                 IsConnectToSteam = ApiService.Initialize(appid);
-                if (IsConnectToSteam)
-                {
-
-                }
             }
         }
     }

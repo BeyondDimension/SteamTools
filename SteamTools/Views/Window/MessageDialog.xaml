@@ -9,12 +9,14 @@
 		xmlns:metro2="http://schemes.grabacr.net/winfx/2015/personal/controls"
         xmlns:controls="clr-namespace:SteamTools.Views.Controls"
         xmlns:services="clr-namespace:SteamTools.Services"
+        xmlns:vm="clr-namespace:SteamTools.ViewModels"
         mc:Ignorable="d"
-        Title="MessageDialog" 
+        Title="{Binding Title}" 
         Style="{DynamicResource MetroDialogStyleKey}"
         WindowStartupLocation="CenterOwner"
-		SizeToContent="Height">
-    <Grid>
+		SizeToContent="Height"
+        d:DataContext="{d:DesignInstance vm:DialogWindowViewModel}">
+    <Grid Background="{DynamicResource ThemeBrushKey}">
         <i:Interaction.Triggers>
             <livet:InteractionMessageTrigger Messenger="{Binding Messenger}"
 										 MessageKey="Window.WindowAction">
@@ -36,12 +38,14 @@
                 <DockPanel>
                     <!--<controls:AppIcon Width="40"
 							  Background="Transparent" />-->
+                    <!--<Image Source="pack://application:,,,/Resources/Asstes/app.ico" Width="40" Height="40"></Image>-->
 
-                    <TextBlock Text="「提督業も忙しい！」 を終了します。よろしいですか？"
+                    <TextBlock Text="{Binding Content}"
 						   FontSize="14"
 						   Foreground="{DynamicResource ActiveForegroundBrushKey}"
-						   Margin="12,0,0,0"
+						   Margin="12,0"
 						   HorizontalAlignment="Left"
+                               TextWrapping="WrapWithOverflow"
 						   VerticalAlignment="Center" />
                 </DockPanel>
 
@@ -54,13 +58,13 @@
             <WrapPanel Grid.Row="1"
 				   HorizontalAlignment="Right"
 				   Margin="6,-6,6,6">
-                <metro2:CallMethodButton Content="OK"
+                <metro2:CallMethodButton Content="{Binding Resources.Confirm,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 									 MethodName="OK"
 									 IsDefault="True"
 									 MinWidth="110"
 									 Padding="30,6"
 									 Margin="6" />
-                <metro2:CallMethodButton Content="キャンセル"
+                <metro2:CallMethodButton Content="{Binding Resources.Cancel,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 									 MethodName="Cancel"
 									 IsCancel="True"
 									 MinWidth="110"

@@ -4,6 +4,7 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:control="clr-namespace:SteamTools.Views.Pages" 
+			 xmlns:content="clr-namespace:SteamTools.Views.Content"
              xmlns:services="clr-namespace:SteamTools.Services"
 			 mc:Ignorable="d"
 			 d:DesignWidth="600"
@@ -28,6 +29,7 @@
                 <TextBlock Text="{Binding Resources.Common,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 							   Style="{StaticResource TabHeaderTextStyleKey}" />
             </TabItem.Header>
+            <content:Game></content:Game>
         </TabItem>
         <TabItem>
             <TabItem.Header>

@@ -40,7 +40,7 @@ namespace SAM.API.Wrappers
             call(this.ObjectAddress, out steamId);
             return steamId;
         }
-        public ulong GetSteamId32()
+        public ulong GetSteamId3()
         {
             var call = this.GetFunction<NativeGetSteamId>(this.Functions.GetSteamID);
             ulong steamId;

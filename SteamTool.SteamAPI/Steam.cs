@@ -75,7 +75,7 @@ namespace SAM.API
 
             if (address == IntPtr.Zero)
             {
-                return default(TClass);
+                return default;
             }
 
             var rez = new TClass();

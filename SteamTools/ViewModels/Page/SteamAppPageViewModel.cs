@@ -20,6 +20,8 @@ using SteamTool.Core.Common;
 using SteamTools.Properties;
 using SteamTools.Views;
 using System.Globalization;
+using System.IO;
+using System.Reflection;
 
 namespace SteamTools.ViewModels
 {
@@ -64,6 +66,21 @@ namespace SteamTools.ViewModels
                 if (this._Games != value)
                 {
                     this._Games = value;
+                    InstalledCount = value.Count(s=>s.IsInstalled);
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
+        private int _InstalledCount;
+        public int InstalledCount
+        {
+            get { return this._InstalledCount; }
+            set
+            {
+                if (this._InstalledCount != value)
+                {
+                    this._InstalledCount = value;
                     this.RaisePropertyChanged();
                 }
             }
@@ -96,6 +113,7 @@ namespace SteamTools.ViewModels
                     apps = JsonConvert.DeserializeObject<SteamApps>(result).AppList.Apps;
                 }
                 apps = apps.DistinctBy(d => d.AppId).ToList();
+                //SteamConnectService.Current.SteamApps = apps;
                 SteamConnectService.Current.SteamApps = SteamConnectService.Current.ApiService.OwnsApps(apps);
 
                 this.updateSource
@@ -133,6 +151,7 @@ namespace SteamTools.ViewModels
                         AppId = x.AppId,
                         Name = x.Name,
                         Type = x.Type,
+                        IsInstalled = x.IsInstalled,
                     }).ToList();
             });
         }
@@ -152,13 +171,17 @@ namespace SteamTools.ViewModels
         {
             switch (app.Type)
             {
-                default:
+                case SteamAppTypeEnum.Application:
+                case SteamAppTypeEnum.Game:
                     //var achievement = new AchievementWindowViewModel();
                     //WindowService.Current.MainWindow.Transition(achievement, typeof(AchievementWindow));
                     var nApp = app.Clone();
-                    nApp.Process = Process.Start($"{ProductInfo.Title}.exe", app.AppId.ToString(CultureInfo.InvariantCulture));
-                    
+                    //nApp.Process = Process.Start($"{ProductInfo.Title}.exe", app.AppId.ToString(CultureInfo.InvariantCulture));
+                    nApp.Process = Process.Start(Path.GetFileName(Assembly.GetExecutingAssembly().Location), app.AppId.ToString(CultureInfo.InvariantCulture));
                     SteamConnectService.Current.RuningSteamApps.Add(nApp);
+                    break;
+                default:
+                    StatusService.Current.Notify(Resources.Unsupported_Operation);
                     break;
             }
         }
@@ -171,9 +194,10 @@ namespace SteamTools.ViewModels
                     Process.Start(string.Format(Const.STEAM_MEDIA_URL, app.AppId.ToString()));
                     break;
                 default:
-                    if (SteamConnectService.Current.ApiService.IsAppInstalled(app.AppId))
+                    if (app.IsInstalled)
                     {
-                        TaskbarService.Current.Notify(Resources.CurrentAppInstalled);
+                        //TaskbarService.Current.Notify(Resources.CurrentAppInstalled);
+                        Process.Start(string.Format(Const.STEAM_INSTALL_URL, app.AppId.ToString()));
                         return;
                     }
                     Process.Start(string.Format(Const.STEAM_INSTALL_URL, app.AppId.ToString()));
