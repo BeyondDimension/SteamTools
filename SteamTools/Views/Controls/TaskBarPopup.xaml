@@ -12,8 +12,7 @@
              mc:Ignorable="d" 
              Height="250" Width="180"
              FontSize="14"
-             Background="{DynamicResource ThemeBrushKey}"
-		     Foreground="{DynamicResource ActiveForegroundBrushKey}"
+		     Foreground="{DynamicResource ForegroundBrushKey}"
 		     d:DataContext="{d:DesignInstance vm:TaskBarViewModel}">
     <Border>
         <Grid>
@@ -41,8 +40,8 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Image>
-                        <TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.WinTitle}"
-                                VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.WinTitle,Mode=OneWay}"
+                                VerticalAlignment="Center" />
                     </WrapPanel>
                     <StackPanel Grid.Row="1">
                         <Rectangle Height=".99"

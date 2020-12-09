@@ -5,10 +5,12 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:control="clr-namespace:SteamTools.Views.Pages" 
 			 xmlns:content="clr-namespace:SteamTools.Views.Content"
+             xmlns:vm="clr-namespace:SteamTools.ViewModels"
              xmlns:services="clr-namespace:SteamTools.Services"
 			 mc:Ignorable="d"
-			 d:DesignWidth="600"
-			 d:DesignHeight="400">
+			 d:DesignWidth="800"
+			 d:DesignHeight="400"
+             d:DataContext="{d:DesignInstance vm:GameRelatedPageViewModel}">
 
     <TabControl Grid.Row="1" Style="{StaticResource VerticalTabControlStyleKey}"
              FontFamily="{DynamicResource DefaultFontFamilyKey}" FontSize="14">
@@ -26,10 +28,14 @@
 
         <TabItem>
             <TabItem.Header>
-                <TextBlock Text="{Binding Resources.Common,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
+                <TextBlock Text="{Binding Resources.Common_Action,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 							   Style="{StaticResource TabHeaderTextStyleKey}" />
             </TabItem.Header>
-            <content:Game></content:Game>
+            <content:GameCommon Margin="10,0">
+                <content:GameCommon.DataContext>
+                    <vm:GameCommonViewModel/>
+                </content:GameCommon.DataContext>
+            </content:GameCommon>
         </TabItem>
         <TabItem>
             <TabItem.Header>

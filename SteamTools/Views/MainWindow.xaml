@@ -16,6 +16,7 @@
         Height="600"
         MinHeight="550"
         Title="{Binding Title}"
+        Topmost="{Binding Topmost}"
         Background="{DynamicResource ThemeBrushKey}"
 		Foreground="{DynamicResource ActiveForegroundBrushKey}"
 		FontFamily="{StaticResource DefaultFontFamilyKey}"
@@ -59,7 +60,7 @@
             <mtti:TaskbarMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
         </livet:InteractionMessageTrigger>
     </i:Interaction.Triggers>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -158,6 +159,9 @@
                 <Grid.Resources>
                     <DataTemplate DataType="{x:Type vm:WelcomePageViewModel}">
                         <pages:WelcomePage />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:AboutPageViewModel}">
+                        <pages:AboutPage />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type vm:SettingsPageViewModel}">
                         <pages:SettingsPage />

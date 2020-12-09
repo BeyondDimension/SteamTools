@@ -70,6 +70,33 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 捐助 的本地化字符串。
+        /// </summary>
+        public static string About_Donate {
+            get {
+                return ResourceManager.GetString("About_Donate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 帮助 的本地化字符串。
+        /// </summary>
+        public static string About_Help {
+            get {
+                return ResourceManager.GetString("About_Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 此软件 的本地化字符串。
+        /// </summary>
+        public static string About_TheSoft {
+            get {
+                return ResourceManager.GetString("About_TheSoft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 成就解锁 的本地化字符串。
         /// </summary>
         public static string AchievementInfo {
@@ -115,6 +142,69 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 新增令牌 的本地化字符串。
+        /// </summary>
+        public static string Auth_Add {
+            get {
+                return ResourceManager.GetString("Auth_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 令牌信息 的本地化字符串。
+        /// </summary>
+        public static string Auth_DetailTitle {
+            get {
+                return ResourceManager.GetString("Auth_DetailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 令牌编辑 的本地化字符串。
+        /// </summary>
+        public static string Auth_Edit {
+            get {
+                return ResourceManager.GetString("Auth_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导入令牌 的本地化字符串。
+        /// </summary>
+        public static string Auth_Import {
+            get {
+                return ResourceManager.GetString("Auth_Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 令牌列表 的本地化字符串。
+        /// </summary>
+        public static string Auth_List {
+            get {
+                return ResourceManager.GetString("Auth_List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 自定义该令牌名称 的本地化字符串。
+        /// </summary>
+        public static string Auth_Name {
+            get {
+                return ResourceManager.GetString("Auth_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 查看令牌 的本地化字符串。
+        /// </summary>
+        public static string Auth_See {
+            get {
+                return ResourceManager.GetString("Auth_See", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 自动启动代理服务 的本地化字符串。
         /// </summary>
         public static string AutoRunProxyService {
@@ -142,20 +232,11 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 通用 的本地化字符串。
+        ///   查找类似 通用功能 的本地化字符串。
         /// </summary>
-        public static string Common {
+        public static string Common_Action {
             get {
-                return ResourceManager.GetString("Common", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 通用设置 的本地化字符串。
-        /// </summary>
-        public static string CommonSettings {
-            get {
-                return ResourceManager.GetString("CommonSettings", resourceCulture);
+                return ResourceManager.GetString("Common_Action", resourceCulture);
             }
         }
         
@@ -709,6 +790,78 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 颜色 的本地化字符串。
+        /// </summary>
+        public static string Settings_Accent {
+            get {
+                return ResourceManager.GetString("Settings_Accent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 令牌设置 的本地化字符串。
+        /// </summary>
+        public static string Settings_Auth {
+            get {
+                return ResourceManager.GetString("Settings_Auth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 基本设置 的本地化字符串。
+        /// </summary>
+        public static string Settings_General {
+            get {
+                return ResourceManager.GetString("Settings_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 语言 的本地化字符串。
+        /// </summary>
+        public static string Settings_Language {
+            get {
+                return ResourceManager.GetString("Settings_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 代理设置 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy {
+            get {
+                return ResourceManager.GetString("Settings_Proxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 主题 的本地化字符串。
+        /// </summary>
+        public static string Settings_Theme {
+            get {
+                return ResourceManager.GetString("Settings_Theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 主题颜色 的本地化字符串。
+        /// </summary>
+        public static string Settings_ThemeAccent {
+            get {
+                return ResourceManager.GetString("Settings_ThemeAccent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 界面设置 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI {
+            get {
+                return ResourceManager.GetString("Settings_UI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 安装证书 的本地化字符串。
         /// </summary>
         public static string SetupCertificate {
@@ -745,7 +898,16 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Steam未运行（部分功能不可用） 的本地化字符串。
+        ///   查找类似 Steam未运行 的本地化字符串。
+        /// </summary>
+        public static string Steam_Not_Runing {
+            get {
+                return ResourceManager.GetString("Steam_Not_Runing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam未运行（该功能不可用） 的本地化字符串。
         /// </summary>
         public static string Steam_Not_Runing_Tips {
             get {
@@ -759,6 +921,15 @@ namespace SteamTools.Properties {
         public static string Steam302 {
             get {
                 return ResourceManager.GetString("Steam302", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 输入成就名称搜索 的本地化字符串。
+        /// </summary>
+        public static string SteamAchievement_SearchTextBox_Prompt {
+            get {
+                return ResourceManager.GetString("SteamAchievement_SearchTextBox_Prompt", resourceCulture);
             }
         }
         

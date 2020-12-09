@@ -120,6 +120,15 @@
   <data name="About" xml:space="preserve">
     <value>关于</value>
   </data>
+  <data name="About_Donate" xml:space="preserve">
+    <value>捐助</value>
+  </data>
+  <data name="About_Help" xml:space="preserve">
+    <value>帮助</value>
+  </data>
+  <data name="About_TheSoft" xml:space="preserve">
+    <value>此软件</value>
+  </data>
   <data name="AchievementInfo" xml:space="preserve">
     <value>成就解锁</value>
   </data>
@@ -135,6 +144,27 @@
   <data name="ASF_Plus" xml:space="preserve">
     <value>ASF Plus</value>
   </data>
+  <data name="Auth_Add" xml:space="preserve">
+    <value>新增令牌</value>
+  </data>
+  <data name="Auth_DetailTitle" xml:space="preserve">
+    <value>令牌信息</value>
+  </data>
+  <data name="Auth_Edit" xml:space="preserve">
+    <value>令牌编辑</value>
+  </data>
+  <data name="Auth_Import" xml:space="preserve">
+    <value>导入令牌</value>
+  </data>
+  <data name="Auth_List" xml:space="preserve">
+    <value>令牌列表</value>
+  </data>
+  <data name="Auth_Name" xml:space="preserve">
+    <value>自定义该令牌名称</value>
+  </data>
+  <data name="Auth_See" xml:space="preserve">
+    <value>查看令牌</value>
+  </data>
   <data name="AutoRunProxyService" xml:space="preserve">
     <value>自动启动代理服务</value>
   </data>
@@ -144,11 +174,8 @@
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="Common" xml:space="preserve">
-    <value>通用</value>
-  </data>
-  <data name="CommonSettings" xml:space="preserve">
-    <value>通用设置</value>
+  <data name="Common_Action" xml:space="preserve">
+    <value>通用功能</value>
   </data>
   <data name="CommunityFix" xml:space="preserve">
     <value>社区修复</value>
@@ -333,6 +360,30 @@
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
   </data>
+  <data name="Settings_Accent" xml:space="preserve">
+    <value>颜色</value>
+  </data>
+  <data name="Settings_Auth" xml:space="preserve">
+    <value>令牌设置</value>
+  </data>
+  <data name="Settings_General" xml:space="preserve">
+    <value>基本设置</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Settings_Proxy" xml:space="preserve">
+    <value>代理设置</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="Settings_ThemeAccent" xml:space="preserve">
+    <value>主题颜色</value>
+  </data>
+  <data name="Settings_UI" xml:space="preserve">
+    <value>界面设置</value>
+  </data>
   <data name="SetupCertificate" xml:space="preserve">
     <value>安装证书</value>
   </data>
@@ -348,14 +399,20 @@
   <data name="Steam302" xml:space="preserve">
     <value>社区反代</value>
   </data>
+  <data name="SteamAchievement_SearchTextBox_Prompt" xml:space="preserve">
+    <value>输入成就名称搜索</value>
+  </data>
   <data name="SteamApp_SearchTextBox_Prompt" xml:space="preserve">
     <value>输入游戏名称或appid搜索</value>
   </data>
   <data name="SteamAuth" xml:space="preserve">
     <value>本地令牌</value>
   </data>
+  <data name="Steam_Not_Runing" xml:space="preserve">
+    <value>Steam未运行</value>
+  </data>
   <data name="Steam_Not_Runing_Tips" xml:space="preserve">
-    <value>Steam未运行（部分功能不可用）</value>
+    <value>Steam未运行（该功能不可用）</value>
   </data>
   <data name="StopService" xml:space="preserve">
     <value>停止服务</value>

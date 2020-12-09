@@ -76,7 +76,7 @@ namespace SteamTools.ViewModels
                 //AddExtension = true,
                 Multiselect = true
             };
-            if (fileDialog.ShowDialog().Value && fileDialog.FileNames.Length > 0)
+            if (fileDialog.ShowDialog() == true && fileDialog.FileNames.Length > 0)
             {
                 foreach (var file in fileDialog.FileNames)
                 {

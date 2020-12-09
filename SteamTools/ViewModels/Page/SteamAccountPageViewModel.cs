@@ -73,6 +73,7 @@ namespace SteamTools.ViewModels
             steamService.SetCurrentUser(parameter);
             steamService.KillSteamProcess();
             steamService.StartSteam();
+            SteamConnectService.Current.IsConnectToSteam = false;
         }
 
         public static void HeadImage_OnClick(string parameter)

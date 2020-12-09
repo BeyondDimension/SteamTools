@@ -24,7 +24,7 @@ namespace SteamTool.Model
         public const string STEAM_INSTALL_URL = "steam://install/{0}";
         public const string STEAM_RUNGAME_URL = "steam://rungameid/{0}";
 
-        public const string STEAMDB_USERINFO_URL = "https://steamdb.ml/api/v1/users/{0}";
-        public const string STEAMDB_APPINFO_URL = "https://steamdb.ml/api/v1/apps/{0}";
+        public const string STEAMDB_USERINFO_URL = "https://api.steamdb.ml/v1/users/{0}";
+        public const string STEAMDB_APPINFO_URL = "https://api.steamdb.ml/v1/apps/{0}";
     }
 }

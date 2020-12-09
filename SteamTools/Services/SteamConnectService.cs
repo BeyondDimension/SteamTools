@@ -105,7 +105,8 @@ namespace SteamTools.Services
                              IsConnectToSteam = ApiService.Initialize();
                              if (IsConnectToSteam)
                              {
-                                 CurrentSteamUser = await steamDbApiService.GetUserInfo(ApiService.GetSteamId64());
+                                 var id = ApiService.GetSteamId64();
+                                 CurrentSteamUser = await steamDbApiService.GetUserInfo(id);
                                  var mainViewModel = (WindowService.Current.MainWindow as MainWindowViewModel);
                                  mainViewModel.SteamAppPage.Initialize();
 #if DEBUG
@@ -117,9 +118,9 @@ namespace SteamTools.Services
                      else
                      {
                          IsConnectToSteam = false;
-                         StatusService.Current.Notify(Resources.Steam_Not_Runing_Tips);
+                         //StatusService.Current.Notify(Resources.Steam_Not_Runing);
                      }
-                     await Task.Delay(1500);
+                     await Task.Delay(1000);
                  }
              });
         }
@@ -129,6 +130,15 @@ namespace SteamTools.Services
             if (Process.GetProcessesByName("steam").Length > 0)
             {
                 IsConnectToSteam = ApiService.Initialize(appid);
+            }
+        }
+
+        public void Shutdown()
+        {
+            foreach (var app in SteamConnectService.Current.RuningSteamApps)
+            {
+                if (!app.Process.HasExited)
+                    app.Process.Kill();
             }
         }
     }

@@ -4,11 +4,22 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:control="clr-namespace:SteamTools.Views.Pages" 
+			 xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
+             xmlns:vm="clr-namespace:SteamTools.ViewModels"
+			 xmlns:models="clr-namespace:SteamTools.Models"
+			 xmlns:ms="clr-namespace:SteamTools.Models.Settings"
              xmlns:services="clr-namespace:SteamTools.Services"
 			 mc:Ignorable="d"
 			 d:DesignWidth="600"
-			 d:DesignHeight="400">
-
+			 d:DesignHeight="400"
+             d:DataContext="{d:DesignInstance vm:SettingsPageViewModel}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Content\Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <TabControl Grid.Row="1" Style="{StaticResource VerticalTabControlStyleKey}"
              FontFamily="{DynamicResource DefaultFontFamilyKey}" FontSize="14">
         <TabControl.Resources>
@@ -25,17 +36,16 @@
 
         <TabItem>
             <TabItem.Header>
-                <TextBlock Text="{Binding Resources.Common,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
+                <TextBlock Text="{Binding Resources.Settings_General,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 							   Style="{StaticResource TabHeaderTextStyleKey}" />
             </TabItem.Header>
         </TabItem>
 
         <TabItem>
             <TabItem.Header>
-                <TextBlock Text="{Binding Resources.Theme,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
+                <TextBlock Text="{Binding Resources.Settings_UI,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
                                Style="{StaticResource TabHeaderTextStyleKey}" />
             </TabItem.Header>
-
             <ScrollViewer HorizontalScrollBarVisibility="Disabled"
 				  VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="8,0,8,8">
@@ -59,21 +69,9 @@
                         </Style>
                     </Panel.Resources>
 
-                    <TextBlock Text="Theme &amp; Accent"
-					   FontFamily="Segoe UI Light"
-					   FontSize="18"
-					   Foreground="{DynamicResource ForegroundBrushKey}"
-					   HorizontalAlignment="Center"
-					   Margin="0,0,0,8" />
+                    <TextBlock Text="{Binding Resources.Settings_ThemeAccent, Source={x:Static services:ResourceService.Current}, Mode=OneWay}" Style="{DynamicResource SettingsHeaderTextStyleKey}" />
 
-                    <Border Height="1"
-					Background="{DynamicResource BorderBrushKey}"
-					Margin="0,8" />
-
-                    <DockPanel>
-                        <Panel.DataContext>
-                            <control:ThemeViewModel />
-                        </Panel.DataContext>
+                    <DockPanel Margin="20,0,0,0">
                         <Panel.Resources>
                             <Style TargetType="{x:Type RadioButton}"
 						                BasedOn="{StaticResource {x:Type RadioButton}}">
@@ -81,28 +79,20 @@
 								Value="Themes" />
                             </Style>
                         </Panel.Resources>
-                        <TextBlock Text="Theme:"
-						   Width="50" 
+                        <TextBlock Text="{Binding Resources.Settings_Theme, Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 					   Foreground="{DynamicResource ForegroundBrushKey}" />
                         <RadioButton Content="Windows"
-							 IsChecked="{Binding Windows}" />
+							 IsChecked="{Binding ThemeWindows}" />
                         <Border Width="12" />
                         <WrapPanel>
-                            <RadioButton Content="Dark"
+                            <RadioButton Content="深色"
 								 IsChecked="{Binding Dark}" />
-                            <RadioButton Content="Light"
+                            <RadioButton Content="浅色"
 								 IsChecked="{Binding Light}" />
                         </WrapPanel>
                     </DockPanel>
 
-                    <Border Height="1"
-					Background="{DynamicResource BorderBrushKey}"
-					Margin="0,8" />
-
-                    <DockPanel>
-                        <Panel.DataContext>
-                            <control:AccentViewModel />
-                        </Panel.DataContext>
+                    <DockPanel Margin="20,0,0,0">
                         <Panel.Resources>
                             <Style TargetType="{x:Type RadioButton}"
 						   BasedOn="{StaticResource {x:Type RadioButton}}">
@@ -110,21 +100,22 @@
 								Value="Accents" />
                             </Style>
                         </Panel.Resources>
-                        <TextBlock Text="Accent:"
-						   Width="50"  
+                        <TextBlock Text="{Binding Resources.Settings_Accent, Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 					       Foreground="{DynamicResource ForegroundBrushKey}"/>
                         <RadioButton Content="Windows"
-							 IsChecked="{Binding Windows}" />
+							 IsChecked="{Binding AccentWindows}" />
                         <Border Width="12" />
                         <WrapPanel>
-                            <RadioButton Content="Purple"
+                            <RadioButton Content="紫色"
 								 IsChecked="{Binding Purple}" />
-                            <RadioButton Content="Blue"
+                            <RadioButton Content="蓝色"
 								 IsChecked="{Binding Blue}" />
-                            <RadioButton Content="Orange"
+                            <RadioButton Content="橙色"
 								 IsChecked="{Binding Orange}" />
-                            <RadioButton Content="Red"
+                            <RadioButton Content="红色"
 								 IsChecked="{Binding Red}" />
+                            <RadioButton Content="绿色"
+								 IsChecked="{Binding Green}" />
                         </WrapPanel>
                     </DockPanel>
 
@@ -132,8 +123,31 @@
 					Background="{DynamicResource BorderBrushKey}"
 					Margin="0,8" />
 
+                    <TextBlock Text="{Binding Resources.Settings_Language, Source={x:Static services:ResourceService.Current}, Mode=OneWay}" Style="{DynamicResource SettingsHeaderTextStyleKey}" />
+
+                    <metro:PromptComboBox Margin="20,0,0,0"
+							  HorizontalAlignment="Left"
+							  Prompt=""
+							  ItemsSource="{Binding Cultures}"
+							  DisplayMemberPath="DisplayName"
+							  SelectedValuePath="Name"
+							  SelectedValue="{Binding Source={x:Static ms:GeneralSettings.Culture}, Path=Value, Mode=TwoWay}"
+							  IsReadOnly="True"
+							  MinWidth="250" />
+                    
+                    <Border Height="1"
+					Background="{DynamicResource BorderBrushKey}"
+					Margin="0,8" />
+                    
                 </StackPanel>
             </ScrollViewer>
+        </TabItem>
+
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock Text="{Binding Resources.Settings_Proxy,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
+							   Style="{StaticResource TabHeaderTextStyleKey}" />
+            </TabItem.Header>
         </TabItem>
 
     </TabControl>

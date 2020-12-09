@@ -14,12 +14,14 @@
         xmlns:controls="clr-namespace:SteamTools.Views.Controls"
         mc:Ignorable="d"
         Width="760"
-		Height="600"
+		Height="500"
         IsRestoringWindowPlacement="True"
         WindowStartupLocation="CenterScreen"
-		SnapsToDevicePixels="True" 
+        UseLayoutRounding="True"
         TextOptions.TextFormattingMode="Display"
+        SnapsToDevicePixels="True"
         Title="{Binding Title}"
+        Topmost="{Binding Topmost}"
 		Background="{DynamicResource ThemeBrushKey}"
 		Foreground="{DynamicResource ActiveForegroundBrushKey}"
 		FontFamily="{StaticResource DefaultFontFamilyKey}"
@@ -181,50 +183,101 @@
                         <TextBlock Text="{Binding Resources.AchievementInfo,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 							   Style="{StaticResource TabHeaderTextStyleKey}" />
                     </TabItem.Header>
-                    <Border Grid.Row="1"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Margin="5,0"
+							BorderBrush="{DynamicResource BorderBrushKey}"
+							Padding="5">
+                            <WrapPanel>
+                                <WrapPanel.Resources>
+                                    <Style TargetType="{x:Type RadioButton}"
+									   BasedOn="{StaticResource {x:Type RadioButton}}">
+                                        <Setter Property="Margin"
+											Value="0,2,12,2" />
+                                    </Style>
+                                    <Style TargetType="{x:Type CheckBox}"
+									   BasedOn="{StaticResource {x:Type CheckBox}}">
+                                        <Setter Property="Margin"
+											Value="0,2,12,2" />
+                                    </Style>
+                                    <Style TargetType="{x:Type StackPanel}">
+                                        <Setter Property="Margin"
+											Value="0,0,25,0" />
+                                        <Setter Property="Grid.IsSharedSizeScope"
+											Value="True" />
+                                    </Style>
+                                </WrapPanel.Resources>
+                                <StackPanel Margin="0,0,0,6">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"
+														  SharedSizeGroup="FilterName" />
+                                            <ColumnDefinition Width="10" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Margin="0,2"
+                                               VerticalAlignment="Center"
+											   HorizontalAlignment="Right" Foreground="{DynamicResource AccentForegroundBrushKey}">
+										<Run Text="{Binding Resources.Search,Source={x:Static services:ResourceService.Current},Mode=OneWay}" />
+										<Run Text=":" />
+                                        </TextBlock>
+                                        <WrapPanel Grid.Column="2">
+                                            <metro:PromptTextBox  
+                                 Width="500"
+								 Text="{Binding Text, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+								 Prompt="{Binding Resources.SteamAchievement_SearchTextBox_Prompt, Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
+                                        </WrapPanel>
+                                    </Grid>
+                                </StackPanel>
+                            </WrapPanel>
+                        </Border>
+                        <Border Grid.Row="1"
 					BorderBrush="{DynamicResource BorderBrushKey}"
 					BorderThickness=".99">
-                        <ListView 
+                            <ListView 
                           ItemsSource="{Binding Achievements,Mode=OneWay}"
 						  ItemContainerStyle="{DynamicResource GridViewItemContainerStyleKey}"
 						  ScrollViewer.PanningMode="Both">
-                            <ListView.View>
-                                <GridView>
-                                    <!--Index-->
-                                    <GridViewColumn Width="30">
-                                        <GridViewColumn.Header>
-                                            <CheckBox HorizontalAlignment="Center" IsChecked="{Binding CheckAll}" ></CheckBox>
-                                        </GridViewColumn.Header>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <!--<TextBlock Text="{Binding Id}"
+                                <ListView.View>
+                                    <GridView>
+                                        <!--Index-->
+                                        <GridViewColumn Width="30">
+                                            <GridViewColumn.Header>
+                                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding CheckAll}" ></CheckBox>
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <!--<TextBlock Text="{Binding Id}"
 												   Margin="0,3"
 												   Opacity="0.5"
 												   TextTrimming="None"
 												   TextWrapping="NoWrap" />-->
-                                                <CheckBox Margin="3,0,0,0" IsChecked="{Binding IsChecked}">
-                                                    <Style TargetType="{x:Type CheckBox}">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding IsProtection,Mode=OneWay}" Value="True">
-                                                                <Setter Property="IsEnabled" Value="False"></Setter>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </CheckBox>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
+                                                    <CheckBox Margin="3,0,0,0" IsChecked="{Binding IsChecked}">
+                                                        <Style TargetType="{x:Type CheckBox}">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsProtection,Mode=OneWay}" Value="True">
+                                                                    <Setter Property="IsEnabled" Value="False"></Setter>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </CheckBox>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                    <!--logo-->
-                                    <GridViewColumn Width="76">
-                                        <GridViewColumn.Header>
-                                            <TextBlock Text="{Binding Resources.Logo,Source={x:Static services:ResourceService.Current},Mode=OneWay}" />
-                                        </GridViewColumn.Header>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Image Height="64" Width="64" Source="{Binding IconUrl,Mode=OneWay}"
+                                        <!--logo-->
+                                        <GridViewColumn Width="76">
+                                            <GridViewColumn.Header>
+                                                <TextBlock Text="{Binding Resources.Logo,Source={x:Static services:ResourceService.Current},Mode=OneWay}" />
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Image Height="64" Width="64" Source="{Binding IconUrl,Mode=OneWay}"
                                            ToolTip="{Binding Resources.AppLogo_ImageTootlip,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
-                                                    <!--<Image.Style>
+                                                        <!--<Image.Style>
                                                         <Style TargetType="{x:Type Image}">
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding IsAchieved}" Value="True">
@@ -236,23 +289,23 @@
                                                             </Style.Triggers>
                                                         </Style>
                                                     </Image.Style>-->
-                                                </Image>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
+                                                    </Image>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                    <!--Name-->
-                                    <GridViewColumn Width="200">
-                                        <GridViewColumn.Header>
-                                            <metro2:SortButton MethodName="Sort"
+                                        <!--Name-->
+                                        <GridViewColumn Width="200">
+                                            <GridViewColumn.Header>
+                                                <metro2:SortButton MethodName="Sort"
 													   MethodParameter="{x:Static viewModel:SteamAppSortWorker.AppIdColumn}">
-                                                <TextBlock Text="{Binding Resources.Name,Source={x:Static services:ResourceService.Current},Mode=OneWay}" />
-                                            </metro2:SortButton>
-                                        </GridViewColumn.Header>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel>
-                                                    <TextBlock>
+                                                    <TextBlock Text="{Binding Resources.Name,Source={x:Static services:ResourceService.Current},Mode=OneWay}" />
+                                                </metro2:SortButton>
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <TextBlock>
                                                         <Run>
                                                             <Run.Style>
                                                                 <Style TargetType="{x:Type Run}">
@@ -265,34 +318,35 @@
                                                             </Run.Style>
                                                         </Run>
                                                         <Run Text="{Binding Name, Mode=OneWay}"></Run>
-                                                    </TextBlock>
-                                                    <TextBlock FontSize="12" Margin="3,0" Visibility="{Binding IsAchieved,Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                        </TextBlock>
+                                                        <TextBlock FontSize="12" Margin="3,0" Visibility="{Binding IsAchieved,Converter={StaticResource BooleanToVisibilityConverter}}">
                                                         <Run Text="{Binding Resources.UnlockTime,Source={x:Static services:ResourceService.Current},Mode=OneWay}"></Run>
                                                         <Run Text="{Binding UnlockTime,StringFormat={x:Static prop:Resources.LastloginTime},Mode=OneWay}"></Run>
-                                                    </TextBlock>
-                                                </StackPanel>
+                                                        </TextBlock>
+                                                    </StackPanel>
 
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                    <!--Description-->
-                                    <GridViewColumn Width="340">
-                                        <GridViewColumn.Header>
-                                            <TextBlock Text="{Binding Resources.Description,Source={x:Static services:ResourceService.Current},Mode=OneWay}"/>
-                                        </GridViewColumn.Header>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Description, Mode=OneWay}"
+                                        <!--Description-->
+                                        <GridViewColumn Width="340">
+                                            <GridViewColumn.Header>
+                                                <TextBlock Text="{Binding Resources.Description,Source={x:Static services:ResourceService.Current},Mode=OneWay}"/>
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Description, Mode=OneWay}"
 												   Margin="0,3" TextWrapping="WrapWithOverflow" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </Border>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Border>
+                    </Grid>
                 </TabItem>
 
                 <!--统计修改-->
@@ -334,7 +388,7 @@
                                         </GridViewColumn>
 
                                         <!--Name-->
-                                        <GridViewColumn Width="230">
+                                        <GridViewColumn Width="235">
                                             <GridViewColumn.Header>
                                                 <metro2:SortButton MethodName="Sort"
 													   MethodParameter="{x:Static viewModel:SteamAppSortWorker.AppIdColumn}">
@@ -357,7 +411,7 @@
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBox BorderThickness="0" IsEnabled="{Binding ElementName=agree,Path=IsChecked,Mode=OneWay}" Width="{Binding ElementName=v,Path=Width,Mode=OneWay}" Text="{Binding Value, Mode=TwoWay}"
+                                                    <TextBox BorderThickness="0" IsEnabled="{Binding ElementName=agree,Path=IsChecked,Mode=OneWay}" Width="{Binding ElementName=v,Path=Width,Mode=OneWay}" Text="{Binding Value, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
 												      Margin="0,3" input:InputMethod.IsInputMethodEnabled="False" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyUp="TextBox_PreviewKeyUp" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>

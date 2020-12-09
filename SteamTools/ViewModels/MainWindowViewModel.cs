@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Interop;
 using SteamTools.Services;
 using SteamTools.Properties;
+using MetroRadiance.Interop.Win32;
 
 namespace SteamTools.ViewModels
 {
@@ -67,6 +68,13 @@ namespace SteamTools.ViewModels
                     this._Visible = value;
                     ChangeWindowVisible();
                 }
+                else if (!this._Visible)
+                {
+                    App.Current.MainWindow.Topmost = true;
+                    App.Current.MainWindow.WindowState = WindowState.Normal;
+                    User32Window.FlashWindow(new WindowInteropHelper(App.Current.MainWindow).Handle);
+                    App.Current.MainWindow.Topmost = false;
+                }
             }
         }
 
@@ -81,7 +89,7 @@ namespace SteamTools.ViewModels
                 (this.AccountPage = new SteamAccountPageViewModel().AddTo(this)),
                 (this.SteamAppPage = new SteamAppPageViewModel().AddTo(this)),
                 (this.LocalAuthPage = new LocalAuthPageViewModel().AddTo(this)),
-                (this.AchievementUnlockedPage = new AchievementUnlockedPageViewModel().AddTo(this)),
+                //(this.AchievementUnlockedPage = new AchievementUnlockedPageViewModel().AddTo(this)),
                 (this.AsfPlusPage = new ArchiSteamFarmPlusPageViewModel().AddTo(this)),
                 (this.SteamIdlePage = new SteamIdlePageViewModel().AddTo(this)),
                 (this.OtherPlatformPage = new OtherPlatformPageViewModel().AddTo(this)),
@@ -91,7 +99,7 @@ namespace SteamTools.ViewModels
             this.SystemTabItems = new List<TabItemViewModel>
             {
                 SettingsPageViewModel.Instance,
-                AboutPageModel.Instance,
+                AboutPageViewModel.Instance,
 				#region DEBUG
 #if DEBUG
 				new DebugPageViewModel().AddTo(this),
@@ -99,7 +107,7 @@ namespace SteamTools.ViewModels
 				#endregion
 			};
             this.SelectedItem = this.TabItems.FirstOrDefault();
-            this.Initialize();
+            //this.Initialize();
         }
 
         public async new void Initialize()
@@ -134,7 +142,7 @@ namespace SteamTools.ViewModels
                 App.Current.MainWindow.Show();
                 //App.Current.MainWindow.Focus();
                 App.Current.MainWindow.WindowState = WindowState.Normal;
-                FlashTaskBar.FlashWindow(new WindowInteropHelper(App.Current.MainWindow).Handle);
+                User32Window.FlashWindow(new WindowInteropHelper(App.Current.MainWindow).Handle);
             }
         }
     }

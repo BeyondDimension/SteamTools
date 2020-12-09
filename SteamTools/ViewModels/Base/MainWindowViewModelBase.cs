@@ -36,6 +36,25 @@ namespace SteamTools.ViewModels
 
         #endregion
 
+        #region Topmost 变更通知
+
+        private bool _Topmost;
+
+        public bool Topmost
+        {
+            get { return this._Topmost; }
+            set
+            {
+                if (this._Topmost != value)
+                {
+                    this._Topmost = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
+        #endregion
+
         protected MainWindowViewModelBase()
         {
             this.Title = ProductInfo.Title;
@@ -88,7 +107,7 @@ namespace SteamTools.ViewModels
 
         protected override void CloseCanceledCallbackCore()
         {
-            //var dialog = new DialogViewModel { Title = "終了確認", };
+            //var dialog = new DialogViewModel { Title = "确认关闭", };
 
             //this.Dialog(dialog, typeof(ExitDialog));
 

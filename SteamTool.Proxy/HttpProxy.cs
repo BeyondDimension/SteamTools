@@ -217,6 +217,7 @@ namespace SteamTool.Proxy
             //    .CreateServerCertificate($"{Assembly.GetCallingAssembly().GetName().Name} Certificate")
             //    .ContinueWith(c => proxyServer.CertificateManager.RootCertificate = c.Result);
             proxyServer.CertificateManager.PfxFilePath = $@"{CertificateName}.Certificate.pfx";
+            //proxyServer.CertificateManager.PfxPassword = $"{CertificateName}";
             proxyServer.CertificateManager.RootCertificateIssuerName = CertificateName;
             proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
             proxyServer.CertificateManager.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.DefaultWindows;
@@ -238,6 +239,7 @@ namespace SteamTool.Proxy
             using (var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser))
             {
                 store.Open(OpenFlags.MaxAllowed);
+                //var test = store.Certificates.Find(X509FindType.FindByIssuerName, "titan", true);
                 var test = store.Certificates.Find(X509FindType.FindByIssuerName, CertificateName, true);
                 foreach (var item in test)
                 {
@@ -388,7 +390,10 @@ namespace SteamTool.Proxy
         public void Dispose()
         {
             if (proxyServer.ProxyRunning)
+            {
                 proxyServer.Stop();
+                hostsService.RemoveHostsByTag();
+            }
             proxyServer.Dispose();
         }
 

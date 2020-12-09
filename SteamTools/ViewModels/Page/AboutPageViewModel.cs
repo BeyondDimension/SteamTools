@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SteamTools.ViewModels
 {
-    public class AboutPageModel : TabItemViewModel
+    public class AboutPageViewModel : TabItemViewModel
     {
-        public static AboutPageModel Instance { get; } = new AboutPageModel();
+        public static AboutPageViewModel Instance { get; } = new AboutPageViewModel();
 
         public override string Name
         {

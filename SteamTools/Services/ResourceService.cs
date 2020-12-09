@@ -1,18 +1,19 @@
-﻿using System;
+﻿using Livet;
+using SteamTools.Models.Settings;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using SteamTools.Properties;
 
 namespace SteamTools.Services
 {
     /// <summary>
-    /// 多言語化されたリソースへのアクセスを提供します。
+    /// 提供对多语言资源的访问。
     /// </summary>
-    public class ResourceService : INotifyPropertyChanged
+    public class ResourceService : NotificationObject
     {
         // singleton
         public static ResourceService Current { get; } = new ResourceService();
@@ -73,24 +74,15 @@ namespace SteamTools.Services
         /// <param name="name"></param>
         public void ChangeCulture(string name)
         {
-            SteamTools.Properties.Resources.Culture = this.SupportedCultures.SingleOrDefault(x => x.Name == name);
-            this.OnPropertyChanged(nameof(this.Resources));
+            Resources.Culture = this.SupportedCultures.SingleOrDefault(x => x.Name == name);
+            GeneralSettings.Culture.Value = SteamTools.Properties.Resources.Culture?.Name;
+            Debug.WriteLine(SteamTools.Properties.Resources.ResourceManager.GetString("Welcome", Resources.Culture));
+            this.RaisePropertyChanged(nameof(this.Resources));
         }
 
-        public string GetCurrentCultureSteamLanguageName() 
+        public string GetCurrentCultureSteamLanguageName()
         {
             return supportedCultureSteamNames[SteamTools.Properties.Resources.Culture.Name];
         }
-
-        #region PropertyChanged event
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
     }
 }

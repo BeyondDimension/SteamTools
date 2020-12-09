@@ -19,6 +19,8 @@ using SteamTools.Services;
 using MetroTrilithon.Mvvm;
 using Hardcodet.Wpf.TaskbarNotification;
 using SteamTools.Models;
+using SteamTools.Models.Settings;
+using SteamTools.ViewModels;
 
 namespace SteamTools
 {
@@ -29,6 +31,12 @@ namespace SteamTools
     {
         public static App Instance => Current as App;
 
+        public DirectoryInfo LocalAppData = new DirectoryInfo(
+    Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+        ProductInfo.Company,
+        ProductInfo.Product));
+
         private void IsRenameProgram()
         {
             string strFullPath = Path.GetFileName(Assembly.GetExecutingAssembly().Location);
@@ -38,6 +46,7 @@ namespace SteamTools
                 this.Shutdown();
             }
         }
+
 
         /// <summary>
         /// 启动时
@@ -57,14 +66,31 @@ namespace SteamTools
                     base.OnStartup(e);
                     return;
                 }
+                Logger.EnableTextLog = true;
 #endif
 
-                Logger.EnableTextLog = true;
-                this.DispatcherUnhandledException += App_DispatcherUnhandledException;
-                DispatcherHelper.UIDispatcher = this.Dispatcher;
+                if (e.Args.ContainsArg("-log"))
+                {
+                    Logger.EnableTextLog = true;
+                    this.DispatcherUnhandledException += App_DispatcherUnhandledException;
+                    DispatcherHelper.UIDispatcher = this.Dispatcher;
+                }
+                if (e.Args.ContainsArg("-safe"))
+                {
+
+                }
+                if (e.Args.ContainsArg("-reset"))
+                {
+
+                }
+                SettingsHost.Load();
+                this.compositeDisposable.Add(SettingsHost.Save);
+                this.compositeDisposable.Add(ProxyService.Current.Shutdown);
+                this.compositeDisposable.Add(SteamConnectService.Current.Shutdown);
 
                 //托盘加载
                 TaskbarService.Current.Taskbar = (TaskbarIcon)FindResource("Taskbar");
+                GeneralSettings.Culture.Subscribe(x => ResourceService.Current.ChangeCulture(x)).AddTo(this);
                 ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
                 WindowService.Current.AddTo(this).Initialize();
                 ProxyService.Current.Initialize();
@@ -102,7 +128,7 @@ namespace SteamTools
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex); 
+                Debug.WriteLine(ex);
                 MessageBox.Show(ex.Message, "Error");
             }
 
@@ -120,37 +146,44 @@ namespace SteamTools
                 //TaskbarService.Current.Taskbar.Icon = null; //避免托盘图标没有自动消失
                 TaskbarService.Current.Taskbar.Icon.Dispose();
             }
-            if (ProxyService.Current.Proxy != null)
-            {
-                ProxyService.Current.Proxy.Dispose();
-            }
-            foreach (var app in SteamConnectService.Current.RuningSteamApps)
-            {
-                if (!app.Process.HasExited)
-                    app.Process.Kill();
-            }
             base.OnExit(e);
+            this.compositeDisposable.Dispose();
         }
 
         private void ProcessCommandLineParameter(string[] args)
         {
             Debug.WriteLine("多重启动通知: " + args.ToString(" "));
             // 当使用命令行参数多次启动时，您可以执行某些操作
-            if (!int.TryParse(args[0], out var appId))
-                this.Shutdown();
+            //if (args.Length == 0)
+            //{
+            //    this.Shutdown();
+            //}            
+            if (args.ContainsArg("-log"))
+            {
+                Logger.EnableTextLog = true;
+                this.DispatcherUnhandledException += App_DispatcherUnhandledException;
+                DispatcherHelper.UIDispatcher = this.Dispatcher;
+            }
+            if (args.ContainsArg("-app", out int appid))
+            {
+                ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
+                new SettingsPageViewModel();
+                WindowService.Current.AddTo(this).Initialize(appid);
+                //SteamConnectService.Current.Initialize();
 
-            Logger.EnableTextLog = true;
-            this.DispatcherUnhandledException += App_DispatcherUnhandledException;
-            DispatcherHelper.UIDispatcher = this.Dispatcher;
-
-            ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
-            WindowService.Current.AddTo(this).Initialize(appId);
-            //SteamConnectService.Current.Initialize();
-
-            this.MainWindow = WindowService.Current.GetMainWindow();
-            this.MainWindow.Show();
-
+                this.MainWindow = WindowService.Current.GetMainWindow();
+                if (args.ContainsArg("-hide"))
+                {
+                    //this.MainWindow.Show();
+                    this.MainWindow.Hide();
+                }
+                else
+                {
+                    this.MainWindow.Show();
+                }
+            }
         }
+
 
         #region INotifyPropertyChanged members
 

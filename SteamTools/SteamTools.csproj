@@ -14,7 +14,7 @@
 
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 
-		<AssemblyName>SteamTools</AssemblyName>
+		<AssemblyName>Steam++</AssemblyName>
 
 		<StartupObject>SteamTools.App</StartupObject>
 
@@ -30,9 +30,11 @@
 
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 
-		<Description>SteamTools</Description>
+		<Description>Steam++</Description>
 
 		<Platforms>AnyCPU;x86</Platforms>
+
+		<Product>Steam Plus Tools</Product>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
@@ -68,14 +70,21 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+		<None Remove="Resources\Asstes\add.png" />
 		<None Remove="Resources\Asstes\app.ico" />
 		<None Remove="Resources\Asstes\Copy.png" />
 		<None Remove="Resources\Asstes\delete.png" />
+		<None Remove="Resources\Asstes\detail.png" />
+		<None Remove="Resources\Asstes\edit.png" />
 		<None Remove="Resources\Asstes\install-line.png" />
+		<None Remove="Resources\Asstes\look.png" />
+		<None Remove="Resources\Asstes\movecross.png" />
+		<None Remove="Resources\Asstes\ok.png" />
 		<None Remove="Resources\Asstes\play.png" />
 		<None Remove="Resources\Asstes\refresh.png" />
 		<None Remove="Resources\Asstes\restore.png" />
 		<None Remove="Resources\Asstes\save.png" />
+		<None Remove="Resources\Asstes\seek.png" />
 		<None Remove="Resources\Asstes\unlock.png" />
 	</ItemGroup>
 
@@ -89,14 +98,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Resource Include="Resources\Asstes\add.png" />
 		<Resource Include="Resources\Asstes\app.ico" />
 		<Resource Include="Resources\Asstes\copy.png" />
 		<Resource Include="Resources\Asstes\delete.png" />
+		<Resource Include="Resources\Asstes\detail.png" />
+		<Resource Include="Resources\Asstes\edit.png" />
 		<Resource Include="Resources\Asstes\install-line.png" />
+		<Resource Include="Resources\Asstes\look.png" />
+		<Resource Include="Resources\Asstes\movecross.png" />
+		<Resource Include="Resources\Asstes\ok.png" />
 		<Resource Include="Resources\Asstes\play.png" />
 		<Resource Include="Resources\Asstes\refresh.png" />
 		<Resource Include="Resources\Asstes\restore.png" />
 		<Resource Include="Resources\Asstes\save.png" />
+		<Resource Include="Resources\Asstes\seek.png" />
 		<Resource Include="Resources\Asstes\unlock.png" />
 	</ItemGroup>
 
@@ -138,17 +154,8 @@
 		<Compile Update="Views\Pages\DebugPage.xaml.cs">
 			<DependentUpon>DebugPage.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="Views\Pages\LocalAuthPage - 复制.xaml.cs">
-		  <DependentUpon>LocalAuthPage.xaml</DependentUpon>
-		</Compile>
 		<Compile Update="Views\Pages\LocalAuthPage.xaml.cs">
 			<DependentUpon>LocalAuthPage.xaml</DependentUpon>
-		</Compile>
-		<Compile Update="Views\Pages\OtherPlatformPage - 复制.xaml.cs">
-		  <DependentUpon>OtherPlatformPage.xaml.cs</DependentUpon>
-		</Compile>
-		<Compile Update="Views\Pages\SettingsPage - 复制.xaml.cs">
-		  <DependentUpon>SettingsPage.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="Views\Pages\SettingsPage.xaml.cs">
 			<DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -162,10 +169,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Update="Properties\Resource.en.resx">
+		<EmbeddedResource Update="Properties\Resources.zh-TW.resx">
 			<DependentUpon>Resources.resx</DependentUpon>
 		</EmbeddedResource>
-		<EmbeddedResource Update="Properties\Resource.zh-TW.resx">
+		<EmbeddedResource Update="Properties\Resources.en.resx">
 			<DependentUpon>Resources.resx</DependentUpon>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Properties\Resources.resx">
@@ -206,6 +213,9 @@
 		<Page Update="Resources\Styles\Controls.xaml">
 			<SubType>Designer</SubType>
 		</Page>
+		<Page Update="Views\Content\AboutDonate.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		</Page>
 		<Page Update="Views\Controls\StatusBar.xaml">
 			<SubType>Designer</SubType>
 		</Page>
@@ -224,6 +234,10 @@
 		<Page Update="Views\Pages\ArchiSteamFarmPlusPage.xaml">
 		  <SubType>Designer</SubType>
 		</Page>
+		<Page Update="Views\Pages\AboutPage.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		  <SubType>Designer</SubType>
+		</Page>
 		<Page Update="Views\Pages\SteamAppPage.xaml">
 		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		  <SubType>Designer</SubType>
@@ -232,9 +246,6 @@
 			<SubType>Designer</SubType>
 		</Page>
 		<Page Update="Views\Pages\GameRelatedPage.xaml">
-		  <SubType>Designer</SubType>
-		</Page>
-		<Page Update="Views\Pages\OtherPlatformPage.xaml">
 		  <SubType>Designer</SubType>
 		</Page>
 		<Page Update="Views\Pages\SettingsPage.xaml">
@@ -246,6 +257,9 @@
 		<Page Update="Views\Pages\WelcomePage.xaml">
 			<SubType>Designer</SubType>
 		</Page>
+		<Page Update="Views\Window\ShowAuthWindow.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		</Page>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -254,6 +268,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\SteamTool.Authenticator\SteamTool.Authenticator.csproj" />
 		<ProjectReference Include="..\SteamTool.Core\SteamTool.Core.csproj" />
 		<ProjectReference Include="..\SteamTool.Proxy\SteamTool.Proxy.csproj" />
 		<ProjectReference Include="..\SteamTools.Composition\SteamTool.Composition.csproj" />
@@ -296,5 +311,4 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
-
 </Project>

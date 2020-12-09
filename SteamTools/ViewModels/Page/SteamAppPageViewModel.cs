@@ -66,7 +66,7 @@ namespace SteamTools.ViewModels
                 if (this._Games != value)
                 {
                     this._Games = value;
-                    InstalledCount = value.Count(s=>s.IsInstalled);
+                    InstalledCount = value.Count(s => s.IsInstalled);
                     this.RaisePropertyChanged();
                 }
             }
@@ -177,7 +177,7 @@ namespace SteamTools.ViewModels
                     //WindowService.Current.MainWindow.Transition(achievement, typeof(AchievementWindow));
                     var nApp = app.Clone();
                     //nApp.Process = Process.Start($"{ProductInfo.Title}.exe", app.AppId.ToString(CultureInfo.InvariantCulture));
-                    nApp.Process = Process.Start(Path.GetFileName(Assembly.GetExecutingAssembly().Location), app.AppId.ToString(CultureInfo.InvariantCulture));
+                    nApp.Process = Process.Start(Path.GetFileName(Assembly.GetExecutingAssembly().Location), "-app " + app.AppId.ToString(CultureInfo.InvariantCulture));
                     SteamConnectService.Current.RuningSteamApps.Add(nApp);
                     break;
                 default:
@@ -196,8 +196,8 @@ namespace SteamTools.ViewModels
                 default:
                     if (app.IsInstalled)
                     {
-                        //TaskbarService.Current.Notify(Resources.CurrentAppInstalled);
-                        Process.Start(string.Format(Const.STEAM_INSTALL_URL, app.AppId.ToString()));
+                        TaskbarService.Current.Notify($"正在启动《{app.Name}》", Resources.CurrentAppInstalled);
+                        Process.Start(string.Format(Const.STEAM_RUNGAME_URL, app.AppId.ToString()));
                         return;
                     }
                     Process.Start(string.Format(Const.STEAM_INSTALL_URL, app.AppId.ToString()));

@@ -11,8 +11,12 @@
         xmlns:services="clr-namespace:SteamTools.Services"
         xmlns:vm="clr-namespace:SteamTools.ViewModels"
         mc:Ignorable="d"
-        Title="{Binding Title}" 
+        Title="{Binding Title}"
+        Topmost="{Binding Topmost}" 
         Style="{DynamicResource MetroDialogStyleKey}"
+        UseLayoutRounding="True"
+        TextOptions.TextFormattingMode="Display"
+        SnapsToDevicePixels="True"
         WindowStartupLocation="CenterOwner"
 		SizeToContent="Height"
         d:DataContext="{d:DesignInstance vm:DialogWindowViewModel}">

@@ -24,6 +24,7 @@ namespace SteamTools.ViewModels
         private int AppId { get; }
 
         #region 成就列表
+        private IList<AchievementInfo> _BackAchievements;
         private IList<AchievementInfo> _Achievements;
         public IList<AchievementInfo> Achievements
         {
@@ -75,6 +76,27 @@ namespace SteamTools.ViewModels
             }
         }
 
+        private string _Text;
+        public string Text
+        {
+            get { return _Text; }
+            set
+            {
+                if (this._Text != value)
+                {
+                    this._Text = value;
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        this.Achievements = Achievements.Where(w => w.Name.IndexOf(Text, StringComparison.OrdinalIgnoreCase) > -1).ToList();
+                    }
+                    else
+                    {
+                        Achievements = _BackAchievements;
+                    }
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
 
         public AchievementWindowViewModel(bool isMainWindow, int appid) : base(isMainWindow)
         {
@@ -332,6 +354,7 @@ namespace SteamTools.ViewModels
                 list.Add(info);
             }
             this.Achievements = list.OrderByDescending(s => s.IsAchieved).ThenBy(s => s.Id).ToList();
+            _BackAchievements = Achievements;
         }
 
         private int StoreAchievements()

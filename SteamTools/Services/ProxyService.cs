@@ -264,5 +264,9 @@ namespace SteamTools.Services
             ProxyScripts = scripts;
         }
 
+        public void Shutdown()
+        {
+            Current.Proxy?.Dispose();
+        }
     }
 }

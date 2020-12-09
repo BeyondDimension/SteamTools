@@ -11,6 +11,7 @@
       mc:Ignorable="d"
       d:DesignWidth="600"
 	  d:DesignHeight="400"
+      FontFamily="{StaticResource DefaultFontFamilyKey}"
 	  Background="{DynamicResource ThemeBrushKey}"
       d:DataContext="{d:DesignInstance viewModel:WelcomePageViewModel}"
       >
@@ -40,20 +41,17 @@
                 <ScrollViewer VerticalScrollBarVisibility="Auto"
 							  PanningMode="Both"
 							  Padding="10,0,20,14">
-                    <StackPanel Margin="0,-9,0,0">
-                        <TextBlock>
-							<Run Text="{Binding Source={x:Static models:ProductInfo.Product}, Mode=OneWay}"
-								 FontFamily="Segoe UI Light"
-								 FontSize="30"
-								 Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-							<LineBreak />
+                    <StackPanel Margin="0,-3,0,0">
+                        <TextBlock Foreground="{DynamicResource ActiveForegroundBrushKey}" >
 							<Run Text="{Binding Source={x:Static models:ProductInfo.Title}, Mode=OneWay}"
+								 FontSize="30"/>
+							<LineBreak />
+							<Run Text="{Binding Source={x:Static models:ProductInfo.Product}, Mode=OneWay}"
 								 FontSize="16" />
                         </TextBlock>
 
-                        <TextBlock Margin="0,8,0,0">
+                        <TextBlock Margin="0,8,0,0" Style="{StaticResource HeaderTextStyleKey}">
 							<Run Text="{Binding Source={x:Static models:ProductInfo.VersionString}, StringFormat=Version {0}, Mode=OneWay}"
-								 FontFamily="Segoe UI Light"
 								 FontSize="20"
 								 Foreground="{DynamicResource ActiveForegroundBrushKey}" />
                         </TextBlock>
@@ -61,11 +59,21 @@
                         <Rectangle Height=".99"
 								   Margin="0,12"
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
-
-                        <TextBlock FontFamily="Segoe UI">
+                        <TextBlock Foreground="{DynamicResource ActiveForegroundBrushKey}">
+							<Run Text="Author:" />
+							<metro2:HyperlinkEx Uri="https://rmbgame.net">
+								<Run Text="@软妹币玩家" />
+							</metro2:HyperlinkEx>
+							<LineBreak />
+							<LineBreak />
 							<Run Text="Developer:" />
 							<metro2:HyperlinkEx Uri="https://rmbgame.net">
 								<Run Text="@软妹币玩家" />
+							</metro2:HyperlinkEx>
+							<LineBreak />
+							<Run Text="Icon by:" />
+							<metro2:HyperlinkEx Uri="https://keylol.com/">
+								<Run Text="@Keylol" />
 							</metro2:HyperlinkEx>
                         </TextBlock>
 
@@ -73,11 +81,11 @@
 								   Margin="0,12"
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
 
-                        <TextBlock FontFamily="Segoe UI"
-								   Margin="0,10,0,0"
+                        <TextBlock FontSize="10" Foreground="{DynamicResource ActiveForegroundBrushKey}"
 								   TextWrapping="Wrap">
-
+							<Run Text="{Binding Source={x:Static models:ProductInfo.Copyright}, Mode=OneWay}" />
                         </TextBlock>
+                        
                     </StackPanel>
                 </ScrollViewer>
             </Border>
@@ -93,23 +101,45 @@
 								  Foreground="{DynamicResource ForegroundBrushKey}"
 								  FontFamily="Meiryo UI"
 								  TextAlignment="Left"
-								  MaxPageWidth="390">
+								  MaxPageWidth="900">
                         <Paragraph>
-                            <Run Foreground="White"
+                            <Run Foreground="{DynamicResource ForegroundBrushKey}"
 								 FontSize="20"
 								 Text="欢迎，" />
-                            <Run Foreground="White"
+                            <Image Source="{Binding CurrentSteamUser.AvatarIcon,Source={x:Static services:SteamConnectService.Current},Mode=OneWay}" Width="18" Height="18"></Image>
+                            <Run Foreground="{DynamicResource ForegroundBrushKey}"
 								 FontSize="20"
 								 Text="{Binding CurrentSteamUser.SteamID,Source={x:Static services:SteamConnectService.Current},Mode=OneWay}" />
                         </Paragraph>
                         <Paragraph Language="zh-cn">
-                            <Run Text="「提督業も忙しい！」は、艦これを遊びやすくするためのツールです。" />
+                            <Run Text="「Steam++」是一个包含多种Steam工具功能的工具箱。" />
                             <LineBreak />
                             <LineBreak />
-                            <Run Text="艦これ本体は内蔵された Web ブラウザー (Chromium) 上で動作します。艦これのサーバーに対して一切の負荷をかけないように設計・開発しており、通信内容の変更やサーバーに対する情報の送信、マクロ・チートの類は一切行っていません。" />
+                            <Run Text="Steam++的大部分功能都是需要您下载安装Steam才能使用的功能。" />
                         </Paragraph>
                         <Paragraph Language="zh-cn">
-                            <Run Text="現在、艦これ本体の第二期への移行に伴い、Chromium エンジンで暫定対応しています。また、未検証の通信内容も多く、意図しない挙動となる可能性があることをご了承ください。" />
+                            <Run Text="主要功能" FontSize="16"/>
+                            <LineBreak/>
+                            <LineBreak />
+                            <Run Text="反代Steam的社区网页使网页能正常访问" />
+                            <LineBreak/>
+                            <LineBreak />
+                            <Run Text="快速切换当前PC已经记住登陆的Steam账号，无需输入密码" />
+                            <LineBreak/>
+                            <LineBreak />
+                            <Run Text="Steam游戏的成就统计管理功能，该功能的实现是调用了Steam的官方API，功能实现感谢SAM" />
+                            <LineBreak/>
+                            <LineBreak />
+                            <Run Text="Steam本地两步身份验证器的实现，可以使您不用启动移动版Steam App也能查看您的令牌" />
+                            <LineBreak/>
+                            <LineBreak />
+                            <Run Text="结合社区反代和成就管理的API实现的自动挂卡功能" />
+                            <LineBreak/>
+                            <LineBreak />
+                            <Run Text="增强ASF在Windows Desktop环境下的使用" />
+                            <LineBreak/>
+                            <LineBreak />
+                            <Run Text="以及更多奇怪的游戏功能。" />
                         </Paragraph>
                         <Paragraph>
                             <InlineUIContainer>
@@ -126,17 +156,17 @@
                             </InlineUIContainer>
                         </Paragraph>
                         <Paragraph Language="zh-cn">
-                            <Run Text="ツールは不定期に更新されています。適宜、更新の確認をお願いします。" />
+                            <Run Text="工具不定期更新。 请适当检查更新。" />
                             <LineBreak />
                             <LineBreak />
-                            <Run Text="Project home:" />
-                            <metro2:HyperlinkEx Uri="http://grabacr.net/kancolleviewer">
-                                <Run Text="http://grabacr.net/kancolleviewer" />
+                            <Run Text="项目主页:" />
+                            <metro2:HyperlinkEx Uri="https://spp.rmbgame.net">
+                                <Run Text="https://spp.rmbgame.net" />
                             </metro2:HyperlinkEx>
                             <LineBreak />
-                            <Run Text="Source code:" />
-                            <metro2:HyperlinkEx Uri="https://github.com/Grabacr07/KanColleViewer">
-                                <Run Text="https://github.com/Grabacr07/KanColleViewer" />
+                            <Run Text="开源地址:" />
+                            <metro2:HyperlinkEx Uri="https://github.com/rmbadmin/Steam++">
+                                <Run Text="https://github.com/rmbadmin/Steam++" />
                             </metro2:HyperlinkEx>
                         </Paragraph>
                     </FlowDocument>
