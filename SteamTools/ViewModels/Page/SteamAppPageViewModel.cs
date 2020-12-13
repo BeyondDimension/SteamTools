@@ -109,6 +109,10 @@ namespace SteamTools.ViewModels
                 if (apps == null || !apps.Any())
                 {
                     var result = await SteamworksWebApi.GetAllSteamAppsString();
+                    if (string.IsNullOrEmpty(result)) 
+                    {
+                        StatusService.Current.Notify("下载Steam游戏数据失败，请尝试开启社区反代刷新");
+                    }
                     SteamTool.UpdateAppListJson(result, Const.APP_LIST_FILE);
                     apps = JsonConvert.DeserializeObject<SteamApps>(result).AppList.Apps;
                 }

@@ -14,7 +14,7 @@
         xmlns:controls="clr-namespace:SteamTools.Views.Controls"
         mc:Ignorable="d"
         Width="600"
-		Height="400"
+		Height="530"
         IsRestoringWindowPlacement="True"
         WindowStartupLocation="CenterScreen"
         UseLayoutRounding="True"
@@ -55,6 +55,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <!--Title-->
         <Border Grid.Row="0"
@@ -85,8 +86,8 @@
         </Border>
 
         <!--Body-->
-        <Grid Grid.Row="1">
-            <Grid.Resources>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer.Resources>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Margin"
 									Value="5,4" />
@@ -141,7 +142,7 @@
                     <Setter Property="VerticalAlignment"
 							Value="Center" />
                 </Style>
-            </Grid.Resources>
+            </ScrollViewer.Resources>
             <StackPanel Margin="8">
                 <StackPanel Margin="2">
                     <RadioButton x:Name="ImportWinAuth"
@@ -149,10 +150,11 @@
 						 Content="从WinAuth导入" />
                     <StackPanel Margin="20,2,0,0" 
 						Grid.IsSharedSizeScope="True">
-                        <TextBlock Style="{DynamicResource DetailTextStyleKey}"
-					   IsEnabled="{Binding ProxyType, Mode=TwoWay, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=DirectAccess}">
+                        <TextBlock Style="{DynamicResource DetailTextStyleKey}">
 				            <Run Text="WinAuth是Windows的便携式开放源代码身份验证器，它提供基于计数器或基于时间的RFC 6238身份验证器和常见的实现。" />
                             <metro2:HyperlinkEx Uri="https://github.com/Jessecar96/SteamDesktopAuthenticator"><Run Text="Github"></Run></metro2:HyperlinkEx>
+                            <LineBreak/>
+                            <Run Text="导入方法：从WinAuth导出txt文件之后在此选择从WinAuth导出的txt文件进行导入。"></Run>
                         </TextBlock>
                         <Grid Visibility="{Binding ElementName=ImportWinAuth,Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Grid.ColumnDefinitions>
@@ -178,50 +180,6 @@
                         </Grid>
                     </StackPanel>
                     <Border Height="8" />
-                    <RadioButton x:Name="ImportSteamApp"
-						 GroupName="Import" IsChecked="{Binding IsSteamApp,Mode=TwoWay}"
-						 Content="从Android App导入" />
-                    <StackPanel Margin="20,2,0,0" 
-						Grid.IsSharedSizeScope="True">
-                        <TextBlock Style="{DynamicResource DetailTextStyleKey}"
-					   IsEnabled="{Binding ProxyType, Mode=TwoWay, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=SystemProxy}">
-				            <Run Text="您可以从已root的Android设备中导入您的SteamGuard身份验证器" />
-                        <LineBreak />
-                        <Run Text="路径：  /data/data/com.valvesoftware.android.steam.community"></Run>
-                        <LineBreak />
-                        <Run Text="然后将以下两个文件的内容复制到下面的对应输入框中"/>
-                        </TextBlock>
-                        <StackPanel Visibility="{Binding ElementName=ImportSteamApp,Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <metro:PromptTextBox Grid.Row="1"
-										 Grid.Column="1"
-										 Text="{Binding SteamGuard.Name, Mode=TwoWay}"
-										 Prompt="输入令牌的自定义名称" />
-                            
-                            <TextBlock Grid.Row="0" Grid.Column="0">
-						<Run Text="从shared_prefs文件夹中，粘贴'steam_uuid.xml'的内容" />
-						<Run Text=": " />
-                            </TextBlock>
-                            <metro:PromptTextBox Grid.Row="0"
-										 Grid.Column="1"
-										 Text="{Binding SteamGuard.UUID, Mode=TwoWay}"
-										 Prompt="" />
-
-                            <TextBlock Grid.Row="1" Grid.Column="0">
-						<Run Text="从文件文件夹中，粘贴'SteamGuard-NNNNNNNN'的内容" />
-						<Run Text=": " />
-                            </TextBlock>
-                            <metro:PromptTextBox Grid.Row="1"
-										 Grid.Column="1"
-										 Text="{Binding SteamGuard.Guard, Mode=TwoWay}"
-										 Prompt="" />
-                            <!--<metro2:CallMethodButton Width="80"
-									 Content="导入"
-                                     HorizontalAlignment="Right"
-									 MethodName="ImportSteamGuard"
-									 Margin="6" />-->
-                        </StackPanel>
-                    </StackPanel>
-                    <Border Height="8" />
                     <RadioButton x:Name="ImportSDA"
 						 GroupName="Import" IsChecked="{Binding IsSDA,Mode=TwoWay}"
 						 Content="从Steam Desktop Auth导入" />
@@ -237,6 +195,8 @@
 						   Margin="0,2">
 					            <Run Text="Steam的移动身份验证器应用程序的桌面实现。" />   
                             <metro2:HyperlinkEx Uri="https://github.com/Jessecar96/SteamDesktopAuthenticator"><Run Text="Github"></Run></metro2:HyperlinkEx>
+                            <LineBreak/>
+					        <Run Text="导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。" />
                         </TextBlock>
                         <Grid Visibility="{Binding ElementName=ImportSDA,Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Grid.ColumnDefinitions>
@@ -247,25 +207,18 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-
                             <metro:PromptTextBox Grid.Row="0"
-										 Grid.Column="0" Grid.ColumnSpan="3"
-										 Text="{Binding SteamGuard.Name, Mode=TwoWay}"
-										 Prompt="输入令牌的自定义名称" />
-                            
-                            <metro:PromptTextBox Grid.Row="1"
 										 Grid.Column="0" Grid.ColumnSpan="2"
-										 Text="{Binding SpecificHttpsProxyHost, Mode=TwoWay}"
-										 Prompt="选择maFiles所在的manifest.json文件" />
-                            <metro2:CallMethodButton Grid.Column="2" Grid.Row="1"
+										 Text="{Binding SDAFile, Mode=OneWay}"
+										 Prompt="选择*.maFile文件" />
+                            <metro2:CallMethodButton Grid.Column="2" Grid.Row="0"
 									 Content="选择文件"
 									 MethodName="OpenSDAFile"
 									 Margin="6,0,0,0"  />
-                            <metro:PromptTextBox Grid.Row="2"
+                            <metro:PromptTextBox Grid.Row="1"
 										 Grid.Column="0" Grid.ColumnSpan="3"
-										 Text="{Binding SpecificFtpProxyHost, Mode=TwoWay}"
+										 Text="{Binding SDAPassword, Mode=TwoWay}"
 										 Prompt="如果设定了密码请输入密码" />
                             <!--<metro2:CallMethodButton Grid.Column="2" Grid.Row="1"
 									 Content="导入"
@@ -273,7 +226,54 @@
 									 Margin="6,0" />-->
                         </Grid>
                     </StackPanel>
+                    <Border Height="8" />
+                    <RadioButton x:Name="ImportSteamApp"
+						 GroupName="Import" IsChecked="{Binding IsSteamApp,Mode=TwoWay}"
+						 Content="从Android App导入" />
+                    <StackPanel Margin="20,2,0,0" 
+						Grid.IsSharedSizeScope="True">
+                        <TextBlock Style="{DynamicResource DetailTextStyleKey}">
+				            <Run Text="您可以从已root的Android设备中导入您的SteamGuard身份验证器" />
+                        <LineBreak />
+                        <Run Text="路径：  /data/data/com.valvesoftware.android.steam.community"></Run>
+                        <LineBreak />
+                        <Run Text="然后将以下两个文件的内容复制到下面的对应输入框中"/>
+                        </TextBlock>
+                        <StackPanel Visibility="{Binding ElementName=ImportSteamApp,Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <metro:PromptTextBox Grid.Row="1"
+										 Grid.Column="1"
+										 Text="{Binding AuthName, Mode=TwoWay}"
+										 Prompt="输入令牌的自定义名称" />
 
+                            <TextBlock Grid.Row="0" Grid.Column="0">
+						<Run Text="从shared_prefs文件夹中，粘贴'steam_uuid.xml'的内容" />
+						<Run Text=": " />
+                            </TextBlock>
+                            <metro:PromptTextBox Grid.Row="0"
+										 Grid.Column="1"
+										 Text="{Binding UUID, Mode=TwoWay}"
+										 Prompt="" />
+
+                            <TextBlock Grid.Row="1" Grid.Column="0">
+						<Run Text="从文件文件夹中，粘贴'SteamGuard-NNNNNNNN'的内容" />
+						<Run Text=": " />
+                            </TextBlock>
+                            <metro:PromptTextBox Grid.Row="1"
+										 Grid.Column="1"
+                                         TextWrapping="Wrap"
+  AcceptsReturn="True"
+  VerticalScrollBarVisibility="Visible"
+                                                 MaxLines="3"
+										 Text="{Binding SteamGuard, Mode=TwoWay}"
+										 Prompt="" />
+                            <!--<metro2:CallMethodButton Width="80"
+									 Content="导入"
+                                     HorizontalAlignment="Right"
+									 MethodName="ImportSteamGuard"
+									 Margin="6" />-->
+                        </StackPanel>
+                    </StackPanel>
+                    <Border Height="8" />
                     <Border Height="8" />
                     <StackPanel Orientation="Horizontal" 
 						HorizontalAlignment="Right">
@@ -289,9 +289,14 @@
 										 MinWidth="110"
 										 Padding="16,6" />-->
                     </StackPanel>
+                    
                 </StackPanel>
             </StackPanel>
-        </Grid>
+        </ScrollViewer>
+
+        <!--Footer-->
+        <controls:StatusBar Grid.Row="2" DataContext="{Binding StatusBar}">
+        </controls:StatusBar>
 
     </Grid>
 </metro:MetroWindow>

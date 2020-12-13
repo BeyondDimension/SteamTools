@@ -18,6 +18,8 @@ namespace SteamTools.ViewModels
 {
     public class LocalAuthPageViewModel : TabItemViewModel
     {
+        public int ProgressBarDefaultValue => 50;
+
         public override string Name
         {
             get { return Properties.Resources.SteamAuth; }
@@ -65,7 +67,25 @@ namespace SteamTools.ViewModels
 
         public void ImageSeek_Click(WinAuthAuthenticator auth)
         {
-            auth.AutoRefresh = true;
+            if (auth.AutoRefresh == false)
+            {
+                auth.AutoRefresh = true;
+                auth.ProgressBarValue = ProgressBarDefaultValue;
+                Task.Run(async () =>
+                {
+                    while (auth.AutoRefresh)
+                    {
+                        auth.CurrentCode = string.Empty;
+                        auth.ProgressBarValue--;
+                        if (auth.ProgressBarValue == 0)
+                        {
+                            auth.ProgressBarValue = ProgressBarDefaultValue;
+                            auth.AutoRefresh = false;
+                        }
+                        await Task.Delay(100);
+                    }
+                }).ContinueWith(s => s.Dispose());
+            }
         }
 
         public void ImageCopy_Click(WinAuthAuthenticator auth)
@@ -80,37 +100,11 @@ namespace SteamTools.ViewModels
             //Task.Run(() =>
             //{
             //});
-            Tick();
         }
 
         private void Update()
         {
             Authenticators = AuthService.Current.Authenticators;
-        }
-
-        private void Tick()
-        {
-            Task.Run(async () =>
-            {
-                while (true)
-                {
-                    if (this.Authenticators != null)
-                        foreach (var auth in this.Authenticators)
-                        {
-                            if (auth.AutoRefresh)
-                            {
-                                auth.CurrentCode = string.Empty;
-                                auth.ProgressBarValue--;
-                                if (auth.ProgressBarValue == 0)
-                                {
-                                    auth.ProgressBarValue = 50;
-                                    auth.AutoRefresh = false;
-                                }
-                            }
-                        }
-                    await Task.Delay(100);
-                }
-            }).ContinueWith(s => s.Dispose());
         }
 
         public void AddAuth_Click()

@@ -18,8 +18,6 @@
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Foreground"
 							Value="{DynamicResource ActiveForegroundBrushKey}" />
-                    <Setter Property="Height"
-							Value="38" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">

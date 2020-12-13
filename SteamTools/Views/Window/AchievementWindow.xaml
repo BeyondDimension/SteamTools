@@ -119,6 +119,10 @@
 
         <!--Body-->
         <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
             <Grid.Resources>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Margin"
@@ -175,6 +179,14 @@
 							Value="Center" />
                 </Style>
             </Grid.Resources>
+            <!--<ListBox Grid.Row="0" Style="{StaticResource HorizontalFlatListBoxStyleKey}">
+                <ListBoxItem>
+                    <TextBlock Text="成就解锁" FontSize="16"></TextBlock>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <TextBlock Text="统计修改" FontSize="16"></TextBlock>
+                </ListBoxItem>
+            </ListBox>-->
             <TabControl Grid.Row="1" Style="{StaticResource VerticalTabControlStyleKey}"
              FontFamily="{DynamicResource DefaultFontFamilyKey}" FontSize="14">
                 <!--成就管理-->

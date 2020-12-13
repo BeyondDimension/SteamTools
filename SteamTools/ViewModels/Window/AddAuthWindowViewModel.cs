@@ -19,10 +19,11 @@ namespace SteamTools.ViewModels
         public AddAuthWindowViewModel()
         {
             this.Title = ProductInfo.Title + " | " + Resources.Auth_Add;
+            //this.Topmost = true;
         }
 
         public bool IsWinAuth { get; set; }
-        public bool IsSteamApp { get; set; }
+        public bool IsSteamApp { get; set; } = true;
         public bool IsSDA { get; set; }
 
         private string _WinAuthFileName;
@@ -66,8 +67,35 @@ namespace SteamTools.ViewModels
             }
         }
 
-        private (string Name, string UUID, string Guard) _SteamGuard;
-        public (string Name, string UUID, string Guard) SteamGuard
+        private string _AuthName;
+        public string AuthName
+        {
+            get => this._AuthName;
+            set
+            {
+                if (this._AuthName != value)
+                {
+                    this._AuthName = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+        private string _UUID;
+        public string UUID
+        {
+            get => this._UUID;
+            set
+            {
+                if (this._UUID != value)
+                {
+                    this._UUID = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
+        private string _SteamGuard;
+        public string SteamGuard
         {
             get => this._SteamGuard;
             set
@@ -105,7 +133,7 @@ namespace SteamTools.ViewModels
                 AddExtension = true,
                 CheckFileExists = true,
                 CheckPathExists = true,
-                Filter = "Json Files (*.json)|*.json|All Files (*.*)|*.*",
+                Filter = "MaFile Files (*.maFile)|*.maFile|Json Files (*.json)|*.json|All Files (*.*)|*.*",
                 RestoreDirectory = true,
                 Title = ProductInfo.Title
             };
@@ -134,20 +162,30 @@ namespace SteamTools.ViewModels
 
         public void ImportSteamGuard()
         {
-            StatusService.Current.Set("导入Steam App令牌中...");
-            AuthService.Current.ImportSteamGuard(SteamGuard.Name, SteamGuard.UUID, SteamGuard.Guard);
-            AuthSettings.Authenticators.Value = AuthService.ConvertJsonAuthenticator(AuthService.Current.Authenticators).CompressString();
-            //(WindowService.Current.MainWindow as MainWindowViewModel).LocalAuthPage
-            StatusService.Current.Set(Resources.Ready);
+            StatusService.Current.Notify("导入Steam App令牌中...");
+            if (AuthService.Current.ImportSteamGuard(AuthName, UUID, SteamGuard))
+            {
+                AuthSettings.Authenticators.Value = AuthService.ConvertJsonAuthenticator(AuthService.Current.Authenticators).CompressString();
+            }
+            else
+            {
+                StatusService.Current.Notify("导入失败，确认数据是否正确");
+            }
         }
 
         public void ImportSDA()
         {
-            StatusService.Current.Set("导入Steam App令牌中...");
-            AuthService.Current.ImportSDAFile(SDAFile, SDAPassword);
-            AuthSettings.Authenticators.Value = AuthService.ConvertJsonAuthenticator(AuthService.Current.Authenticators).CompressString();
-            //(WindowService.Current.MainWindow as MainWindowViewModel).LocalAuthPage
-            StatusService.Current.Set(Resources.Ready);
+            StatusService.Current.Set("导入Steam Desktop Auth令牌中...");
+            if (AuthService.Current.ImportSDAFile(SDAFile, SDAPassword))
+            {
+                AuthSettings.Authenticators.Value = AuthService.ConvertJsonAuthenticator(AuthService.Current.Authenticators).CompressString();
+                StatusService.Current.Set(Resources.Ready);
+            }
+            else
+            {
+                StatusService.Current.Set(Resources.Ready);
+                StatusService.Current.Notify("导入失败，确认数据是否正确");
+            }
         }
 
         public void Apply() 

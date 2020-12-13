@@ -40,7 +40,7 @@ namespace SteamTools
                 this.WindowSettings.Placement = this.IsRestoringWindowPlacement ? (WINDOWPLACEMENT?)placement : null;
                 this.WindowSettings.Save();
             }
-            (App.Current.MainWindow.DataContext as MainWindowViewModel).Visible = true;
+            (App.Current.MainWindow.DataContext as MainWindowViewModel).IsVisible = false;
         }
     }
 }

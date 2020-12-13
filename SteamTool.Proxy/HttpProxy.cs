@@ -226,6 +226,7 @@ namespace SteamTool.Proxy
             // 在Mono之下，只有BouncyCastle将得到支持
             //proxyServer.CertificateManager.CertificateEngine = Network.CertificateEngine.BouncyCastle;
             proxyServer.CertificateManager.SaveFakeCertificates = false;
+            proxyServer.CertificateManager.CreateRootCertificate(true);
             proxyServer.CertificateManager.EnsureRootCertificate();
             //proxyServer.CertificateManager.TrustRootCertificate(true);
 
@@ -255,7 +256,7 @@ namespace SteamTool.Proxy
             return true;
         }
 
-        public bool StartProxy()
+        public bool StartProxy(bool IsProxyGOG = false)
         {
             if (!IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
             {
@@ -265,8 +266,7 @@ namespace SteamTool.Proxy
                     return false;
                 }
             }
-
-            WirtePemCertificateToGoGSteamPlugins();
+            if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
 
             #region 写入Hosts
             var hosts = new List<(string, string)>();

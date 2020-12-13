@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SteamTools.Views.Content.AboutDonate"
+﻿<UserControl x:Class="SteamTools.Views.Content.GameCommon"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -18,7 +18,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Common.xaml" />
+                <ResourceDictionary Source="..\Common.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>

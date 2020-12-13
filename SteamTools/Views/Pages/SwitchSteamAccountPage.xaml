@@ -26,6 +26,10 @@
                         <DockPanel>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{Binding AvatarMedium,Mode=OneWay}" Width="64" Height="64" Cursor="Hand" ToolTip="{Binding Resources.HeadImageTootlip,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
+                                    <Image.Clip>
+                                        <!--设置图像如何显示-->
+                                        <EllipseGeometry RadiusX="32" RadiusY="32" Center="32,32"/>
+                                    </Image.Clip>
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="MouseLeftButtonUp">
                                             <livet:LivetCallMethodAction
@@ -54,7 +58,7 @@
                                     </Path.Style>
                                 </Path>
                             </StackPanel>
-                            <Separator Opacity="0" Width="30"/>
+                            <Separator Opacity="0" Width="20"/>
                             <metro:LinkButton Text="{Binding SteamID,Mode=OneWay}" ToolTip="{Binding Resources.UserChangeTootlip,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" VerticalAlignment="Center" FontSize="24" Width="Auto">
                                 <!--<metro:LinkButton.InputBindings >
                                 <MouseBinding Command="{Binding DataContext.SteamIdOnClick,ElementName=u}" MouseAction="LeftClick"></MouseBinding>
@@ -68,17 +72,37 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </metro:LinkButton>
-                            <Separator Opacity="0" Width="30"/>
-                            <TextBox Text="{Binding AccountName,Mode=OneWay}" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ActiveForegroundBrushKey}" IsReadOnly="True">
-                            </TextBox>
-                            <Separator Opacity="0" Width="30"/>
+                            <Separator Opacity="0" Width="10"/>
+                            <!--<TextBox Text="{Binding AccountName,Mode=OneWay}" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ActiveForegroundBrushKey}" IsReadOnly="True">
+                            </TextBox>-->
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBox Text="{Binding AccountName,Mode=OneWay}" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ActiveForegroundBrushKey}" IsReadOnly="True">
+                                </TextBox>
+                                <TextBox Text="{Binding SteamId64,Mode=OneWay}" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ActiveForegroundBrushKey}" IsReadOnly="True" 
+                                         Margin="0,1,0,0" ></TextBox>
+                            </StackPanel>
+                            <Separator Opacity="0" Width="10"/>
                             <!--<TextBox Text="{Binding SteamId3_Int,Mode=OneWay}" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ActiveForegroundBrushKey}" IsReadOnly="True" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>-->
-                            <TextBox Text="{Binding SteamId64,Mode=OneWay}" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ActiveForegroundBrushKey}" IsReadOnly="True" VerticalAlignment="Center"></TextBox>
+                            <!--<CheckBox IsChecked="{Binding RememberPassword}" Content="已记住密码" IsEnabled="False"></CheckBox>
+                            <CheckBox IsChecked="{Binding MostRecent}" Content="最近登录账户" IsEnabled="False" Visibility="{Binding MostRecent,Converter={StaticResource BooleanToVisibilityConverter}}"></CheckBox>-->
+                            <StackPanel VerticalAlignment="Center">
+                                <CheckBox IsChecked="{Binding RememberPassword}" Content="已记住密码" IsEnabled="False"></CheckBox>
+                                <CheckBox IsChecked="{Binding MostRecent}" Content="最近登录账户" IsEnabled="False" Visibility="{Binding MostRecent,Converter={StaticResource BooleanToVisibilityConverter}}"></CheckBox>
+                                <!--<StackPanel Orientation="Horizontal">-->
+                                <!--<TextBlock Text="最近登录的账户" Foreground="Green" Visibility="{Binding MostRecent,Converter={StaticResource BooleanToVisibilityConverter}}"></TextBlock>-->
+                                <!--</StackPanel>-->
+                            </StackPanel>
+                            
                             <Separator Opacity="0" Width="30"/>
-                            <TextBlock  HorizontalAlignment="Right" Text="{Binding LastLoginTime,StringFormat={x:Static prop:Resources.LastloginTime},Mode=OneWay}"
-                                       VerticalAlignment="Center" FontSize="14"
-                                       TextAlignment="Center" Width="Auto"/>
-                            <!--<Button HorizontalAlignment="Right" Height="30">以当前帐户登录</Button>-->
+                            
+                            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">-->
+                                <!--<Image Source="pack://application:,,,/Resources/Asstes/time.png" Width="20" HorizontalAlignment="Right" Margin="0,0,5,0" Visibility="{Binding MostRecent,Converter={StaticResource BooleanToVisibilityConverter}}"></Image>-->
+                            <TextBlock HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       TextAlignment="Center" Width="Auto" 
+                                       Text="{Binding LastLoginTime,StringFormat={x:Static prop:Resources.LastloginTime},Mode=OneWay}"/>
+                            <!--</StackPanel>-->
                         </DockPanel>
                         <Rectangle  Height=".99"
 									   Fill="{DynamicResource InactiveForegroundBrushKey}"

@@ -10,6 +10,8 @@ using Microsoft.Win32;
 using SteamTool.Model;
 using Newtonsoft.Json;
 using SteamTool.Core.Common;
+using Microsoft.Win32.TaskScheduler;
+using System.Reflection;
 
 namespace SteamTool.Core
 {
@@ -22,7 +24,7 @@ namespace SteamTool.Core
 
         public string SteamExePath { get; set; }
 
-        public const string UserVdfPath = "/config/loginusers.vdf";
+        public const string UserVdfPath = @"\config\loginusers.vdf";
 
         private const string SteamRegistryPath = @"SOFTWARE\Valve\Steam";
 
@@ -88,13 +90,24 @@ namespace SteamTool.Core
                     var user = new SteamUser
                     {
                         SteamId64 = Convert.ToInt64(item.Key.ToString()),
-                        AccountName = i.AccountName.ToString(),
-                        SteamID = i.PersonaName.ToString(),
-                        RememberPassword = Convert.ToBoolean(Convert.ToInt64(i.RememberPassword.ToString())),
-                        MostRecent = Convert.ToBoolean(Convert.ToInt64(i.MostRecent.ToString())),
-                        Timestamp = Convert.ToInt64(i.Timestamp.ToString())
+                        AccountName = i.AccountName?.ToString(),
+                        SteamID = i.PersonaName?.ToString(),
+                        RememberPassword = Convert.ToBoolean(Convert.ToInt64(i.RememberPassword?.ToString())),
+                        Timestamp = Convert.ToInt64(i.Timestamp?.ToString())
                     };
                     user.LastLoginTime = new DateTime(1970, 1, 1, 8, 0, 0).AddSeconds(user.Timestamp);
+                    if (i.mostrecent != null)//老版本Steam数据 小写mostrecent 支持
+                    {
+                        user.MostRecent = Convert.ToBoolean(Convert.ToInt64(i.mostrecent.ToString()));
+                    }
+                    else if (i.MostRecent != null)
+                    {
+                        user.MostRecent = Convert.ToBoolean(Convert.ToInt64(i.MostRecent.ToString()));
+                    }
+                    else
+                    {
+                        user.MostRecent = false;
+                    }
                     users.Add(user);
                 }
             }
@@ -158,6 +171,36 @@ namespace SteamTool.Core
                 return false;
             }
             return true;
+        }
+
+
+        public void SetWindowsStartupAutoRun(bool IsAutoRun,string Name = "Steam++")
+        {
+            // Get the service on the local machine
+            if (IsAutoRun)
+            {
+                using (TaskDefinition td = TaskService.Instance.NewTask())
+                {
+                    // Create a new task definition and assign properties
+                    td.RegistrationInfo.Description = Name+"System Boot Run";
+
+                    td.Settings.Priority = System.Diagnostics.ProcessPriorityClass.Normal;
+
+                    // Create a trigger that will fire after the system boot
+                    td.Triggers.Add(new BootTrigger());
+
+                    // Create an action that will launch Notepad whenever the trigger fires
+                    td.Actions.Add(new ExecAction(Assembly.GetCallingAssembly().Location, "-minimized", Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)));
+
+                    // Register the task in the root folder
+                    TaskService.Instance.RootFolder.RegisterTaskDefinition(Name, td);
+                }
+                //TaskService.Instance.RootFolder.AddTask(Name, QuickTriggerType.Boot, Assembly.GetCallingAssembly().Location, "-a");
+            }
+            else
+            {
+                TaskService.Instance.RootFolder.DeleteTask(Name);
+            }
         }
     }
 }

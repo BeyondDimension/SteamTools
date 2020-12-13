@@ -9,6 +9,7 @@
 			 xmlns:models="clr-namespace:SteamTools.Models"
 			 xmlns:ms="clr-namespace:SteamTools.Models.Settings"
              xmlns:services="clr-namespace:SteamTools.Services"
+			 xmlns:contents="clr-namespace:SteamTools.Views.Content" 
 			 mc:Ignorable="d"
 			 d:DesignWidth="600"
 			 d:DesignHeight="400"
@@ -39,6 +40,11 @@
                 <TextBlock Text="{Binding Resources.Settings_General,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 							   Style="{StaticResource TabHeaderTextStyleKey}" />
             </TabItem.Header>
+            <contents:SettingsGeneral>
+                <contents:SettingsGeneral.DataContext>
+                    <vm:SettingsGeneralViewModel/>
+                </contents:SettingsGeneral.DataContext>
+            </contents:SettingsGeneral>
         </TabItem>
 
         <TabItem>
@@ -116,6 +122,10 @@
 								 IsChecked="{Binding Red}" />
                             <RadioButton Content="绿色"
 								 IsChecked="{Binding Green}" />
+                            <RadioButton Content="黄色"
+								 IsChecked="{Binding Yellow}" />
+                            <RadioButton Content="粉色"
+								 IsChecked="{Binding Pink}" />
                         </WrapPanel>
                     </DockPanel>
 
@@ -143,12 +153,12 @@
             </ScrollViewer>
         </TabItem>
 
-        <TabItem>
+        <!--<TabItem>
             <TabItem.Header>
                 <TextBlock Text="{Binding Resources.Settings_Proxy,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 							   Style="{StaticResource TabHeaderTextStyleKey}" />
             </TabItem.Header>
-        </TabItem>
+        </TabItem>-->
 
     </TabControl>
 </UserControl>

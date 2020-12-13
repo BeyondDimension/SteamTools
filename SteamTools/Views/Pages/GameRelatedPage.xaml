@@ -42,14 +42,19 @@
                 <TextBlock Text="{Binding Resources.CSGO,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 							   Style="{StaticResource TabHeaderTextStyleKey}" />
             </TabItem.Header>
+            <content:GameCSGO Margin="10,0">
+                <content:GameCSGO.DataContext>
+                    <vm:GameCSGOViewModel/>
+                </content:GameCSGO.DataContext>
+            </content:GameCSGO>
         </TabItem>
-        <TabItem>
+        <TabItem Visibility="Collapsed">
             <TabItem.Header>
                 <TextBlock Text="{Binding Resources.Sekiro,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 							   Style="{StaticResource TabHeaderTextStyleKey}" />
             </TabItem.Header>
         </TabItem>
-        <TabItem>
+        <TabItem Visibility="Collapsed">
             <TabItem.Header>
                 <TextBlock Text="{Binding Resources.MHW,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 							   Style="{StaticResource TabHeaderTextStyleKey}" />

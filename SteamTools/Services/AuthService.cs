@@ -280,7 +280,7 @@ namespace SteamTools.Services
         /// <returns>true if successful</returns>
         public bool ImportSteamGuard(string name, string uuid, string steamGuard)
         {
-            if (uuid.Length == 0)
+            if (string.IsNullOrEmpty(uuid))
             {
                 //WinAuthForm.ErrorDialog(this, "Please enter the contents of the steam.uuid.xml file or your DeviceId");
                 return false;
@@ -362,6 +362,7 @@ namespace SteamTools.Services
             {
                 Name = name,
                 AuthenticatorData = auth,
+                AutoRefresh = false,
             };
             Authenticators.Add(winAuth);
             return true;
@@ -465,6 +466,7 @@ namespace SteamTools.Services
             }
             auth.SteamData = token.ToString(Newtonsoft.Json.Formatting.None);
             winAuth.AuthenticatorData = auth;
+            winAuth.AutoRefresh = false;
             Authenticators.Add(winAuth);
 
             return true;

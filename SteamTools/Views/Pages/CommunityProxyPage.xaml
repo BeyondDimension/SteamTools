@@ -9,6 +9,7 @@
              xmlns:services="clr-namespace:SteamTools.Services"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:livet="http://schemas.livet-mvvm.net/2011/wpf"
+			 xmlns:ms="clr-namespace:SteamTools.Models.Settings"
              mc:Ignorable="d" 
              x:Name="u"
              d:DesignHeight="450" d:DesignWidth="800"
@@ -31,15 +32,15 @@
                 <Rectangle Height=".99"
 								   Margin="0,7,0,6"
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
-                <CheckBox x:Name="service" Style="{DynamicResource SliderCheckBox}" Margin="5" HorizontalAlignment="Center" IsChecked="{Binding ProxyStatus}" >
+                <CheckBox x:Name="service" Style="{DynamicResource SliderCheckBox}" Margin="5" HorizontalAlignment="Center" IsChecked="{Binding ProxyStatus,Source={x:Static services:ProxyService.Current},Mode=TwoWay}" >
                     <TextBlock FontSize="16" Foreground="{DynamicResource ActiveForegroundBrushKey}">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path= ProxyStatus}" Value="False">
+                                    <DataTrigger Binding="{Binding ProxyStatus,Source={x:Static services:ProxyService.Current},Mode=OneWay}" Value="False">
                                         <Setter Property="Text" Value="{Binding Resources.StartService,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"></Setter>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path= ProxyStatus}" Value="True">
+                                    <DataTrigger Binding="{Binding ProxyStatus,Source={x:Static services:ProxyService.Current},Mode=OneWay}" Value="True">
                                         <Setter Property="Text" Value="{Binding Resources.StopService,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"></Setter>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -59,8 +60,8 @@
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
 
                 <StackPanel Margin="10" VerticalAlignment="Bottom">
-                    <CheckBox Content="{Binding Resources.AutoRunProxyService,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" HorizontalAlignment="Center"></CheckBox>
-                    <CheckBox Content="{Binding Resources.GOG_Plugin_Support,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" HorizontalAlignment="Center" IsChecked="True"></CheckBox>
+                    <CheckBox Content="{Binding Resources.AutoRunProxyService,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" HorizontalAlignment="Center" IsChecked="{Binding Source={x:Static ms:ProxySettings.ProgramStartupRunProxy}, Path=Value, Mode=TwoWay}"></CheckBox>
+                    <CheckBox Content="{Binding Resources.GOG_Plugin_Support,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" HorizontalAlignment="Center" IsChecked="{Binding Source={x:Static ms:ProxySettings.IsProxyGOG}, Path=Value, Mode=TwoWay}"></CheckBox>
                     <Separator Opacity="0" Height="10"/>
                     <Button Content="{Binding Resources.SetupCertificate,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" FontSize="14" Height="30">
                         <i:Interaction.Triggers>

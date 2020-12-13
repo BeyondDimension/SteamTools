@@ -47,7 +47,7 @@ namespace SteamTools.Models
         private bool _allowCopy;
         private bool _copyOnCode;
         private bool _hideSerial;
-        private int _progressBarValue = 50;
+        private int _progressBarValue;
 
         /// <summary>
         /// Create the authenticator wrapper

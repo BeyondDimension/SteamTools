@@ -120,8 +120,8 @@
                             </TextBlock>
 
                             <DockPanel>
-                                <TextBlock Margin="0,8,0,0" Grid.Column="0">
-							    <Run Text="Code:"
+                                <TextBlock Grid.Column="0" VerticalAlignment="Center">
+							    <Run Text="恢复代码:"
 								 FontSize="20"
 								 Foreground="{DynamicResource ActiveForegroundBrushKey}" />
                                 </TextBlock>
@@ -133,10 +133,10 @@
 								   Margin="0,12"
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
 
-                            <TextBlock Text="Steam身份验证器的完整数据，可在导入不同软件时使用。"></TextBlock>
+                            <TextBlock Text="Steam身份验证器的完整数据，可在导入不同软件时使用："></TextBlock>
                             <DockPanel>
-                                <TextBlock Margin="0,8,0,0" VerticalAlignment="Center">
-							    <Run Text="设备ID:"
+                                <TextBlock VerticalAlignment="Center">
+							    <Run Text="设备ID(uuid):"
 								 Foreground="{DynamicResource ActiveForegroundBrushKey}" />
                                 </TextBlock>
                                 <metro:PromptTextBox Prompt="" Background="Transparent" BorderThickness="0" Text="{Binding DeviceId,Mode=OneWay}" IsReadOnly="True"></metro:PromptTextBox>
@@ -149,6 +149,9 @@
                             <FlowDocumentScrollViewer Height="250"  Padding="-18" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                 <FlowDocument FontFamily="{StaticResource DetailFontFamilyKey}" >
                                     <Paragraph>
+                                        <Run Text="Steamguard："></Run>
+                                        <LineBreak/>
+                                        <LineBreak/>
                                         <Run Text="{Binding SteamData,Mode=OneWay}"></Run>
                                     </Paragraph>
                                 </FlowDocument>

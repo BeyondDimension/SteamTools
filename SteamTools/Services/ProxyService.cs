@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.IO;
 using SteamTool.Model;
 using SteamTools.Models;
+using SteamTools.Models.Settings;
 
 namespace SteamTools.Services
 {
@@ -20,7 +21,7 @@ namespace SteamTools.Services
 
         public void Initialize()
         {
-            Proxy = new HttpProxy(ProxyDomains.Value, ProductInfo.Title);
+            Proxy = new HttpProxy(ProxyDomains.Value, ProductInfo.Product);
             InitJsScript();
         }
 
@@ -40,7 +41,7 @@ namespace SteamTools.Services
                 ToDomain = "steamstore-a.akamaihd.net",
                 Hosts = new List<string>{ "store.steampowered.com", "api.steampowered.com"},
                 DomainTag = DomainTag.SteamStore,
-                IsEnable= true,
+                IsEnable= false,
             },
             new ProxyDomainModel{
                 Name=Resources.SteamImage,
@@ -209,20 +210,40 @@ namespace SteamTools.Services
             }
         }
 
-        private bool _IsEnableScript;
         public bool IsEnableScript
         {
-            get => _IsEnableScript;
+            get => ProxySettings.IsEnableScript.Value;
             set
             {
-                if (_IsEnableScript != value)
+                if (ProxySettings.IsEnableScript.Value != value)
                 {
-                    _IsEnableScript = value;
+                    ProxySettings.IsEnableScript.Value = value;
                     Proxy.IsEnableScript = value;
                     this.RaisePropertyChanged();
                 }
             }
         }
+
+        #region 代理状态变更通知
+        public bool ProxyStatus
+        {
+            get { return Proxy.ProxyRunning; }
+            set
+            {
+                if (value)
+                {
+                    Proxy.StartProxy(ProxySettings.IsProxyGOG.Value);
+                    StatusService.Current.Notify(SteamTools.Properties.Resources.ProxyRun);
+                }
+                else
+                {
+                    Proxy.StopProxy();
+                    StatusService.Current.Notify(SteamTools.Properties.Resources.ProxyStop);
+                }
+                this.RaisePropertyChanged();
+            }
+        }
+        #endregion
 
         private List<ProxyScript> _ProxyScripts;
         public List<ProxyScript> ProxyScripts

@@ -12,6 +12,7 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO;
 using SteamTool.Model;
+using SteamTools.Models.Settings;
 
 namespace SteamTools.ViewModels
 {
@@ -21,36 +22,17 @@ namespace SteamTools.ViewModels
 
         public override string Name
         {
-            get { return Properties.Resources.Steam302; }
+            get { return Properties.Resources.CommunityFix; }
             protected set { throw new NotImplementedException(); }
         }
 
-        #region 代理状态变更通知
-        private bool _ProxyStatus;
-        public bool ProxyStatus
+        internal override void Initialize()
         {
-            get { return _ProxyStatus; }
-            set
+            if (ProxySettings.ProgramStartupRunProxy.Value)
             {
-                if (this._ProxyStatus != value)
-                {
-                    this._ProxyStatus = value;
-                    if (value)
-                    {
-                        ProxyStatus = ProxyService.Current.Proxy.StartProxy();
-                        StatusService.Current.Notify(Resources.ProxyRun);
-                    }
-                    else
-                    {
-                        ProxyService.Current.Proxy.StopProxy();
-                        StatusService.Current.Notify(Resources.ProxyStop);
-                    }
-                    this.RaisePropertyChanged();
-                }
+                ProxyService.Current.ProxyStatus = true;
             }
         }
-        #endregion
-
 
         public void SetupCertificate_OnClick()
         {

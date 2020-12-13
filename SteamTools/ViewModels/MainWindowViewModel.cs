@@ -54,21 +54,21 @@ namespace SteamTools.ViewModels
 
         #endregion
 
-        private bool _Visible;
-        public bool Visible
+        private bool _IsVisible;
+        public bool IsVisible
         {
             get
             {
-                return _Visible;
+                return _IsVisible;
             }
             set
             {
-                if (this._Visible != value)
+                if (this._IsVisible != value)
                 {
-                    this._Visible = value;
-                    ChangeWindowVisible();
+                    this._IsVisible = value;
                 }
-                else if (!this._Visible)
+                ChangeWindowVisible();
+                if (value)
                 {
                     App.Current.MainWindow.Topmost = true;
                     App.Current.MainWindow.WindowState = WindowState.Normal;
@@ -77,10 +77,11 @@ namespace SteamTools.ViewModels
                 }
             }
         }
+        public new bool IsInitialized { get; private set; }
 
         public MainWindowViewModel(bool isMainWindow) : base(isMainWindow)
         {
-            this.Title = Resources.WinTitle;
+            this.Title = ProductInfo.Title;
 
             this.TabItems = new List<TabItemViewModel>
             {
@@ -90,11 +91,10 @@ namespace SteamTools.ViewModels
                 (this.SteamAppPage = new SteamAppPageViewModel().AddTo(this)),
                 (this.LocalAuthPage = new LocalAuthPageViewModel().AddTo(this)),
                 //(this.AchievementUnlockedPage = new AchievementUnlockedPageViewModel().AddTo(this)),
-                (this.AsfPlusPage = new ArchiSteamFarmPlusPageViewModel().AddTo(this)),
-                (this.SteamIdlePage = new SteamIdlePageViewModel().AddTo(this)),
-                (this.OtherPlatformPage = new OtherPlatformPageViewModel().AddTo(this)),
+                //(this.AsfPlusPage = new ArchiSteamFarmPlusPageViewModel().AddTo(this)),
+                //(this.SteamIdlePage = new SteamIdlePageViewModel().AddTo(this)),
+                //(this.OtherPlatformPage = new OtherPlatformPageViewModel().AddTo(this)),
                 (this.GameRelatedPage = new GameRelatedPageViewModel().AddTo(this)),
-                //(this.Expeditions = new ExpeditionsViewModel(this.Fleets).AddTo(this)),
             };
             this.SystemTabItems = new List<TabItemViewModel>
             {
@@ -112,18 +112,28 @@ namespace SteamTools.ViewModels
 
         public async new void Initialize()
         {
-            base.Initialize();
-            //await Task.Yield();
-            await Task.Run(() =>
+            if (!this.IsInitialized)
             {
-                foreach (var item in this.TabItems)
+                base.Initialize();
+                await Task.Yield();
+                await Task.Run(() =>
                 {
-                    if (item == SteamAppPage)
-                        continue;
-                    item.Initialize();
-                }
-            }).ContinueWith(s => s.Dispose());
-            StatusService.Current.Set(Resources.Ready);
+                    foreach (var item in this.TabItems)
+                    {
+                        if (item == SteamAppPage)
+                            continue;
+                        item.Initialize();
+                    }
+                }).ContinueWith(s => s.Dispose());
+                //foreach (var item in this.TabItems)
+                //{
+                //    if (item == SteamAppPage)
+                //        continue;
+                //    item.Initialize();
+                //}
+                StatusService.Current.Set(Resources.Ready);
+                this.IsInitialized = true;
+            }
         }
 
         /// <summary>
@@ -132,17 +142,17 @@ namespace SteamTools.ViewModels
         public void ChangeWindowVisible()
         {
             App.Current.MainWindow = App.Current.MainWindow ?? new MainWindow();
-            if (Visible)
-            {
-                App.Current.MainWindow.WindowState = WindowState.Minimized;
-                App.Current.MainWindow.Hide();
-            }
-            else
+            if (IsVisible)
             {
                 App.Current.MainWindow.Show();
                 //App.Current.MainWindow.Focus();
                 App.Current.MainWindow.WindowState = WindowState.Normal;
                 User32Window.FlashWindow(new WindowInteropHelper(App.Current.MainWindow).Handle);
+            }
+            else
+            {
+                App.Current.MainWindow.WindowState = WindowState.Minimized;
+                App.Current.MainWindow.Hide();
             }
         }
     }

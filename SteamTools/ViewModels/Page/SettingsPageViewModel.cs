@@ -203,6 +203,46 @@ namespace SteamTools.ViewModels
 
         #endregion
 
+        #region Yellow 
+
+        private bool _Yellow = ThemeService.Current.Accent.Color == Colors.Yellow;
+
+        public bool Yellow
+        {
+            get { return this._Yellow; }
+            set
+            {
+                if (this._Yellow != value)
+                {
+                    this._Yellow = value;
+                    this.RaisePropertyChanged();
+                    if (value) { ThemeService.Current.ChangeAccent(Accent.FromColor(Colors.Yellow)); UISettings.Accent.Value = 6; }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Pink 
+
+        private bool _Pink = ThemeService.Current.Accent.Color == Colors.DeepPink;
+
+        public bool Pink
+        {
+            get { return this._Pink; }
+            set
+            {
+                if (this._Pink != value)
+                {
+                    this._Pink = value;
+                    this.RaisePropertyChanged();
+                    if (value) { ThemeService.Current.ChangeAccent(Accent.FromColor(Colors.DeepPink)); UISettings.Accent.Value = 7; }
+                }
+            }
+        }
+
+        #endregion
+
         public IReadOnlyCollection<CultureViewModel> Cultures { get; }
 
         public SettingsPageViewModel()
@@ -244,6 +284,12 @@ namespace SteamTools.ViewModels
                     break;
                 case 5:
                     Green = true;
+                    break;
+                case 6:
+                    Yellow = true;
+                    break;
+                case 7:
+                    Pink = true;
                     break;
             }
         }

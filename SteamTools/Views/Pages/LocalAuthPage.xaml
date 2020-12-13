@@ -10,10 +10,10 @@
       xmlns:livet="http://schemas.livet-mvvm.net/2011/wpf"
 	  xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
 	  xmlns:metro2="http://schemes.grabacr.net/winfx/2015/personal/controls"
-      x:Name="u"
       mc:Ignorable="d" 
 	  d:DesignWidth="600"
 	  d:DesignHeight="400"
+      x:Name="u"
       Background="{DynamicResource ThemeBrushKey}"
       d:DataContext="{d:DesignInstance viewModel:LocalAuthPageViewModel}">
     <UserControl.Resources>
@@ -80,7 +80,7 @@
                     <DataTemplate>
                         <StackPanel>
                             <DockPanel>
-                                <metro:PromptTextBox Text="{Binding Name,Mode=TwoWay}" FontSize="24" VerticalAlignment="Center" BorderThickness="0"  Foreground="{DynamicResource ForegroundBrushKey}">
+                                <metro:PromptTextBox Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="24" VerticalAlignment="Center" BorderThickness="0"  Foreground="{DynamicResource ForegroundBrushKey}">
                                     <TextBox.Style>
                                         <Style TargetType="{x:Type TextBox}">
                                             <Style.Triggers>
@@ -146,7 +146,7 @@
                                         </i:Interaction.Triggers>
                                     </Image>
                                     <Separator Opacity="0" Width="5"/>
-                                    <Image Source="/Resources/Asstes/look.png" Width="22" Cursor="Hand" ToolTip="{Binding Resources.Auth_See,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
+                                    <Image Source="/Resources/Asstes/seek.png" Width="24" Cursor="Hand" ToolTip="{Binding Resources.Auth_See,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonUp">
                                                 <livet:LivetCallMethodAction
@@ -158,7 +158,7 @@
                                     </Image>
                                 </StackPanel>
                             </DockPanel>
-                            <ProgressBar Maximum="50" Height="6" Value="{Binding ProgressBarValue,Mode=OneWay}" Background="Transparent" Foreground="{DynamicResource AccentBrushKey}" BorderThickness="0" Visibility="{Binding AutoRefresh,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <ProgressBar Maximum="{Binding DataContext.ProgressBarDefaultValue,Mode=OneWay,ElementName=u}" Height="6" Value="{Binding ProgressBarValue,Mode=OneWay}" Background="Transparent" Foreground="{DynamicResource AccentBrushKey}" BorderThickness="0" Visibility="{Binding AutoRefresh,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}">
                             </ProgressBar>
                             <Rectangle  Height=".99"
 									   Fill="{DynamicResource InactiveForegroundBrushKey}"

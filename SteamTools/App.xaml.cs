@@ -60,7 +60,7 @@ namespace SteamTools
 #endif
             {
 #if DEBUG
-                if (e.Args.Length != 0)
+                if (e.Args.ContainsArg("-app"))
                 {
                     this.ProcessCommandLineParameter(e.Args);
                     base.OnStartup(e);
@@ -79,32 +79,31 @@ namespace SteamTools
                 {
 
                 }
-                if (e.Args.ContainsArg("-reset"))
-                {
-
-                }
                 SettingsHost.Load();
                 this.compositeDisposable.Add(SettingsHost.Save);
                 this.compositeDisposable.Add(ProxyService.Current.Shutdown);
                 this.compositeDisposable.Add(SteamConnectService.Current.Shutdown);
 
                 //托盘加载
-                TaskbarService.Current.Taskbar = (TaskbarIcon)FindResource("Taskbar");
                 GeneralSettings.Culture.Subscribe(x => ResourceService.Current.ChangeCulture(x)).AddTo(this);
-                ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
                 WindowService.Current.AddTo(this).Initialize();
                 ProxyService.Current.Initialize();
                 SteamConnectService.Current.Initialize();
+                TaskbarService.Current.Taskbar = (TaskbarIcon)FindResource("Taskbar");
+                ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
 
                 this.MainWindow = WindowService.Current.GetMainWindow();
-                this.MainWindow.Show();
+                if (e.Args.ContainsArg("-minimized"))
+                    (WindowService.Current.MainWindow as MainWindowViewModel).Initialize();
+                else
+                    this.MainWindow.Show();
 
 #if !DEBUG
                 appInstance.CommandLineArgsReceived += (sender, args) =>
                 {
                     // 检测到多次启动时将主窗口置于最前面
                     this.Dispatcher.Invoke(() => WindowService.Current.MainWindow.Activate());
-                    this.ProcessCommandLineParameter(args.CommandLineArgs);
+                    //this.ProcessCommandLineParameter(args.CommandLineArgs);
                 };
 #endif
 
@@ -113,7 +112,10 @@ namespace SteamTools
 #if !DEBUG
             else
             {
-                appInstance.SendCommandLineArgs(e.Args);
+                if (e.Args.Length > 0)
+                    this.ProcessCommandLineParameter(e.Args);
+                else
+                    appInstance.SendCommandLineArgs(e.Args);
             }
 #endif
         }

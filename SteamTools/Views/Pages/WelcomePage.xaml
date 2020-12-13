@@ -6,11 +6,12 @@
 	  xmlns:metro2="http://schemes.grabacr.net/winfx/2015/personal/controls"
       xmlns:viewModel="clr-namespace:SteamTools.ViewModels"
       xmlns:models="clr-namespace:SteamTools.Models"
+      xmlns:model="clr-namespace:SteamTool.Model;assembly=SteamTool.Model"
       xmlns:services="clr-namespace:SteamTools.Services"
       xmlns:local="clr-namespace:SteamTools.Views.Pages"
       mc:Ignorable="d"
-      d:DesignWidth="600"
-	  d:DesignHeight="400"
+      d:DesignWidth="800"
+	  d:DesignHeight="600"
       FontFamily="{StaticResource DefaultFontFamilyKey}"
 	  Background="{DynamicResource ThemeBrushKey}"
       d:DataContext="{d:DesignInstance viewModel:WelcomePageViewModel}"
@@ -51,7 +52,7 @@
                         </TextBlock>
 
                         <TextBlock Margin="0,8,0,0" Style="{StaticResource HeaderTextStyleKey}">
-							<Run Text="{Binding Source={x:Static models:ProductInfo.VersionString}, StringFormat=Version {0}, Mode=OneWay}"
+							<Run Text="{Binding Source={x:Static models:ProductInfo.VersionString}, StringFormat=版本 {0}, Mode=OneWay}"
 								 FontSize="20"
 								 Foreground="{DynamicResource ActiveForegroundBrushKey}" />
                         </TextBlock>
@@ -60,18 +61,20 @@
 								   Margin="0,12"
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
                         <TextBlock Foreground="{DynamicResource ActiveForegroundBrushKey}">
-							<Run Text="Author:" />
+                            <Run Text="作者:" />
 							<metro2:HyperlinkEx Uri="https://rmbgame.net">
-								<Run Text="@软妹币玩家" />
+							<Run Text="@软妹币玩家" />
 							</metro2:HyperlinkEx>
 							<LineBreak />
-							<LineBreak />
-							<Run Text="Developer:" />
-							<metro2:HyperlinkEx Uri="https://rmbgame.net">
-								<Run Text="@软妹币玩家" />
+                            <Run Text="Steam个人资料:" />
+							<metro2:HyperlinkEx Uri="{Binding Source={x:Static model:Const.MY_PROFILE_URL} }">
+								<Run Text="@RuaRua" />
 							</metro2:HyperlinkEx>
+                            <LineBreak />
 							<LineBreak />
-							<Run Text="Icon by:" />
+				
+							<LineBreak />
+							<Run Text="图标来源:" />
 							<metro2:HyperlinkEx Uri="https://keylol.com/">
 								<Run Text="@Keylol" />
 							</metro2:HyperlinkEx>
@@ -81,8 +84,19 @@
 								   Margin="0,12"
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
 
-                        <TextBlock FontSize="10" Foreground="{DynamicResource ActiveForegroundBrushKey}"
+                        <TextBlock FontSize="11" Foreground="{DynamicResource ActiveForegroundBrushKey}"
 								   TextWrapping="Wrap">
+                            <Run Text="为了您的账号安全，"></Run>
+							<LineBreak />
+                            <Run Text="请不要使用修改版魔改版程序。"></Run>
+							<LineBreak />
+							<LineBreak />
+                            <Run Text="程序完全免费"></Run>
+							<LineBreak />
+                            <Run Text="若在任意渠道购买请差评退款。"></Run>
+							<LineBreak />
+							<LineBreak />
+							<LineBreak />
 							<Run Text="{Binding Source={x:Static models:ProductInfo.Copyright}, Mode=OneWay}" />
                         </TextBlock>
                         
@@ -106,40 +120,76 @@
                             <Run Foreground="{DynamicResource ForegroundBrushKey}"
 								 FontSize="20"
 								 Text="欢迎，" />
-                            <Image Source="{Binding CurrentSteamUser.AvatarIcon,Source={x:Static services:SteamConnectService.Current},Mode=OneWay}" Width="18" Height="18"></Image>
+                            <Image Source="{Binding CurrentSteamUser.AvatarIcon,Source={x:Static services:SteamConnectService.Current},Mode=OneWay}" Width="18" Height="18">
+                                <Image.Clip>
+                                    <!--设置图像如何显示-->
+                                    <EllipseGeometry RadiusX="9" RadiusY="9" Center="9,9"/>
+                                </Image.Clip>
+                            </Image>
                             <Run Foreground="{DynamicResource ForegroundBrushKey}"
 								 FontSize="20"
 								 Text="{Binding CurrentSteamUser.SteamID,Source={x:Static services:SteamConnectService.Current},Mode=OneWay}" />
                         </Paragraph>
                         <Paragraph Language="zh-cn">
-                            <Run Text="「Steam++」是一个包含多种Steam工具功能的工具箱。" />
+                            <Run Text="  "></Run>
+                            <Run Text="「Steam++」是一个包含多种Steam工具功能的工具箱，" />
                             <LineBreak />
                             <LineBreak />
-                            <Run Text="Steam++的大部分功能都是需要您下载安装Steam才能使用的功能。" />
+                            <Run Text="  "></Run>
+                            <Run Text="此工具的大部分功能都是需要您下载安装Steam才能使用。" />
                         </Paragraph>
                         <Paragraph Language="zh-cn">
-                            <Run Text="主要功能" FontSize="16"/>
+                            <Run Text="主要功能" FontSize="18"/>
                             <LineBreak/>
                             <LineBreak />
-                            <Run Text="反代Steam的社区网页使网页能正常访问" />
+                            <Run Text="  "></Run>
+                            <Run Text="1.反代Steam的社区网页使其能正常访问。" />
                             <LineBreak/>
                             <LineBreak />
-                            <Run Text="快速切换当前PC已经记住登陆的Steam账号，无需输入密码" />
+                            <Run Text="  "></Run>
+                            <Run Text="2.快速切换当前PC已经记住登陆的Steam账号，无需输入密码。" />
                             <LineBreak/>
                             <LineBreak />
-                            <Run Text="Steam游戏的成就统计管理功能，该功能的实现是调用了Steam的官方API，功能实现感谢SAM" />
+                            <Run Text="  "></Run>
+                            <Run Text="3.Steam游戏的成就统计管理功能，该功能的实现是调用了Steam客户端的接口。" />
                             <LineBreak/>
                             <LineBreak />
-                            <Run Text="Steam本地两步身份验证器的实现，可以使您不用启动移动版Steam App也能查看您的令牌" />
+                            <Run Text="  "></Run>
+                            <Run Text="4.Steam本地两步身份验证器的实现，可以使您不用启动移动版Steam App也能查看您的令牌，暂时还不支持进行市场交易确认，计划后续添加支持。" />
                             <LineBreak/>
                             <LineBreak />
-                            <Run Text="结合社区反代和成就管理的API实现的自动挂卡功能" />
+                            <Run Text="  "></Run>
+                            <Run Text="5.结合社区反代和成就管理的API实现的自动挂卡功能。" />
+                            <Run Text="（正在开发...）"></Run>
                             <LineBreak/>
                             <LineBreak />
-                            <Run Text="增强ASF在Windows Desktop环境下的使用" />
+                            <Run Text="  "></Run>
+                            <Run Text="6.Steam皮肤的可视化设计编辑功能。" />
+                            <Run Text="（正在开发...）"></Run>
                             <LineBreak/>
                             <LineBreak />
-                            <Run Text="以及更多奇怪的游戏功能。" />
+                            <Run Text="  "></Run>
+                            <Run Text="7.以插件形式支持ASF在工具内运行并增强ASF在Windows Desktop环境下的使用。" />
+                            <Run Text="（正在开发...）"></Run>
+                            <LineBreak/>
+                            <LineBreak />
+                            <Run Text="  "></Run>
+                            <Run Text="8.监控剪贴板自动执行复制的asf指令和激活复制的Steam Key。" />
+                            <Run Text="（正在开发...）"></Run>
+                            <LineBreak/>
+                            <LineBreak />
+                            <Run Text="  "></Run>
+                            <Run Text="9.其它游戏平台的一些小功能，大致就是一些GOG、Origin、EPIC、Uplay相关的功能" />
+                            <Run Text="（正在开发...）"></Run>
+                            <LineBreak/>
+                            <LineBreak />
+                            <Run Text="  "></Run>
+                            <Run Text="10.一些游戏工具，例如目前已做好的强制游戏无边框窗口化，CSGO修复VAC屏蔽。" />
+                            <Run Text="（正在开发...）"></Run>
+                            <LineBreak/>
+                            <LineBreak />
+                            <Run Text="  "></Run>
+                            <Run Text="以及许多可能没用但作者闲着无聊做的功能，这些功能可能会越来越多，不过我也会时不时删掉没用的功能防止软件太过臃肿。" />
                         </Paragraph>
                         <Paragraph>
                             <InlineUIContainer>

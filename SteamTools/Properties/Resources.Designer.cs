@@ -241,7 +241,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 社区修复 的本地化字符串。
+        ///   查找类似 社区反代 的本地化字符串。
         /// </summary>
         public static string CommunityFix {
             get {
@@ -480,6 +480,15 @@ namespace SteamTools.Properties {
         public static string HeadImageTootlip {
             get {
                 return ResourceManager.GetString("HeadImageTootlip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 帮助 的本地化字符串。
+        /// </summary>
+        public static string Helper {
+            get {
+                return ResourceManager.GetString("Helper", resourceCulture);
             }
         }
         
@@ -754,7 +763,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 脚本配置 的本地化字符串。
+        ///   查找类似 脚本配置(实验性功能) 的本地化字符串。
         /// </summary>
         public static string ScriptSettings {
             get {
@@ -804,6 +813,15 @@ namespace SteamTools.Properties {
         public static string Settings_Auth {
             get {
                 return ResourceManager.GetString("Settings_Auth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 游戏列表设置 的本地化字符串。
+        /// </summary>
+        public static string Settings_GameList {
+            get {
+                return ResourceManager.GetString("Settings_GameList", resourceCulture);
             }
         }
         
@@ -871,7 +889,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 启动服务 的本地化字符串。
+        ///   查找类似 启动反代 的本地化字符串。
         /// </summary>
         public static string StartService {
             get {
@@ -916,15 +934,6 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 社区反代 的本地化字符串。
-        /// </summary>
-        public static string Steam302 {
-            get {
-                return ResourceManager.GetString("Steam302", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 输入成就名称搜索 的本地化字符串。
         /// </summary>
         public static string SteamAchievement_SearchTextBox_Prompt {
@@ -952,7 +961,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 停止服务 的本地化字符串。
+        ///   查找类似 关闭反代 的本地化字符串。
         /// </summary>
         public static string StopService {
             get {
@@ -1047,6 +1056,43 @@ namespace SteamTools.Properties {
         public static string UserFastChange {
             get {
                 return ResourceManager.GetString("UserFastChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 @echo off
+        ///color a
+        ///ECHO    CSGO网吧VAC＆VPN修复工具     -by 百度贴吧 狙击手Ricky
+        ///goto steam
+        ///
+        ///:steam
+        ///echo 正在检测Steam是否开启......
+        ///tasklist | find /I &quot;Steam.exe&quot;
+        ///if errorlevel 1 goto csgolauncher
+        ///if not errorlevel 1 goto killsteam
+        ///
+        ///:csgolauncher
+        ///echo 正在检测国服启动器是否开启......
+        ///tasklist | find /I &quot;csgolauncher.exe&quot;
+        ///if errorlevel 1 goto stop
+        ///if not errorlevel 1 goto killcsgolauncher
+        ///
+        ///:stop
+        ///echo Steam和国服启动器均未开启
+        ///goto start
+        ///
+        ///:killsteam
+        ///echo Steam已开启
+        ///echo 正在强制关闭
+        ///taskkill /F /IM Steam.exe
+        ///echo 已强制关闭
+        ///goto start
+        ///
+        ///:k [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        public static string VACFIX_BAT {
+            get {
+                return ResourceManager.GetString("VACFIX_BAT", resourceCulture);
             }
         }
         

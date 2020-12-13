@@ -34,7 +34,7 @@
 
 		<Platforms>AnyCPU;x86</Platforms>
 
-		<Product>Steam Plus Tools</Product>
+		<Product>SteamTools</Product>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
@@ -55,6 +55,7 @@
 	  <DebugType>none</DebugType>
 	  <DebugSymbols>false</DebugSymbols>
 	  <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+	  <FileAlignment>1024</FileAlignment>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
@@ -71,13 +72,13 @@
 	
 	<ItemGroup>
 		<None Remove="Resources\Asstes\add.png" />
+		<None Remove="Resources\Asstes\alipay.jpg" />
 		<None Remove="Resources\Asstes\app.ico" />
 		<None Remove="Resources\Asstes\Copy.png" />
 		<None Remove="Resources\Asstes\delete.png" />
 		<None Remove="Resources\Asstes\detail.png" />
 		<None Remove="Resources\Asstes\edit.png" />
 		<None Remove="Resources\Asstes\install-line.png" />
-		<None Remove="Resources\Asstes\look.png" />
 		<None Remove="Resources\Asstes\movecross.png" />
 		<None Remove="Resources\Asstes\ok.png" />
 		<None Remove="Resources\Asstes\play.png" />
@@ -86,6 +87,7 @@
 		<None Remove="Resources\Asstes\save.png" />
 		<None Remove="Resources\Asstes\seek.png" />
 		<None Remove="Resources\Asstes\unlock.png" />
+		<None Remove="Resources\Asstes\wechatpay.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -99,13 +101,13 @@
 
 	<ItemGroup>
 		<Resource Include="Resources\Asstes\add.png" />
+		<Resource Include="Resources\Asstes\alipay.jpg" />
 		<Resource Include="Resources\Asstes\app.ico" />
 		<Resource Include="Resources\Asstes\copy.png" />
 		<Resource Include="Resources\Asstes\delete.png" />
 		<Resource Include="Resources\Asstes\detail.png" />
 		<Resource Include="Resources\Asstes\edit.png" />
 		<Resource Include="Resources\Asstes\install-line.png" />
-		<Resource Include="Resources\Asstes\look.png" />
 		<Resource Include="Resources\Asstes\movecross.png" />
 		<Resource Include="Resources\Asstes\ok.png" />
 		<Resource Include="Resources\Asstes\play.png" />
@@ -114,6 +116,7 @@
 		<Resource Include="Resources\Asstes\save.png" />
 		<Resource Include="Resources\Asstes\seek.png" />
 		<Resource Include="Resources\Asstes\unlock.png" />
+		<Resource Include="Resources\Asstes\wechatpay.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -213,8 +216,19 @@
 		<Page Update="Resources\Styles\Controls.xaml">
 			<SubType>Designer</SubType>
 		</Page>
-		<Page Update="Views\Content\AboutDonate.xaml">
+		<Page Update="Views\Content\About\AboutHelper.xaml">
 		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		  <SubType>Designer</SubType>
+		</Page>
+		<Page Update="Views\Content\About\AboutDonate.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		</Page>
+		<Page Update="Views\Content\CommonGame\GameCSGO.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		</Page>
+		<Page Update="Views\Content\Settings\SettingsGeneral.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		  <SubType>Designer</SubType>
 		</Page>
 		<Page Update="Views\Controls\StatusBar.xaml">
 			<SubType>Designer</SubType>

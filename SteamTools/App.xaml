@@ -20,6 +20,7 @@
             <converters:UniversalBooleanToVisibilityConverter x:Key="UniversalBooleanToVisibilityConverter" />
             <converters:StringToVisiblityConverter x:Key="StringToVisiblityConverter" />
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+            <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" />
             <converters:ReverseBooleanConverter x:Key="ReverseBooleanConverter" />
             <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
         </ResourceDictionary>

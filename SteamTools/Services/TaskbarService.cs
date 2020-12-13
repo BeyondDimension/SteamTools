@@ -7,6 +7,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SteamTools.Services
 {
@@ -26,6 +27,7 @@ namespace SteamTools.Services
                 if (this._TaskBar != value)
                 {
                     this._TaskBar = value;
+                    _TaskBar.TrayPopupOpen += Taskbar_TrayPopupOpen;
                     this.RaisePropertyChanged();
                 }
             }
@@ -33,6 +35,7 @@ namespace SteamTools.Services
         #endregion
 
         #endregion
+
         #region Message 変更通知
         private string notificationTitle;
         private string notificationMessage;
@@ -51,6 +54,11 @@ namespace SteamTools.Services
         }
 
         #endregion
+
+        private void Taskbar_TrayPopupOpen(object sender, RoutedEventArgs e)
+        {
+            Taskbar.TrayPopup.Visibility = Visibility.Visible;
+        }
 
         public void Notify(string message, string title)
         {
