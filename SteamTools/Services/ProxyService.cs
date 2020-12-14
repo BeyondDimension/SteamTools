@@ -21,6 +21,16 @@ namespace SteamTools.Services
 
         public void Initialize()
         {
+            if (ProxySettings.SupportProxyServicesStatus.Value.Count > 0)
+            {
+                foreach (var item in ProxyDomains.Value) 
+                {
+                    if (ProxySettings.SupportProxyServicesStatus.Value.TryGetValue(item.Index, out bool value))
+                    {
+                        item.IsEnable = value;
+                    }
+                }
+            }
             Proxy = new HttpProxy(ProxyDomains.Value, ProductInfo.Product);
             InitJsScript();
         }
@@ -28,6 +38,7 @@ namespace SteamTools.Services
         private Lazy<IReadOnlyCollection<ProxyDomainModel>> _ProxyDomains = new Lazy<IReadOnlyCollection<ProxyDomainModel>>(() => new List<ProxyDomainModel>
         {
             new ProxyDomainModel{
+                Index=0,
                 Name=Resources.SteamCommunity,
                 Domains = new List<string>{"steamcommunity.com" },
                 ToDomain = "steamcommunity-a.akamaihd.net",
@@ -36,6 +47,7 @@ namespace SteamTools.Services
                 IsEnable= true,
             },
             new ProxyDomainModel{
+                Index=1,
                 Name=Resources.SteamStore,
                 Domains = new List<string>{"steampowered.com" },
                 ToDomain = "steamstore-a.akamaihd.net",
@@ -44,6 +56,7 @@ namespace SteamTools.Services
                 IsEnable= false,
             },
             new ProxyDomainModel{
+                Index=2,
                 Name=Resources.SteamImage,
                 Domains = new List<string>{"steamcdn-a.akamaihd.net" },
                 ToDomain = "steamstore-a.akamaihd.net",
@@ -52,6 +65,7 @@ namespace SteamTools.Services
                 IsEnable= false,
             },
             new ProxyDomainModel{
+                Index=3,
                 Name=Resources.SteamChat,
                 Domains = new List<string>{"steam-chat.com" },
                 ToDomain = "steamstore-a.akamaihd.net",
@@ -60,6 +74,7 @@ namespace SteamTools.Services
                 IsEnable= false,
             },
             //new ProxyDomainModel{
+                //Index=4,
             //    Name=Resources.Discord,
             //    Domains = new List<string>{ "discordapp.com" },
             //    ToDomain = "discord.com",
@@ -92,6 +107,7 @@ namespace SteamTools.Services
             //    IsEnable= false,
             //},
             new ProxyDomainModel{
+                Index=5,
                 Name=Resources.Twitch,
                 Domains = new List<string>{ "twitch.tv" },
                 ToDomain="twitch.map.fastly.net",
@@ -140,6 +156,7 @@ namespace SteamTools.Services
                 IsEnable= false,
             },
             new ProxyDomainModel{
+                Index=6,
                 Name=Resources.OriginDownload,
                 Domains = new List<string>{"origin-a.akamaihd.net" },
                 ToDomain = "cctv4-lh.akamaihd.net",
@@ -156,6 +173,7 @@ namespace SteamTools.Services
             //    IsEnable= false,
             //},
             new ProxyDomainModel{
+                Index=7,
                 Name=Resources.GOG,
                 Domains = new List<string>{ "gog.com" },
                 ToDomain = "api.gog.com",
@@ -188,6 +206,7 @@ namespace SteamTools.Services
                 IsEnable= false,
             },
             new ProxyDomainModel{
+                Index=8,
                 Name=Resources.GoogleRecaptchaCode,
                 Domains = new List<string>{"www.google.com" },
                 ToDomain = "kh.google.com",

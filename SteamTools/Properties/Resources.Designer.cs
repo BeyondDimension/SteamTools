@@ -88,11 +88,29 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 开源许可 的本地化字符串。
+        /// </summary>
+        public static string About_OpenSourceLicensing {
+            get {
+                return ResourceManager.GetString("About_OpenSourceLicensing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 此软件 的本地化字符串。
         /// </summary>
         public static string About_TheSoft {
             get {
                 return ResourceManager.GetString("About_TheSoft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 更新日志 的本地化字符串。
+        /// </summary>
+        public static string AboutUpdateHistory {
+            get {
+                return ResourceManager.GetString("AboutUpdateHistory", resourceCulture);
             }
         }
         

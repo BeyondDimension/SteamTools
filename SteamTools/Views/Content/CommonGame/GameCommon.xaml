@@ -61,7 +61,7 @@
             <TextBlock Margin="10,0" Text="拖拽十字到游戏窗口，即可获取游戏信息执行对应操作。"></TextBlock>
         </StackPanel>
         <StackPanel Orientation="Horizontal"
-					Margin="10,20,0,0">
+					Margin="20,20,0,0">
             <Button Height="30"  Content="结束进程">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
@@ -135,6 +135,11 @@
                 </i:Interaction.Triggers>
             </Button>
         </StackPanel>
+        <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="20,6,0,0">
+            <Run Text="*置于壁纸层的游戏可能会无法操控，以及会在游戏结束后桌面依然留下静态画面，这时可以点击刷新壁纸来恢复默认壁纸。"/>
+            <LineBreak/>
+             <Run Text="并且将窗口放置于桌面壁纸层功能与Wallpaper Engine和其它动态桌面软件不兼容，使用时注意关掉Wallpaper Engine等软件。"/>
+        </TextBlock>
         <Rectangle Style="{DynamicResource SeparatorStyleKey}" />
     </StackPanel>
 </UserControl>

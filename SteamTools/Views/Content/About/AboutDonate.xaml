@@ -38,7 +38,7 @@
                         <Run Text="「Steam++」的开发耗费了作者大量精力，每天下班后，熬了无数个通宵才有了这个工具的诞生。" />
                         <LineBreak />
                         <LineBreak />
-                        <Run Text="如果Steam++有帮助到您，您可以考虑给作者一点捐助，以使我更有动力的更新维护Steam++。" />
+                        <Run Text="如果Steam++有帮助到您，您可以考虑给我一点捐助，以使我更有动力的更新维护Steam++。" />
                     </Paragraph>
                     <Paragraph Language="zh-cn">
                         <Run Text="支付宝" FontSize="16"/>

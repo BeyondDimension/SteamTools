@@ -31,7 +31,19 @@ namespace SteamTools.Models.Settings
         /// 程序是否开机自启动
         /// </summary>
         public static SerializableProperty<bool> WindowsStartupAutoRun { get; }
-            = new SerializableProperty<bool>(GetKey(), Providers.Local, false);
+            = new SerializableProperty<bool>(GetKey(), Providers.Roaming, false) { AutoSave = true };
+
+        /// <summary>
+        /// 是否显示起始页
+        /// </summary>
+        public static SerializableProperty<bool> IsShowStartPage { get; }
+            = new SerializableProperty<bool>(GetKey(), Providers.Roaming, true) { AutoSave = true };
+
+        /// <summary>
+        /// 游戏列表本地缓存
+        /// </summary>
+        public static SerializableProperty<bool> IsSteamAppListLocalCache { get; }
+            = new SerializableProperty<bool>(GetKey(), Providers.Roaming, true) { AutoSave = true };
 
 
         private static string GetKey([CallerMemberName] string propertyName = "")

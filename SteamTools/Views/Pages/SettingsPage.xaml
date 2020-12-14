@@ -133,9 +133,31 @@
 					Background="{DynamicResource BorderBrushKey}"
 					Margin="0,8" />
 
-                    <TextBlock Text="{Binding Resources.Settings_Language, Source={x:Static services:ResourceService.Current}, Mode=OneWay}" Style="{DynamicResource SettingsHeaderTextStyleKey}" />
+                    <StackPanel>
+                        <TextBlock Text="界面" Style="{DynamicResource SettingsHeaderTextStyleKey}" />
 
-                    <metro:PromptComboBox Margin="20,0,0,0"
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox 
+                              Margin="20,0,0,0"
+							  HorizontalAlignment="Left"
+							  IsChecked="{Binding Source={x:Static ms:GeneralSettings.IsShowStartPage}, Path=Value, Mode=TwoWay}">
+                                <TextBlock Text="启动时显示起始页"></TextBlock>
+                            </CheckBox>
+                            <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="10,0,0,0">
+                        <Run Text="*下次启动时生效"></Run>
+                            </TextBlock>
+                        </StackPanel>
+
+
+                        <Border Height="1"
+					Background="{DynamicResource BorderBrushKey}"
+					Margin="0,8" />
+                    </StackPanel>
+
+                    <StackPanel >
+                        <TextBlock Text="{Binding Resources.Settings_Language, Source={x:Static services:ResourceService.Current}, Mode=OneWay}" Style="{DynamicResource SettingsHeaderTextStyleKey}" />
+
+                        <metro:PromptComboBox Margin="20,0,0,0"
 							  HorizontalAlignment="Left"
 							  Prompt=""
 							  ItemsSource="{Binding Cultures}"
@@ -144,11 +166,16 @@
 							  SelectedValue="{Binding Source={x:Static ms:GeneralSettings.Culture}, Path=Value, Mode=TwoWay}"
 							  IsReadOnly="True"
 							  MinWidth="250" />
-                    
-                    <Border Height="1"
+
+                        <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="20,6,0,0">
+                        <Run Text="*多语言功能是做好了，但是其它语言的文本还没有时间翻译。"></Run>
+                        </TextBlock>
+
+                        <Border Height="1"
 					Background="{DynamicResource BorderBrushKey}"
 					Margin="0,8" />
-                    
+
+                    </StackPanel>
                 </StackPanel>
             </ScrollViewer>
         </TabItem>

@@ -43,7 +43,7 @@
                     
                 </Image>
                 <Separator Opacity="0" Width="10"/>
-                <Image Width="24" Cursor="Hand" VerticalAlignment="Center">
+                <Image Width="22" Cursor="Hand" VerticalAlignment="Center">
                     <Image.Style>
                         <Style TargetType="{x:Type Image}">
                             <Style.Triggers>
@@ -135,7 +135,7 @@
                                         </i:Interaction.Triggers>
                                     </Image>
                                     <Separator Opacity="0" Width="5"/>
-                                    <Image Source="/Resources/Asstes/detail.png" Width="18" Cursor="Hand" ToolTip="{Binding Resources.Auth_See,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
+                                    <Image Source="/Resources/Asstes/detail.png" Width="18" Cursor="Hand" ToolTip="{Binding Resources.Auth_See,Source={x:Static services:ResourceService.Current},Mode=OneWay}" Visibility="{Binding ElementName=u,Path=DataContext.IsEdit,Mode=OneWay,Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonUp">
                                                 <livet:LivetCallMethodAction
@@ -146,7 +146,7 @@
                                         </i:Interaction.Triggers>
                                     </Image>
                                     <Separator Opacity="0" Width="5"/>
-                                    <Image Source="/Resources/Asstes/seek.png" Width="24" Cursor="Hand" ToolTip="{Binding Resources.Auth_See,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
+                                    <Image Source="/Resources/Asstes/seek.png" Width="24" Cursor="Hand" ToolTip="{Binding Resources.Auth_See,Source={x:Static services:ResourceService.Current},Mode=OneWay}" Visibility="{Binding ElementName=u,Path=DataContext.IsEdit,Mode=OneWay,Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonUp">
                                                 <livet:LivetCallMethodAction

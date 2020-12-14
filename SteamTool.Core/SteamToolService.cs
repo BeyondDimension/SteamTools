@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using SteamTool.Core.Common;
 using Microsoft.Win32.TaskScheduler;
 using System.Reflection;
+using System.Security.Principal;
 
 namespace SteamTool.Core
 {
@@ -19,6 +20,16 @@ namespace SteamTool.Core
     {
         private readonly RegistryKeyService registryKeyService = SteamToolCore.Instance.Get<RegistryKeyService>();
         private readonly VdfService vdfService = SteamToolCore.Instance.Get<VdfService>();
+
+        public bool IsAdministrator
+        {
+            get
+            {
+                WindowsIdentity current = WindowsIdentity.GetCurrent();
+                WindowsPrincipal windowsPrincipal = new WindowsPrincipal(current);
+                return windowsPrincipal.IsInRole(WindowsBuiltInRole.Administrator);
+            }
+        }
 
         public string SteamPath { get; set; }
 
@@ -174,7 +185,7 @@ namespace SteamTool.Core
         }
 
 
-        public void SetWindowsStartupAutoRun(bool IsAutoRun,string Name = "Steam++")
+        public void SetWindowsStartupAutoRun(bool IsAutoRun, string Name = "Steam++")
         {
             // Get the service on the local machine
             if (IsAutoRun)
@@ -182,15 +193,18 @@ namespace SteamTool.Core
                 using (TaskDefinition td = TaskService.Instance.NewTask())
                 {
                     // Create a new task definition and assign properties
-                    td.RegistrationInfo.Description = Name+"System Boot Run";
+                    td.RegistrationInfo.Description = Name + "System Boot Run";
 
                     td.Settings.Priority = System.Diagnostics.ProcessPriorityClass.Normal;
 
                     // Create a trigger that will fire after the system boot
-                    td.Triggers.Add(new BootTrigger());
+                    td.Triggers.Add(new LogonTrigger());
 
                     // Create an action that will launch Notepad whenever the trigger fires
                     td.Actions.Add(new ExecAction(Assembly.GetCallingAssembly().Location, "-minimized", Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)));
+                    
+                    if (IsAdministrator)
+                        td.Principal.RunLevel = TaskRunLevel.Highest;
 
                     // Register the task in the root folder
                     TaskService.Instance.RootFolder.RegisterTaskDefinition(Name, td);

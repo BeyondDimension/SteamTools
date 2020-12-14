@@ -106,7 +106,14 @@ namespace SteamTools.ViewModels
 #endif
 				#endregion
 			};
-            this.SelectedItem = this.TabItems.FirstOrDefault();
+            foreach (var tab in this.TabItems)
+            {
+                if (tab.IsShowTab)
+                {
+                    this.SelectedItem = tab;
+                    break;
+                }
+            }
             //this.Initialize();
         }
 

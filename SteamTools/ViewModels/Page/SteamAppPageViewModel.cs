@@ -22,6 +22,7 @@ using SteamTools.Views;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using SteamTools.Models.Settings;
 
 namespace SteamTools.ViewModels
 {
@@ -109,11 +110,12 @@ namespace SteamTools.ViewModels
                 if (apps == null || !apps.Any())
                 {
                     var result = await SteamworksWebApi.GetAllSteamAppsString();
-                    if (string.IsNullOrEmpty(result)) 
+                    if (string.IsNullOrEmpty(result))
                     {
                         StatusService.Current.Notify("下载Steam游戏数据失败，请尝试开启社区反代刷新");
                     }
-                    SteamTool.UpdateAppListJson(result, Const.APP_LIST_FILE);
+                    if (GeneralSettings.IsSteamAppListLocalCache)
+                        SteamTool.UpdateAppListJson(result, Const.APP_LIST_FILE);
                     apps = JsonConvert.DeserializeObject<SteamApps>(result).AppList.Apps;
                 }
                 apps = apps.DistinctBy(d => d.AppId).ToList();

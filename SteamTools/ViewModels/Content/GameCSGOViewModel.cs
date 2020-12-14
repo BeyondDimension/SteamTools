@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using SteamTools.Win32;
-using System.Windows.Forms;
 using MetroRadiance.Interop.Win32;
 using System.Diagnostics;
 using SteamTool.Core.Common;

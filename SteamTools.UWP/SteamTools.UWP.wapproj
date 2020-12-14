@@ -52,7 +52,7 @@
   <PropertyGroup>
     <ProjectGuid>2e755c75-e472-44e0-8ac4-f40209a60172</ProjectGuid>
     <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
     <EntryPointProjectUniqueName>..\SteamTools\SteamTools.csproj</EntryPointProjectUniqueName>

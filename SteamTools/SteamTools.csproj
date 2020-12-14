@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<!--<TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>-->
-		<TargetFrameworks>net472;net5.0-windows</TargetFrameworks>
+		<TargetFrameworks>net461;net472;net5.0-windows</TargetFrameworks>
 		<UseWPF>true</UseWPF>
 		<RootNamespace>SteamTools</RootNamespace>
 		<ApplicationIcon>Resources\Asstes\app.ico</ApplicationIcon>
@@ -57,17 +57,25 @@
 	  <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
 	  <FileAlignment>1024</FileAlignment>
 	</PropertyGroup>
-
+	
+	<ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+		<PackageReference Include="LivetCask" Version="3.0.1" />
+		<PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.0.8" />
+	</ItemGroup>
+	
 	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
 		<PackageReference Include="LivetCask" Version="3.0.1" />
+		<PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.14" />
 	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+	
+	<!--<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
 		<PackageReference Include="LivetCask" Version="3.0.2" />
-	</ItemGroup>
+		<PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.14" />
+	</ItemGroup>-->
 	
 	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0-windows'">
 		<PackageReference Include="LivetCask" Version="3.0.2" />
+		<PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.14" />
 	</ItemGroup>
 	
 	<ItemGroup>
@@ -91,7 +99,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.14" />
 		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -216,6 +223,10 @@
 		<Page Update="Resources\Styles\Controls.xaml">
 			<SubType>Designer</SubType>
 		</Page>
+		<Page Update="Views\Content\About\AboutUpdateHistory.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		  <SubType>Designer</SubType>
+		</Page>
 		<Page Update="Views\Content\About\AboutHelper.xaml">
 		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		  <SubType>Designer</SubType>
@@ -304,6 +315,9 @@
 	  </Reference>
 	  <Reference Include="MetroTrilithon.Desktop">
 	    <HintPath>..\Lib\MetroTrilithon.Desktop.dll</HintPath>
+	  </Reference>
+	  <Reference Include="System.Windows.Forms">
+	    <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Windows.Forms.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
 

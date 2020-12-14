@@ -81,5 +81,20 @@ namespace SteamTools.ViewModels
                 ProxyService.Current.InitJsScript();
             }
         }
+
+        public void ProxyServices_Checked(ProxyDomainModel proxyDomain)
+        {
+            var dic = ProxySettings.SupportProxyServicesStatus.Value as Dictionary<int, bool>;
+            if (ProxySettings.SupportProxyServicesStatus.Value.ContainsKey(proxyDomain.Index))
+            {
+                dic.Remove(proxyDomain.Index);
+                dic.Add(proxyDomain.Index, proxyDomain.IsEnable);
+            }
+            else
+            {
+                dic.Add(proxyDomain.Index, proxyDomain.IsEnable);
+            }
+            ProxySettings.SupportProxyServicesStatus.Value = dic;
+        }
     }
 }

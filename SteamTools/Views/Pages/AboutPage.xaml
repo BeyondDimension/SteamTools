@@ -43,7 +43,15 @@
             </TabItem.Header>
             <contents:AboutDonate></contents:AboutDonate>
         </TabItem>
-        
+
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock Text="{Binding Resources.AboutUpdateHistory,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
+                               Style="{StaticResource TabHeaderTextStyleKey}" />
+            </TabItem.Header>
+            <contents:AboutUpdateHistory></contents:AboutUpdateHistory>
+        </TabItem>
+
         <TabItem Visibility="Collapsed">
             <TabItem.Header>
                 <TextBlock Text="{Binding Resources.Helper,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
@@ -51,6 +59,37 @@
             </TabItem.Header>
         </TabItem>
 
+        <TabItem Visibility="Collapsed">
+            <TabItem.Header>
+                <TextBlock Text="{Binding Resources.About_OpenSourceLicensing,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
+                               Style="{StaticResource TabHeaderTextStyleKey}" />
+            </TabItem.Header>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="8">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource HeaderTextStyleKey}" FontSize="20">
+                        <Run  Text="此软件的诞生离不开以下开源软件"/>
+                        <LineBreak/>
+                    </TextBlock>
+                    <ItemsControl ItemsSource="{Binding Source={x:Static models:ProductInfo.Libraries}}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Foreground="{StaticResource ActiveForegroundBrushKey}">
+                                    <Run Text="{Binding Name,Mode=OneWay}"></Run>
+                                    <LineBreak/>
+                                        <metro2:HyperlinkEx Uri="{Binding Url,Mode=OneWay}">
+                                            <Run Text="{Binding Url,Mode=OneWay}"></Run>
+                                        </metro2:HyperlinkEx>
+                                    <LineBreak/>
+                                    <LineBreak/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
 
     </TabControl>
 </UserControl>

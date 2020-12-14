@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using SteamTools.Win32;
-using System.Windows.Forms;
 using MetroRadiance.Interop.Win32;
 using System.Diagnostics;
 using SteamTool.Core.Common;
@@ -17,6 +16,7 @@ using SteamTool.Core;
 using SteamTool.Steam.Service;
 using SteamTool.Model;
 using Newtonsoft.Json;
+using SteamTools.Models.Settings;
 
 namespace SteamTools.ViewModels
 {
@@ -41,7 +41,8 @@ namespace SteamTools.ViewModels
                 Task.Run(async () =>
                 {
                     var result = await SteamworksWebApi.GetAllSteamAppsString();
-                    SteamTool.UpdateAppListJson(result, Const.APP_LIST_FILE);
+                    if (GeneralSettings.IsSteamAppListLocalCache)
+                        SteamTool.UpdateAppListJson(result, Const.APP_LIST_FILE);
                     var apps = JsonConvert.DeserializeObject<SteamApps>(result).AppList.Apps;
                     apps = apps.DistinctBy(d => d.AppId).ToList();
                     //SteamConnectService.Current.SteamApps = apps;

@@ -9,6 +9,8 @@ namespace SteamTool.Proxy
 {
     public class ProxyDomainModel
     {
+        public int Index { get; set; }
+
         /// <summary>
         /// 显示在UI上的名称
         /// </summary>
@@ -43,7 +45,6 @@ namespace SteamTool.Proxy
         /// 启用该域名代理
         /// </summary>
         public bool IsEnable { get; set; }
-
 
         public IEnumerable<string> Hosts { get; set; }
 

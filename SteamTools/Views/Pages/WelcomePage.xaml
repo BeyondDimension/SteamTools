@@ -74,7 +74,7 @@
 							<LineBreak />
 				
 							<LineBreak />
-							<Run Text="图标来源:" />
+							<Run Text="程序图标:" />
 							<metro2:HyperlinkEx Uri="https://keylol.com/">
 								<Run Text="@Keylol" />
 							</metro2:HyperlinkEx>
@@ -99,7 +99,7 @@
 							<LineBreak />
 							<Run Text="{Binding Source={x:Static models:ProductInfo.Copyright}, Mode=OneWay}" />
                         </TextBlock>
-                        
+
                     </StackPanel>
                 </ScrollViewer>
             </Border>
@@ -132,7 +132,7 @@
                         </Paragraph>
                         <Paragraph Language="zh-cn">
                             <Run Text="  "></Run>
-                            <Run Text="「Steam++」是一个包含多种Steam工具功能的工具箱，" />
+                            <Run Text="「Steam++」是一个包含多种Steam工具功能的工具箱。" />
                             <LineBreak />
                             <LineBreak />
                             <Run Text="  "></Run>
@@ -155,69 +155,81 @@
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
-                            <Run Text="4.Steam本地两步身份验证器的实现，可以使您不用启动移动版Steam App也能查看您的令牌，暂时还不支持进行市场交易确认，计划后续添加支持。" />
+                            <Run Text="4.Steam本地两步身份验证器的实现，可以使您不用启动移动版Steam App也能查看您的令牌。" />
+                            <LineBreak/>
+                            <Run Text="(暂时还不支持进行市场交易确认，计划后续添加支持)"/>
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
                             <Run Text="5.结合社区反代和成就管理的API实现的自动挂卡功能。" />
-                            <Run Text="（正在开发...）"></Run>
+                            <Run Text="（接下来要做的...）"></Run>
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
                             <Run Text="6.Steam皮肤的可视化设计编辑功能。" />
+                            <Run Text="（难度较大还没开工...）"></Run>
+                            <LineBreak/>
+                            <LineBreak />
+                            <Run Text="  "></Run>
+                            <Run Text="7.以插件形式支持ASF在工具内运行并增强ASF在Windows Desktop环境下的使用。例如注册协议 &quot;spp://xxxxxx&quot; 实现快速运行的asf指令和激活复制的Steam Key。" />
+                            <Run Text="（接下来要做的...）"></Run>
+                            <LineBreak/>
+                            <LineBreak />
+                            <Run Text="  "></Run>
+                            <Run Text="8.增强Steam自定义封面的管理以及从" />
+                            <metro2:HyperlinkEx Uri="www.steamgriddb.com">
+                                <Run Text="www.steamgriddb.com"/>
+                            </metro2:HyperlinkEx>
+                            <Run Text="快速匹配下载应用封面。" />
+                            <Run Text="（更多正在开发...）"></Run>
+                            <LineBreak/>
+                            <LineBreak />
+                            <Run Text="  "></Run>
+                            <Run Text="9.其它游戏平台的一些功能，GOG、Origin、EPIC、Uplay相关的功能" />
                             <Run Text="（正在开发...）"></Run>
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
-                            <Run Text="7.以插件形式支持ASF在工具内运行并增强ASF在Windows Desktop环境下的使用。" />
+                            <Run Text="10.一些游戏工具，目前已有强制游戏无边框窗口化，CSGO修复VAC屏蔽。" />
                             <Run Text="（正在开发...）"></Run>
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
-                            <Run Text="8.监控剪贴板自动执行复制的asf指令和激活复制的Steam Key。" />
-                            <Run Text="（正在开发...）"></Run>
-                            <LineBreak/>
-                            <LineBreak />
-                            <Run Text="  "></Run>
-                            <Run Text="9.其它游戏平台的一些小功能，大致就是一些GOG、Origin、EPIC、Uplay相关的功能" />
-                            <Run Text="（正在开发...）"></Run>
-                            <LineBreak/>
-                            <LineBreak />
-                            <Run Text="  "></Run>
-                            <Run Text="10.一些游戏工具，例如目前已做好的强制游戏无边框窗口化，CSGO修复VAC屏蔽。" />
-                            <Run Text="（正在开发...）"></Run>
-                            <LineBreak/>
-                            <LineBreak />
-                            <Run Text="  "></Run>
-                            <Run Text="以及许多可能没用但作者闲着无聊做的功能，这些功能可能会越来越多，不过我也会时不时删掉没用的功能防止软件太过臃肿。" />
+                            <Run Text="以后也会加入许多可能没用但我闲着无聊做的功能，这些功能可能会越来越多，不过我也会时不时删掉没用的功能防止软件太过臃肿。" />
                         </Paragraph>
                         <Paragraph>
-                            <InlineUIContainer>
-                                <!--<CheckBox IsChecked="{Binding ClearCacheOnNextStartup}"
+                            <!--<InlineUIContainer>
+                                -->
+                            <!--<CheckBox IsChecked="{Binding ClearCacheOnNextStartup}"
 										  Content="下次启动不再显示" />-->
+                            <!--
                             </InlineUIContainer>
-                            <LineBreak />
+                            <LineBreak />-->
                             <InlineUIContainer>
                                 <Rectangle Width="{Binding ElementName=Dummy, Path=ActualWidth}"
 										   Height=".99"
 										   Style="{DynamicResource SeparatorRectangleStyleKey}"
-										   Margin="0,16,0,0"
+										   Margin="0,8,0,0"
 										   SnapsToDevicePixels="True" />
                             </InlineUIContainer>
                         </Paragraph>
                         <Paragraph Language="zh-cn">
-                            <Run Text="工具不定期更新。 请适当检查更新。" />
+                            <Run Text="工具不定期更新且目前没有自动更新功能，请适当检查更新。" />
                             <LineBreak />
                             <LineBreak />
-                            <Run Text="项目主页:" />
+                            <Run Text="软件主页:" />
                             <metro2:HyperlinkEx Uri="https://spp.rmbgame.net">
                                 <Run Text="https://spp.rmbgame.net" />
                             </metro2:HyperlinkEx>
                             <LineBreak />
-                            <Run Text="开源地址:" />
+                            <Run Text="BUG&amp;建议反馈:" />
+                            <metro2:HyperlinkEx Uri="rmb@rmbgame.net">
+                                <Run Text="rmb@rmbgame.net" />
+                            </metro2:HyperlinkEx>
+                            <!--<Run Text="开源地址:" />
                             <metro2:HyperlinkEx Uri="https://github.com/rmbadmin/Steam++">
                                 <Run Text="https://github.com/rmbadmin/Steam++" />
-                            </metro2:HyperlinkEx>
+                            </metro2:HyperlinkEx>-->
                         </Paragraph>
                     </FlowDocument>
                 </FlowDocumentScrollViewer>

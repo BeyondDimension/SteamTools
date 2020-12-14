@@ -62,7 +62,7 @@
             MinLines="6"
             MaxLines="10"
             Margin="20,10,0,0"
-            Prompt="命令输出窗口"
+            Prompt=""
             IsReadOnly="True"
             TextChanged="PromptTextBox_TextChanged"
             Text="{Binding CmdOut,Mode=OneWay}">

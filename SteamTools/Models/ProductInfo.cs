@@ -30,6 +30,7 @@ namespace SteamTools.Models
 			new Library("SteamAchievementManager", new Uri("https://github.com/gibbed/SteamAchievementManager")),
 			new Library("ArchiSteamFarm", new Uri("https://github.com/JustArchiNET/ArchiSteamFarm")),
 			new Library("SteamDesktopAuthenticator", new Uri("https://github.com/Jessecar96/SteamDesktopAuthenticator")),
+			//new Library("idle_master_extended", new Uri("https://github.com/JonasNilson/idle_master_extended")),
 		});
 
 
