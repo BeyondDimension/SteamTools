@@ -3,8 +3,10 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<!--<TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>-->
-		<TargetFrameworks>net461;net472;net5.0-windows</TargetFrameworks>
+		<!--<TargetFrameworks>net461;net472;net5.0-windows</TargetFrameworks>-->
+		<TargetFrameworks>net472;net5.0-windows</TargetFrameworks>
 		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
 		<RootNamespace>SteamTools</RootNamespace>
 		<ApplicationIcon>Resources\Asstes\app.ico</ApplicationIcon>
 		<LangVersion>9.0</LangVersion>
@@ -57,15 +59,25 @@
 	  <DebugType>none</DebugType>
 	  <DebugSymbols>false</DebugSymbols>
 	  <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-	  <FileAlignment>1024</FileAlignment>
+	  <FileAlignment>512</FileAlignment>
 	</PropertyGroup>
 	
 	<ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+		<PackageReference Include="Costura.Fody" Version="4.1.0" />
+		<PackageReference Include="Fody" Version="6.3.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="LivetCask" Version="3.0.1" />
 		<PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.0.8" />
 	</ItemGroup>
 	
 	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+		<PackageReference Include="Costura.Fody" Version="4.1.0" />
+		<PackageReference Include="Fody" Version="6.3.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="LivetCask" Version="3.0.1" />
 		<PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.14" />
 	</ItemGroup>
@@ -318,7 +330,6 @@
 	  <Reference Include="MetroTrilithon.Desktop">
 	    <HintPath>..\Lib\MetroTrilithon.Desktop.dll</HintPath>
 	  </Reference>
-	  <Reference Include="System.Windows.Forms" />
 	</ItemGroup>
 
 	<ItemGroup>

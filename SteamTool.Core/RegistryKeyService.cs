@@ -45,7 +45,7 @@ namespace SteamTool.Core
 
             if (myreg != null)
             {
-                var info = myreg.GetValue(key).ToString();
+                var info = myreg.GetValue(key)?.ToString();
                 myreg.Close();
                 return info;
             }

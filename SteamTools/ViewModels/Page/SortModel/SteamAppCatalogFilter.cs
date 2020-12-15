@@ -331,6 +331,7 @@ namespace SteamTools.ViewModels
             : base(updateAction)
         {
             Game = true;
+            Application = true;
         }
 
         public override bool Predicate(SteamApp app)

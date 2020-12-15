@@ -184,7 +184,7 @@
     <value>通用功能</value>
   </data>
   <data name="CommunityFix" xml:space="preserve">
-    <value>社区反代</value>
+    <value>社区加速</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>确定</value>
@@ -340,10 +340,10 @@
     <value>反代配置</value>
   </data>
   <data name="ProxyRun" xml:space="preserve">
-    <value>反向代理启动</value>
+    <value>反向代理加速服务启动</value>
   </data>
   <data name="ProxyStop" xml:space="preserve">
-    <value>反向代理关闭</value>
+    <value>反向代理加速服务关闭</value>
   </data>
   <data name="Ready" xml:space="preserve">
     <value>就绪</value>
@@ -400,7 +400,7 @@
     <value>安装证书</value>
   </data>
   <data name="StartService" xml:space="preserve">
-    <value>启动反代</value>
+    <value>启动加速</value>
   </data>
   <data name="StatisticsInfo" xml:space="preserve">
     <value>统计修改</value>
@@ -424,7 +424,7 @@
     <value>Steam未运行（该功能不可用）</value>
   </data>
   <data name="StopService" xml:space="preserve">
-    <value>关闭反代</value>
+    <value>停止加速</value>
   </data>
   <data name="Supported_ProxyServices" xml:space="preserve">
     <value>支持的代理服务</value>

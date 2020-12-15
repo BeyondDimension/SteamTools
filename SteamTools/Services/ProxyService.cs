@@ -23,7 +23,7 @@ namespace SteamTools.Services
         {
             if (ProxySettings.SupportProxyServicesStatus.Value.Count > 0)
             {
-                foreach (var item in ProxyDomains.Value) 
+                foreach (var item in ProxyDomains.Value)
                 {
                     if (ProxySettings.SupportProxyServicesStatus.Value.TryGetValue(item.Index, out bool value))
                     {
@@ -249,17 +249,27 @@ namespace SteamTools.Services
             get { return Proxy.ProxyRunning; }
             set
             {
-                if (value)
+                if (value != Proxy.ProxyRunning)
                 {
-                    Proxy.StartProxy(ProxySettings.IsProxyGOG.Value);
-                    StatusService.Current.Notify(SteamTools.Properties.Resources.ProxyRun);
+                    if (value)
+                    {
+                        var isRun = Proxy.StartProxy(ProxySettings.IsProxyGOG.Value);
+                        if (isRun)
+                        {
+                            StatusService.Current.Notify(SteamTools.Properties.Resources.ProxyRun);
+                        }
+                        else
+                        {
+                            WindowService.Current.ShowDialogWindow("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。");
+                        }
+                    }
+                    else
+                    {
+                        Proxy.StopProxy();
+                        StatusService.Current.Notify(SteamTools.Properties.Resources.ProxyStop);
+                    }
+                    this.RaisePropertyChanged();
                 }
-                else
-                {
-                    Proxy.StopProxy();
-                    StatusService.Current.Notify(SteamTools.Properties.Resources.ProxyStop);
-                }
-                this.RaisePropertyChanged();
             }
         }
         #endregion

@@ -183,7 +183,7 @@ namespace SteamTools.ViewModels
                     //WindowService.Current.MainWindow.Transition(achievement, typeof(AchievementWindow));
                     var nApp = app.Clone();
                     //nApp.Process = Process.Start($"{ProductInfo.Title}.exe", app.AppId.ToString(CultureInfo.InvariantCulture));
-                    nApp.Process = Process.Start(Path.GetFileName(Assembly.GetExecutingAssembly().Location), "-app " + app.AppId.ToString(CultureInfo.InvariantCulture));
+                    nApp.Process = Process.Start(Environment.GetCommandLineArgs()[0], "-app " + app.AppId.ToString(CultureInfo.InvariantCulture));
                     SteamConnectService.Current.RuningSteamApps.Add(nApp);
                     break;
                 default:

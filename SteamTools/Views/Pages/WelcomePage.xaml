@@ -86,7 +86,7 @@
 
                         <TextBlock FontSize="11" Foreground="{DynamicResource ActiveForegroundBrushKey}"
 								   TextWrapping="Wrap">
-                            <Run Text="为了您的账号安全，"></Run>
+                            <Run Text="程序禁止修改，为了您的账号安全，"></Run>
 							<LineBreak />
                             <Run Text="请不要使用修改版魔改版程序。"></Run>
 							<LineBreak />
@@ -143,7 +143,7 @@
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
-                            <Run Text="1.反代Steam的社区网页使其能正常访问。" />
+                            <Run Text="1.本地反代加速Steam社区网页使其能正常访问。" />
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>

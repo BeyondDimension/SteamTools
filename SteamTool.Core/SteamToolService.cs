@@ -190,25 +190,23 @@ namespace SteamTool.Core
             // Get the service on the local machine
             if (IsAutoRun)
             {
-                using (TaskDefinition td = TaskService.Instance.NewTask())
-                {
-                    // Create a new task definition and assign properties
-                    td.RegistrationInfo.Description = Name + "System Boot Run";
+                using TaskDefinition td = TaskService.Instance.NewTask();
+                // Create a new task definition and assign properties
+                td.RegistrationInfo.Description = Name + "System Boot Run";
 
-                    td.Settings.Priority = System.Diagnostics.ProcessPriorityClass.Normal;
+                td.Settings.Priority = System.Diagnostics.ProcessPriorityClass.Normal;
 
-                    // Create a trigger that will fire after the system boot
-                    td.Triggers.Add(new LogonTrigger());
+                // Create a trigger that will fire after the system boot
+                td.Triggers.Add(new LogonTrigger());
 
-                    // Create an action that will launch Notepad whenever the trigger fires
-                    td.Actions.Add(new ExecAction(Assembly.GetCallingAssembly().Location, "-minimized", Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)));
-                    
-                    if (IsAdministrator)
-                        td.Principal.RunLevel = TaskRunLevel.Highest;
+                // Create an action that will launch Notepad whenever the trigger fires
+                td.Actions.Add(new ExecAction(Assembly.GetCallingAssembly().Location, "-minimized", Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)));
 
-                    // Register the task in the root folder
-                    TaskService.Instance.RootFolder.RegisterTaskDefinition(Name, td);
-                }
+                if (IsAdministrator)
+                    td.Principal.RunLevel = TaskRunLevel.Highest;
+                
+                // Register the task in the root folder
+                TaskService.Instance.RootFolder.RegisterTaskDefinition(Name, td);
                 //TaskService.Instance.RootFolder.AddTask(Name, QuickTriggerType.Boot, Assembly.GetCallingAssembly().Location, "-a");
             }
             else

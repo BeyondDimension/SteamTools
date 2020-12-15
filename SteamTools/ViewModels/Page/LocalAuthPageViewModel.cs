@@ -114,6 +114,10 @@ namespace SteamTools.ViewModels
 
         public void EditAuth_Click()
         {
+            if (Authenticators.Count < 1)
+            {
+                StatusService.Current.Notify("没有可编辑的令牌");
+            }
             this.IsEdit = !IsEdit;
             if (!IsEdit)
             {

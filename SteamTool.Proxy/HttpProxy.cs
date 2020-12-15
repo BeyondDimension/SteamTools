@@ -265,6 +265,10 @@ namespace SteamTool.Proxy
                 {
                     return false;
                 }
+                if (PortInUse(443))
+                {
+                    return false;
+                }
             }
             if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
 
@@ -294,7 +298,7 @@ namespace SteamTool.Proxy
             //    // 在所有https请求上使用自颁发的通用证书
             //    // 通过不为每个启用http的域创建证书来优化性能
             //    // 当代理客户端不需要证书信任时非常有用
-            //    //GenericCertificate = new X509Certificate2(Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "genericcert.pfx"), "password")
+            //    //GenericCertificate = new X509Certificate2(Path.Combine(AppContext.BaseDirectory, "genericcert.pfx"), "password")
             //};
             //当接收到连接请求时触发
             //explicitEndPoint.BeforeTunnelConnectRequest += OnBeforeTunnelRequest;
@@ -330,6 +334,24 @@ namespace SteamTool.Proxy
 #endif
             return true;
 
+        }
+        public static bool PortInUse(int port)
+        {
+            bool inUse = false;
+
+            var ipProperties = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties();
+            IPEndPoint[] ipEndPoints = ipProperties.GetActiveTcpListeners();
+
+            foreach (IPEndPoint endPoint in ipEndPoints)
+            {
+                if (endPoint.Port == port)
+                {
+                    inUse = true;
+                    break;
+                }
+            }
+
+            return inUse;
         }
 
         public void StopProxy()

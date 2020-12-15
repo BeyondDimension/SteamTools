@@ -39,7 +39,7 @@ namespace SteamTools
 
         private void IsRenameProgram()
         {
-            string strFullPath = Path.GetFileName(Assembly.GetExecutingAssembly().Location);
+            string strFullPath = Path.GetFileName(Environment.GetCommandLineArgs()[0]);
             if ($"{ProductInfo.Title}.exe" != strFullPath)
             {
                 //MessageBox.Show(SteamTools.Properties.Resources.ReNameErrorInfo, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);

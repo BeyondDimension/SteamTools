@@ -259,7 +259,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 社区反代 的本地化字符串。
+        ///   查找类似 社区加速 的本地化字符串。
         /// </summary>
         public static string CommunityFix {
             get {
@@ -727,7 +727,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 反向代理启动 的本地化字符串。
+        ///   查找类似 反向代理加速服务启动 的本地化字符串。
         /// </summary>
         public static string ProxyRun {
             get {
@@ -736,7 +736,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 反向代理关闭 的本地化字符串。
+        ///   查找类似 反向代理加速服务关闭 的本地化字符串。
         /// </summary>
         public static string ProxyStop {
             get {
@@ -907,7 +907,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 启动反代 的本地化字符串。
+        ///   查找类似 启动加速 的本地化字符串。
         /// </summary>
         public static string StartService {
             get {
@@ -979,7 +979,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 关闭反代 的本地化字符串。
+        ///   查找类似 停止加速 的本地化字符串。
         /// </summary>
         public static string StopService {
             get {

@@ -23,7 +23,7 @@
                     <BlurEffect Radius="8" />
                 </Rectangle.Effect>
             </Rectangle>
-            <Border Background="{DynamicResource ThemeBrushKey}"
+            <Border  Background="{DynamicResource ThemeBrushKey}"
 							BorderBrush="{DynamicResource AccentBrushKey}"
 							BorderThickness=".99">
                 <Grid Margin="8,0">
@@ -43,9 +43,9 @@
                         </Image>
                         <StackPanel VerticalAlignment="Center" >
                             <TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.WinTitle,Mode=OneWay}"
-                                Style="{StaticResource HeaderTextStyleKey}" FontSize="16"/>
+                                Foreground="{DynamicResource HighlightForegroundBrushKey}" Style="{StaticResource HeaderTextStyleKey}" FontSize="16"/>
                             <TextBlock Text="{Binding Source={x:Static models:ProductInfo.VersionString}, StringFormat=版本 {0}, Mode=OneWay}"
-                                 Style="{StaticResource DetailTextStyleKey}"/>
+                                 Foreground="{DynamicResource HighlightForegroundBrushKey}" Style="{StaticResource DetailTextStyleKey}"/>
                         </StackPanel>
 
                     </WrapPanel>
@@ -63,9 +63,11 @@
                             </i:Interaction.Triggers>
                         </Image>
                         <StackPanel VerticalAlignment="Center" Margin="8,0,0,0">
-                            <TextBlock Text="{Binding CurrentSteamUser.SteamID,Source={x:Static services:SteamConnectService.Current},Mode=OneWay}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
+                            <TextBlock Text="{Binding CurrentSteamUser.SteamID,Source={x:Static services:SteamConnectService.Current},Mode=OneWay}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" 
+                                       Foreground="{DynamicResource HighlightForegroundBrushKey}"
                                        Style="{StaticResource HeaderTextStyleKey}" FontSize="16"></TextBlock>
-                            <TextBlock
+                            <TextBlock 
+                                      Foreground="{DynamicResource HighlightForegroundBrushKey}"
                                  Style="{StaticResource DetailTextStyleKey}">
                                 <Run Text="{Binding Source={x:Static models:ProductInfo.Title}, Mode=OneWay}"></Run>
                                 <LineBreak/>
@@ -78,7 +80,7 @@
 									   Fill="{DynamicResource InactiveForegroundBrushKey}"
 									   Margin="0,8" />
                         <DockPanel>
-                            <TextBlock VerticalAlignment="Center">
+                            <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource HighlightForegroundBrushKey}" FontFamily="{StaticResource DefaultFontFamilyKey}">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Style.Triggers>
