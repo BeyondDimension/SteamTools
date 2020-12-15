@@ -1,38 +1,40 @@
-# KeylolTools
+# Steam++工具箱 v1.0
 
-#### 介绍
-其乐工具箱
-包含steam等游戏平台的相关工具
+------
 
-#### 主要功能
+   「Steam++」是一个包含多种Steam工具功能的工具箱。
 
+   此工具的大部分功能都是需要您下载安装Steam才能使用。
 
+------
 
-#### 安装教程
+## 主要功能
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+### 1. 反代Steam的社区网页使其能正常访问
 
-#### 使用说明
+功能类似羽翼城大佬的Steam302,相比之下有：
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+- [X] 更快的启动速度
+- [X] 支持脚本注入
 
-#### 参与贡献
+---
+### 2. 快速切换当前PC已经记住登陆的Steam账号
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+该功能是读取Steam路径下存储的本地用户登录记录直接展示操作，可以多账号切换无需重新输入密码和令牌。
 
+---
+### 3. Steam游戏的成就统计管理功能
+功能类似[SteamAchievementManager](https://github.com/gibbed/SteamAchievementManager)，实现也参考了SAM，并且略作修改了，游戏列表的读取，解锁成就的逻辑。
 
-#### 码云特技
+---
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5.  码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+### 4. Steam本地两步身份验证器
+可以使您不用启动移动版Steam App也能查看您的令牌，功能类似的软件有[WinAuth](https://github.com/winauth/winauth)、[SteamDesktopAuthenticator](https://github.com/Jessecar96/SteamDesktopAuthenticator)。
+
+---
+
+### 5. 一些游戏工具
+目前已有强制游戏无边框窗口化，CSGO修复VAC屏蔽。
+这一块是随缘做一些我经常用或者闲着没事捣鼓的功能。
+
+---
