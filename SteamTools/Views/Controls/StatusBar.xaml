@@ -44,19 +44,8 @@
 										Value="Center" />
                             </Style>
                         </StackPanel.Resources>
-                        <TextBlock VerticalAlignment="Center" Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Steam_Not_Runing_Tips}">
-                            <TextBlock.Style>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Source={x:Static services:SteamConnectService.Current}, Path=IsConnectToSteam,Mode=OneWay}" Value="False">
-                                            <Setter Property="Visibility" Value="Visible"></Setter>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Source={x:Static services:SteamConnectService.Current}, Path=IsConnectToSteam,Mode=OneWay}" Value="True">
-                                            <Setter Property="Visibility" Value="Hidden"></Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
+                        <TextBlock VerticalAlignment="Center" Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Steam_Not_Runing_Tips}"
+                                   Visibility="{Binding Source={x:Static services:SteamConnectService.Current}, Path=IsConnectToSteam,Mode=OneWay,Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                         </TextBlock>
                         <TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Game_Total, StringFormat='{}{0}: '}" />
                         <TextBlock Text="{Binding Games.Count,Mode=OneWay}"

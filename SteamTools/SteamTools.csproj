@@ -35,6 +35,8 @@
 		<Platforms>AnyCPU;x86</Platforms>
 
 		<Product>SteamTools</Product>
+
+		<PackageId />
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
@@ -316,9 +318,7 @@
 	  <Reference Include="MetroTrilithon.Desktop">
 	    <HintPath>..\Lib\MetroTrilithon.Desktop.dll</HintPath>
 	  </Reference>
-	  <Reference Include="System.Windows.Forms">
-	    <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Windows.Forms.dll</HintPath>
-	  </Reference>
+	  <Reference Include="System.Windows.Forms" />
 	</ItemGroup>
 
 	<ItemGroup>

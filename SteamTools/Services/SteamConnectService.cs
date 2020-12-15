@@ -106,6 +106,12 @@ namespace SteamTools.Services
                              if (IsConnectToSteam)
                              {
                                  var id = ApiService.GetSteamId64();
+                                 if (id == 76561197960265728)
+                                 {
+                                     //该64位id的steamID3等于0，是steam未获取到当前登录用户的默认返回值，所以直接重新获取
+                                     IsConnectToSteam = false;
+                                     continue;
+                                 }
                                  CurrentSteamUser = await steamDbApiService.GetUserInfo(id);
                                  var mainViewModel = (WindowService.Current.MainWindow as MainWindowViewModel);
                                  mainViewModel.SteamAppPage.Initialize();

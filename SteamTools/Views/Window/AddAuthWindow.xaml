@@ -14,7 +14,7 @@
         xmlns:controls="clr-namespace:SteamTools.Views.Controls"
         mc:Ignorable="d"
         Width="600"
-		Height="530"
+		Height="540"
         IsRestoringWindowPlacement="True"
         WindowStartupLocation="CenterScreen"
         UseLayoutRounding="True"
@@ -240,14 +240,14 @@
                         <Run Text="然后将以下两个文件的内容复制到下面的对应输入框中"/>
                         </TextBlock>
                         <StackPanel Visibility="{Binding ElementName=ImportSteamApp,Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <metro:PromptTextBox Grid.Row="1"
+                            <metro:PromptTextBox Margin="0,5,0,0" Grid.Row="1"
 										 Grid.Column="1"
 										 Text="{Binding AuthName, Mode=TwoWay}"
 										 Prompt="输入令牌的自定义名称" />
-
                             <TextBlock Grid.Row="0" Grid.Column="0">
-						<Run Text="从shared_prefs文件夹中，粘贴'steam_uuid.xml'的内容" />
-						<Run Text=": " />
+						<Run Text="从shared_prefs文件夹中，粘贴'steam_uuid.xml'的uuidKey" />
+                        <LineBreak/>
+						<Run Text="格式：android:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
                             </TextBlock>
                             <metro:PromptTextBox Grid.Row="0"
 										 Grid.Column="1"
@@ -255,8 +255,7 @@
 										 Prompt="" />
 
                             <TextBlock Grid.Row="1" Grid.Column="0">
-						<Run Text="从文件文件夹中，粘贴'SteamGuard-NNNNNNNN'的内容" />
-						<Run Text=": " />
+						<Run Text="从文件文件夹中，粘贴'SteamGuard-NNNNNNNN'的全部内容" />
                             </TextBlock>
                             <metro:PromptTextBox Grid.Row="1"
 										 Grid.Column="1"
@@ -289,7 +288,7 @@
 										 MinWidth="110"
 										 Padding="16,6" />-->
                     </StackPanel>
-                    
+
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

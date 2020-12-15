@@ -88,7 +88,8 @@ namespace SteamTools.ViewModels
             if (ProxySettings.SupportProxyServicesStatus.Value.ContainsKey(proxyDomain.Index))
             {
                 dic.Remove(proxyDomain.Index);
-                dic.Add(proxyDomain.Index, proxyDomain.IsEnable);
+                if (proxyDomain.IsEnable)
+                    dic.Add(proxyDomain.Index, proxyDomain.IsEnable);
             }
             else
             {

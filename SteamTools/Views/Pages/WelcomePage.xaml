@@ -161,41 +161,39 @@
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
-                            <Run Text="5.结合社区反代和成就管理的API实现的自动挂卡功能。" />
+                            <Run Text="5.一些游戏工具，目前已有强制游戏无边框窗口化，CSGO修复VAC屏蔽。" />
+                            <Run Text="（正在开发...）"></Run>
+                        </Paragraph>
+                        <Paragraph>
+                            <Run Text="预计推出" FontSize="18"/>
+                            <LineBreak/>
+                            <LineBreak/>
+                            <Run Text="  "></Run>
+                            <Run Text="尝试用社区反代和成就管理的API实现一个全自动的挂卡功能。" />
                             <Run Text="（接下来要做的...）"></Run>
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
-                            <Run Text="6.Steam皮肤的可视化设计编辑功能。" />
-                            <Run Text="（难度较大还没开工...）"></Run>
+                            <Run Text="Steam皮肤的可视化设计编辑功能。" />
+                            <Run Text="（短期内应该做不完...）"></Run>
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
-                            <Run Text="7.以插件形式支持ASF在工具内运行并增强ASF在Windows Desktop环境下的使用。例如注册协议 &quot;spp://xxxxxx&quot; 实现快速运行的asf指令和激活复制的Steam Key。" />
+                            <Run Text="以插件形式支持ASF在工具内运行并增强ASF在Windows Desktop环境下的使用。" />
                             <Run Text="（接下来要做的...）"></Run>
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
-                            <Run Text="8.增强Steam自定义封面的管理以及从" />
+                            <Run Text="增强Steam自定义封面的管理以及从" />
                             <metro2:HyperlinkEx Uri="www.steamgriddb.com">
                                 <Run Text="www.steamgriddb.com"/>
                             </metro2:HyperlinkEx>
                             <Run Text="快速匹配下载应用封面。" />
-                            <Run Text="（更多正在开发...）"></Run>
-                            <LineBreak/>
-                            <LineBreak />
-                            <Run Text="  "></Run>
-                            <Run Text="9.其它游戏平台的一些功能，GOG、Origin、EPIC、Uplay相关的功能" />
                             <Run Text="（正在开发...）"></Run>
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
-                            <Run Text="10.一些游戏工具，目前已有强制游戏无边框窗口化，CSGO修复VAC屏蔽。" />
-                            <Run Text="（正在开发...）"></Run>
-                            <LineBreak/>
-                            <LineBreak />
-                            <Run Text="  "></Run>
-                            <Run Text="以后也会加入许多可能没用但我闲着无聊做的功能，这些功能可能会越来越多，不过我也会时不时删掉没用的功能防止软件太过臃肿。" />
+                            <Run Text="功能陆续开发中...大家如果有好的建议可以提供给我，不限于Steam，可以是其它平台或者游戏相关的，发送到底下bug反馈的邮箱。" />
                         </Paragraph>
                         <Paragraph>
                             <!--<InlineUIContainer>

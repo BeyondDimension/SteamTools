@@ -43,8 +43,8 @@ namespace SteamTool.Core
         {
             var steamExePath = registryKeyService.ReadRegistryKey(Registry.CurrentUser, SteamRegistryPath, "SteamExe");
             var steamPath = registryKeyService.ReadRegistryKey(Registry.CurrentUser, SteamRegistryPath, "SteamPath");
-            steamExePath = Path.GetFullPath(steamExePath);
-            steamPath = Path.GetFullPath(steamPath);
+            //steamExePath = Path.GetFullPath(steamExePath);
+            //steamPath = Path.GetFullPath(steamPath);
             if (File.Exists(steamExePath))
             {
                 SteamExePath = steamExePath;
@@ -91,7 +91,7 @@ namespace SteamTool.Core
         public List<SteamUser> GetAllUser()
         {
             var users = new List<SteamUser>();
-            if (SteamPath != null)
+            if (File.Exists(SteamPath + UserVdfPath))
             {
                 var v = vdfService.GetVdfModelByPath(SteamPath + UserVdfPath);
 

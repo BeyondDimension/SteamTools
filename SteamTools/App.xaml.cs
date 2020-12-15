@@ -68,12 +68,11 @@ namespace SteamTools
                 }
                 Logger.EnableTextLog = true;
 #endif
-
+                this.DispatcherUnhandledException += App_DispatcherUnhandledException;
+                DispatcherHelper.UIDispatcher = this.Dispatcher;
                 if (e.Args.ContainsArg("-log"))
                 {
                     Logger.EnableTextLog = true;
-                    this.DispatcherUnhandledException += App_DispatcherUnhandledException;
-                    DispatcherHelper.UIDispatcher = this.Dispatcher;
                 }
                 if (e.Args.ContainsArg("-safe"))
                 {

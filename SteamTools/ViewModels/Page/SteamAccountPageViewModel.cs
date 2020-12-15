@@ -62,8 +62,15 @@ namespace SteamTools.ViewModels
                     users[i].Timestamp = temp.Timestamp;
                     users[i].LastLoginTime = temp.LastLoginTime;
                 }
-                SteamUsers = users.OrderByDescending(o=>o.MostRecent).ThenByDescending(o=>o.RememberPassword).ThenByDescending(o=>o.LastLoginTime).ToList();
-                StatusService.Current.Notify("加载本地Steam用户数据完成");
+                if (SteamUsers.Count > 0)
+                {
+                    SteamUsers = users.OrderByDescending(o => o.MostRecent).ThenByDescending(o => o.RememberPassword).ThenByDescending(o => o.LastLoginTime).ToList();
+                    StatusService.Current.Notify("加载本地Steam用户数据完成");
+                }
+                else 
+                {
+                    StatusService.Current.Notify("没有检测到Steam用户数据");
+                }
             }).ContinueWith(s => s.Dispose());
         }
 

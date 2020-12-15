@@ -131,6 +131,12 @@
                                             MethodParameter="{Binding}"
                                             MethodTarget="{Binding DataContext,ElementName=u}" />
                                         </i:EventTrigger>
+                                        <i:EventTrigger EventName="Unchecked">
+                                            <livet:LivetCallMethodAction
+                                            MethodName="ProxyServices_Checked"
+                                            MethodParameter="{Binding}"
+                                            MethodTarget="{Binding DataContext,ElementName=u}" />
+                                        </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </CheckBox>
                                 <TextBlock HorizontalAlignment="Right"  Text="{Binding Domains[0]}"
