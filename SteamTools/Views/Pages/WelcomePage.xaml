@@ -62,7 +62,7 @@
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
                         <TextBlock Foreground="{DynamicResource ActiveForegroundBrushKey}">
                             <Run Text="作者:" />
-							<metro2:HyperlinkEx Uri="https://rmbgame.net">
+							<metro2:HyperlinkEx Uri="https://blog.rmbgame.net">
 							<Run Text="@软妹币玩家" />
 							</metro2:HyperlinkEx>
 							<LineBreak />
@@ -215,19 +215,23 @@
                             <Run Text="工具不定期更新且目前没有自动更新功能，请适当检查更新。" />
                             <LineBreak />
                             <LineBreak />
-                            <Run Text="软件主页:" />
+                            <!--<Run Text="软件主页:" />
                             <metro2:HyperlinkEx Uri="https://spp.rmbgame.net">
                                 <Run Text="https://spp.rmbgame.net" />
+                            </metro2:HyperlinkEx>-->
+                            <Run Text="Release:" />
+                            <metro2:HyperlinkEx Uri="https://github.com/rmbadmin/Steam-PlusPlus/releases">
+                                <Run Text="https://github.com/rmbadmin/Steam-PlusPlus/releases" />
                             </metro2:HyperlinkEx>
                             <LineBreak />
                             <Run Text="BUG&amp;建议反馈:" />
                             <metro2:HyperlinkEx Uri="rmb@rmbgame.net">
                                 <Run Text="rmb@rmbgame.net" />
                             </metro2:HyperlinkEx>
-                            <!--<Run Text="开源地址:" />
-                            <metro2:HyperlinkEx Uri="https://github.com/rmbadmin/Steam++">
-                                <Run Text="https://github.com/rmbadmin/Steam++" />
-                            </metro2:HyperlinkEx>-->
+                            <Run Text="开源地址:" />
+                            <metro2:HyperlinkEx Uri="https://github.com/rmbadmin/Steam-PlusPlus.git">
+                                <Run Text="https://github.com/rmbadmin/Steam-PlusPlus.git" />
+                            </metro2:HyperlinkEx>
                         </Paragraph>
                     </FlowDocument>
                 </FlowDocumentScrollViewer>
