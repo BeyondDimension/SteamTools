@@ -329,6 +329,9 @@
 	  <Reference Include="MetroTrilithon.Desktop">
 	    <HintPath>..\Lib\MetroTrilithon.Desktop.dll</HintPath>
 	  </Reference>
+	  <Reference Include="SimpleSyndicate.UriTemplate">
+	    <HintPath>..\Lib\SimpleSyndicate.UriTemplate.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 	<ItemGroup>
