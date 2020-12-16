@@ -9,6 +9,8 @@ namespace SteamTool.Model
         public const string SCRIPT_DIR = "scripts";
         public const string HostTag = "#S302";
 
+        public const string GITHUB_URL = "https://github.com/rmbadmin/SteamTools";
+        public const string GITHUB_RELEASES_URL = "https://github.com/rmbadmin/SteamTools/releases";
         public const string MY_PROFILE_URL = "https://steamcommunity.com/profiles/76561198289531723/";
         public const string MY_WISHLIST_URL = "https://store.steampowered.com/wishlist/profiles/76561198289531723/";
         public const string MY_MINIPROFILE_URL = "https://steamcommunity.com/miniprofile/329265995";

@@ -25,12 +25,16 @@ namespace SteamTools.Models
 			new Library("Hardcodet.NotifyIcon", new Uri("https://github.com/HavenDV/Hardcodet.NotifyIcon.Wpf.NetCore")),
 			new Library("System.Reactive", new Uri("https://github.com/dotnet/reactive")),
 			new Library("Titanium-Web-Proxy", new Uri("https://github.com/justcoding121/Titanium-Web-Proxy")),
-			new Library("Ninject", new Uri("http://www.ninject.org/")),
-			new Library("log4net", new Uri("https://logging.apache.org/log4net/")),
-			new Library("SteamAchievementManager", new Uri("https://github.com/gibbed/SteamAchievementManager")),
+			new Library("Ninject", new Uri("https://github.com/ninject/Ninject")),
+			new Library("log4net", new Uri("https://github.com/apache/logging-log4net")),
 			new Library("ArchiSteamFarm", new Uri("https://github.com/JustArchiNET/ArchiSteamFarm")),
+			new Library("SteamAchievementManager", new Uri("https://github.com/gibbed/SteamAchievementManager")),
+			new Library("HourBoostr", new Uri("https://github.com/Ezzpify/HourBoostr")),
+			new Library("ArchiSteamFarm", new Uri("https://github.com/JustArchiNET/ArchiSteamFarm")),
+			new Library("WinAuth", new Uri("https://github.com/winauth/winauth")),
 			new Library("SteamDesktopAuthenticator", new Uri("https://github.com/Jessecar96/SteamDesktopAuthenticator")),
-			//new Library("idle_master_extended", new Uri("https://github.com/JonasNilson/idle_master_extended")),
+            new Library("Idle Master Extended", new Uri("https://github.com/JonasNilson/idle_master_extended")),
+			new Library("Costura.Fody", new Uri("https://github.com/Fody/Costura")),
 		});
 
 

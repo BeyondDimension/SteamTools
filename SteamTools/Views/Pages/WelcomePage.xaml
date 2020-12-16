@@ -86,20 +86,34 @@
 
                         <TextBlock FontSize="11" Foreground="{DynamicResource ActiveForegroundBrushKey}"
 								   TextWrapping="Wrap">
-                            <Run Text="程序禁止修改，为了您的账号安全，"></Run>
+                            <Run Text="程序文件禁止修改，"></Run>
 							<LineBreak />
-                            <Run Text="请不要使用修改版魔改版程序。"></Run>
+                            <Run Text="为了您的账号安全，"></Run>
+							<LineBreak />
+                            <Run Text="请不要随意使用修改版魔改版程序。"></Run>
 							<LineBreak />
 							<LineBreak />
-                            <Run Text="程序完全免费，"></Run>
+                            <Run Text="程序完全免费并开源，"></Run>
 							<LineBreak />
                             <Run Text="若在任意渠道购买请差评退款。"></Run>
-							<LineBreak />
-							<LineBreak />
-							<LineBreak />
-							<Run Text="{Binding Source={x:Static models:ProductInfo.Copyright}, Mode=OneWay}" />
                         </TextBlock>
 
+                        <TextBlock Foreground="{StaticResource ActiveForegroundBrushKey}"
+								   Margin="0,20,0,0"
+								   TextWrapping="Wrap">
+							<Run Text="{Binding Source={x:Static models:ProductInfo.Product}, Mode=OneWay}" />
+							<Run Text="is" />
+							<Run Text="OSS"
+								 ToolTip="Open Source Software" />
+							<Run Text="released" />
+							<LineBreak />
+							<Run Text="under" />
+							<metro2:HyperlinkEx Uri="https://github.com/rmbadmin/SteamTools/blob/master/LICENSE">
+								<Run Text="The GPLv3.0 License." />
+							</metro2:HyperlinkEx>
+                            <LineBreak/>
+							<Run Text="{Binding Source={x:Static models:ProductInfo.Copyright}, Mode=OneWay}" />
+                        </TextBlock>
                     </StackPanel>
                 </ScrollViewer>
             </Border>
@@ -220,17 +234,19 @@
                                 <Run Text="https://spp.rmbgame.net" />
                             </metro2:HyperlinkEx>-->
                             <Run Text="Release:" />
-                            <metro2:HyperlinkEx Uri="https://github.com/rmbadmin/Steam-PlusPlus/releases">
-                                <Run Text="https://github.com/rmbadmin/Steam-PlusPlus/releases" />
+                            <metro2:HyperlinkEx Uri="{Binding Source={x:Static model:Const.GITHUB_RELEASES_URL}, Mode=OneWay}">
+                                <Run Text="{Binding Source={x:Static model:Const.GITHUB_RELEASES_URL}, Mode=OneWay}" />
                             </metro2:HyperlinkEx>
+                            <LineBreak />
+                            <Run Text="开源地址:" />
+                            <metro2:HyperlinkEx Uri="{Binding Source={x:Static model:Const.GITHUB_URL}, Mode=OneWay}">
+                                <Run Text="{Binding Source={x:Static model:Const.GITHUB_URL}, Mode=OneWay}" />
+                            </metro2:HyperlinkEx>
+                            <LineBreak />
                             <LineBreak />
                             <Run Text="BUG&amp;建议反馈:" />
                             <metro2:HyperlinkEx Uri="rmb@rmbgame.net">
                                 <Run Text="rmb@rmbgame.net" />
-                            </metro2:HyperlinkEx>
-                            <Run Text="开源地址:" />
-                            <metro2:HyperlinkEx Uri="https://github.com/rmbadmin/Steam-PlusPlus.git">
-                                <Run Text="https://github.com/rmbadmin/Steam-PlusPlus.git" />
                             </metro2:HyperlinkEx>
                         </Paragraph>
                     </FlowDocument>
