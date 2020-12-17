@@ -1,6 +1,4 @@
-# Steam++工具箱 v1.0
-
-------
+# Steam++工具箱
 
    「Steam++」是一个包含多种Steam工具功能的工具箱。
 
@@ -39,7 +37,7 @@
 ## 预计后续添加的功能
 
 ### Steam自动挂卡
-尝试用社区反代功能结合成就解锁功能来重新实现，目的是实现在软件内登录Steam即可直接获取徽章卡片信息并开始挂卡。
+尝试用社区反代功能结合成就解锁功能来重新实现，目的是实现在软件内无需登录Steam帐户即可直接获取徽章卡片信息并开始挂卡。
 
 ### Steam皮肤设计器
 挖坑画大饼，可视化编辑Steam皮肤，而且如果软件能上架Steam的话打算支持创意工坊分享设计的Steam皮肤，短期内肯定做不完。
@@ -58,7 +56,9 @@
 ---
 
 ## 运行环境
-> 程序使用C# WPF在 .NET Framework4.7.2环境下开发，如果无法运行请下载安装[.NET Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472)。
+> 程序使用C# WPF在 .NET Framework4.7.2环境下开发，如果无法运行请下载安装[.NET Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472)。  
+
+> 缺失的引用库已经说明在底下的开源项目内了，您可能需要自己从nuget安装或手动添加对应的开源项目。
 
 ---
 

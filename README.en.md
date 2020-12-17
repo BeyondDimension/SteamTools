@@ -1,6 +1,5 @@
-# Steam++工具箱 v1.0
+# Steam++ SteamTools
 
-------
 
    「Steam++」是一个包含多种Steam工具功能的工具箱。
 
