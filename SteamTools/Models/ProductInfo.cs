@@ -18,6 +18,7 @@ namespace SteamTools.Models
 		private static readonly Lazy<string> versionLazy = new Lazy<string>(() => $"{Version.ToString(3)}{(IsBetaRelease ? " β" : "")}{(Version.Revision == 0 ? "" : " rev." + Version.Revision)}");
 		private static readonly Lazy<IReadOnlyCollection<Library>> librariesLazy = new Lazy<IReadOnlyCollection<Library>>(() => new List<Library>
 		{
+			new Library("Newtonsoft.Json", new Uri("https://github.com/JamesNK/Newtonsoft.Json")),
 			new Library("MetroRadiance", new Uri("https://github.com/Grabacr07/MetroRadiance")),
 			new Library("MetroTrilithon", new Uri("https://github.com/Grabacr07/MetroTrilithon")),
 			new Library("Livet", new Uri("https://github.com/runceel/Livet")),
@@ -27,14 +28,12 @@ namespace SteamTools.Models
 			new Library("Titanium-Web-Proxy", new Uri("https://github.com/justcoding121/Titanium-Web-Proxy")),
 			new Library("Ninject", new Uri("https://github.com/ninject/Ninject")),
 			new Library("log4net", new Uri("https://github.com/apache/logging-log4net")),
-			new Library("ArchiSteamFarm", new Uri("https://github.com/JustArchiNET/ArchiSteamFarm")),
+			new Library("SteamDB-API", new Uri("https://github.com/SteamDB-API/api")),
 			new Library("SteamAchievementManager", new Uri("https://github.com/gibbed/SteamAchievementManager")),
-			new Library("HourBoostr", new Uri("https://github.com/Ezzpify/HourBoostr")),
 			new Library("ArchiSteamFarm", new Uri("https://github.com/JustArchiNET/ArchiSteamFarm")),
 			new Library("WinAuth", new Uri("https://github.com/winauth/winauth")),
 			new Library("SteamDesktopAuthenticator", new Uri("https://github.com/Jessecar96/SteamDesktopAuthenticator")),
-            new Library("Idle Master Extended", new Uri("https://github.com/JonasNilson/idle_master_extended")),
-			new Library("Costura.Fody", new Uri("https://github.com/Fody/Costura")),
+			//new Library("idle_master_extended", new Uri("https://github.com/JonasNilson/idle_master_extended")),
 		});
 
 

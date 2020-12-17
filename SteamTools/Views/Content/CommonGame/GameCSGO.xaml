@@ -52,7 +52,9 @@
                             <Run Text="V社官方说明"></Run>
                         </metro2:HyperlinkEx>
                             <LineBreak/>
-                            <Run Text="这里只是一个可能修复的方法，如果尝试后无效只能依次在尝试验证游戏完整性，重启电脑，实在不行（大概）就只有重装CSGO了。"/>
+                            <Run Text="如果尝试后无效只能依次在尝试验证游戏完整性，重启电脑，实在不行（大概）就只有重装CSGO了。"/>
+                            <LineBreak/>
+                            <Run Text="*功能实现使用了狙击手Ricky的批处理指令。"></Run>
         </TextBlock>
 
         <metro:PromptTextBox 
