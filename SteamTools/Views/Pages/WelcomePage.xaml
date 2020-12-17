@@ -139,7 +139,7 @@
                             <Run Text="此工具的大部分功能都是需要您下载安装Steam才能使用。" />
                         </Paragraph>
                         <Paragraph Language="zh-cn">
-                            <Run Text="主要功能" FontSize="18"/>
+                            <Run Text="核心功能" FontSize="18"/>
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
@@ -151,17 +151,16 @@
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
-                            <Run Text="3.Steam游戏的成就统计管理功能，该功能的实现是调用了Steam客户端的接口。" />
+                            <Run Text="3.Steam成就统计信息修改，该功能的实现与SAM是一样的。" />
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
-                            <Run Text="4.Steam本地两步身份验证器的实现，可以使您不用启动移动版Steam App也能查看您的令牌。" />
-                            <LineBreak/>
+                            <Run Text="4.Steam本地两步身份验证器，可以使您不用启动移动版Steam App也能查看您的令牌。" />
                             <Run Text="(暂时还不支持进行市场交易确认，计划后续添加支持)"/>
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
-                            <Run Text="5.一些游戏工具，目前已有强制游戏无边框窗口化，CSGO修复VAC屏蔽。" />
+                            <Run Text="5.一些游戏工具类功能（不会开发作弊相关功能），目前已有强制游戏无边框窗口化，CSGO修复VAC屏蔽。" />
                             <Run Text="（正在开发...）"></Run>
                         </Paragraph>
                         <Paragraph>
@@ -169,13 +168,13 @@
                             <LineBreak/>
                             <LineBreak/>
                             <Run Text="  "></Run>
-                            <Run Text="尝试用社区反代和成就管理的API实现一个全自动的挂卡功能。" />
+                            <Run Text="Steam自动挂卡，尝试用社区反代功能结合成就解锁功能来重新实现，目的是实现在软件内登录Steam即可直接获取徽章卡片信息并开始挂卡。" />
                             <Run Text="（接下来要做的...）"></Run>
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
                             <Run Text="Steam皮肤的可视化设计编辑功能。" />
-                            <Run Text="（短期内应该做不完...）"></Run>
+                            <Run Text="（挖坑画大饼，可视化编辑Steam皮肤，而且如果软件能上架Steam的话打算支持创意工坊分享设计的Steam皮肤，短期内肯定做不完...）"></Run>
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>

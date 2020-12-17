@@ -14,7 +14,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" 
              d:DesignWidth="600"
-             Padding="8"
              Background="{DynamicResource ThemeBrushKey}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -23,33 +22,35 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <DockPanel>
-        <TextBlock DockPanel.Dock="Top" Text="{Binding Resources.AboutUpdateHistory, Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
+    <ScrollViewer Padding="8" VerticalScrollBarVisibility="Auto">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Text="{Binding Resources.AboutUpdateHistory, Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 				   Style="{DynamicResource SettingsHeaderTextStyleKey}" />
-        <Border Grid.Column="1">
-            <FlowDocumentScrollViewer Padding="0,-18,0,0"
+            <Border Grid.Column="1">
+                <FlowDocumentScrollViewer Padding="0,-18,0,0"
 										  HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
-                <FlowDocument FontSize="12"
+                    <FlowDocument FontSize="12"
 								  Foreground="{DynamicResource ForegroundBrushKey}"
 								  FontFamily="Meiryo UI"
 								  TextAlignment="Left"
 								  MaxPageWidth="900">
-                    <Paragraph Language="zh-cn">
-                        <Run Text="Steam++ v1.0.0" FontSize="16"/>
-                        <Run Text="&#160;"/>
-                        <Run Text="2020-12-14" FontSize="10" />
-                        <LineBreak />
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="发布第一个版本" />
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="主要功能：社区反代，帐户切换，成就解锁，本地令牌。"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="次要功能：强制无边框窗口化以及CSGO VAC屏蔽修复。"></Run>
-                    </Paragraph>
-                </FlowDocument>
-            </FlowDocumentScrollViewer>
-        </Border>
-    </DockPanel>
+                        <Paragraph Language="zh-cn">
+                            <Run Text="Steam++ v1.0.0" FontSize="16"/>
+                            <Run Text="&#160;"/>
+                            <Run Text="2020-12-14" FontSize="10" />
+                            <LineBreak />
+                            <Run Text="&#160;&#160;&#160;&#160;"/>
+                            <Run Text="发布第一个版本" />
+                            <LineBreak/>
+                            <Run Text="&#160;&#160;&#160;&#160;"/>
+                            <Run Text="主要功能：社区反代，帐户切换，成就解锁，本地令牌。"></Run>
+                            <LineBreak/>
+                            <Run Text="&#160;&#160;&#160;&#160;"/>
+                            <Run Text="次要功能：强制无边框窗口化以及CSGO VAC屏蔽修复。"></Run>
+                        </Paragraph>
+                    </FlowDocument>
+                </FlowDocumentScrollViewer>
+            </Border>
+        </DockPanel>
+    </ScrollViewer>
 </UserControl>
