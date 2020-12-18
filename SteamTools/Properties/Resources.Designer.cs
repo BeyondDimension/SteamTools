@@ -826,6 +826,15 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 帐户切换设置 的本地化字符串。
+        /// </summary>
+        public static string Settings_AccountChange {
+            get {
+                return ResourceManager.GetString("Settings_AccountChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 令牌设置 的本地化字符串。
         /// </summary>
         public static string Settings_Auth {

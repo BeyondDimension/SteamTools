@@ -260,9 +260,9 @@
                             <metro:PromptTextBox Grid.Row="1"
 										 Grid.Column="1"
                                          TextWrapping="Wrap"
-  AcceptsReturn="True"
-  VerticalScrollBarVisibility="Visible"
-                                                 MaxLines="3"
+                                         AcceptsReturn="True"
+                                         VerticalScrollBarVisibility="Visible"
+                                         MaxLines="3"
 										 Text="{Binding SteamGuard, Mode=TwoWay}"
 										 Prompt="" />
                             <!--<metro2:CallMethodButton Width="80"

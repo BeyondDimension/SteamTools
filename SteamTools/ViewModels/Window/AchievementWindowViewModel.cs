@@ -1,6 +1,7 @@
 ﻿using MetroTrilithon.Mvvm;
 using SAM.API.Types;
 using SteamTool.Core;
+using SteamTool.Core.Common;
 using SteamTool.Model;
 using SteamTool.Steam.Service;
 using SteamTools.Properties;
@@ -138,7 +139,7 @@ namespace SteamTools.ViewModels
                     SteamConnectService.Current.ApiService.RunCallbacks(false);
                     await Task.Delay(1500);
                 }
-            });
+            }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted);
 
             this.RefreshStats_Click();
             //this.Initialize();

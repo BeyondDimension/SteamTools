@@ -13,6 +13,7 @@ using Titanium.Web.Proxy.EventArguments;
 using Titanium.Web.Proxy.Http;
 using Titanium.Web.Proxy.Models;
 using SteamTool.Model;
+using System.Security.Cryptography;
 
 namespace SteamTool.Proxy
 {
@@ -237,23 +238,56 @@ namespace SteamTool.Proxy
         {
             if (ProxyRunning)
                 return false;
-            using (var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser))
+            try
             {
-                store.Open(OpenFlags.MaxAllowed);
-                //var test = store.Certificates.Find(X509FindType.FindByIssuerName, "titan", true);
-                var test = store.Certificates.Find(X509FindType.FindByIssuerName, CertificateName, true);
-                foreach (var item in test)
+                using (var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser))
                 {
-                    store.Remove(item);
+                    store.Open(OpenFlags.MaxAllowed);
+                    //var test = store.Certificates.Find(X509FindType.FindByIssuerName, "titan", true);
+                    var test = store.Certificates.Find(X509FindType.FindByIssuerName, CertificateName, true);
+                    foreach (var item in test)
+                    {
+                        store.Remove(item);
+                    }
+                    //if (store.Certificates.Contains(proxyServer.CertificateManager.RootCertificate))
+                    //    store.Remove(proxyServer.CertificateManager.RootCertificate);
                 }
-                //if (store.Certificates.Contains(proxyServer.CertificateManager.RootCertificate))
-                //    store.Remove(proxyServer.CertificateManager.RootCertificate);
+                proxyServer.CertificateManager.ClearRootCertificate();
+                proxyServer.CertificateManager.RemoveTrustedRootCertificate(true);
+                proxyServer.CertificateManager.RemoveTrustedRootCertificateAsAdmin(true);
+                proxyServer.CertificateManager.CertificateStorage.Clear();
             }
-            proxyServer.CertificateManager.ClearRootCertificate();
-            proxyServer.CertificateManager.RemoveTrustedRootCertificate(true);
-            proxyServer.CertificateManager.RemoveTrustedRootCertificateAsAdmin(true);
-            proxyServer.CertificateManager.CertificateStorage.Clear();
+            catch (Exception ex)
+            {
+                if (ex is CryptographicException)
+                {
+                    //取消删除证书
+                }
+                else 
+                {
+                    throw;
+                }
+            }
             return true;
+        }
+
+        public static bool PortInUse(int port)
+        {
+            bool inUse = false;
+
+            var ipProperties = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties();
+            IPEndPoint[] ipEndPoints = ipProperties.GetActiveTcpListeners();
+
+            foreach (IPEndPoint endPoint in ipEndPoints)
+            {
+                if (endPoint.Port == port)
+                {
+                    inUse = true;
+                    break;
+                }
+            }
+
+            return inUse;
         }
 
         public bool StartProxy(bool IsProxyGOG = false)
@@ -334,24 +368,6 @@ namespace SteamTool.Proxy
 #endif
             return true;
 
-        }
-        public static bool PortInUse(int port)
-        {
-            bool inUse = false;
-
-            var ipProperties = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties();
-            IPEndPoint[] ipEndPoints = ipProperties.GetActiveTcpListeners();
-
-            foreach (IPEndPoint endPoint in ipEndPoints)
-            {
-                if (endPoint.Port == port)
-                {
-                    inUse = true;
-                    break;
-                }
-            }
-
-            return inUse;
         }
 
         public void StopProxy()

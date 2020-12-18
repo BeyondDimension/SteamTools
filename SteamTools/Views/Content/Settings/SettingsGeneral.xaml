@@ -58,6 +58,23 @@
 					Margin="-20,8" />
             </StackPanel>
 
+            <StackPanel Margin="20,0,0,0">
+                <TextBlock Margin="-20,0,0,10" Text="Steam启动参数" Style="{DynamicResource SettingsHeaderTextStyleKey}" />
+                <metro:PromptTextBox Prompt="自定义Steam启动参数"
+                                     Text="{Binding Source={x:Static ms:GeneralSettings.SteamStratParameter}, Path=Value, Mode=TwoWay}" 
+                                     Width="400" 
+                                     HorizontalAlignment="Left"
+                                     TextWrapping="Wrap"
+                                     AcceptsReturn="True"
+                                     VerticalScrollBarVisibility="Visible"
+                                     MaxLines="3"></metro:PromptTextBox>
+                <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="0,6,0,0">
+                        <Run Text="在帐户切换启动Steam时会带上这些参数启动Steam。"></Run>
+                </TextBlock>
+                <Border Height="1" 
+					Background="{DynamicResource BorderBrushKey}"
+					Margin="-20,8" />
+            </StackPanel>
 
             <StackPanel Margin="20,0,0,0">
                 <TextBlock Margin="-20,0,0,10" Text="{Binding Resources.Settings_GameList, Source={x:Static services:ResourceService.Current}, Mode=OneWay}" Style="{DynamicResource SettingsHeaderTextStyleKey}" />
@@ -68,7 +85,7 @@
                     <TextBlock Text="启用游戏列表本地缓存"></TextBlock>
                 </CheckBox>
                 <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="0,6,0,0">
-                        <Run Text="取消本地缓存后每次启动都将从Steam服务器加载最新游戏列表数据，加载速度会变慢。"></Run>
+                        <Run Text="取消本地缓存后每次启动都将从Steam服务器加载最新游戏列表数据，但每次启动时加载速度会变慢。"></Run>
                 </TextBlock>
 
                 <Separator Opacity="0" Height="10"/>
@@ -81,9 +98,9 @@
                                          MethodTarget="{Binding}"/>
 
                 <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="0,6,0,0">
-                        <Run Text="因为从Steam获取游戏列表数据时会很慢，为了避免加载缓慢所以在本地会缓存一份游戏列表的数据。"></Run>
+                        <Run Text="因为从Steam获取游戏列表数据时很慢，为了避免加载缓慢所以在本地会缓存一份游戏列表的数据。"></Run>
                             <LineBreak/>
-                            <Run Text="但是数据因为数据是默认10天更新一次，因此如果您发现在游戏列表搜索不到新发布的游戏时，可以考虑手动刷新游戏列表缓存。"/>
+                            <Run Text="游戏列表缓存默认10天更新一次，因此如果您发现在游戏列表搜索不到新发布的游戏时，可以考虑手动刷新游戏列表缓存。"/>
                 </TextBlock>
 
                 <Border Height="1" 

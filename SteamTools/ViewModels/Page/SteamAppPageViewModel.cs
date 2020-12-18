@@ -131,7 +131,7 @@ namespace SteamTools.ViewModels
 
                 SteamConnectService.Current.Subscribe(nameof(SteamConnectService.Current.SteamApps), this.Update).AddTo(this);
 
-            }).ContinueWith(s =>
+            }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s =>
             {
                 StatusService.Current.Notify("加载Steam游戏数据完成");
                 s.Dispose();

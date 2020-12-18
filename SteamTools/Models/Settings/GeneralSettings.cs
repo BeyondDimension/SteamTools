@@ -45,6 +45,11 @@ namespace SteamTools.Models.Settings
         public static SerializableProperty<bool> IsSteamAppListLocalCache { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Roaming, true) { AutoSave = true };
 
+        /// <summary>
+        /// SteamÆô¶¯²ÎÊý
+        /// </summary>
+        public static SerializableProperty<string> SteamStratParameter { get; }
+            = new SerializableProperty<string>(GetKey(), Providers.Roaming, string.Empty) { AutoSave = true };
 
         private static string GetKey([CallerMemberName] string propertyName = "")
         {

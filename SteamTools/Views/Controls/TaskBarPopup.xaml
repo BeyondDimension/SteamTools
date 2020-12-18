@@ -11,8 +11,12 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
              xmlns:livet="http://schemas.livet-mvvm.net/2011/wpf"
              mc:Ignorable="d" 
-             Height="345" Width="180"
+             Height="350" Width="180"
              FontSize="14"
+             UseLayoutRounding="True"
+             TextOptions.TextFormattingMode="Display"
+             TextOptions.TextRenderingMode="Auto"
+             SnapsToDevicePixels="True"
 		     Foreground="{DynamicResource ForegroundBrushKey}"
 		     d:DataContext="{d:DesignInstance vm:TaskBarViewModel}">
     <Border>

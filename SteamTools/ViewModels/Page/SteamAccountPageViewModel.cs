@@ -13,6 +13,8 @@ using System.Diagnostics;
 using SteamTool.Steam.Service.Web;
 using SteamTool.Steam.Service;
 using SteamTools.Services;
+using SteamTool.Core.Common;
+using SteamTools.Models.Settings;
 
 namespace SteamTools.ViewModels
 {
@@ -72,7 +74,7 @@ namespace SteamTools.ViewModels
                 {
                     StatusService.Current.Notify("没有检测到Steam用户数据");
                 }
-            }).ContinueWith(s => s.Dispose());
+            }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s => s.Dispose());
         }
 
 
@@ -80,7 +82,7 @@ namespace SteamTools.ViewModels
         {
             steamService.SetCurrentUser(parameter);
             steamService.KillSteamProcess();
-            steamService.StartSteam();
+            steamService.StartSteam(GeneralSettings.SteamStratParameter.Value);
             SteamConnectService.Current.IsConnectToSteam = false;
         }
 

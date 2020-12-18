@@ -372,6 +372,9 @@
   <data name="Settings_Accent" xml:space="preserve">
     <value>颜色</value>
   </data>
+  <data name="Settings_AccountChange" xml:space="preserve">
+    <value>帐户切换设置</value>
+  </data>
   <data name="Settings_Auth" xml:space="preserve">
     <value>令牌设置</value>
   </data>

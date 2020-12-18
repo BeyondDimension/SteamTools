@@ -1,4 +1,5 @@
 ﻿using MetroRadiance.Platform;
+using SteamTool.Core.Common;
 using SteamTool.Steam.Service.Local;
 using SteamTools.Services;
 using System;
@@ -52,7 +53,7 @@ namespace SteamTools.ViewModels
                 DebugText += Environment.NewLine;
                 DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.GetAppInstallDir(730);
                 DebugText += Environment.NewLine;
-            }).ContinueWith(s => s.Dispose());
+            }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s => s.Dispose());
         }
 
         public void Test_OnClick()

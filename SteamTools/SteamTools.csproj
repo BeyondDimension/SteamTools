@@ -348,6 +348,9 @@
 		<None Update="scripts\Steam自动探索队列.js">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+		<None Update="scripts\Steam解锁不可描述游戏商店页.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="scripts\Steam解锁区域限制.js">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>

@@ -14,6 +14,7 @@ using System.Windows.Interop;
 using SteamTools.Services;
 using SteamTools.Properties;
 using MetroRadiance.Interop.Win32;
+using SteamTool.Core.Common;
 
 namespace SteamTools.ViewModels
 {
@@ -131,7 +132,8 @@ namespace SteamTools.ViewModels
                             continue;
                         item.Initialize();
                     }
-                }).ContinueWith(s => s.Dispose());
+                }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted)
+                .ContinueWith(s => s.Dispose());
                 //foreach (var item in this.TabItems)
                 //{
                 //    if (item == SteamAppPage)

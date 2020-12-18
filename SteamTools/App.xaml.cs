@@ -32,7 +32,7 @@ namespace SteamTools
         public static App Instance => Current as App;
 
         public DirectoryInfo LocalAppData = new DirectoryInfo(
-    Path.Combine(
+        Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         ProductInfo.Company,
         ProductInfo.Title));

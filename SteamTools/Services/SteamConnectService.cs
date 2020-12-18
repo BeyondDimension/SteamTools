@@ -94,7 +94,7 @@ namespace SteamTools.Services
 
         public void Initialize()
         {
-            
+
             Task.Run(async () =>
              {
                  Thread.CurrentThread.IsBackground = true;
@@ -130,7 +130,7 @@ namespace SteamTools.Services
                      }
                      await Task.Delay(1000);
                  }
-             });
+             }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted);
         }
 
         public void Initialize(int appid)

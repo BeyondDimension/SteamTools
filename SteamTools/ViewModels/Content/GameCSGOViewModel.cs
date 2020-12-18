@@ -69,7 +69,7 @@ namespace SteamTools.ViewModels
                 }
                 p.Close();
                 standardOutput.Close();
-            });
+            }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted);
         }
     }
 }
