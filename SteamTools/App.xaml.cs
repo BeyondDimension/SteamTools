@@ -35,7 +35,7 @@ namespace SteamTools
     Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         ProductInfo.Company,
-        ProductInfo.Product));
+        ProductInfo.Title));
 
         private void IsRenameProgram()
         {
@@ -102,7 +102,7 @@ namespace SteamTools
                 {
                     // 检测到多次启动时将主窗口置于最前面
                     this.Dispatcher.Invoke(() => WindowService.Current.MainWindow.Activate());
-                    //this.ProcessCommandLineParameter(args.CommandLineArgs);
+                    this.ProcessCommandLineParameter(args.CommandLineArgs);
                 };
 #endif
 
@@ -155,10 +155,10 @@ namespace SteamTools
         {
             Debug.WriteLine("多重启动通知: " + args.ToString(" "));
             // 当使用命令行参数多次启动时，您可以执行某些操作
-            //if (args.Length == 0)
-            //{
-            //    this.Shutdown();
-            //}            
+            if (args.Length == 0)
+            {
+                this.Shutdown();
+            }
             if (args.ContainsArg("-log"))
             {
                 Logger.EnableTextLog = true;

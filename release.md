@@ -3,7 +3,7 @@
 Steam++项目创建于2018年5月8日，不过并不是耗时两年才做出来，之前一直由于工作原因，并没有多少空闲时间，直到今年中旬辞职了，才开始猛肝。
 本来是想一直做到完全体了，才考虑发布，不过现在感慨一下，果然是没法这么快就整完的，所以还是一版一版更新做到完全体吧。
 Steam++只在keylol论坛与github发布，为了账号安全，请不要到其它不明地方下载。
-顺便请求有没有大佬帮我做个程序的图标，现在这个有点不太好看。（本来想用论坛图标，但是粉枪不让用2333）
+已经收到了B叔制作的图标，下个版本可以换上更好看的图标了。
 
 # Steam++工具箱
 
@@ -24,7 +24,7 @@ Steam++只在keylol论坛与github发布，为了账号安全，请不要到其�
 
 ### 1. 反代Steam的社区网页使其能正常访问
 
- 功能类似羽翼城大佬的Steam302,使用[Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy)开源项目进行本地反代，相比302工具具有更快的启动速度，以及支持简单的脚本注入。
+ 功能类似羽翼城大佬的steamcommunity_302,使用[Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy)开源项目进行本地反代，相比302工具具有更快的启动速度，以及支持简单的脚本注入。该功能也可以配合羽翼城大佬的[UsbEAm Hosts Editor](https://www.dogfight360.com/blog/475/)里的网页相关-steamcommunity_302 社区/api/商店加载速度选项的hosts提升加载速度。
 [attachimg]1224032[/attachimg]
 
 ### 2. 快速切换当前PC已经记住登陆的Steam账号
@@ -34,7 +34,7 @@ Steam++只在keylol论坛与github发布，为了账号安全，请不要到其�
 
 ### 3. Steam游戏的成就统计管理功能
 
- 功能参考[SteamAchievementManager](https://github.com/gibbed/SteamAchievementManager)进行二次开发，修改了游戏列表的加载和操作易用性。
+ 功能参考[SteamAchievementManager](https://github.com/gibbed/SteamAchievementManager)进行二次开发，修复了成就语言有中文却依然是英文成就信息的BUG，修改了游戏列表的加载和操作易用性。
 [attachimg]1224034[/attachimg]
 
 ### 4. Steam本地两步身份验证器
@@ -46,6 +46,7 @@ Steam++只在keylol论坛与github发布，为了账号安全，请不要到其�
 
 目前已有强制游戏无边框窗口化，CSGO修复VAC屏蔽。
 这一块是随缘做一些我经常用或者闲着没事捣鼓的功能。
+  
 将任何游戏强制无边框窗口化
 [attachimg]1224036[/attachimg]
 使任何窗口化游戏变成动态桌面壁纸（终于可以用《山》当壁纸了）

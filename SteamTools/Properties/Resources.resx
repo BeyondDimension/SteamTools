@@ -316,7 +316,7 @@
     <value>刷新成绩和统计</value>
   </data>
   <data name="OnRest" xml:space="preserve">
-    <value>复位成就和/统计</value>
+    <value>复位成就和统计</value>
   </data>
   <data name="OnStore" xml:space="preserve">
     <value>保存并应用成就和统计</value>

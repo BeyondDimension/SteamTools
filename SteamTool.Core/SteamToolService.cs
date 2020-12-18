@@ -60,7 +60,7 @@ namespace SteamTool.Core
             Process[] processes = Process.GetProcesses();
             foreach (Process process in processes)
             {
-                if (process.ProcessName.ToLower() == "steam" || process.ProcessName.ToLower() == "steamService" || process.ProcessName.ToLower() == "steamwebhelper")
+                if (process.ProcessName.Equals("steam",StringComparison.OrdinalIgnoreCase) || process.ProcessName.Equals("steamService", StringComparison.OrdinalIgnoreCase) || process.ProcessName.Equals("steamwebhelper",StringComparison.OrdinalIgnoreCase))
                 {
                     process.Kill();
                 }
@@ -134,7 +134,6 @@ namespace SteamTool.Core
             registryKeyService.AddOrUpdateRegistryKey(Registry.CurrentUser, SteamRegistryPath, "AutoLoginUser", username, RegistryValueKind.String);
         }
 
-
         public List<SteamApp> GetAppListJson(string filepath)
         {
             if (!File.Exists(filepath))
@@ -153,7 +152,6 @@ namespace SteamTool.Core
             var apps = JsonConvert.DeserializeObject<SteamApps>(json);
             return apps.AppList.Apps;
         }
-
 
         public bool UpdateAppListJson(List<SteamApp> apps, string filepath)
         {
@@ -187,25 +185,15 @@ namespace SteamTool.Core
 
         public void SetWindowsStartupAutoRun(bool IsAutoRun, string Name = "Steam++")
         {
-            // Get the service on the local machine
             if (IsAutoRun)
             {
                 using TaskDefinition td = TaskService.Instance.NewTask();
-                // Create a new task definition and assign properties
                 td.RegistrationInfo.Description = Name + "System Boot Run";
-
                 td.Settings.Priority = System.Diagnostics.ProcessPriorityClass.Normal;
-
-                // Create a trigger that will fire after the system boot
                 td.Triggers.Add(new LogonTrigger());
-
-                // Create an action that will launch Notepad whenever the trigger fires
                 td.Actions.Add(new ExecAction(Assembly.GetCallingAssembly().Location, "-minimized", Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)));
-
                 if (IsAdministrator)
                     td.Principal.RunLevel = TaskRunLevel.Highest;
-                
-                // Register the task in the root folder
                 TaskService.Instance.RootFolder.RegisterTaskDefinition(Name, td);
                 //TaskService.Instance.RootFolder.AddTask(Name, QuickTriggerType.Boot, Assembly.GetCallingAssembly().Location, "-a");
             }

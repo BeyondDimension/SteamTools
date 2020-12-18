@@ -48,7 +48,7 @@
                         <LineBreak />
                         <Run Text="微信" FontSize="16"/>
                         <LineBreak/>
-                        <Image Source="pack://application:,,,/Resources/Asstes/wechatpay.png" Height="300"></Image>
+                        <Image Source="pack://application:,,,/Resources/Asstes/wechatdonate.png" Height="300"></Image>
                         <LineBreak/>
                         <LineBreak/>
                         <LineBreak/>

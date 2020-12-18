@@ -20,6 +20,7 @@ namespace SteamTools.ViewModels
     {
         private readonly SteamToolService steamService = SteamToolCore.Instance.Get<SteamToolService>();
         private readonly SteamDbApiService webApiService = SteamService.Instance.Get<SteamDbApiService>();
+        private readonly VdfService vdfService = SteamToolCore.Instance.Get<VdfService>();
 
         public override string Name
         {
@@ -30,9 +31,9 @@ namespace SteamTools.ViewModels
         /// <summary>
         /// steam记住的用户列表
         /// </summary>
-        private List<SteamUser> _steamUsers;
+        private BindingList<SteamUser> _steamUsers;
 
-        public List<SteamUser> SteamUsers
+        public BindingList<SteamUser> SteamUsers
         {
             get => this._steamUsers;
             set
@@ -50,7 +51,7 @@ namespace SteamTools.ViewModels
             StatusService.Current.Notify("加载本地Steam用户数据");
             Task.Run(async () =>
             {
-                SteamUsers = steamService.GetAllUser();
+                SteamUsers = new BindingList<SteamUser>(steamService.GetAllUser());
                 var users = SteamUsers.ToArray();
                 for (var i = 0; i < SteamUsers.Count; i++)
                 {
@@ -64,10 +65,10 @@ namespace SteamTools.ViewModels
                 }
                 if (SteamUsers.Count > 0)
                 {
-                    SteamUsers = users.OrderByDescending(o => o.MostRecent).ThenByDescending(o => o.RememberPassword).ThenByDescending(o => o.LastLoginTime).ToList();
+                    SteamUsers = new BindingList<SteamUser>(users.OrderByDescending(o => o.MostRecent).ThenByDescending(o => o.RememberPassword).ThenByDescending(o => o.LastLoginTime).ToList());
                     StatusService.Current.Notify("加载本地Steam用户数据完成");
                 }
-                else 
+                else
                 {
                     StatusService.Current.Notify("没有检测到Steam用户数据");
                 }
@@ -86,6 +87,16 @@ namespace SteamTools.ViewModels
         public static void HeadImage_OnClick(string parameter)
         {
             Process.Start(parameter);
+        }
+
+        public void DeleteAccount_OnClick(SteamUser user)
+        {
+            var result = WindowService.Current.MainWindow.Dialog("确定要删除这条本地记录帐户数据吗？");
+            if (result)
+            {
+                vdfService.DeleteVdfValueByKey(steamService.SteamPath + SteamToolService.UserVdfPath, user.SteamId64.ToString());
+                SteamUsers.Remove(user);
+            }
         }
     }
 }

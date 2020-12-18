@@ -92,17 +92,27 @@
                                 <!--<TextBlock Text="最近登录的账户" Foreground="Green" Visibility="{Binding MostRecent,Converter={StaticResource BooleanToVisibilityConverter}}"></TextBlock>-->
                                 <!--</StackPanel>-->
                             </StackPanel>
-                            
+
                             <Separator Opacity="0" Width="30"/>
-                            
-                            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">-->
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                                 <!--<Image Source="pack://application:,,,/Resources/Asstes/time.png" Width="20" HorizontalAlignment="Right" Margin="0,0,5,0" Visibility="{Binding MostRecent,Converter={StaticResource BooleanToVisibilityConverter}}"></Image>-->
-                            <TextBlock HorizontalAlignment="Right"
+                                <TextBlock HorizontalAlignment="Right"
                                        VerticalAlignment="Center"
                                        FontSize="12"
                                        TextAlignment="Center" Width="Auto" 
                                        Text="{Binding LastLoginTime,StringFormat={x:Static prop:Resources.LastloginTime},Mode=OneWay}"/>
-                            <!--</StackPanel>-->
+                                <Image HorizontalAlignment="Right" Source="/Resources/Asstes/delete.png" Width="16" Height="16" Cursor="Hand" ToolTip="{Binding Resources.Delete,Source={x:Static services:ResourceService.Current}}" Margin="10,0,0,0">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                                            <livet:LivetCallMethodAction
+                                                            MethodName="DeleteAccount_OnClick"
+                                                            MethodParameter="{Binding}"
+                                                            MethodTarget="{Binding DataContext,ElementName=u}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Image>
+                            </StackPanel>
                         </DockPanel>
                         <Rectangle  Height=".99"
 									   Fill="{DynamicResource InactiveForegroundBrushKey}"

@@ -655,7 +655,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 复位成就和/统计 的本地化字符串。
+        ///   查找类似 复位成就和统计 的本地化字符串。
         /// </summary>
         public static string OnRest {
             get {

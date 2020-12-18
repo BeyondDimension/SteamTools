@@ -56,9 +56,10 @@
 ---
 
 ## 运行环境
-> 程序使用C# WPF在 .NET Framework4.7.2环境下开发，如果无法运行请下载安装[.NET Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472)。  
-
-> 缺失的引用库已经说明在底下的开源项目内了，您可能需要自己从nuget安装或手动添加对应的开源项目。
+> 程序使用C# WPF在 .NET Framework4.7.2环境下开发，如果无法运行请下载安装[.NET Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472)。
+> 缺失的程序集为我自己修改后的项目
+* [Titanium-Web-Proxy](https://github.com/rmbadmin/Titanium-Web-Proxy)
+* [MetroRadiance](https://github.com/rmbadmin/MetroRadiance)
 
 ---
 
@@ -84,3 +85,5 @@
 * [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm)
 * [WinAuth](https://github.com/winauth/winauth)
 * [SteamDesktopAuthenticator](https://github.com/Jessecar96/SteamDesktopAuthenticator)
+* [Gameloop.Vdf](https://github.com/shravan2x/Gameloop.Vdf)
+* [Costura.Fody](https://github.com/Fody/Costura)

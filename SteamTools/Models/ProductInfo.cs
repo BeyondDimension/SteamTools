@@ -33,6 +33,8 @@ namespace SteamTools.Models
 			new Library("ArchiSteamFarm", new Uri("https://github.com/JustArchiNET/ArchiSteamFarm")),
 			new Library("WinAuth", new Uri("https://github.com/winauth/winauth")),
 			new Library("SteamDesktopAuthenticator", new Uri("https://github.com/Jessecar96/SteamDesktopAuthenticator")),
+			new Library("Gameloop.Vdf", new Uri("https://github.com/shravan2x/Gameloop.Vdf")),
+			new Library("Costura.Fody", new Uri("https://github.com/Fody/Costura")),
 			//new Library("idle_master_extended", new Uri("https://github.com/JonasNilson/idle_master_extended")),
 		});
 

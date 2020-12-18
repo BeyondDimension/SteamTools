@@ -109,7 +109,7 @@
 		<None Remove="Resources\Asstes\save.png" />
 		<None Remove="Resources\Asstes\seek.png" />
 		<None Remove="Resources\Asstes\unlock.png" />
-		<None Remove="Resources\Asstes\wechatpay.png" />
+		<None Remove="Resources\Asstes\wechatdonate.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -137,7 +137,7 @@
 		<Resource Include="Resources\Asstes\save.png" />
 		<Resource Include="Resources\Asstes\seek.png" />
 		<Resource Include="Resources\Asstes\unlock.png" />
-		<Resource Include="Resources\Asstes\wechatpay.png" />
+		<Resource Include="Resources\Asstes\wechatdonate.png" />
 	</ItemGroup>
 
 	<ItemGroup>

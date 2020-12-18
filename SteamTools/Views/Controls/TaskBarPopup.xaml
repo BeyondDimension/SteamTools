@@ -28,11 +28,11 @@
 							BorderThickness=".99">
                 <Grid Margin="8,0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="70"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <WrapPanel Grid.Row="0" Margin="0,8,0,0" Visibility="{Binding ElementName=user,Path=IsVisible,Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
+                    <DockPanel Grid.Row="0" Margin="0,8,0,0" Visibility="{Binding ElementName=user,Path=IsVisible,Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                         <Image Source="pack://application:,,,/Resources/Asstes/app.ico" Width="64" Height="64" Cursor="Hand">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -41,15 +41,15 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Image>
-                        <StackPanel VerticalAlignment="Center" >
+                        <StackPanel VerticalAlignment="Center">
                             <TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.WinTitle,Mode=OneWay}"
                                 Foreground="{DynamicResource HighlightForegroundBrushKey}" Style="{StaticResource HeaderTextStyleKey}" FontSize="16"/>
                             <TextBlock Text="{Binding Source={x:Static models:ProductInfo.VersionString}, StringFormat=版本 {0}, Mode=OneWay}"
                                  Foreground="{DynamicResource HighlightForegroundBrushKey}" Style="{StaticResource DetailTextStyleKey}"/>
                         </StackPanel>
 
-                    </WrapPanel>
-                    <WrapPanel x:Name="user" Grid.Row="0" Margin="0,8,0,0" Visibility="{Binding CurrentSteamUser,Source={x:Static services:SteamConnectService.Current},Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}">
+                    </DockPanel>
+                    <DockPanel x:Name="user" Grid.Row="0" Margin="0,8,0,0" Visibility="{Binding CurrentSteamUser,Source={x:Static services:SteamConnectService.Current},Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}">
                         <Image Source="{Binding CurrentSteamUser.AvatarMedium,Source={x:Static services:SteamConnectService.Current},Mode=OneWay}" Width="64" Height="64" Cursor="Hand">
                             <Image.Clip>
                                 <!--设置图像如何显示-->
@@ -74,7 +74,7 @@
                                 <Run Text="{Binding Source={x:Static models:ProductInfo.VersionString}, StringFormat=版本 {0}, Mode=OneWay}"></Run>
                             </TextBlock>
                         </StackPanel>
-                    </WrapPanel>
+                    </DockPanel>
                     <StackPanel Grid.Row="1">
                         <Rectangle Height=".99"
 									   Fill="{DynamicResource InactiveForegroundBrushKey}"
