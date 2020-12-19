@@ -35,7 +35,7 @@ namespace SteamTools
         Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         ProductInfo.Company,
-        ProductInfo.Title));
+        ProductInfo.Product));
 
         private void IsRenameProgram()
         {

@@ -232,7 +232,7 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Margin="0,2"
                                                VerticalAlignment="Center"
-											   HorizontalAlignment="Right" Foreground="{DynamicResource AccentForegroundBrushKey}">
+											   HorizontalAlignment="Right" Foreground="{DynamicResource ActiveForegroundBrushKey}">
 										<Run Text="{Binding Resources.Search,Source={x:Static services:ResourceService.Current},Mode=OneWay}" />
 										<Run Text=":" />
                                         </TextBlock>

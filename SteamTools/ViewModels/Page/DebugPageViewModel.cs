@@ -45,6 +45,8 @@ namespace SteamTools.ViewModels
                 DebugText += Environment.NewLine;
                 DebugText += SteamConnectService.Current.ApiService.GetSteamId64();
                 DebugText += Environment.NewLine;
+                DebugText += SteamConnectService.Current.CurrentSteamUser.SteamId3_Int;
+                DebugText += Environment.NewLine;
                 DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamUtils.GetAppId();
                 DebugText += Environment.NewLine;
                 DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.IsAppInstalled(730);

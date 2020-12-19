@@ -35,6 +35,8 @@ namespace SteamTool.Core
 
         public string SteamExePath { get; set; }
 
+        public const string UserDataDirectory = @"\userdata";
+
         public const string UserVdfPath = @"\config\loginusers.vdf";
 
         private const string SteamRegistryPath = @"SOFTWARE\Valve\Steam";
@@ -60,7 +62,7 @@ namespace SteamTool.Core
             Process[] processes = Process.GetProcesses();
             foreach (Process process in processes)
             {
-                if (process.ProcessName.Equals("steam",StringComparison.OrdinalIgnoreCase) || process.ProcessName.Equals("steamService", StringComparison.OrdinalIgnoreCase) || process.ProcessName.Equals("steamwebhelper",StringComparison.OrdinalIgnoreCase))
+                if (process.ProcessName.Equals("steam", StringComparison.OrdinalIgnoreCase) || process.ProcessName.Equals("steamService", StringComparison.OrdinalIgnoreCase) || process.ProcessName.Equals("steamwebhelper", StringComparison.OrdinalIgnoreCase))
                 {
                     process.Kill();
                 }
@@ -182,7 +184,6 @@ namespace SteamTool.Core
             return true;
         }
 
-
         public void SetWindowsStartupAutoRun(bool IsAutoRun, string Name = "Steam++")
         {
             if (IsAutoRun)
@@ -200,6 +201,16 @@ namespace SteamTool.Core
             else
             {
                 TaskService.Instance.RootFolder.DeleteTask(Name);
+            }
+        }
+
+        public void DeleteSteamLocalUserData(SteamUser user)
+        {
+            vdfService.DeleteVdfValueByKey(SteamPath + UserVdfPath, user.SteamId64.ToString());
+            var temp = SteamPath + Path.Combine(UserDataDirectory, user.SteamId3_Int.ToString());
+            if (Directory.Exists(temp))
+            {
+                Directory.Delete(temp, true);
             }
         }
     }

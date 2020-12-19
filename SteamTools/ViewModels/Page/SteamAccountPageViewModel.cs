@@ -22,7 +22,6 @@ namespace SteamTools.ViewModels
     {
         private readonly SteamToolService steamService = SteamToolCore.Instance.Get<SteamToolService>();
         private readonly SteamDbApiService webApiService = SteamService.Instance.Get<SteamDbApiService>();
-        private readonly VdfService vdfService = SteamToolCore.Instance.Get<VdfService>();
 
         public override string Name
         {
@@ -96,7 +95,7 @@ namespace SteamTools.ViewModels
             var result = WindowService.Current.MainWindow.Dialog("确定要删除这条本地记录帐户数据吗？");
             if (result)
             {
-                vdfService.DeleteVdfValueByKey(steamService.SteamPath + SteamToolService.UserVdfPath, user.SteamId64.ToString());
+                steamService.DeleteSteamLocalUserData(user);
                 SteamUsers.Remove(user);
             }
         }

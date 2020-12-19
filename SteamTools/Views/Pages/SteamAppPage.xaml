@@ -135,7 +135,6 @@
         </Border>
         <!--</Expander>-->
 
-
         <!--Content-->
         <Border Grid.Row="1" Margin="8"
 					BorderBrush="{DynamicResource BorderBrushKey}"
