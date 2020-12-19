@@ -108,6 +108,7 @@ namespace SteamTool.Proxy
                     }
                 }
             }
+            GC.Collect();
         }
         public async Task OnResponse(object sender, SessionEventArgs e)
         {
@@ -165,7 +166,7 @@ namespace SteamTool.Proxy
                                                     //e.HttpClient.Response.Headers.AddHeader("Content-Security-Policy", result);
                                                 }
 #if DEBUG
-                                                Debug.WriteLine(t);
+                                                Debug.WriteLine(e.HttpClient.Request.RequestUri.AbsoluteUri);
 #endif
                                                 foreach (var req in script.Require)
                                                 {
@@ -398,14 +399,14 @@ namespace SteamTool.Proxy
                         if (File.Exists(certifi))
                         {
                             var file = File.ReadAllText(certifi);
-                            var s = file.Substring(Const.HostTag, Const.HostTag, true);
+                            var s = file.Substring(Const.HOST_TAG, Const.HOST_TAG, true);
                             if (string.IsNullOrEmpty(s))
                             {
                                 File.AppendAllText(certifi, "\r\n" + pem);
                             }
                             else if (s.Trim() != pem.Trim())
                             {
-                                var index = file.IndexOf(Const.HostTag);
+                                var index = file.IndexOf(Const.HOST_TAG);
                                 File.WriteAllText(certifi, file.Remove(index, s.Length) + pem);
                             }
                             return true;

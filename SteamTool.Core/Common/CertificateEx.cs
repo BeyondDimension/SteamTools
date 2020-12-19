@@ -13,12 +13,12 @@ namespace SteamTool.Proxy
         public static string GetPublicPemCertificateString(this X509Certificate2 @this)
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine(Const.HostTag);
+            builder.AppendLine(Const.HOST_TAG);
             builder.AppendLine("-----BEGIN CERTIFICATE-----");
             builder.AppendLine(
                 Convert.ToBase64String(@this.RawData, Base64FormattingOptions.InsertLineBreaks));
             builder.AppendLine("-----END CERTIFICATE-----");
-            builder.AppendLine(Const.HostTag);
+            builder.AppendLine(Const.HOST_TAG);
 
             return builder.ToString();
         }

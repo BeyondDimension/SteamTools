@@ -237,6 +237,10 @@
 		<Page Update="Resources\Styles\Controls.xaml">
 			<SubType>Designer</SubType>
 		</Page>
+		<Page Update="Views\Content\About\AboutDonateList.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		  <SubType>Designer</SubType>
+		</Page>
 		<Page Update="Views\Content\About\AboutUpdateHistory.xaml">
 		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		  <SubType>Designer</SubType>
@@ -355,4 +359,6 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 </Project>

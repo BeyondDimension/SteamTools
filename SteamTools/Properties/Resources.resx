@@ -126,6 +126,9 @@
   <data name="About_Donate" xml:space="preserve">
     <value>捐助</value>
   </data>
+  <data name="About_DonateList" xml:space="preserve">
+    <value>捐助纪录</value>
+  </data>
   <data name="About_Help" xml:space="preserve">
     <value>帮助</value>
   </data>

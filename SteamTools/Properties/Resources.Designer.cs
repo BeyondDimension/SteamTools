@@ -79,6 +79,15 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 捐助纪录 的本地化字符串。
+        /// </summary>
+        public static string About_DonateList {
+            get {
+                return ResourceManager.GetString("About_DonateList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 帮助 的本地化字符串。
         /// </summary>
         public static string About_Help {

@@ -53,6 +53,10 @@ namespace SteamTools.ViewModels
             Task.Run(async () =>
             {
                 SteamUsers = new BindingList<SteamUser>(steamService.GetAllUser());
+                if (SteamUsers?.Count < 1)
+                {
+                    StatusService.Current.Notify("没有检测到Steam用户数据");
+                }
                 var users = SteamUsers.ToArray();
                 for (var i = 0; i < SteamUsers.Count; i++)
                 {
@@ -64,15 +68,8 @@ namespace SteamTools.ViewModels
                     users[i].Timestamp = temp.Timestamp;
                     users[i].LastLoginTime = temp.LastLoginTime;
                 }
-                if (SteamUsers.Count > 0)
-                {
-                    SteamUsers = new BindingList<SteamUser>(users.OrderByDescending(o => o.MostRecent).ThenByDescending(o => o.RememberPassword).ThenByDescending(o => o.LastLoginTime).ToList());
-                    StatusService.Current.Notify("加载本地Steam用户数据完成");
-                }
-                else
-                {
-                    StatusService.Current.Notify("没有检测到Steam用户数据");
-                }
+                SteamUsers = new BindingList<SteamUser>(users.OrderByDescending(o => o.MostRecent).ThenByDescending(o => o.RememberPassword).ThenByDescending(o => o.LastLoginTime).ToList());
+                StatusService.Current.Notify("加载本地Steam用户数据完成");
             }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s => s.Dispose());
         }
 
@@ -92,7 +89,7 @@ namespace SteamTools.ViewModels
 
         public void DeleteAccount_OnClick(SteamUser user)
         {
-            var result = WindowService.Current.MainWindow.Dialog("确定要删除这条本地记录帐户数据吗？");
+            var result = WindowService.Current.MainWindow.Dialog("确定要删除这条本地记录帐户数据吗？\r\n这将会删除此账户在本地的Steam缓存数据。");
             if (result)
             {
                 steamService.DeleteSteamLocalUserData(user);

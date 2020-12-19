@@ -149,10 +149,6 @@ namespace SteamTools.ViewModels
             if (File.Exists(WinAuthFileName))
             {
                 StatusService.Current.Set("导入WinAuth令牌中...");
-                //Task.Run(() =>
-                //{
-
-                //});
                 AuthService.Current.ImportAuthenticators(WinAuthFileName);
                 AuthSettings.Authenticators.Value = AuthService.ConvertJsonAuthenticator(AuthService.Current.Authenticators).CompressString();
                 //(WindowService.Current.MainWindow as MainWindowViewModel).LocalAuthPage

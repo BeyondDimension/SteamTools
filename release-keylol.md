@@ -7,7 +7,7 @@ Steam++只在keylol论坛与github发布，为了账号安全，请不要到其�
 
 # Steam++工具箱
 
-   `Steam++`是一个包含多种Steam工具功能的工具箱，开源发布于[Github](https://github.com/rmbadmin/SteamTools),如果您对发布的二进制文件不放心，可以自行下载源码编译运行。
+   `Steam++`是一个包含多种Steam工具功能的工具箱，开源发布于[Github](https://github.com/rmbadmin/SteamTools)，如果您对发布的二进制文件不放心，可以自行下载源码编译运行。
    此工具的大部分功能都是需要您下载安装Steam才能使用。
    工具预计将整合进大部分常用的Steam相关工具，并且尽力做到比原工具更好用，在各种整合添加功能的同时，也会注意体积尽量的控制到最小。
    查毒链接[https://www.virustotal.com/gui/file/3889babb8b0dcf79b16045679a5cb57a70cc6d60447078fb65b8a8979da2f14d/detection](https://www.virustotal.com/gui/file/3889babb8b0dcf79b16045679a5cb57a70cc6d60447078fb65b8a8979da2f14d/detection)

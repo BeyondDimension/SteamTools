@@ -32,7 +32,8 @@ namespace SteamTools.Services
                 }
             }
             Proxy = new HttpProxy(ProxyDomains.Value, ProductInfo.Product);
-            InitJsScript();
+            InitJsScript(); 
+            Proxy.IsEnableScript = IsEnableScript;
         }
 
         private Lazy<IReadOnlyCollection<ProxyDomainModel>> _ProxyDomains = new Lazy<IReadOnlyCollection<ProxyDomainModel>>(() => new List<ProxyDomainModel>
@@ -73,39 +74,40 @@ namespace SteamTools.Services
                 DomainTag = DomainTag.SteamChat,
                 IsEnable= false,
             },
-            new ProxyDomainModel{
-                Index=4,
-                Name=Resources.Discord,
-                Domains = new List<string>{ "discordapp.com" },
-                ToDomain = "discord.com",
-                //ProxyIPAddres="104.16.10.231",
-                Hosts = new List<string>{
-                    "discordapp.com",
-                    "dl.discordapp.net",
-                    "media.discordapp.net",
-                    "images-ext-2.discordapp.net",
-                    "images-ext-1.discordapp.net",
-                    "support.discordapp.com",
-                    "url9177.discordapp.com",
-                    "canary-api.discordapp.com",
-                    "cdn-ptb.discordapp.com",
-                    "ptb.discordapp.com",
-                    "status.discordapp.com",
-                    "cdn-canary.discordapp.com",
-                    "cdn.discordapp.com",
-                    "streamkit.discordapp.com",
-                    "i18n.discordapp.com" ,
-                    "url9624.discordapp.com",
-                    "url7195.discordapp.com",
-                    "merch.discordapp.com",
-                    "printer.discordapp.com",
-                    "canary.discordapp.com",
-                    "apps.discordapp.com",
-                    "pax.discordapp.com",
-                },
-                DomainTag = DomainTag.Discord,
-                IsEnable= false,
-            },
+            //new ProxyDomainModel{
+            //    Index=4,
+            //    Name=Resources.Discord,
+            //    Domains = new List<string>{ "discordapp.com" },
+            //    //ToDomain = "discord.com",
+            //    //ProxyIPAddres="162.159.133.233",
+            //    ProxyIPAddres="162.159.133.233",
+            //    Hosts = new List<string>{
+            //        "discordapp.com",
+            //        "dl.discordapp.net",
+            //        "media.discordapp.net",
+            //        "images-ext-2.discordapp.net",
+            //        "images-ext-1.discordapp.net",
+            //        "support.discordapp.com",
+            //        "url9177.discordapp.com",
+            //        "canary-api.discordapp.com",
+            //        "cdn-ptb.discordapp.com",
+            //        "ptb.discordapp.com",
+            //        "status.discordapp.com",
+            //        "cdn-canary.discordapp.com",
+            //        "cdn.discordapp.com",
+            //        "streamkit.discordapp.com",
+            //        "i18n.discordapp.com" ,
+            //        "url9624.discordapp.com",
+            //        "url7195.discordapp.com",
+            //        "merch.discordapp.com",
+            //        "printer.discordapp.com",
+            //        "canary.discordapp.com",
+            //        "apps.discordapp.com",
+            //        "pax.discordapp.com",
+            //    },
+            //    DomainTag = DomainTag.Discord,
+            //    IsEnable= false,
+            //},
             new ProxyDomainModel{
                 Index=5,
                 Name=Resources.Twitch,

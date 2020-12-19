@@ -231,6 +231,11 @@
                             <LineBreak />
                             <LineBreak />
                             <Run Text="BUG&amp;建议反馈:" />
+                            <metro2:HyperlinkEx Uri="https://github.com/rmbadmin/SteamTools/issues">
+                                <Run Text="https://github.com/rmbadmin/SteamTools/issues" />
+                            </metro2:HyperlinkEx>
+                            <LineBreak />
+                            <Run Text="或者发送到我的邮箱:"></Run>
                             <metro2:HyperlinkEx Uri="rmb@rmbgame.net">
                                 <Run Text="rmb@rmbgame.net" />
                             </metro2:HyperlinkEx>

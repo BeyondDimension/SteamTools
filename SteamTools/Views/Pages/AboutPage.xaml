@@ -43,7 +43,15 @@
             </TabItem.Header>
             <contents:AboutDonate></contents:AboutDonate>
         </TabItem>
-
+        
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock Text="{Binding Resources.About_DonateList,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
+                               Style="{StaticResource TabHeaderTextStyleKey}" />
+            </TabItem.Header>
+            <contents:AboutDonateList></contents:AboutDonateList>
+        </TabItem>
+        
         <TabItem>
             <TabItem.Header>
                 <TextBlock Text="{Binding Resources.AboutUpdateHistory,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"

@@ -34,6 +34,12 @@ namespace SteamTools.Models.Settings
             = new SerializableProperty<bool>(GetKey(), Providers.Roaming, false) { AutoSave = true };
 
         /// <summary>
+        /// 程序启动时最小化
+        /// </summary>
+        public static SerializableProperty<bool> IsStartupAppMinimized { get; }
+            = new SerializableProperty<bool>(GetKey(), Providers.Roaming, false) { AutoSave = true };
+
+        /// <summary>
         /// 是否显示起始页
         /// </summary>
         public static SerializableProperty<bool> IsShowStartPage { get; }

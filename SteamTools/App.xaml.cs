@@ -92,7 +92,7 @@ namespace SteamTools
                 ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
 
                 this.MainWindow = WindowService.Current.GetMainWindow();
-                if (e.Args.ContainsArg("-minimized"))
+                if (e.Args.ContainsArg("-minimized") || GeneralSettings.IsStartupAppMinimized.Value)
                     (WindowService.Current.MainWindow as MainWindowViewModel).Initialize();
                 else
                     this.MainWindow.Show();

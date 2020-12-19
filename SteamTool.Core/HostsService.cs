@@ -74,7 +74,7 @@ namespace SteamTool.Core
 
             try
             {
-                dataLines.Add($"{ip} {domain} {Const.HostTag}");
+                dataLines.Add($"{ip} {domain} {Const.HOST_TAG}");
                 File.WriteAllLines(HostsPath, dataLines);
 
                 //File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
@@ -128,7 +128,7 @@ namespace SteamTool.Core
 
             foreach (var (ip, domain) in hosts)
             {
-                dataLines.Add($"{ip} {domain} {Const.HostTag}");
+                dataLines.Add($"{ip} {domain} {Const.HOST_TAG}");
             }
             try
             {
@@ -205,7 +205,7 @@ namespace SteamTool.Core
                 {
                     if (!temp[0].StartsWith("#"))
                     {
-                        return !temp.Contains(Const.HostTag);
+                        return !temp.Contains(Const.HOST_TAG);
                     }
                 }
                 return true;
