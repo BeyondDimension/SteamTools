@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Proxy", "SteamToo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Composition", "Composition", "{F62E508E-B374-4149-B9AC-0A8090AA6CD1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Steam.Service", "SteamTools.Steam.Service\SteamTool.Steam.Service.csproj", "{2A155A7B-3DFD-4F16-929D-9693D2411B83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Steam.Service", "SteamTool.Steam.Service\SteamTool.Steam.Service.csproj", "{2A155A7B-3DFD-4F16-929D-9693D2411B83}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Core", "SteamTool.Core\SteamTool.Core.csproj", "{23E26040-19A5-4623-8863-B9ED539403B0}"
 EndProject

@@ -79,8 +79,10 @@ Steam++只在keylol论坛与github发布，为了账号安全，请不要到其�
 
 ## 运行环境
 
-
 > 程序使用C# WPF在 .NET Framework4.7.2环境下开发，如果无法运行请下载安装[.NET Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472)。
+
+## 已知的未修复问题
+* 
 
 ## 下载
 

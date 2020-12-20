@@ -96,15 +96,8 @@ namespace SteamTools.ViewModels
 
         internal override void Initialize()
         {
-            AuthService.Current.Subscribe(nameof(AuthService.Current.Authenticators), this.Update).AddTo(this);
-            //Task.Run(() =>
-            //{
-            //});
-        }
-
-        private void Update()
-        {
-            Authenticators = AuthService.Current.Authenticators;
+            AuthService.Current.Subscribe(nameof(AuthService.Current.Authenticators), 
+                ()=> { Authenticators = AuthService.Current.Authenticators; }).AddTo(this);
         }
 
         public void AddAuth_Click()

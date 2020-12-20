@@ -83,11 +83,12 @@ namespace SteamTools
                 this.compositeDisposable.Add(ProxyService.Current.Shutdown);
                 this.compositeDisposable.Add(SteamConnectService.Current.Shutdown);
 
-                //托盘加载
                 GeneralSettings.Culture.Subscribe(x => ResourceService.Current.ChangeCulture(x)).AddTo(this);
                 WindowService.Current.AddTo(this).Initialize();
                 ProxyService.Current.Initialize();
+                AuthService.Current.Initialize();
                 SteamConnectService.Current.Initialize();
+                //托盘加载
                 TaskbarService.Current.Taskbar = (TaskbarIcon)FindResource("Taskbar");
                 ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
 

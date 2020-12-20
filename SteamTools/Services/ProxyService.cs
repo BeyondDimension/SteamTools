@@ -32,7 +32,7 @@ namespace SteamTools.Services
                 }
             }
             Proxy = new HttpProxy(ProxyDomains.Value, ProductInfo.Product);
-            InitJsScript(); 
+            InitJsScript();
             Proxy.IsEnableScript = IsEnableScript;
         }
 
@@ -209,6 +209,15 @@ namespace SteamTools.Services
             //},
             new ProxyDomainModel{
                 Index=8,
+                Name=Resources.GoogleRecaptchaCode,
+                Domains = new List<string>{"www.google.com" },
+                ToDomain = "kh.google.com",
+                Hosts = new List<string>{ "www.google.com"},
+                DomainTag = DomainTag.GoogleCode,
+                IsEnable= false,
+            },
+            new ProxyDomainModel{
+                Index=9,
                 Name=Resources.GoogleRecaptchaCode,
                 Domains = new List<string>{"www.google.com" },
                 ToDomain = "kh.google.com",

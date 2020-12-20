@@ -60,7 +60,7 @@ namespace SteamTools.Services
             }
         }
 
-        public AuthService()
+        public void Initialize()
         {
             if (!string.IsNullOrEmpty(AuthSettings.Authenticators.Value))
             {
