@@ -13,7 +13,7 @@ namespace SteamTool.Core
 {
     public class HostsService
     {
-        public readonly static string HostsPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.System)}\drivers\etc\hosts";
+        public readonly static string HostsPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.System)}\\drivers\\etc\\hosts";
 
 
         public OperationResult<List<string>> ReadHostsAllLines()
@@ -95,7 +95,7 @@ namespace SteamTool.Core
         {
             var result = new OperationResult(OperationResultType.Error, Resources.Hosts_WirteError);
 
-            if (hosts.Count == 0) 
+            if (hosts.Count == 0)
             {
                 return result;
             }
@@ -228,7 +228,7 @@ namespace SteamTool.Core
             return result;
         }
 
-        public void StartNotepadEditHosts() 
+        public void StartNotepadEditHosts()
         {
             System.Diagnostics.Process.Start("notepad.exe", HostsPath);
         }

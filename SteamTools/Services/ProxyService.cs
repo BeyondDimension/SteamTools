@@ -10,17 +10,20 @@ using System.IO;
 using SteamTool.Model;
 using SteamTools.Models;
 using SteamTools.Models.Settings;
+using SteamTool.Core;
 
 namespace SteamTools.Services
 {
     public class ProxyService : NotificationObject
     {
         public static ProxyService Current { get; } = new ProxyService();
-
+        private readonly HostsService hostsService = new HostsService();
         public HttpProxy Proxy { get; set; }
 
         public void Initialize()
         {
+            //启动时恢复host
+            hostsService.RemoveHostsByTag();
             if (ProxySettings.SupportProxyServicesStatus.Value.Count > 0)
             {
                 foreach (var item in ProxyDomains.Value)
@@ -34,6 +37,10 @@ namespace SteamTools.Services
             Proxy = new HttpProxy(ProxyDomains.Value, ProductInfo.Product);
             InitJsScript();
             Proxy.IsEnableScript = IsEnableScript;
+            if (ProxySettings.ProgramStartupRunProxy.Value)
+            {
+                ProxyStatus = true;
+            }
         }
 
         private Lazy<IReadOnlyCollection<ProxyDomainModel>> _ProxyDomains = new Lazy<IReadOnlyCollection<ProxyDomainModel>>(() => new List<ProxyDomainModel>

@@ -108,7 +108,7 @@ namespace SteamTool.Proxy
                     }
                 }
             }
-            GC.Collect();
+            //GC.Collect();
         }
         public async Task OnResponse(object sender, SessionEventArgs e)
         {

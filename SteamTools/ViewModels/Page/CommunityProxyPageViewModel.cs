@@ -26,14 +26,6 @@ namespace SteamTools.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
-        internal override void Initialize()
-        {
-            if (ProxySettings.ProgramStartupRunProxy.Value)
-            {
-                ProxyService.Current.ProxyStatus = true;
-            }
-        }
-
         public void SetupCertificate_OnClick()
         {
             ProxyService.Current.Proxy.SetupCertificate();

@@ -94,7 +94,6 @@ namespace SteamTools.Services
 
         public void Initialize()
         {
-
             Task.Run(async () =>
              {
                  Thread.CurrentThread.IsBackground = true;

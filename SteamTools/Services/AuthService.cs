@@ -64,11 +64,15 @@ namespace SteamTools.Services
         {
             if (!string.IsNullOrEmpty(AuthSettings.Authenticators.Value))
             {
-                Authenticators = new BindingList<WinAuthAuthenticator>(AuthService.LoadJsonAuthenticator(AuthSettings.Authenticators.Value.DecompressString()));
-            }
-            else
-            {
-                Authenticators = new BindingList<WinAuthAuthenticator>();
+                try
+                {
+                    var auths = AuthService.LoadJsonAuthenticator(AuthSettings.Authenticators.Value.DecompressString());
+                    Authenticators = new BindingList<WinAuthAuthenticator>(auths);
+                }
+                catch (Exception ex)
+                {
+                    WindowService.Current.ShowDialogWindow($"令牌同步服务器失败，错误信息：{ex.Message}");
+                }
             }
         }
 
