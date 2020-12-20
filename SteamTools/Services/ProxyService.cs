@@ -110,7 +110,7 @@ namespace SteamTools.Services
             new ProxyDomainModel{
                 Index=5,
                 Name=Resources.Twitch,
-                Domains = new List<string>{ "twitch.tv" },
+                Domains = new List<string>{ "twitch.tv" ,"usher.ttvnw.net"},
                 ToDomain="twitch.map.fastly.net",
                 Hosts = new List<string>{
                 "twitch.tv",
@@ -151,7 +151,7 @@ namespace SteamTools.Services
                 "irc-ws.chat.twitch.tv",
                 "irc-ws-r.chat.twitch.tv",
                 //"platform.twitter.com",
-                //"usher.ttvnw.net",
+                "usher.ttvnw.net",
                 },
                 DomainTag = DomainTag.Twitch,
                 IsEnable= false,

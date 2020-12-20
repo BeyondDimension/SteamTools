@@ -300,10 +300,10 @@ namespace SteamTool.Proxy
                 {
                     return false;
                 }
-                if (PortInUse(443))
-                {
-                    return false;
-                }
+            }
+            if (PortInUse(443))
+            {
+                return false;
             }
             if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
 
