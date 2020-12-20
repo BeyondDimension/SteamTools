@@ -80,5 +80,7 @@ namespace SteamTool.Proxy
         GoogleCode = 8,
         [Description("GOG.COM")]
         GOG = 8,
+        [Description("Github图片修复")]
+        GithubContent = 9,
     }
 }

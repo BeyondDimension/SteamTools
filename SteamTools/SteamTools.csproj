@@ -314,7 +314,7 @@
 		<ProjectReference Include="..\SteamTool.Authenticator\SteamTool.Authenticator.csproj" />
 		<ProjectReference Include="..\SteamTool.Core\SteamTool.Core.csproj" />
 		<ProjectReference Include="..\SteamTool.Proxy\SteamTool.Proxy.csproj" />
-		<ProjectReference Include="..\SteamTools.Steam.Service\SteamTool.Steam.Service.csproj" />
+		<ProjectReference Include="..\SteamTool.Steam.Service\SteamTool.Steam.Service.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

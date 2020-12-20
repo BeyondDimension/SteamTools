@@ -39,6 +39,7 @@ namespace SteamTool.Proxy
 
         public async Task OnRequest(object sender, SessionEventArgs e)
         {
+#if DEBUG
             #region 测试用
             /*
             if (e.HttpClient.Request.RequestUri.AbsoluteUri.Contains("steampowered.com"))
@@ -62,7 +63,6 @@ namespace SteamTool.Proxy
             }
             */
             #endregion
-#if DEBUG
             Debug.WriteLine("OnRequest" + e.HttpClient.Request.RequestUri.AbsoluteUri);
 #endif
             foreach (var item in ProxyDomains)

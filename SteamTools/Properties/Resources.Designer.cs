@@ -466,6 +466,15 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Github图片资源修复 的本地化字符串。
+        /// </summary>
+        public static string GithubContent {
+            get {
+                return ResourceManager.GetString("GithubContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 GOG Galaxy 的本地化字符串。
         /// </summary>
         public static string GOG {
