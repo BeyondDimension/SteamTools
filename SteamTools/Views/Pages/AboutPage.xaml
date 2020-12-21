@@ -82,7 +82,7 @@
                         <Run  Text="{Binding Resources.About_OpenSourceLicensing,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"/>
                     </TextBlock>
                     <TextBlock Style="{StaticResource DetailTextStyleKey}">
-                        <Run  Text="此软件的诞生离不开以下开源项目:"/>
+                        <Run  Text="Steam++采用GPLv3开源许可，此软件的诞生离不开以下开源项目:"/>
                         <LineBreak/>
                     </TextBlock>
                     <ItemsControl ItemsSource="{Binding Source={x:Static models:ProductInfo.Libraries}}">

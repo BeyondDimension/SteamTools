@@ -97,7 +97,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 开源许可 的本地化字符串。
+        ///   查找类似 开源协议 的本地化字符串。
         /// </summary>
         public static string About_OpenSourceLicensing {
             get {
