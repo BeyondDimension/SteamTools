@@ -29,22 +29,24 @@
 				   Style="{DynamicResource SettingsHeaderTextStyleKey}" />
         <DockPanel Grid.Column="1">
             <TextBlock DockPanel.Dock="Top">
-                        <Run Text="十分感谢此列表的大佬们对我的支持与捐助" Style="{StaticResource DetailTextElementStyleKey}" />
+                        <Run Text="十分感谢此列表的大佬们对我的支持与捐助，此工具的完善离不开以下大佬的支持：" Style="{StaticResource DetailTextElementStyleKey}" />
             </TextBlock>
-            <ItemsControl ItemsSource="{Binding DonateRecordList}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel Margin="8">
-                            <WrapPanel VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Name}" Foreground="{StaticResource ActiveForegroundBrushKey}" Margin="30,0,0,0"></TextBlock>
-                                <TextBlock  Text="{Binding Amount,StringFormat={}{0:F2}元}" Foreground="{StaticResource ActiveForegroundBrushKey}"  Margin="30,0,0,0"></TextBlock>
-                                <TextBlock  Text="{Binding Remark}" Foreground="{StaticResource ActiveForegroundBrushKey}"  Margin="30,0,0,0"></TextBlock>
-                            </WrapPanel>
-                            <TextBlock  Text="{Binding PayTime,StringFormat='{}{0:yyyy年MM月dd日}',ConverterCulture=zh-CN}" Foreground="{StaticResource ActiveForegroundBrushKey}" Margin="10" HorizontalAlignment="Right"></TextBlock>
-                        </DockPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding DonateRecordList}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel Margin="8">
+                                <WrapPanel VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Name}" Foreground="{StaticResource ActiveForegroundBrushKey}" Margin="10,0,0,0" Width="50"></TextBlock>
+                                    <TextBlock  Text="{Binding Amount,StringFormat={}{0:F2}元}" Foreground="{StaticResource ActiveForegroundBrushKey}"  Margin="30,0,0,0" Width="100"></TextBlock>
+                                    <TextBlock  Text="{Binding Remark}" Foreground="{StaticResource ActiveForegroundBrushKey}"  Margin="30,0,0,0"></TextBlock>
+                                </WrapPanel>
+                                <TextBlock  Text="{Binding PayTime,StringFormat='{}{0:yyyy年MM月dd日}',ConverterCulture=zh-CN}" Foreground="{StaticResource ActiveForegroundBrushKey}" Margin="10" HorizontalAlignment="Right"></TextBlock>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
             <!--<WebBrowser x:Name="web" Opacity="0.2"></WebBrowser>-->
         </DockPanel>
     </DockPanel>

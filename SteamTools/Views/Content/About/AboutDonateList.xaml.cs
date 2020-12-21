@@ -23,7 +23,7 @@ namespace SteamTools.Views.Content
     /// </summary>
     public partial class AboutDonateList : UserControl
     {
-        private readonly HttpServices httpServices = SteamToolCore.Instance.Get<HttpServices>();
+        //private readonly HttpServices httpServices = SteamToolCore.Instance.Get<HttpServices>();
 
         public AboutDonateList()
         {
