@@ -60,5 +60,10 @@ namespace SteamTools.ViewModels
                 StatusService.Current.Notify("未检测到Steam运行");
             }
         }
+
+        public void CheckUpdate_Click() 
+        {
+            AutoUpdateService.Current.CheckUpdate();
+        }
     }
 }

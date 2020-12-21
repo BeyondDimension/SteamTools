@@ -55,12 +55,12 @@ namespace SteamTools.Services
             throw new InvalidOperationException();
         }
 
-        public bool? ShowDialogWindow(string content)
+        public bool ShowDialogWindow(string content)
         {
             return ShowDialogWindow(content, ProductInfo.Title);
         }
 
-        public bool? ShowDialogWindow(string content, string title)
+        public bool ShowDialogWindow(string content, string title)
         {
             var dialog = new DialogWindowViewModel
             {
@@ -69,7 +69,8 @@ namespace SteamTools.Services
             };
             var window = new MessageDialog { DataContext = dialog };
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            return window.ShowDialog();
+            window.ShowDialog();
+            return dialog.DialogResult;
         }
 
         #region disposable members

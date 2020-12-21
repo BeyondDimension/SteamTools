@@ -46,7 +46,7 @@ namespace SteamTools.Models.Settings
             = new SerializableProperty<bool>(GetKey(), Providers.Roaming, true) { AutoSave = true };
 
         /// <summary>
-        /// 游戏列表本地缓存
+        /// 启用游戏列表本地缓存
         /// </summary>
         public static SerializableProperty<bool> IsSteamAppListLocalCache { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Roaming, true) { AutoSave = true };
@@ -55,7 +55,13 @@ namespace SteamTools.Models.Settings
         /// Steam启动参数
         /// </summary>
         public static SerializableProperty<string> SteamStratParameter { get; }
-            = new SerializableProperty<string>(GetKey(), Providers.Roaming, string.Empty) { AutoSave = true };
+            = new SerializableProperty<string>(GetKey(), Providers.Local, string.Empty) { AutoSave = true };
+
+        /// <summary>
+        /// 自动检查更新
+        /// </summary>
+        public static SerializableProperty<bool> IsAutoCheckUpdate { get; }
+            = new SerializableProperty<bool>(GetKey(), Providers.Roaming, true) { AutoSave = true };
 
         private static string GetKey([CallerMemberName] string propertyName = "")
         {

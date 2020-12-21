@@ -32,13 +32,15 @@
 
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 
-		<Description>Steam++</Description>
+		<Description>「Steam++」是一个包含多种Steam工具功能的工具箱。</Description>
 
 		<Platforms>AnyCPU;x86</Platforms>
 
 		<Product>SteamTools</Product>
 
 		<PackageId />
+
+		<Version>1.0.2</Version>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">

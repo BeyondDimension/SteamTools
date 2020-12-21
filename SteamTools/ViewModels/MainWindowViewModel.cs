@@ -15,6 +15,7 @@ using SteamTools.Services;
 using SteamTools.Properties;
 using MetroRadiance.Interop.Win32;
 using SteamTool.Core.Common;
+using SteamTools.Models.Settings;
 
 namespace SteamTools.ViewModels
 {
@@ -135,6 +136,10 @@ namespace SteamTools.ViewModels
                 }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted)
                 .ContinueWith(s => s.Dispose());
                 AuthService.Current.Initialize();
+                if (GeneralSettings.IsAutoCheckUpdate)
+                {
+                    AutoUpdateService.Current.CheckUpdate();
+                }
                 StatusService.Current.Set(Resources.Ready);
                 this.IsInitialized = true;
             }

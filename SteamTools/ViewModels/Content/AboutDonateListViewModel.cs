@@ -16,6 +16,7 @@ using System.IO;
 using SteamTools.Properties;
 using SteamTool.Model;
 using Newtonsoft.Json;
+using System.Threading;
 
 namespace SteamTools.ViewModels
 {
@@ -50,9 +51,15 @@ namespace SteamTools.ViewModels
 
         public AboutDonateListViewModel()
         {
-            httpServices.Get(Const.REWARDMELIST_URL).ContinueWith(s =>
+            Task.Run(() =>
             {
-                DonateRecordList = JsonConvert.DeserializeObject<List<DonateRecord>>(s.Result);
+                httpServices.Get(Const.REWARDMELIST_URL).ContinueWith(s =>
+                {
+                    if (!string.IsNullOrEmpty(s.Result))
+                    {
+                        DonateRecordList = JsonConvert.DeserializeObject<List<DonateRecord>>(s.Result);
+                    }
+                });
             });
         }
     }

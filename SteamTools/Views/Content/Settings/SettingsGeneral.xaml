@@ -49,6 +49,8 @@
 							  IsChecked="{Binding Source={x:Static ms:GeneralSettings.WindowsStartupAutoRun}, Path=Value, Mode=TwoWay}">
                     <TextBlock Text="开机自启动"></TextBlock>
                 </CheckBox>
+
+                <Separator Opacity="0" Height="10"/>
                 <WrapPanel>
                     <CheckBox 
 							  HorizontalAlignment="Left"
@@ -59,8 +61,26 @@
                         <Run Text="*此设置不影响开机自启动时最小化"></Run>
                     </TextBlock>
                 </WrapPanel>
-
-
+                
+                <Separator Opacity="0" Height="10"/>
+                <CheckBox 
+							  HorizontalAlignment="Left"
+							  IsChecked="{Binding Source={x:Static ms:GeneralSettings.IsAutoCheckUpdate}, Path=Value, Mode=TwoWay}">
+                    <TextBlock Text="启动时自动检查更新"></TextBlock>
+                </CheckBox>
+                
+                <Separator Opacity="0" Height="10"/>
+                <WrapPanel>
+                    <metro2:CallMethodButton Content="检查更新" 
+                                         Width="80" 
+                                         Height="30" 
+                                         HorizontalAlignment="Left"
+                                         MethodName="CheckUpdate_Click"
+                                         MethodTarget="{Binding}"/>
+                    <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="10,0,0,0">
+                        <Run Text="手动检查更新"></Run>
+                    </TextBlock>
+                </WrapPanel>
                 <!--<Separator Opacity="0" Height="10"/>-->
 
                 <Border Height="1" 

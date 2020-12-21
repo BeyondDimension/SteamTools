@@ -10,6 +10,7 @@ namespace SteamTool.Model
         public const string HOST_TAG = "#S302";
 
         public const string REWARDMELIST_URL = "https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/RewardRecord.json";
+        public const string GITHUB_RELEASEAPI_URL = "https://api.github.com/repos/rmbadmin/SteamTools/releases/latest";
 
         public const string GITHUB_URL = "https://github.com/rmbadmin/SteamTools";
         public const string GITHUB_RELEASES_URL = "https://github.com/rmbadmin/SteamTools/releases";

@@ -71,7 +71,7 @@ namespace SteamTools.Services
                 }
                 catch (Exception ex)
                 {
-                    WindowService.Current.ShowDialogWindow($"令牌同步服务器失败，错误信息：{ex.Message}");
+                    WindowService.Current.MainWindow.Dialog($"令牌同步服务器失败，错误信息：{ex.Message}");
                 }
             }
         }

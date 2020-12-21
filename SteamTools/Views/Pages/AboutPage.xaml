@@ -49,7 +49,11 @@
                 <TextBlock Text="{Binding Resources.About_DonateList,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
                                Style="{StaticResource TabHeaderTextStyleKey}" />
             </TabItem.Header>
-            <contents:AboutDonateList></contents:AboutDonateList>
+            <contents:AboutDonateList>
+                <contents:AboutDonateList.DataContext>
+                    <viewModel:AboutDonateListViewModel></viewModel:AboutDonateListViewModel>
+                </contents:AboutDonateList.DataContext>
+            </contents:AboutDonateList>
         </TabItem>
         
         <TabItem>

@@ -34,12 +34,14 @@
             <ItemsControl ItemsSource="{Binding DonateRecordList}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}" Foreground="{StaticResource ActiveForegroundBrushKey}" Margin="15,0,0,0"></TextBlock>
-                            <TextBlock  Text="{Binding Amount}" Foreground="{StaticResource ActiveForegroundBrushKey}"  Margin="15,0,0,0"></TextBlock>
-                            <TextBlock  Text="{Binding Remark}" Foreground="{StaticResource ActiveForegroundBrushKey}"  Margin="15,0,0,0"></TextBlock>
-                            <TextBlock  Text="{Binding PayTime}" Foreground="{StaticResource ActiveForegroundBrushKey}"  Margin="15,0,0,0"></TextBlock>
-                        </StackPanel>
+                        <DockPanel Margin="8">
+                            <WrapPanel VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Name}" Foreground="{StaticResource ActiveForegroundBrushKey}" Margin="30,0,0,0"></TextBlock>
+                                <TextBlock  Text="{Binding Amount,StringFormat={}{0:F2}元}" Foreground="{StaticResource ActiveForegroundBrushKey}"  Margin="30,0,0,0"></TextBlock>
+                                <TextBlock  Text="{Binding Remark}" Foreground="{StaticResource ActiveForegroundBrushKey}"  Margin="30,0,0,0"></TextBlock>
+                            </WrapPanel>
+                            <TextBlock  Text="{Binding PayTime,StringFormat='{}{0:yyyy年MM月dd日}',ConverterCulture=zh-CN}" Foreground="{StaticResource ActiveForegroundBrushKey}" Margin="10" HorizontalAlignment="Right"></TextBlock>
+                        </DockPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
