@@ -195,7 +195,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Update="Properties\Resources.zh-TW.resx">
+		<EmbeddedResource Update="Properties\Resources.zh-Hant.resx">
 			<DependentUpon>Resources.resx</DependentUpon>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Properties\Resources.en.resx">

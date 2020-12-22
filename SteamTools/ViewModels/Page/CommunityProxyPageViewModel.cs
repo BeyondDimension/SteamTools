@@ -54,7 +54,7 @@ namespace SteamTools.ViewModels
             {
                 foreach (var file in fileDialog.FileNames)
                 {
-                    File.Copy(file, $@"{Const.SCRIPT_DIR}\{Path.GetFileName(file)}", true);
+                    File.Copy(file, $@"{Path.Combine(AppContext.BaseDirectory, Const.SCRIPT_DIR)}\{Path.GetFileName(file)}", true);
                 }
                 ProxyService.Current.InitJsScript();
             }
@@ -62,7 +62,7 @@ namespace SteamTools.ViewModels
 
         public void OpenScriptFileDir_Click()
         {
-            Process.Start(Const.SCRIPT_DIR);
+            Process.Start(Path.Combine(AppContext.BaseDirectory, Const.SCRIPT_DIR));
         }
 
         public void DeleteScript_OnClick(string path)

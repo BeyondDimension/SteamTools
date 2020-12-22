@@ -323,7 +323,7 @@ namespace SteamTools.Services
         public void InitJsScript()
         {
             var scripts = new List<ProxyScript>();
-            var dir = new DirectoryInfo(Const.SCRIPT_DIR);
+            var dir = new DirectoryInfo(Path.Combine(AppContext.BaseDirectory,Const.SCRIPT_DIR));
             if (!dir.Exists)
             {
                 dir.Create();

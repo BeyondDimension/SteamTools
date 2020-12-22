@@ -17,6 +17,7 @@ using SteamTool.Steam.Service;
 using SteamTool.Model;
 using Newtonsoft.Json;
 using SteamTools.Models.Settings;
+using System.IO;
 
 namespace SteamTools.ViewModels
 {
@@ -42,7 +43,7 @@ namespace SteamTools.ViewModels
                 {
                     var result = await SteamworksWebApi.GetAllSteamAppsString();
                     if (GeneralSettings.IsSteamAppListLocalCache)
-                        SteamTool.UpdateAppListJson(result, Const.APP_LIST_FILE);
+                        SteamTool.UpdateAppListJson(result, Path.Combine(AppContext.BaseDirectory, Const.APP_LIST_FILE));
                     var apps = JsonConvert.DeserializeObject<SteamApps>(result).AppList.Apps;
                     apps = apps.DistinctBy(d => d.AppId).ToList();
                     //SteamConnectService.Current.SteamApps = apps;
@@ -61,7 +62,7 @@ namespace SteamTools.ViewModels
             }
         }
 
-        public void CheckUpdate_Click() 
+        public void CheckUpdate_Click()
         {
             AutoUpdateService.Current.CheckUpdate();
         }

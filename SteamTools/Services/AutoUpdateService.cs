@@ -45,7 +45,7 @@ namespace SteamTools.Services
             try
             {
                 StatusService.Current.Notify("正在从Github检查更新...");
-                var result = await httpServices.Get(Const.GITHUB_RELEASEAPI_URL);
+                var result = await httpServices.Get(Const.GITHUB_LATEST_RELEASEAPI_URL);
                 var model = JsonConvert.DeserializeObject<GithubReleaseModel>(result);
                 if (!(ProductInfo.Version < model.version))
                 {
@@ -75,7 +75,7 @@ namespace SteamTools.Services
                             totalDownloadBytes += size;
                             fileStream.Write(bs, 0, size);
                             ProgressValue = ((double)totalDownloadBytes / (double)totalBytes);
-                            StatusService.Current.Set($"下载更新{ProgressValue.ToString("P")}");
+                            StatusService.Current.Set($"下载更新{ProgressValue:P}");
                             size = responseStream.Read(bs, 0, bs.Length);
                         }
                         fileStream.Flush();
@@ -88,7 +88,7 @@ namespace SteamTools.Services
             catch (Exception ex)
             {
                 Logger.Error("更新出错：", ex);
-                WindowService.Current.MainWindow.Dialog($"更新出错：{ex.Message}");
+                WindowService.Current.ShowDialogWindow($"更新出错：{ex.Message}");
             }
 
         }

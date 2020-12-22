@@ -23,8 +23,8 @@ namespace SteamTools.Services
         /// </summary>
         private readonly string[] supportedCultureNames =
         {
-            "zh-CN", // Resources.resx
-            "zh-TW",
+            "zh-Hans", // Resources.resx
+            "zh-Hant",
             "en",
         };
 
@@ -33,8 +33,8 @@ namespace SteamTools.Services
         /// </summary>
         private readonly Dictionary<string, string> supportedCultureSteamNames = new Dictionary<string, string>
         {
-            { "zh-CN","schinese"},
-            { "zh-TW","tchinese"},
+            { "zh-Hans","schinese"},
+            { "zh-Hant","tchinese"},
             { "en","english"},
         };
 
@@ -76,7 +76,7 @@ namespace SteamTools.Services
         {
             Resources.Culture = this.SupportedCultures.SingleOrDefault(x => x.Name == name);
             GeneralSettings.Culture.Value = SteamTools.Properties.Resources.Culture?.Name;
-            Debug.WriteLine(SteamTools.Properties.Resources.ResourceManager.GetString("Welcome", Resources.Culture));
+            //Debug.WriteLine(SteamTools.Properties.Resources.ResourceManager.GetString("Welcome", Resources.Culture));
             this.RaisePropertyChanged(nameof(this.Resources));
         }
 

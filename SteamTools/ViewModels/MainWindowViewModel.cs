@@ -74,7 +74,8 @@ namespace SteamTools.ViewModels
                 {
                     App.Current.MainWindow.WindowState = WindowState.Normal;
                     App.Current.MainWindow.Topmost = true;
-                    User32Window.FlashWindow(new WindowInteropHelper(App.Current.MainWindow).Handle);
+                    this.Activate();
+                    //User32Window.FlashWindow(new WindowInteropHelper(App.Current.MainWindow).Handle);
                     App.Current.MainWindow.Topmost = false;
                 }
             }
@@ -155,12 +156,13 @@ namespace SteamTools.ViewModels
             {
                 App.Current.MainWindow.Show();
                 App.Current.MainWindow.WindowState = WindowState.Normal;
-                App.Current.MainWindow.Activate();
+                this.Activate();
+                //App.Current.MainWindow.Activate();
                 User32Window.FlashWindow(new WindowInteropHelper(App.Current.MainWindow).Handle);
             }
             else
             {
-                //App.Current.MainWindow.WindowState = WindowState.Minimized;
+                App.Current.MainWindow.WindowState = WindowState.Minimized;
                 App.Current.MainWindow.Hide();
                 App.Current.MainWindow.Visibility = Visibility.Collapsed;
             }
