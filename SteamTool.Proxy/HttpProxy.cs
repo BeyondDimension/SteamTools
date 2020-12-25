@@ -218,7 +218,7 @@ namespace SteamTool.Proxy
             //proxyServer.CertificateManager
             //    .CreateServerCertificate($"{Assembly.GetCallingAssembly().GetName().Name} Certificate")
             //    .ContinueWith(c => proxyServer.CertificateManager.RootCertificate = c.Result);
-            proxyServer.CertificateManager.PfxFilePath = $@"{CertificateName}.Certificate.pfx";
+            proxyServer.CertificateManager.PfxFilePath = Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.pfx");
             //proxyServer.CertificateManager.PfxPassword = $"{CertificateName}";
             proxyServer.CertificateManager.RootCertificateIssuerName = CertificateName;
             proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
@@ -264,7 +264,7 @@ namespace SteamTool.Proxy
                 {
                     //取消删除证书
                 }
-                else 
+                else
                 {
                     throw;
                 }

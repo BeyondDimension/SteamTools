@@ -302,6 +302,9 @@
 		<Page Update="Views\Pages\WelcomePage.xaml">
 			<SubType>Designer</SubType>
 		</Page>
+		<Page Update="Views\Window\AuthTradeWindow.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		</Page>
 		<Page Update="Views\Window\ShowAuthWindow.xaml">
 		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		</Page>

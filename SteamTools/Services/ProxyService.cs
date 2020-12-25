@@ -86,7 +86,7 @@ namespace SteamTools.Services
                 Name=Resources.Discord,
                 Domains = new List<string>{ "discordapp.com","discordapp.net" },
                 //ToDomain = "discord.com",
-                ProxyIPAddres="162.159.130.232",
+                ProxyIPAddres="162.159.129.233",
                 Hosts = new List<string>{
                     "discordapp.com",
                     "dl.discordapp.net",

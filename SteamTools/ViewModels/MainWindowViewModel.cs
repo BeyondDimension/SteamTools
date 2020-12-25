@@ -73,10 +73,10 @@ namespace SteamTools.ViewModels
                 if (value)
                 {
                     App.Current.MainWindow.WindowState = WindowState.Normal;
-                    App.Current.MainWindow.Topmost = true;
+                    //App.Current.MainWindow.Topmost = true;
                     this.Activate();
                     //User32Window.FlashWindow(new WindowInteropHelper(App.Current.MainWindow).Handle);
-                    App.Current.MainWindow.Topmost = false;
+                    //App.Current.MainWindow.Topmost = false;
                 }
             }
         }
@@ -136,13 +136,15 @@ namespace SteamTools.ViewModels
                     }
                 }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted)
                 .ContinueWith(s => s.Dispose());
+
                 AuthService.Current.Initialize();
                 if (GeneralSettings.IsAutoCheckUpdate)
                 {
                     AutoUpdateService.Current.CheckUpdate();
                 }
-                StatusService.Current.Set(Resources.Ready);
+
                 this.IsInitialized = true;
+                StatusService.Current.Set(Resources.Ready);
             }
         }
 
@@ -151,20 +153,19 @@ namespace SteamTools.ViewModels
         /// </summary>
         public void ChangeWindowVisible()
         {
-            App.Current.MainWindow = App.Current.MainWindow ?? new MainWindow();
+            App.Current.MainWindow = App.Current.MainWindow ?? WindowService.Current.GetMainWindow();
             if (IsVisible)
             {
-                App.Current.MainWindow.Show();
                 App.Current.MainWindow.WindowState = WindowState.Normal;
+                App.Current.MainWindow.Show();
                 this.Activate();
-                //App.Current.MainWindow.Activate();
                 User32Window.FlashWindow(new WindowInteropHelper(App.Current.MainWindow).Handle);
             }
             else
             {
                 App.Current.MainWindow.WindowState = WindowState.Minimized;
                 App.Current.MainWindow.Hide();
-                App.Current.MainWindow.Visibility = Visibility.Collapsed;
+                //App.Current.MainWindow.Visibility = Visibility.Collapsed;
             }
         }
     }

@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MetroRadiance.Interop.Win32;
 using MetroRadiance.UI.Controls;
+using SteamTools.Services;
 using SteamTools.ViewModels;
 
 namespace SteamTools
@@ -31,7 +32,7 @@ namespace SteamTools
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
-            e.Cancel = true; 
+            e.Cancel = true;
             if (this.WindowSettings != null)
             {
                 var hwnd = new WindowInteropHelper(this).Handle;
@@ -40,7 +41,7 @@ namespace SteamTools
                 this.WindowSettings.Placement = this.IsRestoringWindowPlacement ? (WINDOWPLACEMENT?)placement : null;
                 this.WindowSettings.Save();
             }
-            (App.Current.MainWindow.DataContext as MainWindowViewModel).IsVisible = false;
+            (WindowService.Current.MainWindow as MainWindowViewModel).IsVisible = false;
         }
     }
 }
