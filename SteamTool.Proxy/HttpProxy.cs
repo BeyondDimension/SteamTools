@@ -31,6 +31,7 @@ namespace SteamTool.Proxy
 
         public HttpProxy(IReadOnlyCollection<ProxyDomainModel> proxyDomains, string certificateName)
         {
+            proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount;
             ProxyDomains = proxyDomains;
             CertificateName = certificateName;
         }
