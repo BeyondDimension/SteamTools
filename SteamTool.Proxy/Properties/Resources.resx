@@ -135,6 +135,9 @@
   <data name="OriginDownload" xml:space="preserve">
     <value>Origin游戏下载(Akamai)</value>
   </data>
+  <data name="Pixiv" xml:space="preserve">
+    <value>Pixiv</value>
+  </data>
   <data name="SteamChat" xml:space="preserve">
     <value>Steam好友聊天</value>
   </data>

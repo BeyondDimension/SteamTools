@@ -81,6 +81,8 @@ namespace SteamTool.Proxy
         [Description("GOG.COM")]
         GOG = 8,
         [Description("Github图片修复")]
-        GithubContent = 9,
+        GithubContent = 9, 
+        [Description("Pixiv")]
+        Pixiv = 10,
     }
 }

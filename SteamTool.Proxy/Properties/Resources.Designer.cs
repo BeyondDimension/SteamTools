@@ -115,6 +115,15 @@ namespace SteamTool.Proxy.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Pixiv 的本地化字符串。
+        /// </summary>
+        public static string Pixiv {
+            get {
+                return ResourceManager.GetString("Pixiv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam好友聊天 的本地化字符串。
         /// </summary>
         public static string SteamChat {

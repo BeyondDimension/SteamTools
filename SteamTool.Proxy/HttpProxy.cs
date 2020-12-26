@@ -64,11 +64,13 @@ namespace SteamTool.Proxy
             }
             */
             #endregion
-            Debug.WriteLine("OnRequest" + e.HttpClient.Request.RequestUri.AbsoluteUri);
+            Debug.WriteLine("OnRequest " + e.HttpClient.Request.RequestUri.AbsoluteUri);
+            Debug.WriteLine("OnRequest Authority " + e.HttpClient.Request.RequestUri.Authority);
             Logger.Info("OnRequest" + e.HttpClient.Request.RequestUri.AbsoluteUri);
 #endif                  
             await Dns.GetHostAddressesAsync(e.HttpClient.Request.Host).ContinueWith(s =>
-            {//部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
+            {
+                //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
                 if (IPAddress.IsLoopback(s.Result.FirstOrDefault())
                 && ProxyDomains.Count(w => w.IsEnable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
                 {

@@ -20,9 +20,12 @@ namespace SteamTools.Views.Content
     /// </summary>
     public partial class AboutUpdateHistory : UserControl
     {
+        private const string UpdateLogText = "";
+
         public AboutUpdateHistory()
         {
             InitializeComponent();
+
         }
     }
 }
