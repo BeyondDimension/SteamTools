@@ -1,12 +1,14 @@
 ﻿using log4net;
 using log4net.Config;
 using log4net.Repository;
+using SteamTool.Core.Properties;
 using SteamTool.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Xml;
 
 namespace SteamTool.Core.Common
 {
@@ -21,7 +23,16 @@ namespace SteamTool.Core.Common
         static Logger()
         {
             ILoggerRepository repository = LogManager.CreateRepository(Assembly.GetCallingAssembly().GetName().Name);
-            XmlConfigurator.Configure(repository, new FileInfo(@"log\Log4net.config"));
+            if (File.Exists(Path.Combine(AppContext.BaseDirectory, @"log\Log4net.config")))
+            {
+                XmlConfigurator.Configure(repository, new FileInfo(@"log\Log4net.config"));
+            }
+            else
+            {
+                var doc = new XmlDocument();
+                doc.LoadXml(Resources.Log4netXml);
+                XmlConfigurator.Configure(repository, doc.DocumentElement);
+            }
             _textLog = LogManager.GetLogger(repository.Name, "TextLog");
         }
 

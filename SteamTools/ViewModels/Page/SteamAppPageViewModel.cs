@@ -105,37 +105,42 @@ namespace SteamTools.ViewModels
         {
             StatusService.Current.Notify("加载Steam游戏数据");
             Task.Run(async () =>
-            {
-                var apps = SteamTool.GetAppListJson(Path.Combine(AppContext.BaseDirectory, Const.APP_LIST_FILE));
-                if (apps == null || !apps.Any())
-                {
-                    var result = await SteamworksWebApi.GetAllSteamAppsString();
-                    if (string.IsNullOrEmpty(result))
-                    {
-                        StatusService.Current.Notify("下载Steam游戏数据失败，请尝试开启社区反代刷新");
-                    }
-                    if (GeneralSettings.IsSteamAppListLocalCache)
-                        SteamTool.UpdateAppListJson(result, Path.Combine(AppContext.BaseDirectory, Const.APP_LIST_FILE));
-                    apps = JsonConvert.DeserializeObject<SteamApps>(result).AppList.Apps;
-                }
-                apps = apps.DistinctBy(d => d.AppId).ToList();
+           {
+               var apps = SteamTool.GetAppListJson(Path.Combine(AppContext.BaseDirectory, Const.APP_LIST_FILE));
+               if (apps == null || !apps.Any())
+               {
+                   var result = await SteamworksWebApi.GetAllSteamAppsString();
+                   if (string.IsNullOrEmpty(result))
+                   {
+                       StatusService.Current.Notify("下载Steam游戏数据失败，请尝试开启社区反代刷新");
+                       return;
+                   }
+                   if (GeneralSettings.IsSteamAppListLocalCache)
+                       SteamTool.UpdateAppListJson(result, Path.Combine(AppContext.BaseDirectory, Const.APP_LIST_FILE));
+                   apps = JsonConvert.DeserializeObject<SteamApps>(result).AppList.Apps;
+               }
+               apps = apps.DistinctBy(d => d.AppId).ToList();
                 //SteamConnectService.Current.SteamApps = apps;
                 SteamConnectService.Current.SteamApps = SteamConnectService.Current.ApiService.OwnsApps(apps);
 
-                this.updateSource
-                .Do(_ => this.IsReloading = true)
-                .SelectMany(x => this.UpdateAsync())
-                .Do(_ => this.IsReloading = false)
-                .Subscribe()
-                .AddTo(this);
+               this.updateSource
+               .Do(_ => this.IsReloading = true)
+               .SelectMany(x => this.UpdateAsync())
+               .Do(_ => this.IsReloading = false)
+               .Subscribe()
+               .AddTo(this);
 
-                SteamConnectService.Current.Subscribe(nameof(SteamConnectService.Current.SteamApps), this.Update).AddTo(this);
+               SteamConnectService.Current.Subscribe(nameof(SteamConnectService.Current.SteamApps), this.Update).AddTo(this);
 
-            }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s =>
-            {
-                StatusService.Current.Notify("加载Steam游戏数据完成");
-                s.Dispose();
-            });
+           }).ContinueWith(s => { 
+               Logger.Error(s.Exception); 
+               WindowService.Current.ShowDialogWindow(s.Exception.Message, "加载Steam游戏数据失败");
+           }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s =>
+           {
+               StatusService.Current.Notify("加载Steam游戏数据完成");
+               SteamConnectService.Current.DisposeSteamClient();
+               s.Dispose();
+           });
         }
 
         public void Update()

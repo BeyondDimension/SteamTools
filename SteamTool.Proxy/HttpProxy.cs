@@ -31,7 +31,7 @@ namespace SteamTool.Proxy
 
         public HttpProxy(IReadOnlyCollection<ProxyDomainModel> proxyDomains, string certificateName)
         {
-            proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount;
+            proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
             ProxyDomains = proxyDomains;
             CertificateName = certificateName;
         }
@@ -65,7 +65,17 @@ namespace SteamTool.Proxy
             */
             #endregion
             Debug.WriteLine("OnRequest" + e.HttpClient.Request.RequestUri.AbsoluteUri);
-#endif
+            Logger.Info("OnRequest" + e.HttpClient.Request.RequestUri.AbsoluteUri);
+#endif                  
+            await Dns.GetHostAddressesAsync(e.HttpClient.Request.Host).ContinueWith(s =>
+            {//部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
+                if (IPAddress.IsLoopback(s.Result.FirstOrDefault())
+                && ProxyDomains.Count(w => w.IsEnable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
+                {
+                    e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
+                    return;
+                }
+            });
             foreach (var item in ProxyDomains)
             {
                 if (!item.IsEnable)
@@ -84,10 +94,7 @@ namespace SteamTool.Proxy
                         else
                         {
                             var iPs = await Dns.GetHostAddressesAsync(item.ToDomain);
-                            if (iPs.Length > 0)
-                            {
-                                iP = iPs[0];
-                            }
+                            iP = iPs.FirstOrDefault();
                         }
                         if (iP != null)
                         {
@@ -109,7 +116,6 @@ namespace SteamTool.Proxy
                     }
                 }
             }
-            //GC.Collect();
         }
         public async Task OnResponse(object sender, SessionEventArgs e)
         {
@@ -118,6 +124,7 @@ namespace SteamTool.Proxy
             //if (!e.ProxySession.Request.Host.Equals("medeczane.sgk.gov.tr")) return;
 #if DEBUG
             Debug.WriteLine("OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
+            Logger.Info("OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
 #endif
             if (IsEnableScript)
             {

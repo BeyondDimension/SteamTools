@@ -22,6 +22,8 @@ namespace SteamTool.Model
         /// </summary>
         public string OnlineState { get; set; }
 
+        public string IPCountry { get; set; }
+
         /// <summary>
         /// 公开状态
         /// friendsonly

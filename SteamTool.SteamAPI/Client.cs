@@ -103,6 +103,8 @@ namespace SAM.API
                 return;
             }
 
+            this._IsDisposed = true;
+
             if (this.SteamClient != null && this._Pipe > 0)
             {
                 if (this._User > 0)
@@ -115,7 +117,7 @@ namespace SAM.API
                 this._Pipe = 0;
             }
 
-            this._IsDisposed = true;
+            this._IsDisposed = false;
         }
 
         public void Dispose()

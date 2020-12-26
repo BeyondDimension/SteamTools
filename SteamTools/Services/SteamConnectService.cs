@@ -115,6 +115,8 @@ namespace SteamTools.Services
                                   }
                                   IsConnectToSteam = true;
                                   CurrentSteamUser = await steamDbApiService.GetUserInfo(id);
+                                  CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
+
                                   var mainViewModel = (WindowService.Current.MainWindow as MainWindowViewModel);
                                   mainViewModel.SteamAppPage.Initialize();
 #if DEBUG
@@ -151,6 +153,11 @@ namespace SteamTools.Services
                 if (!app.Process.HasExited)
                     app.Process.Kill();
             }
+        }
+
+        public void DisposeSteamClient() 
+        {
+            ApiService.SteamClient.Dispose();
         }
     }
 }

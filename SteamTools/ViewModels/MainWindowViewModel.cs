@@ -156,8 +156,8 @@ namespace SteamTools.ViewModels
             App.Current.MainWindow = App.Current.MainWindow ?? WindowService.Current.GetMainWindow();
             if (IsVisible)
             {
-                App.Current.MainWindow.WindowState = WindowState.Normal;
                 App.Current.MainWindow.Show();
+                App.Current.MainWindow.WindowState = WindowState.Normal;
                 this.Activate();
                 User32Window.FlashWindow(new WindowInteropHelper(App.Current.MainWindow).Handle);
             }

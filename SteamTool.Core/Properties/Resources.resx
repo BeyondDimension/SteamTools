@@ -154,4 +154,33 @@
   <data name="Hosts_WirteError" xml:space="preserve">
     <value>写入Hosts时发生错误</value>
   </data>
+  <data name="Log4netXml" xml:space="preserve">
+    <value>&lt;?xml version="1.0"?&gt;
+&lt;configuration&gt;
+  &lt;configSections&gt;
+    &lt;section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net"/&gt;
+  &lt;/configSections&gt;
+  &lt;log4net&gt;
+    &lt;logger name="TextLog"&gt;
+      &lt;level value="ALL" /&gt;
+      &lt;appender-ref ref="RollingLogFileAppender" /&gt;
+    &lt;/logger&gt;
+    &lt;!--写文本--&gt;
+    &lt;appender name="RollingLogFileAppender" type="log4net.Appender.RollingFileAppender"&gt;
+      &lt;param name="File" value="log\\" /&gt;
+      &lt;param name="AppendToFile" value="true" /&gt;
+      &lt;param name="MaxSizeRollBackups" value="200" /&gt;
+      &lt;param name="StaticLogFileName" value="false" /&gt;
+      &lt;param name="DatePattern" value="yyyyMM\\yyyyMMdd'.log'" /&gt;
+      &lt;param name="RollingStyle" value="Date" /&gt;
+      &lt;layout type="log4net.Layout.PatternLayout,log4net"&gt;
+        &lt;param name="ConversionPattern" value="%d %-5p &gt;&gt; %m%n" /&gt;
+        &lt;!--输出头部并换行--&gt;
+        &lt;!--&lt;param name="Header" value="&amp;#13;&amp;#10;———————————————————&amp;#13;&amp;#10;" /&gt;
+        &lt;param name="Footer" value="&amp;#13;&amp;#10;———————————————————&amp;#13;&amp;#10;" /&gt;--&gt;
+      &lt;/layout&gt;
+    &lt;/appender&gt;
+  &lt;/log4net&gt;
+&lt;/configuration&gt;</value>
+  </data>
 </root>
