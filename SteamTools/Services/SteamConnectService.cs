@@ -118,10 +118,11 @@ namespace SteamTools.Services
                                   CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
 
                                   var mainViewModel = (WindowService.Current.MainWindow as MainWindowViewModel);
-                                  mainViewModel.SteamAppPage.Initialize();
+                                  await mainViewModel.SteamAppPage.Initialize();
 #if DEBUG
-                                  mainViewModel.SystemTabItems[mainViewModel.SystemTabItems.Count - 1].Initialize();
+                                  await mainViewModel.SystemTabItems[mainViewModel.SystemTabItems.Count - 1].Initialize();
 #endif
+                                  SteamConnectService.Current.DisposeSteamClient();
                               }
                           }
                       }
@@ -155,7 +156,7 @@ namespace SteamTools.Services
             }
         }
 
-        public void DisposeSteamClient() 
+        public void DisposeSteamClient()
         {
             ApiService.SteamClient.Dispose();
         }

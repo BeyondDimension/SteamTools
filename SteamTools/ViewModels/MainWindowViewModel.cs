@@ -125,17 +125,16 @@ namespace SteamTools.ViewModels
             if (!this.IsInitialized)
             {
                 base.Initialize();
-                await Task.Yield();
-                await Task.Run(() =>
+                foreach (var item in this.TabItems)
                 {
-                    foreach (var item in this.TabItems)
+                    if (item == SteamAppPage)
+                        continue;
+                    await item.Initialize().ContinueWith(s =>
                     {
-                        if (item == SteamAppPage)
-                            continue;
-                        item.Initialize();
-                    }
-                }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted)
-                .ContinueWith(s => s.Dispose());
+                        Logger.Error(s.Exception);
+                        WindowService.Current.ShowDialogWindow(s.Exception.Message);
+                    }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s => s.Dispose());
+                }
 
                 AuthService.Current.Initialize();
                 if (GeneralSettings.IsAutoCheckUpdate)

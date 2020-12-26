@@ -37,9 +37,9 @@ namespace SteamTools.ViewModels
 
         }
 
-        internal override void Initialize()
+        internal async override Task Initialize()
         {
-            Task.Run(() =>
+            await Task.Run(() =>
             {
                 DebugText += SteamConnectService.Current.IsConnectToSteam;
                 DebugText += Environment.NewLine;

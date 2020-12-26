@@ -101,10 +101,10 @@ namespace SteamTools.ViewModels
             AppTypeFilter = new SteamAppTypeFilter(this.Update);
         }
 
-        internal override void Initialize()
+        internal override async Task Initialize()
         {
             StatusService.Current.Notify("加载Steam游戏数据");
-            Task.Run(async () =>
+            await Task.Run(async () =>
            {
                var apps = SteamTool.GetAppListJson(Path.Combine(AppContext.BaseDirectory, Const.APP_LIST_FILE));
                if (apps == null || !apps.Any())
@@ -120,8 +120,8 @@ namespace SteamTools.ViewModels
                    apps = JsonConvert.DeserializeObject<SteamApps>(result).AppList.Apps;
                }
                apps = apps.DistinctBy(d => d.AppId).ToList();
-                //SteamConnectService.Current.SteamApps = apps;
-                SteamConnectService.Current.SteamApps = SteamConnectService.Current.ApiService.OwnsApps(apps);
+               //SteamConnectService.Current.SteamApps = apps;
+               SteamConnectService.Current.SteamApps = SteamConnectService.Current.ApiService.OwnsApps(apps);
 
                this.updateSource
                .Do(_ => this.IsReloading = true)
@@ -132,13 +132,13 @@ namespace SteamTools.ViewModels
 
                SteamConnectService.Current.Subscribe(nameof(SteamConnectService.Current.SteamApps), this.Update).AddTo(this);
 
-           }).ContinueWith(s => { 
-               Logger.Error(s.Exception); 
+           }).ContinueWith(s =>
+           {
+               Logger.Error(s.Exception);
                WindowService.Current.ShowDialogWindow(s.Exception.Message, "加载Steam游戏数据失败");
            }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s =>
            {
                StatusService.Current.Notify("加载Steam游戏数据完成");
-               SteamConnectService.Current.DisposeSteamClient();
                s.Dispose();
            });
         }

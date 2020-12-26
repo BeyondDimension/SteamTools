@@ -71,8 +71,9 @@ namespace SteamTools.ViewModels
             });
         }
 
-        internal virtual void Initialize()
+        internal async virtual Task Initialize()
         {
+            await Task.CompletedTask;
         }
     }
 }

@@ -94,10 +94,11 @@ namespace SteamTools.ViewModels
             TaskbarService.Current.Notify("已复制令牌");
         }
 
-        internal override void Initialize()
+        internal async override Task Initialize()
         {
             AuthService.Current.Subscribe(nameof(AuthService.Current.Authenticators),
                 () => { Authenticators = AuthService.Current.Authenticators; }).AddTo(this);
+            await Task.CompletedTask;
         }
 
         public void AddAuth_Click()

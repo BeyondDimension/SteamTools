@@ -40,6 +40,22 @@ namespace SteamTools.Services
         }
         #endregion
 
+        #region 是否有更新
+        private bool _IsExistUpdate;
+        public bool IsExistUpdate
+        {
+            get => this._IsExistUpdate;
+            set
+            {
+                if (this._IsExistUpdate != value)
+                {
+                    this._IsExistUpdate = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+        #endregion
+
         public async void CheckUpdate()
         {
             try
@@ -49,41 +65,12 @@ namespace SteamTools.Services
                 var model = JsonConvert.DeserializeObject<GithubReleaseModel>(result);
                 if (!(ProductInfo.Version < model.version))
                 {
+                    IsExistUpdate = false;
                     StatusService.Current.Notify("当前已是最新版本");
                     return;
                 }
-                if (WindowService.Current.MainWindow.Dialog($"检测到新版本更新内容：{model.body}\r\n是否立即更新？", $"{ProductInfo.Title} | 更新提示") == true)
-                {
-                    //var name = model.assets.FirstOrDefault()?.name;
-                    var name = Path.Combine(AppContext.BaseDirectory, @$"{ProductInfo.Title} {model.version}.zip");
-                    if (File.Exists(name))
-                    {
-                        StatusService.Current.Notify("更新文件已经存在，不需要下载");
-                        return;
-                    }
-                    var fileReq = WebRequest.Create(model.assets.FirstOrDefault()?.browser_download_url);
-                    await fileReq?.GetResponseAsync().ContinueWith(s =>
-                    {
-                        long totalBytes = s.Result.ContentLength;
-                        using Stream responseStream = s.Result.GetResponseStream();
-                        using FileStream fileStream = new FileStream(name, FileMode.Create, FileAccess.Write);
-                        long totalDownloadBytes = 0;
-                        byte[] bs = new byte[4096];
-                        int size = responseStream.Read(bs, 0, bs.Length);
-                        while (size > 0)
-                        {
-                            totalDownloadBytes += size;
-                            fileStream.Write(bs, 0, size);
-                            ProgressValue = ((double)totalDownloadBytes / (double)totalBytes);
-                            StatusService.Current.Set($"下载更新{ProgressValue:P}");
-                            size = responseStream.Read(bs, 0, bs.Length);
-                        }
-                        fileStream.Flush();
-                        fileStream.Close();
-                        StatusService.Current.Set(Resources.Ready);
-                        StatusService.Current.Notify($"{ProductInfo.Title} {model.version}版本已经下载到程序根目录下，暂时请手动替换更新");
-                    });
-                }
+                IsExistUpdate = true;
+                DownloadUpdate(model);
             }
             catch (Exception ex)
             {
@@ -91,6 +78,43 @@ namespace SteamTools.Services
                 WindowService.Current.ShowDialogWindow($"更新出错：{ex.Message}");
             }
 
+        }
+
+
+        public async void DownloadUpdate(GithubReleaseModel model)
+        {
+            if (WindowService.Current.MainWindow.Dialog($"检测到新版本更新内容：{model.body}\r\n是否立即更新？", $"{ProductInfo.Title} | 更新提示") == true)
+            {
+                //var name = model.assets.FirstOrDefault()?.name;
+                var name = Path.Combine(AppContext.BaseDirectory, @$"{ProductInfo.Title} {model.version}.zip");
+                if (File.Exists(name))
+                {
+                    StatusService.Current.Notify("更新文件已经存在，不需要下载");
+                    return;
+                }
+                var fileReq = WebRequest.Create(model.assets.FirstOrDefault()?.browser_download_url);
+                await fileReq?.GetResponseAsync().ContinueWith(s =>
+                {
+                    long totalBytes = s.Result.ContentLength;
+                    using Stream responseStream = s.Result.GetResponseStream();
+                    using FileStream fileStream = new FileStream(name, FileMode.Create, FileAccess.Write);
+                    long totalDownloadBytes = 0;
+                    byte[] bs = new byte[4096];
+                    int size = responseStream.Read(bs, 0, bs.Length);
+                    while (size > 0)
+                    {
+                        totalDownloadBytes += size;
+                        fileStream.Write(bs, 0, size);
+                        ProgressValue = ((double)totalDownloadBytes / (double)totalBytes);
+                        StatusService.Current.Set($"下载更新{ProgressValue:P}");
+                        size = responseStream.Read(bs, 0, bs.Length);
+                    }
+                    fileStream.Flush();
+                    fileStream.Close();
+                    StatusService.Current.Set(Resources.Ready);
+                    StatusService.Current.Notify($"{ProductInfo.Title} {model.version}版本已经下载到程序根目录下，暂时请手动替换更新");
+                });
+            }
         }
     }
 }
