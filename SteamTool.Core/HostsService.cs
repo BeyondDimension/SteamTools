@@ -13,12 +13,25 @@ namespace SteamTool.Core
 {
     public class HostsService
     {
-        public readonly static string HostsPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.System)}\\drivers\\etc\\hosts";
+        public readonly static string HostsPath = @$"{Environment.SystemDirectory}\drivers\etc\hosts";
 
+        static HostsService()
+        {
+            if (!File.Exists(HostsPath))
+            {
+                using var fs = File.Create(HostsPath);
+                fs.Close();
+            }
+        }
 
         public OperationResult<List<string>> ReadHostsAllLines()
         {
             var result = new OperationResult<List<string>>(OperationResultType.Error, Resources.Hosts_ReadError);
+            if (!File.Exists(HostsPath))
+            {
+                result.Message = "hosts file was not found";
+                return result;
+            }
             try
             {
                 var dataLines = File.ReadAllLines(HostsPath).ToList();
@@ -48,7 +61,11 @@ namespace SteamTool.Core
         public OperationResult UpdateHosts(string ip, string domain)
         {
             var result = new OperationResult(OperationResultType.Error, Resources.Hosts_WirteError);
-
+            if (!File.Exists(HostsPath))
+            {
+                result.Message = "hosts file was not found";
+                return result;
+            }
             //操作前取消只读属性
             File.SetAttributes(HostsPath, FileAttributes.Normal);
 
@@ -94,7 +111,11 @@ namespace SteamTool.Core
         public OperationResult UpdateHosts(List<(string ip, string domain)> hosts)
         {
             var result = new OperationResult(OperationResultType.Error, Resources.Hosts_WirteError);
-
+            if (!File.Exists(HostsPath))
+            {
+                result.Message = "hosts file was not found";
+                return result;
+            }
             if (hosts.Count == 0)
             {
                 return result;
@@ -150,7 +171,11 @@ namespace SteamTool.Core
         public OperationResult RemoveHosts(string ip, string domain)
         {
             var result = new OperationResult(OperationResultType.Error, Resources.Hosts_WirteError);
-
+            if (!File.Exists(HostsPath))
+            {
+                result.Message = "hosts file was not found";
+                return result;
+            }
             //操作前取消只读属性
             File.SetAttributes(HostsPath, FileAttributes.Normal);
 
@@ -191,7 +216,11 @@ namespace SteamTool.Core
         public OperationResult RemoveHostsByTag()
         {
             var result = new OperationResult(OperationResultType.Error, Resources.Hosts_WirteError);
-
+            if (!File.Exists(HostsPath)) 
+            {
+                result.Message = "hosts file was not found";
+                return result;
+            }
             //操作前取消只读属性
             File.SetAttributes(HostsPath, FileAttributes.Normal);
 
@@ -227,6 +256,7 @@ namespace SteamTool.Core
             }
             return result;
         }
+
 
         public void StartNotepadEditHosts()
         {

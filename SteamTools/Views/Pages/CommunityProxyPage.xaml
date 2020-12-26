@@ -114,14 +114,13 @@
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
                 </StackPanel>
                 <ListBox DockPanel.Dock="Bottom" 
-                         IsEnabled="{Binding ElementName=service,Path=IsChecked,Mode=OneWay,Converter={StaticResource ReverseBooleanConverter}}"
                          BorderThickness="0"
                          Style="{StaticResource MetroListBox}"
                          ItemsSource="{Binding ProxyDomains.Value,Source={x:Static services:ProxyService.Current}, Mode=OneWay}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel Height="30" ToolTip="{Binding DomainTag}">
-                                <CheckBox HorizontalAlignment="Left"  
+                                <CheckBox HorizontalAlignment="Left" IsEnabled="{Binding ElementName=service,Path=IsChecked,Mode=OneWay,Converter={StaticResource ReverseBooleanConverter}}"
                                           Content="{Binding Name}" 
                                           IsChecked="{Binding IsEnable}">
                                     <i:Interaction.Triggers>

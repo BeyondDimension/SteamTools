@@ -23,7 +23,7 @@ namespace SteamTool.Core
             Kernel.Bind<SteamToolService>().ToSelf();
             Kernel.Bind<VdfService>().To<VdfService>();
             Kernel.Bind<HttpServices>().ToConstant(new HttpServices());
-            Kernel.Bind<HostsService>().To<HostsService>();
+            Kernel.Bind<HostsService>().ToConstant(new HostsService());
         }
 
         public TInterface Get<TInterface>()
