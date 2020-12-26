@@ -87,13 +87,18 @@ namespace SteamTools
                 WindowService.Current.AddTo(this).Initialize();
                 ProxyService.Current.Initialize();
                 SteamConnectService.Current.Initialize();
+
                 //托盘加载
                 TaskbarService.Current.Taskbar = (TaskbarIcon)FindResource("Taskbar");
                 ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
 
                 this.MainWindow = WindowService.Current.GetMainWindow();
                 if (e.Args.ContainsArg("-minimized") || GeneralSettings.IsStartupAppMinimized.Value)
+                {
+                    //this.MainWindow.Show();
+                    //(WindowService.Current.MainWindow as MainWindowViewModel).IsVisible = false;
                     (WindowService.Current.MainWindow as MainWindowViewModel).Initialize();
+                }
                 else
                     this.MainWindow.Show();
 
@@ -101,7 +106,7 @@ namespace SteamTools
                 appInstance.CommandLineArgsReceived += (sender, args) =>
                 {
                     // 检测到多次启动时将主窗口置于最前面
-                    this.Dispatcher.Invoke(() => WindowService.Current.MainWindow.Activate());
+                    this.Dispatcher.Invoke(() => { (WindowService.Current.MainWindow as MainWindowViewModel).IsVisible = true; });
                     this.ProcessCommandLineParameter(args.CommandLineArgs);
                 };
 #endif

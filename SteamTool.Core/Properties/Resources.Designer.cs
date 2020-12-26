@@ -47,8 +47,8 @@ namespace SteamTool.Core.Properties {
         }
         
         /// <summary>
-        ///   重写当前线程的 CurrentUICulture 属性
-        ///   重写当前线程的 CurrentUICulture 属性。
+        ///   重写当前线程的 CurrentUICulture 属性，对
+        ///   使用此强类型资源类的所有资源查找执行重写。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
@@ -122,6 +122,28 @@ namespace SteamTool.Core.Properties {
         internal static string Hosts_WirteError {
             get {
                 return ResourceManager.GetString("Hosts_WirteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;configuration&gt;
+        ///  &lt;configSections&gt;
+        ///    &lt;section name=&quot;log4net&quot; type=&quot;log4net.Config.Log4NetConfigurationSectionHandler, log4net&quot;/&gt;
+        ///  &lt;/configSections&gt;
+        ///  &lt;log4net&gt;
+        ///    &lt;logger name=&quot;TextLog&quot;&gt;
+        ///      &lt;level value=&quot;ALL&quot; /&gt;
+        ///      &lt;appender-ref ref=&quot;RollingLogFileAppender&quot; /&gt;
+        ///    &lt;/logger&gt;
+        ///    &lt;!--写文本--&gt;
+        ///    &lt;appender name=&quot;RollingLogFileAppender&quot; type=&quot;log4net.Appender.RollingFileAppender&quot;&gt;
+        ///      &lt;param name=&quot;File&quot; value=&quot;log\\&quot; /&gt;
+        ///      &lt;param name=&quot;AppendToFile&quot; value=&quot;true&quot;  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string Log4netXml {
+            get {
+                return ResourceManager.GetString("Log4netXml", resourceCulture);
             }
         }
     }

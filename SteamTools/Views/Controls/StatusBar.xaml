@@ -9,7 +9,7 @@
             xmlns:vm="clr-namespace:SteamTools.ViewModels"
             mc:Ignorable="d"
             d:DesignHeight="25" d:DesignWidth="780"
-             d:DataContext="{d:DesignInstance vm:StatusBarViewModel}">
+            d:DataContext="{d:DesignInstance vm:StatusBarViewModel}">
     <Grid Grid.Row="2" Background="{DynamicResource AccentBrushKey}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -18,12 +18,15 @@
             <ColumnDefinition Width="23" />
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0"
-				   Text="{Binding Source={x:Static services:StatusService.Current}, Path=Message}"
                    FontSize="13"
 				   Style="{DynamicResource DefaultTextStyleKey}"
 				   Foreground="{DynamicResource AccentForegroundBrushKey}"
 				   TextWrapping="NoWrap"
-				   Margin="8,0" />
+				   Margin="8,0" >
+            <Run 
+				   Text="{Binding Source={x:Static services:StatusService.Current}, Path=Message}"/>
+            
+        </TextBlock>
         <ContentControl Grid.Column="1"
 						Content="{Binding}">
             <ContentControl.Resources>

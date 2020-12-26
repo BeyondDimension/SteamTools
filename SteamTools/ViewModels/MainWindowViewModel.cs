@@ -73,9 +73,10 @@ namespace SteamTools.ViewModels
                 if (value)
                 {
                     App.Current.MainWindow.WindowState = WindowState.Normal;
-                    App.Current.MainWindow.Topmost = true;
-                    User32Window.FlashWindow(new WindowInteropHelper(App.Current.MainWindow).Handle);
-                    App.Current.MainWindow.Topmost = false;
+                    //App.Current.MainWindow.Topmost = true;
+                    this.Activate();
+                    //User32Window.FlashWindow(new WindowInteropHelper(App.Current.MainWindow).Handle);
+                    //App.Current.MainWindow.Topmost = false;
                 }
             }
         }
@@ -124,24 +125,25 @@ namespace SteamTools.ViewModels
             if (!this.IsInitialized)
             {
                 base.Initialize();
-                await Task.Yield();
-                await Task.Run(() =>
+                foreach (var item in this.TabItems)
                 {
-                    foreach (var item in this.TabItems)
+                    if (item == SteamAppPage)
+                        continue;
+                    await item.Initialize().ContinueWith(s =>
                     {
-                        if (item == SteamAppPage)
-                            continue;
-                        item.Initialize();
-                    }
-                }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted)
-                .ContinueWith(s => s.Dispose());
+                        Logger.Error(s.Exception);
+                        WindowService.Current.ShowDialogWindow(s.Exception.Message);
+                    }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s => s.Dispose());
+                }
+
                 AuthService.Current.Initialize();
                 if (GeneralSettings.IsAutoCheckUpdate)
                 {
                     AutoUpdateService.Current.CheckUpdate();
                 }
-                StatusService.Current.Set(Resources.Ready);
+
                 this.IsInitialized = true;
+                StatusService.Current.Set(Resources.Ready);
             }
         }
 
@@ -150,19 +152,19 @@ namespace SteamTools.ViewModels
         /// </summary>
         public void ChangeWindowVisible()
         {
-            App.Current.MainWindow = App.Current.MainWindow ?? new MainWindow();
+            App.Current.MainWindow = App.Current.MainWindow ?? WindowService.Current.GetMainWindow();
             if (IsVisible)
             {
                 App.Current.MainWindow.Show();
                 App.Current.MainWindow.WindowState = WindowState.Normal;
-                App.Current.MainWindow.Activate();
+                this.Activate();
                 User32Window.FlashWindow(new WindowInteropHelper(App.Current.MainWindow).Handle);
             }
             else
             {
-                //App.Current.MainWindow.WindowState = WindowState.Minimized;
+                App.Current.MainWindow.WindowState = WindowState.Minimized;
                 App.Current.MainWindow.Hide();
-                App.Current.MainWindow.Visibility = Visibility.Collapsed;
+                //App.Current.MainWindow.Visibility = Visibility.Collapsed;
             }
         }
     }

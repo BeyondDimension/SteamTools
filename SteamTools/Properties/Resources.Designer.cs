@@ -79,7 +79,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 捐助纪录 的本地化字符串。
+        ///   查找类似 捐助记录 的本地化字符串。
         /// </summary>
         public static string About_DonateList {
             get {
@@ -97,7 +97,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 开源许可 的本地化字符串。
+        ///   查找类似 开源协议 的本地化字符串。
         /// </summary>
         public static string About_OpenSourceLicensing {
             get {
@@ -228,6 +228,15 @@ namespace SteamTools.Properties {
         public static string Auth_See {
             get {
                 return ResourceManager.GetString("Auth_See", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 交易确认 的本地化字符串。
+        /// </summary>
+        public static string Auth_TradeTitle {
+            get {
+                return ResourceManager.GetString("Auth_TradeTitle", resourceCulture);
             }
         }
         

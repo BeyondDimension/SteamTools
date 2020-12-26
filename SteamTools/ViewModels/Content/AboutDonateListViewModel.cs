@@ -35,8 +35,8 @@ namespace SteamTools.ViewModels
             public DateTime PayTime { get; set; }
         }
 
-        private List<DonateRecord> _DonateRecordList;
-        public List<DonateRecord> DonateRecordList
+        private IReadOnlyCollection<DonateRecord> _DonateRecordList;
+        public IReadOnlyCollection<DonateRecord> DonateRecordList
         {
             get => this._DonateRecordList;
             set
@@ -57,10 +57,10 @@ namespace SteamTools.ViewModels
                 {
                     if (!string.IsNullOrEmpty(s.Result))
                     {
-                        DonateRecordList = JsonConvert.DeserializeObject<List<DonateRecord>>(s.Result);
+                        DonateRecordList = JsonConvert.DeserializeObject<List<DonateRecord>>(s.Result).OrderByDescending(o => o.PayTime).ToList();
                     }
                 });
-            });
+            }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted);
         }
     }
 }

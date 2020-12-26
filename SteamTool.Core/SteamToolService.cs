@@ -108,7 +108,8 @@ namespace SteamTool.Core
                         RememberPassword = Convert.ToBoolean(Convert.ToInt64(i.RememberPassword?.ToString())),
                         Timestamp = Convert.ToInt64(i.Timestamp?.ToString())
                     };
-                    user.LastLoginTime = new DateTime(1970, 1, 1, 8, 0, 0).AddSeconds(user.Timestamp);
+
+                    user.LastLoginTime = TimeZoneInfo.ConvertTimeFromUtc(new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(user.Timestamp), TimeZoneInfo.Local);
                     if (i.mostrecent != null)//老版本Steam数据 小写mostrecent 支持
                     {
                         user.MostRecent = Convert.ToBoolean(Convert.ToInt64(i.mostrecent.ToString()));

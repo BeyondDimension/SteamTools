@@ -94,20 +94,21 @@ namespace SteamTools.ViewModels
             TaskbarService.Current.Notify("已复制令牌");
         }
 
-        internal override void Initialize()
+        internal async override Task Initialize()
         {
-            AuthService.Current.Subscribe(nameof(AuthService.Current.Authenticators), 
-                ()=> { Authenticators = AuthService.Current.Authenticators; }).AddTo(this);
+            AuthService.Current.Subscribe(nameof(AuthService.Current.Authenticators),
+                () => { Authenticators = AuthService.Current.Authenticators; }).AddTo(this);
+            await Task.CompletedTask;
         }
 
         public void AddAuth_Click()
         {
-            new AddAuthWindow() { DataContext = new AddAuthWindowViewModel() }.ShowDialog();
+            new AddAuthWindow() { DataContext = new AddAuthWindowViewModel() }.Show();
         }
 
         public void EditAuth_Click()
         {
-            if (Authenticators?.Count < 1)
+            if (Authenticators == null || !Authenticators.Any())
             {
                 StatusService.Current.Notify("没有可编辑的令牌");
                 return;
@@ -121,7 +122,13 @@ namespace SteamTools.ViewModels
 
         public void ImageShowAuth_Click(WinAuthAuthenticator auth)
         {
-            new ShowAuthWindow() { DataContext = new ShowAuthWindowViewModel(auth) }.ShowDialog();
+            new ShowAuthWindow() { DataContext = new ShowAuthWindowViewModel(auth) }.Show();
+        }
+
+
+        public void ImageAuthTrade_Click(WinAuthAuthenticator auth)
+        {
+            new AuthTradeWindow() { DataContext = new AuthTradeWindowViewModel(auth) }.Show();
         }
     }
 }

@@ -47,10 +47,10 @@ namespace SteamTools.ViewModels
             }
         }
 
-        internal override void Initialize()
+        internal async override Task Initialize()
         {
             StatusService.Current.Notify("加载本地Steam用户数据");
-            Task.Run(async () =>
+            await Task.Run(async () =>
             {
                 SteamUsers = new BindingList<SteamUser>(steamService.GetAllUser());
                 if (SteamUsers?.Count < 1)

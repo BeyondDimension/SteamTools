@@ -40,7 +40,7 @@
 
 		<PackageId />
 
-		<Version>1.0.2</Version>
+		<Version>1.0.3</Version>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
@@ -70,7 +70,6 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="LivetCask" Version="3.0.1" />
 		<PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.0.8" />
 	</ItemGroup>
 	
@@ -80,17 +79,14 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="LivetCask" Version="3.0.1" />
 		<PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.14" />
 	</ItemGroup>
 	
 	<!--<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-		<PackageReference Include="LivetCask" Version="3.0.2" />
 		<PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.14" />
 	</ItemGroup>-->
 	
 	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0-windows'">
-		<PackageReference Include="LivetCask" Version="3.0.2" />
 		<PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.14" />
 	</ItemGroup>
 	
@@ -115,6 +111,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="LivetCask.Behaviors" Version="3.2.3.1" />
+		<PackageReference Include="LivetCask.EventListeners" Version="3.2.3.1" />
+		<PackageReference Include="LivetCask.Messaging" Version="3.2.3.1" />
+		<PackageReference Include="LivetCask.Mvvm" Version="3.2.3.1" />
 		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -195,7 +195,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Update="Properties\Resources.zh-TW.resx">
+		<EmbeddedResource Update="Properties\Resources.zh-Hant.resx">
 			<DependentUpon>Resources.resx</DependentUpon>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Properties\Resources.en.resx">
@@ -302,6 +302,9 @@
 		<Page Update="Views\Pages\WelcomePage.xaml">
 			<SubType>Designer</SubType>
 		</Page>
+		<Page Update="Views\Window\AuthTradeWindow.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		</Page>
 		<Page Update="Views\Window\ShowAuthWindow.xaml">
 		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		</Page>
@@ -342,7 +345,7 @@
 
 	<ItemGroup>
 		<None Update="log\Log4net.config">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
 		<None Update="Properties\Settings.settings">
 			<Generator>SettingsSingleFileGenerator</Generator>

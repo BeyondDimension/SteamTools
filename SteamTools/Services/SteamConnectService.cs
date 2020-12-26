@@ -94,44 +94,49 @@ namespace SteamTools.Services
 
         public void Initialize()
         {
-            
-            Task.Run(async () =>
-             {
-                 Thread.CurrentThread.IsBackground = true;
-                 while (true)
-                 {
-                     if (Process.GetProcessesByName("steam").Length > 0)
-                     {
-                         if (!IsConnectToSteam)
-                         {
-                             if (ApiService.Initialize())
-                             {
-                                 var id = ApiService.GetSteamId64();
-                                 if (id == 76561197960265728)
-                                 {
-                                     //该64位id的steamID3等于0，是steam未获取到当前登录用户的默认返回值，所以直接重新获取，
-                                     //希望这位用户不会用steam++，嗯...
-                                     ApiService.SteamClient.Dispose();
-                                     continue;
-                                 }
-                                 IsConnectToSteam = true;
-                                 CurrentSteamUser = await steamDbApiService.GetUserInfo(id);
-                                 var mainViewModel = (WindowService.Current.MainWindow as MainWindowViewModel);
-                                 mainViewModel.SteamAppPage.Initialize();
+            var t = new Task(async () =>
+              {
+                  Thread.CurrentThread.IsBackground = true;
+                  while (true)
+                  {
+                      if (Process.GetProcessesByName("steam").Length > 0)
+                      {
+                          if (!IsConnectToSteam)
+                          {
+                              if (ApiService.Initialize())
+                              {
+                                  var id = ApiService.GetSteamId64();
+                                  if (id == 76561197960265728)
+                                  {
+                                      //该64位id的steamID3等于0，是steam未获取到当前登录用户的默认返回值，所以直接重新获取，
+                                      //希望这位用户不会用steam++，嗯...
+                                      ApiService.SteamClient.Dispose();
+                                      continue;
+                                  }
+                                  IsConnectToSteam = true;
+                                  CurrentSteamUser = await steamDbApiService.GetUserInfo(id);
+                                  CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
+
+                                  var mainViewModel = (WindowService.Current.MainWindow as MainWindowViewModel);
+                                  await mainViewModel.SteamAppPage.Initialize();
 #if DEBUG
-                                 mainViewModel.SystemTabItems[mainViewModel.SystemTabItems.Count - 1].Initialize();
+                                  await mainViewModel.SystemTabItems[mainViewModel.SystemTabItems.Count - 1].Initialize();
 #endif
-                             }
-                         }
-                     }
-                     else
-                     {
-                         IsConnectToSteam = false;
-                         //StatusService.Current.Notify(Resources.Steam_Not_Runing);
-                     }
-                     await Task.Delay(1500);
-                 }
-             }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted);
+                                  SteamConnectService.Current.DisposeSteamClient();
+                              }
+                          }
+                      }
+                      else
+                      {
+                          IsConnectToSteam = false;
+                          //StatusService.Current.Notify(Resources.Steam_Not_Runing);
+                      }
+                      await Task.Delay(1500);
+                  }
+              }, TaskCreationOptions.LongRunning);
+
+            t.ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted);
+            t.Start();
         }
 
         public void Initialize(int appid)
@@ -149,6 +154,11 @@ namespace SteamTools.Services
                 if (!app.Process.HasExited)
                     app.Process.Kill();
             }
+        }
+
+        public void DisposeSteamClient()
+        {
+            ApiService.SteamClient.Dispose();
         }
     }
 }

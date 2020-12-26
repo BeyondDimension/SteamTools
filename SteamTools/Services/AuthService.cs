@@ -74,6 +74,10 @@ namespace SteamTools.Services
                     WindowService.Current.MainWindow.Dialog($"令牌同步服务器失败，错误信息：{ex.Message}");
                 }
             }
+            else 
+            {
+                Authenticators = new BindingList<WinAuthAuthenticator>();
+            }
         }
 
         /// <summary>

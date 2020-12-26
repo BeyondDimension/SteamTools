@@ -135,6 +135,9 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
   <data name="Steam302" xml:space="preserve">
     <value>CommunityFix</value>
   </data>

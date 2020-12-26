@@ -196,7 +196,7 @@
 					            <Run Text="Steam的移动身份验证器应用程序的桌面实现。" />   
                             <metro2:HyperlinkEx Uri="https://github.com/Jessecar96/SteamDesktopAuthenticator"><Run Text="Github"></Run></metro2:HyperlinkEx>
                             <LineBreak/>
-					        <Run Text="导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。" />
+					        <Run Text="导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件)" />
                         </TextBlock>
                         <Grid Visibility="{Binding ElementName=ImportSDA,Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Grid.ColumnDefinitions>
@@ -212,14 +212,14 @@
 										 Grid.Column="0" Grid.ColumnSpan="2"
 										 Text="{Binding SDAFile, Mode=OneWay}"
 										 Prompt="选择*.maFile文件" />
-                            <metro2:CallMethodButton Grid.Column="2" Grid.Row="0"
-									 Content="选择文件"
+                            <metro2:CallMethodButton Grid.Row="0" Grid.Column="2" 
+									 Content="选择文件" Height="30"
 									 MethodName="OpenSDAFile"
 									 Margin="6,0,0,0"  />
                             <metro:PromptTextBox Grid.Row="1"
 										 Grid.Column="0" Grid.ColumnSpan="3"
 										 Text="{Binding SDAPassword, Mode=TwoWay}"
-										 Prompt="如果设定了密码请输入密码" />
+										 Prompt="如果设定了密码请输入密码" Visibility="Collapsed" />
                             <!--<metro2:CallMethodButton Grid.Column="2" Grid.Row="1"
 									 Content="导入"
 									 MethodName="ImportWinAuthFile"

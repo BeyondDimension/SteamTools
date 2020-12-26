@@ -64,7 +64,7 @@ namespace SteamTool.Steam.Service.Local
                     Index = i + 1,
                     AppId = s.AppId,
                     Name = s.Name,
-                    Type = Enum.TryParse<SteamAppTypeEnum>(SteamClient.SteamApps001.GetAppData(s.AppId, "type"), true, out var result) ? result : SteamAppTypeEnum.Unknown,
+                    Type = Enum.TryParse<SteamAppTypeEnum>(GetAppData(s.AppId, "type"), true, out var result) ? result : SteamAppTypeEnum.Unknown,
                     //Logo = SteamClient.SteamApps001.GetAppData(s.AppId, "logo"),
                     IsInstalled = IsAppInstalled(s.AppId)
                 }).ToList();

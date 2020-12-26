@@ -46,7 +46,10 @@ namespace SteamTools.ViewModels
                     CanExecuteFunc = () => true,
                     CommandAction = () =>
                     {
-                        var mainWindow = (App.Current.MainWindow.DataContext as MainWindowViewModel);
+                        App.Current.MainWindow = WindowService.Current.GetMainWindow();
+                        //if (!App.Current.MainWindow.IsVisible)
+                        //    App.Current.MainWindow.Show();
+                        var mainWindow = (WindowService.Current.MainWindow as MainWindowViewModel);
                         mainWindow.IsVisible = true;
                     }
                 };
@@ -55,14 +58,11 @@ namespace SteamTools.ViewModels
 
         public void ShowUrl()
         {
-            //var mainWindow = (App.Current.MainWindow.DataContext as MainWindowViewModel);
-            //mainWindow.IsVisible = !mainWindow.IsVisible;
-
             if (SteamConnectService.Current.IsConnectToSteam)
             {
                 Process.Start(SteamConnectService.Current.CurrentSteamUser.ProfileUrl);
             }
-            else 
+            else
             {
                 Process.Start(Const.MY_PROFILE_URL);
             }
@@ -81,7 +81,7 @@ namespace SteamTools.ViewModels
         /// </summary>
         public void NavigateTabItem(string index)
         {
-            var mainWindow = (App.Current.MainWindow.DataContext as MainWindowViewModel);
+            var mainWindow = (WindowService.Current.MainWindow as MainWindowViewModel);
             mainWindow.IsVisible = true;
             int.TryParse(index, out int i);
             if (i < 0)

@@ -127,13 +127,13 @@
     <value>捐助</value>
   </data>
   <data name="About_DonateList" xml:space="preserve">
-    <value>捐助纪录</value>
+    <value>捐助记录</value>
   </data>
   <data name="About_Help" xml:space="preserve">
     <value>帮助</value>
   </data>
   <data name="About_OpenSourceLicensing" xml:space="preserve">
-    <value>开源许可</value>
+    <value>开源协议</value>
   </data>
   <data name="About_TheSoft" xml:space="preserve">
     <value>此软件</value>
@@ -173,6 +173,9 @@
   </data>
   <data name="Auth_See" xml:space="preserve">
     <value>查看令牌</value>
+  </data>
+  <data name="Auth_TradeTitle" xml:space="preserve">
+    <value>交易确认</value>
   </data>
   <data name="AutoRunProxyService" xml:space="preserve">
     <value>自动启动代理服务</value>

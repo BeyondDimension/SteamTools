@@ -37,9 +37,9 @@ namespace SteamTools.ViewModels
 
         }
 
-        internal override void Initialize()
+        internal async override Task Initialize()
         {
-            Task.Run(() =>
+            await Task.Run(() =>
             {
                 DebugText += SteamConnectService.Current.IsConnectToSteam;
                 DebugText += Environment.NewLine;
@@ -60,6 +60,23 @@ namespace SteamTools.ViewModels
 
         public void Test_OnClick()
         {
+            Task.Run(() =>
+            {
+                DebugText += SteamConnectService.Current.IsConnectToSteam;
+                DebugText += Environment.NewLine;
+                DebugText += SteamConnectService.Current.ApiService.GetSteamId64();
+                DebugText += Environment.NewLine;
+                DebugText += SteamConnectService.Current.CurrentSteamUser.SteamId3_Int;
+                DebugText += Environment.NewLine;
+                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamUtils.GetAppId();
+                DebugText += Environment.NewLine;
+                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.IsAppInstalled(730);
+                DebugText += Environment.NewLine;
+                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.IsSubscribedFromFamilySharing();
+                DebugText += Environment.NewLine;
+                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.GetAppInstallDir(730);
+                DebugText += Environment.NewLine;
+            }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s => s.Dispose());
         }
     }
 }

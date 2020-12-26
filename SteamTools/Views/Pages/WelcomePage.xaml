@@ -129,6 +129,8 @@
                             <Run Foreground="{DynamicResource ForegroundBrushKey}"
 								 FontSize="20"
 								 Text="{Binding CurrentSteamUser.SteamID,Source={x:Static services:SteamConnectService.Current},Mode=OneWay}" />
+                            <Run Foreground="{DynamicResource ForegroundBrushKey}"
+								 Text="{Binding CurrentSteamUser.IPCountry,Source={x:Static services:SteamConnectService.Current},Mode=OneWay,StringFormat={} ({0})}" />
                         </Paragraph>
                         <Paragraph Language="zh-cn">
                             <Run Text="  "></Run>
@@ -211,7 +213,7 @@
                             </InlineUIContainer>
                         </Paragraph>
                         <Paragraph Language="zh-cn">
-                            <Run Text="工具不定期更新且目前没有自动更新功能，请适当检查更新。" />
+                            <Run Text="工具不定期更新，请适当检查更新。" />
                             <LineBreak />
                             <LineBreak />
                             <!--<Run Text="软件主页:" />
