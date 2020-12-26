@@ -45,7 +45,7 @@ namespace SteamTools.Services
 
         #endregion
 
-        private BindingList<WinAuthAuthenticator> _Authenticators;
+        private BindingList<WinAuthAuthenticator> _Authenticators = new BindingList<WinAuthAuthenticator>();
 
         public BindingList<WinAuthAuthenticator> Authenticators
         {
@@ -74,7 +74,7 @@ namespace SteamTools.Services
                     WindowService.Current.MainWindow.Dialog($"令牌同步服务器失败，错误信息：{ex.Message}");
                 }
             }
-            else 
+            else
             {
                 Authenticators = new BindingList<WinAuthAuthenticator>();
             }
@@ -533,7 +533,7 @@ namespace SteamTools.Services
                     }
                     if (reader.Name == "WinAuthAuthenticator")
                     {
-                        var wa = new WinAuthAuthenticator();
+                        var wa = new WinAuthAuthenticator() { AutoRefresh = false };
                         wa.ReadXml(reader, null);
                         list.Add(wa);
                     }

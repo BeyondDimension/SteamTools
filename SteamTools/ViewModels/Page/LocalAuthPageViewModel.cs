@@ -26,21 +26,6 @@ namespace SteamTools.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
-        private BindingList<WinAuthAuthenticator> _Authenticators;
-
-        public BindingList<WinAuthAuthenticator> Authenticators
-        {
-            get => this._Authenticators;
-            set
-            {
-                if (this._Authenticators != value)
-                {
-                    this._Authenticators = value;
-                    this.RaisePropertyChanged();
-                }
-            }
-        }
-
         public bool _IsEdit;
         public bool IsEdit
         {
@@ -55,10 +40,16 @@ namespace SteamTools.ViewModels
             }
         }
 
+        public LocalAuthPageViewModel() 
+        {
+            //AuthService.Current.Subscribe(nameof(AuthService.Current.Authenticators),
+            //    () => { Authenticators = new BindingList<WinAuthAuthenticator>(AuthService.Current.Authenticators); }).AddTo(this);
+        }
+
         public void ImageDelete_Click(WinAuthAuthenticator auth)
         {
-            Authenticators.Remove(auth);
-            if (Authenticators.Count == 0)
+            AuthService.Current.Authenticators.Remove(auth);
+            if (AuthService.Current.Authenticators.Count == 0)
             {
                 AuthSettings.Authenticators.Value = null;
                 IsEdit = false;
@@ -94,12 +85,6 @@ namespace SteamTools.ViewModels
             TaskbarService.Current.Notify("已复制令牌");
         }
 
-        internal async override Task Initialize()
-        {
-            AuthService.Current.Subscribe(nameof(AuthService.Current.Authenticators),
-                () => { Authenticators = AuthService.Current.Authenticators; }).AddTo(this);
-            await Task.CompletedTask;
-        }
 
         public void AddAuth_Click()
         {
@@ -108,7 +93,7 @@ namespace SteamTools.ViewModels
 
         public void EditAuth_Click()
         {
-            if (Authenticators == null || !Authenticators.Any())
+            if (AuthService.Current.Authenticators == null || !AuthService.Current.Authenticators.Any())
             {
                 StatusService.Current.Notify("没有可编辑的令牌");
                 return;
@@ -116,7 +101,7 @@ namespace SteamTools.ViewModels
             this.IsEdit = !IsEdit;
             if (!IsEdit)
             {
-                AuthSettings.Authenticators.Value = AuthService.ConvertJsonAuthenticator(Authenticators.ToList()).CompressString();
+                AuthSettings.Authenticators.Value = AuthService.ConvertJsonAuthenticator(AuthService.Current.Authenticators.ToList()).CompressString();
             }
         }
 

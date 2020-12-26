@@ -24,7 +24,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Margin="8,0,8,8">
+    <Grid Margin="8,4,8,8">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -75,7 +75,7 @@
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <ItemsControl
             Foreground="{DynamicResource HighlightForegroundBrushKey}"
-            ItemsSource="{Binding Authenticators,Mode=OneWay}">
+            ItemsSource="{Binding Authenticators,Source={x:Static services:AuthService.Current},Mode=OneWay}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>

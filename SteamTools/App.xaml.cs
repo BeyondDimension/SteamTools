@@ -86,7 +86,12 @@ namespace SteamTools
                 GeneralSettings.Culture.Subscribe(x => ResourceService.Current.ChangeCulture(x)).AddTo(this);
                 WindowService.Current.AddTo(this).Initialize();
                 ProxyService.Current.Initialize();
-                SteamConnectService.Current.Initialize();
+                SteamConnectService.Current.Initialize(); 
+                AuthService.Current.Initialize();
+                if (GeneralSettings.IsAutoCheckUpdate)
+                {
+                    AutoUpdateService.Current.CheckUpdate();
+                }
 
                 //托盘加载
                 TaskbarService.Current.Taskbar = (TaskbarIcon)FindResource("Taskbar");

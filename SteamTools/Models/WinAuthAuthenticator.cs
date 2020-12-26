@@ -339,9 +339,9 @@ namespace SteamTools.Models
                             Created = new DateTime(t).ToLocalTime();
                             break;
 
-                        case "autorefresh":
-                            _autoRefresh = reader.ReadElementContentAsBoolean();
-                            break;
+                        //case "autorefresh":
+                        //    _autoRefresh = reader.ReadElementContentAsBoolean();
+                        //    break;
 
                         case "allowcopy":
                             _allowCopy = reader.ReadElementContentAsBoolean();
@@ -446,9 +446,9 @@ namespace SteamTools.Models
             writer.WriteValue(Convert.ToInt64((this.Created.ToUniversalTime() - new DateTime(1970, 1, 1)).TotalMilliseconds));
             writer.WriteEndElement();
 
-            writer.WriteStartElement("autorefresh");
-            writer.WriteValue(this.AutoRefresh);
-            writer.WriteEndElement();
+            //writer.WriteStartElement("autorefresh");
+            //writer.WriteValue(this.AutoRefresh);
+            //writer.WriteEndElement();
             //
             writer.WriteStartElement("allowcopy");
             writer.WriteValue(this.AllowCopy);
