@@ -15,7 +15,7 @@ namespace SteamTools.Models.Settings
                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                ProductInfo.Company, ProductInfo.Title, Const.SETTINGS_FILE);
 
-        public static string LocalFilePath { get; } = Path.Combine(App.Instance.LocalAppData.FullName, Const.SETTINGS_FILE);
+        public static string LocalFilePath => Path.Combine(App.Instance.LocalAppData.FullName, Const.SETTINGS_FILE);
 
         public static ISerializationProvider Roaming { get; } = new FileSettingsProvider(RoamingFilePath);
 

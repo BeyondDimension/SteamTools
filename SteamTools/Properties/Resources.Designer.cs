@@ -196,6 +196,15 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 导出令牌 的本地化字符串。
+        /// </summary>
+        public static string Auth_Export {
+            get {
+                return ResourceManager.GetString("Auth_Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 导入令牌 的本地化字符串。
         /// </summary>
         public static string Auth_Import {

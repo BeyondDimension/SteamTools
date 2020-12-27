@@ -35,7 +35,7 @@ namespace SteamTools.Models.Settings
 
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
-            return nameof(GeneralSettings) + "." + propertyName;
+            return nameof(ProxySettings) + "." + propertyName;
         }
     }
 }

@@ -339,9 +339,10 @@ namespace SteamTools.Models
                             Created = new DateTime(t).ToLocalTime();
                             break;
 
-                        //case "autorefresh":
-                        //    _autoRefresh = reader.ReadElementContentAsBoolean();
-                        //    break;
+                        case "autorefresh":
+                            //_autoRefresh = reader.ReadElementContentAsBoolean();
+                            _autoRefresh = false;
+                            break;
 
                         case "allowcopy":
                             _allowCopy = reader.ReadElementContentAsBoolean();

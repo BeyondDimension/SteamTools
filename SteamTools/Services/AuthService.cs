@@ -15,6 +15,7 @@ using SteamTools.Models.Settings;
 using Newtonsoft.Json.Linq;
 using System.Security.Cryptography;
 using System.Linq;
+using MetroTrilithon.Mvvm;
 
 namespace SteamTools.Services
 {
@@ -45,6 +46,12 @@ namespace SteamTools.Services
 
         #endregion
 
+        //public AuthService()
+        //{
+        //    AuthService.Current.Subscribe(nameof(AuthService.Current.Authenticators),
+        //        () => { AuthSettings.Authenticators.Value = ConvertJsonAuthenticator(AuthService.Current.Authenticators); });
+        //}
+
         private BindingList<WinAuthAuthenticator> _Authenticators = new BindingList<WinAuthAuthenticator>();
 
         public BindingList<WinAuthAuthenticator> Authenticators
@@ -71,7 +78,9 @@ namespace SteamTools.Services
                 }
                 catch (Exception ex)
                 {
-                    WindowService.Current.MainWindow.Dialog($"令牌同步服务器失败，错误信息：{ex.Message}");
+                    Logger.Error(ex);
+                    WindowService.Current.ShowDialogWindow($"令牌同步服务器失败，错误信息：{ex.Message}");
+
                 }
             }
             else

@@ -16,15 +16,13 @@ using System.Windows.Shapes;
 namespace SteamTools.Views.Content
 {
     /// <summary>
-    /// SettingsGeneral.xaml 的交互逻辑
+    /// SettingsAuth.xaml 的交互逻辑
     /// </summary>
-    public partial class SettingsGeneral : UserControl
+    public partial class SettingsAuth : UserControl
     {
-        public SettingsGeneral()
+        public SettingsAuth()
         {
             InitializeComponent();
         }
-
-
     }
 }

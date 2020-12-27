@@ -35,7 +35,7 @@ namespace SteamTools
         Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         ProductInfo.Company,
-        ProductInfo.Product));
+        ProductInfo.Title));
 
         private void IsRenameProgram()
         {
@@ -74,10 +74,6 @@ namespace SteamTools
                 if (e.Args.ContainsArg("-log"))
                 {
                     Logger.EnableTextLog = true;
-                }
-                if (e.Args.ContainsArg("-safe"))
-                {
-
                 }
                 SettingsHost.Load();
                 this.compositeDisposable.Add(SettingsHost.Save);
@@ -135,8 +131,7 @@ namespace SteamTools
             try
             {
                 Logger.Error($"{Assembly.GetExecutingAssembly().GetName().Name} Run Error : {Environment.NewLine}", e.Exception);
-                MessageBox.Show(e.Exception.ToString(), "Error");
-                //WindowService.Current.ShowDialogWindow(e.Exception.Message, "Error");
+                MessageBox.Show(e.Exception.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
             }
             catch (Exception ex)
             {

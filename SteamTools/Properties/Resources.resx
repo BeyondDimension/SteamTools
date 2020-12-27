@@ -162,6 +162,9 @@
   <data name="Auth_Edit" xml:space="preserve">
     <value>令牌编辑</value>
   </data>
+  <data name="Auth_Export" xml:space="preserve">
+    <value>导出令牌</value>
+  </data>
   <data name="Auth_Import" xml:space="preserve">
     <value>导入令牌</value>
   </data>

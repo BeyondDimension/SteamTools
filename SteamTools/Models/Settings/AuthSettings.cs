@@ -15,10 +15,15 @@ namespace SteamTools.Models.Settings
         public static SerializableProperty<string> Authenticators { get; }
             = new SerializableProperty<string>(GetKey(), Providers.Local) { AutoSave = true };
 
+        /// <summary>
+        /// 是否将令牌数据存储在程序路径下
+        /// </summary>
+        public static SerializableProperty<bool> IsCurrentDirectorySaveAuthData { get; }
+            = new SerializableProperty<bool>(GetKey(), Providers.Roaming) { AutoSave = true };
 
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
-            return nameof(GeneralSettings) + "." + propertyName;
+            return nameof(AuthSettings) + "." + propertyName;
         }
     }
 }

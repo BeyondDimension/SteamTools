@@ -40,12 +40,6 @@ namespace SteamTools.ViewModels
             }
         }
 
-        public LocalAuthPageViewModel() 
-        {
-            //AuthService.Current.Subscribe(nameof(AuthService.Current.Authenticators),
-            //    () => { Authenticators = new BindingList<WinAuthAuthenticator>(AuthService.Current.Authenticators); }).AddTo(this);
-        }
-
         public void ImageDelete_Click(WinAuthAuthenticator auth)
         {
             AuthService.Current.Authenticators.Remove(auth);
@@ -114,6 +108,27 @@ namespace SteamTools.ViewModels
         public void ImageAuthTrade_Click(WinAuthAuthenticator auth)
         {
             new AuthTradeWindow() { DataContext = new AuthTradeWindowViewModel(auth) }.Show();
+        }
+
+
+        public void ImageAuthExport_Click()
+        {
+            if (!string.IsNullOrEmpty(AuthSettings.Authenticators.Value))
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    AddExtension = true,
+                    CheckPathExists = true,
+                    Filter = "AuthData Files (*.dat)|*.dat",
+                    RestoreDirectory = true,
+                    FileName = $"{ProductInfo.Title} Authenticator {DateTime.Now.ToString("yyyy-MM-dd")}",
+                    Title = ProductInfo.Title + " | " + Resources.Auth_Export,
+                };
+                if (saveFileDialog.ShowDialog(App.Current.MainWindow) == true)
+                {
+                    File.WriteAllText(saveFileDialog.FileName, AuthSettings.Authenticators.Value);
+                }
+            }
         }
     }
 }

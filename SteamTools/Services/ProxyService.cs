@@ -49,8 +49,8 @@ new ProxyDomainModel{
 Index=0,
 Name=Resources.SteamCommunity,
 Domains = new List<string>{"steamcommunity.com" },
-//ToDomain = "steamcommunity-a.akamaihd.net",
-ToDomain = "steampowered.com",
+ToDomain = "steamcommunity-a.akamaihd.net",
+//ToDomain = "steampowered.com",
 Hosts = new List<string>{ "steamcommunity.com", "www.steamcommunity.com"},
 DomainTag = DomainTag.SteamCommunity,
 IsEnable= true,
@@ -60,7 +60,7 @@ Index=1,
 Name=Resources.SteamStore,
 Domains = new List<string>{"steampowered.com" },
 //ToDomain = "steamstore-a.akamaihd.net",
-ToDomain = "steampowered.com",
+ToDomain = "media.steampowered.com",
 Hosts = new List<string>{ "store.steampowered.com", "api.steampowered.com"},
 DomainTag = DomainTag.SteamStore,
 IsEnable= false,
@@ -69,7 +69,8 @@ new ProxyDomainModel{
 Index=2,
 Name=Resources.SteamImage,
 Domains = new List<string>{"steamcdn-a.akamaihd.net" },
-ToDomain = "cdn.akamai.steamstatic.com",
+//ToDomain = "cdn.akamai.steamstatic.com",
+ToDomain = "media.steampowered.com",
 //ProxyIPAddres = "184.50.87.34",
 Hosts = new List<string>{ "steamcdn-a.akamaihd.net"},
 DomainTag = DomainTag.SteamImage,
@@ -80,7 +81,7 @@ Index=3,
 Name=Resources.SteamChat,
 Domains = new List<string>{"steam-chat.com" },
 //ToDomain = "steamstore-a.akamaihd.net",
-ToDomain = "steampowered.com",
+ToDomain = "media.steampowered.com",
 Hosts = new List<string>{ "steam-chat.com"},
 DomainTag = DomainTag.SteamChat,
 IsEnable= false,
@@ -340,7 +341,8 @@ IsEnable= false,
                         }
                         else
                         {
-                            WindowService.Current.ShowDialogWindow("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。");
+                            //WindowService.Current.ShowDialogWindow("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。");
+                            StatusService.Current.Notify("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。");
                         }
                     }
                     else

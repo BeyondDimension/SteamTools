@@ -59,7 +59,7 @@
                                 </Path>
                             </StackPanel>
                             <Separator Opacity="0" Width="20"/>
-                            <metro:LinkButton Text="{Binding SteamID,Mode=OneWay}" ToolTip="{Binding Resources.UserChangeTootlip,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" VerticalAlignment="Center" FontSize="24" Width="Auto">
+                            <metro:LinkButton Text="{Binding SteamNickName,Mode=OneWay}" ToolTip="{Binding Resources.UserChangeTootlip,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" VerticalAlignment="Center" FontSize="24" Width="Auto">
                                 <!--<metro:LinkButton.InputBindings >
                                 <MouseBinding Command="{Binding DataContext.SteamIdOnClick,ElementName=u}" MouseAction="LeftClick"></MouseBinding>
                             </metro:LinkButton.InputBindings>-->

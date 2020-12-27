@@ -216,7 +216,7 @@ namespace SteamTool.Core
         public OperationResult RemoveHostsByTag()
         {
             var result = new OperationResult(OperationResultType.Error, Resources.Hosts_WirteError);
-            if (!File.Exists(HostsPath)) 
+            if (!File.Exists(HostsPath))
             {
                 result.Message = "hosts file was not found";
                 return result;
@@ -224,12 +224,10 @@ namespace SteamTool.Core
             //操作前取消只读属性
             File.SetAttributes(HostsPath, FileAttributes.Normal);
 
-            //避免重复写入
             var dataLines = File.ReadAllLines(HostsPath, Encoding.Default).ToList().FindAll(s =>
             {
-                var temp = s.Trim().Split(' ').ToList();
-                temp = temp.FindAll(s => !string.IsNullOrEmpty(s));
-                //一行内至少要有两列数据
+                var temp = s.Trim().Split(' ').ToList().FindAll(w => !string.IsNullOrEmpty(w));
+                //有效数据一行内至少要有两列数据
                 if (temp.Count >= 2)
                 {
                     if (!temp[0].StartsWith("#"))

@@ -5,6 +5,7 @@ namespace SteamTool.Model
     public class Const
     {
         public const string APP_LIST_FILE = "apps.json";
+        public const string AUTHDATA_FILE = "authenticators.dat";
         public const string SETTINGS_FILE = "settings.json";
         public const string SCRIPT_DIR = "scripts";
         public const string HOST_TAG = "#S302";
