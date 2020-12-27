@@ -43,10 +43,7 @@
 
             <StackPanel Margin="20,0,0,0">
                 <TextBlock Margin="-20,0,0,10" Text="{Binding Resources.Settings_Auth, Source={x:Static services:ResourceService.Current}, Mode=OneWay}" Style="{DynamicResource SettingsHeaderTextStyleKey}" />
-                
-                <TextBlock Text="令牌数据保存位置："
-					   Foreground="{DynamicResource ForegroundBrushKey}" />
-                <StackPanel Margin="20,0,0,0">
+                <StackPanel>
                     <Panel.Resources>
                         <Style TargetType="{x:Type RadioButton}"
 						                BasedOn="{StaticResource {x:Type RadioButton}}">
@@ -54,12 +51,24 @@
 								Value="Themes" />
                         </Style>
                     </Panel.Resources>
-                    <RadioButton Content="保存到Windows AppData"
-							 IsChecked="{Binding ThemeWindows}" />
-                    <RadioButton Content="保存到Steam++当前目录下"
-								 IsChecked="{Binding Dark}" />
+                    <CheckBox Content="令牌数据保存到Steam++程序目录下"
+								 IsChecked="{Binding Source={x:Static ms:AuthSettings.IsCurrentDirectorySaveAuthData}, Path=Value, Mode=TwoWay}" />
+                    <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="0,6,0,0">
+                        <Run Text="启用后Steam++的令牌数据文件将会保存在Steam++程序目录内，方便备份保存令牌数据。"></Run>
+                    </TextBlock>
                 </StackPanel>
-
+                <Separator Opacity="0" Height="10"/>
+                <WrapPanel>
+                    <metro2:CallMethodButton Content="读取并导入Steam++旧版本的令牌数据" 
+                                         Width="300" 
+                                         Height="30" 
+                                         HorizontalAlignment="Left"
+                                         MethodName="ImportOldVersionAuthData"
+                                         MethodTarget="{Binding}"/>
+                    <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="10,0,0,0">
+                        <Run Text="*1.0.5版本之后修改了令牌的存储方式"></Run>
+                    </TextBlock>
+                </WrapPanel>
                 <Border Height="1" 
 					Background="{DynamicResource BorderBrushKey}"
 					Margin="-20,8" />

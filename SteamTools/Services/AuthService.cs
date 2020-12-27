@@ -16,6 +16,7 @@ using Newtonsoft.Json.Linq;
 using System.Security.Cryptography;
 using System.Linq;
 using MetroTrilithon.Mvvm;
+using SteamTool.Model;
 
 namespace SteamTools.Services
 {
@@ -69,23 +70,58 @@ namespace SteamTools.Services
 
         public void Initialize()
         {
-            if (!string.IsNullOrEmpty(AuthSettings.Authenticators.Value))
+            try
             {
-                try
+                var path = Path.Combine(AppContext.BaseDirectory, Const.AUTHDATA_FILE);
+                if (AuthSettings.IsCurrentDirectorySaveAuthData.Value && File.Exists(path))
+                {
+                    var text = File.ReadAllText(path);
+                    var auths = AuthService.LoadJsonAuthenticator(text.DecompressString());
+                    Authenticators = new BindingList<WinAuthAuthenticator>(auths);
+                    if (string.IsNullOrEmpty(AuthSettings.Authenticators.Value))
+                    {
+                        AuthSettings.Authenticators.Value = text;
+                    }
+                }
+                else
                 {
                     var auths = AuthService.LoadJsonAuthenticator(AuthSettings.Authenticators.Value.DecompressString());
                     Authenticators = new BindingList<WinAuthAuthenticator>(auths);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex);
-                    WindowService.Current.ShowDialogWindow($"令牌同步服务器失败，错误信息：{ex.Message}");
-
+                    if (AuthSettings.IsCurrentDirectorySaveAuthData.Value)
+                    {
+                        File.WriteAllText(path, AuthSettings.Authenticators.Value);
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Authenticators = new BindingList<WinAuthAuthenticator>();
+                Logger.Error(ex);
+                WindowService.Current.ShowDialogWindow($"令牌同步服务器失败，错误信息：{ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// 导入Steam++导出的令牌数据文件
+        /// </summary>
+        public void ImportAuthenticatorsString(string str)
+        {
+            var auths = AuthService.LoadJsonAuthenticator(str);
+            foreach (var auth in auths)
+            {
+                Authenticators.Add(auth);
+            }
+        }
+
+        /// <summary>
+        /// 导入Steam++导出的令牌数据文件
+        /// </summary>
+        public void ImportAuthenticators(string file)
+        {
+            var text = File.ReadAllText(file, Encoding.UTF8);
+            var auths = AuthService.LoadJsonAuthenticator(text.DecompressString());
+            foreach (var auth in auths)
+            {
+                Authenticators.Add(auth);
             }
         }
 
@@ -95,7 +131,7 @@ namespace SteamTools.Services
         /// <param name="parent">parent Form</param>
         /// <param name="file">file name to import</param>
         /// <returns>list of imported authenticators</returns>
-        public void ImportAuthenticators(string file)
+        public void ImportWinAuthenticators(string file)
         {
             StringBuilder lines = new StringBuilder();
             bool retry;
@@ -554,6 +590,11 @@ namespace SteamTools.Services
                 }
             }
             return list;
+        }
+
+        public void SaveCurrentAuth()
+        {
+            AuthSettings.Authenticators.Value = ConvertJsonAuthenticator(Authenticators).CompressString();
         }
     }
 }

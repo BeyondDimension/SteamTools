@@ -25,6 +25,7 @@ namespace SteamTools.ViewModels
         public bool IsWinAuth { get; set; }
         public bool IsSteamApp { get; set; } = true;
         public bool IsSDA { get; set; }
+        public bool IsSpp { get; set; }
 
         private string _WinAuthFileName;
         public string WinAuthFileName
@@ -35,6 +36,20 @@ namespace SteamTools.ViewModels
                 if (this._WinAuthFileName != value)
                 {
                     this._WinAuthFileName = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
+        private string _AuthFileName;
+        public string AuthFileName
+        {
+            get => this._AuthFileName;
+            set
+            {
+                if (this._AuthFileName != value)
+                {
+                    this._AuthFileName = value;
                     this.RaisePropertyChanged();
                 }
             }
@@ -53,6 +68,7 @@ namespace SteamTools.ViewModels
                 }
             }
         }
+
         private string _SDAPassword;
         public string SDAPassword
         {
@@ -123,6 +139,7 @@ namespace SteamTools.ViewModels
             {
                 WinAuthFileName = ofd.FileName;
                 this.Topmost = true;
+                this.Topmost = false;
             }
         }
 
@@ -141,6 +158,40 @@ namespace SteamTools.ViewModels
             {
                 SDAFile = ofd.FileName;
                 this.Topmost = true;
+                this.Topmost = false;
+            }
+        }
+
+        public void OpenSppAuthFile()
+        {
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                AddExtension = true,
+                CheckFileExists = true,
+                CheckPathExists = true,
+                Filter = "AuthData Files (*.dat)|*.dat|All Files (*.*)|*.*",
+                RestoreDirectory = true,
+                Title = ProductInfo.Title
+            };
+            if (ofd.ShowDialog(App.Current.MainWindow) == true)
+            {
+                AuthFileName = ofd.FileName;
+                this.Topmost = true;
+                this.Topmost = false;
+            }
+        }
+
+        /// <summary>
+        /// 导入Steam++导出的令牌数据文件
+        /// </summary>
+        public void ImportAuthenticatorFile()
+        {
+            if (File.Exists(AuthFileName))
+            {
+                StatusService.Current.Set("导入Steam++令牌中...");
+                AuthService.Current.ImportAuthenticators(AuthFileName);
+                AuthService.Current.SaveCurrentAuth();
+                StatusService.Current.Set(Resources.Ready);
             }
         }
 
@@ -149,9 +200,8 @@ namespace SteamTools.ViewModels
             if (File.Exists(WinAuthFileName))
             {
                 StatusService.Current.Set("导入WinAuth令牌中...");
-                AuthService.Current.ImportAuthenticators(WinAuthFileName);
-                AuthSettings.Authenticators.Value = AuthService.ConvertJsonAuthenticator(AuthService.Current.Authenticators).CompressString();
-                //(WindowService.Current.MainWindow as MainWindowViewModel).LocalAuthPage
+                AuthService.Current.ImportWinAuthenticators(WinAuthFileName);
+                AuthService.Current.SaveCurrentAuth();
                 StatusService.Current.Set(Resources.Ready);
             }
         }
@@ -161,7 +211,7 @@ namespace SteamTools.ViewModels
             StatusService.Current.Notify("导入Steam App令牌中...");
             if (AuthService.Current.ImportSteamGuard(AuthName, UUID, SteamGuard))
             {
-                AuthSettings.Authenticators.Value = AuthService.ConvertJsonAuthenticator(AuthService.Current.Authenticators).CompressString();
+                AuthService.Current.SaveCurrentAuth();
             }
             else
             {
@@ -174,7 +224,7 @@ namespace SteamTools.ViewModels
             StatusService.Current.Set("导入Steam Desktop Auth令牌中...");
             if (AuthService.Current.ImportSDAFile(SDAFile, SDAPassword))
             {
-                AuthSettings.Authenticators.Value = AuthService.ConvertJsonAuthenticator(AuthService.Current.Authenticators).CompressString();
+                AuthService.Current.SaveCurrentAuth();
                 StatusService.Current.Set(Resources.Ready);
             }
             else
@@ -184,14 +234,16 @@ namespace SteamTools.ViewModels
             }
         }
 
-        public void Apply() 
+        public void Apply()
         {
             if (IsWinAuth)
                 ImportWinAuthFile();
             else if (IsSteamApp)
                 ImportSteamGuard();
-            else if(IsSDA)
+            else if (IsSDA)
                 ImportSDA();
+            else if (IsSpp)
+                ImportAuthenticatorFile();
         }
     }
 }

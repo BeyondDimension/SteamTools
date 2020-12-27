@@ -40,7 +40,7 @@
 
 		<PackageId />
 
-		<Version>1.0.3.3</Version>
+		<Version>1.0.5</Version>
 
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	</PropertyGroup>
