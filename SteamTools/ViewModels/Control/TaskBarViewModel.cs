@@ -46,9 +46,6 @@ namespace SteamTools.ViewModels
                     CanExecuteFunc = () => true,
                     CommandAction = () =>
                     {
-                        App.Current.MainWindow = WindowService.Current.GetMainWindow();
-                        //if (!App.Current.MainWindow.IsVisible)
-                        //    App.Current.MainWindow.Show();
                         var mainWindow = (WindowService.Current.MainWindow as MainWindowViewModel);
                         mainWindow.IsVisible = true;
                     }

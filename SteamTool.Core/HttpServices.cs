@@ -15,7 +15,7 @@ namespace SteamTool.Core
     {
         private readonly HttpClient _client = new HttpClient();
 
-        public string UserAgent { get; set; } = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36";
+        public string UserAgent { get; set; } = "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko";
 
         public string Accept { get; set; } = "application/json";
 

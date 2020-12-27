@@ -53,7 +53,7 @@
                                Style="{StaticResource TabHeaderTextStyleKey}" />
             </TabItem.Header>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-				  VerticalScrollBarVisibility="Auto">
+				  VerticalScrollBarVisibility="Auto" Background="{DynamicResource ThemeBrushKey}">
                 <StackPanel Margin="8,0,8,8">
                     <Panel.Resources>
                         <Style TargetType="{x:Type WrapPanel}">

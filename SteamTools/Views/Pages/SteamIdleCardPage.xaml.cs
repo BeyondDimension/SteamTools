@@ -12,18 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MetroRadiance.UI;
 
 namespace SteamTools.Views.Pages
 {
     /// <summary>
-    /// ArchiSteamFarmPlusPage.xaml 的交互逻辑
+    /// SteamIdleCardPage.xaml 的交互逻辑
     /// </summary>
-    public partial class ArchiSteamFarmPlusPage : UserControl
+    public partial class SteamIdleCardPage : UserControl
     {
-        public ArchiSteamFarmPlusPage()
+        public SteamIdleCardPage()
         {
             InitializeComponent();
         }
-
     }
+
 }

@@ -157,8 +157,8 @@ namespace SteamTools
                 //TaskbarService.Current.Taskbar.Icon = null; //避免托盘图标没有自动消失
                 TaskbarService.Current.Taskbar.Icon.Dispose();
             }
-            base.OnExit(e);
             this.compositeDisposable.Dispose();
+            base.OnExit(e);
         }
 
         private void ProcessCommandLineParameter(string[] args)
