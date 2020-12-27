@@ -68,6 +68,7 @@ namespace SteamTools
                 }
                 Logger.EnableTextLog = true;
 #endif
+                App.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                 this.DispatcherUnhandledException += App_DispatcherUnhandledException;
                 DispatcherHelper.UIDispatcher = this.Dispatcher;
                 if (e.Args.ContainsArg("-log"))
@@ -86,7 +87,7 @@ namespace SteamTools
                 GeneralSettings.Culture.Subscribe(x => ResourceService.Current.ChangeCulture(x)).AddTo(this);
                 WindowService.Current.AddTo(this).Initialize();
                 ProxyService.Current.Initialize();
-                SteamConnectService.Current.Initialize(); 
+                SteamConnectService.Current.Initialize();
                 AuthService.Current.Initialize();
                 if (GeneralSettings.IsAutoCheckUpdate)
                 {
@@ -140,7 +141,7 @@ namespace SteamTools
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
             }
 
             Current.Shutdown();
@@ -177,6 +178,7 @@ namespace SteamTools
             }
             if (args.ContainsArg("-app", out int appid))
             {
+                App.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
                 ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
                 new SettingsPageViewModel();
                 WindowService.Current.AddTo(this).Initialize(appid);

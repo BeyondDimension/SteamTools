@@ -2,7 +2,6 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:s="clr-namespace:System;assembly=mscorlib"
-             ShutdownMode="OnExplicitShutdown"
 			 xmlns:converters="http://schemes.grabacr.net/winfx/2015/personal/converters">
     <Application.Resources>
         <ResourceDictionary>
