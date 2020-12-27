@@ -67,7 +67,7 @@
                     </i:Interaction.Triggers>
                 </Image>
                 <Separator Opacity="0" Width="12"/>
-                <Image Width="24" Cursor="Hand" VerticalAlignment="Center" Source="/Resources/Asstes/export.png" ToolTip="{Binding Resources.Auth_Export,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
+                <Image Width="23" Cursor="Hand" VerticalAlignment="Center" Source="/Resources/Asstes/export.png" ToolTip="{Binding Resources.Auth_Export,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonUp">
                             <livet:LivetCallMethodAction
@@ -149,6 +149,17 @@
                                             <i:EventTrigger EventName="MouseLeftButtonUp">
                                                 <livet:LivetCallMethodAction
                                                             MethodName="ImageShowAuth_Click"
+                                                            MethodParameter="{Binding}"
+                                                            MethodTarget="{Binding DataContext,ElementName=u}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
+                                    <Separator Opacity="0" Width="5"/>
+                                    <Image Source="/Resources/Asstes/trade.png" Width="26" Cursor="Hand" ToolTip="{Binding Resources.Auth_Trade,Source={x:Static services:ResourceService.Current},Mode=OneWay}" Visibility="{Binding ElementName=u,Path=DataContext.IsEdit,Mode=OneWay,Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                <livet:LivetCallMethodAction
+                                                            MethodName="ImageAuthTrade_Click"
                                                             MethodParameter="{Binding}"
                                                             MethodTarget="{Binding DataContext,ElementName=u}" />
                                             </i:EventTrigger>

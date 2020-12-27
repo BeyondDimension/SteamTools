@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -78,7 +79,7 @@ namespace SteamTools.Win32
             IntPtr lpszUrlName);
 
 
-        [DllImport("wininet.dll", 
+        [DllImport("wininet.dll",
             SetLastError = true,
             CharSet = CharSet.Auto,
             EntryPoint = "InternetGetCookieEx",
@@ -91,5 +92,43 @@ namespace SteamTools.Win32
     int dwFlags,
     IntPtr lpReserved);
 
+        //Read HTTP Only
+        private const int InternetCookieHttponly = 0x2000;
+
+        public static CookieContainer GetUriCookieContainer(Uri uri)
+        {
+            // First, create a null cookie container
+            CookieContainer cookies = null;
+
+            // Determine the size of the cookie
+            var datasize = 8192 * 16;
+            var cookieData = new StringBuilder(datasize);
+
+            // Call InternetGetCookieEx from wininet.dll
+            if (!WinInet.InternetGetCookieEx(uri.ToString(), null, cookieData, ref datasize, InternetCookieHttponly, IntPtr.Zero))
+            {
+                if (datasize < 0)
+                    return null;
+                // Allocate stringbuilder large enough to hold the cookie
+                cookieData = new StringBuilder(datasize);
+                if (!InternetGetCookieEx(
+                    uri.ToString(),
+                    null, cookieData,
+                    ref datasize,
+                    InternetCookieHttponly,
+                    IntPtr.Zero))
+                    return null;
+            }
+
+            // If the cookie contains data, add it to the cookie container
+            if (cookieData.Length > 0)
+            {
+                cookies = new CookieContainer();
+                cookies.SetCookies(uri, cookieData.ToString().Replace(';', ','));
+            }
+
+            // Return the cookie container
+            return cookies;
+        }
     }
 }

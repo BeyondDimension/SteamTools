@@ -70,6 +70,8 @@ namespace SteamTool.Proxy
         SteamChat = 3,
         [Description("Discord语音")]
         Discord = 4,
+        [Description("Discord更新下载")]
+        DiscordNet = 11,
         [Description("Twitch直播")]
         Twitch = 5,
         [Description("Origin下载加速(Akamai)")]

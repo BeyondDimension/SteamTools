@@ -120,6 +120,9 @@
   <data name="Discord" xml:space="preserve">
     <value>Discord语音</value>
   </data>
+  <data name="DiscordNet" xml:space="preserve">
+    <value>Discord更新下载</value>
+  </data>
   <data name="GithubContent" xml:space="preserve">
     <value>Github图片资源修复</value>
   </data>

@@ -243,6 +243,15 @@ namespace SteamTools.Properties {
         /// <summary>
         ///   查找类似 交易确认 的本地化字符串。
         /// </summary>
+        public static string Auth_Trade {
+            get {
+                return ResourceManager.GetString("Auth_Trade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 交易确认 的本地化字符串。
+        /// </summary>
         public static string Auth_TradeTitle {
             get {
                 return ResourceManager.GetString("Auth_TradeTitle", resourceCulture);
@@ -457,7 +466,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 游戏列表 的本地化字符串。
+        ///   查找类似 库存游戏 的本地化字符串。
         /// </summary>
         public static string GameList {
             get {
@@ -1114,7 +1123,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 帐户切换 的本地化字符串。
+        ///   查找类似 账号切换 的本地化字符串。
         /// </summary>
         public static string UserFastChange {
             get {

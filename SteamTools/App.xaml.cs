@@ -21,6 +21,8 @@ using Hardcodet.Wpf.TaskbarNotification;
 using SteamTools.Models;
 using SteamTools.Models.Settings;
 using SteamTools.ViewModels;
+using SteamTool.Core;
+using Microsoft.Win32;
 
 namespace SteamTools
 {
@@ -31,6 +33,8 @@ namespace SteamTools
     {
         public static App Instance => Current as App;
 
+        public string ProgramName => Path.GetFileName(Environment.GetCommandLineArgs()[0]);
+
         public DirectoryInfo LocalAppData = new DirectoryInfo(
         Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
@@ -39,14 +43,27 @@ namespace SteamTools
 
         private void IsRenameProgram()
         {
-            string strFullPath = Path.GetFileName(Environment.GetCommandLineArgs()[0]);
-            if ($"{ProductInfo.Title}.exe" != strFullPath)
+            if ($"{ProductInfo.Title}.exe" != ProgramName)
             {
                 //MessageBox.Show(SteamTools.Properties.Resources.ReNameErrorInfo, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 this.Shutdown();
             }
         }
 
+        /// <summary>
+        /// 设置WebBrowser IE版本
+        /// </summary>
+        private void SetWebBrowserIeVersion()
+        {
+            try
+            {
+                SteamToolCore.Instance.Get<RegistryKeyService>().AddOrUpdateRegistryKey(Registry.CurrentUser, @"Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION", ProgramName, "11001", RegistryValueKind.DWord);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Program -> Main -> Registry and environment modifications resulted in an exception.", ex);
+            }
+        }
 
         /// <summary>
         /// 启动时
@@ -93,6 +110,8 @@ namespace SteamTools
                 //托盘加载
                 TaskbarService.Current.Taskbar = (TaskbarIcon)FindResource("Taskbar");
                 ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
+
+                SetWebBrowserIeVersion();
 
                 this.MainWindow = WindowService.Current.GetMainWindow();
                 if (e.Args.ContainsArg("-minimized") || GeneralSettings.IsStartupAppMinimized.Value)

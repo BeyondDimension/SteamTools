@@ -104,7 +104,7 @@ namespace SteamTools.ViewModels
             SteamConnectService.Current.Initialize(appid);
             if (SteamConnectService.Current.IsConnectToSteam == false)
             {
-                MessageBox.Show("与Steam建立连接失败，可能是该游戏没有成就，或者你不拥有该游戏。");
+                MessageBox.Show("与Steam建立连接失败，可能是该游戏没有成就，或者你没有该游戏。");
                 EnforceClose();
             }
 
@@ -119,7 +119,7 @@ namespace SteamTools.ViewModels
             {
                 if (param.Result != 1)
                 {
-                    this.Dialog($"错误代码: {param.Result}\r\n检索成就统计信息时出错，可能是该游戏没有成就，或者你不拥有该游戏。");
+                    this.Dialog($"错误代码: {param.Result}\r\n检索成就统计信息时出错，可能是该游戏没有成就，或者你没有该游戏。");
                     EnforceClose();
                 }
                 if (this.LoadUserGameStatsSchema() == false)
