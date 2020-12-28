@@ -1,37 +1,52 @@
-# Steam++工具箱
+<img src="https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Icon/LOGO1.png" alt="logo" width="130" height="130" align="left" />
 
-   「Steam++」是一个包含多种Steam工具功能的工具箱。
+<h1>Steam++工具箱</h1>
 
-   此工具的大部分功能都是需要您下载安装Steam才能使用。
+>  「Steam++」是一个包含多种Steam工具功能的工具箱，  
+>   此工具的大部分功能都是需要您下载安装Steam才能使用。
+<br/>
 
+![Release Download](https://img.shields.io/github/downloads/rmbadmin/SteamTools/total?style=flat-square)
+[![Release Version](https://img.shields.io/github/v/release/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/releases/latest)
+[![GitHub license](https://img.shields.io/github/license/rmbadmin/SteamTools?style=flat-square)](LICENSE)
+[![GitHub Star](https://img.shields.io/github/stars/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/stargazers)
+[![GitHub Fork](https://img.shields.io/github/forks/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/network/members)
+![GitHub repo size](https://img.shields.io/github/repo-size/rmbadmin/SteamTools?style=flat-square&color=3cb371)
+
+## 效果展示
+-------
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/s.png)  
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/e.png)  
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/e2.png)  
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/t.png)  
 ------
 
 ## 核心功能
 
 ### 1. 反代Steam的社区网页使其能正常访问
-
-功能类似羽翼城大佬的Steam302,使用[Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy)开源项目进行本地反代，相比302工具具有更快的启动速度，以及支持简单的脚本注入。
-
+功能类似羽翼城大佬的[steamcommunity_302](https://www.dogfight360.com/blog/686/),使用[Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy)开源项目进行本地反代，相比302工具具有更快的启动速度，以及支持简单的脚本注入。
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/1.png)  
 ---
 ### 2. 快速切换当前PC已经记住登陆的Steam账号
 
 该功能是读取Steam路径下存储的本地用户登录记录直接展示操作，可以多账号切换无需重新输入密码和令牌。
-
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/2.png)
 ---
 ### 3. Steam游戏的成就统计管理功能
 功能参考[SteamAchievementManager](https://github.com/gibbed/SteamAchievementManager)进行二次开发，修改了游戏列表的加载和操作易用性。
-
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/3.png)
 ---
 
 ### 4. Steam本地两步身份验证器
 功能参考[WinAuth](https://github.com/winauth/winauth)开发，可以使您不用启动移动版Steam App也能查看您的令牌，功能类似的软件有[WinAuth](https://github.com/winauth/winauth)、[SteamDesktopAuthenticator](https://github.com/Jessecar96/SteamDesktopAuthenticator)。
-
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/4.png)
 ---
 
 ### 5. 一些游戏工具
 目前已有强制游戏无边框窗口化，CSGO修复VAC屏蔽。
 这一块是随缘做一些我经常用或者闲着没事捣鼓的功能。
-
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/5.png)
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/6.png)
 ---
 
 ## 预计后续添加的功能
@@ -64,7 +79,7 @@
 ---
 
 ## License
-> [GPL-3.0 License](LICENSE.txt)  
+> [GPL-3.0 License](https://github.com/rmbadmin/SteamTools/blob/develop/LICENSE)  
 > 根据GPLv3许可发布的开源/免费软件。
 
 ---
@@ -74,7 +89,7 @@
 * [MetroRadiance](https://github.com/Grabacr07/MetroRadiance)
 * [MetroTrilithon](https://github.com/Grabacr07/MetroTrilithon)
 * [Livet](https://github.com/runceel/Livet)
-* [StatefulModel](https://github.com/Grabacr07/MetroTrilithonhttps://github.com/ugaya40/StatefulModel)
+* [StatefulModel](https://github.com/ugaya40/StatefulModel)
 * [Hardcodet.NotifyIcon](https://github.com/HavenDV/Hardcodet.NotifyIcon.Wpf.NetCore)
 * [System.Reactive](https://github.com/dotnet/reactive)
 * [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy)
