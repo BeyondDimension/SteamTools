@@ -261,7 +261,7 @@ new ProxyDomainModel{
 Index=10,
 Name=Resources.Pixiv,
 Domains = new List<string>{ "pixiv.net" },
-ToDomain="www.fanbox.cc",
+ToDomain="fanbox.cc",
 //ProxyIPAddres = "210.140.131.219",
 Hosts = new List<string>{
 "www.pixiv.net",
