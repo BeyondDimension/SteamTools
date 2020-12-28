@@ -6,6 +6,7 @@
 >   此工具的大部分功能都是需要您下载安装Steam才能使用。
 <br/>
 
+![Release Download](https://img.shields.io/github/downloads/rmbadmin/SteamTools/total?style=flat-square)
 [![Release Version](https://img.shields.io/github/v/release/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/releases/latest)
 [![GitHub license](https://img.shields.io/github/license/rmbadmin/SteamTools?style=flat-square)](LICENSE)
 [![GitHub Star](https://img.shields.io/github/stars/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/stargazers)
