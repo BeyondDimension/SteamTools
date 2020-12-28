@@ -51,10 +51,10 @@
 								Value="Themes" />
                         </Style>
                     </Panel.Resources>
-                    <CheckBox Content="令牌数据保存到Steam++程序目录下"
+                    <CheckBox Content="令牌数据保存到Steam++程序目录下" 
 								 IsChecked="{Binding Source={x:Static ms:AuthSettings.IsCurrentDirectorySaveAuthData}, Path=Value, Mode=TwoWay}" />
                     <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="0,6,0,0">
-                        <Run Text="启用后Steam++的令牌数据文件将会保存在Steam++程序目录内，方便备份保存令牌数据。"></Run>
+                        <Run Text="*下次启动时生效，启用后Steam++的令牌数据文件将会保存在Steam++程序目录内，方便备份保存令牌数据。"></Run>
                     </TextBlock>
                 </StackPanel>
                 <Separator Opacity="0" Height="10"/>
@@ -66,7 +66,7 @@
                                          MethodName="ImportOldVersionAuthData"
                                          MethodTarget="{Binding}"/>
                     <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="10,0,0,0">
-                        <Run Text="*1.0.5版本之后修改了令牌的存储方式"></Run>
+                        <Run Text="*导入1.0.4版本之前的令牌数据"></Run>
                     </TextBlock>
                 </WrapPanel>
                 <Border Height="1" 
