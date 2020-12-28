@@ -33,6 +33,41 @@
 								  FontFamily="Meiryo UI"
 								  TextAlignment="Left"
 								  MaxPageWidth="900">
+
+                    <Paragraph Language="zh-cn">
+                        <Run Text="Steam++ v1.0.4" FontSize="16"/>
+                        <Run Text="&#160;"/>
+                        <Run Text="2020-12-28" FontSize="10" />
+                        <LineBreak />
+                        <Run Text="更新内容"></Run>
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Foreground="IndianRed" Text="*此版本修改了配置文件的保存读取功能，会无法读取1.0.4版本以前的配置文件包括令牌数据。(可以通过设置-令牌设置-导入旧版本Steam++令牌数据按钮来恢复旧版本令牌数据)" />
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="还原steam社区反代上游地址修复部分请求会提示需要登录的问题" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增令牌导入导出备份功能" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增令牌可以选择保存在程序根目录下的设置选项(方便备份)" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修改了自动更新的提示方式"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="自动更新可以自动覆盖升级，不再需要手动替换"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复令牌无法保存的问题"></Run>
+                        <LineBreak/>
+                        <LineBreak />
+                        <Run Text="已知的未修复问题"></Run>
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="部分用户无法加载游戏列表，原因是因为缓存文件可能没有下载完成只下了一半，解决方法暂时可以手动刷新游戏列表缓存或者删除apps.json文件重启程序" />
+                    </Paragraph>
                     <Paragraph Language="zh-cn">
                         <Run Text="Steam++ v1.0.3" FontSize="16"/>
                         <Run Text="&#160;"/>
