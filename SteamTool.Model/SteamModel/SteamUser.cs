@@ -52,6 +52,11 @@ namespace SteamTool.Model
         public string SteamID { get; set; }
 
         /// <summary>
+        /// 昵称
+        /// </summary>
+        public string SteamNickName => string.IsNullOrEmpty(SteamID) ? "无法获取此账户昵称" : SteamID;
+
+        /// <summary>
         /// 用户名
         /// </summary>
         public string AccountName { get; set; }

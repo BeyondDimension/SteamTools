@@ -50,6 +50,7 @@ Index=0,
 Name=Resources.SteamCommunity,
 Domains = new List<string>{"steamcommunity.com" },
 ToDomain = "steamcommunity-a.akamaihd.net",
+//ToDomain = "steampowered.com",
 Hosts = new List<string>{ "steamcommunity.com", "www.steamcommunity.com"},
 DomainTag = DomainTag.SteamCommunity,
 IsEnable= true,
@@ -58,7 +59,8 @@ new ProxyDomainModel{
 Index=1,
 Name=Resources.SteamStore,
 Domains = new List<string>{"steampowered.com" },
-ToDomain = "steamstore-a.akamaihd.net",
+//ToDomain = "steamstore-a.akamaihd.net",
+ToDomain = "media.steampowered.com",
 Hosts = new List<string>{ "store.steampowered.com", "api.steampowered.com"},
 DomainTag = DomainTag.SteamStore,
 IsEnable= false,
@@ -68,7 +70,7 @@ Index=2,
 Name=Resources.SteamImage,
 Domains = new List<string>{"steamcdn-a.akamaihd.net" },
 ToDomain = "cdn.akamai.steamstatic.com",
-//ProxyIPAddres = "184.50.87.34",
+//ToDomain = "media.steampowered.com",
 Hosts = new List<string>{ "steamcdn-a.akamaihd.net"},
 DomainTag = DomainTag.SteamImage,
 IsEnable= false,
@@ -77,7 +79,8 @@ new ProxyDomainModel{
 Index=3,
 Name=Resources.SteamChat,
 Domains = new List<string>{"steam-chat.com" },
-ToDomain = "steamstore-a.akamaihd.net",
+//ToDomain = "steamstore-a.akamaihd.net",
+ToDomain = "media.steampowered.com",
 Hosts = new List<string>{ "steam-chat.com"},
 DomainTag = DomainTag.SteamChat,
 IsEnable= false,
@@ -85,15 +88,11 @@ IsEnable= false,
 new ProxyDomainModel{
 Index=4,
 Name=Resources.Discord,
-Domains = new List<string>{ "discordapp.com","discordapp.net" },
+Domains = new List<string>{ "discordapp.com"},
 //ToDomain = "discord.com",
-ProxyIPAddres="162.159.133.232",
+ProxyIPAddres="162.159.129.233",
 Hosts = new List<string>{
 "discordapp.com",
-"dl.discordapp.net",
-"media.discordapp.net",
-"images-ext-2.discordapp.net",
-"images-ext-1.discordapp.net",
 "support.discordapp.com",
 "url9177.discordapp.com",
 "canary-api.discordapp.com",
@@ -114,6 +113,20 @@ Hosts = new List<string>{
 },
 //ServerName= "discord.com",
 DomainTag = DomainTag.Discord,
+IsEnable= false,
+},
+new ProxyDomainModel{
+Index=11,
+Name=Resources.DiscordNet,
+Domains = new List<string>{ "discordapp.net" },
+ProxyIPAddres="162.159.130.232",
+Hosts = new List<string>{
+"dl.discordapp.net",
+"media.discordapp.net",
+"images-ext-2.discordapp.net",
+"images-ext-1.discordapp.net",
+},
+DomainTag = DomainTag.DiscordNet,
 IsEnable= false,
 },
 new ProxyDomainModel{
@@ -337,7 +350,8 @@ IsEnable= false,
                         }
                         else
                         {
-                            WindowService.Current.ShowDialogWindow("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。");
+                            //WindowService.Current.ShowDialogWindow("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。");
+                            StatusService.Current.Notify("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。");
                         }
                     }
                     else

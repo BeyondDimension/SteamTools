@@ -19,12 +19,6 @@ namespace SteamTools.ViewModels
     public class ShowAuthWindowViewModel : MainWindowViewModelBase
     {
         private SteamAuthenticator _Authenticator;
-
-        public ShowAuthWindowViewModel()
-        {
-            this.Title = ProductInfo.Title + " | " + Resources.Auth_DetailTitle;
-        }
-
         public ShowAuthWindowViewModel(WinAuthAuthenticator auth)
         {
             _Authenticator = auth.AuthenticatorData as SteamAuthenticator;

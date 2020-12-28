@@ -15,6 +15,8 @@ using SteamTools.Models.Settings;
 using Newtonsoft.Json.Linq;
 using System.Security.Cryptography;
 using System.Linq;
+using MetroTrilithon.Mvvm;
+using SteamTool.Model;
 
 namespace SteamTools.Services
 {
@@ -45,7 +47,13 @@ namespace SteamTools.Services
 
         #endregion
 
-        private BindingList<WinAuthAuthenticator> _Authenticators;
+        //public AuthService()
+        //{
+        //    AuthService.Current.Subscribe(nameof(AuthService.Current.Authenticators),
+        //        () => { AuthSettings.Authenticators.Value = ConvertJsonAuthenticator(AuthService.Current.Authenticators); });
+        //}
+
+        private BindingList<WinAuthAuthenticator> _Authenticators = new BindingList<WinAuthAuthenticator>();
 
         public BindingList<WinAuthAuthenticator> Authenticators
         {
@@ -62,21 +70,58 @@ namespace SteamTools.Services
 
         public void Initialize()
         {
-            if (!string.IsNullOrEmpty(AuthSettings.Authenticators.Value))
+            try
             {
-                try
+                var path = Path.Combine(AppContext.BaseDirectory, Const.AUTHDATA_FILE);
+                if (AuthSettings.IsCurrentDirectorySaveAuthData.Value && File.Exists(path))
+                {
+                    var text = File.ReadAllText(path);
+                    var auths = AuthService.LoadJsonAuthenticator(text.DecompressString());
+                    Authenticators = new BindingList<WinAuthAuthenticator>(auths);
+                    if (string.IsNullOrEmpty(AuthSettings.Authenticators.Value))
+                    {
+                        AuthSettings.Authenticators.Value = text;
+                    }
+                }
+                else
                 {
                     var auths = AuthService.LoadJsonAuthenticator(AuthSettings.Authenticators.Value.DecompressString());
                     Authenticators = new BindingList<WinAuthAuthenticator>(auths);
-                }
-                catch (Exception ex)
-                {
-                    WindowService.Current.MainWindow.Dialog($"令牌同步服务器失败，错误信息：{ex.Message}");
+                    if (AuthSettings.IsCurrentDirectorySaveAuthData.Value)
+                    {
+                        File.WriteAllText(path, AuthSettings.Authenticators.Value);
+                    }
                 }
             }
-            else 
+            catch (Exception ex)
             {
-                Authenticators = new BindingList<WinAuthAuthenticator>();
+                Logger.Error(ex);
+                WindowService.Current.ShowDialogWindow($"令牌同步服务器失败，错误信息：{ex}");
+            }
+        }
+
+        /// <summary>
+        /// 导入Steam++导出的令牌数据文件
+        /// </summary>
+        public void ImportAuthenticatorsString(string str)
+        {
+            var auths = AuthService.LoadJsonAuthenticator(str);
+            foreach (var auth in auths)
+            {
+                Authenticators.Add(auth);
+            }
+        }
+
+        /// <summary>
+        /// 导入Steam++导出的令牌数据文件
+        /// </summary>
+        public void ImportAuthenticators(string file)
+        {
+            var text = File.ReadAllText(file, Encoding.UTF8);
+            var auths = AuthService.LoadJsonAuthenticator(text.DecompressString());
+            foreach (var auth in auths)
+            {
+                Authenticators.Add(auth);
             }
         }
 
@@ -86,7 +131,7 @@ namespace SteamTools.Services
         /// <param name="parent">parent Form</param>
         /// <param name="file">file name to import</param>
         /// <returns>list of imported authenticators</returns>
-        public void ImportAuthenticators(string file)
+        public void ImportWinAuthenticators(string file)
         {
             StringBuilder lines = new StringBuilder();
             bool retry;
@@ -516,35 +561,43 @@ namespace SteamTools.Services
         public static IList<WinAuthAuthenticator> LoadJsonAuthenticator(string authString)
         {
             var list = new List<WinAuthAuthenticator>();
-            XmlReader reader = XmlReader.Create(new StringReader(authString));
-            reader.Read();
-            while (reader.EOF == false && reader.IsEmptyElement == true)
+            if (!string.IsNullOrEmpty(authString))
             {
+                XmlReader reader = XmlReader.Create(new StringReader(authString));
                 reader.Read();
-            }
-            reader.MoveToContent();
-            while (reader.EOF == false)
-            {
-                if (reader.IsStartElement())
-                {
-                    if (reader.Name == "Auth")
-                    {
-                        reader.Read();
-                    }
-                    if (reader.Name == "WinAuthAuthenticator")
-                    {
-                        var wa = new WinAuthAuthenticator();
-                        wa.ReadXml(reader, null);
-                        list.Add(wa);
-                    }
-                }
-                else
+                while (reader.EOF == false && reader.IsEmptyElement == true)
                 {
                     reader.Read();
-                    break;
+                }
+                reader.MoveToContent();
+                while (reader.EOF == false)
+                {
+                    if (reader.IsStartElement())
+                    {
+                        if (reader.Name == "Auth")
+                        {
+                            reader.Read();
+                        }
+                        if (reader.Name == "WinAuthAuthenticator")
+                        {
+                            var wa = new WinAuthAuthenticator() { AutoRefresh = false };
+                            wa.ReadXml(reader, null);
+                            list.Add(wa);
+                        }
+                    }
+                    else
+                    {
+                        reader.Read();
+                        break;
+                    }
                 }
             }
             return list;
+        }
+
+        public void SaveCurrentAuth()
+        {
+            AuthSettings.Authenticators.Value = ConvertJsonAuthenticator(Authenticators).CompressString();
         }
     }
 }

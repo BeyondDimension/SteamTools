@@ -65,7 +65,7 @@ namespace SteamTool.Proxy
             */
             #endregion
             Debug.WriteLine("OnRequest " + e.HttpClient.Request.RequestUri.AbsoluteUri);
-            Debug.WriteLine("OnRequest Authority " + e.HttpClient.Request.RequestUri.Authority);
+            Debug.WriteLine("OnRequest HTTP " + e.HttpClient.Request.HttpVersion);
             Logger.Info("OnRequest" + e.HttpClient.Request.RequestUri.AbsoluteUri);
 #endif                  
             await Dns.GetHostAddressesAsync(e.HttpClient.Request.Host).ContinueWith(s =>

@@ -45,7 +45,7 @@ namespace SteamTools.ViewModels
         {
             var fileDialog = new OpenFileDialog
             {
-                Filter = "脚本文件|*.js",
+                Filter = "JavaScript Files (*.js)|*.js",
                 Title = Resources.ImportScript,
                 //AddExtension = true,
                 Multiselect = true

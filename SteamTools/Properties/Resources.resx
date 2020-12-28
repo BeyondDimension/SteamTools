@@ -162,6 +162,9 @@
   <data name="Auth_Edit" xml:space="preserve">
     <value>令牌编辑</value>
   </data>
+  <data name="Auth_Export" xml:space="preserve">
+    <value>导出令牌</value>
+  </data>
   <data name="Auth_Import" xml:space="preserve">
     <value>导入令牌</value>
   </data>
@@ -173,6 +176,9 @@
   </data>
   <data name="Auth_See" xml:space="preserve">
     <value>查看令牌</value>
+  </data>
+  <data name="Auth_Trade" xml:space="preserve">
+    <value>交易确认</value>
   </data>
   <data name="Auth_TradeTitle" xml:space="preserve">
     <value>交易确认</value>
@@ -238,7 +244,7 @@
     <value>游戏</value>
   </data>
   <data name="GameList" xml:space="preserve">
-    <value>游戏列表</value>
+    <value>库存游戏</value>
   </data>
   <data name="GameName" xml:space="preserve">
     <value>游戏名称</value>
@@ -459,6 +465,9 @@
   <data name="Unsupported_Operation" xml:space="preserve">
     <value>不支持的操作</value>
   </data>
+  <data name="UpdateTips" xml:space="preserve">
+    <value>检测到新版本</value>
+  </data>
   <data name="Uplay" xml:space="preserve">
     <value>Uplay</value>
   </data>
@@ -466,7 +475,7 @@
     <value>重启Steam并以该账号登录</value>
   </data>
   <data name="UserFastChange" xml:space="preserve">
-    <value>帐户切换</value>
+    <value>账号切换</value>
   </data>
   <data name="VACFIX_BAT" xml:space="preserve">
     <value>@echo off

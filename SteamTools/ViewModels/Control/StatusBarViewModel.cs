@@ -45,6 +45,5 @@ namespace SteamTools.ViewModels
 		}
 
 		#endregion
-
 	}
 }

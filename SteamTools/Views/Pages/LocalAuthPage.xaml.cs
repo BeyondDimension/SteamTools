@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace SteamTools.Views.Pages
 {
     /// <summary>
-    /// SwitchSteamAccount.xaml 的交互逻辑
+    /// LocalAuthPage.xaml 的交互逻辑
     /// </summary>
     public partial class LocalAuthPage : UserControl
     {

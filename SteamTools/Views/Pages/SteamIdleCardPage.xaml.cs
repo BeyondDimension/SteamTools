@@ -12,19 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MetroRadiance.UI;
 
-namespace SteamTools.Views.Content
+namespace SteamTools.Views.Pages
 {
     /// <summary>
-    /// SettingsGeneral.xaml 的交互逻辑
+    /// SteamIdleCardPage.xaml 的交互逻辑
     /// </summary>
-    public partial class SettingsGeneral : UserControl
+    public partial class SteamIdleCardPage : UserControl
     {
-        public SettingsGeneral()
+        public SteamIdleCardPage()
         {
             InitializeComponent();
         }
-
-
     }
+
 }

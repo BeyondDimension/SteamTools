@@ -22,7 +22,7 @@ namespace SteamTool.Core.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace SteamTool.Core.Properties {
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SteamTool.Core.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace SteamTool.Core.Properties {
         ///   使用此强类型资源类的所有资源查找执行重写。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -74,7 +74,7 @@ namespace SteamTool.Core.Properties {
         ///# Additionally, comments (such as these) may be inserted on individual
         ///# lines or following th [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string DefaultHosts {
+        public static string DefaultHosts {
             get {
                 return ResourceManager.GetString("DefaultHosts", resourceCulture);
             }
@@ -83,7 +83,7 @@ namespace SteamTool.Core.Properties {
         /// <summary>
         ///   查找类似 写入的Hosts已经存在 的本地化字符串。
         /// </summary>
-        internal static string Hosts_Exists {
+        public static string Hosts_Exists {
             get {
                 return ResourceManager.GetString("Hosts_Exists", resourceCulture);
             }
@@ -92,7 +92,7 @@ namespace SteamTool.Core.Properties {
         /// <summary>
         ///   查找类似 读取Hosts时发生错误 的本地化字符串。
         /// </summary>
-        internal static string Hosts_ReadError {
+        public static string Hosts_ReadError {
             get {
                 return ResourceManager.GetString("Hosts_ReadError", resourceCulture);
             }
@@ -101,7 +101,7 @@ namespace SteamTool.Core.Properties {
         /// <summary>
         ///   查找类似 读取Hosts成功 的本地化字符串。
         /// </summary>
-        internal static string Hosts_ReadSuccess {
+        public static string Hosts_ReadSuccess {
             get {
                 return ResourceManager.GetString("Hosts_ReadSuccess", resourceCulture);
             }
@@ -110,7 +110,7 @@ namespace SteamTool.Core.Properties {
         /// <summary>
         ///   查找类似 写入Hosts成功 的本地化字符串。
         /// </summary>
-        internal static string Hosts_UpdateSuccess {
+        public static string Hosts_UpdateSuccess {
             get {
                 return ResourceManager.GetString("Hosts_UpdateSuccess", resourceCulture);
             }
@@ -119,7 +119,7 @@ namespace SteamTool.Core.Properties {
         /// <summary>
         ///   查找类似 写入Hosts时发生错误 的本地化字符串。
         /// </summary>
-        internal static string Hosts_WirteError {
+        public static string Hosts_WirteError {
             get {
                 return ResourceManager.GetString("Hosts_WirteError", resourceCulture);
             }
@@ -141,9 +141,23 @@ namespace SteamTool.Core.Properties {
         ///      &lt;param name=&quot;File&quot; value=&quot;log\\&quot; /&gt;
         ///      &lt;param name=&quot;AppendToFile&quot; value=&quot;true&quot;  [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string Log4netXml {
+        public static string Log4netXml {
             get {
                 return ResourceManager.GetString("Log4netXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 echo &quot;Steam++替换升级中...&quot;
+        ///taskkill /f /im {0}
+        ///xcopy /y /c /h /r /s &quot;{1}\*.*&quot; &quot;{2}&quot;
+        ///rmdir /s /q {1}
+        ///{3}
+        ///del %0 的本地化字符串。
+        /// </summary>
+        public static string ProgramUpdateCmd {
+            get {
+                return ResourceManager.GetString("ProgramUpdateCmd", resourceCulture);
             }
         }
     }

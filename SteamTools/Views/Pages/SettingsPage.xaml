@@ -53,7 +53,7 @@
                                Style="{StaticResource TabHeaderTextStyleKey}" />
             </TabItem.Header>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-				  VerticalScrollBarVisibility="Auto">
+				  VerticalScrollBarVisibility="Auto" Background="{DynamicResource ThemeBrushKey}">
                 <StackPanel Margin="8,0,8,8">
                     <Panel.Resources>
                         <Style TargetType="{x:Type WrapPanel}">
@@ -179,7 +179,19 @@
                 </StackPanel>
             </ScrollViewer>
         </TabItem>
-
+        
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock Text="{Binding Resources.Settings_Auth,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
+							   Style="{StaticResource TabHeaderTextStyleKey}" />
+            </TabItem.Header>
+            <contents:SettingsAuth>
+                <contents:SettingsAuth.DataContext>
+                    <vm:SettingsAuthViewModel/>
+                </contents:SettingsAuth.DataContext>
+            </contents:SettingsAuth>
+        </TabItem>
+        
         <!--<TabItem>
             <TabItem.Header>
                 <TextBlock Text="{Binding Resources.Settings_Proxy,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"

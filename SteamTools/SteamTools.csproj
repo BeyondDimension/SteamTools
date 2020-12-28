@@ -40,7 +40,9 @@
 
 		<PackageId />
 
-		<Version>1.0.3</Version>
+		<Version>1.0.4</Version>
+
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
@@ -98,6 +100,7 @@
 		<None Remove="Resources\Asstes\delete.png" />
 		<None Remove="Resources\Asstes\detail.png" />
 		<None Remove="Resources\Asstes\edit.png" />
+		<None Remove="Resources\Asstes\export.png" />
 		<None Remove="Resources\Asstes\install-line.png" />
 		<None Remove="Resources\Asstes\movecross.png" />
 		<None Remove="Resources\Asstes\ok.png" />
@@ -106,6 +109,7 @@
 		<None Remove="Resources\Asstes\restore.png" />
 		<None Remove="Resources\Asstes\save.png" />
 		<None Remove="Resources\Asstes\seek.png" />
+		<None Remove="Resources\Asstes\trade.png" />
 		<None Remove="Resources\Asstes\unlock.png" />
 		<None Remove="Resources\Asstes\wechatdonate.png" />
 	</ItemGroup>
@@ -130,6 +134,7 @@
 		<Resource Include="Resources\Asstes\delete.png" />
 		<Resource Include="Resources\Asstes\detail.png" />
 		<Resource Include="Resources\Asstes\edit.png" />
+		<Resource Include="Resources\Asstes\export.png" />
 		<Resource Include="Resources\Asstes\install-line.png" />
 		<Resource Include="Resources\Asstes\movecross.png" />
 		<Resource Include="Resources\Asstes\ok.png" />
@@ -138,6 +143,7 @@
 		<Resource Include="Resources\Asstes\restore.png" />
 		<Resource Include="Resources\Asstes\save.png" />
 		<Resource Include="Resources\Asstes\seek.png" />
+		<Resource Include="Resources\Asstes\trade.png" />
 		<Resource Include="Resources\Asstes\unlock.png" />
 		<Resource Include="Resources\Asstes\wechatdonate.png" />
 	</ItemGroup>
@@ -257,6 +263,10 @@
 		<Page Update="Views\Content\CommonGame\GameCSGO.xaml">
 		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		</Page>
+		<Page Update="Views\Content\Settings\SettingsAuth.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		  <SubType>Designer</SubType>
+		</Page>
 		<Page Update="Views\Content\Settings\SettingsGeneral.xaml">
 		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		  <SubType>Designer</SubType>
@@ -282,6 +292,9 @@
 		<Page Update="Views\Pages\AboutPage.xaml">
 		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		  <SubType>Designer</SubType>
+		</Page>
+		<Page Update="Views\Pages\SteamIdleCardPage.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		</Page>
 		<Page Update="Views\Pages\SteamAppPage.xaml">
 		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>

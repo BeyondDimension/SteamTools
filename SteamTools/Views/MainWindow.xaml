@@ -175,6 +175,9 @@
                     <DataTemplate DataType="{x:Type vm:SteamAccountPageViewModel}">
                         <pages:SwitchSteamAccountPage />
                     </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:SteamIdlePageViewModel}">
+                        <pages:SteamIdleCardPage />
+                    </DataTemplate>
                     <DataTemplate DataType="{x:Type vm:CommunityProxyPageViewModel}">
                         <pages:CommunityProxyPage />
                     </DataTemplate>

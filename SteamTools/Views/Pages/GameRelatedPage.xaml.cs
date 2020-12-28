@@ -17,7 +17,7 @@ using MetroRadiance.UI;
 namespace SteamTools.Views.Pages
 {
     /// <summary>
-    /// SwitchTheme.xaml 的交互逻辑
+    /// GameRelatedPage.xaml 的交互逻辑
     /// </summary>
     public partial class GameRelatedPage : UserControl
     {

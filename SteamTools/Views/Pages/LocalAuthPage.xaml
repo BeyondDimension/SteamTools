@@ -24,7 +24,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Margin="8,0,8,8">
+    <Grid Margin="8,4,8,8">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -43,7 +43,7 @@
                     
                 </Image>
                 <Separator Opacity="0" Width="10"/>
-                <Image Width="22" Cursor="Hand" VerticalAlignment="Center">
+                <Image Width="24" Cursor="Hand" VerticalAlignment="Center">
                     <Image.Style>
                         <Style TargetType="{x:Type Image}">
                             <Style.Triggers>
@@ -66,7 +66,16 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Image>
-                <Separator Opacity="0" Width="10"/>
+                <Separator Opacity="0" Width="12"/>
+                <Image Width="23" Cursor="Hand" VerticalAlignment="Center" Source="/Resources/Asstes/export.png" ToolTip="{Binding Resources.Auth_Export,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <livet:LivetCallMethodAction
+                                                            MethodName="ImageAuthExport_Click"
+                                                            MethodTarget="{Binding}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
             </StackPanel>
             <Rectangle DockPanel.Dock="Bottom"  Height=".99"
 									   Fill="{DynamicResource InactiveForegroundBrushKey}"
@@ -75,7 +84,7 @@
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <ItemsControl
             Foreground="{DynamicResource HighlightForegroundBrushKey}"
-            ItemsSource="{Binding Authenticators,Mode=OneWay}">
+            ItemsSource="{Binding Authenticators,Source={x:Static services:AuthService.Current},Mode=OneWay}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -145,6 +154,17 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
+                                    <!--<Separator Opacity="0" Width="5"/>
+                                    <Image Source="/Resources/Asstes/trade.png" Width="26" Cursor="Hand" ToolTip="{Binding Resources.Auth_Trade,Source={x:Static services:ResourceService.Current},Mode=OneWay}" Visibility="{Binding ElementName=u,Path=DataContext.IsEdit,Mode=OneWay,Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                <livet:LivetCallMethodAction
+                                                            MethodName="ImageAuthTrade_Click"
+                                                            MethodParameter="{Binding}"
+                                                            MethodTarget="{Binding DataContext,ElementName=u}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>-->
                                     <Separator Opacity="0" Width="5"/>
                                     <Image Source="/Resources/Asstes/seek.png" Width="24" Cursor="Hand" ToolTip="{Binding Resources.Auth_See,Source={x:Static services:ResourceService.Current},Mode=OneWay}" Visibility="{Binding ElementName=u,Path=DataContext.IsEdit,Mode=OneWay,Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                                         <i:Interaction.Triggers>

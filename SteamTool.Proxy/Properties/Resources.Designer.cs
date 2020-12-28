@@ -70,6 +70,15 @@ namespace SteamTool.Proxy.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Discord更新下载 的本地化字符串。
+        /// </summary>
+        public static string DiscordNet {
+            get {
+                return ResourceManager.GetString("DiscordNet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Github图片资源修复 的本地化字符串。
         /// </summary>
         public static string GithubContent {

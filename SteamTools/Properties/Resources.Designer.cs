@@ -196,6 +196,15 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 导出令牌 的本地化字符串。
+        /// </summary>
+        public static string Auth_Export {
+            get {
+                return ResourceManager.GetString("Auth_Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 导入令牌 的本地化字符串。
         /// </summary>
         public static string Auth_Import {
@@ -228,6 +237,15 @@ namespace SteamTools.Properties {
         public static string Auth_See {
             get {
                 return ResourceManager.GetString("Auth_See", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 交易确认 的本地化字符串。
+        /// </summary>
+        public static string Auth_Trade {
+            get {
+                return ResourceManager.GetString("Auth_Trade", resourceCulture);
             }
         }
         
@@ -448,7 +466,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 游戏列表 的本地化字符串。
+        ///   查找类似 库存游戏 的本地化字符串。
         /// </summary>
         public static string GameList {
             get {
@@ -1087,6 +1105,15 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 检测到新版本 的本地化字符串。
+        /// </summary>
+        public static string UpdateTips {
+            get {
+                return ResourceManager.GetString("UpdateTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Uplay 的本地化字符串。
         /// </summary>
         public static string Uplay {
@@ -1105,7 +1132,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 帐户切换 的本地化字符串。
+        ///   查找类似 账号切换 的本地化字符串。
         /// </summary>
         public static string UserFastChange {
             get {

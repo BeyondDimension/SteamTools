@@ -22,83 +22,156 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <ScrollViewer Padding="8" VerticalScrollBarVisibility="Auto">
-        <DockPanel>
-            <TextBlock DockPanel.Dock="Top" Text="{Binding Resources.AboutUpdateHistory, Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
+    <DockPanel Margin="8">
+        <TextBlock DockPanel.Dock="Top" Text="{Binding Resources.AboutUpdateHistory, Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 				   Style="{DynamicResource SettingsHeaderTextStyleKey}" />
-            <Border Grid.Column="1">
-                <FlowDocumentScrollViewer Padding="0,-18,0,0"
+        <Border Grid.Column="1">
+            <FlowDocumentScrollViewer Padding="0,-18,0,0"
 										  HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
-                    <FlowDocument FontSize="12"
+                <FlowDocument FontSize="12"
 								  Foreground="{DynamicResource ForegroundBrushKey}"
 								  FontFamily="Meiryo UI"
 								  TextAlignment="Left"
 								  MaxPageWidth="900">
-                        <Paragraph Language="zh-cn">
-                            <Run Text="Steam++ v1.0.2" FontSize="16"/>
-                            <Run Text="&#160;"/>
-                            <Run Text="2020-12-21" FontSize="10" />
-                            <LineBreak />
-                            <Run Text="更新内容"></Run>
-                            <LineBreak />
-                            <Run Text="&#160;&#160;&#160;&#160;"/>
-                            <Run Text="更新了由Benares制作的图标" />
-                            <LineBreak/>
-                            <Run Text="&#160;&#160;&#160;&#160;"/>
-                            <Run Text="新增帐户切换删除功能" />
-                            <LineBreak/>
-                            <Run Text="&#160;&#160;&#160;&#160;"/>
-                            <Run Text="添加github图片资源文件代理服务与discord代理服务支持" />
-                            <LineBreak/>
-                            <Run Text="&#160;&#160;&#160;&#160;"/>
-                            <Run Text="因为有问题暂时去掉了GOG Galaxy代理选项"></Run>
-                            <LineBreak/>
-                            <Run Text="&#160;&#160;&#160;&#160;"/>
-                            <Run Text="修复一个会导致程序启动没有反应的bug"></Run>
-                            <LineBreak/>
-                            <Run Text="&#160;&#160;&#160;&#160;"/>
-                            <Run Text="修复托盘菜单steam昵称过长ui错位bug"></Run>
-                            <LineBreak/>
-                            <Run Text="&#160;&#160;&#160;&#160;"/>
-                            <Run Text="新增steam启动参数设置"></Run>
-                            <LineBreak/>
-                            <Run Text="&#160;&#160;&#160;&#160;"/>
-                            <Run Text="新增启动时程序最小化到托盘菜单设置"></Run>
-                            <LineBreak/>
-                            <Run Text="&#160;&#160;&#160;&#160;"/>
-                            <Run Text="新增捐助列表的展示"></Run>
-                            <LineBreak/>
-                            <Run Text="&#160;&#160;&#160;&#160;"/>
-                            <Run Text="新增工具自动更新功能"></Run>
-                            <LineBreak />
-                            <LineBreak />
-                            <Run Text="已知的未修复问题"></Run>
-                            <LineBreak />
-                            <Run Text="&#160;&#160;&#160;&#160;"/>
-                            <Run Text="(严重)经反馈，程序运行时可能会影响部分steam游戏掉帧，GPU占用率变低，这个BUG目前在作者的机器上无法复现所以暂时没有修复，如果你遇到这个问题可以手动关闭steam++解决。" />
-                            <LineBreak />
-                            <Run Text="&#160;&#160;&#160;&#160;"/>
-                            <Run Text="程序在高DPI缩放分辨率下可能会UI布局错位，目前暂时拖动程序可恢复。" />
-                            <LineBreak />
-                            <Run Text="&#160;&#160;&#160;&#160;"/>
-                            <Run Text="部分用户无法加载游戏列表，无法复现，原因暂时不明。" />
-                        </Paragraph>
-                        <Paragraph Language="zh-cn">
-                            <Run Text="Steam++ v1.0.0" FontSize="16"/>
-                            <Run Text="&#160;"/>
-                            <Run Text="2020-12-14" FontSize="10" />
-                            <LineBreak />
-                            <Run Text="发布第一个版本" />
-                            <LineBreak/>
-                            <Run Text="&#160;&#160;&#160;&#160;"/>
-                            <Run Text="主要功能：社区反代，帐户切换，成就解锁，本地令牌。"></Run>
-                            <LineBreak/>
-                            <Run Text="&#160;&#160;&#160;&#160;"/>
-                            <Run Text="次要功能：强制无边框窗口化以及CSGO VAC屏蔽修复。"></Run>
-                        </Paragraph>
-                    </FlowDocument>
-                </FlowDocumentScrollViewer>
-            </Border>
-        </DockPanel>
-    </ScrollViewer>
+
+                    <Paragraph Language="zh-cn">
+                        <Run Text="Steam++ v1.0.4" FontSize="16"/>
+                        <Run Text="&#160;"/>
+                        <Run Text="2020-12-28" FontSize="10" />
+                        <LineBreak />
+                        <Run Text="更新内容"></Run>
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Foreground="IndianRed" Text="*此版本修改了配置文件的保存读取功能，会无法读取1.0.4版本以前的配置文件包括令牌数据。(可以通过设置-令牌设置-导入旧版本Steam++令牌数据按钮来恢复旧版本令牌数据)" />
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="还原steam社区反代上游地址修复部分请求会提示需要登录的问题" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增令牌导入导出备份功能" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增令牌可以选择保存在程序根目录下的设置选项(方便备份)" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修改了自动更新的提示方式"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="自动更新可以自动覆盖升级，不再需要手动替换"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复令牌无法保存的问题"></Run>
+                        <LineBreak/>
+                        <LineBreak />
+                        <Run Text="已知的未修复问题"></Run>
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="部分用户无法加载游戏列表，原因是因为缓存文件可能没有下载完成只下了一半，解决方法暂时可以手动刷新游戏列表缓存或者删除apps.json文件重启程序" />
+                    </Paragraph>
+                    <Paragraph Language="zh-cn">
+                        <Run Text="Steam++ v1.0.3" FontSize="16"/>
+                        <Run Text="&#160;"/>
+                        <Run Text="2020-12-26" FontSize="10" />
+                        <LineBreak />
+                        <Run Text="更新内容"></Run>
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增pixiv本地反代服务支持" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增在欢迎页steam昵称后显示steam的登陆区域" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="添加steam图片修复的本地反代支持" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复最小化恢复时UI边框错位的BUG"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复令牌编辑和导入时出现的非空报错"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="帐户切换功能的最近登陆时间从北京时间改为当前系统时区时间"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复一个因为DNS解析错误会导致程序内存溢出闪退的BUG"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="SDA令牌导入不再支持导入加密文件，如果要导入加密的maFile请先在SDA移除加密"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修改初始化的方式和steam api的连接逻辑来避免steam游戏掉帧的BUG"></Run>
+                        <LineBreak/>
+                        <LineBreak />
+                        <Run Text="已知的未修复问题"></Run>
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="部分用户无法加载游戏列表，无法复现，原因暂时不明。(也可能是加载太慢，过半小时才能加载出来)" />
+                    </Paragraph>
+                    <Paragraph Language="zh-cn">
+                        <Run Text="Steam++ v1.0.2" FontSize="16"/>
+                        <Run Text="&#160;"/>
+                        <Run Text="2020-12-21" FontSize="10" />
+                        <LineBreak />
+                        <Run Text="更新内容"></Run>
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="更新了由Benares制作的图标" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增帐户切换删除功能" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="添加github图片资源文件代理服务与discord代理服务支持" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="因为有问题暂时去掉了GOG Galaxy代理选项"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复一个会导致程序启动没有反应的bug"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复托盘菜单steam昵称过长ui错位bug"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增steam启动参数设置"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增启动时程序最小化到托盘菜单设置"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增捐助列表的展示"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增工具自动更新功能"></Run>
+                        <LineBreak />
+                        <LineBreak />
+                        <Run Text="已知的未修复问题"></Run>
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="(严重)经反馈，程序运行时可能会影响部分steam游戏掉帧，GPU占用率变低，这个BUG目前在作者的机器上无法复现所以暂时没有修复，如果你遇到这个问题可以手动关闭steam++解决。" />
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="程序在高DPI缩放分辨率下可能会UI布局错位，目前暂时拖动程序可恢复。" />
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="部分用户无法加载游戏列表，无法复现，原因暂时不明。" />
+                    </Paragraph>
+                    <Paragraph Language="zh-cn">
+                        <Run Text="Steam++ v1.0.0" FontSize="16"/>
+                        <Run Text="&#160;"/>
+                        <Run Text="2020-12-14" FontSize="10" />
+                        <LineBreak />
+                        <Run Text="发布第一个版本" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="主要功能：社区反代，帐户切换，成就解锁，本地令牌。"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="次要功能：强制无边框窗口化以及CSGO VAC屏蔽修复。"></Run>
+                    </Paragraph>
+                </FlowDocument>
+            </FlowDocumentScrollViewer>
+        </Border>
+    </DockPanel>
 </UserControl>

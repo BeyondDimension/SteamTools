@@ -23,7 +23,6 @@
 		Foreground="{DynamicResource ActiveForegroundBrushKey}"
 		FontFamily="{StaticResource DefaultFontFamilyKey}"
         FontSize="16"
-        ResizeMode="NoResize"
         UseLayoutRounding="True"
         TextOptions.TextFormattingMode="Display"
         SnapsToDevicePixels="True"
@@ -56,6 +55,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <!--Title-->
         <Border Grid.Row="0"
@@ -86,12 +86,12 @@
         </Border>
 
         <!--Body-->
-
-        <Grid Grid.Row="1">
-            <Grid Margin="0,8,0,0">
-                
-
-            </Grid>
+        <Grid Margin="0,8,0,0" Grid.Row="1">
+            <WebBrowser x:Name="web" LoadCompleted="web_LoadCompleted" Navigated="web_Navigated"/>
         </Grid>
+
+        <!--Footer-->
+        <controls:StatusBar Grid.Row="2" DataContext="{Binding StatusBar}">
+        </controls:StatusBar>
     </Grid>
 </metro:MetroWindow>

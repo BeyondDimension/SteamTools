@@ -21,6 +21,8 @@ using Hardcodet.Wpf.TaskbarNotification;
 using SteamTools.Models;
 using SteamTools.Models.Settings;
 using SteamTools.ViewModels;
+using SteamTool.Core;
+using Microsoft.Win32;
 
 namespace SteamTools
 {
@@ -31,22 +33,37 @@ namespace SteamTools
     {
         public static App Instance => Current as App;
 
+        public string ProgramName => Path.GetFileName(Environment.GetCommandLineArgs()[0]);
+
         public DirectoryInfo LocalAppData = new DirectoryInfo(
         Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         ProductInfo.Company,
-        ProductInfo.Product));
+        ProductInfo.Title));
 
         private void IsRenameProgram()
         {
-            string strFullPath = Path.GetFileName(Environment.GetCommandLineArgs()[0]);
-            if ($"{ProductInfo.Title}.exe" != strFullPath)
+            if ($"{ProductInfo.Title}.exe" != ProgramName)
             {
                 //MessageBox.Show(SteamTools.Properties.Resources.ReNameErrorInfo, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 this.Shutdown();
             }
         }
 
+        /// <summary>
+        /// 设置WebBrowser IE版本
+        /// </summary>
+        private void SetWebBrowserIeVersion()
+        {
+            try
+            {
+                SteamToolCore.Instance.Get<RegistryKeyService>().AddOrUpdateRegistryKey(Registry.CurrentUser, @"Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION", ProgramName, "11001", RegistryValueKind.DWord);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Program -> Main -> Registry and environment modifications resulted in an exception.", ex);
+            }
+        }
 
         /// <summary>
         /// 启动时
@@ -68,15 +85,12 @@ namespace SteamTools
                 }
                 Logger.EnableTextLog = true;
 #endif
+                App.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                 this.DispatcherUnhandledException += App_DispatcherUnhandledException;
                 DispatcherHelper.UIDispatcher = this.Dispatcher;
                 if (e.Args.ContainsArg("-log"))
                 {
                     Logger.EnableTextLog = true;
-                }
-                if (e.Args.ContainsArg("-safe"))
-                {
-
                 }
                 SettingsHost.Load();
                 this.compositeDisposable.Add(SettingsHost.Save);
@@ -87,10 +101,17 @@ namespace SteamTools
                 WindowService.Current.AddTo(this).Initialize();
                 ProxyService.Current.Initialize();
                 SteamConnectService.Current.Initialize();
+                AuthService.Current.Initialize();
+                if (GeneralSettings.IsAutoCheckUpdate)
+                {
+                    AutoUpdateService.Current.CheckUpdate();
+                }
 
                 //托盘加载
                 TaskbarService.Current.Taskbar = (TaskbarIcon)FindResource("Taskbar");
                 ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
+
+                SetWebBrowserIeVersion();
 
                 this.MainWindow = WindowService.Current.GetMainWindow();
                 if (e.Args.ContainsArg("-minimized") || GeneralSettings.IsStartupAppMinimized.Value)
@@ -129,13 +150,12 @@ namespace SteamTools
             try
             {
                 Logger.Error($"{Assembly.GetExecutingAssembly().GetName().Name} Run Error : {Environment.NewLine}", e.Exception);
-                MessageBox.Show(e.Exception.ToString(), "Error");
-                //WindowService.Current.ShowDialogWindow(e.Exception.Message, "Error");
+                MessageBox.Show(e.Exception.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
             }
 
             Current.Shutdown();
@@ -152,8 +172,8 @@ namespace SteamTools
                 //TaskbarService.Current.Taskbar.Icon = null; //避免托盘图标没有自动消失
                 TaskbarService.Current.Taskbar.Icon.Dispose();
             }
-            base.OnExit(e);
             this.compositeDisposable.Dispose();
+            base.OnExit(e);
         }
 
         private void ProcessCommandLineParameter(string[] args)
@@ -172,6 +192,7 @@ namespace SteamTools
             }
             if (args.ContainsArg("-app", out int appid))
             {
+                App.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
                 ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);
                 new SettingsPageViewModel();
                 WindowService.Current.AddTo(this).Initialize(appid);
