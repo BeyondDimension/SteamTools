@@ -5,13 +5,14 @@
 > 「Steam++」is a toolkit that contains a variety of Steam tools, most of which require you to download and install Steam in order to use them.
 <br/>
 
+![Release Download](https://img.shields.io/github/downloads/rmbadmin/SteamTools/total?style=flat-square)
 [![Release Version](https://img.shields.io/github/v/release/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/releases/latest)
 [![GitHub license](https://img.shields.io/github/license/rmbadmin/SteamTools?style=flat-square)](LICENSE)
 [![GitHub Star](https://img.shields.io/github/stars/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/stargazers)
 [![GitHub Fork](https://img.shields.io/github/forks/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/network/members)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rmbadmin/SteamTools?style=flat-square&color=3cb371)
 
-## Interface display
+## Samples
 -------
 ![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/s.png)  
 ![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/e.png)  

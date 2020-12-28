@@ -2,8 +2,8 @@
 
 <h1>Steam++工具箱</h1>
 
-> 「Steam++」是一个包含多种Steam工具功能的工具箱，
->  此工具的大部分功能都是需要您下载安装Steam才能使用。
+>  「Steam++」是一个包含多种Steam工具功能的工具箱，  
+>   此工具的大部分功能都是需要您下载安装Steam才能使用。
 <br/>
 
 [![Release Version](https://img.shields.io/github/v/release/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/releases/latest)
