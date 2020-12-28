@@ -1105,6 +1105,15 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 检测到新版本 的本地化字符串。
+        /// </summary>
+        public static string UpdateTips {
+            get {
+                return ResourceManager.GetString("UpdateTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Uplay 的本地化字符串。
         /// </summary>
         public static string Uplay {

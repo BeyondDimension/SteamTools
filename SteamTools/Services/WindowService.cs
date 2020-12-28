@@ -70,9 +70,6 @@ namespace SteamTools.Services
             var window = new MessageDialog { DataContext = dialog };
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             window.ShowDialog();
-            dialog.Topmost = true;
-            dialog.Activate();
-            dialog.Topmost = false;
             return dialog.DialogResult;
         }
 

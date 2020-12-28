@@ -465,6 +465,9 @@
   <data name="Unsupported_Operation" xml:space="preserve">
     <value>不支持的操作</value>
   </data>
+  <data name="UpdateTips" xml:space="preserve">
+    <value>检测到新版本</value>
+  </data>
   <data name="Uplay" xml:space="preserve">
     <value>Uplay</value>
   </data>

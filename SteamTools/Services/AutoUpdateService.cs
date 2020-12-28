@@ -62,44 +62,56 @@ namespace SteamTools.Services
             {
                 StatusService.Current.Notify("正在从Github检查更新...");
                 var result = await httpServices.Get(Const.GITHUB_LATEST_RELEASEAPI_URL);
-                var model = JsonConvert.DeserializeObject<GithubReleaseModel>(result);
-                if (!(ProductInfo.Version < model.version))
+                UpdateInfo = JsonConvert.DeserializeObject<GithubReleaseModel>(result);
+                if (!(ProductInfo.Version < UpdateInfo.version))
                 {
                     IsExistUpdate = false;
                     StatusService.Current.Notify("当前已是最新版本");
                     return;
                 }
                 IsExistUpdate = true;
-                DownloadUpdate(model);
             }
             catch (Exception ex)
             {
                 Logger.Error("更新出错：", ex);
-                WindowService.Current.ShowDialogWindow($"更新出错：{ex.Message}");
+                StatusService.Current.Notify($"更新出错：{ex.Message}");
             }
 
         }
 
-
-        public async void DownloadUpdate(GithubReleaseModel model)
+        private GithubReleaseModel _UpdateInfo;
+        public GithubReleaseModel UpdateInfo
         {
-            if (WindowService.Current.ShowDialogWindow($"检测到新版本更新内容：{model.body}\r\n是否立即更新？", $"{ProductInfo.Title} | 更新提示") == true)
+            get => this._UpdateInfo;
+            set
+            {
+                if (this._UpdateInfo != value)
+                {
+                    this._UpdateInfo = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
+        public async void DownloadUpdate()
+        {
+            if (WindowService.Current.ShowDialogWindow($"检测到新版本更新内容：{UpdateInfo.body}\r\n是否立即更新？", $"{ProductInfo.Title} | 更新提示") == true)
             {
                 //var name = model.assets.FirstOrDefault()?.name;
-                var name = Path.Combine(AppContext.BaseDirectory, @$"{ProductInfo.Title} {model.version}.zip");
+                var name = Path.Combine(AppContext.BaseDirectory, @$"{ProductInfo.Title} {UpdateInfo.version}.zip");
                 if (File.Exists(name))
                 {
                     StatusService.Current.Notify("更新文件已经存在，不需要下载");
                     return;
                 }
-                var fileReq = WebRequest.Create(model.assets.FirstOrDefault()?.browser_download_url);
+                var fileReq = WebRequest.Create(UpdateInfo.assets.FirstOrDefault()?.browser_download_url);
                 await fileReq?.GetResponseAsync().ContinueWith(s =>
                 {
                     long totalBytes = s.Result.ContentLength;
                     using Stream responseStream = s.Result.GetResponseStream();
                     using FileStream fileStream = new FileStream(name, FileMode.Create, FileAccess.Write);
                     long totalDownloadBytes = 0;
-                    byte[] bs = new byte[4096];
+                    byte[] bs = new byte[1024];
                     int size = responseStream.Read(bs, 0, bs.Length);
                     while (size > 0)
                     {
@@ -112,7 +124,7 @@ namespace SteamTools.Services
                     fileStream.Flush();
                     fileStream.Close();
                     StatusService.Current.Set(Resources.Ready);
-                    StatusService.Current.Notify($"{ProductInfo.Title} {model.version}版本已经下载到程序根目录下，暂时请手动替换更新");
+                    StatusService.Current.Notify($"{ProductInfo.Title} {UpdateInfo.version}版本已经下载到程序根目录下，暂时请手动替换更新");
                 });
             }
         }
