@@ -13,6 +13,7 @@ using System.Net;
 using System.IO;
 using Livet;
 using SteamTools.Properties;
+using System.Diagnostics;
 
 namespace SteamTools.Services
 {
@@ -63,6 +64,8 @@ namespace SteamTools.Services
                 StatusService.Current.Notify("正在从Github检查更新...");
                 var result = await httpServices.Get(Const.GITHUB_LATEST_RELEASEAPI_URL);
                 UpdateInfo = JsonConvert.DeserializeObject<GithubReleaseModel>(result);
+
+                // if (!(ProductInfo.Version > UpdateInfo.version))  Debug时反向检查更新来测试
                 if (!(ProductInfo.Version < UpdateInfo.version))
                 {
                     IsExistUpdate = false;
@@ -95,13 +98,17 @@ namespace SteamTools.Services
 
         public async void DownloadUpdate()
         {
-            if (WindowService.Current.ShowDialogWindow($"检测到新版本更新内容：{UpdateInfo.body}\r\n是否立即更新？", $"{ProductInfo.Title} | 更新提示") == true)
+            if (WindowService.Current.MainWindow.Dialog($"检测到新版本更新内容：{UpdateInfo.body}\r\n是否立即更新？", $"{ProductInfo.Title} | 更新提示") == true)
             {
-                //var name = model.assets.FirstOrDefault()?.name;
-                var name = Path.Combine(AppContext.BaseDirectory, @$"{ProductInfo.Title} {UpdateInfo.version}.zip");
+                var name = Path.Combine(AppContext.BaseDirectory, UpdateInfo.assets.FirstOrDefault()?.name);
+                //var name = Path.Combine(AppContext.BaseDirectory, @$"{ProductInfo.Title} {UpdateInfo.version}.zip");
                 if (File.Exists(name))
                 {
                     StatusService.Current.Notify("更新文件已经存在，不需要下载");
+                    if (Path.GetExtension(name) == ".zip")
+                    {
+                        OverwriteUpgrade(name);
+                    }
                     return;
                 }
                 var fileReq = WebRequest.Create(UpdateInfo.assets.FirstOrDefault()?.browser_download_url);
@@ -124,9 +131,40 @@ namespace SteamTools.Services
                     fileStream.Flush();
                     fileStream.Close();
                     StatusService.Current.Set(Resources.Ready);
-                    StatusService.Current.Notify($"{ProductInfo.Title} {UpdateInfo.version}版本已经下载到程序根目录下，暂时请手动替换更新");
+                    if (Path.GetExtension(name) == ".zip")
+                    {
+                        OverwriteUpgrade(name);
+                    }
+                    StatusService.Current.Notify($"{ProductInfo.Title} {UpdateInfo.version}版本已经下载到程序根目录下，请手动替换更新");
                 });
             }
+        }
+
+        private void OverwriteUpgrade(string zipFile)
+        {
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                if (WindowService.Current.MainWindow.Dialog($"新版本下载完成，是否自动重启替换到新版本？", $"{ProductInfo.Title} | 更新提示") == true)
+                {
+                    var out_dir = Path.Combine(AppContext.BaseDirectory, Path.GetFileNameWithoutExtension(zipFile));
+                    if (ZipHelper.UnpackFiles(zipFile, out_dir))
+                    {
+                        File.Delete(zipFile);
+                        var batpath = Path.Combine(App.Instance.LocalAppData.FullName, "update.cmd");
+                        File.WriteAllText(batpath,
+                            string.Format(SteamTool.Core.Properties.Resources.ProgramUpdateCmd,
+                            ProductInfo.Title + ".exe", out_dir, AppContext.BaseDirectory, App.Instance.ProgramName), Encoding.Default);
+                        Process p = new Process();
+                        p.StartInfo.FileName = batpath;//要执行的程序名称 
+                        p.StartInfo.UseShellExecute = false;
+                        p.StartInfo.CreateNoWindow = true;//不显示程序窗口 
+                        //管理员权限运行
+                        p.StartInfo.Verb = "runas";
+                        App.Current.Shutdown();
+                        p.Start();//启动程序 
+                    }
+                }
+            });
         }
     }
 }

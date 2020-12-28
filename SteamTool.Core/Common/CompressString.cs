@@ -15,6 +15,10 @@ namespace SteamTool.Core.Common
         /// <returns></returns>
         public static string CompressString(this string text)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return null;
+            }
             byte[] buffer = Encoding.UTF8.GetBytes(text);
             var memoryStream = new MemoryStream();
             using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Compress, true))
@@ -40,6 +44,10 @@ namespace SteamTool.Core.Common
         /// <returns></returns>
         public static string DecompressString(this string compressedText)
         {
+            if (string.IsNullOrEmpty(compressedText))
+            {
+                return null;
+            }
             byte[] gZipBuffer = Convert.FromBase64String(compressedText);
             using var memoryStream = new MemoryStream();
             int dataLength = BitConverter.ToInt32(gZipBuffer, 0);

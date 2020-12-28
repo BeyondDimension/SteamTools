@@ -55,6 +55,7 @@ namespace SteamTools.ViewModels
                 p.StartInfo.CreateNoWindow = true;//不显示程序窗口 
                 p.Start();//启动程序 
                 p.StandardInput.AutoFlush = true;
+                //管理员权限运行
                 p.StartInfo.Verb = "runas";
                 //向CMD窗口发送输入信息： 
                 //p.StandardInput.WriteLine(@Resources.VACFIX_BAT);

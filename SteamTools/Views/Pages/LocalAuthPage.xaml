@@ -154,7 +154,7 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
-                                    <Separator Opacity="0" Width="5"/>
+                                    <!--<Separator Opacity="0" Width="5"/>
                                     <Image Source="/Resources/Asstes/trade.png" Width="26" Cursor="Hand" ToolTip="{Binding Resources.Auth_Trade,Source={x:Static services:ResourceService.Current},Mode=OneWay}" Visibility="{Binding ElementName=u,Path=DataContext.IsEdit,Mode=OneWay,Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonUp">
@@ -164,7 +164,7 @@
                                                             MethodTarget="{Binding DataContext,ElementName=u}" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
-                                    </Image>
+                                    </Image>-->
                                     <Separator Opacity="0" Width="5"/>
                                     <Image Source="/Resources/Asstes/seek.png" Width="24" Cursor="Hand" ToolTip="{Binding Resources.Auth_See,Source={x:Static services:ResourceService.Current},Mode=OneWay}" Visibility="{Binding ElementName=u,Path=DataContext.IsEdit,Mode=OneWay,Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                                         <i:Interaction.Triggers>

@@ -96,7 +96,7 @@ namespace SteamTools.Services
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                WindowService.Current.ShowDialogWindow($"令牌同步服务器失败，错误信息：{ex.Message}");
+                WindowService.Current.ShowDialogWindow($"令牌同步服务器失败，错误信息：{ex}");
             }
         }
 
@@ -561,32 +561,35 @@ namespace SteamTools.Services
         public static IList<WinAuthAuthenticator> LoadJsonAuthenticator(string authString)
         {
             var list = new List<WinAuthAuthenticator>();
-            XmlReader reader = XmlReader.Create(new StringReader(authString));
-            reader.Read();
-            while (reader.EOF == false && reader.IsEmptyElement == true)
+            if (!string.IsNullOrEmpty(authString))
             {
+                XmlReader reader = XmlReader.Create(new StringReader(authString));
                 reader.Read();
-            }
-            reader.MoveToContent();
-            while (reader.EOF == false)
-            {
-                if (reader.IsStartElement())
-                {
-                    if (reader.Name == "Auth")
-                    {
-                        reader.Read();
-                    }
-                    if (reader.Name == "WinAuthAuthenticator")
-                    {
-                        var wa = new WinAuthAuthenticator() { AutoRefresh = false };
-                        wa.ReadXml(reader, null);
-                        list.Add(wa);
-                    }
-                }
-                else
+                while (reader.EOF == false && reader.IsEmptyElement == true)
                 {
                     reader.Read();
-                    break;
+                }
+                reader.MoveToContent();
+                while (reader.EOF == false)
+                {
+                    if (reader.IsStartElement())
+                    {
+                        if (reader.Name == "Auth")
+                        {
+                            reader.Read();
+                        }
+                        if (reader.Name == "WinAuthAuthenticator")
+                        {
+                            var wa = new WinAuthAuthenticator() { AutoRefresh = false };
+                            wa.ReadXml(reader, null);
+                            list.Add(wa);
+                        }
+                    }
+                    else
+                    {
+                        reader.Read();
+                        break;
+                    }
                 }
             }
             return list;
