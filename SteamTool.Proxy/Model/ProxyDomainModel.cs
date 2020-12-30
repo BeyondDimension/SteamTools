@@ -9,8 +9,6 @@ namespace SteamTool.Proxy
 {
     public class ProxyDomainModel
     {
-        public int Index { get; set; }
-
         /// <summary>
         /// 显示在UI上的名称
         /// </summary>
@@ -70,21 +68,21 @@ namespace SteamTool.Proxy
         SteamChat = 3,
         [Description("Discord语音")]
         Discord = 4,
-        [Description("Discord更新下载")]
-        DiscordNet = 11,
         [Description("Twitch直播")]
         Twitch = 5,
-        [Description("Origin下载加速(Akamai)")]
+        [Description("Origin下载(Akamai)")]
         OriginGameDownload = 6,
-        [Description("Uplay更新防劫持")]
-        UplayUpdate = 7,
+        [Description("GOG.COM")]
+        GOG = 7,
         [Description("Google(Recaptcha)")]
         GoogleCode = 8,
-        [Description("GOG.COM")]
-        GOG = 8,
         [Description("Github图片修复")]
-        GithubContent = 9, 
+        GithubContent = 9,
         [Description("Pixiv")]
         Pixiv = 10,
+        [Description("Discord更新下载")]
+        DiscordNet = 11,
+        [Description("Uplay更新防劫持")]
+        UplayUpdate = 12,
     }
 }

@@ -13,6 +13,8 @@
 [![GitHub Fork](https://img.shields.io/github/forks/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/network/members)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rmbadmin/SteamTools?style=flat-square&color=3cb371)
 
+# Steam++
+
 ## 效果展示
 -------
 ![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/s.png)  
@@ -24,7 +26,7 @@
 ## 核心功能
 
 ### 1. 反代Steam的社区网页使其能正常访问
-功能类似羽翼城大佬的[steamcommunity_302](https://www.dogfight360.com/blog/686/),使用[Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy)开源项目进行本地反代，相比302工具具有更快的启动速度，以及支持简单的脚本注入。
+功能类似羽翼城大佬的[steamcommunity_302](https://www.dogfight360.com/blog/686/),使用[Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy)开源项目进行本地反代，使国内用户可以正常访问steam社区页，相比302工具具有更快的启动速度，以及支持简单的脚本注入。(还顺便支持了Pixiv、Discord、Twitch等网站的反代支持)
 ![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/1.png)  
 ---
 ### 2. 快速切换当前PC已经记住登陆的Steam账号

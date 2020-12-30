@@ -178,7 +178,7 @@
 						Grid.IsSharedSizeScope="True">
                     <TextBlock Style="{DynamicResource DetailTextStyleKey}">
 				            <Run Text="WinAuth是Windows的便携式开放源代码身份验证器，它提供基于计数器或基于时间的RFC 6238身份验证器和常见的实现。" />
-                            <metro2:HyperlinkEx Uri="https://github.com/Jessecar96/SteamDesktopAuthenticator"><Run Text="Github"></Run></metro2:HyperlinkEx>
+                            <metro2:HyperlinkEx Uri="https://github.com/winauth/winauth"><Run Text="Github"></Run></metro2:HyperlinkEx>
                             <LineBreak/>
                             <Run Text="导入方法：从WinAuth导出txt文件之后在此选择从WinAuth导出的txt文件进行导入。"></Run>
                     </TextBlock>

@@ -77,15 +77,15 @@ namespace SteamTools.ViewModels
         public void ProxyServices_Checked(ProxyDomainModel proxyDomain)
         {
             var dic = ProxySettings.SupportProxyServicesStatus.Value as Dictionary<int, bool>;
-            if (ProxySettings.SupportProxyServicesStatus.Value.ContainsKey(proxyDomain.Index))
+            if (ProxySettings.SupportProxyServicesStatus.Value.ContainsKey((int)proxyDomain.DomainTag))
             {
-                dic.Remove(proxyDomain.Index);
+                dic.Remove((int)proxyDomain.DomainTag);
                 if (proxyDomain.IsEnable)
-                    dic.Add(proxyDomain.Index, proxyDomain.IsEnable);
+                    dic.Add((int)proxyDomain.DomainTag, proxyDomain.IsEnable);
             }
             else
             {
-                dic.Add(proxyDomain.Index, proxyDomain.IsEnable);
+                dic.Add((int)proxyDomain.DomainTag, proxyDomain.IsEnable);
             }
             ProxySettings.SupportProxyServicesStatus.Value = dic;
         }

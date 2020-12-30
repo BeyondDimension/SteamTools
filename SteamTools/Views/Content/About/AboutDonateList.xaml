@@ -35,11 +35,11 @@
                 <ItemsControl ItemsSource="{Binding DonateRecordList}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <DockPanel Margin="8">
+                            <DockPanel Margin="8" VerticalAlignment="Center">
                                 <WrapPanel VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Name}" Foreground="{StaticResource ActiveForegroundBrushKey}" Margin="10,0,0,0" Width="60"></TextBlock>
-                                    <TextBlock  Text="{Binding Amount,StringFormat={}{0:F2}元}" Foreground="{StaticResource ActiveForegroundBrushKey}"  Margin="20,0,0,0" Width="70"></TextBlock>
-                                    <TextBlock  Text="{Binding Remark}" Foreground="{StaticResource ActiveForegroundBrushKey}"  Margin="30,0,0,0" TextTrimming="CharacterEllipsis"></TextBlock>
+                                    <TextBlock Text="{Binding Name}" Foreground="{StaticResource ActiveForegroundBrushKey}" Margin="10,0,0,0" Width="65"></TextBlock>
+                                    <TextBlock  Text="{Binding Amount,StringFormat={}{0:F2}元}" Foreground="{StaticResource ActiveForegroundBrushKey}" Margin="20,0,0,0" Width="70"></TextBlock>
+                                    <TextBlock  Text="{Binding Remark}" FontSize="12" TextWrapping = "Wrap" Foreground="{StaticResource ActiveForegroundBrushKey}"  Margin="20,0,0,0" TextTrimming="CharacterEllipsis"></TextBlock>
                                 </WrapPanel>
                                 <TextBlock  Text="{Binding PayTime,StringFormat='{}{0:yyyy年MM月dd日}',ConverterCulture=zh-CN}" Foreground="{StaticResource ActiveForegroundBrushKey}" Margin="10" HorizontalAlignment="Right"></TextBlock>
                             </DockPanel>

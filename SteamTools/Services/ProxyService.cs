@@ -28,7 +28,7 @@ namespace SteamTools.Services
             {
                 foreach (var item in ProxyDomains.Value)
                 {
-                    if (ProxySettings.SupportProxyServicesStatus.Value.TryGetValue(item.Index, out bool value))
+                    if (ProxySettings.SupportProxyServicesStatus.Value.TryGetValue((int)item.DomainTag, out bool value))
                     {
                         item.IsEnable = value;
                     }
@@ -46,7 +46,6 @@ namespace SteamTools.Services
         private Lazy<IReadOnlyCollection<ProxyDomainModel>> _ProxyDomains = new Lazy<IReadOnlyCollection<ProxyDomainModel>>(() => new List<ProxyDomainModel>
 {
 new ProxyDomainModel{
-Index=0,
 Name=Resources.SteamCommunity,
 Domains = new List<string>{"steamcommunity.com" },
 ToDomain = "steamcommunity-a.akamaihd.net",
@@ -56,7 +55,6 @@ DomainTag = DomainTag.SteamCommunity,
 IsEnable= true,
 },
 new ProxyDomainModel{
-Index=1,
 Name=Resources.SteamStore,
 Domains = new List<string>{"steampowered.com" },
 //ToDomain = "steamstore-a.akamaihd.net",
@@ -66,7 +64,6 @@ DomainTag = DomainTag.SteamStore,
 IsEnable= false,
 },
 new ProxyDomainModel{
-Index=2,
 Name=Resources.SteamImage,
 Domains = new List<string>{"steamcdn-a.akamaihd.net" },
 ToDomain = "cdn.akamai.steamstatic.com",
@@ -76,7 +73,6 @@ DomainTag = DomainTag.SteamImage,
 IsEnable= false,
 },
 new ProxyDomainModel{
-Index=3,
 Name=Resources.SteamChat,
 Domains = new List<string>{"steam-chat.com" },
 //ToDomain = "steamstore-a.akamaihd.net",
@@ -86,7 +82,6 @@ DomainTag = DomainTag.SteamChat,
 IsEnable= false,
 },
 new ProxyDomainModel{
-Index=4,
 Name=Resources.Discord,
 Domains = new List<string>{ "discordapp.com"},
 //ToDomain = "discord.com",
@@ -116,7 +111,6 @@ DomainTag = DomainTag.Discord,
 IsEnable= false,
 },
 new ProxyDomainModel{
-Index=11,
 Name=Resources.DiscordNet,
 Domains = new List<string>{ "discordapp.net" },
 ProxyIPAddres="162.159.130.232",
@@ -130,10 +124,10 @@ DomainTag = DomainTag.DiscordNet,
 IsEnable= false,
 },
 new ProxyDomainModel{
-Index=5,
 Name=Resources.Twitch,
-Domains = new List<string>{ "twitch.tv" ,"usher.ttvnw.net"},
+Domains = new List<string>{ "twitch.tv" },
 ToDomain="twitch.map.fastly.net",
+//ProxyIPAddres="157.240.13.8",
 Hosts = new List<string>{
 "twitch.tv",
 "www.twitch.tv",
@@ -173,13 +167,12 @@ Hosts = new List<string>{
 "irc-ws.chat.twitch.tv",
 "irc-ws-r.chat.twitch.tv",
 //"platform.twitter.com",
-"usher.ttvnw.net",
+//"usher.ttvnw.net",
 },
 DomainTag = DomainTag.Twitch,
 IsEnable= false,
 },
 new ProxyDomainModel{
-Index=6,
 Name=Resources.OriginDownload,
 Domains = new List<string>{"origin-a.akamaihd.net" },
 ToDomain = "cctv4-lh.akamaihd.net",
@@ -187,19 +180,18 @@ Hosts = new List<string>{ "origin-a.akamaihd.net"},
 DomainTag = DomainTag.OriginGameDownload,
 IsEnable= false,
 },
+new ProxyDomainModel{
+Name=Resources.UplayUpdate,
+Domains = new List<string>{"static3.cdn.ubi.com" },
+ToDomain = "static2.cdn.ubi.com",
+Hosts = new List<string>{ "static3.cdn.ubi.com"},
+DomainTag = DomainTag.UplayUpdate,
+IsEnable= false,
+},
 //new ProxyDomainModel{
-//Name=Resources.UplayUpdate,
-//Domains = new List<string>{"static3.cdn.ubi.com" },
-//ToDomain = "static3.cdn.ubi.com",
-//Hosts = new List<string>{ "static3.cdn.ubi.com"},
-//DomainTag = DomainTag.UplayUpdate,
-//IsEnable= false,
-//},
-//new ProxyDomainModel{
-//Index=7,
 //Name=Resources.GOG,
 //Domains = new List<string>{ "gog.com" },
-//ToDomain = "api.gog.com",
+//ToDomain = "gog.com",
 //Hosts = new List<string>{
 //"www.gog.com",
 //"images.gog.com",
@@ -211,7 +203,7 @@ IsEnable= false,
 //"menu.gog.com",
 //"auth.gog.com",
 //"login.gog.com",
-////"api.gog.com",
+//"api.gog.com",
 //"reviews.gog.com",
 //"insights-collector.gog.com",
 //"remote-config.gog.com",
@@ -229,7 +221,6 @@ IsEnable= false,
 //IsEnable= false,
 //},
 new ProxyDomainModel{
-Index=8,
 Name=Resources.GoogleRecaptchaCode,
 Domains = new List<string>{"www.google.com" },
 ToDomain = "kh.google.com",
@@ -238,7 +229,6 @@ DomainTag = DomainTag.GoogleCode,
 IsEnable= false,
 },
 new ProxyDomainModel{
-Index=9,
 Name=Resources.GithubContent,
 Domains = new List<string>{"githubusercontent.com","raw.github.com" },
 //ToDomain = "aw.githubusercontent.com",
@@ -258,11 +248,10 @@ DomainTag = DomainTag.GithubContent,
 IsEnable= false,
 },
 new ProxyDomainModel{
-Index=10,
 Name=Resources.Pixiv,
 Domains = new List<string>{ "pixiv.net" },
-ToDomain="fanbox.cc",
-//ProxyIPAddres = "210.140.131.219",
+//ToDomain="www.fanbox.cc",
+ToDomain="www.pixivision.net",
 Hosts = new List<string>{
 "www.pixiv.net",
 "touch.pixiv.net",

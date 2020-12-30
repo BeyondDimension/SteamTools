@@ -67,17 +67,17 @@ namespace SteamTool.Proxy
             Debug.WriteLine("OnRequest " + e.HttpClient.Request.RequestUri.AbsoluteUri);
             Debug.WriteLine("OnRequest HTTP " + e.HttpClient.Request.HttpVersion);
             Logger.Info("OnRequest" + e.HttpClient.Request.RequestUri.AbsoluteUri);
-#endif                  
-            await Dns.GetHostAddressesAsync(e.HttpClient.Request.Host).ContinueWith(s =>
-            {
-                //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
-                if (IPAddress.IsLoopback(s.Result.FirstOrDefault())
-                && ProxyDomains.Count(w => w.IsEnable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
-                {
-                    e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
-                    return;
-                }
-            });
+#endif
+           // Dns.GetHostAddressesAsync(e.HttpClient.Request.Host).ContinueWith(s =>
+           //{
+           //    //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
+           //    if (IPAddress.IsLoopback(s.Result.FirstOrDefault())
+           //   && ProxyDomains.Count(w => w.IsEnable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
+           //    {
+           //        e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
+           //        return;
+           //    }
+           //});
             foreach (var item in ProxyDomains)
             {
                 if (!item.IsEnable)
@@ -115,9 +115,14 @@ namespace SteamTool.Proxy
                                 e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions.Remove("server_name");
                             }
                         }
+                        return;
                     }
                 }
             }
+
+            //没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
+            e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
+            return;
         }
         public async Task OnResponse(object sender, SessionEventArgs e)
         {

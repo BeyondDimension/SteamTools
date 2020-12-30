@@ -28,7 +28,7 @@ namespace SteamTools.Models.Settings
             = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };
 
         /// <summary>
-        /// 程序启动时自动启动代理
+        /// 代理服务启用状态
         /// </summary>
         public static SerializableProperty<IReadOnlyDictionary<int, bool>> SupportProxyServicesStatus { get; }
             = new SerializableProperty<IReadOnlyDictionary<int, bool>>(GetKey(), Providers.Local, new Dictionary<int, bool>());
