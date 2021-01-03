@@ -14,6 +14,9 @@ using Titanium.Web.Proxy.Http;
 using Titanium.Web.Proxy.Models;
 using SteamTool.Model;
 using System.Security.Cryptography;
+using Org.BouncyCastle.Asn1;
+using Org.BouncyCastle.Asn1.X509;
+using Org.BouncyCastle.X509;
 
 namespace SteamTool.Proxy
 {
@@ -31,9 +34,15 @@ namespace SteamTool.Proxy
 
         public HttpProxy(IReadOnlyCollection<ProxyDomainModel> proxyDomains, string certificateName)
         {
-            proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
             ProxyDomains = proxyDomains;
             CertificateName = certificateName;
+            //proxyServer.CertificateManager.PfxPassword = $"{CertificateName}";
+            proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
+            proxyServer.CertificateManager.PfxFilePath = Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.pfx");
+            proxyServer.CertificateManager.RootCertificateIssuerName = $"{CertificateName} Certificate Authority";
+            proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
+            proxyServer.CertificateManager.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.DefaultWindows;
+            proxyServer.CertificateManager.RootCertificate = proxyServer.CertificateManager.LoadRootCertificate();
         }
 
         public bool ProxyRunning => proxyServer.ProxyRunning;
@@ -68,16 +77,16 @@ namespace SteamTool.Proxy
             Debug.WriteLine("OnRequest HTTP " + e.HttpClient.Request.HttpVersion);
             Logger.Info("OnRequest" + e.HttpClient.Request.RequestUri.AbsoluteUri);
 #endif
-           // Dns.GetHostAddressesAsync(e.HttpClient.Request.Host).ContinueWith(s =>
-           //{
-           //    //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
-           //    if (IPAddress.IsLoopback(s.Result.FirstOrDefault())
-           //   && ProxyDomains.Count(w => w.IsEnable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
-           //    {
-           //        e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
-           //        return;
-           //    }
-           //});
+            // Dns.GetHostAddressesAsync(e.HttpClient.Request.Host).ContinueWith(s =>
+            //{
+            //    //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
+            //    if (IPAddress.IsLoopback(s.Result.FirstOrDefault())
+            //   && ProxyDomains.Count(w => w.IsEnable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
+            //    {
+            //        e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
+            //        return;
+            //    }
+            //});
             foreach (var item in ProxyDomains)
             {
                 if (!item.IsEnable)
@@ -209,22 +218,21 @@ namespace SteamTool.Proxy
 
         }
 
-        // 允许重写默认的证书验证逻辑
-        public Task OnCertificateValidation(object sender, CertificateValidationEventArgs e)
-        {
-            // 根据证书错误，设置IsValid为真/假
-            if (e.SslPolicyErrors == System.Net.Security.SslPolicyErrors.None)
-                e.IsValid = true;
-            return Task.CompletedTask;
-        }
+        //// 允许重写默认的证书验证逻辑
+        //public Task OnCertificateValidation(object sender, CertificateValidationEventArgs e)
+        //{
+        //    // 根据证书错误，设置IsValid为真/假
+        //    //if (e.SslPolicyErrors == System.Net.Security.SslPolicyErrors.None)
+        //    e.IsValid = true;
+        //    return Task.CompletedTask;
+        //}
 
-        // 允许在相互身份验证期间重写默认客户端证书选择逻辑
-        public Task OnCertificateSelection(object sender, CertificateSelectionEventArgs e)
-        {
-            // set e.clientCertificate to override
-
-            return Task.CompletedTask;
-        }
+        //// 允许在相互身份验证期间重写默认客户端证书选择逻辑
+        //public Task OnCertificateSelection(object sender, CertificateSelectionEventArgs e)
+        //{
+        //    // set e.clientCertificate to override
+        //    return Task.CompletedTask;
+        //}
 
         public bool SetupCertificate()
         {
@@ -233,21 +241,18 @@ namespace SteamTool.Proxy
             //proxyServer.CertificateManager
             //    .CreateServerCertificate($"{Assembly.GetCallingAssembly().GetName().Name} Certificate")
             //    .ContinueWith(c => proxyServer.CertificateManager.RootCertificate = c.Result);
-            proxyServer.CertificateManager.PfxFilePath = Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.pfx");
-            //proxyServer.CertificateManager.PfxPassword = $"{CertificateName}";
-            proxyServer.CertificateManager.RootCertificateIssuerName = CertificateName;
-            proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
-            proxyServer.CertificateManager.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.DefaultWindows;
 
             // 可选地设置证书引擎
             // 在Mono之下，只有BouncyCastle将得到支持
             //proxyServer.CertificateManager.CertificateEngine = Network.CertificateEngine.BouncyCastle;
-            proxyServer.CertificateManager.SaveFakeCertificates = false;
-            proxyServer.CertificateManager.CreateRootCertificate(true);
-            proxyServer.CertificateManager.EnsureRootCertificate();
-            //proxyServer.CertificateManager.TrustRootCertificate(true);
-
-            return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
+            //proxyServer.CertificateManager.SaveFakeCertificates = true;
+            var result = proxyServer.CertificateManager.CreateRootCertificate(true);
+            if (result)
+            {
+                proxyServer.CertificateManager.EnsureRootCertificate();
+                proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.cer"));
+            }
+            return proxyServer.CertificateManager.IsRootCertificateUserTrusted();
         }
 
         public bool DeleteCertificate()
@@ -256,22 +261,19 @@ namespace SteamTool.Proxy
                 return false;
             try
             {
-                using (var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser))
-                {
-                    store.Open(OpenFlags.MaxAllowed);
-                    //var test = store.Certificates.Find(X509FindType.FindByIssuerName, "titan", true);
-                    var test = store.Certificates.Find(X509FindType.FindByIssuerName, CertificateName, true);
-                    foreach (var item in test)
-                    {
-                        store.Remove(item);
-                    }
-                    //if (store.Certificates.Contains(proxyServer.CertificateManager.RootCertificate))
-                    //    store.Remove(proxyServer.CertificateManager.RootCertificate);
-                }
-                proxyServer.CertificateManager.ClearRootCertificate();
-                proxyServer.CertificateManager.RemoveTrustedRootCertificate(true);
-                proxyServer.CertificateManager.RemoveTrustedRootCertificateAsAdmin(true);
-                proxyServer.CertificateManager.CertificateStorage.Clear();
+                //using (var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser))
+                //{
+                //    store.Open(OpenFlags.MaxAllowed);
+                //    var test = store.Certificates.Find(X509FindType.FindByIssuerName, CertificateName, true);
+                //    foreach (var item in test)
+                //    {
+                //        store.Remove(item);
+                //    }
+                //}
+                //proxyServer.CertificateManager.ClearRootCertificate();
+                proxyServer.CertificateManager.RemoveTrustedRootCertificate();
+                //proxyServer.CertificateManager.RemoveTrustedRootCertificateAsAdmin();
+                //proxyServer.CertificateManager.CertificateStorage.Clear();
             }
             catch (Exception ex)
             {
@@ -308,7 +310,7 @@ namespace SteamTool.Proxy
 
         public bool StartProxy(bool IsProxyGOG = false)
         {
-            if (!IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
+            if (proxyServer.CertificateManager.IsRootCertificateUserTrusted() == false)
             {
                 var isOk = SetupCertificate();
                 if (!isOk)
@@ -316,10 +318,11 @@ namespace SteamTool.Proxy
                     return false;
                 }
             }
-            if (PortInUse(443))
-            {
-                return false;
-            }
+            //暂时移除443端口检测
+            //if (PortInUse(443))
+            //{
+            //    return false;
+            //} 
             if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
 
             #region 写入Hosts
@@ -355,13 +358,12 @@ namespace SteamTool.Proxy
             //explicit endpoint 是客户端知道代理存在的地方
             //因此，客户端以代理友好的方式发送请求
             //proxyServer.AddEndPoint(explicitEndPoint);
-            // 透明endpoint 对于反向代理很有用(客户端不知道代理的存在)
-            // 透明endpoint 通常需要一个网络路由器端口来转发HTTP(S)包或DNS
+            // transparentEndPoint 对于反向代理很有用(客户端不知道代理的存在)
+            // transparentEndPoint 通常需要一个网络路由器端口来转发HTTP(S)包或DNS
             // 发送数据到此endpoint 
             var transparentEndPoint = new TransparentProxyEndPoint(IPAddress.Any, 443, true)
             {
                 //GenericCertificate = proxyServer.CertificateManager.RootCertificate
-                //GenericCertificateName= "steamcommunity-a.akamaihd.net"
             };
             proxyServer.AddEndPoint(transparentEndPoint);
             try
@@ -392,8 +394,8 @@ namespace SteamTool.Proxy
             {
                 proxyServer.BeforeRequest -= OnRequest;
                 proxyServer.BeforeResponse -= OnResponse;
-                proxyServer.ServerCertificateValidationCallback -= OnCertificateValidation;
-                proxyServer.ClientCertificateSelectionCallback -= OnCertificateSelection;
+                //proxyServer.ServerCertificateValidationCallback -= OnCertificateValidation;
+                //proxyServer.ClientCertificateSelectionCallback -= OnCertificateSelection;
                 proxyServer.Stop();
                 hostsService.RemoveHostsByTag();
             }

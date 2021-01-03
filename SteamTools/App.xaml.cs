@@ -122,7 +122,14 @@ namespace SteamTools
                 }
                 else
                     this.MainWindow.Show();
-
+                if (GeneralSettings.IsAutoRunSteam && Process.GetProcessesByName("steam").Length < 1)
+                {
+                    var steamTool = SteamToolCore.Instance.Get<SteamToolService>();
+                    if (!string.IsNullOrEmpty(steamTool.SteamPath))
+                    {
+                        steamTool.StartSteam(GeneralSettings.SteamStratParameter);
+                    }
+                }
 #if !DEBUG
                 appInstance.CommandLineArgsReceived += (sender, args) =>
                 {
@@ -155,7 +162,7 @@ namespace SteamTools
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                MessageBox.Show(ex.Message, $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
+                MessageBox.Show(ex.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
             }
 
             Current.Shutdown();

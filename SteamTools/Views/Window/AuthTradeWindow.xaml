@@ -87,7 +87,16 @@
 
         <!--Body-->
         <Grid Margin="0,8,0,0" Grid.Row="1">
-            <WebBrowser x:Name="web" LoadCompleted="web_LoadCompleted" Navigated="web_Navigated"/>
+            <WrapPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="账号：" Grid.Row="0" Grid.Column="0"></TextBlock>
+                    <metro:PromptTextBox Prompt=""></metro:PromptTextBox>
+                </StackPanel>
+                
+            </WrapPanel>
+            
+            
+            <!--<WebBrowser Opacity="0.1" x:Name="web" LoadCompleted="web_LoadCompleted" Navigated="web_Navigated"/>-->
         </Grid>
 
         <!--Footer-->

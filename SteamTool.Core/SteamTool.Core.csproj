@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Ninject" Version="3.3.4" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.9" />
     <PackageReference Include="SharpZipLib" Version="1.3.1" />
     <PackageReference Include="System.Management" Version="5.0.0" />
     <PackageReference Include="TaskScheduler" Version="2.9.0" />

@@ -92,7 +92,7 @@ namespace SteamTool.Core
             try
             {
                 dataLines.Add($"{ip} {domain} {Const.HOST_TAG}");
-                File.WriteAllLines(HostsPath, dataLines);
+                File.WriteAllLines(HostsPath, dataLines, Encoding.UTF8);
 
                 //File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
                 result.ResultType = OperationResultType.Success;
@@ -153,7 +153,7 @@ namespace SteamTool.Core
             }
             try
             {
-                File.WriteAllLines(HostsPath, dataLines);
+                File.WriteAllLines(HostsPath, dataLines, Encoding.UTF8);
                 //File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
                 result.ResultType = OperationResultType.Success;
                 result.Message = Resources.Hosts_UpdateSuccess;
@@ -197,7 +197,7 @@ namespace SteamTool.Core
 
             try
             {
-                File.WriteAllLines(HostsPath, dataLines);
+                File.WriteAllLines(HostsPath, dataLines, Encoding.UTF8);
 
                 //File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
                 result.ResultType = OperationResultType.Success;
@@ -240,7 +240,7 @@ namespace SteamTool.Core
 
             try
             {
-                File.WriteAllLines(HostsPath, dataLines);
+                File.WriteAllLines(HostsPath, dataLines, Encoding.UTF8);
                 //File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
                 result.ResultType = OperationResultType.Success;
                 result.Message = Resources.Hosts_UpdateSuccess;
@@ -254,7 +254,6 @@ namespace SteamTool.Core
             }
             return result;
         }
-
 
         public void StartNotepadEditHosts()
         {

@@ -13,7 +13,7 @@
         xmlns:input="clr-namespace:System.Windows.Input;assembly=PresentationCore"
         xmlns:controls="clr-namespace:SteamTools.Views.Controls"
         mc:Ignorable="d"
-        Width="760"
+        Width="755"
 		Height="500"
         IsRestoringWindowPlacement="True"
         WindowStartupLocation="CenterScreen"

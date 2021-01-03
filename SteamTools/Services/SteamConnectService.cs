@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Livet;
+using Newtonsoft.Json;
+using SteamTool.Core;
 using SteamTool.Core.Common;
 using SteamTool.Model;
 using SteamTool.Steam.Service;
 using SteamTool.Steam.Service.Local;
 using SteamTool.Steam.Service.Web;
+using SteamTools.Models.Settings;
 using SteamTools.Properties;
 using SteamTools.ViewModels;
 
@@ -27,6 +31,7 @@ namespace SteamTools.Services
 
         public readonly SteamworksWebApiService SteamworksWebApiService = SteamService.Instance.Get<SteamworksWebApiService>();
         public readonly SteamDbApiService steamDbApiService = SteamService.Instance.Get<SteamDbApiService>();
+        private readonly SteamToolService SteamTool = SteamToolCore.Instance.Get<SteamToolService>();
 
         #region Steam游戏列表
         private IReadOnlyCollection<SteamApp> _SteamApps;
@@ -86,6 +91,22 @@ namespace SteamTools.Services
                 if (_IsConnectToSteam != value)
                 {
                     _IsConnectToSteam = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+        #endregion
+
+        #region 是否已经释放SteamClient
+        private bool _IsDisposedClient;
+        public bool IsDisposedClient
+        {
+            get => _IsDisposedClient;
+            set
+            {
+                if (_IsDisposedClient != value)
+                {
+                    _IsDisposedClient = value;
                     this.RaisePropertyChanged();
                 }
             }
@@ -159,6 +180,49 @@ namespace SteamTools.Services
         public void DisposeSteamClient()
         {
             ApiService.SteamClient.Dispose();
+            IsDisposedClient = true;
+        }
+
+        private bool IsRefreshGameListCache;
+        public void RefreshGameListCache()
+        {
+            if (SteamConnectService.Current.IsConnectToSteam && IsDisposedClient == true)
+            {
+                if (SteamConnectService.Current.ApiService.Initialize())
+                {
+                    if (IsRefreshGameListCache)
+                    {
+                        StatusService.Current.Notify("正在下载Steam游戏数据中...");
+                        return;
+                    }
+                    StatusService.Current.Notify("刷新Steam游戏数据");
+                    IsRefreshGameListCache = true;
+                    Task.Run(async () =>
+                    {
+                        var result = await SteamworksWebApiService.GetAllSteamAppsString();
+                        if (GeneralSettings.IsSteamAppListLocalCache)
+                            SteamTool.UpdateAppListJson(result, Path.Combine(AppContext.BaseDirectory, Const.APP_LIST_FILE));
+                        var apps = JsonConvert.DeserializeObject<SteamApps>(result).AppList.Apps;
+                        apps = apps.DistinctBy(d => d.AppId).ToList();
+                        //SteamConnectService.Current.SteamApps = apps;
+                        SteamConnectService.Current.SteamApps = SteamConnectService.Current.ApiService.OwnsApps(apps);
+                    }).ContinueWith(s =>
+                    {
+                        Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message);
+                    }, TaskContinuationOptions.OnlyOnFaulted)
+                    .ContinueWith(s =>
+                    {
+                        StatusService.Current.Notify("刷新Steam游戏数据完成");
+                        IsRefreshGameListCache = false;
+                        DisposeSteamClient();
+                        s.Dispose();
+                    });
+                }
+            }
+            else
+            {
+                StatusService.Current.Notify("未检测到Steam运行");
+            }
         }
     }
 }
