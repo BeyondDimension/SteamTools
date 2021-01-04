@@ -334,8 +334,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\MetroRadiance\source\MetroRadiance.Net5\MetroRadiance.Net5.csproj" />
-		<ProjectReference Include="..\MetroRadiance\source\MetroTrilithon.Desktop.Net5\MetroTrilithon.Desktop.Net5.csproj" />
+		<ProjectReference Include="..\MetroRadiance\source\MetroRadiance.Chrome\MetroRadiance.Chrome.csproj" />
+		<ProjectReference Include="..\MetroRadiance\source\MetroRadiance.Core\MetroRadiance.Core.csproj" />
+		<ProjectReference Include="..\MetroRadiance\source\MetroRadiance\MetroRadiance.csproj" />
+		<ProjectReference Include="..\MetroRadiance\source\MetroTrilithon.Desktop\MetroTrilithon.Desktop.csproj" />
 		<ProjectReference Include="..\SteamTool.Authenticator\SteamTool.Authenticator.csproj" />
 		<ProjectReference Include="..\SteamTool.Core\SteamTool.Core.csproj" />
 		<ProjectReference Include="..\SteamTool.Proxy\SteamTool.Proxy.csproj" />
