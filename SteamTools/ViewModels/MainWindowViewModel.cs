@@ -73,10 +73,10 @@ namespace SteamTools.ViewModels
                 if (value)
                 {
                     App.Current.MainWindow.WindowState = WindowState.Normal;
-                    //App.Current.MainWindow.Topmost = true;
+                    App.Current.MainWindow.Topmost = true;
                     this.Activate();
                     //User32Window.FlashWindow(new WindowInteropHelper(App.Current.MainWindow).Handle);
-                    //App.Current.MainWindow.Topmost = false;
+                    App.Current.MainWindow.Topmost = false;
                 }
             }
         }

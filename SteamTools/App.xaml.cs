@@ -122,6 +122,7 @@ namespace SteamTools
                 }
                 else
                     this.MainWindow.Show();
+
                 if (GeneralSettings.IsAutoRunSteam && Process.GetProcessesByName("steam").Length < 1)
                 {
                     var steamTool = SteamToolCore.Instance.Get<SteamToolService>();
@@ -134,8 +135,9 @@ namespace SteamTools
                 appInstance.CommandLineArgsReceived += (sender, args) =>
                 {
                     // 检测到多次启动时将主窗口置于最前面
-                    this.Dispatcher.Invoke(() => { (WindowService.Current.MainWindow as MainWindowViewModel).IsVisible = true; });
-                    this.ProcessCommandLineParameter(args.CommandLineArgs);
+                    this.Dispatcher.Invoke(() => { 
+                        (WindowService.Current.MainWindow as MainWindowViewModel).IsVisible = true; });
+                    //this.ProcessCommandLineParameter(args.CommandLineArgs);
                 };
 #endif
 
@@ -145,9 +147,14 @@ namespace SteamTools
             else
             {
                 if (e.Args.Length > 0)
+                {
                     this.ProcessCommandLineParameter(e.Args);
+                }
                 else
+                {
                     appInstance.SendCommandLineArgs(e.Args);
+                    App.Current.Shutdown();
+                }
             }
 #endif
         }
@@ -185,8 +192,10 @@ namespace SteamTools
 
         private void ProcessCommandLineParameter(string[] args)
         {
+#if DEBUG
             Debug.WriteLine("多重启动通知: " + args.ToString(" "));
-            // 当使用命令行参数多次启动时，您可以执行某些操作
+#endif
+            // 当使用命令行参数多次启动时，可以执行某些操作
             if (args.Length == 0)
             {
                 this.Shutdown();

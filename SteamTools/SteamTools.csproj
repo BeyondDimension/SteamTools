@@ -4,7 +4,7 @@
 		<OutputType>WinExe</OutputType>
 		<!--<TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>-->
 		<!--<TargetFrameworks>net461;net472;net5.0-windows</TargetFrameworks>-->
-		<TargetFrameworks>net472;net5.0-windows</TargetFrameworks>
+		<TargetFrameworks>net472</TargetFrameworks>
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
 		<RootNamespace>SteamTools</RootNamespace>
@@ -122,8 +122,12 @@
 		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-		<PackageReference Include="StatefulModel.Standard" Version="0.1.0" />
 		<PackageReference Include="System.Reactive" Version="5.0.0" />
+	
+		<PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
+		<PackageReference Include="System.Net.Primitives" Version="4.3.0" />
+		<PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
+		<PackageReference Include="System.Diagnostics.Tracing" Version="4.3.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -244,6 +248,7 @@
 		</Page>
 		<Page Update="Resources\Styles\Controls.xaml">
 			<SubType>Designer</SubType>
+			<Generator>XamlIntelliSenseFileGenerator</Generator>
 		</Page>
 		<Page Update="Views\Content\About\AboutDonateList.xaml">
 		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
@@ -329,31 +334,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\MetroRadiance\source\MetroRadiance.Net5\MetroRadiance.Net5.csproj" />
+		<ProjectReference Include="..\MetroRadiance\source\MetroTrilithon.Desktop.Net5\MetroTrilithon.Desktop.Net5.csproj" />
 		<ProjectReference Include="..\SteamTool.Authenticator\SteamTool.Authenticator.csproj" />
 		<ProjectReference Include="..\SteamTool.Core\SteamTool.Core.csproj" />
 		<ProjectReference Include="..\SteamTool.Proxy\SteamTool.Proxy.csproj" />
 		<ProjectReference Include="..\SteamTool.Steam.Service\SteamTool.Steam.Service.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Reference Include="MetroRadiance">
-	    <HintPath>..\Lib\MetroRadiance.dll</HintPath>
-	  </Reference>
-	  <Reference Include="MetroRadiance.Chrome">
-	    <HintPath>..\Lib\MetroRadiance.Chrome.dll</HintPath>
-	  </Reference>
-	  <Reference Include="MetroRadiance.Core">
-	    <HintPath>..\Lib\MetroRadiance.Core.dll</HintPath>
-	  </Reference>
-	  <Reference Include="MetroTrilithon">
-	    <HintPath>..\Lib\MetroTrilithon.dll</HintPath>
-	  </Reference>
-	  <Reference Include="MetroTrilithon.Desktop">
-	    <HintPath>..\Lib\MetroTrilithon.Desktop.dll</HintPath>
-	  </Reference>
-	  <Reference Include="SimpleSyndicate.UriTemplate">
-	    <HintPath>..\Lib\SimpleSyndicate.UriTemplate.dll</HintPath>
-	  </Reference>
 	</ItemGroup>
 
 	<ItemGroup>

@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\GitHubVisualStudio\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj" />
     <ProjectReference Include="..\SteamTool.Core\SteamTool.Core.csproj" />
+    <ProjectReference Include="..\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj" />
   </ItemGroup>
 
   <ItemGroup>

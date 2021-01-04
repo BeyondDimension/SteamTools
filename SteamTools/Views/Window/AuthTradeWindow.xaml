@@ -86,18 +86,19 @@
         </Border>
 
         <!--Body-->
-        <Grid Margin="0,8,0,0" Grid.Row="1">
+        <StackPanel Margin="8" Grid.Row="1">
             <WrapPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="账号：" Grid.Row="0" Grid.Column="0"></TextBlock>
-                    <metro:PromptTextBox Prompt=""></metro:PromptTextBox>
-                </StackPanel>
-                
+                <TextBlock Text="账号：" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+                <metro:PromptTextBox Prompt="" MinWidth="200"></metro:PromptTextBox>
             </WrapPanel>
-            
-            
+            <Separator Opacity="0" Height="10"/>
+            <WrapPanel>
+                <TextBlock Text="密码：" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+                <metro:PromptTextBox Prompt="" MinWidth="200"></metro:PromptTextBox>
+            </WrapPanel>
+
             <!--<WebBrowser Opacity="0.1" x:Name="web" LoadCompleted="web_LoadCompleted" Navigated="web_Navigated"/>-->
-        </Grid>
+        </StackPanel>
 
         <!--Footer-->
         <controls:StatusBar Grid.Row="2" DataContext="{Binding StatusBar}">
