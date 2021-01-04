@@ -72,6 +72,7 @@ namespace SteamTools.Services
         {
             try
             {
+                StatusService.Current.Notify("加载令牌数据...");
                 var path = Path.Combine(AppContext.BaseDirectory, Const.AUTHDATA_FILE);
                 if (AuthSettings.IsCurrentDirectorySaveAuthData.Value && File.Exists(path))
                 {
@@ -92,6 +93,7 @@ namespace SteamTools.Services
                         File.WriteAllText(path, AuthSettings.Authenticators.Value);
                     }
                 }
+                StatusService.Current.Notify("加载令牌数据完成");
             }
             catch (Exception ex)
             {

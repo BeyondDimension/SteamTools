@@ -4,6 +4,7 @@ using SteamTool.Core;
 using SteamTool.Core.Common;
 using SteamTool.Model;
 using SteamTool.Steam.Service;
+using SteamTools.Models;
 using SteamTools.Properties;
 using SteamTools.Services;
 using System;
@@ -113,7 +114,7 @@ namespace SteamTools.ViewModels
             AppId = appid;
             string name = SteamConnectService.Current.ApiService.GetAppData((uint)appid, "name");
             name ??= appid.ToString();
-            Title = Resources.WinTitle + " | " + name;
+            Title = ProductInfo.Title + " | " + name;
             StatusService.Current.Set("Loading...");
             SteamConnectService.Current.ApiService.AddUserStatsReceivedCallback((param) =>
             {

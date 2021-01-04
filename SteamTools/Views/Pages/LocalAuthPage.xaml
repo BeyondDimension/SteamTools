@@ -67,6 +67,16 @@
                     </i:Interaction.Triggers>
                 </Image>
                 <Separator Opacity="0" Width="12"/>
+                <Image Width="24" Cursor="Hand" VerticalAlignment="Center" Source="/Resources/Asstes/refresh.png" ToolTip="{Binding Resources.Refresh,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <livet:LivetCallMethodAction
+                                                            MethodName="ImageAuthRefresh_Click"
+                                                            MethodTarget="{Binding}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
+                <Separator Opacity="0" Width="10"/>
                 <Image Width="23" Cursor="Hand" VerticalAlignment="Center" Source="/Resources/Asstes/export.png" ToolTip="{Binding Resources.Auth_Export,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonUp">

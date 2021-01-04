@@ -363,6 +363,9 @@
   <data name="Ready" xml:space="preserve">
     <value>就绪</value>
   </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
   <data name="RunGame" xml:space="preserve">
     <value>启动游戏</value>
   </data>
@@ -618,8 +621,5 @@ exit</value>
   </data>
   <data name="WinStore" xml:space="preserve">
     <value>MicroSoft Store</value>
-  </data>
-  <data name="WinTitle" xml:space="preserve">
-    <value>Steam++</value>
   </data>
 </root>

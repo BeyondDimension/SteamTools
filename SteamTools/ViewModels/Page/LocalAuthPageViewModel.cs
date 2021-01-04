@@ -131,6 +131,12 @@ namespace SteamTools.ViewModels
             }
         }
 
-
+        public void ImageAuthRefresh_Click()
+        {
+            if (!string.IsNullOrEmpty(AuthSettings.Authenticators.Value))
+            {
+                AuthService.Current.Initialize();
+            }
+        }
     }
 }

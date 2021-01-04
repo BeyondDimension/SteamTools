@@ -99,9 +99,9 @@ namespace SteamTools
 
                 GeneralSettings.Culture.Subscribe(x => ResourceService.Current.ChangeCulture(x)).AddTo(this);
                 WindowService.Current.AddTo(this).Initialize();
+                AuthService.Current.Initialize();
                 ProxyService.Current.Initialize();
                 SteamConnectService.Current.Initialize();
-                AuthService.Current.Initialize();
                 if (GeneralSettings.IsAutoCheckUpdate)
                 {
                     AutoUpdateService.Current.CheckUpdate();
@@ -128,15 +128,18 @@ namespace SteamTools
                     var steamTool = SteamToolCore.Instance.Get<SteamToolService>();
                     if (!string.IsNullOrEmpty(steamTool.SteamPath))
                     {
-                        steamTool.StartSteam(GeneralSettings.SteamStratParameter);
+                        steamTool.StartSteam("-silent " + GeneralSettings.SteamStratParameter);
                     }
                 }
+
 #if !DEBUG
                 appInstance.CommandLineArgsReceived += (sender, args) =>
                 {
                     // 检测到多次启动时将主窗口置于最前面
-                    this.Dispatcher.Invoke(() => { 
-                        (WindowService.Current.MainWindow as MainWindowViewModel).IsVisible = true; });
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        (WindowService.Current.MainWindow as MainWindowViewModel).IsVisible = true;
+                    });
                     //this.ProcessCommandLineParameter(args.CommandLineArgs);
                 };
 #endif

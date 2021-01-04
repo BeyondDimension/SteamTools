@@ -310,7 +310,7 @@ namespace SteamTool.Proxy
 
         public bool StartProxy(bool IsProxyGOG = false)
         {
-            if (proxyServer.CertificateManager.IsRootCertificateUserTrusted() == false)
+            if (!IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
             {
                 var isOk = SetupCertificate();
                 if (!isOk)
