@@ -3,8 +3,7 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<!--<TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>-->
-		<!--<TargetFrameworks>net461;net472;net5.0-windows</TargetFrameworks>-->
-		<TargetFrameworks>net472</TargetFrameworks>
+		<TargetFrameworks>net472;net5.0-windows</TargetFrameworks>
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
 		<RootNamespace>SteamTools</RootNamespace>
