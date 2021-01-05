@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Icon/LOGO1.png" alt="logo" width="130" height="130" align="left" />
+<img src="https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/icon/LOGO1.png" alt="logo" width="130" height="130" align="left" />
 
 <h1>Steam++ Tools</h1>
 
@@ -14,39 +14,39 @@
 
 ## Samples
 -------
-![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/s.png)  
-![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/e.png)  
-![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/e2.png)  
-![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/t.png)  
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/s.png)  
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/e.png)  
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/e2.png)  
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/t.png)  
 ------
 
 ## Core Functions
 
 ### 1. Local reverse proxy for Steam's community webpage to enable normal access in mainland China
-![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/1.png)  
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/1.png)  
 ---
 ### 2. Quickly switch the Steam account that the current PC has remembered to log into
 
 This feature is to read the local user login records stored under the Steam path to directly display the operation, you can switch between multiple accounts without re-entering passwords and tokens.
 
-![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/2.png)
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/2.png)
 ---
 ### 3. Achievement stat modifications for Steam games
 Function reference [SteamAchievementManager](https://github.com/gibbed/SteamAchievementManager) for secondary development, modified the game list loading and operation ease of use.
-![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/3.png)
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/3.png)
 ---
 
 ### 4. Steam Local Two-Step Authenticator
 The function reference [WinAuth](https://github.com/winauth/winauth) is developed to enable you to view your token without launching the mobile version of Steam App, similar function software are [WinAuth](https://github.com/winauth/winauth), [SteamDesktopAuthenticator](https://github.com/Jessecar96/SteamDesktopAuthenticator).
-! [](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/4.png)
+! [](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/4.png)
 
 ---
 
 ### 5. Some game tools
 Currently there is a forced game borderless windowing, CSGO fix VAC shield.
 This piece is randomly do some of my often used or idle tinkering with the function.
-![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/5.png)
-![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/6.png)
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/5.png)
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/6.png)
 ---
 
 ## Features expected to be added subsequently
