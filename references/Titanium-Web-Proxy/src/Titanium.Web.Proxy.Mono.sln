@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26906.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{B6DBABDC-C985-4872-9C38-B4E5079CBC4B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{38EA62D0-D2CB-465D-AF4F-407C5B4D4A1E}"
+	ProjectSection(SolutionItems) = preProject
+		..\LICENSE = ..\LICENSE
+		..\PULL_REQUEST_TEMPLATE.md = ..\PULL_REQUEST_TEMPLATE.md
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{AC9AE37A-3059-4FDB-9A5C-363AD86F2EEF}"
+	ProjectSection(SolutionItems) = preProject
+		..\.build\build.ps1 = ..\.build\build.ps1
+		..\.build\docfx.json = ..\.build\docfx.json
+		..\.build\setup.ps1 = ..\.build\setup.ps1
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Titanium.Web.Proxy.Mono", "Titanium.Web.Proxy\Titanium.Web.Proxy.Mono.csproj", "{5985EBC2-75E8-4555-B715-B2302D879F9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Titanium.Web.Proxy.Examples.Basic.Mono", "..\examples\Titanium.Web.Proxy.Examples.Basic\Titanium.Web.Proxy.Examples.Basic.Mono.csproj", "{9B5FA6A0-8D7C-46AD-B4F5-3AF6E2720C09}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5985EBC2-75E8-4555-B715-B2302D879F9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5985EBC2-75E8-4555-B715-B2302D879F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5985EBC2-75E8-4555-B715-B2302D879F9B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5985EBC2-75E8-4555-B715-B2302D879F9B}.Debug|x64.Build.0 = Debug|Any CPU
+		{5985EBC2-75E8-4555-B715-B2302D879F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5985EBC2-75E8-4555-B715-B2302D879F9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5985EBC2-75E8-4555-B715-B2302D879F9B}.Release|x64.ActiveCfg = Release|Any CPU
+		{5985EBC2-75E8-4555-B715-B2302D879F9B}.Release|x64.Build.0 = Release|Any CPU
+		{9B5FA6A0-8D7C-46AD-B4F5-3AF6E2720C09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B5FA6A0-8D7C-46AD-B4F5-3AF6E2720C09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B5FA6A0-8D7C-46AD-B4F5-3AF6E2720C09}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9B5FA6A0-8D7C-46AD-B4F5-3AF6E2720C09}.Debug|x64.Build.0 = Debug|Any CPU
+		{9B5FA6A0-8D7C-46AD-B4F5-3AF6E2720C09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B5FA6A0-8D7C-46AD-B4F5-3AF6E2720C09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B5FA6A0-8D7C-46AD-B4F5-3AF6E2720C09}.Release|x64.ActiveCfg = Release|Any CPU
+		{9B5FA6A0-8D7C-46AD-B4F5-3AF6E2720C09}.Release|x64.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9B5FA6A0-8D7C-46AD-B4F5-3AF6E2720C09} = {B6DBABDC-C985-4872-9C38-B4E5079CBC4B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = .1.505.2\lib\NET35
+		SolutionGuid = {625C1EB5-44CF-47DE-A85A-B4C8C40ED90A}
+	EndGlobalSection
+EndGlobal

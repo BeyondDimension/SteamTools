@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+	<PropertyGroup>
+		<TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
+		<UseWPF>true</UseWPF>
+		<RootNamespace>MetroRadiance</RootNamespace>
+		<AssemblyName>MetroRadiance.Chrome</AssemblyName>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net461|AnyCPU'">
+	  <OutputPath>bin\</OutputPath>
+	</PropertyGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+		<Reference Include="WindowsBase" />
+		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
+		<Reference Include="System.Xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\MetroRadiance.Core\MetroRadiance.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Properties\AssemblyInfo.cs">
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Properties\Settings.Designer.cs">
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Settings.settings</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Properties\Settings.settings">
+	    <Generator>SettingsSingleFileGenerator</Generator>
+	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+	  </None>
+	</ItemGroup>
+
+</Project>

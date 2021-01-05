@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="pack://application:,,,/MetroRadiance;component/Styles/Colors.xaml" />
+
+		<ResourceDictionary Source="/MetroRadiance;component/Themes/Generic.Badge.xaml" />
+		<ResourceDictionary Source="/MetroRadiance;component/Themes/Generic.BindableRichTextBox.xaml" />
+		<ResourceDictionary Source="/MetroRadiance;component/Themes/Generic.BlurWindow.xaml" />
+		<ResourceDictionary Source="/MetroRadiance;component/Themes/Generic.CaptionButton.xaml" />
+		<ResourceDictionary Source="/MetroRadiance;component/Themes/Generic.CaptionIcon.xaml" />
+		<ResourceDictionary Source="/MetroRadiance;component/Themes/Generic.ExpanderButton.xaml" />
+		<ResourceDictionary Source="/MetroRadiance;component/Themes/Generic.LinkButton.xaml" />
+		<ResourceDictionary Source="/MetroRadiance;component/Themes/Generic.MetroWindow.xaml" />
+		<ResourceDictionary Source="/MetroRadiance;component/Themes/Generic.ProgressRing.xaml" />
+		<ResourceDictionary Source="/MetroRadiance;component/Themes/Generic.PromptComboBox.xaml" />
+		<ResourceDictionary Source="/MetroRadiance;component/Themes/Generic.PromptTextBox.xaml" />
+		<ResourceDictionary Source="/MetroRadiance;component/Themes/Generic.ResizeGrip.xaml" />
+		<ResourceDictionary Source="/MetroRadiance;component/Themes/Generic.SystemButtons.xaml" />
+		<ResourceDictionary Source="/MetroRadiance;component/Themes/Generic.TabView.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

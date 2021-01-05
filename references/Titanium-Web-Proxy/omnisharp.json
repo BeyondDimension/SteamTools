@@ -1,0 +1,13 @@
+{
+    "fileOptions": {
+      "excludeSearchPatterns": [
+        "**/*.sln",
+        "**/*.Docs.csproj",
+        "**/tests/",
+        "**/Titanium.Web.Proxy.Examples.Wpf/",
+        "**/*.Basic.csproj",
+        "**/*.Proxy.csproj",
+        "**/*.Mono.csproj"
+      ]
+    }
+  }

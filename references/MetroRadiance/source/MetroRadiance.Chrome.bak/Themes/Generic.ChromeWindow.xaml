@@ -1,0 +1,70 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:c="clr-namespace:MetroRadiance.Chrome"
+					xmlns:cp="clr-namespace:MetroRadiance.Chrome.Primitives">
+
+	<Style TargetType="{x:Type cp:TopChromeWindow}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type cp:TopChromeWindow}">
+					<Grid LayoutTransform="{TemplateBinding DpiScaleTransform}">
+						<c:TopGlowingEdge x:Name="PART_GlowingEdge"
+										  VerticalAlignment="Bottom"
+										  BorderBrush="{TemplateBinding BorderBrush}"
+										  BorderThickness="{TemplateBinding BorderThickness}" />
+						<ContentPresenter x:Name="PART_ContentHost" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style TargetType="{x:Type cp:LeftChromeWindow}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type cp:LeftChromeWindow}">
+					<Grid LayoutTransform="{TemplateBinding DpiScaleTransform}">
+						<c:LeftGlowingEdge x:Name="PART_GlowingEdge"
+										   HorizontalAlignment="Right"
+										   BorderBrush="{TemplateBinding BorderBrush}"
+										   BorderThickness="{TemplateBinding BorderThickness}" />
+						<ContentPresenter />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style TargetType="{x:Type cp:RightChromeWindow}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type cp:RightChromeWindow}">
+					<Grid LayoutTransform="{TemplateBinding DpiScaleTransform}">
+						<c:RightGlowingEdge x:Name="PART_GlowingEdge"
+											HorizontalAlignment="Left"
+											BorderBrush="{TemplateBinding BorderBrush}"
+											BorderThickness="{TemplateBinding BorderThickness}" />
+						<ContentPresenter />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style TargetType="{x:Type cp:BottomChromeWindow}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type cp:BottomChromeWindow}">
+					<Grid LayoutTransform="{TemplateBinding DpiScaleTransform}">
+						<c:BottomGlowingEdge x:Name="PART_GlowingEdge"
+											 VerticalAlignment="Top"
+											 BorderBrush="{TemplateBinding BorderBrush}"
+											 BorderThickness="{TemplateBinding BorderThickness}" />
+						<ContentPresenter />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

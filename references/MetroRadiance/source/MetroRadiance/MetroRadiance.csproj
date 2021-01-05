@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+	<PropertyGroup>
+		<TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
+		<UseWPF>true</UseWPF>
+		<RootNamespace>MetroRadiance</RootNamespace>
+		<AssemblyName>MetroRadiance</AssemblyName>
+	</PropertyGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+		<Reference Include="WindowsBase" />
+		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
+		<Reference Include="System.Xaml" />
+		<Reference Include="System.ServiceModel" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
+		<PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MetroRadiance.Chrome\MetroRadiance.Chrome.csproj" />
+		<ProjectReference Include="..\MetroRadiance.Core\MetroRadiance.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Properties\AssemblyInfo.cs">
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DependentUpon>Resources.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Utilities\TypeForwardedTo.g.cs">
+			<DependentUpon>TypeForwardedTo.tt</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.ja-JP.resx">
+			<SubType>Designer</SubType>
+			<DependentUpon>Resources.resx</DependentUpon>
+			<Generator></Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\Resources.zh-Hans.resx">
+			<DependentUpon>Resources.resx</DependentUpon>
+			<Generator></Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\Resources.zh-Hant.resx">
+			<DependentUpon>Resources.resx</DependentUpon>
+			<Generator></Generator>
+		</EmbeddedResource>
+	</ItemGroup>
+</Project>

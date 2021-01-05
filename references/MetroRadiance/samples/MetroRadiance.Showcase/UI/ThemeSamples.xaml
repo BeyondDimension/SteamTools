@@ -1,0 +1,109 @@
+﻿<UserControl x:Class="MetroRadiance.Showcase.UI.ThemeSamples"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:ui="clr-namespace:MetroRadiance.Showcase.UI"
+			 mc:Ignorable="d"
+			 d:DesignWidth="350"
+			 d:DesignHeight="600"
+			 Foreground="{DynamicResource ForegroundBrushKey}">
+
+	<ScrollViewer HorizontalScrollBarVisibility="Disabled"
+				  VerticalScrollBarVisibility="Auto">
+		<StackPanel Margin="8,0,8,8">
+			<Panel.Resources>
+				<Style TargetType="{x:Type WrapPanel}">
+					<Setter Property="VerticalAlignment"
+							Value="Center" />
+				</Style>
+				<Style TargetType="{x:Type TextBlock}">
+					<Setter Property="VerticalAlignment"
+							Value="Center" />
+					<Setter Property="Margin"
+							Value="0,2,12,2" />
+				</Style>
+				<Style TargetType="{x:Type RadioButton}"
+					   BasedOn="{StaticResource {x:Type RadioButton}}">
+					<Setter Property="VerticalAlignment"
+							Value="Center" />
+					<Setter Property="Margin"
+							Value="0,2,12,2" />
+				</Style>
+			</Panel.Resources>
+
+			<TextBlock Text="Theme &amp; Accent"
+					   FontFamily="Segoe UI Light"
+					   FontSize="18"
+					   Foreground="{DynamicResource ForegroundBrushKey}"
+					   HorizontalAlignment="Center"
+					   Margin="0,0,0,8" />
+
+			<Border Height="1"
+					Background="{DynamicResource BorderBrushKey}"
+					Margin="0,8" />
+
+			<DockPanel>
+				<Panel.DataContext>
+					<ui:ThemeViewModel />
+				</Panel.DataContext>
+				<Panel.Resources>
+					<Style TargetType="{x:Type RadioButton}"
+						   BasedOn="{StaticResource {x:Type RadioButton}}">
+						<Setter Property="GroupName"
+								Value="Themes" />
+					</Style>
+				</Panel.Resources>
+				<TextBlock Text="Theme:"
+						   Width="50" />
+				<RadioButton Content="Windows"
+							 IsChecked="{Binding Windows}" />
+				<Border Width="12" />
+				<WrapPanel>
+					<RadioButton Content="Dark"
+								 IsChecked="{Binding Dark}" />
+					<RadioButton Content="Light"
+								 IsChecked="{Binding Light}" />
+				</WrapPanel>
+			</DockPanel>
+
+			<Border Height="1"
+					Background="{DynamicResource BorderBrushKey}"
+					Margin="0,8" />
+
+			<DockPanel>
+				<Panel.DataContext>
+					<ui:AccentViewModel />
+				</Panel.DataContext>
+				<Panel.Resources>
+					<Style TargetType="{x:Type RadioButton}"
+						   BasedOn="{StaticResource {x:Type RadioButton}}">
+						<Setter Property="GroupName"
+								Value="Accents" />
+					</Style>
+				</Panel.Resources>
+				<TextBlock Text="Accent:"
+						   Width="50" />
+				<RadioButton Content="Windows"
+							 IsChecked="{Binding Windows}" />
+				<Border Width="12" />
+				<WrapPanel>
+					<RadioButton Content="Purple"
+								 IsChecked="{Binding Purple}" />
+					<RadioButton Content="Blue"
+								 IsChecked="{Binding Blue}" />
+					<RadioButton Content="Orange"
+								 IsChecked="{Binding Orange}" />
+					<RadioButton Content="Red"
+								 IsChecked="{Binding Red}" />
+				</WrapPanel>
+			</DockPanel>
+
+			<Border Height="1"
+					Background="{DynamicResource BorderBrushKey}"
+					Margin="0,8" />
+
+			<ui:BrushSamples />
+		</StackPanel>
+	</ScrollViewer>
+</UserControl>

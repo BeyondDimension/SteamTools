@@ -1,0 +1,74 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls">
+
+	<Style x:Key="PinButtonStyleKey"
+		   TargetType="{x:Type metro:CaptionButton}">
+		<Setter Property="Mode"
+				Value="Toggle" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type metro:CaptionButton}">
+					<Border x:Name="border"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+						<Grid Margin="{TemplateBinding Padding}"
+							  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+							  VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+							<ContentPresenter x:Name="contentPresenter" />
+							<Path x:Name="icon"
+								  Data="M392,204 C361.88214,197.76072 336.11728,205.81897 314.5,227.5 L352.5,265 269.5,373 378,290 415.5,327.5 C436.92773,310.6158 445.26955,285.2296 440,251 L518.5,191 C525.16649,185.66709 526.24997,179.50029 522,174 L469,121 C464.83328,116.5005 457.49995,117.50039 454,122.5 z"
+								  Width="14"
+								  Style="{DynamicResource ChromeIconBaseKey}">
+								<Path.LayoutTransform>
+									<RotateTransform Angle="0" />
+								</Path.LayoutTransform>
+							</Path>
+						</Grid>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsChecked"
+								 Value="True">
+							<Setter TargetName="icon"
+									Property="LayoutTransform">
+								<Setter.Value>
+									<RotateTransform Angle="-45" />
+								</Setter.Value>
+							</Setter>
+							<Setter Property="Background"
+									Value="{DynamicResource AccentBrushKey}" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver"
+					 Value="True">
+				<Setter Property="Background"
+						Value="{DynamicResource ActiveBackgroundBrushKey}" />
+				<Setter Property="BorderBrush"
+						Value="{DynamicResource ActiveBorderBrushKey}" />
+				<Setter Property="Foreground"
+						Value="{DynamicResource ActiveForegroundBrushKey}" />
+			</Trigger>
+			<Trigger Property="IsPressed"
+					 Value="True">
+				<Setter Property="Background"
+						Value="{DynamicResource AccentBrushKey}" />
+				<Setter Property="BorderBrush"
+						Value="{DynamicResource ActiveBorderBrushKey}" />
+				<Setter Property="Foreground"
+						Value="{DynamicResource AccentForegroundBrushKey}" />
+			</Trigger>
+			<Trigger Property="IsEnabled"
+					 Value="False">
+				<Setter Property="Opacity"
+						Value="0.6" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+</ResourceDictionary>

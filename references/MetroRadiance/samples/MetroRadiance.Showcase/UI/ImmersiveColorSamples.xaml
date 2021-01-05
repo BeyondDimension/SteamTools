@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="MetroRadiance.Showcase.UI.ImmersiveColorSamples"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 mc:Ignorable="d"
+			 d:DesignWidth="300"
+			 d:DesignHeight="300">
+	<DockPanel>
+		<TextBlock DockPanel.Dock="Top"
+				   Text="ImmersiveColor"
+				   FontFamily="Segoe UI Light"
+				   FontSize="18"
+				   Foreground="{DynamicResource ForegroundBrushKey}"
+				   HorizontalAlignment="Center"
+				   Margin="0,0,0,8" />
+		<ItemsControl ItemsSource="{Binding}">
+			<ItemsControl.Template>
+				<ControlTemplate TargetType="{x:Type ItemsControl}">
+					<ScrollViewer HorizontalScrollBarVisibility="Disabled"
+								  VerticalScrollBarVisibility="Visible">
+						<VirtualizingStackPanel IsItemsHost="True"
+												Margin="8,0,8,8" />
+					</ScrollViewer>
+				</ControlTemplate>
+			</ItemsControl.Template>
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<Border Background="{Binding background}">
+						<TextBlock Text="{Binding name}"
+								   Foreground="{Binding foreground}"
+								   Margin="12,4" />
+					</Border>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+	</DockPanel>
+</UserControl>

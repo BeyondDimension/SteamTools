@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<Style x:Key="{x:Static SystemParameters.FocusVisualStyleKey}">
+		<Setter Property="Control.Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Rectangle StrokeThickness=".99"
+							   Stroke="{DynamicResource ForegroundBrushKey}"
+							   StrokeDashArray="1 3"
+							   SnapsToDevicePixels="true" />
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

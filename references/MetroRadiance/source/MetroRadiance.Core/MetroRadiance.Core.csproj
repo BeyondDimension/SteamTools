@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
+		<UseWPF>true</UseWPF>
+		<RootNamespace>MetroRadiance</RootNamespace>
+		<AssemblyName>MetroRadiance.Core</AssemblyName>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net461|AnyCPU'">
+	  <OutputPath>bin\</OutputPath>
+	</PropertyGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+		<Reference Include="WindowsBase" />
+		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Properties\AssemblyInfo.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
+	</ItemGroup>
+	
+</Project>

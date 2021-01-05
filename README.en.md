@@ -5,7 +5,7 @@
 > 「Steam++」is a toolkit that contains a variety of Steam tools, most of which require you to download and install Steam in order to use them.
 <br/>
 
-![Release Download](https://img.shields.io/github/downloads/rmbadmin/SteamTools/total?style=flat-square)
+![Release Download](https://img.shields.io/github/downloads/rmbadmin/SteamTools/latest/total?style=flat-square)
 [![Release Version](https://img.shields.io/github/v/release/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/releases/latest)
 [![GitHub license](https://img.shields.io/github/license/rmbadmin/SteamTools?style=flat-square)](LICENSE)
 [![GitHub Star](https://img.shields.io/github/stars/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/stargazers)
@@ -23,7 +23,6 @@
 ## Core Functions
 
 ### 1. Local reverse proxy for Steam's community webpage to enable normal access in mainland China
-功能类似羽翼城大佬的[steamcommunity_302](https://www.dogfight360.com/blog/686/),使用[Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy)开源项目进行本地反代，相比302工具具有更快的启动速度，以及支持简单的脚本注入。
 ![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/1.png)  
 ---
 ### 2. Quickly switch the Steam account that the current PC has remembered to log into

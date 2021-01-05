@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <AvailableItemName Include="NativeBinary" />
+  </ItemGroup>
+  <ItemGroup>
+    <NativeBinary Include="$(MSBuildThisFileDirectory)\net46\*" />
+  </ItemGroup>
+  <PropertyGroup>
+    <PrepareForRunDependsOn>
+      $(PrepareForRunDependsOn);
+      CopyNativeBinaries
+    </PrepareForRunDependsOn>
+  </PropertyGroup>
+  <Target Name="CopyNativeBinaries" DependsOnTargets="CopyFilesToOutputDirectory">
+    <Copy SourceFiles="@(NativeBinary)"
+          DestinationFiles="@(NativeBinary->'$(OutDir)\%(Filename)%(Extension)')">
+      <Output TaskParameter="DestinationFiles" ItemName="FileWrites" />
+    </Copy>
+  </Target>
+</Project>

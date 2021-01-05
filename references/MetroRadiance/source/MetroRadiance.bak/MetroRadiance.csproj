@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0AF0B9FF-D981-4D0F-A41F-C3AB6FE2F16D}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MetroRadiance</RootNamespace>
+    <AssemblyName>MetroRadiance</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\MetroRadiance.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release RETRO|AnyCPU' ">
+    <OutputPath>bin\Release RETRO\</OutputPath>
+    <DefineConstants>TRACE;RETRO</DefineConstants>
+    <DocumentationFile>bin\Release\MetroRadiance.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>1591</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleSyndicate.UriTemplate, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleSyndicate.UriTemplate.1.0.3\lib\netstandard2.0\SimpleSyndicate.UriTemplate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.XML" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Styles\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Controls.Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <DependentUpon>Controls.xaml</DependentUpon>
+    </Page>
+    <Page Include="Styles\Controls.CheckBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Controls.xaml</DependentUpon>
+    </Page>
+    <Page Include="Styles\Controls.Expander.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Controls.xaml</DependentUpon>
+    </Page>
+    <Page Include="Styles\Controls.PasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Controls.xaml</DependentUpon>
+    </Page>
+    <Page Include="Styles\Controls.ScrollBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Controls.xaml</DependentUpon>
+    </Page>
+    <Page Include="Styles\Controls.ToggleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Controls.xaml</DependentUpon>
+    </Page>
+    <Page Include="Styles\Controls.Tooltip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <DependentUpon>Controls.xaml</DependentUpon>
+    </Page>
+    <Page Include="Styles\Controls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Accents\Blue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Orange.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Purple.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Dark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.Badge.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
+    <Page Include="Themes\Generic.BindableRichTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
+    <Page Include="Themes\Generic.BlurWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
+    <Page Include="Themes\Generic.CaptionButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
+    <Page Include="Themes\Generic.CaptionIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
+    <Page Include="Themes\Generic.ExpanderButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
+    <Page Include="Themes\Generic.LinkButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
+    <Page Include="Themes\Generic.MetroWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
+    <Page Include="Themes\Generic.ProgressRing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
+    <Page Include="Themes\Generic.PromptComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
+    <Page Include="Themes\Generic.PromptTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
+    <Page Include="Themes\Generic.ResizeGrip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
+    <Page Include="Themes\Generic.SystemButtons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
+    <Page Include="Themes\Generic.TabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Light.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\UWP\Accents\Blue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\UWP\Accents\Orange.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\UWP\Accents\Purple.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\UWP\Dark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\UWP\HighContrast.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\UWP\Light.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.ja-JP.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.zh-Hans.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.zh-Hans.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.zh-Hant.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.zh-Hant.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Accent.cs" />
+    <Compile Include="UI\Controls\AcrylicBlurWindow.cs" />
+    <Compile Include="UI\Controls\BlurWindow.cs" />
+    <Compile Include="UI\Controls\BlurWindowThemeMode.cs" />
+    <Compile Include="UI\Interactivity\DirectWindowAction.cs" />
+    <Compile Include="UI\Controls\Badge.cs" />
+    <Compile Include="UI\Controls\BindableRichTextBox.cs" />
+    <Compile Include="UI\Controls\BindableTextBlock.cs" />
+    <Compile Include="UI\Controls\CaptionButton.cs" />
+    <Compile Include="UI\Controls\CaptionButtonMode.cs" />
+    <Compile Include="UI\Controls\CaptionIcon.cs" />
+    <Compile Include="UI\Controls\ExpanderButton.cs" />
+    <Compile Include="UI\Controls\Int32Rule.cs" />
+    <Compile Include="UI\Controls\ITabItem.cs" />
+    <Compile Include="UI\Controls\IWindowSettings.cs" />
+    <Compile Include="UI\Controls\LinkButton.cs" />
+    <Compile Include="UI\Controls\MetroWindow.cs" />
+    <Compile Include="UI\Controls\ProgressRing.cs" />
+    <Compile Include="UI\Controls\PromptComboBox.cs" />
+    <Compile Include="UI\Controls\PromptTextBox.cs" />
+    <Compile Include="UI\Controls\ResizeGrip.cs" />
+    <Compile Include="UI\Controls\SystemButtons.cs" />
+    <Compile Include="UI\Controls\TabView.cs" />
+    <Compile Include="UI\Controls\ThemeHelper.cs" />
+    <Compile Include="UI\Controls\WindowAction.cs" />
+    <Compile Include="UI\Converters\WindowStateToVisibilityConverter.cs" />
+    <Compile Include="UI\Theme.cs" />
+    <Compile Include="UI\ThemeExtensions.cs" />
+    <Compile Include="Utilities\InternalExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\ThemeService.cs" />
+    <Compile Include="Utilities\TypeForwardedTo.g.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TypeForwardedTo.tt</DependentUpon>
+    </Compile>
+    <None Include="MetroRadiance.nuspec" />
+    <AppDesigner Include="Properties\" />
+    <Page Include="Styles\Controls.FocusVisualStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <DependentUpon>Controls.xaml</DependentUpon>
+    </Page>
+    <Page Include="Styles\Controls.RadioButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <DependentUpon>Controls.xaml</DependentUpon>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Utilities\TypeForwardedTo.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TypeForwardedTo.g.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RetroRadiance\RetroRadiance.csproj" Condition="'$(Configuration)' == 'Release RETRO'">
+      <Project>{7f898b3a-da17-4cab-b387-5629b5faca49}</Project>
+      <Name>RetroRadiance</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.ja-JP.resx">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.ja-JP.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.zh-Hans.resx">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.zh-Hans.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.zh-Hant.resx">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.zh-Hant.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

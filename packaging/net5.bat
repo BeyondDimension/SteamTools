@@ -1,0 +1,1 @@
+dotnet publish ..\source\SteamTools -c Release -f net5.0-windows -r win-x86 -p:PublishSingleFile=true -p:UseAppHost=true --self-contained false -o out/result

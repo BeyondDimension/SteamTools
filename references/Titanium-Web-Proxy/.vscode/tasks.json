@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build-basic-example-netcore-debug",
+            "type": "process",
+            "command": "dotnet",
+            "args": ["build","${workspaceFolder}/examples/Titanium.Web.Proxy.Examples.Basic/Titanium.Web.Proxy.Examples.Basic.NetCore.csproj"],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "build-basic-example-netcore-release",
+            "type": "process",
+            "command": "dotnet",
+            "args": ["build","${workspaceFolder}/examples/Titanium.Web.Proxy.Examples.Basic/Titanium.Web.Proxy.Examples.Basic.NetCore.csproj", "-c", "Release"],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

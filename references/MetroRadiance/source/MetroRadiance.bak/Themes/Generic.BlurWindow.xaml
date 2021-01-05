@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:controls="clr-namespace:MetroRadiance.UI.Controls"
+					xmlns:properties="clr-namespace:MetroRadiance.Properties">
+
+	<Style TargetType="{x:Type controls:BlurWindow}"
+		   BasedOn="{StaticResource {x:Type Window}}">
+		<Setter Property="FontFamily"
+				Value="{DynamicResource {x:Static properties:Resources.FontFamily}}" />
+	</Style>
+
+</ResourceDictionary>

@@ -7,47 +7,47 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{45E5B6B2-0A6D-
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{350F425C-AF5A-4ED2-BDDC-B905A4E63A14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Proxy", "SteamTool.Proxy\SteamTool.Proxy.csproj", "{A70C148D-042C-48DA-9963-0B777FC60215}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Proxy", "source\SteamTool.Proxy\SteamTool.Proxy.csproj", "{A70C148D-042C-48DA-9963-0B777FC60215}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Composition", "Composition", "{F62E508E-B374-4149-B9AC-0A8090AA6CD1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reference", "Reference", "{F62E508E-B374-4149-B9AC-0A8090AA6CD1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Steam.Service", "SteamTool.Steam.Service\SteamTool.Steam.Service.csproj", "{2A155A7B-3DFD-4F16-929D-9693D2411B83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Steam.Service", "source\SteamTool.Steam.Service\SteamTool.Steam.Service.csproj", "{2A155A7B-3DFD-4F16-929D-9693D2411B83}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Core", "SteamTool.Core\SteamTool.Core.csproj", "{23E26040-19A5-4623-8863-B9ED539403B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Core", "source\SteamTool.Core\SteamTool.Core.csproj", "{23E26040-19A5-4623-8863-B9ED539403B0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTools", "SteamTools\SteamTools.csproj", "{0663899A-2EC5-4929-868C-9D9620FEA4FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTools", "source\SteamTools\SteamTools.csproj", "{0663899A-2EC5-4929-868C-9D9620FEA4FE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Steam4NET.Test", "SteamTool.Steam4NET.Test\SteamTool.Steam4NET.Test.csproj", "{790D22D4-94B0-4575-8E2D-C451EC520407}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Steam4NET.Test", "source\SteamTool.Steam4NET.Test\SteamTool.Steam4NET.Test.csproj", "{790D22D4-94B0-4575-8E2D-C451EC520407}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Steam4NET", "SteamTool.Steam4NET\SteamTool.Steam4NET.csproj", "{D4157059-D31A-4A21-AF4C-2D458F768041}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Steam4NET", "source\SteamTool.Steam4NET\SteamTool.Steam4NET.csproj", "{D4157059-D31A-4A21-AF4C-2D458F768041}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{D245A82C-66B2-4CD5-881C-3ED4332FC91D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Steamworks.Test", "SteamTool.Steamworks.Test\SteamTool.Steamworks.Test.csproj", "{C03E4CF5-D68F-4CAC-B002-3A6799ED9E15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Steamworks.Test", "source\SteamTool.Steamworks.Test\SteamTool.Steamworks.Test.csproj", "{C03E4CF5-D68F-4CAC-B002-3A6799ED9E15}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Proxy.Test", "SteamTool.Proxy.Test\SteamTool.Proxy.Test.csproj", "{4C441E34-FA65-4425-8242-4EB767BA9B95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Proxy.Test", "source\SteamTool.Proxy.Test\SteamTool.Proxy.Test.csproj", "{4C441E34-FA65-4425-8242-4EB767BA9B95}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Model", "SteamTool.Model\SteamTool.Model.csproj", "{BDBACE3A-0138-4930-95F6-82562EA03F7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Model", "source\SteamTool.Model\SteamTool.Model.csproj", "{BDBACE3A-0138-4930-95F6-82562EA03F7A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.SteamAPI", "SteamTool.SteamAPI\SteamTool.SteamAPI.csproj", "{4E66F4F4-7771-4FFA-A907-3F99A95C6A7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.SteamAPI", "source\SteamTool.SteamAPI\SteamTool.SteamAPI.csproj", "{4E66F4F4-7771-4FFA-A907-3F99A95C6A7F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Authenticator", "SteamTool.Authenticator\SteamTool.Authenticator.csproj", "{86F6CF23-35C4-45AD-BC0D-6BD50C03F666}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamTool.Authenticator", "source\SteamTool.Authenticator\SteamTool.Authenticator.csproj", "{86F6CF23-35C4-45AD-BC0D-6BD50C03F666}"
 EndProject
-Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "SteamTools.UWP", "SteamTools.UWP\SteamTools.UWP.wapproj", "{2E755C75-E472-44E0-8AC4-F40209A60172}"
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "SteamTools.UWP", "source\SteamTools.UWP\SteamTools.UWP.wapproj", "{2E755C75-E472-44E0-8AC4-F40209A60172}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Titanium.Web.Proxy", "Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj", "{BBB75CAC-2BA3-473D-935D-0E59406F5E61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Titanium.Web.Proxy", "references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj", "{BBB75CAC-2BA3-473D-935D-0E59406F5E61}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MetroRadiance", "MetroRadiance", "{2B74A2B2-148D-4518-BF74-3408095E920B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetroTrilithon.Desktop", "MetroRadiance\source\MetroTrilithon.Desktop\MetroTrilithon.Desktop.csproj", "{4E2EB2E0-E5FE-4FEB-A3E5-5F2F05CD1A67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetroTrilithon.Desktop", "references\MetroRadiance\source\MetroTrilithon.Desktop\MetroTrilithon.Desktop.csproj", "{4E2EB2E0-E5FE-4FEB-A3E5-5F2F05CD1A67}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetroRadiance.Core", "MetroRadiance\source\MetroRadiance.Core\MetroRadiance.Core.csproj", "{AF006EF5-D4BC-49C6-8E0E-DC2B882BE767}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetroRadiance.Core", "references\MetroRadiance\source\MetroRadiance.Core\MetroRadiance.Core.csproj", "{AF006EF5-D4BC-49C6-8E0E-DC2B882BE767}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetroRadiance.Chrome", "MetroRadiance\source\MetroRadiance.Chrome\MetroRadiance.Chrome.csproj", "{DE0B3A58-C301-4671-8B32-4F195C9457A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetroRadiance.Chrome", "references\MetroRadiance\source\MetroRadiance.Chrome\MetroRadiance.Chrome.csproj", "{DE0B3A58-C301-4671-8B32-4F195C9457A7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetroRadiance", "MetroRadiance\source\MetroRadiance\MetroRadiance.csproj", "{2E226B1E-80F6-448D-B02B-0A029C5BC09E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetroRadiance", "references\MetroRadiance\source\MetroRadiance\MetroRadiance.csproj", "{2E226B1E-80F6-448D-B02B-0A029C5BC09E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetroTrilithon", "MetroRadiance\source\MetroTrilithon\MetroTrilithon.csproj", "{2EE1744F-2D3C-4032-9A9E-C57FA3B512B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetroTrilithon", "references\MetroRadiance\source\MetroTrilithon\MetroTrilithon.csproj", "{2EE1744F-2D3C-4032-9A9E-C57FA3B512B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -295,6 +295,7 @@ Global
 		{86F6CF23-35C4-45AD-BC0D-6BD50C03F666} = {F62E508E-B374-4149-B9AC-0A8090AA6CD1}
 		{2E755C75-E472-44E0-8AC4-F40209A60172} = {45E5B6B2-0A6D-4D57-804B-7B8313145B62}
 		{BBB75CAC-2BA3-473D-935D-0E59406F5E61} = {F62E508E-B374-4149-B9AC-0A8090AA6CD1}
+		{2B74A2B2-148D-4518-BF74-3408095E920B} = {F62E508E-B374-4149-B9AC-0A8090AA6CD1}
 		{4E2EB2E0-E5FE-4FEB-A3E5-5F2F05CD1A67} = {2B74A2B2-148D-4518-BF74-3408095E920B}
 		{AF006EF5-D4BC-49C6-8E0E-DC2B882BE767} = {2B74A2B2-148D-4518-BF74-3408095E920B}
 		{DE0B3A58-C301-4671-8B32-4F195C9457A7} = {2B74A2B2-148D-4518-BF74-3408095E920B}

@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+	<PropertyGroup>
+		<TargetFrameworks>net461</TargetFrameworks>
+		<!--<TargetFrameworks>net461;net5.0-windows</TargetFrameworks>-->
+		<UseWPF>true</UseWPF>
+		<RootNamespace>MetroTrilithon</RootNamespace>
+		<AssemblyName>MetroTrilithon.Desktop</AssemblyName>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="LivetCask.Mvvm" Version="3.2.3.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MetroRadiance.Chrome\MetroRadiance.Chrome.csproj" />
+		<ProjectReference Include="..\MetroRadiance.Core\MetroRadiance.Core.csproj" />
+		<ProjectReference Include="..\MetroRadiance\MetroRadiance.csproj" />
+		<ProjectReference Include="..\MetroTrilithon\MetroTrilithon.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="System.Configuration" />
+		<Reference Include="System.Management" />
+		<Reference Include="System.Runtime.Remoting" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Utilities\TypeForwardedTo.g.cs">
+			<DependentUpon>TypeForwardedTo.tt</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Utilities\TypeForwardedTo.tt">
+	    <Generator>TextTemplatingFileGenerator</Generator>
+	    <LastGenOutput>TypeForwardedTo.g.cs</LastGenOutput>
+	  </None>
+	</ItemGroup>
+</Project>

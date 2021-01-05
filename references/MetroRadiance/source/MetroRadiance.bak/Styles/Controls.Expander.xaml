@@ -1,0 +1,41 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:controls="clr-namespace:MetroRadiance.UI.Controls">
+
+	<Style TargetType="{x:Type Expander}">
+		<Setter Property="OverridesDefaultStyle"
+				Value="True" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Expander}">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+
+						<controls:ExpanderButton x:Name="ExpanderButton"
+												 Direction="Right"
+												 IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+							<ContentPresenter ContentSource="Header"
+											  RecognizesAccessKey="True" />
+						</controls:ExpanderButton>
+
+						<ContentPresenter x:Name="Content"
+										  Grid.Row="1"
+										  Margin="{TemplateBinding Padding}" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsExpanded"
+								 Value="False">
+							<Setter TargetName="Content"
+									Property="Visibility"
+									Value="Collapsed" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

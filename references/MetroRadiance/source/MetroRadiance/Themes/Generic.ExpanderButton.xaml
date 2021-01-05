@@ -1,0 +1,96 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:controls="clr-namespace:MetroRadiance.UI.Controls">
+
+	<Style TargetType="{x:Type controls:ExpanderButton}">
+		<Setter Property="Foreground"
+				Value="{DynamicResource ForegroundBrushKey}" />
+		<Setter Property="VerticalContentAlignment"
+				Value="Center" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type controls:ExpanderButton}">
+					<Border Background="Transparent">
+						<Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<ContentPresenter x:Name="content"
+											  Grid.Column="1"
+											  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+											  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+							<Grid x:Name="expander"
+								  Grid.Column="2"
+								  Margin="5,0,0,0"
+								  Width="19"
+								  Height="19">
+								<Ellipse x:Name="circle"
+										 Fill="{DynamicResource SemiactiveBackgroundBrushKey}"
+										 Stroke="{DynamicResource ForegroundBrushKey}" />
+								<Path x:Name="arrow"
+									  Data="M 1,1.5 L 4.5,5 8,1.5"
+									  Stroke="{DynamicResource ForegroundBrushKey}"
+									  StrokeThickness="2"
+									  HorizontalAlignment="Center"
+									  VerticalAlignment="Center" />
+							</Grid>
+						</Grid>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="Direction"
+								 Value="Right">
+							<Setter TargetName="expander"
+									Property="Grid.Column"
+									Value="0" />
+							<Setter TargetName="expander"
+									Property="Margin"
+									Value="0,0,5,0" />
+						</Trigger>
+						<Trigger Property="IsMouseOver"
+								 Value="True">
+							<Setter TargetName="circle"
+									Property="Fill"
+									Value="{DynamicResource ActiveBackgroundBrushKey}" />
+						</Trigger>
+						<Trigger Property="IsPressed"
+								 Value="True">
+							<Setter TargetName="circle"
+									Property="Fill"
+									Value="{DynamicResource AccentBrushKey}" />
+							<Setter TargetName="circle"
+									Property="Stroke"
+									Value="{DynamicResource HighlightForegroundBrushKey}" />
+							<Setter TargetName="arrow"
+									Property="Stroke"
+									Value="{DynamicResource HighlightForegroundBrushKey}" />
+						</Trigger>
+						<Trigger Property="IsChecked"
+								 Value="True">
+							<Setter TargetName="arrow"
+									Property="Data"
+									Value="M 1,4.5 L 4.5,1 8,4.5" />
+						</Trigger>
+						<Trigger Property="IsEnabled"
+								 Value="False">
+							<Setter TargetName="circle"
+									Property="Fill"
+									Value="{DynamicResource InactiveBackgroundBrushKey}" />
+							<Setter TargetName="circle"
+									Property="Stroke"
+									Value="{DynamicResource InactiveForegroundBrushKey}" />
+							<Setter TargetName="arrow"
+									Property="Stroke"
+									Value="{DynamicResource InactiveForegroundBrushKey}" />
+							<Setter TargetName="content"
+									Property="Opacity"
+									Value="0.5" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

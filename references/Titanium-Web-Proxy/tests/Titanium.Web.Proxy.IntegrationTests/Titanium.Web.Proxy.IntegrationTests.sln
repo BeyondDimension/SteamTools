@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Titanium.Web.Proxy.IntegrationTests", "Titanium.Web.Proxy.IntegrationTests.csproj", "{BE0BC910-468F-4F1A-AC3D-F0EC2C75108E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Titanium.Web.Proxy", "..\..\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj", "{F407A98E-290D-4A29-9451-22A6AE380586}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE0BC910-468F-4F1A-AC3D-F0EC2C75108E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE0BC910-468F-4F1A-AC3D-F0EC2C75108E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE0BC910-468F-4F1A-AC3D-F0EC2C75108E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE0BC910-468F-4F1A-AC3D-F0EC2C75108E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F407A98E-290D-4A29-9451-22A6AE380586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F407A98E-290D-4A29-9451-22A6AE380586}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F407A98E-290D-4A29-9451-22A6AE380586}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F407A98E-290D-4A29-9451-22A6AE380586}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B518E259-A504-4396-8138-8BFF322FAC80}
+	EndGlobalSection
+EndGlobal

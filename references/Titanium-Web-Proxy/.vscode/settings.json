@@ -1,0 +1,37 @@
+{
+    // The following will hide the js and map files in the editor
+    "files.exclude": {
+        "**/.build": true,
+        "**/.nuget": true,
+        "**/.vs": true,
+        "**/docs": true,
+        "**/packages": true,
+        "**/bin": true,
+        "**/obj": true,
+        "**/*.DotSettings": true,
+        "**/*.sln": true,
+        "**/tests/" : true,
+        "**/Titanium.Web.Proxy.Examples.Wpf/" : true,
+        "**/*.Basic.csproj/": true,
+        "**/*.Docs.csproj/": true,
+        "**/*.Proxy.csproj/": true,
+        "**/*.Mono.csproj" : true
+    },
+    "search.exclude": {
+        "**/.build": true,
+        "**/.nuget": true,
+        "**/.vs": true,
+        "**/docs": true,
+        "**/packages": true,
+        "**/bin": true,
+        "**/obj": true,
+        "**/*.DotSettings": true,
+        "**/*.sln": true,
+        "**/tests/" : true,
+        "**/Titanium.Web.Proxy.Examples.Wpf/" : true,
+        "**/*.Basic.csproj/": true,
+        "**/*.Docs.csproj/": true,
+        "**/*.Proxy.csproj/": true,
+        "**/*.Mono.csproj" : true
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "NetCore|Debug|Basic Example",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceRoot}/examples/Titanium.Web.Proxy.Examples.Basic/bin/Debug/netcoreapp3.1/Titanium.Web.Proxy.Examples.Basic.NetCore.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "stopAtEntry": false,
+            "console": "integratedTerminal",
+            "preLaunchTask": "build-basic-example-netcore-debug"
+        },
+        {
+            "name": "NetCore|Release|Basic Example",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceRoot}/examples/Titanium.Web.Proxy.Examples.Basic/bin/Release/netcoreapp3.1/Titanium.Web.Proxy.Examples.Basic.NetCore.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "stopAtEntry": false,
+            "console": "integratedTerminal",
+            "preLaunchTask": "build-basic-example-netcore-release"
+        }
+    ]
+}

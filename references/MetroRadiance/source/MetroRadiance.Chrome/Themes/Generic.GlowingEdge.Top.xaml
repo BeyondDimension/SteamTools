@@ -1,0 +1,110 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:chrome="clr-namespace:MetroRadiance.Chrome"
+					xmlns:primitives="clr-namespace:MetroRadiance.Chrome.Primitives">
+
+	<PathGeometry x:Key="CornerGeometryKey"
+				  Figures="M8,0 L8,8 A8,8,0,0,1,0,0 z" />
+
+	<GridLength x:Key="TiltedCursorMarginKey">8</GridLength>
+
+	<Style TargetType="{x:Type chrome:TopGlowingEdge}">
+		<Setter Property="Background"
+				Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=Background}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type chrome:TopGlowingEdge}">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="{x:Static chrome:GlowingEdge.__Thickness}" />
+							<RowDefinition Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness.Top, Mode=OneTime}" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="{x:Static chrome:GlowingEdge.__Thickness}" />
+							<ColumnDefinition Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness.Left, Mode=OneTime}" />
+							<ColumnDefinition Width="{StaticResource TiltedCursorMarginKey}" />
+							<ColumnDefinition />
+							<ColumnDefinition Width="{StaticResource TiltedCursorMarginKey}" />
+							<ColumnDefinition Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness.Right, Mode=OneTime}" />
+							<ColumnDefinition Width="{x:Static chrome:GlowingEdge.__Thickness}" />
+						</Grid.ColumnDefinitions>
+
+						<Rectangle Grid.Column="0"
+								   Grid.Row="1">
+							<Shape.Fill>
+								<LinearGradientBrush x:Name="PART_GradientBrush4"
+													 StartPoint="1,0"
+													 EndPoint="0,0" />
+							</Shape.Fill>
+						</Rectangle>
+						<Rectangle Grid.Column="1"
+								   Grid.Row="1"
+								   Grid.ColumnSpan="5"
+								   Fill="{TemplateBinding BorderBrush}" />
+						<Rectangle Grid.Column="6"
+								   Grid.Row="1">
+							<Shape.Fill>
+								<LinearGradientBrush x:Name="PART_GradientBrush5"
+													 StartPoint="0,0"
+													 EndPoint="1,0" />
+							</Shape.Fill>
+						</Rectangle>
+
+						<Path Grid.Column="0"
+							  Grid.Row="0"
+							  Data="{StaticResource CornerGeometryKey}"
+							  Width="{x:Static chrome:GlowingEdge.__CornerThickness}"
+							  Height="{x:Static chrome:GlowingEdge.__CornerThickness}"
+							  HorizontalAlignment="Left"
+							  VerticalAlignment="Top"
+							  Stretch="Fill">
+							<Shape.Fill>
+								<RadialGradientBrush x:Name="PART_GradientBrush2" />
+							</Shape.Fill>
+						</Path>
+						<Rectangle Grid.Column="1"
+								   Grid.Row="0"
+								   Grid.ColumnSpan="5">
+							<Rectangle.Fill>
+								<LinearGradientBrush x:Name="PART_GradientBrush"
+													 StartPoint="0,1"
+													 EndPoint="0,0" />
+							</Rectangle.Fill>
+						</Rectangle>
+						<Path Grid.Column="6"
+							  Grid.Row="0"
+							  Data="{StaticResource CornerGeometryKey}"
+							  Width="{x:Static chrome:GlowingEdge.__CornerThickness}"
+							  Height="{x:Static chrome:GlowingEdge.__CornerThickness}"
+							  HorizontalAlignment="Right"
+							  VerticalAlignment="Top"
+							  Stretch="Fill">
+							<Shape.Fill>
+								<RadialGradientBrush x:Name="PART_GradientBrush3" />
+							</Shape.Fill>
+						</Path>
+
+						<Rectangle x:Name="PART_TopLeftThumb"
+								   Grid.Column="0"
+								   Grid.ColumnSpan="3"
+								   IsEnabled="{TemplateBinding CanResize}"
+								   Cursor="SizeNWSE"
+								   Fill="Transparent" />
+						<Rectangle x:Name="PART_TopThumb"
+								   Grid.Column="3"
+								   IsEnabled="{TemplateBinding CanResize}"
+								   Cursor="SizeNS"
+								   Fill="Transparent" />
+						<Rectangle x:Name="PART_TopRightThumb"
+								   Grid.Column="4"
+								   Grid.ColumnSpan="3"
+								   IsEnabled="{TemplateBinding CanResize}"
+								   Cursor="SizeNESW"
+								   Fill="Transparent" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

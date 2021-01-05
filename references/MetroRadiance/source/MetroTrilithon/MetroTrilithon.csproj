@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Title>MetroTrilithon</Title>
+    <Description>Utilities for any apps (.NET Standard)</Description>
+    <Product>MetroTrilithon</Product>
+    <Company>grabacr.net</Company>
+    <Copyright>Copyright © 2015 Manato KAMEYA</Copyright>
+    <Version>0.3.0</Version>
+    <InformationalVersion>0.3.0</InformationalVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StatefulModel.Standard" Version="0.1.0" />
+  </ItemGroup>
+
+</Project>

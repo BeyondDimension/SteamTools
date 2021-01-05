@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="MetroRadiance.Showcase.UI.HsvSamples"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 mc:Ignorable="d"
+			 d:DesignWidth="300"
+			 d:DesignHeight="300">
+	<StackPanel Margin="4,0,4,4">
+		<TextBlock Text="HSV Color &amp; Luminosity"
+				   FontFamily="Segoe UI Light"
+				   FontSize="18"
+				   Foreground="{DynamicResource ForegroundBrushKey}"
+				   HorizontalAlignment="Center"
+				   Margin="0,0,0,8" />
+
+		<DockPanel Margin="4">
+			<TextBlock DockPanel.Dock="Right"
+					   Text="{Binding ElementName=hSlider, Path=Value}"
+					   Foreground="{DynamicResource ForegroundBrushKey}"
+					   Margin="8,0"
+					   Width="25" />
+			<Slider x:Name="hSlider"
+					x:FieldModifier="private"
+					Minimum="0"
+					Maximum="360"
+					Value="180"
+					IsSnapToTickEnabled="True"
+					TickFrequency="1" />
+		</DockPanel>
+		<DockPanel Margin="4">
+			<TextBlock DockPanel.Dock="Right"
+					   Text="{Binding ElementName=sSlider, Path=Value}"
+					   Foreground="{DynamicResource ForegroundBrushKey}"
+					   Margin="8,0"
+					   Width="25" />
+			<Slider x:Name="sSlider"
+					x:FieldModifier="private"
+					Minimum="0"
+					Maximum="100"
+					Value="50"
+					IsSnapToTickEnabled="True"
+					TickFrequency="1" />
+		</DockPanel>
+		<DockPanel Margin="4">
+			<TextBlock DockPanel.Dock="Right"
+					   Text="{Binding ElementName=vSlider, Path=Value}"
+					   Foreground="{DynamicResource ForegroundBrushKey}"
+					   Margin="8,0"
+					   Width="25" />
+			<Slider x:Name="vSlider"
+					x:FieldModifier="private"
+					Minimum="0"
+					Maximum="100"
+					Value="50"
+					IsSnapToTickEnabled="True"
+					TickFrequency="1" />
+		</DockPanel>
+
+		<TextBox x:Name="colorbox"
+				 x:FieldModifier="private"
+				 BorderThickness="0"
+				 HorizontalContentAlignment="Center"
+				 VerticalContentAlignment="Center"
+				 Padding="16"
+				 Margin="32,16" />
+	</StackPanel>
+</UserControl>

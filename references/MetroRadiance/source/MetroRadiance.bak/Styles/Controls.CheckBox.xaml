@@ -1,0 +1,135 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<Style TargetType="{x:Type CheckBox}">
+		<Setter Property="Background"
+				Value="{DynamicResource ActiveBackgroundBrushKey}" />
+		<Setter Property="BorderBrush"
+				Value="{DynamicResource ActiveBorderBrushKey}" />
+		<Setter Property="Foreground"
+				Value="{DynamicResource ActiveForegroundBrushKey}" />
+		<Setter Property="BorderThickness"
+				Value=".99" />
+		<Setter Property="VerticalContentAlignment"
+				Value="Center" />
+		<Setter Property="FocusVisualStyle"
+				Value="{DynamicResource {x:Static SystemParameters.FocusVisualStyleKey}}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type CheckBox}">
+					<Grid x:Name="templateRoot"
+						  Background="Transparent"
+						  SnapsToDevicePixels="True">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						<Border x:Name="checkBoxBorder"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								BorderThickness="{TemplateBinding BorderThickness}"
+								Background="{TemplateBinding Background}"
+								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+								VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+								Margin="1">
+							<Grid x:Name="markGrid">
+								<Path x:Name="optionMark"
+									  Data="F1M9.97498,1.22334L4.6983,9.09834 4.52164,9.09834 0,5.19331 1.27664,3.52165 4.255,6.08833 8.33331,1.52588E-05 9.97498,1.22334z"
+									  Fill="{DynamicResource ForegroundBrushKey}"
+									  Margin="1"
+									  Opacity="0"
+									  Stretch="None" />
+								<Rectangle x:Name="indeterminateMark"
+										   Fill="{DynamicResource ForegroundBrushKey}"
+										   Margin="2"
+										   Opacity="0" />
+							</Grid>
+						</Border>
+						<ContentPresenter x:Name="contentPresenter"
+										  Grid.Column="1"
+										  Content="{TemplateBinding Content}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  ContentStringFormat="{TemplateBinding ContentStringFormat}"
+										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										  Margin="{TemplateBinding Padding}"
+										  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										  RecognizesAccessKey="True"
+										  Focusable="False" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="HasContent"
+								 Value="True">
+							<Setter Property="Padding"
+									Value="4,-1,0,0" />
+						</Trigger>
+						<Trigger Property="IsMouseOver"
+								 Value="True">
+							<Setter Property="BorderBrush"
+									TargetName="checkBoxBorder"
+									Value="{DynamicResource AccentBrushKey}" />
+							<Setter Property="Fill"
+									TargetName="indeterminateMark"
+									Value="{DynamicResource ActiveForegroundBrushKey}" />
+							<Setter Property="Fill"
+									TargetName="optionMark"
+									Value="{DynamicResource ActiveForegroundBrushKey}" />
+						</Trigger>
+						<Trigger Property="IsEnabled"
+								 Value="False">
+							<Setter Property="BorderBrush"
+									TargetName="checkBoxBorder"
+									Value="{DynamicResource InactiveBorderBrushKey}" />
+							<Setter Property="Fill"
+									TargetName="indeterminateMark"
+									Value="{DynamicResource InactiveForegroundBrushKey}" />
+							<Setter Property="Fill"
+									TargetName="optionMark"
+									Value="{DynamicResource InactiveForegroundBrushKey}" />
+							<Setter Property="Background"
+									TargetName="checkBoxBorder"
+									Value="Transparent" />
+							<Setter Property="Foreground"
+									Value="{DynamicResource InactiveForegroundBrushKey}" />
+						</Trigger>
+						<Trigger Property="IsPressed"
+								 Value="True">
+							<Setter Property="BorderBrush"
+									TargetName="checkBoxBorder"
+									Value="{DynamicResource AccentBrushKey}" />
+							<Setter Property="Background"
+									TargetName="checkBoxBorder"
+									Value="{DynamicResource AccentBrushKey}" />
+							<Setter Property="Fill"
+									TargetName="optionMark"
+									Value="{DynamicResource ActiveForegroundBrushKey}" />
+							<Setter Property="Fill"
+									TargetName="indeterminateMark"
+									Value="{DynamicResource ActiveForegroundBrushKey}" />
+							<Setter Property="Foreground"
+									Value="{DynamicResource AccentHighlightBrushKey}" />
+						</Trigger>
+						<Trigger Property="IsChecked"
+								 Value="True">
+							<Setter Property="Opacity"
+									TargetName="optionMark"
+									Value="1" />
+							<Setter Property="Opacity"
+									TargetName="indeterminateMark"
+									Value="0" />
+						</Trigger>
+						<Trigger Property="IsChecked"
+								 Value="{x:Null}">
+							<Setter Property="Opacity"
+									TargetName="optionMark"
+									Value="0" />
+							<Setter Property="Opacity"
+									TargetName="indeterminateMark"
+									Value="1" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

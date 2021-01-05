@@ -1,0 +1,77 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+					xmlns:chrome="http://schemes.grabacr.net/winfx/2014/chrome"
+					xmlns:controls="clr-namespace:MetroRadiance.UI.Controls"
+					xmlns:properties="clr-namespace:MetroRadiance.Properties">
+
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/MetroRadiance;component/Themes/Generic.ResizeGrip.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+	<Style TargetType="{x:Type controls:MetroWindow}">
+		<Setter Property="FontFamily"
+				Value="{DynamicResource {x:Static properties:Resources.FontFamily}}" />
+		<Setter Property="Background"
+				Value="{DynamicResource ThemeBrushKey}" />
+		<Setter Property="Foreground"
+				Value="{DynamicResource ActiveForegroundBrushKey}" />
+		<Setter Property="BorderBrush"
+				Value="{DynamicResource AccentBrushKey}" />
+		<Setter Property="BorderThickness"
+				Value="0" />
+		<Setter Property="Padding"
+				Value="0" />
+		<Setter Property="SnapsToDevicePixels"
+				Value="True" />
+		<Setter Property="UseLayoutRounding"
+				Value="True" />
+		<Setter Property="ShellChrome">
+			<Setter.Value>
+				<WindowChrome ResizeBorderThickness="0"
+							  GlassFrameThickness="0"
+							  CornerRadius="0"
+							  UseAeroCaptionButtons="False" />
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type controls:MetroWindow}">
+					<Border Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+							UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
+						<AdornerDecorator>
+							<Grid>
+								<ContentPresenter Margin="{TemplateBinding Padding}"
+												  LayoutTransform="{TemplateBinding DpiScaleTransform}" />
+								<Border	x:Name="PART_ResizeGrip"
+										VerticalAlignment="Bottom"
+										HorizontalAlignment="Right"
+										Background="Transparent">
+									<Grid Width="16"
+										  Height="16"
+										  Margin="1">
+										<Path Style="{StaticResource ResizeGripIconElementKey}"
+											  Fill="{DynamicResource ForegroundBrushKey}" />
+										<Path Style="{StaticResource ResizeGripIconShadowElemenKey}"
+											  Fill="{DynamicResource BackgroundBrushKey}" />
+									</Grid>
+								</Border>
+							</Grid>
+						</AdornerDecorator>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Style.Triggers>
+			<Trigger Property="IsActive"
+					 Value="False">
+				<Setter Property="BorderBrush"
+						Value="{DynamicResource BorderBrushKey}" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+</ResourceDictionary>
