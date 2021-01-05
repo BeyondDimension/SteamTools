@@ -1,6 +1,6 @@
-[submodule "references\\Titanium-Web-Proxy"]
+[submodule "references/Titanium-Web-Proxy"]
 	path = references\\Titanium-Web-Proxy
 	url = https://github.com/rmbadmin/Titanium-Web-Proxy.git
-[submodule "references\\MetroRadiance"]
-	path = references\\MetroRadiance
+[submodule "references/MetroRadiance"]
+	path = references/MetroRadiance
 	url = https://github.com/rmbadmin/MetroRadiance.git
