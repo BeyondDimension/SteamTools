@@ -64,7 +64,7 @@ namespace SteamTools.ViewModels
                 while (!standardOutput.EndOfStream)
                 {
                     string text = standardOutput.ReadLine();
-                    CmdOut += text + "\r\n";
+                    CmdOut += text + Environment.NewLine;
                     //if (text.Contains("完毕"))
                     //    break;
                 }

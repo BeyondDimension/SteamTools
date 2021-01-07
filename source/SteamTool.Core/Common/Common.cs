@@ -10,6 +10,15 @@ namespace SteamTool.Core.Common
     public static class Common
     {
         /// <summary>
+        /// 时间戳转DateTime（系统时区）
+        /// </summary>
+        /// <returns></returns>
+        public static DateTime ToDateTime(this long timestamp)
+        {
+           return TimeZoneInfo.ConvertTimeFromUtc(new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(timestamp), TimeZoneInfo.Local);
+        }
+
+        /// <summary>
         /// 返回当前时间戳
         /// </summary>
         /// <returns></returns>
@@ -35,6 +44,16 @@ namespace SteamTool.Core.Common
             {
                 return "";
             }
+        }
+
+        /// <summary>
+        /// 移除字符串内所有\r \n \t
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string RemovePattern(this string inputString) 
+        {
+            return inputString.Replace("\t", "").Replace("\r", "").Replace("\n", "");
         }
 
         /// <summary>

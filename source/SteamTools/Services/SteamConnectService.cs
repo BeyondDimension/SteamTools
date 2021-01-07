@@ -200,7 +200,7 @@ namespace SteamTools.Services
                     Task.Run(async () =>
                     {
                         var result = await SteamworksWebApiService.GetAllSteamAppsString();
-                        if (GeneralSettings.IsSteamAppListLocalCache)
+                        if (GeneralSettings.IsSteamAppListLocalCache.Value)
                             SteamTool.UpdateAppListJson(result, Path.Combine(AppContext.BaseDirectory, Const.APP_LIST_FILE));
                         var apps = JsonConvert.DeserializeObject<SteamApps>(result).AppList.Apps;
                         apps = apps.DistinctBy(d => d.AppId).ToList();

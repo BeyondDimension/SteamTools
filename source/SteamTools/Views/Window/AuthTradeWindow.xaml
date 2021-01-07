@@ -89,17 +89,40 @@
         <StackPanel Margin="8" Grid.Row="1">
             <WrapPanel>
                 <TextBlock Text="账号：" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
-                <metro:PromptTextBox Prompt="" MinWidth="200"></metro:PromptTextBox>
+                <metro:PromptTextBox Prompt="" MinWidth="200" Text="{Binding UserName}"></metro:PromptTextBox>
             </WrapPanel>
             <Separator Opacity="0" Height="10"/>
             <WrapPanel>
                 <TextBlock Text="密码：" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
-                <metro:PromptTextBox Prompt="" MinWidth="200"></metro:PromptTextBox>
+                <PasswordBox MinWidth="200" PasswordChar="{Binding Password}"></PasswordBox>
             </WrapPanel>
+            <Separator Opacity="0" Height="10"/>
+            <CheckBox Content="记住登录状态"  IsChecked="{Binding RememberMe}"></CheckBox>
+            <Separator Opacity="0" Height="5"/>
+            <metro2:CallMethodButton Content="登录" Width="200" Height="30" 
+                                     HorizontalAlignment="Left" 
+                                     MethodTarget="{Binding}" 
+                                     MethodName="LoginButton_Click"></metro2:CallMethodButton>
+            <!--<TextBlock Text="操作交易确认的数据确实必须要登陆一次没有办法绕过" Style="{StaticResource DetailTextStyleKey}"></TextBlock>-->
 
+            <StackPanel Margin="8">
+                <WrapPanel>
+                    <Border BorderBrush="{DynamicResource AccentBrushKey}" Width="206" Height="37" HorizontalAlignment="Left" BorderThickness=".99">
+                        <Image Source="{Binding CodeImage,Mode=OneWay}" ></Image>
+                    </Border>
+                    <TextBlock Margin="10,0,0,0" Text="输入图片验证码" Style="{StaticResource DetailTextStyleKey}"></TextBlock>
+                </WrapPanel>
+                <Separator Opacity="0" Height="5"/>
+                <metro:PromptTextBox Text="{Binding CodeImageChar}" Prompt="输入图中的验证码" Width="206" HorizontalAlignment="Left"></metro:PromptTextBox>
+                <Separator Opacity="0" Height="5"/>
+                <metro2:CallMethodButton Content="确定" Width="200" Height="30" HorizontalAlignment="Left"></metro2:CallMethodButton>
+                <Separator Opacity="0" Height="5"/>
+            </StackPanel>
             <!--<WebBrowser Opacity="0.1" x:Name="web" LoadCompleted="web_LoadCompleted" Navigated="web_Navigated"/>-->
         </StackPanel>
+        <DockPanel>
 
+        </DockPanel>
         <!--Footer-->
         <controls:StatusBar Grid.Row="2" DataContext="{Binding StatusBar}">
         </controls:StatusBar>

@@ -70,7 +70,7 @@
                         <TextBlock Text="启动时自动运行Steam"></TextBlock>
                     </CheckBox>
                     <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="10,0,0,0">
-                        <Run Text="Steam++启动后检测Steam未启动自动运行Steam"></Run>
+                        <Run Text="启动后检测Steam未启动自动运行Steam"></Run>
                     </TextBlock>
                 </WrapPanel>
                 <Separator Opacity="0" Height="10"/>

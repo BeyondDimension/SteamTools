@@ -130,7 +130,7 @@ namespace SteamTool.Proxy
             }
 
             //没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
-            e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
+            e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine} not support proxy");
             return;
         }
         public async Task OnResponse(object sender, SessionEventArgs e)
@@ -427,7 +427,7 @@ namespace SteamTool.Proxy
                             var s = file.Substring(Const.HOST_TAG, Const.HOST_TAG, true);
                             if (string.IsNullOrEmpty(s))
                             {
-                                File.AppendAllText(certifi, "\r\n" + pem);
+                                File.AppendAllText(certifi, Environment.NewLine + pem);
                             }
                             else if (s.Trim() != pem.Trim())
                             {

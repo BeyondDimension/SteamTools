@@ -29,7 +29,9 @@
 				   Style="{DynamicResource SettingsHeaderTextStyleKey}" />
         <DockPanel Grid.Column="1">
             <TextBlock DockPanel.Dock="Top">
-                        <Run Text="十分感谢此列表的大佬们对我的支持与捐助，此工具的完善离不开以下大佬的支持：" Style="{StaticResource DetailTextElementStyleKey}" />
+                        <Run Text="十分感谢此列表的大佬们对我的支持与捐助，此工具的完善离不开以下大佬的支持。" Style="{StaticResource DetailTextElementStyleKey}" />
+                        <LineBreak/>
+                        <Run Text="*此列表因为是手动更新，所以更新时间不定期，并且会在一定时间之后移除过早的记录。" Style="{StaticResource DetailTextElementStyleKey}" />
             </TextBlock>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding DonateRecordList}">

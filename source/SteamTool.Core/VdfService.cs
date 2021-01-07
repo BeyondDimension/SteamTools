@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Gameloop.Vdf;
 using Gameloop.Vdf.Linq;
+using SteamTool.Core.Common;
 
 namespace SteamTool.Core
 {
@@ -33,6 +34,14 @@ namespace SteamTool.Core
             return GetVdfModel(text);
         }
 
+        public void UpdateVdfValueByReplace(string path, string oldVaule, string newValue)
+        {
+            string text = File.ReadAllText(path, Encoding.UTF8);
+            text = text.RemovePattern().Replace(
+                oldVaule.RemovePattern().Replace(" ",string.Empty), newValue);
+            //Debug.WriteLine(text);
+            File.WriteAllText(path, text, Encoding.UTF8);
+        }
 
         public void DeleteVdfValueByKey(string path, string key)
         {
@@ -41,6 +50,14 @@ namespace SteamTool.Core
             var index = text.IndexOf($"\"{key}\"");
             var lastIndex = text.IndexOf('}', index);
             text = text.Remove(index, lastIndex - index + 1);
+            //Debug.WriteLine(text);
+            File.WriteAllText(path, text, Encoding.UTF8);
+        }
+
+        public void DeleteVdfValueByReplace(string path, string oldVaule)
+        {
+            string text = File.ReadAllText(path, Encoding.UTF8);
+            text = text.Replace(oldVaule, string.Empty);
             //Debug.WriteLine(text);
             File.WriteAllText(path, text, Encoding.UTF8);
         }

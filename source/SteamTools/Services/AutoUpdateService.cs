@@ -98,7 +98,7 @@ namespace SteamTools.Services
 
         public async void DownloadUpdate()
         {
-            if (WindowService.Current.MainWindow.Dialog($"检测到新版本更新内容：{UpdateInfo.body}\r\n是否立即更新？", $"{ProductInfo.Title} | 更新提示") == true)
+            if (WindowService.Current.MainWindow.Dialog($"检测到新版本更新内容：{UpdateInfo.body}{Environment.NewLine}是否立即更新？", $"{ProductInfo.Title} | 更新提示") == true)
             {
                 var name = Path.Combine(AppContext.BaseDirectory, UpdateInfo.assets.FirstOrDefault()?.name);
                 //var name = Path.Combine(AppContext.BaseDirectory, @$"{ProductInfo.Title} {UpdateInfo.version}.zip");

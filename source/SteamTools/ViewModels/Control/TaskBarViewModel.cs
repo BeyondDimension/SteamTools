@@ -57,11 +57,11 @@ namespace SteamTools.ViewModels
         {
             if (SteamConnectService.Current.IsConnectToSteam)
             {
-                Process.Start(SteamConnectService.Current.CurrentSteamUser.ProfileUrl);
+                Process.Start(new ProcessStartInfo { FileName = SteamConnectService.Current.CurrentSteamUser.ProfileUrl, UseShellExecute = true });
             }
             else
             {
-                Process.Start(Const.MY_PROFILE_URL);
+                Process.Start(new ProcessStartInfo { FileName = Const.MY_PROFILE_URL, UseShellExecute = true });
             }
         }
 

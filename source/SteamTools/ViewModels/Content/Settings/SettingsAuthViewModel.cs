@@ -39,7 +39,7 @@ namespace SteamTools.ViewModels
                 {
                     AuthService.Current.ImportAuthenticatorsString(data.DecompressString());
                     AuthService.Current.SaveCurrentAuth();
-                    if (WindowService.Current.MainWindow.Dialog("导入旧版本令牌数据完成，\r\n是否删除Steam++旧版本数据文件？") == true)
+                    if (WindowService.Current.MainWindow.Dialog($"导入旧版本令牌数据完成，{Environment.NewLine}是否删除Steam++旧版本数据文件？") == true)
                     {
                         File.Delete(settingPath);
                         StatusService.Current.Notify("旧版本数据文件删除完成");

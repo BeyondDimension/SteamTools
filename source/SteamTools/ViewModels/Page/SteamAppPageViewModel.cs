@@ -115,7 +115,7 @@ namespace SteamTools.ViewModels
                        StatusService.Current.Notify("下载Steam游戏数据失败，请尝试开启社区反代刷新");
                        return;
                    }
-                   if (GeneralSettings.IsSteamAppListLocalCache)
+                   if (GeneralSettings.IsSteamAppListLocalCache.Value)
                        SteamTool.UpdateAppListJson(result, Path.Combine(AppContext.BaseDirectory, Const.APP_LIST_FILE));
                    apps = JsonConvert.DeserializeObject<SteamApps>(result).AppList.Apps;
                }
@@ -175,7 +175,7 @@ namespace SteamTools.ViewModels
 
         public void LogoImage_Click(uint appid)
         {
-            Process.Start(string.Format(Const.STORE_APP_URL, appid.ToString()));
+            Process.Start(new ProcessStartInfo { FileName = string.Format(Const.STORE_APP_URL, appid.ToString()), UseShellExecute = true });
         }
 
         public void UnlockAchievement_Click(SteamApp app)
@@ -202,7 +202,7 @@ namespace SteamTools.ViewModels
             switch (app.Type)
             {
                 case SteamAppTypeEnum.Media:
-                    Process.Start(string.Format(Const.STEAM_MEDIA_URL, app.AppId.ToString()));
+                    Process.Start(new ProcessStartInfo { FileName = string.Format(Const.STEAM_MEDIA_URL, app.AppId.ToString()), UseShellExecute = true });
                     break;
                 default:
                     if (app.IsInstalled)

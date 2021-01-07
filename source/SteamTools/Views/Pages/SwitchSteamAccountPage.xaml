@@ -82,18 +82,27 @@
                                          Margin="0,1,0,0" ></TextBox>
                             </StackPanel>
                             <Separator Opacity="0" Width="10"/>
-                            <!--<TextBox Text="{Binding SteamId3_Int,Mode=OneWay}" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ActiveForegroundBrushKey}" IsReadOnly="True" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>-->
-                            <!--<CheckBox IsChecked="{Binding RememberPassword}" Content="已记住密码" IsEnabled="False"></CheckBox>
-                            <CheckBox IsChecked="{Binding MostRecent}" Content="最近登录账户" IsEnabled="False" Visibility="{Binding MostRecent,Converter={StaticResource BooleanToVisibilityConverter}}"></CheckBox>-->
                             <StackPanel VerticalAlignment="Center">
                                 <CheckBox IsChecked="{Binding RememberPassword}" Content="已记住密码" IsEnabled="False"></CheckBox>
                                 <CheckBox IsChecked="{Binding MostRecent}" Content="最近登录账户" IsEnabled="False" Visibility="{Binding MostRecent,Converter={StaticResource BooleanToVisibilityConverter}}"></CheckBox>
-                                <!--<StackPanel Orientation="Horizontal">-->
-                                <!--<TextBlock Text="最近登录的账户" Foreground="Green" Visibility="{Binding MostRecent,Converter={StaticResource BooleanToVisibilityConverter}}"></TextBlock>-->
-                                <!--</StackPanel>-->
                             </StackPanel>
-
-                            <Separator Opacity="0" Width="30"/>
+                            <Separator Opacity="0" Width="10"/>
+                            <CheckBox IsChecked="{Binding WantsOfflineMode}" Content="离线模式">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <livet:LivetCallMethodAction
+                                                            MethodName="AccountOfflineMode_Checked"
+                                                            MethodParameter="{Binding}"
+                                                            MethodTarget="{Binding DataContext,ElementName=u}" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <livet:LivetCallMethodAction
+                                                            MethodName="AccountOfflineMode_Checked"
+                                                            MethodParameter="{Binding}"
+                                                            MethodTarget="{Binding DataContext,ElementName=u}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </CheckBox>
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                                 <!--<Image Source="pack://application:,,,/Resources/Asstes/time.png" Width="20" HorizontalAlignment="Right" Margin="0,0,5,0" Visibility="{Binding MostRecent,Converter={StaticResource BooleanToVisibilityConverter}}"></Image>-->

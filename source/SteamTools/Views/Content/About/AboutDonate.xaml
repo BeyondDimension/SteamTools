@@ -26,7 +26,7 @@
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Text="{Binding Resources.About_Donate, Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 				   Style="{DynamicResource SettingsHeaderTextStyleKey}" />
-        <Border Grid.Column="1">
+        <Border Grid.Column="1" x:Name="Dummy">
             <FlowDocumentScrollViewer Padding="0,-18,0,0"
 										  HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
                 <FlowDocument FontSize="12"
@@ -49,14 +49,6 @@
                         <Run Text="微信" FontSize="16"/>
                         <LineBreak/>
                         <Image Source="pack://application:,,,/Resources/Asstes/wechatdonate.png" Height="300"></Image>
-                        <LineBreak/>
-                        <LineBreak/>
-                        <LineBreak/>
-                        <Run Text="或者可以赞助"></Run>
-                        <metro2:HyperlinkEx Uri="{Binding Source={x:Static model:Const.MY_WISHLIST_URL}}">
-                            <Run Text="我的愿望单" />
-                        </metro2:HyperlinkEx>
-                        <Run Text="里的游戏，你的支持是我最大的开发动力，十分感谢！！"></Run>
                     </Paragraph>
                     <Paragraph>
                         <InlineUIContainer>
@@ -68,9 +60,15 @@
                             <Rectangle Width="{Binding ElementName=Dummy, Path=ActualWidth}"
 										   Height=".99"
 										   Style="{DynamicResource SeparatorRectangleStyleKey}"
-										   Margin="0,16,0,0"
 										   SnapsToDevicePixels="True" />
                         </InlineUIContainer>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Run Text="或者可以赞助"></Run>
+                        <metro2:HyperlinkEx Uri="{Binding Source={x:Static model:Const.MY_WISHLIST_URL}}">
+                            <Run Text="我的愿望单" />
+                        </metro2:HyperlinkEx>
+                        <Run Text="里的游戏，你的支持是我最大的开发动力，十分感谢！！"></Run>
                     </Paragraph>
                 </FlowDocument>
             </FlowDocumentScrollViewer>

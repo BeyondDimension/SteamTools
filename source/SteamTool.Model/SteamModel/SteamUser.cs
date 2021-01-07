@@ -4,6 +4,13 @@ namespace SteamTool.Model
 {
     public class SteamUser
     {
+        public SteamUser() { }
+
+        public SteamUser(string vdfstring)
+        {
+            OriginVdfString = vdfstring;
+        }
+
         public string SteamId3 { get; set; }
         public long SteamId3_Int => ((SteamId64 >> (ushort)0) & 0xFFFFFFFF);
 
@@ -32,19 +39,19 @@ namespace SteamTool.Model
         public string PrivacyState { get; set; }
 
         /// <summary>
-        /// 头像链接
+        /// 头像小图标
         /// </summary>
         public string AvatarIcon { get; set; }
 
         /// <summary>
-        /// 头像链接
+        /// 头像中等图片链接
         /// </summary>
-        public string AvatarMedium { get; set; }
+        public string AvatarMedium { get; set; } = "/Resources/Asstes/avater.jpg";
 
         /// <summary>
-        /// 头像链接
+        /// 头像大图链接
         /// </summary>
-        public string AvatarFull { get; set; }
+        public string AvatarFull { get; set; } 
 
         /// <summary>
         /// 昵称
@@ -54,7 +61,12 @@ namespace SteamTool.Model
         /// <summary>
         /// 昵称
         /// </summary>
-        public string SteamNickName => string.IsNullOrEmpty(SteamID) ? "无法获取此账户昵称" : SteamID;
+        public string SteamNickName => string.IsNullOrEmpty(SteamID) ? PersonaName : SteamID;
+
+        /// <summary>
+        /// 从VDF读取到的用户名
+        /// </summary>
+        public string PersonaName { get; set; } = "No Name";
 
         /// <summary>
         /// 用户名
@@ -87,8 +99,36 @@ namespace SteamTool.Model
         public bool MostRecent { get; set; }
 
         /// <summary>
+        /// 离线模式
+        /// </summary>
+        public bool WantsOfflineMode { get; set; }
+
+        /// <summary>
+        /// 忽略离线模式警告弹窗
+        /// </summary>
+        public bool SkipOfflineModeWarning { get; set; }
+
+        /// <summary>
         /// 备注
         /// </summary>
         public string Remark { get; set; }
+
+        /// <summary>
+        /// 来源VDF字符串
+        /// </summary>
+        public string OriginVdfString { get; set; }
+
+        /// <summary>
+        /// 导出VDF配置字符串
+        /// </summary>
+        public string CurrentVdfString =>
+        "\"" + SteamId64 + "\"\n{\n" +
+        "\t\t\"AccountName\"\t\t\"" + AccountName + "\"\n" +
+        "\t\t\"PersonaName\"\t\t\"" + PersonaName + "\"\n" +
+        "\t\t\"RememberPassword\"\t\t\"" + Convert.ToByte(RememberPassword) + "\"\n" +
+        "\t\t\"MostRecent\"\t\t\"" + Convert.ToByte(MostRecent) + "\"\n" +
+        "\t\t\"WantsOfflineMode\"\t\t\"" + Convert.ToByte(WantsOfflineMode) + "\"\n" +
+        "\t\t\"SkipOfflineModeWarning\"\t\t\"" + Convert.ToByte(SkipOfflineModeWarning) + "\"\n" +
+        "\t\t\"Timestamp\"\t\t\"" + Timestamp + "\"\n}";
     }
 }

@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<!--<TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>-->
 		<TargetFrameworks>net472;net5.0-windows</TargetFrameworks>
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
@@ -10,9 +9,6 @@
 		<ApplicationIcon>Resources\Asstes\app.ico</ApplicationIcon>
 		<LangVersion>9.0</LangVersion>
 		<SignAssembly>false</SignAssembly>
-		<!--<PublishTrimmed>true</PublishTrimmed>-->
-		<!--<PublishSingleFile>true</PublishSingleFile>-->
-
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 
 		<AssemblyName>Steam++</AssemblyName>
@@ -39,9 +35,15 @@
 
 		<PackageId />
 
-		<Version>1.0.4</Version>
+		<Version>1.1.0</Version>
 
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net5.0-windows'">
+		<RuntimeIdentifier>win-x86</RuntimeIdentifier>
+		<PublishSingleFile>true</PublishSingleFile>
+		<PublishTrimmed>true</PublishTrimmed>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
@@ -95,6 +97,7 @@
 		<None Remove="Resources\Asstes\add.png" />
 		<None Remove="Resources\Asstes\alipay.jpg" />
 		<None Remove="Resources\Asstes\app.ico" />
+		<None Remove="Resources\Asstes\avater.jpg" />
 		<None Remove="Resources\Asstes\Copy.png" />
 		<None Remove="Resources\Asstes\delete.png" />
 		<None Remove="Resources\Asstes\detail.png" />
@@ -133,6 +136,7 @@
 		<Resource Include="Resources\Asstes\add.png" />
 		<Resource Include="Resources\Asstes\alipay.jpg" />
 		<Resource Include="Resources\Asstes\app.ico" />
+		<Resource Include="Resources\Asstes\avater.jpg" />
 		<Resource Include="Resources\Asstes\copy.png" />
 		<Resource Include="Resources\Asstes\delete.png" />
 		<Resource Include="Resources\Asstes\detail.png" />
@@ -339,13 +343,14 @@
 		<ProjectReference Include="..\..\references\MetroRadiance\source\MetroTrilithon.Desktop\MetroTrilithon.Desktop.csproj" />
 		<ProjectReference Include="..\SteamTool.Authenticator\SteamTool.Authenticator.csproj" />
 		<ProjectReference Include="..\SteamTool.Core\SteamTool.Core.csproj" />
+		<ProjectReference Include="..\SteamTool.Model\SteamTool.Model.csproj" />
 		<ProjectReference Include="..\SteamTool.Proxy\SteamTool.Proxy.csproj" />
 		<ProjectReference Include="..\SteamTool.Steam.Service\SteamTool.Steam.Service.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<None Update="log\Log4net.config">
-		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Properties\Settings.settings">
 			<Generator>SettingsSingleFileGenerator</Generator>

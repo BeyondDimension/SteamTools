@@ -33,13 +33,11 @@ namespace SteamTool.Proxy
             RSACryptoServiceProvider pkey = (RSACryptoServiceProvider)@this.PrivateKey;
 
             AsymmetricCipherKeyPair keyPair = DotNetUtilities.GetRsaKeyPair(pkey);
-            using (TextWriter tw = new StreamWriter(Path.Combine(AppContext.BaseDirectory, @this.IssuerName.Name + ".key")))
-            {
-                PemWriter pw = new PemWriter(tw);
-                pw.WriteObject(keyPair.Private);
-                tw.Flush();
-                return tw.ToString();
-            }
+            using TextWriter tw = new StreamWriter(Path.Combine(AppContext.BaseDirectory, @this.IssuerName.Name + ".key"));
+            PemWriter pw = new PemWriter(tw);
+            pw.WriteObject(keyPair.Private);
+            tw.Flush();
+            return tw.ToString();
         }
 
         public static List<string> GetSubjectAlternativeNames(this X509Certificate2 certificate)
@@ -56,7 +54,7 @@ namespace SteamTool.Proxy
                     //Console.WriteLine(asndata.Format(true));
 
                     return new List<string>(
-                        asndata.Format(true).Split(new string[] { "\r\n", "DNS Name=" },
+                        asndata.Format(true).Split(new string[] { Environment.NewLine, "DNS Name=" },
                              StringSplitOptions.RemoveEmptyEntries));
                 }
 

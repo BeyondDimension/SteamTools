@@ -138,7 +138,11 @@
                             <LineBreak />
                             <LineBreak />
                             <Run Text="  "></Run>
-                            <Run Text="此工具的大部分功能都是需要您下载安装Steam才能使用。" />
+                            <Run Text="此工具的大部分功能都是需要您下载安装" />
+                            <metro2:HyperlinkEx Uri="https://store.steampowered.com/about/">
+                                <Run Text="Steam"></Run>
+                            </metro2:HyperlinkEx>
+                            <Run Text="才能使用。"></Run>
                         </Paragraph>
                         <Paragraph Language="zh-cn">
                             <Run Text="核心功能" FontSize="18"/>

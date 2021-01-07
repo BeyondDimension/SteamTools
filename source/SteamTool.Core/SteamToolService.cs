@@ -37,6 +37,11 @@ namespace SteamTool.Core
 
         public const string UserDataDirectory = @"\userdata";
 
+        /* 
+            Windows: ~\Steam\config\loginusers.vdf
+            Linux: ~/.steam/steam/config/loginusers.vdf
+            Mac: ~/Library/Application Support/Steam/config/loginusers.vdf
+         */
         public const string UserVdfPath = @"\config\loginusers.vdf";
 
         private const string SteamRegistryPath = @"SOFTWARE\Valve\Steam";
@@ -62,7 +67,7 @@ namespace SteamTool.Core
             Process[] processes = Process.GetProcesses();
             foreach (Process process in processes)
             {
-                if (process.ProcessName.Equals("steam", StringComparison.OrdinalIgnoreCase) || process.ProcessName.Equals("steamService", StringComparison.OrdinalIgnoreCase) || process.ProcessName.Equals("steamwebhelper", StringComparison.OrdinalIgnoreCase))
+                if (process.ProcessName.Equals("steam", StringComparison.OrdinalIgnoreCase) || process.ProcessName.Equals("steamservice", StringComparison.OrdinalIgnoreCase) || process.ProcessName.Equals("steamwebhelper", StringComparison.OrdinalIgnoreCase))
                 {
                     process.Kill();
                 }
@@ -90,17 +95,17 @@ namespace SteamTool.Core
         /// 获取所有记住登陆steam用户信息
         /// </summary>
         /// <returns></returns>
-        public List<SteamUser> GetAllUser()
+        public List<SteamUser> GetRememberUserList()
         {
             var users = new List<SteamUser>();
             if (File.Exists(SteamPath + UserVdfPath))
             {
                 var v = vdfService.GetVdfModelByPath(SteamPath + UserVdfPath);
-
+                
                 foreach (var item in v.Value)
                 {
                     var i = item.Value;
-                    var user = new SteamUser
+                    var user = new SteamUser(item.ToString())
                     {
                         SteamId64 = Convert.ToInt64(item.Key.ToString()),
                         AccountName = i.AccountName?.ToString(),
@@ -108,20 +113,22 @@ namespace SteamTool.Core
                         RememberPassword = Convert.ToBoolean(Convert.ToInt64(i.RememberPassword?.ToString())),
                         Timestamp = Convert.ToInt64(i.Timestamp?.ToString())
                     };
+                    user.PersonaName = user.SteamID;
+                    user.LastLoginTime = user.Timestamp.ToDateTime();
 
-                    user.LastLoginTime = TimeZoneInfo.ConvertTimeFromUtc(new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(user.Timestamp), TimeZoneInfo.Local);
-                    if (i.mostrecent != null)//老版本Steam数据 小写mostrecent 支持
-                    {
-                        user.MostRecent = Convert.ToBoolean(Convert.ToInt64(i.mostrecent.ToString()));
-                    }
-                    else if (i.MostRecent != null)
-                    {
-                        user.MostRecent = Convert.ToBoolean(Convert.ToInt64(i.MostRecent.ToString()));
-                    }
-                    else
-                    {
-                        user.MostRecent = false;
-                    }
+                    //老版本Steam数据 小写mostrecent 支持
+                    user.MostRecent = i.mostrecent != null ?
+                        Convert.ToBoolean(Convert.ToByte(i.mostrecent.ToString())) :
+                        Convert.ToBoolean(Convert.ToByte(i.MostRecent.ToString()));
+
+                    user.WantsOfflineMode = i.WantsOfflineMode != null ?
+                        Convert.ToBoolean(Convert.ToByte(i.WantsOfflineMode.ToString())) : false;
+
+                    // 因为警告这个东西应该都不需要所以直接默认跳过好了
+                    user.SkipOfflineModeWarning = true;
+                    //user.SkipOfflineModeWarning = i.SkipOfflineModeWarning != null ?
+                    //    Convert.ToBoolean(Convert.ToByte(i.SkipOfflineModeWarning.ToString())) : false;
+
                     users.Add(user);
                 }
             }
@@ -213,6 +220,11 @@ namespace SteamTool.Core
             {
                 Directory.Delete(temp, true);
             }
+        }
+
+        public void UpdateSteamLocalUserData(SteamUser user)
+        {
+            vdfService.UpdateVdfValueByReplace(SteamPath + UserVdfPath, user.OriginVdfString, user.CurrentVdfString);
         }
     }
 }

@@ -74,7 +74,7 @@ namespace SteamTools.Services
             {
                 StatusService.Current.Notify("加载令牌数据...");
                 var path = Path.Combine(AppContext.BaseDirectory, Const.AUTHDATA_FILE);
-                if (AuthSettings.IsCurrentDirectorySaveAuthData.Value && File.Exists(path))
+                if (File.Exists(path))
                 {
                     var text = File.ReadAllText(path);
                     var auths = AuthService.LoadJsonAuthenticator(text.DecompressString());

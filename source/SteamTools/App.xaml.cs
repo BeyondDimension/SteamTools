@@ -33,7 +33,11 @@ namespace SteamTools
     {
         public static App Instance => Current as App;
 
+#if !NETCOREAPP
         public string ProgramName => Path.GetFileName(Environment.GetCommandLineArgs()[0]);
+#else
+        public string ProgramName => Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName);
+#endif
 
         public DirectoryInfo LocalAppData = new DirectoryInfo(
         Path.Combine(
@@ -57,7 +61,7 @@ namespace SteamTools
         {
             try
             {
-                SteamToolCore.Instance.Get<RegistryKeyService>().AddOrUpdateRegistryKey(Registry.CurrentUser, @"Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION", ProgramName, "11001", RegistryValueKind.DWord);
+                SteamToolCore.Instance.Get<RegistryKeyService>().AddOrUpdateRegistryKey(Registry.CurrentUser, @"Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION", ProgramName, "10001", RegistryValueKind.DWord);
             }
             catch (Exception ex)
             {
@@ -102,7 +106,7 @@ namespace SteamTools
                 AuthService.Current.Initialize();
                 ProxyService.Current.Initialize();
                 SteamConnectService.Current.Initialize();
-                if (GeneralSettings.IsAutoCheckUpdate)
+                if (GeneralSettings.IsAutoCheckUpdate.Value)
                 {
                     AutoUpdateService.Current.CheckUpdate();
                 }
@@ -123,12 +127,12 @@ namespace SteamTools
                 else
                     this.MainWindow.Show();
 
-                if (GeneralSettings.IsAutoRunSteam && Process.GetProcessesByName("steam").Length < 1)
+                if (GeneralSettings.IsAutoRunSteam.Value && Process.GetProcessesByName("steam").Length < 1)
                 {
                     var steamTool = SteamToolCore.Instance.Get<SteamToolService>();
                     if (!string.IsNullOrEmpty(steamTool.SteamPath))
                     {
-                        steamTool.StartSteam("-silent " + GeneralSettings.SteamStratParameter);
+                        steamTool.StartSteam("-silent " + GeneralSettings.SteamStratParameter.Value);
                     }
                 }
 
@@ -231,7 +235,7 @@ namespace SteamTools
         }
 
 
-        #region INotifyPropertyChanged members
+#region INotifyPropertyChanged members
 
         private event PropertyChangedEventHandler PropertyChangedInternal;
         event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
@@ -245,9 +249,9 @@ namespace SteamTools
             this.PropertyChangedInternal?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        #endregion
+#endregion
 
-        #region IDisposable members
+#region IDisposable members
         private readonly LivetCompositeDisposable compositeDisposable = new LivetCompositeDisposable();
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => this.compositeDisposable;
 
@@ -257,6 +261,6 @@ namespace SteamTools
             this.compositeDisposable.Dispose();
         }
 
-        #endregion
+#endregion
     }
 }

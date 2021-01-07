@@ -121,7 +121,7 @@ namespace SteamTools.ViewModels
                     CheckPathExists = true,
                     Filter = "AuthData Files (*.dat)|*.dat",
                     RestoreDirectory = true,
-                    FileName = $"{ProductInfo.Title} Authenticator {DateTime.Now.ToString("yyyy-MM-dd")}",
+                    FileName = $"{ProductInfo.Title} Authenticator {DateTime.Now:yyyy-MM-dd}",
                     Title = ProductInfo.Title + " | " + Resources.Auth_Export,
                 };
                 if (saveFileDialog.ShowDialog(App.Current.MainWindow) == true)

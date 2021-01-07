@@ -33,7 +33,6 @@ namespace SteamTools.ViewModels
         /// steam记住的用户列表
         /// </summary>
         private BindingList<SteamUser> _steamUsers;
-
         public BindingList<SteamUser> SteamUsers
         {
             get => this._steamUsers;
@@ -52,7 +51,7 @@ namespace SteamTools.ViewModels
             StatusService.Current.Notify("加载本地Steam用户数据");
             await Task.Run(async () =>
             {
-                SteamUsers = new BindingList<SteamUser>(steamService.GetAllUser());
+                SteamUsers = new BindingList<SteamUser>(steamService.GetRememberUserList());
                 if (SteamUsers?.Count < 1)
                 {
                     StatusService.Current.Notify("没有检测到Steam用户数据");
@@ -63,10 +62,14 @@ namespace SteamTools.ViewModels
                     var temp = users[i];
                     users[i] = await webApiService.GetUserInfo(SteamUsers[i].SteamId64);
                     users[i].AccountName = temp.AccountName;
+                    users[i].PersonaName = temp.PersonaName;
                     users[i].RememberPassword = temp.RememberPassword;
                     users[i].MostRecent = temp.MostRecent;
                     users[i].Timestamp = temp.Timestamp;
                     users[i].LastLoginTime = temp.LastLoginTime;
+                    users[i].WantsOfflineMode = temp.WantsOfflineMode;
+                    users[i].SkipOfflineModeWarning = temp.SkipOfflineModeWarning;
+                    users[i].OriginVdfString = temp.OriginVdfString;
                 }
                 SteamUsers = new BindingList<SteamUser>(users.OrderByDescending(o => o.MostRecent).ThenByDescending(o => o.RememberPassword).ThenByDescending(o => o.LastLoginTime).ToList());
                 StatusService.Current.Notify("加载本地Steam用户数据完成");
@@ -89,12 +92,18 @@ namespace SteamTools.ViewModels
 
         public void DeleteAccount_OnClick(SteamUser user)
         {
-            var result = WindowService.Current.MainWindow.Dialog("确定要删除这条本地记录帐户数据吗？\r\n这将会删除此账户在本地的Steam缓存数据。");
+            var result = WindowService.Current.MainWindow.Dialog("确定要删除这条本地记录帐户数据吗？" + Environment.NewLine + "这将会删除此账户在本地的Steam缓存数据。");
             if (result)
             {
                 steamService.DeleteSteamLocalUserData(user);
                 SteamUsers.Remove(user);
             }
+        }
+
+        public void AccountOfflineMode_Checked(SteamUser user)
+        {
+            steamService.UpdateSteamLocalUserData(user);
+            user.OriginVdfString = user.CurrentVdfString;
         }
     }
 }

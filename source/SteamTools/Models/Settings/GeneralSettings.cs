@@ -55,7 +55,7 @@ namespace SteamTools.Models.Settings
         /// 自动运行Steam
         /// </summary>
         public static SerializableProperty<bool> IsAutoRunSteam { get; }
-            = new SerializableProperty<bool>(GetKey(), Providers.Roaming, true) { AutoSave = true };
+            = new SerializableProperty<bool>(GetKey(), Providers.Roaming, false) { AutoSave = true };
 
         /// <summary>
         /// Steam启动参数

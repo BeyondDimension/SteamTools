@@ -120,7 +120,7 @@ namespace SteamTools.ViewModels
             {
                 if (param.Result != 1)
                 {
-                    this.Dialog($"错误代码: {param.Result}\r\n检索成就统计信息时出错，可能是该游戏没有成就，或者你没有该游戏。");
+                    this.Dialog($"错误代码: {param.Result}{Environment.NewLine}检索成就统计信息时出错，可能是该游戏没有成就，或者你没有该游戏。");
                     EnforceClose();
                 }
                 if (this.LoadUserGameStatsSchema() == false)
@@ -496,7 +496,7 @@ namespace SteamTools.ViewModels
             if (this.Dialog("确定要复位统计信息吗?"))
             {
                 var achievementsToo = this.Dialog("也要复位成就信息吗?");
-                if (this.Dialog("该操作不是还原当前修改，而是使所有成就和统计数据归零。\r\n真的确定吗?"))
+                if (this.Dialog($"该操作不是还原当前修改，而是使所有成就和统计数据归零。{Environment.NewLine}真的确定吗?"))
                 {
                     if (SteamConnectService.Current.ApiService.ResetAllStats(achievementsToo) == false)
                     {
