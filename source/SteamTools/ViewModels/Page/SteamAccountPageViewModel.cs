@@ -62,6 +62,7 @@ namespace SteamTools.ViewModels
                     var temp = users[i];
                     users[i] = await webApiService.GetUserInfo(SteamUsers[i].SteamId64);
                     users[i].AccountName = temp.AccountName;
+                    users[i].SteamID = temp.SteamID;
                     users[i].PersonaName = temp.PersonaName;
                     users[i].RememberPassword = temp.RememberPassword;
                     users[i].MostRecent = temp.MostRecent;

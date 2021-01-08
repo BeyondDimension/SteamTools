@@ -66,7 +66,7 @@ namespace SteamTool.Model
         /// <summary>
         /// 从VDF读取到的用户名
         /// </summary>
-        public string PersonaName { get; set; } = "No Name";
+        public string PersonaName { get; set; }
 
         /// <summary>
         /// 用户名

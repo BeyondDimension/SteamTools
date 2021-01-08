@@ -110,10 +110,10 @@ namespace SteamTool.Core
                         SteamId64 = Convert.ToInt64(item.Key.ToString()),
                         AccountName = i.AccountName?.ToString(),
                         SteamID = i.PersonaName?.ToString(),
+                        PersonaName = i.PersonaName?.ToString(),
                         RememberPassword = Convert.ToBoolean(Convert.ToInt64(i.RememberPassword?.ToString())),
                         Timestamp = Convert.ToInt64(i.Timestamp?.ToString())
                     };
-                    user.PersonaName = user.SteamID;
                     user.LastLoginTime = user.Timestamp.ToDateTime();
 
                     //老版本Steam数据 小写mostrecent 支持

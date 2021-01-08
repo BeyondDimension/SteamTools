@@ -260,7 +260,7 @@ namespace SteamTool.Proxy
                 proxyServer.CertificateManager.EnsureRootCertificate();
                 proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.cer"));
             }
-            return proxyServer.CertificateManager.IsRootCertificateUserTrusted();
+            return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
 
         public bool DeleteCertificate()
@@ -326,11 +326,10 @@ namespace SteamTool.Proxy
                     return false;
                 }
             }
-            //暂时移除443端口检测
             //if (PortInUse(443))
             //{
             //    return false;
-            //} 
+            //}
             if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
 
             #region 写入Hosts
