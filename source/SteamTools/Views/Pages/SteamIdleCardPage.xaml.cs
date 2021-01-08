@@ -26,5 +26,34 @@ namespace SteamTools.Views.Pages
             InitializeComponent();
         }
     }
+    //public void SuppressScriptErrors(WebBrowser webBrowser, bool Hide)
+    //{
+    //    FieldInfo fiComWebBrowser = typeof(WebBrowser).GetField("_axIWebBrowser2", BindingFlags.Instance | BindingFlags.NonPublic);
+    //    if (fiComWebBrowser == null) return;
 
+    //    object objComWebBrowser = fiComWebBrowser.GetValue(webBrowser);
+    //    if (objComWebBrowser == null) return;
+
+    //    objComWebBrowser.GetType().InvokeMember("Silent", BindingFlags.SetProperty, null, objComWebBrowser, new object[] { Hide });
+    //}
+
+    //private void web_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
+    //{
+    //    var url = web.Source.AbsoluteUri;
+    //    SuppressScriptErrors(web, true);
+    //    if (url.StartsWith("https://steamcommunity.com/id/") == true)
+    //    {
+    //        ViewModel.ExtractSteamCookies();
+    //    }
+    //}
+
+    //private void web_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
+    //{
+    //    var url = web.Source.AbsoluteUri;
+    //    if (url.StartsWith("https://steamcommunity.com/login/home/?goto=my/profile"))
+    //    {
+    //        web.InvokeScript("eval", new object[] { "function V_SetCookie() {} function V_GetCookie() {}" });
+    //        web.InvokeScript("LoginUsingSteamClient", new object[] { "https://steamcommunity.com/" });
+    //    }
+    //}
 }

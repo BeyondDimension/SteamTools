@@ -174,7 +174,7 @@
                             <LineBreak/>
                             <LineBreak/>
                             <Run Text="  "></Run>
-                            <Run Text="Steam自动挂卡，尝试用社区反代功能结合成就解锁功能来重新实现，目的是实现在软件内登录Steam即可直接获取徽章卡片信息并开始挂卡。" />
+                            <Run Text="Steam自动挂卡，尝试用社区反代功能结合成就解锁功能来重新实现，目的是实现在软件内无需登录Steam即可直接获取徽章卡片信息并开始挂卡。" />
                             <Run Text="（接下来要做的...）"></Run>
                             <LineBreak/>
                             <LineBreak />

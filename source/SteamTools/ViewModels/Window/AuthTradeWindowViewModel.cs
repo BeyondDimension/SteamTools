@@ -39,6 +39,7 @@ namespace SteamTools.ViewModels
             //}
         }
 
+        #region LoginData
         private string _UserName;
         public string UserName
         {
@@ -81,8 +82,8 @@ namespace SteamTools.ViewModels
             }
         }
 
-        private Image _CodeImage;
-        public Image CodeImage
+        private string _CodeImage;
+        public string CodeImage
         {
             get => this._CodeImage;
             set
@@ -108,56 +109,48 @@ namespace SteamTools.ViewModels
                 }
             }
         }
+        #endregion
 
-        public void ExtractSteamCookies()
+        public bool IsLoggedIn => this._AuthenticatorData.GetClient().IsLoggedIn();
+        public bool IsRequiresCaptcha => this._AuthenticatorData.GetClient().RequiresCaptcha;
+
+        /// <summary>
+        /// Trade info state
+        /// </summary>
+        private List<SteamClient.Confirmation> _Confirmations;
+        public List<SteamClient.Confirmation> Confirmations
         {
-            var login_url = new Uri(Const.STEAM_LOGIN_URL);
-            var container = WinInet.GetUriCookieContainer(login_url);
-            var cookies = container.GetCookies(login_url);
-            var steam = _AuthenticatorData.GetClient();
-
-            foreach (Cookie cookie in cookies)
+            get => this._Confirmations;
+            set
             {
-                //if (cookie.Name == "sessionid")
-                //{
-                //    steam.Session.Cookies.Add(login_url, cookie);
-                //}
-                //else if (cookie.Name == "steamLogin")
-                //{
-                //    steam.Session.Cookies.Add(login_url, cookie);
-                //    //Settings.Default.steamLogin = cookie.Value;
-                //    //Settings.Default.myProfileURL = SteamProfile.GetSteamUrl();
-                //}
-                //else if (cookie.Name == "steamLoginSecure")
-                //{
-                //    steam.Session.Cookies.Add(login_url, cookie);
-                //    //Settings.Default.myProfileURL = SteamProfile.GetSteamUrl();
-                //}
-                //else if (cookie.Name == "steamparental")
-                //{
-                //    //Settings.Default.steamparental = cookie.Value;
-                //}
-                //else if (cookie.Name == "steamRememberLogin")
-                //{
-                //    //Settings.Default.steamRememberLogin = cookie.Value;
-                //}
+                if (this._Confirmations != value)
+                {
+                    this._Confirmations = value;
+                    this.RaisePropertyChanged();
+                }
             }
-
-
         }
 
-        public void LoginButton_Click() 
+        public void LoginButton_Click()
         {
             if (UserName?.Trim().Length > 0 || Password?.Trim().Length > 0)
             {
                 Process();
             }
-            else 
+            else
             {
                 this.Dialog("请输入您的账号和密码");
                 return;
             }
 
+        }
+
+        private void Init()
+        {
+            if (IsLoggedIn)
+            {
+                Process();
+            }
         }
 
         private void Process(string captchaId = null)
@@ -166,7 +159,7 @@ namespace SteamTools.ViewModels
 
             if (!steam.IsLoggedIn())
             {
-                if (steam.Login(UserName, Password, captchaId, CodeImageChar) == false)
+                if (steam.Login(UserName, Password, captchaId, CodeImageChar, ResourceService.Current.GetCurrentCultureSteamLanguageName()) == false)
                 {
                     if (steam.Error == "Incorrect Login")
                     {
@@ -181,18 +174,8 @@ namespace SteamTools.ViewModels
 
                     if (steam.RequiresCaptcha == true)
                     {
-                        this.Dialog("请输入验证码");
-
-                        using var web = new WebClient();
-                        byte[] data = web.DownloadData(steam.CaptchaUrl);
-
-                        using var ms = new MemoryStream(data);
-                        CodeImage = Image.FromStream(ms);
-                        //loginButton.Enabled = false;
-                        //captchaGroup.Visible = true;
-                        //captchacodeField.Text = "";
-                        //captchacodeField.Focus();
-
+                        this.Dialog("请输入图片验证码");
+                        CodeImage = steam.CaptchaUrl;
                         return;
                     }
                     //loginButton.Enabled = true;
@@ -210,6 +193,38 @@ namespace SteamTools.ViewModels
                 _AuthenticatorData.SessionData = (RememberMe ? steam.Session.ToString() : null);
                 AuthService.Current.SaveCurrentAuth();
             }
+
+            try
+            {
+                Confirmations = steam.GetConfirmations();
+
+                // 获取新交易后保存
+                if (!string.IsNullOrEmpty(_AuthenticatorData.SessionData))
+                {
+                    AuthService.Current.SaveCurrentAuth();
+                }
+            }
+            catch (SteamClient.UnauthorisedSteamRequestException)
+            {
+                // Family view is probably on
+                this.Dialog("You are not allowed to view confirmations. Have you enabled 'community-generated content' in Family View?");
+                return;
+            }
+            catch (SteamClient.InvalidSteamRequestException)
+            {
+                // likely a bad session so try a refresh first
+                try
+                {
+                    steam.Refresh();
+                    Confirmations = steam.GetConfirmations();
+                }
+                catch (Exception)
+                {
+                    // reset and show normal login
+                    steam.Clear();
+                    return;
+                }
+            }
         }
-	}
+    }
 }

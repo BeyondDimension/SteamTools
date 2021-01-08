@@ -50,11 +50,11 @@ namespace WinAuth
         /// </summary>
         private const string COMMUNITY_DOMAIN = "steamcommunity.com";
         private const string COMMUNITY_BASE = "https://" + COMMUNITY_DOMAIN;
-        private static string WEBAPI_BASE = "https://api.steampowered.com";
-        private static string API_GETWGTOKEN = WEBAPI_BASE + "/IMobileAuthService/GetWGToken/v0001";
-        private static string API_LOGOFF = WEBAPI_BASE + "/ISteamWebUserPresenceOAuth/Logoff/v0001";
-        private static string API_LOGON = WEBAPI_BASE + "/ISteamWebUserPresenceOAuth/Logon/v0001";
-        private static string API_POLLSTATUS = WEBAPI_BASE + "/ISteamWebUserPresenceOAuth/PollStatus/v0001";
+        private const string WEBAPI_BASE = "https://api.steampowered.com";
+        private const string API_GETWGTOKEN = WEBAPI_BASE + "/IMobileAuthService/GetWGToken/v0001";
+        private const string API_LOGOFF = WEBAPI_BASE + "/ISteamWebUserPresenceOAuth/Logoff/v0001";
+        private const string API_LOGON = WEBAPI_BASE + "/ISteamWebUserPresenceOAuth/Logon/v0001";
+        private const string API_POLLSTATUS = WEBAPI_BASE + "/ISteamWebUserPresenceOAuth/PollStatus/v0001";
 
         /// <summary>
         /// Default mobile user agent
@@ -64,11 +64,11 @@ namespace WinAuth
         /// <summary>
         /// Regular expressions for trade confirmations
         /// </summary>
-        private static Regex _tradesRegex = new Regex("\"mobileconf_list_entry\"(.*?)>(.*?)\"mobileconf_list_entry_sep\"", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        private static Regex _tradeConfidRegex = new Regex(@"data-confid\s*=\s*""([^""]+)""", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        private static Regex _tradeKeyRegex = new Regex(@"data-key\s*=\s*""([^""]+)""", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        private static Regex _tradePlayerRegex = new Regex("\"mobileconf_list_entry_icon\"(.*?)src=\"([^\"]+)\"", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        private static Regex _tradeDetailsRegex = new Regex("\"mobileconf_list_entry_description\".*?<div>([^<]*)</div>[^<]*<div>([^<]*)</div>[^<]*<div>([^<]*)</div>[^<]*</div>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        private static readonly Regex _tradesRegex = new Regex("\"mobileconf_list_entry\"(.*?)>(.*?)\"mobileconf_list_entry_sep\"", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        private static readonly Regex _tradeConfidRegex = new Regex(@"data-confid\s*=\s*""([^""]+)""", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        private static readonly Regex _tradeKeyRegex = new Regex(@"data-key\s*=\s*""([^""]+)""", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        private static readonly Regex _tradePlayerRegex = new Regex("\"mobileconf_list_entry_icon\"(.*?)src=\"([^\"]+)\"", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        private static readonly Regex _tradeDetailsRegex = new Regex("\"mobileconf_list_entry_description\".*?<div>([^<]*)</div>[^<]*<div>([^<]*)</div>[^<]*<div>([^<]*)</div>[^<]*</div>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
         /// <summary>
         /// Number of Confirmation retries
@@ -130,10 +130,11 @@ namespace WinAuth
                 }
                 else
                 {
-                    List<string> props = new List<string>();
-
-                    props.Add("\"duration\":" + this.Duration);
-                    props.Add("\"action\":" + (int)this.Action);
+                    List<string> props = new List<string>
+                    {
+                        "\"duration\":" + this.Duration,
+                        "\"action\":" + (int)this.Action
+                    };
                     if (this.Ids != null)
                     {
                         props.Add("\"ids\":[" + (this.Ids.Count != 0 ? "\"" + string.Join("\",\"", this.Ids.ToArray()) + "\"" : string.Empty) + "]");
@@ -533,20 +534,22 @@ namespace WinAuth
                 }
 
                 // login request
-                data = new NameValueCollection();
-                data.Add("password", encryptedPassword64);
-                data.Add("username", username);
-                data.Add("twofactorcode", this.Authenticator.CurrentCode);
-                //data.Add("emailauth", string.Empty);
-                data.Add("loginfriendlyname", "#login_emailauth_friendlyname_mobile");
-                data.Add("captchagid", (string.IsNullOrEmpty(captchaId) == false ? captchaId : "-1"));
-                data.Add("captcha_text", (string.IsNullOrEmpty(captchaText) == false ? captchaText : "enter above characters"));
-                //data.Add("emailsteamid", (string.IsNullOrEmpty(emailcode) == false ? this.SteamId ?? string.Empty : string.Empty));
-                data.Add("rsatimestamp", rsaresponse.SelectToken("timestamp").Value<string>());
-                data.Add("remember_login", "false");
-                data.Add("oauth_client_id", "DE45CD61");
-                data.Add("oauth_scope", "read_profile write_profile read_client write_client");
-                data.Add("donotache", new DateTime().ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds.ToString());
+                data = new NameValueCollection
+                {
+                    { "password", encryptedPassword64 },
+                    { "username", username },
+                    { "twofactorcode", this.Authenticator.CurrentCode },
+                    //data.Add("emailauth", string.Empty);
+                    { "loginfriendlyname", "#login_emailauth_friendlyname_mobile" },
+                    { "captchagid", (string.IsNullOrEmpty(captchaId) == false ? captchaId : "-1") },
+                    { "captcha_text", (string.IsNullOrEmpty(captchaText) == false ? captchaText : "enter above characters") },
+                    //data.Add("emailsteamid", (string.IsNullOrEmpty(emailcode) == false ? this.SteamId ?? string.Empty : string.Empty));
+                    { "rsatimestamp", rsaresponse.SelectToken("timestamp").Value<string>() },
+                    { "remember_login", "false" },
+                    { "oauth_client_id", "DE45CD61" },
+                    { "oauth_scope", "read_profile write_profile read_client write_client" },
+                    { "donotache", new DateTime().ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds.ToString() }
+                };
                 response = GetString(COMMUNITY_BASE + "/mobilelogin/dologin/", "POST", data);
                 Dictionary<string, object> loginresponse = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
 
@@ -641,9 +644,11 @@ namespace WinAuth
 
                 if (string.IsNullOrEmpty(this.Session.UmqId) == false)
                 {
-                    var data = new NameValueCollection();
-                    data.Add("access_token", this.Session.OAuthToken);
-                    data.Add("umqid", this.Session.UmqId);
+                    var data = new NameValueCollection
+                    {
+                        { "access_token", this.Session.OAuthToken },
+                        { "umqid", this.Session.UmqId }
+                    };
                     GetString(API_LOGOFF, "POST", data);
                 }
             }

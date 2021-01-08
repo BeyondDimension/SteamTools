@@ -82,7 +82,7 @@ namespace SteamTools.Services
 
         public string GetCurrentCultureSteamLanguageName()
         {
-            return supportedCultureSteamNames[SteamTools.Properties.Resources.Culture.Name];
+            return Resources.Culture == null ? supportedCultureSteamNames.First().Value : supportedCultureSteamNames[Resources.Culture.Name];
         }
     }
 }

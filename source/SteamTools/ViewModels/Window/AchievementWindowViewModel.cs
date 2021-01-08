@@ -89,7 +89,7 @@ namespace SteamTools.ViewModels
                     this._Text = value;
                     if (!string.IsNullOrEmpty(value))
                     {
-                        this.Achievements = Achievements.Where(w => w.Name.IndexOf(Text, StringComparison.OrdinalIgnoreCase) > -1).ToList();
+                        this.Achievements = Achievements.Where(w => w.Name.IndexOf(value, StringComparison.OrdinalIgnoreCase) > -1).ToList();
                     }
                     else
                     {
@@ -172,7 +172,6 @@ namespace SteamTools.ViewModels
                 return false;
             }
 
-            //var currentLanguage = SteamConnectService.Current.ApiService.GetCurrentGameLanguage();
             var currentLanguage = ResourceService.Current.GetCurrentCultureSteamLanguageName(); ;
             var stats = kv[this.AppId.ToString(CultureInfo.InvariantCulture)]["stats"];
             if (stats.Valid == false ||

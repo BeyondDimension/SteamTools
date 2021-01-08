@@ -86,7 +86,8 @@
         </Border>
 
         <!--Body-->
-        <StackPanel Margin="8" Grid.Row="1">
+        <StackPanel Margin="8" Grid.Row="1" 
+                    Visibility="{Binding IsLoggedIn,Mode=OneWay,Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
             <WrapPanel>
                 <TextBlock Text="账号：" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
                 <metro:PromptTextBox Prompt="" MinWidth="200" Text="{Binding UserName}"></metro:PromptTextBox>
@@ -94,7 +95,11 @@
             <Separator Opacity="0" Height="10"/>
             <WrapPanel>
                 <TextBlock Text="密码：" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
-                <PasswordBox MinWidth="200" PasswordChar="{Binding Password}"></PasswordBox>
+                <PasswordBox MinWidth="200">
+                    <i:Interaction.Behaviors>
+                        <livet:PasswordBoxBindingSupportBehavior Password="{Binding Password}" />
+                    </i:Interaction.Behaviors>
+                </PasswordBox>
             </WrapPanel>
             <Separator Opacity="0" Height="10"/>
             <CheckBox Content="记住登录状态"  IsChecked="{Binding RememberMe}"></CheckBox>
@@ -103,9 +108,8 @@
                                      HorizontalAlignment="Left" 
                                      MethodTarget="{Binding}" 
                                      MethodName="LoginButton_Click"></metro2:CallMethodButton>
-            <!--<TextBlock Text="操作交易确认的数据确实必须要登陆一次没有办法绕过" Style="{StaticResource DetailTextStyleKey}"></TextBlock>-->
-
-            <StackPanel Margin="8">
+            <TextBlock Text="确认交易需要您登陆您的Steam账号" Style="{StaticResource DetailTextStyleKey}"></TextBlock>
+            <StackPanel Margin="8" Visibility="{Binding IsRequiresCaptcha,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}">
                 <WrapPanel>
                     <Border BorderBrush="{DynamicResource AccentBrushKey}" Width="206" Height="37" HorizontalAlignment="Left" BorderThickness=".99">
                         <Image Source="{Binding CodeImage,Mode=OneWay}" ></Image>
@@ -118,10 +122,14 @@
                 <metro2:CallMethodButton Content="确定" Width="200" Height="30" HorizontalAlignment="Left"></metro2:CallMethodButton>
                 <Separator Opacity="0" Height="5"/>
             </StackPanel>
-            <!--<WebBrowser Opacity="0.1" x:Name="web" LoadCompleted="web_LoadCompleted" Navigated="web_Navigated"/>-->
         </StackPanel>
-        <DockPanel>
+        <DockPanel Visibility="{Binding IsLoggedIn,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl Foreground="{DynamicResource ActiveForegroundBrushKey}"
+                    ItemsSource="{Binding Authenticators,Source={x:Static services:AuthService.Current},Mode=OneWay}">
 
+                </ItemsControl>
+            </ScrollViewer>
         </DockPanel>
         <!--Footer-->
         <controls:StatusBar Grid.Row="2" DataContext="{Binding StatusBar}">
