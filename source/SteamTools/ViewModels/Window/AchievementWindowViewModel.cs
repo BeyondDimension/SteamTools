@@ -343,7 +343,7 @@ namespace SteamTools.ViewModels
                     IconNormal = string.IsNullOrEmpty(def.IconNormal) ? null : def.IconNormal,
                     IconLocked = string.IsNullOrEmpty(def.IconLocked) ? def.IconNormal : def.IconLocked,
                     Permission = def.Permission,
-                    UnlockTime = new DateTime(1970, 1, 1, 8, 0, 0).AddSeconds(unlockTime),
+                    UnlockTime = unlockTime.ToDateTime(),
                     UnlockTimeUnix = unlockTime,
                     Name = def.Name,
                     Description = def.Description,

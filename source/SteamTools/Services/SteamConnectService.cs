@@ -135,7 +135,7 @@ namespace SteamTools.Services
                                       continue;
                                   }
                                   IsConnectToSteam = true;
-                                  CurrentSteamUser = await steamDbApiService.GetUserInfo(id);
+                                  CurrentSteamUser = await SteamworksWebApiService.GetUserInfo(id);
                                   CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
 
                                   var mainViewModel = (WindowService.Current.MainWindow as MainWindowViewModel);

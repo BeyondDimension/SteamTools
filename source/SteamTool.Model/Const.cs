@@ -41,5 +41,11 @@ namespace SteamTool.Model
 
         public const string STEAMDB_USERINFO_URL = "https://api.steamdb.ml/v1/users/{0}";
         public const string STEAMDB_APPINFO_URL = "https://api.steamdb.ml/v1/apps/{0}";
+
+        //https://steamcommunity.com/profiles/76561198289531723?xml=1
+        public const string STEAM_USERINFO_XML_URL = "https://steamcommunity.com/profiles/{0}?xml=1";
+
+
+        public const string STEAMCN_USERINFO_XML_URL = "https://my.steamchina.com/profiles/76561198289531723?xml=1";
     }
 }

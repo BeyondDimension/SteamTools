@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 namespace SteamTool.Model
 {
+    [XmlRoot("profile")]
     public class SteamUser
     {
         public SteamUser() { }
@@ -17,6 +19,7 @@ namespace SteamTool.Model
         public string SteamId32 { get; set; }
         public long SteamId32_Int { get; set; }
 
+        [XmlElement("steamID64")]
         public long SteamId64 { get; set; }
 
         /// <summary>
@@ -27,6 +30,7 @@ namespace SteamTool.Model
         /// <summary>
         /// 在线状态
         /// </summary>
+        [XmlElement("onlineState")]
         public string OnlineState { get; set; }
 
         public string IPCountry { get; set; }
@@ -36,26 +40,31 @@ namespace SteamTool.Model
         /// friendsonly
         /// public
         /// </summary>
+        [XmlElement("privacyState")]
         public string PrivacyState { get; set; }
 
         /// <summary>
         /// 头像小图标
         /// </summary>
+        [XmlElement("avatarIcon")]
         public string AvatarIcon { get; set; }
 
         /// <summary>
         /// 头像中等图片链接
         /// </summary>
+        [XmlElement("avatarMedium")]
         public string AvatarMedium { get; set; } = "/Resources/Asstes/avater.jpg";
 
         /// <summary>
         /// 头像大图链接
         /// </summary>
-        public string AvatarFull { get; set; } 
+        [XmlElement("avatarFull")]
+        public string AvatarFull { get; set; }
 
         /// <summary>
         /// 昵称
         /// </summary>
+        [XmlElement("steamID")]
         public string SteamID { get; set; }
 
         /// <summary>

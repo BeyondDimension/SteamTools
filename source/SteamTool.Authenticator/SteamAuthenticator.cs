@@ -82,7 +82,7 @@ namespace WinAuth
 		/// <summary>
 		/// Time for http request when calling Sync in ms
 		/// </summary>
-		private const int SYNC_TIMEOUT = 5000;
+		private const int SYNC_TIMEOUT = 30000;
 
 		/// <summary>
 		/// Steam issuer for KeyUri

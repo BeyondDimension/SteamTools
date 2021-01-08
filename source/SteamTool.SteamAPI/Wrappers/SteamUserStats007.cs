@@ -139,9 +139,9 @@ namespace SAM.API.Wrappers
         private delegate bool NativeGetAchievementAndUnlockTime(
             IntPtr self,
             IntPtr name,
-            [MarshalAs(UnmanagedType.I1)] out bool isAchieved, out int unlockTime);
+            [MarshalAs(UnmanagedType.I1)] out bool isAchieved, out long unlockTime);
 
-        public bool GetAchievementAndUnlockTime(string name, out bool isAchieved, out int unlockTime)
+        public bool GetAchievementAndUnlockTime(string name, out bool isAchieved, out long unlockTime)
         {
             using (var nativeName = NativeStrings.StringToStringHandle(name))
             {
