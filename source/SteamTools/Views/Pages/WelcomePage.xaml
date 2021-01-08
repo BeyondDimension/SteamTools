@@ -128,7 +128,7 @@
                             </Image>
                             <Run Foreground="{DynamicResource ForegroundBrushKey}"
 								 FontSize="20"
-								 Text="{Binding CurrentSteamUser.SteamID,Source={x:Static services:SteamConnectService.Current},Mode=OneWay}" />
+								 Text="{Binding CurrentSteamUser.SteamNickName,Source={x:Static services:SteamConnectService.Current},Mode=OneWay}" />
                             <Run Foreground="{DynamicResource ForegroundBrushKey}"
 								 Text="{Binding CurrentSteamUser.IPCountry,Source={x:Static services:SteamConnectService.Current},Mode=OneWay,StringFormat={} ({0})}" />
                         </Paragraph>

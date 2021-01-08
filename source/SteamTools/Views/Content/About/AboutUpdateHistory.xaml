@@ -33,7 +33,34 @@
 								  FontFamily="Meiryo UI"
 								  TextAlignment="Left"
 								  MaxPageWidth="900">
-
+                    <Paragraph Language="zh-cn">
+                        <Run Text="Steam++ v1.0.4" FontSize="16"/>
+                        <Run Text="&#160;"/>
+                        <Run Text="2021-01-08" FontSize="10" />
+                        <LineBreak />
+                        <Run Text="更新内容"></Run>
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="优化了反代过程的逻辑" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="增加了启动时自动运行Steam的设置项" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增令牌了刷新功能" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="帐户切换增加了离线模式启动的选项"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复因为第三方steamdb api挂掉导致程序崩溃"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复刷新游戏缓存按钮程序闪退BUG"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="还修复了一些没有记下来的小错误..."></Run>
+                    </Paragraph>
                     <Paragraph Language="zh-cn">
                         <Run Text="Steam++ v1.0.4" FontSize="16"/>
                         <Run Text="&#160;"/>
@@ -61,12 +88,6 @@
                         <LineBreak/>
                         <Run Text="&#160;&#160;&#160;&#160;"/>
                         <Run Text="修复令牌无法保存的问题"></Run>
-                        <LineBreak/>
-                        <LineBreak />
-                        <Run Text="已知的未修复问题"></Run>
-                        <LineBreak />
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="部分用户无法加载游戏列表，原因是因为缓存文件可能没有下载完成只下了一半，解决方法暂时可以手动刷新游戏列表缓存或者删除apps.json文件重启程序" />
                     </Paragraph>
                     <Paragraph Language="zh-cn">
                         <Run Text="Steam++ v1.0.3" FontSize="16"/>
@@ -101,12 +122,6 @@
                         <LineBreak/>
                         <Run Text="&#160;&#160;&#160;&#160;"/>
                         <Run Text="修改初始化的方式和steam api的连接逻辑来避免steam游戏掉帧的BUG"></Run>
-                        <LineBreak/>
-                        <LineBreak />
-                        <Run Text="已知的未修复问题"></Run>
-                        <LineBreak />
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="部分用户无法加载游戏列表，无法复现，原因暂时不明。(也可能是加载太慢，过半小时才能加载出来)" />
                     </Paragraph>
                     <Paragraph Language="zh-cn">
                         <Run Text="Steam++ v1.0.2" FontSize="16"/>
@@ -144,18 +159,6 @@
                         <LineBreak/>
                         <Run Text="&#160;&#160;&#160;&#160;"/>
                         <Run Text="新增工具自动更新功能"></Run>
-                        <LineBreak />
-                        <LineBreak />
-                        <Run Text="已知的未修复问题"></Run>
-                        <LineBreak />
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="(严重)经反馈，程序运行时可能会影响部分steam游戏掉帧，GPU占用率变低，这个BUG目前在作者的机器上无法复现所以暂时没有修复，如果你遇到这个问题可以手动关闭steam++解决。" />
-                        <LineBreak />
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="程序在高DPI缩放分辨率下可能会UI布局错位，目前暂时拖动程序可恢复。" />
-                        <LineBreak />
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="部分用户无法加载游戏列表，无法复现，原因暂时不明。" />
                     </Paragraph>
                     <Paragraph Language="zh-cn">
                         <Run Text="Steam++ v1.0.0" FontSize="16"/>
