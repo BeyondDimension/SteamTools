@@ -118,41 +118,50 @@ namespace SteamTools.Services
             var t = new Task(async () =>
               {
                   Thread.CurrentThread.IsBackground = true;
-                  while (true)
+                  try
                   {
-                      if (Process.GetProcessesByName("steam").Length > 0)
-                      {
-                          if (!IsConnectToSteam)
-                          {
-                              if (ApiService.Initialize())
-                              {
-                                  var id = ApiService.GetSteamId64();
-                                  if (id == 76561197960265728)
-                                  {
-                                      //该64位id的steamID3等于0，是steam未获取到当前登录用户的默认返回值，所以直接重新获取，
-                                      //希望这位用户不会用steam++，嗯...
-                                      SteamConnectService.Current.DisposeSteamClient();
-                                      continue;
-                                  }
-                                  IsConnectToSteam = true;
-                                  CurrentSteamUser = await SteamworksWebApiService.GetUserInfo(id);
-                                  CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
 
-                                  var mainViewModel = (WindowService.Current.MainWindow as MainWindowViewModel);
-                                  await mainViewModel.SteamAppPage.Initialize();
+                      while (true)
+                      {
+                          if (Process.GetProcessesByName("steam").Length > 0)
+                          {
+                              if (!IsConnectToSteam)
+                              {
+                                  if (ApiService.Initialize())
+                                  {
+                                      var id = ApiService.GetSteamId64();
+                                      if (id == 76561197960265728)
+                                      {
+                                          //该64位id的steamID3等于0，是steam未获取到当前登录用户的默认返回值，所以直接重新获取，
+                                          //希望这位用户不会用steam++，嗯...
+                                          SteamConnectService.Current.DisposeSteamClient();
+                                          continue;
+                                      }
+                                      IsConnectToSteam = true;
+                                      CurrentSteamUser = await SteamworksWebApiService.GetUserInfo(id);
+                                      CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
+
+                                      var mainViewModel = (WindowService.Current.MainWindow as MainWindowViewModel);
+                                      await mainViewModel.SteamAppPage.Initialize();
 #if DEBUG
-                                  await mainViewModel.SystemTabItems[mainViewModel.SystemTabItems.Count - 1].Initialize();
+                                      await mainViewModel.SystemTabItems[mainViewModel.SystemTabItems.Count - 1].Initialize();
 #endif
-                                  SteamConnectService.Current.DisposeSteamClient();
+                                      SteamConnectService.Current.DisposeSteamClient();
+                                  }
                               }
                           }
+                          else
+                          {
+                              IsConnectToSteam = false;
+                              //StatusService.Current.Notify(Resources.Steam_Not_Runing);
+                          }
+                          await Task.Delay(1500);
                       }
-                      else
-                      {
-                          IsConnectToSteam = false;
-                          //StatusService.Current.Notify(Resources.Steam_Not_Runing);
-                      }
-                      await Task.Delay(1500);
+                  }
+                  catch (Exception ex)
+                  {
+                      Logger.Error(ex);
+                      StatusService.Current.Notify(ex.Message);
                   }
               }, TaskCreationOptions.LongRunning);
 

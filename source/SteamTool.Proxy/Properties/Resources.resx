@@ -156,6 +156,9 @@
   <data name="Twitch" xml:space="preserve">
     <value>Twitch直播</value>
   </data>
+  <data name="TwitchChat" xml:space="preserve">
+    <value>Twitch聊天</value>
+  </data>
   <data name="UplayUpdate" xml:space="preserve">
     <value>Uplay更新</value>
   </data>

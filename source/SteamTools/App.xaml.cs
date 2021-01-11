@@ -92,7 +92,7 @@ namespace SteamTools
                 App.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                 this.DispatcherUnhandledException += App_DispatcherUnhandledException;
                 DispatcherHelper.UIDispatcher = this.Dispatcher;
-                if (e.Args.ContainsArg("-log"))
+                if (e.Args.ContainsArg("-log") || GeneralSettings.IsEnableLogRecord)
                 {
                     Logger.EnableTextLog = true;
                 }
@@ -235,7 +235,7 @@ namespace SteamTools
         }
 
 
-#region INotifyPropertyChanged members
+        #region INotifyPropertyChanged members
 
         private event PropertyChangedEventHandler PropertyChangedInternal;
         event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
@@ -249,9 +249,9 @@ namespace SteamTools
             this.PropertyChangedInternal?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-#endregion
+        #endregion
 
-#region IDisposable members
+        #region IDisposable members
         private readonly LivetCompositeDisposable compositeDisposable = new LivetCompositeDisposable();
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => this.compositeDisposable;
 
@@ -261,6 +261,6 @@ namespace SteamTools
             this.compositeDisposable.Dispose();
         }
 
-#endregion
+        #endregion
     }
 }

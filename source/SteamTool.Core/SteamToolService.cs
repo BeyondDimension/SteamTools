@@ -50,15 +50,13 @@ namespace SteamTool.Core
         {
             var steamExePath = registryKeyService.ReadRegistryKey(Registry.CurrentUser, SteamRegistryPath, "SteamExe");
             var steamPath = registryKeyService.ReadRegistryKey(Registry.CurrentUser, SteamRegistryPath, "SteamPath");
-            //steamExePath = Path.GetFullPath(steamExePath);
-            //steamPath = Path.GetFullPath(steamPath);
             if (File.Exists(steamExePath))
             {
-                SteamExePath = steamExePath;
+                SteamExePath = Path.GetFullPath(steamExePath);
             }
             if (Directory.Exists(steamPath))
             {
-                SteamPath = steamPath;
+                SteamPath = Path.GetFullPath(steamPath);
             }
         }
 

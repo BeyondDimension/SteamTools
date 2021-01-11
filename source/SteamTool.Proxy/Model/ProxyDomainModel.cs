@@ -84,5 +84,7 @@ namespace SteamTool.Proxy
         DiscordNet = 11,
         [Description("Uplay更新防劫持")]
         UplayUpdate = 12,
+        [Description("Twitch聊天")]
+        TwitchChat = 13,
     }
 }

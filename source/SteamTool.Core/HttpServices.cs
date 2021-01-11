@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Ninject.Modules;
+using SteamTool.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -19,23 +20,47 @@ namespace SteamTool.Core
 
         public string Accept { get; set; } = "application/json";
 
+        private async Task<string> SendAsync(HttpRequestMessage request)
+        {
+            try
+            {
+                var response = await _client.SendAsync(request).ConfigureAwait(false);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+            return null;
+        }
+        private async Task<Stream> SendAsyncAsStream(HttpRequestMessage request)
+        {
+            try
+            {
+                var response = await _client.SendAsync(request).ConfigureAwait(false);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+            return null;
+        }
+
         public async Task<string> Get(string url)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Add("User-Agent", UserAgent);
             request.Headers.Add("Accept", Accept);
-
-            var response = await _client.SendAsync(request).ConfigureAwait(false);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            }
-            else
-            {
-                return null;
-            }
-
+            return await SendAsync(request);
         }
         public async Task<string> Get(string url, Dictionary<string, string> keyValuePairs)
         {
@@ -53,20 +78,7 @@ namespace SteamTool.Core
             {
                 request.Headers.Add("Accept", Accept);
             }
-
-
-            var response = await _client.SendAsync(request).ConfigureAwait(false);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-            }
-            else
-            {
-                return null;
-            }
-
+            return await SendAsync(request);
         }
         public async Task<Stream> GetStream(string url, Dictionary<string, string> keyValuePairs)
         {
@@ -85,18 +97,7 @@ namespace SteamTool.Core
                 request.Headers.Add("Accept", Accept);
             }
 
-
-            var response = await _client.SendAsync(request).ConfigureAwait(false);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-            }
-            else
-            {
-                return null;
-            }
-
+            return await SendAsyncAsStream(request);
         }
 
         public async Task<string> Post(string url, string content)
@@ -107,18 +108,7 @@ namespace SteamTool.Core
             };
             request.Headers.Add("User-Agent", UserAgent);
             request.Headers.Add("Accept", Accept);
-
-            var response = await _client.SendAsync(request).ConfigureAwait(false);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            }
-            else
-            {
-                return null;
-            }
-
+            return await SendAsync(request);
         }
         public async Task<string> Post(string url, Dictionary<string, string> keyValuePairs, string content)
         {
@@ -139,18 +129,7 @@ namespace SteamTool.Core
                 request.Headers.Add("Accept", Accept);
             }
 
-
-            var response = await _client.SendAsync(request).ConfigureAwait(false);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            }
-            else
-            {
-                return null;
-            }
-
+            return await SendAsync(request);
         }
         public async Task<Stream> PostStream(string url, Dictionary<string, string> keyValuePairs, Stream content)
         {
@@ -171,18 +150,7 @@ namespace SteamTool.Core
                 request.Headers.Add("Accept", Accept);
             }
 
-
-            var response = await _client.SendAsync(request).ConfigureAwait(false);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-            }
-            else
-            {
-                return null;
-            }
-
+            return await SendAsyncAsStream(request);
         }
     }
 }

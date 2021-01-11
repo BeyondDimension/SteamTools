@@ -8,6 +8,7 @@ namespace SteamTool.Model
         public const string AUTHDATA_FILE = "authenticators.dat";
         public const string SETTINGS_FILE = "settings.json";
         public const string SCRIPT_DIR = "scripts";
+        public const string LOG_DIR = "log";
         public const string HOST_TAG = "#S302";
 
         public const string REWARDMELIST_URL = "https://gitee.com/rmbgame/steam-tools_-data/raw/master/RewardRecord.json";

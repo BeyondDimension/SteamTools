@@ -33,11 +33,9 @@ namespace SteamTool.Steam.Service.Web
             var r = await httpServices.Get(string.Format(Const.STEAM_USERINFO_XML_URL, steamId64));
             if (!string.IsNullOrEmpty(r))
             {
-                using (StringReader sr = new StringReader(r))
-                {
-                    var xmldes = new XmlSerializer(typeof(SteamUser));
-                    return xmldes.Deserialize(sr) as SteamUser;
-                }
+                using StringReader sr = new StringReader(r);
+                var xmldes = new XmlSerializer(typeof(SteamUser));
+                return xmldes.Deserialize(sr) as SteamUser;
             }
             return new SteamUser() { SteamId64 = steamId64 };
         }

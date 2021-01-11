@@ -1,5 +1,6 @@
 using MetroTrilithon.Serialization;
 using SteamTool.Core;
+using SteamTool.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,12 @@ namespace SteamTools.Models.Settings
         static GeneralSettings()
         {
             WindowsStartupAutoRun.ValueChanged += WindowsStartupAutoRun_ValueChanged;
+            IsEnableLogRecord.ValueChanged += IsEnableLogRecord_ValueChanged;
+        }
+
+        private static void IsEnableLogRecord_ValueChanged(object sender, ValueChangedEventArgs<bool> e)
+        {
+            Logger.EnableTextLog = e.NewValue;
         }
 
         private static void WindowsStartupAutoRun_ValueChanged(object sender, ValueChangedEventArgs<bool> e)
@@ -68,6 +75,13 @@ namespace SteamTools.Models.Settings
         /// </summary>
         public static SerializableProperty<bool> IsAutoCheckUpdate { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Roaming, true) { AutoSave = true };
+
+        /// <summary>
+        /// 启用错误日志记录
+        /// </summary>
+        public static SerializableProperty<bool> IsEnableLogRecord { get; }
+            = new SerializableProperty<bool>(GetKey(), Providers.Roaming, false) { AutoSave = true };
+
 
         private static string GetKey([CallerMemberName] string propertyName = "")
         {

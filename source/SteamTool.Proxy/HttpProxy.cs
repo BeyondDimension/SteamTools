@@ -326,10 +326,10 @@ namespace SteamTool.Proxy
                     return false;
                 }
             }
-            //if (PortInUse(443))
-            //{
-            //    return false;
-            //}
+            if (PortInUse(443))
+            {
+                return false;
+            }
             if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
 
             #region 写入Hosts
@@ -373,6 +373,12 @@ namespace SteamTool.Proxy
                 //GenericCertificate = proxyServer.CertificateManager.RootCertificate
             };
             proxyServer.AddEndPoint(transparentEndPoint);
+
+            proxyServer.ExceptionFunc = ((Exception exception) =>
+            {
+                Logger.Error(exception);
+            });
+
             try
             {
                 proxyServer.Start();
@@ -385,7 +391,6 @@ namespace SteamTool.Proxy
             //proxyServer.UpStreamHttpProxy = new ExternalProxy() { HostName = "localhost", Port = 8888 };
             //proxyServer.UpStreamHttpsProxy = new ExternalProxy() { HostName = "localhost", Port = 8888 };
             #endregion
-
 #if DEBUG
             foreach (var endPoint in proxyServer.ProxyEndPoints)
                 Debug.WriteLine("Listening on '{0}' endpoint at Ip {1} and port: {2} ",
