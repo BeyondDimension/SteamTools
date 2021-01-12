@@ -8,7 +8,7 @@
         $result = 'Steam++'
         $bin = '..\source\SteamTools\bin\x86\Release\'
  # '*.exe.config'
-        $targetKeywords = '*.exe','*.dll','*.txt','*.VisualElementsManifest.xml','*.pak','*.bin','*.js'
+        $targetKeywords = '*.exe','*.dll','*.txt','*.VisualElementsManifest.xml','*.pak','*.bin','*.js','Log4net.config'
         $ignoreKeywords = '*.vshost.*','Microsoft.*.resources.dll','ExPlugin.*.dll'
  
         $exeSource  = '\Steam++.exe'
