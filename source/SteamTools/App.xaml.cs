@@ -103,9 +103,9 @@ namespace SteamTools
 
                 GeneralSettings.Culture.Subscribe(x => ResourceService.Current.ChangeCulture(x)).AddTo(this);
                 WindowService.Current.AddTo(this).Initialize();
-                AuthService.Current.Initialize();
                 ProxyService.Current.Initialize();
                 SteamConnectService.Current.Initialize();
+                AuthService.Current.Initialize();
                 if (GeneralSettings.IsAutoCheckUpdate.Value)
                 {
                     AutoUpdateService.Current.CheckUpdate();

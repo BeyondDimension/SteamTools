@@ -24,7 +24,6 @@ namespace SteamTool.Proxy
                 Convert.ToBase64String(@this.RawData, Base64FormattingOptions.InsertLineBreaks));
             builder.AppendLine("-----END CERTIFICATE-----");
             builder.AppendLine(Const.HOST_TAG);
-
             return builder.ToString();
         }
 
@@ -33,7 +32,7 @@ namespace SteamTool.Proxy
             RSACryptoServiceProvider pkey = (RSACryptoServiceProvider)@this.PrivateKey;
 
             AsymmetricCipherKeyPair keyPair = DotNetUtilities.GetRsaKeyPair(pkey);
-            using TextWriter tw = new StreamWriter(Path.Combine(AppContext.BaseDirectory, @this.IssuerName.Name + ".key"));
+            using TextWriter tw = new StreamWriter(Path.Combine(AppContext.BaseDirectory, @this.IssuerName.Name + ".key"), false, new UTF8Encoding(false));
             PemWriter pw = new PemWriter(tw);
             pw.WriteObject(keyPair.Private);
             tw.Flush();
@@ -71,7 +70,7 @@ namespace SteamTool.Proxy
                 Convert.ToBase64String(@this.Export(X509ContentType.Cert), Base64FormattingOptions.InsertLineBreaks));
             builder.AppendLine("-----END CERTIFICATE-----");
 
-            File.WriteAllText(pathOrName, builder.ToString(), Encoding.UTF8);
+            File.WriteAllText(pathOrName, builder.ToString(), new UTF8Encoding(false));
         }
     }
 }
