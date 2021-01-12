@@ -171,7 +171,7 @@ namespace SteamTools.Services
                     var qm = line.IndexOf("?");
                     if (hash != -1 && hash < qm)
                     {
-                        line = line.Substring(0, hash) + "%23" + line.Substring(hash + 1);
+                        line = $"{line.Substring(0, hash)}%23{line.Substring(hash + 1)}";
                     }
 
                     // parse and validate URI

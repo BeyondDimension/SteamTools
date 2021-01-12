@@ -98,7 +98,7 @@ namespace SteamTool.Proxy
                 {
                     if (e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(host))
                     {
-                        if (e.HttpClient.Request.RequestUri.Scheme == "http")
+                        if (e.HttpClient.Request.RequestUri.Scheme.Equals("http", StringComparison.OrdinalIgnoreCase))
                         {
                             e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Remove(0, 4).Insert(0, "https"));
                         }

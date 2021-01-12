@@ -21,7 +21,7 @@ namespace SteamTools.ViewModels
     public class SteamAccountPageViewModel : TabItemViewModel
     {
         private readonly SteamToolService steamService = SteamToolCore.Instance.Get<SteamToolService>();
-        private readonly SteamDbApiService webApiService = SteamService.Instance.Get<SteamDbApiService>();
+        private readonly SteamworksWebApiService webApiService = SteamService.Instance.Get<SteamworksWebApiService>();
 
         public override string Name
         {
