@@ -178,6 +178,15 @@ namespace SteamTool.Proxy.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Twitch聊天 的本地化字符串。
+        /// </summary>
+        public static string TwitchChat {
+            get {
+                return ResourceManager.GetString("TwitchChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Uplay更新 的本地化字符串。
         /// </summary>
         public static string UplayUpdate {

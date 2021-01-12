@@ -32,5 +32,14 @@ namespace SteamTools.ViewModels
         {
             AutoUpdateService.Current.CheckUpdate();
         }
+
+        public void OpenLogFolder()
+        {
+            var log_dir = Path.Combine(AppContext.BaseDirectory, Const.LOG_DIR);
+            if (Directory.Exists(log_dir)) 
+            {
+                Process.Start(log_dir);
+            }
+        }
     }
 }

@@ -17,6 +17,7 @@ using System.Security.Cryptography;
 using System.Linq;
 using MetroTrilithon.Mvvm;
 using SteamTool.Model;
+using System.Threading.Tasks;
 
 namespace SteamTools.Services
 {
@@ -68,11 +69,11 @@ namespace SteamTools.Services
             }
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
-            try
+            await Task.Run(() =>
             {
-                StatusService.Current.Notify("加载令牌数据...");
+                StatusService.Current.Notify("正在初始化令牌数据...");
                 var path = Path.Combine(AppContext.BaseDirectory, Const.AUTHDATA_FILE);
                 if (File.Exists(path))
                 {
@@ -94,12 +95,16 @@ namespace SteamTools.Services
                     }
                 }
                 StatusService.Current.Notify("加载令牌数据完成");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
-                WindowService.Current.ShowDialogWindow($"令牌同步服务器失败，错误信息：{ex}");
-            }
+            }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow("令牌同步服务器失败，错误信息:" + s.Exception); }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s => s.Dispose());
+            //try
+            //{
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    Logger.Error(ex);
+            //    WindowService.Current.ShowDialogWindow($"令牌同步服务器失败，错误信息：{ex}");
+            //}
         }
 
         /// <summary>
@@ -166,7 +171,7 @@ namespace SteamTools.Services
                     var qm = line.IndexOf("?");
                     if (hash != -1 && hash < qm)
                     {
-                        line = line.Substring(0, hash) + "%23" + line.Substring(hash + 1);
+                        line = $"{line.Substring(0, hash)}%23{line.Substring(hash + 1)}";
                     }
 
                     // parse and validate URI

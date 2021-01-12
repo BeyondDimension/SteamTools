@@ -34,20 +34,20 @@
 								  TextAlignment="Left"
 								  MaxPageWidth="900">
                     <Paragraph Language="zh-cn">
-                        <Run Text="Steam++ v1.0.4" FontSize="16"/>
+                        <Run Text="Steam++ v1.0.5" FontSize="16"/>
                         <Run Text="&#160;"/>
                         <Run Text="2021-01-08" FontSize="10" />
                         <LineBreak />
                         <Run Text="更新内容"></Run>
                         <LineBreak />
                         <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="优化了反代过程的逻辑" />
+                        <Run Text="优化反代过程的逻辑" />
                         <LineBreak/>
                         <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="增加了启动时自动运行Steam的设置项" />
+                        <Run Text="增加启动时自动运行Steam的设置项" />
                         <LineBreak/>
                         <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增令牌了刷新功能" />
+                        <Run Text="新增令牌刷新功能" />
                         <LineBreak/>
                         <Run Text="&#160;&#160;&#160;&#160;"/>
                         <Run Text="帐户切换增加了离线模式启动的选项"></Run>

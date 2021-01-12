@@ -115,7 +115,7 @@ namespace SteamTool.Steam.Service.Local
             return SteamClient.SteamUserStats.GetAchievementState(name, out isAchieved);
         }
 
-        public bool GetAchievementAndUnlockTime(string name, out bool isAchieved, out int unlockTime)
+        public bool GetAchievementAndUnlockTime(string name, out bool isAchieved, out long unlockTime)
         {
             return SteamClient.SteamUserStats.GetAchievementAndUnlockTime(name, out isAchieved, out unlockTime);
         }

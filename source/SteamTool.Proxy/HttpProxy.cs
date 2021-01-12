@@ -75,7 +75,7 @@ namespace SteamTool.Proxy
             #endregion
             Debug.WriteLine("OnRequest " + e.HttpClient.Request.RequestUri.AbsoluteUri);
             Debug.WriteLine("OnRequest HTTP " + e.HttpClient.Request.HttpVersion);
-            Logger.Info("OnRequest" + e.HttpClient.Request.RequestUri.AbsoluteUri);
+            //Logger.Info("OnRequest" + e.HttpClient.Request.RequestUri.AbsoluteUri);
 #endif
             // Dns.GetHostAddressesAsync(e.HttpClient.Request.Host).ContinueWith(s =>
             //{
@@ -87,6 +87,7 @@ namespace SteamTool.Proxy
             //        return;
             //    }
             //});
+            //Logger.Info("Steam++ OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
             foreach (var item in ProxyDomains)
             {
                 if (!item.IsEnable)
@@ -97,6 +98,10 @@ namespace SteamTool.Proxy
                 {
                     if (e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(host))
                     {
+                        if (e.HttpClient.Request.RequestUri.Scheme.Equals("http", StringComparison.OrdinalIgnoreCase))
+                        {
+                            e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Remove(0, 4).Insert(0, "https"));
+                        }
                         IPAddress iP = null;
                         if (!string.IsNullOrEmpty(item.ProxyIPAddres))
                         {
@@ -106,6 +111,7 @@ namespace SteamTool.Proxy
                         {
                             var iPs = await Dns.GetHostAddressesAsync(item.ToDomain);
                             iP = iPs.FirstOrDefault();
+                            //Logger.Info("Proxy IP: " + iP);
                         }
                         if (iP != null)
                         {
@@ -113,6 +119,7 @@ namespace SteamTool.Proxy
                         }
                         if (e.HttpClient.ConnectRequest?.ClientHelloInfo != null)
                         {
+                            //Logger.Info("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
                             if (!string.IsNullOrEmpty(item.ServerName))
                             {
                                 var sni = e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions["server_name"];
@@ -255,12 +262,12 @@ namespace SteamTool.Proxy
             //proxyServer.CertificateManager.CertificateEngine = Network.CertificateEngine.BouncyCastle;
             //proxyServer.CertificateManager.SaveFakeCertificates = true;
             var result = proxyServer.CertificateManager.CreateRootCertificate(true);
-            if (result)
-            {
-                proxyServer.CertificateManager.EnsureRootCertificate();
-                proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.cer"));
-            }
-            return proxyServer.CertificateManager.IsRootCertificateUserTrusted();
+            //if (result)
+            //{
+            proxyServer.CertificateManager.EnsureRootCertificate();
+            proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.cer"));
+            //}
+            return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
 
         public bool DeleteCertificate()
@@ -326,11 +333,10 @@ namespace SteamTool.Proxy
                     return false;
                 }
             }
-            //暂时移除443端口检测
-            //if (PortInUse(443))
-            //{
-            //    return false;
-            //} 
+            if (PortInUse(443))
+            {
+                return false;
+            }
             if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
 
             #region 写入Hosts
@@ -374,6 +380,16 @@ namespace SteamTool.Proxy
                 //GenericCertificate = proxyServer.CertificateManager.RootCertificate
             };
             proxyServer.AddEndPoint(transparentEndPoint);
+            var transparentEndPoint80 = new TransparentProxyEndPoint(IPAddress.Any, 80, true)
+            {
+                //GenericCertificate = proxyServer.CertificateManager.RootCertificate
+            };
+            proxyServer.AddEndPoint(transparentEndPoint80);
+            proxyServer.ExceptionFunc = ((Exception exception) =>
+            {
+                Logger.Error(exception);
+            });
+
             try
             {
                 proxyServer.Start();
@@ -386,7 +402,6 @@ namespace SteamTool.Proxy
             //proxyServer.UpStreamHttpProxy = new ExternalProxy() { HostName = "localhost", Port = 8888 };
             //proxyServer.UpStreamHttpsProxy = new ExternalProxy() { HostName = "localhost", Port = 8888 };
             #endregion
-
 #if DEBUG
             foreach (var endPoint in proxyServer.ProxyEndPoints)
                 Debug.WriteLine("Listening on '{0}' endpoint at Ip {1} and port: {2} ",

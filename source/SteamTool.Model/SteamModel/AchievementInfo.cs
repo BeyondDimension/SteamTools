@@ -16,7 +16,7 @@ namespace SteamTool.Model
         public bool IsHidden { get; set; }
         public bool IsAchieved { get; set; }
         public bool IsChecked { get; set; }
-        public int UnlockTimeUnix { get; set; }
+        public long UnlockTimeUnix { get; set; }
         public DateTime UnlockTime { get; set; }
         public string IconUrl => IsAchieved ? string.Format(Const.STEAMAPP_ICON_URL, AppId, IconNormal) : string.Format(Const.STEAMAPP_ICON_URL, AppId, IconLocked);
         public int Permission { get; set; }

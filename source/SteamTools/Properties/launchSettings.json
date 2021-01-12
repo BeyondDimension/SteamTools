@@ -1,8 +1,7 @@
 {
   "profiles": {
     "SteamTools": {
-      "commandName": "Project",
-      "commandLineArgs": "-log"
+      "commandName": "Project"
     }
   }
 }

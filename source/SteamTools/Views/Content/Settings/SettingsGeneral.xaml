@@ -149,6 +149,30 @@
 					Margin="-20,8" />
             </StackPanel>
 
+            <StackPanel Margin="20,0,0,0">
+                <TextBlock Margin="-20,0,0,10" Text="日志设置" Style="{DynamicResource SettingsHeaderTextStyleKey}" />
+
+                <CheckBox 
+							  HorizontalAlignment="Left"
+							  IsChecked="{Binding Source={x:Static ms:GeneralSettings.IsEnableLogRecord}, Path=Value, Mode=TwoWay}">
+                    <TextBlock Text="启用日志"></TextBlock>
+                </CheckBox>
+                <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="0,6,0,0">
+                        <Run Text="记录错误日志到程序根目录Log文件夹内，反馈BUG时把日志也提交上来，方便排查闪退报错原因。"></Run>
+                </TextBlock>
+                <Separator Opacity="0" Height="10"/>
+                
+                <metro2:CallMethodButton Content="打开日志文件夹" 
+                                         Width="150" 
+                                         Height="30" 
+                                         HorizontalAlignment="Left"
+                                         MethodName="OpenLogFolder"
+                                         MethodTarget="{Binding}"/>
+
+                <Border Height="1" 
+					Background="{DynamicResource BorderBrushKey}"
+					Margin="-20,8" />
+            </StackPanel>
         </StackPanel>
     </ScrollViewer>
 </UserControl>
