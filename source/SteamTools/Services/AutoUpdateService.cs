@@ -155,7 +155,7 @@ namespace SteamTools.Services
                             string.Format(SteamTool.Core.Properties.Resources.ProgramUpdateCmd,
                             ProductInfo.Title + ".exe", out_dir, AppContext.BaseDirectory, App.Instance.ProgramName), Encoding.Default);
                         Process p = new Process();
-                        p.StartInfo.FileName = batpath;//要执行的程序名称 
+                        p.StartInfo.FileName = batpath; 
                         p.StartInfo.UseShellExecute = false;
                         p.StartInfo.CreateNoWindow = true;//不显示程序窗口 
                         //管理员权限运行

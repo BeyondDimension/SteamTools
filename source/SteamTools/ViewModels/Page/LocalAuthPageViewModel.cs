@@ -76,7 +76,7 @@ namespace SteamTools.ViewModels
         public void ImageCopy_Click(WinAuthAuthenticator auth)
         {
             auth.CopyCodeToClipboard();
-            TaskbarService.Current.Notify("已复制令牌");
+            TaskbarService.Current.Notify("已复制令牌 " + auth.Name);
         }
 
 

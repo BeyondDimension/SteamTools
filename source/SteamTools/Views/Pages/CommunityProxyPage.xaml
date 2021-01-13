@@ -173,7 +173,7 @@
                 </CheckBox>
                 <Separator Opacity="0" Height="5"/>
                 <StackPanel>
-                    <CheckBox Content="{Binding Resources.OnlyWorkSteambrowser,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" HorizontalAlignment="Center" IsChecked="{Binding Source={x:Static ms:ProxySettings.IsOnlyWorkSteamBrowser}, Path=Value, Mode=TwoWay}"></CheckBox>
+                    <CheckBox Content="{Binding Resources.OnlyWorkSteambrowser,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" HorizontalAlignment="Center" IsChecked="{Binding IsOnlyWorkSteamBrowser,Source={x:Static services:ProxyService.Current}, Mode=TwoWay}"></CheckBox>
                     <Separator Opacity="0" Height="5"/>
                     <Button Content="{Binding Resources.ImportScript,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"  FontSize="14" Height="30" Margin="10,0">
                         <i:Interaction.Triggers>

@@ -181,12 +181,12 @@ namespace SteamTool.Proxy
                                         if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
                                         {
                                             var doc = await e.GetResponseBodyAsString();
-                                            if (script.Require.Length > 0)
+                                            if (script.Require.Length > 0 || script.Grant.Length > 0)
                                             {
                                                 //var headIndex = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
                                                 //doc = doc.Insert(headIndex, "<meta http-equiv=\"Content-Security-Policy\" content=\"default - src 'self' data: gap: https://ssl.gstatic.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *\">");
                                                 var t = e.HttpClient.Response.Headers.GetFirstHeader("Content-Security-Policy");
-                                                if (!string.IsNullOrEmpty(t.Value))
+                                                if (!string.IsNullOrEmpty(t?.Value))
                                                 {
                                                     //var tt = t.Value.Split(';');
                                                     //for (var i = 0; i < tt.Length; i++)

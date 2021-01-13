@@ -41,7 +41,7 @@ let conf = {
 };
 
 let temp = {};
-let	blockingWaitDialog;
+let blockingWaitDialog;
 
 function init() {
 	conf = JSON.parse(localStorage.getItem("STEAMCC_CONF")) || conf;
@@ -133,7 +133,7 @@ function anonymousAccess(region) {
 	function access(region) {
 		blockingWaitDialog = blockingWaitDialog || ShowBlockingWaitDialog("匿名访问中", `${region} 区域匿名数据获取中...`);
 
-		let url = `${location.protocol + "//www.steampowered.com" + location.pathname.replace( /\/agecheck/, "" ) + (location.search == "" ? "?" : (location.search + "&"))}cc=${region}`;
+		let url = `${location.protocol + "//store.steampowered.com" + location.pathname.replace( /\/agecheck/, "" ) + (location.search == "" ? "?" : (location.search + "&"))}cc=${region}`;
 
 		GM_xmlhttpRequest({
 			method:"GET",

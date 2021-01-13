@@ -844,7 +844,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 脚本配置(实验性功能) 的本地化字符串。
+        ///   查找类似 脚本配置 的本地化字符串。
         /// </summary>
         public static string ScriptSettings {
             get {

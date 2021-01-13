@@ -26,7 +26,7 @@
         UseLayoutRounding="True"
         TextOptions.TextFormattingMode="Display"
         SnapsToDevicePixels="True"
-        d:DataContext="{d:DesignInstance viewModel:ShowAuthWindowViewModel}">
+        d:DataContext="{d:DesignInstance viewModel:AuthTradeWindowViewModel}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="ContentRendered">
             <livet:LivetCallMethodAction MethodTarget="{Binding}"
@@ -65,6 +65,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -79,7 +80,19 @@
                            Foreground="{DynamicResource ForegroundBrushKey}"
                            FontSize="16"
                            VerticalAlignment="Center" />
-                <metro:SystemButtons Grid.Column="2"
+                <StackPanel Height="32" VerticalAlignment="Top" Orientation="Horizontal" Grid.Column="2" WindowChrome.IsHitTestVisibleInChrome="True" Visibility="{Binding IsLoggedIn,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <metro:CaptionButton >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <livet:LivetCallMethodAction
+                                            MethodName="RefreshStats_Click"
+                                            MethodTarget="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Image Source="/Resources/Asstes/refresh.png" Margin="6,0" Width="21" ToolTip="{Binding Resources.OnRefresh,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
+                    </metro:CaptionButton>
+                </StackPanel>
+                <metro:SystemButtons Grid.Column="3"
                                         Grid.Row="0"
                                         VerticalAlignment="Top" />
             </Grid>
@@ -119,15 +132,76 @@
                 <Separator Opacity="0" Height="5"/>
                 <metro:PromptTextBox Text="{Binding CodeImageChar}" Prompt="输入图中的验证码" Width="206" HorizontalAlignment="Left"></metro:PromptTextBox>
                 <Separator Opacity="0" Height="5"/>
-                <metro2:CallMethodButton Content="确定" Width="200" Height="30" HorizontalAlignment="Left"></metro2:CallMethodButton>
+                <metro2:CallMethodButton Content="确定" Width="200" Height="30" HorizontalAlignment="Left" MethodTarget="{Binding}" 
+                                     MethodName="CaptchaButton_Click"></metro2:CallMethodButton>
                 <Separator Opacity="0" Height="5"/>
             </StackPanel>
         </StackPanel>
-        <DockPanel Visibility="{Binding IsLoggedIn,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}">
+        <DockPanel Margin="8" Grid.Row="1" Visibility="{Binding IsLoggedIn,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel DockPanel.Dock="Top">
+                <StackPanel>
+                    <WrapPanel>
+                        <CheckBox></CheckBox>
+                        <metro2:CallMethodButton Margin="30,0,10,0" Height="30">
+                            <DockPanel>
+                                <Image Source="/Resources/Asstes/refresh.png" Width="22" Margin="0,0,5,0"></Image>
+                                <TextBlock Text="刷新"></TextBlock>
+                            </DockPanel>
+                        </metro2:CallMethodButton>
+                        <metro2:CallMethodButton Margin="0,0,10,0" Content="确认所有" Height="30"></metro2:CallMethodButton>
+                        <metro2:CallMethodButton Margin="0,0,10,0" Content="否认所有" Height="30"></metro2:CallMethodButton>
+                        <metro2:CallMethodButton Content="注销" Height="30"></metro2:CallMethodButton>
+                    </WrapPanel>
+                </StackPanel>
+                <Rectangle  Height=".99"
+									   Fill="{DynamicResource InactiveForegroundBrushKey}"
+									   Margin="0,8" />
+            </StackPanel>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl Foreground="{DynamicResource ActiveForegroundBrushKey}"
-                    ItemsSource="{Binding Authenticators,Source={x:Static services:AuthService.Current},Mode=OneWay}">
-
+                    ItemsSource="{Binding Confirmations,Mode=OneWay}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <DockPanel>
+                                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                                        <CheckBox Margin="0,0,5,0"></CheckBox>
+                                        <Image Source="{Binding Image,Mode=OneWay}" 
+                                           Width="36" Height="36" Margin="0,0,5,0"></Image>
+                                        <TextBlock>
+                                    <Run Text="{Binding Details,Mode=OneWay}" FontSize="12"/>
+                                    <LineBreak/>
+                                    <Run Text="{Binding Traded,Mode=OneWay}"/>
+                                    <LineBreak/>
+                                    <Run Text="{Binding When,Mode=OneWay}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <WrapPanel Orientation="Vertical" DockPanel.Dock="Right" VerticalAlignment="Center" FlowDirection="RightToLeft">
+                                        <metro2:CallMethodButton>
+                                            <DockPanel>
+                                                <Image Source="/Resources/Asstes/confirm.png" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"
+                       ToolTip="{Binding Resources.Auth_Add,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
+                                                </Image>
+                                                <TextBlock Text="确认"></TextBlock>
+                                            </DockPanel>
+                                        </metro2:CallMethodButton>
+                                        <metro2:CallMethodButton>
+                                            <DockPanel>
+                                                <Image Source="/Resources/Asstes/delete.png" Width="20"
+                                                       VerticalAlignment="Center" Margin="0,0,5,0"
+                       ToolTip="{Binding Resources.Auth_Add,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
+                                                </Image>
+                                                <TextBlock Text="否认"></TextBlock>
+                                            </DockPanel>
+                                        </metro2:CallMethodButton>
+                                    </WrapPanel>
+                                </DockPanel>
+                                <Rectangle DockPanel.Dock="Bottom"  Height=".99"
+									   Fill="{DynamicResource InactiveForegroundBrushKey}"
+									   Margin="0,8" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
         </DockPanel>

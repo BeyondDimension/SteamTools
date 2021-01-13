@@ -31,12 +31,7 @@ namespace SteamTools.ViewModels
             _AuthenticatorData = auth.AuthenticatorData as SteamAuthenticator;
             this.Title = ProductInfo.Title + " | " + Resources.Auth_TradeTitle;
 
-
-            //var steam = _Authenticator.GetClient();
-            //if (steam.IsLoggedIn() == false)
-            //{
-            //    ExtractSteamCookies(steam);
-            //}
+            Init();
         }
 
         #region LoginData
@@ -145,6 +140,21 @@ namespace SteamTools.ViewModels
 
         }
 
+        public void CaptchaButton_Click()
+        {
+            if (CodeImageChar?.Trim().Length > 0)
+            {
+                Process(_AuthenticatorData.GetClient().CaptchaId, CodeImageChar);
+                return;
+            }
+            else
+            {
+                this.Dialog("请输入正确的令牌");
+                return;
+            }
+
+        }
+
         private void Init()
         {
             if (IsLoggedIn)
@@ -153,13 +163,13 @@ namespace SteamTools.ViewModels
             }
         }
 
-        private void Process(string captchaId = null)
+        private void Process(string captchaId = null, string codeChar = null)
         {
             var steam = _AuthenticatorData.GetClient();
 
             if (!steam.IsLoggedIn())
             {
-                if (steam.Login(UserName, Password, captchaId, CodeImageChar, ResourceService.Current.GetCurrentCultureSteamLanguageName()) == false)
+                if (steam.Login(UserName, Password, captchaId, codeChar, ResourceService.Current.GetCurrentCultureSteamLanguageName()) == false)
                 {
                     if (steam.Error == "Incorrect Login")
                     {
