@@ -153,7 +153,6 @@ namespace SteamTools.Services
                           else
                           {
                               IsConnectToSteam = false;
-                              //StatusService.Current.Notify(Resources.Steam_Not_Runing);
                           }
                           await Task.Delay(1500);
                       }

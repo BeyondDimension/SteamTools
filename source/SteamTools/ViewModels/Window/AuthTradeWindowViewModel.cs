@@ -31,7 +31,7 @@ namespace SteamTools.ViewModels
             _AuthenticatorData = auth.AuthenticatorData as SteamAuthenticator;
             this.Title = ProductInfo.Title + " | " + Resources.Auth_TradeTitle;
 
-            Init();
+            Process();
         }
 
         #region LoginData
@@ -155,12 +155,25 @@ namespace SteamTools.ViewModels
 
         }
 
-        private void Init()
+        public void Refresh_Click() 
         {
-            if (IsLoggedIn)
+            if (IsLoggedIn) 
             {
                 Process();
             }
+        }
+        public void Logout_Click()
+        {
+            var steam = this._AuthenticatorData.GetClient();
+            steam.Logout();
+
+            if (String.IsNullOrEmpty(_AuthenticatorData.SessionData) == false)
+            {
+                _AuthenticatorData.SessionData = null;
+                //AuthenticatorData.PermSession = false;
+                AuthService.Current.SaveCurrentAuth();
+            }
+
         }
 
         private void Process(string captchaId = null, string codeChar = null)

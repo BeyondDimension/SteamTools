@@ -77,7 +77,7 @@ IsEnable= false,
 new ProxyDomainModel{
 Name=Resources.SteamChat,
 Domains = new List<string>{"steam-chat.com" },
-ToDomain = "steamstore-a.akamaihd.net",
+ToDomain = "steamcommunity-a.akamaihd.net",
 Hosts = new List<string>{ "steam-chat.com"},
 DomainTag = DomainTag.SteamChat,
 IsEnable= false,
@@ -135,19 +135,6 @@ Hosts = new List<string>{
 DomainTag = DomainTag.TwitchChat,
 IsEnable= false,
 },
-//new ProxyDomainModel{
-//Name=Resources.Twitch,
-//Domains = new List<string>{ "usher.ttvnw.net" },
-////ToDomain="twitch.map.fastly.net",
-//ProxyIPAddres="23.160.0.254",
-//Hosts = new List<string>{
-////"usher.twitch.tv",
-//"usher.ttvnw.net",
-//"hls.ttvnw.net",
-//},
-//DomainTag = DomainTag.Twitch,
-//IsEnable= false,
-//},
 new ProxyDomainModel{
 Name=Resources.Twitch,
 Domains = new List<string>{ "twitch.tv" },
@@ -253,7 +240,7 @@ IsEnable= false,
 },
 new ProxyDomainModel{
 Name=Resources.GithubContent,
-Domains = new List<string>{"githubusercontent.com","raw.github.com" },
+Domains = new List<string>{"githubusercontent.com","raw.github.com"},
 //ToDomain = "aw.githubusercontent.com",
 ProxyIPAddres = "151.101.88.133",
 Hosts = new List<string>{
@@ -268,6 +255,16 @@ Hosts = new List<string>{
 "user-images.githubusercontent.com",
 },
 DomainTag = DomainTag.GithubContent,
+IsEnable= false,
+},
+new ProxyDomainModel{
+Name=Resources.GithubGist,
+Domains = new List<string>{"gist.github.com" },
+ToDomain = "github.com",
+Hosts = new List<string>{
+"gist.github.com",
+},
+DomainTag = DomainTag.GithubGist,
 IsEnable= false,
 },
 new ProxyDomainModel{
@@ -313,10 +310,11 @@ Hosts = new List<string>{
 "comic-api.pixiv.net",
 "pay.pixiv.net",
 },
-DomainTag = DomainTag.GithubContent,
+DomainTag = DomainTag.Pixiv,
 IsEnable= false,
 },
 });
+
         public Lazy<IReadOnlyCollection<ProxyDomainModel>> ProxyDomains
         {
             get => _ProxyDomains;

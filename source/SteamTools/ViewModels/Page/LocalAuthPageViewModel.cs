@@ -13,6 +13,7 @@ using SteamTool.Core.Common;
 using System.Xml;
 using System.IO;
 using MetroTrilithon.Mvvm;
+using WinAuth;
 
 namespace SteamTools.ViewModels
 {
@@ -101,7 +102,10 @@ namespace SteamTools.ViewModels
 
         public void ImageShowAuth_Click(WinAuthAuthenticator auth)
         {
-            new ShowAuthWindow() { DataContext = new ShowAuthWindowViewModel(auth) }.Show();
+            if (auth.AuthenticatorData is SteamAuthenticator) 
+            {
+                new ShowAuthWindow() { DataContext = new ShowAuthWindowViewModel(auth) }.Show();
+            }
         }
 
 

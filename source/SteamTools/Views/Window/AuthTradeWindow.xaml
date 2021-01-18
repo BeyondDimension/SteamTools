@@ -85,11 +85,21 @@
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <livet:LivetCallMethodAction
-                                            MethodName="RefreshStats_Click"
+                                            MethodName="Refresh_Click"
                                             MethodTarget="{Binding}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        <Image Source="/Resources/Asstes/refresh.png" Margin="6,0" Width="21" ToolTip="{Binding Resources.OnRefresh,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
+                        <Image Source="/Resources/Asstes/refresh.png" Margin="6,0" Width="21" ToolTip="{Binding Resources.Refresh,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
+                    </metro:CaptionButton>
+                    <metro:CaptionButton >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <livet:LivetCallMethodAction
+                                            MethodName="Logout_Click"
+                                            MethodTarget="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Image Source="/Resources/Asstes/logout.png" Margin="6,0" Width="21" ToolTip="{Binding Resources.Logout,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
                     </metro:CaptionButton>
                 </StackPanel>
                 <metro:SystemButtons Grid.Column="3"
@@ -139,20 +149,13 @@
         </StackPanel>
         <DockPanel Margin="8" Grid.Row="1" Visibility="{Binding IsLoggedIn,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel DockPanel.Dock="Top">
-                <StackPanel>
-                    <WrapPanel>
-                        <CheckBox></CheckBox>
-                        <metro2:CallMethodButton Margin="30,0,10,0" Height="30">
-                            <DockPanel>
-                                <Image Source="/Resources/Asstes/refresh.png" Width="22" Margin="0,0,5,0"></Image>
-                                <TextBlock Text="刷新"></TextBlock>
-                            </DockPanel>
-                        </metro2:CallMethodButton>
-                        <metro2:CallMethodButton Margin="0,0,10,0" Content="确认所有" Height="30"></metro2:CallMethodButton>
+                <DockPanel>
+                    <CheckBox></CheckBox>
+                    <WrapPanel FlowDirection="RightToLeft" HorizontalAlignment="Right">
                         <metro2:CallMethodButton Margin="0,0,10,0" Content="否认所有" Height="30"></metro2:CallMethodButton>
-                        <metro2:CallMethodButton Content="注销" Height="30"></metro2:CallMethodButton>
+                        <metro2:CallMethodButton Margin="0,0,10,0" Content="确认所有" Height="30"></metro2:CallMethodButton>
                     </WrapPanel>
-                </StackPanel>
+                </DockPanel>
                 <Rectangle  Height=".99"
 									   Fill="{DynamicResource InactiveForegroundBrushKey}"
 									   Margin="0,8" />

@@ -5,9 +5,9 @@
 // @include      https://store.steampowered.com/app/*
 // @include      https://store.steampowered.com/bundle/*
 // @include      https://store.steampowered.com/sub/*
-// @author      软妹币玩家、biz
+// @author      软妹币玩家、byzod
 // @license     GPL version 3 or any later version
-// @version     1.0
+// @version     1.1
 // @grant       GM_xmlhttpRequest
 // @enable      true
 // jshint esversion:6
@@ -67,32 +67,32 @@ const CURRENCY_SYMBOLS = {
 // 查询历史低价包括的商店
 const STORES = [
     "steam",
-    "amazonus",
-    "impulse",
-    "gamersgate",
-    "direct2drive",
-    "origin",
-    "uplay",
-    "indiegalastore",
-    "gamesplanet",
-    "indiegamestand",
-    "gog",
-    "nuuvem",
-    "dlgamer",
-    "humblestore",
-    "squenix",
-    "bundlestars",
-    "fireflower",
-    "humblewidgets",
-    "newegg",
-    "coinplay",
-    "wingamestore",
-    "macgamestore",
-    "gamebillet",
-    "silagames",
-    "itchio",
-    "gamejolt",
-    "paradox"
+    // "amazonus",
+    // "impulse",
+    // "gamersgate",
+    // "direct2drive",
+    // "origin",
+    // "uplay",
+    // "indiegalastore",
+    // "gamesplanet",
+    // "indiegamestand",
+    // "gog",
+    // "nuuvem",
+    // "dlgamer",
+    // "humblestore",
+    // "squenix",
+    // "bundlestars",
+    // "fireflower",
+    // "humblewidgets",
+    // "newegg",
+    // "coinplay",
+    // "wingamestore",
+    // "macgamestore",
+    // "gamebillet",
+    // "silagames",
+    // "itchio",
+    // "gamejolt",
+    // "paradox"
 ];
 
 
@@ -294,7 +294,7 @@ async function GettingSteamDBAppInfo(appId, type = "app", subIds = [], stores = 
             + "bundleids=" + bundleId
             + "&subids=" + subIds.join(',')
             + "&appids=" + appId
-            //	+ "&stores=" + stores
+            + "&stores=" + stores
             + "&cc=" + cc
             + "&coupon=true";
         // console.log('[史低]: requestUrl: ' + requestUrl); // DEBUG

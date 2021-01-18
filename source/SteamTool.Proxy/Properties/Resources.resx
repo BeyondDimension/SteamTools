@@ -126,6 +126,9 @@
   <data name="GithubContent" xml:space="preserve">
     <value>Github图片资源修复</value>
   </data>
+  <data name="GithubGist" xml:space="preserve">
+    <value>GithubGist</value>
+  </data>
   <data name="GOG" xml:space="preserve">
     <value>GOG Galaxy</value>
   </data>

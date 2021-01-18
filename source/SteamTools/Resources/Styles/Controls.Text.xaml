@@ -172,11 +172,4 @@
 				Value="{DynamicResource ForegroundBrushKey}" />
     </Style>
 
-
-
-
-
-
-
-
 </ResourceDictionary>

@@ -451,7 +451,7 @@
         </Grid>
 
         <!--Footer-->
-        <controls:StatusBar Grid.Row="3" DataContext="{Binding StatusBar}" >
+        <controls:StatusBar Grid.Row="3" DataContext="{Binding}" >
         </controls:StatusBar>
     </Grid>
 </metro:MetroWindow>

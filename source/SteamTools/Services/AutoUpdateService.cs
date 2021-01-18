@@ -150,7 +150,7 @@ namespace SteamTools.Services
                     if (ZipHelper.UnpackFiles(zipFile, out_dir))
                     {
                         File.Delete(zipFile);
-                        var batpath = Path.Combine(App.Instance.LocalAppData.FullName, "update.cmd");
+                        var batpath = Path.Combine(AppContext.BaseDirectory, "update.cmd");
                         File.WriteAllText(batpath,
                             string.Format(SteamTool.Core.Properties.Resources.ProgramUpdateCmd,
                             ProductInfo.Title + ".exe", out_dir, AppContext.BaseDirectory, App.Instance.ProgramName), Encoding.Default);

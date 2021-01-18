@@ -88,6 +88,15 @@ namespace SteamTool.Proxy.Properties {
         }
         
         /// <summary>
+        ///   查找类似 GithubGist 的本地化字符串。
+        /// </summary>
+        public static string GithubGist {
+            get {
+                return ResourceManager.GetString("GithubGist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 GOG Galaxy 的本地化字符串。
         /// </summary>
         public static string GOG {

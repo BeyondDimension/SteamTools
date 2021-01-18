@@ -19,7 +19,7 @@
 
 		<EnableNETAnalyzers>false</EnableNETAnalyzers>
 
-		<Copyright>Copyright © 2018 - 2020 软妹币玩家</Copyright>
+		<Copyright>Copyright © 2018 - 2021 软妹币玩家</Copyright>
 
 		<Authors>软妹币玩家</Authors>
 
@@ -106,6 +106,7 @@
 		<None Remove="Resources\Asstes\edit.png" />
 		<None Remove="Resources\Asstes\export.png" />
 		<None Remove="Resources\Asstes\install-line.png" />
+		<None Remove="Resources\Asstes\logout.png" />
 		<None Remove="Resources\Asstes\movecross.png" />
 		<None Remove="Resources\Asstes\ok.png" />
 		<None Remove="Resources\Asstes\play.png" />
@@ -146,6 +147,7 @@
 		<Resource Include="Resources\Asstes\edit.png" />
 		<Resource Include="Resources\Asstes\export.png" />
 		<Resource Include="Resources\Asstes\install-line.png" />
+		<Resource Include="Resources\Asstes\logout.png" />
 		<Resource Include="Resources\Asstes\movecross.png" />
 		<Resource Include="Resources\Asstes\ok.png" />
 		<Resource Include="Resources\Asstes\play.png" />
