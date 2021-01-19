@@ -257,8 +257,8 @@ namespace SteamTools
 
         void IDisposable.Dispose()
         {
-            GC.SuppressFinalize(this);
             this.compositeDisposable.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         #endregion

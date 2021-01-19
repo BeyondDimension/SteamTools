@@ -48,12 +48,14 @@ namespace SteamTools.Models.Settings
             try
             {
                 Providers.Local.Load();
+                //每次成功读取完成时保存一份bak
+                File.Copy(Providers.LocalFilePath, Providers.LocalFilePath + ".bak", true);
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
                 MessageBox.Show("Local Settings Load Error :" + ex.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
-                File.Copy(Providers.LocalFilePath, Providers.LocalFilePath + ".bak", true);
+                File.Copy(Providers.LocalFilePath, Providers.LocalFilePath + ".error", true);
                 File.Delete(Providers.LocalFilePath);
                 Providers.Local.Load();
             }
@@ -61,12 +63,14 @@ namespace SteamTools.Models.Settings
             try
             {
                 Providers.Roaming.Load();
+                //每次成功读取完成时保存一份bak
+                File.Copy(Providers.RoamingFilePath, Providers.RoamingFilePath + ".bak", true);
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
                 MessageBox.Show("Roaming Settings Load Error :" + ex.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
-                File.Copy(Providers.RoamingFilePath, Providers.RoamingFilePath + ".bak", true);
+                File.Copy(Providers.RoamingFilePath, Providers.RoamingFilePath + ".error", true);
                 File.Delete(Providers.RoamingFilePath);
                 Providers.Roaming.Load();
             }
