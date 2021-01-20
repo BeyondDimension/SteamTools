@@ -17,7 +17,7 @@ namespace SteamTool.Proxy
         /// <summary>
         /// 代理域名合集
         /// </summary>
-        public List<string> Domains { get; set; }
+        public IReadOnlyCollection<string> Domains { get; set; }
 
         /// <summary>
         /// 端口
@@ -44,7 +44,7 @@ namespace SteamTool.Proxy
         /// </summary>
         public bool IsEnable { get; set; }
 
-        public IEnumerable<string> Hosts { get; set; }
+        public IReadOnlyCollection<string> Hosts { get; set; }
 
         public DomainTag DomainTag { get; set; }
     }

@@ -347,7 +347,13 @@ namespace SteamTool.Proxy
                 {
                     foreach (var host in proxyDomain.Hosts)
                     {
-                        hosts.Add((IPAddress.Loopback.ToString(), host));
+                        if (host.Contains(" "))
+                        {
+                            var h = host.Split(' ');
+                            hosts.Add((h[0], h[1]));
+                        }
+                        else
+                            hosts.Add((IPAddress.Loopback.ToString(), host));
                     }
                 }
             }
