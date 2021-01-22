@@ -43,7 +43,7 @@ namespace SteamTools.Services
             if (this.MainWindow == this.mainWindow)
             {
                 this.MainWindow
-                           .Subscribe(nameof(MainWindowViewModel.SelectedItem), 
+                           .Subscribe(nameof(MainWindowViewModel.SelectedItem),
                            () => this.MainWindow.StatusBar = (this.MainWindow as MainWindowViewModel).SelectedItem)
                            .AddTo(this);
                 return new MainWindow { DataContext = this.MainWindow, };
@@ -62,15 +62,18 @@ namespace SteamTools.Services
 
         public bool ShowDialogWindow(string content, string title)
         {
-            var dialog = new DialogWindowViewModel
+            return App.Current.Dispatcher.Invoke<bool>(() =>
             {
-                Content = content,
-                Title = title
-            };
-            var window = new MessageDialog { DataContext = dialog };
-            window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            window.ShowDialog();
-            return dialog.DialogResult;
+                var dialog = new DialogWindowViewModel
+                {
+                    Content = content,
+                    Title = title
+                };
+                var window = new MessageDialog { DataContext = dialog };
+                window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                window.ShowDialog();
+                return dialog.DialogResult;
+            });
         }
 
         #region disposable members

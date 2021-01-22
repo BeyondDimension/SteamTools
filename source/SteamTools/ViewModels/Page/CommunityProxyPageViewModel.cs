@@ -20,6 +20,10 @@ namespace SteamTools.ViewModels
     {
         private readonly HostsService hostsService = SteamToolCore.Instance.Get<HostsService>();
 
+        public int EnableServiceCount => ProxyService.Current.ProxyDomains.Value.Count(c => c.IsEnable);
+
+        public int EnableScriptCount => ProxyService.Current.ProxyScripts.Count(c => c.Enable);
+
         public override string Name
         {
             get { return Properties.Resources.CommunityFix; }

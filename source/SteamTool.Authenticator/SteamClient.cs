@@ -198,14 +198,14 @@ namespace WinAuth
         /// </summary>
         public class Confirmation
         {
-            public string Id;
-            public string Key;
-            public bool Offline;
-            public bool IsNew;
-            public string Image;
-            public string Details;
-            public string Traded;
-            public string When;
+            public string Id { get; set; }
+            public string Key { get; set; }
+            public bool Offline { get; set; }
+            public bool IsNew { get; set; }
+            public string Image { get; set; }
+            public string Details { get; set; }
+            public string Traded { get; set; }
+            public string When { get; set; }
         }
 
         /// <summary>

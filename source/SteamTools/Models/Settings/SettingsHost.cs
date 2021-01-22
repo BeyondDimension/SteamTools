@@ -48,26 +48,40 @@ namespace SteamTools.Models.Settings
             try
             {
                 Providers.Local.Load();
+
+                //每次成功读取完成时保存一份bak
+                if (File.Exists(Providers.LocalFilePath))
+                    File.Copy(Providers.LocalFilePath, Providers.LocalFilePath + ".bak", true);
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
                 MessageBox.Show("Local Settings Load Error :" + ex.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
-                File.Copy(Providers.LocalFilePath, Providers.LocalFilePath + ".bak", true);
-                File.Delete(Providers.LocalFilePath);
+                if (File.Exists(Providers.LocalFilePath))
+                {
+                    File.Copy(Providers.LocalFilePath, Providers.LocalFilePath + ".error", true);
+                    File.Delete(Providers.LocalFilePath);
+                }
                 Providers.Local.Load();
             }
 
             try
             {
                 Providers.Roaming.Load();
+
+                //每次成功读取完成时保存一份bak
+                if (File.Exists(Providers.RoamingFilePath))
+                    File.Copy(Providers.RoamingFilePath, Providers.RoamingFilePath + ".bak", true);
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
                 MessageBox.Show("Roaming Settings Load Error :" + ex.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
-                File.Copy(Providers.RoamingFilePath, Providers.RoamingFilePath + ".bak", true);
-                File.Delete(Providers.RoamingFilePath);
+                if (File.Exists(Providers.LocalFilePath))
+                {
+                    File.Copy(Providers.RoamingFilePath, Providers.RoamingFilePath + ".error", true);
+                    File.Delete(Providers.RoamingFilePath);
+                }
                 Providers.Roaming.Load();
             }
         }

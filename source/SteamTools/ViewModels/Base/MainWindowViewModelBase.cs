@@ -107,15 +107,15 @@ namespace SteamTools.ViewModels
 
         protected override void CloseCanceledCallbackCore()
         {
-            //var dialog = new DialogViewModel { Title = "确认关闭", };
+            var dialog = new DialogWindowViewModel { Title = "确认关闭", };
 
-            //this.Dialog(dialog, typeof(ExitDialog));
+            this.Dialog(dialog, typeof(MessageDialog));
 
-            //if (dialog.DialogResult)
-            //{
-            //	this.CanClose = true;
-            //	this.InvokeOnUIDispatcher(this.Close);
-            //}
+            if (dialog.DialogResult)
+            {
+                this.CanClose = true;
+                this.InvokeOnUIDispatcher(this.Close);
+            }
         }
 
         protected void RaiseCanCloseChanged()

@@ -57,6 +57,20 @@ namespace SteamTools.Services
         }
         #endregion
 
+        private GithubReleaseModel _UpdateInfo;
+        public GithubReleaseModel UpdateInfo
+        {
+            get => this._UpdateInfo;
+            set
+            {
+                if (this._UpdateInfo != value)
+                {
+                    this._UpdateInfo = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
         public async void CheckUpdate()
         {
             try
@@ -64,7 +78,6 @@ namespace SteamTools.Services
                 StatusService.Current.Notify("正在从Github检查更新...");
                 var result = await httpServices.Get(Const.GITHUB_LATEST_RELEASEAPI_URL);
                 UpdateInfo = JsonConvert.DeserializeObject<GithubReleaseModel>(result);
-
                 // if (!(ProductInfo.Version > UpdateInfo.version))  Debug时反向检查更新来测试
                 if (!(ProductInfo.Version < UpdateInfo.version))
                 {
@@ -82,32 +95,18 @@ namespace SteamTools.Services
 
         }
 
-        private GithubReleaseModel _UpdateInfo;
-        public GithubReleaseModel UpdateInfo
-        {
-            get => this._UpdateInfo;
-            set
-            {
-                if (this._UpdateInfo != value)
-                {
-                    this._UpdateInfo = value;
-                    this.RaisePropertyChanged();
-                }
-            }
-        }
-
         public async void DownloadUpdate()
         {
-            if (WindowService.Current.MainWindow.Dialog($"检测到新版本更新内容：{UpdateInfo.body}{Environment.NewLine}是否立即更新？", $"{ProductInfo.Title} | 更新提示") == true)
+            if (WindowService.Current.MainWindow.Dialog($"检测到新版本更新内容：{UpdateInfo.body}{Environment.NewLine}是否立即下载更新？", $"{ProductInfo.Title} | 更新提示") == true)
             {
-                var name = Path.Combine(AppContext.BaseDirectory, UpdateInfo.assets.FirstOrDefault()?.name);
+                var upFile = new FileInfo(Path.Combine(AppContext.BaseDirectory, UpdateInfo.assets.FirstOrDefault()?.name));
                 //var name = Path.Combine(AppContext.BaseDirectory, @$"{ProductInfo.Title} {UpdateInfo.version}.zip");
-                if (File.Exists(name))
+                if (upFile.Exists)
                 {
                     StatusService.Current.Notify("更新文件已经存在，不需要下载");
-                    if (Path.GetExtension(name) == ".zip")
+                    if (upFile.Extension == ".zip")
                     {
-                        OverwriteUpgrade(name);
+                        OverwriteUpgrade(upFile.FullName);
                     }
                     return;
                 }
@@ -116,7 +115,7 @@ namespace SteamTools.Services
                 {
                     long totalBytes = s.Result.ContentLength;
                     using Stream responseStream = s.Result.GetResponseStream();
-                    using FileStream fileStream = new FileStream(name, FileMode.Create, FileAccess.Write);
+                    using FileStream fileStream = new FileStream(upFile.FullName, FileMode.Create, FileAccess.Write);
                     long totalDownloadBytes = 0;
                     byte[] bs = new byte[1024];
                     int size = responseStream.Read(bs, 0, bs.Length);
@@ -131,9 +130,9 @@ namespace SteamTools.Services
                     fileStream.Flush();
                     fileStream.Close();
                     StatusService.Current.Set(Resources.Ready);
-                    if (Path.GetExtension(name) == ".zip")
+                    if (upFile.Extension == ".zip")
                     {
-                        OverwriteUpgrade(name);
+                        OverwriteUpgrade(upFile.FullName);
                     }
                     StatusService.Current.Notify($"{ProductInfo.Title} {UpdateInfo.version}版本已经下载到程序根目录下，请手动替换更新");
                 });
@@ -142,6 +141,13 @@ namespace SteamTools.Services
 
         private void OverwriteUpgrade(string zipFile)
         {
+            if (new FileInfo(zipFile).Length != UpdateInfo.assets.First().size)
+            {
+                File.Delete(zipFile);
+                StatusService.Current.Notify("效验更新文件失败，重新下载更新...");
+                DownloadUpdate();
+                return;
+            }
             App.Current.Dispatcher.Invoke(() =>
             {
                 if (WindowService.Current.MainWindow.Dialog($"新版本下载完成，是否自动重启替换到新版本？", $"{ProductInfo.Title} | 更新提示") == true)
@@ -150,12 +156,12 @@ namespace SteamTools.Services
                     if (ZipHelper.UnpackFiles(zipFile, out_dir))
                     {
                         File.Delete(zipFile);
-                        var batpath = Path.Combine(App.Instance.LocalAppData.FullName, "update.cmd");
+                        var batpath = Path.Combine(AppContext.BaseDirectory, "update.cmd");
                         File.WriteAllText(batpath,
                             string.Format(SteamTool.Core.Properties.Resources.ProgramUpdateCmd,
                             ProductInfo.Title + ".exe", out_dir, AppContext.BaseDirectory, App.Instance.ProgramName), Encoding.Default);
                         Process p = new Process();
-                        p.StartInfo.FileName = batpath;//要执行的程序名称 
+                        p.StartInfo.FileName = batpath;
                         p.StartInfo.UseShellExecute = false;
                         p.StartInfo.CreateNoWindow = true;//不显示程序窗口 
                         //管理员权限运行

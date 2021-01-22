@@ -198,6 +198,12 @@
   <data name="CommunityFix" xml:space="preserve">
     <value>社区加速</value>
   </data>
+  <data name="Community_Script_Tips" xml:space="preserve">
+    <value>和{0}个脚本</value>
+  </data>
+  <data name="Community_Service_Tips" xml:space="preserve">
+    <value>已启用{0}个代理服务</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>确定</value>
   </data>
@@ -306,6 +312,9 @@
   <data name="Logo" xml:space="preserve">
     <value>封面</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>注销登录</value>
+  </data>
   <data name="Media" xml:space="preserve">
     <value>预告视频</value>
   </data>
@@ -379,7 +388,7 @@
     <value>脚本列表</value>
   </data>
   <data name="ScriptSettings" xml:space="preserve">
-    <value>脚本配置(实验性功能)</value>
+    <value>脚本配置</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>搜索</value>
@@ -440,9 +449,6 @@
   </data>
   <data name="SteamAuth" xml:space="preserve">
     <value>本地令牌</value>
-  </data>
-  <data name="Steam_Not_Runing" xml:space="preserve">
-    <value>Steam未运行</value>
   </data>
   <data name="Steam_Not_Runing_Tips" xml:space="preserve">
     <value>Steam未运行（该功能不可用）</value>

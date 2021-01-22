@@ -295,6 +295,24 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 和{0}个脚本 的本地化字符串。
+        /// </summary>
+        public static string Community_Script_Tips {
+            get {
+                return ResourceManager.GetString("Community_Script_Tips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已启用{0}个代理服务 的本地化字符串。
+        /// </summary>
+        public static string Community_Service_Tips {
+            get {
+                return ResourceManager.GetString("Community_Service_Tips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 社区加速 的本地化字符串。
         /// </summary>
         public static string CommunityFix {
@@ -628,6 +646,15 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 注销登录 的本地化字符串。
+        /// </summary>
+        public static string Logout {
+            get {
+                return ResourceManager.GetString("Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 预告视频 的本地化字符串。
         /// </summary>
         public static string Media {
@@ -844,7 +871,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 脚本配置(实验性功能) 的本地化字符串。
+        ///   查找类似 脚本配置 的本地化字符串。
         /// </summary>
         public static string ScriptSettings {
             get {
@@ -1002,15 +1029,6 @@ namespace SteamTools.Properties {
         public static string Steam {
             get {
                 return ResourceManager.GetString("Steam", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Steam未运行 的本地化字符串。
-        /// </summary>
-        public static string Steam_Not_Runing {
-            get {
-                return ResourceManager.GetString("Steam_Not_Runing", resourceCulture);
             }
         }
         

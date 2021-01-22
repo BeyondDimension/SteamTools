@@ -184,12 +184,10 @@ namespace SteamTools.ViewModels
             {
                 case SteamAppTypeEnum.Application:
                 case SteamAppTypeEnum.Game:
-                    //var achievement = new AchievementWindowViewModel();
-                    //WindowService.Current.MainWindow.Transition(achievement, typeof(AchievementWindow));
-                    var nApp = app.Clone();
+                    //var nApp = app.Clone();
                     //nApp.Process = Process.Start($"{ProductInfo.Title}.exe", app.AppId.ToString(CultureInfo.InvariantCulture));
-                    nApp.Process = Process.Start(App.Instance.ProgramName, "-app " + app.AppId.ToString(CultureInfo.InvariantCulture));
-                    SteamConnectService.Current.RuningSteamApps.Add(nApp);
+                    app.Process = Process.Start(Path.Combine(AppContext.BaseDirectory, App.Instance.ProgramName), "-app " + app.AppId.ToString(CultureInfo.InvariantCulture));
+                    SteamConnectService.Current.RuningSteamApps.Add(app);
                     break;
                 default:
                     StatusService.Current.Notify(Resources.Unsupported_Operation);

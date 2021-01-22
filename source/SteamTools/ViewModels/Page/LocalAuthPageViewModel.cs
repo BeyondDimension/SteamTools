@@ -13,6 +13,7 @@ using SteamTool.Core.Common;
 using System.Xml;
 using System.IO;
 using MetroTrilithon.Mvvm;
+using WinAuth;
 
 namespace SteamTools.ViewModels
 {
@@ -76,7 +77,7 @@ namespace SteamTools.ViewModels
         public void ImageCopy_Click(WinAuthAuthenticator auth)
         {
             auth.CopyCodeToClipboard();
-            TaskbarService.Current.Notify("已复制令牌");
+            TaskbarService.Current.Notify("已复制令牌 " + auth.Name);
         }
 
 
@@ -101,13 +102,19 @@ namespace SteamTools.ViewModels
 
         public void ImageShowAuth_Click(WinAuthAuthenticator auth)
         {
-            new ShowAuthWindow() { DataContext = new ShowAuthWindowViewModel(auth) }.Show();
+            if (auth.AuthenticatorData is SteamAuthenticator) 
+            {
+                new ShowAuthWindow() { DataContext = new ShowAuthWindowViewModel(auth) }.Show();
+            }
         }
 
 
         public void ImageAuthTrade_Click(WinAuthAuthenticator auth)
         {
-            new AuthTradeWindow() { DataContext = new AuthTradeWindowViewModel(auth) }.Show();
+            if (auth.AuthenticatorData is SteamAuthenticator)
+            {
+                new AuthTradeWindow() { DataContext = new AuthTradeWindowViewModel(auth) }.Show();
+            }
         }
 
 

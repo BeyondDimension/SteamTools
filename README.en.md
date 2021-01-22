@@ -12,6 +12,12 @@
 [![GitHub Fork](https://img.shields.io/github/forks/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/network/members)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rmbadmin/SteamTools?style=flat-square&color=3cb371)
 
+# Steam++
+
+[English](https://github.com/rmbadmin/SteamTools/blob/develop/README.en.md)
+
+[简体中文](https://github.com/rmbadmin/SteamTools/blob/develop/README.md)
+
 ## Samples
 -------
 ![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/s.png)  

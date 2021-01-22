@@ -137,7 +137,7 @@ namespace SteamTool.Proxy
             }
 
             //没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
-            e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine} not support proxy");
+            e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine}not support proxy");
             return;
         }
         public async Task OnResponse(object sender, SessionEventArgs e)
@@ -181,12 +181,12 @@ namespace SteamTool.Proxy
                                         if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
                                         {
                                             var doc = await e.GetResponseBodyAsString();
-                                            if (script.Require.Length > 0)
+                                            if (script.Require.Length > 0 || script.Grant.Length > 0)
                                             {
                                                 //var headIndex = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
                                                 //doc = doc.Insert(headIndex, "<meta http-equiv=\"Content-Security-Policy\" content=\"default - src 'self' data: gap: https://ssl.gstatic.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *\">");
                                                 var t = e.HttpClient.Response.Headers.GetFirstHeader("Content-Security-Policy");
-                                                if (!string.IsNullOrEmpty(t.Value))
+                                                if (!string.IsNullOrEmpty(t?.Value))
                                                 {
                                                     //var tt = t.Value.Split(';');
                                                     //for (var i = 0; i < tt.Length; i++)
@@ -261,11 +261,16 @@ namespace SteamTool.Proxy
             // 在Mono之下，只有BouncyCastle将得到支持
             //proxyServer.CertificateManager.CertificateEngine = Network.CertificateEngine.BouncyCastle;
             //proxyServer.CertificateManager.SaveFakeCertificates = true;
+
             var result = proxyServer.CertificateManager.CreateRootCertificate(true);
             //if (result)
             //{
-            proxyServer.CertificateManager.EnsureRootCertificate();
+            if (!result) 
+            {
+                Logger.Error("创建证书失败");
+            }
             proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.cer"));
+            proxyServer.CertificateManager.EnsureRootCertificate();
             //}
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
@@ -333,10 +338,10 @@ namespace SteamTool.Proxy
                     return false;
                 }
             }
-            if (PortInUse(443))
-            {
-                return false;
-            }
+            //if (PortInUse(443))
+            //{
+            //    return false;
+            //}
             if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
 
             #region 写入Hosts
@@ -347,7 +352,13 @@ namespace SteamTool.Proxy
                 {
                     foreach (var host in proxyDomain.Hosts)
                     {
-                        hosts.Add((IPAddress.Loopback.ToString(), host));
+                        if (host.Contains(" "))
+                        {
+                            var h = host.Split(' ');
+                            hosts.Add((h[0], h[1]));
+                        }
+                        else
+                            hosts.Add((IPAddress.Loopback.ToString(), host));
                     }
                 }
             }
@@ -360,31 +371,22 @@ namespace SteamTool.Proxy
             //proxyServer.ServerCertificateValidationCallback += OnCertificateValidation;
             //proxyServer.ClientCertificateSelectionCallback += OnCertificateSelection;
 
-            //var explicitEndPoint = new ExplicitProxyEndPoint(IPAddress.Any, 443, true)
+            //var explicitEndPoint = new ExplicitProxyEndPoint(IPAddress.Any, 8888, true)
             //{
             //    // 在所有https请求上使用自颁发的通用证书
-            //    // 通过不为每个启用http的域创建证书来优化性能
             //    // 当代理客户端不需要证书信任时非常有用
             //    //GenericCertificate = new X509Certificate2(Path.Combine(AppContext.BaseDirectory, "genericcert.pfx"), "password")
             //};
             //当接收到连接请求时触发
             //explicitEndPoint.BeforeTunnelConnectRequest += OnBeforeTunnelRequest;
             //explicit endpoint 是客户端知道代理存在的地方
-            //因此，客户端以代理友好的方式发送请求
             //proxyServer.AddEndPoint(explicitEndPoint);
-            // transparentEndPoint 对于反向代理很有用(客户端不知道代理的存在)
-            // transparentEndPoint 通常需要一个网络路由器端口来转发HTTP(S)包或DNS
-            // 发送数据到此endpoint 
-            var transparentEndPoint = new TransparentProxyEndPoint(IPAddress.Any, 443, true)
+            proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 443, true)
             {
+                // 通过不启用为每个http的域创建证书来优化性能
                 //GenericCertificate = proxyServer.CertificateManager.RootCertificate
-            };
-            proxyServer.AddEndPoint(transparentEndPoint);
-            var transparentEndPoint80 = new TransparentProxyEndPoint(IPAddress.Any, 80, true)
-            {
-                //GenericCertificate = proxyServer.CertificateManager.RootCertificate
-            };
-            proxyServer.AddEndPoint(transparentEndPoint80);
+            });
+            proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 80, true));
             proxyServer.ExceptionFunc = ((Exception exception) =>
             {
                 Logger.Error(exception);
@@ -399,6 +401,7 @@ namespace SteamTool.Proxy
                 Logger.Error(ex);
                 return false;
             }
+
             //proxyServer.UpStreamHttpProxy = new ExternalProxy() { HostName = "localhost", Port = 8888 };
             //proxyServer.UpStreamHttpsProxy = new ExternalProxy() { HostName = "localhost", Port = 8888 };
             #endregion

@@ -95,6 +95,20 @@ namespace SteamTools.Services
                 }
             }
         }
+
+        private bool _IsSteamChinaLauncher;
+        public bool IsSteamChinaLauncher
+        {
+            get => _IsSteamChinaLauncher;
+            set
+            {
+                if (_IsSteamChinaLauncher != value)
+                {
+                    _IsSteamChinaLauncher = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
 
         #region 是否已经释放SteamClient
@@ -120,7 +134,6 @@ namespace SteamTools.Services
                   Thread.CurrentThread.IsBackground = true;
                   try
                   {
-
                       while (true)
                       {
                           if (Process.GetProcessesByName("steam").Length > 0)
@@ -140,20 +153,27 @@ namespace SteamTools.Services
                                       IsConnectToSteam = true;
                                       CurrentSteamUser = await SteamworksWebApiService.GetUserInfo(id);
                                       CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
+                                      IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
 
+
+                                      if (GeneralSettings.IsEnableSteamLaunchNotification)
+                                          TaskbarService.Current.Notify($"Steam({(IsSteamChinaLauncher ? "国服" : "国际服")})已经启动{ Environment.NewLine}{ Environment.NewLine}Steam登录用户：{CurrentSteamUser.SteamNickName}{ Environment.NewLine}Steam客户端登录区域：{CurrentSteamUser.IPCountry}");
+
+                                      #region 初始化需要steam启动才能使用的功能
                                       var mainViewModel = (WindowService.Current.MainWindow as MainWindowViewModel);
                                       await mainViewModel.SteamAppPage.Initialize();
 #if DEBUG
                                       await mainViewModel.SystemTabItems[mainViewModel.SystemTabItems.Count - 1].Initialize();
 #endif
-                                      SteamConnectService.Current.DisposeSteamClient();
+                                      #endregion
+
+                                      DisposeSteamClient();
                                   }
                               }
                           }
                           else
                           {
                               IsConnectToSteam = false;
-                              //StatusService.Current.Notify(Resources.Steam_Not_Runing);
                           }
                           await Task.Delay(1500);
                       }

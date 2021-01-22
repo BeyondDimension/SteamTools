@@ -23,7 +23,7 @@ namespace SteamTool.Model.ToolModel
         public string url { get; set; }
         public string name { get; set; }
         public string content_type { get; set; }
-        public string size { get; set; }
+        public long size { get; set; }
         public string download_count { get; set; }
         public string updated_at { get; set; }
         public string browser_download_url { get; set; }

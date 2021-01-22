@@ -6,6 +6,7 @@
             xmlns:local="clr-namespace:SteamTools.Views.Controls"
             xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
 			xmlns:metro2="http://schemes.grabacr.net/winfx/2015/personal/controls"
+            xmlns:prop="clr-namespace:SteamTools.Properties"
             xmlns:services="clr-namespace:SteamTools.Services"
             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
             xmlns:livet="http://schemas.livet-mvvm.net/2011/wpf"
@@ -13,6 +14,18 @@
             mc:Ignorable="d"
             d:DesignHeight="25" d:DesignWidth="780"
             d:DataContext="{d:DesignInstance vm:StatusBarViewModel}">
+    <UserControl.Resources>
+        <Style x:Key="StatusText" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground"
+										Value="{DynamicResource AccentForegroundBrushKey}" />
+            <Setter Property="FontFamily"
+										Value="{DynamicResource DefaultFontFamilyKey}" />
+            <Setter Property="FontSize"
+										Value="{DynamicResource DefaultFontSizeKey}" />
+            <Setter Property="VerticalAlignment"
+										Value="Center" />
+        </Style>
+    </UserControl.Resources>
     <Grid Grid.Row="2" Background="{DynamicResource AccentBrushKey}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -58,30 +71,37 @@
 						Content="{Binding}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type vm:WelcomePageViewModel}" />
-                <DataTemplate DataType="{x:Type vm:CommunityProxyPageViewModel}" />
+                <DataTemplate DataType="{x:Type vm:CommunityProxyPageViewModel}" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource StatusText}" Visibility="{Binding ProxyStatus,Source={x:Static services:ProxyService.Current},Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Run Text="{Binding EnableServiceCount,Mode=OneWay,StringFormat={x:Static prop:Resources.Community_Service_Tips}}"></Run><Run>
+                                <Run.Style>
+                                    <Style TargetType="{x:Type Run}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsEnableScript,Source={x:Static services:ProxyService.Current},Mode=OneWay}" Value="True">
+                                                <Setter Property="Text" Value="{Binding EnableScriptCount,Mode=OneWay, StringFormat={x:Static prop:Resources.Community_Script_Tips}}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsEnableScript,Source={x:Static services:ProxyService.Current},Mode=OneWay}" Value="False">
+                                                <Setter Property="Text" Value=""/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Run.Style>
+                            </Run>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:SteamAccountPageViewModel}" />
                 <DataTemplate DataType="{x:Type vm:SteamAppPageViewModel}" >
                     <StackPanel Orientation="Horizontal">
-                        <StackPanel.Resources>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="Foreground"
-										Value="{DynamicResource AccentForegroundBrushKey}" />
-                                <Setter Property="FontFamily"
-										Value="{DynamicResource DefaultFontFamilyKey}" />
-                                <Setter Property="FontSize"
-										Value="{DynamicResource DefaultFontSizeKey}" />
-                                <Setter Property="VerticalAlignment"
-										Value="Center" />
-                            </Style>
-                        </StackPanel.Resources>
-                        <TextBlock VerticalAlignment="Center" Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Steam_Not_Runing_Tips}"
+                        <TextBlock Style="{StaticResource StatusText}" VerticalAlignment="Center" Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Steam_Not_Runing_Tips}"
                                    Visibility="{Binding Source={x:Static services:SteamConnectService.Current}, Path=IsConnectToSteam,Mode=OneWay,Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                         </TextBlock>
-                        <TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Game_Total, StringFormat='{}{0}: '}" />
-                        <TextBlock Text="{Binding Games.Count,Mode=OneWay}"
+                        <TextBlock Style="{StaticResource StatusText}" Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Game_Total, StringFormat='{}{0}: '}" />
+                        <TextBlock Style="{StaticResource StatusText}" Text="{Binding Games.Count,Mode=OneWay}"
 								   MinWidth="45" />
-                        <TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Game_Install, StringFormat='{}{0}: '}" />
-                        <TextBlock Text="{Binding InstalledCount,Mode=OneWay}"
+                        <TextBlock Style="{StaticResource StatusText}" Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Game_Install, StringFormat='{}{0}: '}" />
+                        <TextBlock Style="{StaticResource StatusText}" Text="{Binding InstalledCount,Mode=OneWay}"
 								   MinWidth="65" />
                     </StackPanel>
                 </DataTemplate>
@@ -92,8 +112,11 @@
                 <DataTemplate DataType="{x:Type vm:ArchiSteamFarmPlusPageViewModel}" />
                 <DataTemplate DataType="{x:Type vm:AboutPageViewModel}" />
                 <DataTemplate DataType="{x:Type vm:DebugPageViewModel}" />
+                <DataTemplate DataType="{x:Type vm:AddAuthWindowViewModel}" />
                 <DataTemplate DataType="{x:Type vm:AchievementWindowViewModel}" />
                 <DataTemplate DataType="{x:Type vm:SteamIdlePageViewModel}" />
+                <DataTemplate DataType="{x:Type vm:AuthTradeWindowViewModel}">
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
         <!--<metro:CaptionButton Grid.Column="2" VerticalAlignment="Center"

@@ -318,7 +318,7 @@
         </ScrollViewer>
 
         <!--Footer-->
-        <controls:StatusBar Grid.Row="2" DataContext="{Binding StatusBar}">
+        <controls:StatusBar Grid.Row="2" DataContext="{Binding}">
         </controls:StatusBar>
 
     </Grid>

@@ -17,7 +17,7 @@ namespace SteamTool.Proxy
         /// <summary>
         /// 代理域名合集
         /// </summary>
-        public List<string> Domains { get; set; }
+        public IReadOnlyCollection<string> Domains { get; set; }
 
         /// <summary>
         /// 端口
@@ -44,7 +44,7 @@ namespace SteamTool.Proxy
         /// </summary>
         public bool IsEnable { get; set; }
 
-        public IEnumerable<string> Hosts { get; set; }
+        public IReadOnlyCollection<string> Hosts { get; set; }
 
         public DomainTag DomainTag { get; set; }
     }
@@ -52,14 +52,8 @@ namespace SteamTool.Proxy
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum DomainTag : byte
     {
-        /// <summary>
-        /// steam社区
-        /// </summary>
         [Description("steam社区")]
         SteamCommunity = 0,
-        /// <summary>
-        /// steam商店
-        /// </summary>
         [Description("steam商店")]
         SteamStore = 1,
         [Description("steam部分图片修复")]
@@ -76,7 +70,7 @@ namespace SteamTool.Proxy
         GOG = 7,
         [Description("Google(Recaptcha)")]
         GoogleCode = 8,
-        [Description("Github图片修复")]
+        [Description("Github图片及资源修复")]
         GithubContent = 9,
         [Description("Pixiv")]
         Pixiv = 10,
@@ -86,5 +80,9 @@ namespace SteamTool.Proxy
         UplayUpdate = 12,
         [Description("Twitch聊天")]
         TwitchChat = 13,
+        [Description("Github Gist")]
+        GithubGist = 14,
+        [Description("Pixiv图片")]
+        PixivImage = 15,
     }
 }

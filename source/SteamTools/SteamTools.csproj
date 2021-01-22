@@ -19,7 +19,7 @@
 
 		<EnableNETAnalyzers>false</EnableNETAnalyzers>
 
-		<Copyright>Copyright © 2018 - 2020 软妹币玩家</Copyright>
+		<Copyright>Copyright © 2018 - 2021 软妹币玩家</Copyright>
 
 		<Authors>软妹币玩家</Authors>
 
@@ -35,7 +35,7 @@
 
 		<PackageId />
 
-		<Version>1.0.6</Version>
+		<Version>1.1.0</Version>
 
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	</PropertyGroup>
@@ -98,12 +98,15 @@
 		<None Remove="Resources\Asstes\alipay.jpg" />
 		<None Remove="Resources\Asstes\app.ico" />
 		<None Remove="Resources\Asstes\avater.jpg" />
+		<None Remove="Resources\Asstes\confirm.png" />
 		<None Remove="Resources\Asstes\Copy.png" />
 		<None Remove="Resources\Asstes\delete.png" />
 		<None Remove="Resources\Asstes\detail.png" />
+		<None Remove="Resources\Asstes\disable.png" />
 		<None Remove="Resources\Asstes\edit.png" />
 		<None Remove="Resources\Asstes\export.png" />
 		<None Remove="Resources\Asstes\install-line.png" />
+		<None Remove="Resources\Asstes\logout.png" />
 		<None Remove="Resources\Asstes\movecross.png" />
 		<None Remove="Resources\Asstes\ok.png" />
 		<None Remove="Resources\Asstes\play.png" />
@@ -137,12 +140,14 @@
 		<Resource Include="Resources\Asstes\alipay.jpg" />
 		<Resource Include="Resources\Asstes\app.ico" />
 		<Resource Include="Resources\Asstes\avater.jpg" />
+		<Resource Include="Resources\Asstes\confirm.png" />
 		<Resource Include="Resources\Asstes\copy.png" />
 		<Resource Include="Resources\Asstes\delete.png" />
 		<Resource Include="Resources\Asstes\detail.png" />
 		<Resource Include="Resources\Asstes\edit.png" />
 		<Resource Include="Resources\Asstes\export.png" />
 		<Resource Include="Resources\Asstes\install-line.png" />
+		<Resource Include="Resources\Asstes\logout.png" />
 		<Resource Include="Resources\Asstes\movecross.png" />
 		<Resource Include="Resources\Asstes\ok.png" />
 		<Resource Include="Resources\Asstes\play.png" />
@@ -357,6 +362,9 @@
 			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
 		</None>
 		<None Update="scripts\GM.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="scripts\Steam历史最低价格查询.js">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="scripts\Steam自动探索队列.js">

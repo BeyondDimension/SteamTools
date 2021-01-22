@@ -34,6 +34,68 @@
 								  TextAlignment="Left"
 								  MaxPageWidth="900">
                     <Paragraph Language="zh-cn">
+                        <Run Text="Steam++ v1.1.0" FontSize="16"/>
+                        <Run Text="&#160;"/>
+                        <Run Text="2021-01-22" FontSize="10" />
+                        <LineBreak />
+                        <Run Text="更新内容"></Run>
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="本地令牌市场交易确认功能上线" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增内置steam史低查询脚本" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增Steam启动消息通知设置项"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增github gist代理服务支持"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复设置文件的错误存储" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复discord更新下载和图片失效"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复twitch聊天频道连接失效"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复gihub头像资源加载失败"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增pixiv图片的代理选项来修复pixiv图片失效"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="还修复了一些没有记下来的bug..."></Run>
+                    </Paragraph>
+                    <Paragraph Language="zh-cn">
+                        <Run Text="Steam++ v1.0.6" FontSize="16"/>
+                        <Run Text="&#160;"/>
+                        <Run Text="2021-01-12" FontSize="10" />
+                        <LineBreak />
+                        <Run Text="更新内容"></Run>
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增启用日志记录设置项（反馈bug时一起提交方便排查问题）" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复twitch反代聊天连接错误和直播视频无法观看" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="放宽令牌同步时网络请求超时时间以降低令牌同步时提示超时概率" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修改生成的cer证书编码格式为utf8,解决火狐无法导入cer证书"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="增加80端口反代，以便自动跳转http访问到https请求上"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修改了用户信息获取的api为steam官方社区api(没有启动软件的自动代理服务的话依然加载不出头像。)"></Run>
+                    </Paragraph>
+                    <Paragraph Language="zh-cn">
                         <Run Text="Steam++ v1.0.5" FontSize="16"/>
                         <Run Text="&#160;"/>
                         <Run Text="2021-01-08" FontSize="10" />
@@ -69,7 +131,7 @@
                         <Run Text="更新内容"></Run>
                         <LineBreak />
                         <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Foreground="IndianRed" Text="*此版本修改了配置文件的保存读取功能，会无法读取1.0.4版本以前的配置文件包括令牌数据。(可以通过设置-令牌设置-导入旧版本Steam++令牌数据按钮来恢复旧版本令牌数据)" />
+                        <Run Text="*此版本修改了配置文件的保存读取功能，会无法读取1.0.4版本以前的配置文件包括令牌数据。(可以通过设置-令牌设置-导入旧版本Steam++令牌数据按钮来恢复旧版本令牌数据)" />
                         <LineBreak />
                         <Run Text="&#160;&#160;&#160;&#160;"/>
                         <Run Text="还原steam社区反代上游地址修复部分请求会提示需要登录的问题" />

@@ -41,7 +41,7 @@ namespace SteamTools.ViewModels
         public void FixCsgoVacIssue()
         {
             SteamTool.KillSteamProcess();
-            var fixpath = Path.Combine(App.Instance.LocalAppData.FullName, "vacfix.cmd");
+            var fixpath = Path.Combine(AppContext.BaseDirectory, "vacfix.cmd");
             File.WriteAllText(fixpath, Resources.VACFIX_BAT, Encoding.Default);
             Task.Run(() =>
             {

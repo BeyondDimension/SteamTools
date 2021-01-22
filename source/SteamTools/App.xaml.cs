@@ -33,10 +33,10 @@ namespace SteamTools
     {
         public static App Instance => Current as App;
 
-#if !NETCOREAPP
-        public string ProgramName => Path.GetFileName(Environment.GetCommandLineArgs()[0]);
-#else
+#if NETCOREAPP
         public string ProgramName => Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName);
+#else
+        public string ProgramName = Path.GetFileName(Environment.GetCommandLineArgs()[0]);
 #endif
 
         public DirectoryInfo LocalAppData = new DirectoryInfo(
@@ -257,8 +257,8 @@ namespace SteamTools
 
         void IDisposable.Dispose()
         {
-            GC.SuppressFinalize(this);
             this.compositeDisposable.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         #endregion
