@@ -2,7 +2,7 @@
 // @name         GM
 // @namespace    
 // @version      0.1
-// @description  基础脚本框架
+// @description  基础脚本框架(不建议取消勾选，会导致某些脚本无法运行)
 // @author       软妹币玩家
 // @match        *
 // @enable      true

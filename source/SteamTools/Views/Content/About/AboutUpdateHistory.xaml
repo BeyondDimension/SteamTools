@@ -34,6 +34,43 @@
 								  TextAlignment="Left"
 								  MaxPageWidth="900">
                     <Paragraph Language="zh-cn">
+                        <Run Text="Steam++ v1.1.0" FontSize="16"/>
+                        <Run Text="&#160;"/>
+                        <Run Text="2021-01-22" FontSize="10" />
+                        <LineBreak />
+                        <Run Text="更新内容"></Run>
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="本地令牌市场交易确认功能上线" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增内置steam史低查询脚本" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增Steam启动消息通知设置项"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增github gist代理服务支持"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复设置文件的错误存储" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复discord更新下载和图片失效"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复twitch聊天频道连接失效"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复gihub头像资源加载失败"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增pixiv图片的代理选项来修复pixiv图片失效"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="还修复了一些没有记下来的bug..."></Run>
+                    </Paragraph>
+                    <Paragraph Language="zh-cn">
                         <Run Text="Steam++ v1.0.6" FontSize="16"/>
                         <Run Text="&#160;"/>
                         <Run Text="2021-01-12" FontSize="10" />

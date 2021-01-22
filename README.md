@@ -15,11 +15,16 @@
 
 # Steam++
 
+[English](https://github.com/rmbadmin/SteamTools/blob/develop/README.en.md)
+
+[简体中文](https://github.com/rmbadmin/SteamTools/blob/develop/README.md)
+
+
 ## 效果展示
 -------
 ![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/s.png)  
 ![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/e.png)  
-![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/e2.png)  
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/e-1.png)  
 ![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/t.png)  
 ------
 
@@ -41,14 +46,17 @@
 
 ### 4. Steam本地两步身份验证器
 功能参考[WinAuth](https://github.com/winauth/winauth)开发，可以使您不用启动移动版Steam App也能查看您的令牌，功能类似的软件有[WinAuth](https://github.com/winauth/winauth)、[SteamDesktopAuthenticator](https://github.com/Jessecar96/SteamDesktopAuthenticator)。
-![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/4.png)
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/4.png)  
+
+本地令牌交易市场报价确认
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/4-1.png) 
 ---
 
 ### 5. 一些游戏工具
 目前已有强制游戏无边框窗口化，CSGO修复VAC屏蔽。
 这一块是随缘做一些我经常用或者闲着没事捣鼓的功能。
 ![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/5.png)
-![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/6.png)
+![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/5-1.png)
 ---
 
 ## 预计后续添加的功能
