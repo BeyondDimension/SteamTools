@@ -261,11 +261,16 @@ namespace SteamTool.Proxy
             // 在Mono之下，只有BouncyCastle将得到支持
             //proxyServer.CertificateManager.CertificateEngine = Network.CertificateEngine.BouncyCastle;
             //proxyServer.CertificateManager.SaveFakeCertificates = true;
+
             var result = proxyServer.CertificateManager.CreateRootCertificate(true);
             //if (result)
             //{
-            proxyServer.CertificateManager.EnsureRootCertificate();
+            if (!result) 
+            {
+                Logger.Error("创建证书失败");
+            }
             proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.cer"));
+            proxyServer.CertificateManager.EnsureRootCertificate();
             //}
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
@@ -369,17 +374,16 @@ namespace SteamTool.Proxy
             //var explicitEndPoint = new ExplicitProxyEndPoint(IPAddress.Any, 8888, true)
             //{
             //    // 在所有https请求上使用自颁发的通用证书
-            //    // 通过不为每个启用http的域创建证书来优化性能
             //    // 当代理客户端不需要证书信任时非常有用
             //    //GenericCertificate = new X509Certificate2(Path.Combine(AppContext.BaseDirectory, "genericcert.pfx"), "password")
             //};
             //当接收到连接请求时触发
             //explicitEndPoint.BeforeTunnelConnectRequest += OnBeforeTunnelRequest;
             //explicit endpoint 是客户端知道代理存在的地方
-            //因此，客户端以代理友好的方式发送请求
             //proxyServer.AddEndPoint(explicitEndPoint);
             proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 443, true)
             {
+                // 通过不启用为每个http的域创建证书来优化性能
                 //GenericCertificate = proxyServer.CertificateManager.RootCertificate
             });
             proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 80, true));

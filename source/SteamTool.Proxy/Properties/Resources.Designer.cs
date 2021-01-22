@@ -70,7 +70,7 @@ namespace SteamTool.Proxy.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Discord更新下载 的本地化字符串。
+        ///   查找类似 Discord图片及更新下载 的本地化字符串。
         /// </summary>
         public static string DiscordNet {
             get {
@@ -88,7 +88,7 @@ namespace SteamTool.Proxy.Properties {
         }
         
         /// <summary>
-        ///   查找类似 GithubGist 的本地化字符串。
+        ///   查找类似 Github Gist 的本地化字符串。
         /// </summary>
         public static string GithubGist {
             get {
@@ -138,6 +138,15 @@ namespace SteamTool.Proxy.Properties {
         public static string Pixiv {
             get {
                 return ResourceManager.GetString("Pixiv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Pixiv图片 的本地化字符串。
+        /// </summary>
+        public static string PixivImgae {
+            get {
+                return ResourceManager.GetString("PixivImgae", resourceCulture);
             }
         }
         

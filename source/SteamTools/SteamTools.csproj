@@ -35,7 +35,7 @@
 
 		<PackageId />
 
-		<Version>1.0.6</Version>
+		<Version>1.1.0</Version>
 
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	</PropertyGroup>

@@ -121,13 +121,13 @@
     <value>Discord语音</value>
   </data>
   <data name="DiscordNet" xml:space="preserve">
-    <value>Discord更新下载</value>
+    <value>Discord图片及更新下载</value>
   </data>
   <data name="GithubContent" xml:space="preserve">
     <value>Github图片资源修复</value>
   </data>
   <data name="GithubGist" xml:space="preserve">
-    <value>GithubGist</value>
+    <value>Github Gist</value>
   </data>
   <data name="GOG" xml:space="preserve">
     <value>GOG Galaxy</value>
@@ -143,6 +143,9 @@
   </data>
   <data name="Pixiv" xml:space="preserve">
     <value>Pixiv</value>
+  </data>
+  <data name="PixivImgae" xml:space="preserve">
+    <value>Pixiv图片</value>
   </data>
   <data name="SteamChat" xml:space="preserve">
     <value>Steam好友聊天</value>

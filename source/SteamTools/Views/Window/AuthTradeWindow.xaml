@@ -16,6 +16,7 @@
         mc:Ignorable="d"
         Width="600"
 		Height="400"
+        x:Name="u"
         IsRestoringWindowPlacement="True"
         WindowStartupLocation="CenterScreen"
         Title="{Binding Title}"
@@ -150,10 +151,19 @@
         <DockPanel Margin="8" Grid.Row="1" Visibility="{Binding IsLoggedIn,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel DockPanel.Dock="Top">
                 <DockPanel>
-                    <CheckBox></CheckBox>
+                    <CheckBox Margin="0,0,10,0"></CheckBox>
+                    <metro2:CallMethodButton Margin="0,0,10,0" Content="确认选中" Height="30" MethodName="CancelAllButton_Click"
+                          MethodTarget="{Binding}"></metro2:CallMethodButton>
+                    <metro2:CallMethodButton Margin="0,0,10,0" Content="否认选中" Height="30"
+                                              MethodName="ConfirmAllButton_Click"
+                                              MethodTarget="{Binding}"></metro2:CallMethodButton>
+                    <metro2:CallMethodButton Margin="0,0,10,0" Content="否认所有" Height="30"
+                                              MethodName="ConfirmAllButton_Click"
+                                              MethodTarget="{Binding}"></metro2:CallMethodButton>
+                    <metro2:CallMethodButton Margin="0,0,10,0" Content="确认所有" Height="30" MethodName="CancelAllButton_Click"
+                          MethodTarget="{Binding}"></metro2:CallMethodButton>
                     <WrapPanel FlowDirection="RightToLeft" HorizontalAlignment="Right">
-                        <metro2:CallMethodButton Margin="0,0,10,0" Content="否认所有" Height="30"></metro2:CallMethodButton>
-                        <metro2:CallMethodButton Margin="0,0,10,0" Content="确认所有" Height="30"></metro2:CallMethodButton>
+ 
                     </WrapPanel>
                 </DockPanel>
                 <Rectangle  Height=".99"
@@ -180,7 +190,10 @@
                                         </TextBlock>
                                     </StackPanel>
                                     <WrapPanel Orientation="Vertical" DockPanel.Dock="Right" VerticalAlignment="Center" FlowDirection="RightToLeft">
-                                        <metro2:CallMethodButton>
+                                        <metro2:CallMethodButton 
+                                            MethodName="ConfirmTrade_Click"
+                                            MethodParameter="{Binding}"
+                                            MethodTarget="{Binding DataContext,ElementName=u}">
                                             <DockPanel>
                                                 <Image Source="/Resources/Asstes/confirm.png" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"
                        ToolTip="{Binding Resources.Auth_Add,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
@@ -188,7 +201,10 @@
                                                 <TextBlock Text="确认"></TextBlock>
                                             </DockPanel>
                                         </metro2:CallMethodButton>
-                                        <metro2:CallMethodButton>
+                                        <metro2:CallMethodButton 
+                                            MethodName="CancelTrade_Click"
+                                            MethodParameter="{Binding}"
+                                            MethodTarget="{Binding DataContext,ElementName=u}">
                                             <DockPanel>
                                                 <Image Source="/Resources/Asstes/delete.png" Width="20"
                                                        VerticalAlignment="Center" Margin="0,0,5,0"

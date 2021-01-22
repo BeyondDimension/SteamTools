@@ -32,7 +32,7 @@ namespace SteamTools.ViewModels
             _AuthenticatorData = auth.AuthenticatorData as SteamAuthenticator;
             this.Title = ProductInfo.Title + " | " + Resources.Auth_TradeTitle;
 
-            Process();
+            Refresh_Click();
         }
 
         #region LoginData
@@ -227,7 +227,6 @@ namespace SteamTools.ViewModels
                 _AuthenticatorData.SessionData = (RememberMe ? steam.Session.ToString() : null);
                 AuthService.Current.SaveCurrentAuth();
             }
-
             try
             {
                 Confirmations = steam.GetConfirmations();
@@ -259,15 +258,34 @@ namespace SteamTools.ViewModels
                     return;
                 }
             }
+
         }
 
-        public async void ConfirmTrade_Click(string tradeId)
+        public void ConfirmTrade_Click(SteamClient.Confirmation trade)
         {
-            await AcceptTrade(tradeId);
+            OperationTrade(true, trade);
         }
-        public async void CancelTrade_Click(string tradeId)
+        public void CancelTrade_Click(SteamClient.Confirmation trade)
         {
-            await RejectTrade(tradeId);
+            OperationTrade(false, trade);
+        }
+
+        private void OperationTrade(bool accept, SteamClient.Confirmation trade)
+        {
+            Task.Run(async () =>
+            {
+                bool result = false;
+                if (accept)
+                    result = await AcceptTrade(trade.Id);
+                else
+                    result = await RejectTrade(trade.Id);
+
+                if (result)
+                {
+                    StatusService.Current.Notify($"已{(accept ? "同意" : "拒绝")}{trade.Details}");
+                    Refresh_Click();
+                }
+            });
         }
 
         /// <summary>
@@ -351,12 +369,28 @@ namespace SteamTools.ViewModels
         }
 
 
+        private void OperationTrades(bool accept)
+        {
+            Task.Run(() =>
+            {
+                StatusService.Current.Notify($"正在{(accept ? "同意" : "拒绝")}所有交易中...");
+
+                if (accept)
+                    ConfirmAllButton_Click();
+                else
+                    CancelAllButton_Click();
+
+                StatusService.Current.Notify($"已成功{(accept ? "同意" : "拒绝")}所有交易");
+                Refresh_Click();
+            });
+        }
+
         /// <summary>
         /// Click the button to confirm all confirmations
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void ConfirmAllButton_Click(object sender, EventArgs e)
+        private async void ConfirmAllButton_Click()
         {
             if (CancelComfirmAll != null)
             {
@@ -414,7 +448,7 @@ namespace SteamTools.ViewModels
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void cancelAllButton_Click(object sender, EventArgs e)
+        private async void CancelAllButton_Click()
         {
             if (CancelCancelAll != null)
             {

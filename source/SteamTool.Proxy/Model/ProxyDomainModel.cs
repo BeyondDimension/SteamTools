@@ -82,5 +82,7 @@ namespace SteamTool.Proxy
         TwitchChat = 13,
         [Description("Github Gist")]
         GithubGist = 14,
+        [Description("Pixiv图片")]
+        PixivImage = 15,
     }
 }
