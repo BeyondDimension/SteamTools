@@ -82,7 +82,11 @@ namespace SteamTools.Models.Settings
         public static SerializableProperty<bool> IsEnableLogRecord { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Roaming, false) { AutoSave = true };
 
-
+        /// <summary>
+        /// 检测到Steam启动时弹出消息通知
+        /// </summary>
+        public static SerializableProperty<bool> IsEnableSteamLaunchNotification { get; }
+            = new SerializableProperty<bool>(GetKey(), Providers.Roaming, false) { AutoSave = true };
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
             return nameof(GeneralSettings) + "." + propertyName;

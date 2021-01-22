@@ -115,6 +115,8 @@
                 <DataTemplate DataType="{x:Type vm:AddAuthWindowViewModel}" />
                 <DataTemplate DataType="{x:Type vm:AchievementWindowViewModel}" />
                 <DataTemplate DataType="{x:Type vm:SteamIdlePageViewModel}" />
+                <DataTemplate DataType="{x:Type vm:AuthTradeWindowViewModel}">
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
         <!--<metro:CaptionButton Grid.Column="2" VerticalAlignment="Center"

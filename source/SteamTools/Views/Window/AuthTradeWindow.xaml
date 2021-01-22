@@ -132,7 +132,8 @@
                                      HorizontalAlignment="Left" 
                                      MethodTarget="{Binding}" 
                                      MethodName="LoginButton_Click"></metro2:CallMethodButton>
-            <TextBlock Text="确认交易需要您登陆您的Steam账号" Style="{StaticResource DetailTextStyleKey}"></TextBlock>
+            <Separator Opacity="0" Height="5"/>
+            <TextBlock Text="确认交易需要您登陆您的Steam账号，程序不会记录你的账号密码，只会保存登录的状态以便每次使用。" Style="{StaticResource DetailTextStyleKey}"></TextBlock>
             <StackPanel Margin="8" Visibility="{Binding IsRequiresCaptcha,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}">
                 <WrapPanel>
                     <Border BorderBrush="{DynamicResource AccentBrushKey}" Width="206" Height="37" HorizontalAlignment="Left" BorderThickness=".99">
@@ -148,22 +149,21 @@
                 <Separator Opacity="0" Height="5"/>
             </StackPanel>
         </StackPanel>
-        <DockPanel Margin="8" Grid.Row="1" Visibility="{Binding IsLoggedIn,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}">
+        <DockPanel Margin="8" Grid.Row="1" Visibility="{Binding IsLoggedIn,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel DockPanel.Dock="Top">
                 <DockPanel>
-                    <CheckBox Margin="0,0,10,0"></CheckBox>
+                    <!--<CheckBox Margin="0,0,10,0"></CheckBox>
                     <metro2:CallMethodButton Margin="0,0,10,0" Content="确认选中" Height="30" MethodName="CancelAllButton_Click"
                           MethodTarget="{Binding}"></metro2:CallMethodButton>
                     <metro2:CallMethodButton Margin="0,0,10,0" Content="否认选中" Height="30"
                                               MethodName="ConfirmAllButton_Click"
-                                              MethodTarget="{Binding}"></metro2:CallMethodButton>
-                    <metro2:CallMethodButton Margin="0,0,10,0" Content="否认所有" Height="30"
-                                              MethodName="ConfirmAllButton_Click"
-                                              MethodTarget="{Binding}"></metro2:CallMethodButton>
-                    <metro2:CallMethodButton Margin="0,0,10,0" Content="确认所有" Height="30" MethodName="CancelAllButton_Click"
-                          MethodTarget="{Binding}"></metro2:CallMethodButton>
+                                              MethodTarget="{Binding}"></metro2:CallMethodButton>-->
                     <WrapPanel FlowDirection="RightToLeft" HorizontalAlignment="Right">
- 
+                        <metro2:CallMethodButton Margin="0,0,10,0" Content="取消所有交易" Height="30"
+                                              MethodName="CancelAllButton_Click"
+                                              MethodTarget="{Binding}"></metro2:CallMethodButton>
+                        <metro2:CallMethodButton Margin="0,0,10,0" Content="确认所有交易" Height="30" MethodName="ConfirmAllButton_Click"
+                          MethodTarget="{Binding}"></metro2:CallMethodButton>
                     </WrapPanel>
                 </DockPanel>
                 <Rectangle  Height=".99"
@@ -178,7 +178,7 @@
                             <StackPanel>
                                 <DockPanel>
                                     <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-                                        <CheckBox Margin="0,0,5,0"></CheckBox>
+                                        <!--<CheckBox Margin="0,0,5,0"></CheckBox>-->
                                         <Image Source="{Binding Image,Mode=OneWay}" 
                                            Width="36" Height="36" Margin="0,0,5,0"></Image>
                                         <TextBlock>
@@ -210,7 +210,7 @@
                                                        VerticalAlignment="Center" Margin="0,0,5,0"
                        ToolTip="{Binding Resources.Auth_Add,Source={x:Static services:ResourceService.Current},Mode=OneWay}">
                                                 </Image>
-                                                <TextBlock Text="否认"></TextBlock>
+                                                <TextBlock Text="取消"></TextBlock>
                                             </DockPanel>
                                         </metro2:CallMethodButton>
                                     </WrapPanel>
@@ -225,7 +225,7 @@
             </ScrollViewer>
         </DockPanel>
         <!--Footer-->
-        <controls:StatusBar Grid.Row="2" DataContext="{Binding StatusBar}">
+        <controls:StatusBar Grid.Row="2" DataContext="{Binding}">
         </controls:StatusBar>
     </Grid>
 </metro:MetroWindow>

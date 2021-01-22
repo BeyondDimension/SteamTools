@@ -111,7 +111,10 @@ namespace SteamTools.ViewModels
 
         public void ImageAuthTrade_Click(WinAuthAuthenticator auth)
         {
-            new AuthTradeWindow() { DataContext = new AuthTradeWindowViewModel(auth) }.Show();
+            if (auth.AuthenticatorData is SteamAuthenticator)
+            {
+                new AuthTradeWindow() { DataContext = new AuthTradeWindowViewModel(auth) }.Show();
+            }
         }
 
 

@@ -161,8 +161,7 @@
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
-                            <Run Text="4.Steam本地两步身份验证器，可以使您不用启动移动版Steam App也能查看您的令牌。" />
-                            <Run Text="(暂时还不支持进行市场交易确认，计划后续添加支持)"/>
+                            <Run Text="4.Steam本地两步身份验证器，可以使您不用启动移动版Steam App也能查看您的令牌，也支持市场交易报价确认。" />
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
@@ -179,8 +178,11 @@
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
-                            <Run Text="Steam皮肤的可视化设计编辑功能。" />
-                            <Run Text="（挖坑画大饼，可视化编辑Steam皮肤，而且如果软件能上架Steam的话打算支持创意工坊分享设计的Steam皮肤，短期内肯定做不完...）"></Run>
+                            <Run Text="Steam Edit功能，编辑Steam库内的游戏名字和部分信息。" />
+                            <LineBreak/>
+                            <LineBreak />
+                            <Run Text="  "></Run>
+                            <Run Text="每周的EPIC游戏自动领取" />
                             <LineBreak/>
                             <LineBreak />
                             <Run Text="  "></Run>
