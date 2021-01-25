@@ -124,7 +124,6 @@ namespace SteamTools.ViewModels
         {
             if (!this.IsInitialized)
             {
-                base.Initialize();
                 await Task.Run(async () =>
                 {
                     foreach (var item in this.TabItems)
@@ -138,7 +137,7 @@ namespace SteamTools.ViewModels
                        }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s => s.Dispose());
                     }
                 });
-
+                base.Initialize();
                 this.IsInitialized = true;
                 StatusService.Current.Set(Resources.Ready);
             }

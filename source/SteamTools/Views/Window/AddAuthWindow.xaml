@@ -281,7 +281,7 @@
 										 Prompt="" />
 
                         <TextBlock Grid.Row="1" Grid.Column="0">
-						<Run Text="从files文件夹中，粘贴'SteamGuard-NNNNNNNN'的全部内容" />
+						<Run Text="从files文件夹中，打开'SteamGuard-NNNNNNNN'文件，粘贴文件的全部内容" />
                         </TextBlock>
                         <metro:PromptTextBox Grid.Row="1"
 										 Grid.Column="1"

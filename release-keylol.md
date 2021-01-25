@@ -19,7 +19,7 @@ Steam++只在keylol论坛与github发布，为了账号安全，请不要到其�
 新增内置steam史低查询脚本
 新增Steam启动消息通知设置项
 新增github gist代理服务支持
-修复设置文件的错误存储
+修复某些情况配置文件读取出错
 修复discord更新下载和图片失效
 修复twitch聊天频道连接失效
 修复gihub头像资源加载失败
@@ -112,11 +112,11 @@ Steam++只在keylol论坛与github发布，为了账号安全，请不要到其�
 > [Github](https://github.com/rmbadmin/SteamTools/releases)  
 > 分流下载：  
 > [hide]
-> [蓝奏云](https://wws.lanzous.com/iTnJtkpir7c)  
-> [百度云](https://pan.baidu.com/s/1INdPNTiDoJQwBiR5LPkang)  
-> 提取码：r4pu
+> [蓝奏云](https://wws.lanzous.com/icwdPkpnu1e)  
+> [百度云](https://pan.baidu.com/s/1EG8e1Oi4Mg2KCiF42oKnig)  
+> 提取码：stpp
 > [/hide]  
 > EXE 大小：4.87MB  
-> MD5：AE4AFA5904A6EFD0045A789109112AD3
-> [查毒链接](https://www.virustotal.com/gui/file/6d0a506044013d1cea7c2b4f7734f2405ad7ac6b1f5213abc68743f979acf51f/detection)
+> MD5：8965D1A2EC7688F1EDEF3DA81667A009
+> [查毒链接](https://www.virustotal.com/gui/file/9931d6034c3b8f6c362ecb991a21d205623734fbee201e62f813d05f50347e64/detection)
    虽然没有什么杀毒软件报毒，但是使用过程中可能遇到windows defender误报，您可以选择添加信任。

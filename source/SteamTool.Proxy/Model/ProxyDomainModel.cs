@@ -84,5 +84,7 @@ namespace SteamTool.Proxy
         GithubGist = 14,
         [Description("Pixiv图片")]
         PixivImage = 15,
+        [Description("steam图片上传(聊天\\截图)")]
+        SteamImageUpload = 16,
     }
 }
