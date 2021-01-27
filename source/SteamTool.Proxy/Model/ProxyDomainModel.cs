@@ -44,6 +44,11 @@ namespace SteamTool.Proxy
         /// </summary>
         public bool IsEnable { get; set; }
 
+        /// <summary>
+        /// 启用重定向
+        /// </summary>
+        public bool IsRedirect { get; set; }
+
         public IReadOnlyCollection<string> Hosts { get; set; }
 
         public DomainTag DomainTag { get; set; }
