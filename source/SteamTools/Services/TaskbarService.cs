@@ -14,8 +14,8 @@ namespace SteamTools.Services
     public class TaskbarService : NotificationObject
     {
         #region static members
-
         public static TaskbarService Current { get; } = new TaskbarService();
+        #endregion
 
         #region 托盘图标
         private TaskbarIcon _TaskBar;
@@ -32,8 +32,6 @@ namespace SteamTools.Services
                 }
             }
         }
-        #endregion
-
         #endregion
 
         #region Message 変更通知

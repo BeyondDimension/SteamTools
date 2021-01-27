@@ -171,6 +171,8 @@ namespace SteamTools
             try
             {
                 Logger.Error($"{Assembly.GetExecutingAssembly().GetName().Name} Run Error : {Environment.NewLine}", e.Exception);
+                if (e.Exception.InnerException != null)
+                    Logger.Error($"InnerException Error : {Environment.NewLine}", e.Exception.InnerException);
                 MessageBox.Show(e.Exception.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
             }
             catch (Exception ex)
@@ -179,7 +181,7 @@ namespace SteamTools
                 MessageBox.Show(ex.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
             }
 
-            Current.Shutdown();
+            //Current.Shutdown();
         }
 
         /// <summary>
