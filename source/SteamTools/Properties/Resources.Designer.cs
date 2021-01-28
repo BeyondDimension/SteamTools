@@ -448,6 +448,15 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 FAQ 的本地化字符串。
+        /// </summary>
+        public static string FAQ {
+            get {
+                return ResourceManager.GetString("FAQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 游戏 的本地化字符串。
         /// </summary>
         public static string Game {

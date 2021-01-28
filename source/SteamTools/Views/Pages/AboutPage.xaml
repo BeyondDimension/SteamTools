@@ -38,7 +38,7 @@
         
         <TabItem>
             <TabItem.Header>
-                <TextBlock Text="FAQ"
+                <TextBlock Text="{Binding Resources.FAQ, Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 							   Style="{StaticResource TabHeaderTextStyleKey}" />
             </TabItem.Header>
             <contents:AboutFAQ></contents:AboutFAQ>

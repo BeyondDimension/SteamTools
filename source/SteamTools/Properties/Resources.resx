@@ -246,6 +246,9 @@
   <data name="Exit" xml:space="preserve">
     <value>退出</value>
   </data>
+  <data name="FAQ" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
   <data name="Game" xml:space="preserve">
     <value>游戏</value>
   </data>

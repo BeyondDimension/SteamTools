@@ -96,6 +96,7 @@ namespace SteamTools
                 {
                     Logger.EnableTextLog = true;
                 }
+                Microsoft.Win32.SystemEvents.SessionEnding += SystemEvents_SessionEnding;
                 SettingsHost.Load();
                 this.compositeDisposable.Add(SettingsHost.Save);
                 this.compositeDisposable.Add(ProxyService.Current.Shutdown);
@@ -164,6 +165,12 @@ namespace SteamTools
                 }
             }
 #endif
+        }
+
+        private void SystemEvents_SessionEnding(object sender, SessionEndingEventArgs e)
+        {
+            this.compositeDisposable.Dispose();
+            
         }
 
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

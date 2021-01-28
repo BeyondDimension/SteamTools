@@ -23,7 +23,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel Margin="8">
-        <TextBlock DockPanel.Dock="Top" Text="{Binding Resources.AboutUpdateHistory, Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
+        <TextBlock DockPanel.Dock="Top" Text="{Binding Resources.FAQ, Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 				   Style="{DynamicResource SettingsHeaderTextStyleKey}" />
         <Border Grid.Column="1">
             <FlowDocumentScrollViewer Padding="0,-18,0,0"
@@ -34,206 +34,61 @@
 								  TextAlignment="Left"
 								  MaxPageWidth="900">
                     <Paragraph Language="zh-cn">
-                        <Run Text="Steam++ v1.1.0" FontSize="16"/>
-                        <Run Text="&#160;"/>
-                        <Run Text="2021-01-22" FontSize="10" />
+                        <Run Text="Q：开机自启动勾上了没有效果？"></Run>
                         <LineBreak />
-                        <Run Text="更新内容"></Run>
+                        <Run Text="A：程序的开机自启是通过windows任务计划实现的，设置需要程序拥有管理员权限，并且勾上开机自启以后不能移动程序位置，移动后因为路径变更需要重新勾选开机启动选项框才能生效。" />
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Run Text="Q：hosts正在由另一进程使用，因此该进程无法访问此文件。"></Run>
                         <LineBreak />
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="本地令牌市场交易确认功能上线" />
+                        <Run Text="A：其实就如字面意思一样，hosts文件被其它程序占用了导致Steam++无法读写hosts文件。用任务管理器资源管理器的CPU句柄搜索hosts就可以找到占用的进程哦，结束掉它就好了。" />
                         <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增内置steam史低查询脚本" />
                         <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增Steam启动消息通知设置项"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增github gist代理服务支持"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修复设置文件的错误存储" />
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修复discord更新下载和图片失效"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修复twitch聊天频道连接失效"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修复gihub头像资源加载失败"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增pixiv图片的代理选项来修复pixiv图片失效"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="还修复了一些没有记下来的bug..."></Run>
-                    </Paragraph>
-                    <Paragraph Language="zh-cn">
-                        <Run Text="Steam++ v1.0.6" FontSize="16"/>
-                        <Run Text="&#160;"/>
-                        <Run Text="2021-01-12" FontSize="10" />
+                        <Run Text="Q：系统找不到指定的文件。在MetroRadiance.Interop.Win32.Dwmapi.DWmGetColorizationColor错误"></Run>
                         <LineBreak />
-                        <Run Text="更新内容"></Run>
+                        <Run Text="A：系统缺少了dwmapi.dll文件，想办法下回来或者重装系统可解。" />
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Run Text="Q：社区加速里的脚本启用了无效，为什么脚本前面的勾选框不会被保存？"></Run>
                         <LineBreak />
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增启用日志记录设置项（反馈bug时一起提交方便排查问题）" />
+                        <Run Text="A：脚本是要做用于对应的代理服务才的，所以对应的脚本需要启用了对应的代理服务，同时也必须启用了代理加速功能启用脚本才有效，例如steam商店史低查询脚本必须要启用steam商店代理服务才能生效。" />
                         <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修复twitch反代聊天连接错误和直播视频无法观看" />
                         <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="放宽令牌同步时网络请求超时时间以降低令牌同步时提示超时概率" />
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修改生成的cer证书编码格式为utf8,解决火狐无法导入cer证书"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="增加80端口反代，以便自动跳转http访问到https请求上"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修改了用户信息获取的api为steam官方社区api(没有启动软件的自动代理服务的话依然加载不出头像。)"></Run>
-                    </Paragraph>
-                    <Paragraph Language="zh-cn">
-                        <Run Text="Steam++ v1.0.5" FontSize="16"/>
-                        <Run Text="&#160;"/>
-                        <Run Text="2021-01-08" FontSize="10" />
+                        <Run Text="Q：社区加速里的脚本启用了无效，为什么脚本前面的勾选框不会被保存？"></Run>
                         <LineBreak />
-                        <Run Text="更新内容"></Run>
+                        <Run Text="A：脚本是要做用于对应的代理服务才的，所以对应的脚本需要启用了对应的代理服务，同时也必须启用了代理加速功能启用脚本才有效，例如steam商店史低查询脚本必须要启用steam商店代理服务才能生效。" />
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Run Text="Q：库存游戏列表无法加载，一直是空的？"></Run>
                         <LineBreak />
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="优化反代过程的逻辑" />
+                        <Run Text="A：因为库存游戏列表第一次加载是从steam webapi获取数据，数据量较大且网络本身较慢，所以加载速度比较有限，需要多等待一会。如果在这期间退出了Steam++程序，那么可能会造成在Steam++目录下存了一个错误的apps.json缓存文件，这会导致之后一直无法正确加载库存游戏列表数据，所以删除这个文件重新启动一下Steam++，在耐心等待一下，应该就能加载出来了。" />
                         <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="增加启动时自动运行Steam的设置项" />
                         <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增令牌刷新功能" />
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="帐户切换增加了离线模式启动的选项"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修复因为第三方steamdb api挂掉导致程序崩溃"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修复刷新游戏缓存按钮程序闪退BUG"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="还修复了一些没有记下来的小错误..."></Run>
-                    </Paragraph>
-                    <Paragraph Language="zh-cn">
-                        <Run Text="Steam++ v1.0.4" FontSize="16"/>
-                        <Run Text="&#160;"/>
-                        <Run Text="2020-12-28" FontSize="10" />
+                        <Run Text="Q：库存游戏列表无法加载，一直是空的？"></Run>
                         <LineBreak />
-                        <Run Text="更新内容"></Run>
+                        <Run Text="A：因为库存游戏列表第一次加载是从steam webapi获取数据，数据量较大且网络本身较慢，所以加载速度比较有限，需要多等待一会。如果在这期间退出了Steam++程序，那么可能会造成在Steam++目录下存了一个错误的apps.json缓存文件，这会导致之后一直无法正确加载库存游戏列表数据，所以删除这个文件重新启动一下Steam++，在耐心等待一下，应该就能加载出来了。" />
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Run Text="Q：社区加速功能火狐浏览器访问报安全警告提示？"></Run>
                         <LineBreak />
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="*此版本修改了配置文件的保存读取功能，会无法读取1.0.4版本以前的配置文件包括令牌数据。(可以通过设置-令牌设置-导入旧版本Steam++令牌数据按钮来恢复旧版本令牌数据)" />
+                        <Run Text="A：火狐浏览器使用的是自己内置的证书认证，所以需要在火狐内手动导入Steam++根目录下的SteamTools.Certificate.cer证书文件。具体步骤为“火狐浏览器设置-隐私与安全-证书-查看证书-证书颁发机构-导入-选择SteamTools.Certificate.cer文件”" />
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Run Text="Q：无法启动服务 提示证书安装失败或443端口占用？"></Run>
                         <LineBreak />
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="还原steam社区反代上游地址修复部分请求会提示需要登录的问题" />
+                        <Run Text="A：证书安装是否成功的检测方法为试试点击删除证书看看是否有反应，443端口被占用可以百度一下怎么查询占用端口的程序。注：Vmawre虚拟机也会导致提示443端口被占用服务无法启动。" />
                         <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增令牌导入导出备份功能" />
                         <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增令牌可以选择保存在程序根目录下的设置选项(方便备份)" />
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修改了自动更新的提示方式"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="自动更新可以自动覆盖升级，不再需要手动替换"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修复令牌无法保存的问题"></Run>
-                    </Paragraph>
-                    <Paragraph Language="zh-cn">
-                        <Run Text="Steam++ v1.0.3" FontSize="16"/>
-                        <Run Text="&#160;"/>
-                        <Run Text="2020-12-26" FontSize="10" />
+                        <Run Text="Q：无法启动服务 提示证书安装失败或443端口占用？"></Run>
                         <LineBreak />
-                        <Run Text="更新内容"></Run>
+                        <Run Text="A：证书安装是否成功的检测方法为试试点击删除证书看看是否有反应，443端口被占用可以百度一下怎么查询占用端口的程序。注：Vmawre虚拟机也会导致提示443端口被占用服务无法启动。" />
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Run Text="Q：软件启动时就报错，缺少根元素？"></Run>
                         <LineBreak />
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增pixiv本地反代服务支持" />
+                        <Run Text="A：配置文件加载出错了，检查下路径%HOMEPATH%\AppData\Local\rmbgame.net\Steam++以及%HOMEPATH%\AppData\Roaming\rmbgame.net\Steam++路径内的settings.json文件，如果没有重要数据可以删除此文件重置配置，或者手动还原备份settings.json.bak文件。同时可以考虑反馈settings.json.error文件给我排查问题。" />
                         <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增在欢迎页steam昵称后显示steam的登陆区域" />
                         <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="添加steam图片修复的本地反代支持" />
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修复最小化恢复时UI边框错位的BUG"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修复令牌编辑和导入时出现的非空报错"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="帐户切换功能的最近登陆时间从北京时间改为当前系统时区时间"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修复一个因为DNS解析错误会导致程序内存溢出闪退的BUG"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="SDA令牌导入不再支持导入加密文件，如果要导入加密的maFile请先在SDA移除加密"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修改初始化的方式和steam api的连接逻辑来避免steam游戏掉帧的BUG"></Run>
-                    </Paragraph>
-                    <Paragraph Language="zh-cn">
-                        <Run Text="Steam++ v1.0.2" FontSize="16"/>
-                        <Run Text="&#160;"/>
-                        <Run Text="2020-12-21" FontSize="10" />
-                        <LineBreak />
-                        <Run Text="更新内容"></Run>
-                        <LineBreak />
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="更新了由Benares制作的图标" />
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增帐户切换删除功能" />
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="添加github图片资源文件代理服务与discord代理服务支持" />
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="因为有问题暂时去掉了GOG Galaxy代理选项"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修复一个会导致程序启动没有反应的bug"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="修复托盘菜单steam昵称过长ui错位bug"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增steam启动参数设置"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增启动时程序最小化到托盘菜单设置"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增捐助列表的展示"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="新增工具自动更新功能"></Run>
-                    </Paragraph>
-                    <Paragraph Language="zh-cn">
-                        <Run Text="Steam++ v1.0.0" FontSize="16"/>
-                        <Run Text="&#160;"/>
-                        <Run Text="2020-12-14" FontSize="10" />
-                        <LineBreak />
-                        <Run Text="发布第一个版本" />
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="主要功能：社区反代，帐户切换，成就解锁，本地令牌。"></Run>
-                        <LineBreak/>
-                        <Run Text="&#160;&#160;&#160;&#160;"/>
-                        <Run Text="次要功能：强制无边框窗口化以及CSGO VAC屏蔽修复。"></Run>
                     </Paragraph>
                 </FlowDocument>
             </FlowDocumentScrollViewer>
