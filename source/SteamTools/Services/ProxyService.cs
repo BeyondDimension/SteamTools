@@ -73,14 +73,15 @@ Hosts = new List<string>{ "steamcdn-a.akamaihd.net","steamuserimages-a.akamaihd.
 DomainTag = DomainTag.SteamImage,
 IsEnable= false,
 },
-new ProxyDomainModel{
-Name=Resources.SteamImageUpload,
-Domains = new List<string>{"steamcloud-ugc.storage.googleapis.com"},
-ToDomain = "steamcloud-ugc.rmbgame.net",
-Hosts = new List<string>{ "steamcloud-ugc.storage.googleapis.com"},
-DomainTag = DomainTag.SteamImage,
-IsEnable= false,
-},
+//new ProxyDomainModel{
+//Name=Resources.SteamImageUpload,
+//Domains = new List<string>{"steamcloud-ugc-hkg.oss-cn-hongkong.aliyuncs.com"},
+////ToDomain = "steamcloud-ugc.rmbgame.net",
+//ProxyIPAddres = "47.97.233.33",
+//Hosts = new List<string>{ "steamcloud-ugc-hkg.oss-cn-hongkong.aliyuncs.com"},
+//DomainTag = DomainTag.SteamImage,
+//IsEnable= false,
+//},
 new ProxyDomainModel{
 Name=Resources.SteamChat,
 Domains = new List<string>{"steam-chat.com" },
@@ -409,7 +410,7 @@ IsEnable = false,
                         else
                         {
                             //WindowService.Current.ShowDialogWindow("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。");
-                            StatusService.Current.Notify("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。");
+                            StatusService.Current.Notify("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。\n\n如果安装了vmware虚拟机，可能会导致443端口被占用。");
                         }
                     }
                     else

@@ -173,7 +173,7 @@ namespace SteamTools.ViewModels
             this.Update();
         }
 
-        public void LogoImage_Click(uint appid)
+        public static void LogoImage_Click(uint appid)
         {
             Process.Start(new ProcessStartInfo { FileName = string.Format(Const.STORE_APP_URL, appid.ToString()), UseShellExecute = true });
         }

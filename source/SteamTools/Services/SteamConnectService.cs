@@ -162,6 +162,7 @@ namespace SteamTools.Services
                                       #region 初始化需要steam启动才能使用的功能
                                       var mainViewModel = (WindowService.Current.MainWindow as MainWindowViewModel);
                                       await mainViewModel.SteamAppPage.Initialize();
+                                      await mainViewModel.AccountPage.Initialize(id);
 #if DEBUG
                                       await mainViewModel.SystemTabItems[mainViewModel.SystemTabItems.Count - 1].Initialize();
 #endif
