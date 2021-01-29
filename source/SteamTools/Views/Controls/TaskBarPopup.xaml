@@ -124,7 +124,7 @@
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseLeftButtonUp">
                                     <livet:LivetCallMethodAction MethodName="NavigateTabItem"
-																	 MethodTarget="{Binding}" MethodParameter="1"/>
+																	 MethodTarget="{Binding}" MethodParameter="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.CommunityFix}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </ListBoxItem>
@@ -137,7 +137,7 @@
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseLeftButtonUp">
                                     <livet:LivetCallMethodAction MethodName="NavigateTabItem"
-																	 MethodTarget="{Binding}" MethodParameter="2"/>
+																	 MethodTarget="{Binding}" MethodParameter="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.UserFastChange}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </ListBoxItem>
@@ -150,7 +150,7 @@
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseLeftButtonUp">
                                     <livet:LivetCallMethodAction MethodName="NavigateTabItem"
-																	 MethodTarget="{Binding}" MethodParameter="3"/>
+																	 MethodTarget="{Binding}" MethodParameter="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.GameList}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </ListBoxItem>
@@ -163,7 +163,7 @@
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseLeftButtonUp">
                                     <livet:LivetCallMethodAction MethodName="NavigateTabItem"
-																	 MethodTarget="{Binding}" MethodParameter="4"/>
+																	 MethodTarget="{Binding}" MethodParameter="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.SteamAuth}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </ListBoxItem>
@@ -181,7 +181,7 @@
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseLeftButtonUp">
                                     <livet:LivetCallMethodAction MethodName="NavigateTabItem"
-																	 MethodTarget="{Binding}" MethodParameter="-1"/>
+																	 MethodTarget="{Binding}" MethodParameter="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </ListBoxItem>

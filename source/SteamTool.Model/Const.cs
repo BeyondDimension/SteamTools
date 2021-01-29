@@ -34,6 +34,7 @@ namespace SteamTool.Model
         public const string STEAM_MEDIA_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/movie_max.webm";
         public const string STEAM_VIDEO_URL = "https://store.steampowered.com/video/watch/{0}/";
         public const string STEAM_REGISTERKEY_URL = "https://store.steampowered.com/account/registerkey?key={0}";
+        public const string STEAM_FRIENDMESSAGESLOG_URL = "https://help.steampowered.com/zh-cn/accountdata/GetFriendMessagesLog";
 
         public const string STEAM_INSTALL_URL = "steam://install/{0}";
         public const string STEAM_RUNGAME_URL = "steam://rungameid/{0}";

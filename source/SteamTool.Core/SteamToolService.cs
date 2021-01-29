@@ -99,7 +99,7 @@ namespace SteamTool.Core
             if (File.Exists(SteamPath + UserVdfPath))
             {
                 var v = vdfService.GetVdfModelByPath(SteamPath + UserVdfPath);
-                
+
                 foreach (var item in v.Value)
                 {
                     var i = item.Value;
@@ -197,6 +197,10 @@ namespace SteamTool.Core
                 using TaskDefinition td = TaskService.Instance.NewTask();
                 td.RegistrationInfo.Description = Name + "System Boot Run";
                 td.Settings.Priority = System.Diagnostics.ProcessPriorityClass.Normal;
+                td.Settings.ExecutionTimeLimit = new TimeSpan(0);
+                td.Settings.AllowHardTerminate = false;
+                td.Settings.StopIfGoingOnBatteries = false;
+                td.Settings.DisallowStartIfOnBatteries = false;
                 td.Triggers.Add(new LogonTrigger());
                 td.Actions.Add(new ExecAction(Assembly.GetCallingAssembly().Location, "-minimized", Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)));
                 if (IsAdministrator)

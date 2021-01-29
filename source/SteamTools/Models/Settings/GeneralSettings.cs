@@ -15,7 +15,13 @@ namespace SteamTools.Models.Settings
         {
             WindowsStartupAutoRun.ValueChanged += WindowsStartupAutoRun_ValueChanged;
             IsEnableLogRecord.ValueChanged += IsEnableLogRecord_ValueChanged;
+            //CreateDesktopShortcut.ValueChanged += CreateDesktopShortcut_ValueChanged;
         }
+
+        //private static void CreateDesktopShortcut_ValueChanged(object sender, ValueChangedEventArgs<bool> e)
+        //{
+
+        //}
 
         private static void IsEnableLogRecord_ValueChanged(object sender, ValueChangedEventArgs<bool> e)
         {
@@ -39,6 +45,12 @@ namespace SteamTools.Models.Settings
         /// </summary>
         public static SerializableProperty<bool> WindowsStartupAutoRun { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Roaming, false) { AutoSave = true };
+
+        ///// <summary>
+        ///// 创建桌面快捷方式
+        ///// </summary>
+        //public static SerializableProperty<bool> CreateDesktopShortcut { get; }
+        //    = new SerializableProperty<bool>(GetKey(), Providers.Roaming, false) { AutoSave = true };
 
         /// <summary>
         /// 程序启动时最小化

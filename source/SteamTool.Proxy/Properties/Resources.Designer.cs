@@ -178,6 +178,15 @@ namespace SteamTool.Proxy.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Steam图片上传(聊天\截图) 的本地化字符串。
+        /// </summary>
+        public static string SteamImageUpload {
+            get {
+                return ResourceManager.GetString("SteamImageUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam商店 的本地化字符串。
         /// </summary>
         public static string SteamStore {

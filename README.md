@@ -35,7 +35,6 @@
 ![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/1.png)  
 ---
 ### 2. 快速切换当前PC已经记住登陆的Steam账号
-
 该功能是读取Steam路径下存储的本地用户登录记录直接展示操作，可以多账号切换无需重新输入密码和令牌。
 ![](https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/resources/2.png)
 ---

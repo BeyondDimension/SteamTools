@@ -15,6 +15,8 @@ using SteamTool.Steam.Service;
 using SteamTools.Services;
 using SteamTool.Core.Common;
 using SteamTools.Models.Settings;
+using System.IO;
+using System.Threading;
 
 namespace SteamTools.ViewModels
 {
@@ -77,6 +79,28 @@ namespace SteamTools.ViewModels
             }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s => s.Dispose());
         }
 
+        internal async Task Initialize(long id)
+        {
+            //新账号不存在于列表时，重新加载
+            if (SteamUsers.Count(s => s.SteamId64 == id) == 0)
+            {
+                //var watch = new FileSystemWatcher
+                //{
+                //    Path = steamService.SteamPath,
+                //    Filter = SteamToolService.UserVdfPath,
+                //    NotifyFilter = NotifyFilters.LastWrite
+                //};
+                //watch.Changed += (object sender, FileSystemEventArgs e) =>
+                //{
+                //    watch.EnableRaisingEvents = false;
+                //    watch.Dispose();
+                //};
+                //watch.EnableRaisingEvents = true;
+                await Task.Delay(6000);
+                await Initialize();
+            }
+            await Task.CompletedTask;
+        }
 
         public void SteamId_OnClick(string parameter)
         {
@@ -105,6 +129,15 @@ namespace SteamTools.ViewModels
         {
             steamService.UpdateSteamLocalUserData(user);
             user.OriginVdfString = user.CurrentVdfString;
+        }
+
+        public void LoginSteamNewUser_Click()
+        {
+            var result = WindowService.Current.MainWindow.Dialog("确定要登录Steam新账户吗？\n此操作会重启Steam到新账号登录窗口。", "新Steam账号登录");
+            if (result)
+            {
+                SteamId_OnClick(string.Empty);
+            }
         }
     }
 }

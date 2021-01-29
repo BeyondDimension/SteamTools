@@ -101,21 +101,27 @@ namespace SteamTool.Proxy
                         if (e.HttpClient.Request.RequestUri.Scheme.Equals("http", StringComparison.OrdinalIgnoreCase))
                         {
                             e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Remove(0, 4).Insert(0, "https"));
+                            return;
                         }
-                        IPAddress iP = null;
+                        if (item.IsRedirect)
+                        {
+                            e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Host, item.ToDomain));
+                            return;
+                        }
+                        IPAddress ip = null;
                         if (!string.IsNullOrEmpty(item.ProxyIPAddres))
                         {
-                            iP = IPAddress.Parse(item.ProxyIPAddres);
+                            ip = IPAddress.Parse(item.ProxyIPAddres);
                         }
                         else
                         {
                             var iPs = await Dns.GetHostAddressesAsync(item.ToDomain);
-                            iP = iPs.FirstOrDefault();
+                            ip = iPs.FirstOrDefault();
                             //Logger.Info("Proxy IP: " + iP);
                         }
-                        if (iP != null)
+                        if (ip != null)
                         {
-                            e.HttpClient.UpStreamEndPoint = new IPEndPoint(IPAddress.Parse(iP.ToString()), item.Port);
+                            e.HttpClient.UpStreamEndPoint = new IPEndPoint(IPAddress.Parse(ip.ToString()), item.Port);
                         }
                         if (e.HttpClient.ConnectRequest?.ClientHelloInfo != null)
                         {
@@ -265,7 +271,7 @@ namespace SteamTool.Proxy
             var result = proxyServer.CertificateManager.CreateRootCertificate(true);
             //if (result)
             //{
-            if (!result) 
+            if (!result)
             {
                 Logger.Error("创建证书失败");
             }
@@ -338,10 +344,10 @@ namespace SteamTool.Proxy
                     return false;
                 }
             }
-            //if (PortInUse(443))
-            //{
-            //    return false;
-            //}
+            if (PortInUse(443))
+            {
+                return false;
+            }
             if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
 
             #region 写入Hosts

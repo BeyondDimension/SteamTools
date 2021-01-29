@@ -91,15 +91,24 @@ namespace SteamTools
 #endif
                 App.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                 this.DispatcherUnhandledException += App_DispatcherUnhandledException;
-                DispatcherHelper.UIDispatcher = this.Dispatcher;
-                if (e.Args.ContainsArg("-log") || GeneralSettings.IsEnableLogRecord)
-                {
-                    Logger.EnableTextLog = true;
-                }
+                DispatcherHelper.UIDispatcher = this.Dispatcher; 
                 SettingsHost.Load();
                 this.compositeDisposable.Add(SettingsHost.Save);
                 this.compositeDisposable.Add(ProxyService.Current.Shutdown);
                 this.compositeDisposable.Add(SteamConnectService.Current.Shutdown);
+                Microsoft.Win32.SystemEvents.SessionEnding += SystemEvents_SessionEnding;
+
+                if (e.Args.ContainsArg("-log") || GeneralSettings.IsEnableLogRecord)
+                {
+                    Logger.EnableTextLog = true;
+                }
+                //每次启动都覆盖设置一次开机自启确保路径变换后开机自启依然生效
+                if (GeneralSettings.WindowsStartupAutoRun)
+                {
+                    var steamService = SteamToolCore.Instance.Get<SteamToolService>();
+                    steamService.SetWindowsStartupAutoRun(GeneralSettings.WindowsStartupAutoRun.Value, ProductInfo.Title);
+                }
+
 
                 GeneralSettings.Culture.Subscribe(x => ResourceService.Current.ChangeCulture(x)).AddTo(this);
                 WindowService.Current.AddTo(this).Initialize();
@@ -166,12 +175,19 @@ namespace SteamTools
 #endif
         }
 
+        private void SystemEvents_SessionEnding(object sender, SessionEndingEventArgs e)
+        {
+            this.compositeDisposable.Dispose();
+        }
+
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             try
             {
                 Logger.Error($"{Assembly.GetExecutingAssembly().GetName().Name} Run Error : {Environment.NewLine}", e.Exception);
-                MessageBox.Show(e.Exception.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
+                if (e.Exception.InnerException != null)
+                    Logger.Error($"InnerException Error : {Environment.NewLine}", e.Exception.InnerException);
+                MessageBox.Show(e.Exception.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Run Error");
             }
             catch (Exception ex)
             {
@@ -179,7 +195,7 @@ namespace SteamTools
                 MessageBox.Show(ex.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
             }
 
-            Current.Shutdown();
+            //Current.Shutdown();
         }
 
         /// <summary>

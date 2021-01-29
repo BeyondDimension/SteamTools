@@ -44,6 +44,11 @@ namespace SteamTool.Proxy
         /// </summary>
         public bool IsEnable { get; set; }
 
+        /// <summary>
+        /// 启用重定向
+        /// </summary>
+        public bool IsRedirect { get; set; }
+
         public IReadOnlyCollection<string> Hosts { get; set; }
 
         public DomainTag DomainTag { get; set; }
@@ -84,5 +89,7 @@ namespace SteamTool.Proxy
         GithubGist = 14,
         [Description("Pixiv图片")]
         PixivImage = 15,
+        [Description("steam图片上传(聊天\\截图)")]
+        SteamImageUpload = 16,
     }
 }

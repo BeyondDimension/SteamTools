@@ -49,8 +49,15 @@
 							  IsChecked="{Binding Source={x:Static ms:GeneralSettings.WindowsStartupAutoRun}, Path=Value, Mode=TwoWay}">
                     <TextBlock Text="开机自启动"></TextBlock>
                 </CheckBox>
-
                 <Separator Opacity="0" Height="10"/>
+                
+                <!--<CheckBox 
+							  HorizontalAlignment="Left"
+							  IsChecked="{Binding Source={x:Static ms:GeneralSettings.WindowsStartupAutoRun}, Path=Value, Mode=TwoWay}">
+                    <TextBlock Text="创建桌面快捷方式"></TextBlock>
+                </CheckBox>
+                <Separator Opacity="0" Height="10"/>-->
+                
                 <WrapPanel>
                     <CheckBox 
 							  HorizontalAlignment="Left"
@@ -76,17 +83,16 @@
                 <Separator Opacity="0" Height="10"/>
                 <CheckBox 
 							  HorizontalAlignment="Left"
-							  IsChecked="{Binding Source={x:Static ms:GeneralSettings.IsAutoCheckUpdate}, Path=Value, Mode=TwoWay}">
-                    <TextBlock Text="启动时自动检查更新"></TextBlock>
-                </CheckBox>
-
-                <Separator Opacity="0" Height="10"/>
-                <CheckBox 
-							  HorizontalAlignment="Left"
 							  IsChecked="{Binding Source={x:Static ms:GeneralSettings.IsEnableSteamLaunchNotification}, Path=Value, Mode=TwoWay}">
                     <TextBlock Text="检测到Steam启动时弹出消息通知"></TextBlock>
                 </CheckBox>
                 
+                <Separator Opacity="0" Height="10"/>
+                <CheckBox 
+							  HorizontalAlignment="Left"
+							  IsChecked="{Binding Source={x:Static ms:GeneralSettings.IsAutoCheckUpdate}, Path=Value, Mode=TwoWay}">
+                    <TextBlock Text="启动时自动检查更新"></TextBlock>
+                </CheckBox>
                 <Separator Opacity="0" Height="10"/>
                 <WrapPanel>
                     <metro2:CallMethodButton Content="检查更新" 
@@ -162,7 +168,7 @@
                 <CheckBox 
 							  HorizontalAlignment="Left"
 							  IsChecked="{Binding Source={x:Static ms:GeneralSettings.IsEnableLogRecord}, Path=Value, Mode=TwoWay}">
-                    <TextBlock Text="启用日志"></TextBlock>
+                    <TextBlock Text="启用日志记录"></TextBlock>
                 </CheckBox>
                 <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="0,6,0,0">
                         <Run Text="记录错误日志到程序根目录Log文件夹内，反馈BUG时把日志也提交上来，方便排查闪退报错原因。"></Run>

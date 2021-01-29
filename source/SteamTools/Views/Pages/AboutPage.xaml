@@ -35,7 +35,15 @@
             </TabItem.Header>
             <pages:WelcomePage></pages:WelcomePage>
         </TabItem>
-
+        
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock Text="{Binding Resources.FAQ, Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
+							   Style="{StaticResource TabHeaderTextStyleKey}" />
+            </TabItem.Header>
+            <contents:AboutFAQ></contents:AboutFAQ>
+        </TabItem>
+        
         <TabItem>
             <TabItem.Header>
                 <TextBlock Text="{Binding Resources.About_Donate,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"

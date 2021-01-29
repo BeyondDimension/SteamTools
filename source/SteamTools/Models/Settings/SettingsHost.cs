@@ -1,5 +1,6 @@
 ﻿using MetroTrilithon.Serialization;
 using SteamTool.Core.Common;
+using SteamTools.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using SteamTools.Properties;
 
 namespace SteamTools.Models.Settings
 {
@@ -56,13 +58,24 @@ namespace SteamTools.Models.Settings
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                MessageBox.Show("Local Settings Load Error :" + ex.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
-                if (File.Exists(Providers.LocalFilePath))
+                //MessageBox.Show("Local Settings Load Error :" + ex.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
+                if (WindowService.Current.ShowDialogWindow(Providers.LocalFilePath + "\n" + Resources.ConfigLoadError))
                 {
-                    File.Copy(Providers.LocalFilePath, Providers.LocalFilePath + ".error", true);
-                    File.Delete(Providers.LocalFilePath);
+                    if (File.Exists(Providers.LocalFilePath))
+                    {
+                        File.Copy(Providers.LocalFilePath, Providers.LocalFilePath + ".error", true);
+                        if (File.Exists(Providers.LocalFilePath + ".bak"))
+                            File.Copy(Providers.LocalFilePath + ".bak", Providers.LocalFilePath, true);
+                        else
+                            File.Delete(Providers.LocalFilePath);
+                    }
+                    Providers.Local.Load();
                 }
-                Providers.Local.Load();
+                else
+                {
+                    File.Delete(Providers.LocalFilePath);
+                    Providers.Local.Load();
+                }
             }
 
             try
@@ -76,13 +89,24 @@ namespace SteamTools.Models.Settings
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                MessageBox.Show("Roaming Settings Load Error :" + ex.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
-                if (File.Exists(Providers.LocalFilePath))
+                //MessageBox.Show("Roaming Settings Load Error :" + ex.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
+                if (WindowService.Current.ShowDialogWindow(Providers.RoamingFilePath + "\n" + Resources.ConfigLoadError))
                 {
-                    File.Copy(Providers.RoamingFilePath, Providers.RoamingFilePath + ".error", true);
-                    File.Delete(Providers.RoamingFilePath);
+                    if (File.Exists(Providers.RoamingFilePath))
+                    {
+                        File.Copy(Providers.RoamingFilePath, Providers.RoamingFilePath + ".error", true);
+                        if (File.Exists(Providers.RoamingFilePath + ".bak"))
+                            File.Copy(Providers.RoamingFilePath + ".bak", Providers.RoamingFilePath, true);
+                        else
+                            File.Delete(Providers.RoamingFilePath);
+                    }
+                    Providers.Roaming.Load();
                 }
-                Providers.Roaming.Load();
+                else
+                {
+                    File.Delete(Providers.RoamingFilePath);
+                    Providers.Roaming.Load();
+                }
             }
         }
 

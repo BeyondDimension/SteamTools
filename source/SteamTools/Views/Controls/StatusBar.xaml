@@ -91,7 +91,21 @@
                         </TextBlock>
                     </StackPanel>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type vm:SteamAccountPageViewModel}" />
+                <DataTemplate DataType="{x:Type vm:SteamAccountPageViewModel}" >
+                    <StackPanel Orientation="Horizontal">
+                        <metro:CaptionButton Grid.Column="2" VerticalAlignment="Center" ToolTip="登录新Steam账号"
+								 Style="{DynamicResource StatusButtonStyleKey}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <livet:LivetCallMethodAction
+                                            MethodName="LoginSteamNewUser_Click"
+                                            MethodTarget="{Binding}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <Image Source="pack://application:,,,/Resources/Asstes/steam_white.png" Width="14"></Image>
+                        </metro:CaptionButton>
+                    </StackPanel>
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:SteamAppPageViewModel}" >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource StatusText}" VerticalAlignment="Center" Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Steam_Not_Runing_Tips}"
