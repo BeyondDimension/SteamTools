@@ -84,11 +84,11 @@
                         <Run Text="A：证书安装是否成功的检测方法为试试点击删除证书看看是否有反应，443端口被占用可以百度一下怎么查询占用端口的程序。注：Vmawre虚拟机也会导致提示443端口被占用服务无法启动。" />
                         <LineBreak/>
                         <LineBreak/>
-                        <Run Text="Q：软件启动时就报错，缺少根元素？"></Run>
+                        <!--<Run Text="Q：软件启动时就报错，缺少根元素？"></Run>
                         <LineBreak />
                         <Run Text="A：配置文件加载出错了，检查下路径%HOMEPATH%\AppData\Local\rmbgame.net\Steam++以及%HOMEPATH%\AppData\Roaming\rmbgame.net\Steam++路径内的settings.json文件，如果没有重要数据可以删除此文件重置配置，或者手动还原备份settings.json.bak文件。同时可以考虑反馈settings.json.error文件给我排查问题。" />
                         <LineBreak/>
-                        <LineBreak/>
+                        <LineBreak/>-->
                     </Paragraph>
                 </FlowDocument>
             </FlowDocumentScrollViewer>

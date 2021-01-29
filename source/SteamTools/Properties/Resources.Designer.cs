@@ -322,6 +322,15 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 配置文件加载失败是否还原到上一次读取成功的备份配置文件 的本地化字符串。
+        /// </summary>
+        public static string ConfigLoadError {
+            get {
+                return ResourceManager.GetString("ConfigLoadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 确定 的本地化字符串。
         /// </summary>
         public static string Confirm {

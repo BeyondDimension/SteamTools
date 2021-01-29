@@ -80,12 +80,12 @@ namespace SteamTools.ViewModels
         {
             var mainWindow = (WindowService.Current.MainWindow as MainWindowViewModel);
             mainWindow.IsVisible = true;
-            int.TryParse(index, out int i);
-            if (i < 0)
-                mainWindow.SelectedItem = mainWindow.SystemTabItems[Math.Abs(i) - 1];
+            //int.TryParse(index, out int i);
+            var sysTab = mainWindow.SystemTabItems.FirstOrDefault(f => f.Name == index);
+            if (sysTab != null)
+                mainWindow.SelectedItem = sysTab;
             else
-                mainWindow.SelectedItem = mainWindow.TabItems[i];
-
+                mainWindow.SelectedItem = mainWindow.TabItems.First(f => f.Name == index);
             TaskbarService.Current.Taskbar.TrayPopup.Visibility = Visibility.Collapsed;
         }
     }

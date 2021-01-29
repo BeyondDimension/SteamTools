@@ -204,6 +204,9 @@
   <data name="Community_Service_Tips" xml:space="preserve">
     <value>已启用{0}个代理服务</value>
   </data>
+  <data name="ConfigLoadError" xml:space="preserve">
+    <value>配置文件加载失败是否还原到上一次读取成功的备份配置文件</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>确定</value>
   </data>
