@@ -91,11 +91,20 @@ namespace SteamTools
 #endif
                 App.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                 this.DispatcherUnhandledException += App_DispatcherUnhandledException;
-                DispatcherHelper.UIDispatcher = this.Dispatcher; 
+                DispatcherHelper.UIDispatcher = this.Dispatcher;
                 SettingsHost.Load();
                 this.compositeDisposable.Add(SettingsHost.Save);
                 this.compositeDisposable.Add(ProxyService.Current.Shutdown);
                 this.compositeDisposable.Add(SteamConnectService.Current.Shutdown);
+                this.compositeDisposable.Add(() =>
+                {
+                    if (TaskbarService.Current.Taskbar != null)
+                    {
+                        //TaskbarService.Current.Taskbar.Icon = null; //避免托盘图标没有自动消失
+                        TaskbarService.Current.Taskbar.Icon.Dispose();
+                    }
+                });
+
                 Microsoft.Win32.SystemEvents.SessionEnding += SystemEvents_SessionEnding;
 
                 if (e.Args.ContainsArg("-log") || GeneralSettings.IsEnableLogRecord)
@@ -204,11 +213,11 @@ namespace SteamTools
         /// <param name="e"></param>
         protected override void OnExit(ExitEventArgs e)
         {
-            if (TaskbarService.Current.Taskbar != null)
-            {
-                //TaskbarService.Current.Taskbar.Icon = null; //避免托盘图标没有自动消失
-                TaskbarService.Current.Taskbar.Icon.Dispose();
-            }
+            //if (TaskbarService.Current.Taskbar != null)
+            //{
+            //    //TaskbarService.Current.Taskbar.Icon = null; //避免托盘图标没有自动消失
+            //    TaskbarService.Current.Taskbar.Icon.Dispose();
+            //}
             this.compositeDisposable.Dispose();
             base.OnExit(e);
         }
@@ -268,7 +277,7 @@ namespace SteamTools
         #endregion
 
         #region IDisposable members
-        private readonly LivetCompositeDisposable compositeDisposable = new LivetCompositeDisposable();
+        public readonly LivetCompositeDisposable compositeDisposable = new LivetCompositeDisposable();
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => this.compositeDisposable;
 
         void IDisposable.Dispose()

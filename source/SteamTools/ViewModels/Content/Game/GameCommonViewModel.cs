@@ -11,6 +11,7 @@ using System.Diagnostics;
 using SteamTool.Core.Common;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace SteamTools.ViewModels
 {
@@ -45,6 +46,20 @@ namespace SteamTools.ViewModels
 
         #endregion
 
+        private BindingList<HandleWindow> _WindowList = new BindingList<HandleWindow>();
+        public BindingList<HandleWindow> WindowList
+        {
+            get { return this._WindowList; }
+            set
+            {
+                if (this._WindowList != value)
+                {
+                    this._WindowList = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
         public void Cross_MouseDown()
         {
             //System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Cross;
@@ -75,6 +90,7 @@ namespace SteamTools.ViewModels
                 Handle = handle,
                 Process = Process.GetProcessById(pid)
             };
+            WindowList.Add(SelectWindow);
         }
 
         private bool IsHasProcessExits()

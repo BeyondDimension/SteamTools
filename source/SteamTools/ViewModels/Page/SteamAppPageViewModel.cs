@@ -162,6 +162,9 @@ namespace SteamTools.ViewModels
                         AppId = x.AppId,
                         Name = x.Name,
                         Type = x.Type,
+                        Icon = x.Icon,
+                        Logo = x.Logo,
+                        InstalledDir = x.InstalledDir,
                         IsInstalled = x.IsInstalled,
                     }).ToList();
             });

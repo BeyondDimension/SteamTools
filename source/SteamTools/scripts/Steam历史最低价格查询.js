@@ -202,6 +202,7 @@ async function AddLowestPriceTag(appId, type = "app", subIds = [], bundleids = [
     let metaInfo = data ? data[".meta"] : null;
     // 如果是bundle， 除了.meta外只有一个bundle/xxx，否则是一大堆xxx
     if (type == "bundle") {
+        data = data.data;
         appInfos.push({ Id: appId, Info: data["bundle/" + appId] });
     } else if (type == "app" || type == "sub") {
         data = data.data;
