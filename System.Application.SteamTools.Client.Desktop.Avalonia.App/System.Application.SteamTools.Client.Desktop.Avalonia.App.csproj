@@ -3,13 +3,8 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>9.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <SignAssembly>false</SignAssembly>
     <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\Unicorn.pfx</AssemblyOriginatorKeyFile>
     <RootNamespace>System.Application.UI</RootNamespace>
     <AssemblyName>Steam++</AssemblyName>
     <ApplicationIcon>Assets\Icon.ico</ApplicationIcon>

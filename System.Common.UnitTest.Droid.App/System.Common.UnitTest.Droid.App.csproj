@@ -24,9 +24,6 @@
     </NuGetPackageImportStamp>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\Unicorn.pfx</AssemblyOriginatorKeyFile>
     <AndroidUseIntermediateDesignerFile>false</AndroidUseIntermediateDesignerFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

@@ -29,11 +29,16 @@
         /// </summary>
         public const string AssemblyCompany = "SteamTools Team";
 
-        public const string PublicKey = ", PublicKey=" +
-           "002400000480000094000000060200000024000052534131000400000100010029b4f7706cbb7e23b3cf33be41127d4b" +
-           "12c14a77cc1094412e73ccbbea4fbc873883042b5a9e517df99137f31f610624f79b46980bcceb990db3caa619fbbb31989f" +
-           "5b6db3689d99ff1f70cb9bc20cc4d548beb942e09859cf2c0690683c9ad160a4a7287070e9e49795c75ba3d12723ddb4" +
-           "ddeb11d32f193e0882db10b41de3";
+        public const string PublicKey =
+#if SIGN_ASSEMBLY
+            ", PublicKey=" +
+            "002400000480000094000000060200000024000052534131000400000100010029b4f7706cbb7e23b3cf33be41127d4b" +
+            "12c14a77cc1094412e73ccbbea4fbc873883042b5a9e517df99137f31f610624f79b46980bcceb990db3caa619fbbb31989f" +
+            "5b6db3689d99ff1f70cb9bc20cc4d548beb942e09859cf2c0690683c9ad160a4a7287070e9e49795c75ba3d12723ddb4" +
+            "ddeb11d32f193e0882db10b41de3";
+#else
+            "";
+#endif
 
         public const bool Debuggable =
 #if DEBUG

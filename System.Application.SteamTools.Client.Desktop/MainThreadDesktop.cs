@@ -85,7 +85,7 @@ namespace System.Application
                 return funcTask();
             }
 
-            var tcs = new TaskCompletionSource<object>();
+            var tcs = new TaskCompletionSource<object?>();
 
             BeginInvokeOnMainThread(
                 async () =>

@@ -2,12 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <LangVersion>9.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\Unicorn.pfx</AssemblyOriginatorKeyFile>
     <RootNamespace>System.Application</RootNamespace>
     <DefineConstants>ORM_SQLITE_PCL;$(DefineConstants)</DefineConstants>
   </PropertyGroup>

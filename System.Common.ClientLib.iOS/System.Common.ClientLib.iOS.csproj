@@ -2,12 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>Xamarin.iOS10</TargetFramework>
-    <LangVersion>9.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\Unicorn.pfx</AssemblyOriginatorKeyFile>
     <RootNamespace>System</RootNamespace>
   </PropertyGroup>
 
