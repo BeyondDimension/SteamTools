@@ -19,6 +19,27 @@
 
 [简体中文](https://github.com/rmbadmin/SteamTools/blob/develop/README.md)
 
+## 系统要求
+- Windows 10 1607+
+- Windows 8.1 / Windows Server 2012 R2
+	- 先决条件
+	- Microsoft Visual C++ 2015-2019 Redistributable [64 位](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 位](https://aka.ms/vs/16/release/vc_redist.x86.exe)
+- Windows 7 SP1 [ESU](https://docs.microsoft.com/zh-cn/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
+	- 先决条件
+	- Microsoft Visual C++ 2015-2019 Redistributable [64 位](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 位](https://aka.ms/vs/16/release/vc_redist.x86.exe)
+	- KB3063858 [64 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47442) / [32 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47409)
+- ~~macOS 10.13 High Sierra 或更高版本~~
+- ~~Alpine Linux 3.11+~~
+- ~~CentOS 7+~~
+- ~~Debian 9+~~
+- ~~Fedora 32+~~
+- ~~Linux Mint 18+~~
+- ~~openSUSE 15+~~
+- ~~Red Hat Enterprise Linux 7+~~
+- ~~SUSE Enterprise Linux (SLES) 12 SP2+~~
+- ~~Ubuntu 20.10, 20.04, 18.04, 16.04~~
+- ~~Android 5.0+~~
+- ~~iOS 8.0+~~
 
 ## 效果展示
 -------
@@ -80,10 +101,21 @@
 ---
 
 ## 开发环境
-> 开发工具 [Visual Studio 2019](https://visualstudio.microsoft.com/)   
-> 开发语言 C# WPF  
-> .NET版本 .NET Framework4.7.2 和 .NET5     
-> 如果无法运行请下载安装[.NET Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472)或[.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)。      
+[Visual Studio 2019 版本 16.8 或更高版本](https://visualstudio.microsoft.com/zh-hans/vs/) 或 [Visual Studio for Mac](https://visualstudio.microsoft.com/zh-hans/vs/mac/) 或 [JetBrains Rider](https://www.jetbrains.com/rider/) 或 [Visual Studio Code](https://code.visualstudio.com/)
+- 工作负载
+	- Web 和云
+		- ASP.NET 和 Web 开发
+	- 桌面应用和移动应用
+		- .NET 桌面开发
+		- 使用 .NET 的移动开发
+	- 其他工具集
+		- .NET Core 跨平台开发
+- 单个组件
+	- GitHub Extension for Visual Studio
+- [Visual Studio Marketplace](https://marketplace.visualstudio.com/)
+	- [Avalonia for Visual Studio](https://marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaforVisualStudio)
+	- [NUnit VS Templates](https://marketplace.visualstudio.com/items?itemName=NUnitDevelopers.NUnitTemplatesforVisualStudio)
+	
 ---
 
 ## License
