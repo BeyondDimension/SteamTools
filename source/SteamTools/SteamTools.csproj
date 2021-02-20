@@ -35,9 +35,11 @@
 
 		<PackageId />
 
-		<Version>1.1.2</Version>
+		<Version>1.1.2.1</Version>
 
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+
+		<AssemblyVersion>1.1.2.1</AssemblyVersion>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net5.0-windows'">
@@ -52,6 +54,7 @@
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|x86'">
 	  <PlatformTarget>x86</PlatformTarget>
+	  <DefineConstants>TRACE;BETA</DefineConstants>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
