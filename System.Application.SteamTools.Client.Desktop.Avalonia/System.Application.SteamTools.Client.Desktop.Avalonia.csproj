@@ -16,4 +16,10 @@
     <ProjectReference Include="..\System.Common.CoreLib\System.Common.CoreLib.csproj"/>
     <ProjectReference Include="..\System.Common.DesktopLib\System.Common.DesktopLib.csproj"/>
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MessageBox.Avalonia" Version="1.0.5">
+      <Aliases>MessageBox_Avalonia</Aliases>
+    </PackageReference>
+  </ItemGroup>
 </Project>
