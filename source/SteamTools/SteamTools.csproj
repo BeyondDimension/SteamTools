@@ -35,9 +35,11 @@
 
 		<PackageId />
 
-		<Version>1.1.2</Version>
+		<Version>1.1.2.1</Version>
 
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+
+		<AssemblyVersion>1.1.2.1</AssemblyVersion>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net5.0-windows'">
@@ -52,6 +54,7 @@
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|x86'">
 	  <PlatformTarget>x86</PlatformTarget>
+	  <DefineConstants>TRACE;BETA</DefineConstants>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
@@ -77,12 +80,15 @@
 	</ItemGroup>
 	
 	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
-		<PackageReference Include="Costura.Fody" Version="4.1.0" />
+		<PackageReference Include="Costura.Fody" Version="5.0.2">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Fody" Version="6.3.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.14" />
+		<PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.18" />
 	</ItemGroup>
 	
 	<!--<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
@@ -121,17 +127,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="LivetCask.Behaviors" Version="3.2.3.1" />
-		<PackageReference Include="LivetCask.EventListeners" Version="3.2.3.1" />
-		<PackageReference Include="LivetCask.Messaging" Version="3.2.3.1" />
-		<PackageReference Include="LivetCask.Mvvm" Version="3.2.3.1" />
+		<PackageReference Include="LivetCask.Behaviors" Version="3.2.3.2" />
+		<PackageReference Include="LivetCask.EventListeners" Version="3.2.3.2" />
+		<PackageReference Include="LivetCask.Messaging" Version="3.2.3.2" />
+		<PackageReference Include="LivetCask.Mvvm" Version="3.2.3.2" />
 		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
-		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
 		<PackageReference Include="System.Reactive" Version="5.0.0" />
 	
 		<PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
-		<PackageReference Include="System.Net.Primitives" Version="4.3.0" />
+		<PackageReference Include="System.Net.Primitives" Version="4.3.1" />
 		<PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
 		<PackageReference Include="System.Diagnostics.Tracing" Version="4.3.0" />
 	</ItemGroup>

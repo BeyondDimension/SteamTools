@@ -394,7 +394,7 @@
     <value>脚本列表</value>
   </data>
   <data name="ScriptSettings" xml:space="preserve">
-    <value>脚本配置</value>
+    <value>脚本配置(启动加速后脚本才会生效)</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>搜索</value>

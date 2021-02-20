@@ -889,7 +889,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 脚本配置 的本地化字符串。
+        ///   查找类似 脚本配置(启动加速后脚本才会生效) 的本地化字符串。
         /// </summary>
         public static string ScriptSettings {
             get {
