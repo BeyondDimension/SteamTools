@@ -23,13 +23,17 @@
     </Compile>
     <Compile Include="..\System.Common.UnitTest\Logging\*.cs">
       <Link />
+      <LinkBase>Logging</LinkBase>
     </Compile>
     <Compile Include="..\System.Common.UnitTest\Utils\*.cs">
       <Link />
+      <LinkBase>Utils</LinkBase>
     </Compile>
     <Compile Include="..\System.Common.UnitTest\Droid\*.cs">
       <Link />
+      <LinkBase>Droid</LinkBase>
     </Compile>
+    <!--https://docs.microsoft.com/zh-cn/visualstudio/msbuild/common-msbuild-item-metadata?view=vs-2019-->
   </ItemGroup>
 
   <ItemGroup>
