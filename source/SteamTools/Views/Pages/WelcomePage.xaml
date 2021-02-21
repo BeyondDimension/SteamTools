@@ -62,7 +62,7 @@
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
                         <TextBlock Foreground="{DynamicResource ActiveForegroundBrushKey}">
                             <Run Text="作者:" />
-							<metro2:HyperlinkEx Uri="https://blog.rmbgame.net">
+							<metro2:HyperlinkEx Uri="https://github.com/SteamTools-Team">
 							<Run Text="@软妹币玩家" />
 							</metro2:HyperlinkEx>
 							<LineBreak />
