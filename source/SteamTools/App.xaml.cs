@@ -23,6 +23,9 @@ using SteamTools.Models.Settings;
 using SteamTools.ViewModels;
 using SteamTool.Core;
 using Microsoft.Win32;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace SteamTools
 {
@@ -75,6 +78,8 @@ namespace SteamTools
         /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e)
         {
+          AppCenter.Start("ccca922e-40fe-48ab-9982-45ba496b1201",
+          typeof(Analytics), typeof(Crashes));
 #if !DEBUG
             var appInstance = new MetroTrilithon.Desktop.ApplicationInstance().AddTo(this);
             if (appInstance.IsFirst)
@@ -204,7 +209,7 @@ namespace SteamTools
                 MessageBox.Show(ex.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
             }
 
-            //Current.Shutdown();
+            Current.Shutdown();
         }
 
         /// <summary>

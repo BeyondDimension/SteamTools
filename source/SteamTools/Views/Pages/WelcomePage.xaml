@@ -62,7 +62,7 @@
 								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
                         <TextBlock Foreground="{DynamicResource ActiveForegroundBrushKey}">
                             <Run Text="作者:" />
-							<metro2:HyperlinkEx Uri="https://blog.rmbgame.net">
+							<metro2:HyperlinkEx Uri="https://github.com/SteamTools-Team">
 							<Run Text="@软妹币玩家" />
 							</metro2:HyperlinkEx>
 							<LineBreak />
@@ -71,8 +71,17 @@
 								<Run Text="@RuaRua" />
 							</metro2:HyperlinkEx>
                             <LineBreak />
+                            <Run Text="官方网站:" />
+                            <metro2:HyperlinkEx Uri="http://www.steamtool.net">
+								<Run Text="www.steamtool.net" />
+							</metro2:HyperlinkEx>
 							<LineBreak />
-				
+							<LineBreak />
+							<LineBreak />
+							<Run Text="社群维护:" />
+							<metro2:HyperlinkEx Uri="https://space.bilibili.com/30031316">
+								<Run Text="@Cliencer克总" />
+							</metro2:HyperlinkEx>
 							<LineBreak />
 							<Run Text="程序图标:" />
 							<metro2:HyperlinkEx Uri="https://steamcommunity.com/profiles/76561198110756239/">

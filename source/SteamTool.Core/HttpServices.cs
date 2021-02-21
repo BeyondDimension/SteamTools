@@ -35,7 +35,7 @@ namespace SteamTool.Core
             {
                 Logger.Error(ex);
             }
-            return null;
+            return string.Empty;
         }
         private async Task<Stream> SendAsyncAsStream(HttpRequestMessage request)
         {

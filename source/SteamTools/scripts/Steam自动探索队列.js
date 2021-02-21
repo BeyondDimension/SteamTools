@@ -2,7 +2,7 @@
 // @name         Steam自动探索队列
 // @namespace    http://keylol.com/t157861-1-1
 // @version      0.2
-// @description  Steam节庆活动用脚本，自动探索3次队列。
+// @description  Steam节庆活动用脚本，自动探索3次队列。(此脚本需要勾选Steam商店加速才会生效)
 // @author       baodongsun
 // @match        https://store.steampowered.com/
 // @grant        SteamCN

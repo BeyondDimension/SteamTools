@@ -291,6 +291,7 @@ new ProxyDomainModel{
 Name=Resources.Pixiv,
 Domains = new List<string>{ "pixiv.net" },
 ToDomain="pixiv.rmbgame.net",
+//ProxyIPAddres = "210.140.131.182",
 Hosts = new List<string>{
 "www.pixiv.net",
 "touch.pixiv.net",

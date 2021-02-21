@@ -189,6 +189,8 @@ namespace SteamTools.ViewModels
                 case SteamAppTypeEnum.Game:
                     //var nApp = app.Clone();
                     //nApp.Process = Process.Start($"{ProductInfo.Title}.exe", app.AppId.ToString(CultureInfo.InvariantCulture));
+
+                    WindowService.Current.MainWindow.Dialog("【风险提示】解锁成就可能会被游戏开发者视为作弊，并且会被成就统计网站封锁。若决定继续使用，请自行承担解锁成就带来的风险和后果。");
                     app.Process = Process.Start(Path.Combine(AppContext.BaseDirectory, App.Instance.ProgramName), "-app " + app.AppId.ToString(CultureInfo.InvariantCulture));
                     SteamConnectService.Current.RuningSteamApps.Add(app);
                     break;

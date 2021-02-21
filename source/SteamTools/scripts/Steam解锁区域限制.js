@@ -2,7 +2,7 @@
 // @name         Steam解锁区域限制
 // @namespace    http://tampermonkey.net/
 // @version      1.0.3
-// @description  Bypass some kind of region restrictions.
+// @description  Bypass some kind of region restrictions.(该脚本未适配完成，暂时无法使用)
 // @author       CharRun
 // @grant        GM_xmlhttpRequest
 // @run-at       document-body

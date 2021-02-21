@@ -176,27 +176,27 @@ namespace SteamTool.Core
                 result.Message = "hosts file was not found";
                 return result;
             }
-            //操作前取消只读属性
-            File.SetAttributes(HostsPath, FileAttributes.Normal);
-
-            //避免重复写入
-            var dataLines = File.ReadAllLines(HostsPath, Encoding.Default).ToList().FindAll(s =>
-            {
-                var temp = s.Trim().Split(' ').ToList();
-                temp = temp.FindAll(s => !string.IsNullOrEmpty(s));
-                //一行内至少要有两列数据
-                if (temp.Count >= 2)
-                {
-                    if (!temp[0].StartsWith("#"))
-                    {
-                        return !(temp.Contains(ip) && temp.Contains(domain));
-                    }
-                }
-                return true;
-            });
-
             try
             {
+                //操作前取消只读属性
+                File.SetAttributes(HostsPath, FileAttributes.Normal);
+
+                //避免重复写入
+                var dataLines = File.ReadAllLines(HostsPath, Encoding.Default).ToList().FindAll(s =>
+                {
+                    var temp = s.Trim().Split(' ').ToList();
+                    temp = temp.FindAll(s => !string.IsNullOrEmpty(s));
+                //一行内至少要有两列数据
+                if (temp.Count >= 2)
+                    {
+                        if (!temp[0].StartsWith("#"))
+                        {
+                            return !(temp.Contains(ip) && temp.Contains(domain));
+                        }
+                    }
+                    return true;
+                });
+
                 File.WriteAllLines(HostsPath, dataLines, Encoding.UTF8);
 
                 //File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
@@ -221,25 +221,25 @@ namespace SteamTool.Core
                 result.Message = "hosts file was not found";
                 return result;
             }
-            //操作前取消只读属性
-            File.SetAttributes(HostsPath, FileAttributes.Normal);
-
-            var dataLines = File.ReadAllLines(HostsPath, Encoding.Default).ToList().FindAll(s =>
-            {
-                var temp = s.Trim().Split(' ').ToList().FindAll(w => !string.IsNullOrEmpty(w));
-                //有效数据一行内至少要有两列数据
-                if (temp.Count >= 2)
-                {
-                    if (!temp[0].StartsWith("#"))
-                    {
-                        return !temp.Contains(Const.HOST_TAG);
-                    }
-                }
-                return true;
-            });
-
             try
             {
+                //操作前取消只读属性
+                File.SetAttributes(HostsPath, FileAttributes.Normal);
+
+                var dataLines = File.ReadAllLines(HostsPath, Encoding.Default).ToList().FindAll(s =>
+                {
+                    var temp = s.Trim().Split(' ').ToList().FindAll(w => !string.IsNullOrEmpty(w));
+                    //有效数据一行内至少要有两列数据
+                    if (temp.Count >= 2)
+                    {
+                        if (!temp[0].StartsWith("#"))
+                        {
+                            return !temp.Contains(Const.HOST_TAG);
+                        }
+                    }
+                    return true;
+                });
+
                 File.WriteAllLines(HostsPath, dataLines, Encoding.UTF8);
                 //File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
                 result.ResultType = OperationResultType.Success;
