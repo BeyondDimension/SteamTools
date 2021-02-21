@@ -42,7 +42,7 @@ namespace SteamTool.Proxy
             proxyServer.CertificateManager.PfxFilePath = Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.pfx");
             proxyServer.CertificateManager.RootCertificateIssuerName = $"{CertificateName} Certificate Authority";
             proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
-            proxyServer.CertificateManager.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.BouncyCastle;
+            proxyServer.CertificateManager.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.BouncyCastleFast;
         }
 
         public bool ProxyRunning => proxyServer.ProxyRunning;
