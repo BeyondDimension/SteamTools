@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>优化 MSBuild 在 Release 时 不生成PDB
     <SignAssembly>false</SignAssembly>
     <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
     <RootNamespace>System.Application.UI</RootNamespace>
@@ -19,13 +19,24 @@
 
   <ItemGroup>
     <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Avalonia\System.Application.SteamTools.Client.Desktop.Avalonia.csproj" />
+    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Platform\System.Application.SteamTools.Client.Desktop.Platform.csproj" />
     <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop\System.Application.SteamTools.Client.Desktop.csproj" />
     <ProjectReference Include="..\System.Common.CoreLib\System.Common.CoreLib.csproj" />
-    <ProjectReference Include="..\System.Common.DesktopLib\System.Common.DesktopLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Platform.Windows\System.Application.SteamTools.Client.Desktop.Platform.Windows.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$(OS)' == 'OSX' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Platform.Mac\System.Application.SteamTools.Client.Desktop.Platform.Mac.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`linux`)) Or ('$(OS)' == 'Unix' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Platform.Linux\System.Application.SteamTools.Client.Desktop.Platform.Linux.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0" />
     <PackageReference Include="MessageBox.Avalonia" Version="1.0.5">
       <Aliases>MessageBox_Avalonia</Aliases>
     </PackageReference>
