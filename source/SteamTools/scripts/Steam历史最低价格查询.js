@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Steam历史最低价格查询
 // @namespace   SteamHistoryLowestPrice
-// @description 在steam商店页显示当前app历史最低价格及进包次数
+// @description 在steam商店页显示当前app历史最低价格及进包次数(此脚本需要勾选Steam商店加速才会生效)
 // @include      https://store.steampowered.com/app/*
 // @include      https://store.steampowered.com/bundle/*
 // @include      https://store.steampowered.com/sub/*

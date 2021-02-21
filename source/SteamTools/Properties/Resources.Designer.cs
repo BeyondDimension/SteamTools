@@ -745,7 +745,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 刷新成绩和统计 的本地化字符串。
+        ///   查找类似 刷新成就和统计 的本地化字符串。
         /// </summary>
         public static string OnRefresh {
             get {
