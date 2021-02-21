@@ -38,6 +38,8 @@
       </TabItem>
       <TabItem Header="{Binding Path=UserFastChange}">
       </TabItem>
+	  <TabItem Header="{Binding Path=SteamAuth}">
+	  </TabItem>
       <TabItem Header="{Binding Path=SteamAuth}">
       </TabItem>
       <TabItem Header="{Binding Path=GameRelated}">

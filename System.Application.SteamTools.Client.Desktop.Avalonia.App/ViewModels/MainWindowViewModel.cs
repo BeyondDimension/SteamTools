@@ -48,6 +48,15 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref mUserFastChange, value);
         }
 
+        string mSteamApps = string.Empty;
+
+        [ResString]
+        public string SteamApps
+        {
+            get => mSteamApps;
+            set => this.RaiseAndSetIfChanged(ref mSteamApps, value);
+        }
+
         string mSteamAuth = string.Empty;
 
         [ResString]

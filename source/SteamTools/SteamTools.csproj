@@ -54,7 +54,7 @@
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|x86'">
 	  <PlatformTarget>x86</PlatformTarget>
-	  <DefineConstants>TRACE;BETA</DefineConstants>
+	  <DefineConstants>TRACE</DefineConstants>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
@@ -68,10 +68,14 @@
 	  <DebugSymbols>false</DebugSymbols>
 	  <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
 	  <FileAlignment>512</FileAlignment>
+	  <DefineConstants>TRACE</DefineConstants>
 	</PropertyGroup>
 	
 	<ItemGroup Condition="'$(TargetFramework)' == 'net461'">
-		<PackageReference Include="Costura.Fody" Version="4.1.0" />
+		<PackageReference Include="Costura.Fody" Version="5.0.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Fody" Version="6.3.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -81,8 +85,8 @@
 	
 	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
 		<PackageReference Include="Costura.Fody" Version="5.0.2">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Fody" Version="6.3.0">
 			<PrivateAssets>all</PrivateAssets>
@@ -96,7 +100,7 @@
 	</ItemGroup>-->
 	
 	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0-windows'">
-		<PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.14" />
+		<PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.18" />
 	</ItemGroup>
 	
 	<ItemGroup>
@@ -131,6 +135,8 @@
 		<PackageReference Include="LivetCask.EventListeners" Version="3.2.3.2" />
 		<PackageReference Include="LivetCask.Messaging" Version="3.2.3.2" />
 		<PackageReference Include="LivetCask.Mvvm" Version="3.2.3.2" />
+		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.1.0" />
+		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0" />
 		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -221,6 +227,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.ja-jp.resx">
+		  <DependentUpon>Resources.resx</DependentUpon>
+		</EmbeddedResource>
 		<EmbeddedResource Update="Properties\Resources.zh-Hant.resx">
 			<DependentUpon>Resources.resx</DependentUpon>
 		</EmbeddedResource>
@@ -390,5 +399,4 @@
 		</None>
 	</ItemGroup>
 
-	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 </Project>
