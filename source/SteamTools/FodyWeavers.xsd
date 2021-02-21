@@ -17,6 +17,16 @@
                   <xs:documentation>A list of assembly names to include from the default action of "embed all Copy Local references", delimited with line breaks.</xs:documentation>
                 </xs:annotation>
               </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="ExcludeRuntimeAssemblies" type="xs:string">
+                <xs:annotation>
+                  <xs:documentation>A list of (.NET Core) runtime assembly names to exclude from the default action of "embed all Copy Local references", delimited with line breaks</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="IncludeRuntimeAssemblies" type="xs:string">
+                <xs:annotation>
+                  <xs:documentation>A list of (.NET Core) runtime assembly names to include from the default action of "embed all Copy Local references", delimited with line breaks.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
               <xs:element minOccurs="0" maxOccurs="1" name="Unmanaged32Assemblies" type="xs:string">
                 <xs:annotation>
                   <xs:documentation>A list of unmanaged 32 bit assembly names to include, delimited with line breaks.</xs:documentation>
@@ -41,6 +51,11 @@
             <xs:attribute name="IncludeDebugSymbols" type="xs:boolean">
               <xs:annotation>
                 <xs:documentation>Controls if .pdbs for reference assemblies are also embedded.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="IncludeRuntimeReferences" type="xs:boolean">
+              <xs:annotation>
+                <xs:documentation>Controls if (.NET Core) runtime assemblies are also embedded.</xs:documentation>
               </xs:annotation>
             </xs:attribute>
             <xs:attribute name="DisableCompression" type="xs:boolean">
@@ -71,6 +86,16 @@
             <xs:attribute name="IncludeAssemblies" type="xs:string">
               <xs:annotation>
                 <xs:documentation>A list of assembly names to include from the default action of "embed all Copy Local references", delimited with |.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="ExcludeRuntimeAssemblies" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>A list of (.NET Core) runtime assembly names to exclude from the default action of "embed all Copy Local references", delimited with |</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="IncludeRuntimeAssemblies" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>A list of (.NET Core) runtime assembly names to include from the default action of "embed all Copy Local references", delimited with |.</xs:documentation>
               </xs:annotation>
             </xs:attribute>
             <xs:attribute name="Unmanaged32Assemblies" type="xs:string">

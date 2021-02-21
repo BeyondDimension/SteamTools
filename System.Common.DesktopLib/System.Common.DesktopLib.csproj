@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>System</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\System.Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\System.Common.CoreLib\Properties\InternalsVisibleTo.cs">
+      <Link>Properties\InternalsVisibleTo.cs</Link>
+    </Compile>
+    <!--<Compile Include="..\System.Common.ServerLib\Application\UnityConsoleOutputHead.cs">
+      <Link>Application\UnityConsoleOutputHead.cs</Link>
+    </Compile>-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\System.Common.CoreLib\System.Common.CoreLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+    <PackageReference Include="System.Management" Version="5.0.0" />
+    <PackageReference Include="Avalonia" Version="0.10.0" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.0" />
+    <PackageReference Include="Avalonia.AvaloniaEdit" Version="0.10.0" />
+    <PackageReference Include="MessageBox.Avalonia" Version="1.0.5">
+      <Aliases>MessageBox_Avalonia</Aliases>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0" />
+  </ItemGroup>
+</Project>

@@ -23,6 +23,9 @@ using SteamTools.Models.Settings;
 using SteamTools.ViewModels;
 using SteamTool.Core;
 using Microsoft.Win32;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace SteamTools
 {
@@ -75,6 +78,8 @@ namespace SteamTools
         /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e)
         {
+          AppCenter.Start("ccca922e-40fe-48ab-9982-45ba496b1201",
+          typeof(Analytics), typeof(Crashes));
 #if !DEBUG
             var appInstance = new MetroTrilithon.Desktop.ApplicationInstance().AddTo(this);
             if (appInstance.IsFirst)
@@ -91,11 +96,20 @@ namespace SteamTools
 #endif
                 App.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                 this.DispatcherUnhandledException += App_DispatcherUnhandledException;
-                DispatcherHelper.UIDispatcher = this.Dispatcher; 
+                DispatcherHelper.UIDispatcher = this.Dispatcher;
                 SettingsHost.Load();
                 this.compositeDisposable.Add(SettingsHost.Save);
                 this.compositeDisposable.Add(ProxyService.Current.Shutdown);
                 this.compositeDisposable.Add(SteamConnectService.Current.Shutdown);
+                this.compositeDisposable.Add(() =>
+                {
+                    if (TaskbarService.Current.Taskbar != null)
+                    {
+                        //TaskbarService.Current.Taskbar.Icon = null; //避免托盘图标没有自动消失
+                        TaskbarService.Current.Taskbar.Icon.Dispose();
+                    }
+                });
+
                 Microsoft.Win32.SystemEvents.SessionEnding += SystemEvents_SessionEnding;
 
                 if (e.Args.ContainsArg("-log") || GeneralSettings.IsEnableLogRecord)
@@ -195,7 +209,7 @@ namespace SteamTools
                 MessageBox.Show(ex.ToString(), $"{ProductInfo.Title} {ProductInfo.VersionString} Error");
             }
 
-            //Current.Shutdown();
+            Current.Shutdown();
         }
 
         /// <summary>
@@ -204,11 +218,11 @@ namespace SteamTools
         /// <param name="e"></param>
         protected override void OnExit(ExitEventArgs e)
         {
-            if (TaskbarService.Current.Taskbar != null)
-            {
-                //TaskbarService.Current.Taskbar.Icon = null; //避免托盘图标没有自动消失
-                TaskbarService.Current.Taskbar.Icon.Dispose();
-            }
+            //if (TaskbarService.Current.Taskbar != null)
+            //{
+            //    //TaskbarService.Current.Taskbar.Icon = null; //避免托盘图标没有自动消失
+            //    TaskbarService.Current.Taskbar.Icon.Dispose();
+            //}
             this.compositeDisposable.Dispose();
             base.OnExit(e);
         }
@@ -268,7 +282,7 @@ namespace SteamTools
         #endregion
 
         #region IDisposable members
-        private readonly LivetCompositeDisposable compositeDisposable = new LivetCompositeDisposable();
+        public readonly LivetCompositeDisposable compositeDisposable = new LivetCompositeDisposable();
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => this.compositeDisposable;
 
         void IDisposable.Dispose()

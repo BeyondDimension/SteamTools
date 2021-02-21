@@ -156,6 +156,7 @@ namespace SteamTools.Services
                     if (ZipHelper.UnpackFiles(zipFile, out_dir))
                     {
                         File.Delete(zipFile);
+                        App.Instance.compositeDisposable.Dispose();
                         var batpath = Path.Combine(AppContext.BaseDirectory, "update.cmd");
                         File.WriteAllText(batpath,
                             string.Format(SteamTool.Core.Properties.Resources.ProgramUpdateCmd,
@@ -166,7 +167,6 @@ namespace SteamTools.Services
                         p.StartInfo.CreateNoWindow = true;//不显示程序窗口 
                         //管理员权限运行
                         p.StartInfo.Verb = "runas";
-                        App.Current.Shutdown();
                         p.Start();//启动程序 
                     }
                 }

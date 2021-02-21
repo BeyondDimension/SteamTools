@@ -71,12 +71,27 @@
 								<Run Text="@RuaRua" />
 							</metro2:HyperlinkEx>
                             <LineBreak />
+                            <Run Text="官方网站:" />
+                            <metro2:HyperlinkEx Uri="http://www.steamtool.net">
+								<Run Text="www.steamtool.net" />
+							</metro2:HyperlinkEx>
 							<LineBreak />
-				
+							<LineBreak />
+							<LineBreak />
+							<Run Text="社群维护:" />
+							<metro2:HyperlinkEx Uri="https://space.bilibili.com/30031316">
+								<Run Text="@Cliencer克总" />
+							</metro2:HyperlinkEx>
 							<LineBreak />
 							<Run Text="程序图标:" />
 							<metro2:HyperlinkEx Uri="https://steamcommunity.com/profiles/76561198110756239/">
 								<Run Text="@Benares" />
+							</metro2:HyperlinkEx>
+                            
+                            <LineBreak />
+							<Run Text="用户交流反馈群:" />
+							<metro2:HyperlinkEx Uri="https://qm.qq.com/cgi-bin/qm/qr?k=EvP8VZ-ByGjMlbLvrj4x4YJ8C_bhTisG&amp;authKey=toKraTwFoTlJKXSuBv7A87W0qKb0vSRrozVLXW0dVcvOmEP98T/t+MZK9qFi26fb&amp;noverify=0">
+								<Run Text="53617681" />
 							</metro2:HyperlinkEx>
                         </TextBlock>
 

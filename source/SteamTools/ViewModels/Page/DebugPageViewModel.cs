@@ -49,34 +49,44 @@ namespace SteamTools.ViewModels
                 DebugText += Environment.NewLine;
                 DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamUtils.GetAppId();
                 DebugText += Environment.NewLine;
-                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.IsAppInstalled(730);
-                DebugText += Environment.NewLine;
                 DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.IsSubscribedFromFamilySharing();
                 DebugText += Environment.NewLine;
-                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.GetAppInstallDir(730);
+                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.GetAppInstallDir(398980);
+                DebugText += Environment.NewLine;
+                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.IsAppInstalled(398980);
                 DebugText += Environment.NewLine;
             }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s => s.Dispose());
         }
 
         public void Test_OnClick()
         {
-            Task.Run(() =>
+            if (SteamConnectService.Current.IsConnectToSteam)
             {
-                DebugText += SteamConnectService.Current.IsConnectToSteam;
-                DebugText += Environment.NewLine;
-                DebugText += SteamConnectService.Current.ApiService.GetSteamId64();
-                DebugText += Environment.NewLine;
-                DebugText += SteamConnectService.Current.CurrentSteamUser.SteamId3_Int;
-                DebugText += Environment.NewLine;
-                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamUtils.GetAppId();
-                DebugText += Environment.NewLine;
-                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.IsAppInstalled(730);
-                DebugText += Environment.NewLine;
-                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.IsSubscribedFromFamilySharing();
-                DebugText += Environment.NewLine;
-                DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.GetAppInstallDir(730);
-                DebugText += Environment.NewLine;
-            }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s => s.Dispose());
+                if (SteamConnectService.Current.ApiService.Initialize())
+                {
+                    Task.Run(() =>
+                    {
+                        DebugText += SteamConnectService.Current.IsConnectToSteam;
+                        DebugText += Environment.NewLine;
+                        DebugText += SteamConnectService.Current.ApiService.GetSteamId64();
+                        DebugText += Environment.NewLine;
+                        DebugText += SteamConnectService.Current.CurrentSteamUser.SteamId3_Int;
+                        DebugText += Environment.NewLine;
+                        DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamUtils.GetAppId();
+                        DebugText += Environment.NewLine;
+                        DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.IsSubscribedFromFamilySharing();
+                        DebugText += Environment.NewLine;
+                        DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.GetAppInstallDir(398980);
+                        DebugText += Environment.NewLine;
+                        DebugText += SteamConnectService.Current.ApiService.SteamClient.SteamApps008.IsAppInstalled(398980);
+                        DebugText += Environment.NewLine;
+                    }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s =>
+                    {
+                        s.Dispose();
+                        SteamConnectService.Current.DisposeSteamClient();
+                    });
+                }
+            }
         }
     }
 }

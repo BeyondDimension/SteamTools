@@ -18,6 +18,8 @@ namespace SteamTool.Model
 
         public bool IsInstalled { get; set; }
 
+        public string InstalledDir { get; set; }
+
         public string Name { get; set; }
 
         public string Logo { get; set; }
@@ -30,7 +32,7 @@ namespace SteamTool.Model
 
         public string HeaderLogoUrl => string.Format(Const.STEAMAPP_CAPSULE_URL, AppId);
 
-        public string IconUrl => string.IsNullOrEmpty(Icon) ? null : string.Format(Const.STEAMAPP_LOGO_URL, AppId, Icon);
+        public string IconUrl => string.IsNullOrEmpty(Icon) ? null : string.Format(Const.STEAMAPP_ICON_URL, AppId, Icon);
 
         public Process Process { get; set; }
 

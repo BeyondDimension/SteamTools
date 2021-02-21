@@ -346,7 +346,7 @@
     <value>仅对Steam浏览器生效</value>
   </data>
   <data name="OnRefresh" xml:space="preserve">
-    <value>刷新成绩和统计</value>
+    <value>刷新成就和统计</value>
   </data>
   <data name="OnRest" xml:space="preserve">
     <value>复位成就和统计</value>
@@ -394,7 +394,7 @@
     <value>脚本列表</value>
   </data>
   <data name="ScriptSettings" xml:space="preserve">
-    <value>脚本配置</value>
+    <value>脚本配置(启动加速后脚本才会生效)</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>搜索</value>

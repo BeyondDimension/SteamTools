@@ -22,13 +22,14 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel>
-        <TextBlock Text="{Binding Resources.BorderlessWindow, Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <TextBlock Text="{Binding Resources.BorderlessWindow, Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
 				   Style="{DynamicResource SettingsHeaderTextStyleKey}" />
 
-        <StackPanel Orientation="Vertical" Visibility="{Binding Path=SelectWindow,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}"
+            <StackPanel Orientation="Vertical" Visibility="{Binding Path=SelectWindow,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}"
 					Margin="20,0,10,00">
-            <TextBlock Margin="0,0,10,0" TextWrapping="WrapWithOverflow">
+                <TextBlock Margin="0,0,10,0" TextWrapping="WrapWithOverflow">
                 <Run Text="标题 :"></Run>
                 <Run Text="{Binding SelectWindow.Title,Mode=OneWay}"></Run>
                 <LineBreak></LineBreak>
@@ -44,101 +45,122 @@
                 <Run Text="程序路径 :"></Run>
                 <!--<Run Text="{Binding SelectWindow.Path,Mode=OneWay}"></Run>-->
                 <!--<LineBreak></LineBreak>-->
-            </TextBlock>
-            <TextBlock Margin="0,0,10,0" TextWrapping="WrapWithOverflow" Text="{Binding SelectWindow.Path,Mode=OneWay}"></TextBlock>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" 
+                </TextBlock>
+                <TextBlock Margin="0,0,10,0" TextWrapping="WrapWithOverflow" Text="{Binding SelectWindow.Path,Mode=OneWay}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" 
 					Margin="20,10,0,00">
-            <Image Width="64" HorizontalAlignment="Left" Source="/Resources/Asstes/movecross.png">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown">
-                        <livet:LivetCallMethodAction
+                <Image Width="64" HorizontalAlignment="Left" Source="/Resources/Asstes/movecross.png">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <livet:LivetCallMethodAction
                                                 MethodName="Cross_MouseDown"
                                                 MethodTarget="{Binding}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Image>
-            <TextBlock Margin="10,0" Text="拖拽十字到游戏窗口，即可获取游戏信息执行对应操作。"></TextBlock>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal"
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
+                <TextBlock Margin="10,0" Text="拖拽十字到游戏窗口，即可获取游戏信息执行对应操作。"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
 					Margin="20,20,0,0">
-            <Button Height="30"  Content="结束进程">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <livet:LivetCallMethodAction
+                <Button Height="30"  Content="结束进程">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <livet:LivetCallMethodAction
                                                 MethodName="WindowKill_Click"
                                                 MethodTarget="{Binding}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Button>
-            <Button Height="30" Content="无边框窗口化">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <livet:LivetCallMethodAction
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Height="30" Content="无边框窗口化">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <livet:LivetCallMethodAction
                                                 MethodName="BorderlessWindow_Click"
                                                 MethodTarget="{Binding}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Button>
-            <Button Height="30" Content="最大化">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <livet:LivetCallMethodAction
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Height="30" Content="最大化">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <livet:LivetCallMethodAction
                                                 MethodName="MaximizeWindow_Click"
                                                 MethodTarget="{Binding}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Button>
-            <Button Height="30"  Content="还原最大化">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <livet:LivetCallMethodAction
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Height="30"  Content="还原最大化">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <livet:LivetCallMethodAction
                                                 MethodName="NormalWindow_Click"
                                                 MethodTarget="{Binding}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Button>
-            <Button Height="30"  Content="隐藏">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <livet:LivetCallMethodAction
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Height="30"  Content="隐藏">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <livet:LivetCallMethodAction
                                                 MethodName="HideWindow_Click"
                                                 MethodTarget="{Binding}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Button>
-            <Button Height="30"  Content="显示">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <livet:LivetCallMethodAction
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Height="30"  Content="显示">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <livet:LivetCallMethodAction
                                                 MethodName="ShowWindow_Click"
                                                 MethodTarget="{Binding}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Button>
-            <Button Height="30"  Content="置于壁纸层">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <livet:LivetCallMethodAction
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Height="30"  Content="置于壁纸层">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <livet:LivetCallMethodAction
                                                 MethodName="ToWallerpaperWindow_Click"
                                                 MethodTarget="{Binding}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Button>
-            <Button Height="30"  Content="刷新壁纸">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <livet:LivetCallMethodAction
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Height="30"  Content="刷新壁纸">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <livet:LivetCallMethodAction
                                                 MethodName="ResetWallerpaperWindow_Click"
                                                 MethodTarget="{Binding}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Button>
-        </StackPanel>
-        <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="20,6,0,0">
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </StackPanel>
+            <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="20,6,0,0">
             <Run Text="*置于壁纸层的游戏可能会无法操控，这个问题可以解决但是目前开发精力不在这，目前这个功能就这样了。游戏结束后桌面会依然留下冻结的画面，这时可以点击刷新壁纸来恢复默认壁纸。"/>
              <Run Text="并且将窗口放置于桌面壁纸层功能与Wallpaper Engine和其它动态桌面软件不兼容，使用时注意关掉Wallpaper Engine等软件。"/>
-        </TextBlock>
-        <Rectangle Style="{DynamicResource SeparatorStyleKey}" />
-    </StackPanel>
+            </TextBlock>
+            <Rectangle Style="{DynamicResource SeparatorStyleKey}" />
+            <Border Padding="5"  Grid.Row="0"
+						Grid.Column="0" Style="{StaticResource MetroBorderStyle}">
+                <StackPanel>
+                    <TextBlock Text="窗口历史记录" />
+                    <Rectangle Height=".99"
+								   Margin="0,7,0,6"
+								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
+                    <ListBox Style="{StaticResource MetroListBox}" ItemsSource="{Binding WindowList,Mode=OneWay}" Height="200" Margin="0,5" SelectedItem="{Binding SelectWindow}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel Height="30" Margin="3">
+                                    <TextBlock VerticalAlignment="Center">
+                                <Run Text="{Binding Name,Mode=OneWay}"/><Run Text="("/><Run Text="{Binding Title,Mode=OneWay}"/><Run Text=")"/>
+                                    </TextBlock>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

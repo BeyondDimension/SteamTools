@@ -54,16 +54,6 @@
                         <Run Text="A：脚本是要做用于对应的代理服务才的，所以对应的脚本需要启用了对应的代理服务，同时也必须启用了代理加速功能启用脚本才有效，例如steam商店史低查询脚本必须要启用steam商店代理服务才能生效。" />
                         <LineBreak/>
                         <LineBreak/>
-                        <Run Text="Q：社区加速里的脚本启用了无效，为什么脚本前面的勾选框不会被保存？"></Run>
-                        <LineBreak />
-                        <Run Text="A：脚本是要做用于对应的代理服务才的，所以对应的脚本需要启用了对应的代理服务，同时也必须启用了代理加速功能启用脚本才有效，例如steam商店史低查询脚本必须要启用steam商店代理服务才能生效。" />
-                        <LineBreak/>
-                        <LineBreak/>
-                        <Run Text="Q：库存游戏列表无法加载，一直是空的？"></Run>
-                        <LineBreak />
-                        <Run Text="A：因为库存游戏列表第一次加载是从steam webapi获取数据，数据量较大且网络本身较慢，所以加载速度比较有限，需要多等待一会。如果在这期间退出了Steam++程序，那么可能会造成在Steam++目录下存了一个错误的apps.json缓存文件，这会导致之后一直无法正确加载库存游戏列表数据，所以删除这个文件重新启动一下Steam++，在耐心等待一下，应该就能加载出来了。" />
-                        <LineBreak/>
-                        <LineBreak/>
                         <Run Text="Q：库存游戏列表无法加载，一直是空的？"></Run>
                         <LineBreak />
                         <Run Text="A：因为库存游戏列表第一次加载是从steam webapi获取数据，数据量较大且网络本身较慢，所以加载速度比较有限，需要多等待一会。如果在这期间退出了Steam++程序，那么可能会造成在Steam++目录下存了一个错误的apps.json缓存文件，这会导致之后一直无法正确加载库存游戏列表数据，所以删除这个文件重新启动一下Steam++，在耐心等待一下，应该就能加载出来了。" />
@@ -79,16 +69,16 @@
                         <Run Text="A：证书安装是否成功的检测方法为试试点击删除证书看看是否有反应，443端口被占用可以百度一下怎么查询占用端口的程序。注：Vmawre虚拟机也会导致提示443端口被占用服务无法启动。" />
                         <LineBreak/>
                         <LineBreak/>
-                        <Run Text="Q：无法启动服务 提示证书安装失败或443端口占用？"></Run>
+                        <Run Text="Q：我启用了脚本，为什么脚本不生效？"></Run>
                         <LineBreak />
-                        <Run Text="A：证书安装是否成功的检测方法为试试点击删除证书看看是否有反应，443端口被占用可以百度一下怎么查询占用端口的程序。注：Vmawre虚拟机也会导致提示443端口被占用服务无法启动。" />
+                        <Run Text="A：脚本是作用于加速服务的，例如steam历史最低价格查询脚本是作用于商店页面上，所以必须先启动steam商店加速，才能有效。" />
                         <LineBreak/>
                         <LineBreak/>
-                        <!--<Run Text="Q：软件启动时就报错，缺少根元素？"></Run>
+                        <Run Text="Q：我明明打开了Steam，但是检测Steam未运行，无法刷新游戏列表？"></Run>
                         <LineBreak />
-                        <Run Text="A：配置文件加载出错了，检查下路径%HOMEPATH%\AppData\Local\rmbgame.net\Steam++以及%HOMEPATH%\AppData\Roaming\rmbgame.net\Steam++路径内的settings.json文件，如果没有重要数据可以删除此文件重置配置，或者手动还原备份settings.json.bak文件。同时可以考虑反馈settings.json.error文件给我排查问题。" />
+                        <Run Text="A：你的steam可能是没有安装过，丢失了注册表数据，下载Steam覆盖安装一遍应该可以解决。" />
                         <LineBreak/>
-                        <LineBreak/>-->
+                        <LineBreak/>
                     </Paragraph>
                 </FlowDocument>
             </FlowDocumentScrollViewer>

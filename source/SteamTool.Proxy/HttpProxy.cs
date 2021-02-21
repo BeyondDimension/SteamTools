@@ -42,7 +42,7 @@ namespace SteamTool.Proxy
             proxyServer.CertificateManager.PfxFilePath = Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.pfx");
             proxyServer.CertificateManager.RootCertificateIssuerName = $"{CertificateName} Certificate Authority";
             proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
-            proxyServer.CertificateManager.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.DefaultWindows;
+            proxyServer.CertificateManager.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.BouncyCastle;
         }
 
         public bool ProxyRunning => proxyServer.ProxyRunning;
@@ -265,19 +265,17 @@ namespace SteamTool.Proxy
 
             // 可选地设置证书引擎
             // 在Mono之下，只有BouncyCastle将得到支持
-            //proxyServer.CertificateManager.CertificateEngine = Network.CertificateEngine.BouncyCastle;
+            //proxyServer.CertificateManager.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.DefaultWindows;
             //proxyServer.CertificateManager.SaveFakeCertificates = true;
 
             var result = proxyServer.CertificateManager.CreateRootCertificate(true);
-            //if (result)
-            //{
             if (!result)
             {
                 Logger.Error("创建证书失败");
+
             }
             proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.cer"));
             proxyServer.CertificateManager.EnsureRootCertificate();
-            //}
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
 

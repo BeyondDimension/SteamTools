@@ -65,7 +65,9 @@ namespace SteamTool.Steam.Service.Local
                     AppId = s.AppId,
                     Name = s.Name,
                     Type = Enum.TryParse<SteamAppTypeEnum>(GetAppData(s.AppId, "type"), true, out var result) ? result : SteamAppTypeEnum.Unknown,
-                    //Logo = SteamClient.SteamApps001.GetAppData(s.AppId, "logo"),
+                    Icon = GetAppData(s.AppId, "icon"),
+                    Logo = GetAppData(s.AppId, "logo"),
+                    InstalledDir = GetAppInstallDir(s.AppId),
                     IsInstalled = IsAppInstalled(s.AppId)
                 }).ToList();
         }
@@ -83,6 +85,11 @@ namespace SteamTool.Steam.Service.Local
         public bool IsAppInstalled(uint appid)
         {
             return SteamClient.SteamApps008.IsAppInstalled(appid);
+        }
+
+        public string GetAppInstallDir(uint appid)
+        {
+            return SteamClient.SteamApps008.GetAppInstallDir(appid);
         }
 
         public string GetIPCountry()

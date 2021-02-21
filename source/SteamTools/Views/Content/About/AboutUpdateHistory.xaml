@@ -34,6 +34,62 @@
 								  TextAlignment="Left"
 								  MaxPageWidth="900">
                     <Paragraph Language="zh-cn">
+                        <Run Text="Steam++ v1.1.3" FontSize="16"/>
+                        <Run Text="&#160;"/>
+                        <Run Text="2021-02-21" FontSize="10" />
+                        <LineBreak />
+                        <Run Text="更新内容"></Run>
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修改部分提示文本，修复证书生成安装失败" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修改证书生成方式避免324错误和100错误" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复faq文本错误" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复在某些情况下出现算法不同证书验证错误问题"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="库存游戏列表添加clienticon图标显示 "></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="准备制作跨平台版本支持Linux和Mac OS..." />
+                    </Paragraph>
+                    <Paragraph Language="zh-cn">
+                        <Run Text="Steam++ v1.1.2" FontSize="16"/>
+                        <Run Text="&#160;"/>
+                        <Run Text="2021-01-29" FontSize="10" />
+                        <LineBreak />
+                        <Run Text="更新内容"></Run>
+                        <LineBreak />
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="新增账号切换在账号切换的状态栏右下角位置登录新账号功能" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="账号切换功能可以实时刷新获取Steam新登录的账号数据" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="关于里加入FAQ常见问题疑难解答"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修改谷歌验证码代理方式为全局跳转www.recaptcha.net"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="记录更详细错误日志" />
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复某些情况下开机自启失效问题"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="修复配置文件加载时提示根元素错误"></Run>
+                        <LineBreak/>
+                        <Run Text="&#160;&#160;&#160;&#160;"/>
+                        <Run Text="配置文件备份机制完善，如果配置文件出错会提示还原上次读取成功的配置"></Run>
+                    </Paragraph>
+                    <Paragraph Language="zh-cn">
                         <Run Text="Steam++ v1.1.0" FontSize="16"/>
                         <Run Text="&#160;"/>
                         <Run Text="2021-01-22" FontSize="10" />

@@ -157,6 +157,11 @@ namespace SteamTool.Core
             }
 
             string json = File.ReadAllText(filepath, Encoding.UTF8);
+            if (string.IsNullOrEmpty(json)) 
+            {
+                return null;
+            }
+
             var apps = JsonConvert.DeserializeObject<SteamApps>(json);
             return apps.AppList.Apps;
         }

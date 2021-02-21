@@ -10,7 +10,7 @@
         <Setter Property="BorderBrush"
 				Value="{DynamicResource BorderBrushKey}" />
         <Setter Property="BorderThickness"
-				Value=".99,.99,0,.99" />
+				Value=".99,.99,.99,.99" />
         <Setter Property="FocusVisualStyle"
 				Value="{x:Null}" />
         <Setter Property="ItemContainerStyle">

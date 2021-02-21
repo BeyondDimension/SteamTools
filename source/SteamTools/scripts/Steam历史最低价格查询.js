@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Steam历史最低价格查询
 // @namespace   SteamHistoryLowestPrice
-// @description 在steam商店页显示当前app历史最低价格及进包次数
+// @description 在steam商店页显示当前app历史最低价格及进包次数(此脚本需要勾选Steam商店加速才会生效)
 // @include      https://store.steampowered.com/app/*
 // @include      https://store.steampowered.com/bundle/*
 // @include      https://store.steampowered.com/sub/*
@@ -202,6 +202,7 @@ async function AddLowestPriceTag(appId, type = "app", subIds = [], bundleids = [
     let metaInfo = data ? data[".meta"] : null;
     // 如果是bundle， 除了.meta外只有一个bundle/xxx，否则是一大堆xxx
     if (type == "bundle") {
+        data = data.data;
         appInfos.push({ Id: appId, Info: data["bundle/" + appId] });
     } else if (type == "app" || type == "sub") {
         data = data.data;

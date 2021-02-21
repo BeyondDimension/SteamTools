@@ -9,7 +9,7 @@ namespace SteamTool.Model
         public const string SETTINGS_FILE = "settings.json";
         public const string SCRIPT_DIR = "scripts";
         public const string LOG_DIR = "log";
-        public const string HOST_TAG = "#S302";
+        public const string HOST_TAG = "#Steam++";
 
         public const string REWARDMELIST_URL = "https://gitee.com/rmbgame/steam-tools_-data/raw/master/RewardRecord.json";
         //public const string REWARDMELIST_URL = "https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/RewardRecord.json";
@@ -28,7 +28,7 @@ namespace SteamTool.Model
         public const string STEAMAPP_LIST_URL = "https://api.steampowered.com/ISteamApps/GetAppList/v2";
         public const string STORE_APP_URL = "https://store.steampowered.com/app/{0}";
         public const string STEAMAPP_LOGO_URL = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{0}/{1}.jpg";
-        public const string STEAMAPP_ICON_URL = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{0}/{1}";
+        public const string STEAMAPP_ICON_URL = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{0}/{1}.jpg";
         public const string STEAMAPP_CAPSULE_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_184x69.jpg";
         public const string STEAMAPP_HEADIMAGE_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/header.jpg";
         public const string STEAM_MEDIA_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/movie_max.webm";
@@ -49,5 +49,7 @@ namespace SteamTool.Model
 
 
         public const string STEAMCN_USERINFO_XML_URL = "https://my.steamchina.com/profiles/76561198289531723?xml=1";
+
+        public const string JOINQQGROUP_URL = "https://qm.qq.com/cgi-bin/qm/qr?k=EvP8VZ-ByGjMlbLvrj4x4YJ8C_bhTisG&authKey=toKraTwFoTlJKXSuBv7A87W0qKb0vSRrozVLXW0dVcvOmEP98T/t+MZK9qFi26fb&noverify=0";
     }
 }

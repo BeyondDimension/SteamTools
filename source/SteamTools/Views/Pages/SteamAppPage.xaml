@@ -271,8 +271,11 @@
                             </GridViewColumn.Header>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox DockPanel.Dock="Left" Width="300" BorderThickness="0" IsReadOnly="True"  Text="{Binding Name, Mode=OneWay}"
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{Binding IconUrl,Mode=OneWay}" Width="20" Height="20"></Image>
+                                        <TextBox DockPanel.Dock="Left" Width="300" BorderThickness="0" IsReadOnly="True"  Text="{Binding Name, Mode=OneWay}"
 												   Margin="0,3"  />
+                                    </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
