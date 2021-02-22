@@ -12,6 +12,7 @@ namespace SteamTool.Model
         public const string HOST_TAG = "#Steam++";
 
         public const string REWARDMELIST_URL = "https://gitee.com/rmbgame/steam-tools_-data/raw/master/RewardRecord.json";
+        public const string UPDATEHISTORY_URL = "https://gitee.com/rmbgame/steam-tools_-data/raw/master/UpdateHistory";
         //public const string REWARDMELIST_URL = "https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/RewardRecord.json";
 
         public const string GITHUB_LATEST_RELEASEAPI_URL = "https://api.github.com/repos/rmbadmin/SteamTools/releases/latest";
@@ -28,7 +29,7 @@ namespace SteamTool.Model
         public const string STEAMAPP_LIST_URL = "https://api.steampowered.com/ISteamApps/GetAppList/v2";
         public const string STORE_APP_URL = "https://store.steampowered.com/app/{0}";
         public const string STEAMAPP_LOGO_URL = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{0}/{1}.jpg";
-        public const string STEAMAPP_ICON_URL = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{0}/{1}.jpg";
+        public const string STEAMAPP_ICON_URL = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{0}/{1}";
         public const string STEAMAPP_CAPSULE_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_184x69.jpg";
         public const string STEAMAPP_HEADIMAGE_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/header.jpg";
         public const string STEAM_MEDIA_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/movie_max.webm";

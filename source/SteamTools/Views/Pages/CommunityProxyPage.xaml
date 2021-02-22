@@ -61,7 +61,8 @@
 
                 <StackPanel Margin="10" VerticalAlignment="Bottom">
                     <CheckBox Content="{Binding Resources.AutoRunProxyService,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" HorizontalAlignment="Center" IsChecked="{Binding Source={x:Static ms:ProxySettings.ProgramStartupRunProxy}, Path=Value, Mode=TwoWay}"></CheckBox>
-                    <CheckBox Content="{Binding Resources.GOG_Plugin_Support,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" HorizontalAlignment="Center" IsChecked="{Binding Source={x:Static ms:ProxySettings.IsProxyGOG}, Path=Value, Mode=TwoWay}"></CheckBox>
+                    <!--<CheckBox Content="{Binding Resources.GOG_Plugin_Support,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" HorizontalAlignment="Center" IsChecked="{Binding Source={x:Static ms:ProxySettings.IsProxyGOG}, Path=Value, Mode=TwoWay}"></CheckBox>-->
+                    <CheckBox Content="{Binding Resources.EnableWindowsProxy,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" HorizontalAlignment="Center" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy}, Path=Value, Mode=TwoWay}" IsEnabled="{Binding ElementName=service,Path=IsChecked,Mode=OneWay,Converter={StaticResource ReverseBooleanConverter}}"></CheckBox>
                     <Separator Opacity="0" Height="10"/>
                     <Button Content="{Binding Resources.SetupCertificate,Source={x:Static services:ResourceService.Current}, Mode=OneWay}" FontSize="14" Height="30">
                         <i:Interaction.Triggers>

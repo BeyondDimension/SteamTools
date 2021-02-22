@@ -135,8 +135,6 @@
 		<PackageReference Include="LivetCask.EventListeners" Version="3.2.3.2" />
 		<PackageReference Include="LivetCask.Messaging" Version="3.2.3.2" />
 		<PackageReference Include="LivetCask.Mvvm" Version="3.2.3.2" />
-		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.1.0" />
-		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0" />
 		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -327,6 +325,10 @@
 		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		  <SubType>Designer</SubType>
 		</Page>
+		<Page Update="Views\Pages\SteamShutdown.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		  <SubType>Designer</SubType>
+		</Page>
 		<Page Update="Views\Pages\SteamIdleCardPage.xaml">
 		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		</Page>
@@ -383,6 +385,9 @@
 			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
 		</None>
 		<None Update="scripts\GM.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="scripts\Steam Economy Enhancer.js">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="scripts\Steam历史最低价格查询.js">

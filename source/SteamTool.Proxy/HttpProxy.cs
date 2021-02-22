@@ -42,7 +42,7 @@ namespace SteamTool.Proxy
             proxyServer.CertificateManager.PfxFilePath = Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.pfx");
             proxyServer.CertificateManager.RootCertificateIssuerName = $"{CertificateName} Certificate Authority";
             proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
-            proxyServer.CertificateManager.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.BouncyCastle;
+            proxyServer.CertificateManager.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.BouncyCastleFast;
         }
 
         public bool ProxyRunning => proxyServer.ProxyRunning;
@@ -77,17 +77,6 @@ namespace SteamTool.Proxy
             Debug.WriteLine("OnRequest HTTP " + e.HttpClient.Request.HttpVersion);
             //Logger.Info("OnRequest" + e.HttpClient.Request.RequestUri.AbsoluteUri);
 #endif
-            // Dns.GetHostAddressesAsync(e.HttpClient.Request.Host).ContinueWith(s =>
-            //{
-            //    //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
-            //    if (IPAddress.IsLoopback(s.Result.FirstOrDefault())
-            //   && ProxyDomains.Count(w => w.IsEnable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
-            //    {
-            //        e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
-            //        return;
-            //    }
-            //});
-            //Logger.Info("Steam++ OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
             foreach (var item in ProxyDomains)
             {
                 if (!item.IsEnable)
@@ -142,8 +131,20 @@ namespace SteamTool.Proxy
                 }
             }
 
-            //没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
-            e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine}not support proxy");
+            await Dns.GetHostAddressesAsync(e.HttpClient.Request.Host).ContinueWith(s =>
+           {
+               //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
+               if (IPAddress.IsLoopback(s.Result.FirstOrDefault())
+             && ProxyDomains.Count(w => w.IsEnable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
+               {
+                   e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
+                   return;
+               }
+               Logger.Info("Steam++ IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
+           });
+
+            ////没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
+            //e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine}not support proxy");
             return;
         }
         public async Task OnResponse(object sender, SessionEventArgs e)
@@ -218,8 +219,6 @@ namespace SteamTool.Proxy
                                                 foreach (var req in script.Require)
                                                 {
                                                     var headIndex = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
-                                                    //<script type="text/javascript" src=""></script>
-                                                    //var result = await httpServices.Get(req);
                                                     var temp1 = $"<script type=\"text/javascript\" src=\"{req}\"></script>\n";
                                                     doc = doc.Insert(headIndex, temp1);
                                                 }
@@ -272,7 +271,7 @@ namespace SteamTool.Proxy
             if (!result)
             {
                 Logger.Error("创建证书失败");
-
+                return false;
             }
             proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.cer"));
             proxyServer.CertificateManager.EnsureRootCertificate();
@@ -332,7 +331,7 @@ namespace SteamTool.Proxy
             return inUse;
         }
 
-        public bool StartProxy(bool IsProxyGOG = false)
+        public bool StartProxy(bool IsProxyGOG = false, bool IsWindowsProxy = false)
         {
             if (!IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
             {
@@ -348,27 +347,6 @@ namespace SteamTool.Proxy
             }
             if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
 
-            #region 写入Hosts
-            var hosts = new List<(string, string)>();
-            foreach (var proxyDomain in ProxyDomains)
-            {
-                if (proxyDomain.IsEnable)
-                {
-                    foreach (var host in proxyDomain.Hosts)
-                    {
-                        if (host.Contains(" "))
-                        {
-                            var h = host.Split(' ');
-                            hosts.Add((h[0], h[1]));
-                        }
-                        else
-                            hosts.Add((IPAddress.Loopback.ToString(), host));
-                    }
-                }
-            }
-            hostsService.UpdateHosts(hosts);
-            #endregion
-
             #region 启动代理
             proxyServer.BeforeRequest += OnRequest;
             proxyServer.BeforeResponse += OnResponse;
@@ -381,16 +359,46 @@ namespace SteamTool.Proxy
             //    // 当代理客户端不需要证书信任时非常有用
             //    //GenericCertificate = new X509Certificate2(Path.Combine(AppContext.BaseDirectory, "genericcert.pfx"), "password")
             //};
-            //当接收到连接请求时触发
-            //explicitEndPoint.BeforeTunnelConnectRequest += OnBeforeTunnelRequest;
-            //explicit endpoint 是客户端知道代理存在的地方
-            //proxyServer.AddEndPoint(explicitEndPoint);
-            proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 443, true)
+            var explicitProxyEndPoint = new ExplicitProxyEndPoint(IPAddress.Any, 26501, true)
             {
                 // 通过不启用为每个http的域创建证书来优化性能
                 //GenericCertificate = proxyServer.CertificateManager.RootCertificate
-            });
-            proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 80, true));
+            };
+            if (IsWindowsProxy)
+            {
+                //explicit endpoint 是客户端知道代理存在的地方
+                proxyServer.AddEndPoint(explicitProxyEndPoint);
+            }
+            else
+            {
+                #region 写入Hosts
+                var hosts = new List<(string, string)>();
+                foreach (var proxyDomain in ProxyDomains)
+                {
+                    if (proxyDomain.IsEnable)
+                    {
+                        foreach (var host in proxyDomain.Hosts)
+                        {
+                            if (host.Contains(" "))
+                            {
+                                var h = host.Split(' ');
+                                hosts.Add((h[0], h[1]));
+                            }
+                            else
+                                hosts.Add((IPAddress.Loopback.ToString(), host));
+                        }
+                    }
+                }
+                hostsService.UpdateHosts(hosts);
+                #endregion
+                proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 443, true)
+                {
+                    // 通过不启用为每个http的域创建证书来优化性能
+                    //GenericCertificate = proxyServer.CertificateManager.RootCertificate
+                });
+                proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 80, false));
+            }
+
             proxyServer.ExceptionFunc = ((Exception exception) =>
             {
                 Logger.Error(exception);
@@ -405,9 +413,13 @@ namespace SteamTool.Proxy
                 Logger.Error(ex);
                 return false;
             }
-
-            //proxyServer.UpStreamHttpProxy = new ExternalProxy() { HostName = "localhost", Port = 8888 };
-            //proxyServer.UpStreamHttpsProxy = new ExternalProxy() { HostName = "localhost", Port = 8888 };
+            if (IsWindowsProxy)
+            {
+                proxyServer.SetAsSystemHttpProxy(explicitProxyEndPoint);
+                proxyServer.SetAsSystemHttpsProxy(explicitProxyEndPoint);
+                //proxyServer.UpStreamHttpProxy = new ExternalProxy() { HostName = "localhost", Port = 26501 };
+                //proxyServer.UpStreamHttpsProxy = new ExternalProxy() { HostName = "localhost", Port = 26501 };      
+            }
             #endregion
 #if DEBUG
             foreach (var endPoint in proxyServer.ProxyEndPoints)
@@ -426,6 +438,8 @@ namespace SteamTool.Proxy
                 proxyServer.BeforeResponse -= OnResponse;
                 //proxyServer.ServerCertificateValidationCallback -= OnCertificateValidation;
                 //proxyServer.ClientCertificateSelectionCallback -= OnCertificateSelection;
+                proxyServer.DisableSystemHttpProxy();
+                proxyServer.DisableSystemHttpsProxy();
                 proxyServer.Stop();
                 hostsService.RemoveHostsByTag();
             }

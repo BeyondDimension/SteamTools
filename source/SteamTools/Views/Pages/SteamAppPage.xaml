@@ -88,6 +88,7 @@
 										<Run Text="{Binding Resources.Type,Source={x:Static services:ResourceService.Current},Mode=OneWay}" />
 										<Run Text=":" />
                         </TextBlock>
+
                         <WrapPanel Grid.Column="2">
                             <CheckBox Content="{Binding Resources.Game,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
 												  IsChecked="{Binding Game, Mode=TwoWay}" />

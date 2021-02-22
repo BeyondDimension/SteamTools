@@ -439,6 +439,15 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Windows系统代理方式 的本地化字符串。
+        /// </summary>
+        public static string EnableWindowsProxy {
+            get {
+                return ResourceManager.GetString("EnableWindowsProxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 EPIC 的本地化字符串。
         /// </summary>
         public static string Epic {
@@ -880,7 +889,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 脚本列表 的本地化字符串。
+        ///   查找类似 脚本列表(启动加速后脚本才会生效) 的本地化字符串。
         /// </summary>
         public static string ScriptList {
             get {
@@ -889,7 +898,7 @@ namespace SteamTools.Properties {
         }
         
         /// <summary>
-        ///   查找类似 脚本配置(启动加速后脚本才会生效) 的本地化字符串。
+        ///   查找类似 脚本配置 的本地化字符串。
         /// </summary>
         public static string ScriptSettings {
             get {

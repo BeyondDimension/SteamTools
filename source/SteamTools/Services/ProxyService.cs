@@ -58,10 +58,18 @@ IsEnable= true,
 },
 new ProxyDomainModel{
 Name=Resources.SteamStore,
-Domains = new List<string>{"steampowered.com" },
+Domains = new List<string>{"store.steampowered.com","api.steampowered.com" },
 ToDomain = "steamstore.rmbgame.net",
 Hosts = new List<string>{ "store.steampowered.com", "api.steampowered.com"},
 DomainTag = DomainTag.SteamStore,
+IsEnable= false,
+},
+new ProxyDomainModel{
+Name=Resources.SteamMeidia,
+Domains = new List<string>{"media.steampowered.com" },
+ToDomain = "steammedia.rmbgame.net",
+Hosts = new List<string>{ "media.steampowered.com",},
+DomainTag = DomainTag.SteamMeidia,
 IsEnable= false,
 },
 new ProxyDomainModel{
@@ -207,8 +215,8 @@ IsEnable= false,
 new ProxyDomainModel{
 Name=Resources.UplayUpdate,
 Domains = new List<string>{"static3.cdn.ubi.com" },
-//ToDomain = "ubisoftstatic3.rmbgame.net",
-ProxyIPAddres = "116.211.99.137",
+ToDomain = "ubisoftstatic3.rmbgame.net",
+//ProxyIPAddres = "116.211.99.137",
 Hosts = new List<string>{ "static3.cdn.ubi.com"},
 DomainTag = DomainTag.UplayUpdate,
 IsEnable= false,
@@ -403,7 +411,7 @@ IsEnable = false,
                 {
                     if (value)
                     {
-                        var isRun = Proxy.StartProxy(ProxySettings.IsProxyGOG.Value);
+                        var isRun = Proxy.StartProxy(ProxySettings.IsProxyGOG.Value, ProxySettings.EnableWindowsProxy.Value);
                         if (isRun)
                         {
                             StatusService.Current.Notify(SteamTools.Properties.Resources.ProxyRun);

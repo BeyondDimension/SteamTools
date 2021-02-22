@@ -69,7 +69,11 @@
                 <TextBlock Text="{Binding Resources.AboutUpdateHistory,Source={x:Static services:ResourceService.Current}, Mode=OneWay}"
                                Style="{StaticResource TabHeaderTextStyleKey}" />
             </TabItem.Header>
-            <contents:AboutUpdateHistory></contents:AboutUpdateHistory>
+            <contents:AboutUpdateHistory>
+                <contents:AboutUpdateHistory.DataContext>
+                    <viewModel:AboutUpdateHistoryViewModel></viewModel:AboutUpdateHistoryViewModel>
+                </contents:AboutUpdateHistory.DataContext>
+            </contents:AboutUpdateHistory>
         </TabItem>
 
         <TabItem Visibility="Collapsed">
