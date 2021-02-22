@@ -151,7 +151,7 @@ namespace SteamTool.Core.Properties {
         ///   查找类似 echo &quot;Steam++替换升级中...&quot;
         ///taskkill /f /im {0}
         ///xcopy /y /c /h /r /s &quot;{1}\*.*&quot; &quot;{2}&quot;
-        ///rmdir /s /q {1}
+        ///::rmdir /s /q {1}
         ///{3}
         ///del %0 的本地化字符串。
         /// </summary>
