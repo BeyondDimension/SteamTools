@@ -16,6 +16,12 @@ namespace SteamTools.Models.Settings
             = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };
 
         /// <summary>
+        /// 启用GOG代理
+        /// </summary>
+        public static SerializableProperty<bool> EnableWindowsProxy { get; }
+            = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };
+
+        /// <summary>
         /// 启用代理脚本
         /// </summary>
         public static SerializableProperty<bool> IsEnableScript { get; }

@@ -332,7 +332,7 @@ namespace SteamTool.Proxy
             return inUse;
         }
 
-        public bool StartProxy(bool IsProxyGOG = false)
+        public bool StartProxy(bool IsProxyGOG = false, bool IsWindowsProxy = false)
         {
             if (!IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
             {
@@ -381,16 +381,26 @@ namespace SteamTool.Proxy
             //    // 当代理客户端不需要证书信任时非常有用
             //    //GenericCertificate = new X509Certificate2(Path.Combine(AppContext.BaseDirectory, "genericcert.pfx"), "password")
             //};
-            //当接收到连接请求时触发
-            //explicitEndPoint.BeforeTunnelConnectRequest += OnBeforeTunnelRequest;
-            //explicit endpoint 是客户端知道代理存在的地方
-            //proxyServer.AddEndPoint(explicitEndPoint);
-            proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 443, true)
+
+            if (IsWindowsProxy)
             {
-                // 通过不启用为每个http的域创建证书来优化性能
-                //GenericCertificate = proxyServer.CertificateManager.RootCertificate
-            });
-            proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 80, true));
+                //explicit endpoint 是客户端知道代理存在的地方
+                proxyServer.AddEndPoint(new ExplicitProxyEndPoint(IPAddress.Any, 26501, true)
+                {
+                    // 通过不启用为每个http的域创建证书来优化性能
+                    //GenericCertificate = proxyServer.CertificateManager.RootCertificate
+                });
+            }
+            else
+            {
+                proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 443, true)
+                {
+                    // 通过不启用为每个http的域创建证书来优化性能
+                    //GenericCertificate = proxyServer.CertificateManager.RootCertificate
+                });
+                proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 80, false));
+            }
+
             proxyServer.ExceptionFunc = ((Exception exception) =>
             {
                 Logger.Error(exception);
@@ -405,9 +415,11 @@ namespace SteamTool.Proxy
                 Logger.Error(ex);
                 return false;
             }
-
-            //proxyServer.UpStreamHttpProxy = new ExternalProxy() { HostName = "localhost", Port = 8888 };
-            //proxyServer.UpStreamHttpsProxy = new ExternalProxy() { HostName = "localhost", Port = 8888 };
+            if (IsWindowsProxy)
+            {
+                proxyServer.UpStreamHttpProxy = new ExternalProxy() { HostName = "localhost", Port = 26501 };
+                proxyServer.UpStreamHttpsProxy = new ExternalProxy() { HostName = "localhost", Port = 26501 };
+            }
             #endregion
 #if DEBUG
             foreach (var endPoint in proxyServer.ProxyEndPoints)

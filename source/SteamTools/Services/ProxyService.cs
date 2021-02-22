@@ -403,7 +403,7 @@ IsEnable = false,
                 {
                     if (value)
                     {
-                        var isRun = Proxy.StartProxy(ProxySettings.IsProxyGOG.Value);
+                        var isRun = Proxy.StartProxy(ProxySettings.IsProxyGOG.Value, ProxySettings.EnableWindowsProxy.Value);
                         if (isRun)
                         {
                             StatusService.Current.Notify(SteamTools.Properties.Resources.ProxyRun);
