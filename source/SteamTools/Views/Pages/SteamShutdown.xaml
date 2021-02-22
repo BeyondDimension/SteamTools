@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SteamTools.Views.Pages.SteamAppPage"
+﻿<UserControl x:Class="SteamTools.Views.Pages.SteamShutdown"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -22,120 +22,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <!--Filter-->
-        <!--<Expander Grid.Row="0"
-					  Margin="15,0,15,0">
-            <Expander.Header>
-                <TextBlock Text="筛选器"
-							   Style="{DynamicResource HeaderTextStyleKey}"
-							   Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-            </Expander.Header>-->
-        <Border Grid.Row="0" Margin="15,0,15,0"
-							BorderBrush="{DynamicResource BorderBrushKey}"
-							Padding="5">
-            <WrapPanel>
-                <WrapPanel.Resources>
-                    <Style TargetType="{x:Type RadioButton}"
-									   BasedOn="{StaticResource {x:Type RadioButton}}">
-                        <Setter Property="Margin"
-											Value="0,2,12,2" />
-                    </Style>
-                    <Style TargetType="{x:Type CheckBox}"
-									   BasedOn="{StaticResource {x:Type CheckBox}}">
-                        <Setter Property="Margin"
-											Value="0,2,12,2" />
-                    </Style>
-                    <Style TargetType="{x:Type StackPanel}">
-                        <Setter Property="Margin"
-											Value="0,0,25,0" />
-                        <Setter Property="Grid.IsSharedSizeScope"
-											Value="True" />
-                    </Style>
-                </WrapPanel.Resources>
-                <StackPanel Margin="0,0,0,6">
-                    <Grid DataContext="{Binding AppNameFilter}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"
-														  SharedSizeGroup="FilterName" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Margin="0,2"
-                                               VerticalAlignment="Center"
-											   HorizontalAlignment="Right">
-										<Run Text="{Binding Resources.Search,Source={x:Static services:ResourceService.Current},Mode=OneWay}" />
-										<Run Text=":" />
-                        </TextBlock>
-                        <WrapPanel Grid.Column="2">
-                            <metro:PromptTextBox  
-                                 Width="400"
-								 Text="{Binding Text, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-								 Prompt="{Binding Resources.SteamApp_SearchTextBox_Prompt, Source={x:Static services:ResourceService.Current}, Mode=OneWay}" />
-                        </WrapPanel>
-                    </Grid>
-                </StackPanel>
-                <StackPanel Margin="0,6,0,0">
-                    <Grid DataContext="{Binding AppTypeFilter}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"
-														  SharedSizeGroup="FilterName" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Margin="0,2"
-											   HorizontalAlignment="Right">
-										<Run Text="{Binding Resources.Type,Source={x:Static services:ResourceService.Current},Mode=OneWay}" />
-										<Run Text=":" />
-                        </TextBlock>
-
-                        <WrapPanel Grid.Column="2">
-                            <CheckBox Content="{Binding Resources.Game,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
-												  IsChecked="{Binding Game, Mode=TwoWay}" />
-
-                            <CheckBox Content="{Binding Resources.Application,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
-												  IsChecked="{Binding Application, Mode=TwoWay}" />
-
-                            <CheckBox Content="Demo"
-												  IsChecked="{Binding Demo, Mode=TwoWay}" />
-
-                            <CheckBox Content="DLC"
-												  IsChecked="{Binding DLC, Mode=TwoWay}" />
-
-                            <CheckBox Content="{Binding Resources.Media,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
-												  IsChecked="{Binding Media, Mode=TwoWay}" />
-
-                            <CheckBox Content="{Binding Resources.Music,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
-												  IsChecked="{Binding Music, Mode=TwoWay}" />
-
-                            <CheckBox Content="{Binding Resources.Tool,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
-												  IsChecked="{Binding Tool, Mode=TwoWay}" />
-
-                            <CheckBox Content="{Binding Resources.Video,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
-												  IsChecked="{Binding Video, Mode=TwoWay}" />
-
-                            <CheckBox Content="{Binding Resources.Guide,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
-												  IsChecked="{Binding Guide, Mode=TwoWay}" />
-
-                            <CheckBox Content="{Binding Resources.Driver,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
-												  IsChecked="{Binding Driver, Mode=TwoWay}" />
-
-                            <CheckBox Content="{Binding Resources.HideApp,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
-												  IsChecked="{Binding Config, Mode=TwoWay}" />
-
-                            <CheckBox Content="{Binding Resources.Hardware,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
-												  IsChecked="{Binding Hardware, Mode=TwoWay}" />
-
-                            <CheckBox Content="{Binding Resources.Unknown,Source={x:Static services:ResourceService.Current},Mode=OneWay}"
-												  IsChecked="{Binding Unknown, Mode=TwoWay}" />
-
-                        </WrapPanel>
-                    </Grid>
-                </StackPanel>
-            </WrapPanel>
-        </Border>
-        <!--</Expander>-->
-
+        
         <!--Content-->
         <Border Grid.Row="1" Margin="8"
 					BorderBrush="{DynamicResource BorderBrushKey}"

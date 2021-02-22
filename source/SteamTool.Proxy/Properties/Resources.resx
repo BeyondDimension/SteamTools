@@ -159,6 +159,9 @@
   <data name="SteamImageUpload" xml:space="preserve">
     <value>Steam图片上传(聊天\截图)</value>
   </data>
+  <data name="SteamMeidia" xml:space="preserve">
+    <value>Steam更新</value>
+  </data>
   <data name="SteamStore" xml:space="preserve">
     <value>Steam商店</value>
   </data>

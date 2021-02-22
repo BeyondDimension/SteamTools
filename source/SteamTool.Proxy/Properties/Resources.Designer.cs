@@ -187,6 +187,15 @@ namespace SteamTool.Proxy.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Steam更新 的本地化字符串。
+        /// </summary>
+        public static string SteamMeidia {
+            get {
+                return ResourceManager.GetString("SteamMeidia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam商店 的本地化字符串。
         /// </summary>
         public static string SteamStore {

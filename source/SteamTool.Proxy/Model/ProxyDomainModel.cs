@@ -91,5 +91,7 @@ namespace SteamTool.Proxy
         PixivImage = 15,
         [Description("steam图片上传(聊天\\截图)")]
         SteamImageUpload = 16,
+        [Description("steam更新")]
+        SteamMeidia = 17,
     }
 }
