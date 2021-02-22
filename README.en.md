@@ -26,14 +26,12 @@ English | [简体中文](./README.md)
 5. Some game tools
 	- Currently there is a forced game borderless windowing, CSGO fix VAC shield.
 
+<!--Prerequisites Microsoft Visual C++ 2015-2019 Redistributable [64 bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 bit](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
 ## 🖥 Operating Environment
 - Windows 10 1607+
 - Windows 8.1 / Windows Server 2012 R2
-	- Prerequisites
-	- Microsoft Visual C++ 2015-2019 Redistributable [64 bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 bit](https://aka.ms/vs/16/release/vc_redist.x86.exe)
 - Windows 7 SP1 [ESU](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
 	- Prerequisites
-	- Microsoft Visual C++ 2015-2019 Redistributable [64 bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 bit](https://aka.ms/vs/16/release/vc_redist.x86.exe)
 	- KB3063858 [64 bit](https://www.microsoft.com/download/details.aspx?id=47442) / [32 bit](https://www.microsoft.com/download/details.aspx?id=47409)
 - ~~macOS 10.13 High Sierra Or Higher~~
 <!--
@@ -47,7 +45,7 @@ English | [简体中文](./README.md)
 - ~~SUSE Enterprise Linux (SLES) 12 SP2+~~
 - ~~Ubuntu 20.10, 20.04, 18.04, 16.04~~
 - ~~Android 5.0+~~
-- ~~iOS 8.0+~~
+- ~~iOS 10.0+~~
 -->
 
 ## 🌎 Roadmap

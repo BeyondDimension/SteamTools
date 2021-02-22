@@ -15,7 +15,7 @@ namespace System.Application.Services.Implementation
         {
             var telephony = XEPlatform.AppContext.GetSystemService<TelephonyManager>(Context.TelephonyService);
             var value = telephony.Line1Number;
-            return PhoneNumberHelper.GetCNMainlandPhoneNumber11(value);
+            return PhoneNumberHelper.GetChineseMainlandPhoneNumber11(value);
         }
     }
 }

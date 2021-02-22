@@ -45,7 +45,7 @@ namespace System.Application
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static string? GetCNMainlandPhoneNumber11(string? value)
+        public static string? GetChineseMainlandPhoneNumber11(string? value)
         {
             if (!string.IsNullOrWhiteSpace(value))
             {

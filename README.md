@@ -13,6 +13,8 @@
 
 </div>
 
+<div align="center"><img src="./resources/screenshots.jpg" /></div>
+
 [English](./README.en.md) | 简体中文
 
 ## ✨ 功能
@@ -33,14 +35,13 @@
 5. 其他游戏工具
 	- 目前已有强制游戏无边框窗口化，CSGO 修复 VAC 屏蔽
 
+<!--发布配置SelfContained=true时会自动打包VC++相关程序集-->
+<!--先决条件 Microsoft Visual C++ 2015-2019 Redistributable [64 位](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 位](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
 ## 🖥 系统要求
 - Windows 10 1607+
 - Windows 8.1 / Windows Server 2012 R2
-	- 先决条件
-	- Microsoft Visual C++ 2015-2019 Redistributable [64 位](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 位](https://aka.ms/vs/16/release/vc_redist.x86.exe)
 - Windows 7 SP1 [ESU](https://docs.microsoft.com/zh-cn/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
 	- 先决条件
-	- Microsoft Visual C++ 2015-2019 Redistributable [64 位](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 位](https://aka.ms/vs/16/release/vc_redist.x86.exe)
 	- KB3063858 [64 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47442) / [32 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47409)
 - ~~macOS 10.13 High Sierra 或更高版本~~
 <!--
@@ -54,7 +55,7 @@
 - ~~SUSE Enterprise Linux (SLES) 12 SP2+~~
 - ~~Ubuntu 20.10, 20.04, 18.04, 16.04~~
 - ~~Android 5.0+~~
-- ~~iOS 8.0+~~
+- ~~iOS 10.0+~~
 -->
 
 ## 🌎 路线图
