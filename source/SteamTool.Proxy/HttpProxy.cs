@@ -219,8 +219,6 @@ namespace SteamTool.Proxy
                                                 foreach (var req in script.Require)
                                                 {
                                                     var headIndex = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
-                                                    //<script type="text/javascript" src=""></script>
-                                                    //var result = await httpServices.Get(req);
                                                     var temp1 = $"<script type=\"text/javascript\" src=\"{req}\"></script>\n";
                                                     doc = doc.Insert(headIndex, temp1);
                                                 }

@@ -12,6 +12,7 @@ namespace SteamTool.Model
         public const string HOST_TAG = "#Steam++";
 
         public const string REWARDMELIST_URL = "https://gitee.com/rmbgame/steam-tools_-data/raw/master/RewardRecord.json";
+        public const string UPDATEHISTORY_URL = "https://gitee.com/rmbgame/steam-tools_-data/raw/master/UpdateHistory";
         //public const string REWARDMELIST_URL = "https://raw.githubusercontent.com/rmbadmin/SteamTools/develop/Data/RewardRecord.json";
 
         public const string GITHUB_LATEST_RELEASEAPI_URL = "https://api.github.com/repos/rmbadmin/SteamTools/releases/latest";

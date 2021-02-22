@@ -387,6 +387,9 @@
 		<None Update="scripts\GM.js">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+		<None Update="scripts\Steam Economy Enhancer.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="scripts\Steam历史最低价格查询.js">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
