@@ -4,6 +4,7 @@ using System.Text;
 
 namespace SteamTool.Core.Common
 {
+    [Obsolete("", true)]
     public static class GuidRandom
     {
         public static Random GetGuidRandom(this Random random)

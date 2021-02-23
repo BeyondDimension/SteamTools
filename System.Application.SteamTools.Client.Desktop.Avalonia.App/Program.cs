@@ -1,8 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.ReactiveUI;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
+using NLog;
 using System.Application.Models;
 using System.Application.Services.Implementation;
 using System.Application.UI.ViewModels;
@@ -17,10 +16,26 @@ namespace System.Application.UI
         [STAThread]
         static void Main(string[] args)
         {
-            FileSystemDesktop.InitFileSystem();
-            ModelValidatorProvider.Init();
-            DI.Init(ConfigureServices);
-            BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+            var logger = LogManager.GetCurrentClassLogger();
+            try
+            {
+                FileSystemDesktop.InitFileSystem();
+                ModelValidatorProvider.Init();
+                DI.Init(ConfigureServices);
+                BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+            }
+            catch (Exception ex)
+            {
+                AppHelper.EnableLogger = true;
+                // NLog: catch any exception and log it.
+                logger.Error(ex, "Stopped program because of exception");
+                throw;
+            }
+            finally
+            {
+                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+                LogManager.Shutdown();
+            }
         }
 
         // Avalonia configuration, don't remove; also used by visual designer.
@@ -34,8 +49,8 @@ namespace System.Application.UI
 
         static void ConfigureServices(IServiceCollection services)
         {
-            // 空日志实现，需要写一个实现替换
-            services.AddLogging(l => l.AddProvider(NullLoggerProvider.Instance));
+            // 添加日志实现
+            services.AddDesktopLogging();
 
             // 模型验证框架
             services.TryAddModelValidator();

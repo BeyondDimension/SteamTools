@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 
 // ReSharper disable once CheckNamespace
 namespace System
@@ -151,30 +155,6 @@ namespace System
 
         #endregion
 
-        public static string TrimStart(this string s, string trimString)
-        {
-            if (trimString.StartsWith(trimString))
-            {
-                return s[trimString.Length..];
-            }
-            else
-            {
-                return s;
-            }
-        }
-
-        public static string TrimEnd(this string s, string trimString)
-        {
-            if (trimString.EndsWith(trimString))
-            {
-                return s.Substring(0, s.Length - trimString.Length);
-            }
-            else
-            {
-                return s;
-            }
-        }
-
         #region 数字字母判断
 
         /// <summary>
@@ -215,5 +195,129 @@ namespace System
         public static bool HasOther(this string input) => input?.Any(x => !(x >= 'a' && x <= 'z' || x >= 'A' && x <= 'Z' || x >= '0' && x <= '9')) ?? false;
 
         #endregion
+
+        /// <summary>
+        /// 返回当前最后相对URL
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string GetLastRelativeUrl(this string url)
+        {
+            int index = url.LastIndexOf("/");
+
+            if (index != -1)
+            {
+                return url.Substring(0, index) + "/";
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        /// <summary>
+        /// 移除字符串内所有\r \n \t
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string RemovePattern(this string s)
+            => s.Replace("\t", "").Replace("\r", "").Replace("\n", "");
+
+        /// <summary>
+        /// 获取两个字符串中间的字符串
+        /// </summary>
+        /// <param name="s">要处理的字符串，例 ABCD</param>
+        /// <param name="left">第1个字符串，例 AB</param>
+        /// <param name="right">第2个字符串，例 D</param>
+        /// <param name="isContains">是否包含标志字符串</param>
+        /// <returns>例 返回C</returns>
+        public static string Substring(this string s, string left, string right, bool isContains = false)
+        {
+            int i1 = s.IndexOf(left);
+            if (i1 < 0) // 找不到返回空
+            {
+                return "";
+            }
+
+            int i2 = s.IndexOf(right, i1 + left.Length); // 从找到的第1个字符串后再去找
+            if (i2 < 0) // 找不到返回空
+            {
+                return "";
+            }
+
+            if (isContains) return s.Substring(i1, i2 - i1 + left.Length);
+            else return s.Substring(i1 + left.Length, i2 - i1 - left.Length);
+        }
+
+        /// <summary>
+        /// Converts a wildcard to a regex.
+        /// </summary>
+        /// <param name="pattern">The wildcard pattern to convert.</param>
+        /// <returns>A regex equivalent of the given wildcard.</returns>
+        public static bool IsWildcard(this string str, string pattern)
+            => Regex.IsMatch(str, "^" + Regex.Escape(pattern)
+                .Replace("\\*", ".*")
+                .Replace("\\?", ".") + "$");
+
+        #region Compressor
+
+        /// <summary>
+        /// Compresses the string.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns></returns>
+        public static string? CompressString(this string? text)
+        {
+            if (string.IsNullOrEmpty(text)) return null;
+            byte[] buffer = Encoding.UTF8.GetBytes(text);
+            var memoryStream = new MemoryStream();
+            using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Compress, true))
+            {
+                gZipStream.Write(buffer, 0, buffer.Length);
+            }
+
+            memoryStream.Position = 0;
+
+            var compressedData = new byte[memoryStream.Length];
+            memoryStream.Read(compressedData, 0, compressedData.Length);
+
+            var gZipBuffer = new byte[compressedData.Length + 4];
+            Buffer.BlockCopy(compressedData, 0, gZipBuffer, 4, compressedData.Length);
+            Buffer.BlockCopy(BitConverter.GetBytes(buffer.Length), 0, gZipBuffer, 0, 4);
+            return Convert.ToBase64String(gZipBuffer);
+        }
+
+        /// <summary>
+        /// Decompresses the string.
+        /// </summary>
+        /// <param name="compressedText">The compressed text.</param>
+        /// <returns></returns>
+        public static string? DecompressString(this string? compressedText)
+        {
+            if (string.IsNullOrEmpty(compressedText)) return null;
+            byte[] gZipBuffer = Convert.FromBase64String(compressedText);
+            using var memoryStream = new MemoryStream();
+            int dataLength = BitConverter.ToInt32(gZipBuffer, 0);
+            memoryStream.Write(gZipBuffer, 4, gZipBuffer.Length - 4);
+
+            var buffer = new byte[dataLength];
+
+            memoryStream.Position = 0;
+            using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Decompress))
+            {
+                gZipStream.Read(buffer, 0, buffer.Length);
+            }
+
+            return Encoding.UTF8.GetString(buffer);
+        }
+
+        #endregion
+
+#if DEBUG
+
+        [Obsolete("use GetLastRelativeUrl", true)]
+        public static string GetCurrentPath(this string url) => GetCurrentPath(url);
+
+#endif
     }
 }

@@ -10,6 +10,7 @@ namespace SteamTool.Core.Common
     /// 类名    ：MD5加密<br/>
     /// 说明    ：<br/>
     /// </summary>
+    [Obsolete("use System.Security.Cryptography.Hashs.String(ByteArray).MD5", true)]
     public static class Md5Method
     {
         /// <summary>

@@ -1,8 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
-using System.Application.Services;
+﻿using System.Application.Services;
 using System.Application.Services.Implementation;
+using System.Application.UI;
 using System.Application.UI.ViewModels;
-using System.Security;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -41,6 +40,17 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddViewModel<TViewModel>(this IServiceCollection services) where TViewModel : ViewModelBase
         {
             services.AddSingleton<TViewModel>();
+            return services;
+        }
+
+        /// <summary>
+        /// 添加桌面端日志实现
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddDesktopLogging(this IServiceCollection services)
+        {
+            services.AddLogging(AppHelper.Configure);
             return services;
         }
     }

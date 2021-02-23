@@ -123,6 +123,9 @@
   <data name="NotSupportedPlatformError" xml:space="preserve">
     <value>作業系統最低需要Windows 7 SP1</value>
   </data>
+  <data name="NotSupportedWin8PlatformError" xml:space="preserve">
+    <value>由於微軟官方對 Windows 8 的支持已結束，故本程式無法在此作業系統上運行，建議陞級到 Windows 8.1 或 Windows 10</value>
+  </data>
   <data name="Not_Installed_KB3063858" xml:space="preserve">
     <value>作業系統中缺少必要的補丁 KB3063858 導致程式無法運行，是否使用瀏覽器打開下載地址並手動安裝？</value>
   </data>

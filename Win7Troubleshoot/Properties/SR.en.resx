@@ -123,6 +123,9 @@
   <data name="NotSupportedPlatformError" xml:space="preserve">
     <value>The minimum requirement of operating system is Windows 7 SP1</value>
   </data>
+  <data name="NotSupportedWin8PlatformError" xml:space="preserve">
+    <value>Because Microsoft's official support for Windows 8 has ended, this program cannot run on this operating system. It is recommended to upgrade to Windows 8.1 or Windows 10</value>
+  </data>
   <data name="Not_Installed_KB3063858" xml:space="preserve">
     <value>Due to the lack of necessary patch KB3063858 in the operating system, the program cannot run. Do you want to open the download address with a browser and install it manually?</value>
   </data>

@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views;
 using System.IO;
+using System.Windows;
 using AvaloniaApplication = Avalonia.Application;
 
 namespace System.Application.UI
@@ -30,6 +31,13 @@ namespace System.Application.UI
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
+                if (!AppHelper.IsOfficialChannelPackage)
+                {
+                    MessageBox.Show("The program currently running is not from the official channel.", "Warning",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                }
+
                 desktop.MainWindow = new MainWindow
                 {
                     DataContext = DataContext = DI.Get<MainWindowViewModel>(),

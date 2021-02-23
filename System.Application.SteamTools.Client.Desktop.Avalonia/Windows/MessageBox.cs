@@ -97,6 +97,13 @@ namespace System.Windows
             return GetResult(result);
         }
 
+        /// <inheritdoc cref="ShowAsync(string, string, MessageBoxButton, MessageBoxImage)"/>
+        public static async void Show(
+            string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
+        {
+            await ShowAsync(messageBoxText, caption, button, icon);
+        }
+
         static Window? GetWindow(IMsBoxWindow<ButtonResult> window)
         {
             var _window = window.GetType().GetField("_window", BindingFlags.NonPublic | BindingFlags.Instance);

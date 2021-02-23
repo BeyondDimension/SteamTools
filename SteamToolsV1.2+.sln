@@ -67,6 +67,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Application.SteamToo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Win7Troubleshoot", "Win7Troubleshoot\Win7Troubleshoot.csproj", "{60530AF8-4790-4A85-BCE2-C5673E9C601B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Packager", "Packager\Packager.csproj", "{5A539932-2EB9-40F6-A4C1-94E5ECAB3B34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -155,6 +157,10 @@ Global
 		{60530AF8-4790-4A85-BCE2-C5673E9C601B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60530AF8-4790-4A85-BCE2-C5673E9C601B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60530AF8-4790-4A85-BCE2-C5673E9C601B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A539932-2EB9-40F6-A4C1-94E5ECAB3B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A539932-2EB9-40F6-A4C1-94E5ECAB3B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A539932-2EB9-40F6-A4C1-94E5ECAB3B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A539932-2EB9-40F6-A4C1-94E5ECAB3B34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -186,6 +192,7 @@ Global
 		{948C1EA8-12DB-4F8A-A190-8615DFBD9FE4} = {B43459A1-709B-4623-9677-AAC2FEE4FBA3}
 		{141532E1-540E-4E50-8723-96936C191281} = {B43459A1-709B-4623-9677-AAC2FEE4FBA3}
 		{60530AF8-4790-4A85-BCE2-C5673E9C601B} = {1460800B-D9ED-4147-B1E7-ABF502BEF59A}
+		{5A539932-2EB9-40F6-A4C1-94E5ECAB3B34} = {1460800B-D9ED-4147-B1E7-ABF502BEF59A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3833E7C5-69BC-4CB3-92CE-A8854AA35D8A}

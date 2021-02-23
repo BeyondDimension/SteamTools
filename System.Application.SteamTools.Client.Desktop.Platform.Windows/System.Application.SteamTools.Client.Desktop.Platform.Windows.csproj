@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Management" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Platform\System.Application.SteamTools.Client.Desktop.Platform.csproj" />
   </ItemGroup>
 

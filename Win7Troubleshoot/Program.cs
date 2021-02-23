@@ -11,6 +11,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Threading;
@@ -28,14 +29,14 @@ namespace Win7Troubleshoot
         static void Main(string[] args)
 #pragma warning restore IDE0060 // 删除未使用的参数
         {
-            if (Environment.OSVersion.Platform != PlatformID.Win32NT)
-                throw new PlatformNotSupportedException();
             mutex = new Mutex(true, Process.GetCurrentProcess().ProcessName, out var isNotRunning);
             if (isNotRunning)
             {
                 try
                 {
-                    var r = IsWin7SP1OrNotSupportedPlatform();
+                    if (Environment.OSVersion.Platform != PlatformID.Win32NT)
+                        throw new PlatformNotSupportedException();
+                    var r = IsWin7SP1OrNotSupportedPlatform(out var error);
                     if (r.HasValue)
                     {
                         if (r.Value) // Win7SP1
@@ -56,7 +57,7 @@ namespace Win7Troubleshoot
                         else // NotSupportedPlatform - For example, WinXP/Win2000
                         {
                             MessageBox.Show(
-                                SR.NotSupportedPlatformError,
+                                error,
                                 SR.Error,
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
@@ -126,9 +127,11 @@ namespace Win7Troubleshoot
         /// <para><see langword="false"/> 当前运行的操作系统不支持 </para>
         /// <para><see langword="null"/> 当前运行的操作系统为Win8或更高</para>
         /// </summary>
+        /// <param name="error"></param>
         /// <returns></returns>
-        static bool? IsWin7SP1OrNotSupportedPlatform()
+        static bool? IsWin7SP1OrNotSupportedPlatform([NotNullWhen(false)] out string? error)
         {
+            error = null;
             if (Environment.OSVersion.Version.Major == 6)
             {
                 if (Environment.OSVersion.Version.Minor == 1) // NT 6.1 / Win7 / WinServer 2008 R2
@@ -137,6 +140,7 @@ namespace Win7Troubleshoot
                 }
                 else if (Environment.OSVersion.Version.Minor == 2) // NT 6.2 / Win8 / WinServer 2012
                 {
+                    error = SR.NotSupportedWin8PlatformError;
                     return false;
                 }
                 else if (Environment.OSVersion.Version.Minor == 3) // NT 6.3 / Win8.1 / WinServer 2012 R2
@@ -145,11 +149,12 @@ namespace Win7Troubleshoot
                 }
                 else
                 {
-                    return false;
+                    throw new PlatformNotSupportedException();
                 }
             }
             else if (Environment.OSVersion.Version.Major < 6)
             {
+                error = SR.NotSupportedPlatformError;
                 return false;
             }
             return null;

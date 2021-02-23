@@ -46,13 +46,13 @@ namespace System
             return ticks;
         }
 
-        static DateTime GetDateTime(long ticks, bool convertLocalTime = false)
+        static DateTime GetDateTime(long ticks, bool convertLocalTime = true)
         {
             var dt = new DateTime(ticks, DateTimeKind.Utc);
             return convertLocalTime ? dt.ToLocalTime() : dt;
         }
 
-        static DateTimeOffset GetDateTimeOffset(long ticks, bool convertLocalTime = false)
+        static DateTimeOffset GetDateTimeOffset(long ticks, bool convertLocalTime = true)
         {
             var dt = new DateTimeOffset(ticks, TimeSpan.Zero);
             return convertLocalTime ? dt.ToLocalTime() : dt;
@@ -64,7 +64,7 @@ namespace System
         /// <param name="timestamp"></param>
         /// <param name="convertLocalTime"></param>
         /// <returns></returns>
-        public static DateTime ToDateTime(long timestamp, bool convertLocalTime = false)
+        public static DateTime ToDateTime(this long timestamp, bool convertLocalTime = true)
         {
             var ticks = GetTicks(timestamp);
             return GetDateTime(ticks, convertLocalTime);
@@ -76,7 +76,7 @@ namespace System
         /// <param name="timestamp"></param>
         /// <param name="convertLocalTime"></param>
         /// <returns></returns>
-        public static DateTime ToDateTime(int timestamp, bool convertLocalTime = false)
+        public static DateTime ToDateTime(this int timestamp, bool convertLocalTime = true)
         {
             var ticks = GetTicks(timestamp);
             return GetDateTime(ticks, convertLocalTime);
@@ -88,7 +88,7 @@ namespace System
         /// <param name="timestamp"></param>
         /// <param name="convertLocalTime"></param>
         /// <returns></returns>
-        public static DateTimeOffset ToDateTimeOffset(long timestamp, bool convertLocalTime = false)
+        public static DateTimeOffset ToDateTimeOffset(this long timestamp, bool convertLocalTime = true)
         {
             var ticks = GetTicks(timestamp);
             return GetDateTimeOffset(ticks, convertLocalTime);
@@ -100,10 +100,17 @@ namespace System
         /// <param name="timestamp"></param>
         /// <param name="convertLocalTime"></param>
         /// <returns></returns>
-        public static DateTimeOffset ToDateTimeOffset(int timestamp, bool convertLocalTime = false)
+        public static DateTimeOffset ToDateTimeOffset(this int timestamp, bool convertLocalTime = true)
         {
             var ticks = GetTicks(timestamp);
             return GetDateTimeOffset(ticks, convertLocalTime);
         }
+
+#if DEBUG
+
+        [Obsolete("use ToTimestamp", true)]
+        public static long CurrentMillis(this DateTime dateTime) => ToTimestamp(dateTime);
+
+#endif
     }
 }

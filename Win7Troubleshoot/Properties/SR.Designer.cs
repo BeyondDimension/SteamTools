@@ -86,5 +86,14 @@ namespace Win7Troubleshoot.Properties {
                 return ResourceManager.GetString("NotSupportedPlatformError", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 由于微软官方对 Windows 8 的支持已结束，故本程序无法在此操作系统上运行，建议升级到 Windows 8.1 或 Windows 10 的本地化字符串。
+        /// </summary>
+        internal static string NotSupportedWin8PlatformError {
+            get {
+                return ResourceManager.GetString("NotSupportedWin8PlatformError", resourceCulture);
+            }
+        }
     }
 }
