@@ -28,13 +28,13 @@ namespace Win7Troubleshoot
         static void Main(string[] args)
 #pragma warning restore IDE0060 // 删除未使用的参数
         {
+            if (Environment.OSVersion.Platform != PlatformID.Win32NT)
+                throw new PlatformNotSupportedException();
             mutex = new Mutex(true, Process.GetCurrentProcess().ProcessName, out var isNotRunning);
             if (isNotRunning)
             {
                 try
                 {
-                    if (Environment.OSVersion.Platform != PlatformID.Win32NT)
-                        throw new PlatformNotSupportedException();
                     var r = IsWin7SP1OrNotSupportedPlatform();
                     if (r.HasValue)
                     {
@@ -129,11 +129,26 @@ namespace Win7Troubleshoot
         /// <returns></returns>
         static bool? IsWin7SP1OrNotSupportedPlatform()
         {
-            if (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor == 1)
+            if (Environment.OSVersion.Version.Major == 6)
             {
-                return Environment.OSVersion.ServicePack == "Service Pack 1";
+                if (Environment.OSVersion.Version.Minor == 1) // NT 6.1 / Win7 / WinServer 2008 R2
+                {
+                    return Environment.OSVersion.ServicePack == "Service Pack 1";
+                }
+                else if (Environment.OSVersion.Version.Minor == 2) // NT 6.2 / Win8 / WinServer 2012
+                {
+                    return false;
+                }
+                else if (Environment.OSVersion.Version.Minor == 3) // NT 6.3 / Win8.1 / WinServer 2012 R2
+                {
+
+                }
+                else
+                {
+                    return false;
+                }
             }
-            if (Environment.OSVersion.Version.Major < 6)
+            else if (Environment.OSVersion.Version.Major < 6)
             {
                 return false;
             }

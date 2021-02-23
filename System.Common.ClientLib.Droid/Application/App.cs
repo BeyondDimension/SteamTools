@@ -133,6 +133,7 @@ namespace System.Application
         /// <param name="options"></param>
         public virtual void ConfigureMainProcessServices(IServiceCollection services, TAppSettings options)
         {
+            services.TryAddModelValidator();
             services.TryAddPermissions();
             services.TryAddToast();
             services.AddPlatformPermissions();

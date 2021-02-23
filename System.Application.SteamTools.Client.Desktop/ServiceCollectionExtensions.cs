@@ -1,6 +1,8 @@
-﻿using System.Application.Services;
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Application.UI.ViewModels;
+using System.Security;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection

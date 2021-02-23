@@ -52,15 +52,8 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <AvaloniaResource Remove="Styles\SideBar.axaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AvaloniaXaml Remove="Styles\SideBar.axaml" />
-  </ItemGroup>
-
-  <ItemGroup>
+  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+    <!--Win8/8.1/10的[开始菜单(屏幕)]磁贴配置-->
     <None Include="..\Resources\AppIcon\VisualElements_150.png">
       <Link>Assets\VisualElements_150.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

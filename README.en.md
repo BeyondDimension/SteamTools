@@ -27,9 +27,9 @@ English | [简体中文](./README.md)
 	- Currently there is a forced game borderless windowing, CSGO fix VAC shield.
 
 <!--Prerequisites Microsoft Visual C++ 2015-2019 Redistributable [64 bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 bit](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
-## 🖥 Operating Environment
+## 🖥 Support Operating System
 - Desktop
-	- Windows 10 1607+
+	- Windows 10 1607+ / Windows Server, version 1909+ / Windows Server 2019 / Windows Server 2016
 	- Windows 8.1 / Windows Server 2012 R2
 	- Windows 7 SP1 [ESU](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
 		- Prerequisites
@@ -48,6 +48,13 @@ English | [简体中文](./README.md)
 - Mobile
 	- Android 5.0+
 	- iOS 10.0+
+
+## ⛔ Unsupported Operating System
+- Windows 8
+	- [Due to Microsoft's official support for the product has ended](https://docs.microsoft.com/lifecycle/products/windows-8), so this program cannot run on this operating system, [It is recommended to upgrade to Windows 8.1](https://support.microsoft.com/windows/update-to-windows-8-1-from-windows-8-17fc54a7-a465-6b5a-c1a0-34140afd0669) or Windows 10
+- Windows Server 2012 / 2008 R2 SP1
+	- Only version 1.X is available, and version 2.X is not supported. It is recommended to upgrade to **Windows Server 2012 R2** or higher
+- Windows Server / Linux version without desktop GUI
 
 ## 🌎 Roadmap
 Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/milestones), and feel free to ask questions.

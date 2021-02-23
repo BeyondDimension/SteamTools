@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\System.Application.Repositories.sqlite-net-pcl\System.Application.Repositories.sqlite-net-pcl.csproj" />
     <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Platform\System.Application.SteamTools.Client.Desktop.Platform.csproj" />
     <ProjectReference Include="..\System.Application.SteamTools.Client\System.Application.SteamTools.Client.csproj" />
   </ItemGroup>
@@ -33,6 +34,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\" />
   </ItemGroup>
 
 </Project>

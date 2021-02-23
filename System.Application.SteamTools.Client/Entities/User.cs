@@ -1,9 +1,10 @@
 ﻿using SQLite;
 using System.Diagnostics;
+using SQLiteTable = SQLite.TableAttribute;
 
 namespace System.Application.Entities
 {
-    [Table("D5428AED")]
+    [SQLiteTable("D5428AED")]
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     public sealed class User : IEntity<Guid>
     {

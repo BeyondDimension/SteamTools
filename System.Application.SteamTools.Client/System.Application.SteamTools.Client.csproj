@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\System.Application.Repositories.sqlite-net-pcl\System.Application.Repositories.sqlite-net-pcl.csproj" />
     <ProjectReference Include="..\System.Application.SteamTools.Services.CloudService\System.Application.SteamTools.Services.CloudService.csproj" />
     <ProjectReference Include="..\System.Application.SteamTools\System.Application.SteamTools.csproj" />
     <ProjectReference Include="..\System.Common.ClientLib\System.Common.ClientLib.csproj" />

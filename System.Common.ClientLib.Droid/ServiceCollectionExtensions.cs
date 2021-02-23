@@ -5,26 +5,12 @@ using System.Application.Services.Implementation;
 using System.Application.Services.Implementation.Permissions;
 using System.Diagnostics;
 using System.Logging;
-using MSEXOptions = Microsoft.Extensions.Options.Options;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        /// <summary>
-        /// 尝试添加配置项
-        /// </summary>
-        /// <typeparam name="TOptions"></typeparam>
-        /// <param name="services"></param>
-        /// <param name="options"></param>
-        /// <returns></returns>
-        public static IServiceCollection TryAddOptions<TOptions>(this IServiceCollection services, TOptions options) where TOptions : class, new()
-        {
-            services.TryAddSingleton(MSEXOptions.Create(options));
-            return services;
-        }
-
         /// <summary>
         /// 尝试添加适用于安卓平台的Toast
         /// </summary>

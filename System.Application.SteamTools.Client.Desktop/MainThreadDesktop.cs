@@ -5,6 +5,7 @@ namespace System.Application
 {
     /// <summary>
     /// 适用于桌面端的主线程帮助类，参考 Xamarin.Essentials.MainThread
+    /// <para><see cref="https://docs.microsoft.com/zh-cn/xamarin/essentials/main-thread"/></para>
     /// <para><see cref="https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/MainThread/MainThread.shared.cs"/></para>
     /// </summary>
     public static class MainThreadDesktop

@@ -9,5 +9,7 @@ namespace System.Application.Services
         IAuthMessageClient AuthMessage { get; }
 
         IVersionClient Version { get; }
+
+        public static ICloudServiceClient Instance => DI.Get<ICloudServiceClient>();
     }
 }

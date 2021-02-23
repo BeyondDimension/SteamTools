@@ -39,7 +39,7 @@
 <!--先决条件 Microsoft Visual C++ 2015-2019 Redistributable [64 位](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 位](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
 ## 🖥 系统要求
 - 桌面端
-	- Windows 10 1607+
+	- Windows 10 1607+ / Windows Server 版本 1903+ / Windows Server 2019 / Windows Server 2016
 	- Windows 8.1 / Windows Server 2012 R2
 	- Windows 7 SP1 [ESU](https://docs.microsoft.com/zh-cn/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
 		- 先决条件
@@ -58,6 +58,13 @@
 - 移动端
 	- Android 5.0+
 	- iOS 10.0+
+
+## ⛔ 不受支持的操作系统
+- Windows 8
+	- [由于微软官方对该产品的支持已结束](https://docs.microsoft.com/zh-cn/lifecycle/products/windows-8)，故本程序无法在此操作系统上运行，[建议升级到 Windows 8.1](https://support.microsoft.com/zh-cn/windows/%E4%BB%8E-windows-8-%E6%9B%B4%E6%96%B0%E5%88%B0-windows-8-1-17fc54a7-a465-6b5a-c1a0-34140afd0669) 或 Windows 10
+- Windows Server 2012 / 2008 R2 SP1
+	- 仅可使用 1.X 版本，2.X 开始不受支持，建议升级到 **Windows Server 2012 R2** 或更高版本
+- 无桌面 GUI 的 Windows Server / Linux 版本
 
 ## 🌎 路线图
 查看这个 [milestones](https://github.com/SteamTools-Team/SteamTools/milestones) 来了解我们下一步的开发计划，并随时提出问题。
