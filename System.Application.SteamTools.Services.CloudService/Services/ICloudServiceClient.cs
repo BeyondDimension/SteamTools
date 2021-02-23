@@ -7,5 +7,7 @@ namespace System.Application.Services
         IAccountClient Account { get; }
 
         IAuthMessageClient AuthMessage { get; }
+
+        IVersionClient Version { get; }
     }
 }

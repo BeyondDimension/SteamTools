@@ -4,61 +4,61 @@ using System.Application.Columns;
 using System.Application.Models;
 using System.Application.Services.CloudService.Clients;
 using System.Application.Services.CloudService.Clients.Abstractions;
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace System.Application.Services.CloudService
 {
-    public abstract class CloudServiceClientBase : ICloudServiceClient, IApiConnectionPlatformHelper
+    public abstract class CloudServiceClientBase : HttpService, ICloudServiceClient, IApiConnectionPlatformHelper
     {
-        //const string DefaultApiBaseUrl = Constants.Prefix_HTTPS + "api.待定.com";
-        static string DefaultApiBaseUrl => throw new NotImplementedException();
+        public const string ClientName_ = "CloudServiceClient";
+        internal const string DefaultApiBaseUrl = Constants.Prefix_HTTPS + "api.steamtool.net";
 
         #region Clients
 
         public IAccountClient Account { get; }
         public IAuthMessageClient AuthMessage { get; }
+        public IVersionClient Version { get; }
 
         #endregion
 
-        protected readonly ILogger logger;
         readonly ApiConnection connection;
+        protected readonly ICloudServiceSettings settings;
         protected readonly IAuthHelper authHelper;
+        protected readonly IHttpPlatformHelper httpPlatformHelper;
 
         public string ApiBaseUrl { get; }
 
+        internal ICloudServiceSettings Settings => settings;
+
+        protected sealed override string? ClientName => ClientName_;
+
         public CloudServiceClientBase(
             ILogger logger,
+            IHttpClientFactory clientFactory,
+            IHttpPlatformHelper httpPlatformHelper,
             IAuthHelper authHelper,
             IOptions<ICloudServiceSettings> options,
-            IModelValidator validator)
+            IModelValidator validator) : base(logger, clientFactory)
         {
-            this.logger = logger;
             this.authHelper = authHelper;
-            var client = CreateHttpClient();
-            ApiBaseUrl = string.IsNullOrWhiteSpace(options.Value.ApiBaseUrl) ? DefaultApiBaseUrl : options.Value.ApiBaseUrl;
-            client.BaseAddress = new Uri(ApiBaseUrl);
-            client.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
-            client.DefaultRequestHeaders.Add(Constants.HeaderAppVersion,
-                options.Value.AppVersion.ToStringN());
-            connection = new ApiConnection(logger, client, this, validator);
+            this.httpPlatformHelper = httpPlatformHelper;
+            settings = options.Value;
+            ApiBaseUrl = string.IsNullOrWhiteSpace(settings.ApiBaseUrl)
+                ? DefaultApiBaseUrl : settings.ApiBaseUrl;
+            connection = new ApiConnection(logger, this, httpPlatformHelper, validator);
 
             #region SetClients
 
             Account = new AccountClient(connection);
             AuthMessage = new AuthMessageClient(connection);
+            Version = new VersionClient(connection);
 
             #endregion
         }
 
-        protected virtual HttpClient CreateHttpClient() => new HttpClient();
-
-        /// <summary>
-        /// 用户代理
-        /// <para>https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/User-Agent</para>
-        /// </summary>
-        protected virtual string UserAgent => Constants.DefaultUserAgent;
+        /// <inheritdoc cref="IHttpPlatformHelper.UserAgent"/>
+        internal string UserAgent => httpPlatformHelper.UserAgent;
 
         IAuthHelper IApiConnectionPlatformHelper.Auth => authHelper;
 
@@ -68,6 +68,6 @@ namespace System.Application.Services.CloudService
 
         public abstract void ShowResponseErrorMessage(string message);
 
-        public abstract (string filePath, string mime)? TryHandleUploadFile(Stream imageFileStream, UploadFileType uploadFileType);
+        HttpClient IApiConnectionPlatformHelper.CreateClient() => CreateClient();
     }
 }

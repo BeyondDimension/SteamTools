@@ -6,6 +6,7 @@ namespace System
     /// <summary>
     /// 平台
     /// </summary>
+    [Flags]
     public enum Platform
     {
         /// <summary>
@@ -16,22 +17,22 @@ namespace System
         /// <summary>
         /// Microsoft Windows / UWP(Universal Windows Platform)
         /// </summary>
-        Windows,
+        Windows = 4,
 
         /// <summary>
         /// Ubuntu / Debian / CentOS / Tizen
         /// </summary>
-        Linux,
+        Linux = 8,
 
         /// <summary>
         /// Android Phone / Android Pad / WearOS(Android Wear) / Android TV
         /// </summary>
-        Android,
+        Android = 16,
 
         /// <summary>
         /// iOS / iPadOS / watchOS / tvOS / macOS
         /// </summary>
-        Apple,
+        Apple = 32,
     }
 
     /// <summary>

@@ -38,25 +38,26 @@
 <!--发布配置SelfContained=true时会自动打包VC++相关程序集-->
 <!--先决条件 Microsoft Visual C++ 2015-2019 Redistributable [64 位](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 位](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
 ## 🖥 系统要求
-- Windows 10 1607+
-- Windows 8.1 / Windows Server 2012 R2
-- Windows 7 SP1 [ESU](https://docs.microsoft.com/zh-cn/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
-	- 先决条件
-	- KB3063858 [64 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47442) / [32 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47409)
-- ~~macOS 10.13 High Sierra 或更高版本~~
-<!--
-- ~~Alpine Linux 3.11+~~
-- ~~CentOS 7+~~
-- ~~Debian 9+~~
-- ~~Fedora 32+~~
-- ~~Linux Mint 18+~~
-- ~~openSUSE 15+~~
-- ~~Red Hat Enterprise Linux 7+~~
-- ~~SUSE Enterprise Linux (SLES) 12 SP2+~~
-- ~~Ubuntu 20.10, 20.04, 18.04, 16.04~~
-- ~~Android 5.0+~~
-- ~~iOS 10.0+~~
--->
+- 桌面端
+	- Windows 10 1607+
+	- Windows 8.1 / Windows Server 2012 R2
+	- Windows 7 SP1 [ESU](https://docs.microsoft.com/zh-cn/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
+		- 先决条件
+		- KB3063858 [64 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47442) / [32 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47409)
+	- macOS 10.13 High Sierra 或更高版本
+	- Linux 发行版
+		- Alpine Linux 3.11+
+		- CentOS 7+
+		- Debian 9+
+		- Fedora 32+
+		- Linux Mint 18+
+		- openSUSE 15+
+		- Red Hat Enterprise Linux 7+
+		- SUSE Enterprise Linux (SLES) 12 SP2+
+		- Ubuntu 20.10, 20.04, 18.04, 16.04
+- 移动端
+	- Android 5.0+
+	- iOS 10.0+
 
 ## 🌎 路线图
 查看这个 [milestones](https://github.com/SteamTools-Team/SteamTools/milestones) 来了解我们下一步的开发计划，并随时提出问题。

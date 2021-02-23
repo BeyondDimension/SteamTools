@@ -1,4 +1,6 @@
-﻿namespace System.Application.Models
+﻿using System.Application.Services.CloudService;
+
+namespace System.Application.Models
 {
     public interface ICloudServiceSettings
     {

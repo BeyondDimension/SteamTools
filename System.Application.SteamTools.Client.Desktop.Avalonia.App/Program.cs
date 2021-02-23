@@ -3,6 +3,7 @@ using Avalonia.ReactiveUI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using System.Application.Services.Implementation;
 using System.Application.UI.ViewModels;
 
 namespace System.Application.UI
@@ -34,6 +35,7 @@ namespace System.Application.UI
             services.AddLogging(l => l.AddProvider(NullLoggerProvider.Instance));
             services.AddDesktopPlatformService();
             services.TryAddModelValidator();
+            services.TryAddCloudServiceClient<CloudServiceClient>();
             services.AddLocalizationService();
             services.AddMainThreadPlatformService();
             services.AddViewModelCollectionService();

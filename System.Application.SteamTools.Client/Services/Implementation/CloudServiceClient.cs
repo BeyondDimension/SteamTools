@@ -3,23 +3,30 @@ using Microsoft.Extensions.Options;
 using System.Application.Columns;
 using System.Application.Models;
 using System.Application.Services.CloudService;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace System.Application.Services.Implementation
 {
-    public abstract class CloudServiceClient : CloudServiceClientBase
+    public class CloudServiceClient : CloudServiceClientBase
     {
-        public const string TAG = "ServerApiClient";
-
         protected readonly IUserManager userManager;
         protected readonly IToast toast;
 
         public CloudServiceClient(
             ILoggerFactory loggerFactory,
+            IHttpClientFactory clientFactory,
+            IHttpPlatformHelper httpPlatformHelper,
             IUserManager userManager,
             IToast toast,
             IOptions<AppSettings> options,
-            IModelValidator validator) : base(loggerFactory.CreateLogger(TAG), userManager, options, validator)
+            IModelValidator validator) : base(
+                loggerFactory.CreateLogger(ClientName_),
+                clientFactory,
+                httpPlatformHelper,
+                userManager,
+                options,
+                validator)
         {
             this.userManager = userManager;
             this.toast = toast;

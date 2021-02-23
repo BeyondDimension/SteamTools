@@ -1,6 +1,6 @@
 ﻿using System.Application.Columns;
 using System.Application.Models;
-using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace System.Application.Services.CloudService
@@ -32,11 +32,6 @@ namespace System.Application.Services.CloudService
         /// <param name="message"></param>
         void ShowResponseErrorMessage(string message);
 
-        /// <summary>
-        /// 尝试将需要[上传的文件流]处理(文件压缩，格式转换[heic->png]，由客户端平台原生实现)保存到临时路径中并返回信息
-        /// </summary>
-        /// <param name="imageStream"></param>
-        /// <returns></returns>
-        (string filePath, string mime)? TryHandleUploadFile(Stream imageFileStream, UploadFileType uploadFileType);
+        HttpClient CreateClient();
     }
 }

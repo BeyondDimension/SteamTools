@@ -6,6 +6,7 @@ namespace System
     /// <summary>
     /// 设备种类，例如手机，平板，电视，手表
     /// </summary>
+    [Flags]
     public enum DeviceIdiom
     {
         /// <summary>
@@ -16,27 +17,27 @@ namespace System
         /// <summary>
         /// 手机
         /// </summary>
-        Phone,
+        Phone = 4,
 
         /// <summary>
         /// 平板
         /// </summary>
-        Tablet,
+        Tablet = 8,
 
         /// <summary>
         /// 桌面端
         /// </summary>
-        Desktop,
+        Desktop = 16,
 
         /// <summary>
         /// 电视
         /// </summary>
-        TV,
+        TV = 32,
 
         /// <summary>
         /// 手表
         /// </summary>
-        Watch,
+        Watch = 64,
     }
 
     /// <summary>

@@ -28,25 +28,26 @@ English | [简体中文](./README.md)
 
 <!--Prerequisites Microsoft Visual C++ 2015-2019 Redistributable [64 bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 bit](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
 ## 🖥 Operating Environment
-- Windows 10 1607+
-- Windows 8.1 / Windows Server 2012 R2
-- Windows 7 SP1 [ESU](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
-	- Prerequisites
-	- KB3063858 [64 bit](https://www.microsoft.com/download/details.aspx?id=47442) / [32 bit](https://www.microsoft.com/download/details.aspx?id=47409)
-- ~~macOS 10.13 High Sierra Or Higher~~
-<!--
-- ~~Alpine Linux 3.11+~~
-- ~~CentOS 7+~~
-- ~~Debian 9+~~
-- ~~Fedora 32+~~
-- ~~Linux Mint 18+~~
-- ~~openSUSE 15+~~
-- ~~Red Hat Enterprise Linux 7+~~
-- ~~SUSE Enterprise Linux (SLES) 12 SP2+~~
-- ~~Ubuntu 20.10, 20.04, 18.04, 16.04~~
-- ~~Android 5.0+~~
-- ~~iOS 10.0+~~
--->
+- Desktop
+	- Windows 10 1607+
+	- Windows 8.1 / Windows Server 2012 R2
+	- Windows 7 SP1 [ESU](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
+		- Prerequisites
+		- KB3063858 [64 bit](https://www.microsoft.com/download/details.aspx?id=47442) / [32 bit](https://www.microsoft.com/download/details.aspx?id=47409)
+	- macOS 10.13 High Sierra Or Higher
+	- Linux Distribution
+		- Alpine Linux 3.11+
+		- CentOS 7+
+		- Debian 9+
+		- Fedora 32+
+		- Linux Mint 18+
+		- openSUSE 15+
+		- Red Hat Enterprise Linux 7+
+		- SUSE Enterprise Linux (SLES) 12 SP2+
+		- Ubuntu 20.10, 20.04, 18.04, 16.04
+- Mobile
+	- Android 5.0+
+	- iOS 10.0+
 
 ## 🌎 Roadmap
 Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/milestones), and feel free to ask questions.

@@ -21,16 +21,20 @@ namespace System.Application.Services.CloudService
     internal sealed class ApiConnection : IApiConnection
     {
         readonly ILogger logger;
-        readonly HttpClient client;
+        readonly IHttpPlatformHelper httpPlatformHelper;
         readonly IApiConnectionPlatformHelper helper;
         readonly Lazy<JsonSerializer> jsonSerializer = new Lazy<JsonSerializer>(() => new JsonSerializer());
         readonly IModelValidator validator;
 
-        public ApiConnection(ILogger logger, HttpClient client, IApiConnectionPlatformHelper helper, IModelValidator validator)
+        public ApiConnection(
+            ILogger logger,
+            IApiConnectionPlatformHelper helper,
+            IHttpPlatformHelper httpPlatformHelper,
+            IModelValidator validator)
         {
             this.logger = logger;
-            this.client = client;
             this.helper = helper;
+            this.httpPlatformHelper = httpPlatformHelper;
             this.validator = validator;
         }
 
@@ -180,7 +184,7 @@ namespace System.Application.Services.CloudService
                         }
                         if (needHandle)
                         {
-                            var result = helper.TryHandleUploadFile(stream, uploadFile.UploadFileType);
+                            var result = httpPlatformHelper.TryHandleUploadFile(stream);
                             if (!result.HasValue) // 处理失败
                             {
                                 ThrowUnsupportedUploadFileMediaType();
@@ -402,6 +406,7 @@ namespace System.Application.Services.CloudService
                         cancellationToken),
                 };
                 await SetRequestHeaderAuthorization(request);
+                var client = helper.CreateClient();
                 using var response = await client.SendAsync(request,
                     HttpCompletionOption.ResponseHeadersRead,
                     cancellationToken)
@@ -489,6 +494,7 @@ namespace System.Application.Services.CloudService
             {
                 using var request = new HttpRequestMessage(method, requestUri);
                 await SetRequestHeaderAuthorization(request);
+                var client = helper.CreateClient();
                 using var response = await client.SendAsync(request,
                     HttpCompletionOption.ResponseHeadersRead,
                     cancellationToken)

@@ -4,45 +4,46 @@ using System.Linq;
 namespace System
 {
     /// <summary>
-    /// 不同的 Android 设备使用不同的 CPU，而不同的 CPU 支持不同的指令集。
+    /// CPU 构架，例如 x86、arm 等
+    /// 例如不同的 Android 设备使用不同的 CPU，而不同的 CPU 支持不同的指令集。
     /// <para>CPU 与指令集的每种组合都有专属的应用二进制接口 (ABI)。</para>
     /// <para>https://developer.android.google.cn/ndk/guides/abis.html</para>
     /// <para>在比较版本支持的值与设备支持的值中的交集中，值越大的，优先选取。</para>
     /// </summary>
-    public static class AndroidABI
+    public static class CPUABI
     {
-        /// <inheritdoc cref="AndroidABI"/>
+        /// <inheritdoc cref="CPUABI"/>
         [Flags]
         public enum Value
         {
             [Obsolete("Deprecated")]
-            ARM = 0x1,
+            ARM = 4,
 
             [Obsolete("Deprecated")]
-            MIPS = 0x2,
+            MIPS = 8,
 
             /// <summary>
             /// https://developer.android.google.cn/ndk/guides/abis.html#x86
             /// </summary>
-            X86 = 0x4,
+            X86 = 16,
 
             /// <summary>
             /// https://developer.android.google.cn/ndk/guides/abis.html#v7a
             /// </summary>
-            ARM32 = 0x8,
+            ARM32 = 32,
 
             [Obsolete("Deprecated")]
-            MIPS64 = 0x10,
+            MIPS64 = 64,
 
             /// <summary>
             /// https://developer.android.google.cn/ndk/guides/abis.html#86-64
             /// </summary>
-            X64 = 0x20,
+            X64 = 128,
 
             /// <summary>
             /// https://developer.android.google.cn/ndk/guides/abis.html#arm64-v8a
             /// </summary>
-            ARM64 = 0x40,
+            ARM64 = 256,
         }
 
         static readonly IReadOnlyDictionary<string, Value> mapping = new Dictionary<string, Value>
