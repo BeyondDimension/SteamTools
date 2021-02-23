@@ -149,10 +149,10 @@ namespace SteamTool.Core.Properties {
         
         /// <summary>
         ///   查找类似 echo &quot;Steam++替换升级中...&quot;
-        ///taskkill /f /im {0}
+        ///taskkill /f /im &quot;{0}&quot;
         ///xcopy /y /c /h /r /s &quot;{1}\*.*&quot; &quot;{2}&quot;
-        ///::rmdir /s /q {1}
-        ///{3}
+        ///rmdir /s /q &quot;{1}&quot;
+        ///&quot;{3}&quot;
         ///del %0 的本地化字符串。
         /// </summary>
         public static string ProgramUpdateCmd {

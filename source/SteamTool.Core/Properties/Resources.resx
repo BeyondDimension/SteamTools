@@ -182,10 +182,10 @@
   </data>
   <data name="ProgramUpdateCmd" xml:space="preserve">
     <value>echo "Steam++替换升级中..."
-taskkill /f /im {0}
+taskkill /f /im "{0}"
 xcopy /y /c /h /r /s "{1}\*.*" "{2}"
-::rmdir /s /q {1}
-{3}
+rmdir /s /q "{1}"
+"{3}"
 del %0</value>
   </data>
 </root>
