@@ -129,6 +129,21 @@
   <data name="GameRelated" xml:space="preserve">
     <value>遊戲功能</value>
   </data>
+  <data name="Hosts_Exists" xml:space="preserve">
+    <value>寫入的 hosts 已經存在</value>
+  </data>
+  <data name="Hosts_ReadError" xml:space="preserve">
+    <value>讀取 hosts 檔案時發生錯誤</value>
+  </data>
+  <data name="Hosts_ReadSuccess" xml:space="preserve">
+    <value>讀取 hosts 成功</value>
+  </data>
+  <data name="Hosts_UpdateSuccess" xml:space="preserve">
+    <value>寫入 hosts 成功</value>
+  </data>
+  <data name="Hosts_WirteError" xml:space="preserve">
+    <value>寫入 hosts 時發生錯誤</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>語言</value>
   </data>

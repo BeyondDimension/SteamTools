@@ -3,7 +3,6 @@ using System.IO;
 using FontFamily = Avalonia.Media.FontFamily;
 using Window = Avalonia.Controls.Window;
 
-// ReSharper disable once CheckNamespace
 namespace System.Windows
 {
     /// <summary>

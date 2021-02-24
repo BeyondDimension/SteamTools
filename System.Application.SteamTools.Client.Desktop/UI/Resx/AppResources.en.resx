@@ -129,6 +129,21 @@
   <data name="GameRelated" xml:space="preserve">
     <value>Game Related</value>
   </data>
+  <data name="Hosts_Exists" xml:space="preserve">
+    <value>The written hosts already exist</value>
+  </data>
+  <data name="Hosts_ReadError" xml:space="preserve">
+    <value>An error occurred while reading the hosts file</value>
+  </data>
+  <data name="Hosts_ReadSuccess" xml:space="preserve">
+    <value>Read hosts successfully</value>
+  </data>
+  <data name="Hosts_UpdateSuccess" xml:space="preserve">
+    <value>Write hosts successfully</value>
+  </data>
+  <data name="Hosts_WirteError" xml:space="preserve">
+    <value>Error writing to hosts</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>

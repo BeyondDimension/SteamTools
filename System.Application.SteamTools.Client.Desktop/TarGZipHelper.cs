@@ -3,6 +3,7 @@ using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace System.Application
 {
@@ -14,6 +15,7 @@ namespace System.Application
         /// <param name="filePath">要创建的文件路径</param>
         /// <param name="dirPath">要打包的目录</param>
         /// <param name="level">压缩等级，取值范围在 <see cref="Deflater.NO_COMPRESSION"/> ~ <see cref="Deflater.BEST_COMPRESSION"/></param>
+        /// <param name="progressMessage">进度消息监听</param>
         /// <returns></returns>
         public static bool Create(string filePath, string dirPath, int level = Deflater.BEST_COMPRESSION, ProgressMessageHandler? progress = null)
         {
@@ -54,20 +56,40 @@ namespace System.Application
         /// <summary>
         /// 解压压缩包文件
         /// </summary>
-        /// <param name="filePath"></param>
-        /// <param name="dirPath"></param>
+        /// <param name="filePath">要解压的压缩包文件路径</param>
+        /// <param name="dirPath">要解压的文件夹路径，文件夹必须不存在</param>
+        /// <param name="progressMessage">进度消息监听</param>
+        /// <param name="progress">进度值监听</param>
         /// <returns></returns>
-        public static bool Unpack(string filePath, string dirPath, ProgressMessageHandler? progress = null)
+        public static bool Unpack(string filePath, string dirPath,
+            ProgressMessageHandler? progressMessage = null,
+            IProgress<float>? progress = null)
         {
             if (!File.Exists(filePath)) return false;
             if (Directory.Exists(dirPath)) return false;
 
             using var fs = File.OpenRead(filePath);
+            // 只能用 FileStream 的长度，GZipInputStream.Length 会引发异常
+            // https://github.com/icsharpcode/SharpZipLib/blob/v1.3.1/src/ICSharpCode.SharpZipLib/Zip/Compression/Streams/InflaterInputStream.cs#L542
+            float length = fs.Length;
+            var isFinish = false;
+            async void ProgressMonitor()
+            {
+                while (!isFinish)
+                {
+                    var value = fs.Position / length;
+                    progress.Report(value);
+                    await Task.Delay(200);
+                }
+            }
             Directory.CreateDirectory(dirPath);
             using var s = new GZipInputStream(fs);
             using var archive = TarArchive.CreateInputTarArchive(s, Encoding.UTF8);
-            if (progress != null) archive.ProgressMessageEvent += progress;
+            if (progressMessage != null) archive.ProgressMessageEvent += progressMessage;
+            if (progress != null) Task.Factory.StartNew(ProgressMonitor);
             archive.ExtractContents(dirPath);
+            isFinish = true;
+            progress?.Report(1f);
             return true;
         }
     }
@@ -80,12 +102,13 @@ namespace System.Application
         [Obsolete("use TarGZipHelper.Create", true)]
         public static void PackFiles(string filename, string directory)
         {
+            TarGZipHelper.Create(filename, directory);
         }
 
         [Obsolete("use TarGZipHelper.Unpack", true)]
         public static bool UnpackFiles(string file, string dir)
         {
-            return default;
+            return TarGZipHelper.Unpack(file, dir);
         }
     }
 
@@ -95,12 +118,13 @@ namespace System.Application
         [Obsolete("use TarGZipHelper.Create", true)]
         public static bool Zip(string FileToZip, string ZipedFile, int level)
         {
-            return default;
+            return TarGZipHelper.Create(FileToZip, ZipedFile, level);
         }
 
         [Obsolete("use TarGZipHelper.Unpack", true)]
         public static void UnZip(string FileToUpZip, string ZipedFolder)
         {
+            TarGZipHelper.Unpack(FileToUpZip, ZipedFolder);
         }
     }
 

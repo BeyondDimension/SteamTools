@@ -50,5 +50,9 @@
         public const string IMAGE = "image/*";
 
         public const string APK = "application/vnd.android.package-archive";
+
+        public const string XML = "text/xml";
+
+        public const string XML_APP = "application/xml";
     }
 }

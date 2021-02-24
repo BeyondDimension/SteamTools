@@ -8,7 +8,6 @@ using MessageBox_Avalonia::MessageBox.Avalonia.Enums;
 using System.Reflection;
 using System.Threading.Tasks;
 
-// ReSharper disable once CheckNamespace
 namespace System.Windows
 {
     /// <summary>

@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>Steam++.Packager</AssemblyName>
+    <RootNamespace>System</RootNamespace>
+    <ApplicationIcon>..\System.Application.SteamTools.Client.Desktop.Avalonia.App\Assets\Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\System.Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\System.Common.CoreLib\Properties\ThisAssembly.cs">
+      <Link>Properties\ThisAssembly.cs</Link>
+    </Compile>
+    <Compile Include="..\System.Application.SteamTools.Client.Desktop\TarGZipHelper.cs">
+      <Link>Application\TarGZipHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\System.Common.CoreLib\Extensions\ObjectExtensions.cs">
+      <Link>ObjectExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\System.Common.CoreLib\Extensions\StringExtensions.Trim.cs">
+      <Link>StringExtensions.Trim.cs</Link>
+    </Compile>
+    <Compile Include="..\System.Common.CoreLib\FileEx.cs">
+      <Link>FileEx.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpZipLib" Version="1.3.1" />
+  </ItemGroup>
+
+</Project>

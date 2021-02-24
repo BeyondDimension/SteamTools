@@ -9,6 +9,9 @@ using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 
 namespace System.Application.Models
 {
+    /// <summary>
+    /// Steam++ 应用配置项
+    /// </summary>
     [MPObj]
     public sealed class AppSettings : IAppSettings, ICloudServiceSettings
     {

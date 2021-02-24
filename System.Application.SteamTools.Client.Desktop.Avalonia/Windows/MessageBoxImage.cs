@@ -1,5 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
-namespace System.Windows
+﻿namespace System.Windows
 {
     /// <summary>
     /// 指定消息框所显示的图标。

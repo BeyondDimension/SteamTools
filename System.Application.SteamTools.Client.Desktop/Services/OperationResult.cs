@@ -1,14 +1,16 @@
-﻿namespace System.Application.Services
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace System.Application.Services
 {
     /// <summary>
     /// 操作结果信息类，对操作结果进行封装
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class OperationResult<T>
+    public abstract class OperationResultBase<T>
     {
         #region 构造函数
 
-        public OperationResult()
+        public OperationResultBase()
         {
             ResultType = OperationResultType.Error;
         }
@@ -17,7 +19,7 @@
         /// 初始化一个 操作结果信息类 的新实例
         /// </summary>
         /// <param name="resultType">操作结果类型</param>
-        public OperationResult(OperationResultType resultType)
+        public OperationResultBase(OperationResultType resultType)
         {
             ResultType = resultType;
         }
@@ -27,7 +29,7 @@
         /// </summary>
         /// <param name="resultType">操作结果类型</param>
         /// <param name="message">返回消息</param>
-        public OperationResult(OperationResultType resultType, string message)
+        public OperationResultBase(OperationResultType resultType, string message)
             : this(resultType)
         {
             Message = message;
@@ -39,7 +41,7 @@
         /// <param name="resultType">操作结果类型</param>
         /// <param name="message">返回消息</param>
         /// <param name="appendData">返回数据</param>
-        public OperationResult(OperationResultType resultType, string message, T appendData)
+        public OperationResultBase(OperationResultType resultType, string message, T appendData)
             : this(resultType, message)
         {
             AppendData = appendData;
@@ -51,7 +53,7 @@
         /// <param name="resultType">操作结果类型</param>
         /// <param name="message">返回消息</param>
         /// <param name="logMessage">日志记录消息</param>
-        public OperationResult(OperationResultType resultType, string message, string logMessage)
+        public OperationResultBase(OperationResultType resultType, string message, string logMessage)
             : this(resultType, message)
         {
             LogMessage = logMessage;
@@ -64,7 +66,7 @@
         /// <param name="message">返回消息</param>
         /// <param name="logMessage">日志记录消息</param>
         /// <param name="appendData">返回数据</param>
-        public OperationResult(OperationResultType resultType, string message, string logMessage, T appendData)
+        public OperationResultBase(OperationResultType resultType, string message, string logMessage, T appendData)
             : this(resultType, message, logMessage)
         {
             AppendData = appendData;
@@ -92,11 +94,80 @@
         /// <summary>
         /// 获取或设置 操作结果附加信息
         /// </summary>
-        public T? AppendData { get; set; }
+        public abstract T? AppendData { get; set; }
 
         #endregion
     }
 
-    /// <inheritdoc cref="OperationResult{T}"/>
-    public class OperationResult : OperationResult<object> { }
+    /// <inheritdoc cref="OperationResultBase{T}"/>
+    public class OperationResult : OperationResultBase<object>
+    {
+        /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase"/>
+        public OperationResult()
+        {
+        }
+
+        /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase(OperationResultType)"/>
+        public OperationResult(OperationResultType resultType) : base(resultType)
+        {
+        }
+
+        /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase(OperationResultType, string)"/>
+        public OperationResult(OperationResultType resultType, string message) : base(resultType, message)
+        {
+        }
+
+        /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase(OperationResultType, string, T)"/>
+        public OperationResult(OperationResultType resultType, string message, T appendData) : base(resultType, message, appendData)
+        {
+        }
+
+        /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase(OperationResultType, string, string)"/>
+        public OperationResult(OperationResultType resultType, string message, string logMessage) : base(resultType, message, logMessage)
+        {
+        }
+
+        /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase(OperationResultType, string, string, T)"/>
+        public OperationResult(OperationResultType resultType, string message, string logMessage, T appendData) : base(resultType, message, logMessage, appendData)
+        {
+        }
+
+        public sealed override object? AppendData { get; set; }
+    }
+
+    public class OperationResult<T> : OperationResultBase<T> where T : new()
+    {
+        /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase"/>
+        public OperationResult()
+        {
+        }
+
+        /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase(OperationResultType)"/>
+        public OperationResult(OperationResultType resultType) : base(resultType)
+        {
+        }
+
+        /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase(OperationResultType, string)"/>
+        public OperationResult(OperationResultType resultType, string message) : base(resultType, message)
+        {
+        }
+
+        /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase(OperationResultType, string, T)"/>
+        public OperationResult(OperationResultType resultType, string message, T appendData) : base(resultType, message, appendData)
+        {
+        }
+
+        /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase(OperationResultType, string, string)"/>
+        public OperationResult(OperationResultType resultType, string message, string logMessage) : base(resultType, message, logMessage)
+        {
+        }
+
+        /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase(OperationResultType, string, string, T)"/>
+        public OperationResult(OperationResultType resultType, string message, string logMessage, T appendData) : base(resultType, message, logMessage, appendData)
+        {
+        }
+
+        [NotNull, DisallowNull] // C# 8 not null
+        public sealed override T? AppendData { get; set; } = new T();
+    }
 }

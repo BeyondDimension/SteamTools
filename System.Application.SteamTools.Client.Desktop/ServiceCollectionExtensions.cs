@@ -53,5 +53,39 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddLogging(AppHelper.Configure);
             return services;
         }
+
+        /// <summary>
+        /// 添加业务用户配置文件服务
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddConfigFileService(this IServiceCollection services)
+        {
+            services.AddSingleton<IConfigFileService>(new ConfigFileServiceImpl());
+            return services;
+        }
+
+        /// <summary>
+        /// 添加 hosts 文件助手服务
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddHostsFileService(this IServiceCollection services)
+        {
+            services.AddSingleton<IHostsFileService, HostsFileServiceImpl>();
+            return services;
+        }
+
+        /// <summary>
+        /// 添加 通用 Http 服务
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddHttpService(this IServiceCollection services)
+        {
+            services.AddHttpClient();
+            services.AddSingleton<IHttpService, HttpServiceImpl>();
+            return services;
+        }
     }
 }

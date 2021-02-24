@@ -57,17 +57,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Application.SteamTools.Client.Desktop.Avalonia", "System.Application.SteamTools.Client.Desktop.Avalonia\System.Application.SteamTools.Client.Desktop.Avalonia.csproj", "{4F09B6D1-3F83-45A0-AEC8-0F243E7CD263}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Application.SteamTools.Client.Desktop.Platform", "System.Application.SteamTools.Client.Desktop.Platform\System.Application.SteamTools.Client.Desktop.Platform.csproj", "{DD2973AE-D1FC-4307-AFE2-EE2945183D3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Application.SteamTools.Client.Desktop.Linux", "System.Application.SteamTools.Client.Desktop.Linux\System.Application.SteamTools.Client.Desktop.Linux.csproj", "{D4CF08F5-8EAB-48FB-AAA3-1A221F7B2A82}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Application.SteamTools.Client.Desktop.Platform.Linux", "System.Application.SteamTools.Client.Desktop.Platform.Linux\System.Application.SteamTools.Client.Desktop.Platform.Linux.csproj", "{D4CF08F5-8EAB-48FB-AAA3-1A221F7B2A82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Application.SteamTools.Client.Desktop.Mac", "System.Application.SteamTools.Client.Desktop.Mac\System.Application.SteamTools.Client.Desktop.Mac.csproj", "{948C1EA8-12DB-4F8A-A190-8615DFBD9FE4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Application.SteamTools.Client.Desktop.Platform.Mac", "System.Application.SteamTools.Client.Desktop.Platform.Mac\System.Application.SteamTools.Client.Desktop.Platform.Mac.csproj", "{948C1EA8-12DB-4F8A-A190-8615DFBD9FE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Application.SteamTools.Client.Desktop.Windows", "System.Application.SteamTools.Client.Desktop.Windows\System.Application.SteamTools.Client.Desktop.Windows.csproj", "{141532E1-540E-4E50-8723-96936C191281}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Application.SteamTools.Client.Desktop.Platform.Windows", "System.Application.SteamTools.Client.Desktop.Platform.Windows\System.Application.SteamTools.Client.Desktop.Platform.Windows.csproj", "{141532E1-540E-4E50-8723-96936C191281}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Application.SteamTools.Tools.Win7Troubleshoot", "System.Application.SteamTools.Tools.Win7Troubleshoot\System.Application.SteamTools.Tools.Win7Troubleshoot.csproj", "{60530AF8-4790-4A85-BCE2-C5673E9C601B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Win7Troubleshoot", "Win7Troubleshoot\Win7Troubleshoot.csproj", "{60530AF8-4790-4A85-BCE2-C5673E9C601B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Application.SteamTools.Tools.Packager", "System.Application.SteamTools.Tools.Packager\System.Application.SteamTools.Tools.Packager.csproj", "{5A539932-2EB9-40F6-A4C1-94E5ECAB3B34}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Packager", "Packager\Packager.csproj", "{5A539932-2EB9-40F6-A4C1-94E5ECAB3B34}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{CC6FF77A-6E6B-4D42-B12B-0177745E9D22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -137,10 +137,6 @@ Global
 		{4F09B6D1-3F83-45A0-AEC8-0F243E7CD263}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F09B6D1-3F83-45A0-AEC8-0F243E7CD263}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F09B6D1-3F83-45A0-AEC8-0F243E7CD263}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD2973AE-D1FC-4307-AFE2-EE2945183D3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD2973AE-D1FC-4307-AFE2-EE2945183D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD2973AE-D1FC-4307-AFE2-EE2945183D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD2973AE-D1FC-4307-AFE2-EE2945183D3D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D4CF08F5-8EAB-48FB-AAA3-1A221F7B2A82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D4CF08F5-8EAB-48FB-AAA3-1A221F7B2A82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4CF08F5-8EAB-48FB-AAA3-1A221F7B2A82}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -187,12 +183,12 @@ Global
 		{D1F15D97-802E-4AA3-A4A5-B890ABE32897} = {B43459A1-709B-4623-9677-AAC2FEE4FBA3}
 		{2FFA5BCE-B3C3-46EA-8830-838C938BF814} = {1460800B-D9ED-4147-B1E7-ABF502BEF59A}
 		{4F09B6D1-3F83-45A0-AEC8-0F243E7CD263} = {B43459A1-709B-4623-9677-AAC2FEE4FBA3}
-		{DD2973AE-D1FC-4307-AFE2-EE2945183D3D} = {B43459A1-709B-4623-9677-AAC2FEE4FBA3}
 		{D4CF08F5-8EAB-48FB-AAA3-1A221F7B2A82} = {B43459A1-709B-4623-9677-AAC2FEE4FBA3}
 		{948C1EA8-12DB-4F8A-A190-8615DFBD9FE4} = {B43459A1-709B-4623-9677-AAC2FEE4FBA3}
 		{141532E1-540E-4E50-8723-96936C191281} = {B43459A1-709B-4623-9677-AAC2FEE4FBA3}
-		{60530AF8-4790-4A85-BCE2-C5673E9C601B} = {1460800B-D9ED-4147-B1E7-ABF502BEF59A}
-		{5A539932-2EB9-40F6-A4C1-94E5ECAB3B34} = {1460800B-D9ED-4147-B1E7-ABF502BEF59A}
+		{60530AF8-4790-4A85-BCE2-C5673E9C601B} = {CC6FF77A-6E6B-4D42-B12B-0177745E9D22}
+		{5A539932-2EB9-40F6-A4C1-94E5ECAB3B34} = {CC6FF77A-6E6B-4D42-B12B-0177745E9D22}
+		{CC6FF77A-6E6B-4D42-B12B-0177745E9D22} = {1460800B-D9ED-4147-B1E7-ABF502BEF59A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3833E7C5-69BC-4CB3-92CE-A8854AA35D8A}

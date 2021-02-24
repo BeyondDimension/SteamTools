@@ -21,26 +21,26 @@ namespace System.Application.Services.CloudService
     internal sealed class ApiConnection : IApiConnection
     {
         readonly ILogger logger;
-        readonly IHttpPlatformHelper httpPlatformHelper;
-        readonly IApiConnectionPlatformHelper helper;
+        readonly IHttpPlatformHelper http_helper;
+        readonly IApiConnectionPlatformHelper conn_helper;
         readonly Lazy<JsonSerializer> jsonSerializer = new Lazy<JsonSerializer>(() => new JsonSerializer());
         readonly IModelValidator validator;
 
         public ApiConnection(
             ILogger logger,
-            IApiConnectionPlatformHelper helper,
-            IHttpPlatformHelper httpPlatformHelper,
+            IApiConnectionPlatformHelper conn_helper,
+            IHttpPlatformHelper http_helper,
             IModelValidator validator)
         {
             this.logger = logger;
-            this.helper = helper;
-            this.httpPlatformHelper = httpPlatformHelper;
+            this.conn_helper = conn_helper;
+            this.http_helper = http_helper;
             this.validator = validator;
         }
 
         async ValueTask SetRequestHeaderAuthorization(HttpRequestMessage request)
         {
-            var authToken = await helper.Auth.GetAuthTokenAsync();
+            var authToken = await conn_helper.Auth.GetAuthTokenAsync();
             if (!string.IsNullOrEmpty(authToken))
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue(Constants.Basic, authToken);
@@ -74,7 +74,7 @@ namespace System.Application.Services.CloudService
         async Task Unauthorized(HttpMethod method, string requestUri)
         {
             logger.LogInformation("Unauthorized method: {0}, requestUri: {1}", method, requestUri);
-            await helper.Auth.SignOutAsync();
+            await conn_helper.Auth.SignOutAsync();
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace System.Application.Services.CloudService
                         }
                         if (needHandle)
                         {
-                            var result = httpPlatformHelper.TryHandleUploadFile(stream);
+                            var result = http_helper.TryHandleUploadFile(stream);
                             if (!result.HasValue) // 处理失败
                             {
                                 ThrowUnsupportedUploadFileMediaType();
@@ -231,7 +231,7 @@ namespace System.Application.Services.CloudService
         {
             if (response.Code == ApiResponseCode.Canceled) return;
             var message = ApiResponse.GetMessage(response);
-            helper.ShowResponseErrorMessage(message);
+            conn_helper.ShowResponseErrorMessage(message);
         }
 
         async Task GlobalResponseIntercept(
@@ -284,7 +284,7 @@ namespace System.Application.Services.CloudService
                                     phoneNumber = phoneNumber2;
                                 else
                                     phoneNumber = null;
-                                await helper.OnLoginedAsync(phoneNumber, loginResponse.Content);
+                                await conn_helper.OnLoginedAsync(phoneNumber, loginResponse.Content);
                             }
                             else if (response is IApiResponse<IReadOnlyAuthToken> authTokenResponse
                                 && authTokenResponse.Content != null)
@@ -292,7 +292,7 @@ namespace System.Application.Services.CloudService
                                 var authToken = authTokenResponse.Content.AuthToken;
                                 if (!string.IsNullOrEmpty(authToken))
                                 {
-                                    await helper.SaveAuthTokenAsync(authToken);
+                                    await conn_helper.SaveAuthTokenAsync(authToken);
                                 }
                             }
                             else if (response is IApiResponse<Guid[]> guidsResponse
@@ -406,7 +406,7 @@ namespace System.Application.Services.CloudService
                         cancellationToken),
                 };
                 await SetRequestHeaderAuthorization(request);
-                var client = helper.CreateClient();
+                var client = conn_helper.CreateClient();
                 using var response = await client.SendAsync(request,
                     HttpCompletionOption.ResponseHeadersRead,
                     cancellationToken)
@@ -494,7 +494,7 @@ namespace System.Application.Services.CloudService
             {
                 using var request = new HttpRequestMessage(method, requestUri);
                 await SetRequestHeaderAuthorization(request);
-                var client = helper.CreateClient();
+                var client = conn_helper.CreateClient();
                 using var response = await client.SendAsync(request,
                     HttpCompletionOption.ResponseHeadersRead,
                     cancellationToken)

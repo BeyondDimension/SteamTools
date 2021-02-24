@@ -12,10 +12,10 @@ using SJsonSerializerOptions = System.Text.Json.JsonSerializerOptions;
 namespace System
 {
     /// <summary>
-    /// 序列化、反序列化，模型类可继承此类
+    /// 序列化、反序列化 助手类
     /// </summary>
     [Serializable]
-    public abstract partial class Serializable
+    public static class Serializable
     {
         /// <summary>
         /// 序列化程式实现种类
@@ -220,10 +220,14 @@ namespace System
         }
     }
 
+    public interface ICloneableSerializable
+    {
+    }
+
     public static class SerializableExtensions
     {
         /// <inheritdoc cref="Serializable.Clone{T}(T)"/>
-        public static T Clone<T>(this T obj) where T : Serializable => Serializable.Clone(obj);
+        public static T Clone<T>(this T obj) where T : ICloneableSerializable => Serializable.Clone(obj);
 
         /// <summary>
         /// 将 [序列化程式实现种类] 转换为 [JSON 序列化程式实现种类]

@@ -5,13 +5,16 @@ namespace System.Net.Http
     public abstract class HttpService
     {
         protected readonly ILogger logger;
+        protected readonly IHttpPlatformHelper http_helper;
         readonly IHttpClientFactory _clientFactory;
 
         public HttpService(
             ILogger logger,
+            IHttpPlatformHelper http_helper,
             IHttpClientFactory clientFactory)
         {
             this.logger = logger;
+            this.http_helper = http_helper;
             _clientFactory = clientFactory;
         }
 

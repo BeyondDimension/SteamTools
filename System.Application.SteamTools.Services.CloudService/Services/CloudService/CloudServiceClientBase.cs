@@ -25,7 +25,6 @@ namespace System.Application.Services.CloudService
         readonly ApiConnection connection;
         protected readonly ICloudServiceSettings settings;
         protected readonly IAuthHelper authHelper;
-        protected readonly IHttpPlatformHelper httpPlatformHelper;
 
         public string ApiBaseUrl { get; }
 
@@ -36,17 +35,16 @@ namespace System.Application.Services.CloudService
         public CloudServiceClientBase(
             ILogger logger,
             IHttpClientFactory clientFactory,
-            IHttpPlatformHelper httpPlatformHelper,
+            IHttpPlatformHelper http_helper,
             IAuthHelper authHelper,
             IOptions<ICloudServiceSettings> options,
-            IModelValidator validator) : base(logger, clientFactory)
+            IModelValidator validator) : base(logger, http_helper, clientFactory)
         {
             this.authHelper = authHelper;
-            this.httpPlatformHelper = httpPlatformHelper;
             settings = options.Value;
             ApiBaseUrl = string.IsNullOrWhiteSpace(settings.ApiBaseUrl)
                 ? DefaultApiBaseUrl : settings.ApiBaseUrl;
-            connection = new ApiConnection(logger, this, httpPlatformHelper, validator);
+            connection = new ApiConnection(logger, this, http_helper, validator);
 
             #region SetClients
 

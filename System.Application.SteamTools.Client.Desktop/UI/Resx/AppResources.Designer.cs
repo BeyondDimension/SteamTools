@@ -97,6 +97,51 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 写入的 hosts 已经存在 的本地化字符串。
+        /// </summary>
+        public static string Hosts_Exists {
+            get {
+                return ResourceManager.GetString("Hosts_Exists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 读取 hosts 文件时发生错误 的本地化字符串。
+        /// </summary>
+        public static string Hosts_ReadError {
+            get {
+                return ResourceManager.GetString("Hosts_ReadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 读取 hosts 成功 的本地化字符串。
+        /// </summary>
+        public static string Hosts_ReadSuccess {
+            get {
+                return ResourceManager.GetString("Hosts_ReadSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 写入 hosts 成功 的本地化字符串。
+        /// </summary>
+        public static string Hosts_UpdateSuccess {
+            get {
+                return ResourceManager.GetString("Hosts_UpdateSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 写入 hosts 时发生错误 的本地化字符串。
+        /// </summary>
+        public static string Hosts_WirteError {
+            get {
+                return ResourceManager.GetString("Hosts_WirteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 语言 的本地化字符串。
         /// </summary>
         public static string Language {

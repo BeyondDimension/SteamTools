@@ -85,6 +85,15 @@ namespace System.Application.UI
             services.AddViewModelCollectionService();
             services.AddViewModel<MainWindowViewModel>();
             services.AddViewModel<SettingsPageViewModel>();
+
+            // 业务用户配置文件服务
+            services.AddConfigFileService();
+
+            // hosts 文件助手服务
+            services.AddHostsFileService();
+
+            // 通用 Http 服务
+            services.AddHttpService();
         }
     }
 }

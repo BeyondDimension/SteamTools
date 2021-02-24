@@ -1,5 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
-namespace System.Windows
+﻿namespace System.Windows
 {
     /// <summary>
     /// 指定用户单击的消息框按钮。 由 <see cref="MessageBox"/>.Show... 方法返回。
