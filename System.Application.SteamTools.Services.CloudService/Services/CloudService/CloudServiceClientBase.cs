@@ -56,7 +56,7 @@ namespace System.Application.Services.CloudService
         }
 
         /// <inheritdoc cref="IHttpPlatformHelper.UserAgent"/>
-        internal string UserAgent => httpPlatformHelper.UserAgent;
+        internal string UserAgent => http_helper.UserAgent;
 
         IAuthHelper IApiConnectionPlatformHelper.Auth => authHelper;
 

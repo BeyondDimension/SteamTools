@@ -12,7 +12,7 @@ namespace System.Application.Models
     [MPObj]
     [Serializable]
     [DebuggerDisplay("{DebuggerDisplay(),nq}")]
-    public sealed class PagedModel<T> : Serializable, IPagedModel<T>, IReadOnlyPagedModel<T>
+    public sealed class PagedModel<T> : IPagedModel<T>, IReadOnlyPagedModel<T>
     {
         string DebuggerDisplay() => $"Current: {Current}, Total: {Total}, Count: {mDataSource?.Count ?? 0}, PageSize: {PageSize}";
 

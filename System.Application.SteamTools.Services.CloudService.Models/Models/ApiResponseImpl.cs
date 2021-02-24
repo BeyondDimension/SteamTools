@@ -8,7 +8,7 @@ using SJsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 
 namespace System.Application.Models
 {
-    internal abstract class ApiResponseImplBase : Serializable, IApiResponse
+    internal abstract class ApiResponseImplBase : IApiResponse
     {
         ApiResponseCode mCode;
         bool mIsSuccess;

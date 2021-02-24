@@ -4,6 +4,7 @@ using System.Text;
 
 namespace SteamTool.Model.ToolModel
 {
+    [Obsolete("use https://github.com/octokit/octokit.net")]
     public class GithubReleaseModel
     {
         public string id { get; set; }
@@ -17,6 +18,7 @@ namespace SteamTool.Model.ToolModel
         public string body { get; set; }
     }
 
+    [Obsolete("use https://github.com/octokit/octokit.net")]
     public class Assets
     {
         public string id { get; set; }
