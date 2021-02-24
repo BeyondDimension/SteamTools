@@ -26,7 +26,7 @@ namespace System.Application.UI
             }
             catch (Exception ex)
             {
-                AppHelper.EnableLogger = true;
+                AppHelper.SetNLoggerMinLevel(LogLevel.Trace);
                 // NLog: catch any exception and log it.
                 logger.Error(ex, "Stopped program because of exception");
                 throw;
