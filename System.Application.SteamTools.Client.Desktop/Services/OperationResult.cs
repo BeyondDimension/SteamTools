@@ -118,7 +118,7 @@ namespace System.Application.Services
         }
 
         /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase(OperationResultType, string, T)"/>
-        public OperationResult(OperationResultType resultType, string message, T appendData) : base(resultType, message, appendData)
+        public OperationResult(OperationResultType resultType, string message, object? appendData) : base(resultType, message, appendData)
         {
         }
 

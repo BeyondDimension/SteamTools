@@ -61,7 +61,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddConfigFileService(this IServiceCollection services)
         {
-            services.AddSingleton<IConfigFileService>(new ConfigFileServiceImpl());
+            services.AddSingleton<IConfigFileService, ConfigFileServiceImpl>();
             return services;
         }
 
