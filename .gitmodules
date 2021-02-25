@@ -4,3 +4,12 @@
 [submodule "references/MetroRadiance"]
 	path = references/MetroRadiance
 	url = https://github.com/rmbadmin/MetroRadiance.git
+[submodule "references/SteamAchievementManager"]
+	path = references/SteamAchievementManager
+	url = https://github.com/SteamTools-Team/SteamAchievementManager.git
+[submodule "references/Steam4NET"]
+	path = references/Steam4NET
+	url = https://github.com/SteamTools-Team/Steam4NET.git
+[submodule "references/WinAuth"]
+	path = references/WinAuth
+	url = https://github.com/SteamTools-Team/WinAuth.git
