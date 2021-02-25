@@ -16,6 +16,9 @@ namespace System.Application.UI
         [STAThread]
         static void Main(string[] args)
         {
+            // 目前桌面端默认使用 SystemTextJson 如果出现兼容性问题可取消下面这行代码
+            // Serializable.DefaultJsonImplType = Serializable.JsonImplType.NewtonsoftJson;
+
             var logger = LogManager.GetCurrentClassLogger();
             try
             {
@@ -94,6 +97,9 @@ namespace System.Application.UI
 
             // 通用 Http 服务
             services.AddHttpService();
+
+            // Steam 相关助手、工具类服务
+            services.AddSteamService();
         }
     }
 }

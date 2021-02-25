@@ -14,9 +14,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageReference Include="System.Management" Version="5.0.0" />
+    <PackageReference Include="TaskScheduler" Version="2.9.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\references\Steam4NET\Steam4NET\Steam4NET.csproj" />
+    <ProjectReference Include="..\references\SteamAchievementManager\SAM.API\SAM.API.csproj" />
     <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop\System.Application.SteamTools.Client.Desktop.csproj" />
   </ItemGroup>
 

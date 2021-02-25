@@ -18,5 +18,22 @@ namespace System.Application.Services.Implementation
         {
             return null;
         }
+
+        public void SetBootAutoStart(bool isAutoStart, string name)
+        {
+
+        }
+
+        public string? GetSteamDirPath()
+        {
+            return null;
+        }
+
+        public string? GetSteamProgramPath()
+        {
+            return null;
+        }
+
+        public string GetLastSteamLoginUserName() => string.Empty;
     }
 }

@@ -14,12 +14,12 @@ namespace System.Application
         public static string GetPublicPemCertificateString(this X509Certificate2 @this)
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine(Constants.HOST_TAG);
+            builder.AppendLine(Constants.CERTIFICATE_HOST_TAG);
             builder.AppendLine("-----BEGIN CERTIFICATE-----");
             builder.AppendLine(
                 Convert.ToBase64String(@this.RawData, Base64FormattingOptions.InsertLineBreaks));
             builder.AppendLine("-----END CERTIFICATE-----");
-            builder.AppendLine(Constants.HOST_TAG);
+            builder.AppendLine(Constants.CERTIFICATE_HOST_TAG);
             return builder.ToString();
         }
 

@@ -12,14 +12,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DnsClient" Version="1.4.0" />
     <PackageReference Include="Gameloop.Vdf" Version="0.6.1" />
     <PackageReference Include="NLog" Version="4.7.7" />
     <PackageReference Include="NLog.Extensions.Logging" Version="1.7.0" />
     <PackageReference Include="ReactiveUI" Version="13.1.1" />
     <PackageReference Include="SharpZipLib" Version="1.3.1" />
+    <!--<PackageReference Include="Titanium.Web.Proxy" Version="3.1.1344" />-->
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj" />
     <ProjectReference Include="..\System.Application.Repositories.sqlite-net-pcl\System.Application.Repositories.sqlite-net-pcl.csproj" />
     <ProjectReference Include="..\System.Application.SteamTools.Client\System.Application.SteamTools.Client.csproj" />
   </ItemGroup>

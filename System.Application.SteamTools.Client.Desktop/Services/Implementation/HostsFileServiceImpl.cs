@@ -86,7 +86,7 @@ namespace System.Application.Services.Implementation
 
             try
             {
-                dataLines.Add($"{ip} {domain} {Constants.HOST_TAG}");
+                dataLines.Add($"{ip} {domain} {Constants.CERTIFICATE_HOST_TAG}");
                 File.WriteAllLines(s.HostsFilePath, dataLines, Encoding.UTF8);
 
                 //File.SetAttributes(HostsPath, FileAttributes.ReadOnly);
@@ -145,7 +145,7 @@ namespace System.Application.Services.Implementation
 
             foreach (var (ip, domain) in hosts)
             {
-                dataLines.Add($"{ip} {domain} {Constants.HOST_TAG}");
+                dataLines.Add($"{ip} {domain} {Constants.CERTIFICATE_HOST_TAG}");
             }
             try
             {
@@ -232,7 +232,7 @@ namespace System.Application.Services.Implementation
                     {
                         if (!temp[0].StartsWith("#"))
                         {
-                            return !temp.Contains(Constants.HOST_TAG);
+                            return !temp.Contains(Constants.CERTIFICATE_HOST_TAG);
                         }
                     }
                     return true;

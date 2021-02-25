@@ -83,8 +83,19 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddHttpService(this IServiceCollection services)
         {
-            services.AddHttpClient();
+            services.AddHttpClient(); // 添加 System.Net.Http.HttpClient / HttpClientFactory
             services.AddSingleton<IHttpService, HttpServiceImpl>();
+            return services;
+        }
+
+        /// <summary>
+        /// 添加 Steam 相关助手、工具类服务
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddSteamService(this IServiceCollection services)
+        {
+            services.AddSingleton<ISteamService, SteamServiceImpl>();
             return services;
         }
     }

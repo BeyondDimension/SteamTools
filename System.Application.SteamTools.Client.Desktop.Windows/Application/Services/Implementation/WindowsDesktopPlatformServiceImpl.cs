@@ -1,100 +1,22 @@
-﻿using System.Application.Models;
-using System.Collections.Generic;
+﻿using Microsoft.Win32;
+using Microsoft.Win32.TaskScheduler;
+using System.Application.Models;
+using System.Application.UI;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
-using System.Runtime.InteropServices;
+using System.Reflection;
 using System.Runtime.Versioning;
 
 namespace System.Application.Services.Implementation
 {
     [SupportedOSPlatform("Windows")]
-    internal sealed class WindowsDesktopPlatformServiceImpl : IDesktopPlatformService
+    internal sealed partial class WindowsDesktopPlatformServiceImpl : IDesktopPlatformService
     {
         const string TAG = "WindowsDesktopPlatformS";
-
-        #region 窗口右上角的三个按钮(最小化，最大化，关闭)
-
-        // https://stackoverflow.com/questions/339620/how-do-i-remove-minimize-and-maximize-from-a-resizable-window-in-wpf
-        // https://blog.magnusmontin.net/2014/11/30/disabling-or-hiding-the-minimize-maximize-or-close-button-of-a-wpf-window/
-
-        public const int MF_BYCOMMAND = 0x00000000;
-        public const int SC_CLOSE = 0xF060;
-        public const int SC_MINIMIZE = 0xF020;
-        public const int SC_MAXIMIZE = 0xF030;
-
-        [DllImport("user32.dll")]
-        public static extern int DeleteMenu(IntPtr hMenu, int nPosition, int wFlags);
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
-
-        public const int GWL_STYLE = -16,
-                    WS_MAXIMIZEBOX = 0x10000,
-                    WS_MINIMIZEBOX = 0x20000;
-
-        [DllImport("user32.dll")]
-        public extern static int GetWindowLong(IntPtr hwnd, int index);
-
-        [DllImport("user32.dll")]
-        public extern static int SetWindowLong(IntPtr hwnd, int index, int value);
-
-        public const int WS_SYSMENU = 0x80000;
-
-        public static void EnableMinimizeButton(IntPtr hWnd)
-        {
-            _ = SetWindowLong(hWnd, GWL_STYLE, GetWindowLong(hWnd, GWL_STYLE) | WS_MINIMIZEBOX);
-        }
-
-        public static void EnableMaximizeButton(IntPtr hWnd)
-        {
-            _ = SetWindowLong(hWnd, GWL_STYLE, GetWindowLong(hWnd, GWL_STYLE) | WS_MAXIMIZEBOX);
-        }
-
-        public static void ShowMinimizeAndMaximizeButtons(IntPtr hWnd)
-        {
-            _ = SetWindowLong(hWnd, GWL_STYLE, GetWindowLong(hWnd, GWL_STYLE) | WS_MAXIMIZEBOX | WS_MINIMIZEBOX);
-        }
-
-        public static void ShowAllButtons(IntPtr hWnd)
-        {
-            _ = SetWindowLong(hWnd, GWL_STYLE, GetWindowLong(hWnd, GWL_STYLE) | WS_SYSMENU);
-        }
-
-        public static void HideMinimizeAndMaximizeButtons(IntPtr hWnd)
-        {
-            _ = SetWindowLong(hWnd, GWL_STYLE, GetWindowLong(hWnd, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_MINIMIZEBOX);
-        }
-
-        public static void DisableMinimizeButton(IntPtr hWnd)
-        {
-            _ = SetWindowLong(hWnd, GWL_STYLE, GetWindowLong(hWnd, GWL_STYLE) & ~WS_MINIMIZEBOX);
-        }
-
-        public static void DisableMaximizeButton(IntPtr hWnd)
-        {
-            _ = SetWindowLong(hWnd, GWL_STYLE, GetWindowLong(hWnd, GWL_STYLE) & ~WS_MAXIMIZEBOX);
-        }
-
-        public void SetResizeMode(IntPtr hWnd, int value)
-        {
-            switch (value)
-            {
-                case IDesktopPlatformService.ResizeMode_NoResize:
-                    _ = DeleteMenu(GetSystemMenu(hWnd, false), SC_MAXIMIZE, MF_BYCOMMAND);
-                    _ = DeleteMenu(GetSystemMenu(hWnd, false), SC_MINIMIZE, MF_BYCOMMAND);
-                    HideMinimizeAndMaximizeButtons(hWnd);
-                    break;
-                case IDesktopPlatformService.ResizeMode_CanMinimize:
-                    _ = DeleteMenu(GetSystemMenu(hWnd, false), SC_MAXIMIZE, MF_BYCOMMAND);
-                    DisableMaximizeButton(hWnd);
-                    break;
-            }
-        }
-
-        #endregion
+        const string SteamRegistryPath = @"SOFTWARE\Valve\Steam";
 
         public string GetCommandLineArgs(Process process)
         {
@@ -138,5 +60,55 @@ namespace System.Application.Services.Implementation
                     return null;
             }
         }
+
+        public void SetBootAutoStart(bool isAutoStart, string name)
+        {
+            // 开机启动使用 taskschd.msc 实现
+            try
+            {
+                if (isAutoStart)
+                {
+                    using var td = TaskService.Instance.NewTask();
+                    td.RegistrationInfo.Description = name + " System Boot Run";
+                    td.Settings.Priority = ProcessPriorityClass.Normal;
+                    td.Settings.ExecutionTimeLimit = new TimeSpan(0);
+                    td.Settings.AllowHardTerminate = false;
+                    td.Settings.StopIfGoingOnBatteries = false;
+                    td.Settings.DisallowStartIfOnBatteries = false;
+                    td.Triggers.Add(new LogonTrigger());
+                    td.Actions.Add(new ExecAction(AppHelper.ProgramName, "-minimized", Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)));
+                    if (IsAdministrator)
+                        td.Principal.RunLevel = TaskRunLevel.Highest;
+                    TaskService.Instance.RootFolder.RegisterTaskDefinition(name, td);
+                }
+                else
+                {
+                    TaskService.Instance.RootFolder.DeleteTask(name);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e,
+                    "SetBootAutoStart Fail, isAutoStart: {0}, name: {1}.", isAutoStart, name);
+            }
+        }
+
+        static string? GetFullPath(string s)
+        {
+            if (!string.IsNullOrWhiteSpace(s) && File.Exists(s))
+            {
+                return Path.GetFullPath(s);
+            }
+            return null;
+        }
+
+        public string? GetSteamDirPath()
+            => GetFullPath(Registry.CurrentUser.Read(SteamRegistryPath, "SteamPath"));
+
+        public string? GetSteamProgramPath()
+            => GetFullPath(Registry.CurrentUser.Read(SteamRegistryPath, "SteamExe"));
+
+        public string GetLastSteamLoginUserName()
+            => Registry.CurrentUser.Read(SteamRegistryPath, "AutoLoginUser");
     }
 }

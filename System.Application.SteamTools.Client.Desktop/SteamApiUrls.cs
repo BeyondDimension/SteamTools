@@ -33,4 +33,25 @@
 
         public const string STEAMCN_USERINFO_XML_URL = "https://my.steamchina.com/profiles/76561198289531723?xml=1";
     }
+
+#if DEBUG
+
+    [Obsolete("use SteamApiUrls / System.Application.SteamTools/Constants.cs", true)]
+    public class Const
+    {
+        [Obsolete("use Constants.APP_LIST_FILE", true)]
+        public const string APP_LIST_FILE = "apps.json";
+        [Obsolete("use Constants.AUTHDATA_FILE", true)]
+        public const string AUTHDATA_FILE = "authenticators.dat";
+        [Obsolete("use System.Application.Services.IConfigFileService", true)]
+        public const string SETTINGS_FILE = "settings.json";
+        [Obsolete("use Constants.SCRIPT_DIR", true)]
+        public const string SCRIPT_DIR = "scripts";
+        [Obsolete("use Constants.LOGS_DIR", true)]
+        public const string LOG_DIR = "log";
+        [Obsolete("use Constants.CERTIFICATE_HOST_TAG", true)]
+        public const string HOST_TAG = "#Steam++";
+    }
+
+#endif
 }

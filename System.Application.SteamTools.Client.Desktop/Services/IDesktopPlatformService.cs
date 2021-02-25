@@ -99,6 +99,26 @@ namespace System.Application.Services
         /// <returns></returns>
         string? GetFileName(TextReaderProvider provider);
 
+        /// <summary>
+        /// 设置开机自启动
+        /// </summary>
+        /// <param name="isAutoStart">开启<see langword="true"/>、关闭<see langword="false"/></param>
+        /// <param name="name"></param>
+        void SetBootAutoStart(bool isAutoStart, string name);
+
+        #region Steam
+
+        /// <inheritdoc cref="ISteamService.SteamDirPath"/>
+        string? GetSteamDirPath();
+
+        /// <inheritdoc cref="ISteamService.SteamProgramPath"/>
+        string? GetSteamProgramPath();
+
+        /// <inheritdoc cref="ISteamService.GetLastLoginUserName"/>
+        string GetLastSteamLoginUserName();
+
+        #endregion
+
         public const ResizeMode ResizeMode_NoResize = 0;
         public const ResizeMode ResizeMode_CanMinimize = 1;
         public const ResizeMode ResizeMode_CanResize = 2;

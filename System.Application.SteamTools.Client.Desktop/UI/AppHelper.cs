@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NLog.Extensions.Logging;
+using System.Application.Services;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -32,6 +33,13 @@ namespace System.Application.UI
         /// 获取当前主程序文件名，例如word.exe
         /// </summary>
         public static string ProgramName { get; }
+
+        /// <inheritdoc cref="IDesktopPlatformService.SetBootAutoStart(bool, string)"/>
+        public static void SetBootAutoStart(bool isAutoStart)
+        {
+            var s = DI.Get<IDesktopPlatformService>();
+            s.SetBootAutoStart(isAutoStart, Constants.HARDCODED_APP_NAME);
+        }
 
         #region Logger
 
@@ -97,7 +105,7 @@ namespace System.Application.UI
         /// </summary>
         public static bool EnableLogger
         {
-            get => LoggerMinLevel < LogLevel.None;
+            get => LoggerMinLevel > LogLevel.None;
             set
             {
                 LoggerMinLevel = value ? DefaultLoggerMinLevel : LogLevel.None;
