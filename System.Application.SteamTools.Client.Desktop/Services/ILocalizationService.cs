@@ -30,7 +30,6 @@ namespace System.Application.Services
             Languages = new Dictionary<string, string>()
             {
                 { "", "Auto" },
-                { "en", "English" },
                 { "zh-Hans", "Chinese(Simplified)" },
                 { "zh-Hant", "Chinese(Traditional)" },
                 { "ja-JP", "Japanese" },

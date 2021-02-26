@@ -12,11 +12,11 @@
         x:Name="MainWindow"
         WindowStartupLocation="CenterScreen"
         Background="{x:Null}"
-        Title="{Binding Title}"
+        Title="{Binding Title,Mode=OneWay}"
         Topmost="{Binding Topmost}">
   <FluentWindow.Styles>
     <Style Selector="TitleBar:fullscreen">
-      <Setter Property="Background" Value="#7f000000" />
+      <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
     </Style>
   </FluentWindow.Styles>
 

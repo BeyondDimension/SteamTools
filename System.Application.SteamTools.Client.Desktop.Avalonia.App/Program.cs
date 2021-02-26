@@ -14,7 +14,7 @@ namespace System.Application.UI
         {
             // 目前桌面端默认使用 SystemTextJson 如果出现兼容性问题可取消下面这行代码
             // Serializable.DefaultJsonImplType = Serializable.JsonImplType.NewtonsoftJson;
-
+            
             var logger = LogManager.GetCurrentClassLogger();
             try
             {

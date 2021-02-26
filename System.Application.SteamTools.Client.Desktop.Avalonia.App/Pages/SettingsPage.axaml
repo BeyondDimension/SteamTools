@@ -1,36 +1,41 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:System.Application.UI.ViewModels"
+             xmlns:resx="clr-namespace:System.Application.Resx;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Pages.SettingsPage">
-  <Design.DataContext>
-    <vm:MainWindowViewModel/>
-  </Design.DataContext>
-  <StackPanel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}" Background="Transparent" Spacing="20">
-    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
-      <StackPanel Orientation="Vertical"
-            HorizontalAlignment="Stretch"
-            Spacing="16">
-        <TextBlock FontSize="18" Text="{Binding Path=SettingsPage.Settings_General}"/>
-        <StackPanel Orientation="Vertical">
-          <TextBlock Text="{Binding Path=SettingsPage.Language}" Margin="0 0 0 20"/>
-          <ComboBox HorizontalAlignment="Stretch"
-                    SelectedIndex="{Binding Path=SettingsPage.CurrentLanguageIndex}"
-                    Items="{Binding Path=SettingsPage.Languages}" />
-        </StackPanel>
-        <Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness="1" Margin="15"/>
-      </StackPanel>
-      <StackPanel Orientation="Vertical"
-                  HorizontalAlignment="Stretch"
-                  Spacing="16"
-                  Grid.Row="1">
-        <TextBlock FontSize="18" Text="{Binding Path=SettingsPage.Settings_Auth}"/>
-        <StackPanel Orientation="Vertical">
-        </StackPanel>
-        <Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness="1" Margin="15"/>
-      </StackPanel>
-    </Grid>
-  </StackPanel>
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+	<StackPanel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}" Background="Transparent" Spacing="20">
+		<Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
+			<StackPanel Orientation="Vertical"
+				  HorizontalAlignment="Stretch"
+				  Spacing="16">
+				<TextBlock FontSize="18" Text="{Binding Path=SettingsPage.Settings_General}"/>
+				<StackPanel Orientation="Vertical">
+					<TextBlock Text="{Binding Path=Resources.Language,Mode=OneWay,Source={x:Static resx:ResourceService.Current}}" Margin="0 0 0 20"/>
+					<ComboBox HorizontalAlignment="Stretch"
+							  SelectedIndex="{Binding Path=SettingsPage.CurrentLanguageIndex}"
+							  Items="{Binding Path=SettingsPage.Languages}" />
+					<ComboBox HorizontalAlignment="Left"
+									  PlaceholderText=""
+									  ItemTemplate="{Binding Cultures}"
+									  MinWidth="250" />
+				</StackPanel>
+				<Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness="1" Margin="15"/>
+			</StackPanel>
+			<StackPanel Orientation="Vertical"
+						HorizontalAlignment="Stretch"
+						Spacing="16"
+						Grid.Row="1">
+				<TextBlock FontSize="18" Text="{Binding Path=SettingsPage.Settings_Auth}"/>
+				<StackPanel Orientation="Vertical">
+				</StackPanel>
+				<Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness="1" Margin="15"/>
+			</StackPanel>
+		</Grid>
+	</StackPanel>
 </UserControl>

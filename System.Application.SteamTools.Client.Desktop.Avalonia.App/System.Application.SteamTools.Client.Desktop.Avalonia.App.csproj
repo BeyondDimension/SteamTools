@@ -1,74 +1,72 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
-    <SignAssembly>false</SignAssembly>
-    <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
-    <RootNamespace>System.Application.UI</RootNamespace>
-    <AssemblyName>Steam++</AssemblyName>
-    <ApplicationIcon>Assets\Icon.ico</ApplicationIcon>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net5.0</TargetFramework>
+		<SignAssembly>false</SignAssembly>
+		<!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
+		<RootNamespace>System.Application.UI</RootNamespace>
+		<AssemblyName>Steam++</AssemblyName>
+		<ApplicationIcon>Assets\Icon.ico</ApplicationIcon>
+		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+	</PropertyGroup>
+	<PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+		<!--因Win平台引入了SAM/Steam4NET仅支持x86构架-->
+		<Platforms>x86</Platforms>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Include="..\System.Common.CoreLib\Properties\AssemblyInfo.cs">
+			<Link>Properties\AssemblyInfo.cs</Link>
+		</Compile>
+	</ItemGroup>
 
-  <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-    <!--因Win平台引入了SAM/Steam4NET仅支持x86构架-->
-    <Platforms>x86</Platforms>
-  </PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Avalonia\System.Application.SteamTools.Client.Desktop.Avalonia.csproj" />
+		<ProjectReference Include="..\System.Application.SteamTools.Client.Desktop\System.Application.SteamTools.Client.Desktop.csproj" />
+		<ProjectReference Include="..\System.Common.CoreLib\System.Common.CoreLib.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Include="..\System.Common.CoreLib\Properties\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+		<ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Windows\System.Application.SteamTools.Client.Desktop.Windows.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Avalonia\System.Application.SteamTools.Client.Desktop.Avalonia.csproj" />
-    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop\System.Application.SteamTools.Client.Desktop.csproj" />
-    <ProjectReference Include="..\System.Common.CoreLib\System.Common.CoreLib.csproj" />
-  </ItemGroup>
+	<ItemGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+		<ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Mac\System.Application.SteamTools.Client.Desktop.Mac.csproj" />
+	</ItemGroup>
 
-  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Windows\System.Application.SteamTools.Client.Desktop.Windows.csproj" />
-  </ItemGroup>
+	<ItemGroup Condition=" $(RuntimeIdentifier.Contains(`linux`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+		<ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Linux\System.Application.SteamTools.Client.Desktop.Linux.csproj" />
+	</ItemGroup>
 
-  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Mac\System.Application.SteamTools.Client.Desktop.Mac.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MessageBox.Avalonia" Version="1.0.5">
+			<Aliases>MessageBox_Avalonia</Aliases>
+		</PackageReference>
+	</ItemGroup>
 
-  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`linux`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Linux\System.Application.SteamTools.Client.Desktop.Linux.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="**\*.xaml.cs">
+			<DependentUpon>%(Filename)</DependentUpon>
+		</Compile>
+		<AvaloniaResource Include="**\*.xaml">
+			<SubType>Designer</SubType>
+		</AvaloniaResource>
+		<AvaloniaResource Include="Assets\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MessageBox.Avalonia" Version="1.0.5">
-      <Aliases>MessageBox_Avalonia</Aliases>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="**\*.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <AvaloniaResource Include="**\*.xaml">
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-    <AvaloniaResource Include="Assets\**" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-    <!--Win8/8.1/10的[开始菜单(屏幕)]磁贴配置-->
-    <None Include="..\Resources\AppIcon\VisualElements_150.png">
-      <Link>Assets\VisualElements_150.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Resources\AppIcon\VisualElements_70.png">
-      <Link>Assets\VisualElements_70.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Resources\AppIcon\visualelementsmanifest.xml">
-      <Link>steam++.visualelementsmanifest.xml</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+		<!--Win8/8.1/10的[开始菜单(屏幕)]磁贴配置-->
+		<None Include="..\Resources\AppIcon\VisualElements_150.png">
+			<Link>Assets\VisualElements_150.png</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="..\Resources\AppIcon\VisualElements_70.png">
+			<Link>Assets\VisualElements_70.png</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="..\Resources\AppIcon\visualelementsmanifest.xml">
+			<Link>steam++.visualelementsmanifest.xml</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 </Project>

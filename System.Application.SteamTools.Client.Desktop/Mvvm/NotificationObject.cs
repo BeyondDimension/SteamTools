@@ -20,7 +20,7 @@ namespace System.Application.Mvvm
         ///     属性更改通知事件
         /// </summary>
         [field: NonSerialized]
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         ///     引发属性更改通知事件
