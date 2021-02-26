@@ -35,6 +35,20 @@ namespace System.Application.Services.Implementation
                 {
                     if (response.Content != null)
                     {
+                        var rspContentClrType = typeof(T);
+                        if (rspContentClrType == typeof(string))
+                        {
+                            return (T)(object)await response.Content.ReadAsStringAsync(cancellationToken);
+                        }
+                        else if (rspContentClrType == typeof(byte[]))
+                        {
+                            return (T)(object)await response.Content.ReadAsByteArrayAsync(cancellationToken);
+                        }
+                        else if (rspContentClrType == typeof(Stream))
+                        {
+                            // 因为上面用了 using 释放，所以不支持流的形式
+                            throw new NotSupportedException();
+                        }
                         var mime = response.Content.Headers.ContentType?.MediaType ?? Accept;
                         switch (mime)
                         {

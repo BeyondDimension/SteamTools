@@ -29,6 +29,8 @@ namespace System.Application.UI
             // ÔÚUIÔ¤ÀÀÖÐ£¬ApplicationLifetime Îª null
             ViewModelBase.IsInDesignMode = ApplicationLifetime == null;
 
+            Startup.Init();
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 if (!AppHelper.IsOfficialChannelPackage)

@@ -23,7 +23,7 @@ namespace System.Application.Services
         /// </summary>
         ILocalizationViewModel[] ViewModels { get; }
 
-        public static IList<KeyValuePair<string, string>> Languages;
+        public static readonly IList<KeyValuePair<string, string>> Languages;
 
         static ILocalizationService()
         {
@@ -33,6 +33,8 @@ namespace System.Application.Services
                 { "en", "English" },
                 { "zh-Hans", "Chinese(Simplified)" },
                 { "zh-Hant", "Chinese(Traditional)" },
+                { "ja-JP", "Japanese" },
+                { "ru", "Russian" },
             }.ToList();
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Application.Services;
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Application.UI;
 using System.Application.UI.ViewModels;
@@ -96,6 +97,39 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddSteamService(this IServiceCollection services)
         {
             services.AddSingleton<ISteamService, SteamServiceImpl>();
+            return services;
+        }
+
+        /// <summary>
+        /// 尝试添加 Steamworks LocalApi Service
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection TryAddSteamworksLocalApiService(this IServiceCollection services)
+        {
+            services.TryAddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();
+            return services;
+        }
+
+        /// <summary>
+        /// 添加 SteamDb WebApi Service
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddSteamDbWebApiService(this IServiceCollection services)
+        {
+            services.AddSingleton<ISteamDbWebApiService, SteamDbWebApiServiceImpl>();
+            return services;
+        }
+
+        /// <summary>
+        /// 添加 Steamworks WebApi Service
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddSteamworksWebApiService(this IServiceCollection services)
+        {
+            services.AddSingleton<ISteamworksWebApiService, SteamworksWebApiServiceImpl>();
             return services;
         }
     }

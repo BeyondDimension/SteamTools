@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>System</RootNamespace>
+    <!--因Win平台引入了SAM/Steam4NET仅支持x86构架-->
+    <Platforms>x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

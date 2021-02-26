@@ -15,10 +15,12 @@ namespace System.Application.UI.ViewModels
         /// </summary>
         public static bool IsInDesignMode { get; set; }
 
-        protected static TViewModel GetViewModel<TViewModel>() where TViewModel : ViewModelBase, new()
-        {
-            if (IsInDesignMode) return new TViewModel();
-            return DI.Get<TViewModel>();
-        }
+        //protected static TViewModel GetViewModel<TViewModel>() where TViewModel : ViewModelBase, new()
+        //{
+        //    if (IsInDesignMode) return new TViewModel();
+        //    return DI.Get<TViewModel>();
+        //}
+
+        protected static TViewModel GetViewModel<TViewModel>() where TViewModel : ViewModelBase => DI.Get<TViewModel>();
     }
 }

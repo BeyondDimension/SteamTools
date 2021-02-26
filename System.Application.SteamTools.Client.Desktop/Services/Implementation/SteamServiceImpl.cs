@@ -53,6 +53,33 @@ namespace System.Application.Services.Implementation
             }
         }
 
+        public bool TryKillSteamProcess()
+        {
+            try
+            {
+                KillSteamProcess();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e, "KillSteamProcess Fail.");
+                return false;
+            }
+        }
+
+        public int? IsRunningSteamProcess()
+        {
+            var processes = Process.GetProcesses();
+            foreach (var p in processes)
+            {
+                if (steamProcess.Contains(p.ProcessName, StringComparer.OrdinalIgnoreCase))
+                {
+                    return p.Id;
+                }
+            }
+            return default;
+        }
+
         public void StartSteam(string arguments)
         {
             if (!string.IsNullOrEmpty(SteamProgramPath))

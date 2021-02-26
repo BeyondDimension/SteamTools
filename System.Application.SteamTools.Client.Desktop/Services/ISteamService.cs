@@ -23,7 +23,20 @@ namespace System.Application.Services
         /// <summary>
         /// 结束 Steam 进程
         /// </summary>
+        [Obsolete("可能引发，Win32异常，拒绝访问，改为 TryKillSteamProcess false 弹窗提示用户手动关闭 Steam，true 使用 IsRunningSteamProcess 再检测一遍，返回 int(pid) 提示用户去任务管理器中结束进程，null 再进行业务逻辑", true)]
         void KillSteamProcess();
+
+        /// <summary>
+        /// 尝试结束 Steam 进程
+        /// </summary>
+        /// <returns></returns>
+        bool TryKillSteamProcess();
+
+        /// <summary>
+        /// Steam 进程是否正在运行，如果正在运行，返回进程PID提示用户去任务管理器中结束进程
+        /// </summary>
+        /// <returns></returns>
+        int? IsRunningSteamProcess();
 
         /// <summary>
         /// 启动 Steam
@@ -86,6 +99,11 @@ namespace System.Application.Services
     [Obsolete("use ISteamService", true)]
     public class SteamService
     {
+        [Obsolete("use ISteamworksLocalApiService.Instance / ISteamDbWebApiService.Instance / ISteamworksWebApiService.Instance", true)]
+        public static SteamService Instance => throw new NotImplementedException();
+
+        [Obsolete("use ISteamworksLocalApiService.Instance / ISteamDbWebApiService.Instance / ISteamworksWebApiService.Instance", true)]
+        public TInterface Get<TInterface>() => throw new NotImplementedException();
     }
 
 #endif

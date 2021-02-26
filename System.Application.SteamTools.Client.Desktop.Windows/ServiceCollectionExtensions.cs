@@ -17,6 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
             if (DI.Platform == Platform.Windows)
             {
                 services.AddSingleton<IDesktopPlatformService, WindowsDesktopPlatformServiceImpl>();
+                services.AddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();
             }
             else
             {
