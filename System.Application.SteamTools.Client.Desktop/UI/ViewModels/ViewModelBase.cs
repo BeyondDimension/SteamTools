@@ -23,12 +23,6 @@ namespace System.Application.UI.ViewModels
         /// </summary>
         public static bool IsInDesignMode { get; set; }
 
-        protected static TViewModel GetViewModel<TViewModel>() where TViewModel : ViewModelBase, new()
-        {
-            if (IsInDesignMode) return new TViewModel();
-            return DI.Get<TViewModel>();
-        }
-
         /// <summary>
         ///  释放该实例使用的所有资源
         /// </summary>
