@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace System.Application.Services.Implementation
 {
+    [Obsolete("Languages")]
     internal sealed class ViewModelCollectionServiceImpl : IViewModelCollectionService
     {
         readonly IEnumerable<ServiceDescriptor> services;

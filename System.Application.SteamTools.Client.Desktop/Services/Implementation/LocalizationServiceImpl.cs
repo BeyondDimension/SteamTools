@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace System.Application.Services.Implementation
 {
+    [Obsolete("Languages")]
     internal sealed class LocalizationServiceImpl : ILocalizationService
     {
         readonly IViewModelCollectionService vmss;

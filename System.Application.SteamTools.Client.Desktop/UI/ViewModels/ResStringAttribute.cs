@@ -1,5 +1,6 @@
 ﻿namespace System.Application.UI.ViewModels
 {
+    [Obsolete("Languages")]
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class ResStringAttribute : Attribute
     {

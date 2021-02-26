@@ -1,11 +1,8 @@
-using Avalonia.Controls;
+ï»¿using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Avalonia.Markup.Xaml.Styling;
-using Avalonia.Styling;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views;
-using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using AvaloniaApplication = Avalonia.Application;
@@ -19,7 +16,7 @@ namespace System.Application.UI
         [Obsolete("use IOPath.AppDataDirectory", true)]
         public DirectoryInfo LocalAppData => new DirectoryInfo(IOPath.AppDataDirectory);
 
-        public DirectoryInfo RootDirectory => new DirectoryInfo(AppContext.BaseDirectory);
+        public static DirectoryInfo RootDirectory => new DirectoryInfo(AppContext.BaseDirectory);
 
         [Obsolete("use AppHelper.ProgramName", true)]
         public string ProgramName => AppHelper.ProgramName;
@@ -31,7 +28,7 @@ namespace System.Application.UI
 
         public override void OnFrameworkInitializationCompleted()
         {
-            // ÔÚUIÔ¤ÀÀÖÐ£¬ApplicationLifetime Îª null
+            // åœ¨UIé¢„è§ˆä¸­ï¼ŒApplicationLifetime ä¸º null
             ViewModelBase.IsInDesignMode = ApplicationLifetime == null;
             Startup.Init();
 

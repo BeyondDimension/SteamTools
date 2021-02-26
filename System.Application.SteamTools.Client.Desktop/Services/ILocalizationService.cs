@@ -8,6 +8,7 @@ namespace System.Application.Services
     /// <summary>
     /// 本地化、多语言服务
     /// </summary>
+    [Obsolete("Languages")]
     public interface ILocalizationService
     {
         CultureInfo DefaultCurrentUICulture { get; }

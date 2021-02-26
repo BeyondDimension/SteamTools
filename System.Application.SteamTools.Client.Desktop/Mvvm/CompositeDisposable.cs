@@ -1,25 +1,21 @@
 ﻿using StatefulModel;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace System.Application.Mvvm
 {
     /// <summary>
-    ///   提供用于一次处理多个IDisposable对象的功能
+    /// 提供用于一次处理多个IDisposable对象的功能
     /// </summary>
     public class CompositeDisposable : IDisposable, ICollection<IDisposable>
     {
-        [NotNull] private readonly object _lockObject = new object();
-        [NotNull] private readonly List<IDisposable> _targetLists;
-        private bool _disposed;
+        readonly object _lockObject = new object();
+        readonly List<IDisposable> _targetLists;
+        bool _disposed;
 
         /// <summary>
-        ///   构造函数
+        /// 构造函数
         /// </summary>
         public CompositeDisposable()
         {
@@ -27,7 +23,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///     构造函数
+        /// 构造函数
         /// </summary>
         /// <param name="sourceDisposableList">IDisposable集合</param>
         public CompositeDisposable([NotNull] IEnumerable<IDisposable> sourceDisposableList)
@@ -38,7 +34,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///    获取IDisposable集合的枚举数
+        ///  获取IDisposable集合的枚举数
         /// </summary>
         /// <returns>IDisposableコレクションの列挙子</returns>
         public IEnumerator<IDisposable> GetEnumerator()
@@ -54,7 +50,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///     在最后添加IDisposable
+        /// 在最后添加IDisposable
         /// </summary>
         /// <param name="item">要添加的IDisposable</param>
         public void Add(IDisposable item)
@@ -66,7 +62,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///     删除所有元素
+        /// 删除所有元素
         /// </summary>
         public void Clear()
         {
@@ -75,7 +71,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///     确定此集合中是否包含元素。
+        /// 确定此集合中是否包含元素。
         /// </summary>
         /// <param name="item">包含的元素</param>
         /// <returns>是否包含在集合中</returns>
@@ -88,7 +84,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///     将整个内容复制到兼容的一维数组中。 复制操作从目标数组上的指定索引处开始。
+        /// 将整个内容复制到兼容的一维数组中。 复制操作从目标数组上的指定索引处开始。
         /// </summary>
         /// <param name="array">复制目标数组</param>
         /// <param name="arrayIndex">从目标数组中复制位置的索引</param>
@@ -99,7 +95,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///     获取实际存储的元素数
+        /// 获取实际存储的元素数
         /// </summary>
         public int Count
         {
@@ -111,7 +107,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///     获取此集合是否为只读 （总是返回false）
+        /// 获取此集合是否为只读 （总是返回false）
         /// </summary>
         public bool IsReadOnly
         {
@@ -123,7 +119,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///     删除找到的第一个特定对象
+        /// 删除找到的第一个特定对象
         /// </summary>
         /// <param name="item">要删除的对象</param>
         /// <returns>是否删除成功</returns>
@@ -137,7 +133,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///     释放此集合中的所有元素
+        /// 释放此集合中的所有元素
         /// </summary>
         public void Dispose()
         {
@@ -146,7 +142,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///   代替IDisposable，添加一个Action来最后释放资源。
+        /// 代替IDisposable，添加一个Action来最后释放资源。
         /// </summary>
         /// <param name="releaseAction">使用Action释放资源</param>
         public void Add([NotNull] Action releaseAction)
@@ -159,7 +155,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///     在开始处添加一个IDisposable
+        /// 在开始处添加一个IDisposable
         /// </summary>
         /// <param name="item">要添加的IDisposable</param>
         public void AddFirst(IDisposable item)
@@ -171,7 +167,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///     代替IDisposable，添加在开始时释放资源的Action。
+        /// 代替IDisposable，添加在开始时释放资源的Action。
         /// </summary>
         /// <param name="releaseAction">使用Action释放资源</param>
         public void AddFirst([NotNull] Action releaseAction)

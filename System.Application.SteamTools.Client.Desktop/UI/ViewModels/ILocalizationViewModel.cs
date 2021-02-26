@@ -7,6 +7,7 @@ namespace System.Application.UI.ViewModels
     /// <summary>
     /// 本地化、多语言视图模型
     /// </summary>
+    [Obsolete("Languages")]
     public interface ILocalizationViewModel
     {
         public void OnChangeLanguage()

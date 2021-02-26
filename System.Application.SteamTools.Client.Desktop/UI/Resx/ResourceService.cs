@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using ReactiveUI;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using ReactiveUI;
 
-namespace System.Application.Resx
+namespace System.Application.UI.Resx
 {
     /// <summary>
     /// 提供对多语言资源的访问。
     /// </summary>
+    [Obsolete("Languages")]
     public class ResourceService : ReactiveObject
     {
         // singleton
@@ -78,12 +79,12 @@ namespace System.Application.Resx
         {
             System.Application.UI.Resx.AppResources.Culture = this.SupportedCultures.SingleOrDefault(x => x.Name == name);
             //GeneralSettings.Culture.Value = SteamTools.Properties.Resources.Culture?.Name;
-            this.RaisePropertyChanged(nameof(this.Resources));
+            this.RaisePropertyChanged(nameof(Resources));
         }
 
         public string GetCurrentCultureSteamLanguageName()
         {
-            return System.Application.UI.Resx.AppResources.Culture == null ? supportedCultureSteamNames.First().Value : supportedCultureSteamNames[System.Application.UI.Resx.AppResources.Culture.Name];
+            return UI.Resx.AppResources.Culture == null ? supportedCultureSteamNames.First().Value : supportedCultureSteamNames[UI.Resx.AppResources.Culture.Name];
         }
     }
 }

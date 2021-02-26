@@ -1,29 +1,26 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace System.Application.Mvvm
 {
     /// <summary>
-    ///     属性更改通知事件
+    /// 属性更改通知事件
     /// </summary>
     [Serializable]
     public class NotificationObject : INotifyPropertyChanged
     {
         /// <summary>
-        ///     属性更改通知事件
+        /// 属性更改通知事件
         /// </summary>
         [field: NonSerialized]
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
-        ///     引发属性更改通知事件
+        /// 引发属性更改通知事件
         /// </summary>
         /// <param name="source"></param>
         /// <param name="propertyExpression">() => lambda表达式属性</param>
@@ -42,7 +39,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///     引发属性更改通知事件
+        /// 引发属性更改通知事件
         /// </summary>
         /// <param name="propertyName">属性名称</param>
         [NotifyPropertyChangedInvocator]
@@ -53,7 +50,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///     如果该值与上一个值不同，则将其更改并引发属性更改通知事件。
+        /// 如果该值与上一个值不同，则将其更改并引发属性更改通知事件。
         /// </summary>
         /// <typeparam name="T">属性泛型</typeparam>
         /// <param name="source">原始值</param>
@@ -65,7 +62,7 @@ namespace System.Application.Mvvm
         protected bool RaisePropertyChangedIfSet<T>(ref T source, T value, string[]? relatedProperties = null,
             [CallerMemberName] string propertyName = null)
         {
-            //如果值相同则什么都不做
+            // 如果值相同则什么都不做
             if (EqualityComparer<T>.Default.Equals(source, value))
                 return false;
 
@@ -80,7 +77,7 @@ namespace System.Application.Mvvm
         }
 
         /// <summary>
-        ///     如果该值与上一个值不同，则将其更改并引发属性更改通知事件。
+        /// 如果该值与上一个值不同，则将其更改并引发属性更改通知事件。
         /// </summary>
         /// <typeparam name="T">属性泛型</typeparam>
         /// <param name="source">原始值</param>

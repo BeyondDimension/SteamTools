@@ -1,6 +1,7 @@
 ﻿using Avalonia.Controls;
 using ReactiveUI;
 using System.Application.Services;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,40 +9,40 @@ namespace System.Application.UI.ViewModels
 {
     public class SettingsPageViewModel : ViewModelBase, ILocalizationViewModel
     {
-        #region ResStrings
+        //#region ResStrings
 
-        string mSettings_General = string.Empty;
+        //string mSettings_General = string.Empty;
 
-        [ResString]
-        public string Settings_General
-        {
-            get => mSettings_General;
-            set => this.RaiseAndSetIfChanged(ref mSettings_General, value);
-        }
+        //[ResString]
+        //public string Settings_General
+        //{
+        //    get => mSettings_General;
+        //    set => this.RaiseAndSetIfChanged(ref mSettings_General, value);
+        //}
 
-        string mSettings_Auth = string.Empty;
+        //string mSettings_Auth = string.Empty;
 
-        [ResString]
-        public string Settings_Auth
-        {
-            get => mSettings_Auth;
-            set => this.RaiseAndSetIfChanged(ref mSettings_Auth, value);
-        }
+        //[ResString]
+        //public string Settings_Auth
+        //{
+        //    get => mSettings_Auth;
+        //    set => this.RaiseAndSetIfChanged(ref mSettings_Auth, value);
+        //}
 
-        string mLanguage = string.Empty;
+        //string mLanguage = string.Empty;
 
-        [ResString]
-        public string Language
-        {
-            get => mLanguage;
-            set => this.RaiseAndSetIfChanged(ref mLanguage, value);
-        }
+        //[ResString]
+        //public string Language
+        //{
+        //    get => mLanguage;
+        //    set => this.RaiseAndSetIfChanged(ref mLanguage, value);
+        //}
 
-        #endregion
+        //#endregion
 
         public SettingsPageViewModel()
         {
-            Languages = ILocalizationService.Languages.Select(Convert).ToList();
+            Languages = R.Languages.Select(Convert).ToList();
         }
 
         int mCurrentLanguageIndex;
@@ -52,19 +53,28 @@ namespace System.Application.UI.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref mCurrentLanguageIndex, value);
-                if (!IsInDesignMode)
+                var cultureName = Languages[value].Tag?.ToString();
+                if (string.IsNullOrWhiteSpace(cultureName))
                 {
-                    var localizationService = DI.Get<ILocalizationService>();
-                    var cultureName = Languages[value].Tag?.ToString();
-                    if (string.IsNullOrWhiteSpace(cultureName))
-                    {
-                        cultureName = localizationService.DefaultCurrentUICulture?.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(cultureName))
-                    {
-                        localizationService.ChangeLanguage(cultureName);
-                    }
+                    cultureName = R.DefaultCurrentUICulture?.Name;
                 }
+                if (!string.IsNullOrWhiteSpace(cultureName))
+                {
+                    R.ChangeLanguage(cultureName);
+                }
+                //if (!IsInDesignMode)
+                //{
+                //    var localizationService = DI.Get<ILocalizationService>();
+                //    var cultureName = Languages[value].Tag?.ToString();
+                //    if (string.IsNullOrWhiteSpace(cultureName))
+                //    {
+                //        cultureName = localizationService.DefaultCurrentUICulture?.Name;
+                //    }
+                //    if (!string.IsNullOrWhiteSpace(cultureName))
+                //    {
+                //        localizationService.ChangeLanguage(cultureName);
+                //    }
+                //}
             }
         }
 

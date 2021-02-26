@@ -1,7 +1,8 @@
 ﻿using System.Application.Services;
 using System.Diagnostics;
 
-namespace System.Application.Extensions
+// ReSharper disable once CheckNamespace
+namespace System.Application
 {
     /// <summary>
     /// 为 <see cref="Process"/> 类型提供扩展方法

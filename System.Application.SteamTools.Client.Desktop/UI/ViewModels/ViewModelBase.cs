@@ -1,16 +1,13 @@
 ﻿using ReactiveUI;
 using System.Application.Mvvm;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace System.Application.UI.ViewModels
 {
     public class ViewModelBase : ReactiveObject, IDisposable, ILocalizationViewModel
     {
-        [NonSerialized] private CompositeDisposable _compositeDisposable;
+        [NonSerialized] CompositeDisposable? _compositeDisposable;
 
-        [NonSerialized] private bool _disposed;
+        [NonSerialized] bool _disposed;
 
         public ViewModelBase()
         {
@@ -38,6 +35,5 @@ namespace System.Application.UI.ViewModels
             if (disposing) _compositeDisposable?.Dispose();
             _disposed = true;
         }
-        protected static TViewModel GetViewModel<TViewModel>() where TViewModel : ViewModelBase => DI.Get<TViewModel>();
     }
 }

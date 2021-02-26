@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using System;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Application.UI;
@@ -14,6 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
+        [Obsolete("Languages")]
         public static IServiceCollection AddLocalizationService(this IServiceCollection services)
         {
             services.AddSingleton<ILocalizationService, LocalizationServiceImpl>();
@@ -25,6 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
+        [Obsolete("Languages")]
         public static IServiceCollection AddViewModelCollectionService(this IServiceCollection services)
         {
             services.AddSingleton(new ViewModelCollectionServiceImpl(services));
@@ -38,6 +41,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <typeparam name="TViewModel"></typeparam>
         /// <param name="services"></param>
         /// <returns></returns>
+        [Obsolete("Languages")]
         public static IServiceCollection AddViewModel<TViewModel>(this IServiceCollection services) where TViewModel : ViewModelBase
         {
             services.AddSingleton<TViewModel>();

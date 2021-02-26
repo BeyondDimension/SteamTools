@@ -6,6 +6,7 @@ namespace System.Application.Services
     /// <summary>
     /// 视图模型组服务
     /// </summary>
+    [Obsolete("Languages")]
     public interface IViewModelCollectionService
     {
         /// <summary>
