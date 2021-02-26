@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>System</RootNamespace>
+    <AssemblyName>Steam++.OpenSourceLibraryListGenerate</AssemblyName>
+    <ApplicationIcon>..\System.Application.SteamTools.Client.Desktop.Avalonia.App\Assets\Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\System.Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\System.Common.CoreLib\Properties\ThisAssembly.cs">
+      <Link>Properties\ThisAssembly.cs</Link>
+    </Compile>
+    <Compile Include="..\System.Application.SteamTools.Client\Models\OpenSourceLibrary.cs">
+      <Link>Application\Models\OpenSourceLibrary.cs</Link>
+    </Compile>
+    <Compile Include="..\System.Common.CoreLib\Extensions\StringExtensions.cs">
+      <Link>Extensions\StringExtensions.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MessagePack" Version="2.2.85" />
+    <PackageReference Include="Octokit" Version="0.50.0" />
+  </ItemGroup>
+
+</Project>

@@ -79,6 +79,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Steam4NET", "references\Ste
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Titanium.Web.Proxy", "references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj", "{35D60129-6652-4B6E-A04A-9766C3CF1869}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Application.SteamTools.Tools.OpenSourceLibraryList", "System.Application.SteamTools.Tools.OpenSourceLibraryList\System.Application.SteamTools.Tools.OpenSourceLibraryList.csproj", "{CF7C2B80-D393-45EA-A67D-DF46FF17B0F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -283,6 +285,14 @@ Global
 		{35D60129-6652-4B6E-A04A-9766C3CF1869}.Release|Any CPU.Build.0 = Release|Any CPU
 		{35D60129-6652-4B6E-A04A-9766C3CF1869}.Release|x86.ActiveCfg = Release|Any CPU
 		{35D60129-6652-4B6E-A04A-9766C3CF1869}.Release|x86.Build.0 = Release|Any CPU
+		{CF7C2B80-D393-45EA-A67D-DF46FF17B0F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF7C2B80-D393-45EA-A67D-DF46FF17B0F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF7C2B80-D393-45EA-A67D-DF46FF17B0F8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CF7C2B80-D393-45EA-A67D-DF46FF17B0F8}.Debug|x86.Build.0 = Debug|Any CPU
+		{CF7C2B80-D393-45EA-A67D-DF46FF17B0F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF7C2B80-D393-45EA-A67D-DF46FF17B0F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF7C2B80-D393-45EA-A67D-DF46FF17B0F8}.Release|x86.ActiveCfg = Release|Any CPU
+		{CF7C2B80-D393-45EA-A67D-DF46FF17B0F8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -320,6 +330,7 @@ Global
 		{6DD9644F-F005-4C19-8ADF-70C303EC5BB8} = {8EB91F53-1062-4E9B-8E4A-096F35EA688D}
 		{3C05CED6-7712-40F0-AF17-8DD3F4C0A224} = {8EB91F53-1062-4E9B-8E4A-096F35EA688D}
 		{35D60129-6652-4B6E-A04A-9766C3CF1869} = {8EB91F53-1062-4E9B-8E4A-096F35EA688D}
+		{CF7C2B80-D393-45EA-A67D-DF46FF17B0F8} = {CC6FF77A-6E6B-4D42-B12B-0177745E9D22}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3833E7C5-69BC-4CB3-92CE-A8854AA35D8A}
