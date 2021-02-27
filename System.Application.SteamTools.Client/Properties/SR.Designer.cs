@@ -104,5 +104,15 @@ namespace System.Application.Properties {
                 return ResourceManager.GetString("NotificationChannelType_Name_NewVersion", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] OpenSourceLibraryList {
+            get {
+                object obj = ResourceManager.GetObject("OpenSourceLibraryList", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

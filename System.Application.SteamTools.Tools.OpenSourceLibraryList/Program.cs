@@ -4,33 +4,34 @@ using System.Application.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
-
-//https://github.com/runceel/Livet
-//https://github.com/ninject/Ninject
-//https://github.com/SteamDB-API/api
-//https://github.com/SteamRE/Steam4NET
-//https://github.com/neuecc/MessagePack-CSharp
-//https://github.com/gfoidl/Base64
-//https://github.com/App-vNext/Polly
-//https://github.com/xamarin/essentials
 
 namespace System
 {
     static class Program
     {
+        const string OpenSourceLibraryListEmoji = "📄";
+
         static async Task Main(string[] args)
         {
             var projPath = GetProjectPath();
             var readmePath = Path.Combine(projPath, README);
 
             var file = Path.Combine(projPath, "resources", "OpenSourceLibraryList.mpo");
-            if (File.Exists(file)) return;
+            if (File.Exists(file))
+            {
+                var data = MessagePackSerializer.Deserialize<List<OpenSourceLibrary>>(File.ReadAllBytes(file));
+                Print(data);
+                Console.ReadLine();
+                return;
+            }
 
             using var readmeRead = File.OpenText(readmePath);
             var isOpenSourceLibraryList = false;
             string? line;
             var list = new List<OpenSourceLibrary>();
+            var client = new HttpClient();
             var github = new GitHubClient(new ProductHeaderValue("MyAmazingApp"));
 
             var token = Path.Combine(projPath, "github-token.pfx");
@@ -47,13 +48,13 @@ namespace System
             {
                 line = readmeRead.ReadLine();
                 if (line == null) break;
-                if (line.Contains("##"))
+                if (line.StartsWith("##"))
                 {
                     if (isOpenSourceLibraryList)
                     {
                         break;
                     }
-                    if (line.Contains("📄"))
+                    if (line.Contains(OpenSourceLibraryListEmoji) && (line.Contains("开源") || (line.Contains("Open") && line.Contains("Source"))))
                     {
                         isOpenSourceLibraryList = true;
                     }
@@ -62,18 +63,17 @@ namespace System
                 {
                     if (!string.IsNullOrWhiteSpace(line))
                     {
-                        var arr = line.Split(' ', StringSplitOptions.RemoveEmptyEntries).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
-                        if (arr.Length == 2 && arr[0] == "*")
+                        if (line.StartsWith("* "))
                         {
                             var item = new OpenSourceLibrary
                             {
-                                Name = arr[1].Substring("[", "]"),
-                                Url = arr[1].Substring("(", ")"),
+                                Name = line.Substring("[", "]"),
+                                Url = line.Substring("(", ")"),
                             };
                             const string githubUrl = "https://github.com/";
                             if (item.Url.StartsWith(githubUrl, StringComparison.OrdinalIgnoreCase))
                             {
-                                arr = item.Url[githubUrl.Length..].Split("/", StringSplitOptions.RemoveEmptyEntries);
+                                var arr = item.Url[githubUrl.Length..].Split("/", StringSplitOptions.RemoveEmptyEntries);
                                 if (arr.Length == 2)
                                 {
                                     var owner = arr[0];
@@ -84,7 +84,7 @@ namespace System
                                         Console.WriteLine();
                                         var contents = await github.Repository.GetLicenseContents(owner, repo);
                                         item.License = contents.License.SpdxId;
-                                        item.LicenseText = contents.License.Key;
+                                        item.LicenseText = await client.GetStringAsync(contents.DownloadUrl);
                                     }
                                     catch (NotFoundException)
                                     {
@@ -98,42 +98,44 @@ namespace System
             }
             while (true);
 
-            var licenses = list.Where(x => !string.IsNullOrWhiteSpace(x.LicenseText)).Select(x => x.LicenseText).Distinct();
-            var licenses_ = new Dictionary<string, string?>();
-            foreach (var license in licenses)
-            {
-                if (license == null || license == "other") continue;
-                Console.WriteLine($"license: {license}");
-                Console.WriteLine();
-                try
-                {
-                    var value = await github.Miscellaneous.GetLicense(license);
-                    licenses_.Add(license, value.Body);
-                }
-                catch (NotFoundException)
-                {
-                    licenses_.Add(license, null);
-                }
-            }
+            //var licenses = list.Where(x => !string.IsNullOrWhiteSpace(x.LicenseText)).Select(x => x.LicenseText).Distinct();
+            //var licenses_ = new Dictionary<string, string?>();
+            //foreach (var license in licenses)
+            //{
+            //    if (license == null || license == "other") continue;
+            //    Console.WriteLine($"license: {license}");
+            //    Console.WriteLine();
+            //    try
+            //    {
+            //        var value = await github.Miscellaneous.GetLicense(license);
+            //        licenses_.Add(license, value.Body);
+            //    }
+            //    catch (NotFoundException)
+            //    {
+            //        licenses_.Add(license, null);
+            //    }
+            //}
 
-            foreach (var item in list)
-            {
-                if (string.IsNullOrWhiteSpace(item.LicenseText))
-                {
-                    item.LicenseText = null;
-                }
-                else if (licenses_.ContainsKey(item.LicenseText))
-                {
-                    item.LicenseText = licenses_[item.LicenseText];
-                }
-                else
-                {
-                    item.LicenseText = null;
-                }
-            }
+            //foreach (var item in list)
+            //{
+            //    if (string.IsNullOrWhiteSpace(item.LicenseText))
+            //    {
+            //        item.LicenseText = null;
+            //    }
+            //    else if (licenses_.ContainsKey(item.LicenseText))
+            //    {
+            //        item.LicenseText = licenses_[item.LicenseText];
+            //    }
+            //    else
+            //    {
+            //        item.LicenseText = null;
+            //    }
+            //}
 
             var bytes = MessagePackSerializer.Serialize(list);
             File.WriteAllBytes(file, bytes);
+
+            Print(list);
 
             Console.WriteLine("OK");
             Console.ReadLine();
@@ -151,6 +153,12 @@ namespace System
                 return GetProjectPath(parent.FullName);
             }
             return path;
+        }
+
+        static void Print(List<OpenSourceLibrary> items)
+        {
+            Console.WriteLine(OpenSourceLibrary.ToString(items));
+            Console.WriteLine($"Count: {items.Count}");
         }
     }
 }

@@ -132,4 +132,8 @@
   <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
     <value>新版本通知</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="OpenSourceLibraryList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\Resources\OpenSourceLibraryList.mpo;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
