@@ -1,5 +1,9 @@
 ﻿using ReactiveUI;
+using System.Collections.Generic;
+using System.Linq;
 using System.Properties;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
 {
@@ -12,13 +16,13 @@ namespace System.Application.UI.ViewModels
             get => mTopmost;
             set => this.RaiseAndSetIfChanged(ref mTopmost, value);
         }
+        public SettingsPageViewModel SettingsPage { get; }
+
 
         public MainWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark;
             SettingsPage = new SettingsPageViewModel();
         }
-
-        public SettingsPageViewModel SettingsPage { get; }
     }
 }
