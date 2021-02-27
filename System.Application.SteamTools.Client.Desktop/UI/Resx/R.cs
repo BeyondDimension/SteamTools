@@ -78,7 +78,7 @@ namespace System.Application.UI.Resx
             MainThreadDesktop.BeginInvokeOnMainThread(ChangeLanguage);
         }
 
-        public string GetCurrentCultureSteamLanguageName()
+        public static string GetCurrentCultureSteamLanguageName()
         {
             return AppResources.Culture == null ? Languages.First().Value : SteamLanguages[AppResources.Culture.Name];
         }

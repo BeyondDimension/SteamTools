@@ -8,7 +8,7 @@
   <Application.Styles>
     <FluentTheme Mode="Dark" />
     <StyleInclude Source="/Styles/Styles.xaml" />
-    <StyleInclude Source="/Styles/SideBar.xaml" />
+    <StyleInclude Source="/Styles/Control/SideBar.xaml" />
     <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
     <Style Selector="Window">
       <Setter Property="Icon" Value="/Assets/Icon.ico"/>

@@ -142,6 +142,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 自动挂卡 的本地化字符串。
+        /// </summary>
+        public static string IdleCard {
+            get {
+                return ResourceManager.GetString("IdleCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 语言 的本地化字符串。
         /// </summary>
         public static string Language {

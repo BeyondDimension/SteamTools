@@ -144,6 +144,9 @@
   <data name="Hosts_WirteError" xml:space="preserve">
     <value>写入 hosts 时发生错误</value>
   </data>
+  <data name="IdleCard" xml:space="preserve">
+    <value>自动挂卡</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>语言</value>
   </data>

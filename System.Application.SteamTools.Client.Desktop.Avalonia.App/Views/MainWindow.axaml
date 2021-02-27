@@ -19,7 +19,6 @@
       <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
     </Style>
   </FluentWindow.Styles>
-
   <Design.DataContext>
     <vm:MainWindowViewModel/>
   </Design.DataContext>

@@ -66,4 +66,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\AppResources\app.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Pages\GameList.axaml.cs">
+      <DependentUpon>GameList.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>
