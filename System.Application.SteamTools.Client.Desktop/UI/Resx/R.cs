@@ -1,7 +1,9 @@
 ﻿using ReactiveUI;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Reactive.Linq;
 
 namespace System.Application.UI.Resx
 {
@@ -14,7 +16,7 @@ namespace System.Application.UI.Resx
         public static R Current { get; }
 
         public static readonly IList<KeyValuePair<string, string>> Languages;
-        public static readonly IList<KeyValuePair<string, string>> SteamLanguages;
+        public static readonly Dictionary<string, string> SteamLanguages;
 
         public static CultureInfo DefaultCurrentUICulture { get; }
 
@@ -25,9 +27,9 @@ namespace System.Application.UI.Resx
             Languages = new Dictionary<string, string>()
             {
                 { "", "Auto" },
-                { "en", "English" },
                 { "zh-Hans", "Chinese(Simplified)" },
                 { "zh-Hant", "Chinese(Traditional)" },
+                { "en", "English" },
                 { "ko", "Koreana" },
                 { "ja", "Japanese" },
                 { "ru", "Russian" },
@@ -40,7 +42,7 @@ namespace System.Application.UI.Resx
                 { "ko", "koreana" },
                 { "ja", "japanese" },
                 { "ru", "russian" },
-            }.ToList();
+            };
         }
 
         static bool IsMatch(CultureInfo cultureInfo, string cultureName)
@@ -68,18 +70,20 @@ namespace System.Application.UI.Resx
             void ChangeLanguage()
             {
                 if (IsMatch(CultureInfo.CurrentUICulture, cultureName)) return;
-                CultureInfo.CurrentUICulture = new CultureInfo(cultureName);
-                AppResources.Culture = CultureInfo.CurrentUICulture;
+                CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(cultureName);
+                AppResources.Culture = CultureInfo.GetCultureInfo(cultureName);
+                Current.Res = new AppResources();
                 Current.RaisePropertyChanged(nameof(Res));
             }
             MainThreadDesktop.BeginInvokeOnMainThread(ChangeLanguage);
         }
 
-        R()
+        public string GetCurrentCultureSteamLanguageName()
         {
-            Res = new AppResources();
+            return AppResources.Culture == null ? Languages.First().Value : SteamLanguages[AppResources.Culture.Name];
         }
 
-        public AppResources Res { get; }
+        //public AppResources Res => new AppResources();
+        public AppResources Res { get; set; } = new AppResources();
     }
 }
