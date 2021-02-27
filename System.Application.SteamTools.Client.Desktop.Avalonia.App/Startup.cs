@@ -42,16 +42,8 @@ namespace System.Application.UI
             // 桌面平台服务 此项放在其他通用业务实现服务之前
             services.AddDesktopPlatformService();
 
-            // 本地化服务
-            services.AddLocalizationService();
-
             // 主线程助手类(MainThreadDesktop)
             services.AddMainThreadPlatformService();
-
-            // 模型视图组
-            services.AddViewModelCollectionService();
-            services.AddViewModel<MainWindowViewModel>();
-            services.AddViewModel<SettingsPageViewModel>();
 
             // 业务用户配置文件服务
             services.AddConfigFileService();
@@ -73,6 +65,9 @@ namespace System.Application.UI
 
             // Steamworks WebApi Service
             services.AddSteamworksWebApiService();
+
+            // 应用程序更新服务
+            services.AddAppUpdateService();
         }
     }
 }

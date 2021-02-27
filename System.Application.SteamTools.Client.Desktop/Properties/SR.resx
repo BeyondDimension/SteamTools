@@ -117,32 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppName" xml:space="preserve">
-    <value>Steam++</value>
+  <data name="ProgramUpdateCmd_" xml:space="preserve">
+    <value>echo "Steam++替换升级中..."
+taskkill /f /im "{0}"
+xcopy /y /c /h /r /s "{1}\*.*" "{2}"
+rmdir /s /q "{1}"
+"{3}"
+del %0</value>
+    <comment>升级程序CMD命令行</comment>
   </data>
-  <data name="Downloading_" xml:space="preserve">
-    <value>正在下载：{0}%</value>
-  </data>
-  <data name="DownloadUpdateFail" xml:space="preserve">
-    <value>下载更新包失败，请稍后重试</value>
-  </data>
-  <data name="IsExistUpdateFalse" xml:space="preserve">
-    <value>当前已是最新版本</value>
-  </data>
-  <data name="NewVersionUpdate" xml:space="preserve">
-    <value>新版本更新</value>
-  </data>
-  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
-    <value>当下载新版本时的下载进度条通知。</value>
-  </data>
-  <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
-    <value>新版本通知</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="OpenSourceLibraryList" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\Resources\OpenSourceLibraryList.mpo;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="UpdatePackVerificationFail" xml:space="preserve">
-    <value>文件校验失败，请打开官网手动更新</value>
+  <data name="UpdateUnpackFail" xml:space="preserve">
+    <value>更新包解压失败，请打开官网手动更新</value>
   </data>
 </root>

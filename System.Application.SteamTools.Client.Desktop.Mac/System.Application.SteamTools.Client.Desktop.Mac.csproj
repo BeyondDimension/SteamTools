@@ -15,4 +15,10 @@
     <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop\System.Application.SteamTools.Client.Desktop.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Xamarin.Mac">
+      <HintPath>$(MSBuildExtensionsPath)\..\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\Xamarin.Mac\v2.0\Xamarin.Mac.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

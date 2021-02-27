@@ -1,45 +1,13 @@
 ﻿using Avalonia.Controls;
 using ReactiveUI;
-using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace System.Application.UI.ViewModels
 {
-    public class SettingsPageViewModel : ViewModelBase, ILocalizationViewModel
+    public class SettingsPageViewModel : ViewModelBase
     {
-        //#region ResStrings
-
-        //string mSettings_General = string.Empty;
-
-        //[ResString]
-        //public string Settings_General
-        //{
-        //    get => mSettings_General;
-        //    set => this.RaiseAndSetIfChanged(ref mSettings_General, value);
-        //}
-
-        //string mSettings_Auth = string.Empty;
-
-        //[ResString]
-        //public string Settings_Auth
-        //{
-        //    get => mSettings_Auth;
-        //    set => this.RaiseAndSetIfChanged(ref mSettings_Auth, value);
-        //}
-
-        //string mLanguage = string.Empty;
-
-        //[ResString]
-        //public string Language
-        //{
-        //    get => mLanguage;
-        //    set => this.RaiseAndSetIfChanged(ref mLanguage, value);
-        //}
-
-        //#endregion
-
         public SettingsPageViewModel()
         {
             Languages = R.Languages.Select(Convert).ToList();

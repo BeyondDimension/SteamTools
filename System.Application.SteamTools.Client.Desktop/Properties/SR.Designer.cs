@@ -61,84 +61,25 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Steam++ 的本地化字符串。
+        ///   查找类似 echo &quot;Steam++替换升级中...&quot;
+        ///taskkill /f /im &quot;{0}&quot;
+        ///xcopy /y /c /h /r /s &quot;{1}\*.*&quot; &quot;{2}&quot;
+        ///rmdir /s /q &quot;{1}&quot;
+        ///&quot;{3}&quot;
+        ///del %0 的本地化字符串。
         /// </summary>
-        internal static string AppName {
+        internal static string ProgramUpdateCmd_ {
             get {
-                return ResourceManager.GetString("AppName", resourceCulture);
+                return ResourceManager.GetString("ProgramUpdateCmd_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 正在下载：{0}% 的本地化字符串。
+        ///   查找类似 更新包解压失败，请打开官网手动更新 的本地化字符串。
         /// </summary>
-        internal static string Downloading_ {
+        internal static string UpdateUnpackFail {
             get {
-                return ResourceManager.GetString("Downloading_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 下载更新包失败，请稍后重试 的本地化字符串。
-        /// </summary>
-        internal static string DownloadUpdateFail {
-            get {
-                return ResourceManager.GetString("DownloadUpdateFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 当前已是最新版本 的本地化字符串。
-        /// </summary>
-        internal static string IsExistUpdateFalse {
-            get {
-                return ResourceManager.GetString("IsExistUpdateFalse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 新版本更新 的本地化字符串。
-        /// </summary>
-        internal static string NewVersionUpdate {
-            get {
-                return ResourceManager.GetString("NewVersionUpdate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 当下载新版本时的下载进度条通知。 的本地化字符串。
-        /// </summary>
-        internal static string NotificationChannelType_Description_NewVersion {
-            get {
-                return ResourceManager.GetString("NotificationChannelType_Description_NewVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 新版本通知 的本地化字符串。
-        /// </summary>
-        internal static string NotificationChannelType_Name_NewVersion {
-            get {
-                return ResourceManager.GetString("NotificationChannelType_Name_NewVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
-        /// </summary>
-        internal static byte[] OpenSourceLibraryList {
-            get {
-                object obj = ResourceManager.GetObject("OpenSourceLibraryList", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 文件校验失败，请打开官网手动更新 的本地化字符串。
-        /// </summary>
-        internal static string UpdatePackVerificationFail {
-            get {
-                return ResourceManager.GetString("UpdatePackVerificationFail", resourceCulture);
+                return ResourceManager.GetString("UpdateUnpackFail", resourceCulture);
             }
         }
     }

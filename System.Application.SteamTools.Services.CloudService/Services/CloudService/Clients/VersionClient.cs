@@ -11,17 +11,17 @@ namespace System.Application.Services.CloudService.Clients
         {
         }
 
-        public Task<IApiResponse<AppVersionInfoDTO?>> CheckUpdate(
+        public Task<IApiResponse<AppVersionDTO?>> CheckUpdate(
             Guid id,
             Platform platform,
             DeviceIdiom deviceIdiom,
-            CPUABI.Value supportedAbis,
-            int major,
-            int minor)
+            ArchitectureFlags supportedAbis,
+            Version osVersion)
         {
             var url =
-                $"/version/{id}/{(int)platform}/{(int)deviceIdiom}/{(int)supportedAbis}/{major}/{minor}";
-            return conn.SendAsync<AppVersionInfoDTO?>(
+                $"api/version/checkupdate/{id}/{(int)platform}/{(int)deviceIdiom}" +
+                $"/{(int)supportedAbis}/{osVersion.Major}/{osVersion.Minor}";
+            return conn.SendAsync<AppVersionDTO?>(
                  method: HttpMethod.Get,
                  requestUri: url,
                  cancellationToken: default,

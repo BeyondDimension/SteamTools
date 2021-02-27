@@ -5,7 +5,7 @@ using MPObject = MessagePack.MessagePackObjectAttribute;
 namespace System.Application.Models
 {
     [MPObject]
-    public class AppVersionInfoDTO : IEntity<Guid>, IExplicitHasValue
+    public class AppVersionDTO : IEntity<Guid>, IExplicitHasValue
     {
         [MPKey(0)]
         public Guid Id { get; set; }
@@ -37,6 +37,7 @@ namespace System.Application.Models
         bool IExplicitHasValue.ExplicitHasValue()
         {
             return !string.IsNullOrWhiteSpace(Version) &&
+                !string.IsNullOrWhiteSpace(SHA256) &&
                 !string.IsNullOrWhiteSpace(Description) &&
                 !string.IsNullOrWhiteSpace(DownloadLink);
         }

@@ -1,4 +1,8 @@
-﻿using System.Application.Services.CloudService.Clients.Abstractions;
+﻿using System.Application.Models;
+using System.Application.Services.CloudService;
+using System.Application.Services.CloudService.Clients.Abstractions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace System.Application.Services
 {
@@ -9,6 +13,9 @@ namespace System.Application.Services
         IAuthMessageClient AuthMessage { get; }
 
         IVersionClient Version { get; }
+
+        /// <inheritdoc cref="IApiConnection.DownloadAsync(CancellationToken, string, string, IProgress{float})"/>
+        Task<IApiResponse> Download(string requestUri, string cacheFilePath, IProgress<float> progress, CancellationToken cancellationToken = default);
 
         public static ICloudServiceClient Instance => DI.Get<ICloudServiceClient>();
     }

@@ -3,17 +3,11 @@ using System.Application.Mvvm;
 
 namespace System.Application.UI.ViewModels
 {
-    public class ViewModelBase : ReactiveObject, IDisposable, ILocalizationViewModel
+    public class ViewModelBase : ReactiveObject, IDisposable
     {
         [NonSerialized] CompositeDisposable? _compositeDisposable;
 
         [NonSerialized] bool _disposed;
-
-        public ViewModelBase()
-        {
-            ILocalizationViewModel localization = this;
-            localization.OnChangeLanguage();
-        }
 
         /// <summary>
         /// 是否在设计器的上下文中运行
@@ -21,7 +15,7 @@ namespace System.Application.UI.ViewModels
         public static bool IsInDesignMode { get; set; }
 
         /// <summary>
-        ///  释放该实例使用的所有资源
+        /// 释放该实例使用的所有资源
         /// </summary>
         public void Dispose()
         {

@@ -5,6 +5,7 @@ using System.Application.Models;
 using System.Application.Services.CloudService.Clients;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace System.Application.Services.CloudService
@@ -67,5 +68,9 @@ namespace System.Application.Services.CloudService
         public abstract void ShowResponseErrorMessage(string message);
 
         HttpClient IApiConnectionPlatformHelper.CreateClient() => CreateClient();
+
+        Task<IApiResponse> ICloudServiceClient.Download(string requestUri,
+            string cacheFilePath, IProgress<float> progress, CancellationToken cancellationToken)
+            => connection.DownloadAsync(cancellationToken, requestUri, cacheFilePath, progress);
     }
 }

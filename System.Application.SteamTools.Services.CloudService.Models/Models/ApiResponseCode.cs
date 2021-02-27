@@ -17,6 +17,8 @@ namespace System.Application.Models
 
         Unauthorized = HttpStatusCode.Unauthorized,
 
+        NotFound = HttpStatusCode.NotFound,
+
         #endregion
 
         #region CustomCode 自定义响应码，1000~?
