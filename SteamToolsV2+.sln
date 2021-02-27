@@ -79,7 +79,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Steam4NET", "references\Ste
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Titanium.Web.Proxy", "references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj", "{35D60129-6652-4B6E-A04A-9766C3CF1869}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Application.SteamTools.Tools.OpenSourceLibraryList", "System.Application.SteamTools.Tools.OpenSourceLibraryList\System.Application.SteamTools.Tools.OpenSourceLibraryList.csproj", "{CF7C2B80-D393-45EA-A67D-DF46FF17B0F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Application.SteamTools.Tools.OpenSourceLibraryList", "System.Application.SteamTools.Tools.OpenSourceLibraryList\System.Application.SteamTools.Tools.OpenSourceLibraryList.csproj", "{CF7C2B80-D393-45EA-A67D-DF46FF17B0F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -197,12 +197,12 @@ Global
 		{D1F15D97-802E-4AA3-A4A5-B890ABE32897}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D1F15D97-802E-4AA3-A4A5-B890ABE32897}.Release|x86.ActiveCfg = Release|Any CPU
 		{D1F15D97-802E-4AA3-A4A5-B890ABE32897}.Release|x86.Build.0 = Release|Any CPU
-		{2FFA5BCE-B3C3-46EA-8830-838C938BF814}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{2FFA5BCE-B3C3-46EA-8830-838C938BF814}.Debug|Any CPU.Build.0 = Debug|x86
+		{2FFA5BCE-B3C3-46EA-8830-838C938BF814}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FFA5BCE-B3C3-46EA-8830-838C938BF814}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FFA5BCE-B3C3-46EA-8830-838C938BF814}.Debug|x86.ActiveCfg = Debug|x86
 		{2FFA5BCE-B3C3-46EA-8830-838C938BF814}.Debug|x86.Build.0 = Debug|x86
-		{2FFA5BCE-B3C3-46EA-8830-838C938BF814}.Release|Any CPU.ActiveCfg = Release|x86
-		{2FFA5BCE-B3C3-46EA-8830-838C938BF814}.Release|Any CPU.Build.0 = Release|x86
+		{2FFA5BCE-B3C3-46EA-8830-838C938BF814}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FFA5BCE-B3C3-46EA-8830-838C938BF814}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2FFA5BCE-B3C3-46EA-8830-838C938BF814}.Release|x86.ActiveCfg = Release|Any CPU
 		{2FFA5BCE-B3C3-46EA-8830-838C938BF814}.Release|x86.Build.0 = Release|Any CPU
 		{4F09B6D1-3F83-45A0-AEC8-0F243E7CD263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -229,12 +229,12 @@ Global
 		{948C1EA8-12DB-4F8A-A190-8615DFBD9FE4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{948C1EA8-12DB-4F8A-A190-8615DFBD9FE4}.Release|x86.ActiveCfg = Release|Any CPU
 		{948C1EA8-12DB-4F8A-A190-8615DFBD9FE4}.Release|x86.Build.0 = Release|Any CPU
-		{141532E1-540E-4E50-8723-96936C191281}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{141532E1-540E-4E50-8723-96936C191281}.Debug|Any CPU.Build.0 = Debug|x86
+		{141532E1-540E-4E50-8723-96936C191281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{141532E1-540E-4E50-8723-96936C191281}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{141532E1-540E-4E50-8723-96936C191281}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{141532E1-540E-4E50-8723-96936C191281}.Debug|x86.Build.0 = Debug|Any CPU
-		{141532E1-540E-4E50-8723-96936C191281}.Release|Any CPU.ActiveCfg = Release|x86
-		{141532E1-540E-4E50-8723-96936C191281}.Release|Any CPU.Build.0 = Release|x86
+		{141532E1-540E-4E50-8723-96936C191281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{141532E1-540E-4E50-8723-96936C191281}.Release|Any CPU.Build.0 = Release|Any CPU
 		{141532E1-540E-4E50-8723-96936C191281}.Release|x86.ActiveCfg = Release|Any CPU
 		{141532E1-540E-4E50-8723-96936C191281}.Release|x86.Build.0 = Release|Any CPU
 		{60530AF8-4790-4A85-BCE2-C5673E9C601B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
