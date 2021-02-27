@@ -1,5 +1,6 @@
 ﻿using System.Application.Services;
 using System.IO;
+using System.Runtime.InteropServices;
 using FontFamily = Avalonia.Media.FontFamily;
 using Window = Avalonia.Controls.Window;
 
@@ -69,6 +70,41 @@ namespace System.Windows
                     break;
             }
             p.SetResizeMode(window.PlatformImpl.Handle.Handle, (int)value);
+        }
+
+        static readonly bool IsWin32NT = Environment.OSVersion.Platform == PlatformID.Win32NT;
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        public static void ActivateWorkaround(this Window window)
+        {
+            if (window is null) throw new ArgumentNullException(nameof(window));
+
+            // Call default Activate() anyway.
+            window.Activate();
+
+            // Skip workaround for non-windows platforms.
+            if (!IsWin32NT) return;
+
+            var platformImpl = window.PlatformImpl;
+            if (ReferenceEquals(platformImpl, null)) return;
+
+            var platformHandle = platformImpl.Handle;
+            if (ReferenceEquals(platformHandle, null)) return;
+
+            var handle = platformHandle.Handle;
+            if (IntPtr.Zero == handle) return;
+
+            try
+            {
+                SetForegroundWindow(handle);
+            }
+            catch
+            {
+                // ignored
+            }
         }
     }
 }

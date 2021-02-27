@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Eto.Forms" Version="2.5.10" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop\System.Application.SteamTools.Client.Desktop.csproj" />
   </ItemGroup>
 

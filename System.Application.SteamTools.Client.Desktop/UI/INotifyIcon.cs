@@ -1,4 +1,8 @@
-﻿namespace System.Application.UI
+﻿// https://github.com/AvaloniaUI/Avalonia/issues/2649#issuecomment-620720914
+
+using System.IO;
+
+namespace System.Application.UI
 {
     /// <summary>
     /// Represents a taskbar notification area icon (aka "tray icon") on Windows,
@@ -21,7 +25,7 @@
         /// <summary>
         /// Gets or sets the context- (right-click)-menu for the notify icon.
         /// </summary>
-        TContextMenu ContextMenu { get; set; }
+        TContextMenu? ContextMenu { get; set; }
 
         /// <summary>
         /// Gets or sets if the notify icon is visible in the
@@ -48,5 +52,12 @@
         /// This event is raised when a user right-clicks on the notification icon.
         /// </summary>
         event EventHandler<EventArgs> RightClick;
+
+        public interface IUIFrameworkHelper
+        {
+            Stream OpenAsset(Uri uri);
+
+            void ForEachMenuItems(TContextMenu menu, Action<(object menuItem, string header, Action activated)> action);
+        }
     }
 }

@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Avalonia.Controls;
+using Microsoft.Extensions.DependencyInjection;
 using System.Application.Models;
 using System.Application.Services.Implementation;
-using System.Application.UI.ViewModels;
 
 namespace System.Application.UI
 {
@@ -68,6 +68,11 @@ namespace System.Application.UI
 
             // 应用程序更新服务
             services.AddAppUpdateService();
+
+            // 托盘图标
+            services.AddNotifyIcon<NotifyIconImpl>();
         }
+
+        sealed class NotifyIconImpl : NotifyIcon<ContextMenu>, INotifyIcon { }
     }
 }

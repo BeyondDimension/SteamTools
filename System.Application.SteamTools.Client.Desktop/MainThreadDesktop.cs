@@ -12,7 +12,7 @@ namespace System.Application
     {
         public static bool IsMainThread => Instance.PlatformIsMainThread;
 
-        public static void BeginInvokeOnMainThread(Action action)
+        public static void BeginInvokeOnMainThread(Action action, DispatcherPriority? priority = null)
         {
             if (IsMainThread)
             {
@@ -20,11 +20,11 @@ namespace System.Application
             }
             else
             {
-                Instance.PlatformBeginInvokeOnMainThread(action);
+                Instance.PlatformBeginInvokeOnMainThread(action, priority);
             }
         }
 
-        public static Task InvokeOnMainThreadAsync(Action action)
+        public static Task InvokeOnMainThreadAsync(Action action, DispatcherPriority? priority = null)
         {
             if (IsMainThread)
             {
@@ -49,12 +49,12 @@ namespace System.Application
                 {
                     tcs.TrySetException(ex);
                 }
-            });
+            }, priority);
 
             return tcs.Task;
         }
 
-        public static Task<T> InvokeOnMainThreadAsync<T>(Func<T> func)
+        public static Task<T> InvokeOnMainThreadAsync<T>(Func<T> func, DispatcherPriority? priority = null)
         {
             if (IsMainThread)
             {
@@ -74,12 +74,12 @@ namespace System.Application
                 {
                     tcs.TrySetException(ex);
                 }
-            });
+            }, priority);
 
             return tcs.Task;
         }
 
-        public static Task InvokeOnMainThreadAsync(Func<Task> funcTask)
+        public static Task InvokeOnMainThreadAsync(Func<Task> funcTask, DispatcherPriority? priority = null)
         {
             if (IsMainThread)
             {
@@ -100,12 +100,12 @@ namespace System.Application
                     {
                         tcs.SetException(e);
                     }
-                });
+                }, priority);
 
             return tcs.Task;
         }
 
-        public static Task<T> InvokeOnMainThreadAsync<T>(Func<Task<T>> funcTask)
+        public static Task<T> InvokeOnMainThreadAsync<T>(Func<Task<T>> funcTask, DispatcherPriority? priority = null)
         {
             if (IsMainThread)
             {
@@ -126,9 +126,82 @@ namespace System.Application
                     {
                         tcs.SetException(e);
                     }
-                });
+                }, priority);
 
             return tcs.Task;
+        }
+
+        /// <summary>
+        ///     An enunmeration describing the priorities at which
+        ///     operations can be invoked via the Dispatcher.
+        ///     <see cref="https://github.com/dotnet/wpf/blob/master/src/Microsoft.DotNet.Wpf/src/WindowsBase/System/Windows/Threading/DispatcherPriority.cs"/>
+        /// </summary>
+        ///
+        public enum DispatcherPriority
+        {
+            /// <summary>
+            ///     Operations at this priority are processed when the system
+            ///     is idle.
+            /// </summary>
+            SystemIdle,
+
+            /// <summary>
+            ///     Minimum possible priority
+            /// </summary>
+            MinValue = SystemIdle,
+
+            /// <summary>
+            ///     Operations at this priority are processed when the application
+            ///     is idle.
+            /// </summary>
+            ApplicationIdle,
+
+            /// <summary>
+            ///     Operations at this priority are processed when the context
+            ///     is idle.
+            /// </summary>
+            ContextIdle,
+
+            /// <summary>
+            ///     Operations at this priority are processed after all other
+            ///     non-idle operations are done.
+            /// </summary>
+            Background,
+
+            /// <summary>
+            ///     Operations at this priority are processed at the same
+            ///     priority as input.
+            /// </summary>
+            Input,
+
+            /// <summary>
+            ///     Operations at this priority are processed when layout and render is
+            ///     done but just before items at input priority are serviced. Specifically
+            ///     this is used while firing the Loaded event
+            /// </summary>
+            Loaded,
+
+            /// <summary>
+            ///     Operations at this priority are processed at the same
+            ///     priority as rendering.
+            /// </summary>
+            Render,
+
+            /// <summary>
+            ///     Operations at this priority are processed at normal priority.
+            /// </summary>
+            Normal,
+
+            /// <summary>
+            ///     Operations at this priority are processed before other
+            ///     asynchronous operations.
+            /// </summary>
+            Send,
+
+            /// <summary>
+            ///     Maximum possible priority
+            /// </summary>
+            MaxValue = Send,
         }
     }
 }

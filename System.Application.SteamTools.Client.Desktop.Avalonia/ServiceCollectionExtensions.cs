@@ -1,5 +1,7 @@
-﻿using System.Application.Services;
+﻿using Avalonia.Controls;
+using System.Application.Services;
 using System.Application.Services.Implementation;
+using System.Application.UI;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -25,6 +27,21 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddAppUpdateService(this IServiceCollection services)
         {
             services.AddSingleton<IAppUpdateService, AvaloniaDesktopAppUpdateServiceImpl>();
+            return services;
+        }
+
+        /// <summary>
+        /// 添加托盘图标
+        /// </summary>
+        /// <typeparam name="TNotifyIcon"></typeparam>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddNotifyIcon<TNotifyIcon>(this IServiceCollection services) where TNotifyIcon : class, INotifyIcon
+        {
+            services.AddSingleton<INotifyIcon<ContextMenu>.IUIFrameworkHelper, INotifyIcon.UIFrameworkHelper>();
+            services.AddSingleton<TNotifyIcon>();
+            services.AddSingleton<INotifyIcon>(s => s.GetRequiredService<TNotifyIcon>());
+            services.AddSingleton<INotifyIcon<ContextMenu>>(s => s.GetRequiredService<TNotifyIcon>());
             return services;
         }
     }
