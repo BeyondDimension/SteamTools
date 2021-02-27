@@ -2,6 +2,7 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
+using System.Application.Mvvm;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using AvaloniaApplication = Avalonia.Application;
 
 namespace System.Application.UI
 {
-    public class App : AvaloniaApplication
+    public class App : AvaloniaApplication, IDisposableHolder
     {
         public static App Instance => Current is App app ? app : throw new Exception("Impossible");
 
@@ -50,9 +51,7 @@ namespace System.Application.UI
                         MessageBoxButton.OK,
                         MessageBoxImage.Warning);
                 }
-
                 #region NotifyIcon
-
                 var notifyIcon = INotifyIcon.Instance;
                 notifyIcon.ToolTipText = ThisAssembly.AssemblyTrademark;
                 switch (DI.Platform)
@@ -88,15 +87,32 @@ namespace System.Application.UI
                 NotifyIconContextMenu.Items = menuItems;
                 notifyIcon.ContextMenu = NotifyIconContextMenu;
                 notifyIcon.Visible = true;
-
+                notifyIcon.Click += NotifyIcon_Click;
+                notifyIcon.DoubleClick += NotifyIcon_Click;
+                this.compositeDisposable.Add(() =>
+                {
+                    notifyIcon.IconPath = string.Empty;
+                });
                 #endregion
 
                 desktop.MainWindow = MainWindow;
-
+                desktop.Exit += Desktop_Exit;
                 desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             }
 
+
+
             base.OnFrameworkInitializationCompleted();
+        }
+
+        private void Desktop_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
+        {
+            this.compositeDisposable.Dispose();
+        }
+
+        private void NotifyIcon_Click(object? sender, EventArgs e)
+        {
+            RestoreMainWindow();
         }
 
         public static async void SetClipboardText(string s) => await Current.Clipboard.SetTextAsync(s);
@@ -135,12 +151,30 @@ namespace System.Application.UI
         /// <summary>
         /// Exits the app by calling <c>Shutdown()</c> on the <c>IClassicDesktopStyleApplicationLifetime</c>.
         /// </summary>
-        public static void Exit()
+        public static void Shutdown()
         {
             if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.Shutdown(0);
             }
         }
+        /// <summary>
+        /// Exits the app by calling <c>Shutdown()</c> on the <c>IClassicDesktopStyleApplicationLifetime</c>.
+        /// </summary>
+        public static void Exit()
+        {
+            Shutdown();
+        }
+
+        #region IDisposable members
+        public readonly CompositeDisposable compositeDisposable = new CompositeDisposable();
+        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => this.compositeDisposable;
+
+        void IDisposable.Dispose()
+        {
+            this.compositeDisposable.Dispose();
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }

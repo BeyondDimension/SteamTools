@@ -8,7 +8,7 @@ namespace System.Application.Mvvm
     /// <summary>
     /// 提供用于一次处理多个IDisposable对象的功能
     /// </summary>
-    public class CompositeDisposable : IDisposable, ICollection<IDisposable>
+    public class CompositeDisposable : IDisposable, ICollection<IDisposable>, IEnumerable<IDisposable>, IEnumerable
     {
         readonly object _lockObject = new object();
         readonly List<IDisposable> _targetLists;
