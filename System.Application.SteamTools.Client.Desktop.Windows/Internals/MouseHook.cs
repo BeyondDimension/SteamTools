@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 
+// ReSharper disable once CheckNamespace
 namespace System
 {
     internal static class MouseHook

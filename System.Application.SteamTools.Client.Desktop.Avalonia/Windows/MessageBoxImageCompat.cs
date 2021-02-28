@@ -3,7 +3,7 @@
     /// <summary>
     /// 指定消息框所显示的图标。
     /// </summary>
-    public enum MessageBoxImage
+    public enum MessageBoxImageCompat
     {
 #pragma warning disable CA1069 // 不应复制枚举值
         Asterisk = 64,

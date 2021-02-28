@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.ReactiveUI;
 using NLog;
+using System.Threading.Tasks;
 
 namespace System.Application.UI
 {
@@ -18,6 +19,11 @@ namespace System.Application.UI
             var logger = LogManager.GetCurrentClassLogger();
             try
             {
+#if WINDOWS
+                var app = new WpfApp();
+                app.InitializeComponent();
+                Task.Factory.StartNew(app.Run);
+#endif
                 BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
             }
             catch (Exception ex)

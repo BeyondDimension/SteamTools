@@ -53,18 +53,18 @@ namespace System.Windows
         /// </summary>
         /// <param name="window"></param>
         /// <param name="value"></param>
-        public static void SetResizeMode(this Window window, ResizeMode value)
+        public static void SetResizeMode(this Window window, ResizeModeCompat value)
         {
             var p = DI.Get<IDesktopPlatformService>();
             switch (value)
             {
-                case ResizeMode.NoResize:
-                case ResizeMode.CanMinimize:
+                case ResizeModeCompat.NoResize:
+                case ResizeModeCompat.CanMinimize:
                     window.CanResize = false;
                     break;
-                case ResizeMode.CanResize:
+                case ResizeModeCompat.CanResize:
 #pragma warning disable CS0618 // 类型或成员已过时
-                case ResizeMode.CanResizeWithGrip:
+                case ResizeModeCompat.CanResizeWithGrip:
 #pragma warning restore CS0618 // 类型或成员已过时
                     window.CanResize = true;
                     break;

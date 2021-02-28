@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.InteropServices;
 
+// ReSharper disable once CheckNamespace
 namespace System
 {
     /// <summary>

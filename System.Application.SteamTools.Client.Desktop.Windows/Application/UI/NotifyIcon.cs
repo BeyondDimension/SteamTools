@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Application.UI.Views;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace System.Application.UI
@@ -9,8 +10,7 @@ namespace System.Application.UI
     public class NotifyIcon<TContextMenu> : INotifyIcon<TContextMenu>
     {
         const string TAG = "NotifyIcon";
-
-        NotifyIconHelperWindow? _helperWindow = null;
+        readonly INotifyIconWindow? _window = null;
         readonly int _uID = 0;
         static int _nextUID = 0;
         bool _iconAdded = false;
@@ -108,7 +108,17 @@ namespace System.Application.UI
         public NotifyIcon()
         {
             _uID = ++_nextUID;
-            _helperWindow = new NotifyIconHelperWindow(this);
+
+            var notifyIconWindow = DI.Get_Nullable<INotifyIconWindow<TContextMenu>>();
+            if (notifyIconWindow != null)
+            {
+                notifyIconWindow.Initialize(this);
+                _window = notifyIconWindow;
+            }
+            else
+            {
+                _window = new NotifyIconWindow(this);
+            }
         }
 
         ~NotifyIcon()
@@ -122,10 +132,10 @@ namespace System.Application.UI
         /// <param name="remove">If set to true, the notify icon will be removed.</param>
         void UpdateIcon(bool remove = false)
         {
-            if (_helperWindow == null) throw new ArgumentNullException(nameof(_helperWindow));
+            if (_window == null) throw new ArgumentNullException(nameof(_window));
             UnmanagedMethods.NOTIFYICONDATA iconData = new UnmanagedMethods.NOTIFYICONDATA()
             {
-                hWnd = _helperWindow.Handle,
+                hWnd = _window.Handle,
                 uID = _uID,
                 uFlags = UnmanagedMethods.NIF.TIP | UnmanagedMethods.NIF.MESSAGE,
                 uCallbackMessage = (int)UnmanagedMethods.CustomWindowsMessage.WM_TRAYMOUSE,
@@ -194,7 +204,7 @@ namespace System.Application.UI
                     i++;
                 });
 
-                if (_helperWindow == null) throw new ArgumentNullException(nameof(_helperWindow));
+                if (_window == null) throw new ArgumentNullException(nameof(_window));
 
                 // To display a context menu for a notification icon, the current window
                 // must be the foreground window before the application calls TrackPopupMenu
@@ -202,7 +212,7 @@ namespace System.Application.UI
                 // clicks outside of the menu or the window that created the menu (if it is
                 // visible). If the current window is a child window, you must set the
                 // (top-level) parent window as the foreground window.
-                _ = UnmanagedMethods.SetForegroundWindow(_helperWindow.Handle);
+                _ = UnmanagedMethods.SetForegroundWindow(_window.Handle);
 
                 // Get the mouse cursor position
                 _ = UnmanagedMethods.GetCursorPos(out UnmanagedMethods.POINT pt);
@@ -214,7 +224,7 @@ namespace System.Application.UI
                     UnmanagedMethods.UFLAGS.TPM_RIGHTALIGN |
                     UnmanagedMethods.UFLAGS.TPM_NONOTIFY |
                     UnmanagedMethods.UFLAGS.TPM_RETURNCMD,
-                    pt.X, pt.Y, _helperWindow.Handle, IntPtr.Zero);
+                    pt.X, pt.Y, _window.Handle, IntPtr.Zero);
 
                 // If we have a result, execute the corresponding command
                 if (commandId != 0)
@@ -265,15 +275,31 @@ namespace System.Application.UI
             }
         }
 
+        public static IntPtr? WndProc(NotifyIcon<TContextMenu> notifyIcon, uint msg, IntPtr wParam, IntPtr lParam)
+        {
+            Log.Info(TAG, "WndProc called on NotifyIcon helper window: MSG = {0}",
+                 ((UnmanagedMethods.WindowsMessage)msg).ToString());
+
+            switch (msg)
+            {
+                case (uint)UnmanagedMethods.CustomWindowsMessage.WM_TRAYMOUSE:
+                    // Forward WM_TRAYMOUSE messages to the tray icon's window procedure
+                    notifyIcon.WndProc(msg, wParam, lParam);
+                    break;
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// A native Win32 helper window encapsulation for dealing with the window
         /// messages sent by the notification icon.
         /// </summary>
-        sealed class NotifyIconHelperWindow : NativeWindow
+        sealed class NotifyIconWindow : NativeWindow, INotifyIconWindow
         {
             readonly NotifyIcon<TContextMenu> _notifyIcon;
 
-            public NotifyIconHelperWindow(NotifyIcon<TContextMenu> notifyIcon) : base()
+            public NotifyIconWindow(NotifyIcon<TContextMenu> notifyIcon) : base()
             {
                 _notifyIcon = notifyIcon;
             }
@@ -283,19 +309,8 @@ namespace System.Application.UI
             /// </summary>
             protected override IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
             {
-                Log.Info(TAG, "WndProc called on NotifyIcon helper window: MSG = {0}",
-                    ((UnmanagedMethods.WindowsMessage)msg).ToString());
-
-                switch (msg)
-                {
-                    case (uint)UnmanagedMethods.CustomWindowsMessage.WM_TRAYMOUSE:
-                        // Forward WM_TRAYMOUSE messages to the tray icon's window procedure
-                        _notifyIcon.WndProc(msg, wParam, lParam);
-                        break;
-                    default:
-                        return base.WndProc(hWnd, msg, wParam, lParam);
-                }
-                return IntPtr.Zero;
+                var value = NotifyIcon<TContextMenu>.WndProc(_notifyIcon, msg, wParam, lParam);
+                return value ?? base.WndProc(hWnd, msg, wParam, lParam);
             }
         }
     }

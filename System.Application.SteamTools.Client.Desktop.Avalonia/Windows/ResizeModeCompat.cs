@@ -5,7 +5,7 @@ namespace System.Windows
     /// <summary>
     /// 指定是否可以调整窗口大小，并在可调整大小的情况下指定如何调整窗口大小。由 SetResizeMode 使用。
     /// </summary>
-    public enum ResizeMode
+    public enum ResizeModeCompat
     {
         /// <summary>
         /// 用户无法调整窗口的大小。 不显示 "最大化" 和 "最小化" 框。

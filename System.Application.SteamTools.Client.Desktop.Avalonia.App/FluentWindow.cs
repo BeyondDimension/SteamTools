@@ -12,6 +12,16 @@ namespace Avalonia.Controls
 
         public FluentWindow()
         {
+            Constructor();
+        }
+
+        public FluentWindow(IWindowImpl impl) : base(impl)
+        {
+            Constructor();
+        }
+
+        void Constructor()
+        {
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
 

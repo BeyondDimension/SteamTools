@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿#pragma warning disable CA1416 // 验证平台兼容性
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
@@ -10,6 +11,13 @@ using System.IO;
 using System.Properties;
 using System.Windows;
 using AvaloniaApplication = Avalonia.Application;
+using ShutdownMode = Avalonia.Controls.ShutdownMode;
+using Window = Avalonia.Controls.Window;
+using WindowState = Avalonia.Controls.WindowState;
+#if WINDOWS
+using System.Windows.Shell;
+using WpfApplication = System.Windows.Application;
+#endif
 
 namespace System.Application.UI
 {
@@ -37,6 +45,13 @@ namespace System.Application.UI
 
         public ContextMenu? NotifyIconContextMenu { get; private set; }
 
+        static void IsNotOfficialChannelPackageWarning()
+        {
+            var text = "The program currently running is not from the official channel.";
+            var title = "Warning";
+            MessageBoxCompat.Show(text, title, MessageBoxButtonCompat.OK, MessageBoxImageCompat.Warning);
+        }
+
         public override void OnFrameworkInitializationCompleted()
         {
             // 在UI预览中，ApplicationLifetime 为 null
@@ -47,9 +62,7 @@ namespace System.Application.UI
             {
                 if (!AppHelper.IsOfficialChannelPackage)
                 {
-                    MessageBox.Show("The program currently running is not from the official channel.", "Warning",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Warning);
+                    IsNotOfficialChannelPackageWarning();
                 }
                 #region NotifyIcon
                 var notifyIcon = INotifyIcon.Instance;
@@ -95,9 +108,25 @@ namespace System.Application.UI
                 });
                 #endregion
 
+#if WINDOWS
+                AddJumpTask();
+#endif
+
                 desktop.MainWindow = MainWindow;
                 desktop.Exit += Desktop_Exit;
                 desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+#if DEBUG
+                AreYouOk();
+                static async void AreYouOk()
+                {
+                    await MessageBoxCompat.ShowAsync(
+                        "Are You Ok?",
+                        "title",
+                        MessageBoxButtonCompat.OK,
+                        MessageBoxImageCompat.Information);
+                }
+#endif
             }
 
 
@@ -157,6 +186,37 @@ namespace System.Application.UI
             {
                 desktop.Shutdown(0);
             }
+#if WINDOWS
+            WpfApplication.Current.Shutdown();
+#endif
+        }
+
+#if WINDOWS
+
+        // JumpList
+        // 表示作为菜单显示在 Windows 7 任务栏按钮上的项和任务的列表。
+        // https://docs.microsoft.com/zh-cn/dotnet/api/system.windows.shell.jumplist?view=net-5.0
+
+        // Taskbar Extensions
+        // https://docs.microsoft.com/zh-cn/windows/win32/shell/taskbar-extensions?redirectedfrom=MSDN
+
+        static void AddJumpTask()
+        {
+            // Configure a new JumpTask.
+            var jumpTask1 = new JumpTask
+            {
+                // Get the path to Calculator and set the JumpTask properties.
+                ApplicationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "calc.exe"),
+                IconResourcePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "calc.exe"),
+                Title = "Calculator",
+                Description = "Open Calculator.",
+                CustomCategory = "User Added Tasks"
+            };
+            // Get the JumpList from the application and update it.
+            JumpList jumpList1 = JumpList.GetJumpList(WpfApplication.Current);
+            jumpList1.JumpItems.Add(jumpTask1);
+            JumpList.AddToRecentCategory(jumpTask1);
+            jumpList1.Apply();
         }
         /// <summary>
         /// Exits the app by calling <c>Shutdown()</c> on the <c>IClassicDesktopStyleApplicationLifetime</c>.
@@ -178,3 +238,4 @@ namespace System.Application.UI
         #endregion
     }
 }
+#pragma warning restore CA1416 // 验证平台兼容性

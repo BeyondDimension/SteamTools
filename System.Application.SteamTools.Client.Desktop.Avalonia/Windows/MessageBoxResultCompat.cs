@@ -1,9 +1,9 @@
 ﻿namespace System.Windows
 {
     /// <summary>
-    /// 指定用户单击的消息框按钮。 由 <see cref="MessageBox"/>.Show... 方法返回。
+    /// 指定用户单击的消息框按钮。 由 <see cref="MessageBoxCompat"/>.Show... 方法返回。
     /// </summary>
-    public enum MessageBoxResult
+    public enum MessageBoxResultCompat
     {
         Cancel = 2,
         No = 7,

@@ -10,6 +10,7 @@ using System.Text;
 
 #nullable disable
 
+// ReSharper disable once CheckNamespace
 namespace System
 {
     internal static class UnmanagedMethods
