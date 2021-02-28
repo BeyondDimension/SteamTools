@@ -7,10 +7,10 @@
   </Application.DataTemplates>
   <Application.Styles>
     <FluentTheme Mode="Dark" />
-      <!--<StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Styles.xaml" />
-      <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/SideBar.xaml" />-->
-    <!--<StyleInclude Source="/Styles/Styles.xaml" />-->
-    <!--<StyleInclude Source="/Styles/Controls/SideBar.xaml" />-->
+    <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Styles.xaml" />
+    <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Controls/SideBar.xaml" />
+    <!--<StyleInclude Source="/Styles/Styles.xaml" />
+    <StyleInclude Source="/Styles/Controls/SideBar.xaml" />-->
     <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
     <Style Selector="Window">
       <Setter Property="Icon" Value="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico"/>

@@ -1,85 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
-        <RootNamespace>System</RootNamespace>
-        <SignAssembly>false</SignAssembly>
-        <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>System</RootNamespace>
+    <SignAssembly>false</SignAssembly>
+    <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
+  </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-    </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <AvaloniaResource Include="**\*.xaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Include="Application\UI\Assets\**" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <None Remove="Application\UI\Assets\AppResources\app.png" />
-        <None Remove="Application\UI\Assets\Icon.ico" />
-        <None Remove="Application\UI\Assets\Icon_16.png" />
-        <None Remove="Application\UI\Styles\Controls\SideBar.xaml" />
-        <None Remove="Application\UI\Styles\Styles.xaml" />
-    </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\System.Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
 
-    <ItemGroup>
-        <AvaloniaResource Include="Application\UI\Assets\AppResources\app.png" />
-        <AvaloniaResource Include="Application\UI\Assets\Icon.ico" />
-        <AvaloniaResource Include="Application\UI\Assets\Icon_16.png" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop\System.Application.SteamTools.Client.Desktop.csproj" />
+    <ProjectReference Include="..\System.Common.CoreLib\System.Common.CoreLib.csproj" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <Compile Include="..\System.Common.CoreLib\Properties\AssemblyInfo.cs">
-            <Link>Properties\AssemblyInfo.cs</Link>
-        </Compile>
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.0" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.0" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0" />
+    <PackageReference Include="MessageBox.Avalonia" Version="1.0.5">
+      <Aliases>MessageBox_Avalonia</Aliases>
+    </PackageReference>
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop\System.Application.SteamTools.Client.Desktop.csproj" />
-        <ProjectReference Include="..\System.Common.CoreLib\System.Common.CoreLib.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Avalonia" Version="0.10.0" />
-        <PackageReference Include="Avalonia.Desktop" Version="0.10.0" />
-        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0" />
-        <PackageReference Include="MessageBox.Avalonia" Version="1.0.5">
-            <Aliases>MessageBox_Avalonia</Aliases>
-        </PackageReference>
-    </ItemGroup>
-
-    <ItemGroup Condition="'$(Configuration)'=='Debug'">
-        <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Compile Update="**\*.xaml.cs">
-            <DependentUpon>%(Filename)</DependentUpon>
-        </Compile>
-        <AvaloniaResource Include="**\*.xaml">
-            <SubType>Designer</SubType>
-        </AvaloniaResource>
-        <AvaloniaResource Include="Assets\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <AvaloniaResource Update="Application\UI\Styles\Controls\SideBar.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </AvaloniaResource>
-      <AvaloniaResource Update="Application\UI\Styles\Styles.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </AvaloniaResource>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Compile Update="Application\UI\Controls\CardView.axaml.cs">
-            <DependentUpon>%(Filename)</DependentUpon>
-        </Compile>
-        <Compile Update="Application\UI\Windows\MainView.axaml.cs">
-            <DependentUpon>%(Filename)</DependentUpon>
-        </Compile>
-        <Compile Update="Application\UI\Pages\GameList.axaml.cs">
-            <DependentUpon>%(Filename)</DependentUpon>
-        </Compile>
-        <Compile Update="Application\UI\Pages\SettingsPage.axaml.cs">
-            <DependentUpon>%(Filename)</DependentUpon>
-        </Compile>
-    </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0" />
+  </ItemGroup>
 </Project>

@@ -10,51 +10,51 @@
         x:Class="System.Application.UI.Views.MainView"
         FontSize="14"
         Foreground="{StaticResource SystemBaseHighColor}">
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
-    <Grid>
-        <DockPanel HorizontalAlignment="Stretch">
-            <ExperimentalAcrylicBorder IsHitTestVisible="False" DockPanel.Dock="Left" Width="240">
-                <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="Black" MaterialOpacity="0.85" TintOpacity="1"/>
-                </ExperimentalAcrylicBorder.Material>
-                <!--<AutoCompleteBox HorizontalAlignment="Stretch" Margin="20 40 20 0" Watermark="Search" Items="{Binding SearchItems}" />-->
-                <StackPanel IsHitTestVisible="False" Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
-                    <Image IsHitTestVisible="False" Source="/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
-                    <Label IsHitTestVisible="False" Content="{Binding Path=Title}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
-                </StackPanel>
-            </ExperimentalAcrylicBorder>
-            <ExperimentalAcrylicBorder IsHitTestVisible="False">
-                <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeBackgroundBrush}" MaterialOpacity="0.85" TintOpacity="1"/>
-                </ExperimentalAcrylicBorder.Material>
-                <Label Content="{ReflectionBinding #TabControl.SelectedItem.Header}" Margin="20 15" FontSize="32"/>
-            </ExperimentalAcrylicBorder>
-        </DockPanel>
+  <Design.DataContext>
+    <vm:MainWindowViewModel/>
+  </Design.DataContext>
+  <Grid>
+    <DockPanel HorizontalAlignment="Stretch">
+      <ExperimentalAcrylicBorder IsHitTestVisible="False" DockPanel.Dock="Left" Width="240">
+        <ExperimentalAcrylicBorder.Material>
+          <ExperimentalAcrylicMaterial TintColor="Black" MaterialOpacity="0.85" TintOpacity="1"/>
+        </ExperimentalAcrylicBorder.Material>
+        <!--<AutoCompleteBox HorizontalAlignment="Stretch" Margin="20 40 20 0" Watermark="Search" Items="{Binding SearchItems}" />-->
+        <StackPanel IsHitTestVisible="False" Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
+          <Image IsHitTestVisible="False" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
+          <Label IsHitTestVisible="False" Content="{Binding Path=Title}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
+        </StackPanel>
+      </ExperimentalAcrylicBorder>
+      <ExperimentalAcrylicBorder IsHitTestVisible="False">
+        <ExperimentalAcrylicBorder.Material>
+          <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeBackgroundBrush}" MaterialOpacity="0.85" TintOpacity="1"/>
+        </ExperimentalAcrylicBorder.Material>
+        <Label Content="{ReflectionBinding #TabControl.SelectedItem.Header}" Margin="20 15" FontSize="32"/>
+      </ExperimentalAcrylicBorder>
+    </DockPanel>
 
-        <TabControl x:Name="TabControl" Classes="sidebar" Margin="0 40 0 0">
-            <TabItem Header="{Binding Path=Res.Welcome,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalContentAlignment="Center">
-              <controls:CardView></controls:CardView>
-            </TabItem>
-            <TabItem Header="{Binding Path=Res.CommunityFix,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            </TabItem>
-            <TabItem Header="{Binding Path=Res.UserFastChange,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            </TabItem>
-            <TabItem Header="{Binding Path=Res.GameList,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <pages:GameList />
-            </TabItem>
-            <TabItem Header="{Binding Path=Res.SteamAuth,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            </TabItem>
-            <TabItem Header="{Binding Path=Res.IdleCard,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            </TabItem>
-            <TabItem Header="{Binding Path=Res.GameRelated,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            </TabItem>
-            <TabItem Header="{Binding Path=Res.Settings,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <pages:SettingsPage />
-            </TabItem>
-            <TabItem Header="{Binding Path=Res.About,Source={x:Static resx:R.Current}}">
-            </TabItem>
-        </TabControl>
-    </Grid>
+    <TabControl x:Name="TabControl" Classes="sidebar" Margin="0 40 0 0">
+      <TabItem Header="{Binding Path=Res.Welcome,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalContentAlignment="Center">
+        <controls:CardView></controls:CardView>
+      </TabItem>
+      <TabItem Header="{Binding Path=Res.CommunityFix,Mode=OneWay,Source={x:Static resx:R.Current}}">
+      </TabItem>
+      <TabItem Header="{Binding Path=Res.UserFastChange,Mode=OneWay,Source={x:Static resx:R.Current}}">
+      </TabItem>
+      <TabItem Header="{Binding Path=Res.GameList,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <pages:GameList />
+      </TabItem>
+      <TabItem Header="{Binding Path=Res.SteamAuth,Mode=OneWay,Source={x:Static resx:R.Current}}">
+      </TabItem>
+      <TabItem Header="{Binding Path=Res.IdleCard,Mode=OneWay,Source={x:Static resx:R.Current}}">
+      </TabItem>
+      <TabItem Header="{Binding Path=Res.GameRelated,Mode=OneWay,Source={x:Static resx:R.Current}}">
+      </TabItem>
+      <TabItem Header="{Binding Path=Res.Settings,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <pages:SettingsPage />
+      </TabItem>
+      <TabItem Header="{Binding Path=Res.About,Source={x:Static resx:R.Current}}">
+      </TabItem>
+    </TabControl>
+  </Grid>
 </UserControl>
