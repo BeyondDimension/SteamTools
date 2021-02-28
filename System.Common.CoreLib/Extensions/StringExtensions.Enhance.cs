@@ -13,7 +13,7 @@
         /// <param name="str"></param>
         /// <param name="value">要查找的 Unicode 字符。</param>
         /// <returns>如果找到该字符，则为 value 的从零开始的索引位置；如果未找到，则为 -1。</returns>
-        public static int IndexOf_(this string str, char value) => DI.IsRunningOnMono ? str.IndexOf(value) : str.IndexOf(value, StringComparison.Ordinal);
+        public static int IndexOf_(this string str, char value) => str.IndexOf(value, StringComparison.Ordinal);
 
         /// <summary>
         /// 报告指定 Unicode 字符在此字符串中的第一个匹配项的从零开始的索引。

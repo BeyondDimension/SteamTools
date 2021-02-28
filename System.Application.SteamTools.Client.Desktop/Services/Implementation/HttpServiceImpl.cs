@@ -38,11 +38,11 @@ namespace System.Application.Services.Implementation
                         var rspContentClrType = typeof(T);
                         if (rspContentClrType == typeof(string))
                         {
-                            return (T)(object)await response.Content.ReadAsStringAsync(cancellationToken);
+                            return (T)(object)await response.Content.ReadAsStringAsync();
                         }
                         else if (rspContentClrType == typeof(byte[]))
                         {
-                            return (T)(object)await response.Content.ReadAsByteArrayAsync(cancellationToken);
+                            return (T)(object)await response.Content.ReadAsByteArrayAsync();
                         }
                         else if (rspContentClrType == typeof(Stream))
                         {
@@ -57,7 +57,7 @@ namespace System.Application.Services.Implementation
                             case MediaTypeNames.XML_APP:
                                 {
                                     using var stream = await response.Content
-                                        .ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+                                        .ReadAsStreamAsync().ConfigureAwait(false);
                                     using var reader = new StreamReader(stream, Encoding.UTF8);
                                     switch (mime)
                                     {

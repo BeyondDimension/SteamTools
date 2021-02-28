@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.ReactiveUI;
 using NLog;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace System.Application.UI
@@ -13,6 +14,8 @@ namespace System.Application.UI
         [STAThread]
         static void Main(string[] args)
         {
+            FixNLogConfig();
+
             // 目前桌面端默认使用 SystemTextJson 如果出现兼容性问题可取消下面这行代码
             // Serializable.DefaultJsonImplType = Serializable.JsonImplType.NewtonsoftJson;
 
@@ -49,5 +52,30 @@ namespace System.Application.UI
                .With(new Win32PlatformOptions { AllowEglInitialization = true })
                .LogToTrace()
                .UseReactiveUI();
+
+        static void FixNLogConfig()
+        {
+            const char directorySeparatorChar = '\\';
+            if (Path.DirectorySeparatorChar != directorySeparatorChar)
+            {
+                const string fileName = "nlog.config";
+                var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
+                if (File.Exists(filePath))
+                {
+                    string logConfigStr;
+                    try
+                    {
+                        logConfigStr = File.ReadAllText(filePath);
+                    }
+                    catch
+                    {
+                        return;
+                    }
+                    logConfigStr = logConfigStr.Replace(@"logs\", $"logs{Path.DirectorySeparatorChar}");
+                    File.Delete(filePath);
+                    File.WriteAllText(filePath, logConfigStr);
+                }
+            }
+        }
     }
 }

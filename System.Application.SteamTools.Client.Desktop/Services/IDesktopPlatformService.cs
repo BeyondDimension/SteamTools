@@ -26,6 +26,8 @@ namespace System.Application.Services
         /// </summary>
         string HostsFilePath => "/etc/hosts";
 
+        void StartProcess(string name, string filePath) => Process.Start(name, filePath);
+
         /// <summary>
         /// 使用文本阅读器打开文件
         /// </summary>
@@ -50,7 +52,7 @@ namespace System.Application.Services
                         {
                             try
                             {
-                                Process.Start(value, filePath);
+                                StartProcess(value, filePath);
                                 return;
                             }
                             catch (Exception e)
@@ -79,7 +81,7 @@ namespace System.Application.Services
                 {
                     var fileName = GetFileName(item);
                     if (fileName == null) continue;
-                    Process.Start(fileName, filePath);
+                    StartProcess(fileName, filePath);
                     return;
                 }
                 catch (Exception e)

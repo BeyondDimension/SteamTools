@@ -14,14 +14,32 @@ namespace System.Application.Services.Implementation
             return string.Empty;
         }
 
+        void IDesktopPlatformService.StartProcess(string name, string filePath)
+        {
+            var p = Process.Start(new ProcessStartInfo
+            {
+                FileName = "open",
+                Arguments = $"-a \"{name}\" \"{filePath}\"",
+            });
+            p?.Close();
+        }
+
         public string? GetFileName(TextReaderProvider provider)
         {
-            return null;
+            switch (provider)
+            {
+                case TextReaderProvider.VSCode:
+                    return "Visual Studio Code";
+                case TextReaderProvider.Notepad:
+                case TextReaderProvider.NotepadPlusPlus:
+                    return "TextEdit";
+                default:
+                    return null;
+            }
         }
 
         public void SetBootAutoStart(bool isAutoStart, string name)
         {
-
         }
 
         public string? GetSteamDirPath()

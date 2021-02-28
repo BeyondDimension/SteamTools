@@ -98,7 +98,7 @@ namespace System.Application.UI
                             new LinuxTrayIcon<TContextMenu>(ToolTipText, IconPath, ContextMenu));
                     }
                , canTok.Token, TaskCreationOptions.AttachedToParent, TaskScheduler.Default);
-                }, MainThreadDesktop.DispatcherPriority.MaxValue);
+                }, MainThreadDesktop.DispatcherPriority.MaxValue, true);
             }
         }
     }

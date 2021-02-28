@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿#pragma warning disable CA1416 // 验证平台兼容性
+using Microsoft.Win32;
+
 using Microsoft.Win32.TaskScheduler;
 using System.Application.Models;
 using System.Application.UI;
@@ -42,20 +44,50 @@ namespace System.Application.Services.Implementation
 
         public string HostsFilePath => mHostsFilePath.Value;
 
+        static string GetFolderPath(Environment.SpecialFolder folder)
+        {
+            switch (folder)
+            {
+                case Environment.SpecialFolder.ProgramFiles:
+                    var trimEndMark = " (x86)";
+                    var value = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+                    if (value.EndsWith(trimEndMark, StringComparison.OrdinalIgnoreCase))
+                    {
+                        var value2 = value.Substring(0, value.Length - trimEndMark.Length);
+                        if (Directory.Exists(value2))
+                        {
+                            return value2;
+                        }
+                    }
+                    return value;
+                default:
+                    return Environment.GetFolderPath(folder);
+            }
+        }
+
         public string? GetFileName(TextReaderProvider provider)
         {
             switch (provider)
             {
-                case TextReaderProvider.Notepad:
-                    return "notepad";
                 case TextReaderProvider.NotepadPlusPlus:
                     return "notepad++";
                 case TextReaderProvider.VSCode:
-                    var vsCodePath = Path.Combine(
-                        Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
-                        "Microsoft VS Code",
-                        "Code.exe");
-                    return File.Exists(vsCodePath) ? vsCodePath : null;
+                    var vsCodePaths = new[] {
+                        GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+                        GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)
+                    }.Distinct().Select(x => Path.Combine(x, "Microsoft VS Code", "Code.exe"));
+
+                    foreach (var vsCodePath in vsCodePaths)
+                    {
+                        if (File.Exists(vsCodePath))
+                        {
+                            return vsCodePath;
+                        }
+                    }
+
+                    return null;
+                case TextReaderProvider.Notepad:
+                    return "notepad";
                 default:
                     return null;
             }
@@ -112,3 +144,4 @@ namespace System.Application.Services.Implementation
             => Registry.CurrentUser.Read(SteamRegistryPath, "AutoLoginUser");
     }
 }
+#pragma warning restore CA1416 // 验证平台兼容性

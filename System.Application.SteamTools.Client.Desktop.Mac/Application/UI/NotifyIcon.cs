@@ -1,4 +1,4 @@
-﻿using AppKit;
+﻿using MonoMac.AppKit;
 using System.Diagnostics.CodeAnalysis;
 
 namespace System.Application.UI
@@ -99,6 +99,15 @@ namespace System.Application.UI
             StatusBarItem?.Dispose();
         }
 
+        void Init()
+        {
+            var isMainThread = MainThreadDesktop.IsMainThread;
+            Console.WriteLine($"isMainThread: {isMainThread}");
+            var systemStatusBar = NSStatusBar.SystemStatusBar;
+            StatusBarItem = systemStatusBar.CreateStatusItem(30);
+            StatusBarItem.ToolTip = ToolTipText;
+        }
+
         /// <summary>
         /// Creates a new <c>NotifyIcon</c> instance and sets up some
         /// required resources.
@@ -106,12 +115,8 @@ namespace System.Application.UI
 
         public NotifyIcon()
         {
-            MainThreadDesktop.BeginInvokeOnMainThread(() =>
-            {
-                var systemStatusBar = NSStatusBar.SystemStatusBar;
-                StatusBarItem = systemStatusBar.CreateStatusItem(30);
-                StatusBarItem.ToolTip = ToolTipText;
-            }, MainThreadDesktop.DispatcherPriority.MaxValue);
+            MainThreadDesktop.BeginInvokeOnMainThread(Init,
+                MainThreadDesktop.DispatcherPriority.MaxValue, true);
         }
     }
 }

@@ -14,9 +14,12 @@ namespace System.Application.Services.Implementation
             return string.Empty;
         }
 
+        public const string kate = "kate";
+        public const string vi = "vi";
+
         public string? GetFileName(TextReaderProvider provider)
         {
-            return null;
+            return vi;
         }
 
         public void SetBootAutoStart(bool isAutoStart, string name)

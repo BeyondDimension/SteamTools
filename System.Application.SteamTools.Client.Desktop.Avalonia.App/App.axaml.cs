@@ -17,6 +17,8 @@ using WindowState = Avalonia.Controls.WindowState;
 #if WINDOWS
 using System.Windows.Shell;
 using WpfApplication = System.Windows.Application;
+#elif MAC
+using MonoMac.AppKit;
 #endif
 
 namespace System.Application.UI
@@ -60,10 +62,12 @@ namespace System.Application.UI
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                if (!AppHelper.IsOfficialChannelPackage)
-                {
-                    IsNotOfficialChannelPackageWarning();
-                }
+#if MAC
+                NSApplication.Init();
+                var appDelegate = DI.Get<AppDelegate>();
+                //AvaloniaLocator.CurrentMutable.Bind<AppDelegate>().ToConstant(appDelegate);
+                NSApplication.SharedApplication.Delegate = appDelegate;
+#endif
 
                 #region NotifyIcon
 
@@ -115,6 +119,11 @@ namespace System.Application.UI
                 AddJumpTask();
 #endif
 
+                if (!AppHelper.IsOfficialChannelPackage)
+                {
+                    IsNotOfficialChannelPackageWarning();
+                }
+
                 desktop.MainWindow = MainWindow;
                 desktop.Exit += ApplicationLifetime_Exit;
                 desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
@@ -126,6 +135,9 @@ namespace System.Application.UI
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
         {
             compositeDisposable.Dispose();
+#if WINDOWS
+            WpfApplication.Current.Shutdown();
+#endif
         }
 
         void NotifyIcon_Click(object? sender, EventArgs e)
@@ -175,9 +187,6 @@ namespace System.Application.UI
             {
                 desktop.Shutdown(0);
             }
-#if WINDOWS
-            WpfApplication.Current.Shutdown();
-#endif
         }
 
         #region IDisposable members

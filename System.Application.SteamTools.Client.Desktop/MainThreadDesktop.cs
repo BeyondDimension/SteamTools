@@ -12,9 +12,9 @@ namespace System.Application
     {
         public static bool IsMainThread => Instance.PlatformIsMainThread;
 
-        public static void BeginInvokeOnMainThread(Action action, DispatcherPriority? priority = null)
+        public static void BeginInvokeOnMainThread(Action action, DispatcherPriority? priority = null, bool isForce = false)
         {
-            if (IsMainThread)
+            if (!isForce && IsMainThread)
             {
                 action();
             }
@@ -24,9 +24,9 @@ namespace System.Application
             }
         }
 
-        public static Task InvokeOnMainThreadAsync(Action action, DispatcherPriority? priority = null)
+        public static Task InvokeOnMainThreadAsync(Action action, DispatcherPriority? priority = null, bool isForce = false)
         {
-            if (IsMainThread)
+            if (!isForce && IsMainThread)
             {
                 action();
 #if NETSTANDARD1_0
@@ -49,14 +49,14 @@ namespace System.Application
                 {
                     tcs.TrySetException(ex);
                 }
-            }, priority);
+            }, priority, isForce);
 
             return tcs.Task;
         }
 
-        public static Task<T> InvokeOnMainThreadAsync<T>(Func<T> func, DispatcherPriority? priority = null)
+        public static Task<T> InvokeOnMainThreadAsync<T>(Func<T> func, DispatcherPriority? priority = null, bool isForce = false)
         {
-            if (IsMainThread)
+            if (!isForce && IsMainThread)
             {
                 return Task.FromResult(func());
             }
@@ -74,14 +74,14 @@ namespace System.Application
                 {
                     tcs.TrySetException(ex);
                 }
-            }, priority);
+            }, priority, isForce);
 
             return tcs.Task;
         }
 
-        public static Task InvokeOnMainThreadAsync(Func<Task> funcTask, DispatcherPriority? priority = null)
+        public static Task InvokeOnMainThreadAsync(Func<Task> funcTask, DispatcherPriority? priority = null, bool isForce = false)
         {
-            if (IsMainThread)
+            if (!isForce && IsMainThread)
             {
                 return funcTask();
             }
@@ -100,14 +100,14 @@ namespace System.Application
                     {
                         tcs.SetException(e);
                     }
-                }, priority);
+                }, priority, isForce);
 
             return tcs.Task;
         }
 
-        public static Task<T> InvokeOnMainThreadAsync<T>(Func<Task<T>> funcTask, DispatcherPriority? priority = null)
+        public static Task<T> InvokeOnMainThreadAsync<T>(Func<Task<T>> funcTask, DispatcherPriority? priority = null, bool isForce = false)
         {
-            if (IsMainThread)
+            if (!isForce && IsMainThread)
             {
                 return funcTask();
             }
@@ -126,7 +126,7 @@ namespace System.Application
                     {
                         tcs.SetException(e);
                     }
-                }, priority);
+                }, priority, isForce);
 
             return tcs.Task;
         }
