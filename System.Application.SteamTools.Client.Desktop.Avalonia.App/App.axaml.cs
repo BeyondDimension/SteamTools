@@ -64,7 +64,9 @@ namespace System.Application.UI
                 {
                     IsNotOfficialChannelPackageWarning();
                 }
+
                 #region NotifyIcon
+
                 var notifyIcon = INotifyIcon.Instance;
                 notifyIcon.ToolTipText = ThisAssembly.AssemblyTrademark;
                 switch (DI.Platform)
@@ -94,7 +96,7 @@ namespace System.Application.UI
                     new MenuItem()
                     {
                         Header = "NotifyIconContextMenuItemHeaderExit",
-                        Command = ReactiveCommand.Create(Exit)
+                        Command = ReactiveCommand.Create(Shutdown)
                     }
                 };
                 NotifyIconContextMenu.Items = menuItems;
@@ -102,10 +104,11 @@ namespace System.Application.UI
                 notifyIcon.Visible = true;
                 notifyIcon.Click += NotifyIcon_Click;
                 notifyIcon.DoubleClick += NotifyIcon_Click;
-                this.compositeDisposable.Add(() =>
+                compositeDisposable.Add(() =>
                 {
                     notifyIcon.IconPath = string.Empty;
                 });
+
                 #endregion
 
 #if WINDOWS
@@ -113,33 +116,19 @@ namespace System.Application.UI
 #endif
 
                 desktop.MainWindow = MainWindow;
-                desktop.Exit += Desktop_Exit;
+                desktop.Exit += ApplicationLifetime_Exit;
                 desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-
-#if DEBUG
-                AreYouOk();
-                static async void AreYouOk()
-                {
-                    await MessageBoxCompat.ShowAsync(
-                        "Are You Ok?",
-                        "title",
-                        MessageBoxButtonCompat.OK,
-                        MessageBoxImageCompat.Information);
-                }
-#endif
             }
-
-
 
             base.OnFrameworkInitializationCompleted();
         }
 
-        private void Desktop_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
+        void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
         {
-            this.compositeDisposable.Dispose();
+            compositeDisposable.Dispose();
         }
 
-        private void NotifyIcon_Click(object? sender, EventArgs e)
+        void NotifyIcon_Click(object? sender, EventArgs e)
         {
             RestoreMainWindow();
         }
@@ -191,6 +180,20 @@ namespace System.Application.UI
 #endif
         }
 
+        #region IDisposable members
+
+        public readonly CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
+
+        void IDisposable.Dispose()
+        {
+            compositeDisposable.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
+
 #if WINDOWS
 
         // JumpList
@@ -218,24 +221,8 @@ namespace System.Application.UI
             JumpList.AddToRecentCategory(jumpTask1);
             jumpList1.Apply();
         }
-        /// <summary>
-        /// Exits the app by calling <c>Shutdown()</c> on the <c>IClassicDesktopStyleApplicationLifetime</c>.
-        /// </summary>
-        public static void Exit()
-        {
-            Shutdown();
-        }
 
-        #region IDisposable members
-        public readonly CompositeDisposable compositeDisposable = new CompositeDisposable();
-        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => this.compositeDisposable;
-
-        void IDisposable.Dispose()
-        {
-            this.compositeDisposable.Dispose();
-            GC.SuppressFinalize(this);
-        }
-        #endregion
+#endif
     }
 }
 #pragma warning restore CA1416 // 验证平台兼容性
