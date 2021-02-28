@@ -101,8 +101,6 @@ namespace System.Application.UI
 
         void Init()
         {
-            var isMainThread = MainThreadDesktop.IsMainThread;
-            Console.WriteLine($"isMainThread: {isMainThread}");
             var systemStatusBar = NSStatusBar.SystemStatusBar;
             StatusBarItem = systemStatusBar.CreateStatusItem(30);
             StatusBarItem.ToolTip = ToolTipText;
