@@ -73,10 +73,10 @@ namespace System.Application.UI
                 {
                     case Platform.Windows:
                     case Platform.Linux:
-                        notifyIcon.IconPath = "avares://Steam++/Assets/Icon.ico";
+                        notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico";
                         break;
                     case Platform.Apple:
-                        notifyIcon.IconPath = "avares://Steam++/Assets/Icon_16.png";
+                        notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon_16.png";
                         break;
                 }
 

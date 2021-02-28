@@ -7,7 +7,7 @@
     <ApplicationIcon>..\System.Application.SteamTools.Client.Desktop.Avalonia.App\Assets\Icon.ico</ApplicationIcon>
     <AssemblyName>Steam++.Win7</AssemblyName>
     <RootNamespace>System</RootNamespace>
-    <ApplicationManifest>..\System.Application.SteamTools.Client.Desktop.Avalonia.App\Properties\app.manifest</ApplicationManifest>
+    <ApplicationManifest>..\System.Application.SteamTools.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>

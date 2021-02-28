@@ -5,7 +5,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>System</RootNamespace>
     <AssemblyName>Steam++.OpenSourceLibraryListGenerate</AssemblyName>
-    <ApplicationIcon>..\System.Application.SteamTools.Client.Desktop.Avalonia.App\Assets\Icon.ico</ApplicationIcon>
+    <ApplicationIcon>..\System.Application.SteamTools.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

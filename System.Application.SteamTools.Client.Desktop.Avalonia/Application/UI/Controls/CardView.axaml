@@ -25,7 +25,7 @@
     </UserControl.Styles>
     <Border BorderBrush="Gray" BorderThickness="0">
         <Panel>
-            <Image Source="/Assets/AppResources/app.png"></Image>
+            <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico"></Image>
             <Label IsHitTestVisible="False" Content="Test" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18"></Label>
         </Panel>
     </Border>

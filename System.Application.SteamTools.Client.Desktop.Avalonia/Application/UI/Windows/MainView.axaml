@@ -5,7 +5,7 @@
         mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="600"
         xmlns:pages="clr-namespace:System.Application.UI.Views.Pages"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
+        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         x:Class="System.Application.UI.Views.MainView"
         FontSize="14"

@@ -6,7 +6,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>Steam++.Packager</AssemblyName>
     <RootNamespace>System</RootNamespace>
-    <ApplicationIcon>..\System.Application.SteamTools.Client.Desktop.Avalonia.App\Assets\Icon.ico</ApplicationIcon>
+    <ApplicationIcon>..\System.Application.SteamTools.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
