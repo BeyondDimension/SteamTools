@@ -19,6 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Application\UI\Styles\Controls.xaml" />
+    <None Remove="Application\UI\Styles\Theme.Dark.xaml" />
+    <None Remove="Application\UI\Styles\Theme.light.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\System.Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
@@ -40,5 +46,26 @@
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Update="Application\UI\Styles\Controls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+    <AvaloniaResource Update="Application\UI\Styles\Theme.Light.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+    <AvaloniaResource Update="Application\UI\Styles\Theme.Dark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Application\UI\Pages\GameListPage.axaml.cs">
+      <DependentUpon>GameListPage.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Application\UI\Pages\SteamAccountPage.axaml.cs">
+      <DependentUpon>SteamAccountPage.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

@@ -1,14 +1,17 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using System.Application.UI.ViewModels;
 
-namespace System.Application.UI.Views.Pages
+namespace System.Application.UI.Windows
 {
-    public class GameList : UserControl
+    public class LoginWindow : Window
     {
-        public GameList()
+        public LoginWindow()
         {
             InitializeComponent();
+#if DEBUG
+            this.AttachDevTools();
+#endif
         }
 
         private void InitializeComponent()

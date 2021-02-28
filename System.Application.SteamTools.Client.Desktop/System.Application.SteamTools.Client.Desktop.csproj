@@ -69,5 +69,6 @@
 
   <ItemGroup>
     <Folder Include="UI\ViewModels\Pages\" />
+    <Folder Include="UI\ViewModels\Windows\" />
   </ItemGroup>
 </Project>

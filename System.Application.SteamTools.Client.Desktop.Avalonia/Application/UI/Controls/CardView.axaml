@@ -10,7 +10,7 @@
     <UserControl.Styles>
         <Style Selector="Image:pointerover">
             <Style.Animations>
-                <Animation Duration="0:0:0.1" FillMode="Forward">
+                <Animation Duration="0:0:0.15" FillMode="Forward">
                     <KeyFrame Cue="0%">
                         <Setter Property="Width" Value="150"/>
                         <Setter Property="Height" Value="225"/>
@@ -25,7 +25,7 @@
     </UserControl.Styles>
     <Border BorderBrush="Gray" BorderThickness="0">
         <Panel>
-            <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico"></Image>
+            <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/app.png"></Image>
             <Label IsHitTestVisible="False" Content="Test" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18"></Label>
         </Panel>
     </Border>

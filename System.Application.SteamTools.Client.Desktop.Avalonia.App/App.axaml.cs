@@ -14,6 +14,8 @@ using AvaloniaApplication = Avalonia.Application;
 using ShutdownMode = Avalonia.Controls.ShutdownMode;
 using Window = Avalonia.Controls.Window;
 using WindowState = Avalonia.Controls.WindowState;
+using Avalonia.Themes.Fluent;
+
 #if WINDOWS
 using System.Windows.Shell;
 using WpfApplication = System.Windows.Application;
@@ -26,7 +28,6 @@ namespace System.Application.UI
     public partial class App : AvaloniaApplication, IDisposableHolder
     {
         public static App Instance => Current is App app ? app : throw new Exception("Impossible");
-
         [Obsolete("use IOPath.AppDataDirectory", true)]
         public DirectoryInfo LocalAppData => new DirectoryInfo(IOPath.AppDataDirectory);
 
@@ -35,10 +36,11 @@ namespace System.Application.UI
         [Obsolete("use AppHelper.ProgramName", true)]
         public string ProgramName => AppHelper.ProgramName;
 
+        public FluentTheme? fluentTheme;
+
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
-
             MainWindow = new MainWindow
             {
                 DataContext = new MainWindowViewModel(),
@@ -59,7 +61,6 @@ namespace System.Application.UI
             // 在UI预览中，ApplicationLifetime 为 null
             ViewModelBase.IsInDesignMode = ApplicationLifetime == null;
             Startup.Init();
-
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
 #if MAC
@@ -94,6 +95,22 @@ namespace System.Application.UI
                 {
                     new MenuItem()
                     {
+                        Header = "Light",
+                        Command = ReactiveCommand.Create(()=>{
+                          if(fluentTheme is not null)
+                                fluentTheme.Mode= FluentThemeMode.Light;
+                          })
+                    },
+                    new MenuItem()
+                    {
+                        Header = "Dark",
+                        Command = ReactiveCommand.Create(()=>{
+                        if(fluentTheme is not null)
+                                fluentTheme.Mode= FluentThemeMode.Dark;
+                        })
+                    },
+                    new MenuItem()
+                    {
                         Header = "NotifyIconContextMenuItemHeaderRestore",
                         Command = ReactiveCommand.Create(RestoreMainWindow)
                     },
@@ -114,6 +131,14 @@ namespace System.Application.UI
                 });
 
                 #endregion
+
+                foreach (var style in App.Current.Styles)
+                {
+                    if (style is FluentTheme fluent)
+                    {
+                        fluentTheme = fluent;
+                    }
+                }
 
 #if WINDOWS
                 AddJumpTask();
@@ -148,6 +173,7 @@ namespace System.Application.UI
         public static async void SetClipboardText(string s) => await Current.Clipboard.SetTextAsync(s);
 
         public Window? MainWindow { get; set; }
+
 
         /// <summary>
         /// Restores the app's main window by setting its <c>WindowState</c> to
