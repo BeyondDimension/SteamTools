@@ -14,6 +14,9 @@
   <ItemGroup>
     <PackageReference Include="DnsClient" Version="1.4.0" />
     <PackageReference Include="Gameloop.Vdf" Version="0.6.1" />
+    <PackageReference Include="Microsoft.AppCenter" Version="4.1.0" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.1.0" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0" />
     <PackageReference Include="NLog" Version="4.7.7" />
     <PackageReference Include="NLog.Extensions.Logging" Version="1.7.0" />
     <PackageReference Include="ReactiveUI" Version="13.1.1" />

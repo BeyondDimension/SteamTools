@@ -19,6 +19,7 @@ namespace System.Application.UI
             var logger = LogManager.GetCurrentClassLogger();
             try
             {
+                Startup.Init();
 #if WINDOWS
                 var app = new WpfApp();
                 app.InitializeComponent();

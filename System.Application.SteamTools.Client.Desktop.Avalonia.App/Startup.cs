@@ -12,11 +12,17 @@ namespace System.Application.UI
 {
     internal static class Startup
     {
+        static bool isInitialized;
+
         public static void Init()
         {
-            FileSystemDesktop.InitFileSystem();
-            ModelValidatorProvider.Init();
-            DI.Init(ConfigureServices);
+            if (!isInitialized)
+            {
+                isInitialized = true;
+                FileSystemDesktop.InitFileSystem();
+                ModelValidatorProvider.Init();
+                DI.Init(ConfigureServices);
+            }
         }
 
         static void ConfigureServices(IServiceCollection services)
@@ -30,7 +36,7 @@ namespace System.Application.UI
             //var options = AppClientAttribute.Get<AppSettings>();
             var options = new AppSettings
             {
-                //AppSecretVisualStudioAppCenter = "",
+                AppSecretVisualStudioAppCenter = "ccca922e-40fe-48ab-9982-45ba496b1201",
             };
             // app 配置项
             services.TryAddOptions(options);
