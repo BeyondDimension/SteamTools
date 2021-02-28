@@ -21,7 +21,7 @@ using WpfApplication = System.Windows.Application;
 
 namespace System.Application.UI
 {
-    public class App : AvaloniaApplication, IDisposableHolder
+    public partial class App : AvaloniaApplication, IDisposableHolder
     {
         public static App Instance => Current is App app ? app : throw new Exception("Impossible");
 

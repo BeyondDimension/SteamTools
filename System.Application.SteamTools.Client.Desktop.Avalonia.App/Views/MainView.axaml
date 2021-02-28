@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="600"
         xmlns:pages="clr-namespace:System.Application.UI.Views.Pages"
-        xmlns:controls="clr-namespace:System.Application.UI.Views.Control"
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         x:Class="System.Application.UI.Views.MainView"
@@ -35,7 +35,7 @@
 
         <TabControl x:Name="TabControl" Classes="sidebar" Margin="0 40 0 0">
             <TabItem Header="{Binding Path=Res.Welcome,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalContentAlignment="Center">
-                <controls:CardControl></controls:CardControl>
+              <controls:CardView></controls:CardView>
             </TabItem>
             <TabItem Header="{Binding Path=Res.CommunityFix,Mode=OneWay,Source={x:Static resx:R.Current}}">
             </TabItem>
