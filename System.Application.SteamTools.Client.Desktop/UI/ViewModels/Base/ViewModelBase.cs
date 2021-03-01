@@ -5,7 +5,18 @@ namespace System.Application.UI.ViewModels
 {
     public class ViewModelBase : ReactiveObject, IDisposable
     {
-        [NonSerialized] CompositeDisposable? _compositeDisposable;
+        [NonSerialized] private CompositeDisposable? _compositeDisposable = new CompositeDisposable();
+        public CompositeDisposable? CompositeDisposable
+        {
+            get => _compositeDisposable;
+            set
+            {
+                if (_compositeDisposable != value)
+                {
+                    _compositeDisposable = value;
+                }
+            }
+        }
 
         [NonSerialized] bool _disposed;
 
@@ -13,6 +24,7 @@ namespace System.Application.UI.ViewModels
         /// 是否在设计器的上下文中运行
         /// </summary>
         public static bool IsInDesignMode { get; set; }
+
 
         /// <summary>
         /// 释放该实例使用的所有资源
@@ -26,7 +38,7 @@ namespace System.Application.UI.ViewModels
         protected virtual void Dispose(bool disposing)
         {
             if (_disposed) return;
-            if (disposing) _compositeDisposable?.Dispose();
+            if (disposing) CompositeDisposable?.Dispose();
             _disposed = true;
         }
     }

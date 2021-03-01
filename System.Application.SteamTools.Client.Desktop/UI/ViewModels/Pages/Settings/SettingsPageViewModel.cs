@@ -5,8 +5,16 @@ using System.Linq;
 
 namespace System.Application.UI.ViewModels
 {
-    public class SettingsPageViewModel : ViewModelBase
+    public class SettingsPageViewModel : TabItemViewModel
     {
+        public static SettingsPageViewModel Instance { get; } = new SettingsPageViewModel();
+
+        public override string Name
+        {
+            get => AppResources.Settings;
+            protected set { throw new NotImplementedException(); }
+        }
+
         public SettingsPageViewModel()
         {
             //Languages = R.Languages.Select(Convert).ToList();

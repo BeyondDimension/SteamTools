@@ -19,7 +19,6 @@
                 <ExperimentalAcrylicBorder.Material>
                     <ExperimentalAcrylicMaterial TintColor="black" MaterialOpacity="0.85" TintOpacity="1"/>
                 </ExperimentalAcrylicBorder.Material>
-                <!--<AutoCompleteBox HorizontalAlignment="Stretch" Margin="20 40 20 0" Watermark="Search" Items="{Binding SearchItems}" />-->
                 <StackPanel IsHitTestVisible="False" Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
                     <Image IsHitTestVisible="False" Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
                     <Label IsHitTestVisible="False" Content="{Binding Path=Title}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
@@ -29,12 +28,43 @@
                 <ExperimentalAcrylicBorder.Material>
                     <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeBackgroundBrush}" MaterialOpacity="0.85" TintOpacity="1"/>
                 </ExperimentalAcrylicBorder.Material>
-                <Label Content="{ReflectionBinding #TabControl.SelectedItem.Header}" Margin="20 15" FontSize="32"/>
+                <Label Content="{ReflectionBinding #TabControl.SelectedItem.Name}" Margin="20 10" FontSize="32"/>
             </ExperimentalAcrylicBorder>
         </DockPanel>
-
-        <TabControl x:Name="TabControl" Classes="sidebar" Margin="0 40 0 0">
-            <TabItem Header="{Binding Path=Res.Welcome,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalContentAlignment="Center">
+        <TabControl x:Name="TabControl"
+                    Items="{Binding TabItems}"
+                    SelectedItem="{Binding SelectedItem}"
+                    Classes="sidebar"
+                    Margin="0 40 0 0">
+            <TabControl.DataTemplates>
+                <DataTemplate DataType="vm:DebugPageViewModel">
+                    <pages:DebugPage/>
+                </DataTemplate>
+                <DataTemplate DataType="vm:AboutPageViewModel">
+                    <pages:AboutPage />
+                </DataTemplate>
+                <DataTemplate DataType="vm:SettingsPageViewModel">
+                    <pages:SettingsPage />
+                </DataTemplate>
+                <DataTemplate DataType="vm:StartPageViewModel">
+                    <pages:StartPage />
+                </DataTemplate>
+                <DataTemplate DataType="vm:SteamAccountPageViewModel">
+                    <pages:SteamAccountPage />
+                </DataTemplate>
+                <DataTemplate DataType="vm:GameListPageViewModel">
+                    <pages:GameListPage />
+                </DataTemplate>
+            </TabControl.DataTemplates>
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}">
+                    </TextBlock>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+        </TabControl>
+        <!--<TabControl x:Name="TabControl" Classes="sidebar" Margin="0 30 0 0">
+            <TabItem Header="{Binding Path=Res.Welcome,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalContentAlignment="Center" Margin="0 10 0 0">
               <controls:CardView></controls:CardView>
             </TabItem>
             <TabItem Header="{Binding Path=Res.CommunityFix,Mode=OneWay,Source={x:Static resx:R.Current}}">
@@ -54,7 +84,11 @@
                 <pages:SettingsPage />
             </TabItem>
             <TabItem Header="{Binding Path=Res.About,Source={x:Static resx:R.Current}}">
+                <pages:AboutPage />
             </TabItem>
-        </TabControl>
+            <TabItem Header="Debug">
+                <pages:DebugPage />
+            </TabItem>
+        </TabControl>-->
     </Grid>
 </UserControl>

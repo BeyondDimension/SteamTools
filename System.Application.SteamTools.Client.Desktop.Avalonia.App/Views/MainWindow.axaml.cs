@@ -21,7 +21,7 @@ namespace System.Application.UI.Views
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
-#endif
+#endif 
         }
 
         protected override void OnClosing(CancelEventArgs e)

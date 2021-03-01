@@ -61,8 +61,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Application\UI\Pages\About\About_OpenSourcePage.axaml.cs">
+      <DependentUpon>About_OpenSourcePage.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Application\UI\Pages\AboutPage.axaml.cs">
+      <DependentUpon>AboutPage.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Application\UI\Pages\GameListPage.axaml.cs">
       <DependentUpon>GameListPage.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Application\UI\Pages\DebugPage.axaml.cs">
+      <DependentUpon>DebugPage.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Application\UI\Pages\StartPage.axaml.cs">
+      <DependentUpon>StartPage.axaml</DependentUpon>
     </Compile>
     <Compile Update="Application\UI\Pages\SteamAccountPage.axaml.cs">
       <DependentUpon>SteamAccountPage.axaml</DependentUpon>

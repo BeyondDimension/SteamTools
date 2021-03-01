@@ -1,6 +1,5 @@
 <FluentWindow xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
@@ -20,9 +19,6 @@
       <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
     </Style>
   </FluentWindow.Styles>
-  <Design.DataContext>
-    <vm:MainWindowViewModel/>
-  </Design.DataContext>
 
   <Panel Margin="{Binding #MainWindow.OffScreenMargin}">
     <local:MainView />

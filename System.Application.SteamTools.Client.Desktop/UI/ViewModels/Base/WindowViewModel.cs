@@ -11,5 +11,10 @@ namespace System.Application.UI.ViewModels
             get => title;
             set => this.RaiseAndSetIfChanged(ref title, value);
         }
+
+        protected void InvokeOnUIDispatcher(Action action)
+        {
+            MainThreadDesktop.BeginInvokeOnMainThread(action);
+        }
     }
 }
