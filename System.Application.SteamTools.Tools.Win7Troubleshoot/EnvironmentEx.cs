@@ -29,7 +29,7 @@ namespace System
             }
         }
 
-        static IsWow64ProcessDelegate GetIsWow64ProcessDelegate()
+        static IsWow64ProcessDelegate? GetIsWow64ProcessDelegate()
         {
             IntPtr handle = LoadLibrary("kernel32");
 
@@ -39,7 +39,7 @@ namespace System
 
                 if (fnPtr != IntPtr.Zero)
                 {
-                    return (IsWow64ProcessDelegate)Marshal.GetDelegateForFunctionPointer((IntPtr)fnPtr, typeof(IsWow64ProcessDelegate));
+                    return (IsWow64ProcessDelegate)Marshal.GetDelegateForFunctionPointer(fnPtr, typeof(IsWow64ProcessDelegate));
                 }
             }
 
@@ -48,7 +48,7 @@ namespace System
 
         static bool Is32BitProcessOn64BitProcessor()
         {
-            IsWow64ProcessDelegate fnDelegate = GetIsWow64ProcessDelegate();
+            var fnDelegate = GetIsWow64ProcessDelegate();
 
             if (fnDelegate == null)
             {

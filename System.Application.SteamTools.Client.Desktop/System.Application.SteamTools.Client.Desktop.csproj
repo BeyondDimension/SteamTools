@@ -62,12 +62,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Scripts\*.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="UI\ViewModels\Pages\" />
     <Folder Include="UI\ViewModels\Windows\" />
   </ItemGroup>

@@ -4,10 +4,10 @@
     <OutputType>WinExe</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <TargetFramework>net35</TargetFramework>
-    <ApplicationIcon>..\System.Application.SteamTools.Client.Desktop.Avalonia.App\Assets\Icon.ico</ApplicationIcon>
+    <ApplicationManifest>..\System.Application.SteamTools.Client.Desktop.Avalonia.App\Properties\app.manifest</ApplicationManifest>
     <AssemblyName>Steam++.Win7</AssemblyName>
     <RootNamespace>System</RootNamespace>
-    <ApplicationManifest>..\System.Application.SteamTools.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationManifest>
+    <ApplicationIcon>..\System.Application.SteamTools.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +16,12 @@
     </Compile>
     <Compile Include="..\System.Common.CoreLib\Properties\ThisAssembly.cs">
       <Link>Properties\ThisAssembly.cs</Link>
+    </Compile>
+    <Compile Include="..\System.Common.CoreLib\Security\Cryptography\Hashs.cs">
+      <Link>Security\Cryptography\Hashs.cs</Link>
+    </Compile>
+    <Compile Include="..\System.Common.CoreLib\Security\Cryptography\Hashs_SHA1.cs">
+      <Link>Security\Cryptography\Hashs_SHA1.cs</Link>
     </Compile>
   </ItemGroup>
 

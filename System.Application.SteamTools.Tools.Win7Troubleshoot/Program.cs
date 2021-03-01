@@ -13,54 +13,74 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Properties;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
+[assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark + " v" + ThisAssembly.Version)]
 namespace System
 {
     static class Program
     {
         internal static Mutex? mutex;
+        static readonly Process currentProcess = Process.GetCurrentProcess();
+        static string thisFilePath = "";
+        static string appFilePath = "";
 
         [STAThread]
         static void Main(string[] args)
         {
-            mutex = new Mutex(true, Process.GetCurrentProcess().ProcessName, out var isNotRunning);
+            mutex = new Mutex(true, currentProcess.ProcessName, out var isNotRunning);
             if (isNotRunning)
             {
                 try
                 {
                     if (Environment.OSVersion.Platform != PlatformID.Win32NT)
                         throw new PlatformNotSupportedException();
-                    var r = IsWin7SP1OrNotSupportedPlatform(out var error);
-                    if (r.HasValue)
+
+                    thisFilePath = currentProcess.MainModule.FileName;
+                    appFilePath = thisFilePath.Replace(".win7", string.Empty, StringComparison.OrdinalIgnoreCase);
+
+                    var isQuickStart = QuickStart(out var writeQuickStart);
+
+                    if (!isQuickStart)
                     {
-                        if (r.Value) // Win7SP1
+                        var r = IsWin7SP1OrNotSupportedPlatform(out var error);
+                        if (r.HasValue)
                         {
-                            if (!CheckInstalled_KB3063858())
+                            if (r.Value) // Win7SP1
                             {
-                                if (MessageBox.Show(
-                                    SR.Not_Installed_KB3063858,
-                                    SR.Error,
-                                    MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Error) == DialogResult.Yes)
+                                if (!CheckInstalled_KB3063858())
                                 {
-                                    Open_KB3063858_DownloadLink();
+                                    if (MessageBox.Show(
+                                        SR.Not_Installed_KB3063858,
+                                        SR.Error,
+                                        MessageBoxButtons.YesNo,
+                                        MessageBoxIcon.Error) == DialogResult.Yes)
+                                    {
+                                        Open_KB3063858_DownloadLink();
+                                    }
+                                    return;
                                 }
+                            }
+                            else // NotSupportedPlatform - For example, WinXP/Win2000
+                            {
+                                MessageBox.Show(
+                                    error,
+                                    SR.Error,
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
                                 return;
                             }
                         }
-                        else // NotSupportedPlatform - For example, WinXP/Win2000
-                        {
-                            MessageBox.Show(
-                                error,
-                                SR.Error,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-                            return;
-                        }
+                        writeQuickStart?.Invoke();
                     }
+
                     AppRun();
                 }
                 catch (Exception e)
@@ -112,10 +132,8 @@ namespace System
         /// </summary>
         static void AppRun()
         {
-            var fileName = Process.GetCurrentProcess().MainModule.FileName;
-            fileName = fileName.Replace(".win7", string.Empty, StringComparison.OrdinalIgnoreCase);
-            if (string.IsNullOrEmpty(fileName) || !File.Exists(fileName)) return;
-            Process.Start(fileName);
+            if (string.IsNullOrEmpty(appFilePath) || !File.Exists(appFilePath)) return;
+            Process.Start(appFilePath);
         }
 
         /// <summary>
@@ -155,5 +173,105 @@ namespace System
             }
             return null;
         }
+
+        #region QuickStart
+
+        /* 快速启动功能
+         * MSI安装包生成的桌面快捷方式指向当前程序
+         * 在Win7上进行KB补丁检查或其他环境检查需要一定耗时
+         * 预期仅第一次运行检查，检测通过后后续运行不在检查
+         * 使用[计算机名+用户名+系统版本号]进行哈希计算得到的值作为标识
+         * 这样就算整个程序文件夹Copy另一台PC中，也会在第一次运行时重新检查
+         */
+
+        const string QuickStartMarkFileName = "quick_start_id.txt";
+
+        static bool QuickStart(out Action? write)
+        {
+            try
+            {
+                var userDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                var allDesktopPath = GetAllUsersDesktopFolderPath();
+
+                var desktopPaths = new[] { userDesktopPath, allDesktopPath };
+
+                if (desktopPaths.All(x => !File.Exists(Path.Combine(x, Path.GetFileNameWithoutExtension(appFilePath) + ".lnk"))))
+                {
+                    throw new Exception("Shortcut does not exist.");
+                }
+
+                var machineName = Environment.MachineName;
+                var userName = Environment.UserName;
+                var osVersion = Environment.OSVersion.VersionString;
+
+                var hashValue = Hashs.String.SHA1(machineName + userName + osVersion);
+
+                var path = Path.Combine(Path.GetDirectoryName(thisFilePath), QuickStartMarkFileName);
+
+                write = () =>
+                {
+                    try
+                    {
+                        if (File.Exists(path))
+                        {
+                            try
+                            {
+                                File.Delete(path);
+                            }
+                            catch
+                            {
+                            }
+                        }
+                        if (!File.Exists(path))
+                        {
+                            File.WriteAllText(path, hashValue);
+                        }
+                    }
+                    catch
+                    {
+                    }
+                };
+
+                if (File.Exists(path))
+                {
+                    var hashValueByRead = File.ReadAllText(path);
+                    if (hashValueByRead == hashValue)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            File.Delete(path);
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                write = null;
+            }
+
+            return false;
+        }
+
+        [DllImport("shfolder.dll", CharSet = CharSet.Auto)]
+        static extern int SHGetFolderPath(IntPtr hwndOwner, int nFolder, IntPtr hToken, int dwFlags, StringBuilder lpszPath);
+
+        const int MAX_PATH = 260;
+        const int CSIDL_COMMON_DESKTOPDIRECTORY = 0x0019;
+
+        static string GetAllUsersDesktopFolderPath()
+        {
+            var @string = new StringBuilder(MAX_PATH);
+            SHGetFolderPath(IntPtr.Zero, CSIDL_COMMON_DESKTOPDIRECTORY, IntPtr.Zero, 0, @string);
+            return @string.ToString();
+        }
+
+        #endregion
     }
 }

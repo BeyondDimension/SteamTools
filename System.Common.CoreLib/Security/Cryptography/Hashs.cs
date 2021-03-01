@@ -11,7 +11,11 @@ namespace System.Security.Cryptography
     {
         internal const bool def_hash_str_is_lower = true;
 
-        internal static string ToString(byte[] bytes, bool isLower = def_hash_str_is_lower) => string.Join(null, bytes.Select(x => x.ToString($"{(isLower ? "x" : "X")}2")));
+        internal static string ToString(byte[] bytes, bool isLower = def_hash_str_is_lower) => string.Join(null, bytes.Select(x => x.ToString($"{(isLower ? "x" : "X")}2"))
+#if NET35
+            .ToArray()
+#endif
+            );
 
         internal static byte[] ComputeHash<T>(byte[] buffer, T hashAlgorithm) where T : HashAlgorithm
         {
