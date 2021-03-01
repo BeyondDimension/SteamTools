@@ -1,4 +1,8 @@
-﻿using MonoMac.AppKit;
+﻿#if MONO_MAC
+using MonoMac.AppKit;
+#elif XAMARIN_MAC
+using AppKit;
+#endif
 using System.Diagnostics.CodeAnalysis;
 
 namespace System.Application.UI

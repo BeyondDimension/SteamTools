@@ -11,6 +11,15 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
 
+  <!--<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <AllowedReferenceRelatedFileExtensions>
+      --><!-- Prevent default XML and PDB files copied to output in RELEASE. 
+           Only *.allowedextension files will be included, which doesn't exist in my case.
+       --><!--
+      .allowedextension
+    </AllowedReferenceRelatedFileExtensions>
+  </PropertyGroup>-->
+
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <TargetFramework>net5.0-windows</TargetFramework>
   </PropertyGroup>
@@ -42,6 +51,18 @@
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`linux`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Linux\System.Application.SteamTools.Client.Desktop.Linux.csproj"/>
   </ItemGroup>
+
+  <!--<ItemGroup Condition=" '$(OS)' == 'Windows_NT' And $(RuntimeIdentifier.Contains(`osx`)) And $(DefineConstants.Contains(`PUBLISH`)) ">
+    <Reference Include="Xamarin.Mac">
+      <HintPath>$(MSBuildExtensionsPath)\..\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\Xamarin.Mac\v2.0\Xamarin.Mac.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And (($(RuntimeIdentifier.Contains(`osx`)) And $(DefineConstants.Contains(`PUBLISH`))) Or !$(DefineConstants.Contains(`PUBLISH`))) ">
+    --><!--<Reference Include="Xamarin.Mac">
+      <HintPath>$(MSBuildExtensionsPath)/???/Xamarin.Mac.dll</HintPath>
+    </Reference>--><!--
+  </ItemGroup>-->
 
   <ItemGroup>
     <PackageReference Include="MessageBox.Avalonia" Version="1.0.5">

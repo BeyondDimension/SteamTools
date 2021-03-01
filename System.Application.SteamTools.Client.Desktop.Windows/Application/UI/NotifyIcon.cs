@@ -35,6 +35,13 @@ namespace System.Application.UI
             {
                 try
                 {
+                    if (string.IsNullOrWhiteSpace(value))
+                    {
+                        _icon = null;
+                        _iconPath = string.Empty;
+                        return;
+                    }
+
                     // Check if path is a file system or resource path
                     if (value.StartsWith("resm:") || value.StartsWith("avares://"))
                     {

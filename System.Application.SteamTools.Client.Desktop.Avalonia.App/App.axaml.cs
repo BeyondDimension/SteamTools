@@ -19,8 +19,6 @@ using Avalonia.Themes.Fluent;
 #if WINDOWS
 using System.Windows.Shell;
 using WpfApplication = System.Windows.Application;
-#elif MAC
-using MonoMac.AppKit;
 #endif
 
 namespace System.Application.UI
@@ -41,6 +39,9 @@ namespace System.Application.UI
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
+
+            Name = ThisAssembly.AssemblyTrademark;
+
             MainWindow = new MainWindow
             {
                 DataContext = new MainWindowViewModel(),
@@ -64,10 +65,7 @@ namespace System.Application.UI
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
 #if MAC
-                NSApplication.Init();
-                var appDelegate = DI.Get<AppDelegate>();
-                //AvaloniaLocator.CurrentMutable.Bind<AppDelegate>().ToConstant(appDelegate);
-                NSApplication.SharedApplication.Delegate = appDelegate;
+                AppDelegate.Init();
 #endif
 
                 #region NotifyIcon

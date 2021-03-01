@@ -2,8 +2,11 @@
 using Avalonia.ReactiveUI;
 using NLog;
 using System.IO;
+using System.Properties;
+using System.Reflection;
 using System.Threading.Tasks;
 
+[assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark + " v" + ThisAssembly.Version)]
 namespace System.Application.UI
 {
     static class Program

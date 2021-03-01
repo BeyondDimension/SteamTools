@@ -11,7 +11,7 @@ namespace System.Application.UI.Views
     /// </summary>
     public partial class Form1 : Form
     {
-        readonly string app_path = @"\System.Application.SteamTools.Client.Desktop.Avalonia.App\bin\Release\Publish\win-x64";
+        readonly string app_path = @"\System.Application.SteamTools.Client.Desktop.Avalonia.App\bin\Release\Publish\win-x86";
 
         static string GetPath(string path)
         {

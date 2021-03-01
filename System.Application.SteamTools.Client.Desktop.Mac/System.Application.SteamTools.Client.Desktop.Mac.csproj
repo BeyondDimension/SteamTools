@@ -3,7 +3,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>System</RootNamespace>
+    <DefineConstants>MONO_MAC;$(DefineConstants)</DefineConstants>
+    <!--<DefineConstants>XAMARIN_MAC;$(DefineConstants)</DefineConstants>-->
   </PropertyGroup>
+
+  <!--<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <AllowedReferenceRelatedFileExtensions>
+      --><!-- Prevent default XML and PDB files copied to output in RELEASE. 
+           Only *.allowedextension files will be included, which doesn't exist in my case.
+       --><!--
+      .allowedextension
+    </AllowedReferenceRelatedFileExtensions>
+  </PropertyGroup>-->
 
   <ItemGroup>
     <Compile Include="..\System.Common.CoreLib\Properties\AssemblyInfo.cs">
@@ -14,6 +25,18 @@
   <ItemGroup>
     <PackageReference Include="MonoMac.NetStandard" Version="0.0.4" />
   </ItemGroup>
+
+  <!--<ItemGroup Condition=" '$(OS)' == 'Windows_NT' ">
+    <Reference Include="Xamarin.Mac">
+      <HintPath>$(MSBuildExtensionsPath)\..\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\Xamarin.Mac\v2.0\Xamarin.Mac.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' ">
+    --><!--<Reference Include="Xamarin.Mac">
+      <HintPath>$(MSBuildExtensionsPath)/???/Xamarin.Mac.dll</HintPath>
+    </Reference>--><!--
+  </ItemGroup>-->
 
   <ItemGroup>
     <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop\System.Application.SteamTools.Client.Desktop.csproj" />

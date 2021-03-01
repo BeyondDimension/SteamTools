@@ -2,7 +2,7 @@
 {
     public static class ThisAssembly
     {
-        public const string Version = "1.2.0.0";
+        public const string Version = "2.0.0.0";
 
         /// <summary>
         /// 定义程序集清单的产品名自定义属性

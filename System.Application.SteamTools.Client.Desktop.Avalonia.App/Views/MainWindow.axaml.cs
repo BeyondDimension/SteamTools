@@ -1,9 +1,7 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using System.Application.UI.ViewModels;
-using System.ComponentModel;
 using Avalonia.Platform;
+using System.ComponentModel;
 
 namespace System.Application.UI.Views
 {
@@ -25,10 +23,10 @@ namespace System.Application.UI.Views
 #endif
         }
 
-        protected override void OnClosing(CancelEventArgs e) 
+        protected override void OnClosing(CancelEventArgs e)
         {
             e.Cancel = true;
-            this.Hide();
+            Hide();
             base.OnClosed(e);
         }
 

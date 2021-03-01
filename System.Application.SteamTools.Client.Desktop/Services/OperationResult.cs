@@ -41,7 +41,7 @@ namespace System.Application.Services
         /// <param name="resultType">操作结果类型</param>
         /// <param name="message">返回消息</param>
         /// <param name="appendData">返回数据</param>
-        public OperationResultBase(OperationResultType resultType, string message, T appendData)
+        public OperationResultBase(OperationResultType resultType, string message, T? appendData)
             : this(resultType, message)
         {
             AppendData = appendData;
@@ -66,7 +66,7 @@ namespace System.Application.Services
         /// <param name="message">返回消息</param>
         /// <param name="logMessage">日志记录消息</param>
         /// <param name="appendData">返回数据</param>
-        public OperationResultBase(OperationResultType resultType, string message, string logMessage, T appendData)
+        public OperationResultBase(OperationResultType resultType, string message, string logMessage, T? appendData)
             : this(resultType, message, logMessage)
         {
             AppendData = appendData;
@@ -168,6 +168,8 @@ namespace System.Application.Services
         }
 
         [NotNull, DisallowNull] // C# 8 not null
+#pragma warning disable CS8765 // 参数类型的为 Null 性与重写成员不匹配(可能是由于为 Null 性特性)。
         public sealed override T? AppendData { get; set; } = new T();
+#pragma warning restore CS8765 // 参数类型的为 Null 性与重写成员不匹配(可能是由于为 Null 性特性)。
     }
 }
