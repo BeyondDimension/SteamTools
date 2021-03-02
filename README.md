@@ -70,7 +70,7 @@
 查看这个 [milestones](https://github.com/SteamTools-Team/SteamTools/milestones) 来了解我们下一步的开发计划，并随时提出问题。
 
 ## ⌨️ 开发环境
-[Visual Studio 2019 版本 16.8 或更高版本](https://visualstudio.microsoft.com/zh-hans/vs/) 或 [Visual Studio for Mac](https://visualstudio.microsoft.com/zh-hans/vs/mac/) 或 [JetBrains Rider](https://www.jetbrains.com/rider/) 或 [Visual Studio Code](https://code.visualstudio.com/)
+[Visual Studio 2019 版本 16.8 或更高版本](https://visualstudio.microsoft.com/zh-hans/vs/) 或 [Visual Studio for Mac](https://visualstudio.microsoft.com/zh-hans/vs/mac/) 或 [JetBrains Rider](https://www.jetbrains.com/rider/) 或 ~~[Visual Studio Code](https://code.visualstudio.com/)~~
 - 工作负载
 	- Web 和云
 		- ASP.NET 和 Web 开发

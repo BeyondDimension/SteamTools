@@ -9,7 +9,7 @@ namespace System.Application.Services
     {
         const string TAG = "ConfigFileS";
 
-        const string ConfigFileName = "Config.json";
+        const string ConfigFileName = "Config.mpo";
 
         /// <summary>
         /// 获取或设置 Steam++ 应用 用户配置项

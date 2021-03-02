@@ -103,6 +103,8 @@ namespace System.Application.Models
         /// </summary>
         NetworkConnectionInterruption,
 
+        EmptyUserAgent,
+
         #endregion
     }
 }

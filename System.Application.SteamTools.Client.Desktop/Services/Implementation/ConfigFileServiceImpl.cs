@@ -1,6 +1,5 @@
 ﻿using System.Application.Models;
 using System.IO;
-using System.Text;
 using static System.Application.Services.IConfigFileService;
 
 namespace System.Application.Services.Implementation
@@ -21,8 +20,8 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                var jsonStr = Serializable.SJSON(UserSettings);
-                File.WriteAllText(ConfigFilePath, jsonStr, Encoding.UTF8);
+                var data = Serializable.SMP(UserSettings);
+                File.WriteAllBytes(ConfigFilePath, data);
             }
             catch (Exception e)
             {
@@ -34,8 +33,8 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                var jsonStr = File.ReadAllText(ConfigFilePath);
-                return Serializable.DJSON<AppUserSettings>(jsonStr);
+                var data = File.ReadAllBytes(ConfigFilePath);
+                return Serializable.DMP<AppUserSettings>(data);
             }
             catch (Exception e)
             {
