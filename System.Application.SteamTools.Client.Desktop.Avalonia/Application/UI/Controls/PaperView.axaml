@@ -6,7 +6,7 @@
              Width="150"
              Height="225"
              Background="Transparent"
-             x:Class="System.Application.UI.Views.Controls.CardView">
+             x:Class="System.Application.UI.Views.Controls.PaperView">
     <UserControl.Styles>
 
     </UserControl.Styles>
