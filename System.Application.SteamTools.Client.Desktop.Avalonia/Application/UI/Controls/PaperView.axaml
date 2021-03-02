@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Width="150"
+             Height="225"
+             Background="Transparent"
+             x:Class="System.Application.UI.Views.Controls.CardView">
+    <UserControl.Styles>
+
+    </UserControl.Styles>
+    <Border>
+        <!--<BoxShadow>
+        </BoxShadow>-->
+        <Panel>
+            <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/app.png"></Image>
+            <Label IsHitTestVisible="False" Content="Test" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18"></Label>
+        </Panel>
+    </Border>
+</UserControl>

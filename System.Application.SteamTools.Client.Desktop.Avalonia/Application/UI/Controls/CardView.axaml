@@ -22,8 +22,22 @@
                 </Animation>
             </Style.Animations>
         </Style>
+        <Style Selector="Border">
+            <Style.Animations>
+                <Animation Duration="0:0:0.1" FillMode="Forward">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="BorderBrush" Value="#FF2F2F37"/>
+                        <Setter Property="BorderThickness" Value=".88"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="BorderBrush" Value="#FF616167"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
     </UserControl.Styles>
-    <Border BorderBrush="Gray" BorderThickness="0">
+    <Border>
         <Panel>
             <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/app.png"></Image>
             <Label IsHitTestVisible="False" Content="Test" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18"></Label>

@@ -30,18 +30,9 @@
                         <ComboBoxItem>Dark</ComboBoxItem>
                     </ComboBox>
                 </StackPanel>
-                <Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness="1" Margin="15"/>
+                <Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness="1" Margin="10 15"/>
             </StackPanel>
             
-            <StackPanel Orientation="Vertical"
-						HorizontalAlignment="Stretch"
-						Spacing="16"
-						Grid.Row="1">
-                <TextBlock FontSize="18" Text="{Binding Path=Res.Settings_Auth,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                <StackPanel Orientation="Vertical">
-                </StackPanel>
-                <Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness="1" Margin="15"/>
-            </StackPanel>
         </Grid>
     </StackPanel>
 </UserControl>

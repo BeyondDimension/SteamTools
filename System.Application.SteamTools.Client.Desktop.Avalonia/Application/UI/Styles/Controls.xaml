@@ -1,9 +1,6 @@
-﻿<controls:ResourceDictionary xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:Avalonia.Controls;assembly=Avalonia.Styling" 
-    xmlns:markupextensions="clr-namespace:Avalonia.Markup.Xaml.MarkupExtensions;assembly=Avalonia.Markup.Xaml">
-    <controls:ResourceDictionary.MergedDictionaries>
-        <markupextensions:ResourceInclude  Source="/Application/UI/Styles/Theme.Dark.xaml" />
-        <markupextensions:ResourceInclude  Source="/Application/UI/Styles/Theme.Light.xaml" />
-    </controls:ResourceDictionary.MergedDictionaries>
-</controls:ResourceDictionary>
+﻿<Styles  xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StyleInclude  Source="/Application/UI/Styles/Controls/SideBar.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/TextBox.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/Border.xaml" />
+</Styles>

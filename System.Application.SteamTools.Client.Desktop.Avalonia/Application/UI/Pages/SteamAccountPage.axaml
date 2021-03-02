@@ -4,14 +4,13 @@
              xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.SteamAccountPage">
 	<Design.DataContext>
 		<vm:MainWindowViewModel/>
 	</Design.DataContext>
 	<StackPanel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}" Background="Transparent" Spacing="20">
-		<Grid ColumnDefinitions="Auto,Auto">
-        
-		</Grid>
+        <controls:CardView></controls:CardView>
 	</StackPanel>
 </UserControl>

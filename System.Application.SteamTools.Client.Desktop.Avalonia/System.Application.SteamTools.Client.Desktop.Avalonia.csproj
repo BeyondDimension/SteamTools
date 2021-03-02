@@ -20,6 +20,8 @@
 
   <ItemGroup>
     <None Remove="Application\UI\Styles\Controls.xaml" />
+    <None Remove="Application\UI\Styles\Controls\Border.xaml" />
+    <None Remove="Application\UI\Styles\Controls\TextBox.xaml" />
     <None Remove="Application\UI\Styles\ThemeDark.xaml" />
     <None Remove="Application\UI\Styles\ThemeLight.xaml" />
   </ItemGroup>
@@ -52,6 +54,12 @@
     <AvaloniaResource Update="Application\UI\Styles\Controls.xaml">
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>
+    <AvaloniaResource Update="Application\UI\Styles\Controls\Border.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+    <AvaloniaResource Update="Application\UI\Styles\Controls\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
     <AvaloniaResource Update="Application\UI\Styles\ThemeDark.xaml">
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>
@@ -61,6 +69,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Application\UI\Controls\PaperView.axaml.cs">
+      <DependentUpon>PaperView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Application\UI\Pages\About\About_OpenSourcePage.axaml.cs">
       <DependentUpon>About_OpenSourcePage.axaml</DependentUpon>
     </Compile>
