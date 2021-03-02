@@ -4,14 +4,11 @@
              xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:System.Application.Models;assembly=System.Application.SteamTools.Client"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.About_OpenSourcePage">
-	<Design.DataContext>
-		<vm:MainWindowViewModel/>
-	</Design.DataContext>
-	<StackPanel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}" Background="Transparent" Spacing="20">
-        <TextBlock Text="">
-            
+    <ScrollViewer HorizontalAlignment="Stretch" Background="Transparent">
+        <TextBlock Text="{Binding Source={x:Static models:OpenSourceLibrary.StringValues},Mode=OneWay}">
         </TextBlock>
-	</StackPanel>
+    </ScrollViewer>
 </UserControl>

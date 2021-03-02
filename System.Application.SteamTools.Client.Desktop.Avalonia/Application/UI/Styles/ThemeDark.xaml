@@ -1,4 +1,4 @@
-﻿<Style xmlns="https://github.com/avaloniaui"
+<Style xmlns="https://github.com/avaloniaui"
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        xmlns:sys="clr-namespace:System;assembly=netstandard">
     <Style.Resources>
@@ -8,25 +8,22 @@
         <Color x:Key="ThemeAccentColor3">#66119EDA</Color>
         <Color x:Key="ThemeAccentColor4">#33119EDA</Color>
 
-        <Color x:Key="ThemeBackgroundColor">#FFFFFFFF</Color>
-        <Color x:Key="ThemeBorderLowColor">#FFAAAAAA</Color>
-        <Color x:Key="ThemeBorderMidColor">#FF888888</Color>
-        <Color x:Key="ThemeBorderHighColor">#FF333333</Color>
-
-
-        <Color x:Key="ThemeControlLowColor">#FF868999</Color>
-        <Color x:Key="ThemeControlMidColor">#FFF5F5F5</Color>
-        <Color x:Key="ThemeControlMidHighColor">#FFC2C3C9</Color>
-        <Color x:Key="ThemeControlHighColor">#FF686868</Color>
-        <Color x:Key="ThemeControlVeryHighColor">#FF5B5B5B</Color>
-
-        <Color x:Key="ThemeControlHighlightLowColor">#FFF0F0F0</Color>
-        <Color x:Key="ThemeControlHighlightMidColor">#FFD0D0D0</Color>
-        <Color x:Key="ThemeControlHighlightHighColor">#FF808080</Color>
-        <Color x:Key="ThemeForegroundColor">#FF000000</Color>
+        <Color x:Key="ThemeBackgroundColor">#FF282828</Color>
+        <Color x:Key="ThemeBorderLowColor">#FF505050</Color>
+        <Color x:Key="ThemeBorderMidColor">#FF808080</Color>
+        <Color x:Key="ThemeBorderHighColor">#FFA0A0A0</Color>
+        <Color x:Key="ThemeControlLowColor">#FF282828</Color>
+        <Color x:Key="ThemeControlMidColor">#FF505050</Color>
+        <Color x:Key="ThemeControlMidHighColor">#FF686868</Color>
+        <Color x:Key="ThemeControlHighColor">#FF808080</Color>
+        <Color x:Key="ThemeControlVeryHighColor">#FFEFEBEF</Color>
+        <Color x:Key="ThemeControlHighlightLowColor">#FFA8A8A8</Color>
+        <Color x:Key="ThemeControlHighlightMidColor">#FF828282</Color>
+        <Color x:Key="ThemeControlHighlightHighColor">#FF505050</Color>
+        <Color x:Key="ThemeForegroundColor">#FFDEDEDE</Color>
         <Color x:Key="ThemeForegroundLowColor">#FF808080</Color>
 
-        <Color x:Key="HighlightColor">#FF086F9E</Color>
+        <Color x:Key="HighlightColor">#FF119EDA</Color>
         <Color x:Key="HighlightForegroundColor">#FFFFFFFF</Color>
         <Color x:Key="ErrorColor">#FFFF0000</Color>
         <Color x:Key="ErrorLowColor">#10FF0000</Color>
@@ -65,8 +62,8 @@
         <SolidColorBrush x:Key="TimePickerFlyoutPresenterHighlightFill" Color="{DynamicResource ThemeAccentColor}" Opacity="0.4" />
 
         <SolidColorBrush x:Key="ThemeControlTransparentBrush" Color="Transparent" />
-
-        <Thickness x:Key="ThemeBorderThickness">1</Thickness>
+      
+        <Thickness x:Key="ThemeBorderThickness">1,1,1,1</Thickness>
         <sys:Double x:Key="ThemeDisabledOpacity">0.5</sys:Double>
 
         <sys:Double x:Key="FontSizeSmall">10</sys:Double>

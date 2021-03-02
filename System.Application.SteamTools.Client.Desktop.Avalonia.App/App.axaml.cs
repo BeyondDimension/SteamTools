@@ -15,6 +15,7 @@ using ShutdownMode = Avalonia.Controls.ShutdownMode;
 using Window = Avalonia.Controls.Window;
 using WindowState = Avalonia.Controls.WindowState;
 using Avalonia.Themes.Fluent;
+using Avalonia.Markup.Xaml.Styling;
 
 #if WINDOWS
 using System.Windows.Shell;
@@ -95,16 +96,17 @@ namespace System.Application.UI
                     {
                         Header = "Light",
                         Command = ReactiveCommand.Create(()=>{
-                          if(fluentTheme is not null)
-                                fluentTheme.Mode= FluentThemeMode.Light;
-                          })
+                          Styles[0] = new FluentTheme(new Uri("avares://Avalonia.Themes.Fluent/FluentLight.xaml"))
+                            { Mode= FluentThemeMode.Light };
+                          //Styles[1] = new StyleInclude(new Uri("avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeLight.xaml"));
+                        })
                     },
                     new MenuItem()
                     {
                         Header = "Dark",
                         Command = ReactiveCommand.Create(()=>{
-                        if(fluentTheme is not null)
-                                fluentTheme.Mode= FluentThemeMode.Dark;
+                          Styles[0] = new FluentTheme(new Uri("avares://Avalonia.Themes.Fluent/FluentDark.xaml")){ Mode= FluentThemeMode.Dark };
+                          //Styles[1] = new StyleInclude(new Uri("avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeDark.xaml"));
                         })
                     },
                     new MenuItem()
@@ -129,14 +131,6 @@ namespace System.Application.UI
                 });
 
                 #endregion
-
-                foreach (var style in App.Current.Styles)
-                {
-                    if (style is FluentTheme fluent)
-                    {
-                        fluentTheme = fluent;
-                    }
-                }
 
 #if WINDOWS
                 AddJumpTask();

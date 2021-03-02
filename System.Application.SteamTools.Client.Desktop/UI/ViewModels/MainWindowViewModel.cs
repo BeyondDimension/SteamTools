@@ -28,23 +28,36 @@ namespace System.Application.UI.ViewModels
         #endregion
 
         public StartPageViewModel StartPage { get; }
-        public GameListPageViewModel GameListPage { get; }
+        public CommunityProxyPageViewModel CommunityProxyPage { get; }
         public SteamAccountPageViewModel SteamAccountPage { get; }
-
+        public GameListPageViewModel GameListPage { get; }
+        public LocalAuthPageViewModel LocalAuthPage { get; }
+        public SteamIdlePageViewModel SteamIdlePage { get; }
+        public ArchiSteamFarmPlusPageViewModel ASFPage { get; }
+        public GameRelatedPageViewModel GameRelatedPage { get; }
+        public OtherPlatformPageViewModel OtherPlatformPage { get; }
 
         public IList<TabItemViewModel> TabItems { get; set; }
 
 
 
+#pragma warning disable CS8618 // SelectedItem不会为null
         public MainWindowViewModel() : base()
+#pragma warning restore CS8618 // 
         {
             Title = ThisAssembly.AssemblyTrademark;
 
             this.TabItems = new List<TabItemViewModel>
             {
                 (this.StartPage = new StartPageViewModel().AddTo(this)),
+                (this.CommunityProxyPage = new CommunityProxyPageViewModel().AddTo(this)),
                 (this.SteamAccountPage = new SteamAccountPageViewModel().AddTo(this)),
                 (this.GameListPage = new GameListPageViewModel().AddTo(this)),
+                (this.LocalAuthPage = new LocalAuthPageViewModel().AddTo(this)),
+                (this.SteamIdlePage = new SteamIdlePageViewModel().AddTo(this)),
+                (this.ASFPage = new ArchiSteamFarmPlusPageViewModel().AddTo(this)),
+                (this.GameRelatedPage = new GameRelatedPageViewModel().AddTo(this)),
+                (this.OtherPlatformPage = new OtherPlatformPageViewModel().AddTo(this)),
 
 
                 

@@ -70,6 +70,60 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 常见问题疑难解答 的本地化字符串。
+        /// </summary>
+        public static string About_FAQ {
+            get {
+                return ResourceManager.GetString("About_FAQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加入我们 的本地化字符串。
+        /// </summary>
+        public static string About_Joinus {
+            get {
+                return ResourceManager.GetString("About_Joinus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 开放源代码许可 的本地化字符串。
+        /// </summary>
+        public static string About_OpenSource {
+            get {
+                return ResourceManager.GetString("About_OpenSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 此软件 的本地化字符串。
+        /// </summary>
+        public static string About_ThisSoft {
+            get {
+                return ResourceManager.GetString("About_ThisSoft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 更新记录 的本地化字符串。
+        /// </summary>
+        public static string About_UpdateHistory {
+            get {
+                return ResourceManager.GetString("About_UpdateHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ASF Plus 的本地化字符串。
+        /// </summary>
+        public static string ArchiSteamFarmPlus {
+            get {
+                return ResourceManager.GetString("ArchiSteamFarmPlus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 社区加速 的本地化字符串。
         /// </summary>
         public static string CommunityFix {
@@ -160,6 +214,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 其它平台 的本地化字符串。
+        /// </summary>
+        public static string OtherGamePlaform {
+            get {
+                return ResourceManager.GetString("OtherGamePlaform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 设置 的本地化字符串。
         /// </summary>
         public static string Settings {
@@ -183,6 +246,24 @@ namespace System.Application.UI.Resx {
         public static string Settings_General {
             get {
                 return ResourceManager.GetString("Settings_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 主题 的本地化字符串。
+        /// </summary>
+        public static string Settings_Theme {
+            get {
+                return ResourceManager.GetString("Settings_Theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 界面设置 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI {
+            get {
+                return ResourceManager.GetString("Settings_UI", resourceCulture);
             }
         }
         

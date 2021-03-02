@@ -20,8 +20,8 @@
 
   <ItemGroup>
     <None Remove="Application\UI\Styles\Controls.xaml" />
-    <None Remove="Application\UI\Styles\Theme.Dark.xaml" />
-    <None Remove="Application\UI\Styles\Theme.light.xaml" />
+    <None Remove="Application\UI\Styles\ThemeDark.xaml" />
+    <None Remove="Application\UI\Styles\ThemeLight.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,10 +52,10 @@
     <AvaloniaResource Update="Application\UI\Styles\Controls.xaml">
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>
-    <AvaloniaResource Update="Application\UI\Styles\Theme.Light.xaml">
+    <AvaloniaResource Update="Application\UI\Styles\ThemeDark.xaml">
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>
-    <AvaloniaResource Update="Application\UI\Styles\Theme.Dark.xaml">
+    <AvaloniaResource Update="Application\UI\Styles\ThemeLight.xaml">
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>
   </ItemGroup>
@@ -72,6 +72,9 @@
     </Compile>
     <Compile Update="Application\UI\Pages\DebugPage.axaml.cs">
       <DependentUpon>DebugPage.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Application\UI\Pages\Settings\Settings_UI.axaml.cs">
+      <DependentUpon>Settings_UIaxaml</DependentUpon>
     </Compile>
     <Compile Update="Application\UI\Pages\StartPage.axaml.cs">
       <DependentUpon>StartPage.axaml</DependentUpon>

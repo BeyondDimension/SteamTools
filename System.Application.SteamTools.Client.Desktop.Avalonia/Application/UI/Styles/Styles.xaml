@@ -8,7 +8,7 @@
     </Border>
   </Design.PreviewWith>
   <Styles.Resources>
-    <Thickness x:Key="PageMargin">40 0 40 0</Thickness>
+    <Thickness x:Key="PageMargin">20 0 20 0</Thickness>
     <!--<FontFamily x:Key="CodeFontFamily">avares://Steam++/Assets/Fonts#Source Code Pro</FontFamily>-->
   </Styles.Resources>
 

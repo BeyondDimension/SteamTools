@@ -17,45 +17,20 @@ namespace System.Application.UI.ViewModels
 
         public SettingsPageViewModel()
         {
-            //Languages = R.Languages.Select(Convert).ToList();
+
         }
 
-        //int mCurrentLanguageIndex;
+        KeyValuePair<string, string> _CurrentLanguage = R.Languages.First();
+        public KeyValuePair<string, string> CurrentLanguage
+        {
+            get => _CurrentLanguage;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _CurrentLanguage, value);
+                R.ChangeLanguage(_CurrentLanguage.Key);
+            }
+        }
 
-        //public int CurrentLanguageIndex
-        //{
-        //    get => mCurrentLanguageIndex;
-        //    set
-        //    {
-        //        this.RaiseAndSetIfChanged(ref mCurrentLanguageIndex, value);
-        //        var cultureName = Languages[value].Tag?.ToString();
-        //        if (string.IsNullOrWhiteSpace(cultureName))
-        //        {
-        //            cultureName = R.DefaultCurrentUICulture?.Name;
-        //        }
-        //        if (!string.IsNullOrWhiteSpace(cultureName))
-        //        {
-        //            R.ChangeLanguage(cultureName);
-        //        }
-        //        //if (!IsInDesignMode)
-        //        //{
-        //        //    var localizationService = DI.Get<ILocalizationService>();
-        //        //    var cultureName = Languages[value].Tag?.ToString();
-        //        //    if (string.IsNullOrWhiteSpace(cultureName))
-        //        //    {
-        //        //        cultureName = localizationService.DefaultCurrentUICulture?.Name;
-        //        //    }
-        //        //    if (!string.IsNullOrWhiteSpace(cultureName))
-        //        //    {
-        //        //        localizationService.ChangeLanguage(cultureName);
-        //        //    }
-        //        //}
-        //    }
-        //}
 
-        //public List<Object> Languages { get; }
-
-        //static Object Convert(KeyValuePair<string, string> pair)
-        //    => new Object { Tag = pair.Key, Content = pair.Value };
     }
 }

@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="600"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
         xmlns:pages="clr-namespace:System.Application.UI.Views.Pages"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
@@ -13,8 +13,8 @@
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-    <Grid>
-        <DockPanel HorizontalAlignment="Stretch">
+    <Grid RowDefinitions="Auto,Auto,*">
+        <DockPanel Grid.Row="0" Grid.RowSpan="3" HorizontalAlignment="Stretch">
             <ExperimentalAcrylicBorder IsHitTestVisible="False" DockPanel.Dock="Left" Width="240">
                 <ExperimentalAcrylicBorder.Material>
                     <ExperimentalAcrylicMaterial TintColor="black" MaterialOpacity="0.85" TintOpacity="1"/>
@@ -28,14 +28,15 @@
                 <ExperimentalAcrylicBorder.Material>
                     <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeBackgroundBrush}" MaterialOpacity="0.85" TintOpacity="1"/>
                 </ExperimentalAcrylicBorder.Material>
-                <Label Content="{ReflectionBinding #TabControl.SelectedItem.Name}" Margin="20 10" FontSize="32"/>
+                <Label Content="{ReflectionBinding #TabControl.SelectedItem.Name}" Margin="20 10 20 0" FontSize="32"/>
             </ExperimentalAcrylicBorder>
         </DockPanel>
-        <TabControl x:Name="TabControl"
+        <Border Grid.Row="1" BorderThickness="0" Height="70"/>
+        <TabControl x:Name="TabControl" 
+                    Grid.Row="2"
                     Items="{Binding TabItems}"
                     SelectedItem="{Binding SelectedItem}"
-                    Classes="sidebar"
-                    Margin="0 40 0 0">
+                    Classes="sidebar">
             <TabControl.DataTemplates>
                 <DataTemplate DataType="vm:DebugPageViewModel">
                     <pages:DebugPage/>
@@ -65,7 +66,6 @@
         </TabControl>
         <!--<TabControl x:Name="TabControl" Classes="sidebar" Margin="0 30 0 0">
             <TabItem Header="{Binding Path=Res.Welcome,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalContentAlignment="Center" Margin="0 10 0 0">
-              <controls:CardView></controls:CardView>
             </TabItem>
             <TabItem Header="{Binding Path=Res.CommunityFix,Mode=OneWay,Source={x:Static resx:R.Current}}">
             </TabItem>

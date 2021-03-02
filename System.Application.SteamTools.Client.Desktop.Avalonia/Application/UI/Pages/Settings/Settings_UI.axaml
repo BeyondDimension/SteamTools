@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="System.Application.UI.Views.Pages.Settings_UI">
+    <StackPanel HorizontalAlignment="Stretch" Background="Transparent" Spacing="20">
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
+            <StackPanel Orientation="Vertical"
+				  HorizontalAlignment="Stretch"
+				  Spacing="16">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding Path=Res.Language,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 0 0 20"/>
+                    <ComboBox HorizontalAlignment="Stretch"
+							  SelectedItem="{Binding CurrentLanguage}"
+							  Items="{Binding Mode=OneWay,Source={x:Static resx:R.Languages}}" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value,Mode=OneWay}"></TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding Path=Res.Settings_Theme,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 0 0 20"/>
+                    <ComboBox x:Name="Themes" SelectedIndex="0" HorizontalAlignment="Stretch">
+                        <ComboBoxItem>Light</ComboBoxItem>
+                        <ComboBoxItem>Dark</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness="1" Margin="15"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Vertical"
+						HorizontalAlignment="Stretch"
+						Spacing="16"
+						Grid.Row="1">
+                <TextBlock FontSize="18" Text="{Binding Path=Res.Settings_Auth,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                <StackPanel Orientation="Vertical">
+                </StackPanel>
+                <Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness="1" Margin="15"/>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</UserControl>
