@@ -16,7 +16,7 @@ namespace System.Application.Converters
     {
         public static BitmapAssetValueConverter Instance = new BitmapAssetValueConverter();
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
                 return null;
@@ -24,27 +24,23 @@ namespace System.Application.Converters
             if (value is string rawUri && targetType == typeof(IBitmap))
             {
                 Uri uri;
-
                 // Allow for assembly overrides
                 if (rawUri.StartsWith("avares://"))
                 {
                     uri = new Uri(rawUri);
-                }
-                else if (rawUri.StartsWith("http://") || rawUri.StartsWith("https://"))
-                {
-                    //网络请求
-
                 }
                 else
                 {
                     string assemblyName = Assembly.GetEntryAssembly().GetName().Name;
                     uri = new Uri($"avares://{assemblyName}{rawUri}");
                 }
-
                 var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
                 var asset = assets.Open(uri);
-
                 return new Bitmap(asset);
+            }
+            else if (value is Stream s)
+            {
+                return new Bitmap(s);
             }
             throw new NotSupportedException();
         }

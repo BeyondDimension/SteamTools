@@ -60,7 +60,7 @@ namespace System.Application.Mvvm
         /// <returns>值是否已更改</returns>
         [NotifyPropertyChangedInvocator]
         protected bool RaisePropertyChangedIfSet<T>(ref T source, T value, string[]? relatedProperties = null,
-            [CallerMemberName] string propertyName = null)
+            [CallerMemberName] string propertyName = "")
         {
             // 如果值相同则什么都不做
             if (EqualityComparer<T>.Default.Equals(source, value))
@@ -87,7 +87,7 @@ namespace System.Application.Mvvm
         /// <returns>值是否已更改</returns>
         [NotifyPropertyChangedInvocator]
         protected bool RaisePropertyChangedIfSet<T>(ref T source, T value, string relatedProperty,
-            [CallerMemberName] string propertyName = null)
+            [CallerMemberName] string propertyName = "")
         {
             return RaisePropertyChangedIfSet(ref source, value, new[] { relatedProperty }, propertyName);
         }

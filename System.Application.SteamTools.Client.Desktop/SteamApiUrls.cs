@@ -6,7 +6,7 @@
         public const string MY_WISHLIST_URL = "https://store.steampowered.com/wishlist/profiles/76561198289531723/";
         public const string MY_MINIPROFILE_URL = "https://steamcommunity.com/miniprofile/329265995";
 
-        public const string STEAM_PROFILES_URL = "https://steamcommunity.com/profiles/{0}/badges/";
+        public const string STEAM_PROFILES_URL = "https://steamcommunity.com/profiles/{0}";
 
         public const string STEAM_LOGIN_URL = "https://steamcommunity.com/login/home/?goto=my/profile";
         public const string STEAM_BADGES_URL = "https://steamcommunity.com/profiles/{0}/badges/";

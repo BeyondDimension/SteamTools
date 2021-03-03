@@ -14,6 +14,7 @@
     <UserControl.Resources>
         <converters:IsNullConverter x:Key="IsNullConverter" />
         <converters:CardTitleToPlaceholderConverter x:Key="CardTitleToPlaceholderConverter" />
+        <converters:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
     </UserControl.Resources>
     <Panel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}">
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
@@ -28,7 +29,10 @@
                             <DockPanel LastChildFill="True">
                                 <Border DockPanel.Dock="Top" Classes="paper">
                                     <Panel Width="200">
-                                        <Image Width="200" Stretch="Uniform" Source="{Binding AvatarMedium}" />
+                                        <Image Width="200" Stretch="Uniform" Source="{Binding AvatarMediumStream,Converter={StaticResource BitmapAssetValueConverter}}" />
+                                        <DrawingPresenter>
+                                            
+                                        </DrawingPresenter>
                                     </Panel>
                                 </Border>
                             </DockPanel>

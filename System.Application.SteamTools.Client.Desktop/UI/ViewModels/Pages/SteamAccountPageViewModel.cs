@@ -4,6 +4,7 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace System.Application.UI.ViewModels
     public class SteamAccountPageViewModel : TabItemViewModel
     {
         private readonly ISteamService steamService = DI.Get<ISteamService>();
+        private readonly IHttpService httpService = DI.Get<IHttpService>();
         private readonly ISteamworksWebApiService webApiService = DI.Get<ISteamworksWebApiService>();
 
         public override string Name
@@ -53,6 +55,7 @@ namespace System.Application.UI.ViewModels
                 users[i].WantsOfflineMode = temp.WantsOfflineMode;
                 users[i].SkipOfflineModeWarning = temp.SkipOfflineModeWarning;
                 users[i].OriginVdfString = temp.OriginVdfString;
+                users[i].AvatarMediumStream = string.IsNullOrEmpty(users[i].AvatarMedium) ? null : await httpService.GetAsync<Stream>(users[i].AvatarMedium);
             }
             SteamUsers = new ObservableCollection<SteamUser>(users.OrderByDescending(o => o.RememberPassword).ThenByDescending(o => o.LastLoginTime).ToList());
         }

@@ -1,4 +1,5 @@
 ﻿using System.Application.Models;
+using System.IO;
 using System.Xml.Serialization;
 using static System.Application.SteamApiUrls;
 
@@ -46,13 +47,15 @@ namespace System.Application.Models
         /// public
         /// </summary>
         [XmlElement("privacyState")]
-        public string? PrivacyState { get; set; }
+        public string PrivacyState { get; set; }
 
         [XmlElement("avatarIcon")]
-        public string? AvatarIcon { get; set; }
+        public string AvatarIcon { get; set; }
 
         [XmlElement("avatarMedium")]
-        public string? AvatarMedium { get; set; }
+        public string AvatarMedium { get; set; }
+
+        public Stream? AvatarMediumStream { get; set; }
 
         [XmlElement("avatarFull")]
         public string? AvatarFull { get; set; }
