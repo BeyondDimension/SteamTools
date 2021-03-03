@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Application.UI;
+using System.IO;
 
 namespace System.Application
 {
@@ -16,14 +17,17 @@ namespace System.Application
         /// </summary>
         public static void InitFileSystem()
         {
-            var appDataRootPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            if (string.IsNullOrWhiteSpace(appDataRootPath))
-            {
-                // 需要测试 macOS 和 linux 上 Environment.SpecialFolder.ApplicationData 返回的目录值
-                // 之前在 android 上测试过 Environment.GetFolderPath 有些枚举值返回的是空字符串 比如StartMenu
-                throw new ArgumentNullException(nameof(appDataRootPath));
-            }
-            appDataRootPath = Path.Combine(appDataRootPath, BuildConfig.APPLICATION_ID);
+            //var appDataRootPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            //if (string.IsNullOrWhiteSpace(appDataRootPath))
+            //{
+            //    // 需要测试 macOS 和 linux 上 Environment.SpecialFolder.ApplicationData 返回的目录值
+            //    // 之前在 android 上测试过 Environment.GetFolderPath 有些枚举值返回的是空字符串 比如StartMenu
+            //    throw new ArgumentNullException(nameof(appDataRootPath));
+            //}
+            //appDataRootPath = Path.Combine(appDataRootPath, BuildConfig.APPLICATION_ID);
+
+            var appDataRootPath = AppContext.BaseDirectory;
+
             var appDataPath = Path.Combine(appDataRootPath, AppDataDirName);
             var cachePath = Path.Combine(appDataRootPath, CacheDirName);
             IOPath.DirCreateByNotExists(appDataPath);
