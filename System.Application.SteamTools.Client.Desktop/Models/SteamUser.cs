@@ -5,7 +5,7 @@ using static System.Application.SteamApiUrls;
 namespace System.Application.Models
 {
     [XmlRoot("profile")]
-    public class SteamUser : ISteamUserAvatar
+    public class SteamUser
     {
         public SteamUser()
         {
@@ -49,15 +49,12 @@ namespace System.Application.Models
         public string? PrivacyState { get; set; }
 
         [XmlElement("avatarIcon")]
-        [Obsolete("use GetAvatarIcon()", true)]
         public string? AvatarIcon { get; set; }
 
         [XmlElement("avatarMedium")]
-        [Obsolete("use GetAvatarMedium()", true)]
-        public string? AvatarMedium { get; set; } /*= "/Resources/Asstes/avater.jpg";*/
+        public string? AvatarMedium { get; set; }
 
         [XmlElement("avatarFull")]
-        [Obsolete("use GetAvatarFull()", true)]
         public string? AvatarFull { get; set; }
 
         /// <summary>
@@ -138,58 +135,5 @@ namespace System.Application.Models
             "\t\t\"WantsOfflineMode\"\t\t\"" + Convert.ToByte(WantsOfflineMode) + "\"\n" +
             "\t\t\"SkipOfflineModeWarning\"\t\t\"" + Convert.ToByte(SkipOfflineModeWarning) + "\"\n" +
             "\t\t\"Timestamp\"\t\t\"" + Timestamp + "\"\n}";
-    }
-
-    internal interface ISteamUserAvatar
-    {
-        public const string DefaultAvatar = "/Resources/Asstes/avater.jpg";
-
-        /// <summary>
-        /// 头像小图标
-        /// </summary>
-        string? AvatarIcon { get; set; }
-
-        /// <summary>
-        /// 头像中等图片链接
-        /// </summary>
-        string? AvatarMedium { get; set; }
-
-        /// <summary>
-        /// 头像大图链接
-        /// </summary>
-        string? AvatarFull { get; set; }
-    }
-}
-
-namespace System
-{
-    public static class SteamUserAvatarExtensions
-    {
-        static ISteamUserAvatar GetAvatar(this SteamUser user)
-        {
-            ISteamUserAvatar user_ = user;
-            return user_;
-        }
-
-        /// <summary>
-        /// 获取头像小图标
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        public static string GetAvatarIcon(this SteamUser user) => user.GetAvatar().AvatarIcon ?? ISteamUserAvatar.DefaultAvatar;
-
-        /// <summary>
-        /// 获取头像中等图片链接
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        public static string GetAvatarMedium(this SteamUser user) => user.GetAvatar().AvatarMedium ?? ISteamUserAvatar.DefaultAvatar;
-
-        /// <summary>
-        /// 获取头像大图链接
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        public static string GetAvatarFull(this SteamUser user) => user.GetAvatar().AvatarFull ?? ISteamUserAvatar.DefaultAvatar;
     }
 }
