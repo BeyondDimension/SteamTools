@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace System.Application.UI.Views.Controls
 {
-    public class CardView : UserControl
+    public class PaperView : UserControl
     {
-        public CardView()
+        public PaperView()
         {
             InitializeComponent();
         }

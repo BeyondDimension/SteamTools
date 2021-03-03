@@ -10,6 +10,7 @@ namespace System.Application.Services.Implementation
     internal sealed class SteamServiceImpl : ISteamService
     {
         const string TAG = "SteamS";
+
         /// <summary>
         /// <list type="bullet">
         ///   <item>
@@ -23,23 +24,24 @@ namespace System.Application.Services.Implementation
         ///   </item>
         /// </list>
         /// </summary>
-        const string UserVdfPath = @"\config\loginusers.vdf";
-        const string UserDataDirectory = @"\userdata";
+        readonly string UserVdfPath;
+        const string UserDataDirectory = "userdata";
         readonly IDesktopPlatformService platformService;
-        readonly Lazy<string?> mSteamDirPath;
-        readonly Lazy<string?> mSteamProgramPath;
+        readonly string? mSteamDirPath;
+        readonly string? mSteamProgramPath;
         readonly string[] steamProcess = new[] { "steam", "steamservice", "steamwebhelper" };
 
         public SteamServiceImpl(IDesktopPlatformService platformService)
         {
             this.platformService = platformService;
-            mSteamDirPath = new Lazy<string?>(platformService.GetSteamDirPath);
-            mSteamProgramPath = new Lazy<string?>(platformService.GetSteamProgramPath);
+            mSteamDirPath = platformService.GetSteamDirPath();
+            mSteamProgramPath = platformService.GetSteamProgramPath();
+            UserVdfPath = Path.Combine(SteamDirPath, "config", "loginusers.vdf");
         }
 
-        public string? SteamDirPath => mSteamDirPath.Value;
+        public string? SteamDirPath => mSteamDirPath;
 
-        public string? SteamProgramPath => mSteamProgramPath.Value;
+        public string? SteamProgramPath => mSteamProgramPath;
 
         public void KillSteamProcess()
         {
@@ -95,10 +97,10 @@ namespace System.Application.Services.Implementation
             var users = new List<SteamUser>();
             try
             {
-                if (File.Exists(SteamDirPath + UserVdfPath))
+                if (File.Exists(UserVdfPath))
                 {
                     // 注意：动态类型在移动端受限，且运行时可能抛出异常
-                    dynamic v = VdfHelper.Read(SteamDirPath + UserVdfPath);
+                    dynamic v = VdfHelper.Read(UserVdfPath);
                     foreach (var item in v.Value)
                     {
                         try
@@ -199,8 +201,8 @@ namespace System.Application.Services.Implementation
 
         public void DeleteLocalUserData(SteamUser user)
         {
-            VdfHelper.DeleteValueByKey(SteamDirPath + UserVdfPath, user.SteamId64.ToString());
-            var temp = SteamDirPath + Path.Combine(UserDataDirectory, user.SteamId3_Int.ToString());
+            VdfHelper.DeleteValueByKey(UserVdfPath, user.SteamId64.ToString());
+            var temp = Path.Combine(SteamDirPath, UserDataDirectory, user.SteamId3_Int.ToString());
             if (Directory.Exists(temp))
             {
                 Directory.Delete(temp, true);
@@ -211,7 +213,7 @@ namespace System.Application.Services.Implementation
         {
             var originVdfStr = user.OriginVdfString;
             VdfHelper.UpdateValueByReplace(
-                SteamDirPath + UserVdfPath,
+                UserVdfPath,
                 originVdfStr.ThrowIsNull(nameof(originVdfStr)),
                 user.CurrentVdfString);
         }

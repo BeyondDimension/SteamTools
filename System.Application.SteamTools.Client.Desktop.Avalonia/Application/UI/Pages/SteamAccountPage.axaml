@@ -5,12 +5,40 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+             xmlns:converters="clr-namespace:System.Application.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.SteamAccountPage">
-	<Design.DataContext>
-		<vm:MainWindowViewModel/>
-	</Design.DataContext>
-	<StackPanel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}" Background="Transparent" Spacing="20">
-        <controls:CardView></controls:CardView>
-	</StackPanel>
+    <Design.DataContext>
+        <vm:SteamAccountPageViewModel/>
+    </Design.DataContext>
+    <UserControl.Resources>
+        <converters:IsNullConverter x:Key="IsNullConverter" />
+        <converters:CardTitleToPlaceholderConverter x:Key="CardTitleToPlaceholderConverter" />
+    </UserControl.Resources>
+    <Panel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ItemsRepeater Items="{Binding SteamUsers}">
+                <ItemsRepeater.Layout>
+                    <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
+                                       MaximumRowsOrColumns="6" />
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="20" Spacing="8">
+                            <DockPanel LastChildFill="True">
+                                <Border DockPanel.Dock="Top" Classes="paper">
+                                    <Panel Width="200">
+                                        <Image Width="200" Stretch="Uniform" Source="{Binding AvatarMedium}" />
+                                    </Panel>
+                                </Border>
+                            </DockPanel>
+
+                            <controls:ScrollingTextBlock Width="200" Text="{Binding SteamNickName}" FontSize="12" FontWeight="Bold" Foreground="#F9F9F9" />
+                            <controls:ScrollingTextBlock Width="200" Text="{Binding AccountName}" FontSize="10" Foreground="#A1A1A1" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </ScrollViewer>
+    </Panel>
 </UserControl>

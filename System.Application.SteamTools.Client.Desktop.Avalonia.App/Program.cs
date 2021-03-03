@@ -5,6 +5,7 @@ using System.IO;
 using System.Properties;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows;
 
 [assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark + " v" + ThisAssembly.Version)]
 namespace System.Application.UI
@@ -38,6 +39,9 @@ namespace System.Application.UI
                 AppHelper.SetNLoggerMinLevel(LogLevel.Trace);
                 // NLog: catch any exception and log it.
                 logger.Error(ex, "Stopped program because of exception");
+#if DEBUG
+                //MessageBoxCompat.Show(ex.ToString(), "Steam++ Run Error" + ThisAssembly.Version, MessageBoxButtonCompat.OK, MessageBoxImageCompat.Warning);
+#endif
                 throw;
             }
             finally

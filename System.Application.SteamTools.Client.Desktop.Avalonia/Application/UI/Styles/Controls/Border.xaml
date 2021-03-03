@@ -1,11 +1,11 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <StackPanel Spacing="5">
-            <Border Padding="20" Classes="cardborder">
-                <TextBox Text="Code Font Family" />
+        <Border Padding="20" Background="White">
+            <Border Padding="20" Classes="paper">
+                <TextBox Text="Code Font Family"/>
             </Border>
-        </StackPanel>
+        </Border>
     </Design.PreviewWith>
     <Styles.Resources>
         <Thickness x:Key="PageMargin">20 0 20 0</Thickness>
@@ -18,5 +18,9 @@
     <Style Selector="Border.cardborder:pointerover">
         <Setter Property="BorderBrush" Value="#5E5E66"/>
         <Setter Property="BorderThickness" Value=".88"/>
+    </Style>
+
+    <Style Selector="Border.paper">
+        <Setter Property="BoxShadow" Value="2 2 5 #55000000" />
     </Style>
 </Styles>

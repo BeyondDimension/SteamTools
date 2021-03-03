@@ -71,6 +71,27 @@ namespace System.Application.UI.ViewModels
             };
 
             this.SelectedItem = this.TabItems.First();
+
+            Task.Run(Initialize).ContinueWith(s =>
+            {
+                Log.Error(nameof(MainWindowViewModel), s.Exception, nameof(Initialize) + "Action Error");
+            }, TaskContinuationOptions.OnlyOnFaulted)
+            .ContinueWith(s => s.Dispose());
+        }
+
+
+        public async void Initialize()
+        {
+            if (!this.IsInitialized)
+            {
+                foreach (var item in this.TabItems)
+                {
+                    if (item == GameListPage)
+                        continue;
+                    await item.Initialize();
+                }
+                this.IsInitialized = true;
+            }
         }
     }
 }
