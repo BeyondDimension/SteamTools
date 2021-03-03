@@ -1,21 +1,33 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
+using System.IO;
 using System.Logging;
 
-namespace System
+namespace System.Application
 {
     [SetUpFixture]
     public class SetupFixture
     {
+        public static bool DIInit { get; set; }
+
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
             // TODO: Add code here that is run before
             //  all tests in the assembly are run
-            if (!DI.IsInit)
+            if (!DIInit)
             {
                 DI.Init(ConfigureServices);
+
+                var path = AppContext.BaseDirectory;
+                var path1 = Path.Combine(path, "AppData");
+                IOPath.DirCreateByNotExists(path1);
+                var path2 = Path.Combine(path, "Cache");
+                IOPath.DirCreateByNotExists(path2);
+                string GetAppDataDirectory() => path1;
+                string GetCacheDirectory() => path2;
+                IOPath.InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
             }
         }
 
@@ -33,7 +45,8 @@ namespace System
             {
                 o.MinLevel = LogLevel.Trace;
             });
-            //services.AddPinyin();
+            services.TryAddHttpPlatformHelper();
+            services.AddHttpService();
         }
     }
 }

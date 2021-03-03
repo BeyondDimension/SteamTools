@@ -4,7 +4,6 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,11 +31,10 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _steamUsers, value);
         }
 
-
         internal async override Task Initialize()
         {
             SteamUsers = new ObservableCollection<SteamUser>(steamService.GetRememberUserList());
-            if (SteamUsers == null || SteamUsers.Count < 1)
+            if (!SteamUsers.Any_Nullable())
             {
                 return;
             }
@@ -55,7 +53,7 @@ namespace System.Application.UI.ViewModels
                 users[i].WantsOfflineMode = temp.WantsOfflineMode;
                 users[i].SkipOfflineModeWarning = temp.SkipOfflineModeWarning;
                 users[i].OriginVdfString = temp.OriginVdfString;
-                users[i].AvatarMediumStream = string.IsNullOrEmpty(users[i].AvatarMedium) ? null : await httpService.GetAsync<Stream>(users[i].AvatarMedium);
+                users[i].AvatarMediumStream = string.IsNullOrEmpty(users[i].AvatarMedium) ? null : await httpService.GetImageAsync(users[i].AvatarMedium, ImageChannelType.SteamAvatars);
             }
             SteamUsers = new ObservableCollection<SteamUser>(users.OrderByDescending(o => o.RememberPassword).ThenByDescending(o => o.LastLoginTime).ToList());
         }

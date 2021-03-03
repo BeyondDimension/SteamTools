@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace System.Application.Services.CloudService
 {
-    public abstract class CloudServiceClientBase : HttpService, ICloudServiceClient, IApiConnectionPlatformHelper
+    public abstract class CloudServiceClientBase : GeneralHttpClientFactory, ICloudServiceClient, IApiConnectionPlatformHelper
     {
         public const string ClientName_ = "CloudServiceClient";
         internal const string DefaultApiBaseUrl = Constants.Prefix_HTTPS + "api.steamtool.net";

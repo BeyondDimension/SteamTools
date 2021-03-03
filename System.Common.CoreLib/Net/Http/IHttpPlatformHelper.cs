@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.IO.FileFormats;
 
 namespace System.Net.Http
 {
@@ -14,6 +15,9 @@ namespace System.Net.Http
         /// </summary>
         string UserAgent { get; }
 
+        string AcceptImages { get; }
+
+        ImageFormat[] SupportedImageFormats { get; }
         /// <summary>
         /// 尝试将需要上传的文件流[处理]后保存到临时路径中并返回信息
         /// <para>[处理]由客户端平台原生实现</para>

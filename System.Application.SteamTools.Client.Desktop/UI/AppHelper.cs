@@ -76,15 +76,21 @@ namespace System.Application.UI
         /// </summary>
         static LoggerFilterOptions LoggerFilterOptions => DI.Get<IOptions<LoggerFilterOptions>>().Value;
 
-        internal static void Configure(ILoggingBuilder builder)
+        internal static (LogLevel minLevel, Action<ILoggingBuilder> cfg) Configure()
         {
-            var logLevel = DefaultLoggerMinLevel;
-            builder.SetMinimumLevel(logLevel);
-            SetNLoggerMinLevel(logLevel);
+            var minLevel = DefaultLoggerMinLevel;
 
-            // 可以多个日志提供同时用，比如还可以在 Win 平台再添加一个 Windows 事件日志
+            Action<ILoggingBuilder> cfg = builder =>
+            {
+                builder.SetMinimumLevel(minLevel);
+                SetNLoggerMinLevel(minLevel);
 
-            builder.AddNLog(); // 添加 NLog 日志
+                // 可以多个日志提供同时用，比如还可以在 Win 平台再添加一个 Windows 事件日志
+
+                builder.AddNLog(); // 添加 NLog 日志
+            };
+
+            return (minLevel, cfg);
         }
 
         /// <summary>

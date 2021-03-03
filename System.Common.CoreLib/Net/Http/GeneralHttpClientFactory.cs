@@ -2,13 +2,16 @@
 
 namespace System.Net.Http
 {
-    public abstract class HttpService
+    /// <summary>
+    /// 通用 <see cref="HttpClient"/> 工厂
+    /// </summary>
+    public abstract class GeneralHttpClientFactory
     {
         protected readonly ILogger logger;
         protected readonly IHttpPlatformHelper http_helper;
         readonly IHttpClientFactory _clientFactory;
 
-        public HttpService(
+        public GeneralHttpClientFactory(
             ILogger logger,
             IHttpPlatformHelper http_helper,
             IHttpClientFactory clientFactory)

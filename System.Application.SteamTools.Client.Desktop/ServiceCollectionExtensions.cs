@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Application.UI;
@@ -15,7 +16,12 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddDesktopLogging(this IServiceCollection services)
         {
-            services.AddLogging(AppHelper.Configure);
+            var (minLevel, cfg) = AppHelper.Configure();
+            services.AddLogging(cfg);
+            services.Configure<LoggerFilterOptions>(o =>
+            {
+                o.MinLevel = minLevel;
+            });
             return services;
         }
 
@@ -38,18 +44,6 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddHostsFileService(this IServiceCollection services)
         {
             services.AddSingleton<IHostsFileService, HostsFileServiceImpl>();
-            return services;
-        }
-
-        /// <summary>
-        /// 添加 通用 Http 服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddHttpService(this IServiceCollection services)
-        {
-            services.AddHttpClient(); // 添加 System.Net.Http.HttpClient / HttpClientFactory
-            services.AddSingleton<IHttpService, HttpServiceImpl>();
             return services;
         }
 
