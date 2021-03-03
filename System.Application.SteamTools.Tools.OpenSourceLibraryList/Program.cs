@@ -65,10 +65,16 @@ namespace System
                     {
                         if (line.StartsWith("* "))
                         {
+                            var name = line.Substring("[", "]");
+                            if (string.IsNullOrWhiteSpace(line)) continue;
+                            var index = line.IndexOf("]");
+                            if (index < 0) continue;
+                            var url = line[index..].Substring("(", ")");
+                            if (string.IsNullOrWhiteSpace(url)) continue;
                             var item = new OpenSourceLibrary
                             {
-                                Name = line.Substring("[", "]"),
-                                Url = line.Substring("(", ")"),
+                                Name = name,
+                                Url = url,
                             };
                             const string githubUrl = "https://github.com/";
                             if (item.Url.StartsWith(githubUrl, StringComparison.OrdinalIgnoreCase))
