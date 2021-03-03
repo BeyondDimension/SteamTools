@@ -43,4 +43,12 @@
       <LastGenOutput>SR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+  <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
+    <!--Win8/8.1/10的[开始菜单(屏幕)]磁贴配置-->
+    <None Include="..\Resources\AppIcon\visualelementsmanifest.xml">
+      <Link>steam++.win7.visualelementsmanifest.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

@@ -15,22 +15,25 @@ namespace System.Application.Services.Implementation
         const string Accept = MediaTypeNames.JSON;
         readonly JsonSerializer jsonSerializer = new JsonSerializer();
 
-        public HttpServiceImpl(ILogger logger, IHttpPlatformHelper http_helper, IHttpClientFactory clientFactory) : base(logger, http_helper, clientFactory)
+        public HttpServiceImpl(ILoggerFactory loggerFactory, IHttpPlatformHelper http_helper, IHttpClientFactory clientFactory) : base(loggerFactory.CreateLogger(TAG), http_helper, clientFactory)
         {
         }
 
         public async Task<T?> GetAsync<T>(string requestUri, CancellationToken cancellationToken) where T : notnull
         {
+            HttpRequestMessage? request = null;
+            HttpResponseMessage? response = null;
+            bool notDispose = false;
             try
             {
-                using var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+                request = new HttpRequestMessage(HttpMethod.Get, requestUri);
                 request.Headers.Accept.ParseAdd(Accept);
                 request.Headers.UserAgent.ParseAdd(http_helper.UserAgent);
                 var client = CreateClient();
-                using var response = await client.SendAsync(request,
-                    HttpCompletionOption.ResponseHeadersRead,
-                    cancellationToken)
-                    .ConfigureAwait(false);
+                response = await client.SendAsync(request,
+                  HttpCompletionOption.ResponseHeadersRead,
+                  cancellationToken)
+                  .ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     if (response.Content != null)
@@ -46,8 +49,8 @@ namespace System.Application.Services.Implementation
                         }
                         else if (rspContentClrType == typeof(Stream))
                         {
-                            // 因为上面用了 using 释放，所以不支持流的形式
-                            throw new NotSupportedException();
+                            notDispose = true;
+                            return (T)(object)await response.Content.ReadAsStreamAsync();
                         }
                         var mime = response.Content.Headers.ContentType?.MediaType ?? Accept;
                         switch (mime)
@@ -82,6 +85,14 @@ namespace System.Application.Services.Implementation
             catch (Exception e)
             {
                 Log.Error(TAG, e, "GetAsync Fail.");
+            }
+            finally
+            {
+                if (!notDispose)
+                {
+                    request?.Dispose();
+                    response?.Dispose();
+                }
             }
             return default;
         }

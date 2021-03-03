@@ -127,7 +127,7 @@ namespace System.Application.Services.Implementation
 
         static string? GetFullPath(string s)
         {
-            if (!string.IsNullOrWhiteSpace(s) && File.Exists(s))
+            if (!string.IsNullOrWhiteSpace(s))
             {
                 return Path.GetFullPath(s);
             }

@@ -9,7 +9,8 @@ namespace System.Application.Models
         {
             try
             {
-                return Serializable.DMP<List<OpenSourceLibrary>>(SR.OpenSourceLibraryList) ?? new List<OpenSourceLibrary>();
+                var list = Serializable.DMP<List<OpenSourceLibrary>>(SR.OpenSourceLibraryList) ?? new List<OpenSourceLibrary>();
+                return list;
             }
             catch
             {
