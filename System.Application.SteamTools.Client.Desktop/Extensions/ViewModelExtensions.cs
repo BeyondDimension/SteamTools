@@ -15,6 +15,11 @@ namespace System.Application
                 return disposable;
             }
 
+            if (vm.CompositeDisposable == null)
+            {
+                throw new ArgumentNullException(nameof(ViewModelBase.CompositeDisposable));
+            }
+
             vm.CompositeDisposable.Add(disposable);
             return disposable;
         }
