@@ -10,7 +10,20 @@ namespace System.Application.Services.CloudService
 
         public static string NetworkConnectionInterruption => SR.NetworkConnectionInterruption;
 
+        public static class Headers
+        {
+            public static class Request
+            {
+                public const string AppVersion = "App-Version";
+                public const string SecurityKey = "App-SKey";
+            }
+        }
+
         public const string HeaderAppVersion = "App-Version";
+
+        public const string HeaderSecurityKey = "App-S-Key";
+
+        public const string HeaderRspCiphertext = "App-Rsp-Ciphertext";
 
         /// <summary>
         /// 短信间隔，60秒

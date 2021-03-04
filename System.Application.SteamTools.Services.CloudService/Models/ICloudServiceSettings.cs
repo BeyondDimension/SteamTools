@@ -1,4 +1,4 @@
-﻿using System.Application.Services.CloudService;
+﻿using System.Security.Cryptography;
 
 namespace System.Application.Models
 {
@@ -7,5 +7,7 @@ namespace System.Application.Models
         string? ApiBaseUrl { get; set; }
 
         Guid AppVersion { get; set; }
+
+        RSA RSA { get; }
     }
 }

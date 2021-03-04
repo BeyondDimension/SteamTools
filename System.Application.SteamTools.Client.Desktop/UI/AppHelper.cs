@@ -65,10 +65,22 @@ namespace System.Application.UI
 
         static void SetNLoggerMinLevel(LogLevel logLevel) => SetNLoggerMinLevel(ConvertLogLevel(logLevel));
 
-        public static void SetNLoggerMinLevel(NLogLevel logLevel)
+        static void SetNLoggerMinLevel(NLogLevel logLevel)
         {
             NLogManager.GlobalThreshold = logLevel;
             NInternalLogger.LogLevel = logLevel;
+        }
+
+        public static void TrySetLoggerMinLevel(LogLevel logLevel)
+        {
+            try
+            {
+                LoggerFilterOptions.MinLevel = logLevel;
+            }
+            catch
+            {
+            }
+            SetNLoggerMinLevel(ConvertLogLevel(logLevel));
         }
 
         /// <summary>

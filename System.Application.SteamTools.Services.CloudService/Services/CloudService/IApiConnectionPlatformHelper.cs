@@ -1,6 +1,7 @@
 ﻿using System.Application.Columns;
 using System.Application.Models;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace System.Application.Services.CloudService
@@ -33,5 +34,7 @@ namespace System.Application.Services.CloudService
         void ShowResponseErrorMessage(string message);
 
         HttpClient CreateClient();
+
+        RSA RSA { get; }
     }
 }

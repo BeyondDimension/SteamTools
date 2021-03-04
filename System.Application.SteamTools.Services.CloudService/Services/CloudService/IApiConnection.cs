@@ -52,7 +52,8 @@ namespace System.Application.Services.CloudService
             HttpMethod method,
             string requestUri,
             TRequestModel? request,
-            bool responseContentMaybeNull = false);
+            bool responseContentMaybeNull = false,
+            bool isSecurity = false);
 
         /// <summary>
         /// RequestModel(调用服务端接口)
@@ -67,7 +68,8 @@ namespace System.Application.Services.CloudService
             CancellationToken cancellationToken,
             HttpMethod method,
             string requestUri,
-            TRequestModel? request);
+            TRequestModel? request,
+            bool isSecurity = false);
 
         /// <summary>
         /// NoModel(调用服务端接口)
@@ -93,7 +95,8 @@ namespace System.Application.Services.CloudService
             CancellationToken cancellationToken,
             HttpMethod method,
             string requestUri,
-            bool responseContentMaybeNull = false);
+            bool responseContentMaybeNull = false,
+            bool isSecurity = false);
 
         #endregion
     }

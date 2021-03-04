@@ -52,5 +52,28 @@ namespace System.Application.Models
         [N_JsonProperty("3")]
         [S_JsonProperty("3")]
         public string? AppSecretVisualStudioAppCenter { get; set; }
+
+        [MPKey(4)]
+        [N_JsonProperty("4")]
+        [S_JsonProperty("4")]
+        public string? RSASecret { get; set; }
+
+        RSA? rsa;
+
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public RSA RSA
+        {
+            get
+            {
+                if (rsa == null)
+                {
+                    if (RSASecret == null) throw new ArgumentNullException(nameof(RSASecret));
+                    rsa = RSAUtils.CreateFromJsonString(RSASecret);
+                }
+                return rsa;
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Application.Services;
 using System.Application.Services.CloudService;
+using System.Net;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -23,7 +24,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 var sc = s.GetRequiredService<CloudServiceClientBase>();
                 c.BaseAddress = new Uri(sc.ApiBaseUrl);
                 c.DefaultRequestHeaders.UserAgent.ParseAdd(sc.UserAgent);
-                c.DefaultRequestHeaders.Add(Constants.HeaderAppVersion, sc.Settings.AppVersion.ToStringN());
+                c.DefaultRequestHeaders.Add(Constants.Headers.Request.AppVersion, sc.Settings.AppVersion.ToStringN());
+#if NET5_0_OR_GREATER
+                c.DefaultRequestVersion = HttpVersion.Version20;
+#endif
             });
             services.TryAddSingleton<T>();
             services.TryAddSingleton<ICloudServiceClient>(s => s.GetRequiredService<T>());

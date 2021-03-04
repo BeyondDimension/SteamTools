@@ -5,7 +5,7 @@ using System.IO;
 using System.Properties;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Windows;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 [assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark + " v" + ThisAssembly.Version)]
 namespace System.Application.UI
@@ -36,7 +36,7 @@ namespace System.Application.UI
             }
             catch (Exception ex)
             {
-                AppHelper.SetNLoggerMinLevel(LogLevel.Trace);
+                AppHelper.TrySetLoggerMinLevel(LogLevel.Trace);
                 // NLog: catch any exception and log it.
                 logger.Error(ex, "Stopped program because of exception");
 #if DEBUG

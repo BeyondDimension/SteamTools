@@ -5,6 +5,7 @@ using System.Application.Models;
 using System.Application.Services.CloudService.Clients;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -30,6 +31,8 @@ namespace System.Application.Services.CloudService
         public string ApiBaseUrl { get; }
 
         internal ICloudServiceSettings Settings => settings;
+
+        RSA IApiConnectionPlatformHelper.RSA => Settings.RSA;
 
         protected sealed override string? ClientName => ClientName_;
 

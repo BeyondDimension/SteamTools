@@ -10,6 +10,7 @@ using System.IO.FileFormats;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace System.Application.Services.CloudService
         readonly ILogger logger;
         readonly IHttpPlatformHelper http_helper;
         readonly IApiConnectionPlatformHelper conn_helper;
-        readonly Lazy<JsonSerializer> jsonSerializer = new Lazy<JsonSerializer>(() => new JsonSerializer());
+        readonly Lazy<JsonSerializer> jsonSerializer = new(() => new JsonSerializer());
         readonly IModelValidator validator;
 
         public ApiConnection(
@@ -86,11 +87,15 @@ namespace System.Application.Services.CloudService
         /// <param name="request">请求模型</param>
         /// <returns></returns>
         HttpContent? GetRequestContent<TRequestModel>(
-           Serializable.ImplType serializableImplType,
-           TRequestModel? request,
-           CancellationToken cancellationToken)
+            bool isSecurity,
+            Aes? aes,
+            Serializable.ImplType serializableImplType,
+            TRequestModel? request,
+            CancellationToken cancellationToken)
         {
             if (request == null) return null;
+            if (isSecurity && aes == null) throw new ArgumentNullException(nameof(aes));
+
             HttpContent? httpContent;
             if (request is IUploadFileSource uploadFile) // 上传单个文件
             {
@@ -102,6 +107,10 @@ namespace System.Application.Services.CloudService
             }
             else
             {
+                if (isSecurity && serializableImplType != Serializable.ImplType.MessagePack)
+                {
+                    serializableImplType = Serializable.ImplType.MessagePack;
+                }
                 switch (serializableImplType) // 序列化模型
                 {
                     case Serializable.ImplType.NewtonsoftJson:
@@ -110,6 +119,10 @@ namespace System.Application.Services.CloudService
                     case Serializable.ImplType.MessagePack:
                         var byteArray = Serializable.SMP(request, cancellationToken);
                         if (byteArray == null) return null;
+                        if (isSecurity)
+                        {
+                            byteArray = aes.ThrowIsNull(nameof(aes)).Encrypt(byteArray);
+                        }
                         httpContent = new ByteArrayContent(byteArray);
                         httpContent.Headers.ContentType = new MediaTypeHeaderValue(MediaTypeNames.MessagePack);
                         break;
@@ -343,7 +356,7 @@ namespace System.Application.Services.CloudService
         {
             get
             {
-                if (DI.Platform == Platform.Windows || DI.Platform == Platform.Linux || DI.Platform == Platform.Unknown) return true;
+                if (DI.Platform == Platform.Windows || (DI.Platform == Platform.Apple && DI.DeviceIdiom == DeviceIdiom.Desktop) || DI.Platform == Platform.Linux || DI.Platform == Platform.Unknown) return true;
                 return Connectivity.NetworkAccess == NetworkAccess.Internet;
             }
         }
@@ -375,7 +388,8 @@ namespace System.Application.Services.CloudService
             HttpMethod method,
             string requestUri,
             TRequestModel? requestModel,
-            bool responseContentMaybeNull)
+            bool responseContentMaybeNull,
+            bool isSecurity)
         {
             #region ModelValidator
 
@@ -396,15 +410,56 @@ namespace System.Application.Services.CloudService
             }
 
             IApiResponse<TResponseModel> responseResult;
+
+            Aes? aes = null;
+
             try
             {
+                if (isSecurity)
+                {
+                    // 行业标准加密
+                    aes = AESUtils.Create();
+                }
+
+                var serializableImplType = Serializable.ImplType.MessagePack;
+
                 using var request = new HttpRequestMessage(method, requestUri)
                 {
                     Content = GetRequestContent(
-                        Serializable.ImplType.MessagePack,
+                        isSecurity,
+                        aes,
+                        serializableImplType,
                         requestModel,
                         cancellationToken),
                 };
+
+                switch (serializableImplType)
+                {
+                    case Serializable.ImplType.NewtonsoftJson:
+                    case Serializable.ImplType.SystemTextJson:
+                        request.Headers.Accept.ParseAdd(MediaTypeNames.JSON);
+                        break;
+                    case Serializable.ImplType.MessagePack:
+                        if (isSecurity)
+                        {
+                            request.Headers.Accept.ParseAdd(MediaTypeNames.Security);
+                        }
+                        else
+                        {
+                            request.Headers.Accept.ParseAdd(MediaTypeNames.MessagePack);
+                        }
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(serializableImplType), serializableImplType, null);
+                }
+
+                if (isSecurity)
+                {
+                    var skey_bytes = aes.ThrowIsNull(nameof(aes)).ToParamsByteArray();
+                    var skey_str = conn_helper.RSA.EncryptToString(skey_bytes);
+                    request.Headers.Add(Constants.Headers.Request.SecurityKey, skey_str);
+                }
+
                 await SetRequestHeaderAuthorization(request);
                 var client = conn_helper.CreateClient();
                 using var response = await client.SendAsync(request,
@@ -420,37 +475,47 @@ namespace System.Application.Services.CloudService
                 {
                     if (!isApi && typeof(TResponseModel) == typeof(byte[]))
                     {
-                        var bytes = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+                        var bytes = await response.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
                         responseResult = ApiResponse.Code(code,
                             content: (TResponseModel)(object)bytes);
                     }
                     else if (!isApi && typeof(TResponseModel) == typeof(string))
                     {
-                        var str = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        var str = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
                         responseResult = ApiResponse.Code(code,
                             content: (TResponseModel)(object)str);
                     }
                     else
                     {
-                        var mime = response.Content.Headers.ContentType.MediaType;
+                        var rspIsCiphertext = false;
+
+                        var mime = response.Content.Headers.ContentType?.MediaType;
+
+                        if (mime == MediaTypeNames.Security)
+                        {
+                            mime = MediaTypeNames.MessagePack;
+                            rspIsCiphertext = true;
+                        }
+
                         switch (mime)
                         {
                             case MediaTypeNames.JSON:
                                 {
-                                    using var stream = await response.Content
-                                        .ReadAsStreamAsync().ConfigureAwait(false);
+                                    if (rspIsCiphertext)
+                                    {
+                                        throw new NotSupportedException("At present, JSON does not implement security on the server side, so this cannot happen.");
+                                    }
+                                    using var stream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
                                     using var reader = new StreamReader(stream, Encoding.UTF8);
                                     using var json = new JsonTextReader(reader);
-                                    responseResult = ApiResponse
-                                        .Deserialize<TResponseModel>(jsonSerializer.Value, json);
+                                    responseResult = ApiResponse.Deserialize<TResponseModel>(jsonSerializer.Value, json);
                                 }
                                 break;
                             case MediaTypeNames.MessagePack:
                                 {
-                                    using var stream = await response.Content
-                                        .ReadAsStreamAsync().ConfigureAwait(false);
-                                    responseResult = await ApiResponse
-                                        .DeserializeAsync<TResponseModel>(stream, cancellationToken);
+                                    using var stream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+                                    using CryptoStream? cryptoStream = rspIsCiphertext ? new CryptoStream(stream, aes.ThrowIsNull(nameof(aes)).CreateDecryptor(), CryptoStreamMode.Read) : null;
+                                    responseResult = await ApiResponse.DeserializeAsync<TResponseModel>(rspIsCiphertext ? cryptoStream.ThrowIsNull(nameof(cryptoStream)) : stream, cancellationToken);
                                 }
                                 break;
                             default:
@@ -464,6 +529,10 @@ namespace System.Application.Services.CloudService
             {
                 logger.LogError(ex, nameof(ApiConnection));
                 responseResult = ApiResponse.Code<TResponseModel>(GetCodeByException(ex));
+            }
+            finally
+            {
+                aes?.Dispose();
             }
             await GlobalResponseIntercept(
                 isApi,
@@ -564,7 +633,7 @@ namespace System.Application.Services.CloudService
             return responseResult;
         }
 
-        public async Task<IApiResponse<TResponseModel>> SendAsync<TRequestModel, TResponseModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, TRequestModel? request, bool responseContentMaybeNull = false)
+        public async Task<IApiResponse<TResponseModel>> SendAsync<TRequestModel, TResponseModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, TRequestModel? request, bool responseContentMaybeNull, bool isSecurity)
         {
             var rsp = await SendCoreAsync<TRequestModel, TResponseModel>(
                 isApi: true,
@@ -572,7 +641,8 @@ namespace System.Application.Services.CloudService
                 method,
                 requestUri,
                 requestModel: request,
-                responseContentMaybeNull);
+                responseContentMaybeNull,
+                isSecurity);
             return rsp;
         }
 
@@ -584,7 +654,8 @@ namespace System.Application.Services.CloudService
                 HttpMethod.Get,
                 requestUri,
                 requestModel: null,
-                responseContentMaybeNull: false);
+                responseContentMaybeNull: false,
+                isSecurity: false);
             return rsp;
         }
 
@@ -596,11 +667,12 @@ namespace System.Application.Services.CloudService
                 HttpMethod.Get,
                 requestUri,
                 requestModel: null,
-                responseContentMaybeNull: false);
+                responseContentMaybeNull: false,
+                isSecurity: false);
             return rsp;
         }
 
-        public async Task<IApiResponse> SendAsync<TRequestModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, TRequestModel? request)
+        public async Task<IApiResponse> SendAsync<TRequestModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, TRequestModel? request, bool isSecurity)
         {
             var rsp = await SendCoreAsync<TRequestModel, object>(
                 isApi: true,
@@ -608,7 +680,8 @@ namespace System.Application.Services.CloudService
                 method,
                 requestUri,
                 requestModel: request,
-                responseContentMaybeNull: true);
+                responseContentMaybeNull: true,
+                isSecurity);
             return rsp;
         }
 
@@ -620,11 +693,12 @@ namespace System.Application.Services.CloudService
                 method,
                 requestUri,
                 requestModel: null,
-                responseContentMaybeNull: true);
+                responseContentMaybeNull: true,
+                isSecurity: false);
             return rsp;
         }
 
-        public async Task<IApiResponse<TResponseModel>> SendAsync<TResponseModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, bool responseContentMaybeNull = false)
+        public async Task<IApiResponse<TResponseModel>> SendAsync<TResponseModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, bool responseContentMaybeNull, bool isSecurity)
         {
             var rsp = await SendCoreAsync<object, TResponseModel>(
                 isApi: true,
@@ -632,7 +706,8 @@ namespace System.Application.Services.CloudService
                 method,
                 requestUri,
                 requestModel: null,
-                responseContentMaybeNull);
+                responseContentMaybeNull,
+                isSecurity);
             return rsp;
         }
     }

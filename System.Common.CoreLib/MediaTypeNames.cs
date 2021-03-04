@@ -54,5 +54,7 @@
         public const string XML = "text/xml";
 
         public const string XML_APP = "application/xml";
+
+        public const string Security = "application/vnd.sapi+x-msgpack";
     }
 }

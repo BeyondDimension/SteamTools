@@ -105,6 +105,8 @@ namespace System.Application.Models
 
         EmptyUserAgent,
 
+        RequiredSecurityKey,
+
         #endregion
     }
 }
