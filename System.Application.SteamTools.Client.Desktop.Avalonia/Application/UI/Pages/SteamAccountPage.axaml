@@ -13,7 +13,7 @@
         <vm:SteamAccountPageViewModel/>
     </Design.DataContext>
     <Panel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}">
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <ItemsRepeater Items="{Binding SteamUsers}">
                 <ItemsRepeater.Layout>
                     <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
@@ -36,7 +36,7 @@
                             </DockPanel>
 
                             <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding SteamNickName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}" />
-                            <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding AccountName}" FontSize="10" Foreground="#A1A1A1" IsVisible="{Binding !#pass.IsVisible}" />
+                            <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding AccountName}" FontSize="10" Foreground="#A1A1A1"/>
 
                         </StackPanel>
                     </DataTemplate>

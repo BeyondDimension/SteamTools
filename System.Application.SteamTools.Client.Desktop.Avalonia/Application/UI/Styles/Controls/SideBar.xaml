@@ -19,7 +19,7 @@
             BorderBrush="{TemplateBinding BorderBrush}"
             BorderThickness="{TemplateBinding BorderThickness}">
           <DockPanel>
-            <ScrollViewer Width="240" Margin="0 30 0 0"
+            <ScrollViewer Width="240" Margin="0 50 0 0"
                 Name="PART_ScrollViewer"
                 HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                 VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
@@ -33,9 +33,9 @@
               </ItemsPresenter>
             </ScrollViewer>
             <ContentControl Content="{TemplateBinding Tag}" HorizontalContentAlignment="Right" DockPanel.Dock="Bottom"/>
-            <ScrollViewer Background="{x:Null}"
+            <!--<ScrollViewer Background="{x:Null}"
                 HorizontalScrollBarVisibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedItem.(ScrollViewer.HorizontalScrollBarVisibility)}"
-                VerticalScrollBarVisibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedItem.(ScrollViewer.VerticalScrollBarVisibility)}">
+                VerticalScrollBarVisibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedItem.(ScrollViewer.VerticalScrollBarVisibility)}">-->
               <ContentPresenter
                       Name="PART_SelectedContentHost"
                       Margin="{TemplateBinding Padding}"
@@ -44,7 +44,7 @@
                       Content="{TemplateBinding SelectedContent}"
                       ContentTemplate="{TemplateBinding SelectedContentTemplate}">
               </ContentPresenter>
-            </ScrollViewer>
+            <!--</ScrollViewer>-->
           </DockPanel>
         </Border>
       </ControlTemplate>

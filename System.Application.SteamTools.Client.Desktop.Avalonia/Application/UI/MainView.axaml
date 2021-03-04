@@ -12,8 +12,8 @@
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-    <Grid RowDefinitions="Auto,Auto,*">
-        <DockPanel Grid.Row="0" Grid.RowSpan="3" HorizontalAlignment="Stretch">
+    <Panel>
+        <DockPanel HorizontalAlignment="Stretch">
             <ExperimentalAcrylicBorder IsHitTestVisible="False" DockPanel.Dock="Left" Width="240">
                 <ExperimentalAcrylicBorder.Material>
                     <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
@@ -30,11 +30,10 @@
                 <Label Content="{ReflectionBinding #TabControl.SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Margin="20 10 20 0" FontSize="32"/>
             </ExperimentalAcrylicBorder>
         </DockPanel>
-        <Border Grid.Row="1" BorderThickness="0" Height="70"/>
         <TabControl x:Name="TabControl" 
-                    Grid.Row="2"
                     Items="{Binding TabItems}"
                     SelectedItem="{Binding SelectedItem}"
+                    Margin="0 30 0 0"
                     Classes="sidebar">
             <TabControl.DataTemplates>
                 <DataTemplate DataType="vm:DebugPageViewModel">
@@ -89,5 +88,5 @@
                 <pages:DebugPage />
             </TabItem>
         </TabControl>-->
-    </Grid>
+    </Panel>
 </UserControl>
