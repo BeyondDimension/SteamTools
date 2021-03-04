@@ -55,7 +55,7 @@ namespace System.Application.Models
         [XmlElement("avatarMedium")]
         public string AvatarMedium { get; set; }
 
-        public Stream? AvatarMediumStream { get; set; }
+        public Stream? AvatarStream { get; set; }
 
         [XmlElement("avatarFull")]
         public string? AvatarFull { get; set; }

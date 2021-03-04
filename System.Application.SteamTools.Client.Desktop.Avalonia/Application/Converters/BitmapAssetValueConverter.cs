@@ -1,9 +1,7 @@
-﻿using System.Application.Services;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
@@ -21,11 +19,15 @@ namespace System.Application.Converters
             if (value == null)
                 return null;
 
-            if (value is string rawUri && targetType == typeof(IBitmap))
+            if (value is string rawUri)
             {
                 Uri uri;
                 // Allow for assembly overrides
-                if (rawUri.StartsWith("avares://"))
+                if (File.Exists(rawUri))
+                {
+                    return new Bitmap(rawUri);
+                }
+                else if (rawUri.StartsWith("avares://"))
                 {
                     uri = new Uri(rawUri);
                 }
@@ -40,6 +42,7 @@ namespace System.Application.Converters
             }
             else if (value is Stream s)
             {
+                s.Position = 0;
                 return new Bitmap(s);
             }
             throw new NotSupportedException();

@@ -5,17 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-             xmlns:converters="clr-namespace:System.Application.Converters"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.SteamAccountPage">
     <Design.DataContext>
         <vm:SteamAccountPageViewModel/>
     </Design.DataContext>
-    <UserControl.Resources>
-        <converters:IsNullConverter x:Key="IsNullConverter" />
-        <converters:CardTitleToPlaceholderConverter x:Key="CardTitleToPlaceholderConverter" />
-        <converters:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
-    </UserControl.Resources>
     <Panel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}">
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <ItemsRepeater Items="{Binding SteamUsers}">
@@ -25,20 +21,23 @@
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="20" Spacing="8">
+                        <StackPanel x:Name="panel" Margin="20" Spacing="8" Width="184">
                             <DockPanel LastChildFill="True">
                                 <Border DockPanel.Dock="Top" Classes="paper">
-                                    <Panel Width="200">
-                                        <Image Width="200" Stretch="Uniform" Source="{Binding AvatarMediumStream,Converter={StaticResource BitmapAssetValueConverter}}" />
+                                    <Panel Width="{Binding #panel.Width}">
+                                        <Image x:Name="avatar" Width="{Binding #panel.Width}" Stretch="Uniform" Source="{Binding AvatarStream,Converter={StaticResource BitmapAssetValueConverter}}"
+                                          IsVisible="{Binding AvatarStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>
+                                        <Image Width="{Binding #panel.Width}" Stretch="Uniform" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg" IsVisible="{Binding !#avatar.IsVisible}}" />
                                         <DrawingPresenter>
-                                            
+
                                         </DrawingPresenter>
                                     </Panel>
                                 </Border>
                             </DockPanel>
 
-                            <controls:ScrollingTextBlock Width="200" Text="{Binding SteamNickName}" FontSize="12" FontWeight="Bold" Foreground="#F9F9F9" />
-                            <controls:ScrollingTextBlock Width="200" Text="{Binding AccountName}" FontSize="10" Foreground="#A1A1A1" />
+                            <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding SteamNickName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}" />
+                            <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding AccountName}" FontSize="10" Foreground="#A1A1A1" IsVisible="{Binding !#pass.IsVisible}" />
+
                         </StackPanel>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>

@@ -2,81 +2,121 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        xmlns:sys="clr-namespace:System;assembly=netstandard">
     <Style.Resources>
+        
+        <Color x:Key="ThemeColorKey">#FFFFFFFF</Color>
+        <SolidColorBrush x:Key="ThemeBrushKey"
+                         Color="#FFFFFFFF" />
 
-        <Color x:Key="ThemeAccentColor">#CC119EDA</Color>
-        <Color x:Key="ThemeAccentColor2">#99119EDA</Color>
-        <Color x:Key="ThemeAccentColor3">#66119EDA</Color>
-        <Color x:Key="ThemeAccentColor4">#33119EDA</Color>
+        <Color x:Key="BackgroundColorKey">#FFD7D7DC</Color>
+        <SolidColorBrush x:Key="BackgroundBrushKey"
+                         Color="#FFD7D7DC" />
 
-        <Color x:Key="ThemeBackgroundColor">#FFFFFFFF</Color>
-        <Color x:Key="ThemeBorderLowColor">#FFAAAAAA</Color>
-        <Color x:Key="ThemeBorderMidColor">#FF888888</Color>
-        <Color x:Key="ThemeBorderHighColor">#FF333333</Color>
+        <Color x:Key="BorderColorKey">#FFB9B9C0</Color>
+        <SolidColorBrush x:Key="BorderBrushKey"
+                         Color="#FFB9B9C0" />
+
+        <Color x:Key="ForegroundColorKey">#FF363636</Color>
+        <SolidColorBrush x:Key="ForegroundBrushKey"
+                         Color="#FF363636" />
 
 
-        <Color x:Key="ThemeControlLowColor">#FF868999</Color>
-        <Color x:Key="ThemeControlMidColor">#FFF5F5F5</Color>
-        <Color x:Key="ThemeControlMidHighColor">#FFC2C3C9</Color>
-        <Color x:Key="ThemeControlHighColor">#FF686868</Color>
-        <Color x:Key="ThemeControlVeryHighColor">#FF5B5B5B</Color>
 
-        <Color x:Key="ThemeControlHighlightLowColor">#FFF0F0F0</Color>
-        <Color x:Key="ThemeControlHighlightMidColor">#FFD0D0D0</Color>
-        <Color x:Key="ThemeControlHighlightHighColor">#FF808080</Color>
-        <Color x:Key="ThemeForegroundColor">#FF000000</Color>
-        <Color x:Key="ThemeForegroundLowColor">#FF808080</Color>
+        <Color x:Key="SemiactiveBackgroundColorKey">#FFF5F5F8</Color>
+        <SolidColorBrush x:Key="SemiactiveBackgroundBrushKey"
+                         Color="#FFF5F5F8" />
 
-        <Color x:Key="HighlightColor">#FF086F9E</Color>
-        <Color x:Key="HighlightForegroundColor">#FFFFFFFF</Color>
-        <Color x:Key="ErrorColor">#FFFF0000</Color>
-        <Color x:Key="ErrorLowColor">#10FF0000</Color>
+        <Color x:Key="SemiactiveBorderColorKey">#FFB9B9C0</Color>
+        <SolidColorBrush x:Key="SemiactiveBorderBrushKey"
+                         Color="#FFB9B9C0" />
 
-        <SolidColorBrush x:Key="ThemeBackgroundBrush" Color="{DynamicResource ThemeBackgroundColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeBorderLowBrush" Color="{DynamicResource ThemeBorderLowColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeBorderMidBrush" Color="{DynamicResource ThemeBorderMidColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeBorderHighBrush" Color="{DynamicResource ThemeBorderHighColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeControlLowBrush" Color="{DynamicResource ThemeControlLowColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeControlMidBrush" Color="{DynamicResource ThemeControlMidColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeControlMidHighBrush" Color="{DynamicResource ThemeControlMidHighColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeControlHighBrush" Color="{DynamicResource ThemeControlHighColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeControlVeryHighBrush" Color="{DynamicResource ThemeControlVeryHighColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeControlHighlightLowBrush" Color="{DynamicResource ThemeControlHighlightLowColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeControlHighlightMidBrush" Color="{DynamicResource ThemeControlHighlightMidColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeControlHighlightHighBrush" Color="{DynamicResource ThemeControlHighlightHighColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeForegroundBrush" Color="{DynamicResource ThemeForegroundColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeForegroundLowBrush" Color="{DynamicResource ThemeForegroundLowColor}"></SolidColorBrush>
+        <Color x:Key="SemiActiveForegroundColorKey">#FF101010</Color>
+        <SolidColorBrush x:Key="SemiActiveForegroundBrushKey"
+                         Color="#FF101010" />
 
-        <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource HighlightColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="HighlightForegroundBrush" Color="{DynamicResource HighlightForegroundColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeAccentBrush" Color="{DynamicResource ThemeAccentColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeAccentBrush2" Color="{DynamicResource ThemeAccentColor2}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeAccentBrush3" Color="{DynamicResource ThemeAccentColor3}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ThemeAccentBrush4" Color="{DynamicResource ThemeAccentColor4}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ErrorBrush" Color="{DynamicResource ErrorColor}"></SolidColorBrush>
-        <SolidColorBrush x:Key="ErrorLowBrush" Color="{DynamicResource ErrorLowColor}"></SolidColorBrush>
 
-        <SolidColorBrush x:Key="NotificationCardBackgroundBrush" Color="#444444" Opacity="0.75"/>
-        <SolidColorBrush x:Key="NotificationCardInformationBackgroundBrush" Color="#007ACC" Opacity="0.75"/>
-        <SolidColorBrush x:Key="NotificationCardSuccessBackgroundBrush" Color="#1F9E45" Opacity="0.75"/>
-        <SolidColorBrush x:Key="NotificationCardWarningBackgroundBrush" Color="#FDB328" Opacity="0.75"/>
-        <SolidColorBrush x:Key="NotificationCardErrorBackgroundBrush" Color="#BD202C" Opacity="0.75"/>
 
-        <SolidColorBrush x:Key="DatePickerFlyoutPresenterHighlightFill" Color="{DynamicResource ThemeAccentColor}" Opacity="0.4" />
-        <SolidColorBrush x:Key="TimePickerFlyoutPresenterHighlightFill" Color="{DynamicResource ThemeAccentColor}" Opacity="0.4" />
+        <Color x:Key="ActiveBackgroundColorKey">#FFFFFFFF</Color>
+        <SolidColorBrush x:Key="ActiveBackgroundBrushKey"
+                         Color="#FFFFFFFF" />
 
-        <SolidColorBrush x:Key="ThemeControlTransparentBrush" Color="Transparent" />
+        <Color x:Key="ActiveBorderColorKey">#FFB9B9C0</Color>
+        <SolidColorBrush x:Key="ActiveBorderBrushKey"
+                         Color="#FFB9B9C0" />
 
-        <Thickness x:Key="ThemeBorderThickness">1</Thickness>
-        <sys:Double x:Key="ThemeDisabledOpacity">0.5</sys:Double>
+        <Color x:Key="ActiveForegroundColorKey">#FF000000</Color>
+        <SolidColorBrush x:Key="ActiveForegroundBrushKey"
+                         Color="#FF000000" />
 
-        <sys:Double x:Key="FontSizeSmall">10</sys:Double>
-        <sys:Double x:Key="FontSizeNormal">12</sys:Double>
-        <sys:Double x:Key="FontSizeLarge">16</sys:Double>
 
-        <sys:Double x:Key="ScrollBarThickness">18</sys:Double>
-        <sys:Double x:Key="ScrollBarThumbThickness">8</sys:Double>
 
-        <sys:Double x:Key="IconElementThemeHeight">20</sys:Double>
-        <sys:Double x:Key="IconElementThemeWidth">20</sys:Double>
+        <Color x:Key="InactiveBackgroundColorKey">#FFEFEFF2</Color>
+        <SolidColorBrush x:Key="InactiveBackgroundBrushKey"
+                         Color="#FFEFEFF2" />
+
+        <Color x:Key="InactiveBorderColorKey">#FFD7D7DE</Color>
+        <SolidColorBrush x:Key="InactiveBorderBrushKey"
+                         Color="#FFD7D7DE" />
+
+        <Color x:Key="InactiveForegroundColorKey">#FF808080</Color>
+        <SolidColorBrush x:Key="InactiveForegroundBrushKey"
+                         Color="#FF808080" />
+
+
+
+        <Color x:Key="HighlightBackgroundColorKey">#FFA5A5AC</Color>
+        <SolidColorBrush x:Key="HighlightBackgroundBrushKey"
+                         Color="#FFA5A5AC" />
+
+        <Color x:Key="HighlightBorderColorKey">#FFA5A5AC</Color>
+        <SolidColorBrush x:Key="HighlightBorderBrushKey"
+                         Color="#FFA5A5AC" />
+
+        <Color x:Key="HighlightForegroundColorKey">#FF000000</Color>
+        <SolidColorBrush x:Key="HighlightForegroundBrushKey"
+                         Color="#FF000000" />
+
+
+
+        <Color x:Key="Highlight2BackgroundColorKey">#FF696970</Color>
+        <SolidColorBrush x:Key="Highlight2BackgroundBrushKey"
+                         Color="#FF696970" />
+
+        <Color x:Key="Highlight2BorderColorKey">#FF696970</Color>
+        <SolidColorBrush x:Key="Highlight2BorderBrushKey"
+                         Color="#FF696970" />
+
+        <Color x:Key="Highlight2ForegroundColorKey">#FFFFFFFF</Color>
+        <SolidColorBrush x:Key="Highlight2ForegroundBrushKey"
+                         Color="#FFFFFFFF" />
+
+
+
+        <Color x:Key="Highlight3BackgroundColorKey">#FF4B4B52</Color>
+        <SolidColorBrush x:Key="Highlight3BackgroundBrushKey"
+                         Color="#FF4B4B52" />
+
+        <Color x:Key="Highlight3BorderColorKey">#FF4B4B52</Color>
+        <SolidColorBrush x:Key="Highlight3BorderBrushKey"
+                         Color="#FF4B4B52" />
+
+        <Color x:Key="Highlight3ForegroundColorKey">#FFFFFFFF</Color>
+        <SolidColorBrush x:Key="Highlight3ForegroundBrushKey"
+                         Color="#FFFFFFFF" />
+
+
+
+        <Color x:Key="LinkForegroundColorKey">#FF0000C8</Color>
+        <SolidColorBrush x:Key="LinkForegroundBrushKey"
+                         Color="#FF0000C8" />
+
+        <Color x:Key="ActiveLinkForegroundColorKey">#FF007ACC</Color>
+        <SolidColorBrush x:Key="ActiveLinkForegroundBrushKey"
+                         Color="#FF007ACC" />
+
+
+
+        <Color x:Key="ValidationErrorColorKey">#FFC80000</Color>
+        <SolidColorBrush x:Key="ValidationErrorBrushKey"
+                         Color="#FFC80000" />
     </Style.Resources>
 </Style>

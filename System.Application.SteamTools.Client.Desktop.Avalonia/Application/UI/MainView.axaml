@@ -16,18 +16,18 @@
         <DockPanel Grid.Row="0" Grid.RowSpan="3" HorizontalAlignment="Stretch">
             <ExperimentalAcrylicBorder IsHitTestVisible="False" DockPanel.Dock="Left" Width="240">
                 <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="black" MaterialOpacity="0.85" TintOpacity="1"/>
+                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
                 </ExperimentalAcrylicBorder.Material>
                 <StackPanel IsHitTestVisible="False" Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
                     <Image IsHitTestVisible="False" Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
-                    <Label IsHitTestVisible="False" Content="{Binding Path=Title}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
+                    <Label IsHitTestVisible="False" Content="{Binding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
                 </StackPanel>
             </ExperimentalAcrylicBorder>
             <ExperimentalAcrylicBorder IsHitTestVisible="False">
                 <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeBackgroundBrush}" MaterialOpacity="0.85" TintOpacity="1"/>
+                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
                 </ExperimentalAcrylicBorder.Material>
-                <Label Content="{ReflectionBinding #TabControl.SelectedItem.Name}" Margin="20 10 20 0" FontSize="32"/>
+                <Label Content="{ReflectionBinding #TabControl.SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Margin="20 10 20 0" FontSize="32"/>
             </ExperimentalAcrylicBorder>
         </DockPanel>
         <Border Grid.Row="1" BorderThickness="0" Height="70"/>
@@ -58,7 +58,7 @@
             </TabControl.DataTemplates>
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}">
+                    <TextBlock Text="{Binding Name}" FontSize="14">
                     </TextBlock>
                 </DataTemplate>
             </TabControl.ItemTemplate>

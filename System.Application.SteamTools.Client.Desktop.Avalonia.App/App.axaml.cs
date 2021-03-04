@@ -98,7 +98,8 @@ namespace System.Application.UI
                         Command = ReactiveCommand.Create(()=>{
                           Styles[0] = new FluentTheme(new Uri("avares://Avalonia.Themes.Fluent/FluentLight.xaml"))
                             { Mode= FluentThemeMode.Light };
-                          //Styles[1] = new StyleInclude(new Uri("avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeLight.xaml"));
+                            var uri = new Uri("avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeLight.xaml");
+                          Styles[1] = new StyleInclude(uri){ Source = uri };
                         })
                     },
                     new MenuItem()
@@ -106,7 +107,8 @@ namespace System.Application.UI
                         Header = "Dark",
                         Command = ReactiveCommand.Create(()=>{
                           Styles[0] = new FluentTheme(new Uri("avares://Avalonia.Themes.Fluent/FluentDark.xaml")){ Mode= FluentThemeMode.Dark };
-                          //Styles[1] = new StyleInclude(new Uri("avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeDark.xaml"));
+                            var uri = new Uri("avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeDark.xaml");
+                          Styles[1] = new StyleInclude(uri){ Source = uri };
                         })
                     },
                     new MenuItem()

@@ -31,6 +31,7 @@ namespace System.Application.Services
             string requestUri,
             string channelType,
             CancellationToken cancellationToken = default);
+
     }
 
 #if DEBUG
