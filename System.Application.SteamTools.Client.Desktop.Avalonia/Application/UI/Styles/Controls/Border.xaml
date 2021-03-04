@@ -7,9 +7,6 @@
             </Border>
         </Border>
     </Design.PreviewWith>
-    <Styles.Resources>
-        <Thickness x:Key="PageMargin">20 0 20 0</Thickness>
-    </Styles.Resources>
 
     <Style Selector="Border.cardborder">
         <Setter Property="BorderBrush" Value="#2F2F37"/>

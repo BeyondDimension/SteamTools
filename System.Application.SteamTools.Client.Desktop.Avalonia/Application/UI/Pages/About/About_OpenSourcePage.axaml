@@ -7,7 +7,7 @@
              xmlns:models="clr-namespace:System.Application.Models;assembly=System.Application.SteamTools.Client"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.About_OpenSourcePage">
-    <ScrollViewer HorizontalAlignment="Stretch" Background="Transparent">
+    <ScrollViewer HorizontalAlignment="Stretch" Background="Transparent" Padding="{StaticResource PageMargin2}">
         <TextBox Classes="readonlybox" Text="{Binding Source={x:Static models:OpenSourceLibrary.StringValues},Mode=OneWay}"
                  TextWrapping="WrapWithOverflow" IsReadOnly="True">
         </TextBox>

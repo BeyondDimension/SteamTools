@@ -22,6 +22,7 @@
     <None Remove="Application\UI\Assets\AppResources\avater.jpg" />
     <None Remove="Application\UI\Styles\Controls.xaml" />
     <None Remove="Application\UI\Styles\Controls\Border.xaml" />
+    <None Remove="Application\UI\Styles\Controls\TabControl.xaml" />
     <None Remove="Application\UI\Styles\Controls\TextBox.xaml" />
     <None Remove="Application\UI\Styles\ThemeDark.xaml" />
     <None Remove="Application\UI\Styles\ThemeLight.xaml" />
@@ -55,6 +56,9 @@
 
   <ItemGroup>
     <AvaloniaResource Update="Application\UI\Styles\Controls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+    <AvaloniaResource Update="Application\UI\Styles\Controls\TabControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>
     <AvaloniaResource Update="Application\UI\Styles\Controls\Border.xaml">

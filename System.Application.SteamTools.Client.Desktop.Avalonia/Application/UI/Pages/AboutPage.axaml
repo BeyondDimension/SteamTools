@@ -5,20 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:pages="clr-namespace:System.Application.UI.Views.Pages"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.AboutPage">
-	<Grid Margin="{StaticResource PageMargin}">
-        <TabControl>
-            <TabItem Header="{Binding Path=Res.About_ThisSoft,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            </TabItem>
-            <TabItem Header="{Binding Path=Res.About_FAQ,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            </TabItem>
-            <TabItem Header="{Binding Path=Res.About_OpenSource,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <pages:About_OpenSourcePage></pages:About_OpenSourcePage>
-            </TabItem>
-            <TabItem Header="{Binding Path=Res.About_Joinus,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            </TabItem>
-        </TabControl>
-	</Grid>
+    <TabControl Classes="flat">
+        <TabItem Header="{Binding Path=Res.About_ThisSoft,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        </TabItem>
+        <TabItem Header="{Binding Path=Res.About_FAQ,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        </TabItem>
+        <TabItem Header="{Binding Path=Res.About_OpenSource,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <pages:About_OpenSourcePage></pages:About_OpenSourcePage>
+        </TabItem>
+        <TabItem Header="{Binding Path=Res.About_Joinus,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        </TabItem>
+    </TabControl>
 </UserControl>
