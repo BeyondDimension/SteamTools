@@ -248,5 +248,14 @@ namespace System.Properties {
                 return ResourceManager.GetString("Unknown", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 不受支持的手机号码号段({0}) 的本地化字符串。
+        /// </summary>
+        internal static string UnsupportedPhoneNumberSegment_ {
+            get {
+                return ResourceManager.GetString("UnsupportedPhoneNumberSegment_", resourceCulture);
+            }
+        }
     }
 }

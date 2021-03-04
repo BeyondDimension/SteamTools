@@ -169,7 +169,7 @@ namespace System.Application
             /// <summary>
             /// 手机号码
             /// </summary>
-            public const int PhoneNumber = PhoneNumberHelper.Length;
+            public const int PhoneNumber = PhoneNumberHelper.ChineseMainlandPhoneNumberLength;
 
             /// <summary>
             /// 昵称

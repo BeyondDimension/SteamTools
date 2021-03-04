@@ -53,11 +53,62 @@ namespace System
         #region TryParse
 
         /// <summary>
+        /// 尝试将数字的字符串表示形式转换为它的等效 16 位有符号整数
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static short? TryParseInt16(this string value) => short.TryParse(value, out var temp) ? temp : null;
+
+        /// <summary>
+        /// 尝试将数字的字符串表示形式转换为它的等效 16 位无符号整数
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static ushort? TryParseUInt16(this string value) => ushort.TryParse(value, out var temp) ? temp : null;
+
+        /// <summary>
         /// 尝试将数字的字符串表示形式转换为它的等效 32 位有符号整数
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static int? TryParseInt32(this string value) => int.TryParse(value, out var temp) ? temp as int? : null;
+        public static int? TryParseInt32(this string value) => int.TryParse(value, out var temp) ? temp : null;
+
+        /// <summary>
+        /// 尝试将数字的字符串表示形式转换为它的等效 32 位无符号整数
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static uint? TryParseUInt32(this string value) => uint.TryParse(value, out var temp) ? temp : null;
+
+        /// <summary>
+        /// 尝试将数字的字符串表示形式转换为它的等效 64 位有符号整数
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static long? TryParseInt64(this string value) => long.TryParse(value, out var temp) ? temp : null;
+
+        /// <summary>
+        /// 尝试将数字的字符串表示形式转换为它的等效 64 位无符号整数
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static ulong? TryParseUInt64(this string value) => ulong.TryParse(value, out var temp) ? temp : null;
+
+        /// <summary>
+        /// 尝试将数字的字符串表示形式转换为它的等效 byte 值
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static byte? TryParseByte(this string value) => byte.TryParse(value, out var temp) ? temp : null;
+
+        public static bool? TryParseBoolean(this string value) => bool.TryParse(value, out var temp) ? temp : null;
+
+        /// <summary>
+        /// 尝试将数字的字符串表示形式转换为它的等效 sbyte 值
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static sbyte? TryParseSByte(this string value) => sbyte.TryParse(value, out sbyte temp) ? temp : null;
 
         #endregion
 

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>System.Application</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\SteamTools\System.Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SteamTools\System.Common.CoreLib\System.Common.CoreLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\_21VianetBlueCloud\" />
+  </ItemGroup>
+
+</Project>

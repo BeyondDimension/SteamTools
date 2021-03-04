@@ -1,13 +1,14 @@
 ﻿using System.Application.Columns;
 using System.Common;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Properties;
 
 namespace System.Application
 {
     public static class PhoneNumberHelper
     {
         const char HideChar = '*';
-        public const int Length = 11;
 
         /// <summary>
         /// 手机号码隐藏中间四位数字
@@ -40,12 +41,14 @@ namespace System.Application
         /// <inheritdoc cref="ToStringHideMiddleFour(string?, char)"/>
         public static string ToStringHideMiddleFour(this IReadOnlyPhoneNumber phoneNumber, char hideChar = HideChar) => ToStringHideMiddleFour(phoneNumber.PhoneNumber, hideChar);
 
+        public const int ChineseMainlandPhoneNumberLength = 11;
+
         /// <summary>
         /// 获取中国大陆地区11位手机号码
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static string? GetChineseMainlandPhoneNumber11(string? value)
+        public static string? GetChineseMainlandPhoneNumber(string? value)
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
@@ -71,6 +74,95 @@ namespace System.Application
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// 中国大陆地区手机号码号段
+        /// </summary>
+        static class ChineseMainlandPhoneNumberSegment
+        {
+            /// <summary>
+            /// 中国电信
+            /// </summary>
+            public static byte[] ChinaTelecom = { 133, 153, 177, 173, 180, 181, 189, 199, 149 };
+
+            /// <summary>
+            /// 中国联通
+            /// </summary>
+            public static byte[] ChinaUnicom = { 130, 131, 132, 155, 156, 185, 186, 145, 176, 166, 146, 175 };
+
+            /// <summary>
+            /// 中国移动
+            /// </summary>
+            public static byte[] ChinaMobile = { 139, 138, 137, 136, 135, 134, 147, 150, 151, 152, 157, 158, 159, 178, 182, 183, 184, 187, 188, 198, 148, 172 };
+
+            /// <summary>
+            /// 虚拟运营商
+            /// </summary>
+            public static byte[] MobileVirtualNetwork = { 170, 171 };
+
+            public static byte[] Other = { 190, 197, 196, 192 };
+
+            static Lazy<byte[]> mSummary = new(() => new[]
+            {
+                ChinaTelecom,
+                ChinaUnicom,
+                ChinaMobile,
+                MobileVirtualNetwork
+            }.SelectMany(b => b).ToArray());
+
+            /// <summary>
+            /// 总号段
+            /// </summary>
+            public static byte[] Summary => mSummary.Value;
+
+            /// <summary>
+            /// 黑名单
+            /// </summary>
+            public static readonly byte[] Blacklist = new byte[] {
+                148, 149, 146, // 物联网号段
+            };
+        }
+
+        /// <summary>
+        /// 中国大陆地区手机号码号段验证使用 黑名单(<see langword="true"/>) 或 白名单(<see langword="false"/>)
+        /// </summary>
+        public static bool ChineseMainlandPhoneNumberSegmentVerifyUseBlacklistOrWhitelist { get; set; }
+
+        /// <summary>
+        /// 中国大陆地区手机号码号段验证(通常仅服务端验证)
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="errMsg"></param>
+        /// <returns></returns>
+        public static bool IsChineseMainlandPhoneNumberSegment(string value,
+            [NotNullWhen(false)] out string? errMsg)
+        {
+            var segment = value.Substring(0, 3).TryParseByte();
+            if (!segment.HasValue)
+            {
+                errMsg = string.Format(SR.UnsupportedPhoneNumberSegment_, 0);
+                return false;
+            }
+            if (ChineseMainlandPhoneNumberSegmentVerifyUseBlacklistOrWhitelist)
+            {
+                if (ChineseMainlandPhoneNumberSegment.Blacklist.Contains(segment.Value))
+                {
+                    errMsg = string.Format(SR.UnsupportedPhoneNumberSegment_, segment ?? 0);
+                    return false;
+                }
+            }
+            else
+            {
+                if (!ChineseMainlandPhoneNumberSegment.Summary.Contains(segment.Value))
+                {
+                    errMsg = string.Format(SR.UnsupportedPhoneNumberSegment_, segment ?? 0);
+                    return false;
+                }
+            }
+
+            errMsg = null;
+            return true;
         }
     }
 }

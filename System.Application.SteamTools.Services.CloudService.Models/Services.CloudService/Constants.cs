@@ -19,12 +19,6 @@ namespace System.Application.Services.CloudService
             }
         }
 
-        public const string HeaderAppVersion = "App-Version";
-
-        public const string HeaderSecurityKey = "App-S-Key";
-
-        public const string HeaderRspCiphertext = "App-Rsp-Ciphertext";
-
         /// <summary>
         /// 短信间隔，60秒
         /// </summary>

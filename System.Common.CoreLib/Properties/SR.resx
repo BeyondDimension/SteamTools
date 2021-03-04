@@ -181,4 +181,7 @@
   <data name="Unknown" xml:space="preserve">
     <value>未知</value>
   </data>
+  <data name="UnsupportedPhoneNumberSegment_" xml:space="preserve">
+    <value>不受支持的手机号码号段({0})</value>
+  </data>
 </root>
