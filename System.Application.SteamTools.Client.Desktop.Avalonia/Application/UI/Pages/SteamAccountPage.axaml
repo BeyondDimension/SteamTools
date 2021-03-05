@@ -60,8 +60,8 @@
                                 </Border>
                             </DockPanel>
 
-                            <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding SteamNickName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}" />
-                            <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding AccountName}" FontSize="10" Foreground="#A1A1A1"/>
+                            <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding SteamNickName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}" ></controls:ScrollingTextBlock>
+                            <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding LastLoginTime,Converter={StaticResource DateFormatConverter},ConverterParameter='yyyy-MM-dd HH:mm:ss'}" FontSize="10" Foreground="#A1A1A1"/>
 
                         </StackPanel>
                     </DataTemplate>

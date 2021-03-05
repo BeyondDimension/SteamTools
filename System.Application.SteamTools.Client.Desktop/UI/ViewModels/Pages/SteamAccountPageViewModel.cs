@@ -62,7 +62,7 @@ namespace System.Application.UI.ViewModels
 
         public void SteamId_Click(string accountName)
         {
-            //steamService.SetCurrentUser(accountName);
+            steamService.SetCurrentUser(accountName);
             steamService.TryKillSteamProcess();
             steamService.StartSteam();
         }
