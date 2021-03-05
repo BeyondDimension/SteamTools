@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System.Application.Models;
 using System.Application.Models.AlibabaCloud;
-using System.Application.Services.Implementation;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -13,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace System.Application.Services.AlibabaCloud
+namespace System.Application.Services.Implementation.AlibabaCloud
 {
     /// <summary>
     /// 短信服务提供商 - 阿里云

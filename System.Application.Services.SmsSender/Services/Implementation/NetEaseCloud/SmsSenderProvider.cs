@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using System.Application.Models;
 using System.Application.Models.Abstractions;
 using System.Application.Models.NetEaseCloud;
-using System.Application.Services.Implementation;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -36,7 +35,7 @@ http 响应:json
 500	服务器内部错误
  */
 
-namespace System.Application.Services.NetEaseCloud
+namespace System.Application.Services.Implementation.NetEaseCloud
 {
     /// <summary>
     /// 短信服务（网易云实现） 需要实现校验接口

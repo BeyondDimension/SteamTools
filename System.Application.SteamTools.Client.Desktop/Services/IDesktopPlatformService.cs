@@ -119,6 +119,9 @@ namespace System.Application.Services
         /// <inheritdoc cref="ISteamService.GetLastLoginUserName"/>
         string GetLastSteamLoginUserName();
 
+        /// <inheritdoc cref="ISteamService.SetCurrentUser(string)"/>
+        void SetCurrentUser(string userName);
+
         #endregion
 
         public const ResizeMode ResizeMode_NoResize = 0;

@@ -1,6 +1,6 @@
 ﻿namespace System.Application.Models.NetEaseCloud
 {
-    public class SmsOptions
+    public class SmsOptions : IExplicitHasValue
     {
         /// <summary>
         /// 开发者平台分配的appkey
@@ -15,12 +15,15 @@
         /// <summary>
         /// 开发者平台分配的模板标志
         /// </summary>
-        public SmsOptionsTemplateId<int?>[]? Templates { get; set; }
+        public SmsOptionsTemplateId<int>[]? Templates { get; set; }
 
         public bool IsValid()
         {
             return !string.IsNullOrWhiteSpace(AppKey) &&
-                !string.IsNullOrWhiteSpace(AppSecret);
+                !string.IsNullOrWhiteSpace(AppSecret) &&
+                Templates.Any_Nullable();
         }
+
+        bool IExplicitHasValue.ExplicitHasValue() => IsValid();
     }
 }

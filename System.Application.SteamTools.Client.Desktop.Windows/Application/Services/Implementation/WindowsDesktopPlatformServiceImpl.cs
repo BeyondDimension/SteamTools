@@ -142,6 +142,11 @@ namespace System.Application.Services.Implementation
 
         public string GetLastSteamLoginUserName()
             => Registry.CurrentUser.Read(SteamRegistryPath, "AutoLoginUser");
+
+        public void SetCurrentUser(string userName)
+        {
+            Registry.CurrentUser.AddOrUpdate(SteamRegistryPath, "AutoLoginUser", userName, RegistryValueKind.String);
+        }
     }
 }
 #pragma warning restore CA1416 // 验证平台兼容性

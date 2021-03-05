@@ -146,6 +146,8 @@ namespace System.Application.Services.Implementation
             return users;
         }
 
+        public string SetCurrentUser(string userName) => platformService.SetCurrentUser(userName);
+
         public List<SteamApp>? GetAppListJson(string filePath)
         {
             if (!File.Exists(filePath))

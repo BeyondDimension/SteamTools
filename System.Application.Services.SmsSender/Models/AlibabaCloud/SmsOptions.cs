@@ -1,6 +1,6 @@
 ﻿namespace System.Application.Models.AlibabaCloud
 {
-    public class SmsOptions
+    public class SmsOptions : IExplicitHasValue
     {
         /// <summary>
         /// 平台分配的appkey
@@ -28,7 +28,10 @@
         {
             return !string.IsNullOrWhiteSpace(AccessKeyId) &&
                 !string.IsNullOrWhiteSpace(AccessKeySecret) &&
-                !string.IsNullOrWhiteSpace(SignName);
+                !string.IsNullOrWhiteSpace(SignName) &&
+                Templates.Any_Nullable();
         }
+
+        bool IExplicitHasValue.ExplicitHasValue() => IsValid();
     }
 }

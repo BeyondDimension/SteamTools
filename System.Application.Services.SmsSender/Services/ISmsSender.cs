@@ -29,9 +29,9 @@ namespace System.Application.Services
         /// <summary>
         /// 发送短信验证码
         /// </summary>
-        /// <param name="number">收信人手机号码。</param>
-        /// <param name="message">发送的短信内容。</param>
-        /// <param name="type">发送短信用途。</param>
+        /// <param name="number">收信人手机号码</param>
+        /// <param name="message">发送的短信内容</param>
+        /// <param name="type">发送短信用途</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<ISendSmsResult> SendSmsAsync(string number, string message, int type, CancellationToken cancellationToken = default);
@@ -39,8 +39,9 @@ namespace System.Application.Services
         /// <summary>
         /// 校验短信验证码，某些平台要求校验短信也要调用他提供的接口
         /// </summary>
-        /// <param name="number">收信人手机号码。</param>
-        /// <param name="message">短信验证码内容。</param>
+        /// <param name="number">收信人手机号码</param>
+        /// <param name="message">短信验证码内容</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<ICheckSmsResult> CheckSmsAsync(string number, string message, CancellationToken cancellationToken = default);
 

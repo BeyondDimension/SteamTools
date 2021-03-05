@@ -38,5 +38,7 @@ namespace System.Application.Services.Implementation
         }
 
         public string GetLastSteamLoginUserName() => string.Empty;
+
+        public void SetCurrentUser(string userName) { }
     }
 }

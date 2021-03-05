@@ -56,6 +56,12 @@ namespace System.Application.Services
         /// <returns></returns>
         List<SteamUser> GetRememberUserList();
 
+        /// <summary>
+        /// 设置下次登陆 Steam 用户
+        /// </summary>
+        /// <param name="userName"></param>
+        void SetCurrentUser(string userName);
+
         List<SteamApp>? GetAppListJson(string filePath);
 
         bool UpdateAppListJson(List<SteamApp> apps, string filePath);
