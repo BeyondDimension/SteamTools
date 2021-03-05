@@ -140,7 +140,7 @@ namespace System.Application.Services.Implementation.AlibabaCloud
             args.Add("Signature", signString);
 
             var requestUri = $"https://{domain}?Signature={signString}&{queryString}";
-            var response = await httpClient.GetAsync(requestUri, cancellationToken);
+            using var response = await httpClient.GetAsync(requestUri, cancellationToken);
 
             var isSuccess = false;
             SendSmsAlibabaCloudResult? jsonObject = null;

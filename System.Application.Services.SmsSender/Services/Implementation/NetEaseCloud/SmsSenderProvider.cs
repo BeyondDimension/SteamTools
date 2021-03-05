@@ -110,7 +110,7 @@ namespace System.Application.Services.Implementation.NetEaseCloud
                 },
             };
 
-            var request = new HttpRequestMessage(HttpMethod.Post, requestUri)
+            using var request = new HttpRequestMessage(HttpMethod.Post, requestUri)
             {
                 Content = content,
             };
@@ -120,7 +120,7 @@ namespace System.Application.Services.Implementation.NetEaseCloud
 
             var isSuccess = false;
             TResult? jsonObject = null;
-            var response = await httpClient.SendAsync(request, cancellationToken);
+            using var response = await httpClient.SendAsync(request, cancellationToken);
 
             if (response.IsSuccessStatusCode)
             {

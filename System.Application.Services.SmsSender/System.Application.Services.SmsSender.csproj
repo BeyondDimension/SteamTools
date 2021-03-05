@@ -15,8 +15,4 @@
     <ProjectReference Include="..\..\SteamTools\System.Common.CoreLib\System.Common.CoreLib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\_21VianetBlueCloud\" />
-  </ItemGroup>
-
 </Project>
