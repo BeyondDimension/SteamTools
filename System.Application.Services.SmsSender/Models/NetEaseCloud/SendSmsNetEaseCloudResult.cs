@@ -3,7 +3,7 @@ using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 
 namespace System.Application.Models.NetEaseCloud
 {
-    public sealed class SendSmsNetEaseCloudResult : NetEaseCloudResult<SendSmsNetEaseCloudResult>, ISmsSubResult
+    public sealed class SendSmsNetEaseCloudResult : NetEaseCloudResult<SendSmsNetEaseCloudResult>
     {
         [N_JsonProperty(msg)]
         [S_JsonProperty(msg)]
@@ -13,6 +13,6 @@ namespace System.Application.Models.NetEaseCloud
         [S_JsonProperty(obj)]
         public string? Obj { get; set; }
 
-        string? ISmsSubResult.GetRecord() => $"code: {Code}, msg: {Msg}, obj: {Obj}";
+        protected override string? GetRecord() => $"code: {Code}, msg: {Msg}, obj: {Obj}";
     }
 }
