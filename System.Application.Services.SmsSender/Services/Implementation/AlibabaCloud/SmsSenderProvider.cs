@@ -11,13 +11,14 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using SmsOptions = System.Application.Models.AlibabaCloud.SmsOptions;
 
 namespace System.Application.Services.Implementation.AlibabaCloud
 {
     /// <summary>
     /// 短信服务提供商 - 阿里云
     /// </summary>
-    public class SmsSenderProvider : AbstractSmsSender, ISmsSender
+    public class SmsSenderProvider : SmsSenderBase, ISmsSender
     {
         public const string Name = nameof(AlibabaCloud);
 
@@ -30,10 +31,11 @@ namespace System.Application.Services.Implementation.AlibabaCloud
         readonly ILogger logger;
         readonly JsonSerializer jsonSerializer = new();
 
-        public SmsSenderProvider(ILogger<SmsSenderProvider> logger, SmsOptions options, HttpClient httpClient)
+        public SmsSenderProvider(ILogger<SmsSenderProvider> logger, SmsOptions? options, HttpClient httpClient)
         {
             this.logger = logger;
-            this.options = options;
+            if (!options.HasValue()) throw new ArgumentException(null, nameof(options));
+            this.options = options.ThrowIsNull(nameof(options));
             this.httpClient = httpClient;
         }
 
@@ -84,7 +86,7 @@ namespace System.Application.Services.Implementation.AlibabaCloud
 
         #endregion
 
-        public override async Task<ISendSmsResult> SendSmsAsync(string number, string message, int type, CancellationToken cancellationToken)
+        public override async Task<ISendSmsResult> SendSmsAsync(string number, string message, ushort type, CancellationToken cancellationToken)
         {
             var now = DateTimeOffset.Now;
             var template_code = options.Templates?.FirstOrDefault(x => x.Type == type)?.Template ?? options.DefaultTemplateCode;

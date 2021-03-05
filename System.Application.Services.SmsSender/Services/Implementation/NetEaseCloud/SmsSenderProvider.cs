@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CSR = System.Application.Models.CheckSmsResult<System.Application.Models.NetEaseCloud.NetEaseCloudResult>;
+using SmsOptions = System.Application.Models.NetEaseCloud.SmsOptions;
 using SSR = System.Application.Models.SendSmsResult<System.Application.Models.NetEaseCloud.SendSmsNetEaseCloudResult>;
 using SSRR = System.Application.Models.NetEaseCloud.SendSmsNetEaseCloudResult;
 
@@ -43,7 +44,7 @@ namespace System.Application.Services.Implementation.NetEaseCloud
     /// <para>http://dev.netease.im/docs/product/%E7%9F%AD%E4%BF%A1/%E7%9F%AD%E4%BF%A1%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%8D%97</para>
     /// <para>http://dev.netease.im/docs/product/IM%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF/%E6%9C%8D%E5%8A%A1%E7%AB%AFAPI%E6%96%87%E6%A1%A3?#接口概述</para>
     /// </summary>
-    public class SmsSenderProvider : AbstractSmsSender, ISmsSender
+    public class SmsSenderProvider : SmsSenderBase, ISmsSender
     {
         public const string Name = nameof(NetEaseCloud);
 
@@ -56,10 +57,11 @@ namespace System.Application.Services.Implementation.NetEaseCloud
         readonly ILogger logger;
         readonly JsonSerializer jsonSerializer = new();
 
-        public SmsSenderProvider(ILogger<SmsSenderProvider> logger, SmsOptions options, HttpClient httpClient)
+        public SmsSenderProvider(ILogger<SmsSenderProvider> logger, SmsOptions? options, HttpClient httpClient)
         {
             this.logger = logger;
-            this.options = options;
+            if (!options.HasValue()) throw new ArgumentException(null, nameof(options));
+            this.options = options.ThrowIsNull(nameof(options));
             this.httpClient = httpClient;
         }
 
@@ -142,7 +144,7 @@ namespace System.Application.Services.Implementation.NetEaseCloud
 
         #endregion helpers
 
-        public override async Task<ISendSmsResult> SendSmsAsync(string number, string message, int type, CancellationToken cancellationToken)
+        public override async Task<ISendSmsResult> SendSmsAsync(string number, string message, ushort type, CancellationToken cancellationToken)
         {
             var dictionary = new Dictionary<string, string?> { { "mobile", number } };
             var template_id = options.Templates?.FirstOrDefault(x => x.Type == type)?.Template;

@@ -164,5 +164,10 @@ namespace System.Application
             errMsg = null;
             return true;
         }
+
+        /// <summary>
+        /// Android 模拟器默认电话号码，硬编码屏蔽此号
+        /// </summary>
+        public const string SimulatorDefaultValue = "15555218135";
     }
 }

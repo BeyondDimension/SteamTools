@@ -31,5 +31,11 @@
         /// [通过手机号码]登录或注册
         /// </summary>
         LoginOrRegister = 204,
+
+        /// <summary>
+        /// [通过手机号码]登录
+        /// </summary>
+        [Obsolete("login has been deprecated")]
+        Login = 205,
     }
 }

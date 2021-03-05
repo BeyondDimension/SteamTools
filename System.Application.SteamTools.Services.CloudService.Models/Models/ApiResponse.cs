@@ -92,9 +92,10 @@ namespace System.Application.Models
         public static IApiResponse<T> Ok<T>(T? content = default)
             => Code(ApiResponseCode.OK, content: content);
 
-        public static IApiResponse Fail() => Code(ApiResponseCode.Fail);
-
         public static IApiResponse<T> Fail<T>(string? message = null)
             => Code<T>(ApiResponseCode.Fail, message);
+
+        public static IApiResponse Fail(string? message = null)
+            => Code(ApiResponseCode.Fail, message);
     }
 }

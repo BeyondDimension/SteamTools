@@ -4,12 +4,12 @@ namespace System.Application.Models.Abstractions
 {
     public abstract class SmsResult<TImplement> :
         JsonModel<TImplement>,
-        IResult<object?>
+        IResult<ISmsSubResult?>
         where TImplement : SmsResult<TImplement>
     {
         public bool IsSuccess { get; set; }
 
-        public object? Result { get; set; }
+        public ISmsSubResult? Result { get; set; }
 
         public int HttpStatusCode { get; set; }
     }
@@ -20,8 +20,8 @@ namespace System.Application.Models.Abstractions
     {
         public new TResult? Result { get; set; }
 
-        public object? ResultObject { get => base.Result; set => base.Result = value; }
+        public ISmsSubResult? ResultObject { get => base.Result; set => base.Result = value; }
 
-        object? ISmsResult.Result => ResultObject;
+        ISmsSubResult? ISmsResult.Result => ResultObject;
     }
 }

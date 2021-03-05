@@ -25,7 +25,7 @@ namespace System.Application.Services.Implementation
             });
         }
 
-        public Task<ISendSmsResult> SendSmsAsync(string __, string ___, int ____, CancellationToken _)
+        public Task<ISendSmsResult> SendSmsAsync(string __, string ___, ushort ____, CancellationToken _)
         {
             return Task.FromResult<ISendSmsResult>(new SendSmsResult
             {

@@ -10,7 +10,7 @@
         /// <summary>
         /// 返回的内容
         /// </summary>
-        object? Result { get; }
+        ISmsSubResult? Result { get; }
 
         /// <summary>
         /// 返回的HTTP状态码

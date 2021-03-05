@@ -5,7 +5,7 @@ using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 
 namespace System.Application.Models._21VianetBlueCloud
 {
-    public class SendSms21VianetBlueCloudResult : JsonModel<SendSms21VianetBlueCloudResult>
+    public class SendSms21VianetBlueCloudResult : JsonModel<SendSms21VianetBlueCloudResult>, ISmsSubResult
     {
         /// <summary>
         /// 短信发送的 ID，用于后续查询
@@ -20,5 +20,7 @@ namespace System.Application.Models._21VianetBlueCloud
         [N_JsonProperty("sendTime")]
         [S_JsonProperty("sendTime")]
         public string? SendTime { get; set; }
+
+        string? ISmsSubResult.GetRecord() => $"messageId: {MessageId}, sendTime: {SendTime}";
     }
 }

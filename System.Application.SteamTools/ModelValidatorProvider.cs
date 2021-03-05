@@ -134,7 +134,7 @@ namespace System.Application
 
         #endregion
 
-        private static class Constants
+        public static class Constants
         {
             public const string 请输入手机号码哦 = "请输入手机号码哦";
 
@@ -157,6 +157,20 @@ namespace System.Application
             public const string 请输入邀请码哦 = "请输入邀请码哦";
 
             public const string 请输入正确的邀请码哦 = "请输入正确的邀请码哦";
+
+            public const string 手机号码已存在_注册 = "这个手机号已经被注册了哦";
+
+            public const string 手机号码已存在_换绑手机 = "这个手机号已经被绑定了哦";
+
+            public const string 手机号码已存在 = "这个手机号已经被使用了哦";
+
+            public const string 用户不存在 = "用户不存在";
+
+            public const string 当前手机号发送短信过于频繁 = "操作有点频繁哦，1分钟以后再试试吧";
+
+            public const string 当前手机号今日发送短信数量超过最大上限 = "验证码获取次数达到今日上限了哦，明天再试试吧";
+
+            public const string 短信服务故障 = "服务器错误【5001】";
         }
 
         public static class Lengths

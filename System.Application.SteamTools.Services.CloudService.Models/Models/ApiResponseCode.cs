@@ -19,6 +19,8 @@ namespace System.Application.Models
 
         NotFound = HttpStatusCode.NotFound,
 
+        BadRequest = HttpStatusCode.BadRequest,
+
         #endregion
 
         #region CustomCode 自定义响应码，1000~?

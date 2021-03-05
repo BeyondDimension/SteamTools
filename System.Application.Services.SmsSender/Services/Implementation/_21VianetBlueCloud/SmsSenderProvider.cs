@@ -16,13 +16,14 @@ using System.Threading.Tasks;
 using System.Web;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
+using SmsOptions = System.Application.Models._21VianetBlueCloud.SmsOptions;
 
 namespace System.Application.Services.Implementation._21VianetBlueCloud
 {
     /// <summary>
     /// 短信服务提供商 - 世纪互联蓝云
     /// </summary>
-    public class SmsSenderProvider : AbstractSmsSender, ISmsSender
+    public class SmsSenderProvider : SmsSenderBase, ISmsSender
     {
         public const string Name = nameof(_21VianetBlueCloud);
 
@@ -35,10 +36,11 @@ namespace System.Application.Services.Implementation._21VianetBlueCloud
         readonly ILogger logger;
         readonly JsonSerializer jsonSerializer = new();
 
-        public SmsSenderProvider(ILogger<SmsSenderProvider> logger, SmsOptions options, HttpClient httpClient)
+        public SmsSenderProvider(ILogger<SmsSenderProvider> logger, SmsOptions? options, HttpClient httpClient)
         {
             this.logger = logger;
-            this.options = options;
+            if (!options.HasValue()) throw new ArgumentException(null, nameof(options));
+            this.options = options.ThrowIsNull(nameof(options));
             this.httpClient = httpClient;
         }
 
@@ -77,7 +79,7 @@ namespace System.Application.Services.Implementation._21VianetBlueCloud
             return $"{Schema} {SignKey}={HttpUtility.UrlEncode(sign)}&{signContent}";
         }
 
-        public override async Task<ISendSmsResult> SendSmsAsync(string number, string message, int type, CancellationToken cancellationToken)
+        public override async Task<ISendSmsResult> SendSmsAsync(string number, string message, ushort type, CancellationToken cancellationToken)
         {
             var key = options.KeyValue.ThrowIsNull(nameof(options.KeyValue));
             var keyName = options.KeyName.ThrowIsNull(nameof(options.KeyName));
