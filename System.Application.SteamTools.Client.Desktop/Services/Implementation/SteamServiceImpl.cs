@@ -115,7 +115,7 @@ namespace System.Application.Services.Implementation
                                 RememberPassword = Convert.ToBoolean(Convert.ToInt64(i.RememberPassword?.ToString())),
                                 Timestamp = Convert.ToInt64(i.Timestamp?.ToString())
                             };
-                            user.LastLoginTime = user.Timestamp.ToDateTime();
+                            user.LastLoginTime = user.Timestamp.ToDateTimeS();
 
                             // 老版本 Steam 数据 小写 mostrecent 支持
                             user.MostRecent = i.mostrecent != null ?

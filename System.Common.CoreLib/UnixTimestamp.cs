@@ -31,7 +31,7 @@ namespace System
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        public static int ToTimestampS(this DateTime dt) => (int)dt.ToTimestamp(UnixTimestampType.Seconds);
+        public static long ToTimestampS(this DateTime dt) => (long)dt.ToTimestamp(UnixTimestampType.Seconds);
 
         static long GetTicks(long timestamp)
         {
@@ -40,7 +40,7 @@ namespace System
             return ticks;
         }
 
-        static long GetTicks(int timestamp)
+        static long GetTicksS(long timestamp)
         {
             var ticks = Constants.UnixEpochTicks + TimeSpan.FromSeconds(timestamp).Ticks;
             return ticks;
@@ -76,9 +76,9 @@ namespace System
         /// <param name="timestamp"></param>
         /// <param name="convertLocalTime"></param>
         /// <returns></returns>
-        public static DateTime ToDateTime(this int timestamp, bool convertLocalTime = true)
+        public static DateTime ToDateTimeS(this long timestamp, bool convertLocalTime = true)
         {
-            var ticks = GetTicks(timestamp);
+            var ticks = GetTicksS(timestamp);
             return GetDateTime(ticks, convertLocalTime);
         }
 
@@ -100,9 +100,9 @@ namespace System
         /// <param name="timestamp"></param>
         /// <param name="convertLocalTime"></param>
         /// <returns></returns>
-        public static DateTimeOffset ToDateTimeOffset(this int timestamp, bool convertLocalTime = true)
+        public static DateTimeOffset ToDateTimeOffsetS(this long timestamp, bool convertLocalTime = true)
         {
-            var ticks = GetTicks(timestamp);
+            var ticks = GetTicksS(timestamp);
             return GetDateTimeOffset(ticks, convertLocalTime);
         }
 
