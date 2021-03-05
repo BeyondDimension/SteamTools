@@ -72,6 +72,10 @@ namespace System.Application.UI.ViewModels
 
             this.SelectedItem = this.TabItems.First();
 
+            if (ViewModelBase.IsInDesignMode) 
+            {
+                return;
+            }
             Task.Run(Initialize).ContinueWith(s =>
             {
                 Log.Error(nameof(MainWindowViewModel), s.Exception, nameof(Initialize) + "Action Error");

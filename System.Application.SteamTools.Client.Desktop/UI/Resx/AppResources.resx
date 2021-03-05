@@ -129,6 +129,9 @@
   <data name="About_OpenSource" xml:space="preserve">
     <value>开放源代码许可</value>
   </data>
+  <data name="About_ProductionStaff" xml:space="preserve">
+    <value>制作人员名单</value>
+  </data>
   <data name="About_ThisSoft" xml:space="preserve">
     <value>此软件</value>
   </data>
@@ -163,10 +166,7 @@
     <value>写入 hosts 时发生错误</value>
   </data>
   <data name="IdleCard" xml:space="preserve">
-    <value>自动挂卡</value>
-  </data>
-  <data name="Language" xml:space="preserve">
-    <value>语言</value>
+    <value>自动集卡</value>
   </data>
   <data name="OtherGamePlaform" xml:space="preserve">
     <value>其它平台</value>
@@ -180,6 +180,9 @@
   <data name="Settings_General" xml:space="preserve">
     <value>基本设置</value>
   </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
   <data name="Settings_Theme" xml:space="preserve">
     <value>主题</value>
   </data>
@@ -188,6 +191,9 @@
   </data>
   <data name="SteamAuth" xml:space="preserve">
     <value>本地令牌</value>
+  </data>
+  <data name="UserChange_BtnTootlip" xml:space="preserve">
+    <value>以该账号登录Steam</value>
   </data>
   <data name="UserFastChange" xml:space="preserve">
     <value>账号切换</value>

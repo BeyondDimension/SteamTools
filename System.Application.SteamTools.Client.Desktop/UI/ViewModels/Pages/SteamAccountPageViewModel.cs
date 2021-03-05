@@ -11,6 +11,9 @@ namespace System.Application.UI.ViewModels
 {
     public class SteamAccountPageViewModel : TabItemViewModel
     {
+        readonly ISteamService steamService = DI.Get<ISteamService>();
+        readonly IHttpService httpService = DI.Get<IHttpService>();
+        readonly ISteamworksWebApiService webApiService = DI.Get<ISteamworksWebApiService>();
 
         public override string Name
         {
@@ -30,9 +33,6 @@ namespace System.Application.UI.ViewModels
 
         internal async override Task Initialize()
         {
-            ISteamService steamService = DI.Get<ISteamService>();
-            IHttpService httpService = DI.Get<IHttpService>();
-            ISteamworksWebApiService webApiService = DI.Get<ISteamworksWebApiService>();
 
             SteamUsers = new ObservableCollection<SteamUser>(steamService.GetRememberUserList());
             if (!SteamUsers.Any_Nullable())
@@ -58,5 +58,14 @@ namespace System.Application.UI.ViewModels
             }
             SteamUsers = new ObservableCollection<SteamUser>(users.OrderByDescending(o => o.RememberPassword).ThenByDescending(o => o.LastLoginTime).ToList());
         }
+
+
+        public void SteamId_Click(string accountName)
+        {
+            //steamService.SetCurrentUser(accountName);
+            steamService.TryKillSteamProcess();
+            steamService.StartSteam();
+        }
+
     }
 }

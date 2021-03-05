@@ -97,6 +97,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 制作人员名单 的本地化字符串。
+        /// </summary>
+        public static string About_ProductionStaff {
+            get {
+                return ResourceManager.GetString("About_ProductionStaff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 此软件 的本地化字符串。
         /// </summary>
         public static string About_ThisSoft {
@@ -196,20 +205,11 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 自动挂卡 的本地化字符串。
+        ///   查找类似 自动集卡 的本地化字符串。
         /// </summary>
         public static string IdleCard {
             get {
                 return ResourceManager.GetString("IdleCard", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 语言 的本地化字符串。
-        /// </summary>
-        public static string Language {
-            get {
-                return ResourceManager.GetString("Language", resourceCulture);
             }
         }
         
@@ -250,6 +250,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 语言 的本地化字符串。
+        /// </summary>
+        public static string Settings_Language {
+            get {
+                return ResourceManager.GetString("Settings_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 主题 的本地化字符串。
         /// </summary>
         public static string Settings_Theme {
@@ -273,6 +282,15 @@ namespace System.Application.UI.Resx {
         public static string SteamAuth {
             get {
                 return ResourceManager.GetString("SteamAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 以该账号登录Steam 的本地化字符串。
+        /// </summary>
+        public static string UserChange_BtnTootlip {
+            get {
+                return ResourceManager.GetString("UserChange_BtnTootlip", resourceCulture);
             }
         }
         
