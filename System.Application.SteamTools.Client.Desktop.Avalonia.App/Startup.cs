@@ -41,6 +41,8 @@ namespace System.Application.UI
             // app 配置项
             services.TryAddOptions(options);
 
+            services.AddRepositories();
+
             // 键值对存储
             services.TryAddStorage();
 

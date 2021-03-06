@@ -13,12 +13,12 @@ namespace System.Application.Models
     {
         Guid ILoginResponse.UserId => User?.Id ?? throw new ArgumentNullException(nameof(User));
 
-        public Guid UserId { get; set; }
+        string? IReadOnlyAuthToken.AuthToken => AuthToken?.AccessToken;
 
         [MPKey(0)]
         [N_JsonProperty("0")]
         [S_JsonProperty("0")]
-        public string? AuthToken { get; set; }
+        public JWTEntity? AuthToken { get; set; }
 
         /// <summary>
         /// 当前登录的用户信息
@@ -38,13 +38,14 @@ namespace System.Application.Models
 
         bool IExplicitHasValue.ExplicitHasValue()
         {
+            var hasToken = AuthToken != null;
             if (IsLoginOrRegister)
             {
-                return true;
+                return hasToken;
             }
             else
             {
-                return User != null;
+                return hasToken && User != null;
             }
         }
     }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Application.Repositories;
+using System.Application.Repositories.Implementation;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 
@@ -7,6 +9,12 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class IdentityServiceCollectionExtensions
     {
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
+            services.AddSingleton<IUserRepository, UserRepository>();
+            return services;
+        }
+
         /// <summary>
         /// 添加 通用 Http 服务
         /// </summary>
