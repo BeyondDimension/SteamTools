@@ -23,7 +23,7 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// 是否在设计器的上下文中运行
         /// </summary>
-        public static bool IsInDesignMode { get; set; }
+        public static bool IsInDesignMode { get; set; } = true;
 
 
         /// <summary>

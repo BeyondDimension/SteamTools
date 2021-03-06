@@ -79,7 +79,11 @@ namespace System.Application.UI
 
             Name = ThisAssembly.AssemblyTrademark;
 
+            ViewModelBase.IsInDesignMode = ApplicationLifetime == null;
+            Startup.Init();
+
             #region 启动时加载的资源
+
             SettingsHost.Load();
             compositeDisposable.Add(SettingsHost.Save);
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
@@ -104,8 +108,6 @@ namespace System.Application.UI
         public override void OnFrameworkInitializationCompleted()
         {
             // 在UI预览中，ApplicationLifetime 为 null
-            ViewModelBase.IsInDesignMode = ApplicationLifetime == null;
-            Startup.Init();
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
 #if MAC
