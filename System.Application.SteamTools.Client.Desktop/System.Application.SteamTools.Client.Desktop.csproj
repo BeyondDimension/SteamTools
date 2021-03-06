@@ -67,8 +67,4 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="UI\ViewModels\Windows\" />
-  </ItemGroup>
 </Project>

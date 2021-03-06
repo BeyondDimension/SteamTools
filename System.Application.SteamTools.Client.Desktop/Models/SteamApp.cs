@@ -42,6 +42,4 @@ namespace System.Application.Models
             return $"{AppId} | {Name}";
         }
     }
-
-
 }

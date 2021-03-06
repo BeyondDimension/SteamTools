@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using System.Application.Models;
+using System.Application.Models.Settings;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
@@ -33,7 +34,6 @@ namespace System.Application.UI.ViewModels
 
         internal async override Task Initialize()
         {
-
             SteamUsers = new ObservableCollection<SteamUser>(steamService.GetRememberUserList());
             if (!SteamUsers.Any_Nullable())
             {
@@ -64,7 +64,7 @@ namespace System.Application.UI.ViewModels
         {
             steamService.SetCurrentUser(accountName);
             steamService.TryKillSteamProcess();
-            steamService.StartSteam();
+            steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
         }
 
     }

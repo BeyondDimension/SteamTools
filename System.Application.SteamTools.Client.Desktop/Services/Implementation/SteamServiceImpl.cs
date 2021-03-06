@@ -95,8 +95,7 @@ namespace System.Application.Services.Implementation
             else
             {
                 toast.Show(SR.SteamInstallPathNotFound);
-            }
-        }
+            }        }
 
         public string GetLastLoginUserName() => platformService.GetLastSteamLoginUserName();
 
