@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -14,7 +15,7 @@
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="{Binding Path=Res.Settings_Language,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 0 0 20" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
                     <ComboBox HorizontalAlignment="Stretch"
-							  SelectedItem="{Binding CurrentLanguage}"
+							  SelectedItem="{Binding SelectLanguage, Mode=TwoWay}"
 							  Items="{Binding Mode=OneWay,Source={x:Static resx:R.Languages}}" >
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -32,7 +33,7 @@
                 </StackPanel>
                 <Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness="1" Margin="10 15"/>
             </StackPanel>
-            
+
         </Grid>
     </StackPanel>
 </UserControl>

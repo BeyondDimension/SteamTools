@@ -24,18 +24,4 @@ namespace System.Application.Models
         /// </summary>
         public Dictionary<Platform, string>? TextReaderProvider { get; set; }
     }
-
-#if DEBUG
-
-    [Obsolete("use AppUserSettings", true)]
-    public class SettingsModel
-    {
-        [Obsolete("use AppUserSettings.StartupArgs", true)]
-        public string? SteamRunParam { get; set; }
-
-        [Obsolete("use AppUserSettings.EnableTextLog", true)]
-        public bool EnableTextLog { get; set; }
-    }
-
-#endif
 }

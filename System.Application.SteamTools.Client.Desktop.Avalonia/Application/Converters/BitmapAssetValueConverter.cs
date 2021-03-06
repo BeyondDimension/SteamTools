@@ -42,7 +42,10 @@ namespace System.Application.Converters
             }
             else if (value is Stream s)
             {
-                s.Position = 0;
+                if (s.Position > 0)
+                {
+                    s.Position = 0;
+                }
                 return new Bitmap(s);
             }
             throw new NotSupportedException();

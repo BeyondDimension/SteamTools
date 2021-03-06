@@ -38,8 +38,8 @@
                                           IsVisible="{Binding AvatarStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>
                                         <Image Width="{Binding #panel.Width}" Stretch="Uniform" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg" IsVisible="{Binding !#avatar.IsVisible}}" />
                                         
-                                        <Border VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Classes="button" IsVisible="False" x:Name="login_btn">
-                                            <Button Content="{Binding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Command="{Binding #u.DataContext.SteamId_Click}" CommandParameter="{Binding AccountName}"></Button>
+                                        <Border VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Classes="button" IsVisible="False" x:Name="login_btn" CornerRadius="0" ToolTip.Tip="{Binding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                                            <Button Content="{Binding Path=Res.UserChange_BtnText,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Command="{Binding #u.DataContext.SteamId_Click}" CommandParameter="{Binding AccountName}"></Button>
                                         </Border>
 
                                         <Ellipse VerticalAlignment="Bottom"

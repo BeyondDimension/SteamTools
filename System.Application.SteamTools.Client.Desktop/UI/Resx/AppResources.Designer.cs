@@ -288,6 +288,15 @@ namespace System.Application.UI.Resx {
         /// <summary>
         ///   查找类似 以该账号登录Steam 的本地化字符串。
         /// </summary>
+        public static string UserChange_BtnText {
+            get {
+                return ResourceManager.GetString("UserChange_BtnText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 按下此按钮将重启Steam并以该账号登录 的本地化字符串。
+        /// </summary>
         public static string UserChange_BtnTootlip {
             get {
                 return ResourceManager.GetString("UserChange_BtnTootlip", resourceCulture);

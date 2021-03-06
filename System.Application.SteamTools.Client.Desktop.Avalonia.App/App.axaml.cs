@@ -19,6 +19,8 @@ using Avalonia.Markup.Xaml.Styling;
 using System.Application.Services;
 using System.Windows.Input;
 using System.Linq;
+using System.Application.Models.Settings;
+using System.Application.UI.Resx;
 #if WINDOWS
 using System.Windows.Shell;
 using WpfApplication = System.Windows.Application;
@@ -76,6 +78,13 @@ namespace System.Application.UI
             AvaloniaXamlLoader.Load(this);
 
             Name = ThisAssembly.AssemblyTrademark;
+
+            #region 启动时加载的资源
+            SettingsHost.Load();
+            compositeDisposable.Add(SettingsHost.Save);
+            UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
+
+            #endregion
 
             MainWindow = new MainWindow
             {
@@ -151,7 +160,6 @@ namespace System.Application.UI
                 {
                     notifyIcon.IconPath = string.Empty;
                 });
-
                 #endregion
 
 #if WINDOWS

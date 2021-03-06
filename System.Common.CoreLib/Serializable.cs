@@ -1,6 +1,7 @@
 ﻿using MessagePack;
 using Newtonsoft.Json;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
@@ -179,6 +180,16 @@ namespace System
         /// <returns></returns>
         [return: MaybeNull]
         public static T DMP<T>(byte[] buffer, CancellationToken cancellationToken = default)
+            => MessagePackSerializer.Deserialize<T>(buffer, cancellationToken: cancellationToken);
+
+        /// <summary>
+        /// (Deserialize)MessagePack 反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="buffer"></param>
+        /// <returns></returns>
+        [return: MaybeNull]
+        public static T DMP<T>(Stream buffer, CancellationToken cancellationToken = default)
             => MessagePackSerializer.Deserialize<T>(buffer, cancellationToken: cancellationToken);
 
         /// <summary>

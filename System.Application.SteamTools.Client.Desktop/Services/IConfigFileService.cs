@@ -23,21 +23,4 @@ namespace System.Application.Services
 
         public static IConfigFileService Instance => DI.Get<IConfigFileService>();
     }
-
-#if DEBUG
-
-    [Obsolete("use IConfigFileService.Instance", true)]
-    public class ConfigService
-    {
-        [Obsolete("use IConfigFileService.Instance.UserSettings", true)]
-        public SettingsModel? SteamToolModel { get; set; }
-
-        [Obsolete("use IConfigFileService.Instance.SaveChanges", true)]
-        public void SaveConfig() => throw new NotImplementedException();
-
-        [Obsolete("changedAutoRead", true)]
-        public SettingsModel ReadConfig() => throw new NotImplementedException();
-    }
-
-#endif
 }

@@ -166,7 +166,6 @@
 							  SelectedValue="{Binding Source={x:Static ms:GeneralSettings.Culture}, Path=Value, Mode=TwoWay}"
 							  IsReadOnly="True"
 							  MinWidth="250" />
-
                         <TextBlock Style="{StaticResource DetailTextStyleKey}" Margin="20,6,0,0">
                         <Run Text="*多语言功能是做好了，但是其它语言的文本还没有时间翻译。"></Run>
                         </TextBlock>

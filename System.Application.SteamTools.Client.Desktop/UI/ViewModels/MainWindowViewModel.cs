@@ -1,4 +1,6 @@
 ﻿using ReactiveUI;
+using System.Application.Models.Settings;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Linq;
 using System.Properties;
@@ -58,8 +60,6 @@ namespace System.Application.UI.ViewModels
                 (this.ASFPage = new ArchiSteamFarmPlusPageViewModel().AddTo(this)),
                 (this.GameRelatedPage = new GameRelatedPageViewModel().AddTo(this)),
                 (this.OtherPlatformPage = new OtherPlatformPageViewModel().AddTo(this)),
-
-
                 
 				#region SystemTab
                 SettingsPageViewModel.Instance,
@@ -72,15 +72,7 @@ namespace System.Application.UI.ViewModels
 
             this.SelectedItem = this.TabItems.First();
 
-            if (ViewModelBase.IsInDesignMode) 
-            {
-                return;
-            }
-            Task.Run(Initialize).ContinueWith(s =>
-            {
-                Log.Error(nameof(MainWindowViewModel), s.Exception, nameof(Initialize) + "Action Error");
-            }, TaskContinuationOptions.OnlyOnFaulted)
-            .ContinueWith(s => s.Dispose());
+            Task.Run(Initialize).ForgetAndDispose();
         }
 
 

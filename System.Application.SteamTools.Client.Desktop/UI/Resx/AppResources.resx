@@ -192,8 +192,11 @@
   <data name="SteamAuth" xml:space="preserve">
     <value>本地令牌</value>
   </data>
-  <data name="UserChange_BtnTootlip" xml:space="preserve">
+  <data name="UserChange_BtnText" xml:space="preserve">
     <value>以该账号登录Steam</value>
+  </data>
+  <data name="UserChange_BtnTootlip" xml:space="preserve">
+    <value>按下此按钮将重启Steam并以该账号登录</value>
   </data>
   <data name="UserFastChange" xml:space="preserve">
     <value>账号切换</value>

@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using System.Application.Models.Settings;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,22 +16,20 @@ namespace System.Application.UI.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
+        KeyValuePair<string, string> _SelectLanguage;
+        public KeyValuePair<string, string> SelectLanguage
+        {
+            get => _SelectLanguage;
+            protected set => this.RaiseAndSetIfChanged(ref _SelectLanguage, value);
+        }
+
         public SettingsPageViewModel()
         {
-
+            SelectLanguage = R.Languages.SingleOrDefault(x => x.Key == UISettings.Language.Value);
+            if (SelectLanguage.Key == null)
+                SelectLanguage = R.Languages.First();
+            this.WhenAnyValue(x => x.SelectLanguage)
+            .Subscribe(x => UISettings.Language.Value = x.Key);
         }
-
-        KeyValuePair<string, string> _CurrentLanguage = R.Languages.First();
-        public KeyValuePair<string, string> CurrentLanguage
-        {
-            get => _CurrentLanguage;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _CurrentLanguage, value);
-                R.ChangeLanguage(_CurrentLanguage.Key);
-            }
-        }
-
-
     }
 }
