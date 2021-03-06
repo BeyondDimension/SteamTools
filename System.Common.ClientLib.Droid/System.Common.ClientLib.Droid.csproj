@@ -25,12 +25,12 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0" />
     <PackageReference Include="Plugin.CurrentActivity" Version="2.1.0.4" />
     <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
-    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.2.0.6" />
-    <PackageReference Include="Xamarin.AndroidX.Emoji.AppCompat" Version="1.1.0.1" />
-    <PackageReference Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.3.3" />
-    <PackageReference Include="Xamarin.AndroidX.RecyclerView" Version="1.1.0.6" />
-    <PackageReference Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.8" />
-    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.2.1.1" />
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.2.0.7" />
+    <PackageReference Include="Xamarin.AndroidX.Emoji.AppCompat" Version="1.1.0.2" />
+    <PackageReference Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.3.3.1" />
+    <PackageReference Include="Xamarin.AndroidX.RecyclerView" Version="1.1.0.8" />
+    <PackageReference Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.9" />
+    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.3.0.1" />
   </ItemGroup>
 
   <ItemGroup>

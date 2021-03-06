@@ -118,7 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">
-      <Version>3.13.0</Version>
+      <Version>3.13.1</Version>
     </PackageReference>
     <PackageReference Include="nunit.xamarin">
       <Version>3.6.1</Version>
@@ -130,7 +130,7 @@
       <Version>1.6.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>5.0.0.1931</Version>
+      <Version>5.0.0.2012</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

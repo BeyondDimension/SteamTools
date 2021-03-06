@@ -37,7 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.13.0" />
+    <PackageReference Include="NUnit" Version="3.13.1" />
   </ItemGroup>
 
   <ItemGroup>
