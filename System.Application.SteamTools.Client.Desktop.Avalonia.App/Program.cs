@@ -26,6 +26,7 @@ namespace System.Application.UI
             var logger = LogManager.GetCurrentClassLogger();
             try
             {
+                Migrations.FromV1();
                 Startup.Init();
 #if WINDOWS
                 var app = new WpfApp();

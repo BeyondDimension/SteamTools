@@ -16,7 +16,9 @@ using Window = Avalonia.Controls.Window;
 using WindowState = Avalonia.Controls.WindowState;
 using Avalonia.Themes.Fluent;
 using Avalonia.Markup.Xaml.Styling;
-
+using System.Application.Services;
+using System.Windows.Input;
+using System.Linq;
 #if WINDOWS
 using System.Windows.Shell;
 using WpfApplication = System.Windows.Application;
@@ -24,18 +26,50 @@ using WpfApplication = System.Windows.Application;
 
 namespace System.Application.UI
 {
-    public partial class App : AvaloniaApplication, IDisposableHolder
+    public partial class App : AvaloniaApplication, IDisposableHolder, IDesktopAppService
     {
         public static App Instance => Current is App app ? app : throw new Exception("Impossible");
-        [Obsolete("use IOPath.AppDataDirectory", true)]
-        public DirectoryInfo LocalAppData => new DirectoryInfo(IOPath.AppDataDirectory);
 
-        public static DirectoryInfo RootDirectory => new DirectoryInfo(AppContext.BaseDirectory);
+        [Obsolete("use IOPath.AppDataDirectory", true)]
+        public DirectoryInfo LocalAppData => new(IOPath.AppDataDirectory);
+
+        public static DirectoryInfo RootDirectory => new(AppContext.BaseDirectory);
 
         [Obsolete("use AppHelper.ProgramName", true)]
         public string ProgramName => AppHelper.ProgramName;
 
-        public FluentTheme? fluentTheme;
+        bool mTheme;
+
+        public bool Theme
+        {
+            get
+            {
+                return mTheme;
+            }
+            set
+            {
+                if (value == mTheme) return;
+
+                var mode = value ? FluentThemeMode.Light : FluentThemeMode.Dark;
+                var uri_0 = new Uri($"avares://Avalonia.Themes.Fluent/Fluent{(value ? "Light" : "Dark")}.xaml");
+                var uri_1 = new Uri($"avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Theme{(value ? "Light" : "Dark")}.xaml");
+
+                Styles[0] = new FluentTheme(uri_0)
+                {
+                    Mode = mode
+                };
+                Styles[1] = new StyleInclude(uri_1)
+                {
+                    Source = uri_1,
+                };
+
+                mTheme = value;
+            }
+        }
+
+        readonly Dictionary<string, ICommand> mNotifyIconMenus = new();
+
+        public IReadOnlyDictionary<string, ICommand> NotifyIconMenus => mNotifyIconMenus;
 
         public override void Initialize()
         {
@@ -90,39 +124,25 @@ namespace System.Application.UI
                 };
 
                 NotifyIconContextMenu = new ContextMenu();
-                var menuItems = new List<MenuItem>
+
+                mNotifyIconMenus.Add("Light", ReactiveCommand.Create(() =>
                 {
-                    new MenuItem()
-                    {
-                        Header = "Light",
-                        Command = ReactiveCommand.Create(()=>{
-                          Styles[0] = new FluentTheme(new Uri("avares://Avalonia.Themes.Fluent/FluentLight.xaml"))
-                            { Mode= FluentThemeMode.Light };
-                            var uri = new Uri("avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeLight.xaml");
-                          Styles[1] = new StyleInclude(uri){ Source = uri };
-                        })
-                    },
-                    new MenuItem()
-                    {
-                        Header = "Dark",
-                        Command = ReactiveCommand.Create(()=>{
-                          Styles[0] = new FluentTheme(new Uri("avares://Avalonia.Themes.Fluent/FluentDark.xaml")){ Mode= FluentThemeMode.Dark };
-                            var uri = new Uri("avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeDark.xaml");
-                          Styles[1] = new StyleInclude(uri){ Source = uri };
-                        })
-                    },
-                    new MenuItem()
-                    {
-                        Header = "NotifyIconContextMenuItemHeaderRestore",
-                        Command = ReactiveCommand.Create(RestoreMainWindow)
-                    },
-                    new MenuItem()
-                    {
-                        Header = "NotifyIconContextMenuItemHeaderExit",
-                        Command = ReactiveCommand.Create(Shutdown)
-                    }
-                };
-                NotifyIconContextMenu.Items = menuItems;
+                    Theme = true;
+                }));
+
+                mNotifyIconMenus.Add("Dark", ReactiveCommand.Create(() =>
+                {
+                    Theme = false;
+                }));
+
+                mNotifyIconMenus.Add("Show",
+                    ReactiveCommand.Create(RestoreMainWindow));
+
+                mNotifyIconMenus.Add("Exit",
+                    ReactiveCommand.Create(Shutdown));
+
+                NotifyIconContextMenu.Items = mNotifyIconMenus
+                    .Select(x => new MenuItem { Header = x.Key, Command = x.Value }).ToList();
                 notifyIcon.ContextMenu = NotifyIconContextMenu;
                 notifyIcon.Visible = true;
                 notifyIcon.Click += NotifyIcon_Click;
@@ -168,7 +188,6 @@ namespace System.Application.UI
 
         public Window? MainWindow { get; set; }
 
-
         /// <summary>
         /// Restores the app's main window by setting its <c>WindowState</c> to
         /// <c>WindowState.Normal</c> and showing the window.
@@ -209,9 +228,11 @@ namespace System.Application.UI
             }
         }
 
+        void IDesktopAppService.Shutdown() => Shutdown();
+
         #region IDisposable members
 
-        public readonly CompositeDisposable compositeDisposable = new CompositeDisposable();
+        public readonly CompositeDisposable compositeDisposable = new();
 
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
 

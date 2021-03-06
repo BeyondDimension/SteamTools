@@ -146,6 +146,8 @@ namespace System.Application.UI
             }
         }
 
+        public static IDesktopAppService Current => DI.Get<IDesktopAppService>();
+
 #if DEBUG
 
         [Obsolete("use EnableLogger", true)]

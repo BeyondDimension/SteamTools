@@ -171,6 +171,10 @@ namespace System.Application
             public const string 当前手机号今日发送短信数量超过最大上限 = "验证码获取次数达到今日上限了哦，明天再试试吧";
 
             public const string 短信服务故障 = "服务器错误【5001】";
+
+            public const string 验证码已过期或不存在 = "验证码已过期或不存在";
+
+            public const string 验证码不正确 = "验证码不正确";
         }
 
         public static class Lengths

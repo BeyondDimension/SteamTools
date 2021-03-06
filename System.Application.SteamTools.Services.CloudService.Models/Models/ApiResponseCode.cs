@@ -21,6 +21,8 @@ namespace System.Application.Models
 
         BadRequest = HttpStatusCode.BadRequest,
 
+        InternalServerError = HttpStatusCode.InternalServerError,
+
         #endregion
 
         #region CustomCode 自定义响应码，1000~?

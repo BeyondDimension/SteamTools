@@ -8,13 +8,11 @@
         /// <summary>
         /// [通过手机号码注册账号]用于注册
         /// </summary>
-        [Obsolete("register has been deprecated")]
         Register = 200,
 
         /// <summary>
         /// [通过手机号码重设密码]找回密码
         /// </summary>
-        [Obsolete("password has been deprecated")]
         ForgotPassword = 201,
 
         /// <summary>
@@ -35,7 +33,6 @@
         /// <summary>
         /// [通过手机号码]登录
         /// </summary>
-        [Obsolete("login has been deprecated")]
         Login = 205,
     }
 }
