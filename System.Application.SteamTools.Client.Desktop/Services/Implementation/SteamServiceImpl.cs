@@ -1,4 +1,5 @@
 ﻿using System.Application.Models;
+using System.Application.Properties;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -24,19 +25,22 @@ namespace System.Application.Services.Implementation
         ///   </item>
         /// </list>
         /// </summary>
-        readonly string UserVdfPath;
+        readonly string? UserVdfPath;
         const string UserDataDirectory = "userdata";
         readonly IDesktopPlatformService platformService;
         readonly string? mSteamDirPath;
         readonly string? mSteamProgramPath;
+        readonly IToast toast;
         readonly string[] steamProcess = new[] { "steam", "steamservice", "steamwebhelper" };
 
-        public SteamServiceImpl(IDesktopPlatformService platformService)
+        public SteamServiceImpl(IDesktopPlatformService platformService, IToast toast)
         {
+            this.toast = toast;
             this.platformService = platformService;
             mSteamDirPath = platformService.GetSteamDirPath();
             mSteamProgramPath = platformService.GetSteamProgramPath();
-            UserVdfPath = Path.Combine(SteamDirPath, "config", "loginusers.vdf");
+            UserVdfPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "config", "loginusers.vdf");
+            if (!File.Exists(UserVdfPath)) UserVdfPath = null;
         }
 
         public string? SteamDirPath => mSteamDirPath;
@@ -87,6 +91,10 @@ namespace System.Application.Services.Implementation
             if (!string.IsNullOrEmpty(SteamProgramPath))
             {
                 Process.Start(SteamProgramPath, arguments);
+            }
+            else
+            {
+                toast.Show(SR.SteamInstallPathNotFound);
             }
         }
 
@@ -203,21 +211,35 @@ namespace System.Application.Services.Implementation
 
         public void DeleteLocalUserData(SteamUser user)
         {
-            VdfHelper.DeleteValueByKey(UserVdfPath, user.SteamId64.ToString());
-            var temp = Path.Combine(SteamDirPath, UserDataDirectory, user.SteamId3_Int.ToString());
-            if (Directory.Exists(temp))
+            if (string.IsNullOrWhiteSpace(UserVdfPath) || string.IsNullOrWhiteSpace(SteamDirPath))
             {
-                Directory.Delete(temp, true);
+                toast.Show(SR.SteamInstallPathNotFound);
+            }
+            else
+            {
+                VdfHelper.DeleteValueByKey(UserVdfPath, user.SteamId64.ToString());
+                var temp = Path.Combine(SteamDirPath, UserDataDirectory, user.SteamId3_Int.ToString());
+                if (Directory.Exists(temp))
+                {
+                    Directory.Delete(temp, true);
+                }
             }
         }
 
         public void UpdateLocalUserData(SteamUser user)
         {
-            var originVdfStr = user.OriginVdfString;
-            VdfHelper.UpdateValueByReplace(
-                UserVdfPath,
-                originVdfStr.ThrowIsNull(nameof(originVdfStr)),
-                user.CurrentVdfString);
+            if (string.IsNullOrWhiteSpace(UserVdfPath))
+            {
+                toast.Show(SR.SteamInstallPathNotFound);
+            }
+            else
+            {
+                var originVdfStr = user.OriginVdfString;
+                VdfHelper.UpdateValueByReplace(
+                    UserVdfPath,
+                    originVdfStr.ThrowIsNull(nameof(originVdfStr)),
+                    user.CurrentVdfString);
+            }
         }
 
 #if DEBUG

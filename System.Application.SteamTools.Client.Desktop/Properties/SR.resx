@@ -126,6 +126,9 @@ rmdir /s /q "{1}"
 del %0</value>
     <comment>升级程序CMD命令行</comment>
   </data>
+  <data name="SteamInstallPathNotFound" xml:space="preserve">
+    <value>找不到 Steam 安装路径</value>
+  </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
     <value>更新包解压失败，请打开官网手动更新</value>
   </data>

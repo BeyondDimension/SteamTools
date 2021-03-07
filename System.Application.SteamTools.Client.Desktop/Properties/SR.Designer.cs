@@ -75,6 +75,15 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 找不到 Steam 安装路径 的本地化字符串。
+        /// </summary>
+        internal static string SteamInstallPathNotFound {
+            get {
+                return ResourceManager.GetString("SteamInstallPathNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 更新包解压失败，请打开官网手动更新 的本地化字符串。
         /// </summary>
         internal static string UpdateUnpackFail {
