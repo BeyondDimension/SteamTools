@@ -13,6 +13,7 @@ namespace System.Application.Services.CloudService.Clients
 
         public Task<IApiResponse<LoginOrRegisterResponse>> LoginOrRegister(LoginOrRegisterRequest request)
             => conn.SendAsync<LoginOrRegisterRequest, LoginOrRegisterResponse>(
+                isSecurity: true,
                 method: HttpMethod.Post,
                 requestUri: "api/Account/LoginOrRegister",
                 request: request,

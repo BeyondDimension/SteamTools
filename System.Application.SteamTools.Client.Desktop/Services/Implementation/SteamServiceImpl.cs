@@ -104,7 +104,7 @@ namespace System.Application.Services.Implementation
             var users = new List<SteamUser>();
             try
             {
-                if (File.Exists(UserVdfPath))
+                if (!string.IsNullOrWhiteSpace(UserVdfPath) && File.Exists(UserVdfPath))
                 {
                     // 注意：动态类型在移动端受限，且运行时可能抛出异常
                     dynamic v = VdfHelper.Read(UserVdfPath);

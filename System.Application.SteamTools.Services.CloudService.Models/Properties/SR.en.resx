@@ -117,56 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
-    <value>About</value>
+  <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
+    <value>Login credentials are invalid, please log in again</value>
   </data>
-  <data name="CommunityFix" xml:space="preserve">
-    <value>Fix Steam 302 Error</value>
+  <data name="IsNotOfficialChannelPackageWarning" xml:space="preserve">
+    <value>The program currently running is not from the official channel</value>
   </data>
-  <data name="GameList" xml:space="preserve">
-    <value>My Games</value>
+  <data name="NetworkConnectionInterruption" xml:space="preserve">
+    <value>Network connection lost</value>
   </data>
-  <data name="GameRelated" xml:space="preserve">
-    <value>Game Related</value>
-  </data>
-  <data name="Hosts_Exists" xml:space="preserve">
-    <value>The written hosts already exist</value>
-  </data>
-  <data name="Hosts_ReadError" xml:space="preserve">
-    <value>An error occurred while reading the hosts file</value>
-  </data>
-  <data name="Hosts_ReadSuccess" xml:space="preserve">
-    <value>Read hosts successfully</value>
-  </data>
-  <data name="Hosts_UpdateSuccess" xml:space="preserve">
-    <value>Write hosts successfully</value>
-  </data>
-  <data name="Hosts_WirteError" xml:space="preserve">
-    <value>Error writing to hosts</value>
-  </data>
-  <data name="Language" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="Settings_Auth" xml:space="preserve">
-    <value>Auth Settings</value>
-  </data>
-  <data name="Settings_General" xml:space="preserve">
-    <value>General Settings</value>
-  </data>
-  <data name="SteamAuth" xml:space="preserve">
-    <value>Steam Auth</value>
-  </data>
-  <data name="UserFastChange" xml:space="preserve">
-    <value>Account Change</value>
-  </data>
-  <data name="Warning" xml:space="preserve">
-    <value>警告</value>
-    <comment>此值是日语不是中文！</comment>
-  </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>Start Page</value>
+  <data name="ServerError_" xml:space="preserve">
+    <value>Server error {0}</value>
   </data>
 </root>

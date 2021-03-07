@@ -32,5 +32,7 @@ namespace System.Application.Services.CloudService
         public const string Prefix_HTTPS = "https://";
 
         public const string Prefix_HTTP = "http://";
+
+        public static string IsNotOfficialChannelPackageWarning => SR.IsNotOfficialChannelPackageWarning;
     }
 }

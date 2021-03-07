@@ -16,6 +16,9 @@
     <Compile Include="..\System.Common.UnitTest\Logging\NUnitLoggerProvider.cs">
       <Link>Logging\NUnitLoggerProvider.cs</Link>
     </Compile>
+    <Compile Include="..\System.Common.UnitTest\Utils\Serializable2.cs">
+      <Link>Utils\Serializable2.cs</Link>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

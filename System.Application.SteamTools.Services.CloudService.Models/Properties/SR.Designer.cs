@@ -70,6 +70,15 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 当前运行的程序不是来自官方渠道 的本地化字符串。
+        /// </summary>
+        internal static string IsNotOfficialChannelPackageWarning {
+            get {
+                return ResourceManager.GetString("IsNotOfficialChannelPackageWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 网络连接中断 的本地化字符串。
         /// </summary>
         internal static string NetworkConnectionInterruption {

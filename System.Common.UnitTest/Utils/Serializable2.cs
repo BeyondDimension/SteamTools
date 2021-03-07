@@ -15,7 +15,7 @@ namespace System
     /// </summary>
     public static class Serializable2
     {
-        static readonly Lazy<JsonSerializerSettings> mDebugViewTextSettings = new Lazy<JsonSerializerSettings>(GetDebugViewTextSettings);
+        static readonly Lazy<JsonSerializerSettings> mDebugViewTextSettings = new(GetDebugViewTextSettings);
 
         static JsonSerializerSettings GetDebugViewTextSettings() => new JsonSerializerSettings
         {

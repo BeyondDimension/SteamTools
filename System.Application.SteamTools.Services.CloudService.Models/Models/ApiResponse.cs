@@ -51,6 +51,10 @@ namespace System.Application.Models
             {
                 return SR.ApiResponseCode_Unauthorized;
             }
+            else if (code == ApiResponseCode.IsNotOfficialChannelPackage)
+            {
+                return SR.IsNotOfficialChannelPackageWarning;
+            }
             return string.Format(SR.ServerError_, (int)code);
         }
 

@@ -26,6 +26,7 @@ using System.Application.Models;
 using System.Windows.Shell;
 using WpfApplication = System.Windows.Application;
 #endif
+using APIConst = System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI
 {
@@ -116,8 +117,8 @@ namespace System.Application.UI
 
         static void IsNotOfficialChannelPackageWarning()
         {
-            var text = "The program currently running is not from the official channel.";
-            var title = "Warning";
+            var text = APIConst.IsNotOfficialChannelPackageWarning;
+            var title = AppResources.Warning;
             MessageBoxCompat.Show(text, title, MessageBoxButtonCompat.OK, MessageBoxImageCompat.Warning);
         }
 

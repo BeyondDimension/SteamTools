@@ -162,6 +162,9 @@
   <data name="UserFastChange" xml:space="preserve">
     <value>Account Change</value>
   </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Start Page</value>
   </data>

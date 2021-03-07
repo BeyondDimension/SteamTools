@@ -111,6 +111,11 @@ namespace System.Application.Models
 
         RequiredSecurityKey,
 
+        /// <summary>
+        /// 当前运行程序不为官方渠道包
+        /// </summary>
+        IsNotOfficialChannelPackage,
+
         #endregion
     }
 }

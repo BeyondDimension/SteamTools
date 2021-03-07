@@ -32,7 +32,20 @@ namespace System.Application.Services.CloudService
 
         internal ICloudServiceSettings Settings => settings;
 
-        RSA IApiConnectionPlatformHelper.RSA => Settings.RSA;
+        RSA IApiConnectionPlatformHelper.RSA
+        {
+            get
+            {
+                try
+                {
+                    return Settings.RSA;
+                }
+                catch
+                {
+                    throw new ApiResponseCodeException(ApiResponseCode.IsNotOfficialChannelPackage);
+                }
+            }
+        }
 
         protected sealed override string? ClientName => ClientName_;
 

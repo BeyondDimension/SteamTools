@@ -162,6 +162,9 @@
   <data name="UserFastChange" xml:space="preserve">
     <value>帳號切換</value>
   </data>
+  <data name="Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>起始頁</value>
   </data>

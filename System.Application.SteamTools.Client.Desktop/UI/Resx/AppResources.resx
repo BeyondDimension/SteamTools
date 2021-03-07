@@ -201,6 +201,9 @@
   <data name="UserFastChange" xml:space="preserve">
     <value>账号切换</value>
   </data>
+  <data name="Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>起始页</value>
   </data>

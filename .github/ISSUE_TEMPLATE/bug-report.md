@@ -26,7 +26,6 @@ assignees: ''
 
 ### 🚑 基本信息(Basic Information)
 
-- 有问题的版本(Version with issue):
 - 程序版本(Program Version):
 - 系统版本号(OS Version): <!-- example Windows 10.19042.844(see winver) -->
 

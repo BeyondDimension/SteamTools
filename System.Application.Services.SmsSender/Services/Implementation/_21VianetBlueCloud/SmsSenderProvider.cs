@@ -48,7 +48,7 @@ namespace System.Application.Services.Implementation._21VianetBlueCloud
         const string SignKey = "sig";
         const string KeyNameKey = "skn";
         const string ExpiryKey = "se";
-        const string _endpoint = "https://bluecloudccs.21vbluecloud.com:443/services/sms/messages?api-version=2018-10-01";
+        const string _endpoint = "https://bluecloudccs.21vbluecloud.com/services/sms/messages?api-version=2018-10-01";
 
         /// <summary>
         /// create token
@@ -122,6 +122,14 @@ namespace System.Application.Services.Implementation._21VianetBlueCloud
                 using var reader = new StreamReader(stream, Encoding.UTF8);
                 using var json = new JsonTextReader(reader);
                 jsonObject = jsonSerializer.Deserialize<SendSms21VianetBlueCloudResult?>(json);
+            }
+            else
+            {
+                logger.LogError(
+                    $"调用世纪互联蓝云短信接口接口失败，" +
+                    $"手机号码：{PhoneNumberHelper.ToStringHideMiddleFour(number)}，" +
+                    $"短信内容：{message}，" +
+                    $"HTTP状态码：{(int)response.StatusCode}");
             }
 
             var result = new SendSmsResult<SendSms21VianetBlueCloudResult>

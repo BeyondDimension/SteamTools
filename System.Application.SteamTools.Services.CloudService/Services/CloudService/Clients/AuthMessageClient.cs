@@ -17,6 +17,7 @@ namespace System.Application.Services.CloudService.Clients
 
         Task<IApiResponse> SendSmsCore(SendSmsRequest request)
             => conn.SendAsync(
+                isSecurity: true,
                 method: HttpMethod.Post,
                 requestUri: "api/AuthMessage/SendSms",
                 request: request,

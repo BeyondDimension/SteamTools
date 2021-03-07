@@ -157,7 +157,7 @@ namespace System.Application.Services.Implementation.NetEaseCloud
             {
                 logger.LogError(
                     $"调用网易云短信接口失败，" +
-                    $"手机号码：{number}，" +
+                    $"手机号码：{PhoneNumberHelper.ToStringHideMiddleFour(number)}，" +
                     $"短信内容：{message}，" +
                     $"短信类型：{type}，" +
                     $"HTTP状态码：{result.HttpStatusCode}");
@@ -182,7 +182,7 @@ namespace System.Application.Services.Implementation.NetEaseCloud
                 {
                     logger.LogError(
                         $"调用网易云短信验证接口失败，" +
-                        $"手机号码：{number}，" +
+                        $"手机号码：{PhoneNumberHelper.ToStringHideMiddleFour(number)}，" +
                         $"短信内容：{message}，" +
                         $"HTTP状态码：{result.HttpStatusCode}");
                 }

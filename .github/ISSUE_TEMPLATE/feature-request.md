@@ -1,5 +1,5 @@
 ---
-name: Feature request
+name: Feature request 👑
 about: 对程序的需求或建议 / Suggest an idea for program
 title: "👑[Enhancement] "
 labels: enhancement 
