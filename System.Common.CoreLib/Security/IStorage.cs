@@ -16,10 +16,10 @@ namespace System.Security
     ///     <term>Android：加密密钥存储在密钥库中，加密数据存储在命名的共享首选项容器中</term>
     ///   </item>
     ///   <item>
-    ///     <term>UWP：数据使用 DataProtectionProvider 加密并存储在命名的 ApplicationDataContainer</term>
+    ///     <term>UWP / Windows 10 Desktop：数据使用 DataProtectionProvider 加密并存储在命名的 ApplicationDataContainer</term>
     ///   </item>
     ///   <item>
-    ///     <term>AspNetCore：数据使用仓储实现</term>
+    ///     <term>AspNetCore / Other Desktop：数据使用仓储实现</term>
     ///   </item>
     /// </list>
     /// <para>注意：在运行 Android 23（6.0/M）以下的 Android 设备上，KeyStore中没有AES可用。作为最佳实践，此API将生成存储在KeyStore中的RSA/ECB/PKCS7Padding密钥对（KeyStore中这些较低的API级别支持的唯一类型），用于包装运行时生成的AES密钥。这个包装好的密钥存储在首选项中</para>

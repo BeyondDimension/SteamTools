@@ -124,7 +124,7 @@ namespace System.Application.Services.CloudService
                             byteArray = aes.ThrowIsNull(nameof(aes)).Encrypt(byteArray);
                         }
                         httpContent = new ByteArrayContent(byteArray);
-                        httpContent.Headers.ContentType = new MediaTypeHeaderValue(MediaTypeNames.MessagePack);
+                        httpContent.Headers.ContentType = new MediaTypeHeaderValue(isSecurity ? MediaTypeNames.Security : MediaTypeNames.MessagePack);
                         break;
                     case Serializable.ImplType.SystemTextJson:
                         httpContent = GetJsonContent(Serializable.SJSON(Serializable.JsonImplType.SystemTextJson, request));
@@ -393,7 +393,9 @@ namespace System.Application.Services.CloudService
         {
             #region ModelValidator
 
-            if (isApi && requestModel != null && typeof(TRequestModel) != typeof(object))
+            if (!IApiConnection.DisableModelValidator && isApi &&
+                requestModel != null &&
+                typeof(TRequestModel) != typeof(object))
             {
                 if (!validator.Validate(requestModel, out var errorMessage))
                 {

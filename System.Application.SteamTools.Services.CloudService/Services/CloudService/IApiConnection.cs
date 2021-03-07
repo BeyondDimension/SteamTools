@@ -8,6 +8,11 @@ namespace System.Application.Services.CloudService
     public interface IApiConnection
     {
         /// <summary>
+        /// 禁用客户端本地模型验证
+        /// </summary>
+        public static bool DisableModelValidator { get; set; }
+
+        /// <summary>
         /// 获取服务端接口的原始内容(ByteArray)
         /// </summary>
         /// <param name="cancellationToken">传播应取消操作的通知</param>
