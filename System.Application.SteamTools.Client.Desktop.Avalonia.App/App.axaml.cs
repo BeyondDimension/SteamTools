@@ -21,6 +21,7 @@ using System.Windows.Input;
 using System.Linq;
 using System.Application.Models.Settings;
 using System.Application.UI.Resx;
+using System.Application.Models;
 #if WINDOWS
 using System.Windows.Shell;
 using WpfApplication = System.Windows.Application;
@@ -40,9 +41,8 @@ namespace System.Application.UI
         [Obsolete("use AppHelper.ProgramName", true)]
         public string ProgramName => AppHelper.ProgramName;
 
-        bool mTheme;
-
-        public bool Theme
+        AppTheme mTheme;
+        public AppTheme Theme
         {
             get
             {
@@ -51,10 +51,25 @@ namespace System.Application.UI
             set
             {
                 if (value == mTheme) return;
-
-                var mode = value ? FluentThemeMode.Light : FluentThemeMode.Dark;
-                var uri_0 = new Uri($"avares://Avalonia.Themes.Fluent/Fluent{(value ? "Light" : "Dark")}.xaml");
-                var uri_1 = new Uri($"avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Theme{(value ? "Light" : "Dark")}.xaml");
+                var the = "Dark";
+                var mode = FluentThemeMode.Dark;
+                switch (value)
+                {
+                    case AppTheme.Light:
+                        the = "Light";
+                        mode = mode = FluentThemeMode.Light;
+                        break;
+                    case AppTheme.Dark:
+                        the = "Dark";
+                        mode = mode = FluentThemeMode.Dark;
+                        break;
+                    default:
+                        the = "Dark";
+                        mode = mode = FluentThemeMode.Dark;
+                        break;
+                }
+                var uri_0 = new Uri($"avares://Avalonia.Themes.Fluent/Fluent{the}.xaml");
+                var uri_1 = new Uri($"avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Theme{the}.xaml");
 
                 Styles[0] = new FluentTheme(uri_0)
                 {
@@ -86,6 +101,7 @@ namespace System.Application.UI
 
             SettingsHost.Load();
             compositeDisposable.Add(SettingsHost.Save);
+            UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
 
             #endregion
@@ -138,12 +154,12 @@ namespace System.Application.UI
 
                 mNotifyIconMenus.Add("Light", ReactiveCommand.Create(() =>
                 {
-                    Theme = true;
+                    Theme = AppTheme.Light;
                 }));
 
                 mNotifyIconMenus.Add("Dark", ReactiveCommand.Create(() =>
                 {
-                    Theme = false;
+                    Theme = AppTheme.Dark;
                 }));
 
                 mNotifyIconMenus.Add("Show",

@@ -26,7 +26,9 @@
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="{Binding Path=Res.Settings_Theme,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 0 0 20" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                    <ComboBox x:Name="Themes" SelectedIndex="0" HorizontalAlignment="Stretch">
+                    <ComboBox x:Name="Themes"
+                              SelectedIndex="{Binding Source={x:Static ms:UISettings.Theme},Path=Value, Mode=TwoWay}"
+                              HorizontalAlignment="Stretch">
                         <ComboBoxItem>Light</ComboBoxItem>
                         <ComboBoxItem>Dark</ComboBoxItem>
                     </ComboBox>

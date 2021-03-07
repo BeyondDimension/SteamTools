@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <None Remove="Application\UI\Assets\AppResources\avater.jpg" />
+    <None Remove="Application\UI\Assets\close.svg" />
     <None Remove="Application\UI\Styles\Controls.xaml" />
     <None Remove="Application\UI\Styles\Controls\Border.xaml" />
     <None Remove="Application\UI\Styles\Controls\TabControl.xaml" />
@@ -43,7 +44,6 @@
     <PackageReference Include="Avalonia" Version="0.10.0" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.0" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0" />
-    <PackageReference Include="Avalonia.Svg.Skia" Version="0.10.0" />
     <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.0" />
     <PackageReference Include="MessageBox.Avalonia" Version="1.0.5">
       <Aliases>MessageBox_Avalonia</Aliases>

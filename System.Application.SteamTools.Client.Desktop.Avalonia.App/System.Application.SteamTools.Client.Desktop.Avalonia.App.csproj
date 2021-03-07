@@ -35,21 +35,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Avalonia\System.Application.SteamTools.Client.Desktop.Avalonia.csproj"/>
-    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop\System.Application.SteamTools.Client.Desktop.csproj"/>
-    <ProjectReference Include="..\System.Common.CoreLib\System.Common.CoreLib.csproj"/>
+    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Avalonia\System.Application.SteamTools.Client.Desktop.Avalonia.csproj" />
+    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop\System.Application.SteamTools.Client.Desktop.csproj" />
+    <ProjectReference Include="..\System.Common.CoreLib\System.Common.CoreLib.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Windows\System.Application.SteamTools.Client.Desktop.Windows.csproj"/>
+    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Windows\System.Application.SteamTools.Client.Desktop.Windows.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Mac\System.Application.SteamTools.Client.Desktop.Mac.csproj"/>
+    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Mac\System.Application.SteamTools.Client.Desktop.Mac.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`linux`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Linux\System.Application.SteamTools.Client.Desktop.Linux.csproj"/>
+    <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Linux\System.Application.SteamTools.Client.Desktop.Linux.csproj" />
   </ItemGroup>
 
   <!--<ItemGroup Condition=" '$(OS)' == 'Windows_NT' And $(RuntimeIdentifier.Contains(`osx`)) And $(DefineConstants.Contains(`PUBLISH`)) ">
@@ -77,7 +77,7 @@
     <AvaloniaResource Include="**\*.xaml">
       <SubType>Designer</SubType>
     </AvaloniaResource>
-    <AvaloniaResource Include="Assets\**"/>
+    <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">

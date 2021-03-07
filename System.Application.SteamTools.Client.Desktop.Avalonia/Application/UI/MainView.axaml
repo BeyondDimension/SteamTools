@@ -6,6 +6,7 @@
         xmlns:pages="clr-namespace:System.Application.UI.Views.Pages"
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:controls="clr-namespace:System.Application.UI.Controls"
         x:Class="System.Application.UI.Views.MainView"
         FontSize="14"
         Foreground="{StaticResource SystemBaseHighColor}">
@@ -30,7 +31,7 @@
                 <Label Content="{ReflectionBinding #TabControl.SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Margin="20 10 20 0" FontSize="32"/>
             </ExperimentalAcrylicBorder>
         </DockPanel>
-        <TabControl x:Name="TabControl" 
+        <TabControl x:Name="TabControl"
                     Items="{Binding TabItems}"
                     SelectedItem="{Binding SelectedItem}"
                     Margin="0 30 0 0"
@@ -62,6 +63,7 @@
                 </DataTemplate>
             </TabControl.ItemTemplate>
         </TabControl>
+        <controls:ToastMessage DataContext="{Binding Toast}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         <!--<TabControl x:Name="TabControl" Classes="sidebar" Margin="0 30 0 0">
             <TabItem Header="{Binding Path=Res.Welcome,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalContentAlignment="Center" Margin="0 10 0 0">
             </TabItem>

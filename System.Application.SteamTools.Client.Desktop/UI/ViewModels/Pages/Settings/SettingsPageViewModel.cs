@@ -26,8 +26,6 @@ namespace System.Application.UI.ViewModels
         public SettingsPageViewModel()
         {
             SelectLanguage = R.Languages.SingleOrDefault(x => x.Key == UISettings.Language.Value);
-            if (SelectLanguage.Key == null)
-                SelectLanguage = R.Languages.First();
             this.WhenAnyValue(x => x.SelectLanguage)
             .Subscribe(x => UISettings.Language.Value = x.Key);
         }

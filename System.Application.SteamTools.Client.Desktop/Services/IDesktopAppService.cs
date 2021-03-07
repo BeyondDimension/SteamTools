@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Application.Models;
+using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace System.Application.Services
@@ -7,10 +8,8 @@ namespace System.Application.Services
     {
         /// <summary>
         /// 当前桌面应用的主题
-        /// <para><see langword="true"/> Light</para>
-        /// <para><see langword="false"/> Dark</para>
         /// </summary>
-        bool Theme { get; set; }
+        AppTheme Theme { get; set; }
 
         /// <summary>
         /// 退出整个程序

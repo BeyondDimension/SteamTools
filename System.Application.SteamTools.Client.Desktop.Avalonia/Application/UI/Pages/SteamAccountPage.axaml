@@ -25,7 +25,7 @@
                         <StackPanel x:Name="panel" Margin="20" Spacing="8" Width="184" Cursor="Hand">
                             <DockPanel LastChildFill="True">
                                 <Border DockPanel.Dock="Top" Classes="paper">
-                                    <Panel Width="{Binding #panel.Width}" x:Name="card">
+                                    <Panel x:Name="card" Width="{Binding #panel.Width}">
                                         <i:Interaction.Behaviors>
                                             <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{Binding #card}">
                                                 <ia:ChangePropertyAction TargetObject="{Binding #login_btn}" PropertyName="IsVisible" Value="True"/>
