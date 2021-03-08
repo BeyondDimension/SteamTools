@@ -38,7 +38,7 @@ namespace System.Application.Services.Implementation
 
         static Type GetWindowType(IMessageWindowService.CustomWindow customWindow) => customWindow switch
         {
-            IMessageWindowService.CustomWindow.MessageBox => typeof(MessageWindowViewModel),
+            IMessageWindowService.CustomWindow.MessageBox => typeof(MessageWindow),
             _ => throw new ArgumentOutOfRangeException(nameof(customWindow), customWindow, null),
         };
 
