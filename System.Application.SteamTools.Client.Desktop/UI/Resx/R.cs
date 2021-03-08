@@ -71,19 +71,14 @@ namespace System.Application.UI.Resx
         /// <param name="cultureName"></param>
         public static void ChangeLanguage(string cultureName)
         {
-            //void ChangeLanguage()
-            //{
             if (IsMatch(CultureInfo.CurrentUICulture, cultureName)) return;
-            //    CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(cultureName);
             if (string.IsNullOrWhiteSpace(cultureName))
-                AppResources.Culture = null;
+                AppResources.Culture = DefaultCurrentUICulture;
             else
                 AppResources.Culture = CultureInfo.GetCultureInfo(Languages.SingleOrDefault(x => x.Key == cultureName).Key);
             //AppResources.Culture = CultureInfo.GetCultureInfo(cultureName);
             Current.Res = new AppResources();
             Current.RaisePropertyChanged(nameof(Res));
-            //}
-            //MainThreadDesktop.BeginInvokeOnMainThread(ChangeLanguage);
         }
 
         public static string GetCurrentCultureSteamLanguageName()

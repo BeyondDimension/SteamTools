@@ -30,12 +30,10 @@ namespace System.Application.Services.Implementation
         readonly IDesktopPlatformService platformService;
         readonly string? mSteamDirPath;
         readonly string? mSteamProgramPath;
-        readonly IToast toast;
         readonly string[] steamProcess = new[] { "steam", "steamservice", "steamwebhelper" };
 
-        public SteamServiceImpl(IDesktopPlatformService platformService, IToast toast)
+        public SteamServiceImpl(IDesktopPlatformService platformService)
         {
-            this.toast = toast;
             this.platformService = platformService;
             mSteamDirPath = platformService.GetSteamDirPath();
             mSteamProgramPath = platformService.GetSteamProgramPath();
@@ -92,10 +90,7 @@ namespace System.Application.Services.Implementation
             {
                 Process.Start(SteamProgramPath, arguments);
             }
-            else
-            {
-                toast.Show(SR.SteamInstallPathNotFound);
-            }        }
+        }
 
         public string GetLastLoginUserName() => platformService.GetLastSteamLoginUserName();
 
@@ -212,7 +207,7 @@ namespace System.Application.Services.Implementation
         {
             if (string.IsNullOrWhiteSpace(UserVdfPath) || string.IsNullOrWhiteSpace(SteamDirPath))
             {
-                toast.Show(SR.SteamInstallPathNotFound);
+                return;
             }
             else
             {
@@ -229,7 +224,7 @@ namespace System.Application.Services.Implementation
         {
             if (string.IsNullOrWhiteSpace(UserVdfPath))
             {
-                toast.Show(SR.SteamInstallPathNotFound);
+                return;
             }
             else
             {

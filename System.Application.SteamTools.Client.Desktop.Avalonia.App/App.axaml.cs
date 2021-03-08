@@ -42,7 +42,7 @@ namespace System.Application.UI
         [Obsolete("use AppHelper.ProgramName", true)]
         public string ProgramName => AppHelper.ProgramName;
 
-        AppTheme mTheme;
+        AppTheme mTheme = AppTheme.Dark;
         public AppTheme Theme
         {
             get
@@ -99,9 +99,9 @@ namespace System.Application.UI
             Startup.Init();
 
             #region 启动时加载的资源
-
             SettingsHost.Load();
             compositeDisposable.Add(SettingsHost.Save);
+            Theme = (AppTheme)UISettings.Theme.Value;
             UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
 

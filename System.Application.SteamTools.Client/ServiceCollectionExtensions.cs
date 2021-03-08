@@ -33,5 +33,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddSingleton<IUserManager, UserManager>();
             return services;
         }
+
     }
 }

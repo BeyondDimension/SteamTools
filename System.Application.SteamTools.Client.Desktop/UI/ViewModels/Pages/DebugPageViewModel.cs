@@ -27,7 +27,9 @@ namespace System.Application.UI.ViewModels
 
         public void DebugButton_Click()
         {
-            DebugString += "Test Command" + Environment.NewLine;
+            Services.ToastService.Current.Notify("Test CommandTest CommandTest CommandTest CommandTest CommandTest Command");
+            DebugString += Services.ToastService.Current.Message + Environment.NewLine;
+            DebugString += Services.ToastService.Current.IsVisible + Environment.NewLine;
         }
     }
 }

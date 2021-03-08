@@ -90,5 +90,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ISteamworksWebApiService, SteamworksWebApiServiceImpl>();
             return services;
         }
+
     }
 }

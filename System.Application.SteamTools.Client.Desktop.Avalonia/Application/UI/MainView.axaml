@@ -63,7 +63,7 @@
                 </DataTemplate>
             </TabControl.ItemTemplate>
         </TabControl>
-        <controls:ToastMessage DataContext="{Binding Toast}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         <!--<TabControl x:Name="TabControl" Classes="sidebar" Margin="0 30 0 0">
             <TabItem Header="{Binding Path=Res.Welcome,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalContentAlignment="Center" Margin="0 10 0 0">
             </TabItem>

@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
@@ -78,6 +79,7 @@ namespace System.Application.UI.ViewModels
 
         public async void Initialize()
         {
+            //AppHelper.Current.Theme = (AppTheme)UISettings.Theme.Value;
             if (!this.IsInitialized)
             {
                 foreach (var item in this.TabItems)

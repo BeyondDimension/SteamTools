@@ -3,22 +3,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
-             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="50"
-             Background="Transparent" IsVisible="{Binding IsVisible}"
+             xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="50" Margin="0 0 0 20"
+             Background="Transparent" IsVisible="{Binding Source={x:Static service:ToastService.Current},Path=IsVisible,Mode=OneWay}"
              x:Class="System.Application.UI.Controls.ToastMessage">
     <Design.DataContext>
         <vm:ToastMessageViewModel/>
     </Design.DataContext>
-    <Border Padding="10" Background="{DynamicResource ActiveBackgroundBrushKey}">
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="{Binding Title}" FontSize="14"/>
-            <TextBlock Text="{Binding Message}" FontSize="12"/>
-            <Button Width="30" Height="30">
-                <Image>
+    <Border Background="{DynamicResource ActiveBackgroundBrushKey}" Classes="paper" CornerRadius="3">
+        <StackPanel Orientation="Horizontal">
+            <!--<TextBlock Text="{Binding Title}" FontSize="16"/>-->
+            <Border Padding="10">
+                <TextBlock Text="{Binding Source={x:Static service:ToastService.Current},Path=Message,Mode=OneWay}" FontSize="14" Foreground="{DynamicResource HighlightForegroundColorKey}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Border>
+            <Button Width="40" Height="40" Background="Transparent" Command="{Binding Source={x:Static service:ToastService.Current},Path=CloseBtn_Click}">
+                <Image Width="12">
                     <Image.Source>
-                        <DrawingImage>
-                            <GeometryDrawing Brush="{DynamicResource HighlightForegroundColorKey}" Geometry="M566.97558594 521.09667969L856.8828125 231.18945312c14.63378906-14.63378906 14.63378906-38.75976563 0-53.39355468l-1.58203125-1.58203125c-14.63378906-14.63378906-38.75976563-14.63378906-53.39355469 0L512 466.51660156 222.09277344 176.21386719c-14.63378906-14.63378906-38.75976563-14.63378906-53.39355469 0l-1.58203125 1.58203125c-15.02929688 14.63378906-15.02929688 38.75976563 0 53.39355469l289.90722656 289.90722656L167.1171875 811.00390625c-14.63378906 14.63378906-14.63378906 38.75976563 0 53.39355469l1.58203125 1.58203125c14.63378906 14.63378906 38.75976563 14.63378906 53.39355469 0L512 576.07226563 801.90722656 865.97949219c14.63378906 14.63378906 38.75976563 14.63378906 53.39355469 0l1.58203125-1.58203125c14.63378906-14.63378906 14.63378906-38.75976563 0-53.39355469L566.97558594 521.09667969z"></GeometryDrawing>
-                        </DrawingImage>
+                        <DrawingImage Drawing="{DynamicResource CloseDrawing}"></DrawingImage>
                     </Image.Source>
                 </Image>
             </Button>
