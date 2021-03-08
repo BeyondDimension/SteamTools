@@ -3,6 +3,7 @@
     <Styles.Resources>
         <Thickness x:Key="PageMargin">20 0 20 0</Thickness>
         <Thickness x:Key="PageMargin2">30 0 30 0</Thickness>
+        
     </Styles.Resources>
     <StyleInclude Source="/Application/UI/Styles/Controls/DrawingSvg.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/SideBar.xaml" />

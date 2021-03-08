@@ -22,6 +22,7 @@ using System.Linq;
 using System.Application.Models.Settings;
 using System.Application.UI.Resx;
 using System.Application.Models;
+using System.Threading.Tasks;
 #if WINDOWS
 using System.Windows.Shell;
 using WpfApplication = System.Windows.Application;
@@ -239,11 +240,19 @@ namespace System.Application.UI
             }
         }
 
-        public void ShowChildWindow(object window)
+        public async Task ShowChildWindow(object window)
         {
             if (window is Window w)
             {
-                w.ShowDialog(MainWindow);
+                await w.ShowDialog(MainWindow);
+            }
+        }
+
+        public void ShowWindow(object window)
+        {
+            if (window is Window w)
+            {
+                w.Show(MainWindow);
             }
         }
 

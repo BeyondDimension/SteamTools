@@ -4,7 +4,7 @@ using Avalonia.Markup.Xaml;
 
 namespace System.Application.UI.Windows
 {
-    public class LoginWindow : Window
+    public class LoginWindow : FluentWindow
     {
         public LoginWindow()
         {

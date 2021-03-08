@@ -14,9 +14,6 @@
         Title="{Binding Title}"
         Topmost="{Binding Topmost}" 
         Style="{DynamicResource MetroDialogStyleKey}"
-        UseLayoutRounding="True"
-        TextOptions.TextFormattingMode="Display"
-        SnapsToDevicePixels="True"
         WindowStartupLocation="CenterOwner"
 		SizeToContent="Height"
         d:DataContext="{d:DesignInstance vm:DialogWindowViewModel}">

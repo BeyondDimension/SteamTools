@@ -20,20 +20,27 @@ namespace System.Application.Services.Implementation
             return ShowDialog(messageBoxText, caption, false);
         }
 
-        public Task<bool> ShowDialog(string messageBoxText, string caption, bool isCancelcBtn)
+        public async Task<bool> ShowDialog(string messageBoxText, string caption, bool isCancelcBtn)
         {
-            return MainThreadDesktop.InvokeOnMainThreadAsync(() =>
+            return await MainThreadDesktop.InvokeOnMainThreadAsync(async () =>
             {
-                var dialog = new MessageWindowViewModel
+                var window = new MessageWindow();
+                var dialog = new MessageWindowViewModel<MessageWindow>(window)
                 {
                     Content = messageBoxText,
                     Title = caption
                 };
-                var window = new MessageWindow { DataContext = dialog };
-                window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                AppHelper.Current.ShowChildWindow(window);
+                window.DataContext = dialog;
+                //window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                await AppHelper.Current.ShowChildWindow(window);
                 return dialog.DialogResult;
             });
+        }
+
+        public void CloseWindow(object window)
+        {
+            if (window is Window w)
+                w.Close();
         }
 
         static Type GetWindowType(IMessageWindowService.CustomWindow customWindow) => customWindow switch
@@ -53,7 +60,7 @@ namespace System.Application.Services.Implementation
                     window.DataContext = dataContext;
                 }
                 window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                AppHelper.Current.ShowChildWindow(window);
+                AppHelper.Current.ShowWindow(window);
             });
         }
     }

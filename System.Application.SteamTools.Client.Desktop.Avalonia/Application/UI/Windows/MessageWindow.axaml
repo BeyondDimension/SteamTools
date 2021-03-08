@@ -4,25 +4,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="200"
         x:Class="System.Application.UI.Windows.MessageWindow"
+        xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+        UseLayoutRounding="True"
+        WindowStartupLocation="CenterOwner"
+        SizeToContent="WidthAndHeight"
+        MinWidth="470" MinHeight="100"
+        Padding="0" Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="30"
+        CanResize="False"
         Title="{Binding Title}">
-    <Grid RowDefinitions="Auto,Auto">
-        <StackPanel Margin="12">
-            <DockPanel>
-                <TextBlock Text="{Binding Content}"
-                           Margin="12,0"
-						   HorizontalAlignment="Left"
-                           TextWrapping="WrapWithOverflow"
-						   VerticalAlignment="Center"></TextBlock>
-            </DockPanel>
-            <Border Height="12" />
-
-            <Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness="1" Margin="10 15"/>
+    <Grid RowDefinitions="1,Auto,*,Auto,1">
+        <DockPanel HorizontalAlignment="Stretch" Grid.RowSpan="5">
+            <ExperimentalAcrylicBorder IsHitTestVisible="False">
+                <ExperimentalAcrylicBorder.Material>
+                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.40" TintOpacity="1"/>
+                </ExperimentalAcrylicBorder.Material>
+            </ExperimentalAcrylicBorder>
+        </DockPanel>
+        <StackPanel Grid.Row="1" Margin="10 5 0 5" IsHitTestVisible="False">
+            <TextBlock Text="{Binding Title}" FontSize="16"></TextBlock>
         </StackPanel>
-        <WrapPanel  Grid.Row="1"
-				   HorizontalAlignment="Right"
-				   Margin="6,-6,6,6">
-            <Button MinWidth="110" Padding="30,6" Margin="6" IsDefault="True"></Button>
-            <Button MinWidth="110" Padding="30,6" Margin="6" IsCancel="True"></Button>
+        <StackPanel Margin="12 12 12 12" Grid.Row="2" x:Name="content">
+            <DockPanel>
+                <TextBlock Text="{Binding Content}" MaxWidth="500"
+                           Margin="12,0" FontSize="14"
+                           HorizontalAlignment="Left"
+                           TextWrapping="WrapWithOverflow"
+                           VerticalAlignment="Center"></TextBlock>
+            </DockPanel>
+            <Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness="1" Margin="10 15 10 0"/>
+        </StackPanel>
+        <WrapPanel  Grid.Row="3"
+                   HorizontalAlignment="Right"
+                   Margin="10,0,10,6">
+            <Button MinWidth="90" Padding="30,6" Margin="6" IsDefault="True" Content="{Binding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OK}"></Button>
+            <Button MinWidth="90" Padding="30,6" Margin="6" IsCancel="True" Content="{Binding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Cancel}"></Button>
         </WrapPanel>
     </Grid>
 </Window>

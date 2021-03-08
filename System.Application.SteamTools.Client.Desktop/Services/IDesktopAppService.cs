@@ -1,5 +1,6 @@
 ﻿using System.Application.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace System.Application.Services
@@ -14,7 +15,9 @@ namespace System.Application.Services
         /// <summary>
         /// 打开子窗口
         /// </summary>
-        void ShowChildWindow(object window);
+        Task ShowChildWindow(object window);
+
+        void ShowWindow(object window);
 
         /// <summary>
         /// 退出整个程序
