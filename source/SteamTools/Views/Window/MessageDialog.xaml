@@ -49,7 +49,7 @@
 						   Foreground="{DynamicResource ActiveForegroundBrushKey}"
 						   Margin="12,0"
 						   HorizontalAlignment="Left"
-                               TextWrapping="WrapWithOverflow"
+                           TextWrapping="WrapWithOverflow"
 						   VerticalAlignment="Center" />
                 </DockPanel>
 

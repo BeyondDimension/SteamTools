@@ -5,7 +5,24 @@
         mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="200"
         x:Class="System.Application.UI.Windows.MessageWindow"
         Title="{Binding Title}">
-    <Grid>
-        <TextBlock Text="{Binding Content}"></TextBlock>
+    <Grid RowDefinitions="Auto,Auto">
+        <StackPanel Margin="12">
+            <DockPanel>
+                <TextBlock Text="{Binding Content}"
+                           Margin="12,0"
+						   HorizontalAlignment="Left"
+                           TextWrapping="WrapWithOverflow"
+						   VerticalAlignment="Center"></TextBlock>
+            </DockPanel>
+            <Border Height="12" />
+
+            <Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness="1" Margin="10 15"/>
+        </StackPanel>
+        <WrapPanel  Grid.Row="1"
+				   HorizontalAlignment="Right"
+				   Margin="6,-6,6,6">
+            <Button MinWidth="110" Padding="30,6" Margin="6" IsDefault="True"></Button>
+            <Button MinWidth="110" Padding="30,6" Margin="6" IsCancel="True"></Button>
+        </WrapPanel>
     </Grid>
 </Window>

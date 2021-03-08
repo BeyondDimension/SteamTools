@@ -141,8 +141,14 @@
   <data name="ArchiSteamFarmPlus" xml:space="preserve">
     <value>ASF Plus</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
   <data name="CommunityFix" xml:space="preserve">
     <value>社区加速</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>确定</value>
   </data>
   <data name="GameList" xml:space="preserve">
     <value>库存游戏</value>
