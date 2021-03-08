@@ -215,6 +215,12 @@ namespace System.Application.UI
 
         public Window? MainWindow { get; set; }
 
+        public void ShowChildWindow(object window)
+        {
+            if (window is Window w)
+                w.ShowDialog(MainWindow);
+        }
+
         /// <summary>
         /// Restores the app's main window by setting its <c>WindowState</c> to
         /// <c>WindowState.Normal</c> and showing the window.

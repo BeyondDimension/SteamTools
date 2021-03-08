@@ -20,6 +20,17 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
+        /// 添加弹窗服务
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddMessageWindowService(this IServiceCollection services)
+        {
+            services.AddSingleton<IMessageWindowService, MessageWindowServiceImpl>();
+            return services;
+        }
+
+        /// <summary>
         /// 添加应用程序更新服务
         /// </summary>
         /// <param name="services"></param>

@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,8 @@ namespace System.Application.UI.ViewModels
             Services.ToastService.Current.Notify("Test CommandTest CommandTest CommandTest CommandTest CommandTest Command");
             DebugString += Services.ToastService.Current.Message + Environment.NewLine;
             DebugString += Services.ToastService.Current.IsVisible + Environment.NewLine;
+
+            DI.Get<IMessageWindowService>().ShowDialog("Test", "Test");
         }
     }
 }

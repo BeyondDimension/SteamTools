@@ -71,7 +71,7 @@ namespace System.Application.UI.Resx
         /// <param name="cultureName"></param>
         public static void ChangeLanguage(string cultureName)
         {
-            if (IsMatch(CultureInfo.CurrentUICulture, cultureName)) return;
+            if (IsMatch(AppResources.Culture, cultureName)) return;
             if (string.IsNullOrWhiteSpace(cultureName))
                 AppResources.Culture = DefaultCurrentUICulture;
             else

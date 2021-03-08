@@ -27,6 +27,8 @@ namespace System.Application.UI
 
         static void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IDesktopAppService, App>();
+
             // 桌面平台服务 此项放在其他通用业务实现服务之前
             services.AddDesktopPlatformService();
 
@@ -107,6 +109,7 @@ namespace System.Application.UI
              *  - 按钮文本(ButtonText)缺少本地化翻译(Translate)
              *  - 某些图标图片与枚举值不太匹配，例如 Information
              */
+            services.AddMessageWindowService();
 
 #if WINDOWS
             // 可选项，在 Win 平台使用 WPF 实现的 MessageBox

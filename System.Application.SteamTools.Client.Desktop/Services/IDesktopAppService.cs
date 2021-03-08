@@ -12,6 +12,11 @@ namespace System.Application.Services
         AppTheme Theme { get; set; }
 
         /// <summary>
+        /// 打开子窗口
+        /// </summary>
+        void ShowChildWindow(object window);
+
+        /// <summary>
         /// 退出整个程序
         /// </summary>
         void Shutdown();

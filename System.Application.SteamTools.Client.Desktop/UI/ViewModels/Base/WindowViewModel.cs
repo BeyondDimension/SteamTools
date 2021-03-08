@@ -13,6 +13,7 @@ namespace System.Application.UI.ViewModels
 
         public bool IsInitialized { get; set; }
 
+        public bool DialogResult { get; protected set; }
         protected void InvokeOnUIDispatcher(Action action)
         {
             MainThreadDesktop.BeginInvokeOnMainThread(action);
