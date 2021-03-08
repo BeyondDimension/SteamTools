@@ -17,7 +17,7 @@ namespace System.Application.Services
         private string persisitentMessage = "";
         private string notificationMessage = "";
 
-        #region Message 変更通知
+        #region Message 变更通知
 
         /// <summary>
         /// 获取指示当前状态的字符串。

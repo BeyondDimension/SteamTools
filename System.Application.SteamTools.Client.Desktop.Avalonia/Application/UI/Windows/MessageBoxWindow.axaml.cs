@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace System.Application.UI.Windows
 {
-    public class MessageWindow : FluentWindow
+    public class MessageBoxWindow : FluentWindow
     {
-        public MessageWindow()
+        public MessageBoxWindow()
         {
             InitializeComponent();
 #if DEBUG

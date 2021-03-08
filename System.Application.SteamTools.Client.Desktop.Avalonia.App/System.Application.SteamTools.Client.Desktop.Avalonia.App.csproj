@@ -72,12 +72,6 @@
   </ItemGroup>-->
 
   <ItemGroup>
-    <PackageReference Include="MessageBox.Avalonia" Version="1.0.5">
-      <Aliases>MessageBox_Avalonia</Aliases>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="**\*.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>

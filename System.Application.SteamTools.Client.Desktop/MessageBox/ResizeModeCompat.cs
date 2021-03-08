@@ -1,5 +1,6 @@
 ﻿using System.Application.Services;
 
+// ReSharper disable once CheckNamespace
 namespace System.Windows
 {
     /// <summary>

@@ -1,6 +1,6 @@
-﻿using Avalonia.Controls;
-using Avalonia.Threading;
-using System.Application.UI;
+﻿#if DEBUG
+using Avalonia.Controls;
+using ReactiveUI;
 using System.Application.UI.ViewModels;
 using System.Application.UI.ViewModels.Windows;
 using System.Application.UI.Windows;
@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace System.Application.Services.Implementation
 {
+    [Obsolete("use ShowWindowServiceImpl")]
     internal sealed class MessageWindowServiceImpl : IMessageWindowService
     {
         public Task<bool> ShowDialog(string messageBoxText)
@@ -24,29 +25,34 @@ namespace System.Application.Services.Implementation
         {
             return await MainThreadDesktop.InvokeOnMainThreadAsync(async () =>
             {
-                var window = new MessageWindow();
-                var dialog = new MessageWindowViewModel(window)
+                var window = new MessageBoxWindow();
+                var dialog = new MessageBoxWindowViewModel()
                 {
                     Content = messageBoxText,
                     Title = caption,
                     IsCancelcBtn = isCancelcBtn
                 };
+                dialog.OK = ReactiveCommand.Create(() =>
+                {
+                    dialog.DialogResult = true;
+                    window.Close();
+                });
+
+                dialog.Cancel = ReactiveCommand.Create(() =>
+                {
+                    dialog.DialogResult = false;
+                    window.Close();
+                });
                 window.DataContext = dialog;
                 //window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                await AppHelper.Current.ShowChildWindow(window);
+                await IDesktopAvaloniaAppService.Instance.ShowDialogWindow(window);
                 return dialog.DialogResult;
             });
         }
 
-        public void CloseWindow(object window)
-        {
-            if (window is Window w)
-                w.Close();
-        }
-
         static Type GetWindowType(IMessageWindowService.CustomWindow customWindow) => customWindow switch
         {
-            IMessageWindowService.CustomWindow.MessageBox => typeof(MessageWindow),
+            IMessageWindowService.CustomWindow.MessageBox => typeof(MessageBoxWindow),
             _ => throw new ArgumentOutOfRangeException(nameof(customWindow), customWindow, null),
         };
 
@@ -61,8 +67,9 @@ namespace System.Application.Services.Implementation
                     window.DataContext = dataContext;
                 }
                 window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                AppHelper.Current.ShowWindow(window);
+                IDesktopAvaloniaAppService.Instance.ShowWindow(window);
             });
         }
     }
 }
+#endif

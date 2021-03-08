@@ -46,9 +46,6 @@
     <PackageReference Include="Avalonia.Desktop" Version="0.10.0" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0" />
     <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.0" />
-    <PackageReference Include="MessageBox.Avalonia" Version="1.0.5">
-      <Aliases>MessageBox_Avalonia</Aliases>
-    </PackageReference>
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
@@ -103,6 +100,9 @@
     </Compile>
     <Compile Update="Application\UI\Pages\SteamAccountPage.axaml.cs">
       <DependentUpon>SteamAccountPage.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Application\UI\Windows\MessageBoxWindow.axaml.cs">
+      <DependentUpon>MessageBoxWindow.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

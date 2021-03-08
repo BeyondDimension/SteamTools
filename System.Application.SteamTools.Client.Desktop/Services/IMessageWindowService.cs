@@ -1,9 +1,10 @@
-﻿using System.Application.UI.ViewModels;
+﻿#if DEBUG
+using System.Application.UI.ViewModels;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace System.Application.Services
 {
+    [Obsolete("use IShowWindowService")]
     public interface IMessageWindowService
     {
         /// <summary>
@@ -30,8 +31,6 @@ namespace System.Application.Services
         /// <returns>一个 <see cref="MessageBoxResultCompat"/> 值，用于指定用户单击了哪个消息框按钮。</returns>
         Task<bool> ShowDialog(string messageBoxText, string caption, bool isCancelcBtn);
 
-        void CloseWindow(object window);
-
         Task Show(CustomWindow window, ViewModelBase? dataContext = null);
 
         public enum CustomWindow : byte
@@ -44,3 +43,4 @@ namespace System.Application.Services
         }
     }
 }
+#endif

@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using System;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Application.UI;
@@ -20,15 +21,31 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
+        /// 添加显示窗口服务
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddShowWindowService(this IServiceCollection services)
+        {
+            services.AddSingleton<IShowWindowService, ShowWindowServiceImpl>();
+            return services;
+        }
+
+#if DEBUG
+
+        /// <summary>
         /// 添加弹窗服务
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
+        [Obsolete("use AddShowWindowService")]
         public static IServiceCollection AddMessageWindowService(this IServiceCollection services)
         {
             services.AddSingleton<IMessageWindowService, MessageWindowServiceImpl>();
             return services;
         }
+
+#endif
 
         /// <summary>
         /// 添加应用程序更新服务

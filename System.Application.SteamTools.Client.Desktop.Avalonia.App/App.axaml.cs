@@ -31,7 +31,7 @@ using APIConst = System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI
 {
-    public partial class App : AvaloniaApplication, IDisposableHolder, IDesktopAppService
+    public partial class App : AvaloniaApplication, IDisposableHolder, IDesktopAppService, IDesktopAvaloniaAppService
     {
         public static App Instance => Current is App app ? app : throw new Exception("Impossible");
 
@@ -186,10 +186,10 @@ namespace System.Application.UI
                 AddJumpTask();
 #endif
 
-                if (!AppHelper.IsOfficialChannelPackage)
-                {
-                    IsNotOfficialChannelPackageWarning();
-                }
+                //if (!AppHelper.IsOfficialChannelPackage)
+                //{
+                IsNotOfficialChannelPackageWarning();
+                //}
 
                 desktop.MainWindow = MainWindow;
                 desktop.Exit += ApplicationLifetime_Exit;
@@ -218,43 +218,14 @@ namespace System.Application.UI
 
         public Window MainWindow
         {
-            get
-            {
-                Window? mainWindow = null;
-
-                if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-                {
-                    mainWindow = desktop.MainWindow;
-                }
-
-                if (mainWindow == null)
-                {
-                    mainWindow = mMainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
-                }
-
-                return mainWindow;
-            }
-            set
-            {
-                mMainWindow = value;
-            }
+            get => mMainWindow ?? throw new ArgumentNullException(nameof(mMainWindow));
+            set => mMainWindow = value;
         }
 
-        public async Task ShowChildWindow(object window)
-        {
-            if (window is Window w)
-            {
-                await w.ShowDialog(MainWindow);
-            }
-        }
+        public async Task ShowDialogWindow(Window window) => await window.ShowDialog(MainWindow);
 
-        public void ShowWindow(object window)
-        {
-            if (window is Window w)
-            {
-                w.Show(MainWindow);
-            }
-        }
+        public void ShowWindow(Window window) => window.Show(MainWindow);
+
 
         /// <summary>
         /// Restores the app's main window by setting its <c>WindowState</c> to

@@ -31,7 +31,8 @@ namespace System.Application.UI
 
         static void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IDesktopAppService, App>();
+            services.AddSingleton<IDesktopAppService>(s => App.Instance);
+            services.AddSingleton<IDesktopAvaloniaAppService>(s => App.Instance);
 
             // 桌面平台服务 此项放在其他通用业务实现服务之前
             services.AddDesktopPlatformService();
@@ -110,7 +111,10 @@ namespace System.Application.UI
              *  - 按钮文本(ButtonText)缺少本地化翻译(Translate)
              *  - 某些图标图片与枚举值不太匹配，例如 Information
              */
+#if DEBUG
             services.AddMessageWindowService();
+#endif
+            services.AddShowWindowService();
 
 #if WINDOWS
             // 可选项，在 Win 平台使用 WPF 实现的 MessageBox
@@ -230,12 +234,20 @@ namespace System.Application.UI
                 _ => throw new ArgumentOutOfRangeException(nameof(result), $"value: {result}"),
             };
 
-            public Task<MessageBoxResultCompat> ShowAsync(string messageBoxText, string caption, MessageBoxButtonCompat button, MessageBoxImageCompat icon)
+            public Task<MessageBoxResultCompat> ShowAsync(string messageBoxText, string caption, MessageBoxButtonCompat button, MessageBoxImageCompat? icon)
             {
                 var button_ = GetButtonEnum(button);
-                var icon_ = GetIcon(icon);
-                var result = MessageBox.Show(messageBoxText, caption, button_, icon_);
-                return Task.FromResult(GetResult(result));
+                if (icon.HasValue)
+                {
+                    var icon_ = GetIcon(icon.Value);
+                    var result = MessageBox.Show(messageBoxText, caption, button_, icon_);
+                    return Task.FromResult(GetResult(result));
+                }
+                else
+                {
+                    var result = MessageBox.Show(messageBoxText, caption, button_);
+                    return Task.FromResult(GetResult(result));
+                }
             }
         }
 #endif
