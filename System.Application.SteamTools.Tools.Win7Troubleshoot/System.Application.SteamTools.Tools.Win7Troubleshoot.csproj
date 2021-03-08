@@ -23,6 +23,12 @@
     <Compile Include="..\System.Common.CoreLib\Security\Cryptography\Hashs_SHA1.cs">
       <Link>Security\Cryptography\Hashs_SHA1.cs</Link>
     </Compile>
+    <Compile Include="..\System.Common.CoreLib\IOPath.cs">
+      <Link>IOPath.cs</Link>
+    </Compile>
+    <Compile Include="..\System.Application.SteamTools.Client.Desktop\FileSystemDesktop.cs">
+      <Link>FileSystemDesktop.cs</Link>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

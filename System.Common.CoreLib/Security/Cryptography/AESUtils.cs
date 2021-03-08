@@ -71,7 +71,7 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="aes"></param>
         /// <returns></returns>
-        internal static Parameters ToParams(this Aes aes) => new Parameters(aes.Key, aes.IV, aes.Mode, aes.Padding);
+        internal static Parameters ToParams(this Aes aes) => new(aes.Key, aes.IV, aes.Mode, aes.Padding);
 
         /// <summary>
         /// 将 <see cref="Aes"/> 实例中的密钥转换为可传输的字符串。

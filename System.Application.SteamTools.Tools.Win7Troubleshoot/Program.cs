@@ -9,6 +9,7 @@
  * 在配置文件 exe.config supportedRuntime 项中可添加net4x的支持
  */
 
+using System.Application;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -42,6 +43,8 @@ namespace System
                 {
                     if (Environment.OSVersion.Platform != PlatformID.Win32NT)
                         throw new PlatformNotSupportedException();
+
+                    FileSystemDesktop.InitFileSystem();
 
                     thisFilePath = currentProcess.MainModule.FileName;
                     appFilePath = thisFilePath.Replace(".win7", string.Empty, StringComparison.OrdinalIgnoreCase);
@@ -206,7 +209,7 @@ namespace System
 
                 var hashValue = Hashs.String.SHA1(machineName + userName + osVersion);
 
-                var path = Path.Combine(Path.GetDirectoryName(thisFilePath), QuickStartMarkFileName);
+                var path = Path.Combine(IOPath.AppDataDirectory, QuickStartMarkFileName);
 
                 write = () =>
                 {

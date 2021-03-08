@@ -5,6 +5,10 @@ using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Application.UI.Views;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Properties;
+using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -38,13 +42,8 @@ namespace System.Application.UI
             // 模型验证框架
             services.TryAddModelValidator();
 
-            //var options = AppClientAttribute.Get<AppSettings>();
-            var options = new AppSettings
-            {
-                AppSecretVisualStudioAppCenter = "ccca922e-40fe-48ab-9982-45ba496b1201",
-            };
             // app 配置项
-            services.TryAddOptions(options);
+            services.TryAddOptions(AppSettings);
 
             services.AddRepositories();
 
@@ -117,6 +116,35 @@ namespace System.Application.UI
 #endif
 
             #endregion
+        }
+
+        static AppSettings AppSettings
+        {
+            get
+            {
+                var assembly = Assembly.GetExecutingAssembly();
+                var options = new AppSettings
+                {
+                    AppVersion = GetResValue("app-id", false).TryParseGuidN() ?? default,
+                    AppSecretVisualStudioAppCenter = GetResValue("appcenter-secret", false),
+                    AesSecret = GetResValue("aes-key", true),
+                    RSASecret = GetResValue("rsa-public-key", false),
+                    ApiBaseUrl = GetResValue("api-base-url", false),
+                };
+                return options;
+                string? GetResValue(string name, bool isSingle)
+                {
+                    const string thisProjectRootNamespace = "System.Application.UI";
+                    var resName = isSingle ? $"{thisProjectRootNamespace}.{name}.pfx" : $"{thisProjectRootNamespace}.{name}-{(ThisAssembly.Debuggable ? "debug" : "release")}.pfx";
+                    using var stream = assembly.GetManifestResourceStream(resName);
+                    if (stream != null)
+                    {
+                        using var reader = new StreamReader(stream, Encoding.UTF8);
+                        return reader.ReadToEnd();
+                    }
+                    return null;
+                }
+            }
         }
 
         sealed class NotifyIconImpl : NotifyIcon<ContextMenu>, INotifyIcon { }

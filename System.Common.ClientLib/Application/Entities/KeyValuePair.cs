@@ -20,7 +20,7 @@ namespace System.Application.Entities
         [Column("70E8B6F4")]
         [SQLiteNotNull]
         [NotNull, DisallowNull] // C# 8 not null
-        public string? Value { get; set; }
+        public byte[]? Value { get; set; }
 
         string DebuggerDisplay() => $"{Id}, {Value}";
     }

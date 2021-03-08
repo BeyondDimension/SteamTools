@@ -6,32 +6,16 @@ namespace System.Security
 {
     internal sealed class DesktopClientStorage : Repository<KeyValuePair, string>, IStorage
     {
-        public async Task<string?> GetAsync(string key)
+        bool IStorage.IsNativeSupportedBytes => true;
+
+        async Task<byte[]?> IStorage.GetBytesAsync(string key)
         {
             var item = await FirstOrDefaultAsync(x => x.Id == key);
-            return item?.Value;
+            var value = item?.Value;
+            return value;
         }
 
-        string? IStorage.Get(string key)
-        {
-            Func<Task<string?>> func = () => GetAsync(key);
-            return func.RunSync();
-        }
-
-        void IStorage.Set(string key, string? value)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                DeleteByKey(key);
-            }
-            else
-            {
-                Func<Task> func = () => InsertOrUpdateAsync(key, value);
-                func.RunSync();
-            }
-        }
-
-        async Task InsertOrUpdateAsync(string key, string value)
+        async Task InsertOrUpdateAsync(string key, byte[] value)
         {
             await InsertOrUpdateAsync(new KeyValuePair
             {
@@ -40,28 +24,16 @@ namespace System.Security
             });
         }
 
-        async Task IStorage.SetAsync(string key, string? value)
+        Task IStorage.SetAsync(string key, byte[]? value)
         {
-            if (string.IsNullOrEmpty(value))
+            if (value == null || value.Length <= 0)
             {
-                await DeleteAsync(key);
+                return DeleteAsync(key);
             }
             else
             {
-                await InsertOrUpdateAsync(key, value);
+                return InsertOrUpdateAsync(key, value);
             }
-        }
-
-        int DeleteByKey(string key)
-        {
-            Func<Task<int>> func = () => DeleteAsync(key);
-            return func.RunSync();
-        }
-
-        bool IStorage.Remove(string key)
-        {
-            var result = DeleteByKey(key);
-            return result > 0;
         }
 
         async Task<bool> IStorage.RemoveAsync(string key)

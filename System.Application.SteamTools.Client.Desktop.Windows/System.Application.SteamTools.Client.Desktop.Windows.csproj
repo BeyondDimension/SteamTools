@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Security\Windows10DesktopClientStorage.cs" />
+    <Compile Remove="Security\Windows10DesktopClientStorage.uwp.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\System.Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
@@ -25,6 +30,10 @@
     <ProjectReference Include="..\references\Steam4NET\Steam4NET\Steam4NET.csproj" />
     <ProjectReference Include="..\references\SteamAchievementManager\SAM.API\SAM.API.csproj" />
     <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop\System.Application.SteamTools.Client.Desktop.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Security\" />
   </ItemGroup>
 
 </Project>

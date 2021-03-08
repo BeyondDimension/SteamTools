@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Text;
 using System.Threading.Tasks;
 
 namespace System.Security
@@ -24,45 +24,138 @@ namespace System.Security
     /// </list>
     /// <para>注意：在运行 Android 23（6.0/M）以下的 Android 设备上，KeyStore中没有AES可用。作为最佳实践，此API将生成存储在KeyStore中的RSA/ECB/PKCS7Padding密钥对（KeyStore中这些较低的API级别支持的唯一类型），用于包装运行时生成的AES密钥。这个包装好的密钥存储在首选项中</para>
     /// </remarks>
-    public interface IStorage
+    public partial interface IStorage
     {
+        #region Public API
+
         /// <summary>
         /// 获取给定键的值
         /// </summary>
         /// <param name="key">键</param>
         /// <returns>如果键不存在，则返回null</returns>
-        string? Get(string key);
-
-        /// <inheritdoc cref="Get(string)"/>
-        Task<string?> GetAsync(string key);
+        async Task<string?> GetAsync(string key)
+        {
+            if (IsNativeSupportedBytes)
+            {
+                var bytesValue = await GetBytesAsync(key);
+                if (bytesValue == null) return null;
+                try
+                {
+                    return Encoding.UTF8.GetString(bytesValue);
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         /// <summary>
         /// 存储给定键的值
         /// </summary>
         /// <param name="key">键</param>
         /// <param name="value">值</param>
-        void Set(string key, string? value);
-
-        /// <inheritdoc cref="Set(string, string?)"/>
-        Task SetAsync(string key, string? value);
+        /// <returns></returns>
+        Task SetAsync(string key, string? value)
+        {
+            if (IsNativeSupportedBytes)
+            {
+                var bytesValue = value == null ? null : Encoding.UTF8.GetBytes(value);
+                return SetAsync(key, bytesValue);
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         /// <summary>
         /// 移除给定键的键/值对
         /// </summary>
         /// <param name="key">要移除的键</param>
         /// <returns>如果删除了键值对，则返回true</returns>
-        bool Remove(string key);
-
-        /// <inheritdoc cref="Remove(string)"/>
         Task<bool> RemoveAsync(string key);
 
-        [return: MaybeNull]
-        public static TValue Deserialize<TValue>(string? strValue)
+        /// <inheritdoc cref="GetAsync(string)"/>
+        async Task<TValue?> GetAsync<TValue>(string key) where TValue : notnull
         {
-            return Serializable.DMPB64U<TValue>(strValue);
+            if (IsNativeSupportedBytes)
+            {
+                var bytesValue = await GetBytesAsync(key);
+                if (bytesValue == null) return default;
+                var value = Serializable.DMP<TValue?>(bytesValue);
+                return value;
+            }
+            else
+            {
+                var strValue = await GetAsync(key);
+                if (strValue == null) return default;
+                var value = Serializable.DMPB64U<TValue?>(strValue);
+                return value;
+            }
         }
 
-        public static string? Serialize<TValue>(TValue value)
+        /// <inheritdoc cref="SetAsync(string, string?)"/>
+        Task SetAsync<TValue>(string key, TValue value)
+        {
+            if (IsNativeSupportedBytes)
+            {
+                var bytesValue = SMP(value);
+                return SetAsync(key, bytesValue);
+            }
+            else
+            {
+                var strValue = SMPB64U(value);
+                return SetAsync(key, strValue);
+            }
+        }
+
+        static IStorage Instance => DI.Get<IStorage>();
+
+        #endregion
+
+        protected bool IsNativeSupportedBytes { get; }
+
+        /// <inheritdoc cref="GetAsync(string)"/>
+        protected async Task<byte[]?> GetBytesAsync(string key)
+        {
+            if (IsNativeSupportedBytes)
+            {
+                throw new NotImplementedException();
+            }
+            else
+            {
+                var strValue = await GetAsync(key);
+                try
+                {
+                    return strValue.Base64UrlDecodeToByteArray_Nullable();
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        /// <inheritdoc cref="SetAsync(string, string?)"/>
+        protected Task SetAsync(string key, byte[]? value)
+        {
+            if (IsNativeSupportedBytes)
+            {
+                throw new NotImplementedException();
+            }
+            else
+            {
+                var strValue = value.Base64UrlEncode_Nullable();
+                return SetAsync(key, strValue);
+            }
+        }
+
+        private static string? SMPB64U<TValue>(TValue value)
         {
             string? strValue;
             if (value is string str)
@@ -83,39 +176,25 @@ namespace System.Security
             return strValue;
         }
 
-        /// <inheritdoc cref="Get(string)"/>
-        [return: MaybeNull]
-        public TValue Get<TValue>(string key)
+        private static byte[]? SMP<TValue>(TValue value)
         {
-            var strValue = Get(key);
-            var value = Deserialize<TValue>(strValue);
-            return value;
+            byte[]? bytesValue;
+            if (value is byte[] bytes)
+            {
+                bytesValue = bytes;
+            }
+            else
+            {
+                if (value == null)
+                {
+                    bytesValue = null;
+                }
+                else
+                {
+                    bytesValue = Serializable.SMP(value);
+                }
+            }
+            return bytesValue;
         }
-
-#nullable disable
-
-        /// <inheritdoc cref="Get(string)"/>
-        public async Task<TValue> GetAsync<TValue>(string key)
-        {
-            var strValue = await GetAsync(key);
-            var value = Deserialize<TValue>(strValue);
-            return value;
-        }
-
-#nullable restore
-
-        public void Set<TValue>(string key, TValue value)
-        {
-            var strValue = Serialize(value);
-            Set(key, strValue);
-        }
-
-        public Task SetAsync<TValue>(string key, TValue value)
-        {
-            var strValue = Serialize(value);
-            return SetAsync(key, strValue);
-        }
-
-        public static IStorage Instance => DI.Get<IStorage>();
     }
 }

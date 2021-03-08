@@ -28,7 +28,7 @@ namespace System.Application.Models
         [MPKey(2)]
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
-        public byte[]? AesSecret { get; set; }
+        public string? AesSecret { get; set; }
 
         Aes? aes;
 
