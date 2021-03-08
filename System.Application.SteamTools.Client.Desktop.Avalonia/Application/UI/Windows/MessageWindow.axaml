@@ -40,7 +40,7 @@
                    HorizontalAlignment="Right"
                    Margin="10,0,10,6">
             <Button MinWidth="90" Padding="30,6" Margin="6" IsDefault="True" Content="{Binding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OK}"></Button>
-            <Button MinWidth="90" Padding="30,6" Margin="6" IsCancel="True" Content="{Binding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Cancel}"></Button>
+            <Button MinWidth="90" Padding="30,6" Margin="6" IsCancel="True" Content="{Binding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Cancel}" IsVisible="{Binding IsCancelcBtn}"></Button>
         </WrapPanel>
     </Grid>
 </Window>

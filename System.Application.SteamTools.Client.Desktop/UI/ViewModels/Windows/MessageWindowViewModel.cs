@@ -18,6 +18,12 @@ namespace System.Application.UI.ViewModels.Windows
             set => this.RaiseAndSetIfChanged(ref _Content, value);
         }
 
+        private bool _IsCancelcBtn;
+        public bool IsCancelcBtn
+        {
+            get => _IsCancelcBtn;
+            set => this.RaiseAndSetIfChanged(ref _IsCancelcBtn, value);
+        }
 
         public void OK()
         {

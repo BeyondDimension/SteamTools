@@ -28,7 +28,8 @@ namespace System.Application.Services.Implementation
                 var dialog = new MessageWindowViewModel<MessageWindow>(window)
                 {
                     Content = messageBoxText,
-                    Title = caption
+                    Title = caption,
+                    IsCancelcBtn = isCancelcBtn
                 };
                 window.DataContext = dialog;
                 //window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
