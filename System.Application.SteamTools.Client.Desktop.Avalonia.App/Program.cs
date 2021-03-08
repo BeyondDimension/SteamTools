@@ -33,7 +33,7 @@ namespace System.Application.UI
                 Startup.Init();
 
 #if DEBUG
-                TestSecurityStorage();
+                //TestSecurityStorage();
 #endif
 
 #if WINDOWS
@@ -96,55 +96,55 @@ namespace System.Application.UI
 
 #if DEBUG
 
-        static async void TestSecurityStorage()
-        {
-            await IStorage.Instance.SetAsync("↑↑", Encoding.UTF8.GetBytes("↓↓"));
+        //static async void TestSecurityStorage()
+        //{
+        //    await IStorage.Instance.SetAsync("↑↑", Encoding.UTF8.GetBytes("↓↓"));
 
-            var left_top = Encoding.UTF8.GetString((
-                await IStorage.Instance.GetAsync<byte[]>("↑↑")).ThrowIsNull("↑-key"));
+        //    var left_top = Encoding.UTF8.GetString((
+        //        await IStorage.Instance.GetAsync<byte[]>("↑↑")).ThrowIsNull("↑-key"));
 
-            if (left_top != "↓↓")
-            {
-                throw new Exception();
-            }
+        //    if (left_top != "↓↓")
+        //    {
+        //        throw new Exception();
+        //    }
 
-            await IStorage.Instance.SetAsync<string>("←←", "→→");
+        //    await IStorage.Instance.SetAsync<string>("←←", "→→");
 
-            var left_left = await IStorage.Instance.GetAsync<string>("←←");
+        //    var left_left = await IStorage.Instance.GetAsync<string>("←←");
 
-            if (left_left != "→→")
-            {
-                throw new Exception();
-            }
+        //    if (left_left != "→→")
+        //    {
+        //        throw new Exception();
+        //    }
 
-            await IStorage.Instance.SetAsync("aa", "bb");
+        //    await IStorage.Instance.SetAsync("aa", "bb");
 
-            var left_aa = await IStorage.Instance.GetAsync("aa");
+        //    var left_aa = await IStorage.Instance.GetAsync("aa");
 
-            if (left_aa != "bb")
-            {
-                throw new Exception();
-            }
+        //    if (left_aa != "bb")
+        //    {
+        //        throw new Exception();
+        //    }
 
-            var dict = new Dictionary<string, string> {
-                { "🎈✨", "🎆🎇" },
-                { "✨🎊", "🎃🎑" },
-            };
+        //    var dict = new Dictionary<string, string> {
+        //        { "🎈✨", "🎆🎇" },
+        //        { "✨🎊", "🎃🎑" },
+        //    };
 
-            await IStorage.Instance.SetAsync("dict", dict);
+        //    await IStorage.Instance.SetAsync("dict", dict);
 
-            var left_dict = await IStorage.Instance.GetAsync<Dictionary<string, string>>("dict");
+        //    var left_dict = await IStorage.Instance.GetAsync<Dictionary<string, string>>("dict");
 
-            if (left_dict == null)
-            {
-                throw new Exception();
-            }
+        //    if (left_dict == null)
+        //    {
+        //        throw new Exception();
+        //    }
 
-            if (left_dict.Count != dict.Count)
-            {
-                throw new Exception();
-            }
-        }
+        //    if (left_dict.Count != dict.Count)
+        //    {
+        //        throw new Exception();
+        //    }
+        //}
 
 #endif
     }

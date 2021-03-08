@@ -53,21 +53,21 @@ namespace System.Application.UI
             set
             {
                 if (value == mTheme) return;
-                var the = "Dark";
-                var mode = FluentThemeMode.Dark;
+                string? the;
+                FluentThemeMode mode;
                 switch (value)
                 {
                     case AppTheme.Light:
                         the = "Light";
-                        mode = mode = FluentThemeMode.Light;
+                        mode = FluentThemeMode.Light;
                         break;
                     case AppTheme.Dark:
                         the = "Dark";
-                        mode = mode = FluentThemeMode.Dark;
+                        mode = FluentThemeMode.Dark;
                         break;
                     default:
                         the = "Dark";
-                        mode = mode = FluentThemeMode.Dark;
+                        mode = FluentThemeMode.Dark;
                         break;
                 }
                 var uri_0 = new Uri($"avares://Avalonia.Themes.Fluent/Fluent{the}.xaml");
@@ -186,10 +186,10 @@ namespace System.Application.UI
                 AddJumpTask();
 #endif
 
-                //if (!AppHelper.IsOfficialChannelPackage)
-                //{
-                IsNotOfficialChannelPackageWarning();
-                //}
+                if (!AppHelper.IsOfficialChannelPackage)
+                {
+                    IsNotOfficialChannelPackageWarning();
+                }
 
                 desktop.MainWindow = MainWindow;
                 desktop.Exit += ApplicationLifetime_Exit;
@@ -221,11 +221,6 @@ namespace System.Application.UI
             get => mMainWindow ?? throw new ArgumentNullException(nameof(mMainWindow));
             set => mMainWindow = value;
         }
-
-        public async Task ShowDialogWindow(Window window) => await window.ShowDialog(MainWindow);
-
-        public void ShowWindow(Window window) => window.Show(MainWindow);
-
 
         /// <summary>
         /// Restores the app's main window by setting its <c>WindowState</c> to

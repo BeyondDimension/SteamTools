@@ -7,13 +7,15 @@ namespace System.Application.Services
     {
         public static IDesktopAvaloniaAppService Instance => DI.Get<IDesktopAvaloniaAppService>();
 
+        Window MainWindow { get; }
+
         /// <summary>
         /// 打开子窗口
         /// </summary>
         /// <param name="window"></param>
         /// <returns></returns>
-        Task ShowDialogWindow(Window window);
+        async Task ShowDialogWindow(Window window) => await window.ShowDialog(MainWindow);
 
-        void ShowWindow(Window window);
+        void ShowWindow(Window window) => window.Show(MainWindow);
     }
 }
