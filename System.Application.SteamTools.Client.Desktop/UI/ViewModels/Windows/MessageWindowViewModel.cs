@@ -3,10 +3,10 @@ using System.Application.Services;
 
 namespace System.Application.UI.ViewModels.Windows
 {
-    public class MessageWindowViewModel<T> : WindowViewModel
+    public class MessageWindowViewModel : WindowViewModel
     {
-        private readonly T Window;
-        public MessageWindowViewModel(T window) 
+        private readonly object Window;
+        public MessageWindowViewModel(object window) 
         {
             Window = window;
         }

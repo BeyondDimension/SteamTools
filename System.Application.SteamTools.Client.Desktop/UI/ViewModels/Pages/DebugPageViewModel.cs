@@ -41,7 +41,7 @@ namespace System.Application.UI.ViewModels
 5、优化错误日志记录，现在它更详细了
 6、修复谷歌验证码代理方式为全局跳转recatpcha
 7、修复配置文件加载时提示根元素错误
-8、修复某些情况下开机自启失效问题", "Title").ContinueWith(s => DebugString += s.Result + Environment.NewLine);
+8、修复某些情况下开机自启失效问题", "Title",true).ContinueWith(s => DebugString += s.Result + Environment.NewLine);
         }
     }
 }

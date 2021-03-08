@@ -25,7 +25,7 @@ namespace System.Application.Services.Implementation
             return await MainThreadDesktop.InvokeOnMainThreadAsync(async () =>
             {
                 var window = new MessageWindow();
-                var dialog = new MessageWindowViewModel<MessageWindow>(window)
+                var dialog = new MessageWindowViewModel(window)
                 {
                     Content = messageBoxText,
                     Title = caption,
