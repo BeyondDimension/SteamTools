@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using System.Application.Columns;
 using System.Application.Models;
+using System.Application.Security;
 using System.Application.Services.CloudService.Clients;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Net.Http;
@@ -40,8 +41,9 @@ namespace System.Application.Services.CloudService
                 {
                     return Settings.RSA;
                 }
-                catch
+                catch (IsNotOfficialChannelPackageException e)
                 {
+                    logger.LogError(e, nameof(ApiResponseCode.IsNotOfficialChannelPackage));
                     throw new ApiResponseCodeException(ApiResponseCode.IsNotOfficialChannelPackage);
                 }
             }

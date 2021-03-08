@@ -32,7 +32,7 @@ namespace System.Application.UI.ViewModels
             DebugString += Services.ToastService.Current.Message + Environment.NewLine;
             DebugString += Services.ToastService.Current.IsVisible + Environment.NewLine;
 
-            DI.Get<IMessageWindowService>().ShowDialog("Test", "Test");
+            //DI.Get<IMessageWindowService>().ShowDialog("Test", "Test");
         }
     }
 }

@@ -143,19 +143,21 @@ namespace System.Application.Services.Implementation
             return userRepository.FindAsync(userId);
         }
 
-        TUserDTO? GetUserByTable<TUserDTO>(User? user, Func<User, TUserDTO?> binding) where TUserDTO : IUserDTO
+        async Task<TUserDTO?> GetUserByTable<TUserDTO>(User? user, Func<User, Task<TUserDTO?>> binding) where TUserDTO : IUserDTO
         {
             if (user == null) return default;
-            var value = binding.Invoke(user);
+            var value = await binding(user);
             return value;
         }
 
-        TUserDTO? BindingUser<TUserDTO>(User user) where TUserDTO : IUserDTO, new()
+        async Task<TUserDTO?> BindingUser<TUserDTO>(User user) where TUserDTO : IUserDTO, new()
         {
+            var nickName = await security.D(user.NickName);
+
             var value = new TUserDTO
             {
                 Id = user.Id,
-                NickName = security.D(user.NickName),
+                NickName = nickName,
                 Avatar = user.Avatar,
             };
             return value;
@@ -164,7 +166,7 @@ namespace System.Application.Services.Implementation
         public async Task<UserDTO?> GetUserByIdAsync(Guid userId)
         {
             var user = await GetUserTableByIdAsync(userId);
-            var value = GetUserByTable(user, BindingUser<UserDTO>);
+            var value = await GetUserByTable(user, BindingUser<UserDTO>);
             return value;
         }
 
@@ -224,10 +226,12 @@ namespace System.Application.Services.Implementation
 
         public async Task InsertOrUpdateAsync(IUserDTO user)
         {
+            var nickName_ = await security.E(user.NickName);
+
             var userTable = new User
             {
                 Id = user.Id,
-                NickName = security.E(user.NickName),
+                NickName = nickName_,
                 Avatar = user.Avatar,
             };
             //if (user is UserInfoDTO userInfo)

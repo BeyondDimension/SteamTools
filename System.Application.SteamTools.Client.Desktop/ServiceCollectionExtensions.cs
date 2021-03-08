@@ -10,6 +10,14 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class ServiceCollectionExtensions
     {
         /// <summary>
+        /// 尝试添加适用于Desktop的Toast
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection TryAddToast(this IServiceCollection services)
+            => PlatformToastImpl.TryAddToast(services);
+
+        /// <summary>
         /// 添加桌面端日志实现
         /// </summary>
         /// <param name="services"></param>

@@ -63,7 +63,7 @@ namespace System.Application.Services.Implementation
             _ => base.ToDuration(toastLength),
         };
 
-        public static IServiceCollection TryAddToast(IServiceCollection services)
+        internal static IServiceCollection TryAddToast(IServiceCollection services)
             => TryAddToast<PlatformToastImpl>(services);
     }
 }

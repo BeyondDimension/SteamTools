@@ -19,10 +19,10 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 services.AddSingleton<IDesktopPlatformService, WindowsDesktopPlatformServiceImpl>();
                 services.AddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();
-                //if (Environment.OSVersion.Version.Major >= 10)
-                //{
-                //    services.AddSingleton<IStorage, Windows10DesktopClientStorage>();
-                //}
+                if (Environment.OSVersion.Version.Major >= 10)
+                {
+                    services.AddSingleton<ISecurityService, Windows10SecurityService>();
+                }
             }
             else
             {

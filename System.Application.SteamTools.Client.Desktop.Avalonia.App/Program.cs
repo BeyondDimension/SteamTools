@@ -1,11 +1,14 @@
 ﻿using Avalonia;
 using Avalonia.ReactiveUI;
 using NLog;
-using System.IO;
 using System.Properties;
 using System.Reflection;
+using System.Security;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+using System.IO;
 
 [assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark + " v" + ThisAssembly.Version)]
 namespace System.Application.UI
@@ -28,6 +31,11 @@ namespace System.Application.UI
             {
                 Migrations.FromV1();
                 Startup.Init();
+
+#if DEBUG
+                TestSecurityStorage();
+#endif
+
 #if WINDOWS
                 var app = new WpfApp();
                 app.InitializeComponent();
@@ -85,5 +93,59 @@ namespace System.Application.UI
                 }
             }
         }
+
+#if DEBUG
+
+        static async void TestSecurityStorage()
+        {
+            await IStorage.Instance.SetAsync("↑↑", Encoding.UTF8.GetBytes("↓↓"));
+
+            var left_top = Encoding.UTF8.GetString((
+                await IStorage.Instance.GetAsync<byte[]>("↑↑")).ThrowIsNull("↑-key"));
+
+            if (left_top != "↓↓")
+            {
+                throw new Exception();
+            }
+
+            await IStorage.Instance.SetAsync<string>("←←", "→→");
+
+            var left_left = await IStorage.Instance.GetAsync<string>("←←");
+
+            if (left_left != "→→")
+            {
+                throw new Exception();
+            }
+
+            await IStorage.Instance.SetAsync("aa", "bb");
+
+            var left_aa = await IStorage.Instance.GetAsync("aa");
+
+            if (left_aa != "bb")
+            {
+                throw new Exception();
+            }
+
+            var dict = new Dictionary<string, string> {
+                { "🎈✨", "🎆🎇" },
+                { "✨🎊", "🎃🎑" },
+            };
+
+            await IStorage.Instance.SetAsync("dict", dict);
+
+            var left_dict = await IStorage.Instance.GetAsync<Dictionary<string, string>>("dict");
+
+            if (left_dict == null)
+            {
+                throw new Exception();
+            }
+
+            if (left_dict.Count != dict.Count)
+            {
+                throw new Exception();
+            }
+        }
+
+#endif
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Application.Security;
+using System.Security.Cryptography;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
@@ -41,7 +42,7 @@ namespace System.Application.Models
             {
                 if (aes == null)
                 {
-                    if (AesSecret == null) throw new ArgumentNullException(nameof(AesSecret));
+                    if (AesSecret == null) throw new IsNotOfficialChannelPackageException(nameof(Aes), new ArgumentNullException(nameof(AesSecret)));
                     aes = AESUtils.Create(AesSecret);
                 }
                 return aes;
@@ -69,7 +70,7 @@ namespace System.Application.Models
             {
                 if (rsa == null)
                 {
-                    if (RSASecret == null) throw new ArgumentNullException(nameof(RSASecret));
+                    if (RSASecret == null) throw new IsNotOfficialChannelPackageException(nameof(RSA), new ArgumentNullException(nameof(RSASecret)));
                     rsa = RSAUtils.CreateFromJsonString(RSASecret);
                 }
                 return rsa;

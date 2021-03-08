@@ -204,14 +204,8 @@ namespace System
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
-                try
-                {
-                    var buffer = value.Base64UrlDecodeToByteArray();
-                    return DMP<T>(buffer, cancellationToken);
-                }
-                catch
-                {
-                }
+                var buffer = value.Base64UrlDecodeToByteArray();
+                return DMP<T>(buffer, cancellationToken);
             }
             return default;
         }

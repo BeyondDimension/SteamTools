@@ -16,10 +16,16 @@ namespace System.Security
     ///     <term>Android：加密密钥存储在密钥库中，加密数据存储在命名的共享首选项容器中</term>
     ///   </item>
     ///   <item>
-    ///     <term>UWP / Windows 10 Desktop：数据使用 DataProtectionProvider 加密并存储在命名的 ApplicationDataContainer</term>
+    ///     <term>UWP：数据使用 DataProtectionProvider 加密并存储在命名的 ApplicationDataContainer</term>
     ///   </item>
     ///   <item>
-    ///     <term>AspNetCore / Other Desktop：数据使用仓储实现</term>
+    ///     <term>Windows 10 Desktop：数据使用 DataProtectionProvider 加密并存储在仓储中</term>
+    ///   </item>
+    ///   <item>
+    ///     <term>Other Desktop：数据使用 AES 加密并存储在仓储中</term>
+    ///   </item>
+    ///   <item>
+    ///     <term>AspNetCore：数据存储在仓储中</term>
     ///   </item>
     /// </list>
     /// <para>注意：在运行 Android 23（6.0/M）以下的 Android 设备上，KeyStore中没有AES可用。作为最佳实践，此API将生成存储在KeyStore中的RSA/ECB/PKCS7Padding密钥对（KeyStore中这些较低的API级别支持的唯一类型），用于包装运行时生成的AES密钥。这个包装好的密钥存储在首选项中</para>
@@ -83,19 +89,27 @@ namespace System.Security
         /// <inheritdoc cref="GetAsync(string)"/>
         async Task<TValue?> GetAsync<TValue>(string key) where TValue : notnull
         {
-            if (IsNativeSupportedBytes)
+            try
             {
-                var bytesValue = await GetBytesAsync(key);
-                if (bytesValue == null) return default;
-                var value = Serializable.DMP<TValue?>(bytesValue);
-                return value;
+                if (IsNativeSupportedBytes)
+                {
+                    var bytesValue = await GetBytesAsync(key);
+                    if (bytesValue == null) return default;
+                    var value = Serializable.DMP<TValue?>(bytesValue);
+                    return value;
+                }
+                else
+                {
+                    var strValue = await GetAsync(key);
+                    if (strValue == null) return default;
+                    var value = Serializable.DMPB64U<TValue?>(strValue);
+                    return value;
+                }
             }
-            else
+            catch (Exception e)
             {
-                var strValue = await GetAsync(key);
-                if (strValue == null) return default;
-                var value = Serializable.DMPB64U<TValue?>(strValue);
-                return value;
+                Log.Error(nameof(IStorage), e, "GetAsync Fail, key: {0}.", key);
+                return default;
             }
         }
 
@@ -104,12 +118,12 @@ namespace System.Security
         {
             if (IsNativeSupportedBytes)
             {
-                var bytesValue = SMP(value);
+                var bytesValue = Serializable.SMP(value);
                 return SetAsync(key, bytesValue);
             }
             else
             {
-                var strValue = SMPB64U(value);
+                var strValue = Serializable.SMPB64U(value);
                 return SetAsync(key, strValue);
             }
         }
@@ -153,48 +167,6 @@ namespace System.Security
                 var strValue = value.Base64UrlEncode_Nullable();
                 return SetAsync(key, strValue);
             }
-        }
-
-        private static string? SMPB64U<TValue>(TValue value)
-        {
-            string? strValue;
-            if (value is string str)
-            {
-                strValue = str;
-            }
-            else
-            {
-                if (value == null)
-                {
-                    strValue = null;
-                }
-                else
-                {
-                    strValue = Serializable.SMPB64U(value);
-                }
-            }
-            return strValue;
-        }
-
-        private static byte[]? SMP<TValue>(TValue value)
-        {
-            byte[]? bytesValue;
-            if (value is byte[] bytes)
-            {
-                bytesValue = bytes;
-            }
-            else
-            {
-                if (value == null)
-                {
-                    bytesValue = null;
-                }
-                else
-                {
-                    bytesValue = Serializable.SMP(value);
-                }
-            }
-            return bytesValue;
         }
     }
 }

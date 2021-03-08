@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Options;
 using System.Application.Models;
+using System.Application.Security;
 using System.Security.Cryptography;
 
 namespace System.Application.Services.Implementation
 {
     /// <inheritdoc cref="ISecurityService"/>
-    public class SecurityService : ISecurityService
+    public class SecurityService : SecurityServiceBase
     {
         protected readonly AppSettings settings;
 
@@ -14,12 +15,20 @@ namespace System.Application.Services.Implementation
             settings = options.Value;
         }
 
-        public virtual byte[]? E(string? value) => AESUtils.EncryptToByteArray_Nullable(settings.Aes, value);
-
-        public virtual byte[]? EB(byte[]? value) => AESUtils.Encrypt_Nullable(settings.Aes, value);
-
-        public virtual string? D(byte[]? value) => AESUtils.DecryptToString_Nullable(settings.Aes, value);
-
-        public virtual byte[]? DB(byte[]? value) => AESUtils.Decrypt_Nullable(settings.Aes, value);
+        public override Aes? Aes
+        {
+            get
+            {
+                try
+                {
+                    return settings.Aes;
+                }
+                catch (IsNotOfficialChannelPackageException e)
+                {
+                    Log.Error(nameof(SecurityService), e, nameof(ApiResponseCode.IsNotOfficialChannelPackage));
+                    return null;
+                }
+            }
+        }
     }
 }

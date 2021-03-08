@@ -36,6 +36,8 @@ namespace System.Application.UI
             // 桌面平台服务 此项放在其他通用业务实现服务之前
             services.AddDesktopPlatformService();
 
+            services.TryAddToast();
+
             // 添加日志实现
             services.AddDesktopLogging();
 
