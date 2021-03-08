@@ -213,12 +213,38 @@ namespace System.Application.UI
 
         public static async void SetClipboardText(string s) => await Current.Clipboard.SetTextAsync(s);
 
-        public Window? MainWindow { get; set; }
+        Window? mMainWindow;
+
+        public Window MainWindow
+        {
+            get
+            {
+                Window? mainWindow = null;
+
+                if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+                {
+                    mainWindow = desktop.MainWindow;
+                }
+
+                if (mainWindow == null)
+                {
+                    mainWindow = mMainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
+                }
+
+                return mainWindow;
+            }
+            set
+            {
+                mMainWindow = value;
+            }
+        }
 
         public void ShowChildWindow(object window)
         {
             if (window is Window w)
+            {
                 w.ShowDialog(MainWindow);
+            }
         }
 
         /// <summary>

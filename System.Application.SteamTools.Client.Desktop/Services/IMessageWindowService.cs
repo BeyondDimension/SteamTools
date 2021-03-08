@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Application.UI.ViewModels;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace System.Application.Services
@@ -28,5 +29,16 @@ namespace System.Application.Services
         /// <param name="button">一个 <see cref="MessageBoxButtonCompat"/> 值，用于指定要显示哪个按钮或哪些按钮。</param>
         /// <returns>一个 <see cref="MessageBoxResultCompat"/> 值，用于指定用户单击了哪个消息框按钮。</returns>
         Task<bool> ShowDialog(string messageBoxText, string caption, bool isCancelcBtn);
+
+        Task Show(CustomWindow window, ViewModelBase? dataContext = null);
+
+        public enum CustomWindow : byte
+        {
+            MessageBox,
+
+            XXWindow,
+
+            XXXWindow,
+        }
     }
 }
