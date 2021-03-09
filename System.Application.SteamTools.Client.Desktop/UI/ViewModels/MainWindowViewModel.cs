@@ -67,9 +67,8 @@ namespace System.Application.UI.ViewModels
                 AboutPageViewModel.Instance,
 #if DEBUG
 				new DebugPageViewModel().AddTo(this),
-
-#endif
                 new DebugWebViewPageViewModel().AddTo(this),
+#endif
 				#endregion
             };
 

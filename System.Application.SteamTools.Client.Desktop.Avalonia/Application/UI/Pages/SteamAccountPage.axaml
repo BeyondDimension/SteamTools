@@ -61,8 +61,8 @@
                                     </StackPanel>
                                     <Grid Grid.Column="3" RowDefinitions="*,Auto">
                                         <Panel>
-                                            <Button Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" Margin="215,0,0,120" ToolTip.Tip="删除此账号数据">
-                                                <Image Width="12">
+                                            <Button Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" Margin="220,0,0,120" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                                                <Image Width="12" Height="16">
                                                     <Image.Source>
                                                         <DrawingImage Drawing="{DynamicResource CloseDrawing}"></DrawingImage>
                                                     </Image.Source>

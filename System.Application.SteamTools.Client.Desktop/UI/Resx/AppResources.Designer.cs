@@ -322,6 +322,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 删除此账号数据 的本地化字符串。
+        /// </summary>
+        public static string UserChange_DeleteUser {
+            get {
+                return ResourceManager.GetString("UserChange_DeleteUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 离线模式启动 的本地化字符串。
         /// </summary>
         public static string UserChange_OfflineBtn {
