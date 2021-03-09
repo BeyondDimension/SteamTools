@@ -192,11 +192,17 @@ namespace System.Application.UI
                 }
 
                 desktop.MainWindow = MainWindow;
+                desktop.Startup += Desktop_Startup;
                 desktop.Exit += ApplicationLifetime_Exit;
                 desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             }
 
             base.OnFrameworkInitializationCompleted();
+        }
+
+        private void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
+        {
+            AppHelper.Initialized?.Invoke();
         }
 
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
@@ -205,6 +211,7 @@ namespace System.Application.UI
 #if WINDOWS
             WpfApplication.Current.Shutdown();
 #endif
+            AppHelper.Shutdown?.Invoke();
         }
 
         void NotifyIcon_Click(object? sender, EventArgs e)

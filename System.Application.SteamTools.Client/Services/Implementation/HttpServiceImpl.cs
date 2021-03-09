@@ -94,7 +94,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
-                Log.Error(TAG, e, "GetAsync Fail.");
+                Log.Warn(TAG, e, "GetAsync Fail.");
             }
             finally
             {

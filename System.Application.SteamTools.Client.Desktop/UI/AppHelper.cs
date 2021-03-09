@@ -15,6 +15,10 @@ namespace System.Application.UI
 {
     public static class AppHelper
     {
+        public static Action? Initialized { get; set; }
+
+        public static Action? Shutdown { get; set; }
+
         static AppHelper()
         {
             var mainModule = Process.GetCurrentProcess().MainModule;

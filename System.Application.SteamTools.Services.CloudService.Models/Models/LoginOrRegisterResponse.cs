@@ -13,8 +13,6 @@ namespace System.Application.Models
     {
         Guid ILoginResponse.UserId => User?.Id ?? throw new ArgumentNullException(nameof(User));
 
-        string? IReadOnlyAuthToken.AuthToken => AuthToken?.AccessToken;
-
         [MPKey(0)]
         [N_JsonProperty("0")]
         [S_JsonProperty("0")]

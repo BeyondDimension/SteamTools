@@ -41,6 +41,9 @@ namespace System.Application.UI
                 app.InitializeComponent();
                 Task.Factory.StartNew(app.Run);
 #endif
+
+                CefNetApp.Init(args);
+
                 BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
             }
             catch (Exception ex)
@@ -71,8 +74,9 @@ namespace System.Application.UI
 
         static void FixNLogConfig()
         {
+            var isMac = DI.Platform == Platform.Apple && DI.DeviceIdiom == DeviceIdiom.Desktop;
             const char directorySeparatorChar = '\\';
-            if (Path.DirectorySeparatorChar != directorySeparatorChar)
+            if (isMac || Path.DirectorySeparatorChar != directorySeparatorChar)
             {
                 const string fileName = "nlog.config";
                 var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
@@ -87,7 +91,16 @@ namespace System.Application.UI
                     {
                         return;
                     }
-                    logConfigStr = logConfigStr.Replace(@"logs\", $"logs{Path.DirectorySeparatorChar}");
+                    string newValue;
+                    if (isMac)
+                    {
+                        newValue = $"~/Library/Logs/{BuildConfig.APPLICATION_ID}/";
+                    }
+                    else
+                    {
+                        newValue = $"\"Logs{Path.DirectorySeparatorChar}";
+                    }
+                    logConfigStr = logConfigStr.Replace("\"Logs\\", newValue, StringComparison.OrdinalIgnoreCase);
                     File.Delete(filePath);
                     File.WriteAllText(filePath, logConfigStr);
                 }

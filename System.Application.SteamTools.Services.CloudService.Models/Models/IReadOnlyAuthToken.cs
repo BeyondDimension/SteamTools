@@ -6,6 +6,6 @@
     public interface IReadOnlyAuthToken
     {
         /// <inheritdoc cref="IReadOnlyAuthToken"/>
-        string? AuthToken { get; }
+        JWTEntity? AuthToken { get; }
     }
 }

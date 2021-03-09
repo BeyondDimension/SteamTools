@@ -37,6 +37,9 @@
                     Margin="0 30 0 0"
                     Classes="sidebar">
             <TabControl.DataTemplates>
+              <DataTemplate DataType="vm:DebugWebViewPageViewModel">
+                <pages:DebugWebViewPage/>
+              </DataTemplate>
                 <DataTemplate DataType="vm:DebugPageViewModel">
                     <pages:DebugPage/>
                 </DataTemplate>

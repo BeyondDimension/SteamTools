@@ -20,7 +20,7 @@ namespace System.Application.Models
         [MPKey(1)]
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]
-        public string? AuthToken { get; set; }
+        public JWTEntity? AuthToken { get; set; }
 
         [MPKey(2)]
         [N_JsonProperty("2")]
@@ -29,7 +29,7 @@ namespace System.Application.Models
 
         bool IExplicitHasValue.ExplicitHasValue()
         {
-            if (string.IsNullOrWhiteSpace(AuthToken)) return false;
+            if (!AuthToken.HasValue()) return false;
             return true;
         }
 

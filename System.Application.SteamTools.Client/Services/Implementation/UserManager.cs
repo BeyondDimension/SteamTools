@@ -125,7 +125,7 @@ namespace System.Application.Services.Implementation
         //    }
         //}
 
-        public async ValueTask<string?> GetAuthTokenAsync()
+        public async ValueTask<JWTEntity?> GetAuthTokenAsync()
         {
             var value = await GetCurrentUserAsync(false);
             return value?.AuthToken;

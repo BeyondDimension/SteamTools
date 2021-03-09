@@ -32,7 +32,7 @@ namespace System.Application.Services.Implementation
             this.toast = toast;
         }
 
-        public override async Task SaveAuthTokenAsync(string authToken)
+        public override async Task SaveAuthTokenAsync(JWTEntity authToken)
         {
             var user = await userManager.GetCurrentUserAsync();
             if (user != null)

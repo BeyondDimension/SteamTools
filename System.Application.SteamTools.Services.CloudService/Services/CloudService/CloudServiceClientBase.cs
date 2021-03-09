@@ -79,7 +79,7 @@ namespace System.Application.Services.CloudService
 
         IAuthHelper IApiConnectionPlatformHelper.Auth => authHelper;
 
-        public abstract Task SaveAuthTokenAsync(string authToken);
+        public abstract Task SaveAuthTokenAsync(JWTEntity authToken);
 
         public abstract Task OnLoginedAsync(IReadOnlyPhoneNumber? phoneNumber, ILoginResponse response);
 

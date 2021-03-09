@@ -16,7 +16,7 @@ namespace System.Application.Services.CloudService
         /// 保存用户登录凭证
         /// </summary>
         /// <param name="authToken"></param>
-        Task SaveAuthTokenAsync(string authToken);
+        Task SaveAuthTokenAsync(JWTEntity authToken);
 
         /// <summary>
         /// 当登录完成时

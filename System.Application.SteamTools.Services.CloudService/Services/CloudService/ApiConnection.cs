@@ -42,9 +42,10 @@ namespace System.Application.Services.CloudService
         async ValueTask SetRequestHeaderAuthorization(HttpRequestMessage request)
         {
             var authToken = await conn_helper.Auth.GetAuthTokenAsync();
-            if (!string.IsNullOrEmpty(authToken))
+            if (authToken.HasValue())
             {
-                request.Headers.Authorization = new AuthenticationHeaderValue(Constants.Basic, authToken);
+                request.Headers.Authorization = new AuthenticationHeaderValue(
+                    Constants.Basic, authToken?.AccessToken);
             }
         }
 
@@ -303,9 +304,10 @@ namespace System.Application.Services.CloudService
                                 && authTokenResponse.Content != null)
                             {
                                 var authToken = authTokenResponse.Content.AuthToken;
-                                if (!string.IsNullOrEmpty(authToken))
+                                if (authToken.HasValue())
                                 {
-                                    await conn_helper.SaveAuthTokenAsync(authToken);
+                                    await conn_helper.SaveAuthTokenAsync(
+                                        authToken.ThrowIsNull(nameof(authToken)));
                                 }
                             }
                             else if (response is IApiResponse<Guid[]> guidsResponse

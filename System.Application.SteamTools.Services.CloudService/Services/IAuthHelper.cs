@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Application.Models;
+using System.Threading.Tasks;
 
 namespace System.Application.Services
 {
     public interface IAuthHelper
     {
-        ValueTask<string?> GetAuthTokenAsync();
+        ValueTask<JWTEntity?> GetAuthTokenAsync();
 
         /// <summary>
         /// 登出
