@@ -35,8 +35,17 @@ namespace System.Application.UI.ViewModels
         internal async override Task Initialize()
         {
             SteamUsers = new ObservableCollection<SteamUser>(steamService.GetRememberUserList());
+
+#if DEBUG
+            for (var i= 0;i< 10; i++)
+            {
+                SteamUsers.Add(SteamUsers[0]);
+            }
+#endif
+
             if (!SteamUsers.Any_Nullable())
             {
+                //Toast.Show("");
                 return;
             }
             var users = SteamUsers.ToArray();

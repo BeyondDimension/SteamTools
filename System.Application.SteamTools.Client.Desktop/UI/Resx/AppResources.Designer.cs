@@ -322,6 +322,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 离线模式启动 的本地化字符串。
+        /// </summary>
+        public static string UserChange_OfflineBtn {
+            get {
+                return ResourceManager.GetString("UserChange_OfflineBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 账号切换 的本地化字符串。
         /// </summary>
         public static string UserFastChange {

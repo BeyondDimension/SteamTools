@@ -31,22 +31,6 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
-#if DEBUG
-
-        /// <summary>
-        /// 添加弹窗服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        [Obsolete("use AddShowWindowService")]
-        public static IServiceCollection AddMessageWindowService(this IServiceCollection services)
-        {
-            services.AddSingleton<IMessageWindowService, MessageWindowServiceImpl>();
-            return services;
-        }
-
-#endif
-
         /// <summary>
         /// 添加应用程序更新服务
         /// </summary>

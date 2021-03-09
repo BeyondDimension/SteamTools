@@ -10,7 +10,7 @@
     <Design.DataContext>
         <vm:ToastMessageViewModel/>
     </Design.DataContext>
-    <Border Background="{DynamicResource ActiveBackgroundBrushKey}" Classes="paper" CornerRadius="3">
+    <Border Background="{DynamicResource InactiveBackgroundBrushKey}" Classes="paper" CornerRadius="3">
         <StackPanel Orientation="Horizontal">
             <!--<TextBlock Text="{Binding Title}" FontSize="16"/>-->
             <Border Padding="10">

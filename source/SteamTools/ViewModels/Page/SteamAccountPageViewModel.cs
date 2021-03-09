@@ -54,7 +54,7 @@ namespace SteamTools.ViewModels
             await Task.Run(async () =>
             {
                 SteamUsers = new BindingList<SteamUser>(steamService.GetRememberUserList());
-                if (SteamUsers?.Count < 1)
+                if (SteamUsers.Count < 1)
                 {
                     StatusService.Current.Notify("没有检测到Steam用户数据");
                 }

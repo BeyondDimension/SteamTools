@@ -87,6 +87,9 @@
     <Compile Update="Application\UI\Pages\AboutPage.axaml.cs">
       <DependentUpon>AboutPage.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Application\UI\Pages\LocalAuthPage.axaml.cs">
+      <DependentUpon>LocalAuthPage.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Application\UI\Pages\GameListPage.axaml.cs">
       <DependentUpon>GameListPage.axaml</DependentUpon>
     </Compile>
@@ -98,6 +101,9 @@
     </Compile>
     <Compile Update="Application\UI\Pages\StartPage.axaml.cs">
       <DependentUpon>StartPage.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Application\UI\Pages\CommunityProxyPage.axaml.cs">
+      <DependentUpon>CommunityProxyPage.axaml</DependentUpon>
     </Compile>
     <Compile Update="Application\UI\Pages\SteamAccountPage.axaml.cs">
       <DependentUpon>SteamAccountPage.axaml</DependentUpon>

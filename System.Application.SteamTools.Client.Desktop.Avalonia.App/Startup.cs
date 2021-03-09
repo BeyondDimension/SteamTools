@@ -111,9 +111,6 @@ namespace System.Application.UI
              *  - 按钮文本(ButtonText)缺少本地化翻译(Translate)
              *  - 某些图标图片与枚举值不太匹配，例如 Information
              */
-#if DEBUG
-            services.AddMessageWindowService();
-#endif
             services.AddShowWindowService();
 
 #if WINDOWS

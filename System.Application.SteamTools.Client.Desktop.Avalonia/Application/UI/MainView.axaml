@@ -58,10 +58,16 @@
                 <DataTemplate DataType="vm:GameListPageViewModel">
                     <pages:GameListPage />
                 </DataTemplate>
+                <DataTemplate DataType="vm:CommunityProxyPageViewModel">
+                    <pages:CommunityProxyPage />
+                </DataTemplate>
+                <DataTemplate DataType="vm:LocalAuthPageViewModel">
+                    <pages:LocalAuthPage />
+                </DataTemplate>
             </TabControl.DataTemplates>
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" FontSize="14">
+                    <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="Regular">
                     </TextBlock>
                 </DataTemplate>
             </TabControl.ItemTemplate>
