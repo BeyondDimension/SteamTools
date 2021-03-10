@@ -24,6 +24,7 @@
  */
 
 using System.Application.Columns;
+using System.Application.Models;
 using static System.Application.Services.Implementation.ModelValidator;
 
 namespace System.Application
@@ -35,6 +36,11 @@ namespace System.Application
     {
         public static void Init()
         {
+            AddColumnValidate<IExplicitHasValue>(x =>
+            {
+                if (!x.HasValue()) return Constants.内容值不能为空或不正确;
+                return null;
+            });
             AddColumnValidate<IReadOnlyPhoneNumber>(ColumnValidate);
             AddColumnValidate<IReadOnlySmsCode>(ColumnValidate);
             //AddColumnValidate<IReadOnlyBirthDate>(ColumnValidate);
@@ -136,6 +142,8 @@ namespace System.Application
 
         public static class Constants
         {
+            public const string 内容值不能为空或不正确 = "内容值不能为空或不正确";
+
             public const string 请输入手机号码哦 = "请输入手机号码哦";
 
             public const string 请输入正确的手机号码哦 = "请输入正确的手机号码哦";

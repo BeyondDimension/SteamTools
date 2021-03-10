@@ -147,6 +147,13 @@ namespace System.Application.Services.Implementation
         {
             Registry.CurrentUser.AddOrUpdate(SteamRegistryPath, "AutoLoginUser", userName, RegistryValueKind.String);
         }
+
+        static string GetMachineSecretKey()
+            => Registry.LocalMachine.Read(@"SOFTWARE\Microsoft\Cryptography", "MachineGuid");
+
+        static readonly Lazy<(byte[] key, byte[] iv)> mMachineSecretKey = IDesktopPlatformService.GetMachineSecretKey(GetMachineSecretKey);
+
+        public (byte[] key, byte[] iv) MachineSecretKey => mMachineSecretKey.Value;
     }
 }
 #pragma warning restore CA1416 // 验证平台兼容性

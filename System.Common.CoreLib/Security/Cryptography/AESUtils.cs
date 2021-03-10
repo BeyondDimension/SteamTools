@@ -27,14 +27,14 @@ namespace System.Security.Cryptography
             };
 
         /// <summary>
-        /// 通过 <see cref="AesParameters"/>(ByteArray) 创建 <see cref="Aes"/> 实例
+        /// 通过 ByteArray 创建 <see cref="Aes"/> 实例
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
         public static Aes Create(byte[] data) => Parameters.Create(data).Create();
 
         /// <summary>
-        /// 通过 <see cref="AesParameters"/>(ByteArray) 创建 <see cref="Aes"/> 实例
+        /// 通过 ByteArray 创建 <see cref="Aes"/> 实例
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -45,7 +45,7 @@ namespace System.Security.Cryptography
         }
 
         /// <summary>
-        /// 通过 <see cref="AesParameters"/>(String) 创建 <see cref="Aes"/> 实例
+        /// 通过 String 创建 <see cref="Aes"/> 实例
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -61,6 +61,20 @@ namespace System.Security.Cryptography
             if (data == default) return default;
             return Create(data);
         }
+
+        /// <summary>
+        /// 通过 args 创建 <see cref="Aes"/> 实例
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="iv"></param>
+        /// <param name="mode"></param>
+        /// <param name="padding"></param>
+        /// <returns></returns>
+        public static Aes Create(
+            byte[] key,
+            byte[] iv,
+            CipherMode mode = CipherMode.CBC,
+            PaddingMode padding = PaddingMode.PKCS7) => new Parameters(key, iv, mode, padding).Create();
 
         #endregion
 
@@ -590,6 +604,14 @@ namespace System.Security.Cryptography
                     KeyByteArray.SequenceEqual_Nullable(other.KeyByteArray) &&
                     IVByteArray.SequenceEqual_Nullable(other.IVByteArray);
             }
+        }
+
+        public static (byte[] key, byte[] iv) GetParameters(string s)
+        {
+            var bytes = Encoding.UTF8.GetBytes(s);
+            var key = Hashs.ByteArray.SHA1(bytes).Concat(Hashs.ByteArray.Crc32(bytes)).ToArray();
+            var iv = Hashs.ByteArray.MD5(bytes);
+            return (key, iv);
         }
     }
 }

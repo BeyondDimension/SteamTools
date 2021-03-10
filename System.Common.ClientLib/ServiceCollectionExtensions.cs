@@ -3,6 +3,8 @@ using System;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Security;
+using static System.Application.Services.ILocalDataProtectionProvider;
+using static System.Application.Services.Implementation.LocalDataProtectionProviderBase;
 using MSEXOptions = Microsoft.Extensions.Options.Options;
 
 // ReSharper disable once CheckNamespace
@@ -49,6 +51,26 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection TryAddPermissions(this IServiceCollection services)
         {
             services.TryAddSingleton<IPermissions, PermissionsImpl>();
+            return services;
+        }
+
+        /// <summary>
+        /// 添加安全服务
+        /// </summary>
+        /// <typeparam name="TEmbeddedAes"></typeparam>
+        /// <typeparam name="TLocal"></typeparam>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddSecurityService<TEmbeddedAes, TLocal>(this IServiceCollection services)
+            where TEmbeddedAes : EmbeddedAesDataProtectionProviderBase
+            where TLocal : LocalDataProtectionProviderBase
+        {
+            services.TryAddSingleton<IProtectedData, EmptyProtectedData>();
+            services.TryAddSingleton<IDataProtectionProvider, EmptyDataProtectionProvider>();
+            services.TryAddSingleton<ISecondaryPasswordDataProtectionProvider, SecondaryPasswordDataProtectionProvider>();
+            services.AddSingleton<IEmbeddedAesDataProtectionProvider, TEmbeddedAes>();
+            services.AddSingleton<ILocalDataProtectionProvider, TLocal>();
+            services.AddSingleton<ISecurityService, SecurityService>();
             return services;
         }
     }

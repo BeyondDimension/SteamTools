@@ -25,5 +25,7 @@ namespace System.Application.Services
         /// 托盘菜单
         /// </summary>
         IReadOnlyDictionary<string, ICommand> NotifyIconMenus { get; }
+
+        bool IsCefInitComplete { get; }
     }
 }

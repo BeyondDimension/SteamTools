@@ -19,6 +19,7 @@
     <PackageReference Include="System.Drawing.Common" Version="5.0.1" />
     <PackageReference Include="System.Management" Version="5.0.0" />
     <PackageReference Include="TaskScheduler" Version="2.9.1" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,8 @@
 ﻿using System.Application.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.Cryptography;
+using System.Text;
 using ResizeMode = System.Int32;
 
 namespace System.Application.Services
@@ -128,5 +130,36 @@ namespace System.Application.Services
         public const ResizeMode ResizeMode_CanMinimize = 1;
         public const ResizeMode ResizeMode_CanResize = 2;
         public const ResizeMode ResizeMode_CanResizeWithGrip = 3;
+
+        #region MachineUniqueIdentifier
+
+        private static (byte[] key, byte[] iv) GetMachineSecretKey(string? value)
+        {
+            value ??= string.Empty;
+            var result = AESUtils.GetParameters(value);
+            return result;
+        }
+
+        protected static Lazy<(byte[] key, byte[] iv)> GetMachineSecretKey(Func<string?> action) => new(() =>
+        {
+            string? value = null;
+            try
+            {
+                value = action();
+            }
+            catch (Exception e)
+            {
+                Log.Warn(TAG, e, "GetMachineSecretKey Fail.");
+            }
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                value = Environment.MachineName;
+            }
+            return GetMachineSecretKey(value);
+        });
+
+        (byte[] key, byte[] iv) MachineSecretKey { get; }
+
+        #endregion
     }
 }

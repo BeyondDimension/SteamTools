@@ -48,6 +48,9 @@ namespace System.Application.UI
             // app 配置项
             services.TryAddOptions(AppSettings);
 
+            // 添加安全服务
+            services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
+
             services.AddRepositories();
 
             // 键值对存储
@@ -204,8 +207,10 @@ namespace System.Application.UI
             {
                 MessageBoxButtonCompat.OK => MessageBoxButton.OK,
                 MessageBoxButtonCompat.OKCancel => MessageBoxButton.OKCancel,
+#pragma warning disable CS0618 // 类型或成员已过时
                 MessageBoxButtonCompat.YesNo => MessageBoxButton.YesNo,
                 MessageBoxButtonCompat.YesNoCancel => MessageBoxButton.YesNoCancel,
+#pragma warning restore CS0618 // 类型或成员已过时
                 _ => throw new ArgumentOutOfRangeException(nameof(button), $"value: {button}"),
             };
 
@@ -224,8 +229,10 @@ namespace System.Application.UI
             static MessageBoxResultCompat GetResult(MessageBoxResult result) => result switch
             {
                 MessageBoxResult.OK => MessageBoxResultCompat.OK,
+#pragma warning disable CS0618 // 类型或成员已过时
                 MessageBoxResult.Yes => MessageBoxResultCompat.Yes,
                 MessageBoxResult.No => MessageBoxResultCompat.No,
+#pragma warning restore CS0618 // 类型或成员已过时
                 MessageBoxResult.Cancel => MessageBoxResultCompat.Cancel,
                 MessageBoxResult.None => MessageBoxResultCompat.None,
                 _ => throw new ArgumentOutOfRangeException(nameof(result), $"value: {result}"),

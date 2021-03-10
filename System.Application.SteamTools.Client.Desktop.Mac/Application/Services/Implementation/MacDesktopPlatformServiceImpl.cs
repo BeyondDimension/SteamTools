@@ -55,5 +55,14 @@ namespace System.Application.Services.Implementation
         public string GetLastSteamLoginUserName() => string.Empty;
 
         public void SetCurrentUser(string userName) { }
+
+        static string GetMachineSecretKey()
+        {
+            return string.Empty;
+        }
+
+        static readonly Lazy<(byte[] key, byte[] iv)> mMachineSecretKey = IDesktopPlatformService.GetMachineSecretKey(GetMachineSecretKey);
+
+        public (byte[] key, byte[] iv) MachineSecretKey => mMachineSecretKey.Value;
     }
 }

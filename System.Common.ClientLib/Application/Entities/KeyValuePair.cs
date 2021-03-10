@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+using SQLite;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using NotNull = System.Diagnostics.CodeAnalysis.NotNullAttribute;
@@ -25,3 +26,4 @@ namespace System.Application.Entities
         string DebuggerDisplay() => $"{Id}, {Value}";
     }
 }
+#pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。

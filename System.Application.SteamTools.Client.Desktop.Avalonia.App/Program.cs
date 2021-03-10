@@ -1,14 +1,11 @@
 ﻿using Avalonia;
 using Avalonia.ReactiveUI;
 using NLog;
+using System.IO;
 using System.Properties;
 using System.Reflection;
-using System.Security;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
-using System.IO;
 
 [assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark + " v" + ThisAssembly.Version)]
 namespace System.Application.UI

@@ -12,6 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IGameAccountPlatformAuthenticatorRepository, GameAccountPlatformAuthenticatorRepository>();
             return services;
         }
 
@@ -29,10 +30,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection TryAddUserManager(this IServiceCollection services)
         {
-            services.TryAddSingleton<ISecurityService, SecurityService>();
             services.TryAddSingleton<IUserManager, UserManager>();
             return services;
         }
-
     }
 }

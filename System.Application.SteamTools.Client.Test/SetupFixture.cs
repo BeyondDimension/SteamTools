@@ -62,6 +62,9 @@ namespace System.Application
             // app 配置项
             services.TryAddOptions(options);
 
+            // 添加安全服务
+            services.AddSecurityService<EmbeddedAesDataProtectionProvider, EmptyLocalDataProtectionProvider>();
+
             // 模型验证框架
             services.TryAddModelValidator();
 

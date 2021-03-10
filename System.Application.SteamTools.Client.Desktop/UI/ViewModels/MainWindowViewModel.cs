@@ -67,10 +67,17 @@ namespace System.Application.UI.ViewModels
                 AboutPageViewModel.Instance,
 #if DEBUG
 				new DebugPageViewModel().AddTo(this),
-                new DebugWebViewPageViewModel().AddTo(this),
+
 #endif
 				#endregion
             };
+
+#if DEBUG
+            if (AppHelper.Current.IsCefInitComplete)
+            {
+                TabItems.Add(new DebugWebViewPageViewModel().AddTo(this));
+            }
+#endif
 
             this.SelectedItem = this.TabItems.First();
 

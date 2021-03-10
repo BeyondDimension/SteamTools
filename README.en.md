@@ -109,6 +109,8 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 * [ReactiveUI](https://github.com/reactiveui/reactiveui)
 * [MessageBox.Avalonia](https://github.com/AvaloniaUtils/MessageBox.Avalonia)
 * [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia)
+* [Chromium Embedded Framework (CEF)](https://github.com/chromiumembedded/cef)
+* [CefNet](https://github.com/CefNet/CefNet)
 * [Xamarin.Essentials](https://github.com/xamarin/essentials)
 * [Entity Framework Core](https://github.com/dotnet/efcore)
 * [ASP.NET Core](https://github.com/dotnet/aspnetcore)

@@ -271,6 +271,8 @@ namespace System.Application.UI
 
         void IDesktopAppService.Shutdown() => Shutdown();
 
+        bool IDesktopAppService.IsCefInitComplete => CefNetApp.InitState == CefNetAppInitState.Complete;
+
         #region IDisposable members
 
         public readonly CompositeDisposable compositeDisposable = new();
