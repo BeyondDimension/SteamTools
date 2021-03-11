@@ -49,6 +49,8 @@ namespace System.Application.UI
 
         const LogLevel DefaultLoggerMinLevel = ThisAssembly.Debuggable ? LogLevel.Debug : LogLevel.Error;
 
+        public static NLogLevel DefaultNLoggerMinLevel = ConvertLogLevel(DefaultLoggerMinLevel);
+
         /// <summary>
         /// Convert log level to NLog variant.
         /// </summary>
@@ -96,7 +98,7 @@ namespace System.Application.UI
         {
             var minLevel = DefaultLoggerMinLevel;
 
-            Action<ILoggingBuilder> cfg = builder =>
+            void _(ILoggingBuilder builder)
             {
                 builder.SetMinimumLevel(minLevel);
                 SetNLoggerMinLevel(minLevel);
@@ -104,9 +106,9 @@ namespace System.Application.UI
                 // 可以多个日志提供同时用，比如还可以在 Win 平台再添加一个 Windows 事件日志
 
                 builder.AddNLog(); // 添加 NLog 日志
-            };
+            }
 
-            return (minLevel, cfg);
+            return (minLevel, (Action<ILoggingBuilder>)_);
         }
 
         /// <summary>

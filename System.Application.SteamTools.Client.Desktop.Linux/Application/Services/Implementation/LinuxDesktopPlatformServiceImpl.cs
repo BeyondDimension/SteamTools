@@ -25,22 +25,24 @@ namespace System.Application.Services.Implementation
 
         public void SetBootAutoStart(bool isAutoStart, string name)
         {
-
         }
 
         public string? GetSteamDirPath()
         {
-            return null;
+            var rootPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            return Path.Combine(rootPath, "Steam");
         }
 
         public string? GetSteamProgramPath()
         {
-            return null;
+            return "/usr/bin/steam";
         }
 
         public string GetLastSteamLoginUserName() => string.Empty;
 
-        public void SetCurrentUser(string userName) { }
+        public void SetCurrentUser(string userName)
+        {
+        }
 
         static string GetMachineSecretKey()
         {
@@ -51,5 +53,7 @@ namespace System.Application.Services.Implementation
         static readonly Lazy<(byte[] key, byte[] iv)> mMachineSecretKey = IDesktopPlatformService.GetMachineSecretKey(GetMachineSecretKey);
 
         public (byte[] key, byte[] iv) MachineSecretKey => mMachineSecretKey.Value;
+
+        public bool? IsLightOrDarkTheme => null;
     }
 }

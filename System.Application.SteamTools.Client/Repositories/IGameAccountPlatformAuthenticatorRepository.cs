@@ -46,8 +46,10 @@ namespace System.Application.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <param name="name"></param>
+        /// <param name="isLocal"></param>
+        /// <param name="secondaryPassword"></param>
         /// <returns></returns>
-        Task RenameAsync(ushort id, string name);
+        Task RenameAsync(ushort id, string name, bool isLocal, string? secondaryPassword);
 
         /// <summary>
         /// 根据本地Id设置云同步Id

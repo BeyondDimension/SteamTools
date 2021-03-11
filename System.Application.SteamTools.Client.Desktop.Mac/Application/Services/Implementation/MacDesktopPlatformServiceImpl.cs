@@ -1,4 +1,5 @@
-﻿using System.Application.Models;
+﻿using MonoMac.Foundation;
+using System.Application.Models;
 using System.Diagnostics;
 
 namespace System.Application.Services.Implementation
@@ -64,5 +65,28 @@ namespace System.Application.Services.Implementation
         static readonly Lazy<(byte[] key, byte[] iv)> mMachineSecretKey = IDesktopPlatformService.GetMachineSecretKey(GetMachineSecretKey);
 
         public (byte[] key, byte[] iv) MachineSecretKey => mMachineSecretKey.Value;
+
+        public bool? IsLightOrDarkTheme
+        {
+            get
+            {
+                try
+                {
+                    var value = NSUserDefaults.StandardUserDefaults.StringForKey("AppleInterfaceStyle");
+                    switch (value)
+                    {
+                        case "Light":
+                            return true;
+                        case "Dark":
+                            return false;
+                    }
+                }
+                catch
+                {
+
+                }
+                return null;
+            }
+        }
     }
 }

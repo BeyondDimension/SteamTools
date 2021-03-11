@@ -22,7 +22,6 @@ using System.Linq;
 using System.Application.Models.Settings;
 using System.Application.UI.Resx;
 using System.Application.Models;
-using System.Threading.Tasks;
 #if WINDOWS
 using System.Windows.Shell;
 using WpfApplication = System.Windows.Application;
@@ -55,6 +54,17 @@ namespace System.Application.UI
                 if (value == mTheme) return;
                 string? the;
                 FluentThemeMode mode;
+
+                if (value == AppTheme.FollowingSystem)
+                {
+                    var dps = DI.Get<IDesktopPlatformService>();
+                    var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
+                    if (isLightOrDarkTheme.HasValue)
+                    {
+                        value = isLightOrDarkTheme.Value ? AppTheme.Light : AppTheme.Dark;
+                    }
+                }
+
                 switch (value)
                 {
                     case AppTheme.Light:

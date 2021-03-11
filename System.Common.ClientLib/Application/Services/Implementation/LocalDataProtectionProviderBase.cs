@@ -8,7 +8,10 @@ namespace System.Application.Services.Implementation
     /// <inheritdoc cref="ILocalDataProtectionProvider"/>
     public abstract class LocalDataProtectionProviderBase : ILocalDataProtectionProvider
     {
-        protected readonly Aes aes;
+        readonly Lazy<Aes> _aes;
+#pragma warning disable IDE1006 // 命名样式
+        protected Aes aes => _aes.Value;
+#pragma warning restore IDE1006 // 命名样式
         protected readonly LocalDataProtectionType defaultELocalDataProtectionType;
         protected readonly IProtectedData protectedData;
         protected readonly IDataProtectionProvider dataProtectionProvider;
@@ -38,8 +41,12 @@ namespace System.Application.Services.Implementation
                     defaultELocalDataProtectionType = LocalDataProtectionType.None;
                     break;
             }
-            (byte[] key, byte[] iv) = MachineSecretKey;
-            aes = AESUtils.Create(key, iv, CipherMode.CFB, PaddingMode.PKCS7);
+            _aes = new Lazy<Aes>(() =>
+            {
+                (byte[] key, byte[] iv) = MachineSecretKey;
+                var r = AESUtils.Create(key, iv, CipherMode.CFB, PaddingMode.PKCS7);
+                return r;
+            });
         }
 
         protected enum LocalDataProtectionType

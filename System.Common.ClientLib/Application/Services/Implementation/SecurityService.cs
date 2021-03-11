@@ -78,7 +78,14 @@ namespace System.Application.Services.Implementation
         {
             var value2 = await DB(value, secondaryPassword);
             if (value2 == null || !value2.Any()) return null;
-            return value2.Base64UrlEncode();
+            try
+            {
+                return Encoding.UTF8.GetString(value2);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public async ValueTask<byte[]?> DB(byte[]? value, string? secondaryPassword)

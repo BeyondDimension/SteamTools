@@ -9,9 +9,11 @@
 
   <!--<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <AllowedReferenceRelatedFileExtensions>
-      --><!-- Prevent default XML and PDB files copied to output in RELEASE. 
+      -->
+  <!-- Prevent default XML and PDB files copied to output in RELEASE. 
            Only *.allowedextension files will be included, which doesn't exist in my case.
-       --><!--
+       -->
+  <!--
       .allowedextension
     </AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>-->
@@ -33,9 +35,11 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' ">
-    --><!--<Reference Include="Xamarin.Mac">
+    -->
+  <!--<Reference Include="Xamarin.Mac">
       <HintPath>$(MSBuildExtensionsPath)/???/Xamarin.Mac.dll</HintPath>
-    </Reference>--><!--
+    </Reference>-->
+  <!--
   </ItemGroup>-->
 
   <ItemGroup>

@@ -65,19 +65,19 @@ namespace System.Application.UI.ViewModels
 				#region SystemTab
                 SettingsPageViewModel.Instance,
                 AboutPageViewModel.Instance,
-#if DEBUG
+//#if DEBUG
 				new DebugPageViewModel().AddTo(this),
 
-#endif
+//#endif
 				#endregion
             };
 
-#if DEBUG
+            //#if DEBUG
             if (AppHelper.Current.IsCefInitComplete)
             {
                 TabItems.Add(new DebugWebViewPageViewModel().AddTo(this));
             }
-#endif
+            //#endif
 
             this.SelectedItem = this.TabItems.First();
 

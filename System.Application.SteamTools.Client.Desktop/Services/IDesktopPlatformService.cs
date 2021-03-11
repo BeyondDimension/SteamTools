@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Cryptography;
-using System.Text;
 using ResizeMode = System.Int32;
 
 namespace System.Application.Services
@@ -161,5 +160,10 @@ namespace System.Application.Services
         (byte[] key, byte[] iv) MachineSecretKey { get; }
 
         #endregion
+
+        /// <summary>
+        /// 是否应使用 亮色主题 <see langword="true"/> / 暗色主题 <see langword="false"/>
+        /// </summary>
+        bool? IsLightOrDarkTheme { get; }
     }
 }

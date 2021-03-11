@@ -31,7 +31,7 @@ namespace System.Application.Entities
         [Column("D4117D89")]
         [SQLiteNotNull]
         [NotNull, DisallowNull] // C# 8 not null
-        public string? Name { get; set; }
+        public byte[]? Name { get; set; }
 
         /// <summary>
         /// [EncryptionMode][[GamePlatform]Ciphertext]

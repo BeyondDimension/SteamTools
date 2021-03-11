@@ -90,7 +90,26 @@ namespace System
                                         Console.WriteLine();
                                         var contents = await github.Repository.GetLicenseContents(owner, repo);
                                         item.License = contents.License.SpdxId;
+                                        item.LicenseUrl = contents.DownloadUrl;
                                         item.LicenseText = await client.GetStringAsync(contents.DownloadUrl);
+                                        if (!string.IsNullOrWhiteSpace(item.LicenseText))
+                                        {
+                                            var licenselines = item.LicenseText.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                                            foreach (var licenseline in licenselines)
+                                            {
+                                                if (licenseline.Contains("Copyright (c)"))
+                                                {
+                                                    if (string.IsNullOrWhiteSpace(item.Copyright))
+                                                    {
+                                                        item.Copyright = licenseline;
+                                                    }
+                                                    else
+                                                    {
+                                                        item.Copyright += Environment.NewLine + licenseline;
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                     catch (NotFoundException)
                                     {

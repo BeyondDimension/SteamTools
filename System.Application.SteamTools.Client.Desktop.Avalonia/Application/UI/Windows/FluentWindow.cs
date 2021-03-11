@@ -2,6 +2,7 @@
 using Avalonia.Platform;
 using Avalonia.Styling;
 using System;
+using System.Windows;
 
 // ReSharper disable once CheckNamespace
 namespace Avalonia.Controls
@@ -22,6 +23,8 @@ namespace Avalonia.Controls
 
         void Constructor()
         {
+            this.SetDefaultFontFamily();
+
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
 

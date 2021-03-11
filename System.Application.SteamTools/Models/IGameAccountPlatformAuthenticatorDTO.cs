@@ -6,7 +6,7 @@
 
         string Name { get; set; }
 
-        GamePlatform Platform { get; set; }
+        GamePlatform Platform { get; }
 
         Guid? ServerId { get; set; }
 

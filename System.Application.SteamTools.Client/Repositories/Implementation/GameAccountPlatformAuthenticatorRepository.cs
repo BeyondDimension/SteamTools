@@ -30,6 +30,9 @@ namespace System.Application.Repositories.Implementation
             var value_bytes = await ss.DB(item.Value, secondaryPassword);
             if (value_bytes == null) return null;
 
+            var name_str = await ss.D(item.Name, secondaryPassword);
+            if (name_str == null) return null;
+
             IGameAccountPlatformAuthenticatorValueDTO? value;
             try
             {
@@ -44,9 +47,8 @@ namespace System.Application.Repositories.Implementation
             return new GameAccountPlatformAuthenticatorDTO
             {
                 Id = item.Id,
-                Name = item.Name,
+                Name = name_str,
                 ServerId = item.ServerId,
-                Platform = value.Platform,
                 Value = value,
             };
         }
@@ -93,23 +95,29 @@ namespace System.Application.Repositories.Implementation
             return encryptionMode;
         }
 
-        public async Task InsertOrUpdateAsync(IGameAccountPlatformAuthenticatorDTO item, bool isLocal, string? secondaryPassword = null)
+        public async Task InsertOrUpdateAsync(IGameAccountPlatformAuthenticatorDTO item, bool isLocal, string? secondaryPassword)
         {
             var value = Serializable.SMP(item.Value);
 
             var encryptionMode = GetEncryptionMode(isLocal, secondaryPassword);
 
+            var name_bytes = await ss.E(item.Name, encryptionMode, secondaryPassword);
+            name_bytes = name_bytes.ThrowIsNull(nameof(name_bytes));
+
             var value_bytes = await ss.EB(value, encryptionMode, secondaryPassword);
+            value_bytes = value_bytes.ThrowIsNull(nameof(value_bytes));
 
             var entity = new GameAccountPlatformAuthenticator
             {
                 Id = item.Id,
-                Name = item.Name,
+                Name = name_bytes,
                 ServerId = item.ServerId,
-                Value = value_bytes.ThrowIsNull(nameof(value_bytes)),
+                Value = value_bytes,
             };
 
             await InsertOrUpdateAsync(entity);
+
+            item.Id = entity.Id;
         }
 
         public new async Task DeleteAsync(ushort id) => await base.DeleteAsync(id);
@@ -124,7 +132,7 @@ namespace System.Application.Repositories.Implementation
                     GameAccountPlatformAuthenticator.TableName +
                     " where " +
                     GameAccountPlatformAuthenticator.ColumnName_ServerId
-                    + " = {0}",
+                    + " = ?",
                     serverId);
             }).ConfigureAwait(false);
         }
@@ -132,12 +140,17 @@ namespace System.Application.Repositories.Implementation
         async Task IGameAccountPlatformAuthenticatorRepository.DeleteAsync(Guid serverId)
             => await DeleteAsync(serverId);
 
-        public async Task RenameAsync(ushort id, string name)
+        public async Task RenameAsync(ushort id, string name, bool isLocal, string? secondaryPassword)
         {
             var item = await FindAsync(id);
             if (item != null)
             {
-                item.Name = name;
+                var encryptionMode = GetEncryptionMode(isLocal, secondaryPassword);
+
+                var name_bytes = await ss.E(name, encryptionMode, secondaryPassword);
+                name_bytes = name_bytes.ThrowIsNull(nameof(name_bytes));
+
+                item.Name = name_bytes;
                 await UpdateAsync(item);
             }
         }

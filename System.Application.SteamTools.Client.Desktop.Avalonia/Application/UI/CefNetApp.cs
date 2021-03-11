@@ -24,31 +24,32 @@ namespace System.Application.UI
             //commandLine.AppendSwitchWithValue("proxy-server", "127.0.0.1:8888");
 
             //commandLine.AppendSwitchWithValue("remote-debugging-port", "9222");
-            commandLine.AppendSwitch("off-screen-rendering-enabled");
-            commandLine.AppendSwitchWithValue("off-screen-frame-rate", "30");
+            //commandLine.AppendSwitch("off-screen-rendering-enabled");
+            //commandLine.AppendSwitchWithValue("off-screen-frame-rate", "30");
 
-            if (ThisAssembly.Debuggable)
-            {
-                //enable-devtools-experiments
-                commandLine.AppendSwitch("enable-devtools-experiments");
-            }
+            //if (ThisAssembly.Debuggable)
+            //{
+            //    //enable-devtools-experiments
+            //    commandLine.AppendSwitch("enable-devtools-experiments");
+            //}
 
             //e.CommandLine.AppendSwitchWithValue("user-agent", "Mozilla/5.0 (Windows 10.0) WebKa/" + DateTime.UtcNow.Ticks);
 
             //("force-device-scale-factor", "1");
 
-            commandLine.AppendSwitch("disable-gpu");
-            commandLine.AppendSwitch("disable-gpu-compositing");
-            commandLine.AppendSwitch("disable-gpu-vsync");
+            commandLine.AppendSwitchWithValue("disable-gpu", "1");
+            commandLine.AppendSwitchWithValue("disable-gpu-compositing", "1");
+            commandLine.AppendSwitchWithValue("disable-gpu-vsync", "1");
+            commandLine.AppendSwitchWithValue("disable-gpu-shader-disk-cache", "1");
 
-            commandLine.AppendSwitch("enable-begin-frame-scheduling");
-            commandLine.AppendSwitch("enable-media-stream");
+            //commandLine.AppendSwitch("enable-begin-frame-scheduling");
+            //commandLine.AppendSwitch("enable-media-stream");
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                commandLine.AppendSwitch("no-zygote");
-                commandLine.AppendSwitch("no-sandbox");
-            }
+            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            //{
+            //    commandLine.AppendSwitch("no-zygote");
+            //    commandLine.AppendSwitch("no-sandbox");
+            //}
         }
 
         protected override void OnContextCreated(CefBrowser browser, CefFrame frame, CefV8Context context)
@@ -123,9 +124,10 @@ navigator.__proto__ = newProto;
 
             var settings = new CefSettings
             {
+                Locale = "zh-CN",
                 MultiThreadedMessageLoop = !externalMessagePump,
                 ExternalMessagePump = externalMessagePump,
-                NoSandbox = true,
+                NoSandbox = false,
                 WindowlessRenderingEnabled = true,
                 LocalesDirPath = localesDirPath,
                 ResourcesDirPath = cefPath,

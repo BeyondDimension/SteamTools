@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.ReactiveUI;
 using NLog;
+using NLog.Config;
 using System.IO;
 using System.Properties;
 using System.Reflection;
@@ -18,20 +19,16 @@ namespace System.Application.UI
         [STAThread]
         static void Main(string[] args)
         {
-            FixNLogConfig();
-
             // 目前桌面端默认使用 SystemTextJson 如果出现兼容性问题可取消下面这行代码
             // Serializable.DefaultJsonImplType = Serializable.JsonImplType.NewtonsoftJson;
+
+            InitLogDir();
 
             var logger = LogManager.GetCurrentClassLogger();
             try
             {
                 Migrations.FromV1();
                 Startup.Init();
-
-#if DEBUG
-                //TestSecurityStorage();
-#endif
 
 #if WINDOWS
                 var app = new WpfApp();
@@ -69,93 +66,37 @@ namespace System.Application.UI
                .LogToTrace()
                .UseReactiveUI();
 
-        static void FixNLogConfig()
+        static void InitLogDir()
         {
             var isMac = DI.Platform == Platform.Apple && DI.DeviceIdiom == DeviceIdiom.Desktop;
-            const char directorySeparatorChar = '\\';
-            if (isMac || Path.DirectorySeparatorChar != directorySeparatorChar)
-            {
-                const string fileName = "nlog.config";
-                var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
-                if (File.Exists(filePath))
-                {
-                    string logConfigStr;
-                    try
-                    {
-                        logConfigStr = File.ReadAllText(filePath);
-                    }
-                    catch
-                    {
-                        return;
-                    }
-                    string newValue;
-                    if (isMac)
-                    {
-                        newValue = $"~/Library/Logs/{BuildConfig.APPLICATION_ID}/";
-                    }
-                    else
-                    {
-                        newValue = $"\"Logs{Path.DirectorySeparatorChar}";
-                    }
-                    logConfigStr = logConfigStr.Replace("\"Logs\\", newValue, StringComparison.OrdinalIgnoreCase);
-                    File.Delete(filePath);
-                    File.WriteAllText(filePath, logConfigStr);
-                }
-            }
+            var logDirPath = isMac ?
+                "~/Library/Logs/steam++" :
+                Path.Combine(AppContext.BaseDirectory, "Logs");
+            IOPath.DirCreateByNotExists(logDirPath);
+
+            var logDirPath_ = logDirPath + Path.DirectorySeparatorChar;
+
+            var xmlConfigStr =
+                "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" +
+                "<nlog xmlns=\"http://www.nlog-project.org/schemas/NLog.xsd\"" +
+                "      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" +
+                "      autoReload=\"true\"" +
+                $"      internalLogFile=\"" + logDirPath_ + "internal-nlog.txt\"" +
+                "      internalLogLevel=\"Off\">" +
+                "  <targets>" +
+                "    <target xsi:type=\"File\" name=\"logfile\" fileName=\"" + logDirPath_ + "nlog-all-${shortdate}.log\"" +
+                "            layout=\"${longdate}|${level}|${message} |${all-event-properties} ${exception:format=tostring}\"/>" +
+                "    <target xsi:type=\"Console\" name=\"logconsole\"" +
+                "            layout=\"${longdate}|${level}|${message} |${all-event-properties} ${exception:format=tostring}\"/>" +
+                "  </targets>" +
+                "  <rules>" +
+                "    <logger name=\"*\" minlevel=\"" + AppHelper.DefaultNLoggerMinLevel.Name + "\" writeTo=\"logfile,logconsole\"/>" +
+                "  </rules>" +
+                "</nlog>"
+            ;
+
+            var xmlConfig = XmlLoggingConfiguration.CreateFromXmlString(xmlConfigStr);
+            LogManager.Configuration = xmlConfig;
         }
-
-#if DEBUG
-
-        //static async void TestSecurityStorage()
-        //{
-        //    await IStorage.Instance.SetAsync("↑↑", Encoding.UTF8.GetBytes("↓↓"));
-
-        //    var left_top = Encoding.UTF8.GetString((
-        //        await IStorage.Instance.GetAsync<byte[]>("↑↑")).ThrowIsNull("↑-key"));
-
-        //    if (left_top != "↓↓")
-        //    {
-        //        throw new Exception();
-        //    }
-
-        //    await IStorage.Instance.SetAsync<string>("←←", "→→");
-
-        //    var left_left = await IStorage.Instance.GetAsync<string>("←←");
-
-        //    if (left_left != "→→")
-        //    {
-        //        throw new Exception();
-        //    }
-
-        //    await IStorage.Instance.SetAsync("aa", "bb");
-
-        //    var left_aa = await IStorage.Instance.GetAsync("aa");
-
-        //    if (left_aa != "bb")
-        //    {
-        //        throw new Exception();
-        //    }
-
-        //    var dict = new Dictionary<string, string> {
-        //        { "🎈✨", "🎆🎇" },
-        //        { "✨🎊", "🎃🎑" },
-        //    };
-
-        //    await IStorage.Instance.SetAsync("dict", dict);
-
-        //    var left_dict = await IStorage.Instance.GetAsync<Dictionary<string, string>>("dict");
-
-        //    if (left_dict == null)
-        //    {
-        //        throw new Exception();
-        //    }
-
-        //    if (left_dict.Count != dict.Count)
-        //    {
-        //        throw new Exception();
-        //    }
-        //}
-
-#endif
     }
 }

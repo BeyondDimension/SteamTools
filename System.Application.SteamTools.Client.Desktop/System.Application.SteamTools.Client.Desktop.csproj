@@ -57,14 +57,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="nlog.config">
+    <None Update="Scripts\*.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-        <None Update="Scripts\*.js">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-  </ItemGroup>
 </Project>

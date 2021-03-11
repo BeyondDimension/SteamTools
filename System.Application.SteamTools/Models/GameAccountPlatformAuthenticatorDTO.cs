@@ -17,7 +17,8 @@ namespace System.Application.Models
         [NotNull, DisallowNull] // C# 8 not null
         public string? Name { get; set; }
 
-        public GamePlatform Platform { get; set; }
+        [MPIgnore, N_JsonIgnore, S_JsonIgnore]
+        public GamePlatform Platform => Value.Platform;
 
         public Guid? ServerId { get; set; }
 
