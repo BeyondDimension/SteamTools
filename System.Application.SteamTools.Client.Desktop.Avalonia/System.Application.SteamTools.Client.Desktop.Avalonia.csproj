@@ -23,6 +23,7 @@
     <None Remove="Application\UI\Assets\close.svg" />
     <None Remove="Application\UI\Styles\Controls.xaml" />
     <None Remove="Application\UI\Styles\Controls\Border.xaml" />
+    <None Remove="Application\UI\Styles\Controls\Button.xaml" />
     <None Remove="Application\UI\Styles\Controls\DrawingSvg.xaml" />
     <None Remove="Application\UI\Styles\Controls\TabControl.xaml" />
     <None Remove="Application\UI\Styles\Controls\TextBox.xaml" />
@@ -66,6 +67,9 @@
     <AvaloniaResource Update="Application\UI\Styles\Controls\DrawingSvg.xaml">
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>
+    <AvaloniaResource Update="Application\UI\Styles\Controls\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
     <AvaloniaResource Update="Application\UI\Styles\Controls\TextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>
@@ -78,37 +82,37 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Application\UI\Controls\PaperView.axaml.cs">
+    <Compile Update="Application\UI\Views\Controls\PaperView.axaml.cs">
       <DependentUpon>PaperView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Application\UI\Pages\About\About_OpenSourcePage.axaml.cs">
+    <Compile Update="Application\UI\Views\Pages\About\About_OpenSourcePage.axaml.cs">
       <DependentUpon>About_OpenSourcePage.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Application\UI\Pages\AboutPage.axaml.cs">
+    <Compile Update="Application\UI\Views\Pages\AboutPage.axaml.cs">
       <DependentUpon>AboutPage.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Application\UI\Pages\LocalAuthPage.axaml.cs">
+    <Compile Update="Application\UI\Views\Pages\LocalAuthPage.axaml.cs">
       <DependentUpon>LocalAuthPage.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Application\UI\Pages\GameListPage.axaml.cs">
+    <Compile Update="Application\UI\Views\Pages\GameListPage.axaml.cs">
       <DependentUpon>GameListPage.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Application\UI\Pages\DebugPage.axaml.cs">
+    <Compile Update="Application\UI\Views\Pages\DebugPage.axaml.cs">
       <DependentUpon>DebugPage.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Application\UI\Pages\Settings\Settings_UI.axaml.cs">
+    <Compile Update="Application\UI\Views\Pages\Settings\Settings_UI.axaml.cs">
       <DependentUpon>Settings_UIaxaml</DependentUpon>
     </Compile>
-    <Compile Update="Application\UI\Pages\StartPage.axaml.cs">
+    <Compile Update="Application\UI\Views\Pages\StartPage.axaml.cs">
       <DependentUpon>StartPage.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Application\UI\Pages\CommunityProxyPage.axaml.cs">
+    <Compile Update="Application\UI\Views\Pages\CommunityProxyPage.axaml.cs">
       <DependentUpon>CommunityProxyPage.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Application\UI\Pages\SteamAccountPage.axaml.cs">
+    <Compile Update="Application\UI\Views\Pages\SteamAccountPage.axaml.cs">
       <DependentUpon>SteamAccountPage.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Application\UI\Windows\MessageBoxWindow.axaml.cs">
+    <Compile Update="Application\UI\Views\Windows\MessageBoxWindow.axaml.cs">
       <DependentUpon>MessageBoxWindow.axaml</DependentUpon>
     </Compile>
   </ItemGroup>

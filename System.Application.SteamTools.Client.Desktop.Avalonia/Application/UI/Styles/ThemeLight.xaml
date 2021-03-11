@@ -3,9 +3,9 @@
        xmlns:sys="clr-namespace:System;assembly=netstandard">
     <Style.Resources>
         
-        <Color x:Key="ThemeColorKey">#FFFFFFFF</Color>
+        <Color x:Key="ThemeColorKey">#FFFCFCFC</Color>
         <SolidColorBrush x:Key="ThemeBrushKey"
-                         Color="#FFFFFFFF" />
+                         Color="#FFFCFCFC" />
 
         <Color x:Key="BackgroundColorKey">#FFD7D7DC</Color>
         <SolidColorBrush x:Key="BackgroundBrushKey"

@@ -20,7 +20,7 @@ namespace System.Application.Mvvm
         /// <see cref="INotifyPropertyChanged.PropertyChanged"/> 引发一个事件
         /// </summary>
         /// <param name="propertyName"></param>
-        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

@@ -1,0 +1,89 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             x:Name="u"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="System.Application.UI.Views.Pages.LocalAuthPage">
+    <Design.DataContext>
+        <vm:LocalAuthPageViewModel/>
+    </Design.DataContext>
+    <Panel HorizontalAlignment="Stretch">
+        <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ItemsRepeater Items="{Binding Authenticators}">
+                <ItemsRepeater.Layout>
+                    <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
+                                       MaximumRowsOrColumns="6" />
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel x:Name="panel" Spacing="8">
+                            <Border Classes="paper" Width="250" Height="250" Background="{DynamicResource ThemeBrushKey}">
+                                <Grid RowDefinitions="30,165,Auto">
+                                    <Grid VerticalAlignment="Center" ColumnDefinitions="*,Auto">
+                                        <controls:ScrollingTextBlock Padding="10,5" Text="{Binding}" FontSize="14" Foreground="{DynamicResource HighlightForegroundBrushKey}"></controls:ScrollingTextBlock>
+                                        <Button Grid.Column="1" x:Name="delete_btn" Classes="flatbutton" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                                            <Image Width="12" Height="18">
+                                                <Image.Source>
+                                                    <DrawingImage Drawing="{DynamicResource CloseDrawing}"></DrawingImage>
+                                                </Image.Source>
+                                            </Image>
+                                        </Button>
+                                    </Grid>
+
+                                    <TextBlock Grid.Row="1" Text="------" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64"></TextBlock>
+
+                                    <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                                        <ProgressBar IsIndeterminate="True" Margin="0 10 0 0" />
+                                        <Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness=".66" Margin="0 0 0 4"/>
+                                        <!--<controls:ScrollingTextBlock HorizontalAlignment="Center" Width="{Binding #panel.Width}" Text="{Binding}" FontSize="14" Foreground="{DynamicResource HighlightForegroundBrushKey}" ></controls:ScrollingTextBlock>-->
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                                <Button Cursor="Hand" Classes="flatbutton">
+                                                    <Image Width="20" Height="16">
+                                                        <Image.Source>
+                                                            <DrawingImage Drawing="{DynamicResource ShowDrawing}"></DrawingImage>
+                                                        </Image.Source>
+                                                    </Image>
+                                                </Button>
+
+                                                <Button Cursor="Hand" Classes="flatbutton">
+                                                    <Image Width="20" Height="16">
+                                                        <Image.Source>
+                                                            <DrawingImage Drawing="{DynamicResource TradeDrawing}"></DrawingImage>
+                                                        </Image.Source>
+                                                    </Image>
+                                                </Button>
+
+                                                <Button Cursor="Hand" Classes="flatbutton">
+                                                    <Image Width="20" Height="16">
+                                                        <Image.Source>
+                                                            <DrawingImage Drawing="{DynamicResource CloudDrawing}"></DrawingImage>
+                                                        </Image.Source>
+                                                    </Image>
+                                                </Button>
+                                            </StackPanel>
+
+                                            <Button Grid.Column="1" Cursor="Hand" Classes="flatbutton">
+                                                <Image Width="16" Height="16">
+                                                    <Image.Source>
+                                                        <DrawingImage Drawing="{DynamicResource RightDrawing}"></DrawingImage>
+                                                    </Image.Source>
+                                                </Image>
+                                            </Button>
+                                        </Grid>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </ScrollViewer>
+    </Panel>
+</UserControl>
