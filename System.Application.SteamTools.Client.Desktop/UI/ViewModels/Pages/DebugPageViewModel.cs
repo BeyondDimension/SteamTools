@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using Microsoft.Extensions.Options;
+using ReactiveUI;
 using System.Application.Models;
 using System.Application.Repositories;
 using System.Application.Services;
@@ -190,6 +191,17 @@ namespace System.Application.UI.ViewModels
                 @string.AppendLine(e.ToString());
             }
 
+            var options = DI.Get<IOptions<AppSettings>>();
+            string embeddedAes;
+            try
+            {
+                embeddedAes = options.Value.Aes.ToString();
+            }
+            catch (Exception e)
+            {
+                embeddedAes = e.ToString();
+            }
+            @string.AppendFormatLine("EmbeddedAes: {0}", embeddedAes);
 
             DebugString = @string.ToString();
         }
@@ -231,8 +243,9 @@ namespace System.Application.UI.ViewModels
         {
             await IStorage.Instance.SetAsync("↑↑", Encoding.UTF8.GetBytes("↓↓"));
 
-            var left_top = Encoding.UTF8.GetString((
-                await IStorage.Instance.GetAsync<byte[]>("↑↑")).ThrowIsNull("↑-key"));
+            var left_top_ = await IStorage.Instance.GetAsync<byte[]>("↑↑");
+
+            var left_top = Encoding.UTF8.GetString(left_top_.ThrowIsNull("↑-key"));
 
             if (left_top != "↓↓")
             {

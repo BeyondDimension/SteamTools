@@ -1,6 +1,7 @@
 ﻿using MonoMac.Foundation;
 using System.Application.Models;
 using System.Diagnostics;
+using System.IO;
 
 namespace System.Application.Services.Implementation
 {
@@ -45,7 +46,11 @@ namespace System.Application.Services.Implementation
 
         public string? GetSteamDirPath()
         {
-            return null;
+            var value = string.Format(
+                "{0}Users{0}{1}{0}Library{0}Application Support{0}Steam",
+                Path.DirectorySeparatorChar,
+                Environment.UserName);
+            return value;
         }
 
         public string? GetSteamProgramPath()
@@ -55,7 +60,9 @@ namespace System.Application.Services.Implementation
 
         public string GetLastSteamLoginUserName() => string.Empty;
 
-        public void SetCurrentUser(string userName) { }
+        public void SetCurrentUser(string userName)
+        {
+        }
 
         static string GetMachineSecretKey()
         {
@@ -83,7 +90,6 @@ namespace System.Application.Services.Implementation
                 }
                 catch
                 {
-
                 }
                 return null;
             }
