@@ -78,7 +78,7 @@ navigator.__proto__ = newProto;
 
         public static CefNetApp Current => app ?? throw new NullReferenceException("CefNetApp init must be called.");
 
-        public static void Init(string[] args)
+        public static void Init(string logDirPath, string[] args)
         {
             if (InitState != CefNetAppInitState.Uninitialized) return;
 
@@ -112,15 +112,7 @@ navigator.__proto__ = newProto;
                 externalMessagePump = true;
             }
 
-            var logFile = DI.Platform switch
-            {
-                Platform.Windows or Platform.Linux => Path.Combine(AppContext.BaseDirectory, "Logs", "cef.log"),
-                Platform.Apple => DI.DeviceIdiom == DeviceIdiom.Desktop ? $"~/Library/Logs/{BuildConfig.APPLICATION_ID}/cef.log" : throw new PlatformNotSupportedException(),
-                _ => throw new ArgumentOutOfRangeException(nameof(DI.Platform), DI.Platform, null),
-            };
-
-            var logDirPath = Path.GetDirectoryName(logFile);
-            IOPath.DirCreateByNotExists(logDirPath);
+            var logFile = Path.Combine(logDirPath, "cef.log");
 
             var settings = new CefSettings
             {

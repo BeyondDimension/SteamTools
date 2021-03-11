@@ -22,7 +22,7 @@ namespace System.Application.UI
             // 目前桌面端默认使用 SystemTextJson 如果出现兼容性问题可取消下面这行代码
             // Serializable.DefaultJsonImplType = Serializable.JsonImplType.NewtonsoftJson;
 
-            InitLogDir();
+            var logDirPath = InitLogDir();
 
             var logger = LogManager.GetCurrentClassLogger();
             try
@@ -36,7 +36,7 @@ namespace System.Application.UI
                 Task.Factory.StartNew(app.Run);
 #endif
 
-                CefNetApp.Init(args);
+                CefNetApp.Init(logDirPath, args);
 
                 BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
             }
@@ -66,12 +66,9 @@ namespace System.Application.UI
                .LogToTrace()
                .UseReactiveUI();
 
-        static void InitLogDir()
+        static string InitLogDir()
         {
-            var isMac = DI.Platform == Platform.Apple && DI.DeviceIdiom == DeviceIdiom.Desktop;
-            var logDirPath = isMac ?
-                "~/Library/Logs/steam++" :
-                Path.Combine(AppContext.BaseDirectory, "Logs");
+            var logDirPath = Path.Combine(AppContext.BaseDirectory, "Logs");
             IOPath.DirCreateByNotExists(logDirPath);
 
             var logDirPath_ = logDirPath + Path.DirectorySeparatorChar;
@@ -97,6 +94,8 @@ namespace System.Application.UI
 
             var xmlConfig = XmlLoggingConfiguration.CreateFromXmlString(xmlConfigStr);
             LogManager.Configuration = xmlConfig;
+
+            return logDirPath;
         }
     }
 }

@@ -3,6 +3,7 @@
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TrimMode>link</TrimMode>
   </PropertyGroup>
 
   <PropertyGroup Condition=" Exists('$(MSBuildProjectDirectory)\..\Unicorn.pfx') ">
