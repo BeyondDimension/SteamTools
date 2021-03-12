@@ -12,6 +12,12 @@ namespace System.Application.Services
         AppTheme Theme { get; set; }
 
         /// <summary>
+        /// 切换当前桌面应用的主题而不改变设置值
+        /// </summary>
+        /// <param name="switch_value"></param>
+        void SetThemeNotChangeValue(AppTheme switch_value);
+
+        /// <summary>
         /// 退出整个程序
         /// </summary>
         void Shutdown();

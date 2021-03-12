@@ -19,14 +19,10 @@ namespace System.Application.Models.Settings
         {
             if (e.NewValue != e.OldValue)
             {
-                switch (e.NewValue)
+                var value = (AppTheme)e.NewValue;
+                if (value.IsDefined())
                 {
-                    case 0:
-                        AppHelper.Current.Theme = AppTheme.Light;
-                        break;
-                    case 1:
-                        AppHelper.Current.Theme = AppTheme.Dark;
-                        break;
+                    AppHelper.Current.Theme = value;
                 }
             }
         }
@@ -35,7 +31,7 @@ namespace System.Application.Models.Settings
         /// ÷˜Ã‚
         /// </summary>
         public static SerializableProperty<short> Theme { get; }
-            = new SerializableProperty<short>(GetKey(), Providers.Local, 1) { AutoSave = true };
+            = new SerializableProperty<short>(GetKey(), Providers.Local, 0) { AutoSave = true };
 
         /// <summary>
         /// ”Ô—‘

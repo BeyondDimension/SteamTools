@@ -19,5 +19,8 @@ namespace System.Application.Entities
 
         [Column("4C12F9EE")]
         public Guid? Avatar { get; set; }
+
+        [Column("654D00DA")]
+        public byte[]? UserInfo { get; set; }
     }
 }

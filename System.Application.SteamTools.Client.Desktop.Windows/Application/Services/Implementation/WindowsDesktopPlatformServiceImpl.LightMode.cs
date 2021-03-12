@@ -1,9 +1,16 @@
 ﻿using Microsoft.Win32;
+using System.Application.Models;
+using System.Application.UI;
+using System.Management;
+using System.Security.Principal;
 
 namespace System.Application.Services.Implementation
 {
     partial class WindowsDesktopPlatformServiceImpl
     {
+        const string Themes_Personalize = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize";
+        const string AppsUseLightTheme = "AppsUseLightTheme";
+
         public bool? IsLightOrDarkTheme
         {
             get
@@ -14,9 +21,7 @@ namespace System.Application.Services.Implementation
                 {
                     try
                     {
-                        var value = Registry.CurrentUser.Read(
-                            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize",
-                            "AppsUseLightTheme");
+                        var value = Registry.CurrentUser.Read(Themes_Personalize, AppsUseLightTheme);
                         switch (value)
                         {
                             case "1":
@@ -30,6 +35,64 @@ namespace System.Application.Services.Implementation
                     }
                 }
                 return null;
+            }
+        }
+
+        ManagementEventWatcher? isLightOrDarkThemeWatch;
+
+        public void SetLightOrDarkThemeFollowingSystem(bool enable)
+        {
+            if (Environment.OSVersion.Version.Major < 10) return;
+            if (Environment.OSVersion.Version.Major == 10 &&
+                Environment.OSVersion.Version.Build < 18282) return;
+
+            var currentUser = WindowsIdentity.GetCurrent()?.User;
+            if (currentUser == null) return;
+
+            try
+            {
+                if (enable)
+                {
+                    if (isLightOrDarkThemeWatch == null)
+                    {
+                        var queryStr_ = @"SELECT * FROM RegistryValueChangeEvent WHERE Hive = 'HKEY_USERS' AND KeyPath = '{0}\\{1}' AND ValueName = '{2}'";
+
+                        var queryStr = string.Format(
+                            queryStr_,
+                            currentUser.Value,
+                            Themes_Personalize.Replace(@"\", @"\\"),
+                            AppsUseLightTheme);
+
+                        isLightOrDarkThemeWatch = new ManagementEventWatcher(queryStr);
+                        isLightOrDarkThemeWatch.EventArrived += (_, _) =>
+                        {
+                            var value = IsLightOrDarkTheme;
+                            if (value.HasValue)
+                            {
+                                var theme_value = value.Value ? AppTheme.Light : AppTheme.Dark;
+                                MainThreadDesktop.BeginInvokeOnMainThread(() =>
+                                {
+                                    AppHelper.Current.SetThemeNotChangeValue(theme_value);
+                                });
+                            }
+                        };
+                    }
+                    isLightOrDarkThemeWatch.Start();
+                }
+                else
+                {
+                    if (isLightOrDarkThemeWatch == null)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        isLightOrDarkThemeWatch.Stop();
+                    }
+                }
+            }
+            catch
+            {
             }
         }
     }

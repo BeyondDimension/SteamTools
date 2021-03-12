@@ -94,5 +94,10 @@ namespace System.Application.Services.Implementation
                 return null;
             }
         }
+
+        public void SetLightOrDarkThemeFollowingSystem(bool enable)
+        {
+
+        }
     }
 }

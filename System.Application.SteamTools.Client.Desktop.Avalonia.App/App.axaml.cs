@@ -52,8 +52,7 @@ namespace System.Application.UI
             set
             {
                 if (value == mTheme) return;
-                string? the;
-                FluentThemeMode mode;
+                AppTheme switch_value = value;
 
                 if (value == AppTheme.FollowingSystem)
                 {
@@ -61,39 +60,54 @@ namespace System.Application.UI
                     var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
                     if (isLightOrDarkTheme.HasValue)
                     {
-                        value = isLightOrDarkTheme.Value ? AppTheme.Light : AppTheme.Dark;
+                        switch_value = isLightOrDarkTheme.Value ? AppTheme.Light : AppTheme.Dark;
+                        dps.SetLightOrDarkThemeFollowingSystem(true);
                     }
                 }
-
-                switch (value)
+                else if (mTheme == AppTheme.FollowingSystem)
                 {
-                    case AppTheme.Light:
-                        the = "Light";
-                        mode = FluentThemeMode.Light;
-                        break;
-                    case AppTheme.Dark:
-                        the = "Dark";
-                        mode = FluentThemeMode.Dark;
-                        break;
-                    default:
-                        the = "Dark";
-                        mode = FluentThemeMode.Dark;
-                        break;
+                    var dps = DI.Get<IDesktopPlatformService>();
+                    dps.SetLightOrDarkThemeFollowingSystem(false);
                 }
-                var uri_0 = new Uri($"avares://Avalonia.Themes.Fluent/Fluent{the}.xaml");
-                var uri_1 = new Uri($"avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Theme{the}.xaml");
 
-                Styles[0] = new FluentTheme(uri_0)
-                {
-                    Mode = mode
-                };
-                Styles[1] = new StyleInclude(uri_1)
-                {
-                    Source = uri_1,
-                };
+                SetThemeNotChangeValue(switch_value);
 
                 mTheme = value;
             }
+        }
+
+        public void SetThemeNotChangeValue(AppTheme value)
+        {
+            string? the;
+            FluentThemeMode mode;
+
+            switch (value)
+            {
+                case AppTheme.Light:
+                    the = "Light";
+                    mode = FluentThemeMode.Light;
+                    break;
+                case AppTheme.Dark:
+                    the = "Dark";
+                    mode = FluentThemeMode.Dark;
+                    break;
+                default:
+                    the = "Dark";
+                    mode = FluentThemeMode.Dark;
+                    break;
+            }
+
+            var uri_0 = new Uri($"avares://Avalonia.Themes.Fluent/Fluent{the}.xaml");
+            var uri_1 = new Uri($"avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Theme{the}.xaml");
+
+            Styles[0] = new FluentTheme(uri_0)
+            {
+                Mode = mode
+            };
+            Styles[1] = new StyleInclude(uri_1)
+            {
+                Source = uri_1,
+            };
         }
 
         readonly Dictionary<string, ICommand> mNotifyIconMenus = new();

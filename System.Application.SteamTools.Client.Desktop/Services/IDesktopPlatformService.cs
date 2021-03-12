@@ -165,5 +165,11 @@ namespace System.Application.Services
         /// 是否应使用 亮色主题 <see langword="true"/> / 暗色主题 <see langword="false"/>
         /// </summary>
         bool? IsLightOrDarkTheme { get; }
+
+        /// <summary>
+        /// 设置亮色或暗色主题跟随系统
+        /// </summary>
+        /// <param name="enable"></param>
+        void SetLightOrDarkThemeFollowingSystem(bool enable);
     }
 }

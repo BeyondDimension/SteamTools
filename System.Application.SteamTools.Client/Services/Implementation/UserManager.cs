@@ -33,7 +33,7 @@ namespace System.Application.Services.Implementation
 
         protected bool isAnonymous;
         protected CurrentUser? currentUser;
-        //protected UserInfoDTO? currentUserInfo;
+        protected UserInfoDTO? currentUserInfo;
 
         protected CurrentUser? CurrentUser
         {
@@ -103,27 +103,27 @@ namespace System.Application.Services.Implementation
             PrintCurrentUser("SetCurrentUser");
         }
 
-        //public async ValueTask<UserInfoDTO?> GetCurrentUserInfoAsync()
-        //{
-        //    if (currentUserInfo == null && !isAnonymous)
-        //    {
-        //        var cUser = await GetCurrentUserAsync();
-        //        if (cUser != null)
-        //        {
-        //            currentUserInfo = await GetUserInfoByIdAsync(cUser.UserId);
-        //        }
-        //    }
-        //    return currentUserInfo;
-        //}
+        public async ValueTask<UserInfoDTO?> GetCurrentUserInfoAsync()
+        {
+            if (currentUserInfo == null && !isAnonymous)
+            {
+                var cUser = await GetCurrentUserAsync();
+                if (cUser != null)
+                {
+                    currentUserInfo = await GetUserInfoByIdAsync(cUser.UserId);
+                }
+            }
+            return currentUserInfo;
+        }
 
-        //public async Task SetCurrentUserInfoAsync(UserInfoDTO value, bool updateToDataBase)
-        //{
-        //    currentUserInfo = value;
-        //    if (updateToDataBase)
-        //    {
-        //        await InsertOrUpdateAsync(value);
-        //    }
-        //}
+        public async Task SetCurrentUserInfoAsync(UserInfoDTO value, bool updateToDataBase)
+        {
+            currentUserInfo = value;
+            if (updateToDataBase)
+            {
+                await InsertOrUpdateAsync(value);
+            }
+        }
 
         public async ValueTask<JWTEntity?> GetAuthTokenAsync()
         {
@@ -134,7 +134,7 @@ namespace System.Application.Services.Implementation
         public async Task SignOutAsync()
         {
             PrintCurrentUser("SignOut");
-            //currentUserInfo = default;
+            currentUserInfo = default;
             await SetCurrentUserAsync(null);
         }
 
@@ -143,14 +143,14 @@ namespace System.Application.Services.Implementation
             return userRepository.FindAsync(userId);
         }
 
-        async Task<TUserDTO?> GetUserByTable<TUserDTO>(User? user, Func<User, Task<TUserDTO?>> binding) where TUserDTO : IUserDTO
+        async Task<TUserDTO?> GetUserByTableAsync<TUserDTO>(User? user, Func<User, Task<TUserDTO?>> binding) where TUserDTO : IUserDTO
         {
             if (user == null) return default;
             var value = await binding(user);
             return value;
         }
 
-        async Task<TUserDTO?> BindingUser<TUserDTO>(User user) where TUserDTO : IUserDTO, new()
+        async Task<TUserDTO?> BindingUserAsync<TUserDTO>(User user) where TUserDTO : IUserDTO, new()
         {
             var nickName = await security.D(user.NickName);
 
@@ -166,63 +166,65 @@ namespace System.Application.Services.Implementation
         public async Task<UserDTO?> GetUserByIdAsync(Guid userId)
         {
             var user = await GetUserTableByIdAsync(userId);
-            var value = await GetUserByTable(user, BindingUser<UserDTO>);
+            var value = await GetUserByTableAsync(user, BindingUserAsync<UserDTO>);
             return value;
         }
 
-        //bool VerifyUserInfo(User user, UserInfoDTO userInfo)
-        //{
-        //    if (user.Id != userInfo.Id)
-        //    {
-        //        logger.LogError("VerifyUserInfo Fail(Id).");
-        //        return false;
-        //    }
-        //    if (security.D(user.NickName) != userInfo.NickName)
-        //    {
-        //        logger.LogError("VerifyUserInfo Fail(NickName).");
-        //        return false;
-        //    }
-        //    if (user.Avatar != userInfo.Avatar)
-        //    {
-        //        logger.LogError("VerifyUserInfo Fail(Avatar).");
-        //        return false;
-        //    }
-        //    return true;
-        //}
+        async Task<bool> VerifyUserInfoAsync(User user, UserInfoDTO userInfo)
+        {
+            if (user.Id != userInfo.Id)
+            {
+                logger.LogError("VerifyUserInfo Fail(Id).");
+                return false;
+            }
+            var nickName = await security.D(user.NickName);
+            if (nickName != userInfo.NickName)
+            {
+                logger.LogError("VerifyUserInfo Fail(NickName).");
+                return false;
+            }
+            if (user.Avatar != userInfo.Avatar)
+            {
+                logger.LogError("VerifyUserInfo Fail(Avatar).");
+                return false;
+            }
+            return true;
+        }
 
-        //UserInfoDTO? BindingUserInfo(User user)
-        //{
-        //    if (user.UserInfo != null)
-        //    {
-        //        try
-        //        {
-        //            var userInfoBytes = security.DB(user.UserInfo);
-        //            if (userInfoBytes != null)
-        //            {
-        //                var value = Serializable.DMP<UserInfoDTO>(userInfoBytes);
-        //                if (value != null)
-        //                {
-        //                    var v = VerifyUserInfo(user, value);
-        //                    if (v)
-        //                    {
-        //                        return value;
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            logger.LogError(e, "BindingUserInfo Serializable & Verify Fail.");
-        //        }
-        //    }
-        //    return BindingUser<UserInfoDTO>(user);
-        //}
+        async Task<UserInfoDTO?> BindingUserInfoAsync(User user)
+        {
+            if (user.UserInfo != null)
+            {
+                try
+                {
+                    var userInfoBytes = await security.DB(user.UserInfo);
+                    if (userInfoBytes != null)
+                    {
+                        var value = Serializable.DMP<UserInfoDTO>(userInfoBytes);
+                        if (value != null)
+                        {
+                            var v = await VerifyUserInfoAsync(user, value);
+                            if (v)
+                            {
+                                return value;
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    logger.LogError(e, "BindingUserInfo Serializable & Verify Fail.");
+                }
+            }
+            var r = await BindingUserAsync<UserInfoDTO>(user);
+            return r;
+        }
 
-        //public async Task<UserInfoDTO?> GetUserInfoByIdAsync(Guid userId)
-        //{
-        //    var user = await GetUserTableByIdAsync(userId);
-        //    return GetUserByTable(user, BindingUserInfo);
-        //}
+        public async Task<UserInfoDTO?> GetUserInfoByIdAsync(Guid userId)
+        {
+            var user = await GetUserTableByIdAsync(userId);
+            return await GetUserByTableAsync(user, BindingUserInfoAsync);
+        }
 
         public async Task InsertOrUpdateAsync(IUserDTO user)
         {
@@ -234,19 +236,19 @@ namespace System.Application.Services.Implementation
                 NickName = nickName_,
                 Avatar = user.Avatar,
             };
-            //if (user is UserInfoDTO userInfo)
-            //{
-            //    userTable.UserInfo = Serializable.SMP(userInfo);
-            //    userTable.UserInfo = security.EB(userTable.UserInfo);
-            //}
-            //else
-            //{
-            //    var userTable2 = await GetUserTableByIdAsync(user.Id);
-            //    if (userTable2?.UserInfo != null)
-            //    {
-            //        userTable.UserInfo = userTable2.UserInfo;
-            //    }
-            //}
+            if (user is UserInfoDTO userInfo)
+            {
+                userTable.UserInfo = Serializable.SMP(userInfo);
+                userTable.UserInfo = await security.EB(userTable.UserInfo);
+            }
+            else
+            {
+                var userTable2 = await GetUserTableByIdAsync(user.Id);
+                if (userTable2?.UserInfo != null)
+                {
+                    userTable.UserInfo = userTable2.UserInfo;
+                }
+            }
             (var rowCount, var result) = await userRepository.InsertOrUpdateAsync(userTable);
             PrintInsertOrUpdateResult(user, rowCount, result);
         }

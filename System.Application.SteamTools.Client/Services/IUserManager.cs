@@ -25,20 +25,20 @@ namespace System.Application.Services
         /// <returns></returns>
         Task SetCurrentUserAsync(CurrentUser? value);
 
-        ///// <summary>
-        ///// 获取当前登录用户资料
-        ///// <para>如果[退出登录]则为 <see langword="null"/>，对于接收到的推送消息，要求在服务端时传入接收人用户Id，客户端根据Id读取用户信息，而不使用此值</para>
-        ///// </summary>
-        ///// <returns></returns>
-        //ValueTask<UserInfoDTO?> GetCurrentUserInfoAsync();
+        /// <summary>
+        /// 获取当前登录用户资料
+        /// <para>如果[退出登录]则为 <see langword="null"/>，对于接收到的推送消息，要求在服务端时传入接收人用户Id，客户端根据Id读取用户信息，而不使用此值</para>
+        /// </summary>
+        /// <returns></returns>
+        ValueTask<UserInfoDTO?> GetCurrentUserInfoAsync();
 
-        ///// <summary>
-        ///// 设置当前登录用户资料
-        ///// </summary>
-        ///// <param name="value"></param>
-        ///// <param name="updateToDataBase">更新到数据库中</param>
-        ///// <returns></returns>
-        //Task SetCurrentUserInfoAsync(UserInfoDTO value, bool updateToDataBase);
+        /// <summary>
+        /// 设置当前登录用户资料
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="updateToDataBase">更新到数据库中</param>
+        /// <returns></returns>
+        Task SetCurrentUserInfoAsync(UserInfoDTO value, bool updateToDataBase);
 
         /// <summary>
         /// 根据Id获取用户数据
@@ -47,12 +47,12 @@ namespace System.Application.Services
         /// <returns></returns>
         Task<UserDTO?> GetUserByIdAsync(Guid userId);
 
-        ///// <summary>
-        ///// 根据Id获取用户资料
-        ///// </summary>
-        ///// <param name="userId"></param>
-        ///// <returns></returns>
-        //Task<UserInfoDTO?> GetUserInfoByIdAsync(Guid userId);
+        /// <summary>
+        /// 根据Id获取用户资料
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<UserInfoDTO?> GetUserInfoByIdAsync(Guid userId);
 
         /// <summary>
         /// 添加或更新用户数据到数据库中

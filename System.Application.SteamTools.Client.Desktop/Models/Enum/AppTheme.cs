@@ -6,23 +6,23 @@
     public enum AppTheme : byte
     {
         /// <summary>
-        /// 跟随系统(目前还需要实现监听系统设置实现同步切换)
+        /// 跟随系统
         /// </summary>
-        FollowingSystem = 3,
+        FollowingSystem,
 
         /// <summary>
         /// 亮色主题
         /// </summary>
-        Light = 0,
+        Light,
 
         /// <summary>
         /// 暗色主题
         /// </summary>
-        Dark = 1,
+        Dark,
 
         /// <summary>
         /// 自定义主题
         /// </summary>
-        Custom = 2,
+        Custom,
     }
 }

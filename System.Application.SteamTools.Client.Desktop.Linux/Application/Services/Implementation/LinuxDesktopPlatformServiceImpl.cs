@@ -55,5 +55,10 @@ namespace System.Application.Services.Implementation
         public (byte[] key, byte[] iv) MachineSecretKey => mMachineSecretKey.Value;
 
         public bool? IsLightOrDarkTheme => null;
+
+        public void SetLightOrDarkThemeFollowingSystem(bool enable)
+        {
+
+        }
     }
 }
