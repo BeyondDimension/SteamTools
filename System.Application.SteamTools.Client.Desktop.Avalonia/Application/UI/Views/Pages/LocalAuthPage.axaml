@@ -34,7 +34,7 @@
                                 </i:Interaction.Behaviors>
                                 <Grid RowDefinitions="30,165,Auto">
                                     <Grid VerticalAlignment="Center" ColumnDefinitions="*,Auto">
-                                        <controls:ScrollingTextBlock Padding="10,5" Text="{Binding}" FontSize="14" Foreground="{DynamicResource HighlightForegroundBrushKey}"></controls:ScrollingTextBlock>
+                                        <controls:ScrollingTextBlock Padding="10,5" Text="{Binding}" FontSize="16" Foreground="{DynamicResource HighlightForegroundBrushKey}"></controls:ScrollingTextBlock>
                                         <Button Grid.Column="1" x:Name="delete_btn" Classes="flatbutton" IsVisible="False" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                             <Image Width="12" Height="18">
                                                 <Image.Source>

@@ -6,7 +6,9 @@ using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Properties;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace System.Application.UI.ViewModels
 {
@@ -37,7 +39,7 @@ namespace System.Application.UI.ViewModels
             SteamUsers = new ObservableCollection<SteamUser>(steamService.GetRememberUserList());
 
 #if DEBUG
-            for (var i= 0;i< 10; i++)
+            for (var i = 0; i < 10; i++)
             {
                 SteamUsers.Add(SteamUsers[0]);
             }
@@ -69,12 +71,44 @@ namespace System.Application.UI.ViewModels
         }
 
 
-        public void SteamId_Click(string accountName)
+        public void SteamId_Click(SteamUser user)
         {
-            steamService.SetCurrentUser(accountName);
+            if (user.WantsOfflineMode)
+            {
+                UserModeChange(user, false);
+            }
+            steamService.SetCurrentUser(user.AccountName);
             steamService.TryKillSteamProcess();
             steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
         }
 
+
+        public void OfflineModeButton_Click(SteamUser user)
+        {
+            if (user.WantsOfflineMode == false)
+            {
+                UserModeChange(user, true);
+            }
+            SteamId_Click(user);
+        }
+
+        private void UserModeChange(SteamUser user, bool OfflineMode)
+        {
+            user.WantsOfflineMode = OfflineMode;
+            steamService.UpdateLocalUserData(user);
+            user.OriginVdfString = user.CurrentVdfString;
+        }
+
+        public void DeleteUserButton_Click(SteamUser user)
+        {
+            var result = MessageBoxCompat.ShowAsync("确定要删除这条本地记录帐户数据吗？" + Environment.NewLine + "这将会删除此账户在本地的Steam缓存数据。", ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+            {
+                if (s.Result == MessageBoxResultCompat.OK)
+                {
+                    steamService.DeleteLocalUserData(user);
+                    SteamUsers.Remove(user);
+                }
+            });
+        }
     }
 }

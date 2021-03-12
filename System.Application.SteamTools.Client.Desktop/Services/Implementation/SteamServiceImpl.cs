@@ -52,8 +52,7 @@ namespace System.Application.Services.Implementation
             {
                 if (steamProcess.Contains(p.ProcessName, StringComparer.OrdinalIgnoreCase))
                 {
-                    if (!p.CloseMainWindow())
-                        p.Kill();
+                    p.Kill();
                 }
             }
         }

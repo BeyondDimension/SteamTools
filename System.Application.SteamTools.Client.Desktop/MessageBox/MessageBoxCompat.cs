@@ -1,6 +1,7 @@
 ﻿using System.Application;
 using System.Application.Services;
 using System.Application.UI.ViewModels.Windows;
+using System.Properties;
 using System.Threading.Tasks;
 
 // ReSharper disable once CheckNamespace
@@ -35,7 +36,7 @@ namespace System.Windows
         }
 
         /// <inheritdoc cref="IMessageBoxCompatService.ShowAsync(string, string, MessageBoxButtonCompat, MessageBoxImageCompat?)"/>
-        public static async void Show(string messageBoxText, string caption, MessageBoxButtonCompat button, MessageBoxImageCompat? icon = null)
+        public static async void Show(string messageBoxText, string caption = ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat button = MessageBoxButtonCompat.OK, MessageBoxImageCompat? icon = null)
         {
             await ShowAsync(messageBoxText, caption, button, icon);
         }
