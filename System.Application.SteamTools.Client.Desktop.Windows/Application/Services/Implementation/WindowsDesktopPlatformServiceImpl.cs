@@ -37,7 +37,7 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        static readonly Lazy<string> mHostsFilePath = new Lazy<string>(() =>
+        static readonly Lazy<string> mHostsFilePath = new(() =>
         {
             return Path.Combine(Environment.SystemDirectory, "drivers", "etc", "hosts");
         });

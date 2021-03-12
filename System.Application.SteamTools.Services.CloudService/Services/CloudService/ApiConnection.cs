@@ -394,7 +394,7 @@ namespace System.Application.Services.CloudService
 
             if (rsp.IsSuccess && rsp.Content != null)
             {
-                await conn_helper.SaveAuthTokenAsync(jwt);
+                await conn_helper.SaveAuthTokenAsync(rsp.Content);
                 return true;
             }
             else if (rsp.Code != ApiResponseCode.Unauthorized)
