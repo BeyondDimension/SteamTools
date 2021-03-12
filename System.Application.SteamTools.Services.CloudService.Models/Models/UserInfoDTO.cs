@@ -33,7 +33,7 @@ namespace System.Application.Models
         [MPKey(3)]
         [N_JsonProperty("3")]
         [S_JsonProperty("3")]
-        public float Experience { get; set; }
+        public uint Experience { get; set; }
 
         /// <summary>
         /// 体力
@@ -49,7 +49,7 @@ namespace System.Application.Models
         [MPKey(5)]
         [N_JsonProperty("5")]
         [S_JsonProperty("5")]
-        public int Coin { get; set; }
+        public decimal Coin { get; set; }
 
         /// <summary>
         /// 余额

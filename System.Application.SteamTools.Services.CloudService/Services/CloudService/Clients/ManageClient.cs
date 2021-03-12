@@ -34,5 +34,18 @@ namespace System.Application.Services.CloudService.Clients
         {
             throw new NotImplementedException();
         }
+
+        public Task<IApiResponse<ClockInResponse>> ClockIn()
+            => conn.SendAsync<ClockInRequest, ClockInResponse>(
+                isAnonymous: true,
+                isSecurity: true,
+                method: HttpMethod.Post,
+                requestUri: "api/Manage/ClockIn",
+                request: new ClockInRequest
+                {
+                    CreationTime = DateTimeOffset.Now,
+                    //ClientDeviceId = "",
+                },
+                cancellationToken: default);
     }
 }

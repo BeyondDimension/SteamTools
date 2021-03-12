@@ -24,5 +24,7 @@ namespace System.Application.Services.CloudService.Clients.Abstractions
         /// </summary>
         /// <returns></returns>
         Task<IApiResponse> DeleteAccount();
+
+        Task<IApiResponse<ClockInResponse>> ClockIn();
     }
 }
