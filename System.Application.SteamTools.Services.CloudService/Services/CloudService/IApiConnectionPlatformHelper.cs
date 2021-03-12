@@ -36,5 +36,7 @@ namespace System.Application.Services.CloudService
         HttpClient CreateClient();
 
         RSA RSA { get; }
+
+        Task<IApiResponse<JWTEntity>> RefreshToken(JWTEntity jwt);
     }
 }

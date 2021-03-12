@@ -202,7 +202,8 @@ namespace System.Application.Services.Implementation
 
                 CurrentProgressValue = 0;
 
-                var rsp = await client.Download(newVersionInfo.DownloadLink, cacheFileName, new Progress<float>(OnReport));
+                var rsp = await client.Download(isAnonymous: true,
+                    newVersionInfo.DownloadLink, cacheFileName, new Progress<float>(OnReport));
 
                 void OnReport(float value) => CurrentProgressValue = value;
 

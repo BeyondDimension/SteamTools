@@ -17,6 +17,7 @@ namespace System.Application.Services.CloudService.Clients
 
         Task<IApiResponse> SendSmsCore(SendSmsRequest request)
             => conn.SendAsync(
+                isAnonymous: false, // 发送短信验证码某些类型需要身份验证，某些则不要
                 isSecurity: true,
                 method: HttpMethod.Post,
                 requestUri: "api/AuthMessage/SendSms",

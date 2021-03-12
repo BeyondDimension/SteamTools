@@ -22,10 +22,11 @@ namespace System.Application.Services.CloudService.Clients
                 $"api/version/checkupdate/{id}/{(int)platform}/{(int)deviceIdiom}" +
                 $"/{(int)supportedAbis}/{osVersion.Major}/{osVersion.Minor}";
             return conn.SendAsync<AppVersionDTO?>(
-                 method: HttpMethod.Get,
-                 requestUri: url,
-                 cancellationToken: default,
-                 responseContentMaybeNull: true);
+                isAnonymous: true,
+                method: HttpMethod.Get,
+                requestUri: url,
+                cancellationToken: default,
+                responseContentMaybeNull: true);
         }
     }
 }

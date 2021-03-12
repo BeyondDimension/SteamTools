@@ -13,11 +13,21 @@ namespace System.Application.Services.CloudService.Clients
 
         public Task<IApiResponse<LoginOrRegisterResponse>> LoginOrRegister(LoginOrRegisterRequest request)
             => conn.SendAsync<LoginOrRegisterRequest, LoginOrRegisterResponse>(
+                isAnonymous: true,
                 isSecurity: true,
                 method: HttpMethod.Post,
                 requestUri: "api/Account/LoginOrRegister",
                 request: request,
                 cancellationToken: default,
                 responseContentMaybeNull: false);
+
+        public Task<IApiResponse<JWTEntity>> RefreshToken(string refresh_token)
+            => conn.SendAsync<JWTEntity>(
+                isAnonymous: true, // 刷新Token必须匿名身份，否则将递归死循环
+                isSecurity: true,
+                method: HttpMethod.Get,
+                requestUri: $"api/Account/RefreshToken/{refresh_token}",
+                cancellationToken: default,
+                responseContentMaybeNull: true);
     }
 }

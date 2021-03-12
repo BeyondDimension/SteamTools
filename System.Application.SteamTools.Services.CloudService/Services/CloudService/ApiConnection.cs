@@ -39,14 +39,16 @@ namespace System.Application.Services.CloudService
             this.validator = validator;
         }
 
-        async ValueTask SetRequestHeaderAuthorization(HttpRequestMessage request)
+        async ValueTask<JWTEntity?> SetRequestHeaderAuthorization(HttpRequestMessage request)
         {
             var authToken = await conn_helper.Auth.GetAuthTokenAsync();
             if (authToken.HasValue())
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue(
                     Constants.Basic, authToken?.AccessToken);
+                return authToken;
             }
+            return null;
         }
 
         /// <summary>
@@ -384,7 +386,36 @@ namespace System.Application.Services.CloudService
             return responseResult != null;
         }
 
+        public Task<bool>? RefreshTokenAndAutoSaveTask { get; private set; }
+
+        async Task<bool> RefreshTokenAndAutoSave(JWTEntity jwt)
+        {
+            var rsp = await conn_helper.RefreshToken(jwt);
+
+            if (rsp.IsSuccess && rsp.Content != null)
+            {
+                await conn_helper.SaveAuthTokenAsync(jwt);
+                return true;
+            }
+            else if (rsp.Code != ApiResponseCode.Unauthorized)
+            {
+                logger.LogWarning("RefreshToken Fail, Code: {0}", rsp.Code);
+            }
+            return false;
+        }
+
+        async Task<bool> RefreshToken(JWTEntity jwt)
+        {
+            if (RefreshTokenAndAutoSaveTask == null)
+            {
+                RefreshTokenAndAutoSaveTask = RefreshTokenAndAutoSave(jwt);
+            }
+            var r = await RefreshTokenAndAutoSaveTask;
+            return r;
+        }
+
         async Task<IApiResponse<TResponseModel>> SendCoreAsync<TRequestModel, TResponseModel>(
+            bool isAnonymous,
             bool isApi,
             CancellationToken cancellationToken,
             HttpMethod method,
@@ -464,13 +495,38 @@ namespace System.Application.Services.CloudService
                     request.Headers.Add(Constants.Headers.Request.SecurityKey, skey_str);
                 }
 
-                await SetRequestHeaderAuthorization(request);
+                JWTEntity? jwt = null;
+
+                if (!isAnonymous)
+                {
+                    jwt = await SetRequestHeaderAuthorization(request);
+                }
+
                 var client = conn_helper.CreateClient();
                 using var response = await client.SendAsync(request,
                     HttpCompletionOption.ResponseHeadersRead,
                     cancellationToken)
                     .ConfigureAwait(false);
                 var code = (ApiResponseCode)response.StatusCode;
+
+                if (!isAnonymous && code == ApiResponseCode.Unauthorized && jwt != null)
+                {
+                    var resultRefreshToken = await RefreshToken(jwt);
+                    if (resultRefreshToken)
+                    {
+                        var resultRecursion = await SendCoreAsync<TRequestModel, TResponseModel>(
+                            isAnonymous,
+                            isApi,
+                            cancellationToken,
+                            method,
+                            requestUri,
+                            requestModel,
+                            responseContentMaybeNull,
+                            isSecurity);
+                        return resultRecursion;
+                    }
+                }
+
                 if (response.Content == null)
                 {
                     responseResult = ApiResponse.Code<TResponseModel>(code);
@@ -554,7 +610,8 @@ namespace System.Application.Services.CloudService
             CancellationToken cancellationToken,
             string requestUri,
             string cacheFilePath,
-            IProgress<float> progress)
+            IProgress<float> progress,
+            bool isAnonymous)
         {
             if (GlobalBeforeIntercept<object>(out var globalBeforeInterceptResponse))
             {
@@ -566,13 +623,36 @@ namespace System.Application.Services.CloudService
             try
             {
                 using var request = new HttpRequestMessage(method, requestUri);
-                await SetRequestHeaderAuthorization(request);
+
+                JWTEntity? jwt = null;
+
+                if (!isAnonymous)
+                {
+                    jwt = await SetRequestHeaderAuthorization(request);
+                }
+
                 var client = conn_helper.CreateClient();
                 using var response = await client.SendAsync(request,
                     HttpCompletionOption.ResponseHeadersRead,
                     cancellationToken)
                     .ConfigureAwait(false);
                 var code = (ApiResponseCode)response.StatusCode;
+
+                if (!isAnonymous && code == ApiResponseCode.Unauthorized && jwt != null)
+                {
+                    var resultRefreshToken = await RefreshToken(jwt);
+                    if (resultRefreshToken)
+                    {
+                        var resultRecursion = await DownloadAsync(
+                            cancellationToken,
+                            requestUri,
+                            cacheFilePath,
+                            progress,
+                            isAnonymous);
+                        return resultRecursion;
+                    }
+                }
+
                 responseResult = ApiResponse.Code(code);
                 if (responseResult.IsSuccess)
                 {
@@ -637,9 +717,10 @@ namespace System.Application.Services.CloudService
             return responseResult;
         }
 
-        public async Task<IApiResponse<TResponseModel>> SendAsync<TRequestModel, TResponseModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, TRequestModel? request, bool responseContentMaybeNull, bool isSecurity)
+        public async Task<IApiResponse<TResponseModel>> SendAsync<TRequestModel, TResponseModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, TRequestModel? request, bool responseContentMaybeNull, bool isSecurity, bool isAnonymous)
         {
             var rsp = await SendCoreAsync<TRequestModel, TResponseModel>(
+                isAnonymous: isAnonymous,
                 isApi: true,
                 cancellationToken,
                 method,
@@ -650,9 +731,10 @@ namespace System.Application.Services.CloudService
             return rsp;
         }
 
-        public async Task<IApiResponse<byte[]>> GetRaw(CancellationToken cancellationToken, string requestUri)
+        public async Task<IApiResponse<byte[]>> GetRaw(CancellationToken cancellationToken, string requestUri, bool isAnonymous)
         {
             var rsp = await SendCoreAsync<object, byte[]>(
+                isAnonymous: isAnonymous,
                 isApi: false,
                 cancellationToken,
                 HttpMethod.Get,
@@ -663,9 +745,10 @@ namespace System.Application.Services.CloudService
             return rsp;
         }
 
-        public async Task<IApiResponse<string>> GetHtml(CancellationToken cancellationToken, string requestUri)
+        public async Task<IApiResponse<string>> GetHtml(CancellationToken cancellationToken, string requestUri, bool isAnonymous)
         {
             var rsp = await SendCoreAsync<object, string>(
+                isAnonymous: isAnonymous,
                 isApi: false,
                 cancellationToken,
                 HttpMethod.Get,
@@ -676,9 +759,10 @@ namespace System.Application.Services.CloudService
             return rsp;
         }
 
-        public async Task<IApiResponse> SendAsync<TRequestModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, TRequestModel? request, bool isSecurity)
+        public async Task<IApiResponse> SendAsync<TRequestModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, TRequestModel? request, bool isSecurity, bool isAnonymous)
         {
             var rsp = await SendCoreAsync<TRequestModel, object>(
+                isAnonymous: isAnonymous,
                 isApi: true,
                 cancellationToken,
                 method,
@@ -689,9 +773,10 @@ namespace System.Application.Services.CloudService
             return rsp;
         }
 
-        public async Task<IApiResponse> SendAsync(CancellationToken cancellationToken, HttpMethod method, string requestUri)
+        public async Task<IApiResponse> SendAsync(CancellationToken cancellationToken, HttpMethod method, string requestUri, bool isAnonymous)
         {
             var rsp = await SendCoreAsync<object, object>(
+                isAnonymous: isAnonymous,
                 isApi: true,
                 cancellationToken,
                 method,
@@ -702,9 +787,10 @@ namespace System.Application.Services.CloudService
             return rsp;
         }
 
-        public async Task<IApiResponse<TResponseModel>> SendAsync<TResponseModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, bool responseContentMaybeNull, bool isSecurity)
+        public async Task<IApiResponse<TResponseModel>> SendAsync<TResponseModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, bool responseContentMaybeNull, bool isSecurity, bool isAnonymous)
         {
             var rsp = await SendCoreAsync<object, TResponseModel>(
+                isAnonymous: isAnonymous,
                 isApi: true,
                 cancellationToken,
                 method,

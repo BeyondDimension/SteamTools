@@ -20,6 +20,7 @@ namespace System.Application.Services.CloudService
         #region Clients
 
         public IAccountClient Account { get; }
+        public IManageClient Manage { get; }
         public IAuthMessageClient AuthMessage { get; }
         public IVersionClient Version { get; }
 
@@ -68,6 +69,7 @@ namespace System.Application.Services.CloudService
             #region SetClients
 
             Account = new AccountClient(connection);
+            Manage = new ManageClient(connection);
             AuthMessage = new AuthMessageClient(connection);
             Version = new VersionClient(connection);
 
@@ -87,8 +89,11 @@ namespace System.Application.Services.CloudService
 
         HttpClient IApiConnectionPlatformHelper.CreateClient() => CreateClient();
 
-        Task<IApiResponse> ICloudServiceClient.Download(string requestUri,
+        Task<IApiResponse> ICloudServiceClient.Download(bool isAnonymous, string requestUri,
             string cacheFilePath, IProgress<float> progress, CancellationToken cancellationToken)
-            => connection.DownloadAsync(cancellationToken, requestUri, cacheFilePath, progress);
+            => connection.DownloadAsync(cancellationToken, requestUri, cacheFilePath, progress, isAnonymous);
+
+        Task<IApiResponse<JWTEntity>> IApiConnectionPlatformHelper.RefreshToken(JWTEntity jwt)
+            => Account.RefreshToken(jwt);
     }
 }

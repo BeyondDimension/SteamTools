@@ -10,12 +10,14 @@ namespace System.Application.Services
     {
         IAccountClient Account { get; }
 
+        IManageClient Manage { get; }
+
         IAuthMessageClient AuthMessage { get; }
 
         IVersionClient Version { get; }
 
-        /// <inheritdoc cref="IApiConnection.DownloadAsync(CancellationToken, string, string, IProgress{float})"/>
-        Task<IApiResponse> Download(string requestUri, string cacheFilePath, IProgress<float> progress, CancellationToken cancellationToken = default);
+        /// <inheritdoc cref="IApiConnection.DownloadAsync(bool, CancellationToken, string, string, IProgress{float})"/>
+        Task<IApiResponse> Download(bool isAnonymous, string requestUri, string cacheFilePath, IProgress<float> progress, CancellationToken cancellationToken = default);
 
         public static ICloudServiceClient Instance => DI.Get<ICloudServiceClient>();
     }

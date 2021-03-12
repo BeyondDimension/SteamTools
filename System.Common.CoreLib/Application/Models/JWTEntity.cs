@@ -38,6 +38,7 @@ namespace System.Application.Models
 
         bool IExplicitHasValue.ExplicitHasValue()
         {
+            // 仅数据格式是否正确，不验证时间有效期等业务逻辑
             return !string.IsNullOrEmpty(AccessToken) &&
                 !string.IsNullOrEmpty(RefreshToken);
         }

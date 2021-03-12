@@ -99,13 +99,19 @@ namespace System
                                             {
                                                 if (licenseline.Contains("Copyright (c)"))
                                                 {
+                                                    const string start_del_1 = "// ";
+                                                    var licenseline_ = licenseline;
+                                                    if (licenseline_.StartsWith(start_del_1))
+                                                    {
+                                                        licenseline_ = licenseline_[start_del_1.Length..];
+                                                    }
                                                     if (string.IsNullOrWhiteSpace(item.Copyright))
                                                     {
-                                                        item.Copyright = licenseline;
+                                                        item.Copyright = licenseline_;
                                                     }
                                                     else
                                                     {
-                                                        item.Copyright += Environment.NewLine + licenseline;
+                                                        item.Copyright += Environment.NewLine + licenseline_;
                                                     }
                                                 }
                                             }
