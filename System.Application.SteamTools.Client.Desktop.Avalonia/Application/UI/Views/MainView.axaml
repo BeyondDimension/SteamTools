@@ -28,7 +28,7 @@
                 <ExperimentalAcrylicBorder.Material>
                     <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
                 </ExperimentalAcrylicBorder.Material>
-                <Label Content="{ReflectionBinding #TabControl.SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Margin="20 10 20 0" FontSize="32"/>
+                <TextBlock Text="{ReflectionBinding #TabControl.SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Margin="20 10 20 0" FontSize="32"/>
             </ExperimentalAcrylicBorder>
         </DockPanel>
         <TabControl x:Name="TabControl"

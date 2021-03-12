@@ -1,13 +1,11 @@
-<FluentWindow xmlns="https://github.com/avaloniaui"
+<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         d:DesignWidth="1200" Width="1200" MinWidth="800"
         d:DesignHeight="600" Height="800" MinHeight="600"
-        xmlns:pages="clr-namespace:System.Application.UI.Pages;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
-        xmlns:local="clr-namespace:System.Application.UI.Views;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"     
-        xmlns:manager="clr-namespace:Avalonia.ThemeManager;assembly=Avalonia.ThemeManager"
+        xmlns:local="clr-namespace:System.Application.UI.Views;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
         x:Class="System.Application.UI.Views.MainWindow"
         x:Name="MainWindow"
         WindowStartupLocation="CenterScreen"
@@ -15,13 +13,13 @@
         Background="{x:Null}"
         Title="{Binding Title,Mode=OneWay}"
         Topmost="{Binding Topmost}">
-  <FluentWindow.Styles>
+  <Window.Styles>
     <Style Selector="TitleBar:fullscreen">
       <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
     </Style>
-  </FluentWindow.Styles>
+  </Window.Styles>
 
   <Panel Margin="{Binding #MainWindow.OffScreenMargin}">
     <local:MainView />
   </Panel>
-</FluentWindow>
+</Window>

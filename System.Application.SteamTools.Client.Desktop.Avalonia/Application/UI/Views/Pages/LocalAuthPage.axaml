@@ -22,12 +22,20 @@
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel x:Name="panel" Spacing="8">
-                            <Border Classes="paper" Width="250" Height="250" Background="{DynamicResource ThemeBrushKey}">
+                        <StackPanel Spacing="8">
+                            <Border x:Name="panel" Classes="paper" Width="250" Height="250" Background="{DynamicResource ThemeBrushKey}">
+                                <i:Interaction.Behaviors>
+                                    <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{Binding #panel}">
+                                        <ia:ChangePropertyAction TargetObject="{Binding #delete_btn}" PropertyName="IsVisible" Value="True"/>
+                                    </ia:EventTriggerBehavior>
+                                    <ia:EventTriggerBehavior EventName="PointerLeave" SourceObject="{Binding #panel}">
+                                        <ia:ChangePropertyAction TargetObject="{Binding #delete_btn}" PropertyName="IsVisible" Value="False"/>
+                                    </ia:EventTriggerBehavior>
+                                </i:Interaction.Behaviors>
                                 <Grid RowDefinitions="30,165,Auto">
                                     <Grid VerticalAlignment="Center" ColumnDefinitions="*,Auto">
                                         <controls:ScrollingTextBlock Padding="10,5" Text="{Binding}" FontSize="14" Foreground="{DynamicResource HighlightForegroundBrushKey}"></controls:ScrollingTextBlock>
-                                        <Button Grid.Column="1" x:Name="delete_btn" Classes="flatbutton" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                                        <Button Grid.Column="1" x:Name="delete_btn" Classes="flatbutton" IsVisible="False" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                             <Image Width="12" Height="18">
                                                 <Image.Source>
                                                     <DrawingImage Drawing="{DynamicResource CloseDrawing}"></DrawingImage>
@@ -44,6 +52,7 @@
                                         <!--<controls:ScrollingTextBlock HorizontalAlignment="Center" Width="{Binding #panel.Width}" Text="{Binding}" FontSize="14" Foreground="{DynamicResource HighlightForegroundBrushKey}" ></controls:ScrollingTextBlock>-->
                                         <Grid ColumnDefinitions="*,Auto">
                                             <StackPanel Orientation="Horizontal" Spacing="5">
+                                                
                                                 <Button Cursor="Hand" Classes="flatbutton">
                                                     <Image Width="20" Height="16">
                                                         <Image.Source>
@@ -67,12 +76,20 @@
                                                         </Image.Source>
                                                     </Image>
                                                 </Button>
+                                                
+                                                <Button Cursor="Hand" Classes="flatbutton">
+                                                    <Image Width="20" Height="16">
+                                                        <Image.Source>
+                                                            <DrawingImage Drawing="{DynamicResource InfoDrawing}"></DrawingImage>
+                                                        </Image.Source>
+                                                    </Image>
+                                                </Button>
                                             </StackPanel>
-
-                                            <Button Grid.Column="1" Cursor="Hand" Classes="flatbutton">
-                                                <Image Width="16" Height="16">
+                                            
+                                            <Button x:Name="expander" Grid.Column="1" Cursor="Hand" Classes="flatbutton">
+                                                <Image Width="20" Height="16">
                                                     <Image.Source>
-                                                        <DrawingImage Drawing="{DynamicResource RightDrawing}"></DrawingImage>
+                                                        <DrawingImage Drawing="{DynamicResource CopyDrawing}"></DrawingImage>
                                                     </Image.Source>
                                                 </Image>
                                             </Button>

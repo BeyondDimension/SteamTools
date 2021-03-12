@@ -94,7 +94,7 @@ namespace System.Application.UI.ViewModels
                 {
                     if (item == GameListPage)
                         continue;
-                    await item.Initialize();
+                    Task.Run(item.Initialize).ForgetAndDispose();
                 }
                 this.IsInitialized = true;
             }

@@ -23,7 +23,7 @@
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel x:Name="panel" Margin="20,10" Spacing="8" MinWidth="200" >
+                        <StackPanel x:Name="panel" Margin="20,10" Spacing="8" MinWidth="200" Height="184">
                             <Border x:Name="card" DockPanel.Dock="Top" Classes="paper" CornerRadius="0" Background="{DynamicResource ThemeBrushKey}">
                                 <i:Interaction.Behaviors>
                                     <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{Binding #card}">

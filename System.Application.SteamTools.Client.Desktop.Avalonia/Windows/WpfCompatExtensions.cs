@@ -37,11 +37,11 @@ namespace System.Windows
                     var major = Environment.OSVersion.Version.Major;
                     if (major > 6 || (major == 6 && Environment.OSVersion.Version.Minor >= 2))
                     {
-                        name = "Microsoft YaHei UI";
+                        name = "Microsoft YaHei UI Light";
                     }
                     else
                     {
-                        name = "Microsoft YaHei";
+                        name = "Microsoft YaHei Light";
                     }
                     window.FontFamily = new FontFamily(name);
                 }
