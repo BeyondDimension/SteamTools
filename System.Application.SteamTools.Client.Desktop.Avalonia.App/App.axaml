@@ -9,6 +9,7 @@
     <Application.Resources>
         <converters:IsNullConverter x:Key="IsNullConverter" />
         <converters:CardTitleToPlaceholderConverter x:Key="CardTitleToPlaceholderConverter" />
+        <converters:DrawingKeyValueConverter x:Key="DrawingKeyValueConverter" />
         <converters:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
         <converters:ReverseBooleanConverter x:Key="ReverseBooleanConverter" />
         <converters:DateFormatConverter x:Key="DateFormatConverter" />

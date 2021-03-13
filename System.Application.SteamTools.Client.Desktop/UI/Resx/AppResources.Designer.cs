@@ -331,6 +331,16 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 确定要删除这条本地记录帐户数据吗？
+        ///这将会删除此账户在本地的Steam缓存数据。 的本地化字符串。
+        /// </summary>
+        public static string UserChange_DeleteUserTip {
+            get {
+                return ResourceManager.GetString("UserChange_DeleteUserTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 离线模式启动 的本地化字符串。
         /// </summary>
         public static string UserChange_OfflineBtn {

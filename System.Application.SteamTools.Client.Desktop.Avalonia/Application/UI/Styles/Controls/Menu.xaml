@@ -1,0 +1,19 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20" Background="Green">
+            <StackPanel Spacing="5">
+                <TextBox Classes="readonlybox" Text="Code Font Family" />
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+    <Styles.Resources>
+    </Styles.Resources>
+
+    <!--<Style Selector="Menu /template/ ItemsPresenter#PART_ItemsPresenter">
+        <Setter Property="VirtualizationMode" Value="None"/>
+    </Style>
+    <Style Selector="MenuItem /template/ ItemsPresenter#PART_ItemsPresenter">
+        <Setter Property="VirtualizationMode" Value="None"/>
+    </Style>-->
+</Styles>

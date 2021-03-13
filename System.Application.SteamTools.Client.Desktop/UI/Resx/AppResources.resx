@@ -207,6 +207,10 @@
   <data name="UserChange_DeleteUser" xml:space="preserve">
     <value>删除此账号数据</value>
   </data>
+  <data name="UserChange_DeleteUserTip" xml:space="preserve">
+    <value>确定要删除这条本地记录帐户数据吗？
+这将会删除此账户在本地的Steam缓存数据。</value>
+  </data>
   <data name="UserChange_OfflineBtn" xml:space="preserve">
     <value>离线模式启动</value>
   </data>

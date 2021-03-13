@@ -27,7 +27,7 @@
         <StackPanel Grid.Row="1" Margin="10 5 0 5" IsHitTestVisible="False">
             <TextBlock Text="{Binding Title}" FontSize="16"></TextBlock>
         </StackPanel>
-        <StackPanel Margin="12 12 12 12" Grid.Row="2" x:Name="content">
+        <StackPanel Margin="12 12 12 5" Grid.Row="2" x:Name="content">
             <DockPanel>
                 <TextBlock Text="{Binding Content}" MaxWidth="500"
                            Margin="12,0" FontSize="14"
@@ -35,11 +35,13 @@
                            TextWrapping="WrapWithOverflow"
                            VerticalAlignment="Center"></TextBlock>
             </DockPanel>
-            <Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness=".88" Margin="10 15 10 0"/>
+            <Border Margin="10 15 10 0">
+                <Separator BorderThickness=".88" Background="{DynamicResource SystemControlHighlightBaseLowBrush}"  />
+            </Border>
         </StackPanel>
         <WrapPanel  Grid.Row="3"
                    HorizontalAlignment="Right"
-                   Margin="10,0,10,6">
+                   Margin="10,0,10,0">
             <Button MinWidth="90" Padding="30,6" Margin="6" IsDefault="True" Content="{Binding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OK}"></Button>
             <Button MinWidth="90" Padding="30,6" Margin="6" IsCancel="True" Content="{Binding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Cancel}" IsVisible="{Binding IsCancelcBtn}"></Button>
         </WrapPanel>

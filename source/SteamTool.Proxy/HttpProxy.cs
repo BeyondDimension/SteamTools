@@ -220,13 +220,17 @@ namespace SteamTool.Proxy
                                                 {
                                                     var headIndex = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
                                                     var temp1 = $"<script type=\"text/javascript\" src=\"{req}\"></script>\n";
-                                                    doc = doc.Insert(headIndex, temp1);
+                                                    if (headIndex > -1)
+                                                        doc = doc.Insert(headIndex, temp1);
                                                 }
                                             }
                                             var index = doc.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
                                             var temp = $"<script type=\"text/javascript\">{script.@Content}</script>";
-                                            doc = doc.Insert(index, temp);
-                                            e.SetResponseBodyString(doc);
+                                            if (index > -1)
+                                            {
+                                                doc = doc.Insert(index, temp);
+                                                e.SetResponseBodyString(doc);
+                                            }
                                         }
                                     }
                                 }

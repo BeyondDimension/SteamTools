@@ -1,6 +1,7 @@
 ﻿using ReactiveUI;
 using StatefulModel.EventListeners;
 using System.Application.UI.Resx;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
@@ -40,6 +41,8 @@ namespace System.Application.UI.ViewModels
 
         #endregion
 
+        public virtual IList<MenuItemViewModel> MenuItems { get; set; }
+
         protected TabItemViewModel()
         {
             if (IsInDesignMode) return;
@@ -49,7 +52,6 @@ namespace System.Application.UI.ViewModels
                 (sender, args) => this.RaisePropertyChanged(nameof(this.Name)),
             });
         }
-
 
         internal async virtual Task Initialize()
         {

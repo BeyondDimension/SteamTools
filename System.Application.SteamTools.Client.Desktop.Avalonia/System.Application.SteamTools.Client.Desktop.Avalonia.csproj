@@ -25,6 +25,7 @@
     <None Remove="Application\UI\Styles\Controls\Border.xaml" />
     <None Remove="Application\UI\Styles\Controls\Button.xaml" />
     <None Remove="Application\UI\Styles\Controls\DrawingSvg.xaml" />
+    <None Remove="Application\UI\Styles\Controls\Menu.xaml" />
     <None Remove="Application\UI\Styles\Controls\TabControl.xaml" />
     <None Remove="Application\UI\Styles\Controls\TextBox.xaml" />
     <None Remove="Application\UI\Styles\ThemeDark.xaml" />
@@ -68,6 +69,9 @@
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>
     <AvaloniaResource Update="Application\UI\Styles\Controls\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+    <AvaloniaResource Update="Application\UI\Styles\Controls\Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>
     <AvaloniaResource Update="Application\UI\Styles\Controls\TextBox.xaml">

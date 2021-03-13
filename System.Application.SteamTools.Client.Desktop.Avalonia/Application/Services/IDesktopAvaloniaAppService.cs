@@ -9,6 +9,8 @@ namespace System.Application.Services
 
         Window MainWindow { get; }
 
+        Avalonia.Application CurrentApp { get; }
+
         /// <summary>
         /// 打开子窗口
         /// </summary>

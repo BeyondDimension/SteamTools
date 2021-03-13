@@ -27,7 +27,7 @@
                 </ExperimentalAcrylicBorder.Material>
             </ExperimentalAcrylicBorder>
         </DockPanel>
-        
+
         <!--Title-->
         <Grid ColumnDefinitions="240,*,Auto">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
@@ -35,21 +35,34 @@
                 <Label Content="{Binding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
             </StackPanel>
             <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{ReflectionBinding #TabControl.SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Margin="20 10 20 0" FontSize="32"/>
-            <StackPanel Grid.Column="2" x:Name="titleButton" Orientation="Horizontal" VerticalAlignment="Top">
+            <StackPanel IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}" Grid.Column="2" x:Name="titleButton" Orientation="Horizontal" VerticalAlignment="Top">
                 <!--<Border Background="{DynamicResource ActiveLinkForegroundBrushKey}">
                     <Button Content="Test" Classes="flatbutton"></Button>
                 </Border>-->
-                <Menu>
-                    <MenuItem Header="File">
-                        <MenuItem Header="New" InputGesture="CTRL + N" />
-                        <MenuItem Header="Open" />
-                        <Separator />
-                        <MenuItem Header="Exit" InputGesture="Alt + F4" />
-                    </MenuItem>
+                <Menu Items="{Binding SelectedItem.MenuItems}">
+                    <Menu.Styles>
+                        <Style Selector="MenuItem">
+                            <Setter Property="Icon">
+                                <Setter.Value>
+                                    <Template>
+                                        <Image Width="12" VerticalAlignment="Center">
+                                            <Image.Source>
+                                                <DrawingImage Drawing="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"></DrawingImage>
+                                            </Image.Source>
+                                        </Image>
+                                    </Template>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Header" Value="{Binding Header}"/>
+                            <Setter Property="Items" Value="{Binding Items}"/>
+                            <Setter Property="Command" Value="{Binding Command}"/>
+                            <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
+                        </Style>
+                    </Menu.Styles>
                 </Menu>
             </StackPanel>
         </Grid>
-        
+
         <!--Content-->
         <TabControl x:Name="TabControl"
                     Items="{Binding TabItems}"
