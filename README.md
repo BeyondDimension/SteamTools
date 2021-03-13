@@ -49,13 +49,13 @@
 		- Alpine Linux 3.11+
 		- CentOS 7+
 		- Debian 9+
+			- Deepin 20.1 / UOS 20
 		- Fedora 32+
 		- Linux Mint 18+
 		- openSUSE 15+
 		- Red Hat Enterprise Linux 7+
 		- SUSE Enterprise Linux (SLES) 12 SP2+
 		- Ubuntu 20.10, 20.04, 18.04, 16.04
-		- Deepin 20.1 / UOS 20
 - 移动端
 	- Android 5.0+
 	- iOS 10.0+

@@ -21,6 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AppCenter" Version="4.1.0-avalonia" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.1.0-avalonia" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0-avalonia" />
     <PackageReference Include="TaskScheduler" Version="2.9.1" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
   </ItemGroup>
@@ -29,24 +32,6 @@
     <ProjectReference Include="..\references\Steam4NET\Steam4NET\Steam4NET.csproj" />
     <ProjectReference Include="..\references\SteamAchievementManager\SAM.API\SAM.API.csproj" />
     <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop\System.Application.SteamTools.Client.Desktop.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
-    <PackageReference Include="System.Management" Version="5.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
-    <PackageReference Include="Microsoft.Win32.SystemEvents" Version="5.0.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
-    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.0.4" />
-    <Reference Include="Microsoft.AppCenter">
-      <HintPath>..\references\libs\Microsoft.AppCenter.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AppCenter.Analytics">
-      <HintPath>..\references\libs\Microsoft.AppCenter.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AppCenter.Crashes">
-      <HintPath>..\references\libs\Microsoft.AppCenter.Crashes.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

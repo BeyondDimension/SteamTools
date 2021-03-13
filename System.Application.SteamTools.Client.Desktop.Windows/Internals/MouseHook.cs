@@ -74,7 +74,7 @@ namespace System
                 {
                     if (MouseUp != null)
                     {
-                        MouseUp.Invoke(null, new Point(mouseHookStruct.pt.X, mouseHookStruct.pt.Y));
+                        MouseUp.Invoke(null, new PointDouble(mouseHookStruct.pt.X, mouseHookStruct.pt.Y));
                     }
                 }
             }
@@ -164,5 +164,5 @@ namespace System
         public static extern IntPtr WindowFromPoint(PointInt32 pt);
     }
 
-    internal delegate void MouseUpEventHandler(object? sender, Point p);
+    internal delegate void MouseUpEventHandler(object? sender, PointDouble p);
 }

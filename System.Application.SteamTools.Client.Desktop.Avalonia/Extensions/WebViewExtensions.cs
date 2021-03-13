@@ -8,12 +8,16 @@ namespace System
 {
     public static class WebViewExtensions
     {
-        public static async Task<string> GetUserAgentAsync(this WebView webView)
+        static string? mUserAgent;
+
+        public static async ValueTask<string> GetUserAgentAsync(this WebView webView)
         {
+            if (mUserAgent != null) return mUserAgent;
             var frame = webView.GetMainFrame();
             dynamic scriptable = await frame
                 .GetScriptableObjectAsync(CancellationToken.None).ConfigureAwait(true);
-            return scriptable.window.navigator.userAgent;
+            mUserAgent = scriptable.window.navigator.userAgent;
+            return mUserAgent;
         }
     }
 }

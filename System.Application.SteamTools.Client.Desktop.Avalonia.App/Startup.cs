@@ -9,8 +9,6 @@ using System.IO;
 using System.Properties;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace System.Application.UI
 {
@@ -201,59 +199,59 @@ namespace System.Application.UI
             }
         }
 
-        sealed class WPFMessageBoxCompatService : IMessageBoxCompatService
-        {
-            static MessageBoxButton GetButtonEnum(MessageBoxButtonCompat button) => button switch
-            {
-                MessageBoxButtonCompat.OK => MessageBoxButton.OK,
-                MessageBoxButtonCompat.OKCancel => MessageBoxButton.OKCancel,
-#pragma warning disable CS0618 // 类型或成员已过时
-                MessageBoxButtonCompat.YesNo => MessageBoxButton.YesNo,
-                MessageBoxButtonCompat.YesNoCancel => MessageBoxButton.YesNoCancel,
-#pragma warning restore CS0618 // 类型或成员已过时
-                _ => throw new ArgumentOutOfRangeException(nameof(button), $"value: {button}"),
-            };
+        //        sealed class WPFMessageBoxCompatService : IMessageBoxCompatService
+        //        {
+        //            static MessageBoxButton GetButtonEnum(MessageBoxButtonCompat button) => button switch
+        //            {
+        //                MessageBoxButtonCompat.OK => MessageBoxButton.OK,
+        //                MessageBoxButtonCompat.OKCancel => MessageBoxButton.OKCancel,
+        //#pragma warning disable CS0618 // 类型或成员已过时
+        //                MessageBoxButtonCompat.YesNo => MessageBoxButton.YesNo,
+        //                MessageBoxButtonCompat.YesNoCancel => MessageBoxButton.YesNoCancel,
+        //#pragma warning restore CS0618 // 类型或成员已过时
+        //                _ => throw new ArgumentOutOfRangeException(nameof(button), $"value: {button}"),
+        //            };
 
-            static MessageBoxImage GetIcon(MessageBoxImageCompat icon) => icon switch
-            {
-                MessageBoxImageCompat.Asterisk => MessageBoxImage.Asterisk,
-                MessageBoxImageCompat.Error => MessageBoxImage.Error,
-                MessageBoxImageCompat.Exclamation => MessageBoxImage.Exclamation,
-                MessageBoxImageCompat.None => MessageBoxImage.None,
-#pragma warning disable CS0618 // 类型或成员已过时
-                MessageBoxImageCompat.Question => MessageBoxImage.Question,
-#pragma warning restore CS0618 // 类型或成员已过时
-                _ => throw new ArgumentOutOfRangeException(nameof(icon), $"value: {icon}"),
-            };
+        //            static MessageBoxImage GetIcon(MessageBoxImageCompat icon) => icon switch
+        //            {
+        //                MessageBoxImageCompat.Asterisk => MessageBoxImage.Asterisk,
+        //                MessageBoxImageCompat.Error => MessageBoxImage.Error,
+        //                MessageBoxImageCompat.Exclamation => MessageBoxImage.Exclamation,
+        //                MessageBoxImageCompat.None => MessageBoxImage.None,
+        //#pragma warning disable CS0618 // 类型或成员已过时
+        //                MessageBoxImageCompat.Question => MessageBoxImage.Question,
+        //#pragma warning restore CS0618 // 类型或成员已过时
+        //                _ => throw new ArgumentOutOfRangeException(nameof(icon), $"value: {icon}"),
+        //            };
 
-            static MessageBoxResultCompat GetResult(MessageBoxResult result) => result switch
-            {
-                MessageBoxResult.OK => MessageBoxResultCompat.OK,
-#pragma warning disable CS0618 // 类型或成员已过时
-                MessageBoxResult.Yes => MessageBoxResultCompat.Yes,
-                MessageBoxResult.No => MessageBoxResultCompat.No,
-#pragma warning restore CS0618 // 类型或成员已过时
-                MessageBoxResult.Cancel => MessageBoxResultCompat.Cancel,
-                MessageBoxResult.None => MessageBoxResultCompat.None,
-                _ => throw new ArgumentOutOfRangeException(nameof(result), $"value: {result}"),
-            };
+        //            static MessageBoxResultCompat GetResult(MessageBoxResult result) => result switch
+        //            {
+        //                MessageBoxResult.OK => MessageBoxResultCompat.OK,
+        //#pragma warning disable CS0618 // 类型或成员已过时
+        //                MessageBoxResult.Yes => MessageBoxResultCompat.Yes,
+        //                MessageBoxResult.No => MessageBoxResultCompat.No,
+        //#pragma warning restore CS0618 // 类型或成员已过时
+        //                MessageBoxResult.Cancel => MessageBoxResultCompat.Cancel,
+        //                MessageBoxResult.None => MessageBoxResultCompat.None,
+        //                _ => throw new ArgumentOutOfRangeException(nameof(result), $"value: {result}"),
+        //            };
 
-            public Task<MessageBoxResultCompat> ShowAsync(string messageBoxText, string caption, MessageBoxButtonCompat button, MessageBoxImageCompat? icon)
-            {
-                var button_ = GetButtonEnum(button);
-                if (icon.HasValue)
-                {
-                    var icon_ = GetIcon(icon.Value);
-                    var result = MessageBox.Show(messageBoxText, caption, button_, icon_);
-                    return Task.FromResult(GetResult(result));
-                }
-                else
-                {
-                    var result = MessageBox.Show(messageBoxText, caption, button_);
-                    return Task.FromResult(GetResult(result));
-                }
-            }
-        }
+        //            public Task<MessageBoxResultCompat> ShowAsync(string messageBoxText, string caption, MessageBoxButtonCompat button, MessageBoxImageCompat? icon)
+        //            {
+        //                var button_ = GetButtonEnum(button);
+        //                if (icon.HasValue)
+        //                {
+        //                    var icon_ = GetIcon(icon.Value);
+        //                    var result = MessageBox.Show(messageBoxText, caption, button_, icon_);
+        //                    return Task.FromResult(GetResult(result));
+        //                }
+        //                else
+        //                {
+        //                    var result = MessageBox.Show(messageBoxText, caption, button_);
+        //                    return Task.FromResult(GetResult(result));
+        //                }
+        //            }
+        //        }
 #endif
     }
 }

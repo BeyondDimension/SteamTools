@@ -39,6 +39,7 @@ English | [简体中文](./README.md)
 		- Alpine Linux 3.11+
 		- CentOS 7+
 		- Debian 9+
+			- Deepin 20.1 / UOS 20
 		- Fedora 32+
 		- Linux Mint 18+
 		- openSUSE 15+
