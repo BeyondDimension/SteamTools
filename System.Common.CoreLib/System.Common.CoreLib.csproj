@@ -9,7 +9,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-    <PackageReference Include="Nito.Comparers" Version="6.1.0" />
+    <PackageReference Include="Nito.Comparers" Version="6.2.0" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="Crc32.NET" Version="1.2.0" />
     <PackageReference Include="gfoidl.Base64" Version="1.1.1" />

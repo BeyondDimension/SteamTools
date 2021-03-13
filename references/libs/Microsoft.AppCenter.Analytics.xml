@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AppCenter.Analytics</name>
+    </assembly>
+    <members>
+        <member name="M:Microsoft.AppCenter.Analytics.Analytics.IsEnabledAsync">
+            <summary>
+            Check whether the Analytics service is enabled or not.
+            </summary>
+            <returns>A task with result being true if enabled, false if disabled.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Analytics.Analytics.SetEnabledAsync(System.Boolean)">
+            <summary>
+            Enable or disable the Analytics service.
+            </summary>
+            <returns>A task to monitor the operation.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Analytics.Analytics.TrackEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+                Track a custom event with name and optional properties.
+            </summary>
+            <remarks>
+                The name parameter can not be null or empty.Maximum allowed length = 256.
+                The properties parameter maximum item count = 5.
+                The properties keys/names can not be null or empty, maximum allowed key length = 64.
+                The properties values can not be null, maximum allowed value length = 64.
+            </remarks>
+            <param name="name">An event name.</param>
+            <param name="properties">Optional properties.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Analytics.Analytics.ValidateName(System.String@,System.String)">
+            <summary>
+            Validates name.
+            </summary>
+            <param name="name">Log name to validate.</param>
+            <param name="logType">Log type.</param>
+            <returns><c>true</c> if validation succeeds, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="T:Microsoft.AppCenter.Analytics.Ingestion.Models.EventLog">
+            <summary>
+            Event log.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Analytics.Ingestion.Models.EventLog.#ctor">
+            <summary>
+            Initializes a new instance of the EventLog class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Analytics.Ingestion.Models.EventLog.#ctor(Microsoft.AppCenter.Ingestion.Models.Device,System.Guid,System.String,System.Nullable{System.DateTime},System.Nullable{System.Guid},System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Initializes a new instance of the EventLog class.
+            </summary>
+            <param name="id">Unique identifier for this event.
+            </param>
+            <param name="name">Name of the event.
+            </param>
+            <param name="timestamp">Log timestamp, example:
+            '2017-03-13T18:05:42Z'.
+            </param>
+            <param name="sid">When tracking an analytics session, logs can be
+            part of the session by specifying this identifier.
+            This attribute is optional, a missing value means the session
+            tracking is disabled (like when using only error reporting
+            feature).
+            Concrete types like StartSessionLog or PageLog are always part of a
+            session and always include this identifier.
+            </param>
+            <param name="userId">optional string used for associating logs with
+            users.
+            </param>
+            <param name="properties">Additional key/value pair parameters.
+            </param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Analytics.Ingestion.Models.EventLog.Id">
+             <summary>
+             Gets or sets unique identifier for this event.
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Analytics.Ingestion.Models.EventLog.Name">
+             <summary>
+             Gets or sets name of the event.
+            
+             </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Analytics.Ingestion.Models.EventLog.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Analytics.Ingestion.Models.PageLog">
+            <summary>
+            Page view log (as in screens or activities).
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Analytics.Ingestion.Models.PageLog.#ctor">
+            <summary>
+            Initializes a new instance of the PageLog class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Analytics.Ingestion.Models.PageLog.#ctor(Microsoft.AppCenter.Ingestion.Models.Device,System.String,System.Nullable{System.DateTime},System.Nullable{System.Guid},System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Initializes a new instance of the PageLog class.
+            </summary>
+            <param name="name">Name of the page.
+            </param>
+            <param name="timestamp">Log timestamp, example:
+            '2017-03-13T18:05:42Z'.
+            </param>
+            <param name="sid">When tracking an analytics session, logs can be
+            part of the session by specifying this identifier.
+            This attribute is optional, a missing value means the session
+            tracking is disabled (like when using only error reporting
+            feature).
+            Concrete types like StartSessionLog or PageLog are always part of a
+            session and always include this identifier.
+            </param>
+            <param name="userId">optional string used for associating logs with
+            users.
+            </param>
+            <param name="properties">Additional key/value pair parameters.
+            </param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Analytics.Ingestion.Models.PageLog.Name">
+             <summary>
+             Gets or sets name of the page.
+            
+             </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Analytics.Ingestion.Models.PageLog.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Analytics.Ingestion.Models.StartSessionLog">
+            <summary>
+            Required explicit begin session log (a marker event for analytics
+            service).
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Analytics.Ingestion.Models.StartSessionLog.#ctor">
+            <summary>
+            Initializes a new instance of the StartSessionLog class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Analytics.Ingestion.Models.StartSessionLog.#ctor(Microsoft.AppCenter.Ingestion.Models.Device,System.Nullable{System.DateTime},System.Nullable{System.Guid})">
+            <summary>
+            Initializes a new instance of the StartSessionLog class.
+            </summary>
+            <param name="timestamp">Log timestamp, example:
+            '2017-03-13T18:05:42Z'.
+            </param>
+            <param name="sid">When tracking an analytics session, logs can be
+            part of the session by specifying this identifier.
+            This attribute is optional, a missing value means the session
+            tracking is disabled (like when using only error reporting
+            feature).
+            Concrete types like StartSessionLog or PageLog are always part of a
+            session and always include this identifier.
+            </param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Analytics.Ingestion.Models.StartSessionLog.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+    </members>
+</doc>

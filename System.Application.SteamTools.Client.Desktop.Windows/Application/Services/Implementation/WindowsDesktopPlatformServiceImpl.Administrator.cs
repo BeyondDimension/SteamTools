@@ -16,7 +16,7 @@ namespace System.Application.Services.Implementation
         /// 是否是管理员权限
         /// </summary>
         /// <returns></returns>
-        public bool IsAdministrator => mIsAdministrator.Value;
+        public static bool IsAdministrator => mIsAdministrator.Value;
 
         #endregion
     }

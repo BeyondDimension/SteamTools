@@ -1,0 +1,2275 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AppCenter</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AppCenter.AppCenter">
+            <summary>
+            SDK core used to initialize, start and control specific service.
+            </summary>
+            <summary>
+            SDK core used to initialize, start and control specific service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenter.Instance">
+            <summary>
+            Gets or sets the shared instance of App Center. Should never return null.
+            Setter is for testing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenter.SetCountryCode(System.String)">
+            <summary>
+            Sets the two-letter ISO country code to send to the backend.
+            </summary>
+            <param name="countryCode">The two-letter ISO country code. See <see href="https://www.iso.org/obp/ui/#search"/> for more information.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenter.SetWrapperSdk(Microsoft.AppCenter.WrapperSdk)">
+            <summary>
+            A wrapper SDK can use this method to pass extra information to device properties.
+            </summary>
+            <param name="wrapperSdk">Wrapper SDK information.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenter.LogLevel">
+            <summary>
+                This property controls the amount of logs emitted by the SDK.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenter.SetUserId(System.String)">
+            <summary>
+                Set the custom user id.
+            </summary>
+            <param name="userId">Custom string to identify user. 256 characters or less.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenter.SdkVersion">
+            <summary>
+            Get the current version of AppCenter SDK.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenter.IsEnabledAsync">
+            <summary>
+            Check whether the SDK is enabled or not as a whole.
+            </summary>
+            <returns>A task with result being true if enabled, false if disabled.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenter.SetEnabledAsync(System.Boolean)">
+            <summary>
+                Enable or disable the SDK as a whole. 
+                Updating the state propagates the value to all services that have been started.
+            </summary>
+            <returns>A task to monitor the operation.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenter.GetInstallIdAsync">
+            <summary>
+                Get the unique installation identifier for this application installation on this device.
+            </summary>
+            <remarks>
+                The identifier is lost if clearing application data or uninstalling application.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenter.SetLogUrl(System.String)">
+            <summary>
+                Change the base URL (scheme + authority + port only) used to communicate with the backend.
+            </summary>
+            <param name="logUrl">Base URL to use for server communication.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenter.Configured">
+            <summary>
+            Check whether SDK has already been configured or not.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenter.Configure(System.String)">
+            <summary>
+                Configure the SDK.
+                This may be called only once per application process lifetime.
+            </summary>
+            <param name="appSecret">A unique and secret key used to identify the application.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenter.Start(System.Type[])">
+            <summary>
+                Start services.
+                This may be called only once per service per application process lifetime.
+            </summary>
+            <param name="services">List of services to use.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenter.Start(System.String,System.Type[])">
+            <summary>
+                Initialize the SDK with the list of services to start.
+                This may be called only once per application process lifetime.
+            </summary>
+            <param name="appSecret">A unique and secret key used to identify the application.</param>
+            <param name="services">List of services to use.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenter.SetCustomProperties(Microsoft.AppCenter.CustomProperties)">
+            <summary>
+            Set the custom properties.
+            </summary>
+            <param name="customProperties">Custom properties object.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenter.SetMaxStorageSizeAsync(System.Int64)">
+            <summary>
+            Set the maximum size of the internal storage.
+            This method must be called before App Center is started. This method is only intended for applications.
+            </summary>
+            <remarks>
+            This only sets the maximum size of the database, but App Center modules might store additional data.
+            The value passed to this method is not persisted on disk. The default maximum database size is 10485760 bytes (10 MiB).
+            </remarks>
+            <param name="sizeInBytes">
+            Maximum size of the internal storage in bytes. This will be rounded up to the nearest multiple of a SQLite page size (default is 4096 bytes).
+            Values below 20,480 bytes (20 KiB) will be ignored.
+            </param>
+            <returns><code>true</code> if changing the size was successful.</returns>
+        </member>
+        <member name="T:Microsoft.AppCenter.Ingestion.Http.HttpNetworkAdapter">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Http.HttpNetworkAdapter.SendAsync(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.String,System.Threading.CancellationToken)">
+            <exception cref="T:Microsoft.AppCenter.Ingestion.IngestionException"/>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Http.HttpNetworkAdapter.SendRequestAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously makes an HTTP request.
+            </summary>
+            <param name="request">The request message</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Task containing the HTTP response</returns>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.IngestionException"/>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Http.IngestionHttp.CallAsync(System.String,System.Guid,System.Collections.Generic.IList{Microsoft.AppCenter.Ingestion.Models.Log},System.Threading.CancellationToken)">
+            <exception cref="T:Microsoft.AppCenter.Ingestion.IngestionException"/>
+        </member>
+        <member name="T:Microsoft.AppCenter.Ingestion.Models.BooleanProperty">
+            <summary>
+            Boolean property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.BooleanProperty.#ctor">
+            <summary>
+            Initializes a new instance of the BooleanProperty class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.BooleanProperty.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the BooleanProperty class.
+            </summary>
+            <param name="value">Boolean property value.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.BooleanProperty.Value">
+            <summary>
+            Gets or sets boolean property value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.BooleanProperty.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Ingestion.Models.ClearProperty">
+            <summary>
+            Clear an existing property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.ClearProperty.#ctor">
+            <summary>
+            Initializes a new instance of the ClearProperty class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.ClearProperty.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the ClearProperty class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.ClearProperty.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.CustomProperty.#ctor">
+            <summary>
+            Initializes a new instance of the CustomProperty class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.CustomProperty.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the CustomProperty class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.CustomProperty.Name">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.CustomProperty.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Ingestion.Models.CustomPropertyLog">
+            <summary>
+            The custom properties log model.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.CustomPropertyLog.#ctor">
+            <summary>
+            Initializes a new instance of the CustomPropertyLog class.
+            </summary>
+            <param name="timestamp">Log timestamp, example:
+            '2017-03-13T18:05:42Z'.
+            </param>
+            <param name="sid">When tracking an analytics session, logs can be
+            part of the session by specifying this identifier.
+            This attribute is optional, a missing value means the session
+            tracking is disabled (like when using only error reporting
+            feature).
+            Concrete types like StartSessionLog or PageLog are always part of a
+            session and always include this identifier.
+            </param>
+            <param name="properties">Custom property changes.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.CustomPropertyLog.Properties">
+            <summary>
+            Gets or sets custom property changes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.CustomPropertyLog.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Ingestion.Models.DateTimeProperty">
+            <summary>
+            Date and time property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.DateTimeProperty.#ctor">
+            <summary>
+            Initializes a new instance of the DateTimeProperty class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.DateTimeProperty.#ctor(System.String,System.DateTime)">
+            <summary>
+            Initializes a new instance of the DateTimeProperty class.
+            </summary>
+            <param name="value">Date time property value.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.DateTimeProperty.Value">
+            <summary>
+            Gets or sets date time property value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.DateTimeProperty.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Ingestion.Models.NumberProperty">
+            <summary>
+            Number property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.NumberProperty.#ctor">
+            <summary>
+            Initializes a new instance of the NumberProperty class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.NumberProperty.#ctor(System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the NumberProperty class.
+            </summary>
+            <param name="value">Number property value.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.NumberProperty.#ctor(System.String,System.Int64)">
+            <summary>
+            Initializes a new instance of the NumberProperty class.
+            </summary>
+            <param name="value">Number property value.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.NumberProperty.#ctor(System.String,System.Single)">
+            <summary>
+            Initializes a new instance of the NumberProperty class.
+            </summary>
+            <param name="value">Number property value.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.NumberProperty.#ctor(System.String,System.Double)">
+            <summary>
+            Initializes a new instance of the NumberProperty class.
+            </summary>
+            <param name="value">Number property value.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.NumberProperty.#ctor(System.String,System.Decimal)">
+            <summary>
+            Initializes a new instance of the NumberProperty class.
+            </summary>
+            <param name="value">Number property value.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.NumberProperty.Value">
+            <summary>
+            Gets or sets number property value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.NumberProperty.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Ingestion.Models.StringProperty">
+            <summary>
+            String property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.StringProperty.#ctor">
+            <summary>
+            Initializes a new instance of the StringProperty class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.StringProperty.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the StringProperty class.
+            </summary>
+            <param name="value">String property value.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.StringProperty.Value">
+            <summary>
+            Gets or sets string property value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.StringProperty.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            <summary>
+            Exception thrown when ingestion models fail to validate
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Ingestion.Models.ValidationException.Rule">
+            <summary>
+            Validation rules that <see cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException"/> recognizes
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.ValidationException.GetRuleString(Microsoft.AppCenter.Ingestion.Models.ValidationException.Rule,System.String)">
+            <summary>
+            Gets a string message that describes a given validation rule
+            </summary>
+            <param name="rule">The rule to create a string for</param>
+            <param name="extraValue">An extra detail to include with the rule.</param>
+            <returns>A string describing the rule</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.ValidationException.GetErrorString(Microsoft.AppCenter.Ingestion.Models.ValidationException.Rule,System.String,System.Object)">
+            <summary>
+            Constructs a full error string to be used as an exception message
+            </summary>
+            <param name="validationRule">The rule that was broken</param>
+            <param name="propertyName">The name of the property that broke the rule</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.ValidationException.#ctor(Microsoft.AppCenter.Ingestion.Models.ValidationException.Rule,System.String,System.Object)">
+            <summary>
+            Creates a validation exception and populates its message
+            </summary>
+            <param name="validationRule">The rule that was broken</param>
+            <param name="propertyName">The name of the property that broke the rule</param>
+        </member>
+        <member name="T:Microsoft.AppCenter.Ingestion.Models.StartServiceLog">
+            <summary>
+            Log type for sending information about which services have been started
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.StartServiceLog.#ctor">
+            <summary>
+            Initializes a new instance of the StartServiceLog class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.StartServiceLog.#ctor(Microsoft.AppCenter.Ingestion.Models.Device,System.Nullable{System.DateTime},System.Nullable{System.Guid},System.Collections.Generic.IList{System.String})">
+            <summary>
+            Initializes a new instance of the StartServiceLog class.
+            </summary>
+            <param name="timestamp">Log timestamp, example:
+            '2017-03-13T18:05:42Z'.
+            </param>
+            <param name="sid">When tracking an analytics session, logs can be
+            part of the session by specifying this identifier.
+            This attribute is optional, a missing value means the session
+            tracking is disabled (like when using only error reporting
+            feature).
+            Concrete types like StartSessionLog or PageLog are always part of a
+            session and always include this identifier.
+            </param>
+            <param name="services">The list of services of the MobileCenter
+            Start API call.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.StartServiceLog.Services">
+            <summary>
+            Gets or sets the list of services of the MobileCenter Start API
+            call.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.StartServiceLog.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Ingestion.Models.Device">
+            <summary>
+            Device characteristics.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.Device.#ctor">
+            <summary>
+            Initializes a new instance of the Device class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.Device.#ctor(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the Device class.
+            </summary>
+            <param name="sdkName">Name of the SDK. Consists of the name of the
+            SDK and the platform, e.g. "mobilecenter.ios", "hockeysdk.android".
+            </param>
+            <param name="sdkVersion">Version of the SDK in semver format, e.g.
+            "1.2.0" or "0.12.3-alpha.1".
+            </param>
+            <param name="osName">OS name (example: iOS). The following OS names
+            are standardized (non-exclusive): Android, iOS, macOS, tvOS,
+            Windows.
+            </param>
+            <param name="osVersion">OS version (example: 9.3.0).
+            </param>
+            <param name="locale">Language code (example: en-US).
+            </param>
+            <param name="timeZoneOffset">The offset in minutes from UTC for the
+            device time zone, including daylight savings time.
+            </param>
+            <param name="appVersion">Application version name, e.g. 1.1.0
+            </param>
+            <param name="appBuild">The app's build number, e.g. 42.
+            </param>
+            <param name="wrapperSdkVersion">Version of the wrapper SDK in
+            semver format. When the SDK is embedding another base SDK (for
+            example Xamarin.Android wraps Android), the Xamarin specific
+            version is populated into this field while sdkVersion refers to the
+            original Android SDK.
+            </param>
+            <param name="wrapperSdkName">Name of the wrapper SDK. Consists of
+            the name of the SDK and the wrapper platform, e.g.
+            "mobilecenter.xamarin", "hockeysdk.cordova".
+            </param>
+            <param name="model">Device model (example: iPad2,3).
+            </param>
+            <param name="oemName">Device manufacturer (example: HTC).
+            </param>
+            <param name="osBuild">OS build code (example: LMY47X).
+            </param>
+            <param name="osApiLevel">API level when applicable like in Android
+            (example: 15).
+            </param>
+            <param name="screenSize">Screen size of the device in pixels
+            (example: 640x480).
+            </param>
+            <param name="carrierName">Carrier name (for mobile devices).
+            </param>
+            <param name="carrierCountry">Carrier country code (for mobile
+            devices).
+            </param>
+            <param name="appNamespace">The bundle identifier, package
+            identifier, or namespace, depending on what the individual
+            plattforms use,  .e.g com.microsoft.example.
+            </param>
+            <param name="liveUpdateReleaseLabel">Label that is used to identify
+            application code 'version' released via Live Update beacon running
+            on device
+            </param>
+            <param name="liveUpdateDeploymentKey">Identifier of environment
+            that current application release belongs to, deployment key then
+            maps to environment like Production, Staging.
+            </param>
+            <param name="liveUpdatePackageHash">Hash of all files (ReactNative
+            or Cordova) deployed to device via LiveUpdate beacon. Helps
+            identify the Release version on device or need to download updates
+            in future.
+            </param>
+            <param name="wrapperRuntimeVersion">Version of the wrapper
+            technology framework (Xamarin runtime version or ReactNative or
+            Cordova etc...). See wrappersdkname to see if this version refers
+            to Xamarin or ReactNative or other.
+            </param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.SdkName">
+             <summary>
+             Gets or sets name of the SDK. Consists of the name of the SDK and
+             the platform, e.g. "mobilecenter.ios", "hockeysdk.android".
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.SdkVersion">
+             <summary>
+             Gets or sets version of the SDK in semver format, e.g. "1.2.0" or
+             "0.12.3-alpha.1".
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.WrapperSdkVersion">
+             <summary>
+             Gets or sets version of the wrapper SDK in semver format. When the
+             SDK is embedding another base SDK (for example Xamarin.Android
+             wraps Android), the Xamarin specific version is populated into this
+             field while sdkVersion refers to the original Android SDK.
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.WrapperSdkName">
+             <summary>
+             Gets or sets name of the wrapper SDK. Consists of the name of the
+             SDK and the wrapper platform, e.g. "mobilecenter.xamarin",
+             "hockeysdk.cordova".
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.Model">
+             <summary>
+             Gets or sets device model (example: iPad2,3).
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.OemName">
+             <summary>
+             Gets or sets device manufacturer (example: HTC).
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.OsName">
+             <summary>
+             Gets or sets OS name (example: iOS). The following OS names are
+             standardized (non-exclusive): Android, iOS, macOS, tvOS, Windows.
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.OsVersion">
+             <summary>
+             Gets or sets OS version (example: 9.3.0).
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.OsBuild">
+             <summary>
+             Gets or sets OS build code (example: LMY47X).
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.OsApiLevel">
+             <summary>
+             Gets or sets API level when applicable like in Android (example:
+             15).
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.Locale">
+             <summary>
+             Gets or sets language code (example: en-US).
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.TimeZoneOffset">
+             <summary>
+             Gets or sets the offset in minutes from UTC for the device time
+             zone, including daylight savings time.
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.ScreenSize">
+             <summary>
+             Gets or sets screen size of the device in pixels (example:
+             640x480).
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.AppVersion">
+             <summary>
+             Gets or sets application version name, e.g. 1.1.0
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.CarrierName">
+             <summary>
+             Gets or sets carrier name (for mobile devices).
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.CarrierCountry">
+             <summary>
+             Gets or sets carrier country code (for mobile devices).
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.AppBuild">
+             <summary>
+             Gets or sets the app's build number, e.g. 42.
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.AppNamespace">
+             <summary>
+             Gets or sets the bundle identifier, package identifier, or
+             namespace, depending on what the individual plattforms use,  .e.g
+             com.microsoft.example.
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.LiveUpdateReleaseLabel">
+             <summary>
+             Gets or sets label that is used to identify application code
+             'version' released via Live Update beacon running on device
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.LiveUpdateDeploymentKey">
+             <summary>
+             Gets or sets identifier of environment that current application
+             release belongs to, deployment key then maps to environment like
+             Production, Staging.
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.LiveUpdatePackageHash">
+             <summary>
+             Gets or sets hash of all files (ReactNative or Cordova) deployed to
+             device via LiveUpdate beacon. Helps identify the Release version on
+             device or need to download updates in future.
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Device.WrapperRuntimeVersion">
+             <summary>
+             Gets or sets version of the wrapper technology framework (Xamarin
+             runtime version or ReactNative or Cordova etc...). See
+             wrappersdkname to see if this version refers to Xamarin or
+             ReactNative or other.
+            
+             </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.Device.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.Log.#ctor">
+            <summary>
+            Initializes a new instance of the Log class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.Log.#ctor(Microsoft.AppCenter.Ingestion.Models.Device,System.Nullable{System.DateTime},System.Nullable{System.Guid},System.String)">
+            <summary>
+            Initializes a new instance of the Log class.
+            </summary>
+            <param name="timestamp">Log timestamp, example:
+            '2017-03-13T18:05:42Z'.
+            </param>
+            <param name="sid">When tracking an analytics session, logs can be
+            part of the session by specifying this identifier.
+            This attribute is optional, a missing value means the session
+            tracking is disabled (like when using only error reporting
+            feature).
+            Concrete types like StartSessionLog or PageLog are always part of a
+            session and always include this identifier.
+            </param>
+            <param name="userId">optional string used for associating logs with
+            users.
+            </param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Log.Timestamp">
+             <summary>
+             Gets or sets log timestamp, example: '2017-03-13T18:05:42Z'.
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Log.Sid">
+             <summary>
+             Gets or sets when tracking an analytics session, logs can be part
+             of the session by specifying this identifier.
+             This attribute is optional, a missing value means the session
+             tracking is disabled (like when using only error reporting
+             feature).
+             Concrete types like StartSessionLog or PageLog are always part of a
+             session and always include this identifier.
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Log.UserId">
+             <summary>
+             Gets or sets optional string used for associating logs with users.
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.Log.Device">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.Log.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.LogContainer.#ctor">
+            <summary>
+            Initializes a new instance of the LogContainer class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.LogContainer.#ctor(System.Collections.Generic.IList{Microsoft.AppCenter.Ingestion.Models.Log})">
+            <summary>
+            Initializes a new instance of the LogContainer class.
+            </summary>
+            <param name="logs">The list of logs</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.LogContainer.Logs">
+            <summary>
+            Gets or sets the list of logs
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.LogContainer.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.LogWithProperties.#ctor">
+            <summary>
+            Initializes a new instance of the LogWithProperties class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.LogWithProperties.#ctor(Microsoft.AppCenter.Ingestion.Models.Device,System.Nullable{System.DateTime},System.Nullable{System.Guid},System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Initializes a new instance of the LogWithProperties class.
+            </summary>
+            <param name="timestamp">Log timestamp, example:
+            '2017-03-13T18:05:42Z'.
+            </param>
+            <param name="sid">When tracking an analytics session, logs can be
+            part of the session by specifying this identifier.
+            This attribute is optional, a missing value means the session
+            tracking is disabled (like when using only error reporting
+            feature).
+            Concrete types like StartSessionLog or PageLog are always part of a
+            session and always include this identifier.
+            </param>
+            <param name="userId">optional string used for associating logs with
+            users.
+            </param>
+            <param name="properties">Additional key/value pair parameters.
+            </param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.Models.LogWithProperties.Properties">
+             <summary>
+             Gets or sets additional key/value pair parameters.
+            
+             </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.Models.LogWithProperties.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Ingestion.ServiceCall">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AppCenter.Ingestion.IIngestion">
+            <summary>
+            Interface to send logs to the Ingestion service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.IIngestion.SetLogUrl(System.String)">
+            <summary>
+            Update log URL.
+            </summary>
+            <param name="logUrl"></param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.IIngestion.Call(System.String,System.Guid,System.Collections.Generic.IList{Microsoft.AppCenter.Ingestion.Models.Log})">
+            <summary>
+            Send logs to the Ingestion service.
+            </summary>
+            <param name="appSecret">A unique and secret key used to identify the application</param>
+            <param name="installId">Install identifier</param>
+            <param name="logs">Payload</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.IIngestion.Close">
+            <summary>
+            Close all current calls.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.IServiceCall.IsCanceled">
+            <summary>
+            Check if the call is completed due to cancellation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.IServiceCall.IsCompleted">
+            <summary>
+            Check if the call is completed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.IServiceCall.IsFaulted">
+            <summary>
+            Check if the call is completed due to an unhandled exception.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.IServiceCall.Result">
+            <summary>
+            HTTP payload.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Ingestion.IServiceCall.Exception">
+            <summary>
+            The exception thrown from the pipeline.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.IServiceCall.ContinueWith(System.Action{Microsoft.AppCenter.Ingestion.IServiceCall})">
+            <summary>
+            Handle call results.
+            </summary>
+            <param name="continuationAction">The action to perform when the call is completed.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Ingestion.IServiceCall.Cancel">
+            <summary>
+            Cancel the call if possible.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.IManagmentClassFactory.GetComputerSystemClass">
+            <summary>
+            Get object of class Win32_ComputerSystem.
+            </summary>
+            <returns>Win32_ComputerSystem object.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.IManagmentClassFactory.GetOperatingSystemClass">
+            <summary>
+            Get object of class Win32_OperatingSystem.
+            </summary>
+            <returns>Win32_OperatingSystem object.</returns>
+        </member>
+        <member name="P:Microsoft.AppCenter.ManagmentClassFactory.Instance">
+            <summary>
+            Gets or sets the shared instance of ManagmentClassFactory. Should never return null.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Utils.Constants">
+            <summary>
+            Various constants used by the SDK.
+            </summary>
+            <summary>
+            Various constants used by the SDK.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Utils.DeviceInformationHelper">
+            <summary>
+            Implements the abstract device information helper class
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Utils.DeviceInformationHelper.SetManagmentClassFactory(Microsoft.AppCenter.IManagmentClassFactory)">
+            <summary>
+            Set the specific class factory for the management class.
+            </summary>
+            <param name="factory">Specific management class factory.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Utils.DeviceInformationHelper.GetDeviceCaps(System.IntPtr,System.Int32)">
+            <summary>
+            Import GetDeviceCaps function to retreive scale-independent screen size.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Utils.Files.Directory">
+            <summary>
+            This class wraps System.IO.DirectoryInfo for the unit tests.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Utils.Files.Directory.#ctor">
+            <summary>
+            Parameterless constructor needed for testing.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Utils.Files.File">
+            <summary>
+            This class wraps System.IO.FileInfo for the unit tests.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Utils.Files.File.#ctor">
+            <summary>
+            Parameterless constructor needed for testing.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Utils.IApplicationLifecycleHelper">
+            <summary>
+            Represents an object that tracks the application lifecycle.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Utils.IApplicationLifecycleHelper.IsSuspended">
+            <summary>
+            Indicates whether the application is currently in a suspended state
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Utils.IApplicationLifecycleHelper.ApplicationSuspended">
+            <summary>
+            Occurs when the application has just been suspended
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Utils.IApplicationLifecycleHelper.ApplicationResuming">
+            <summary>
+            Occurs when the application is about to resume.
+            Note that in UWP, this corresponds to CoreApplication.LeavingBackground for builds 14393 and up,
+            but to CoreApplication.Resuming for builds under 14393.
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Utils.IApplicationLifecycleHelper.UnhandledExceptionOccurred">
+            <summary>
+            Occurs when an unhandled exception is fired
+            </summary>
+            <remarks>This is used to set up the shutdown logic in the event of a crash.</remarks>
+        </member>
+        <member name="T:Microsoft.AppCenter.Utils.IApplicationSettings">
+            <summary>
+            Represents a store of persistent application settings that is behaves like a dictionary.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Utils.IDeviceInformationHelper">
+            <summary>
+            Represents an object that is able to retrieve hardware and software information about the device running the SDK.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Utils.IDeviceInformationHelper.GetDeviceInformationAsync">
+            <summary>
+            Gets the device information asynchronously.
+            </summary>
+            <returns>Device object with fields populated appropriately</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Utils.IDeviceInformationHelper.GetDeviceInformation">
+            <summary>
+            Gets the device information without blocking. This might be missing certain properties.
+            </summary>
+            <returns>Device object with fields populated appropriately</returns>
+        </member>
+        <member name="T:Microsoft.AppCenter.Utils.Synchronization.State">
+            <summary>
+            Represents a particular state
+            </summary>
+            <seealso cref="!:StateKeeper"/>
+            <seealso cref="T:Microsoft.AppCenter.Utils.Synchronization.StatefulMutex"/> 
+        </member>
+        <member name="M:Microsoft.AppCenter.Utils.Synchronization.State.#ctor">
+            <summary>
+            Creates a new state
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Utils.Synchronization.State.GetNextState">
+            <summary>
+            Creates a new state that follows the current state
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Utils.Synchronization.State.Equals(System.Object)">
+            <summary>
+            Compares states by state number
+            </summary>
+            <param name="obj">The object to compare to</param>
+            <returns>True if they have the same state number, false otherwise</returns>
+        </member>
+        <member name="T:Microsoft.AppCenter.Utils.Synchronization.StatefulMutex">
+            <summary>
+            Allows synchronization across tasks, regardless of the thread executing it.
+            Doing so involves tracking a state, so that once invalidated, trying to 
+            acquire the lock will fail.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Utils.Synchronization.StatefulMutex.State">
+            <summary>
+            Gets the current state
+            </summary>
+            <returns>The current state</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Utils.Synchronization.StatefulMutex.InvalidateState">
+            <summary>
+            Advances the current state
+            </summary>
+            <returns>The new state</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Utils.Synchronization.StatefulMutex.IsCurrent(Microsoft.AppCenter.Utils.Synchronization.State)">
+            <summary>
+            Checks if the given state is current
+            </summary>
+            <param name="state">The state to test</param>
+            <returns>True if the current state is current, false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Utils.Synchronization.StatefulMutex.Dispose">
+            <summary>
+            Dispose of the <see cref="T:Microsoft.AppCenter.Utils.Synchronization.StatefulMutex"/> 
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Utils.Synchronization.StatefulMutexException">
+            <summary>
+            Exception thrown when a StatefulMutex cannot acquire a lock
+            </summary>
+            <seealso cref="T:Microsoft.AppCenter.Utils.Synchronization.StatefulMutex"/> 
+        </member>
+        <member name="T:Microsoft.AppCenter.Utils.TimeHelper">
+            <summary>
+            Utility for getting time information
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Utils.TimeHelper.CurrentTimeInMilliseconds">
+            <summary>
+            Gets the current time in milliseconds
+            </summary>
+            <returns>The current time in milliseconds</returns>
+        </member>
+        <member name="T:Microsoft.AppCenter.Utils.UnhandledExceptionOccurredEventArgs">
+            <summary>
+            Event argument type for UnhandledException event that is invoked by <see cref="T:Microsoft.AppCenter.Utils.IApplicationLifecycleHelper"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Utils.UnhandledExceptionOccurredEventArgs.Exception">
+            <summary>
+            Gets the unhandled exception.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Channel.Channel">
+            <summary>
+            Default implementation for a channel unit.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Channel.Channel.IsEnabled">
+            <summary>
+            Gets value indicating whether the Channel is enabled
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Channel.Channel.Name">
+            <summary>
+            The channel's name
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Channel.Channel.EnqueuingLog">
+            <summary>
+            Invoked when a log will be enqueued.
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Channel.Channel.FilteringLog">
+            <summary>
+            Invoked when a log is about to filtered out or not.
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Channel.Channel.SendingLog">
+            <summary>
+            Invoke when a log is about to be sent.
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Channel.Channel.SentLog">
+            <summary>
+            Invoked when a log successfully sent.
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Channel.Channel.FailedToSendLog">
+            <summary>
+            Invoked when a log failed to send properly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.Channel.SetEnabled(System.Boolean)">
+            <summary>
+            Enable or disable this channel unit.
+            </summary>
+            <param name="enabled">true to enable, false to disable.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.Channel.EnqueueAsync(Microsoft.AppCenter.Ingestion.Models.Log)">
+            <summary>
+            Enqueue a log asynchronously.
+            </summary>
+            <param name="log">log to enqueue.</param>
+            <returns>The async Task for this operation.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.Channel.InvalidateDeviceCache">
+            <summary>
+            Invalidate device property cache, meaning next log needing device properties will trigger a re-evaluation of all device properties.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.Channel.ClearAsync">
+            <summary>
+            Clear all logs that are pending on this unit.
+            </summary>
+            <returns>The task to represent this async operation.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.Channel.ShutdownAsync">
+            <summary>
+            Stop all calls in progress and deactivate this channel.
+            </summary>
+            <returns>The Task to represent this async operation.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.Channel.Dispose">
+            <summary>
+            Free resources held by this instance.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Channel.ChannelEventArgs">
+            <inheritdoc />
+            <summary>
+            Base type for all channel events.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Channel.ChannelEventArgs.Log">
+            <summary>
+            Log associated to the event.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.ChannelEventArgs.#ctor(Microsoft.AppCenter.Ingestion.Models.Log)">
+            <inheritdoc />
+            <summary>
+            Init event with a log.
+            </summary>
+            <param name="log">log associated to this event.</param>
+        </member>
+        <member name="T:Microsoft.AppCenter.Channel.EnqueuingLogEventArgs">
+            <inheritdoc />
+            <summary>
+            Event called when a log is enqueued to a channel but before properties are final.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.EnqueuingLogEventArgs.#ctor(Microsoft.AppCenter.Ingestion.Models.Log)">
+            <inheritdoc />
+            <summary>
+            Init event with a log.
+            </summary>
+            <param name="log">log associated to this event.</param>
+        </member>
+        <member name="T:Microsoft.AppCenter.Channel.FilteringLogEventArgs">
+            <inheritdoc />
+            <summary>
+            Event called to possibly filter out a log before it is persisted and scheduled for sending.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Channel.FilteringLogEventArgs.FilterRequested">
+            <summary>
+            Set this property to true to request the log to be filtered out.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.FilteringLogEventArgs.#ctor(Microsoft.AppCenter.Ingestion.Models.Log)">
+            <inheritdoc />
+            <summary>
+            Init event with a log.
+            </summary>
+            <param name="log">log associated to this event.</param>
+        </member>
+        <member name="T:Microsoft.AppCenter.Channel.SendingLogEventArgs">
+            <inheritdoc />
+            <summary>
+            Event called when a log is about to be sent.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.SendingLogEventArgs.#ctor(Microsoft.AppCenter.Ingestion.Models.Log)">
+            <inheritdoc />
+            <summary>
+            Init event with a log.
+            </summary>
+            <param name="log">log associated to this event.</param>
+        </member>
+        <member name="T:Microsoft.AppCenter.Channel.SentLogEventArgs">
+            <inheritdoc />
+            <summary>
+            Event called when a log has been successfully sent.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.SentLogEventArgs.#ctor(Microsoft.AppCenter.Ingestion.Models.Log)">
+            <inheritdoc />
+            <summary>
+            Init event with a log.
+            </summary>
+            <param name="log">log associated to this event.</param>
+        </member>
+        <member name="T:Microsoft.AppCenter.Channel.FailedToSendLogEventArgs">
+            <inheritdoc />
+            <summary>
+            Event called when a log has failed to send, even after retries and is now discarded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Channel.FailedToSendLogEventArgs.Exception">
+            <summary>
+            Cause of the last sending failure.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.FailedToSendLogEventArgs.#ctor(Microsoft.AppCenter.Ingestion.Models.Log,System.Exception)">
+            <inheritdoc />
+            <summary>
+            Init event with a log.
+            </summary>
+            <param name="log">log associated to this event.</param>
+            <param name="exception">cause of the last sending failure.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.ChannelGroup.AddChannel(System.String,System.Int32,System.TimeSpan,System.Int32)">
+            <exception cref="T:Microsoft.AppCenter.AppCenterException">Attempted to add duplicate channel to group</exception>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.ChannelGroup.AddChannel(Microsoft.AppCenter.Channel.IChannelUnit)">
+            <exception cref="T:Microsoft.AppCenter.AppCenterException">Attempted to add duplicate channel to group</exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Channel.IChannel">
+            <summary>
+            IChannels are responsible for processing logs. In most cases, that means storing them and sending them to Ingestion.
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Channel.IChannel.EnqueuingLog">
+            <summary>
+            Invoked when a log will be enqueued.
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Channel.IChannel.FilteringLog">
+            <summary>
+            Invoked when a log is about to filtered out or not.
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Channel.IChannel.SendingLog">
+            <summary>
+            Invoke when a log is about to be sent.
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Channel.IChannel.SentLog">
+            <summary>
+            Invoked when a log successfully sent.
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Channel.IChannel.FailedToSendLog">
+            <summary>
+            Invoked when a log failed to send properly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.IChannel.SetEnabled(System.Boolean)">
+            <summary>
+            Enable or disable the channel
+            </summary>
+            <param name="enabled">Value indicating whether channel should be enabled or disabled</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.IChannel.ShutdownAsync">
+            <summary>
+            Stop all calls in progress and deactivate this channel
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Channel.IChannelGroup">
+            <summary>
+            Represents a collection of channels that can perform aggregate operations
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.IChannelGroup.AddChannel(Microsoft.AppCenter.Channel.IChannelUnit)">
+            <summary>
+            Adds an IChannelUnit to the group. This transfers ownership of the IChannelUnit to IChannelGroup.
+            </summary>
+            <param name="channel">The ChannelUnit to add</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.IChannelGroup.AddChannel(System.String,System.Int32,System.TimeSpan,System.Int32)">
+            <summary>
+            Adds an IChannelUnit to the group.
+            </summary>
+            <param name="name">The name of the ChannelUnit</param>
+            <param name="maxLogsPerBatch">The maximum batch size for the ChannelUnit</param>
+            <param name="batchTimeInterval">The maximum time interval between batches</param>
+            <param name="maxParallelBatches">The maximum number of batches to be processed in parallel</param>
+            <returns>The created IChannelUnit</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.IChannelGroup.SetLogUrl(System.String)">
+            <summary>
+            Sets the ingestion endpoint to send App Center logs to.
+            </summary>
+            <param name="logUrl">The log URL</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.IChannelGroup.WaitStorageOperationsAsync">
+            <summary>
+            Waits for any running storage operations to complete.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.IChannelGroup.SetMaxStorageSizeAsync(System.Int64)">
+            <summary>
+            Set the maximum size of the storage.
+            </summary>
+            <param name="sizeInBytes">
+            Maximum size of the storage in bytes. This will be rounded up to the nearest multiple of a SQLite page size (default is 4096 bytes).
+            Values below 20,480 bytes (20 KiB) will be ignored.
+            </param>
+            <returns><code>true</code> if changing the size was successful.</returns>
+        </member>
+        <member name="T:Microsoft.AppCenter.Channel.IChannelUnit">
+            <summary>
+            Specification for a leaf channel that can enqueue logs, as opposed to groups.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Channel.IChannelUnit.EnqueueAsync(Microsoft.AppCenter.Ingestion.Models.Log)">
+            <summary>
+            Enqueue a log for processing
+            </summary>
+            <param name="log"></param>
+        </member>
+        <member name="T:Microsoft.AppCenter.CustomProperties">
+            <summary>
+            Custom properties builder.
+            Collects multiple properties to send in one log.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.CustomProperties.Set(System.String,System.String)">
+            <summary>
+            Set the specified property value with the specified key.
+            If the properties previously contained a property for the key, the old value is replaced.
+            </summary>
+            <param name="key">Key with which the specified value is to be set.</param>
+            <param name="value">Value to be set with the specified key.</param>
+            <returns>This instance.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.CustomProperties.Set(System.String,System.DateTime)">
+            <summary>
+            Set the specified property value with the specified key.
+            If the properties previously contained a property for the key, the old value is replaced.
+            </summary>
+            <param name="key">Key with which the specified value is to be set.</param>
+            <param name="value">Value to be set with the specified key.</param>
+            <returns>This instance.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.CustomProperties.Set(System.String,System.Int32)">
+            <summary>
+            Set the specified property value with the specified key.
+            If the properties previously contained a property for the key, the old value is replaced.
+            </summary>
+            <param name="key">Key with which the specified value is to be set.</param>
+            <param name="value">Value to be set with the specified key.</param>
+            <returns>This instance.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.CustomProperties.Set(System.String,System.Int64)">
+            <summary>
+            Set the specified property value with the specified key.
+            If the properties previously contained a property for the key, the old value is replaced.
+            </summary>
+            <param name="key">Key with which the specified value is to be set.</param>
+            <param name="value">Value to be set with the specified key.</param>
+            <returns>This instance.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.CustomProperties.Set(System.String,System.Single)">
+            <summary>
+            Set the specified property value with the specified key.
+            If the properties previously contained a property for the key, the old value is replaced.
+            </summary>
+            <param name="key">Key with which the specified value is to be set.</param>
+            <param name="value">Value to be set with the specified key.</param>
+            <returns>This instance.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.CustomProperties.Set(System.String,System.Double)">
+            <summary>
+            Set the specified property value with the specified key.
+            If the properties previously contained a property for the key, the old value is replaced.
+            </summary>
+            <param name="key">Key with which the specified value is to be set.</param>
+            <param name="value">Value to be set with the specified key.</param>
+            <returns>This instance.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.CustomProperties.Set(System.String,System.Decimal)">
+            <summary>
+            Set the specified property value with the specified key.
+            If the properties previously contained a property for the key, the old value is replaced.
+            </summary>
+            <param name="key">Key with which the specified value is to be set.</param>
+            <param name="value">Value to be set with the specified key.</param>
+            <returns>This instance.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.CustomProperties.Set(System.String,System.Boolean)">
+            <summary>
+            Set the specified property value with the specified key.
+            If the properties previously contained a property for the key, the old value is replaced.
+            </summary>
+            <param name="key">Key with which the specified value is to be set.</param>
+            <param name="value">Value to be set with the specified key.</param>
+            <returns>This instance.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.CustomProperties.Clear(System.String)">
+            <summary>
+            Clear the property for the specified key.
+            </summary>
+            <param name="key">Key whose mapping is to be cleared.</param>
+            <returns>This instance.</returns>
+        </member>
+        <member name="T:Microsoft.AppCenter.Device">
+            <summary>
+            Device class to help retrieve device information.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Device.#ctor(Microsoft.AppCenter.Ingestion.Models.Device)">
+            <summary>
+            Creates a public device model from an ingestion device model.
+            </summary>
+            <param name="device">The ingestion device model.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.SdkName">
+            <summary>
+            Gets the name of the SDK.
+            </summary>
+            <value>Name of the SDK. Consists of the name of the SDK and the platform, e.g. "mobilecenter.ios", "mobilecenter.android"</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.SdkVersion">
+            <summary>
+            Gets the SDK version.
+            </summary>
+            <value>Version of the SDK in semver format, e.g. "1.2.0" or "0.12.3-alpha.1".</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.Model">
+            <summary>
+            Gets the device model.
+            </summary>
+            <value>Device model (example: iPad2,3).</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.OemName">
+            <summary>
+            Gets the name of the manufacturer.
+            </summary>
+            <value> Device manufacturer (example: HTC).</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.OsName">
+            <summary>
+            Gets the name of the OS.
+            </summary>
+            <value>OS name (example: iOS).</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.OsVersion">
+            <summary>
+            Gets the OS version.
+            </summary>
+            <value>OS version (example: 9.3.0).</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.OsBuild">
+            <summary>
+            Gets the OS build
+            </summary>
+            <value>OS build code (example: LMY47X).</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.OsApiLevel">
+            <summary>
+            Gets the OS API level.
+            </summary>
+            <value>API level when applicable like in Android (example: 15).</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.Locale">
+            <summary>
+            Gets the locale.
+            </summary>
+            <value>Language code (example: en_US).</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.TimeZoneOffset">
+            <summary>
+            Gets the time zone offset.
+            </summary>
+            <value>The offset in minutes from UTC for the device time zone, including daylight savings time.</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.ScreenSize">
+            <summary>
+            Gets the size of the screen.
+            </summary>
+            <value>Screen size of the device in pixels (example: 640x480).</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.AppVersion">
+            <summary>
+            Gets the application version.
+            </summary>
+            <value>Application version name, e.g. 1.1.0</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.CarrierName">
+            <summary>
+            Gets the name of the carrier.
+            </summary>
+            <value>Carrier name (for mobile devices).</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.CarrierCountry">
+            <summary>
+            Gets the carrier country/region.
+            </summary>
+            <value>Carrier country code (for mobile devices).</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.AppBuild">
+            <summary>
+            Gets the app build.
+            </summary>
+            <value>The app's build number, e.g. 42.</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Device.AppNamespace">
+            <summary>
+            Gets the app namespace.
+            </summary>
+            <value>The bundle identifier, package identifier, or namespace, depending on what the individual platforms
+            use, e.g.com.microsoft.example.</value>
+        </member>
+        <member name="T:Microsoft.AppCenter.Storage.IStorageAdapter">
+            <summary>
+            Interface to work with database storage.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorageAdapter.Initialize(System.String)">
+            <summary>
+            Initialize this storage adapter.
+            </summary>
+            <param name="databasePath">Path of a database file to connect to.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorageAdapter.CreateTable(System.String,System.String[],System.String[])">
+            <summary>
+            Create table in database.
+            </summary>
+            <param name="tableName">Name of a table to create.</param>
+            <param name="columnNames">Array with columns' names.</param>
+            <param name="columnTypes">Array with columns' type descriptions.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorageAdapter.Count(System.String,System.String,System.Object)">
+            <summary>
+            Returns amount of rows matching given criteria.
+            </summary>
+            <param name="tableName">Name of a table to run query on.</param>
+            <param name="columnName">Column to match value by.</param>
+            <param name="value">Value to match in a query.</param>
+            <returns>Amount of rows matching given criteria.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorageAdapter.Select(System.String,System.String,System.Object,System.String,System.Object[],System.Nullable{System.Int32},System.String[])">
+            <summary>
+            Returns collection of columns with values matching given criteria.
+            </summary>
+            <param name="tableName">Name of a table to run query on.</param>
+            <param name="columnName">Name of a column to match value.</param>
+            <param name="value">Value to match in a query.</param>
+            <param name="excludeColumnName">Column name to match excluded values by.</param>
+            <param name="excludeValues">Excluded values to match in query.</param>
+            <param name="limit">Maximum amount of items to select.</param>
+            <param name="orderList">List of a column names to order selection result ascending.</param>
+            <returns>Item list with array of objects. Array of objects is object[] representation of columns.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorageAdapter.Insert(System.String,System.String[],System.Collections.Generic.ICollection{System.Object[]})">
+            <summary>
+            Inserts data to table.
+            </summary>
+            <param name="tableName">Name of a table to run query on.</param>
+            <param name="columnNames">Array of columns used to insert data.</param>
+            <param name="values">ICollection of columns with values.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorageAdapter.Delete(System.String,System.String,System.Object[])">
+            <summary>
+            Deletes rows matching given criteria.
+            </summary>
+            <param name="tableName">Name of a table to run query on.</param>
+            <param name="columnName">Name of column to match value by.</param>
+            <param name="values">Array of values to match in a query.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorageAdapter.SetMaxStorageSize(System.Int64)">
+            <summary>
+            Set the maximum size of the storage.
+            </summary>
+            <remarks>
+            This only sets the maximum size of the database, but App Center modules might store additional data.
+            The value passed to this method is not persisted on disk. The default maximum database size is 10485760 bytes (10 MiB).
+            </remarks>
+            <param name="sizeInBytes">
+            Maximum size of the storage in bytes. This will be rounded up to the nearest multiple of a SQLite page size (default is 4096 bytes).
+            Values below 20,480 bytes (20 KiB) will be ignored.
+            </param>
+            <returns><code>true</code> if changing the size was successful.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorageAdapter.GetMaxStorageSize">
+            <summary>
+            Gets the maximum size of the database.
+            </summary>
+            <returns>The maximum size of database in bytes.</returns>
+        </member>
+        <member name="T:Microsoft.AppCenter.Storage.IStorage">
+            <inheritdoc />
+            <summary>
+            Manages the database of App Center logs on disk
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorage.PutLog(System.String,Microsoft.AppCenter.Ingestion.Models.Log)">
+            <summary>
+            Asynchronously adds a log to storage
+            </summary>
+            <param name="channelName">The name of the channel associated with the log</param>
+            <param name="log">The log to add</param>
+            <exception cref="T:Microsoft.AppCenter.Storage.StorageException"/>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorage.DeleteLogs(System.String,System.String)">
+            <summary>
+            Asynchronously deletes all logs in a particular batch
+            </summary>
+            <param name="channelName">The name of the channel associated with the batch</param>
+            <param name="batchId">The batch identifier</param>
+            <exception cref="T:Microsoft.AppCenter.Storage.StorageException"/>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorage.DeleteLogs(System.String)">
+            <summary>
+            Asynchronously deletes all logs for a particular channel
+            </summary>
+            <param name="channelName">Name of the channel to delete logs for</param>
+            <exception cref="T:Microsoft.AppCenter.Storage.StorageException"/>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorage.CountLogsAsync(System.String)">
+            <summary>
+            Asynchronously counts the number of logs stored for a particular channel
+            </summary>
+            <param name="channelName">The name of the channel to count logs for</param>
+            <returns>The number of logs found in storage</returns>
+            <exception cref="T:Microsoft.AppCenter.Storage.StorageException"/>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorage.ClearPendingLogState(System.String)">
+            <summary>
+            Asynchronously clears the stored state of logs that have been retrieved
+            </summary>
+            <param name="channelName"></param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorage.GetLogsAsync(System.String,System.Int32,System.Collections.Generic.List{Microsoft.AppCenter.Ingestion.Models.Log})">
+            <summary>
+            Asynchronously retrieves logs from storage and flags them to avoid duplicate retrievals on subsequent calls
+            </summary>
+            <param name="channelName">Name of the channel to retrieve logs from</param>
+            <param name="limit">The maximum number of logs to retrieve</param>
+            <param name="logs">A list to which the retrieved logs will be added</param>
+            <returns>A batch ID for the set of returned logs; null if no logs are found</returns>
+            <exception cref="T:Microsoft.AppCenter.Storage.StorageException"/>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorage.WaitOperationsAsync(System.TimeSpan)">
+            <summary>
+            Waits for any running storage operations to complete.
+            </summary>
+            <param name="timeout">The maximum amount of time to wait for remaining tasks</param>
+            <returns>True if remaining tasks completed in time; false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorage.ShutdownAsync(System.TimeSpan)">
+            <summary>
+            Waits for any running storage operations to complete and prevents subsequent storage operations from running
+            </summary>
+            <param name="timeout">The maximum amount of time to wait for remaining tasks</param>
+            <returns>True if remaining tasks completed in time; false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.IStorage.SetMaxStorageSizeAsync(System.Int64)">
+            <summary>
+            Set the maximum size of the storage.
+            </summary>
+            <remarks>
+            This only sets the maximum size of the database, but App Center modules might store additional data.
+            The value passed to this method is not persisted on disk. The default maximum database size is 10485760 bytes (10 MiB).
+            </remarks>
+            <param name="sizeInBytes">
+            Maximum size of the storage in bytes. This will be rounded up to the nearest multiple of a SQLite page size (default is 4096 bytes).
+            Values below 20,480 bytes (20 KiB) will be ignored.
+            </param>
+            <returns><code>true</code> if changing the size was successful.</returns>
+        </member>
+        <member name="T:Microsoft.AppCenter.Storage.Storage">
+            <summary>
+            Manages the database of App Center logs on disk
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.Storage.#ctor">
+            <summary>
+            Creates an instance of Storage.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.Storage.#ctor(Microsoft.AppCenter.Storage.IStorageAdapter,System.String)">
+            <summary>
+            Creates an instance of Storage given a connection object.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.Storage.PutLog(System.String,Microsoft.AppCenter.Ingestion.Models.Log)">
+            <summary>
+            Asynchronously adds a log to storage
+            </summary>
+            <param name="channelName">The name of the channel associated with the log</param>
+            <param name="log">The log to add</param>
+            <exception cref="T:Microsoft.AppCenter.Storage.StorageException"/>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.Storage.DeleteLogs(System.String,System.String)">
+            <summary>
+            Asynchronously deletes all logs in a particular batch
+            </summary>
+            <param name="channelName">The name of the channel associated with the batch</param>
+            <param name="batchId">The batch identifier</param>
+            <exception cref="T:Microsoft.AppCenter.Storage.StorageException"/>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.Storage.DeleteLogs(System.String)">
+            <summary>
+            Asynchronously deletes all logs for a particular channel
+            </summary>
+            <param name="channelName">Name of the channel to delete logs for</param>
+            <exception cref="T:Microsoft.AppCenter.Storage.StorageException"/>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.Storage.CountLogsAsync(System.String)">
+            <summary>
+            Asynchronously counts the number of logs stored for a particular channel
+            </summary>
+            <param name="channelName">The name of the channel to count logs for</param>
+            <returns>The number of logs found in storage</returns>
+            <exception cref="T:Microsoft.AppCenter.Storage.StorageException"/>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.Storage.ClearPendingLogState(System.String)">
+            <summary>
+            Asynchronously clears the stored state of logs that have been retrieved
+            </summary>
+            <param name="channelName"></param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.Storage.GetLogsAsync(System.String,System.Int32,System.Collections.Generic.List{Microsoft.AppCenter.Ingestion.Models.Log})">
+            <summary>
+            Asynchronously retrieves logs from storage and flags them to avoid duplicate retrievals on subsequent calls
+            </summary>
+            <param name="channelName">Name of the channel to retrieve logs from</param>
+            <param name="limit">The maximum number of logs to retrieve</param>
+            <param name="logs">A list to which the retrieved logs will be added</param>
+            <returns>A batch ID for the set of returned logs; null if no logs are found</returns>
+            <exception cref="T:Microsoft.AppCenter.Storage.StorageException"/>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.Storage.SetMaxStorageSizeAsync(System.Int64)">
+            <summary>
+            Set the maximum size of the storage.
+            </summary>
+            <remarks>
+            This only sets the maximum size of the database, but App Center modules might store additional data.
+            The value passed to this method is not persisted on disk. The default maximum database size is 10485760 bytes (10 MiB).
+            </remarks>
+            <param name="sizeInBytes">
+            Maximum size of the storage in bytes. This will be rounded up to the nearest multiple of a SQLite page size (default is 4096 bytes).
+            Values below 20,480 bytes (20 KiB) will be ignored.
+            </param>
+            <returns><code>true</code> if changing the size was successful.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.Storage.WaitOperationsAsync(System.TimeSpan)">
+            <summary>
+            Waits for any running storage operations to complete
+            </summary>
+            <param name="timeout">The maximum amount of time to wait for remaining tasks</param>
+            <returns>True if remaining tasks completed in time; false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.Storage.ShutdownAsync(System.TimeSpan)">
+            <summary>
+            Waits for any running storage operations to complete and prevents subsequent storage operations from running
+            </summary>
+            <param name="timeout">The maximum amount of time to wait for remaining tasks</param>
+            <returns>True if remaining tasks completed in time; false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Storage.Storage.Dispose">
+            <summary>
+            Disposes the storage object
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Windows.Shared.Utils.UserIdUpdatedEventArgs">
+            <summary>
+            Event args for event that occurs when an user change is received.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Windows.Shared.Utils.UserIdUpdatedEventArgs.UserId">
+            <summary>
+            User Id.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Windows.Shared.Utils.PropertyValidator.ValidateProperties(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Validates properties.
+            </summary>
+            <param name="properties">Properties collection to validate.</param>
+            <param name="logName">Log name.</param>
+            <returns>Valid properties collection with maximum size of 20.</returns>
+        </member>
+        <member name="T:Microsoft.AppCenter.Windows.Shared.Utils.UserIdContext">
+            Utility to store and retrieve values for user identifiers.
+        </member>
+        <member name="F:Microsoft.AppCenter.Windows.Shared.Utils.UserIdContext.UserIdMaxLength">
+            <summary>
+            Maximum allowed length for user identifier for App Center server.
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Windows.Shared.Utils.UserIdContext.UserIdUpdated">
+            <summary>
+            Event handler to subscribe to the user id update.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Windows.Shared.Utils.UserIdContext.Instance">
+            <summary>
+            Unique instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Windows.Shared.Utils.UserIdContext.UserId">
+            <summary>
+            Current user identifier.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Windows.Shared.Utils.UserIdContext.CheckUserIdValidForAppCenter(System.String)">
+            <summary>
+            Check if userId is valid for App Center.
+            </summary>
+            <param name="userId"></param>
+            <returns>true if valid, false otherwise.</returns>
+        </member>
+        <member name="T:Microsoft.AppCenter.IAppCenterService">
+            <summary>
+            Represents a module that provides a service through App Center.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.IAppCenterService.ServiceName">
+            <summary>
+            Display name of the service
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.IAppCenterService.InstanceEnabled">
+            <summary>
+            Gets or sets whether the service is enabled
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.IAppCenterService.OnChannelGroupReady(Microsoft.AppCenter.Channel.IChannelGroup,System.String)">
+            <summary>
+            Method that is called to signal start of service.
+            </summary>
+            <param name="channelGroup">The channel group to which the channel should be added</param>
+            <param name="appSecret">The app secret of the current application</param>
+        </member>
+        <member name="T:Microsoft.AppCenter.AppCenterLog">
+            <summary>
+            This class is used to log messages consistent with those emitted by the SDK.
+            Note: To track events, use <code>Analytics.TrackEvent</code>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenterLog.LogTag">
+            <summary>
+            The log tag for this SDK. All logs emitted at the SDK level will contain this tag.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenterLog.Level">
+            <summary>
+            Gets or sets the log verbosity level.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenterLog.Verbose(System.String,System.String)">
+            <summary>
+            Writes a log at the <see cref="F:Microsoft.AppCenter.LogLevel.Verbose"/> level.
+            Note: To track events, use <code>Analytics.TrackEvent</code>.
+            </summary>
+            <param name="tag">The log tag</param>
+            <param name="message">The message to log</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenterLog.Debug(System.String,System.String)">
+            <summary>
+            Writes a log at the <see cref="F:Microsoft.AppCenter.LogLevel.Debug"/> level.
+            Note: To track events, use <code>Analytics.TrackEvent</code>.
+            </summary>
+            <param name="tag">The log tag</param>
+            <param name="message">The message to log</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenterLog.Info(System.String,System.String)">
+            <summary>
+            Writes a log at the <see cref="F:Microsoft.AppCenter.LogLevel.Info"/> level.
+            Note: To track events, use <code>Analytics.TrackEvent</code>.
+            </summary>
+            <param name="tag">The log tag</param>
+            <param name="message">The message to log</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenterLog.Warn(System.String,System.String)">
+            <summary>
+            Writes a log at the <see cref="F:Microsoft.AppCenter.LogLevel.Warn"/> level.
+            Note: To track events, use <code>Analytics.TrackEvent</code>.
+            </summary>
+            <param name="tag">The log tag</param>
+            <param name="message">The message to log</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenterLog.Error(System.String,System.String)">
+            <summary>
+            Writes a log at the <see cref="F:Microsoft.AppCenter.LogLevel.Error"/> level.
+            Note: To track events, use <code>Analytics.TrackEvent</code>.
+            </summary>
+            <param name="tag">The log tag</param>
+            <param name="message">The message to log</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenterLog.Assert(System.String,System.String)">
+            <summary>
+            Writes a log at the <see cref="F:Microsoft.AppCenter.LogLevel.Assert"/> level.
+            Note: To track events, use <code>Analytics.TrackEvent</code>.
+            </summary>
+            <param name="tag">The log tag</param>
+            <param name="message">The message to log</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenterLog.Verbose(System.String,System.String,System.Exception)">
+            <summary>
+            Writes a log and an exception at the <see cref="F:Microsoft.AppCenter.LogLevel.Verbose"/> level.
+            Note: To track events, use <code>Analytics.TrackEvent</code>.
+            </summary>
+            <param name="tag">Log tag.</param>
+            <param name="message">Message.</param>
+            <param name="exception">Associated exception.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenterLog.Debug(System.String,System.String,System.Exception)">
+            <summary>
+            Writes a log and an exception at the <see cref="F:Microsoft.AppCenter.LogLevel.Debug"/> level.
+            Note: To track events, use <code>Analytics.TrackEvent</code>.
+            </summary>
+            <param name="tag">Log tag.</param>
+            <param name="message">Message.</param>
+            <param name="exception">Associated exception.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenterLog.Info(System.String,System.String,System.Exception)">
+            <summary>
+            Writes a log and an exception at the <see cref="F:Microsoft.AppCenter.LogLevel.Info"/> level.
+            Note: To track events, use <code>Analytics.TrackEvent</code>.
+            </summary>
+            <param name="tag">Log tag.</param>
+            <param name="message">Message.</param>
+            <param name="exception">Associated exception.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenterLog.Warn(System.String,System.String,System.Exception)">
+            <summary>
+            Writes a log and an exception at the <see cref="F:Microsoft.AppCenter.LogLevel.Warn"/> level.
+            Note: To track events, use <code>Analytics.TrackEvent</code>.
+            </summary>
+            <param name="tag">Log tag.</param>
+            <param name="message">Message.</param>
+            <param name="exception">Associated exception.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenterLog.Error(System.String,System.String,System.Exception)">
+            <summary>
+            Writes a log and an exception at the <see cref="F:Microsoft.AppCenter.LogLevel.Error"/> level.
+            Note: To track events, use <code>Analytics.TrackEvent</code>.
+            </summary>
+            <param name="tag">Log tag.</param>
+            <param name="message">Message.</param>
+            <param name="exception">Associated exception.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenterLog.Assert(System.String,System.String,System.Exception)">
+            <summary>
+            Writes a log and an exception at the <see cref="F:Microsoft.AppCenter.LogLevel.Assert"/> level.
+            Note: To track events, use <code>Analytics.TrackEvent</code>.
+            </summary>
+            <param name="tag">Log tag.</param>
+            <param name="message">Message.</param>
+            <param name="exception">Associated exception.</param>
+        </member>
+        <member name="T:Microsoft.AppCenter.AppCenterService">
+            <summary>
+            Provides basic functionality for IAppCenterServices.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenterService.ApplicationSettings">
+            <summary>
+            Application settings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenterService.Channel">
+            <summary>
+            Channel associated with this service. Should be disposed only by ChannelGroup.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenterService.ChannelGroup">
+            <summary>
+            ChannelGroup that contains the service's ChannelUnit.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenterService.ChannelName">
+            <summary>
+            Name of this service's Channel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenterService.ServiceName">
+            <summary>
+            Display name of the service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenterService.LogTag">
+            <summary>
+            Log tag for this service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenterService.EnabledPreferenceKey">
+            <summary>
+            Settings dictionary key for whether this service is enabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenterService.TriggerCount">
+            <summary>
+            Number of logs to enqueue before sending them to ingestion.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenterService.TriggerInterval">
+            <summary>
+            Maximum time span to wait before triggering ingestion.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenterService.TriggerMaxParallelRequests">
+            <summary>
+            Maximum number of batches to process in parallel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.AppCenterService.InstanceEnabled">
+            <summary>
+            Gets or sets whether service is enabled
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.AppCenterService.OnChannelGroupReady(Microsoft.AppCenter.Channel.IChannelGroup,System.String)">
+            <summary>
+            Method that is called to signal start of service.
+            </summary>
+            <param name="channelGroup">The channel group to which the channel should be added</param>
+            <param name="appSecret">The app secret of the current application</param>
+        </member>
+        <member name="T:Microsoft.AppCenter.LogLevel">
+            <summary>
+            Log level threshold for logs emitted by the SDK.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.LogLevel.Verbose">
+            <summary>
+            SDK emits all possible level of logs.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.LogLevel.Debug">
+            <summary>
+            SDK emits debug, info, warn, error and assert logs.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.LogLevel.Info">
+            <summary>
+            SDK emits info, warn, error, and assert logs.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.LogLevel.Warn">
+            <summary>
+            SDK emits warn, error, and assert logs.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.LogLevel.Error">
+            <summary>
+            SDK error and assert logs.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.LogLevel.Assert">
+            <summary>
+            Only assert logs are emitted by SDK.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.LogLevel.None">
+            <summary>
+            No log is emitted by SDK.
+            </summary>
+        </member>
+        <member name="P:System.Windows.Forms.Application.ProductVersion">
+            <summary>
+             Gets the product version associated with this application.
+            </summary>
+        </member>
+        <member name="M:System.Windows.Forms.Application.GetAppMainType">
+            <summary>
+             Retrieves the Type that contains the "Main" method.
+            </summary>
+        </member>
+        <member name="M:System.Windows.Forms.Application.GetAppFileVersionInfo">
+            <summary>
+             Retrieves the FileVersionInfo associated with the main module for
+             the application.
+            </summary>
+        </member>
+        <member name="P:System.Windows.Forms.Application.ExecutablePath">
+            <summary>
+             Gets the path for the executable file that started the application.
+            </summary>
+        </member>
+        <member name="T:System.Windows.Forms.Screen">
+            <summary>
+             Represents a display device or multiple display devices on a single system.
+            </summary>
+        </member>
+        <member name="F:System.Windows.Forms.Screen.bounds">
+            <summary>
+             Bounds of the screen
+            </summary>
+        </member>
+        <member name="F:System.Windows.Forms.Screen.workingArea">
+            <summary>
+             Available working area on the screen. This excludes taskbars and other
+             docked windows.
+            </summary>
+        </member>
+        <member name="F:System.Windows.Forms.Screen.primary">
+            <summary>
+             Set to true if this screen is the primary monitor
+            </summary>
+        </member>
+        <member name="F:System.Windows.Forms.Screen.deviceName">
+            <summary>
+             Device name associated with this monitor
+            </summary>
+        </member>
+        <member name="P:System.Windows.Forms.Screen.AllScreens">
+            <summary>
+             Gets an array of all of the displays on the system.
+            </summary>
+        </member>
+        <member name="P:System.Windows.Forms.Screen.BitsPerPixel">
+            <summary>
+             Gets Bits per Pixel value.
+            </summary>
+        </member>
+        <member name="P:System.Windows.Forms.Screen.Bounds">
+            <summary>
+             Gets the bounds of the display.
+            </summary>
+        </member>
+        <member name="P:System.Windows.Forms.Screen.DeviceName">
+            <summary>
+             Gets the device name associated with a display.
+            </summary>
+        </member>
+        <member name="P:System.Windows.Forms.Screen.Primary">
+            <summary>
+             Gets a value indicating whether a particular display is
+             the primary device.
+            </summary>
+        </member>
+        <member name="P:System.Windows.Forms.Screen.PrimaryScreen">
+            <summary>
+             Gets the
+             primary display.
+            </summary>
+        </member>
+        <member name="P:System.Windows.Forms.Screen.WorkingArea">
+            <summary>
+             Gets the working area of the screen.
+            </summary>
+        </member>
+        <member name="P:System.Windows.Forms.Screen.DesktopChangedCount">
+            <summary>
+             Screen instances call this property to determine
+             if their WorkingArea cache needs to be invalidated.
+            </summary>
+        </member>
+        <member name="M:System.Windows.Forms.Screen.Equals(System.Object)">
+            <summary>
+             Specifies a value that indicates whether the specified object is equal to
+             this one.
+            </summary>
+        </member>
+        <member name="M:System.Windows.Forms.Screen.FromPoint(System.Drawing.Point)">
+            <summary>
+             Retrieves a <see cref='T:System.Windows.Forms.Screen'/>
+             for the monitor that contains the specified point.
+            </summary>
+        </member>
+        <member name="M:System.Windows.Forms.Screen.FromRectangle(System.Drawing.Rectangle)">
+            <summary>
+             Retrieves a <see cref='T:System.Windows.Forms.Screen'/>
+             for the monitor that contains the
+             largest region of the rectangle.
+            </summary>
+        </member>
+        <member name="M:System.Windows.Forms.Screen.FromHandle(System.IntPtr)">
+            <summary>
+             Retrieves a <see cref='T:System.Windows.Forms.Screen'/> for the monitor that contains
+             the largest region of the window.
+            </summary>
+        </member>
+        <member name="M:System.Windows.Forms.Screen.GetWorkingArea(System.Drawing.Point)">
+            <summary>
+             Retrieves the working area for the monitor that is closest to the
+             specified point.
+            </summary>
+        </member>
+        <member name="M:System.Windows.Forms.Screen.GetWorkingArea(System.Drawing.Rectangle)">
+            <summary>
+             Retrieves the working area for the monitor that contains the largest region
+             of the specified rectangle.
+            </summary>
+        </member>
+        <member name="M:System.Windows.Forms.Screen.GetBounds(System.Drawing.Point)">
+            <summary>
+             Retrieves the bounds of the monitor that is closest to the specified
+             point.
+            </summary>
+        </member>
+        <member name="M:System.Windows.Forms.Screen.GetBounds(System.Drawing.Rectangle)">
+            <summary>
+             Retrieves the bounds of the monitor that contains the largest region of the
+             specified rectangle.
+            </summary>
+        </member>
+        <member name="M:System.Windows.Forms.Screen.GetHashCode">
+            <summary>
+             Computes and retrieves a hash code for an object.
+            </summary>
+        </member>
+        <member name="M:System.Windows.Forms.Screen.OnDisplaySettingsChanging(System.Object,System.EventArgs)">
+            <summary>
+             Called by the SystemEvents class when our display settings are
+             changing.  We cache screen information and at this point we must
+             invalidate our cache.
+            </summary>
+        </member>
+        <member name="M:System.Windows.Forms.Screen.OnUserPreferenceChanged(System.Object,Microsoft.Win32.UserPreferenceChangedEventArgs)">
+            <summary>
+             Called by the SystemEvents class when our display settings have
+             changed.  Here, we increment a static counter that Screen instances
+             can check against to invalidate their cache.
+            </summary>
+        </member>
+        <member name="M:System.Windows.Forms.Screen.ToString">
+            <summary>
+             Retrieves a string representing this object.
+            </summary>
+        </member>
+        <member name="T:System.Windows.Forms.SystemInformation">
+            <summary>
+             Provides information about the operating system.
+            </summary>
+        </member>
+        <member name="P:System.Windows.Forms.SystemInformation.VirtualScreen">
+            <summary>
+             Gets the bounds of the virtual screen.
+            </summary>
+        </member>
+        <member name="P:System.Windows.Forms.SystemInformation.PrimaryMonitorSize">
+            <summary>
+             Gets the dimensions of the primary display monitor in pixels.
+            </summary>
+        </member>
+        <member name="P:System.Windows.Forms.SystemInformation.WorkingArea">
+            <summary>
+             Gets the size of the working area in pixels.
+            </summary>
+        </member>
+        <member name="M:Interop.Gdi32.CreateDC(System.String,System.String,System.String,System.IntPtr)">
+            <remarks>
+             Use <see cref="M:Interop.Gdi32.DeleteDC(Interop.Gdi32.HDC)"/> when finished with the returned DC.
+             Calling with ("DISPLAY", null, null, IntPtr.Zero) will retrieve a DC for the entire desktop.
+            </remarks>
+        </member>
+        <member name="T:Interop.BOOL">
+            <summary>
+             Blittable version of Windows BOOL type. It is convenient in situations where
+             manual marshalling is required, or to avoid overhead of regular bool marshalling.
+            </summary>
+            <remarks>
+             Some Windows APIs return arbitrary integer values although the return type is defined
+             as BOOL. It is best to never compare BOOL to TRUE. Always use bResult != BOOL.FALSE
+             or bResult == BOOL.FALSE .
+            </remarks>
+        </member>
+    </members>
+</doc>

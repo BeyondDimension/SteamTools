@@ -1,6 +1,5 @@
 ﻿#pragma warning disable CA1416 // 验证平台兼容性
 using Microsoft.Win32;
-
 using Microsoft.Win32.TaskScheduler;
 using System.Application.Models;
 using System.Application.UI;

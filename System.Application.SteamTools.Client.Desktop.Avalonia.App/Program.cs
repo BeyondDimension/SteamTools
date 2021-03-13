@@ -31,9 +31,9 @@ namespace System.Application.UI
                 Startup.Init();
 
 #if WINDOWS
-                var app = new WpfApp();
-                app.InitializeComponent();
-                Task.Factory.StartNew(app.Run);
+                //var app = new WpfApp();
+                //app.InitializeComponent();
+                //Task.Factory.StartNew(app.Run);
 #endif
 
                 CefNetApp.Init(logDirPath, args);

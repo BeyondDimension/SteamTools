@@ -1,0 +1,1063 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AppCenter.Crashes</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AppCenter.Crashes.TestCrashException">
+            <summary>
+            Exception type thrown for testing purposes. See <see cref="M:Microsoft.AppCenter.Crashes.Crashes.GenerateTestCrash"/>. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.TestCrashException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization constructor. Not intended for public use.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.TestCrashException.#ctor">
+            <summary>
+            Initializes a new instance of the TestCrashException class with a predefined error message.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper">
+            <summary>
+            ErrorLogHelper to help constructing, serializing, and de-serializing locally stored error logs.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.ErrorLogFileExtension">
+            <summary>
+            Error log file extension for the JSON schema.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.ExceptionFileExtension">
+            <summary>
+            Error log file extension for the serialized exception for client side inspection.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.ErrorStorageDirectoryName">
+            <summary>
+            Error log directory within application files.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper._deviceInformationHelper">
+            <summary>
+            Device information utility. Exposed for testing purposes only.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper._processInformation">
+            <summary>
+            Process information utility. Exposed for testing purposes only.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper._crashesDirectory">
+            <summary>
+            Directory containing crashes files. Exposed for testing purposes only.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.LockObject">
+            <summary>
+            Static lock object.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.Instance">
+            <summary>
+            Singleton instance. Should only be accessed from unit tests.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.#ctor">
+            <summary>
+            Public constructor for testing purposes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.CreateErrorLog(System.Exception)">
+            <summary>
+            Creates an error log for the given exception object.
+            </summary>
+            <param name="exception">The exception.</param>
+            <returns>A new error log instance.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.GetErrorLogFiles">
+            <summary>
+            Gets all files with the error log file extension in the error directory.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.GetErrorStorageDirectory">
+            <summary>
+            Gets the error storage directory, or creates it if it does not exist.
+            </summary>
+            <returns>The error storage directory.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.GetStoredErrorLogFile(System.Guid)">
+            <summary>
+            Gets the error log file with the given ID.
+            </summary>
+            <param name="errorId">The ID for the error log.</param>
+            <returns>The error log file or null if it is not found.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.GetStoredExceptionFile(System.Guid)">
+            <summary>
+            Gets the exception file with the given ID.
+            </summary>
+            <param name="errorId">The ID for the exception.</param>
+            <returns>The exception file or null if it is not found.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.ReadErrorLogFile(Microsoft.AppCenter.Utils.Files.File)">
+            <summary>
+            Reads an error log on disk.
+            </summary>
+            <param name="file">The error log file.</param>
+            <returns>The managed error log instance.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.ReadExceptionFile(Microsoft.AppCenter.Utils.Files.File)">
+            <summary>
+            Reads an exception on disk.
+            </summary>
+            <param name="file">The exception file.</param>
+            <returns>The exception stack trace.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.SaveErrorLogFiles(System.Exception,Microsoft.AppCenter.Crashes.Ingestion.Models.ManagedErrorLog)">
+            <summary>
+            Saves an error log and an exception on disk.
+            </summary>
+            <param name="exception">The exception that caused the crash.</param>
+            <param name="errorLog">The error log.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.RemoveStoredErrorLogFile(System.Guid)">
+            <summary>
+            Deletes an error log from disk.
+            </summary>
+            <param name="errorId">The ID for the error log.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.RemoveStoredExceptionFile(System.Guid)">
+            <summary>
+            Deletes an exception from disk.
+            </summary>
+            <param name="errorId">The ID for the exception.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.RemoveAllStoredErrorLogFiles">
+            <summary>
+            Removes all stored error log files.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.InstanceReadErrorLogFile(Microsoft.AppCenter.Utils.Files.File)">
+            <summary>
+            Reads an error log file from the given file.
+            </summary>
+            <param name="file">The file that contains error log.</param>
+            <returns>An error log instance or null if the file doesn't contain an error log.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.InstanceReadExceptionFile(Microsoft.AppCenter.Utils.Files.File)">
+            <summary>
+            Reads an exception file from the given file.
+            </summary>
+            <param name="file">The file that contains exception.</param>
+            <returns>An exception stack trace or null if the file cannot be read.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.InstanceGetErrorStorageDirectory">
+            <summary>
+            Saves an error log and an exception on disk.
+            Get the error storage directory, or creates it if it does not exist.
+            </summary>
+            <returns>The error storage directory.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.InstanceSaveErrorLogFiles(System.Exception,Microsoft.AppCenter.Crashes.Ingestion.Models.ManagedErrorLog)">
+            <summary>
+            Saves an error log on disk.
+            </summary>
+            <param name="exception">The exception that caused the crash.</param>
+            <param name="errorLog">The error log.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Utils.ErrorLogHelper.GetStoredFile(System.Guid,System.String)">
+            <summary>
+            Gets a file from storage with the given ID and extension.
+            </summary>
+            <param name="errorId">The error ID.</param>
+            <param name="extension">The file extension.</param>
+            <returns>The file corresponding to the given parameters, or null if not found.</returns>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.Utils.IProcessInformation">
+            <summary>
+            Utility to get information about the current process. Has different implementations on different platforms. Some information will be unavailable on certain platforms.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Utils.IProcessInformation.ProcessStartTime">
+            <summary>
+            Gets the start time of the current process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Utils.IProcessInformation.ProcessId">
+            <summary>
+            Gets the ID of the current process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Utils.IProcessInformation.ProcessName">
+            <summary>
+            Gets the name of the current process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Utils.IProcessInformation.ParentProcessId">
+            <summary>
+            Gets the ID of the parent process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Utils.IProcessInformation.ParentProcessName">
+            <summary>
+            Gets the name of the parent process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Utils.IProcessInformation.ProcessArchitecture">
+            <summary>
+            Gets the CPU architecture that the current process is running on.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.Crashes">
+            <summary>
+            Crashes service.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.Crashes.LogTag">
+            <summary>
+            Log tag used by the Crashes component.
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Crashes.Crashes.SendingErrorReport">
+            <summary>
+            Occurs when an error report is about to be sent.
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Crashes.Crashes.SentErrorReport">
+            <summary>
+            Occurs when an error report has been successfully sent.
+            </summary>
+        </member>
+        <member name="E:Microsoft.AppCenter.Crashes.Crashes.FailedToSendErrorReport">
+            <summary>
+            Occurs when an error report has failed to be sent.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.Crashes.ShouldProcessErrorReport">
+            <summary>
+            Set this callback to add custom behavior for determining whether an error report should be processed.
+            Returning false prevents the crash from being reported to the server.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.Crashes.ShouldAwaitUserConfirmation">
+            <summary>
+            Set this callback to add custom behavior for determining whether user confirmation is required to send
+            error reports.
+            </summary>
+            <seealso cref="T:Microsoft.AppCenter.Crashes.ShouldAwaitUserConfirmationCallback"/>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.Crashes.GetErrorAttachments">
+            <summary>
+            Set this callback to attach custom text and/or binaries to an error report.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Crashes.NotifyUserConfirmation(Microsoft.AppCenter.Crashes.UserConfirmation)">
+            <summary>
+            Notifies SDK with a confirmation to handle the crash report.
+            </summary>
+            <param name="confirmation">A user confirmation. See <see cref="T:Microsoft.AppCenter.Crashes.UserConfirmation"/>.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Crashes.IsEnabledAsync">
+            <summary>
+            Check whether the Crashes service is enabled or not.
+            </summary>
+            <returns>A task with result being true if enabled, false if disabled.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Crashes.SetEnabledAsync(System.Boolean)">
+            <summary>
+            Enable or disable the Crashes service.
+            </summary>
+            <returns>A task to monitor the operation.</returns>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Crashes.HasCrashedInLastSessionAsync">
+            <summary>
+            Provides information whether the app crashed in its last session.
+            </summary>
+            <value>
+            Task with result being <c>true</c> if a crash was recorded in the last session, otherwise <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Crashes.GetLastSessionCrashReportAsync">
+            <summary>
+            Gets the crash report generated in the last session if there was a crash.
+            </summary>
+            <value>Crash report from the last session, <c>null</c> if there was no crash in the last session.</value>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Crashes.HasReceivedMemoryWarningInLastSessionAsync">
+            <summary>
+            Provides information whether the app received memory warning in its last session.
+            </summary>
+            <value> 
+            Task with result being <c>true</c> if a memory warning was recorded in the last session, otherwise <c>false</c>
+            </value>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Crashes.GenerateTestCrash">
+            <summary>
+            Generates crash for testing purposes.
+            </summary>
+            <remarks>
+            This call has no effect in non debug configuration (such as release).
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Crashes.TrackError(System.Exception,System.Collections.Generic.IDictionary{System.String,System.String},Microsoft.AppCenter.Crashes.ErrorAttachmentLog[])">
+            <summary>
+            Track a handled error.
+            </summary>
+            <param name="exception">The .NET exception describing the handled error.</param>
+            <param name="properties">Optional properties.</param>
+            <param name="attachments">Optional attachments.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Crashes.Instance">
+            <summary>
+            Unique instance.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.Crashes._unprocessedManagedErrorLogs">
+            <summary>
+            A dictionary that contains unprocessed managed error logs before getting a user confirmation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.Crashes._errorReportCache">
+            <summary>
+            A dictionary for a cache that contains error report.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Crashes.ChannelName">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Crashes.TriggerCount">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Crashes.TriggerInterval">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Crashes.ServiceName">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Crashes.ProcessPendingErrorsTask">
+            <summary>
+            A task of processing pending error log files.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Crashes.OnChannelGroupReady(Microsoft.AppCenter.Channel.IChannelGroup,System.String)">
+            <summary>
+            Method that is called to signal start of Crashes service.
+            </summary>
+            <param name="channelGroup">Channel group</param>
+            <param name="appSecret">App secret</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Crashes.InstanceEnabled">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.NamespaceDoc">
+            <summary>
+            Crashes SDK module.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.ErrorReportEventArgs">
+            <summary>
+            Event arguments base class for all events that involve an error report.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.ErrorReportEventArgs.Report">
+            <summary>
+            The error report associated with the event.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.SendingErrorReportEventArgs">
+            <summary>
+            Event arguments class for event <see cref="E:Microsoft.AppCenter.Crashes.Crashes.SendingErrorReport"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.SentErrorReportEventArgs">
+            <summary>
+            Event arguments class for event <see cref="E:Microsoft.AppCenter.Crashes.Crashes.SentErrorReport"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.FailedToSendErrorReportEventArgs">
+            <summary>
+            Event arguments class for event <see cref="E:Microsoft.AppCenter.Crashes.Crashes.FailedToSendErrorReport"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.FailedToSendErrorReportEventArgs.Exception">
+            <summary>
+            The native exception associated with the failure.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.ShouldProcessErrorReportCallback">
+            <summary>
+            Callback type for determining whether a particular error report should be processed.
+            </summary>
+            <returns><c>true</c> if <c>report</c> should be processed.</returns>
+            <param name="report">The error report that is being considered for processing.</param>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.GetErrorAttachmentsCallback">
+            <summary>
+            Callback type for getting error attachments for a particular error report.
+            </summary>
+            <returns>The error attachments to be associated with <c>report</c>.</returns>
+            <param name="report">The error report for which error attachments are to be returned.</param>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.ShouldAwaitUserConfirmationCallback">
+            <summary>
+            Determine whether user confirmation is required to process a report. <see cref="M:Microsoft.AppCenter.Crashes.Crashes.NotifyUserConfirmation(Microsoft.AppCenter.Crashes.UserConfirmation)"/> must be called by yourself./> 
+            </summary>
+            <returns><c>true</c> if sending reports should be confirmed by a user.</returns>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.SendingErrorReportEventHandler">
+            <summary>
+            Handler type for event <see cref="E:Microsoft.AppCenter.Crashes.Crashes.SendingErrorReport"/>.
+            </summary>
+            <param name="sender">This parameter will be <c>null</c> when being sent from the <see cref="T:Microsoft.AppCenter.Crashes.Crashes"/> class and should be ignored. </param>
+            <param name="e">Event arguments. See <see cref="T:Microsoft.AppCenter.Crashes.SendingErrorReportEventArgs"/> for more details.</param>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.SentErrorReportEventHandler">
+            <summary>
+            Handler type for event <see cref="E:Microsoft.AppCenter.Crashes.Crashes.SentErrorReport"/>.
+            </summary>
+            <param name="sender">This parameter will be <c>null</c> when being sent from the <see cref="T:Microsoft.AppCenter.Crashes.Crashes"/> class and should be ignored. </param>
+            <param name="e">Event arguments. See <see cref="T:Microsoft.AppCenter.Crashes.SentErrorReportEventArgs"/> for more details.</param>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.FailedToSendErrorReportEventHandler">
+            <summary>
+            Handler type for event <see cref="E:Microsoft.AppCenter.Crashes.Crashes.FailedToSendErrorReport"/>.
+            </summary>
+            <param name="sender">This parameter will be <c>null</c> when being sent from the <see cref="T:Microsoft.AppCenter.Crashes.Crashes"/> class and should be ignored. </param>
+            <param name="e">Event arguments. See <see cref="T:Microsoft.AppCenter.Crashes.FailedToSendErrorReportEventArgs"/> for more details.</param>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.ErrorReport">
+            <summary>
+            Error report containing information about a particular crash.
+            </summary>
+            <summary>
+            Error report containing information about a particular crash.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.ErrorReport.Id">
+            <summary>
+            Gets the report identifier.
+            </summary>
+            <value>UUID for the report.</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.ErrorReport.AppStartTime">
+            <summary>
+            Gets the app start time.
+            </summary>
+            <value>Date and time the app started</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.ErrorReport.AppErrorTime">
+            <summary>
+            Gets the app error time.
+            </summary>
+            <value>Date and time the error occured</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.ErrorReport.Device">
+            <summary>
+            Gets the device that the crashed app was being run on.
+            </summary>
+            <value>Device information at the crash time.</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.ErrorReport.Exception">
+            <summary>
+            Gets the C# Exception object that caused the crash.
+            </summary>
+            <value>The exception.</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.ErrorReport.StackTrace">
+            <summary>
+            Gets the C# exception stack trace captured at crash time.
+            </summary>
+            <value>The exception.</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.ErrorReport.AndroidDetails">
+            <summary>
+            Gets details specific to Android.
+            </summary>
+            <value>Android error report details. <c>null</c> if the OS is not Android.</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.ErrorReport.iOSDetails">
+            <summary>
+            Gets details specific to iOS.
+            </summary>
+            <value>iOS error report details. <c>null</c> if the OS is not iOS.</value>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.ErrorReport.#ctor(Microsoft.AppCenter.Crashes.Ingestion.Models.ManagedErrorLog,System.String)">
+            <summary>
+            Creates a new error report.
+            </summary>
+            <param name="log">The managed error log.</param>
+            <param name="stackTrace">The associated exception stack trace.</param>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.AndroidErrorDetails">
+            <summary>
+            Error report details pertinent only to devices running Android.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.AndroidErrorDetails.Throwable">
+            <summary>
+            Gets the throwable associated with the Java crash.
+            </summary>
+            <value>The throwable associated with the crash. <c>null</c> if the crash occured in .NET code.</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.AndroidErrorDetails.StackTrace">
+            <summary>
+            Gets the stack trace associated with the Java crash.
+            </summary>
+            <value>The stack trace associated with the crash. <c>null</c> if the crash occured in .NET code.</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.AndroidErrorDetails.ThreadName">
+            <summary>
+            Gets the name of the thread that crashed.
+            </summary>
+            <value>The name of the thread that crashed.</value>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.iOSErrorDetails">
+            <summary>
+            Error report details pertinent only to devices running iOS.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.iOSErrorDetails.ReporterKey">
+            <summary>
+            Gets the reporter key.
+            </summary>
+            <value>UUID for the app installation on the device.</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.iOSErrorDetails.Signal">
+            <summary>
+            Gets the signal that caused the crash.
+            </summary>
+            <value>The signal that caused the crash.</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.iOSErrorDetails.ExceptionName">
+            <summary>
+            Gets the name of the exception that triggered the crash, <c>null</c> if the crash was not triggered by an
+            exception.
+            </summary>
+            <value>The name of the exception that triggered the crash.</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.iOSErrorDetails.ExceptionReason">
+            <summary>
+            Gets the reason for the exception that triggered the crash, <c>null</c> if the crash was not triggered by an
+            exception.
+            </summary>
+            <value>The reason for the exception causing the crash.</value>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.iOSErrorDetails.AppProcessIdentifier">
+            <summary>
+            Gets the identifier of the app process that crashed.
+            </summary>
+            <value>The app process identifier.</value>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.UserConfirmation">
+            <summary>
+            User confirmation options for whether to send crash reports.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.UserConfirmation.DontSend">
+            <summary>
+            Do not send the crash report
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.UserConfirmation.Send">
+            <summary>
+            Send the crash report
+            </summary>
+        </member>
+        <member name="F:Microsoft.AppCenter.Crashes.UserConfirmation.AlwaysSend">
+            <summary>
+            Send all crash reports
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.ErrorAttachmentLog">
+            <summary>
+            Error attachment for error report.
+            </summary>
+            <summary>
+            Error attachment log.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.ErrorAttachmentLog.AttachmentWithText(System.String,System.String)">
+            <summary>
+            Builds an attachment with text suitable for using in <see cref="F:Microsoft.AppCenter.Crashes.Crashes.GetErrorAttachments"/>.
+            </summary>
+            <returns>Error attachment or <c>null</c> if null text is passed.</returns>
+            <param name="text">Text to attach to the error report.</param>
+            <param name="fileName">File name to use on reports.</param>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.ErrorAttachmentLog.AttachmentWithBinary(System.Byte[],System.String,System.String)">
+            <summary>
+            Builds an attachment with binary suitable for using in <see cref="F:Microsoft.AppCenter.Crashes.Crashes.GetErrorAttachments"/>.
+            </summary>
+            <returns>Error attachment or <c>null</c> if null data is passed.</returns>
+            <param name="data">Binary data.</param>
+            <param name="fileName">File name to use on reports.</param>
+            <param name="contentType">Data MIME type.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.ErrorAttachmentLog.Id">
+            <summary>
+            Gets or sets error attachment identifier.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.ErrorAttachmentLog.ErrorId">
+            <summary>
+            Gets or sets error log identifier to attach this log to.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.ErrorAttachmentLog.ContentType">
+            <summary>
+            Gets or sets content type (text/plain for text).
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.ErrorAttachmentLog.FileName">
+            <summary>
+            Gets or sets file name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.ErrorAttachmentLog.Data">
+            <summary>
+            Gets or sets data encoded as base 64.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.ErrorAttachmentLog.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.ErrorAttachmentLog.ValidatePropertiesForAttachment">
+            <summary>
+            Check all required fields are present.
+            </summary>
+            <returns>True if all required fields are present.</returns>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.Ingestion.Models.AbstractErrorLog">
+            <summary>
+            Abstract error log.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.AbstractErrorLog.#ctor">
+            <summary>
+            Initializes a new instance of the AbstractErrorLog class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.AbstractErrorLog.#ctor(Microsoft.AppCenter.Ingestion.Models.Device,System.Guid,System.Int32,System.String,System.Boolean,System.Nullable{System.DateTime},System.Nullable{System.Guid},System.String,System.Nullable{System.Int32},System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.DateTime},System.String)">
+            <summary>
+            Initializes a new instance of the AbstractErrorLog class.
+            </summary>
+            <param name="id">Error identifier.</param>
+            <param name="processId">Process identifier.</param>
+            <param name="processName">Process name.</param>
+            <param name="fatal">If true, this error report is an application
+            crash.
+            Corresponds to the number of milliseconds elapsed between the time
+            the error occurred and the app was launched.</param>
+            <param name="timestamp">Log timestamp, example:
+            '2017-03-13T18:05:42Z'.
+            </param>
+            <param name="sid">When tracking an analytics session, logs can be
+            part of the session by specifying this identifier.
+            This attribute is optional, a missing value means the session
+            tracking is disabled (like when using only error reporting
+            feature).
+            Concrete types like StartSessionLog or PageLog are always part of a
+            session and always include this identifier.
+            </param>
+            <param name="userId">optional string used for associating logs with
+            users.
+            </param>
+            <param name="parentProcessId">Parent's process identifier.</param>
+            <param name="parentProcessName">Parent's process name.</param>
+            <param name="errorThreadId">Error thread identifier.</param>
+            <param name="errorThreadName">Error thread name.</param>
+            <param name="appLaunchTimestamp">Timestamp when the app was
+            launched, example: '2017-03-13T18:05:42Z'.
+            </param>
+            <param name="architecture">CPU architecture.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.AbstractErrorLog.Id">
+            <summary>
+            Gets or sets error identifier.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.AbstractErrorLog.ProcessId">
+            <summary>
+            Gets or sets process identifier.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.AbstractErrorLog.ProcessName">
+            <summary>
+            Gets or sets process name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.AbstractErrorLog.ParentProcessId">
+            <summary>
+            Gets or sets parent's process identifier.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.AbstractErrorLog.ParentProcessName">
+            <summary>
+            Gets or sets parent's process name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.AbstractErrorLog.ErrorThreadId">
+            <summary>
+            Gets or sets error thread identifier.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.AbstractErrorLog.ErrorThreadName">
+            <summary>
+            Gets or sets error thread name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.AbstractErrorLog.Fatal">
+            <summary>
+            Gets or sets if true, this error report is an application crash.
+            Corresponds to the number of milliseconds elapsed between the time
+            the error occurred and the app was launched.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.AbstractErrorLog.AppLaunchTimestamp">
+             <summary>
+             Gets or sets timestamp when the app was launched, example:
+             '2017-03-13T18:05:42Z'.
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.AbstractErrorLog.Architecture">
+            <summary>
+            Gets or sets CPU architecture.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.AbstractErrorLog.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.Ingestion.Models.Binary">
+            <summary>
+            Binary (library) definition for any platform.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.Binary.#ctor">
+            <summary>
+            Initializes a new instance of the Binary class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.Binary.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Initializes a new instance of the Binary class.
+            </summary>
+            <param name="primaryArchitectureId">CPU primary
+            architecture.</param>
+            <param name="architectureVariantId">CPU architecture
+            variant.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.Binary.Id">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.Binary.StartAddress">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.Binary.EndAddress">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.Binary.Name">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.Binary.Path">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.Binary.Architecture">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.Binary.PrimaryArchitectureId">
+            <summary>
+            Gets or sets CPU primary architecture.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.Binary.ArchitectureVariantId">
+            <summary>
+            Gets or sets CPU architecture variant.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.Binary.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.Ingestion.Models.Exception">
+            <summary>
+            Exception definition for any platform.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.Exception.#ctor">
+            <summary>
+            Initializes a new instance of the Exception class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.Exception.#ctor(System.String,System.String,System.String,System.Collections.Generic.IList{Microsoft.AppCenter.Crashes.Ingestion.Models.StackFrame},System.Collections.Generic.IList{Microsoft.AppCenter.Crashes.Ingestion.Models.Exception},System.String)">
+            <summary>
+            Initializes a new instance of the Exception class.
+            </summary>
+            <param name="type">Exception type.</param>
+            <param name="message">Exception reason.</param>
+            <param name="stackTrace">Raw stack trace. Sent when the frames
+            property is either missing or unreliable.</param>
+            <param name="frames">Stack frames. Optional.</param>
+            <param name="innerExceptions">Inner exceptions of this
+            exception.</param>
+            <param name="wrapperSdkName">Name of the wrapper SDK that emitted
+            this exeption. Consists of the name of the SDK and the wrapper
+            platform, e.g. "appcenter.xamarin", "hockeysdk.cordova".
+            </param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.Exception.Type">
+            <summary>
+            Gets or sets exception type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.Exception.Message">
+            <summary>
+            Gets or sets exception reason.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.Exception.StackTrace">
+            <summary>
+            Gets or sets raw stack trace. Sent when the frames property is
+            either missing or unreliable.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.Exception.Frames">
+            <summary>
+            Gets or sets stack frames. Optional.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.Exception.InnerExceptions">
+            <summary>
+            Gets or sets inner exceptions of this exception.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.Exception.WrapperSdkName">
+             <summary>
+             Gets or sets name of the wrapper SDK that emitted this exeption.
+             Consists of the name of the SDK and the wrapper platform, e.g.
+             "appcenter.xamarin", "hockeysdk.cordova".
+            
+             </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.Exception.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.Ingestion.Models.HandledErrorLog">
+            <summary>
+            Handled Error log for managed platforms (such as Xamarin, Unity,
+            Android Dalvik/ART)
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.HandledErrorLog.#ctor">
+            <summary>
+            Initializes a new instance of the HandledErrorLog class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.HandledErrorLog.#ctor(Microsoft.AppCenter.Ingestion.Models.Device,Microsoft.AppCenter.Crashes.Ingestion.Models.Exception,System.Nullable{System.DateTime},System.Nullable{System.Guid},System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Nullable{System.Guid},System.Collections.Generic.IList{Microsoft.AppCenter.Crashes.Ingestion.Models.Binary})">
+            <summary>
+            Initializes a new instance of the HandledErrorLog class.
+            </summary>
+            <param name="timestamp">Log timestamp, example:
+            '2017-03-13T18:05:42Z'.
+            </param>
+            <param name="sid">When tracking an analytics session, logs can be
+            part of the session by specifying this identifier.
+            This attribute is optional, a missing value means the session
+            tracking is disabled (like when using only error reporting
+            feature).
+            Concrete types like StartSessionLog or PageLog are always part of a
+            session and always include this identifier.
+            </param>
+            <param name="userId">optional string used for associating logs with
+            users.
+            </param>
+            <param name="properties">Additional key/value pair parameters.
+            </param>
+            <param name="id">Unique identifier for this Error.
+            </param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.HandledErrorLog.Id">
+             <summary>
+             Gets or sets unique identifier for this Error.
+            
+             </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.HandledErrorLog.Binaries">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.HandledErrorLog.Exception">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.HandledErrorLog.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.Ingestion.Models.ManagedErrorLog">
+            <summary>
+            Error log for managed platforms (such as Android Dalvik/ART).
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.ManagedErrorLog.#ctor">
+            <summary>
+            Initializes a new instance of the ManagedErrorLog class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.ManagedErrorLog.#ctor(Microsoft.AppCenter.Ingestion.Models.Device,System.Guid,System.Int32,System.String,System.Boolean,Microsoft.AppCenter.Crashes.Ingestion.Models.Exception,System.Nullable{System.DateTime},System.Nullable{System.Guid},System.String,System.Nullable{System.Int32},System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.DateTime},System.String,System.Collections.Generic.IList{Microsoft.AppCenter.Crashes.Ingestion.Models.Binary},System.String)">
+            <summary>
+            Initializes a new instance of the ManagedErrorLog class.
+            </summary>
+            <param name="id">Error identifier.</param>
+            <param name="processId">Process identifier.</param>
+            <param name="processName">Process name.</param>
+            <param name="fatal">If true, this error report is an application
+            crash.
+            Corresponds to the number of milliseconds elapsed between the time
+            the error occurred and the app was launched.</param>
+            <param name="timestamp">Log timestamp, example:
+            '2017-03-13T18:05:42Z'.
+            </param>
+            <param name="sid">When tracking an analytics session, logs can be
+            part of the session by specifying this identifier.
+            This attribute is optional, a missing value means the session
+            tracking is disabled (like when using only error reporting
+            feature).
+            Concrete types like StartSessionLog or PageLog are always part of a
+            session and always include this identifier.
+            </param>
+            <param name="userId">optional string used for associating logs with
+            users.
+            </param>
+            <param name="parentProcessId">Parent's process identifier.</param>
+            <param name="parentProcessName">Parent's process name.</param>
+            <param name="errorThreadId">Error thread identifier.</param>
+            <param name="errorThreadName">Error thread name.</param>
+            <param name="appLaunchTimestamp">Timestamp when the app was
+            launched, example: '2017-03-13T18:05:42Z'.
+            </param>
+            <param name="architecture">CPU architecture.</param>
+            <param name="buildId">Unique ID for a Xamarin build or another
+            similar technology.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.ManagedErrorLog.Binaries">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.ManagedErrorLog.BuildId">
+            <summary>
+            Gets or sets unique ID for a Xamarin build or another similar
+            technology.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.ManagedErrorLog.Exception">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.ManagedErrorLog.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.AppCenter.Ingestion.Models.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.Ingestion.Models.StackFrame">
+            <summary>
+            Stack frame definition for any platform.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.StackFrame.#ctor">
+            <summary>
+            Initializes a new instance of the StackFrame class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AppCenter.Crashes.Ingestion.Models.StackFrame.#ctor(System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.String)">
+            <summary>
+            Initializes a new instance of the StackFrame class.
+            </summary>
+            <param name="address">Frame address.</param>
+            <param name="code">Symbolized code line</param>
+            <param name="className">The fully qualified name of the Class
+            containing the execution point represented by this stack trace
+            element.</param>
+            <param name="methodName">The name of the method containing the
+            execution point represented by this stack trace element.</param>
+            <param name="lineNumber">The line number of the source line
+            containing the execution point represented by this stack trace
+            element.</param>
+            <param name="fileName">The name of the file containing the
+            execution point represented by this stack trace element.</param>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.StackFrame.Address">
+            <summary>
+            Gets or sets frame address.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.StackFrame.Code">
+            <summary>
+            Gets or sets symbolized code line
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.StackFrame.ClassName">
+            <summary>
+            Gets or sets the fully qualified name of the Class containing the
+            execution point represented by this stack trace element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.StackFrame.MethodName">
+            <summary>
+            Gets or sets the name of the method containing the execution point
+            represented by this stack trace element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.StackFrame.LineNumber">
+            <summary>
+            Gets or sets the line number of the source line containing the
+            execution point represented by this stack trace element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AppCenter.Crashes.Ingestion.Models.StackFrame.FileName">
+            <summary>
+            Gets or sets the name of the file containing the execution point
+            represented by this stack trace element.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AppCenter.Crashes.Windows.Utils.ErrorExceptionAndBinaries">
+            <summary>
+            This class is a data-only holder for the model exception and binary sent with error logs. A simple pair cannot be used because value tuples require an additional dependency in UWP.
+            </summary>
+        </member>
+    </members>
+</doc>

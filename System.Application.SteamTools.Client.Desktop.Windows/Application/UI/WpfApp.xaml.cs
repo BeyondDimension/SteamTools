@@ -21,18 +21,5 @@ namespace System.Application.UI
         void JumpList_JumpItemsRemovedByUser(object sender, JumpItemsRemovedEventArgs e)
         {
         }
-
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-
-            var options = DI.Get_Nullable<IOptions<AppSettings>>();
-
-            var appSecret = options?.Value.AppSecretVisualStudioAppCenter;
-            if (!string.IsNullOrWhiteSpace(appSecret))
-            {
-                AppCenter.Start(appSecret, typeof(Analytics), typeof(Crashes));
-            }
-        }
     }
 }

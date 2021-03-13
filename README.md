@@ -125,6 +125,7 @@
 * [React](https://github.com/facebook/react)
 * [Ant Design](https://github.com/ant-design/ant-design)
 * [Ant Design Blazor](https://github.com/ant-design-blazor/ant-design-blazor)
+* [Visual Studio App Center SDK for .NET](https://github.com/microsoft/appcenter-sdk-dotnet)
 * [Xamarin.Essentials](https://github.com/xamarin/essentials)
 * [Entity Framework Core](https://github.com/dotnet/efcore)
 * [ASP.NET Core](https://github.com/dotnet/aspnetcore)

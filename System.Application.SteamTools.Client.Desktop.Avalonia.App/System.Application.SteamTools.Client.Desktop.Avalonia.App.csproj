@@ -25,8 +25,6 @@
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-    <UseWPF>true</UseWPF>
-    <UseWindowsForms>false</UseWindowsForms>
     <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 

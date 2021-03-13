@@ -22,9 +22,10 @@ using System.Linq;
 using System.Application.Models.Settings;
 using System.Application.UI.Resx;
 using System.Application.Models;
+using Microsoft.Extensions.Options;
 #if WINDOWS
-using System.Windows.Shell;
-using WpfApplication = System.Windows.Application;
+//using System.Windows.Shell;
+//using WpfApplication = System.Windows.Application;
 #endif
 using APIConst = System.Application.Services.CloudService.Constants;
 
@@ -207,7 +208,7 @@ namespace System.Application.UI
                 #endregion
 
 #if WINDOWS
-                AddJumpTask();
+                //AddJumpTask();
 #endif
 
                 if (!AppHelper.IsOfficialChannelPackage)
@@ -227,13 +228,23 @@ namespace System.Application.UI
         private void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
         {
             AppHelper.Initialized?.Invoke();
+
+#if WINDOWS
+            var options = DI.Get_Nullable<IOptions<AppSettings>>();
+
+            var appSecret = options?.Value.AppSecretVisualStudioAppCenter;
+            if (!string.IsNullOrWhiteSpace(appSecret))
+            {
+                VisualStudioAppCenterSDK.Init(appSecret);
+            }
+#endif
         }
 
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
         {
             compositeDisposable.Dispose();
 #if WINDOWS
-            WpfApplication.Current.Shutdown();
+            //WpfApplication.Current.Shutdown();
 #endif
             AppHelper.Shutdown?.Invoke();
         }
@@ -320,24 +331,24 @@ namespace System.Application.UI
         // Taskbar Extensions
         // https://docs.microsoft.com/zh-cn/windows/win32/shell/taskbar-extensions?redirectedfrom=MSDN
 
-        static void AddJumpTask()
-        {
-            // Configure a new JumpTask.
-            var jumpTask1 = new JumpTask
-            {
-                // Get the path to Calculator and set the JumpTask properties.
-                ApplicationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "calc.exe"),
-                IconResourcePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "calc.exe"),
-                Title = "Calculator",
-                Description = "Open Calculator.",
-                CustomCategory = "User Added Tasks"
-            };
-            // Get the JumpList from the application and update it.
-            JumpList jumpList1 = JumpList.GetJumpList(WpfApplication.Current);
-            jumpList1.JumpItems.Add(jumpTask1);
-            JumpList.AddToRecentCategory(jumpTask1);
-            jumpList1.Apply();
-        }
+        //static void AddJumpTask()
+        //{
+        //    // Configure a new JumpTask.
+        //    var jumpTask1 = new JumpTask
+        //    {
+        //        // Get the path to Calculator and set the JumpTask properties.
+        //        ApplicationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "calc.exe"),
+        //        IconResourcePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "calc.exe"),
+        //        Title = "Calculator",
+        //        Description = "Open Calculator.",
+        //        CustomCategory = "User Added Tasks"
+        //    };
+        //    // Get the JumpList from the application and update it.
+        //    JumpList jumpList1 = JumpList.GetJumpList(WpfApplication.Current);
+        //    jumpList1.JumpItems.Add(jumpTask1);
+        //    JumpList.AddToRecentCategory(jumpTask1);
+        //    jumpList1.Apply();
+        //}
 
 #endif
     }
