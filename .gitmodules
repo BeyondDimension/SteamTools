@@ -13,3 +13,6 @@
 [submodule "references/WinAuth"]
 	path = references/WinAuth
 	url = https://github.com/SteamTools-Team/WinAuth.git
+[submodule "references/appcenter-sdk-dotnet"]
+	path = references/appcenter-sdk-dotnet
+	url = https://github.com/SteamTools-Team/appcenter-sdk-dotnet.git
