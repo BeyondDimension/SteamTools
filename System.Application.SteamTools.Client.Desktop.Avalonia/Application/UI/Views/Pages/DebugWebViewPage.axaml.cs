@@ -15,7 +15,7 @@ namespace System.Application.UI.Views.Pages
             InitializeComponent();
 
             webView = this.FindControl<WebView>("webView");
-            webView.InitialUrl = "http://pan.mossimo.net:9710/#/welcome"; /*"https://cn.bing.com";*/
+            webView.InitialUrl = "chrome://version";
             webView.BrowserCreated += WebView_BrowserCreated;
 
         }

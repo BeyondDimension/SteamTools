@@ -6,7 +6,7 @@ namespace System.Application.Services.Implementation
     {
         #region Administrator
 
-        static readonly Lazy<bool> mIsAdministrator = new Lazy<bool>(IsAdministrator_);
+        static readonly Lazy<bool> mIsAdministrator = new(IsAdministrator_);
 
         static bool IsAdministrator_()
             => new WindowsPrincipal(WindowsIdentity.GetCurrent())

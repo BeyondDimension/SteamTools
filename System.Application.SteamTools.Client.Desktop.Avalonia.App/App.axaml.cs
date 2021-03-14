@@ -24,7 +24,6 @@ using System.Application.UI.Resx;
 using System.Application.Models;
 using Microsoft.Extensions.Options;
 #if WINDOWS
-//using System.Windows.Shell;
 //using WpfApplication = System.Windows.Application;
 #endif
 using APIConst = System.Application.Services.CloudService.Constants;
@@ -208,7 +207,7 @@ namespace System.Application.UI
                 #endregion
 
 #if WINDOWS
-                //AddJumpTask();
+                JumpLists.Init();
 #endif
 
                 if (!AppHelper.IsOfficialChannelPackage)
@@ -326,36 +325,6 @@ namespace System.Application.UI
         }
 
         #endregion
-
-#if WINDOWS
-
-        // JumpList
-        // 表示作为菜单显示在 Windows 7 任务栏按钮上的项和任务的列表。
-        // https://docs.microsoft.com/zh-cn/dotnet/api/system.windows.shell.jumplist?view=net-5.0
-
-        // Taskbar Extensions
-        // https://docs.microsoft.com/zh-cn/windows/win32/shell/taskbar-extensions?redirectedfrom=MSDN
-
-        //static void AddJumpTask()
-        //{
-        //    // Configure a new JumpTask.
-        //    var jumpTask1 = new JumpTask
-        //    {
-        //        // Get the path to Calculator and set the JumpTask properties.
-        //        ApplicationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "calc.exe"),
-        //        IconResourcePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "calc.exe"),
-        //        Title = "Calculator",
-        //        Description = "Open Calculator.",
-        //        CustomCategory = "User Added Tasks"
-        //    };
-        //    // Get the JumpList from the application and update it.
-        //    JumpList jumpList1 = JumpList.GetJumpList(WpfApplication.Current);
-        //    jumpList1.JumpItems.Add(jumpTask1);
-        //    JumpList.AddToRecentCategory(jumpTask1);
-        //    jumpList1.Apply();
-        //}
-
-#endif
     }
 }
 #pragma warning restore CA1416 // 验证平台兼容性

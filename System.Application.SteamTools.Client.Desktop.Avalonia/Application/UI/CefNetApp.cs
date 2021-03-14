@@ -119,7 +119,6 @@ navigator.__proto__ = newProto;
                 Locale = "zh-CN",
                 MultiThreadedMessageLoop = !externalMessagePump,
                 ExternalMessagePump = externalMessagePump,
-                NoSandbox = false,
                 WindowlessRenderingEnabled = true,
                 LocalesDirPath = localesDirPath,
                 ResourcesDirPath = cefPath,

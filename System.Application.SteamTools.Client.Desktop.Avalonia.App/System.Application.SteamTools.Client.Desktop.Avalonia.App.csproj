@@ -26,8 +26,8 @@
     <TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <Platforms>AnyCPU;x86</Platforms>
-    <!--<UseWindowsForms>false</UseWindowsForms>
-    <UseWPF>false</UseWPF>-->
+    <UseWindowsForms>false</UseWindowsForms>
+    <UseWPF>false</UseWPF>
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
@@ -48,6 +48,7 @@
 
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Windows\System.Application.SteamTools.Client.Desktop.Windows.csproj" />
+    <PackageReference Include="System.Reactive" Version="5.0.0.1-exclude-winforms" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
@@ -124,9 +125,5 @@
 
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\rsa-public-key-release.pfx')">
     <EmbeddedResource Include="..\rsa-public-key-release.pfx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Reactive" Version="5.0.0.1-exclude-winforms" />
   </ItemGroup>
 </Project>
