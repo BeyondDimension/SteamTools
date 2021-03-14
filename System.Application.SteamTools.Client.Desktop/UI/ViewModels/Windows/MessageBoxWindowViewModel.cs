@@ -1,6 +1,6 @@
 ﻿using ReactiveUI;
 
-namespace System.Application.UI.ViewModels.Windows
+namespace System.Application.UI.ViewModels
 {
     public class MessageBoxWindowViewModel : DialogWindowViewModel
     {

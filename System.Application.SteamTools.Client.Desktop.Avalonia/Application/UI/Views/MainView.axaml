@@ -36,16 +36,13 @@
             </StackPanel>
             <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{ReflectionBinding #TabControl.SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Margin="20 10 20 0" FontSize="32"/>
             <StackPanel IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}" Grid.Column="2" x:Name="titleButton" Orientation="Horizontal" VerticalAlignment="Top">
-                <!--<Border Background="{DynamicResource ActiveLinkForegroundBrushKey}">
-                    <Button Content="Test" Classes="flatbutton"></Button>
-                </Border>-->
                 <Menu Items="{Binding SelectedItem.MenuItems}">
                     <Menu.Styles>
                         <Style Selector="MenuItem">
                             <Setter Property="Icon">
                                 <Setter.Value>
                                     <Template>
-                                        <Image Width="12" VerticalAlignment="Center">
+                                        <Image Width="14" VerticalAlignment="Center">
                                             <Image.Source>
                                                 <DrawingImage Drawing="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"></DrawingImage>
                                             </Image.Source>

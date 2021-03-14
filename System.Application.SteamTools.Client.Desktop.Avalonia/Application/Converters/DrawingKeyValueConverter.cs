@@ -9,6 +9,7 @@ namespace System.Application.Converters
 {
     public class DrawingKeyValueConverter : IValueConverter
     {
+
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
@@ -16,7 +17,7 @@ namespace System.Application.Converters
 
             if (value is string key)
             {
-                return DI.Get<IDesktopAvaloniaAppService>().CurrentApp.FindResource(key);
+                return IDesktopAvaloniaAppService.Instance.CurrentApp.FindResource(key);
             }
             throw new NotSupportedException();
         }

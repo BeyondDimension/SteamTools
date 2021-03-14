@@ -1,6 +1,6 @@
 ﻿using System.Application;
 using System.Application.Services;
-using System.Application.UI.ViewModels.Windows;
+using System.Application.UI.ViewModels;
 using System.Properties;
 using System.Threading.Tasks;
 
@@ -30,7 +30,7 @@ namespace System.Windows
             };
 
             var r = await IShowWindowService.Instance.ShowDialog(
-                CustomWindow.MessageBox, caption, viewModel, ResizeModeCompat.NoResize);
+                CustomWindow.MessageBox, viewModel, caption, ResizeModeCompat.NoResize);
 
             return r ? MessageBoxResultCompat.OK : MessageBoxResultCompat.Cancel;
         }

@@ -6,5 +6,6 @@
     public enum CustomWindow
     {
         MessageBox,
+        AddAuth,
     }
 }

@@ -138,17 +138,35 @@
   <data name="About_UpdateHistory" xml:space="preserve">
     <value>更新记录</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>新增</value>
+  </data>
   <data name="ArchiSteamFarmPlus" xml:space="preserve">
     <value>ASF Plus</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="CloudSync" xml:space="preserve">
+    <value>云同步</value>
+  </data>
   <data name="CommunityFix" xml:space="preserve">
     <value>社区加速</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>确定</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>继续</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="Encrypt" xml:space="preserve">
+    <value>加密</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>导出</value>
   </data>
   <data name="GameList" xml:space="preserve">
     <value>库存游戏</value>
@@ -174,8 +192,44 @@
   <data name="IdleCard" xml:space="preserve">
     <value>自动集卡</value>
   </data>
+  <data name="Import" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="LocalAuth" xml:space="preserve">
+    <value>本地令牌</value>
+  </data>
+  <data name="LocalAuth_AddAuth" xml:space="preserve">
+    <value>导入令牌</value>
+  </data>
+  <data name="LocalAuth_EditAuth" xml:space="preserve">
+    <value>编辑令牌</value>
+  </data>
+  <data name="LocalAuth_ExportAuth" xml:space="preserve">
+    <value>导出令牌</value>
+  </data>
+  <data name="LocalAuth_MenuName" xml:space="preserve">
+    <value>编辑令牌</value>
+  </data>
+  <data name="LocalAuth_OtherImport" xml:space="preserve">
+    <value>其它软件导入</value>
+  </data>
+  <data name="LocalAuth_SteamAppImport" xml:space="preserve">
+    <value>Steam App导入</value>
+  </data>
+  <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
+    <value>Steam ++导入</value>
+  </data>
+  <data name="LocalAuth_SteamUserImport" xml:space="preserve">
+    <value>Steam账号导入</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>登录</value>
+  </data>
   <data name="OtherGamePlaform" xml:space="preserve">
     <value>其它平台</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>刷新</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
@@ -195,8 +249,17 @@
   <data name="Settings_UI" xml:space="preserve">
     <value>界面设置</value>
   </data>
-  <data name="SteamAuth" xml:space="preserve">
-    <value>本地令牌</value>
+  <data name="Steam_ImageCodeTip" xml:space="preserve">
+    <value>输入图中验证码</value>
+  </data>
+  <data name="Steam_Password" xml:space="preserve">
+    <value>Steam密码</value>
+  </data>
+  <data name="Steam_User" xml:space="preserve">
+    <value>Steam用户名</value>
+  </data>
+  <data name="Steam_UserLoginTip" xml:space="preserve">
+    <value>登陆Steam账号进行令牌导入。</value>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">
     <value>以该账号登录Steam</value>

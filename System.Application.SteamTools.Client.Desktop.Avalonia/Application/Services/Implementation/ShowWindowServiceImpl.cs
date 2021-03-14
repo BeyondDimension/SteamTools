@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls;
 using ReactiveUI;
 using System.Application.UI.ViewModels;
-using System.Application.UI.Windows;
+using System.Application.UI.Views.Windows;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -12,6 +12,7 @@ namespace System.Application.Services.Implementation
         static Type GetWindowType(CustomWindow customWindow) => customWindow switch
         {
             CustomWindow.MessageBox => typeof(MessageBoxWindow),
+            CustomWindow.AddAuth => typeof(AddAuthWindow),
             _ => throw new ArgumentOutOfRangeException(nameof(customWindow), customWindow, null),
         };
 
@@ -26,8 +27,9 @@ namespace System.Application.Services.Implementation
            {
                var windowType = GetWindowType(customWindow);
                var window = (Window)Activator.CreateInstance(windowType);
-               viewModel.Title = title;
-               window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+               if (!string.IsNullOrWhiteSpace(title))
+                   viewModel.Title = title;
+               window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                window.SetResizeMode(resizeMode);
                action?.Invoke(window);
                window.DataContext = viewModel;
@@ -43,8 +45,8 @@ namespace System.Application.Services.Implementation
 
         public Task Show<TWindowViewModel>(
             CustomWindow customWindow,
-            string title,
             TWindowViewModel? viewModel = null,
+            string title = "",
             ResizeModeCompat resizeMode = ResizeModeCompat.NoResize)
             where TWindowViewModel : WindowViewModel, new()
         {
@@ -54,8 +56,8 @@ namespace System.Application.Services.Implementation
 
         public async Task<bool> ShowDialog<TDialogWindowViewModel>(
             CustomWindow customWindow,
-            string title,
             TDialogWindowViewModel? viewModel = null,
+            string title = "",
             ResizeModeCompat resizeMode = ResizeModeCompat.NoResize)
             where TDialogWindowViewModel : DialogWindowViewModel, new()
         {

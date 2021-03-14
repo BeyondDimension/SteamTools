@@ -64,7 +64,6 @@ namespace System.Application.UI.ViewModels
         public override IList<MenuItemViewModel> MenuItems
         {
             get => _MenuItems;
-            set => this.RaiseAndSetIfChanged(ref _MenuItems, value);
         }
 
         /// <summary>

@@ -1,0 +1,102 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="System.Application.UI.Views.Windows.AddAuthWindow"
+        xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+        Width="800" Height="600"
+        WindowStartupLocation="CenterOwner"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="30"
+        Background="Transparent"
+        Title="{Binding Title}">
+    <Design.DataContext>
+        <vm:AddAuthWindowViewModel/>
+    </Design.DataContext>
+    <Panel>
+        <DockPanel HorizontalAlignment="Stretch">
+            <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="95">
+                <ExperimentalAcrylicBorder.Material>
+                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
+                </ExperimentalAcrylicBorder.Material>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10 8 10 8">
+                    <Image Source="/Application/UI/Assets/Icon.ico" Height="24" Width="24" Margin="0,0,10,0"/>
+                    <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{Binding Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" FontSize="20"/>
+                </StackPanel>
+            </ExperimentalAcrylicBorder>
+            <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False">
+                <ExperimentalAcrylicBorder.Material>
+                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
+                </ExperimentalAcrylicBorder.Material>
+            </ExperimentalAcrylicBorder>
+        </DockPanel>
+        <TabControl Margin="0 20 0 0">
+            <TabItem Header="{Binding Path=Res.LocalAuth_SteamUserImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                <Panel>
+                    <Grid RowDefinitions="Auto,*,Auto" Margin="10">
+                        <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
+                            <TextBox Watermark="{Binding Path=Res.Steam_User,Mode=OneWay,Source={x:Static resx:R.Current}}" MaxWidth="300"></TextBox>
+                            <TextBox Watermark="{Binding Path=Res.Steam_Password,Mode=OneWay,Source={x:Static resx:R.Current}}" MaxWidth="300" PasswordChar="*"></TextBox>
+
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="10">
+                                <Border Width="206" Height="37">
+                                    <Image Width="206" Height="37" Source="{Binding CodeImage,Converter={StaticResource DrawingKeyValueConverter}}">
+                                    </Image>
+                                </Border>
+                                <TextBox Watermark="{Binding Path=Res.Steam_ImageCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" MaxWidth="200"></TextBox>
+                            </StackPanel>
+
+                            <Button Content="{Binding Path=Res.Login,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center"></Button>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="2" Margin="10,0" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{Binding Path=Res.Steam_UserLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+                    </Grid>
+
+                    <Grid RowDefinitions="Auto,*,Auto" Margin="10">
+                        <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
+                            <TextBox Watermark="邮箱验证代码" MaxWidth="200" PasswordChar="*"></TextBox>
+
+                            <Button Content="{Binding Path=Res.Continue,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center"></Button>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="2" Margin="10,0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="请输入发送到您的{0}电子邮件地址的代码，以批准从新设备进行访问。"></TextBlock>
+                    </Grid>
+
+                    <Grid RowDefinitions="Auto,*,Auto" Margin="10">
+                        <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
+                            <TextBox Watermark="短信验证代码" MaxWidth="200" PasswordChar="*"></TextBox>
+
+                            <Button Content="{Binding Path=Res.Continue,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center"></Button>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="2" Margin="10,0" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Text="请输入发送到您手机的短信验证代码。"></TextBlock>
+                    </Grid>
+                </Panel>
+
+            </TabItem>
+            <TabItem Header="{Binding Path=Res.LocalAuth_SteamAppImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                <Grid RowDefinitions="Auto,*,Auto" Margin="10">
+                    <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+                            <TextBlock Text="恢复代码" VerticalAlignment="Center"></TextBlock>
+                            <TextBox Text="" MinWidth="200"></TextBox>
+                        </StackPanel>
+                        <CheckBox Content="我已经写下了我的恢复代码" MinWidth="280" HorizontalAlignment="Center"></CheckBox>
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="2" Margin="10,0" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Text="您的身份验证器已被添加到您的Steam账户中。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。"></TextBlock>
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="{Binding Path=Res.LocalAuth_SteamToolsImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
+
+            </TabItem>
+            <TabItem Header="{Binding Path=Res.LocalAuth_OtherImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
+
+            </TabItem>
+        </TabControl>
+    </Panel>
+</Window>

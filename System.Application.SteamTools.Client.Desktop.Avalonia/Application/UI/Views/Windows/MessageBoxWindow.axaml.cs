@@ -4,7 +4,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using System.Reflection;
 
-namespace System.Application.UI.Windows
+namespace System.Application.UI.Views.Windows
 {
     public class MessageBoxWindow : FluentWindow
     {

@@ -201,7 +201,7 @@ namespace System.Application.UI.ViewModels
             DebugString = @string.ToString();
         }
 
-        public async void DebugButton_Click2()
+        public async void ShowDialogButton_Click()
         {
             Services.ToastService.Current.Notify("Test CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest Command");
             DebugString += Services.ToastService.Current.Message + Environment.NewLine;
@@ -216,7 +216,7 @@ namespace System.Application.UI.ViewModels
         5、优化错误日志记录，现在它更详细了
         6、修复谷歌验证码代理方式为全局跳转recatpcha
         7、修复配置文件加载时提示根元素错误
-        8、修复某些情况下开机自启失效问题", "Title", MessageBoxButtonCompat.OKCancel);
+        8、修复某些情况下开机自启失效问题", "Steam++", MessageBoxButtonCompat.OKCancel);
 
             DebugString += r + Environment.NewLine;
 

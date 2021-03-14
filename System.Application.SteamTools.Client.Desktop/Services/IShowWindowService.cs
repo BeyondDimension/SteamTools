@@ -22,8 +22,8 @@ namespace System.Application.Services
         /// <returns></returns>
         Task Show<TWindowViewModel>(
             CustomWindow customWindow,
-            string title,
             TWindowViewModel? viewModel = null,
+            string title= "",
             ResizeModeCompat resizeMode = ResizeModeCompat.NoResize)
             where TWindowViewModel : WindowViewModel, new();
 
@@ -38,8 +38,8 @@ namespace System.Application.Services
         /// <returns></returns>
         Task<bool> ShowDialog<TDialogWindowViewModel>(
             CustomWindow customWindow,
-            string title,
             TDialogWindowViewModel? viewModel = null,
+            string title = "",
             ResizeModeCompat resizeMode = ResizeModeCompat.NoResize)
             where TDialogWindowViewModel : DialogWindowViewModel, new();
     }

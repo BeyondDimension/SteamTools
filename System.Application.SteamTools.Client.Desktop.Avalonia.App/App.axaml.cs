@@ -263,7 +263,7 @@ namespace System.Application.UI
             set => mMainWindow = value;
         }
 
-        public new AvaloniaApplication CurrentApp
+        public AvaloniaApplication CurrentApp
         {
             get => AvaloniaApplication.Current;
         }

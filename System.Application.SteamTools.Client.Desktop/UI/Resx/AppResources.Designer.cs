@@ -124,6 +124,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 新增 的本地化字符串。
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 ASF Plus 的本地化字符串。
         /// </summary>
         public static string ArchiSteamFarmPlus {
@@ -142,6 +151,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 云同步 的本地化字符串。
+        /// </summary>
+        public static string CloudSync {
+            get {
+                return ResourceManager.GetString("CloudSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 社区加速 的本地化字符串。
         /// </summary>
         public static string CommunityFix {
@@ -156,6 +174,42 @@ namespace System.Application.UI.Resx {
         public static string Confirm {
             get {
                 return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 继续 的本地化字符串。
+        /// </summary>
+        public static string Continue {
+            get {
+                return ResourceManager.GetString("Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 编辑 的本地化字符串。
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加密 的本地化字符串。
+        /// </summary>
+        public static string Encrypt {
+            get {
+                return ResourceManager.GetString("Encrypt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导出 的本地化字符串。
+        /// </summary>
+        public static string Export {
+            get {
+                return ResourceManager.GetString("Export", resourceCulture);
             }
         }
         
@@ -232,11 +286,119 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 导入 的本地化字符串。
+        /// </summary>
+        public static string Import {
+            get {
+                return ResourceManager.GetString("Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 本地令牌 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth {
+            get {
+                return ResourceManager.GetString("LocalAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导入令牌 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AddAuth {
+            get {
+                return ResourceManager.GetString("LocalAuth_AddAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 编辑令牌 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_EditAuth {
+            get {
+                return ResourceManager.GetString("LocalAuth_EditAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导出令牌 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ExportAuth {
+            get {
+                return ResourceManager.GetString("LocalAuth_ExportAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 编辑令牌 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_MenuName {
+            get {
+                return ResourceManager.GetString("LocalAuth_MenuName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 其它软件导入 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_OtherImport {
+            get {
+                return ResourceManager.GetString("LocalAuth_OtherImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam App导入 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SteamAppImport {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamAppImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam ++导入 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SteamToolsImport {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamToolsImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam账号导入 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SteamUserImport {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamUserImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 登录 的本地化字符串。
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 其它平台 的本地化字符串。
         /// </summary>
         public static string OtherGamePlaform {
             get {
                 return ResourceManager.GetString("OtherGamePlaform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 刷新 的本地化字符串。
+        /// </summary>
+        public static string Refresh {
+            get {
+                return ResourceManager.GetString("Refresh", resourceCulture);
             }
         }
         
@@ -295,11 +457,38 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 本地令牌 的本地化字符串。
+        ///   查找类似 输入图中验证码 的本地化字符串。
         /// </summary>
-        public static string SteamAuth {
+        public static string Steam_ImageCodeTip {
             get {
-                return ResourceManager.GetString("SteamAuth", resourceCulture);
+                return ResourceManager.GetString("Steam_ImageCodeTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam密码 的本地化字符串。
+        /// </summary>
+        public static string Steam_Password {
+            get {
+                return ResourceManager.GetString("Steam_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam用户名 的本地化字符串。
+        /// </summary>
+        public static string Steam_User {
+            get {
+                return ResourceManager.GetString("Steam_User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 登陆Steam账号进行令牌导入。 的本地化字符串。
+        /// </summary>
+        public static string Steam_UserLoginTip {
+            get {
+                return ResourceManager.GetString("Steam_UserLoginTip", resourceCulture);
             }
         }
         

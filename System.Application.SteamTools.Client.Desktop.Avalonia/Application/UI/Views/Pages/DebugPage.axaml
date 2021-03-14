@@ -4,12 +4,16 @@
              xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.DebugPage">
-	<Grid RowDefinitions="*,Auto">
-        <TextBox Grid.Row="0" Text="{Binding DebugString}"></TextBox>
-        <Button Grid.Row="1" Height="35" MinWidth="200" Content="Debug Button" Command="{Binding DebugButton_Click}">
-        </Button>
-	</Grid>
+    <Grid RowDefinitions="*,Auto">
+        <TextBox Grid.Row="0" Text="{Binding DebugString}" AcceptsReturn="True"></TextBox>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Height="35" MinWidth="200" Content="Debug Button" Command="{Binding DebugButton_Click}">
+            </Button>
+            <Button Height="35" MinWidth="200" Content="Test Dialog" Command="{Binding ShowDialogButton_Click}">
+            </Button>
+        </StackPanel>
+    </Grid>
 </UserControl>
