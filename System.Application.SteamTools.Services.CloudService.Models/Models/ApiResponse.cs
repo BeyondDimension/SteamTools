@@ -1,5 +1,6 @@
 ﻿using MessagePack;
 using Newtonsoft.Json;
+using System.Application.Models.Internals;
 using System.Application.Properties;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;

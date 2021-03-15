@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace System.Application.Services.CloudService
 {
@@ -26,7 +27,7 @@ namespace System.Application.Services.CloudService
 
         #endregion
 
-        readonly ApiConnection connection;
+        readonly IApiConnection connection;
         protected readonly ICloudServiceSettings settings;
         protected readonly IAuthHelper authHelper;
 
@@ -95,5 +96,16 @@ namespace System.Application.Services.CloudService
 
         Task<IApiResponse<JWTEntity>> IApiConnectionPlatformHelper.RefreshToken(JWTEntity jwt)
             => Account.RefreshToken(jwt);
+
+        Task<HttpResponseMessage> ICloudServiceClient.Forward(
+            HttpRequestMessage request,
+            HttpCompletionOption completionOption,
+            CancellationToken cancellationToken)
+        {
+            var url = request.RequestUri.ToString();
+            url = url.Base64UrlEncode();
+            request.RequestUri = new Uri($"api/forward?url={url}");
+            return connection.SendAsync(request, completionOption, cancellationToken);
+        }
     }
 }

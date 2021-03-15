@@ -1,15 +1,17 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Collections.Concurrent;
 using System.IO;
 using System.IO.FileFormats;
+using System.Linq;
 using System.Net.Http;
+using System.Properties;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using System.Collections.Concurrent;
-using System.Security.Cryptography;
+using static System.Application.ForwardHelper;
 
 namespace System.Application.Services.Implementation
 {
@@ -17,14 +19,22 @@ namespace System.Application.Services.Implementation
     {
         const string TAG = "HttpS";
         readonly JsonSerializer jsonSerializer = new();
+        readonly ICloudServiceClient cloud_client;
 
         public HttpServiceImpl(
+            ICloudServiceClient cloud_client,
             ILoggerFactory loggerFactory,
             IHttpPlatformHelper http_helper,
             IHttpClientFactory clientFactory)
             : base(loggerFactory.CreateLogger(TAG), http_helper, clientFactory)
         {
+            this.cloud_client = cloud_client;
         }
+
+        /// <summary>
+        /// 启用转发
+        /// </summary>
+        static readonly bool EnableForward = !ThisAssembly.Debuggable;
 
         public async Task<T?> GetAsync<T>(
             string requestUri,
@@ -39,11 +49,22 @@ namespace System.Application.Services.Implementation
                 request = new HttpRequestMessage(HttpMethod.Get, requestUri);
                 request.Headers.Accept.ParseAdd(accept);
                 request.Headers.UserAgent.ParseAdd(http_helper.UserAgent);
-                var client = CreateClient();
-                response = await client.SendAsync(request,
-                  HttpCompletionOption.ResponseHeadersRead,
-                  cancellationToken)
-                  .ConfigureAwait(false);
+
+                if (EnableForward &&
+                    allowUrls.Any(x => requestUri.StartsWith(x, StringComparison.OrdinalIgnoreCase)))
+                {
+                    response = await cloud_client.Forward(request,
+                        HttpCompletionOption.ResponseHeadersRead,
+                        cancellationToken);
+                }
+                else
+                {
+                    var client = CreateClient();
+                    response = await client.SendAsync(request,
+                      HttpCompletionOption.ResponseHeadersRead,
+                      cancellationToken).ConfigureAwait(false);
+                }
+
                 if (response.IsSuccessStatusCode)
                 {
                     if (response.Content != null)

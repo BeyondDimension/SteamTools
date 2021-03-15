@@ -414,6 +414,18 @@ namespace System.Application.Services.CloudService
             return r;
         }
 
+        public async Task<HttpResponseMessage> SendAsync(
+            HttpRequestMessage request,
+            HttpCompletionOption completionOption,
+            CancellationToken cancellationToken)
+        {
+            var client = conn_helper.CreateClient();
+            var response = await client.SendAsync(request,
+                completionOption,
+                cancellationToken).ConfigureAwait(false);
+            return response;
+        }
+
         async Task<IApiResponse<TResponseModel>> SendCoreAsync<TRequestModel, TResponseModel>(
             bool isAnonymous,
             bool isApi,

@@ -44,6 +44,11 @@ namespace System.Application.Services.CloudService
 
         #region SendAsync
 
+        Task<HttpResponseMessage> SendAsync(
+            HttpRequestMessage request,
+            HttpCompletionOption completionOption,
+            CancellationToken cancellationToken);
+
         /// <summary>
         /// RequestModel+ResponseModel(调用服务端接口)
         /// </summary>

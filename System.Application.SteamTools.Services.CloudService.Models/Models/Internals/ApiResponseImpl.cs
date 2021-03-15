@@ -6,9 +6,9 @@ using NJsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using SJSONIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
 using SJsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 
-namespace System.Application.Models
+namespace System.Application.Models.Internals
 {
-    internal abstract class ApiResponseImplBase : IApiResponse
+    public abstract class ApiResponseImplBase : IApiResponse
     {
         ApiResponseCode mCode;
         bool mIsSuccess;
@@ -45,7 +45,7 @@ namespace System.Application.Models
     }
 
     [MPObject]
-    internal class ApiResponseImpl<T> : ApiResponseImplBase, IApiResponse<T>
+    public class ApiResponseImpl<T> : ApiResponseImplBase, IApiResponse<T>
     {
         [MPKey(LastMKeyIndex + 1)]
         [NJsonProperty("🦓")]
@@ -54,7 +54,7 @@ namespace System.Application.Models
     }
 
     [MPObject]
-    internal class ApiResponseImpl : ApiResponseImplBase, IApiResponse<object>
+    public class ApiResponseImpl : ApiResponseImplBase, IApiResponse<object>
     {
         [MPIgnore]
         [SJSONIgnore]

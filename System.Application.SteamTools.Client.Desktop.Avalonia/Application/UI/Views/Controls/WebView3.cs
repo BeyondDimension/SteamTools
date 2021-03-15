@@ -123,5 +123,20 @@ namespace Avalonia.Controls
             Debug.Print("[{0}]: {1} ({2}, line: {3})", level, message, source, line);
             return false;
         }
+
+        protected override bool OnBeforePopup(CefBrowser browser, CefFrame frame, string targetUrl, string targetFrameName, CefWindowOpenDisposition targetDisposition, bool userGesture, CefPopupFeatures popupFeatures, CefWindowInfo windowInfo, ref CefClient client, CefBrowserSettings settings, ref CefDictionaryValue extraInfo, ref int noJavascriptAccess)
+        {
+            switch (targetDisposition)
+            {
+                case CefWindowOpenDisposition.NewForegroundTab:
+                case CefWindowOpenDisposition.NewBackgroundTab:
+                case CefWindowOpenDisposition.NewPopup:
+                case CefWindowOpenDisposition.NewWindow:
+                    // 禁止创建新窗口，仅在当前窗口跳转
+                    browser.MainFrame.LoadUrl(targetUrl);
+                    return true;
+            }
+            return base.OnBeforePopup(browser, frame, targetUrl, targetFrameName, targetDisposition, userGesture, popupFeatures, windowInfo, ref client, settings, ref extraInfo, ref noJavascriptAccess);
+        }
     }
 }
