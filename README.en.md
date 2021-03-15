@@ -10,11 +10,11 @@
 [![GitHub Star](https://img.shields.io/github/stars/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/stargazers)
 [![GitHub Fork](https://img.shields.io/github/forks/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/network/members)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rmbadmin/SteamTools?style=flat-square&color=3cb371)
-![GitHub repo size](https://img.shields.io/github/languages/top/SteamTools-Team/SteamTools)
-![GitHub repo size](https://img.shields.io/badge/license-GPL-blue)
+![GitHub Repo Languages](https://img.shields.io/github/languages/top/SteamTools-Team/SteamTools)(https://github.com/SteamTools-Team/SteamTools/search?l=c%23)
+![GitHub Repo LICENSE](https://img.shields.io/badge/license-GPL-blue)(https://github.com/SteamTools-Team/SteamTools/blob/develop/LICENSE)
 
-![GitHub repo size](https://img.shields.io/github/stars/rmbadmin/SteamTools.svg?style=social)
-![GitHub repo size](https://gitee.com/rmbgame/SteamTools/badge/star.svg)
+![GitHub Star](https://img.shields.io/github/stars/rmbadmin/SteamTools.svg?style=social)(https://github.com/SteamTools-Team/SteamTools)
+![Gitee Star](https://gitee.com/rmbgame/SteamTools/badge/star.svg)(https://gitee.com/rmbgame/SteamTools)
 </div>
 
 English | [简体中文](./README.md)
