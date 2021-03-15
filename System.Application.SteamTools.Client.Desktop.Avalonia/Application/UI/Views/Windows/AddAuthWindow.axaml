@@ -111,20 +111,32 @@
             </TabItem>
             <TabItem Header="{Binding Path=Res.LocalAuth_OtherImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
                 <StackPanel Spacing="10" Margin="10">
-                    <RadioButton Content="WinAuth导入"></RadioButton>
-                    <StackPanel>
+                    <RadioButton x:Name="WinAuthImport" Content="WinAuth导入"></RadioButton>
+                    <StackPanel Spacing="8">
                         <TextBlock Text="WinAuth是Windows的便携式开放源代码身份验证器，它提供基于计数器或基于时间的RFC 6238身份验证器和常见的实现。导入方法：从WinAuth导出txt文件之后在此选择从WinAuth导出的txt文件进行导入。" TextWrapping="WrapWithOverflow"></TextBlock>
+                        
+                        <Panel IsVisible="{Binding ElementName=WinAuthImport,Path=IsChecked}">
+                            <Button Content="选择*.txt文件导入"></Button>
+                        </Panel>
                     </StackPanel>
 
-                    <RadioButton Content="Steam Desktop Auth导入"></RadioButton>
-                    <StackPanel>
+                    <RadioButton x:Name="SdaImport" Content="Steam Desktop Auth导入"></RadioButton>
+                    <StackPanel Spacing="8">
                         <TextBlock Text="Steam的移动身份验证器应用程序的桌面实现。导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件)" TextWrapping="WrapWithOverflow"></TextBlock>
+                        
+                        <Panel IsVisible="{Binding ElementName=SdaImport,Path=IsChecked}">
+                            <Button Content="选择*.maFile文件导入"></Button>
+                        </Panel>
                     </StackPanel>
 
-
-                    <RadioButton Content="ArchiSteamFarm导入">
+                    <RadioButton x:Name="AsfImport" Content="ArchiSteamFarm导入"></RadioButton>
+                    <StackPanel Spacing="8">
                         <TextBlock Text="Steam的移动身份验证器应用程序的桌面实现。导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件)" TextWrapping="WrapWithOverflow"></TextBlock>
-                    </RadioButton>
+                        
+                        <Panel IsVisible="{Binding ElementName=AsfImport,Path=IsChecked}">
+                            <Button Content="选择*.maFile文件导入"></Button>
+                        </Panel>
+                    </StackPanel>
                 </StackPanel>
             </TabItem>
         </TabControl>
