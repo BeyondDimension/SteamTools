@@ -20,6 +20,9 @@ using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Crypto.Macs;
 using Org.BouncyCastle.Crypto.Parameters;
 using WinAuth;
+using MPIgnore = MessagePack.IgnoreMemberAttribute;
+using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
+using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
 
 namespace System.Application.Models
 {
@@ -37,6 +40,7 @@ namespace System.Application.Models
             /// <summary>
             /// Get/set the combined secret data value
             /// </summary>
+            [MPIgnore, N_JsonIgnore, S_JsonIgnore]
             public override string? SecretData
             {
                 get

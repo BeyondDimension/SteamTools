@@ -31,6 +31,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using WinAuth;
+using MPIgnore = MessagePack.IgnoreMemberAttribute;
+using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
+using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
 
 namespace System.Application.Models
 {
@@ -38,11 +41,6 @@ namespace System.Application.Models
     {
         partial class SteamAuthenticator
         {
-            /// <summary>
-            /// Number of characters in code
-            /// </summary>
-            const int CODE_DIGITS = 5;
-
             /// <summary>
             /// Number of minutes to ignore syncing if network error
             /// </summary>
@@ -62,11 +60,6 @@ namespace System.Application.Models
             /// Time for http request when calling Sync in ms
             /// </summary>
             const int SYNC_TIMEOUT = 30000;
-
-            /// <summary>
-            /// Steam issuer for KeyUri
-            /// </summary>
-            const string STEAM_ISSUER = "Steam";
 
             /// <summary>
             /// URLs for all mobile services
@@ -122,29 +115,10 @@ namespace System.Application.Models
             static DateTime _lastSyncError = DateTime.MinValue;
 
             /// <summary>
-            /// Returned serial number of authenticator
-            /// </summary>
-            public string? Serial { get; set; }
-
-            /// <summary>
-            /// Random device ID we created and registered
-            /// </summary>
-            public string? DeviceId { get; set; }
-
-            /// <summary>
-            /// JSON steam data
-            /// </summary>
-            public string? SteamData { get; set; }
-
-            /// <summary>
-            /// JSON session data
-            /// </summary>
-            public string? SessionData { get; set; }
-
-            /// <summary>
             /// Current Steam client instance
             /// </summary>
-            internal SteamClient Client { get; private set; }
+            [MPIgnore, N_JsonIgnore, S_JsonIgnore]
+            public WinAuthSteamClient? Client { get; protected set; }
 
             #endregion
 
@@ -156,6 +130,7 @@ namespace System.Application.Models
             /// <summary>
             /// Get/set the combined secret data value
             /// </summary>
+            [MPIgnore, N_JsonIgnore, S_JsonIgnore]
             public override string? SecretData
             {
                 get
@@ -220,13 +195,13 @@ namespace System.Application.Models
             /// Get (or create) the current Steam client for this Authenticator
             /// </summary>
             /// <returns>current or new SteamClient</returns>
-            internal SteamClient GetClient()
+            public WinAuthSteamClient GetClient()
             {
                 lock (this)
                 {
                     if (Client == null)
                     {
-                        Client = new SteamClient(this, SessionData);
+                        Client = new WinAuthSteamClient(this, SessionData);
                     }
 
                     return Client;

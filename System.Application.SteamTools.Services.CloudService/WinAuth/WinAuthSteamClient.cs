@@ -37,7 +37,7 @@ namespace WinAuth
     /// <summary>
     /// SteamClient for logging and getting/accepting/rejecting trade confirmations
     /// </summary>
-    internal class SteamClient : IDisposable
+    public class WinAuthSteamClient : IDisposable
     {
         /// <summary>
         /// URLs for all mobile services
@@ -377,7 +377,7 @@ namespace WinAuth
         /// <summary>
         /// Create a new SteamClient
         /// </summary>
-        public SteamClient(SteamAuthenticator auth, string? session = null)
+        public WinAuthSteamClient(SteamAuthenticator auth, string? session = null)
         {
             Authenticator = auth;
             Session = new SteamSession(session);
@@ -402,7 +402,7 @@ namespace WinAuth
         /// <summary>
         /// Finalizer
         /// </summary>
-        ~SteamClient()
+        ~WinAuthSteamClient()
         {
             Dispose(false);
         }

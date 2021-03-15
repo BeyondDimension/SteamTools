@@ -18,6 +18,9 @@
 
 using System.Net;
 using WinAuth;
+using MPIgnore = MessagePack.IgnoreMemberAttribute;
+using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
+using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
 
 namespace System.Application.Models
 {
@@ -25,11 +28,6 @@ namespace System.Application.Models
     {
         partial class GoogleAuthenticator
         {
-            /// <summary>
-            /// Number of digits in code
-            /// </summary>
-            const int CODE_DIGITS = 6;
-
             /// <summary>
             /// Number of minutes to ignore syncing if network error
             /// </summary>
@@ -45,6 +43,7 @@ namespace System.Application.Models
             /// </summary>
             static DateTime _lastSyncError = DateTime.MinValue;
 
+            [MPIgnore, N_JsonIgnore, S_JsonIgnore]
             public string Serial
             {
                 get

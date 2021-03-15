@@ -59,16 +59,6 @@ namespace System.Application.Models
         static readonly string ENCRYPTION_HEADER = ByteArrayToString(Encoding.UTF8.GetBytes("WINAUTH3"));
 
         /// <summary>
-        /// Default number of digits in code
-        /// </summary>
-        public const int DEFAULT_CODE_DIGITS = 6;
-
-        /// <summary>
-        /// Default period of 30s
-        /// </summary>
-        public const int DEFAULT_PERIOD = 30;
-
-        /// <summary>
         /// Type of password to use to encrypt secret data
         /// </summary>
         public enum PasswordTypes
@@ -82,16 +72,6 @@ namespace System.Application.Models
         }
 
         public const HMACTypes DEFAULT_HMAC_TYPE = HMACTypes.SHA1;
-
-        /// <summary>
-        /// Create a new Authenticator object
-        /// </summary>
-        public GAPAuthenticatorValueDTO(int codeDigits = DEFAULT_CODE_DIGITS, HMACTypes hmacType = HMACTypes.SHA1, int period = DEFAULT_PERIOD) : this()
-        {
-            CodeDigits = codeDigits;
-            HMACType = hmacType;
-            Period = period;
-        }
 
         [MPIgnore, N_JsonIgnore, S_JsonIgnore]
         public string? EncryptedData { get; set; }
@@ -153,9 +133,6 @@ namespace System.Application.Models
 
         [MPIgnore, N_JsonIgnore, S_JsonIgnore]
         public bool RequiresPassword { get; private set; }
-
-        [MPIgnore, N_JsonIgnore, S_JsonIgnore]
-        public virtual string? Issuer { get; set; }
 
         [MPIgnore, N_JsonIgnore, S_JsonIgnore]
         public long ServerTime

@@ -11,6 +11,13 @@ namespace System.Application.Models
         public partial class BattleNetAuthenticator : GAPAuthenticatorValueDTO
         {
             /// <summary>
+            /// Number of digits in code
+            /// </summary>
+            const int CODE_DIGITS = 8;
+
+            const string BATTLENET_ISSUER = "BattleNet";
+
+            /// <summary>
             /// Create a new Authenticator object
             /// </summary>
             [SerializationConstructor]
@@ -28,6 +35,11 @@ namespace System.Application.Models
             /// We can check if the restore code is valid and rememeber so don't have to do it again
             /// </summary>
             public bool RestoreCodeVerified { get; set; }
+
+            protected override bool ExplicitHasValue()
+            {
+                return base.ExplicitHasValue() && Serial != null;
+            }
         }
     }
 }

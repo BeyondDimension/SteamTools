@@ -1,4 +1,7 @@
 ﻿using MessagePack;
+using MPIgnore = MessagePack.IgnoreMemberAttribute;
+using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
+using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
 
 namespace System.Application.Models
 {
@@ -8,6 +11,11 @@ namespace System.Application.Models
         public partial class GoogleAuthenticator : GAPAuthenticatorValueDTO
         {
             /// <summary>
+            /// Number of digits in code
+            /// </summary>
+            const int CODE_DIGITS = 6;
+
+            /// <summary>
             /// Create a new Authenticator object
             /// </summary>
             [SerializationConstructor]
@@ -15,6 +23,7 @@ namespace System.Application.Models
             {
             }
 
+            [MPIgnore, N_JsonIgnore, S_JsonIgnore]
             public override GamePlatform Platform => GamePlatform.Google;
         }
     }

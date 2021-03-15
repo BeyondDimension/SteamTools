@@ -75,11 +75,6 @@ namespace System.Application.Models
             const int RESTOREVALIDATE_BUFFER_SIZE = 20;
 
             /// <summary>
-            /// Number of digits in code
-            /// </summary>
-            const int CODE_DIGITS = 8;
-
-            /// <summary>
             /// The public key modulus used to encrypt our data
             /// </summary>
             const string ENROLL_MODULUS =
@@ -98,8 +93,6 @@ namespace System.Application.Models
             /// Number of minutes to ignore syncing if network error
             /// </summary>
             const int SYNC_ERROR_MINUTES = 5;
-
-            const string BATTLENET_ISSUER = "BattleNet";
 
             /// <summary>
             /// URLs for all mobile services
