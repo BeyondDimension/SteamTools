@@ -12,20 +12,20 @@ namespace System.Application.Models
     public class ClockInResponse
     {
         /// <summary>
-        /// 获得的经验值
+        /// 经验值
         /// </summary>
         [MPKey(0)]
         [N_JsonProperty("0")]
         [S_JsonProperty("0")]
-        public uint AddExperience { get; set; }
+        public uint Experience { get; set; }
 
         /// <summary>
-        /// 获得的体力值
+        /// 体力值
         /// </summary>
         [MPKey(1)]
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]
-        public int AddStrength { get; set; }
+        public int Strength { get; set; }
 
         /// <summary>
         /// 等级

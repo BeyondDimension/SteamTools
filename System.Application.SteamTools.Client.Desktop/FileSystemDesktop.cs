@@ -1,4 +1,7 @@
 ﻿using System.IO;
+#if NET35
+using WinFormsApplication = System.Windows.Forms.Application;
+#endif
 
 namespace System.Application
 {
@@ -25,7 +28,12 @@ namespace System.Application
             //}
             //appDataRootPath = Path.Combine(appDataRootPath, BuildConfig.APPLICATION_ID);
 
-            var appDataRootPath = AppContext.BaseDirectory;
+            var appDataRootPath =
+#if NET35
+                WinFormsApplication.StartupPath;
+#else
+                AppContext.BaseDirectory;
+#endif
 
             var appDataPath = Path.Combine(appDataRootPath, AppDataDirName);
             var cachePath = Path.Combine(appDataRootPath, CacheDirName);

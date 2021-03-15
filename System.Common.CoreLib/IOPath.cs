@@ -1,5 +1,7 @@
 ﻿using System.IO;
+#if !NET35
 using Xamarin.Essentials;
+#endif
 
 namespace System
 {
@@ -107,7 +109,11 @@ namespace System
             {
                 if (getAppDataDirectory != null)
                     return getAppDataDirectory();
+#if NET35
+                throw new PlatformNotSupportedException();
+#else
                 return FileSystem.AppDataDirectory;
+#endif
             }
         }
 
@@ -118,7 +124,11 @@ namespace System
             {
                 if (getCacheDirectory != null)
                     return getCacheDirectory();
+#if NET35
+                throw new PlatformNotSupportedException();
+#else
                 return FileSystem.CacheDirectory;
+#endif
             }
         }
 
@@ -179,8 +189,12 @@ namespace System
         /// <returns></returns>
         public static bool IsDirectory(string ioPath)
         {
+#if NET35
+            throw new PlatformNotSupportedException();
+#else
             var attr = File.GetAttributes(ioPath);
             return attr.HasFlag(FileAttributes.Directory);
+#endif
         }
 
         /// <summary>
