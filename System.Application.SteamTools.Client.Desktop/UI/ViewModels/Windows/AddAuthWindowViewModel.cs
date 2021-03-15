@@ -9,7 +9,9 @@ namespace System.Application.UI.ViewModels
         public AddAuthWindowViewModel() 
         {
             Title = ThisAssembly.AssemblyTrademark+" | "+ AppResources.LocalAuth_AddAuth;
-
         }
+
+
+        
     }
 }

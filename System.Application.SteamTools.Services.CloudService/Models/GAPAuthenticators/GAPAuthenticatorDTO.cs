@@ -15,6 +15,8 @@ namespace System.Application.Models
         [MPIgnore, N_JsonIgnore, S_JsonIgnore]
         public ushort Id { get; set; }
 
+        public int Index { get; set; }
+
         [NotNull, DisallowNull] // C# 8 not null
         public string? Name { get; set; }
 
@@ -22,6 +24,10 @@ namespace System.Application.Models
         public GamePlatform Platform => Value.Platform;
 
         public Guid? ServerId { get; set; }
+
+        public DateTimeOffset Created { get; set; }
+
+        public DateTimeOffset LastUpdate { get; set; }
 
         [NotNull, DisallowNull] // C# 8 not null
         public IGAPAuthenticatorValueDTO? Value { get; set; }

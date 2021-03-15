@@ -1,15 +1,26 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Border Padding="20" Background="Green">
+        <Border Padding="20" Background="Black">
             <StackPanel Spacing="5">
-                <Button Classes="flatbutton" Content="Code Font Family" />
+                <Button Classes="Hyperlink" Content="Code Font Family" />
             </StackPanel>
         </Border>
     </Design.PreviewWith>
     <Styles.Resources>
     </Styles.Resources>
-
+    <Style Selector="Button.Hyperlink">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Margin" Value="-5"/>
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlHyperlinkTextBrush}" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <TextBlock Text="{TemplateBinding Content}" TextDecorations="Underline"></TextBlock>
+            </ControlTemplate>
+    </Setter>
+    </Style>
     <Style Selector="Button.flatbutton">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
