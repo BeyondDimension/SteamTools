@@ -25,7 +25,7 @@ namespace System.Application.Repositories.Implementation
             }).ConfigureAwait(false);
         }
 
-        async Task<IGameAccountPlatformAuthenticatorDTO?> Convert(GameAccountPlatformAuthenticator item, string? secondaryPassword)
+        async Task<IGAPAuthenticatorDTO?> Convert(GameAccountPlatformAuthenticator item, string? secondaryPassword)
         {
             var value_bytes = await ss.DB(item.Value, secondaryPassword);
             if (value_bytes == null) return null;
@@ -33,10 +33,10 @@ namespace System.Application.Repositories.Implementation
             var name_str = await ss.D(item.Name, secondaryPassword);
             if (name_str == null) return null;
 
-            IGameAccountPlatformAuthenticatorValueDTO? value;
+            IGAPAuthenticatorValueDTO? value;
             try
             {
-                value = Serializable.DMP<IGameAccountPlatformAuthenticatorValueDTO>(value_bytes);
+                value = Serializable.DMP<IGAPAuthenticatorValueDTO>(value_bytes);
                 if (value == null) return null;
             }
             catch
@@ -44,7 +44,7 @@ namespace System.Application.Repositories.Implementation
                 return null;
             }
 
-            return new GameAccountPlatformAuthenticatorDTO
+            return new GAPAuthenticatorDTO
             {
                 Id = item.Id,
                 Name = name_str,
@@ -53,7 +53,7 @@ namespace System.Application.Repositories.Implementation
             };
         }
 
-        async IAsyncEnumerable<IGameAccountPlatformAuthenticatorDTO?> Convert(IEnumerable<GameAccountPlatformAuthenticator> items, string? secondaryPassword)
+        async IAsyncEnumerable<IGAPAuthenticatorDTO?> Convert(IEnumerable<GameAccountPlatformAuthenticator> items, string? secondaryPassword)
         {
             foreach (var item in items)
             {
@@ -62,13 +62,13 @@ namespace System.Application.Repositories.Implementation
             }
         }
 
-        public async Task<List<IGameAccountPlatformAuthenticatorDTO>> GetAllAsync(string? secondaryPassword)
+        public async Task<List<IGAPAuthenticatorDTO>> GetAllAsync(string? secondaryPassword)
         {
             var items = await GetAllAsync();
 
             var query = Convert(items, secondaryPassword);
 
-            var list = new List<IGameAccountPlatformAuthenticatorDTO>();
+            var list = new List<IGAPAuthenticatorDTO>();
 
             await foreach (var item in query)
             {
@@ -95,7 +95,7 @@ namespace System.Application.Repositories.Implementation
             return encryptionMode;
         }
 
-        public async Task InsertOrUpdateAsync(IGameAccountPlatformAuthenticatorDTO item, bool isLocal, string? secondaryPassword)
+        public async Task InsertOrUpdateAsync(IGAPAuthenticatorDTO item, bool isLocal, string? secondaryPassword)
         {
             var value = Serializable.SMP(item.Value);
 
@@ -165,7 +165,7 @@ namespace System.Application.Repositories.Implementation
             }
         }
 
-        public async Task SwitchEncryptionModeAsync(bool isLocal, string? secondaryPassword, IEnumerable<IGameAccountPlatformAuthenticatorDTO>? items)
+        public async Task SwitchEncryptionModeAsync(bool isLocal, string? secondaryPassword, IEnumerable<IGAPAuthenticatorDTO>? items)
         {
             if (items == null)
             {

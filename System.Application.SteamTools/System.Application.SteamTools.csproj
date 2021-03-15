@@ -18,5 +18,4 @@
   <ItemGroup>
     <ProjectReference Include="..\System.Common.CoreLib\System.Common.CoreLib.csproj" />
   </ItemGroup>
-
 </Project>

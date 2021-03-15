@@ -12,7 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\System.Application.SteamTools.Services.CloudService.Models\System.Application.SteamTools.Services.CloudService.Models.csproj" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.10"/>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\System.Application.SteamTools.Services.CloudService.Models\System.Application.SteamTools.Services.CloudService.Models.csproj"/>
+  </ItemGroup>
 </Project>

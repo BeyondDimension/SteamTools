@@ -1,8 +1,6 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using CefNet.Avalonia;
-using System.Threading.Tasks;
 
 namespace System.Application.UI.Views.Pages
 {
@@ -14,10 +12,9 @@ namespace System.Application.UI.Views.Pages
         {
             InitializeComponent();
 
-            webView = this.FindControl<WebView>("webView");
+            webView = this.FindControl<WebView3>("webView");
             webView.InitialUrl = "chrome://version";
             webView.BrowserCreated += WebView_BrowserCreated;
-
         }
 
         private async void WebView_BrowserCreated(object sender, EventArgs e)

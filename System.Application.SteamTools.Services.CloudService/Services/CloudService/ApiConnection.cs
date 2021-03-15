@@ -150,7 +150,7 @@ namespace System.Application.Services.CloudService
             MultipartFormDataContent GetMultipartFormDataContent2(IEnumerable<IUploadFileSource> uploadFiles)
             {
                 var multipartFormDataContent = new MultipartFormDataContent();
-                int index = 0;
+                var index = 0;
                 foreach (var item in uploadFiles)
                 {
                     if (item.HasValue() && item.Available)
@@ -574,7 +574,7 @@ namespace System.Application.Services.CloudService
                             case MediaTypeNames.MessagePack:
                                 {
                                     using var stream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-                                    using CryptoStream? cryptoStream = rspIsCiphertext ? new CryptoStream(stream, aes.ThrowIsNull(nameof(aes)).CreateDecryptor(), CryptoStreamMode.Read) : null;
+                                    using var cryptoStream = rspIsCiphertext ? new CryptoStream(stream, aes.ThrowIsNull(nameof(aes)).CreateDecryptor(), CryptoStreamMode.Read) : null;
                                     responseResult = await ApiResponse.DeserializeAsync<TResponseModel>(rspIsCiphertext ? cryptoStream.ThrowIsNull(nameof(cryptoStream)) : stream, cancellationToken);
                                 }
                                 break;
@@ -618,7 +618,7 @@ namespace System.Application.Services.CloudService
                 return globalBeforeInterceptResponse;
             }
 
-            HttpMethod method = HttpMethod.Get;
+            var method = HttpMethod.Get;
             IApiResponse responseResult;
             try
             {

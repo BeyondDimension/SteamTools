@@ -93,7 +93,7 @@ namespace System.Application.UI.ViewModels
                 SessionData = "bbbb",
                 PollData = "12321515",
             };
-            var item = new GameAccountPlatformAuthenticatorDTO
+            var item = new GAPAuthenticatorDTO
             {
                 Name = "name",
                 ServerId = Guid.NewGuid(),
@@ -118,7 +118,7 @@ namespace System.Application.UI.ViewModels
 
             stopwatch.Restart();
 
-            IGameAccountPlatformAuthenticatorDTO? item2 = null;
+            IGAPAuthenticatorDTO? item2 = null;
 
             try
             {

@@ -58,5 +58,10 @@ namespace System.Application.Models
         [N_JsonProperty("6")]
         [S_JsonProperty("6")]
         public decimal Balance { get; set; }
+
+        [MPKey(7)]
+        [N_JsonProperty("7")]
+        [S_JsonProperty("7")]
+        public byte Level { get; set; }
     }
 }

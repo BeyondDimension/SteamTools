@@ -8,8 +8,9 @@ using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
 
 namespace System.Application.Models
 {
+    /// <inheritdoc cref="IGAPAuthenticatorDTO"/>
     [MessagePackObject(keyAsPropertyName: true)]
-    public class GameAccountPlatformAuthenticatorDTO : IGameAccountPlatformAuthenticatorDTO, IExplicitHasValue
+    public class GAPAuthenticatorDTO : IGAPAuthenticatorDTO, IExplicitHasValue
     {
         [MPIgnore, N_JsonIgnore, S_JsonIgnore]
         public ushort Id { get; set; }
@@ -23,7 +24,7 @@ namespace System.Application.Models
         public Guid? ServerId { get; set; }
 
         [NotNull, DisallowNull] // C# 8 not null
-        public IGameAccountPlatformAuthenticatorValueDTO? Value { get; set; }
+        public IGAPAuthenticatorValueDTO? Value { get; set; }
 
         bool IExplicitHasValue.ExplicitHasValue()
         {

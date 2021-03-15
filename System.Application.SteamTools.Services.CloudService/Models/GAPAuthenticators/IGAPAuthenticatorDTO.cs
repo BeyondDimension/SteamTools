@@ -1,6 +1,9 @@
 ﻿namespace System.Application.Models
 {
-    public interface IGameAccountPlatformAuthenticatorDTO
+    /// <summary>
+    /// 游戏平台令牌可传输模型
+    /// </summary>
+    public interface IGAPAuthenticatorDTO
     {
         ushort Id { get; set; }
 
@@ -10,6 +13,6 @@
 
         Guid? ServerId { get; set; }
 
-        IGameAccountPlatformAuthenticatorValueDTO Value { get; set; }
+        IGAPAuthenticatorValueDTO Value { get; set; }
     }
 }

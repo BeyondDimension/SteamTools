@@ -1,38 +1,32 @@
-﻿using System.ComponentModel;
-
-namespace System.Application
+﻿namespace System.Application
 {
     public enum GamePlatform : byte
     {
-        [Description("Steam")]
         Steam = 1,
 
-        [Description("Origin")]
-        Origin = 2,
+        Origin,
 
-        [Description("EA Desktop")]
-        EADesktop = 10,
+        EADesktop,
 
-        [Description("Uplay")]
-        Uplay = 3,
+        Uplay,
 
-        [Description("Microsoft Store")]
-        WinStore = 4,
+        MicrosoftStore,
 
-        [Description("GOG")]
-        GOG = 5,
+        GOG,
 
-        [Description("EPIC")]
-        Epic = 6,
+        Epic,
 
-        [Description("PlayStation")]
-        PlayStation = 7,
+        PlayStation,
 
-        [Description("Xbox")]
-        Xbox = 8,
+        Xbox,
 
-        [Description("NintendoSwitch")]
-        NintendoSwitch = 9,
+        NintendoSwitch,
+
+        BattleNet,
+
+        Google,
+
+        // Add New ...
     }
 
 #if DEBUG

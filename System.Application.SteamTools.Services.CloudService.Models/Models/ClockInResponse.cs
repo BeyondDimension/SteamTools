@@ -26,5 +26,13 @@ namespace System.Application.Models
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]
         public int AddStrength { get; set; }
+
+        /// <summary>
+        /// 等级
+        /// </summary>
+        [MPKey(2)]
+        [N_JsonProperty("2")]
+        [S_JsonProperty("2")]
+        public byte Level { get; set; }
     }
 }

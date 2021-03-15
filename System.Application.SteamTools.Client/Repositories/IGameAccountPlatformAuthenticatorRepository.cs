@@ -16,7 +16,7 @@ namespace System.Application.Repositories
         /// </summary>
         /// <param name="secondaryPassword"></param>
         /// <returns></returns>
-        Task<List<IGameAccountPlatformAuthenticatorDTO>> GetAllAsync(string? secondaryPassword);
+        Task<List<IGAPAuthenticatorDTO>> GetAllAsync(string? secondaryPassword);
 
         /// <summary>
         /// 插入或更新一条到本地，插入前需要判断当前值是否超过了 <see cref="MaxValue"/>
@@ -25,7 +25,7 @@ namespace System.Application.Repositories
         /// <param name="isLocal"></param>
         /// <param name="secondaryPassword"></param>
         /// <returns></returns>
-        Task InsertOrUpdateAsync(IGameAccountPlatformAuthenticatorDTO item, bool isLocal, string? secondaryPassword);
+        Task InsertOrUpdateAsync(IGAPAuthenticatorDTO item, bool isLocal, string? secondaryPassword);
 
         /// <summary>
         /// 根据本地Id删除一条
@@ -66,6 +66,6 @@ namespace System.Application.Repositories
         /// <param name="secondaryPassword"></param>
         /// <param name="items">可传递当前在视图模型上的数据，也可以传递 <see langword="null"/> 重新从数据库中查询</param>
         /// <returns></returns>
-        Task SwitchEncryptionModeAsync(bool isLocal, string? secondaryPassword, IEnumerable<IGameAccountPlatformAuthenticatorDTO>? items = null);
+        Task SwitchEncryptionModeAsync(bool isLocal, string? secondaryPassword, IEnumerable<IGAPAuthenticatorDTO>? items = null);
     }
 }

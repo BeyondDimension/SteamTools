@@ -138,19 +138,18 @@ namespace System.Application.UI
 
         #endregion
 
+        static readonly Lazy<bool> mIsOfficialChannelPackage = new(() =>
+        {
+            var pk = typeof(AppHelper).Assembly.GetName().GetPublicKey();
+            if (pk == null) return false;
+            var pkStr = ", PublicKey=" + string.Join(string.Empty, pk.Select(x => x.ToString("x2")));
+            return pkStr == ThisAssembly.PublicKey;
+        });
+
         /// <summary>
         /// 当前运行程序是否为官方渠道包
         /// </summary>
-        public static bool IsOfficialChannelPackage
-        {
-            get
-            {
-                var pk = typeof(AppHelper).Assembly.GetName().GetPublicKey();
-                if (pk == null) return false;
-                var pkStr = ", PublicKey=" + string.Join(string.Empty, pk.Select(x => x.ToString("x2")));
-                return pkStr == ThisAssembly.PublicKey;
-            }
-        }
+        public static bool IsOfficialChannelPackage => mIsOfficialChannelPackage.Value;
 
         public static IDesktopAppService Current => DI.Get<IDesktopAppService>();
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Application.Services;
 using System.Application.Services.Implementation;
-using static System.Application.Services.ILocalDataProtectionProvider;
+using System.Security.Cryptography;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -19,10 +19,12 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 services.AddSingleton<IDesktopPlatformService, WindowsDesktopPlatformServiceImpl>();
                 services.AddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();
-                services.AddSingleton<IProtectedData, WindowsProtectedData>();
+                services.AddSingleton<WindowsProtectedData>();
+                services.AddSingleton<IProtectedData>(s => s.GetRequiredService<WindowsProtectedData>());
+                services.AddSingleton<ILocalDataProtectionProvider.IProtectedData>(s => s.GetRequiredService<WindowsProtectedData>());
                 if (Environment.OSVersion.Version.Major >= 10)
                 {
-                    services.AddSingleton<IDataProtectionProvider, Windows10DataProtectionProvider>();
+                    services.AddSingleton<ILocalDataProtectionProvider.IDataProtectionProvider, Windows10DataProtectionProvider>();
                 }
             }
             else
