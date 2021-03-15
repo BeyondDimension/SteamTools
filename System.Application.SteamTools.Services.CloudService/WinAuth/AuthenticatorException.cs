@@ -191,4 +191,41 @@ namespace WinAuth
         {
         }
     }
+
+    /// <summary>
+    /// Our custom exception for the internal Http Request
+    /// </summary>
+    public class WinAuthInvalidRequestException : WinAuthException
+    {
+        public WinAuthInvalidRequestException(string? msg = null, Exception? ex = null) : base(msg, ex)
+        {
+        }
+    }
+
+    /// <summary>
+    /// 403 forbidden responses
+    /// </summary>
+    public class WinAuthUnauthorisedRequestException : WinAuthInvalidRequestException
+    {
+        public WinAuthUnauthorisedRequestException(Exception? ex = null) : base("Unauthorised", ex)
+        {
+        }
+    }
+
+    /// <summary>
+    /// Our custom exception for the internal Http Request
+    /// </summary>
+    public class WinAuthInvalidSteamRequestException : WinAuthException
+    {
+        public WinAuthInvalidSteamRequestException(string? msg = null, Exception? ex = null) : base(msg, ex)
+        {
+        }
+    }
+
+    public class WinAuthUnauthorisedSteamRequestException : WinAuthInvalidSteamRequestException
+    {
+        public WinAuthUnauthorisedSteamRequestException(Exception? ex = null) : base("Unauthorised", ex)
+        {
+        }
+    }
 }

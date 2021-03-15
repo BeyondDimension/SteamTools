@@ -85,13 +85,12 @@ namespace System.Application.UI.ViewModels
             stopwatch.Restart();
 
             var secondaryPassword = "12345678";
-            var value = new SteamAuthenticatorValueDTO
+            var value = new GAPAuthenticatorValueDTO.SteamAuthenticator
             {
                 DeviceId = "dsafdsaf",
                 Serial = "qwewqrwqtr",
                 SteamData = "cxzvcxzvcxzv",
                 SessionData = "bbbb",
-                PollData = "12321515",
             };
             var item = new GAPAuthenticatorDTO
             {
@@ -151,7 +150,7 @@ namespace System.Application.UI.ViewModels
                 {
                     @string.AppendLine("GAPA_ITEM_!=: ServerId");
                 }
-                if (item2.Value is SteamAuthenticatorValueDTO value2)
+                if (item2.Value is GAPAuthenticatorValueDTO.SteamAuthenticator value2)
                 {
                     if (value2.DeviceId != value.DeviceId)
                     {
@@ -168,10 +167,6 @@ namespace System.Application.UI.ViewModels
                     if (value2.SessionData != value.SessionData)
                     {
                         @string.AppendLine("GAPA_ITEM_!=: Value.SessionData");
-                    }
-                    if (value2.PollData != value.PollData)
-                    {
-                        @string.AppendLine("GAPA_ITEM_!=: Value.PollData");
                     }
                 }
                 else

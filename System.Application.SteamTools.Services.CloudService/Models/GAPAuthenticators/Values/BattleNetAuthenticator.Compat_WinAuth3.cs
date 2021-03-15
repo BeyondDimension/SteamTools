@@ -670,7 +670,7 @@ namespace System.Application.Models
             /// <param name="writer">XmlWriter to write data</param>
             protected override void WriteExtraXml(XmlWriter writer)
             {
-                if (RestoreCodeVerified == true)
+                if (RestoreCodeVerified)
                 {
                     writer.WriteStartElement("restorecodeverified");
                     writer.WriteString(bool.TrueString.ToLower());

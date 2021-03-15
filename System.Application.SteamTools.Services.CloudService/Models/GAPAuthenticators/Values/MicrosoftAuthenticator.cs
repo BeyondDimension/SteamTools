@@ -5,14 +5,14 @@ namespace System.Application.Models
     partial class GAPAuthenticatorValueDTO
     {
         [MessagePackObject(keyAsPropertyName: true)]
-        public partial class MicrosoftAuthenticator : GAPAuthenticatorValueDTO
+        public partial class MicrosoftAuthenticator : GoogleAuthenticator
         {
-            public override GamePlatform Platform => GamePlatform.MicrosoftStore;
-
-            public override void Sync()
+            [SerializationConstructor]
+            public MicrosoftAuthenticator() : base()
             {
-                throw new NotImplementedException();
             }
+
+            public override GamePlatform Platform => GamePlatform.MicrosoftStore;
         }
     }
 }

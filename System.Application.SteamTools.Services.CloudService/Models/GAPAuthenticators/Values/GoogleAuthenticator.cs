@@ -7,12 +7,15 @@ namespace System.Application.Models
         [MessagePackObject(keyAsPropertyName: true)]
         public partial class GoogleAuthenticator : GAPAuthenticatorValueDTO
         {
-            public override GamePlatform Platform => GamePlatform.Google;
-
-            public override void Sync()
+            /// <summary>
+            /// Create a new Authenticator object
+            /// </summary>
+            [SerializationConstructor]
+            public GoogleAuthenticator() : base(CODE_DIGITS)
             {
-                throw new NotImplementedException();
             }
+
+            public override GamePlatform Platform => GamePlatform.Google;
         }
     }
 }

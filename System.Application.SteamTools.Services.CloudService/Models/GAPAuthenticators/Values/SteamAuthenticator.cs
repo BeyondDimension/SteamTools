@@ -7,12 +7,16 @@ namespace System.Application.Models
         [MessagePackObject(keyAsPropertyName: true)]
         public partial class SteamAuthenticator : GAPAuthenticatorValueDTO
         {
-            public override GamePlatform Platform => GamePlatform.Steam;
-
-            public override void Sync()
+            /// <summary>
+            /// Create a new Authenticator object
+            /// </summary>
+            [SerializationConstructor]
+            public SteamAuthenticator() : base(CODE_DIGITS)
             {
-                throw new NotImplementedException();
+                Issuer = STEAM_ISSUER;
             }
+
+            public override GamePlatform Platform => GamePlatform.Steam;
         }
     }
 }

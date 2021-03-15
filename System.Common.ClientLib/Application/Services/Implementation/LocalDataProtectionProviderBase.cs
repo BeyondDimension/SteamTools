@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using static System.Application.Services.ILocalDataProtectionProvider;
+using IProtectedData = System.Application.Services.ILocalDataProtectionProvider.IProtectedData;
 
 namespace System.Application.Services.Implementation
 {
