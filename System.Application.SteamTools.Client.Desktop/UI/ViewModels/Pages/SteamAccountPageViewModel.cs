@@ -76,6 +76,8 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _steamUsers, value);
         }
 
+        public bool IsUserEmpty => SteamUsers.Any_Nullable();
+
         internal async override Task Initialize()
         {
             SteamUsers = new ObservableCollection<SteamUser>(steamService.GetRememberUserList());
@@ -86,12 +88,12 @@ namespace System.Application.UI.ViewModels
                 return;
             }
 
-#if DEBUG
-            for (var i = 0; i < 10; i++)
-            {
-                SteamUsers.Add(SteamUsers[0]);
-            }
-#endif
+            //#if DEBUG
+            //            for (var i = 0; i < 10; i++)
+            //            {
+            //                SteamUsers.Add(SteamUsers[0]);
+            //            }
+            //#endif
 
             var users = SteamUsers.ToArray();
             for (var i = 0; i < SteamUsers.Count; i++)

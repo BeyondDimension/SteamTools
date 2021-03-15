@@ -156,11 +156,17 @@
   <data name="Confirm" xml:space="preserve">
     <value>确定</value>
   </data>
+  <data name="ConfirmImport" xml:space="preserve">
+    <value>确认导入</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>继续</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>编辑</value>
+  </data>
+  <data name="EmailCode" xml:space="preserve">
+    <value>邮箱验证代码</value>
   </data>
   <data name="Encrypt" xml:space="preserve">
     <value>加密</value>
@@ -201,8 +207,20 @@
   <data name="LocalAuth_AddAuth" xml:space="preserve">
     <value>导入令牌</value>
   </data>
+  <data name="LocalAuth_AddAuthSuccess" xml:space="preserve">
+    <value>令牌导入完成</value>
+  </data>
+  <data name="LocalAuth_AddAuthSyncTip" xml:space="preserve">
+    <value>正在同步令牌服务器时钟</value>
+  </data>
+  <data name="LocalAuth_AuthName" xml:space="preserve">
+    <value>令牌自定义名称</value>
+  </data>
   <data name="LocalAuth_EditAuth" xml:space="preserve">
     <value>编辑令牌</value>
+  </data>
+  <data name="LocalAuth_EmailCodeTip" xml:space="preserve">
+    <value>请输入发送到您的{0}电子邮件地址的代码，以批准从新设备进行访问。</value>
   </data>
   <data name="LocalAuth_ExportAuth" xml:space="preserve">
     <value>导出令牌</value>
@@ -213,8 +231,20 @@
   <data name="LocalAuth_OtherImport" xml:space="preserve">
     <value>其它软件导入</value>
   </data>
+  <data name="LocalAuth_SDATip" xml:space="preserve">
+    <value>Steam的移动身份验证器应用程序的桌面实现。导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件)</value>
+  </data>
+  <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
+    <value>请输入发送到您手机的短信验证代码。</value>
+  </data>
   <data name="LocalAuth_SteamAppImport" xml:space="preserve">
     <value>Steam App导入</value>
+  </data>
+  <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
+    <value>您可以在已root的Android设备中导入您的SteamGuard身份验证器路径：  /data/data/com.valvesoftware.android.steam.community然后将以下两个文件的内容复制到下面的对应输入框中</value>
+  </data>
+  <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
+    <value>在files文件夹中，打开'SteamGuard-NNNNNNNN'文件，粘贴文件的全部内容</value>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
     <value>Steam ++导入</value>
@@ -222,14 +252,32 @@
   <data name="LocalAuth_SteamUserImport" xml:space="preserve">
     <value>Steam账号导入</value>
   </data>
+  <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
+    <value>在shared_prefs文件夹中，粘贴'steam_uuid.xml'的uuidKey</value>
+  </data>
+  <data name="LocalAuth_WinAuthTip" xml:space="preserve">
+    <value>WinAuth是Windows的便携式开放源代码身份验证器，它提供基于计数器或基于时间的RFC 6238身份验证器和常见的实现。导入方法：从WinAuth导出txt文件之后在此选择从WinAuth导出的txt文件进行导入。</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>登录</value>
   </data>
   <data name="OtherGamePlaform" xml:space="preserve">
     <value>其它平台</value>
   </data>
+  <data name="RecoveryCode" xml:space="preserve">
+    <value>恢复代码</value>
+  </data>
+  <data name="RecoveryCode_Remember" xml:space="preserve">
+    <value>我已经写下了我的恢复代码</value>
+  </data>
+  <data name="RecoveryCode_RememberTip" xml:space="preserve">
+    <value>您的身份验证器已被添加到您的Steam账户中。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。</value>
+  </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
+  </data>
+  <data name="SelectFileImport" xml:space="preserve">
+    <value>选择{0}文件导入</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
@@ -248,6 +296,9 @@
   </data>
   <data name="Settings_UI" xml:space="preserve">
     <value>界面设置</value>
+  </data>
+  <data name="SMSCode" xml:space="preserve">
+    <value>短信验证代码</value>
   </data>
   <data name="Steam_ImageCodeTip" xml:space="preserve">
     <value>输入图中验证码</value>
@@ -273,6 +324,9 @@
   <data name="UserChange_DeleteUserTip" xml:space="preserve">
     <value>确定要删除这条本地记录帐户数据吗？
 这将会删除此账户在本地的Steam缓存数据。</value>
+  </data>
+  <data name="UserChange_NoUserTip" xml:space="preserve">
+    <value>没有在您的电脑上读取到任何Steam帐户数据</value>
   </data>
   <data name="UserChange_OfflineBtn" xml:space="preserve">
     <value>离线模式启动</value>

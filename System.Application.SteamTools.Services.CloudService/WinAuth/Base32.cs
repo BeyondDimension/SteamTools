@@ -26,7 +26,7 @@ namespace WinAuth
     /// Class that implements conversion to Base32 RFC3548
     /// </summary>
 
-    internal class Base32
+    public class WinAuthBase32
     {
         /// <summary>
         /// Default base32 character set as per RFC 4648/3548
@@ -45,16 +45,16 @@ namespace WinAuth
         /// <summary>
         /// Singleton instance
         /// </summary>
-        static readonly Base32 _instance = new(DefaultAlphabet);
+        static readonly WinAuthBase32 _instance = new(DefaultAlphabet);
 
         /// <summary>
         /// Get an instance of a Base32 object, either the standard singleton or for a custom alphabet
         /// </summary>
         /// <param name="alphabet"></param>
         /// <returns></returns>
-        public static Base32 GetInstance(string? alphabet = null)
+        public static WinAuthBase32 GetInstance(string? alphabet = null)
         {
-            return alphabet == null ? _instance : new Base32(alphabet);
+            return alphabet == null ? _instance : new WinAuthBase32(alphabet);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace WinAuth
         /// Create a new Base32 object with a specified alphabet
         /// </summary>
         /// <param name="alphabet"></param>
-        protected Base32(string alphabet)
+        protected WinAuthBase32(string alphabet)
         {
             // initialise the decoder and precalculate the char map
             _digits = alphabet.ToCharArray();

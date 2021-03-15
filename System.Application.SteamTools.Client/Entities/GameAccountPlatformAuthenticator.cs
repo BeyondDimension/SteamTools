@@ -25,6 +25,11 @@ namespace System.Application.Entities
         [AutoIncrement]
         public ushort Id { get; set; }
 
+        [Column("41B24805")]
+        [SQLiteNotNull]
+        [NotNull, DisallowNull] // C# 8 not null
+        public int Index { get; set; }
+
         /// <summary>
         /// 显示名称
         /// </summary>
@@ -40,6 +45,16 @@ namespace System.Application.Entities
         [SQLiteNotNull]
         [NotNull, DisallowNull] // C# 8 not null
         public byte[]? Value { get; set; }
+
+        [Column("7D808E24")]
+        [SQLiteNotNull]
+        [NotNull, DisallowNull] // C# 8 not null
+        public DateTimeOffset Created { get; set; }
+
+        [Column("38A7E919")]
+        [SQLiteNotNull]
+        [NotNull, DisallowNull] // C# 8 not null
+        public DateTimeOffset LastUpdate { get; set; }
 
         /// <summary>
         /// 云同步Id

@@ -48,7 +48,7 @@ namespace System.Application.Models
             {
                 get
                 {
-                    return Base32.GetInstance().Encode(SecretKey.ThrowIsNull(nameof(SecretKey)));
+                    return WinAuthBase32.GetInstance().Encode(SecretKey.ThrowIsNull(nameof(SecretKey)));
                 }
             }
 
@@ -56,7 +56,7 @@ namespace System.Application.Models
             /// Enroll the authenticator with the server.
             public void Enroll(string b32key)
             {
-                SecretKey = Base32.GetInstance().Decode(b32key);
+                SecretKey = WinAuthBase32.GetInstance().Decode(b32key);
                 Sync();
             }
 

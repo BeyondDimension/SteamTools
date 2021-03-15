@@ -6,8 +6,14 @@ namespace System.Application.Models
 {
     public class MyAuthenticator : ReactiveObject
     {
+        public MyAuthenticator()
+        {
+            IsHide = true;
+        }
+
         public MyAuthenticator(IGAPAuthenticatorDTO data)
         {
+            IsHide = true;
             AuthenticatorData = data;
         }
 
@@ -22,6 +28,71 @@ namespace System.Application.Models
             set
             {
                 AuthenticatorData.Name = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public int Index
+        {
+            get
+            {
+                return AuthenticatorData.Index;
+            }
+            set
+            {
+                AuthenticatorData.Index = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public DateTimeOffset Create
+        {
+            get
+            {
+                return AuthenticatorData.Created;
+            }
+            set
+            {
+                AuthenticatorData.Created = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public int Period
+        {
+            get
+            {
+                return AuthenticatorData.Value.Period;
+            }
+            set
+            {
+                AuthenticatorData.Value.Period = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private bool _IsHide;
+        public bool IsHide
+        {
+            get
+            {
+                return _IsHide;
+            }
+            set
+            {
+                _IsHide = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public string CurrentCode
+        {
+            get
+            {
+                return AuthenticatorData.Value.CurrentCode;
+            }
+            set
+            {
                 this.RaisePropertyChanged();
             }
         }

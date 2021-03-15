@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,7 +16,7 @@
     </Design.DataContext>
     <Panel HorizontalAlignment="Stretch">
         <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <ItemsRepeater Items="{Binding Authenticators}">
+            <ItemsRepeater Items="{Binding Source={x:Static service:AuthService.Current},Path=Authenticators,Mode=OneWay}">
                 <ItemsRepeater.Layout>
                     <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
                                        MaximumRowsOrColumns="6" />
@@ -34,7 +35,7 @@
                                 </i:Interaction.Behaviors>
                                 <Grid RowDefinitions="30,165,Auto">
                                     <Grid VerticalAlignment="Center" ColumnDefinitions="*,Auto">
-                                        <controls:ScrollingTextBlock Padding="10,5" Text="{Binding}" FontSize="16" Foreground="{DynamicResource HighlightForegroundBrushKey}"></controls:ScrollingTextBlock>
+                                        <controls:ScrollingTextBlock Padding="10,5" Text="{Binding Name}" FontSize="16" Foreground="{DynamicResource HighlightForegroundBrushKey}"></controls:ScrollingTextBlock>
                                         <Button Grid.Column="1" x:Name="delete_btn" Classes="flatbutton" IsVisible="False" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                             <Image Width="12" Height="18">
                                                 <Image.Source>
@@ -44,7 +45,10 @@
                                         </Button>
                                     </Grid>
 
-                                    <TextBlock Grid.Row="1" Text="------" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64"></TextBlock>
+                                    <TextBlock Grid.Row="1" Text="------" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64" IsVisible="{Binding CurrentCode,Converter={StaticResource IsNullConverter}}"></TextBlock>
+                                    <TextBlock Grid.Row="1" Text="{Binding CurrentCode}" IsVisible="{Binding !CurrentCode,Converter={StaticResource IsNullConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64">
+                                    </TextBlock>
+
 
                                     <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                                         <ProgressBar IsIndeterminate="True" Margin="0 10 0 0" />
@@ -52,7 +56,7 @@
                                         <!--<controls:ScrollingTextBlock HorizontalAlignment="Center" Width="{Binding #panel.Width}" Text="{Binding}" FontSize="14" Foreground="{DynamicResource HighlightForegroundBrushKey}" ></controls:ScrollingTextBlock>-->
                                         <Grid ColumnDefinitions="*,Auto">
                                             <StackPanel Orientation="Horizontal" Spacing="5">
-                                                
+
                                                 <Button Cursor="Hand" Classes="flatbutton">
                                                     <Image Width="20" Height="16">
                                                         <Image.Source>
@@ -76,7 +80,7 @@
                                                         </Image.Source>
                                                     </Image>
                                                 </Button>
-                                                
+
                                                 <Button Cursor="Hand" Classes="flatbutton">
                                                     <Image Width="20" Height="16">
                                                         <Image.Source>
@@ -85,8 +89,8 @@
                                                     </Image>
                                                 </Button>
                                             </StackPanel>
-                                            
-                                            <Button x:Name="expander" Grid.Column="1" Cursor="Hand" Classes="flatbutton">
+
+                                            <Button Grid.Column="1" Cursor="Hand" Classes="flatbutton">
                                                 <Image Width="20" Height="16">
                                                     <Image.Source>
                                                         <DrawingImage Drawing="{DynamicResource CopyDrawing}"></DrawingImage>

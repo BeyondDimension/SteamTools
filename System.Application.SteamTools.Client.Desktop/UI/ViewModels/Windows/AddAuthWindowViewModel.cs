@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Properties;
 
@@ -12,6 +13,5 @@ namespace System.Application.UI.ViewModels
         }
 
 
-        
     }
 }

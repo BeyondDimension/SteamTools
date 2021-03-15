@@ -178,6 +178,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 确认导入 的本地化字符串。
+        /// </summary>
+        public static string ConfirmImport {
+            get {
+                return ResourceManager.GetString("ConfirmImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 继续 的本地化字符串。
         /// </summary>
         public static string Continue {
@@ -192,6 +201,15 @@ namespace System.Application.UI.Resx {
         public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 邮箱验证代码 的本地化字符串。
+        /// </summary>
+        public static string EmailCode {
+            get {
+                return ResourceManager.GetString("EmailCode", resourceCulture);
             }
         }
         
@@ -313,11 +331,47 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 令牌导入完成 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AddAuthSuccess {
+            get {
+                return ResourceManager.GetString("LocalAuth_AddAuthSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在同步令牌服务器时钟 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AddAuthSyncTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_AddAuthSyncTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 令牌自定义名称 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthName {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 编辑令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_EditAuth {
             get {
                 return ResourceManager.GetString("LocalAuth_EditAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入发送到您的{0}电子邮件地址的代码，以批准从新设备进行访问。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_EmailCodeTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_EmailCodeTip", resourceCulture);
             }
         }
         
@@ -349,11 +403,47 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 Steam的移动身份验证器应用程序的桌面实现。导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件) 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SDATip {
+            get {
+                return ResourceManager.GetString("LocalAuth_SDATip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入发送到您手机的短信验证代码。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SMSCodeTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_SMSCodeTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam App导入 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamAppImport {
             get {
                 return ResourceManager.GetString("LocalAuth_SteamAppImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 您可以在已root的Android设备中导入您的SteamGuard身份验证器路径：  /data/data/com.valvesoftware.android.steam.community然后将以下两个文件的内容复制到下面的对应输入框中 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SteamAppImportTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamAppImportTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 在files文件夹中，打开&apos;SteamGuard-NNNNNNNN&apos;文件，粘贴文件的全部内容 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SteamGuardTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamGuardTip", resourceCulture);
             }
         }
         
@@ -376,6 +466,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 在shared_prefs文件夹中，粘贴&apos;steam_uuid.xml&apos;的uuidKey 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SteamuuidTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamuuidTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 WinAuth是Windows的便携式开放源代码身份验证器，它提供基于计数器或基于时间的RFC 6238身份验证器和常见的实现。导入方法：从WinAuth导出txt文件之后在此选择从WinAuth导出的txt文件进行导入。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_WinAuthTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_WinAuthTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 登录 的本地化字符串。
         /// </summary>
         public static string Login {
@@ -394,11 +502,47 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 恢复代码 的本地化字符串。
+        /// </summary>
+        public static string RecoveryCode {
+            get {
+                return ResourceManager.GetString("RecoveryCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 我已经写下了我的恢复代码 的本地化字符串。
+        /// </summary>
+        public static string RecoveryCode_Remember {
+            get {
+                return ResourceManager.GetString("RecoveryCode_Remember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 您的身份验证器已被添加到您的Steam账户中。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。 的本地化字符串。
+        /// </summary>
+        public static string RecoveryCode_RememberTip {
+            get {
+                return ResourceManager.GetString("RecoveryCode_RememberTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 刷新 的本地化字符串。
         /// </summary>
         public static string Refresh {
             get {
                 return ResourceManager.GetString("Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 选择{0}文件导入 的本地化字符串。
+        /// </summary>
+        public static string SelectFileImport {
+            get {
+                return ResourceManager.GetString("SelectFileImport", resourceCulture);
             }
         }
         
@@ -453,6 +597,15 @@ namespace System.Application.UI.Resx {
         public static string Settings_UI {
             get {
                 return ResourceManager.GetString("Settings_UI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 短信验证代码 的本地化字符串。
+        /// </summary>
+        public static string SMSCode {
+            get {
+                return ResourceManager.GetString("SMSCode", resourceCulture);
             }
         }
         
@@ -526,6 +679,15 @@ namespace System.Application.UI.Resx {
         public static string UserChange_DeleteUserTip {
             get {
                 return ResourceManager.GetString("UserChange_DeleteUserTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 没有在您的电脑上读取到任何Steam帐户数据 的本地化字符串。
+        /// </summary>
+        public static string UserChange_NoUserTip {
+            get {
+                return ResourceManager.GetString("UserChange_NoUserTip", resourceCulture);
             }
         }
         

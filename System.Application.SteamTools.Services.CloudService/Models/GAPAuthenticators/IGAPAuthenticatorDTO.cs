@@ -7,11 +7,17 @@
     {
         ushort Id { get; set; }
 
+        public int Index { get; set; }
+
         string Name { get; set; }
 
         GamePlatform Platform { get; }
 
         Guid? ServerId { get; set; }
+
+        public DateTimeOffset Created { get; set; }
+
+        public DateTimeOffset LastUpdate { get; set; }
 
         IGAPAuthenticatorValueDTO Value { get; set; }
     }

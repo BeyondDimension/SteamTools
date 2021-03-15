@@ -14,6 +14,10 @@
         <vm:SteamAccountPageViewModel/>
     </Design.DataContext>
     <Panel HorizontalAlignment="Stretch">
+        <TextBlock IsVisible="{Binding IsUserEmpty}"
+                   Text="{Binding Path=Res.UserChange_NoUserTip,Mode=OneWay,Source={x:Static resx:R.Current}}"          
+                   TextWrapping="WrapWithOverflow" 
+                   VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <ItemsRepeater Items="{Binding SteamUsers}">
                 <ItemsRepeater.Layout>
