@@ -225,6 +225,9 @@
   <data name="LocalAuth_ExportAuth" xml:space="preserve">
     <value>导出令牌</value>
   </data>
+  <data name="LocalAuth_ImportFaild" xml:space="preserve">
+    <value>导入失败，请检查数据是否正确。</value>
+  </data>
   <data name="LocalAuth_MenuName" xml:space="preserve">
     <value>编辑令牌</value>
   </data>
@@ -247,7 +250,7 @@
     <value>在files文件夹中，打开'SteamGuard-NNNNNNNN'文件，粘贴文件的全部内容</value>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
-    <value>Steam ++导入</value>
+    <value>Steam++导入</value>
   </data>
   <data name="LocalAuth_SteamUserImport" xml:space="preserve">
     <value>Steam账号导入</value>

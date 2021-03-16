@@ -21,7 +21,6 @@ namespace System.Application.Services
         #endregion
 
         private IList<MyAuthenticator> _Authenticators = new ObservableCollection<MyAuthenticator>();
-
         public IList<MyAuthenticator> Authenticators
         {
             get => this._Authenticators;
@@ -35,11 +34,15 @@ namespace System.Application.Services
             }
         }
 
+
         public void Initialize()
         {
 
         }
 
+        /// <summary>
+        /// WinAuth令牌导入
+        /// </summary>
         public void ImportWinAuthenticators(string file)
         {
             StringBuilder lines = new StringBuilder();
@@ -229,7 +232,7 @@ namespace System.Application.Services
         }
 
         /// <summary>
-        /// Import an authenticator from the uuid and steamguard files
+        /// Steam APP令牌导入
         /// </summary>
         /// <returns>true if successful</returns>
         public bool ImportSteamGuard(string name, string uuid, string steamGuard)
@@ -317,7 +320,7 @@ namespace System.Application.Services
                 DeviceId = deviceId
             };
 
-            MainThreadDesktop.InvokeOnMainThreadAsync(() => 
+            MainThreadDesktop.InvokeOnMainThreadAsync(() =>
             Authenticators.Add(new MyAuthenticator(new GAPAuthenticatorDTO
             {
                 Name = name,
@@ -327,5 +330,21 @@ namespace System.Application.Services
         }
 
 
+
+        public void AddSaveAuthenticators(GAPAuthenticatorDTO auth)
+        {
+            AddSaveAuthenticators(new MyAuthenticator(auth));
+        }
+
+        public void AddSaveAuthenticators(MyAuthenticator auth)
+        {
+            Authenticators.Add(auth);
+            SaveAuthenticators();
+        }
+
+        public void SaveAuthenticators()
+        {
+
+        }
     }
 }

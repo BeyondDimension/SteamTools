@@ -83,7 +83,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Application.SteamToo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3_Test", "3_Test", "{EA0809CE-2CE7-4173-B915-A6BB01522EB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Application.SteamTools.Client.Test", "System.Application.SteamTools.Client.Test\System.Application.SteamTools.Client.Test.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Application.SteamTools.Client.Test", "System.Application.SteamTools.Client.Test\System.Application.SteamTools.Client.Test.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

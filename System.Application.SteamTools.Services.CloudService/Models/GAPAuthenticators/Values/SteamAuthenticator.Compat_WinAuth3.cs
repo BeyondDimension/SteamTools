@@ -94,10 +94,10 @@ namespace System.Application.Models
                 public string? SteamId { get; set; }
                 public string? OAuthToken { get; set; }
 
-                public bool? RequiresLogin { get; set; }
-                public bool? RequiresCaptcha { get; set; }
-                public bool? Requires2FA { get; set; }
-                public bool? RequiresEmailAuth { get; set; }
+                public bool RequiresLogin { get; set; } = true;
+                public bool RequiresCaptcha { get; set; }
+                public bool Requires2FA { get; set; }
+                public bool RequiresEmailAuth { get; set; }
                 public bool RequiresActivation { get; set; }
 
                 public string? RevocationCode { get; set; }

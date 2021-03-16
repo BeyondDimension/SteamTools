@@ -385,6 +385,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 导入失败，请检查数据是否正确。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ImportFaild {
+            get {
+                return ResourceManager.GetString("LocalAuth_ImportFaild", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 编辑令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_MenuName {
@@ -448,7 +457,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam ++导入 的本地化字符串。
+        ///   查找类似 Steam++导入 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamToolsImport {
             get {
