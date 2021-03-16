@@ -5,17 +5,22 @@ using System.Application.UI.Resx;
 using System.IO;
 using System.Net;
 using System.Properties;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace System.Application.UI.ViewModels
 {
     public class AddAuthWindowViewModel : WindowViewModel
     {
+        readonly IHttpService httpService = DI.Get<IHttpService>();
+
         public AddAuthWindowViewModel()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_AddAuth;
         }
+
         private GAPAuthenticatorValueDTO.SteamAuthenticator _SteamAuthenticator;
-        private GAPAuthenticatorValueDTO.SteamAuthenticator.EnrollState _Enroll = new();
+        private GAPAuthenticatorValueDTO.SteamAuthenticator.EnrollState _Enroll = new() { RequiresLogin = true };
 
         public string AuthName { get; set; }
 
@@ -23,39 +28,32 @@ namespace System.Application.UI.ViewModels
 
         public string SteamGuard { get; set; }
 
-        public bool? RequiresCaptcha
-        {
-            get
-            {
-                return _Enroll.RequiresCaptcha;
-            }
-        }
-
-        public bool? RequiresEmailAuth
-        {
-            get
-            {
-                return _Enroll.RequiresEmailAuth;
-            }
-        }
-
-        public bool? RequiresLogin
+        public bool RequiresLogin
         {
             get
             {
                 return _Enroll.RequiresLogin;
             }
+            set
+            {
+                _Enroll.RequiresLogin = value;
+                this.RaisePropertyChanged();
+            }
         }
 
-        public bool? RequiresActivation
+        public bool RequiresActivation
         {
             get
             {
                 return _Enroll.RequiresActivation;
             }
+            set
+            {
+                this.RaisePropertyChanged();
+            }
         }
 
-        public string? UserName
+        public string UserName
         {
             get
             {
@@ -67,7 +65,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public string? Password
+        public string Password
         {
             get
             {
@@ -88,6 +86,7 @@ namespace System.Application.UI.ViewModels
             set
             {
                 _Enroll.CaptchaText = value;
+                this.RaisePropertyChanged();
             }
         }
 
@@ -121,13 +120,17 @@ namespace System.Application.UI.ViewModels
             {
                 return _Enroll.RevocationCode;
             }
+            set
+            {
+                this.RaisePropertyChanged();
+            }
         }
 
-        private string? _CaptchaImageUrl;
-        public string? CaptchaImageUrl
+        private Stream? _CaptchaImage;
+        public Stream? CaptchaImage
         {
-            get => _CaptchaImageUrl;
-            set => this.RaiseAndSetIfChanged(ref _CaptchaImageUrl, value);
+            get => _CaptchaImage;
+            set => this.RaiseAndSetIfChanged(ref _CaptchaImage, value);
         }
 
         private string? _EmailDomain;
@@ -156,70 +159,105 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-
+        private bool _IsLogining = false;
         public void LoginSteamImport()
         {
+            if (_IsLogining)
+            {
+                return;
+            }
+            _IsLogining = true;
+
             if (_SteamAuthenticator == null)
                 _SteamAuthenticator = new GAPAuthenticatorValueDTO.SteamAuthenticator();
 
-            var result = _SteamAuthenticator.Enroll(_Enroll);
+            _Enroll.Language = R.GetCurrentCultureSteamLanguageName();
 
-            if (result == false)
+            bool result = false;
+            Task.Run(() =>
             {
-                if (string.IsNullOrEmpty(_Enroll.Error) == false)
+                ToastService.Current.Set(AppResources.Logining);
+                result = _SteamAuthenticator.Enroll(_Enroll);
+                //ToastService.Current.Set();
+
+                if (result == false)
                 {
-                    ToastService.Current.Notify(_Enroll.Error);
-                }
-
-                if (_Enroll.Requires2FA == true)
-                {
-                    ToastService.Current.Notify(AppResources.LocalAuth_SteamUser_Requires2FA);
-                    return;
-                }
-
-                if (_Enroll.RequiresCaptcha == true)
-                {
-                    CaptchaImageUrl = _Enroll.CaptchaUrl;
-                    return;
-                }
-
-                if (_Enroll.RequiresEmailAuth == true)
-                {
-                    EmailDomain = string.IsNullOrEmpty(_Enroll.EmailDomain) == false ? "***@" + _Enroll.EmailDomain : string.Empty;
-                    return;
-                }
-
-                if (_Enroll.RequiresLogin == true)
-                {
-                    return;
-                }
-
-                if (_Enroll.RequiresActivation == true)
-                {
-                    _Enroll.Error = null;
-
-                    //this.Authenticator.AuthenticatorData = m_steamAuthenticator;
-
-                    AuthService.AddSaveAuthenticators(new GAPAuthenticatorDTO
+                    if (string.IsNullOrEmpty(_Enroll.Error) == false)
                     {
-                        Name = nameof(GamePlatform.Steam) + "(" + UserName + ")",
-                        Value = _SteamAuthenticator
-                    });
+                        MessageBoxCompat.Show(_Enroll.Error);
+                        //ToastService.Current.Notify(_Enroll.Error);
+                    }
 
-                    //RevocationCode = _Enroll.RevocationCode;
+                    if (_Enroll.Requires2FA == true)
+                    {
+                        ToastService.Current.Notify(AppResources.LocalAuth_SteamUser_Requires2FA);
+                        return;
+                    }
+
+                    if (_Enroll.RequiresCaptcha == true)
+                    {
+                        CaptchaText = null;
+                        CaptchaImage = null;
+                        using var web = new WebClient();
+                        var bt = web.DownloadData(_Enroll.CaptchaUrl);
+                        using var stream = new MemoryStream(bt);
+                        CaptchaImage = stream;
+                        return;
+                    }
+
+                    if (_Enroll.RequiresEmailAuth == true)
+                    {
+                        RequiresLogin = false;
+                        CaptchaText = null;
+                        CaptchaImage = null;
+                        EmailDomain = string.IsNullOrEmpty(_Enroll.EmailDomain) == false ? "***@" + _Enroll.EmailDomain : string.Empty;
+                        return;
+                    }
+
+                    if (_Enroll.RequiresActivation == true)
+                    {
+                        EmailDomain = null;
+                        _Enroll.Error = null;
+                        RequiresLogin = false;
+
+                        //AuthService.AddSaveAuthenticators(new GAPAuthenticatorDTO
+                        //{
+                        //    Name = nameof(GamePlatform.Steam) + "(" + UserName + ")",
+                        //    Value = _SteamAuthenticator
+                        //});
+
+                        RequiresActivation = true;
+                        RevocationCode = _Enroll.RevocationCode;
+                        return;
+                    }
+
+                    if (_Enroll.RequiresLogin == true)
+                    {
+                        return;
+                    }
+
+                    string error = _Enroll.Error;
+                    if (string.IsNullOrEmpty(error) == true)
+                    {
+                        error = AppResources.LocalAuth_SteamUser_Error;
+                    }
+                    MessageBoxCompat.Show(_Enroll.Error);
                     return;
                 }
+                RequiresAdd = true;
+            }).ContinueWith(s =>
+            {
+                Log.Error(nameof(AddAuthWindowViewModel), s.Exception, nameof(LoginSteamImport));
+                MessageBoxCompat.Show(s.Exception.Message);
+                //ToastService.Current.Notify(s.Exception.Message);
+            }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s =>
+            {
+                _IsLogining = false;
+                ToastService.Current.Set();
+                s.Dispose();
+            });
 
-                string error = _Enroll.Error;
-                if (string.IsNullOrEmpty(error) == true)
-                {
-                    error = AppResources.LocalAuth_SteamUser_Error;
-                }
-                ToastService.Current.Notify(error);
-                return;
-            }
-
-            RequiresAdd = true;
         }
+
     }
 }

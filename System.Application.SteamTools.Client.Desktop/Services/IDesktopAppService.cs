@@ -32,6 +32,8 @@ namespace System.Application.Services
         /// </summary>
         IReadOnlyDictionary<string, ICommand> NotifyIconMenus { get; }
 
+        void SetClipboardText(string s);
+
         bool IsCefInitComplete { get; }
     }
 }

@@ -65,6 +65,10 @@ namespace System.Application.Services
                      .Subscribe(x => IsVisible = !string.IsNullOrEmpty(x));
         }
 
+        public void Set()
+        {
+            CloseBtn_Click();
+        }
         public void Set(string message)
         {
             this.Message = message;

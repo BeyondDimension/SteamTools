@@ -358,6 +358,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 已复制令牌  的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_CopyAuthTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_CopyAuthTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定要永久删除此令牌吗？ 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_DeleteAuthTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_DeleteAuthTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 编辑令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_EditAuth {
@@ -399,6 +417,15 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_MenuName {
             get {
                 return ResourceManager.GetString("LocalAuth_MenuName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 你还没有导入任何令牌哦。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_NoAuthTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_NoAuthTip", resourceCulture);
             }
         }
         
@@ -529,6 +556,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 正在登陆中... 的本地化字符串。
+        /// </summary>
+        public static string Logining {
+            get {
+                return ResourceManager.GetString("Logining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 其它平台 的本地化字符串。
         /// </summary>
         public static string OtherGamePlaform {
@@ -556,7 +592,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 您的身份验证器已被添加到您的Steam账户中。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。 的本地化字符串。
+        ///   查找类似 您的身份验证器已被添加到您的Steam账户上并已经成功导入Steam++。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。 的本地化字符串。
         /// </summary>
         public static string RecoveryCode_RememberTip {
             get {
@@ -673,7 +709,8 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 登陆Steam账号进行令牌导入。 的本地化字符串。
+        ///   查找类似 登陆Steam账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易15天冷却期。
+        ///(如果没有开Steam社区加速会导致无法登陆成功) 的本地化字符串。
         /// </summary>
         public static string Steam_UserLoginTip {
             get {
@@ -719,7 +756,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 没有在您的电脑上读取到任何Steam帐户数据 的本地化字符串。
+        ///   查找类似 没有在您的电脑上读取到任何Steam帐户数据。 的本地化字符串。
         /// </summary>
         public static string UserChange_NoUserTip {
             get {

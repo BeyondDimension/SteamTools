@@ -76,7 +76,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _steamUsers, value);
         }
 
-        public bool IsUserEmpty => SteamUsers.Any_Nullable();
+        public bool IsUserEmpty => !SteamUsers.Any_Nullable();
 
         internal async override Task Initialize()
         {
@@ -144,7 +144,7 @@ namespace System.Application.UI.ViewModels
 
         public void DeleteUserButton_Click(SteamUser user)
         {
-            var result = MessageBoxCompat.ShowAsync(@AppResources.UserChange_DeleteUserTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+            var result = MessageBoxCompat.ShowAsync(@AppResources.LocalAuth_DeleteAuthTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
             {
                 if (s.Result == MessageBoxResultCompat.OK)
                 {
@@ -153,5 +153,6 @@ namespace System.Application.UI.ViewModels
                 }
             });
         }
+
     }
 }

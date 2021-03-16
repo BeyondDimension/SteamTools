@@ -253,7 +253,7 @@ namespace System.Application.UI
             RestoreMainWindow();
         }
 
-        public static async void SetClipboardText(string s) => await Current.Clipboard.SetTextAsync(s);
+        public async void SetClipboardText(string s) => await Current.Clipboard.SetTextAsync(s);
 
         Window? mMainWindow;
 

@@ -15,6 +15,10 @@
         <vm:LocalAuthPageViewModel/>
     </Design.DataContext>
     <Panel HorizontalAlignment="Stretch">
+        <TextBlock IsVisible="{Binding IsAuthenticatorsEmpty,Mode=OneWay,Source={x:Static service:AuthService.Current}}"
+           Text="{Binding Path=Res.LocalAuth_NoAuthTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+           TextWrapping="WrapWithOverflow"
+           VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <ItemsRepeater Items="{Binding Source={x:Static service:AuthService.Current},Path=Authenticators,Mode=OneWay}">
                 <ItemsRepeater.Layout>
@@ -36,7 +40,7 @@
                                 <Grid RowDefinitions="30,165,Auto">
                                     <Grid VerticalAlignment="Center" ColumnDefinitions="*,Auto">
                                         <controls:ScrollingTextBlock Padding="10,5" Text="{Binding Name}" FontSize="16" Foreground="{DynamicResource HighlightForegroundBrushKey}"></controls:ScrollingTextBlock>
-                                        <Button Grid.Column="1" x:Name="delete_btn" Classes="flatbutton" IsVisible="False" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                                        <Button Grid.Column="1" x:Name="delete_btn" Classes="flatbutton" IsVisible="False" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding #u.DataContext.DeleteAuth}" CommandParameter="{Binding}">
                                             <Image Width="12" Height="18">
                                                 <Image.Source>
                                                     <DrawingImage Drawing="{DynamicResource CloseDrawing}"></DrawingImage>
@@ -45,19 +49,20 @@
                                         </Button>
                                     </Grid>
 
-                                    <TextBlock Grid.Row="1" Text="------" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64" IsVisible="{Binding Source={x:Static service:AuthService.Current},Path=IsAuthenticatorsEmpty,Mode=OneWay}"></TextBlock>
-                                    <TextBlock Grid.Row="1" Text="{Binding CurrentCode}" IsVisible="{Binding !CurrentCode,Converter={StaticResource IsNullConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64">
+                                    <TextBlock Grid.Row="1" Text="------" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64" IsVisible="{Binding !IsShowCode}"></TextBlock>
+                                    <TextBlock Grid.Row="1" Text="{Binding CurrentCode}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="56" IsVisible="{Binding IsShowCode}">
                                     </TextBlock>
 
 
                                     <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                                        <ProgressBar IsIndeterminate="True" Margin="0 10 0 0" />
+                                        <Separator Height="13" IsVisible="{Binding !IsShowCode}"></Separator>
+                                        <ProgressBar  Value="{Binding CodeCountdown,Mode=TwoWay}" IsVisible="{Binding IsShowCode}" Margin="0 10 0 0"/>
                                         <Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness=".66" Margin="0 0 0 4"/>
                                         <!--<controls:ScrollingTextBlock HorizontalAlignment="Center" Width="{Binding #panel.Width}" Text="{Binding}" FontSize="14" Foreground="{DynamicResource HighlightForegroundBrushKey}" ></controls:ScrollingTextBlock>-->
                                         <Grid ColumnDefinitions="*,Auto">
                                             <StackPanel Orientation="Horizontal" Spacing="5">
 
-                                                <Button Cursor="Hand" Classes="flatbutton">
+                                                <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowAuthCode}" CommandParameter="{Binding}">
                                                     <Image Width="20" Height="16">
                                                         <Image.Source>
                                                             <DrawingImage Drawing="{DynamicResource ShowDrawing}"></DrawingImage>
@@ -90,13 +95,15 @@
                                                 </Button>
                                             </StackPanel>
 
-                                            <Button Grid.Column="1" Cursor="Hand" Classes="flatbutton">
+                                            <Button Grid.Column="1" Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.CopyCodeCilp}" CommandParameter="{Binding}">
                                                 <Image Width="20" Height="16">
                                                     <Image.Source>
                                                         <DrawingImage Drawing="{DynamicResource CopyDrawing}"></DrawingImage>
                                                     </Image.Source>
                                                 </Image>
                                             </Button>
+                                            
+                                            
                                         </Grid>
                                     </StackPanel>
                                 </Grid>

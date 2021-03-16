@@ -20,6 +20,11 @@ namespace System.Application
         /// Steam 游戏图片
         /// </summary>
         SteamGames,
+
+        /// <summary>
+        /// 验证码图片
+        /// </summary>
+        CodeImage,
     }
 }
 

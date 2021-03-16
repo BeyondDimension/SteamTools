@@ -1,10 +1,13 @@
 ﻿using ReactiveUI;
+using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Properties;
 using System.Reactive;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace System.Application.UI.ViewModels
 {
@@ -48,25 +51,9 @@ namespace System.Application.UI.ViewModels
 
         public override IList<MenuItemViewModel> MenuItems { get; protected set; }
 
-        /// <summary>
-        /// 令牌列表
-        /// </summary>
-        private IList<string>? _Authenticators;
-        public IList<string>? Authenticators
-        {
-            get => _Authenticators;
-            set => this.RaiseAndSetIfChanged(ref _Authenticators, value);
-        }
 
         internal async override Task Initialize()
         {
-#if DEBUG
-            Authenticators = new ObservableCollection<string>();
-            for (var i = 0; i < 10; i++)
-            {
-                Authenticators.Add("test");
-            }
-#endif
             await Task.CompletedTask;
         }
 
@@ -77,6 +64,48 @@ namespace System.Application.UI.ViewModels
                 return;
             }
             DI.Get<IShowWindowService>().Show(CustomWindow.AddAuth, new AddAuthWindowViewModel());
+        }
+
+
+        public void ShowAuthCode(MyAuthenticator auth)
+        {
+            if (auth.IsShowCode == false)
+            {
+                auth.IsShowCode = true;
+                var max = 100;
+                auth.CodeCountdown = max;
+                Task.Run(async () =>
+                {
+                    while (auth.IsShowCode)
+                    {
+                        auth.CurrentCode = string.Empty;
+                        auth.CodeCountdown -= 5;
+                        if (auth.CodeCountdown == 0)
+                        {
+                            auth.CodeCountdown = max;
+                            auth.IsShowCode = false;
+                        }
+                        await Task.Delay(100);
+                    }
+                }).ContinueWith(s => s.Dispose());
+            }
+        }
+
+        public void CopyCodeCilp(MyAuthenticator auth)
+        {
+            DI.Get<IDesktopAppService>().SetClipboardText(auth.CurrentCode);
+            ToastService.Current.Notify(AppResources.LocalAuth_CopyAuthTip + auth.Name);
+        }
+
+        public void DeleteAuth(MyAuthenticator auth)
+        {
+            var result = MessageBoxCompat.ShowAsync(@AppResources.UserChange_DeleteUserTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+            {
+                if (s.Result == MessageBoxResultCompat.OK)
+                {
+                    AuthService.DeleteSaveAuthenticators(auth);
+                }
+            });
         }
     }
 }

@@ -284,8 +284,8 @@ namespace System.Application.UI
 
         public static IntPtr? WndProc(NotifyIcon<TContextMenu> notifyIcon, uint msg, IntPtr wParam, IntPtr lParam)
         {
-            Log.Info(TAG, "WndProc called on NotifyIcon helper window: MSG = {0}",
-                 ((UnmanagedMethods.WindowsMessage)msg).ToString());
+            //Log.Info(TAG, "WndProc called on NotifyIcon helper window: MSG = {0}",
+            //     ((UnmanagedMethods.WindowsMessage)msg).ToString());
 
             switch (msg)
             {

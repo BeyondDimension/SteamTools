@@ -38,14 +38,14 @@ namespace System.Application.Services
 
         public bool IsAuthenticatorsEmpty
         {
-            get => this.Authenticators.Any_Nullable();
+            get => !this.Authenticators.Any_Nullable();
         }
 
         public async void Initialize()
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
             var list = await repository.GetAllAsync();
-            if (!list.Any_Nullable())
+            if (list.Count > 0)
             {
                 Authenticators = new ObservableCollection<MyAuthenticator>(list.Select(s => new MyAuthenticator(s)));
                 ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
@@ -351,6 +351,17 @@ namespace System.Application.Services
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
             repository.InsertOrUpdateAsync(auth.AuthenticatorData, true);
             MainThreadDesktop.InvokeOnMainThreadAsync(() => Current.Authenticators.Add(auth));
+        }
+
+        public static void DeleteSaveAuthenticators(MyAuthenticator auth)
+        {
+            var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
+            if (auth.AuthenticatorData.ServerId.HasValue) 
+            {
+                repository.DeleteAsync(auth.AuthenticatorData.ServerId.Value);
+            }
+            repository.DeleteAsync(auth.AuthenticatorData.Id);
+            MainThreadDesktop.InvokeOnMainThreadAsync(() => Current.Authenticators.Remove(auth));
         }
     }
 }

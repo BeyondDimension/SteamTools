@@ -216,6 +216,12 @@
   <data name="LocalAuth_AuthName" xml:space="preserve">
     <value>令牌自定义名称</value>
   </data>
+  <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
+    <value>已复制令牌 </value>
+  </data>
+  <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
+    <value>确定要永久删除此令牌吗？</value>
+  </data>
   <data name="LocalAuth_EditAuth" xml:space="preserve">
     <value>编辑令牌</value>
   </data>
@@ -230,6 +236,9 @@
   </data>
   <data name="LocalAuth_MenuName" xml:space="preserve">
     <value>编辑令牌</value>
+  </data>
+  <data name="LocalAuth_NoAuthTip" xml:space="preserve">
+    <value>你还没有导入任何令牌哦。</value>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
     <value>其它软件导入</value>
@@ -273,6 +282,9 @@
   <data name="Login" xml:space="preserve">
     <value>登录</value>
   </data>
+  <data name="Logining" xml:space="preserve">
+    <value>正在登陆中...</value>
+  </data>
   <data name="OtherGamePlaform" xml:space="preserve">
     <value>其它平台</value>
   </data>
@@ -283,7 +295,7 @@
     <value>我已经写下了我的恢复代码</value>
   </data>
   <data name="RecoveryCode_RememberTip" xml:space="preserve">
-    <value>您的身份验证器已被添加到您的Steam账户中。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。</value>
+    <value>您的身份验证器已被添加到您的Steam账户上并已经成功导入Steam++。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
@@ -322,7 +334,8 @@
     <value>Steam用户名</value>
   </data>
   <data name="Steam_UserLoginTip" xml:space="preserve">
-    <value>登陆Steam账号进行令牌导入。</value>
+    <value>登陆Steam账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易15天冷却期。
+(如果没有开Steam社区加速会导致无法登陆成功)</value>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">
     <value>以该账号登录Steam</value>
@@ -338,7 +351,7 @@
 这将会删除此账户在本地的Steam缓存数据。</value>
   </data>
   <data name="UserChange_NoUserTip" xml:space="preserve">
-    <value>没有在您的电脑上读取到任何Steam帐户数据</value>
+    <value>没有在您的电脑上读取到任何Steam帐户数据。</value>
   </data>
   <data name="UserChange_OfflineBtn" xml:space="preserve">
     <value>离线模式启动</value>

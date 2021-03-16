@@ -8,12 +8,10 @@ namespace System.Application.Models
     {
         public MyAuthenticator()
         {
-            IsHide = true;
         }
 
         public MyAuthenticator(IGAPAuthenticatorDTO data)
         {
-            IsHide = true;
             AuthenticatorData = data;
         }
 
@@ -71,16 +69,30 @@ namespace System.Application.Models
             }
         }
 
-        private bool _IsHide;
-        public bool IsHide
+        private bool _IsShowCode;
+        public bool IsShowCode
         {
             get
             {
-                return _IsHide;
+                return _IsShowCode;
             }
             set
             {
-                _IsHide = value;
+                _IsShowCode = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private int _CodeCountdown;
+        public int CodeCountdown
+        {
+            get
+            {
+                return _CodeCountdown;
+            }
+            set
+            {
+                _CodeCountdown = value;
                 this.RaisePropertyChanged();
             }
         }

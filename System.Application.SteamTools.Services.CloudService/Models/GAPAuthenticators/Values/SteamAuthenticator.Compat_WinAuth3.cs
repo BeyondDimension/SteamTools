@@ -81,6 +81,8 @@ namespace System.Application.Models
             /// </summary>
             public class EnrollState
             {
+                public string? Language { get; set; }
+
                 public string? Username { get; set; }
                 public string? Password { get; set; }
                 public string? CaptchaId { get; set; }
@@ -94,7 +96,7 @@ namespace System.Application.Models
                 public string? SteamId { get; set; }
                 public string? OAuthToken { get; set; }
 
-                public bool RequiresLogin { get; set; } = true;
+                public bool RequiresLogin { get; set; }
                 public bool RequiresCaptcha { get; set; }
                 public bool Requires2FA { get; set; }
                 public bool RequiresEmailAuth { get; set; }
@@ -305,7 +307,7 @@ namespace System.Application.Models
                 try
                 {
                     var data = new NameValueCollection();
-                    var cookies = state.Cookies = state.Cookies ?? new CookieContainer();
+                    var cookies = state.Cookies ??= new CookieContainer();
                     string response;
 
                     if (string.IsNullOrEmpty(state.OAuthToken) == true)
@@ -317,7 +319,7 @@ namespace System.Application.Models
                             cookies.Add(new Uri(COMMUNITY_BASE + "/"), new Cookie("mobileClient", "android"));
                             cookies.Add(new Uri(COMMUNITY_BASE + "/"), new Cookie("steamid", ""));
                             cookies.Add(new Uri(COMMUNITY_BASE + "/"), new Cookie("steamLogin", ""));
-                            cookies.Add(new Uri(COMMUNITY_BASE + "/"), new Cookie("Steam_Language", "english"));
+                            cookies.Add(new Uri(COMMUNITY_BASE + "/"), new Cookie("Steam_Language", state.Language));
                             cookies.Add(new Uri(COMMUNITY_BASE + "/"), new Cookie("dob", ""));
 
                             NameValueCollection headers = new NameValueCollection();
@@ -331,6 +333,7 @@ namespace System.Application.Models
                         state.Password = Regex.Replace(state.Password, @"[^\u0000-\u007F]", string.Empty);
 
                         // get the user's RSA key
+                        data.Add("donotache", new DateTime().ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds.ToString());
                         data.Add("username", state.Username);
                         response = Request(COMMUNITY_BASE + "/mobilelogin/getrsakey", "POST", data, cookies);
                         var rsaresponse = JObject.Parse(response);
@@ -340,7 +343,7 @@ namespace System.Application.Models
                         }
 
                         // encrypt password with RSA key
-                        RNGCryptoServiceProvider random = new RNGCryptoServiceProvider();
+                        RNGCryptoServiceProvider random = new();
                         byte[] encryptedPassword;
                         using (var rsa = new RSACryptoServiceProvider())
                         {
@@ -358,9 +361,9 @@ namespace System.Application.Models
                         data.Add("username", state.Username);
                         data.Add("twofactorcode", "");
                         data.Add("emailauth", (state.EmailAuthText != null ? state.EmailAuthText : string.Empty));
-                        data.Add("loginfriendlyname", "#login_emailauth_friendlyname_mobile");
+                        data.Add("loginfriendlyname", "");
                         data.Add("captchagid", (state.CaptchaId != null ? state.CaptchaId : "-1"));
-                        data.Add("captcha_text", (state.CaptchaText != null ? state.CaptchaText : "enter above characters"));
+                        data.Add("captcha_text", (state.CaptchaText != null ? state.CaptchaText : ""));
                         data.Add("emailsteamid", (state.EmailAuthText != null ? state.SteamId ?? string.Empty : string.Empty));
                         data.Add("rsatimestamp", rsaresponse.SelectToken("timestamp").Value<string>());
                         data.Add("remember_login", "false");
@@ -465,7 +468,7 @@ namespace System.Application.Models
                             state.OAuthToken = null; // force new login
                             state.RequiresLogin = true;
                             state.Cookies = null;
-                            state.Error = "Your Steam account must have a SMS-capable phone number attached. Go into Account Details of the Steam client or Steam website and click Add a Phone Number.";
+                            state.Error = "您的Steam帐户必须附有支持短信的电话号码, " + Environment.NewLine + "请到Steam客户端或Steam网站的帐户详细信息添加电话号码。";
                             return false;
                         }
 
@@ -487,7 +490,7 @@ namespace System.Application.Models
                             state.OAuthToken = null; // force new login
                             state.RequiresLogin = true;
                             state.Cookies = null;
-                            state.Error = "Unable to send SMS. Check your phone is registered on your Steam account.";
+                            state.Error = "无法发送短信， 检查您的电话已在您的Steam帐户中注册。";
                             return false;
                         }
                         if (response.IndexOf("shared_secret") == -1)
@@ -575,7 +578,7 @@ namespace System.Application.Models
                     }
                     if (state.RequiresActivation == true)
                     {
-                        state.Error = "There was a problem activating. There might be an issue with the Steam servers. Please try again later.";
+                        state.Error = "注册时出现问题！Steam服务器可能存在问题， 请稍后再试。";
                         return false;
                     }
 

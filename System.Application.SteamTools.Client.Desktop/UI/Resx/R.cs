@@ -38,6 +38,7 @@ namespace System.Application.UI.Resx
             }.ToList();
             SteamLanguages = new Dictionary<string, string>()
             {
+                { "zh-CN", "schinese" },
                 { "zh-Hans", "schinese" },
                 { "zh-Hant", "tchinese" },
                 { "en","english"},
@@ -83,8 +84,17 @@ namespace System.Application.UI.Resx
 
         public static string GetCurrentCultureSteamLanguageName()
         {
-            return AppResources.Culture == null ? Languages.First().Value : SteamLanguages[AppResources.Culture.Name];
+            try
+            {
+                return AppResources.Culture == null ?
+                    Languages.First().Key :
+                    SteamLanguages[AppResources.Culture.Name];
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(R), ex, nameof(GetCurrentCultureSteamLanguageName));
+                return SteamLanguages["en"];
+            }
         }
-
     }
 }
