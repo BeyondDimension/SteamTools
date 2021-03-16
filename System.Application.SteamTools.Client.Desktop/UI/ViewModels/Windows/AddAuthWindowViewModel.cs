@@ -173,7 +173,7 @@ namespace System.Application.UI.ViewModels
 
                 if (_Enroll.Requires2FA == true)
                 {
-                    ToastService.Current.Notify("您的帐户似乎已添加了身份验证器");
+                    ToastService.Current.Notify(AppResources.LocalAuth_SteamUser_Requires2FA);
                     return;
                 }
 
@@ -200,11 +200,11 @@ namespace System.Application.UI.ViewModels
 
                     //this.Authenticator.AuthenticatorData = m_steamAuthenticator;
 
-                    AuthService.Current.Authenticators.Add(new MyAuthenticator(new GAPAuthenticatorDTO
+                    AuthService.AddSaveAuthenticators(new GAPAuthenticatorDTO
                     {
                         Name = nameof(GamePlatform.Steam) + "(" + UserName + ")",
                         Value = _SteamAuthenticator
-                    }));
+                    });
 
                     //RevocationCode = _Enroll.RevocationCode;
                     return;
@@ -213,7 +213,7 @@ namespace System.Application.UI.ViewModels
                 string error = _Enroll.Error;
                 if (string.IsNullOrEmpty(error) == true)
                 {
-                    error = "无法将添加身份验证器添加到您的帐户， 请稍后再试。";
+                    error = AppResources.LocalAuth_SteamUser_Error;
                 }
                 ToastService.Current.Notify(error);
                 return;

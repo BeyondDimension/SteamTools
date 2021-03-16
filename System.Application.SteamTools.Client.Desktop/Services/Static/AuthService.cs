@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
 using ReactiveUI;
 using System.Application.Models;
+using System.Application.Repositories;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -34,10 +36,20 @@ namespace System.Application.Services
             }
         }
 
-
-        public void Initialize()
+        public bool IsAuthenticatorsEmpty
         {
+            get => this.Authenticators.Any_Nullable();
+        }
 
+        public async void Initialize()
+        {
+            var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
+            var list = await repository.GetAllAsync();
+            if (!list.Any_Nullable())
+            {
+                Authenticators = new ObservableCollection<MyAuthenticator>(list.Select(s => new MyAuthenticator(s)));
+                ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
+            }
         }
 
         /// <summary>
@@ -217,7 +229,7 @@ namespace System.Application.Services
                     ToastService.Current.Notify(AppResources.LocalAuth_AddAuthSyncTip);
                     importedAuthenticator.Value.Sync();
 
-                    MainThreadDesktop.InvokeOnMainThreadAsync(() => Authenticators.Add(new MyAuthenticator(importedAuthenticator)));
+                    AuthService.AddSaveAuthenticators(importedAuthenticator);
                 }
                 ToastService.Current.Notify(AppResources.LocalAuth_AddAuthSuccess);
             }
@@ -320,31 +332,25 @@ namespace System.Application.Services
                 DeviceId = deviceId
             };
 
-            MainThreadDesktop.InvokeOnMainThreadAsync(() =>
-            Authenticators.Add(new MyAuthenticator(new GAPAuthenticatorDTO
+            AuthService.AddSaveAuthenticators(new GAPAuthenticatorDTO
             {
                 Name = name,
                 Value = auth,
-            })));
+            });
             return true;
         }
 
 
-
-        public void AddSaveAuthenticators(GAPAuthenticatorDTO auth)
+        public static void AddSaveAuthenticators(GAPAuthenticatorDTO auth)
         {
             AddSaveAuthenticators(new MyAuthenticator(auth));
         }
 
-        public void AddSaveAuthenticators(MyAuthenticator auth)
+        public static void AddSaveAuthenticators(MyAuthenticator auth)
         {
-            Authenticators.Add(auth);
-            SaveAuthenticators();
-        }
-
-        public void SaveAuthenticators()
-        {
-
+            var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
+            repository.InsertOrUpdateAsync(auth.AuthenticatorData, true);
+            MainThreadDesktop.InvokeOnMainThreadAsync(() => Current.Authenticators.Add(auth));
         }
     }
 }

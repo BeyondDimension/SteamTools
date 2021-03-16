@@ -13,6 +13,7 @@ namespace System.Application.UI.ViewModels
         public LocalAuthPageViewModel()
         {
             AddAuthCommand = ReactiveCommand.Create(AddAuthMenu_Click);
+            RefreshAuthCommand = ReactiveCommand.Create(AuthService.Current.Initialize);
             MenuItems = new[]
             {
                 new MenuItemViewModel
@@ -25,7 +26,8 @@ namespace System.Application.UI.ViewModels
                         new MenuItemViewModel { Header = AppResources.Edit,IconKey="EditDrawing" },
                         new MenuItemViewModel { Header = AppResources.Export,IconKey="ExportDrawing" },
                         new MenuItemViewModel { Header = "-" },
-                        new MenuItemViewModel { Header = AppResources.Refresh,IconKey="RefreshDrawing" },
+                        new MenuItemViewModel { Header = AppResources.Refresh,IconKey="RefreshDrawing",
+                            Command= RefreshAuthCommand },
                         new MenuItemViewModel { Header = "-" },
                         new MenuItemViewModel { Header = AppResources.Encrypt,IconKey="LockDrawing" },
                         new MenuItemViewModel { Header = AppResources.CloudSync,IconKey="CloudDrawing" },
@@ -41,6 +43,7 @@ namespace System.Application.UI.ViewModels
         }
 
         public ReactiveCommand<Unit, Unit> AddAuthCommand { get; }
+        public ReactiveCommand<Unit, Unit> RefreshAuthCommand { get; }
 
 
         public override IList<MenuItemViewModel> MenuItems { get; protected set; }

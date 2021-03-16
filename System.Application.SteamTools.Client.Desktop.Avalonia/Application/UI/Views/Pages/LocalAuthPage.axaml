@@ -45,7 +45,7 @@
                                         </Button>
                                     </Grid>
 
-                                    <TextBlock Grid.Row="1" Text="------" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64" IsVisible="{Binding CurrentCode,Converter={StaticResource IsNullConverter}}"></TextBlock>
+                                    <TextBlock Grid.Row="1" Text="------" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64" IsVisible="{Binding Source={x:Static service:AuthService.Current},Path=IsAuthenticatorsEmpty,Mode=OneWay}"></TextBlock>
                                     <TextBlock Grid.Row="1" Text="{Binding CurrentCode}" IsVisible="{Binding !CurrentCode,Converter={StaticResource IsNullConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64">
                                     </TextBlock>
 

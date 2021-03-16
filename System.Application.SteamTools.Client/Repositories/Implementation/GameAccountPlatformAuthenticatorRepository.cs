@@ -62,7 +62,7 @@ namespace System.Application.Repositories.Implementation
             }
         }
 
-        public async Task<List<IGAPAuthenticatorDTO>> GetAllAsync(string? secondaryPassword)
+        public async Task<List<IGAPAuthenticatorDTO>> GetAllAsync(string? secondaryPassword = null)
         {
             var items = await GetAllAsync();
 
@@ -95,7 +95,8 @@ namespace System.Application.Repositories.Implementation
             return encryptionMode;
         }
 
-        public async Task InsertOrUpdateAsync(IGAPAuthenticatorDTO item, bool isLocal, string? secondaryPassword)
+        public async Task InsertOrUpdateAsync(IGAPAuthenticatorDTO item, bool isLocal,
+            string? secondaryPassword = null)
         {
             var value = Serializable.SMP(item.Value);
 

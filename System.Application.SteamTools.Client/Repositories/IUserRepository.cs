@@ -4,5 +4,6 @@ namespace System.Application.Repositories
 {
     public interface IUserRepository : IRepository<User, Guid>
     {
+
     }
 }

@@ -16,7 +16,7 @@ namespace System.Application.Repositories
         /// </summary>
         /// <param name="secondaryPassword"></param>
         /// <returns></returns>
-        Task<List<IGAPAuthenticatorDTO>> GetAllAsync(string? secondaryPassword);
+        Task<List<IGAPAuthenticatorDTO>> GetAllAsync(string? secondaryPassword = null);
 
         /// <summary>
         /// 插入或更新一条到本地，插入前需要判断当前值是否超过了 <see cref="MaxValue"/>
@@ -25,7 +25,7 @@ namespace System.Application.Repositories
         /// <param name="isLocal"></param>
         /// <param name="secondaryPassword"></param>
         /// <returns></returns>
-        Task InsertOrUpdateAsync(IGAPAuthenticatorDTO item, bool isLocal, string? secondaryPassword);
+        Task InsertOrUpdateAsync(IGAPAuthenticatorDTO item, bool isLocal, string? secondaryPassword = null);
 
         /// <summary>
         /// 根据本地Id删除一条
@@ -49,7 +49,7 @@ namespace System.Application.Repositories
         /// <param name="isLocal"></param>
         /// <param name="secondaryPassword"></param>
         /// <returns></returns>
-        Task RenameAsync(ushort id, string name, bool isLocal, string? secondaryPassword);
+        Task RenameAsync(ushort id, string name, bool isLocal, string? secondaryPassword = null);
 
         /// <summary>
         /// 根据本地Id设置云同步Id

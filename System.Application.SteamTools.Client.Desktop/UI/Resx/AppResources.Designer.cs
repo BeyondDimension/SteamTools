@@ -412,6 +412,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 令牌数据加载完成 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_RefreshAuthSuccess {
+            get {
+                return ResourceManager.GetString("LocalAuth_RefreshAuthSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam的移动身份验证器应用程序的桌面实现。导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件) 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SDATip {
@@ -462,6 +471,24 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_SteamToolsImport {
             get {
                 return ResourceManager.GetString("LocalAuth_SteamToolsImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 无法将添加身份验证器添加到您的帐户， 请稍后再试。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SteamUser_Error {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamUser_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 您的帐户似乎已添加了身份验证器。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SteamUser_Requires2FA {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamUser_Requires2FA", resourceCulture);
             }
         }
         

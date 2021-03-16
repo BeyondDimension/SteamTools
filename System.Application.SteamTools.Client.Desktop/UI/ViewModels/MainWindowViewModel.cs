@@ -1,6 +1,7 @@
 ﻿using ReactiveUI;
 using System.Application.Models;
 using System.Application.Models.Settings;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,7 +86,8 @@ namespace System.Application.UI.ViewModels
 
         public async void Initialize()
         {
-            //AppHelper.Current.Theme = (AppTheme)UISettings.Theme.Value;
+            AuthService.Current.Initialize();
+
             if (!this.IsInitialized)
             {
                 foreach (var item in this.TabItems)
@@ -96,6 +98,8 @@ namespace System.Application.UI.ViewModels
                 }
                 this.IsInitialized = true;
             }
+
+            await Task.CompletedTask;
         }
     }
 }
