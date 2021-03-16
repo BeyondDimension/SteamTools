@@ -100,6 +100,8 @@ namespace System.Application.UI
 
             void _(ILoggingBuilder builder)
             {
+                builder.ClearProviders();
+
                 builder.SetMinimumLevel(minLevel);
                 SetNLoggerMinLevel(minLevel);
 

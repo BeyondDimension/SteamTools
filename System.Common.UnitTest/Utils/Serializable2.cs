@@ -17,13 +17,13 @@ namespace System
     {
         static readonly Lazy<JsonSerializerSettings> mDebugViewTextSettings = new(GetDebugViewTextSettings);
 
-        static JsonSerializerSettings GetDebugViewTextSettings() => new JsonSerializerSettings
+        static JsonSerializerSettings GetDebugViewTextSettings() => new()
         {
             ContractResolver = new IgnoreJsonPropertyContractResolver(),
             Converters = new List<JsonConverter>
-                {
-                    new StringEnumConverter(),
-                },
+            {
+                new StringEnumConverter(),
+            },
         };
 
         /// <summary>

@@ -5,7 +5,6 @@ using NLog.Config;
 using System.IO;
 using System.Properties;
 using System.Reflection;
-using System.Threading.Tasks;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 [assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark + " v" + ThisAssembly.Version)]
@@ -61,8 +60,14 @@ namespace System.Application.UI
         static AppBuilder BuildAvaloniaApp()
            => AppBuilder.Configure<App>()
                .UsePlatformDetect()
-               .With(new SkiaOptions { MaxGpuResourceSizeBytes = 8096000 })
-               .With(new Win32PlatformOptions { AllowEglInitialization = true })
+               .With(new SkiaOptions
+               {
+                   MaxGpuResourceSizeBytes = 8096000,
+               })
+               .With(new Win32PlatformOptions
+               {
+                   AllowEglInitialization = true,
+               })
                .LogToTrace()
                .UseReactiveUI();
 
@@ -82,9 +87,9 @@ namespace System.Application.UI
                 "      internalLogLevel=\"Off\">" +
                 "  <targets>" +
                 "    <target xsi:type=\"File\" name=\"logfile\" fileName=\"" + logDirPath_ + "nlog-all-${shortdate}.log\"" +
-                "            layout=\"${longdate}|${level}|${message} |${all-event-properties} ${exception:format=tostring}\"/>" +
+                "            layout=\"${longdate}|${level}|${message} |${all-event-properties} ${exception:format=tostring}\" maxArchiveFiles=\"3\"/>" +
                 "    <target xsi:type=\"Console\" name=\"logconsole\"" +
-                "            layout=\"${longdate}|${level}|${message} |${all-event-properties} ${exception:format=tostring}\"/>" +
+                "            layout=\"${longdate}|${level}|${message} |${all-event-properties} ${exception:format=tostring}\" maxArchiveFiles=\"3\"/>" +
                 "  </targets>" +
                 "  <rules>" +
                 "    <logger name=\"*\" minlevel=\"" + AppHelper.DefaultNLoggerMinLevel.Name + "\" writeTo=\"logfile,logconsole\"/>" +

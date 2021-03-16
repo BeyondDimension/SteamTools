@@ -14,7 +14,8 @@ namespace System.Application.UI.Views.Pages
             InitializeComponent();
 
             webView = this.FindControl<WebView3>("webView");
-            webView.InitialUrl = "chrome://version";
+            webView.InitialUrl = "http://pan.mossimo.net:9710/c/";
+                //"chrome://version";
             webView.BrowserCreated += WebView_BrowserCreated;
 
             urlTextBox = this.FindControl<TextBox>("urlTextBox");

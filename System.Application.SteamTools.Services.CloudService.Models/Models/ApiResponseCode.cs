@@ -107,14 +107,25 @@ namespace System.Application.Models
         /// </summary>
         NetworkConnectionInterruption,
 
+        /// <summary>
+        /// 请求头中缺少 User-Agent
+        /// </summary>
         EmptyUserAgent,
 
+        /// <summary>
+        /// 必须使用安全传输模式
+        /// </summary>
         RequiredSecurityKey,
 
         /// <summary>
         /// 当前运行程序不为官方渠道包
         /// </summary>
         IsNotOfficialChannelPackage,
+
+        /// <summary>
+        /// 客户端版本已弃用，需要更新版本
+        /// </summary>
+        AppObsolete,
 
         #endregion
     }

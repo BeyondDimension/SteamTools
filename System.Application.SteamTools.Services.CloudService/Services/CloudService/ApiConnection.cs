@@ -414,15 +414,31 @@ namespace System.Application.Services.CloudService
             return r;
         }
 
+        bool IsAppObsolete(HttpResponseHeaders headers)
+            => headers.TryGetValues(Constants.Headers.Response.AppObsolete, out var values) &&
+            values.Contains(bool.TrueString, StringComparer.OrdinalIgnoreCase);
+
+        void HandleAppObsolete(HttpResponseHeaders headers)
+        {
+            if (IsAppObsolete(headers))
+            {
+                throw new ApiResponseCodeException(ApiResponseCode.AppObsolete);
+            }
+        }
+
         public async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request,
             HttpCompletionOption completionOption,
             CancellationToken cancellationToken)
         {
             var client = conn_helper.CreateClient();
+
             var response = await client.SendAsync(request,
                 completionOption,
                 cancellationToken).ConfigureAwait(false);
+
+            HandleAppObsolete(response.Headers);
+
             return response;
         }
 
@@ -515,10 +531,14 @@ namespace System.Application.Services.CloudService
                 }
 
                 var client = conn_helper.CreateClient();
+
                 using var response = await client.SendAsync(request,
                     HttpCompletionOption.ResponseHeadersRead,
                     cancellationToken)
                     .ConfigureAwait(false);
+
+                HandleAppObsolete(response.Headers);
+
                 var code = (ApiResponseCode)response.StatusCode;
 
                 if (!isAnonymous && code == ApiResponseCode.Unauthorized && jwt != null)
@@ -644,10 +664,12 @@ namespace System.Application.Services.CloudService
                 }
 
                 var client = conn_helper.CreateClient();
+
                 using var response = await client.SendAsync(request,
                     HttpCompletionOption.ResponseHeadersRead,
                     cancellationToken)
                     .ConfigureAwait(false);
+
                 var code = (ApiResponseCode)response.StatusCode;
 
                 if (!isAnonymous && code == ApiResponseCode.Unauthorized && jwt != null)

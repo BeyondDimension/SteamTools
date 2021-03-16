@@ -3,6 +3,7 @@ using System;
 using System.Application.Services;
 using System.Application.Services.CloudService;
 using System.Net;
+using System.Properties;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -22,6 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddHttpClient(CloudServiceClientBase.ClientName_, (s, c) =>
             {
                 var sc = s.GetRequiredService<CloudServiceClientBase>();
+                c.Timeout = ThisAssembly.Debuggable ? TimeSpan.FromSeconds(29) : TimeSpan.FromSeconds(19); // 19s
                 c.BaseAddress = new Uri(sc.ApiBaseUrl);
                 c.DefaultRequestHeaders.UserAgent.ParseAdd(sc.UserAgent);
                 c.DefaultRequestHeaders.Add(Constants.Headers.Request.AppVersion, sc.Settings.AppVersion.ToStringN());

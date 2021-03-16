@@ -53,11 +53,20 @@ namespace System.Application.Services.Implementation
                 if (EnableForward &&
                     allowUrls.Any(x => requestUri.StartsWith(x, StringComparison.OrdinalIgnoreCase)))
                 {
-                    response = await cloud_client.Forward(request,
-                        HttpCompletionOption.ResponseHeadersRead,
-                        cancellationToken);
+                    try
+                    {
+                        response = await cloud_client.Forward(request,
+                            HttpCompletionOption.ResponseHeadersRead,
+                            cancellationToken);
+                    }
+                    catch (Exception e)
+                    {
+                        logger.LogWarning(e, "CloudService Forward Fail.");
+                        response = null;
+                    }
                 }
-                else
+
+                if (response == null)
                 {
                     var client = CreateClient();
                     response = await client.SendAsync(request,

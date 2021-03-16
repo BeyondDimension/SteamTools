@@ -10,10 +10,9 @@
     <Grid RowDefinitions="*,Auto">
         <TextBox Grid.Row="0" Text="{Binding DebugString}" AcceptsReturn="True"></TextBox>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button Height="35" MinWidth="200" Content="Debug Button" Command="{Binding DebugButton_Click}">
-            </Button>
-            <Button Height="35" MinWidth="200" Content="Test Dialog" Command="{Binding ShowDialogButton_Click}">
-            </Button>
+            <Button Height="35" MinWidth="200" Content="Debug Button" Command="{Binding DebugButton_Click}" />
+            <Button Height="35" MinWidth="200" Content="Test Dialog" Command="{Binding ShowDialogButton_Click}" />
+          <Button Height="35" MinWidth="200" Content="Test Server Api" Command="{Binding TestServerApiButton_Click}" />
         </StackPanel>
     </Grid>
 </UserControl>

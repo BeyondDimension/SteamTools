@@ -55,8 +55,8 @@ namespace Avalonia.Controls
 
     internal sealed class WebView3Glue : AvaloniaWebViewGlue
     {
-        //private const int SHOW_DEV_TOOLS = (int)CefMenuId.UserFirst + 0;
-        //private const int INSPECT_ELEMENT = (int)CefMenuId.UserFirst + 1;
+        const int SHOW_DEV_TOOLS = (int)CefMenuId.UserFirst + 0;
+        //const int INSPECT_ELEMENT = (int)CefMenuId.UserFirst + 1;
 
         public WebView3Glue(WebView3 view) : base(view)
         {
@@ -73,7 +73,9 @@ namespace Avalonia.Controls
 
         protected override void OnBeforeContextMenu(CefBrowser browser, CefFrame frame, CefContextMenuParams menuParams, CefMenuModel model)
         {
-            model.Clear(); // 禁用右键菜单
+            //model.Clear(); // 禁用右键菜单
+
+            model.AddItem(SHOW_DEV_TOOLS, "&Show DevTools");
 
             //model.Remove((int)CefMenuId.Print);
             //model.Remove((int)CefMenuId.ViewSource);
@@ -95,23 +97,23 @@ namespace Avalonia.Controls
             //submenu.SetCheckedAt(submenu.Count - 1, true);
         }
 
-        //protected override bool OnContextMenuCommand(CefBrowser browser, CefFrame frame, CefContextMenuParams menuParams, int commandId, CefEventFlags eventFlags)
-        //{
-        //    if (commandId >= (int)CefMenuId.UserFirst && commandId <= (int)CefMenuId.UserLast)
-        //    {
-        //        switch (commandId)
-        //        {
-        //            case SHOW_DEV_TOOLS:
-        //                WebView.ShowDevTools();
-        //                break;
-        //            case INSPECT_ELEMENT:
-        //                WebView.ShowDevTools(new CefPoint(menuParams.XCoord, menuParams.YCoord));
-        //                break;
-        //        }
-        //        return true;
-        //    }
-        //    return false;
-        //}
+        protected override bool OnContextMenuCommand(CefBrowser browser, CefFrame frame, CefContextMenuParams menuParams, int commandId, CefEventFlags eventFlags)
+        {
+            if (commandId >= (int)CefMenuId.UserFirst && commandId <= (int)CefMenuId.UserLast)
+            {
+                switch (commandId)
+                {
+                    case SHOW_DEV_TOOLS:
+                        WebView.ShowDevTools();
+                        break;
+                        //case INSPECT_ELEMENT:
+                        //    WebView.ShowDevTools(new CefPoint(menuParams.XCoord, menuParams.YCoord));
+                        //    break;
+                }
+                return true;
+            }
+            return false;
+        }
 
         protected override void OnFullscreenModeChange(CefBrowser browser, bool fullscreen)
         {

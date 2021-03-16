@@ -129,12 +129,12 @@ navigator.__proto__ = newProto;
             };
 
             AppHelper.Initialized += () =>
+            {
+                if (PlatformInfo.IsMacOS || Environment.GetCommandLineArgs().Contains("--external-message-pump"))
                 {
-                    if (PlatformInfo.IsMacOS || Environment.GetCommandLineArgs().Contains("--external-message-pump"))
-                    {
-                        messagePump = new Timer(_ => Dispatcher.UIThread.Post(CefApi.DoMessageLoopWork), null, messagePumpDelay, messagePumpDelay);
-                    }
-                };
+                    messagePump = new Timer(_ => Dispatcher.UIThread.Post(CefApi.DoMessageLoopWork), null, messagePumpDelay, messagePumpDelay);
+                }
+            };
             AppHelper.Shutdown += () =>
             {
                 messagePump?.Dispose();

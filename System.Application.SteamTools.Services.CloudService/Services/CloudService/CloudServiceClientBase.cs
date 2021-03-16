@@ -6,17 +6,20 @@ using System.Application.Security;
 using System.Application.Services.CloudService.Clients;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Net.Http;
+using System.Properties;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Text;
 
 namespace System.Application.Services.CloudService
 {
     public abstract class CloudServiceClientBase : GeneralHttpClientFactory, ICloudServiceClient, IApiConnectionPlatformHelper
     {
         public const string ClientName_ = "CloudServiceClient";
-        internal const string DefaultApiBaseUrl = Constants.Prefix_HTTPS + "api.steamtool.net";
+        internal const string DefaultApiBaseUrl = ThisAssembly.Debuggable ?
+            "https://localhost:5001" :
+            Constants.Prefix_HTTPS + "api.steampp.net";
 
         #region Clients
 
@@ -102,7 +105,7 @@ namespace System.Application.Services.CloudService
             HttpCompletionOption completionOption,
             CancellationToken cancellationToken)
         {
-            var url = request.RequestUri.ToString();
+            var url = request.RequestUri.ThrowIsNull(nameof(request.RequestUri)).ToString();
             url = url.Base64UrlEncode();
             request.RequestUri = new Uri($"api/forward?url={url}");
             return connection.SendAsync(request, completionOption, cancellationToken);

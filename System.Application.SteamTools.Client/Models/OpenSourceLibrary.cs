@@ -95,7 +95,8 @@ namespace System.Application.Models
             { "https://github.com/dotnet/efcore", ("Apache-2.0", "Copyright (c) .NET Foundation and Contributors") },
             { "https://github.com/dotnet/aspnetcore", ("Apache-2.0", "Copyright (c) .NET Foundation and Contributors") },
             { "https://github.com/dotnet/runtime", ("MIT", "") },
-            { "https://github.com/ant-design-blazor/ant-design-blazor", ("MIT","") }
+            { "https://github.com/ant-design-blazor/ant-design-blazor", ("MIT", "") },
+            { "https://github.com/microsoft/appcenter-sdk-dotnet", ("MIT", "") },
             //{ "", ("", "") },
         };
     }

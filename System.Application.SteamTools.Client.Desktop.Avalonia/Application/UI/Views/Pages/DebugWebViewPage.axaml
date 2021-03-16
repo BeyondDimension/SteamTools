@@ -7,6 +7,6 @@
              x:Class="System.Application.UI.Views.Pages.DebugWebViewPage">
   <Grid RowDefinitions="Auto,*">
     <TextBox x:Name="urlTextBox" Watermark="Input Url Press Enter..."></TextBox>
-    <controls:WebView3 Grid.Row="1" x:Name="webView"/>
+    <controls:WebView3 Grid.Row="1" x:Name="webView" Background="Transparent" />
   </Grid>
 </UserControl>
