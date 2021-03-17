@@ -22,7 +22,7 @@ namespace System.Application.Services
             CancellationToken cancellationToken = default) where T : notnull;
 
         /// <summary>
-        /// 通过 Get 请求 Image 内容
+        /// (带本地缓存)通过 Get 请求 Image 内容
         /// </summary>
         /// <param name="requestUri"></param>
         /// <param name="channelType">渠道类型，根据不同的类型建立不同的缓存文件夹</param>
@@ -32,6 +32,14 @@ namespace System.Application.Services
             string requestUri,
             string channelType,
             CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// (无本地缓存)通过 Get 请求 Image 内容
+        /// </summary>
+        /// <param name="requestUri"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<Stream?> GetImageAsync(string requestUri, CancellationToken cancellationToken = default);
 
     }
 

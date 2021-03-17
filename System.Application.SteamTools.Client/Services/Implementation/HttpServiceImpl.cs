@@ -281,5 +281,23 @@ namespace System.Application.Services.Implementation
 
             static Stream? FileOpenRead(string? p) => p == null ? null : File.OpenRead(p);
         }
+
+        public async Task<Stream?> GetImageAsync(string requestUri, CancellationToken cancellationToken)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            request.Headers.Accept.ParseAdd(http_helper.AcceptImages);
+            request.Headers.UserAgent.ParseAdd(http_helper.UserAgent);
+            var client = CreateClient();
+            var response = await client.SendAsync(request,
+                HttpCompletionOption.ResponseHeadersRead,
+                cancellationToken)
+                .ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                var stream = await response.Content.ReadAsStreamAsync();
+                return stream;
+            }
+            return null;
+        }
     }
 }
