@@ -13,7 +13,7 @@
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
         Title="{Binding Title}">
-    <Panel>
+    <Panel MaxWidth="{Binding $parent.MaxWidth}">
         <DockPanel HorizontalAlignment="Stretch">
             <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="30">
                 <ExperimentalAcrylicBorder.Material>
@@ -31,7 +31,7 @@
             </ExperimentalAcrylicBorder>
         </DockPanel>
         
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0 30 0 0" Padding="10">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0 30 0 0" Padding="10" MaxWidth="{Binding $parent.MaxWidth}">
             <StackPanel>
                 <TextBlock Text="{Binding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
                      FontSize="30"
@@ -62,7 +62,7 @@
 
                 <Separator BorderThickness=".88" Background="{DynamicResource SystemControlHighlightBaseLowBrush}" Margin="0,12" />
 
-                <TextBox BorderThickness="0" Text="{Binding SteamData,Mode=OneWay}" IsReadOnly="True" Height="60" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
+                <TextBox BorderThickness="0" Text="{Binding SteamData,Mode=OneWay}" IsReadOnly="True" Height="150" AcceptsReturn="True" TextWrapping="Wrap" MaxWidth="{Binding $parent.MaxWidth}"></TextBox>
             </StackPanel>
         </ScrollViewer>
     </Panel>
