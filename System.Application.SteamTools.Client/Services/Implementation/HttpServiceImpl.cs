@@ -294,8 +294,14 @@ namespace System.Application.Services.Implementation
                 .ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
+                var dirPath = Path.Combine(IOPath.CacheDirectory, "Images", "Temp");
+                IOPath.DirCreateByNotExists(dirPath);
+                var filePath = Path.Combine(dirPath, Path.GetTempFileName());
+                IOPath.FileIfExistsItDelete(filePath);
                 var stream = await response.Content.ReadAsStreamAsync();
-                return stream;
+                var fileStream = File.Create(filePath);
+                await stream.CopyToAsync(stream, cancellationToken);
+                return fileStream;
             }
             return null;
         }
