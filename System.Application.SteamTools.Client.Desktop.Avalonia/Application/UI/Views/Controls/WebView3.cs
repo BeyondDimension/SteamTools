@@ -1,10 +1,11 @@
 ﻿using Avalonia.Interactivity;
-using Avalonia.Media;
 using CefNet;
 using CefNet.Avalonia;
 using CefNet.Internal;
 using System;
+using System.Application.UI.Resx;
 using System.Diagnostics;
+using System.Linq;
 
 // ReSharper disable once CheckNamespace
 namespace Avalonia.Controls
@@ -139,6 +140,38 @@ namespace Avalonia.Controls
                     return true;
             }
             return base.OnBeforePopup(browser, frame, targetUrl, targetFrameName, targetDisposition, userGesture, popupFeatures, windowInfo, ref client, settings, ref extraInfo, ref noJavascriptAccess);
+        }
+
+        static readonly string[] urls = new[]
+        {
+            "https://localhost",
+        };
+
+        protected override CefReturnValue OnBeforeResourceLoad(CefBrowser browser, CefFrame frame, CefRequest request, CefRequestCallback callback)
+        {
+            //using var header = new CefStringMultimap();
+            //request.GetHeaderMap(header);
+            //var header_new = new CefStringMultimap();
+            //foreach (var item in header.AllKeys)
+            //{
+            //    string value;
+            //    if ("Accept-Language".Equals(item, StringComparison.OrdinalIgnoreCase))
+            //    {
+            //        value = R.GetAcceptLanguage();
+            //    }
+            //    else
+            //    {
+            //        value = header[item];
+            //    }
+            //    header_new.Add(item, value);
+            //}
+            //request.SetHeaderMap(header_new);
+            if (urls.Any(x => request.Url.StartsWith(x, StringComparison.OrdinalIgnoreCase)))
+            {
+                request.SetHeaderByName("Accept-Language2", R.GetAcceptLanguage(), true);
+            }
+            var returnValue = base.OnBeforeResourceLoad(browser, frame, request, callback);
+            return returnValue;
         }
     }
 }

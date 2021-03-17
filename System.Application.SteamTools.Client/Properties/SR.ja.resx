@@ -117,10 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Settings" xml:space="preserve">
-    <value>Настройки</value>
+  <data name="AppName" xml:space="preserve">
+    <value>Steam++</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Предупреждение</value>
+  <data name="Downloading_" xml:space="preserve">
+    <value>ダウンロード：{0}％</value>
+  </data>
+  <data name="DownloadUpdateFail" xml:space="preserve">
+    <value>アップデートパッケージのダウンロードに失敗しました。しばらくしてからもう一度お試しください</value>
+  </data>
+  <data name="IsExistUpdateFalse" xml:space="preserve">
+    <value>現在最新バージョン</value>
+  </data>
+  <data name="NewVersionUpdate" xml:space="preserve">
+    <value>新しいバージョンの更新</value>
+  </data>
+  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
+    <value>新しいバージョンをダウンロードするときに、進行状況バーの通知をダウンロードします。</value>
+  </data>
+  <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
+    <value>新しいバージョンの通知</value>
+  </data>
+  <data name="UpdatePackVerificationFail" xml:space="preserve">
+    <value>ファイルの確認に失敗しました。公式ウェブサイトを開いて手動で更新してください</value>
   </data>
 </root>

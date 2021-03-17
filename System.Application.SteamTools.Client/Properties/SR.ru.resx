@@ -117,10 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Settings" xml:space="preserve">
-    <value>Настройки</value>
+  <data name="AppName" xml:space="preserve">
+    <value>Steam++</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Предупреждение</value>
+  <data name="Downloading_" xml:space="preserve">
+    <value>Скачивание: {0}%</value>
+  </data>
+  <data name="DownloadUpdateFail" xml:space="preserve">
+    <value>Не удалось загрузить пакет обновления, повторите попытку позже.</value>
+  </data>
+  <data name="IsExistUpdateFalse" xml:space="preserve">
+    <value>На данный момент последняя версия</value>
+  </data>
+  <data name="NewVersionUpdate" xml:space="preserve">
+    <value>Обновление новой версии</value>
+  </data>
+  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
+    <value>Уведомление о загрузке индикатора выполнения при загрузке новой версии.</value>
+  </data>
+  <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
+    <value>Уведомление о новой версии</value>
+  </data>
+  <data name="UpdatePackVerificationFail" xml:space="preserve">
+    <value>Ошибка проверки файла. Откройте официальный веб-сайт, чтобы обновить его вручную.</value>
   </data>
 </root>

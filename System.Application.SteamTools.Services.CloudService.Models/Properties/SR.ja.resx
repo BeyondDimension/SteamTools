@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Settings" xml:space="preserve">
-    <value>Настройки</value>
+  <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
+    <value>ログイン資格情報が無効です。もう一度ログインしてください</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Предупреждение</value>
+  <data name="IsNotOfficialChannelPackageWarning" xml:space="preserve">
+    <value>現在実行中のプログラムは公式チャンネルのものではありません</value>
+  </data>
+  <data name="NetworkConnectionInterruption" xml:space="preserve">
+    <value>ネットワーク接続が失われました</value>
+  </data>
+  <data name="ServerError_" xml:space="preserve">
+    <value>サーバーエラー {0}</value>
   </data>
 </root>

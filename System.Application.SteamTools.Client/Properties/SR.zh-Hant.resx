@@ -117,10 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Settings" xml:space="preserve">
-    <value>Настройки</value>
+  <data name="AppName" xml:space="preserve">
+    <value>Steam++</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Предупреждение</value>
+  <data name="Downloading_" xml:space="preserve">
+    <value>正在下載：{0}%</value>
+  </data>
+  <data name="DownloadUpdateFail" xml:space="preserve">
+    <value>下載更新包失敗，請稍後重試</value>
+  </data>
+  <data name="IsExistUpdateFalse" xml:space="preserve">
+    <value>當前已是最新版本</value>
+  </data>
+  <data name="NewVersionUpdate" xml:space="preserve">
+    <value>新版本更新</value>
+  </data>
+  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
+    <value>當下載新版本時的下載進度條通知。</value>
+  </data>
+  <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
+    <value>新版本通知</value>
+  </data>
+  <data name="UpdatePackVerificationFail" xml:space="preserve">
+    <value>文件校驗失敗，請打開官網手動更新</value>
   </data>
 </root>

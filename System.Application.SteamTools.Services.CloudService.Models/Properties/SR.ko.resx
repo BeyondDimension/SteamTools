@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Settings" xml:space="preserve">
-    <value>Настройки</value>
+  <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
+    <value>로그인 자격 증명이 잘못되었습니다. 다시 로그인하십시오.</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Предупреждение</value>
+  <data name="IsNotOfficialChannelPackageWarning" xml:space="preserve">
+    <value>현재 실행중인 프로그램은 공식 채널이 아닙니다.</value>
+  </data>
+  <data name="NetworkConnectionInterruption" xml:space="preserve">
+    <value>네트워크 연결이 끊어졌습니다.</value>
+  </data>
+  <data name="ServerError_" xml:space="preserve">
+    <value>서버 오류 {0}</value>
   </data>
 </root>

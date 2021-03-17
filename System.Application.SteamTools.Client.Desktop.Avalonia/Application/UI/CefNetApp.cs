@@ -3,7 +3,6 @@ using CefNet;
 using System.IO;
 using System.Linq;
 using System.Properties;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -135,10 +134,25 @@ navigator.__proto__ = newProto;
                     messagePump = new Timer(_ => Dispatcher.UIThread.Post(CefApi.DoMessageLoopWork), null, messagePumpDelay, messagePumpDelay);
                 }
             };
+
             AppHelper.Shutdown += () =>
             {
-                messagePump?.Dispose();
-                app?.Shutdown();
+                try
+                {
+                    messagePump?.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("Shutdown", ex, "messagePump?.Dispose()");
+                }
+                try
+                {
+                    app?.Shutdown();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("Shutdown", ex, "app?.Shutdown()");
+                }
             };
 
             app = new CefNetApp

@@ -114,7 +114,7 @@ namespace System.Application
         }
 
         /// <summary>
-        /// 配置任何线程都必要的依赖注入服务
+        /// 配置任何进程都必要的依赖注入服务
         /// </summary>
         /// <param name="services"></param>
         /// <param name="options"></param>
@@ -127,7 +127,7 @@ namespace System.Application
         }
 
         /// <summary>
-        /// 配置主线程所需的依赖注入服务
+        /// 配置主进程所需的依赖注入服务
         /// </summary>
         /// <param name="services"></param>
         /// <param name="options"></param>

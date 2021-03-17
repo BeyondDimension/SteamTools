@@ -21,13 +21,28 @@ namespace System.Application.UI
             // 目前桌面端默认使用 SystemTextJson 如果出现兼容性问题可取消下面这行代码
             // Serializable.DefaultJsonImplType = Serializable.JsonImplType.NewtonsoftJson;
 
+            var isMainProcess = args.Length == 0;
             var logDirPath = InitLogDir();
+
+            void InitCefNetApp() => CefNetApp.Init(logDirPath, args);
 
             var logger = LogManager.GetCurrentClassLogger();
             try
             {
-                Migrations.FromV1();
-                Startup.Init();
+                if (isMainProcess)
+                {
+                    Migrations.FromV1();
+                }
+
+                Startup.Init(isMainProcess);
+
+                if (ThisAssembly.Debuggable)
+                {
+                    Log.Warn(nameof(Program),
+                        "Main isMainProcess: {0}, args={1}",
+                        isMainProcess,
+                        string.Join(' ', args));
+                }
 
 #if WINDOWS
                 //var app = new WpfApp();
@@ -35,15 +50,40 @@ namespace System.Application.UI
                 //Task.Factory.StartNew(app.Run);
 #endif
 
-                CefNetApp.Init(logDirPath, args);
+                InitCefNetApp();
 
-                BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+                if (isMainProcess)
+                {
+                    BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+                }
             }
             catch (Exception ex)
             {
                 AppHelper.TrySetLoggerMinLevel(LogLevel.Trace);
                 // NLog: catch any exception and log it.
                 logger.Error(ex, "Stopped program because of exception");
+
+                try
+                {
+                    if (!App.Shutdown())
+                    {
+                        try
+                        {
+                            AppHelper.Shutdown?.Invoke();
+                        }
+                        catch (Exception ex_shutdown_app_helper)
+                        {
+                            logger.Error(ex_shutdown_app_helper,
+                                "(AppHelper)Close exception when exception occurs");
+                        }
+                    }
+                }
+                catch (Exception ex_shutdown)
+                {
+                    logger.Error(ex_shutdown,
+                        "(App)Close exception when exception occurs");
+                }
+
 #if DEBUG
                 //MessageBoxCompat.Show(ex.ToString(), "Steam++ Run Error" + ThisAssembly.Version, MessageBoxButtonCompat.OK, MessageBoxImageCompat.Warning);
 #endif
@@ -66,6 +106,7 @@ namespace System.Application.UI
                })
                .With(new Win32PlatformOptions
                {
+                   // 已知问题：[x86] or [x64] 透明模糊疑似亚克力效果会丢失，仅 [Any CPU] 下正常
                    AllowEglInitialization = true,
                })
                .LogToTrace()
@@ -87,9 +128,9 @@ namespace System.Application.UI
                 "      internalLogLevel=\"Off\">" +
                 "  <targets>" +
                 "    <target xsi:type=\"File\" name=\"logfile\" fileName=\"" + logDirPath_ + "nlog-all-${shortdate}.log\"" +
-                "            layout=\"${longdate}|${level}|${message} |${all-event-properties} ${exception:format=tostring}\" maxArchiveFiles=\"3\"/>" +
+                "            layout=\"${longdate}|${level}|${message} |${all-event-properties} ${exception:format=tostring}\" />" +
                 "    <target xsi:type=\"Console\" name=\"logconsole\"" +
-                "            layout=\"${longdate}|${level}|${message} |${all-event-properties} ${exception:format=tostring}\" maxArchiveFiles=\"3\"/>" +
+                "            layout=\"${longdate}|${level}|${message} |${all-event-properties} ${exception:format=tostring}\" />" +
                 "  </targets>" +
                 "  <rules>" +
                 "    <logger name=\"*\" minlevel=\"" + AppHelper.DefaultNLoggerMinLevel.Name + "\" writeTo=\"logfile,logconsole\"/>" +

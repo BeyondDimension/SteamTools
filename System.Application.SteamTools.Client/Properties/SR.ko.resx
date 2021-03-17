@@ -117,10 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Settings" xml:space="preserve">
-    <value>Настройки</value>
+  <data name="AppName" xml:space="preserve">
+    <value>Steam++</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Предупреждение</value>
+  <data name="Downloading_" xml:space="preserve">
+    <value>다운로드 중 : {0} %</value>
+  </data>
+  <data name="DownloadUpdateFail" xml:space="preserve">
+    <value>업데이트 패키지를 다운로드하지 못했습니다. 나중에 다시 시도하십시오.</value>
+  </data>
+  <data name="IsExistUpdateFalse" xml:space="preserve">
+    <value>현재 최신 버전</value>
+  </data>
+  <data name="NewVersionUpdate" xml:space="preserve">
+    <value>새 버전 업데이트</value>
+  </data>
+  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
+    <value>새 버전을 다운로드 할 때 다운로드 진행률 표시 줄 알림.</value>
+  </data>
+  <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
+    <value>새 버전 알림</value>
+  </data>
+  <data name="UpdatePackVerificationFail" xml:space="preserve">
+    <value>파일 확인에 실패했습니다. 공식 웹 사이트를 열어 수동으로 업데이트하세요.</value>
   </data>
 </root>

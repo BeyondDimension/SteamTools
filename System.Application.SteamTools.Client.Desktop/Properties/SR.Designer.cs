@@ -61,7 +61,7 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
-        ///   查找类似 echo &quot;Steam++替换升级中...&quot;
+        ///   查找类似 echo &quot;{4}&quot;
         ///taskkill /f /im &quot;{0}&quot;
         ///xcopy /y /c /h /r /s &quot;{1}\*.*&quot; &quot;{2}&quot;
         ///rmdir /s /q &quot;{1}&quot;
@@ -71,6 +71,15 @@ namespace System.Application.Properties {
         internal static string ProgramUpdateCmd_ {
             get {
                 return ResourceManager.GetString("ProgramUpdateCmd_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam++ 替换升级中... 的本地化字符串。
+        /// </summary>
+        internal static string ProgramUpdateEcho {
+            get {
+                return ResourceManager.GetString("ProgramUpdateEcho", resourceCulture);
             }
         }
         

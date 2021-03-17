@@ -16,18 +16,44 @@ namespace System.Application.UI
     {
         static bool isInitialized;
 
-        public static void Init()
+        public static void Init(bool isMainProcess)
         {
             if (!isInitialized)
             {
                 isInitialized = true;
                 FileSystemDesktop.InitFileSystem();
-                ModelValidatorProvider.Init();
-                DI.Init(ConfigureServices);
+                if (isMainProcess)
+                {
+                    ModelValidatorProvider.Init();
+                }
+                DI.Init(s => ConfigureServices(s, isMainProcess));
             }
         }
 
-        static void ConfigureServices(IServiceCollection services)
+        static void ConfigureServices(IServiceCollection services, bool isMainProcess)
+        {
+            ConfigureRequiredServices(services);
+            if (isMainProcess)
+            {
+                ConfigureMainProcessServices(services);
+            }
+        }
+
+        /// <summary>
+        /// 配置任何进程都必要的依赖注入服务
+        /// </summary>
+        /// <param name="services"></param>
+        static void ConfigureRequiredServices(IServiceCollection services)
+        {
+            // 添加日志实现
+            services.AddDesktopLogging();
+        }
+
+        /// <summary>
+        /// 配置主进程所需的依赖注入服务
+        /// </summary>
+        /// <param name="services"></param>
+        static void ConfigureMainProcessServices(IServiceCollection services)
         {
             services.AddSingleton<IDesktopAppService>(s => App.Instance);
             services.AddSingleton<IDesktopAvaloniaAppService>(s => App.Instance);
@@ -36,9 +62,6 @@ namespace System.Application.UI
             services.AddDesktopPlatformService();
 
             services.TryAddToast();
-
-            // 添加日志实现
-            services.AddDesktopLogging();
 
             // 模型验证框架
             services.TryAddModelValidator();
@@ -49,6 +72,7 @@ namespace System.Application.UI
             // 添加安全服务
             services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
 
+            // 添加仓储服务
             services.AddRepositories();
 
             // 键值对存储

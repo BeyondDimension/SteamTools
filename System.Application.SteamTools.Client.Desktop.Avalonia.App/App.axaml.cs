@@ -23,6 +23,7 @@ using System.Application.Models.Settings;
 using System.Application.UI.Resx;
 using System.Application.Models;
 using Microsoft.Extensions.Options;
+using System.Diagnostics;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
@@ -121,7 +122,7 @@ namespace System.Application.UI
             Name = ThisAssembly.AssemblyTrademark;
 
             ViewModelBase.IsInDesignMode = ApplicationLifetime == null;
-            Startup.Init();
+            Startup.Init(true);
 
             #region 启动时加载的资源
             SettingsHost.Load();
@@ -192,7 +193,7 @@ namespace System.Application.UI
                     ReactiveCommand.Create(RestoreMainWindow));
 
                 mNotifyIconMenus.Add("Exit",
-                    ReactiveCommand.Create(Shutdown));
+                    ReactiveCommand.Create(() => Shutdown()));
 
                 NotifyIconContextMenu.Items = mNotifyIconMenus
                     .Select(x => new MenuItem { Header = x.Key, Command = x.Value }).ToList();
@@ -224,7 +225,7 @@ namespace System.Application.UI
             base.OnFrameworkInitializationCompleted();
         }
 
-        private void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
+        void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
         {
             AppHelper.Initialized?.Invoke();
 
@@ -241,7 +242,14 @@ namespace System.Application.UI
 
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
         {
-            compositeDisposable.Dispose();
+            try
+            {
+                compositeDisposable.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Shutdown", ex, "compositeDisposable.Dispose()");
+            }
 #if WINDOWS
             //WpfApplication.Current.Shutdown();
 #endif
@@ -263,10 +271,7 @@ namespace System.Application.UI
             set => mMainWindow = value;
         }
 
-        public AvaloniaApplication CurrentApp
-        {
-            get => AvaloniaApplication.Current;
-        }
+        public AvaloniaApplication CurrentApp => Current;
 
         /// <summary>
         /// Restores the app's main window by setting its <c>WindowState</c> to
@@ -300,12 +305,14 @@ namespace System.Application.UI
         /// <summary>
         /// Exits the app by calling <c>Shutdown()</c> on the <c>IClassicDesktopStyleApplicationLifetime</c>.
         /// </summary>
-        public static void Shutdown()
+        public static bool Shutdown(int exitCode = 0)
         {
-            if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.Shutdown(0);
+                desktop.Shutdown(exitCode);
+                return true;
             }
+            return false;
         }
 
         void IDesktopAppService.Shutdown() => Shutdown();

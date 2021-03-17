@@ -1,6 +1,5 @@
 ﻿using ReactiveUI;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
@@ -73,11 +72,10 @@ namespace System.Application.UI.Resx
         public static void ChangeLanguage(string cultureName)
         {
             if (IsMatch(AppResources.Culture, cultureName)) return;
-            if (string.IsNullOrWhiteSpace(cultureName))
-                AppResources.Culture = DefaultCurrentUICulture;
-            else
-                AppResources.Culture = CultureInfo.GetCultureInfo(Languages.SingleOrDefault(x => x.Key == cultureName).Key);
-            //AppResources.Culture = CultureInfo.GetCultureInfo(cultureName);
+            AppResources.Culture = string.IsNullOrWhiteSpace(cultureName) ?
+                DefaultCurrentUICulture :
+                CultureInfo.GetCultureInfo(Languages.SingleOrDefault(x => x.Key == cultureName).Key);
+            mAcceptLanguage = GetAcceptLanguageCore();
             Current.Res = new AppResources();
             Current.RaisePropertyChanged(nameof(Res));
         }
@@ -95,6 +93,46 @@ namespace System.Application.UI.Resx
                 Log.Error(nameof(R), ex, nameof(GetCurrentCultureSteamLanguageName));
                 return SteamLanguages["en"];
             }
+        }
+
+        static string GetAcceptLanguageCore()
+        {
+            var culture = AppResources.Culture ?? DefaultCurrentUICulture;
+            if (IsMatch(culture, "zh-Hans"))
+            {
+                return "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7";
+            }
+            else if (IsMatch(culture, "zh-Hant"))
+            {
+                return "zh-HK,zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7";
+            }
+            else if (IsMatch(culture, "ko"))
+            {
+                return "ko;q=0.9,en-US;q=0.8,en;q=0.7";
+            }
+            else if (IsMatch(culture, "ja"))
+            {
+                return "ja;q=0.9,en-US;q=0.8,en;q=0.7";
+            }
+            else if (IsMatch(culture, "ru"))
+            {
+                return "ru;q=0.9,en-US;q=0.8,en;q=0.7";
+            }
+            else
+            {
+                return "en-US;q=0.9,en;q=0.8";
+            }
+        }
+
+        static string? mAcceptLanguage;
+
+        public static string GetAcceptLanguage()
+        {
+            if (mAcceptLanguage == null)
+            {
+                mAcceptLanguage = GetAcceptLanguageCore();
+            }
+            return mAcceptLanguage;
         }
     }
 }
