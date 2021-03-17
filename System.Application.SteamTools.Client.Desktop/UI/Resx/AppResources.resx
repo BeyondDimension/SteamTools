@@ -229,7 +229,7 @@
     <value>编辑令牌</value>
   </data>
   <data name="LocalAuth_EmailCodeTip" xml:space="preserve">
-    <value>请输入发送到您的{0}电子邮件地址的代码，以批准从新设备进行访问。</value>
+    <value>请输入发送到您电子邮件地址的代码，以批准从新设备进行访问。</value>
   </data>
   <data name="LocalAuth_ExportAuth" xml:space="preserve">
     <value>导出令牌</value>

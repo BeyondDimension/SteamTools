@@ -220,11 +220,11 @@ namespace System.Application.UI.ViewModels
                         _Enroll.Error = null;
                         RequiresLogin = false;
 
-                        //AuthService.AddSaveAuthenticators(new GAPAuthenticatorDTO
-                        //{
-                        //    Name = nameof(GamePlatform.Steam) + "(" + UserName + ")",
-                        //    Value = _SteamAuthenticator
-                        //});
+                        AuthService.AddSaveAuthenticators(new GAPAuthenticatorDTO
+                        {
+                            Name = nameof(GamePlatform.Steam) + "(" + UserName + ")",
+                            Value = _SteamAuthenticator
+                        });
 
                         RequiresActivation = true;
                         RevocationCode = _Enroll.RevocationCode;
@@ -244,6 +244,7 @@ namespace System.Application.UI.ViewModels
                     MessageBoxCompat.Show(_Enroll.Error);
                     return;
                 }
+                RequiresActivation = false;
                 RequiresAdd = true;
             }).ContinueWith(s =>
             {

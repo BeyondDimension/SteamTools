@@ -63,7 +63,10 @@
                         </StackPanel>
 
 
-                        <TextBlock Grid.Row="2" Margin="10,0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="{Binding Path=Res.LocalAuth_EmailCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+                        <StackPanel Grid.Row="2">
+                            <TextBlock Margin="10,0" HorizontalAlignment="Center" Text="{Binding EmailDomain}"></TextBlock>
+                            <TextBlock Margin="10,0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="{Binding Path=Res.LocalAuth_EmailCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+                        </StackPanel>
                     </Grid>
 
                     <Grid IsVisible="{Binding RequiresActivation}" RowDefinitions="Auto,*,Auto" Margin="10">
@@ -73,7 +76,8 @@
                                 <TextBlock Text="{Binding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
                                 <TextBox Text="{Binding RevocationCode,Mode=OneWay}" IsEnabled="False" MinWidth="200"></TextBox>
                             </StackPanel>
-                            <CheckBox Content="{Binding Path=Res.RecoveryCode_Remember,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center"></CheckBox>
+                            <CheckBox Content="{Binding Path=Res.RecoveryCode_Remember,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center">
+                            </CheckBox>
 
                             <Button Content="{Binding Path=Res.Continue,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Command="{Binding LoginSteamImport}"></Button>
                         </StackPanel>
@@ -87,8 +91,8 @@
                                 <TextBlock Text="{Binding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
                                 <TextBox Text="{Binding RevocationCode,Mode=OneWay}" IsEnabled="False" MinWidth="200"></TextBox>
                             </StackPanel>
-                            <CheckBox Content="{Binding Path=Res.RecoveryCode_Remember,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center"></CheckBox>
-                            <Button Content="{Binding Path=Res.Continue,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center"></Button>
+                            <!--<CheckBox Content="{Binding Path=Res.RecoveryCode_Remember,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center"></CheckBox>-->
+                            <!--<Button Content="{Binding Path=Res.Continue,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center"></Button>-->
                         </StackPanel>
 
                         <TextBlock Grid.Row="2" Margin="10,0" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{Binding Path=Res.RecoveryCode_RememberTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
@@ -136,14 +140,14 @@
                         </Panel>
                     </StackPanel>
 
-                    <RadioButton x:Name="AsfImport" Content="ArchiSteamFarm导入"></RadioButton>
+                    <!--<RadioButton x:Name="AsfImport" Content="ArchiSteamFarm导入"></RadioButton>
                     <StackPanel Spacing="8">
                         <TextBlock Text="ASF是功能最丰富的Steam工具之一，ASF本身还包括一堆功能，例如可以将其用作Steam验证器或聊天记录器。除此之外，ASF还包含了插件系统，任何人都可以根据自己的需求进一步扩展它。" TextWrapping="WrapWithOverflow"></TextBlock>
 
                         <Panel IsVisible="{Binding ElementName=AsfImport,Path=IsChecked}">
                             <Button Content="选择*.maFile文件导入"></Button>
                         </Panel>
-                    </StackPanel>
+                    </StackPanel>-->
                 </StackPanel>
             </TabItem>
         </TabControl>

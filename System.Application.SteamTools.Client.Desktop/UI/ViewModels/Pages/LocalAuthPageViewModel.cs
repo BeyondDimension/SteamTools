@@ -28,7 +28,8 @@ namespace System.Application.UI.ViewModels
                         new MenuItemViewModel { Header = AppResources.Add,IconKey="AddDrawing",
                             Command= AddAuthCommand },
                         new MenuItemViewModel { Header = AppResources.Edit,IconKey="EditDrawing" },
-                        new MenuItemViewModel { Header = AppResources.Export,IconKey="ExportDrawing" },
+                        new MenuItemViewModel { Header = AppResources.Export,IconKey="ExportDrawing",
+                            Command= RefreshAuthCommand  },
                         new MenuItemViewModel { Header = "-" },
                         new MenuItemViewModel { Header = AppResources.Refresh,IconKey="RefreshDrawing",
                             Command= RefreshAuthCommand },
@@ -66,7 +67,6 @@ namespace System.Application.UI.ViewModels
             }
             DI.Get<IShowWindowService>().Show(CustomWindow.AddAuth, new AddAuthWindowViewModel());
         }
-
 
         public void ShowAuthCode(MyAuthenticator auth)
         {

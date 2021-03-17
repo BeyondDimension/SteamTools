@@ -394,7 +394,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 请输入发送到您的{0}电子邮件地址的代码，以批准从新设备进行访问。 的本地化字符串。
+        ///   查找类似 请输入发送到您电子邮件地址的代码，以批准从新设备进行访问。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_EmailCodeTip {
             get {
