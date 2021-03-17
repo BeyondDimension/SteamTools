@@ -340,6 +340,114 @@ namespace System.Application.Services
             return true;
         }
 
+        public bool ImportSDAFile(string mafile)
+        {
+            string data;
+            if (File.Exists(mafile) == false || (data = File.ReadAllText(mafile)) == null)
+            {
+                throw new ApplicationException("Cannot read file " + mafile);
+            }
+
+            var token = JObject.Parse(data);
+            var sdaentry = new ImportedSDAEntry
+            {
+                Username = token.SelectToken("account_name")?.Value<string>(),
+            };
+            if (string.IsNullOrEmpty(sdaentry.SteamId) == true)
+            {
+                sdaentry.SteamId = token.SelectToken("Session.SteamID")?.Value<string>();
+            }
+            if (string.IsNullOrEmpty(sdaentry.SteamId) == true)
+            {
+                sdaentry.SteamId = mafile.Split('.')[0];
+            }
+            sdaentry.json = data;
+
+            //importSDAList.Items.Add(sdaentry);
+            GAPAuthenticatorValueDTO.SteamAuthenticator auth = new();
+            GAPAuthenticatorDTO winAuth = new();
+            foreach (var prop in token.Root.Children().ToList())
+            {
+                var child = token.SelectToken(prop.Path);
+
+                string lkey = prop.Path.ToLower();
+                if (lkey == "fully_enrolled" || lkey == "session")
+                {
+                    prop.Remove();
+                }
+                else if (lkey == "device_id")
+                {
+                    auth.DeviceId = child.Value<string>();
+                    prop.Remove();
+                }
+                else if (lkey == "serial_number")
+                {
+                    auth.Serial = child.Value<string>();
+                }
+                else if (lkey == "account_name")
+                {
+                    //if (this.nameField.Text.Length == 0)
+                    //{
+                    //    this.nameField.Text = "Steam (" + child.Value<string>() + ")";
+                    //}
+                    winAuth.Name = "Steam (" + child.Value<string>() + ")";
+                }
+                else if (lkey == "shared_secret")
+                {
+                    auth.SecretKey = Convert.FromBase64String(child.Value<string>());
+                }
+            }
+            auth.SteamData = token.ToString(Newtonsoft.Json.Formatting.None);
+            winAuth.Value = auth;
+
+            AddSaveAuthenticators(winAuth);
+            return true;
+        }
+
+        /// <summary>
+        /// 导入Steam++导出的令牌数据文件
+        /// </summary>
+        public void ImportAuthenticatorFile()
+        {
+       
+        }
+
+        public static IList<MyAuthenticator> LoadSteamToolsV1Authenticator(string authString)
+        {
+            var list = new List<MyAuthenticator>();
+            if (!string.IsNullOrEmpty(authString))
+            {
+                XmlReader reader = XmlReader.Create(new StringReader(authString));
+                reader.Read();
+                while (reader.EOF == false && reader.IsEmptyElement == true)
+                {
+                    reader.Read();
+                }
+                reader.MoveToContent();
+                while (reader.EOF == false)
+                {
+                    if (reader.IsStartElement())
+                    {
+                        if (reader.Name == "Auth")
+                        {
+                            reader.Read();
+                        }
+                        if (reader.Name == "WinAuthAuthenticator")
+                        {
+                            var wa = new MyAuthenticator();
+                            wa.ReadXml(reader, null);
+                            list.Add(wa);
+                        }
+                    }
+                    else
+                    {
+                        reader.Read();
+                        break;
+                    }
+                }
+            }
+            return list;
+        }
 
         public static void AddSaveAuthenticators(GAPAuthenticatorDTO auth)
         {

@@ -116,9 +116,9 @@
                 </Grid>
             </TabItem>
             <TabItem Header="{Binding Path=Res.LocalAuth_SteamToolsImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <Panel>
-                    <Button Content="{Binding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.dat}" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
-                </Panel>
+                <StackPanel Spacing="15">
+                    <Button Content="{Binding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.dat}" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ImportSteamToolsBtn"></Button>
+                </StackPanel>
             </TabItem>
             <TabItem Header="{Binding Path=Res.LocalAuth_OtherImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
                 <StackPanel Spacing="10" Margin="10">
@@ -136,7 +136,7 @@
                         <TextBlock Text="{Binding Path=Res.LocalAuth_SDATip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="WrapWithOverflow"></TextBlock>
 
                         <Panel IsVisible="{Binding ElementName=SdaImport,Path=IsChecked}">
-                            <Button Content="{Binding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.maFile}"></Button>
+                            <Button x:Name="ImportSDABtn" Content="{Binding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.maFile}"></Button>
                         </Panel>
                     </StackPanel>
 

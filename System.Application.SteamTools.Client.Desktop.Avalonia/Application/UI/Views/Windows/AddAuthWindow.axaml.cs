@@ -23,6 +23,53 @@ namespace System.Application.UI.Views.Windows
 
             var winAuthBtn = this.FindControl<Button>("ImportWinAuthBtn");
             winAuthBtn.Click += WinAuthBtn_Click;
+
+            var sdaBtn = this.FindControl<Button>("ImportSDABtn");
+            sdaBtn.Click += SdaBtn_Click;
+
+            var sppBtn = this.FindControl<Button>("ImportSteamToolsBtn");
+            sppBtn.Click += SppBtn_Click;
+        }
+
+        private void SppBtn_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            var fileDialog = new OpenFileDialog
+            {
+                Filters = new List<FileDialogFilter> {
+                    new FileDialogFilter { Name = "Data Files", Extensions = new List<string> { "dat" } },
+                    new FileDialogFilter { Name = "All Files", Extensions = new List<string> { "*" } },
+                },
+                Title = ThisAssembly.AssemblyTrademark,
+                AllowMultiple = false,
+            };
+            fileDialog.ShowAsync(IDesktopAvaloniaAppService.Instance.MainWindow).ContinueWith(s =>
+            {
+                if (s != null && s.Result.Length > 0)
+                {
+                    AuthService.Current.ImportSDAFile(s.Result[0]);
+                }
+            });
+        }
+
+        private void SdaBtn_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            var fileDialog = new OpenFileDialog
+            {
+                Filters = new List<FileDialogFilter> {
+                    new FileDialogFilter { Name = "MaFile Files", Extensions = new List<string> { "maFile" } },
+                    new FileDialogFilter { Name = "JSON Files", Extensions = new List<string> { "json" } },
+                    new FileDialogFilter { Name = "All Files", Extensions = new List<string> { "*" } },
+                },
+                Title = ThisAssembly.AssemblyTrademark,
+                AllowMultiple = false,
+            };
+            fileDialog.ShowAsync(IDesktopAvaloniaAppService.Instance.MainWindow).ContinueWith(s =>
+            {
+                if (s != null && s.Result.Length > 0)
+                {
+                    AuthService.Current.ImportSDAFile(s.Result[0]);
+                }
+            });
         }
 
         private void WinAuthBtn_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -45,5 +92,7 @@ namespace System.Application.UI.Views.Windows
             });
 
         }
+
+
     }
 }

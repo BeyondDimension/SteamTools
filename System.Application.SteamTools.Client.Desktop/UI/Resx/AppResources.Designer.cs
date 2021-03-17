@@ -457,11 +457,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam的移动身份验证器应用程序的桌面实现。导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件) 的本地化字符串。
+        ///   查找类似 Steam的移动身份验证器应用程序的桌面实现。导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件，请先移除密码在导入) 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SDATip {
             get {
                 return ResourceManager.GetString("LocalAuth_SDATip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam身份验证器的完整数据，可在导入不同软件时使用： 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ShowSteamAuthTip1 {
+            get {
+                return ResourceManager.GetString("LocalAuth_ShowSteamAuthTip1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 在Steam中启用两步验证令牌后，便会生成一个恢复代码，您可以在Steam客户端中使用恢复代码解除两步验证令牌，复制下来并保存在安全的地方。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ShowSteamAuthTip2 {
+            get {
+                return ResourceManager.GetString("LocalAuth_ShowSteamAuthTip2", resourceCulture);
             }
         }
         
@@ -534,6 +552,15 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_SteamUserImport {
             get {
                 return ResourceManager.GetString("LocalAuth_SteamUserImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设备ID(uuid)： 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SteamUUID {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamUUID", resourceCulture);
             }
         }
         
