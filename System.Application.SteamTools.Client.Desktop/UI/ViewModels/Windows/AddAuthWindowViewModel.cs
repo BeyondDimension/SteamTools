@@ -174,7 +174,7 @@ namespace System.Application.UI.ViewModels
             _Enroll.Language = R.GetCurrentCultureSteamLanguageName();
 
             bool result = false;
-            Task.Run(() =>
+            Task.Run(async () =>
             {
                 ToastService.Current.Set(AppResources.Logining);
                 result = _SteamAuthenticator.Enroll(_Enroll);
@@ -201,7 +201,7 @@ namespace System.Application.UI.ViewModels
                         //using var web = new WebClient();
                         //var bt = web.DownloadData(_Enroll.CaptchaUrl);
                         //using var stream = new MemoryStream(bt);
-                        //CaptchaImage = DI.Get<IHttpService>().GetImageAsync(_Enroll.CaptchaUrl);
+                        CaptchaImage = await DI.Get<IHttpService>().GetImageAsync(_Enroll.CaptchaUrl);
                         return;
                     }
 
