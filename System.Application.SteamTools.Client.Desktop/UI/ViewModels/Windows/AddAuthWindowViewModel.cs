@@ -174,11 +174,11 @@ namespace System.Application.UI.ViewModels
             _Enroll.Language = R.GetCurrentCultureSteamLanguageName();
 
             bool result = false;
-            Task.Run(async () =>
+            Task.Run(() =>
             {
                 ToastService.Current.Set(AppResources.Logining);
                 result = _SteamAuthenticator.Enroll(_Enroll);
-                //ToastService.Current.Set();
+                ToastService.Current.Set();
 
                 if (result == false)
                 {
@@ -190,7 +190,8 @@ namespace System.Application.UI.ViewModels
 
                     if (_Enroll.Requires2FA == true)
                     {
-                        ToastService.Current.Notify(AppResources.LocalAuth_SteamUser_Requires2FA);
+                        MessageBoxCompat.Show(AppResources.LocalAuth_SteamUser_Requires2FA);
+                        //ToastService.Current.Notify(AppResources.LocalAuth_SteamUser_Requires2FA);
                         return;
                     }
 
@@ -201,7 +202,8 @@ namespace System.Application.UI.ViewModels
                         //using var web = new WebClient();
                         //var bt = web.DownloadData(_Enroll.CaptchaUrl);
                         //using var stream = new MemoryStream(bt);
-                        CaptchaImage = await DI.Get<IHttpService>().GetImageAsync(_Enroll.CaptchaUrl);
+                        //CaptchaImage = await DI.Get<IHttpService>().GetImageAsync(_Enroll.CaptchaUrl);
+                        CaptchaImage = _Enroll.CaptchaStream;
                         return;
                     }
 
@@ -249,8 +251,10 @@ namespace System.Application.UI.ViewModels
             }).ContinueWith(s =>
             {
                 Log.Error(nameof(AddAuthWindowViewModel), s.Exception, nameof(LoginSteamImport));
-                MessageBoxCompat.Show(s.Exception.Message);
-                //ToastService.Current.Notify(s.Exception.Message);
+                if (s.Exception.InnerException != null)
+                    MessageBoxCompat.Show(s.Exception.Message + Environment.NewLine + s.Exception.InnerException.Message);
+                else
+                    MessageBoxCompat.Show(s.Exception.Message);
             }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s =>
             {
                 _IsLogining = false;

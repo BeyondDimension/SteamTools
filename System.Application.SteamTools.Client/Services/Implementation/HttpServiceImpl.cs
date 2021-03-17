@@ -300,7 +300,7 @@ namespace System.Application.Services.Implementation
                 IOPath.FileIfExistsItDelete(filePath);
                 var stream = await response.Content.ReadAsStreamAsync();
                 var fileStream = File.Create(filePath);
-                await stream.CopyToAsync(stream, cancellationToken);
+                await stream.CopyToAsync(fileStream, cancellationToken);
                 return fileStream;
             }
             return null;

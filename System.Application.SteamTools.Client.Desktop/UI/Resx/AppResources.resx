@@ -280,7 +280,7 @@
     <value>无法将添加身份验证器添加到您的帐户， 请稍后再试。</value>
   </data>
   <data name="LocalAuth_SteamUser_Requires2FA" xml:space="preserve">
-    <value>您的帐户似乎已添加了身份验证器。</value>
+    <value>您的帐户似乎已添加了身份验证器，需要移除现有的身份验证器才可以通过账号导入。</value>
   </data>
   <data name="LocalAuth_SteamUUID" xml:space="preserve">
     <value>设备ID(uuid)：</value>

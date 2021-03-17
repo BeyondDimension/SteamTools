@@ -538,7 +538,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 您的帐户似乎已添加了身份验证器。 的本地化字符串。
+        ///   查找类似 您的帐户似乎已添加了身份验证器，需要移除现有的身份验证器才可以通过账号导入。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamUser_Requires2FA {
             get {

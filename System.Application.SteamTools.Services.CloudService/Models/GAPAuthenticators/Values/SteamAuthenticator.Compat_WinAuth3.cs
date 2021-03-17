@@ -87,6 +87,7 @@ namespace System.Application.Models
                 public string? Password { get; set; }
                 public string? CaptchaId { get; set; }
                 public string? CaptchaUrl { get; set; }
+                public Stream? CaptchaStream { get; set; }
                 public string? CaptchaText { get; set; }
                 public string? EmailDomain { get; set; }
                 public string? EmailAuthText { get; set; }
@@ -325,7 +326,7 @@ namespace System.Application.Models
                             NameValueCollection headers = new NameValueCollection();
                             headers.Add("X-Requested-With", "com.valvesoftware.android.steam.community");
 
-                            response = Request("https://steamcommunity.com/mobilelogin?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client", "GET", null, cookies, headers);
+                            response = Request("https://steamcommunity.com/login?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client", "GET", null, cookies, headers);
                         }
 
                         // Steam strips any non-ascii chars from username and password
@@ -335,7 +336,7 @@ namespace System.Application.Models
                         // get the user's RSA key
                         data.Add("donotache", new DateTime().ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds.ToString());
                         data.Add("username", state.Username);
-                        response = Request(COMMUNITY_BASE + "/mobilelogin/getrsakey", "POST", data, cookies);
+                        response = Request(COMMUNITY_BASE + "/login/getrsakey", "POST", data, cookies);
                         var rsaresponse = JObject.Parse(response);
                         if (rsaresponse.SelectToken("success").Value<bool>() != true)
                         {
@@ -356,21 +357,23 @@ namespace System.Application.Models
                         }
 
                         // login request
-                        data = new NameValueCollection();
-                        data.Add("password", Convert.ToBase64String(encryptedPassword));
-                        data.Add("username", state.Username);
-                        data.Add("twofactorcode", "");
-                        data.Add("emailauth", (state.EmailAuthText != null ? state.EmailAuthText : string.Empty));
-                        data.Add("loginfriendlyname", "");
-                        data.Add("captchagid", (state.CaptchaId != null ? state.CaptchaId : "-1"));
-                        data.Add("captcha_text", (state.CaptchaText != null ? state.CaptchaText : ""));
-                        data.Add("emailsteamid", (state.EmailAuthText != null ? state.SteamId ?? string.Empty : string.Empty));
-                        data.Add("rsatimestamp", rsaresponse.SelectToken("timestamp").Value<string>());
-                        data.Add("remember_login", "false");
-                        data.Add("oauth_client_id", "DE45CD61");
-                        data.Add("oauth_scope", "read_profile write_profile read_client write_client");
-                        data.Add("donotache", new DateTime().ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds.ToString());
-                        response = Request(COMMUNITY_BASE + "/mobilelogin/dologin/", "POST", data, cookies);
+                        data = new NameValueCollection
+                        {
+                            { "password", Convert.ToBase64String(encryptedPassword) },
+                            { "username", state.Username },
+                            { "twofactorcode", "" },
+                            { "emailauth", (state.EmailAuthText != null ? state.EmailAuthText : string.Empty) },
+                            { "loginfriendlyname", "" },
+                            { "captchagid", (state.CaptchaId != null ? state.CaptchaId : "-1") },
+                            { "captcha_text", (state.CaptchaText != null ? state.CaptchaText : "") },
+                            { "emailsteamid", (state.EmailAuthText != null ? state.SteamId ?? string.Empty : string.Empty) },
+                            { "rsatimestamp", rsaresponse.SelectToken("timestamp").Value<string>() },
+                            { "remember_login", "false" },
+                            { "oauth_client_id", "DE45CD61" },
+                            { "oauth_scope", "read_profile write_profile read_client write_client" },
+                            { "donotache", new DateTime().ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds.ToString() }
+                        };
+                        response = Request(COMMUNITY_BASE + "/login/dologin/", "POST", data, cookies);
                         Dictionary<string, object> loginresponse = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
 
                         if (loginresponse.ContainsKey("emailsteamid") == true)
@@ -384,6 +387,13 @@ namespace System.Application.Models
                             state.RequiresCaptcha = true;
                             state.CaptchaId = (string)loginresponse["captcha_gid"];
                             state.CaptchaUrl = COMMUNITY_BASE + "/public/captcha.php?gid=" + state.CaptchaId;
+
+                            Diagnostics.Process.Start(new Diagnostics.ProcessStartInfo { FileName = state.CaptchaUrl, UseShellExecute = true });
+
+                            using var web = new WebClient();
+                            byte[] d = web.DownloadData(state.CaptchaUrl);
+                            using var ms = new MemoryStream(d);
+                            state.CaptchaStream = ms;
                         }
                         else
                         {
