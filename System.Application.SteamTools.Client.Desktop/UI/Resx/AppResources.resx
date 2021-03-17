@@ -213,6 +213,9 @@
   <data name="LocalAuth_AddAuthSyncTip" xml:space="preserve">
     <value>正在同步令牌服务器时钟</value>
   </data>
+  <data name="LocalAuth_AuthData" xml:space="preserve">
+    <value>令牌数据</value>
+  </data>
   <data name="LocalAuth_AuthName" xml:space="preserve">
     <value>令牌自定义名称</value>
   </data>

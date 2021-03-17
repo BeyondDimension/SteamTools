@@ -1,0 +1,69 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Width="600" Height="500"
+        x:Class="System.Application.UI.Views.Windows.ShowAuthWindow"
+        xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:controls="clr-namespace:System.Application.UI.Controls"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="30"
+        Title="{Binding Title}">
+    <Panel>
+        <DockPanel HorizontalAlignment="Stretch">
+            <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="30">
+                <ExperimentalAcrylicBorder.Material>
+                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
+                </ExperimentalAcrylicBorder.Material>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10 8 10 8">
+                    <Image Source="/Application/UI/Assets/Icon.ico" Height="18" Width="18" Margin="0,0,10,0"/>
+                    <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{Binding Title}" VerticalAlignment="Center" Foreground="{DynamicResource HighlightForegroundBrushKey}" FontSize="12"/>
+                </StackPanel>
+            </ExperimentalAcrylicBorder>
+            <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False">
+                <ExperimentalAcrylicBorder.Material>
+                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
+                </ExperimentalAcrylicBorder.Material>
+            </ExperimentalAcrylicBorder>
+        </DockPanel>
+        
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0 30 0 0" Padding="10">
+            <StackPanel>
+                <TextBlock Text="{Binding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                     FontSize="30"
+                     Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+                <TextBlock Text="在Steam中启用两步验证令牌后，便会生成一个恢复代码，"
+                         FontSize="16" />
+                <TextBlock Text="您可以在Steam客户端中使用恢复代码解除两步验证令牌，"
+                     FontSize="16" />
+                <TextBlock Text="复制下来并保存在安全的地方。"
+                     FontSize="16" />
+
+                <DockPanel>
+                    <TextBlock VerticalAlignment="Center" Text="恢复代码:"
+                     FontSize="20"
+                     Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+
+                    <TextBox FontSize="20" BorderThickness="0" Text="{Binding RecoveryCode,Mode=OneWay}" IsReadOnly="True"></TextBox>
+                </DockPanel>
+
+                <Separator Margin="0,12" BorderThickness=".88" Background="{DynamicResource SystemControlHighlightBaseLowBrush}"  />
+
+                <TextBlock Text="Steam身份验证器的完整数据，可在导入不同软件时使用："></TextBlock>
+                <DockPanel>
+                    <TextBlock VerticalAlignment="Center" Text="设备ID(uuid):"
+                     Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+                    <TextBox BorderThickness="0" Text="{Binding DeviceId,Mode=OneWay}" IsReadOnly="True"></TextBox>
+                </DockPanel>
+
+                <Separator BorderThickness=".88" Background="{DynamicResource SystemControlHighlightBaseLowBrush}" Margin="0,12" />
+
+                <TextBox BorderThickness="0" Text="{Binding SteamData,Mode=OneWay}" IsReadOnly="True" Height="60" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Panel>
+</Window>

@@ -22,6 +22,7 @@ namespace System.Application.UI.ViewModels
                 new MenuItemViewModel
                 {
                     Header = AppResources.LocalAuth_EditAuth,
+                    IconKey = "AddDrawing",
                     Items = new[]
                     {
                         new MenuItemViewModel { Header = AppResources.Add,IconKey="AddDrawing",
@@ -106,6 +107,14 @@ namespace System.Application.UI.ViewModels
                     AuthService.DeleteSaveAuthenticators(auth);
                 }
             });
+        }
+
+        public void ShowSteamAuthData(MyAuthenticator auth) 
+        {
+            if (auth.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator) 
+            {
+                DI.Get<IShowWindowService>().Show(CustomWindow.ShowAuth, new ShowAuthWindowViewModel(auth),string.Empty,ResizeModeCompat.CanResize);
+            }
         }
     }
 }

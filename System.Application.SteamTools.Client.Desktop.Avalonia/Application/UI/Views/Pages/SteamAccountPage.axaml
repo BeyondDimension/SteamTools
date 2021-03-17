@@ -27,7 +27,7 @@
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel x:Name="panel" Margin="20,10" Spacing="8" MinWidth="200" Height="184">
+                        <StackPanel x:Name="panel" Margin="20,10" Spacing="8" MinWidth="200">
                             <Border x:Name="card" DockPanel.Dock="Top" Classes="paper" CornerRadius="0" Background="{DynamicResource ThemeBrushKey}">
                                 <i:Interaction.Behaviors>
                                     <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{Binding #card}">
@@ -37,7 +37,7 @@
                                         <ia:ChangePropertyAction TargetObject="{Binding #delete_btn}" PropertyName="IsVisible" Value="False"/>
                                     </ia:EventTriggerBehavior>
                                 </i:Interaction.Behaviors>
-                                <Grid Width="{Binding #panel.Width}"
+                                <Grid Width="{Binding #panel.Width}" Height="184"
                                       ColumnDefinitions="Auto,Auto,*,Auto">
                                     <Panel>
                                         <Image x:Name="avatar" Width="{Binding #panel.Width}" Stretch="Uniform" Source="{Binding AvatarStream,Converter={StaticResource BitmapAssetValueConverter}}"
@@ -74,7 +74,7 @@
                                     <Grid Grid.Column="3" RowDefinitions="*,Auto">
                                         <Panel>
                                             <Button Classes="flatbutton" IsVisible="False" x:Name="delete_btn" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" Margin="221,0,0,121" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding #u.DataContext.DeleteUserButton_Click}" CommandParameter="{Binding}">
-                                                <Image Width="12" Height="18">
+                                                <Image Width="12" Height="14">
                                                     <Image.Source>
                                                         <DrawingImage Drawing="{DynamicResource CloseDrawing}"></DrawingImage>
                                                     </Image.Source>
@@ -82,7 +82,7 @@
                                             </Button>
 
                                         </Panel>
-                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 0 0 3">
                                             <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{Binding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                                 <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Background="{DynamicResource ThemeBrushKey}" Command="{Binding #u.DataContext.OfflineModeButton_Click}" CommandParameter="{Binding}"></Button>
                                             </Border>

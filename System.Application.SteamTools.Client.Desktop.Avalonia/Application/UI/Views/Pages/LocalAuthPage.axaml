@@ -49,8 +49,8 @@
                                         </Button>
                                     </Grid>
 
-                                    <TextBlock Grid.Row="1" Text="------" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64" IsVisible="{Binding !IsShowCode}"></TextBlock>
-                                    <TextBlock Grid.Row="1" Text="{Binding CurrentCode}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="56" IsVisible="{Binding IsShowCode}">
+                                    <TextBlock Grid.Row="1" Text="------" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64" IsVisible="{Binding !IsShowCode}" Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
+                                    <TextBlock Grid.Row="1" Text="{Binding CurrentCode}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="56" IsVisible="{Binding IsShowCode}" Foreground="{DynamicResource HighlightForegroundBrushKey}">
                                     </TextBlock>
 
 
@@ -86,7 +86,7 @@
                                                     </Image>
                                                 </Button>
 
-                                                <Button Cursor="Hand" Classes="flatbutton">
+                                                <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowSteamAuthData}" CommandParameter="{Binding}">
                                                     <Image Width="20" Height="16">
                                                         <Image.Source>
                                                             <DrawingImage Drawing="{DynamicResource InfoDrawing}"></DrawingImage>

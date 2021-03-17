@@ -349,6 +349,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 令牌数据 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthData {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 令牌自定义名称 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AuthName {

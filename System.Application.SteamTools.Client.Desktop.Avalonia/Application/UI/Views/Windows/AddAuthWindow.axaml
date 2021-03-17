@@ -48,7 +48,6 @@
 
                         <TextBlock Grid.Row="2" Margin="10,0" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{Binding Path=Res.Steam_UserLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
                     </Grid>
-
                     <StackPanel IsVisible="{Binding !CaptchaImage,Converter={StaticResource IsNullConverter}}" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 90" Spacing="10">
                         <Border Width="206" Height="37">
                             <Image Width="206" Height="37" Source="{Binding CaptchaImage,Converter={StaticResource BitmapAssetValueConverter}}">
@@ -56,7 +55,6 @@
                         </Border>
                         <TextBox Watermark="{Binding Path=Res.Steam_ImageCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding CaptchaText}" MaxWidth="200"></TextBox>
                     </StackPanel>
-
                     <Grid IsVisible="{Binding !EmailDomain,Converter={StaticResource IsNullConverter}}" RowDefinitions="Auto,*,Auto" Margin="10">
                         <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
                             <TextBox Watermark="{Binding Path=Res.EmailCode,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding EmailAuthText}" MaxWidth="200"></TextBox>
@@ -76,7 +74,7 @@
                                 <TextBox Text="{Binding RevocationCode,Mode=OneWay}" IsEnabled="False" MinWidth="200"></TextBox>
                             </StackPanel>
                             <CheckBox Content="{Binding Path=Res.RecoveryCode_Remember,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center"></CheckBox>
-                            
+
                             <Button Content="{Binding Path=Res.Continue,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Command="{Binding LoginSteamImport}"></Button>
                         </StackPanel>
 

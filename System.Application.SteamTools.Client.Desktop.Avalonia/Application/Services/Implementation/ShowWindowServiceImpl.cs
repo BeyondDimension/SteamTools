@@ -13,6 +13,7 @@ namespace System.Application.Services.Implementation
         {
             CustomWindow.MessageBox => typeof(MessageBoxWindow),
             CustomWindow.AddAuth => typeof(AddAuthWindow),
+            CustomWindow.ShowAuth => typeof(ShowAuthWindow),
             _ => throw new ArgumentOutOfRangeException(nameof(customWindow), customWindow, null),
         };
 
@@ -48,7 +49,7 @@ namespace System.Application.Services.Implementation
             TWindowViewModel? viewModel = null,
             string title = "",
             ResizeModeCompat resizeMode = ResizeModeCompat.NoResize)
-            where TWindowViewModel : WindowViewModel, new()
+            where TWindowViewModel : WindowViewModel,new()
         {
             viewModel ??= new TWindowViewModel();
             return Show(false, customWindow, title, viewModel, resizeMode);

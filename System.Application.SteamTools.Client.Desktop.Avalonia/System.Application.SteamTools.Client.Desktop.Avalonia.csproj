@@ -116,6 +116,9 @@
     <Compile Update="Application\UI\Views\Pages\SteamAccountPage.axaml.cs">
       <DependentUpon>SteamAccountPage.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Application\UI\Views\Windows\ShowAuthWindow.axaml.cs">
+      <DependentUpon>ShowAuthWindow.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Application\UI\Views\Windows\MessageBoxWindow.axaml.cs">
       <DependentUpon>MessageBoxWindow.axaml</DependentUpon>
     </Compile>

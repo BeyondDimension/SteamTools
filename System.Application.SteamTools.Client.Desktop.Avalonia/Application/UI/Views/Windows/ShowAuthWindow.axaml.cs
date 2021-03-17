@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class LoginWindow : FluentWindow
+    public class ShowAuthWindow : FluentWindow
     {
-        public LoginWindow()
+        public ShowAuthWindow()
         {
             InitializeComponent();
 #if DEBUG

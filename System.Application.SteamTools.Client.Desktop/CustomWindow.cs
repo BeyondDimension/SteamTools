@@ -7,5 +7,6 @@
     {
         MessageBox,
         AddAuth,
+        ShowAuth,
     }
 }
