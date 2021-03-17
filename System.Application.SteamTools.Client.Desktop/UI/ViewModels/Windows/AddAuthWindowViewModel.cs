@@ -199,11 +199,10 @@ namespace System.Application.UI.ViewModels
                     {
                         CaptchaText = null;
                         CaptchaImage = null;
-                        //using var web = new WebClient();
-                        //var bt = web.DownloadData(_Enroll.CaptchaUrl);
-                        //using var stream = new MemoryStream(bt);
-                        //CaptchaImage = await DI.Get<IHttpService>().GetImageAsync(_Enroll.CaptchaUrl);
-                        CaptchaImage = _Enroll.CaptchaStream;
+                        using var web = new WebClient();
+                        var bt = web.DownloadData(_Enroll.CaptchaUrl);
+                        using var stream = new MemoryStream(bt);
+                        CaptchaImage = stream;
                         return;
                     }
 

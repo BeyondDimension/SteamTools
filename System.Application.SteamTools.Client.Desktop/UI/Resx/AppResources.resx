@@ -249,6 +249,9 @@
   <data name="LocalAuth_RefreshAuthSuccess" xml:space="preserve">
     <value>令牌数据加载完成</value>
   </data>
+  <data name="LocalAuth_SDAImport" xml:space="preserve">
+    <value>Steam Desktop Auth导入</value>
+  </data>
   <data name="LocalAuth_SDATip" xml:space="preserve">
     <value>Steam的移动身份验证器应用程序的桌面实现。导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件，请先移除密码在导入)</value>
   </data>
@@ -273,6 +276,9 @@
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
     <value>Steam++导入</value>
   </data>
+  <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
+    <value>导入Steam++ V1版本的导出的令牌数据</value>
+  </data>
   <data name="LocalAuth_SteamUserImport" xml:space="preserve">
     <value>Steam账号导入</value>
   </data>
@@ -287,6 +293,9 @@
   </data>
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
     <value>在shared_prefs文件夹中，粘贴'steam_uuid.xml'的uuidKey</value>
+  </data>
+  <data name="LocalAuth_WinAuthImport" xml:space="preserve">
+    <value>WinAuth导入</value>
   </data>
   <data name="LocalAuth_WinAuthTip" xml:space="preserve">
     <value>WinAuth是Windows的便携式开放源代码身份验证器，它提供基于计数器或基于时间的RFC 6238身份验证器和常见的实现。导入方法：从WinAuth导出txt文件之后在此选择从WinAuth导出的txt文件进行导入。</value>

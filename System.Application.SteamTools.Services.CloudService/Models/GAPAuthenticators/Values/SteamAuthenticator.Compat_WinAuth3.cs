@@ -87,7 +87,6 @@ namespace System.Application.Models
                 public string? Password { get; set; }
                 public string? CaptchaId { get; set; }
                 public string? CaptchaUrl { get; set; }
-                public Stream? CaptchaStream { get; set; }
                 public string? CaptchaText { get; set; }
                 public string? EmailDomain { get; set; }
                 public string? EmailAuthText { get; set; }
@@ -387,13 +386,6 @@ namespace System.Application.Models
                             state.RequiresCaptcha = true;
                             state.CaptchaId = (string)loginresponse["captcha_gid"];
                             state.CaptchaUrl = COMMUNITY_BASE + "/public/captcha.php?gid=" + state.CaptchaId;
-
-                            Diagnostics.Process.Start(new Diagnostics.ProcessStartInfo { FileName = state.CaptchaUrl, UseShellExecute = true });
-
-                            using var web = new WebClient();
-                            byte[] d = web.DownloadData(state.CaptchaUrl);
-                            using var ms = new MemoryStream(d);
-                            state.CaptchaStream = ms;
                         }
                         else
                         {

@@ -17,6 +17,7 @@ namespace System.Application.Models
         }
 
         public IGAPAuthenticatorDTO AuthenticatorData { get; set; }
+
         public ushort Id
         {
             get
@@ -132,12 +133,27 @@ namespace System.Application.Models
             //{
             //    Id = id;
             //}
-
+            this.AuthenticatorData = new GAPAuthenticatorDTO();
             string authenticatorType = reader.GetAttribute("type");
-            if (string.IsNullOrEmpty(authenticatorType) == false)
+            switch (authenticatorType)
             {
-                Type type = typeof(GAPAuthenticatorValueDTO).Assembly.GetType(authenticatorType, false, true);
-                this.AuthenticatorData.Value = Activator.CreateInstance(type) as IGAPAuthenticatorValueDTO;
+                case "WinAuth.SteamAuthenticator":
+                    this.AuthenticatorData.Value = new GAPAuthenticatorValueDTO.SteamAuthenticator();
+                    break;
+                case "WinAuth.BattleNetAuthenticator":
+                    this.AuthenticatorData.Value = new GAPAuthenticatorValueDTO.BattleNetAuthenticator();
+                    break;
+                case "WinAuth.GoogleAuthenticator":
+                    this.AuthenticatorData.Value = new GAPAuthenticatorValueDTO.GoogleAuthenticator();
+                    break;
+                case "WinAuth.HOTPAuthenticator":
+                    this.AuthenticatorData.Value = new GAPAuthenticatorValueDTO.HOTPAuthenticator();
+                    break;
+                case "WinAuth.MicrosoftAuthenticator":
+                    this.AuthenticatorData.Value = new GAPAuthenticatorValueDTO.MicrosoftAuthenticator();
+                    break;
+                default:
+                    return false;
             }
 
             //string encrypted = reader.GetAttribute("encrypted");

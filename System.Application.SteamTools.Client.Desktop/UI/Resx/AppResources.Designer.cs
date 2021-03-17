@@ -457,6 +457,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 Steam Desktop Auth导入 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SDAImport {
+            get {
+                return ResourceManager.GetString("LocalAuth_SDAImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam的移动身份验证器应用程序的桌面实现。导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件，请先移除密码在导入) 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SDATip {
@@ -529,6 +538,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 导入Steam++ V1版本的导出的令牌数据 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SteamToolsV1Import {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamToolsV1Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 无法将添加身份验证器添加到您的帐户， 请稍后再试。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamUser_Error {
@@ -570,6 +588,15 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_SteamuuidTip {
             get {
                 return ResourceManager.GetString("LocalAuth_SteamuuidTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 WinAuth导入 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_WinAuthImport {
+            get {
+                return ResourceManager.GetString("LocalAuth_WinAuthImport", resourceCulture);
             }
         }
         

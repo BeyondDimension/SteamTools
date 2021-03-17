@@ -46,7 +46,7 @@ namespace System.Application.UI.Views.Windows
             {
                 if (s != null && s.Result.Length > 0)
                 {
-                    AuthService.Current.ImportSDAFile(s.Result[0]);
+                    AuthService.Current.LoadSteamToolsV1Authenticator(s.Result[0]);
                 }
             });
         }

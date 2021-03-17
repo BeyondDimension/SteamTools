@@ -409,12 +409,12 @@ namespace System.Application.Services
         /// </summary>
         public void ImportAuthenticatorFile()
         {
-       
+
         }
 
-        public static IList<MyAuthenticator> LoadSteamToolsV1Authenticator(string authString)
+        public void LoadSteamToolsV1Authenticator(string file)
         {
-            var list = new List<MyAuthenticator>();
+            var authString = File.ReadAllText(file).DecompressString();
             if (!string.IsNullOrEmpty(authString))
             {
                 XmlReader reader = XmlReader.Create(new StringReader(authString));
@@ -436,7 +436,7 @@ namespace System.Application.Services
                         {
                             var wa = new MyAuthenticator();
                             wa.ReadXml(reader, null);
-                            list.Add(wa);
+                            AddSaveAuthenticators(wa);
                         }
                     }
                     else
@@ -446,7 +446,6 @@ namespace System.Application.Services
                     }
                 }
             }
-            return list;
         }
 
         public static void AddSaveAuthenticators(GAPAuthenticatorDTO auth)
@@ -464,7 +463,7 @@ namespace System.Application.Services
         public static void DeleteSaveAuthenticators(MyAuthenticator auth)
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
-            if (auth.AuthenticatorData.ServerId.HasValue) 
+            if (auth.AuthenticatorData.ServerId.HasValue)
             {
                 repository.DeleteAsync(auth.AuthenticatorData.ServerId.Value);
             }

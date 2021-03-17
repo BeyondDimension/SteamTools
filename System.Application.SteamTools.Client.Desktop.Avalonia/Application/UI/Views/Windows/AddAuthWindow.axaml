@@ -116,13 +116,16 @@
                 </Grid>
             </TabItem>
             <TabItem Header="{Binding Path=Res.LocalAuth_SteamToolsImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <StackPanel Spacing="15">
-                    <Button Content="{Binding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.dat}" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ImportSteamToolsBtn"></Button>
-                </StackPanel>
+                <Panel Margin="10">
+                    <StackPanel Spacing="15" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Path=Res.LocalAuth_SteamToolsV1Import,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Center"></TextBlock>
+                        <Button Content="{Binding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.dat}" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ImportSteamToolsBtn"></Button>
+                    </StackPanel>
+                </Panel>
             </TabItem>
             <TabItem Header="{Binding Path=Res.LocalAuth_OtherImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
                 <StackPanel Spacing="10" Margin="10">
-                    <RadioButton x:Name="WinAuthImport" Content="WinAuth导入"></RadioButton>
+                    <RadioButton x:Name="WinAuthImport" Content="{Binding Path=Res.LocalAuth_WinAuthImport,Mode=OneWay,Source={x:Static resx:R.Current}}"></RadioButton>
                     <StackPanel Spacing="8">
                         <TextBlock Text="{Binding Path=Res.LocalAuth_WinAuthTip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="WrapWithOverflow"></TextBlock>
 
@@ -131,7 +134,7 @@
                         </Panel>
                     </StackPanel>
 
-                    <RadioButton x:Name="SdaImport" Content="Steam Desktop Auth导入"></RadioButton>
+                    <RadioButton x:Name="SdaImport" Content="{Binding Path=Res.LocalAuth_SDAImport,Mode=OneWay,Source={x:Static resx:R.Current}}"></RadioButton>
                     <StackPanel Spacing="8">
                         <TextBlock Text="{Binding Path=Res.LocalAuth_SDATip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="WrapWithOverflow"></TextBlock>
 
