@@ -24,6 +24,8 @@ using System.Application.UI.Resx;
 using System.Application.Models;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
+using Avalonia;
+using Avalonia.Platform;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif

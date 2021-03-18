@@ -1,0 +1,45 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Width="400" Height="500"
+        x:Class="System.Application.UI.Views.Windows.ChangePhoneWindow"
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="30"
+        WindowStartupLocation="CenterOwner"
+        Title="{Binding Title}">
+    <Panel>
+        <controls:TitleBar></controls:TitleBar>
+        <Grid RowDefinitions="*,Auto" Margin="10">
+            <StackPanel VerticalAlignment="Center" Spacing="10" Margin="10,0" Width="250">
+
+                <TextBox Watermark="旧手机号码"></TextBox>
+
+                <Panel>
+                    <TextBox Watermark="验证码"></TextBox>
+                    <Border HorizontalAlignment="Right" Cursor="Hand">
+                        <Button Classes="CodeButton"  Content="获取验证码"></Button>
+                    </Border>
+                </Panel>
+
+                <Button Content="继续"
+                        HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">
+                </Button>
+
+            </StackPanel>
+
+            <StackPanel Grid.Row="1">
+                <Button
+                        HorizontalAlignment="Center" HorizontalContentAlignment="Center" Background="Transparent" BorderThickness="0" Cursor="Hand">
+                    <TextBlock Text="遇到问题？"></TextBlock>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!--Toast-->
+        <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+    </Panel>
+</Window>

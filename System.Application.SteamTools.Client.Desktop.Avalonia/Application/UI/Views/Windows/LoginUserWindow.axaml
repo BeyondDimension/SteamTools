@@ -1,0 +1,61 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Width="400" Height="500"
+        x:Class="System.Application.UI.Views.Windows.LoginUserWindow"
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="30"
+        WindowStartupLocation="CenterOwner"
+        Title="{Binding Title}">
+    <Panel>
+        <controls:TitleBar></controls:TitleBar>
+        <Grid RowDefinitions="*,Auto" Margin="10">
+            <StackPanel VerticalAlignment="Center" Spacing="8" Margin="10,0" Width="250">
+                <Image Source="/Application/UI/Assets/Icon.ico" Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25">
+                    <!--<Image.Clip>
+                        <EllipseGeometry Rect="0,0,128,128" />
+                    </Image.Clip>-->
+                </Image>
+                <TextBox Watermark="手机号码"></TextBox>
+
+                <Panel>
+                    <TextBox Watermark="验证码"></TextBox>
+                    <Border HorizontalAlignment="Right" Cursor="Hand">
+                        <Button Classes="CodeButton"  Content="获取验证码"></Button>
+                    </Border>
+                </Panel>
+
+                <Panel Margin="2 0 6 0">
+                    <CheckBox Content="记住登陆状态"></CheckBox>
+                    <Button Classes="Hyperlink" Content="无法接收短信？" HorizontalAlignment="Right"></Button>
+                </Panel>
+                
+                <Button Content="登 录" 
+                        HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">
+                </Button>
+                
+            </StackPanel>
+
+            <StackPanel Grid.Row="1">
+                <Button
+                        HorizontalAlignment="Center" HorizontalContentAlignment="Center" Background="Transparent" BorderThickness="0" Cursor="Hand">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Image Width="18">
+                            <Image.Source>
+                                <DrawingImage Drawing="{StaticResource SteamDrawing}"></DrawingImage>
+                            </Image.Source>
+                        </Image>
+                        <TextBlock Text="Steam快速登录"></TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!--Toast-->
+        <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+    </Panel>
+</Window>

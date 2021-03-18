@@ -5,8 +5,9 @@
         mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
         xmlns:pages="clr-namespace:System.Application.UI.Views.Pages"
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
-        xmlns:controls="clr-namespace:System.Application.UI.Controls"
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         x:Class="System.Application.UI.Views.MainView"
         FontSize="14"
         Foreground="{StaticResource SystemBaseHighColor}">
@@ -29,13 +30,13 @@
         </DockPanel>
 
         <!--Title-->
-        <Grid ColumnDefinitions="240,*,Auto">
+        <Grid ColumnDefinitions="240,*,Auto" ZIndex="0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
                 <Image Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
                 <Label Content="{Binding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
             </StackPanel>
-            <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{ReflectionBinding #TabControl.SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Margin="20 10 20 0" FontSize="32"/>
-            <StackPanel Grid.Column="2" x:Name="titleButton" Orientation="Horizontal" VerticalAlignment="Top">
+            <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{ReflectionBinding #TabControl.SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Padding="15 8 0 0" FontSize="28"/>
+            <StackPanel Grid.Column="2" x:Name="titleMenu" Orientation="Horizontal" VerticalAlignment="Top">
                 <Menu Items="{Binding SelectedItem.MenuItems}" IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}">
                     <Menu.Styles>
                         <Style Selector="MenuItem">
@@ -57,7 +58,6 @@
                         </Style>
                     </Menu.Styles>
                 </Menu>
-
                 <Menu>
                     <MenuItem>
                         <MenuItem.Header>
@@ -68,7 +68,7 @@
                             </Image>
                         </MenuItem.Header>
 
-                        <MenuItem>
+                        <MenuItem Command="{Binding Path=ShowLoginWindow_Click,Source={x:Static service:UserService.Current}}">
                             <MenuItem.Header>
                                 <Panel Width="200" Margin="5">
                                     <StackPanel Spacing="8" Margin="25,0,0,0">
@@ -77,7 +77,7 @@
                                                 <EllipseGeometry Rect="0,0,100,100" />
                                             </Image.Clip>
                                         </Image>
-                                        <Button Classes="Hyperlink" Content="未登录" FontSize="21" HorizontalAlignment="Center"></Button>
+                                        <Button Classes="CodeButton" Content="未登录" FontSize="18" HorizontalAlignment="Center" Command="{Binding ShowLoginWindow_Click,Source={x:Static service:UserService.Current}}"></Button>
                                     </StackPanel>
                                 </Panel>
                             </MenuItem.Header>
@@ -95,14 +95,13 @@
                     </MenuItem>
                 </Menu>
             </StackPanel>
-
         </Grid>
 
         <!--Content-->
         <TabControl x:Name="TabControl"
                     Items="{Binding TabItems}"
                     SelectedItem="{Binding SelectedItem}"
-                    Margin="0 30 0 0"
+                    Margin="0 25 0 0"
                     Classes="sidebar">
             <TabControl.DataTemplates>
                 <DataTemplate DataType="vm:DebugWebViewPageViewModel">

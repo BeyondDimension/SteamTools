@@ -7,7 +7,7 @@
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
-        xmlns:controls="clr-namespace:System.Application.UI.Controls"
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         Width="800" Height="600"
         WindowStartupLocation="CenterOwner"
         ExtendClientAreaToDecorationsHint="True"
@@ -29,7 +29,7 @@
                     <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{Binding Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" FontSize="20"/>
                 </StackPanel>
             </ExperimentalAcrylicBorder>
-            <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False">
+<ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False">
                 <ExperimentalAcrylicBorder.Material>
                     <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
                 </ExperimentalAcrylicBorder.Material>

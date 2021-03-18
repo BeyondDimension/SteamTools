@@ -2,13 +2,16 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace System.Application.UI.Views.Controls
+namespace System.Application.UI.Views.Windows
 {
-    public class ToastMessage : UserControl
+    public class ChangePhoneWindow : FluentWindow
     {
-        public ToastMessage()
+        public ChangePhoneWindow()
         {
             InitializeComponent();
+#if DEBUG
+            this.AttachDevTools();
+#endif
         }
 
         private void InitializeComponent()

@@ -2,16 +2,13 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace System.Application.UI.Views.Windows
+namespace System.Application.UI.Views.Controls
 {
-    public class LoginWindow : FluentWindow
+    public class TitleBar : UserControl
     {
-        public LoginWindow()
+        public TitleBar()
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
         }
 
         private void InitializeComponent()

@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Name="u" IsHitTestVisible="False"
+             Background="Transparent"
+             x:Class="System.Application.UI.Views.Controls.TitleBar">
+    <DockPanel HorizontalAlignment="Stretch">
+        <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="30">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
+            </ExperimentalAcrylicBorder.Material>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10 6 10 6">
+                <Image Source="/Application/UI/Assets/Icon.ico" Height="18" Width="18" Margin="0,0,10,0"/>
+                <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{Binding Title}" VerticalAlignment="Center" Foreground="{DynamicResource HighlightForegroundBrushKey}" FontSize="14"/>
+            </StackPanel>
+        </ExperimentalAcrylicBorder>
+        <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+    </DockPanel>
+</UserControl>

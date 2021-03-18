@@ -265,7 +265,7 @@
     <value>请输入发送到您手机的短信验证代码。</value>
   </data>
   <data name="LocalAuth_SteamAppImport" xml:space="preserve">
-    <value>Steam App导入</value>
+    <value>手机App导入</value>
   </data>
   <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
     <value>您可以在已root的Android设备中导入您的SteamGuard身份验证器路径：  /data/data/com.valvesoftware.android.steam.community然后将以下两个文件的内容复制到下面的对应输入框中</value>

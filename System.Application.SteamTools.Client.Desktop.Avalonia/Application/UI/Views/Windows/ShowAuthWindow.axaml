@@ -7,29 +7,14 @@
         x:Class="System.Application.UI.Views.Windows.ShowAuthWindow"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
-        xmlns:controls="clr-namespace:System.Application.UI.Controls"
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
         Title="{Binding Title}">
     <Panel MaxWidth="{Binding $parent.MaxWidth}">
-        <DockPanel HorizontalAlignment="Stretch">
-            <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="30">
-                <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
-                </ExperimentalAcrylicBorder.Material>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10 8 10 8">
-                    <Image Source="/Application/UI/Assets/Icon.ico" Height="18" Width="18" Margin="0,0,10,0"/>
-                    <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{Binding Title}" VerticalAlignment="Center" Foreground="{DynamicResource HighlightForegroundBrushKey}" FontSize="12"/>
-                </StackPanel>
-            </ExperimentalAcrylicBorder>
-            <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False">
-                <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
-                </ExperimentalAcrylicBorder.Material>
-            </ExperimentalAcrylicBorder>
-        </DockPanel>
+        <controls:TitleBar></controls:TitleBar>
         
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0 30 0 0" Padding="10" MaxWidth="{Binding $parent.MaxWidth}">
             <StackPanel>

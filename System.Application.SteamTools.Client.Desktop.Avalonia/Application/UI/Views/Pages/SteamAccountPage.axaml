@@ -23,11 +23,11 @@
                 <ItemsRepeater.Layout>
                     <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
                                        MaximumRowsOrColumns="6" />-->
-                    <StackLayout Orientation="Vertical" Spacing="0"></StackLayout>
+                    <StackLayout Orientation="Vertical" Spacing="10"></StackLayout>
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel x:Name="panel" Margin="20,10" Spacing="8" MinWidth="200">
+                        <StackPanel x:Name="panel" Margin="20,0" MinWidth="200">
                             <Border x:Name="card" DockPanel.Dock="Top" Classes="paper" CornerRadius="0" Background="{DynamicResource ThemeBrushKey}">
                                 <i:Interaction.Behaviors>
                                     <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{Binding #card}">

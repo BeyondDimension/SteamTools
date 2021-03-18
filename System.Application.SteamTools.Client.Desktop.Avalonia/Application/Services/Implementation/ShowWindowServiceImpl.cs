@@ -12,6 +12,7 @@ namespace System.Application.Services.Implementation
         static Type GetWindowType(CustomWindow customWindow) => customWindow switch
         {
             CustomWindow.MessageBox => typeof(MessageBoxWindow),
+            CustomWindow.LoginUser => typeof(LoginUserWindow),
             CustomWindow.AddAuth => typeof(AddAuthWindow),
             CustomWindow.ShowAuth => typeof(ShowAuthWindow),
             _ => throw new ArgumentOutOfRangeException(nameof(customWindow), customWindow, null),

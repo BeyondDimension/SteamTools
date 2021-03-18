@@ -10,6 +10,7 @@
         WindowStartupLocation="CenterOwner"
         SizeToContent="WidthAndHeight"
         MinWidth="470" MinHeight="100"
+        ShowInTaskbar="False"
         Padding="0" Background="Transparent"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"

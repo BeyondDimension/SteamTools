@@ -8,7 +8,11 @@
         </Border>
     </Design.PreviewWith>
     <Style Selector="TabControl.flat">
+        <Setter Property="FontSize" Value="18"></Setter>
         <Setter Property="Padding" Value="0"></Setter>
+    </Style>
+    <Style Selector="TabControl.flat /template/ DockPanel">
+        <Setter Property="Margin" Value="0 -10 0 0"></Setter>
     </Style>
     <Style Selector="TabControl.flat /template/ ItemsPresenter">
         <Setter Property="Margin" Value="{StaticResource PageMargin}"></Setter>

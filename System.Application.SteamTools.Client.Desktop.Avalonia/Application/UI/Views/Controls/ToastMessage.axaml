@@ -9,7 +9,7 @@
              d:DesignHeight="50" 
              Margin="0 0 0 20"
              Background="Transparent" IsVisible="{Binding Source={x:Static service:ToastService.Current},Path=IsVisible,Mode=OneWay}"
-             x:Class="System.Application.UI.Controls.ToastMessage">
+             x:Class="System.Application.UI.Views.Controls.ToastMessage">
     <Border Background="{DynamicResource InactiveBackgroundBrushKey}" Classes="paper" CornerRadius="3">
         <StackPanel Orientation="Horizontal">
             <!--<TextBlock Text="{Binding Title}" FontSize="16"/>-->

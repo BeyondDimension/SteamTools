@@ -9,6 +9,12 @@
     </Design.PreviewWith>
     <Styles.Resources>
     </Styles.Resources>
+    <Style Selector="Button.CodeButton">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
     <Style Selector="Button.Hyperlink">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
@@ -19,7 +25,7 @@
             <ControlTemplate>
                 <TextBlock Text="{TemplateBinding Content}" TextDecorations="Underline"></TextBlock>
             </ControlTemplate>
-    </Setter>
+        </Setter>
     </Style>
     <Style Selector="Button.flatbutton">
         <Setter Property="Background" Value="Transparent"/>
