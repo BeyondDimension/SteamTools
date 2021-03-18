@@ -250,10 +250,8 @@ namespace System.Application.UI.ViewModels
             }).ContinueWith(s =>
             {
                 Log.Error(nameof(AddAuthWindowViewModel), s.Exception, nameof(LoginSteamImport));
-                if (s.Exception.InnerException != null)
-                    MessageBoxCompat.Show(s.Exception.Message + Environment.NewLine + s.Exception.InnerException.Message);
-                else
-                    MessageBoxCompat.Show(s.Exception.Message);
+                MessageBoxCompat.Show(s.Exception);
+                //ToastService.Current.Notify(s.Exception.Message);
             }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s =>
             {
                 _IsLogining = false;
