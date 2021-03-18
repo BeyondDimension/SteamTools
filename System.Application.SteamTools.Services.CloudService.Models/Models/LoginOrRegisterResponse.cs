@@ -11,7 +11,7 @@ namespace System.Application.Models
     [MPObj]
     public class LoginOrRegisterResponse : ILoginResponse, IExplicitHasValue
     {
-        Guid ILoginResponse.UserId => User?.Id ?? throw new ArgumentNullException(nameof(User));
+        UserInfoDTO ILoginResponse.User => User ?? throw new ArgumentNullException(nameof(User));
 
         [MPKey(0)]
         [N_JsonProperty("0")]
@@ -24,7 +24,7 @@ namespace System.Application.Models
         [MPKey(1)]
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]
-        public UserDTO? User { get; set; }
+        public UserInfoDTO? User { get; set; }
 
         /// <summary>
         /// 当前操作是登录(<see langword="true"/>)还是注册(<see langword="false"/>)

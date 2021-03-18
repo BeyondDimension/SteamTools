@@ -11,6 +11,7 @@ namespace System.Application.Models
     /// </summary>
     public static class ChangePhoneNumberRequest
     {
+        [MPObj]
         public class Validation : IReadOnlySmsCode
         {
             [MPKey(0)]
@@ -24,6 +25,7 @@ namespace System.Application.Models
             public string? PhoneNumber { get; set; }
         }
 
+        [MPObj]
         public class New : IReadOnlyPhoneNumber, IReadOnlySmsCode
         {
             [MPKey(0)]

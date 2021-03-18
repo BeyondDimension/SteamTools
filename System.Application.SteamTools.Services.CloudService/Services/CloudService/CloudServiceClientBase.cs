@@ -28,6 +28,8 @@ namespace System.Application.Services.CloudService
         public IAuthMessageClient AuthMessage { get; }
         public IVersionClient Version { get; }
 
+        public IActiveUserClient ActiveUser { get; }
+
         #endregion
 
         readonly IApiConnection connection;
@@ -76,6 +78,7 @@ namespace System.Application.Services.CloudService
             Manage = new ManageClient(connection);
             AuthMessage = new AuthMessageClient(connection);
             Version = new VersionClient(connection);
+            ActiveUser = new ActiveUserClient(connection);
 
             #endregion
         }

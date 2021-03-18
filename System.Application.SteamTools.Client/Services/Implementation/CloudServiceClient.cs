@@ -44,12 +44,15 @@ namespace System.Application.Services.Implementation
 
         public override async Task OnLoginedAsync(IReadOnlyPhoneNumber? phoneNumber, ILoginResponse response)
         {
+            await userManager.SetCurrentUserInfoAsync(response.User, true);
+
             var cUser = new CurrentUser
             {
                 UserId = response.UserId,
                 AuthToken = response.AuthToken,
                 PhoneNumber = phoneNumber?.PhoneNumber ?? string.Empty,
             };
+
             await userManager.SetCurrentUserAsync(cUser);
         }
 

@@ -332,6 +332,16 @@ namespace System.Application.UI
         }
 
         #endregion
+
+        static async void ActiveUserPost(ActiveUserType type)
+        {
+            var req = new ActiveUserRecordDTO
+            {
+                Type = type,
+
+            };
+            var rsp = await ICloudServiceClient.Instance.ActiveUser.Post(req);
+        }
     }
 }
 #pragma warning restore CA1416 // 验证平台兼容性

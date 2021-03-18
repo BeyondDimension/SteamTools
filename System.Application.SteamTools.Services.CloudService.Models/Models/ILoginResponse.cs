@@ -8,6 +8,8 @@
         /// <summary>
         /// 用户Id
         /// </summary>
-        Guid UserId { get; }
+        Guid UserId => User.Id;
+
+        UserInfoDTO User { get; }
     }
 }

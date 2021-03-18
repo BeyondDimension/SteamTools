@@ -63,5 +63,10 @@ namespace System.Application.Models
         [N_JsonProperty("7")]
         [S_JsonProperty("7")]
         public byte Level { get; set; }
+
+        [MPKey(8)]
+        [N_JsonProperty("8")]
+        [S_JsonProperty("8")]
+        public long? SteamAccountId { get; set; }
     }
 }
