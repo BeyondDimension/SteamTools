@@ -592,6 +592,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 同步时钟 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SyncTime {
+            get {
+                return ResourceManager.GetString("LocalAuth_SyncTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 WinAuth导入 的本地化字符串。
         /// </summary>
         public static string LocalAuth_WinAuthImport {

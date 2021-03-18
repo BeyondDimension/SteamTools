@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
 using System.Xml;
@@ -41,14 +42,24 @@ namespace System.Application.Services
             get => !this.Authenticators.Any_Nullable();
         }
 
-        public async void Initialize()
+        public async void Initialize(bool isSync = false)
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
             var list = await repository.GetAllAsync();
             if (list.Count > 0)
             {
                 Authenticators = new ObservableCollection<MyAuthenticator>(list.Select(s => new MyAuthenticator(s)));
-                ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
+                if (isSync)
+                {
+                    Task.Run(() =>
+                    {
+                        foreach (var item in Authenticators)
+                            item.Sync();
+                        ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
+                    }).ForgetAndDispose();
+                }
+                else
+                    ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
             }
         }
 

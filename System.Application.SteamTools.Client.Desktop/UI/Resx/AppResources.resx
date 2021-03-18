@@ -294,6 +294,9 @@
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
     <value>在shared_prefs文件夹中，粘贴'steam_uuid.xml'的uuidKey</value>
   </data>
+  <data name="LocalAuth_SyncTime" xml:space="preserve">
+    <value>同步时钟</value>
+  </data>
   <data name="LocalAuth_WinAuthImport" xml:space="preserve">
     <value>WinAuth导入</value>
   </data>

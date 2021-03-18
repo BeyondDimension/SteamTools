@@ -16,7 +16,7 @@ namespace System.Application.UI.ViewModels
         public LocalAuthPageViewModel()
         {
             AddAuthCommand = ReactiveCommand.Create(AddAuthMenu_Click);
-            RefreshAuthCommand = ReactiveCommand.Create(AuthService.Current.Initialize);
+            RefreshAuthCommand = ReactiveCommand.Create(() => AuthService.Current.Initialize(true));
             MenuItems = new[]
             {
                 new MenuItemViewModel
@@ -109,11 +109,11 @@ namespace System.Application.UI.ViewModels
             });
         }
 
-        public void ShowSteamAuthData(MyAuthenticator auth) 
+        public void ShowSteamAuthData(MyAuthenticator auth)
         {
-            if (auth.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator) 
+            if (auth.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator)
             {
-                DI.Get<IShowWindowService>().Show(CustomWindow.ShowAuth, new ShowAuthWindowViewModel(auth),string.Empty,ResizeModeCompat.CanResize);
+                DI.Get<IShowWindowService>().Show(CustomWindow.ShowAuth, new ShowAuthWindowViewModel(auth), string.Empty, ResizeModeCompat.CanResize);
             }
         }
     }

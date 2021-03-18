@@ -35,8 +35,8 @@
                 <Label Content="{Binding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
             </StackPanel>
             <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{ReflectionBinding #TabControl.SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Margin="20 10 20 0" FontSize="32"/>
-            <StackPanel IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}" Grid.Column="2" x:Name="titleButton" Orientation="Horizontal" VerticalAlignment="Top">
-                <Menu Items="{Binding SelectedItem.MenuItems}">
+            <StackPanel Grid.Column="2" x:Name="titleButton" Orientation="Horizontal" VerticalAlignment="Top">
+                <Menu Items="{Binding SelectedItem.MenuItems}" IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}">
                     <Menu.Styles>
                         <Style Selector="MenuItem">
                             <Setter Property="Icon">
@@ -57,7 +57,45 @@
                         </Style>
                     </Menu.Styles>
                 </Menu>
+
+                <Menu>
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <Image Source="/Application/UI/Assets/AppResources/avater.jpg" Height="24" Width="24">
+                                <Image.Clip>
+                                    <EllipseGeometry Rect="0,0,24,24" />
+                                </Image.Clip>
+                            </Image>
+                        </MenuItem.Header>
+
+                        <MenuItem>
+                            <MenuItem.Header>
+                                <Panel Width="200" Margin="5">
+                                    <StackPanel Spacing="8" Margin="25,0,0,0">
+                                        <Image Source="/Application/UI/Assets/AppResources/avater.jpg" Height="100" Width="100" HorizontalAlignment="Center">
+                                            <Image.Clip>
+                                                <EllipseGeometry Rect="0,0,100,100" />
+                                            </Image.Clip>
+                                        </Image>
+                                        <Button Classes="Hyperlink" Content="未登录" FontSize="21" HorizontalAlignment="Center"></Button>
+                                    </StackPanel>
+                                </Panel>
+                            </MenuItem.Header>
+                        </MenuItem>
+
+                        <MenuItem Header="个人资料">
+
+                        </MenuItem>
+                        <MenuItem Header="账号设置">
+
+                        </MenuItem>
+                        <MenuItem Header="注销">
+
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
             </StackPanel>
+
         </Grid>
 
         <!--Content-->
