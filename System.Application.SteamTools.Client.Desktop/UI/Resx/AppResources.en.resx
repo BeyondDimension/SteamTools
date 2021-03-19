@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -167,5 +167,269 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Start Page</value>
+  </data>
+  <data name="About_FAQ" xml:space="preserve">
+    <value>FAQ troubleshooting</value>
+  </data>
+  <data name="About_Joinus" xml:space="preserve">
+    <value>Join us</value>
+  </data>
+  <data name="About_OpenSource" xml:space="preserve">
+    <value>Open source licensing</value>
+  </data>
+  <data name="About_ProductionStaff" xml:space="preserve">
+    <value>Make a list of people</value>
+  </data>
+  <data name="About_ThisSoft" xml:space="preserve">
+    <value>This software</value>
+  </data>
+  <data name="About_UpdateHistory" xml:space="preserve">
+    <value>Update the record</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CloudSync" xml:space="preserve">
+    <value>Cloud sync</value>
+  </data>
+  <data name="CommunityFix" xml:space="preserve">
+    <value>Community acceleration</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Are you sure</value>
+  </data>
+  <data name="ConfirmImport" xml:space="preserve">
+    <value>Confirm the import</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Go on</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EmailCode" xml:space="preserve">
+    <value>The mailbox verification code</value>
+  </data>
+  <data name="Encrypt" xml:space="preserve">
+    <value>Encryption</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="GameList" xml:space="preserve">
+    <value>Stock game</value>
+  </data>
+  <data name="GameRelated" xml:space="preserve">
+    <value>Game features</value>
+  </data>
+  <data name="Hosts_Exists" xml:space="preserve">
+    <value>The written hosts already exist</value>
+  </data>
+  <data name="Hosts_ReadError" xml:space="preserve">
+    <value>There was an error reading the hosts file</value>
+  </data>
+  <data name="Hosts_ReadSuccess" xml:space="preserve">
+    <value>Read hosts successfully</value>
+  </data>
+  <data name="Hosts_UpdateSuccess" xml:space="preserve">
+    <value>The write hosts succeeded</value>
+  </data>
+  <data name="Hosts_WirteError" xml:space="preserve">
+    <value>An error occurred while writing hosts</value>
+  </data>
+  <data name="IdleCard" xml:space="preserve">
+    <value>Automatic set card</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="LocalAuth" xml:space="preserve">
+    <value>The local token</value>
+  </data>
+  <data name="LocalAuth_AddAuth" xml:space="preserve">
+    <value>Import tokens</value>
+  </data>
+  <data name="LocalAuth_AddAuthSuccess" xml:space="preserve">
+    <value>Token import is complete</value>
+  </data>
+  <data name="LocalAuth_AddAuthSyncTip" xml:space="preserve">
+    <value>Synchronizing token server clock</value>
+  </data>
+  <data name="LocalAuth_AuthData" xml:space="preserve">
+    <value>Token data</value>
+  </data>
+  <data name="LocalAuth_AuthName" xml:space="preserve">
+    <value>The token custom name</value>
+  </data>
+  <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
+    <value>The token has been copied </value>
+  </data>
+  <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
+    <value>Are you sure you want to permanently delete this token?</value>
+  </data>
+  <data name="LocalAuth_EditAuth" xml:space="preserve">
+    <value>Edit the token</value>
+  </data>
+  <data name="LocalAuth_EmailCodeTip" xml:space="preserve">
+    <value>Please enter the code sent to your email address to approve access from the new device.</value>
+  </data>
+  <data name="LocalAuth_ExportAuth" xml:space="preserve">
+    <value>Export tokens</value>
+  </data>
+  <data name="LocalAuth_ImportFaild" xml:space="preserve">
+    <value>The import failed, check that the data is correct.</value>
+  </data>
+  <data name="LocalAuth_MenuName" xml:space="preserve">
+    <value>Edit the token</value>
+  </data>
+  <data name="LocalAuth_NoAuthTip" xml:space="preserve">
+    <value>You haven't imported any tokens yet.</value>
+  </data>
+  <data name="LocalAuth_OtherImport" xml:space="preserve">
+    <value>Other software imports</value>
+  </data>
+  <data name="LocalAuth_RefreshAuthSuccess" xml:space="preserve">
+    <value>The token data load is complete</value>
+  </data>
+  <data name="LocalAuth_SDAImport" xml:space="preserve">
+    <value>Steam Desktop Auth Import</value>
+  </data>
+  <data name="LocalAuth_SDATip" xml:space="preserve">
+    <value>The desktop implementation of Steam's mobile authenticator application. Import method: Select the maFile file of the maFiles folder in the SDA directory for import. (Importing encrypted files is not supported, please remove the password before importing)</value>
+  </data>
+  <data name="LocalAuth_ShowSteamAuthTip1" xml:space="preserve">
+    <value>The full data of the Steam authenticator that can be used when importing different software:</value>
+  </data>
+  <data name="LocalAuth_ShowSteamAuthTip2" xml:space="preserve">
+    <value>When you enable a two-step authentication token in Team, a recovery code is generated that you can use in the Team client to unbly the two-step validation token, copy it, and save it in a safe place.</value>
+  </data>
+  <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
+    <value>Please enter the SMS verification code sent to your phone.</value>
+  </data>
+  <data name="LocalAuth_SteamAppImport" xml:space="preserve">
+    <value>Mobile app import</value>
+  </data>
+  <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
+    <value>You can import your SteamGuard authenticator path from your rooted Android device: /data/data/com.valvesoftware.android.steam.community and copy the contents of the following two files to the corresponding input box below</value>
+  </data>
+  <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
+    <value>In the files folder, open the 'SteamGuard-NNNNNNNN' file and paste the entire contents of the file</value>
+  </data>
+  <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
+    <value>Steam is imported</value>
+  </data>
+  <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
+    <value>Import the exported token data for the version of Team</value>
+  </data>
+  <data name="LocalAuth_SteamUserImport" xml:space="preserve">
+    <value>Steam account import</value>
+  </data>
+  <data name="LocalAuth_SteamUser_Error" xml:space="preserve">
+    <value>The added authenticator could not be added to your account.</value>
+  </data>
+  <data name="LocalAuth_SteamUser_Requires2FA" xml:space="preserve">
+    <value>Your account appears to have an authenticator added and you need to remove the existing authenticator to be imported through your account.</value>
+  </data>
+  <data name="LocalAuth_SteamUUID" xml:space="preserve">
+    <value>Device ID (uuid):</value>
+  </data>
+  <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
+    <value>In shared_prefs folder, paste the steam_uuid.xml's uuidKey</value>
+  </data>
+  <data name="LocalAuth_SyncTime" xml:space="preserve">
+    <value>Synchronize the clock</value>
+  </data>
+  <data name="LocalAuth_WinAuthImport" xml:space="preserve">
+    <value>WinAuth import</value>
+  </data>
+  <data name="LocalAuth_WinAuthTip" xml:space="preserve">
+    <value>WinAuth is a portable open source authenticator for Windows that provides counter-based or time-based RFC 6238 authenticators and common implementations. Import method: After exporting the txt file from WinAuth, select the txt file exported from WinAuth to import here.</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Logining" xml:space="preserve">
+    <value>Landing...</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>More action</value>
+  </data>
+  <data name="OtherGamePlaform" xml:space="preserve">
+    <value>Other platforms</value>
+  </data>
+  <data name="RecoveryCode" xml:space="preserve">
+    <value>The recovery code</value>
+  </data>
+  <data name="RecoveryCode_Remember" xml:space="preserve">
+    <value>I've written down my recovery code</value>
+  </data>
+  <data name="RecoveryCode_RememberTip" xml:space="preserve">
+    <value>Your authenticator has been added to your Team account and has been successfully imported into Team. This is your recovery code, and if you lose the authenticator, you can use it to remove it from your account. Please write it down now and put it in a safe place.</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="SelectFileImport" xml:space="preserve">
+    <value>Select {0} file import</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Set up</value>
+  </data>
+  <data name="Settings_Auth" xml:space="preserve">
+    <value>Token settings</value>
+  </data>
+  <data name="Settings_General" xml:space="preserve">
+    <value>Basic settings</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_Steam" xml:space="preserve">
+    <value>Steam settings</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Settings_UI" xml:space="preserve">
+    <value>Interface settings</value>
+  </data>
+  <data name="SMSCode" xml:space="preserve">
+    <value>SMS verification code</value>
+  </data>
+  <data name="Steam_ImageCodeTip" xml:space="preserve">
+    <value>Enter the verification code in the diagram</value>
+  </data>
+  <data name="Steam_Password" xml:space="preserve">
+    <value>Steam password</value>
+  </data>
+  <data name="Steam_User" xml:space="preserve">
+    <value>Steam userna name</value>
+  </data>
+  <data name="UserChange_BtnText" xml:space="preserve">
+    <value>Sign in to Team with this account</value>
+  </data>
+  <data name="UserChange_BtnTootlip" xml:space="preserve">
+    <value>Pressing this button will restart Team and log in to the account</value>
+  </data>
+  <data name="UserChange_DeleteUser" xml:space="preserve">
+    <value>Delete this account data</value>
+  </data>
+  <data name="UserChange_NoUserTip" xml:space="preserve">
+    <value>No Team account data was read on your computer.</value>
+  </data>
+  <data name="UserChange_OfflineBtn" xml:space="preserve">
+    <value>Offline mode starts</value>
+  </data>
+  <data name="UserFastChange" xml:space="preserve">
+    <value>Account switching</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>The start page</value>
   </data>
 </root>

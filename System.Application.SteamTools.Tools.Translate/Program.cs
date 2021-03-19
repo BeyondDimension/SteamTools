@@ -3,6 +3,7 @@ using NPOI.XSSF.UserModel;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace System
@@ -21,6 +22,7 @@ namespace System
             "ja",
             "ru",
             "zh-Hant",
+            "ko",
         };
 
         static readonly string projPath = GetProjectPath();
@@ -31,6 +33,7 @@ namespace System
         }
 
         public const string CoreLib = @"System.Common.CoreLib\Properties\SR";
+        public const string AppRes = @"System.Application.SteamTools.Client.Desktop\UI\Resx\AppResources";
 
         static async Task Main(string[] args)
         {
@@ -41,7 +44,7 @@ namespace System
             //var r = await Translatecs.TranslateTextAsync(route + to_ + "en", "测试翻译文本");
 
             // 不带后缀的相对路径
-            var resx_path = CoreLib;
+            var resx_path = AppRes;
 
             // true 读取翻译后的excel写入resx
             // false 读取resx机翻后写入excel
@@ -82,7 +85,7 @@ namespace System
 
             var path_r = Path.GetRelativePath(projPath, path);
             var fileName = path_r.Replace(Path.DirectorySeparatorChar, '_');
-            var excelFilePath = Path.Combine(AppContext.BaseDirectory, fileName + $".xlsx");
+            var excelFilePath = Path.Combine(AppContext.BaseDirectory, fileName + ".xlsx");
 
             // 读取未翻译的键值，使用 translate 翻译后 导出 excel [审阅]后再导入
 
@@ -96,7 +99,7 @@ namespace System
                 var headerRow = sheet.GetRow(index_row++);
                 int index_cell = 0;
                 var key_col_index = 0;
-                var dict_langs = new Dictionary<string, int>();
+                var dict_langs = new Dictionary<int, string>();
                 while (true)
                 {
                     var index = index_cell++;
@@ -109,7 +112,74 @@ namespace System
                     }
                     else if (langs.Contains(cellValue))
                     {
-                        dict_langs.Add(cellValue, index);
+                        dict_langs.Add(index, cellValue);
+                    }
+                }
+
+                var dict = new Dictionary<string, Dictionary<string, string>>();
+
+                foreach (var item in langs)
+                {
+                    dict.Add(item, new Dictionary<string, string>());
+                }
+
+                while (true)
+                {
+                    var row = sheet.GetRow(index_row++);
+                    if (row == null) break;
+
+                    while (true)
+                    {
+                        var index = index_cell++;
+                        var cell = row.GetCell(index);
+                        if (cell == null) break;
+                        if (dict_langs.ContainsKey(index))
+                        {
+                            var key = row.GetCell(key_col_index).StringCellValue;
+                            var value = cell.StringCellValue;
+                            dict[dict_langs[index]].Add(key, value);
+                        }
+                    }
+
+                    index_cell = 0;
+                }
+
+                foreach (var item in dict)
+                {
+                    var itemPath = Path.GetDirectoryName(path) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(path) + $".{item.Key}.resx";
+                    var itemValue = ReadResx(itemPath);
+
+                    var fileText = File.ReadAllText(itemPath);
+
+                    var @string = new StringBuilder();
+
+                    foreach (var kv_item in item.Value)
+                    {
+                        if (itemValue.ContainsKey(kv_item.Key))
+                        {
+                            // 已存在
+                            if (isOverwrite)
+                            {
+                                throw new NotImplementedException();
+                            }
+                        }
+                        else
+                        {
+                            @string.AppendFormatLine(
+                                "  <data name=\"{0}\" xml:space=\"preserve\">", kv_item.Key);
+                            @string.AppendFormatLine("    <value>{0}</value>", kv_item.Value);
+                            @string.AppendLine("  </data>");
+                        }
+                    }
+
+                    const string end_mark = "</root>";
+
+                    if (@string.Length > 0)
+                    {
+                        @string.Append(end_mark);
+                        var newStr = @string.ToString();
+                        fileText = fileText.Replace(end_mark, newStr);
+                        File.WriteAllText(itemPath, fileText);
                     }
                 }
             }
@@ -158,7 +228,6 @@ namespace System
                     cell.SetCellValue(item);
                     dict_langs_cell.Add(item, index_langs_cell);
                 }
-                cell.SetCellValue("zh-Hans");
                 foreach (var itemKey in allKeys)
                 {
                     var inputText = value[itemKey];

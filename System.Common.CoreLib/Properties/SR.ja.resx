@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
 		Microsoft ResX Schema
@@ -98,4 +98,64 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+  <data name="DayOfWeek_L0" xml:space="preserve">
+    <value>日曜日</value>
+  </data>
+  <data name="DayOfWeek_L1" xml:space="preserve">
+    <value>月曜日</value>
+  </data>
+  <data name="DayOfWeek_L2" xml:space="preserve">
+    <value>火曜日</value>
+  </data>
+  <data name="DayOfWeek_L3" xml:space="preserve">
+    <value>水曜日</value>
+  </data>
+  <data name="DayOfWeek_L4" xml:space="preserve">
+    <value>木曜日</value>
+  </data>
+  <data name="DayOfWeek_L5" xml:space="preserve">
+    <value>金曜日</value>
+  </data>
+  <data name="DayOfWeek_L6" xml:space="preserve">
+    <value>土曜日</value>
+  </data>
+  <data name="DayOfWeek_S0" xml:space="preserve">
+    <value>日曜日</value>
+  </data>
+  <data name="DayOfWeek_S1" xml:space="preserve">
+    <value>月曜日</value>
+  </data>
+  <data name="DayOfWeek_S2" xml:space="preserve">
+    <value>火曜日</value>
+  </data>
+  <data name="DayOfWeek_S3" xml:space="preserve">
+    <value>水曜日</value>
+  </data>
+  <data name="DayOfWeek_S4" xml:space="preserve">
+    <value>木曜日</value>
+  </data>
+  <data name="DayOfWeek_S5" xml:space="preserve">
+    <value>金曜日</value>
+  </data>
+  <data name="DayOfWeek_S6" xml:space="preserve">
+    <value>土曜日</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>女性</value>
+  </data>
+  <data name="He" xml:space="preserve">
+    <value>彼</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>男</value>
+  </data>
+  <data name="She" xml:space="preserve">
+    <value>彼女</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>不明です</value>
+  </data>
+  <data name="UnsupportedPhoneNumberSegment_" xml:space="preserve">
+    <value>サポートされていない携帯電話番号セグメント({0})</value>
+  </data>
 </root>

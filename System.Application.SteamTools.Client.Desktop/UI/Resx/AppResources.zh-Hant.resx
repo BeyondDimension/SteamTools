@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -167,5 +167,227 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>起始頁</value>
+  </data>
+  <data name="About_FAQ" xml:space="preserve">
+    <value>常見問題疑難解答</value>
+  </data>
+  <data name="About_Joinus" xml:space="preserve">
+    <value>加入我們</value>
+  </data>
+  <data name="About_OpenSource" xml:space="preserve">
+    <value>開放原始碼許可</value>
+  </data>
+  <data name="About_ProductionStaff" xml:space="preserve">
+    <value>製作人員名單</value>
+  </data>
+  <data name="About_ThisSoft" xml:space="preserve">
+    <value>此軟體</value>
+  </data>
+  <data name="About_UpdateHistory" xml:space="preserve">
+    <value>更新記錄</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="CloudSync" xml:space="preserve">
+    <value>雲同步</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>確定</value>
+  </data>
+  <data name="ConfirmImport" xml:space="preserve">
+    <value>確認導入</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>繼續</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="EmailCode" xml:space="preserve">
+    <value>郵箱驗證代碼</value>
+  </data>
+  <data name="Encrypt" xml:space="preserve">
+    <value>加密</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>匯出</value>
+  </data>
+  <data name="IdleCard" xml:space="preserve">
+    <value>自動集卡</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>導入</value>
+  </data>
+  <data name="LocalAuth" xml:space="preserve">
+    <value>本地令牌</value>
+  </data>
+  <data name="LocalAuth_AddAuth" xml:space="preserve">
+    <value>導入權杖</value>
+  </data>
+  <data name="LocalAuth_AddAuthSuccess" xml:space="preserve">
+    <value>令牌導入完成</value>
+  </data>
+  <data name="LocalAuth_AddAuthSyncTip" xml:space="preserve">
+    <value>正在同步權杖伺服器時鐘</value>
+  </data>
+  <data name="LocalAuth_AuthData" xml:space="preserve">
+    <value>令牌數據</value>
+  </data>
+  <data name="LocalAuth_AuthName" xml:space="preserve">
+    <value>令牌自定義名稱</value>
+  </data>
+  <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
+    <value>已複製權杖 </value>
+  </data>
+  <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
+    <value>確定要永久刪除此權杖嗎？</value>
+  </data>
+  <data name="LocalAuth_EditAuth" xml:space="preserve">
+    <value>編輯權杖</value>
+  </data>
+  <data name="LocalAuth_EmailCodeTip" xml:space="preserve">
+    <value>請輸入發送到您電子郵件地址的代碼，以批准從新設備進行訪問。</value>
+  </data>
+  <data name="LocalAuth_ExportAuth" xml:space="preserve">
+    <value>匯出權杖</value>
+  </data>
+  <data name="LocalAuth_ImportFaild" xml:space="preserve">
+    <value>匯入失敗，請檢查資料是否正確。</value>
+  </data>
+  <data name="LocalAuth_MenuName" xml:space="preserve">
+    <value>編輯權杖</value>
+  </data>
+  <data name="LocalAuth_NoAuthTip" xml:space="preserve">
+    <value>你還沒有導入任何令牌哦。</value>
+  </data>
+  <data name="LocalAuth_OtherImport" xml:space="preserve">
+    <value>其它軟體導入</value>
+  </data>
+  <data name="LocalAuth_RefreshAuthSuccess" xml:space="preserve">
+    <value>令牌數據載入完成</value>
+  </data>
+  <data name="LocalAuth_SDAImport" xml:space="preserve">
+    <value>Steam Desktop Auth導入</value>
+  </data>
+  <data name="LocalAuth_SDATip" xml:space="preserve">
+    <value>Steam的移動身份驗證器應用程式的桌面實現。 匯入方法：選擇SDA目錄下maFiles資料夾的maFile文件進行導入。 （不支援匯入加密檔案，請先移除密碼在匯入）</value>
+  </data>
+  <data name="LocalAuth_ShowSteamAuthTip1" xml:space="preserve">
+    <value>Steam身份驗證器的完整數據，可在導入不同軟體時使用：</value>
+  </data>
+  <data name="LocalAuth_ShowSteamAuthTip2" xml:space="preserve">
+    <value>在Steam中啟用兩步驗證權杖後，便會生成一個復原代碼，您可以在Steam用戶端中使用恢復代碼解除兩步驗證權杖，複製下來並保存在安全的地方。</value>
+  </data>
+  <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
+    <value>請輸入發送到您手機的簡訊驗證代碼。</value>
+  </data>
+  <data name="LocalAuth_SteamAppImport" xml:space="preserve">
+    <value>手機App導入</value>
+  </data>
+  <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
+    <value>您可以在已root的Android設備中導入您的SteamGuard身份驗證器路徑： /data/data/com.valvesoftware.android.steam.community然後將以下兩個文件的內容複製到下面的對應輸入框中</value>
+  </data>
+  <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
+    <value>在files資料夾中，打開'SteamGuard-NNNNNNNN'檔，粘貼檔的全部內容</value>
+  </data>
+  <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
+    <value>Steam++導入</value>
+  </data>
+  <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
+    <value>導入Steam++ V1版本的導出的令牌數據</value>
+  </data>
+  <data name="LocalAuth_SteamUserImport" xml:space="preserve">
+    <value>Steam帳號導入</value>
+  </data>
+  <data name="LocalAuth_SteamUser_Error" xml:space="preserve">
+    <value>無法新增身份驗證器加入您的帳號， 請稍後再試。</value>
+  </data>
+  <data name="LocalAuth_SteamUser_Requires2FA" xml:space="preserve">
+    <value>您的帳戶似乎已添加了身份驗證器，需要移除現有的身份驗證器才可以通過賬號導入。</value>
+  </data>
+  <data name="LocalAuth_SteamUUID" xml:space="preserve">
+    <value>裝置ID（uuid）：</value>
+  </data>
+  <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
+    <value>在shared_prefs資料夾中，粘貼'steam_uuid.xml'的uuidKey</value>
+  </data>
+  <data name="LocalAuth_SyncTime" xml:space="preserve">
+    <value>同步時鐘</value>
+  </data>
+  <data name="LocalAuth_WinAuthImport" xml:space="preserve">
+    <value>WinAuth導入</value>
+  </data>
+  <data name="LocalAuth_WinAuthTip" xml:space="preserve">
+    <value>WinAuth是Windows的便攜式開放原始碼身份驗證器，它提供基於計數器或基於時間的RFC 6238身份驗證器和常見的實現。 匯入方法：從WinAuth匯出txt文件之後在此選擇從WinAuth匯出的txt檔進行導入。</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>登錄</value>
+  </data>
+  <data name="Logining" xml:space="preserve">
+    <value>正在登陸中...</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>更多操作</value>
+  </data>
+  <data name="OtherGamePlaform" xml:space="preserve">
+    <value>其它平臺</value>
+  </data>
+  <data name="RecoveryCode" xml:space="preserve">
+    <value>恢復代碼</value>
+  </data>
+  <data name="RecoveryCode_Remember" xml:space="preserve">
+    <value>我已經寫下了我的恢復代碼</value>
+  </data>
+  <data name="RecoveryCode_RememberTip" xml:space="preserve">
+    <value>您的身份驗證器已被添加到您的Steam帳戶上並已經成功導入Steam++。 這是您的恢復代碼，如果您丟失了身份驗證器，可以用它從您的帳戶中刪除。 請您現在就寫下它，並將其放在安全的地方。</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="SelectFileImport" xml:space="preserve">
+    <value>選擇{0}文件導入</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>語言</value>
+  </data>
+  <data name="Settings_Steam" xml:space="preserve">
+    <value>Steam設置</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>主題</value>
+  </data>
+  <data name="Settings_UI" xml:space="preserve">
+    <value>介面設置</value>
+  </data>
+  <data name="SMSCode" xml:space="preserve">
+    <value>簡訊驗證代碼</value>
+  </data>
+  <data name="Steam_ImageCodeTip" xml:space="preserve">
+    <value>輸入圖中驗證碼</value>
+  </data>
+  <data name="Steam_Password" xml:space="preserve">
+    <value>Steam密碼</value>
+  </data>
+  <data name="Steam_User" xml:space="preserve">
+    <value>Steam使用者名</value>
+  </data>
+  <data name="UserChange_BtnText" xml:space="preserve">
+    <value>以該帳號登錄Steam</value>
+  </data>
+  <data name="UserChange_BtnTootlip" xml:space="preserve">
+    <value>按下此按鈕將重啟Steam並以該帳號登錄</value>
+  </data>
+  <data name="UserChange_DeleteUser" xml:space="preserve">
+    <value>刪除此帳號數據</value>
+  </data>
+  <data name="UserChange_NoUserTip" xml:space="preserve">
+    <value>沒有在您的電腦上讀取到任何Steam帳戶數據。</value>
+  </data>
+  <data name="UserChange_OfflineBtn" xml:space="preserve">
+    <value>離線模式啟動</value>
   </data>
 </root>

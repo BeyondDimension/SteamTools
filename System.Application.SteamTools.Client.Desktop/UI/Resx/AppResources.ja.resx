@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,10 +118,271 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Settings" xml:space="preserve">
-    <value>セットアップ</value>
+    <value>設定</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>警告</value>
     <comment>此值是日语不是中文！</comment>
+  </data>
+  <data name="About_FAQ" xml:space="preserve">
+    <value>よく寄せられる質問のトラブルシューティング</value>
+  </data>
+  <data name="About_Joinus" xml:space="preserve">
+    <value>ご参加ください</value>
+  </data>
+  <data name="About_OpenSource" xml:space="preserve">
+    <value>オープンソースライセンス</value>
+  </data>
+  <data name="About_ProductionStaff" xml:space="preserve">
+    <value>制作者のリスト</value>
+  </data>
+  <data name="About_ThisSoft" xml:space="preserve">
+    <value>このソフトウェア</value>
+  </data>
+  <data name="About_UpdateHistory" xml:space="preserve">
+    <value>レコードを更新します</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>が追加された</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセルします</value>
+  </data>
+  <data name="CloudSync" xml:space="preserve">
+    <value>クラウド同期</value>
+  </data>
+  <data name="CommunityFix" xml:space="preserve">
+    <value>コミュニティアクセラレーション</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ConfirmImport" xml:space="preserve">
+    <value>インポートを確認します</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>続けよ</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>編集します</value>
+  </data>
+  <data name="EmailCode" xml:space="preserve">
+    <value>メールボックスの検証コード</value>
+  </data>
+  <data name="Encrypt" xml:space="preserve">
+    <value>暗号化</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>エクスポートします</value>
+  </data>
+  <data name="GameList" xml:space="preserve">
+    <value>ストックゲーム</value>
+  </data>
+  <data name="GameRelated" xml:space="preserve">
+    <value>ゲームの機能</value>
+  </data>
+  <data name="Hosts_Exists" xml:space="preserve">
+    <value>書き込まれた hosts は既に存在します</value>
+  </data>
+  <data name="Hosts_ReadError" xml:space="preserve">
+    <value>hosts ファイルの読み取り中にエラーが発生しました</value>
+  </data>
+  <data name="Hosts_ReadSuccess" xml:space="preserve">
+    <value>hosts の読み取りに成功しました</value>
+  </data>
+  <data name="Hosts_UpdateSuccess" xml:space="preserve">
+    <value>hosts への書き込みに成功しました</value>
+  </data>
+  <data name="Hosts_WirteError" xml:space="preserve">
+    <value>hosts への書き込み中にエラーが発生しました</value>
+  </data>
+  <data name="IdleCard" xml:space="preserve">
+    <value>オートセットカード</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>インポートします</value>
+  </data>
+  <data name="LocalAuth" xml:space="preserve">
+    <value>ローカル トークン</value>
+  </data>
+  <data name="LocalAuth_AddAuth" xml:space="preserve">
+    <value>トークンをインポートします</value>
+  </data>
+  <data name="LocalAuth_AddAuthSuccess" xml:space="preserve">
+    <value>トークンのインポートが完了しました</value>
+  </data>
+  <data name="LocalAuth_AddAuthSyncTip" xml:space="preserve">
+    <value>トークン サーバー クロックを同期しています</value>
+  </data>
+  <data name="LocalAuth_AuthData" xml:space="preserve">
+    <value>トークン データ</value>
+  </data>
+  <data name="LocalAuth_AuthName" xml:space="preserve">
+    <value>トークンのカスタム名</value>
+  </data>
+  <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
+    <value>トークンがコピーされます </value>
+  </data>
+  <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
+    <value>このトークンを完全に削除しますか?</value>
+  </data>
+  <data name="LocalAuth_EditAuth" xml:space="preserve">
+    <value>トークンを編集します</value>
+  </data>
+  <data name="LocalAuth_EmailCodeTip" xml:space="preserve">
+    <value>新しいデバイスからのアクセスを承認するには、電子メール アドレスに送信されたコードを入力してください。</value>
+  </data>
+  <data name="LocalAuth_ExportAuth" xml:space="preserve">
+    <value>トークンをエクスポートします</value>
+  </data>
+  <data name="LocalAuth_ImportFaild" xml:space="preserve">
+    <value>インポートに失敗しました。</value>
+  </data>
+  <data name="LocalAuth_MenuName" xml:space="preserve">
+    <value>トークンを編集します</value>
+  </data>
+  <data name="LocalAuth_NoAuthTip" xml:space="preserve">
+    <value>まだトークンをインポートしていない。</value>
+  </data>
+  <data name="LocalAuth_OtherImport" xml:space="preserve">
+    <value>その他のソフトウェアのインポート</value>
+  </data>
+  <data name="LocalAuth_RefreshAuthSuccess" xml:space="preserve">
+    <value>トークン データの読み込みが完了しました</value>
+  </data>
+  <data name="LocalAuth_SDAImport" xml:space="preserve">
+    <value>Steam Desktop Auth がインポートされます</value>
+  </data>
+  <data name="LocalAuth_SDATip" xml:space="preserve">
+    <value>Steam のモバイル認証アプリケーションのデスクトップ実装。 インポート方法:SDAディレクトリの下のmaFilesフォルダのmaFileファイルを選択してインポートします。 (暗号化されたファイルのインポートはサポートされていませんので、最初にインポートでパスワードを削除してください)</value>
+  </data>
+  <data name="LocalAuth_ShowSteamAuthTip1" xml:space="preserve">
+    <value>Steam 認証システムの完全なデータで、さまざまなソフトウェアをインポートするときに使用できます。</value>
+  </data>
+  <data name="LocalAuth_ShowSteamAuthTip2" xml:space="preserve">
+    <value>Steam で 2 ステップ認証トークンを有効にすると、Steam クライアントで回復コードを使用して 2 ステップ認証トークンを解除し、コピーして安全な場所に保存できる回復コードが生成されます。</value>
+  </data>
+  <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
+    <value>携帯電話に送信された SMS 確認コードを入力してください。</value>
+  </data>
+  <data name="LocalAuth_SteamAppImport" xml:space="preserve">
+    <value>モバイルアプリのインポート</value>
+  </data>
+  <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
+    <value>ルートされた Android デバイスで SteamGuard 認証パスをインポートできます: /data/data/com.valvesoftware.android.steam.community 次の 2 つのファイルの内容を以下の対応する入力ボックスにコピーします</value>
+  </data>
+  <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
+    <value>files フォルダで、'SteamGuard-NNNNNNNNNNN'ファイルを開き、ファイルの内容全体を貼り付けます</value>
+  </data>
+  <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
+    <value>Steam++ インポート</value>
+  </data>
+  <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
+    <value>Steam++ V1 バージョンのエクスポートされたトークンデータをインポートします</value>
+  </data>
+  <data name="LocalAuth_SteamUserImport" xml:space="preserve">
+    <value>Steam アカウントのインポート</value>
+  </data>
+  <data name="LocalAuth_SteamUser_Error" xml:space="preserve">
+    <value>アカウントに認証システムを追加できません。</value>
+  </data>
+  <data name="LocalAuth_SteamUser_Requires2FA" xml:space="preserve">
+    <value>アカウントに認証システムが追加されているように見え、アカウントからインポートするには既存の認証システムを削除する必要があります。</value>
+  </data>
+  <data name="LocalAuth_SteamUUID" xml:space="preserve">
+    <value>デバイス ID (uuid):</value>
+  </data>
+  <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
+    <value>フォルダshared_prefs、'steam_uuid.xml uidKey を貼り付けます</value>
+  </data>
+  <data name="LocalAuth_SyncTime" xml:space="preserve">
+    <value>同期クロック</value>
+  </data>
+  <data name="LocalAuth_WinAuthImport" xml:space="preserve">
+    <value>WinAuth インポート</value>
+  </data>
+  <data name="LocalAuth_WinAuthTip" xml:space="preserve">
+    <value>WinAuth は、カウンタ ベースまたは時間ベースの RFC 6238 認証システムと一般的な実装を提供する Windows のポータブル オープンソース認証システムです。 インポート方法: WinAuth から txt ファイルをエクスポートした後、WinAuth からエクスポートされた txt ファイルを選択してインポートします。</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>サインインします</value>
+  </data>
+  <data name="Logining" xml:space="preserve">
+    <value>着陸中...</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>より多くの操作</value>
+  </data>
+  <data name="OtherGamePlaform" xml:space="preserve">
+    <value>他のプラットフォーム</value>
+  </data>
+  <data name="RecoveryCode" xml:space="preserve">
+    <value>回復コード</value>
+  </data>
+  <data name="RecoveryCode_Remember" xml:space="preserve">
+    <value>私は回復コードを書き留めた</value>
+  </data>
+  <data name="RecoveryCode_RememberTip" xml:space="preserve">
+    <value>認証システムが Steam アカウントに追加され、Steam++ に正常にインポートされました。 これは回復コードであり、認証システムを紛失した場合はアカウントから削除できます。 今すぐ書き留めて、安全な場所に保管してください。</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>更新します</value>
+  </data>
+  <data name="SelectFileImport" xml:space="preserve">
+    <value>[ファイルの{0}] を選択します</value>
+  </data>
+  <data name="Settings_Auth" xml:space="preserve">
+    <value>トークンの設定</value>
+  </data>
+  <data name="Settings_General" xml:space="preserve">
+    <value>基本設定</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>言語</value>
+  </data>
+  <data name="Settings_Steam" xml:space="preserve">
+    <value>スチームの設定</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>テーマ</value>
+  </data>
+  <data name="Settings_UI" xml:space="preserve">
+    <value>インターフェイスの設定</value>
+  </data>
+  <data name="SMSCode" xml:space="preserve">
+    <value>SMS 検証コード</value>
+  </data>
+  <data name="Steam_ImageCodeTip" xml:space="preserve">
+    <value>図の確認コードを入力します</value>
+  </data>
+  <data name="Steam_Password" xml:space="preserve">
+    <value>スチームパスワード</value>
+  </data>
+  <data name="Steam_User" xml:space="preserve">
+    <value>Steam ユーザー名</value>
+  </data>
+  <data name="UserChange_BtnText" xml:space="preserve">
+    <value>このアカウントで Steam にログインします</value>
+  </data>
+  <data name="UserChange_BtnTootlip" xml:space="preserve">
+    <value>このボタンを押すと、Steam が再起動され、そのアカウントでログインします</value>
+  </data>
+  <data name="UserChange_DeleteUser" xml:space="preserve">
+    <value>このアカウント データを削除します</value>
+  </data>
+  <data name="UserChange_NoUserTip" xml:space="preserve">
+    <value>Pc で Steam アカウントデータが読み取りされません。</value>
+  </data>
+  <data name="UserChange_OfflineBtn" xml:space="preserve">
+    <value>オフライン モードが開始されます</value>
+  </data>
+  <data name="UserFastChange" xml:space="preserve">
+    <value>アカウントの切り替え</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>スタート ページ</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>オン</value>
   </data>
 </root>
