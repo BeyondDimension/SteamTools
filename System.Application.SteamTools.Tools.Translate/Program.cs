@@ -8,7 +8,11 @@ using System.Threading.Tasks;
 namespace System
 {
     /// <summary>
-    /// 自动翻译工具
+    /// Resx自动翻译工具
+    /// <para>扫描缺失的键与对应的语言</para>
+    /// <para>将缺失的值使用翻译API进行翻译后导出Excel</para>
+    /// <para>人工审阅与校对</para>
+    /// <para>从Excel中读取翻译结果自动插入resx文件中</para>
     /// </summary>
     class Program
     {
@@ -26,16 +30,29 @@ namespace System
             services.AddHttpClient();
         }
 
+        public const string CoreLib = @"System.Common.CoreLib\Properties\SR";
+
         static async Task Main(string[] args)
         {
             ReadAzureTranslationKey();
 
             DI.Init(ConfigureServices);
 
-            var r = await Translatecs.TranslateTextAsync(route + to_ + "en", "测试翻译文本");
+            //var r = await Translatecs.TranslateTextAsync(route + to_ + "en", "测试翻译文本");
 
-            //await Handle(@"System.Common.CoreLib\Properties\SR");
+            // 不带后缀的相对路径
+            var resx_path = CoreLib;
 
+            // true 读取翻译后的excel写入resx
+            // false 读取resx机翻后写入excel
+            var isReadOrWrite = true;
+
+            // 读取翻译的excel值 是否覆盖已有的resx值？
+            var isOverwrite = false;
+
+            await Handle(resx_path, isReadOrWrite, isOverwrite);
+
+            Console.WriteLine("OK");
             Console.ReadLine();
         }
 
@@ -55,46 +72,71 @@ namespace System
         }
 
         const string to_ = "&to=";
-        const string route = "/translate?api-version=3.0&from=zh-Hans";
+        const string route = "https://api.translator.azure.cn/translate?api-version=3.0&from=zh-Hans";
 
-        static async Task Handle(string path, bool isReadOrWrite = false)
+        static async Task Handle(string path, bool isReadOrWrite, bool isOverwrite)
         {
             path = Path.Combine(projPath, path);
             if (!path.EndsWith(".resx", StringComparison.OrdinalIgnoreCase)) path += ".resx";
             if (!File.Exists(path)) throw new FileNotFoundException(nameof(path));
 
-            var value = ReadResx(path);
-            var dict = new Dictionary<string, HashSet<string>>();
-
-            foreach (var item in langs)
-            {
-                var itemPath = Path.GetDirectoryName(path) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(path) + $".{item}.resx";
-                if (!File.Exists(itemPath)) continue;
-                var itemValue = ReadResx(itemPath);
-                dict.Add(item, new HashSet<string>(itemValue.Keys));
-            }
-
-            dict = dict.ToDictionary(x => x.Key, v => new HashSet<string>(value.Keys.Except(v.Value)));
-
-            foreach (var item in value)
-            {
-                foreach (var item2 in dict)
-                {
-                    if (item2.Value.Contains(item.Key)) continue;
-                    item2.Value.Add(item.Key);
-                }
-            }
-
-            var fileName = path.Replace(Path.DirectorySeparatorChar, '_');
+            var path_r = Path.GetRelativePath(projPath, path);
+            var fileName = path_r.Replace(Path.DirectorySeparatorChar, '_');
             var excelFilePath = Path.Combine(AppContext.BaseDirectory, fileName + $".xlsx");
 
             // 读取未翻译的键值，使用 translate 翻译后 导出 excel [审阅]后再导入
 
             if (isReadOrWrite)
             {
+                if (!File.Exists(excelFilePath)) throw new FileNotFoundException(nameof(excelFilePath));
+                using var fs = File.OpenRead(excelFilePath);
+                var workbook = new XSSFWorkbook(fs);
+                var sheet = workbook.GetSheet("sheet");
+                int index_row = 0;
+                var headerRow = sheet.GetRow(index_row++);
+                int index_cell = 0;
+                var key_col_index = 0;
+                var dict_langs = new Dictionary<string, int>();
+                while (true)
+                {
+                    var index = index_cell++;
+                    var cell = headerRow.GetCell(index);
+                    if (cell == null) break;
+                    var cellValue = cell.StringCellValue;
+                    if (cellValue == "Key")
+                    {
+                        key_col_index = index;
+                    }
+                    else if (langs.Contains(cellValue))
+                    {
+                        dict_langs.Add(cellValue, index);
+                    }
+                }
             }
             else
             {
+                var value = ReadResx(path);
+                var dict = new Dictionary<string, HashSet<string>>();
+
+                foreach (var item in langs)
+                {
+                    var itemPath = Path.GetDirectoryName(path) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(path) + $".{item}.resx";
+                    if (!File.Exists(itemPath)) continue;
+                    var itemValue = ReadResx(itemPath);
+                    dict.Add(item, new HashSet<string>(itemValue.Keys));
+                }
+
+                dict = dict.ToDictionary(x => x.Key, v => new HashSet<string>(value.Keys.Except(v.Value)));
+
+                foreach (var item in value)
+                {
+                    foreach (var item2 in dict)
+                    {
+                        if (item2.Value.Contains(item.Key)) continue;
+                        item2.Value.Add(item.Key);
+                    }
+                }
+
                 var allKeys = dict.Values.SelectMany(x => x).Distinct().ToArray();
                 if (!allKeys.Any()) return;
                 IOPath.FileIfExistsItDelete(excelFilePath);
@@ -129,25 +171,17 @@ namespace System
 
                     var query = dict.Where(x => x.Value.Contains(itemKey)).Select(x => x.Key);
                     var url = route + to_ + string.Join(to_, query);
-                    var r = await Translatecs.TranslateTextAsync(url, inputText);
-                }
+                    var translationResults = await Translatecs.TranslateTextAsync(url, inputText);
+                    var translationResult = translationResults.FirstOrDefault(x => x != null);
 
-                //foreach (var item in dict)
-                //{
-                //    var excelFilePath = Path.Combine(AppContext.BaseDirectory, fileName + $".{item.Key}.xlsx");
-                //    IOPath.FileIfExistsItDelete(excelFilePath);
-                //    using var fs = File.Create(excelFilePath);
-                //    var workbook = new XSSFWorkbook();
-                //    var sheet = workbook.CreateSheet("sheet");
-                //    var index = 0;
-                //    foreach (var item2 in item.Value)
-                //    {
-                //        var row = sheet.CreateRow(index++);
-                //        var cell = row.CreateCell(0);
-                //        cell.SetCellValue(item2.Value);
-                //    }
-                //    workbook.Write(fs);
-                //}
+                    foreach (var translation in translationResult.Translations)
+                    {
+                        var cell_t_index = dict_langs_cell[translation.To];
+                        cell = row.CreateCell(cell_t_index);
+                        cell.SetCellValue(translation.Text);
+                    }
+                }
+                workbook.Write(fs);
             }
         }
 
@@ -170,7 +204,10 @@ namespace System
                     var value = line.Substring("<value>", "</value>");
                     if (Is_zh_Hans(value))
                     {
-                        dict.Add(lastName, value);
+                        if (lastName != "ProgramUpdateCmd_")
+                        {
+                            dict.Add(lastName, value);
+                        }
                     }
                 }
             } while (line != null);

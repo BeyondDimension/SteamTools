@@ -107,7 +107,7 @@ namespace System
             {
                 // Build the request.
                 Method = HttpMethod.Post,
-                RequestUri = new Uri(endpoint + route),
+                RequestUri = new Uri(/*endpoint +*/ route),
                 Content = new StringContent(requestBody, Encoding.UTF8, "application/json")
             };
             request.Headers.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
