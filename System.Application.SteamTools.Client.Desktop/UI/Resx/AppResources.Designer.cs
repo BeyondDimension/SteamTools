@@ -637,6 +637,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 更多操作 的本地化字符串。
+        /// </summary>
+        public static string More {
+            get {
+                return ResourceManager.GetString("More", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 其它平台 的本地化字符串。
         /// </summary>
         public static string OtherGamePlaform {

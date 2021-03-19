@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Properties;
+using System.Reactive;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -24,47 +25,28 @@ namespace System.Application.UI.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
-        private IList<MenuItemViewModel> _MenuItems = new[]
-    {
-        new MenuItemViewModel
+        public SteamAccountPageViewModel()
         {
-            Header = "_File",
-            Items = new[]
+            LoginAccountCommand = ReactiveCommand.Create(LoginNewSteamAccount);
+            MenuItems = new[]
             {
-                new MenuItemViewModel { Header = "_Open...",IconKey="CloseDrawing" },
-                new MenuItemViewModel { Header = "Save" },
-                new MenuItemViewModel { Header = "-" },
                 new MenuItemViewModel
                 {
-                    Header = "Recent",
+                    Header = AppResources.More,
                     Items = new[]
                     {
-                        new MenuItemViewModel
-                        {
-                            Header = "File1.txt",
-                        },
-                        new MenuItemViewModel
-                        {
-                            Header = "File2.txt",
-                        },
+                        new MenuItemViewModel { Header = "登录新账号",IconKey="SteamDrawing",
+                            Command=LoginAccountCommand },
+                        new MenuItemViewModel { Header = "-" },
+                        new MenuItemViewModel { Header = "编辑" },
                     }
                 },
-            }
-        },
-        new MenuItemViewModel
-        {
-            Header = "_Edit",
-            Items = new[]
-            {
-                new MenuItemViewModel { Header = "_Copy" },
-                new MenuItemViewModel { Header = "_Paste" },
-            }
+            };
         }
-    };
-        public override IList<MenuItemViewModel> MenuItems
-        {
-            get => _MenuItems;
-        }
+
+        public override IList<MenuItemViewModel> MenuItems { get; protected set; }
+
+        public ReactiveCommand<Unit, Unit> LoginAccountCommand { get; }
 
         /// <summary>
         /// steam记住的用户列表
@@ -155,7 +137,7 @@ namespace System.Application.UI.ViewModels
             });
         }
 
-        public void LoginNewSteamAccount() 
+        public void LoginNewSteamAccount()
         {
             var result = MessageBoxCompat.ShowAsync(@AppResources.UserChange_LoginNewAccountTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
             {

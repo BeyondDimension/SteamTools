@@ -309,6 +309,9 @@
   <data name="Logining" xml:space="preserve">
     <value>正在登陆中...</value>
   </data>
+  <data name="More" xml:space="preserve">
+    <value>更多操作</value>
+  </data>
   <data name="OtherGamePlaform" xml:space="preserve">
     <value>其它平台</value>
   </data>
