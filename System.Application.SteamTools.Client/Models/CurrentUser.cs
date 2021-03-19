@@ -10,7 +10,7 @@ namespace System.Application.Models
     /// 当前登录用户模型，如需增加字段，还需要在 <see cref="Clone"/> 中赋值新添加字段
     /// </summary>
     [MPObj]
-    public sealed class CurrentUser : ILoginResponse, IExplicitHasValue, IPhoneNumber
+    public sealed class CurrentUser : IExplicitHasValue, IPhoneNumber
     {
         [MPKey(0)]
         [N_JsonProperty("0")]

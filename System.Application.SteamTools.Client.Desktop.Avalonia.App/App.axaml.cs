@@ -54,6 +54,8 @@ namespace System.Application.UI
             }
             set
             {
+                static AppTheme GetAppThemeByIsLightOrDarkTheme(bool isLightOrDarkTheme) => isLightOrDarkTheme ? AppTheme.Light : AppTheme.Dark;
+
                 if (value == mTheme) return;
                 AppTheme switch_value = value;
 
@@ -63,19 +65,26 @@ namespace System.Application.UI
                     var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
                     if (isLightOrDarkTheme.HasValue)
                     {
-                        switch_value = isLightOrDarkTheme.Value ? AppTheme.Light : AppTheme.Dark;
+                        switch_value = GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
                         dps.SetLightOrDarkThemeFollowingSystem(true);
+                        if (switch_value == mTheme) goto setValue;
                     }
                 }
                 else if (mTheme == AppTheme.FollowingSystem)
                 {
                     var dps = DI.Get<IDesktopPlatformService>();
                     dps.SetLightOrDarkThemeFollowingSystem(false);
+                    var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
+                    if (isLightOrDarkTheme.HasValue)
+                    {
+                        var mThemeFS = GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
+                        if (mThemeFS == switch_value) goto setValue;
+                    }
                 }
 
                 SetThemeNotChangeValue(switch_value);
 
-                mTheme = value;
+            setValue: mTheme = value;
             }
         }
 
@@ -229,6 +238,8 @@ namespace System.Application.UI
 
         void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
         {
+            ActiveUserPost(ActiveUserType.OnStartup);
+
             AppHelper.Initialized?.Invoke();
 
 #if WINDOWS
@@ -335,14 +346,27 @@ namespace System.Application.UI
 
         #endregion
 
-        static async void ActiveUserPost(ActiveUserType type)
+        internal static async void ActiveUserPost(ActiveUserType type)
         {
-            var req = new ActiveUserRecordDTO
+            try
             {
-                Type = type,
-
-            };
-            var rsp = await ICloudServiceClient.Instance.ActiveUser.Post(req);
+                var screens = Instance.MainWindow.Screens;
+                var req = new ActiveUserRecordDTO
+                {
+                    Type = type,
+                    ScreenCount = screens.ScreenCount,
+                    PrimaryScreenPixelDensity = screens.Primary.PixelDensity,
+                    PrimaryScreenWidth = screens.Primary.Bounds.Width,
+                    PrimaryScreenHeight = screens.Primary.Bounds.Height,
+                    SumScreenWidth = screens.All.Sum(x => x.Bounds.Width),
+                    SumScreenHeight = screens.All.Sum(x => x.Bounds.Height),
+                };
+                var rsp = await ICloudServiceClient.Instance.ActiveUser.Post(req);
+            }
+            catch (Exception e)
+            {
+                Log.Error(nameof(App), e, "ActiveUserPost");
+            }
         }
     }
 }

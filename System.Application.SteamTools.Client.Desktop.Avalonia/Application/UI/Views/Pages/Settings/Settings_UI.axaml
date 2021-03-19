@@ -7,35 +7,36 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.Settings_UI">
-    <StackPanel HorizontalAlignment="Stretch" Background="Transparent" Spacing="20">
-        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
-            <StackPanel Orientation="Vertical"
-          HorizontalAlignment="Stretch"
-          Spacing="16">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="{Binding Path=Res.Settings_Language,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 0 0 20" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                    <ComboBox HorizontalAlignment="Stretch"
-                SelectedItem="{Binding SelectLanguage, Mode=TwoWay}"
-                Items="{Binding Mode=OneWay,Source={x:Static resx:R.Languages}}" >
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Value,Mode=OneWay}"></TextBlock>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="{Binding Path=Res.Settings_Theme,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 0 0 20" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                    <ComboBox x:Name="Themes"
-                              SelectedIndex="{Binding Source={x:Static ms:UISettings.Theme},Path=Value, Mode=TwoWay}"
-                              HorizontalAlignment="Stretch">
-                        <ComboBoxItem>Auto</ComboBoxItem>
-                        <ComboBoxItem>Light</ComboBoxItem>
-                        <ComboBoxItem>Dark</ComboBoxItem>
-                    </ComboBox>
-                </StackPanel>
-                <Separator BorderThickness=".88" Background="{DynamicResource SystemControlHighlightBaseLowBrush}"/>
-            </StackPanel>
+  <StackPanel HorizontalAlignment="Stretch" Background="Transparent" Spacing="20">
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
+      <StackPanel Orientation="Vertical"
+    HorizontalAlignment="Stretch"
+    Spacing="16">
+        <StackPanel Orientation="Vertical">
+          <TextBlock Text="{Binding Path=Res.Settings_Language,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 0 0 20" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+          <ComboBox HorizontalAlignment="Stretch"
+      SelectedItem="{Binding SelectLanguage, Mode=TwoWay}"
+      Items="{Binding Mode=OneWay,Source={x:Static resx:R.Languages}}" >
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding Value,Mode=OneWay}"></TextBlock>
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+          <TextBlock Text="{Binding Path=Res.Settings_Theme,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 0 0 20" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+          <ComboBox x:Name="Themes"
+                    SelectedIndex="{Binding Source={x:Static ms:UISettings.Theme},Path=Value, Mode=TwoWay}"
+                    HorizontalAlignment="Stretch">
+            <!--显示文本参考MSEdge-->
+            <ComboBoxItem>System default</ComboBoxItem>
+            <ComboBoxItem>Light</ComboBoxItem>
+            <ComboBoxItem>Dark</ComboBoxItem>
+          </ComboBox>
+        </StackPanel>
+        <Separator BorderThickness=".88" Background="{DynamicResource SystemControlHighlightBaseLowBrush}"/>
+      </StackPanel>
 
         </Grid>
     </StackPanel>

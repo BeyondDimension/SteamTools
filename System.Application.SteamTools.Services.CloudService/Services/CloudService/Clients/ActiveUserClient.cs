@@ -13,7 +13,7 @@ namespace System.Application.Services.CloudService.Clients
 
         public Task<IApiResponse> Post(ActiveUserRecordDTO request)
             => conn.SendAsync(
-                isAnonymous: true,
+                isAnonymous: true, // 仅匿名收集
                 isSecurity: true,
                 method: HttpMethod.Post,
                 requestUri: "api/ActiveUser",
