@@ -727,6 +727,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 Steam设置 的本地化字符串。
+        /// </summary>
+        public static string Settings_Steam {
+            get {
+                return ResourceManager.GetString("Settings_Steam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 主题 的本地化字符串。
         /// </summary>
         public static string Settings_Theme {
@@ -824,6 +833,16 @@ namespace System.Application.UI.Resx {
         public static string UserChange_DeleteUserTip {
             get {
                 return ResourceManager.GetString("UserChange_DeleteUserTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定要登录Steam新账户吗？
+        ///此操作会结束正在运行的Steamt跳转到新账号登录窗口。 的本地化字符串。
+        /// </summary>
+        public static string UserChange_LoginNewAccountTip {
+            get {
+                return ResourceManager.GetString("UserChange_LoginNewAccountTip", resourceCulture);
             }
         }
         

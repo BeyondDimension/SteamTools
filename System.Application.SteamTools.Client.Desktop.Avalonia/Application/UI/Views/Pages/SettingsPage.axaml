@@ -16,8 +16,13 @@
                 </pages:Settings_UI>
             </TabItem>
             <TabItem Header="{Binding Path=Res.Settings_General,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                
+            </TabItem>
+            <TabItem Header="{Binding Path=Res.Settings_Steam,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                
             </TabItem>
             <TabItem Header="{Binding Path=Res.Settings_Auth,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                
             </TabItem>
         </TabControl>
 </UserControl>

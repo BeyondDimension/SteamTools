@@ -112,7 +112,8 @@ namespace System.Application.UI.ViewModels
                 users[i].OriginVdfString = temp.OriginVdfString;
                 users[i].AvatarStream = string.IsNullOrEmpty(users[i].AvatarFull) ? null : await httpService.GetImageAsync(users[i].AvatarFull, ImageChannelType.SteamAvatars);
             }
-            SteamUsers = new ObservableCollection<SteamUser>(users.OrderByDescending(o => o.RememberPassword).ThenByDescending(o => o.LastLoginTime).ToList());
+            SteamUsers = new ObservableCollection<SteamUser>(
+                users.OrderByDescending(o => o.LastLoginTime).ToList());
         }
 
         public void SteamId_Click(SteamUser user)
@@ -144,7 +145,7 @@ namespace System.Application.UI.ViewModels
 
         public void DeleteUserButton_Click(SteamUser user)
         {
-            var result = MessageBoxCompat.ShowAsync(@AppResources.LocalAuth_DeleteAuthTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+            var result = MessageBoxCompat.ShowAsync(@AppResources.UserChange_DeleteUserTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
             {
                 if (s.Result == MessageBoxResultCompat.OK)
                 {
@@ -154,5 +155,17 @@ namespace System.Application.UI.ViewModels
             });
         }
 
+        public void LoginNewSteamAccount() 
+        {
+            var result = MessageBoxCompat.ShowAsync(@AppResources.UserChange_LoginNewAccountTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+            {
+                if (s.Result == MessageBoxResultCompat.OK)
+                {
+                    steamService.SetCurrentUser("");
+                    steamService.TryKillSteamProcess();
+                    steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
+                }
+            });
+        }
     }
 }

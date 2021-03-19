@@ -23,7 +23,7 @@
                 <ItemsRepeater.Layout>
                     <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
                                        MaximumRowsOrColumns="6" />-->
-                    <StackLayout Orientation="Vertical" Spacing="10"></StackLayout>
+                    <StackLayout Orientation="Vertical" Spacing="20"></StackLayout>
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
@@ -73,7 +73,7 @@
                                     </StackPanel>
                                     <Grid Grid.Column="3" RowDefinitions="*,Auto">
                                         <Panel>
-                                            <Button Classes="flatbutton" IsVisible="False" x:Name="delete_btn" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" Margin="221,0,0,121" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding #u.DataContext.DeleteUserButton_Click}" CommandParameter="{Binding}">
+                                            <Button Classes="flatbutton" IsVisible="False" x:Name="delete_btn" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" Margin="216,0,0,121" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding #u.DataContext.DeleteUserButton_Click}" CommandParameter="{Binding}">
                                                 <Image Width="12" Height="14">
                                                     <Image.Source>
                                                         <DrawingImage Drawing="{DynamicResource CloseDrawing}"></DrawingImage>

@@ -100,7 +100,7 @@ namespace System.Application.UI.ViewModels
 
         public void DeleteAuth(MyAuthenticator auth)
         {
-            var result = MessageBoxCompat.ShowAsync(@AppResources.UserChange_DeleteUserTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+            var result = MessageBoxCompat.ShowAsync(@AppResources.LocalAuth_DeleteAuthTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
             {
                 if (s.Result == MessageBoxResultCompat.OK)
                 {

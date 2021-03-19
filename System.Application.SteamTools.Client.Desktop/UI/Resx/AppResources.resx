@@ -339,6 +339,9 @@
   <data name="Settings_Language" xml:space="preserve">
     <value>语言</value>
   </data>
+  <data name="Settings_Steam" xml:space="preserve">
+    <value>Steam设置</value>
+  </data>
   <data name="Settings_Theme" xml:space="preserve">
     <value>主题</value>
   </data>
@@ -373,6 +376,10 @@
   <data name="UserChange_DeleteUserTip" xml:space="preserve">
     <value>确定要删除这条本地记录帐户数据吗？
 这将会删除此账户在本地的Steam缓存数据。</value>
+  </data>
+  <data name="UserChange_LoginNewAccountTip" xml:space="preserve">
+    <value>确定要登录Steam新账户吗？
+此操作会结束正在运行的Steamt跳转到新账号登录窗口。</value>
   </data>
   <data name="UserChange_NoUserTip" xml:space="preserve">
     <value>没有在您的电脑上读取到任何Steam帐户数据。</value>

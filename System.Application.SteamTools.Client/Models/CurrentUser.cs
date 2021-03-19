@@ -27,6 +27,8 @@ namespace System.Application.Models
         [S_JsonProperty("2")]
         public string? PhoneNumber { get; set; }
 
+        public UserInfoDTO User { get; }
+
         bool IExplicitHasValue.ExplicitHasValue()
         {
             if (!AuthToken.HasValue()) return false;
