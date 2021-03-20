@@ -26,6 +26,7 @@ namespace System.Application.Converters
                 {
                     return new Bitmap(rawUri);
                 }
+                //在列表中使用此方法性能极差
                 else if (rawUri.StartsWith("http://") || rawUri.StartsWith("https://")) 
                 {
                     using var web = new WebClient();

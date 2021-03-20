@@ -27,6 +27,7 @@ namespace System.Application.UI.ViewModels
 
         public SteamAccountPageViewModel()
         {
+            this.WhenAnyValue(x => x.SteamUsers).Subscribe(s=> this.RaisePropertyChanged(nameof(IsUserEmpty)));
             LoginAccountCommand = ReactiveCommand.Create(LoginNewSteamAccount);
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {

@@ -196,6 +196,7 @@ namespace WinAuth
             public bool Offline { get; set; }
             public bool IsNew { get; set; }
             public string? Image { get; set; }
+            public Stream? ImageStream { get; set; }
             public string? Details { get; set; }
             public string? Traded { get; set; }
             public string? When { get; set; }
@@ -967,7 +968,7 @@ namespace WinAuth
                     {
                         trade.Offline = true;
                     }
-                    trade.Image = innerMatch.Groups[2].Value;
+                    trade.Image = innerMatch.Groups[2].Value.Replace("32fx32f", "128fx128f");
                 }
 
                 innerMatch = _tradeDetailsRegex.Match(traded);

@@ -32,6 +32,7 @@ namespace System.Application.Services
                 if (this._Authenticators != value)
                 {
                     this._Authenticators = value;
+                    this.RaisePropertyChanged(nameof(IsAuthenticatorsEmpty));
                     this.RaisePropertyChanged();
                 }
             }
@@ -468,6 +469,10 @@ namespace System.Application.Services
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
             repository.InsertOrUpdateAsync(auth.AuthenticatorData, true);
+            if (Current.Authenticators.Count(s => s.Id == auth.Id) > 0)
+            {
+                return;
+            }
             MainThreadDesktop.InvokeOnMainThreadAsync(() => Current.Authenticators.Add(auth));
         }
 

@@ -367,11 +367,56 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 取消交易 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_Cancel {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 取消所有交易 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_CancelAll {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_CancelAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确认交易 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_Confirm {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确认所有交易 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_ConfirmAll {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_ConfirmAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0}条交易待处理 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_ListCountTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_ListCountTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 当前没有任何需要处理的交易报价 的本地化字符串。
         /// </summary>
-        public static string LocalAuth_AuthTradeListNullTip {
+        public static string LocalAuth_AuthTrade_ListNullTip {
             get {
-                return ResourceManager.GetString("LocalAuth_AuthTradeListNullTip", resourceCulture);
+                return ResourceManager.GetString("LocalAuth_AuthTrade_ListNullTip", resourceCulture);
             }
         }
         

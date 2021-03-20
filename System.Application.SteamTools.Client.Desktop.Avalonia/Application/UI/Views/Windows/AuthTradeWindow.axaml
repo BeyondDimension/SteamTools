@@ -3,7 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        Width="600" Height="450" x:Name="u"
+        Width="800" Height="600" x:Name="u"
         x:Class="System.Application.UI.Views.Windows.AuthTradeWindow"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
@@ -49,24 +49,34 @@
 
         <Panel HorizontalAlignment="Stretch" IsVisible="{Binding IsLoggedIn}">
             <TextBlock IsVisible="{Binding IsConfirmationsEmpty}"
-                       Text="{Binding Path=Res.LocalAuth_AuthTradeListNullTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                       Text="{Binding Path=Res.LocalAuth_AuthTrade_ListNullTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
                        TextWrapping="WrapWithOverflow"
                        VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-            <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0 35 0 0" Padding="0">
-                <ItemsControl Items="{Binding Confirmations}">
-                    <!--<ItemsRepeater.Layout>
-                        --><!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
-                                       MaximumRowsOrColumns="6" />--><!--
+            <DockPanel>
+                
+            <Grid DockPanel.Dock="Top" RowDefinitions="Auto,*" ColumnDefinitions="*,Auto" Margin="20 35 20 10">
+                <StackPanel Spacing="20" Orientation="Horizontal">
+                    <Button Content="{Binding Path=Res.LocalAuth_AuthTrade_ConfirmAll,Mode=OneWay,Source={x:Static resx:R.Current}}"></Button>
+                    <Button Content="{Binding Path=Res.LocalAuth_AuthTrade_CancelAll,Mode=OneWay,Source={x:Static resx:R.Current}}"></Button>
+                </StackPanel>
+
+                <TextBlock Grid.Column="1" Text="{Binding ConfirmationsConutMessage}" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"></TextBlock>
+            </Grid>
+            <ScrollViewer DockPanel.Dock="Bottom" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"  Padding="0 0 0 10">
+                <ItemsRepeater Items="{Binding Confirmations}">
+                    <ItemsRepeater.Layout>
+                        <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
+                                       MaximumRowsOrColumns="6" />-->
                         <StackLayout Orientation="Vertical" Spacing="20"></StackLayout>
-                    </ItemsRepeater.Layout>-->
-                    <ItemsControl.ItemTemplate>
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.ItemTemplate>
                         <DataTemplate>
-                            <Panel x:Name="panel" Margin="10" MinWidth="100">
-                                <Border x:Name="card" DockPanel.Dock="Top" Classes="paper" CornerRadius="0" Background="{DynamicResource ThemeBrushKey}">
+                            <Panel x:Name="panel" MinWidth="100" Margin="20 0">
+                                <Border x:Name="card" Classes="paper" CornerRadius="0" Background="{DynamicResource ThemeBrushKey}">
                                     <Grid Width="{Binding #panel.Width}"
                                           ColumnDefinitions="Auto,Auto,*,Auto">
                                         <Panel>
-                                            <Image Width="36" Margin="10 0" Stretch="Uniform" Source="{Binding Image,Converter={StaticResource BitmapAssetValueConverter}}"/>
+                                            <Image Width="128" Height="128" Margin="10 0" Stretch="Uniform" Source="{Binding ImageStream,Converter={StaticResource BitmapAssetValueConverter}}"/>
                                         </Panel>
                                         <Panel Grid.Column="1" Margin="10,5">
                                             <StackPanel>
@@ -80,11 +90,11 @@
                                         </Panel>
                                         <Grid Grid.Column="3" RowDefinitions="*,Auto">
                                             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 0 0 0">
-                                                <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{Binding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                                                    <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Background="{DynamicResource ThemeBrushKey}" Command="{Binding #u.DataContext.ConfirmTrade_Click}" CommandParameter="{Binding}"></Button>
+                                                <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{Binding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                                                    <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" FontSize="14" Background="{DynamicResource ThemeBrushKey}" Command="{Binding #u.DataContext.ConfirmTrade_Click}" CommandParameter="{Binding}"></Button>
                                                 </Border>
-                                                <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness="0 .66 0 0" ToolTip.Tip="{Binding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                                                    <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Stretch" Command="{Binding #u.DataContext.CancelTrade_Click}" CommandParameter="{Binding}"></Button>
+                                                <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness="0 .66 0 0" ToolTip.Tip="{Binding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                                                    <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Stretch" FontSize="14" Command="{Binding #u.DataContext.CancelTrade_Click}" CommandParameter="{Binding}"></Button>
                                                 </Border>
                                             </StackPanel>
                                         </Grid>
@@ -92,9 +102,13 @@
                                 </Border>
                             </Panel>
                         </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
             </ScrollViewer>
+            </DockPanel>
         </Panel>
+
+        <!--Toast-->
+        <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
     </Panel>
 </Window>

@@ -219,7 +219,22 @@
   <data name="LocalAuth_AuthName" xml:space="preserve">
     <value>令牌自定义名称</value>
   </data>
-  <data name="LocalAuth_AuthTradeListNullTip" xml:space="preserve">
+  <data name="LocalAuth_AuthTrade_Cancel" xml:space="preserve">
+    <value>取消交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_CancelAll" xml:space="preserve">
+    <value>取消所有交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_Confirm" xml:space="preserve">
+    <value>确认交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ConfirmAll" xml:space="preserve">
+    <value>确认所有交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ListCountTip" xml:space="preserve">
+    <value>{0}条交易待处理</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ListNullTip" xml:space="preserve">
     <value>当前没有任何需要处理的交易报价</value>
   </data>
   <data name="LocalAuth_CopyAuthTip" xml:space="preserve">

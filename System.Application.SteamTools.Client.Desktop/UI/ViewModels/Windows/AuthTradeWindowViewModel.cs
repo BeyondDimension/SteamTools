@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Properties;
 using System.Threading;
 using System.Threading.Tasks;
@@ -74,8 +75,8 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        private Stream? _CodeImage;
-        public Stream? CodeImage
+        private string? _CodeImage;
+        public string? CodeImage
         {
             get => this._CodeImage;
             set
@@ -142,6 +143,9 @@ namespace System.Application.UI.ViewModels
                 if (this._Confirmations != value)
                 {
                     this._Confirmations = value;
+
+                    this.RaisePropertyChanged(nameof(IsConfirmationsEmpty));
+                    this.RaisePropertyChanged(nameof(ConfirmationsConutMessage));
                     this.RaisePropertyChanged();
                 }
             }
@@ -150,6 +154,18 @@ namespace System.Application.UI.ViewModels
         public bool IsConfirmationsEmpty
         {
             get => this.Confirmations.Any_Nullable();
+        }
+
+        public string ConfirmationsConutMessage
+        {
+            get
+            {
+                if (!this.Confirmations.Any_Nullable())
+                {
+                    return "";
+                }
+                return string.Format(AppResources.LocalAuth_AuthTrade_ListCountTip, this.Confirmations.Count);
+            }
         }
 
         public void LoginButton_Click()
@@ -194,11 +210,12 @@ namespace System.Application.UI.ViewModels
 
         private void Process(string? captchaId = null, string? codeChar = null)
         {
-            Task.Run(async () =>
+            Task.Run(() =>
             {
                 var steam = _Authenticator.GetClient();
                 if (!steam.IsLoggedIn())
                 {
+                    ToastService.Current.Notify(AppResources.Logining);
                     if (steam.Login(UserName, Password, captchaId, codeChar, R.GetCurrentCultureSteamLanguageName()) == false)
                     {
                         if (steam.Error == "Incorrect Login")
@@ -217,7 +234,7 @@ namespace System.Application.UI.ViewModels
                         {
                             IsRequiresCaptcha = steam.RequiresCaptcha;
                             //this.Dialog("请输入图片验证码");
-                            CodeImage = await DI.Get<IHttpService>().GetImageAsync(steam.CaptchaUrl);
+                            CodeImage = steam.CaptchaUrl;
                             return;
                         }
                         //loginButton.Enabled = true;
@@ -231,13 +248,25 @@ namespace System.Application.UI.ViewModels
 
                         return;
                     }
+                    ToastService.Current.Notify("登录成功");
                     IsLoggedIn = true;
                     _Authenticator.SessionData = RememberMe ? steam.Session.ToString() : null;
                     AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
                 }
                 try
                 {
-                    Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(steam.GetConfirmations());
+                    ToastService.Current.Notify("正在获取最新的交易报价信息...");
+
+                    var confirmations = steam.GetConfirmations();
+                    foreach (var item in confirmations)
+                    {
+                        using var web = new WebClient();
+                        var bt = web.DownloadData(item.Image);
+                        item.ImageStream = new MemoryStream(bt);
+                    }
+                    Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(confirmations);
+
+
 
                     // 获取新交易后保存
                     if (!string.IsNullOrEmpty(_Authenticator.SessionData))
@@ -259,10 +288,12 @@ namespace System.Application.UI.ViewModels
                         steam.Refresh();
                         Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(steam.GetConfirmations());
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         // reset and show normal login
-                        steam.Clear();
+                        Log.Error(nameof(Process), ex, "可能是没有开加速器导致无法连接Steam社区登录地址");
+                        ToastService.Current.Notify("获取Steam令牌交易数据失败，请确认是否正常加速了Steam社区地址。");
+                        //steam.Clear();
                         return;
                     }
                 }
