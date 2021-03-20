@@ -61,6 +61,10 @@ namespace System.Application.UI
             // 桌面平台服务 此项放在其他通用业务实现服务之前
             services.AddDesktopPlatformService();
 
+            // Http平台助手桌面端实现
+            services.AddDesktopHttpPlatformHelper();
+
+            // 类似 Android Toast 的桌面端实现
             services.TryAddToast();
 
             // 模型验证框架

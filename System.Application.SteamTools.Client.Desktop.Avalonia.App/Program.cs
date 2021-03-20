@@ -106,7 +106,6 @@ namespace System.Application.UI
                })
                .With(new Win32PlatformOptions
                {
-                   // 已知问题：[x86] or [x64] 透明模糊疑似亚克力效果会丢失，仅 [Any CPU] 下正常
                    AllowEglInitialization = true,
                })
                .LogToTrace()

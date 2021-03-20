@@ -18,4 +18,19 @@
   <ItemGroup>
     <ProjectReference Include="..\System.Common.CoreLib\System.Common.CoreLib.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\SR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SR.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\SR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

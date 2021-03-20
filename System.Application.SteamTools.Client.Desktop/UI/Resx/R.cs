@@ -98,6 +98,22 @@ namespace System.Application.UI.Resx
         static string GetAcceptLanguageCore()
         {
             var culture = AppResources.Culture ?? DefaultCurrentUICulture;
+            return GetAcceptLanguage(culture);
+        }
+
+        static string? mAcceptLanguage;
+
+        public static string GetAcceptLanguage()
+        {
+            if (mAcceptLanguage == null)
+            {
+                mAcceptLanguage = GetAcceptLanguageCore();
+            }
+            return mAcceptLanguage;
+        }
+
+        public static string GetAcceptLanguage(CultureInfo culture)
+        {
             if (IsMatch(culture, "zh-Hans"))
             {
                 return "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7";
@@ -122,17 +138,6 @@ namespace System.Application.UI.Resx
             {
                 return "en-US;q=0.9,en;q=0.8";
             }
-        }
-
-        static string? mAcceptLanguage;
-
-        public static string GetAcceptLanguage()
-        {
-            if (mAcceptLanguage == null)
-            {
-                mAcceptLanguage = GetAcceptLanguageCore();
-            }
-            return mAcceptLanguage;
         }
     }
 }

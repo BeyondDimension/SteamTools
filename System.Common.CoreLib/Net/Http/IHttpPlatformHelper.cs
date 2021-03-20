@@ -17,7 +17,10 @@ namespace System.Net.Http
 
         string AcceptImages { get; }
 
+        string AcceptLanguage { get; }
+
         ImageFormat[] SupportedImageFormats { get; }
+
         /// <summary>
         /// 尝试将需要上传的文件流[处理]后保存到临时路径中并返回信息
         /// <para>[处理]由客户端平台原生实现</para>

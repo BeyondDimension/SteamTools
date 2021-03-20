@@ -25,6 +25,7 @@
 
 using System.Application.Columns;
 using System.Application.Models;
+using System.Application.Properties;
 using static System.Application.Services.Implementation.ModelValidator;
 
 namespace System.Application
@@ -142,47 +143,43 @@ namespace System.Application
 
         public static class Constants
         {
-            public const string 内容值不能为空或不正确 = "内容值不能为空或不正确";
+            public static string 内容值不能为空或不正确 => SR.内容值不能为空或不正确;
 
-            public const string 请输入手机号码哦 = "请输入手机号码哦";
+            public static string 请输入手机号码哦 => SR.请输入手机号码哦;
 
-            public const string 请输入正确的手机号码哦 = "请输入正确的手机号码哦";
+            public static string 请输入正确的手机号码哦 => SR.请输入正确的手机号码哦;
 
-            public const string 请输入短信验证码哦 = "请输入短信验证码哦";
+            public static string 请输入短信验证码哦 => SR.请输入短信验证码哦;
 
-            public const string 短信验证码不正确 = "短信验证码不正确";
+            public static string 短信验证码不正确 => SR.短信验证码不正确;
 
-            //public const string 请输入年龄 = "请选择年龄";
+            public static string 请选择头像 => SR.请选择头像;
 
-            //public const string 请选择性别 = "请选择性别";
+            public static string 请输入昵称 => SR.请输入昵称;
 
-            public const string 请选择头像 = "请选择头像";
+            public static string 昵称最大长度不能超过_ => SR.昵称最大长度不能超过_;
 
-            public const string 请输入昵称 = "请输入昵称";
+            public static string 请输入邀请码哦 => SR.请输入邀请码哦;
 
-            public const string 昵称最大长度不能超过_ = "昵称最大长度不能超过{0}个字";
+            public static string 请输入正确的邀请码哦 => SR.请输入正确的邀请码哦;
 
-            public const string 请输入邀请码哦 = "请输入邀请码哦";
+            public static string 手机号码已存在_注册 => SR.手机号码已存在_注册;
 
-            public const string 请输入正确的邀请码哦 = "请输入正确的邀请码哦";
+            public static string 手机号码已存在_换绑手机 => SR.手机号码已存在_换绑手机;
 
-            public const string 手机号码已存在_注册 = "这个手机号已经被注册了哦";
+            public static string 手机号码已存在 => SR.手机号码已存在;
 
-            public const string 手机号码已存在_换绑手机 = "这个手机号已经被绑定了哦";
+            public static string 用户不存在 => SR.用户不存在;
 
-            public const string 手机号码已存在 = "这个手机号已经被使用了哦";
+            public static string 当前手机号发送短信过于频繁 => SR.当前手机号发送短信过于频繁;
 
-            public const string 用户不存在 = "用户不存在";
+            public static string 当前手机号今日发送短信数量超过最大上限 => SR.当前手机号今日发送短信数量超过最大上限;
 
-            public const string 当前手机号发送短信过于频繁 = "操作有点频繁哦，1分钟以后再试试吧";
+            public static string 短信服务故障 => SR.短信服务故障;
 
-            public const string 当前手机号今日发送短信数量超过最大上限 = "验证码获取次数达到今日上限了哦，明天再试试吧";
+            public static string 验证码已过期或不存在 => SR.验证码已过期或不存在;
 
-            public const string 短信服务故障 = "服务器错误【5001】";
-
-            public const string 验证码已过期或不存在 = "验证码已过期或不存在";
-
-            public const string 验证码不正确 = "验证码不正确";
+            public static string 验证码不正确 => SR.验证码不正确;
         }
 
         public static class Lengths

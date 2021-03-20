@@ -1,5 +1,7 @@
 ﻿using Avalonia.Threading;
 using CefNet;
+using System.Application.UI.Resx;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Properties;
@@ -116,6 +118,7 @@ navigator.__proto__ = newProto;
             var settings = new CefSettings
             {
                 Locale = "zh-CN",
+                AcceptLanguageList = R.GetAcceptLanguage(CultureInfo.CurrentUICulture),
                 MultiThreadedMessageLoop = !externalMessagePump,
                 ExternalMessagePump = externalMessagePump,
                 WindowlessRenderingEnabled = true,

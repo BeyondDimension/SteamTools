@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Application.UI;
+using System.Net.Http;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -99,5 +100,15 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
+        /// <summary>
+        /// 添加适用于桌面端的 <see cref="IHttpPlatformHelper"/>
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddDesktopHttpPlatformHelper(this IServiceCollection services)
+        {
+            services.AddSingleton<IHttpPlatformHelper, DesktopHttpPlatformHelper>();
+            return services;
+        }
     }
 }

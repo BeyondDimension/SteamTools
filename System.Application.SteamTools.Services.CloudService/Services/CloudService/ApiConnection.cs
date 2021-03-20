@@ -433,6 +433,8 @@ namespace System.Application.Services.CloudService
         {
             var client = conn_helper.CreateClient();
 
+            HandleHttpRequest(request);
+
             var response = await client.SendAsync(request,
                 completionOption,
                 cancellationToken).ConfigureAwait(false);
@@ -440,6 +442,11 @@ namespace System.Application.Services.CloudService
             HandleAppObsolete(response.Headers);
 
             return response;
+        }
+
+        void HandleHttpRequest(HttpRequestMessage request)
+        {
+            request.Headers.AcceptLanguage.ParseAdd(http_helper.AcceptLanguage);
         }
 
         async Task<IApiResponse<TResponseModel>> SendCoreAsync<TRequestModel, TResponseModel>(
@@ -531,6 +538,8 @@ namespace System.Application.Services.CloudService
                 }
 
                 var client = conn_helper.CreateClient();
+
+                HandleHttpRequest(request);
 
                 using var response = await client.SendAsync(request,
                     HttpCompletionOption.ResponseHeadersRead,
@@ -664,6 +673,8 @@ namespace System.Application.Services.CloudService
                 }
 
                 var client = conn_helper.CreateClient();
+
+                HandleHttpRequest(request);
 
                 using var response = await client.SendAsync(request,
                     HttpCompletionOption.ResponseHeadersRead,
