@@ -44,36 +44,36 @@
                                           IsVisible="{Binding AvatarStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>
                                         <Image Width="{Binding #panel.Width}" Stretch="Uniform" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg" IsVisible="{Binding !#avatar.IsVisible}}" />
                                     </Panel>
-                                    <StackPanel Grid.Column="1" Margin="10,5">
-                                        <DockPanel LastChildFill="True">
-                                            <Ellipse VerticalAlignment="Center"
-                                       HorizontalAlignment="Center" x:Name="circle" Margin="5,0,12,0" Height="10" Width="10" StrokeThickness="0" ToolTip.Tip="{Binding OnlineState}">
-                                                <i:Interaction.Behaviors>
-                                                    <ia:DataTriggerBehavior Binding="{Binding OnlineState}" ComparisonCondition="Equal" Value="online">
-                                                        <ia:ChangePropertyAction TargetObject="{Binding #circle}" PropertyName="Fill" Value="#08D969"/>
-                                                    </ia:DataTriggerBehavior>
-                                                    <ia:DataTriggerBehavior Binding="{Binding OnlineState}" ComparisonCondition="Equal" Value="offline">
-                                                        <ia:ChangePropertyAction TargetObject="{Binding #circle}" PropertyName="Fill" Value="#adadad"/>
-                                                    </ia:DataTriggerBehavior>
-                                                </i:Interaction.Behaviors>
-                                            </Ellipse>
-                                            <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding SteamNickName}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand"></controls:ScrollingTextBlock>
-                                        </DockPanel>
+                                    <Panel Grid.Column="1" Margin="10,5">
+                                        <StackPanel>
+                                            <DockPanel LastChildFill="True">
+                                                <Ellipse VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" x:Name="circle" Margin="5,0,12,0" Height="10" Width="10" StrokeThickness="0" ToolTip.Tip="{Binding OnlineState}">
+                                                    <i:Interaction.Behaviors>
+                                                        <ia:DataTriggerBehavior Binding="{Binding OnlineState}" ComparisonCondition="Equal" Value="online">
+                                                            <ia:ChangePropertyAction TargetObject="{Binding #circle}" PropertyName="Fill" Value="#08D969"/>
+                                                        </ia:DataTriggerBehavior>
+                                                        <ia:DataTriggerBehavior Binding="{Binding OnlineState}" ComparisonCondition="Equal" Value="offline">
+                                                            <ia:ChangePropertyAction TargetObject="{Binding #circle}" PropertyName="Fill" Value="#adadad"/>
+                                                        </ia:DataTriggerBehavior>
+                                                    </i:Interaction.Behaviors>
+                                                </Ellipse>
+                                                <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding SteamNickName}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand"></controls:ScrollingTextBlock>
+                                            </DockPanel>
 
-
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding AccountName}" FontSize="16" Foreground="#A1A1A1"/>
-                                            <TextBlock Text="(" FontSize="16" Foreground="#A1A1A1"/>
-                                            <TextBox Text="{Binding SteamId64,Mode=OneWay}" FontSize="14" Classes="readonlybox" Padding="0" Foreground="#A1A1A1"></TextBox>
-                                            <TextBlock Text=")" FontSize="16" Foreground="#A1A1A1"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding AccountName}" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                                                <TextBlock Text="(" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                                                <TextBox Text="{Binding SteamId64,Mode=OneWay}" FontSize="14" Classes="readonlybox" Padding="0" Foreground="{DynamicResource InactiveForegroundBrushKey}"></TextBox>
+                                                <TextBlock Text=")" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                                            </StackPanel>
                                         </StackPanel>
 
-                                        <Separator Height="95" />
-                                        <TextBlock Text="{Binding LastLoginTime,Converter={StaticResource DateFormatConverter},ConverterParameter='yyyy-MM-dd HH:mm:ss'}" FontSize="14" Foreground="#A1A1A1"/>
-                                    </StackPanel>
+                                        <TextBlock Text="{Binding LastLoginTime,Converter={StaticResource DateFormatConverter},ConverterParameter='yyyy-MM-dd HH:mm:ss'}" FontSize="14" VerticalAlignment="Bottom" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                                    </Panel>
                                     <Grid Grid.Column="3" RowDefinitions="*,Auto">
                                         <Panel>
-                                            <Button Classes="flatbutton" IsVisible="False" x:Name="delete_btn" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" Margin="216,0,0,121" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding #u.DataContext.DeleteUserButton_Click}" CommandParameter="{Binding}">
+                                            <Button Classes="flatbutton" IsVisible="False" x:Name="delete_btn" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" HorizontalAlignment="Right" Margin="0,0,0,121" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding #u.DataContext.DeleteUserButton_Click}" CommandParameter="{Binding}">
                                                 <Image Width="12" Height="14">
                                                     <Image.Source>
                                                         <DrawingImage Drawing="{DynamicResource CloseDrawing}"></DrawingImage>
@@ -82,7 +82,7 @@
                                             </Button>
 
                                         </Panel>
-                                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 0 0 3">
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 0 0 0">
                                             <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{Binding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                                 <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Background="{DynamicResource ThemeBrushKey}" Command="{Binding #u.DataContext.OfflineModeButton_Click}" CommandParameter="{Binding}"></Button>
                                             </Border>

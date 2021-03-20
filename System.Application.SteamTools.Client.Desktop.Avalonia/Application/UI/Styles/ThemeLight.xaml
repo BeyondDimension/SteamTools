@@ -59,7 +59,7 @@
 
         <Color x:Key="InactiveForegroundColorKey">#FF808080</Color>
         <SolidColorBrush x:Key="InactiveForegroundBrushKey"
-                         Color="#FF808080" />
+                         Color="#FF666666" />
 
 
 

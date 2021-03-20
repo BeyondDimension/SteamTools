@@ -23,5 +23,8 @@ namespace System.Application.UI.ViewModels
         public string SteamData => _Authenticator.SteamData;
 
         public string DeviceId => _Authenticator.DeviceId;
+
+
+
     }
 }

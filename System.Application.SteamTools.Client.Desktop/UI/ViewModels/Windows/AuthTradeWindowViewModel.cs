@@ -1,37 +1,31 @@
-﻿using Microsoft.Win32;
-using SteamTools.Models;
-using SteamTools.Models.Settings;
-using SteamTools.Properties;
-using SteamTools.Services;
-using System;
+﻿using Newtonsoft.Json.Linq;
+using ReactiveUI;
+using System.Application.Models;
+using System.Application.Services;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using SteamTool.Core.Common;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-using WinAuth;
-using System.Net;
-using SteamTools.Win32;
-using SteamTool.Model;
-using System.Drawing;
+using System.Properties;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using WinAuth;
 
-namespace SteamTools.ViewModels
+namespace System.Application.UI.ViewModels
 {
-    public class AuthTradeWindowViewModel : MainWindowViewModelBase
+    public class AuthTradeWindowViewModel : WindowViewModel
     {
-        private readonly WinAuthAuthenticator _Authenticator;
-        private SteamAuthenticator _AuthenticatorData => _Authenticator.AuthenticatorData as SteamAuthenticator;
-
-        public AuthTradeWindowViewModel(WinAuthAuthenticator auth)
+        private MyAuthenticator MyAuthenticator;
+        private GAPAuthenticatorValueDTO.SteamAuthenticator? _Authenticator => MyAuthenticator.AuthenticatorData.Value as GAPAuthenticatorValueDTO.SteamAuthenticator;
+        public AuthTradeWindowViewModel()
         {
-            _Authenticator = auth;
-            this.Title = ProductInfo.Title + " | " + Resources.Auth_TradeTitle;
+        }
 
-            Refresh_Click();
+        public AuthTradeWindowViewModel(MyAuthenticator auth)
+        {
+            MyAuthenticator = auth;
+            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_SteamAuthTrade;
         }
 
         #region LoginData
@@ -108,7 +102,7 @@ namespace SteamTools.ViewModels
 
         public bool IsLoggedIn
         {
-            get => this._AuthenticatorData.GetClient().IsLoggedIn();
+            get => this._Authenticator.GetClient().IsLoggedIn();
             set
             {
                 this.RaisePropertyChanged();
@@ -116,7 +110,7 @@ namespace SteamTools.ViewModels
         }
         public bool IsRequiresCaptcha
         {
-            get => this._AuthenticatorData.GetClient().RequiresCaptcha;
+            get => this._Authenticator.GetClient().RequiresCaptcha;
             set
             {
                 this.RaisePropertyChanged();
@@ -136,8 +130,8 @@ namespace SteamTools.ViewModels
         /// <summary>
         /// Trade info state
         /// </summary>
-        private BindingList<SteamClient.Confirmation> _Confirmations;
-        public BindingList<SteamClient.Confirmation> Confirmations
+        private IList<WinAuthSteamClient.Confirmation> _Confirmations;
+        public IList<WinAuthSteamClient.Confirmation> Confirmations
         {
             get => this._Confirmations;
             set
@@ -158,7 +152,7 @@ namespace SteamTools.ViewModels
             }
             else
             {
-                this.Dialog("请输入您的账号和密码");
+                ToastService.Current.Notify("请输入您的账号和密码");
                 return;
             }
 
@@ -168,12 +162,12 @@ namespace SteamTools.ViewModels
         {
             if (CodeImageChar?.Trim().Length > 0)
             {
-                Process(_AuthenticatorData.GetClient().CaptchaId, CodeImageChar);
+                Process(_Authenticator.GetClient().CaptchaId, CodeImageChar);
                 return;
             }
             else
             {
-                this.Dialog("请输入正确的令牌");
+                ToastService.Current.Notify("请输入正确的令牌");
                 return;
             }
 
@@ -188,14 +182,14 @@ namespace SteamTools.ViewModels
         }
         public void Logout_Click()
         {
-            var steam = this._AuthenticatorData.GetClient();
+            var steam = this._Authenticator.GetClient();
             steam.Logout();
 
-            if (String.IsNullOrEmpty(_AuthenticatorData.SessionData) == false)
+            if (String.IsNullOrEmpty(_Authenticator.SessionData) == false)
             {
                 IsLoggedIn = false;
-                _AuthenticatorData.SessionData = null;
-                AuthService.Current.SaveCurrentAuth();
+                _Authenticator.SessionData = null;
+                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
             }
         }
 
@@ -203,27 +197,27 @@ namespace SteamTools.ViewModels
         {
             Task.Run(() =>
             {
-                var steam = _AuthenticatorData.GetClient();
+                var steam = _Authenticator.GetClient();
                 if (!steam.IsLoggedIn())
                 {
-                    if (steam.Login(UserName, Password, captchaId, codeChar, ResourceService.Current.GetCurrentCultureSteamLanguageName()) == false)
+                    if (steam.Login(UserName, Password, captchaId, codeChar, R.GetCurrentCultureSteamLanguageName()) == false)
                     {
                         if (steam.Error == "Incorrect Login")
                         {
-                            this.Dialog("账号或密码错误");
+                            //this.Dialog("账号或密码错误");
                             return;
                         }
 
                         if (steam.Requires2FA == true)
                         {
-                            this.Dialog("无效令牌：您确定登录的是您当前令牌的账号？");
+                            //this.Dialog("无效令牌：您确定登录的是您当前令牌的账号？");
                             return;
                         }
 
                         if (steam.RequiresCaptcha == true)
                         {
                             IsRequiresCaptcha = steam.RequiresCaptcha;
-                            this.Dialog("请输入图片验证码");
+                            //this.Dialog("请输入图片验证码");
                             CodeImage = steam.CaptchaUrl;
                             return;
                         }
@@ -232,39 +226,39 @@ namespace SteamTools.ViewModels
 
                         if (string.IsNullOrEmpty(steam.Error) == false)
                         {
-                            this.Dialog(steam.Error);
+                            //this.Dialog(steam.Error);
                             return;
                         }
 
                         return;
                     }
                     IsLoggedIn = true;
-                    _AuthenticatorData.SessionData = RememberMe ? steam.Session.ToString() : null;
-                    AuthService.Current.SaveCurrentAuth();
+                    _Authenticator.SessionData = RememberMe ? steam.Session.ToString() : null;
+                    AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
                 }
                 try
                 {
-                    Confirmations = new BindingList<SteamClient.Confirmation>(steam.GetConfirmations());
+                    Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(steam.GetConfirmations());
 
                     // 获取新交易后保存
-                    if (!string.IsNullOrEmpty(_AuthenticatorData.SessionData))
+                    if (!string.IsNullOrEmpty(_Authenticator.SessionData))
                     {
-                        AuthService.Current.SaveCurrentAuth();
+                        AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
                     }
                 }
-                catch (SteamClient.UnauthorisedSteamRequestException)
+                catch (WinAuthUnauthorisedSteamRequestException)
                 {
                     // Family view is probably on
-                    this.Dialog("You are not allowed to view confirmations. Have you enabled 'community-generated content' in Family View?");
+                    ToastService.Current.Notify("You are not allowed to view confirmations. Have you enabled 'community-generated content' in Family View?");
                     return;
                 }
-                catch (SteamClient.InvalidSteamRequestException)
+                catch (WinAuthInvalidSteamRequestException)
                 {
                     // likely a bad session so try a refresh first
                     try
                     {
                         steam.Refresh();
-                        Confirmations = new BindingList<SteamClient.Confirmation>(steam.GetConfirmations());
+                        Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(steam.GetConfirmations());
                     }
                     catch (Exception)
                     {
@@ -273,20 +267,19 @@ namespace SteamTools.ViewModels
                         return;
                     }
                 }
-            }).ContinueWith(s => { Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message); }, TaskContinuationOptions.OnlyOnFaulted);
+            }).ForgetAndDispose();
         }
 
-        public void ConfirmTrade_Click(SteamClient.Confirmation trade)
+        public void ConfirmTrade_Click(WinAuthSteamClient.Confirmation trade)
         {
             OperationTrade(true, trade);
         }
-
-        public void CancelTrade_Click(SteamClient.Confirmation trade)
+        public void CancelTrade_Click(WinAuthSteamClient.Confirmation trade)
         {
             OperationTrade(false, trade);
         }
 
-        private void OperationTrade(bool accept, SteamClient.Confirmation trade)
+        private void OperationTrade(bool accept, WinAuthSteamClient.Confirmation trade)
         {
             Task.Run(async () =>
             {
@@ -298,17 +291,14 @@ namespace SteamTools.ViewModels
 
                 if (result)
                 {
-                    StatusService.Current.Notify($"已{(accept ? "同意" : "取消")}{trade.Details}");
-                    App.Current.Dispatcher.Invoke(() =>
+                    ToastService.Current.Notify($"已{(accept ? "同意" : "取消")}{trade.Details}");
+                    MainThreadDesktop.BeginInvokeOnMainThread(() =>
                     {
                         Confirmations.Remove(trade);
                     });
                     //Refresh_Click();
                 }
-            }).ContinueWith(s =>
-            {
-                Logger.Error(s.Exception); WindowService.Current.ShowDialogWindow(s.Exception.Message);
-            }, TaskContinuationOptions.OnlyOnFaulted);
+            }).ForgetAndDispose();
         }
 
         /// <summary>
@@ -327,7 +317,7 @@ namespace SteamTools.ViewModels
 
                 var result = await Task.Factory.StartNew<bool>((t) =>
                 {
-                    return this._AuthenticatorData.GetClient().ConfirmTrade(((SteamClient.Confirmation)t).Id, ((SteamClient.Confirmation)t).Key, true);
+                    return this._Authenticator.GetClient().ConfirmTrade(((WinAuthSteamClient.Confirmation)t).Id, ((WinAuthSteamClient.Confirmation)t).Key, true);
                 }, trade);
                 if (result == false)
                 {
@@ -337,15 +327,16 @@ namespace SteamTools.ViewModels
                 return true;
             }
 
-            catch (InvalidTradesResponseException ex)
+            catch (WinAuthInvalidTradesResponseException ex)
             {
-                Logger.Error("允许交易时出错", ex);
-                this.Dialog("允许交易时出错：" + ex);
+                Log.Error(nameof(RejectTrade), ex, nameof(AuthTradeWindowViewModel));
+                ToastService.Current.Notify(ex.Message);
                 return false;
             }
             catch (ApplicationException ex)
             {
-                this.Dialog(ex.ToString());
+                Log.Error(nameof(RejectTrade), ex, nameof(AuthTradeWindowViewModel));
+                ToastService.Current.Notify(ex.Message);
                 return false;
             }
         }
@@ -365,7 +356,7 @@ namespace SteamTools.ViewModels
                 }
                 var result = await Task.Factory.StartNew<bool>((t) =>
                 {
-                    return this._AuthenticatorData.GetClient().ConfirmTrade(((SteamClient.Confirmation)t).Id, ((SteamClient.Confirmation)t).Key, false);
+                    return this._Authenticator.GetClient().ConfirmTrade(((WinAuthSteamClient.Confirmation)t).Id, ((WinAuthSteamClient.Confirmation)t).Key, false);
                 }, trade);
                 if (result == false)
                 {
@@ -375,15 +366,16 @@ namespace SteamTools.ViewModels
                 return true;
             }
 
-            catch (InvalidTradesResponseException ex)
+            catch (WinAuthInvalidTradesResponseException ex)
             {
-                Logger.Error("拒绝交易时出错", ex);
-                this.Dialog("拒绝交易时出错：" + ex);
+                Log.Error(nameof(RejectTrade), ex, nameof(AuthTradeWindowViewModel));
+                ToastService.Current.Notify(ex.Message);
                 return false;
             }
             catch (ApplicationException ex)
             {
-                this.Dialog(ex.ToString());
+                Log.Error(nameof(RejectTrade), ex, nameof(AuthTradeWindowViewModel));
+                ToastService.Current.Notify(ex.Message);
                 return false;
             }
         }
@@ -392,7 +384,6 @@ namespace SteamTools.ViewModels
         {
             OperationTrades(true);
         }
-
         public void CancelAllButton_Click()
         {
             OperationTrades(false);
@@ -402,7 +393,7 @@ namespace SteamTools.ViewModels
         {
             if (Confirmations.Count == 0)
             {
-                StatusService.Current.Notify($"当前没有任何交易");
+                ToastService.Current.Notify($"当前没有任何交易");
                 return;
             }
 
@@ -417,19 +408,20 @@ namespace SteamTools.ViewModels
             }
 
             var str = (accept ? "同意" : "取消");
-            if (!this.Dialog("这将" + str + "您当前所有的交易确认。" + Environment.NewLine + Environment.NewLine +
-                "确定要继续吗?"))
+
+            var result = MessageBoxCompat.ShowAsync("这将" + str + "您当前所有的交易确认。" + Environment.NewLine + Environment.NewLine +
+                "确定要继续吗?", ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
             {
-                return;
-            }
+                if (s.Result == MessageBoxResultCompat.OK)
+                {
+                    ToastService.Current.Set($"正在{str}所有交易中...");
 
-            StatusService.Current.Set($"正在{str}所有交易中...");
-
-            if (accept)
-                AcceptAllTrade();
-            else
-                RejectAllTrade();
-
+                    if (accept)
+                        AcceptAllTrade();
+                    else
+                        RejectAllTrade();
+                }
+            });
         }
 
         private async void AcceptAllTrade()
@@ -463,7 +455,7 @@ namespace SteamTools.ViewModels
                     if (i != 0)
                     {
                         var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
-                        var delay = SteamClient.CONFIRMATION_EVENT_DELAY + rand.Next(SteamClient.CONFIRMATION_EVENT_DELAY / 2); // delay is 100%-150% of CONFIRMATION_EVENT_DELAY
+                        var delay = WinAuthSteamClient.CONFIRMATION_EVENT_DELAY + rand.Next(WinAuthSteamClient.CONFIRMATION_EVENT_DELAY / 2); // delay is 100%-150% of CONFIRMATION_EVENT_DELAY
                         if (delay > duration)
                         {
                             await Task.Delay(delay - duration);
@@ -475,9 +467,9 @@ namespace SteamTools.ViewModels
             finally
             {
                 CancelComfirmAll = null;
-                StatusService.Current.Set(Resources.Ready);
-                StatusService.Current.Notify($"已成功同意所有交易");
-                AuthService.Current.SaveCurrentAuth();
+                ToastService.Current.Notify($"已成功同意所有交易");
+
+                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
             }
         }
 
@@ -513,7 +505,7 @@ namespace SteamTools.ViewModels
                     if (i != 0)
                     {
                         var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
-                        var delay = SteamClient.CONFIRMATION_EVENT_DELAY + rand.Next(SteamClient.CONFIRMATION_EVENT_DELAY / 2); // delay is 100%-150% of CONFIRMATION_EVENT_DELAY
+                        var delay = WinAuthSteamClient.CONFIRMATION_EVENT_DELAY + rand.Next(WinAuthSteamClient.CONFIRMATION_EVENT_DELAY / 2); // delay is 100%-150% of CONFIRMATION_EVENT_DELAY
                         if (delay > duration)
                         {
                             await Task.Delay(delay - duration);
@@ -525,9 +517,8 @@ namespace SteamTools.ViewModels
             finally
             {
                 CancelCancelAll = null;
-                StatusService.Current.Set(Resources.Ready);
-                StatusService.Current.Notify($"已成功取消所有交易");
-                AuthService.Current.SaveCurrentAuth();
+                ToastService.Current.Notify($"已成功取消所有交易");
+                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
             }
         }
 

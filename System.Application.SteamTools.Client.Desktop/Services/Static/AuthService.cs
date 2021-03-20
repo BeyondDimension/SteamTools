@@ -240,7 +240,7 @@ namespace System.Application.Services
                     ToastService.Current.Notify(AppResources.LocalAuth_AddAuthSyncTip);
                     importedAuthenticator.Value.Sync();
 
-                    AuthService.AddSaveAuthenticators(importedAuthenticator);
+                    AuthService.AddOrUpdateSaveAuthenticators(importedAuthenticator);
                 }
                 ToastService.Current.Notify(AppResources.LocalAuth_AddAuthSuccess);
             }
@@ -343,7 +343,7 @@ namespace System.Application.Services
                 DeviceId = deviceId
             };
 
-            AuthService.AddSaveAuthenticators(new GAPAuthenticatorDTO
+            AuthService.AddOrUpdateSaveAuthenticators(new GAPAuthenticatorDTO
             {
                 Name = name,
                 Value = auth,
@@ -411,12 +411,12 @@ namespace System.Application.Services
             auth.SteamData = token.ToString(Newtonsoft.Json.Formatting.None);
             winAuth.Value = auth;
 
-            AddSaveAuthenticators(winAuth);
+            AddOrUpdateSaveAuthenticators(winAuth);
             return true;
         }
 
         /// <summary>
-        /// 导入Steam++导出的令牌数据文件
+        /// 导入Steam++导出的令牌数据文件 V2
         /// </summary>
         public void ImportAuthenticatorFile()
         {
@@ -447,7 +447,7 @@ namespace System.Application.Services
                         {
                             var wa = new MyAuthenticator();
                             wa.ReadXml(reader, null);
-                            AddSaveAuthenticators(wa);
+                            AddOrUpdateSaveAuthenticators(wa);
                         }
                     }
                     else
@@ -459,12 +459,12 @@ namespace System.Application.Services
             }
         }
 
-        public static void AddSaveAuthenticators(GAPAuthenticatorDTO auth)
+        public static void AddOrUpdateSaveAuthenticators(GAPAuthenticatorDTO auth)
         {
-            AddSaveAuthenticators(new MyAuthenticator(auth));
+            AddOrUpdateSaveAuthenticators(new MyAuthenticator(auth));
         }
 
-        public static void AddSaveAuthenticators(MyAuthenticator auth)
+        public static void AddOrUpdateSaveAuthenticators(MyAuthenticator auth)
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
             repository.InsertOrUpdateAsync(auth.AuthenticatorData, true);

@@ -270,6 +270,9 @@
   <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
     <value>您可以在已root的Android设备中导入您的SteamGuard身份验证器路径：  /data/data/com.valvesoftware.android.steam.community然后将以下两个文件的内容复制到下面的对应输入框中</value>
   </data>
+  <data name="LocalAuth_SteamAuthTrade" xml:space="preserve">
+    <value>确认交易</value>
+  </data>
   <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
     <value>在files文件夹中，打开'SteamGuard-NNNNNNNN'文件，粘贴文件的全部内容</value>
   </data>
@@ -304,7 +307,10 @@
     <value>WinAuth是Windows的便携式开放源代码身份验证器，它提供基于计数器或基于时间的RFC 6238身份验证器和常见的实现。导入方法：从WinAuth导出txt文件之后在此选择从WinAuth导出的txt文件进行导入。</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>登录</value>
+    <value>登 录</value>
+  </data>
+  <data name="LoginAndRegister" xml:space="preserve">
+    <value>登录 / 注册</value>
   </data>
   <data name="Logining" xml:space="preserve">
     <value>正在登陆中...</value>
@@ -392,6 +398,24 @@
   </data>
   <data name="UserFastChange" xml:space="preserve">
     <value>账号切换</value>
+  </data>
+  <data name="User_GetSMSCode" xml:space="preserve">
+    <value>获取验证码</value>
+  </data>
+  <data name="User_LoginTroubleshoot" xml:space="preserve">
+    <value>无法登录？</value>
+  </data>
+  <data name="User_Phone" xml:space="preserve">
+    <value>手机号码</value>
+  </data>
+  <data name="User_Rememberme" xml:space="preserve">
+    <value>记住登陆状态</value>
+  </data>
+  <data name="User_SMSCode" xml:space="preserve">
+    <value>短信验证码</value>
+  </data>
+  <data name="User_SteamFastLogin" xml:space="preserve">
+    <value>Steam快速登录</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>警告</value>

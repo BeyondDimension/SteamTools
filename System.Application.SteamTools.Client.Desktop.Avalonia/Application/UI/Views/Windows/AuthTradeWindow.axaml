@@ -3,19 +3,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        Width="400" Height="500"
-        x:Class="System.Application.UI.Views.Windows.LoginUserWindow"
-        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+        Width="600" Height="450"
+        x:Class="System.Application.UI.Views.Windows.AuthTradeWindow"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
-        WindowStartupLocation="CenterOwner"
         Title="{Binding Title}">
-    <Panel>
+    <Panel MaxWidth="{Binding $parent.MaxWidth}">
         <controls:TitleBar></controls:TitleBar>
-        <Grid RowDefinitions="*,Auto" Margin="10">
+        <Panel>
             <StackPanel VerticalAlignment="Center" Spacing="8" Margin="10,0" Width="250">
                 <Image Source="/Application/UI/Assets/Icon.ico" Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25">
                     <!--<Image.Clip>
@@ -35,26 +35,11 @@
                     <CheckBox Content="{Binding Path=Res.User_Rememberme,Mode=OneWay,Source={x:Static resx:R.Current}}"></CheckBox>
                     <Button Classes="Hyperlink" Content="{Binding Path=Res.User_LoginTroubleshoot,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Right"></Button>
                 </Panel>
-                
-                <Button Content="{Binding Path=Res.LoginAndRegister,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+
+                <Button Content="{Binding Path=Res.Login,Mode=OneWay,Source={x:Static resx:R.Current}}"
                         HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">
                 </Button>
             </StackPanel>
-            <StackPanel Grid.Row="1">
-                <Button
-                        HorizontalAlignment="Center" HorizontalContentAlignment="Center" Background="Transparent" BorderThickness="0" Cursor="Hand">
-                    <StackPanel Orientation="Horizontal" Spacing="10">
-                        <Image Width="18">
-                            <Image.Source>
-                                <DrawingImage Drawing="{StaticResource SteamDrawing}"></DrawingImage>
-                            </Image.Source>
-                        </Image>
-                        <TextBlock Text="{Binding Path=Res.User_SteamFastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
-        </Grid>
-        <!--Toast-->
-        <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        </Panel>
     </Panel>
 </Window>

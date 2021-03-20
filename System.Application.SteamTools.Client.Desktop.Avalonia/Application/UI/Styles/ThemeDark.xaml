@@ -58,7 +58,7 @@
 
         <Color x:Key="InactiveForegroundColorKey">#FF787878</Color>
         <SolidColorBrush x:Key="InactiveForegroundBrushKey"
-                         Color="#FF787878" />
+                         Color="#FF979797" />
 
 
 
@@ -104,9 +104,9 @@
 
 
 
-        <Color x:Key="LinkForegroundColorKey">#FF7AC1FF</Color>
+        <Color x:Key="LinkForegroundColorKey">#FF007FFC</Color>
         <SolidColorBrush x:Key="LinkForegroundBrushKey"
-                         Color="#FF7AC1FF" />
+                         Color="#FF007FFC" />
 
         <Color x:Key="ActiveLinkForegroundColorKey">#FF007ACC</Color>
         <SolidColorBrush x:Key="ActiveLinkForegroundBrushKey"

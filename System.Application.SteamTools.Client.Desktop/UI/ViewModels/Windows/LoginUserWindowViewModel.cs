@@ -9,7 +9,7 @@ namespace System.Application.UI.ViewModels
     {
         public LoginUserWindowViewModel()
         {
-            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.Login;
+            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LoginAndRegister;
         }
 
 

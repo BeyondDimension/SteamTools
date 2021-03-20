@@ -70,7 +70,7 @@
                                                     </Image>
                                                 </Button>
 
-                                                <Button Cursor="Hand" Classes="flatbutton">
+                                                <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowSteamAuthTrade}" CommandParameter="{Binding}">
                                                     <Image Width="20" Height="16">
                                                         <Image.Source>
                                                             <DrawingImage Drawing="{DynamicResource TradeDrawing}"></DrawingImage>

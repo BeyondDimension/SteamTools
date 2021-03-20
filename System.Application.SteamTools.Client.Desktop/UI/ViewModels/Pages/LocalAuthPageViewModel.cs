@@ -116,5 +116,13 @@ namespace System.Application.UI.ViewModels
                 DI.Get<IShowWindowService>().Show(CustomWindow.ShowAuth, new ShowAuthWindowViewModel(auth), string.Empty, ResizeModeCompat.CanResize);
             }
         }
+
+        public void ShowSteamAuthTrade(MyAuthenticator auth)
+        {
+            if (auth.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator)
+            {
+                DI.Get<IShowWindowService>().Show(CustomWindow.AuthTrade, new AuthTradeWindowViewModel(auth), string.Empty, ResizeModeCompat.CanResize);
+            }
+        }
     }
 }

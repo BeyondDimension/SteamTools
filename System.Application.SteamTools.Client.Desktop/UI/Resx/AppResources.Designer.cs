@@ -520,6 +520,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 确认交易 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SteamAuthTrade {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamAuthTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 在files文件夹中，打开&apos;SteamGuard-NNNNNNNN&apos;文件，粘贴文件的全部内容 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamGuardTip {
@@ -619,11 +628,20 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 登录 的本地化字符串。
+        ///   查找类似 登 录 的本地化字符串。
         /// </summary>
         public static string Login {
             get {
                 return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 登录 / 注册 的本地化字符串。
+        /// </summary>
+        public static string LoginAndRegister {
+            get {
+                return ResourceManager.GetString("LoginAndRegister", resourceCulture);
             }
         }
         
@@ -805,6 +823,60 @@ namespace System.Application.UI.Resx {
         public static string Steam_UserLoginTip {
             get {
                 return ResourceManager.GetString("Steam_UserLoginTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 获取验证码 的本地化字符串。
+        /// </summary>
+        public static string User_GetSMSCode {
+            get {
+                return ResourceManager.GetString("User_GetSMSCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 无法登录？ 的本地化字符串。
+        /// </summary>
+        public static string User_LoginTroubleshoot {
+            get {
+                return ResourceManager.GetString("User_LoginTroubleshoot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 手机号码 的本地化字符串。
+        /// </summary>
+        public static string User_Phone {
+            get {
+                return ResourceManager.GetString("User_Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 记住登陆状态 的本地化字符串。
+        /// </summary>
+        public static string User_Rememberme {
+            get {
+                return ResourceManager.GetString("User_Rememberme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 短信验证码 的本地化字符串。
+        /// </summary>
+        public static string User_SMSCode {
+            get {
+                return ResourceManager.GetString("User_SMSCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam快速登录 的本地化字符串。
+        /// </summary>
+        public static string User_SteamFastLogin {
+            get {
+                return ResourceManager.GetString("User_SteamFastLogin", resourceCulture);
             }
         }
         

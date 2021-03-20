@@ -15,6 +15,7 @@ namespace System.Application.Services.Implementation
             CustomWindow.LoginUser => typeof(LoginUserWindow),
             CustomWindow.AddAuth => typeof(AddAuthWindow),
             CustomWindow.ShowAuth => typeof(ShowAuthWindow),
+            CustomWindow.AuthTrade => typeof(AuthTradeWindow),
             _ => throw new ArgumentOutOfRangeException(nameof(customWindow), customWindow, null),
         };
 

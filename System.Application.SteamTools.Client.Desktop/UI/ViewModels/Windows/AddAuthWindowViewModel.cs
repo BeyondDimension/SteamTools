@@ -221,7 +221,7 @@ namespace System.Application.UI.ViewModels
                         _Enroll.Error = null;
                         RequiresLogin = false;
 
-                        AuthService.AddSaveAuthenticators(new GAPAuthenticatorDTO
+                        AuthService.AddOrUpdateSaveAuthenticators(new GAPAuthenticatorDTO
                         {
                             Name = nameof(GamePlatform.Steam) + "(" + UserName + ")",
                             Value = _SteamAuthenticator

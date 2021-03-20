@@ -61,11 +61,14 @@
                 <Menu>
                     <MenuItem>
                         <MenuItem.Header>
+                            <!--<Border CornerRadius="24" ClipToBounds="True">-->
                             <Image Source="/Application/UI/Assets/AppResources/avater.jpg" Height="24" Width="24">
                                 <Image.Clip>
                                     <EllipseGeometry Rect="0,0,24,24" />
                                 </Image.Clip>
                             </Image>
+                            <!--</Border>-->
+
                         </MenuItem.Header>
 
                         <MenuItem Command="{Binding Path=ShowLoginWindow_Click,Source={x:Static service:UserService.Current}}">
@@ -77,7 +80,7 @@
                                                 <EllipseGeometry Rect="0,0,100,100" />
                                             </Image.Clip>
                                         </Image>
-                                        <Button Classes="CodeButton" Content="未登录" FontSize="18" HorizontalAlignment="Center" Command="{Binding ShowLoginWindow_Click,Source={x:Static service:UserService.Current}}"></Button>
+                                        <TextBlock Text="未登录" FontSize="18" HorizontalAlignment="Center"></TextBlock>
                                     </StackPanel>
                                 </Panel>
                             </MenuItem.Header>

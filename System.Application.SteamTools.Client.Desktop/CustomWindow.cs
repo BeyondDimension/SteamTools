@@ -9,5 +9,6 @@
         MessageBox,
         AddAuth,
         ShowAuth,
+        AuthTrade,
     }
 }
