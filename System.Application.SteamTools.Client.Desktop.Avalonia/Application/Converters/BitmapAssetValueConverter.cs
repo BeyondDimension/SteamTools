@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using Avalonia;
 using Avalonia.Data.Converters;
@@ -24,6 +25,13 @@ namespace System.Application.Converters
                 if (File.Exists(rawUri))
                 {
                     return new Bitmap(rawUri);
+                }
+                else if (rawUri.StartsWith("http://") || rawUri.StartsWith("https://")) 
+                {
+                    using var web = new WebClient();
+                    var bt = web.DownloadData(rawUri);
+                    using var stream = new MemoryStream(bt);
+                    return new Bitmap(stream);
                 }
                 else if (rawUri.StartsWith("avares://"))
                 {

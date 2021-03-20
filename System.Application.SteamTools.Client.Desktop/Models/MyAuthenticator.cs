@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using WinAuth;
 
 namespace System.Application.Models
 {
@@ -202,21 +203,21 @@ namespace System.Application.Models
                             Create = new DateTimeOffset(new DateTime(t).ToLocalTime());
                             break;
 
-                        //case "authenticatordata":
-                        //    try
-                        //    {
-                        //        // we don't pass the password as they are locked till clicked
-                        //        changed = this.AuthenticatorData.Value.ReadXml(reader) || changed;
-                        //    }
-                        //    catch (EncryptedSecretDataException)
-                        //    {
-                        //        // no action needed
-                        //    }
-                        //    catch (BadPasswordException)
-                        //    {
-                        //        // no action needed
-                        //    }
-                        //    break;
+                        case "authenticatordata":
+                            try
+                            {
+                                // we don't pass the password as they are locked till clicked
+                                changed = this.AuthenticatorData.Value.ReadXml(reader) || changed;
+                            }
+                            catch (WinAuthEncryptedSecretDataException)
+                            {
+                                // no action needed
+                            }
+                            catch (WinAuthBadPasswordException)
+                            {
+                                // no action needed
+                            }
+                            break;
 
                         // v2
                         case "authenticator":

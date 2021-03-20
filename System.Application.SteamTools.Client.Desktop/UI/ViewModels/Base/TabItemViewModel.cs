@@ -41,7 +41,12 @@ namespace System.Application.UI.ViewModels
 
         #endregion
 
-        public virtual IList<MenuItemViewModel> MenuItems { get; protected set; }
+        private IList<MenuItemViewModel>? _MenuItems;
+        public virtual IList<MenuItemViewModel>? MenuItems 
+        {
+            get => _MenuItems;
+            protected set => this.RaiseAndSetIfChanged(ref _MenuItems, value);
+        }
 
         protected TabItemViewModel()
         {

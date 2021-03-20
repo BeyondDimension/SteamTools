@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Xml;
 using static System.Application.Models.GAPAuthenticatorValueDTO;
 
 namespace System.Application.Models
@@ -67,5 +68,7 @@ namespace System.Application.Models
         void Protect();
 
         bool Unprotect(string? password);
+
+        bool ReadXml(XmlReader reader, string password = null);
     }
 }

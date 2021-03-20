@@ -27,7 +27,7 @@
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel x:Name="panel" Margin="20,0" MinWidth="200">
+                        <Panel x:Name="panel" Margin="20,0" MinWidth="200">
                             <Border x:Name="card" DockPanel.Dock="Top" Classes="paper" CornerRadius="0" Background="{DynamicResource ThemeBrushKey}">
                                 <i:Interaction.Behaviors>
                                     <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{Binding #card}">
@@ -84,16 +84,20 @@
                                         </Panel>
                                         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 0 0 0">
                                             <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{Binding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                                                <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Background="{DynamicResource ThemeBrushKey}" Command="{Binding #u.DataContext.OfflineModeButton_Click}" CommandParameter="{Binding}"></Button>
+                                                <Button Classes="flatbutton" Cursor="Hand" HorizontalAlignment="Stretch" MaxWidth="200" Background="{DynamicResource ThemeBrushKey}" Command="{Binding #u.DataContext.OfflineModeButton_Click}" CommandParameter="{Binding}">
+                                                    <controls:ScrollingTextBlock Text="{Binding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
+                                                </Button>
                                             </Border>
                                             <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness="0 .66 0 0" ToolTip.Tip="{Binding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                                                <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.UserChange_BtnText,Mode=OneWay,Source={x:Static resx:R.Current}}" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Stretch" Command="{Binding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}"></Button>
+                                                <Button Classes="flatbutton" Cursor="Hand" MaxWidth="250" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Stretch" Command="{Binding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}">
+                                                    <controls:ScrollingTextBlock Text="{Binding Path=Res.UserChange_BtnText,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
+                                                </Button>
                                             </Border>
                                         </StackPanel>
                                     </Grid>
                                 </Grid>
                             </Border>
-                        </StackPanel>
+                        </Panel>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>

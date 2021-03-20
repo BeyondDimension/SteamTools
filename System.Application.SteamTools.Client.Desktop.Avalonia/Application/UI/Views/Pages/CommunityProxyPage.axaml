@@ -22,7 +22,7 @@
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel x:Name="panel" Margin="20" Spacing="8" Width="184" Cursor="Hand">
+                        <StackPanel x:Name="panel" Margin="20" Spacing="8" Width="184" Height="184" Cursor="Hand">
                             <DockPanel LastChildFill="True">
                                 <Border DockPanel.Dock="Top" Classes="paper">
                                     <Panel x:Name="card" Width="{Binding #panel.Width}">
@@ -62,7 +62,6 @@
 
                             <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding SteamNickName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}" ></controls:ScrollingTextBlock>
                             <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding LastLoginTime,Converter={StaticResource DateFormatConverter},ConverterParameter='yyyy-MM-dd HH:mm:ss'}" FontSize="10" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-
                         </StackPanel>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>

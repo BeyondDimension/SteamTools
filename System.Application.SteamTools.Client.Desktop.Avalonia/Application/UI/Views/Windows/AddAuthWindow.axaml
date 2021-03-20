@@ -40,6 +40,11 @@
                 <Panel>
                     <Grid IsVisible="{Binding RequiresLogin}" RowDefinitions="Auto,*,Auto" Margin="10">
                         <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
+                            <Image Height="100" Width="100" HorizontalAlignment="Center" Margin="0 0 0 25">
+                                <Image.Source>
+                                    <DrawingImage Drawing="{StaticResource SteamDrawing}"></DrawingImage>
+                                </Image.Source>
+                            </Image>
                             <TextBox Watermark="{Binding Path=Res.Steam_User,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding UserName}" MaxWidth="300"></TextBox>
                             <TextBox Watermark="{Binding Path=Res.Steam_Password,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding Password}" MaxWidth="300" PasswordChar="*"></TextBox>
 

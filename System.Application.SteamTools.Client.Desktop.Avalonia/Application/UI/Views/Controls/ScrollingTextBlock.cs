@@ -137,7 +137,8 @@ namespace System.Application.UI.Views.Controls
                 var constraints = this.Bounds.Deflate(Padding);
                 var constraintsWidth = constraints.Width;
 
-                _isConstrained = _textWidth >= constraintsWidth;
+                //让文字不要在宽度合适的时候滚动
+                _isConstrained = _textWidth > constraintsWidth + 1;
 
                 if (_isConstrained & !_waiting)
                 {
@@ -161,7 +162,7 @@ namespace System.Application.UI.Views.Controls
                 else
                 {
                     _animate = false;
-                    
+
                     using (context.PushPostTransform(Matrix.CreateTranslation(padding.Left, padding.Top)))
                         TextLayout.Draw(context);
                 }

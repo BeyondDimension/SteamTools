@@ -367,6 +367,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 当前没有任何需要处理的交易报价 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTradeListNullTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTradeListNullTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已复制令牌  的本地化字符串。
         /// </summary>
         public static string LocalAuth_CopyAuthTip {
@@ -502,7 +511,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 手机App导入 的本地化字符串。
+        ///   查找类似 手机Steam导入 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamAppImport {
             get {
@@ -552,6 +561,15 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_SteamToolsV1Import {
             get {
                 return ResourceManager.GetString("LocalAuth_SteamToolsV1Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确认交易需要登录Steam，程序不会记录你的密码，只会在本地保存登录的状态。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SteamTradeLoginTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamTradeLoginTip", resourceCulture);
             }
         }
         
@@ -914,6 +932,15 @@ namespace System.Application.UI.Resx {
         public static string UserChange_DeleteUserTip {
             get {
                 return ResourceManager.GetString("UserChange_DeleteUserTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 登录新Steam账号 的本地化字符串。
+        /// </summary>
+        public static string UserChange_LoginNewAccount {
+            get {
+                return ResourceManager.GetString("UserChange_LoginNewAccount", resourceCulture);
             }
         }
         

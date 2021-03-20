@@ -51,8 +51,8 @@
                                     </Template>
                                 </Setter.Value>
                             </Setter>
-                            <Setter Property="Header" Value="{Binding Header}"/>
-                            <Setter Property="Items" Value="{Binding Items}"/>
+                            <Setter Property="Header" Value="{Binding Header,Mode=OneWay}"/>
+                            <Setter Property="Items" Value="{Binding Items,Mode=OneWay}"/>
                             <Setter Property="Command" Value="{Binding Command}"/>
                             <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
                         </Style>

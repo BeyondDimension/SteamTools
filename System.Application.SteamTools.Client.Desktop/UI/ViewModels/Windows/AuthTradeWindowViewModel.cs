@@ -5,6 +5,7 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Properties;
 using System.Threading;
@@ -17,7 +18,7 @@ namespace System.Application.UI.ViewModels
     public class AuthTradeWindowViewModel : WindowViewModel
     {
         private MyAuthenticator MyAuthenticator;
-        private GAPAuthenticatorValueDTO.SteamAuthenticator? _Authenticator => MyAuthenticator.AuthenticatorData.Value as GAPAuthenticatorValueDTO.SteamAuthenticator;
+        private GAPAuthenticatorValueDTO.SteamAuthenticator _Authenticator => MyAuthenticator.AuthenticatorData.Value as GAPAuthenticatorValueDTO.SteamAuthenticator;
         public AuthTradeWindowViewModel()
         {
         }
@@ -26,6 +27,8 @@ namespace System.Application.UI.ViewModels
         {
             MyAuthenticator = auth;
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_SteamAuthTrade;
+
+            Refresh_Click();
         }
 
         #region LoginData
@@ -71,8 +74,8 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        private string _CodeImage;
-        public string CodeImage
+        private Stream? _CodeImage;
+        public Stream? CodeImage
         {
             get => this._CodeImage;
             set
@@ -144,33 +147,29 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public void LoginButton_Click()
+        public bool IsConfirmationsEmpty
         {
-            if (UserName?.Trim().Length > 0 || Password?.Trim().Length > 0)
-            {
-                Process();
-            }
-            else
-            {
-                ToastService.Current.Notify("请输入您的账号和密码");
-                return;
-            }
-
+            get => this.Confirmations.Any_Nullable();
         }
 
-        public void CaptchaButton_Click()
+        public void LoginButton_Click()
         {
             if (CodeImageChar?.Trim().Length > 0)
             {
                 Process(_Authenticator.GetClient().CaptchaId, CodeImageChar);
-                return;
             }
             else
             {
-                ToastService.Current.Notify("请输入正确的令牌");
-                return;
+                if (UserName?.Trim().Length > 0 || Password?.Trim().Length > 0)
+                {
+                    Process();
+                }
+                else
+                {
+                    ToastService.Current.Notify("请输入您的账号和密码");
+                    return;
+                }
             }
-
         }
 
         public void Refresh_Click()
@@ -193,9 +192,9 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        private void Process(string captchaId = null, string codeChar = null)
+        private void Process(string? captchaId = null, string? codeChar = null)
         {
-            Task.Run(() =>
+            Task.Run(async () =>
             {
                 var steam = _Authenticator.GetClient();
                 if (!steam.IsLoggedIn())
@@ -218,7 +217,7 @@ namespace System.Application.UI.ViewModels
                         {
                             IsRequiresCaptcha = steam.RequiresCaptcha;
                             //this.Dialog("请输入图片验证码");
-                            CodeImage = steam.CaptchaUrl;
+                            CodeImage = await DI.Get<IHttpService>().GetImageAsync(steam.CaptchaUrl);
                             return;
                         }
                         //loginButton.Enabled = true;

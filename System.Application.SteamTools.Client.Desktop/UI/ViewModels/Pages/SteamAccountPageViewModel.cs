@@ -28,23 +28,20 @@ namespace System.Application.UI.ViewModels
         public SteamAccountPageViewModel()
         {
             LoginAccountCommand = ReactiveCommand.Create(LoginNewSteamAccount);
-            MenuItems = new[]
+            MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
-                new MenuItemViewModel
+                new MenuItemViewModel(nameof(AppResources.More))
                 {
-                    Header = AppResources.More,
                     Items = new[]
                     {
-                        new MenuItemViewModel { Header = "登录新账号",IconKey="SteamDrawing",
+                        new MenuItemViewModel(nameof(AppResources.UserChange_LoginNewAccount)) {IconKey="SteamDrawing",
                             Command=LoginAccountCommand },
-                        new MenuItemViewModel { Header = "-" },
-                        new MenuItemViewModel { Header = "编辑" },
+                        new MenuItemViewModel (),
+                        new MenuItemViewModel (nameof(AppResources.Edit)),
                     }
                 },
             };
         }
-
-        public override IList<MenuItemViewModel> MenuItems { get; protected set; }
 
         public ReactiveCommand<Unit, Unit> LoginAccountCommand { get; }
 

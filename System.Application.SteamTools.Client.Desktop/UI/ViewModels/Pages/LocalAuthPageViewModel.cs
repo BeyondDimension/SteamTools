@@ -17,25 +17,23 @@ namespace System.Application.UI.ViewModels
         {
             AddAuthCommand = ReactiveCommand.Create(AddAuthMenu_Click);
             RefreshAuthCommand = ReactiveCommand.Create(() => AuthService.Current.Initialize(true));
-            MenuItems = new[]
+            MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
-                new MenuItemViewModel
+                new MenuItemViewModel(nameof(AppResources.LocalAuth_EditAuth))
                 {
-                    Header = AppResources.LocalAuth_EditAuth,
-                    IconKey = "AddDrawing",
                     Items = new[]
                     {
-                        new MenuItemViewModel { Header = AppResources.Add,IconKey="AddDrawing",
+                        new MenuItemViewModel(nameof(AppResources.Add)) { IconKey="AddDrawing",
                             Command= AddAuthCommand },
-                        new MenuItemViewModel { Header = AppResources.Edit,IconKey="EditDrawing" },
-                        new MenuItemViewModel { Header = AppResources.Export,IconKey="ExportDrawing",
+                        new MenuItemViewModel(nameof(AppResources.Edit)) { IconKey="EditDrawing" },
+                        new MenuItemViewModel(nameof(AppResources.Export)) { IconKey="ExportDrawing",
                             Command= RefreshAuthCommand  },
-                        new MenuItemViewModel { Header = "-" },
-                        new MenuItemViewModel { Header = AppResources.Refresh,IconKey="RefreshDrawing",
+                        new MenuItemViewModel(),
+                        new MenuItemViewModel(nameof(AppResources.Refresh)) {IconKey="RefreshDrawing",
                             Command= RefreshAuthCommand },
-                        new MenuItemViewModel { Header = "-" },
-                        new MenuItemViewModel { Header = AppResources.Encrypt,IconKey="LockDrawing" },
-                        new MenuItemViewModel { Header = AppResources.CloudSync,IconKey="CloudDrawing" },
+                        new MenuItemViewModel(),
+                        new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="LockDrawing" },
+                        new MenuItemViewModel(nameof(AppResources.CloudSync)) {IconKey="CloudDrawing" },
                     }
                 },
             };
@@ -49,10 +47,6 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<Unit, Unit> AddAuthCommand { get; }
         public ReactiveCommand<Unit, Unit> RefreshAuthCommand { get; }
-
-
-        public override IList<MenuItemViewModel> MenuItems { get; protected set; }
-
 
         internal async override Task Initialize()
         {

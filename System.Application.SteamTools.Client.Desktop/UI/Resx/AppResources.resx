@@ -219,6 +219,9 @@
   <data name="LocalAuth_AuthName" xml:space="preserve">
     <value>令牌自定义名称</value>
   </data>
+  <data name="LocalAuth_AuthTradeListNullTip" xml:space="preserve">
+    <value>当前没有任何需要处理的交易报价</value>
+  </data>
   <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
     <value>已复制令牌 </value>
   </data>
@@ -265,7 +268,7 @@
     <value>请输入发送到您手机的短信验证代码。</value>
   </data>
   <data name="LocalAuth_SteamAppImport" xml:space="preserve">
-    <value>手机App导入</value>
+    <value>手机Steam导入</value>
   </data>
   <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
     <value>您可以在已root的Android设备中导入您的SteamGuard身份验证器路径：  /data/data/com.valvesoftware.android.steam.community然后将以下两个文件的内容复制到下面的对应输入框中</value>
@@ -281,6 +284,9 @@
   </data>
   <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
     <value>导入Steam++ V1版本的导出的令牌数据</value>
+  </data>
+  <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
+    <value>确认交易需要登录Steam，程序不会记录你的密码，只会在本地保存登录的状态。</value>
   </data>
   <data name="LocalAuth_SteamUserImport" xml:space="preserve">
     <value>Steam账号导入</value>
@@ -385,6 +391,9 @@
   <data name="UserChange_DeleteUserTip" xml:space="preserve">
     <value>确定要删除这条本地记录帐户数据吗？
 这将会删除此账户在本地的Steam缓存数据。</value>
+  </data>
+  <data name="UserChange_LoginNewAccount" xml:space="preserve">
+    <value>登录新Steam账号</value>
   </data>
   <data name="UserChange_LoginNewAccountTip" xml:space="preserve">
     <value>确定要登录Steam新账户吗？

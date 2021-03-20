@@ -27,7 +27,7 @@
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Spacing="8">
+                        <Panel>
                             <Border x:Name="panel" Classes="paper" Width="250" Height="250" Background="{DynamicResource ThemeBrushKey}">
                                 <i:Interaction.Behaviors>
                                     <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{Binding #panel}">
@@ -108,7 +108,7 @@
                                     </StackPanel>
                                 </Grid>
                             </Border>
-                        </StackPanel>
+                        </Panel>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>
