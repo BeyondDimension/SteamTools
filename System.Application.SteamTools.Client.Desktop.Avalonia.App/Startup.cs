@@ -117,7 +117,7 @@ namespace System.Application.UI
 
             // 托盘图标
 #if WINDOWS
-            services.AddTransient<INotifyIconWindow<ContextMenu>, Win32NotifyIconWindow>();
+            //services.AddTransient<INotifyIconWindow<ContextMenu>, Win32NotifyIconWindow>();
 #endif
             services.AddNotifyIcon<NotifyIconImpl>();
 

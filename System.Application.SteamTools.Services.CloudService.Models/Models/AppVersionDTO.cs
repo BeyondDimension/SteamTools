@@ -1,4 +1,5 @@
 ﻿using System.Application.Entities;
+using System.Collections.Generic;
 using MPKey = MessagePack.KeyAttribute;
 using MPObject = MessagePack.MessagePackObjectAttribute;
 
@@ -33,6 +34,18 @@ namespace System.Application.Models
         /// </summary>
         [MPKey(4)]
         public string? DownloadLink { get; set; }
+
+        /// <summary>
+        /// 新版本文件清单(仅桌面端使用)
+        /// </summary>
+        [MPKey(5)]
+        public Dictionary<string, string>? NewVersionFileList { get; set; }
+
+        /// <summary>
+        /// 当前版本文件清单(仅桌面端使用)
+        /// </summary>
+        [MPKey(6)]
+        public Dictionary<string, string>? ThisVersionFileList { get; set; }
 
         bool IExplicitHasValue.ExplicitHasValue()
         {
