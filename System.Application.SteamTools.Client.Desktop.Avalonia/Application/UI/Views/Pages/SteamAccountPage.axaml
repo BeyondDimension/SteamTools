@@ -10,18 +10,18 @@
              x:Name="u"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.SteamAccountPage">
-    <Design.DataContext>
-        <vm:SteamAccountPageViewModel/>
-    </Design.DataContext>
-    <Panel HorizontalAlignment="Stretch">
-        <TextBlock IsVisible="{Binding IsUserEmpty}"
-                   Text="{Binding Path=Res.UserChange_NoUserTip,Mode=OneWay,Source={x:Static resx:R.Current}}"          
-                   TextWrapping="WrapWithOverflow" 
-                   VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-        <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <ItemsRepeater Items="{Binding SteamUsers}">
-                <ItemsRepeater.Layout>
-                    <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
+  <Design.DataContext>
+    <vm:SteamAccountPageViewModel/>
+  </Design.DataContext>
+  <Panel HorizontalAlignment="Stretch">
+    <TextBlock IsVisible="{Binding IsUserEmpty}"
+               Text="{Binding Path=Res.UserChange_NoUserTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+               TextWrapping="WrapWithOverflow"
+               VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+    <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+      <ItemsRepeater Items="{Binding SteamUsers}">
+        <ItemsRepeater.Layout>
+          <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
                                        MaximumRowsOrColumns="6" />-->
                     <StackLayout Orientation="Vertical" Spacing="20"></StackLayout>
                 </ItemsRepeater.Layout>
@@ -61,43 +61,39 @@
                                                 <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding SteamNickName}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand"></controls:ScrollingTextBlock>
                                             </DockPanel>
 
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding AccountName}" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                                                <TextBlock Text="(" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                                                <TextBox Text="{Binding SteamId64,Mode=OneWay}" FontSize="14" Classes="readonlybox" Padding="0" Foreground="{DynamicResource InactiveForegroundBrushKey}"></TextBox>
-                                                <TextBlock Text=")" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                                            </StackPanel>
-                                        </StackPanel>
+                      <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding AccountName}" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                        <TextBlock Text="(" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                        <TextBox Text="{Binding SteamId64,Mode=OneWay}" FontSize="14" Classes="readonlybox" Padding="0" Foreground="{DynamicResource InactiveForegroundBrushKey}"></TextBox>
+                        <TextBlock Text=")" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                      </StackPanel>
+                    </StackPanel>
 
-                                        <TextBlock Text="{Binding LastLoginTime,Converter={StaticResource DateFormatConverter},ConverterParameter='yyyy-MM-dd HH:mm:ss'}" FontSize="14" VerticalAlignment="Bottom" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                                    </Panel>
-                                    <Grid Grid.Column="3" RowDefinitions="*,Auto">
-                                        <Panel>
-                                            <Button Classes="flatbutton" IsVisible="False" x:Name="delete_btn" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" HorizontalAlignment="Right" Margin="0,0,0,121" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding #u.DataContext.DeleteUserButton_Click}" CommandParameter="{Binding}">
-                                                <Image Width="12" Height="14">
-                                                    <Image.Source>
-                                                        <DrawingImage Drawing="{DynamicResource CloseDrawing}"></DrawingImage>
-                                                    </Image.Source>
-                                                </Image>
-                                            </Button>
+                    <TextBlock Text="{Binding LastLoginTime,Converter={StaticResource DateFormatConverter},ConverterParameter='yyyy-MM-dd HH:mm:ss'}" FontSize="14" VerticalAlignment="Bottom" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                  </Panel>
+                  <Grid Grid.Column="3" RowDefinitions="*,Auto">
+                    <Panel>
+                      <Button Classes="flatbutton" IsVisible="False" x:Name="delete_btn" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" HorizontalAlignment="Right" Margin="0,0,0,121" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding #u.DataContext.DeleteUserButton_Click}" CommandParameter="{Binding}">
+                        <Image Width="12" Height="14">
+                          <Image.Source>
+                            <DrawingImage Drawing="{DynamicResource CloseDrawing}"></DrawingImage>
+                          </Image.Source>
+                        </Image>
+                      </Button>
 
                                         </Panel>
                                         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 0 0 0">
                                             <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{Binding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                                                <Button Classes="flatbutton" Cursor="Hand" HorizontalAlignment="Stretch" MaxWidth="200" Background="{DynamicResource ThemeBrushKey}" Command="{Binding #u.DataContext.OfflineModeButton_Click}" CommandParameter="{Binding}">
-                                                    <controls:ScrollingTextBlock Text="{Binding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
-                                                </Button>
+                                                <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Background="{DynamicResource ThemeBrushKey}" Command="{Binding #u.DataContext.OfflineModeButton_Click}" CommandParameter="{Binding}"></Button>
                                             </Border>
                                             <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness="0 .66 0 0" ToolTip.Tip="{Binding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                                                <Button Classes="flatbutton" Cursor="Hand" MaxWidth="250" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Stretch" Command="{Binding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}">
-                                                    <controls:ScrollingTextBlock Text="{Binding Path=Res.UserChange_BtnText,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
-                                                </Button>
+                                                <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.UserChange_BtnText,Mode=OneWay,Source={x:Static resx:R.Current}}" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Stretch" Command="{Binding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}"></Button>
                                             </Border>
                                         </StackPanel>
                                     </Grid>
                                 </Grid>
                             </Border>
-                        </Panel>
+                        </StackPanel>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>

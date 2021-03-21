@@ -1,6 +1,4 @@
-﻿using System.Application.Models;
-using System.IO;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 using static System.Application.SteamApiUrls;
 
 namespace System.Application.Models
@@ -17,12 +15,16 @@ namespace System.Application.Models
             OriginVdfString = vdfstring;
         }
 
+        [XmlIgnore]
         public string? SteamId3 { get; set; }
 
+        [XmlIgnore]
         public long SteamId3_Int => (SteamId64 >> 0) & 0xFFFFFFFF;
 
+        [XmlIgnore]
         public string? SteamId32 { get; set; }
 
+        [XmlIgnore]
         public long SteamId32_Int { get; set; }
 
         [XmlElement("steamID64")]
@@ -31,6 +33,7 @@ namespace System.Application.Models
         /// <summary>
         /// 个人资料链接
         /// </summary>
+        [XmlIgnore]
         public string ProfileUrl => string.Format(STEAM_PROFILES_URL, SteamId64);
 
         /// <summary>
@@ -39,6 +42,7 @@ namespace System.Application.Models
         [XmlElement("onlineState")]
         public string? OnlineState { get; set; }
 
+        [XmlIgnore]
         public string? IPCountry { get; set; }
 
         /// <summary>
@@ -55,7 +59,8 @@ namespace System.Application.Models
         [XmlElement("avatarMedium")]
         public string AvatarMedium { get; set; }
 
-        public Stream? AvatarStream { get; set; }
+        [XmlIgnore]
+        public CircleImageStream? AvatarStream { get; set; }
 
         [XmlElement("avatarFull")]
         public string? AvatarFull { get; set; }
@@ -69,11 +74,13 @@ namespace System.Application.Models
         /// <summary>
         /// 昵称
         /// </summary>
+        [XmlIgnore]
         public string? SteamNickName => string.IsNullOrEmpty(SteamID) ? PersonaName : SteamID;
 
         /// <summary>
         /// 从 Valve Data File 读取到的用户名
         /// </summary>
+        [XmlIgnore]
         public string? PersonaName { get; set; }
 
         /// <summary>
@@ -84,51 +91,61 @@ namespace System.Application.Models
         /// <summary>
         /// 是否记住密码
         /// </summary>
+        [XmlIgnore]
         public bool RememberPassword { get; set; }
 
         /// <summary>
         /// 密码
         /// </summary>
+        [XmlIgnore]
         public string? PassWord { get; set; }
 
         /// <summary>
         /// 最后登录时间戳
         /// </summary>
+        [XmlIgnore]
         public long Timestamp { get; set; }
 
         /// <summary>
         /// 最后登录时间
         /// </summary>
+        [XmlIgnore]
         public DateTime LastLoginTime { get; set; }
 
         /// <summary>
         /// 最近登录
         /// </summary>
+        [XmlIgnore]
         public bool MostRecent { get; set; }
 
         /// <summary>
         /// 离线模式
         /// </summary>
+        [XmlIgnore]
         public bool WantsOfflineMode { get; set; }
 
         /// <summary>
         /// 忽略离线模式警告弹窗
         /// </summary>
+        [XmlIgnore]
         public bool SkipOfflineModeWarning { get; set; }
 
         /// <summary>
         /// 备注
         /// </summary>
+        [XmlIgnore]
         public string? Remark { get; set; }
 
         /// <summary>
         /// 来源 Valve Data File 字符串
         /// </summary>
+        [XmlIgnore]
         public string? OriginVdfString { get; set; }
 
         /// <summary>
         /// 导出 Valve Data File 配置字符串
         /// </summary>
+        [XmlIgnore]
         public string CurrentVdfString =>
             "\"" + SteamId64 + "\"\n{\n" +
             "\t\t\"AccountName\"\t\t\"" + AccountName + "\"\n" +

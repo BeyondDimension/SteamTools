@@ -24,9 +24,9 @@
 
   <ItemGroup>
     <PackageReference Include="JumpLists.Win32.Avalonia" Version="0.0.1" Aliases="JumpLists" />
-    <PackageReference Include="Microsoft.AppCenter" Version="4.1.0-avalonia" />
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.1.0-avalonia" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0-avalonia" />
+    <PackageReference Include="Aigio.Avalonia.AppCenter" Version="4.1.0-avalonia" />
+    <PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.1.0-avalonia" />
+    <PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.1.0-avalonia" />
     <PackageReference Include="TaskScheduler" Version="2.9.1" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
   </ItemGroup>

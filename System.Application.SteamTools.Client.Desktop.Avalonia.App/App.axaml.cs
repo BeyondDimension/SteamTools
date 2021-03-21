@@ -26,6 +26,7 @@ using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using Avalonia;
 using Avalonia.Platform;
+using System.Reflection;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
@@ -159,6 +160,34 @@ namespace System.Application.UI
             MessageBoxCompat.Show(text, title, MessageBoxButtonCompat.OK, MessageBoxImageCompat.Warning);
         }
 
+        [Conditional("DEBUG")]
+        static void CheckDebugPackageReference()
+        {
+            if (!CheckDebugPackageReference_())
+            {
+                var text = "错误：依赖包 [System.Reactive] 版本不符合发布要求";
+                var title = AppResources.Warning;
+                MessageBoxCompat.Show(text, title, MessageBoxButtonCompat.OK, MessageBoxImageCompat.Warning);
+            }
+            static bool CheckDebugPackageReference_()
+            {
+#nullable disable
+                var assemblySystemReactive = Assembly.Load("System.Reactive");
+                var fileVersion = assemblySystemReactive.GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
+                if (fileVersion != "5.0.0.1")
+                {
+                    return false;
+                }
+                var infoVersion = assemblySystemReactive.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
+                if (infoVersion != "5.0.0+103c252a0e")
+                {
+                    return false;
+                }
+#nullable enable
+                return true;
+            }
+        }
+
         public override void OnFrameworkInitializationCompleted()
         {
             // 在UI预览中，ApplicationLifetime 为 null
@@ -226,6 +255,8 @@ namespace System.Application.UI
                 {
                     IsNotOfficialChannelPackageWarning();
                 }
+
+                CheckDebugPackageReference();
 
                 desktop.MainWindow = MainWindow;
                 desktop.Startup += Desktop_Startup;

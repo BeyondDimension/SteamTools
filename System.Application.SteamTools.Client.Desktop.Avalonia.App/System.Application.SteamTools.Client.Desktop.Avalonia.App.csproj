@@ -48,6 +48,9 @@
 
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <ProjectReference Include="..\System.Application.SteamTools.Client.Desktop.Windows\System.Application.SteamTools.Client.Desktop.Windows.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) And $(DefineConstants.Contains(`PUBLISH`)) ">
     <PackageReference Include="System.Reactive" Version="5.0.0.1-exclude-winforms" />
   </ItemGroup>
 

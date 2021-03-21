@@ -253,6 +253,8 @@ namespace System.Application.Services.Implementation
             string channelType,
             CancellationToken cancellationToken)
         {
+            if (string.IsNullOrWhiteSpace(requestUri)) return null;
+
             if (get_image_pipeline.ContainsKey(channelType))
             {
                 var pairs = get_image_pipeline[channelType];
