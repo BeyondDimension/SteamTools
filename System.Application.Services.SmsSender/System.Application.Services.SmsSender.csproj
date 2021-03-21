@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
+    <AssemblyName>System.Application.Services.SmsSender</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

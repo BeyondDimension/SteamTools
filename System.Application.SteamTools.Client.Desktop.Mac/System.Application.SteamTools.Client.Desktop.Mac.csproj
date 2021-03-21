@@ -5,6 +5,7 @@
     <RootNamespace>System</RootNamespace>
     <DefineConstants>MONO_MAC;$(DefineConstants)</DefineConstants>
     <!--<DefineConstants>XAMARIN_MAC;$(DefineConstants)</DefineConstants>-->
+    <AssemblyName>System.Application.SteamTools.Client.Desktop.Mac</AssemblyName>
   </PropertyGroup>
 
   <!--<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

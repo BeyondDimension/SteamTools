@@ -6,6 +6,7 @@
     <RootNamespace>System</RootNamespace>
     <UseWindowsForms>false</UseWindowsForms>
     <UseWPF>false</UseWPF>
+    <AssemblyName>System.Application.SteamTools.Client.Desktop.Windows</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

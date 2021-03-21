@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>MonoAndroid10.0</TargetFramework>
     <RootNamespace>System.UnitTest</RootNamespace>
+    <AssemblyName>System.Common.UnitTest.Droid</AssemblyName>
     <IsPackable>false</IsPackable>
     <DefineConstants>UnitTest;$(DefineConstants)</DefineConstants>
     <AndroidUseIntermediateDesignerFile>false</AndroidUseIntermediateDesignerFile>

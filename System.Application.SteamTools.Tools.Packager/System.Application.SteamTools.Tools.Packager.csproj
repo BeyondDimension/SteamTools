@@ -28,6 +28,9 @@
     <Compile Include="..\System.Common.CoreLib\FileEx.cs">
       <Link>FileEx.cs</Link>
     </Compile>
+    <Compile Include="..\resources\ProjectPathUtil.cs">
+      <Link>ProjectPathUtil.cs</Link>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

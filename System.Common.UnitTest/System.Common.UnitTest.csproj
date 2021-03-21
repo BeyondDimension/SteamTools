@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>System</RootNamespace>
+    <AssemblyName>System.Common.UnitTest</AssemblyName>
     <IsPackable>false</IsPackable>
     <DefineConstants>UnitTest;$(DefineConstants)</DefineConstants>
   </PropertyGroup>

@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
     <DefineConstants>ORM_SQLITE_PCL;$(DefineConstants)</DefineConstants>
+    <AssemblyName>System.Application.SteamTools.Client</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

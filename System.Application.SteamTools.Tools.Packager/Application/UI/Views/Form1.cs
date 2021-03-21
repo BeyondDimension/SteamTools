@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.ProjectPathUtil;
 
 namespace System.Application.UI.Views
 {
@@ -11,7 +12,7 @@ namespace System.Application.UI.Views
     /// </summary>
     public partial class Form1 : Form
     {
-        readonly string app_path = @"\System.Application.SteamTools.Client.Desktop.Avalonia.App\bin\Release\Publish\win-x86";
+        readonly string app_path = DirPublishWinX86;
 
         static string GetPath(string path)
         {
@@ -22,19 +23,7 @@ namespace System.Application.UI.Views
         public Form1()
         {
             InitializeComponent();
-            textBox1.Text = GetPath(GetProjectPath() + app_path);
-        }
-
-        static string GetProjectPath(string? path = null)
-        {
-            path ??= AppContext.BaseDirectory;
-            if (!Directory.GetFiles(path, "*.sln").Any())
-            {
-                var parent = Directory.GetParent(path);
-                if (parent == null) return string.Empty;
-                return GetProjectPath(parent.FullName);
-            }
-            return path;
+            textBox1.Text = GetPath(projPath + app_path);
         }
 
         void OnBtnSelectPathClick(object sender, EventArgs e)

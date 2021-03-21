@@ -12,6 +12,9 @@
     <Compile Include="..\System.Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\resources\ProjectPathUtil.cs">
+      <Link>ProjectPathUtil.cs</Link>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

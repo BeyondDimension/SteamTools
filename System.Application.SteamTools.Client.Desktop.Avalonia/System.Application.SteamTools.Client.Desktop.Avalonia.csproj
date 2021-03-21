@@ -5,6 +5,7 @@
     <RootNamespace>System</RootNamespace>
     <SignAssembly>false</SignAssembly>
     <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
+    <AssemblyName>System.Application.SteamTools.Client.Desktop.Avalonia</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

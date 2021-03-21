@@ -6,16 +6,19 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using static System.ProjectPathUtil;
 
 namespace System
 {
+    /// <summary>
+    /// 开源协议清单列表自动生成工具
+    /// </summary>
     static class Program
     {
         const string OpenSourceLibraryListEmoji = "📄";
 
         static async Task Main(string[] args)
         {
-            var projPath = GetProjectPath();
             var readmePath = Path.Combine(projPath, README);
 
             var file = Path.Combine(projPath, "resources", "OpenSourceLibraryList.mpo");
@@ -173,18 +176,6 @@ namespace System
         }
 
         const string README = "README.md";
-
-        static string GetProjectPath(string? path = null)
-        {
-            path ??= AppContext.BaseDirectory;
-            if (!Directory.GetFiles(path, README).Any())
-            {
-                var parent = Directory.GetParent(path);
-                if (parent == null) return string.Empty;
-                return GetProjectPath(parent.FullName);
-            }
-            return path;
-        }
 
         static void Print(List<OpenSourceLibrary> items)
         {

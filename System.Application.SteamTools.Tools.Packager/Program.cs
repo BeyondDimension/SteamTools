@@ -4,6 +4,9 @@ using WinFormsApplication = System.Windows.Forms.Application;
 
 namespace System
 {
+    /// <summary>
+    /// 压缩包测试，压缩与解压，进度条UI
+    /// </summary>
     static class Program
     {
         /// <summary>

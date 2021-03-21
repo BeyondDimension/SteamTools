@@ -5,6 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.ProjectPathUtil;
+
+// 已知BUG：疑似部分语言中存在键，其他语言中没有此键，则不会自动翻译？
 
 namespace System
 {
@@ -15,7 +18,7 @@ namespace System
     /// <para>人工审阅与校对</para>
     /// <para>从Excel中读取翻译结果自动插入resx文件中</para>
     /// </summary>
-    class Program
+    static class Program
     {
         static readonly string[] langs = new[] {
             "en",
@@ -25,15 +28,13 @@ namespace System
             "ko",
         };
 
-        static readonly string projPath = GetProjectPath();
-
         static void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient();
         }
 
-        public const string CoreLib = @"System.Common.CoreLib\Properties\SR";
-        public const string AppRes = @"System.Application.SteamTools.Client.Desktop\UI\Resx\AppResources";
+        public const string CoreLib = ProjectDir_CoreLib + @"\Properties\SR";
+        public const string AppRes = ProjectDir_ClientDesktop + @"\UI\Resx\AppResources";
 
         static async Task Main(string[] args)
         {
@@ -281,18 +282,6 @@ namespace System
                 }
             } while (line != null);
             return dict;
-        }
-
-        static string GetProjectPath(string? path = null)
-        {
-            path ??= AppContext.BaseDirectory;
-            if (!Directory.GetFiles(path, "*.sln").Any())
-            {
-                var parent = Directory.GetParent(path);
-                if (parent == null) return string.Empty;
-                return GetProjectPath(parent.FullName);
-            }
-            return path;
         }
 
         public static bool Is_zh_Hans(string? input) => input?.Any(Is_zh_Hans) ?? false;

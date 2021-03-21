@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
+    <AssemblyName>System.Application.SteamTools.Services.CloudService</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

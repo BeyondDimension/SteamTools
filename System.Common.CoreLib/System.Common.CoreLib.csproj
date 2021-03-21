@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>System</RootNamespace>
+    <AssemblyName>System.Common.CoreLib</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
