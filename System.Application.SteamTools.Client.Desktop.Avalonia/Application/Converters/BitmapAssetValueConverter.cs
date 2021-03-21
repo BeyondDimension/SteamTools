@@ -1,9 +1,4 @@
-﻿using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Reflection;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Data.Converters;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
@@ -11,6 +6,7 @@ using SkiaSharp;
 using System.Application.Models;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Reflection;
 
 namespace System.Application.Converters
@@ -82,7 +78,7 @@ namespace System.Application.Converters
             TryReset(ms);
             using var bitmapSource = SKBitmap.Decode(ms);
             using var bitmapDest = new SKBitmap(bitmapSource.Width, bitmapSource.Height, SKColorType.Bgra8888, SKAlphaType.Unpremul);
-            ClearToTransparent(bitmapDest);
+
             using var canvas = new SKCanvas(bitmapDest);
 
             var rect = ics.Circle ?
@@ -106,17 +102,6 @@ namespace System.Application.Converters
             //}
 
             return new Bitmap(stream);
-        }
-
-        static void ClearToTransparent(SKBitmap bitmap)
-        {
-            int pixelCount = bitmap.Width * bitmap.Height;
-            var colors = new SKColor[pixelCount];
-            for (int n = 0; n < pixelCount; n++)
-            {
-                colors[n] = SKColors.Transparent;
-            }
-            bitmap.Pixels = colors;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
