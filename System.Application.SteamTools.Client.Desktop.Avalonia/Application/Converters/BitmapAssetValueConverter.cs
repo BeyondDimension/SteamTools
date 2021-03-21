@@ -81,29 +81,29 @@ namespace System.Application.Converters
             ics.Stream.CopyTo(ms);
             TryReset(ms);
             using var bitmapSource = SKBitmap.Decode(ms);
-            using var bitmapDest = new SKBitmap(bitmapSource.Width, bitmapSource.Height, isOpaque: true);
+            using var bitmapDest = new SKBitmap(bitmapSource.Width, bitmapSource.Height, SKColorType.Bgra8888, SKAlphaType.Unpremul);
             ClearToTransparent(bitmapDest);
             using var canvas = new SKCanvas(bitmapDest);
 
-            //var rect = ics.Circle ?
-            //    new SKRect(0, 0, bitmapSource.Width, bitmapSource.Height) :
-            //    new SKRect(ics.Left, ics.Top, ics.Right, ics.Bottom);
-            //var roundRect = ics.Circle ?
-            //    new SKRoundRect(rect, bitmapSource.Width / 2f, bitmapSource.Height / 2f) :
-            //    new SKRoundRect(rect, ics.Radius_X, ics.Radius_Y);
-            //canvas.ClipRoundRect(roundRect, antialias: true);
+            var rect = ics.Circle ?
+                new SKRect(0, 0, bitmapSource.Width, bitmapSource.Height) :
+                new SKRect(ics.Left, ics.Top, ics.Right, ics.Bottom);
+            var roundRect = ics.Circle ?
+                new SKRoundRect(rect, bitmapSource.Width / 2f, bitmapSource.Height / 2f) :
+                new SKRoundRect(rect, ics.Radius_X, ics.Radius_Y);
+            canvas.ClipRoundRect(roundRect, antialias: true);
 
-            //canvas.DrawBitmap(bitmapSource, 0, 0);
+            canvas.DrawBitmap(bitmapSource, 0, 0);
 
             var stream = bitmapDest.Encode(SKEncodedImageFormat.Png, 100).AsStream();
             TryReset(stream);
 
-            var tempFilePath = Path.Combine(IOPath.CacheDirectory, Path.GetFileName(Path.GetTempFileName() + ".png"));
-            using (var fs = File.Create(tempFilePath))
-            {
-                stream.CopyTo(fs);
-                TryReset(stream);
-            }
+            //var tempFilePath = Path.Combine(IOPath.CacheDirectory, Path.GetFileName(Path.GetTempFileName() + ".png"));
+            //using (var fs = File.Create(tempFilePath))
+            //{
+            //    stream.CopyTo(fs);
+            //    TryReset(stream);
+            //}
 
             return new Bitmap(stream);
         }
