@@ -8,6 +8,7 @@ using System.Properties;
 using System.Reactive;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Threading;
 
 namespace System.Application.UI.ViewModels
 {

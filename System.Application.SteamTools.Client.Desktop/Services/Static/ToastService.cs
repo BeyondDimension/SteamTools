@@ -71,7 +71,7 @@ namespace System.Application.Services
         }
         public void Set(string message)
         {
-            this.Message = message;
+            MainThreadDesktop.BeginInvokeOnMainThread(() => this.Message = message);
         }
 
         public void Notify(string message)

@@ -48,16 +48,18 @@
         </Panel>
 
         <Panel HorizontalAlignment="Stretch" IsVisible="{Binding IsLoggedIn}">
-            <TextBlock IsVisible="{Binding IsConfirmationsEmpty}"
+            <TextBlock IsVisible="{Binding !IsConfirmationsEmpty}"
                        Text="{Binding Path=Res.LocalAuth_AuthTrade_ListNullTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
                        TextWrapping="WrapWithOverflow"
                        VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
             <DockPanel>
                 
-            <Grid DockPanel.Dock="Top" RowDefinitions="Auto,*" ColumnDefinitions="*,Auto" Margin="20 35 20 10">
-                <StackPanel Spacing="20" Orientation="Horizontal">
-                    <Button Content="{Binding Path=Res.LocalAuth_AuthTrade_ConfirmAll,Mode=OneWay,Source={x:Static resx:R.Current}}"></Button>
-                    <Button Content="{Binding Path=Res.LocalAuth_AuthTrade_CancelAll,Mode=OneWay,Source={x:Static resx:R.Current}}"></Button>
+            <Grid DockPanel.Dock="Top" RowDefinitions="Auto,*" ColumnDefinitions="*,Auto" Margin="20 40 20 10">
+                <StackPanel Spacing="10" Orientation="Horizontal">
+                    <Button Content="{Binding Path=Res.LocalAuth_AuthTrade_ConfirmAll,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding ConfirmAllButton_Click}"></Button>
+                    <Button Content="{Binding Path=Res.LocalAuth_AuthTrade_CancelAll,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding CancelAllButton_Click}"></Button>
+                    <Button Content="{Binding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Refresh_Click}"></Button>
+                    <Button Content="{Binding Path=Res.Logout,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Logout_Click}"></Button>
                 </StackPanel>
 
                 <TextBlock Grid.Column="1" Text="{Binding ConfirmationsConutMessage}" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"></TextBlock>
@@ -91,10 +93,10 @@
                                         <Grid Grid.Column="3" RowDefinitions="*,Auto">
                                             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 0 0 0">
                                                 <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{Binding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                                                    <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" FontSize="14" Background="{DynamicResource ThemeBrushKey}" Command="{Binding #u.DataContext.ConfirmTrade_Click}" CommandParameter="{Binding}"></Button>
+                                                    <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" FontSize="16" Background="{DynamicResource ThemeBrushKey}" Command="{Binding #u.DataContext.ConfirmTrade_Click}" CommandParameter="{Binding}"></Button>
                                                 </Border>
                                                 <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness="0 .66 0 0" ToolTip.Tip="{Binding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                                                    <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Stretch" FontSize="14" Command="{Binding #u.DataContext.CancelTrade_Click}" CommandParameter="{Binding}"></Button>
+                                                    <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Stretch" FontSize="16" Command="{Binding #u.DataContext.CancelTrade_Click}" CommandParameter="{Binding}"></Button>
                                                 </Border>
                                             </StackPanel>
                                         </Grid>

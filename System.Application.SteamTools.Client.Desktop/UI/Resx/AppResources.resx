@@ -141,6 +141,9 @@
   <data name="Add" xml:space="preserve">
     <value>新增</value>
   </data>
+  <data name="Agree" xml:space="preserve">
+    <value>同意</value>
+  </data>
   <data name="ArchiSteamFarmPlus" xml:space="preserve">
     <value>ASF Plus</value>
   </data>
@@ -231,11 +234,42 @@
   <data name="LocalAuth_AuthTrade_ConfirmAll" xml:space="preserve">
     <value>确认所有交易</value>
   </data>
+  <data name="LocalAuth_AuthTrade_ConfirmCancel" xml:space="preserve">
+    <value>已成功取消所有交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ConfirmError" xml:space="preserve">
+    <value>无法确认此交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ConfirmSuccess" xml:space="preserve">
+    <value>已成功同意所有交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ConfirmTip" xml:space="preserve">
+    <value>正在{0}所有交易中...</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
+    <value>您没有权限查看确认信息. 是否启用了 'community-generated content' in Family View?</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_GetError2" xml:space="preserve">
+    <value>获取Steam令牌交易数据失败，请确认是否正常加速了Steam社区地址。</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_GetTip" xml:space="preserve">
+    <value>正在获取最新的交易报价信息...</value>
+  </data>
   <data name="LocalAuth_AuthTrade_ListCountTip" xml:space="preserve">
     <value>{0}条交易待处理</value>
   </data>
   <data name="LocalAuth_AuthTrade_ListNullTip" xml:space="preserve">
     <value>当前没有任何需要处理的交易报价</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
+    <value>这将{0}您当前所有的交易报价。
+确定要继续吗?</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
+    <value>当前没有任何交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_TradeError" xml:space="preserve">
+    <value>无效的交易</value>
   </data>
   <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
     <value>已复制令牌 </value>
@@ -336,6 +370,9 @@
   <data name="Logining" xml:space="preserve">
     <value>正在登陆中...</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>注销登录</value>
+  </data>
   <data name="More" xml:space="preserve">
     <value>更多操作</value>
   </data>
@@ -426,17 +463,44 @@
   <data name="User_GetSMSCode" xml:space="preserve">
     <value>获取验证码</value>
   </data>
+  <data name="User_LoginCodeTimeLimitTip" xml:space="preserve">
+    <value>重新获取({0})</value>
+  </data>
+  <data name="User_LoginError" xml:space="preserve">
+    <value>账号或密码错误</value>
+  </data>
+  <data name="User_LoginError_Auth" xml:space="preserve">
+    <value>无效令牌：您确定登录的是您当前令牌的账号？</value>
+  </data>
+  <data name="User_LoginError_CodeImage" xml:space="preserve">
+    <value>请输入图片验证码</value>
+  </data>
+  <data name="User_LoginError_Null" xml:space="preserve">
+    <value>请输入您的账号和密码</value>
+  </data>
   <data name="User_LoginTroubleshoot" xml:space="preserve">
     <value>无法登录？</value>
   </data>
+  <data name="User_LoiginSuccess" xml:space="preserve">
+    <value>登录成功</value>
+  </data>
   <data name="User_Phone" xml:space="preserve">
     <value>手机号码</value>
+  </data>
+  <data name="User_PhoneCode_Error" xml:space="preserve">
+    <value>请正确填写手机号和验证码</value>
+  </data>
+  <data name="User_Phone_Error" xml:space="preserve">
+    <value>对不起，手机号码无效！请重新输入</value>
   </data>
   <data name="User_Rememberme" xml:space="preserve">
     <value>记住登陆状态</value>
   </data>
   <data name="User_SMSCode" xml:space="preserve">
     <value>短信验证码</value>
+  </data>
+  <data name="User_SMSCode_Error" xml:space="preserve">
+    <value>请先获取验证码</value>
   </data>
   <data name="User_SteamFastLogin" xml:space="preserve">
     <value>Steam快速登录</value>

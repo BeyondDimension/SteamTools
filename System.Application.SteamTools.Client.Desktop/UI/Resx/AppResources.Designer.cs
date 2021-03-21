@@ -133,6 +133,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 同意 的本地化字符串。
+        /// </summary>
+        public static string Agree {
+            get {
+                return ResourceManager.GetString("Agree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 ASF Plus 的本地化字符串。
         /// </summary>
         public static string ArchiSteamFarmPlus {
@@ -403,6 +412,69 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 已成功取消所有交易 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_ConfirmCancel {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_ConfirmCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 无法确认此交易 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_ConfirmError {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_ConfirmError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已成功同意所有交易 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_ConfirmSuccess {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_ConfirmSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在{0}所有交易中... 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_ConfirmTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_ConfirmTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 您没有权限查看确认信息. 是否启用了 &apos;community-generated content&apos; in Family View? 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_GetError {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_GetError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 获取Steam令牌交易数据失败，请确认是否正常加速了Steam社区地址。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_GetError2 {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_GetError2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在获取最新的交易报价信息... 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_GetTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_GetTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 {0}条交易待处理 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AuthTrade_ListCountTip {
@@ -417,6 +489,34 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_AuthTrade_ListNullTip {
             get {
                 return ResourceManager.GetString("LocalAuth_AuthTrade_ListNullTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 这将{0}您当前所有的交易报价。
+        ///确定要继续吗? 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_MessageBoxTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_MessageBoxTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 当前没有任何交易 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_Null {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_Null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 无效的交易 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_TradeError {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_TradeError", resourceCulture);
             }
         }
         
@@ -718,6 +818,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 注销登录 的本地化字符串。
+        /// </summary>
+        public static string Logout {
+            get {
+                return ResourceManager.GetString("Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 更多操作 的本地化字符串。
         /// </summary>
         public static string More {
@@ -899,6 +1008,51 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 重新获取({0}) 的本地化字符串。
+        /// </summary>
+        public static string User_LoginCodeTimeLimitTip {
+            get {
+                return ResourceManager.GetString("User_LoginCodeTimeLimitTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 账号或密码错误 的本地化字符串。
+        /// </summary>
+        public static string User_LoginError {
+            get {
+                return ResourceManager.GetString("User_LoginError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 无效令牌：您确定登录的是您当前令牌的账号？ 的本地化字符串。
+        /// </summary>
+        public static string User_LoginError_Auth {
+            get {
+                return ResourceManager.GetString("User_LoginError_Auth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入图片验证码 的本地化字符串。
+        /// </summary>
+        public static string User_LoginError_CodeImage {
+            get {
+                return ResourceManager.GetString("User_LoginError_CodeImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入您的账号和密码 的本地化字符串。
+        /// </summary>
+        public static string User_LoginError_Null {
+            get {
+                return ResourceManager.GetString("User_LoginError_Null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 无法登录？ 的本地化字符串。
         /// </summary>
         public static string User_LoginTroubleshoot {
@@ -908,11 +1062,38 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 登录成功 的本地化字符串。
+        /// </summary>
+        public static string User_LoiginSuccess {
+            get {
+                return ResourceManager.GetString("User_LoiginSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 手机号码 的本地化字符串。
         /// </summary>
         public static string User_Phone {
             get {
                 return ResourceManager.GetString("User_Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 对不起，手机号码无效！请重新输入 的本地化字符串。
+        /// </summary>
+        public static string User_Phone_Error {
+            get {
+                return ResourceManager.GetString("User_Phone_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请正确填写手机号和验证码 的本地化字符串。
+        /// </summary>
+        public static string User_PhoneCode_Error {
+            get {
+                return ResourceManager.GetString("User_PhoneCode_Error", resourceCulture);
             }
         }
         
@@ -931,6 +1112,15 @@ namespace System.Application.UI.Resx {
         public static string User_SMSCode {
             get {
                 return ResourceManager.GetString("User_SMSCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请先获取验证码 的本地化字符串。
+        /// </summary>
+        public static string User_SMSCode_Error {
+            get {
+                return ResourceManager.GetString("User_SMSCode_Error", resourceCulture);
             }
         }
         

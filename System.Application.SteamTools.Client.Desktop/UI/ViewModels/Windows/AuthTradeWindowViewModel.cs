@@ -182,7 +182,7 @@ namespace System.Application.UI.ViewModels
                 }
                 else
                 {
-                    ToastService.Current.Notify("请输入您的账号和密码");
+                    ToastService.Current.Notify(AppResources.User_LoginError_Null);
                     return;
                 }
             }
@@ -215,25 +215,26 @@ namespace System.Application.UI.ViewModels
                 var steam = _Authenticator.GetClient();
                 if (!steam.IsLoggedIn())
                 {
-                    ToastService.Current.Notify(AppResources.Logining);
+                    ToastService.Current.Set(AppResources.Logining);
+                    //ToastService.Current.Notify(AppResources.Logining);
                     if (steam.Login(UserName, Password, captchaId, codeChar, R.GetCurrentCultureSteamLanguageName()) == false)
                     {
                         if (steam.Error == "Incorrect Login")
                         {
-                            //this.Dialog("账号或密码错误");
+                            ToastService.Current.Notify(AppResources.User_LoginError);
                             return;
                         }
 
                         if (steam.Requires2FA == true)
                         {
-                            //this.Dialog("无效令牌：您确定登录的是您当前令牌的账号？");
+                            ToastService.Current.Notify(AppResources.User_LoginError_Auth);
                             return;
                         }
 
                         if (steam.RequiresCaptcha == true)
                         {
                             IsRequiresCaptcha = steam.RequiresCaptcha;
-                            //this.Dialog("请输入图片验证码");
+                            ToastService.Current.Notify(AppResources.User_LoginError_CodeImage);
                             CodeImage = steam.CaptchaUrl;
                             return;
                         }
@@ -242,20 +243,20 @@ namespace System.Application.UI.ViewModels
 
                         if (string.IsNullOrEmpty(steam.Error) == false)
                         {
-                            //this.Dialog(steam.Error);
+                            ToastService.Current.Notify(steam.Error);
                             return;
                         }
 
                         return;
                     }
-                    ToastService.Current.Notify("登录成功");
+                    ToastService.Current.Notify(AppResources.User_LoiginSuccess);
                     IsLoggedIn = true;
                     _Authenticator.SessionData = RememberMe ? steam.Session.ToString() : null;
                     AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
                 }
                 try
                 {
-                    ToastService.Current.Notify("正在获取最新的交易报价信息...");
+                    ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_GetTip);
 
                     var confirmations = steam.GetConfirmations();
                     foreach (var item in confirmations)
@@ -277,7 +278,7 @@ namespace System.Application.UI.ViewModels
                 catch (WinAuthUnauthorisedSteamRequestException)
                 {
                     // Family view is probably on
-                    ToastService.Current.Notify("You are not allowed to view confirmations. Have you enabled 'community-generated content' in Family View?");
+                    ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_GetError);
                     return;
                 }
                 catch (WinAuthInvalidSteamRequestException)
@@ -292,7 +293,7 @@ namespace System.Application.UI.ViewModels
                     {
                         // reset and show normal login
                         Log.Error(nameof(Process), ex, "可能是没有开加速器导致无法连接Steam社区登录地址");
-                        ToastService.Current.Notify("获取Steam令牌交易数据失败，请确认是否正常加速了Steam社区地址。");
+                        ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_GetError2);
                         //steam.Clear();
                         return;
                     }
@@ -321,7 +322,7 @@ namespace System.Application.UI.ViewModels
 
                 if (result)
                 {
-                    ToastService.Current.Notify($"已{(accept ? "同意" : "取消")}{trade.Details}");
+                    ToastService.Current.Notify($"{(accept ? AppResources.Agree : AppResources.Cancel)}{trade.Details}");
                     MainThreadDesktop.BeginInvokeOnMainThread(() =>
                     {
                         Confirmations.Remove(trade);
@@ -342,7 +343,8 @@ namespace System.Application.UI.ViewModels
                 var trade = Confirmations.Where(t => t.Id == tradeId).FirstOrDefault();
                 if (trade == null)
                 {
-                    throw new ApplicationException("无效的交易");
+                    //throw new ApplicationException(AppResources.LocalAuth_AuthTrade_TradeError);
+                    ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_TradeError);
                 }
 
                 var result = await Task.Factory.StartNew<bool>((t) =>
@@ -351,7 +353,8 @@ namespace System.Application.UI.ViewModels
                 }, trade);
                 if (result == false)
                 {
-                    throw new ApplicationException("无法确认此交易");
+                    //throw new ApplicationException(AppResources.LocalAuth_AuthTrade_ConfirmError);
+                    ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_ConfirmError);
                 }
 
                 return true;
@@ -382,7 +385,8 @@ namespace System.Application.UI.ViewModels
                 var trade = Confirmations.Where(t => t.Id == tradeId).FirstOrDefault();
                 if (trade == null)
                 {
-                    throw new ApplicationException("无效的交易");
+                    //throw new ApplicationException(AppResources.LocalAuth_AuthTrade_TradeError);
+                    ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_TradeError);
                 }
                 var result = await Task.Factory.StartNew<bool>((t) =>
                 {
@@ -390,7 +394,8 @@ namespace System.Application.UI.ViewModels
                 }, trade);
                 if (result == false)
                 {
-                    throw new ApplicationException("无法取消的交易");
+                    //throw new ApplicationException(AppResources.LocalAuth_AuthTrade_ConfirmError);
+                    ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_ConfirmError);
                 }
 
                 return true;
@@ -423,7 +428,7 @@ namespace System.Application.UI.ViewModels
         {
             if (Confirmations.Count == 0)
             {
-                ToastService.Current.Notify($"当前没有任何交易");
+                ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_Null);
                 return;
             }
 
@@ -437,21 +442,20 @@ namespace System.Application.UI.ViewModels
                 return;
             }
 
-            var str = (accept ? "同意" : "取消");
+            var str = (accept ? AppResources.Agree : AppResources.Cancel);
 
-            var result = MessageBoxCompat.ShowAsync("这将" + str + "您当前所有的交易确认。" + Environment.NewLine + Environment.NewLine +
-                "确定要继续吗?", ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
-            {
-                if (s.Result == MessageBoxResultCompat.OK)
-                {
-                    ToastService.Current.Set($"正在{str}所有交易中...");
+            var result = MessageBoxCompat.ShowAsync(string.Format(AppResources.LocalAuth_AuthTrade_MessageBoxTip, str), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+             {
+                 if (s.Result == MessageBoxResultCompat.OK)
+                 {
+                     ToastService.Current.Set(string.Format(AppResources.LocalAuth_AuthTrade_ConfirmTip, str));
 
-                    if (accept)
-                        AcceptAllTrade();
-                    else
-                        RejectAllTrade();
-                }
-            });
+                     if (accept)
+                         AcceptAllTrade();
+                     else
+                         RejectAllTrade();
+                 }
+             });
         }
 
         private async void AcceptAllTrade()
@@ -481,7 +485,7 @@ namespace System.Application.UI.ViewModels
                     {
                         break;
                     }
-                    Confirmations.Remove(tradeIds[i]);
+                    MainThreadDesktop.BeginInvokeOnMainThread(() => { Confirmations.RemoveAt(i); });
                     if (i != 0)
                     {
                         var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
@@ -497,7 +501,7 @@ namespace System.Application.UI.ViewModels
             finally
             {
                 CancelComfirmAll = null;
-                ToastService.Current.Notify($"已成功同意所有交易");
+                ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_ConfirmSuccess);
 
                 AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
             }
@@ -531,7 +535,7 @@ namespace System.Application.UI.ViewModels
                     {
                         break;
                     }
-                    Confirmations.Remove(tradeIds[i]);
+                    MainThreadDesktop.BeginInvokeOnMainThread(() => { Confirmations.RemoveAt(i); });
                     if (i != 0)
                     {
                         var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
@@ -547,7 +551,7 @@ namespace System.Application.UI.ViewModels
             finally
             {
                 CancelCancelAll = null;
-                ToastService.Current.Notify($"已成功取消所有交易");
+                ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_ConfirmCancel);
                 AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
             }
         }

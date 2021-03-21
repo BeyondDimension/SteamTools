@@ -22,12 +22,13 @@
                         <EllipseGeometry Rect="0,0,128,128" />
                     </Image.Clip>-->
                 </Image>
-                <TextBox Watermark="{Binding Path=Res.User_Phone,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBox>
+                <TextBox Watermark="{Binding Path=Res.User_Phone,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding Phone}"></TextBox>
 
                 <Panel>
-                    <TextBox Watermark="{Binding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBox>
+                    <TextBox Watermark="{Binding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding SMSCode}"></TextBox>
                     <Border HorizontalAlignment="Right" Cursor="Hand">
-                        <Button Classes="CodeButton"  Content="{Binding Path=Res.User_GetSMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}"></Button>
+                        <Button Classes="CodeButton" Content="{Binding GetCodeButtonContent}" HorizontalAlignment="Right" Command="{Binding GetSMSCode}"
+                          IsEnabled="{Binding !IsUnTimeLimit}"></Button>
                     </Border>
                 </Panel>
 
@@ -35,14 +36,14 @@
                     <CheckBox Content="{Binding Path=Res.User_Rememberme,Mode=OneWay,Source={x:Static resx:R.Current}}"></CheckBox>
                     <Button Classes="Hyperlink" Content="{Binding Path=Res.User_LoginTroubleshoot,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Right"></Button>
                 </Panel>
-                
-                <Button Content="{Binding Path=Res.LoginAndRegister,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+
+                <Button Content="{Binding Path=Res.LoginAndRegister,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding LoginOrRegister}"
                         HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">
                 </Button>
             </StackPanel>
             <StackPanel Grid.Row="1">
                 <Button
-                        HorizontalAlignment="Center" HorizontalContentAlignment="Center" Background="Transparent" BorderThickness="0" Cursor="Hand">
+                        HorizontalAlignment="Center" HorizontalContentAlignment="Center" Background="Transparent" BorderThickness="0" Cursor="Hand" Command="{Binding SteamFastLogin}">
                     <StackPanel Orientation="Horizontal" Spacing="10">
                         <Image Width="18">
                             <Image.Source>

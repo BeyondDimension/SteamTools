@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.IO;
+using System.Xml.Serialization;
 using static System.Application.SteamApiUrls;
 
 namespace System.Application.Models
@@ -60,7 +61,7 @@ namespace System.Application.Models
         public string AvatarMedium { get; set; }
 
         [XmlIgnore]
-        public CircleImageStream? AvatarStream { get; set; }
+        public Stream? AvatarStream { get; set; }
 
         [XmlElement("avatarFull")]
         public string? AvatarFull { get; set; }
