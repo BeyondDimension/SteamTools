@@ -7,11 +7,11 @@ namespace System
     {
         public static readonly string projPath;
 
-        public const string ProjectDir_AvaloniaApp = "System.Application.SteamTools.Client.Desktop.Avalonia.App";
+        public const string ProjectDir_AvaloniaApp = "ST.Client.Desktop.Avalonia.App";
 
-        public const string ProjectDir_CoreLib = "System.Common.CoreLib";
+        public const string ProjectDir_CoreLib = "Common.CoreLib";
 
-        public const string ProjectDir_ClientDesktop = "System.Application.SteamTools.Client.Desktop";
+        public const string ProjectDir_ClientDesktop = "ST.Client.Desktop";
 
         public const string DirPublishWinX86 =
             @"\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish\win-x86";
