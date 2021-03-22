@@ -1,0 +1,89 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Width="500" Height="800"
+        x:Class="System.Application.UI.Views.Windows.UserProfileWindow"
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="30"
+        WindowStartupLocation="CenterOwner"
+        Title="{Binding Title}">
+    <Panel>
+        <controls:TitleBar></controls:TitleBar>
+        <Grid RowDefinitions="*,Auto" Margin="10">
+            <StackPanel VerticalAlignment="Center" Spacing="10" Margin="10,0" Width="250">
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <Image Source="/Application/UI/Assets/AppResources/avater.jpg" Width="184"></Image>
+                    <TextBlock Text="软妹币玩家"></TextBlock>
+                </StackPanel>
+
+                <WrapPanel>
+                    <TextBlock Text="昵称"></TextBlock>
+                    <TextBox Watermark="请输入昵称" Text=""></TextBox>
+                </WrapPanel>
+
+                <WrapPanel>
+                    <TextBlock Text="手机号码"></TextBlock>
+                    <TextBox Classes="readonlybox" Text="15512341234"></TextBox>
+                </WrapPanel>
+
+                <WrapPanel>
+                    <TextBlock Text="邮箱"></TextBlock>
+                    <TextBox Watermark="未绑定" Text=""></TextBox>
+                </WrapPanel>
+
+                <WrapPanel>
+                    <TextBlock Text="Steam账号"></TextBlock>
+                    <TextBox Watermark="未绑定" Text=""></TextBox>
+                </WrapPanel>
+
+                <WrapPanel>
+                    <TextBlock Text="Steam账号"></TextBlock>
+                    <TextBox Watermark="未绑定" Text=""></TextBox>
+                </WrapPanel>
+
+
+                <WrapPanel>
+                    <TextBlock Text="所在地"></TextBlock>
+                    <ComboBox>
+                        <ComboBoxItem Content="湖南省"></ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox>
+                        <ComboBoxItem Content="长沙市"></ComboBoxItem>
+                    </ComboBox>
+                </WrapPanel>
+
+                <WrapPanel>
+                    <TextBlock Text="性别"></TextBlock>
+                    <ComboBox>
+                        <ComboBoxItem Content="湖南省"></ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox>
+                        <ComboBoxItem Content="长沙市"></ComboBoxItem>
+                    </ComboBox>
+                </WrapPanel>
+
+                <WrapPanel>
+                    <TextBlock Text="性别"></TextBlock>
+                    <RadioButton Content="保密"></RadioButton>
+                    <RadioButton Content="男"></RadioButton>
+                    <RadioButton Content="女"></RadioButton>
+                </WrapPanel>
+
+            </StackPanel>
+
+            <StackPanel Grid.Row="1">
+                <Button
+                        HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                        Content="保存修改" Cursor="Hand">
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!--Toast-->
+        <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+    </Panel>
+</Window>

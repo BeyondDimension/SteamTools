@@ -999,6 +999,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 修改手机号 的本地化字符串。
+        /// </summary>
+        public static string User_ChangePhoneNum {
+            get {
+                return ResourceManager.GetString("User_ChangePhoneNum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 获取验证码 的本地化字符串。
         /// </summary>
         public static string User_GetSMSCode {
@@ -1213,6 +1222,15 @@ namespace System.Application.UI.Resx {
         public static string UserFastChange {
             get {
                 return ResourceManager.GetString("UserFastChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 个人资料 的本地化字符串。
+        /// </summary>
+        public static string UserProfile {
+            get {
+                return ResourceManager.GetString("UserProfile", resourceCulture);
             }
         }
         

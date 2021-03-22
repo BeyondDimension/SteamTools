@@ -22,6 +22,7 @@ namespace System.Application.UI.ViewModels
         private GAPAuthenticatorValueDTO.SteamAuthenticator _Authenticator => MyAuthenticator.AuthenticatorData.Value as GAPAuthenticatorValueDTO.SteamAuthenticator;
         public AuthTradeWindowViewModel()
         {
+            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_SteamAuthTrade;
         }
 
         public AuthTradeWindowViewModel(MyAuthenticator auth)

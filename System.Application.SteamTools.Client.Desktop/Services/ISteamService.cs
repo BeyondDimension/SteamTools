@@ -20,6 +20,8 @@ namespace System.Application.Services
         /// </summary>
         string? SteamProgramPath { get; }
 
+        bool IsRunningSteamProcess { get; }
+
         /// <summary>
         /// 结束 Steam 进程
         /// </summary>
@@ -36,7 +38,7 @@ namespace System.Application.Services
         /// Steam 进程是否正在运行，如果正在运行，返回进程PID提示用户去任务管理器中结束进程
         /// </summary>
         /// <returns></returns>
-        int? IsRunningSteamProcess();
+        int? GetSteamProcessPid();
 
         /// <summary>
         /// 启动 Steam

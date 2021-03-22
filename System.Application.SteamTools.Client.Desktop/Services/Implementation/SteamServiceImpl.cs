@@ -45,6 +45,14 @@ namespace System.Application.Services.Implementation
 
         public string? SteamProgramPath => mSteamProgramPath;
 
+        public bool IsRunningSteamProcess
+        {
+            get
+            {
+                return Process.GetProcesses().Any(p => steamProcess.Contains(p.ProcessName, StringComparer.OrdinalIgnoreCase));
+            }
+        }
+
         public void KillSteamProcess()
         {
             var processes = Process.GetProcesses();
@@ -71,12 +79,12 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public int? IsRunningSteamProcess()
+        public int? GetSteamProcessPid()
         {
             var processes = Process.GetProcesses();
             foreach (var p in processes)
             {
-                if (steamProcess.Contains(p.ProcessName, StringComparer.OrdinalIgnoreCase))
+                if (string.Equals(p.ProcessName, steamProcess[0], StringComparison.OrdinalIgnoreCase))
                 {
                     return p.Id;
                 }

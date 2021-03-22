@@ -26,6 +26,8 @@
                     </Border>
                 </Panel>
 
+                <TextBox Watermark="新手机号码"></TextBox>
+                
                 <Button Content="继续"
                         HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">
                 </Button>

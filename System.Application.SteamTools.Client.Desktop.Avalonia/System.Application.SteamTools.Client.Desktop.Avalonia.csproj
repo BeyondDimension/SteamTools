@@ -123,6 +123,9 @@
     <Compile Update="Application\UI\Views\Windows\AuthTradeWindow.axaml.cs">
       <DependentUpon>AuthTradeWindow.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Application\UI\Views\Windows\UserProfileWindow.axaml.cs">
+      <DependentUpon>UserProfileWindow.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Application\UI\Views\Windows\UserInfoWindow.axaml.cs">
       <DependentUpon>UserInfoWindow.axaml</DependentUpon>
     </Compile>
