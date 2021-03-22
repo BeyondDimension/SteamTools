@@ -47,7 +47,7 @@ namespace System.Application.Services
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
             var list = await repository.GetAllAsync();
-            if (list.Count > 0)
+            if (list.Any_Nullable())
             {
                 Authenticators = new ObservableCollection<MyAuthenticator>(list.Select(s => new MyAuthenticator(s)));
                 if (isSync)

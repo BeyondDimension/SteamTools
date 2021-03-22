@@ -1,11 +1,11 @@
 ﻿namespace System.Application.UI
 {
-    static class Program
+    static partial class Program
     {
         [STAThread]
         static void Main(string[] args)
         {
-            App.Init(args);
+            InitAvaloniaApp(args);
         }
     }
 }

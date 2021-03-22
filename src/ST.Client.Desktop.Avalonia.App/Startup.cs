@@ -14,7 +14,7 @@
                 {
                     ModelValidatorProvider.Init();
                 }
-                DI.Init(s => ConfigureServices(s, isMainProcess));
+                InitDI(isMainProcess);
             }
         }
     }

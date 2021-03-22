@@ -24,9 +24,7 @@ using System.Application.UI.Resx;
 using System.Application.Models;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
-using Avalonia;
 using System.Reflection;
-using Avalonia.ReactiveUI;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
@@ -262,7 +260,12 @@ namespace System.Application.UI
                 desktop.MainWindow = MainWindow;
                 desktop.Startup += Desktop_Startup;
                 desktop.Exit += ApplicationLifetime_Exit;
-                desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                desktop.ShutdownMode =
+#if UI_DEMO
+                    ShutdownMode.OnMainWindowClose;
+#else
+                    ShutdownMode.OnExplicitShutdown;
+#endif
             }
 
             base.OnFrameworkInitializationCompleted();
@@ -400,23 +403,6 @@ namespace System.Application.UI
                 Log.Error(nameof(App), e, "ActiveUserPost");
             }
         }
-
-        // Avalonia configuration, don't remove; also used by visual designer.
-        static AppBuilder BuildAvaloniaApp()
-           => AppBuilder.Configure<App>()
-               .UsePlatformDetect()
-               .With(new SkiaOptions
-               {
-                   MaxGpuResourceSizeBytes = 8096000,
-               })
-               .With(new Win32PlatformOptions
-               {
-                   AllowEglInitialization = true,
-               })
-               .LogToTrace()
-               .UseReactiveUI();
-
-        internal static void Init(string[] args) => BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 }
 #pragma warning restore CA1416 // 验证平台兼容性

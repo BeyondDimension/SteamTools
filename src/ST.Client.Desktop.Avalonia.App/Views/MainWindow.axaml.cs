@@ -26,8 +26,10 @@ namespace System.Application.UI.Views
 
         protected override void OnClosing(CancelEventArgs e)
         {
+#if !UI_DEMO
             e.Cancel = true;
             Hide();
+#endif
             base.OnClosed(e);
         }
 

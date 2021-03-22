@@ -14,6 +14,11 @@ namespace System.Application.UI
 {
     partial class Startup
     {
+        static void InitDI(bool isMainProcess)
+        {
+            DI.Init(s => ConfigureServices(s, isMainProcess));
+        }
+
         static void ConfigureServices(IServiceCollection services, bool isMainProcess)
         {
             ConfigureRequiredServices(services);

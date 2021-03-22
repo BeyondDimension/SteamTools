@@ -6,7 +6,7 @@ using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace System.Application.UI
 {
-    static class Program
+    static partial class Program
     {
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
@@ -50,7 +50,7 @@ namespace System.Application.UI
 
                 if (isMainProcess)
                 {
-                    App.Init(args);
+                    InitAvaloniaApp(args);
                 }
             }
             catch (Exception ex)
