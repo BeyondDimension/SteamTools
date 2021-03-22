@@ -27,10 +27,10 @@ English | [简体中文](./README.md)
 4. Steam Local Two-Step Authenticator
     - The function reference [WinAuth](https://github.com/winauth/winauth) is developed to enable you to view your token without launching the mobile version of Steam App, similar function software are [WinAuth](https://github.com/winauth/winauth), [SteamDesktopAuthenticator](https://github.com/Jessecar96/SteamDesktopAuthenticator).
 5. Some game tools
-	- Currently there is a forced game borderless windowing, CSGO fix VAC shield.
+	- Currently there is a forced game borderless windowing, CSGO fix mistake VAC shield.
 
 <!--Prerequisites Microsoft Visual C++ 2015-2019 Redistributable [64 bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 bit](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
-## 🖥 Support Operating System
+## 🖥 Supported Operating Systems
 - Desktop
 	- Windows 10 1607+ / Windows Server, version 1909+ / Windows Server 2019 / Windows Server 2016
 	- Windows 8.1 / Windows Server 2012 R2
@@ -64,17 +64,22 @@ English | [简体中文](./README.md)
 Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/milestones), and feel free to ask questions.
 
 ## ⌨️ Development Environment
-[Visual Studio 2019 Version 16.8 Or Higher](https://visualstudio.microsoft.com/vs/) Or [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/) Or [JetBrains Rider](https://www.jetbrains.com/rider/) Or ~~[Visual Studio Code](https://code.visualstudio.com/)~~
+[Visual Studio 2019 Version 16.9 Or Higher](https://visualstudio.microsoft.com/vs/) Or [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/) Or [JetBrains Rider](https://www.jetbrains.com/rider/) Or ~~[Visual Studio Code](https://code.visualstudio.com/)~~
+- Supported Operating Systems
+	- [Windows 10 version 2004 or higher: Home, Professional, Education, and Enterprise (LTSC and S are not supported)](https://docs.microsoft.com/en-us/visualstudio/releases/2019/system-requirements)
+	- [macOS 10.13 High Sierra Or Higher](https://docs.microsoft.com/en-us/visualstudio/productinfo/vs2019-system-requirements-mac)
 - Workload
 	- Web and Cloud
 		- ASP.NET and Web Development
 	- Desktop and Mobile Applications
 		- .NET Desktop Development
+		- UWP Development
 		- Mobile Development using .Net
 	- Other Toolsets
 		- .NET Core Cross Platform Development
 - Single Component
 	- GitHub Extension for Visual Studio
+	- Windows 10 SDK (10.0.19041.0)
 - [Visual Studio Marketplace](https://marketplace.visualstudio.com/)
 	- [Avalonia for Visual Studio](https://marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaforVisualStudio)
 	- [NUnit VS Templates](https://marketplace.visualstudio.com/items?itemName=NUnitDevelopers.NUnitTemplatesforVisualStudio)

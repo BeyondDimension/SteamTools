@@ -36,7 +36,7 @@
 		- [WinAuth](https://github.com/winauth/winauth)
 		- [SteamDesktopAuthenticator](https://github.com/Jessecar96/SteamDesktopAuthenticator)
 5. 其他游戏工具
-	- 目前已有强制游戏无边框窗口化，CSGO 修复 VAC 屏蔽
+	- 目前已有强制游戏无边框窗口化，CSGO 修复 VAC 误屏蔽
 
 <!--发布配置SelfContained=true时会自动打包VC++相关程序集-->
 <!--先决条件 Microsoft Visual C++ 2015-2019 Redistributable [64 位](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 位](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
@@ -74,17 +74,22 @@
 查看这个 [milestones](https://github.com/SteamTools-Team/SteamTools/milestones) 来了解我们下一步的开发计划，并随时提出问题。
 
 ## ⌨️ 开发环境
-[Visual Studio 2019 版本 16.8 或更高版本](https://visualstudio.microsoft.com/zh-hans/vs/) 或 [Visual Studio for Mac](https://visualstudio.microsoft.com/zh-hans/vs/mac/) 或 [JetBrains Rider](https://www.jetbrains.com/rider/) 或 ~~[Visual Studio Code](https://code.visualstudio.com/)~~
+[Visual Studio 2019 版本 16.9 或更高版本](https://visualstudio.microsoft.com/zh-hans/vs/) 或 [Visual Studio for Mac](https://visualstudio.microsoft.com/zh-hans/vs/mac/) 或 [JetBrains Rider](https://www.jetbrains.com/rider/) 或 ~~[Visual Studio Code](https://code.visualstudio.com/)~~
+- 系统要求
+	- [Windows 10 版本 2004 或更高版本：家庭版、专业版、教育版和企业版（不支持 LTSC 和 Windows 10 S，在较早的操作系统上可能不受支持）](https://docs.microsoft.com/zh-cn/visualstudio/releases/2019/system-requirements)
+	- [macOS 10.13 High Sierra 或更高版本](https://docs.microsoft.com/zh-cn/visualstudio/productinfo/vs2019-system-requirements-mac)
 - 工作负载
 	- Web 和云
 		- ASP.NET 和 Web 开发
 	- 桌面应用和移动应用
 		- .NET 桌面开发
+		- 通用 Windows 平台开发
 		- 使用 .NET 的移动开发
 	- 其他工具集
 		- .NET Core 跨平台开发
 - 单个组件
 	- GitHub Extension for Visual Studio
+	- Windows 10 SDK (10.0.19041.0)
 - [Visual Studio Marketplace](https://marketplace.visualstudio.com/)
 	- [Avalonia for Visual Studio](https://marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaforVisualStudio)
 	- [NUnit VS Templates](https://marketplace.visualstudio.com/items?itemName=NUnitDevelopers.NUnitTemplatesforVisualStudio)
