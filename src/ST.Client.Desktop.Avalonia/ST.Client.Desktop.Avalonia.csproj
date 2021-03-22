@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>System</RootNamespace>
+    <SignAssembly>false</SignAssembly>
+    <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
+    <AssemblyName>System.Application.SteamTools.Client.Desktop.Avalonia</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <AvaloniaResource Include="**\*.xaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Include="Application\UI\Assets\**" />
+    <None Remove="Application\UI\Assets\**" />
+    <None Remove="**\*.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
+    <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.0" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.0" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0" />
+    <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.0" />
+    <PackageReference Include="CefNet.Avalonia" Version="88.1.21022.1657" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0" />
+  </ItemGroup>
+</Project>

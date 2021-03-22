@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>System.Application</RootNamespace>
+    <AssemblyName>System.Application.SteamTools.Client.Desktop</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DnsClient" Version="1.4.0" />
+    <PackageReference Include="Gameloop.Vdf" Version="0.6.1" />
+    <PackageReference Include="NLog" Version="4.7.8" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.7.1" />
+    <PackageReference Include="ReactiveUI" Version="13.2.2" />
+    <PackageReference Include="SharpZipLib" Version="1.3.1" />
+    <PackageReference Include="StatefulModel.Standard" Version="0.1.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <!--<PackageReference Include="Titanium.Web.Proxy" Version="3.1.1344" />-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj" />
+    <ProjectReference Include="..\Repositories.sqlite-net-pcl\Repositories.sqlite-net-pcl.csproj" />
+    <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\SR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SR.resx</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Resx\AppResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\SR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Resx\AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,61 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <SignAssembly>false</SignAssembly>
+    <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
+    <RootNamespace>System.Application.UI</RootNamespace>
+    <AssemblyName>Steam++.Demo</AssemblyName>
+    <DefineConstants>UI_DEMO;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop.Avalonia.App\Startup.cs">
+      <Link>Startup.cs</Link>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop.Avalonia.App\ViewLocator.cs">
+      <Link>ViewLocator.cs</Link>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop.Avalonia.App\App.axaml.cs">
+      <Link>App.axaml.cs</Link>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <AvaloniaResource Include="..\ST.Client.Desktop.Avalonia.App\App.axaml">
+      <Link>App.axaml</Link>
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <Compile Include="..\ST.Client.Desktop.Avalonia.App\Views\MainWindow.axaml.cs">
+      <Link>Views\MainWindow.axaml.cs</Link>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <AvaloniaResource Include="..\ST.Client.Desktop.Avalonia.App\Views\MainWindow.axaml">
+      <Link>Views\MainWindow.axaml</Link>
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ST.Client.Desktop.Avalonia\ST.Client.Desktop.Avalonia.csproj" />
+    <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
+    <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <AvaloniaResource Include="**\*.xaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.16.1" />
+  </ItemGroup>
+
+</Project>
