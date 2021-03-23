@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+#if !NOT_XE
 using Xamarin.Essentials;
+#endif
 
 namespace System
 {
@@ -50,6 +52,8 @@ namespace System
             return platform != Platform.Unknown && Enum.IsDefined(typeof(Platform), platform);
         }
 
+#if !NOT_XE
+
         static readonly IReadOnlyDictionary<DevicePlatform, Platform> mapping = new Dictionary<DevicePlatform, Platform>
         {
             { DevicePlatform.Android, Platform.Android },
@@ -66,5 +70,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         public static Platform Convert(this DevicePlatform value) => mapping.ContainsKey(value) ? mapping[value] : Platform.Unknown;
+
+#endif
     }
 }

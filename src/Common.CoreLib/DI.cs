@@ -1,7 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿#if !NOT_DI
+using Microsoft.Extensions.DependencyInjection;
+#endif
 using System.Linq;
 using System.Runtime.InteropServices;
+#if !NOT_XE
 using Xamarin.Essentials;
+#endif
 
 namespace System
 {
@@ -10,6 +14,8 @@ namespace System
     /// </summary>
     public static class DI
     {
+#if !NOT_DI
+
         static IServiceProvider? value;
 
         internal static bool IsInit => value != null;
@@ -35,6 +41,8 @@ namespace System
         {
             value = serviceProvider;
         }
+
+#endif
 
         /// <inheritdoc cref="System.Platform"/>
         public static Platform Platform { get; }
@@ -74,11 +82,18 @@ namespace System
                     return DeviceIdiom.Desktop;
                 return DeviceIdiom.Unknown;
             }
+#if !NOT_XE
             Platform = DeviceInfo.Platform.Convert();
             if (Platform == Platform.Unknown) Platform = RuntimeInformationOSPlatform();
             DeviceIdiom = DeviceInfo.Idiom.Convert();
             if (DeviceIdiom == DeviceIdiom.Unknown) DeviceIdiom = GetDeviceIdiom();
+#else
+            Platform = RuntimeInformationOSPlatform();
+            DeviceIdiom = GetDeviceIdiom();
+#endif
         }
+
+#if !NOT_DI
 
         /// <summary>
         /// 获取依赖注入服务
@@ -95,5 +110,7 @@ namespace System
 
         /// <inheritdoc cref="Get_Nullable{T}"/>
         public static object? Get_Nullable(Type serviceType) => Value.GetService(serviceType);
+
+#endif
     }
 }

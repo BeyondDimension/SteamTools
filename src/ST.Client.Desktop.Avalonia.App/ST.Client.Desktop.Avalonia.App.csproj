@@ -103,7 +103,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="Exists('$(MSBuildProjectDirectory)\..\..\aes-key.pfx')">
-    <EmbeddedResource Include="..\..\aes-key.pfx" Link="Resources\aes-key.pfx" />
+    <EmbeddedResource Include="..\..\aes-key.pfx" LinkBase="Resources" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-debug.pfx')">

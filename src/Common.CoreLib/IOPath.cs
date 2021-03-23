@@ -1,5 +1,5 @@
 ﻿using System.IO;
-#if !NET35
+#if !NET35 && !NOT_XE
 using Xamarin.Essentials;
 #endif
 
@@ -109,7 +109,7 @@ namespace System
             {
                 if (getAppDataDirectory != null)
                     return getAppDataDirectory();
-#if NET35
+#if NET35 || NOT_XE
                 throw new PlatformNotSupportedException();
 #else
                 return FileSystem.AppDataDirectory;
@@ -124,7 +124,7 @@ namespace System
             {
                 if (getCacheDirectory != null)
                     return getCacheDirectory();
-#if NET35
+#if NET35 || NOT_XE
                 throw new PlatformNotSupportedException();
 #else
                 return FileSystem.CacheDirectory;

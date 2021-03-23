@@ -1,11 +1,18 @@
-﻿using MessagePack;
+﻿#if !NOT_MP
+using MessagePack;
+#endif
+#if !NOT_NJSON
 using Newtonsoft.Json;
+#endif
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
+#if !NOT_NJSON
 using static Newtonsoft.Json.JsonConvert;
+#endif
 using static System.Serializable;
 using SJsonSerializer = System.Text.Json.JsonSerializer;
 using SJsonSerializerOptions = System.Text.Json.JsonSerializerOptions;
@@ -66,12 +73,16 @@ namespace System
 
         static JsonImplType GetDefaultJsonImplType()
         {
+#if NOT_NJSON
+            return JsonImplType.SystemTextJson;
+#else
             if (DI.Platform == Platform.Android ||
                 (DI.Platform == Platform.Apple && DI.DeviceIdiom != DeviceIdiom.Desktop))
             {
                 return JsonImplType.NewtonsoftJson;
             }
             return JsonImplType.SystemTextJson;
+#endif
         }
 
         #endregion
@@ -100,12 +111,16 @@ namespace System
                     };
                     return SJsonSerializer.Serialize(value, inputType ?? value?.GetType() ?? typeof(object), options);
                 default:
+#if NOT_NJSON
+                    throw new NotSupportedException();
+#else
                     var formatting = writeIndented ? Formatting.Indented : Formatting.None;
                     var settings = ignoreNullValues ? new JsonSerializerSettings
                     {
                         NullValueHandling = NullValueHandling.Ignore
                     } : null;
                     return SerializeObject(value, inputType, formatting, settings);
+#endif
             }
         }
 
@@ -118,6 +133,8 @@ namespace System
         /// <returns></returns>
         public static string SJSON(object? value, Type? inputType = null, bool writeIndented = false, bool ignoreNullValues = false)
             => SJSON(DefaultJsonImplType, value, inputType, writeIndented, ignoreNullValues);
+
+#if !NOT_MP
 
         /// <summary>
         /// (Serialize)MessagePack 序列化
@@ -142,6 +159,8 @@ namespace System
             return byteArray.Base64UrlEncode_Nullable();
         }
 
+#endif
+
         #endregion
 
         #region Deserialize(反序列化)
@@ -159,7 +178,12 @@ namespace System
             return implType switch
             {
                 JsonImplType.SystemTextJson => SJsonSerializer.Deserialize<T>(value),
-                _ => DeserializeObject<T>(value),
+                _ =>
+#if NOT_NJSON
+                throw new NotSupportedException(),
+#else
+                DeserializeObject<T>(value),
+#endif
             };
         }
 
@@ -171,6 +195,8 @@ namespace System
         /// <returns></returns>
         [return: MaybeNull]
         public static T DJSON<T>(string value) => DJSON<T>(DefaultJsonImplType, value);
+
+#if !NOT_MP
 
         /// <summary>
         /// (Deserialize)MessagePack 反序列化
@@ -210,6 +236,8 @@ namespace System
             return default;
         }
 
+#endif
+
         #endregion
 
         /// <summary>
@@ -218,10 +246,17 @@ namespace System
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static T Clone<T>(T obj)
+        [return: NotNullIfNotNull("obj")]
+        public static T? Clone<T>(T? obj)
         {
+            if (EqualityComparer<T>.Default.Equals(obj, default)) return default;
+#if NOT_MP
+            var jsonStr = SJSON(obj);
+            return DJSON<T>(jsonStr);
+#else
             var bytes = MessagePackSerializer.Serialize(obj);
             return MessagePackSerializer.Deserialize<T>(bytes);
+#endif
         }
     }
 

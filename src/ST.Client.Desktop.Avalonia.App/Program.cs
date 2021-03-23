@@ -18,6 +18,7 @@ namespace System.Application.UI
             // Serializable.DefaultJsonImplType = Serializable.JsonImplType.NewtonsoftJson;
 
             var isMainProcess = args.Length == 0;
+
             var logDirPath = InitLogDir();
 
             void InitCefNetApp() => CefNetApp.Init(logDirPath, args);
@@ -104,7 +105,7 @@ namespace System.Application.UI
                 "<nlog xmlns=\"http://www.nlog-project.org/schemas/NLog.xsd\"" +
                 "      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" +
                 "      autoReload=\"true\"" +
-                $"      internalLogFile=\"" + logDirPath_ + "internal-nlog.txt\"" +
+                "      internalLogFile=\"" + logDirPath_ + "internal-nlog.txt\"" +
                 "      internalLogLevel=\"Off\">" +
                 "  <targets>" +
                 "    <target xsi:type=\"File\" name=\"logfile\" fileName=\"" + logDirPath_ + "nlog-all-${shortdate}.log\"" +
