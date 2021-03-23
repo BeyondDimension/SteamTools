@@ -1,5 +1,6 @@
 ﻿using NLog;
 using NLog.Config;
+using System.Application.Services;
 using System.IO;
 using System.Properties;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
@@ -16,7 +17,6 @@ namespace System.Application.UI
         {
             // 目前桌面端默认使用 SystemTextJson 如果出现兼容性问题可取消下面这行代码
             // Serializable.DefaultJsonImplType = Serializable.JsonImplType.NewtonsoftJson;
-
             var isMainProcess = args.Length == 0;
 
             var logDirPath = InitLogDir();
@@ -29,6 +29,11 @@ namespace System.Application.UI
                 if (isMainProcess)
                 {
                     Migrations.FromV1();
+                    //var appInstance = new ApplicationInstance();
+                    //if (!appInstance.IsFirst)
+                    //{
+                    //    return;
+                    //}
                 }
 
                 Startup.Init(isMainProcess);
@@ -48,6 +53,14 @@ namespace System.Application.UI
 #endif
 
                 InitCefNetApp();
+                if (args.ContainsArg("-app", out int appid))
+                {
+                    IWindowService.Instance.Initialize(appid);
+                }
+                else
+                {
+                    IWindowService.Instance.Initialize();
+                }
 
                 if (isMainProcess)
                 {
@@ -91,6 +104,7 @@ namespace System.Application.UI
                 // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
                 LogManager.Shutdown();
             }
+
         }
 
         static string InitLogDir()

@@ -143,10 +143,13 @@ namespace System.Application.Services.Implementation
                 return true;
             });
 
+            dataLines.Add(Constants.CERTIFICATE_HOST_TAG + " Start");
             foreach (var (ip, domain) in hosts)
             {
-                dataLines.Add($"{ip} {domain} {Constants.CERTIFICATE_HOST_TAG}");
+                dataLines.Add($"{ip} {domain}");
             }
+            dataLines.Add(Constants.CERTIFICATE_HOST_TAG + " End");
+
             try
             {
                 File.WriteAllLines(s.HostsFilePath, dataLines, Encoding.UTF8);
@@ -237,6 +240,13 @@ namespace System.Application.Services.Implementation
                     }
                     return true;
                 });
+
+                var start = dataLines.IndexOf(Constants.CERTIFICATE_HOST_TAG + " Start");
+                var end = dataLines.IndexOf(Constants.CERTIFICATE_HOST_TAG + " End");
+                if (start >= 0 && end >= 0)
+                    for (var i = start; i <= end; i++)
+                        dataLines.RemoveAt(i);
+
 
                 File.WriteAllLines(s.HostsFilePath, dataLines, Encoding.UTF8);
                 //File.SetAttributes(HostsPath, FileAttributes.ReadOnly);

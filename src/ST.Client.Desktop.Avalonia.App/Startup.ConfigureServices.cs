@@ -47,6 +47,9 @@ namespace System.Application.UI
             services.AddSingleton<IDesktopAppService>(s => App.Instance);
             services.AddSingleton<IDesktopAvaloniaAppService>(s => App.Instance);
 
+            // 管理主窗口服务类
+            services.AddWindowService();
+
             // 桌面平台服务 此项放在其他通用业务实现服务之前
             services.AddDesktopPlatformService();
 

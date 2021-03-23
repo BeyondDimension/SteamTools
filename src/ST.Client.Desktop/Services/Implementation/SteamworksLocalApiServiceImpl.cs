@@ -16,7 +16,7 @@ namespace System.Application.Services.Implementation
 
         public bool OwnsApps(uint appid) => default;
 
-        public List<SteamApp> OwnsApps(List<SteamApp> apps) => new List<SteamApp>();
+        public List<SteamApp> OwnsApps(List<SteamApp> apps) => new();
 
         public string GetAppData(uint appid, string key) => string.Empty;
 

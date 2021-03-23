@@ -1,39 +1,36 @@
-﻿using SteamTool.Core;
-using SteamTool.Core.Common;
-using System;
+﻿using System;
+using System.Application.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
-using System.IO;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Titanium.Web.Proxy;
 using Titanium.Web.Proxy.EventArguments;
-using Titanium.Web.Proxy.Http;
 using Titanium.Web.Proxy.Models;
-using SteamTool.Model;
-using System.Security.Cryptography;
-using Org.BouncyCastle.Asn1;
-using Org.BouncyCastle.Asn1.X509;
-using Org.BouncyCastle.X509;
 
-namespace SteamTool.Proxy
+namespace System.Application.Services.Implementation
 {
-    public class HttpProxy : IDisposable
+    public class HttpProxyImpl
     {
-        private readonly HostsService hostsService = SteamToolCore.Instance.Get<HostsService>();
-        private readonly ProxyServer proxyServer = new ProxyServer();
+        private readonly ProxyServer proxyServer = new();
 
         public bool IsCertificate => proxyServer.CertificateManager == null;
 
-        public IReadOnlyCollection<ProxyDomainModel> ProxyDomains { get; set; }
+        public IReadOnlyCollection<ProxyDomain> ProxyDomains { get; set; }
+
         public List<ProxyScript> Scripts { get; set; }
+
         public bool IsEnableScript { get; set; }
+
         public bool IsOnlyWorkSteamBrowser { get; set; }
+
         public string CertificateName { get; }
 
-        public HttpProxy(IReadOnlyCollection<ProxyDomainModel> proxyDomains, string certificateName)
+        public HttpProxyImpl(IReadOnlyCollection<ProxyDomain> proxyDomains, string certificateName)
         {
             ProxyDomains = proxyDomains;
             CertificateName = certificateName;
@@ -42,7 +39,7 @@ namespace SteamTool.Proxy
             proxyServer.CertificateManager.PfxFilePath = Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.pfx");
             proxyServer.CertificateManager.RootCertificateIssuerName = $"{CertificateName} Certificate Authority";
             proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
-            proxyServer.CertificateManager.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.BouncyCastleFast;
+            proxyServer.CertificateManager.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.DefaultWindows;
         }
 
         public bool ProxyRunning => proxyServer.ProxyRunning;
@@ -50,32 +47,8 @@ namespace SteamTool.Proxy
         public async Task OnRequest(object sender, SessionEventArgs e)
         {
 #if DEBUG
-            #region 测试用
-            /*
-            if (e.HttpClient.Request.RequestUri.AbsoluteUri.Contains("steampowered.com"))
-            {
-                var ip = Dns.GetHostAddresses("steampowered.com");
-                e.HttpClient.UpStreamEndPoint = new IPEndPoint(IPAddress.Parse(ip[0].ToString()), 443);
-                if (e.HttpClient.ConnectRequest?.ClientHelloInfo != null)
-                {
-                    e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions.Remove("server_name");
-                }
-            }
-
-            if (e.HttpClient.Request.RequestUri.AbsoluteUri.Contains("steamcommunity.com"))
-            {
-                var ip = Dns.GetHostAddresses("steamcommunity-a.akamaihd.net");
-                e.HttpClient.UpStreamEndPoint = new IPEndPoint(IPAddress.Parse(ip[0].ToString()), 443);
-                if (e.HttpClient.ConnectRequest?.ClientHelloInfo != null)
-                {
-                    e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions.Remove("server_name");
-                }
-            }
-            */
-            #endregion
             Debug.WriteLine("OnRequest " + e.HttpClient.Request.RequestUri.AbsoluteUri);
             Debug.WriteLine("OnRequest HTTP " + e.HttpClient.Request.HttpVersion);
-            //Logger.Info("OnRequest" + e.HttpClient.Request.RequestUri.AbsoluteUri);
 #endif
             foreach (var item in ProxyDomains)
             {
@@ -132,18 +105,18 @@ namespace SteamTool.Proxy
             }
 
             await Dns.GetHostAddressesAsync(e.HttpClient.Request.Host).ContinueWith(s =>
-           {
-               //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
-               if (IPAddress.IsLoopback(s.Result.FirstOrDefault())
-             && ProxyDomains.Count(w => w.IsEnable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
-               {
-                   e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
-                   return;
-               }
-               Logger.Info("Steam++ IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
-           });
+            {
+                //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
+                if (IPAddress.IsLoopback(s.Result.FirstOrDefault())
+              && ProxyDomains.Count(w => w.IsEnable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
+                {
+                    e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
+                    return;
+                }
+                Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
+            });
 
-            //没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
+            ////没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
             //e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine}not support proxy");
             return;
         }
@@ -151,7 +124,7 @@ namespace SteamTool.Proxy
         {
 #if DEBUG
             Debug.WriteLine("OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
-            Logger.Info("OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
+            Log.Info("Proxy", "OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
 #endif
             if (IsEnableScript)
             {
@@ -274,7 +247,7 @@ namespace SteamTool.Proxy
             var result = proxyServer.CertificateManager.CreateRootCertificate(true);
             if (!result)
             {
-                Logger.Error("创建证书失败");
+                Log.Error("Proxy", "创建证书失败");
                 return false;
             }
             proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(Path.Combine(AppContext.BaseDirectory, $@"{CertificateName}.Certificate.cer"));
@@ -299,19 +272,19 @@ namespace SteamTool.Proxy
                 //}
                 //proxyServer.CertificateManager.ClearRootCertificate();
                 proxyServer.CertificateManager.RemoveTrustedRootCertificate();
+                proxyServer.CertificateManager.RootCertificate = null;
+                if (File.Exists(proxyServer.CertificateManager.PfxFilePath))
+                    File.Delete(proxyServer.CertificateManager.PfxFilePath);
                 //proxyServer.CertificateManager.RemoveTrustedRootCertificateAsAdmin();
                 //proxyServer.CertificateManager.CertificateStorage.Clear();
             }
+            catch (CryptographicException)
+            {
+                //取消删除证书
+            }
             catch (Exception ex)
             {
-                if (ex is CryptographicException)
-                {
-                    //取消删除证书
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
             return true;
         }
@@ -337,7 +310,7 @@ namespace SteamTool.Proxy
 
         public bool StartProxy(bool IsProxyGOG = false, bool IsWindowsProxy = false)
         {
-            if (!IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
+            if (proxyServer.CertificateManager.RootCertificate == null)
             {
                 var isOk = SetupCertificate();
                 if (!isOk)
@@ -393,7 +366,7 @@ namespace SteamTool.Proxy
                         }
                     }
                 }
-                hostsService.UpdateHosts(hosts);
+                IHostsFileService.Instance.UpdateHosts(hosts);
                 #endregion
                 proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 443, true)
                 {
@@ -405,7 +378,7 @@ namespace SteamTool.Proxy
 
             proxyServer.ExceptionFunc = ((Exception exception) =>
             {
-                Logger.Error(exception);
+                Log.Error("Proxy", exception, "ProxyServer ExceptionFunc");
             });
 
             try
@@ -414,7 +387,7 @@ namespace SteamTool.Proxy
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                Log.Error("Proxy", ex, nameof(StartProxy));
                 return false;
             }
             if (IsWindowsProxy)
@@ -438,6 +411,7 @@ namespace SteamTool.Proxy
         {
             if (proxyServer.ProxyRunning)
             {
+                IHostsFileService.Instance.RemoveHostsByTag();
                 proxyServer.BeforeRequest -= OnRequest;
                 proxyServer.BeforeResponse -= OnResponse;
                 //proxyServer.ServerCertificateValidationCallback -= OnCertificateValidation;
@@ -445,7 +419,6 @@ namespace SteamTool.Proxy
                 proxyServer.DisableSystemHttpProxy();
                 proxyServer.DisableSystemHttpsProxy();
                 proxyServer.Stop();
-                hostsService.RemoveHostsByTag();
             }
         }
 
@@ -464,14 +437,14 @@ namespace SteamTool.Proxy
                         if (File.Exists(certifi))
                         {
                             var file = File.ReadAllText(certifi);
-                            var s = file.Substring(Const.HOST_TAG, Const.HOST_TAG, true);
+                            var s = file.Substring(Constants.CERTIFICATE_HOST_TAG, Constants.CERTIFICATE_HOST_TAG, true);
                             if (string.IsNullOrEmpty(s))
                             {
                                 File.AppendAllText(certifi, Environment.NewLine + pem);
                             }
                             else if (s.Trim() != pem.Trim())
                             {
-                                var index = file.IndexOf(Const.HOST_TAG);
+                                var index = file.IndexOf(Constants.CERTIFICATE_HOST_TAG);
                                 File.WriteAllText(certifi, file.Remove(index, s.Length) + pem);
                             }
                             return true;
@@ -496,7 +469,7 @@ namespace SteamTool.Proxy
             if (proxyServer.ProxyRunning)
             {
                 proxyServer.Stop();
-                hostsService.RemoveHostsByTag();
+                IHostsFileService.Instance.RemoveHostsByTag();
             }
             proxyServer.Dispose();
         }

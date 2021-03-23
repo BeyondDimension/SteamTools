@@ -110,5 +110,16 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IHttpPlatformHelper, DesktopHttpPlatformHelper>();
             return services;
         }
+
+        /// <summary>
+        /// 添加 Window 窗口viewmodel
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddWindowService(this IServiceCollection services)
+        {
+            services.AddSingleton<IWindowService, WindowServiceImpl>();
+            return services;
+        }
     }
 }

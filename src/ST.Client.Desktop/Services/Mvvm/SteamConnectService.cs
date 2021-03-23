@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using System.Application.Models;
+using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -141,12 +142,9 @@ namespace System.Application.Services
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
 
                                     #region 初始化需要steam启动才能使用的功能
-//                                    var mainViewModel = (IDesktopAppService.MainWindow as MainWindowViewModel);
-//                                    await mainViewModel.SteamAppPage.Initialize();
-//                                    await mainViewModel.AccountPage.Initialize(id);
-//#if DEBUG
-//                                    await mainViewModel.SystemTabItems[mainViewModel.SystemTabItems.Count - 1].Initialize();
-//#endif
+                                    var mainViewModel = (IWindowService.Instance.MainWindow as MainWindowViewModel);
+                                    //                                    await mainViewModel.SteamAppPage.Initialize();
+                                    //                                    await mainViewModel.AccountPage.Initialize(id);
                                     #endregion
 
                                     DisposeSteamClient();
@@ -178,13 +176,14 @@ namespace System.Application.Services
             }
         }
 
-        public void OnExit()
+        public void Dispose()
         {
             foreach (var app in Current.RuningSteamApps)
             {
                 if (!app.Process.HasExited)
                     app.Process.Kill();
             }
+            Dispose();
         }
 
         public void DisposeSteamClient()

@@ -135,9 +135,9 @@ namespace System.Application.UI
             Startup.Init(true);
 
             #region 启动时加载的资源
-
             SettingsHost.Load();
             compositeDisposable.Add(SettingsHost.Save);
+            compositeDisposable.Add(SteamConnectService.Current.Dispose);
             Theme = (AppTheme)UISettings.Theme.Value;
             UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
@@ -146,7 +146,7 @@ namespace System.Application.UI
 
             MainWindow = new MainWindow
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = IWindowService.Instance.MainWindow,
             };
         }
 

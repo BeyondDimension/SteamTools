@@ -9,9 +9,9 @@ namespace System.Application
     /// <summary>
     /// DNS 解析
     /// </summary>
-    public static class DnsResolution
+    public static class DnsAnalysis
     {
-        public static IPAddress ResolutionDomainIp(string url)
+        public static IPAddress AnalysisDomainIp(string url)
         {
             if (!string.IsNullOrEmpty(url))
             {
@@ -55,7 +55,7 @@ namespace System.Application
             return new List<ARecord>();
         }
 
-        public static IPAddress ResolutionDomainIpByGoogleDns(string url)
+        public static IPAddress AnalysisDomainIpByGoogleDns(string url)
         {
             if (!string.IsNullOrEmpty(url))
             {
@@ -73,12 +73,8 @@ namespace System.Application
 
         public static string GetHostByIPAddress(string ip)
         {
-            if (!string.IsNullOrEmpty(ip))
-            {
-                var result = Dns.GetHostEntry(IPAddress.Parse(ip)).HostName;
-                return result;
-            }
-            return "";
+            var result = Dns.GetHostEntry(IPAddress.Parse(ip)).HostName;
+            return result;
         }
     }
 }

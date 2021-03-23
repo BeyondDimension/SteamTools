@@ -14,7 +14,7 @@
         <vm:CommunityProxyPageViewModel/>
     </Design.DataContext>
     <Panel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}">
-        <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerqqfticalScrollBarVisibility="Auto">
             <ItemsRepeater Items="{Binding SteamUsers}">
                 <ItemsRepeater.Layout>
                     <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"

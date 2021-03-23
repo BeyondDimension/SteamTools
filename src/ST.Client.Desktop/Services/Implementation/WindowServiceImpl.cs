@@ -10,12 +10,11 @@ using System.Windows;
 
 namespace System.Application.Services.Implementation
 {
-    public class WindowServiceImpl : ReactiveObject, IDisposableHolder
+    public class WindowServiceImpl : ReactiveObject, IWindowService, IDisposableHolder
     {
-        public static WindowServiceImpl Current { get; } = new WindowServiceImpl();
         private MainWindowViewModel mainWindow;
         private AchievementWindowViewModel achievementWindow;
-        private readonly CompositeDisposable compositeDisposable = new CompositeDisposable();
+        private readonly CompositeDisposable compositeDisposable = new();
 
         /// <summary>
         /// 获取为当前主窗口提供的数据。
@@ -52,7 +51,6 @@ namespace System.Application.Services.Implementation
         //    }
         //    throw new InvalidOperationException();
         //}
-
 
         #region disposable members
 
