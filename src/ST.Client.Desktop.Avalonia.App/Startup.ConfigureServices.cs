@@ -75,7 +75,7 @@ namespace System.Application.UI
             services.TryAddUserManager();
 
             // 服务端API调用
-            services.TryAddCloudServiceClient<CloudServiceClient>();
+            services.TryAddCloudServiceClient<CloudServiceClient>(useMock: true);
 
             // 主线程助手类(MainThreadDesktop)
             services.AddMainThreadPlatformService();

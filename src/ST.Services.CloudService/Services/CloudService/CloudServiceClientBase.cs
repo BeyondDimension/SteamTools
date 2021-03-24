@@ -18,7 +18,7 @@ namespace System.Application.Services.CloudService
     {
         public const string ClientName_ = "CloudServiceClient";
         internal const string DefaultApiBaseUrl = ThisAssembly.Debuggable ?
-            "https://localhost:5001" :
+            "https://steamtools-api.chinacloudsites.cn" :
             Constants.Prefix_HTTPS + "api.steampp.net";
 
         #region Clients
@@ -27,8 +27,8 @@ namespace System.Application.Services.CloudService
         public IManageClient Manage { get; }
         public IAuthMessageClient AuthMessage { get; }
         public IVersionClient Version { get; }
-
         public IActiveUserClient ActiveUser { get; }
+        public IAccelerateClient Accelerate { get; }
 
         #endregion
 
@@ -79,6 +79,7 @@ namespace System.Application.Services.CloudService
             AuthMessage = new AuthMessageClient(connection);
             Version = new VersionClient(connection);
             ActiveUser = new ActiveUserClient(connection);
+            Accelerate = new AccelerateClient(connection);
 
             #endregion
         }

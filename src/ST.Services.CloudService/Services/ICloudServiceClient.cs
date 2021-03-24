@@ -19,6 +19,8 @@ namespace System.Application.Services
 
         IActiveUserClient ActiveUser { get; }
 
+        IAccelerateClient Accelerate { get; }
+
         /// <inheritdoc cref="IApiConnection.DownloadAsync(bool, CancellationToken, string, string, IProgress{float})"/>
         Task<IApiResponse> Download(bool isAnonymous, string requestUri, string cacheFilePath, IProgress<float> progress, CancellationToken cancellationToken = default);
 

@@ -40,6 +40,9 @@
       <Link>Views\MainWindow.axaml</Link>
       <SubType>Designer</SubType>
     </AvaloniaResource>
+    <Compile Include="..\ST.Services.CloudService\Services\CloudService\MockCloudServiceClient.cs">
+      <Link>MockCloudServiceClient.cs</Link>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

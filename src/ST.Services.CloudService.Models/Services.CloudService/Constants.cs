@@ -39,5 +39,29 @@ namespace System.Application.Services.CloudService
         public const string Prefix_HTTP = "http://";
 
         public static string IsNotOfficialChannelPackageWarning => SR.IsNotOfficialChannelPackageWarning;
+
+        /// <summary>
+        /// 通用分隔符
+        /// </summary>
+        public const char GeneralSeparator = ';';
+
+        public static string[] GetSplitValues(string values)
+        {
+            if (string.IsNullOrWhiteSpace(values)) return Array.Empty<string>();
+            return values.Split(GeneralSeparator, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        public static string[] GetSplitValues(object @lock, string values, ref string? cacheValues, ref string[]? cacheValuesArray)
+        {
+            lock (@lock)
+            {
+                if (cacheValuesArray == null || cacheValues == null || cacheValues != values)
+                {
+                    cacheValues = values;
+                    cacheValuesArray = GetSplitValues(values);
+                }
+            }
+            return cacheValuesArray;
+        }
     }
 }

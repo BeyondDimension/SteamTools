@@ -55,6 +55,16 @@ namespace System
         /// </summary>
         public static bool IsRunningOnMono { get; }
 
+        /// <summary>
+        /// 当前进程运行的构架为 <see cref="Architecture.X86"/> 或 <see cref="Architecture.X64"/>
+        /// </summary>
+        public static bool IsX86OrX64 { get; }
+
+        /// <summary>
+        /// 当前进程运行的构架为 <see cref="Architecture.Arm64"/>
+        /// </summary>
+        public static bool IsArm64 { get; }
+
         const string DesktopWindowTypeNames =
             "Avalonia.Controls.Window, Avalonia.Controls" +
             "\n" +
@@ -65,6 +75,9 @@ namespace System
         static DI()
         {
             IsRunningOnMono = Type.GetType("Mono.Runtime") != null;
+            var processArchitecture = RuntimeInformation.ProcessArchitecture;
+            IsX86OrX64 = processArchitecture == Architecture.X64 || processArchitecture == Architecture.X86;
+            IsArm64 = processArchitecture == Architecture.Arm64;
             static Platform RuntimeInformationOSPlatform()
             {
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))

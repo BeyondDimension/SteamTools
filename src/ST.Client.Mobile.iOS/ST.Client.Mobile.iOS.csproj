@@ -1,0 +1,19 @@
+<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <TargetFramework>Xamarin.iOS10</TargetFramework>
+    <RootNamespace>System.Application</RootNamespace>
+    <AssemblyName>System.Application.SteamTools.Client.Mobile.iOS</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ST.Client.Mobile\ST.Client.Mobile.csproj" />
+  </ItemGroup>
+
+</Project>
