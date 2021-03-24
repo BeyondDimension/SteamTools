@@ -21,9 +21,9 @@
                           VerticalScrollBarVisibility="Disabled" Height="320">
                 <ItemsControl Items="{Binding ProxyDomains}">
                     <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
+                        <!--<ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal" Spacing="15" />
-                        </ItemsPanelTemplate>
+                        </ItemsPanelTemplate>-->
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
