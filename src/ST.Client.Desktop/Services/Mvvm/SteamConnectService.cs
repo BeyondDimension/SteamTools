@@ -180,10 +180,10 @@ namespace System.Application.Services
         {
             foreach (var app in Current.RuningSteamApps)
             {
-                if (!app.Process.HasExited)
-                    app.Process.Kill();
+                if (app.Process != null)
+                    if (!app.Process.HasExited)
+                        app.Process.Kill();
             }
-            Dispose();
         }
 
         public void DisposeSteamClient()
@@ -191,7 +191,5 @@ namespace System.Application.Services
             //ApiService.SteamClient.Dispose();
             IsDisposedClient = true;
         }
-
-
     }
 }

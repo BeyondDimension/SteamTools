@@ -25,11 +25,13 @@ using System.Application.Models;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.InteropServices;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
 using APIConst = System.Application.Services.CloudService.Constants;
 
+[assembly: Guid("82cda250-48a2-48ad-ab03-5cda873ef80c")]
 [assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark + " v" + ThisAssembly.Version)]
 namespace System.Application.UI
 {

@@ -104,7 +104,6 @@ namespace System.Application.UI
                 // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
                 LogManager.Shutdown();
             }
-
         }
 
         static string InitLogDir()
