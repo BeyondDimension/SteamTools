@@ -1,7 +1,9 @@
 ﻿using ReactiveUI;
 using System.Application.Models;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
 {
@@ -131,7 +133,10 @@ IsEnable= false,
         }
 
 
-
-
+        internal async override Task Initialize()
+        {
+            //var client = ICloudServiceClient.Instance.Accelerate;
+            //ProxyDomains = new List<AccelerateProjectGroupDTO>(client.All());
+        }
     }
 }

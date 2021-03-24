@@ -19,7 +19,7 @@ namespace System.Application.UI
         {
             services.AddLogging(cfg => cfg.AddProvider(NullLoggerProvider.Instance));
 
-            services.AddSingleton<ICloudServiceClient, MockCloudServiceClient>();
+            services.AddSingleton<ICloudServiceClient, MockCloudServiceClient>(); 
         }
 
         sealed class MockServiceProvider : IServiceProvider

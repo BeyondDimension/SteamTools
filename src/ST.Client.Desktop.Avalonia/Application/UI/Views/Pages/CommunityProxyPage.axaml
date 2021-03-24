@@ -15,15 +15,15 @@
     </Design.DataContext>
 
     <Panel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}">
-        <Panel IsVisible="False">
+        <Panel IsVisible="True">
             <ScrollViewer
                           HorizontalScrollBarVisibility="Auto"
                           VerticalScrollBarVisibility="Disabled" Height="320">
                 <ItemsControl Items="{Binding ProxyDomains}">
                     <ItemsControl.ItemsPanel>
-                        <!--<ItemsPanelTemplate>
+                        <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal" Spacing="15" />
-                        </ItemsPanelTemplate>-->
+                        </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -32,20 +32,19 @@
                                     <Border Classes="paper">
                                         <Panel>
                                             <Image Stretch="Uniform" Source="/Application/UI/Assets/AppResources/app.png" />
-
+                                            
                                             <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding Name}" FontSize="18" Foreground="{DynamicResource HighlightForegroundBrushKey}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 5"></controls:ScrollingTextBlock>
                                         </Panel>
                                     </Border>
                                 </Panel>
                             </CheckBox>
-
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
             <Button Content="一键加速" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Grid.Row="1" VerticalAlignment="Bottom"></Button>
         </Panel>
-        <Grid RowDefinitions="Auto,*,Auto" HorizontalAlignment="Stretch">
+        <Grid RowDefinitions="Auto,*,Auto" HorizontalAlignment="Stretch" IsVisible="False">
             <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0 10 0 0">
                 <TextBlock Text="已加速  01:00:00" FontSize="24"></TextBlock>
             </StackPanel>
