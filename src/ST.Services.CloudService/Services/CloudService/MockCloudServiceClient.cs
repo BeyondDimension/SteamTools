@@ -86,7 +86,7 @@ namespace System.Application.Services.CloudService
 
         public ValueTask<IApiResponse> SendSms(SendSmsRequest request)
         {
-            return ValueTask.FromResult(ApiResponse.Ok());
+            return new ValueTask<IApiResponse>(ApiResponse.Ok());
         }
 
         public Task<IApiResponse<List<ScriptDTO>>> Scripts()

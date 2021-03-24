@@ -2,7 +2,6 @@
 using System;
 using System.Application.Services;
 using System.Application.Services.CloudService;
-using System.Net;
 using System.Properties;
 
 // ReSharper disable once CheckNamespace
@@ -21,9 +20,13 @@ namespace Microsoft.Extensions.DependencyInjection
             where T : CloudServiceClientBase
         {
             services.TryAddHttpPlatformHelper();
-            if (useMock)
+            if (useMock && ThisAssembly.Debuggable)
             {
+#if DEBUG
                 services.AddSingleton<ICloudServiceClient, MockCloudServiceClient>();
+#else
+                throw new NotSupportedException();
+#endif
             }
             else
             {
@@ -35,7 +38,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     c.DefaultRequestHeaders.UserAgent.ParseAdd(sc.UserAgent);
                     c.DefaultRequestHeaders.Add(Constants.Headers.Request.AppVersion, sc.Settings.AppVersion.ToStringN());
 #if NET5_0_OR_GREATER
-                    c.DefaultRequestVersion = HttpVersion.Version20;
+                    c.DefaultRequestVersion = System.Net.HttpVersion.Version20;
 #endif
                 });
                 services.TryAddSingleton<T>();

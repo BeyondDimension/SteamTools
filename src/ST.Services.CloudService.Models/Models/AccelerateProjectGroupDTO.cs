@@ -30,5 +30,13 @@ namespace System.Application.Models
         [S_JsonProperty("1")]
         [NotNull, DisallowNull] // C# 8 not null
         public List<AccelerateProjectDTO>? Items = new();
+
+        /// <summary>
+        /// 显示图片，使用 System.Application.ImageUrlHelper.GetImageApiUrlById(Guid) 转换为Url
+        /// </summary>
+        [MPKey(2)]
+        [N_JsonProperty("2")]
+        [S_JsonProperty("2")]
+        public Guid ImageId { get; set; }
     }
 }
