@@ -13,30 +13,57 @@
     <Design.DataContext>
         <vm:CommunityProxyPageViewModel/>
     </Design.DataContext>
-    <Panel HorizontalAlignment="Stretch">
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Padding="{StaticResource PageMargin}" Height="340">
-            <ItemsControl Items="{Binding ProxyDomains}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" Spacing="15" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <CheckBox>
-                            <Panel Width="200" Height="300">
-                                <Border>
-                                    <Panel>
-                                        <Image Stretch="Uniform" Source="/Application/UI/Assets/AppResources/app.png" />
-                                    </Panel>
-                                </Border>
-                                <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding Name}" FontSize="18" Foreground="{DynamicResource HighlightForegroundBrushKey}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 5"></controls:ScrollingTextBlock>
-                            </Panel>
-                        </CheckBox>
 
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+    <Panel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}">
+        <Panel IsVisible="False">
+            <ScrollViewer
+                          HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Disabled" Height="320">
+                <ItemsControl Items="{Binding ProxyDomains}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="15" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Classes="PaperCheck">
+                                <Panel Width="200" Height="300">
+                                    <Border Classes="paper">
+                                        <Panel>
+                                            <Image Stretch="Uniform" Source="/Application/UI/Assets/AppResources/app.png" />
+
+                                            <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding Name}" FontSize="18" Foreground="{DynamicResource HighlightForegroundBrushKey}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 5"></controls:ScrollingTextBlock>
+                                        </Panel>
+                                    </Border>
+                                </Panel>
+                            </CheckBox>
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <Button Content="一键加速" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Grid.Row="1" VerticalAlignment="Bottom"></Button>
+        </Panel>
+        <Grid RowDefinitions="Auto,*,Auto" HorizontalAlignment="Stretch">
+            <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0 10 0 0">
+                <TextBlock Text="已加速  01:00:00" FontSize="24"></TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
+                <TextBlock Text="启用的加速服务" FontSize="16"></TextBlock>
+                <ItemsControl>
+
+                </ItemsControl>
+
+                <TextBlock Text="启用的脚本服务" FontSize="16"></TextBlock>
+                <ItemsControl>
+
+                </ItemsControl>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Margin="0 0 0 10">
+                <Button Content="停止加速" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></Button>
+            </StackPanel>
+        </Grid>
     </Panel>
 </UserControl>

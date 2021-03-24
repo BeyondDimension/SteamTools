@@ -121,7 +121,8 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel Height="30" ToolTip="{Binding DomainTag}">
-                                <CheckBox HorizontalAlignment="Left" IsEnabled="{Binding ElementName=service,Path=IsChecked,Mode=OneWay,Converter={StaticResource ReverseBooleanConverter}}"
+                                <CheckBox HorizontalAlignment="Left" 
+                                          IsEnabled="{Binding ElementName=service,Path=IsChecked,Mode=OneWay,Converter={StaticResource ReverseBooleanConverter}}"
                                           Content="{Binding Name}" 
                                           IsChecked="{Binding IsEnable}">
                                     <i:Interaction.Triggers>
