@@ -2,7 +2,7 @@
 using NLog.Config;
 using System.Application.Services;
 using System.IO;
-using System.Properties;
+using System.Linq;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace System.Application.UI
@@ -13,58 +13,64 @@ namespace System.Application.UI
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
         [STAThread]
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             // 目前桌面端默认使用 SystemTextJson 如果出现兼容性问题可取消下面这行代码
             // Serializable.DefaultJsonImplType = Serializable.JsonImplType.NewtonsoftJson;
-            var isMainProcess = args.Length == 0;
+            IsMainProcess = args.Length == 0;
+            IsCLTProcess = !IsMainProcess && args.FirstOrDefault() == "-clt";
 
             var logDirPath = InitLogDir();
 
             void InitCefNetApp() => CefNetApp.Init(logDirPath, args);
+            void InitAvaloniaApp(bool initWindowS)
+            {
+                if (initWindowS)
+                {
+                    IWindowService.Instance.Init();
+                }
+                BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
+            }
+            void InitStartup(CommandLineTools.DILevel level) // 注意：CLT进程注意DI是否会缺少
+            {
+                switch (level)
+                {
+                    case CommandLineTools.DILevel.Main:
+                        Startup.Init(isMainProcess: true);
+                        break;
+                    case CommandLineTools.DILevel.Min:
+                        Startup.Init(isMainProcess: false);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(level), level, null);
+                }
+            }
 
             var logger = LogManager.GetCurrentClassLogger();
             try
             {
-                if (isMainProcess)
+                if (IsCLTProcess) // 命令行模式
                 {
-                    Migrations.FromV1();
-                    //var appInstance = new ApplicationInstance();
-                    //if (!appInstance.IsFirst)
-                    //{
-                    //    return;
-                    //}
-                }
-
-                Startup.Init(isMainProcess);
-
-                if (ThisAssembly.Debuggable)
-                {
-                    Log.Warn(nameof(Program),
-                        "Main isMainProcess: {0}, args={1}",
-                        isMainProcess,
-                        string.Join(' ', args));
-                }
-
-#if WINDOWS
-                //var app = new WpfApp();
-                //app.InitializeComponent();
-                //Task.Factory.StartNew(app.Run);
-#endif
-
-                InitCefNetApp();
-                if (args.ContainsArg("-app", out int appid))
-                {
-                    IWindowService.Instance.Initialize(appid);
+                    var args_clt = args.Skip(1).ToArray();
+                    return CommandLineTools.Main(args_clt, InitStartup, InitAvaloniaApp, InitCefNetApp);
                 }
                 else
                 {
-                    IWindowService.Instance.Initialize();
-                }
+                    Startup.Init(IsMainProcess);
 
-                if (isMainProcess)
-                {
-                    InitAvaloniaApp(args);
+                    if (IsMainProcess)
+                    {
+                        var appInstance = new ApplicationInstance();
+                        if (!appInstance.IsFirst) goto exit;
+                        Migrations.FromV1();
+                    }
+
+                    InitCefNetApp();
+
+                    if (IsMainProcess)
+                    {
+                        InitAvaloniaApp(initWindowS: true);
+                    }
                 }
             }
             catch (Exception ex)
@@ -104,6 +110,8 @@ namespace System.Application.UI
                 // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
                 LogManager.Shutdown();
             }
+
+        exit: return 0;
         }
 
         static string InitLogDir()

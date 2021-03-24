@@ -16,6 +16,9 @@ namespace System
         public const string DirPublishWinX86 =
             @"\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish\win-x86";
 
+        public const string DirPublish =
+            @"\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish";
+
         static ProjectPathUtil()
         {
             projPath = GetProjectPath();

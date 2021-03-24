@@ -132,5 +132,6 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 * [Windows Forms](https://github.com/dotnet/winforms)
 * [Windows Presentation Foundation (WPF)](https://github.com/dotnet/wpf)
 * [C#/WinRT](https://github.com/microsoft/CsWinRT)
+* [command-line-api](https://github.com/dotnet/command-line-api)
 * [.NET Extensions](https://github.com/dotnet/extensions)
 * [.NET Runtime](https://github.com/dotnet/runtime)

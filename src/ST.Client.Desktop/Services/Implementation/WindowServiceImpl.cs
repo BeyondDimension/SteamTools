@@ -21,6 +21,19 @@ namespace System.Application.Services.Implementation
         /// </summary>
         public WindowViewModel MainWindow { get; private set; }
 
+        public void Init()
+        {
+            mainWindow = new MainWindowViewModel();
+            MainWindow = mainWindow;
+        }
+
+        public void InitUnlockAchievement(int appid)
+        {
+            achievementWindow = new AchievementWindowViewModel(appid);
+            MainWindow = achievementWindow;
+        }
+
+        [Obsolete("use Init/InitUnlockAchievement", true)]
         public void Initialize(int appid = 0)
         {
             if (appid < 1)

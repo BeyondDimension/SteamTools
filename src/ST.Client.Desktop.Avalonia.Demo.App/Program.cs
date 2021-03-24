@@ -5,7 +5,8 @@
         [STAThread]
         static void Main(string[] args)
         {
-            InitAvaloniaApp(args);
+            IsMainProcess = true;
+            BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
         }
     }
 }

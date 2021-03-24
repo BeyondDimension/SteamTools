@@ -17,8 +17,13 @@ namespace System.Application.Services
         /// <summary>
         /// 获取为当前主窗口提供的数据。
         /// </summary>
-        WindowViewModel MainWindow { get;}
+        WindowViewModel MainWindow { get; }
 
+        void Init();
+
+        void InitUnlockAchievement(int appid);
+
+        [Obsolete("use Init/InitUnlockAchievement", true)]
         void Initialize(int appid = 0);
 
         //Window GetMainWindow()
