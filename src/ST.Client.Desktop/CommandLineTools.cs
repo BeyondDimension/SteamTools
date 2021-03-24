@@ -27,9 +27,9 @@ namespace System.Application
             // -clt debug -args 730
             var debug = new Command("debug", "调试");
             debug.AddOption(new Option<string>("-args", () => "", "测试参数"));
-            debug.Handler = CommandHandler.Create((string appid) =>
+            debug.Handler = CommandHandler.Create((string args) => // 参数名与类型要与 Option 中一致！
             {
-                //Console.WriteLine("-clt debug -args " + appid);
+                //Console.WriteLine("-clt debug -args " + args);
                 // OutputType WinExe 导致控制台输入不会显示，只能附加一个新的控制台窗口显示内容，不合适
                 // 如果能取消 管理员权限要求，改为运行时管理员权限，
                 // 则可尝试通过 Windows Terminal 或直接 Host 进行命令行模式
@@ -46,6 +46,7 @@ namespace System.Application
             unlock_achievement.AddOption(new Option<int>("-appid", "指定一个Steam游戏Id"));
             unlock_achievement.Handler = CommandHandler.Create((int appid) =>
             {
+                if (appid <= 0) return;
                 initStartup(DILevel.Min);
                 IWindowService.Instance.InitUnlockAchievement(appid);
                 initUIApp(initWindowS: false);
