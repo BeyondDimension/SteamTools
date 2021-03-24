@@ -34,19 +34,22 @@ namespace SteamTools.Services
                     }
                 }
             }
+
             Proxy = new HttpProxy(ProxyDomains.Value, ProductInfo.Product)
             {
                 IsEnableScript = IsEnableScript,
                 IsOnlyWorkSteamBrowser = IsOnlyWorkSteamBrowser
             };
+
             InitJsScript();
+
             if (ProxySettings.ProgramStartupRunProxy.Value)
             {
                 ProxyStatus = true;
             }
         }
 
-        private Lazy<IReadOnlyCollection<ProxyDomainModel>> _ProxyDomains = new Lazy<IReadOnlyCollection<ProxyDomainModel>>(() => new List<ProxyDomainModel>
+        private Lazy<IReadOnlyCollection<ProxyDomainModel>> _ProxyDomains = new(() => new List<ProxyDomainModel>
 {
 new ProxyDomainModel{
 Name=Resources.SteamCommunity,
@@ -387,6 +390,7 @@ IsEnable = false,
                 }
             }
         }
+
         public bool IsOnlyWorkSteamBrowser
         {
             get => ProxySettings.IsOnlyWorkSteamBrowser.Value;

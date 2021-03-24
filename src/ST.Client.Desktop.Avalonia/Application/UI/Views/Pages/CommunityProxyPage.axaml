@@ -13,59 +13,30 @@
     <Design.DataContext>
         <vm:CommunityProxyPageViewModel/>
     </Design.DataContext>
-    <Panel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}">
-        <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerqqfticalScrollBarVisibility="Auto">
-            <ItemsRepeater Items="{Binding SteamUsers}">
-                <ItemsRepeater.Layout>
-                    <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
-                                       MaximumRowsOrColumns="6" />
-                </ItemsRepeater.Layout>
-                <ItemsRepeater.ItemTemplate>
+    <Panel HorizontalAlignment="Stretch">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Padding="{StaticResource PageMargin}" Height="340">
+            <ItemsControl Items="{Binding ProxyDomains}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="15" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel x:Name="panel" Margin="20" Spacing="8" Width="184" Height="184" Cursor="Hand">
-                            <DockPanel LastChildFill="True">
-                                <Border DockPanel.Dock="Top" Classes="paper">
-                                    <Panel x:Name="card" Width="{Binding #panel.Width}">
-                                        <i:Interaction.Behaviors>
-                                            <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{Binding #card}">
-                                                <ia:ChangePropertyAction TargetObject="{Binding #login_btn}" PropertyName="IsVisible" Value="True"/>
-                                            </ia:EventTriggerBehavior>
-                                            <ia:EventTriggerBehavior EventName="PointerLeave" SourceObject="{Binding #card}">
-                                                <ia:ChangePropertyAction TargetObject="{Binding #login_btn}" PropertyName="IsVisible" Value="False"/>
-                                            </ia:EventTriggerBehavior>
-                                        </i:Interaction.Behaviors>
-                                        <Image x:Name="avatar" Width="{Binding #panel.Width}" Stretch="Uniform" Source="{Binding AvatarStream,Converter={StaticResource BitmapAssetValueConverter}}"
-                                          IsVisible="{Binding AvatarStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>
-                                        <Image Width="{Binding #panel.Width}" Stretch="Uniform" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg" IsVisible="{Binding !#avatar.IsVisible}}" />
-                                        
-                                        <Border VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Classes="button" IsVisible="False" x:Name="login_btn" CornerRadius="0" ToolTip.Tip="{Binding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                                            <Button Content="{Binding Path=Res.UserChange_BtnText,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Command="{Binding #u.DataContext.SteamId_Click}" CommandParameter="{Binding AccountName}"></Button>
-                                        </Border>
-
-                                        <Ellipse VerticalAlignment="Bottom"
-                                                 HorizontalAlignment="Right"
-                                                 x:Name="circle" Margin="5"
-                                                 Height="10" Width="10"
-                                                 StrokeThickness="0" ToolTip.Tip="{Binding OnlineState}">
-                                            <i:Interaction.Behaviors>
-                                                <ia:DataTriggerBehavior Binding="{Binding OnlineState}" ComparisonCondition="Equal" Value="online">
-                                                    <ia:ChangePropertyAction TargetObject="{Binding #circle}" PropertyName="Fill" Value="#08D969"/>
-                                                </ia:DataTriggerBehavior>
-                                                <ia:DataTriggerBehavior Binding="{Binding OnlineState}" ComparisonCondition="Equal" Value="offline">
-                                                    <ia:ChangePropertyAction TargetObject="{Binding #circle}" PropertyName="Fill" Value="#adadad"/>
-                                                </ia:DataTriggerBehavior>
-                                            </i:Interaction.Behaviors>
-                                        </Ellipse>
+                        <CheckBox>
+                            <Panel Width="200" Height="300">
+                                <Border>
+                                    <Panel>
+                                        <Image Stretch="Uniform" Source="/Application/UI/Assets/AppResources/app.png" />
                                     </Panel>
                                 </Border>
-                            </DockPanel>
+                                <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding Name}" FontSize="18" Foreground="{DynamicResource HighlightForegroundBrushKey}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 5"></controls:ScrollingTextBlock>
+                            </Panel>
+                        </CheckBox>
 
-                            <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding SteamNickName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}" ></controls:ScrollingTextBlock>
-                            <controls:ScrollingTextBlock Width="{Binding #panel.Width}" Text="{Binding LastLoginTime,Converter={StaticResource DateFormatConverter},ConverterParameter='yyyy-MM-dd HH:mm:ss'}" FontSize="10" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                        </StackPanel>
                     </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </ScrollViewer>
     </Panel>
 </UserControl>
