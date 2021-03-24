@@ -4,6 +4,7 @@
     <TargetFramework>MonoAndroid10.0</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Mobile.Droid</AssemblyName>
+    <AndroidUseIntermediateDesignerFile>false</AndroidUseIntermediateDesignerFile>
   </PropertyGroup>
 
   <ItemGroup>

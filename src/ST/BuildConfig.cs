@@ -7,7 +7,7 @@ namespace System.Application
         [Obsolete("use ThisAssembly.Debuggable", true)]
         public const bool DEBUG = ThisAssembly.Debuggable;
 
-        public const string APPLICATION_ID = "com.github.steamtools_team.steamtools";
+        public const string APPLICATION_ID = "net.steampp.app";
 
         [Obsolete("NotImplemented", true)]
         public const string BUILD_TYPE = "";

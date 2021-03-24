@@ -9,9 +9,11 @@ namespace System.Application
     // The UIApplicationDelegate for the application. This class is responsible for launching the
     // User Interface of the application, as well as listening (and optionally responding) to
     // application events from iOS.
-    [Register("AppDelegate")]
+    [Register(Name)]
     public partial class AppDelegate : FormsApplicationDelegate
     {
+        public const string Name = "AppDelegate";
+
         //
         // This method is invoked when the application has loaded and is ready to run. In this
         // method you should instantiate the window, load the UI into it and then make the window

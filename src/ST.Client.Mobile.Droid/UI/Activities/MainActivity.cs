@@ -8,12 +8,13 @@ using XEPlatform = Xamarin.Essentials.Platform;
 
 namespace System.Application.UI.Activities
 {
-    [Register("net.steampp.app.ui.activities." + nameof(MainActivity))]
+    [Register(JavaPackageConstants.Activities + nameof(MainActivity))]
     [Activity(Label = "@string/app_name", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : FormsAppCompatActivity
     {
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override void OnCreate(Bundle? savedInstanceState)
         {
+            //var clsName = Java.Lang.Class.FromType(GetType()).Name;
             base.OnCreate(savedInstanceState);
 
             XEPlatform.Init(this, savedInstanceState);
@@ -25,7 +26,6 @@ namespace System.Application.UI.Activities
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
             XEPlatform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
