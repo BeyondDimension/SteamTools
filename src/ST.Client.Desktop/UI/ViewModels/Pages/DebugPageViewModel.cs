@@ -40,6 +40,8 @@ namespace System.Application.UI.ViewModels
 
         public async void DebugButton_Click()
         {
+            Toast.Show(DateTime.Now.ToString());
+
             StringBuilder @string = new();
 
             @string.AppendFormatLine("Culture: {0}", CultureInfo.CurrentCulture);

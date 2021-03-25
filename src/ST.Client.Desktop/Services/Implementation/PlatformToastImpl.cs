@@ -8,6 +8,10 @@ namespace System.Application.Services.Implementation
         {
         }
 
+        protected override bool IsMainThread => MainThreadDesktop.IsMainThread;
+
+        protected override void BeginInvokeOnMainThread(Action action) => MainThreadDesktop.BeginInvokeOnMainThread(action);
+
         protected override void PlatformShow(string text, int duration)
         {
             ToastService.Current.Notify(text);

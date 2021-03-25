@@ -23,17 +23,23 @@ namespace System.Application.Services.Implementation
         protected virtual int CalcDurationByStringLength(int len)
             => len > 9 ? ToDuration(ToastLength.Long) : ToDuration(ToastLength.Short);
 
+        protected virtual bool IsMainThread
+            => MainThread.IsMainThread;
+
+        protected virtual void BeginInvokeOnMainThread(Action action)
+            => MainThread.BeginInvokeOnMainThread(action);
+
         public void Show(string text, int? duration)
         {
             try
             {
-                if (MainThread.IsMainThread)
+                if (IsMainThread)
                 {
                     Show_();
                 }
                 else
                 {
-                    MainThread.BeginInvokeOnMainThread(Show_);
+                    BeginInvokeOnMainThread(Show_);
                 }
 
                 void Show_()
