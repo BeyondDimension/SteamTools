@@ -11,8 +11,8 @@ namespace System.Application
     /// </summary>
     public class FileSystemDesktop
     {
-        const string AppDataDirName = "AppData";
-        const string CacheDirName = "Cache";
+        public const string AppDataDirName = "AppData";
+        public const string CacheDirName = "Cache";
 
         /// <summary>
         /// 初始化文件系统
