@@ -23,9 +23,6 @@ namespace System.Application.Services
 
         void InitUnlockAchievement(int appid);
 
-        [Obsolete("use Init/InitUnlockAchievement", true)]
-        void Initialize(int appid = 0);
-
         //Window GetMainWindow()
     }
 }

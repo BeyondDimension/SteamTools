@@ -10,7 +10,9 @@ namespace System.Application.UI
 {
     partial class Startup
     {
-        static void InitDI(bool _)
+        public static bool HasNotifyIcon => false;
+
+        static void InitDI(CommandLineTools.DILevel _)
         {
             DI.Init(new MockServiceProvider(ConfigureServices));
         }
@@ -19,7 +21,7 @@ namespace System.Application.UI
         {
             services.AddLogging(cfg => cfg.AddProvider(NullLoggerProvider.Instance));
 
-            services.AddSingleton<ICloudServiceClient, MockCloudServiceClient>(); 
+            services.AddSingleton<ICloudServiceClient, MockCloudServiceClient>();
         }
 
         sealed class MockServiceProvider : IServiceProvider

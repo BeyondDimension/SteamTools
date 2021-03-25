@@ -23,28 +23,8 @@ namespace System.Application.UI
             var logDirPath = InitLogDir();
 
             void InitCefNetApp() => CefNetApp.Init(logDirPath, args);
-            void InitAvaloniaApp(bool initWindowS)
-            {
-                if (initWindowS)
-                {
-                    IWindowService.Instance.Init();
-                }
-                BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
-            }
-            void InitStartup(CommandLineTools.DILevel level) // 注意：CLT进程注意DI是否会缺少
-            {
-                switch (level)
-                {
-                    case CommandLineTools.DILevel.Main:
-                        Startup.Init(isMainProcess: true);
-                        break;
-                    case CommandLineTools.DILevel.Min:
-                        Startup.Init(isMainProcess: false);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(level), level, null);
-                }
-            }
+            void InitAvaloniaApp() => BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
+            void InitStartup(CommandLineTools.DILevel level) => Startup.Init(level);
 
             var logger = LogManager.GetCurrentClassLogger();
             try
@@ -56,7 +36,7 @@ namespace System.Application.UI
                 }
                 else
                 {
-                    Startup.Init(IsMainProcess);
+                    Startup.Init(CommandLineTools.DILevel.Main);
 
                     if (IsMainProcess)
                     {
@@ -69,7 +49,7 @@ namespace System.Application.UI
 
                     if (IsMainProcess)
                     {
-                        InitAvaloniaApp(initWindowS: true);
+                        InitAvaloniaApp();
                     }
                 }
             }

@@ -134,7 +134,7 @@ namespace System.Application.UI
 
             Name = ThisAssembly.AssemblyTrademark;
             ViewModelBase.IsInDesignMode = ApplicationLifetime == null;
-            if (ViewModelBase.IsInDesignMode) Startup.Init(true);
+            if (ViewModelBase.IsInDesignMode) Startup.Init(CommandLineTools.DILevel.Main);
 
             #region 启动时加载的资源
             SettingsHost.Load();
@@ -143,12 +143,13 @@ namespace System.Application.UI
             Theme = (AppTheme)UISettings.Theme.Value;
             UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
-
             #endregion
 
+            var windowService = IWindowService.Instance;
+            windowService.Init();
             MainWindow = new MainWindow
             {
-                DataContext = IWindowService.Instance.MainWindow,
+                DataContext = windowService.MainWindow,
             };
         }
 
@@ -200,55 +201,58 @@ namespace System.Application.UI
 
                 if (Program.IsMainProcess)
                 {
-                    #region NotifyIcon
-
-                    var notifyIcon = INotifyIcon.Instance;
-                    notifyIcon.ToolTipText = ThisAssembly.AssemblyTrademark;
-                    switch (DI.Platform)
+                    if (Startup.HasNotifyIcon)
                     {
-                        case Platform.Windows:
-                        case Platform.Linux:
-                            notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico";
-                            break;
-                        case Platform.Apple:
-                            notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon_16.png";
-                            break;
+                        #region NotifyIcon
+
+                        var notifyIcon = INotifyIcon.Instance;
+                        notifyIcon.ToolTipText = ThisAssembly.AssemblyTrademark;
+                        switch (DI.Platform)
+                        {
+                            case Platform.Windows:
+                            case Platform.Linux:
+                                notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico";
+                                break;
+                            case Platform.Apple:
+                                notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon_16.png";
+                                break;
+                        }
+
+                        notifyIcon.DoubleClick += (s, e) =>
+                        {
+                            RestoreMainWindow();
+                        };
+
+                        NotifyIconContextMenu = new ContextMenu();
+
+                        mNotifyIconMenus.Add("Light", ReactiveCommand.Create(() =>
+                        {
+                            Theme = AppTheme.Light;
+                        }));
+
+                        mNotifyIconMenus.Add("Dark", ReactiveCommand.Create(() =>
+                        {
+                            Theme = AppTheme.Dark;
+                        }));
+
+                        mNotifyIconMenus.Add("Show",
+                            ReactiveCommand.Create(RestoreMainWindow));
+
+                        mNotifyIconMenus.Add("Exit",
+                            ReactiveCommand.Create(() => Shutdown()));
+
+                        NotifyIconContextMenu.Items = mNotifyIconMenus
+                            .Select(x => new MenuItem { Header = x.Key, Command = x.Value }).ToList();
+                        notifyIcon.ContextMenu = NotifyIconContextMenu;
+                        notifyIcon.Visible = true;
+                        notifyIcon.Click += NotifyIcon_Click;
+                        notifyIcon.DoubleClick += NotifyIcon_Click;
+                        compositeDisposable.Add(() =>
+                        {
+                            notifyIcon.IconPath = string.Empty;
+                        });
+                        #endregion
                     }
-
-                    notifyIcon.DoubleClick += (s, e) =>
-                    {
-                        RestoreMainWindow();
-                    };
-
-                    NotifyIconContextMenu = new ContextMenu();
-
-                    mNotifyIconMenus.Add("Light", ReactiveCommand.Create(() =>
-                    {
-                        Theme = AppTheme.Light;
-                    }));
-
-                    mNotifyIconMenus.Add("Dark", ReactiveCommand.Create(() =>
-                    {
-                        Theme = AppTheme.Dark;
-                    }));
-
-                    mNotifyIconMenus.Add("Show",
-                        ReactiveCommand.Create(RestoreMainWindow));
-
-                    mNotifyIconMenus.Add("Exit",
-                        ReactiveCommand.Create(() => Shutdown()));
-
-                    NotifyIconContextMenu.Items = mNotifyIconMenus
-                        .Select(x => new MenuItem { Header = x.Key, Command = x.Value }).ToList();
-                    notifyIcon.ContextMenu = NotifyIconContextMenu;
-                    notifyIcon.Visible = true;
-                    notifyIcon.Click += NotifyIcon_Click;
-                    notifyIcon.DoubleClick += NotifyIcon_Click;
-                    compositeDisposable.Add(() =>
-                    {
-                        notifyIcon.IconPath = string.Empty;
-                    });
-                    #endregion
 
 #if WINDOWS
                     JumpLists.Init();
@@ -260,7 +264,6 @@ namespace System.Application.UI
                     }
 
                     CheckDebugPackageReference();
-
                 }
 
                 desktop.MainWindow = MainWindow;
@@ -270,7 +273,7 @@ namespace System.Application.UI
 #if UI_DEMO
                     ShutdownMode.OnMainWindowClose;
 #else
-                    Program.IsMainProcess ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnLastWindowClose;
+                    Startup.HasNotifyIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnLastWindowClose;
 #endif
             }
 

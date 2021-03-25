@@ -4,17 +4,17 @@
     {
         static bool isInitialized;
 
-        public static void Init(bool isMainProcess)
+        public static void Init(CommandLineTools.DILevel level)
         {
             if (!isInitialized)
             {
                 isInitialized = true;
                 FileSystemDesktop.InitFileSystem();
-                if (isMainProcess)
+                if (level.HasFlag(CommandLineTools.DILevel.ModelValidator))
                 {
                     ModelValidatorProvider.Init();
                 }
-                InitDI(isMainProcess);
+                InitDI(level);
             }
         }
     }

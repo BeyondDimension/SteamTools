@@ -23,29 +23,22 @@ namespace System.Application.Services.Implementation
 
         public void Init()
         {
-            mainWindow = new MainWindowViewModel();
-            MainWindow = mainWindow;
-        }
-
-        public void InitUnlockAchievement(int appid)
-        {
-            achievementWindow = new AchievementWindowViewModel(appid);
-            MainWindow = achievementWindow;
-        }
-
-        [Obsolete("use Init/InitUnlockAchievement", true)]
-        public void Initialize(int appid = 0)
-        {
-            if (appid < 1)
+            if (appidUnlockAchievement.HasValue)
             {
-                this.mainWindow = new MainWindowViewModel();
-                this.MainWindow = mainWindow;
+                achievementWindow = new AchievementWindowViewModel(appidUnlockAchievement.Value);
+                MainWindow = achievementWindow;
             }
             else
             {
-                this.achievementWindow = new AchievementWindowViewModel(appid);
-                this.MainWindow = achievementWindow;
+                mainWindow = new MainWindowViewModel();
+                MainWindow = mainWindow;
             }
+        }
+
+        int? appidUnlockAchievement;
+        public void InitUnlockAchievement(int appid)
+        {
+            appidUnlockAchievement = appid;
         }
 
         //public Window GetMainWindow()

@@ -27,7 +27,7 @@ namespace System.Application.UI.Views
         protected override void OnClosing(CancelEventArgs e)
         {
 #if !UI_DEMO
-            if (Program.IsMainProcess)
+            if (Startup.HasNotifyIcon)
             {
                 e.Cancel = true;
                 Hide();

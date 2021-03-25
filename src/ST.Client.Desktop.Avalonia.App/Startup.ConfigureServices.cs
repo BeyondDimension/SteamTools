@@ -14,18 +14,15 @@ namespace System.Application.UI
 {
     partial class Startup
     {
-        static void InitDI(bool isMainProcess)
+        static void InitDI(CommandLineTools.DILevel level)
         {
-            DI.Init(s => ConfigureServices(s, isMainProcess));
+            DI.Init(s => ConfigureServices(s, level));
         }
 
-        static void ConfigureServices(IServiceCollection services, bool isMainProcess)
+        static void ConfigureServices(IServiceCollection services, CommandLineTools.DILevel level)
         {
             ConfigureRequiredServices(services);
-            if (isMainProcess)
-            {
-                ConfigureMainProcessServices(services);
-            }
+            ConfigureDemandServices(services, level);
         }
 
         /// <summary>
@@ -38,108 +35,152 @@ namespace System.Application.UI
             services.AddDesktopLogging();
         }
 
+        public static bool HasNotifyIcon { get; private set; }
+
         /// <summary>
-        /// 配置主进程所需的依赖注入服务
+        /// 配置按需使用的依赖注入服务
         /// </summary>
         /// <param name="services"></param>
-        static void ConfigureMainProcessServices(IServiceCollection services)
+        static void ConfigureDemandServices(IServiceCollection services, CommandLineTools.DILevel level)
         {
-            services.AddSingleton<IDesktopAppService>(s => App.Instance);
-            services.AddSingleton<IDesktopAvaloniaAppService>(s => App.Instance);
+            HasNotifyIcon = level.HasFlag(CommandLineTools.DILevel.NotifyIcon);
+            var hasWindow = level.HasFlag(CommandLineTools.DILevel.Window);
+            var hasCloud = level.HasFlag(CommandLineTools.DILevel.Cloud);
+            var hasHttp = level.HasFlag(CommandLineTools.DILevel.Http);
+            var hasModelValidator = level.HasFlag(CommandLineTools.DILevel.ModelValidator);
+            var hasHosts = level.HasFlag(CommandLineTools.DILevel.Hosts);
+            var hasAppUpdate = level.HasFlag(CommandLineTools.DILevel.AppUpdate);
+            var hasSteamCollection = level.HasFlag(CommandLineTools.DILevel.SteamCollection);
+            var notMin = level != CommandLineTools.DILevel.Min;
 
-            // 管理主窗口服务类
-            services.AddWindowService();
+            if (hasWindow)
+            {
+                services.AddSingleton<IDesktopAppService>(s => App.Instance);
+                services.AddSingleton<IDesktopAvaloniaAppService>(s => App.Instance);
 
-            // 桌面平台服务 此项放在其他通用业务实现服务之前
-            services.AddDesktopPlatformService();
+                // 管理主窗口服务类
+                services.AddWindowService();
 
-            // Http平台助手桌面端实现
-            services.AddDesktopHttpPlatformHelper();
+                // 类似 Android Toast 的桌面端实现
+                services.TryAddToast();
 
-            // 类似 Android Toast 的桌面端实现
-            services.TryAddToast();
+                // 主线程助手类(MainThreadDesktop)
+                services.AddMainThreadPlatformService();
 
-            // 模型验证框架
-            services.TryAddModelValidator();
+                #region MessageBox
 
-            // app 配置项
-            services.TryAddOptions(AppSettings);
-
-            // 添加安全服务
-            services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
-
-            // 添加仓储服务
-            services.AddRepositories();
-
-            // 键值对存储
-            services.TryAddStorage();
-
-            // 业务平台用户管理
-            services.TryAddUserManager();
-
-            // 服务端API调用
-            services.TryAddCloudServiceClient<CloudServiceClient>(useMock: true);
-
-            // 主线程助手类(MainThreadDesktop)
-            services.AddMainThreadPlatformService();
-
-            // 业务用户配置文件服务
-            services.AddConfigFileService();
-
-            // hosts 文件助手服务
-            services.AddHostsFileService();
-
-            // 通用 Http 服务
-            services.AddHttpService();
-
-            // Steam 相关助手、工具类服务
-            services.AddSteamService();
-
-            // Steamworks LocalApi Service
-            services.TryAddSteamworksLocalApiService();
-
-            // SteamDb WebApi Service
-            services.AddSteamDbWebApiService();
-
-            // Steamworks WebApi Service
-            services.AddSteamworksWebApiService();
-
-            // 应用程序更新服务
-            services.AddAppUpdateService();
-
-            // 托盘图标
-#if WINDOWS
-            //services.AddTransient<INotifyIconWindow<ContextMenu>, Win32NotifyIconWindow>();
-#endif
-            services.AddNotifyIcon<NotifyIconImpl>();
-
-            #region MessageBox
-
-            /* System.Windows.MessageBox 在 WPF 库中，仅支持 Win 平台
-             * 改为 System.Windows.MessageBoxCompat 可跨平台兼容
-             * 在其他平台上使用 MessageBox.Avalonia 库实现
-             * API变更说明：
-             * - 如果需要获取返回值，即点击那个按钮，则使用异步版本 ShowAsync
-             * - 如果不需要获取返回值，则可直接使用 同步版本 Show
-             * 注意事项：
-             * - 图标(Icon)与按钮(Button)不要使用标记为 Obsolete 的
-             * - WPF 中 显示窗口(Show)会锁死父窗口等，类似 ShowDialog
-             * - MessageBox.Avalonia 中则不会锁死窗口
-             * 已知问题：
-             * - 在 MessageBox.Avalonia 中
-             *  - 如果内容文本(messageBoxText)过短 UI 上的文字显示不全
-             *  - 点击窗口按 Ctrl+C 无法复制弹窗中的文本内容
-             *  - 按钮文本(ButtonText)缺少本地化翻译(Translate)
-             *  - 某些图标图片与枚举值不太匹配，例如 Information
-             */
-            services.AddShowWindowService();
+                /* System.Windows.MessageBox 在 WPF 库中，仅支持 Win 平台
+                 * 改为 System.Windows.MessageBoxCompat 可跨平台兼容
+                 * 在其他平台上使用 MessageBox.Avalonia 库实现
+                 * API变更说明：
+                 * - 如果需要获取返回值，即点击那个按钮，则使用异步版本 ShowAsync
+                 * - 如果不需要获取返回值，则可直接使用 同步版本 Show
+                 * 注意事项：
+                 * - 图标(Icon)与按钮(Button)不要使用标记为 Obsolete 的
+                 * - WPF 中 显示窗口(Show)会锁死父窗口等，类似 ShowDialog
+                 * - MessageBox.Avalonia 中则不会锁死窗口
+                 * 已知问题：
+                 * - 在 MessageBox.Avalonia 中
+                 *  - 如果内容文本(messageBoxText)过短 UI 上的文字显示不全
+                 *  - 点击窗口按 Ctrl+C 无法复制弹窗中的文本内容
+                 *  - 按钮文本(ButtonText)缺少本地化翻译(Translate)
+                 *  - 某些图标图片与枚举值不太匹配，例如 Information
+                 */
+                services.AddShowWindowService();
 
 #if WINDOWS
-            // 可选项，在 Win 平台使用 WPF 实现的 MessageBox
-            //services.AddSingleton<IMessageBoxCompatService, WPFMessageBoxCompatService>();
+                // 可选项，在 Win 平台使用 WPF 实现的 MessageBox
+                //services.AddSingleton<IMessageBoxCompatService, WPFMessageBoxCompatService>();
 #endif
 
-            #endregion
+                #endregion
+            }
+
+            if (notMin)
+            {
+                // 桌面平台服务 此项放在其他通用业务实现服务之前
+                services.AddDesktopPlatformService();
+            }
+
+            if (hasHttp)
+            {
+                // Http平台助手桌面端实现
+                services.AddDesktopHttpPlatformHelper();
+
+                // 通用 Http 服务
+                services.AddHttpService();
+            }
+
+            if (hasModelValidator)
+            {
+                // 模型验证框架
+                services.TryAddModelValidator();
+            }
+
+            if (hasCloud)
+            {
+                // app 配置项
+                services.TryAddOptions(AppSettings);
+
+                // 添加安全服务
+                services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
+
+                // 服务端API调用
+                services.TryAddCloudServiceClient<CloudServiceClient>(useMock: true);
+
+                // 添加仓储服务
+                services.AddRepositories();
+
+                // 键值对存储
+                services.TryAddStorage();
+
+                // 业务平台用户管理
+                services.TryAddUserManager();
+            }
+
+            if (hasWindow || hasCloud)
+            {
+                // 业务用户配置文件服务
+                services.AddConfigFileService();
+            }
+
+            if (hasHosts)
+            {
+                // hosts 文件助手服务
+                services.AddHostsFileService();
+            }
+
+            if (hasSteamCollection)
+            {
+                // Steam 相关助手、工具类服务
+                services.AddSteamService();
+
+                // Steamworks LocalApi Service
+                services.TryAddSteamworksLocalApiService();
+
+                // SteamDb WebApi Service
+                services.AddSteamDbWebApiService();
+
+                // Steamworks WebApi Service
+                services.AddSteamworksWebApiService();
+
+            }
+
+            if (hasAppUpdate)
+            {
+                // 应用程序更新服务
+                services.AddAppUpdateService();
+            }
+
+            if (HasNotifyIcon)
+            {
+                // 托盘图标
+#if WINDOWS
+                //services.AddTransient<INotifyIconWindow<ContextMenu>, Win32NotifyIconWindow>();
+#endif
+                services.AddNotifyIcon<NotifyIconImpl>();
+
+            }
         }
 
         static AppSettings AppSettings
