@@ -127,6 +127,7 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 * [Ant Design Blazor](https://github.com/ant-design-blazor/ant-design-blazor)
 * [Visual Studio App Center SDK for .NET](https://github.com/microsoft/appcenter-sdk-dotnet)
 * [Xamarin.Essentials](https://github.com/xamarin/essentials)
+* [Xamarin.Forms](https://github.com/xamarin/Xamarin.Forms)
 * [Entity Framework Core](https://github.com/dotnet/efcore)
 * [ASP.NET Core](https://github.com/dotnet/aspnetcore)
 * [Windows Forms](https://github.com/dotnet/winforms)
