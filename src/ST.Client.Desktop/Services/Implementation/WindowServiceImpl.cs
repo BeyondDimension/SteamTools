@@ -12,6 +12,7 @@ namespace System.Application.Services.Implementation
 {
     public class WindowServiceImpl : ReactiveObject, IWindowService, IDisposableHolder
     {
+#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
         private MainWindowViewModel mainWindow;
         private AchievementWindowViewModel achievementWindow;
         private readonly CompositeDisposable compositeDisposable = new();
@@ -19,7 +20,9 @@ namespace System.Application.Services.Implementation
         /// <summary>
         /// 获取为当前主窗口提供的数据。
         /// </summary>
+
         public WindowViewModel MainWindow { get; private set; }
+#pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 
         public void Init()
         {

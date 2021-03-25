@@ -142,7 +142,7 @@ namespace System.Application.Services
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
 
                                     #region 初始化需要steam启动才能使用的功能
-                                    var mainViewModel = (IWindowService.Instance.MainWindow as MainWindowViewModel);
+                                    var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
                                     //                                    await mainViewModel.SteamAppPage.Initialize();
                                     //                                    await mainViewModel.AccountPage.Initialize(id);
                                     #endregion

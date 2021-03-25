@@ -14,7 +14,7 @@ namespace System.Application.UI.ViewModels
 
         public AchievementWindowViewModel(int appid)
         {
-    
+
         }
     }
 }

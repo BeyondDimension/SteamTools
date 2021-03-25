@@ -32,8 +32,8 @@ namespace System.Application.UI
 
         public ApplicationInstance() : this(Assembly.GetEntryAssembly()) { }
 
-        public ApplicationInstance(Assembly targetAssembly)
-        {
+		public ApplicationInstance(Assembly targetAssembly)
+		{
             // 获取应用程序的GUID
             var portName = ((GuidAttribute)Attribute.GetCustomAttribute(targetAssembly, typeof(GuidAttribute))).Value;
 
@@ -42,7 +42,7 @@ namespace System.Application.UI
 
             // 如果成功创建了IPC服务器，则假定是首次创建使用指定端口的IPC通信。
             // 如果创建失败，则说明另一个实例正在创建IPC服务器，因此在创建客户端时，Mutex会同时保护其免受这些操作的影响。
-            using var mutex = new Mutex(true, typeof(ApplicationInstanceMessage).FullName + "_" + portName, out bool flag);
+            using var mutex = new Mutex(true, typeof(ApplicationInstanceMessage).FullName + "_" + "b8335358-e2e6-4c32-b6e3-0bc501ad3e2f", out bool flag);
             mutex.WaitOne();
             this.IsFirst = flag;
         }
