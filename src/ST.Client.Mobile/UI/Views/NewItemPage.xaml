@@ -9,9 +9,9 @@
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="15">
             <Label Text="Text" FontSize="Medium"/>
-            <Entry Text="{Binding Text, Mode=TwoWay}" FontSize="Medium"/>
+            <Entry Text="{Binding Text, Mode=TwoWay}" FontSize="Medium" Placeholder="Input Text!!!"/>
             <Label Text="Description" FontSize="Medium"/>
-            <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0"/>
+            <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" Placeholder="Input Desc!!!"/>
             <StackLayout Orientation="Horizontal">
                 <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>

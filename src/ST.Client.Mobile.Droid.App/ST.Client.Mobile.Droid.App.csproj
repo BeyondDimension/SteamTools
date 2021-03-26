@@ -33,6 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidSupportedAbis>x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -66,6 +67,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\MetaDatas.cs" />
+    <Compile Include="Properties\Permissions.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
   </ItemGroup>
   <ItemGroup>
