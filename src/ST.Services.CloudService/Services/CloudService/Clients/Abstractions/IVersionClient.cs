@@ -18,6 +18,7 @@ namespace System.Application.Services.CloudService.Clients.Abstractions
             Platform platform,
             DeviceIdiom deviceIdiom,
             ArchitectureFlags supportedAbis,
-            Version osVersion);
+            Version osVersion,
+            ArchitectureFlags abi);
     }
 }

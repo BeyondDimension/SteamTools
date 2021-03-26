@@ -19,27 +19,45 @@ namespace System.Application.Services.Implementation
 
         protected sealed override void OpenInAppStore() => throw new NotImplementedException();
 
+        /// <summary>
+        /// 当更新下载完毕并校验完成时，即将退出程序之前
+        /// </summary>
         protected abstract void OnExit();
 
-        protected override void OverwriteUpgrade(string fileName)
+        protected override void OverwriteUpgrade(string value, bool isIncrement)
         {
-            var dirPath = Path.Combine(AppContext.BaseDirectory, Path.GetFileNameWithoutExtension(fileName));
-
-            if (Directory.Exists(dirPath))
+            if (isIncrement) // 增量更新
             {
-                Directory.Delete(dirPath, true);
+                OverwriteUpgradePrivate(value);
+            }
+            else // 全量更新
+            {
+                var dirPath = Path.Combine(AppContext.BaseDirectory, Path.GetFileNameWithoutExtension(value));
+
+                if (Directory.Exists(dirPath))
+                {
+                    Directory.Delete(dirPath, true);
+                }
+
+                CurrentProgressValue = 0;
+
+                void OnReport(float value) => CurrentProgressValue = value;
+
+                if (TarGZipHelper.Unpack(value, dirPath, progress: new Progress<float>(OnReport)))
+                {
+                    ClearProgressValue(MaxProgressValue);
+                    IOPath.FileTryDelete(value);
+                    OverwriteUpgradePrivate(dirPath);
+                }
+                else
+                {
+                    toast.Show(SR.UpdateUnpackFail);
+                    ClearProgressValue(MaxProgressValue);
+                }
             }
 
-            CurrentProgressValue = 0;
-
-            void OnReport(float value) => CurrentProgressValue = value;
-
-            if (TarGZipHelper.Unpack(fileName, dirPath, progress: new Progress<float>(OnReport)))
+            void OverwriteUpgradePrivate(string dirPath)
             {
-                ClearProgressValue(MaxProgressValue);
-
-                IOPath.FileTryDelete(fileName);
-
                 OnExit();
 
                 var updateCommandPath = Path.Combine(AppContext.BaseDirectory, "update.cmd");
@@ -64,11 +82,6 @@ namespace System.Application.Services.Implementation
                 p.StartInfo.CreateNoWindow = true; // 不显示程序窗口
                 p.StartInfo.Verb = "runas"; // 管理员权限运行
                 p.Start(); // 启动程序
-            }
-            else
-            {
-                toast.Show(SR.UpdateUnpackFail);
-                ClearProgressValue(MaxProgressValue);
             }
         }
     }

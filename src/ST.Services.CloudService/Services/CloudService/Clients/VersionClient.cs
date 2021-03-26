@@ -16,11 +16,12 @@ namespace System.Application.Services.CloudService.Clients
             Platform platform,
             DeviceIdiom deviceIdiom,
             ArchitectureFlags supportedAbis,
-            Version osVersion)
+            Version osVersion,
+            ArchitectureFlags abi)
         {
             var url =
                 $"api/version/checkupdate/{id}/{(int)platform}/{(int)deviceIdiom}" +
-                $"/{(int)supportedAbis}/{osVersion.Major}/{osVersion.Minor}";
+                $"/{(int)supportedAbis}/{osVersion.Major}/{osVersion.Minor}/{(int)abi}";
             return conn.SendAsync<AppVersionDTO?>(
                 isAnonymous: true,
                 method: HttpMethod.Get,

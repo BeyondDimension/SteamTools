@@ -1,4 +1,5 @@
 ﻿using System.Application.Models;
+using System.Application.Mvvm;
 using System.Collections.Generic;
 using System.Windows.Input;
 
@@ -35,5 +36,7 @@ namespace System.Application.Services
         void SetClipboardText(string s);
 
         bool IsCefInitComplete { get; }
+
+        CompositeDisposable CompositeDisposable { get; }
     }
 }

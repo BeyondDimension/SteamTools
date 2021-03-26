@@ -6,20 +6,17 @@ using System.Application.Security;
 using System.Application.Services.CloudService.Clients;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Net.Http;
-using System.Properties;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Application.Services.ICloudServiceClient;
 
 namespace System.Application.Services.CloudService
 {
     public abstract class CloudServiceClientBase : GeneralHttpClientFactory, ICloudServiceClient, IApiConnectionPlatformHelper
     {
         public const string ClientName_ = "CloudServiceClient";
-        internal const string DefaultApiBaseUrl = ThisAssembly.Debuggable ?
-            "https://steamtools-api.chinacloudsites.cn" :
-            Constants.Prefix_HTTPS + "api.steampp.net";
 
         #region Clients
 

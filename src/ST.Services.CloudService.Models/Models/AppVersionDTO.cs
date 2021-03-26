@@ -19,24 +19,10 @@ namespace System.Application.Models
         public string? Version { get; set; }
 
         /// <summary>
-        /// 哈希SHA256验证安装包
-        /// </summary>
-        [Obsolete]
-        [MessagePack.IgnoreMember]
-        public string? SHA256 { get; set; }
-
-        /// <summary>
         /// 本次更新描述
         /// </summary>
         [MPKey(2)]
         public string? Description { get; set; }
-
-        /// <summary>
-        /// 下载链接
-        /// </summary>
-        [Obsolete]
-        [MessagePack.IgnoreMember]
-        public string? DownloadLink { get; set; }
 
         /// <summary>
         /// 新版本文件增量更新
@@ -53,9 +39,7 @@ namespace System.Application.Models
         bool IExplicitHasValue.ExplicitHasValue()
         {
             return !string.IsNullOrWhiteSpace(Version) &&
-                !string.IsNullOrWhiteSpace(SHA256) &&
                 !string.IsNullOrWhiteSpace(Description) &&
-                !string.IsNullOrWhiteSpace(DownloadLink) &&
                 Downloads != null && Downloads.All(x => x.HasValue());
         }
 
@@ -74,6 +58,7 @@ namespace System.Application.Models
 
             [MPKey(3)]
             public string? FileId { get; set; }
+
 
             bool IExplicitHasValue.ExplicitHasValue()
             {
@@ -105,5 +90,7 @@ namespace System.Application.Models
                     Length > 0;
             }
         }
+
+        public static string GetRequestUri(string fileId) => $"/{fileId}.{FileEx.BIN}";
     }
 }

@@ -380,6 +380,8 @@ namespace System.Application.UI
 
         public readonly CompositeDisposable compositeDisposable = new();
 
+        CompositeDisposable IDesktopAppService.CompositeDisposable => compositeDisposable;
+
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
 
         void IDisposable.Dispose()

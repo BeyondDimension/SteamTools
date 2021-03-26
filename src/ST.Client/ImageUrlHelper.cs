@@ -1,4 +1,4 @@
-﻿using System.Application.Services.CloudService;
+﻿using System.Application.Services;
 
 namespace System.Application
 {
@@ -8,7 +8,7 @@ namespace System.Application
         {
             get
             {
-                var client = DI.Get<CloudServiceClientBase>();
+                var client = DI.Get<ICloudServiceClient>();
                 return client.ApiBaseUrl;
             }
         }

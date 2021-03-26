@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Application.Services.ICloudServiceClient;
 
 namespace System.Application.Services.CloudService
 {
     public sealed class MockCloudServiceClient : ICloudServiceClient, IAccountClient, IManageClient, IAuthMessageClient, IVersionClient, IActiveUserClient, IAccelerateClient
     {
+        public string ApiBaseUrl => DefaultApiBaseUrl;
         public IAccountClient Account => this;
         public IManageClient Manage => this;
         public IAuthMessageClient AuthMessage => this;
@@ -27,7 +29,7 @@ namespace System.Application.Services.CloudService
             return Task.FromResult(ApiResponse.Ok());
         }
 
-        public Task<IApiResponse<AppVersionDTO?>> CheckUpdate(Guid id, Platform platform, DeviceIdiom deviceIdiom, ArchitectureFlags supportedAbis, Version osVersion)
+        public Task<IApiResponse<AppVersionDTO?>> CheckUpdate(Guid id, Platform platform, DeviceIdiom deviceIdiom, ArchitectureFlags supportedAbis, Version osVersion, ArchitectureFlags abi)
         {
             return Task.FromResult(ApiResponse.Ok<AppVersionDTO?>(default));
         }

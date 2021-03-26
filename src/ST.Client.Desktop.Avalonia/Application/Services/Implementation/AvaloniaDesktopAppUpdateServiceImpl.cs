@@ -5,8 +5,14 @@ namespace System.Application.Services.Implementation
 {
     internal sealed class AvaloniaDesktopAppUpdateServiceImpl : DesktopAppUpdateServiceImpl
     {
-        public AvaloniaDesktopAppUpdateServiceImpl(IToast toast, ICloudServiceClient client, IOptions<AppSettings> options) : base(toast, client, options)
+        readonly IDesktopAppService app;
+        public AvaloniaDesktopAppUpdateServiceImpl(
+            IDesktopAppService app,
+            IToast toast,
+            ICloudServiceClient client,
+            IOptions<AppSettings> options) : base(toast, client, options)
         {
+            this.app = app;
         }
 
         protected override void OnExistNewVersion()
@@ -19,7 +25,7 @@ namespace System.Application.Services.Implementation
 
         protected override void OnExit()
         {
-            // App.Instance.compositeDisposable.Dispose();
+            app.CompositeDisposable.Dispose();
         }
     }
 }
