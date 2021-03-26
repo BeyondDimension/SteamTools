@@ -13,29 +13,29 @@ using System.IO.Pipes;
 
 namespace System.Application.UI
 {
-	/// <summary>
-	/// 支持检测应用程序的多次启动以及在正在运行的实例之间发送和接收消息。
-	/// </summary>
-	public sealed class ApplicationInstance : IDisposable
-	{
-		private readonly ApplicationInstanceMessage _appInstanceMessage;
+    /// <summary>
+    /// 支持检测应用程序的多次启动以及在正在运行的实例之间发送和接收消息。
+    /// </summary>
+    public sealed class ApplicationInstance
+    {
+        private readonly ApplicationInstanceMessage _appInstanceMessage;
 
-		/// <summary>
-		/// 获取一个值，该值指示此实例是否是第一个要启动的实例。
-		/// </summary>
-		public bool IsFirst { get; }
+        /// <summary>
+        /// 获取一个值，该值指示此实例是否是第一个要启动的实例。
+        /// </summary>
+        public bool IsFirst { get; }
 
-		/// <summary>
-		/// 在接收新启动的实例的命令行时发生。
-		/// </summary>
-		public event EventHandler<MessageEventArgs> CommandLineArgsReceived;
+        /// <summary>
+        /// 在接收新启动的实例的命令行时发生。
+        /// </summary>
+        public event EventHandler<MessageEventArgs> CommandLineArgsReceived;
 
-		public ApplicationInstance() : this(Assembly.GetEntryAssembly()) { }
+        public ApplicationInstance() : this(Assembly.GetEntryAssembly()) { }
 
-		public ApplicationInstance(Assembly targetAssembly)
-		{
-			// 获取应用程序的GUID
-			var portName = ((GuidAttribute)Attribute.GetCustomAttribute(targetAssembly, typeof(GuidAttribute))).Value;
+        public ApplicationInstance(Assembly targetAssembly)
+        {
+            // 获取应用程序的GUID
+            var portName = ((GuidAttribute)Attribute.GetCustomAttribute(targetAssembly, typeof(GuidAttribute))).Value;
 
             // 使用会话ID作为URI，以便它是每个会话URI
             //var uri = Process.GetCurrentProcess().SessionId.ToString(CultureInfo.InvariantCulture);
@@ -47,66 +47,58 @@ namespace System.Application.UI
             this.IsFirst = flag;
         }
 
-		/// <summary>
-		/// <see cref="CommandLineArgsReceived"/> 引发一个事件。
-		/// </summary>
-		/// <param name="commandLineArgs">当前进程的命令行参数。</param>
-		private void OnMessageReceived(string[] commandLineArgs)
-		{
-			this.CommandLineArgsReceived?.Invoke(this, new MessageEventArgs(commandLineArgs));
-		}
+        /// <summary>
+        /// <see cref="CommandLineArgsReceived"/> 引发一个事件。
+        /// </summary>
+        /// <param name="commandLineArgs">当前进程的命令行参数。</param>
+        private void OnMessageReceived(string[] commandLineArgs)
+        {
+            this.CommandLineArgsReceived?.Invoke(this, new MessageEventArgs(commandLineArgs));
+        }
 
-		/// <summary>
-		/// 将当前进程的命令行参数发送到已经存在的实例。
-		/// </summary>
-		/// <param name="commandLineArgs">当前进程的命令行参数。</param>
-		public void SendCommandLineArgs(string[] commandLineArgs)
-		{
-			this._appInstanceMessage.OnMessageReceived(commandLineArgs);
-		}
-
-		public void Dispose()
-		{
-#if !NETCOREAPP
-			ChannelServices.UnregisterChannel(this._channel);
-#endif
-		}
+        /// <summary>
+        /// 将当前进程的命令行参数发送到已经存在的实例。
+        /// </summary>
+        /// <param name="commandLineArgs">当前进程的命令行参数。</param>
+        public void SendCommandLineArgs(string[] commandLineArgs)
+        {
+            this._appInstanceMessage.OnMessageReceived(commandLineArgs);
+        }
 
 
-		/// <summary>
-		/// 存储所有进程共有的消息以及已发送和接收的消息。
-		/// </summary>
-		private class ApplicationInstanceMessage : MarshalByRefObject
-		{
-			/// <summary>
-			/// 收到消息时发生。
-			/// </summary>
-			public event Action<string[]> MessageReceived;
+        /// <summary>
+        /// 存储所有进程共有的消息以及已发送和接收的消息。
+        /// </summary>
+        private class ApplicationInstanceMessage : MarshalByRefObject
+        {
+            /// <summary>
+            /// 收到消息时发生。
+            /// </summary>
+            public event Action<string[]> MessageReceived;
 
-			/// <summary>
-			/// <see cref="MessageReceived"/> 引发一个事件。
-			/// </summary>
-			public void OnMessageReceived(string[] commandLineArgs)
-			{
-				this.MessageReceived?.Invoke(commandLineArgs);
-			}
-		}
-	}
+            /// <summary>
+            /// <see cref="MessageReceived"/> 引发一个事件。
+            /// </summary>
+            public void OnMessageReceived(string[] commandLineArgs)
+            {
+                this.MessageReceived?.Invoke(commandLineArgs);
+            }
+        }
+    }
 
+    /// <summary>
+    /// 提供有关与进程间通信中发生的消息传递有关的事件的数据。
+    /// </summary>
+    public class MessageEventArgs : EventArgs
+    {
+        /// <summary>
+        /// 获取消息。
+        /// </summary>
+        public string[] CommandLineArgs { get; }
 
-	/// <summary>
-	/// 提供有关与进程间通信中发生的消息传递有关的事件的数据。
-	/// </summary>
-	public class MessageEventArgs : EventArgs
-	{
-		/// <summary>
-		/// 获取消息。
-		/// </summary>
-		public string[] CommandLineArgs { get; }
-
-		public MessageEventArgs(string[] commandLineArgs)
-		{
-			this.CommandLineArgs = commandLineArgs;
-		}
-	}
+        public MessageEventArgs(string[] commandLineArgs)
+        {
+            this.CommandLineArgs = commandLineArgs;
+        }
+    }
 }
