@@ -28,8 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
+    <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,11 +42,5 @@
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AvaloniaResource Update="Application\UI\Styles\Controls\CheckBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
   </ItemGroup>
 </Project>

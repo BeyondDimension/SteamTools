@@ -1,5 +1,6 @@
 ﻿using System.Application.Entities;
 using System.Collections.Generic;
+using System.Linq;
 using MPKey = MessagePack.KeyAttribute;
 using MPObject = MessagePack.MessagePackObjectAttribute;
 
@@ -18,41 +19,91 @@ namespace System.Application.Models
         public string? Version { get; set; }
 
         /// <summary>
-        /// 哈希SHA256验证安装包，可选
+        /// 哈希SHA256验证安装包
         /// </summary>
-        [MPKey(2)]
+        [Obsolete]
+        [MessagePack.IgnoreMember]
         public string? SHA256 { get; set; }
 
         /// <summary>
         /// 本次更新描述
         /// </summary>
-        [MPKey(3)]
+        [MPKey(2)]
         public string? Description { get; set; }
 
         /// <summary>
         /// 下载链接
         /// </summary>
-        [MPKey(4)]
+        [Obsolete]
+        [MessagePack.IgnoreMember]
         public string? DownloadLink { get; set; }
 
         /// <summary>
-        /// 新版本文件清单(仅桌面端使用)
+        /// 新版本文件增量更新
         /// </summary>
-        [MPKey(5)]
-        public Dictionary<string, string>? NewVersionFileList { get; set; }
+        [MPKey(3)]
+        public IEnumerable<IncrementalUpdateDownload>? IncrementalUpdate { get; set; }
 
         /// <summary>
-        /// 当前版本文件清单(仅桌面端使用)
+        /// 下载类型与下载地址
         /// </summary>
-        [MPKey(6)]
-        public Dictionary<string, string>? ThisVersionFileList { get; set; }
+        [MPKey(4)]
+        public IEnumerable<Download>? Downloads { get; set; }
 
         bool IExplicitHasValue.ExplicitHasValue()
         {
             return !string.IsNullOrWhiteSpace(Version) &&
                 !string.IsNullOrWhiteSpace(SHA256) &&
                 !string.IsNullOrWhiteSpace(Description) &&
-                !string.IsNullOrWhiteSpace(DownloadLink);
+                !string.IsNullOrWhiteSpace(DownloadLink) &&
+                Downloads != null && Downloads.All(x => x.HasValue());
+        }
+
+        [MPObject]
+        public class Download : IExplicitHasValue
+        {
+            /// <inheritdoc cref="AppDownloadType"/>
+            [MPKey(0)]
+            public AppDownloadType DownloadType { get; set; }
+
+            [MPKey(1)]
+            public string? SHA256 { get; set; }
+
+            [MPKey(2)]
+            public long Length { get; set; }
+
+            [MPKey(3)]
+            public string? FileId { get; set; }
+
+            bool IExplicitHasValue.ExplicitHasValue()
+            {
+                return !string.IsNullOrWhiteSpace(SHA256) &&
+                    !string.IsNullOrWhiteSpace(FileId) &&
+                    Length > 0;
+            }
+        }
+
+        [MPObject]
+        public class IncrementalUpdateDownload : IExplicitHasValue
+        {
+            [MPKey(0)]
+            public string? SHA256 { get; set; }
+
+            [MPKey(1)]
+            public long Length { get; set; }
+
+            [MPKey(2)]
+            public string? FileId { get; set; }
+
+            [MPKey(3)]
+            public string? FileRelativePath { get; set; }
+
+            bool IExplicitHasValue.ExplicitHasValue()
+            {
+                return !string.IsNullOrWhiteSpace(SHA256) &&
+                    !string.IsNullOrWhiteSpace(FileId) &&
+                    Length > 0;
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace System.Application.Repositories
@@ -181,7 +182,7 @@ namespace System.Application.Repositories
         /// </summary>
         /// <param name="primaryKey">要查询的实体主键</param>
         /// <returns>查询到的实体</returns>
-        ValueTask<TEntity?> FindAsync(TPrimaryKey primaryKey);
+        ValueTask<TEntity?> FindAsync(TPrimaryKey primaryKey, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 判断实体是否已经存在
@@ -189,17 +190,17 @@ namespace System.Application.Repositories
         /// <param name="entity">要查询的实体</param>
         /// <param name="primaryKey">要查询的实体主键</param>
         /// <returns>实体是否存在数据库中</returns>
-        public async ValueTask<bool> ExistAsync(TPrimaryKey primaryKey)
+        public async ValueTask<bool> ExistAsync(TPrimaryKey primaryKey, CancellationToken cancellationToken = default)
         {
-            var entity = await FindAsync(primaryKey);
+            var entity = await FindAsync(primaryKey, cancellationToken);
             return entity != null;
         }
 
         /// <inheritdoc cref="ExistAsync(TPrimaryKey)"/>
-        public ValueTask<bool> ExistAsync(TEntity entity)
+        public ValueTask<bool> ExistAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
             var primaryKey = GetPrimaryKey(entity);
-            return ExistAsync(primaryKey);
+            return ExistAsync(primaryKey, cancellationToken);
         }
 
         #endregion

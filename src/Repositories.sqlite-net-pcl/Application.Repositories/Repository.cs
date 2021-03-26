@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace System.Application.Repositories
@@ -155,14 +156,14 @@ namespace System.Application.Repositories
 
         #region 查(通用查询)
 
-        public virtual async ValueTask<TEntity?> FindAsync(TPrimaryKey primaryKey)
+        public virtual async ValueTask<TEntity?> FindAsync(TPrimaryKey primaryKey, CancellationToken cancellationToken = default)
         {
             if (IRepository<TEntity, TPrimaryKey>.IsDefault(primaryKey)) return default;
             var dbConnection = await GetDbConnection().ConfigureAwait(false);
             return await AttemptAndRetry(() => dbConnection.FindAsync<TEntity>(primaryKey)).ConfigureAwait(false);
         }
 
-        public virtual async ValueTask<bool> ExistAsync(TPrimaryKey primaryKey)
+        public virtual async ValueTask<bool> ExistAsync(TPrimaryKey primaryKey, CancellationToken cancellationToken = default)
         {
             if (IRepository<TEntity, TPrimaryKey>.IsDefault(primaryKey)) return false;
             var dbConnection = await GetDbConnection().ConfigureAwait(false);
