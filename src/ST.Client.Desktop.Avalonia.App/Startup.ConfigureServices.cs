@@ -3,9 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.Services.Implementation;
+using System.Application.UI.ViewModels;
 using System.Application.UI.Views;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Properties;
 using System.Reflection;
 using System.Text;
@@ -94,6 +96,9 @@ namespace System.Application.UI
 #endif
 
                 #endregion
+
+                var vms = typeof(ViewModelBase).Assembly.GetTypes().Where(x => x.IsClass && !x.IsAbstract && x.Namespace != null && x.Namespace.Contains("UI.ViewModels")).ToArray();
+                services.AddAutoMapper(vms);
             }
 
             if (notMin)
