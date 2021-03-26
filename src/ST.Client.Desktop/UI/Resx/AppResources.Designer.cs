@@ -178,6 +178,51 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 一键加速 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_Acceleration {
+            get {
+                return ResourceManager.GetString("CommunityFix_Acceleration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 全部启用 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_AllCheck {
+            get {
+                return ResourceManager.GetString("CommunityFix_AllCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 移除证书 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_DeleteCertificate {
+            get {
+                return ResourceManager.GetString("CommunityFix_DeleteCertificate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加速设置 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_MenuName {
+            get {
+                return ResourceManager.GetString("CommunityFix_MenuName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 安装证书 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_SetupCertificate {
+            get {
+                return ResourceManager.GetString("CommunityFix_SetupCertificate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 确定 的本地化字符串。
         /// </summary>
         public static string Confirm {

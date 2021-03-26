@@ -49,10 +49,10 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> AddAuthCommand { get; }
         public ReactiveCommand<Unit, Unit> RefreshAuthCommand { get; }
 
-        internal async override Task Initialize()
-        {
-            await Task.CompletedTask;
-        }
+        //internal async override Task Initialize()
+        //{
+        //    await Task.CompletedTask;
+        //}
 
         void AddAuthMenu_Click()
         {

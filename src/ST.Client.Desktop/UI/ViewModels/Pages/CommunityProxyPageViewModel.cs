@@ -3,6 +3,8 @@ using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
@@ -15,111 +17,25 @@ namespace System.Application.UI.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
-        //private IList<MenuItemViewModel> _MenuItems = new[]
-        //{
-        //        new MenuItemViewModel
-        //        {
-        //            Header = AppResources.More,
-        //            Items = new[]
-        //    {
-        //        new MenuItemViewModel { Header = "_登录新账号",IconKey="SteamDrawing" },
-        //        new MenuItemViewModel { Header = "编辑" },
-        //        new MenuItemViewModel { Header = "-" },
-        //        new MenuItemViewModel
-        //        {
-        //            Header = "Recent",
-        //            Items = new[]
-        //            {
-        //                new MenuItemViewModel
-        //                {
-        //                    Header = "File1.txt",
-        //                },
-        //                new MenuItemViewModel
-        //                {
-        //                    Header = "File2.txt",
-        //                },
-        //            }
-        //        },
-        //    }
-        //        },
-        //};
+        public CommunityProxyPageViewModel() 
+        {
+            MenuItems = new ObservableCollection<MenuItemViewModel>()
+            {
+                new MenuItemViewModel(nameof(AppResources.CommunityFix_MenuName))
+                {
+                    Items = new[]
+                    {
+                        new MenuItemViewModel(nameof(AppResources.CommunityFix_SetupCertificate)) {IconKey="SteamDrawing"},                  
+                        new MenuItemViewModel(nameof(AppResources.CommunityFix_DeleteCertificate)) {IconKey="SteamDrawing"},
+                        new MenuItemViewModel (),
+                        new MenuItemViewModel (nameof(AppResources.Edit)),
+                    }
+                },
+            };
+        }
 
-
-        private IReadOnlyCollection<ProxyDomain> _ProxyDomains = new List<ProxyDomain> {
-      new ProxyDomain{
-Name="SteamCommunity",
-Domains = new List<string>{"steamcommunity.com" },
-ToDomain = "steamcommunity.rmbgame.net",
-Hosts = new List<string>{ "steamcommunity.com", "www.steamcommunity.com"},
-DomainTag = DomainTag.SteamCommunity,
-IsEnable= true,
-},
-new ProxyDomain{
-Name="SteamStore",
-Domains = new List<string>{"store.steampowered.com","api.steampowered.com" },
-ToDomain = "steamstore.rmbgame.net",
-Hosts = new List<string>{ "store.steampowered.com", "api.steampowered.com"},
-DomainTag = DomainTag.SteamStore,
-IsEnable= false,
-},
-new ProxyDomain{
-Name="Steam Update",
-Domains = new List<string>{"media.steampowered.com" },
-ToDomain = "steammedia.rmbgame.net",
-Hosts = new List<string>{ "media.steampowered.com",},
-DomainTag = DomainTag.SteamMeidia,
-IsEnable= false,
-},
-      new ProxyDomain{
-Name="SteamCommunity",
-Domains = new List<string>{"steamcommunity.com" },
-ToDomain = "steamcommunity.rmbgame.net",
-Hosts = new List<string>{ "steamcommunity.com", "www.steamcommunity.com"},
-DomainTag = DomainTag.SteamCommunity,
-IsEnable= true,
-},
-new ProxyDomain{
-Name="SteamStore",
-Domains = new List<string>{"store.steampowered.com","api.steampowered.com" },
-ToDomain = "steamstore.rmbgame.net",
-Hosts = new List<string>{ "store.steampowered.com", "api.steampowered.com"},
-DomainTag = DomainTag.SteamStore,
-IsEnable= false,
-},
-new ProxyDomain{
-Name="Steam Update",
-Domains = new List<string>{"media.steampowered.com" },
-ToDomain = "steammedia.rmbgame.net",
-Hosts = new List<string>{ "media.steampowered.com",},
-DomainTag = DomainTag.SteamMeidia,
-IsEnable= false,
-},
-      new ProxyDomain{
-Name="SteamCommunity",
-Domains = new List<string>{"steamcommunity.com" },
-ToDomain = "steamcommunity.rmbgame.net",
-Hosts = new List<string>{ "steamcommunity.com", "www.steamcommunity.com"},
-DomainTag = DomainTag.SteamCommunity,
-IsEnable= true,
-},
-new ProxyDomain{
-Name="SteamStore",
-Domains = new List<string>{"store.steampowered.com","api.steampowered.com" },
-ToDomain = "steamstore.rmbgame.net",
-Hosts = new List<string>{ "store.steampowered.com", "api.steampowered.com"},
-DomainTag = DomainTag.SteamStore,
-IsEnable= false,
-},
-new ProxyDomain{
-Name="Steam Update",
-Domains = new List<string>{"media.steampowered.com" },
-ToDomain = "steammedia.rmbgame.net",
-Hosts = new List<string>{ "media.steampowered.com",},
-DomainTag = DomainTag.SteamMeidia,
-IsEnable= false,
-},
-        };
-        public IReadOnlyCollection<ProxyDomain> ProxyDomains
+        private IReadOnlyCollection<AccelerateProjectGroupDTO> _ProxyDomains;
+        public IReadOnlyCollection<AccelerateProjectGroupDTO> ProxyDomains
         {
             get => _ProxyDomains;
             set
@@ -133,10 +49,31 @@ IsEnable= false,
         }
 
 
+        private AccelerateProjectGroupDTO _SelectGroup;
+        public AccelerateProjectGroupDTO SelectGroup
+        {
+            get => _SelectGroup;
+            set
+            {
+                if (_ProxyDomains != value)
+                {
+                    _SelectGroup = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
         internal async override Task Initialize()
         {
-            //var client = ICloudServiceClient.Instance.Accelerate;
-            //ProxyDomains = new List<AccelerateProjectGroupDTO>(client.All());
+            var client = ICloudServiceClient.Instance.Accelerate;
+            var result = await client.All();
+            if (!result.IsSuccess) 
+            {
+                return;
+            }
+
+            ProxyDomains = new List<AccelerateProjectGroupDTO>(result.Content);
+            SelectGroup = ProxyDomains.First();
         }
     }
 }

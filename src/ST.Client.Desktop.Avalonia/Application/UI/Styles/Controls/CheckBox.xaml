@@ -10,6 +10,8 @@
                                    Source="/Application/UI/Assets/AppResources/app.png"/>
                         </Panel>
                     </Border>
+
+                    
                     <TextBlock Width="{Binding #panel.Width}" Text="{Binding Name}" FontSize="18" Foreground="{DynamicResource HighlightForegroundBrushKey}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 5"></TextBlock>
                 </Panel>
             </CheckBox>
