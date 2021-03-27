@@ -17,7 +17,7 @@ namespace System.Application.UI.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
-        public CommunityProxyPageViewModel() 
+        public CommunityProxyPageViewModel()
         {
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
@@ -25,8 +25,8 @@ namespace System.Application.UI.ViewModels
                 {
                     Items = new[]
                     {
-                        new MenuItemViewModel(nameof(AppResources.CommunityFix_SetupCertificate)) {IconKey="SteamDrawing"},                  
-                        new MenuItemViewModel(nameof(AppResources.CommunityFix_DeleteCertificate)) {IconKey="SteamDrawing"},
+                        new MenuItemViewModel(nameof(AppResources.CommunityFix_SetupCertificate)),
+                        new MenuItemViewModel(nameof(AppResources.CommunityFix_DeleteCertificate)),
                         new MenuItemViewModel (),
                         new MenuItemViewModel (nameof(AppResources.Edit)),
                     }
@@ -67,13 +67,12 @@ namespace System.Application.UI.ViewModels
         {
             var client = ICloudServiceClient.Instance.Accelerate;
             var result = await client.All();
-            if (!result.IsSuccess) 
+            if (!result.IsSuccess)
             {
                 return;
             }
-
             ProxyDomains = new List<AccelerateProjectGroupDTO>(result.Content);
-            SelectGroup = ProxyDomains.First();
+            SelectGroup = ProxyDomains.FirstOrDefault();
         }
     }
 }

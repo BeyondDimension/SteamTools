@@ -1262,6 +1262,33 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 打开个人资料页面 的本地化字符串。
+        /// </summary>
+        public static string UserChange_OpenUserUrl {
+            get {
+                return ResourceManager.GetString("UserChange_OpenUserUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 最近登陆 的本地化字符串。
+        /// </summary>
+        public static string UserChange_RecentLogin {
+            get {
+                return ResourceManager.GetString("UserChange_RecentLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已记住密码 的本地化字符串。
+        /// </summary>
+        public static string UserChange_RememberMe {
+            get {
+                return ResourceManager.GetString("UserChange_RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 账号切换 的本地化字符串。
         /// </summary>
         public static string UserFastChange {

@@ -22,62 +22,72 @@
             </ExperimentalAcrylicBorder>
         </DockPanel>-->
         <Grid IsVisible="True" ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
-            <Border BorderThickness="0 0 0 0" Padding="20">
-                <Button Content="{Binding Path=Res.CommunityFix_Acceleration,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" FontSize="20" HorizontalContentAlignment="Center" VerticalAlignment="Bottom"></Button>
+            <Border Margin="10 0 10 10" Padding="20" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
+                <Button
+                    Content="{Binding Path=Res.CommunityFix_Acceleration,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                    HorizontalAlignment="Stretch"
+                    FontSize="20"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Bottom"></Button>
             </Border>
-            <ListBox x:Name="items" 
-                     Grid.Row="1" 
-                     Items="{Binding ProxyDomains}" 
-                     SelectedItem="{Binding SelectGroup}" 
-                     ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                     Background="Transparent" 
-                     Padding="0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Width="300">
-                            <StackPanel Orientation="Horizontal" Margin="0 20">
-                                <Image Width="50">
-                                    <Image.Source>
-                                        <DrawingImage Drawing="{StaticResource SteamDrawing}"></DrawingImage>
-                                    </Image.Source>
-                                </Image>
+            <Border Grid.Row="1" Margin="0 0 0 10">
+                <ListBox x:Name="items"
+                               Items="{Binding ProxyDomains}"
+                               SelectedItem="{Binding SelectGroup}"
+                               ScrollViewer.VerticalScrollBarVisibility="Auto"
+                               Background="Transparent">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}">
+                                <StackPanel Orientation="Horizontal" Margin="20">
+                                    <Image Width="40" Source="/Application/UI/Assets/AppResources/Steam.png">
+                                    </Image>
 
-                                <controls:ScrollingTextBlock Text="{Binding Name}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalAlignment="Center" Margin="20 0 0 0"></controls:ScrollingTextBlock>
-                            </StackPanel>
-                            <Separator BorderThickness=".88" Background="{DynamicResource SystemControlHighlightBaseLowBrush}"  />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                                    <controls:ScrollingTextBlock Text="{Binding Name}" FontSize="24" MinWidth="260" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalAlignment="Center" Margin="20 0 0 0"></controls:ScrollingTextBlock>
+                                </StackPanel>
+                            </Border>
 
-            <Panel Grid.Column="1" Grid.RowSpan="2" Margin="10 0">
-                <StackPanel>
-                    <DockPanel>
-                        <CheckBox Content="{Binding Path=Res.CommunityFix_AllCheck,Mode=OneWay,Source={x:Static resx:R.Current}}"></CheckBox>
-                        <TextBlock Text="{Binding SelectGroup.Name}" FontSize="30" Margin="0 10" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
-                    </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
 
-                    <ScrollViewer>
-                        <ItemsControl Items="{Binding SelectGroup.Items}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <DockPanel Margin="0 10" >
-                                            <CheckBox HorizontalAlignment="Left">
-                                                <TextBlock Text="{Binding Name}"></TextBlock>
-                                            </CheckBox>
-                                            <TextBlock Text="{Binding DomainNamesArray[0]}"
-                                                       HorizontalAlignment="Right" VerticalAlignment="Center"
-                                                       Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
-                                        </DockPanel>
-                                        <Separator Height=".88" BorderThickness=".88" Background="{DynamicResource HighlightForegroundBrushKey}"  />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
-                </StackPanel>
-            </Panel>
+            <Border Grid.Column="1" Grid.RowSpan="2" Classes="paper" Margin="0 0 10 10" Background="{DynamicResource ThemeBrushKey}">
+                <Panel Margin="20 0">
+                    <StackPanel>
+                        <DockPanel Margin="0 10">
+                            <CheckBox
+                                Content="{Binding Path=Res.CommunityFix_AllCheck,Mode=OneWay,Source={x:Static resx:R.Current}}"></CheckBox>
+                            <TextBlock Text="{Binding SelectGroup.Name}"
+                                       FontSize="30"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
+                        </DockPanel>
+
+                        <ScrollViewer>
+                            <ItemsControl Items="{Binding SelectGroup.Items}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <DockPanel>
+                                                <CheckBox HorizontalAlignment="Left">
+                                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                                </CheckBox>
+                                                <TextBlock Text="{Binding DomainNamesArray[0]}"
+                                                           HorizontalAlignment="Right"
+                                                           VerticalAlignment="Center"
+                                                           Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
+                                            </DockPanel>
+                                            <Separator Height=".88" BorderThickness=".88" Background="{DynamicResource HighlightForegroundBrushKey}"  />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+                </Panel>
+            </Border>
         </Grid>
 
         <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 16 0 0" Spacing="8">
@@ -89,7 +99,8 @@
                 </Button>
             </StackPanel>-->
 
-        <Grid RowDefinitions="Auto,*,Auto" HorizontalAlignment="Stretch" IsVisible="False">
+        <Grid RowDefinitions="Auto,*,Auto"
+              HorizontalAlignment="Stretch" IsVisible="False">
             <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0 10 0 0">
                 <TextBlock Text="已加速  01:00:00" FontSize="24"></TextBlock>
             </StackPanel>

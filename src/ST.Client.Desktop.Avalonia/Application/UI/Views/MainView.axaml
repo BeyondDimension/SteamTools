@@ -35,7 +35,7 @@
                 <Image Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
                 <Label Content="{Binding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
             </StackPanel>
-            <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{ReflectionBinding #TabControl.SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Padding="15 8 0 0" FontSize="28"/>
+            <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{ReflectionBinding SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Padding="15 8 0 0" FontSize="28"/>
             <StackPanel Grid.Column="2" x:Name="titleMenu" Orientation="Horizontal" VerticalAlignment="Top">
                 <Menu Items="{Binding SelectedItem.MenuItems}" IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}">
                     <Menu.Styles>
@@ -62,7 +62,7 @@
                     <MenuItem>
                         <MenuItem.Header>
                             <!--<Border CornerRadius="24" ClipToBounds="True">-->
-                            <Image Source="/Application/UI/Assets/AppResources/avater.jpg" Height="24" Width="24">
+                            <Image Source="/Application/UI/Assets/Icon.ico" Height="24" Width="24">
                                 <Image.Clip>
                                     <EllipseGeometry Rect="0,0,24,24" />
                                 </Image.Clip>
@@ -75,7 +75,7 @@
                             <MenuItem.Header>
                                 <Panel Width="200" Margin="5">
                                     <StackPanel Spacing="8" Margin="25,0,0,0">
-                                        <Image Source="/Application/UI/Assets/AppResources/avater.jpg" Height="100" Width="100" HorizontalAlignment="Center">
+                                        <Image Source="/Application/UI/Assets/Icon.ico" Height="100" Width="100" HorizontalAlignment="Center">
                                             <Image.Clip>
                                                 <EllipseGeometry Rect="0,0,100,100" />
                                             </Image.Clip>
@@ -101,7 +101,7 @@
         </Grid>
 
         <!--Content-->
-        <TabControl x:Name="TabControl"
+        <TabControl
                     Items="{Binding TabItems}"
                     SelectedItem="{Binding SelectedItem}"
                     Margin="0 25 0 0"

@@ -67,6 +67,24 @@ namespace System.Application.Models
         public string? AvatarFull { get; set; }
 
         /// <summary>
+        /// 注册日期
+        /// </summary>
+        [XmlElement("memberSince")]
+        public string MemberSince { get; set; }
+
+        /// <summary>
+        /// VAC
+        /// </summary>
+        [XmlElement("vacBanned")]
+        public bool VacBanned { get; set; }
+
+        /// <summary>
+        /// 自我介绍HTML
+        /// </summary>
+        [XmlElement("summary")]
+        public string Summary { get; set; }
+
+        /// <summary>
         /// 昵称
         /// </summary>
         [XmlElement("steamID")]

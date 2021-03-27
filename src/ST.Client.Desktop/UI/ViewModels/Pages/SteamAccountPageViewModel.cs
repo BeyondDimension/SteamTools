@@ -5,6 +5,7 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Properties;
 using System.Reactive;
@@ -68,12 +69,12 @@ namespace System.Application.UI.ViewModels
                 return;
             }
 
-            //#if DEBUG
-            //            for (var i = 0; i < 10; i++)
-            //            {
-            //                SteamUsers.Add(SteamUsers[0]);
-            //            }
-            //#endif
+#if DEBUG
+            for (var i = 0; i < 10; i++)
+            {
+                SteamUsers.Add(SteamUsers[0]);
+            }
+#endif
 
             var users = SteamUsers.ToArray();
             for (var i = 0; i < SteamUsers.Count; i++)
@@ -133,6 +134,11 @@ namespace System.Application.UI.ViewModels
                     SteamUsers.Remove(user);
                 }
             });
+        }
+
+        public void OpenUserProfileUrl(SteamUser user)
+        {
+            Process.Start(new ProcessStartInfo { FileName = user.ProfileUrl, UseShellExecute = true });
         }
 
         public void LoginNewSteamAccount()

@@ -112,20 +112,133 @@ namespace System.Application.Services.CloudService
             {
                 new AccelerateProjectGroupDTO
                 {
-                    Name = "Steam",
+                    Name = "Steam 相关",
                     Items = new List<AccelerateProjectDTO>
                     {
                         new AccelerateProjectDTO
                         {
                             Name = "Steam 社区",
+                            DomainNames="steamcommunity.com",
                         },
                         new AccelerateProjectDTO
                         {
                             Name = "Steam 商店",
+                            DomainNames="store.steampowered.com;api.steampowered.com",
                         },
                         new AccelerateProjectDTO
                         {
                             Name = "Steam 图片",
+                            DomainNames="steamcommunity.com",
+                        },
+                    },
+                },
+                new AccelerateProjectGroupDTO
+                {
+                    Name = "Origin 相关",
+                    Items = new List<AccelerateProjectDTO>
+                    {
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Origin",
+                            DomainNames="steamcommunity.com",
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Origin",
+                            DomainNames="store.steampowered.com;api.steampowered.com",
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Origin",
+                            DomainNames="steamcommunity.com",
+                        },
+                    },
+                },
+                                new AccelerateProjectGroupDTO
+                {
+                    Name = "Google 验证码",
+                    Items = new List<AccelerateProjectDTO>
+                    {
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Origin",
+                            DomainNames="steamcommunity.com",
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Origin",
+                            DomainNames="store.steampowered.com;api.steampowered.com",
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Origin",
+                            DomainNames="steamcommunity.com",
+                        },
+                    },
+                },
+                                                new AccelerateProjectGroupDTO
+                {
+                    Name = "图片站点",
+                    Items = new List<AccelerateProjectDTO>
+                    {
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Origin",
+                            DomainNames="steamcommunity.com",
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Origin",
+                            DomainNames="store.steampowered.com;api.steampowered.com",
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Origin",
+                            DomainNames="steamcommunity.com",
+                        },
+                    },
+                },
+                                                                new AccelerateProjectGroupDTO
+                {
+                    Name = "Disocrd语音服务",
+                    Items = new List<AccelerateProjectDTO>
+                    {
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Origin",
+                            DomainNames="steamcommunity.com",
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Origin",
+                            DomainNames="store.steampowered.com;api.steampowered.com",
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Origin",
+                            DomainNames="steamcommunity.com",
+                        },
+                    },
+                },
+                                                                                new AccelerateProjectGroupDTO
+                {
+                    Name = "Origin",
+                    Items = new List<AccelerateProjectDTO>
+                    {
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Origin",
+                            DomainNames="steamcommunity.com",
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Origin",
+                            DomainNames="store.steampowered.com;api.steampowered.com",
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Origin",
+                            DomainNames="steamcommunity.com",
                         },
                     },
                 },

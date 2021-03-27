@@ -475,6 +475,15 @@
   <data name="UserChange_OfflineBtn" xml:space="preserve">
     <value>离线模式启动</value>
   </data>
+  <data name="UserChange_OpenUserUrl" xml:space="preserve">
+    <value>打开个人资料页面</value>
+  </data>
+  <data name="UserChange_RecentLogin" xml:space="preserve">
+    <value>最近登陆</value>
+  </data>
+  <data name="UserChange_RememberMe" xml:space="preserve">
+    <value>已记住密码</value>
+  </data>
   <data name="UserFastChange" xml:space="preserve">
     <value>账号切换</value>
   </data>

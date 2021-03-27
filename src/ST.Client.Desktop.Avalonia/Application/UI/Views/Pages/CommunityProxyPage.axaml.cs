@@ -58,7 +58,7 @@ namespace System.Application.UI.Views.Pages
             //_scroll = this.FindControl<ScrollViewer>("scroll");
             //_left = this.FindControl<Button>("left");
             //_right = this.FindControl<Button>("right");
-        }
 
+        }
     }
 }

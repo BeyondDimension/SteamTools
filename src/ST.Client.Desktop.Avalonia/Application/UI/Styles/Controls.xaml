@@ -1,8 +1,8 @@
 ﻿<Styles  xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Styles.Resources>
-        <Thickness x:Key="PageMargin">20 0 20 0</Thickness>
-        <Thickness x:Key="PageMargin2">30 0 30 0</Thickness>
+        <Thickness x:Key="PageMargin">20 0 20 10</Thickness>
+        <Thickness x:Key="PageMargin2">30 0 30 10</Thickness>
     </Styles.Resources>
     <StyleInclude Source="/Application/UI/Styles/Controls/DrawingSvg.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/SideBar.xaml" />
@@ -11,4 +11,5 @@
     <StyleInclude Source="/Application/UI/Styles/Controls/Border.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/Button.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/CheckBox.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/ListBox.xaml" />
 </Styles>

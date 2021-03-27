@@ -43,4 +43,10 @@
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Update="Application\UI\Styles\Controls\ListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+  </ItemGroup>
 </Project>
