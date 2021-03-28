@@ -1,4 +1,5 @@
-﻿using System.Application.Services;
+﻿using System.Application.Proxy;
+using System.Application.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XFApplication = Xamarin.Forms.Application;
@@ -16,8 +17,11 @@ namespace System.Application.UI
             MainPage = new AppShell();
         }
 
+        readonly ProxyTestController controller = new();
+
         protected override void OnStart()
         {
+            controller.StartProxy();
         }
 
         protected override void OnSleep()
