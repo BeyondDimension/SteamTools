@@ -114,6 +114,9 @@ namespace System.Application.UI
 
                 // 通用 Http 服务
                 services.AddHttpService();
+
+                // 通用 http 代理服务
+                services.AddHttpProxyService();
             }
 
             if (hasModelValidator)

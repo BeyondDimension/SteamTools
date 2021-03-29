@@ -28,7 +28,7 @@ namespace System.Application.UI.ViewModels
 
         public SteamAccountPageViewModel()
         {
-            this.WhenAnyValue(x => x.SteamUsers).Subscribe(s=> this.RaisePropertyChanged(nameof(IsUserEmpty)));
+            this.WhenAnyValue(x => x.SteamUsers).Subscribe(s => this.RaisePropertyChanged(nameof(IsUserEmpty)));
             LoginAccountCommand = ReactiveCommand.Create(LoginNewSteamAccount);
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
@@ -135,10 +135,10 @@ namespace System.Application.UI.ViewModels
                 }
             });
         }
-
+        
         public void OpenUserProfileUrl(SteamUser user)
         {
-            Process.Start(new ProcessStartInfo { FileName = user.ProfileUrl, UseShellExecute = true });
+           new Process().StartUrl(user.ProfileUrl);
         }
 
         public void LoginNewSteamAccount()

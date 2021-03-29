@@ -33,5 +33,16 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddSingleton<IUserManager, UserManager>();
             return services;
         }
+
+        /// <summary>
+        /// 添加 HttpProxy 代理服务
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddHttpProxyService(this IServiceCollection services)
+        {
+            services.AddSingleton<IHttpProxyService, HttpProxyServiceImpl>();
+            return services;
+        }
     }
 }

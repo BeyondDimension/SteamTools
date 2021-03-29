@@ -23,5 +23,15 @@ namespace System.Application
                 return string.Empty;
             }
         }
+
+        /// <summary>
+        /// 兼容Linux和Mac的打开链接方法
+        /// </summary>
+        /// <param name="process"></param>
+        /// <param name="Url"></param>
+        public static Process StartUrl(this Process Process, string Url)
+        {
+            return Process = Process.Start(new ProcessStartInfo { FileName = Url, UseShellExecute = true });
+        }
     }
 }
