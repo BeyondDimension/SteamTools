@@ -105,6 +105,14 @@ namespace System.Application.Models
         [NotNull, DisallowNull] // C# 8 not null
         public string? Hosts { get; set; } = string.Empty;
 
+        /// <summary>
+        /// 是否默认启用
+        /// </summary>
+        [MPKey(8)]
+        [N_JsonProperty("8")]
+        [S_JsonProperty("8")]
+        public bool Enable { get; set; }
+
         string? mHosts;
         string[]? mHostsArray;
         readonly object mHostsArrayLock = new();

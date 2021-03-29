@@ -86,6 +86,7 @@ namespace System.Application.UI.ViewModels
 
         public async void Initialize()
         {
+            ProxyService.Current.Initialize();
             AuthService.Current.Initialize();
 
             if (!this.IsInitialized)

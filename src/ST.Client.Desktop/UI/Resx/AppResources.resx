@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>关于</value>
   </data>
+  <data name="About_Contactus" xml:space="preserve">
+    <value>联系我们</value>
+  </data>
   <data name="About_FAQ" xml:space="preserve">
     <value>常见问题疑难解答</value>
   </data>
@@ -162,14 +165,26 @@
   <data name="CommunityFix_AllCheck" xml:space="preserve">
     <value>全部启用</value>
   </data>
+  <data name="CommunityFix_CertificateSettings" xml:space="preserve">
+    <value>证书设置</value>
+  </data>
   <data name="CommunityFix_DeleteCertificate" xml:space="preserve">
     <value>移除证书</value>
+  </data>
+  <data name="CommunityFix_EditHostsFile" xml:space="preserve">
+    <value>编辑hosts文件</value>
   </data>
   <data name="CommunityFix_MenuName" xml:space="preserve">
     <value>加速设置</value>
   </data>
   <data name="CommunityFix_SetupCertificate" xml:space="preserve">
     <value>安装证书</value>
+  </data>
+  <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
+    <value>启动加速服务失败，请检查443端口是否被占用或者证书安装失败。</value>
+  </data>
+  <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
+    <value>加速已启动成功</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>确定</value>

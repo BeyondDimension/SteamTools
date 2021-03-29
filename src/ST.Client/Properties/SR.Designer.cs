@@ -70,6 +70,15 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 创建证书失败 的本地化字符串。
+        /// </summary>
+        internal static string CreateCertificateFaild {
+            get {
+                return ResourceManager.GetString("CreateCertificateFaild", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 正在下载：{0}% 的本地化字符串。
         /// </summary>
         internal static string Downloading_ {

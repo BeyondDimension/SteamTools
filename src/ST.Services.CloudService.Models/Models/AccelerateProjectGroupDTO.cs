@@ -38,5 +38,13 @@ namespace System.Application.Models
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
         public Guid ImageId { get; set; }
+
+        /// <summary>
+        /// 是否默认启用
+        /// </summary>
+        [MPKey(3)]
+        [N_JsonProperty("3")]
+        [S_JsonProperty("3")]
+        public bool Enable { get; set; }
     }
 }

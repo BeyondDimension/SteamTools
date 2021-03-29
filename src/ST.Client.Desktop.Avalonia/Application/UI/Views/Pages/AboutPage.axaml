@@ -16,7 +16,7 @@
         <TabItem Header="{Binding Path=Res.About_OpenSource,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <pages:About_OpenSourcePage></pages:About_OpenSourcePage>
         </TabItem>
-        <TabItem Header="{Binding Path=Res.About_Joinus,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <TabItem Header="{Binding Path=Res.About_Contactus,Mode=OneWay,Source={x:Static resx:R.Current}}">
         </TabItem>
     </TabControl>
 </UserControl>

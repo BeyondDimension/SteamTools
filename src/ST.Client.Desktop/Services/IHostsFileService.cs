@@ -26,15 +26,4 @@ namespace System.Application.Services
 
         OperationResult RemoveHostsByTag();
     }
-
-#if DEBUG
-
-    [Obsolete("use IHostsFileService.Instance", true)]
-    public class HostsService
-    {
-        [Obsolete("use IHostsFileService.Instance.OpenFile", true)]
-        public void StartNotepadEditHosts() => throw new NotImplementedException();
-    }
-
-#endif
 }

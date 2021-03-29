@@ -70,6 +70,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 联系我们 的本地化字符串。
+        /// </summary>
+        public static string About_Contactus {
+            get {
+                return ResourceManager.GetString("About_Contactus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 常见问题疑难解答 的本地化字符串。
         /// </summary>
         public static string About_FAQ {
@@ -196,11 +205,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 证书设置 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_CertificateSettings {
+            get {
+                return ResourceManager.GetString("CommunityFix_CertificateSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 移除证书 的本地化字符串。
         /// </summary>
         public static string CommunityFix_DeleteCertificate {
             get {
                 return ResourceManager.GetString("CommunityFix_DeleteCertificate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 编辑hosts文件 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_EditHostsFile {
+            get {
+                return ResourceManager.GetString("CommunityFix_EditHostsFile", resourceCulture);
             }
         }
         
@@ -219,6 +246,24 @@ namespace System.Application.UI.Resx {
         public static string CommunityFix_SetupCertificate {
             get {
                 return ResourceManager.GetString("CommunityFix_SetupCertificate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启动加速服务失败，请检查443端口是否被占用或者证书安装失败。 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_StartProxyFaild {
+            get {
+                return ResourceManager.GetString("CommunityFix_StartProxyFaild", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加速已启动成功 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_StartProxySuccess {
+            get {
+                return ResourceManager.GetString("CommunityFix_StartProxySuccess", resourceCulture);
             }
         }
         

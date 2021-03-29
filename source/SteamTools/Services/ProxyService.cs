@@ -422,8 +422,8 @@ IsEnable = false,
                         }
                         else
                         {
-                            //WindowService.Current.ShowDialogWindow("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。");
-                            StatusService.Current.Notify("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。\n\n如果安装了vmware虚拟机，可能会导致443端口被占用。");
+                            WindowService.Current.ShowDialogWindow("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。\n如果安装了vmware虚拟机，会导致443端口被占用。");
+                            //StatusService.Current.Notify("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。\n\n如果安装了vmware虚拟机，可能会导致443端口被占用。");
                         }
                     }
                     else

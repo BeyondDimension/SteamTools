@@ -13,7 +13,7 @@ namespace System.Application
     {
         public static string GetPublicPemCertificateString(this X509Certificate2 @this)
         {
-            StringBuilder builder = new StringBuilder();
+            StringBuilder builder = new();
             //builder.AppendLine(Constants.CERTIFICATE_HOST_TAG);
             builder.AppendLine("-----BEGIN CERTIFICATE-----");
             builder.AppendLine(

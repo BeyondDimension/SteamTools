@@ -15,15 +15,15 @@ using Titanium.Web.Proxy.EventArguments;
 using Titanium.Web.Proxy.Models;
 using Titanium.Web.Proxy.Network;
 
-namespace System.Application.Services.Implementation
+namespace System.Application.Services
 {
     public interface IHttpProxyService
     {
         public bool IsCertificate { get; }
 
-        public IReadOnlyCollection<ProxyDomain>? ProxyDomains { get; set; }
+        public IReadOnlyCollection<AccelerateProjectDTO?>? ProxyDomains { get; set; }
 
-        public IReadOnlyCollection<ProxyScript>? Scripts { get; set; }
+        public IReadOnlyCollection<ProxyScript?>? Scripts { get; set; }
 
         public bool IsEnableScript { get; set; }
 
@@ -32,6 +32,8 @@ namespace System.Application.Services.Implementation
         public string CertificateName { get; set; }
 
         public CertificateEngine CertificateEngine { get; set; }
+
+        public int ProxyPort { get; set; }
 
         public bool ProxyRunning { get; }
 
@@ -45,7 +47,7 @@ namespace System.Application.Services.Implementation
 
         public bool WirtePemCertificateToGoGSteamPlugins();
 
-        public bool IsCertificateInstalled(X509Certificate2 certificate2);
+        public bool IsCertificateInstalled(X509Certificate2? certificate2);
 
         public void Dispose();
     }

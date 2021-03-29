@@ -120,6 +120,10 @@
   <data name="AppName" xml:space="preserve">
     <value>Steam++</value>
   </data>
+  <data name="CreateCertificateFaild" xml:space="preserve">
+    <value>创建证书失败</value>
+    <comment>Fail</comment>
+  </data>
   <data name="Downloading_" xml:space="preserve">
     <value>正在下载：{0}%</value>
   </data>

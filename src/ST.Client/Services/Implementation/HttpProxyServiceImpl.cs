@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Application.Models;
+using System.Application.Properties;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -17,23 +18,25 @@ using Titanium.Web.Proxy.Network;
 
 namespace System.Application.Services.Implementation
 {
-    public class HttpProxyServiceImpl: IHttpProxyService
+    public class HttpProxyServiceImpl : IHttpProxyService
     {
         private readonly ProxyServer proxyServer = new();
 
-        public bool IsCertificate => proxyServer.CertificateManager == null;
+        public bool IsCertificate => proxyServer.CertificateManager == null || proxyServer.CertificateManager.RootCertificate == null;
 
-        public IReadOnlyCollection<ProxyDomain>? ProxyDomains { get; set; }
+        public IReadOnlyCollection<AccelerateProjectDTO?>? ProxyDomains { get; set; }
 
-        public IReadOnlyCollection<ProxyScript>? Scripts { get; set; }
+        public IReadOnlyCollection<ProxyScript?>? Scripts { get; set; }
 
         public bool IsEnableScript { get; set; }
 
         public bool IsOnlyWorkSteamBrowser { get; set; }
 
-        public string CertificateName { get; set; } = ThisAssembly.AssemblyTrademark;
+        public string CertificateName { get; set; } = ThisAssembly.AssemblyProduct;
 
         public CertificateEngine CertificateEngine { get; set; }
+
+        public int ProxyPort { get; set; } = 26501;
 
         public bool ProxyRunning => proxyServer.ProxyRunning;
 
@@ -64,11 +67,11 @@ namespace System.Application.Services.Implementation
             }
             foreach (var item in ProxyDomains)
             {
-                if (!item.IsEnable)
+                if (!item.Enable)
                 {
                     continue;
                 }
-                foreach (var host in item.Domains)
+                foreach (var host in item.DomainNames)
                 {
                     if (e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(host))
                     {
@@ -77,19 +80,19 @@ namespace System.Application.Services.Implementation
                             e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Remove(0, 4).Insert(0, "https"));
                             return;
                         }
-                        if (item.IsRedirect)
+                        if (item.Redirect)
                         {
-                            e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Host, item.ToDomain));
+                            e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Host, item.ForwardDomainName));
                             return;
                         }
                         IPAddress ip;
-                        if (!string.IsNullOrEmpty(item.ProxyIPAddres))
+                        if (!item.ForwardDomainIsNameOrIP)
                         {
-                            ip = IPAddress.Parse(item.ProxyIPAddres);
+                            ip = IPAddress.Parse(item.ForwardDomainIP);
                         }
                         else
                         {
-                            var iPs = await Dns.GetHostAddressesAsync(item.ToDomain);
+                            var iPs = await Dns.GetHostAddressesAsync(item.ForwardDomainName);
                             if (!iPs.Any_Nullable())
                                 return;
                             ip = iPs.First();
@@ -97,7 +100,7 @@ namespace System.Application.Services.Implementation
                         }
                         if (ip != null)
                         {
-                            e.HttpClient.UpStreamEndPoint = new IPEndPoint(ip, item.Port);
+                            e.HttpClient.UpStreamEndPoint = new IPEndPoint(ip, item.PortId);
                         }
                         if (e.HttpClient.ConnectRequest?.ClientHelloInfo != null)
                         {
@@ -122,7 +125,7 @@ namespace System.Application.Services.Implementation
             {
                 //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
                 if (IPAddress.IsLoopback(s.Result.FirstOrDefault())
-              && ProxyDomains.Count(w => w.IsEnable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
+              && ProxyDomains.Count(w => w.Enable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
                 {
                     e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
                     return;
@@ -141,7 +144,7 @@ namespace System.Application.Services.Implementation
             Debug.WriteLine("OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
             Log.Info("Proxy", "OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
 #endif
-            if (Scripts is null) 
+            if (Scripts is null)
             {
                 return;
             }
@@ -242,7 +245,8 @@ namespace System.Application.Services.Implementation
             var result = proxyServer.CertificateManager.CreateRootCertificate(true);
             if (!result || proxyServer.CertificateManager.RootCertificate == null)
             {
-                Log.Error("Proxy", "创建证书失败");
+                Log.Error("Proxy", SR.CreateCertificateFaild);
+                Toast.Show(SR.CreateCertificateFaild);
                 return false;
             }
             proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer"));
@@ -307,7 +311,7 @@ namespace System.Application.Services.Implementation
 
         public bool StartProxy(bool IsWindowsProxy = false, bool IsProxyGOG = false)
         {
-            if (proxyServer.CertificateManager.RootCertificate == null)
+            if (!IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
             {
                 var isOk = SetupCertificate();
                 if (!isOk)
@@ -329,7 +333,7 @@ namespace System.Application.Services.Implementation
             //    // 当代理客户端不需要证书信任时非常有用
             //    //GenericCertificate = new X509Certificate2(Path.Combine(AppContext.BaseDirectory, "genericcert.pfx"), "password")
             //};
-            var explicitProxyEndPoint = new ExplicitProxyEndPoint(IPAddress.Any, 26501, true)
+            var explicitProxyEndPoint = new ExplicitProxyEndPoint(IPAddress.Any, ProxyPort, true)
             {
                 // 通过不启用为每个http的域创建证书来优化性能
                 //GenericCertificate = proxyServer.CertificateManager.RootCertificate
@@ -389,6 +393,7 @@ namespace System.Application.Services.Implementation
                 Log.Error("Proxy", ex, nameof(StartProxy));
                 return false;
             }
+
             if (IsWindowsProxy)
             {
                 proxyServer.SetAsSystemHttpProxy(explicitProxyEndPoint);
@@ -453,7 +458,7 @@ namespace System.Application.Services.Implementation
             return false;
         }
 
-        public bool IsCertificateInstalled(X509Certificate2 certificate2)
+        public bool IsCertificateInstalled(X509Certificate2? certificate2)
         {
             if (certificate2 == null)
                 return false;
