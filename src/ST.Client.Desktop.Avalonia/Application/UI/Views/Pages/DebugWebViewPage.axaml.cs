@@ -1,10 +1,12 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using CefNet.Avalonia;
 
 namespace System.Application.UI.Views.Pages
 {
-    public class DebugWebViewPage : UserControl
+    public class DebugWebViewPage : UserControl, IDisposable
     {
         readonly WebView webView;
         readonly TextBox urlTextBox;
@@ -15,7 +17,7 @@ namespace System.Application.UI.Views.Pages
 
             webView = this.FindControl<WebView3>("webView");
             webView.InitialUrl = "http://pan.mossimo.net:9710/c/";
-                //"chrome://version";
+            //"chrome://version";
             webView.BrowserCreated += WebView_BrowserCreated;
 
             urlTextBox = this.FindControl<TextBox>("urlTextBox");
@@ -24,7 +26,7 @@ namespace System.Application.UI.Views.Pages
 
         private void UrlTextBox_KeyUp(object sender, Avalonia.Input.KeyEventArgs e)
         {
-            if (e.Key == Avalonia.Input.Key.Enter) 
+            if (e.Key == Avalonia.Input.Key.Enter)
             {
                 webView.Navigate(urlTextBox.Text);
             }
@@ -38,6 +40,45 @@ namespace System.Application.UI.Views.Pages
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
+        {
+            base.OnDetachedFromLogicalTree(e);
+            Dispose();
+        }
+
+        protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            base.OnDetachedFromVisualTree(e);
+            Dispose();
+        }
+
+        bool disposedValue;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: 释放托管状态(托管对象)
+                    if (webView != null)
+                    {
+                        ((IDisposable)webView).Dispose();
+                    }
+                }
+                // TODO: 释放未托管的资源(未托管的对象)并替代终结器
+                // TODO: 将大型字段设置为 null
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+            Dispose(disposing: true);
+            //GC.SuppressFinalize(this);
         }
     }
 }

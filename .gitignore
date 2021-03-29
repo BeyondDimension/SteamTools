@@ -341,3 +341,5 @@ ASALocalRun/
 healthchecksdb
 
 .DS_Store
+
+*.psd

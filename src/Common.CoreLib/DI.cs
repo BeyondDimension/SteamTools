@@ -124,6 +124,8 @@ namespace System
         /// <inheritdoc cref="Get_Nullable{T}"/>
         public static object? Get_Nullable(Type serviceType) => Value.GetService(serviceType);
 
+        public static IServiceScope CreateScope() => Value.CreateScope();
+
 #endif
     }
 }

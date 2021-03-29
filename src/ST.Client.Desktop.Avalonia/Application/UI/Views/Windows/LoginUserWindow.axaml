@@ -17,7 +17,7 @@
         <controls:TitleBar></controls:TitleBar>
         <Grid RowDefinitions="*,Auto" Margin="10">
             <StackPanel VerticalAlignment="Center" Spacing="8" Margin="10,0" Width="250">
-                <Image Source="/Application/UI/Assets/Icon.ico" Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25">
+                <Image Source="/Application/UI/Assets/Icon9.ico" Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25">
                     <!--<Image.Clip>
                         <EllipseGeometry Rect="0,0,128,128" />
                     </Image.Clip>-->
