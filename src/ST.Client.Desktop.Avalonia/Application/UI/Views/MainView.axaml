@@ -37,38 +37,24 @@
             </StackPanel>
             <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{ReflectionBinding SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Padding="15 8 0 0" FontSize="28"/>
             <StackPanel Grid.Column="2" x:Name="titleMenu" Orientation="Horizontal" VerticalAlignment="Top">
-                <Menu Items="{Binding SelectedItem.MenuItems}" IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}">
-                    <Menu.Styles>
-                        <Style Selector="MenuItem">
-                            <Setter Property="Icon">
-                                <Setter.Value>
-                                    <Template>
-                                        <Image Width="14" VerticalAlignment="Center">
-                                            <Image.Source>
-                                                <DrawingImage Drawing="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"></DrawingImage>
-                                            </Image.Source>
-                                        </Image>
-                                    </Template>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Header" Value="{Binding Header,Mode=OneWay}"/>
-                            <Setter Property="Items" Value="{Binding Items,Mode=OneWay}"/>
-                            <Setter Property="Command" Value="{Binding Command}"/>
-                            <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
-                        </Style>
-                    </Menu.Styles>
-                </Menu>
+                <!--<Menu Items="{Binding SelectedItem.MenuItems}" IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}" Classes="BindMenu">
+                </Menu>-->
                 <Menu>
-                    <MenuItem>
+                    <MenuItem Items="{Binding SelectedItem.MenuItems}" Classes="BindItem" 
+                              IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}">
                         <MenuItem.Header>
-                            <!--<Border CornerRadius="24" ClipToBounds="True">-->
+                            <DrawingPresenter Drawing="{StaticResource SettingsDrawing}" Width="14"></DrawingPresenter>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Classes="StaticMenu">
+                        <MenuItem.Header>
+                            <Border CornerRadius="24" ClipToBounds="True">
                             <Image Source="/Application/UI/Assets/Icon.ico" Height="24" Width="24">
                                 <Image.Clip>
                                     <EllipseGeometry Rect="0,0,24,24" />
                                 </Image.Clip>
                             </Image>
-                            <!--</Border>-->
-
+                            </Border>
                         </MenuItem.Header>
 
                         <MenuItem Command="{Binding Path=ShowLoginWindow_Click,Source={x:Static service:UserService.Current}}">

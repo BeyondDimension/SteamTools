@@ -1043,6 +1043,33 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 深色 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_Dark {
+            get {
+                return ResourceManager.GetString("Settings_UI_Dark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 浅色 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_Light {
+            get {
+                return ResourceManager.GetString("Settings_UI_Light", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 跟随系统 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_SystemDefault {
+            get {
+                return ResourceManager.GetString("Settings_UI_SystemDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 短信验证代码 的本地化字符串。
         /// </summary>
         public static string SMSCode {

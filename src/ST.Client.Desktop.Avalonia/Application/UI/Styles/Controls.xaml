@@ -10,6 +10,7 @@
     <StyleInclude Source="/Application/UI/Styles/Controls/TextBox.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/Border.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/Button.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/Menu.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/CheckBox.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/ListBox.xaml" />
 </Styles>

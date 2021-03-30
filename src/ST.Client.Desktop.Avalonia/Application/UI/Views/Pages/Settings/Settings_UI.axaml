@@ -30,9 +30,9 @@
                     SelectedIndex="{Binding Source={x:Static ms:UISettings.Theme},Path=Value, Mode=TwoWay}"
                     HorizontalAlignment="Stretch">
             <!--显示文本参考MSEdge-->
-            <ComboBoxItem>System default</ComboBoxItem>
-            <ComboBoxItem>Light</ComboBoxItem>
-            <ComboBoxItem>Dark</ComboBoxItem>
+            <ComboBoxItem Content="{Binding Path=Res.Settings_UI_SystemDefault,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
+            <ComboBoxItem Content="{Binding Path=Res.Settings_UI_Light,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
+            <ComboBoxItem Content="{Binding Path=Res.Settings_UI_Dark,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
           </ComboBox>
         </StackPanel>
         <Separator BorderThickness=".88" Background="{DynamicResource SystemControlHighlightBaseLowBrush}"/>

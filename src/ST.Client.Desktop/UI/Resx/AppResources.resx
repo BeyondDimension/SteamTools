@@ -448,6 +448,15 @@
   <data name="Settings_UI" xml:space="preserve">
     <value>界面设置</value>
   </data>
+  <data name="Settings_UI_Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="Settings_UI_Light" xml:space="preserve">
+    <value>浅色</value>
+  </data>
+  <data name="Settings_UI_SystemDefault" xml:space="preserve">
+    <value>跟随系统</value>
+  </data>
   <data name="SMSCode" xml:space="preserve">
     <value>短信验证代码</value>
   </data>
