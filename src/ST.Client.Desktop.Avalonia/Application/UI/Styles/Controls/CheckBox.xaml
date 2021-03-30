@@ -11,7 +11,7 @@
                         </Panel>
                     </Border>
 
-                    
+
                     <TextBlock Width="{Binding #panel.Width}" Text="{Binding Name}" FontSize="18" Foreground="{DynamicResource HighlightForegroundBrushKey}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 5"></TextBlock>
                 </Panel>
             </CheckBox>
@@ -52,6 +52,33 @@
             </ControlTemplate>
         </Setter>
     </Style>
-    <!--<Style Selector="CheckBox.PaperCheck:pointerover">
-    </Style>-->
+
+    <Style Selector="CheckBox.onlyCheckBox">
+        <Setter Property="MinWidth" Value="20"></Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel x:Name="RootGrid">
+                    <Border x:Name="PART_Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" />
+
+                    <Panel VerticalAlignment="Top" Height="32" Width="20">
+                        <Border x:Name="NormalRectangle"
+                            BorderThickness="{DynamicResource CheckBoxBorderThemeThickness}"
+                            UseLayoutRounding="False"
+                            Height="20"
+                            Width="20" />
+
+                        <Viewbox UseLayoutRounding="False">
+                            <Panel>
+                                <Panel Height="16" Width="16" />
+                                <Path x:Name="CheckGlyph" Stretch="Uniform" VerticalAlignment="Center" />
+                            </Panel>
+                        </Viewbox>
+                    </Panel>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
 </Styles>

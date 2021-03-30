@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Selection;
 using Avalonia.Markup.Xaml;
 using System.Application.UI.ViewModels;
@@ -9,15 +10,15 @@ namespace System.Application.UI.Views.Pages
 {
     public class CommunityProxyPage : UserControl
     {
-        //private ItemsControl _items;
-        private ScrollViewer _scroll;
+        //private ListBox _items;
+        private IScrollable _scroll;
         //private Button _left;
         //private Button _right;
 
         public CommunityProxyPage()
         {
             InitializeComponent();
-            //_scroll.PointerWheelChanged += _items_PointerWheelChanged;
+            //_scroll = _items.Scroll;
             //_items.PointerWheelChanged += _items_PointerWheelChanged;
         }
 
@@ -54,7 +55,7 @@ namespace System.Application.UI.Views.Pages
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            //_items = this.FindControl<ItemsControl>("items");
+            //_items = this.FindControl<ListBox>("items");
             //_scroll = this.FindControl<ScrollViewer>("scroll");
             //_left = this.FindControl<Button>("left");
             //_right = this.FindControl<Button>("right");

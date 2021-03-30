@@ -4,10 +4,11 @@
         <Border Padding="20" Background="Green">
             <ListBox>
                 <ListBoxItem IsEnabled="False">Disabled</ListBoxItem>
-                <ListBoxItem Background="#66000000"
-                             Padding="20">
-                    Test
+                <ListBoxItem Background="#66000000" Padding="20">Test
                 </ListBoxItem>
+                <ListBoxItem>Test</ListBoxItem>
+                <ListBoxItem>Test</ListBoxItem>
+                <ListBoxItem>Test</ListBoxItem>
                 <ListBoxItem>Test</ListBoxItem>
             </ListBox>
         </Border>
@@ -16,7 +17,7 @@
     </Styles.Resources>
     
     <Style Selector="ListBoxItem">
-        <Setter Property="Padding" Value="9.5 10 9 10"></Setter>
+        <Setter Property="Padding" Value="0 0 0 0"></Setter>
     </Style>
     
     <!--  Disabled State  -->
@@ -47,6 +48,7 @@
     <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
         <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlHighlightAltBaseHighBrush}" />
         <Setter Property="BorderThickness" Value="2 0 0 0" />
+        <Setter Property="Padding" Value="0 0 0 0" />
         <Setter Property="BorderBrush" Value="{DynamicResource SystemControlHighlightListAccentLowBrush}" />
     </Style>
 
@@ -57,6 +59,7 @@
     <Style Selector="ListBoxItem:selected:not(:focus) /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlHighlightAltBaseHighBrush}" />
         <Setter Property="BorderThickness" Value="2 0 0 0" />
+        <Setter Property="Padding" Value="0 0 0 0" />
         <Setter Property="BorderBrush" Value="{DynamicResource SystemControlHighlightListAccentLowBrush}" />
     </Style>
 
