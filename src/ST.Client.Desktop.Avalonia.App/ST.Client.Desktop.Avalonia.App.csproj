@@ -124,20 +124,12 @@
     <EmbeddedResource Include="..\..\aes-key.pfx" LinkBase="Resources" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-debug.pfx')">
-    <EmbeddedResource Include="..\..\appcenter-secret-debug.pfx" LinkBase="Resources" />
-  </ItemGroup>
-
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\app-id-debug.pfx')">
     <EmbeddedResource Include="..\..\app-id-debug.pfx" LinkBase="Resources" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-debug.pfx')">
     <EmbeddedResource Include="..\..\rsa-public-key-debug.pfx" LinkBase="Resources" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-release.pfx')">
-    <EmbeddedResource Include="..\..\appcenter-secret-release.pfx" LinkBase="Resources" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\app-id-release.pfx')">

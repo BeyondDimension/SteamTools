@@ -76,30 +76,30 @@ namespace Android.OS
         static bool convert_object_to_bool(Java.Lang.Object? o) => o != default && (bool)o;
 
         static readonly Lazy<Class> lazy_native_class
-            = new Lazy<Class>(() => Class.ForName("android.os.SystemProperties"));
+            = new(() => Class.ForName("android.os.SystemProperties"));
 
         static readonly Lazy<Func<string, string?>> lazy_native_get
-           = new Lazy<Func<string, string?>>(() => (key)
+           = new(() => (key)
            => reflection_call_convert<String, string?>(convert_string_to_string, "get", new[] { typeof(String) }, new String(key)));
 
         static readonly Lazy<Func<string, string?, string?>> lazy_native_get2
-           = new Lazy<Func<string, string?, string?>>(() => (key, def)
+           = new(() => (key, def)
            => reflection_call_convert<String, string?>(convert_string_to_string, "get", new[] { typeof(String), typeof(String) }, key.ToJavaString(), def.ToJavaString_Nullable()));
 
         static readonly Lazy<Func<string, int, int>> lazy_native_get_int
-           = new Lazy<Func<string, int, int>>(() => (key, def)
+           = new(() => (key, def)
            => reflection_call_convert(convert_object_to_int, "getInt", new[] { typeof(String), typeof(int) }, new String(key), def));
 
         static readonly Lazy<Func<string, long, long>> lazy_native_get_long
-           = new Lazy<Func<string, long, long>>(() => (key, def)
+           = new(() => (key, def)
            => reflection_call_convert(convert_object_to_long, "getLong", new[] { typeof(String), typeof(long) }, new String(key), def));
 
         static readonly Lazy<Func<string, bool, bool>> lazy_native_get_boolean
-            = new Lazy<Func<string, bool, bool>>(() => (key, def)
+            = new(() => (key, def)
            => reflection_call_convert(convert_object_to_bool, "getBoolean", new[] { typeof(String), typeof(bool) }, new String(key), def));
 
         static readonly Lazy<Action<string, string>> lazy_native_set
-           = new Lazy<Action<string, string>>(() => (key, val)
+           = new(() => (key, val)
            => reflection_call("set", new[] { typeof(String), typeof(String) }, new String(key), new String(val)));
 
 #pragma warning restore IDE1006 // 命名样式
@@ -111,7 +111,7 @@ namespace Android.OS
             => DI.Get<ILoggerFactory>().CreateLogger("SystemProperties").LogError(ex, message);
 
         static readonly Lazy<Properties?> mBuildProperties
-            = new Lazy<Properties?>(GetBuildProperties);
+            = new(GetBuildProperties);
 
         const string planA = "/system/build.prop";
         const string planB = "getprop";

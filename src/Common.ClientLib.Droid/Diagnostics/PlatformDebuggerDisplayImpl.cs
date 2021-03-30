@@ -1,5 +1,6 @@
 ﻿using JEnum = Java.Lang.Enum;
 
+// ReSharper disable once CheckNamespace
 namespace System.Diagnostics
 {
     internal sealed class PlatformDebuggerDisplayImpl : IDebuggerDisplay

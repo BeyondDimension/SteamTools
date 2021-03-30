@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>System</RootNamespace>
-    <DefineConstants>MONO_MAC;$(DefineConstants)</DefineConstants>
-    <!--<DefineConstants>XAMARIN_MAC;$(DefineConstants)</DefineConstants>-->
+    <TargetFramework>Xamarin.Mac20</TargetFramework>
+    <RootNamespace>System.Application</RootNamespace>
+    <!--<DefineConstants>MONO_MAC;$(DefineConstants)</DefineConstants>-->
+    <DefineConstants>XAMARIN_MAC;$(DefineConstants)</DefineConstants>
     <AssemblyName>System.Application.SteamTools.Client.Desktop.Mac</AssemblyName>
   </PropertyGroup>
 
@@ -23,11 +23,20 @@
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\ST.Client.Desktop.Windows\VisualStudioAppCenterSDK.cs">
+      <Link>VisualStudioAppCenterSDK.cs</Link>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MonoMac.NetStandard" Version="0.0.4" />
+    <PackageReference Include="nor0x.AppCenter" Version="4.1.0.1-XMAC" />
+    <PackageReference Include="nor0x.AppCenter.Analytics" Version="4.1.0.1-XMAC" />
+    <PackageReference Include="nor0x.AppCenter.Crashes" Version="4.1.0.1-XMAC" />
   </ItemGroup>
+
+  <!--<ItemGroup>
+    <PackageReference Include="MonoMac.NetStandard" Version="0.0.4" />
+  </ItemGroup>-->
 
   <!--<ItemGroup Condition=" '$(OS)' == 'Windows_NT' ">
     <Reference Include="Xamarin.Mac">
@@ -45,6 +54,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-mac-debug.pfx')">
+    <EmbeddedResource Include="..\..\appcenter-secret-mac-debug.pfx" LinkBase="Resources" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-mac-release.pfx')">
+    <EmbeddedResource Include="..\..\appcenter-secret-mac-release.pfx" LinkBase="Resources" />
   </ItemGroup>
 
 </Project>

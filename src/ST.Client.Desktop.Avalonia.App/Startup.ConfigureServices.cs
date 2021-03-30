@@ -207,15 +207,8 @@ namespace System.Application.UI
                 return options;
                 string? GetResValue(string name, bool isSingle)
                 {
-                    const string thisProjectRootNamespace = "System.Application.UI.Resources";
-                    var resName = isSingle ? $"{thisProjectRootNamespace}.{name}.pfx" : $"{thisProjectRootNamespace}.{name}-{(ThisAssembly.Debuggable ? "debug" : "release")}.pfx";
-                    using var stream = assembly.GetManifestResourceStream(resName);
-                    if (stream != null)
-                    {
-                        using var reader = new StreamReader(stream, Encoding.UTF8);
-                        return reader.ReadToEnd();
-                    }
-                    return null;
+                    const string namespacePrefix = "System.Application.UI.Resources.";
+                    return AppClientAttribute.GetResValue(assembly, name, isSingle, namespacePrefix);
                 }
             }
         }

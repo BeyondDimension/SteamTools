@@ -2,6 +2,7 @@
 using System.Application.Models;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Collections.Generic;
+using System.IO.FileFormats;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using static System.Application.Services.ICloudServiceClient;
 
 namespace System.Application.Services.CloudService
 {
-    public sealed class MockCloudServiceClient : ICloudServiceClient, IAccountClient, IManageClient, IAuthMessageClient, IVersionClient, IActiveUserClient, IAccelerateClient
+    public sealed class MockCloudServiceClient : ICloudServiceClient, IAccountClient, IManageClient, IAuthMessageClient, IVersionClient, IActiveUserClient, IAccelerateClient, ISteamCommunityClient
     {
         public string ApiBaseUrl => DefaultApiBaseUrl;
         public IAccountClient Account => this;
@@ -18,6 +19,7 @@ namespace System.Application.Services.CloudService
         public IVersionClient Version => this;
         public IActiveUserClient ActiveUser => this;
         public IAccelerateClient Accelerate => this;
+        public ISteamCommunityClient SteamCommunity => this;
 
         public Task<IApiResponse<string>> ChangeBindPhoneNumber(ChangePhoneNumberRequest.Validation request)
         {
@@ -324,6 +326,42 @@ namespace System.Application.Services.CloudService
                 },
             };
             return Task.FromResult(ApiResponse.Ok(list));
+        }
+
+        public Task<IApiResponse<SteamMiniProfile>> MiniProfile(int steamId32)
+        {
+            var content = new SteamMiniProfile
+            {
+                Nameplate = new SteamMiniProfile.Nameplate_[]
+                {
+                    new SteamMiniProfile.Nameplate_
+                    {
+                        Format = VideoFormat.WebM,
+                        Src = "https://media.st.dl.pinyuncloud.com/steamcommunity/public/images/items/1504020/19511e3bc7b3d248b82cabdde810e7aea3d2b6f1.webm",
+                    },
+                    new SteamMiniProfile.Nameplate_
+                    {
+                        Format = VideoFormat.MP4,
+                        Src = "https://media.st.dl.pinyuncloud.com/steamcommunity/public/images/items/1504020/74ded39af957315c5bba17202489bbed570135ec.mp4",
+                    },
+                },
+                PlayerSection = new SteamMiniProfile.PlayerSection_
+                {
+                    AvatarFrame = "https://media.st.dl.pinyuncloud.com/steamcommunity/public/images/items/212070/9b6b26c7a03046da283408d72319f9eec932c80a.gif",
+                    Avatar = "https://media.st.dl.pinyuncloud.com/steamcommunity/public/images/items/1504020/bc6fc1f46697d79a8add0e30862d74dbaf50cc4d.gif",
+                    PersonaOnline = "RuaRua",
+                    FriendStatusOnline = "在线",
+                },
+                Detailssection = new SteamMiniProfile.Detailssection_
+                {
+                    Badge = "https://community.akamai.steamstatic.com/public/images/badges/26_summer2017_sticker/completionist.png",
+                    BadgeName = "贴纸完满主义者",
+                    BadgeXp = "100 点经验值",
+                    PlayerLevel = ushort.MaxValue,
+                },
+            };
+            var rsp = ApiResponse.Ok(content);
+            return Task.FromResult(rsp);
         }
     }
 }

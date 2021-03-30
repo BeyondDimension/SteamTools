@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>System</RootNamespace>
+    <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Desktop.Linux</AssemblyName>
   </PropertyGroup>
 
@@ -13,10 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Eto.Forms" Version="2.5.10"/>
+    <PackageReference Include="Eto.Forms" Version="2.5.10" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj"/>
+    <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
   </ItemGroup>
 </Project>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace System.Properties {
+namespace System.Application.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace System.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("System.Properties.SR", typeof(SR).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("System.Application.Properties.SR", typeof(SR).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

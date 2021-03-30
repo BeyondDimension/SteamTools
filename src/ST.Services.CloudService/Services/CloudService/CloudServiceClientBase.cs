@@ -26,6 +26,7 @@ namespace System.Application.Services.CloudService
         public IVersionClient Version { get; }
         public IActiveUserClient ActiveUser { get; }
         public IAccelerateClient Accelerate { get; }
+        public ISteamCommunityClient SteamCommunity { get; }
 
         #endregion
 
@@ -77,6 +78,7 @@ namespace System.Application.Services.CloudService
             Version = new VersionClient(connection);
             ActiveUser = new ActiveUserClient(connection);
             Accelerate = new AccelerateClient(connection);
+            SteamCommunity = new SteamCommunityClient(connection);
 
             #endregion
         }

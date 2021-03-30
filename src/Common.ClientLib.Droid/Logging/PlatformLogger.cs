@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using DroidLog = Android.Util.Log;
 
+// ReSharper disable once CheckNamespace
 namespace System.Logging
 {
     /// <inheritdoc cref="ClientLogger"/>

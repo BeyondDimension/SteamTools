@@ -9,17 +9,18 @@ using XEPlatform = Xamarin.Essentials.Platform;
 namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(MainActivity))]
-    [Activity(Label = "@string/app_name", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
-    public class MainActivity : FormsAppCompatActivity
+    [Activity(Theme = "@style/MainTheme", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
+    public sealed class MainActivity : FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle? savedInstanceState)
         {
-            //var clsName = Java.Lang.Class.FromType(GetType()).Name;
             base.OnCreate(savedInstanceState);
 
-            XEPlatform.Init(this, savedInstanceState);
+            if (!this.IsAllowStart()) return;
+
             Forms.Init(this, savedInstanceState);
             FormsMaterial.Init(this, savedInstanceState);
+
             LoadApplication(new App());
         }
 

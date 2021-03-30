@@ -1,4 +1,4 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <TargetFramework>Xamarin.iOS10</TargetFramework>
@@ -10,7 +10,7 @@
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\ST.Client.Desktop.Windows\Application\VisualStudioAppCenterSDK.cs">
+    <Compile Include="..\ST.Client.Desktop.Windows\VisualStudioAppCenterSDK.cs">
       <Link>VisualStudioAppCenterSDK.cs</Link>
     </Compile>
   </ItemGroup>
@@ -23,6 +23,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ST.Client.Mobile\ST.Client.Mobile.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-ios-debug.pfx')">
+    <EmbeddedResource Include="..\..\appcenter-secret-ios-debug.pfx" LinkBase="Resources" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-ios-release.pfx')">
+    <EmbeddedResource Include="..\..\appcenter-secret-ios-release.pfx" LinkBase="Resources" />
   </ItemGroup>
 
 </Project>

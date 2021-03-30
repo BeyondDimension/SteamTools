@@ -13,7 +13,7 @@ namespace System
     /// <summary>
     /// <see cref="Activity"/> 扩展
     /// </summary>
-    public static class ActivityExtensions
+    public static partial class ActivityExtensions
     {
         #region 显示隐藏软键盘 (Show/Hide)SoftInput
 

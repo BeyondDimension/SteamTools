@@ -22,7 +22,6 @@ using System.Linq;
 using System.Application.Models.Settings;
 using System.Application.UI.Resx;
 using System.Application.Models;
-using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -286,14 +285,8 @@ namespace System.Application.UI
 
             AppHelper.Initialized?.Invoke();
 
-#if WINDOWS
-            var options = DI.Get_Nullable<IOptions<AppSettings>>();
-
-            var appSecret = options?.Value.AppSecretVisualStudioAppCenter;
-            if (!string.IsNullOrWhiteSpace(appSecret))
-            {
-                VisualStudioAppCenterSDK.Init(appSecret);
-            }
+#if WINDOWS || MAC
+            VisualStudioAppCenterSDK.Init();
 #endif
         }
 

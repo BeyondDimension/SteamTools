@@ -1,7 +1,9 @@
 ﻿using MessagePack;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
+using System.Properties;
 using System.Reflection;
 using System.Text;
 
@@ -64,6 +66,18 @@ namespace System.Application
             Debug.WriteLine($"AppClientAttr Get<{type.Name}> 耗时：{stopwatch.ElapsedMilliseconds}ms");
 #endif
             return t;
+        }
+
+        public static string? GetResValue(Assembly assembly, string name, bool isSingle, string namespacePrefix)
+        {
+            var resName = isSingle ? $"{namespacePrefix}{name}.pfx" : $"{namespacePrefix}{name}-{(ThisAssembly.Debuggable ? "debug" : "release")}.pfx";
+            using var stream = assembly.GetManifestResourceStream(resName);
+            if (stream != null)
+            {
+                using var reader = new StreamReader(stream, Encoding.UTF8);
+                return reader.ReadToEnd();
+            }
+            return null;
         }
     }
 }

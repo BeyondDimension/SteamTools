@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace System
 {
-    public static class ProjectPathUtil
+    public static partial class ProjectPathUtil
     {
         public static readonly string projPath;
 

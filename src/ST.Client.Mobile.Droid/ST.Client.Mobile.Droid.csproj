@@ -11,8 +11,68 @@
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\ST.Client.Desktop.Windows\Application\VisualStudioAppCenterSDK.cs">
+    <Compile Include="..\ST.Client.Desktop.Windows\VisualStudioAppCenterSDK.cs">
       <Link>VisualStudioAppCenterSDK.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Application\Security\*.cs">
+      <LinkBase>Security</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\Permissions\GetPhoneNumberPermission.cs">
+      <LinkBase>Services\Implementation\Permissions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\PlatformToastImpl.cs">
+      <LinkBase>Services\Implementation</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\PlatformTelephonyServiceImpl.cs">
+      <LinkBase>Services\Implementation</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Logging\LogHelper.cs">
+      <LinkBase>Logging</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Logging\PlatformLogger.cs">
+      <LinkBase>Logging</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Logging\PlatformLoggerProvider.cs">
+      <LinkBase>Logging</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Diagnostics\PlatformDebuggerDisplayImpl.cs">
+      <LinkBase>Diagnostics</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\SystemProperties.cs">
+      <Link>SystemProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\ServiceCollectionExtensions.cs">
+      <Link>ServiceCollectionExtensions.Link.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\ContextExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\ActivityManagerExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\JObjectExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\JavaExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\LogLevelEnumExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\HttpClientExtensions.AddTrustedCerts.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\Common.ClientLib.Droid\Properties\SR.resx">
+      <LinkBase>Properties</LinkBase>
+    </EmbeddedResource>
+    <Compile Include="..\Common.ClientLib.Droid\Properties\SR.Designer.cs">
+      <LinkBase>Properties</LinkBase>
     </Compile>
   </ItemGroup>
 
@@ -24,6 +84,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ST.Client.Mobile\ST.Client.Mobile.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-android-debug.pfx')">
+    <EmbeddedResource Include="..\..\appcenter-secret-android-debug.pfx" LinkBase="Resources" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-android-release.pfx')">
+    <EmbeddedResource Include="..\..\appcenter-secret-android-release.pfx" LinkBase="Resources" />
   </ItemGroup>
 
 </Project>

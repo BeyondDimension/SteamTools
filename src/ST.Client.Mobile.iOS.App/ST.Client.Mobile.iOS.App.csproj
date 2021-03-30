@@ -69,8 +69,7 @@
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AppDelegate.cs" />
-    <Compile Include="Main.cs" />
+    <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />

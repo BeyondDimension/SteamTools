@@ -9,7 +9,7 @@ using System.Logging;
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class ServiceCollectionExtensions
+    public static partial class ServiceCollectionExtensions
     {
         /// <summary>
         /// 尝试添加适用于安卓平台的Toast
