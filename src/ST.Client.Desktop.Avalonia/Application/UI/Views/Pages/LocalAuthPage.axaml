@@ -37,72 +37,74 @@
                                     </ia:EventTriggerBehavior>
                                 </i:Interaction.Behaviors>
                                 <Grid RowDefinitions="30,165,Auto">
-                                    <Grid VerticalAlignment="Center" ColumnDefinitions="*,Auto">
-                                        <controls:ScrollingTextBlock Padding="10,5" Text="{Binding Name}" FontSize="16" Foreground="{DynamicResource HighlightForegroundBrushKey}"></controls:ScrollingTextBlock>
-                                        <Button Grid.Column="1" x:Name="delete_btn" Classes="flatbutton" IsVisible="False" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding #u.DataContext.DeleteAuth}" CommandParameter="{Binding}">
+                                    <DockPanel VerticalAlignment="Center">
+                                        <controls:ScrollingTextBlock DockPanel.Dock="Left" Padding="10,5" Text="{Binding Name}" FontSize="16" Foreground="{DynamicResource HighlightForegroundBrushKey}"></controls:ScrollingTextBlock>
+                                        <Button DockPanel.Dock="Right" x:Name="delete_btn" Classes="flatbutton" IsVisible="False" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Right" Cursor="Hand" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding #u.DataContext.DeleteAuth}" CommandParameter="{Binding}">
                                             <Image Width="12" Height="18">
                                                 <Image.Source>
                                                     <DrawingImage Drawing="{DynamicResource CloseDrawing}"></DrawingImage>
                                                 </Image.Source>
                                             </Image>
                                         </Button>
-                                    </Grid>
+                                    </DockPanel>
 
                                     <TextBlock Grid.Row="1" Text="------" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64" IsVisible="{Binding !IsShowCode}" Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
                                     <TextBlock Grid.Row="1" Text="{Binding CurrentCode}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="56" IsVisible="{Binding IsShowCode}" Foreground="{DynamicResource HighlightForegroundBrushKey}">
                                     </TextBlock>
 
 
-                                    <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                                        <Separator Height="13" IsVisible="{Binding !IsShowCode}"></Separator>
-                                        <ProgressBar  Value="{Binding CodeCountdown,Mode=TwoWay}" IsVisible="{Binding IsShowCode}" Margin="0 10 0 0"/>
-                                        <Border Background="{DynamicResource SystemControlHighlightBaseLowBrush}" BorderThickness=".66" Margin="0 0 0 4"/>
+                                    <DockPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                                        <Panel DockPanel.Dock="Top">
+                                            <Separator Height="13" IsVisible="{Binding !IsShowCode}"></Separator>
+                                            <ProgressBar  Value="{Binding CodeCountdown,Mode=TwoWay}" IsVisible="{Binding IsShowCode}" Margin="0 10 0 4"/>
+                                            <Separator Background="{DynamicResource SystemControlHighlightBaseLowBrush}" Height=".66" Margin="0 14 0 4"/>
+                                        </Panel>
+                                        
                                         <!--<controls:ScrollingTextBlock HorizontalAlignment="Center" Width="{Binding #panel.Width}" Text="{Binding}" FontSize="14" Foreground="{DynamicResource HighlightForegroundBrushKey}" ></controls:ScrollingTextBlock>-->
-                                        <Grid ColumnDefinitions="*,Auto">
-                                            <StackPanel Orientation="Horizontal" Spacing="5">
 
-                                                <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowAuthCode}" CommandParameter="{Binding}">
-                                                    <Image Width="20" Height="16">
-                                                        <Image.Source>
-                                                            <DrawingImage Drawing="{DynamicResource ShowDrawing}"></DrawingImage>
-                                                        </Image.Source>
-                                                    </Image>
-                                                </Button>
+                                        <StackPanel Orientation="Horizontal" Spacing="5">
 
-                                                <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowSteamAuthTrade}" CommandParameter="{Binding}">
-                                                    <Image Width="20" Height="16">
-                                                        <Image.Source>
-                                                            <DrawingImage Drawing="{DynamicResource TradeDrawing}"></DrawingImage>
-                                                        </Image.Source>
-                                                    </Image>
-                                                </Button>
-
-                                                <Button Cursor="Hand" Classes="flatbutton">
-                                                    <Image Width="20" Height="16">
-                                                        <Image.Source>
-                                                            <DrawingImage Drawing="{DynamicResource CloudDrawing}"></DrawingImage>
-                                                        </Image.Source>
-                                                    </Image>
-                                                </Button>
-
-                                                <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowSteamAuthData}" CommandParameter="{Binding}">
-                                                    <Image Width="20" Height="16">
-                                                        <Image.Source>
-                                                            <DrawingImage Drawing="{DynamicResource InfoDrawing}"></DrawingImage>
-                                                        </Image.Source>
-                                                    </Image>
-                                                </Button>
-                                            </StackPanel>
-
-                                            <Button Grid.Column="1" Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.CopyCodeCilp}" CommandParameter="{Binding}">
+                                            <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowAuthCode}" CommandParameter="{Binding}">
                                                 <Image Width="20" Height="16">
                                                     <Image.Source>
-                                                        <DrawingImage Drawing="{DynamicResource CopyDrawing}"></DrawingImage>
+                                                        <DrawingImage Drawing="{DynamicResource SearchDrawing}"></DrawingImage>
                                                     </Image.Source>
                                                 </Image>
                                             </Button>
-                                        </Grid>
-                                    </StackPanel>
+
+                                            <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowSteamAuthTrade}" CommandParameter="{Binding}">
+                                                <Image Width="20" Height="16">
+                                                    <Image.Source>
+                                                        <DrawingImage Drawing="{DynamicResource TradeDrawing}"></DrawingImage>
+                                                    </Image.Source>
+                                                </Image>
+                                            </Button>
+
+                                            <Button Cursor="Hand" Classes="flatbutton">
+                                                <Image Width="20" Height="16">
+                                                    <Image.Source>
+                                                        <DrawingImage Drawing="{DynamicResource CloudDrawing}"></DrawingImage>
+                                                    </Image.Source>
+                                                </Image>
+                                            </Button>
+
+                                            <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowSteamAuthData}" CommandParameter="{Binding}">
+                                                <Image Width="20" Height="16">
+                                                    <Image.Source>
+                                                        <DrawingImage Drawing="{DynamicResource SlideSearchDrawing}"></DrawingImage>
+                                                    </Image.Source>
+                                                </Image>
+                                            </Button>
+                                        </StackPanel>
+
+                                        <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.CopyCodeCilp}" CommandParameter="{Binding}" HorizontalAlignment="Right">
+                                            <Image Width="20" Height="16">
+                                                <Image.Source>
+                                                    <DrawingImage Drawing="{DynamicResource CopyDrawing}"></DrawingImage>
+                                                </Image.Source>
+                                            </Image>
+                                        </Button>
+                                    </DockPanel>
                                 </Grid>
                             </Border>
                         </Panel>

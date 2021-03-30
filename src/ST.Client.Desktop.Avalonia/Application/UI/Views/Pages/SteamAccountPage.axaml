@@ -68,15 +68,20 @@
                                                 </controls:ScrollingTextBlock>
                                             </DockPanel>
 
-                                            <StackPanel Orientation="Horizontal">
+                                            <WrapPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding AccountName}" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
                                                 <TextBlock Text="(" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
                                                 <TextBox Text="{Binding SteamId64,Mode=OneWay}" FontSize="14" Classes="readonlybox" Padding="0" Foreground="{DynamicResource InactiveForegroundBrushKey}"></TextBox>
                                                 <TextBlock Text=")" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                                            </StackPanel>
+                                            </WrapPanel>
                                         </StackPanel>
 
-                                        <TextBlock Text="{Binding LastLoginTime,Converter={StaticResource DateFormatConverter},ConverterParameter='yyyy-MM-dd HH:mm:ss'}" FontSize="16" VerticalAlignment="Bottom" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                                        <WrapPanel VerticalAlignment="Bottom" Orientation="Horizontal">
+                                            <DrawingPresenter Drawing="{StaticResource ClockDrawing}" Width="16" VerticalAlignment="Center" Margin="5 0">
+                                            </DrawingPresenter>
+                                            <TextBlock Text="{Binding LastLoginTime,Converter={StaticResource DateFormatConverter},ConverterParameter='yyyy-MM-dd HH:mm:ss'}" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                                        </WrapPanel>
+
                                     </Panel>
                                     <Grid Grid.Column="3" RowDefinitions="*,Auto">
                                         <Panel>
@@ -87,12 +92,12 @@
                                                     </Image.Source>
                                                 </Image>
                                             </Button>
-                                            <StackPanel HorizontalAlignment="Right" Margin="0 30 0 0">
+                                            <WrapPanel HorizontalAlignment="Right" Orientation="Vertical" Margin="0 30 0 0">
                                                 <CheckBox Content="{Binding Path=Res.UserChange_RecentLogin,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding MostRecent}" IsEnabled="False"></CheckBox>
                                                 <CheckBox Content="{Binding Path=Res.UserChange_RememberMe,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding RememberPassword}" IsEnabled="False"></CheckBox>
-                                            </StackPanel>
+                                            </WrapPanel>
                                         </Panel>
-                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                        <WrapPanel Grid.Row="1" Orientation="Horizontal">
                                             <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{Binding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                                 <Button Classes="flatbutton" Cursor="Hand" HorizontalAlignment="Stretch" MaxWidth="200" Background="{DynamicResource ThemeBrushKey}" Command="{Binding #u.DataContext.OfflineModeButton_Click}" CommandParameter="{Binding}">
                                                     <controls:ScrollingTextBlock Text="{Binding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
@@ -103,7 +108,7 @@
                                                     <controls:ScrollingTextBlock Text="{Binding Path=Res.UserChange_BtnText,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
                                                 </Button>
                                             </Border>
-                                        </StackPanel>
+                                        </WrapPanel>
                                     </Grid>
                                 </Grid>
                             </Border>
