@@ -332,7 +332,7 @@ namespace System.Application.Services.CloudService
         {
             var content = new SteamMiniProfile
             {
-                Nameplate = new SteamMiniProfile.Nameplate_[]
+                Nameplate = new List<SteamMiniProfile.Nameplate_>
                 {
                     new SteamMiniProfile.Nameplate_
                     {
