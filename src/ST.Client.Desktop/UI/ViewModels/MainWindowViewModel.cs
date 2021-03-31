@@ -64,10 +64,10 @@ namespace System.Application.UI.ViewModels
 				#region SystemTab
                 SettingsPageViewModel.Instance,
                 AboutPageViewModel.Instance,
-//#if DEBUG
+#if DEBUG
 				new DebugPageViewModel().AddTo(this),
                 new DebugWebViewPageViewModel().AddTo(this),
-//#endif
+#endif
 				#endregion
             };
 

@@ -7,9 +7,20 @@ namespace System.Application.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is DateTime date && date != null && parameter is string para && !string.IsNullOrEmpty(para))
+            if (parameter is string para && !string.IsNullOrEmpty(para)) 
             {
-               return date.ToString(para);
+                if (value is DateTime date && date != null)
+                {
+                    return date.ToString(para);
+                }
+                if (value is DateTimeOffset dateTimeOffset && dateTimeOffset != null)
+                {
+                    return dateTimeOffset.ToString(para);
+                }
+                if (value is TimeSpan time && time != null)
+                {
+                    return time.ToString(para);
+                }
             }
             return value;
         }

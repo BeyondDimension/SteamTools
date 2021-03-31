@@ -32,16 +32,16 @@ namespace System.Application.UI.ViewModels
             LoginAccountCommand = ReactiveCommand.Create(LoginNewSteamAccount);
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
-                new MenuItemViewModel(nameof(AppResources.More))
-                {
-                    Items = new[]
-                    {
+                //new MenuItemViewModel(nameof(AppResources.More))
+                //{
+                //    Items = new[]
+                //    {
                         new MenuItemViewModel(nameof(AppResources.UserChange_LoginNewAccount)) {IconKey="SteamDrawing",
                             Command=LoginAccountCommand },
                         new MenuItemViewModel (),
                         new MenuItemViewModel (nameof(AppResources.Edit)),
-                    }
-                },
+                //    }
+                //},
             };
         }
 

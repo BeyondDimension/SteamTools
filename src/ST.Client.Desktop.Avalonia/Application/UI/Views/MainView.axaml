@@ -39,34 +39,33 @@
             <StackPanel Grid.Column="2" x:Name="titleMenu" Orientation="Horizontal" VerticalAlignment="Top">
                 <!--<Menu Items="{Binding SelectedItem.MenuItems}" IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}" Classes="BindMenu">
                 </Menu>-->
-                <Menu>
-                    <MenuItem Items="{Binding SelectedItem.MenuItems}" Classes="BindItem" 
-                              IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}">
+                <Menu Classes="BindMenu">
+                    <MenuItem Items="{Binding SelectedItem.MenuItems}" Classes="BindItem"
+          IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}">
                         <MenuItem.Header>
                             <DrawingPresenter Drawing="{StaticResource SettingsDrawing}" Width="14"></DrawingPresenter>
                         </MenuItem.Header>
                     </MenuItem>
-                    <MenuItem Classes="StaticMenu">
+
+                    <MenuItem>
                         <MenuItem.Header>
-                            <Border CornerRadius="24" ClipToBounds="True">
-                            <Image Source="/Application/UI/Assets/Icon.ico" Height="24" Width="24">
+                            <Image Source="/Application/UI/Assets/Icon9.ico" Height="20" Width="20">
                                 <Image.Clip>
-                                    <EllipseGeometry Rect="0,0,24,24" />
+                                    <EllipseGeometry Rect="0,0,20,20" />
                                 </Image.Clip>
                             </Image>
-                            </Border>
                         </MenuItem.Header>
 
-                        <MenuItem Command="{Binding Path=ShowLoginWindow_Click,Source={x:Static service:UserService.Current}}">
+                        <MenuItem Command="{Binding Path=ShowLoginWindow_Click,Source={x:Static service:UserService.Current}}" IsEnabled="False">
                             <MenuItem.Header>
                                 <Panel Width="200" Margin="5">
                                     <StackPanel Spacing="8" Margin="25,0,0,0">
-                                        <Image Source="/Application/UI/Assets/Icon.ico" Height="100" Width="100" HorizontalAlignment="Center">
+                                        <Image Source="/Application/UI/Assets/Icon9.ico" Height="100" Width="100" HorizontalAlignment="Center">
                                             <Image.Clip>
                                                 <EllipseGeometry Rect="0,0,100,100" />
                                             </Image.Clip>
                                         </Image>
-                                        <TextBlock Text="未登录" FontSize="18" HorizontalAlignment="Center"></TextBlock>
+                                        <Label Content="未登录" FontSize="16" HorizontalAlignment="Center" Foreground="{DynamicResource HighlightForegroundBrushKey}"></Label>
                                     </StackPanel>
                                 </Panel>
                             </MenuItem.Header>
@@ -123,8 +122,9 @@
             </TabControl.DataTemplates>
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="Regular">
-                    </TextBlock>
+                    <!--<TextBlock Text="{Binding Name}" FontSize="14" FontWeight="Regular">
+                    </TextBlock>-->
+                    <controls:ScrollingTextBlock Text="{Binding Name}" FontSize="14" FontWeight="Regular"></controls:ScrollingTextBlock>
                 </DataTemplate>
             </TabControl.ItemTemplate>
         </TabControl>

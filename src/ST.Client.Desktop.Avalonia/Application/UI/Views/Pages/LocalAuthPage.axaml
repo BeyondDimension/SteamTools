@@ -49,7 +49,7 @@
                                     </DockPanel>
 
                                     <TextBlock Grid.Row="1" Text="------" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64" IsVisible="{Binding !IsShowCode}" Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
-                                    <TextBlock Grid.Row="1" Text="{Binding CurrentCode}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="56" IsVisible="{Binding IsShowCode}" Foreground="{DynamicResource HighlightForegroundBrushKey}">
+                                    <TextBlock Grid.Row="1" Text="{Binding CurrentCode}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="54" IsVisible="{Binding IsShowCode}" Foreground="{DynamicResource HighlightForegroundBrushKey}">
                                     </TextBlock>
 
 
@@ -64,7 +64,7 @@
 
                                         <StackPanel Orientation="Horizontal" Spacing="5">
 
-                                            <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowAuthCode}" CommandParameter="{Binding}">
+                                            <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowAuthCode}" CommandParameter="{Binding}" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                                                 <Image Width="20" Height="16">
                                                     <Image.Source>
                                                         <DrawingImage Drawing="{DynamicResource SearchDrawing}"></DrawingImage>
@@ -72,7 +72,7 @@
                                                 </Image>
                                             </Button>
 
-                                            <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowSteamAuthTrade}" CommandParameter="{Binding}">
+                                            <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowSteamAuthTrade}" CommandParameter="{Binding}" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                                                 <Image Width="20" Height="16">
                                                     <Image.Source>
                                                         <DrawingImage Drawing="{DynamicResource TradeDrawing}"></DrawingImage>
@@ -80,7 +80,7 @@
                                                 </Image>
                                             </Button>
 
-                                            <Button Cursor="Hand" Classes="flatbutton">
+                                            <Button Cursor="Hand" Classes="flatbutton" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                                                 <Image Width="20" Height="16">
                                                     <Image.Source>
                                                         <DrawingImage Drawing="{DynamicResource CloudDrawing}"></DrawingImage>
@@ -88,7 +88,7 @@
                                                 </Image>
                                             </Button>
 
-                                            <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowSteamAuthData}" CommandParameter="{Binding}">
+                                            <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowSteamAuthData}" CommandParameter="{Binding}" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                                                 <Image Width="20" Height="16">
                                                     <Image.Source>
                                                         <DrawingImage Drawing="{DynamicResource SlideSearchDrawing}"></DrawingImage>
@@ -97,7 +97,7 @@
                                             </Button>
                                         </StackPanel>
 
-                                        <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.CopyCodeCilp}" CommandParameter="{Binding}" HorizontalAlignment="Right">
+                                        <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.CopyCodeCilp}" CommandParameter="{Binding}" HorizontalAlignment="Right" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                                             <Image Width="20" Height="16">
                                                 <Image.Source>
                                                     <DrawingImage Drawing="{DynamicResource CopyDrawing}"></DrawingImage>

@@ -138,6 +138,7 @@ namespace System.Application.UI
             #region 启动时加载的资源
             SettingsHost.Load();
             compositeDisposable.Add(SettingsHost.Save);
+            compositeDisposable.Add(ProxyService.Current.Dispose);
             compositeDisposable.Add(SteamConnectService.Current.Dispose);
             Theme = (AppTheme)UISettings.Theme.Value;
             UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);

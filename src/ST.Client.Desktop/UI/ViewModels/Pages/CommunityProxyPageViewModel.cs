@@ -32,12 +32,14 @@ namespace System.Application.UI.ViewModels
 
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
-                new MenuItemViewModel(nameof(AppResources.CommunityFix_MenuName))
-                {
-                    Items = new[]
-                    {
-                        new MenuItemViewModel (nameof(AppResources.CommunityFix_EditHostsFile)){ Command=EditHostsFileCommand,IconKey="EditDrawing" },
+                //new MenuItemViewModel(nameof(AppResources.CommunityFix_MenuName))
+                //{
+                //    Items = new[]
+                //    {
+                        new MenuItemViewModel (nameof(AppResources.CommunityFix_AutoRunProxy)){ Command=EditHostsFileCommand,IconKey="CheckmarkDrawing" },
+                        new MenuItemViewModel (nameof(AppResources.CommunityFix_OnlySteamBrowser)){ Command=EditHostsFileCommand},
                         new MenuItemViewModel (),
+                        new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)){ Command=EditHostsFileCommand ,IconKey="JavaScriptDrawing" },
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_CertificateSettings))
                         {
                             Items=new[]
@@ -46,9 +48,9 @@ namespace System.Application.UI.ViewModels
                                 new MenuItemViewModel(nameof(AppResources.CommunityFix_DeleteCertificate)){ Command=DeleteCertificateCommand },
                             }
                         },
-
-                    }
-                },
+                        new MenuItemViewModel (nameof(AppResources.CommunityFix_EditHostsFile)){ Command=EditHostsFileCommand,IconKey="DocumentEditDrawing" },
+                //    }
+                //},
             };
         }
 
@@ -59,9 +61,9 @@ namespace System.Application.UI.ViewModels
         //}
 
 
-        public void StartProxyButton_Click()
+        public void StartProxyButton_Click(bool start)
         {
-            ProxyService.Current.ProxyStatus = true;
+            ProxyService.Current.ProxyStatus = start;
         }
 
         public void SetupCertificate_OnClick()

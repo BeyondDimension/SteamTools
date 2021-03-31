@@ -19,10 +19,11 @@
 
     <Style Selector="Border.paper">
         <Setter Property="BoxShadow" Value="2 2 5 #55000000" />
+        <!--<Setter Property="CornerRadius" Value="8" />-->
     </Style>
-    <Style Selector="Border.paper:pointerover">
+    <!--<Style Selector="Border.paper:pointerover">
         <Setter Property="BoxShadow" Value="4 6 10 #55000000" />
-    </Style>
+    </Style>-->
 
     <Style Selector="Border.button">
         <Setter Property="Background" Value="{DynamicResource BackgroundBrushKey}" />

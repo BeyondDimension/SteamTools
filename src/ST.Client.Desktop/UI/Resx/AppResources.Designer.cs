@@ -205,6 +205,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 程序启动时自动启动加速 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_AutoRunProxy {
+            get {
+                return ResourceManager.GetString("CommunityFix_AutoRunProxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 证书设置 的本地化字符串。
         /// </summary>
         public static string CommunityFix_CertificateSettings {
@@ -237,6 +246,24 @@ namespace System.Application.UI.Resx {
         public static string CommunityFix_MenuName {
             get {
                 return ResourceManager.GetString("CommunityFix_MenuName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 仅对Steam内置浏览器生效 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_OnlySteamBrowser {
+            get {
+                return ResourceManager.GetString("CommunityFix_OnlySteamBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 管理脚本 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ScriptManage {
+            get {
+                return ResourceManager.GetString("CommunityFix_ScriptManage", resourceCulture);
             }
         }
         

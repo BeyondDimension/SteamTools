@@ -13,9 +13,14 @@ namespace System.Application.UI.ViewModels
             name = ResourceName;
         }
 
-        public virtual string? IconKey { get; set; }
+        private string? _IconKey;
+        public virtual string? IconKey
+        {
+            get => _IconKey;
+            set => this.RaiseAndSetIfChanged(ref _IconKey, value);
+        }
 
-        public string? Header => string.IsNullOrEmpty(name) ? "-" : AppResources.ResourceManager.GetString(name,AppResources.Culture);
+        public string? Header => string.IsNullOrEmpty(name) ? "-" : AppResources.ResourceManager.GetString(name, AppResources.Culture);
 
         public ICommand? Command { get; set; }
         public object? CommandParameter { get; set; }

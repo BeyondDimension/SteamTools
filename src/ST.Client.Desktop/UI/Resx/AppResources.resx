@@ -165,6 +165,9 @@
   <data name="CommunityFix_AllCheck" xml:space="preserve">
     <value>全部启用</value>
   </data>
+  <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
+    <value>程序启动时自动启动加速</value>
+  </data>
   <data name="CommunityFix_CertificateSettings" xml:space="preserve">
     <value>证书设置</value>
   </data>
@@ -176,6 +179,12 @@
   </data>
   <data name="CommunityFix_MenuName" xml:space="preserve">
     <value>加速设置</value>
+  </data>
+  <data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
+    <value>仅对Steam内置浏览器生效</value>
+  </data>
+  <data name="CommunityFix_ScriptManage" xml:space="preserve">
+    <value>管理脚本</value>
   </data>
   <data name="CommunityFix_SetupCertificate" xml:space="preserve">
     <value>安装证书</value>

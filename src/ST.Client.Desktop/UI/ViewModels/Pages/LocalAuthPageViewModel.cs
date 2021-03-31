@@ -20,10 +20,10 @@ namespace System.Application.UI.ViewModels
             RefreshAuthCommand = ReactiveCommand.Create(() => AuthService.Current.Initialize(true));
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
-                new MenuItemViewModel(nameof(AppResources.LocalAuth_EditAuth))
-                {
-                    Items = new[]
-                    {
+                //new MenuItemViewModel(nameof(AppResources.LocalAuth_EditAuth))
+                //{
+                //    Items = new[]
+                //    {
                         new MenuItemViewModel(nameof(AppResources.Add)) { IconKey="AddDrawing",
                             Command= AddAuthCommand },
                         new MenuItemViewModel(nameof(AppResources.Edit)) { IconKey="EditDrawing" },
@@ -35,8 +35,8 @@ namespace System.Application.UI.ViewModels
                         new MenuItemViewModel(),
                         new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="LockDrawing" },
                         new MenuItemViewModel(nameof(AppResources.CloudSync)) {IconKey="CloudDrawing" },
-                    }
-                },
+                //    }
+                //},
             };
         }
 

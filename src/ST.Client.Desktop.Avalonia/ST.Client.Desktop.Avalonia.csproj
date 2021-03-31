@@ -50,4 +50,10 @@
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Application\UI\Views\Windows\ProxyScriptManageWindow.axaml.cs">
+      <DependentUpon>ProxyScriptManageWindow.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>
