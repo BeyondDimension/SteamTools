@@ -13,10 +13,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Portable.BouncyCastle" Version="1.8.10"/>
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.10" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ST.Services.CloudService.Models\ST.Services.CloudService.Models.csproj"/>
+    <ProjectReference Include="..\ST.Services.CloudService.Models\ST.Services.CloudService.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\CloudService\Grpc\" />
   </ItemGroup>
 </Project>

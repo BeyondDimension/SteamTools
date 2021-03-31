@@ -1,7 +1,6 @@
 ﻿using System.Application.Services;
 using System.CommandLine;
 using System.CommandLine.Invocation;
-using System.CommandLine.IO;
 
 namespace System.Application
 {
@@ -112,9 +111,24 @@ namespace System.Application
             SteamCollection = 256,
 
             /// <summary>
+            /// Http 代理
+            /// </summary>
+            HttpProxy = 512,
+
+            //Placeholder = 1024,
+            //Placeholder1 = 2048,
+            //Placeholder2 = 4096,
+            //Placeholder3 = 8192,
+            //Placeholder4 = 16384,
+            //Placeholder5 = 32768,
+            //Placeholder6 = 65536,
+            //Placeholder7 = 131072,
+            //Placeholder8 = 262144,
+
+            /// <summary>
             /// 主进程所需DI服务级别
             /// </summary>
-            Main = Cloud | ModelValidator | Window | Http | NotifyIcon | Hosts | AppUpdate | SteamCollection,
+            Main = Cloud | ModelValidator | Window | Http | NotifyIcon | Hosts | AppUpdate | SteamCollection | HttpProxy,
         }
     }
 }

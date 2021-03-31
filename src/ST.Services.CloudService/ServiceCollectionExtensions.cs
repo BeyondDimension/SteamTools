@@ -37,7 +37,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     c.BaseAddress = new Uri(sc.ApiBaseUrl);
                     c.DefaultRequestHeaders.UserAgent.ParseAdd(sc.UserAgent);
                     c.DefaultRequestHeaders.Add(Constants.Headers.Request.AppVersion, sc.Settings.AppVersion.ToStringN());
-#if NET5_0_OR_GREATER
+#if NETCOREAPP3_0_OR_GREATER
                     c.DefaultRequestVersion = System.Net.HttpVersion.Version20;
 #endif
                 });

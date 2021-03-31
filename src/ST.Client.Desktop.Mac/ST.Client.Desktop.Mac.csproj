@@ -1,17 +1,15 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFramework>Xamarin.Mac20</TargetFramework>
+    <TargetFrameworks>Xamarin.Mac20;netstandard2.1</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
-    <!--<DefineConstants>MONO_MAC;$(DefineConstants)</DefineConstants>-->
-    <DefineConstants>XAMARIN_MAC;$(DefineConstants)</DefineConstants>
     <AssemblyName>System.Application.SteamTools.Client.Desktop.Mac</AssemblyName>
   </PropertyGroup>
 
   <!--<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <AllowedReferenceRelatedFileExtensions>
       -->
-  <!-- Prevent default XML and PDB files copied to output in RELEASE. 
+  <!-- Prevent default XML and PDB files copied to output in RELEASE.
            Only *.allowedextension files will be included, which doesn't exist in my case.
        -->
   <!--
@@ -19,24 +17,35 @@
     </AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>-->
 
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) ">
+    <DefineConstants>XAMARIN_MAC;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+    <DefineConstants>MONO_MAC;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) ">
     <Compile Include="..\ST.Client.Desktop.Windows\VisualStudioAppCenterSDK.cs">
       <Link>VisualStudioAppCenterSDK.cs</Link>
     </Compile>
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="nor0x.AppCenter" Version="4.1.0.1-XMAC" />
-    <PackageReference Include="nor0x.AppCenter.Analytics" Version="4.1.0.1-XMAC" />
-    <PackageReference Include="nor0x.AppCenter.Crashes" Version="4.1.0.1-XMAC" />
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) ">
+    <PackageReference Include="nor0x.AppCenter" Version="4.1.0.1-XMAC"/>
+    <PackageReference Include="nor0x.AppCenter.Analytics" Version="4.1.0.1-XMAC"/>
+    <PackageReference Include="nor0x.AppCenter.Crashes" Version="4.1.0.1-XMAC"/>
   </ItemGroup>
 
-  <!--<ItemGroup>
-    <PackageReference Include="MonoMac.NetStandard" Version="0.0.4" />
-  </ItemGroup>-->
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+    <PackageReference Include="MonoMac.NetStandard" Version="0.0.4"/>
+  </ItemGroup>
 
   <!--<ItemGroup Condition=" '$(OS)' == 'Windows_NT' ">
     <Reference Include="Xamarin.Mac">
@@ -53,15 +62,14 @@
   </ItemGroup>-->
 
   <ItemGroup>
-    <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
+    <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj"/>
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-mac-debug.pfx')">
-    <EmbeddedResource Include="..\..\appcenter-secret-mac-debug.pfx" LinkBase="Resources" />
+    <EmbeddedResource Include="..\..\appcenter-secret-mac-debug.pfx" LinkBase="Resources"/>
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-mac-release.pfx')">
-    <EmbeddedResource Include="..\..\appcenter-secret-mac-release.pfx" LinkBase="Resources" />
+    <EmbeddedResource Include="..\..\appcenter-secret-mac-release.pfx" LinkBase="Resources"/>
   </ItemGroup>
-
 </Project>

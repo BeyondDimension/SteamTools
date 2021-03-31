@@ -23,6 +23,6 @@ namespace System.Net.Http
 
         public virtual ImageFormat[] SupportedImageFormats => mSupportedImageFormats.Value;
 
-        public (string filePath, string mime)? TryHandleUploadFile(Stream fileStream) => null;
+        public virtual (string filePath, string mime)? TryHandleUploadFile(Stream fileStream) => null;
     }
 }

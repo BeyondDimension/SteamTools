@@ -18,6 +18,7 @@ namespace System.Application.UI
 
         protected override void OnStart()
         {
+            Toast.Show("It Just Works");
         }
 
         protected override void OnSleep()

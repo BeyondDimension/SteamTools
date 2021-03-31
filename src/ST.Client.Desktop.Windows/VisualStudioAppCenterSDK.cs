@@ -19,7 +19,7 @@ namespace System.Application
         {
             get
             {
-                const string namespacePrefix = "System.Application.";
+                const string namespacePrefix = "System.Application.Resources.";
                 var r = AppClientAttribute.GetResValue(
                     typeof(VisualStudioAppCenterSDK).Assembly,
                     name: "appcenter-secret",

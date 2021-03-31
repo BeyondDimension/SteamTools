@@ -237,9 +237,7 @@ namespace Android.OS
 #pragma warning disable CS0612 // 类型或成员已过时
                 value = Get(key);
 #pragma warning restore CS0612 // 类型或成员已过时
-#pragma warning disable CS8762 // 在某些条件下退出时，参数必须具有非 null 值。
                 return !string.IsNullOrWhiteSpace(value);
-#pragma warning restore CS8762 // 在某些条件下退出时，参数必须具有非 null 值。
             }
             catch (Exception ex1)
             {
@@ -247,9 +245,7 @@ namespace Android.OS
                 try
                 {
                     value = BuildProperties?.GetProperty(key);
-#pragma warning disable CS8762 // 在某些条件下退出时，参数必须具有非 null 值。
                     return !string.IsNullOrWhiteSpace(value);
-#pragma warning restore CS8762 // 在某些条件下退出时，参数必须具有非 null 值。
                 }
                 catch (Exception ex2)
                 {

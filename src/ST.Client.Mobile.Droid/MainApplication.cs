@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 using Microsoft.Extensions.DependencyInjection;
+using System.Application.Services.Implementation;
 using System.Properties;
 using Xamarin.Essentials;
 using AndroidApplication = Android.App.Application;
@@ -10,6 +11,7 @@ using XEVersionTracking = Xamarin.Essentials.VersionTracking;
 
 namespace System.Application
 {
+    [Register(JavaPackageConstants.Root + nameof(MainApplication))]
     [Application(Debuggable = ThisAssembly.Debuggable)]
     public sealed class MainApplication : AndroidApplication
     {
@@ -74,10 +76,10 @@ namespace System.Application
         /// </summary>
         /// <param name="services"></param>
         /// <param name="options"></param>
-        void ConfigureRequiredServices(IServiceCollection services)
+        static void ConfigureRequiredServices(IServiceCollection services)
         {
+            // 添加日志实现
             services.AddClientLogging();
-            services.TryAddStorage();
         }
 
         /// <summary>
@@ -85,12 +87,37 @@ namespace System.Application
         /// </summary>
         /// <param name="services"></param>
         /// <param name="options"></param>
-        void ConfigureMainProcessServices(IServiceCollection services)
+        static void ConfigureMainProcessServices(IServiceCollection services)
         {
+            // 添加 Http 平台助手平台原生实现
+            services.AddPlatformHttpPlatformHelper();
+
+            // 添加 HttpClientFactory 平台原生实现
+            services.AddNativeHttpClient();
+
+            // 添加仓储服务
+            services.AddRepositories();
+
+            // 添加服务端API调用
+            services.TryAddCloudServiceClient<CloudServiceClient>(useMock: true);
+
+            // 键值对存储
+            services.TryAddStorage();
+
+            // 业务平台用户管理
+            services.TryAddUserManager();
+
+            // 添加模型验证框架
             services.TryAddModelValidator();
+
+            // 添加运行时权限
             services.TryAddPermissions();
-            services.TryAddToast();
             services.AddPlatformPermissions();
+
+            // 添加 Android Toast 的实现
+            services.TryAddToast();
+
+            // 添加电话服务
             services.AddTelephonyService();
         }
     }

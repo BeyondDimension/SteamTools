@@ -127,6 +127,7 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 * [React](https://github.com/facebook/react)
 * [Ant Design](https://github.com/ant-design/ant-design)
 * [Ant Design Blazor](https://github.com/ant-design-blazor/ant-design-blazor)
+* [Toast messages for Xamarin.iOS](https://github.com/andrius-k/Toast)
 * [Visual Studio App Center SDK for .NET](https://github.com/microsoft/appcenter-sdk-dotnet)
 * [AppCenter-XMac](https://github.com/nor0x/AppCenter-XMac)
 * [Xamarin.Essentials](https://github.com/xamarin/essentials)

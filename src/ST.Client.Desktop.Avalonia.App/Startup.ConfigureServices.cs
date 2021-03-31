@@ -6,11 +6,8 @@ using System.Application.Services.Implementation;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
-using System.Properties;
 using System.Reflection;
-using System.Text;
 
 namespace System.Application.UI
 {
@@ -49,6 +46,7 @@ namespace System.Application.UI
             var hasWindow = level.HasFlag(CommandLineTools.DILevel.Window);
             var hasCloud = level.HasFlag(CommandLineTools.DILevel.Cloud);
             var hasHttp = level.HasFlag(CommandLineTools.DILevel.Http);
+            var hasHttpProxy = level.HasFlag(CommandLineTools.DILevel.HttpProxy);
             var hasModelValidator = level.HasFlag(CommandLineTools.DILevel.ModelValidator);
             var hasHosts = level.HasFlag(CommandLineTools.DILevel.Hosts);
             var hasAppUpdate = level.HasFlag(CommandLineTools.DILevel.AppUpdate);
@@ -60,13 +58,13 @@ namespace System.Application.UI
                 services.AddSingleton<IDesktopAppService>(s => App.Instance);
                 services.AddSingleton<IDesktopAvaloniaAppService>(s => App.Instance);
 
-                // 管理主窗口服务类
+                // 添加管理主窗口服务
                 services.AddWindowService();
 
-                // 类似 Android Toast 的桌面端实现
+                // 添加类似 Android Toast 的桌面端实现
                 services.TryAddToast();
 
-                // 主线程助手类(MainThreadDesktop)
+                // 添加主线程助手(MainThreadDesktop)
                 services.AddMainThreadPlatformService();
 
                 #region MessageBox
@@ -107,33 +105,39 @@ namespace System.Application.UI
                 services.AddDesktopPlatformService();
             }
 
+            if (hasHttp || hasCloud)
+            {
+                // 添加 Http 平台助手桌面端实现
+                services.AddDesktopHttpPlatformHelper();
+            }
+
             if (hasHttp)
             {
-                // Http平台助手桌面端实现
-                services.AddDesktopHttpPlatformHelper();
-
                 // 通用 Http 服务
                 services.AddHttpService();
+            }
 
-                // 通用 http 代理服务
+            if (hasHttpProxy)
+            {
+                // 通用 Http 代理服务
                 services.AddHttpProxyService();
             }
 
-            if (hasModelValidator)
+            if (hasModelValidator || hasCloud)
             {
-                // 模型验证框架
+                // 添加模型验证框架
                 services.TryAddModelValidator();
             }
 
             if (hasCloud)
             {
-                // app 配置项
+                // 添加 app 配置项
                 services.TryAddOptions(AppSettings);
 
                 // 添加安全服务
                 services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
 
-                // 服务端API调用
+                // 添加服务端API调用
                 services.TryAddCloudServiceClient<CloudServiceClient>(useMock: true);
 
                 // 添加仓储服务
@@ -171,7 +175,6 @@ namespace System.Application.UI
 
                 // Steamworks WebApi Service
                 services.AddSteamworksWebApiService();
-
             }
 
             if (hasAppUpdate)
@@ -187,7 +190,6 @@ namespace System.Application.UI
                 //services.AddTransient<INotifyIconWindow<ContextMenu>, Win32NotifyIconWindow>();
 #endif
                 services.AddNotifyIcon<NotifyIconImpl>();
-
             }
         }
 
