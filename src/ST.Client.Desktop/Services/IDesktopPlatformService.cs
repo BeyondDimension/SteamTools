@@ -66,7 +66,6 @@ namespace System.Application.Services
             }
 
             var providers = new List<TextReaderProvider>() {
-                TextReaderProvider.NotepadPlusPlus,
                 TextReaderProvider.VSCode,
                 TextReaderProvider.Notepad };
 

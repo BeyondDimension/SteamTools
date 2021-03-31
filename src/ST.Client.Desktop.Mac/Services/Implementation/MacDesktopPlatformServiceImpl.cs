@@ -37,7 +37,6 @@ namespace System.Application.Services.Implementation
                 case TextReaderProvider.VSCode:
                     return "Visual Studio Code";
                 case TextReaderProvider.Notepad:
-                case TextReaderProvider.NotepadPlusPlus:
                     return "TextEdit";
                 default:
                     return null;

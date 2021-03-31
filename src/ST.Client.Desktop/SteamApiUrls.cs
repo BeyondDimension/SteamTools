@@ -49,7 +49,7 @@
         public const string SCRIPT_DIR = "scripts";
         [Obsolete("use Constants.LOGS_DIR", true)]
         public const string LOG_DIR = "log";
-        [Obsolete("use Constants.CERTIFICATE_HOST_TAG", true)]
+        [Obsolete("use Constants.CERTIFICATE_TAG", true)]
         public const string HOST_TAG = "#Steam++";
     }
 

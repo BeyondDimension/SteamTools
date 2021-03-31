@@ -440,14 +440,14 @@ namespace System.Application.Services.Implementation
                         if (File.Exists(certifi))
                         {
                             var file = File.ReadAllText(certifi);
-                            var s = file.Substring(Constants.CERTIFICATE_HOST_TAG, Constants.CERTIFICATE_HOST_TAG, true);
+                            var s = file.Substring(Constants.CERTIFICATE_TAG, Constants.CERTIFICATE_TAG, true);
                             if (string.IsNullOrEmpty(s))
                             {
                                 File.AppendAllText(certifi, Environment.NewLine + pem);
                             }
                             else if (s.Trim() != pem.Trim())
                             {
-                                var index = file.IndexOf(Constants.CERTIFICATE_HOST_TAG);
+                                var index = file.IndexOf(Constants.CERTIFICATE_TAG);
                                 File.WriteAllText(certifi, file.Remove(index, s.Length) + pem);
                             }
                             return true;

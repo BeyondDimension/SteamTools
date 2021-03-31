@@ -11,11 +11,6 @@
         Notepad,
 
         /// <summary>
-        /// Notepad++
-        /// </summary>
-        NotepadPlusPlus,
-
-        /// <summary>
         /// Visual Studio Code
         /// </summary>
         VSCode,

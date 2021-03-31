@@ -16,11 +16,12 @@ namespace System.Application.Services
         /// </summary>
         void OpenFile();
 
-        OperationResult<List<string>> ReadHostsAllLines();
+        OperationResult<List<(string ip, string domain)>> ReadHostsAllLines();
 
         OperationResult UpdateHosts(string ip, string domain);
 
-        OperationResult UpdateHosts(IReadOnlyList<(string ip, string domain)> hosts);
+        [Obsolete]
+        OperationResult UpdateHosts(IEnumerable<(string ip, string domain)> hosts);
 
         OperationResult RemoveHosts(string ip, string domain);
 

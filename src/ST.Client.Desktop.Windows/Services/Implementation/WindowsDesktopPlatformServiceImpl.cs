@@ -68,8 +68,6 @@ namespace System.Application.Services.Implementation
         {
             switch (provider)
             {
-                case TextReaderProvider.NotepadPlusPlus:
-                    return "notepad++";
                 case TextReaderProvider.VSCode:
                     var vsCodePaths = new[] {
                         GetFolderPath(Environment.SpecialFolder.ProgramFiles),

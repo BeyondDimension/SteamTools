@@ -7,7 +7,7 @@
         /// </summary>
         public const string HARDCODED_APP_NAME = "Steam++";
 
-        public const string CERTIFICATE_HOST_TAG = "#Steam++";
+        public const string CERTIFICATE_TAG = "#Steam++";
 
         public const string APP_LIST_FILE = "apps.json";
 
