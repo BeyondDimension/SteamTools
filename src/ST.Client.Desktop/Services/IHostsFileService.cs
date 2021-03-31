@@ -20,8 +20,9 @@ namespace System.Application.Services
 
         OperationResult UpdateHosts(string ip, string domain);
 
-        [Obsolete]
         OperationResult UpdateHosts(IEnumerable<(string ip, string domain)> hosts);
+
+        OperationResult UpdateHosts(IReadOnlyDictionary<string, string> hosts);
 
         OperationResult RemoveHosts(string ip, string domain);
 

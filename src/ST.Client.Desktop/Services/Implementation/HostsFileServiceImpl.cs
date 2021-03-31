@@ -118,7 +118,7 @@ namespace System.Application.Services.Implementation
             if (array[0].StartsWith('#')) return false;
             if (array.Length > 2 && !array[2].StartsWith('#'))
                 throw new Exception($"hosts file line {index} is malformed");
-            if (!list.Add(array[0]))
+            if (!list.Add(array[1]))
                 throw new Exception($"hosts file line {index} duplicate");
             return true;
         }
@@ -232,7 +232,6 @@ namespace System.Application.Services.Implementation
             return UpdateHosts(dict);
         }
 
-        [Obsolete]
         public OperationResult UpdateHosts(IEnumerable<(string ip, string domain)> hosts)
         {
             var value = hosts.ToDictionary(k => k.domain, v => v.ip);
