@@ -56,5 +56,9 @@
         public const string XML_APP = "application/xml";
 
         public const string Security = "application/vnd.sapi+x-msgpack";
+
+        public const string WEBM = "video/webm";
+
+        public const string MP4 = "video/mp4";
     }
 }

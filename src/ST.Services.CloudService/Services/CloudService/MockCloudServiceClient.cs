@@ -349,8 +349,8 @@ namespace System.Application.Services.CloudService
                 {
                     AvatarFrame = "https://media.st.dl.pinyuncloud.com/steamcommunity/public/images/items/212070/9b6b26c7a03046da283408d72319f9eec932c80a.gif",
                     Avatar = "https://media.st.dl.pinyuncloud.com/steamcommunity/public/images/items/1504020/bc6fc1f46697d79a8add0e30862d74dbaf50cc4d.gif",
-                    PersonaOnline = "RuaRua",
-                    FriendStatusOnline = "在线",
+                    Persona = "RuaRua",
+                    FriendStatus = "在线",
                 },
                 Detailssection = new SteamMiniProfile.Detailssection_
                 {

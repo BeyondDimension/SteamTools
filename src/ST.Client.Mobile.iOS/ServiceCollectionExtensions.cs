@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Http;
+using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Net.Http;
 
@@ -38,5 +39,16 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection TryAddToast(this IServiceCollection services)
             => PlatformToastImpl.TryAddToast(services);
+
+        /// <summary>
+        /// 添加电话服务
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddTelephonyService(this IServiceCollection services)
+        {
+            services.AddSingleton<ITelephonyService, PlatformTelephonyServiceImpl>();
+            return services;
+        }
     }
 }

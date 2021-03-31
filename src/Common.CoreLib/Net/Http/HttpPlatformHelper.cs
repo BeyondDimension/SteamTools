@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Globalization;
+using System.IO;
 using System.IO.FileFormats;
 
 namespace System.Net.Http
@@ -12,7 +13,7 @@ namespace System.Net.Http
 
         public virtual string AcceptImages => "image/png, image/*; q=0.8";
 
-        public virtual string AcceptLanguage => "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7";
+        public virtual string AcceptLanguage => CultureInfo.CurrentUICulture.GetAcceptLanguage();
 
         static readonly Lazy<ImageFormat[]> mSupportedImageFormats = new(() => new ImageFormat[]
         {

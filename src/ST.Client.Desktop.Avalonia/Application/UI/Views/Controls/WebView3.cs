@@ -168,7 +168,7 @@ namespace Avalonia.Controls
             //request.SetHeaderMap(header_new);
             if (urls.Any(x => request.Url.StartsWith(x, StringComparison.OrdinalIgnoreCase)))
             {
-                request.SetHeaderByName("Accept-Language2", R.GetAcceptLanguage(), true);
+                request.SetHeaderByName("Accept-Language2", R.AcceptLanguage, true);
             }
             var returnValue = base.OnBeforeResourceLoad(browser, frame, request, callback);
             return returnValue;

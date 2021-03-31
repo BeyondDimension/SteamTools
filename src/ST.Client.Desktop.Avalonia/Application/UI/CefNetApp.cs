@@ -118,7 +118,7 @@ navigator.__proto__ = newProto;
             var settings = new CefSettings
             {
                 Locale = "zh-CN",
-                AcceptLanguageList = R.GetAcceptLanguage(CultureInfo.CurrentUICulture),
+                AcceptLanguageList = CultureInfo.CurrentUICulture.GetAcceptLanguage(),
                 MultiThreadedMessageLoop = !externalMessagePump,
                 ExternalMessagePump = externalMessagePump,
                 WindowlessRenderingEnabled = true,

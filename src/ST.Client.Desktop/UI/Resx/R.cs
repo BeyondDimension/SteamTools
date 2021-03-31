@@ -8,10 +8,6 @@ namespace System.Application.UI.Resx
 {
     public sealed class R : ReactiveObject
     {
-        //static readonly Lazy<R> @this = new Lazy<R>(new R());
-
-        //public static R Current => @this.Value;
-
         public static R Current { get; }
 
         public static readonly IList<KeyValuePair<string, string>> Languages;
@@ -98,45 +94,20 @@ namespace System.Application.UI.Resx
         static string GetAcceptLanguageCore()
         {
             var culture = AppResources.Culture ?? DefaultCurrentUICulture;
-            return GetAcceptLanguage(culture);
+            return culture.GetAcceptLanguage();
         }
 
         static string? mAcceptLanguage;
 
-        public static string GetAcceptLanguage()
+        public static string AcceptLanguage
         {
-            if (mAcceptLanguage == null)
+            get
             {
-                mAcceptLanguage = GetAcceptLanguageCore();
-            }
-            return mAcceptLanguage;
-        }
-
-        public static string GetAcceptLanguage(CultureInfo culture)
-        {
-            if (IsMatch(culture, "zh-Hans"))
-            {
-                return "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7";
-            }
-            else if (IsMatch(culture, "zh-Hant"))
-            {
-                return "zh-HK,zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7";
-            }
-            else if (IsMatch(culture, "ko"))
-            {
-                return "ko;q=0.9,en-US;q=0.8,en;q=0.7";
-            }
-            else if (IsMatch(culture, "ja"))
-            {
-                return "ja;q=0.9,en-US;q=0.8,en;q=0.7";
-            }
-            else if (IsMatch(culture, "ru"))
-            {
-                return "ru;q=0.9,en-US;q=0.8,en;q=0.7";
-            }
-            else
-            {
-                return "en-US;q=0.9,en;q=0.8";
+                if (mAcceptLanguage == null)
+                {
+                    mAcceptLanguage = GetAcceptLanguageCore();
+                }
+                return mAcceptLanguage;
             }
         }
     }
