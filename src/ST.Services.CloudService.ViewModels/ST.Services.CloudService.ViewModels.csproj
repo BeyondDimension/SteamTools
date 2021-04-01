@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>System.Application</RootNamespace>
+    <AssemblyName>System.Application.SteamTools.Services.CloudService.Models</AssemblyName>
+    <DefineConstants>MVVM_VM;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
+      <Link>Properties\InternalsVisibleTo.cs</Link>
+    </Compile>
+    <Compile Include="..\ST.Services.CloudService.Models\*.cs" />
+    <Compile Include="..\ST.Services.CloudService.Models\Models\*.cs">
+      <LinkBase>Models</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Services.CloudService.Models\Models\Internals\*.cs">
+      <LinkBase>Models\Internals</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Services.CloudService.Models\Services.CloudService\*.cs">
+      <LinkBase>Services.CloudService</LinkBase>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\ST.Services.CloudService.Models\Properties\*.resx">
+      <LinkBase>Properties</LinkBase>
+    </EmbeddedResource>
+    <Compile Include="..\ST.Services.CloudService.Models\Properties\SR.Designer.cs">
+      <LinkBase>Properties</LinkBase>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ReactiveUI" Version="13.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ST\ST.csproj" />
+    <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
+  </ItemGroup>
+
+</Project>

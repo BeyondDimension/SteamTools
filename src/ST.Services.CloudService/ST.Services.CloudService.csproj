@@ -10,6 +10,9 @@
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
+      <Link>Properties\InternalsVisibleTo.cs</Link>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -17,10 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ST.Services.CloudService.Models\ST.Services.CloudService.Models.csproj" />
+    <Folder Include="Services\CloudService\Grpc\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\CloudService\Grpc\" />
+    <ProjectReference Include="..\ST.Services.CloudService.ViewModels\ST.Services.CloudService.ViewModels.csproj" />
   </ItemGroup>
 </Project>

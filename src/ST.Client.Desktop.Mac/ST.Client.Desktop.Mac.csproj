@@ -1,6 +1,8 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
+﻿<!--<Project Sdk="Microsoft.NET.Sdk">-->
+<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
+    <!--<TargetFramework>net6.0-macos</TargetFramework>-->
     <TargetFrameworks>Xamarin.Mac20;netstandard2.1</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Desktop.Mac</AssemblyName>
@@ -28,6 +30,9 @@
   <ItemGroup>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
+      <Link>Properties\InternalsVisibleTo.cs</Link>
     </Compile>
   </ItemGroup>
 

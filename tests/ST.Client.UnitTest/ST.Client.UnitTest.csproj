@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\ST.Client.Desktop\ST.Client.Desktop.csproj" />
     <ProjectReference Include="..\..\src\ST.Client\ST.Client.csproj" />
     <ProjectReference Include="..\..\src\Common.CoreLib\Common.CoreLib.csproj" />
   </ItemGroup>
@@ -31,6 +32,7 @@
     <PackageReference Include="NUnit" Version="3.13.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+    <PackageReference Include="Moq" Version="4.16.1" />
   </ItemGroup>
 
 </Project>

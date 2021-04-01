@@ -61,6 +61,15 @@ namespace System.Application.UI
 
                 try
                 {
+                    IHostsFileService.OnExitRestoreHosts();
+                }
+                catch (Exception ex_restore_hosts)
+                {
+                    logger.Error(ex_restore_hosts, "(App)Close exception when OnExitRestoreHosts");
+                }
+
+                try
+                {
                     if (!App.Shutdown())
                     {
                         try

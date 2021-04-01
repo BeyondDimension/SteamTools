@@ -52,7 +52,7 @@ namespace System.Application.Services
 
         public IReadOnlyCollection<AccelerateProjectDTO?>? EnableProxyDomains
         {
-            get 
+            get
             {
                 if (!ProxyDomains.Any_Nullable())
                     return null;
@@ -160,7 +160,7 @@ namespace System.Application.Services
             #region 加载代理服务数据
             var client = ICloudServiceClient.Instance.Accelerate;
             var result = await client.All();
-            if (!result.IsSuccess || !result.Content.Any_Nullable())
+            if (!result.IsSuccess)
             {
                 return;
             }
@@ -184,7 +184,7 @@ namespace System.Application.Services
 
         public void Dispose()
         {
-            IHostsFileService.Instance.RemoveHostsByTag();
+            IHostsFileService.OnExitRestoreHosts();
             httpProxyService.Dispose();
         }
     }
