@@ -41,7 +41,7 @@
                 </Menu>-->
                 <Menu Classes="BindMenu">
                     <MenuItem Items="{Binding SelectedItem.MenuItems}" Classes="BindItem"
-          IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}">
+                        IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}">
                         <MenuItem.Header>
                             <DrawingPresenter Drawing="{StaticResource SettingsDrawing}" Width="14"></DrawingPresenter>
                         </MenuItem.Header>

@@ -127,7 +127,7 @@ namespace System.Application.Services.Implementation
                 if (IPAddress.IsLoopback(s.Result.FirstOrDefault())
               && ProxyDomains.Count(w => w.Enable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
                 {
-                    e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
+                    e.Ok($"IsLoopback URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
                     return;
                 }
                 Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
@@ -153,7 +153,7 @@ namespace System.Application.Services.Implementation
                 if (IsOnlyWorkSteamBrowser)
                 {
                     var ua = e.HttpClient.Request.Headers.GetHeaders("User-Agent");
-                    if (ua.Any())
+                    if (ua.Any_Nullable())
                     {
                         if (!ua.First().Value.Contains("Valve Steam"))
                         {

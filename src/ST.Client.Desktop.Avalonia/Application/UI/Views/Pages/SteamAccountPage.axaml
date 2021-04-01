@@ -18,7 +18,9 @@
                    Text="{Binding Path=Res.UserChange_NoUserTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
                    TextWrapping="WrapWithOverflow"
                    VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-        <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="{StaticResource PageMargin}">
+        <ScrollViewer  HorizontalScrollBarVisibility="Disabled" 
+                       VerticalScrollBarVisibility="Auto" 
+                       Padding="{StaticResource PageMargin}">
             <ItemsRepeater Items="{Binding SteamUsers}">
                 <ItemsRepeater.Layout>
                     <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
@@ -28,6 +30,22 @@
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
                         <Panel x:Name="panel" MinWidth="200">
+                            <Panel.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem 
+                                              Header="{Binding Path=Res.UserChange_BtnText,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                                              Command="{Binding #u.DataContext.SteamId_Click}" 
+                                              CommandParameter="{Binding}" />
+                                    <MenuItem 
+                                              Header="{Binding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                                              Command="{Binding #u.DataContext.OfflineModeButton_Click}" 
+                                              CommandParameter="{Binding}" />
+                                    <MenuItem 
+                                              Header="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                                              Command="{Binding #u.DataContext.DeleteUserButton_Click}" 
+                                              CommandParameter="{Binding}" />
+                                </ContextMenu>
+                            </Panel.ContextMenu>
                             <Border x:Name="card" DockPanel.Dock="Top" Classes="paper" CornerRadius="0" Background="{DynamicResource ThemeBrushKey}">
                                 <i:Interaction.Behaviors>
                                     <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{Binding #card}">

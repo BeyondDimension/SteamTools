@@ -3,7 +3,9 @@ using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -131,12 +133,26 @@ namespace System.Application.Services
                     if (value)
                     {
                         httpProxyService.ProxyDomains = EnableProxyDomains;
-                        //var hosts = httpProxyService.ProxyDomains.Select();
-                        var isRun = httpProxyService.StartProxy(ProxySettings.IsProxyGOG.Value, ProxySettings.EnableWindowsProxy.Value);
+                        var hosts = httpProxyService.ProxyDomains.Select(s =>
+                        {
+                            foreach (var host in s.HostsArray)
+                            {
+                                if (host.Contains(" "))
+                                {
+                                    var h = host.Split(' ');
+                                    return (h[0], h[1]);
+                                }
+                                return (IPAddress.Loopback.ToString(), host);
+                            }
+                            return ("", "");
+                        }).Where(w => !string.IsNullOrEmpty(w.Item1)).ToDictionary(k => k.Item1, v => v.Item2);
+
+                        var isRun = httpProxyService.StartProxy(ProxySettings.EnableWindowsProxy.Value, ProxySettings.IsProxyGOG.Value);
+
                         if (isRun)
                         {
                             StartTiming();
-                            //IHostsFileService.Instance.UpdateHosts();
+                            IHostsFileService.Instance.UpdateHosts(hosts);
                             Toast.Show(AppResources.CommunityFix_StartProxySuccess);
                         }
                         else
@@ -147,6 +163,7 @@ namespace System.Application.Services
                     else
                     {
                         httpProxyService.StopProxy();
+                        IHostsFileService.Instance.RemoveHostsByTag();
                         //Toast.Show(SteamTools.Properties.Resources.ProxyStop);
                     }
                     this.RaisePropertyChanged();
@@ -164,7 +181,7 @@ namespace System.Application.Services
             {
                 return;
             }
-            ProxyDomains = new List<AccelerateProjectGroupDTO>(result.Content);
+            ProxyDomains = new ObservableCollection<AccelerateProjectGroupDTO>(result.Content);
             SelectGroup = ProxyDomains.FirstOrDefault();
             #endregion
         }

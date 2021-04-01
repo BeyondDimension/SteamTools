@@ -16,7 +16,9 @@
         <vm:CommunityProxyPageViewModel/>
     </Design.DataContext>
     <Panel HorizontalAlignment="Stretch">
-        <Grid IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=!ProxyStatus,Mode=OneWay}" ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
+        <Grid IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=!ProxyStatus,Mode=OneWay}" 
+              ColumnDefinitions="Auto,*" 
+              RowDefinitions="Auto,*">
             <!--<Border Margin="10 0 10 10" Padding="20" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
                 <Button
                     Content="{Binding Path=Res.CommunityFix_Acceleration,Mode=OneWay,Source={x:Static resx:R.Current}}"
@@ -30,10 +32,13 @@
                     VerticalAlignment="Bottom"></Button>
             </Border>-->
 
-            <Border Grid.RowSpan="2" Margin="10 0 10 10" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
+            <Border Grid.RowSpan="2" 
+                    Margin="10 0 10 10" 
+                    Classes="paper" 
+                    Background="{DynamicResource ThemeBrushKey}">
                 <ListBox x:Name="items"
                                Items="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyDomains,Mode=OneWay}"
-                               SelectedItem="{Binding Source={x:Static service:ProxyService.Current},Path=SelectGroup,Mode=OneWay}"
+                               SelectedItem="{Binding Source={x:Static service:ProxyService.Current},Path=SelectGroup,Mode=TwoWay}"
                                ScrollViewer.VerticalScrollBarVisibility="Auto"
                                AutoScrollToSelectedItem="True"
                                Background="Transparent">
@@ -41,12 +46,21 @@
                         <DataTemplate>
                             <!--<Border Classes="paper" Background="{DynamicResource ThemeBrushKey}">-->
                             <StackPanel>
-                                <WrapPanel Orientation="Horizontal" Margin="20">
-                                    <CheckBox Classes="onlyCheckBox" IsChecked="{Binding Enable}" IsThreeState="True"  Margin="0 0 20 0">
+                                <WrapPanel Orientation="Horizontal" 
+                                           Margin="20">
+                                    <CheckBox Classes="onlyCheckBox" 
+                                              IsChecked="{Binding Enable,Mode=TwoWay}" 
+                                              IsThreeState="True"  
+                                              Margin="0 0 20 0">
                                     </CheckBox>
                                     <Image Width="40" Source="/Application/UI/Assets/AppResources/Steam.png">
                                     </Image>
-                                    <controls:ScrollingTextBlock Text="{Binding Name}" FontSize="22" MinWidth="230" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalAlignment="Center" Margin="20 0 0 0"></controls:ScrollingTextBlock>
+                                    <controls:ScrollingTextBlock Text="{Binding Name}" 
+                                                                FontSize="22" MinWidth="230" 
+                                                                 Foreground="{DynamicResource HighlightForegroundBrushKey}" 
+                                                                 VerticalAlignment="Center" 
+                                                                 Margin="20 0 0 0">
+                                    </controls:ScrollingTextBlock>
                                 </WrapPanel>
                                 <Separator Height=".88" BorderThickness=".88" Background="{DynamicResource HighlightForegroundBrushKey}"  />
                             </StackPanel>
@@ -66,8 +80,8 @@
                         </StackPanel>
                         <WrapPanel Orientation="Vertical" HorizontalAlignment="Right">
                             <TextBlock Text="加速模式" Margin="0 5" Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
-                            <RadioButton Content="Hosts代理模式" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value, Mode=TwoWay}"></RadioButton>
-                            <RadioButton Content="Windows系统代理模式" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value, Mode=TwoWay}"></RadioButton>
+                            <RadioButton Content="Hosts代理模式" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value, Mode=TwoWay}"></RadioButton>
+                            <RadioButton Content="Windows系统代理模式" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value, Mode=TwoWay}"></RadioButton>
                         </WrapPanel>
                     </DockPanel>
                 </Border>
@@ -77,7 +91,11 @@
                         <StackPanel>
                             <DockPanel Margin="0 10">
                                 <CheckBox MinWidth="20"
-                                    Content="{Binding Path=Res.CommunityFix_AllCheck,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding #items.SelectedItem.Enable}" IsThreeState="True"></CheckBox>
+                                          Content="{Binding Path=Res.CommunityFix_AllCheck,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                                          IsChecked="{Binding #items.SelectedItem.Enable,Mode=TwoWay}"
+                                          IsThreeState="True">
+                                    
+                                </CheckBox>
                                 <TextBlock Text="{Binding #items.SelectedItem.Name}"
                                            FontSize="20"
                                            VerticalAlignment="Center"
@@ -114,52 +132,57 @@
 
         <Grid RowDefinitions="Auto,*,Auto"
               HorizontalAlignment="Stretch" IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus,Mode=OneWay}">
-            <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0 10 0 0">
+            <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0 10 0 0" Spacing="10">
                 <WrapPanel>
                     <TextBlock Text="已加速 " FontSize="24"></TextBlock>
                     <TextBlock FontSize="24" Text="{Binding AccelerateTime,Source={x:Static service:ProxyService.Current},Converter={StaticResource DateFormatConverter},ConverterParameter='HH:mm:ss'}}"></TextBlock>
                 </WrapPanel>
+                <TextBlock Text="加速模式: Hosts代理模式" FontSize="16" HorizontalAlignment="Center"></TextBlock>
             </StackPanel>
-            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="30" Margin="0 20">
                 <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
-                    <DockPanel>
+                    <DockPanel MinWidth="300">
                         <TextBlock Text="启用的加速服务" FontSize="16" DockPanel.Dock="Top"></TextBlock>
-                        <ItemsControl Items="{Binding EnableProxyDomains,Source={x:Static service:ProxyService.Current}}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <DockPanel>
-                                            <TextBlock Text="{Binding Name}"></TextBlock>
-                                        </DockPanel>
-                                        <Separator Height=".88" BorderThickness=".88" Background="{DynamicResource HighlightForegroundBrushKey}"  />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                        <ScrollViewer>
+                            <ItemsControl Items="{Binding EnableProxyDomains,Source={x:Static service:ProxyService.Current}}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="10">
+                                            <DockPanel>
+                                                <TextBlock Text="{Binding Name}"></TextBlock>
+                                            </DockPanel>
+                                            <Separator Height=".88" BorderThickness=".88" Background="{DynamicResource HighlightForegroundBrushKey}"  />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
                     </DockPanel>
                 </Border>
 
                 <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
-                    <DockPanel>
+                    <DockPanel MinWidth="300">
                         <TextBlock Text="启用的脚本服务" FontSize="16" DockPanel.Dock="Top"></TextBlock>
-                        <ItemsControl Items="{Binding EnableProxyScripts,Source={x:Static service:ProxyService.Current}}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <DockPanel>
-                                            <TextBlock Text="{Binding Name}"></TextBlock>
-                                        </DockPanel>
-                                        <Separator Height=".88" BorderThickness=".88" Background="{DynamicResource HighlightForegroundBrushKey}"  />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                        <ScrollViewer>
+                            <ItemsControl Items="{Binding EnableProxyScripts,Source={x:Static service:ProxyService.Current}}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="10">
+                                            <DockPanel>
+                                                <TextBlock Text="{Binding Name}"></TextBlock>
+                                            </DockPanel>
+                                            <Separator Height=".88" BorderThickness=".88" Background="{DynamicResource HighlightForegroundBrushKey}"  />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
                     </DockPanel>
                 </Border>
             </StackPanel>
 
-            <StackPanel Grid.Row="2" Margin="20 20 20 50">
-                <Button Content="停止加速" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Height="40" Width="200" VerticalContentAlignment="Center" FontSize="18" Command="{Binding StartProxyButton_Click}" CommandParameter="False"></Button>
+            <StackPanel Grid.Row="2" Margin="20 0 20 50">
+                <Button Content="停止加速" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Height="40" Width="200" VerticalContentAlignment="Center" FontSize="18" Command="{Binding StartProxyButton_Click}" CommandParameter="False" Background="{DynamicResource SystemAccentColor}"></Button>
             </StackPanel>
         </Grid>
     </Panel>

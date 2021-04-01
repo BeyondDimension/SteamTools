@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="clr-namespace:System.Application.UI.Views.Pages"
+             mc:Ignorable="d"
+             d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="System.Application.UI.Views.Pages.ProxyScriptManagePage">
+    <Panel HorizontalAlignment="Stretch">
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Top">
+                <Button Content="一键加速" FontSize="16" MinWidth="200" Height="40" Background="{DynamicResource SystemAccentColor}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Button>
+                
+            </DockPanel>
+            <ItemsPresenter>
+                
+                
+            </ItemsPresenter>
+        </DockPanel>
+    </Panel>
+</UserControl>

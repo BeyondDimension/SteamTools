@@ -55,6 +55,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Application\UI\Views\Pages\ProxyScriptManagePage.axaml.cs">
+      <DependentUpon>ProxyScriptManagePage.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Application\UI\Views\Windows\ProxyScriptManageWindow.axaml.cs">
       <DependentUpon>ProxyScriptManageWindow.axaml</DependentUpon>
     </Compile>

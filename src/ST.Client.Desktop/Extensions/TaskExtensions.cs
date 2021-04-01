@@ -18,10 +18,10 @@ namespace System.Application
 		}
 
 		public static void ForgetAndDispose(
-	this Task task,
-	[CallerMemberName] string callerMemberName = "",
-	[CallerFilePath] string callerFilePath = "",
-	[CallerLineNumber] int callerLineNumber = 0)
+			this Task task,
+			[CallerMemberName] string callerMemberName = "",
+			[CallerFilePath] string callerFilePath = "",
+			[CallerLineNumber] int callerLineNumber = 0)
 		{
 			task.ContinueWith(
 				x => TaskLog.Raise(new TaskLog(callerMemberName, callerFilePath, callerLineNumber, x.Exception)),
