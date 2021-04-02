@@ -110,6 +110,8 @@ namespace System
         /// <returns></returns>
         public static sbyte? TryParseSByte(this string value) => sbyte.TryParse(value, out sbyte temp) ? temp : null;
 
+        public static Version? TryParseVersion(this string value) => Version.TryParse(value, out var temp) ? temp : null;
+
         #endregion
 
         #region 数字字母判断

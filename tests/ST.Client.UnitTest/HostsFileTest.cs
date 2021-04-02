@@ -306,7 +306,7 @@ namespace System.Application
             Test(hosts, (hosts, s, dps) =>
             {
                 var str_value_0 = GetHosts(File.ReadAllLines(dps.HostsFilePath));
-                var str_value_0_ = File.ReadAllText(dps.HostsFilePath);
+                //var str_value_0_ = File.ReadAllText(dps.HostsFilePath);
 
                 var values = s.UpdateHosts(datas.Select(x => (x.ip + "3", x.domain)));
                 Assert.IsTrue(values.ResultType == OperationResultType.Success, values.Message);
@@ -318,7 +318,7 @@ namespace System.Application
                 Assert.IsTrue(values2.ResultType == OperationResultType.Success, values2.Message);
 
                 var str_value_2 = GetHosts(File.ReadAllLines(dps.HostsFilePath));
-                var str_value_2_ = File.ReadAllText(dps.HostsFilePath);
+                //var str_value_2_ = File.ReadAllText(dps.HostsFilePath);
                 var isTrue = TestEquals(str_value_0, str_value_2);
                 Assert.IsTrue(isTrue, "str_value_0 == str_value_2");
             });

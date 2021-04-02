@@ -1,10 +1,9 @@
 ﻿using Foundation;
-using System.Application.UI;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-namespace System.Application
+namespace System.Application.UI
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the
     // User Interface of the application, as well as listening (and optionally responding) to
@@ -23,6 +22,14 @@ namespace System.Application
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            VisualStudioAppCenterSDK.Init();
+
+            DILevel level;
+            /*if (isMainProcess)*/
+            level = DILevel.MainProcess;
+            //level = DILevel.Min;
+            Startup.Init(level);
+
             Forms.Init();
             FormsMaterial.Init();
             LoadApplication(new App());

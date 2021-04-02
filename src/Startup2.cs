@@ -1,27 +1,56 @@
-﻿using Avalonia.Controls;
+﻿#if !__MOBILE__
+using Avalonia.Controls;
+#endif
+#if UI_DEMO
+using Moq;
+#endif
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System.Application.Models;
 using System.Application.Services;
+using System.Application.Services.CloudService;
 using System.Application.Services.Implementation;
-using System.Application.UI.ViewModels;
-using System.Application.UI.Views;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+using System.Application.UI;
+using System.Collections.Generic;
 using System.Reflection;
 
-namespace System.Application.UI
+namespace System.Application
 {
-    partial class Startup
+    internal static class Startup
     {
-        static void InitDI(CommandLineTools.DILevel level)
-        {
-            DI.Init(s => ConfigureServices(s, level));
-        }
+        static bool isInitialized;
 
-        static void ConfigureServices(IServiceCollection services, CommandLineTools.DILevel level)
+        /// <summary>
+        /// 初始化启动
+        /// </summary>
+        public static void Init(DILevel level)
         {
-            ConfigureRequiredServices(services);
-            ConfigureDemandServices(services, level);
+            if (!isInitialized)
+            {
+                isInitialized = true;
+#if !__MOBILE__
+                FileSystemDesktop.InitFileSystem();
+#endif
+                if (level.HasFlag(DILevel.ServerApiClient))
+                {
+                    ModelValidatorProvider.Init();
+                }
+                InitDI(level);
+                static void InitDI(DILevel level)
+                {
+#if UI_DEMO
+                    DI.Init(new MockServiceProvider(ConfigureDemoServices));
+#else
+                    DI.Init(s => ConfigureServices(s, level));
+                    static void ConfigureServices(IServiceCollection services, DILevel level)
+                    {
+                        ConfigureRequiredServices(services);
+                        ConfigureDemandServices(services, level);
+                    }
+#endif
+                }
+            }
         }
 
         /// <summary>
@@ -31,38 +60,54 @@ namespace System.Application.UI
         static void ConfigureRequiredServices(IServiceCollection services)
         {
             // 添加日志实现
+#if __ANDROID__
+            services.AddClientLogging();
+#elif __IOS__
+            services.AddLogging(cfg => cfg.AddProvider(NullLoggerProvider.Instance));
+#else
             services.AddDesktopLogging();
+#endif
+#if __MOBILE__
+            // 添加运行时权限
+            services.TryAddPermissions();
+            services.AddPlatformPermissions();
+#endif
         }
-
-        public static bool HasNotifyIcon { get; private set; }
 
         /// <summary>
         /// 配置按需使用的依赖注入服务
         /// </summary>
         /// <param name="services"></param>
-        static void ConfigureDemandServices(IServiceCollection services, CommandLineTools.DILevel level)
+        static void ConfigureDemandServices(IServiceCollection services, DILevel level)
         {
-            HasNotifyIcon = level.HasFlag(CommandLineTools.DILevel.NotifyIcon);
-            var hasWindow = level.HasFlag(CommandLineTools.DILevel.Window);
-            var hasCloud = level.HasFlag(CommandLineTools.DILevel.Cloud);
-            var hasHttp = level.HasFlag(CommandLineTools.DILevel.Http);
-            var hasHttpProxy = level.HasFlag(CommandLineTools.DILevel.HttpProxy);
-            var hasModelValidator = level.HasFlag(CommandLineTools.DILevel.ModelValidator);
-            var hasHosts = level.HasFlag(CommandLineTools.DILevel.Hosts);
-            var hasAppUpdate = level.HasFlag(CommandLineTools.DILevel.AppUpdate);
-            var hasSteamCollection = level.HasFlag(CommandLineTools.DILevel.SteamCollection);
-            var notMin = level != CommandLineTools.DILevel.Min;
+            var hasMainProcessRequired = level.HasFlag(DILevel.MainProcessRequired);
+#if !__MOBILE__
+            HasNotifyIcon = hasMainProcessRequired;
+#if !UI_DEMO
+            // 桌面平台服务 此项放在其他通用业务实现服务之前
+            services.AddDesktopPlatformService();
+#endif
+#endif
+            var hasGUI = level.HasFlag(DILevel.GUI);
+            var hasServerApiClient = level.HasFlag(DILevel.ServerApiClient);
+            var hasHttpClientFactory = level.HasFlag(DILevel.HttpClientFactory);
+            var hasHttpProxy = level.HasFlag(DILevel.HttpProxy);
+            var hasHosts = level.HasFlag(DILevel.Hosts);
+            var hasSteam = level.HasFlag(DILevel.Steam);
 
-            if (hasWindow)
+            if (hasGUI)
             {
+                // 添加 Toast 提示服务
+                services.TryAddToast();
+#if __MOBILE__
+                // 添加电话服务
+                services.AddTelephonyService();
+#else
                 services.AddSingleton<IDesktopAppService>(s => App.Instance);
                 services.AddSingleton<IDesktopAvaloniaAppService>(s => App.Instance);
 
                 // 添加管理主窗口服务
                 services.AddWindowService();
-
-                // 添加类似 Android Toast 的桌面端实现
-                services.TryAddToast();
 
                 // 添加主线程助手(MainThreadDesktop)
                 services.AddMainThreadPlatformService();
@@ -97,22 +142,26 @@ namespace System.Application.UI
 
                 //var vms = typeof(ViewModelBase).Assembly.GetTypes().Where(x => x.IsClass && !x.IsAbstract && x.Namespace != null && x.Namespace.Contains("UI.ViewModels")).ToArray();
                 //services.AddAutoMapper(vms);
+#endif
             }
 
-            if (notMin)
+            if (hasHttpClientFactory || hasServerApiClient)
             {
-                // 桌面平台服务 此项放在其他通用业务实现服务之前
-                services.AddDesktopPlatformService();
-            }
-
-            if (hasHttp || hasCloud)
-            {
+#if __MOBILE__
+                // 添加 Http 平台助手移动端实现
+                services.AddPlatformHttpPlatformHelper();
+#else
                 // 添加 Http 平台助手桌面端实现
                 services.AddDesktopHttpPlatformHelper();
+#endif
             }
 
-            if (hasHttp)
+            if (hasHttpClientFactory)
             {
+#if __MOBILE__
+                // 添加 HttpClientFactory 平台原生实现
+                services.AddNativeHttpClient();
+#endif
                 // 通用 Http 服务
                 services.AddHttpService();
             }
@@ -123,19 +172,16 @@ namespace System.Application.UI
                 services.AddHttpProxyService();
             }
 
-            if (hasModelValidator || hasCloud)
-            {
-                // 添加模型验证框架
-                services.TryAddModelValidator();
-            }
-
-            if (hasCloud)
+            if (hasServerApiClient)
             {
                 // 添加 app 配置项
                 services.TryAddOptions(AppSettings);
-
+#if !__MOBILE__
                 // 添加安全服务
                 services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
+#endif
+                // 添加模型验证框架
+                services.TryAddModelValidator();
 
                 // 添加服务端API调用
                 services.TryAddCloudServiceClient<CloudServiceClient>(useMock: true);
@@ -150,7 +196,8 @@ namespace System.Application.UI
                 services.TryAddUserManager();
             }
 
-            if (hasWindow || hasCloud)
+#if !__MOBILE__
+            if (hasGUI || hasServerApiClient)
             {
                 // 业务用户配置文件服务
                 services.AddConfigFileService();
@@ -162,7 +209,7 @@ namespace System.Application.UI
                 services.AddHostsFileService();
             }
 
-            if (hasSteamCollection)
+            if (hasSteam)
             {
                 // Steam 相关助手、工具类服务
                 services.AddSteamService();
@@ -177,21 +224,32 @@ namespace System.Application.UI
                 services.AddSteamworksWebApiService();
             }
 
-            if (hasAppUpdate)
+            if (hasMainProcessRequired)
             {
                 // 应用程序更新服务
                 services.AddAppUpdateService();
             }
-
             if (HasNotifyIcon)
             {
                 // 托盘图标
 #if WINDOWS
                 //services.AddTransient<INotifyIconWindow<ContextMenu>, Win32NotifyIconWindow>();
 #endif
+#if !UI_DEMO
                 services.AddNotifyIcon<NotifyIconImpl>();
+#endif
             }
+#endif
         }
+
+#if UI_DEMO
+        static void ConfigureDemoServices(IServiceCollection services)
+        {
+            services.AddLogging(cfg => cfg.AddProvider(NullLoggerProvider.Instance));
+
+            services.AddSingleton<ICloudServiceClient, MockCloudServiceClient>();
+        }
+#endif
 
         static AppSettings AppSettings
         {
@@ -201,7 +259,6 @@ namespace System.Application.UI
                 var options = new AppSettings
                 {
                     AppVersion = GetResValue("app-id", false).TryParseGuidN() ?? default,
-                    AppSecretVisualStudioAppCenter = GetResValue("appcenter-secret", false),
                     AesSecret = GetResValue("aes-key", true),
                     RSASecret = GetResValue("rsa-public-key", false),
                     ApiBaseUrl = GetResValue("api-base-url", false),
@@ -215,53 +272,58 @@ namespace System.Application.UI
             }
         }
 
+#if !__MOBILE__
+        public static bool HasNotifyIcon { get; private set; }
+
+#if !UI_DEMO
         sealed class NotifyIconImpl : NotifyIcon<ContextMenu>, INotifyIcon { }
+#endif
 
 #if WINDOWS
-        sealed class Win32NotifyIconWindow : MainWindow, INotifyIconWindow<ContextMenu>
-        {
-            sealed class Win32WindowImpl : Avalonia.Win32.WindowImpl
-            {
-                public Win32NotifyIconWindow? Window { get; set; }
+        //sealed class Win32NotifyIconWindow : MainWindow, INotifyIconWindow<ContextMenu>
+        //{
+        //    sealed class Win32WindowImpl : Avalonia.Win32.WindowImpl
+        //    {
+        //        public Win32NotifyIconWindow? Window { get; set; }
 
-                protected override IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
-                {
-                    var _notifyIcon = Window?.NotifyIcon;
-                    var value = _notifyIcon == null ? null : NotifyIcon<ContextMenu>.WndProc(_notifyIcon, msg, wParam, lParam);
-                    return value ?? base.WndProc(hWnd, msg, wParam, lParam);
-                }
-            }
+        //        protected override IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
+        //        {
+        //            var _notifyIcon = Window?.NotifyIcon;
+        //            var value = _notifyIcon == null ? null : NotifyIcon<ContextMenu>.WndProc(_notifyIcon, msg, wParam, lParam);
+        //            return value ?? base.WndProc(hWnd, msg, wParam, lParam);
+        //        }
+        //    }
 
-            public Win32NotifyIconWindow() : base(new Win32WindowImpl())
-            {
-                if (PlatformImpl is Win32WindowImpl impl)
-                {
-                    impl.Window = this;
-                }
-                else
-                {
-                    throw new PlatformNotSupportedException();
-                }
-            }
+        //    public Win32NotifyIconWindow() : base(new Win32WindowImpl())
+        //    {
+        //        if (PlatformImpl is Win32WindowImpl impl)
+        //        {
+        //            impl.Window = this;
+        //        }
+        //        else
+        //        {
+        //            throw new PlatformNotSupportedException();
+        //        }
+        //    }
 
-            public IntPtr Handle => PlatformImpl.Handle.Handle;
+        //    public IntPtr Handle => PlatformImpl.Handle.Handle;
 
-            [NotNull, DisallowNull] // C# 8 not null
-            public NotifyIcon<ContextMenu>? NotifyIcon { get; private set; }
+        //    [NotNull, DisallowNull] // C# 8 not null
+        //    public NotifyIcon<ContextMenu>? NotifyIcon { get; private set; }
 
-            public void Initialize(INotifyIcon<ContextMenu> notifyIcon)
-            {
-                if (notifyIcon is NotifyIcon<ContextMenu> _notifyIcon)
-                {
-                    NotifyIcon = _notifyIcon;
-                }
-                else
-                {
-                    throw new PlatformNotSupportedException();
-                }
-                //Content = NotifyIcon;
-            }
-        }
+        //    public void Initialize(INotifyIcon<ContextMenu> notifyIcon)
+        //    {
+        //        if (notifyIcon is NotifyIcon<ContextMenu> _notifyIcon)
+        //        {
+        //            NotifyIcon = _notifyIcon;
+        //        }
+        //        else
+        //        {
+        //            throw new PlatformNotSupportedException();
+        //        }
+        //        //Content = NotifyIcon;
+        //    }
+        //}
 
         //        sealed class WPFMessageBoxCompatService : IMessageBoxCompatService
         //        {
@@ -316,6 +378,35 @@ namespace System.Application.UI
         //                }
         //            }
         //        }
+#endif
+#endif
+
+#if UI_DEMO
+        sealed class MockServiceProvider : IServiceProvider
+        {
+            static readonly Type typeMock = typeof(Mock<>);
+            readonly Dictionary<Type, object?> pairs = new();
+            readonly IServiceProvider serviceProvider;
+
+            public MockServiceProvider(Action<IServiceCollection> configureServices)
+            {
+                var services = new ServiceCollection();
+                configureServices(services);
+                serviceProvider = services.BuildServiceProvider();
+            }
+
+            public object? GetService(Type serviceType)
+            {
+                var service = serviceProvider.GetService(serviceType);
+                if (service != null) return service;
+                if (pairs.ContainsKey(serviceType)) return pairs[serviceType];
+                var mockServiceType = typeMock.MakeGenericType(serviceType);
+                var mockService = (Mock?)Activator.CreateInstance(mockServiceType);
+                service = mockService?.Object;
+                pairs.Add(serviceType, service);
+                return service;
+            }
+        }
 #endif
     }
 }

@@ -1,11 +1,9 @@
 ﻿#if MONO_MAC
 using MonoMac.AppKit;
 using MonoMac.Foundation;
-using Selector = MonoMac.ObjCRuntime.Selector;
 #elif XAMARIN_MAC
 using AppKit;
 using Foundation;
-using Selector = ObjCRuntime.Selector;
 #endif
 
 namespace System.Application.UI
@@ -20,15 +18,6 @@ namespace System.Application.UI
     [Register("AppDelegate")]
     public sealed class AppDelegate : NSApplicationDelegate
     {
-        public AppDelegate()
-        {
-            // Registers an event for handling URL Invokation
-            NSAppleEventManager.SharedAppleEventManager.SetEventHandler(this,
-                new Selector("handleGetURLEvent:withReplyEvent:"),
-                AEEventClass.Internet,
-                AEEventID.GetUrl);
-        }
-
         static bool isInitialized;
 
         public static void Init()
@@ -71,6 +60,10 @@ namespace System.Application.UI
         /// <param name="notification"></param>
         public override void DidFinishLaunching(NSNotification notification)
         {
+#if !NETSTANDARD
+            VisualStudioAppCenterSDK.Init();
+#endif
+
             NSRunningApplication.CurrentApplication.Activate(NSApplicationActivationOptions.ActivateIgnoringOtherWindows);
         }
     }

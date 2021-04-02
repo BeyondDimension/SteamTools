@@ -24,7 +24,7 @@ namespace System.Application.UI
 
             void InitCefNetApp() => CefNetApp.Init(logDirPath, args);
             void InitAvaloniaApp() => BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
-            void InitStartup(CommandLineTools.DILevel level) => Startup.Init(level);
+            void InitStartup(DILevel level) => Startup.Init(level);
 
             var logger = LogManager.GetCurrentClassLogger();
             try
@@ -36,13 +36,12 @@ namespace System.Application.UI
                 }
                 else
                 {
-                    Startup.Init(CommandLineTools.DILevel.Main);
+                    Startup.Init(DILevel.MainProcess);
 
                     if (IsMainProcess)
                     {
                         var appInstance = new ApplicationInstance();
                         if (!appInstance.IsFirst) goto exit;
-                        Migrations.FromV1();
                     }
 
                     InitCefNetApp();

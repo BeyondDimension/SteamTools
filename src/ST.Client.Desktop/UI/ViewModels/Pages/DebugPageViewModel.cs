@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,6 +63,7 @@ namespace System.Application.UI.ViewModels
             @string.AppendFormatLine("SteamDirPath: {0}", dps.GetSteamDirPath());
             @string.AppendFormatLine("SteamProgramPath: {0}", dps.GetSteamProgramPath());
             @string.AppendFormatLine("LastSteamLoginUserName: {0}", dps.GetLastSteamLoginUserName());
+
             (byte[] key, byte[] iv) = dps.MachineSecretKey;
             @string.AppendFormatLine("MachineSecretKey.key: {0}", key.Base64UrlEncode());
             @string.AppendFormatLine("MachineSecretKey.iv: {0}", iv.Base64UrlEncode());

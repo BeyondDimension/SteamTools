@@ -47,7 +47,16 @@ namespace System
                     FileSystemDesktop.InitFileSystem();
 
                     thisFilePath = currentProcess.MainModule.FileName;
-                    appFilePath = thisFilePath.Replace(".win7", string.Empty, StringComparison.OrdinalIgnoreCase);
+                    if (args.Length == 2 && string.Equals(args[0], "-start", StringComparison.OrdinalIgnoreCase) && string.Equals(args[1], "setup", StringComparison.OrdinalIgnoreCase)) // -start setup
+                    {
+                        var fileName = $"setup.{(EnvironmentEx.Is64BitOperatingSystem ? "x64" : "x86")}.exe";
+                        var baseDir = Path.GetDirectoryName(thisFilePath);
+                        appFilePath = Path.Combine(baseDir, fileName);
+                    }
+                    else
+                    {
+                        appFilePath = thisFilePath.Replace(".win7", string.Empty, StringComparison.OrdinalIgnoreCase);
+                    }
 
                     var isQuickStart = QuickStart(out var writeQuickStart);
 

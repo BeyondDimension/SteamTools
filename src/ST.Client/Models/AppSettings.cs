@@ -14,7 +14,7 @@ namespace System.Application.Models
     /// Steam++ 应用配置项
     /// </summary>
     [MPObj]
-    public sealed class AppSettings : IAppSettings, ICloudServiceSettings
+    public sealed class AppSettings : ICloudServiceSettings
     {
         [MPKey(0)]
         [N_JsonProperty("0")]
@@ -52,11 +52,6 @@ namespace System.Application.Models
         [MPKey(3)]
         [N_JsonProperty("3")]
         [S_JsonProperty("3")]
-        public string? AppSecretVisualStudioAppCenter { get; set; }
-
-        [MPKey(4)]
-        [N_JsonProperty("4")]
-        [S_JsonProperty("4")]
         public string? RSASecret { get; set; }
 
         RSA? rsa;

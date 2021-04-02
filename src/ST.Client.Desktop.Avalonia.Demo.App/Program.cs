@@ -6,7 +6,7 @@
         static void Main(string[] args)
         {
             IsMainProcess = true;
-            Startup.Init(CommandLineTools.DILevel.Main);
+            Startup.Init(DILevel.MainProcess);
             BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
         }
     }

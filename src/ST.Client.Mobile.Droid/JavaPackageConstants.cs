@@ -3,6 +3,7 @@
     public static class JavaPackageConstants
     {
         public const string Root = BuildConfig.APPLICATION_ID + ".";
-        public const string Activities = BuildConfig.APPLICATION_ID + ".ui.activities.";
+        public const string UI = Root + "ui.";
+        public const string Activities = UI + "activities.";
     }
 }

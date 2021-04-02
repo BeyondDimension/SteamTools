@@ -6,6 +6,7 @@ using Foundation;
 using System.Application.Models;
 using System.Diagnostics;
 using System.IO;
+using Xamarin.Essentials;
 
 namespace System.Application.Services.Implementation
 {
@@ -69,7 +70,7 @@ namespace System.Application.Services.Implementation
 
         static string GetMachineSecretKey()
         {
-            return string.Empty;
+            return DeviceInfo.Model + DeviceInfo.Name;
         }
 
         static readonly Lazy<(byte[] key, byte[] iv)> mMachineSecretKey = IDesktopPlatformService.GetMachineSecretKey(GetMachineSecretKey);

@@ -133,7 +133,7 @@ namespace System.Application.UI
 
             Name = ThisAssembly.AssemblyTrademark;
             ViewModelBase.IsInDesignMode = ApplicationLifetime == null;
-            if (ViewModelBase.IsInDesignMode) Startup.Init(CommandLineTools.DILevel.Main);
+            if (ViewModelBase.IsInDesignMode) Startup.Init(DILevel.MainProcess);
 
             #region 启动时加载的资源
             SettingsHost.Load();
@@ -286,7 +286,7 @@ namespace System.Application.UI
 
             AppHelper.Initialized?.Invoke();
 
-#if WINDOWS || MAC
+#if WINDOWS
             VisualStudioAppCenterSDK.Init();
 #endif
         }

@@ -50,5 +50,15 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ITelephonyService, PlatformTelephonyServiceImpl>();
             return services;
         }
+
+        /// <summary>
+        /// 添加平台权限
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddPlatformPermissions(this IServiceCollection services)
+        {
+            return services;
+        }
     }
 }

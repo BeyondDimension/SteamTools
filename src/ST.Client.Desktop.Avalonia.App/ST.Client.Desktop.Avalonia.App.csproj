@@ -53,6 +53,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Startup2.cs" />
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>

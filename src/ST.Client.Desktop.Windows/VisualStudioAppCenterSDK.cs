@@ -6,6 +6,15 @@ namespace System.Application
 {
     public static class VisualStudioAppCenterSDK
     {
+        /// <summary>
+        /// Visual Studio App Center
+        /// <list type="bullet">
+        /// <item>将移动开发人员常用的多种服务整合到一个集成的产品中。</item>
+        /// <item>您可以构建，测试，分发和监控移动应用程序，还可以实施推送通知。</item>
+        /// <item>https://docs.microsoft.com/zh-cn/appcenter/sdk/getting-started/xamarin</item>
+        /// <item>https://visualstudio.microsoft.com/zh-hans/app-center</item>
+        /// </list>
+        /// </summary>
         public static void Init()
         {
             var appSecret = AppSecret;
