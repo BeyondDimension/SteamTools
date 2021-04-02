@@ -429,7 +429,10 @@ namespace System.Application.Services.Implementation
 
         public OperationResult UpdateHosts(IEnumerable<(string ip, string domain)> hosts)
         {
-            var value = hosts.ToDictionary(k => k.domain, v => v.ip);
+            //var value = hosts.ToDictionary(k => k.domain, v => v.ip);
+            var value = new Dictionary<string, string>();
+            foreach (var (ip, domain) in hosts)
+                value.TryAdd(domain, ip);
             return UpdateHosts(value);
         }
 
