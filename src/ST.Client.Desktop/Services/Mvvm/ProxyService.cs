@@ -38,8 +38,8 @@ namespace System.Application.Services
             set => this.RaiseAndSetIfChanged(ref _SelectGroup, value);
         }
 
-        private IList<ScriptDTO>? _ProxyScripts;
-        public IList<ScriptDTO>? ProxyScripts
+        private ICollection<ScriptDTO>? _ProxyScripts;
+        public ICollection<ScriptDTO>? ProxyScripts
         {
             get => _ProxyScripts;
             set
@@ -145,7 +145,7 @@ namespace System.Application.Services
                                 return (IPAddress.Loopback.ToString(), host);
                             }
                             return ("", "");
-                        }).Where(w => !string.IsNullOrEmpty(w.Item1)).ToDictionary(k => k.Item1, v => v.Item2);
+                        }).Where(w => !string.IsNullOrEmpty(w.Item1)).ToDictionary(k => k.Item2, v => v.Item1);
 
                         var isRun = httpProxyService.StartProxy(ProxySettings.EnableWindowsProxy.Value, ProxySettings.IsProxyGOG.Value);
 

@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Properties;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -28,7 +29,9 @@ namespace System.Application.UI.ViewModels
 
         public SteamAccountPageViewModel()
         {
-            this.WhenAnyValue(x => x.SteamUsers).Subscribe(s => this.RaisePropertyChanged(nameof(IsUserEmpty)));
+            this.WhenAnyValue(x => x.SteamUsers)
+                  .DistinctUntilChanged()
+                  .Subscribe(s => this.RaisePropertyChanged(nameof(IsUserEmpty)));
             LoginAccountCommand = ReactiveCommand.Create(LoginNewSteamAccount);
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
@@ -39,7 +42,8 @@ namespace System.Application.UI.ViewModels
                         new MenuItemViewModel(nameof(AppResources.UserChange_LoginNewAccount)) {IconKey="SteamDrawing",
                             Command=LoginAccountCommand },
                         new MenuItemViewModel (),
-                        new MenuItemViewModel (nameof(AppResources.Edit)),
+                        new MenuItemViewModel (nameof(AppResources.Refresh))
+                            { IconKey="RefreshDrawing"},
                 //    }
                 //},
             };
@@ -135,10 +139,10 @@ namespace System.Application.UI.ViewModels
                 }
             });
         }
-        
+
         public void OpenUserProfileUrl(SteamUser user)
         {
-           new Process().StartUrl(user.ProfileUrl);
+            new Process().StartUrl(user.ProfileUrl);
         }
 
         public void LoginNewSteamAccount()

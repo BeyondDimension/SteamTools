@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using DynamicData;
+using DynamicData.Binding;
+using Newtonsoft.Json.Linq;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Repositories;
@@ -7,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -23,8 +26,8 @@ namespace System.Application.Services
         public static AuthService Current { get; } = new();
         #endregion
 
-        private IList<MyAuthenticator> _Authenticators = new ObservableCollection<MyAuthenticator>();
-        public IList<MyAuthenticator> Authenticators
+        private ICollection<MyAuthenticator> _Authenticators = new ObservableCollection<MyAuthenticator>();
+        public ICollection<MyAuthenticator> Authenticators
         {
             get => this._Authenticators;
             set
@@ -50,6 +53,7 @@ namespace System.Application.Services
             if (list.Any_Nullable())
             {
                 Authenticators = new ObservableCollection<MyAuthenticator>(list.Select(s => new MyAuthenticator(s)));
+
                 if (isSync)
                 {
                     Task.Run(() =>

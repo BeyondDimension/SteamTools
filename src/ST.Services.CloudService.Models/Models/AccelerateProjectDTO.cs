@@ -1,4 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿#if MVVM_VM
+using ReactiveUI;
+#endif
+using System.Diagnostics.CodeAnalysis;
 using static System.Application.Services.CloudService.Constants;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using MPKey = MessagePack.KeyAttribute;
@@ -15,6 +18,9 @@ namespace System.Application.Models
     /// </summary>
     [MPObj]
     public class AccelerateProjectDTO
+#if MVVM_VM
+        : ReactiveObject
+#endif
     {
         /// <summary>
         /// 显示名称
@@ -111,7 +117,16 @@ namespace System.Application.Models
         [MPKey(8)]
         [N_JsonProperty("8")]
         [S_JsonProperty("8")]
-        public bool Enable { get; set; }
+        public bool Enable
+#if MVVM_VM
+        {
+            get => mEnable;
+            set => this.RaiseAndSetIfChanged(ref mEnable, value);
+        }
+        bool mEnable;
+#else
+        { get; set; }
+#endif
 
         string? mHosts;
         string[]? mHostsArray;

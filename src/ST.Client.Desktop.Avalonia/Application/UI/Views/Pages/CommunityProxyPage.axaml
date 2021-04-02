@@ -49,14 +49,13 @@
                                 <WrapPanel Orientation="Horizontal" 
                                            Margin="20">
                                     <CheckBox Classes="onlyCheckBox" 
-                                              IsChecked="{Binding Enable,Mode=TwoWay}" 
-                                              IsThreeState="True"  
+                                              IsChecked="{Binding ThreeStateEnable,Mode=TwoWay}"
                                               Margin="0 0 20 0">
                                     </CheckBox>
                                     <Image Width="40" Source="/Application/UI/Assets/AppResources/Steam.png">
                                     </Image>
                                     <controls:ScrollingTextBlock Text="{Binding Name}" 
-                                                                FontSize="22" MinWidth="230" 
+                                                                 FontSize="22" MinWidth="230" 
                                                                  Foreground="{DynamicResource HighlightForegroundBrushKey}" 
                                                                  VerticalAlignment="Center" 
                                                                  Margin="20 0 0 0">
@@ -75,8 +74,8 @@
                     <DockPanel>
                         <StackPanel Orientation="Horizontal" Spacing="20">
                             <Button Content="一键加速" FontSize="16" MinWidth="200" Height="40" Background="{DynamicResource SystemAccentColor}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Command="{Binding StartProxyButton_Click}" CommandParameter="True"></Button>
-                            <!--<ToggleSwitch Content="启用加速" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus}"></ToggleSwitch>-->
                             <ToggleSwitch Content="启用脚本" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}"></ToggleSwitch>
+                            <!--<ToggleSwitch Content="启用加速" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus}"></ToggleSwitch>-->
                         </StackPanel>
                         <WrapPanel Orientation="Vertical" HorizontalAlignment="Right">
                             <TextBlock Text="加速模式" Margin="0 5" Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
@@ -92,9 +91,7 @@
                             <DockPanel Margin="0 10">
                                 <CheckBox MinWidth="20"
                                           Content="{Binding Path=Res.CommunityFix_AllCheck,Mode=OneWay,Source={x:Static resx:R.Current}}" 
-                                          IsChecked="{Binding #items.SelectedItem.Enable,Mode=TwoWay}"
-                                          IsThreeState="True">
-                                    
+                                          IsChecked="{Binding #items.SelectedItem.ThreeStateEnable,Mode=TwoWay}">
                                 </CheckBox>
                                 <TextBlock Text="{Binding #items.SelectedItem.Name}"
                                            FontSize="20"
@@ -104,7 +101,7 @@
                             </DockPanel>
 
                             <ScrollViewer>
-                                <ItemsControl Items="{Binding #items.SelectedItem.Items}">
+                                <ItemsControl Items="{Binding #items.SelectedItem.ObservableItems}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel>
@@ -147,7 +144,7 @@
                             <ItemsControl Items="{Binding EnableProxyDomains,Source={x:Static service:ProxyService.Current}}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Margin="10">
+                                        <StackPanel Margin="10 20">
                                             <DockPanel>
                                                 <TextBlock Text="{Binding Name}"></TextBlock>
                                             </DockPanel>
@@ -167,7 +164,7 @@
                             <ItemsControl Items="{Binding EnableProxyScripts,Source={x:Static service:ProxyService.Current}}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Margin="10">
+                                        <StackPanel Margin="10 20">
                                             <DockPanel>
                                                 <TextBlock Text="{Binding Name}"></TextBlock>
                                             </DockPanel>

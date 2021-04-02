@@ -3,6 +3,7 @@ using System.Application.Models.Settings;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 
 namespace System.Application.UI.ViewModels
 {
@@ -27,7 +28,8 @@ namespace System.Application.UI.ViewModels
         {
             SelectLanguage = R.Languages.SingleOrDefault(x => x.Key == UISettings.Language.Value);
             this.WhenAnyValue(x => x.SelectLanguage)
-            .Subscribe(x => UISettings.Language.Value = x.Key);
+                  .DistinctUntilChanged()
+                  .Subscribe(x => UISettings.Language.Value = x.Key);
         }
     }
 }
