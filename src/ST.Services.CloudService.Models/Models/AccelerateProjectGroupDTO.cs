@@ -61,7 +61,11 @@ namespace System.Application.Models
                             }
                         }));
         }
+
         private ObservableCollection<AccelerateProjectDTO>? _ObservableItems;
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
         public ObservableCollection<AccelerateProjectDTO>? ObservableItems
         {
             get => _ObservableItems;

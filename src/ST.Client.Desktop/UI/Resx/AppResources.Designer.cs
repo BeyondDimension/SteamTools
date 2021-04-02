@@ -205,6 +205,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 已加速   的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_AlreadyProxy {
+            get {
+                return ResourceManager.GetString("CommunityFix_AlreadyProxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 程序启动时自动启动加速 的本地化字符串。
         /// </summary>
         public static string CommunityFix_AutoRunProxy {
@@ -241,6 +250,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 启用脚本 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_EnableScriptService {
+            get {
+                return ResourceManager.GetString("CommunityFix_EnableScriptService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 加速设置 的本地化字符串。
         /// </summary>
         public static string CommunityFix_MenuName {
@@ -255,6 +273,33 @@ namespace System.Application.UI.Resx {
         public static string CommunityFix_OnlySteamBrowser {
             get {
                 return ResourceManager.GetString("CommunityFix_OnlySteamBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加速模式 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ProxyMode {
+            get {
+                return ResourceManager.GetString("CommunityFix_ProxyMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Hosts代理模式 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ProxyMode_Hosts {
+            get {
+                return ResourceManager.GetString("CommunityFix_ProxyMode_Hosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Windows系统代理模式 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ProxyMode_WinSystem {
+            get {
+                return ResourceManager.GetString("CommunityFix_ProxyMode_WinSystem", resourceCulture);
             }
         }
         
@@ -277,6 +322,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 一键加速 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_StartProxy {
+            get {
+                return ResourceManager.GetString("CommunityFix_StartProxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 启动加速服务失败，请检查443端口是否被占用或者证书安装失败。 的本地化字符串。
         /// </summary>
         public static string CommunityFix_StartProxyFaild {
@@ -291,6 +345,15 @@ namespace System.Application.UI.Resx {
         public static string CommunityFix_StartProxySuccess {
             get {
                 return ResourceManager.GetString("CommunityFix_StartProxySuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 停止加速 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_StopProxy {
+            get {
+                return ResourceManager.GetString("CommunityFix_StopProxy", resourceCulture);
             }
         }
         

@@ -165,6 +165,10 @@
   <data name="CommunityFix_AllCheck" xml:space="preserve">
     <value>全部启用</value>
   </data>
+  <data name="CommunityFix_AlreadyProxy" xml:space="preserve">
+    <value>已加速  </value>
+    <comment>末尾带空格</comment>
+  </data>
   <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
     <value>程序启动时自动启动加速</value>
   </data>
@@ -177,11 +181,23 @@
   <data name="CommunityFix_EditHostsFile" xml:space="preserve">
     <value>编辑hosts文件</value>
   </data>
+  <data name="CommunityFix_EnableScriptService" xml:space="preserve">
+    <value>启用脚本</value>
+  </data>
   <data name="CommunityFix_MenuName" xml:space="preserve">
     <value>加速设置</value>
   </data>
   <data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
     <value>仅对Steam内置浏览器生效</value>
+  </data>
+  <data name="CommunityFix_ProxyMode" xml:space="preserve">
+    <value>加速模式</value>
+  </data>
+  <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
+    <value>Hosts代理模式</value>
+  </data>
+  <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
+    <value>Windows系统代理模式</value>
   </data>
   <data name="CommunityFix_ScriptManage" xml:space="preserve">
     <value>管理脚本</value>
@@ -189,11 +205,17 @@
   <data name="CommunityFix_SetupCertificate" xml:space="preserve">
     <value>安装证书</value>
   </data>
+  <data name="CommunityFix_StartProxy" xml:space="preserve">
+    <value>一键加速</value>
+  </data>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
     <value>启动加速服务失败，请检查443端口是否被占用或者证书安装失败。</value>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
     <value>加速已启动成功</value>
+  </data>
+  <data name="CommunityFix_StopProxy" xml:space="preserve">
+    <value>停止加速</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>确定</value>

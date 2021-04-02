@@ -58,15 +58,10 @@ namespace System.Application.Services
             {
                 if (!ProxyDomains.Any_Nullable())
                     return null;
-                return ProxyDomains.Select(s =>
+                return ProxyDomains.SelectMany(s =>
                 {
-                    foreach (var item in s.Items)
-                    {
-                        if (item.Enable)
-                            return item;
-                    }
-                    return null;
-                }).Where(w => w != null).ToArray();
+                    return s.Items.Where(w => w.Enable);
+                }).ToArray();
             }
         }
 
@@ -104,6 +99,7 @@ namespace System.Application.Services
                     ProxySettings.IsEnableScript.Value = value;
                     httpProxyService.IsEnableScript = value;
                     this.RaisePropertyChanged();
+                    this.RaisePropertyChanged(nameof(EnableProxyScripts));
                 }
             }
         }
@@ -133,9 +129,10 @@ namespace System.Application.Services
                     if (value)
                     {
                         httpProxyService.ProxyDomains = EnableProxyDomains;
-                        var hosts = httpProxyService.ProxyDomains.Select(s =>
+                        this.RaisePropertyChanged(nameof(EnableProxyDomains));
+                        var hosts = httpProxyService.ProxyDomains.SelectMany(s =>
                         {
-                            foreach (var host in s.HostsArray)
+                            return s?.HostsArray.Select(host =>
                             {
                                 if (host.Contains(" "))
                                 {
@@ -143,9 +140,8 @@ namespace System.Application.Services
                                     return (h[0], h[1]);
                                 }
                                 return (IPAddress.Loopback.ToString(), host);
-                            }
-                            return ("", "");
-                        }).Where(w => !string.IsNullOrEmpty(w.Item1)).ToDictionary(k => k.Item2, v => v.Item1);
+                            });
+                        }).Where(w => !string.IsNullOrEmpty(w.Item1));
 
                         var isRun = httpProxyService.StartProxy(ProxySettings.EnableWindowsProxy.Value, ProxySettings.IsProxyGOG.Value);
 
