@@ -30,8 +30,7 @@ namespace System.Application.Services
         /// <returns></returns>
         OperationResult UpdateHosts(string ip, string domain);
 
-        /// <inheritdoc cref="UpdateHosts(IReadOnlyDictionary{string, string})"/>
-        [Obsolete]
+        /// <inheritdoc cref="UpdateHosts(IReadOnlyDictionary{string, string})"/>\
         OperationResult UpdateHosts(IEnumerable<(string ip, string domain)> hosts);
 
         /// <summary>

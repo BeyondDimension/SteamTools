@@ -40,6 +40,7 @@ namespace System.Application
         {
             // TODO: Add code here that is run after
             //  all tests in the assembly have been run
+            HostsFileTest.DeleteAllTempFileName();
         }
 
         const string DevAppVersion = "00000000000000000000000000000001";

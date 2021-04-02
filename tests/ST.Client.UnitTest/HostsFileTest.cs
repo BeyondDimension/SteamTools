@@ -11,25 +11,37 @@ namespace System.Application
     [TestFixture]
     public class HostsFileTest
     {
-        static void Test(string[] hosts, Action<IHostsFileService> action)
-            => Test(hosts, (s, _) => action(s));
+        static readonly List<string> tempFileNames = new();
 
-        static void Test(string[] hosts, Action<IHostsFileService, IDesktopPlatformService> action)
+        public static void DeleteAllTempFileName()
+        {
+            foreach (var item in tempFileNames)
+            {
+                IOPath.FileIfExistsItDelete(item, notCreateDir: true);
+            }
+        }
+
+        static void Test(string[] hosts, Action<IHostsFileService> action)
+             => Test(hosts, (_, s, _) => action(s));
+
+        static void Test(string[] hosts, Action<string[], IHostsFileService, IDesktopPlatformService> action)
         {
             var tempFileName = Path.GetTempFileName();
+            tempFileNames.Add(tempFileName);
             IOPath.FileIfExistsItDelete(tempFileName);
             File.WriteAllLines(tempFileName, hosts);
             var mock_dps = new Mock<IDesktopPlatformService>();
             mock_dps.Setup(x => x.HostsFilePath).Returns(tempFileName);
             IDesktopPlatformService dps = mock_dps.Object;
             IHostsFileService s = new HostsFileServiceImpl(dps);
-            action(s, dps);
+            action(hosts, s, dps);
             File.Delete(tempFileName);
+            tempFileNames.Remove(tempFileName);
         }
 
-        static bool TestEquals(List<(string ip, string domain)> left, List<(string ip, string domain)> right)
+        static bool TestEquals(IEnumerable<(string ip, string domain)> left, IEnumerable<(string ip, string domain)> right)
         {
-            if (left.Count != right.Count) return false;
+            if (left.Count() != right.Count()) return false;
             foreach (var (ip, domain) in left)
             {
                 var item = right.FirstOrDefault(x => x.domain == domain);
@@ -66,9 +78,11 @@ namespace System.Application
         {
             var query = from m in hosts
                         where !string.IsNullOrWhiteSpace(m)
-                        let array = m.Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                        where array.Length >= 2 && !array[0].StartsWith('#')
-                        select (ip: array[0], domain: array[1]);
+                        let line_split_array = m.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                        where !HostsFileServiceImpl.IsV1Format(line_split_array) &&
+                        line_split_array.Length >= 2 &&
+                        !line_split_array[0].StartsWith('#')
+                        select (ip: line_split_array[0], domain: line_split_array[1]);
             return query;
         }
 
@@ -88,12 +102,12 @@ namespace System.Application
         }
 
         [Test]
-        public void UpdateHosts1()
+        public void SingleUpdateHosts()
         {
             const string ip = "127.0.0.2";
             const string domain = "abcdefg.steampp.net";
             var hosts = hosts_;
-            void Action(IHostsFileService x)
+            void Action(string[] hosts, IHostsFileService x, string ip, string domain)
             {
                 var values_ = x.UpdateHosts(ip, domain);
                 Assert.IsTrue(values_.ResultType == OperationResultType.Success, values_.Message);
@@ -102,13 +116,14 @@ namespace System.Application
                 Assert.IsTrue(values.ResultType == OperationResultType.Success, values.Message);
                 var query = GetHosts(hosts);
                 var values2 = query.ToList();
+                values2.RemoveAll(x => x.domain == domain);
                 values2.Add((ip, domain));
                 var result = TestEquals(values.AppendData, values2);
                 Assert.IsTrue(result);
             }
-            Test(hosts, (s, dps) =>
+            Test(hosts, (hosts, s, dps) =>
             {
-                Action(s);
+                Action(hosts, s, ip, domain);
                 var filePath = dps.HostsFilePath;
                 var lines = File.ReadAllLines(filePath).ToList();
                 var markSIndex = lines.FindIndex(x => x == HostsFileServiceImpl.MarkStart);
@@ -125,9 +140,10 @@ namespace System.Application
             {
                 test_line_value,
             };
-            Test(hosts2.ToArray(), (s, dps) =>
+            Test(hosts2.ToArray(), (hosts, s, dps) =>
             {
-                Action(s);
+                var test_line_value_array = test_line_value.Split(' ');
+                Action(hosts, s, test_line_value_array[0], test_line_value_array[1]);
                 var filePath = dps.HostsFilePath;
                 var lines = File.ReadAllLines(filePath).ToList();
                 var backMarkSIndex = lines.FindIndex(x => x == HostsFileServiceImpl.BackupMarkStart);
@@ -141,7 +157,7 @@ namespace System.Application
         }
 
         [Test]
-        public void UpdateHosts2()
+        public void MultipleUpdateHosts()
         {
             (string ip, string domain)[] datas = new[]
             {
@@ -149,22 +165,23 @@ namespace System.Application
                 ("127.0.0.3", "zxcvb.steampp.net"),
             };
             var hosts = hosts_;
-            void Action(IHostsFileService x)
+            void Action(string[] hosts, IHostsFileService x, IEnumerable<(string ip, string domain)> datas)
             {
                 var values_ = x.UpdateHosts(datas);
                 Assert.IsTrue(values_.ResultType == OperationResultType.Success, values_.Message);
 
                 var values = x.ReadHostsAllLines();
                 Assert.IsTrue(values.ResultType == OperationResultType.Success, values.Message);
-                var query = from m in hosts where !string.IsNullOrWhiteSpace(m) let array = m.Split(' ', StringSplitOptions.RemoveEmptyEntries) where array.Length >= 2 select (ip: array[0], domain: array[1]);
+                var query = GetHosts(hosts);
                 var values2 = query.ToList();
+                values2.RemoveAll(x => datas.Select(x => x.domain).Contains(x.domain));
                 values2.AddRange(datas);
                 var result = TestEquals(values.AppendData, values2);
                 Assert.IsTrue(result);
             }
-            Test(hosts, (s, dps) =>
+            Test(hosts, (hosts, s, dps) =>
             {
-                Action(s);
+                Action(hosts, s, datas);
                 var filePath = dps.HostsFilePath;
                 var lines = File.ReadAllLines(filePath).ToList();
                 var markSIndex = lines.FindIndex(x => x == HostsFileServiceImpl.MarkStart);
@@ -182,9 +199,12 @@ namespace System.Application
             var test_line_values = datas.Select(x => $"{x.ip}4 {x.domain}");
             var hosts2 = new List<string>(hosts_);
             hosts2.AddRange(test_line_values);
-            Test(hosts2.ToArray(), (s, dps) =>
+            Test(hosts2.ToArray(), (hosts, s, dps) =>
             {
-                Action(s);
+                Action(hosts, s,
+                    from m in test_line_values
+                    let test_line_values_array = m.Split(' ')
+                    select (test_line_values_array[0], test_line_values_array[1]));
                 var filePath = dps.HostsFilePath;
                 var lines = File.ReadAllLines(filePath).ToList();
                 var backMarkSIndex = lines.FindIndex(x => x == HostsFileServiceImpl.BackupMarkStart);
@@ -211,8 +231,11 @@ namespace System.Application
             };
             var datas2 = datas.Select(x => $"{x.ip} {x.domain}");
             hosts = hosts.Concat(datas2).ToArray();
-            Test(hosts, (s, dps) =>
+            Test(hosts, (hosts, s, dps) =>
             {
+                var str_value_0 = GetHosts(File.ReadAllLines(dps.HostsFilePath));
+                //var str_value_0_ = File.ReadAllText(dps.HostsFilePath);
+
                 var (ip, domain) = datas.First();
                 var values = s.RemoveHosts(domain);
                 Assert.IsTrue(values.ResultType == OperationResultType.Success, values.Message);
@@ -225,54 +248,80 @@ namespace System.Application
                 var backIndex = lines.FindIndex(x => x.EndsWith($"{ip} {domain}") && x.StartsWith('#'));
                 Assert.IsTrue(backIndex > backMarkSIndex, "backIndex > backMarkSIndex");
                 Assert.IsTrue(backIndex < backMarkEIndex, "backIndex < backMarkEIndex");
-            });
 
-            var hosts2 = new List<string>(hosts_)
-            {
-                HostsFileServiceImpl.MarkStart
-            };
-            hosts2.AddRange(datas2);
-            hosts2.Add(HostsFileServiceImpl.MarkEnd);
-            Test(hosts2.ToArray(), (s, dps) =>
-            {
-                var (ip, domain) = datas.First();
-                var values = s.RemoveHosts(domain);
-                Assert.IsTrue(values.ResultType == OperationResultType.Success, values.Message);
-                var filePath = dps.HostsFilePath;
-                var lines = File.ReadAllLines(filePath).ToList();
-                var index = lines.FindIndex(x => x.Contains($"{ip} {domain}"));
-                Assert.IsTrue(index == -1, "index");
-            });
+                var str_value_1 = File.ReadAllText(dps.HostsFilePath);
+                TestContext.WriteLine(str_value_1);
 
-            var hosts3 = new List<string>(hosts_)
-            {
-                HostsFileServiceImpl.MarkStart
-            };
-            hosts3.AddRange(datas2);
-            hosts3.Add(HostsFileServiceImpl.MarkEnd);
-            hosts3.Add(HostsFileServiceImpl.BackupMarkStart);
-            var first_data = datas.First();
-            var first_data_value = $"{first_data.ip}3 {first_data.domain}";
-            hosts3.Add(first_data_value);
-            hosts3.Add(HostsFileServiceImpl.BackupMarkEnd);
-            Test(hosts3.ToArray(), (s, dps) =>
-            {
-                var (ip, domain) = datas.First();
-                var values = s.RemoveHosts(domain);
-                Assert.IsTrue(values.ResultType == OperationResultType.Success, values.Message);
-                var filePath = dps.HostsFilePath;
-                var lines = File.ReadAllLines(filePath).ToList();
-                var index = lines.FindIndex(x => x.Contains($"{ip} {domain}"));
-                Assert.IsTrue(index == -1, "index");
-                var index2 = lines.FindIndex(x => x == first_data_value);
-                Assert.IsTrue(index >= 0, "index2");
-                // ...
+                var values2 = s.RemoveHosts(domain);
+                Assert.IsTrue(values2.ResultType == OperationResultType.Success, values2.Message);
+
+                var str_value_2 = GetHosts(File.ReadAllLines(dps.HostsFilePath));
+                //var str_value_2_ = File.ReadAllText(dps.HostsFilePath);
+                var isTrue = TestEquals(str_value_0, str_value_2);
+                Assert.IsTrue(isTrue, "str_value_0 == str_value_2");
             });
         }
 
-        //[Test]
-        //public void RemoveHostsByTag()
-        //{
-        //}
+        [Test]
+        public void RemoveHostsByTag()
+        {
+            var hosts = hosts_;
+            (string ip, string domain)[] datas = new[]
+            {
+                ("127.1.0.2", "1qwert.steampp.net"),
+                ("127.1.0.3", "1zxcvb.steampp.net"),
+            };
+            Test(hosts, (hosts, s, dps) =>
+            {
+                var str_value_0 = GetHosts(File.ReadAllLines(dps.HostsFilePath));
+                //var str_value_0_ = File.ReadAllText(dps.HostsFilePath);
+
+                var values = s.UpdateHosts(datas);
+                Assert.IsTrue(values.ResultType == OperationResultType.Success, values.Message);
+
+                var str_value_1 = File.ReadAllText(dps.HostsFilePath);
+                TestContext.WriteLine(str_value_1);
+
+                var values2 = s.RemoveHostsByTag();
+                Assert.IsTrue(values2.ResultType == OperationResultType.Success, values2.Message);
+
+                var str_value_2 = GetHosts(File.ReadAllLines(dps.HostsFilePath));
+                //var str_value_2_ = File.ReadAllText(dps.HostsFilePath);
+                var isTrue = TestEquals(str_value_0, str_value_2);
+                Assert.IsTrue(isTrue, "str_value_0 == str_value_2");
+            });
+        }
+
+        [Test]
+        public void RemoveHostsByTag2()
+        {
+            var hosts = hosts_;
+            (string ip, string domain)[] datas = new[]
+            {
+                ("127.1.0.2", "1qwert.steampp.net"),
+                ("127.1.0.3", "1zxcvb.steampp.net"),
+            };
+            var datas2 = datas.Select(x => $"{x.ip} {x.domain}");
+            hosts = hosts.Concat(datas2).ToArray();
+            Test(hosts, (hosts, s, dps) =>
+            {
+                var str_value_0 = GetHosts(File.ReadAllLines(dps.HostsFilePath));
+                var str_value_0_ = File.ReadAllText(dps.HostsFilePath);
+
+                var values = s.UpdateHosts(datas.Select(x => (x.ip + "3", x.domain)));
+                Assert.IsTrue(values.ResultType == OperationResultType.Success, values.Message);
+
+                var str_value_1 = File.ReadAllText(dps.HostsFilePath);
+                TestContext.WriteLine(str_value_1);
+
+                var values2 = s.RemoveHostsByTag();
+                Assert.IsTrue(values2.ResultType == OperationResultType.Success, values2.Message);
+
+                var str_value_2 = GetHosts(File.ReadAllLines(dps.HostsFilePath));
+                var str_value_2_ = File.ReadAllText(dps.HostsFilePath);
+                var isTrue = TestEquals(str_value_0, str_value_2);
+                Assert.IsTrue(isTrue, "str_value_0 == str_value_2");
+            });
+        }
     }
 }

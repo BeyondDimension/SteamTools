@@ -138,8 +138,13 @@ namespace System.Application.Services.Implementation
 
         static string[] GetLineSplitArray(string line_value) => line_value.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
+        internal static bool IsV1Format(string[] line_split_array) => line_split_array.Length == 3 && line_split_array[2] == "#Steam++";
+
         /// <summary>
         /// 处理一行数据
+        /// <para><see langword="false"/> 当前行格式不正确，不处理直接写入</para>
+        /// <para><see langword="true"/> 当前行格式正确，开始处理</para>
+        /// <para><see langword="null"/> 当前行格式不正确，不处理也不写入</para>
         /// </summary>
         /// <param name="line_num"></param>
         /// <param name="domains"></param>
@@ -147,14 +152,19 @@ namespace System.Application.Services.Implementation
         /// <param name="line_split_array"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        static bool HandleLine(int line_num, HashSet<string> domains, string line_value, out string[] line_split_array, Func<string[], bool>? func = null)
+        static bool? HandleLine(int line_num, HashSet<string> domains, string line_value, out string[] line_split_array, Func<string[], bool?>? func = null)
         {
             line_split_array = GetLineSplitArray(line_value);
-            var r = func?.Invoke(line_split_array) ?? true;
-            if (!r) return false;
+            if (func != null)
+            {
+                var r = func.Invoke(line_split_array);
+                if (!r.HasValue) return null;
+                if (!r.Value) return false;
+            }
             if (line_split_array.Length < 2) return false;
             if (line_split_array[0].StartsWith('#')) return false;
             if (line_split_array.Length > 2 && !line_split_array[2].StartsWith('#')) return false;
+            if (IsV1Format(line_split_array)) return null; // Compat V1
             if (!domains.Add(line_split_array[1]))
                 throw new Exception($"hosts file line {line_num} duplicate");
             return true;
@@ -184,6 +194,7 @@ namespace System.Application.Services.Implementation
                 {
                     int line_num = 0;
                     HashSet<string> domains = new(); // 域名唯一检查
+                    var last_line_value = (string?)null;
                     while (true)
                     {
                         line_num++;
@@ -192,36 +203,36 @@ namespace System.Application.Services.Implementation
                         if (line_value == null) break;
 
                         var not_append = false;
-                        var is_mark = false;
                         var is_effective_value = HandleLine(line_num, domains, line_value, out var line_split_array, line_split_array =>
                         {
+                            if (markLength.Contains(BackupMarkStart) && !markLength.Contains(BackupMarkEnd))
+                            {
+                                if (line_split_array.Length >= 2 && line_split_array[0].StartsWith('#') && int.TryParse(line_split_array[0].TrimStart('#'), out var bak_line_num)) // #{line_num} {line_value}
+                                {
+                                    var bak_line_split_array = line_split_array.AsSpan()[1..];
+                                    if (bak_line_split_array.Length >= 2)
+                                    {
+                                        backup_datas.TryAdd(bak_line_split_array[1], (bak_line_num, string.Join(' ', bak_line_split_array.ToArray())));
+                                    }
+                                }
+                                return null;
+                            }
+
                             var mark = GetMarkValue(line_split_array);
                             if (mark == null) return true;
-                            is_mark = true;
-                            if (!markLength.Add(mark)) throw new Exception($"hosts file mark duplicate, value: {mark}");
-                            return false;
-                        });
-                        if (is_mark) continue; // 当前行是 mark 标志，跳过
-                        if (!is_effective_value) goto append; // 当前行是无效值，直接写入
-                        if (line_split_array.Length == 3 && line_split_array[2] == "#Steam++") // Compat V1
-                        {
-                            domains.Remove(line_split_array[1]);
-                            continue;
-                        }
-                        string ip, domain;
-                        if (markLength.Contains(BackupMarkStart) && !markLength.Contains(BackupMarkEnd))
-                        {
-                            if (line_split_array.Length >= 2 && line_split_array[0].StartsWith('#') && int.TryParse(line_split_array[0].TrimStart('#'), out var bak_line_num)) // #{line_num} {line_value}
+                            if (mark == MarkEnd && !markLength.Contains(MarkStart)) return null;
+                            if (mark == BackupMarkEnd && !markLength.Contains(BackupMarkStart)) return null;
+                            if ((mark == MarkStart || mark == BackupMarkStart) && last_line_value != null && string.IsNullOrWhiteSpace(last_line_value))
                             {
-                                var bak_line_split_array = line_split_array.AsSpan()[1..];
-                                if (bak_line_split_array.Length >= 2)
-                                {
-                                    domain = bak_line_split_array[1];
-                                    backup_datas.TryAdd(domain, (bak_line_num, line_value));
-                                }
+                                var removeLen = last_line_value.Length + Environment.NewLine.Length;
+                                stringBuilder.Remove(stringBuilder.Length - removeLen, removeLen);
                             }
-                            continue;
-                        }
+                            if (!markLength.Add(mark)) throw new Exception($"hosts file mark duplicate, value: {mark}");
+                            return null;
+                        });
+                        if (!is_effective_value.HasValue) goto skip;
+                        if (!is_effective_value.Value) goto append; // 当前行是无效值，直接写入
+                        string ip, domain;
                         ip = line_split_array[0];
                         domain = line_split_array[1];
                         var match_domain = has_hosts && hosts.ContainsKey(domain); // 与要修改的项匹配
@@ -235,11 +246,11 @@ namespace System.Application.Services.Implementation
                                 }
                                 else // 删除值
                                 {
-                                    continue;
+                                    goto skip;
                                 }
                             }
                             insert_mark_datas.TryAdd(domain, ip);
-                            continue;
+                            goto skip;
                         }
                         else // 在标记区域外
                         {
@@ -250,12 +261,21 @@ namespace System.Application.Services.Implementation
                                     insert_mark_datas.TryAdd(domain, ip);
                                 }
                                 backup_insert_mark_datas.TryAdd(domain, (line_num, line_value));
-                                continue;
+                                goto skip;
                             }
                         }
 
-                        if (not_append) continue;
-                        append: stringBuilder.AppendLine(line_value);
+                        if (not_append)
+                        {
+                            goto skip;
+                        }
+
+                    append: stringBuilder.AppendLine(line_value);
+                        last_line_value = line_value;
+                        continue;
+
+                    skip: line_num--;
+                        continue;
                     }
                 }
 
@@ -267,11 +287,14 @@ namespace System.Application.Services.Implementation
                     }
                 }
 
+                var is_restore = !has_hosts && !isUpdateOrRemove;
+
                 void Restore(IEnumerable<KeyValuePair<string, (int line_num, string line_value)>> datas)
                 {
+                    if (!is_restore && datas == backup_datas) datas = new List<KeyValuePair<string, (int line_num, string line_value)>>(datas);
                     foreach (var item in datas)
                     {
-                        var line_index = stringBuilder.GetLineIndex(item.Value.line_num);
+                        var line_index = stringBuilder.GetLineIndex(item.Value.line_num - 1);
                         var line_value = item.Value.line_value;
                         if (line_index >= 0)
                         {
@@ -281,10 +304,10 @@ namespace System.Application.Services.Implementation
                         {
                             stringBuilder.AppendLine(line_value);
                         }
+                        if (!is_restore) backup_datas.Remove(item.Key);
                     }
                 }
 
-                var is_restore = !has_hosts && !isUpdateOrRemove;
                 if (is_restore)
                 {
                     Restore(backup_datas);
@@ -308,10 +331,10 @@ namespace System.Application.Services.Implementation
                         stringBuilder.AppendLine(MarkEnd);
                     }
 
-                    var any_backup_insert_mark_datas = any_insert_mark_datas && backup_insert_mark_datas.Any();
-                    var insert_backup_datas = any_insert_mark_datas ? backup_datas.Where(x => insert_mark_datas.ContainsKey(x.Key)) : backup_datas;
-                    if (any_backup_insert_mark_datas) insert_backup_datas = insert_backup_datas.Where(x => !backup_insert_mark_datas.ContainsKey(x.Key));
-                    if (any_backup_insert_mark_datas || insert_backup_datas.Any()) // 插入备份数据
+                    var any_backup_insert_mark_datas = backup_insert_mark_datas.Any();
+                    var insert_or_remove_backup_datas = any_insert_mark_datas ? backup_datas.Where(x => insert_mark_datas.ContainsKey(x.Key)) : backup_datas;
+                    if (any_backup_insert_mark_datas) insert_or_remove_backup_datas = insert_or_remove_backup_datas.Where(x => !backup_insert_mark_datas.ContainsKey(x.Key));
+                    if (any_backup_insert_mark_datas || insert_or_remove_backup_datas.Any()) // 插入备份数据
                     {
                         stringBuilder.AppendLine();
                         stringBuilder.AppendLine(BackupMarkStart);
@@ -325,7 +348,7 @@ namespace System.Application.Services.Implementation
                                 stringBuilder.AppendLine(item.Value.line_value);
                             }
                         }
-                        foreach (var item in insert_backup_datas)
+                        foreach (var item in insert_or_remove_backup_datas)
                         {
                             stringBuilder.AppendLine(item.Value.line_value);
                         }
@@ -368,7 +391,8 @@ namespace System.Application.Services.Implementation
                     var line = fileReader.ReadLine();
                     if (line == null) break;
                     if (string.IsNullOrWhiteSpace(line)) continue;
-                    if (!HandleLine(index, list, line, out var array)) continue;
+                    var is_effective_value = HandleLine(index, list, line, out var array);
+                    if (!is_effective_value.HasValue || !is_effective_value.Value) continue;
                     yield return (array[0], array[1]);
                 }
             }

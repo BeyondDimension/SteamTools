@@ -22,12 +22,12 @@
         /// <summary>
         /// 定义程序集清单的版权自定义属性
         /// </summary>
-        public const string AssemblyCopyright = "© SteamTools Team.  All rights reserved.";
+        public const string AssemblyCopyright = "© BeyondDimension. All rights reserved. 长沙次元超越科技有限公司 版权所有";
 
         /// <summary>
         /// 定义程序集清单的公司名称自定义属性
         /// </summary>
-        public const string AssemblyCompany = "SteamTools Team";
+        public const string AssemblyCompany = "长沙次元超越科技有限公司";
 
         public const string PublicKey =
 #if SIGN_ASSEMBLY
