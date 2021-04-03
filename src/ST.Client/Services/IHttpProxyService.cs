@@ -21,9 +21,9 @@ namespace System.Application.Services
     {
         public bool IsCertificate { get; }
 
-        public IReadOnlyCollection<AccelerateProjectDTO?>? ProxyDomains { get; set; }
+        public IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
 
-        public IReadOnlyCollection<ProxyScript?>? Scripts { get; set; }
+        public IReadOnlyCollection<ProxyScript>? Scripts { get; set; }
 
         public bool IsEnableScript { get; set; }
 

@@ -24,9 +24,9 @@ namespace System.Application.Services.Implementation
 
         public bool IsCertificate => proxyServer.CertificateManager == null || proxyServer.CertificateManager.RootCertificate == null;
 
-        public IReadOnlyCollection<AccelerateProjectDTO?>? ProxyDomains { get; set; }
+        public IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
 
-        public IReadOnlyCollection<ProxyScript?>? Scripts { get; set; }
+        public IReadOnlyCollection<ProxyScript>? Scripts { get; set; }
 
         public bool IsEnableScript { get; set; }
 
@@ -67,7 +67,7 @@ namespace System.Application.Services.Implementation
             }
             foreach (var item in ProxyDomains)
             {
-                foreach (var host in item.DomainNames)
+                foreach (var host in item.DomainNamesArray)
                 {
                     if (e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(host))
                     {
