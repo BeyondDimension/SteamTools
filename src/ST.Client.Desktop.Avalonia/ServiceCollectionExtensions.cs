@@ -56,5 +56,16 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<INotifyIcon<ContextMenu>>(s => s.GetRequiredService<TNotifyIcon>());
             return services;
         }
+
+        /// <summary>
+        /// 添加适用于桌面端的 <see cref="INotificationService"/>
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddNotificationService(this IServiceCollection services)
+        {
+            services.AddSingleton<INotificationService, PlatformNotificationServiceImpl>();
+            return services;
+        }
     }
 }

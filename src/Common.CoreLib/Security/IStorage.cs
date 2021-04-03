@@ -87,7 +87,7 @@ namespace System.Security
         Task<bool> RemoveAsync(string key);
 
         /// <inheritdoc cref="GetAsync(string)"/>
-        async Task<TValue?> GetAsync<TValue>(string key) where TValue : notnull
+        async Task<TValue?> GetAsync<TValue>(string key)
         {
             try
             {

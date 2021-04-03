@@ -8,6 +8,14 @@ namespace System.Application.Services.CloudService.Clients.Abstractions
     /// </summary>
     public interface IActiveUserClient
     {
-        Task<IApiResponse> Post(ActiveUserRecordDTO record);
+        /// <summary>
+        /// 纪录活跃用户并返回通知(公告，如果有新公告时)
+        /// </summary>
+        /// <param name="request">匿名收集数据</param>
+        /// <param name="lastNotificationRecordId">最后一次收到的通知ID</param>
+        /// <returns></returns>
+        Task<IApiResponse<NotificationRecordDTO?>> Post(
+             ActiveUserRecordDTO request,
+             Guid? lastNotificationRecordId);
     }
 }

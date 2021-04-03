@@ -1,5 +1,7 @@
 ﻿#if !__MOBILE__
 using Avalonia.Controls;
+#else
+using Xamarin.Essentials;
 #endif
 #if UI_DEMO
 using Moq;
@@ -14,6 +16,8 @@ using System.Application.Services.Implementation;
 using System.Application.UI;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Application.Services.CloudService.Clients.Abstractions;
+using System.Linq;
 
 namespace System.Application
 {
@@ -194,6 +198,16 @@ namespace System.Application
 
                 // 业务平台用户管理
                 services.TryAddUserManager();
+            }
+
+            // 添加通知服务
+            AddNotificationService();
+            void AddNotificationService()
+            {
+#if !__MOBILE__
+                if (!IsMainProcess) return;
+#endif
+                services.AddNotificationService();
             }
 
 #if !__MOBILE__
@@ -408,5 +422,56 @@ namespace System.Application
             }
         }
 #endif
+
+        /// <summary>
+        /// 当前是否是主进程
+        /// </summary>
+        internal static bool IsMainProcess { get; set; }
+
+        /// <inheritdoc cref="IActiveUserClient.Post(ActiveUserRecordDTO, Guid?)"/>
+        internal static async void ActiveUserPost(ActiveUserType type)
+        {
+            if (!IsMainProcess) return;
+            try
+            {
+#if !__MOBILE__
+                var screens = App.Instance.MainWindow.Screens;
+#else
+                var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
+                var mainDisplayInfoH = mainDisplayInfo.Height.ToInt32(NumberToInt32Format.Ceiling);
+                var mainDisplayInfoW = mainDisplayInfo.Width.ToInt32(NumberToInt32Format.Ceiling);
+#endif
+                var req = new ActiveUserRecordDTO
+                {
+                    Type = type,
+#if __MOBILE__
+                    ScreenCount = 1,
+                    PrimaryScreenPixelDensity = mainDisplayInfo.Density,
+                    PrimaryScreenWidth = mainDisplayInfoW,
+                    PrimaryScreenHeight = mainDisplayInfoH,
+                    SumScreenWidth = mainDisplayInfoW,
+                    SumScreenHeight = mainDisplayInfoH,
+#else
+                    ScreenCount = screens.ScreenCount,
+                    PrimaryScreenPixelDensity = screens.Primary.PixelDensity,
+                    PrimaryScreenWidth = screens.Primary.Bounds.Width,
+                    PrimaryScreenHeight = screens.Primary.Bounds.Height,
+                    SumScreenWidth = screens.All.Sum(x => x.Bounds.Width),
+                    SumScreenHeight = screens.All.Sum(x => x.Bounds.Height),
+#endif
+                };
+                Guid? lastNotificationRecordId = default;
+                if (type == ActiveUserType.OnStartup)
+                {
+                    lastNotificationRecordId = await INotificationService.GetLastNotificationRecordId();
+                }
+                var rsp = await ICloudServiceClient.Instance.ActiveUser.Post(req, lastNotificationRecordId);
+                INotificationService.Notify(rsp, type);
+            }
+            catch (Exception e)
+            {
+                Log.Error(nameof(App), e, "ActiveUserPost");
+            }
+        }
     }
 }

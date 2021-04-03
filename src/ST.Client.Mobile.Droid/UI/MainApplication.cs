@@ -37,14 +37,14 @@ namespace System.Application.UI
             XEFileProvider.TemporaryLocation = FileProviderLocation.Internal;
             XEPlatform.Init(this); // 初始化 Xamarin.Essentials.Platform.Init
 
-            var isMainProcess = IsMainProcess();
+            Startup.IsMainProcess = IsMainProcess();
 
             DILevel level;
-            if (isMainProcess) level = DILevel.MainProcess;
+            if (Startup.IsMainProcess) level = DILevel.MainProcess;
             level = DILevel.Min;
             Startup.Init(level);
 
-            if (isMainProcess)
+            if (Startup.IsMainProcess)
             {
                 XEVersionTracking.Track();
             }

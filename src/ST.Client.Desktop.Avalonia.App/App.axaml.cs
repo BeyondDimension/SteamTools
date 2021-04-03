@@ -199,7 +199,7 @@ namespace System.Application.UI
                 AppDelegate.Init();
 #endif
 
-                if (Program.IsMainProcess)
+                if (Startup.IsMainProcess)
                 {
                     if (Startup.HasNotifyIcon)
                     {
@@ -282,7 +282,7 @@ namespace System.Application.UI
 
         void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
         {
-            ActiveUserPost(ActiveUserType.OnStartup);
+            Startup.ActiveUserPost(ActiveUserType.OnStartup);
 
             AppHelper.Initialized?.Invoke();
 
@@ -385,30 +385,6 @@ namespace System.Application.UI
         }
 
         #endregion
-
-        internal static async void ActiveUserPost(ActiveUserType type)
-        {
-            if (!Program.IsMainProcess) return;
-            try
-            {
-                var screens = Instance.MainWindow.Screens;
-                var req = new ActiveUserRecordDTO
-                {
-                    Type = type,
-                    ScreenCount = screens.ScreenCount,
-                    PrimaryScreenPixelDensity = screens.Primary.PixelDensity,
-                    PrimaryScreenWidth = screens.Primary.Bounds.Width,
-                    PrimaryScreenHeight = screens.Primary.Bounds.Height,
-                    SumScreenWidth = screens.All.Sum(x => x.Bounds.Width),
-                    SumScreenHeight = screens.All.Sum(x => x.Bounds.Height),
-                };
-                var rsp = await ICloudServiceClient.Instance.ActiveUser.Post(req);
-            }
-            catch (Exception e)
-            {
-                Log.Error(nameof(App), e, "ActiveUserPost");
-            }
-        }
     }
 }
 #pragma warning restore CA1416 // 验证平台兼容性

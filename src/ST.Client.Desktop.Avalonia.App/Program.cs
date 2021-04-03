@@ -17,8 +17,8 @@ namespace System.Application.UI
         {
             // 目前桌面端默认使用 SystemTextJson 如果出现兼容性问题可取消下面这行代码
             // Serializable.DefaultJsonImplType = Serializable.JsonImplType.NewtonsoftJson;
-            IsMainProcess = args.Length == 0;
-            IsCLTProcess = !IsMainProcess && args.FirstOrDefault() == "-clt";
+            Startup.IsMainProcess = args.Length == 0;
+            IsCLTProcess = !Startup.IsMainProcess && args.FirstOrDefault() == "-clt";
 
             var logDirPath = InitLogDir();
 
@@ -38,7 +38,7 @@ namespace System.Application.UI
                 {
                     Startup.Init(DILevel.MainProcess);
 
-                    if (IsMainProcess)
+                    if (Startup.IsMainProcess)
                     {
                         var appInstance = new ApplicationInstance();
                         if (!appInstance.IsFirst) goto exit;
@@ -46,7 +46,7 @@ namespace System.Application.UI
 
                     InitCefNetApp();
 
-                    if (IsMainProcess)
+                    if (Startup.IsMainProcess)
                     {
                         InitAvaloniaApp();
                     }

@@ -1,4 +1,5 @@
-﻿using MPKey = MessagePack.KeyAttribute;
+﻿using System.Runtime.InteropServices;
+using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
@@ -88,9 +89,17 @@ namespace System.Application.Models
         [S_JsonProperty("9")]
         public int SumScreenHeight { get; set; }
 
+        /// <summary>
+        /// 当前进程 CPU 构架
+        /// </summary>
+        [MPKey(10)]
+        [N_JsonProperty("10")]
+        [S_JsonProperty("10")]
+        public ArchitectureFlags ProcessArch { get; set; } = RuntimeInformation.ProcessArchitecture.Convert(false);
+
         bool IExplicitHasValue.ExplicitHasValue()
         {
-            return Type.IsDefined() && Platform.IsDefined() && DeviceIdiom.IsDefined() && !string.IsNullOrWhiteSpace(OSVersion);
+            return Type.IsDefined() && Platform.IsDefined() && DeviceIdiom.IsDefined() && !string.IsNullOrWhiteSpace(OSVersion) && ProcessArch.IsDefined();
         }
     }
 }

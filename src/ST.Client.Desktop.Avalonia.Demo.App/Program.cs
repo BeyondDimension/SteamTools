@@ -5,7 +5,7 @@
         [STAThread]
         static void Main(string[] args)
         {
-            IsMainProcess = true;
+            Startup.IsMainProcess = true;
             Startup.Init(DILevel.MainProcess);
             BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
         }

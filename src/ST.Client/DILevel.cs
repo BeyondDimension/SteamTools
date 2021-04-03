@@ -63,7 +63,7 @@ namespace System.Application
         #region Group
 
         /// <summary>
-        /// 主进程所需级别组
+        /// 主进程所需级别组，仅用于指定DI等级，当前进程不一定为主进程
         /// </summary>
         MainProcess =
             ServerApiClient |

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows;
+using static System.Application.KeyConstants;
 
 namespace System.Application
 {
@@ -14,8 +15,6 @@ namespace System.Application
     /// </summary>
     public static class Migrations
     {
-        public const string EXAMINED_MIGRATE_FROM_V1 = "EXAMINED_MIGRATE_FROM_V1";
-
         /// <summary>
         /// 获取正在运行的V1版本进程
         /// </summary>
