@@ -104,8 +104,8 @@ IsEnable= false,
 new ProxyDomainModel{
 Name=Resources.Discord,
 Domains = new List<string>{ "discordapp.com"},
-ToDomain = "discord.rmbgame.net",
-//ProxyIPAddres="162.159.130.233",
+//ToDomain = "discord.rmbgame.net",
+ProxyIPAddres="162.159.135.233",
 Hosts = new List<string>{
 "discordapp.com",
 "support.discordapp.com",

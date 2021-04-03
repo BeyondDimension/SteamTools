@@ -177,7 +177,8 @@ namespace System.Application.Services.CloudService
                         {
                             Name = "Discord 语音",
                             DomainNames = "discordapp.com",
-                            ForwardDomainName = "discord.rmbgame.net",
+                            //ForwardDomainName = "discord.rmbgame.net",
+                            ForwardDomainIP = "162.159.135.233",
                             Hosts = "discordapp.com;support.discordapp.com;url9177.discordapp.com;canary-api.discordapp.com;cdn-ptb.discordapp.com;ptb.discordapp.com;status.discordapp.com;cdn-canary.discordapp.com;cdn.discordapp.com;streamkit.discordapp.com;i18n.discordapp.com;url9624.discordapp.com;url7195.discordapp.com;merch.discordapp.com;printer.discordapp.com;canary.discordapp.com;apps.discordapp.com;pax.discordapp.com;",
                             //1.0.0.1 dl.discordapp.net; 1.0.0.1 media.discordapp.net; 1.0.0.1 images - ext - 2.discordapp.net; 1.0.0.1 images - ext - 1.discordapp.net
                             Enable  = false,

@@ -67,10 +67,6 @@ namespace System.Application.Services.Implementation
             }
             foreach (var item in ProxyDomains)
             {
-                if (!item.Enable)
-                {
-                    continue;
-                }
                 foreach (var host in item.DomainNames)
                 {
                     if (e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(host))
@@ -94,6 +90,8 @@ namespace System.Application.Services.Implementation
                         {
                             var iPs = await Dns.GetHostAddressesAsync(item.ForwardDomainName);
                             if (!iPs.Any_Nullable())
+                                return;
+                            if (IPAddress.IsLoopback(iPs.FirstOrDefault()))
                                 return;
                             ip = iPs.First();
                             //Logger.Info("Proxy IP: " + iP);
@@ -121,17 +119,17 @@ namespace System.Application.Services.Implementation
                 }
             }
 
-            await Dns.GetHostAddressesAsync(e.HttpClient.Request.Host).ContinueWith(s =>
-            {
-                //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
-                if (IPAddress.IsLoopback(s.Result.FirstOrDefault())
-              && ProxyDomains.Count(w => w.Enable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
-                {
-                    e.Ok($"IsLoopback URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
-                    return;
-                }
-                Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
-            });
+            //await Dns.GetHostAddressesAsync(e.HttpClient.Request.Host).ContinueWith(s =>
+            //{
+            //    //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
+            //    if (IPAddress.IsLoopback(s.Result.FirstOrDefault())
+            //  && ProxyDomains.Count(w => w.Enable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
+            //    {
+            //        e.Ok($"IsLoopback URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
+            //        return;
+            //    }
+            //    Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
+            //});
 
             ////没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
             //e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine}not support proxy");
@@ -165,49 +163,46 @@ namespace System.Application.Services.Implementation
                 }
                 foreach (var script in Scripts)
                 {
-                    if (script.Enable)
+                    if (e.HttpClient.Request.Method == "GET")
                     {
-                        if (e.HttpClient.Request.Method == "GET")
+                        if (e.HttpClient.Response.StatusCode == 200)
                         {
-                            if (e.HttpClient.Response.StatusCode == 200)
+                            if (e.HttpClient.Response.ContentType != null && e.HttpClient.Response.ContentType.Trim().ToLower().Contains("text/html"))
                             {
-                                if (e.HttpClient.Response.ContentType != null && e.HttpClient.Response.ContentType.Trim().ToLower().Contains("text/html"))
+                                foreach (var host in script.Exclude)
                                 {
-                                    foreach (var host in script.Exclude)
+                                    if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
+                                        goto close;
+                                }
+                                foreach (var host in script.Match)
+                                {
+                                    if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
                                     {
-                                        if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
-                                            goto close;
-                                    }
-                                    foreach (var host in script.Match)
-                                    {
-                                        if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
+                                        var doc = await e.GetResponseBodyAsString();
+                                        if (script.Require.Length > 0 || script.Grant.Length > 0)
                                         {
-                                            var doc = await e.GetResponseBodyAsString();
-                                            if (script.Require.Length > 0 || script.Grant.Length > 0)
+                                            var t = e.HttpClient.Response.Headers.GetFirstHeader("Content-Security-Policy");
+                                            if (!string.IsNullOrEmpty(t?.Value))
                                             {
-                                                var t = e.HttpClient.Response.Headers.GetFirstHeader("Content-Security-Policy");
-                                                if (!string.IsNullOrEmpty(t?.Value))
-                                                {
-                                                    e.HttpClient.Response.Headers.RemoveHeader(t);
-                                                }
+                                                e.HttpClient.Response.Headers.RemoveHeader(t);
+                                            }
 #if DEBUG
-                                                Debug.WriteLine(e.HttpClient.Request.RequestUri.AbsoluteUri);
+                                            Debug.WriteLine(e.HttpClient.Request.RequestUri.AbsoluteUri);
 #endif
-                                                foreach (var req in script.Require)
-                                                {
-                                                    var headIndex = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
-                                                    var temp1 = $"<script type=\"text/javascript\" src=\"{req}\"></script>\n";
-                                                    if (headIndex > -1)
-                                                        doc = doc.Insert(headIndex, temp1);
-                                                }
-                                            }
-                                            var index = doc.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
-                                            var temp = $"<script type=\"text/javascript\">{script.@Content}</script>";
-                                            if (index > -1)
+                                            foreach (var req in script.Require)
                                             {
-                                                doc = doc.Insert(index, temp);
-                                                e.SetResponseBodyString(doc);
+                                                var headIndex = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
+                                                var temp1 = $"<script type=\"text/javascript\" src=\"{req}\"></script>\n";
+                                                if (headIndex > -1)
+                                                    doc = doc.Insert(headIndex, temp1);
                                             }
+                                        }
+                                        var index = doc.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
+                                        var temp = $"<script type=\"text/javascript\">{script.@Content}</script>";
+                                        if (index > -1)
+                                        {
+                                            doc = doc.Insert(index, temp);
+                                            e.SetResponseBodyString(doc);
                                         }
                                     }
                                 }
