@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Http;
+using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Net.Http;
 
@@ -28,6 +29,17 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddPlatformHttpPlatformHelper(this IServiceCollection services)
         {
             services.AddSingleton<IHttpPlatformHelper, PlatformHttpPlatformHelper>();
+            return services;
+        }
+
+        /// <summary>
+        /// 添加适用于安卓的 <see cref="INotificationService"/>
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddNotificationService(this IServiceCollection services)
+        {
+            services.AddSingleton<INotificationService, PlatformNotificationServiceImpl>();
             return services;
         }
     }

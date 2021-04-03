@@ -24,6 +24,11 @@
         /// <summary>
         /// 新版本下载进度
         /// </summary>
-        NewVersionDownloadProgress = 7,
+        NewVersionDownloadProgress = 1,
+
+        /// <summary>
+        /// 公告
+        /// </summary>
+        Announcement,
     }
 }

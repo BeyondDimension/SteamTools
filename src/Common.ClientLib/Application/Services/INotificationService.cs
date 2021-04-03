@@ -4,7 +4,10 @@
     /// 通知栏服务
     /// </summary>
     /// <typeparam name="TNotificationType"></typeparam>
-    public interface INotificationService<TNotificationType> where TNotificationType : Enum
+    /// <typeparam name="TEntrance"></typeparam>
+    public interface INotificationService<TNotificationType, TEntrance>
+        where TNotificationType : notnull, Enum
+        where TEntrance : notnull, Enum
     {
         /// <summary>
         /// 获取是否有通知权限
@@ -19,13 +22,13 @@
         /// <param name="notificationType">通知类型</param>
         /// <param name="autoCancel"></param>
         /// <param name="title">通知标题</param>
-        /// <param name="entrance"></param>
+        /// <param name="entrance">点击通知的入口点</param>
         void Notify(
             string text,
             TNotificationType notificationType,
             bool autoCancel = true,
             string? title = default,
-            Type? entrance = default);
+            TEntrance entrance = default);
 
         /// <summary>
         /// 取消通知

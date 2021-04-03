@@ -115,11 +115,29 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 当有新公告时的提示通知。 的本地化字符串。
+        /// </summary>
+        internal static string NotificationChannelType_Description_BusinessPlatform {
+            get {
+                return ResourceManager.GetString("NotificationChannelType_Description_BusinessPlatform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 当下载新版本时的下载进度条通知。 的本地化字符串。
         /// </summary>
         internal static string NotificationChannelType_Description_NewVersion {
             get {
                 return ResourceManager.GetString("NotificationChannelType_Description_NewVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 业务平台通知 的本地化字符串。
+        /// </summary>
+        internal static string NotificationChannelType_Name_BusinessPlatform {
+            get {
+                return ResourceManager.GetString("NotificationChannelType_Name_BusinessPlatform", resourceCulture);
             }
         }
         

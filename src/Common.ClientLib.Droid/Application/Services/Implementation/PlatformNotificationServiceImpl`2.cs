@@ -8,17 +8,13 @@ using JClass = Java.Lang.Class;
 
 namespace System.Application.Services.Implementation
 {
-    /// <inheritdoc cref="INotificationService{TNotificationType}"/>
-    public abstract class PlatformNotificationServiceImpl<TNotificationType, TNotificationChannelType> : INotificationService<TNotificationType>
-        where TNotificationType : Enum
-        where TNotificationChannelType : Enum
+    /// <inheritdoc cref="INotificationService{TNotificationType, TEntrance}"/>
+    public abstract class PlatformNotificationServiceImpl<TNotificationType, TNotificationChannelType, TEntrance> : INotificationService<TNotificationType, TEntrance>
+        where TNotificationType : notnull, Enum
+        where TNotificationChannelType : notnull, Enum
+        where TEntrance : notnull, Enum
     {
-        protected readonly IPlatformNavigationService nav;
-
-        public PlatformNotificationServiceImpl(IPlatformNavigationService nav)
-        {
-            this.nav = nav;
-        }
+        protected virtual Type? GetActivityType(TEntrance entrance) => null;
 
         protected virtual int GetNotifyId(TNotificationType notificationType)
             => Enum2.ConvertToInt32(notificationType);
@@ -177,7 +173,8 @@ namespace System.Application.Services.Implementation
             var builder = new NotificationCompat.Builder(context, channel.Id);
             var level = GetImportanceLevel(channelType);
             builder.SetPriority(GetNotificationPriority(level));
-            builder.SetSmallIcon(R.drawable.ic_stat_notify_msg);
+            var status_bar_icon = R.drawable.ic_stat_notify_msg;
+            if (status_bar_icon.HasValue) builder.SetSmallIcon(status_bar_icon.Value);
             title ??= R.@string.app_name;
             builder.SetContentTitle(title);
             builder.SetContentText(text);
@@ -202,10 +199,11 @@ namespace System.Application.Services.Implementation
            TNotificationType notificationType,
            bool autoCancel,
            string? title,
-           Type? entrance)
+           TEntrance entrance)
         {
             var notificationEntrance = entrance != null ?
-                nav.GetActivityType(entrance).GetJClass() : R.activities.entrance;
+                GetActivityType(entrance).GetJClass() :
+                R.activities.entrance;
             var context = AndroidApplication.Context;
             var manager = NotificationManagerCompat.From(context);
             var builder = BuildNotify(context, manager, text, notificationType,

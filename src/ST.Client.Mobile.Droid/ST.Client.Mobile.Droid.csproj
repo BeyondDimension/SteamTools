@@ -4,11 +4,10 @@
     <TargetFramework>MonoAndroid10.0</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Mobile.Droid</AssemblyName>
-    <AndroidUseIntermediateDesignerFile>false</AndroidUseIntermediateDesignerFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Startup2.cs"/>
+    <Compile Include="..\Startup2.cs" />
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
@@ -21,6 +20,7 @@
     <Compile Include="..\Common.ClientLib.Droid\Application\Security\*.cs">
       <LinkBase>Security</LinkBase>
     </Compile>
+    <None Remove="Resources\values-v28\styles.xml" />
     <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\Permissions\GetPhoneNumberPermission.cs">
       <LinkBase>Services\Implementation\Permissions</LinkBase>
     </Compile>
@@ -28,6 +28,9 @@
       <LinkBase>Services\Implementation</LinkBase>
     </Compile>
     <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\PlatformTelephonyServiceImpl.cs">
+      <LinkBase>Services\Implementation</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\PlatformNotificationServiceImpl`2.cs">
       <LinkBase>Services\Implementation</LinkBase>
     </Compile>
     <Compile Include="..\Common.ClientLib.Droid\Logging\LogHelper.cs">
@@ -63,6 +66,7 @@
     <Compile Include="..\Common.ClientLib.Droid\Extensions\LogLevelEnumExtensions.cs">
       <LinkBase>Extensions</LinkBase>
     </Compile>
+    <AndroidResource Include="Resources\**\*" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
@@ -81,40 +85,40 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AppCenter" Version="4.2.0"/>
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.2.0"/>
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.2.0"/>
+    <PackageReference Include="Microsoft.AppCenter" Version="4.2.0" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.2.0" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ST.Client.Mobile\ST.Client.Mobile.csproj"/>
+    <ProjectReference Include="..\ST.Client.Mobile\ST.Client.Mobile.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-android-debug.pfx')">
-    <EmbeddedResource Include="..\..\appcenter-secret-android-debug.pfx" LinkBase="Resources"/>
+    <EmbeddedResource Include="..\..\appcenter-secret-android-debug.pfx" LinkBase="Resources" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-android-release.pfx')">
-    <EmbeddedResource Include="..\..\appcenter-secret-android-release.pfx" LinkBase="Resources"/>
+    <EmbeddedResource Include="..\..\appcenter-secret-android-release.pfx" LinkBase="Resources" />
   </ItemGroup>
 
   <ItemGroup Condition="Exists('$(MSBuildProjectDirectory)\..\..\aes-key.pfx')">
-    <EmbeddedResource Include="..\..\aes-key.pfx" LinkBase="Resources"/>
+    <EmbeddedResource Include="..\..\aes-key.pfx" LinkBase="Resources" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\app-id-debug.pfx')">
-    <EmbeddedResource Include="..\..\app-id-debug.pfx" LinkBase="Resources"/>
+    <EmbeddedResource Include="..\..\app-id-debug.pfx" LinkBase="Resources" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-debug.pfx')">
-    <EmbeddedResource Include="..\..\rsa-public-key-debug.pfx" LinkBase="Resources"/>
+    <EmbeddedResource Include="..\..\rsa-public-key-debug.pfx" LinkBase="Resources" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\app-id-release.pfx')">
-    <EmbeddedResource Include="..\..\app-id-release.pfx" LinkBase="Resources"/>
+    <EmbeddedResource Include="..\..\app-id-release.pfx" LinkBase="Resources" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-release.pfx')">
-    <EmbeddedResource Include="..\..\rsa-public-key-release.pfx" LinkBase="Resources"/>
+    <EmbeddedResource Include="..\..\rsa-public-key-release.pfx" LinkBase="Resources" />
   </ItemGroup>
 </Project>

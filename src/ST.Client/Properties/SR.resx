@@ -136,8 +136,14 @@
   <data name="NewVersionUpdate" xml:space="preserve">
     <value>新版本更新</value>
   </data>
+  <data name="NotificationChannelType_Description_BusinessPlatform" xml:space="preserve">
+    <value>当有新公告时的提示通知。</value>
+  </data>
   <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
     <value>当下载新版本时的下载进度条通知。</value>
+  </data>
+  <data name="NotificationChannelType_Name_BusinessPlatform" xml:space="preserve">
+    <value>业务平台通知</value>
   </data>
   <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
     <value>新版本通知</value>

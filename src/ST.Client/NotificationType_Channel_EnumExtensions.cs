@@ -16,6 +16,7 @@ namespace System.Application
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static NotificationChannelType GetChannel(this NotificationType value) => value switch
         {
+            NotificationType.Announcement => NotificationChannelType.BusinessPlatform,
             NotificationType.NewVersionDownloadProgress => NotificationChannelType.NewVersion,
             _ => throw new ArgumentOutOfRangeException(nameof(value), value, null),
         };
@@ -30,6 +31,7 @@ namespace System.Application
         {
             return value switch
             {
+                NotificationChannelType.BusinessPlatform => SR.NotificationChannelType_Name_BusinessPlatform,
                 NotificationChannelType.NewVersion => SR.NotificationChannelType_Name_NewVersion,
                 _ => throw new ArgumentOutOfRangeException(nameof(value), value, null),
             };
@@ -47,6 +49,7 @@ namespace System.Application
         {
             return value switch
             {
+                NotificationChannelType.BusinessPlatform => SR.NotificationChannelType_Description_BusinessPlatform,
                 NotificationChannelType.NewVersion => SR.NotificationChannelType_Description_NewVersion,
                 _ => throw new ArgumentOutOfRangeException(nameof(value), value, null),
             };
@@ -62,6 +65,7 @@ namespace System.Application
         public static NotificationImportanceLevel GetImportanceLevel(this NotificationChannelType value)
             => value switch
             {
+                NotificationChannelType.BusinessPlatform => NotificationImportanceLevel.High,
                 NotificationChannelType.NewVersion => NotificationImportanceLevel.Medium,
                 _ => throw new ArgumentOutOfRangeException(nameof(value), value, null),
             };
