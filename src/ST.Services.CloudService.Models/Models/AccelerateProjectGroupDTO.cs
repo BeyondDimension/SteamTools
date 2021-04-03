@@ -54,7 +54,7 @@ namespace System.Application.Models
                         })
                         .Subscribe(s =>
                         {
-                            if (ThreeStateEnable != s) 
+                            if (ThreeStateEnable != s)
                             {
                                 mThreeStateEnable = s;
                                 this.RaisePropertyChanged(nameof(ThreeStateEnable));
