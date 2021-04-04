@@ -486,7 +486,7 @@ namespace System.Application.UI.ViewModels
                     {
                         break;
                     }
-                    MainThreadDesktop.BeginInvokeOnMainThread(() => { Confirmations.RemoveAt(i); });
+                    MainThreadDesktop.BeginInvokeOnMainThread(() => { Confirmations.Remove(tradeIds[i]); });
                     if (i != 0)
                     {
                         var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
@@ -536,7 +536,7 @@ namespace System.Application.UI.ViewModels
                     {
                         break;
                     }
-                    MainThreadDesktop.BeginInvokeOnMainThread(() => { Confirmations.RemoveAt(i); });
+                    MainThreadDesktop.BeginInvokeOnMainThread(() => { Confirmations.Remove(tradeIds[i]); });
                     if (i != 0)
                     {
                         var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;

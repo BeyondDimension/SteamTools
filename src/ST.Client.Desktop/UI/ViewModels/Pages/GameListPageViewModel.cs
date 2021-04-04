@@ -10,5 +10,6 @@ namespace System.Application.UI.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
+
     }
 }

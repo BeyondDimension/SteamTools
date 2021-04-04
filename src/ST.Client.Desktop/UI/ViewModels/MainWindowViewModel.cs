@@ -33,6 +33,7 @@ namespace System.Application.UI.ViewModels
 
         public StartPageViewModel StartPage { get; }
         public CommunityProxyPageViewModel CommunityProxyPage { get; }
+        public ProxyScriptManagePageViewModel ProxyScriptPage { get; }
         public SteamAccountPageViewModel SteamAccountPage { get; }
         public GameListPageViewModel GameListPage { get; }
         public LocalAuthPageViewModel LocalAuthPage { get; }
@@ -53,6 +54,7 @@ namespace System.Application.UI.ViewModels
             {
                 (this.StartPage = new StartPageViewModel().AddTo(this)),
                 (this.CommunityProxyPage = new CommunityProxyPageViewModel().AddTo(this)),
+                (this.ProxyScriptPage = new ProxyScriptManagePageViewModel().AddTo(this)),
                 (this.SteamAccountPage = new SteamAccountPageViewModel().AddTo(this)),
                 (this.GameListPage = new GameListPageViewModel().AddTo(this)),
                 (this.LocalAuthPage = new LocalAuthPageViewModel().AddTo(this)),
@@ -86,6 +88,7 @@ namespace System.Application.UI.ViewModels
 
         public async void Initialize()
         {
+            SteamConnectService.Current.Initialize();
             ProxyService.Current.Initialize();
             AuthService.Current.Initialize();
 

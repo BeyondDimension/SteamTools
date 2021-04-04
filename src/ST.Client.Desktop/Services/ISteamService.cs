@@ -74,45 +74,5 @@ namespace System.Application.Services
 
         void UpdateLocalUserData(SteamUser user);
 
-#if DEBUG
-
-        [Obsolete("use AppHelper.SetBootAutoStart", true)]
-        void SetWindowsStartupAutoRun(bool IsAutoRun, string Name = "Steam++");
-
-#endif
     }
-
-#if DEBUG
-
-    [Obsolete("use ISteamService", true)]
-    public class SteamToolService
-    {
-        [Obsolete("use SteamDirPath", true)]
-        public string? SteamPath { get; }
-
-        [Obsolete("use SteamProgramPath", true)]
-        public string? SteamExePath { get; }
-
-        [Obsolete("use ISteamService.DeleteLocalUserData", true)]
-        public void DeleteSteamLocalUserData(SteamUser user)
-        {
-        }
-
-        [Obsolete("use ISteamService.UpdateLocalUserData", true)]
-        public void UpdateSteamLocalUserData(SteamUser user)
-        {
-        }
-    }
-
-    [Obsolete("use ISteamService", true)]
-    public class SteamService
-    {
-        [Obsolete("use ISteamworksLocalApiService.Instance / ISteamDbWebApiService.Instance / ISteamworksWebApiService.Instance", true)]
-        public static SteamService Instance => throw new NotImplementedException();
-
-        [Obsolete("use ISteamworksLocalApiService.Instance / ISteamDbWebApiService.Instance / ISteamworksWebApiService.Instance", true)]
-        public TInterface Get<TInterface>() => throw new NotImplementedException();
-    }
-
-#endif
 }

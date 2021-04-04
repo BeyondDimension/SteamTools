@@ -142,9 +142,9 @@ namespace System.Application.Services
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
 
                                     #region 初始化需要steam启动才能使用的功能
-                                    var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
-                                    //                                    await mainViewModel.SteamAppPage.Initialize();
-                                    //                                    await mainViewModel.AccountPage.Initialize(id);
+                                    //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
+                                    //await mainViewModel.SteamAppPage.Initialize();
+                                    //await mainViewModel.AccountPage.Initialize(id);
                                     #endregion
 
                                     DisposeSteamClient();
@@ -160,7 +160,7 @@ namespace System.Application.Services
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(nameof(SteamConnectService), ex, "LongRunning");
+                    Log.Error(nameof(SteamConnectService), ex, "Task LongRunning");
                     ToastService.Current.Notify(ex.Message);
                 }
             }, TaskCreationOptions.LongRunning);
@@ -184,11 +184,12 @@ namespace System.Application.Services
                     if (!app.Process.HasExited)
                         app.Process.Kill();
             }
+            DisposeSteamClient();
         }
 
         public void DisposeSteamClient()
         {
-            //ApiService.SteamClient.Dispose();
+            ApiService.DisposeSteamClient();
             IsDisposedClient = true;
         }
     }

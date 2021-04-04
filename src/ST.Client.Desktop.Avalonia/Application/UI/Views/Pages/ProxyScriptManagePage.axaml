@@ -4,20 +4,73 @@
              xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:pages="clr-namespace:System.Application.UI.Views.Pages"
+             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
              mc:Ignorable="d"
-             d:DesignWidth="800" d:DesignHeight="450"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             Background="Transparent"
              x:Class="System.Application.UI.Views.Pages.ProxyScriptManagePage">
     <Panel HorizontalAlignment="Stretch">
         <DockPanel>
             <DockPanel DockPanel.Dock="Top">
-                <Button Content="一键加速" FontSize="16" MinWidth="200" Height="40" Background="{DynamicResource SystemAccentColor}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Button>
-                
+                <Button Content="一键加速"
+                        FontSize="16"
+                        Height="40"
+                        Background="{DynamicResource SystemAccentColor}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"></Button>
             </DockPanel>
-            <ItemsPresenter>
-                
-                
-            </ItemsPresenter>
+            <ItemsRepeater Items="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyScripts,Mode=OneWay}">
+                <ItemsRepeater.Layout>
+                    <UniformGridLayout ItemsJustification="SpaceAround" MinRowSpacing="20"  MaximumRowsOrColumns="2" />
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Image Source="{Binding Icon}"></Image>
+
+                                <StackPanel Grid.Column="1">
+                                    <controls:ScrollingTextBlock  
+                                        Width="{Binding $parent.Width}" 
+                                        Text="{Binding Name}" 
+                                        FontSize="24" 
+                                        Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <Button>
+                                            <DrawingPresenter Drawing="{StaticResource RefreshDrawing}" />
+                                            
+                                        </Button>
+                                        <Button>
+                                            <DrawingPresenter Drawing="{StaticResource RefreshDrawing}" />
+                                            
+                                        </Button>
+                                        <Button>
+                                            <DrawingPresenter Drawing="{StaticResource RefreshDrawing}" />
+                                            
+                                        </Button>
+                                        <Button>
+                                            <DrawingPresenter Drawing="{StaticResource RefreshDrawing}" />
+                                            
+                                        </Button>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2">
+                                    <controls:ScrollingTextBlock
+                                        Width="{Binding $parent.Width}"
+                                        Text="{Binding SteamNickName}"
+                                        FontSize="24"
+                                        Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
         </DockPanel>
     </Panel>
 </UserControl>

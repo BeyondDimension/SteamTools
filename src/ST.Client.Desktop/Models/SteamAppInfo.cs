@@ -27,5 +27,6 @@ namespace System.Application.Models
         public Dictionary<string, string>? Small_Capsule { get; set; }
 
         public Dictionary<string, string>? Header_Image { get; set; }
+
     }
 }

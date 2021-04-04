@@ -25,7 +25,6 @@ namespace System.Application.UI
             void InitCefNetApp() => CefNetApp.Init(logDirPath, args);
             void InitAvaloniaApp() => BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
             void InitStartup(DILevel level) => Startup.Init(level);
-
             var logger = LogManager.GetCurrentClassLogger();
             try
             {

@@ -52,7 +52,7 @@ namespace System.Application.Services
             }
         }
 
-        public IReadOnlyCollection<AccelerateProjectDTO?>? EnableProxyDomains
+        public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains
         {
             get
             {
@@ -128,6 +128,11 @@ namespace System.Application.Services
                 {
                     if (value)
                     {
+                        if (!EnableProxyDomains.Any_Nullable())
+                        {
+                            Toast.Show(AppResources.CommunityFix_NoSelectAcceleration);
+                            return;
+                        }
                         httpProxyService.ProxyDomains = EnableProxyDomains;
                         this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         var hosts = httpProxyService.ProxyDomains.SelectMany(s =>

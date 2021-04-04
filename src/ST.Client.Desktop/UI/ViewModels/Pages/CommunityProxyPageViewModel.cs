@@ -43,13 +43,15 @@ namespace System.Application.UI.ViewModels
                 //{
                 //    Items = new[]
                 //    {
-                        (this.AutoRunProxy = new MenuItemViewModel (nameof(AppResources.CommunityFix_AutoRunProxy)){ Command=AutoRunProxyCommand,IconKey="CheckmarkDrawing" }),
+                        (this.AutoRunProxy = new MenuItemViewModel (nameof(AppResources.CommunityFix_AutoRunProxy)){ Command=AutoRunProxyCommand }),
                         (this.OnlySteamBrowser = new MenuItemViewModel (nameof(AppResources.CommunityFix_OnlySteamBrowser)){ Command=OnlySteamBrowserCommand}),
                         new MenuItemViewModel (),
+                        new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)){ Command=EditHostsFileCommand ,IconKey="CheckmarkDrawing" },
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)){ Command=EditHostsFileCommand ,IconKey="JavaScriptDrawing" },
+                        new MenuItemViewModel (),
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_CertificateSettings))
                         {
-                            Items=new[]
+                            Items = new[]
                             {
                                 new MenuItemViewModel(nameof(AppResources.CommunityFix_SetupCertificate)){ Command=SetupCertificateCommand },
                                 new MenuItemViewModel(nameof(AppResources.CommunityFix_DeleteCertificate)){ Command=DeleteCertificateCommand },

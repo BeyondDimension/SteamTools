@@ -268,6 +268,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 没有选择任何加速服务 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_NoSelectAcceleration {
+            get {
+                return ResourceManager.GetString("CommunityFix_NoSelectAcceleration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 仅对Steam内置浏览器生效 的本地化字符串。
         /// </summary>
         public static string CommunityFix_OnlySteamBrowser {

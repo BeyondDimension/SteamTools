@@ -26,6 +26,7 @@ namespace System.Application.Services.Implementation
         /// </list>
         /// </summary>
         readonly string? UserVdfPath;
+        readonly string? AppInfoPath;
         const string UserDataDirectory = "userdata";
         readonly IDesktopPlatformService platformService;
         readonly string? mSteamDirPath;
@@ -38,6 +39,7 @@ namespace System.Application.Services.Implementation
             mSteamDirPath = platformService.GetSteamDirPath();
             mSteamProgramPath = platformService.GetSteamProgramPath();
             UserVdfPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "config", "loginusers.vdf");
+            AppInfoPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "appcache", "appinfo.vdf");
             if (!File.Exists(UserVdfPath)) UserVdfPath = null;
         }
 
@@ -244,18 +246,22 @@ namespace System.Application.Services.Implementation
             }
         }
 
-#if DEBUG
+        /// <summary>
+        /// 从steam本地客户端缓存文件中读取游戏数据
+        /// </summary>
+        public bool GetAppInfos() 
+        {
+            if (string.IsNullOrEmpty(UserVdfPath) && !File.Exists(UserVdfPath))
+                return false;
+            using BinaryReader binaryReader = new(File.OpenRead(AppInfoPath));
+            uint num = binaryReader.ReadUInt32();
+            if (num != 123094055U)
+            {
+                Log.Error(nameof(GetAppInfos),string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
+                return false;
+            }
 
-        [Obsolete("use AppHelper.SetBootAutoStart", true)]
-        public void SetWindowsStartupAutoRun(bool IsAutoRun, string Name)
-            => throw new NotImplementedException();
-
-        [Obsolete("use SteamDirPath", true)]
-        public string? SteamPath { get; }
-
-        [Obsolete("use SteamProgramPath", true)]
-        public string? SteamExePath { get; }
-
-#endif
+            return true;
+        }
     }
 }

@@ -19,12 +19,12 @@
         <DockPanel HorizontalAlignment="Stretch">
             <ExperimentalAcrylicBorder IsHitTestVisible="False" DockPanel.Dock="Left" Width="240">
                 <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
+                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.80" TintOpacity="1"/>
                 </ExperimentalAcrylicBorder.Material>
             </ExperimentalAcrylicBorder>
             <ExperimentalAcrylicBorder IsHitTestVisible="False">
                 <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
+                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.80" TintOpacity="1"/>
                 </ExperimentalAcrylicBorder.Material>
             </ExperimentalAcrylicBorder>
         </DockPanel>
@@ -94,6 +94,9 @@
             <TabControl.DataTemplates>
                 <DataTemplate DataType="vm:DebugWebViewPageViewModel">
                     <pages:DebugWebViewPage/>
+                </DataTemplate>
+                <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
+                    <pages:ProxyScriptManagePage/>
                 </DataTemplate>
                 <DataTemplate DataType="vm:DebugPageViewModel">
                     <pages:DebugPage/>

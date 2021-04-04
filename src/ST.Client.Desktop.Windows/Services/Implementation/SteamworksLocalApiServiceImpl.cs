@@ -21,6 +21,11 @@ namespace System.Application.Services.Implementation
 
         public bool IsSupported => true;
 
+        public void DisposeSteamClient() 
+        {
+            SteamClient.Dispose();
+        }
+
         public bool Initialize()
         {
             try

@@ -187,6 +187,9 @@
   <data name="CommunityFix_MenuName" xml:space="preserve">
     <value>加速设置</value>
   </data>
+  <data name="CommunityFix_NoSelectAcceleration" xml:space="preserve">
+    <value>没有选择任何加速服务</value>
+  </data>
   <data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
     <value>仅对Steam内置浏览器生效</value>
   </data>

@@ -8,6 +8,8 @@ namespace System.Application.Services.Implementation
     {
         public bool IsSupported => false;
 
+        public void DisposeSteamClient() { }
+
         public bool Initialize() => default;
 
         public bool Initialize(int appid) => default;

@@ -14,6 +14,8 @@ namespace System.Application.Services
         /// </summary>
         bool IsSupported { get; }
 
+        void DisposeSteamClient();
+
         bool Initialize();
 
         bool Initialize(int appid);
