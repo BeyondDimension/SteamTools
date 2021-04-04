@@ -92,10 +92,9 @@ namespace System.Application.Models
 
         public static SteamApp? Load(string path)
         {
-            SteamApp? app;
+            SteamApp? app = null;
             if (!File.Exists(path))
             {
-                Log.Error(nameof(SteamApp), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(path), num));
                 return app;
             }
             using BinaryReader binaryReader = new(File.OpenRead(path));
