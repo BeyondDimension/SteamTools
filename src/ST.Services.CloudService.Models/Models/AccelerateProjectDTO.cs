@@ -95,12 +95,24 @@ namespace System.Application.Models
         public string? ServerName { get; set; } = string.Empty;
 
         /// <summary>
-        /// 启用重定向
+        /// 代理类型
         /// </summary>
         [MPKey(6)]
         [N_JsonProperty("6")]
         [S_JsonProperty("6")]
-        public bool Redirect { get; set; }
+        public ProxyType ProxyType { get; set; }
+
+        /// <summary>
+        /// 启用重定向
+        /// </summary>
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public bool Redirect
+        {
+            get => ProxyType == ProxyType.Redirect;
+            set => ProxyType = value ? ProxyType.Redirect : default;
+        }
 
         /// <summary>
         /// Host 域名集合
@@ -138,5 +150,10 @@ namespace System.Application.Models
         [S_JsonIgnore]
         public string[] HostsArray
             => GetSplitValues(mHostsArrayLock, Hosts, ref mHosts, ref mHostsArray);
+
+        [MPKey(9)]
+        [N_JsonProperty("9")]
+        [S_JsonProperty("9")]
+        public Guid Id { get; set; }
     }
 }

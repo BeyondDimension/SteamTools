@@ -39,6 +39,12 @@ namespace System.Application.Services
                     return;
                 }
 
+                if (rsp.Content.Type == NotificationType.Announcement)
+                {
+                    var isShow = IAnnouncementService.Instance.Show(rsp.Content);
+                    if (isShow) return;
+                }
+
                 Instance.Notify(rsp.Content);
             }
         }

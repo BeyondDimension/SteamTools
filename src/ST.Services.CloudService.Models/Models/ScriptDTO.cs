@@ -1,7 +1,11 @@
 ﻿#if MVVM_VM
 using ReactiveUI;
+#else
+using AMIgnore = AutoMapper.Configuration.Annotations.IgnoreAttribute;
 #endif
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using static System.Application.Services.CloudService.Constants;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using MPKey = MessagePack.KeyAttribute;
@@ -121,5 +125,74 @@ namespace System.Application.Models
         [S_JsonIgnore]
         public string[] MatchDomainNamesArray
             => GetSplitValues(mMatchDomainNamesArrayLock, MatchDomainNames, ref mMatchDomainNames, ref mMatchDomainNamesArray);
+
+        /// <summary>
+        /// 脚本显示图标
+        /// </summary>
+        [MPKey(9)]
+        [N_JsonProperty("9")]
+        [S_JsonProperty("9")]
+        public string? Icon { get; set; }
+
+        /// <summary>
+        /// 依赖外部JS，分号分割多个
+        /// </summary>
+        public string? RequiredJs { get; set; }
+
+        string? mRequiredJs;
+        string[]? mRequiredJsArray;
+        readonly object mRequiredJsArrayLock = new();
+
+        /// <inheritdoc cref="RequiredJs"/>
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public string[]? RequiredJsArray
+            => RequiredJs == null ? null : GetSplitValues(mRequiredJsArrayLock, RequiredJs, ref mRequiredJs, ref mRequiredJsArray);
+
+        /// <summary>
+        /// 是否依赖油猴函数
+        /// </summary>
+        [MPKey(10)]
+        [N_JsonProperty("10")]
+        [S_JsonProperty("10")]
+        public bool DependentGreasyForkFunction { get; set; }
+
+        /// <summary>
+        /// 脚本排除域名，分号分割多个
+        /// </summary>
+        [MPKey(11)]
+        [N_JsonProperty("11")]
+        [S_JsonProperty("11")]
+        public string? ExcludeDomainNames { get; set; }
+
+        string? mExcludeDomainNames;
+        string[]? mExcludeDomainNamesArray;
+        readonly object mExcludeDomainNamesArrayLock = new();
+
+        /// <inheritdoc cref="ExcludeDomainNames"/>
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public string[]? ExcludeDomainNamesArray
+            => ExcludeDomainNames == null ? null : GetSplitValues(mExcludeDomainNamesArrayLock, ExcludeDomainNames, ref mExcludeDomainNames, ref mExcludeDomainNamesArray);
+
+#if !MVVM_VM
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public List<IdDTO<Guid>>? AccelerateProjects
+        {
+            set => AccelerateProjectIds = value?.Select(x => x.Id).ToList();
+        }
+#endif
+
+#if !MVVM_VM
+        [AMIgnore]
+#endif
+        [MPKey(12)]
+        [N_JsonProperty("12")]
+        [S_JsonProperty("12")]
+        public List<Guid>? AccelerateProjectIds { get; set; }
     }
 }
