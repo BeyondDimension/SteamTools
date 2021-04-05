@@ -11,8 +11,12 @@
 	</Design.DataContext>
 	<StackPanel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}" Background="Transparent" Spacing="20">
 		<Grid ColumnDefinitions="Auto,Auto">
-            <TreeView Grid.Row="0">
-                
+            <TreeView Grid.Row="0" Items="{Binding SteamApps}">
+                <TreeView.ItemTemplate>
+                    <TreeDataTemplate ItemsSource="{Binding Children}">
+                        <TextBlock Text="{Binding Name}"/>
+                    </TreeDataTemplate>
+                </TreeView.ItemTemplate>
             </TreeView>
             <DockPanel Grid.Row="1">
                 

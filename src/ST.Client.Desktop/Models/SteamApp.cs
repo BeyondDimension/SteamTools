@@ -68,9 +68,8 @@ namespace System.Application.Models
             this._cachedHasSortAs = null;
         }
 
-        private IList<SteamApp> _entries = new List<SteamApp>();
-
         public event EventHandler Modified;
+
         private void OnEntryModified(object sender, EventArgs e)
         {
             EventHandler modified = this.Modified;
@@ -80,39 +79,8 @@ namespace System.Application.Models
             }
             modified(this, new EventArgs());
         }
-        public IEnumerable<SteamApp> Entries
-        {
-            get
-            {
-                return this._entries.Cast<SteamApp>();
-            }
-        }
 
-        private uint _unknownValueAtStart;
-
-        public static SteamApp? Load(string path)
-        {
-            SteamApp? app = null;
-            if (!File.Exists(path))
-            {
-                return app;
-            }
-            using BinaryReader binaryReader = new(File.OpenRead(path));
-            uint num = binaryReader.ReadUInt32();
-            if (num != 123094055U)
-            {
-                Log.Error(nameof(SteamApp), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(path), num));
-                return app;
-            }
-            SteamApp appInfo = new();
-            appInfo._unknownValueAtStart = binaryReader.ReadUInt32();
-            while ((app = SteamApp.FromReader(binaryReader)) != null)
-            {
-                app._entries.Add(app);
-                app.Modified += app.OnEntryModified;
-            }
-            return app;
-        }
+        //private uint _unknownValueAtStart;
 
         public static SteamApp? FromReader(BinaryReader reader)
         {

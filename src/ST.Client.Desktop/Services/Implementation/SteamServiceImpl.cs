@@ -249,19 +249,32 @@ namespace System.Application.Services.Implementation
         /// <summary>
         /// 从steam本地客户端缓存文件中读取游戏数据
         /// </summary>
-        public bool GetAppInfos() 
+        public List<SteamApp> GetAppInfos()
         {
+            var apps = new List<SteamApp>();
             if (string.IsNullOrEmpty(UserVdfPath) && !File.Exists(UserVdfPath))
-                return false;
-            using BinaryReader binaryReader = new(File.OpenRead(AppInfoPath));
+                return apps;
+            using BinaryReader binaryReader = new(File.OpenRead(UserVdfPath));
             uint num = binaryReader.ReadUInt32();
             if (num != 123094055U)
             {
-                Log.Error(nameof(GetAppInfos),string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
-                return false;
+                Log.Error(nameof(GetAppInfos), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
+                return apps;
             }
+            SteamApp? app = new();
+            //app._unknownValueAtStart = binaryReader.ReadUInt32();
+            while ((app = SteamApp.FromReader(binaryReader)) != null)
+            {
+                if (app != null)
+                {
+                    apps.Add(app);
+                    //app.Modified += (s, e) =>
+                    //{
 
-            return true;
+                    //};
+                }
+            }
+            return apps;
         }
     }
 }

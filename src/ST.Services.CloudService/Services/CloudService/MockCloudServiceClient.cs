@@ -128,6 +128,7 @@ namespace System.Application.Services.CloudService
             var rsp = ApiResponse.Ok(content);
             return Task.FromResult(rsp);
         }
+
     }
 }
 #endif
