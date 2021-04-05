@@ -2,6 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using AndroidX.AppCompat.App;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XEPlatform = Xamarin.Essentials.Platform;

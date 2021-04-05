@@ -143,9 +143,6 @@ namespace System.Application
 #endif
 
                 #endregion
-
-                //var vms = typeof(ViewModelBase).Assembly.GetTypes().Where(x => x.IsClass && !x.IsAbstract && x.Namespace != null && x.Namespace.Contains("UI.ViewModels")).ToArray();
-                //services.AddAutoMapper(vms);
 #endif
             }
 

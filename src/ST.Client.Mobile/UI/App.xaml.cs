@@ -1,4 +1,5 @@
 ﻿using System.Application.Services;
+using System.Application.UI.Styles;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XFApplication = Xamarin.Forms.Application;
@@ -11,9 +12,19 @@ namespace System.Application.UI
         public App()
         {
             InitializeComponent();
-
+            AppTheme = RequestedTheme;
+            RequestedThemeChanged += (_, e) => AppTheme = e.RequestedTheme;
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
+        }
+
+        public OSAppTheme AppTheme
+        {
+            set => Resources = value switch
+            {
+                OSAppTheme.Dark => new ThemeDark(),
+                _ => new ThemeLight(),
+            };
         }
 
         protected override void OnStart()

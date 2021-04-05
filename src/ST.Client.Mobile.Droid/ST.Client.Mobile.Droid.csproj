@@ -121,4 +121,8 @@
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-release.pfx')">
     <EmbeddedResource Include="..\..\rsa-public-key-release.pfx" LinkBase="Resources" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\layout\" />
+  </ItemGroup>
 </Project>

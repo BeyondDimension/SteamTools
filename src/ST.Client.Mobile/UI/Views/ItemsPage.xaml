@@ -4,6 +4,7 @@
              xmlns:model="clr-namespace:System.Application.Models"
              xmlns:local="clr-namespace:System.Application.UI.ViewModels"
              x:Class="System.Application.UI.Views.ItemsPage"
+             BackgroundColor="{DynamicResource WindowBackground}"  
              Title="{Binding Title}"
              x:Name="BrowseItemsPage">
 

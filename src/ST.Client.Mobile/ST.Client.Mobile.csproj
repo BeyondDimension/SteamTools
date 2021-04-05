@@ -26,4 +26,16 @@
     <PackageReference Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2012" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="UI\Styles\ThemeLight.xaml.cs">
+      <DependentUpon>ThemeLight.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="UI\Styles\ThemeDark.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

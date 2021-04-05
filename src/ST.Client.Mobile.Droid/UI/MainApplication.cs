@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Runtime;
+using AndroidX.AppCompat.App;
 using System.Properties;
 using Xamarin.Essentials;
 using AndroidApplication = Android.App.Application;
@@ -39,9 +40,8 @@ namespace System.Application.UI
 
             Startup.IsMainProcess = IsMainProcess();
 
-            DILevel level;
+            DILevel level = DILevel.Min;
             if (Startup.IsMainProcess) level = DILevel.MainProcess;
-            level = DILevel.Min;
             Startup.Init(level);
 
             if (Startup.IsMainProcess)

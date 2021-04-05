@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using AndroidX.AppCompat.App;
@@ -13,7 +14,7 @@ namespace System.Application.UI.Activities
     /// 页面 - 启动屏幕
     /// </summary>
     [Register(JavaPackageConstants.Activities + nameof(SplashActivity))]
-    [Activity(Theme = "@style/MainTheme.Splash", MainLauncher = true, NoHistory = true)]
+    [Activity(Theme = "@style/MainTheme.Splash", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize, NoHistory = true)]
     public sealed class SplashActivity : AppCompatActivity
     {
         internal static bool AllowStart { get; private set; }

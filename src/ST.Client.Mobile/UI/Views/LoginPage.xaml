@@ -3,12 +3,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:viewmodels="clr-namespace:System.Application.UI.ViewModels"
+             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Mobile"
+             x:DataType="viewmodels:LoginViewModel"
              mc:Ignorable="d"
              x:Class="System.Application.UI.Views.LoginPage"
+             BackgroundColor="{DynamicResource WindowBackground}"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
-        </StackLayout>
+        <ScrollView>
+            <Grid Margin="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="192"/>
+                    <RowDefinition Height="58"/>
+                    <RowDefinition Height="58"/>
+                    <RowDefinition Height="58"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="96"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="splash_logo.png" Margin="0,0,0,10" Grid.ColumnSpan="2"/>
+                <controls:TextBox Margin="0,0,0,10" Placeholder="请输入手机号码" Keyboard="Telephone" MaxLength="11" Grid.Row="1" Grid.ColumnSpan="2"/>
+                <controls:TextBox Margin="0,0,0,10" Placeholder="请输入短信验证码" MaxLength="6" Keyboard="Numeric" Grid.Row="2"/>
+                <controls:TextButton Margin="0,0,0,8" Text="获取验证码" Grid.Row="2" Grid.Column="1"/>
+                <Button Margin="0,0,0,10" Text="登录 / 注册" Command="{Binding LoginCommand}" Grid.Row="3" Grid.ColumnSpan="2"/>
+                <Label Margin="0,0,0,32" HorizontalOptions="Center" Grid.Row="4" Grid.ColumnSpan="2">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="登录或注册即代表您已阅读并同意 "/>
+                                <Span Text="用户协议" Style="{DynamicResource LinkText}">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding LoginCommand}"
+                                          CommandParameter="https://docs.microsoft.com/xamarin/"/>
+                                    </Span.GestureRecognizers>
+                                </Span>
+                                <Span Text=" 和 "/>
+                                <Span Text="隐私政策" Style="{DynamicResource LinkText}">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding LoginCommand}"
+                                          CommandParameter="https://docs.microsoft.com/xamarin/"/>
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
