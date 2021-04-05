@@ -4,7 +4,9 @@ using System.Runtime.Versioning;
 // ReSharper disable once CheckNamespace
 namespace System
 {
+#if NET5_0_OR_GREATER
     [SupportedOSPlatform("Windows")]
+#endif
     public static class RegistryKeyExtensions
     {
         /// <summary>

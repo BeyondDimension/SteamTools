@@ -78,7 +78,7 @@ namespace System.Application.Services.CloudService
             }));
         }
 
-        public Task<IApiResponse<NotificationRecordDTO?>> Post(ActiveUserRecordDTO record)
+        public Task<IApiResponse<NotificationRecordDTO?>> Post(ActiveUserRecordDTO record, Guid? lastNotificationRecordId)
         {
             return Task.FromResult(ApiResponse.Ok<NotificationRecordDTO?>(null));
         }
@@ -198,7 +198,7 @@ namespace System.Application.Services.CloudService
                 {
                     Name = "Twitch 直播",
                     Items = new List<AccelerateProjectDTO>
-                    {                        
+                    {
                         new AccelerateProjectDTO
                         {
                             Name = "Twitch 直播聊天",
@@ -206,7 +206,7 @@ namespace System.Application.Services.CloudService
                             ForwardDomainName = "twitchchat.rmbgame.net",
                             Hosts = "irc-ws.chat.twitch.tv;irc-ws-r.chat.twitch.tv",
                             Enable  = false,
-                        },           
+                        },
                         new AccelerateProjectDTO
                         {
                             Name = "Twitch 快速登录",
@@ -215,7 +215,7 @@ namespace System.Application.Services.CloudService
                             ForwardDomainIP = "34.213.92.235",
                             Hosts = "id.twitch.tv",
                             Enable  = false,
-                        },                        
+                        },
                         new AccelerateProjectDTO
                         {
                             Name = "Twitch 直播掉宝",

@@ -9,6 +9,7 @@
  * 在配置文件 exe.config supportedRuntime 项中可添加net4x的支持
  */
 
+using Microsoft.Win32;
 using System.Application;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -47,16 +48,16 @@ namespace System
                     FileSystemDesktop.InitFileSystem();
 
                     thisFilePath = currentProcess.MainModule.FileName;
-                    if (args.Length == 2 && string.Equals(args[0], "-start", StringComparison.OrdinalIgnoreCase) && string.Equals(args[1], "setup", StringComparison.OrdinalIgnoreCase)) // -start setup
-                    {
-                        var fileName = $"setup.{(EnvironmentEx.Is64BitOperatingSystem ? "x64" : "x86")}.exe";
-                        var baseDir = Path.GetDirectoryName(thisFilePath);
-                        appFilePath = Path.Combine(baseDir, fileName);
-                    }
-                    else
-                    {
-                        appFilePath = thisFilePath.Replace(".win7", string.Empty, StringComparison.OrdinalIgnoreCase);
-                    }
+                    //if (args.Length == 2 && string.Equals(args[0], "-start", StringComparison.OrdinalIgnoreCase) && string.Equals(args[1], "setup", StringComparison.OrdinalIgnoreCase)) // -start setup
+                    //{
+                    //    var fileName = $"setup.{(EnvironmentEx.Is64BitOperatingSystem ? "x64" : "x86")}.exe";
+                    //    var baseDir = Path.GetDirectoryName(thisFilePath);
+                    //    appFilePath = Path.Combine(baseDir, fileName);
+                    //}
+                    //else
+                    //{
+                    appFilePath = thisFilePath.Replace(".win7", string.Empty, StringComparison.OrdinalIgnoreCase);
+                    //}
 
                     var isQuickStart = QuickStart(out var writeQuickStart);
 
@@ -192,7 +193,7 @@ namespace System
          * MSI安装包生成的桌面快捷方式指向当前程序
          * 在Win7上进行KB补丁检查或其他环境检查需要一定耗时
          * 预期仅第一次运行检查，检测通过后后续运行不在检查
-         * 使用[计算机名+用户名+系统版本号]进行哈希计算得到的值作为标识
+         * 使用[MachineGuid/计算机名+用户名+系统版本号]进行哈希计算得到的值作为标识
          * 这样就算整个程序文件夹Copy另一台PC中，也会在第一次运行时重新检查
          */
 
@@ -212,11 +213,21 @@ namespace System
                     throw new Exception("Shortcut does not exist.");
                 }
 
-                var machineName = Environment.MachineName;
-                var userName = Environment.UserName;
-                var osVersion = Environment.OSVersion.VersionString;
-
-                var hashValue = Hashs.String.SHA1(machineName + userName + osVersion);
+                var hashValue = Hashs.String.SHA256(GetUniqueIdentifier());
+                static string GetUniqueIdentifier()
+                {
+                    var value = Registry.LocalMachine.Read(@"SOFTWARE\Microsoft\Cryptography", "MachineGuid");
+                    var osVersion_ = Environment.OSVersion.Version;
+                    var osVersion = osVersion_.Major + osVersion_.Minor.ToString();
+                    if (value.IsNullOrWhiteSpace())
+                    {
+                        var machineName = Environment.MachineName;
+                        var userName = Environment.UserName;
+                        value = machineName + userName;
+                    }
+                    value += osVersion;
+                    return value;
+                }
 
                 var path = Path.Combine(IOPath.AppDataDirectory, QuickStartMarkFileName);
 

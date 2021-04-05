@@ -12,7 +12,7 @@ namespace System.Common
             /// <summary>
             /// 通知栏图标资源
             /// </summary>
-            public static int ic_stat_notify_msg { get; internal set; }
+            public static int? ic_stat_notify_msg { get; internal set; }
         }
 
         public static class activities
