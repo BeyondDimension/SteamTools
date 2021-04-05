@@ -11,12 +11,12 @@
 [![GitHub Fork](https://img.shields.io/github/forks/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/network/members)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rmbadmin/SteamTools?style=flat-square&color=3cb371)
 [![GitHub Repo Languages](https://img.shields.io/github/languages/top/SteamTools-Team/SteamTools?style=flat-square)](https://github.com/SteamTools-Team/SteamTools/search?l=c%23)
-[![NET 5.0](https://img.shields.io/badge/.NET-5.0-green.svg?style=flat-square)](https://dotnet.microsoft.com/download/dotnet/5.0)
-![C# 9.0](https://img.shields.io/badge/C%23-9.0-brightgreen.svg?style=flat-square)
+[![NET 5.0](https://img.shields.io/badge/dotnet-5.0-green.svg?style=flat-square)](https://dotnet.microsoft.com/download/dotnet/5.0)
+![C# 9.0](https://img.shields.io/badge/c%23-9.0-brightgreen.svg?style=flat-square)
 [![GitHub Repo Languages](https://img.shields.io/github/languages/top/SteamTools-Team/SteamTools?style=flat-square)](https://github.com/SteamTools-Team/SteamTools/search?l=c%23)
 
-[![Desktop GUI](https://img.shields.io/badge/GUI@Desktop-AvaloniaUI-blue.svg?style=flat-square)](https://github.com/AvaloniaUI/Avalonia)
-[![Mobile GUI](https://img.shields.io/badge/GUI@Mobile-Xamarin-blue.svg?style=flat-square)](https://github.com/xamarin/Xamarin.Forms)
+[![Desktop GUI](https://img.shields.io/badge/gui@desktop-AvaloniaUI-blue.svg?style=flat-square)](https://github.com/AvaloniaUI/Avalonia)
+[![Mobile GUI](https://img.shields.io/badge/gui@mobile-Xamarin-blue.svg?style=flat-square)](https://github.com/xamarin/Xamarin.Forms)
 
 
 [![GitHub Star](https://img.shields.io/github/stars/rmbadmin/SteamTools.svg?style=social)](https://github.com/SteamTools-Team/SteamTools)
