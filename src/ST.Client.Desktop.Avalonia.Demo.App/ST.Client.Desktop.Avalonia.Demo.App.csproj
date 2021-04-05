@@ -41,6 +41,9 @@
     <Compile Include="..\ST.Services.CloudService\Services\CloudService\MockCloudServiceClient.cs">
       <Link>MockCloudServiceClient.cs</Link>
     </Compile>
+    <Compile Include="..\ST.Services.CloudService\Services\CloudService\MockCloudServiceClient.Accelerate.cs">
+      <Link>MockCloudServiceClient.Accelerate.cs</Link>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
