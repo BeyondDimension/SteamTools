@@ -31,8 +31,16 @@ namespace System.Application.UI.ViewModels
 
         internal async override Task Initialize()
         {
-            SteamApps = ISteamService.Instance.GetAppInfos();
-            await Task.CompletedTask;
+            SteamApps = await ISteamService.Instance.GetAppInfos();
+
+            if (SteamApps.Count > 0) 
+            {
+                foreach (var app in SteamApps) 
+                {
+                    app.LibraryLogoStream = await IHttpService.Instance.GetImageAsync(app.LibraryLogoUrl, ImageChannelType.SteamGames);
+                    app.HeaderLogoStream = await IHttpService.Instance.GetImageAsync(app.HeaderLogoUrl, ImageChannelType.SteamGames);
+                }
+            }
         }
     }
 }

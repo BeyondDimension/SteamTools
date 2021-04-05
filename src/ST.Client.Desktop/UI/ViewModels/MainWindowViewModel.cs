@@ -96,8 +96,8 @@ namespace System.Application.UI.ViewModels
             {
                 foreach (var item in this.TabItems)
                 {
-                    if (item == GameListPage)
-                        continue;
+                    //if (item == GameListPage)
+                    //    continue;
                     Task.Run(item.Initialize).ForgetAndDispose();
                 }
                 this.IsInitialized = true;

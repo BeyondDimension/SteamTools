@@ -123,8 +123,6 @@ namespace System.Application
 					case SteamAppPropertyType.Float:
 						value = reader.ReadSingle();
 						break;
-					case (SteamAppPropertyType)4:
-						goto IL_8F;
 					case SteamAppPropertyType.WString:
 						value = reader.ReadAppInfoWideString();
 						break;
@@ -135,12 +133,10 @@ namespace System.Application
 						value = reader.ReadUInt64();
 						break;
 					default:
-						goto IL_8F;
+						throw new NotImplementedException("The property type " + type.ToString() + " has not been implemented.");
 				}
 				propertyTable.AddPropertyValue(name, type, value);
 				continue;
-			IL_8F:
-				throw new NotImplementedException("The property type " + type.ToString() + " has not been implemented.");
 			}
 			return propertyTable;
 		}

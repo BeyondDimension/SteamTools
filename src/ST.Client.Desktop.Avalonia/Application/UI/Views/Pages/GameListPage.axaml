@@ -4,24 +4,45 @@
              xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.GameListPage">
-	<Design.DataContext>
-		<vm:MainWindowViewModel/>
-	</Design.DataContext>
-	<StackPanel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}" Background="Transparent" Spacing="20">
-		<Grid ColumnDefinitions="Auto,Auto">
-            <TreeView Grid.Row="0" Items="{Binding SteamApps}">
-                <TreeView.ItemTemplate>
-                    <TreeDataTemplate ItemsSource="{Binding Children}">
-                        <TextBlock Text="{Binding Name}"/>
-                    </TreeDataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>
-            <DockPanel Grid.Row="1">
-                
-            </DockPanel>
-		</Grid>
-        
-	</StackPanel>
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    <Grid ColumnDefinitions="Auto,*">
+        <TreeView Grid.Column="0" >
+            <TreeView.ItemTemplate>
+                <TreeDataTemplate ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding Name}"/>
+                </TreeDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        <Panel Grid.Column="1">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ItemsRepeater Items="{Binding SteamApps}">
+                    <ItemsRepeater.Layout>
+                        <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20"  MaximumRowsOrColumns="6" />
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="20" Spacing="8">
+                                <Border DockPanel.Dock="Top" Classes="paper" Height="300">
+                                    <Panel Width="200">
+                                        <Image Stretch="Uniform" Source="{Binding LibraryLogoStream,Converter={StaticResource BitmapAssetValueConverter}}" />
+                                        <!--<Panel Width="200" IsVisible="{Binding !HeaderLogoStream,Converter={StaticResource IsNullConverter}}">
+                                                <TextBlock Text="{Binding DisplayName}"></TextBlock>
+                                            </Panel>-->
+                                    </Panel>
+                                </Border>
+
+                                <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding DisplayName}" FontSize="12" FontWeight="Bold" Foreground="#F9F9F9" />
+                                <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding AppId}" FontSize="10" Foreground="#A1A1A1" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </ScrollViewer>
+        </Panel>
+    </Grid>
 </UserControl>

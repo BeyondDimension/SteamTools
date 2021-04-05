@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace System.Application.Services.Implementation
 {
@@ -246,32 +247,38 @@ namespace System.Application.Services.Implementation
             }
         }
 
+        private uint unknownValueAtStart;
+        private const uint MagicNumber = 123094055U;
+
         /// <summary>
         /// 从steam本地客户端缓存文件中读取游戏数据
         /// </summary>
-        public List<SteamApp> GetAppInfos()
+        public async Task<List<SteamApp>> GetAppInfos()
         {
             var apps = new List<SteamApp>();
-            if (string.IsNullOrEmpty(UserVdfPath) && !File.Exists(UserVdfPath))
+            if (string.IsNullOrEmpty(AppInfoPath) && !File.Exists(AppInfoPath))
                 return apps;
-            using BinaryReader binaryReader = new(File.OpenRead(UserVdfPath));
-            uint num = binaryReader.ReadUInt32();
-            if (num != 123094055U)
+            using (BinaryReader binaryReader = new(File.OpenRead(AppInfoPath)))
             {
-                Log.Error(nameof(GetAppInfos), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
-                return apps;
-            }
-            SteamApp? app = new();
-            //app._unknownValueAtStart = binaryReader.ReadUInt32();
-            while ((app = SteamApp.FromReader(binaryReader)) != null)
-            {
-                if (app != null)
+                uint num = binaryReader.ReadUInt32();
+                if (num != MagicNumber)
                 {
-                    apps.Add(app);
-                    //app.Modified += (s, e) =>
-                    //{
-
-                    //};
+                    Log.Error(nameof(GetAppInfos), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
+                    return apps;
+                }
+                SteamApp? app = new();
+                unknownValueAtStart = binaryReader.ReadUInt32();
+                while ((app = SteamApp.FromReader(binaryReader)) != null)
+                {
+                    if (app.AppId > 0)
+                    {
+                        //app.LibraryLogoStream = await IHttpService.Instance.GetImageAsync(app.LibraryLogoUrl, ImageChannelType.SteamGames);
+                        //app.HeaderLogoStream = await IHttpService.Instance.GetImageAsync(app.HeaderLogoUrl, ImageChannelType.SteamGames);
+                        apps.Add(app);
+                        //app.Modified += (s, e) =>
+                        //{
+                        //};
+                    }
                 }
             }
             return apps;

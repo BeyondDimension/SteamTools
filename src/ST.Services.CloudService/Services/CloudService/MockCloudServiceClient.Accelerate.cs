@@ -92,20 +92,28 @@ namespace System.Application.Services.CloudService
                             Name = "Discord 语音",
                             DomainNames = "discordapp.com",
                             //ForwardDomainName = "discord.rmbgame.net",
-                            ForwardDomainIP = "162.159.135.233",
-                            Hosts = "discordapp.com;support.discordapp.com;url9177.discordapp.com;canary-api.discordapp.com;cdn-ptb.discordapp.com;ptb.discordapp.com;status.discordapp.com;cdn-canary.discordapp.com;cdn.discordapp.com;streamkit.discordapp.com;i18n.discordapp.com;url9624.discordapp.com;url7195.discordapp.com;merch.discordapp.com;printer.discordapp.com;canary.discordapp.com;apps.discordapp.com;pax.discordapp.com;1.0.0.1 dl.discordapp.net;1.0.0.1 media.discordapp.net;1.0.0.1 images-ext -2.discordapp.net;1.0.0.1 images-ext-1.discordapp.net",
-                            //1.0.0.1 dl.discordapp.net; 1.0.0.1 media.discordapp.net; 1.0.0.1 images - ext - 2.discordapp.net; 1.0.0.1 images - ext - 1.discordapp.net
+                            ForwardDomainIP = "162.159.130.233",
+                            Hosts = "discordapp.com;support.discordapp.com;url9177.discordapp.com;canary-api.discordapp.com;cdn-ptb.discordapp.com;ptb.discordapp.com;status.discordapp.com;cdn-canary.discordapp.com;cdn.discordapp.com;streamkit.discordapp.com;i18n.discordapp.com;url9624.discordapp.com;url7195.discordapp.com;merch.discordapp.com;printer.discordapp.com;canary.discordapp.com;apps.discordapp.com;pax.discordapp.com;",
+                            //104.20.96.100 dl.discordapp.net;104.20.96.100 media.discordapp.net;104.20.96.100 images-ext-2.discordapp.net;104.20.96.100 images-ext-1.discordapp.net
                             Enable  = false,
                         },
-                        //new AccelerateProjectDTO
-                        //{
-                        //    Name = "Discord 更新和图片下载",
-                        //    DomainNames = "ddiscordapp.net",
-                        //    ForwardDomainName = "discordnet.rmbgame.net",
-                        //    //ForwardDomainIP = "162.159.128.232",
-                        //    Hosts = "dl.discordapp.net;media.discordapp.net;images-ext-2.discordapp.net;images-ext-1.discordapp.net",
-                        //    Enable  = false,
-                        //},
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Discord 语音",
+                            DomainNames = "discord.com",
+                            ForwardDomainName = "discordcom.rmbgame.net",
+                            Hosts = "discord.com",
+                            Enable  = false,
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Discord 图片加载",
+                            DomainNames = "discordapp.net",
+                            ForwardDomainName = "discordnet.rmbgame.net",
+                            //ForwardDomainIP = "162.159.128.232",
+                            Hosts = "dl.discordapp.net;media.discordapp.net;images-ext-2.discordapp.net;images-ext-1.discordapp.net;images-2.discordapp.net;images-1.discordapp.net",
+                            Enable  = false,
+                        },
                     },
                 },
                 new AccelerateProjectGroupDTO
@@ -123,7 +131,16 @@ namespace System.Application.Services.CloudService
                         },
                         new AccelerateProjectDTO
                         {
-                            Name = "Twitch 快速登录",
+                            Name = "Twitch 登录",
+                            DomainNames = "passport.twitch.tv",
+                            //ForwardDomainName = "twitchchat.rmbgame.net",
+                            ForwardDomainIP = "54.213.193.53",
+                            Hosts = "passport.twitch.tv",
+                            Enable  = false,
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Twitch 第三方关联登录",
                             DomainNames = "id.twitch.tv",
                             //ForwardDomainName = "twitchchat.rmbgame.net",
                             ForwardDomainIP = "34.213.92.235",
@@ -132,7 +149,7 @@ namespace System.Application.Services.CloudService
                         },
                         new AccelerateProjectDTO
                         {
-                            Name = "Twitch 直播掉宝",
+                            Name = "Twitch 直播掉宝服务(1)",
                             DomainNames = "countess.twitch.tv",
                             //ForwardDomainName = "twitchchat.rmbgame.net",
                             ForwardDomainIP = "52.32.137.233",
@@ -141,7 +158,7 @@ namespace System.Application.Services.CloudService
                         },
                         new AccelerateProjectDTO
                         {
-                            Name = "Twitch 直播掉宝",
+                            Name = "Twitch 直播掉宝服务(2)",
                             DomainNames = "video-edge-d6c541.pdx01.abs.hls.ttvnw.net",
                             //ForwardDomainName = "twitchchat.rmbgame.net",
                             ForwardDomainIP = "54.186.211.17",
@@ -150,7 +167,7 @@ namespace System.Application.Services.CloudService
                         },
                         new AccelerateProjectDTO
                         {
-                            Name = "Twitch 直播掉宝",
+                            Name = "Twitch 直播掉宝服务(3)",
                             DomainNames = "pubsub-edge.twitch.tv",
                             //ForwardDomainName = "twitchchat.rmbgame.net",
                             ForwardDomainIP = "54.186.146.179",
@@ -162,7 +179,7 @@ namespace System.Application.Services.CloudService
                             Name = "Twitch 直播网页加载",
                             DomainNames = "twitch.tv",
                             ForwardDomainName = "twitch.rmbgame.net",
-                            Hosts = "twitch.tv;www.twitch.tv;m.twitch.tv;app.twitch.tv;music.twitch.tv;badges.twitch.tv;blog.twitch.tv;inspector.twitch.tv;stream.twitch.tv;dev.twitch.tv;clips.twitch.tv;spade.twitch.tv;gql.twitch.tv;vod-secure.twitch.tv;vod-storyboards.twitch.tv;trowel.twitch.tv;countess.twitch.tv;extension-files.twitch.tv;vod-metro.twitch.tv;pubster.twitch.tv;help.twitch.tv;passport.twitch.tv;link.twitch.tv;id-cdn.twitch.tv;player.twitch.tv;api.twitch.tv;cvp.twitch.tv;clips-media-assets2.twitch.tv;client-event-reporter.twitch.tv;gds-vhs-drops-campaign-images.twitch.tv;us-west-2.uploads-regional.twitch.tv;assets.help.twitch.tv;discuss.dev.twitch.tv",
+                            Hosts = "twitch.tv;www.twitch.tv;m.twitch.tv;app.twitch.tv;music.twitch.tv;badges.twitch.tv;blog.twitch.tv;inspector.twitch.tv;stream.twitch.tv;dev.twitch.tv;clips.twitch.tv;spade.twitch.tv;gql.twitch.tv;vod-secure.twitch.tv;vod-storyboards.twitch.tv;trowel.twitch.tv;countess.twitch.tv;extension-files.twitch.tv;vod-metro.twitch.tv;pubster.twitch.tv;help.twitch.tv;link.twitch.tv;id-cdn.twitch.tv;player.twitch.tv;api.twitch.tv;cvp.twitch.tv;clips-media-assets2.twitch.tv;client-event-reporter.twitch.tv;gds-vhs-drops-campaign-images.twitch.tv;us-west-2.uploads-regional.twitch.tv;assets.help.twitch.tv;discuss.dev.twitch.tv",
                             //"platform.twitter.com",
                             Enable  = false,
                         },
@@ -175,7 +192,7 @@ namespace System.Application.Services.CloudService
                     {
                         new AccelerateProjectDTO
                         {
-                            Name = "Origin 游戏下载",
+                            Name = "Origin 游戏下载(akamai)",
                             DomainNames = "origin-a.akamaihd.net",
                             ForwardDomainName = "originakamaidownload.rmbgame.net",
                             Hosts = "origin-a.akamaihd.net",
@@ -190,7 +207,7 @@ namespace System.Application.Services.CloudService
                     {
                         new AccelerateProjectDTO
                         {
-                            Name = "Uplay 更新",
+                            Name = "Uplay 更新(akamai)",
                             DomainNames = "static3.cdn.ubi.com",
                             ForwardDomainName = "ubisoftstatic3.rmbgame.net",
                             Hosts = "static3.cdn.ubi.com",
@@ -246,15 +263,23 @@ namespace System.Application.Services.CloudService
                         {
                             Name = "Github Gist",
                             DomainNames = "gist.github.com",
-                            ForwardDomainName = "github.com",
+                            ForwardDomainName = "github.rmbgame.net",
                             Hosts = "gist.github.com",
+                            Enable  = false,
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Github 网站",
+                            DomainNames = "github.com",
+                            ForwardDomainName = "github.rmbgame.net",
+                            Hosts = "github.com",
                             Enable  = false,
                         },
                     },
                 },
                 new AccelerateProjectGroupDTO
                 {
-                    Name = "Pixiv",
+                    Name = "图片站点合集",
                     Items = new List<AccelerateProjectDTO>
                     {
                         new AccelerateProjectDTO
@@ -271,6 +296,22 @@ namespace System.Application.Services.CloudService
                             DomainNames = "pximg.net",
                             ForwardDomainName = "pximg.rmbgame.net",
                             Hosts = "pximg.net;i.pximg.net;s.pximg.net;img-sketch.pximg.net;source.pximg.net;booth.pximg.net;i-f.pximg.net;imp.pximg.net;public-img-comic.pximg.net",
+                            Enable  = false,
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Pinterest",
+                            DomainNames = "pinterest.com;pinimg.com",
+                            ForwardDomainName = "pinterest.rmbgame.net",
+                            Hosts = "pinterest.com;www.pinterest.com;pinimg.com;sm.pinimg.com;s.pinimg.com;i.pinimg.com",
+                            Enable  = false,
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "Artstation",
+                            DomainNames = "artstation.com",
+                            ForwardDomainIP = "104.16.226.51",
+                            Hosts = "artstation.com",
                             Enable  = false,
                         },
                     },
