@@ -1,5 +1,7 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using Avalonia.Media;
 using System.Application.UI.ViewModels;
 
 namespace System.Application.UI
@@ -22,7 +24,7 @@ namespace System.Application.UI
                     return view;
                 }
             }
-            return new TextBlock { Text = "Not Found: " + name };
+            return new TextBlock { Text = "Not Found: " + name, Padding = Thickness.Parse("24, 4, 24, 24"), FontWeight = FontWeight.Bold, FontSize = 22, };
         }
 
         public bool Match(object data)

@@ -17,9 +17,12 @@ namespace System.Application.UI.Views.Controls
         protected override FormsEditText CreateNativeControl()
         {
             var editText = base.CreateNativeControl();
-            editText.Background = null;
+            //editText.Background = null;
+            editText.SetBackgroundResource(Resource.Drawable.bg_textbox);
             editText.TextSelectHandle = new ColorDrawable(Android.Graphics.Color.Transparent);
             editText.SetTextCursorDrawable(Resource.Drawable.text_cursor);
+            var padding = Context.DpToPxInt32(10);
+            editText.SetPadding(padding, editText.Top, padding, editText.Bottom);
             return editText;
         }
     }

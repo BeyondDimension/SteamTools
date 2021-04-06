@@ -20,6 +20,7 @@
     <Compile Include="..\Common.ClientLib.Droid\Application\Security\*.cs">
       <LinkBase>Security</LinkBase>
     </Compile>
+    <None Remove="Resources\drawable\bg_textbox.xml" />
     <None Remove="Resources\values-v28\styles.xml" />
     <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\Permissions\GetPhoneNumberPermission.cs">
       <LinkBase>Services\Implementation\Permissions</LinkBase>
@@ -64,6 +65,9 @@
       <LinkBase>Extensions</LinkBase>
     </Compile>
     <Compile Include="..\Common.ClientLib.Droid\Extensions\LogLevelEnumExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\DimenUnitConverterExtensions.cs">
       <LinkBase>Extensions</LinkBase>
     </Compile>
     <AndroidResource Include="Resources\**\*" />
