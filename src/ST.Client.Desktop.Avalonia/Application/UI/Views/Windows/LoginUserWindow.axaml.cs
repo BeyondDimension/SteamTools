@@ -35,6 +35,15 @@ namespace System.Application.UI.Views.Windows
 #endif
         }
 
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            if (DataContext is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
+        }
+
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);

@@ -1,11 +1,12 @@
 ﻿using ReactiveUI;
 using System.Application.Mvvm;
+using System.Runtime.Serialization;
 
 namespace System.Application.UI.ViewModels
 {
     public class ViewModelBase : ReactiveObject, IDisposable
     {
-        [NonSerialized] private CompositeDisposable? _compositeDisposable = new CompositeDisposable();
+        [NonSerialized] private CompositeDisposable? _compositeDisposable = new();
         public CompositeDisposable? CompositeDisposable
         {
             get => _compositeDisposable;
@@ -18,7 +19,9 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        [NonSerialized] bool _disposed;
+#pragma warning disable IDE1006 // 命名样式
+        [IgnoreDataMember] protected bool _disposed { get; private set; }
+#pragma warning restore IDE1006 // 命名样式
 
         /// <summary>
         /// 是否在设计器的上下文中运行

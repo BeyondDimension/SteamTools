@@ -5,13 +5,13 @@ using System.Application.UI.Resx;
 using System.Diagnostics;
 using System.Properties;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
 {
     public class LoginUserWindowViewModel : WindowViewModel
     {
         private const int maxTimeLimit = 60;
-        private Timer? timer;
 
         public LoginUserWindowViewModel()
         {
@@ -20,25 +20,19 @@ namespace System.Application.UI.ViewModels
             GetCodeButtonContent = AppResources.User_GetSMSCode;
         }
 
-        void Timer_Elapsed()
+        bool Timer_Elapsed()
         {
-            if (TimeLimit == 0)
+            if (TimeLimit <= 0)
             {
                 TimeLimit = maxTimeLimit;
-                //this.RaisePropertyChanged(nameof(IsUnTimeLimit));
                 GetCodeButtonContent = AppResources.User_GetSMSCode;
-                timer?.Dispose();
+                return false;
             }
             else
             {
                 GetCodeButtonContent = string.Format(AppResources.User_LoginCodeTimeLimitTip, TimeLimit);
+                return true;
             }
-        }
-
-        private void Timer_Elapsed(object _)
-        {
-            TimeLimit--;
-            Timer_Elapsed();
         }
 
         private string? _Phone;
@@ -105,6 +99,39 @@ namespace System.Application.UI.ViewModels
                 await ICloudServiceClient.Instance.Account.LoginOrRegister(request);
         }
 
+        CancellationTokenSource? cts;
+
+        void TimeStart()
+        {
+            cts?.Cancel();
+            cts = new();
+            Task.Run(async () =>
+            {
+                bool b;
+                do
+                {
+                    TimeLimit--;
+                    b = Timer_Elapsed();
+#if DEBUG
+                    Toast.Show($"TimeLimit: {TimeLimit}");
+#endif
+                    try
+                    {
+                        if (b) await Task.Delay(1000, cts.Token);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        if (!_disposed)
+                        {
+                            TimeLimit = 0;
+                            Timer_Elapsed();
+                        }
+                        break;
+                    }
+                } while (b);
+            });
+        }
+
         public async void GetSMSCode()
         {
             if (IsUnTimeLimit)
@@ -112,7 +139,8 @@ namespace System.Application.UI.ViewModels
                 return;
             }
 
-            timer = new Timer(Timer_Elapsed, null, 0, 1000);
+            TimeStart();
+
             var client = ICloudServiceClient.Instance;
 
             var request = new SendSmsRequest
@@ -124,12 +152,7 @@ namespace System.Application.UI.ViewModels
 
             if (!response.IsSuccess)
             {
-                timer.Dispose();
-                timer = null;
-                TimeLimit = 0;
-                Timer_Elapsed();
-                this.RaisePropertyChanged(nameof(IsUnTimeLimit));
-                this.RaisePropertyChanged(nameof(GetCodeButtonContent));
+                cts?.Cancel();
             }
 
             if (!GetSmsCodeSuccess && response.IsSuccess) GetSmsCodeSuccess = true;
@@ -142,6 +165,15 @@ namespace System.Application.UI.ViewModels
 
         public void SteamFastLogin()
         {
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                cts?.Cancel();
+            }
+            base.Dispose(disposing);
         }
     }
 }
