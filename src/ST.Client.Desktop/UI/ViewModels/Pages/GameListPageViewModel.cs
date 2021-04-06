@@ -33,13 +33,16 @@ namespace System.Application.UI.ViewModels
         {
             SteamApps = await ISteamService.Instance.GetAppInfos();
 
-            if (SteamApps.Count > 0) 
+            if (SteamApps.Count > 0)
             {
-                foreach (var app in SteamApps) 
+                Parallel.ForEach(SteamApps, new ParallelOptions
+                {
+                    MaxDegreeOfParallelism = Environment.ProcessorCount * 2
+                }, async app =>
                 {
                     app.LibraryLogoStream = await IHttpService.Instance.GetImageAsync(app.LibraryLogoUrl, ImageChannelType.SteamGames);
                     app.HeaderLogoStream = await IHttpService.Instance.GetImageAsync(app.HeaderLogoUrl, ImageChannelType.SteamGames);
-                }
+                });
             }
         }
     }

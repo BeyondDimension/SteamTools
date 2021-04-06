@@ -18,7 +18,7 @@
     <Style Selector="Button.Hyperlink">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Margin" Value="-5"/>
+        <Setter Property="Margin" Value="0"/>
         <Setter Property="Foreground" Value="{DynamicResource SystemControlHyperlinkTextBrush}" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">

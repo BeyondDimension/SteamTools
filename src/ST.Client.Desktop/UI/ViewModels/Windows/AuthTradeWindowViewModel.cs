@@ -259,16 +259,14 @@ namespace System.Application.UI.ViewModels
                 {
                     ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_GetTip);
 
-                    var confirmations = steam.GetConfirmations();
-                    foreach (var item in confirmations)
+                    Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(steam.GetConfirmations());
+
+                    Parallel.ForEach(Confirmations, confirmation =>
                     {
                         using var web = new WebClient();
-                        var bt = web.DownloadData(item.Image);
-                        item.ImageStream = new MemoryStream(bt);
-                    }
-                    Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(confirmations);
-
-
+                        var bt = web.DownloadData(confirmation.Image);
+                        confirmation.ImageStream = new MemoryStream(bt);
+                    });
 
                     // 获取新交易后保存
                     if (!string.IsNullOrEmpty(_Authenticator.SessionData))
@@ -289,6 +287,13 @@ namespace System.Application.UI.ViewModels
                     {
                         steam.Refresh();
                         Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(steam.GetConfirmations());
+
+                        Parallel.ForEach(Confirmations, confirmation =>
+                        {
+                            using var web = new WebClient();
+                            var bt = web.DownloadData(confirmation.Image);
+                            confirmation.ImageStream = new MemoryStream(bt);
+                        });
                     }
                     catch (Exception ex)
                     {
