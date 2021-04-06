@@ -17,11 +17,9 @@ namespace System.Application.UI.Views.Controls
 
         protected override AppCompatButton CreateNativeControl()
         {
-#pragma warning disable CS8603 // 可能的 null 引用返回。
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-            return LayoutInflater.From(Context).Inflate(Resource.Layout.controls_btntext, null).JavaCast<AppCompatButton>();
-#pragma warning restore CS8602 // 解引用可能出现空引用。
-#pragma warning restore CS8603 // 可能的 null 引用返回。
+            var view = LayoutInflater.From(Context).Inflate(Resource.Layout.controls_btntext, null).JavaCast<AppCompatButton>();
+            //view.Background = null;
+            return view;
         }
     }
 }

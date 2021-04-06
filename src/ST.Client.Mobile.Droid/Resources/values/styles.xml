@@ -15,6 +15,7 @@
     <!--<item name="colorAccent">#FF4081</item>-->
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorAccent">@color/colorAccent</item>
+    <item name="colorControlHighlight">@color/colorControlHighlight</item>
   </style>
   <style name="MainTheme.Splash.Base" parent ="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowBackground">@drawable/splash_screen</item>

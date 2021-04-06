@@ -10,7 +10,9 @@ namespace System.Application.UI.Views
         public LoginPage()
         {
             InitializeComponent();
-            this.BindingContext = new LoginViewModel();
+            BindingContext = new LoginViewModel();
+            TbPhoneNumber.ReturnCommand = new Command(() => TbSmsCode.Focus());
+            TbSmsCode.ReturnCommand = new Command(() => ((LoginViewModel)BindingContext).LoginCommand.Execute(null));
         }
     }
 }
