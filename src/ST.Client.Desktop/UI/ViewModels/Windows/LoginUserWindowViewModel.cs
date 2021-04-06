@@ -1,19 +1,17 @@
-﻿using Newtonsoft.Json.Linq;
-using ReactiveUI;
+﻿using ReactiveUI;
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Diagnostics;
 using System.Properties;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
 {
     public class LoginUserWindowViewModel : WindowViewModel
     {
         private const int maxTimeLimit = 60;
-        private Timer timer;
+        private Timer? timer;
 
         public LoginUserWindowViewModel()
         {
@@ -22,17 +20,25 @@ namespace System.Application.UI.ViewModels
             GetCodeButtonContent = AppResources.User_GetSMSCode;
         }
 
-        private void Timer_Elapsed(object state)
+        void Timer_Elapsed()
         {
-            TimeLimit--;
-            GetCodeButtonContent = string.Format(AppResources.User_LoginCodeTimeLimitTip, TimeLimit);
             if (TimeLimit == 0)
             {
                 TimeLimit = maxTimeLimit;
                 //this.RaisePropertyChanged(nameof(IsUnTimeLimit));
                 GetCodeButtonContent = AppResources.User_GetSMSCode;
-                timer.Dispose();
+                timer?.Dispose();
             }
+            else
+            {
+                GetCodeButtonContent = string.Format(AppResources.User_LoginCodeTimeLimitTip, TimeLimit);
+            }
+        }
+
+        private void Timer_Elapsed(object _)
+        {
+            TimeLimit--;
+            Timer_Elapsed();
         }
 
         private string? _Phone;
@@ -67,7 +73,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public string _GetCodeButtonContent;
+        public string _GetCodeButtonContent = string.Empty;
         public string GetCodeButtonContent
         {
             get => _GetCodeButtonContent;
@@ -88,39 +94,25 @@ namespace System.Application.UI.ViewModels
                 ToastService.Current.Notify(AppResources.User_SMSCode_Error);
                 return;
             }
-            if (string.IsNullOrWhiteSpace(Phone) || string.IsNullOrWhiteSpace(SMSCode))
-            {
-                ToastService.Current.Notify(AppResources.User_PhoneCode_Error);
-                return;
-            }
             var request = new LoginOrRegisterRequest
             {
                 PhoneNumber = Phone,
                 SmsCode = SMSCode
             };
-            var response = await ICloudServiceClient.Instance.Account.LoginOrRegister(request);
-
-
-            if (!response.IsSuccess)
-            {
-                ToastService.Current.Notify("Fail:" + response.Code);
-                return;
-            }
+#if DEBUG
+            var response =
+#endif
+                await ICloudServiceClient.Instance.Account.LoginOrRegister(request);
         }
 
         public async void GetSMSCode()
         {
-            if (string.IsNullOrWhiteSpace(Phone))
-            {
-                ToastService.Current.Notify(AppResources.User_Phone_Error);
-                return;
-            }
             if (IsUnTimeLimit)
             {
                 return;
             }
 
-            timer = new Timer(new TimerCallback(Timer_Elapsed), null, 0, 1000);
+            timer = new Timer(Timer_Elapsed, null, 0, 1000);
             var client = ICloudServiceClient.Instance;
 
             var request = new SendSmsRequest
@@ -130,17 +122,17 @@ namespace System.Application.UI.ViewModels
             };
             var response = await client.AuthMessage.SendSms(request);
 
-            if (response.IsSuccess)
+            if (!response.IsSuccess)
             {
-                GetSmsCodeSuccess = true;
-            }
-            else
-            {
-                GetSmsCodeSuccess = false;
-                ToastService.Current.Notify("Fail:" + response.Code);
-                return;
+                timer.Dispose();
+                timer = null;
+                TimeLimit = 0;
+                Timer_Elapsed();
+                this.RaisePropertyChanged(nameof(IsUnTimeLimit));
+                this.RaisePropertyChanged(nameof(GetCodeButtonContent));
             }
 
+            if (!GetSmsCodeSuccess && response.IsSuccess) GetSmsCodeSuccess = true;
         }
 
         public void OpenHelpLink()
@@ -150,7 +142,6 @@ namespace System.Application.UI.ViewModels
 
         public void SteamFastLogin()
         {
-
         }
     }
 }

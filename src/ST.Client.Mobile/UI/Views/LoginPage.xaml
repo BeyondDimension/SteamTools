@@ -35,7 +35,7 @@
                         <Label.FormattedText>
                             <FormattedString>
                                 <FormattedString.Spans>
-                                    <Span Text="登录或注册即代表您已阅读并同意"/>
+                                    <Span Text="注册即代表您已阅读并同意"/>
                                     <Span Text=" "/>
                                     <Span Text="用户协议" Style="{DynamicResource LinkText}">
                                         <Span.GestureRecognizers>

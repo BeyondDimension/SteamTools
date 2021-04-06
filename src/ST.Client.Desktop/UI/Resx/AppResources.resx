@@ -579,15 +579,6 @@
   <data name="User_Phone" xml:space="preserve">
     <value>手机号码</value>
   </data>
-  <data name="User_PhoneCode_Error" xml:space="preserve">
-    <value>请正确填写手机号和验证码</value>
-  </data>
-  <data name="User_Phone_Error" xml:space="preserve">
-    <value>对不起，手机号码无效！请重新输入</value>
-  </data>
-  <data name="User_Rememberme" xml:space="preserve">
-    <value>记住登陆状态</value>
-  </data>
   <data name="User_SMSCode" xml:space="preserve">
     <value>短信验证码</value>
   </data>

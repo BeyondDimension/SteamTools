@@ -9,14 +9,13 @@
 [![GitHub license](https://img.shields.io/github/license/rmbadmin/SteamTools?style=flat-square)](LICENSE)
 [![GitHub Star](https://img.shields.io/github/stars/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/stargazers)
 [![GitHub Fork](https://img.shields.io/github/forks/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/network/members)
-![GitHub repo size](https://img.shields.io/github/repo-size/rmbadmin/SteamTools?style=flat-square&color=3cb371)
+![GitHub Repo size](https://img.shields.io/github/repo-size/rmbadmin/SteamTools?style=flat-square&color=3cb371)
 [![GitHub Repo Languages](https://img.shields.io/github/languages/top/SteamTools-Team/SteamTools?style=flat-square)](https://github.com/SteamTools-Team/SteamTools/search?l=c%23)
-[![NET 5.0](https://img.shields.io/badge/dotnet-5.0-green.svg?style=flat-square)](https://dotnet.microsoft.com/download/dotnet/5.0)
-![C# 9.0](https://img.shields.io/badge/c%23-9.0-brightgreen.svg?style=flat-square)
-[![GitHub Repo Languages](https://img.shields.io/github/languages/top/SteamTools-Team/SteamTools?style=flat-square)](https://github.com/SteamTools-Team/SteamTools/search?l=c%23)
+[![NET 5.0](https://img.shields.io/badge/dotnet-5.0-purple.svg?style=flat-square&color=512bd4)](https://docs.microsoft.com/en-us/dotnet/core/dotnet-five)
+[![C# 9.0](https://img.shields.io/badge/c%23-9.0-green.svg?style=flat-square&color=6da86a)](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9)
 
-[![Desktop GUI](https://img.shields.io/badge/gui@desktop-AvaloniaUI-blue.svg?style=flat-square)](https://github.com/AvaloniaUI/Avalonia)
-[![Mobile GUI](https://img.shields.io/badge/gui@mobile-Xamarin-blue.svg?style=flat-square)](https://github.com/xamarin/Xamarin.Forms)
+[![Desktop GUI](https://img.shields.io/badge/gui@desktop-AvaloniaUI-purple.svg?style=flat-square&color=8c45ab)](https://github.com/AvaloniaUI/Avalonia)
+[![Mobile GUI](https://img.shields.io/badge/gui@mobile-Xamarin.Forms-blue.svg?style=flat-square&color=3498db)](https://github.com/xamarin/Xamarin.Forms)
 
 
 [![GitHub Star](https://img.shields.io/github/stars/rmbadmin/SteamTools.svg?style=social)](https://github.com/SteamTools-Team/SteamTools)

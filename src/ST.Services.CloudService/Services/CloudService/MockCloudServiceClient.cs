@@ -12,6 +12,15 @@ namespace System.Application.Services.CloudService
 {
     public sealed partial class MockCloudServiceClient : ICloudServiceClient, IAccountClient, IManageClient, IAuthMessageClient, IVersionClient, IActiveUserClient, IAccelerateClient, ISteamCommunityClient
     {
+        readonly IToast toast;
+        readonly IModelValidator validator;
+
+        public MockCloudServiceClient(IToast toast, IModelValidator validator)
+        {
+            this.toast = toast;
+            this.validator = validator;
+        }
+
         public string ApiBaseUrl => DefaultApiBaseUrl;
         public IAccountClient Account => this;
         public IManageClient Manage => this;
@@ -20,6 +29,40 @@ namespace System.Application.Services.CloudService
         public IActiveUserClient ActiveUser => this;
         public IAccelerateClient Accelerate => this;
         public ISteamCommunityClient SteamCommunity => this;
+
+        #region ModelValidator
+
+        IApiResponse? ModelValidator<TRequestModel>(TRequestModel requestModel) => ModelValidator<TRequestModel, object>(requestModel);
+
+        IApiResponse<TResponseModel>? ModelValidator<TRequestModel, TResponseModel>(TRequestModel requestModel)
+        {
+            if (requestModel != null && typeof(TRequestModel) != typeof(object))
+            {
+                if (!validator.Validate(requestModel, out var errorMessage))
+                {
+                    return ApiResponse.Code<TResponseModel>(
+                        ApiResponseCode.RequestModelValidateFail, errorMessage);
+                }
+            }
+            return null;
+        }
+
+        #endregion
+
+        void ShowResponseErrorMessage(IApiResponse response)
+        {
+            if (response.Code == ApiResponseCode.Canceled) return;
+            var message = ApiResponse.GetMessage(response);
+            toast.Show(message);
+        }
+
+        void GlobalResponseIntercept(IApiResponse response)
+        {
+            if (!response.IsSuccess)
+            {
+                ShowResponseErrorMessage(response);
+            }
+        }
 
         public Task<IApiResponse<string>> ChangeBindPhoneNumber(ChangePhoneNumberRequest.Validation request)
         {
@@ -61,7 +104,7 @@ namespace System.Application.Services.CloudService
 
         public Task<IApiResponse<LoginOrRegisterResponse>> LoginOrRegister(LoginOrRegisterRequest request)
         {
-            return Task.FromResult(ApiResponse.Ok(new LoginOrRegisterResponse
+            var rsp = ModelValidator<LoginOrRegisterRequest, LoginOrRegisterResponse>(request) ?? ApiResponse.Ok(new LoginOrRegisterResponse
             {
                 AuthToken = new JWTEntity
                 {
@@ -75,7 +118,9 @@ namespace System.Application.Services.CloudService
                     Level = 98,
                     NickName = "User",
                 },
-            }));
+            });
+            GlobalResponseIntercept(rsp);
+            return Task.FromResult(rsp);
         }
 
         public Task<IApiResponse<NotificationRecordDTO?>> Post(ActiveUserRecordDTO record, Guid? lastNotificationRecordId)
@@ -90,7 +135,9 @@ namespace System.Application.Services.CloudService
 
         public ValueTask<IApiResponse> SendSms(SendSmsRequest request)
         {
-            return new ValueTask<IApiResponse>(ApiResponse.Ok());
+            var rsp = ModelValidator(request) ?? ApiResponse.Ok();
+            GlobalResponseIntercept(rsp);
+            return new ValueTask<IApiResponse>(rsp);
         }
 
         public Task<IApiResponse<SteamMiniProfile>> MiniProfile(int steamId32)
@@ -128,7 +175,6 @@ namespace System.Application.Services.CloudService
             var rsp = ApiResponse.Ok(content);
             return Task.FromResult(rsp);
         }
-
     }
 }
 #endif

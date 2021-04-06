@@ -11,7 +11,6 @@ namespace System.Application.Services.Implementation
     public class CloudServiceClient : CloudServiceClientBase
     {
         protected readonly IUserManager userManager;
-        protected readonly IToast toast;
 
         public CloudServiceClient(
             ILoggerFactory loggerFactory,
@@ -24,12 +23,12 @@ namespace System.Application.Services.Implementation
                 loggerFactory.CreateLogger(ClientName_),
                 clientFactory,
                 httpPlatformHelper,
+                toast,
                 userManager,
                 options,
                 validator)
         {
             this.userManager = userManager;
-            this.toast = toast;
         }
 
         public override async Task SaveAuthTokenAsync(JWTEntity authToken)
@@ -54,11 +53,6 @@ namespace System.Application.Services.Implementation
             };
 
             await userManager.SetCurrentUserAsync(cUser);
-        }
-
-        public override void ShowResponseErrorMessage(string message)
-        {
-            toast.Show(message);
         }
     }
 }

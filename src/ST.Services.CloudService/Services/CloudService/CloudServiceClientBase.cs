@@ -33,6 +33,7 @@ namespace System.Application.Services.CloudService
         readonly IApiConnection connection;
         protected readonly ICloudServiceSettings settings;
         protected readonly IAuthHelper authHelper;
+        protected readonly IToast toast;
 
         public string ApiBaseUrl { get; }
 
@@ -60,11 +61,13 @@ namespace System.Application.Services.CloudService
             ILogger logger,
             IHttpClientFactory clientFactory,
             IHttpPlatformHelper http_helper,
+            IToast toast,
             IAuthHelper authHelper,
             IOptions<ICloudServiceSettings> options,
             IModelValidator validator) : base(logger, http_helper, clientFactory)
         {
             this.authHelper = authHelper;
+            this.toast = toast;
             settings = options.Value;
             ApiBaseUrl = string.IsNullOrWhiteSpace(settings.ApiBaseUrl)
                 ? DefaultApiBaseUrl : settings.ApiBaseUrl;
@@ -92,7 +95,10 @@ namespace System.Application.Services.CloudService
 
         public abstract Task OnLoginedAsync(IReadOnlyPhoneNumber? phoneNumber, ILoginResponse response);
 
-        public abstract void ShowResponseErrorMessage(string message);
+        public virtual void ShowResponseErrorMessage(string message)
+        {
+            toast.Show(message);
+        }
 
         HttpClient IApiConnectionPlatformHelper.CreateClient() => CreateClient();
 

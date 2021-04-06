@@ -56,7 +56,7 @@
                             </Image>
                         </MenuItem.Header>
 
-                        <MenuItem Command="{Binding Path=ShowLoginWindow_Click,Source={x:Static service:UserService.Current}}" IsEnabled="False">
+                        <MenuItem Command="{Binding Path=ShowLoginWindow_Click,Source={x:Static service:UserService.Current}}">
                             <MenuItem.Header>
                                 <Panel Width="200" Margin="5">
                                     <StackPanel Spacing="8" Margin="25,0,0,0">

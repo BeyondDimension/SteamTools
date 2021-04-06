@@ -1305,33 +1305,6 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 对不起，手机号码无效！请重新输入 的本地化字符串。
-        /// </summary>
-        public static string User_Phone_Error {
-            get {
-                return ResourceManager.GetString("User_Phone_Error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 请正确填写手机号和验证码 的本地化字符串。
-        /// </summary>
-        public static string User_PhoneCode_Error {
-            get {
-                return ResourceManager.GetString("User_PhoneCode_Error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 记住登陆状态 的本地化字符串。
-        /// </summary>
-        public static string User_Rememberme {
-            get {
-                return ResourceManager.GetString("User_Rememberme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 短信验证码 的本地化字符串。
         /// </summary>
         public static string User_SMSCode {
