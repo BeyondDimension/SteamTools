@@ -158,3 +158,4 @@
 * [.NET Extensions](https://github.com/dotnet/extensions)
 * [.NET Runtime](https://github.com/dotnet/runtime)
 * [Fluent UI System Icons](https://github.com/microsoft/fluentui-system-icons)
+* [Depressurizer](https://github.com/Depressurizer/Depressurizer)
