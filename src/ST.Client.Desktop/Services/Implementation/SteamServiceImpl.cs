@@ -272,8 +272,6 @@ namespace System.Application.Services.Implementation
                 {
                     if (app.AppId > 0)
                     {
-                        //app.LibraryLogoStream = await IHttpService.Instance.GetImageAsync(app.LibraryLogoUrl, ImageChannelType.SteamGames);
-                        //app.HeaderLogoStream = await IHttpService.Instance.GetImageAsync(app.HeaderLogoUrl, ImageChannelType.SteamGames);
                         apps.Add(app);
                         //app.Modified += (s, e) =>
                         //{

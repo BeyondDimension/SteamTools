@@ -22,22 +22,37 @@
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <ItemsRepeater Items="{Binding SteamApps}">
                     <ItemsRepeater.Layout>
-                        <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20"  MaximumRowsOrColumns="6" />
+                        <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20"  MaximumRowsOrColumns="6"/>
                     </ItemsRepeater.Layout>
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="20" Spacing="8">
                                 <Border DockPanel.Dock="Top" Classes="paper" Height="300">
                                     <Panel Width="200">
-                                        <Image Stretch="Uniform" Source="{Binding LibraryLogoStream,Converter={StaticResource BitmapAssetValueConverter}}" />
-                                        <!--<Panel Width="200" IsVisible="{Binding !HeaderLogoStream,Converter={StaticResource IsNullConverter}}">
-                                                <TextBlock Text="{Binding DisplayName}"></TextBlock>
-                                            </Panel>-->
+                                        <Image Stretch="Uniform" Source="{Binding LibraryLogoStream,Converter={StaticResource BitmapAssetValueConverter}}" IsVisible="{Binding !LibraryLogoStream,Converter={StaticResource IsNullConverter}}"/>
+                                        
+                                        <Panel Width="200" IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}">
+                                            <Panel IsVisible="{Binding !HeaderLogoStream,Converter={StaticResource IsNullConverter}}">
+                                                <Image Stretch="UniformToFill" Source="{Binding HeaderLogoStream,Converter={StaticResource BitmapAssetValueConverter}}"/>
+                                                <ExperimentalAcrylicBorder IsHitTestVisible="False" Width="200">
+                                                    <ExperimentalAcrylicBorder.Material>
+                                                        <ExperimentalAcrylicMaterial
+                                                                                     TintColor="{DynamicResource BackgroundColorKey}"
+                                                                                     MaterialOpacity="0.40" TintOpacity="0.80"/>
+                                                    </ExperimentalAcrylicBorder.Material>
+                                                </ExperimentalAcrylicBorder>
+                                                <Image Stretch="Uniform" Source="{Binding HeaderLogoStream,Converter={StaticResource BitmapAssetValueConverter}}" />
+                                            </Panel>
+                                            <Panel Background="{DynamicResource ThemeBrushKey}" IsVisible="{Binding HeaderLogoStream,Converter={StaticResource IsNullConverter}}">
+                                                <Image Stretch="Uniform" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/applogo.jpg"/>
+                                            </Panel>
+                                            <!--<TextBlock Text="{Binding DisplayName}" HorizontalAlignment="Center" VerticalAlignment="Bottom"></TextBlock>-->
+                                        </Panel>
                                     </Panel>
                                 </Border>
 
-                                <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding DisplayName}" FontSize="12" FontWeight="Bold" Foreground="#F9F9F9" />
-                                <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding AppId}" FontSize="10" Foreground="#A1A1A1" />
+                                <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding DisplayName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}" />
+                                <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding AppId}" FontSize="10" Foreground="{DynamicResource InactiveForegroundBrushKey}" />
                             </StackPanel>
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>
