@@ -16,7 +16,7 @@
     <PackageReference Include="gfoidl.Base64" Version="1.1.1" />
     <PackageReference Include="MessagePack" Version="2.2.85" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="System.Text.Json" Version="5.0.1" />
+    <PackageReference Include="System.Text.Json" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>
