@@ -13,3 +13,6 @@
 [submodule "references/WinAuth"]
 	path = references/WinAuth
 	url = https://github.com/SteamTools-Team/WinAuth.git
+[submodule "Depressurizer"]
+	path = Depressurizer
+	url = https://github.com/SteamTools-Team/Depressurizer.git
