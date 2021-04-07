@@ -40,7 +40,7 @@
                                     <Span Text="用户协议" Style="{DynamicResource LinkText}">
                                         <Span.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding LoginCommand}"
-                                          CommandParameter="https://docs.microsoft.com/xamarin/"/>
+                                          CommandParameter="https://steampp.net/Agreement"/>
                                         </Span.GestureRecognizers>
                                     </Span>
                                     <Span Text=" "/>
@@ -49,7 +49,7 @@
                                     <Span Text="隐私政策" Style="{DynamicResource LinkText}">
                                         <Span.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding LoginCommand}"
-                                          CommandParameter="https://docs.microsoft.com/xamarin/"/>
+                                          CommandParameter="https://steampp.net/Privacy"/>
                                         </Span.GestureRecognizers>
                                     </Span>
                                 </FormattedString.Spans>

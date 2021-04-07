@@ -26,6 +26,7 @@
     <TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <Platforms>AnyCPU;x86</Platforms>
+    <PlatformTarget>x86</PlatformTarget>
     <UseWindowsForms>false</UseWindowsForms>
     <UseWPF>false</UseWPF>
   </PropertyGroup>

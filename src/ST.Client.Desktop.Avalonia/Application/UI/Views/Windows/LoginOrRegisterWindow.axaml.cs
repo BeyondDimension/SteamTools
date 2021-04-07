@@ -6,12 +6,12 @@ using System.Application.UI.ViewModels;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class LoginUserWindow : FluentWindow
+    public class LoginOrRegisterWindow : FluentWindow
     {
         readonly TextBox TbPhoneNumber;
         readonly TextBox TbSmsCode;
 
-        public LoginUserWindow()
+        public LoginOrRegisterWindow()
         {
             InitializeComponent();
             TbPhoneNumber = this.FindControl<TextBox>(nameof(TbPhoneNumber));
@@ -27,12 +27,21 @@ namespace System.Application.UI.Views.Windows
             {
                 if (e.Key == Key.Return)
                 {
-                    ((LoginUserWindowViewModel?)DataContext)?.LoginOrRegister();
+                    ((LoginOrRegisterWindowViewModel?)DataContext)?.Submit();
                 }
             };
 #if DEBUG
             this.AttachDevTools();
 #endif
+        }
+
+        protected override void OnDataContextChanged(EventArgs e)
+        {
+            base.OnDataContextChanged(e);
+            if (DataContext is LoginOrRegisterWindowViewModel vm)
+            {
+                vm.Close = Close;
+            }
         }
 
         protected override void OnClosed(EventArgs e)

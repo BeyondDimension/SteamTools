@@ -5,7 +5,7 @@
     /// </summary>
     public enum CustomWindow
     {
-        LoginUser,
+        LoginOrRegister,
         MessageBox,
         AddAuth,
         ShowAuth,

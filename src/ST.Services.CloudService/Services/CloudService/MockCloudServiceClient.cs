@@ -102,25 +102,32 @@ namespace System.Application.Services.CloudService
             throw new NotImplementedException();
         }
 
-        public Task<IApiResponse<LoginOrRegisterResponse>> LoginOrRegister(LoginOrRegisterRequest request)
+        public async Task<IApiResponse<LoginOrRegisterResponse>> LoginOrRegister(LoginOrRegisterRequest request)
         {
-            var rsp = ModelValidator<LoginOrRegisterRequest, LoginOrRegisterResponse>(request) ?? ApiResponse.Ok(new LoginOrRegisterResponse
-            {
-                AuthToken = new JWTEntity
-                {
-                    AccessToken = "123",
-                    ExpiresIn = DateTimeOffset.MaxValue,
-                    RefreshToken = "321",
-                },
-                IsLoginOrRegister = true,
-                User = new UserInfoDTO
-                {
-                    Level = 98,
-                    NickName = "User",
-                },
-            });
+            var mockDelay = false;
+            var rsp = ModelValidator<LoginOrRegisterRequest, LoginOrRegisterResponse>(request) ?? LoginOrRegister_();
+            if (mockDelay) await Task.Delay(1500);
             GlobalResponseIntercept(rsp);
-            return Task.FromResult(rsp);
+            return rsp;
+            IApiResponse<LoginOrRegisterResponse> LoginOrRegister_()
+            {
+                mockDelay = true;
+                return ApiResponse.Ok(new LoginOrRegisterResponse
+                {
+                    AuthToken = new JWTEntity
+                    {
+                        AccessToken = "123",
+                        ExpiresIn = DateTimeOffset.MaxValue,
+                        RefreshToken = "321",
+                    },
+                    IsLoginOrRegister = true,
+                    User = new UserInfoDTO
+                    {
+                        Level = 98,
+                        NickName = "User",
+                    },
+                });
+            }
         }
 
         public Task<IApiResponse<NotificationRecordDTO?>> Post(ActiveUserRecordDTO record, Guid? lastNotificationRecordId)

@@ -24,7 +24,7 @@ namespace System.Application.Services
         public static UserService Current { get; } = new();
         #endregion
 
-        private IUserManager user = DI.Get<IUserManager>();
+        private readonly IUserManager user = DI.Get<IUserManager>();
 
         public CurrentUser? CurrentUser
         {
@@ -32,10 +32,10 @@ namespace System.Application.Services
         }
 
 
-        public void ShowLoginWindow_Click()
+        public void ShowLoginOrRegisterWindow_Click()
         {
             if (!CurrentUser.HasValue())
-                DI.Get<IShowWindowService>().Show(CustomWindow.LoginUser, new LoginUserWindowViewModel());
+                DI.Get<IShowWindowService>().Show(CustomWindow.LoginOrRegister, new LoginOrRegisterWindowViewModel());
         }
 
         public void LoginUser_Click()

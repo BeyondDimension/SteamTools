@@ -3,6 +3,7 @@ using NLog.Config;
 using System.Application.Services;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace System.Application.UI
@@ -90,6 +91,19 @@ namespace System.Application.UI
 #if DEBUG
                 //MessageBoxCompat.Show(ex.ToString(), "Steam++ Run Error" + ThisAssembly.Version, MessageBoxButtonCompat.OK, MessageBoxImageCompat.Warning);
 #endif
+
+#if DEBUG && WINDOWS
+                if (ex.InnerException is BadImageFormatException)
+                {
+                    typeof(Program).Assembly.ManifestModule.GetPEKind(out var peKind, out var _);
+                    if (!peKind.HasFlag(PortableExecutableKinds.Required32Bit))
+                    {
+                        Windows.MessageBox.Show("Some references need to work on X86 platforms.", "Error", Windows.MessageBoxButton.OK, Windows.MessageBoxImage.Error);
+                        goto exit;
+                    }
+                }
+#endif
+
                 throw;
             }
             finally

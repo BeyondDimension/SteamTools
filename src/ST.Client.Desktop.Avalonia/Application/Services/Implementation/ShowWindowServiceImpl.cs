@@ -12,7 +12,7 @@ namespace System.Application.Services.Implementation
         static Type GetWindowType(CustomWindow customWindow) => customWindow switch
         {
             CustomWindow.MessageBox => typeof(MessageBoxWindow),
-            CustomWindow.LoginUser => typeof(LoginUserWindow),
+            CustomWindow.LoginOrRegister => typeof(LoginOrRegisterWindow),
             CustomWindow.AddAuth => typeof(AddAuthWindow),
             CustomWindow.ShowAuth => typeof(ShowAuthWindow),
             CustomWindow.AuthTrade => typeof(AuthTradeWindow),

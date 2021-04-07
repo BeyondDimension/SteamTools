@@ -1,4 +1,6 @@
 ﻿using System.Application.Properties;
+using System.Diagnostics;
+using Xamarin.Essentials;
 
 namespace System.Application.Services.CloudService
 {
@@ -62,6 +64,25 @@ namespace System.Application.Services.CloudService
                 }
             }
             return cacheValuesArray;
+        }
+
+        public static async void BrowserOpen(string uri)
+        {
+            if (uri.StartsWith(Prefix_HTTPS))
+            {
+                if (DI.DeviceIdiom == DeviceIdiom.Desktop)
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = uri,
+                        UseShellExecute = true,
+                    });
+                }
+                else
+                {
+                    await Browser.OpenAsync(uri);
+                }
+            }
         }
     }
 }
