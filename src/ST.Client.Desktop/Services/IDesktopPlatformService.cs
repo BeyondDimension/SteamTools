@@ -1,4 +1,5 @@
 ﻿using System.Application.Models;
+using System.Application.Models.Settings;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Cryptography;
@@ -36,7 +37,7 @@ namespace System.Application.Services
         void OpenFileByTextReader(string filePath)
         {
             TextReaderProvider? userProvider = null;
-            var p = IConfigFileService.Instance.UserSettings.TextReaderProvider;
+            var p = GeneralSettings.TextReaderProvider.Value;
             if (p != null)
             {
                 var platform = DI.Platform;

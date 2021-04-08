@@ -33,6 +33,7 @@ namespace System.Application.Services.CloudService
                     {
                         new AccelerateProjectDTO
                         {
+                            Id=Guid.Parse("bd30bffd-0c1c-450f-870a-a3143bf4b6fa"),
                             Name = "Steam社区",
                             DomainNames = "steamcommunity.com",
                             ForwardDomainName = "steamcommunity.rmbgame.net",
@@ -41,6 +42,7 @@ namespace System.Application.Services.CloudService
                         },
                         new AccelerateProjectDTO
                         {
+                            Id=Guid.Parse("bb6cf2ee-32a1-451f-acaf-9d39945c4a75"),
                             Name = "Steam商店",
                             DomainNames="store.steampowered.com;api.steampowered.com",
                             ForwardDomainName = "steamstore.rmbgame.net",
@@ -49,6 +51,7 @@ namespace System.Application.Services.CloudService
                         },
                         new AccelerateProjectDTO
                         {
+                            Id=Guid.Parse("93ed4df8-19d2-464d-9f2e-2a583fd21f3f"),
                             Name = "Steam更新",
                             DomainNames="media.steampowered.com",
                             ForwardDomainName="steammedia.rmbgame.net",
@@ -89,6 +92,7 @@ namespace System.Application.Services.CloudService
                     {
                         new AccelerateProjectDTO
                         {
+                            Id=Guid.Parse("3e5ec009-a69d-4344-ac97-84afb3a7e657"),
                             Name = "Discord 语音",
                             DomainNames = "discordapp.com",
                             //ForwardDomainName = "discord.rmbgame.net",
@@ -99,6 +103,7 @@ namespace System.Application.Services.CloudService
                         },
                         new AccelerateProjectDTO
                         {
+                            Id=Guid.Parse("434ff726-03e7-4430-ab96-de6b8eb52520"),
                             Name = "Discord 语音",
                             DomainNames = "discord.com",
                             ForwardDomainName = "discordcom.rmbgame.net",
@@ -107,6 +112,7 @@ namespace System.Application.Services.CloudService
                         },
                         new AccelerateProjectDTO
                         {
+                            Id=Guid.Parse("88aecefd-24e4-4407-a02e-9cd48b7c6462"),
                             Name = "Discord 图片加载",
                             DomainNames = "discordapp.net",
                             ForwardDomainName = "discordnet.rmbgame.net",

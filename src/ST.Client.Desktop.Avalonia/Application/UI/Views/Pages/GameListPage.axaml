@@ -26,7 +26,7 @@
                     </ItemsRepeater.Layout>
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="20" Spacing="8">
+                            <StackPanel Margin="20 0" Spacing="8">
                                 <Border DockPanel.Dock="Top" Classes="paper" Height="300">
                                     <Panel Width="200">
                                         <Image Stretch="Uniform" Source="{Binding LibraryLogoStream,Converter={StaticResource BitmapAssetValueConverter}}" IsVisible="{Binding !LibraryLogoStream,Converter={StaticResource IsNullConverter}}"/>

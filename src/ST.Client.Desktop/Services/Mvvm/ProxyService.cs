@@ -1,4 +1,6 @@
 ﻿using ReactiveUI;
+using DynamicData;
+using DynamicData.Binding;
 using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Application.UI.Resx;
@@ -6,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
+using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,8 +20,8 @@ namespace System.Application.Services
         public static ProxyService Current { get; } = new ProxyService();
         readonly IHttpProxyService httpProxyService = DI.Get<IHttpProxyService>();
 
-        private IReadOnlyCollection<AccelerateProjectGroupDTO>? _ProxyDomains;
-        public IReadOnlyCollection<AccelerateProjectGroupDTO>? ProxyDomains
+        private ObservableCollection<AccelerateProjectGroupDTO>? _ProxyDomains;
+        public ObservableCollection<AccelerateProjectGroupDTO>? ProxyDomains
         {
             get => _ProxyDomains;
             set
@@ -184,6 +187,29 @@ namespace System.Application.Services
             }
             ProxyDomains = new ObservableCollection<AccelerateProjectGroupDTO>(result.Content);
             SelectGroup = ProxyDomains.FirstOrDefault();
+
+            if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && ProxyDomains.Any_Nullable())
+            {
+                var items = ProxyDomains.SelectMany(s => s.Items);
+                foreach (var item in items)
+                {
+                    if (ProxySettings.SupportProxyServicesStatus.Value.Contains(item.Id.ToString()))
+                    {
+                        item.Enable = true;
+                    }
+                }
+            }
+
+            this.WhenAnyValue(v => v.ProxyDomains)
+                  .Subscribe(domain => domain?
+                        .ToObservableChangeSet()
+                        .AutoRefresh(x => x.ObservableItems)
+                        .TransformMany(t => t.ObservableItems)
+                        .AutoRefresh(x => x.Enable)
+                        .Subscribe(s =>
+                        {
+                            ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Where(w => w.Id != null).Select(k => k.Id.ToString()).ToList();
+                        }));
             #endregion
         }
 

@@ -210,8 +210,8 @@ namespace System.Application
 #if !__MOBILE__
             if (hasGUI || hasServerApiClient)
             {
-                // 业务用户配置文件服务
-                services.AddConfigFileService();
+                // 业务用户配置文件服务()
+                //services.AddConfigFileService();
             }
 
             if (hasHosts)

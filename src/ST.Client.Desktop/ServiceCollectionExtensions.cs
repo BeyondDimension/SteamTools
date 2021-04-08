@@ -35,17 +35,6 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
-        /// 添加业务用户配置文件服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddConfigFileService(this IServiceCollection services)
-        {
-            services.AddSingleton<IConfigFileService, ConfigFileServiceImpl>();
-            return services;
-        }
-
-        /// <summary>
         /// 添加 hosts 文件助手服务
         /// </summary>
         /// <param name="services"></param>

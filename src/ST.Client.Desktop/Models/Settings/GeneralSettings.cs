@@ -18,7 +18,7 @@ namespace System.Application.Models.Settings
 
         private static void IsEnableLogRecord_ValueChanged(object sender, ValueChangedEventArgs<bool> e)
         {
-            
+
         }
 
         private static void WindowsStartupAutoRun_ValueChanged(object sender, ValueChangedEventArgs<bool> e)
@@ -67,6 +67,12 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<bool> IsEnableLogRecord { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };
+
+        /// <summary>
+        /// 用户设置的文本阅读器提供商，根据平台值不同，值格式为 枚举字符串 或 程序路径
+        /// </summary>
+        public static SerializableProperty<Dictionary<Platform, string>?> TextReaderProvider { get; }
+                = new SerializableProperty<Dictionary<Platform, string>?>(GetKey(), Providers.Local, null) { AutoSave = true };
 
         private static string GetKey([CallerMemberName] string propertyName = "")
         {

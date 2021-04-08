@@ -79,7 +79,6 @@ namespace System.Application.UI.ViewModels
                     OnlySteamBrowser.IconKey = "";
             });
 
-
         }
 
 

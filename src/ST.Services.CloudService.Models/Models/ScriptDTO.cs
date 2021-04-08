@@ -181,5 +181,10 @@ namespace System.Application.Models
         [S_JsonIgnore]
         public string[]? RequiredJsArray
             => RequiredJs == null ? null : GetSplitValues(mRequiredJsArrayLock, RequiredJs, ref mRequiredJs, ref mRequiredJsArray);
+
+        [MPKey(14)]
+        [N_JsonProperty("14")]
+        [S_JsonProperty("14")]
+        public Guid Id { get; set; }
     }
 }

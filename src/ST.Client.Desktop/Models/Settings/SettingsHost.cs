@@ -15,6 +15,8 @@ namespace System.Application.Models.Settings
 
         protected virtual string CategoryName => this.GetType().Name;
 
+        public const string ConfigName = "Config.mpo";
+
         protected SettingsHost()
         {
             instances[this.GetType()] = this;
@@ -83,7 +85,7 @@ namespace System.Application.Models.Settings
 
     public class Providers
     {
-        public static string LocalFilePath => Path.Combine(IOPath.AppDataDirectory, IConfigFileService.ConfigFileName);
+        public static string LocalFilePath => Path.Combine(IOPath.AppDataDirectory, SettingsHost.ConfigName);
 
         public static ISerializationProvider Local { get; } = new FileSettingsProvider(LocalFilePath);
     }

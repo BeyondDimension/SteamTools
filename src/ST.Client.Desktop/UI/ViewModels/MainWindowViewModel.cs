@@ -73,12 +73,12 @@ namespace System.Application.UI.ViewModels
 				#endregion
             };
 
-//#if DEBUG
-//            if (AppHelper.Current.IsCefInitComplete)
-//            {
-//                TabItems.Add(new DebugWebViewPageViewModel().AddTo(this));
-//            }
-//#endif
+            //#if DEBUG
+            //            if (AppHelper.Current.IsCefInitComplete)
+            //            {
+            //                TabItems.Add(new DebugWebViewPageViewModel().AddTo(this));
+            //            }
+            //#endif
 
             this.SelectedItem = this.TabItems.First();
 
@@ -94,12 +94,12 @@ namespace System.Application.UI.ViewModels
 
             if (!this.IsInitialized)
             {
-                foreach (var item in this.TabItems)
-                {
-                    //if (item == GameListPage)
-                    //    continue;
-                    Task.Run(item.Initialize).ForgetAndDispose();
-                }
+                Parallel.ForEach(TabItems, async item =>
+                 {
+                     //if (item == GameListPage)
+                     //    return;
+                     await item.Initialize();
+                });
                 this.IsInitialized = true;
             }
 
