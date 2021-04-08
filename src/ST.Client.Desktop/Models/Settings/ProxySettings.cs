@@ -42,8 +42,8 @@ namespace System.Application.Models.Settings
         /// <summary>
         /// 代理服务启用状态
         /// </summary>
-        public static SerializableProperty<List<string>> SupportProxyServicesStatus { get; }
-            = new SerializableProperty<List<string>>(GetKey(), Providers.Local, new List<string>());
+        public static SerializableProperty<IReadOnlyCollection<string>> SupportProxyServicesStatus { get; }
+            = new SerializableProperty<IReadOnlyCollection<string>>(GetKey(), Providers.Local, new List<string>());
 
         private static string GetKey([CallerMemberName] string propertyName = "")
         {

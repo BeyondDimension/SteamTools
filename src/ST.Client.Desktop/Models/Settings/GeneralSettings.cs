@@ -71,8 +71,8 @@ namespace System.Application.Models.Settings
         /// <summary>
         /// 用户设置的文本阅读器提供商，根据平台值不同，值格式为 枚举字符串 或 程序路径
         /// </summary>
-        public static SerializableProperty<Dictionary<Platform, string>?> TextReaderProvider { get; }
-                = new SerializableProperty<Dictionary<Platform, string>?>(GetKey(), Providers.Local, null) { AutoSave = true };
+        public static SerializableProperty<IReadOnlyDictionary<Platform, string>?> TextReaderProvider { get; }
+                = new SerializableProperty<IReadOnlyDictionary<Platform, string>?>(GetKey(), Providers.Local, null) { AutoSave = true };
 
         private static string GetKey([CallerMemberName] string propertyName = "")
         {

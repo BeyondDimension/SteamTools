@@ -173,16 +173,14 @@ namespace System.Application.Serialization
             this.ValueChanged?.Invoke(this, new ValueChangedEventArgs<T>(oldValue, newValue));
         }
 
-        private readonly Dictionary<PropertyChangedEventHandler, EventHandler<ValueChangedEventArgs<T>>> _handlers
-            = new Dictionary<PropertyChangedEventHandler, EventHandler<ValueChangedEventArgs<T>>>();
+        private readonly Dictionary<PropertyChangedEventHandler, EventHandler<ValueChangedEventArgs<T>>> _handlers = new();
 
         event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
         {
             add { this.ValueChanged += (this._handlers[value] = (sender, args) => value(sender, new PropertyChangedEventArgs(nameof(this.Value)))); }
             remove
             {
-                EventHandler<ValueChangedEventArgs<T>> handler;
-                if (this._handlers.TryGetValue(value, out handler))
+                if (this._handlers.TryGetValue(value, out EventHandler<ValueChangedEventArgs<T>> handler))
                 {
                     this.ValueChanged -= handler;
                     this._handlers.Remove(value);
