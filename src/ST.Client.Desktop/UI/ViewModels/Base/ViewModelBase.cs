@@ -19,9 +19,8 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-#pragma warning disable IDE1006 // 命名样式
-        [IgnoreDataMember] protected bool _disposed { get; private set; }
-#pragma warning restore IDE1006 // 命名样式
+        [IgnoreDataMember]
+        public bool Disposed { get; private set; }
 
         /// <summary>
         /// 是否在设计器的上下文中运行
@@ -40,9 +39,9 @@ namespace System.Application.UI.ViewModels
 
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed) return;
+            if (Disposed) return;
             if (disposing) CompositeDisposable?.Dispose();
-            _disposed = true;
+            Disposed = true;
         }
     }
 }

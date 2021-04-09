@@ -19,7 +19,7 @@ namespace System.Application.Services.CloudService.Clients
                 requestUri: "api/Manage/ChangeBindPhoneNumber",
                 request: request,
                 cancellationToken: default,
-                responseContentMaybeNull: true);
+                responseContentMaybeNull: false);
 
         public Task<IApiResponse> ChangeBindPhoneNumber(ChangePhoneNumberRequest.New request)
             => conn.SendAsync(

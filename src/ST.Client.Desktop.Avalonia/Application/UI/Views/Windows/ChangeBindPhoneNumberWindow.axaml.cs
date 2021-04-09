@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class ChangePhoneWindow : FluentWindow
+    public class ChangeBindPhoneNumberWindow : FluentWindow
     {
-        public ChangePhoneWindow()
+        public ChangeBindPhoneNumberWindow()
         {
             InitializeComponent();
 #if DEBUG

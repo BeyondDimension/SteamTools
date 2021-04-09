@@ -150,6 +150,12 @@
   <data name="ArchiSteamFarmPlus" xml:space="preserve">
     <value>ASF Plus</value>
   </data>
+  <data name="Btn_Text_Complete" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="Btn_Text_Continue" xml:space="preserve">
+    <value>继续</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
@@ -549,7 +555,8 @@
     <value>个人资料</value>
   </data>
   <data name="User_ChangePhoneNum" xml:space="preserve">
-    <value>修改手机号</value>
+    <value>换绑手机</value>
+    <comment>修改手机号</comment>
   </data>
   <data name="User_GetSMSCode" xml:space="preserve">
     <value>获取验证码</value>
@@ -575,6 +582,9 @@
   </data>
   <data name="User_LoiginSuccess" xml:space="preserve">
     <value>登录成功</value>
+  </data>
+  <data name="User_NewPhone" xml:space="preserve">
+    <value>新手机号码</value>
   </data>
   <data name="User_Phone" xml:space="preserve">
     <value>手机号码</value>

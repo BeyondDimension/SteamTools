@@ -4,18 +4,15 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Properties;
 using System.Threading;
-using System.Threading.Tasks;
 using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
 {
-    public class LoginOrRegisterWindowViewModel : WindowViewModel
+    public class LoginOrRegisterWindowViewModel : WindowViewModel, SendSmsUIHelper.IViewModel
     {
         public LoginOrRegisterWindowViewModel()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LoginAndRegister;
-            TimeLimit = SMSInterval;
-            BtnSendSmsCodeText = AppResources.User_GetSMSCode;
         }
 
         private string? _PhoneNumber;
@@ -32,7 +29,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _SmsCode, value);
         }
 
-        private int _TimeLimit;
+        private int _TimeLimit = SMSInterval;
         public int TimeLimit
         {
             get => _TimeLimit;
@@ -43,7 +40,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public string _BtnSendSmsCodeText = string.Empty;
+        string _BtnSendSmsCodeText = AppResources.User_GetSMSCode;
         public string BtnSendSmsCodeText
         {
             get => _BtnSendSmsCodeText;
@@ -66,11 +63,8 @@ namespace System.Application.UI.ViewModels
 
         public async void Submit()
         {
-            if (!SendSmsCodeSuccess)
-            {
-                Toast.Show(AppResources.User_SMSCode_Error);
-                return;
-            }
+            if (!this.CanSubmit()) return;
+
             var request = new LoginOrRegisterRequest
             {
                 PhoneNumber = PhoneNumber,
@@ -94,78 +88,24 @@ namespace System.Application.UI.ViewModels
 
         public Action? Close { private get; set; }
 
-        CancellationTokenSource? cts;
-
-        void TimeStart()
-        {
-            cts?.Cancel();
-            cts = new();
-            Task.Run(async () =>
-            {
-                bool b;
-                do
-                {
-                    bool SetBtnSendSmsCodeText()
-                    {
-                        if (TimeLimit <= 0)
-                        {
-                            TimeLimit = SMSInterval;
-                            BtnSendSmsCodeText = AppResources.User_GetSMSCode;
-                            return false;
-                        }
-                        else
-                        {
-                            BtnSendSmsCodeText = string.Format(AppResources.User_LoginCodeTimeLimitTip, TimeLimit);
-                            return true;
-                        }
-                    }
-
-                    TimeLimit--;
-                    b = SetBtnSendSmsCodeText();
-#if DEBUG
-                    //Toast.Show($"TimeLimit: {TimeLimit}");
-#endif
-                    try
-                    {
-                        if (b) await Task.Delay(1000, cts.Token);
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        if (!_disposed)
-                        {
-                            TimeLimit = 0;
-                            SetBtnSendSmsCodeText();
-                        }
-                        break;
-                    }
-                } while (b);
-            });
-        }
+        public CancellationTokenSource? CTS { get; set; }
 
         public async void SendSms()
         {
-            if (IsUnTimeLimit)
+            if (this.TimeStart())
             {
-                return;
+
+                var request = new SendSmsRequest
+                {
+                    PhoneNumber = PhoneNumber,
+                    Type = SmsCodeType.LoginOrRegister,
+                };
+
+#if DEBUG
+                var response =
+#endif
+                await this.SendSms(request);
             }
-
-            TimeStart();
-
-            var client = ICloudServiceClient.Instance;
-
-            var request = new SendSmsRequest
-            {
-                PhoneNumber = PhoneNumber,
-                Type = SmsCodeType.LoginOrRegister,
-            };
-            var response = await client.AuthMessage.SendSms(request);
-
-            if (!response.IsSuccess)
-            {
-                cts?.Cancel();
-            }
-
-            if (!SendSmsCodeSuccess && response.IsSuccess) SendSmsCodeSuccess = true;
         }
 
         public void OpenHyperlink(string parameter) => BrowserOpen(parameter);
@@ -178,7 +118,7 @@ namespace System.Application.UI.ViewModels
         {
             if (disposing)
             {
-                cts?.Cancel();
+                CTS?.Cancel();
             }
             base.Dispose(disposing);
         }

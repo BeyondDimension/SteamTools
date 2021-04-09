@@ -10,5 +10,6 @@
         AddAuth,
         ShowAuth,
         AuthTrade,
+        ChangeBindPhoneNumber,
     }
 }

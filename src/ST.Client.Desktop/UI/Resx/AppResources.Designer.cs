@@ -160,6 +160,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 完成 的本地化字符串。
+        /// </summary>
+        public static string Btn_Text_Complete {
+            get {
+                return ResourceManager.GetString("Btn_Text_Complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 继续 的本地化字符串。
+        /// </summary>
+        public static string Btn_Text_Continue {
+            get {
+                return ResourceManager.GetString("Btn_Text_Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 取消 的本地化字符串。
         /// </summary>
         public static string Cancel {
@@ -1215,7 +1233,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 修改手机号 的本地化字符串。
+        ///   查找类似 换绑手机 的本地化字符串。
         /// </summary>
         public static string User_ChangePhoneNum {
             get {
@@ -1292,6 +1310,15 @@ namespace System.Application.UI.Resx {
         public static string User_LoiginSuccess {
             get {
                 return ResourceManager.GetString("User_LoiginSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 新手机号码 的本地化字符串。
+        /// </summary>
+        public static string User_NewPhone {
+            get {
+                return ResourceManager.GetString("User_NewPhone", resourceCulture);
             }
         }
         

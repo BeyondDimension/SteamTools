@@ -64,14 +64,32 @@ namespace System.Application.Services.CloudService
             }
         }
 
-        public Task<IApiResponse<string>> ChangeBindPhoneNumber(ChangePhoneNumberRequest.Validation request)
+        public async Task<IApiResponse<string>> ChangeBindPhoneNumber(ChangePhoneNumberRequest.Validation request)
         {
-            return Task.FromResult(ApiResponse.Ok("123"));
+            var mockDelay = false;
+            var rsp = ModelValidator<ChangePhoneNumberRequest.Validation, string>(request) ?? ChangeBindPhoneNumber_();
+            if (mockDelay) await Task.Delay(1500);
+            GlobalResponseIntercept(rsp);
+            return rsp;
+            IApiResponse<string> ChangeBindPhoneNumber_()
+            {
+                mockDelay = true;
+                return ApiResponse.Ok("123");
+            }
         }
 
-        public Task<IApiResponse> ChangeBindPhoneNumber(ChangePhoneNumberRequest.New request)
+        public async Task<IApiResponse> ChangeBindPhoneNumber(ChangePhoneNumberRequest.New request)
         {
-            return Task.FromResult(ApiResponse.Ok());
+            var mockDelay = false;
+            var rsp = ModelValidator(request) ?? ChangeBindPhoneNumber_();
+            if (mockDelay) await Task.Delay(1500);
+            GlobalResponseIntercept(rsp);
+            return rsp;
+            IApiResponse ChangeBindPhoneNumber_()
+            {
+                mockDelay = true;
+                return ApiResponse.Ok();
+            }
         }
 
         public Task<IApiResponse<AppVersionDTO?>> CheckUpdate(Guid id, Platform platform, DeviceIdiom deviceIdiom, ArchitectureFlags supportedAbis, Version osVersion, ArchitectureFlags abi)

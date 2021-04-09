@@ -1,7 +1,6 @@
 ﻿using Avalonia.Controls;
 using ReactiveUI;
 using System.Application.UI.ViewModels;
-using System.Application.UI.Views.Windows;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -9,15 +8,22 @@ namespace System.Application.Services.Implementation
 {
     internal sealed class ShowWindowServiceImpl : IShowWindowService
     {
-        static Type GetWindowType(CustomWindow customWindow) => customWindow switch
+        static Type GetWindowType(CustomWindow customWindow)
         {
-            CustomWindow.MessageBox => typeof(MessageBoxWindow),
-            CustomWindow.LoginOrRegister => typeof(LoginOrRegisterWindow),
-            CustomWindow.AddAuth => typeof(AddAuthWindow),
-            CustomWindow.ShowAuth => typeof(ShowAuthWindow),
-            CustomWindow.AuthTrade => typeof(AuthTradeWindow),
-            _ => throw new ArgumentOutOfRangeException(nameof(customWindow), customWindow, null),
-        };
+            var windowType = Type.GetType($"System.Application.UI.Views.Windows.{customWindow}Window");
+            if (windowType != null && typeof(Window).IsAssignableFrom(windowType)) return windowType;
+            throw new ArgumentOutOfRangeException(nameof(customWindow), customWindow, null);
+        }
+
+        //static Type GetWindowType(CustomWindow customWindow) => customWindow switch
+        //{
+        //    CustomWindow.MessageBox => typeof(MessageBoxWindow),
+        //    CustomWindow.LoginOrRegister => typeof(LoginOrRegisterWindow),
+        //    CustomWindow.AddAuth => typeof(AddAuthWindow),
+        //    CustomWindow.ShowAuth => typeof(ShowAuthWindow),
+        //    CustomWindow.AuthTrade => typeof(AuthTradeWindow),
+        //    _ => throw new ArgumentOutOfRangeException(nameof(customWindow), customWindow, null),
+        //};
 
         Task Show<TWindowViewModel>(
             bool isDialog,
@@ -51,7 +57,7 @@ namespace System.Application.Services.Implementation
             TWindowViewModel? viewModel = null,
             string title = "",
             ResizeModeCompat resizeMode = ResizeModeCompat.NoResize)
-            where TWindowViewModel : WindowViewModel,new()
+            where TWindowViewModel : WindowViewModel, new()
         {
             viewModel ??= new TWindowViewModel();
             return Show(false, customWindow, title, viewModel, resizeMode);

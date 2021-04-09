@@ -24,24 +24,38 @@ namespace System.Application.Services
         public static UserService Current { get; } = new();
         #endregion
 
-        private readonly IUserManager user = DI.Get<IUserManager>();
+        readonly IUserManager user = DI.Get<IUserManager>();
 
-        public CurrentUser? CurrentUser
+        public async void ShowWindow(string windowName)
         {
-            get => user.GetCurrentUser();
+            if (Enum.TryParse<CustomWindow>(windowName, out var @enum))
+            {
+                switch (@enum)
+                {
+                    case CustomWindow.LoginOrRegister:
+                        var cUser = await user.GetCurrentUserAsync();
+                        if (cUser.HasValue()) return;
+                        break;
+                }
+                var vmType = Type.GetType($"System.Application.UI.ViewModels.{@enum}WindowViewModel");
+                if (vmType != null && typeof(WindowViewModel).IsAssignableFrom(vmType))
+                {
+                    var vm = (WindowViewModel)Activator.CreateInstance(vmType);
+                    await DI.Get<IShowWindowService>().Show(@enum, vm);
+                }
+            }
         }
 
 
-        public void ShowLoginOrRegisterWindow_Click()
+        //public void ShowLoginOrRegisterWindow_Click()
+        //{
+        //    if (!CurrentUser.HasValue())
+        //        DI.Get<IShowWindowService>().Show(CustomWindow.LoginOrRegister, new LoginOrRegisterWindowViewModel());
+        //}
+
+        public async void SignOut()
         {
-            if (!CurrentUser.HasValue())
-                DI.Get<IShowWindowService>().Show(CustomWindow.LoginOrRegister, new LoginOrRegisterWindowViewModel());
-        }
-
-        public void LoginUser_Click()
-        {
-
-
+            await user.SignOutAsync();
         }
     }
 }
