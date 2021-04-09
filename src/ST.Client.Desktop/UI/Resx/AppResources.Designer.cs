@@ -1305,6 +1305,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 记住登陆状态 的本地化字符串。
+        /// </summary>
+        public static string User_Rememberme {
+            get {
+                return ResourceManager.GetString("User_Rememberme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 短信验证码 的本地化字符串。
         /// </summary>
         public static string User_SMSCode {

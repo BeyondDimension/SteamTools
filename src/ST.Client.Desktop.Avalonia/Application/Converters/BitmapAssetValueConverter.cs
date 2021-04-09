@@ -4,6 +4,7 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using SkiaSharp;
 using System.Application.Models;
+using System.Application.Services;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -29,10 +30,7 @@ namespace System.Application.Converters
                 //在列表中使用此方法性能极差
                 else if (rawUri.StartsWith("http://") || rawUri.StartsWith("https://"))
                 {
-                    using var web = new WebClient();
-                    var bt = web.DownloadData(rawUri);
-                    using var stream = new MemoryStream(bt);
-                    return new Bitmap(stream);
+                    return DownloadImage(rawUri);
                 }
                 else if (rawUri.StartsWith("avares://"))
                 {
@@ -56,7 +54,23 @@ namespace System.Application.Converters
             {
                 return GetBitmap(ics);
             }
+            else if (value is Guid imageid)
+            {
+                if (Guid.Empty == imageid)
+                {
+                    return null;
+                }
+                return DownloadImage(ImageUrlHelper.GetImageApiUrlById(imageid));
+            }
             throw new NotSupportedException();
+        }
+
+        static Bitmap DownloadImage(string url)
+        {
+            using var web = new WebClient();
+            var bt = web.DownloadData(url);
+            using var stream = new MemoryStream(bt);
+            return new Bitmap(stream);
         }
 
         static void TryReset(Stream s)

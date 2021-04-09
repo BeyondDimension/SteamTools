@@ -16,6 +16,31 @@ namespace System.Application.Services.CloudService
                     Name = "GM",
                     Version = "0.1",
                     Author = "软妹币玩家",
+                    Enable = false,
+                    Description = "基础脚本框架(不建议取消勾选，会导致某些脚本无法运行)",
+                },
+                new ScriptDTO
+                {
+                    Name = "Steam历史最低价格查询",
+                    Version = "0.1",
+                    Author = "软妹币玩家",
+                    Enable = false,
+                    Description = "基础脚本框架(不建议取消勾选，会导致某些脚本无法运行)",
+                },
+                new ScriptDTO
+                {
+                    Name = "GM",
+                    Version = "0.1",
+                    Author = "软妹币玩家",
+                    Enable = false,
+                    Description = "基础脚本框架(不建议取消勾选，会导致某些脚本无法运行)",
+                },
+                new ScriptDTO
+                {
+                    Name = "GM",
+                    Version = "0.1",
+                    Author = "软妹币玩家",
+                    Enable = false,
                     Description = "基础脚本框架(不建议取消勾选，会导致某些脚本无法运行)",
                 },
             };

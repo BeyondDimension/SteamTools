@@ -58,7 +58,7 @@ namespace System.Application.UI.ViewModels
             });
         }
 
-        internal async virtual Task Initialize()
+        internal async virtual void Initialize()
         {
             await Task.CompletedTask;
         }

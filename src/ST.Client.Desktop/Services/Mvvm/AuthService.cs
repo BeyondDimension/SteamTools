@@ -26,8 +26,8 @@ namespace System.Application.Services
         public static AuthService Current { get; } = new();
         #endregion
 
-        private ICollection<MyAuthenticator> _Authenticators = new ObservableCollection<MyAuthenticator>();
-        public ICollection<MyAuthenticator> Authenticators
+        private ObservableCollection<MyAuthenticator> _Authenticators = new ObservableCollection<MyAuthenticator>();
+        public ObservableCollection<MyAuthenticator> Authenticators
         {
             get => this._Authenticators;
             set
@@ -35,16 +35,12 @@ namespace System.Application.Services
                 if (this._Authenticators != value)
                 {
                     this._Authenticators = value;
-                    this.RaisePropertyChanged(nameof(IsAuthenticatorsEmpty));
                     this.RaisePropertyChanged();
                 }
             }
         }
 
-        public bool IsAuthenticatorsEmpty
-        {
-            get => !this.Authenticators.Any_Nullable();
-        }
+        public bool IsAuthenticatorsEmpty => !this.Authenticators.Any_Nullable();
 
         public async void Initialize(bool isSync = false)
         {
@@ -66,7 +62,15 @@ namespace System.Application.Services
                 else
                     ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
             }
+
+            Authenticators.CollectionChanged += (s, e) =>
+            {
+                this.RaisePropertyChanged(nameof(IsAuthenticatorsEmpty));
+            };
+
+
         }
+
 
         /// <summary>
         /// WinAuth令牌导入
@@ -469,26 +473,26 @@ namespace System.Application.Services
             AddOrUpdateSaveAuthenticators(new MyAuthenticator(auth));
         }
 
-        public static void AddOrUpdateSaveAuthenticators(MyAuthenticator auth)
+        public static async void AddOrUpdateSaveAuthenticators(MyAuthenticator auth)
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
-            repository.InsertOrUpdateAsync(auth.AuthenticatorData, true);
-            if (Current.Authenticators.Count(s => s.Id == auth.Id) > 0)
+            await repository.InsertOrUpdateAsync(auth.AuthenticatorData, true);
+            if (Current.Authenticators.Any(s => s.Id == auth.Id))
             {
                 return;
             }
-            MainThreadDesktop.InvokeOnMainThreadAsync(() => Current.Authenticators.Add(auth));
+            await MainThreadDesktop.InvokeOnMainThreadAsync(() => Current.Authenticators.Add(auth));
         }
 
-        public static void DeleteSaveAuthenticators(MyAuthenticator auth)
+        public static async void DeleteSaveAuthenticators(MyAuthenticator auth)
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
             if (auth.AuthenticatorData.ServerId.HasValue)
             {
-                repository.DeleteAsync(auth.AuthenticatorData.ServerId.Value);
+                await repository.DeleteAsync(auth.AuthenticatorData.ServerId.Value);
             }
-            repository.DeleteAsync(auth.AuthenticatorData.Id);
-            MainThreadDesktop.InvokeOnMainThreadAsync(() => Current.Authenticators.Remove(auth));
+            await repository.DeleteAsync(auth.AuthenticatorData.Id);
+            await MainThreadDesktop.InvokeOnMainThreadAsync(() => Current.Authenticators.Remove(auth));
         }
     }
 }

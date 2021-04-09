@@ -94,12 +94,12 @@ namespace System.Application.UI.ViewModels
 
             if (!this.IsInitialized)
             {
-                Parallel.ForEach(TabItems, async item =>
-                 {
+                Parallel.ForEach(TabItems, item =>
+                  {
                      //if (item == GameListPage)
                      //    return;
-                     await item.Initialize();
-                });
+                     item.Initialize();
+                  });
                 this.IsInitialized = true;
             }
 

@@ -8,6 +8,11 @@ namespace System.Application.Models
 {
     public class SteamApp : ReactiveObject, IComparable<SteamApp>
     {
+        /// <summary>
+        /// gog default logo 0~21
+        /// </summary>
+        public const string defaultLogoPath= @"avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/{0}.png";
+
         public int Index { get; set; }
 
         public uint AppId { get; set; }
@@ -64,6 +69,8 @@ namespace System.Application.Models
             get => _LibraryLogoStream;
             set => this.RaiseAndSetIfChanged(ref _LibraryLogoStream, value);
         }
+
+        public string DefaultLibraryLogo => string.Format(defaultLogoPath, Random2.Next(22));
 
         public string HeaderLogoUrl => string.Format(STEAMAPP_CAPSULE_URL, AppId);
 

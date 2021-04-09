@@ -211,6 +211,17 @@ namespace System.Application.Services
                             ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Where(w => w.Id != null).Select(k => k.Id.ToString()).ToList();
                         }));
             #endregion
+
+
+            #region 加载脚本数据
+            var response = await client.Scripts();
+            if (!response.IsSuccess)
+            {
+                return;
+            }
+            ProxyScripts = new ObservableCollection<ScriptDTO>(response.Content);
+
+            #endregion
         }
 
         public void StartTiming()

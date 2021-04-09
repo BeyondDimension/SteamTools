@@ -57,6 +57,7 @@ namespace System.Application.Models
 
         [Description("仓库")]
         DepotOnly = 17,
+
     }
 
 #if DEBUG

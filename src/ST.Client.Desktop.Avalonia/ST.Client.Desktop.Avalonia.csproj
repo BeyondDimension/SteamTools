@@ -22,12 +22,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AvaloniaResource Remove="Application\UI\Assets\AppResources\app.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Application\UI\Assets\AppResources\app.png" />
   </ItemGroup>
 
   <ItemGroup>

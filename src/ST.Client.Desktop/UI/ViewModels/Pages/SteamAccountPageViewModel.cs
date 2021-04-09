@@ -33,23 +33,26 @@ namespace System.Application.UI.ViewModels
                   .DistinctUntilChanged()
                   .Subscribe(s => this.RaisePropertyChanged(nameof(IsUserEmpty)));
             LoginAccountCommand = ReactiveCommand.Create(LoginNewSteamAccount);
+            RefreshCommand = ReactiveCommand.Create(Initialize);
+
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
                 //new MenuItemViewModel(nameof(AppResources.More))
                 //{
                 //    Items = new[]
                 //    {
-                        new MenuItemViewModel(nameof(AppResources.UserChange_LoginNewAccount)) {IconKey="SteamDrawing",
-                            Command=LoginAccountCommand },
+                        new MenuItemViewModel(nameof(AppResources.UserChange_LoginNewAccount))
+                            { IconKey="SteamDrawing", Command=LoginAccountCommand },
                         new MenuItemViewModel (),
                         new MenuItemViewModel (nameof(AppResources.Refresh))
-                            { IconKey="RefreshDrawing"},
+                            { IconKey="RefreshDrawing" , Command = RefreshCommand},
                 //    }
                 //},
             };
         }
 
         public ReactiveCommand<Unit, Unit> LoginAccountCommand { get; }
+        public ReactiveCommand<Unit, Unit> RefreshCommand { get; }
 
         /// <summary>
         /// steam记住的用户列表
@@ -63,7 +66,7 @@ namespace System.Application.UI.ViewModels
 
         public bool IsUserEmpty => !SteamUsers.Any_Nullable();
 
-        internal async override Task Initialize()
+        internal async override void Initialize()
         {
             SteamUsers = new ObservableCollection<SteamUser>(steamService.GetRememberUserList());
 

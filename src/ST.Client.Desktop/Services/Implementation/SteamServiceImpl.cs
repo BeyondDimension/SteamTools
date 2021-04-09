@@ -74,6 +74,14 @@ namespace System.Application.Services.Implementation
             {
                 KillSteamProcess();
                 return true;
+
+                //if (IsRunningSteamProcess)
+                //{
+                //    Process closeProc = Process.Start(new ProcessStartInfo(SteamProgramPath, "-shutdown"));
+                //    bool closeProcSuccess = closeProc != null && closeProc.WaitForExit(3000);
+                //    return closeProcSuccess;
+                //}
+                //return false;
             }
             catch (Exception e)
             {

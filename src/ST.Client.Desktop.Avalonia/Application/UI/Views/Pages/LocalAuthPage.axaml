@@ -22,7 +22,7 @@
         <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <ItemsRepeater Items="{Binding Source={x:Static service:AuthService.Current},Path=Authenticators,Mode=OneWay}">
                 <ItemsRepeater.Layout>
-                    <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20"  MaximumRowsOrColumns="6" />
+                    <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20"  MaximumRowsOrColumns="8" />
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>

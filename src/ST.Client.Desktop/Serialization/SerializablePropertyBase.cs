@@ -95,11 +95,7 @@ namespace System.Application.Serialization
 
         protected virtual T DeserializeCore(object value)
         {
-            if (typeof(T).IsValueType)
-            {
-                return (T)value;
-            }
-            if (typeof(T) == typeof(string))
+            if (typeof(T).IsValueType || typeof(T) == typeof(string))
             {
                 return (T)value;
             }

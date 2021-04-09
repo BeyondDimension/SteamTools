@@ -432,7 +432,7 @@ namespace System.Application.UI.ViewModels
 
         private void OperationTrades(bool accept)
         {
-            if (Confirmations.Count == 0)
+            if (!Confirmations.Any_Nullable())
             {
                 ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_Null);
                 return;

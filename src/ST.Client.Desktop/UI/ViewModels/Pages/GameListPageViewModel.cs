@@ -15,6 +15,20 @@ namespace System.Application.UI.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
+        private bool _IsAppInfoOpen;
+        public bool IsAppInfoOpen
+        {
+            get => _IsAppInfoOpen;
+            set => this.RaiseAndSetIfChanged(ref _IsAppInfoOpen, value);
+        }
+
+        private SteamApp? _SelectApp;
+        public SteamApp? SelectApp
+        {
+            get => _SelectApp;
+            set => this.RaiseAndSetIfChanged(ref _SelectApp, value);
+        }
+
         private IReadOnlyCollection<SteamApp>? _SteamApps;
         public IReadOnlyCollection<SteamApp>? SteamApps
         {
@@ -29,21 +43,25 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        internal async override Task Initialize()
+        internal async override void Initialize()
         {
             SteamApps = await ISteamService.Instance.GetAppInfos();
 
             if (SteamApps.Count > 0)
             {
-                Parallel.ForEach(SteamApps, new ParallelOptions
-                {
-                    MaxDegreeOfParallelism = Environment.ProcessorCount * 2
-                }, async app =>
+                Parallel.ForEach(SteamApps, async app =>
                 {
                     app.LibraryLogoStream = await IHttpService.Instance.GetImageAsync(app.LibraryLogoUrl, ImageChannelType.SteamGames);
                     app.HeaderLogoStream = await IHttpService.Instance.GetImageAsync(app.HeaderLogoUrl, ImageChannelType.SteamGames);
                 });
             }
+        }
+
+
+        public void AppClick(SteamApp app)
+        {
+            IsAppInfoOpen = true;
+            SelectApp = app;
         }
     }
 }
