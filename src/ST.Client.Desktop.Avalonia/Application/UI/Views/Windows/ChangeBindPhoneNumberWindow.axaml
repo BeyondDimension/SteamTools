@@ -10,6 +10,7 @@
         x:Class="System.Application.UI.Views.Windows.ChangeBindPhoneNumberWindow"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:ccl_services="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
@@ -26,22 +27,42 @@
           <TextBox Watermark="{Binding CurrentPhoneNumber,Mode=OneWay}" IsReadOnly="True" Focusable="False" />
 
           <Panel>
-            <TextBox Watermark="{Binding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}" />
+            <TextBox
+              Text="{Binding SmsCodeValidation}"
+              Watermark="{Binding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
+              MaxLength="{Binding Path=SMS_CAPTCHA,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}"
+              IsEnabled="{Binding CurrentStepIsValidation}" />
             <Border HorizontalAlignment="Right" Cursor="Hand">
-              <Button Classes="CodeButton" Content="{Binding BtnSendSmsCodeTextValidation}" Command="{Binding SendSms}" IsEnabled="{Binding !IsUnTimeLimitValidation}" />
+              <Button Classes="CodeButton"
+                      Content="{Binding BtnSendSmsCodeTextValidation}"
+                      Command="{Binding SendSms}"
+                      IsEnabled="{Binding !IsUnTimeLimitValidation}" />
             </Border>
           </Panel>
 
-          <TextBox Watermark="{Binding Path=Res.User_NewPhone,Mode=OneWay,Source={x:Static resx:R.Current}}" IsEnabled="False" />
+          <TextBox
+            Text="{Binding PhoneNumber}"
+            Watermark="{Binding Path=Res.User_NewPhone,Mode=OneWay,Source={x:Static resx:R.Current}}"
+            IsEnabled="{Binding CurrentStepIsValidation}"
+            MaxLength="{Binding Path=PhoneNumber,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
 
           <Panel>
-            <TextBox Watermark="{Binding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}" IsEnabled="False" />
+            <TextBox
+              Text="{Binding SmsCodeNew}"
+              Watermark="{Binding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
+              IsEnabled="{Binding CurrentStepIsNew}"
+              MaxLength="{Binding Path=SMS_CAPTCHA,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
             <Border HorizontalAlignment="Right" Cursor="Hand">
-              <Button Classes="CodeButton" Content="{Binding BtnSendSmsCodeTextNew}" Command="{Binding SendSms}" IsEnabled="{Binding !IsUnTimeLimitNew}" />
+              <Button Classes="CodeButton"
+                      Content="{Binding BtnSendSmsCodeTextNew}"
+                      Command="{Binding SendSms}"
+                      IsEnabled="{Binding !IsUnTimeLimitNew}" />
             </Border>
           </Panel>
 
-          <Button Content="{Binding BtnSubmitText}" Command="{Binding Submit}"
+          <Button
+            Content="{Binding BtnSubmitText}"
+            Command="{Binding Submit}"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
 
         </StackPanel>

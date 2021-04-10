@@ -2,6 +2,7 @@
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
+using System.Collections.Generic;
 using System.Properties;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,17 +10,27 @@ using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
 {
-    public class ChangeBindPhoneNumberWindowViewModel : WindowViewModel, SendSmsUIHelper.IViewModel
+    public class ChangeBindPhoneNumberWindowViewModel : WindowViewModel
     {
+        readonly IReadOnlyDictionary<Step, SendSmsUIHelper.IViewModel> sendSmsUIViewModels;
         public ChangeBindPhoneNumberWindowViewModel()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.User_ChangePhoneNum;
+            sendSmsUIViewModels = new Dictionary<Step, SendSmsUIHelper.IViewModel>
+            {
+                { Step.Validation, new SendSmsUIViewModelValidation(this) },
+                { Step.New, new SendSmsUIViewModelNew(this) },
+            };
             Initialize();
         }
 
         public async void Initialize()
         {
-            CurrentPhoneNumber = PhoneNumberHelper.ToStringHideMiddleFour((await DI.Get<IUserManager>().GetCurrentUserAsync())?.PhoneNumber);
+            var phone_number = (await DI.Get<IUserManager>().GetCurrentUserAsync())?.PhoneNumber;
+#if DEBUG
+            if (string.IsNullOrWhiteSpace(phone_number)) phone_number = PhoneNumberHelper.SimulatorDefaultValue;
+#endif
+            CurrentPhoneNumber = PhoneNumberHelper.ToStringHideMiddleFour(phone_number);
         }
 
         bool _IsLoading;
@@ -56,7 +67,7 @@ namespace System.Application.UI.ViewModels
 
         public bool IsUnTimeLimitValidation
         {
-            get => TimeLimitValidation != SMSInterval;
+            get => TimeLimitValidation != SMSInterval || _CurrentStep != Step.Validation;
         }
 
         string _BtnSendSmsCodeTextValidation = AppResources.User_GetSMSCode;
@@ -88,7 +99,7 @@ namespace System.Application.UI.ViewModels
 
         public bool IsUnTimeLimitNew
         {
-            get => TimeLimitValidation != SMSInterval || _CurrentStep != Step.New;
+            get => TimeLimitNew != SMSInterval || _CurrentStep != Step.New;
         }
 
         string _BtnSendSmsCodeTextNew = AppResources.User_GetSMSCode;
@@ -114,10 +125,11 @@ namespace System.Application.UI.ViewModels
             {
                 if (value == _CurrentStep) return;
                 _CurrentStep = value;
-                this.RaisePropertyChanged(nameof(IsUnTimeLimitNew));
+                this.RaisePropertyChanged(nameof(BtnSubmitText));
                 this.RaisePropertyChanged(nameof(CurrentStepIsValidation));
                 this.RaisePropertyChanged(nameof(CurrentStepIsNew));
-                this.RaisePropertyChanged(nameof(BtnSubmitText));
+                this.RaisePropertyChanged(nameof(IsUnTimeLimitValidation));
+                this.RaisePropertyChanged(nameof(IsUnTimeLimitNew));
             }
         }
 
@@ -127,15 +139,27 @@ namespace System.Application.UI.ViewModels
 
         enum Step
         {
+            /// <inheritdoc cref="ChangePhoneNumberRequest.Validation"/>
             Validation,
+            /// <inheritdoc cref="ChangePhoneNumberRequest.New"/>
             New,
+        }
+
+        SendSmsUIHelper.IViewModel? SendSmsUIViewModel
+        {
+            get
+            {
+                if (!_CurrentStep.IsDefined() || !sendSmsUIViewModels.ContainsKey(_CurrentStep)) return null;
+                return sendSmsUIViewModels[_CurrentStep];
+            }
         }
 
         public async void SendSms()
         {
-            if (!_CurrentStep.IsDefined()) return;
+            var sendSmsUIViewModel = SendSmsUIViewModel;
+            if (sendSmsUIViewModel == null) return;
 
-            if (this.TimeStart())
+            if (sendSmsUIViewModel.TimeStart())
             {
                 var request = _CurrentStep switch
                 {
@@ -154,14 +178,19 @@ namespace System.Application.UI.ViewModels
 #if DEBUG
                 var response =
 #endif
-                await this.SendSms(request);
+                await sendSmsUIViewModel.SendSms(request);
             }
         }
+
+        public bool IsComplete { get; set; }
 
         string? code;
         public async void Submit()
         {
-            if (!this.CanSubmit()) return;
+            var sendSmsUIViewModel = SendSmsUIViewModel;
+            if (sendSmsUIViewModel == null) return;
+
+            if (!sendSmsUIViewModel.CanSubmit()) return;
 
             IsLoading = true;
 
@@ -190,7 +219,8 @@ namespace System.Application.UI.ViewModels
                 if (response.IsSuccess)
                 {
                     code = response.Content ?? throw new ArgumentNullException(nameof(code));
-                    CurrentStep = Step.Validation;
+                    CTS?.Cancel();
+                    CurrentStep = Step.New;
                 }
             }
 
@@ -205,7 +235,9 @@ namespace System.Application.UI.ViewModels
                 var response = await ICloudServiceClient.Instance.Manage.ChangeBindPhoneNumber(request);
                 if (response.IsSuccess)
                 {
-                    Toast.Show("换绑手机成功");
+                    IsComplete = true;
+                    var msg = string.Format(AppResources.Success_, AppResources.User_ChangePhoneNum);
+                    Toast.Show(msg);
                     Close?.Invoke();
                 }
             }
@@ -215,93 +247,95 @@ namespace System.Application.UI.ViewModels
 
         public CancellationTokenSource? CTS { get; set; }
 
-        public int TimeLimit
-        {
-            get => _CurrentStep switch
-            {
-                Step.Validation => TimeLimitValidation,
-                Step.New => TimeLimitNew,
-                _ => throw new ArgumentOutOfRangeException(nameof(_CurrentStep), _CurrentStep, null),
-            };
-            set
-            {
-                switch (_CurrentStep)
-                {
-                    case Step.Validation:
-                        TimeLimitValidation = value;
-                        break;
-                    case Step.New:
-                        TimeLimitNew = value;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(_CurrentStep), _CurrentStep, null);
-                }
-            }
-        }
-
-        public string BtnSendSmsCodeText
-        {
-            get => _CurrentStep switch
-            {
-                Step.Validation => BtnSendSmsCodeTextValidation,
-                Step.New => BtnSendSmsCodeTextNew,
-                _ => throw new ArgumentOutOfRangeException(nameof(_CurrentStep), _CurrentStep, null),
-            };
-            set
-            {
-                switch (_CurrentStep)
-                {
-                    case Step.Validation:
-                        BtnSendSmsCodeTextValidation = value;
-                        break;
-                    case Step.New:
-                        BtnSendSmsCodeTextNew = value;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(_CurrentStep), _CurrentStep, null);
-                }
-            }
-        }
-
-        public bool SendSmsCodeSuccess
-        {
-            get => _CurrentStep switch
-            {
-                Step.Validation => SendSmsCodeSuccessValidation,
-                Step.New => SendSmsCodeSuccessNew,
-                _ => throw new ArgumentOutOfRangeException(nameof(_CurrentStep), _CurrentStep, null),
-            };
-            set
-            {
-                switch (_CurrentStep)
-                {
-                    case Step.Validation:
-                        SendSmsCodeSuccessValidation = value;
-                        break;
-                    case Step.New:
-                        SendSmsCodeSuccessNew = value;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(_CurrentStep), _CurrentStep, null);
-                }
-            }
-        }
-
-        public bool IsUnTimeLimit
-        {
-            get => _CurrentStep switch
-            {
-                Step.Validation => IsUnTimeLimitValidation,
-                Step.New => IsUnTimeLimitNew,
-                _ => throw new ArgumentOutOfRangeException(nameof(_CurrentStep), _CurrentStep, null),
-            };
-        }
-
         public string BtnSubmitText => _CurrentStep switch
         {
             Step.Validation => AppResources.Btn_Text_Continue,
             Step.New => AppResources.Btn_Text_Complete,
             _ => throw new ArgumentOutOfRangeException(nameof(_CurrentStep), _CurrentStep, null),
         };
+
+        abstract class SendSmsUIViewModelBase : SendSmsUIHelper.IViewModel
+        {
+            protected readonly ChangeBindPhoneNumberWindowViewModel @this;
+
+            protected SendSmsUIViewModelBase(ChangeBindPhoneNumberWindowViewModel @this) => this.@this = @this;
+
+            public CancellationTokenSource? CTS
+            {
+                get => @this.CTS;
+                set => @this.CTS = value;
+            }
+
+            public abstract int TimeLimit { get; set; }
+
+            public abstract string BtnSendSmsCodeText { set; }
+
+            public bool Disposed => @this.Disposed;
+
+            public abstract bool SendSmsCodeSuccess { get; set; }
+
+            public abstract bool IsUnTimeLimit { get; }
+        }
+
+        class SendSmsUIViewModelValidation : SendSmsUIViewModelBase
+        {
+            public SendSmsUIViewModelValidation(ChangeBindPhoneNumberWindowViewModel @this) : base(@this)
+            {
+            }
+
+            public override int TimeLimit
+            {
+                get => @this.TimeLimitValidation;
+                set => @this.TimeLimitValidation = value;
+            }
+
+            public override string BtnSendSmsCodeText
+            {
+                set => @this.BtnSendSmsCodeTextValidation = value;
+            }
+
+            public override bool SendSmsCodeSuccess
+            {
+                get => @this.SendSmsCodeSuccessValidation;
+                set => @this.SendSmsCodeSuccessValidation = value;
+            }
+
+            public override bool IsUnTimeLimit => @this.IsUnTimeLimitValidation;
+        }
+
+        class SendSmsUIViewModelNew : SendSmsUIViewModelBase
+        {
+            public SendSmsUIViewModelNew(ChangeBindPhoneNumberWindowViewModel @this) : base(@this)
+            {
+            }
+
+            public override int TimeLimit
+            {
+                get => @this.TimeLimitNew;
+                set => @this.TimeLimitNew = value;
+            }
+
+            public override string BtnSendSmsCodeText
+            {
+                set => @this.BtnSendSmsCodeTextNew = value;
+            }
+
+            public override bool SendSmsCodeSuccess
+            {
+                get => @this.SendSmsCodeSuccessNew;
+                set => @this.SendSmsCodeSuccessNew = value;
+            }
+
+            public override bool IsUnTimeLimit => @this.IsUnTimeLimitNew;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                CTS?.Cancel();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

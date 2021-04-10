@@ -78,7 +78,8 @@ namespace System.Application.UI.ViewModels
 
             if (response.IsSuccess)
             {
-                Toast.Show($"{((response.Content?.IsLoginOrRegister ?? false) ? "登录" : "注册")}成功");
+                var msg = string.Format(AppResources.Success_, (response.Content?.IsLoginOrRegister ?? false) ? AppResources.User_Login : AppResources.User_Register);
+                Toast.Show(msg);
                 Close?.Invoke();
                 return;
             }

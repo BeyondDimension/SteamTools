@@ -151,6 +151,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 和 的本地化字符串。
+        /// </summary>
+        public static string And {
+            get {
+                return ResourceManager.GetString("And", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 ASF Plus 的本地化字符串。
         /// </summary>
         public static string ArchiSteamFarmPlus {
@@ -1233,6 +1242,33 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 {0}成功 的本地化字符串。
+        /// </summary>
+        public static string Success_ {
+            get {
+                return ResourceManager.GetString("Success_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 将丢弃未保存的编辑 的本地化字符串。
+        /// </summary>
+        public static string UnsavedEditingWillBeDiscarded {
+            get {
+                return ResourceManager.GetString("UnsavedEditingWillBeDiscarded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 用户协议 的本地化字符串。
+        /// </summary>
+        public static string User_Agreement {
+            get {
+                return ResourceManager.GetString("User_Agreement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 换绑手机 的本地化字符串。
         /// </summary>
         public static string User_ChangePhoneNum {
@@ -1247,6 +1283,15 @@ namespace System.Application.UI.Resx {
         public static string User_GetSMSCode {
             get {
                 return ResourceManager.GetString("User_GetSMSCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 登录 的本地化字符串。
+        /// </summary>
+        public static string User_Login {
+            get {
+                return ResourceManager.GetString("User_Login", resourceCulture);
             }
         }
         
@@ -1328,6 +1373,33 @@ namespace System.Application.UI.Resx {
         public static string User_Phone {
             get {
                 return ResourceManager.GetString("User_Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 隐私政策 的本地化字符串。
+        /// </summary>
+        public static string User_Privacy {
+            get {
+                return ResourceManager.GetString("User_Privacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 注册 的本地化字符串。
+        /// </summary>
+        public static string User_Register {
+            get {
+                return ResourceManager.GetString("User_Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 注册即代表您已阅读并同意 的本地化字符串。
+        /// </summary>
+        public static string User_RegisterAgreed {
+            get {
+                return ResourceManager.GetString("User_RegisterAgreed", resourceCulture);
             }
         }
         
@@ -1483,6 +1555,15 @@ namespace System.Application.UI.Resx {
         public static string UserProfile {
             get {
                 return ResourceManager.GetString("UserProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 警告 的本地化字符串。
+        /// </summary>
+        public static string Warn {
+            get {
+                return ResourceManager.GetString("Warn", resourceCulture);
             }
         }
         

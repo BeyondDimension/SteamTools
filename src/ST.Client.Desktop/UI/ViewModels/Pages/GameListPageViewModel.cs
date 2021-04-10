@@ -47,6 +47,13 @@ namespace System.Application.UI.ViewModels
         {
             SteamApps = await ISteamService.Instance.GetAppInfos();
 
+#if DEBUG
+            if (Diagnostics.Debugger.IsAttached)
+            {
+                return;
+            }
+#endif
+
             if (SteamApps.Count > 0)
             {
                 Parallel.ForEach(SteamApps, async app =>

@@ -10,6 +10,7 @@
         x:Class="System.Application.UI.Views.Windows.LoginOrRegisterWindow"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:ccl_services="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
@@ -27,12 +28,23 @@
                         <EllipseGeometry Rect="0,0,128,128"/>
                     </Image.Clip>-->
           </Image>
-          <TextBox x:Name="TbPhoneNumber" Watermark="{Binding Path=Res.User_Phone,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding PhoneNumber}" MaxLength="11"/>
+          <TextBox
+            x:Name="TbPhoneNumber"
+            Watermark="{Binding Path=Res.User_Phone,Mode=OneWay,Source={x:Static resx:R.Current}}"
+            Text="{Binding PhoneNumber}"
+            MaxLength="{Binding Path=PhoneNumber,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
           <Panel>
-            <TextBox x:Name="TbSmsCode" Watermark="{Binding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding SmsCode}" MaxLength="6"/>
+            <TextBox
+              x:Name="TbSmsCode"
+              Watermark="{Binding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
+              Text="{Binding SmsCode}"
+              MaxLength="{Binding Path=SMS_CAPTCHA,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
             <Border HorizontalAlignment="Right" Cursor="Hand">
-              <Button Classes="CodeButton" Content="{Binding BtnSendSmsCodeText}" HorizontalAlignment="Right" Command="{Binding SendSms}"
-                IsEnabled="{Binding !IsUnTimeLimit}"></Button>
+              <Button Classes="CodeButton"
+                      Content="{Binding BtnSendSmsCodeText}"
+                      HorizontalAlignment="Right"
+                      Command="{Binding SendSms}"
+                      IsEnabled="{Binding !IsUnTimeLimit}" />
             </Border>
           </Panel>
 
@@ -46,10 +58,10 @@
           </Button>
 
           <WrapPanel HorizontalAlignment="Center" Margin="2 0 6 0">
-            <TextBlock Text="注册即代表您已阅读并同意"/>
-            <Button Classes="Hyperlink" Margin="5,0" Content="用户协议" Command="{Binding OpenHyperlink}" CommandParameter="https://steampp.net/Agreement"/>
-            <TextBlock Text="和"/>
-            <Button Classes="Hyperlink" Margin="5,0" Content="隐私政策" Command="{Binding OpenHyperlink}" CommandParameter="https://steampp.net/Privacy"/>
+            <TextBlock Text="{Binding Path=Res.User_RegisterAgreed,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <Button Classes="Hyperlink" Margin="5,0" Content="{Binding Path=Res.User_Agreement,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OpenHyperlink}" CommandParameter="https://steampp.net/Agreement"/>
+            <TextBlock Text="{Binding Path=Res.And,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <Button Classes="Hyperlink" Margin="5,0" Content="{Binding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OpenHyperlink}" CommandParameter="https://steampp.net/Privacy"/>
           </WrapPanel>
         </StackPanel>
         <!--<StackPanel Grid.Row="1">

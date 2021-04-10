@@ -147,6 +147,9 @@
   <data name="Agree" xml:space="preserve">
     <value>同意</value>
   </data>
+  <data name="And" xml:space="preserve">
+    <value>和</value>
+  </data>
   <data name="ArchiSteamFarmPlus" xml:space="preserve">
     <value>ASF Plus</value>
   </data>
@@ -513,6 +516,12 @@
     <value>登陆Steam账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易15天冷却期。
 (如果没有开Steam社区加速会导致无法登陆成功)</value>
   </data>
+  <data name="Success_" xml:space="preserve">
+    <value>{0}成功</value>
+  </data>
+  <data name="UnsavedEditingWillBeDiscarded" xml:space="preserve">
+    <value>将丢弃未保存的编辑</value>
+  </data>
   <data name="UserChange_BtnText" xml:space="preserve">
     <value>以该账号登录Steam</value>
   </data>
@@ -554,12 +563,18 @@
   <data name="UserProfile" xml:space="preserve">
     <value>个人资料</value>
   </data>
+  <data name="User_Agreement" xml:space="preserve">
+    <value>用户协议</value>
+  </data>
   <data name="User_ChangePhoneNum" xml:space="preserve">
     <value>换绑手机</value>
     <comment>修改手机号</comment>
   </data>
   <data name="User_GetSMSCode" xml:space="preserve">
     <value>获取验证码</value>
+  </data>
+  <data name="User_Login" xml:space="preserve">
+    <value>登录</value>
   </data>
   <data name="User_LoginCodeTimeLimitTip" xml:space="preserve">
     <value>重新获取({0})</value>
@@ -589,6 +604,15 @@
   <data name="User_Phone" xml:space="preserve">
     <value>手机号码</value>
   </data>
+  <data name="User_Privacy" xml:space="preserve">
+    <value>隐私政策</value>
+  </data>
+  <data name="User_Register" xml:space="preserve">
+    <value>注册</value>
+  </data>
+  <data name="User_RegisterAgreed" xml:space="preserve">
+    <value>注册即代表您已阅读并同意</value>
+  </data>
   <data name="User_Rememberme" xml:space="preserve">
     <value>记住登陆状态</value>
   </data>
@@ -600,6 +624,9 @@
   </data>
   <data name="User_SteamFastLogin" xml:space="preserve">
     <value>Steam快速登录</value>
+  </data>
+  <data name="Warn" xml:space="preserve">
+    <value>警告</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>警告</value>

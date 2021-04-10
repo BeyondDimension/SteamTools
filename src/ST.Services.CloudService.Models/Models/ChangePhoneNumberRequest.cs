@@ -21,7 +21,7 @@ namespace System.Application.Models
         /// </list>
         /// </summary>
         [MPObj]
-        public class Validation : IReadOnlySmsCode
+        public class Validation : IReadOnlySmsCode, IReadOnlyPhoneNumber
         {
             /// <summary>
             /// 当前手机号的短信验证码
