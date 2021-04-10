@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
@@ -10,9 +11,40 @@ namespace System.Application.UI.Views.Windows
 {
     public class ChangeBindPhoneNumberWindow : FluentWindow
     {
+        readonly TextBox TbPhoneNumber;
+        readonly TextBox TbSmsCodeValidation;
+        readonly TextBox TbSmsCodeNew;
+
         public ChangeBindPhoneNumberWindow()
         {
             InitializeComponent();
+            TbSmsCodeValidation = this.FindControl<TextBox>(nameof(TbSmsCodeValidation));
+            TbPhoneNumber = this.FindControl<TextBox>(nameof(TbPhoneNumber));
+            TbSmsCodeNew = this.FindControl<TextBox>(nameof(TbSmsCodeNew));
+            TbSmsCodeValidation.KeyUp += (_, e) =>
+            {
+                if (e.Key == Key.Return)
+                {
+                    TbPhoneNumber.Focus();
+                }
+            };
+            void Submit(object _, KeyEventArgs e)
+            {
+                if (e.Key == Key.Return)
+                {
+                    if (DataContext is ChangeBindPhoneNumberWindowViewModel vm)
+                    {
+                        if (e.Source == TbPhoneNumber && vm.CurrentStepIsNew)
+                        {
+                            TbSmsCodeNew.Focus();
+                            return;
+                        }
+                        ((ChangeBindPhoneNumberWindowViewModel?)DataContext)?.Submit();
+                    }
+                }
+            }
+            TbPhoneNumber.KeyUp += Submit;
+            TbSmsCodeNew.KeyUp += Submit;
 #if DEBUG
             this.AttachDevTools();
 #endif
@@ -24,6 +56,8 @@ namespace System.Application.UI.Views.Windows
             if (DataContext is ChangeBindPhoneNumberWindowViewModel vm)
             {
                 vm.Close = Close;
+                vm.TbSmsCodeFocusValidation = TbSmsCodeValidation.Focus;
+                vm.TbSmsCodeFocusNew = TbSmsCodeNew.Focus;
             }
         }
 

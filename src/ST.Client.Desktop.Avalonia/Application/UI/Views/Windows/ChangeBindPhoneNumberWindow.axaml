@@ -28,6 +28,7 @@
 
           <Panel>
             <TextBox
+              x:Name="TbSmsCodeValidation"
               Text="{Binding SmsCodeValidation}"
               Watermark="{Binding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
               MaxLength="{Binding Path=SMS_CAPTCHA,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}"
@@ -41,6 +42,7 @@
           </Panel>
 
           <TextBox
+            x:Name="TbPhoneNumber"
             Text="{Binding PhoneNumber}"
             Watermark="{Binding Path=Res.User_NewPhone,Mode=OneWay,Source={x:Static resx:R.Current}}"
             IsEnabled="{Binding CurrentStepIsValidation}"
@@ -48,6 +50,7 @@
 
           <Panel>
             <TextBox
+              x:Name="TbSmsCodeNew"
               Text="{Binding SmsCodeNew}"
               Watermark="{Binding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
               IsEnabled="{Binding CurrentStepIsNew}"

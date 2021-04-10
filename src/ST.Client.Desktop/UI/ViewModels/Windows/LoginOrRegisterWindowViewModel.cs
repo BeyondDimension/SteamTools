@@ -89,6 +89,10 @@ namespace System.Application.UI.ViewModels
 
         public Action? Close { private get; set; }
 
+        public Action? TbPhoneNumberFocus { get; set; }
+
+        public Action? TbSmsCodeFocus { get; set; }
+
         public CancellationTokenSource? CTS { get; set; }
 
         public async void SendSms()

@@ -22,6 +22,10 @@ namespace System.Application.UI.ViewModels
             bool SendSmsCodeSuccess { get; set; }
 
             bool IsUnTimeLimit { get; }
+
+            Action? TbPhoneNumberFocus { get; }
+
+            Action? TbSmsCodeFocus { get; }
         }
 
         public static bool TimeStart(this IViewModel i)
@@ -76,6 +80,8 @@ namespace System.Application.UI.ViewModels
 
         public static async ValueTask<IApiResponse> SendSms(this IViewModel i, SendSmsRequest request)
         {
+            i.TbSmsCodeFocus?.Invoke();
+
             var client = ICloudServiceClient.Instance;
 
             var response = await client.AuthMessage.SendSms(request);
@@ -83,6 +89,10 @@ namespace System.Application.UI.ViewModels
             if (!response.IsSuccess)
             {
                 i.CTS?.Cancel();
+                if (response.Code == ApiResponseCode.BadRequest || response.Code == ApiResponseCode.RequestModelValidateFail)
+                {
+                    i.TbPhoneNumberFocus?.Invoke();
+                }
             }
 
             if (!i.SendSmsCodeSuccess && response.IsSuccess) i.SendSmsCodeSuccess = true;

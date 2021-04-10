@@ -221,6 +221,8 @@ namespace System.Application.UI.ViewModels
                     code = response.Content ?? throw new ArgumentNullException(nameof(code));
                     CTS?.Cancel();
                     CurrentStep = Step.New;
+
+                    SendSms();
                 }
             }
 
@@ -244,6 +246,10 @@ namespace System.Application.UI.ViewModels
         }
 
         public Action? Close { private get; set; }
+
+        public Action? TbSmsCodeFocusValidation { get; set; }
+
+        public Action? TbSmsCodeFocusNew { get; set; }
 
         public CancellationTokenSource? CTS { get; set; }
 
@@ -275,6 +281,10 @@ namespace System.Application.UI.ViewModels
             public abstract bool SendSmsCodeSuccess { get; set; }
 
             public abstract bool IsUnTimeLimit { get; }
+
+            public abstract Action? TbPhoneNumberFocus { get; }
+
+            public abstract Action? TbSmsCodeFocus { get; }
         }
 
         class SendSmsUIViewModelValidation : SendSmsUIViewModelBase
@@ -301,6 +311,10 @@ namespace System.Application.UI.ViewModels
             }
 
             public override bool IsUnTimeLimit => @this.IsUnTimeLimitValidation;
+
+            public override Action? TbPhoneNumberFocus => null;
+
+            public override Action? TbSmsCodeFocus => @this.TbSmsCodeFocusValidation;
         }
 
         class SendSmsUIViewModelNew : SendSmsUIViewModelBase
@@ -327,6 +341,10 @@ namespace System.Application.UI.ViewModels
             }
 
             public override bool IsUnTimeLimit => @this.IsUnTimeLimitNew;
+
+            public override Action? TbPhoneNumberFocus => null;
+
+            public override Action? TbSmsCodeFocus => @this.TbSmsCodeFocusNew;
         }
 
         protected override void Dispose(bool disposing)
