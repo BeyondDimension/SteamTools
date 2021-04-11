@@ -11,9 +11,6 @@
              x:Name="u"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.LocalAuthPage">
-    <Design.DataContext>
-        <vm:LocalAuthPageViewModel/>
-    </Design.DataContext>
     <Panel HorizontalAlignment="Stretch">
         <TextBlock IsVisible="{Binding IsAuthenticatorsEmpty,Mode=OneWay,Source={x:Static service:AuthService.Current}}"
            Text="{Binding Path=Res.LocalAuth_NoAuthTip,Mode=OneWay,Source={x:Static resx:R.Current}}"

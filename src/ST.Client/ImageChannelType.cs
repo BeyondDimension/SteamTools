@@ -22,6 +22,11 @@ namespace System.Application
         SteamGames,
 
         /// <summary>
+        /// Steam 市场物品图片
+        /// </summary>
+        SteamEconomys,
+
+        /// <summary>
         /// 验证码图片
         /// </summary>
         CodeImage,
@@ -33,7 +38,7 @@ namespace System
     public static class ImageChannelTypeEnumExtensions
     {
         /// <inheritdoc cref="IHttpService.GetImageAsync(string, string, CancellationToken)"/>
-        public static Task<Stream?> GetImageAsync(this IHttpService httpService,
+        public static Task<string?> GetImageAsync(this IHttpService httpService,
             string requestUri,
             ImageChannelType channelType,
             CancellationToken cancellationToken = default)

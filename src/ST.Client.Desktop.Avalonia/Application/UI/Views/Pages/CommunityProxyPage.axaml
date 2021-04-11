@@ -12,9 +12,6 @@
              x:Name="u"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.CommunityProxyPage">
-    <Design.DataContext>
-        <vm:CommunityProxyPageViewModel/>
-    </Design.DataContext>
     <Panel HorizontalAlignment="Stretch">
         <Grid IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=!ProxyStatus,Mode=OneWay}"
               ColumnDefinitions="Auto,*"

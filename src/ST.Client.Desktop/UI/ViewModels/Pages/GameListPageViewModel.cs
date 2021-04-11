@@ -3,6 +3,7 @@ using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
@@ -43,22 +44,25 @@ namespace System.Application.UI.ViewModels
             }
         }
 
+        //private IReadOnlyCollection<SteamApp>? _AllSteamApps;
+
         internal async override void Initialize()
         {
             SteamApps = await ISteamService.Instance.GetAppInfos();
-
 #if DEBUG
             if (Diagnostics.Debugger.IsAttached)
             {
                 return;
             }
 #endif
-
-            if (SteamApps.Count > 0)
+            //SteamApps = _AllSteamApps.Where(w => w.ParentId == 0);
+            if (SteamApps.Any_Nullable())
             {
                 Parallel.ForEach(SteamApps, async app =>
                 {
                     app.LibraryLogoStream = await IHttpService.Instance.GetImageAsync(app.LibraryLogoUrl, ImageChannelType.SteamGames);
+                    app.LibraryHeaderStream = await IHttpService.Instance.GetImageAsync(app.LibraryHeaderUrl, ImageChannelType.SteamGames);
+                    app.LibraryNameStream = await IHttpService.Instance.GetImageAsync(app.LibraryNameUrl, ImageChannelType.SteamGames);
                     app.HeaderLogoStream = await IHttpService.Instance.GetImageAsync(app.HeaderLogoUrl, ImageChannelType.SteamGames);
                 });
             }

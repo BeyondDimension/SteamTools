@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Common;
-using System.Security.Cryptography;
+//using System.Security.Cryptography;
 
 namespace System
 {
@@ -10,7 +10,7 @@ namespace System
     /// </summary>
     public static class Random2
     {
-        static readonly RNGCryptoServiceProvider _global = new RNGCryptoServiceProvider();
+        //static readonly RNGCryptoServiceProvider _global = new();
 
         [ThreadStatic]
         static Random? _local;
@@ -20,9 +20,12 @@ namespace System
             var inst = _local;
             if (inst == null)
             {
-                byte[] buffer = new byte[4];
-                _global.GetBytes(buffer);
-                _local = inst = new Random(BitConverter.ToInt32(buffer, 0));
+                //byte[] buffer = new byte[4];
+                //_global.GetBytes(buffer);
+                //_local = inst = new Random(BitConverter.ToInt32(buffer, 0));
+
+                // GUID生成随机数性能比RNGCryptoServiceProvider更好
+                _local = inst = new Random(Guid.NewGuid().GetHashCode());
             }
             return inst;
         }

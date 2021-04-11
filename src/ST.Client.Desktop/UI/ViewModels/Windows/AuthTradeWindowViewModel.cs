@@ -18,8 +18,9 @@ namespace System.Application.UI.ViewModels
 {
     public class AuthTradeWindowViewModel : WindowViewModel
     {
-        private MyAuthenticator MyAuthenticator;
-        private GAPAuthenticatorValueDTO.SteamAuthenticator _Authenticator => MyAuthenticator.AuthenticatorData.Value as GAPAuthenticatorValueDTO.SteamAuthenticator;
+        private readonly MyAuthenticator MyAuthenticator;
+        private readonly GAPAuthenticatorValueDTO.SteamAuthenticator _Authenticator;
+
         public AuthTradeWindowViewModel()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_SteamAuthTrade;
@@ -28,14 +29,23 @@ namespace System.Application.UI.ViewModels
         public AuthTradeWindowViewModel(MyAuthenticator auth)
         {
             MyAuthenticator = auth;
+            if (MyAuthenticator.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator authenticator)
+            {
+                _Authenticator = authenticator;
+            }
+            else
+            {
+                //非Steam令牌无法弹出确认交易框
+                throw new NullReferenceException();
+            }
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_SteamAuthTrade;
 
             Refresh_Click();
         }
 
         #region LoginData
-        private string _UserName;
-        public string UserName
+        private string? _UserName;
+        public string? UserName
         {
             get => this._UserName;
             set
@@ -48,8 +58,8 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        private string _Password;
-        public string Password
+        private string? _Password;
+        public string? Password
         {
             get => this._Password;
             set
@@ -90,8 +100,8 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        private string _CodeImageChar;
-        public string CodeImageChar
+        private string? _CodeImageChar;
+        public string? CodeImageChar
         {
             get => this._CodeImageChar;
             set
@@ -125,18 +135,18 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// Cancellation token for confirm all
         /// </summary>
-        private CancellationTokenSource CancelComfirmAll;
+        private CancellationTokenSource? CancelComfirmAll;
 
         /// <summary>
         /// Cancellation token for cancel all
         /// </summary>
-        private CancellationTokenSource CancelCancelAll;
+        private CancellationTokenSource? CancelCancelAll;
 
         /// <summary>
         /// Trade info state
         /// </summary>
-        private IList<WinAuthSteamClient.Confirmation> _Confirmations;
-        public IList<WinAuthSteamClient.Confirmation> Confirmations
+        private ICollection<WinAuthSteamClient.Confirmation>? _Confirmations;
+        public ICollection<WinAuthSteamClient.Confirmation>? Confirmations
         {
             get => this._Confirmations;
             set
@@ -261,11 +271,9 @@ namespace System.Application.UI.ViewModels
 
                     Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(steam.GetConfirmations());
 
-                    Parallel.ForEach(Confirmations, confirmation =>
+                    Parallel.ForEach(Confirmations, async confirmation =>
                     {
-                        using var web = new WebClient();
-                        var bt = web.DownloadData(confirmation.Image);
-                        confirmation.ImageStream = new MemoryStream(bt);
+                        confirmation.ImageStream = await IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
                     });
 
                     // 获取新交易后保存
@@ -288,11 +296,9 @@ namespace System.Application.UI.ViewModels
                         steam.Refresh();
                         Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(steam.GetConfirmations());
 
-                        Parallel.ForEach(Confirmations, confirmation =>
+                        Parallel.ForEach(Confirmations, async confirmation =>
                         {
-                            using var web = new WebClient();
-                            var bt = web.DownloadData(confirmation.Image);
-                            confirmation.ImageStream = new MemoryStream(bt);
+                            confirmation.ImageStream = await IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
                         });
                     }
                     catch (Exception ex)
@@ -322,9 +328,9 @@ namespace System.Application.UI.ViewModels
             {
                 bool result = false;
                 if (accept)
-                    result = await AcceptTrade(trade.Id);
+                    result = await AcceptTrade(trade);
                 else
-                    result = await RejectTrade(trade.Id);
+                    result = await RejectTrade(trade);
 
                 if (result)
                 {
@@ -342,21 +348,21 @@ namespace System.Application.UI.ViewModels
         /// Accept the trade Confirmation
         /// </summary>
         /// <param name="tradeId">Id of Confirmation</param>
-        private async Task<bool> AcceptTrade(string tradeId)
+        private async Task<bool> AcceptTrade(WinAuthSteamClient.Confirmation trade)
         {
             try
             {
-                var trade = Confirmations.Where(t => t.Id == tradeId).FirstOrDefault();
                 if (trade == null)
                 {
                     //throw new ApplicationException(AppResources.LocalAuth_AuthTrade_TradeError);
                     ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_TradeError);
+                    return false;
                 }
 
-                var result = await Task.Factory.StartNew<bool>((t) =>
+                var result = await Task.Run<bool>(() =>
                 {
-                    return this._Authenticator.GetClient().ConfirmTrade(((WinAuthSteamClient.Confirmation)t).Id, ((WinAuthSteamClient.Confirmation)t).Key, true);
-                }, trade);
+                    return this._Authenticator.GetClient().ConfirmTrade(trade.Id, trade.Key, true);
+                });
                 if (result == false)
                 {
                     //throw new ApplicationException(AppResources.LocalAuth_AuthTrade_ConfirmError);
@@ -384,20 +390,20 @@ namespace System.Application.UI.ViewModels
         /// Reject the trade Confirmation
         /// </summary>
         /// <param name="tradeId">ID of Confirmation</param>
-        private async Task<bool> RejectTrade(string tradeId)
+        private async Task<bool> RejectTrade(WinAuthSteamClient.Confirmation trade)
         {
             try
             {
-                var trade = Confirmations.Where(t => t.Id == tradeId).FirstOrDefault();
                 if (trade == null)
                 {
                     //throw new ApplicationException(AppResources.LocalAuth_AuthTrade_TradeError);
                     ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_TradeError);
+                    return false;
                 }
-                var result = await Task.Factory.StartNew<bool>((t) =>
+                var result = await Task.Run<bool>(() =>
                 {
-                    return this._Authenticator.GetClient().ConfirmTrade(((WinAuthSteamClient.Confirmation)t).Id, ((WinAuthSteamClient.Confirmation)t).Key, false);
-                }, trade);
+                    return this._Authenticator.GetClient().ConfirmTrade(trade.Id, trade.Key, false);
+                });
                 if (result == false)
                 {
                     //throw new ApplicationException(AppResources.LocalAuth_AuthTrade_ConfirmError);
@@ -476,33 +482,31 @@ namespace System.Application.UI.ViewModels
 
             try
             {
-                var rand = new Random();
-                var tradeIds = Confirmations.Reverse().ToArray();
-                for (var i = tradeIds.Length - 1; i >= 0; i--)
+                var trades = Confirmations.Reverse().ToArray();
+                for (var i = trades.Length - 1; i >= 0; i--)
                 {
                     if (CancelComfirmAll.IsCancellationRequested)
                     {
-                        break;
+                        return;
                     }
                     DateTime start = DateTime.Now;
 
-                    var result = await AcceptTrade(tradeIds[i].Id);
+                    var result = await AcceptTrade(trades[i]);
                     if (result == false || CancelComfirmAll.IsCancellationRequested == true)
                     {
-                        break;
+                        return;
                     }
-                    MainThreadDesktop.BeginInvokeOnMainThread(() => { Confirmations.Remove(tradeIds[i]); });
-                    if (i != 0)
+                    await MainThreadDesktop.InvokeOnMainThreadAsync(() =>
                     {
-                        var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
-                        var delay = WinAuthSteamClient.CONFIRMATION_EVENT_DELAY + rand.Next(WinAuthSteamClient.CONFIRMATION_EVENT_DELAY / 2); // delay is 100%-150% of CONFIRMATION_EVENT_DELAY
-                        if (delay > duration)
-                        {
-                            await Task.Delay(delay - duration);
-                        }
+                        Confirmations.Remove(trades[i]);
+                    });
+                    var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
+                    var delay = WinAuthSteamClient.CONFIRMATION_EVENT_DELAY + Random2.Next(WinAuthSteamClient.CONFIRMATION_EVENT_DELAY / 2); // delay is 100%-150% of CONFIRMATION_EVENT_DELAY
+                    if (delay > duration)
+                    {
+                        await Task.Delay(delay - duration);
                     }
                 }
-
             }
             finally
             {
@@ -525,7 +529,6 @@ namespace System.Application.UI.ViewModels
 
             try
             {
-                var rand = new Random();
                 var tradeIds = Confirmations.Reverse().ToArray();
                 for (var i = tradeIds.Length - 1; i >= 0; i--)
                 {
@@ -536,23 +539,25 @@ namespace System.Application.UI.ViewModels
 
                     DateTime start = DateTime.Now;
 
-                    var result = await RejectTrade(tradeIds[i].Id);
+                    var result = await RejectTrade(tradeIds[i]);
                     if (result == false || CancelCancelAll.IsCancellationRequested == true)
                     {
                         break;
                     }
-                    MainThreadDesktop.BeginInvokeOnMainThread(() => { Confirmations.Remove(tradeIds[i]); });
+                    await MainThreadDesktop.InvokeOnMainThreadAsync(() =>
+                    {
+                        Confirmations.Remove(tradeIds[i]);
+                    });
                     if (i != 0)
                     {
                         var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
-                        var delay = WinAuthSteamClient.CONFIRMATION_EVENT_DELAY + rand.Next(WinAuthSteamClient.CONFIRMATION_EVENT_DELAY / 2); // delay is 100%-150% of CONFIRMATION_EVENT_DELAY
+                        var delay = WinAuthSteamClient.CONFIRMATION_EVENT_DELAY + Random2.Next(WinAuthSteamClient.CONFIRMATION_EVENT_DELAY / 2); // delay is 100%-150% of CONFIRMATION_EVENT_DELAY
                         if (delay > duration)
                         {
                             await Task.Delay(delay - duration);
                         }
                     }
                 }
-
             }
             finally
             {

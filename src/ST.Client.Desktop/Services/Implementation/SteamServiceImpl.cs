@@ -1,4 +1,5 @@
 ﻿using System.Application.Models;
+using System.Application.Models.Settings;
 using System.Application.Properties;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -280,6 +281,15 @@ namespace System.Application.Services.Implementation
                 {
                     if (app.AppId > 0)
                     {
+                        if (GameLibrarySettings.DefaultIgnoreList.Contains(app.AppId))
+                            continue;
+                        if (app.ParentId > 0)
+                        {
+                            var parentApp = apps.FirstOrDefault(f => f.AppId == app.ParentId);
+                            if (parentApp != null)
+                                parentApp.ChinldApp.Add(app);
+                            continue;
+                        }
                         apps.Add(app);
                         //app.Modified += (s, e) =>
                         //{

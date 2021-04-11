@@ -55,20 +55,19 @@ namespace System.Application.Models
 			return true;
 		}
 
-		public T GetPropertyValue<T>(string name, T defValue = default(T))
+		public T GetPropertyValue<T>(string name, T defValue = default)
 		{
-			T result;
-			if (!this.TryGetPropertyValue<T>(name, out result))
-			{
-				result = defValue;
-			}
-			return result;
+            if (!this.TryGetPropertyValue<T>(name, out T result))
+            {
+                result = defValue;
+            }
+            return result;
 		}
 
 		public bool TryGetPropertyValue<T>(string name, out T result)
 		{
 			bool result2 = false;
-			result = default(T);
+			result = default;
 			SteamAppProperty property = this[name];
 			if (property != null)
 			{
@@ -199,7 +198,7 @@ namespace System.Application.Models
 			SteamAppProperty property = this[name];
 			SteamAppPropertyTable propertyTable = new();
 			propertyTable.SetPropertyValue(property.Name, property.PropertyType, property.Value);
-			MemoryStream memoryStream = new MemoryStream();
+			MemoryStream memoryStream = new();
 			new BinaryWriter(memoryStream).Write(propertyTable);
 			return memoryStream;
 		}
@@ -249,8 +248,8 @@ namespace System.Application.Models
 
 		private string ToStringInternal(int indent)
 		{
-			StringBuilder stringBuilder = new StringBuilder();
-			string arg = new string('\t', indent);
+			StringBuilder stringBuilder = new();
+			string arg = new('\t', indent);
 			foreach (SteamAppProperty property in this._properties)
 			{
 				string arg2 = property.Name.Replace("\\", "\\\\").Replace("\"", "\\\"");
@@ -288,6 +287,6 @@ namespace System.Application.Models
 			return this.ToStringInternal(0);
 		}
 
-		private List<SteamAppProperty> _properties = new();
+		private readonly List<SteamAppProperty> _properties = new();
 	}
 }

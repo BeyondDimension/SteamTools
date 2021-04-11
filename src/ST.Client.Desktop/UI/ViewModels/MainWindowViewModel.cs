@@ -95,11 +95,11 @@ namespace System.Application.UI.ViewModels
             if (!this.IsInitialized)
             {
                 Parallel.ForEach(TabItems, item =>
-                  {
+                {
                      //if (item == GameListPage)
                      //    return;
                      item.Initialize();
-                  });
+                });
                 this.IsInitialized = true;
             }
 

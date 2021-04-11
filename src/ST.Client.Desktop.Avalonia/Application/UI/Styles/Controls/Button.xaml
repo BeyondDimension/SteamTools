@@ -4,6 +4,8 @@
         <Border Padding="20" Background="Black">
             <StackPanel Spacing="5">
                 <Button Classes="Hyperlink" Content="Code Font Family" />
+                <Button Classes="CodeButton" Content="Code Font Family" />
+                <Button Classes="flatbutton" Content="Code Font Family" />
             </StackPanel>
         </Border>
     </Design.PreviewWith>
@@ -15,18 +17,28 @@
         <Setter Property="Margin" Value="0"/>
         <Setter Property="Cursor" Value="Hand" />
     </Style>
+    
     <Style Selector="Button.Hyperlink">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Margin" Value="0"/>
-        <Setter Property="Foreground" Value="{DynamicResource SystemControlHyperlinkTextBrush}" />
+        <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlHyperlinkTextBrush}" />
         <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Template">
-            <ControlTemplate>
-                <TextBlock Text="{TemplateBinding Content}" TextDecorations="Underline"></TextBlock>
-            </ControlTemplate>
-        </Setter>
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
     </Style>
+
+    <Style Selector="Button.Hyperlink TextBlock">
+        <Setter Property="TextDecorations" Value="Underline" />
+    </Style>
+
+    <Style Selector="Button.Hyperlink:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="TextBlock.Foreground" Value="{DynamicResource HyperLinkForeground}" />
+    </Style>
+
+    <Style Selector="Button.Hyperlink:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    
     <Style Selector="Button.flatbutton">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -36,5 +48,20 @@
     </Style>
     <Style Selector="Button.flatbutton:pressed  /template/ ContentPresenter">
         <Setter Property="CornerRadius" Value="0" />
+    </Style>
+
+    <Style Selector="Button.action /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource ThemeAccentBrushKey}" />
+        <Setter Property="Padding" Value="20 10" />
+        <Setter Property="TextBlock.Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
+    </Style>
+    <Style Selector="Button.action:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource ThemeAccentPointerOverBrushKey}" />
+    </Style>
+    <Style Selector="Button.action:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource ThemeAccentPressedBrushKey}" />
+    </Style>
+    <Style Selector="Button.action:disabled /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource ThemeAccentDisabledBrushKey}" />
     </Style>
 </Styles>

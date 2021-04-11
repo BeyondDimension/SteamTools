@@ -8,11 +8,10 @@
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              x:Name="u"
+             x:DataType="vm:GameListPageViewModel"
+             x:CompileBindings="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.GameListPage">
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
     <Grid ColumnDefinitions="Auto,*">
         <!--<TreeView Grid.Column="0">
             <TreeView.ItemTemplate>
@@ -24,13 +23,38 @@
         <Panel Grid.Column="1">
             <SplitView IsPaneOpen="{Binding IsAppInfoOpen,Mode=TwoWay}"
                 PanePlacement="Right"
-                OpenPaneLength="500"
+                OpenPaneLength="800"
                 DisplayMode="Overlay"
                 PaneBackground="Transparent">
                 <SplitView.Pane>
-                    <Panel>
-                        <TextBlock Text="{Binding SelectApp.DisplayName}" FontSize="22"></TextBlock>
-                    </Panel>
+                    <ScrollViewer>
+                        <Panel>
+                            <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" ZIndex="0">
+
+                            </Border>
+                            <Panel
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top">
+                                <Image
+                                        Source="{Binding SelectApp.LibraryHeaderStream,Converter={StaticResource BitmapAssetValueConverter}}"
+                                        Stretch="Uniform"
+                                        Width="800"></Image>
+                                <Image 
+                                       Source="{Binding SelectApp.LibraryNameStream,Converter={StaticResource BitmapAssetValueConverter}}" 
+                                       Stretch="Uniform" Width="200" Margin="20 0 0 10"
+                                       VerticalAlignment="Bottom" 
+                                       HorizontalAlignment="Left">
+                                </Image>
+                                <Button Content="安装"
+                                    Width="260" Height="40"
+                                    FontSize="18"
+                                    HorizontalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    VerticalContentAlignment="Center"></Button>
+                            </Panel>
+                        </Panel>
+                    </ScrollViewer>
                 </SplitView.Pane>
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="0 0 0 10">
                     <ItemsRepeater Items="{Binding SteamApps}">
@@ -42,8 +66,8 @@
                                 <StackPanel Margin="20 0" Spacing="8">
                                     <Border DockPanel.Dock="Top" Classes="paper" x:Name="app" Cursor="Hand">
                                         <i:Interaction.Behaviors>
-                                            <ia:EventTriggerBehavior EventName="PointerPressed" SourceObject="{Binding #app}">
-                                                <ia:InvokeCommandAction Command="{Binding #u.DataContext.AppClick}" CommandParameter="{Binding}"/>
+                                            <ia:EventTriggerBehavior EventName="PointerPressed" SourceObject="{ReflectionBinding #app}">
+                                                <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.AppClick}" CommandParameter="{Binding}"/>
                                             </ia:EventTriggerBehavior>
                                         </i:Interaction.Behaviors>
                                         <Panel Width="200" Height="300">
@@ -62,12 +86,12 @@
                                                     Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
                                             </Panel>
 
-                                            <TextBlock Text="{Binding AppId}" HorizontalAlignment="Center" VerticalAlignment="Bottom"></TextBlock>
+                                            <!--<TextBlock Text="{Binding AppId}" HorizontalAlignment="Center" VerticalAlignment="Bottom"></TextBlock>-->
                                         </Panel>
                                     </Border>
 
                                     <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding DisplayName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                                    <!--<controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding AppId}" FontSize="10" Foreground="{DynamicResource InactiveForegroundBrushKey}" />-->
+                                    <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding AppId}" FontSize="10" Foreground="{DynamicResource InactiveForegroundBrushKey}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ItemsRepeater.ItemTemplate>

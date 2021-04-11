@@ -4,6 +4,7 @@
         <Thickness x:Key="PageMargin">20 0 20 10</Thickness>
         <Thickness x:Key="PageMargin2">30 0 30 10</Thickness>
     </Styles.Resources>
+    <StyleInclude Source="/Application/UI/Styles/Controls/FontSizes.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/DrawingSvg.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/SideBar.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/TabControl.xaml" />
@@ -13,4 +14,5 @@
     <StyleInclude Source="/Application/UI/Styles/Controls/Menu.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/CheckBox.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/ListBox.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/DataGrid.xaml" />
 </Styles>

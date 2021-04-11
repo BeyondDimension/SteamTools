@@ -6,9 +6,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.StartPage">
-	<Design.DataContext>
-		<vm:MainWindowViewModel/>
-	</Design.DataContext>
 	<StackPanel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}" Background="Transparent" Spacing="20">
 		<Grid ColumnDefinitions="Auto,Auto">
         

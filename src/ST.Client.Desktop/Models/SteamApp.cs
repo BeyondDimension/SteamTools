@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -8,10 +9,37 @@ namespace System.Application.Models
 {
     public class SteamApp : ReactiveObject, IComparable<SteamApp>
     {
+        public SteamApp(){}
+
+        public SteamApp(uint appid) 
+        {
+            AppId = appid;
+        }
+
         /// <summary>
         /// gog default logo 0~21
         /// </summary>
-        public const string defaultLogoPath= @"avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/{0}.png";
+        public const string defaultLogoPath = @"avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/{0}.png";
+
+        private const string NodeAppInfo = "appinfo";
+
+        private const string NodeAppType = "type";
+
+        private const string NodeCommon = "common";
+
+        private const string NodeId = "gameid";
+
+        private const string NodeName = "name";
+
+        private const string NodeParentId = "parent";
+
+        private const string NodePlatforms = "oslist";
+
+        private const string NodePlatformsLinux = "linux";
+
+        private const string NodePlatformsMac = "mac";
+
+        private const string NodePlatformsWindows = "windows";
 
         public int Index { get; set; }
 
@@ -58,24 +86,46 @@ namespace System.Application.Models
 
         public SteamAppType Type { get; set; }
 
+        public uint ParentId { get; set; }
+
+        public IList<SteamApp> ChinldApp { get; set; } = new List<SteamApp>();
+
         public string? LogoUrl => string.IsNullOrEmpty(Logo) ? null :
             string.Format(STEAMAPP_LOGO_URL, AppId, Logo);
 
-        public string LibraryLogoUrl => string.Format(STEAMAPP_LIBRARYLOGO_URL, AppId);
+        public string LibraryLogoUrl => string.Format(STEAMAPP_LIBRARY_URL, AppId);
 
-        private Stream? _LibraryLogoStream;
-        public Stream? LibraryLogoStream
+        private string? _LibraryLogoStream;
+        public string? LibraryLogoStream
         {
             get => _LibraryLogoStream;
             set => this.RaiseAndSetIfChanged(ref _LibraryLogoStream, value);
         }
 
-        public string DefaultLibraryLogo => string.Format(defaultLogoPath, Random2.Next(22));
+        public string LibraryHeaderUrl => string.Format(STEAMAPP_LIBRARYHERO_URL, AppId);
+
+        private string? _LibraryHeaderStream;
+        public string? LibraryHeaderStream
+        {
+            get => _LibraryHeaderStream;
+            set => this.RaiseAndSetIfChanged(ref _LibraryHeaderStream, value);
+        }
+
+        public string LibraryNameUrl => string.Format(STEAMAPP_LIBRARYLOGO_URL, AppId);
+
+        private string? _LibraryNameStream;
+        public string? LibraryNameStream
+        {
+            get => _LibraryNameStream;
+            set => this.RaiseAndSetIfChanged(ref _LibraryNameStream, value);
+        }
+
+        public string DefaultLibraryLogo { get; } = string.Format(defaultLogoPath, Random2.Next(22));
 
         public string HeaderLogoUrl => string.Format(STEAMAPP_CAPSULE_URL, AppId);
 
-        private Stream? _HeaderLogoStream;
-        public Stream? HeaderLogoStream
+        private string? _HeaderLogoStream;
+        public string? HeaderLogoStream
         {
             get => _HeaderLogoStream;
             set => this.RaiseAndSetIfChanged(ref _HeaderLogoStream, value);
@@ -151,13 +201,39 @@ namespace System.Application.Models
                 binaryReader.ReadBytes(20);
                 app._changeNumber = binaryReader.ReadUInt32();
                 app._properties = binaryReader.ReadPropertyTable();
+                var nodes = new string[3] { NodeAppInfo, NodeCommon, string.Empty };
                 var installpath = app._properties.GetPropertyValue<string>("", new string[]
                 {
-                    "appinfo",
+                    NodeAppInfo,
                     "config",
                     "installdir"
                  });
-                app.InstalledDir = Path.Combine(Services.ISteamService.Instance.SteamDirPath, "steamapps", "common", installpath);
+                app.InstalledDir = Path.Combine(Services.ISteamService.Instance.SteamDirPath, "steamapps", NodeCommon, installpath);
+
+                nodes[2] = NodeParentId;
+                app.ParentId = (uint)app._properties.GetPropertyValue<int>(0, nodes);
+
+                nodes[2] = NodeAppType;
+                string type = app._properties.GetPropertyValue<string>("", nodes);
+
+                if (string.IsNullOrEmpty(type))
+                {
+                    if (Enum.TryParse(type, true, out SteamAppType apptype))
+                    {
+                        app.Type = apptype;
+                    }
+                    else
+                    {
+                        app.Type = SteamAppType.Unknown;
+                        Debug.WriteLine(string.Format("AppInfo: New AppType '{0}'", type));
+                    }
+                }
+
+
+                nodes[2] = NodePlatforms;
+                string oslist = app._properties.GetPropertyValue<string>("", NodePlatforms);
+
+
 
                 var propertyValue = app._properties.GetPropertyValue<string>("", new string[]
                 {
@@ -167,12 +243,8 @@ namespace System.Application.Models
                 });
                 if (propertyValue != "")
                 {
-                    app._properties.SetPropertyValue(SteamAppPropertyType.String, propertyValue, new string[]
-                    {
-                            "appinfo",
-                            "common",
-                            "name"
-                    });
+                    nodes[2] = NodeName;
+                    app._properties.SetPropertyValue(SteamAppPropertyType.String, propertyValue, nodes);
                 }
                 var propertyValue2 = app._properties.GetPropertyValue<string>("", new string[]
                 {
@@ -182,12 +254,8 @@ namespace System.Application.Models
                 });
                 if (propertyValue2 != "")
                 {
-                    app._properties.SetPropertyValue(SteamAppPropertyType.String, propertyValue2, new string[]
-                    {
-                            "appinfo",
-                            "common",
-                            "type"
-                    });
+                    nodes[2] = NodeAppType;
+                    app._properties.SetPropertyValue(SteamAppPropertyType.String, propertyValue2, nodes);
                 }
                 app._originalData = array;
                 app.ClearCachedProps();

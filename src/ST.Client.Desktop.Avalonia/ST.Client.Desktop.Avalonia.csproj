@@ -57,7 +57,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AvaloniaResource Update="Application\UI\Styles\Controls\DataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+    <AvaloniaResource Update="Application\UI\Styles\Controls\FontSizes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
     <AvaloniaResource Update="Application\UI\Styles\Controls\ListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+    <AvaloniaResource Update="Application\UI\Styles\ThemeAccent.xaml">
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>
   </ItemGroup>

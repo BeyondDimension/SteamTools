@@ -13,7 +13,15 @@
         public const string STEAMAPP_LIST_URL = "https://api.steampowered.com/ISteamApps/GetAppList/v2";
         public const string STORE_APP_URL = "https://store.steampowered.com/app/{0}";
         public const string STEAMAPP_LOGO_URL = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{0}/{1}.jpg";
-        public const string STEAMAPP_LIBRARYLOGO_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/library_600x900.jpg";
+        public const string STEAMAPP_LIBRARY_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/library_600x900.jpg";
+        public const string STEAMAPP_LIBRARYHERO_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/library_hero.jpg";
+        public const string STEAMAPP_LIBRARYLOGO_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/logo.png";
+
+        /// <summary>
+        /// 多语言版本logo，{1}传入steam多语言文本
+        /// </summary>
+        public const string STEAMAPP_LIBRARYLOGO_LOCALIZED_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/logo_{1}.png";
+
         public const string STEAMAPP_ICON_URL = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{0}/{1}";
         public const string STEAMAPP_CAPSULE_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_184x69.jpg";
         public const string STEAMAPP_HEADIMAGE_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/header.jpg";
@@ -34,25 +42,4 @@
 
         public const string STEAMCN_USERINFO_XML_URL = "https://my.steamchina.com/profiles/76561198289531723?xml=1";
     }
-
-#if DEBUG
-
-    [Obsolete("use SteamApiUrls / System.Application.SteamTools/Constants.cs", true)]
-    public class Const
-    {
-        [Obsolete("use Constants.APP_LIST_FILE", true)]
-        public const string APP_LIST_FILE = "apps.json";
-        [Obsolete("use Constants.AUTHDATA_FILE", true)]
-        public const string AUTHDATA_FILE = "authenticators.dat";
-        [Obsolete("use System.Application.Services.IConfigFileService", true)]
-        public const string SETTINGS_FILE = "settings.json";
-        [Obsolete("use Constants.SCRIPT_DIR", true)]
-        public const string SCRIPT_DIR = "scripts";
-        [Obsolete("use Constants.LOGS_DIR", true)]
-        public const string LOG_DIR = "log";
-        [Obsolete("use Constants.CERTIFICATE_TAG", true)]
-        public const string HOST_TAG = "#Steam++";
-    }
-
-#endif
 }

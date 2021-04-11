@@ -130,7 +130,7 @@ namespace System.Application.Services
                                 if (ApiService.Initialize())
                                 {
                                     var id = ApiService.GetSteamId64();
-                                    if (id == 76561197960265728)
+                                    if (id == SteamUser.UndefinedId)
                                     {
                                         //该64位id的steamID3等于0，是steam未获取到当前登录用户的默认返回值，所以直接重新获取
                                         Current.DisposeSteamClient();

@@ -7,6 +7,8 @@ namespace System.Application.Models
     [XmlRoot("profile")]
     public class SteamUser
     {
+        public const long UndefinedId = 76561197960265728;
+
         public SteamUser()
         {
         }
@@ -61,7 +63,7 @@ namespace System.Application.Models
         public string AvatarMedium { get; set; }
 
         [XmlIgnore]
-        public Stream? AvatarStream { get; set; }
+        public string? AvatarStream { get; set; }
 
         [XmlElement("avatarFull")]
         public string? AvatarFull { get; set; }

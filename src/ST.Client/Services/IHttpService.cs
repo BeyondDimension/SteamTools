@@ -28,7 +28,7 @@ namespace System.Application.Services
         /// <param name="channelType">渠道类型，根据不同的类型建立不同的缓存文件夹</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<Stream?> GetImageAsync(
+        Task<string?> GetImageAsync(
             string requestUri,
             string channelType,
             CancellationToken cancellationToken = default);

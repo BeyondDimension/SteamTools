@@ -248,7 +248,7 @@ namespace System.Application.Services.Implementation
 
         readonly ConcurrentDictionary<string, ConcurrentDictionary<string, Task<string?>>> get_image_pipeline = new();
 
-        public async Task<Stream?> GetImageAsync(
+        public async Task<string?> GetImageAsync(
             string requestUri,
             string channelType,
             CancellationToken cancellationToken)
@@ -281,7 +281,8 @@ namespace System.Application.Services.Implementation
             pairs2.TryRemove(requestUri, out var _);
             return FileOpenRead(result);
 
-            static Stream? FileOpenRead(string? p) => p == null ? null : File.OpenRead(p);
+            //static Stream? FileOpenRead(string? p) => p == null ? null : File.OpenRead(p);
+            static string? FileOpenRead(string? fileName) => fileName;
         }
 
         public async Task<Stream?> GetImageAsync(string requestUri, CancellationToken cancellationToken)
