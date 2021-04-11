@@ -44,16 +44,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.0" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.0" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0" />
+    <PackageReference Include="Avalonia" Version="0.10.999-cibuild0013694-beta" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0013694-beta" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0013694-beta" />
     <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.0" />
     <PackageReference Include="CefNet.Avalonia" Version="88.1.21022.1657" />
     <PackageReference Include="LibVLCSharp.Avalonia" Version="3.5.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
-    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0013694-beta" />
   </ItemGroup>
 
   <ItemGroup>

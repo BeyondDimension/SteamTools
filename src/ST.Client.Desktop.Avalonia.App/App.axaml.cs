@@ -115,7 +115,7 @@ namespace System.Application.UI
 
             Styles[0] = new FluentTheme(uri_0)
             {
-                Mode = mode
+                Mode = mode,
             };
             Styles[1] = new StyleInclude(uri_1)
             {

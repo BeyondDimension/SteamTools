@@ -8,7 +8,7 @@
   </Border>
 </Design.PreviewWith>
   <Style Selector="c|InfoMessage">
-    <Setter Property="IsVisible" x:CompileBindings="False" Value="{Binding $self.Opacity, Converter={x:Static conv:BoolOpacityConverters.OpacityToBool}}" />
+    <!--<Setter Property="IsVisible" x:CompileBindings="False" Value="{Binding $self.Opacity, Converter={x:Static conv:BoolOpacityConverters.OpacityToBool}}" />-->
     <Setter Property="VerticalAlignment" Value="Top" />
     <Setter Property="Template">
       <ControlTemplate>
