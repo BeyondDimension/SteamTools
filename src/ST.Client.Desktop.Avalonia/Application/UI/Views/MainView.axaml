@@ -12,38 +12,38 @@
         FontSize="14"
         x:DataType="vm:MainWindowViewModel"
         x:CompileBindings="True">
-    <Panel>
-        <!--Background-->
-        <DockPanel HorizontalAlignment="Stretch">
-            <ExperimentalAcrylicBorder IsHitTestVisible="False" DockPanel.Dock="Left" Width="240">
-                <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.80" TintOpacity="1"/>
-                </ExperimentalAcrylicBorder.Material>
-            </ExperimentalAcrylicBorder>
-            <ExperimentalAcrylicBorder IsHitTestVisible="False">
-                <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.80" TintOpacity="1"/>
-                </ExperimentalAcrylicBorder.Material>
-            </ExperimentalAcrylicBorder>
-        </DockPanel>
+  <Panel>
+    <!--Background-->
+    <DockPanel HorizontalAlignment="Stretch">
+      <ExperimentalAcrylicBorder IsHitTestVisible="False" DockPanel.Dock="Left" Width="240">
+        <ExperimentalAcrylicBorder.Material>
+          <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.80" TintOpacity="1"/>
+        </ExperimentalAcrylicBorder.Material>
+      </ExperimentalAcrylicBorder>
+      <ExperimentalAcrylicBorder IsHitTestVisible="False">
+        <ExperimentalAcrylicBorder.Material>
+          <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.80" TintOpacity="1"/>
+        </ExperimentalAcrylicBorder.Material>
+      </ExperimentalAcrylicBorder>
+    </DockPanel>
 
-        <!--Title-->
-        <Grid ColumnDefinitions="240,*,Auto" ZIndex="0">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
-                <Image Source="/Application/UI/Assets/Icon9.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
-                <Label Content="{Binding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
-            </StackPanel>
-            <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{ReflectionBinding SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Padding="15 8 0 0" FontSize="28"/>
-            <StackPanel Grid.Column="2" x:Name="titleMenu" Orientation="Horizontal" VerticalAlignment="Top">
-                <!--<Menu Items="{Binding SelectedItem.MenuItems}" IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}" Classes="BindMenu">
+    <!--Title-->
+    <Grid ColumnDefinitions="240,*,Auto" ZIndex="0">
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
+        <Image Source="/Application/UI/Assets/Icon9.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
+        <Label Content="{Binding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
+      </StackPanel>
+      <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{ReflectionBinding SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Padding="15 8 0 0" FontSize="28"/>
+      <StackPanel Grid.Column="2" x:Name="titleMenu" Orientation="Horizontal" VerticalAlignment="Top">
+        <!--<Menu Items="{Binding SelectedItem.MenuItems}" IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}" Classes="BindMenu">
                 </Menu>-->
-                <Menu Classes="BindMenu">
-                    <MenuItem Items="{Binding SelectedItem.MenuItems}" Classes="BindItem"
-                        IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}">
-                        <MenuItem.Header>
-                            <DrawingPresenter Drawing="{StaticResource SettingsDrawing}" Width="14"></DrawingPresenter>
-                        </MenuItem.Header>
-                    </MenuItem>
+        <Menu Classes="BindMenu">
+          <MenuItem Items="{Binding SelectedItem.MenuItems}" Classes="BindItem"
+              IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}">
+            <MenuItem.Header>
+              <DrawingPresenter Drawing="{StaticResource SettingsDrawing}" Width="14"></DrawingPresenter>
+            </MenuItem.Header>
+          </MenuItem>
 
           <MenuItem>
             <MenuItem.Header>
@@ -54,80 +54,80 @@
               </Image>
             </MenuItem.Header>
             <MenuItem.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}" CommandParameter="LoginOrRegister">
-                      <MenuItem.Header>
-                        <Panel Width="200" Margin="5">
-                          <StackPanel Spacing="8" Margin="25,0,0,0">
-                            <Image Source="/Application/UI/Assets/Icon9.ico" Height="100" Width="100" HorizontalAlignment="Center">
-                              <Image.Clip>
-                                <EllipseGeometry Rect="0,0,100,100" />
-                              </Image.Clip>
-                            </Image>
-                            <Label Content="未登录" FontSize="16" HorizontalAlignment="Center" Foreground="{DynamicResource HighlightForegroundBrushKey}"></Label>
-                          </StackPanel>
-                        </Panel>
-                      </MenuItem.Header>
-                    </MenuItem>
-                    <MenuItem Header="个人资料" Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}" CommandParameter="UserProfile" />
-                    <!--<MenuItem Header="账号设置" />-->
-                    <MenuItem Header="换绑手机" Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}" CommandParameter="ChangeBindPhoneNumber" />
-                    <MenuItem Header="注销账号" />
-                    <MenuItem Header="退出登录" Command="{ReflectionBinding Path=SignOut,Source={x:Static service:UserService.Current}}" />
-                </MenuItem>     
-            </ContextMenu>
-        </MenuItem.ContextMenu>
+              <ContextMenu>
+                <MenuItem Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}" CommandParameter="LoginOrRegister">
+                  <MenuItem.Header>
+                    <Panel Width="200" Margin="5">
+                      <StackPanel Spacing="8" Margin="25,0,0,0">
+                        <Image Source="/Application/UI/Assets/Icon9.ico" Height="100" Width="100" HorizontalAlignment="Center">
+                          <Image.Clip>
+                            <EllipseGeometry Rect="0,0,100,100" />
+                          </Image.Clip>
+                        </Image>
+                        <Label Content="未登录" FontSize="16" HorizontalAlignment="Center" Foreground="{DynamicResource HighlightForegroundBrushKey}"></Label>
+                      </StackPanel>
+                    </Panel>
+                  </MenuItem.Header>
+                </MenuItem>
+                <MenuItem Header="个人资料" Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}" CommandParameter="UserProfile" />
+                <!--<MenuItem Header="账号设置" />-->
+                <MenuItem Header="换绑手机" Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}" CommandParameter="ChangeBindPhoneNumber" />
+                <MenuItem Header="注销账号" />
+                <MenuItem Header="退出登录" Command="{ReflectionBinding Path=SignOut,Source={x:Static service:UserService.Current}}" />
+              </ContextMenu>
+            </MenuItem.ContextMenu>
+          </MenuItem>
         </Menu>
       </StackPanel>
     </Grid>
 
-        <!--Content-->
-        <TabControl
-                            Items="{Binding TabItems}"
-                            SelectedItem="{Binding SelectedItem}"
-                            Margin="0 25 0 0"
-                            Classes="sidebar">
-            <TabControl.DataTemplates>
-                <DataTemplate DataType="vm:DebugWebViewPageViewModel">
-                    <pages:DebugWebViewPage/>
-                </DataTemplate>
-                <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
-                    <pages:ProxyScriptManagePage/>
-                </DataTemplate>
-                <DataTemplate DataType="vm:DebugPageViewModel">
-                    <pages:DebugPage/>
-                </DataTemplate>
-                <DataTemplate DataType="vm:AboutPageViewModel">
-                    <pages:AboutPage />
-                </DataTemplate>
-                <DataTemplate DataType="vm:SettingsPageViewModel">
-                    <pages:SettingsPage />
-                </DataTemplate>
-                <DataTemplate DataType="vm:StartPageViewModel">
-                    <pages:StartPage />
-                </DataTemplate>
-                <DataTemplate DataType="vm:SteamAccountPageViewModel">
-                    <pages:SteamAccountPage />
-                </DataTemplate>
-                <DataTemplate DataType="vm:GameListPageViewModel">
-                    <pages:GameListPage />
-                </DataTemplate>
-                <DataTemplate DataType="vm:CommunityProxyPageViewModel">
-                    <pages:CommunityProxyPage />
-                </DataTemplate>
-                <DataTemplate DataType="vm:LocalAuthPageViewModel">
-                    <pages:LocalAuthPage />
-                </DataTemplate>
-            </TabControl.DataTemplates>
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <!--<TextBlock Text="{Binding Name}" FontSize="14" FontWeight="Regular">
+    <!--Content-->
+    <TabControl
+                        Items="{Binding TabItems}"
+                        SelectedItem="{Binding SelectedItem}"
+                        Margin="0 25 0 0"
+                        Classes="sidebar">
+      <TabControl.DataTemplates>
+        <DataTemplate DataType="vm:DebugWebViewPageViewModel">
+          <pages:DebugWebViewPage/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
+          <pages:ProxyScriptManagePage/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:DebugPageViewModel">
+          <pages:DebugPage/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:AboutPageViewModel">
+          <pages:AboutPage />
+        </DataTemplate>
+        <DataTemplate DataType="vm:SettingsPageViewModel">
+          <pages:SettingsPage />
+        </DataTemplate>
+        <DataTemplate DataType="vm:StartPageViewModel">
+          <pages:StartPage />
+        </DataTemplate>
+        <DataTemplate DataType="vm:SteamAccountPageViewModel">
+          <pages:SteamAccountPage />
+        </DataTemplate>
+        <DataTemplate DataType="vm:GameListPageViewModel">
+          <pages:GameListPage />
+        </DataTemplate>
+        <DataTemplate DataType="vm:CommunityProxyPageViewModel">
+          <pages:CommunityProxyPage />
+        </DataTemplate>
+        <DataTemplate DataType="vm:LocalAuthPageViewModel">
+          <pages:LocalAuthPage />
+        </DataTemplate>
+      </TabControl.DataTemplates>
+      <TabControl.ItemTemplate>
+        <DataTemplate>
+          <!--<TextBlock Text="{Binding Name}" FontSize="14" FontWeight="Regular">
                     </TextBlock>-->
-                    <controls:ScrollingTextBlock Text="{Binding Name}" FontSize="14" FontWeight="Regular"></controls:ScrollingTextBlock>
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-        </TabControl>
-        <!--Toast-->
-        <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-    </Panel>
+          <controls:ScrollingTextBlock Text="{Binding Name}" FontSize="14" FontWeight="Regular"></controls:ScrollingTextBlock>
+        </DataTemplate>
+      </TabControl.ItemTemplate>
+    </TabControl>
+    <!--Toast-->
+    <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+  </Panel>
 </UserControl>
