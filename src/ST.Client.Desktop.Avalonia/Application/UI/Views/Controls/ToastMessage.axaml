@@ -9,7 +9,10 @@
              d:DesignWidth="300" 
              d:DesignHeight="50" 
              Margin="0 0 0 20"
-             Background="Transparent" IsVisible="{Binding Source={x:Static service:ToastService.Current},Path=IsVisible,Mode=OneWay}"
+             x:DataType="vm:MainWindowViewModel"
+             x:CompileBindings="True"
+             Background="Transparent" 
+             IsVisible="{Binding Source={x:Static service:ToastService.Current},Path=IsVisible,Mode=OneWay}"
              x:Class="System.Application.UI.Views.Controls.ToastMessage">
     <UserControl.Styles>
         <Style Selector="UserControl#toast[IsVisible=true]">
@@ -70,7 +73,7 @@
             <Border Padding="10">
                 <TextBlock Text="{Binding Source={x:Static service:ToastService.Current},Path=Message,Mode=OneWay}" FontSize="14" Foreground="{DynamicResource HighlightForegroundColorKey}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" MaxWidth="780"/>
             </Border>
-            <Button Width="40" Height="40" Background="Transparent" Command="{Binding Source={x:Static service:ToastService.Current},Path=CloseBtn_Click}">
+            <Button Width="40" Height="40" Background="Transparent" Command="{ReflectionBinding Source={x:Static service:ToastService.Current},Path=CloseBtn_Click}">
                 <Image Width="12">
                     <Image.Source>
                         <DrawingImage Drawing="{DynamicResource CloseDrawing}"></DrawingImage>

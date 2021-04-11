@@ -1,0 +1,62 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:c="using:System.Application.UI.Views.Controls"
+        xmlns:conv="using:System.Application.UI.Views.Converters">
+<Design.PreviewWith>
+  <Border Padding="40" >
+    <c:InfoMessage Classes="overlay" Padding="25">This is a test message.</c:InfoMessage>
+  </Border>
+</Design.PreviewWith>
+  <Style Selector="c|InfoMessage">
+    <Setter Property="IsVisible" x:CompileBindings="False" Value="{Binding $self.Opacity, Converter={x:Static conv:BoolOpacityConverters.OpacityToBool}}" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Border"
+                Background="{TemplateBinding Background}"
+                Padding="{TemplateBinding Padding}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                ClipToBounds="False" >
+          <DockPanel>
+
+            <PathIcon Data="{StaticResource info_regular}"
+                      Foreground="{TemplateBinding Foreground}"
+                      DockPanel.Dock="Left"
+                      VerticalAlignment="Center"
+                      Width="{TemplateBinding IconSize}"
+                      Height="{TemplateBinding IconSize}"/>
+
+            <ContentPresenter Name="PART_ContentPresenter"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              Margin="10 0 0 0"/>
+          </DockPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Setter Property="Transitions">
+      <Transitions>
+        <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+      </Transitions>
+    </Setter>
+  </Style>
+
+  <Style Selector="c|InfoMessage[IsVisible=True]">
+    <Setter Property="Opacity" Value="1"/>
+  </Style>
+
+  <Style Selector="c|InfoMessage :is(TextBlock)">
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+
+  <Style Selector="c|InfoMessage.overlay">
+    <Setter Property="Background" Value="{DynamicResource PopupBackground}" />
+  </Style>
+
+  <Style Selector="c|InfoMessage.overlay /template/ Border#PART_Border">
+    <Setter Property="CornerRadius" Value="4" />
+    <Setter Property="BoxShadow" Value="{DynamicResource InfoBoxShadow}" />
+    <Setter Property="Margin" Value="6" />
+  </Style>
+</Styles>

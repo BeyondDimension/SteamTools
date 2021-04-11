@@ -1,8 +1,12 @@
 ﻿<Styles  xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+         xmlns:sys="using:System"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Styles.Resources>
         <Thickness x:Key="PageMargin">20 0 20 10</Thickness>
         <Thickness x:Key="PageMargin2">30 0 30 10</Thickness>
+        <sys:Double x:Key="IconElementThemeHeight">16</sys:Double>
+        <Easing x:Key="FluentEasing">0.4,0,0.6,1</Easing>
+        <KeySpline x:Key="FluentKeySpline">0.4,0,0.6,1</KeySpline>
     </Styles.Resources>
     <StyleInclude Source="/Application/UI/Styles/Controls/FontSizes.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/DrawingSvg.xaml" />

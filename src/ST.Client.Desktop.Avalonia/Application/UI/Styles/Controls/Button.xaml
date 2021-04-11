@@ -6,6 +6,7 @@
                 <Button Classes="Hyperlink" Content="Code Font Family" />
                 <Button Classes="CodeButton" Content="Code Font Family" />
                 <Button Classes="flatbutton" Content="Code Font Family" />
+                <Button Classes="action" Content="Code Font Family" />
             </StackPanel>
         </Border>
     </Design.PreviewWith>
@@ -17,7 +18,17 @@
         <Setter Property="Margin" Value="0"/>
         <Setter Property="Cursor" Value="Hand" />
     </Style>
-    
+    <Style Selector="Button.CodeButton /template/ ContentPresenter">
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="Padding" Value="8 10" />
+    </Style>
+    <Style Selector="Button.CodeButton:pointerover /template/ ContentPresenter">
+        <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style Selector="Button.flatbutton:pressed  /template/ ContentPresenter">
+        <Setter Property="CornerRadius" Value="0" />
+    </Style>
+
     <Style Selector="Button.Hyperlink">
         <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlHyperlinkTextBrush}" />
         <Setter Property="Cursor" Value="Hand" />
@@ -38,7 +49,7 @@
     <Style Selector="Button.Hyperlink:pressed /template/ ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
     </Style>
-    
+
     <Style Selector="Button.flatbutton">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>

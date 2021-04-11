@@ -32,7 +32,7 @@
             x:Name="TbPhoneNumber"
             Watermark="{Binding Path=Res.User_Phone,Mode=OneWay,Source={x:Static resx:R.Current}}"
             Text="{Binding PhoneNumber}"
-            MaxLength="{Binding Path=PhoneNumber,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
+            MaxLength="{ReflectionBinding Path=PhoneNumber,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
           <Panel>
             <TextBox
               x:Name="TbSmsCode"
@@ -53,7 +53,9 @@
                     <Button Classes="Hyperlink" Content="{Binding Path=Res.User_LoginTroubleshoot,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Right"></Button>
                 </Panel>-->
 
-          <Button Content="{Binding Path=Res.LoginAndRegister,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Submit}"
+          <Button Classes="action" 
+                  Content="{Binding Path=Res.LoginAndRegister,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                  Command="{Binding Submit}"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">
           </Button>
 
