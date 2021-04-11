@@ -11,6 +11,7 @@
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:ccl_services="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
+        xmlns:services="clr-namespace:System.Application.Services"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
@@ -19,54 +20,54 @@
         Title="{Binding Title}">
   <Panel>
     <controls:TitleBar />
-    <Panel Width="333">
-        <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsLoading}"/>
-      <Grid RowDefinitions="*,Auto" IsVisible="{Binding !IsLoading}">
-        <StackPanel VerticalAlignment="Center" Spacing="8">
-          <Image Source="/Application/UI/Assets/Icon9.ico" Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25">
-            <!--<Image.Clip>
+    <Panel Margin="{Binding Source={x:Static services:IDesktopAvaloniaAppService.Instance}, Path=UnifyTitleBarAfterContentMargin, Mode=OneTime}">
+      <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsLoading}"/>
+      <!--<Grid RowDefinitions="*,Auto" IsVisible="{Binding !IsLoading}">-->
+      <StackPanel VerticalAlignment="Center" Spacing="8" IsVisible="{Binding !IsLoading}">
+        <Image Source="/Application/UI/Assets/Icon9.ico" Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25">
+          <!--<Image.Clip>
                         <EllipseGeometry Rect="0,0,128,128"/>
                     </Image.Clip>-->
-          </Image>
+        </Image>
+        <TextBox
+          x:Name="TbPhoneNumber"
+          Watermark="{Binding Path=Res.User_Phone,Mode=OneWay,Source={x:Static resx:R.Current}}"
+          Text="{Binding PhoneNumber}"
+          MaxLength="{Binding Path=PhoneNumber,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
+        <Panel>
           <TextBox
-            x:Name="TbPhoneNumber"
-            Watermark="{Binding Path=Res.User_Phone,Mode=OneWay,Source={x:Static resx:R.Current}}"
-            Text="{Binding PhoneNumber}"
-            MaxLength="{ReflectionBinding Path=PhoneNumber,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
-          <Panel>
-            <TextBox
-              x:Name="TbSmsCode"
-              Watermark="{Binding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
-              Text="{Binding SmsCode}"
-              MaxLength="{Binding Path=SMS_CAPTCHA,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
-            <Border HorizontalAlignment="Right" Cursor="Hand">
-              <Button Classes="CodeButton"
-                      Content="{Binding BtnSendSmsCodeText}"
-                      HorizontalAlignment="Right"
-                      Command="{Binding SendSms}"
-                      IsEnabled="{Binding !IsUnTimeLimit}" />
-            </Border>
-          </Panel>
+            x:Name="TbSmsCode"
+            Watermark="{Binding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
+            Text="{Binding SmsCode}"
+            MaxLength="{ReflectionBinding Path=SMS_CAPTCHA,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
+          <Border HorizontalAlignment="Right" Cursor="Hand">
+            <Button Classes="CodeButton"
+                    Content="{Binding BtnSendSmsCodeText}"
+                    HorizontalAlignment="Right"
+                    Command="{Binding SendSms}"
+                    IsEnabled="{Binding !IsUnTimeLimit}" />
+          </Border>
+        </Panel>
 
-          <!--<Panel Margin="2 0 6 0">
+        <!--<Panel Margin="2 0 6 0">
                     <CheckBox Content="{Binding Path=Res.User_Rememberme,Mode=OneWay,Source={x:Static resx:R.Current}}"></CheckBox>
                     <Button Classes="Hyperlink" Content="{Binding Path=Res.User_LoginTroubleshoot,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Right"></Button>
                 </Panel>-->
 
-          <Button Classes="action" 
-                  Content="{Binding Path=Res.LoginAndRegister,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                  Command="{Binding Submit}"
-                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">
-          </Button>
+        <Button Classes="action" 
+                Content="{Binding Path=Res.LoginAndRegister,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Command="{Binding Submit}"
+                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">
+        </Button>
 
-          <WrapPanel HorizontalAlignment="Center" Margin="2 0 6 0">
-            <TextBlock Text="{Binding Path=Res.User_RegisterAgreed,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-            <Button Classes="Hyperlink" Margin="5,0" Content="{Binding Path=Res.User_Agreement,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OpenHyperlink}" CommandParameter="https://steampp.net/Agreement"/>
-            <TextBlock Text="{Binding Path=Res.And,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-            <Button Classes="Hyperlink" Margin="5,0" Content="{Binding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OpenHyperlink}" CommandParameter="https://steampp.net/Privacy"/>
-          </WrapPanel>
-        </StackPanel>
-        <!--<StackPanel Grid.Row="1">
+        <WrapPanel HorizontalAlignment="Center" Margin="2 0 6 0">
+          <TextBlock Text="{Binding Path=Res.User_RegisterAgreed,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <Button Classes="Hyperlink" Margin="5,0" Content="{Binding Path=Res.User_Agreement,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OpenHyperlink}" CommandParameter="https://steampp.net/Agreement"/>
+          <TextBlock Text="{Binding Path=Res.And,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <Button Classes="Hyperlink" Margin="5,0" Content="{Binding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OpenHyperlink}" CommandParameter="https://steampp.net/Privacy"/>
+        </WrapPanel>
+      </StackPanel>
+      <!--<StackPanel Grid.Row="1">
         <Button
                 HorizontalAlignment="Center" HorizontalContentAlignment="Center" Background="Transparent" BorderThickness="0" Cursor="Hand" Command="{Binding SteamFastLogin}">
           <StackPanel Orientation="Horizontal" Spacing="10">
@@ -79,7 +80,7 @@
           </StackPanel>
         </Button>
       </StackPanel>-->
-      </Grid>
+      <!--</Grid>-->
     </Panel>
     <!--Toast-->
     <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>

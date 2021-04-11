@@ -25,6 +25,8 @@ using System.Application.Models;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using Avalonia;
+using Thickness = Avalonia.Thickness;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
@@ -385,6 +387,16 @@ namespace System.Application.UI
         }
 
         #endregion
+
+        const int mTitleBarHeight = 30;
+        public int TitleBarHeight => mTitleBarHeight;
+
+        static readonly Thickness mTitleBarAfterMargin = Thickness.Parse($"0, {mTitleBarHeight}, 0, 0");
+        public Thickness TitleBarAfterMargin => mTitleBarAfterMargin;
+
+        const int mUnifyTitleBarContentMargin = 34;
+        static readonly Thickness mUnifyTitleBarAfterContentMargin = Thickness.Parse($"{mUnifyTitleBarContentMargin}, {mTitleBarHeight + mUnifyTitleBarContentMargin}, {mUnifyTitleBarContentMargin}, {mUnifyTitleBarContentMargin}");
+        public Thickness UnifyTitleBarAfterContentMargin => mUnifyTitleBarAfterContentMargin;
     }
 }
 #pragma warning restore CA1416 // 验证平台兼容性

@@ -625,9 +625,6 @@
   <data name="User_SteamFastLogin" xml:space="preserve">
     <value>Steam快速登录</value>
   </data>
-  <data name="Warn" xml:space="preserve">
-    <value>警告</value>
-  </data>
   <data name="Warning" xml:space="preserve">
     <value>警告</value>
   </data>

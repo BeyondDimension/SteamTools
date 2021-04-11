@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,5 +43,9 @@ namespace System.Application.Services
             var owner = GetActiveWindow();
             window.Show(owner);
         }
+
+        Thickness TitleBarAfterMargin { get; }
+
+        Thickness UnifyTitleBarAfterContentMargin { get; }
     }
 }

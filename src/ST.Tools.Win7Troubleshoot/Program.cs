@@ -10,7 +10,6 @@
  */
 
 using Microsoft.Win32;
-using System.Application;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -22,7 +21,6 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
-using System.Windows.Forms;
 
 [assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark + " v" + ThisAssembly.Version)]
 namespace System
@@ -30,87 +28,14 @@ namespace System
     static class Program
     {
         internal static Mutex? mutex;
-        static readonly Process currentProcess = Process.GetCurrentProcess();
-        static string thisFilePath = "";
-        static string appFilePath = "";
-
-        [STAThread]
-        static void Main(string[] args)
-        {
-            mutex = new Mutex(true, currentProcess.ProcessName, out var isNotRunning);
-            if (isNotRunning)
-            {
-                try
-                {
-                    if (Environment.OSVersion.Platform != PlatformID.Win32NT)
-                        throw new PlatformNotSupportedException();
-
-                    FileSystemDesktop.InitFileSystem();
-
-                    thisFilePath = currentProcess.MainModule.FileName;
-                    //if (args.Length == 2 && string.Equals(args[0], "-start", StringComparison.OrdinalIgnoreCase) && string.Equals(args[1], "setup", StringComparison.OrdinalIgnoreCase)) // -start setup
-                    //{
-                    //    var fileName = $"setup.{(EnvironmentEx.Is64BitOperatingSystem ? "x64" : "x86")}.exe";
-                    //    var baseDir = Path.GetDirectoryName(thisFilePath);
-                    //    appFilePath = Path.Combine(baseDir, fileName);
-                    //}
-                    //else
-                    //{
-                    appFilePath = thisFilePath.Replace(".win7", string.Empty, StringComparison.OrdinalIgnoreCase);
-                    //}
-
-                    var isQuickStart = QuickStart(out var writeQuickStart);
-
-                    if (!isQuickStart)
-                    {
-                        var r = IsWin7SP1OrNotSupportedPlatform(out var error);
-                        if (r.HasValue)
-                        {
-                            if (r.Value) // Win7SP1
-                            {
-                                if (!CheckInstalled_KB3063858())
-                                {
-                                    if (MessageBox.Show(
-                                        SR.Not_Installed_KB3063858,
-                                        SR.Error,
-                                        MessageBoxButtons.YesNo,
-                                        MessageBoxIcon.Error) == DialogResult.Yes)
-                                    {
-                                        Open_KB3063858_DownloadLink();
-                                    }
-                                    return;
-                                }
-                            }
-                            else // NotSupportedPlatform - For example, WinXP/Win2000
-                            {
-                                MessageBox.Show(
-                                    error,
-                                    SR.Error,
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                                return;
-                            }
-                        }
-                        writeQuickStart?.Invoke();
-                    }
-
-                    AppRun();
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(
-                        e.ToString(),
-                        SR.Error,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                }
-            }
-        }
+        internal static readonly Process currentProcess = Process.GetCurrentProcess();
+        internal static string thisFilePath = "";
+        internal static string appFilePath = "";
 
         /// <summary>
         /// 在浏览器中打开补丁KB3063858的下载地址
         /// </summary>
-        static void Open_KB3063858_DownloadLink()
+        internal static void Open_KB3063858_DownloadLink()
         {
             var downloadLink = EnvironmentEx.Is64BitOperatingSystem ?
                 DownloadLinks.KB3063858_x64 : DownloadLinks.KB3063858_x86;
@@ -122,7 +47,7 @@ namespace System
         /// 检查是否安装了补丁KB3063858
         /// </summary>
         /// <returns></returns>
-        static bool CheckInstalled_KB3063858()
+        internal static bool CheckInstalled_KB3063858()
         {
             const string KB3063858 = "KB3063858";
             using var p = new Process();
@@ -143,7 +68,7 @@ namespace System
         /// <summary>
         /// 启动主APP
         /// </summary>
-        static void AppRun()
+        internal static void AppRun()
         {
             if (string.IsNullOrEmpty(appFilePath) || !File.Exists(appFilePath)) return;
             Process.Start(appFilePath);
@@ -157,7 +82,7 @@ namespace System
         /// </summary>
         /// <param name="error"></param>
         /// <returns></returns>
-        static bool? IsWin7SP1OrNotSupportedPlatform([NotNullWhen(false)] out string? error)
+        internal static bool? IsWin7SP1OrNotSupportedPlatform([NotNullWhen(false)] out string? error)
         {
             error = null;
             if (Environment.OSVersion.Version.Major == 6)
@@ -199,7 +124,7 @@ namespace System
 
         const string QuickStartMarkFileName = "quick_start_id.txt";
 
-        static bool QuickStart(out Action? write)
+        internal static bool QuickStart(out Action? write)
         {
             try
             {

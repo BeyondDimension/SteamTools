@@ -45,44 +45,41 @@
                         </MenuItem.Header>
                     </MenuItem>
 
-                    <MenuItem>
-                        <MenuItem.Header>
-                            <Image Source="/Application/UI/Assets/Icon9.ico" Height="20" Width="20">
-                                <Image.Clip>
-                                    <EllipseGeometry Rect="0,0,20,20" />
-                                </Image.Clip>
+          <MenuItem>
+            <MenuItem.Header>
+              <Image Source="/Application/UI/Assets/Icon9.ico" Height="20" Width="20">
+                <Image.Clip>
+                  <EllipseGeometry Rect="0,0,20,20" />
+                </Image.Clip>
+              </Image>
+            </MenuItem.Header>
+            <MenuItem.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}" CommandParameter="LoginOrRegister">
+                      <MenuItem.Header>
+                        <Panel Width="200" Margin="5">
+                          <StackPanel Spacing="8" Margin="25,0,0,0">
+                            <Image Source="/Application/UI/Assets/Icon9.ico" Height="100" Width="100" HorizontalAlignment="Center">
+                              <Image.Clip>
+                                <EllipseGeometry Rect="0,0,100,100" />
+                              </Image.Clip>
                             </Image>
-                        </MenuItem.Header>
-                        <MenuItem.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}" CommandParameter="LoginOrRegister">
-                                    <MenuItem.Header>
-                                        <Panel Width="200" Margin="5">
-                                            <StackPanel Spacing="8" Margin="25,0,0,0">
-                                                <Image Source="/Application/UI/Assets/Icon9.ico" Height="100" Width="100" HorizontalAlignment="Center">
-                                                    <Image.Clip>
-                                                        <EllipseGeometry Rect="0,0,100,100" />
-                                                    </Image.Clip>
-                                                </Image>
-                                                <Label Content="未登录" FontSize="16" HorizontalAlignment="Center" Foreground="{DynamicResource HighlightForegroundBrushKey}"></Label>
-                                            </StackPanel>
-                                        </Panel>
-                                    </MenuItem.Header>
-                                </MenuItem>
-                                <!--<MenuItem Header="个人资料">
-
-                        </MenuItem>
-                        <MenuItem Header="账号设置">
-
-                        </MenuItem>-->
-                                <MenuItem Header="换绑手机" Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}" CommandParameter="ChangeBindPhoneNumber" />
-                                <MenuItem Header="注销" Command="{ReflectionBinding Path=SignOut,Source={x:Static service:UserService.Current}}" />
-                            </ContextMenu>
-                        </MenuItem.ContextMenu>
+                            <Label Content="未登录" FontSize="16" HorizontalAlignment="Center" Foreground="{DynamicResource HighlightForegroundBrushKey}"></Label>
+                          </StackPanel>
+                        </Panel>
+                      </MenuItem.Header>
                     </MenuItem>
-                </Menu>
-            </StackPanel>
-        </Grid>
+                    <MenuItem Header="个人资料" Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}" CommandParameter="UserProfile" />
+                    <!--<MenuItem Header="账号设置" />-->
+                    <MenuItem Header="换绑手机" Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}" CommandParameter="ChangeBindPhoneNumber" />
+                    <MenuItem Header="注销账号" />
+                    <MenuItem Header="退出登录" Command="{ReflectionBinding Path=SignOut,Source={x:Static service:UserService.Current}}" />
+                </MenuItem>     
+            </ContextMenu>
+        </MenuItem.ContextMenu>
+        </Menu>
+      </StackPanel>
+    </Grid>
 
         <!--Content-->
         <TabControl

@@ -11,5 +11,6 @@
         ShowAuth,
         AuthTrade,
         ChangeBindPhoneNumber,
+        UserProfile,
     }
 }

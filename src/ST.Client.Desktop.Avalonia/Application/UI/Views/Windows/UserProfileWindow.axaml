@@ -2,88 +2,83 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        Width="500" Height="800"
+        mc:Ignorable="d"
+        d:DesignWidth="450" d:DesignHeight="500"
+        Width="450" Height="500"
+        MinWidth="450" MinHeight="500"
+        MaxWidth="450" MaxHeight="500"
         x:Class="System.Application.UI.Views.Windows.UserProfileWindow"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+        xmlns:services="clr-namespace:System.Application.Services"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
         WindowStartupLocation="CenterOwner"
         Title="{Binding Title}">
-    <Panel>
-        <controls:TitleBar></controls:TitleBar>
-        <Grid RowDefinitions="*,Auto" Margin="10">
-            <StackPanel VerticalAlignment="Center" Spacing="10" Margin="10,0" Width="250">
-                <StackPanel Orientation="Horizontal" Spacing="10">
-                    <Image Source="/Application/UI/Assets/AppResources/avater.jpg" Width="184"></Image>
-                    <TextBlock Text="软妹币玩家"></TextBlock>
-                </StackPanel>
+  <Panel>
+    <controls:TitleBar/>
+    <Panel Margin="{Binding Source={x:Static services:IDesktopAvaloniaAppService.Instance}, Path=UnifyTitleBarAfterContentMargin, Mode=OneTime}">
+      <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsLoading}"/>
+      <!--<Grid RowDefinitions="*,Auto" Margin="10">-->
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="160" />
+          <RowDefinition Height="16" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="16" />
+        </Grid.RowDefinitions>
+      </Grid>
+      <StackPanel VerticalAlignment="Center" Spacing="16">
+        <Image Source="/Application/UI/Assets/AppResources/avater.jpg" Width="160" Height="160" />
 
-                <WrapPanel>
-                    <TextBlock Text="昵称"></TextBlock>
-                    <TextBox Watermark="请输入昵称" Text=""></TextBox>
-                </WrapPanel>
+        <WrapPanel>
+          <TextBlock Text="昵称" VerticalAlignment="Center"/>
+          <TextBox Watermark="请输入昵称" Text="" />
+        </WrapPanel>
 
-                <WrapPanel>
-                    <TextBlock Text="手机号码"></TextBlock>
-                    <TextBox Classes="readonlybox" Text="15512341234"></TextBox>
-                </WrapPanel>
+        <WrapPanel>
+          <TextBlock Text="手机号码"/>
+          <TextBox IsReadOnly="True" Focusable="False" Text="155****1234"/>
+        </WrapPanel>
 
-                <WrapPanel>
-                    <TextBlock Text="邮箱"></TextBlock>
-                    <TextBox Watermark="未绑定" Text=""></TextBox>
-                </WrapPanel>
+        <!--<WrapPanel>
+          <TextBlock Text="邮箱"></TextBlock>
+          <TextBox Watermark="未绑定" Text=""></TextBox>
+        </WrapPanel>-->
 
-                <WrapPanel>
-                    <TextBlock Text="Steam账号"></TextBlock>
-                    <TextBox Watermark="未绑定" Text=""></TextBox>
-                </WrapPanel>
+        <!--<WrapPanel>
+          <TextBlock Text="Steam账号"></TextBlock>
+          <TextBox Watermark="未绑定" Text=""></TextBox>
+        </WrapPanel>-->
 
-                <WrapPanel>
-                    <TextBlock Text="Steam账号"></TextBlock>
-                    <TextBox Watermark="未绑定" Text=""></TextBox>
-                </WrapPanel>
+        <WrapPanel>
+          <TextBlock Text="所在地"/>
+          <ComboBox>
+            <ComboBoxItem Content="湖南省"/>
+          </ComboBox>
+          <ComboBox>
+            <ComboBoxItem Content="长沙市"/>
+          </ComboBox>
+          <ComboBox>
+            <ComboBoxItem Content="岳麓区"/>
+          </ComboBox>
+        </WrapPanel>
 
+        <WrapPanel>
+          <TextBlock Text="性别"/>
+          <RadioButton Content="保密"/>
+          <RadioButton Content="男"/>
+          <RadioButton Content="女"/>
+        </WrapPanel>
 
-                <WrapPanel>
-                    <TextBlock Text="所在地"></TextBlock>
-                    <ComboBox>
-                        <ComboBoxItem Content="湖南省"></ComboBoxItem>
-                    </ComboBox>
-                    <ComboBox>
-                        <ComboBoxItem Content="长沙市"></ComboBoxItem>
-                    </ComboBox>
-                </WrapPanel>
-
-                <WrapPanel>
-                    <TextBlock Text="性别"></TextBlock>
-                    <ComboBox>
-                        <ComboBoxItem Content="湖南省"></ComboBoxItem>
-                    </ComboBox>
-                    <ComboBox>
-                        <ComboBoxItem Content="长沙市"></ComboBoxItem>
-                    </ComboBox>
-                </WrapPanel>
-
-                <WrapPanel>
-                    <TextBlock Text="性别"></TextBlock>
-                    <RadioButton Content="保密"></RadioButton>
-                    <RadioButton Content="男"></RadioButton>
-                    <RadioButton Content="女"></RadioButton>
-                </WrapPanel>
-
-            </StackPanel>
-
-            <StackPanel Grid.Row="1">
-                <Button
-                        HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                        Content="保存修改" Cursor="Hand">
-                </Button>
-            </StackPanel>
-        </Grid>
-        <!--Toast-->
-        <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        <Button
+                Content="保存修改"
+                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+      </StackPanel>
+      <!--</Grid>-->
     </Panel>
+    <!--Toast-->
+    <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+  </Panel>
 </Window>
