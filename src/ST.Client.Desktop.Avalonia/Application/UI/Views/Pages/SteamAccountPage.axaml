@@ -92,8 +92,8 @@
                                         </StackPanel>
 
                                         <WrapPanel VerticalAlignment="Bottom" Orientation="Horizontal">
-                                            <DrawingPresenter Drawing="{StaticResource ClockDrawing}" Width="16" VerticalAlignment="Center" Margin="5 0">
-                                            </DrawingPresenter>
+                                            <PathIcon Data="{StaticResource ClockDrawing}" Width="16" VerticalAlignment="Center" Margin="5 0" Foreground="{DynamicResource InactiveForegroundBrushKey}">
+                                            </PathIcon>
                                             <TextBlock Text="{Binding LastLoginTime,Converter={StaticResource DateFormatConverter},ConverterParameter='yyyy-MM-dd HH:mm:ss'}" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
                                         </WrapPanel>
 
@@ -101,11 +101,8 @@
                                     <Grid Grid.Column="3" RowDefinitions="*,Auto">
                                         <Panel>
                                             <Button Classes="flatbutton" IsVisible="False" x:Name="delete_btn" Background="{DynamicResource ThemeBrushKey}" Cursor="Hand" HorizontalAlignment="Right" Margin="0,0,0,121" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding #u.DataContext.DeleteUserButton_Click}" CommandParameter="{Binding}">
-                                                <Image Width="12" Height="14">
-                                                    <Image.Source>
-                                                        <DrawingImage Drawing="{DynamicResource CloseDrawing}"></DrawingImage>
-                                                    </Image.Source>
-                                                </Image>
+                                                <PathIcon Width="12" Data="{DynamicResource CloseDrawing}">
+                                                </PathIcon>
                                             </Button>
                                             <WrapPanel HorizontalAlignment="Right" Orientation="Vertical" Margin="0 30 0 0">
                                                 <CheckBox Content="{Binding Path=Res.UserChange_RecentLogin,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding MostRecent}" IsEnabled="False"></CheckBox>

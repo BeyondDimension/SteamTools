@@ -27,7 +27,7 @@
     </Design.PreviewWith>
     <Styles.Resources>
     </Styles.Resources>
-    
+
     <!--<Style Selector="Menu.BindMenu MenuItem">
         <Setter Property="Icon">
             <Setter.Value>
@@ -50,11 +50,10 @@
         <Setter Property="Icon">
             <Setter.Value>
                 <Template>
-                    <Image Width="14" VerticalAlignment="Center">
-                        <Image.Source>
-                            <DrawingImage Drawing="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"></DrawingImage>
-                        </Image.Source>
-                    </Image>
+                    <PathIcon
+                        Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"
+                        Width="14" VerticalAlignment="Center">
+                    </PathIcon>
                 </Template>
             </Setter.Value>
         </Setter>

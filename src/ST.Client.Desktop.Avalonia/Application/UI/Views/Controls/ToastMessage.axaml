@@ -74,11 +74,7 @@
                 <TextBlock Text="{Binding Source={x:Static service:ToastService.Current},Path=Message,Mode=OneWay}" FontSize="14" Foreground="{DynamicResource HighlightForegroundColorKey}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" MaxWidth="780"/>
             </Border>
             <Button Width="40" Height="40" Background="Transparent" Command="{ReflectionBinding Source={x:Static service:ToastService.Current},Path=CloseBtn_Click}">
-                <Image Width="12">
-                    <Image.Source>
-                        <DrawingImage Drawing="{DynamicResource CloseDrawing}"></DrawingImage>
-                    </Image.Source>
-                </Image>
+                <PathIcon Data="{DynamicResource CloseDrawing}" Width="12"></PathIcon>
             </Button>
         </StackPanel>
     </Border>
