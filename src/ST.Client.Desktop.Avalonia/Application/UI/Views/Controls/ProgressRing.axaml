@@ -8,11 +8,11 @@
         </Border>
     </Design.PreviewWith>
     <Styles.Resources>
-        <SolidColorBrush x:Key="ProgressRingForeground" Color="{StaticResource SystemAccentColor}"/>
+        <SolidColorBrush x:Key="ProgressRingForeground" Color="{StaticResource ThemeAccentBrushKey}"/>
     </Styles.Resources>
     <Style Selector="controls|ProgressRing">
         <Setter Property="Foreground" Value="{StaticResource ProgressRingForeground}"/>
-        <Setter Property="Background" Value="{DynamicResource TextControlBackground}"/>
+        <Setter Property="Background" Value="{DynamicResource InactiveBorderBrushKey}"/>
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel>

@@ -1,14 +1,14 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:c="using:System.Application.UI.Views.Controls"
-        xmlns:conv="using:System.Application.UI.Views.Converters">
+        xmlns:controls="using:System.Application.UI.Views.Controls"
+        xmlns:converters="using:System.Application.Converters">
 <Design.PreviewWith>
   <Border Padding="40" >
-    <c:InfoMessage Classes="overlay" Padding="25">This is a test message.</c:InfoMessage>
+    <controls:InfoMessage Classes="overlay" Padding="25">This is a test message.</controls:InfoMessage>
   </Border>
 </Design.PreviewWith>
-  <Style Selector="c|InfoMessage">
-    <!--<Setter Property="IsVisible" x:CompileBindings="False" Value="{Binding $self.Opacity, Converter={x:Static conv:BoolOpacityConverters.OpacityToBool}}" />-->
+  <Style Selector="controls|InfoMessage">
+    <Setter Property="IsVisible" Value="{ReflectionBinding $self.Opacity, Converter={x:Static converters:BoolOpacityConverters.OpacityToBool}}" />
     <Setter Property="VerticalAlignment" Value="Top" />
     <Setter Property="Template">
       <ControlTemplate>
@@ -42,19 +42,19 @@
     </Setter>
   </Style>
 
-  <Style Selector="c|InfoMessage[IsVisible=True]">
+  <Style Selector="controls|InfoMessage[IsVisible=True]">
     <Setter Property="Opacity" Value="1"/>
   </Style>
 
-  <Style Selector="c|InfoMessage :is(TextBlock)">
+  <Style Selector="controls|InfoMessage :is(TextBlock)">
     <Setter Property="TextWrapping" Value="Wrap" />
   </Style>
 
-  <Style Selector="c|InfoMessage.overlay">
+  <Style Selector="controls|InfoMessage.overlay">
     <Setter Property="Background" Value="{DynamicResource PopupBackground}" />
   </Style>
 
-  <Style Selector="c|InfoMessage.overlay /template/ Border#PART_Border">
+  <Style Selector="controls|InfoMessage.overlay /template/ Border#PART_Border">
     <Setter Property="CornerRadius" Value="4" />
     <Setter Property="BoxShadow" Value="{DynamicResource InfoBoxShadow}" />
     <Setter Property="Margin" Value="6" />

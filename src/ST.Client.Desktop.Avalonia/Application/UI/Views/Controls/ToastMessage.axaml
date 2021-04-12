@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:controls="using:System.Application.UI.Views.Controls"
              x:Name="toast"
              mc:Ignorable="d" 
              d:DesignWidth="300" 
@@ -69,6 +70,7 @@
     </UserControl.Styles>
     <Border Background="{DynamicResource InactiveBackgroundBrushKey}" Classes="paper" CornerRadius="3">
         <StackPanel Orientation="Horizontal">
+            <controls:InfoMessage></controls:InfoMessage>
             <!--<TextBlock Text="{Binding Title}" FontSize="16"/>-->
             <Border Padding="10">
                 <TextBlock Text="{Binding Source={x:Static service:ToastService.Current},Path=Message,Mode=OneWay}" FontSize="14" Foreground="{DynamicResource HighlightForegroundColorKey}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" MaxWidth="780"/>
