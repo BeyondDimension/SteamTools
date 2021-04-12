@@ -37,9 +37,6 @@ namespace System.Application.UI.Views.Pages
                     // TODO: 释放托管状态(托管对象)
                     if (webViewQA != null)
                     {
-                        Avalonia.Platform.IPlatformHandle
-                        Avalonia.Platform.IPlatformHandle
-                           var cursor = new Avalonia.Input.Cursor(cursorType);
                         ((IDisposable)webViewQA).Dispose();
                     }
                 }
