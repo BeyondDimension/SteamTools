@@ -23,14 +23,13 @@
         <Panel Grid.Column="1">
             <SplitView IsPaneOpen="{Binding IsAppInfoOpen,Mode=TwoWay}"
                 PanePlacement="Right"
-                OpenPaneLength="800"
+                OpenPaneLength="500"
                 DisplayMode="Overlay"
                 PaneBackground="Transparent">
                 <SplitView.Pane>
                     <ScrollViewer>
                         <Panel>
                             <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" ZIndex="0">
-
                             </Border>
                             <Panel
                                 HorizontalAlignment="Stretch"
@@ -38,17 +37,17 @@
                                 <Image
                                         Source="{Binding SelectApp.LibraryHeaderStream,Converter={StaticResource BitmapAssetValueConverter}}"
                                         Stretch="Uniform"
-                                        Width="800"></Image>
+                                        Width="500"></Image>
                                 <Image 
                                        Source="{Binding SelectApp.LibraryNameStream,Converter={StaticResource BitmapAssetValueConverter}}" 
                                        Stretch="Uniform" Width="200" Margin="20 0 0 10"
                                        VerticalAlignment="Bottom" 
                                        HorizontalAlignment="Left">
                                 </Image>
-                                <Button Content="安装"
-                                    Width="260" Height="40"
-                                    FontSize="18"
-                                    HorizontalAlignment="Center"
+                                <Button Content="安装" Classes="action"
+                                    Width="200"
+                                    FontSize="16"
+                                    HorizontalAlignment="Right"
                                     HorizontalContentAlignment="Center"
                                     VerticalAlignment="Bottom"
                                     VerticalContentAlignment="Center"></Button>
