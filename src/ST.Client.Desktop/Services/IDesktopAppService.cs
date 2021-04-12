@@ -38,7 +38,5 @@ namespace System.Application.Services
         bool IsCefInitComplete { get; }
 
         CompositeDisposable CompositeDisposable { get; }
-
-        int TitleBarHeight { get; }
     }
 }

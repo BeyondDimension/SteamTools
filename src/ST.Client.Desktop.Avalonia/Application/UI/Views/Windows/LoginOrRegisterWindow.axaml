@@ -19,12 +19,12 @@
         Title="{Binding Title}">
   <Panel>
     <controls:TitleBar />
-    <Panel Width="333">
-        <controls:ProgressRing IsIndeterminate="True" IsVisible="{Binding IsLoading}"/>
-      <Grid RowDefinitions="*,Auto" IsVisible="{Binding !IsLoading}">
-        <StackPanel VerticalAlignment="Center" Spacing="8">
-          <Image Source="/Application/UI/Assets/Icon9.ico" Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25">
-            <!--<Image.Clip>
+    <Panel Margin="{StaticResource UnifyTitleBarAfterContentMargin}">
+      <controls:ProgressRing IsIndeterminate="True" IsVisible="{Binding IsLoading}"/>
+      <!--<Grid RowDefinitions="*,Auto" IsVisible="{Binding !IsLoading}">-->
+      <StackPanel VerticalAlignment="Center" Spacing="8" IsVisible="{Binding !IsLoading}">
+        <Image Source="/Application/UI/Assets/Icon9.ico" Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25">
+          <!--<Image.Clip>
                         <EllipseGeometry Rect="0,0,128,128"/>
                     </Image.Clip>-->
           </Image>

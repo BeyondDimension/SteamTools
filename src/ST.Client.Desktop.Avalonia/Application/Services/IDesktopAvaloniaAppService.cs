@@ -43,9 +43,5 @@ namespace System.Application.Services
             var owner = GetActiveWindow();
             window.Show(owner);
         }
-
-        Thickness TitleBarAfterMargin { get; }
-
-        Thickness UnifyTitleBarAfterContentMargin { get; }
     }
 }

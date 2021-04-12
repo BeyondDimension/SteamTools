@@ -2,14 +2,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="using:System"
         mc:Ignorable="d"
-        d:DesignWidth="450" d:DesignHeight="500"
-        Width="450" Height="500"
-        MinWidth="450" MinHeight="500"
-        MaxWidth="450" MaxHeight="500"
+        d:DesignWidth="450" d:DesignHeight="660"
+        Width="450" Height="660"
+        MinWidth="450" MinHeight="660"
+        MaxWidth="450" MaxHeight="660"
         x:Class="System.Application.UI.Views.Windows.UserProfileWindow"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-        xmlns:services="clr-namespace:System.Application.Services"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
@@ -17,66 +17,109 @@
         WindowStartupLocation="CenterOwner"
         Title="{Binding Title}">
   <Panel>
+    <Panel.Styles>
+      <Style Selector="TextBlock.FormItemLabel">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="0,0,12,0"/>
+      </Style>
+      <Style Selector="ComboBox.MarginLeft,RadioButton.MarginLeft">
+        <Setter Property="Margin" Value="12,0,0,0"/>
+      </Style>
+      <Style Selector="ComboBox.AreaShort">
+        <Setter Property="Width" Value="72"/>
+      </Style>
+      <Style Selector="ComboBox.AreaLong">
+        <Setter Property="Width" Value="134"/>
+      </Style>
+      <Style Selector="Button.Secondary">
+        <Setter Property="Padding" Value="20 10" />
+      </Style>
+    </Panel.Styles>
     <controls:TitleBar/>
-    <Panel Margin="{Binding Source={x:Static services:IDesktopAvaloniaAppService.Instance}, Path=UnifyTitleBarAfterContentMargin, Mode=OneTime}">
-      <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsLoading}"/>
-      <!--<Grid RowDefinitions="*,Auto" Margin="10">-->
-      <Grid>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="160" />
-          <RowDefinition Height="16" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="16" />
-        </Grid.RowDefinitions>
-      </Grid>
-      <StackPanel VerticalAlignment="Center" Spacing="16">
-        <Image Source="/Application/UI/Assets/AppResources/avater.jpg" Width="160" Height="160" />
-
-        <WrapPanel>
-          <TextBlock Text="昵称" VerticalAlignment="Center"/>
-          <TextBox Watermark="请输入昵称" Text="" />
-        </WrapPanel>
-
-        <WrapPanel>
-          <TextBlock Text="手机号码"/>
-          <TextBox IsReadOnly="True" Focusable="False" Text="155****1234"/>
-        </WrapPanel>
-
-        <!--<WrapPanel>
-          <TextBlock Text="邮箱"></TextBlock>
-          <TextBox Watermark="未绑定" Text=""></TextBox>
-        </WrapPanel>-->
-
-        <!--<WrapPanel>
-          <TextBlock Text="Steam账号"></TextBlock>
-          <TextBox Watermark="未绑定" Text=""></TextBox>
-        </WrapPanel>-->
-
-        <WrapPanel>
-          <TextBlock Text="所在地"/>
-          <ComboBox>
-            <ComboBoxItem Content="湖南省"/>
-          </ComboBox>
-          <ComboBox>
-            <ComboBoxItem Content="长沙市"/>
-          </ComboBox>
-          <ComboBox>
-            <ComboBoxItem Content="岳麓区"/>
-          </ComboBox>
-        </WrapPanel>
-
-        <WrapPanel>
-          <TextBlock Text="性别"/>
-          <RadioButton Content="保密"/>
-          <RadioButton Content="男"/>
-          <RadioButton Content="女"/>
-        </WrapPanel>
-
-        <Button
-                Content="保存修改"
-                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+    <Panel Margin="{StaticResource UnifyTitleBarAfterContentMargin}">
+      <!--<ProgressBar IsIndeterminate="True" IsVisible="{Binding IsLoading}"/>-->
+      <StackPanel VerticalAlignment="Center" IsVisible="{Binding !IsLoading}">
+        <Grid VerticalAlignment="Center">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="16"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Image Source="/Application/UI/Assets/AppResources/avater.jpg" VerticalAlignment="Center"
+                 Width="160" Height="160" Grid.RowSpan="3" />
+          <Button Classes="action" Grid.Column="2"
+                  Content="刷新 Steam 头像" />
+          <TextBlock Grid.Column="2" Grid.Row="1"
+                     Text="绑定 Steam 账号后可手动同步刷新使用 Steam 账号头像。" />
+          <Button Classes="action"
+                  Content="上传您的头像" />
+          <TextBlock Text="从您的设备上传一个文件。图片应为方形，至少为 160px x 160px" />
+        </Grid>
+        <Grid VerticalAlignment="Center">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="12"/>
+            <ColumnDefinition Width="70"/>
+          </Grid.ColumnDefinitions>
+          <TextBlock Classes="FormItemLabel" Text="昵称" Grid.Row="1"/>
+          <TextBox Watermark="请输入昵称" Text="" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"/>
+          <TextBlock Classes="FormItemLabel" Text="手机号码" Grid.Row="3"/>
+          <TextBox IsReadOnly="True" Focusable="False" Text="155****1234" Grid.Row="3" Grid.Column="1"/>
+          <Button Classes="Secondary" Content="修改" Grid.Row="3" Grid.Column="3"/>
+          <TextBlock Classes="FormItemLabel" Text="邮箱" Grid.Row="5"/>
+          <TextBox IsReadOnly="True" Focusable="False" Watermark="未绑定" Text="" Grid.Row="5" Grid.Column="1"/>
+          <Button Classes="Secondary" Content="绑定" Grid.Row="5" Grid.Column="3"/>
+          <TextBlock Classes="FormItemLabel" Text="Steam 账号" Grid.Row="7"/>
+          <TextBox IsReadOnly="True" Focusable="False" Watermark="未绑定" Text="" Grid.Row="7" Grid.Column="1"/>
+          <Button Classes="Secondary" Content="绑定" Grid.Row="7" Grid.Column="3"/>
+          <TextBlock Classes="FormItemLabel" Text="所在地" Grid.Row="9"/>
+          <WrapPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3">
+            <ComboBox Classes="AreaShort" SelectedIndex="0">
+              <ComboBoxItem Content="云南"/>
+            </ComboBox>
+            <ComboBox Classes="MarginLeft AreaShort" SelectedIndex="0">
+              <ComboBoxItem Content="临沧"/>
+            </ComboBox>
+            <ComboBox x:Name="CBArea3" ToolTip.Tip="{Binding #CBArea3.SelectItem}" Classes="MarginLeft AreaLong" SelectedIndex="0">
+              <ComboBoxItem Content="双江拉祜族佤族布朗族傣族自治县"/>
+            </ComboBox>
+          </WrapPanel>
+          <TextBlock Classes="FormItemLabel" Text="性别" Grid.Row="11"/>
+          <WrapPanel Orientation="Horizontal" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3">
+            <RadioButton Content="保密" IsChecked="True"/>
+            <RadioButton Classes="MarginLeft" Content="男"/>
+            <RadioButton Classes="MarginLeft" Content="女"/>
+          </WrapPanel>
+        </Grid>
+        <Button Classes="action"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Center"
+                Content="保存修改"/>
       </StackPanel>
-      <!--</Grid>-->
     </Panel>
     <!--Toast-->
     <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>

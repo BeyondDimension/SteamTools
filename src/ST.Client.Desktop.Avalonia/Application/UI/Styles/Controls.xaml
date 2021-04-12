@@ -1,22 +1,25 @@
 ﻿<Styles  xmlns="https://github.com/avaloniaui"
          xmlns:sys="using:System"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Styles.Resources>
-        <Thickness x:Key="PageMargin">20 0 20 10</Thickness>
-        <Thickness x:Key="PageMargin2">30 0 30 10</Thickness>
-        <sys:Double x:Key="IconElementThemeHeight">16</sys:Double>
-        <Easing x:Key="FluentEasing">0.4,0,0.6,1</Easing>
-        <KeySpline x:Key="FluentKeySpline">0.4,0,0.6,1</KeySpline>
-    </Styles.Resources>
-    <StyleInclude Source="/Application/UI/Styles/Controls/FontSizes.xaml" />
-    <StyleInclude Source="/Application/UI/Styles/Controls/DrawingSvg.xaml" />
-    <StyleInclude Source="/Application/UI/Styles/Controls/SideBar.xaml" />
-    <StyleInclude Source="/Application/UI/Styles/Controls/TabControl.xaml" />
-    <StyleInclude Source="/Application/UI/Styles/Controls/TextBox.xaml" />
-    <StyleInclude Source="/Application/UI/Styles/Controls/Border.xaml" />
-    <StyleInclude Source="/Application/UI/Styles/Controls/Button.xaml" />
-    <StyleInclude Source="/Application/UI/Styles/Controls/Menu.xaml" />
-    <StyleInclude Source="/Application/UI/Styles/Controls/CheckBox.xaml" />
-    <StyleInclude Source="/Application/UI/Styles/Controls/ListBox.xaml" />
-    <StyleInclude Source="/Application/UI/Styles/Controls/DataGrid.xaml" />
+  <Styles.Resources>
+    <Thickness x:Key="PageMargin">20 0 20 10</Thickness>
+    <Thickness x:Key="PageMargin2">30 0 30 10</Thickness>
+    <sys:Double x:Key="IconElementThemeHeight">16</sys:Double>
+    <Easing x:Key="FluentEasing">0.4,0,0.6,1</Easing>
+    <KeySpline x:Key="FluentKeySpline">0.4,0,0.6,1</KeySpline>
+    <sys:Double x:Key="TitleBarHeight">30</sys:Double>
+    <Thickness x:Key="TitleBarAfterMargin">0, 30, 0, 0</Thickness>
+    <Thickness x:Key="UnifyTitleBarAfterContentMargin">34, 30, 34, 0</Thickness>
+  </Styles.Resources>
+  <StyleInclude Source="/Application/UI/Styles/Controls/FontSizes.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Controls/DrawingSvg.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Controls/SideBar.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Controls/TabControl.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Controls/TextBox.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Controls/Border.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Controls/Button.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Controls/Menu.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Controls/CheckBox.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Controls/ListBox.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Controls/DataGrid.xaml" />
 </Styles>
