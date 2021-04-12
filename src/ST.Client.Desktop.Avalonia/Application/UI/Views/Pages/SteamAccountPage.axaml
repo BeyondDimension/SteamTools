@@ -104,7 +104,7 @@
                                                 <PathIcon Width="12" Data="{DynamicResource CloseDrawing}">
                                                 </PathIcon>
                                             </Button>
-                                            <WrapPanel HorizontalAlignment="Right" Orientation="Vertical" Margin="0 30 0 0">
+                                            <WrapPanel HorizontalAlignment="Right" Orientation="Vertical" Margin="0 30 5 0">
                                                 <CheckBox Content="{Binding Path=Res.UserChange_RecentLogin,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding MostRecent}" IsEnabled="False"></CheckBox>
                                                 <CheckBox Content="{Binding Path=Res.UserChange_RememberMe,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding RememberPassword}" IsEnabled="False"></CheckBox>
                                             </WrapPanel>

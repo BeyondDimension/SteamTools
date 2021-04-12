@@ -64,14 +64,14 @@ namespace System.Application.Models
             /// <summary>
             /// URLs for all mobile services
             /// </summary>
-            static string COMMUNITY_BASE = "https://steamcommunity.com";
-            static string WEBAPI_BASE = "https://api.steampowered.com";
-            static string SYNC_URL = "https://api.steampowered.com:443/ITwoFactorService/QueryTime/v0001";
+            static readonly string COMMUNITY_BASE = "https://steamcommunity.com";
+            static readonly string WEBAPI_BASE = "https://api.steampowered.com";
+            static readonly string SYNC_URL = "https://api.steampowered.com:443/ITwoFactorService/QueryTime/v0001";
 
             /// <summary>
             /// Character set for authenticator code
             /// </summary>
-            static char[] STEAMCHARS = new char[] {
+            static readonly char[] STEAMCHARS = new char[] {
                 '2', '3', '4', '5', '6', '7', '8', '9', 'B', 'C',
                 'D', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q',
                 'R', 'T', 'V', 'W', 'X', 'Y'};
@@ -127,7 +127,7 @@ namespace System.Application.Models
             /// <summary>
             /// Expanding offsets to retry when creating first code
             /// </summary>
-            int[] ENROLL_OFFSETS = new int[] { 0, -30, 30, -60, 60, -90, 90, -120, 120 };
+            readonly int[] ENROLL_OFFSETS = new int[] { 0, -30, 30, -60, 60, -90, 90, -120, 120 };
 
             /// <summary>
             /// Get/set the combined secret data value
@@ -218,7 +218,7 @@ namespace System.Application.Models
             /// <param name="data">Name-data pairs</param>
             /// <param name="cookies">current cookie container</param>
             /// <returns>response body</returns>
-            string Request(string url, string method, NameValueCollection data = null, CookieContainer cookies = null, NameValueCollection headers = null, int timeout = 0)
+            static string Request(string url, string method, NameValueCollection? data = null, CookieContainer? cookies = null, NameValueCollection? headers = null, int timeout = 0)
             {
                 // create form-encoded data for query or body
                 string query = (data == null ? string.Empty : string.Join("&", Array.ConvertAll(data.AllKeys, key => String.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(data[key])))));
@@ -735,11 +735,11 @@ namespace System.Application.Models
                         }
                         else
                         {
-                            data.Append("&");
+                            data.Append('&');
                         }
                         data.Append(cookie.Name + "=" + cookie.Value);
                     }
-                    data.Append(" ");
+                    data.Append(' ');
                 }
 
                 if (request != null)

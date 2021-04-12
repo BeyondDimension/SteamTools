@@ -35,7 +35,7 @@
                                           Margin="16,8,0,0" />
                             </TextBox.InnerLeftContent>
                         </TextBox>
-                        <ToggleSwitch Content="脚本开关"></ToggleSwitch>
+                        <ToggleSwitch Content="" OnContent="" OffContent=""></ToggleSwitch>
                     </StackPanel>
                 </DockPanel>
             </Border>

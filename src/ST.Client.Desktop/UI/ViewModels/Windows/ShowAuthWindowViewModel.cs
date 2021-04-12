@@ -7,22 +7,26 @@ namespace System.Application.UI.ViewModels
 {
     public class ShowAuthWindowViewModel : WindowViewModel
     {
-        private GAPAuthenticatorValueDTO.SteamAuthenticator _Authenticator;
+        private readonly GAPAuthenticatorValueDTO.SteamAuthenticator? _Authenticator;
+
         public ShowAuthWindowViewModel()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_AuthData;
         }
         public ShowAuthWindowViewModel(MyAuthenticator auth)
         {
-            _Authenticator = auth.AuthenticatorData.Value as GAPAuthenticatorValueDTO.SteamAuthenticator;
+            if (auth.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator authenticator)
+            {
+                _Authenticator = authenticator;
+            }
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_AuthData;
         }
 
-        public string RecoveryCode => JObject.Parse(_Authenticator.SteamData).SelectToken("revocation_code").Value<string>();
+        public string? RecoveryCode => _Authenticator?.RecoveryCode;
 
-        public string SteamData => _Authenticator.SteamData;
+        public string? SteamData => _Authenticator?.SteamData;
 
-        public string DeviceId => _Authenticator.DeviceId;
+        public string? DeviceId => _Authenticator?.DeviceId;
 
 
 

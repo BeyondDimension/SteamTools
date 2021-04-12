@@ -5,7 +5,6 @@
              xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:controls="using:System.Application.UI.Views.Controls"
-             x:Name="toast"
              mc:Ignorable="d" 
              d:DesignWidth="300" 
              d:DesignHeight="50" 
@@ -16,9 +15,19 @@
              IsVisible="{Binding Source={x:Static service:ToastService.Current},Path=IsVisible,Mode=OneWay}"
              x:Class="System.Application.UI.Views.Controls.ToastMessage">
     <UserControl.Styles>
-        <Style Selector="UserControl#toast[IsVisible=true]">
+        <Style Selector="controls|ToastMessage > Border">
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="BoxShadow" Value="{DynamicResource InfoBoxShadow}" />
+            <!--<Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+                </Transitions>
+            </Setter>-->
+        </Style>
+        
+        <Style Selector="controls|ToastMessage[IsVisible=true]">
             <Style.Animations>
-                <Animation Duration="0:0:0.45" Easing="QuadraticEaseIn" FillMode="Forward">
+                <Animation Duration="0:0:0.25" Easing="QuadraticEaseIn" FillMode="Forward">
                     <KeyFrame Cue="0%">
                         <Setter Property="Opacity" Value="0"/>
                         <Setter Property="TranslateTransform.Y" Value="20"/>
@@ -38,7 +47,7 @@
             </Style.Animations>
         </Style>
 
-        <Style Selector="UserControl#toast[IsVisible=false]">
+        <Style Selector="controls|ToastMessage[IsVisible=false]">
             <Setter Property="RenderTransformOrigin" Value="50%,0%"/>
             <Style.Animations>
                 <Animation Duration="0:0:0.75" Easing="QuadraticEaseOut" FillMode="Forward">
@@ -57,20 +66,13 @@
                 </Animation>
             </Style.Animations>
         </Style>
-
-        <Style Selector="UserControl#toast[IsVisible=false]">
-            <Style.Animations>
-                <Animation Duration="0:0:1.25" Easing="QuadraticEaseOut" FillMode="Forward">
-                    <KeyFrame Cue="100%">
-                        <Setter Property="IsVisible" Value="True"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
     </UserControl.Styles>
-    <Border Background="{DynamicResource InactiveBackgroundBrushKey}" Classes="paper" CornerRadius="3">
+    <Border Background="{DynamicResource InactiveBackgroundBrushKey}" Padding="20 0">
         <StackPanel Orientation="Horizontal">
-            <controls:InfoMessage></controls:InfoMessage>
+            <PathIcon Data="{StaticResource InfoDrawing}"
+                    VerticalAlignment="Center"
+                    Width="20"
+                    Height="20"/>
             <!--<TextBlock Text="{Binding Title}" FontSize="16"/>-->
             <Border Padding="10">
                 <TextBlock Text="{Binding Source={x:Static service:ToastService.Current},Path=Message,Mode=OneWay}" FontSize="14" Foreground="{DynamicResource HighlightForegroundColorKey}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" MaxWidth="780"/>

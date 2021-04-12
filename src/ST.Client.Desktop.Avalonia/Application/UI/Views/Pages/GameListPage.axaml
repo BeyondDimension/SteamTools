@@ -20,7 +20,7 @@
                 </TreeDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>-->
-        <Panel Grid.Column="1">
+        <Panel Grid.Column="1" Grid.Row="1">
             <SplitView IsPaneOpen="{Binding IsAppInfoOpen,Mode=TwoWay}"
                 PanePlacement="Right"
                 OpenPaneLength="500"
@@ -38,10 +38,10 @@
                                         Source="{Binding SelectApp.LibraryHeaderStream,Converter={StaticResource BitmapAssetValueConverter}}"
                                         Stretch="Uniform"
                                         Width="500"></Image>
-                                <Image 
-                                       Source="{Binding SelectApp.LibraryNameStream,Converter={StaticResource BitmapAssetValueConverter}}" 
+                                <Image
+                                       Source="{Binding SelectApp.LibraryNameStream,Converter={StaticResource BitmapAssetValueConverter}}"
                                        Stretch="Uniform" Width="200" Margin="20 0 0 10"
-                                       VerticalAlignment="Bottom" 
+                                       VerticalAlignment="Bottom"
                                        HorizontalAlignment="Left">
                                 </Image>
                                 <Button Content="安装" Classes="action"

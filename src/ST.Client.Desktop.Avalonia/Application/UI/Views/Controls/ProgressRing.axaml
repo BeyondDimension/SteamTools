@@ -3,7 +3,7 @@
         xmlns:controls="using:System.Application.UI.Views.Controls">
     <Design.PreviewWith>
         <Border Padding="10">
-            <controls:ProgressRing IsIndeterminate="True" Width="30" Height="30">
+            <controls:ProgressRing IsIndeterminate="True" Height="100" Width="100">
             </controls:ProgressRing>
         </Border>
     </Design.PreviewWith>

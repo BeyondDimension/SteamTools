@@ -35,7 +35,7 @@
                                 </i:Interaction.Behaviors>
                                 <Grid RowDefinitions="30,165,Auto">
                                     <DockPanel VerticalAlignment="Center">
-                                        <controls:ScrollingTextBlock DockPanel.Dock="Left" Padding="10,5" Text="{Binding Name}" FontSize="16" Foreground="{DynamicResource HighlightForegroundBrushKey}"></controls:ScrollingTextBlock>
+                                        <controls:ScrollingTextBlock DockPanel.Dock="Left" Padding="10,5" Text="{Binding Name}" FontSize="16" Foreground="{DynamicResource HighlightForegroundBrushKey}" FontWeight="Regular"></controls:ScrollingTextBlock>
                                         <Button DockPanel.Dock="Right" x:Name="delete_btn" Classes="flatbutton" IsVisible="False" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Right" Cursor="Hand" ToolTip.Tip="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding #u.DataContext.DeleteAuth}" CommandParameter="{Binding}">
                                             <PathIcon Data="{DynamicResource CloseDrawing}" Width="12"></PathIcon>
                                         </Button>

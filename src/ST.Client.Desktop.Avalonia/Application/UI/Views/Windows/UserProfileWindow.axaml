@@ -4,10 +4,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="using:System"
         mc:Ignorable="d"
-        d:DesignWidth="450" d:DesignHeight="660"
-        Width="450" Height="660"
-        MinWidth="450" MinHeight="660"
-        MaxWidth="450" MaxHeight="660"
+        d:DesignWidth="450" d:DesignHeight="600"
+        Width="450" Height="600"
+        MinWidth="450" MinHeight="600"
+        MaxWidth="450" MaxHeight="600"
         x:Class="System.Application.UI.Views.Windows.UserProfileWindow"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         Background="Transparent"
@@ -47,6 +47,7 @@
             <RowDefinition Height="16"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
           </Grid.RowDefinitions>
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="160"/>
@@ -54,14 +55,13 @@
             <ColumnDefinition Width="*"/>
           </Grid.ColumnDefinitions>
           <Image Source="/Application/UI/Assets/AppResources/avater.jpg" VerticalAlignment="Center"
-                 Width="160" Height="160" Grid.RowSpan="3" />
-          <Button Classes="action" Grid.Column="2"
-                  Content="刷新 Steam 头像" />
-          <TextBlock Grid.Column="2" Grid.Row="1"
+                 Width="160" Height="160" Grid.RowSpan="2" />
+          <Button Grid.Column="2" Content="刷新 Steam 头像" Classes="Secondary"/>
+          <TextBlock Grid.Column="2" Grid.Row="1" TextWrapping="Wrap"
                      Text="绑定 Steam 账号后可手动同步刷新使用 Steam 账号头像。" />
-          <Button Classes="action"
+          <!--<Button Classes="action"
                   Content="上传您的头像" />
-          <TextBlock Text="从您的设备上传一个文件。图片应为方形，至少为 160px x 160px" />
+          <TextBlock Text="从您的设备上传一个文件。图片应为方形，至少为 160px x 160px" TextWrapping="Wrap" />-->
         </Grid>
         <Grid VerticalAlignment="Center">
           <Grid.RowDefinitions>

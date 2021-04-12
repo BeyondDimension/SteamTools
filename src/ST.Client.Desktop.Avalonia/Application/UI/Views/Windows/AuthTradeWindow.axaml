@@ -19,7 +19,7 @@
         <controls:TitleBar></controls:TitleBar>
         <Panel IsVisible="{Binding !IsLoggedIn}">
             <StackPanel VerticalAlignment="Center" Spacing="8" Margin="10,0" Width="250">
-                <PathIcon Data="{StaticResource SteamDrawing}" Width="100" 
+                <PathIcon Data="{StaticResource SteamDrawing}" Width="100" Height="100"
                           HorizontalAlignment="Center" Margin="0 0 0 25"></PathIcon>
                 <TextBox Watermark="{Binding Path=Res.Steam_User,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding UserName}"></TextBox>
 

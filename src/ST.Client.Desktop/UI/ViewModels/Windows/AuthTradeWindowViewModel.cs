@@ -32,6 +32,7 @@ namespace System.Application.UI.ViewModels
             if (MyAuthenticator.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator authenticator)
             {
                 _Authenticator = authenticator;
+                UserName = _Authenticator.AccountName;
             }
             else
             {

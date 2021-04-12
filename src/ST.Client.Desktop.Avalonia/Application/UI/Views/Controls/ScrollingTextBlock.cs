@@ -1,8 +1,6 @@
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Controls;
-using System;
-using System.Reactive;
 using Avalonia.Media;
 using Avalonia.Animation.Animators;
 using Avalonia.Threading;
