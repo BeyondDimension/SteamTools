@@ -97,7 +97,9 @@ namespace System.Application.Models
             { "https://github.com/dotnet/runtime", ("MIT", "") },
             { "https://github.com/ant-design-blazor/ant-design-blazor", ("MIT", "") },
             { "https://github.com/microsoft/appcenter-sdk-dotnet", ("MIT", "") },
+            { "https://github.com/nor0x/AppCenter-XMac", ("MIT", "") },
             { "https://github.com/moq/moq4", ("BSD-3-Clause", "") },
+            { "https://github.com/xamarin/Xamarin.Forms", ("MIT", "") },
             //{ "", ("", "") },
         };
     }

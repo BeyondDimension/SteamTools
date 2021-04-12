@@ -10,6 +10,8 @@
         MaxWidth="450" MaxHeight="660"
         x:Class="System.Application.UI.Views.Windows.UserProfileWindow"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+        xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:ccl_services="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
@@ -92,16 +94,18 @@
             <ColumnDefinition Width="70"/>
           </Grid.ColumnDefinitions>
           <TextBlock Classes="FormItemLabel" Text="昵称" Grid.Row="1"/>
-          <TextBox Watermark="请输入昵称" Text="" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"/>
+          <TextBox Watermark="请输入昵称" Text="" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"
+                   MaxLength="{Binding Path=NickName,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}"/>
           <TextBlock Classes="FormItemLabel" Text="手机号码" Grid.Row="3"/>
-          <TextBox IsReadOnly="True" Focusable="False" Text="155****1234" Grid.Row="3" Grid.Column="1"/>
+          <TextBox IsReadOnly="True" Focusable="False" Text="155****1234" Grid.Row="3" Grid.Column="1"
+                   MaxLength="{Binding Path=PhoneNumber,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}"/>
           <Button Classes="Secondary" Content="修改" Grid.Row="3" Grid.Column="3"/>
           <TextBlock Classes="FormItemLabel" Text="邮箱" Grid.Row="5"/>
-          <TextBox IsReadOnly="True" Focusable="False" Watermark="未绑定" Text="" Grid.Row="5" Grid.Column="1"/>
-          <Button Classes="Secondary" Content="绑定" Grid.Row="5" Grid.Column="3"/>
+          <TextBox IsReadOnly="True" Focusable="False" Watermark="该功能正在开发中，敬请期待" Text="" Grid.Row="5" Grid.Column="1"/>
+          <Button Classes="Secondary" Content="绑定" Grid.Row="5" Grid.Column="3" IsEnabled="False"/>
           <TextBlock Classes="FormItemLabel" Text="Steam 账号" Grid.Row="7"/>
-          <TextBox IsReadOnly="True" Focusable="False" Watermark="未绑定" Text="" Grid.Row="7" Grid.Column="1"/>
-          <Button Classes="Secondary" Content="绑定" Grid.Row="7" Grid.Column="3"/>
+          <TextBox IsReadOnly="True" Focusable="False" Watermark="该功能正在开发中，敬请期待" Text="" Grid.Row="7" Grid.Column="1"/>
+          <Button Classes="Secondary" Content="绑定" Grid.Row="7" Grid.Column="3" IsEnabled="False"/>
           <TextBlock Classes="FormItemLabel" Text="所在地" Grid.Row="11"/>
           <WrapPanel Orientation="Horizontal" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3">
             <ComboBox Classes="AreaShort" SelectedIndex="0">
