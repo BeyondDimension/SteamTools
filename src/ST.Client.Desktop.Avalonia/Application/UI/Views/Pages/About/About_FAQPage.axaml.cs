@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using CefNet.Avalonia;
 using System.Application.Models;
+using System.Application.UI.Views.Controls;
 
 namespace System.Application.UI.Views.Pages
 {
