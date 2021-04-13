@@ -11,7 +11,6 @@
         public const string STEAM_LOGIN_URL = "https://steamcommunity.com/login/home/?goto=my/profile";
         public const string STEAM_BADGES_URL = "https://steamcommunity.com/profiles/{0}/badges/";
         public const string STEAMAPP_LIST_URL = "https://api.steampowered.com/ISteamApps/GetAppList/v2";
-        public const string STORE_APP_URL = "https://store.steampowered.com/app/{0}";
         public const string STEAMAPP_LOGO_URL = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{0}/{1}.jpg";
         public const string STEAMAPP_LIBRARY_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/library_600x900.jpg";
         public const string STEAMAPP_LIBRARYHERO_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/library_hero.jpg";
@@ -37,6 +36,8 @@
 
         public const string STEAMDB_USERINFO_URL = "https://api.steamdb.ml/v1/users/{0}";
         public const string STEAMDB_APPINFO_URL = "https://api.steamdb.ml/v1/apps/{0}";
+        public const string STORE_APP_URL = "https://store.steampowered.com/app/{0}";
+        public const string STEAMDBINFO_URL = "https://steamdb.info/app/{0}";
 
         public const string STEAM_USERINFO_XML_URL = "https://steamcommunity.com/profiles/{0}?xml=1";
 

@@ -9,7 +9,7 @@ using System.Linq;
 using Avalonia.Controls.Primitives;
 
 // ReSharper disable once CheckNamespace
-namespace Avalonia.Controls
+namespace System.Application.UI.Views.Controls
 {
     public sealed class WebView3 : WebView
     {

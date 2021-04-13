@@ -43,7 +43,7 @@
             </DockPanel>
             
             <Border Margin="0 15 0 0">
-                <Separator BorderThickness=".88" Background="{DynamicResource SystemControlHighlightBaseLowBrush}"  />
+                <Separator Classes="Separator"/>
             </Border>
         </StackPanel>
         <WrapPanel  Grid.Row="3"

@@ -310,7 +310,7 @@ namespace System.Application.Services.CloudService
                 },
                 new AccelerateProjectGroupDTO
                 {
-                    Name = "图片站点合集",
+                    Name = "其它网站",
                     Items = new List<AccelerateProjectDTO>
                     {
                         new AccelerateProjectDTO
@@ -335,6 +335,14 @@ namespace System.Application.Services.CloudService
                             DomainNames = "pinterest.com;pinimg.com",
                             ForwardDomainName = "pinterest.rmbgame.net",
                             Hosts = "pinterest.com;www.pinterest.com;pinimg.com;sm.pinimg.com;s.pinimg.com;i.pinimg.com",
+                            Enable  = false,
+                        },
+                        new AccelerateProjectDTO
+                        {
+                            Name = "dlsite.com",
+                            DomainNames = "dlsite.com;dlsite.jp;nijiyome.jp;nijiyome.com",
+                            ForwardDomainName = "dlsite.rmbgame.net",
+                            Hosts = "dlsite.com;dlsite.jp;nijiyome.jp;nijiyome.com",
                             Enable  = false,
                         },
                         new AccelerateProjectDTO

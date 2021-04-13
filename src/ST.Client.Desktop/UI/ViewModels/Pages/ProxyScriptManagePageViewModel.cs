@@ -6,7 +6,9 @@ using ReactiveUI;
 using System.Application.Models;
 using System.Application.Repositories;
 using System.Application.Services;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -24,14 +26,18 @@ namespace System.Application.UI.ViewModels
     {
         public override string Name
         {
-            get => "脚本配置";
+            get => AppResources.ScriptConfig;
             protected set { throw new NotImplementedException(); }
         }
 
         public ProxyScriptManagePageViewModel()
         {
+            MenuItems = new ObservableCollection<MenuItemViewModel>()
+            {
+                   new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)),
+                   new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)),
+            };
 
         }
-
     }
 }

@@ -23,6 +23,13 @@
 
   <ItemGroup>
     <AvaloniaResource Remove="Application\UI\Assets\AppResources\app.png" />
+    <AvaloniaResource Remove="Application\UI\Styles\Controls\Separator.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaXaml Include="Application\UI\Styles\Controls\Separator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaXaml>
   </ItemGroup>
 
   <ItemGroup>

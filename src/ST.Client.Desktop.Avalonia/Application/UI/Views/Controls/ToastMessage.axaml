@@ -18,11 +18,11 @@
         <Style Selector="controls|ToastMessage > Border">
             <Setter Property="CornerRadius" Value="4" />
             <Setter Property="BoxShadow" Value="{DynamicResource InfoBoxShadow}" />
-            <!--<Setter Property="Transitions">
+            <Setter Property="Transitions">
                 <Transitions>
                     <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
                 </Transitions>
-            </Setter>-->
+            </Setter>
         </Style>
         
         <Style Selector="controls|ToastMessage[IsVisible=true]">
@@ -48,26 +48,29 @@
         </Style>
 
         <Style Selector="controls|ToastMessage[IsVisible=false]">
-            <Setter Property="RenderTransformOrigin" Value="50%,0%"/>
+            <!--<Setter Property="RenderTransformOrigin" Value="50%,0%"/>-->
             <Style.Animations>
                 <Animation Duration="0:0:0.75" Easing="QuadraticEaseOut" FillMode="Forward">
                     <KeyFrame Cue="0%">
-                        <Setter Property="TranslateTransform.X" Value="0"/>
-                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>
+                        <Setter Property="Opacity" Value="1"/>
+                        <!--<Setter Property="TranslateTransform.X" Value="0"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>-->
                     </KeyFrame>
                     <KeyFrame Cue="70%">
-                        <Setter Property="TranslateTransform.X" Value="800"/>
-                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>
+                        <!--<Setter Property="TranslateTransform.X" Value="800"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>-->
                     </KeyFrame>
                     <KeyFrame Cue="100%">
-                        <Setter Property="ScaleTransform.ScaleY" Value="0"/>
-                        <Setter Property="TranslateTransform.X" Value="800"/>
+                        <Setter Property="Opacity" Value="0"/>
+                        <!--<Setter Property="ScaleTransform.ScaleY" Value="0"/>
+                        <Setter Property="TranslateTransform.X" Value="0"/>-->
                     </KeyFrame>
                 </Animation>
             </Style.Animations>
         </Style>
     </UserControl.Styles>
-    <Border Background="{DynamicResource InactiveBackgroundBrushKey}" Padding="20 0">
+    
+    <Border Background="{DynamicResource InactiveBackgroundBrushKey}" Padding="20 0 10 0">
         <StackPanel Orientation="Horizontal">
             <PathIcon Data="{StaticResource InfoDrawing}"
                     VerticalAlignment="Center"
@@ -77,7 +80,7 @@
             <Border Padding="10">
                 <TextBlock Text="{Binding Source={x:Static service:ToastService.Current},Path=Message,Mode=OneWay}" FontSize="14" Foreground="{DynamicResource HighlightForegroundColorKey}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" MaxWidth="780"/>
             </Border>
-            <Button Width="40" Height="40" Background="Transparent" Command="{ReflectionBinding Source={x:Static service:ToastService.Current},Path=CloseBtn_Click}">
+            <Button Width="40" Height="40" Background="Transparent" Command="{ReflectionBinding Source={x:Static service:ToastService.Current},Path=CloseBtn_Click}" Cursor="Hand">
                 <PathIcon Data="{DynamicResource CloseDrawing}" Width="12"></PathIcon>
             </Button>
         </StackPanel>

@@ -268,9 +268,12 @@ namespace System.Application.Services.Implementation
                 //}
                 //proxyServer.CertificateManager.ClearRootCertificate();
                 proxyServer.CertificateManager.RemoveTrustedRootCertificate();
-                proxyServer.CertificateManager.RootCertificate = null;
-                if (File.Exists(proxyServer.CertificateManager.PfxFilePath))
-                    File.Delete(proxyServer.CertificateManager.PfxFilePath);
+                if (IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate) == false)
+                {
+                    proxyServer.CertificateManager.RootCertificate = null;
+                    if (File.Exists(proxyServer.CertificateManager.PfxFilePath))
+                        File.Delete(proxyServer.CertificateManager.PfxFilePath);
+                }
                 //proxyServer.CertificateManager.RemoveTrustedRootCertificateAsAdmin();
                 //proxyServer.CertificateManager.CertificateStorage.Clear();
             }
@@ -280,7 +283,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             return true;
         }

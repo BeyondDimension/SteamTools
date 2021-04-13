@@ -25,17 +25,18 @@
                         </Button>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Right">
-                        <TextBox Watermark="搜索脚本" Text="" VerticalAlignment="Center" MinWidth="300">
+                    <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <TextBox Watermark="{Binding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="" VerticalAlignment="Center" MinWidth="300">
                             <TextBox.InnerLeftContent>
                                 <PathIcon Data="{StaticResource SearchDrawing}"
                                           Width="20" Height="20"
                                           Opacity="0.8"
                                           VerticalAlignment="Top" HorizontalAlignment="Left"
-                                          Margin="16,8,0,0" />
+                                          Margin="8,8,0,0" />
                             </TextBox.InnerLeftContent>
                         </TextBox>
-                        <ToggleSwitch Content="" OnContent="" OffContent=""></ToggleSwitch>
+                        <!--<TextBlock Text="{Binding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>-->
+                        <ToggleSwitch Content="" OnContent="{Binding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}" OffContent="{Binding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}"></ToggleSwitch>
                     </StackPanel>
                 </DockPanel>
             </Border>
@@ -46,7 +47,7 @@
                     </ItemsRepeater.Layout>
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate>
-                            <Border MinWidth="450" Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="20 20 20 10">
+                            <Border MinWidth="450" Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="20 10">
                                 <DockPanel>
                                     <Image Source="{Binding Icon}" DockPanel.Dock="Left"></Image>
                                     <StackPanel Spacing="8" DockPanel.Dock="Right">
@@ -73,6 +74,8 @@
                                             </WrapPanel>
                                         </DockPanel>
 
+                                        <Separator Classes="Separator" Margin="0 0 0 5"></Separator>
+                                        
                                         <TextBlock
                                         Width="{Binding $parent.Width}"
                                         TextWrapping="WrapWithOverflow"

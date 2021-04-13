@@ -60,7 +60,7 @@
                                                                  Margin="20 0 0 0">
                                     </controls:ScrollingTextBlock>
                                 </WrapPanel>
-                                <Separator Height=".88" BorderThickness=".88" Background="{DynamicResource HighlightForegroundBrushKey}"  />
+                                <Separator Classes="Separator"  />
                             </StackPanel>
                             <!--</Border>-->
                         </DataTemplate>
@@ -113,7 +113,7 @@
                                                                VerticalAlignment="Center"
                                                                Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
                                                 </DockPanel>
-                                                <Separator Height=".88" BorderThickness=".88" Background="{DynamicResource HighlightForegroundBrushKey}"  />
+                                                <Separator Classes="Separator"  />
                                             </StackPanel>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
@@ -147,7 +147,7 @@
                                             <DockPanel>
                                                 <TextBlock Text="{Binding Name}"></TextBlock>
                                             </DockPanel>
-                                            <Separator Height=".88" BorderThickness=".88" Background="{DynamicResource HighlightForegroundBrushKey}"  />
+                                            <Separator Classes="Separator"  />
                                         </StackPanel>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -167,7 +167,7 @@
                                             <DockPanel>
                                                 <TextBlock Text="{Binding Name}"></TextBlock>
                                             </DockPanel>
-                                            <Separator Height=".88" BorderThickness=".88" Background="{DynamicResource HighlightForegroundBrushKey}"/>
+                                            <Separator Classes="Separator"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>

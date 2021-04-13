@@ -23,15 +23,15 @@
             <ControlTemplate>
                 <DockPanel>
 
-                    <!-- TODO bind Content -> Header and ContentTemplate -> HeaderTemplate -->
+                     <!--TODO bind Content -> Header and ContentTemplate -> HeaderTemplate--> 
                     <!--<ContentPresenter x:Name="PART_HeaderContentPresenter"
                                       DockPanel.Dock="Top"
                                       TextBlock.FontWeight="Normal"
                                       TextBlock.Foreground="{DynamicResource TextControlHeaderForeground}"
                                       IsVisible="False"
-                                      Margin="{DynamicResource TextBoxTopHeaderMargin}" />
+                                      Margin="{DynamicResource TextBoxTopHeaderMargin}" />-->
 
-                    <DataValidationErrors DockPanel.Dock="Bottom" Margin="0 10 0 0" />-->
+                    <!--<DataValidationErrors DockPanel.Dock="Bottom" Margin="0 10 0 0" />-->
 
                     <DockPanel>
                         <!--<PathIcon Classes="checkMark checkMarkDataValidation" Margin="15  0" VerticalAlignment="Center" DockPanel.Dock="Right">

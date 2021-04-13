@@ -1115,6 +1115,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 脚本配置 的本地化字符串。
+        /// </summary>
+        public static string ScriptConfig {
+            get {
+                return ResourceManager.GetString("ScriptConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 搜索... 的本地化字符串。
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 选择{0}文件导入 的本地化字符串。
         /// </summary>
         public static string SelectFileImport {

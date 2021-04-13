@@ -6,6 +6,7 @@ using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Linq;
 using System.Properties;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,6 +30,14 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _SelectedItem, value);
         }
 
+        bool _IsOpenUserMenu;
+        public bool IsOpenUserMenu
+        {
+            get => _IsOpenUserMenu;
+            set => this.RaiseAndSetIfChanged(ref _IsOpenUserMenu, value);
+        }
+
+        public ReactiveCommand<Unit, Unit> OpenUserMenu { get; }
         #endregion
 
         public StartPageViewModel StartPage { get; }
@@ -49,6 +58,8 @@ namespace System.Application.UI.ViewModels
 #pragma warning restore CS8618 // 
         {
             Title = ThisAssembly.AssemblyTrademark;
+
+            OpenUserMenu = ReactiveCommand.Create(() => { IsOpenUserMenu = true; });
 
             this.TabItems = new List<TabItemViewModel>
             {
@@ -85,7 +96,6 @@ namespace System.Application.UI.ViewModels
             Task.Run(Initialize).ForgetAndDispose();
         }
 
-
         public async void Initialize()
         {
             SteamConnectService.Current.Initialize();
@@ -96,9 +106,9 @@ namespace System.Application.UI.ViewModels
             {
                 Parallel.ForEach(TabItems, item =>
                 {
-                     //if (item == GameListPage)
-                     //    return;
-                     item.Initialize();
+                    //if (item == GameListPage)
+                    //    return;
+                    item.Initialize();
                 });
                 this.IsInitialized = true;
             }

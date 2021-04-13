@@ -472,6 +472,12 @@
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
+  <data name="ScriptConfig" xml:space="preserve">
+    <value>脚本配置</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索...</value>
+  </data>
   <data name="SelectFileImport" xml:space="preserve">
     <value>选择{0}文件导入</value>
     <comment>*.txt</comment>

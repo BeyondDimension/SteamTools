@@ -16,6 +16,7 @@
   </Styles.Resources>
   <StyleInclude Source="/Application/UI/Styles/Controls/FontSizes.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/DrawingSvg.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Controls/Separator.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/SideBar.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/TabControl.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/TextBox.xaml" />

@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using CefNet.Avalonia;
+using System.Application.UI.Views.Controls;
 
 namespace System.Application.UI.Views.Pages
 {
