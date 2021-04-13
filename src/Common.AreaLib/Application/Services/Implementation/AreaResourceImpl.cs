@@ -13,7 +13,8 @@ namespace System.Application.Services.Implementation
         {
             if (areas == null)
             {
-                areas = MessagePackSerializer.Deserialize<TArea[]>(SR.AMap_adcode_citycode_20210406_xlsx_mpo);
+                var lz4Options = MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4BlockArray);
+                areas = MessagePackSerializer.Deserialize<TArea[]>(SR.AMap_adcode_citycode_20210406_xlsx_mpo, lz4Options);
             }
             return areas;
         }

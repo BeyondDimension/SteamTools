@@ -1061,6 +1061,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 请选择 的本地化字符串。
+        /// </summary>
+        public static string PleaseSelect {
+            get {
+                return ResourceManager.GetString("PleaseSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 恢复代码 的本地化字符串。
         /// </summary>
         public static string RecoveryCode {

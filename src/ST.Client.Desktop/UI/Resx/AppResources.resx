@@ -454,6 +454,9 @@
   <data name="OtherGamePlaform" xml:space="preserve">
     <value>其它平台</value>
   </data>
+  <data name="PleaseSelect" xml:space="preserve">
+    <value>请选择</value>
+  </data>
   <data name="RecoveryCode" xml:space="preserve">
     <value>恢复代码</value>
   </data>

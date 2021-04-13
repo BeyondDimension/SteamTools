@@ -36,15 +36,15 @@ namespace System.Application.Models
         public uint Experience { get; set; }
 
         /// <summary>
-        /// 体力
+        /// 机油
         /// </summary>
         [MPKey(4)]
         [N_JsonProperty("4")]
         [S_JsonProperty("4")]
-        public int Strength { get; set; }
+        public int EngineOil { get; set; }
 
         /// <summary>
-        /// 代币
+        /// 代币、硬币
         /// </summary>
         [MPKey(5)]
         [N_JsonProperty("5")]
@@ -68,5 +68,10 @@ namespace System.Application.Models
         [N_JsonProperty("8")]
         [S_JsonProperty("8")]
         public long? SteamAccountId { get; set; }
+
+        [MPKey(9)]
+        [N_JsonProperty("9")]
+        [S_JsonProperty("9")]
+        public Gender Gender { get; set; }
     }
 }

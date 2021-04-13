@@ -25,6 +25,3689 @@ namespace System.Application.Launch
 		
 		public static void UpdateIdValues()
 		{
+			global::System.Application.Resource.Animation.abc_fade_in = global::System.Application.Launch.Resource.Animation.abc_fade_in;
+			global::System.Application.Resource.Animation.abc_fade_out = global::System.Application.Launch.Resource.Animation.abc_fade_out;
+			global::System.Application.Resource.Animation.abc_grow_fade_in_from_bottom = global::System.Application.Launch.Resource.Animation.abc_grow_fade_in_from_bottom;
+			global::System.Application.Resource.Animation.abc_popup_enter = global::System.Application.Launch.Resource.Animation.abc_popup_enter;
+			global::System.Application.Resource.Animation.abc_popup_exit = global::System.Application.Launch.Resource.Animation.abc_popup_exit;
+			global::System.Application.Resource.Animation.abc_shrink_fade_out_from_bottom = global::System.Application.Launch.Resource.Animation.abc_shrink_fade_out_from_bottom;
+			global::System.Application.Resource.Animation.abc_slide_in_bottom = global::System.Application.Launch.Resource.Animation.abc_slide_in_bottom;
+			global::System.Application.Resource.Animation.abc_slide_in_top = global::System.Application.Launch.Resource.Animation.abc_slide_in_top;
+			global::System.Application.Resource.Animation.abc_slide_out_bottom = global::System.Application.Launch.Resource.Animation.abc_slide_out_bottom;
+			global::System.Application.Resource.Animation.abc_slide_out_top = global::System.Application.Launch.Resource.Animation.abc_slide_out_top;
+			global::System.Application.Resource.Animation.abc_tooltip_enter = global::System.Application.Launch.Resource.Animation.abc_tooltip_enter;
+			global::System.Application.Resource.Animation.abc_tooltip_exit = global::System.Application.Launch.Resource.Animation.abc_tooltip_exit;
+			global::System.Application.Resource.Animation.btn_checkbox_to_checked_box_inner_merged_animation = global::System.Application.Launch.Resource.Animation.btn_checkbox_to_checked_box_inner_merged_animation;
+			global::System.Application.Resource.Animation.btn_checkbox_to_checked_box_outer_merged_animation = global::System.Application.Launch.Resource.Animation.btn_checkbox_to_checked_box_outer_merged_animation;
+			global::System.Application.Resource.Animation.btn_checkbox_to_checked_icon_null_animation = global::System.Application.Launch.Resource.Animation.btn_checkbox_to_checked_icon_null_animation;
+			global::System.Application.Resource.Animation.btn_checkbox_to_unchecked_box_inner_merged_animation = global::System.Application.Launch.Resource.Animation.btn_checkbox_to_unchecked_box_inner_merged_animation;
+			global::System.Application.Resource.Animation.btn_checkbox_to_unchecked_check_path_merged_animation = global::System.Application.Launch.Resource.Animation.btn_checkbox_to_unchecked_check_path_merged_animation;
+			global::System.Application.Resource.Animation.btn_checkbox_to_unchecked_icon_null_animation = global::System.Application.Launch.Resource.Animation.btn_checkbox_to_unchecked_icon_null_animation;
+			global::System.Application.Resource.Animation.btn_radio_to_off_mtrl_dot_group_animation = global::System.Application.Launch.Resource.Animation.btn_radio_to_off_mtrl_dot_group_animation;
+			global::System.Application.Resource.Animation.btn_radio_to_off_mtrl_ring_outer_animation = global::System.Application.Launch.Resource.Animation.btn_radio_to_off_mtrl_ring_outer_animation;
+			global::System.Application.Resource.Animation.btn_radio_to_off_mtrl_ring_outer_path_animation = global::System.Application.Launch.Resource.Animation.btn_radio_to_off_mtrl_ring_outer_path_animation;
+			global::System.Application.Resource.Animation.btn_radio_to_on_mtrl_dot_group_animation = global::System.Application.Launch.Resource.Animation.btn_radio_to_on_mtrl_dot_group_animation;
+			global::System.Application.Resource.Animation.btn_radio_to_on_mtrl_ring_outer_animation = global::System.Application.Launch.Resource.Animation.btn_radio_to_on_mtrl_ring_outer_animation;
+			global::System.Application.Resource.Animation.btn_radio_to_on_mtrl_ring_outer_path_animation = global::System.Application.Launch.Resource.Animation.btn_radio_to_on_mtrl_ring_outer_path_animation;
+			global::System.Application.Resource.Animation.design_bottom_sheet_slide_in = global::System.Application.Launch.Resource.Animation.design_bottom_sheet_slide_in;
+			global::System.Application.Resource.Animation.design_bottom_sheet_slide_out = global::System.Application.Launch.Resource.Animation.design_bottom_sheet_slide_out;
+			global::System.Application.Resource.Animation.design_snackbar_in = global::System.Application.Launch.Resource.Animation.design_snackbar_in;
+			global::System.Application.Resource.Animation.design_snackbar_out = global::System.Application.Launch.Resource.Animation.design_snackbar_out;
+			global::System.Application.Resource.Animation.EnterFromLeft = global::System.Application.Launch.Resource.Animation.EnterFromLeft;
+			global::System.Application.Resource.Animation.EnterFromRight = global::System.Application.Launch.Resource.Animation.EnterFromRight;
+			global::System.Application.Resource.Animation.ExitToLeft = global::System.Application.Launch.Resource.Animation.ExitToLeft;
+			global::System.Application.Resource.Animation.ExitToRight = global::System.Application.Launch.Resource.Animation.ExitToRight;
+			global::System.Application.Resource.Animation.fragment_close_enter = global::System.Application.Launch.Resource.Animation.fragment_close_enter;
+			global::System.Application.Resource.Animation.fragment_close_exit = global::System.Application.Launch.Resource.Animation.fragment_close_exit;
+			global::System.Application.Resource.Animation.fragment_fade_enter = global::System.Application.Launch.Resource.Animation.fragment_fade_enter;
+			global::System.Application.Resource.Animation.fragment_fade_exit = global::System.Application.Launch.Resource.Animation.fragment_fade_exit;
+			global::System.Application.Resource.Animation.fragment_fast_out_extra_slow_in = global::System.Application.Launch.Resource.Animation.fragment_fast_out_extra_slow_in;
+			global::System.Application.Resource.Animation.fragment_open_enter = global::System.Application.Launch.Resource.Animation.fragment_open_enter;
+			global::System.Application.Resource.Animation.fragment_open_exit = global::System.Application.Launch.Resource.Animation.fragment_open_exit;
+			global::System.Application.Resource.Animation.mtrl_bottom_sheet_slide_in = global::System.Application.Launch.Resource.Animation.mtrl_bottom_sheet_slide_in;
+			global::System.Application.Resource.Animation.mtrl_bottom_sheet_slide_out = global::System.Application.Launch.Resource.Animation.mtrl_bottom_sheet_slide_out;
+			global::System.Application.Resource.Animation.mtrl_card_lowers_interpolator = global::System.Application.Launch.Resource.Animation.mtrl_card_lowers_interpolator;
+			global::System.Application.Resource.Animator.design_appbar_state_list_animator = global::System.Application.Launch.Resource.Animator.design_appbar_state_list_animator;
+			global::System.Application.Resource.Animator.design_fab_hide_motion_spec = global::System.Application.Launch.Resource.Animator.design_fab_hide_motion_spec;
+			global::System.Application.Resource.Animator.design_fab_show_motion_spec = global::System.Application.Launch.Resource.Animator.design_fab_show_motion_spec;
+			global::System.Application.Resource.Animator.mtrl_btn_state_list_anim = global::System.Application.Launch.Resource.Animator.mtrl_btn_state_list_anim;
+			global::System.Application.Resource.Animator.mtrl_btn_unelevated_state_list_anim = global::System.Application.Launch.Resource.Animator.mtrl_btn_unelevated_state_list_anim;
+			global::System.Application.Resource.Animator.mtrl_card_state_list_anim = global::System.Application.Launch.Resource.Animator.mtrl_card_state_list_anim;
+			global::System.Application.Resource.Animator.mtrl_chip_state_list_anim = global::System.Application.Launch.Resource.Animator.mtrl_chip_state_list_anim;
+			global::System.Application.Resource.Animator.mtrl_extended_fab_change_size_motion_spec = global::System.Application.Launch.Resource.Animator.mtrl_extended_fab_change_size_motion_spec;
+			global::System.Application.Resource.Animator.mtrl_extended_fab_hide_motion_spec = global::System.Application.Launch.Resource.Animator.mtrl_extended_fab_hide_motion_spec;
+			global::System.Application.Resource.Animator.mtrl_extended_fab_show_motion_spec = global::System.Application.Launch.Resource.Animator.mtrl_extended_fab_show_motion_spec;
+			global::System.Application.Resource.Animator.mtrl_extended_fab_state_list_animator = global::System.Application.Launch.Resource.Animator.mtrl_extended_fab_state_list_animator;
+			global::System.Application.Resource.Animator.mtrl_fab_hide_motion_spec = global::System.Application.Launch.Resource.Animator.mtrl_fab_hide_motion_spec;
+			global::System.Application.Resource.Animator.mtrl_fab_show_motion_spec = global::System.Application.Launch.Resource.Animator.mtrl_fab_show_motion_spec;
+			global::System.Application.Resource.Animator.mtrl_fab_transformation_sheet_collapse_spec = global::System.Application.Launch.Resource.Animator.mtrl_fab_transformation_sheet_collapse_spec;
+			global::System.Application.Resource.Animator.mtrl_fab_transformation_sheet_expand_spec = global::System.Application.Launch.Resource.Animator.mtrl_fab_transformation_sheet_expand_spec;
+			global::System.Application.Resource.Attribute.actionBarDivider = global::System.Application.Launch.Resource.Attribute.actionBarDivider;
+			global::System.Application.Resource.Attribute.actionBarItemBackground = global::System.Application.Launch.Resource.Attribute.actionBarItemBackground;
+			global::System.Application.Resource.Attribute.actionBarPopupTheme = global::System.Application.Launch.Resource.Attribute.actionBarPopupTheme;
+			global::System.Application.Resource.Attribute.actionBarSize = global::System.Application.Launch.Resource.Attribute.actionBarSize;
+			global::System.Application.Resource.Attribute.actionBarSplitStyle = global::System.Application.Launch.Resource.Attribute.actionBarSplitStyle;
+			global::System.Application.Resource.Attribute.actionBarStyle = global::System.Application.Launch.Resource.Attribute.actionBarStyle;
+			global::System.Application.Resource.Attribute.actionBarTabBarStyle = global::System.Application.Launch.Resource.Attribute.actionBarTabBarStyle;
+			global::System.Application.Resource.Attribute.actionBarTabStyle = global::System.Application.Launch.Resource.Attribute.actionBarTabStyle;
+			global::System.Application.Resource.Attribute.actionBarTabTextStyle = global::System.Application.Launch.Resource.Attribute.actionBarTabTextStyle;
+			global::System.Application.Resource.Attribute.actionBarTheme = global::System.Application.Launch.Resource.Attribute.actionBarTheme;
+			global::System.Application.Resource.Attribute.actionBarWidgetTheme = global::System.Application.Launch.Resource.Attribute.actionBarWidgetTheme;
+			global::System.Application.Resource.Attribute.actionButtonStyle = global::System.Application.Launch.Resource.Attribute.actionButtonStyle;
+			global::System.Application.Resource.Attribute.actionDropDownStyle = global::System.Application.Launch.Resource.Attribute.actionDropDownStyle;
+			global::System.Application.Resource.Attribute.actionLayout = global::System.Application.Launch.Resource.Attribute.actionLayout;
+			global::System.Application.Resource.Attribute.actionMenuTextAppearance = global::System.Application.Launch.Resource.Attribute.actionMenuTextAppearance;
+			global::System.Application.Resource.Attribute.actionMenuTextColor = global::System.Application.Launch.Resource.Attribute.actionMenuTextColor;
+			global::System.Application.Resource.Attribute.actionModeBackground = global::System.Application.Launch.Resource.Attribute.actionModeBackground;
+			global::System.Application.Resource.Attribute.actionModeCloseButtonStyle = global::System.Application.Launch.Resource.Attribute.actionModeCloseButtonStyle;
+			global::System.Application.Resource.Attribute.actionModeCloseDrawable = global::System.Application.Launch.Resource.Attribute.actionModeCloseDrawable;
+			global::System.Application.Resource.Attribute.actionModeCopyDrawable = global::System.Application.Launch.Resource.Attribute.actionModeCopyDrawable;
+			global::System.Application.Resource.Attribute.actionModeCutDrawable = global::System.Application.Launch.Resource.Attribute.actionModeCutDrawable;
+			global::System.Application.Resource.Attribute.actionModeFindDrawable = global::System.Application.Launch.Resource.Attribute.actionModeFindDrawable;
+			global::System.Application.Resource.Attribute.actionModePasteDrawable = global::System.Application.Launch.Resource.Attribute.actionModePasteDrawable;
+			global::System.Application.Resource.Attribute.actionModePopupWindowStyle = global::System.Application.Launch.Resource.Attribute.actionModePopupWindowStyle;
+			global::System.Application.Resource.Attribute.actionModeSelectAllDrawable = global::System.Application.Launch.Resource.Attribute.actionModeSelectAllDrawable;
+			global::System.Application.Resource.Attribute.actionModeShareDrawable = global::System.Application.Launch.Resource.Attribute.actionModeShareDrawable;
+			global::System.Application.Resource.Attribute.actionModeSplitBackground = global::System.Application.Launch.Resource.Attribute.actionModeSplitBackground;
+			global::System.Application.Resource.Attribute.actionModeStyle = global::System.Application.Launch.Resource.Attribute.actionModeStyle;
+			global::System.Application.Resource.Attribute.actionModeWebSearchDrawable = global::System.Application.Launch.Resource.Attribute.actionModeWebSearchDrawable;
+			global::System.Application.Resource.Attribute.actionOverflowButtonStyle = global::System.Application.Launch.Resource.Attribute.actionOverflowButtonStyle;
+			global::System.Application.Resource.Attribute.actionOverflowMenuStyle = global::System.Application.Launch.Resource.Attribute.actionOverflowMenuStyle;
+			global::System.Application.Resource.Attribute.actionProviderClass = global::System.Application.Launch.Resource.Attribute.actionProviderClass;
+			global::System.Application.Resource.Attribute.actionTextColorAlpha = global::System.Application.Launch.Resource.Attribute.actionTextColorAlpha;
+			global::System.Application.Resource.Attribute.actionViewClass = global::System.Application.Launch.Resource.Attribute.actionViewClass;
+			global::System.Application.Resource.Attribute.activityChooserViewStyle = global::System.Application.Launch.Resource.Attribute.activityChooserViewStyle;
+			global::System.Application.Resource.Attribute.alertDialogButtonGroupStyle = global::System.Application.Launch.Resource.Attribute.alertDialogButtonGroupStyle;
+			global::System.Application.Resource.Attribute.alertDialogCenterButtons = global::System.Application.Launch.Resource.Attribute.alertDialogCenterButtons;
+			global::System.Application.Resource.Attribute.alertDialogStyle = global::System.Application.Launch.Resource.Attribute.alertDialogStyle;
+			global::System.Application.Resource.Attribute.alertDialogTheme = global::System.Application.Launch.Resource.Attribute.alertDialogTheme;
+			global::System.Application.Resource.Attribute.allowStacking = global::System.Application.Launch.Resource.Attribute.allowStacking;
+			global::System.Application.Resource.Attribute.alpha = global::System.Application.Launch.Resource.Attribute.alpha;
+			global::System.Application.Resource.Attribute.alphabeticModifiers = global::System.Application.Launch.Resource.Attribute.alphabeticModifiers;
+			global::System.Application.Resource.Attribute.animationMode = global::System.Application.Launch.Resource.Attribute.animationMode;
+			global::System.Application.Resource.Attribute.appBarLayoutStyle = global::System.Application.Launch.Resource.Attribute.appBarLayoutStyle;
+			global::System.Application.Resource.Attribute.arrowHeadLength = global::System.Application.Launch.Resource.Attribute.arrowHeadLength;
+			global::System.Application.Resource.Attribute.arrowShaftLength = global::System.Application.Launch.Resource.Attribute.arrowShaftLength;
+			global::System.Application.Resource.Attribute.autoCompleteTextViewStyle = global::System.Application.Launch.Resource.Attribute.autoCompleteTextViewStyle;
+			global::System.Application.Resource.Attribute.autoSizeMaxTextSize = global::System.Application.Launch.Resource.Attribute.autoSizeMaxTextSize;
+			global::System.Application.Resource.Attribute.autoSizeMinTextSize = global::System.Application.Launch.Resource.Attribute.autoSizeMinTextSize;
+			global::System.Application.Resource.Attribute.autoSizePresetSizes = global::System.Application.Launch.Resource.Attribute.autoSizePresetSizes;
+			global::System.Application.Resource.Attribute.autoSizeStepGranularity = global::System.Application.Launch.Resource.Attribute.autoSizeStepGranularity;
+			global::System.Application.Resource.Attribute.autoSizeTextType = global::System.Application.Launch.Resource.Attribute.autoSizeTextType;
+			global::System.Application.Resource.Attribute.background = global::System.Application.Launch.Resource.Attribute.background;
+			global::System.Application.Resource.Attribute.backgroundColor = global::System.Application.Launch.Resource.Attribute.backgroundColor;
+			global::System.Application.Resource.Attribute.backgroundInsetBottom = global::System.Application.Launch.Resource.Attribute.backgroundInsetBottom;
+			global::System.Application.Resource.Attribute.backgroundInsetEnd = global::System.Application.Launch.Resource.Attribute.backgroundInsetEnd;
+			global::System.Application.Resource.Attribute.backgroundInsetStart = global::System.Application.Launch.Resource.Attribute.backgroundInsetStart;
+			global::System.Application.Resource.Attribute.backgroundInsetTop = global::System.Application.Launch.Resource.Attribute.backgroundInsetTop;
+			global::System.Application.Resource.Attribute.backgroundOverlayColorAlpha = global::System.Application.Launch.Resource.Attribute.backgroundOverlayColorAlpha;
+			global::System.Application.Resource.Attribute.backgroundSplit = global::System.Application.Launch.Resource.Attribute.backgroundSplit;
+			global::System.Application.Resource.Attribute.backgroundStacked = global::System.Application.Launch.Resource.Attribute.backgroundStacked;
+			global::System.Application.Resource.Attribute.backgroundTint = global::System.Application.Launch.Resource.Attribute.backgroundTint;
+			global::System.Application.Resource.Attribute.backgroundTintMode = global::System.Application.Launch.Resource.Attribute.backgroundTintMode;
+			global::System.Application.Resource.Attribute.badgeGravity = global::System.Application.Launch.Resource.Attribute.badgeGravity;
+			global::System.Application.Resource.Attribute.badgeStyle = global::System.Application.Launch.Resource.Attribute.badgeStyle;
+			global::System.Application.Resource.Attribute.badgeTextColor = global::System.Application.Launch.Resource.Attribute.badgeTextColor;
+			global::System.Application.Resource.Attribute.barLength = global::System.Application.Launch.Resource.Attribute.barLength;
+			global::System.Application.Resource.Attribute.behavior_autoHide = global::System.Application.Launch.Resource.Attribute.behavior_autoHide;
+			global::System.Application.Resource.Attribute.behavior_autoShrink = global::System.Application.Launch.Resource.Attribute.behavior_autoShrink;
+			global::System.Application.Resource.Attribute.behavior_draggable = global::System.Application.Launch.Resource.Attribute.behavior_draggable;
+			global::System.Application.Resource.Attribute.behavior_expandedOffset = global::System.Application.Launch.Resource.Attribute.behavior_expandedOffset;
+			global::System.Application.Resource.Attribute.behavior_fitToContents = global::System.Application.Launch.Resource.Attribute.behavior_fitToContents;
+			global::System.Application.Resource.Attribute.behavior_halfExpandedRatio = global::System.Application.Launch.Resource.Attribute.behavior_halfExpandedRatio;
+			global::System.Application.Resource.Attribute.behavior_hideable = global::System.Application.Launch.Resource.Attribute.behavior_hideable;
+			global::System.Application.Resource.Attribute.behavior_overlapTop = global::System.Application.Launch.Resource.Attribute.behavior_overlapTop;
+			global::System.Application.Resource.Attribute.behavior_peekHeight = global::System.Application.Launch.Resource.Attribute.behavior_peekHeight;
+			global::System.Application.Resource.Attribute.behavior_saveFlags = global::System.Application.Launch.Resource.Attribute.behavior_saveFlags;
+			global::System.Application.Resource.Attribute.behavior_skipCollapsed = global::System.Application.Launch.Resource.Attribute.behavior_skipCollapsed;
+			global::System.Application.Resource.Attribute.borderlessButtonStyle = global::System.Application.Launch.Resource.Attribute.borderlessButtonStyle;
+			global::System.Application.Resource.Attribute.borderWidth = global::System.Application.Launch.Resource.Attribute.borderWidth;
+			global::System.Application.Resource.Attribute.bottomAppBarStyle = global::System.Application.Launch.Resource.Attribute.bottomAppBarStyle;
+			global::System.Application.Resource.Attribute.bottomNavigationStyle = global::System.Application.Launch.Resource.Attribute.bottomNavigationStyle;
+			global::System.Application.Resource.Attribute.bottomSheetDialogTheme = global::System.Application.Launch.Resource.Attribute.bottomSheetDialogTheme;
+			global::System.Application.Resource.Attribute.bottomSheetStyle = global::System.Application.Launch.Resource.Attribute.bottomSheetStyle;
+			global::System.Application.Resource.Attribute.boxBackgroundColor = global::System.Application.Launch.Resource.Attribute.boxBackgroundColor;
+			global::System.Application.Resource.Attribute.boxBackgroundMode = global::System.Application.Launch.Resource.Attribute.boxBackgroundMode;
+			global::System.Application.Resource.Attribute.boxCollapsedPaddingTop = global::System.Application.Launch.Resource.Attribute.boxCollapsedPaddingTop;
+			global::System.Application.Resource.Attribute.boxCornerRadiusBottomEnd = global::System.Application.Launch.Resource.Attribute.boxCornerRadiusBottomEnd;
+			global::System.Application.Resource.Attribute.boxCornerRadiusBottomStart = global::System.Application.Launch.Resource.Attribute.boxCornerRadiusBottomStart;
+			global::System.Application.Resource.Attribute.boxCornerRadiusTopEnd = global::System.Application.Launch.Resource.Attribute.boxCornerRadiusTopEnd;
+			global::System.Application.Resource.Attribute.boxCornerRadiusTopStart = global::System.Application.Launch.Resource.Attribute.boxCornerRadiusTopStart;
+			global::System.Application.Resource.Attribute.boxStrokeColor = global::System.Application.Launch.Resource.Attribute.boxStrokeColor;
+			global::System.Application.Resource.Attribute.boxStrokeErrorColor = global::System.Application.Launch.Resource.Attribute.boxStrokeErrorColor;
+			global::System.Application.Resource.Attribute.boxStrokeWidth = global::System.Application.Launch.Resource.Attribute.boxStrokeWidth;
+			global::System.Application.Resource.Attribute.boxStrokeWidthFocused = global::System.Application.Launch.Resource.Attribute.boxStrokeWidthFocused;
+			global::System.Application.Resource.Attribute.buttonBarButtonStyle = global::System.Application.Launch.Resource.Attribute.buttonBarButtonStyle;
+			global::System.Application.Resource.Attribute.buttonBarNegativeButtonStyle = global::System.Application.Launch.Resource.Attribute.buttonBarNegativeButtonStyle;
+			global::System.Application.Resource.Attribute.buttonBarNeutralButtonStyle = global::System.Application.Launch.Resource.Attribute.buttonBarNeutralButtonStyle;
+			global::System.Application.Resource.Attribute.buttonBarPositiveButtonStyle = global::System.Application.Launch.Resource.Attribute.buttonBarPositiveButtonStyle;
+			global::System.Application.Resource.Attribute.buttonBarStyle = global::System.Application.Launch.Resource.Attribute.buttonBarStyle;
+			global::System.Application.Resource.Attribute.buttonCompat = global::System.Application.Launch.Resource.Attribute.buttonCompat;
+			global::System.Application.Resource.Attribute.buttonGravity = global::System.Application.Launch.Resource.Attribute.buttonGravity;
+			global::System.Application.Resource.Attribute.buttonIconDimen = global::System.Application.Launch.Resource.Attribute.buttonIconDimen;
+			global::System.Application.Resource.Attribute.buttonPanelSideLayout = global::System.Application.Launch.Resource.Attribute.buttonPanelSideLayout;
+			global::System.Application.Resource.Attribute.buttonStyle = global::System.Application.Launch.Resource.Attribute.buttonStyle;
+			global::System.Application.Resource.Attribute.buttonStyleSmall = global::System.Application.Launch.Resource.Attribute.buttonStyleSmall;
+			global::System.Application.Resource.Attribute.buttonTint = global::System.Application.Launch.Resource.Attribute.buttonTint;
+			global::System.Application.Resource.Attribute.buttonTintMode = global::System.Application.Launch.Resource.Attribute.buttonTintMode;
+			global::System.Application.Resource.Attribute.cardBackgroundColor = global::System.Application.Launch.Resource.Attribute.cardBackgroundColor;
+			global::System.Application.Resource.Attribute.cardCornerRadius = global::System.Application.Launch.Resource.Attribute.cardCornerRadius;
+			global::System.Application.Resource.Attribute.cardElevation = global::System.Application.Launch.Resource.Attribute.cardElevation;
+			global::System.Application.Resource.Attribute.cardForegroundColor = global::System.Application.Launch.Resource.Attribute.cardForegroundColor;
+			global::System.Application.Resource.Attribute.cardMaxElevation = global::System.Application.Launch.Resource.Attribute.cardMaxElevation;
+			global::System.Application.Resource.Attribute.cardPreventCornerOverlap = global::System.Application.Launch.Resource.Attribute.cardPreventCornerOverlap;
+			global::System.Application.Resource.Attribute.cardUseCompatPadding = global::System.Application.Launch.Resource.Attribute.cardUseCompatPadding;
+			global::System.Application.Resource.Attribute.cardViewStyle = global::System.Application.Launch.Resource.Attribute.cardViewStyle;
+			global::System.Application.Resource.Attribute.checkboxStyle = global::System.Application.Launch.Resource.Attribute.checkboxStyle;
+			global::System.Application.Resource.Attribute.checkedButton = global::System.Application.Launch.Resource.Attribute.checkedButton;
+			global::System.Application.Resource.Attribute.checkedChip = global::System.Application.Launch.Resource.Attribute.checkedChip;
+			global::System.Application.Resource.Attribute.checkedIcon = global::System.Application.Launch.Resource.Attribute.checkedIcon;
+			global::System.Application.Resource.Attribute.checkedIconEnabled = global::System.Application.Launch.Resource.Attribute.checkedIconEnabled;
+			global::System.Application.Resource.Attribute.checkedIconTint = global::System.Application.Launch.Resource.Attribute.checkedIconTint;
+			global::System.Application.Resource.Attribute.checkedIconVisible = global::System.Application.Launch.Resource.Attribute.checkedIconVisible;
+			global::System.Application.Resource.Attribute.checkedTextViewStyle = global::System.Application.Launch.Resource.Attribute.checkedTextViewStyle;
+			global::System.Application.Resource.Attribute.chipBackgroundColor = global::System.Application.Launch.Resource.Attribute.chipBackgroundColor;
+			global::System.Application.Resource.Attribute.chipCornerRadius = global::System.Application.Launch.Resource.Attribute.chipCornerRadius;
+			global::System.Application.Resource.Attribute.chipEndPadding = global::System.Application.Launch.Resource.Attribute.chipEndPadding;
+			global::System.Application.Resource.Attribute.chipGroupStyle = global::System.Application.Launch.Resource.Attribute.chipGroupStyle;
+			global::System.Application.Resource.Attribute.chipIcon = global::System.Application.Launch.Resource.Attribute.chipIcon;
+			global::System.Application.Resource.Attribute.chipIconEnabled = global::System.Application.Launch.Resource.Attribute.chipIconEnabled;
+			global::System.Application.Resource.Attribute.chipIconSize = global::System.Application.Launch.Resource.Attribute.chipIconSize;
+			global::System.Application.Resource.Attribute.chipIconTint = global::System.Application.Launch.Resource.Attribute.chipIconTint;
+			global::System.Application.Resource.Attribute.chipIconVisible = global::System.Application.Launch.Resource.Attribute.chipIconVisible;
+			global::System.Application.Resource.Attribute.chipMinHeight = global::System.Application.Launch.Resource.Attribute.chipMinHeight;
+			global::System.Application.Resource.Attribute.chipMinTouchTargetSize = global::System.Application.Launch.Resource.Attribute.chipMinTouchTargetSize;
+			global::System.Application.Resource.Attribute.chipSpacing = global::System.Application.Launch.Resource.Attribute.chipSpacing;
+			global::System.Application.Resource.Attribute.chipSpacingHorizontal = global::System.Application.Launch.Resource.Attribute.chipSpacingHorizontal;
+			global::System.Application.Resource.Attribute.chipSpacingVertical = global::System.Application.Launch.Resource.Attribute.chipSpacingVertical;
+			global::System.Application.Resource.Attribute.chipStandaloneStyle = global::System.Application.Launch.Resource.Attribute.chipStandaloneStyle;
+			global::System.Application.Resource.Attribute.chipStartPadding = global::System.Application.Launch.Resource.Attribute.chipStartPadding;
+			global::System.Application.Resource.Attribute.chipStrokeColor = global::System.Application.Launch.Resource.Attribute.chipStrokeColor;
+			global::System.Application.Resource.Attribute.chipStrokeWidth = global::System.Application.Launch.Resource.Attribute.chipStrokeWidth;
+			global::System.Application.Resource.Attribute.chipStyle = global::System.Application.Launch.Resource.Attribute.chipStyle;
+			global::System.Application.Resource.Attribute.chipSurfaceColor = global::System.Application.Launch.Resource.Attribute.chipSurfaceColor;
+			global::System.Application.Resource.Attribute.closeIcon = global::System.Application.Launch.Resource.Attribute.closeIcon;
+			global::System.Application.Resource.Attribute.closeIconEnabled = global::System.Application.Launch.Resource.Attribute.closeIconEnabled;
+			global::System.Application.Resource.Attribute.closeIconEndPadding = global::System.Application.Launch.Resource.Attribute.closeIconEndPadding;
+			global::System.Application.Resource.Attribute.closeIconSize = global::System.Application.Launch.Resource.Attribute.closeIconSize;
+			global::System.Application.Resource.Attribute.closeIconStartPadding = global::System.Application.Launch.Resource.Attribute.closeIconStartPadding;
+			global::System.Application.Resource.Attribute.closeIconTint = global::System.Application.Launch.Resource.Attribute.closeIconTint;
+			global::System.Application.Resource.Attribute.closeIconVisible = global::System.Application.Launch.Resource.Attribute.closeIconVisible;
+			global::System.Application.Resource.Attribute.closeItemLayout = global::System.Application.Launch.Resource.Attribute.closeItemLayout;
+			global::System.Application.Resource.Attribute.collapseContentDescription = global::System.Application.Launch.Resource.Attribute.collapseContentDescription;
+			global::System.Application.Resource.Attribute.collapsedTitleGravity = global::System.Application.Launch.Resource.Attribute.collapsedTitleGravity;
+			global::System.Application.Resource.Attribute.collapsedTitleTextAppearance = global::System.Application.Launch.Resource.Attribute.collapsedTitleTextAppearance;
+			global::System.Application.Resource.Attribute.collapseIcon = global::System.Application.Launch.Resource.Attribute.collapseIcon;
+			global::System.Application.Resource.Attribute.collectionViewStyle = global::System.Application.Launch.Resource.Attribute.collectionViewStyle;
+			global::System.Application.Resource.Attribute.color = global::System.Application.Launch.Resource.Attribute.color;
+			global::System.Application.Resource.Attribute.colorAccent = global::System.Application.Launch.Resource.Attribute.colorAccent;
+			global::System.Application.Resource.Attribute.colorBackgroundFloating = global::System.Application.Launch.Resource.Attribute.colorBackgroundFloating;
+			global::System.Application.Resource.Attribute.colorButtonNormal = global::System.Application.Launch.Resource.Attribute.colorButtonNormal;
+			global::System.Application.Resource.Attribute.colorControlActivated = global::System.Application.Launch.Resource.Attribute.colorControlActivated;
+			global::System.Application.Resource.Attribute.colorControlHighlight = global::System.Application.Launch.Resource.Attribute.colorControlHighlight;
+			global::System.Application.Resource.Attribute.colorControlNormal = global::System.Application.Launch.Resource.Attribute.colorControlNormal;
+			global::System.Application.Resource.Attribute.colorError = global::System.Application.Launch.Resource.Attribute.colorError;
+			global::System.Application.Resource.Attribute.colorOnBackground = global::System.Application.Launch.Resource.Attribute.colorOnBackground;
+			global::System.Application.Resource.Attribute.colorOnError = global::System.Application.Launch.Resource.Attribute.colorOnError;
+			global::System.Application.Resource.Attribute.colorOnPrimary = global::System.Application.Launch.Resource.Attribute.colorOnPrimary;
+			global::System.Application.Resource.Attribute.colorOnPrimarySurface = global::System.Application.Launch.Resource.Attribute.colorOnPrimarySurface;
+			global::System.Application.Resource.Attribute.colorOnSecondary = global::System.Application.Launch.Resource.Attribute.colorOnSecondary;
+			global::System.Application.Resource.Attribute.colorOnSurface = global::System.Application.Launch.Resource.Attribute.colorOnSurface;
+			global::System.Application.Resource.Attribute.colorPrimary = global::System.Application.Launch.Resource.Attribute.colorPrimary;
+			global::System.Application.Resource.Attribute.colorPrimaryDark = global::System.Application.Launch.Resource.Attribute.colorPrimaryDark;
+			global::System.Application.Resource.Attribute.colorPrimarySurface = global::System.Application.Launch.Resource.Attribute.colorPrimarySurface;
+			global::System.Application.Resource.Attribute.colorPrimaryVariant = global::System.Application.Launch.Resource.Attribute.colorPrimaryVariant;
+			global::System.Application.Resource.Attribute.colorSecondary = global::System.Application.Launch.Resource.Attribute.colorSecondary;
+			global::System.Application.Resource.Attribute.colorSecondaryVariant = global::System.Application.Launch.Resource.Attribute.colorSecondaryVariant;
+			global::System.Application.Resource.Attribute.colorSurface = global::System.Application.Launch.Resource.Attribute.colorSurface;
+			global::System.Application.Resource.Attribute.colorSwitchThumbNormal = global::System.Application.Launch.Resource.Attribute.colorSwitchThumbNormal;
+			global::System.Application.Resource.Attribute.commitIcon = global::System.Application.Launch.Resource.Attribute.commitIcon;
+			global::System.Application.Resource.Attribute.contentDescription = global::System.Application.Launch.Resource.Attribute.contentDescription;
+			global::System.Application.Resource.Attribute.contentInsetEnd = global::System.Application.Launch.Resource.Attribute.contentInsetEnd;
+			global::System.Application.Resource.Attribute.contentInsetEndWithActions = global::System.Application.Launch.Resource.Attribute.contentInsetEndWithActions;
+			global::System.Application.Resource.Attribute.contentInsetLeft = global::System.Application.Launch.Resource.Attribute.contentInsetLeft;
+			global::System.Application.Resource.Attribute.contentInsetRight = global::System.Application.Launch.Resource.Attribute.contentInsetRight;
+			global::System.Application.Resource.Attribute.contentInsetStart = global::System.Application.Launch.Resource.Attribute.contentInsetStart;
+			global::System.Application.Resource.Attribute.contentInsetStartWithNavigation = global::System.Application.Launch.Resource.Attribute.contentInsetStartWithNavigation;
+			global::System.Application.Resource.Attribute.contentPadding = global::System.Application.Launch.Resource.Attribute.contentPadding;
+			global::System.Application.Resource.Attribute.contentPaddingBottom = global::System.Application.Launch.Resource.Attribute.contentPaddingBottom;
+			global::System.Application.Resource.Attribute.contentPaddingLeft = global::System.Application.Launch.Resource.Attribute.contentPaddingLeft;
+			global::System.Application.Resource.Attribute.contentPaddingRight = global::System.Application.Launch.Resource.Attribute.contentPaddingRight;
+			global::System.Application.Resource.Attribute.contentPaddingTop = global::System.Application.Launch.Resource.Attribute.contentPaddingTop;
+			global::System.Application.Resource.Attribute.contentScrim = global::System.Application.Launch.Resource.Attribute.contentScrim;
+			global::System.Application.Resource.Attribute.controlBackground = global::System.Application.Launch.Resource.Attribute.controlBackground;
+			global::System.Application.Resource.Attribute.coordinatorLayoutStyle = global::System.Application.Launch.Resource.Attribute.coordinatorLayoutStyle;
+			global::System.Application.Resource.Attribute.cornerFamily = global::System.Application.Launch.Resource.Attribute.cornerFamily;
+			global::System.Application.Resource.Attribute.cornerFamilyBottomLeft = global::System.Application.Launch.Resource.Attribute.cornerFamilyBottomLeft;
+			global::System.Application.Resource.Attribute.cornerFamilyBottomRight = global::System.Application.Launch.Resource.Attribute.cornerFamilyBottomRight;
+			global::System.Application.Resource.Attribute.cornerFamilyTopLeft = global::System.Application.Launch.Resource.Attribute.cornerFamilyTopLeft;
+			global::System.Application.Resource.Attribute.cornerFamilyTopRight = global::System.Application.Launch.Resource.Attribute.cornerFamilyTopRight;
+			global::System.Application.Resource.Attribute.cornerRadius = global::System.Application.Launch.Resource.Attribute.cornerRadius;
+			global::System.Application.Resource.Attribute.cornerSize = global::System.Application.Launch.Resource.Attribute.cornerSize;
+			global::System.Application.Resource.Attribute.cornerSizeBottomLeft = global::System.Application.Launch.Resource.Attribute.cornerSizeBottomLeft;
+			global::System.Application.Resource.Attribute.cornerSizeBottomRight = global::System.Application.Launch.Resource.Attribute.cornerSizeBottomRight;
+			global::System.Application.Resource.Attribute.cornerSizeTopLeft = global::System.Application.Launch.Resource.Attribute.cornerSizeTopLeft;
+			global::System.Application.Resource.Attribute.cornerSizeTopRight = global::System.Application.Launch.Resource.Attribute.cornerSizeTopRight;
+			global::System.Application.Resource.Attribute.counterEnabled = global::System.Application.Launch.Resource.Attribute.counterEnabled;
+			global::System.Application.Resource.Attribute.counterMaxLength = global::System.Application.Launch.Resource.Attribute.counterMaxLength;
+			global::System.Application.Resource.Attribute.counterOverflowTextAppearance = global::System.Application.Launch.Resource.Attribute.counterOverflowTextAppearance;
+			global::System.Application.Resource.Attribute.counterOverflowTextColor = global::System.Application.Launch.Resource.Attribute.counterOverflowTextColor;
+			global::System.Application.Resource.Attribute.counterTextAppearance = global::System.Application.Launch.Resource.Attribute.counterTextAppearance;
+			global::System.Application.Resource.Attribute.counterTextColor = global::System.Application.Launch.Resource.Attribute.counterTextColor;
+			global::System.Application.Resource.Attribute.customNavigationLayout = global::System.Application.Launch.Resource.Attribute.customNavigationLayout;
+			global::System.Application.Resource.Attribute.dayInvalidStyle = global::System.Application.Launch.Resource.Attribute.dayInvalidStyle;
+			global::System.Application.Resource.Attribute.daySelectedStyle = global::System.Application.Launch.Resource.Attribute.daySelectedStyle;
+			global::System.Application.Resource.Attribute.dayStyle = global::System.Application.Launch.Resource.Attribute.dayStyle;
+			global::System.Application.Resource.Attribute.dayTodayStyle = global::System.Application.Launch.Resource.Attribute.dayTodayStyle;
+			global::System.Application.Resource.Attribute.defaultQueryHint = global::System.Application.Launch.Resource.Attribute.defaultQueryHint;
+			global::System.Application.Resource.Attribute.dialogCornerRadius = global::System.Application.Launch.Resource.Attribute.dialogCornerRadius;
+			global::System.Application.Resource.Attribute.dialogPreferredPadding = global::System.Application.Launch.Resource.Attribute.dialogPreferredPadding;
+			global::System.Application.Resource.Attribute.dialogTheme = global::System.Application.Launch.Resource.Attribute.dialogTheme;
+			global::System.Application.Resource.Attribute.displayOptions = global::System.Application.Launch.Resource.Attribute.displayOptions;
+			global::System.Application.Resource.Attribute.divider = global::System.Application.Launch.Resource.Attribute.divider;
+			global::System.Application.Resource.Attribute.dividerHorizontal = global::System.Application.Launch.Resource.Attribute.dividerHorizontal;
+			global::System.Application.Resource.Attribute.dividerPadding = global::System.Application.Launch.Resource.Attribute.dividerPadding;
+			global::System.Application.Resource.Attribute.dividerVertical = global::System.Application.Launch.Resource.Attribute.dividerVertical;
+			global::System.Application.Resource.Attribute.drawableBottomCompat = global::System.Application.Launch.Resource.Attribute.drawableBottomCompat;
+			global::System.Application.Resource.Attribute.drawableEndCompat = global::System.Application.Launch.Resource.Attribute.drawableEndCompat;
+			global::System.Application.Resource.Attribute.drawableLeftCompat = global::System.Application.Launch.Resource.Attribute.drawableLeftCompat;
+			global::System.Application.Resource.Attribute.drawableRightCompat = global::System.Application.Launch.Resource.Attribute.drawableRightCompat;
+			global::System.Application.Resource.Attribute.drawableSize = global::System.Application.Launch.Resource.Attribute.drawableSize;
+			global::System.Application.Resource.Attribute.drawableStartCompat = global::System.Application.Launch.Resource.Attribute.drawableStartCompat;
+			global::System.Application.Resource.Attribute.drawableTint = global::System.Application.Launch.Resource.Attribute.drawableTint;
+			global::System.Application.Resource.Attribute.drawableTintMode = global::System.Application.Launch.Resource.Attribute.drawableTintMode;
+			global::System.Application.Resource.Attribute.drawableTopCompat = global::System.Application.Launch.Resource.Attribute.drawableTopCompat;
+			global::System.Application.Resource.Attribute.drawerArrowStyle = global::System.Application.Launch.Resource.Attribute.drawerArrowStyle;
+			global::System.Application.Resource.Attribute.drawerLayoutStyle = global::System.Application.Launch.Resource.Attribute.drawerLayoutStyle;
+			global::System.Application.Resource.Attribute.dropdownListPreferredItemHeight = global::System.Application.Launch.Resource.Attribute.dropdownListPreferredItemHeight;
+			global::System.Application.Resource.Attribute.dropDownListViewStyle = global::System.Application.Launch.Resource.Attribute.dropDownListViewStyle;
+			global::System.Application.Resource.Attribute.editTextBackground = global::System.Application.Launch.Resource.Attribute.editTextBackground;
+			global::System.Application.Resource.Attribute.editTextColor = global::System.Application.Launch.Resource.Attribute.editTextColor;
+			global::System.Application.Resource.Attribute.editTextStyle = global::System.Application.Launch.Resource.Attribute.editTextStyle;
+			global::System.Application.Resource.Attribute.elevation = global::System.Application.Launch.Resource.Attribute.elevation;
+			global::System.Application.Resource.Attribute.elevationOverlayColor = global::System.Application.Launch.Resource.Attribute.elevationOverlayColor;
+			global::System.Application.Resource.Attribute.elevationOverlayEnabled = global::System.Application.Launch.Resource.Attribute.elevationOverlayEnabled;
+			global::System.Application.Resource.Attribute.endIconCheckable = global::System.Application.Launch.Resource.Attribute.endIconCheckable;
+			global::System.Application.Resource.Attribute.endIconContentDescription = global::System.Application.Launch.Resource.Attribute.endIconContentDescription;
+			global::System.Application.Resource.Attribute.endIconDrawable = global::System.Application.Launch.Resource.Attribute.endIconDrawable;
+			global::System.Application.Resource.Attribute.endIconMode = global::System.Application.Launch.Resource.Attribute.endIconMode;
+			global::System.Application.Resource.Attribute.endIconTint = global::System.Application.Launch.Resource.Attribute.endIconTint;
+			global::System.Application.Resource.Attribute.endIconTintMode = global::System.Application.Launch.Resource.Attribute.endIconTintMode;
+			global::System.Application.Resource.Attribute.enforceMaterialTheme = global::System.Application.Launch.Resource.Attribute.enforceMaterialTheme;
+			global::System.Application.Resource.Attribute.enforceTextAppearance = global::System.Application.Launch.Resource.Attribute.enforceTextAppearance;
+			global::System.Application.Resource.Attribute.ensureMinTouchTargetSize = global::System.Application.Launch.Resource.Attribute.ensureMinTouchTargetSize;
+			global::System.Application.Resource.Attribute.errorContentDescription = global::System.Application.Launch.Resource.Attribute.errorContentDescription;
+			global::System.Application.Resource.Attribute.errorEnabled = global::System.Application.Launch.Resource.Attribute.errorEnabled;
+			global::System.Application.Resource.Attribute.errorIconDrawable = global::System.Application.Launch.Resource.Attribute.errorIconDrawable;
+			global::System.Application.Resource.Attribute.errorIconTint = global::System.Application.Launch.Resource.Attribute.errorIconTint;
+			global::System.Application.Resource.Attribute.errorIconTintMode = global::System.Application.Launch.Resource.Attribute.errorIconTintMode;
+			global::System.Application.Resource.Attribute.errorTextAppearance = global::System.Application.Launch.Resource.Attribute.errorTextAppearance;
+			global::System.Application.Resource.Attribute.errorTextColor = global::System.Application.Launch.Resource.Attribute.errorTextColor;
+			global::System.Application.Resource.Attribute.expandActivityOverflowButtonDrawable = global::System.Application.Launch.Resource.Attribute.expandActivityOverflowButtonDrawable;
+			global::System.Application.Resource.Attribute.expanded = global::System.Application.Launch.Resource.Attribute.expanded;
+			global::System.Application.Resource.Attribute.expandedTitleGravity = global::System.Application.Launch.Resource.Attribute.expandedTitleGravity;
+			global::System.Application.Resource.Attribute.expandedTitleMargin = global::System.Application.Launch.Resource.Attribute.expandedTitleMargin;
+			global::System.Application.Resource.Attribute.expandedTitleMarginBottom = global::System.Application.Launch.Resource.Attribute.expandedTitleMarginBottom;
+			global::System.Application.Resource.Attribute.expandedTitleMarginEnd = global::System.Application.Launch.Resource.Attribute.expandedTitleMarginEnd;
+			global::System.Application.Resource.Attribute.expandedTitleMarginStart = global::System.Application.Launch.Resource.Attribute.expandedTitleMarginStart;
+			global::System.Application.Resource.Attribute.expandedTitleMarginTop = global::System.Application.Launch.Resource.Attribute.expandedTitleMarginTop;
+			global::System.Application.Resource.Attribute.expandedTitleTextAppearance = global::System.Application.Launch.Resource.Attribute.expandedTitleTextAppearance;
+			global::System.Application.Resource.Attribute.extendedFloatingActionButtonStyle = global::System.Application.Launch.Resource.Attribute.extendedFloatingActionButtonStyle;
+			global::System.Application.Resource.Attribute.extendMotionSpec = global::System.Application.Launch.Resource.Attribute.extendMotionSpec;
+			global::System.Application.Resource.Attribute.fabAlignmentMode = global::System.Application.Launch.Resource.Attribute.fabAlignmentMode;
+			global::System.Application.Resource.Attribute.fabAnimationMode = global::System.Application.Launch.Resource.Attribute.fabAnimationMode;
+			global::System.Application.Resource.Attribute.fabCradleMargin = global::System.Application.Launch.Resource.Attribute.fabCradleMargin;
+			global::System.Application.Resource.Attribute.fabCradleRoundedCornerRadius = global::System.Application.Launch.Resource.Attribute.fabCradleRoundedCornerRadius;
+			global::System.Application.Resource.Attribute.fabCradleVerticalOffset = global::System.Application.Launch.Resource.Attribute.fabCradleVerticalOffset;
+			global::System.Application.Resource.Attribute.fabCustomSize = global::System.Application.Launch.Resource.Attribute.fabCustomSize;
+			global::System.Application.Resource.Attribute.fabSize = global::System.Application.Launch.Resource.Attribute.fabSize;
+			global::System.Application.Resource.Attribute.fastScrollEnabled = global::System.Application.Launch.Resource.Attribute.fastScrollEnabled;
+			global::System.Application.Resource.Attribute.fastScrollHorizontalThumbDrawable = global::System.Application.Launch.Resource.Attribute.fastScrollHorizontalThumbDrawable;
+			global::System.Application.Resource.Attribute.fastScrollHorizontalTrackDrawable = global::System.Application.Launch.Resource.Attribute.fastScrollHorizontalTrackDrawable;
+			global::System.Application.Resource.Attribute.fastScrollVerticalThumbDrawable = global::System.Application.Launch.Resource.Attribute.fastScrollVerticalThumbDrawable;
+			global::System.Application.Resource.Attribute.fastScrollVerticalTrackDrawable = global::System.Application.Launch.Resource.Attribute.fastScrollVerticalTrackDrawable;
+			global::System.Application.Resource.Attribute.firstBaselineToTopHeight = global::System.Application.Launch.Resource.Attribute.firstBaselineToTopHeight;
+			global::System.Application.Resource.Attribute.floatingActionButtonStyle = global::System.Application.Launch.Resource.Attribute.floatingActionButtonStyle;
+			global::System.Application.Resource.Attribute.font = global::System.Application.Launch.Resource.Attribute.font;
+			global::System.Application.Resource.Attribute.fontFamily = global::System.Application.Launch.Resource.Attribute.fontFamily;
+			global::System.Application.Resource.Attribute.fontProviderAuthority = global::System.Application.Launch.Resource.Attribute.fontProviderAuthority;
+			global::System.Application.Resource.Attribute.fontProviderCerts = global::System.Application.Launch.Resource.Attribute.fontProviderCerts;
+			global::System.Application.Resource.Attribute.fontProviderFetchStrategy = global::System.Application.Launch.Resource.Attribute.fontProviderFetchStrategy;
+			global::System.Application.Resource.Attribute.fontProviderFetchTimeout = global::System.Application.Launch.Resource.Attribute.fontProviderFetchTimeout;
+			global::System.Application.Resource.Attribute.fontProviderPackage = global::System.Application.Launch.Resource.Attribute.fontProviderPackage;
+			global::System.Application.Resource.Attribute.fontProviderQuery = global::System.Application.Launch.Resource.Attribute.fontProviderQuery;
+			global::System.Application.Resource.Attribute.fontStyle = global::System.Application.Launch.Resource.Attribute.fontStyle;
+			global::System.Application.Resource.Attribute.fontVariationSettings = global::System.Application.Launch.Resource.Attribute.fontVariationSettings;
+			global::System.Application.Resource.Attribute.fontWeight = global::System.Application.Launch.Resource.Attribute.fontWeight;
+			global::System.Application.Resource.Attribute.foregroundInsidePadding = global::System.Application.Launch.Resource.Attribute.foregroundInsidePadding;
+			global::System.Application.Resource.Attribute.gapBetweenBars = global::System.Application.Launch.Resource.Attribute.gapBetweenBars;
+			global::System.Application.Resource.Attribute.gestureInsetBottomIgnored = global::System.Application.Launch.Resource.Attribute.gestureInsetBottomIgnored;
+			global::System.Application.Resource.Attribute.goIcon = global::System.Application.Launch.Resource.Attribute.goIcon;
+			global::System.Application.Resource.Attribute.haloColor = global::System.Application.Launch.Resource.Attribute.haloColor;
+			global::System.Application.Resource.Attribute.haloRadius = global::System.Application.Launch.Resource.Attribute.haloRadius;
+			global::System.Application.Resource.Attribute.headerLayout = global::System.Application.Launch.Resource.Attribute.headerLayout;
+			global::System.Application.Resource.Attribute.height = global::System.Application.Launch.Resource.Attribute.height;
+			global::System.Application.Resource.Attribute.helperText = global::System.Application.Launch.Resource.Attribute.helperText;
+			global::System.Application.Resource.Attribute.helperTextEnabled = global::System.Application.Launch.Resource.Attribute.helperTextEnabled;
+			global::System.Application.Resource.Attribute.helperTextTextAppearance = global::System.Application.Launch.Resource.Attribute.helperTextTextAppearance;
+			global::System.Application.Resource.Attribute.helperTextTextColor = global::System.Application.Launch.Resource.Attribute.helperTextTextColor;
+			global::System.Application.Resource.Attribute.hideMotionSpec = global::System.Application.Launch.Resource.Attribute.hideMotionSpec;
+			global::System.Application.Resource.Attribute.hideOnContentScroll = global::System.Application.Launch.Resource.Attribute.hideOnContentScroll;
+			global::System.Application.Resource.Attribute.hideOnScroll = global::System.Application.Launch.Resource.Attribute.hideOnScroll;
+			global::System.Application.Resource.Attribute.hintAnimationEnabled = global::System.Application.Launch.Resource.Attribute.hintAnimationEnabled;
+			global::System.Application.Resource.Attribute.hintEnabled = global::System.Application.Launch.Resource.Attribute.hintEnabled;
+			global::System.Application.Resource.Attribute.hintTextAppearance = global::System.Application.Launch.Resource.Attribute.hintTextAppearance;
+			global::System.Application.Resource.Attribute.hintTextColor = global::System.Application.Launch.Resource.Attribute.hintTextColor;
+			global::System.Application.Resource.Attribute.homeAsUpIndicator = global::System.Application.Launch.Resource.Attribute.homeAsUpIndicator;
+			global::System.Application.Resource.Attribute.homeLayout = global::System.Application.Launch.Resource.Attribute.homeLayout;
+			global::System.Application.Resource.Attribute.horizontalOffset = global::System.Application.Launch.Resource.Attribute.horizontalOffset;
+			global::System.Application.Resource.Attribute.hoveredFocusedTranslationZ = global::System.Application.Launch.Resource.Attribute.hoveredFocusedTranslationZ;
+			global::System.Application.Resource.Attribute.icon = global::System.Application.Launch.Resource.Attribute.icon;
+			global::System.Application.Resource.Attribute.iconEndPadding = global::System.Application.Launch.Resource.Attribute.iconEndPadding;
+			global::System.Application.Resource.Attribute.iconGravity = global::System.Application.Launch.Resource.Attribute.iconGravity;
+			global::System.Application.Resource.Attribute.iconifiedByDefault = global::System.Application.Launch.Resource.Attribute.iconifiedByDefault;
+			global::System.Application.Resource.Attribute.iconPadding = global::System.Application.Launch.Resource.Attribute.iconPadding;
+			global::System.Application.Resource.Attribute.iconSize = global::System.Application.Launch.Resource.Attribute.iconSize;
+			global::System.Application.Resource.Attribute.iconStartPadding = global::System.Application.Launch.Resource.Attribute.iconStartPadding;
+			global::System.Application.Resource.Attribute.iconTint = global::System.Application.Launch.Resource.Attribute.iconTint;
+			global::System.Application.Resource.Attribute.iconTintMode = global::System.Application.Launch.Resource.Attribute.iconTintMode;
+			global::System.Application.Resource.Attribute.imageButtonStyle = global::System.Application.Launch.Resource.Attribute.imageButtonStyle;
+			global::System.Application.Resource.Attribute.indeterminateProgressStyle = global::System.Application.Launch.Resource.Attribute.indeterminateProgressStyle;
+			global::System.Application.Resource.Attribute.initialActivityCount = global::System.Application.Launch.Resource.Attribute.initialActivityCount;
+			global::System.Application.Resource.Attribute.insetForeground = global::System.Application.Launch.Resource.Attribute.insetForeground;
+			global::System.Application.Resource.Attribute.isLightTheme = global::System.Application.Launch.Resource.Attribute.isLightTheme;
+			global::System.Application.Resource.Attribute.isMaterialTheme = global::System.Application.Launch.Resource.Attribute.isMaterialTheme;
+			global::System.Application.Resource.Attribute.itemBackground = global::System.Application.Launch.Resource.Attribute.itemBackground;
+			global::System.Application.Resource.Attribute.itemFillColor = global::System.Application.Launch.Resource.Attribute.itemFillColor;
+			global::System.Application.Resource.Attribute.itemHorizontalPadding = global::System.Application.Launch.Resource.Attribute.itemHorizontalPadding;
+			global::System.Application.Resource.Attribute.itemHorizontalTranslationEnabled = global::System.Application.Launch.Resource.Attribute.itemHorizontalTranslationEnabled;
+			global::System.Application.Resource.Attribute.itemIconPadding = global::System.Application.Launch.Resource.Attribute.itemIconPadding;
+			global::System.Application.Resource.Attribute.itemIconSize = global::System.Application.Launch.Resource.Attribute.itemIconSize;
+			global::System.Application.Resource.Attribute.itemIconTint = global::System.Application.Launch.Resource.Attribute.itemIconTint;
+			global::System.Application.Resource.Attribute.itemMaxLines = global::System.Application.Launch.Resource.Attribute.itemMaxLines;
+			global::System.Application.Resource.Attribute.itemPadding = global::System.Application.Launch.Resource.Attribute.itemPadding;
+			global::System.Application.Resource.Attribute.itemRippleColor = global::System.Application.Launch.Resource.Attribute.itemRippleColor;
+			global::System.Application.Resource.Attribute.itemShapeAppearance = global::System.Application.Launch.Resource.Attribute.itemShapeAppearance;
+			global::System.Application.Resource.Attribute.itemShapeAppearanceOverlay = global::System.Application.Launch.Resource.Attribute.itemShapeAppearanceOverlay;
+			global::System.Application.Resource.Attribute.itemShapeFillColor = global::System.Application.Launch.Resource.Attribute.itemShapeFillColor;
+			global::System.Application.Resource.Attribute.itemShapeInsetBottom = global::System.Application.Launch.Resource.Attribute.itemShapeInsetBottom;
+			global::System.Application.Resource.Attribute.itemShapeInsetEnd = global::System.Application.Launch.Resource.Attribute.itemShapeInsetEnd;
+			global::System.Application.Resource.Attribute.itemShapeInsetStart = global::System.Application.Launch.Resource.Attribute.itemShapeInsetStart;
+			global::System.Application.Resource.Attribute.itemShapeInsetTop = global::System.Application.Launch.Resource.Attribute.itemShapeInsetTop;
+			global::System.Application.Resource.Attribute.itemSpacing = global::System.Application.Launch.Resource.Attribute.itemSpacing;
+			global::System.Application.Resource.Attribute.itemStrokeColor = global::System.Application.Launch.Resource.Attribute.itemStrokeColor;
+			global::System.Application.Resource.Attribute.itemStrokeWidth = global::System.Application.Launch.Resource.Attribute.itemStrokeWidth;
+			global::System.Application.Resource.Attribute.itemTextAppearance = global::System.Application.Launch.Resource.Attribute.itemTextAppearance;
+			global::System.Application.Resource.Attribute.itemTextAppearanceActive = global::System.Application.Launch.Resource.Attribute.itemTextAppearanceActive;
+			global::System.Application.Resource.Attribute.itemTextAppearanceInactive = global::System.Application.Launch.Resource.Attribute.itemTextAppearanceInactive;
+			global::System.Application.Resource.Attribute.itemTextColor = global::System.Application.Launch.Resource.Attribute.itemTextColor;
+			global::System.Application.Resource.Attribute.keylines = global::System.Application.Launch.Resource.Attribute.keylines;
+			global::System.Application.Resource.Attribute.labelBehavior = global::System.Application.Launch.Resource.Attribute.labelBehavior;
+			global::System.Application.Resource.Attribute.labelStyle = global::System.Application.Launch.Resource.Attribute.labelStyle;
+			global::System.Application.Resource.Attribute.labelVisibilityMode = global::System.Application.Launch.Resource.Attribute.labelVisibilityMode;
+			global::System.Application.Resource.Attribute.lastBaselineToBottomHeight = global::System.Application.Launch.Resource.Attribute.lastBaselineToBottomHeight;
+			global::System.Application.Resource.Attribute.layout = global::System.Application.Launch.Resource.Attribute.layout;
+			global::System.Application.Resource.Attribute.layoutManager = global::System.Application.Launch.Resource.Attribute.layoutManager;
+			global::System.Application.Resource.Attribute.layout_anchor = global::System.Application.Launch.Resource.Attribute.layout_anchor;
+			global::System.Application.Resource.Attribute.layout_anchorGravity = global::System.Application.Launch.Resource.Attribute.layout_anchorGravity;
+			global::System.Application.Resource.Attribute.layout_behavior = global::System.Application.Launch.Resource.Attribute.layout_behavior;
+			global::System.Application.Resource.Attribute.layout_collapseMode = global::System.Application.Launch.Resource.Attribute.layout_collapseMode;
+			global::System.Application.Resource.Attribute.layout_collapseParallaxMultiplier = global::System.Application.Launch.Resource.Attribute.layout_collapseParallaxMultiplier;
+			global::System.Application.Resource.Attribute.layout_dodgeInsetEdges = global::System.Application.Launch.Resource.Attribute.layout_dodgeInsetEdges;
+			global::System.Application.Resource.Attribute.layout_insetEdge = global::System.Application.Launch.Resource.Attribute.layout_insetEdge;
+			global::System.Application.Resource.Attribute.layout_keyline = global::System.Application.Launch.Resource.Attribute.layout_keyline;
+			global::System.Application.Resource.Attribute.layout_scrollFlags = global::System.Application.Launch.Resource.Attribute.layout_scrollFlags;
+			global::System.Application.Resource.Attribute.layout_scrollInterpolator = global::System.Application.Launch.Resource.Attribute.layout_scrollInterpolator;
+			global::System.Application.Resource.Attribute.liftOnScroll = global::System.Application.Launch.Resource.Attribute.liftOnScroll;
+			global::System.Application.Resource.Attribute.liftOnScrollTargetViewId = global::System.Application.Launch.Resource.Attribute.liftOnScrollTargetViewId;
+			global::System.Application.Resource.Attribute.lineHeight = global::System.Application.Launch.Resource.Attribute.lineHeight;
+			global::System.Application.Resource.Attribute.lineSpacing = global::System.Application.Launch.Resource.Attribute.lineSpacing;
+			global::System.Application.Resource.Attribute.listChoiceBackgroundIndicator = global::System.Application.Launch.Resource.Attribute.listChoiceBackgroundIndicator;
+			global::System.Application.Resource.Attribute.listChoiceIndicatorMultipleAnimated = global::System.Application.Launch.Resource.Attribute.listChoiceIndicatorMultipleAnimated;
+			global::System.Application.Resource.Attribute.listChoiceIndicatorSingleAnimated = global::System.Application.Launch.Resource.Attribute.listChoiceIndicatorSingleAnimated;
+			global::System.Application.Resource.Attribute.listDividerAlertDialog = global::System.Application.Launch.Resource.Attribute.listDividerAlertDialog;
+			global::System.Application.Resource.Attribute.listItemLayout = global::System.Application.Launch.Resource.Attribute.listItemLayout;
+			global::System.Application.Resource.Attribute.listLayout = global::System.Application.Launch.Resource.Attribute.listLayout;
+			global::System.Application.Resource.Attribute.listMenuViewStyle = global::System.Application.Launch.Resource.Attribute.listMenuViewStyle;
+			global::System.Application.Resource.Attribute.listPopupWindowStyle = global::System.Application.Launch.Resource.Attribute.listPopupWindowStyle;
+			global::System.Application.Resource.Attribute.listPreferredItemHeight = global::System.Application.Launch.Resource.Attribute.listPreferredItemHeight;
+			global::System.Application.Resource.Attribute.listPreferredItemHeightLarge = global::System.Application.Launch.Resource.Attribute.listPreferredItemHeightLarge;
+			global::System.Application.Resource.Attribute.listPreferredItemHeightSmall = global::System.Application.Launch.Resource.Attribute.listPreferredItemHeightSmall;
+			global::System.Application.Resource.Attribute.listPreferredItemPaddingEnd = global::System.Application.Launch.Resource.Attribute.listPreferredItemPaddingEnd;
+			global::System.Application.Resource.Attribute.listPreferredItemPaddingLeft = global::System.Application.Launch.Resource.Attribute.listPreferredItemPaddingLeft;
+			global::System.Application.Resource.Attribute.listPreferredItemPaddingRight = global::System.Application.Launch.Resource.Attribute.listPreferredItemPaddingRight;
+			global::System.Application.Resource.Attribute.listPreferredItemPaddingStart = global::System.Application.Launch.Resource.Attribute.listPreferredItemPaddingStart;
+			global::System.Application.Resource.Attribute.logo = global::System.Application.Launch.Resource.Attribute.logo;
+			global::System.Application.Resource.Attribute.logoDescription = global::System.Application.Launch.Resource.Attribute.logoDescription;
+			global::System.Application.Resource.Attribute.materialAlertDialogBodyTextStyle = global::System.Application.Launch.Resource.Attribute.materialAlertDialogBodyTextStyle;
+			global::System.Application.Resource.Attribute.materialAlertDialogTheme = global::System.Application.Launch.Resource.Attribute.materialAlertDialogTheme;
+			global::System.Application.Resource.Attribute.materialAlertDialogTitleIconStyle = global::System.Application.Launch.Resource.Attribute.materialAlertDialogTitleIconStyle;
+			global::System.Application.Resource.Attribute.materialAlertDialogTitlePanelStyle = global::System.Application.Launch.Resource.Attribute.materialAlertDialogTitlePanelStyle;
+			global::System.Application.Resource.Attribute.materialAlertDialogTitleTextStyle = global::System.Application.Launch.Resource.Attribute.materialAlertDialogTitleTextStyle;
+			global::System.Application.Resource.Attribute.materialButtonOutlinedStyle = global::System.Application.Launch.Resource.Attribute.materialButtonOutlinedStyle;
+			global::System.Application.Resource.Attribute.materialButtonStyle = global::System.Application.Launch.Resource.Attribute.materialButtonStyle;
+			global::System.Application.Resource.Attribute.materialButtonToggleGroupStyle = global::System.Application.Launch.Resource.Attribute.materialButtonToggleGroupStyle;
+			global::System.Application.Resource.Attribute.materialCalendarDay = global::System.Application.Launch.Resource.Attribute.materialCalendarDay;
+			global::System.Application.Resource.Attribute.materialCalendarFullscreenTheme = global::System.Application.Launch.Resource.Attribute.materialCalendarFullscreenTheme;
+			global::System.Application.Resource.Attribute.materialCalendarHeaderConfirmButton = global::System.Application.Launch.Resource.Attribute.materialCalendarHeaderConfirmButton;
+			global::System.Application.Resource.Attribute.materialCalendarHeaderDivider = global::System.Application.Launch.Resource.Attribute.materialCalendarHeaderDivider;
+			global::System.Application.Resource.Attribute.materialCalendarHeaderLayout = global::System.Application.Launch.Resource.Attribute.materialCalendarHeaderLayout;
+			global::System.Application.Resource.Attribute.materialCalendarHeaderSelection = global::System.Application.Launch.Resource.Attribute.materialCalendarHeaderSelection;
+			global::System.Application.Resource.Attribute.materialCalendarHeaderTitle = global::System.Application.Launch.Resource.Attribute.materialCalendarHeaderTitle;
+			global::System.Application.Resource.Attribute.materialCalendarHeaderToggleButton = global::System.Application.Launch.Resource.Attribute.materialCalendarHeaderToggleButton;
+			global::System.Application.Resource.Attribute.materialCalendarStyle = global::System.Application.Launch.Resource.Attribute.materialCalendarStyle;
+			global::System.Application.Resource.Attribute.materialCalendarTheme = global::System.Application.Launch.Resource.Attribute.materialCalendarTheme;
+			global::System.Application.Resource.Attribute.materialCardViewStyle = global::System.Application.Launch.Resource.Attribute.materialCardViewStyle;
+			global::System.Application.Resource.Attribute.materialCheckBoxStyle = global::System.Application.Launch.Resource.Attribute.materialCheckBoxStyle;
+			global::System.Application.Resource.Attribute.materialOutlinedButtonStyle = global::System.Application.Launch.Resource.Attribute.materialOutlinedButtonStyle;
+			global::System.Application.Resource.Attribute.materialProgressBarCircularStyle = global::System.Application.Launch.Resource.Attribute.materialProgressBarCircularStyle;
+			global::System.Application.Resource.Attribute.materialProgressBarHorizontalStyle = global::System.Application.Launch.Resource.Attribute.materialProgressBarHorizontalStyle;
+			global::System.Application.Resource.Attribute.materialSliderStyle = global::System.Application.Launch.Resource.Attribute.materialSliderStyle;
+			global::System.Application.Resource.Attribute.materialThemeOverlay = global::System.Application.Launch.Resource.Attribute.materialThemeOverlay;
+			global::System.Application.Resource.Attribute.maxActionInlineWidth = global::System.Application.Launch.Resource.Attribute.maxActionInlineWidth;
+			global::System.Application.Resource.Attribute.maxButtonHeight = global::System.Application.Launch.Resource.Attribute.maxButtonHeight;
+			global::System.Application.Resource.Attribute.maxCharacterCount = global::System.Application.Launch.Resource.Attribute.maxCharacterCount;
+			global::System.Application.Resource.Attribute.maxImageSize = global::System.Application.Launch.Resource.Attribute.maxImageSize;
+			global::System.Application.Resource.Attribute.maxLines = global::System.Application.Launch.Resource.Attribute.maxLines;
+			global::System.Application.Resource.Attribute.measureWithLargestChild = global::System.Application.Launch.Resource.Attribute.measureWithLargestChild;
+			global::System.Application.Resource.Attribute.menu = global::System.Application.Launch.Resource.Attribute.menu;
+			global::System.Application.Resource.Attribute.minTouchTargetSize = global::System.Application.Launch.Resource.Attribute.minTouchTargetSize;
+			global::System.Application.Resource.Attribute.multiChoiceItemLayout = global::System.Application.Launch.Resource.Attribute.multiChoiceItemLayout;
+			global::System.Application.Resource.Attribute.navigationContentDescription = global::System.Application.Launch.Resource.Attribute.navigationContentDescription;
+			global::System.Application.Resource.Attribute.navigationIcon = global::System.Application.Launch.Resource.Attribute.navigationIcon;
+			global::System.Application.Resource.Attribute.navigationMode = global::System.Application.Launch.Resource.Attribute.navigationMode;
+			global::System.Application.Resource.Attribute.navigationViewStyle = global::System.Application.Launch.Resource.Attribute.navigationViewStyle;
+			global::System.Application.Resource.Attribute.number = global::System.Application.Launch.Resource.Attribute.number;
+			global::System.Application.Resource.Attribute.numericModifiers = global::System.Application.Launch.Resource.Attribute.numericModifiers;
+			global::System.Application.Resource.Attribute.overlapAnchor = global::System.Application.Launch.Resource.Attribute.overlapAnchor;
+			global::System.Application.Resource.Attribute.paddingBottomNoButtons = global::System.Application.Launch.Resource.Attribute.paddingBottomNoButtons;
+			global::System.Application.Resource.Attribute.paddingBottomSystemWindowInsets = global::System.Application.Launch.Resource.Attribute.paddingBottomSystemWindowInsets;
+			global::System.Application.Resource.Attribute.paddingEnd = global::System.Application.Launch.Resource.Attribute.paddingEnd;
+			global::System.Application.Resource.Attribute.paddingLeftSystemWindowInsets = global::System.Application.Launch.Resource.Attribute.paddingLeftSystemWindowInsets;
+			global::System.Application.Resource.Attribute.paddingRightSystemWindowInsets = global::System.Application.Launch.Resource.Attribute.paddingRightSystemWindowInsets;
+			global::System.Application.Resource.Attribute.paddingStart = global::System.Application.Launch.Resource.Attribute.paddingStart;
+			global::System.Application.Resource.Attribute.paddingTopNoTitle = global::System.Application.Launch.Resource.Attribute.paddingTopNoTitle;
+			global::System.Application.Resource.Attribute.panelBackground = global::System.Application.Launch.Resource.Attribute.panelBackground;
+			global::System.Application.Resource.Attribute.panelMenuListTheme = global::System.Application.Launch.Resource.Attribute.panelMenuListTheme;
+			global::System.Application.Resource.Attribute.panelMenuListWidth = global::System.Application.Launch.Resource.Attribute.panelMenuListWidth;
+			global::System.Application.Resource.Attribute.passwordToggleContentDescription = global::System.Application.Launch.Resource.Attribute.passwordToggleContentDescription;
+			global::System.Application.Resource.Attribute.passwordToggleDrawable = global::System.Application.Launch.Resource.Attribute.passwordToggleDrawable;
+			global::System.Application.Resource.Attribute.passwordToggleEnabled = global::System.Application.Launch.Resource.Attribute.passwordToggleEnabled;
+			global::System.Application.Resource.Attribute.passwordToggleTint = global::System.Application.Launch.Resource.Attribute.passwordToggleTint;
+			global::System.Application.Resource.Attribute.passwordToggleTintMode = global::System.Application.Launch.Resource.Attribute.passwordToggleTintMode;
+			global::System.Application.Resource.Attribute.placeholderText = global::System.Application.Launch.Resource.Attribute.placeholderText;
+			global::System.Application.Resource.Attribute.placeholderTextAppearance = global::System.Application.Launch.Resource.Attribute.placeholderTextAppearance;
+			global::System.Application.Resource.Attribute.placeholderTextColor = global::System.Application.Launch.Resource.Attribute.placeholderTextColor;
+			global::System.Application.Resource.Attribute.popupMenuBackground = global::System.Application.Launch.Resource.Attribute.popupMenuBackground;
+			global::System.Application.Resource.Attribute.popupMenuStyle = global::System.Application.Launch.Resource.Attribute.popupMenuStyle;
+			global::System.Application.Resource.Attribute.popupTheme = global::System.Application.Launch.Resource.Attribute.popupTheme;
+			global::System.Application.Resource.Attribute.popupWindowStyle = global::System.Application.Launch.Resource.Attribute.popupWindowStyle;
+			global::System.Application.Resource.Attribute.prefixText = global::System.Application.Launch.Resource.Attribute.prefixText;
+			global::System.Application.Resource.Attribute.prefixTextAppearance = global::System.Application.Launch.Resource.Attribute.prefixTextAppearance;
+			global::System.Application.Resource.Attribute.prefixTextColor = global::System.Application.Launch.Resource.Attribute.prefixTextColor;
+			global::System.Application.Resource.Attribute.preserveIconSpacing = global::System.Application.Launch.Resource.Attribute.preserveIconSpacing;
+			global::System.Application.Resource.Attribute.pressedTranslationZ = global::System.Application.Launch.Resource.Attribute.pressedTranslationZ;
+			global::System.Application.Resource.Attribute.progressBarPadding = global::System.Application.Launch.Resource.Attribute.progressBarPadding;
+			global::System.Application.Resource.Attribute.progressBarStyle = global::System.Application.Launch.Resource.Attribute.progressBarStyle;
+			global::System.Application.Resource.Attribute.queryBackground = global::System.Application.Launch.Resource.Attribute.queryBackground;
+			global::System.Application.Resource.Attribute.queryHint = global::System.Application.Launch.Resource.Attribute.queryHint;
+			global::System.Application.Resource.Attribute.radioButtonStyle = global::System.Application.Launch.Resource.Attribute.radioButtonStyle;
+			global::System.Application.Resource.Attribute.rangeFillColor = global::System.Application.Launch.Resource.Attribute.rangeFillColor;
+			global::System.Application.Resource.Attribute.ratingBarStyle = global::System.Application.Launch.Resource.Attribute.ratingBarStyle;
+			global::System.Application.Resource.Attribute.ratingBarStyleIndicator = global::System.Application.Launch.Resource.Attribute.ratingBarStyleIndicator;
+			global::System.Application.Resource.Attribute.ratingBarStyleSmall = global::System.Application.Launch.Resource.Attribute.ratingBarStyleSmall;
+			global::System.Application.Resource.Attribute.recyclerViewStyle = global::System.Application.Launch.Resource.Attribute.recyclerViewStyle;
+			global::System.Application.Resource.Attribute.reverseLayout = global::System.Application.Launch.Resource.Attribute.reverseLayout;
+			global::System.Application.Resource.Attribute.rippleColor = global::System.Application.Launch.Resource.Attribute.rippleColor;
+			global::System.Application.Resource.Attribute.scrimAnimationDuration = global::System.Application.Launch.Resource.Attribute.scrimAnimationDuration;
+			global::System.Application.Resource.Attribute.scrimBackground = global::System.Application.Launch.Resource.Attribute.scrimBackground;
+			global::System.Application.Resource.Attribute.scrimVisibleHeightTrigger = global::System.Application.Launch.Resource.Attribute.scrimVisibleHeightTrigger;
+			global::System.Application.Resource.Attribute.scrollViewStyle = global::System.Application.Launch.Resource.Attribute.scrollViewStyle;
+			global::System.Application.Resource.Attribute.searchHintIcon = global::System.Application.Launch.Resource.Attribute.searchHintIcon;
+			global::System.Application.Resource.Attribute.searchIcon = global::System.Application.Launch.Resource.Attribute.searchIcon;
+			global::System.Application.Resource.Attribute.searchViewStyle = global::System.Application.Launch.Resource.Attribute.searchViewStyle;
+			global::System.Application.Resource.Attribute.seekBarStyle = global::System.Application.Launch.Resource.Attribute.seekBarStyle;
+			global::System.Application.Resource.Attribute.selectableItemBackground = global::System.Application.Launch.Resource.Attribute.selectableItemBackground;
+			global::System.Application.Resource.Attribute.selectableItemBackgroundBorderless = global::System.Application.Launch.Resource.Attribute.selectableItemBackgroundBorderless;
+			global::System.Application.Resource.Attribute.selectionRequired = global::System.Application.Launch.Resource.Attribute.selectionRequired;
+			global::System.Application.Resource.Attribute.shapeAppearance = global::System.Application.Launch.Resource.Attribute.shapeAppearance;
+			global::System.Application.Resource.Attribute.shapeAppearanceLargeComponent = global::System.Application.Launch.Resource.Attribute.shapeAppearanceLargeComponent;
+			global::System.Application.Resource.Attribute.shapeAppearanceMediumComponent = global::System.Application.Launch.Resource.Attribute.shapeAppearanceMediumComponent;
+			global::System.Application.Resource.Attribute.shapeAppearanceOverlay = global::System.Application.Launch.Resource.Attribute.shapeAppearanceOverlay;
+			global::System.Application.Resource.Attribute.shapeAppearanceSmallComponent = global::System.Application.Launch.Resource.Attribute.shapeAppearanceSmallComponent;
+			global::System.Application.Resource.Attribute.showAsAction = global::System.Application.Launch.Resource.Attribute.showAsAction;
+			global::System.Application.Resource.Attribute.showDividers = global::System.Application.Launch.Resource.Attribute.showDividers;
+			global::System.Application.Resource.Attribute.showMotionSpec = global::System.Application.Launch.Resource.Attribute.showMotionSpec;
+			global::System.Application.Resource.Attribute.showText = global::System.Application.Launch.Resource.Attribute.showText;
+			global::System.Application.Resource.Attribute.showTitle = global::System.Application.Launch.Resource.Attribute.showTitle;
+			global::System.Application.Resource.Attribute.shrinkMotionSpec = global::System.Application.Launch.Resource.Attribute.shrinkMotionSpec;
+			global::System.Application.Resource.Attribute.singleChoiceItemLayout = global::System.Application.Launch.Resource.Attribute.singleChoiceItemLayout;
+			global::System.Application.Resource.Attribute.singleLine = global::System.Application.Launch.Resource.Attribute.singleLine;
+			global::System.Application.Resource.Attribute.singleSelection = global::System.Application.Launch.Resource.Attribute.singleSelection;
+			global::System.Application.Resource.Attribute.sliderStyle = global::System.Application.Launch.Resource.Attribute.sliderStyle;
+			global::System.Application.Resource.Attribute.snackbarButtonStyle = global::System.Application.Launch.Resource.Attribute.snackbarButtonStyle;
+			global::System.Application.Resource.Attribute.snackbarStyle = global::System.Application.Launch.Resource.Attribute.snackbarStyle;
+			global::System.Application.Resource.Attribute.snackbarTextViewStyle = global::System.Application.Launch.Resource.Attribute.snackbarTextViewStyle;
+			global::System.Application.Resource.Attribute.spanCount = global::System.Application.Launch.Resource.Attribute.spanCount;
+			global::System.Application.Resource.Attribute.spinBars = global::System.Application.Launch.Resource.Attribute.spinBars;
+			global::System.Application.Resource.Attribute.spinnerDropDownItemStyle = global::System.Application.Launch.Resource.Attribute.spinnerDropDownItemStyle;
+			global::System.Application.Resource.Attribute.spinnerStyle = global::System.Application.Launch.Resource.Attribute.spinnerStyle;
+			global::System.Application.Resource.Attribute.splitTrack = global::System.Application.Launch.Resource.Attribute.splitTrack;
+			global::System.Application.Resource.Attribute.srcCompat = global::System.Application.Launch.Resource.Attribute.srcCompat;
+			global::System.Application.Resource.Attribute.stackFromEnd = global::System.Application.Launch.Resource.Attribute.stackFromEnd;
+			global::System.Application.Resource.Attribute.startIconCheckable = global::System.Application.Launch.Resource.Attribute.startIconCheckable;
+			global::System.Application.Resource.Attribute.startIconContentDescription = global::System.Application.Launch.Resource.Attribute.startIconContentDescription;
+			global::System.Application.Resource.Attribute.startIconDrawable = global::System.Application.Launch.Resource.Attribute.startIconDrawable;
+			global::System.Application.Resource.Attribute.startIconTint = global::System.Application.Launch.Resource.Attribute.startIconTint;
+			global::System.Application.Resource.Attribute.startIconTintMode = global::System.Application.Launch.Resource.Attribute.startIconTintMode;
+			global::System.Application.Resource.Attribute.state_above_anchor = global::System.Application.Launch.Resource.Attribute.state_above_anchor;
+			global::System.Application.Resource.Attribute.state_collapsed = global::System.Application.Launch.Resource.Attribute.state_collapsed;
+			global::System.Application.Resource.Attribute.state_collapsible = global::System.Application.Launch.Resource.Attribute.state_collapsible;
+			global::System.Application.Resource.Attribute.state_dragged = global::System.Application.Launch.Resource.Attribute.state_dragged;
+			global::System.Application.Resource.Attribute.state_liftable = global::System.Application.Launch.Resource.Attribute.state_liftable;
+			global::System.Application.Resource.Attribute.state_lifted = global::System.Application.Launch.Resource.Attribute.state_lifted;
+			global::System.Application.Resource.Attribute.statusBarBackground = global::System.Application.Launch.Resource.Attribute.statusBarBackground;
+			global::System.Application.Resource.Attribute.statusBarForeground = global::System.Application.Launch.Resource.Attribute.statusBarForeground;
+			global::System.Application.Resource.Attribute.statusBarScrim = global::System.Application.Launch.Resource.Attribute.statusBarScrim;
+			global::System.Application.Resource.Attribute.strokeColor = global::System.Application.Launch.Resource.Attribute.strokeColor;
+			global::System.Application.Resource.Attribute.strokeWidth = global::System.Application.Launch.Resource.Attribute.strokeWidth;
+			global::System.Application.Resource.Attribute.subMenuArrow = global::System.Application.Launch.Resource.Attribute.subMenuArrow;
+			global::System.Application.Resource.Attribute.submitBackground = global::System.Application.Launch.Resource.Attribute.submitBackground;
+			global::System.Application.Resource.Attribute.subtitle = global::System.Application.Launch.Resource.Attribute.subtitle;
+			global::System.Application.Resource.Attribute.subtitleTextAppearance = global::System.Application.Launch.Resource.Attribute.subtitleTextAppearance;
+			global::System.Application.Resource.Attribute.subtitleTextColor = global::System.Application.Launch.Resource.Attribute.subtitleTextColor;
+			global::System.Application.Resource.Attribute.subtitleTextStyle = global::System.Application.Launch.Resource.Attribute.subtitleTextStyle;
+			global::System.Application.Resource.Attribute.suffixText = global::System.Application.Launch.Resource.Attribute.suffixText;
+			global::System.Application.Resource.Attribute.suffixTextAppearance = global::System.Application.Launch.Resource.Attribute.suffixTextAppearance;
+			global::System.Application.Resource.Attribute.suffixTextColor = global::System.Application.Launch.Resource.Attribute.suffixTextColor;
+			global::System.Application.Resource.Attribute.suggestionRowLayout = global::System.Application.Launch.Resource.Attribute.suggestionRowLayout;
+			global::System.Application.Resource.Attribute.swipeRefreshLayoutProgressSpinnerBackgroundColor = global::System.Application.Launch.Resource.Attribute.swipeRefreshLayoutProgressSpinnerBackgroundColor;
+			global::System.Application.Resource.Attribute.switchMinWidth = global::System.Application.Launch.Resource.Attribute.switchMinWidth;
+			global::System.Application.Resource.Attribute.switchPadding = global::System.Application.Launch.Resource.Attribute.switchPadding;
+			global::System.Application.Resource.Attribute.switchStyle = global::System.Application.Launch.Resource.Attribute.switchStyle;
+			global::System.Application.Resource.Attribute.switchTextAppearance = global::System.Application.Launch.Resource.Attribute.switchTextAppearance;
+			global::System.Application.Resource.Attribute.tabBackground = global::System.Application.Launch.Resource.Attribute.tabBackground;
+			global::System.Application.Resource.Attribute.tabContentStart = global::System.Application.Launch.Resource.Attribute.tabContentStart;
+			global::System.Application.Resource.Attribute.tabGravity = global::System.Application.Launch.Resource.Attribute.tabGravity;
+			global::System.Application.Resource.Attribute.tabIconTint = global::System.Application.Launch.Resource.Attribute.tabIconTint;
+			global::System.Application.Resource.Attribute.tabIconTintMode = global::System.Application.Launch.Resource.Attribute.tabIconTintMode;
+			global::System.Application.Resource.Attribute.tabIndicator = global::System.Application.Launch.Resource.Attribute.tabIndicator;
+			global::System.Application.Resource.Attribute.tabIndicatorAnimationDuration = global::System.Application.Launch.Resource.Attribute.tabIndicatorAnimationDuration;
+			global::System.Application.Resource.Attribute.tabIndicatorColor = global::System.Application.Launch.Resource.Attribute.tabIndicatorColor;
+			global::System.Application.Resource.Attribute.tabIndicatorFullWidth = global::System.Application.Launch.Resource.Attribute.tabIndicatorFullWidth;
+			global::System.Application.Resource.Attribute.tabIndicatorGravity = global::System.Application.Launch.Resource.Attribute.tabIndicatorGravity;
+			global::System.Application.Resource.Attribute.tabIndicatorHeight = global::System.Application.Launch.Resource.Attribute.tabIndicatorHeight;
+			global::System.Application.Resource.Attribute.tabInlineLabel = global::System.Application.Launch.Resource.Attribute.tabInlineLabel;
+			global::System.Application.Resource.Attribute.tabMaxWidth = global::System.Application.Launch.Resource.Attribute.tabMaxWidth;
+			global::System.Application.Resource.Attribute.tabMinWidth = global::System.Application.Launch.Resource.Attribute.tabMinWidth;
+			global::System.Application.Resource.Attribute.tabMode = global::System.Application.Launch.Resource.Attribute.tabMode;
+			global::System.Application.Resource.Attribute.tabPadding = global::System.Application.Launch.Resource.Attribute.tabPadding;
+			global::System.Application.Resource.Attribute.tabPaddingBottom = global::System.Application.Launch.Resource.Attribute.tabPaddingBottom;
+			global::System.Application.Resource.Attribute.tabPaddingEnd = global::System.Application.Launch.Resource.Attribute.tabPaddingEnd;
+			global::System.Application.Resource.Attribute.tabPaddingStart = global::System.Application.Launch.Resource.Attribute.tabPaddingStart;
+			global::System.Application.Resource.Attribute.tabPaddingTop = global::System.Application.Launch.Resource.Attribute.tabPaddingTop;
+			global::System.Application.Resource.Attribute.tabRippleColor = global::System.Application.Launch.Resource.Attribute.tabRippleColor;
+			global::System.Application.Resource.Attribute.tabSelectedTextColor = global::System.Application.Launch.Resource.Attribute.tabSelectedTextColor;
+			global::System.Application.Resource.Attribute.tabStyle = global::System.Application.Launch.Resource.Attribute.tabStyle;
+			global::System.Application.Resource.Attribute.tabTextAppearance = global::System.Application.Launch.Resource.Attribute.tabTextAppearance;
+			global::System.Application.Resource.Attribute.tabTextColor = global::System.Application.Launch.Resource.Attribute.tabTextColor;
+			global::System.Application.Resource.Attribute.tabUnboundedRipple = global::System.Application.Launch.Resource.Attribute.tabUnboundedRipple;
+			global::System.Application.Resource.Attribute.textAllCaps = global::System.Application.Launch.Resource.Attribute.textAllCaps;
+			global::System.Application.Resource.Attribute.textAppearanceBody1 = global::System.Application.Launch.Resource.Attribute.textAppearanceBody1;
+			global::System.Application.Resource.Attribute.textAppearanceBody2 = global::System.Application.Launch.Resource.Attribute.textAppearanceBody2;
+			global::System.Application.Resource.Attribute.textAppearanceButton = global::System.Application.Launch.Resource.Attribute.textAppearanceButton;
+			global::System.Application.Resource.Attribute.textAppearanceCaption = global::System.Application.Launch.Resource.Attribute.textAppearanceCaption;
+			global::System.Application.Resource.Attribute.textAppearanceHeadline1 = global::System.Application.Launch.Resource.Attribute.textAppearanceHeadline1;
+			global::System.Application.Resource.Attribute.textAppearanceHeadline2 = global::System.Application.Launch.Resource.Attribute.textAppearanceHeadline2;
+			global::System.Application.Resource.Attribute.textAppearanceHeadline3 = global::System.Application.Launch.Resource.Attribute.textAppearanceHeadline3;
+			global::System.Application.Resource.Attribute.textAppearanceHeadline4 = global::System.Application.Launch.Resource.Attribute.textAppearanceHeadline4;
+			global::System.Application.Resource.Attribute.textAppearanceHeadline5 = global::System.Application.Launch.Resource.Attribute.textAppearanceHeadline5;
+			global::System.Application.Resource.Attribute.textAppearanceHeadline6 = global::System.Application.Launch.Resource.Attribute.textAppearanceHeadline6;
+			global::System.Application.Resource.Attribute.textAppearanceLargePopupMenu = global::System.Application.Launch.Resource.Attribute.textAppearanceLargePopupMenu;
+			global::System.Application.Resource.Attribute.textAppearanceLineHeightEnabled = global::System.Application.Launch.Resource.Attribute.textAppearanceLineHeightEnabled;
+			global::System.Application.Resource.Attribute.textAppearanceListItem = global::System.Application.Launch.Resource.Attribute.textAppearanceListItem;
+			global::System.Application.Resource.Attribute.textAppearanceListItemSecondary = global::System.Application.Launch.Resource.Attribute.textAppearanceListItemSecondary;
+			global::System.Application.Resource.Attribute.textAppearanceListItemSmall = global::System.Application.Launch.Resource.Attribute.textAppearanceListItemSmall;
+			global::System.Application.Resource.Attribute.textAppearanceOverline = global::System.Application.Launch.Resource.Attribute.textAppearanceOverline;
+			global::System.Application.Resource.Attribute.textAppearancePopupMenuHeader = global::System.Application.Launch.Resource.Attribute.textAppearancePopupMenuHeader;
+			global::System.Application.Resource.Attribute.textAppearanceSearchResultSubtitle = global::System.Application.Launch.Resource.Attribute.textAppearanceSearchResultSubtitle;
+			global::System.Application.Resource.Attribute.textAppearanceSearchResultTitle = global::System.Application.Launch.Resource.Attribute.textAppearanceSearchResultTitle;
+			global::System.Application.Resource.Attribute.textAppearanceSmallPopupMenu = global::System.Application.Launch.Resource.Attribute.textAppearanceSmallPopupMenu;
+			global::System.Application.Resource.Attribute.textAppearanceSubtitle1 = global::System.Application.Launch.Resource.Attribute.textAppearanceSubtitle1;
+			global::System.Application.Resource.Attribute.textAppearanceSubtitle2 = global::System.Application.Launch.Resource.Attribute.textAppearanceSubtitle2;
+			global::System.Application.Resource.Attribute.textColorAlertDialogListItem = global::System.Application.Launch.Resource.Attribute.textColorAlertDialogListItem;
+			global::System.Application.Resource.Attribute.textColorSearchUrl = global::System.Application.Launch.Resource.Attribute.textColorSearchUrl;
+			global::System.Application.Resource.Attribute.textEndPadding = global::System.Application.Launch.Resource.Attribute.textEndPadding;
+			global::System.Application.Resource.Attribute.textInputLayoutFocusedRectEnabled = global::System.Application.Launch.Resource.Attribute.textInputLayoutFocusedRectEnabled;
+			global::System.Application.Resource.Attribute.textInputStyle = global::System.Application.Launch.Resource.Attribute.textInputStyle;
+			global::System.Application.Resource.Attribute.textLocale = global::System.Application.Launch.Resource.Attribute.textLocale;
+			global::System.Application.Resource.Attribute.textStartPadding = global::System.Application.Launch.Resource.Attribute.textStartPadding;
+			global::System.Application.Resource.Attribute.theme = global::System.Application.Launch.Resource.Attribute.theme;
+			global::System.Application.Resource.Attribute.themeLineHeight = global::System.Application.Launch.Resource.Attribute.themeLineHeight;
+			global::System.Application.Resource.Attribute.thickness = global::System.Application.Launch.Resource.Attribute.thickness;
+			global::System.Application.Resource.Attribute.thumbColor = global::System.Application.Launch.Resource.Attribute.thumbColor;
+			global::System.Application.Resource.Attribute.thumbElevation = global::System.Application.Launch.Resource.Attribute.thumbElevation;
+			global::System.Application.Resource.Attribute.thumbRadius = global::System.Application.Launch.Resource.Attribute.thumbRadius;
+			global::System.Application.Resource.Attribute.thumbTextPadding = global::System.Application.Launch.Resource.Attribute.thumbTextPadding;
+			global::System.Application.Resource.Attribute.thumbTint = global::System.Application.Launch.Resource.Attribute.thumbTint;
+			global::System.Application.Resource.Attribute.thumbTintMode = global::System.Application.Launch.Resource.Attribute.thumbTintMode;
+			global::System.Application.Resource.Attribute.tickColor = global::System.Application.Launch.Resource.Attribute.tickColor;
+			global::System.Application.Resource.Attribute.tickColorActive = global::System.Application.Launch.Resource.Attribute.tickColorActive;
+			global::System.Application.Resource.Attribute.tickColorInactive = global::System.Application.Launch.Resource.Attribute.tickColorInactive;
+			global::System.Application.Resource.Attribute.tickMark = global::System.Application.Launch.Resource.Attribute.tickMark;
+			global::System.Application.Resource.Attribute.tickMarkTint = global::System.Application.Launch.Resource.Attribute.tickMarkTint;
+			global::System.Application.Resource.Attribute.tickMarkTintMode = global::System.Application.Launch.Resource.Attribute.tickMarkTintMode;
+			global::System.Application.Resource.Attribute.tint = global::System.Application.Launch.Resource.Attribute.tint;
+			global::System.Application.Resource.Attribute.tintMode = global::System.Application.Launch.Resource.Attribute.tintMode;
+			global::System.Application.Resource.Attribute.title = global::System.Application.Launch.Resource.Attribute.title;
+			global::System.Application.Resource.Attribute.titleEnabled = global::System.Application.Launch.Resource.Attribute.titleEnabled;
+			global::System.Application.Resource.Attribute.titleMargin = global::System.Application.Launch.Resource.Attribute.titleMargin;
+			global::System.Application.Resource.Attribute.titleMarginBottom = global::System.Application.Launch.Resource.Attribute.titleMarginBottom;
+			global::System.Application.Resource.Attribute.titleMarginEnd = global::System.Application.Launch.Resource.Attribute.titleMarginEnd;
+			global::System.Application.Resource.Attribute.titleMargins = global::System.Application.Launch.Resource.Attribute.titleMargins;
+			global::System.Application.Resource.Attribute.titleMarginStart = global::System.Application.Launch.Resource.Attribute.titleMarginStart;
+			global::System.Application.Resource.Attribute.titleMarginTop = global::System.Application.Launch.Resource.Attribute.titleMarginTop;
+			global::System.Application.Resource.Attribute.titleTextAppearance = global::System.Application.Launch.Resource.Attribute.titleTextAppearance;
+			global::System.Application.Resource.Attribute.titleTextColor = global::System.Application.Launch.Resource.Attribute.titleTextColor;
+			global::System.Application.Resource.Attribute.titleTextStyle = global::System.Application.Launch.Resource.Attribute.titleTextStyle;
+			global::System.Application.Resource.Attribute.toolbarId = global::System.Application.Launch.Resource.Attribute.toolbarId;
+			global::System.Application.Resource.Attribute.toolbarNavigationButtonStyle = global::System.Application.Launch.Resource.Attribute.toolbarNavigationButtonStyle;
+			global::System.Application.Resource.Attribute.toolbarStyle = global::System.Application.Launch.Resource.Attribute.toolbarStyle;
+			global::System.Application.Resource.Attribute.tooltipForegroundColor = global::System.Application.Launch.Resource.Attribute.tooltipForegroundColor;
+			global::System.Application.Resource.Attribute.tooltipFrameBackground = global::System.Application.Launch.Resource.Attribute.tooltipFrameBackground;
+			global::System.Application.Resource.Attribute.tooltipStyle = global::System.Application.Launch.Resource.Attribute.tooltipStyle;
+			global::System.Application.Resource.Attribute.tooltipText = global::System.Application.Launch.Resource.Attribute.tooltipText;
+			global::System.Application.Resource.Attribute.track = global::System.Application.Launch.Resource.Attribute.track;
+			global::System.Application.Resource.Attribute.trackColor = global::System.Application.Launch.Resource.Attribute.trackColor;
+			global::System.Application.Resource.Attribute.trackColorActive = global::System.Application.Launch.Resource.Attribute.trackColorActive;
+			global::System.Application.Resource.Attribute.trackColorInactive = global::System.Application.Launch.Resource.Attribute.trackColorInactive;
+			global::System.Application.Resource.Attribute.trackHeight = global::System.Application.Launch.Resource.Attribute.trackHeight;
+			global::System.Application.Resource.Attribute.trackTint = global::System.Application.Launch.Resource.Attribute.trackTint;
+			global::System.Application.Resource.Attribute.trackTintMode = global::System.Application.Launch.Resource.Attribute.trackTintMode;
+			global::System.Application.Resource.Attribute.transitionShapeAppearance = global::System.Application.Launch.Resource.Attribute.transitionShapeAppearance;
+			global::System.Application.Resource.Attribute.ttcIndex = global::System.Application.Launch.Resource.Attribute.ttcIndex;
+			global::System.Application.Resource.Attribute.useCompatPadding = global::System.Application.Launch.Resource.Attribute.useCompatPadding;
+			global::System.Application.Resource.Attribute.useMaterialThemeColors = global::System.Application.Launch.Resource.Attribute.useMaterialThemeColors;
+			global::System.Application.Resource.Attribute.values = global::System.Application.Launch.Resource.Attribute.values;
+			global::System.Application.Resource.Attribute.verticalOffset = global::System.Application.Launch.Resource.Attribute.verticalOffset;
+			global::System.Application.Resource.Attribute.viewInflaterClass = global::System.Application.Launch.Resource.Attribute.viewInflaterClass;
+			global::System.Application.Resource.Attribute.voiceIcon = global::System.Application.Launch.Resource.Attribute.voiceIcon;
+			global::System.Application.Resource.Attribute.windowActionBar = global::System.Application.Launch.Resource.Attribute.windowActionBar;
+			global::System.Application.Resource.Attribute.windowActionBarOverlay = global::System.Application.Launch.Resource.Attribute.windowActionBarOverlay;
+			global::System.Application.Resource.Attribute.windowActionModeOverlay = global::System.Application.Launch.Resource.Attribute.windowActionModeOverlay;
+			global::System.Application.Resource.Attribute.windowFixedHeightMajor = global::System.Application.Launch.Resource.Attribute.windowFixedHeightMajor;
+			global::System.Application.Resource.Attribute.windowFixedHeightMinor = global::System.Application.Launch.Resource.Attribute.windowFixedHeightMinor;
+			global::System.Application.Resource.Attribute.windowFixedWidthMajor = global::System.Application.Launch.Resource.Attribute.windowFixedWidthMajor;
+			global::System.Application.Resource.Attribute.windowFixedWidthMinor = global::System.Application.Launch.Resource.Attribute.windowFixedWidthMinor;
+			global::System.Application.Resource.Attribute.windowMinWidthMajor = global::System.Application.Launch.Resource.Attribute.windowMinWidthMajor;
+			global::System.Application.Resource.Attribute.windowMinWidthMinor = global::System.Application.Launch.Resource.Attribute.windowMinWidthMinor;
+			global::System.Application.Resource.Attribute.windowNoTitle = global::System.Application.Launch.Resource.Attribute.windowNoTitle;
+			global::System.Application.Resource.Attribute.yearSelectedStyle = global::System.Application.Launch.Resource.Attribute.yearSelectedStyle;
+			global::System.Application.Resource.Attribute.yearStyle = global::System.Application.Launch.Resource.Attribute.yearStyle;
+			global::System.Application.Resource.Attribute.yearTodayStyle = global::System.Application.Launch.Resource.Attribute.yearTodayStyle;
+			global::System.Application.Resource.Boolean.abc_action_bar_embed_tabs = global::System.Application.Launch.Resource.Boolean.abc_action_bar_embed_tabs;
+			global::System.Application.Resource.Boolean.abc_allow_stacked_button_bar = global::System.Application.Launch.Resource.Boolean.abc_allow_stacked_button_bar;
+			global::System.Application.Resource.Boolean.abc_config_actionMenuItemAllCaps = global::System.Application.Launch.Resource.Boolean.abc_config_actionMenuItemAllCaps;
+			global::System.Application.Resource.Boolean.mtrl_btn_textappearance_all_caps = global::System.Application.Launch.Resource.Boolean.mtrl_btn_textappearance_all_caps;
+			global::System.Application.Resource.Color.abc_background_cache_hint_selector_material_dark = global::System.Application.Launch.Resource.Color.abc_background_cache_hint_selector_material_dark;
+			global::System.Application.Resource.Color.abc_background_cache_hint_selector_material_light = global::System.Application.Launch.Resource.Color.abc_background_cache_hint_selector_material_light;
+			global::System.Application.Resource.Color.abc_btn_colored_borderless_text_material = global::System.Application.Launch.Resource.Color.abc_btn_colored_borderless_text_material;
+			global::System.Application.Resource.Color.abc_btn_colored_text_material = global::System.Application.Launch.Resource.Color.abc_btn_colored_text_material;
+			global::System.Application.Resource.Color.abc_color_highlight_material = global::System.Application.Launch.Resource.Color.abc_color_highlight_material;
+			global::System.Application.Resource.Color.abc_decor_view_status_guard = global::System.Application.Launch.Resource.Color.abc_decor_view_status_guard;
+			global::System.Application.Resource.Color.abc_decor_view_status_guard_light = global::System.Application.Launch.Resource.Color.abc_decor_view_status_guard_light;
+			global::System.Application.Resource.Color.abc_hint_foreground_material_dark = global::System.Application.Launch.Resource.Color.abc_hint_foreground_material_dark;
+			global::System.Application.Resource.Color.abc_hint_foreground_material_light = global::System.Application.Launch.Resource.Color.abc_hint_foreground_material_light;
+			global::System.Application.Resource.Color.abc_primary_text_disable_only_material_dark = global::System.Application.Launch.Resource.Color.abc_primary_text_disable_only_material_dark;
+			global::System.Application.Resource.Color.abc_primary_text_disable_only_material_light = global::System.Application.Launch.Resource.Color.abc_primary_text_disable_only_material_light;
+			global::System.Application.Resource.Color.abc_primary_text_material_dark = global::System.Application.Launch.Resource.Color.abc_primary_text_material_dark;
+			global::System.Application.Resource.Color.abc_primary_text_material_light = global::System.Application.Launch.Resource.Color.abc_primary_text_material_light;
+			global::System.Application.Resource.Color.abc_search_url_text = global::System.Application.Launch.Resource.Color.abc_search_url_text;
+			global::System.Application.Resource.Color.abc_search_url_text_normal = global::System.Application.Launch.Resource.Color.abc_search_url_text_normal;
+			global::System.Application.Resource.Color.abc_search_url_text_pressed = global::System.Application.Launch.Resource.Color.abc_search_url_text_pressed;
+			global::System.Application.Resource.Color.abc_search_url_text_selected = global::System.Application.Launch.Resource.Color.abc_search_url_text_selected;
+			global::System.Application.Resource.Color.abc_secondary_text_material_dark = global::System.Application.Launch.Resource.Color.abc_secondary_text_material_dark;
+			global::System.Application.Resource.Color.abc_secondary_text_material_light = global::System.Application.Launch.Resource.Color.abc_secondary_text_material_light;
+			global::System.Application.Resource.Color.abc_tint_btn_checkable = global::System.Application.Launch.Resource.Color.abc_tint_btn_checkable;
+			global::System.Application.Resource.Color.abc_tint_default = global::System.Application.Launch.Resource.Color.abc_tint_default;
+			global::System.Application.Resource.Color.abc_tint_edittext = global::System.Application.Launch.Resource.Color.abc_tint_edittext;
+			global::System.Application.Resource.Color.abc_tint_seek_thumb = global::System.Application.Launch.Resource.Color.abc_tint_seek_thumb;
+			global::System.Application.Resource.Color.abc_tint_spinner = global::System.Application.Launch.Resource.Color.abc_tint_spinner;
+			global::System.Application.Resource.Color.abc_tint_switch_track = global::System.Application.Launch.Resource.Color.abc_tint_switch_track;
+			global::System.Application.Resource.Color.accent_material_dark = global::System.Application.Launch.Resource.Color.accent_material_dark;
+			global::System.Application.Resource.Color.accent_material_light = global::System.Application.Launch.Resource.Color.accent_material_light;
+			global::System.Application.Resource.Color.androidx_core_ripple_material_light = global::System.Application.Launch.Resource.Color.androidx_core_ripple_material_light;
+			global::System.Application.Resource.Color.androidx_core_secondary_text_default_material_light = global::System.Application.Launch.Resource.Color.androidx_core_secondary_text_default_material_light;
+			global::System.Application.Resource.Color.background_floating_material_dark = global::System.Application.Launch.Resource.Color.background_floating_material_dark;
+			global::System.Application.Resource.Color.background_floating_material_light = global::System.Application.Launch.Resource.Color.background_floating_material_light;
+			global::System.Application.Resource.Color.background_material_dark = global::System.Application.Launch.Resource.Color.background_material_dark;
+			global::System.Application.Resource.Color.background_material_light = global::System.Application.Launch.Resource.Color.background_material_light;
+			global::System.Application.Resource.Color.bright_foreground_disabled_material_dark = global::System.Application.Launch.Resource.Color.bright_foreground_disabled_material_dark;
+			global::System.Application.Resource.Color.bright_foreground_disabled_material_light = global::System.Application.Launch.Resource.Color.bright_foreground_disabled_material_light;
+			global::System.Application.Resource.Color.bright_foreground_inverse_material_dark = global::System.Application.Launch.Resource.Color.bright_foreground_inverse_material_dark;
+			global::System.Application.Resource.Color.bright_foreground_inverse_material_light = global::System.Application.Launch.Resource.Color.bright_foreground_inverse_material_light;
+			global::System.Application.Resource.Color.bright_foreground_material_dark = global::System.Application.Launch.Resource.Color.bright_foreground_material_dark;
+			global::System.Application.Resource.Color.bright_foreground_material_light = global::System.Application.Launch.Resource.Color.bright_foreground_material_light;
+			global::System.Application.Resource.Color.browser_actions_bg_grey = global::System.Application.Launch.Resource.Color.browser_actions_bg_grey;
+			global::System.Application.Resource.Color.browser_actions_divider_color = global::System.Application.Launch.Resource.Color.browser_actions_divider_color;
+			global::System.Application.Resource.Color.browser_actions_text_color = global::System.Application.Launch.Resource.Color.browser_actions_text_color;
+			global::System.Application.Resource.Color.browser_actions_title_color = global::System.Application.Launch.Resource.Color.browser_actions_title_color;
+			global::System.Application.Resource.Color.button_material_dark = global::System.Application.Launch.Resource.Color.button_material_dark;
+			global::System.Application.Resource.Color.button_material_light = global::System.Application.Launch.Resource.Color.button_material_light;
+			global::System.Application.Resource.Color.cardview_dark_background = global::System.Application.Launch.Resource.Color.cardview_dark_background;
+			global::System.Application.Resource.Color.cardview_light_background = global::System.Application.Launch.Resource.Color.cardview_light_background;
+			global::System.Application.Resource.Color.cardview_shadow_end_color = global::System.Application.Launch.Resource.Color.cardview_shadow_end_color;
+			global::System.Application.Resource.Color.cardview_shadow_start_color = global::System.Application.Launch.Resource.Color.cardview_shadow_start_color;
+			global::System.Application.Resource.Color.checkbox_themeable_attribute_color = global::System.Application.Launch.Resource.Color.checkbox_themeable_attribute_color;
+			global::System.Application.Resource.Color.colorAccent = global::System.Application.Launch.Resource.Color.colorAccent;
+			global::System.Application.Resource.Color.colorControlHighlight = global::System.Application.Launch.Resource.Color.colorControlHighlight;
+			global::System.Application.Resource.Color.colorPrimary = global::System.Application.Launch.Resource.Color.colorPrimary;
+			global::System.Application.Resource.Color.design_bottom_navigation_shadow_color = global::System.Application.Launch.Resource.Color.design_bottom_navigation_shadow_color;
+			global::System.Application.Resource.Color.design_box_stroke_color = global::System.Application.Launch.Resource.Color.design_box_stroke_color;
+			global::System.Application.Resource.Color.design_dark_default_color_background = global::System.Application.Launch.Resource.Color.design_dark_default_color_background;
+			global::System.Application.Resource.Color.design_dark_default_color_error = global::System.Application.Launch.Resource.Color.design_dark_default_color_error;
+			global::System.Application.Resource.Color.design_dark_default_color_on_background = global::System.Application.Launch.Resource.Color.design_dark_default_color_on_background;
+			global::System.Application.Resource.Color.design_dark_default_color_on_error = global::System.Application.Launch.Resource.Color.design_dark_default_color_on_error;
+			global::System.Application.Resource.Color.design_dark_default_color_on_primary = global::System.Application.Launch.Resource.Color.design_dark_default_color_on_primary;
+			global::System.Application.Resource.Color.design_dark_default_color_on_secondary = global::System.Application.Launch.Resource.Color.design_dark_default_color_on_secondary;
+			global::System.Application.Resource.Color.design_dark_default_color_on_surface = global::System.Application.Launch.Resource.Color.design_dark_default_color_on_surface;
+			global::System.Application.Resource.Color.design_dark_default_color_primary = global::System.Application.Launch.Resource.Color.design_dark_default_color_primary;
+			global::System.Application.Resource.Color.design_dark_default_color_primary_dark = global::System.Application.Launch.Resource.Color.design_dark_default_color_primary_dark;
+			global::System.Application.Resource.Color.design_dark_default_color_primary_variant = global::System.Application.Launch.Resource.Color.design_dark_default_color_primary_variant;
+			global::System.Application.Resource.Color.design_dark_default_color_secondary = global::System.Application.Launch.Resource.Color.design_dark_default_color_secondary;
+			global::System.Application.Resource.Color.design_dark_default_color_secondary_variant = global::System.Application.Launch.Resource.Color.design_dark_default_color_secondary_variant;
+			global::System.Application.Resource.Color.design_dark_default_color_surface = global::System.Application.Launch.Resource.Color.design_dark_default_color_surface;
+			global::System.Application.Resource.Color.design_default_color_background = global::System.Application.Launch.Resource.Color.design_default_color_background;
+			global::System.Application.Resource.Color.design_default_color_error = global::System.Application.Launch.Resource.Color.design_default_color_error;
+			global::System.Application.Resource.Color.design_default_color_on_background = global::System.Application.Launch.Resource.Color.design_default_color_on_background;
+			global::System.Application.Resource.Color.design_default_color_on_error = global::System.Application.Launch.Resource.Color.design_default_color_on_error;
+			global::System.Application.Resource.Color.design_default_color_on_primary = global::System.Application.Launch.Resource.Color.design_default_color_on_primary;
+			global::System.Application.Resource.Color.design_default_color_on_secondary = global::System.Application.Launch.Resource.Color.design_default_color_on_secondary;
+			global::System.Application.Resource.Color.design_default_color_on_surface = global::System.Application.Launch.Resource.Color.design_default_color_on_surface;
+			global::System.Application.Resource.Color.design_default_color_primary = global::System.Application.Launch.Resource.Color.design_default_color_primary;
+			global::System.Application.Resource.Color.design_default_color_primary_dark = global::System.Application.Launch.Resource.Color.design_default_color_primary_dark;
+			global::System.Application.Resource.Color.design_default_color_primary_variant = global::System.Application.Launch.Resource.Color.design_default_color_primary_variant;
+			global::System.Application.Resource.Color.design_default_color_secondary = global::System.Application.Launch.Resource.Color.design_default_color_secondary;
+			global::System.Application.Resource.Color.design_default_color_secondary_variant = global::System.Application.Launch.Resource.Color.design_default_color_secondary_variant;
+			global::System.Application.Resource.Color.design_default_color_surface = global::System.Application.Launch.Resource.Color.design_default_color_surface;
+			global::System.Application.Resource.Color.design_error = global::System.Application.Launch.Resource.Color.design_error;
+			global::System.Application.Resource.Color.design_fab_shadow_end_color = global::System.Application.Launch.Resource.Color.design_fab_shadow_end_color;
+			global::System.Application.Resource.Color.design_fab_shadow_mid_color = global::System.Application.Launch.Resource.Color.design_fab_shadow_mid_color;
+			global::System.Application.Resource.Color.design_fab_shadow_start_color = global::System.Application.Launch.Resource.Color.design_fab_shadow_start_color;
+			global::System.Application.Resource.Color.design_fab_stroke_end_inner_color = global::System.Application.Launch.Resource.Color.design_fab_stroke_end_inner_color;
+			global::System.Application.Resource.Color.design_fab_stroke_end_outer_color = global::System.Application.Launch.Resource.Color.design_fab_stroke_end_outer_color;
+			global::System.Application.Resource.Color.design_fab_stroke_top_inner_color = global::System.Application.Launch.Resource.Color.design_fab_stroke_top_inner_color;
+			global::System.Application.Resource.Color.design_fab_stroke_top_outer_color = global::System.Application.Launch.Resource.Color.design_fab_stroke_top_outer_color;
+			global::System.Application.Resource.Color.design_icon_tint = global::System.Application.Launch.Resource.Color.design_icon_tint;
+			global::System.Application.Resource.Color.design_snackbar_background_color = global::System.Application.Launch.Resource.Color.design_snackbar_background_color;
+			global::System.Application.Resource.Color.dim_foreground_disabled_material_dark = global::System.Application.Launch.Resource.Color.dim_foreground_disabled_material_dark;
+			global::System.Application.Resource.Color.dim_foreground_disabled_material_light = global::System.Application.Launch.Resource.Color.dim_foreground_disabled_material_light;
+			global::System.Application.Resource.Color.dim_foreground_material_dark = global::System.Application.Launch.Resource.Color.dim_foreground_material_dark;
+			global::System.Application.Resource.Color.dim_foreground_material_light = global::System.Application.Launch.Resource.Color.dim_foreground_material_light;
+			global::System.Application.Resource.Color.error_color_material_dark = global::System.Application.Launch.Resource.Color.error_color_material_dark;
+			global::System.Application.Resource.Color.error_color_material_light = global::System.Application.Launch.Resource.Color.error_color_material_light;
+			global::System.Application.Resource.Color.foreground_material_dark = global::System.Application.Launch.Resource.Color.foreground_material_dark;
+			global::System.Application.Resource.Color.foreground_material_light = global::System.Application.Launch.Resource.Color.foreground_material_light;
+			global::System.Application.Resource.Color.highlighted_text_material_dark = global::System.Application.Launch.Resource.Color.highlighted_text_material_dark;
+			global::System.Application.Resource.Color.highlighted_text_material_light = global::System.Application.Launch.Resource.Color.highlighted_text_material_light;
+			global::System.Application.Resource.Color.ic_launcher_background = global::System.Application.Launch.Resource.Color.ic_launcher_background;
+			global::System.Application.Resource.Color.material_blue_grey_800 = global::System.Application.Launch.Resource.Color.material_blue_grey_800;
+			global::System.Application.Resource.Color.material_blue_grey_900 = global::System.Application.Launch.Resource.Color.material_blue_grey_900;
+			global::System.Application.Resource.Color.material_blue_grey_950 = global::System.Application.Launch.Resource.Color.material_blue_grey_950;
+			global::System.Application.Resource.Color.material_deep_teal_200 = global::System.Application.Launch.Resource.Color.material_deep_teal_200;
+			global::System.Application.Resource.Color.material_deep_teal_500 = global::System.Application.Launch.Resource.Color.material_deep_teal_500;
+			global::System.Application.Resource.Color.material_grey_100 = global::System.Application.Launch.Resource.Color.material_grey_100;
+			global::System.Application.Resource.Color.material_grey_300 = global::System.Application.Launch.Resource.Color.material_grey_300;
+			global::System.Application.Resource.Color.material_grey_50 = global::System.Application.Launch.Resource.Color.material_grey_50;
+			global::System.Application.Resource.Color.material_grey_600 = global::System.Application.Launch.Resource.Color.material_grey_600;
+			global::System.Application.Resource.Color.material_grey_800 = global::System.Application.Launch.Resource.Color.material_grey_800;
+			global::System.Application.Resource.Color.material_grey_850 = global::System.Application.Launch.Resource.Color.material_grey_850;
+			global::System.Application.Resource.Color.material_grey_900 = global::System.Application.Launch.Resource.Color.material_grey_900;
+			global::System.Application.Resource.Color.material_on_background_disabled = global::System.Application.Launch.Resource.Color.material_on_background_disabled;
+			global::System.Application.Resource.Color.material_on_background_emphasis_high_type = global::System.Application.Launch.Resource.Color.material_on_background_emphasis_high_type;
+			global::System.Application.Resource.Color.material_on_background_emphasis_medium = global::System.Application.Launch.Resource.Color.material_on_background_emphasis_medium;
+			global::System.Application.Resource.Color.material_on_primary_disabled = global::System.Application.Launch.Resource.Color.material_on_primary_disabled;
+			global::System.Application.Resource.Color.material_on_primary_emphasis_high_type = global::System.Application.Launch.Resource.Color.material_on_primary_emphasis_high_type;
+			global::System.Application.Resource.Color.material_on_primary_emphasis_medium = global::System.Application.Launch.Resource.Color.material_on_primary_emphasis_medium;
+			global::System.Application.Resource.Color.material_on_surface_disabled = global::System.Application.Launch.Resource.Color.material_on_surface_disabled;
+			global::System.Application.Resource.Color.material_on_surface_emphasis_high_type = global::System.Application.Launch.Resource.Color.material_on_surface_emphasis_high_type;
+			global::System.Application.Resource.Color.material_on_surface_emphasis_medium = global::System.Application.Launch.Resource.Color.material_on_surface_emphasis_medium;
+			global::System.Application.Resource.Color.material_on_surface_stroke = global::System.Application.Launch.Resource.Color.material_on_surface_stroke;
+			global::System.Application.Resource.Color.material_slider_active_tick_marks_color = global::System.Application.Launch.Resource.Color.material_slider_active_tick_marks_color;
+			global::System.Application.Resource.Color.material_slider_active_track_color = global::System.Application.Launch.Resource.Color.material_slider_active_track_color;
+			global::System.Application.Resource.Color.material_slider_halo_color = global::System.Application.Launch.Resource.Color.material_slider_halo_color;
+			global::System.Application.Resource.Color.material_slider_inactive_tick_marks_color = global::System.Application.Launch.Resource.Color.material_slider_inactive_tick_marks_color;
+			global::System.Application.Resource.Color.material_slider_inactive_track_color = global::System.Application.Launch.Resource.Color.material_slider_inactive_track_color;
+			global::System.Application.Resource.Color.material_slider_thumb_color = global::System.Application.Launch.Resource.Color.material_slider_thumb_color;
+			global::System.Application.Resource.Color.mtrl_bottom_nav_colored_item_tint = global::System.Application.Launch.Resource.Color.mtrl_bottom_nav_colored_item_tint;
+			global::System.Application.Resource.Color.mtrl_bottom_nav_colored_ripple_color = global::System.Application.Launch.Resource.Color.mtrl_bottom_nav_colored_ripple_color;
+			global::System.Application.Resource.Color.mtrl_bottom_nav_item_tint = global::System.Application.Launch.Resource.Color.mtrl_bottom_nav_item_tint;
+			global::System.Application.Resource.Color.mtrl_bottom_nav_ripple_color = global::System.Application.Launch.Resource.Color.mtrl_bottom_nav_ripple_color;
+			global::System.Application.Resource.Color.mtrl_btn_bg_color_selector = global::System.Application.Launch.Resource.Color.mtrl_btn_bg_color_selector;
+			global::System.Application.Resource.Color.mtrl_btn_ripple_color = global::System.Application.Launch.Resource.Color.mtrl_btn_ripple_color;
+			global::System.Application.Resource.Color.mtrl_btn_stroke_color_selector = global::System.Application.Launch.Resource.Color.mtrl_btn_stroke_color_selector;
+			global::System.Application.Resource.Color.mtrl_btn_text_btn_bg_color_selector = global::System.Application.Launch.Resource.Color.mtrl_btn_text_btn_bg_color_selector;
+			global::System.Application.Resource.Color.mtrl_btn_text_btn_ripple_color = global::System.Application.Launch.Resource.Color.mtrl_btn_text_btn_ripple_color;
+			global::System.Application.Resource.Color.mtrl_btn_text_color_disabled = global::System.Application.Launch.Resource.Color.mtrl_btn_text_color_disabled;
+			global::System.Application.Resource.Color.mtrl_btn_text_color_selector = global::System.Application.Launch.Resource.Color.mtrl_btn_text_color_selector;
+			global::System.Application.Resource.Color.mtrl_btn_transparent_bg_color = global::System.Application.Launch.Resource.Color.mtrl_btn_transparent_bg_color;
+			global::System.Application.Resource.Color.mtrl_calendar_item_stroke_color = global::System.Application.Launch.Resource.Color.mtrl_calendar_item_stroke_color;
+			global::System.Application.Resource.Color.mtrl_calendar_selected_range = global::System.Application.Launch.Resource.Color.mtrl_calendar_selected_range;
+			global::System.Application.Resource.Color.mtrl_card_view_foreground = global::System.Application.Launch.Resource.Color.mtrl_card_view_foreground;
+			global::System.Application.Resource.Color.mtrl_card_view_ripple = global::System.Application.Launch.Resource.Color.mtrl_card_view_ripple;
+			global::System.Application.Resource.Color.mtrl_chip_background_color = global::System.Application.Launch.Resource.Color.mtrl_chip_background_color;
+			global::System.Application.Resource.Color.mtrl_chip_close_icon_tint = global::System.Application.Launch.Resource.Color.mtrl_chip_close_icon_tint;
+			global::System.Application.Resource.Color.mtrl_chip_ripple_color = global::System.Application.Launch.Resource.Color.mtrl_chip_ripple_color;
+			global::System.Application.Resource.Color.mtrl_chip_surface_color = global::System.Application.Launch.Resource.Color.mtrl_chip_surface_color;
+			global::System.Application.Resource.Color.mtrl_chip_text_color = global::System.Application.Launch.Resource.Color.mtrl_chip_text_color;
+			global::System.Application.Resource.Color.mtrl_choice_chip_background_color = global::System.Application.Launch.Resource.Color.mtrl_choice_chip_background_color;
+			global::System.Application.Resource.Color.mtrl_choice_chip_ripple_color = global::System.Application.Launch.Resource.Color.mtrl_choice_chip_ripple_color;
+			global::System.Application.Resource.Color.mtrl_choice_chip_text_color = global::System.Application.Launch.Resource.Color.mtrl_choice_chip_text_color;
+			global::System.Application.Resource.Color.mtrl_error = global::System.Application.Launch.Resource.Color.mtrl_error;
+			global::System.Application.Resource.Color.mtrl_fab_bg_color_selector = global::System.Application.Launch.Resource.Color.mtrl_fab_bg_color_selector;
+			global::System.Application.Resource.Color.mtrl_fab_icon_text_color_selector = global::System.Application.Launch.Resource.Color.mtrl_fab_icon_text_color_selector;
+			global::System.Application.Resource.Color.mtrl_fab_ripple_color = global::System.Application.Launch.Resource.Color.mtrl_fab_ripple_color;
+			global::System.Application.Resource.Color.mtrl_filled_background_color = global::System.Application.Launch.Resource.Color.mtrl_filled_background_color;
+			global::System.Application.Resource.Color.mtrl_filled_icon_tint = global::System.Application.Launch.Resource.Color.mtrl_filled_icon_tint;
+			global::System.Application.Resource.Color.mtrl_filled_stroke_color = global::System.Application.Launch.Resource.Color.mtrl_filled_stroke_color;
+			global::System.Application.Resource.Color.mtrl_indicator_text_color = global::System.Application.Launch.Resource.Color.mtrl_indicator_text_color;
+			global::System.Application.Resource.Color.mtrl_navigation_item_background_color = global::System.Application.Launch.Resource.Color.mtrl_navigation_item_background_color;
+			global::System.Application.Resource.Color.mtrl_navigation_item_icon_tint = global::System.Application.Launch.Resource.Color.mtrl_navigation_item_icon_tint;
+			global::System.Application.Resource.Color.mtrl_navigation_item_text_color = global::System.Application.Launch.Resource.Color.mtrl_navigation_item_text_color;
+			global::System.Application.Resource.Color.mtrl_on_primary_text_btn_text_color_selector = global::System.Application.Launch.Resource.Color.mtrl_on_primary_text_btn_text_color_selector;
+			global::System.Application.Resource.Color.mtrl_outlined_icon_tint = global::System.Application.Launch.Resource.Color.mtrl_outlined_icon_tint;
+			global::System.Application.Resource.Color.mtrl_outlined_stroke_color = global::System.Application.Launch.Resource.Color.mtrl_outlined_stroke_color;
+			global::System.Application.Resource.Color.mtrl_popupmenu_overlay_color = global::System.Application.Launch.Resource.Color.mtrl_popupmenu_overlay_color;
+			global::System.Application.Resource.Color.mtrl_scrim_color = global::System.Application.Launch.Resource.Color.mtrl_scrim_color;
+			global::System.Application.Resource.Color.mtrl_tabs_colored_ripple_color = global::System.Application.Launch.Resource.Color.mtrl_tabs_colored_ripple_color;
+			global::System.Application.Resource.Color.mtrl_tabs_icon_color_selector = global::System.Application.Launch.Resource.Color.mtrl_tabs_icon_color_selector;
+			global::System.Application.Resource.Color.mtrl_tabs_icon_color_selector_colored = global::System.Application.Launch.Resource.Color.mtrl_tabs_icon_color_selector_colored;
+			global::System.Application.Resource.Color.mtrl_tabs_legacy_text_color_selector = global::System.Application.Launch.Resource.Color.mtrl_tabs_legacy_text_color_selector;
+			global::System.Application.Resource.Color.mtrl_tabs_ripple_color = global::System.Application.Launch.Resource.Color.mtrl_tabs_ripple_color;
+			global::System.Application.Resource.Color.mtrl_textinput_default_box_stroke_color = global::System.Application.Launch.Resource.Color.mtrl_textinput_default_box_stroke_color;
+			global::System.Application.Resource.Color.mtrl_textinput_disabled_color = global::System.Application.Launch.Resource.Color.mtrl_textinput_disabled_color;
+			global::System.Application.Resource.Color.mtrl_textinput_filled_box_default_background_color = global::System.Application.Launch.Resource.Color.mtrl_textinput_filled_box_default_background_color;
+			global::System.Application.Resource.Color.mtrl_textinput_focused_box_stroke_color = global::System.Application.Launch.Resource.Color.mtrl_textinput_focused_box_stroke_color;
+			global::System.Application.Resource.Color.mtrl_textinput_hovered_box_stroke_color = global::System.Application.Launch.Resource.Color.mtrl_textinput_hovered_box_stroke_color;
+			global::System.Application.Resource.Color.mtrl_text_btn_text_color_selector = global::System.Application.Launch.Resource.Color.mtrl_text_btn_text_color_selector;
+			global::System.Application.Resource.Color.notification_action_color_filter = global::System.Application.Launch.Resource.Color.notification_action_color_filter;
+			global::System.Application.Resource.Color.notification_icon_bg_color = global::System.Application.Launch.Resource.Color.notification_icon_bg_color;
+			global::System.Application.Resource.Color.notification_material_background_media_default_color = global::System.Application.Launch.Resource.Color.notification_material_background_media_default_color;
+			global::System.Application.Resource.Color.primary_dark_material_dark = global::System.Application.Launch.Resource.Color.primary_dark_material_dark;
+			global::System.Application.Resource.Color.primary_dark_material_light = global::System.Application.Launch.Resource.Color.primary_dark_material_light;
+			global::System.Application.Resource.Color.primary_material_dark = global::System.Application.Launch.Resource.Color.primary_material_dark;
+			global::System.Application.Resource.Color.primary_material_light = global::System.Application.Launch.Resource.Color.primary_material_light;
+			global::System.Application.Resource.Color.primary_text_default_material_dark = global::System.Application.Launch.Resource.Color.primary_text_default_material_dark;
+			global::System.Application.Resource.Color.primary_text_default_material_light = global::System.Application.Launch.Resource.Color.primary_text_default_material_light;
+			global::System.Application.Resource.Color.primary_text_disabled_material_dark = global::System.Application.Launch.Resource.Color.primary_text_disabled_material_dark;
+			global::System.Application.Resource.Color.primary_text_disabled_material_light = global::System.Application.Launch.Resource.Color.primary_text_disabled_material_light;
+			global::System.Application.Resource.Color.radiobutton_themeable_attribute_color = global::System.Application.Launch.Resource.Color.radiobutton_themeable_attribute_color;
+			global::System.Application.Resource.Color.ripple_material_dark = global::System.Application.Launch.Resource.Color.ripple_material_dark;
+			global::System.Application.Resource.Color.ripple_material_light = global::System.Application.Launch.Resource.Color.ripple_material_light;
+			global::System.Application.Resource.Color.secondary_text_default_material_dark = global::System.Application.Launch.Resource.Color.secondary_text_default_material_dark;
+			global::System.Application.Resource.Color.secondary_text_default_material_light = global::System.Application.Launch.Resource.Color.secondary_text_default_material_light;
+			global::System.Application.Resource.Color.secondary_text_disabled_material_dark = global::System.Application.Launch.Resource.Color.secondary_text_disabled_material_dark;
+			global::System.Application.Resource.Color.secondary_text_disabled_material_light = global::System.Application.Launch.Resource.Color.secondary_text_disabled_material_light;
+			global::System.Application.Resource.Color.splash_background = global::System.Application.Launch.Resource.Color.splash_background;
+			global::System.Application.Resource.Color.switch_thumb_disabled_material_dark = global::System.Application.Launch.Resource.Color.switch_thumb_disabled_material_dark;
+			global::System.Application.Resource.Color.switch_thumb_disabled_material_light = global::System.Application.Launch.Resource.Color.switch_thumb_disabled_material_light;
+			global::System.Application.Resource.Color.switch_thumb_material_dark = global::System.Application.Launch.Resource.Color.switch_thumb_material_dark;
+			global::System.Application.Resource.Color.switch_thumb_material_light = global::System.Application.Launch.Resource.Color.switch_thumb_material_light;
+			global::System.Application.Resource.Color.switch_thumb_normal_material_dark = global::System.Application.Launch.Resource.Color.switch_thumb_normal_material_dark;
+			global::System.Application.Resource.Color.switch_thumb_normal_material_light = global::System.Application.Launch.Resource.Color.switch_thumb_normal_material_light;
+			global::System.Application.Resource.Color.test_mtrl_calendar_day = global::System.Application.Launch.Resource.Color.test_mtrl_calendar_day;
+			global::System.Application.Resource.Color.test_mtrl_calendar_day_selected = global::System.Application.Launch.Resource.Color.test_mtrl_calendar_day_selected;
+			global::System.Application.Resource.Color.tooltip_background_dark = global::System.Application.Launch.Resource.Color.tooltip_background_dark;
+			global::System.Application.Resource.Color.tooltip_background_light = global::System.Application.Launch.Resource.Color.tooltip_background_light;
+			global::System.Application.Resource.Color.white_disabled_material = global::System.Application.Launch.Resource.Color.white_disabled_material;
+			global::System.Application.Resource.Dimension.abc_action_bar_content_inset_material = global::System.Application.Launch.Resource.Dimension.abc_action_bar_content_inset_material;
+			global::System.Application.Resource.Dimension.abc_action_bar_content_inset_with_nav = global::System.Application.Launch.Resource.Dimension.abc_action_bar_content_inset_with_nav;
+			global::System.Application.Resource.Dimension.abc_action_bar_default_height_material = global::System.Application.Launch.Resource.Dimension.abc_action_bar_default_height_material;
+			global::System.Application.Resource.Dimension.abc_action_bar_default_padding_end_material = global::System.Application.Launch.Resource.Dimension.abc_action_bar_default_padding_end_material;
+			global::System.Application.Resource.Dimension.abc_action_bar_default_padding_start_material = global::System.Application.Launch.Resource.Dimension.abc_action_bar_default_padding_start_material;
+			global::System.Application.Resource.Dimension.abc_action_bar_elevation_material = global::System.Application.Launch.Resource.Dimension.abc_action_bar_elevation_material;
+			global::System.Application.Resource.Dimension.abc_action_bar_icon_vertical_padding_material = global::System.Application.Launch.Resource.Dimension.abc_action_bar_icon_vertical_padding_material;
+			global::System.Application.Resource.Dimension.abc_action_bar_overflow_padding_end_material = global::System.Application.Launch.Resource.Dimension.abc_action_bar_overflow_padding_end_material;
+			global::System.Application.Resource.Dimension.abc_action_bar_overflow_padding_start_material = global::System.Application.Launch.Resource.Dimension.abc_action_bar_overflow_padding_start_material;
+			global::System.Application.Resource.Dimension.abc_action_bar_stacked_max_height = global::System.Application.Launch.Resource.Dimension.abc_action_bar_stacked_max_height;
+			global::System.Application.Resource.Dimension.abc_action_bar_stacked_tab_max_width = global::System.Application.Launch.Resource.Dimension.abc_action_bar_stacked_tab_max_width;
+			global::System.Application.Resource.Dimension.abc_action_bar_subtitle_bottom_margin_material = global::System.Application.Launch.Resource.Dimension.abc_action_bar_subtitle_bottom_margin_material;
+			global::System.Application.Resource.Dimension.abc_action_bar_subtitle_top_margin_material = global::System.Application.Launch.Resource.Dimension.abc_action_bar_subtitle_top_margin_material;
+			global::System.Application.Resource.Dimension.abc_action_button_min_height_material = global::System.Application.Launch.Resource.Dimension.abc_action_button_min_height_material;
+			global::System.Application.Resource.Dimension.abc_action_button_min_width_material = global::System.Application.Launch.Resource.Dimension.abc_action_button_min_width_material;
+			global::System.Application.Resource.Dimension.abc_action_button_min_width_overflow_material = global::System.Application.Launch.Resource.Dimension.abc_action_button_min_width_overflow_material;
+			global::System.Application.Resource.Dimension.abc_alert_dialog_button_bar_height = global::System.Application.Launch.Resource.Dimension.abc_alert_dialog_button_bar_height;
+			global::System.Application.Resource.Dimension.abc_alert_dialog_button_dimen = global::System.Application.Launch.Resource.Dimension.abc_alert_dialog_button_dimen;
+			global::System.Application.Resource.Dimension.abc_button_inset_horizontal_material = global::System.Application.Launch.Resource.Dimension.abc_button_inset_horizontal_material;
+			global::System.Application.Resource.Dimension.abc_button_inset_vertical_material = global::System.Application.Launch.Resource.Dimension.abc_button_inset_vertical_material;
+			global::System.Application.Resource.Dimension.abc_button_padding_horizontal_material = global::System.Application.Launch.Resource.Dimension.abc_button_padding_horizontal_material;
+			global::System.Application.Resource.Dimension.abc_button_padding_vertical_material = global::System.Application.Launch.Resource.Dimension.abc_button_padding_vertical_material;
+			global::System.Application.Resource.Dimension.abc_cascading_menus_min_smallest_width = global::System.Application.Launch.Resource.Dimension.abc_cascading_menus_min_smallest_width;
+			global::System.Application.Resource.Dimension.abc_config_prefDialogWidth = global::System.Application.Launch.Resource.Dimension.abc_config_prefDialogWidth;
+			global::System.Application.Resource.Dimension.abc_control_corner_material = global::System.Application.Launch.Resource.Dimension.abc_control_corner_material;
+			global::System.Application.Resource.Dimension.abc_control_inset_material = global::System.Application.Launch.Resource.Dimension.abc_control_inset_material;
+			global::System.Application.Resource.Dimension.abc_control_padding_material = global::System.Application.Launch.Resource.Dimension.abc_control_padding_material;
+			global::System.Application.Resource.Dimension.abc_dialog_corner_radius_material = global::System.Application.Launch.Resource.Dimension.abc_dialog_corner_radius_material;
+			global::System.Application.Resource.Dimension.abc_dialog_fixed_height_major = global::System.Application.Launch.Resource.Dimension.abc_dialog_fixed_height_major;
+			global::System.Application.Resource.Dimension.abc_dialog_fixed_height_minor = global::System.Application.Launch.Resource.Dimension.abc_dialog_fixed_height_minor;
+			global::System.Application.Resource.Dimension.abc_dialog_fixed_width_major = global::System.Application.Launch.Resource.Dimension.abc_dialog_fixed_width_major;
+			global::System.Application.Resource.Dimension.abc_dialog_fixed_width_minor = global::System.Application.Launch.Resource.Dimension.abc_dialog_fixed_width_minor;
+			global::System.Application.Resource.Dimension.abc_dialog_list_padding_bottom_no_buttons = global::System.Application.Launch.Resource.Dimension.abc_dialog_list_padding_bottom_no_buttons;
+			global::System.Application.Resource.Dimension.abc_dialog_list_padding_top_no_title = global::System.Application.Launch.Resource.Dimension.abc_dialog_list_padding_top_no_title;
+			global::System.Application.Resource.Dimension.abc_dialog_min_width_major = global::System.Application.Launch.Resource.Dimension.abc_dialog_min_width_major;
+			global::System.Application.Resource.Dimension.abc_dialog_min_width_minor = global::System.Application.Launch.Resource.Dimension.abc_dialog_min_width_minor;
+			global::System.Application.Resource.Dimension.abc_dialog_padding_material = global::System.Application.Launch.Resource.Dimension.abc_dialog_padding_material;
+			global::System.Application.Resource.Dimension.abc_dialog_padding_top_material = global::System.Application.Launch.Resource.Dimension.abc_dialog_padding_top_material;
+			global::System.Application.Resource.Dimension.abc_dialog_title_divider_material = global::System.Application.Launch.Resource.Dimension.abc_dialog_title_divider_material;
+			global::System.Application.Resource.Dimension.abc_disabled_alpha_material_dark = global::System.Application.Launch.Resource.Dimension.abc_disabled_alpha_material_dark;
+			global::System.Application.Resource.Dimension.abc_disabled_alpha_material_light = global::System.Application.Launch.Resource.Dimension.abc_disabled_alpha_material_light;
+			global::System.Application.Resource.Dimension.abc_dropdownitem_icon_width = global::System.Application.Launch.Resource.Dimension.abc_dropdownitem_icon_width;
+			global::System.Application.Resource.Dimension.abc_dropdownitem_text_padding_left = global::System.Application.Launch.Resource.Dimension.abc_dropdownitem_text_padding_left;
+			global::System.Application.Resource.Dimension.abc_dropdownitem_text_padding_right = global::System.Application.Launch.Resource.Dimension.abc_dropdownitem_text_padding_right;
+			global::System.Application.Resource.Dimension.abc_edit_text_inset_bottom_material = global::System.Application.Launch.Resource.Dimension.abc_edit_text_inset_bottom_material;
+			global::System.Application.Resource.Dimension.abc_edit_text_inset_horizontal_material = global::System.Application.Launch.Resource.Dimension.abc_edit_text_inset_horizontal_material;
+			global::System.Application.Resource.Dimension.abc_edit_text_inset_top_material = global::System.Application.Launch.Resource.Dimension.abc_edit_text_inset_top_material;
+			global::System.Application.Resource.Dimension.abc_floating_window_z = global::System.Application.Launch.Resource.Dimension.abc_floating_window_z;
+			global::System.Application.Resource.Dimension.abc_list_item_height_large_material = global::System.Application.Launch.Resource.Dimension.abc_list_item_height_large_material;
+			global::System.Application.Resource.Dimension.abc_list_item_height_material = global::System.Application.Launch.Resource.Dimension.abc_list_item_height_material;
+			global::System.Application.Resource.Dimension.abc_list_item_height_small_material = global::System.Application.Launch.Resource.Dimension.abc_list_item_height_small_material;
+			global::System.Application.Resource.Dimension.abc_list_item_padding_horizontal_material = global::System.Application.Launch.Resource.Dimension.abc_list_item_padding_horizontal_material;
+			global::System.Application.Resource.Dimension.abc_panel_menu_list_width = global::System.Application.Launch.Resource.Dimension.abc_panel_menu_list_width;
+			global::System.Application.Resource.Dimension.abc_progress_bar_height_material = global::System.Application.Launch.Resource.Dimension.abc_progress_bar_height_material;
+			global::System.Application.Resource.Dimension.abc_search_view_preferred_height = global::System.Application.Launch.Resource.Dimension.abc_search_view_preferred_height;
+			global::System.Application.Resource.Dimension.abc_search_view_preferred_width = global::System.Application.Launch.Resource.Dimension.abc_search_view_preferred_width;
+			global::System.Application.Resource.Dimension.abc_seekbar_track_background_height_material = global::System.Application.Launch.Resource.Dimension.abc_seekbar_track_background_height_material;
+			global::System.Application.Resource.Dimension.abc_seekbar_track_progress_height_material = global::System.Application.Launch.Resource.Dimension.abc_seekbar_track_progress_height_material;
+			global::System.Application.Resource.Dimension.abc_select_dialog_padding_start_material = global::System.Application.Launch.Resource.Dimension.abc_select_dialog_padding_start_material;
+			global::System.Application.Resource.Dimension.abc_switch_padding = global::System.Application.Launch.Resource.Dimension.abc_switch_padding;
+			global::System.Application.Resource.Dimension.abc_text_size_body_1_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_body_1_material;
+			global::System.Application.Resource.Dimension.abc_text_size_body_2_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_body_2_material;
+			global::System.Application.Resource.Dimension.abc_text_size_button_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_button_material;
+			global::System.Application.Resource.Dimension.abc_text_size_caption_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_caption_material;
+			global::System.Application.Resource.Dimension.abc_text_size_display_1_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_display_1_material;
+			global::System.Application.Resource.Dimension.abc_text_size_display_2_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_display_2_material;
+			global::System.Application.Resource.Dimension.abc_text_size_display_3_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_display_3_material;
+			global::System.Application.Resource.Dimension.abc_text_size_display_4_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_display_4_material;
+			global::System.Application.Resource.Dimension.abc_text_size_headline_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_headline_material;
+			global::System.Application.Resource.Dimension.abc_text_size_large_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_large_material;
+			global::System.Application.Resource.Dimension.abc_text_size_medium_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_medium_material;
+			global::System.Application.Resource.Dimension.abc_text_size_menu_header_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_menu_header_material;
+			global::System.Application.Resource.Dimension.abc_text_size_menu_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_menu_material;
+			global::System.Application.Resource.Dimension.abc_text_size_small_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_small_material;
+			global::System.Application.Resource.Dimension.abc_text_size_subhead_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_subhead_material;
+			global::System.Application.Resource.Dimension.abc_text_size_subtitle_material_toolbar = global::System.Application.Launch.Resource.Dimension.abc_text_size_subtitle_material_toolbar;
+			global::System.Application.Resource.Dimension.abc_text_size_title_material = global::System.Application.Launch.Resource.Dimension.abc_text_size_title_material;
+			global::System.Application.Resource.Dimension.abc_text_size_title_material_toolbar = global::System.Application.Launch.Resource.Dimension.abc_text_size_title_material_toolbar;
+			global::System.Application.Resource.Dimension.action_bar_size = global::System.Application.Launch.Resource.Dimension.action_bar_size;
+			global::System.Application.Resource.Dimension.appcompat_dialog_background_inset = global::System.Application.Launch.Resource.Dimension.appcompat_dialog_background_inset;
+			global::System.Application.Resource.Dimension.browser_actions_context_menu_max_width = global::System.Application.Launch.Resource.Dimension.browser_actions_context_menu_max_width;
+			global::System.Application.Resource.Dimension.browser_actions_context_menu_min_padding = global::System.Application.Launch.Resource.Dimension.browser_actions_context_menu_min_padding;
+			global::System.Application.Resource.Dimension.cardview_compat_inset_shadow = global::System.Application.Launch.Resource.Dimension.cardview_compat_inset_shadow;
+			global::System.Application.Resource.Dimension.cardview_default_elevation = global::System.Application.Launch.Resource.Dimension.cardview_default_elevation;
+			global::System.Application.Resource.Dimension.cardview_default_radius = global::System.Application.Launch.Resource.Dimension.cardview_default_radius;
+			global::System.Application.Resource.Dimension.compat_button_inset_horizontal_material = global::System.Application.Launch.Resource.Dimension.compat_button_inset_horizontal_material;
+			global::System.Application.Resource.Dimension.compat_button_inset_vertical_material = global::System.Application.Launch.Resource.Dimension.compat_button_inset_vertical_material;
+			global::System.Application.Resource.Dimension.compat_button_padding_horizontal_material = global::System.Application.Launch.Resource.Dimension.compat_button_padding_horizontal_material;
+			global::System.Application.Resource.Dimension.compat_button_padding_vertical_material = global::System.Application.Launch.Resource.Dimension.compat_button_padding_vertical_material;
+			global::System.Application.Resource.Dimension.compat_control_corner_material = global::System.Application.Launch.Resource.Dimension.compat_control_corner_material;
+			global::System.Application.Resource.Dimension.compat_notification_large_icon_max_height = global::System.Application.Launch.Resource.Dimension.compat_notification_large_icon_max_height;
+			global::System.Application.Resource.Dimension.compat_notification_large_icon_max_width = global::System.Application.Launch.Resource.Dimension.compat_notification_large_icon_max_width;
+			global::System.Application.Resource.Dimension.default_dimension = global::System.Application.Launch.Resource.Dimension.default_dimension;
+			global::System.Application.Resource.Dimension.def_drawer_elevation = global::System.Application.Launch.Resource.Dimension.def_drawer_elevation;
+			global::System.Application.Resource.Dimension.design_appbar_elevation = global::System.Application.Launch.Resource.Dimension.design_appbar_elevation;
+			global::System.Application.Resource.Dimension.design_bottom_navigation_active_item_max_width = global::System.Application.Launch.Resource.Dimension.design_bottom_navigation_active_item_max_width;
+			global::System.Application.Resource.Dimension.design_bottom_navigation_active_item_min_width = global::System.Application.Launch.Resource.Dimension.design_bottom_navigation_active_item_min_width;
+			global::System.Application.Resource.Dimension.design_bottom_navigation_active_text_size = global::System.Application.Launch.Resource.Dimension.design_bottom_navigation_active_text_size;
+			global::System.Application.Resource.Dimension.design_bottom_navigation_elevation = global::System.Application.Launch.Resource.Dimension.design_bottom_navigation_elevation;
+			global::System.Application.Resource.Dimension.design_bottom_navigation_height = global::System.Application.Launch.Resource.Dimension.design_bottom_navigation_height;
+			global::System.Application.Resource.Dimension.design_bottom_navigation_icon_size = global::System.Application.Launch.Resource.Dimension.design_bottom_navigation_icon_size;
+			global::System.Application.Resource.Dimension.design_bottom_navigation_item_max_width = global::System.Application.Launch.Resource.Dimension.design_bottom_navigation_item_max_width;
+			global::System.Application.Resource.Dimension.design_bottom_navigation_item_min_width = global::System.Application.Launch.Resource.Dimension.design_bottom_navigation_item_min_width;
+			global::System.Application.Resource.Dimension.design_bottom_navigation_margin = global::System.Application.Launch.Resource.Dimension.design_bottom_navigation_margin;
+			global::System.Application.Resource.Dimension.design_bottom_navigation_shadow_height = global::System.Application.Launch.Resource.Dimension.design_bottom_navigation_shadow_height;
+			global::System.Application.Resource.Dimension.design_bottom_navigation_text_size = global::System.Application.Launch.Resource.Dimension.design_bottom_navigation_text_size;
+			global::System.Application.Resource.Dimension.design_bottom_sheet_elevation = global::System.Application.Launch.Resource.Dimension.design_bottom_sheet_elevation;
+			global::System.Application.Resource.Dimension.design_bottom_sheet_modal_elevation = global::System.Application.Launch.Resource.Dimension.design_bottom_sheet_modal_elevation;
+			global::System.Application.Resource.Dimension.design_bottom_sheet_peek_height_min = global::System.Application.Launch.Resource.Dimension.design_bottom_sheet_peek_height_min;
+			global::System.Application.Resource.Dimension.design_fab_border_width = global::System.Application.Launch.Resource.Dimension.design_fab_border_width;
+			global::System.Application.Resource.Dimension.design_fab_elevation = global::System.Application.Launch.Resource.Dimension.design_fab_elevation;
+			global::System.Application.Resource.Dimension.design_fab_image_size = global::System.Application.Launch.Resource.Dimension.design_fab_image_size;
+			global::System.Application.Resource.Dimension.design_fab_size_mini = global::System.Application.Launch.Resource.Dimension.design_fab_size_mini;
+			global::System.Application.Resource.Dimension.design_fab_size_normal = global::System.Application.Launch.Resource.Dimension.design_fab_size_normal;
+			global::System.Application.Resource.Dimension.design_fab_translation_z_hovered_focused = global::System.Application.Launch.Resource.Dimension.design_fab_translation_z_hovered_focused;
+			global::System.Application.Resource.Dimension.design_fab_translation_z_pressed = global::System.Application.Launch.Resource.Dimension.design_fab_translation_z_pressed;
+			global::System.Application.Resource.Dimension.design_navigation_elevation = global::System.Application.Launch.Resource.Dimension.design_navigation_elevation;
+			global::System.Application.Resource.Dimension.design_navigation_icon_padding = global::System.Application.Launch.Resource.Dimension.design_navigation_icon_padding;
+			global::System.Application.Resource.Dimension.design_navigation_icon_size = global::System.Application.Launch.Resource.Dimension.design_navigation_icon_size;
+			global::System.Application.Resource.Dimension.design_navigation_item_horizontal_padding = global::System.Application.Launch.Resource.Dimension.design_navigation_item_horizontal_padding;
+			global::System.Application.Resource.Dimension.design_navigation_item_icon_padding = global::System.Application.Launch.Resource.Dimension.design_navigation_item_icon_padding;
+			global::System.Application.Resource.Dimension.design_navigation_max_width = global::System.Application.Launch.Resource.Dimension.design_navigation_max_width;
+			global::System.Application.Resource.Dimension.design_navigation_padding_bottom = global::System.Application.Launch.Resource.Dimension.design_navigation_padding_bottom;
+			global::System.Application.Resource.Dimension.design_navigation_separator_vertical_padding = global::System.Application.Launch.Resource.Dimension.design_navigation_separator_vertical_padding;
+			global::System.Application.Resource.Dimension.design_snackbar_action_inline_max_width = global::System.Application.Launch.Resource.Dimension.design_snackbar_action_inline_max_width;
+			global::System.Application.Resource.Dimension.design_snackbar_action_text_color_alpha = global::System.Application.Launch.Resource.Dimension.design_snackbar_action_text_color_alpha;
+			global::System.Application.Resource.Dimension.design_snackbar_background_corner_radius = global::System.Application.Launch.Resource.Dimension.design_snackbar_background_corner_radius;
+			global::System.Application.Resource.Dimension.design_snackbar_elevation = global::System.Application.Launch.Resource.Dimension.design_snackbar_elevation;
+			global::System.Application.Resource.Dimension.design_snackbar_extra_spacing_horizontal = global::System.Application.Launch.Resource.Dimension.design_snackbar_extra_spacing_horizontal;
+			global::System.Application.Resource.Dimension.design_snackbar_max_width = global::System.Application.Launch.Resource.Dimension.design_snackbar_max_width;
+			global::System.Application.Resource.Dimension.design_snackbar_min_width = global::System.Application.Launch.Resource.Dimension.design_snackbar_min_width;
+			global::System.Application.Resource.Dimension.design_snackbar_padding_horizontal = global::System.Application.Launch.Resource.Dimension.design_snackbar_padding_horizontal;
+			global::System.Application.Resource.Dimension.design_snackbar_padding_vertical = global::System.Application.Launch.Resource.Dimension.design_snackbar_padding_vertical;
+			global::System.Application.Resource.Dimension.design_snackbar_padding_vertical_2lines = global::System.Application.Launch.Resource.Dimension.design_snackbar_padding_vertical_2lines;
+			global::System.Application.Resource.Dimension.design_snackbar_text_size = global::System.Application.Launch.Resource.Dimension.design_snackbar_text_size;
+			global::System.Application.Resource.Dimension.design_tab_max_width = global::System.Application.Launch.Resource.Dimension.design_tab_max_width;
+			global::System.Application.Resource.Dimension.design_tab_scrollable_min_width = global::System.Application.Launch.Resource.Dimension.design_tab_scrollable_min_width;
+			global::System.Application.Resource.Dimension.design_tab_text_size = global::System.Application.Launch.Resource.Dimension.design_tab_text_size;
+			global::System.Application.Resource.Dimension.design_tab_text_size_2line = global::System.Application.Launch.Resource.Dimension.design_tab_text_size_2line;
+			global::System.Application.Resource.Dimension.design_textinput_caption_translate_y = global::System.Application.Launch.Resource.Dimension.design_textinput_caption_translate_y;
+			global::System.Application.Resource.Dimension.disabled_alpha_material_dark = global::System.Application.Launch.Resource.Dimension.disabled_alpha_material_dark;
+			global::System.Application.Resource.Dimension.disabled_alpha_material_light = global::System.Application.Launch.Resource.Dimension.disabled_alpha_material_light;
+			global::System.Application.Resource.Dimension.fastscroll_default_thickness = global::System.Application.Launch.Resource.Dimension.fastscroll_default_thickness;
+			global::System.Application.Resource.Dimension.fastscroll_margin = global::System.Application.Launch.Resource.Dimension.fastscroll_margin;
+			global::System.Application.Resource.Dimension.fastscroll_minimum_range = global::System.Application.Launch.Resource.Dimension.fastscroll_minimum_range;
+			global::System.Application.Resource.Dimension.highlight_alpha_material_colored = global::System.Application.Launch.Resource.Dimension.highlight_alpha_material_colored;
+			global::System.Application.Resource.Dimension.highlight_alpha_material_dark = global::System.Application.Launch.Resource.Dimension.highlight_alpha_material_dark;
+			global::System.Application.Resource.Dimension.highlight_alpha_material_light = global::System.Application.Launch.Resource.Dimension.highlight_alpha_material_light;
+			global::System.Application.Resource.Dimension.hint_alpha_material_dark = global::System.Application.Launch.Resource.Dimension.hint_alpha_material_dark;
+			global::System.Application.Resource.Dimension.hint_alpha_material_light = global::System.Application.Launch.Resource.Dimension.hint_alpha_material_light;
+			global::System.Application.Resource.Dimension.hint_pressed_alpha_material_dark = global::System.Application.Launch.Resource.Dimension.hint_pressed_alpha_material_dark;
+			global::System.Application.Resource.Dimension.hint_pressed_alpha_material_light = global::System.Application.Launch.Resource.Dimension.hint_pressed_alpha_material_light;
+			global::System.Application.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame = global::System.Application.Launch.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame;
+			global::System.Application.Resource.Dimension.item_touch_helper_swipe_escape_max_velocity = global::System.Application.Launch.Resource.Dimension.item_touch_helper_swipe_escape_max_velocity;
+			global::System.Application.Resource.Dimension.item_touch_helper_swipe_escape_velocity = global::System.Application.Launch.Resource.Dimension.item_touch_helper_swipe_escape_velocity;
+			global::System.Application.Resource.Dimension.material_emphasis_disabled = global::System.Application.Launch.Resource.Dimension.material_emphasis_disabled;
+			global::System.Application.Resource.Dimension.material_emphasis_high_type = global::System.Application.Launch.Resource.Dimension.material_emphasis_high_type;
+			global::System.Application.Resource.Dimension.material_emphasis_medium = global::System.Application.Launch.Resource.Dimension.material_emphasis_medium;
+			global::System.Application.Resource.Dimension.material_text_view_test_line_height = global::System.Application.Launch.Resource.Dimension.material_text_view_test_line_height;
+			global::System.Application.Resource.Dimension.material_text_view_test_line_height_override = global::System.Application.Launch.Resource.Dimension.material_text_view_test_line_height_override;
+			global::System.Application.Resource.Dimension.mtrl_alert_dialog_background_inset_bottom = global::System.Application.Launch.Resource.Dimension.mtrl_alert_dialog_background_inset_bottom;
+			global::System.Application.Resource.Dimension.mtrl_alert_dialog_background_inset_end = global::System.Application.Launch.Resource.Dimension.mtrl_alert_dialog_background_inset_end;
+			global::System.Application.Resource.Dimension.mtrl_alert_dialog_background_inset_start = global::System.Application.Launch.Resource.Dimension.mtrl_alert_dialog_background_inset_start;
+			global::System.Application.Resource.Dimension.mtrl_alert_dialog_background_inset_top = global::System.Application.Launch.Resource.Dimension.mtrl_alert_dialog_background_inset_top;
+			global::System.Application.Resource.Dimension.mtrl_alert_dialog_picker_background_inset = global::System.Application.Launch.Resource.Dimension.mtrl_alert_dialog_picker_background_inset;
+			global::System.Application.Resource.Dimension.mtrl_badge_horizontal_edge_offset = global::System.Application.Launch.Resource.Dimension.mtrl_badge_horizontal_edge_offset;
+			global::System.Application.Resource.Dimension.mtrl_badge_long_text_horizontal_padding = global::System.Application.Launch.Resource.Dimension.mtrl_badge_long_text_horizontal_padding;
+			global::System.Application.Resource.Dimension.mtrl_badge_radius = global::System.Application.Launch.Resource.Dimension.mtrl_badge_radius;
+			global::System.Application.Resource.Dimension.mtrl_badge_text_horizontal_edge_offset = global::System.Application.Launch.Resource.Dimension.mtrl_badge_text_horizontal_edge_offset;
+			global::System.Application.Resource.Dimension.mtrl_badge_text_size = global::System.Application.Launch.Resource.Dimension.mtrl_badge_text_size;
+			global::System.Application.Resource.Dimension.mtrl_badge_with_text_radius = global::System.Application.Launch.Resource.Dimension.mtrl_badge_with_text_radius;
+			global::System.Application.Resource.Dimension.mtrl_bottomappbar_fabOffsetEndMode = global::System.Application.Launch.Resource.Dimension.mtrl_bottomappbar_fabOffsetEndMode;
+			global::System.Application.Resource.Dimension.mtrl_bottomappbar_fab_bottom_margin = global::System.Application.Launch.Resource.Dimension.mtrl_bottomappbar_fab_bottom_margin;
+			global::System.Application.Resource.Dimension.mtrl_bottomappbar_fab_cradle_margin = global::System.Application.Launch.Resource.Dimension.mtrl_bottomappbar_fab_cradle_margin;
+			global::System.Application.Resource.Dimension.mtrl_bottomappbar_fab_cradle_rounded_corner_radius = global::System.Application.Launch.Resource.Dimension.mtrl_bottomappbar_fab_cradle_rounded_corner_radius;
+			global::System.Application.Resource.Dimension.mtrl_bottomappbar_fab_cradle_vertical_offset = global::System.Application.Launch.Resource.Dimension.mtrl_bottomappbar_fab_cradle_vertical_offset;
+			global::System.Application.Resource.Dimension.mtrl_bottomappbar_height = global::System.Application.Launch.Resource.Dimension.mtrl_bottomappbar_height;
+			global::System.Application.Resource.Dimension.mtrl_btn_corner_radius = global::System.Application.Launch.Resource.Dimension.mtrl_btn_corner_radius;
+			global::System.Application.Resource.Dimension.mtrl_btn_dialog_btn_min_width = global::System.Application.Launch.Resource.Dimension.mtrl_btn_dialog_btn_min_width;
+			global::System.Application.Resource.Dimension.mtrl_btn_disabled_elevation = global::System.Application.Launch.Resource.Dimension.mtrl_btn_disabled_elevation;
+			global::System.Application.Resource.Dimension.mtrl_btn_disabled_z = global::System.Application.Launch.Resource.Dimension.mtrl_btn_disabled_z;
+			global::System.Application.Resource.Dimension.mtrl_btn_elevation = global::System.Application.Launch.Resource.Dimension.mtrl_btn_elevation;
+			global::System.Application.Resource.Dimension.mtrl_btn_focused_z = global::System.Application.Launch.Resource.Dimension.mtrl_btn_focused_z;
+			global::System.Application.Resource.Dimension.mtrl_btn_hovered_z = global::System.Application.Launch.Resource.Dimension.mtrl_btn_hovered_z;
+			global::System.Application.Resource.Dimension.mtrl_btn_icon_btn_padding_left = global::System.Application.Launch.Resource.Dimension.mtrl_btn_icon_btn_padding_left;
+			global::System.Application.Resource.Dimension.mtrl_btn_icon_padding = global::System.Application.Launch.Resource.Dimension.mtrl_btn_icon_padding;
+			global::System.Application.Resource.Dimension.mtrl_btn_inset = global::System.Application.Launch.Resource.Dimension.mtrl_btn_inset;
+			global::System.Application.Resource.Dimension.mtrl_btn_letter_spacing = global::System.Application.Launch.Resource.Dimension.mtrl_btn_letter_spacing;
+			global::System.Application.Resource.Dimension.mtrl_btn_padding_bottom = global::System.Application.Launch.Resource.Dimension.mtrl_btn_padding_bottom;
+			global::System.Application.Resource.Dimension.mtrl_btn_padding_left = global::System.Application.Launch.Resource.Dimension.mtrl_btn_padding_left;
+			global::System.Application.Resource.Dimension.mtrl_btn_padding_right = global::System.Application.Launch.Resource.Dimension.mtrl_btn_padding_right;
+			global::System.Application.Resource.Dimension.mtrl_btn_padding_top = global::System.Application.Launch.Resource.Dimension.mtrl_btn_padding_top;
+			global::System.Application.Resource.Dimension.mtrl_btn_pressed_z = global::System.Application.Launch.Resource.Dimension.mtrl_btn_pressed_z;
+			global::System.Application.Resource.Dimension.mtrl_btn_stroke_size = global::System.Application.Launch.Resource.Dimension.mtrl_btn_stroke_size;
+			global::System.Application.Resource.Dimension.mtrl_btn_text_btn_icon_padding = global::System.Application.Launch.Resource.Dimension.mtrl_btn_text_btn_icon_padding;
+			global::System.Application.Resource.Dimension.mtrl_btn_text_btn_padding_left = global::System.Application.Launch.Resource.Dimension.mtrl_btn_text_btn_padding_left;
+			global::System.Application.Resource.Dimension.mtrl_btn_text_btn_padding_right = global::System.Application.Launch.Resource.Dimension.mtrl_btn_text_btn_padding_right;
+			global::System.Application.Resource.Dimension.mtrl_btn_text_size = global::System.Application.Launch.Resource.Dimension.mtrl_btn_text_size;
+			global::System.Application.Resource.Dimension.mtrl_btn_z = global::System.Application.Launch.Resource.Dimension.mtrl_btn_z;
+			global::System.Application.Resource.Dimension.mtrl_calendar_action_height = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_action_height;
+			global::System.Application.Resource.Dimension.mtrl_calendar_action_padding = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_action_padding;
+			global::System.Application.Resource.Dimension.mtrl_calendar_bottom_padding = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_bottom_padding;
+			global::System.Application.Resource.Dimension.mtrl_calendar_content_padding = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_content_padding;
+			global::System.Application.Resource.Dimension.mtrl_calendar_days_of_week_height = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_days_of_week_height;
+			global::System.Application.Resource.Dimension.mtrl_calendar_day_corner = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_day_corner;
+			global::System.Application.Resource.Dimension.mtrl_calendar_day_height = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_day_height;
+			global::System.Application.Resource.Dimension.mtrl_calendar_day_horizontal_padding = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_day_horizontal_padding;
+			global::System.Application.Resource.Dimension.mtrl_calendar_day_today_stroke = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_day_today_stroke;
+			global::System.Application.Resource.Dimension.mtrl_calendar_day_vertical_padding = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_day_vertical_padding;
+			global::System.Application.Resource.Dimension.mtrl_calendar_day_width = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_day_width;
+			global::System.Application.Resource.Dimension.mtrl_calendar_dialog_background_inset = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_dialog_background_inset;
+			global::System.Application.Resource.Dimension.mtrl_calendar_header_content_padding = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_header_content_padding;
+			global::System.Application.Resource.Dimension.mtrl_calendar_header_content_padding_fullscreen = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_header_content_padding_fullscreen;
+			global::System.Application.Resource.Dimension.mtrl_calendar_header_divider_thickness = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_header_divider_thickness;
+			global::System.Application.Resource.Dimension.mtrl_calendar_header_height = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_header_height;
+			global::System.Application.Resource.Dimension.mtrl_calendar_header_height_fullscreen = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_header_height_fullscreen;
+			global::System.Application.Resource.Dimension.mtrl_calendar_header_selection_line_height = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_header_selection_line_height;
+			global::System.Application.Resource.Dimension.mtrl_calendar_header_text_padding = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_header_text_padding;
+			global::System.Application.Resource.Dimension.mtrl_calendar_header_toggle_margin_bottom = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_header_toggle_margin_bottom;
+			global::System.Application.Resource.Dimension.mtrl_calendar_header_toggle_margin_top = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_header_toggle_margin_top;
+			global::System.Application.Resource.Dimension.mtrl_calendar_landscape_header_width = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_landscape_header_width;
+			global::System.Application.Resource.Dimension.mtrl_calendar_maximum_default_fullscreen_minor_axis = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_maximum_default_fullscreen_minor_axis;
+			global::System.Application.Resource.Dimension.mtrl_calendar_month_horizontal_padding = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_month_horizontal_padding;
+			global::System.Application.Resource.Dimension.mtrl_calendar_month_vertical_padding = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_month_vertical_padding;
+			global::System.Application.Resource.Dimension.mtrl_calendar_navigation_bottom_padding = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_navigation_bottom_padding;
+			global::System.Application.Resource.Dimension.mtrl_calendar_navigation_height = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_navigation_height;
+			global::System.Application.Resource.Dimension.mtrl_calendar_navigation_top_padding = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_navigation_top_padding;
+			global::System.Application.Resource.Dimension.mtrl_calendar_pre_l_text_clip_padding = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_pre_l_text_clip_padding;
+			global::System.Application.Resource.Dimension.mtrl_calendar_selection_baseline_to_top_fullscreen = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_selection_baseline_to_top_fullscreen;
+			global::System.Application.Resource.Dimension.mtrl_calendar_selection_text_baseline_to_bottom = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_selection_text_baseline_to_bottom;
+			global::System.Application.Resource.Dimension.mtrl_calendar_selection_text_baseline_to_bottom_fullscreen = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_selection_text_baseline_to_bottom_fullscreen;
+			global::System.Application.Resource.Dimension.mtrl_calendar_selection_text_baseline_to_top = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_selection_text_baseline_to_top;
+			global::System.Application.Resource.Dimension.mtrl_calendar_text_input_padding_top = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_text_input_padding_top;
+			global::System.Application.Resource.Dimension.mtrl_calendar_title_baseline_to_top = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_title_baseline_to_top;
+			global::System.Application.Resource.Dimension.mtrl_calendar_title_baseline_to_top_fullscreen = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_title_baseline_to_top_fullscreen;
+			global::System.Application.Resource.Dimension.mtrl_calendar_year_corner = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_year_corner;
+			global::System.Application.Resource.Dimension.mtrl_calendar_year_height = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_year_height;
+			global::System.Application.Resource.Dimension.mtrl_calendar_year_horizontal_padding = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_year_horizontal_padding;
+			global::System.Application.Resource.Dimension.mtrl_calendar_year_vertical_padding = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_year_vertical_padding;
+			global::System.Application.Resource.Dimension.mtrl_calendar_year_width = global::System.Application.Launch.Resource.Dimension.mtrl_calendar_year_width;
+			global::System.Application.Resource.Dimension.mtrl_card_checked_icon_margin = global::System.Application.Launch.Resource.Dimension.mtrl_card_checked_icon_margin;
+			global::System.Application.Resource.Dimension.mtrl_card_checked_icon_size = global::System.Application.Launch.Resource.Dimension.mtrl_card_checked_icon_size;
+			global::System.Application.Resource.Dimension.mtrl_card_corner_radius = global::System.Application.Launch.Resource.Dimension.mtrl_card_corner_radius;
+			global::System.Application.Resource.Dimension.mtrl_card_dragged_z = global::System.Application.Launch.Resource.Dimension.mtrl_card_dragged_z;
+			global::System.Application.Resource.Dimension.mtrl_card_elevation = global::System.Application.Launch.Resource.Dimension.mtrl_card_elevation;
+			global::System.Application.Resource.Dimension.mtrl_card_spacing = global::System.Application.Launch.Resource.Dimension.mtrl_card_spacing;
+			global::System.Application.Resource.Dimension.mtrl_chip_pressed_translation_z = global::System.Application.Launch.Resource.Dimension.mtrl_chip_pressed_translation_z;
+			global::System.Application.Resource.Dimension.mtrl_chip_text_size = global::System.Application.Launch.Resource.Dimension.mtrl_chip_text_size;
+			global::System.Application.Resource.Dimension.mtrl_edittext_rectangle_top_offset = global::System.Application.Launch.Resource.Dimension.mtrl_edittext_rectangle_top_offset;
+			global::System.Application.Resource.Dimension.mtrl_exposed_dropdown_menu_popup_elevation = global::System.Application.Launch.Resource.Dimension.mtrl_exposed_dropdown_menu_popup_elevation;
+			global::System.Application.Resource.Dimension.mtrl_exposed_dropdown_menu_popup_vertical_offset = global::System.Application.Launch.Resource.Dimension.mtrl_exposed_dropdown_menu_popup_vertical_offset;
+			global::System.Application.Resource.Dimension.mtrl_exposed_dropdown_menu_popup_vertical_padding = global::System.Application.Launch.Resource.Dimension.mtrl_exposed_dropdown_menu_popup_vertical_padding;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_bottom_padding = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_bottom_padding;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_corner_radius = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_corner_radius;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_disabled_elevation = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_disabled_elevation;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_disabled_translation_z = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_disabled_translation_z;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_elevation = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_elevation;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_end_padding = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_end_padding;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_end_padding_icon = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_end_padding_icon;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_icon_size = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_icon_size;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_icon_text_spacing = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_icon_text_spacing;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_min_height = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_min_height;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_min_width = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_min_width;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_start_padding = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_start_padding;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_start_padding_icon = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_start_padding_icon;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_top_padding = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_top_padding;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_translation_z_base = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_translation_z_base;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_translation_z_hovered_focused = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_translation_z_hovered_focused;
+			global::System.Application.Resource.Dimension.mtrl_extended_fab_translation_z_pressed = global::System.Application.Launch.Resource.Dimension.mtrl_extended_fab_translation_z_pressed;
+			global::System.Application.Resource.Dimension.mtrl_fab_elevation = global::System.Application.Launch.Resource.Dimension.mtrl_fab_elevation;
+			global::System.Application.Resource.Dimension.mtrl_fab_min_touch_target = global::System.Application.Launch.Resource.Dimension.mtrl_fab_min_touch_target;
+			global::System.Application.Resource.Dimension.mtrl_fab_translation_z_hovered_focused = global::System.Application.Launch.Resource.Dimension.mtrl_fab_translation_z_hovered_focused;
+			global::System.Application.Resource.Dimension.mtrl_fab_translation_z_pressed = global::System.Application.Launch.Resource.Dimension.mtrl_fab_translation_z_pressed;
+			global::System.Application.Resource.Dimension.mtrl_high_ripple_default_alpha = global::System.Application.Launch.Resource.Dimension.mtrl_high_ripple_default_alpha;
+			global::System.Application.Resource.Dimension.mtrl_high_ripple_focused_alpha = global::System.Application.Launch.Resource.Dimension.mtrl_high_ripple_focused_alpha;
+			global::System.Application.Resource.Dimension.mtrl_high_ripple_hovered_alpha = global::System.Application.Launch.Resource.Dimension.mtrl_high_ripple_hovered_alpha;
+			global::System.Application.Resource.Dimension.mtrl_high_ripple_pressed_alpha = global::System.Application.Launch.Resource.Dimension.mtrl_high_ripple_pressed_alpha;
+			global::System.Application.Resource.Dimension.mtrl_large_touch_target = global::System.Application.Launch.Resource.Dimension.mtrl_large_touch_target;
+			global::System.Application.Resource.Dimension.mtrl_low_ripple_default_alpha = global::System.Application.Launch.Resource.Dimension.mtrl_low_ripple_default_alpha;
+			global::System.Application.Resource.Dimension.mtrl_low_ripple_focused_alpha = global::System.Application.Launch.Resource.Dimension.mtrl_low_ripple_focused_alpha;
+			global::System.Application.Resource.Dimension.mtrl_low_ripple_hovered_alpha = global::System.Application.Launch.Resource.Dimension.mtrl_low_ripple_hovered_alpha;
+			global::System.Application.Resource.Dimension.mtrl_low_ripple_pressed_alpha = global::System.Application.Launch.Resource.Dimension.mtrl_low_ripple_pressed_alpha;
+			global::System.Application.Resource.Dimension.mtrl_min_touch_target_size = global::System.Application.Launch.Resource.Dimension.mtrl_min_touch_target_size;
+			global::System.Application.Resource.Dimension.mtrl_navigation_elevation = global::System.Application.Launch.Resource.Dimension.mtrl_navigation_elevation;
+			global::System.Application.Resource.Dimension.mtrl_navigation_item_horizontal_padding = global::System.Application.Launch.Resource.Dimension.mtrl_navigation_item_horizontal_padding;
+			global::System.Application.Resource.Dimension.mtrl_navigation_item_icon_padding = global::System.Application.Launch.Resource.Dimension.mtrl_navigation_item_icon_padding;
+			global::System.Application.Resource.Dimension.mtrl_navigation_item_icon_size = global::System.Application.Launch.Resource.Dimension.mtrl_navigation_item_icon_size;
+			global::System.Application.Resource.Dimension.mtrl_navigation_item_shape_horizontal_margin = global::System.Application.Launch.Resource.Dimension.mtrl_navigation_item_shape_horizontal_margin;
+			global::System.Application.Resource.Dimension.mtrl_navigation_item_shape_vertical_margin = global::System.Application.Launch.Resource.Dimension.mtrl_navigation_item_shape_vertical_margin;
+			global::System.Application.Resource.Dimension.mtrl_shape_corner_size_large_component = global::System.Application.Launch.Resource.Dimension.mtrl_shape_corner_size_large_component;
+			global::System.Application.Resource.Dimension.mtrl_shape_corner_size_medium_component = global::System.Application.Launch.Resource.Dimension.mtrl_shape_corner_size_medium_component;
+			global::System.Application.Resource.Dimension.mtrl_shape_corner_size_small_component = global::System.Application.Launch.Resource.Dimension.mtrl_shape_corner_size_small_component;
+			global::System.Application.Resource.Dimension.mtrl_slider_halo_radius = global::System.Application.Launch.Resource.Dimension.mtrl_slider_halo_radius;
+			global::System.Application.Resource.Dimension.mtrl_slider_label_padding = global::System.Application.Launch.Resource.Dimension.mtrl_slider_label_padding;
+			global::System.Application.Resource.Dimension.mtrl_slider_label_radius = global::System.Application.Launch.Resource.Dimension.mtrl_slider_label_radius;
+			global::System.Application.Resource.Dimension.mtrl_slider_label_square_side = global::System.Application.Launch.Resource.Dimension.mtrl_slider_label_square_side;
+			global::System.Application.Resource.Dimension.mtrl_slider_thumb_elevation = global::System.Application.Launch.Resource.Dimension.mtrl_slider_thumb_elevation;
+			global::System.Application.Resource.Dimension.mtrl_slider_thumb_radius = global::System.Application.Launch.Resource.Dimension.mtrl_slider_thumb_radius;
+			global::System.Application.Resource.Dimension.mtrl_slider_track_height = global::System.Application.Launch.Resource.Dimension.mtrl_slider_track_height;
+			global::System.Application.Resource.Dimension.mtrl_slider_track_side_padding = global::System.Application.Launch.Resource.Dimension.mtrl_slider_track_side_padding;
+			global::System.Application.Resource.Dimension.mtrl_slider_track_top = global::System.Application.Launch.Resource.Dimension.mtrl_slider_track_top;
+			global::System.Application.Resource.Dimension.mtrl_slider_widget_height = global::System.Application.Launch.Resource.Dimension.mtrl_slider_widget_height;
+			global::System.Application.Resource.Dimension.mtrl_snackbar_action_text_color_alpha = global::System.Application.Launch.Resource.Dimension.mtrl_snackbar_action_text_color_alpha;
+			global::System.Application.Resource.Dimension.mtrl_snackbar_background_corner_radius = global::System.Application.Launch.Resource.Dimension.mtrl_snackbar_background_corner_radius;
+			global::System.Application.Resource.Dimension.mtrl_snackbar_background_overlay_color_alpha = global::System.Application.Launch.Resource.Dimension.mtrl_snackbar_background_overlay_color_alpha;
+			global::System.Application.Resource.Dimension.mtrl_snackbar_margin = global::System.Application.Launch.Resource.Dimension.mtrl_snackbar_margin;
+			global::System.Application.Resource.Dimension.mtrl_switch_thumb_elevation = global::System.Application.Launch.Resource.Dimension.mtrl_switch_thumb_elevation;
+			global::System.Application.Resource.Dimension.mtrl_textinput_box_corner_radius_medium = global::System.Application.Launch.Resource.Dimension.mtrl_textinput_box_corner_radius_medium;
+			global::System.Application.Resource.Dimension.mtrl_textinput_box_corner_radius_small = global::System.Application.Launch.Resource.Dimension.mtrl_textinput_box_corner_radius_small;
+			global::System.Application.Resource.Dimension.mtrl_textinput_box_label_cutout_padding = global::System.Application.Launch.Resource.Dimension.mtrl_textinput_box_label_cutout_padding;
+			global::System.Application.Resource.Dimension.mtrl_textinput_box_stroke_width_default = global::System.Application.Launch.Resource.Dimension.mtrl_textinput_box_stroke_width_default;
+			global::System.Application.Resource.Dimension.mtrl_textinput_box_stroke_width_focused = global::System.Application.Launch.Resource.Dimension.mtrl_textinput_box_stroke_width_focused;
+			global::System.Application.Resource.Dimension.mtrl_textinput_counter_margin_start = global::System.Application.Launch.Resource.Dimension.mtrl_textinput_counter_margin_start;
+			global::System.Application.Resource.Dimension.mtrl_textinput_end_icon_margin_start = global::System.Application.Launch.Resource.Dimension.mtrl_textinput_end_icon_margin_start;
+			global::System.Application.Resource.Dimension.mtrl_textinput_outline_box_expanded_padding = global::System.Application.Launch.Resource.Dimension.mtrl_textinput_outline_box_expanded_padding;
+			global::System.Application.Resource.Dimension.mtrl_textinput_start_icon_margin_end = global::System.Application.Launch.Resource.Dimension.mtrl_textinput_start_icon_margin_end;
+			global::System.Application.Resource.Dimension.mtrl_toolbar_default_height = global::System.Application.Launch.Resource.Dimension.mtrl_toolbar_default_height;
+			global::System.Application.Resource.Dimension.mtrl_tooltip_arrowSize = global::System.Application.Launch.Resource.Dimension.mtrl_tooltip_arrowSize;
+			global::System.Application.Resource.Dimension.mtrl_tooltip_cornerSize = global::System.Application.Launch.Resource.Dimension.mtrl_tooltip_cornerSize;
+			global::System.Application.Resource.Dimension.mtrl_tooltip_minHeight = global::System.Application.Launch.Resource.Dimension.mtrl_tooltip_minHeight;
+			global::System.Application.Resource.Dimension.mtrl_tooltip_minWidth = global::System.Application.Launch.Resource.Dimension.mtrl_tooltip_minWidth;
+			global::System.Application.Resource.Dimension.mtrl_tooltip_padding = global::System.Application.Launch.Resource.Dimension.mtrl_tooltip_padding;
+			global::System.Application.Resource.Dimension.mtrl_transition_shared_axis_slide_distance = global::System.Application.Launch.Resource.Dimension.mtrl_transition_shared_axis_slide_distance;
+			global::System.Application.Resource.Dimension.notification_action_icon_size = global::System.Application.Launch.Resource.Dimension.notification_action_icon_size;
+			global::System.Application.Resource.Dimension.notification_action_text_size = global::System.Application.Launch.Resource.Dimension.notification_action_text_size;
+			global::System.Application.Resource.Dimension.notification_big_circle_margin = global::System.Application.Launch.Resource.Dimension.notification_big_circle_margin;
+			global::System.Application.Resource.Dimension.notification_content_margin_start = global::System.Application.Launch.Resource.Dimension.notification_content_margin_start;
+			global::System.Application.Resource.Dimension.notification_large_icon_height = global::System.Application.Launch.Resource.Dimension.notification_large_icon_height;
+			global::System.Application.Resource.Dimension.notification_large_icon_width = global::System.Application.Launch.Resource.Dimension.notification_large_icon_width;
+			global::System.Application.Resource.Dimension.notification_main_column_padding_top = global::System.Application.Launch.Resource.Dimension.notification_main_column_padding_top;
+			global::System.Application.Resource.Dimension.notification_media_narrow_margin = global::System.Application.Launch.Resource.Dimension.notification_media_narrow_margin;
+			global::System.Application.Resource.Dimension.notification_right_icon_size = global::System.Application.Launch.Resource.Dimension.notification_right_icon_size;
+			global::System.Application.Resource.Dimension.notification_right_side_padding_top = global::System.Application.Launch.Resource.Dimension.notification_right_side_padding_top;
+			global::System.Application.Resource.Dimension.notification_small_icon_background_padding = global::System.Application.Launch.Resource.Dimension.notification_small_icon_background_padding;
+			global::System.Application.Resource.Dimension.notification_small_icon_size_as_large = global::System.Application.Launch.Resource.Dimension.notification_small_icon_size_as_large;
+			global::System.Application.Resource.Dimension.notification_subtext_size = global::System.Application.Launch.Resource.Dimension.notification_subtext_size;
+			global::System.Application.Resource.Dimension.notification_top_pad = global::System.Application.Launch.Resource.Dimension.notification_top_pad;
+			global::System.Application.Resource.Dimension.notification_top_pad_large_text = global::System.Application.Launch.Resource.Dimension.notification_top_pad_large_text;
+			global::System.Application.Resource.Dimension.test_mtrl_calendar_day_cornerSize = global::System.Application.Launch.Resource.Dimension.test_mtrl_calendar_day_cornerSize;
+			global::System.Application.Resource.Dimension.tooltip_corner_radius = global::System.Application.Launch.Resource.Dimension.tooltip_corner_radius;
+			global::System.Application.Resource.Dimension.tooltip_horizontal_padding = global::System.Application.Launch.Resource.Dimension.tooltip_horizontal_padding;
+			global::System.Application.Resource.Dimension.tooltip_margin = global::System.Application.Launch.Resource.Dimension.tooltip_margin;
+			global::System.Application.Resource.Dimension.tooltip_precise_anchor_extra_offset = global::System.Application.Launch.Resource.Dimension.tooltip_precise_anchor_extra_offset;
+			global::System.Application.Resource.Dimension.tooltip_precise_anchor_threshold = global::System.Application.Launch.Resource.Dimension.tooltip_precise_anchor_threshold;
+			global::System.Application.Resource.Dimension.tooltip_vertical_padding = global::System.Application.Launch.Resource.Dimension.tooltip_vertical_padding;
+			global::System.Application.Resource.Dimension.tooltip_y_offset_non_touch = global::System.Application.Launch.Resource.Dimension.tooltip_y_offset_non_touch;
+			global::System.Application.Resource.Dimension.tooltip_y_offset_touch = global::System.Application.Launch.Resource.Dimension.tooltip_y_offset_touch;
+			global::System.Application.Resource.Drawable.abc_ab_share_pack_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_ab_share_pack_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_action_bar_item_background_material = global::System.Application.Launch.Resource.Drawable.abc_action_bar_item_background_material;
+			global::System.Application.Resource.Drawable.abc_btn_borderless_material = global::System.Application.Launch.Resource.Drawable.abc_btn_borderless_material;
+			global::System.Application.Resource.Drawable.abc_btn_check_material = global::System.Application.Launch.Resource.Drawable.abc_btn_check_material;
+			global::System.Application.Resource.Drawable.abc_btn_check_material_anim = global::System.Application.Launch.Resource.Drawable.abc_btn_check_material_anim;
+			global::System.Application.Resource.Drawable.abc_btn_check_to_on_mtrl_000 = global::System.Application.Launch.Resource.Drawable.abc_btn_check_to_on_mtrl_000;
+			global::System.Application.Resource.Drawable.abc_btn_check_to_on_mtrl_015 = global::System.Application.Launch.Resource.Drawable.abc_btn_check_to_on_mtrl_015;
+			global::System.Application.Resource.Drawable.abc_btn_colored_material = global::System.Application.Launch.Resource.Drawable.abc_btn_colored_material;
+			global::System.Application.Resource.Drawable.abc_btn_default_mtrl_shape = global::System.Application.Launch.Resource.Drawable.abc_btn_default_mtrl_shape;
+			global::System.Application.Resource.Drawable.abc_btn_radio_material = global::System.Application.Launch.Resource.Drawable.abc_btn_radio_material;
+			global::System.Application.Resource.Drawable.abc_btn_radio_material_anim = global::System.Application.Launch.Resource.Drawable.abc_btn_radio_material_anim;
+			global::System.Application.Resource.Drawable.abc_btn_radio_to_on_mtrl_000 = global::System.Application.Launch.Resource.Drawable.abc_btn_radio_to_on_mtrl_000;
+			global::System.Application.Resource.Drawable.abc_btn_radio_to_on_mtrl_015 = global::System.Application.Launch.Resource.Drawable.abc_btn_radio_to_on_mtrl_015;
+			global::System.Application.Resource.Drawable.abc_btn_switch_to_on_mtrl_00001 = global::System.Application.Launch.Resource.Drawable.abc_btn_switch_to_on_mtrl_00001;
+			global::System.Application.Resource.Drawable.abc_btn_switch_to_on_mtrl_00012 = global::System.Application.Launch.Resource.Drawable.abc_btn_switch_to_on_mtrl_00012;
+			global::System.Application.Resource.Drawable.abc_cab_background_internal_bg = global::System.Application.Launch.Resource.Drawable.abc_cab_background_internal_bg;
+			global::System.Application.Resource.Drawable.abc_cab_background_top_material = global::System.Application.Launch.Resource.Drawable.abc_cab_background_top_material;
+			global::System.Application.Resource.Drawable.abc_cab_background_top_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_cab_background_top_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_control_background_material = global::System.Application.Launch.Resource.Drawable.abc_control_background_material;
+			global::System.Application.Resource.Drawable.abc_dialog_material_background = global::System.Application.Launch.Resource.Drawable.abc_dialog_material_background;
+			global::System.Application.Resource.Drawable.abc_edit_text_material = global::System.Application.Launch.Resource.Drawable.abc_edit_text_material;
+			global::System.Application.Resource.Drawable.abc_ic_ab_back_material = global::System.Application.Launch.Resource.Drawable.abc_ic_ab_back_material;
+			global::System.Application.Resource.Drawable.abc_ic_arrow_drop_right_black_24dp = global::System.Application.Launch.Resource.Drawable.abc_ic_arrow_drop_right_black_24dp;
+			global::System.Application.Resource.Drawable.abc_ic_clear_material = global::System.Application.Launch.Resource.Drawable.abc_ic_clear_material;
+			global::System.Application.Resource.Drawable.abc_ic_commit_search_api_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_ic_commit_search_api_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_ic_go_search_api_material = global::System.Application.Launch.Resource.Drawable.abc_ic_go_search_api_material;
+			global::System.Application.Resource.Drawable.abc_ic_menu_copy_mtrl_am_alpha = global::System.Application.Launch.Resource.Drawable.abc_ic_menu_copy_mtrl_am_alpha;
+			global::System.Application.Resource.Drawable.abc_ic_menu_cut_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_ic_menu_cut_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_ic_menu_overflow_material = global::System.Application.Launch.Resource.Drawable.abc_ic_menu_overflow_material;
+			global::System.Application.Resource.Drawable.abc_ic_menu_paste_mtrl_am_alpha = global::System.Application.Launch.Resource.Drawable.abc_ic_menu_paste_mtrl_am_alpha;
+			global::System.Application.Resource.Drawable.abc_ic_menu_selectall_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_ic_menu_selectall_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_ic_menu_share_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_ic_menu_share_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_ic_search_api_material = global::System.Application.Launch.Resource.Drawable.abc_ic_search_api_material;
+			global::System.Application.Resource.Drawable.abc_ic_star_black_16dp = global::System.Application.Launch.Resource.Drawable.abc_ic_star_black_16dp;
+			global::System.Application.Resource.Drawable.abc_ic_star_black_36dp = global::System.Application.Launch.Resource.Drawable.abc_ic_star_black_36dp;
+			global::System.Application.Resource.Drawable.abc_ic_star_black_48dp = global::System.Application.Launch.Resource.Drawable.abc_ic_star_black_48dp;
+			global::System.Application.Resource.Drawable.abc_ic_star_half_black_16dp = global::System.Application.Launch.Resource.Drawable.abc_ic_star_half_black_16dp;
+			global::System.Application.Resource.Drawable.abc_ic_star_half_black_36dp = global::System.Application.Launch.Resource.Drawable.abc_ic_star_half_black_36dp;
+			global::System.Application.Resource.Drawable.abc_ic_star_half_black_48dp = global::System.Application.Launch.Resource.Drawable.abc_ic_star_half_black_48dp;
+			global::System.Application.Resource.Drawable.abc_ic_voice_search_api_material = global::System.Application.Launch.Resource.Drawable.abc_ic_voice_search_api_material;
+			global::System.Application.Resource.Drawable.abc_item_background_holo_dark = global::System.Application.Launch.Resource.Drawable.abc_item_background_holo_dark;
+			global::System.Application.Resource.Drawable.abc_item_background_holo_light = global::System.Application.Launch.Resource.Drawable.abc_item_background_holo_light;
+			global::System.Application.Resource.Drawable.abc_list_divider_material = global::System.Application.Launch.Resource.Drawable.abc_list_divider_material;
+			global::System.Application.Resource.Drawable.abc_list_divider_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_list_divider_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_list_focused_holo = global::System.Application.Launch.Resource.Drawable.abc_list_focused_holo;
+			global::System.Application.Resource.Drawable.abc_list_longpressed_holo = global::System.Application.Launch.Resource.Drawable.abc_list_longpressed_holo;
+			global::System.Application.Resource.Drawable.abc_list_pressed_holo_dark = global::System.Application.Launch.Resource.Drawable.abc_list_pressed_holo_dark;
+			global::System.Application.Resource.Drawable.abc_list_pressed_holo_light = global::System.Application.Launch.Resource.Drawable.abc_list_pressed_holo_light;
+			global::System.Application.Resource.Drawable.abc_list_selector_background_transition_holo_dark = global::System.Application.Launch.Resource.Drawable.abc_list_selector_background_transition_holo_dark;
+			global::System.Application.Resource.Drawable.abc_list_selector_background_transition_holo_light = global::System.Application.Launch.Resource.Drawable.abc_list_selector_background_transition_holo_light;
+			global::System.Application.Resource.Drawable.abc_list_selector_disabled_holo_dark = global::System.Application.Launch.Resource.Drawable.abc_list_selector_disabled_holo_dark;
+			global::System.Application.Resource.Drawable.abc_list_selector_disabled_holo_light = global::System.Application.Launch.Resource.Drawable.abc_list_selector_disabled_holo_light;
+			global::System.Application.Resource.Drawable.abc_list_selector_holo_dark = global::System.Application.Launch.Resource.Drawable.abc_list_selector_holo_dark;
+			global::System.Application.Resource.Drawable.abc_list_selector_holo_light = global::System.Application.Launch.Resource.Drawable.abc_list_selector_holo_light;
+			global::System.Application.Resource.Drawable.abc_menu_hardkey_panel_mtrl_mult = global::System.Application.Launch.Resource.Drawable.abc_menu_hardkey_panel_mtrl_mult;
+			global::System.Application.Resource.Drawable.abc_popup_background_mtrl_mult = global::System.Application.Launch.Resource.Drawable.abc_popup_background_mtrl_mult;
+			global::System.Application.Resource.Drawable.abc_ratingbar_indicator_material = global::System.Application.Launch.Resource.Drawable.abc_ratingbar_indicator_material;
+			global::System.Application.Resource.Drawable.abc_ratingbar_material = global::System.Application.Launch.Resource.Drawable.abc_ratingbar_material;
+			global::System.Application.Resource.Drawable.abc_ratingbar_small_material = global::System.Application.Launch.Resource.Drawable.abc_ratingbar_small_material;
+			global::System.Application.Resource.Drawable.abc_scrubber_control_off_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_scrubber_control_off_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_000 = global::System.Application.Launch.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_000;
+			global::System.Application.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_005 = global::System.Application.Launch.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_005;
+			global::System.Application.Resource.Drawable.abc_scrubber_primary_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_scrubber_primary_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_scrubber_track_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_scrubber_track_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_seekbar_thumb_material = global::System.Application.Launch.Resource.Drawable.abc_seekbar_thumb_material;
+			global::System.Application.Resource.Drawable.abc_seekbar_tick_mark_material = global::System.Application.Launch.Resource.Drawable.abc_seekbar_tick_mark_material;
+			global::System.Application.Resource.Drawable.abc_seekbar_track_material = global::System.Application.Launch.Resource.Drawable.abc_seekbar_track_material;
+			global::System.Application.Resource.Drawable.abc_spinner_mtrl_am_alpha = global::System.Application.Launch.Resource.Drawable.abc_spinner_mtrl_am_alpha;
+			global::System.Application.Resource.Drawable.abc_spinner_textfield_background_material = global::System.Application.Launch.Resource.Drawable.abc_spinner_textfield_background_material;
+			global::System.Application.Resource.Drawable.abc_switch_thumb_material = global::System.Application.Launch.Resource.Drawable.abc_switch_thumb_material;
+			global::System.Application.Resource.Drawable.abc_switch_track_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_switch_track_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_tab_indicator_material = global::System.Application.Launch.Resource.Drawable.abc_tab_indicator_material;
+			global::System.Application.Resource.Drawable.abc_tab_indicator_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_tab_indicator_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_textfield_activated_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_textfield_activated_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_textfield_default_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_textfield_default_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_textfield_search_activated_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_textfield_search_activated_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_textfield_search_default_mtrl_alpha = global::System.Application.Launch.Resource.Drawable.abc_textfield_search_default_mtrl_alpha;
+			global::System.Application.Resource.Drawable.abc_textfield_search_material = global::System.Application.Launch.Resource.Drawable.abc_textfield_search_material;
+			global::System.Application.Resource.Drawable.abc_text_cursor_material = global::System.Application.Launch.Resource.Drawable.abc_text_cursor_material;
+			global::System.Application.Resource.Drawable.abc_text_select_handle_left_mtrl_dark = global::System.Application.Launch.Resource.Drawable.abc_text_select_handle_left_mtrl_dark;
+			global::System.Application.Resource.Drawable.abc_text_select_handle_left_mtrl_light = global::System.Application.Launch.Resource.Drawable.abc_text_select_handle_left_mtrl_light;
+			global::System.Application.Resource.Drawable.abc_text_select_handle_middle_mtrl_dark = global::System.Application.Launch.Resource.Drawable.abc_text_select_handle_middle_mtrl_dark;
+			global::System.Application.Resource.Drawable.abc_text_select_handle_middle_mtrl_light = global::System.Application.Launch.Resource.Drawable.abc_text_select_handle_middle_mtrl_light;
+			global::System.Application.Resource.Drawable.abc_text_select_handle_right_mtrl_dark = global::System.Application.Launch.Resource.Drawable.abc_text_select_handle_right_mtrl_dark;
+			global::System.Application.Resource.Drawable.abc_text_select_handle_right_mtrl_light = global::System.Application.Launch.Resource.Drawable.abc_text_select_handle_right_mtrl_light;
+			global::System.Application.Resource.Drawable.abc_vector_test = global::System.Application.Launch.Resource.Drawable.abc_vector_test;
+			global::System.Application.Resource.Drawable.avd_hide_password = global::System.Application.Launch.Resource.Drawable.avd_hide_password;
+			global::System.Application.Resource.Drawable.avd_show_password = global::System.Application.Launch.Resource.Drawable.avd_show_password;
+			global::System.Application.Resource.Drawable.bg_textbox = global::System.Application.Launch.Resource.Drawable.bg_textbox;
+			global::System.Application.Resource.Drawable.btn_checkbox_checked_mtrl = global::System.Application.Launch.Resource.Drawable.btn_checkbox_checked_mtrl;
+			global::System.Application.Resource.Drawable.btn_checkbox_checked_to_unchecked_mtrl_animation = global::System.Application.Launch.Resource.Drawable.btn_checkbox_checked_to_unchecked_mtrl_animation;
+			global::System.Application.Resource.Drawable.btn_checkbox_unchecked_mtrl = global::System.Application.Launch.Resource.Drawable.btn_checkbox_unchecked_mtrl;
+			global::System.Application.Resource.Drawable.btn_checkbox_unchecked_to_checked_mtrl_animation = global::System.Application.Launch.Resource.Drawable.btn_checkbox_unchecked_to_checked_mtrl_animation;
+			global::System.Application.Resource.Drawable.btn_radio_off_mtrl = global::System.Application.Launch.Resource.Drawable.btn_radio_off_mtrl;
+			global::System.Application.Resource.Drawable.btn_radio_off_to_on_mtrl_animation = global::System.Application.Launch.Resource.Drawable.btn_radio_off_to_on_mtrl_animation;
+			global::System.Application.Resource.Drawable.btn_radio_on_mtrl = global::System.Application.Launch.Resource.Drawable.btn_radio_on_mtrl;
+			global::System.Application.Resource.Drawable.btn_radio_on_to_off_mtrl_animation = global::System.Application.Launch.Resource.Drawable.btn_radio_on_to_off_mtrl_animation;
+			global::System.Application.Resource.Drawable.design_bottom_navigation_item_background = global::System.Application.Launch.Resource.Drawable.design_bottom_navigation_item_background;
+			global::System.Application.Resource.Drawable.design_fab_background = global::System.Application.Launch.Resource.Drawable.design_fab_background;
+			global::System.Application.Resource.Drawable.design_ic_visibility = global::System.Application.Launch.Resource.Drawable.design_ic_visibility;
+			global::System.Application.Resource.Drawable.design_ic_visibility_off = global::System.Application.Launch.Resource.Drawable.design_ic_visibility_off;
+			global::System.Application.Resource.Drawable.design_password_eye = global::System.Application.Launch.Resource.Drawable.design_password_eye;
+			global::System.Application.Resource.Drawable.design_snackbar_background = global::System.Application.Launch.Resource.Drawable.design_snackbar_background;
+			global::System.Application.Resource.Drawable.icon_about = global::System.Application.Launch.Resource.Drawable.icon_about;
+			global::System.Application.Resource.Drawable.icon_feed = global::System.Application.Launch.Resource.Drawable.icon_feed;
+			global::System.Application.Resource.Drawable.ic_mtrl_checked_circle = global::System.Application.Launch.Resource.Drawable.ic_mtrl_checked_circle;
+			global::System.Application.Resource.Drawable.ic_mtrl_chip_checked_black = global::System.Application.Launch.Resource.Drawable.ic_mtrl_chip_checked_black;
+			global::System.Application.Resource.Drawable.ic_mtrl_chip_checked_circle = global::System.Application.Launch.Resource.Drawable.ic_mtrl_chip_checked_circle;
+			global::System.Application.Resource.Drawable.ic_mtrl_chip_close_circle = global::System.Application.Launch.Resource.Drawable.ic_mtrl_chip_close_circle;
+			global::System.Application.Resource.Drawable.MaterialActivityIndicatorBackground = global::System.Application.Launch.Resource.Drawable.MaterialActivityIndicatorBackground;
+			global::System.Application.Resource.Drawable.MaterialProgressBar = global::System.Application.Launch.Resource.Drawable.MaterialProgressBar;
+			global::System.Application.Resource.Drawable.material_ic_calendar_black_24dp = global::System.Application.Launch.Resource.Drawable.material_ic_calendar_black_24dp;
+			global::System.Application.Resource.Drawable.material_ic_clear_black_24dp = global::System.Application.Launch.Resource.Drawable.material_ic_clear_black_24dp;
+			global::System.Application.Resource.Drawable.material_ic_edit_black_24dp = global::System.Application.Launch.Resource.Drawable.material_ic_edit_black_24dp;
+			global::System.Application.Resource.Drawable.material_ic_keyboard_arrow_left_black_24dp = global::System.Application.Launch.Resource.Drawable.material_ic_keyboard_arrow_left_black_24dp;
+			global::System.Application.Resource.Drawable.material_ic_keyboard_arrow_right_black_24dp = global::System.Application.Launch.Resource.Drawable.material_ic_keyboard_arrow_right_black_24dp;
+			global::System.Application.Resource.Drawable.material_ic_menu_arrow_down_black_24dp = global::System.Application.Launch.Resource.Drawable.material_ic_menu_arrow_down_black_24dp;
+			global::System.Application.Resource.Drawable.material_ic_menu_arrow_up_black_24dp = global::System.Application.Launch.Resource.Drawable.material_ic_menu_arrow_up_black_24dp;
+			global::System.Application.Resource.Drawable.mtrl_dialog_background = global::System.Application.Launch.Resource.Drawable.mtrl_dialog_background;
+			global::System.Application.Resource.Drawable.mtrl_dropdown_arrow = global::System.Application.Launch.Resource.Drawable.mtrl_dropdown_arrow;
+			global::System.Application.Resource.Drawable.mtrl_ic_arrow_drop_down = global::System.Application.Launch.Resource.Drawable.mtrl_ic_arrow_drop_down;
+			global::System.Application.Resource.Drawable.mtrl_ic_arrow_drop_up = global::System.Application.Launch.Resource.Drawable.mtrl_ic_arrow_drop_up;
+			global::System.Application.Resource.Drawable.mtrl_ic_cancel = global::System.Application.Launch.Resource.Drawable.mtrl_ic_cancel;
+			global::System.Application.Resource.Drawable.mtrl_ic_error = global::System.Application.Launch.Resource.Drawable.mtrl_ic_error;
+			global::System.Application.Resource.Drawable.mtrl_popupmenu_background = global::System.Application.Launch.Resource.Drawable.mtrl_popupmenu_background;
+			global::System.Application.Resource.Drawable.mtrl_popupmenu_background_dark = global::System.Application.Launch.Resource.Drawable.mtrl_popupmenu_background_dark;
+			global::System.Application.Resource.Drawable.mtrl_tabs_default_indicator = global::System.Application.Launch.Resource.Drawable.mtrl_tabs_default_indicator;
+			global::System.Application.Resource.Drawable.navigation_empty_icon = global::System.Application.Launch.Resource.Drawable.navigation_empty_icon;
+			global::System.Application.Resource.Drawable.notification_action_background = global::System.Application.Launch.Resource.Drawable.notification_action_background;
+			global::System.Application.Resource.Drawable.notification_bg = global::System.Application.Launch.Resource.Drawable.notification_bg;
+			global::System.Application.Resource.Drawable.notification_bg_low = global::System.Application.Launch.Resource.Drawable.notification_bg_low;
+			global::System.Application.Resource.Drawable.notification_bg_low_normal = global::System.Application.Launch.Resource.Drawable.notification_bg_low_normal;
+			global::System.Application.Resource.Drawable.notification_bg_low_pressed = global::System.Application.Launch.Resource.Drawable.notification_bg_low_pressed;
+			global::System.Application.Resource.Drawable.notification_bg_normal = global::System.Application.Launch.Resource.Drawable.notification_bg_normal;
+			global::System.Application.Resource.Drawable.notification_bg_normal_pressed = global::System.Application.Launch.Resource.Drawable.notification_bg_normal_pressed;
+			global::System.Application.Resource.Drawable.notification_icon_background = global::System.Application.Launch.Resource.Drawable.notification_icon_background;
+			global::System.Application.Resource.Drawable.notification_template_icon_bg = global::System.Application.Launch.Resource.Drawable.notification_template_icon_bg;
+			global::System.Application.Resource.Drawable.notification_template_icon_low_bg = global::System.Application.Launch.Resource.Drawable.notification_template_icon_low_bg;
+			global::System.Application.Resource.Drawable.notification_tile_bg = global::System.Application.Launch.Resource.Drawable.notification_tile_bg;
+			global::System.Application.Resource.Drawable.notify_panel_notification_icon_bg = global::System.Application.Launch.Resource.Drawable.notify_panel_notification_icon_bg;
+			global::System.Application.Resource.Drawable.splash_logo = global::System.Application.Launch.Resource.Drawable.splash_logo;
+			global::System.Application.Resource.Drawable.splash_screen = global::System.Application.Launch.Resource.Drawable.splash_screen;
+			global::System.Application.Resource.Drawable.test_custom_background = global::System.Application.Launch.Resource.Drawable.test_custom_background;
+			global::System.Application.Resource.Drawable.text_cursor = global::System.Application.Launch.Resource.Drawable.text_cursor;
+			global::System.Application.Resource.Drawable.tooltip_frame_dark = global::System.Application.Launch.Resource.Drawable.tooltip_frame_dark;
+			global::System.Application.Resource.Drawable.tooltip_frame_light = global::System.Application.Launch.Resource.Drawable.tooltip_frame_light;
+			global::System.Application.Resource.Drawable.xamarin_logo = global::System.Application.Launch.Resource.Drawable.xamarin_logo;
+			global::System.Application.Resource.Id.accessibility_action_clickable_span = global::System.Application.Launch.Resource.Id.accessibility_action_clickable_span;
+			global::System.Application.Resource.Id.accessibility_custom_action_0 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_0;
+			global::System.Application.Resource.Id.accessibility_custom_action_1 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_1;
+			global::System.Application.Resource.Id.accessibility_custom_action_10 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_10;
+			global::System.Application.Resource.Id.accessibility_custom_action_11 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_11;
+			global::System.Application.Resource.Id.accessibility_custom_action_12 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_12;
+			global::System.Application.Resource.Id.accessibility_custom_action_13 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_13;
+			global::System.Application.Resource.Id.accessibility_custom_action_14 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_14;
+			global::System.Application.Resource.Id.accessibility_custom_action_15 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_15;
+			global::System.Application.Resource.Id.accessibility_custom_action_16 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_16;
+			global::System.Application.Resource.Id.accessibility_custom_action_17 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_17;
+			global::System.Application.Resource.Id.accessibility_custom_action_18 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_18;
+			global::System.Application.Resource.Id.accessibility_custom_action_19 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_19;
+			global::System.Application.Resource.Id.accessibility_custom_action_2 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_2;
+			global::System.Application.Resource.Id.accessibility_custom_action_20 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_20;
+			global::System.Application.Resource.Id.accessibility_custom_action_21 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_21;
+			global::System.Application.Resource.Id.accessibility_custom_action_22 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_22;
+			global::System.Application.Resource.Id.accessibility_custom_action_23 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_23;
+			global::System.Application.Resource.Id.accessibility_custom_action_24 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_24;
+			global::System.Application.Resource.Id.accessibility_custom_action_25 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_25;
+			global::System.Application.Resource.Id.accessibility_custom_action_26 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_26;
+			global::System.Application.Resource.Id.accessibility_custom_action_27 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_27;
+			global::System.Application.Resource.Id.accessibility_custom_action_28 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_28;
+			global::System.Application.Resource.Id.accessibility_custom_action_29 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_29;
+			global::System.Application.Resource.Id.accessibility_custom_action_3 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_3;
+			global::System.Application.Resource.Id.accessibility_custom_action_30 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_30;
+			global::System.Application.Resource.Id.accessibility_custom_action_31 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_31;
+			global::System.Application.Resource.Id.accessibility_custom_action_4 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_4;
+			global::System.Application.Resource.Id.accessibility_custom_action_5 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_5;
+			global::System.Application.Resource.Id.accessibility_custom_action_6 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_6;
+			global::System.Application.Resource.Id.accessibility_custom_action_7 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_7;
+			global::System.Application.Resource.Id.accessibility_custom_action_8 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_8;
+			global::System.Application.Resource.Id.accessibility_custom_action_9 = global::System.Application.Launch.Resource.Id.accessibility_custom_action_9;
+			global::System.Application.Resource.Id.action0 = global::System.Application.Launch.Resource.Id.action0;
+			global::System.Application.Resource.Id.actions = global::System.Application.Launch.Resource.Id.actions;
+			global::System.Application.Resource.Id.action_bar = global::System.Application.Launch.Resource.Id.action_bar;
+			global::System.Application.Resource.Id.action_bar_activity_content = global::System.Application.Launch.Resource.Id.action_bar_activity_content;
+			global::System.Application.Resource.Id.action_bar_container = global::System.Application.Launch.Resource.Id.action_bar_container;
+			global::System.Application.Resource.Id.action_bar_root = global::System.Application.Launch.Resource.Id.action_bar_root;
+			global::System.Application.Resource.Id.action_bar_spinner = global::System.Application.Launch.Resource.Id.action_bar_spinner;
+			global::System.Application.Resource.Id.action_bar_subtitle = global::System.Application.Launch.Resource.Id.action_bar_subtitle;
+			global::System.Application.Resource.Id.action_bar_title = global::System.Application.Launch.Resource.Id.action_bar_title;
+			global::System.Application.Resource.Id.action_container = global::System.Application.Launch.Resource.Id.action_container;
+			global::System.Application.Resource.Id.action_context_bar = global::System.Application.Launch.Resource.Id.action_context_bar;
+			global::System.Application.Resource.Id.action_divider = global::System.Application.Launch.Resource.Id.action_divider;
+			global::System.Application.Resource.Id.action_image = global::System.Application.Launch.Resource.Id.action_image;
+			global::System.Application.Resource.Id.action_menu_divider = global::System.Application.Launch.Resource.Id.action_menu_divider;
+			global::System.Application.Resource.Id.action_menu_presenter = global::System.Application.Launch.Resource.Id.action_menu_presenter;
+			global::System.Application.Resource.Id.action_mode_bar = global::System.Application.Launch.Resource.Id.action_mode_bar;
+			global::System.Application.Resource.Id.action_mode_bar_stub = global::System.Application.Launch.Resource.Id.action_mode_bar_stub;
+			global::System.Application.Resource.Id.action_mode_close_button = global::System.Application.Launch.Resource.Id.action_mode_close_button;
+			global::System.Application.Resource.Id.action_text = global::System.Application.Launch.Resource.Id.action_text;
+			global::System.Application.Resource.Id.activity_chooser_view_content = global::System.Application.Launch.Resource.Id.activity_chooser_view_content;
+			global::System.Application.Resource.Id.add = global::System.Application.Launch.Resource.Id.add;
+			global::System.Application.Resource.Id.alertTitle = global::System.Application.Launch.Resource.Id.alertTitle;
+			global::System.Application.Resource.Id.all = global::System.Application.Launch.Resource.Id.all;
+			global::System.Application.Resource.Id.ALT = global::System.Application.Launch.Resource.Id.ALT;
+			global::System.Application.Resource.Id.always = global::System.Application.Launch.Resource.Id.always;
+			global::System.Application.Resource.Id.async = global::System.Application.Launch.Resource.Id.async;
+			global::System.Application.Resource.Id.auto = global::System.Application.Launch.Resource.Id.auto;
+			global::System.Application.Resource.Id.beginning = global::System.Application.Launch.Resource.Id.beginning;
+			global::System.Application.Resource.Id.blocking = global::System.Application.Launch.Resource.Id.blocking;
+			global::System.Application.Resource.Id.bottom = global::System.Application.Launch.Resource.Id.bottom;
+			global::System.Application.Resource.Id.bottomtab_navarea = global::System.Application.Launch.Resource.Id.bottomtab_navarea;
+			global::System.Application.Resource.Id.bottomtab_tabbar = global::System.Application.Launch.Resource.Id.bottomtab_tabbar;
+			global::System.Application.Resource.Id.BOTTOM_END = global::System.Application.Launch.Resource.Id.BOTTOM_END;
+			global::System.Application.Resource.Id.BOTTOM_START = global::System.Application.Launch.Resource.Id.BOTTOM_START;
+			global::System.Application.Resource.Id.browser_actions_header_text = global::System.Application.Launch.Resource.Id.browser_actions_header_text;
+			global::System.Application.Resource.Id.browser_actions_menu_items = global::System.Application.Launch.Resource.Id.browser_actions_menu_items;
+			global::System.Application.Resource.Id.browser_actions_menu_item_icon = global::System.Application.Launch.Resource.Id.browser_actions_menu_item_icon;
+			global::System.Application.Resource.Id.browser_actions_menu_item_text = global::System.Application.Launch.Resource.Id.browser_actions_menu_item_text;
+			global::System.Application.Resource.Id.browser_actions_menu_view = global::System.Application.Launch.Resource.Id.browser_actions_menu_view;
+			global::System.Application.Resource.Id.buttonPanel = global::System.Application.Launch.Resource.Id.buttonPanel;
+			global::System.Application.Resource.Id.cancel_action = global::System.Application.Launch.Resource.Id.cancel_action;
+			global::System.Application.Resource.Id.cancel_button = global::System.Application.Launch.Resource.Id.cancel_button;
+			global::System.Application.Resource.Id.center = global::System.Application.Launch.Resource.Id.center;
+			global::System.Application.Resource.Id.center_horizontal = global::System.Application.Launch.Resource.Id.center_horizontal;
+			global::System.Application.Resource.Id.center_vertical = global::System.Application.Launch.Resource.Id.center_vertical;
+			global::System.Application.Resource.Id.checkbox = global::System.Application.Launch.Resource.Id.checkbox;
+			global::System.Application.Resource.Id.@checked = global::System.Application.Launch.Resource.Id.@checked;
+			global::System.Application.Resource.Id.chip = global::System.Application.Launch.Resource.Id.chip;
+			global::System.Application.Resource.Id.chip1 = global::System.Application.Launch.Resource.Id.chip1;
+			global::System.Application.Resource.Id.chip2 = global::System.Application.Launch.Resource.Id.chip2;
+			global::System.Application.Resource.Id.chip3 = global::System.Application.Launch.Resource.Id.chip3;
+			global::System.Application.Resource.Id.chip_group = global::System.Application.Launch.Resource.Id.chip_group;
+			global::System.Application.Resource.Id.chronometer = global::System.Application.Launch.Resource.Id.chronometer;
+			global::System.Application.Resource.Id.clear_text = global::System.Application.Launch.Resource.Id.clear_text;
+			global::System.Application.Resource.Id.clip_horizontal = global::System.Application.Launch.Resource.Id.clip_horizontal;
+			global::System.Application.Resource.Id.clip_vertical = global::System.Application.Launch.Resource.Id.clip_vertical;
+			global::System.Application.Resource.Id.collapseActionView = global::System.Application.Launch.Resource.Id.collapseActionView;
+			global::System.Application.Resource.Id.confirm_button = global::System.Application.Launch.Resource.Id.confirm_button;
+			global::System.Application.Resource.Id.container = global::System.Application.Launch.Resource.Id.container;
+			global::System.Application.Resource.Id.content = global::System.Application.Launch.Resource.Id.content;
+			global::System.Application.Resource.Id.contentPanel = global::System.Application.Launch.Resource.Id.contentPanel;
+			global::System.Application.Resource.Id.coordinator = global::System.Application.Launch.Resource.Id.coordinator;
+			global::System.Application.Resource.Id.CTRL = global::System.Application.Launch.Resource.Id.CTRL;
+			global::System.Application.Resource.Id.custom = global::System.Application.Launch.Resource.Id.custom;
+			global::System.Application.Resource.Id.customPanel = global::System.Application.Launch.Resource.Id.customPanel;
+			global::System.Application.Resource.Id.cut = global::System.Application.Launch.Resource.Id.cut;
+			global::System.Application.Resource.Id.date_picker_actions = global::System.Application.Launch.Resource.Id.date_picker_actions;
+			global::System.Application.Resource.Id.decor_content_parent = global::System.Application.Launch.Resource.Id.decor_content_parent;
+			global::System.Application.Resource.Id.default_activity_button = global::System.Application.Launch.Resource.Id.default_activity_button;
+			global::System.Application.Resource.Id.design_bottom_sheet = global::System.Application.Launch.Resource.Id.design_bottom_sheet;
+			global::System.Application.Resource.Id.design_menu_item_action_area = global::System.Application.Launch.Resource.Id.design_menu_item_action_area;
+			global::System.Application.Resource.Id.design_menu_item_action_area_stub = global::System.Application.Launch.Resource.Id.design_menu_item_action_area_stub;
+			global::System.Application.Resource.Id.design_menu_item_text = global::System.Application.Launch.Resource.Id.design_menu_item_text;
+			global::System.Application.Resource.Id.design_navigation_view = global::System.Application.Launch.Resource.Id.design_navigation_view;
+			global::System.Application.Resource.Id.dialog_button = global::System.Application.Launch.Resource.Id.dialog_button;
+			global::System.Application.Resource.Id.disableHome = global::System.Application.Launch.Resource.Id.disableHome;
+			global::System.Application.Resource.Id.dropdown_menu = global::System.Application.Launch.Resource.Id.dropdown_menu;
+			global::System.Application.Resource.Id.edit_query = global::System.Application.Launch.Resource.Id.edit_query;
+			global::System.Application.Resource.Id.end = global::System.Application.Launch.Resource.Id.end;
+			global::System.Application.Resource.Id.end_padder = global::System.Application.Launch.Resource.Id.end_padder;
+			global::System.Application.Resource.Id.enterAlways = global::System.Application.Launch.Resource.Id.enterAlways;
+			global::System.Application.Resource.Id.enterAlwaysCollapsed = global::System.Application.Launch.Resource.Id.enterAlwaysCollapsed;
+			global::System.Application.Resource.Id.exitUntilCollapsed = global::System.Application.Launch.Resource.Id.exitUntilCollapsed;
+			global::System.Application.Resource.Id.expanded_menu = global::System.Application.Launch.Resource.Id.expanded_menu;
+			global::System.Application.Resource.Id.expand_activities_button = global::System.Application.Launch.Resource.Id.expand_activities_button;
+			global::System.Application.Resource.Id.fade = global::System.Application.Launch.Resource.Id.fade;
+			global::System.Application.Resource.Id.fill = global::System.Application.Launch.Resource.Id.fill;
+			global::System.Application.Resource.Id.filled = global::System.Application.Launch.Resource.Id.filled;
+			global::System.Application.Resource.Id.fill_horizontal = global::System.Application.Launch.Resource.Id.fill_horizontal;
+			global::System.Application.Resource.Id.fill_vertical = global::System.Application.Launch.Resource.Id.fill_vertical;
+			global::System.Application.Resource.Id.fitToContents = global::System.Application.Launch.Resource.Id.fitToContents;
+			global::System.Application.Resource.Id.@fixed = global::System.Application.Launch.Resource.Id.@fixed;
+			global::System.Application.Resource.Id.floating = global::System.Application.Launch.Resource.Id.floating;
+			global::System.Application.Resource.Id.flyoutcontent_appbar = global::System.Application.Launch.Resource.Id.flyoutcontent_appbar;
+			global::System.Application.Resource.Id.forever = global::System.Application.Launch.Resource.Id.forever;
+			global::System.Application.Resource.Id.fragment_container_view_tag = global::System.Application.Launch.Resource.Id.fragment_container_view_tag;
+			global::System.Application.Resource.Id.FUNCTION = global::System.Application.Launch.Resource.Id.FUNCTION;
+			global::System.Application.Resource.Id.ghost_view = global::System.Application.Launch.Resource.Id.ghost_view;
+			global::System.Application.Resource.Id.ghost_view_holder = global::System.Application.Launch.Resource.Id.ghost_view_holder;
+			global::System.Application.Resource.Id.gone = global::System.Application.Launch.Resource.Id.gone;
+			global::System.Application.Resource.Id.group_divider = global::System.Application.Launch.Resource.Id.group_divider;
+			global::System.Application.Resource.Id.hideable = global::System.Application.Launch.Resource.Id.hideable;
+			global::System.Application.Resource.Id.home = global::System.Application.Launch.Resource.Id.home;
+			global::System.Application.Resource.Id.homeAsUp = global::System.Application.Launch.Resource.Id.homeAsUp;
+			global::System.Application.Resource.Id.icon = global::System.Application.Launch.Resource.Id.icon;
+			global::System.Application.Resource.Id.icon_group = global::System.Application.Launch.Resource.Id.icon_group;
+			global::System.Application.Resource.Id.ifRoom = global::System.Application.Launch.Resource.Id.ifRoom;
+			global::System.Application.Resource.Id.image = global::System.Application.Launch.Resource.Id.image;
+			global::System.Application.Resource.Id.info = global::System.Application.Launch.Resource.Id.info;
+			global::System.Application.Resource.Id.italic = global::System.Application.Launch.Resource.Id.italic;
+			global::System.Application.Resource.Id.item_touch_helper_previous_elevation = global::System.Application.Launch.Resource.Id.item_touch_helper_previous_elevation;
+			global::System.Application.Resource.Id.labeled = global::System.Application.Launch.Resource.Id.labeled;
+			global::System.Application.Resource.Id.largeLabel = global::System.Application.Launch.Resource.Id.largeLabel;
+			global::System.Application.Resource.Id.left = global::System.Application.Launch.Resource.Id.left;
+			global::System.Application.Resource.Id.line1 = global::System.Application.Launch.Resource.Id.line1;
+			global::System.Application.Resource.Id.line3 = global::System.Application.Launch.Resource.Id.line3;
+			global::System.Application.Resource.Id.listMode = global::System.Application.Launch.Resource.Id.listMode;
+			global::System.Application.Resource.Id.list_item = global::System.Application.Launch.Resource.Id.list_item;
+			global::System.Application.Resource.Id.main_appbar = global::System.Application.Launch.Resource.Id.main_appbar;
+			global::System.Application.Resource.Id.main_tablayout = global::System.Application.Launch.Resource.Id.main_tablayout;
+			global::System.Application.Resource.Id.main_toolbar = global::System.Application.Launch.Resource.Id.main_toolbar;
+			global::System.Application.Resource.Id.main_viewpager = global::System.Application.Launch.Resource.Id.main_viewpager;
+			global::System.Application.Resource.Id.masked = global::System.Application.Launch.Resource.Id.masked;
+			global::System.Application.Resource.Id.materialformsedittext = global::System.Application.Launch.Resource.Id.materialformsedittext;
+			global::System.Application.Resource.Id.media_actions = global::System.Application.Launch.Resource.Id.media_actions;
+			global::System.Application.Resource.Id.media_controller_compat_view_tag = global::System.Application.Launch.Resource.Id.media_controller_compat_view_tag;
+			global::System.Application.Resource.Id.message = global::System.Application.Launch.Resource.Id.message;
+			global::System.Application.Resource.Id.META = global::System.Application.Launch.Resource.Id.META;
+			global::System.Application.Resource.Id.middle = global::System.Application.Launch.Resource.Id.middle;
+			global::System.Application.Resource.Id.mini = global::System.Application.Launch.Resource.Id.mini;
+			global::System.Application.Resource.Id.month_grid = global::System.Application.Launch.Resource.Id.month_grid;
+			global::System.Application.Resource.Id.month_navigation_bar = global::System.Application.Launch.Resource.Id.month_navigation_bar;
+			global::System.Application.Resource.Id.month_navigation_fragment_toggle = global::System.Application.Launch.Resource.Id.month_navigation_fragment_toggle;
+			global::System.Application.Resource.Id.month_navigation_next = global::System.Application.Launch.Resource.Id.month_navigation_next;
+			global::System.Application.Resource.Id.month_navigation_previous = global::System.Application.Launch.Resource.Id.month_navigation_previous;
+			global::System.Application.Resource.Id.month_title = global::System.Application.Launch.Resource.Id.month_title;
+			global::System.Application.Resource.Id.mtrl_calendar_days_of_week = global::System.Application.Launch.Resource.Id.mtrl_calendar_days_of_week;
+			global::System.Application.Resource.Id.mtrl_calendar_day_selector_frame = global::System.Application.Launch.Resource.Id.mtrl_calendar_day_selector_frame;
+			global::System.Application.Resource.Id.mtrl_calendar_frame = global::System.Application.Launch.Resource.Id.mtrl_calendar_frame;
+			global::System.Application.Resource.Id.mtrl_calendar_main_pane = global::System.Application.Launch.Resource.Id.mtrl_calendar_main_pane;
+			global::System.Application.Resource.Id.mtrl_calendar_months = global::System.Application.Launch.Resource.Id.mtrl_calendar_months;
+			global::System.Application.Resource.Id.mtrl_calendar_selection_frame = global::System.Application.Launch.Resource.Id.mtrl_calendar_selection_frame;
+			global::System.Application.Resource.Id.mtrl_calendar_text_input_frame = global::System.Application.Launch.Resource.Id.mtrl_calendar_text_input_frame;
+			global::System.Application.Resource.Id.mtrl_calendar_year_selector_frame = global::System.Application.Launch.Resource.Id.mtrl_calendar_year_selector_frame;
+			global::System.Application.Resource.Id.mtrl_card_checked_layer_id = global::System.Application.Launch.Resource.Id.mtrl_card_checked_layer_id;
+			global::System.Application.Resource.Id.mtrl_child_content_container = global::System.Application.Launch.Resource.Id.mtrl_child_content_container;
+			global::System.Application.Resource.Id.mtrl_internal_children_alpha_tag = global::System.Application.Launch.Resource.Id.mtrl_internal_children_alpha_tag;
+			global::System.Application.Resource.Id.mtrl_motion_snapshot_view = global::System.Application.Launch.Resource.Id.mtrl_motion_snapshot_view;
+			global::System.Application.Resource.Id.mtrl_picker_fullscreen = global::System.Application.Launch.Resource.Id.mtrl_picker_fullscreen;
+			global::System.Application.Resource.Id.mtrl_picker_header = global::System.Application.Launch.Resource.Id.mtrl_picker_header;
+			global::System.Application.Resource.Id.mtrl_picker_header_selection_text = global::System.Application.Launch.Resource.Id.mtrl_picker_header_selection_text;
+			global::System.Application.Resource.Id.mtrl_picker_header_title_and_selection = global::System.Application.Launch.Resource.Id.mtrl_picker_header_title_and_selection;
+			global::System.Application.Resource.Id.mtrl_picker_header_toggle = global::System.Application.Launch.Resource.Id.mtrl_picker_header_toggle;
+			global::System.Application.Resource.Id.mtrl_picker_text_input_date = global::System.Application.Launch.Resource.Id.mtrl_picker_text_input_date;
+			global::System.Application.Resource.Id.mtrl_picker_text_input_range_end = global::System.Application.Launch.Resource.Id.mtrl_picker_text_input_range_end;
+			global::System.Application.Resource.Id.mtrl_picker_text_input_range_start = global::System.Application.Launch.Resource.Id.mtrl_picker_text_input_range_start;
+			global::System.Application.Resource.Id.mtrl_picker_title_text = global::System.Application.Launch.Resource.Id.mtrl_picker_title_text;
+			global::System.Application.Resource.Id.multiply = global::System.Application.Launch.Resource.Id.multiply;
+			global::System.Application.Resource.Id.navigation_header_container = global::System.Application.Launch.Resource.Id.navigation_header_container;
+			global::System.Application.Resource.Id.never = global::System.Application.Launch.Resource.Id.never;
+			global::System.Application.Resource.Id.none = global::System.Application.Launch.Resource.Id.none;
+			global::System.Application.Resource.Id.normal = global::System.Application.Launch.Resource.Id.normal;
+			global::System.Application.Resource.Id.noScroll = global::System.Application.Launch.Resource.Id.noScroll;
+			global::System.Application.Resource.Id.notification_background = global::System.Application.Launch.Resource.Id.notification_background;
+			global::System.Application.Resource.Id.notification_main_column = global::System.Application.Launch.Resource.Id.notification_main_column;
+			global::System.Application.Resource.Id.notification_main_column_container = global::System.Application.Launch.Resource.Id.notification_main_column_container;
+			global::System.Application.Resource.Id.off = global::System.Application.Launch.Resource.Id.off;
+			global::System.Application.Resource.Id.on = global::System.Application.Launch.Resource.Id.on;
+			global::System.Application.Resource.Id.outline = global::System.Application.Launch.Resource.Id.outline;
+			global::System.Application.Resource.Id.parallax = global::System.Application.Launch.Resource.Id.parallax;
+			global::System.Application.Resource.Id.parentPanel = global::System.Application.Launch.Resource.Id.parentPanel;
+			global::System.Application.Resource.Id.parent_matrix = global::System.Application.Launch.Resource.Id.parent_matrix;
+			global::System.Application.Resource.Id.password_toggle = global::System.Application.Launch.Resource.Id.password_toggle;
+			global::System.Application.Resource.Id.peekHeight = global::System.Application.Launch.Resource.Id.peekHeight;
+			global::System.Application.Resource.Id.pin = global::System.Application.Launch.Resource.Id.pin;
+			global::System.Application.Resource.Id.progress_circular = global::System.Application.Launch.Resource.Id.progress_circular;
+			global::System.Application.Resource.Id.progress_horizontal = global::System.Application.Launch.Resource.Id.progress_horizontal;
+			global::System.Application.Resource.Id.radio = global::System.Application.Launch.Resource.Id.radio;
+			global::System.Application.Resource.Id.right = global::System.Application.Launch.Resource.Id.right;
+			global::System.Application.Resource.Id.right_icon = global::System.Application.Launch.Resource.Id.right_icon;
+			global::System.Application.Resource.Id.right_side = global::System.Application.Launch.Resource.Id.right_side;
+			global::System.Application.Resource.Id.rounded = global::System.Application.Launch.Resource.Id.rounded;
+			global::System.Application.Resource.Id.row_index_key = global::System.Application.Launch.Resource.Id.row_index_key;
+			global::System.Application.Resource.Id.save_non_transition_alpha = global::System.Application.Launch.Resource.Id.save_non_transition_alpha;
+			global::System.Application.Resource.Id.save_overlay_view = global::System.Application.Launch.Resource.Id.save_overlay_view;
+			global::System.Application.Resource.Id.scale = global::System.Application.Launch.Resource.Id.scale;
+			global::System.Application.Resource.Id.screen = global::System.Application.Launch.Resource.Id.screen;
+			global::System.Application.Resource.Id.scroll = global::System.Application.Launch.Resource.Id.scroll;
+			global::System.Application.Resource.Id.scrollable = global::System.Application.Launch.Resource.Id.scrollable;
+			global::System.Application.Resource.Id.scrollIndicatorDown = global::System.Application.Launch.Resource.Id.scrollIndicatorDown;
+			global::System.Application.Resource.Id.scrollIndicatorUp = global::System.Application.Launch.Resource.Id.scrollIndicatorUp;
+			global::System.Application.Resource.Id.scrollView = global::System.Application.Launch.Resource.Id.scrollView;
+			global::System.Application.Resource.Id.search_badge = global::System.Application.Launch.Resource.Id.search_badge;
+			global::System.Application.Resource.Id.search_bar = global::System.Application.Launch.Resource.Id.search_bar;
+			global::System.Application.Resource.Id.search_button = global::System.Application.Launch.Resource.Id.search_button;
+			global::System.Application.Resource.Id.search_close_btn = global::System.Application.Launch.Resource.Id.search_close_btn;
+			global::System.Application.Resource.Id.search_edit_frame = global::System.Application.Launch.Resource.Id.search_edit_frame;
+			global::System.Application.Resource.Id.search_go_btn = global::System.Application.Launch.Resource.Id.search_go_btn;
+			global::System.Application.Resource.Id.search_mag_icon = global::System.Application.Launch.Resource.Id.search_mag_icon;
+			global::System.Application.Resource.Id.search_plate = global::System.Application.Launch.Resource.Id.search_plate;
+			global::System.Application.Resource.Id.search_src_text = global::System.Application.Launch.Resource.Id.search_src_text;
+			global::System.Application.Resource.Id.search_voice_btn = global::System.Application.Launch.Resource.Id.search_voice_btn;
+			global::System.Application.Resource.Id.selected = global::System.Application.Launch.Resource.Id.selected;
+			global::System.Application.Resource.Id.select_dialog_listview = global::System.Application.Launch.Resource.Id.select_dialog_listview;
+			global::System.Application.Resource.Id.shellcontent_appbar = global::System.Application.Launch.Resource.Id.shellcontent_appbar;
+			global::System.Application.Resource.Id.shellcontent_toolbar = global::System.Application.Launch.Resource.Id.shellcontent_toolbar;
+			global::System.Application.Resource.Id.SHIFT = global::System.Application.Launch.Resource.Id.SHIFT;
+			global::System.Application.Resource.Id.shortcut = global::System.Application.Launch.Resource.Id.shortcut;
+			global::System.Application.Resource.Id.showCustom = global::System.Application.Launch.Resource.Id.showCustom;
+			global::System.Application.Resource.Id.showHome = global::System.Application.Launch.Resource.Id.showHome;
+			global::System.Application.Resource.Id.showTitle = global::System.Application.Launch.Resource.Id.showTitle;
+			global::System.Application.Resource.Id.skipCollapsed = global::System.Application.Launch.Resource.Id.skipCollapsed;
+			global::System.Application.Resource.Id.slide = global::System.Application.Launch.Resource.Id.slide;
+			global::System.Application.Resource.Id.sliding_tabs = global::System.Application.Launch.Resource.Id.sliding_tabs;
+			global::System.Application.Resource.Id.smallLabel = global::System.Application.Launch.Resource.Id.smallLabel;
+			global::System.Application.Resource.Id.snackbar_action = global::System.Application.Launch.Resource.Id.snackbar_action;
+			global::System.Application.Resource.Id.snackbar_text = global::System.Application.Launch.Resource.Id.snackbar_text;
+			global::System.Application.Resource.Id.snap = global::System.Application.Launch.Resource.Id.snap;
+			global::System.Application.Resource.Id.snapMargins = global::System.Application.Launch.Resource.Id.snapMargins;
+			global::System.Application.Resource.Id.spacer = global::System.Application.Launch.Resource.Id.spacer;
+			global::System.Application.Resource.Id.split_action_bar = global::System.Application.Launch.Resource.Id.split_action_bar;
+			global::System.Application.Resource.Id.src_atop = global::System.Application.Launch.Resource.Id.src_atop;
+			global::System.Application.Resource.Id.src_in = global::System.Application.Launch.Resource.Id.src_in;
+			global::System.Application.Resource.Id.src_over = global::System.Application.Launch.Resource.Id.src_over;
+			global::System.Application.Resource.Id.start = global::System.Application.Launch.Resource.Id.start;
+			global::System.Application.Resource.Id.status_bar_latest_event_content = global::System.Application.Launch.Resource.Id.status_bar_latest_event_content;
+			global::System.Application.Resource.Id.stretch = global::System.Application.Launch.Resource.Id.stretch;
+			global::System.Application.Resource.Id.submenuarrow = global::System.Application.Launch.Resource.Id.submenuarrow;
+			global::System.Application.Resource.Id.submit_area = global::System.Application.Launch.Resource.Id.submit_area;
+			global::System.Application.Resource.Id.SYM = global::System.Application.Launch.Resource.Id.SYM;
+			global::System.Application.Resource.Id.tabMode = global::System.Application.Launch.Resource.Id.tabMode;
+			global::System.Application.Resource.Id.tag_accessibility_actions = global::System.Application.Launch.Resource.Id.tag_accessibility_actions;
+			global::System.Application.Resource.Id.tag_accessibility_clickable_spans = global::System.Application.Launch.Resource.Id.tag_accessibility_clickable_spans;
+			global::System.Application.Resource.Id.tag_accessibility_heading = global::System.Application.Launch.Resource.Id.tag_accessibility_heading;
+			global::System.Application.Resource.Id.tag_accessibility_pane_title = global::System.Application.Launch.Resource.Id.tag_accessibility_pane_title;
+			global::System.Application.Resource.Id.tag_screen_reader_focusable = global::System.Application.Launch.Resource.Id.tag_screen_reader_focusable;
+			global::System.Application.Resource.Id.tag_transition_group = global::System.Application.Launch.Resource.Id.tag_transition_group;
+			global::System.Application.Resource.Id.tag_unhandled_key_event_manager = global::System.Application.Launch.Resource.Id.tag_unhandled_key_event_manager;
+			global::System.Application.Resource.Id.tag_unhandled_key_listeners = global::System.Application.Launch.Resource.Id.tag_unhandled_key_listeners;
+			global::System.Application.Resource.Id.test_checkbox_android_button_tint = global::System.Application.Launch.Resource.Id.test_checkbox_android_button_tint;
+			global::System.Application.Resource.Id.test_checkbox_app_button_tint = global::System.Application.Launch.Resource.Id.test_checkbox_app_button_tint;
+			global::System.Application.Resource.Id.test_radiobutton_android_button_tint = global::System.Application.Launch.Resource.Id.test_radiobutton_android_button_tint;
+			global::System.Application.Resource.Id.test_radiobutton_app_button_tint = global::System.Application.Launch.Resource.Id.test_radiobutton_app_button_tint;
+			global::System.Application.Resource.Id.text = global::System.Application.Launch.Resource.Id.text;
+			global::System.Application.Resource.Id.text2 = global::System.Application.Launch.Resource.Id.text2;
+			global::System.Application.Resource.Id.textEnd = global::System.Application.Launch.Resource.Id.textEnd;
+			global::System.Application.Resource.Id.textinput_counter = global::System.Application.Launch.Resource.Id.textinput_counter;
+			global::System.Application.Resource.Id.textinput_error = global::System.Application.Launch.Resource.Id.textinput_error;
+			global::System.Application.Resource.Id.textinput_helper_text = global::System.Application.Launch.Resource.Id.textinput_helper_text;
+			global::System.Application.Resource.Id.textinput_placeholder = global::System.Application.Launch.Resource.Id.textinput_placeholder;
+			global::System.Application.Resource.Id.textinput_prefix_text = global::System.Application.Launch.Resource.Id.textinput_prefix_text;
+			global::System.Application.Resource.Id.textinput_suffix_text = global::System.Application.Launch.Resource.Id.textinput_suffix_text;
+			global::System.Application.Resource.Id.textSpacerNoButtons = global::System.Application.Launch.Resource.Id.textSpacerNoButtons;
+			global::System.Application.Resource.Id.textSpacerNoTitle = global::System.Application.Launch.Resource.Id.textSpacerNoTitle;
+			global::System.Application.Resource.Id.textStart = global::System.Application.Launch.Resource.Id.textStart;
+			global::System.Application.Resource.Id.text_input_end_icon = global::System.Application.Launch.Resource.Id.text_input_end_icon;
+			global::System.Application.Resource.Id.text_input_start_icon = global::System.Application.Launch.Resource.Id.text_input_start_icon;
+			global::System.Application.Resource.Id.time = global::System.Application.Launch.Resource.Id.time;
+			global::System.Application.Resource.Id.title = global::System.Application.Launch.Resource.Id.title;
+			global::System.Application.Resource.Id.titleDividerNoCustom = global::System.Application.Launch.Resource.Id.titleDividerNoCustom;
+			global::System.Application.Resource.Id.title_template = global::System.Application.Launch.Resource.Id.title_template;
+			global::System.Application.Resource.Id.toolbar = global::System.Application.Launch.Resource.Id.toolbar;
+			global::System.Application.Resource.Id.top = global::System.Application.Launch.Resource.Id.top;
+			global::System.Application.Resource.Id.topPanel = global::System.Application.Launch.Resource.Id.topPanel;
+			global::System.Application.Resource.Id.TOP_END = global::System.Application.Launch.Resource.Id.TOP_END;
+			global::System.Application.Resource.Id.TOP_START = global::System.Application.Launch.Resource.Id.TOP_START;
+			global::System.Application.Resource.Id.touch_outside = global::System.Application.Launch.Resource.Id.touch_outside;
+			global::System.Application.Resource.Id.transition_current_scene = global::System.Application.Launch.Resource.Id.transition_current_scene;
+			global::System.Application.Resource.Id.transition_layout_save = global::System.Application.Launch.Resource.Id.transition_layout_save;
+			global::System.Application.Resource.Id.transition_position = global::System.Application.Launch.Resource.Id.transition_position;
+			global::System.Application.Resource.Id.transition_scene_layoutid_cache = global::System.Application.Launch.Resource.Id.transition_scene_layoutid_cache;
+			global::System.Application.Resource.Id.transition_transform = global::System.Application.Launch.Resource.Id.transition_transform;
+			global::System.Application.Resource.Id.@unchecked = global::System.Application.Launch.Resource.Id.@unchecked;
+			global::System.Application.Resource.Id.uniform = global::System.Application.Launch.Resource.Id.uniform;
+			global::System.Application.Resource.Id.unlabeled = global::System.Application.Launch.Resource.Id.unlabeled;
+			global::System.Application.Resource.Id.up = global::System.Application.Launch.Resource.Id.up;
+			global::System.Application.Resource.Id.useLogo = global::System.Application.Launch.Resource.Id.useLogo;
+			global::System.Application.Resource.Id.view_offset_helper = global::System.Application.Launch.Resource.Id.view_offset_helper;
+			global::System.Application.Resource.Id.view_tree_saved_state_registry_owner = global::System.Application.Launch.Resource.Id.view_tree_saved_state_registry_owner;
+			global::System.Application.Resource.Id.visible = global::System.Application.Launch.Resource.Id.visible;
+			global::System.Application.Resource.Id.visible_removing_fragment_view_tag = global::System.Application.Launch.Resource.Id.visible_removing_fragment_view_tag;
+			global::System.Application.Resource.Id.withinBounds = global::System.Application.Launch.Resource.Id.withinBounds;
+			global::System.Application.Resource.Id.withText = global::System.Application.Launch.Resource.Id.withText;
+			global::System.Application.Resource.Id.wrap_content = global::System.Application.Launch.Resource.Id.wrap_content;
+			global::System.Application.Resource.Id.zero_corner_chip = global::System.Application.Launch.Resource.Id.zero_corner_chip;
+			global::System.Application.Resource.Integer.abc_config_activityDefaultDur = global::System.Application.Launch.Resource.Integer.abc_config_activityDefaultDur;
+			global::System.Application.Resource.Integer.abc_config_activityShortDur = global::System.Application.Launch.Resource.Integer.abc_config_activityShortDur;
+			global::System.Application.Resource.Integer.app_bar_elevation_anim_duration = global::System.Application.Launch.Resource.Integer.app_bar_elevation_anim_duration;
+			global::System.Application.Resource.Integer.bottom_sheet_slide_duration = global::System.Application.Launch.Resource.Integer.bottom_sheet_slide_duration;
+			global::System.Application.Resource.Integer.cancel_button_image_alpha = global::System.Application.Launch.Resource.Integer.cancel_button_image_alpha;
+			global::System.Application.Resource.Integer.config_tooltipAnimTime = global::System.Application.Launch.Resource.Integer.config_tooltipAnimTime;
+			global::System.Application.Resource.Integer.design_snackbar_text_max_lines = global::System.Application.Launch.Resource.Integer.design_snackbar_text_max_lines;
+			global::System.Application.Resource.Integer.design_tab_indicator_anim_duration_ms = global::System.Application.Launch.Resource.Integer.design_tab_indicator_anim_duration_ms;
+			global::System.Application.Resource.Integer.hide_password_duration = global::System.Application.Launch.Resource.Integer.hide_password_duration;
+			global::System.Application.Resource.Integer.mtrl_badge_max_character_count = global::System.Application.Launch.Resource.Integer.mtrl_badge_max_character_count;
+			global::System.Application.Resource.Integer.mtrl_btn_anim_delay_ms = global::System.Application.Launch.Resource.Integer.mtrl_btn_anim_delay_ms;
+			global::System.Application.Resource.Integer.mtrl_btn_anim_duration_ms = global::System.Application.Launch.Resource.Integer.mtrl_btn_anim_duration_ms;
+			global::System.Application.Resource.Integer.mtrl_calendar_header_orientation = global::System.Application.Launch.Resource.Integer.mtrl_calendar_header_orientation;
+			global::System.Application.Resource.Integer.mtrl_calendar_selection_text_lines = global::System.Application.Launch.Resource.Integer.mtrl_calendar_selection_text_lines;
+			global::System.Application.Resource.Integer.mtrl_calendar_year_selector_span = global::System.Application.Launch.Resource.Integer.mtrl_calendar_year_selector_span;
+			global::System.Application.Resource.Integer.mtrl_card_anim_delay_ms = global::System.Application.Launch.Resource.Integer.mtrl_card_anim_delay_ms;
+			global::System.Application.Resource.Integer.mtrl_card_anim_duration_ms = global::System.Application.Launch.Resource.Integer.mtrl_card_anim_duration_ms;
+			global::System.Application.Resource.Integer.mtrl_chip_anim_duration = global::System.Application.Launch.Resource.Integer.mtrl_chip_anim_duration;
+			global::System.Application.Resource.Integer.mtrl_tab_indicator_anim_duration_ms = global::System.Application.Launch.Resource.Integer.mtrl_tab_indicator_anim_duration_ms;
+			global::System.Application.Resource.Integer.show_password_duration = global::System.Application.Launch.Resource.Integer.show_password_duration;
+			global::System.Application.Resource.Integer.status_bar_notification_info_maxnum = global::System.Application.Launch.Resource.Integer.status_bar_notification_info_maxnum;
+			global::System.Application.Resource.Interpolator.btn_checkbox_checked_mtrl_animation_interpolator_0 = global::System.Application.Launch.Resource.Interpolator.btn_checkbox_checked_mtrl_animation_interpolator_0;
+			global::System.Application.Resource.Interpolator.btn_checkbox_checked_mtrl_animation_interpolator_1 = global::System.Application.Launch.Resource.Interpolator.btn_checkbox_checked_mtrl_animation_interpolator_1;
+			global::System.Application.Resource.Interpolator.btn_checkbox_unchecked_mtrl_animation_interpolator_0 = global::System.Application.Launch.Resource.Interpolator.btn_checkbox_unchecked_mtrl_animation_interpolator_0;
+			global::System.Application.Resource.Interpolator.btn_checkbox_unchecked_mtrl_animation_interpolator_1 = global::System.Application.Launch.Resource.Interpolator.btn_checkbox_unchecked_mtrl_animation_interpolator_1;
+			global::System.Application.Resource.Interpolator.btn_radio_to_off_mtrl_animation_interpolator_0 = global::System.Application.Launch.Resource.Interpolator.btn_radio_to_off_mtrl_animation_interpolator_0;
+			global::System.Application.Resource.Interpolator.btn_radio_to_on_mtrl_animation_interpolator_0 = global::System.Application.Launch.Resource.Interpolator.btn_radio_to_on_mtrl_animation_interpolator_0;
+			global::System.Application.Resource.Interpolator.fast_out_slow_in = global::System.Application.Launch.Resource.Interpolator.fast_out_slow_in;
+			global::System.Application.Resource.Interpolator.mtrl_fast_out_linear_in = global::System.Application.Launch.Resource.Interpolator.mtrl_fast_out_linear_in;
+			global::System.Application.Resource.Interpolator.mtrl_fast_out_slow_in = global::System.Application.Launch.Resource.Interpolator.mtrl_fast_out_slow_in;
+			global::System.Application.Resource.Interpolator.mtrl_linear = global::System.Application.Launch.Resource.Interpolator.mtrl_linear;
+			global::System.Application.Resource.Interpolator.mtrl_linear_out_slow_in = global::System.Application.Launch.Resource.Interpolator.mtrl_linear_out_slow_in;
+			global::System.Application.Resource.Layout.abc_action_bar_title_item = global::System.Application.Launch.Resource.Layout.abc_action_bar_title_item;
+			global::System.Application.Resource.Layout.abc_action_bar_up_container = global::System.Application.Launch.Resource.Layout.abc_action_bar_up_container;
+			global::System.Application.Resource.Layout.abc_action_menu_item_layout = global::System.Application.Launch.Resource.Layout.abc_action_menu_item_layout;
+			global::System.Application.Resource.Layout.abc_action_menu_layout = global::System.Application.Launch.Resource.Layout.abc_action_menu_layout;
+			global::System.Application.Resource.Layout.abc_action_mode_bar = global::System.Application.Launch.Resource.Layout.abc_action_mode_bar;
+			global::System.Application.Resource.Layout.abc_action_mode_close_item_material = global::System.Application.Launch.Resource.Layout.abc_action_mode_close_item_material;
+			global::System.Application.Resource.Layout.abc_activity_chooser_view = global::System.Application.Launch.Resource.Layout.abc_activity_chooser_view;
+			global::System.Application.Resource.Layout.abc_activity_chooser_view_list_item = global::System.Application.Launch.Resource.Layout.abc_activity_chooser_view_list_item;
+			global::System.Application.Resource.Layout.abc_alert_dialog_button_bar_material = global::System.Application.Launch.Resource.Layout.abc_alert_dialog_button_bar_material;
+			global::System.Application.Resource.Layout.abc_alert_dialog_material = global::System.Application.Launch.Resource.Layout.abc_alert_dialog_material;
+			global::System.Application.Resource.Layout.abc_alert_dialog_title_material = global::System.Application.Launch.Resource.Layout.abc_alert_dialog_title_material;
+			global::System.Application.Resource.Layout.abc_cascading_menu_item_layout = global::System.Application.Launch.Resource.Layout.abc_cascading_menu_item_layout;
+			global::System.Application.Resource.Layout.abc_dialog_title_material = global::System.Application.Launch.Resource.Layout.abc_dialog_title_material;
+			global::System.Application.Resource.Layout.abc_expanded_menu_layout = global::System.Application.Launch.Resource.Layout.abc_expanded_menu_layout;
+			global::System.Application.Resource.Layout.abc_list_menu_item_checkbox = global::System.Application.Launch.Resource.Layout.abc_list_menu_item_checkbox;
+			global::System.Application.Resource.Layout.abc_list_menu_item_icon = global::System.Application.Launch.Resource.Layout.abc_list_menu_item_icon;
+			global::System.Application.Resource.Layout.abc_list_menu_item_layout = global::System.Application.Launch.Resource.Layout.abc_list_menu_item_layout;
+			global::System.Application.Resource.Layout.abc_list_menu_item_radio = global::System.Application.Launch.Resource.Layout.abc_list_menu_item_radio;
+			global::System.Application.Resource.Layout.abc_popup_menu_header_item_layout = global::System.Application.Launch.Resource.Layout.abc_popup_menu_header_item_layout;
+			global::System.Application.Resource.Layout.abc_popup_menu_item_layout = global::System.Application.Launch.Resource.Layout.abc_popup_menu_item_layout;
+			global::System.Application.Resource.Layout.abc_screen_content_include = global::System.Application.Launch.Resource.Layout.abc_screen_content_include;
+			global::System.Application.Resource.Layout.abc_screen_simple = global::System.Application.Launch.Resource.Layout.abc_screen_simple;
+			global::System.Application.Resource.Layout.abc_screen_simple_overlay_action_mode = global::System.Application.Launch.Resource.Layout.abc_screen_simple_overlay_action_mode;
+			global::System.Application.Resource.Layout.abc_screen_toolbar = global::System.Application.Launch.Resource.Layout.abc_screen_toolbar;
+			global::System.Application.Resource.Layout.abc_search_dropdown_item_icons_2line = global::System.Application.Launch.Resource.Layout.abc_search_dropdown_item_icons_2line;
+			global::System.Application.Resource.Layout.abc_search_view = global::System.Application.Launch.Resource.Layout.abc_search_view;
+			global::System.Application.Resource.Layout.abc_select_dialog_material = global::System.Application.Launch.Resource.Layout.abc_select_dialog_material;
+			global::System.Application.Resource.Layout.abc_tooltip = global::System.Application.Launch.Resource.Layout.abc_tooltip;
+			global::System.Application.Resource.Layout.BottomTabLayout = global::System.Application.Launch.Resource.Layout.BottomTabLayout;
+			global::System.Application.Resource.Layout.browser_actions_context_menu_page = global::System.Application.Launch.Resource.Layout.browser_actions_context_menu_page;
+			global::System.Application.Resource.Layout.browser_actions_context_menu_row = global::System.Application.Launch.Resource.Layout.browser_actions_context_menu_row;
+			global::System.Application.Resource.Layout.controls_btntext = global::System.Application.Launch.Resource.Layout.controls_btntext;
+			global::System.Application.Resource.Layout.custom_dialog = global::System.Application.Launch.Resource.Layout.custom_dialog;
+			global::System.Application.Resource.Layout.design_bottom_navigation_item = global::System.Application.Launch.Resource.Layout.design_bottom_navigation_item;
+			global::System.Application.Resource.Layout.design_bottom_sheet_dialog = global::System.Application.Launch.Resource.Layout.design_bottom_sheet_dialog;
+			global::System.Application.Resource.Layout.design_layout_snackbar = global::System.Application.Launch.Resource.Layout.design_layout_snackbar;
+			global::System.Application.Resource.Layout.design_layout_snackbar_include = global::System.Application.Launch.Resource.Layout.design_layout_snackbar_include;
+			global::System.Application.Resource.Layout.design_layout_tab_icon = global::System.Application.Launch.Resource.Layout.design_layout_tab_icon;
+			global::System.Application.Resource.Layout.design_layout_tab_text = global::System.Application.Launch.Resource.Layout.design_layout_tab_text;
+			global::System.Application.Resource.Layout.design_menu_item_action_area = global::System.Application.Launch.Resource.Layout.design_menu_item_action_area;
+			global::System.Application.Resource.Layout.design_navigation_item = global::System.Application.Launch.Resource.Layout.design_navigation_item;
+			global::System.Application.Resource.Layout.design_navigation_item_header = global::System.Application.Launch.Resource.Layout.design_navigation_item_header;
+			global::System.Application.Resource.Layout.design_navigation_item_separator = global::System.Application.Launch.Resource.Layout.design_navigation_item_separator;
+			global::System.Application.Resource.Layout.design_navigation_item_subheader = global::System.Application.Launch.Resource.Layout.design_navigation_item_subheader;
+			global::System.Application.Resource.Layout.design_navigation_menu = global::System.Application.Launch.Resource.Layout.design_navigation_menu;
+			global::System.Application.Resource.Layout.design_navigation_menu_item = global::System.Application.Launch.Resource.Layout.design_navigation_menu_item;
+			global::System.Application.Resource.Layout.design_text_input_end_icon = global::System.Application.Launch.Resource.Layout.design_text_input_end_icon;
+			global::System.Application.Resource.Layout.design_text_input_start_icon = global::System.Application.Launch.Resource.Layout.design_text_input_start_icon;
+			global::System.Application.Resource.Layout.FallbackTabbarDoNotUse = global::System.Application.Launch.Resource.Layout.FallbackTabbarDoNotUse;
+			global::System.Application.Resource.Layout.FallbackToolbarDoNotUse = global::System.Application.Launch.Resource.Layout.FallbackToolbarDoNotUse;
+			global::System.Application.Resource.Layout.FlyoutContent = global::System.Application.Launch.Resource.Layout.FlyoutContent;
+			global::System.Application.Resource.Layout.MaterialPickerTextInput = global::System.Application.Launch.Resource.Layout.MaterialPickerTextInput;
+			global::System.Application.Resource.Layout.mtrl_alert_dialog = global::System.Application.Launch.Resource.Layout.mtrl_alert_dialog;
+			global::System.Application.Resource.Layout.mtrl_alert_dialog_actions = global::System.Application.Launch.Resource.Layout.mtrl_alert_dialog_actions;
+			global::System.Application.Resource.Layout.mtrl_alert_dialog_title = global::System.Application.Launch.Resource.Layout.mtrl_alert_dialog_title;
+			global::System.Application.Resource.Layout.mtrl_alert_select_dialog_item = global::System.Application.Launch.Resource.Layout.mtrl_alert_select_dialog_item;
+			global::System.Application.Resource.Layout.mtrl_alert_select_dialog_multichoice = global::System.Application.Launch.Resource.Layout.mtrl_alert_select_dialog_multichoice;
+			global::System.Application.Resource.Layout.mtrl_alert_select_dialog_singlechoice = global::System.Application.Launch.Resource.Layout.mtrl_alert_select_dialog_singlechoice;
+			global::System.Application.Resource.Layout.mtrl_calendar_day = global::System.Application.Launch.Resource.Layout.mtrl_calendar_day;
+			global::System.Application.Resource.Layout.mtrl_calendar_days_of_week = global::System.Application.Launch.Resource.Layout.mtrl_calendar_days_of_week;
+			global::System.Application.Resource.Layout.mtrl_calendar_day_of_week = global::System.Application.Launch.Resource.Layout.mtrl_calendar_day_of_week;
+			global::System.Application.Resource.Layout.mtrl_calendar_horizontal = global::System.Application.Launch.Resource.Layout.mtrl_calendar_horizontal;
+			global::System.Application.Resource.Layout.mtrl_calendar_month = global::System.Application.Launch.Resource.Layout.mtrl_calendar_month;
+			global::System.Application.Resource.Layout.mtrl_calendar_months = global::System.Application.Launch.Resource.Layout.mtrl_calendar_months;
+			global::System.Application.Resource.Layout.mtrl_calendar_month_labeled = global::System.Application.Launch.Resource.Layout.mtrl_calendar_month_labeled;
+			global::System.Application.Resource.Layout.mtrl_calendar_month_navigation = global::System.Application.Launch.Resource.Layout.mtrl_calendar_month_navigation;
+			global::System.Application.Resource.Layout.mtrl_calendar_vertical = global::System.Application.Launch.Resource.Layout.mtrl_calendar_vertical;
+			global::System.Application.Resource.Layout.mtrl_calendar_year = global::System.Application.Launch.Resource.Layout.mtrl_calendar_year;
+			global::System.Application.Resource.Layout.mtrl_layout_snackbar = global::System.Application.Launch.Resource.Layout.mtrl_layout_snackbar;
+			global::System.Application.Resource.Layout.mtrl_layout_snackbar_include = global::System.Application.Launch.Resource.Layout.mtrl_layout_snackbar_include;
+			global::System.Application.Resource.Layout.mtrl_picker_actions = global::System.Application.Launch.Resource.Layout.mtrl_picker_actions;
+			global::System.Application.Resource.Layout.mtrl_picker_dialog = global::System.Application.Launch.Resource.Layout.mtrl_picker_dialog;
+			global::System.Application.Resource.Layout.mtrl_picker_fullscreen = global::System.Application.Launch.Resource.Layout.mtrl_picker_fullscreen;
+			global::System.Application.Resource.Layout.mtrl_picker_header_dialog = global::System.Application.Launch.Resource.Layout.mtrl_picker_header_dialog;
+			global::System.Application.Resource.Layout.mtrl_picker_header_fullscreen = global::System.Application.Launch.Resource.Layout.mtrl_picker_header_fullscreen;
+			global::System.Application.Resource.Layout.mtrl_picker_header_selection_text = global::System.Application.Launch.Resource.Layout.mtrl_picker_header_selection_text;
+			global::System.Application.Resource.Layout.mtrl_picker_header_title_text = global::System.Application.Launch.Resource.Layout.mtrl_picker_header_title_text;
+			global::System.Application.Resource.Layout.mtrl_picker_header_toggle = global::System.Application.Launch.Resource.Layout.mtrl_picker_header_toggle;
+			global::System.Application.Resource.Layout.mtrl_picker_text_input_date = global::System.Application.Launch.Resource.Layout.mtrl_picker_text_input_date;
+			global::System.Application.Resource.Layout.mtrl_picker_text_input_date_range = global::System.Application.Launch.Resource.Layout.mtrl_picker_text_input_date_range;
+			global::System.Application.Resource.Layout.notification_action = global::System.Application.Launch.Resource.Layout.notification_action;
+			global::System.Application.Resource.Layout.notification_action_tombstone = global::System.Application.Launch.Resource.Layout.notification_action_tombstone;
+			global::System.Application.Resource.Layout.notification_media_action = global::System.Application.Launch.Resource.Layout.notification_media_action;
+			global::System.Application.Resource.Layout.notification_media_cancel_action = global::System.Application.Launch.Resource.Layout.notification_media_cancel_action;
+			global::System.Application.Resource.Layout.notification_template_big_media = global::System.Application.Launch.Resource.Layout.notification_template_big_media;
+			global::System.Application.Resource.Layout.notification_template_big_media_custom = global::System.Application.Launch.Resource.Layout.notification_template_big_media_custom;
+			global::System.Application.Resource.Layout.notification_template_big_media_narrow = global::System.Application.Launch.Resource.Layout.notification_template_big_media_narrow;
+			global::System.Application.Resource.Layout.notification_template_big_media_narrow_custom = global::System.Application.Launch.Resource.Layout.notification_template_big_media_narrow_custom;
+			global::System.Application.Resource.Layout.notification_template_custom_big = global::System.Application.Launch.Resource.Layout.notification_template_custom_big;
+			global::System.Application.Resource.Layout.notification_template_icon_group = global::System.Application.Launch.Resource.Layout.notification_template_icon_group;
+			global::System.Application.Resource.Layout.notification_template_lines_media = global::System.Application.Launch.Resource.Layout.notification_template_lines_media;
+			global::System.Application.Resource.Layout.notification_template_media = global::System.Application.Launch.Resource.Layout.notification_template_media;
+			global::System.Application.Resource.Layout.notification_template_media_custom = global::System.Application.Launch.Resource.Layout.notification_template_media_custom;
+			global::System.Application.Resource.Layout.notification_template_part_chronometer = global::System.Application.Launch.Resource.Layout.notification_template_part_chronometer;
+			global::System.Application.Resource.Layout.notification_template_part_time = global::System.Application.Launch.Resource.Layout.notification_template_part_time;
+			global::System.Application.Resource.Layout.RootLayout = global::System.Application.Launch.Resource.Layout.RootLayout;
+			global::System.Application.Resource.Layout.select_dialog_item_material = global::System.Application.Launch.Resource.Layout.select_dialog_item_material;
+			global::System.Application.Resource.Layout.select_dialog_multichoice_material = global::System.Application.Launch.Resource.Layout.select_dialog_multichoice_material;
+			global::System.Application.Resource.Layout.select_dialog_singlechoice_material = global::System.Application.Launch.Resource.Layout.select_dialog_singlechoice_material;
+			global::System.Application.Resource.Layout.ShellContent = global::System.Application.Launch.Resource.Layout.ShellContent;
+			global::System.Application.Resource.Layout.support_simple_spinner_dropdown_item = global::System.Application.Launch.Resource.Layout.support_simple_spinner_dropdown_item;
+			global::System.Application.Resource.Layout.Tabbar = global::System.Application.Launch.Resource.Layout.Tabbar;
+			global::System.Application.Resource.Layout.test_action_chip = global::System.Application.Launch.Resource.Layout.test_action_chip;
+			global::System.Application.Resource.Layout.test_chip_zero_corner_radius = global::System.Application.Launch.Resource.Layout.test_chip_zero_corner_radius;
+			global::System.Application.Resource.Layout.test_design_checkbox = global::System.Application.Launch.Resource.Layout.test_design_checkbox;
+			global::System.Application.Resource.Layout.test_design_radiobutton = global::System.Application.Launch.Resource.Layout.test_design_radiobutton;
+			global::System.Application.Resource.Layout.test_reflow_chipgroup = global::System.Application.Launch.Resource.Layout.test_reflow_chipgroup;
+			global::System.Application.Resource.Layout.test_toolbar = global::System.Application.Launch.Resource.Layout.test_toolbar;
+			global::System.Application.Resource.Layout.test_toolbar_custom_background = global::System.Application.Launch.Resource.Layout.test_toolbar_custom_background;
+			global::System.Application.Resource.Layout.test_toolbar_elevation = global::System.Application.Launch.Resource.Layout.test_toolbar_elevation;
+			global::System.Application.Resource.Layout.test_toolbar_surface = global::System.Application.Launch.Resource.Layout.test_toolbar_surface;
+			global::System.Application.Resource.Layout.TextInputLayoutFilledBox = global::System.Application.Launch.Resource.Layout.TextInputLayoutFilledBox;
+			global::System.Application.Resource.Layout.text_view_without_line_height = global::System.Application.Launch.Resource.Layout.text_view_without_line_height;
+			global::System.Application.Resource.Layout.text_view_with_line_height_from_appearance = global::System.Application.Launch.Resource.Layout.text_view_with_line_height_from_appearance;
+			global::System.Application.Resource.Layout.text_view_with_line_height_from_layout = global::System.Application.Launch.Resource.Layout.text_view_with_line_height_from_layout;
+			global::System.Application.Resource.Layout.text_view_with_line_height_from_style = global::System.Application.Launch.Resource.Layout.text_view_with_line_height_from_style;
+			global::System.Application.Resource.Layout.text_view_with_theme_line_height = global::System.Application.Launch.Resource.Layout.text_view_with_theme_line_height;
+			global::System.Application.Resource.Layout.Toolbar = global::System.Application.Launch.Resource.Layout.Toolbar;
+			global::System.Application.Resource.Mipmap.ic_launcher = global::System.Application.Launch.Resource.Mipmap.ic_launcher;
+			global::System.Application.Resource.Mipmap.ic_launcher_foreground = global::System.Application.Launch.Resource.Mipmap.ic_launcher_foreground;
+			global::System.Application.Resource.Mipmap.ic_launcher_round = global::System.Application.Launch.Resource.Mipmap.ic_launcher_round;
+			global::System.Application.Resource.Plurals.mtrl_badge_content_description = global::System.Application.Launch.Resource.Plurals.mtrl_badge_content_description;
+			global::System.Application.Resource.String.abc_action_bar_home_description = global::System.Application.Launch.Resource.String.abc_action_bar_home_description;
+			global::System.Application.Resource.String.abc_action_bar_up_description = global::System.Application.Launch.Resource.String.abc_action_bar_up_description;
+			global::System.Application.Resource.String.abc_action_menu_overflow_description = global::System.Application.Launch.Resource.String.abc_action_menu_overflow_description;
+			global::System.Application.Resource.String.abc_action_mode_done = global::System.Application.Launch.Resource.String.abc_action_mode_done;
+			global::System.Application.Resource.String.abc_activitychooserview_choose_application = global::System.Application.Launch.Resource.String.abc_activitychooserview_choose_application;
+			global::System.Application.Resource.String.abc_activity_chooser_view_see_all = global::System.Application.Launch.Resource.String.abc_activity_chooser_view_see_all;
+			global::System.Application.Resource.String.abc_capital_off = global::System.Application.Launch.Resource.String.abc_capital_off;
+			global::System.Application.Resource.String.abc_capital_on = global::System.Application.Launch.Resource.String.abc_capital_on;
+			global::System.Application.Resource.String.abc_menu_alt_shortcut_label = global::System.Application.Launch.Resource.String.abc_menu_alt_shortcut_label;
+			global::System.Application.Resource.String.abc_menu_ctrl_shortcut_label = global::System.Application.Launch.Resource.String.abc_menu_ctrl_shortcut_label;
+			global::System.Application.Resource.String.abc_menu_delete_shortcut_label = global::System.Application.Launch.Resource.String.abc_menu_delete_shortcut_label;
+			global::System.Application.Resource.String.abc_menu_enter_shortcut_label = global::System.Application.Launch.Resource.String.abc_menu_enter_shortcut_label;
+			global::System.Application.Resource.String.abc_menu_function_shortcut_label = global::System.Application.Launch.Resource.String.abc_menu_function_shortcut_label;
+			global::System.Application.Resource.String.abc_menu_meta_shortcut_label = global::System.Application.Launch.Resource.String.abc_menu_meta_shortcut_label;
+			global::System.Application.Resource.String.abc_menu_shift_shortcut_label = global::System.Application.Launch.Resource.String.abc_menu_shift_shortcut_label;
+			global::System.Application.Resource.String.abc_menu_space_shortcut_label = global::System.Application.Launch.Resource.String.abc_menu_space_shortcut_label;
+			global::System.Application.Resource.String.abc_menu_sym_shortcut_label = global::System.Application.Launch.Resource.String.abc_menu_sym_shortcut_label;
+			global::System.Application.Resource.String.abc_prepend_shortcut_label = global::System.Application.Launch.Resource.String.abc_prepend_shortcut_label;
+			global::System.Application.Resource.String.abc_searchview_description_clear = global::System.Application.Launch.Resource.String.abc_searchview_description_clear;
+			global::System.Application.Resource.String.abc_searchview_description_query = global::System.Application.Launch.Resource.String.abc_searchview_description_query;
+			global::System.Application.Resource.String.abc_searchview_description_search = global::System.Application.Launch.Resource.String.abc_searchview_description_search;
+			global::System.Application.Resource.String.abc_searchview_description_submit = global::System.Application.Launch.Resource.String.abc_searchview_description_submit;
+			global::System.Application.Resource.String.abc_searchview_description_voice = global::System.Application.Launch.Resource.String.abc_searchview_description_voice;
+			global::System.Application.Resource.String.abc_search_hint = global::System.Application.Launch.Resource.String.abc_search_hint;
+			global::System.Application.Resource.String.abc_shareactionprovider_share_with = global::System.Application.Launch.Resource.String.abc_shareactionprovider_share_with;
+			global::System.Application.Resource.String.abc_shareactionprovider_share_with_application = global::System.Application.Launch.Resource.String.abc_shareactionprovider_share_with_application;
+			global::System.Application.Resource.String.abc_toolbar_collapse_description = global::System.Application.Launch.Resource.String.abc_toolbar_collapse_description;
+			global::System.Application.Resource.String.appbar_scrolling_view_behavior = global::System.Application.Launch.Resource.String.appbar_scrolling_view_behavior;
+			global::System.Application.Resource.String.app_name = global::System.Application.Launch.Resource.String.app_name;
+			global::System.Application.Resource.String.bottom_sheet_behavior = global::System.Application.Launch.Resource.String.bottom_sheet_behavior;
+			global::System.Application.Resource.String.character_counter_content_description = global::System.Application.Launch.Resource.String.character_counter_content_description;
+			global::System.Application.Resource.String.character_counter_overflowed_content_description = global::System.Application.Launch.Resource.String.character_counter_overflowed_content_description;
+			global::System.Application.Resource.String.character_counter_pattern = global::System.Application.Launch.Resource.String.character_counter_pattern;
+			global::System.Application.Resource.String.chip_text = global::System.Application.Launch.Resource.String.chip_text;
+			global::System.Application.Resource.String.clear_text_end_icon_content_description = global::System.Application.Launch.Resource.String.clear_text_end_icon_content_description;
+			global::System.Application.Resource.String.copy_toast_msg = global::System.Application.Launch.Resource.String.copy_toast_msg;
+			global::System.Application.Resource.String.error_icon_content_description = global::System.Application.Launch.Resource.String.error_icon_content_description;
+			global::System.Application.Resource.String.exposed_dropdown_menu_content_description = global::System.Application.Launch.Resource.String.exposed_dropdown_menu_content_description;
+			global::System.Application.Resource.String.fab_transformation_scrim_behavior = global::System.Application.Launch.Resource.String.fab_transformation_scrim_behavior;
+			global::System.Application.Resource.String.fab_transformation_sheet_behavior = global::System.Application.Launch.Resource.String.fab_transformation_sheet_behavior;
+			global::System.Application.Resource.String.fallback_menu_item_copy_link = global::System.Application.Launch.Resource.String.fallback_menu_item_copy_link;
+			global::System.Application.Resource.String.fallback_menu_item_open_in_browser = global::System.Application.Launch.Resource.String.fallback_menu_item_open_in_browser;
+			global::System.Application.Resource.String.fallback_menu_item_share_link = global::System.Application.Launch.Resource.String.fallback_menu_item_share_link;
+			global::System.Application.Resource.String.hide_bottom_view_on_scroll_behavior = global::System.Application.Launch.Resource.String.hide_bottom_view_on_scroll_behavior;
+			global::System.Application.Resource.String.icon_content_description = global::System.Application.Launch.Resource.String.icon_content_description;
+			global::System.Application.Resource.String.item_view_role_description = global::System.Application.Launch.Resource.String.item_view_role_description;
+			global::System.Application.Resource.String.material_slider_range_end = global::System.Application.Launch.Resource.String.material_slider_range_end;
+			global::System.Application.Resource.String.material_slider_range_start = global::System.Application.Launch.Resource.String.material_slider_range_start;
+			global::System.Application.Resource.String.mtrl_badge_numberless_content_description = global::System.Application.Launch.Resource.String.mtrl_badge_numberless_content_description;
+			global::System.Application.Resource.String.mtrl_chip_close_icon_content_description = global::System.Application.Launch.Resource.String.mtrl_chip_close_icon_content_description;
+			global::System.Application.Resource.String.mtrl_exceed_max_badge_number_content_description = global::System.Application.Launch.Resource.String.mtrl_exceed_max_badge_number_content_description;
+			global::System.Application.Resource.String.mtrl_exceed_max_badge_number_suffix = global::System.Application.Launch.Resource.String.mtrl_exceed_max_badge_number_suffix;
+			global::System.Application.Resource.String.mtrl_picker_a11y_next_month = global::System.Application.Launch.Resource.String.mtrl_picker_a11y_next_month;
+			global::System.Application.Resource.String.mtrl_picker_a11y_prev_month = global::System.Application.Launch.Resource.String.mtrl_picker_a11y_prev_month;
+			global::System.Application.Resource.String.mtrl_picker_announce_current_selection = global::System.Application.Launch.Resource.String.mtrl_picker_announce_current_selection;
+			global::System.Application.Resource.String.mtrl_picker_cancel = global::System.Application.Launch.Resource.String.mtrl_picker_cancel;
+			global::System.Application.Resource.String.mtrl_picker_confirm = global::System.Application.Launch.Resource.String.mtrl_picker_confirm;
+			global::System.Application.Resource.String.mtrl_picker_date_header_selected = global::System.Application.Launch.Resource.String.mtrl_picker_date_header_selected;
+			global::System.Application.Resource.String.mtrl_picker_date_header_title = global::System.Application.Launch.Resource.String.mtrl_picker_date_header_title;
+			global::System.Application.Resource.String.mtrl_picker_date_header_unselected = global::System.Application.Launch.Resource.String.mtrl_picker_date_header_unselected;
+			global::System.Application.Resource.String.mtrl_picker_day_of_week_column_header = global::System.Application.Launch.Resource.String.mtrl_picker_day_of_week_column_header;
+			global::System.Application.Resource.String.mtrl_picker_invalid_format = global::System.Application.Launch.Resource.String.mtrl_picker_invalid_format;
+			global::System.Application.Resource.String.mtrl_picker_invalid_format_example = global::System.Application.Launch.Resource.String.mtrl_picker_invalid_format_example;
+			global::System.Application.Resource.String.mtrl_picker_invalid_format_use = global::System.Application.Launch.Resource.String.mtrl_picker_invalid_format_use;
+			global::System.Application.Resource.String.mtrl_picker_invalid_range = global::System.Application.Launch.Resource.String.mtrl_picker_invalid_range;
+			global::System.Application.Resource.String.mtrl_picker_navigate_to_year_description = global::System.Application.Launch.Resource.String.mtrl_picker_navigate_to_year_description;
+			global::System.Application.Resource.String.mtrl_picker_out_of_range = global::System.Application.Launch.Resource.String.mtrl_picker_out_of_range;
+			global::System.Application.Resource.String.mtrl_picker_range_header_only_end_selected = global::System.Application.Launch.Resource.String.mtrl_picker_range_header_only_end_selected;
+			global::System.Application.Resource.String.mtrl_picker_range_header_only_start_selected = global::System.Application.Launch.Resource.String.mtrl_picker_range_header_only_start_selected;
+			global::System.Application.Resource.String.mtrl_picker_range_header_selected = global::System.Application.Launch.Resource.String.mtrl_picker_range_header_selected;
+			global::System.Application.Resource.String.mtrl_picker_range_header_title = global::System.Application.Launch.Resource.String.mtrl_picker_range_header_title;
+			global::System.Application.Resource.String.mtrl_picker_range_header_unselected = global::System.Application.Launch.Resource.String.mtrl_picker_range_header_unselected;
+			global::System.Application.Resource.String.mtrl_picker_save = global::System.Application.Launch.Resource.String.mtrl_picker_save;
+			global::System.Application.Resource.String.mtrl_picker_text_input_date_hint = global::System.Application.Launch.Resource.String.mtrl_picker_text_input_date_hint;
+			global::System.Application.Resource.String.mtrl_picker_text_input_date_range_end_hint = global::System.Application.Launch.Resource.String.mtrl_picker_text_input_date_range_end_hint;
+			global::System.Application.Resource.String.mtrl_picker_text_input_date_range_start_hint = global::System.Application.Launch.Resource.String.mtrl_picker_text_input_date_range_start_hint;
+			global::System.Application.Resource.String.mtrl_picker_text_input_day_abbr = global::System.Application.Launch.Resource.String.mtrl_picker_text_input_day_abbr;
+			global::System.Application.Resource.String.mtrl_picker_text_input_month_abbr = global::System.Application.Launch.Resource.String.mtrl_picker_text_input_month_abbr;
+			global::System.Application.Resource.String.mtrl_picker_text_input_year_abbr = global::System.Application.Launch.Resource.String.mtrl_picker_text_input_year_abbr;
+			global::System.Application.Resource.String.mtrl_picker_toggle_to_calendar_input_mode = global::System.Application.Launch.Resource.String.mtrl_picker_toggle_to_calendar_input_mode;
+			global::System.Application.Resource.String.mtrl_picker_toggle_to_day_selection = global::System.Application.Launch.Resource.String.mtrl_picker_toggle_to_day_selection;
+			global::System.Application.Resource.String.mtrl_picker_toggle_to_text_input_mode = global::System.Application.Launch.Resource.String.mtrl_picker_toggle_to_text_input_mode;
+			global::System.Application.Resource.String.mtrl_picker_toggle_to_year_selection = global::System.Application.Launch.Resource.String.mtrl_picker_toggle_to_year_selection;
+			global::System.Application.Resource.String.overflow_tab_title = global::System.Application.Launch.Resource.String.overflow_tab_title;
+			global::System.Application.Resource.String.password_toggle_content_description = global::System.Application.Launch.Resource.String.password_toggle_content_description;
+			global::System.Application.Resource.String.path_password_eye = global::System.Application.Launch.Resource.String.path_password_eye;
+			global::System.Application.Resource.String.path_password_eye_mask_strike_through = global::System.Application.Launch.Resource.String.path_password_eye_mask_strike_through;
+			global::System.Application.Resource.String.path_password_eye_mask_visible = global::System.Application.Launch.Resource.String.path_password_eye_mask_visible;
+			global::System.Application.Resource.String.path_password_strike_through = global::System.Application.Launch.Resource.String.path_password_strike_through;
+			global::System.Application.Resource.String.search_menu_title = global::System.Application.Launch.Resource.String.search_menu_title;
+			global::System.Application.Resource.String.status_bar_notification_info_overflow = global::System.Application.Launch.Resource.String.status_bar_notification_info_overflow;
+			global::System.Application.Resource.Style.AlertDialog_AppCompat = global::System.Application.Launch.Resource.Style.AlertDialog_AppCompat;
+			global::System.Application.Resource.Style.AlertDialog_AppCompat_Light = global::System.Application.Launch.Resource.Style.AlertDialog_AppCompat_Light;
+			global::System.Application.Resource.Style.AndroidThemeColorAccentYellow = global::System.Application.Launch.Resource.Style.AndroidThemeColorAccentYellow;
+			global::System.Application.Resource.Style.Animation_AppCompat_Dialog = global::System.Application.Launch.Resource.Style.Animation_AppCompat_Dialog;
+			global::System.Application.Resource.Style.Animation_AppCompat_DropDownUp = global::System.Application.Launch.Resource.Style.Animation_AppCompat_DropDownUp;
+			global::System.Application.Resource.Style.Animation_AppCompat_Tooltip = global::System.Application.Launch.Resource.Style.Animation_AppCompat_Tooltip;
+			global::System.Application.Resource.Style.Animation_Design_BottomSheetDialog = global::System.Application.Launch.Resource.Style.Animation_Design_BottomSheetDialog;
+			global::System.Application.Resource.Style.Animation_MaterialComponents_BottomSheetDialog = global::System.Application.Launch.Resource.Style.Animation_MaterialComponents_BottomSheetDialog;
+			global::System.Application.Resource.Style.AppCompatDialogStyle = global::System.Application.Launch.Resource.Style.AppCompatDialogStyle;
+			global::System.Application.Resource.Style.Base_AlertDialog_AppCompat = global::System.Application.Launch.Resource.Style.Base_AlertDialog_AppCompat;
+			global::System.Application.Resource.Style.Base_AlertDialog_AppCompat_Light = global::System.Application.Launch.Resource.Style.Base_AlertDialog_AppCompat_Light;
+			global::System.Application.Resource.Style.Base_Animation_AppCompat_Dialog = global::System.Application.Launch.Resource.Style.Base_Animation_AppCompat_Dialog;
+			global::System.Application.Resource.Style.Base_Animation_AppCompat_DropDownUp = global::System.Application.Launch.Resource.Style.Base_Animation_AppCompat_DropDownUp;
+			global::System.Application.Resource.Style.Base_Animation_AppCompat_Tooltip = global::System.Application.Launch.Resource.Style.Base_Animation_AppCompat_Tooltip;
+			global::System.Application.Resource.Style.Base_CardView = global::System.Application.Launch.Resource.Style.Base_CardView;
+			global::System.Application.Resource.Style.Base_DialogWindowTitleBackground_AppCompat = global::System.Application.Launch.Resource.Style.Base_DialogWindowTitleBackground_AppCompat;
+			global::System.Application.Resource.Style.Base_DialogWindowTitle_AppCompat = global::System.Application.Launch.Resource.Style.Base_DialogWindowTitle_AppCompat;
+			global::System.Application.Resource.Style.Base_MaterialAlertDialog_MaterialComponents_Title_Icon = global::System.Application.Launch.Resource.Style.Base_MaterialAlertDialog_MaterialComponents_Title_Icon;
+			global::System.Application.Resource.Style.Base_MaterialAlertDialog_MaterialComponents_Title_Panel = global::System.Application.Launch.Resource.Style.Base_MaterialAlertDialog_MaterialComponents_Title_Panel;
+			global::System.Application.Resource.Style.Base_MaterialAlertDialog_MaterialComponents_Title_Text = global::System.Application.Launch.Resource.Style.Base_MaterialAlertDialog_MaterialComponents_Title_Text;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Body1 = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Body1;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Body2 = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Body2;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Button = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Button;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Caption = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Caption;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Display1 = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Display1;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Display2 = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Display2;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Display3 = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Display3;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Display4 = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Display4;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Headline = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Headline;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Inverse = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Inverse;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Large = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Large;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Large_Inverse = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Large_Inverse;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Large;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Small;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Medium = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Medium;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Medium_Inverse = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Medium_Inverse;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Menu = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Menu;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_SearchResult = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_SearchResult;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Subtitle = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Subtitle;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Title = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Title;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Small = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Small;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Small_Inverse = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Small_Inverse;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Subhead = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Subhead;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Subhead_Inverse = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Subhead_Inverse;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Title = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Title;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Title_Inverse = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Title_Inverse;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Tooltip = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Tooltip;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Menu = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Menu;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Title = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Title;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Borderless_Colored = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Borderless_Colored;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Colored = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Colored;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Inverse = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Inverse;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_DropDownItem = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_DropDownItem;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Header = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Header;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Large = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Large;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Small = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Small;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_Switch = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_Switch;
+			global::System.Application.Resource.Style.Base_TextAppearance_AppCompat_Widget_TextView_SpinnerItem = global::System.Application.Launch.Resource.Style.Base_TextAppearance_AppCompat_Widget_TextView_SpinnerItem;
+			global::System.Application.Resource.Style.Base_TextAppearance_MaterialComponents_Badge = global::System.Application.Launch.Resource.Style.Base_TextAppearance_MaterialComponents_Badge;
+			global::System.Application.Resource.Style.Base_TextAppearance_MaterialComponents_Button = global::System.Application.Launch.Resource.Style.Base_TextAppearance_MaterialComponents_Button;
+			global::System.Application.Resource.Style.Base_TextAppearance_MaterialComponents_Headline6 = global::System.Application.Launch.Resource.Style.Base_TextAppearance_MaterialComponents_Headline6;
+			global::System.Application.Resource.Style.Base_TextAppearance_MaterialComponents_Subtitle2 = global::System.Application.Launch.Resource.Style.Base_TextAppearance_MaterialComponents_Subtitle2;
+			global::System.Application.Resource.Style.Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item = global::System.Application.Launch.Resource.Style.Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item;
+			global::System.Application.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle = global::System.Application.Launch.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle;
+			global::System.Application.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Title = global::System.Application.Launch.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Title;
+			global::System.Application.Resource.Style.Base_ThemeOverlay_AppCompat = global::System.Application.Launch.Resource.Style.Base_ThemeOverlay_AppCompat;
+			global::System.Application.Resource.Style.Base_ThemeOverlay_AppCompat_ActionBar = global::System.Application.Launch.Resource.Style.Base_ThemeOverlay_AppCompat_ActionBar;
+			global::System.Application.Resource.Style.Base_ThemeOverlay_AppCompat_Dark = global::System.Application.Launch.Resource.Style.Base_ThemeOverlay_AppCompat_Dark;
+			global::System.Application.Resource.Style.Base_ThemeOverlay_AppCompat_Dark_ActionBar = global::System.Application.Launch.Resource.Style.Base_ThemeOverlay_AppCompat_Dark_ActionBar;
+			global::System.Application.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog = global::System.Application.Launch.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog;
+			global::System.Application.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog_Alert = global::System.Application.Launch.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog_Alert;
+			global::System.Application.Resource.Style.Base_ThemeOverlay_AppCompat_Light = global::System.Application.Launch.Resource.Style.Base_ThemeOverlay_AppCompat_Light;
+			global::System.Application.Resource.Style.Base_ThemeOverlay_MaterialComponents_Dialog = global::System.Application.Launch.Resource.Style.Base_ThemeOverlay_MaterialComponents_Dialog;
+			global::System.Application.Resource.Style.Base_ThemeOverlay_MaterialComponents_Dialog_Alert = global::System.Application.Launch.Resource.Style.Base_ThemeOverlay_MaterialComponents_Dialog_Alert;
+			global::System.Application.Resource.Style.Base_ThemeOverlay_MaterialComponents_Dialog_Alert_Framework = global::System.Application.Launch.Resource.Style.Base_ThemeOverlay_MaterialComponents_Dialog_Alert_Framework;
+			global::System.Application.Resource.Style.Base_ThemeOverlay_MaterialComponents_Light_Dialog_Alert_Framework = global::System.Application.Launch.Resource.Style.Base_ThemeOverlay_MaterialComponents_Light_Dialog_Alert_Framework;
+			global::System.Application.Resource.Style.Base_ThemeOverlay_MaterialComponents_MaterialAlertDialog = global::System.Application.Launch.Resource.Style.Base_ThemeOverlay_MaterialComponents_MaterialAlertDialog;
+			global::System.Application.Resource.Style.Base_Theme_AppCompat = global::System.Application.Launch.Resource.Style.Base_Theme_AppCompat;
+			global::System.Application.Resource.Style.Base_Theme_AppCompat_CompactMenu = global::System.Application.Launch.Resource.Style.Base_Theme_AppCompat_CompactMenu;
+			global::System.Application.Resource.Style.Base_Theme_AppCompat_Dialog = global::System.Application.Launch.Resource.Style.Base_Theme_AppCompat_Dialog;
+			global::System.Application.Resource.Style.Base_Theme_AppCompat_DialogWhenLarge = global::System.Application.Launch.Resource.Style.Base_Theme_AppCompat_DialogWhenLarge;
+			global::System.Application.Resource.Style.Base_Theme_AppCompat_Dialog_Alert = global::System.Application.Launch.Resource.Style.Base_Theme_AppCompat_Dialog_Alert;
+			global::System.Application.Resource.Style.Base_Theme_AppCompat_Dialog_FixedSize = global::System.Application.Launch.Resource.Style.Base_Theme_AppCompat_Dialog_FixedSize;
+			global::System.Application.Resource.Style.Base_Theme_AppCompat_Dialog_MinWidth = global::System.Application.Launch.Resource.Style.Base_Theme_AppCompat_Dialog_MinWidth;
+			global::System.Application.Resource.Style.Base_Theme_AppCompat_Light = global::System.Application.Launch.Resource.Style.Base_Theme_AppCompat_Light;
+			global::System.Application.Resource.Style.Base_Theme_AppCompat_Light_DarkActionBar = global::System.Application.Launch.Resource.Style.Base_Theme_AppCompat_Light_DarkActionBar;
+			global::System.Application.Resource.Style.Base_Theme_AppCompat_Light_Dialog = global::System.Application.Launch.Resource.Style.Base_Theme_AppCompat_Light_Dialog;
+			global::System.Application.Resource.Style.Base_Theme_AppCompat_Light_DialogWhenLarge = global::System.Application.Launch.Resource.Style.Base_Theme_AppCompat_Light_DialogWhenLarge;
+			global::System.Application.Resource.Style.Base_Theme_AppCompat_Light_Dialog_Alert = global::System.Application.Launch.Resource.Style.Base_Theme_AppCompat_Light_Dialog_Alert;
+			global::System.Application.Resource.Style.Base_Theme_AppCompat_Light_Dialog_FixedSize = global::System.Application.Launch.Resource.Style.Base_Theme_AppCompat_Light_Dialog_FixedSize;
+			global::System.Application.Resource.Style.Base_Theme_AppCompat_Light_Dialog_MinWidth = global::System.Application.Launch.Resource.Style.Base_Theme_AppCompat_Light_Dialog_MinWidth;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Bridge = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Bridge;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_CompactMenu = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_CompactMenu;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Dialog = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Dialog;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_DialogWhenLarge = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_DialogWhenLarge;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Dialog_Alert = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Dialog_Alert;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Dialog_Bridge = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Dialog_Bridge;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Dialog_FixedSize = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Dialog_FixedSize;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Dialog_MinWidth = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Dialog_MinWidth;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Light = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Light;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Light_Bridge = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Light_Bridge;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Light_DarkActionBar = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Light_DarkActionBar;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Light_DarkActionBar_Bridge = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Light_DarkActionBar_Bridge;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Light_DialogWhenLarge = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Light_DialogWhenLarge;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog_Alert = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog_Alert;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog_Bridge = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog_Bridge;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog_FixedSize = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog_FixedSize;
+			global::System.Application.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog_MinWidth = global::System.Application.Launch.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog_MinWidth;
+			global::System.Application.Resource.Style.Base_V14_ThemeOverlay_MaterialComponents_Dialog = global::System.Application.Launch.Resource.Style.Base_V14_ThemeOverlay_MaterialComponents_Dialog;
+			global::System.Application.Resource.Style.Base_V14_ThemeOverlay_MaterialComponents_Dialog_Alert = global::System.Application.Launch.Resource.Style.Base_V14_ThemeOverlay_MaterialComponents_Dialog_Alert;
+			global::System.Application.Resource.Style.Base_V14_ThemeOverlay_MaterialComponents_MaterialAlertDialog = global::System.Application.Launch.Resource.Style.Base_V14_ThemeOverlay_MaterialComponents_MaterialAlertDialog;
+			global::System.Application.Resource.Style.Base_V14_Theme_MaterialComponents = global::System.Application.Launch.Resource.Style.Base_V14_Theme_MaterialComponents;
+			global::System.Application.Resource.Style.Base_V14_Theme_MaterialComponents_Bridge = global::System.Application.Launch.Resource.Style.Base_V14_Theme_MaterialComponents_Bridge;
+			global::System.Application.Resource.Style.Base_V14_Theme_MaterialComponents_Dialog = global::System.Application.Launch.Resource.Style.Base_V14_Theme_MaterialComponents_Dialog;
+			global::System.Application.Resource.Style.Base_V14_Theme_MaterialComponents_Dialog_Bridge = global::System.Application.Launch.Resource.Style.Base_V14_Theme_MaterialComponents_Dialog_Bridge;
+			global::System.Application.Resource.Style.Base_V14_Theme_MaterialComponents_Light = global::System.Application.Launch.Resource.Style.Base_V14_Theme_MaterialComponents_Light;
+			global::System.Application.Resource.Style.Base_V14_Theme_MaterialComponents_Light_Bridge = global::System.Application.Launch.Resource.Style.Base_V14_Theme_MaterialComponents_Light_Bridge;
+			global::System.Application.Resource.Style.Base_V14_Theme_MaterialComponents_Light_DarkActionBar_Bridge = global::System.Application.Launch.Resource.Style.Base_V14_Theme_MaterialComponents_Light_DarkActionBar_Bridge;
+			global::System.Application.Resource.Style.Base_V14_Theme_MaterialComponents_Light_Dialog = global::System.Application.Launch.Resource.Style.Base_V14_Theme_MaterialComponents_Light_Dialog;
+			global::System.Application.Resource.Style.Base_V14_Theme_MaterialComponents_Light_Dialog_Bridge = global::System.Application.Launch.Resource.Style.Base_V14_Theme_MaterialComponents_Light_Dialog_Bridge;
+			global::System.Application.Resource.Style.Base_V21_ThemeOverlay_AppCompat_Dialog = global::System.Application.Launch.Resource.Style.Base_V21_ThemeOverlay_AppCompat_Dialog;
+			global::System.Application.Resource.Style.Base_V21_Theme_AppCompat = global::System.Application.Launch.Resource.Style.Base_V21_Theme_AppCompat;
+			global::System.Application.Resource.Style.Base_V21_Theme_AppCompat_Dialog = global::System.Application.Launch.Resource.Style.Base_V21_Theme_AppCompat_Dialog;
+			global::System.Application.Resource.Style.Base_V21_Theme_AppCompat_Light = global::System.Application.Launch.Resource.Style.Base_V21_Theme_AppCompat_Light;
+			global::System.Application.Resource.Style.Base_V21_Theme_AppCompat_Light_Dialog = global::System.Application.Launch.Resource.Style.Base_V21_Theme_AppCompat_Light_Dialog;
+			global::System.Application.Resource.Style.Base_V21_Theme_MaterialComponents = global::System.Application.Launch.Resource.Style.Base_V21_Theme_MaterialComponents;
+			global::System.Application.Resource.Style.Base_V21_Theme_MaterialComponents_Dialog = global::System.Application.Launch.Resource.Style.Base_V21_Theme_MaterialComponents_Dialog;
+			global::System.Application.Resource.Style.Base_V21_Theme_MaterialComponents_Light = global::System.Application.Launch.Resource.Style.Base_V21_Theme_MaterialComponents_Light;
+			global::System.Application.Resource.Style.Base_V21_Theme_MaterialComponents_Light_Dialog = global::System.Application.Launch.Resource.Style.Base_V21_Theme_MaterialComponents_Light_Dialog;
+			global::System.Application.Resource.Style.Base_V22_Theme_AppCompat = global::System.Application.Launch.Resource.Style.Base_V22_Theme_AppCompat;
+			global::System.Application.Resource.Style.Base_V22_Theme_AppCompat_Light = global::System.Application.Launch.Resource.Style.Base_V22_Theme_AppCompat_Light;
+			global::System.Application.Resource.Style.Base_V23_Theme_AppCompat = global::System.Application.Launch.Resource.Style.Base_V23_Theme_AppCompat;
+			global::System.Application.Resource.Style.Base_V23_Theme_AppCompat_Light = global::System.Application.Launch.Resource.Style.Base_V23_Theme_AppCompat_Light;
+			global::System.Application.Resource.Style.Base_V26_Theme_AppCompat = global::System.Application.Launch.Resource.Style.Base_V26_Theme_AppCompat;
+			global::System.Application.Resource.Style.Base_V26_Theme_AppCompat_Light = global::System.Application.Launch.Resource.Style.Base_V26_Theme_AppCompat_Light;
+			global::System.Application.Resource.Style.Base_V26_Widget_AppCompat_Toolbar = global::System.Application.Launch.Resource.Style.Base_V26_Widget_AppCompat_Toolbar;
+			global::System.Application.Resource.Style.Base_V28_Theme_AppCompat = global::System.Application.Launch.Resource.Style.Base_V28_Theme_AppCompat;
+			global::System.Application.Resource.Style.Base_V28_Theme_AppCompat_Light = global::System.Application.Launch.Resource.Style.Base_V28_Theme_AppCompat_Light;
+			global::System.Application.Resource.Style.Base_V7_ThemeOverlay_AppCompat_Dialog = global::System.Application.Launch.Resource.Style.Base_V7_ThemeOverlay_AppCompat_Dialog;
+			global::System.Application.Resource.Style.Base_V7_Theme_AppCompat = global::System.Application.Launch.Resource.Style.Base_V7_Theme_AppCompat;
+			global::System.Application.Resource.Style.Base_V7_Theme_AppCompat_Dialog = global::System.Application.Launch.Resource.Style.Base_V7_Theme_AppCompat_Dialog;
+			global::System.Application.Resource.Style.Base_V7_Theme_AppCompat_Light = global::System.Application.Launch.Resource.Style.Base_V7_Theme_AppCompat_Light;
+			global::System.Application.Resource.Style.Base_V7_Theme_AppCompat_Light_Dialog = global::System.Application.Launch.Resource.Style.Base_V7_Theme_AppCompat_Light_Dialog;
+			global::System.Application.Resource.Style.Base_V7_Widget_AppCompat_AutoCompleteTextView = global::System.Application.Launch.Resource.Style.Base_V7_Widget_AppCompat_AutoCompleteTextView;
+			global::System.Application.Resource.Style.Base_V7_Widget_AppCompat_EditText = global::System.Application.Launch.Resource.Style.Base_V7_Widget_AppCompat_EditText;
+			global::System.Application.Resource.Style.Base_V7_Widget_AppCompat_Toolbar = global::System.Application.Launch.Resource.Style.Base_V7_Widget_AppCompat_Toolbar;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ActionBar = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ActionBar;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ActionBar_Solid = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ActionBar_Solid;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ActionBar_TabBar = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ActionBar_TabBar;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ActionBar_TabText = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ActionBar_TabText;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ActionBar_TabView = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ActionBar_TabView;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ActionButton = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ActionButton;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ActionButton_CloseMode = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ActionButton_CloseMode;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ActionButton_Overflow = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ActionButton_Overflow;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ActionMode = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ActionMode;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ActivityChooserView = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ActivityChooserView;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_AutoCompleteTextView = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_AutoCompleteTextView;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Button = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Button;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ButtonBar = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ButtonBar;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ButtonBar_AlertDialog = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ButtonBar_AlertDialog;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Button_Borderless = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Button_Borderless;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Button_Borderless_Colored = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Button_Borderless_Colored;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Button_ButtonBar_AlertDialog = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Button_ButtonBar_AlertDialog;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Button_Colored = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Button_Colored;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Button_Small = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Button_Small;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_CompoundButton_CheckBox = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_CompoundButton_CheckBox;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_CompoundButton_RadioButton = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_CompoundButton_RadioButton;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_CompoundButton_Switch = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_CompoundButton_Switch;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle_Common = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle_Common;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_DropDownItem_Spinner = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_DropDownItem_Spinner;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_EditText = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_EditText;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ImageButton = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ImageButton;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Light_ActionBar = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Light_ActionBar;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_Solid = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_Solid;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabBar = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabBar;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText_Inverse = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText_Inverse;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabView = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabView;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu_Overflow = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu_Overflow;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ListMenuView = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ListMenuView;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ListPopupWindow = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ListPopupWindow;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ListView = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ListView;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ListView_DropDown = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ListView_DropDown;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ListView_Menu = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ListView_Menu;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_PopupMenu = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_PopupMenu;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_PopupMenu_Overflow = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_PopupMenu_Overflow;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_PopupWindow = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_PopupWindow;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ProgressBar = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ProgressBar;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_ProgressBar_Horizontal = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_ProgressBar_Horizontal;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_RatingBar = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_RatingBar;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_RatingBar_Indicator = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_RatingBar_Indicator;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_RatingBar_Small = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_RatingBar_Small;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_SearchView = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_SearchView;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_SearchView_ActionBar = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_SearchView_ActionBar;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_SeekBar = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_SeekBar;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_SeekBar_Discrete = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_SeekBar_Discrete;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Spinner = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Spinner;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Spinner_Underlined = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Spinner_Underlined;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_TextView = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_TextView;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_TextView_SpinnerItem = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_TextView_SpinnerItem;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Toolbar = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Toolbar;
+			global::System.Application.Resource.Style.Base_Widget_AppCompat_Toolbar_Button_Navigation = global::System.Application.Launch.Resource.Style.Base_Widget_AppCompat_Toolbar_Button_Navigation;
+			global::System.Application.Resource.Style.Base_Widget_Design_TabLayout = global::System.Application.Launch.Resource.Style.Base_Widget_Design_TabLayout;
+			global::System.Application.Resource.Style.Base_Widget_MaterialComponents_AutoCompleteTextView = global::System.Application.Launch.Resource.Style.Base_Widget_MaterialComponents_AutoCompleteTextView;
+			global::System.Application.Resource.Style.Base_Widget_MaterialComponents_CheckedTextView = global::System.Application.Launch.Resource.Style.Base_Widget_MaterialComponents_CheckedTextView;
+			global::System.Application.Resource.Style.Base_Widget_MaterialComponents_Chip = global::System.Application.Launch.Resource.Style.Base_Widget_MaterialComponents_Chip;
+			global::System.Application.Resource.Style.Base_Widget_MaterialComponents_PopupMenu = global::System.Application.Launch.Resource.Style.Base_Widget_MaterialComponents_PopupMenu;
+			global::System.Application.Resource.Style.Base_Widget_MaterialComponents_PopupMenu_ContextMenu = global::System.Application.Launch.Resource.Style.Base_Widget_MaterialComponents_PopupMenu_ContextMenu;
+			global::System.Application.Resource.Style.Base_Widget_MaterialComponents_PopupMenu_ListPopupWindow = global::System.Application.Launch.Resource.Style.Base_Widget_MaterialComponents_PopupMenu_ListPopupWindow;
+			global::System.Application.Resource.Style.Base_Widget_MaterialComponents_PopupMenu_Overflow = global::System.Application.Launch.Resource.Style.Base_Widget_MaterialComponents_PopupMenu_Overflow;
+			global::System.Application.Resource.Style.Base_Widget_MaterialComponents_Slider = global::System.Application.Launch.Resource.Style.Base_Widget_MaterialComponents_Slider;
+			global::System.Application.Resource.Style.Base_Widget_MaterialComponents_TextInputEditText = global::System.Application.Launch.Resource.Style.Base_Widget_MaterialComponents_TextInputEditText;
+			global::System.Application.Resource.Style.Base_Widget_MaterialComponents_TextInputLayout = global::System.Application.Launch.Resource.Style.Base_Widget_MaterialComponents_TextInputLayout;
+			global::System.Application.Resource.Style.Base_Widget_MaterialComponents_TextView = global::System.Application.Launch.Resource.Style.Base_Widget_MaterialComponents_TextView;
+			global::System.Application.Resource.Style.CardView = global::System.Application.Launch.Resource.Style.CardView;
+			global::System.Application.Resource.Style.CardView_Dark = global::System.Application.Launch.Resource.Style.CardView_Dark;
+			global::System.Application.Resource.Style.CardView_Light = global::System.Application.Launch.Resource.Style.CardView_Light;
+			global::System.Application.Resource.Style.collectionViewTheme = global::System.Application.Launch.Resource.Style.collectionViewTheme;
+			global::System.Application.Resource.Style.EmptyTheme = global::System.Application.Launch.Resource.Style.EmptyTheme;
+			global::System.Application.Resource.Style.MainTheme = global::System.Application.Launch.Resource.Style.MainTheme;
+			global::System.Application.Resource.Style.MainTheme_Base = global::System.Application.Launch.Resource.Style.MainTheme_Base;
+			global::System.Application.Resource.Style.MainTheme_Splash = global::System.Application.Launch.Resource.Style.MainTheme_Splash;
+			global::System.Application.Resource.Style.MainTheme_Splash_Base = global::System.Application.Launch.Resource.Style.MainTheme_Splash_Base;
+			global::System.Application.Resource.Style.MainTheme_Splash_Base_V28 = global::System.Application.Launch.Resource.Style.MainTheme_Splash_Base_V28;
+			global::System.Application.Resource.Style.MaterialAlertDialog_MaterialComponents = global::System.Application.Launch.Resource.Style.MaterialAlertDialog_MaterialComponents;
+			global::System.Application.Resource.Style.MaterialAlertDialog_MaterialComponents_Body_Text = global::System.Application.Launch.Resource.Style.MaterialAlertDialog_MaterialComponents_Body_Text;
+			global::System.Application.Resource.Style.MaterialAlertDialog_MaterialComponents_Picker_Date_Calendar = global::System.Application.Launch.Resource.Style.MaterialAlertDialog_MaterialComponents_Picker_Date_Calendar;
+			global::System.Application.Resource.Style.MaterialAlertDialog_MaterialComponents_Picker_Date_Spinner = global::System.Application.Launch.Resource.Style.MaterialAlertDialog_MaterialComponents_Picker_Date_Spinner;
+			global::System.Application.Resource.Style.MaterialAlertDialog_MaterialComponents_Title_Icon = global::System.Application.Launch.Resource.Style.MaterialAlertDialog_MaterialComponents_Title_Icon;
+			global::System.Application.Resource.Style.MaterialAlertDialog_MaterialComponents_Title_Icon_CenterStacked = global::System.Application.Launch.Resource.Style.MaterialAlertDialog_MaterialComponents_Title_Icon_CenterStacked;
+			global::System.Application.Resource.Style.MaterialAlertDialog_MaterialComponents_Title_Panel = global::System.Application.Launch.Resource.Style.MaterialAlertDialog_MaterialComponents_Title_Panel;
+			global::System.Application.Resource.Style.MaterialAlertDialog_MaterialComponents_Title_Panel_CenterStacked = global::System.Application.Launch.Resource.Style.MaterialAlertDialog_MaterialComponents_Title_Panel_CenterStacked;
+			global::System.Application.Resource.Style.MaterialAlertDialog_MaterialComponents_Title_Text = global::System.Application.Launch.Resource.Style.MaterialAlertDialog_MaterialComponents_Title_Text;
+			global::System.Application.Resource.Style.MaterialAlertDialog_MaterialComponents_Title_Text_CenterStacked = global::System.Application.Launch.Resource.Style.MaterialAlertDialog_MaterialComponents_Title_Text_CenterStacked;
+			global::System.Application.Resource.Style.Platform_AppCompat = global::System.Application.Launch.Resource.Style.Platform_AppCompat;
+			global::System.Application.Resource.Style.Platform_AppCompat_Light = global::System.Application.Launch.Resource.Style.Platform_AppCompat_Light;
+			global::System.Application.Resource.Style.Platform_MaterialComponents = global::System.Application.Launch.Resource.Style.Platform_MaterialComponents;
+			global::System.Application.Resource.Style.Platform_MaterialComponents_Dialog = global::System.Application.Launch.Resource.Style.Platform_MaterialComponents_Dialog;
+			global::System.Application.Resource.Style.Platform_MaterialComponents_Light = global::System.Application.Launch.Resource.Style.Platform_MaterialComponents_Light;
+			global::System.Application.Resource.Style.Platform_MaterialComponents_Light_Dialog = global::System.Application.Launch.Resource.Style.Platform_MaterialComponents_Light_Dialog;
+			global::System.Application.Resource.Style.Platform_ThemeOverlay_AppCompat = global::System.Application.Launch.Resource.Style.Platform_ThemeOverlay_AppCompat;
+			global::System.Application.Resource.Style.Platform_ThemeOverlay_AppCompat_Dark = global::System.Application.Launch.Resource.Style.Platform_ThemeOverlay_AppCompat_Dark;
+			global::System.Application.Resource.Style.Platform_ThemeOverlay_AppCompat_Light = global::System.Application.Launch.Resource.Style.Platform_ThemeOverlay_AppCompat_Light;
+			global::System.Application.Resource.Style.Platform_V21_AppCompat = global::System.Application.Launch.Resource.Style.Platform_V21_AppCompat;
+			global::System.Application.Resource.Style.Platform_V21_AppCompat_Light = global::System.Application.Launch.Resource.Style.Platform_V21_AppCompat_Light;
+			global::System.Application.Resource.Style.Platform_V25_AppCompat = global::System.Application.Launch.Resource.Style.Platform_V25_AppCompat;
+			global::System.Application.Resource.Style.Platform_V25_AppCompat_Light = global::System.Application.Launch.Resource.Style.Platform_V25_AppCompat_Light;
+			global::System.Application.Resource.Style.Platform_Widget_AppCompat_Spinner = global::System.Application.Launch.Resource.Style.Platform_Widget_AppCompat_Spinner;
+			global::System.Application.Resource.Style.RtlOverlay_DialogWindowTitle_AppCompat = global::System.Application.Launch.Resource.Style.RtlOverlay_DialogWindowTitle_AppCompat;
+			global::System.Application.Resource.Style.RtlOverlay_Widget_AppCompat_ActionBar_TitleItem = global::System.Application.Launch.Resource.Style.RtlOverlay_Widget_AppCompat_ActionBar_TitleItem;
+			global::System.Application.Resource.Style.RtlOverlay_Widget_AppCompat_DialogTitle_Icon = global::System.Application.Launch.Resource.Style.RtlOverlay_Widget_AppCompat_DialogTitle_Icon;
+			global::System.Application.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem = global::System.Application.Launch.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem;
+			global::System.Application.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup = global::System.Application.Launch.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup;
+			global::System.Application.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Shortcut = global::System.Application.Launch.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Shortcut;
+			global::System.Application.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_SubmenuArrow = global::System.Application.Launch.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_SubmenuArrow;
+			global::System.Application.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Text = global::System.Application.Launch.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Text;
+			global::System.Application.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Title = global::System.Application.Launch.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Title;
+			global::System.Application.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon = global::System.Application.Launch.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon;
+			global::System.Application.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown = global::System.Application.Launch.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown;
+			global::System.Application.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1 = global::System.Application.Launch.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1;
+			global::System.Application.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon2 = global::System.Application.Launch.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon2;
+			global::System.Application.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Query = global::System.Application.Launch.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Query;
+			global::System.Application.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Text = global::System.Application.Launch.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Text;
+			global::System.Application.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton = global::System.Application.Launch.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton;
+			global::System.Application.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = global::System.Application.Launch.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow;
+			global::System.Application.Resource.Style.scrollViewScrollBars = global::System.Application.Launch.Resource.Style.scrollViewScrollBars;
+			global::System.Application.Resource.Style.scrollViewTheme = global::System.Application.Launch.Resource.Style.scrollViewTheme;
+			global::System.Application.Resource.Style.ShapeAppearanceOverlay = global::System.Application.Launch.Resource.Style.ShapeAppearanceOverlay;
+			global::System.Application.Resource.Style.ShapeAppearanceOverlay_BottomLeftDifferentCornerSize = global::System.Application.Launch.Resource.Style.ShapeAppearanceOverlay_BottomLeftDifferentCornerSize;
+			global::System.Application.Resource.Style.ShapeAppearanceOverlay_BottomRightCut = global::System.Application.Launch.Resource.Style.ShapeAppearanceOverlay_BottomRightCut;
+			global::System.Application.Resource.Style.ShapeAppearanceOverlay_Cut = global::System.Application.Launch.Resource.Style.ShapeAppearanceOverlay_Cut;
+			global::System.Application.Resource.Style.ShapeAppearanceOverlay_DifferentCornerSize = global::System.Application.Launch.Resource.Style.ShapeAppearanceOverlay_DifferentCornerSize;
+			global::System.Application.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_BottomSheet = global::System.Application.Launch.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_BottomSheet;
+			global::System.Application.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_Chip = global::System.Application.Launch.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_Chip;
+			global::System.Application.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_ExtendedFloatingActionButton = global::System.Application.Launch.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_ExtendedFloatingActionButton;
+			global::System.Application.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_FloatingActionButton = global::System.Application.Launch.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_FloatingActionButton;
+			global::System.Application.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Day = global::System.Application.Launch.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Day;
+			global::System.Application.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Window_Fullscreen = global::System.Application.Launch.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Window_Fullscreen;
+			global::System.Application.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Year = global::System.Application.Launch.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Year;
+			global::System.Application.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_TextInputLayout_FilledBox = global::System.Application.Launch.Resource.Style.ShapeAppearanceOverlay_MaterialComponents_TextInputLayout_FilledBox;
+			global::System.Application.Resource.Style.ShapeAppearanceOverlay_TopLeftCut = global::System.Application.Launch.Resource.Style.ShapeAppearanceOverlay_TopLeftCut;
+			global::System.Application.Resource.Style.ShapeAppearanceOverlay_TopRightDifferentCornerSize = global::System.Application.Launch.Resource.Style.ShapeAppearanceOverlay_TopRightDifferentCornerSize;
+			global::System.Application.Resource.Style.ShapeAppearance_MaterialComponents = global::System.Application.Launch.Resource.Style.ShapeAppearance_MaterialComponents;
+			global::System.Application.Resource.Style.ShapeAppearance_MaterialComponents_LargeComponent = global::System.Application.Launch.Resource.Style.ShapeAppearance_MaterialComponents_LargeComponent;
+			global::System.Application.Resource.Style.ShapeAppearance_MaterialComponents_MediumComponent = global::System.Application.Launch.Resource.Style.ShapeAppearance_MaterialComponents_MediumComponent;
+			global::System.Application.Resource.Style.ShapeAppearance_MaterialComponents_SmallComponent = global::System.Application.Launch.Resource.Style.ShapeAppearance_MaterialComponents_SmallComponent;
+			global::System.Application.Resource.Style.ShapeAppearance_MaterialComponents_Test = global::System.Application.Launch.Resource.Style.ShapeAppearance_MaterialComponents_Test;
+			global::System.Application.Resource.Style.ShapeAppearance_MaterialComponents_Tooltip = global::System.Application.Launch.Resource.Style.ShapeAppearance_MaterialComponents_Tooltip;
+			global::System.Application.Resource.Style.TestStyleWithLineHeight = global::System.Application.Launch.Resource.Style.TestStyleWithLineHeight;
+			global::System.Application.Resource.Style.TestStyleWithLineHeightAppearance = global::System.Application.Launch.Resource.Style.TestStyleWithLineHeightAppearance;
+			global::System.Application.Resource.Style.TestStyleWithoutLineHeight = global::System.Application.Launch.Resource.Style.TestStyleWithoutLineHeight;
+			global::System.Application.Resource.Style.TestStyleWithThemeLineHeightAttribute = global::System.Application.Launch.Resource.Style.TestStyleWithThemeLineHeightAttribute;
+			global::System.Application.Resource.Style.TestThemeWithLineHeight = global::System.Application.Launch.Resource.Style.TestThemeWithLineHeight;
+			global::System.Application.Resource.Style.TestThemeWithLineHeightDisabled = global::System.Application.Launch.Resource.Style.TestThemeWithLineHeightDisabled;
+			global::System.Application.Resource.Style.Test_ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Day = global::System.Application.Launch.Resource.Style.Test_ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Day;
+			global::System.Application.Resource.Style.Test_Theme_MaterialComponents_MaterialCalendar = global::System.Application.Launch.Resource.Style.Test_Theme_MaterialComponents_MaterialCalendar;
+			global::System.Application.Resource.Style.Test_Widget_MaterialComponents_MaterialCalendar = global::System.Application.Launch.Resource.Style.Test_Widget_MaterialComponents_MaterialCalendar;
+			global::System.Application.Resource.Style.Test_Widget_MaterialComponents_MaterialCalendar_Day = global::System.Application.Launch.Resource.Style.Test_Widget_MaterialComponents_MaterialCalendar_Day;
+			global::System.Application.Resource.Style.Test_Widget_MaterialComponents_MaterialCalendar_Day_Selected = global::System.Application.Launch.Resource.Style.Test_Widget_MaterialComponents_MaterialCalendar_Day_Selected;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Body1 = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Body1;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Body2 = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Body2;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Button = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Button;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Caption = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Caption;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Display1 = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Display1;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Display2 = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Display2;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Display3 = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Display3;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Display4 = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Display4;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Headline = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Headline;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Inverse = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Inverse;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Large = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Large;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Large_Inverse = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Large_Inverse;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Subtitle = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Subtitle;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Title = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Title;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Large;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Small;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Medium = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Medium;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Medium_Inverse = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Medium_Inverse;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Menu = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Menu;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_SearchResult_Subtitle = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_SearchResult_Subtitle;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_SearchResult_Title = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_SearchResult_Title;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Small = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Small;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Small_Inverse = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Small_Inverse;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Subhead = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Subhead;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Subhead_Inverse = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Subhead_Inverse;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Title = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Title;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Title_Inverse = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Title_Inverse;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Tooltip = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Tooltip;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Menu = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Menu;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle_Inverse = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle_Inverse;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title_Inverse = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title_Inverse;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_Button = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_Button;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_Button_Colored = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_Button_Colored;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_Button_Inverse = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_Button_Inverse;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_DropDownItem = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_DropDownItem;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Header = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Header;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Large = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Large;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Small = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Small;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_Switch = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_Switch;
+			global::System.Application.Resource.Style.TextAppearance_AppCompat_Widget_TextView_SpinnerItem = global::System.Application.Launch.Resource.Style.TextAppearance_AppCompat_Widget_TextView_SpinnerItem;
+			global::System.Application.Resource.Style.TextAppearance_Compat_Notification = global::System.Application.Launch.Resource.Style.TextAppearance_Compat_Notification;
+			global::System.Application.Resource.Style.TextAppearance_Compat_Notification_Info = global::System.Application.Launch.Resource.Style.TextAppearance_Compat_Notification_Info;
+			global::System.Application.Resource.Style.TextAppearance_Compat_Notification_Info_Media = global::System.Application.Launch.Resource.Style.TextAppearance_Compat_Notification_Info_Media;
+			global::System.Application.Resource.Style.TextAppearance_Compat_Notification_Line2 = global::System.Application.Launch.Resource.Style.TextAppearance_Compat_Notification_Line2;
+			global::System.Application.Resource.Style.TextAppearance_Compat_Notification_Line2_Media = global::System.Application.Launch.Resource.Style.TextAppearance_Compat_Notification_Line2_Media;
+			global::System.Application.Resource.Style.TextAppearance_Compat_Notification_Media = global::System.Application.Launch.Resource.Style.TextAppearance_Compat_Notification_Media;
+			global::System.Application.Resource.Style.TextAppearance_Compat_Notification_Time = global::System.Application.Launch.Resource.Style.TextAppearance_Compat_Notification_Time;
+			global::System.Application.Resource.Style.TextAppearance_Compat_Notification_Time_Media = global::System.Application.Launch.Resource.Style.TextAppearance_Compat_Notification_Time_Media;
+			global::System.Application.Resource.Style.TextAppearance_Compat_Notification_Title = global::System.Application.Launch.Resource.Style.TextAppearance_Compat_Notification_Title;
+			global::System.Application.Resource.Style.TextAppearance_Compat_Notification_Title_Media = global::System.Application.Launch.Resource.Style.TextAppearance_Compat_Notification_Title_Media;
+			global::System.Application.Resource.Style.TextAppearance_Design_CollapsingToolbar_Expanded = global::System.Application.Launch.Resource.Style.TextAppearance_Design_CollapsingToolbar_Expanded;
+			global::System.Application.Resource.Style.TextAppearance_Design_Counter = global::System.Application.Launch.Resource.Style.TextAppearance_Design_Counter;
+			global::System.Application.Resource.Style.TextAppearance_Design_Counter_Overflow = global::System.Application.Launch.Resource.Style.TextAppearance_Design_Counter_Overflow;
+			global::System.Application.Resource.Style.TextAppearance_Design_Error = global::System.Application.Launch.Resource.Style.TextAppearance_Design_Error;
+			global::System.Application.Resource.Style.TextAppearance_Design_HelperText = global::System.Application.Launch.Resource.Style.TextAppearance_Design_HelperText;
+			global::System.Application.Resource.Style.TextAppearance_Design_Hint = global::System.Application.Launch.Resource.Style.TextAppearance_Design_Hint;
+			global::System.Application.Resource.Style.TextAppearance_Design_Placeholder = global::System.Application.Launch.Resource.Style.TextAppearance_Design_Placeholder;
+			global::System.Application.Resource.Style.TextAppearance_Design_Prefix = global::System.Application.Launch.Resource.Style.TextAppearance_Design_Prefix;
+			global::System.Application.Resource.Style.TextAppearance_Design_Snackbar_Message = global::System.Application.Launch.Resource.Style.TextAppearance_Design_Snackbar_Message;
+			global::System.Application.Resource.Style.TextAppearance_Design_Suffix = global::System.Application.Launch.Resource.Style.TextAppearance_Design_Suffix;
+			global::System.Application.Resource.Style.TextAppearance_Design_Tab = global::System.Application.Launch.Resource.Style.TextAppearance_Design_Tab;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Badge = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Badge;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Body1 = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Body1;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Body2 = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Body2;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Button = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Button;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Caption = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Caption;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Chip = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Chip;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Headline1 = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Headline1;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Headline2 = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Headline2;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Headline3 = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Headline3;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Headline4 = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Headline4;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Headline5 = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Headline5;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Headline6 = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Headline6;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Overline = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Overline;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Subtitle1 = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Subtitle1;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Subtitle2 = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Subtitle2;
+			global::System.Application.Resource.Style.TextAppearance_MaterialComponents_Tooltip = global::System.Application.Launch.Resource.Style.TextAppearance_MaterialComponents_Tooltip;
+			global::System.Application.Resource.Style.TextAppearance_Widget_AppCompat_ExpandedMenu_Item = global::System.Application.Launch.Resource.Style.TextAppearance_Widget_AppCompat_ExpandedMenu_Item;
+			global::System.Application.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Subtitle = global::System.Application.Launch.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Subtitle;
+			global::System.Application.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Title = global::System.Application.Launch.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Title;
+			global::System.Application.Resource.Style.ThemeOverlayColorAccentRed = global::System.Application.Launch.Resource.Style.ThemeOverlayColorAccentRed;
+			global::System.Application.Resource.Style.ThemeOverlay_AppCompat = global::System.Application.Launch.Resource.Style.ThemeOverlay_AppCompat;
+			global::System.Application.Resource.Style.ThemeOverlay_AppCompat_ActionBar = global::System.Application.Launch.Resource.Style.ThemeOverlay_AppCompat_ActionBar;
+			global::System.Application.Resource.Style.ThemeOverlay_AppCompat_Dark = global::System.Application.Launch.Resource.Style.ThemeOverlay_AppCompat_Dark;
+			global::System.Application.Resource.Style.ThemeOverlay_AppCompat_Dark_ActionBar = global::System.Application.Launch.Resource.Style.ThemeOverlay_AppCompat_Dark_ActionBar;
+			global::System.Application.Resource.Style.ThemeOverlay_AppCompat_DayNight = global::System.Application.Launch.Resource.Style.ThemeOverlay_AppCompat_DayNight;
+			global::System.Application.Resource.Style.ThemeOverlay_AppCompat_DayNight_ActionBar = global::System.Application.Launch.Resource.Style.ThemeOverlay_AppCompat_DayNight_ActionBar;
+			global::System.Application.Resource.Style.ThemeOverlay_AppCompat_Dialog = global::System.Application.Launch.Resource.Style.ThemeOverlay_AppCompat_Dialog;
+			global::System.Application.Resource.Style.ThemeOverlay_AppCompat_Dialog_Alert = global::System.Application.Launch.Resource.Style.ThemeOverlay_AppCompat_Dialog_Alert;
+			global::System.Application.Resource.Style.ThemeOverlay_AppCompat_Light = global::System.Application.Launch.Resource.Style.ThemeOverlay_AppCompat_Light;
+			global::System.Application.Resource.Style.ThemeOverlay_Design_TextInputEditText = global::System.Application.Launch.Resource.Style.ThemeOverlay_Design_TextInputEditText;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_ActionBar = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_ActionBar;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_ActionBar_Primary = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_ActionBar_Primary;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_ActionBar_Surface = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_ActionBar_Surface;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_AutoCompleteTextView = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_AutoCompleteTextView;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_AutoCompleteTextView_FilledBox = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_AutoCompleteTextView_FilledBox;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_AutoCompleteTextView_FilledBox_Dense = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_AutoCompleteTextView_FilledBox_Dense;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_AutoCompleteTextView_OutlinedBox = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_AutoCompleteTextView_OutlinedBox;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_AutoCompleteTextView_OutlinedBox_Dense = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_AutoCompleteTextView_OutlinedBox_Dense;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_BottomAppBar_Primary = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_BottomAppBar_Primary;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_BottomAppBar_Surface = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_BottomAppBar_Surface;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_BottomSheetDialog = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_BottomSheetDialog;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_Dark = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_Dark;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_Dark_ActionBar = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_Dark_ActionBar;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_DayNight_BottomSheetDialog = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_DayNight_BottomSheetDialog;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_Dialog = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_Dialog;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_Dialog_Alert = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_Dialog_Alert;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_Dialog_Alert_Framework = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_Dialog_Alert_Framework;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_Light = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_Light;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_Light_BottomSheetDialog = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_Light_BottomSheetDialog;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_Light_Dialog_Alert_Framework = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_Light_Dialog_Alert_Framework;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_MaterialAlertDialog = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_MaterialAlertDialog;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Centered = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Centered;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Calendar = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Calendar;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Header_Text = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Header_Text;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Header_Text_Day = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Header_Text_Day;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Spinner = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Spinner;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_MaterialCalendar = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_MaterialCalendar;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_MaterialCalendar_Fullscreen = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_MaterialCalendar_Fullscreen;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_FilledBox = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_FilledBox;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_FilledBox_Dense = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_FilledBox_Dense;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_OutlinedBox = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_OutlinedBox;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_OutlinedBox_Dense = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_OutlinedBox_Dense;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_Toolbar_Primary = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_Toolbar_Primary;
+			global::System.Application.Resource.Style.ThemeOverlay_MaterialComponents_Toolbar_Surface = global::System.Application.Launch.Resource.Style.ThemeOverlay_MaterialComponents_Toolbar_Surface;
+			global::System.Application.Resource.Style.Theme_AppCompat = global::System.Application.Launch.Resource.Style.Theme_AppCompat;
+			global::System.Application.Resource.Style.Theme_AppCompat_CompactMenu = global::System.Application.Launch.Resource.Style.Theme_AppCompat_CompactMenu;
+			global::System.Application.Resource.Style.Theme_AppCompat_DayNight = global::System.Application.Launch.Resource.Style.Theme_AppCompat_DayNight;
+			global::System.Application.Resource.Style.Theme_AppCompat_DayNight_DarkActionBar = global::System.Application.Launch.Resource.Style.Theme_AppCompat_DayNight_DarkActionBar;
+			global::System.Application.Resource.Style.Theme_AppCompat_DayNight_Dialog = global::System.Application.Launch.Resource.Style.Theme_AppCompat_DayNight_Dialog;
+			global::System.Application.Resource.Style.Theme_AppCompat_DayNight_DialogWhenLarge = global::System.Application.Launch.Resource.Style.Theme_AppCompat_DayNight_DialogWhenLarge;
+			global::System.Application.Resource.Style.Theme_AppCompat_DayNight_Dialog_Alert = global::System.Application.Launch.Resource.Style.Theme_AppCompat_DayNight_Dialog_Alert;
+			global::System.Application.Resource.Style.Theme_AppCompat_DayNight_Dialog_MinWidth = global::System.Application.Launch.Resource.Style.Theme_AppCompat_DayNight_Dialog_MinWidth;
+			global::System.Application.Resource.Style.Theme_AppCompat_DayNight_NoActionBar = global::System.Application.Launch.Resource.Style.Theme_AppCompat_DayNight_NoActionBar;
+			global::System.Application.Resource.Style.Theme_AppCompat_Dialog = global::System.Application.Launch.Resource.Style.Theme_AppCompat_Dialog;
+			global::System.Application.Resource.Style.Theme_AppCompat_DialogWhenLarge = global::System.Application.Launch.Resource.Style.Theme_AppCompat_DialogWhenLarge;
+			global::System.Application.Resource.Style.Theme_AppCompat_Dialog_Alert = global::System.Application.Launch.Resource.Style.Theme_AppCompat_Dialog_Alert;
+			global::System.Application.Resource.Style.Theme_AppCompat_Dialog_MinWidth = global::System.Application.Launch.Resource.Style.Theme_AppCompat_Dialog_MinWidth;
+			global::System.Application.Resource.Style.Theme_AppCompat_Empty = global::System.Application.Launch.Resource.Style.Theme_AppCompat_Empty;
+			global::System.Application.Resource.Style.Theme_AppCompat_Light = global::System.Application.Launch.Resource.Style.Theme_AppCompat_Light;
+			global::System.Application.Resource.Style.Theme_AppCompat_Light_DarkActionBar = global::System.Application.Launch.Resource.Style.Theme_AppCompat_Light_DarkActionBar;
+			global::System.Application.Resource.Style.Theme_AppCompat_Light_Dialog = global::System.Application.Launch.Resource.Style.Theme_AppCompat_Light_Dialog;
+			global::System.Application.Resource.Style.Theme_AppCompat_Light_DialogWhenLarge = global::System.Application.Launch.Resource.Style.Theme_AppCompat_Light_DialogWhenLarge;
+			global::System.Application.Resource.Style.Theme_AppCompat_Light_Dialog_Alert = global::System.Application.Launch.Resource.Style.Theme_AppCompat_Light_Dialog_Alert;
+			global::System.Application.Resource.Style.Theme_AppCompat_Light_Dialog_MinWidth = global::System.Application.Launch.Resource.Style.Theme_AppCompat_Light_Dialog_MinWidth;
+			global::System.Application.Resource.Style.Theme_AppCompat_Light_NoActionBar = global::System.Application.Launch.Resource.Style.Theme_AppCompat_Light_NoActionBar;
+			global::System.Application.Resource.Style.Theme_AppCompat_NoActionBar = global::System.Application.Launch.Resource.Style.Theme_AppCompat_NoActionBar;
+			global::System.Application.Resource.Style.Theme_Design = global::System.Application.Launch.Resource.Style.Theme_Design;
+			global::System.Application.Resource.Style.Theme_Design_BottomSheetDialog = global::System.Application.Launch.Resource.Style.Theme_Design_BottomSheetDialog;
+			global::System.Application.Resource.Style.Theme_Design_Light = global::System.Application.Launch.Resource.Style.Theme_Design_Light;
+			global::System.Application.Resource.Style.Theme_Design_Light_BottomSheetDialog = global::System.Application.Launch.Resource.Style.Theme_Design_Light_BottomSheetDialog;
+			global::System.Application.Resource.Style.Theme_Design_Light_NoActionBar = global::System.Application.Launch.Resource.Style.Theme_Design_Light_NoActionBar;
+			global::System.Application.Resource.Style.Theme_Design_NoActionBar = global::System.Application.Launch.Resource.Style.Theme_Design_NoActionBar;
+			global::System.Application.Resource.Style.Theme_MaterialComponents = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_BottomSheetDialog = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_BottomSheetDialog;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_CompactMenu = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_CompactMenu;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight_BottomSheetDialog = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight_BottomSheetDialog;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight_DarkActionBar = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight_DarkActionBar;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight_DarkActionBar_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight_DarkActionBar_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight_Dialog = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight_Dialog;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight_DialogWhenLarge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight_DialogWhenLarge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight_Dialog_Alert = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight_Dialog_Alert;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight_Dialog_Alert_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight_Dialog_Alert_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight_Dialog_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight_Dialog_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight_Dialog_FixedSize = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight_Dialog_FixedSize;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight_Dialog_FixedSize_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight_Dialog_FixedSize_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight_Dialog_MinWidth = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight_Dialog_MinWidth;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight_Dialog_MinWidth_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight_Dialog_MinWidth_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight_NoActionBar = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight_NoActionBar;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DayNight_NoActionBar_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DayNight_NoActionBar_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Dialog = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Dialog;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_DialogWhenLarge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_DialogWhenLarge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Dialog_Alert = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Dialog_Alert;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Dialog_Alert_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Dialog_Alert_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Dialog_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Dialog_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Dialog_FixedSize = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Dialog_FixedSize;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Dialog_FixedSize_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Dialog_FixedSize_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Dialog_MinWidth = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Dialog_MinWidth;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Dialog_MinWidth_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Dialog_MinWidth_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_BarSize = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_BarSize;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_BottomSheetDialog = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_BottomSheetDialog;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_DarkActionBar = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_DarkActionBar;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_DarkActionBar_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_DarkActionBar_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_Dialog = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_Dialog;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_DialogWhenLarge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_DialogWhenLarge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_Dialog_Alert = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_Dialog_Alert;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_Dialog_Alert_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_Dialog_Alert_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_Dialog_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_Dialog_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_Dialog_FixedSize = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_Dialog_FixedSize;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_Dialog_FixedSize_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_Dialog_FixedSize_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_Dialog_MinWidth = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_Dialog_MinWidth;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_Dialog_MinWidth_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_Dialog_MinWidth_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_LargeTouch = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_LargeTouch;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_NoActionBar = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_NoActionBar;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_Light_NoActionBar_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_Light_NoActionBar_Bridge;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_NoActionBar = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_NoActionBar;
+			global::System.Application.Resource.Style.Theme_MaterialComponents_NoActionBar_Bridge = global::System.Application.Launch.Resource.Style.Theme_MaterialComponents_NoActionBar_Bridge;
+			global::System.Application.Resource.Style.Widget_AppCompat_ActionBar = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ActionBar;
+			global::System.Application.Resource.Style.Widget_AppCompat_ActionBar_Solid = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ActionBar_Solid;
+			global::System.Application.Resource.Style.Widget_AppCompat_ActionBar_TabBar = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ActionBar_TabBar;
+			global::System.Application.Resource.Style.Widget_AppCompat_ActionBar_TabText = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ActionBar_TabText;
+			global::System.Application.Resource.Style.Widget_AppCompat_ActionBar_TabView = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ActionBar_TabView;
+			global::System.Application.Resource.Style.Widget_AppCompat_ActionButton = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ActionButton;
+			global::System.Application.Resource.Style.Widget_AppCompat_ActionButton_CloseMode = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ActionButton_CloseMode;
+			global::System.Application.Resource.Style.Widget_AppCompat_ActionButton_Overflow = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ActionButton_Overflow;
+			global::System.Application.Resource.Style.Widget_AppCompat_ActionMode = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ActionMode;
+			global::System.Application.Resource.Style.Widget_AppCompat_ActivityChooserView = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ActivityChooserView;
+			global::System.Application.Resource.Style.Widget_AppCompat_AutoCompleteTextView = global::System.Application.Launch.Resource.Style.Widget_AppCompat_AutoCompleteTextView;
+			global::System.Application.Resource.Style.Widget_AppCompat_Button = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Button;
+			global::System.Application.Resource.Style.Widget_AppCompat_ButtonBar = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ButtonBar;
+			global::System.Application.Resource.Style.Widget_AppCompat_ButtonBar_AlertDialog = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ButtonBar_AlertDialog;
+			global::System.Application.Resource.Style.Widget_AppCompat_Button_Borderless = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Button_Borderless;
+			global::System.Application.Resource.Style.Widget_AppCompat_Button_Borderless_Colored = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Button_Borderless_Colored;
+			global::System.Application.Resource.Style.Widget_AppCompat_Button_ButtonBar_AlertDialog = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Button_ButtonBar_AlertDialog;
+			global::System.Application.Resource.Style.Widget_AppCompat_Button_Colored = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Button_Colored;
+			global::System.Application.Resource.Style.Widget_AppCompat_Button_Small = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Button_Small;
+			global::System.Application.Resource.Style.Widget_AppCompat_CompoundButton_CheckBox = global::System.Application.Launch.Resource.Style.Widget_AppCompat_CompoundButton_CheckBox;
+			global::System.Application.Resource.Style.Widget_AppCompat_CompoundButton_RadioButton = global::System.Application.Launch.Resource.Style.Widget_AppCompat_CompoundButton_RadioButton;
+			global::System.Application.Resource.Style.Widget_AppCompat_CompoundButton_Switch = global::System.Application.Launch.Resource.Style.Widget_AppCompat_CompoundButton_Switch;
+			global::System.Application.Resource.Style.Widget_AppCompat_DrawerArrowToggle = global::System.Application.Launch.Resource.Style.Widget_AppCompat_DrawerArrowToggle;
+			global::System.Application.Resource.Style.Widget_AppCompat_DropDownItem_Spinner = global::System.Application.Launch.Resource.Style.Widget_AppCompat_DropDownItem_Spinner;
+			global::System.Application.Resource.Style.Widget_AppCompat_EditText = global::System.Application.Launch.Resource.Style.Widget_AppCompat_EditText;
+			global::System.Application.Resource.Style.Widget_AppCompat_ImageButton = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ImageButton;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ActionBar = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ActionBar;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid_Inverse = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid_Inverse;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar_Inverse = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar_Inverse;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText_Inverse = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText_Inverse;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView_Inverse = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView_Inverse;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ActionButton = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ActionButton;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ActionButton_CloseMode = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ActionButton_CloseMode;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ActionButton_Overflow = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ActionButton_Overflow;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ActionMode_Inverse = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ActionMode_Inverse;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ActivityChooserView = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ActivityChooserView;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_AutoCompleteTextView = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_AutoCompleteTextView;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_DropDownItem_Spinner = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_DropDownItem_Spinner;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ListPopupWindow = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ListPopupWindow;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_ListView_DropDown = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_ListView_DropDown;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_PopupMenu = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_PopupMenu;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_PopupMenu_Overflow = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_PopupMenu_Overflow;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_SearchView = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_SearchView;
+			global::System.Application.Resource.Style.Widget_AppCompat_Light_Spinner_DropDown_ActionBar = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Light_Spinner_DropDown_ActionBar;
+			global::System.Application.Resource.Style.Widget_AppCompat_ListMenuView = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ListMenuView;
+			global::System.Application.Resource.Style.Widget_AppCompat_ListPopupWindow = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ListPopupWindow;
+			global::System.Application.Resource.Style.Widget_AppCompat_ListView = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ListView;
+			global::System.Application.Resource.Style.Widget_AppCompat_ListView_DropDown = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ListView_DropDown;
+			global::System.Application.Resource.Style.Widget_AppCompat_ListView_Menu = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ListView_Menu;
+			global::System.Application.Resource.Style.Widget_AppCompat_PopupMenu = global::System.Application.Launch.Resource.Style.Widget_AppCompat_PopupMenu;
+			global::System.Application.Resource.Style.Widget_AppCompat_PopupMenu_Overflow = global::System.Application.Launch.Resource.Style.Widget_AppCompat_PopupMenu_Overflow;
+			global::System.Application.Resource.Style.Widget_AppCompat_PopupWindow = global::System.Application.Launch.Resource.Style.Widget_AppCompat_PopupWindow;
+			global::System.Application.Resource.Style.Widget_AppCompat_ProgressBar = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ProgressBar;
+			global::System.Application.Resource.Style.Widget_AppCompat_ProgressBar_Horizontal = global::System.Application.Launch.Resource.Style.Widget_AppCompat_ProgressBar_Horizontal;
+			global::System.Application.Resource.Style.Widget_AppCompat_RatingBar = global::System.Application.Launch.Resource.Style.Widget_AppCompat_RatingBar;
+			global::System.Application.Resource.Style.Widget_AppCompat_RatingBar_Indicator = global::System.Application.Launch.Resource.Style.Widget_AppCompat_RatingBar_Indicator;
+			global::System.Application.Resource.Style.Widget_AppCompat_RatingBar_Small = global::System.Application.Launch.Resource.Style.Widget_AppCompat_RatingBar_Small;
+			global::System.Application.Resource.Style.Widget_AppCompat_SearchView = global::System.Application.Launch.Resource.Style.Widget_AppCompat_SearchView;
+			global::System.Application.Resource.Style.Widget_AppCompat_SearchView_ActionBar = global::System.Application.Launch.Resource.Style.Widget_AppCompat_SearchView_ActionBar;
+			global::System.Application.Resource.Style.Widget_AppCompat_SeekBar = global::System.Application.Launch.Resource.Style.Widget_AppCompat_SeekBar;
+			global::System.Application.Resource.Style.Widget_AppCompat_SeekBar_Discrete = global::System.Application.Launch.Resource.Style.Widget_AppCompat_SeekBar_Discrete;
+			global::System.Application.Resource.Style.Widget_AppCompat_Spinner = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Spinner;
+			global::System.Application.Resource.Style.Widget_AppCompat_Spinner_DropDown = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Spinner_DropDown;
+			global::System.Application.Resource.Style.Widget_AppCompat_Spinner_DropDown_ActionBar = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Spinner_DropDown_ActionBar;
+			global::System.Application.Resource.Style.Widget_AppCompat_Spinner_Underlined = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Spinner_Underlined;
+			global::System.Application.Resource.Style.Widget_AppCompat_TextView = global::System.Application.Launch.Resource.Style.Widget_AppCompat_TextView;
+			global::System.Application.Resource.Style.Widget_AppCompat_TextView_SpinnerItem = global::System.Application.Launch.Resource.Style.Widget_AppCompat_TextView_SpinnerItem;
+			global::System.Application.Resource.Style.Widget_AppCompat_Toolbar = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Toolbar;
+			global::System.Application.Resource.Style.Widget_AppCompat_Toolbar_Button_Navigation = global::System.Application.Launch.Resource.Style.Widget_AppCompat_Toolbar_Button_Navigation;
+			global::System.Application.Resource.Style.Widget_Compat_NotificationActionContainer = global::System.Application.Launch.Resource.Style.Widget_Compat_NotificationActionContainer;
+			global::System.Application.Resource.Style.Widget_Compat_NotificationActionText = global::System.Application.Launch.Resource.Style.Widget_Compat_NotificationActionText;
+			global::System.Application.Resource.Style.Widget_Design_AppBarLayout = global::System.Application.Launch.Resource.Style.Widget_Design_AppBarLayout;
+			global::System.Application.Resource.Style.Widget_Design_BottomNavigationView = global::System.Application.Launch.Resource.Style.Widget_Design_BottomNavigationView;
+			global::System.Application.Resource.Style.Widget_Design_BottomSheet_Modal = global::System.Application.Launch.Resource.Style.Widget_Design_BottomSheet_Modal;
+			global::System.Application.Resource.Style.Widget_Design_CollapsingToolbar = global::System.Application.Launch.Resource.Style.Widget_Design_CollapsingToolbar;
+			global::System.Application.Resource.Style.Widget_Design_FloatingActionButton = global::System.Application.Launch.Resource.Style.Widget_Design_FloatingActionButton;
+			global::System.Application.Resource.Style.Widget_Design_NavigationView = global::System.Application.Launch.Resource.Style.Widget_Design_NavigationView;
+			global::System.Application.Resource.Style.Widget_Design_ScrimInsetsFrameLayout = global::System.Application.Launch.Resource.Style.Widget_Design_ScrimInsetsFrameLayout;
+			global::System.Application.Resource.Style.Widget_Design_Snackbar = global::System.Application.Launch.Resource.Style.Widget_Design_Snackbar;
+			global::System.Application.Resource.Style.Widget_Design_TabLayout = global::System.Application.Launch.Resource.Style.Widget_Design_TabLayout;
+			global::System.Application.Resource.Style.Widget_Design_TextInputEditText = global::System.Application.Launch.Resource.Style.Widget_Design_TextInputEditText;
+			global::System.Application.Resource.Style.Widget_Design_TextInputLayout = global::System.Application.Launch.Resource.Style.Widget_Design_TextInputLayout;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_ActionBar_Primary = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_ActionBar_Primary;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_ActionBar_PrimarySurface = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_ActionBar_PrimarySurface;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_ActionBar_Solid = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_ActionBar_Solid;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_ActionBar_Surface = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_ActionBar_Surface;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_AppBarLayout_Primary = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_AppBarLayout_Primary;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_AppBarLayout_PrimarySurface = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_AppBarLayout_PrimarySurface;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_AppBarLayout_Surface = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_AppBarLayout_Surface;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_AutoCompleteTextView_FilledBox = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_AutoCompleteTextView_FilledBox;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_AutoCompleteTextView_FilledBox_Dense = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_AutoCompleteTextView_FilledBox_Dense;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_AutoCompleteTextView_OutlinedBox = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_AutoCompleteTextView_OutlinedBox;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_AutoCompleteTextView_OutlinedBox_Dense = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_AutoCompleteTextView_OutlinedBox_Dense;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Badge = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Badge;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_BottomAppBar = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_BottomAppBar;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_BottomAppBar_Colored = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_BottomAppBar_Colored;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_BottomAppBar_PrimarySurface = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_BottomAppBar_PrimarySurface;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_BottomNavigationView = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_BottomNavigationView;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_BottomNavigationView_Colored = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_BottomNavigationView_Colored;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_BottomNavigationView_PrimarySurface = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_BottomNavigationView_PrimarySurface;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_BottomSheet = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_BottomSheet;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_BottomSheet_Modal = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_BottomSheet_Modal;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Button = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Button;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Button_Icon = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Button_Icon;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Button_OutlinedButton = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Button_OutlinedButton;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Button_OutlinedButton_Icon = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Button_OutlinedButton_Icon;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Button_TextButton = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Button_TextButton;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Button_TextButton_Dialog = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Button_TextButton_Dialog;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Button_TextButton_Dialog_Flush = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Button_TextButton_Dialog_Flush;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Button_TextButton_Dialog_Icon = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Button_TextButton_Dialog_Icon;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Button_TextButton_Icon = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Button_TextButton_Icon;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Button_TextButton_Snackbar = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Button_TextButton_Snackbar;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Button_UnelevatedButton = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Button_UnelevatedButton;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Button_UnelevatedButton_Icon = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Button_UnelevatedButton_Icon;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_CardView = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_CardView;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_CheckedTextView = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_CheckedTextView;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_ChipGroup = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_ChipGroup;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Chip_Action = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Chip_Action;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Chip_Choice = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Chip_Choice;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Chip_Entry = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Chip_Entry;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Chip_Filter = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Chip_Filter;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_CompoundButton_CheckBox = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_CompoundButton_CheckBox;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_CompoundButton_RadioButton = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_CompoundButton_RadioButton;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_CompoundButton_Switch = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_CompoundButton_Switch;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_ExtendedFloatingActionButton = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_ExtendedFloatingActionButton;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_ExtendedFloatingActionButton_Icon = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_ExtendedFloatingActionButton_Icon;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_FloatingActionButton = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_FloatingActionButton;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Light_ActionBar_Solid = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Light_ActionBar_Solid;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialButtonToggleGroup = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialButtonToggleGroup;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Day = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Day;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_DayTextView = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_DayTextView;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Day_Invalid = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Day_Invalid;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Day_Selected = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Day_Selected;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Day_Today = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Day_Today;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Fullscreen = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Fullscreen;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_HeaderConfirmButton = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_HeaderConfirmButton;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_HeaderDivider = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_HeaderDivider;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_HeaderLayout = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_HeaderLayout;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_HeaderSelection = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_HeaderSelection;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_HeaderSelection_Fullscreen = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_HeaderSelection_Fullscreen;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_HeaderTitle = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_HeaderTitle;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_HeaderToggleButton = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_HeaderToggleButton;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Item = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Item;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Year = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Year;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Year_Selected = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Year_Selected;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Year_Today = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_MaterialCalendar_Year_Today;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_NavigationView = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_NavigationView;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_PopupMenu = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_PopupMenu;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_PopupMenu_ContextMenu = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_PopupMenu_ContextMenu;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_PopupMenu_ListPopupWindow = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_PopupMenu_ListPopupWindow;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_PopupMenu_Overflow = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_PopupMenu_Overflow;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_ShapeableImageView = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_ShapeableImageView;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Slider = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Slider;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Snackbar = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Snackbar;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Snackbar_FullWidth = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Snackbar_FullWidth;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Snackbar_TextView = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Snackbar_TextView;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TabLayout = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TabLayout;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TabLayout_Colored = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TabLayout_Colored;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TabLayout_PrimarySurface = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TabLayout_PrimarySurface;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TextInputEditText_FilledBox = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TextInputEditText_FilledBox;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TextInputEditText_FilledBox_Dense = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TextInputEditText_FilledBox_Dense;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TextInputEditText_OutlinedBox = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TextInputEditText_OutlinedBox;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TextInputEditText_OutlinedBox_Dense = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TextInputEditText_OutlinedBox_Dense;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TextInputLayout_FilledBox = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TextInputLayout_FilledBox;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TextInputLayout_FilledBox_Dense = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TextInputLayout_FilledBox_Dense;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TextInputLayout_FilledBox_Dense_ExposedDropdownMenu = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TextInputLayout_FilledBox_Dense_ExposedDropdownMenu;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TextInputLayout_FilledBox_ExposedDropdownMenu = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TextInputLayout_FilledBox_ExposedDropdownMenu;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TextInputLayout_OutlinedBox = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TextInputLayout_OutlinedBox;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense_ExposedDropdownMenu = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense_ExposedDropdownMenu;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TextInputLayout_OutlinedBox_ExposedDropdownMenu = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TextInputLayout_OutlinedBox_ExposedDropdownMenu;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_TextView = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_TextView;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Toolbar = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Toolbar;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Toolbar_Primary = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Toolbar_Primary;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Toolbar_PrimarySurface = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Toolbar_PrimarySurface;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Toolbar_Surface = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Toolbar_Surface;
+			global::System.Application.Resource.Style.Widget_MaterialComponents_Tooltip = global::System.Application.Launch.Resource.Style.Widget_MaterialComponents_Tooltip;
+			global::System.Application.Resource.Style.Widget_Support_CoordinatorLayout = global::System.Application.Launch.Resource.Style.Widget_Support_CoordinatorLayout;
+			global::System.Application.Resource.Style.XamarinFormsMaterialButton = global::System.Application.Launch.Resource.Style.XamarinFormsMaterialButton;
+			global::System.Application.Resource.Style.XamarinFormsMaterialButtonOutlined = global::System.Application.Launch.Resource.Style.XamarinFormsMaterialButtonOutlined;
+			global::System.Application.Resource.Style.XamarinFormsMaterialCheckBox = global::System.Application.Launch.Resource.Style.XamarinFormsMaterialCheckBox;
+			global::System.Application.Resource.Style.XamarinFormsMaterialEntryFilled = global::System.Application.Launch.Resource.Style.XamarinFormsMaterialEntryFilled;
+			global::System.Application.Resource.Style.XamarinFormsMaterialProgressBarCircular = global::System.Application.Launch.Resource.Style.XamarinFormsMaterialProgressBarCircular;
+			global::System.Application.Resource.Style.XamarinFormsMaterialProgressBarHorizontal = global::System.Application.Launch.Resource.Style.XamarinFormsMaterialProgressBarHorizontal;
+			global::System.Application.Resource.Style.XamarinFormsMaterialSlider = global::System.Application.Launch.Resource.Style.XamarinFormsMaterialSlider;
+			global::System.Application.Resource.Style.XamarinFormsMaterialTheme = global::System.Application.Launch.Resource.Style.XamarinFormsMaterialTheme;
+			global::System.Application.Resource.Styleable.ActionBar = global::System.Application.Launch.Resource.Styleable.ActionBar;
+			global::System.Application.Resource.Styleable.ActionBarLayout = global::System.Application.Launch.Resource.Styleable.ActionBarLayout;
+			global::System.Application.Resource.Styleable.ActionBarLayout_android_layout_gravity = global::System.Application.Launch.Resource.Styleable.ActionBarLayout_android_layout_gravity;
+			global::System.Application.Resource.Styleable.ActionBar_background = global::System.Application.Launch.Resource.Styleable.ActionBar_background;
+			global::System.Application.Resource.Styleable.ActionBar_backgroundSplit = global::System.Application.Launch.Resource.Styleable.ActionBar_backgroundSplit;
+			global::System.Application.Resource.Styleable.ActionBar_backgroundStacked = global::System.Application.Launch.Resource.Styleable.ActionBar_backgroundStacked;
+			global::System.Application.Resource.Styleable.ActionBar_contentInsetEnd = global::System.Application.Launch.Resource.Styleable.ActionBar_contentInsetEnd;
+			global::System.Application.Resource.Styleable.ActionBar_contentInsetEndWithActions = global::System.Application.Launch.Resource.Styleable.ActionBar_contentInsetEndWithActions;
+			global::System.Application.Resource.Styleable.ActionBar_contentInsetLeft = global::System.Application.Launch.Resource.Styleable.ActionBar_contentInsetLeft;
+			global::System.Application.Resource.Styleable.ActionBar_contentInsetRight = global::System.Application.Launch.Resource.Styleable.ActionBar_contentInsetRight;
+			global::System.Application.Resource.Styleable.ActionBar_contentInsetStart = global::System.Application.Launch.Resource.Styleable.ActionBar_contentInsetStart;
+			global::System.Application.Resource.Styleable.ActionBar_contentInsetStartWithNavigation = global::System.Application.Launch.Resource.Styleable.ActionBar_contentInsetStartWithNavigation;
+			global::System.Application.Resource.Styleable.ActionBar_customNavigationLayout = global::System.Application.Launch.Resource.Styleable.ActionBar_customNavigationLayout;
+			global::System.Application.Resource.Styleable.ActionBar_displayOptions = global::System.Application.Launch.Resource.Styleable.ActionBar_displayOptions;
+			global::System.Application.Resource.Styleable.ActionBar_divider = global::System.Application.Launch.Resource.Styleable.ActionBar_divider;
+			global::System.Application.Resource.Styleable.ActionBar_elevation = global::System.Application.Launch.Resource.Styleable.ActionBar_elevation;
+			global::System.Application.Resource.Styleable.ActionBar_height = global::System.Application.Launch.Resource.Styleable.ActionBar_height;
+			global::System.Application.Resource.Styleable.ActionBar_hideOnContentScroll = global::System.Application.Launch.Resource.Styleable.ActionBar_hideOnContentScroll;
+			global::System.Application.Resource.Styleable.ActionBar_homeAsUpIndicator = global::System.Application.Launch.Resource.Styleable.ActionBar_homeAsUpIndicator;
+			global::System.Application.Resource.Styleable.ActionBar_homeLayout = global::System.Application.Launch.Resource.Styleable.ActionBar_homeLayout;
+			global::System.Application.Resource.Styleable.ActionBar_icon = global::System.Application.Launch.Resource.Styleable.ActionBar_icon;
+			global::System.Application.Resource.Styleable.ActionBar_indeterminateProgressStyle = global::System.Application.Launch.Resource.Styleable.ActionBar_indeterminateProgressStyle;
+			global::System.Application.Resource.Styleable.ActionBar_itemPadding = global::System.Application.Launch.Resource.Styleable.ActionBar_itemPadding;
+			global::System.Application.Resource.Styleable.ActionBar_logo = global::System.Application.Launch.Resource.Styleable.ActionBar_logo;
+			global::System.Application.Resource.Styleable.ActionBar_navigationMode = global::System.Application.Launch.Resource.Styleable.ActionBar_navigationMode;
+			global::System.Application.Resource.Styleable.ActionBar_popupTheme = global::System.Application.Launch.Resource.Styleable.ActionBar_popupTheme;
+			global::System.Application.Resource.Styleable.ActionBar_progressBarPadding = global::System.Application.Launch.Resource.Styleable.ActionBar_progressBarPadding;
+			global::System.Application.Resource.Styleable.ActionBar_progressBarStyle = global::System.Application.Launch.Resource.Styleable.ActionBar_progressBarStyle;
+			global::System.Application.Resource.Styleable.ActionBar_subtitle = global::System.Application.Launch.Resource.Styleable.ActionBar_subtitle;
+			global::System.Application.Resource.Styleable.ActionBar_subtitleTextStyle = global::System.Application.Launch.Resource.Styleable.ActionBar_subtitleTextStyle;
+			global::System.Application.Resource.Styleable.ActionBar_title = global::System.Application.Launch.Resource.Styleable.ActionBar_title;
+			global::System.Application.Resource.Styleable.ActionBar_titleTextStyle = global::System.Application.Launch.Resource.Styleable.ActionBar_titleTextStyle;
+			global::System.Application.Resource.Styleable.ActionMenuItemView = global::System.Application.Launch.Resource.Styleable.ActionMenuItemView;
+			global::System.Application.Resource.Styleable.ActionMenuItemView_android_minWidth = global::System.Application.Launch.Resource.Styleable.ActionMenuItemView_android_minWidth;
+			global::System.Application.Resource.Styleable.ActionMenuView = global::System.Application.Launch.Resource.Styleable.ActionMenuView;
+			global::System.Application.Resource.Styleable.ActionMode = global::System.Application.Launch.Resource.Styleable.ActionMode;
+			global::System.Application.Resource.Styleable.ActionMode_background = global::System.Application.Launch.Resource.Styleable.ActionMode_background;
+			global::System.Application.Resource.Styleable.ActionMode_backgroundSplit = global::System.Application.Launch.Resource.Styleable.ActionMode_backgroundSplit;
+			global::System.Application.Resource.Styleable.ActionMode_closeItemLayout = global::System.Application.Launch.Resource.Styleable.ActionMode_closeItemLayout;
+			global::System.Application.Resource.Styleable.ActionMode_height = global::System.Application.Launch.Resource.Styleable.ActionMode_height;
+			global::System.Application.Resource.Styleable.ActionMode_subtitleTextStyle = global::System.Application.Launch.Resource.Styleable.ActionMode_subtitleTextStyle;
+			global::System.Application.Resource.Styleable.ActionMode_titleTextStyle = global::System.Application.Launch.Resource.Styleable.ActionMode_titleTextStyle;
+			global::System.Application.Resource.Styleable.ActivityChooserView = global::System.Application.Launch.Resource.Styleable.ActivityChooserView;
+			global::System.Application.Resource.Styleable.ActivityChooserView_expandActivityOverflowButtonDrawable = global::System.Application.Launch.Resource.Styleable.ActivityChooserView_expandActivityOverflowButtonDrawable;
+			global::System.Application.Resource.Styleable.ActivityChooserView_initialActivityCount = global::System.Application.Launch.Resource.Styleable.ActivityChooserView_initialActivityCount;
+			global::System.Application.Resource.Styleable.AlertDialog = global::System.Application.Launch.Resource.Styleable.AlertDialog;
+			global::System.Application.Resource.Styleable.AlertDialog_android_layout = global::System.Application.Launch.Resource.Styleable.AlertDialog_android_layout;
+			global::System.Application.Resource.Styleable.AlertDialog_buttonIconDimen = global::System.Application.Launch.Resource.Styleable.AlertDialog_buttonIconDimen;
+			global::System.Application.Resource.Styleable.AlertDialog_buttonPanelSideLayout = global::System.Application.Launch.Resource.Styleable.AlertDialog_buttonPanelSideLayout;
+			global::System.Application.Resource.Styleable.AlertDialog_listItemLayout = global::System.Application.Launch.Resource.Styleable.AlertDialog_listItemLayout;
+			global::System.Application.Resource.Styleable.AlertDialog_listLayout = global::System.Application.Launch.Resource.Styleable.AlertDialog_listLayout;
+			global::System.Application.Resource.Styleable.AlertDialog_multiChoiceItemLayout = global::System.Application.Launch.Resource.Styleable.AlertDialog_multiChoiceItemLayout;
+			global::System.Application.Resource.Styleable.AlertDialog_showTitle = global::System.Application.Launch.Resource.Styleable.AlertDialog_showTitle;
+			global::System.Application.Resource.Styleable.AlertDialog_singleChoiceItemLayout = global::System.Application.Launch.Resource.Styleable.AlertDialog_singleChoiceItemLayout;
+			global::System.Application.Resource.Styleable.AnimatedStateListDrawableCompat = global::System.Application.Launch.Resource.Styleable.AnimatedStateListDrawableCompat;
+			global::System.Application.Resource.Styleable.AnimatedStateListDrawableCompat_android_constantSize = global::System.Application.Launch.Resource.Styleable.AnimatedStateListDrawableCompat_android_constantSize;
+			global::System.Application.Resource.Styleable.AnimatedStateListDrawableCompat_android_dither = global::System.Application.Launch.Resource.Styleable.AnimatedStateListDrawableCompat_android_dither;
+			global::System.Application.Resource.Styleable.AnimatedStateListDrawableCompat_android_enterFadeDuration = global::System.Application.Launch.Resource.Styleable.AnimatedStateListDrawableCompat_android_enterFadeDuration;
+			global::System.Application.Resource.Styleable.AnimatedStateListDrawableCompat_android_exitFadeDuration = global::System.Application.Launch.Resource.Styleable.AnimatedStateListDrawableCompat_android_exitFadeDuration;
+			global::System.Application.Resource.Styleable.AnimatedStateListDrawableCompat_android_variablePadding = global::System.Application.Launch.Resource.Styleable.AnimatedStateListDrawableCompat_android_variablePadding;
+			global::System.Application.Resource.Styleable.AnimatedStateListDrawableCompat_android_visible = global::System.Application.Launch.Resource.Styleable.AnimatedStateListDrawableCompat_android_visible;
+			global::System.Application.Resource.Styleable.AnimatedStateListDrawableItem = global::System.Application.Launch.Resource.Styleable.AnimatedStateListDrawableItem;
+			global::System.Application.Resource.Styleable.AnimatedStateListDrawableItem_android_drawable = global::System.Application.Launch.Resource.Styleable.AnimatedStateListDrawableItem_android_drawable;
+			global::System.Application.Resource.Styleable.AnimatedStateListDrawableItem_android_id = global::System.Application.Launch.Resource.Styleable.AnimatedStateListDrawableItem_android_id;
+			global::System.Application.Resource.Styleable.AnimatedStateListDrawableTransition = global::System.Application.Launch.Resource.Styleable.AnimatedStateListDrawableTransition;
+			global::System.Application.Resource.Styleable.AnimatedStateListDrawableTransition_android_drawable = global::System.Application.Launch.Resource.Styleable.AnimatedStateListDrawableTransition_android_drawable;
+			global::System.Application.Resource.Styleable.AnimatedStateListDrawableTransition_android_fromId = global::System.Application.Launch.Resource.Styleable.AnimatedStateListDrawableTransition_android_fromId;
+			global::System.Application.Resource.Styleable.AnimatedStateListDrawableTransition_android_reversible = global::System.Application.Launch.Resource.Styleable.AnimatedStateListDrawableTransition_android_reversible;
+			global::System.Application.Resource.Styleable.AnimatedStateListDrawableTransition_android_toId = global::System.Application.Launch.Resource.Styleable.AnimatedStateListDrawableTransition_android_toId;
+			global::System.Application.Resource.Styleable.AppBarLayout = global::System.Application.Launch.Resource.Styleable.AppBarLayout;
+			global::System.Application.Resource.Styleable.AppBarLayoutStates = global::System.Application.Launch.Resource.Styleable.AppBarLayoutStates;
+			global::System.Application.Resource.Styleable.AppBarLayoutStates_state_collapsed = global::System.Application.Launch.Resource.Styleable.AppBarLayoutStates_state_collapsed;
+			global::System.Application.Resource.Styleable.AppBarLayoutStates_state_collapsible = global::System.Application.Launch.Resource.Styleable.AppBarLayoutStates_state_collapsible;
+			global::System.Application.Resource.Styleable.AppBarLayoutStates_state_liftable = global::System.Application.Launch.Resource.Styleable.AppBarLayoutStates_state_liftable;
+			global::System.Application.Resource.Styleable.AppBarLayoutStates_state_lifted = global::System.Application.Launch.Resource.Styleable.AppBarLayoutStates_state_lifted;
+			global::System.Application.Resource.Styleable.AppBarLayout_android_background = global::System.Application.Launch.Resource.Styleable.AppBarLayout_android_background;
+			global::System.Application.Resource.Styleable.AppBarLayout_android_keyboardNavigationCluster = global::System.Application.Launch.Resource.Styleable.AppBarLayout_android_keyboardNavigationCluster;
+			global::System.Application.Resource.Styleable.AppBarLayout_android_touchscreenBlocksFocus = global::System.Application.Launch.Resource.Styleable.AppBarLayout_android_touchscreenBlocksFocus;
+			global::System.Application.Resource.Styleable.AppBarLayout_elevation = global::System.Application.Launch.Resource.Styleable.AppBarLayout_elevation;
+			global::System.Application.Resource.Styleable.AppBarLayout_expanded = global::System.Application.Launch.Resource.Styleable.AppBarLayout_expanded;
+			global::System.Application.Resource.Styleable.AppBarLayout_Layout = global::System.Application.Launch.Resource.Styleable.AppBarLayout_Layout;
+			global::System.Application.Resource.Styleable.AppBarLayout_Layout_layout_scrollFlags = global::System.Application.Launch.Resource.Styleable.AppBarLayout_Layout_layout_scrollFlags;
+			global::System.Application.Resource.Styleable.AppBarLayout_Layout_layout_scrollInterpolator = global::System.Application.Launch.Resource.Styleable.AppBarLayout_Layout_layout_scrollInterpolator;
+			global::System.Application.Resource.Styleable.AppBarLayout_liftOnScroll = global::System.Application.Launch.Resource.Styleable.AppBarLayout_liftOnScroll;
+			global::System.Application.Resource.Styleable.AppBarLayout_liftOnScrollTargetViewId = global::System.Application.Launch.Resource.Styleable.AppBarLayout_liftOnScrollTargetViewId;
+			global::System.Application.Resource.Styleable.AppBarLayout_statusBarForeground = global::System.Application.Launch.Resource.Styleable.AppBarLayout_statusBarForeground;
+			global::System.Application.Resource.Styleable.AppCompatImageView = global::System.Application.Launch.Resource.Styleable.AppCompatImageView;
+			global::System.Application.Resource.Styleable.AppCompatImageView_android_src = global::System.Application.Launch.Resource.Styleable.AppCompatImageView_android_src;
+			global::System.Application.Resource.Styleable.AppCompatImageView_srcCompat = global::System.Application.Launch.Resource.Styleable.AppCompatImageView_srcCompat;
+			global::System.Application.Resource.Styleable.AppCompatImageView_tint = global::System.Application.Launch.Resource.Styleable.AppCompatImageView_tint;
+			global::System.Application.Resource.Styleable.AppCompatImageView_tintMode = global::System.Application.Launch.Resource.Styleable.AppCompatImageView_tintMode;
+			global::System.Application.Resource.Styleable.AppCompatSeekBar = global::System.Application.Launch.Resource.Styleable.AppCompatSeekBar;
+			global::System.Application.Resource.Styleable.AppCompatSeekBar_android_thumb = global::System.Application.Launch.Resource.Styleable.AppCompatSeekBar_android_thumb;
+			global::System.Application.Resource.Styleable.AppCompatSeekBar_tickMark = global::System.Application.Launch.Resource.Styleable.AppCompatSeekBar_tickMark;
+			global::System.Application.Resource.Styleable.AppCompatSeekBar_tickMarkTint = global::System.Application.Launch.Resource.Styleable.AppCompatSeekBar_tickMarkTint;
+			global::System.Application.Resource.Styleable.AppCompatSeekBar_tickMarkTintMode = global::System.Application.Launch.Resource.Styleable.AppCompatSeekBar_tickMarkTintMode;
+			global::System.Application.Resource.Styleable.AppCompatTextHelper = global::System.Application.Launch.Resource.Styleable.AppCompatTextHelper;
+			global::System.Application.Resource.Styleable.AppCompatTextHelper_android_drawableBottom = global::System.Application.Launch.Resource.Styleable.AppCompatTextHelper_android_drawableBottom;
+			global::System.Application.Resource.Styleable.AppCompatTextHelper_android_drawableEnd = global::System.Application.Launch.Resource.Styleable.AppCompatTextHelper_android_drawableEnd;
+			global::System.Application.Resource.Styleable.AppCompatTextHelper_android_drawableLeft = global::System.Application.Launch.Resource.Styleable.AppCompatTextHelper_android_drawableLeft;
+			global::System.Application.Resource.Styleable.AppCompatTextHelper_android_drawableRight = global::System.Application.Launch.Resource.Styleable.AppCompatTextHelper_android_drawableRight;
+			global::System.Application.Resource.Styleable.AppCompatTextHelper_android_drawableStart = global::System.Application.Launch.Resource.Styleable.AppCompatTextHelper_android_drawableStart;
+			global::System.Application.Resource.Styleable.AppCompatTextHelper_android_drawableTop = global::System.Application.Launch.Resource.Styleable.AppCompatTextHelper_android_drawableTop;
+			global::System.Application.Resource.Styleable.AppCompatTextHelper_android_textAppearance = global::System.Application.Launch.Resource.Styleable.AppCompatTextHelper_android_textAppearance;
+			global::System.Application.Resource.Styleable.AppCompatTextView = global::System.Application.Launch.Resource.Styleable.AppCompatTextView;
+			global::System.Application.Resource.Styleable.AppCompatTextView_android_textAppearance = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_android_textAppearance;
+			global::System.Application.Resource.Styleable.AppCompatTextView_autoSizeMaxTextSize = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_autoSizeMaxTextSize;
+			global::System.Application.Resource.Styleable.AppCompatTextView_autoSizeMinTextSize = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_autoSizeMinTextSize;
+			global::System.Application.Resource.Styleable.AppCompatTextView_autoSizePresetSizes = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_autoSizePresetSizes;
+			global::System.Application.Resource.Styleable.AppCompatTextView_autoSizeStepGranularity = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_autoSizeStepGranularity;
+			global::System.Application.Resource.Styleable.AppCompatTextView_autoSizeTextType = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_autoSizeTextType;
+			global::System.Application.Resource.Styleable.AppCompatTextView_drawableBottomCompat = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_drawableBottomCompat;
+			global::System.Application.Resource.Styleable.AppCompatTextView_drawableEndCompat = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_drawableEndCompat;
+			global::System.Application.Resource.Styleable.AppCompatTextView_drawableLeftCompat = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_drawableLeftCompat;
+			global::System.Application.Resource.Styleable.AppCompatTextView_drawableRightCompat = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_drawableRightCompat;
+			global::System.Application.Resource.Styleable.AppCompatTextView_drawableStartCompat = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_drawableStartCompat;
+			global::System.Application.Resource.Styleable.AppCompatTextView_drawableTint = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_drawableTint;
+			global::System.Application.Resource.Styleable.AppCompatTextView_drawableTintMode = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_drawableTintMode;
+			global::System.Application.Resource.Styleable.AppCompatTextView_drawableTopCompat = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_drawableTopCompat;
+			global::System.Application.Resource.Styleable.AppCompatTextView_firstBaselineToTopHeight = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_firstBaselineToTopHeight;
+			global::System.Application.Resource.Styleable.AppCompatTextView_fontFamily = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_fontFamily;
+			global::System.Application.Resource.Styleable.AppCompatTextView_fontVariationSettings = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_fontVariationSettings;
+			global::System.Application.Resource.Styleable.AppCompatTextView_lastBaselineToBottomHeight = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_lastBaselineToBottomHeight;
+			global::System.Application.Resource.Styleable.AppCompatTextView_lineHeight = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_lineHeight;
+			global::System.Application.Resource.Styleable.AppCompatTextView_textAllCaps = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_textAllCaps;
+			global::System.Application.Resource.Styleable.AppCompatTextView_textLocale = global::System.Application.Launch.Resource.Styleable.AppCompatTextView_textLocale;
+			global::System.Application.Resource.Styleable.AppCompatTheme = global::System.Application.Launch.Resource.Styleable.AppCompatTheme;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionBarDivider = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionBarDivider;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionBarItemBackground = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionBarItemBackground;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionBarPopupTheme = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionBarPopupTheme;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionBarSize = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionBarSize;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionBarSplitStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionBarSplitStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionBarStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionBarStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionBarTabBarStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionBarTabBarStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionBarTabStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionBarTabStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionBarTabTextStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionBarTabTextStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionBarTheme = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionBarTheme;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionBarWidgetTheme = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionBarWidgetTheme;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionButtonStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionButtonStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionDropDownStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionDropDownStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionMenuTextAppearance = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionMenuTextAppearance;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionMenuTextColor = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionMenuTextColor;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionModeBackground = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionModeBackground;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionModeCloseButtonStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionModeCloseButtonStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionModeCloseDrawable = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionModeCloseDrawable;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionModeCopyDrawable = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionModeCopyDrawable;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionModeCutDrawable = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionModeCutDrawable;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionModeFindDrawable = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionModeFindDrawable;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionModePasteDrawable = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionModePasteDrawable;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionModePopupWindowStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionModePopupWindowStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionModeSelectAllDrawable = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionModeSelectAllDrawable;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionModeShareDrawable = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionModeShareDrawable;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionModeSplitBackground = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionModeSplitBackground;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionModeStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionModeStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionModeWebSearchDrawable = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionModeWebSearchDrawable;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionOverflowButtonStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionOverflowButtonStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_actionOverflowMenuStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_actionOverflowMenuStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_activityChooserViewStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_activityChooserViewStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_alertDialogButtonGroupStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_alertDialogButtonGroupStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_alertDialogCenterButtons = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_alertDialogCenterButtons;
+			global::System.Application.Resource.Styleable.AppCompatTheme_alertDialogStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_alertDialogStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_alertDialogTheme = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_alertDialogTheme;
+			global::System.Application.Resource.Styleable.AppCompatTheme_android_windowAnimationStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_android_windowAnimationStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_android_windowIsFloating = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_android_windowIsFloating;
+			global::System.Application.Resource.Styleable.AppCompatTheme_autoCompleteTextViewStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_autoCompleteTextViewStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_borderlessButtonStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_borderlessButtonStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_buttonBarButtonStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_buttonBarButtonStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_buttonBarNegativeButtonStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_buttonBarNegativeButtonStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_buttonBarNeutralButtonStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_buttonBarNeutralButtonStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_buttonBarPositiveButtonStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_buttonBarPositiveButtonStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_buttonBarStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_buttonBarStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_buttonStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_buttonStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_buttonStyleSmall = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_buttonStyleSmall;
+			global::System.Application.Resource.Styleable.AppCompatTheme_checkboxStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_checkboxStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_checkedTextViewStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_checkedTextViewStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_colorAccent = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_colorAccent;
+			global::System.Application.Resource.Styleable.AppCompatTheme_colorBackgroundFloating = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_colorBackgroundFloating;
+			global::System.Application.Resource.Styleable.AppCompatTheme_colorButtonNormal = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_colorButtonNormal;
+			global::System.Application.Resource.Styleable.AppCompatTheme_colorControlActivated = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_colorControlActivated;
+			global::System.Application.Resource.Styleable.AppCompatTheme_colorControlHighlight = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_colorControlHighlight;
+			global::System.Application.Resource.Styleable.AppCompatTheme_colorControlNormal = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_colorControlNormal;
+			global::System.Application.Resource.Styleable.AppCompatTheme_colorError = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_colorError;
+			global::System.Application.Resource.Styleable.AppCompatTheme_colorPrimary = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_colorPrimary;
+			global::System.Application.Resource.Styleable.AppCompatTheme_colorPrimaryDark = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_colorPrimaryDark;
+			global::System.Application.Resource.Styleable.AppCompatTheme_colorSwitchThumbNormal = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_colorSwitchThumbNormal;
+			global::System.Application.Resource.Styleable.AppCompatTheme_controlBackground = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_controlBackground;
+			global::System.Application.Resource.Styleable.AppCompatTheme_dialogCornerRadius = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_dialogCornerRadius;
+			global::System.Application.Resource.Styleable.AppCompatTheme_dialogPreferredPadding = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_dialogPreferredPadding;
+			global::System.Application.Resource.Styleable.AppCompatTheme_dialogTheme = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_dialogTheme;
+			global::System.Application.Resource.Styleable.AppCompatTheme_dividerHorizontal = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_dividerHorizontal;
+			global::System.Application.Resource.Styleable.AppCompatTheme_dividerVertical = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_dividerVertical;
+			global::System.Application.Resource.Styleable.AppCompatTheme_dropdownListPreferredItemHeight = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_dropdownListPreferredItemHeight;
+			global::System.Application.Resource.Styleable.AppCompatTheme_dropDownListViewStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_dropDownListViewStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_editTextBackground = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_editTextBackground;
+			global::System.Application.Resource.Styleable.AppCompatTheme_editTextColor = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_editTextColor;
+			global::System.Application.Resource.Styleable.AppCompatTheme_editTextStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_editTextStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_homeAsUpIndicator = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_homeAsUpIndicator;
+			global::System.Application.Resource.Styleable.AppCompatTheme_imageButtonStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_imageButtonStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_listChoiceBackgroundIndicator = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_listChoiceBackgroundIndicator;
+			global::System.Application.Resource.Styleable.AppCompatTheme_listChoiceIndicatorMultipleAnimated = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_listChoiceIndicatorMultipleAnimated;
+			global::System.Application.Resource.Styleable.AppCompatTheme_listChoiceIndicatorSingleAnimated = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_listChoiceIndicatorSingleAnimated;
+			global::System.Application.Resource.Styleable.AppCompatTheme_listDividerAlertDialog = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_listDividerAlertDialog;
+			global::System.Application.Resource.Styleable.AppCompatTheme_listMenuViewStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_listMenuViewStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_listPopupWindowStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_listPopupWindowStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_listPreferredItemHeight = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_listPreferredItemHeight;
+			global::System.Application.Resource.Styleable.AppCompatTheme_listPreferredItemHeightLarge = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_listPreferredItemHeightLarge;
+			global::System.Application.Resource.Styleable.AppCompatTheme_listPreferredItemHeightSmall = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_listPreferredItemHeightSmall;
+			global::System.Application.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingEnd = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingEnd;
+			global::System.Application.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingLeft = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingLeft;
+			global::System.Application.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingRight = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingRight;
+			global::System.Application.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingStart = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingStart;
+			global::System.Application.Resource.Styleable.AppCompatTheme_panelBackground = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_panelBackground;
+			global::System.Application.Resource.Styleable.AppCompatTheme_panelMenuListTheme = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_panelMenuListTheme;
+			global::System.Application.Resource.Styleable.AppCompatTheme_panelMenuListWidth = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_panelMenuListWidth;
+			global::System.Application.Resource.Styleable.AppCompatTheme_popupMenuStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_popupMenuStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_popupWindowStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_popupWindowStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_radioButtonStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_radioButtonStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_ratingBarStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_ratingBarStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_ratingBarStyleIndicator = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_ratingBarStyleIndicator;
+			global::System.Application.Resource.Styleable.AppCompatTheme_ratingBarStyleSmall = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_ratingBarStyleSmall;
+			global::System.Application.Resource.Styleable.AppCompatTheme_searchViewStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_searchViewStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_seekBarStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_seekBarStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_selectableItemBackground = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_selectableItemBackground;
+			global::System.Application.Resource.Styleable.AppCompatTheme_selectableItemBackgroundBorderless = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_selectableItemBackgroundBorderless;
+			global::System.Application.Resource.Styleable.AppCompatTheme_spinnerDropDownItemStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_spinnerDropDownItemStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_spinnerStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_spinnerStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_switchStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_switchStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_textAppearanceLargePopupMenu = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_textAppearanceLargePopupMenu;
+			global::System.Application.Resource.Styleable.AppCompatTheme_textAppearanceListItem = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_textAppearanceListItem;
+			global::System.Application.Resource.Styleable.AppCompatTheme_textAppearanceListItemSecondary = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_textAppearanceListItemSecondary;
+			global::System.Application.Resource.Styleable.AppCompatTheme_textAppearanceListItemSmall = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_textAppearanceListItemSmall;
+			global::System.Application.Resource.Styleable.AppCompatTheme_textAppearancePopupMenuHeader = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_textAppearancePopupMenuHeader;
+			global::System.Application.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultSubtitle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultSubtitle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultTitle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultTitle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_textAppearanceSmallPopupMenu = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_textAppearanceSmallPopupMenu;
+			global::System.Application.Resource.Styleable.AppCompatTheme_textColorAlertDialogListItem = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_textColorAlertDialogListItem;
+			global::System.Application.Resource.Styleable.AppCompatTheme_textColorSearchUrl = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_textColorSearchUrl;
+			global::System.Application.Resource.Styleable.AppCompatTheme_toolbarNavigationButtonStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_toolbarNavigationButtonStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_toolbarStyle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_toolbarStyle;
+			global::System.Application.Resource.Styleable.AppCompatTheme_tooltipForegroundColor = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_tooltipForegroundColor;
+			global::System.Application.Resource.Styleable.AppCompatTheme_tooltipFrameBackground = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_tooltipFrameBackground;
+			global::System.Application.Resource.Styleable.AppCompatTheme_viewInflaterClass = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_viewInflaterClass;
+			global::System.Application.Resource.Styleable.AppCompatTheme_windowActionBar = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_windowActionBar;
+			global::System.Application.Resource.Styleable.AppCompatTheme_windowActionBarOverlay = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_windowActionBarOverlay;
+			global::System.Application.Resource.Styleable.AppCompatTheme_windowActionModeOverlay = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_windowActionModeOverlay;
+			global::System.Application.Resource.Styleable.AppCompatTheme_windowFixedHeightMajor = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_windowFixedHeightMajor;
+			global::System.Application.Resource.Styleable.AppCompatTheme_windowFixedHeightMinor = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_windowFixedHeightMinor;
+			global::System.Application.Resource.Styleable.AppCompatTheme_windowFixedWidthMajor = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_windowFixedWidthMajor;
+			global::System.Application.Resource.Styleable.AppCompatTheme_windowFixedWidthMinor = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_windowFixedWidthMinor;
+			global::System.Application.Resource.Styleable.AppCompatTheme_windowMinWidthMajor = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_windowMinWidthMajor;
+			global::System.Application.Resource.Styleable.AppCompatTheme_windowMinWidthMinor = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_windowMinWidthMinor;
+			global::System.Application.Resource.Styleable.AppCompatTheme_windowNoTitle = global::System.Application.Launch.Resource.Styleable.AppCompatTheme_windowNoTitle;
+			global::System.Application.Resource.Styleable.Badge = global::System.Application.Launch.Resource.Styleable.Badge;
+			global::System.Application.Resource.Styleable.Badge_backgroundColor = global::System.Application.Launch.Resource.Styleable.Badge_backgroundColor;
+			global::System.Application.Resource.Styleable.Badge_badgeGravity = global::System.Application.Launch.Resource.Styleable.Badge_badgeGravity;
+			global::System.Application.Resource.Styleable.Badge_badgeTextColor = global::System.Application.Launch.Resource.Styleable.Badge_badgeTextColor;
+			global::System.Application.Resource.Styleable.Badge_horizontalOffset = global::System.Application.Launch.Resource.Styleable.Badge_horizontalOffset;
+			global::System.Application.Resource.Styleable.Badge_maxCharacterCount = global::System.Application.Launch.Resource.Styleable.Badge_maxCharacterCount;
+			global::System.Application.Resource.Styleable.Badge_number = global::System.Application.Launch.Resource.Styleable.Badge_number;
+			global::System.Application.Resource.Styleable.Badge_verticalOffset = global::System.Application.Launch.Resource.Styleable.Badge_verticalOffset;
+			global::System.Application.Resource.Styleable.BottomAppBar = global::System.Application.Launch.Resource.Styleable.BottomAppBar;
+			global::System.Application.Resource.Styleable.BottomAppBar_backgroundTint = global::System.Application.Launch.Resource.Styleable.BottomAppBar_backgroundTint;
+			global::System.Application.Resource.Styleable.BottomAppBar_elevation = global::System.Application.Launch.Resource.Styleable.BottomAppBar_elevation;
+			global::System.Application.Resource.Styleable.BottomAppBar_fabAlignmentMode = global::System.Application.Launch.Resource.Styleable.BottomAppBar_fabAlignmentMode;
+			global::System.Application.Resource.Styleable.BottomAppBar_fabAnimationMode = global::System.Application.Launch.Resource.Styleable.BottomAppBar_fabAnimationMode;
+			global::System.Application.Resource.Styleable.BottomAppBar_fabCradleMargin = global::System.Application.Launch.Resource.Styleable.BottomAppBar_fabCradleMargin;
+			global::System.Application.Resource.Styleable.BottomAppBar_fabCradleRoundedCornerRadius = global::System.Application.Launch.Resource.Styleable.BottomAppBar_fabCradleRoundedCornerRadius;
+			global::System.Application.Resource.Styleable.BottomAppBar_fabCradleVerticalOffset = global::System.Application.Launch.Resource.Styleable.BottomAppBar_fabCradleVerticalOffset;
+			global::System.Application.Resource.Styleable.BottomAppBar_hideOnScroll = global::System.Application.Launch.Resource.Styleable.BottomAppBar_hideOnScroll;
+			global::System.Application.Resource.Styleable.BottomAppBar_paddingBottomSystemWindowInsets = global::System.Application.Launch.Resource.Styleable.BottomAppBar_paddingBottomSystemWindowInsets;
+			global::System.Application.Resource.Styleable.BottomAppBar_paddingLeftSystemWindowInsets = global::System.Application.Launch.Resource.Styleable.BottomAppBar_paddingLeftSystemWindowInsets;
+			global::System.Application.Resource.Styleable.BottomAppBar_paddingRightSystemWindowInsets = global::System.Application.Launch.Resource.Styleable.BottomAppBar_paddingRightSystemWindowInsets;
+			global::System.Application.Resource.Styleable.BottomNavigationView = global::System.Application.Launch.Resource.Styleable.BottomNavigationView;
+			global::System.Application.Resource.Styleable.BottomNavigationView_backgroundTint = global::System.Application.Launch.Resource.Styleable.BottomNavigationView_backgroundTint;
+			global::System.Application.Resource.Styleable.BottomNavigationView_elevation = global::System.Application.Launch.Resource.Styleable.BottomNavigationView_elevation;
+			global::System.Application.Resource.Styleable.BottomNavigationView_itemBackground = global::System.Application.Launch.Resource.Styleable.BottomNavigationView_itemBackground;
+			global::System.Application.Resource.Styleable.BottomNavigationView_itemHorizontalTranslationEnabled = global::System.Application.Launch.Resource.Styleable.BottomNavigationView_itemHorizontalTranslationEnabled;
+			global::System.Application.Resource.Styleable.BottomNavigationView_itemIconSize = global::System.Application.Launch.Resource.Styleable.BottomNavigationView_itemIconSize;
+			global::System.Application.Resource.Styleable.BottomNavigationView_itemIconTint = global::System.Application.Launch.Resource.Styleable.BottomNavigationView_itemIconTint;
+			global::System.Application.Resource.Styleable.BottomNavigationView_itemRippleColor = global::System.Application.Launch.Resource.Styleable.BottomNavigationView_itemRippleColor;
+			global::System.Application.Resource.Styleable.BottomNavigationView_itemTextAppearanceActive = global::System.Application.Launch.Resource.Styleable.BottomNavigationView_itemTextAppearanceActive;
+			global::System.Application.Resource.Styleable.BottomNavigationView_itemTextAppearanceInactive = global::System.Application.Launch.Resource.Styleable.BottomNavigationView_itemTextAppearanceInactive;
+			global::System.Application.Resource.Styleable.BottomNavigationView_itemTextColor = global::System.Application.Launch.Resource.Styleable.BottomNavigationView_itemTextColor;
+			global::System.Application.Resource.Styleable.BottomNavigationView_labelVisibilityMode = global::System.Application.Launch.Resource.Styleable.BottomNavigationView_labelVisibilityMode;
+			global::System.Application.Resource.Styleable.BottomNavigationView_menu = global::System.Application.Launch.Resource.Styleable.BottomNavigationView_menu;
+			global::System.Application.Resource.Styleable.BottomSheetBehavior_Layout = global::System.Application.Launch.Resource.Styleable.BottomSheetBehavior_Layout;
+			global::System.Application.Resource.Styleable.BottomSheetBehavior_Layout_android_elevation = global::System.Application.Launch.Resource.Styleable.BottomSheetBehavior_Layout_android_elevation;
+			global::System.Application.Resource.Styleable.BottomSheetBehavior_Layout_backgroundTint = global::System.Application.Launch.Resource.Styleable.BottomSheetBehavior_Layout_backgroundTint;
+			global::System.Application.Resource.Styleable.BottomSheetBehavior_Layout_behavior_draggable = global::System.Application.Launch.Resource.Styleable.BottomSheetBehavior_Layout_behavior_draggable;
+			global::System.Application.Resource.Styleable.BottomSheetBehavior_Layout_behavior_expandedOffset = global::System.Application.Launch.Resource.Styleable.BottomSheetBehavior_Layout_behavior_expandedOffset;
+			global::System.Application.Resource.Styleable.BottomSheetBehavior_Layout_behavior_fitToContents = global::System.Application.Launch.Resource.Styleable.BottomSheetBehavior_Layout_behavior_fitToContents;
+			global::System.Application.Resource.Styleable.BottomSheetBehavior_Layout_behavior_halfExpandedRatio = global::System.Application.Launch.Resource.Styleable.BottomSheetBehavior_Layout_behavior_halfExpandedRatio;
+			global::System.Application.Resource.Styleable.BottomSheetBehavior_Layout_behavior_hideable = global::System.Application.Launch.Resource.Styleable.BottomSheetBehavior_Layout_behavior_hideable;
+			global::System.Application.Resource.Styleable.BottomSheetBehavior_Layout_behavior_peekHeight = global::System.Application.Launch.Resource.Styleable.BottomSheetBehavior_Layout_behavior_peekHeight;
+			global::System.Application.Resource.Styleable.BottomSheetBehavior_Layout_behavior_saveFlags = global::System.Application.Launch.Resource.Styleable.BottomSheetBehavior_Layout_behavior_saveFlags;
+			global::System.Application.Resource.Styleable.BottomSheetBehavior_Layout_behavior_skipCollapsed = global::System.Application.Launch.Resource.Styleable.BottomSheetBehavior_Layout_behavior_skipCollapsed;
+			global::System.Application.Resource.Styleable.BottomSheetBehavior_Layout_gestureInsetBottomIgnored = global::System.Application.Launch.Resource.Styleable.BottomSheetBehavior_Layout_gestureInsetBottomIgnored;
+			global::System.Application.Resource.Styleable.BottomSheetBehavior_Layout_shapeAppearance = global::System.Application.Launch.Resource.Styleable.BottomSheetBehavior_Layout_shapeAppearance;
+			global::System.Application.Resource.Styleable.BottomSheetBehavior_Layout_shapeAppearanceOverlay = global::System.Application.Launch.Resource.Styleable.BottomSheetBehavior_Layout_shapeAppearanceOverlay;
+			global::System.Application.Resource.Styleable.ButtonBarLayout = global::System.Application.Launch.Resource.Styleable.ButtonBarLayout;
+			global::System.Application.Resource.Styleable.ButtonBarLayout_allowStacking = global::System.Application.Launch.Resource.Styleable.ButtonBarLayout_allowStacking;
+			global::System.Application.Resource.Styleable.CardView = global::System.Application.Launch.Resource.Styleable.CardView;
+			global::System.Application.Resource.Styleable.CardView_android_minHeight = global::System.Application.Launch.Resource.Styleable.CardView_android_minHeight;
+			global::System.Application.Resource.Styleable.CardView_android_minWidth = global::System.Application.Launch.Resource.Styleable.CardView_android_minWidth;
+			global::System.Application.Resource.Styleable.CardView_cardBackgroundColor = global::System.Application.Launch.Resource.Styleable.CardView_cardBackgroundColor;
+			global::System.Application.Resource.Styleable.CardView_cardCornerRadius = global::System.Application.Launch.Resource.Styleable.CardView_cardCornerRadius;
+			global::System.Application.Resource.Styleable.CardView_cardElevation = global::System.Application.Launch.Resource.Styleable.CardView_cardElevation;
+			global::System.Application.Resource.Styleable.CardView_cardMaxElevation = global::System.Application.Launch.Resource.Styleable.CardView_cardMaxElevation;
+			global::System.Application.Resource.Styleable.CardView_cardPreventCornerOverlap = global::System.Application.Launch.Resource.Styleable.CardView_cardPreventCornerOverlap;
+			global::System.Application.Resource.Styleable.CardView_cardUseCompatPadding = global::System.Application.Launch.Resource.Styleable.CardView_cardUseCompatPadding;
+			global::System.Application.Resource.Styleable.CardView_contentPadding = global::System.Application.Launch.Resource.Styleable.CardView_contentPadding;
+			global::System.Application.Resource.Styleable.CardView_contentPaddingBottom = global::System.Application.Launch.Resource.Styleable.CardView_contentPaddingBottom;
+			global::System.Application.Resource.Styleable.CardView_contentPaddingLeft = global::System.Application.Launch.Resource.Styleable.CardView_contentPaddingLeft;
+			global::System.Application.Resource.Styleable.CardView_contentPaddingRight = global::System.Application.Launch.Resource.Styleable.CardView_contentPaddingRight;
+			global::System.Application.Resource.Styleable.CardView_contentPaddingTop = global::System.Application.Launch.Resource.Styleable.CardView_contentPaddingTop;
+			global::System.Application.Resource.Styleable.Chip = global::System.Application.Launch.Resource.Styleable.Chip;
+			global::System.Application.Resource.Styleable.ChipGroup = global::System.Application.Launch.Resource.Styleable.ChipGroup;
+			global::System.Application.Resource.Styleable.ChipGroup_checkedChip = global::System.Application.Launch.Resource.Styleable.ChipGroup_checkedChip;
+			global::System.Application.Resource.Styleable.ChipGroup_chipSpacing = global::System.Application.Launch.Resource.Styleable.ChipGroup_chipSpacing;
+			global::System.Application.Resource.Styleable.ChipGroup_chipSpacingHorizontal = global::System.Application.Launch.Resource.Styleable.ChipGroup_chipSpacingHorizontal;
+			global::System.Application.Resource.Styleable.ChipGroup_chipSpacingVertical = global::System.Application.Launch.Resource.Styleable.ChipGroup_chipSpacingVertical;
+			global::System.Application.Resource.Styleable.ChipGroup_selectionRequired = global::System.Application.Launch.Resource.Styleable.ChipGroup_selectionRequired;
+			global::System.Application.Resource.Styleable.ChipGroup_singleLine = global::System.Application.Launch.Resource.Styleable.ChipGroup_singleLine;
+			global::System.Application.Resource.Styleable.ChipGroup_singleSelection = global::System.Application.Launch.Resource.Styleable.ChipGroup_singleSelection;
+			global::System.Application.Resource.Styleable.Chip_android_checkable = global::System.Application.Launch.Resource.Styleable.Chip_android_checkable;
+			global::System.Application.Resource.Styleable.Chip_android_ellipsize = global::System.Application.Launch.Resource.Styleable.Chip_android_ellipsize;
+			global::System.Application.Resource.Styleable.Chip_android_maxWidth = global::System.Application.Launch.Resource.Styleable.Chip_android_maxWidth;
+			global::System.Application.Resource.Styleable.Chip_android_text = global::System.Application.Launch.Resource.Styleable.Chip_android_text;
+			global::System.Application.Resource.Styleable.Chip_android_textAppearance = global::System.Application.Launch.Resource.Styleable.Chip_android_textAppearance;
+			global::System.Application.Resource.Styleable.Chip_android_textColor = global::System.Application.Launch.Resource.Styleable.Chip_android_textColor;
+			global::System.Application.Resource.Styleable.Chip_checkedIcon = global::System.Application.Launch.Resource.Styleable.Chip_checkedIcon;
+			global::System.Application.Resource.Styleable.Chip_checkedIconEnabled = global::System.Application.Launch.Resource.Styleable.Chip_checkedIconEnabled;
+			global::System.Application.Resource.Styleable.Chip_checkedIconTint = global::System.Application.Launch.Resource.Styleable.Chip_checkedIconTint;
+			global::System.Application.Resource.Styleable.Chip_checkedIconVisible = global::System.Application.Launch.Resource.Styleable.Chip_checkedIconVisible;
+			global::System.Application.Resource.Styleable.Chip_chipBackgroundColor = global::System.Application.Launch.Resource.Styleable.Chip_chipBackgroundColor;
+			global::System.Application.Resource.Styleable.Chip_chipCornerRadius = global::System.Application.Launch.Resource.Styleable.Chip_chipCornerRadius;
+			global::System.Application.Resource.Styleable.Chip_chipEndPadding = global::System.Application.Launch.Resource.Styleable.Chip_chipEndPadding;
+			global::System.Application.Resource.Styleable.Chip_chipIcon = global::System.Application.Launch.Resource.Styleable.Chip_chipIcon;
+			global::System.Application.Resource.Styleable.Chip_chipIconEnabled = global::System.Application.Launch.Resource.Styleable.Chip_chipIconEnabled;
+			global::System.Application.Resource.Styleable.Chip_chipIconSize = global::System.Application.Launch.Resource.Styleable.Chip_chipIconSize;
+			global::System.Application.Resource.Styleable.Chip_chipIconTint = global::System.Application.Launch.Resource.Styleable.Chip_chipIconTint;
+			global::System.Application.Resource.Styleable.Chip_chipIconVisible = global::System.Application.Launch.Resource.Styleable.Chip_chipIconVisible;
+			global::System.Application.Resource.Styleable.Chip_chipMinHeight = global::System.Application.Launch.Resource.Styleable.Chip_chipMinHeight;
+			global::System.Application.Resource.Styleable.Chip_chipMinTouchTargetSize = global::System.Application.Launch.Resource.Styleable.Chip_chipMinTouchTargetSize;
+			global::System.Application.Resource.Styleable.Chip_chipStartPadding = global::System.Application.Launch.Resource.Styleable.Chip_chipStartPadding;
+			global::System.Application.Resource.Styleable.Chip_chipStrokeColor = global::System.Application.Launch.Resource.Styleable.Chip_chipStrokeColor;
+			global::System.Application.Resource.Styleable.Chip_chipStrokeWidth = global::System.Application.Launch.Resource.Styleable.Chip_chipStrokeWidth;
+			global::System.Application.Resource.Styleable.Chip_chipSurfaceColor = global::System.Application.Launch.Resource.Styleable.Chip_chipSurfaceColor;
+			global::System.Application.Resource.Styleable.Chip_closeIcon = global::System.Application.Launch.Resource.Styleable.Chip_closeIcon;
+			global::System.Application.Resource.Styleable.Chip_closeIconEnabled = global::System.Application.Launch.Resource.Styleable.Chip_closeIconEnabled;
+			global::System.Application.Resource.Styleable.Chip_closeIconEndPadding = global::System.Application.Launch.Resource.Styleable.Chip_closeIconEndPadding;
+			global::System.Application.Resource.Styleable.Chip_closeIconSize = global::System.Application.Launch.Resource.Styleable.Chip_closeIconSize;
+			global::System.Application.Resource.Styleable.Chip_closeIconStartPadding = global::System.Application.Launch.Resource.Styleable.Chip_closeIconStartPadding;
+			global::System.Application.Resource.Styleable.Chip_closeIconTint = global::System.Application.Launch.Resource.Styleable.Chip_closeIconTint;
+			global::System.Application.Resource.Styleable.Chip_closeIconVisible = global::System.Application.Launch.Resource.Styleable.Chip_closeIconVisible;
+			global::System.Application.Resource.Styleable.Chip_ensureMinTouchTargetSize = global::System.Application.Launch.Resource.Styleable.Chip_ensureMinTouchTargetSize;
+			global::System.Application.Resource.Styleable.Chip_hideMotionSpec = global::System.Application.Launch.Resource.Styleable.Chip_hideMotionSpec;
+			global::System.Application.Resource.Styleable.Chip_iconEndPadding = global::System.Application.Launch.Resource.Styleable.Chip_iconEndPadding;
+			global::System.Application.Resource.Styleable.Chip_iconStartPadding = global::System.Application.Launch.Resource.Styleable.Chip_iconStartPadding;
+			global::System.Application.Resource.Styleable.Chip_rippleColor = global::System.Application.Launch.Resource.Styleable.Chip_rippleColor;
+			global::System.Application.Resource.Styleable.Chip_shapeAppearance = global::System.Application.Launch.Resource.Styleable.Chip_shapeAppearance;
+			global::System.Application.Resource.Styleable.Chip_shapeAppearanceOverlay = global::System.Application.Launch.Resource.Styleable.Chip_shapeAppearanceOverlay;
+			global::System.Application.Resource.Styleable.Chip_showMotionSpec = global::System.Application.Launch.Resource.Styleable.Chip_showMotionSpec;
+			global::System.Application.Resource.Styleable.Chip_textEndPadding = global::System.Application.Launch.Resource.Styleable.Chip_textEndPadding;
+			global::System.Application.Resource.Styleable.Chip_textStartPadding = global::System.Application.Launch.Resource.Styleable.Chip_textStartPadding;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleGravity = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleGravity;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleTextAppearance = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleTextAppearance;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_contentScrim = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_contentScrim;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_expandedTitleGravity = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_expandedTitleGravity;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMargin = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMargin;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginBottom = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginBottom;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginEnd = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginEnd;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginStart = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginStart;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginTop = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginTop;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_expandedTitleTextAppearance = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_expandedTitleTextAppearance;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_Layout = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_Layout;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseMode = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseMode;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseParallaxMultiplier = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseParallaxMultiplier;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_maxLines = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_maxLines;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_scrimAnimationDuration = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_scrimAnimationDuration;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_scrimVisibleHeightTrigger = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_scrimVisibleHeightTrigger;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_statusBarScrim = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_statusBarScrim;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_title = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_title;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_titleEnabled = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_titleEnabled;
+			global::System.Application.Resource.Styleable.CollapsingToolbarLayout_toolbarId = global::System.Application.Launch.Resource.Styleable.CollapsingToolbarLayout_toolbarId;
+			global::System.Application.Resource.Styleable.ColorStateListItem = global::System.Application.Launch.Resource.Styleable.ColorStateListItem;
+			global::System.Application.Resource.Styleable.ColorStateListItem_alpha = global::System.Application.Launch.Resource.Styleable.ColorStateListItem_alpha;
+			global::System.Application.Resource.Styleable.ColorStateListItem_android_alpha = global::System.Application.Launch.Resource.Styleable.ColorStateListItem_android_alpha;
+			global::System.Application.Resource.Styleable.ColorStateListItem_android_color = global::System.Application.Launch.Resource.Styleable.ColorStateListItem_android_color;
+			global::System.Application.Resource.Styleable.CompoundButton = global::System.Application.Launch.Resource.Styleable.CompoundButton;
+			global::System.Application.Resource.Styleable.CompoundButton_android_button = global::System.Application.Launch.Resource.Styleable.CompoundButton_android_button;
+			global::System.Application.Resource.Styleable.CompoundButton_buttonCompat = global::System.Application.Launch.Resource.Styleable.CompoundButton_buttonCompat;
+			global::System.Application.Resource.Styleable.CompoundButton_buttonTint = global::System.Application.Launch.Resource.Styleable.CompoundButton_buttonTint;
+			global::System.Application.Resource.Styleable.CompoundButton_buttonTintMode = global::System.Application.Launch.Resource.Styleable.CompoundButton_buttonTintMode;
+			global::System.Application.Resource.Styleable.CoordinatorLayout = global::System.Application.Launch.Resource.Styleable.CoordinatorLayout;
+			global::System.Application.Resource.Styleable.CoordinatorLayout_keylines = global::System.Application.Launch.Resource.Styleable.CoordinatorLayout_keylines;
+			global::System.Application.Resource.Styleable.CoordinatorLayout_Layout = global::System.Application.Launch.Resource.Styleable.CoordinatorLayout_Layout;
+			global::System.Application.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity = global::System.Application.Launch.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity;
+			global::System.Application.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor = global::System.Application.Launch.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor;
+			global::System.Application.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity = global::System.Application.Launch.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity;
+			global::System.Application.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior = global::System.Application.Launch.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior;
+			global::System.Application.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges = global::System.Application.Launch.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges;
+			global::System.Application.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge = global::System.Application.Launch.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge;
+			global::System.Application.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline = global::System.Application.Launch.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline;
+			global::System.Application.Resource.Styleable.CoordinatorLayout_statusBarBackground = global::System.Application.Launch.Resource.Styleable.CoordinatorLayout_statusBarBackground;
+			global::System.Application.Resource.Styleable.DrawerArrowToggle = global::System.Application.Launch.Resource.Styleable.DrawerArrowToggle;
+			global::System.Application.Resource.Styleable.DrawerArrowToggle_arrowHeadLength = global::System.Application.Launch.Resource.Styleable.DrawerArrowToggle_arrowHeadLength;
+			global::System.Application.Resource.Styleable.DrawerArrowToggle_arrowShaftLength = global::System.Application.Launch.Resource.Styleable.DrawerArrowToggle_arrowShaftLength;
+			global::System.Application.Resource.Styleable.DrawerArrowToggle_barLength = global::System.Application.Launch.Resource.Styleable.DrawerArrowToggle_barLength;
+			global::System.Application.Resource.Styleable.DrawerArrowToggle_color = global::System.Application.Launch.Resource.Styleable.DrawerArrowToggle_color;
+			global::System.Application.Resource.Styleable.DrawerArrowToggle_drawableSize = global::System.Application.Launch.Resource.Styleable.DrawerArrowToggle_drawableSize;
+			global::System.Application.Resource.Styleable.DrawerArrowToggle_gapBetweenBars = global::System.Application.Launch.Resource.Styleable.DrawerArrowToggle_gapBetweenBars;
+			global::System.Application.Resource.Styleable.DrawerArrowToggle_spinBars = global::System.Application.Launch.Resource.Styleable.DrawerArrowToggle_spinBars;
+			global::System.Application.Resource.Styleable.DrawerArrowToggle_thickness = global::System.Application.Launch.Resource.Styleable.DrawerArrowToggle_thickness;
+			global::System.Application.Resource.Styleable.DrawerLayout = global::System.Application.Launch.Resource.Styleable.DrawerLayout;
+			global::System.Application.Resource.Styleable.DrawerLayout_elevation = global::System.Application.Launch.Resource.Styleable.DrawerLayout_elevation;
+			global::System.Application.Resource.Styleable.ExtendedFloatingActionButton = global::System.Application.Launch.Resource.Styleable.ExtendedFloatingActionButton;
+			global::System.Application.Resource.Styleable.ExtendedFloatingActionButton_Behavior_Layout = global::System.Application.Launch.Resource.Styleable.ExtendedFloatingActionButton_Behavior_Layout;
+			global::System.Application.Resource.Styleable.ExtendedFloatingActionButton_Behavior_Layout_behavior_autoHide = global::System.Application.Launch.Resource.Styleable.ExtendedFloatingActionButton_Behavior_Layout_behavior_autoHide;
+			global::System.Application.Resource.Styleable.ExtendedFloatingActionButton_Behavior_Layout_behavior_autoShrink = global::System.Application.Launch.Resource.Styleable.ExtendedFloatingActionButton_Behavior_Layout_behavior_autoShrink;
+			global::System.Application.Resource.Styleable.ExtendedFloatingActionButton_elevation = global::System.Application.Launch.Resource.Styleable.ExtendedFloatingActionButton_elevation;
+			global::System.Application.Resource.Styleable.ExtendedFloatingActionButton_extendMotionSpec = global::System.Application.Launch.Resource.Styleable.ExtendedFloatingActionButton_extendMotionSpec;
+			global::System.Application.Resource.Styleable.ExtendedFloatingActionButton_hideMotionSpec = global::System.Application.Launch.Resource.Styleable.ExtendedFloatingActionButton_hideMotionSpec;
+			global::System.Application.Resource.Styleable.ExtendedFloatingActionButton_showMotionSpec = global::System.Application.Launch.Resource.Styleable.ExtendedFloatingActionButton_showMotionSpec;
+			global::System.Application.Resource.Styleable.ExtendedFloatingActionButton_shrinkMotionSpec = global::System.Application.Launch.Resource.Styleable.ExtendedFloatingActionButton_shrinkMotionSpec;
+			global::System.Application.Resource.Styleable.FloatingActionButton = global::System.Application.Launch.Resource.Styleable.FloatingActionButton;
+			global::System.Application.Resource.Styleable.FloatingActionButton_android_enabled = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_android_enabled;
+			global::System.Application.Resource.Styleable.FloatingActionButton_backgroundTint = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_backgroundTint;
+			global::System.Application.Resource.Styleable.FloatingActionButton_backgroundTintMode = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_backgroundTintMode;
+			global::System.Application.Resource.Styleable.FloatingActionButton_Behavior_Layout = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_Behavior_Layout;
+			global::System.Application.Resource.Styleable.FloatingActionButton_Behavior_Layout_behavior_autoHide = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_Behavior_Layout_behavior_autoHide;
+			global::System.Application.Resource.Styleable.FloatingActionButton_borderWidth = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_borderWidth;
+			global::System.Application.Resource.Styleable.FloatingActionButton_elevation = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_elevation;
+			global::System.Application.Resource.Styleable.FloatingActionButton_ensureMinTouchTargetSize = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_ensureMinTouchTargetSize;
+			global::System.Application.Resource.Styleable.FloatingActionButton_fabCustomSize = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_fabCustomSize;
+			global::System.Application.Resource.Styleable.FloatingActionButton_fabSize = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_fabSize;
+			global::System.Application.Resource.Styleable.FloatingActionButton_hideMotionSpec = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_hideMotionSpec;
+			global::System.Application.Resource.Styleable.FloatingActionButton_hoveredFocusedTranslationZ = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_hoveredFocusedTranslationZ;
+			global::System.Application.Resource.Styleable.FloatingActionButton_maxImageSize = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_maxImageSize;
+			global::System.Application.Resource.Styleable.FloatingActionButton_pressedTranslationZ = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_pressedTranslationZ;
+			global::System.Application.Resource.Styleable.FloatingActionButton_rippleColor = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_rippleColor;
+			global::System.Application.Resource.Styleable.FloatingActionButton_shapeAppearance = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_shapeAppearance;
+			global::System.Application.Resource.Styleable.FloatingActionButton_shapeAppearanceOverlay = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_shapeAppearanceOverlay;
+			global::System.Application.Resource.Styleable.FloatingActionButton_showMotionSpec = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_showMotionSpec;
+			global::System.Application.Resource.Styleable.FloatingActionButton_useCompatPadding = global::System.Application.Launch.Resource.Styleable.FloatingActionButton_useCompatPadding;
+			global::System.Application.Resource.Styleable.FlowLayout = global::System.Application.Launch.Resource.Styleable.FlowLayout;
+			global::System.Application.Resource.Styleable.FlowLayout_itemSpacing = global::System.Application.Launch.Resource.Styleable.FlowLayout_itemSpacing;
+			global::System.Application.Resource.Styleable.FlowLayout_lineSpacing = global::System.Application.Launch.Resource.Styleable.FlowLayout_lineSpacing;
+			global::System.Application.Resource.Styleable.FontFamily = global::System.Application.Launch.Resource.Styleable.FontFamily;
+			global::System.Application.Resource.Styleable.FontFamilyFont = global::System.Application.Launch.Resource.Styleable.FontFamilyFont;
+			global::System.Application.Resource.Styleable.FontFamilyFont_android_font = global::System.Application.Launch.Resource.Styleable.FontFamilyFont_android_font;
+			global::System.Application.Resource.Styleable.FontFamilyFont_android_fontStyle = global::System.Application.Launch.Resource.Styleable.FontFamilyFont_android_fontStyle;
+			global::System.Application.Resource.Styleable.FontFamilyFont_android_fontVariationSettings = global::System.Application.Launch.Resource.Styleable.FontFamilyFont_android_fontVariationSettings;
+			global::System.Application.Resource.Styleable.FontFamilyFont_android_fontWeight = global::System.Application.Launch.Resource.Styleable.FontFamilyFont_android_fontWeight;
+			global::System.Application.Resource.Styleable.FontFamilyFont_android_ttcIndex = global::System.Application.Launch.Resource.Styleable.FontFamilyFont_android_ttcIndex;
+			global::System.Application.Resource.Styleable.FontFamilyFont_font = global::System.Application.Launch.Resource.Styleable.FontFamilyFont_font;
+			global::System.Application.Resource.Styleable.FontFamilyFont_fontStyle = global::System.Application.Launch.Resource.Styleable.FontFamilyFont_fontStyle;
+			global::System.Application.Resource.Styleable.FontFamilyFont_fontVariationSettings = global::System.Application.Launch.Resource.Styleable.FontFamilyFont_fontVariationSettings;
+			global::System.Application.Resource.Styleable.FontFamilyFont_fontWeight = global::System.Application.Launch.Resource.Styleable.FontFamilyFont_fontWeight;
+			global::System.Application.Resource.Styleable.FontFamilyFont_ttcIndex = global::System.Application.Launch.Resource.Styleable.FontFamilyFont_ttcIndex;
+			global::System.Application.Resource.Styleable.FontFamily_fontProviderAuthority = global::System.Application.Launch.Resource.Styleable.FontFamily_fontProviderAuthority;
+			global::System.Application.Resource.Styleable.FontFamily_fontProviderCerts = global::System.Application.Launch.Resource.Styleable.FontFamily_fontProviderCerts;
+			global::System.Application.Resource.Styleable.FontFamily_fontProviderFetchStrategy = global::System.Application.Launch.Resource.Styleable.FontFamily_fontProviderFetchStrategy;
+			global::System.Application.Resource.Styleable.FontFamily_fontProviderFetchTimeout = global::System.Application.Launch.Resource.Styleable.FontFamily_fontProviderFetchTimeout;
+			global::System.Application.Resource.Styleable.FontFamily_fontProviderPackage = global::System.Application.Launch.Resource.Styleable.FontFamily_fontProviderPackage;
+			global::System.Application.Resource.Styleable.FontFamily_fontProviderQuery = global::System.Application.Launch.Resource.Styleable.FontFamily_fontProviderQuery;
+			global::System.Application.Resource.Styleable.ForegroundLinearLayout = global::System.Application.Launch.Resource.Styleable.ForegroundLinearLayout;
+			global::System.Application.Resource.Styleable.ForegroundLinearLayout_android_foreground = global::System.Application.Launch.Resource.Styleable.ForegroundLinearLayout_android_foreground;
+			global::System.Application.Resource.Styleable.ForegroundLinearLayout_android_foregroundGravity = global::System.Application.Launch.Resource.Styleable.ForegroundLinearLayout_android_foregroundGravity;
+			global::System.Application.Resource.Styleable.ForegroundLinearLayout_foregroundInsidePadding = global::System.Application.Launch.Resource.Styleable.ForegroundLinearLayout_foregroundInsidePadding;
+			global::System.Application.Resource.Styleable.Fragment = global::System.Application.Launch.Resource.Styleable.Fragment;
+			global::System.Application.Resource.Styleable.FragmentContainerView = global::System.Application.Launch.Resource.Styleable.FragmentContainerView;
+			global::System.Application.Resource.Styleable.FragmentContainerView_android_name = global::System.Application.Launch.Resource.Styleable.FragmentContainerView_android_name;
+			global::System.Application.Resource.Styleable.FragmentContainerView_android_tag = global::System.Application.Launch.Resource.Styleable.FragmentContainerView_android_tag;
+			global::System.Application.Resource.Styleable.Fragment_android_id = global::System.Application.Launch.Resource.Styleable.Fragment_android_id;
+			global::System.Application.Resource.Styleable.Fragment_android_name = global::System.Application.Launch.Resource.Styleable.Fragment_android_name;
+			global::System.Application.Resource.Styleable.Fragment_android_tag = global::System.Application.Launch.Resource.Styleable.Fragment_android_tag;
+			global::System.Application.Resource.Styleable.GradientColor = global::System.Application.Launch.Resource.Styleable.GradientColor;
+			global::System.Application.Resource.Styleable.GradientColorItem = global::System.Application.Launch.Resource.Styleable.GradientColorItem;
+			global::System.Application.Resource.Styleable.GradientColorItem_android_color = global::System.Application.Launch.Resource.Styleable.GradientColorItem_android_color;
+			global::System.Application.Resource.Styleable.GradientColorItem_android_offset = global::System.Application.Launch.Resource.Styleable.GradientColorItem_android_offset;
+			global::System.Application.Resource.Styleable.GradientColor_android_centerColor = global::System.Application.Launch.Resource.Styleable.GradientColor_android_centerColor;
+			global::System.Application.Resource.Styleable.GradientColor_android_centerX = global::System.Application.Launch.Resource.Styleable.GradientColor_android_centerX;
+			global::System.Application.Resource.Styleable.GradientColor_android_centerY = global::System.Application.Launch.Resource.Styleable.GradientColor_android_centerY;
+			global::System.Application.Resource.Styleable.GradientColor_android_endColor = global::System.Application.Launch.Resource.Styleable.GradientColor_android_endColor;
+			global::System.Application.Resource.Styleable.GradientColor_android_endX = global::System.Application.Launch.Resource.Styleable.GradientColor_android_endX;
+			global::System.Application.Resource.Styleable.GradientColor_android_endY = global::System.Application.Launch.Resource.Styleable.GradientColor_android_endY;
+			global::System.Application.Resource.Styleable.GradientColor_android_gradientRadius = global::System.Application.Launch.Resource.Styleable.GradientColor_android_gradientRadius;
+			global::System.Application.Resource.Styleable.GradientColor_android_startColor = global::System.Application.Launch.Resource.Styleable.GradientColor_android_startColor;
+			global::System.Application.Resource.Styleable.GradientColor_android_startX = global::System.Application.Launch.Resource.Styleable.GradientColor_android_startX;
+			global::System.Application.Resource.Styleable.GradientColor_android_startY = global::System.Application.Launch.Resource.Styleable.GradientColor_android_startY;
+			global::System.Application.Resource.Styleable.GradientColor_android_tileMode = global::System.Application.Launch.Resource.Styleable.GradientColor_android_tileMode;
+			global::System.Application.Resource.Styleable.GradientColor_android_type = global::System.Application.Launch.Resource.Styleable.GradientColor_android_type;
+			global::System.Application.Resource.Styleable.Insets = global::System.Application.Launch.Resource.Styleable.Insets;
+			global::System.Application.Resource.Styleable.Insets_paddingBottomSystemWindowInsets = global::System.Application.Launch.Resource.Styleable.Insets_paddingBottomSystemWindowInsets;
+			global::System.Application.Resource.Styleable.Insets_paddingLeftSystemWindowInsets = global::System.Application.Launch.Resource.Styleable.Insets_paddingLeftSystemWindowInsets;
+			global::System.Application.Resource.Styleable.Insets_paddingRightSystemWindowInsets = global::System.Application.Launch.Resource.Styleable.Insets_paddingRightSystemWindowInsets;
+			global::System.Application.Resource.Styleable.ItemsViewRendererTheme = global::System.Application.Launch.Resource.Styleable.ItemsViewRendererTheme;
+			global::System.Application.Resource.Styleable.ItemsViewRendererTheme_collectionViewStyle = global::System.Application.Launch.Resource.Styleable.ItemsViewRendererTheme_collectionViewStyle;
+			global::System.Application.Resource.Styleable.LinearLayoutCompat = global::System.Application.Launch.Resource.Styleable.LinearLayoutCompat;
+			global::System.Application.Resource.Styleable.LinearLayoutCompat_android_baselineAligned = global::System.Application.Launch.Resource.Styleable.LinearLayoutCompat_android_baselineAligned;
+			global::System.Application.Resource.Styleable.LinearLayoutCompat_android_baselineAlignedChildIndex = global::System.Application.Launch.Resource.Styleable.LinearLayoutCompat_android_baselineAlignedChildIndex;
+			global::System.Application.Resource.Styleable.LinearLayoutCompat_android_gravity = global::System.Application.Launch.Resource.Styleable.LinearLayoutCompat_android_gravity;
+			global::System.Application.Resource.Styleable.LinearLayoutCompat_android_orientation = global::System.Application.Launch.Resource.Styleable.LinearLayoutCompat_android_orientation;
+			global::System.Application.Resource.Styleable.LinearLayoutCompat_android_weightSum = global::System.Application.Launch.Resource.Styleable.LinearLayoutCompat_android_weightSum;
+			global::System.Application.Resource.Styleable.LinearLayoutCompat_divider = global::System.Application.Launch.Resource.Styleable.LinearLayoutCompat_divider;
+			global::System.Application.Resource.Styleable.LinearLayoutCompat_dividerPadding = global::System.Application.Launch.Resource.Styleable.LinearLayoutCompat_dividerPadding;
+			global::System.Application.Resource.Styleable.LinearLayoutCompat_Layout = global::System.Application.Launch.Resource.Styleable.LinearLayoutCompat_Layout;
+			global::System.Application.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_gravity = global::System.Application.Launch.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_gravity;
+			global::System.Application.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_height = global::System.Application.Launch.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_height;
+			global::System.Application.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_weight = global::System.Application.Launch.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_weight;
+			global::System.Application.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_width = global::System.Application.Launch.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_width;
+			global::System.Application.Resource.Styleable.LinearLayoutCompat_measureWithLargestChild = global::System.Application.Launch.Resource.Styleable.LinearLayoutCompat_measureWithLargestChild;
+			global::System.Application.Resource.Styleable.LinearLayoutCompat_showDividers = global::System.Application.Launch.Resource.Styleable.LinearLayoutCompat_showDividers;
+			global::System.Application.Resource.Styleable.ListPopupWindow = global::System.Application.Launch.Resource.Styleable.ListPopupWindow;
+			global::System.Application.Resource.Styleable.ListPopupWindow_android_dropDownHorizontalOffset = global::System.Application.Launch.Resource.Styleable.ListPopupWindow_android_dropDownHorizontalOffset;
+			global::System.Application.Resource.Styleable.ListPopupWindow_android_dropDownVerticalOffset = global::System.Application.Launch.Resource.Styleable.ListPopupWindow_android_dropDownVerticalOffset;
+			global::System.Application.Resource.Styleable.MaterialAlertDialog = global::System.Application.Launch.Resource.Styleable.MaterialAlertDialog;
+			global::System.Application.Resource.Styleable.MaterialAlertDialogTheme = global::System.Application.Launch.Resource.Styleable.MaterialAlertDialogTheme;
+			global::System.Application.Resource.Styleable.MaterialAlertDialogTheme_materialAlertDialogBodyTextStyle = global::System.Application.Launch.Resource.Styleable.MaterialAlertDialogTheme_materialAlertDialogBodyTextStyle;
+			global::System.Application.Resource.Styleable.MaterialAlertDialogTheme_materialAlertDialogTheme = global::System.Application.Launch.Resource.Styleable.MaterialAlertDialogTheme_materialAlertDialogTheme;
+			global::System.Application.Resource.Styleable.MaterialAlertDialogTheme_materialAlertDialogTitleIconStyle = global::System.Application.Launch.Resource.Styleable.MaterialAlertDialogTheme_materialAlertDialogTitleIconStyle;
+			global::System.Application.Resource.Styleable.MaterialAlertDialogTheme_materialAlertDialogTitlePanelStyle = global::System.Application.Launch.Resource.Styleable.MaterialAlertDialogTheme_materialAlertDialogTitlePanelStyle;
+			global::System.Application.Resource.Styleable.MaterialAlertDialogTheme_materialAlertDialogTitleTextStyle = global::System.Application.Launch.Resource.Styleable.MaterialAlertDialogTheme_materialAlertDialogTitleTextStyle;
+			global::System.Application.Resource.Styleable.MaterialAlertDialog_backgroundInsetBottom = global::System.Application.Launch.Resource.Styleable.MaterialAlertDialog_backgroundInsetBottom;
+			global::System.Application.Resource.Styleable.MaterialAlertDialog_backgroundInsetEnd = global::System.Application.Launch.Resource.Styleable.MaterialAlertDialog_backgroundInsetEnd;
+			global::System.Application.Resource.Styleable.MaterialAlertDialog_backgroundInsetStart = global::System.Application.Launch.Resource.Styleable.MaterialAlertDialog_backgroundInsetStart;
+			global::System.Application.Resource.Styleable.MaterialAlertDialog_backgroundInsetTop = global::System.Application.Launch.Resource.Styleable.MaterialAlertDialog_backgroundInsetTop;
+			global::System.Application.Resource.Styleable.MaterialAutoCompleteTextView = global::System.Application.Launch.Resource.Styleable.MaterialAutoCompleteTextView;
+			global::System.Application.Resource.Styleable.MaterialAutoCompleteTextView_android_inputType = global::System.Application.Launch.Resource.Styleable.MaterialAutoCompleteTextView_android_inputType;
+			global::System.Application.Resource.Styleable.MaterialButton = global::System.Application.Launch.Resource.Styleable.MaterialButton;
+			global::System.Application.Resource.Styleable.MaterialButtonToggleGroup = global::System.Application.Launch.Resource.Styleable.MaterialButtonToggleGroup;
+			global::System.Application.Resource.Styleable.MaterialButtonToggleGroup_checkedButton = global::System.Application.Launch.Resource.Styleable.MaterialButtonToggleGroup_checkedButton;
+			global::System.Application.Resource.Styleable.MaterialButtonToggleGroup_selectionRequired = global::System.Application.Launch.Resource.Styleable.MaterialButtonToggleGroup_selectionRequired;
+			global::System.Application.Resource.Styleable.MaterialButtonToggleGroup_singleSelection = global::System.Application.Launch.Resource.Styleable.MaterialButtonToggleGroup_singleSelection;
+			global::System.Application.Resource.Styleable.MaterialButton_android_background = global::System.Application.Launch.Resource.Styleable.MaterialButton_android_background;
+			global::System.Application.Resource.Styleable.MaterialButton_android_checkable = global::System.Application.Launch.Resource.Styleable.MaterialButton_android_checkable;
+			global::System.Application.Resource.Styleable.MaterialButton_android_insetBottom = global::System.Application.Launch.Resource.Styleable.MaterialButton_android_insetBottom;
+			global::System.Application.Resource.Styleable.MaterialButton_android_insetLeft = global::System.Application.Launch.Resource.Styleable.MaterialButton_android_insetLeft;
+			global::System.Application.Resource.Styleable.MaterialButton_android_insetRight = global::System.Application.Launch.Resource.Styleable.MaterialButton_android_insetRight;
+			global::System.Application.Resource.Styleable.MaterialButton_android_insetTop = global::System.Application.Launch.Resource.Styleable.MaterialButton_android_insetTop;
+			global::System.Application.Resource.Styleable.MaterialButton_backgroundTint = global::System.Application.Launch.Resource.Styleable.MaterialButton_backgroundTint;
+			global::System.Application.Resource.Styleable.MaterialButton_backgroundTintMode = global::System.Application.Launch.Resource.Styleable.MaterialButton_backgroundTintMode;
+			global::System.Application.Resource.Styleable.MaterialButton_cornerRadius = global::System.Application.Launch.Resource.Styleable.MaterialButton_cornerRadius;
+			global::System.Application.Resource.Styleable.MaterialButton_elevation = global::System.Application.Launch.Resource.Styleable.MaterialButton_elevation;
+			global::System.Application.Resource.Styleable.MaterialButton_icon = global::System.Application.Launch.Resource.Styleable.MaterialButton_icon;
+			global::System.Application.Resource.Styleable.MaterialButton_iconGravity = global::System.Application.Launch.Resource.Styleable.MaterialButton_iconGravity;
+			global::System.Application.Resource.Styleable.MaterialButton_iconPadding = global::System.Application.Launch.Resource.Styleable.MaterialButton_iconPadding;
+			global::System.Application.Resource.Styleable.MaterialButton_iconSize = global::System.Application.Launch.Resource.Styleable.MaterialButton_iconSize;
+			global::System.Application.Resource.Styleable.MaterialButton_iconTint = global::System.Application.Launch.Resource.Styleable.MaterialButton_iconTint;
+			global::System.Application.Resource.Styleable.MaterialButton_iconTintMode = global::System.Application.Launch.Resource.Styleable.MaterialButton_iconTintMode;
+			global::System.Application.Resource.Styleable.MaterialButton_rippleColor = global::System.Application.Launch.Resource.Styleable.MaterialButton_rippleColor;
+			global::System.Application.Resource.Styleable.MaterialButton_shapeAppearance = global::System.Application.Launch.Resource.Styleable.MaterialButton_shapeAppearance;
+			global::System.Application.Resource.Styleable.MaterialButton_shapeAppearanceOverlay = global::System.Application.Launch.Resource.Styleable.MaterialButton_shapeAppearanceOverlay;
+			global::System.Application.Resource.Styleable.MaterialButton_strokeColor = global::System.Application.Launch.Resource.Styleable.MaterialButton_strokeColor;
+			global::System.Application.Resource.Styleable.MaterialButton_strokeWidth = global::System.Application.Launch.Resource.Styleable.MaterialButton_strokeWidth;
+			global::System.Application.Resource.Styleable.MaterialCalendar = global::System.Application.Launch.Resource.Styleable.MaterialCalendar;
+			global::System.Application.Resource.Styleable.MaterialCalendarItem = global::System.Application.Launch.Resource.Styleable.MaterialCalendarItem;
+			global::System.Application.Resource.Styleable.MaterialCalendarItem_android_insetBottom = global::System.Application.Launch.Resource.Styleable.MaterialCalendarItem_android_insetBottom;
+			global::System.Application.Resource.Styleable.MaterialCalendarItem_android_insetLeft = global::System.Application.Launch.Resource.Styleable.MaterialCalendarItem_android_insetLeft;
+			global::System.Application.Resource.Styleable.MaterialCalendarItem_android_insetRight = global::System.Application.Launch.Resource.Styleable.MaterialCalendarItem_android_insetRight;
+			global::System.Application.Resource.Styleable.MaterialCalendarItem_android_insetTop = global::System.Application.Launch.Resource.Styleable.MaterialCalendarItem_android_insetTop;
+			global::System.Application.Resource.Styleable.MaterialCalendarItem_itemFillColor = global::System.Application.Launch.Resource.Styleable.MaterialCalendarItem_itemFillColor;
+			global::System.Application.Resource.Styleable.MaterialCalendarItem_itemShapeAppearance = global::System.Application.Launch.Resource.Styleable.MaterialCalendarItem_itemShapeAppearance;
+			global::System.Application.Resource.Styleable.MaterialCalendarItem_itemShapeAppearanceOverlay = global::System.Application.Launch.Resource.Styleable.MaterialCalendarItem_itemShapeAppearanceOverlay;
+			global::System.Application.Resource.Styleable.MaterialCalendarItem_itemStrokeColor = global::System.Application.Launch.Resource.Styleable.MaterialCalendarItem_itemStrokeColor;
+			global::System.Application.Resource.Styleable.MaterialCalendarItem_itemStrokeWidth = global::System.Application.Launch.Resource.Styleable.MaterialCalendarItem_itemStrokeWidth;
+			global::System.Application.Resource.Styleable.MaterialCalendarItem_itemTextColor = global::System.Application.Launch.Resource.Styleable.MaterialCalendarItem_itemTextColor;
+			global::System.Application.Resource.Styleable.MaterialCalendar_android_windowFullscreen = global::System.Application.Launch.Resource.Styleable.MaterialCalendar_android_windowFullscreen;
+			global::System.Application.Resource.Styleable.MaterialCalendar_dayInvalidStyle = global::System.Application.Launch.Resource.Styleable.MaterialCalendar_dayInvalidStyle;
+			global::System.Application.Resource.Styleable.MaterialCalendar_daySelectedStyle = global::System.Application.Launch.Resource.Styleable.MaterialCalendar_daySelectedStyle;
+			global::System.Application.Resource.Styleable.MaterialCalendar_dayStyle = global::System.Application.Launch.Resource.Styleable.MaterialCalendar_dayStyle;
+			global::System.Application.Resource.Styleable.MaterialCalendar_dayTodayStyle = global::System.Application.Launch.Resource.Styleable.MaterialCalendar_dayTodayStyle;
+			global::System.Application.Resource.Styleable.MaterialCalendar_rangeFillColor = global::System.Application.Launch.Resource.Styleable.MaterialCalendar_rangeFillColor;
+			global::System.Application.Resource.Styleable.MaterialCalendar_yearSelectedStyle = global::System.Application.Launch.Resource.Styleable.MaterialCalendar_yearSelectedStyle;
+			global::System.Application.Resource.Styleable.MaterialCalendar_yearStyle = global::System.Application.Launch.Resource.Styleable.MaterialCalendar_yearStyle;
+			global::System.Application.Resource.Styleable.MaterialCalendar_yearTodayStyle = global::System.Application.Launch.Resource.Styleable.MaterialCalendar_yearTodayStyle;
+			global::System.Application.Resource.Styleable.MaterialCardView = global::System.Application.Launch.Resource.Styleable.MaterialCardView;
+			global::System.Application.Resource.Styleable.MaterialCardView_android_checkable = global::System.Application.Launch.Resource.Styleable.MaterialCardView_android_checkable;
+			global::System.Application.Resource.Styleable.MaterialCardView_cardForegroundColor = global::System.Application.Launch.Resource.Styleable.MaterialCardView_cardForegroundColor;
+			global::System.Application.Resource.Styleable.MaterialCardView_checkedIcon = global::System.Application.Launch.Resource.Styleable.MaterialCardView_checkedIcon;
+			global::System.Application.Resource.Styleable.MaterialCardView_checkedIconTint = global::System.Application.Launch.Resource.Styleable.MaterialCardView_checkedIconTint;
+			global::System.Application.Resource.Styleable.MaterialCardView_rippleColor = global::System.Application.Launch.Resource.Styleable.MaterialCardView_rippleColor;
+			global::System.Application.Resource.Styleable.MaterialCardView_shapeAppearance = global::System.Application.Launch.Resource.Styleable.MaterialCardView_shapeAppearance;
+			global::System.Application.Resource.Styleable.MaterialCardView_shapeAppearanceOverlay = global::System.Application.Launch.Resource.Styleable.MaterialCardView_shapeAppearanceOverlay;
+			global::System.Application.Resource.Styleable.MaterialCardView_state_dragged = global::System.Application.Launch.Resource.Styleable.MaterialCardView_state_dragged;
+			global::System.Application.Resource.Styleable.MaterialCardView_strokeColor = global::System.Application.Launch.Resource.Styleable.MaterialCardView_strokeColor;
+			global::System.Application.Resource.Styleable.MaterialCardView_strokeWidth = global::System.Application.Launch.Resource.Styleable.MaterialCardView_strokeWidth;
+			global::System.Application.Resource.Styleable.MaterialCheckBox = global::System.Application.Launch.Resource.Styleable.MaterialCheckBox;
+			global::System.Application.Resource.Styleable.MaterialCheckBox_buttonTint = global::System.Application.Launch.Resource.Styleable.MaterialCheckBox_buttonTint;
+			global::System.Application.Resource.Styleable.MaterialCheckBox_useMaterialThemeColors = global::System.Application.Launch.Resource.Styleable.MaterialCheckBox_useMaterialThemeColors;
+			global::System.Application.Resource.Styleable.MaterialRadioButton = global::System.Application.Launch.Resource.Styleable.MaterialRadioButton;
+			global::System.Application.Resource.Styleable.MaterialRadioButton_buttonTint = global::System.Application.Launch.Resource.Styleable.MaterialRadioButton_buttonTint;
+			global::System.Application.Resource.Styleable.MaterialRadioButton_useMaterialThemeColors = global::System.Application.Launch.Resource.Styleable.MaterialRadioButton_useMaterialThemeColors;
+			global::System.Application.Resource.Styleable.MaterialShape = global::System.Application.Launch.Resource.Styleable.MaterialShape;
+			global::System.Application.Resource.Styleable.MaterialShape_shapeAppearance = global::System.Application.Launch.Resource.Styleable.MaterialShape_shapeAppearance;
+			global::System.Application.Resource.Styleable.MaterialShape_shapeAppearanceOverlay = global::System.Application.Launch.Resource.Styleable.MaterialShape_shapeAppearanceOverlay;
+			global::System.Application.Resource.Styleable.MaterialTextAppearance = global::System.Application.Launch.Resource.Styleable.MaterialTextAppearance;
+			global::System.Application.Resource.Styleable.MaterialTextAppearance_android_lineHeight = global::System.Application.Launch.Resource.Styleable.MaterialTextAppearance_android_lineHeight;
+			global::System.Application.Resource.Styleable.MaterialTextAppearance_lineHeight = global::System.Application.Launch.Resource.Styleable.MaterialTextAppearance_lineHeight;
+			global::System.Application.Resource.Styleable.MaterialTextView = global::System.Application.Launch.Resource.Styleable.MaterialTextView;
+			global::System.Application.Resource.Styleable.MaterialTextView_android_lineHeight = global::System.Application.Launch.Resource.Styleable.MaterialTextView_android_lineHeight;
+			global::System.Application.Resource.Styleable.MaterialTextView_android_textAppearance = global::System.Application.Launch.Resource.Styleable.MaterialTextView_android_textAppearance;
+			global::System.Application.Resource.Styleable.MaterialTextView_lineHeight = global::System.Application.Launch.Resource.Styleable.MaterialTextView_lineHeight;
+			global::System.Application.Resource.Styleable.MenuGroup = global::System.Application.Launch.Resource.Styleable.MenuGroup;
+			global::System.Application.Resource.Styleable.MenuGroup_android_checkableBehavior = global::System.Application.Launch.Resource.Styleable.MenuGroup_android_checkableBehavior;
+			global::System.Application.Resource.Styleable.MenuGroup_android_enabled = global::System.Application.Launch.Resource.Styleable.MenuGroup_android_enabled;
+			global::System.Application.Resource.Styleable.MenuGroup_android_id = global::System.Application.Launch.Resource.Styleable.MenuGroup_android_id;
+			global::System.Application.Resource.Styleable.MenuGroup_android_menuCategory = global::System.Application.Launch.Resource.Styleable.MenuGroup_android_menuCategory;
+			global::System.Application.Resource.Styleable.MenuGroup_android_orderInCategory = global::System.Application.Launch.Resource.Styleable.MenuGroup_android_orderInCategory;
+			global::System.Application.Resource.Styleable.MenuGroup_android_visible = global::System.Application.Launch.Resource.Styleable.MenuGroup_android_visible;
+			global::System.Application.Resource.Styleable.MenuItem = global::System.Application.Launch.Resource.Styleable.MenuItem;
+			global::System.Application.Resource.Styleable.MenuItem_actionLayout = global::System.Application.Launch.Resource.Styleable.MenuItem_actionLayout;
+			global::System.Application.Resource.Styleable.MenuItem_actionProviderClass = global::System.Application.Launch.Resource.Styleable.MenuItem_actionProviderClass;
+			global::System.Application.Resource.Styleable.MenuItem_actionViewClass = global::System.Application.Launch.Resource.Styleable.MenuItem_actionViewClass;
+			global::System.Application.Resource.Styleable.MenuItem_alphabeticModifiers = global::System.Application.Launch.Resource.Styleable.MenuItem_alphabeticModifiers;
+			global::System.Application.Resource.Styleable.MenuItem_android_alphabeticShortcut = global::System.Application.Launch.Resource.Styleable.MenuItem_android_alphabeticShortcut;
+			global::System.Application.Resource.Styleable.MenuItem_android_checkable = global::System.Application.Launch.Resource.Styleable.MenuItem_android_checkable;
+			global::System.Application.Resource.Styleable.MenuItem_android_checked = global::System.Application.Launch.Resource.Styleable.MenuItem_android_checked;
+			global::System.Application.Resource.Styleable.MenuItem_android_enabled = global::System.Application.Launch.Resource.Styleable.MenuItem_android_enabled;
+			global::System.Application.Resource.Styleable.MenuItem_android_icon = global::System.Application.Launch.Resource.Styleable.MenuItem_android_icon;
+			global::System.Application.Resource.Styleable.MenuItem_android_id = global::System.Application.Launch.Resource.Styleable.MenuItem_android_id;
+			global::System.Application.Resource.Styleable.MenuItem_android_menuCategory = global::System.Application.Launch.Resource.Styleable.MenuItem_android_menuCategory;
+			global::System.Application.Resource.Styleable.MenuItem_android_numericShortcut = global::System.Application.Launch.Resource.Styleable.MenuItem_android_numericShortcut;
+			global::System.Application.Resource.Styleable.MenuItem_android_onClick = global::System.Application.Launch.Resource.Styleable.MenuItem_android_onClick;
+			global::System.Application.Resource.Styleable.MenuItem_android_orderInCategory = global::System.Application.Launch.Resource.Styleable.MenuItem_android_orderInCategory;
+			global::System.Application.Resource.Styleable.MenuItem_android_title = global::System.Application.Launch.Resource.Styleable.MenuItem_android_title;
+			global::System.Application.Resource.Styleable.MenuItem_android_titleCondensed = global::System.Application.Launch.Resource.Styleable.MenuItem_android_titleCondensed;
+			global::System.Application.Resource.Styleable.MenuItem_android_visible = global::System.Application.Launch.Resource.Styleable.MenuItem_android_visible;
+			global::System.Application.Resource.Styleable.MenuItem_contentDescription = global::System.Application.Launch.Resource.Styleable.MenuItem_contentDescription;
+			global::System.Application.Resource.Styleable.MenuItem_iconTint = global::System.Application.Launch.Resource.Styleable.MenuItem_iconTint;
+			global::System.Application.Resource.Styleable.MenuItem_iconTintMode = global::System.Application.Launch.Resource.Styleable.MenuItem_iconTintMode;
+			global::System.Application.Resource.Styleable.MenuItem_numericModifiers = global::System.Application.Launch.Resource.Styleable.MenuItem_numericModifiers;
+			global::System.Application.Resource.Styleable.MenuItem_showAsAction = global::System.Application.Launch.Resource.Styleable.MenuItem_showAsAction;
+			global::System.Application.Resource.Styleable.MenuItem_tooltipText = global::System.Application.Launch.Resource.Styleable.MenuItem_tooltipText;
+			global::System.Application.Resource.Styleable.MenuView = global::System.Application.Launch.Resource.Styleable.MenuView;
+			global::System.Application.Resource.Styleable.MenuView_android_headerBackground = global::System.Application.Launch.Resource.Styleable.MenuView_android_headerBackground;
+			global::System.Application.Resource.Styleable.MenuView_android_horizontalDivider = global::System.Application.Launch.Resource.Styleable.MenuView_android_horizontalDivider;
+			global::System.Application.Resource.Styleable.MenuView_android_itemBackground = global::System.Application.Launch.Resource.Styleable.MenuView_android_itemBackground;
+			global::System.Application.Resource.Styleable.MenuView_android_itemIconDisabledAlpha = global::System.Application.Launch.Resource.Styleable.MenuView_android_itemIconDisabledAlpha;
+			global::System.Application.Resource.Styleable.MenuView_android_itemTextAppearance = global::System.Application.Launch.Resource.Styleable.MenuView_android_itemTextAppearance;
+			global::System.Application.Resource.Styleable.MenuView_android_verticalDivider = global::System.Application.Launch.Resource.Styleable.MenuView_android_verticalDivider;
+			global::System.Application.Resource.Styleable.MenuView_android_windowAnimationStyle = global::System.Application.Launch.Resource.Styleable.MenuView_android_windowAnimationStyle;
+			global::System.Application.Resource.Styleable.MenuView_preserveIconSpacing = global::System.Application.Launch.Resource.Styleable.MenuView_preserveIconSpacing;
+			global::System.Application.Resource.Styleable.MenuView_subMenuArrow = global::System.Application.Launch.Resource.Styleable.MenuView_subMenuArrow;
+			global::System.Application.Resource.Styleable.NavigationView = global::System.Application.Launch.Resource.Styleable.NavigationView;
+			global::System.Application.Resource.Styleable.NavigationView_android_background = global::System.Application.Launch.Resource.Styleable.NavigationView_android_background;
+			global::System.Application.Resource.Styleable.NavigationView_android_fitsSystemWindows = global::System.Application.Launch.Resource.Styleable.NavigationView_android_fitsSystemWindows;
+			global::System.Application.Resource.Styleable.NavigationView_android_maxWidth = global::System.Application.Launch.Resource.Styleable.NavigationView_android_maxWidth;
+			global::System.Application.Resource.Styleable.NavigationView_elevation = global::System.Application.Launch.Resource.Styleable.NavigationView_elevation;
+			global::System.Application.Resource.Styleable.NavigationView_headerLayout = global::System.Application.Launch.Resource.Styleable.NavigationView_headerLayout;
+			global::System.Application.Resource.Styleable.NavigationView_itemBackground = global::System.Application.Launch.Resource.Styleable.NavigationView_itemBackground;
+			global::System.Application.Resource.Styleable.NavigationView_itemHorizontalPadding = global::System.Application.Launch.Resource.Styleable.NavigationView_itemHorizontalPadding;
+			global::System.Application.Resource.Styleable.NavigationView_itemIconPadding = global::System.Application.Launch.Resource.Styleable.NavigationView_itemIconPadding;
+			global::System.Application.Resource.Styleable.NavigationView_itemIconSize = global::System.Application.Launch.Resource.Styleable.NavigationView_itemIconSize;
+			global::System.Application.Resource.Styleable.NavigationView_itemIconTint = global::System.Application.Launch.Resource.Styleable.NavigationView_itemIconTint;
+			global::System.Application.Resource.Styleable.NavigationView_itemMaxLines = global::System.Application.Launch.Resource.Styleable.NavigationView_itemMaxLines;
+			global::System.Application.Resource.Styleable.NavigationView_itemShapeAppearance = global::System.Application.Launch.Resource.Styleable.NavigationView_itemShapeAppearance;
+			global::System.Application.Resource.Styleable.NavigationView_itemShapeAppearanceOverlay = global::System.Application.Launch.Resource.Styleable.NavigationView_itemShapeAppearanceOverlay;
+			global::System.Application.Resource.Styleable.NavigationView_itemShapeFillColor = global::System.Application.Launch.Resource.Styleable.NavigationView_itemShapeFillColor;
+			global::System.Application.Resource.Styleable.NavigationView_itemShapeInsetBottom = global::System.Application.Launch.Resource.Styleable.NavigationView_itemShapeInsetBottom;
+			global::System.Application.Resource.Styleable.NavigationView_itemShapeInsetEnd = global::System.Application.Launch.Resource.Styleable.NavigationView_itemShapeInsetEnd;
+			global::System.Application.Resource.Styleable.NavigationView_itemShapeInsetStart = global::System.Application.Launch.Resource.Styleable.NavigationView_itemShapeInsetStart;
+			global::System.Application.Resource.Styleable.NavigationView_itemShapeInsetTop = global::System.Application.Launch.Resource.Styleable.NavigationView_itemShapeInsetTop;
+			global::System.Application.Resource.Styleable.NavigationView_itemTextAppearance = global::System.Application.Launch.Resource.Styleable.NavigationView_itemTextAppearance;
+			global::System.Application.Resource.Styleable.NavigationView_itemTextColor = global::System.Application.Launch.Resource.Styleable.NavigationView_itemTextColor;
+			global::System.Application.Resource.Styleable.NavigationView_menu = global::System.Application.Launch.Resource.Styleable.NavigationView_menu;
+			global::System.Application.Resource.Styleable.PopupWindow = global::System.Application.Launch.Resource.Styleable.PopupWindow;
+			global::System.Application.Resource.Styleable.PopupWindowBackgroundState = global::System.Application.Launch.Resource.Styleable.PopupWindowBackgroundState;
+			global::System.Application.Resource.Styleable.PopupWindowBackgroundState_state_above_anchor = global::System.Application.Launch.Resource.Styleable.PopupWindowBackgroundState_state_above_anchor;
+			global::System.Application.Resource.Styleable.PopupWindow_android_popupAnimationStyle = global::System.Application.Launch.Resource.Styleable.PopupWindow_android_popupAnimationStyle;
+			global::System.Application.Resource.Styleable.PopupWindow_android_popupBackground = global::System.Application.Launch.Resource.Styleable.PopupWindow_android_popupBackground;
+			global::System.Application.Resource.Styleable.PopupWindow_overlapAnchor = global::System.Application.Launch.Resource.Styleable.PopupWindow_overlapAnchor;
+			global::System.Application.Resource.Styleable.RangeSlider = global::System.Application.Launch.Resource.Styleable.RangeSlider;
+			global::System.Application.Resource.Styleable.RangeSlider_values = global::System.Application.Launch.Resource.Styleable.RangeSlider_values;
+			global::System.Application.Resource.Styleable.RecycleListView = global::System.Application.Launch.Resource.Styleable.RecycleListView;
+			global::System.Application.Resource.Styleable.RecycleListView_paddingBottomNoButtons = global::System.Application.Launch.Resource.Styleable.RecycleListView_paddingBottomNoButtons;
+			global::System.Application.Resource.Styleable.RecycleListView_paddingTopNoTitle = global::System.Application.Launch.Resource.Styleable.RecycleListView_paddingTopNoTitle;
+			global::System.Application.Resource.Styleable.RecyclerView = global::System.Application.Launch.Resource.Styleable.RecyclerView;
+			global::System.Application.Resource.Styleable.RecyclerView_android_clipToPadding = global::System.Application.Launch.Resource.Styleable.RecyclerView_android_clipToPadding;
+			global::System.Application.Resource.Styleable.RecyclerView_android_descendantFocusability = global::System.Application.Launch.Resource.Styleable.RecyclerView_android_descendantFocusability;
+			global::System.Application.Resource.Styleable.RecyclerView_android_orientation = global::System.Application.Launch.Resource.Styleable.RecyclerView_android_orientation;
+			global::System.Application.Resource.Styleable.RecyclerView_fastScrollEnabled = global::System.Application.Launch.Resource.Styleable.RecyclerView_fastScrollEnabled;
+			global::System.Application.Resource.Styleable.RecyclerView_fastScrollHorizontalThumbDrawable = global::System.Application.Launch.Resource.Styleable.RecyclerView_fastScrollHorizontalThumbDrawable;
+			global::System.Application.Resource.Styleable.RecyclerView_fastScrollHorizontalTrackDrawable = global::System.Application.Launch.Resource.Styleable.RecyclerView_fastScrollHorizontalTrackDrawable;
+			global::System.Application.Resource.Styleable.RecyclerView_fastScrollVerticalThumbDrawable = global::System.Application.Launch.Resource.Styleable.RecyclerView_fastScrollVerticalThumbDrawable;
+			global::System.Application.Resource.Styleable.RecyclerView_fastScrollVerticalTrackDrawable = global::System.Application.Launch.Resource.Styleable.RecyclerView_fastScrollVerticalTrackDrawable;
+			global::System.Application.Resource.Styleable.RecyclerView_layoutManager = global::System.Application.Launch.Resource.Styleable.RecyclerView_layoutManager;
+			global::System.Application.Resource.Styleable.RecyclerView_reverseLayout = global::System.Application.Launch.Resource.Styleable.RecyclerView_reverseLayout;
+			global::System.Application.Resource.Styleable.RecyclerView_spanCount = global::System.Application.Launch.Resource.Styleable.RecyclerView_spanCount;
+			global::System.Application.Resource.Styleable.RecyclerView_stackFromEnd = global::System.Application.Launch.Resource.Styleable.RecyclerView_stackFromEnd;
+			global::System.Application.Resource.Styleable.ScrimInsetsFrameLayout = global::System.Application.Launch.Resource.Styleable.ScrimInsetsFrameLayout;
+			global::System.Application.Resource.Styleable.ScrimInsetsFrameLayout_insetForeground = global::System.Application.Launch.Resource.Styleable.ScrimInsetsFrameLayout_insetForeground;
+			global::System.Application.Resource.Styleable.ScrollingViewBehavior_Layout = global::System.Application.Launch.Resource.Styleable.ScrollingViewBehavior_Layout;
+			global::System.Application.Resource.Styleable.ScrollingViewBehavior_Layout_behavior_overlapTop = global::System.Application.Launch.Resource.Styleable.ScrollingViewBehavior_Layout_behavior_overlapTop;
+			global::System.Application.Resource.Styleable.ScrollViewRendererTheme = global::System.Application.Launch.Resource.Styleable.ScrollViewRendererTheme;
+			global::System.Application.Resource.Styleable.ScrollViewRendererTheme_scrollViewStyle = global::System.Application.Launch.Resource.Styleable.ScrollViewRendererTheme_scrollViewStyle;
+			global::System.Application.Resource.Styleable.SearchView = global::System.Application.Launch.Resource.Styleable.SearchView;
+			global::System.Application.Resource.Styleable.SearchView_android_focusable = global::System.Application.Launch.Resource.Styleable.SearchView_android_focusable;
+			global::System.Application.Resource.Styleable.SearchView_android_imeOptions = global::System.Application.Launch.Resource.Styleable.SearchView_android_imeOptions;
+			global::System.Application.Resource.Styleable.SearchView_android_inputType = global::System.Application.Launch.Resource.Styleable.SearchView_android_inputType;
+			global::System.Application.Resource.Styleable.SearchView_android_maxWidth = global::System.Application.Launch.Resource.Styleable.SearchView_android_maxWidth;
+			global::System.Application.Resource.Styleable.SearchView_closeIcon = global::System.Application.Launch.Resource.Styleable.SearchView_closeIcon;
+			global::System.Application.Resource.Styleable.SearchView_commitIcon = global::System.Application.Launch.Resource.Styleable.SearchView_commitIcon;
+			global::System.Application.Resource.Styleable.SearchView_defaultQueryHint = global::System.Application.Launch.Resource.Styleable.SearchView_defaultQueryHint;
+			global::System.Application.Resource.Styleable.SearchView_goIcon = global::System.Application.Launch.Resource.Styleable.SearchView_goIcon;
+			global::System.Application.Resource.Styleable.SearchView_iconifiedByDefault = global::System.Application.Launch.Resource.Styleable.SearchView_iconifiedByDefault;
+			global::System.Application.Resource.Styleable.SearchView_layout = global::System.Application.Launch.Resource.Styleable.SearchView_layout;
+			global::System.Application.Resource.Styleable.SearchView_queryBackground = global::System.Application.Launch.Resource.Styleable.SearchView_queryBackground;
+			global::System.Application.Resource.Styleable.SearchView_queryHint = global::System.Application.Launch.Resource.Styleable.SearchView_queryHint;
+			global::System.Application.Resource.Styleable.SearchView_searchHintIcon = global::System.Application.Launch.Resource.Styleable.SearchView_searchHintIcon;
+			global::System.Application.Resource.Styleable.SearchView_searchIcon = global::System.Application.Launch.Resource.Styleable.SearchView_searchIcon;
+			global::System.Application.Resource.Styleable.SearchView_submitBackground = global::System.Application.Launch.Resource.Styleable.SearchView_submitBackground;
+			global::System.Application.Resource.Styleable.SearchView_suggestionRowLayout = global::System.Application.Launch.Resource.Styleable.SearchView_suggestionRowLayout;
+			global::System.Application.Resource.Styleable.SearchView_voiceIcon = global::System.Application.Launch.Resource.Styleable.SearchView_voiceIcon;
+			global::System.Application.Resource.Styleable.ShapeableImageView = global::System.Application.Launch.Resource.Styleable.ShapeableImageView;
+			global::System.Application.Resource.Styleable.ShapeableImageView_shapeAppearance = global::System.Application.Launch.Resource.Styleable.ShapeableImageView_shapeAppearance;
+			global::System.Application.Resource.Styleable.ShapeableImageView_shapeAppearanceOverlay = global::System.Application.Launch.Resource.Styleable.ShapeableImageView_shapeAppearanceOverlay;
+			global::System.Application.Resource.Styleable.ShapeableImageView_strokeColor = global::System.Application.Launch.Resource.Styleable.ShapeableImageView_strokeColor;
+			global::System.Application.Resource.Styleable.ShapeableImageView_strokeWidth = global::System.Application.Launch.Resource.Styleable.ShapeableImageView_strokeWidth;
+			global::System.Application.Resource.Styleable.ShapeAppearance = global::System.Application.Launch.Resource.Styleable.ShapeAppearance;
+			global::System.Application.Resource.Styleable.ShapeAppearance_cornerFamily = global::System.Application.Launch.Resource.Styleable.ShapeAppearance_cornerFamily;
+			global::System.Application.Resource.Styleable.ShapeAppearance_cornerFamilyBottomLeft = global::System.Application.Launch.Resource.Styleable.ShapeAppearance_cornerFamilyBottomLeft;
+			global::System.Application.Resource.Styleable.ShapeAppearance_cornerFamilyBottomRight = global::System.Application.Launch.Resource.Styleable.ShapeAppearance_cornerFamilyBottomRight;
+			global::System.Application.Resource.Styleable.ShapeAppearance_cornerFamilyTopLeft = global::System.Application.Launch.Resource.Styleable.ShapeAppearance_cornerFamilyTopLeft;
+			global::System.Application.Resource.Styleable.ShapeAppearance_cornerFamilyTopRight = global::System.Application.Launch.Resource.Styleable.ShapeAppearance_cornerFamilyTopRight;
+			global::System.Application.Resource.Styleable.ShapeAppearance_cornerSize = global::System.Application.Launch.Resource.Styleable.ShapeAppearance_cornerSize;
+			global::System.Application.Resource.Styleable.ShapeAppearance_cornerSizeBottomLeft = global::System.Application.Launch.Resource.Styleable.ShapeAppearance_cornerSizeBottomLeft;
+			global::System.Application.Resource.Styleable.ShapeAppearance_cornerSizeBottomRight = global::System.Application.Launch.Resource.Styleable.ShapeAppearance_cornerSizeBottomRight;
+			global::System.Application.Resource.Styleable.ShapeAppearance_cornerSizeTopLeft = global::System.Application.Launch.Resource.Styleable.ShapeAppearance_cornerSizeTopLeft;
+			global::System.Application.Resource.Styleable.ShapeAppearance_cornerSizeTopRight = global::System.Application.Launch.Resource.Styleable.ShapeAppearance_cornerSizeTopRight;
+			global::System.Application.Resource.Styleable.Slider = global::System.Application.Launch.Resource.Styleable.Slider;
+			global::System.Application.Resource.Styleable.Slider_android_enabled = global::System.Application.Launch.Resource.Styleable.Slider_android_enabled;
+			global::System.Application.Resource.Styleable.Slider_android_stepSize = global::System.Application.Launch.Resource.Styleable.Slider_android_stepSize;
+			global::System.Application.Resource.Styleable.Slider_android_value = global::System.Application.Launch.Resource.Styleable.Slider_android_value;
+			global::System.Application.Resource.Styleable.Slider_android_valueFrom = global::System.Application.Launch.Resource.Styleable.Slider_android_valueFrom;
+			global::System.Application.Resource.Styleable.Slider_android_valueTo = global::System.Application.Launch.Resource.Styleable.Slider_android_valueTo;
+			global::System.Application.Resource.Styleable.Slider_haloColor = global::System.Application.Launch.Resource.Styleable.Slider_haloColor;
+			global::System.Application.Resource.Styleable.Slider_haloRadius = global::System.Application.Launch.Resource.Styleable.Slider_haloRadius;
+			global::System.Application.Resource.Styleable.Slider_labelBehavior = global::System.Application.Launch.Resource.Styleable.Slider_labelBehavior;
+			global::System.Application.Resource.Styleable.Slider_labelStyle = global::System.Application.Launch.Resource.Styleable.Slider_labelStyle;
+			global::System.Application.Resource.Styleable.Slider_thumbColor = global::System.Application.Launch.Resource.Styleable.Slider_thumbColor;
+			global::System.Application.Resource.Styleable.Slider_thumbElevation = global::System.Application.Launch.Resource.Styleable.Slider_thumbElevation;
+			global::System.Application.Resource.Styleable.Slider_thumbRadius = global::System.Application.Launch.Resource.Styleable.Slider_thumbRadius;
+			global::System.Application.Resource.Styleable.Slider_tickColor = global::System.Application.Launch.Resource.Styleable.Slider_tickColor;
+			global::System.Application.Resource.Styleable.Slider_tickColorActive = global::System.Application.Launch.Resource.Styleable.Slider_tickColorActive;
+			global::System.Application.Resource.Styleable.Slider_tickColorInactive = global::System.Application.Launch.Resource.Styleable.Slider_tickColorInactive;
+			global::System.Application.Resource.Styleable.Slider_trackColor = global::System.Application.Launch.Resource.Styleable.Slider_trackColor;
+			global::System.Application.Resource.Styleable.Slider_trackColorActive = global::System.Application.Launch.Resource.Styleable.Slider_trackColorActive;
+			global::System.Application.Resource.Styleable.Slider_trackColorInactive = global::System.Application.Launch.Resource.Styleable.Slider_trackColorInactive;
+			global::System.Application.Resource.Styleable.Slider_trackHeight = global::System.Application.Launch.Resource.Styleable.Slider_trackHeight;
+			global::System.Application.Resource.Styleable.Snackbar = global::System.Application.Launch.Resource.Styleable.Snackbar;
+			global::System.Application.Resource.Styleable.SnackbarLayout = global::System.Application.Launch.Resource.Styleable.SnackbarLayout;
+			global::System.Application.Resource.Styleable.SnackbarLayout_actionTextColorAlpha = global::System.Application.Launch.Resource.Styleable.SnackbarLayout_actionTextColorAlpha;
+			global::System.Application.Resource.Styleable.SnackbarLayout_android_maxWidth = global::System.Application.Launch.Resource.Styleable.SnackbarLayout_android_maxWidth;
+			global::System.Application.Resource.Styleable.SnackbarLayout_animationMode = global::System.Application.Launch.Resource.Styleable.SnackbarLayout_animationMode;
+			global::System.Application.Resource.Styleable.SnackbarLayout_backgroundOverlayColorAlpha = global::System.Application.Launch.Resource.Styleable.SnackbarLayout_backgroundOverlayColorAlpha;
+			global::System.Application.Resource.Styleable.SnackbarLayout_backgroundTint = global::System.Application.Launch.Resource.Styleable.SnackbarLayout_backgroundTint;
+			global::System.Application.Resource.Styleable.SnackbarLayout_backgroundTintMode = global::System.Application.Launch.Resource.Styleable.SnackbarLayout_backgroundTintMode;
+			global::System.Application.Resource.Styleable.SnackbarLayout_elevation = global::System.Application.Launch.Resource.Styleable.SnackbarLayout_elevation;
+			global::System.Application.Resource.Styleable.SnackbarLayout_maxActionInlineWidth = global::System.Application.Launch.Resource.Styleable.SnackbarLayout_maxActionInlineWidth;
+			global::System.Application.Resource.Styleable.Snackbar_snackbarButtonStyle = global::System.Application.Launch.Resource.Styleable.Snackbar_snackbarButtonStyle;
+			global::System.Application.Resource.Styleable.Snackbar_snackbarStyle = global::System.Application.Launch.Resource.Styleable.Snackbar_snackbarStyle;
+			global::System.Application.Resource.Styleable.Snackbar_snackbarTextViewStyle = global::System.Application.Launch.Resource.Styleable.Snackbar_snackbarTextViewStyle;
+			global::System.Application.Resource.Styleable.Spinner = global::System.Application.Launch.Resource.Styleable.Spinner;
+			global::System.Application.Resource.Styleable.Spinner_android_dropDownWidth = global::System.Application.Launch.Resource.Styleable.Spinner_android_dropDownWidth;
+			global::System.Application.Resource.Styleable.Spinner_android_entries = global::System.Application.Launch.Resource.Styleable.Spinner_android_entries;
+			global::System.Application.Resource.Styleable.Spinner_android_popupBackground = global::System.Application.Launch.Resource.Styleable.Spinner_android_popupBackground;
+			global::System.Application.Resource.Styleable.Spinner_android_prompt = global::System.Application.Launch.Resource.Styleable.Spinner_android_prompt;
+			global::System.Application.Resource.Styleable.Spinner_popupTheme = global::System.Application.Launch.Resource.Styleable.Spinner_popupTheme;
+			global::System.Application.Resource.Styleable.StateListDrawable = global::System.Application.Launch.Resource.Styleable.StateListDrawable;
+			global::System.Application.Resource.Styleable.StateListDrawableItem = global::System.Application.Launch.Resource.Styleable.StateListDrawableItem;
+			global::System.Application.Resource.Styleable.StateListDrawableItem_android_drawable = global::System.Application.Launch.Resource.Styleable.StateListDrawableItem_android_drawable;
+			global::System.Application.Resource.Styleable.StateListDrawable_android_constantSize = global::System.Application.Launch.Resource.Styleable.StateListDrawable_android_constantSize;
+			global::System.Application.Resource.Styleable.StateListDrawable_android_dither = global::System.Application.Launch.Resource.Styleable.StateListDrawable_android_dither;
+			global::System.Application.Resource.Styleable.StateListDrawable_android_enterFadeDuration = global::System.Application.Launch.Resource.Styleable.StateListDrawable_android_enterFadeDuration;
+			global::System.Application.Resource.Styleable.StateListDrawable_android_exitFadeDuration = global::System.Application.Launch.Resource.Styleable.StateListDrawable_android_exitFadeDuration;
+			global::System.Application.Resource.Styleable.StateListDrawable_android_variablePadding = global::System.Application.Launch.Resource.Styleable.StateListDrawable_android_variablePadding;
+			global::System.Application.Resource.Styleable.StateListDrawable_android_visible = global::System.Application.Launch.Resource.Styleable.StateListDrawable_android_visible;
+			global::System.Application.Resource.Styleable.SwipeRefreshLayout = global::System.Application.Launch.Resource.Styleable.SwipeRefreshLayout;
+			global::System.Application.Resource.Styleable.SwipeRefreshLayout_swipeRefreshLayoutProgressSpinnerBackgroundColor = global::System.Application.Launch.Resource.Styleable.SwipeRefreshLayout_swipeRefreshLayoutProgressSpinnerBackgroundColor;
+			global::System.Application.Resource.Styleable.SwitchCompat = global::System.Application.Launch.Resource.Styleable.SwitchCompat;
+			global::System.Application.Resource.Styleable.SwitchCompat_android_textOff = global::System.Application.Launch.Resource.Styleable.SwitchCompat_android_textOff;
+			global::System.Application.Resource.Styleable.SwitchCompat_android_textOn = global::System.Application.Launch.Resource.Styleable.SwitchCompat_android_textOn;
+			global::System.Application.Resource.Styleable.SwitchCompat_android_thumb = global::System.Application.Launch.Resource.Styleable.SwitchCompat_android_thumb;
+			global::System.Application.Resource.Styleable.SwitchCompat_showText = global::System.Application.Launch.Resource.Styleable.SwitchCompat_showText;
+			global::System.Application.Resource.Styleable.SwitchCompat_splitTrack = global::System.Application.Launch.Resource.Styleable.SwitchCompat_splitTrack;
+			global::System.Application.Resource.Styleable.SwitchCompat_switchMinWidth = global::System.Application.Launch.Resource.Styleable.SwitchCompat_switchMinWidth;
+			global::System.Application.Resource.Styleable.SwitchCompat_switchPadding = global::System.Application.Launch.Resource.Styleable.SwitchCompat_switchPadding;
+			global::System.Application.Resource.Styleable.SwitchCompat_switchTextAppearance = global::System.Application.Launch.Resource.Styleable.SwitchCompat_switchTextAppearance;
+			global::System.Application.Resource.Styleable.SwitchCompat_thumbTextPadding = global::System.Application.Launch.Resource.Styleable.SwitchCompat_thumbTextPadding;
+			global::System.Application.Resource.Styleable.SwitchCompat_thumbTint = global::System.Application.Launch.Resource.Styleable.SwitchCompat_thumbTint;
+			global::System.Application.Resource.Styleable.SwitchCompat_thumbTintMode = global::System.Application.Launch.Resource.Styleable.SwitchCompat_thumbTintMode;
+			global::System.Application.Resource.Styleable.SwitchCompat_track = global::System.Application.Launch.Resource.Styleable.SwitchCompat_track;
+			global::System.Application.Resource.Styleable.SwitchCompat_trackTint = global::System.Application.Launch.Resource.Styleable.SwitchCompat_trackTint;
+			global::System.Application.Resource.Styleable.SwitchCompat_trackTintMode = global::System.Application.Launch.Resource.Styleable.SwitchCompat_trackTintMode;
+			global::System.Application.Resource.Styleable.SwitchMaterial = global::System.Application.Launch.Resource.Styleable.SwitchMaterial;
+			global::System.Application.Resource.Styleable.SwitchMaterial_useMaterialThemeColors = global::System.Application.Launch.Resource.Styleable.SwitchMaterial_useMaterialThemeColors;
+			global::System.Application.Resource.Styleable.TabItem = global::System.Application.Launch.Resource.Styleable.TabItem;
+			global::System.Application.Resource.Styleable.TabItem_android_icon = global::System.Application.Launch.Resource.Styleable.TabItem_android_icon;
+			global::System.Application.Resource.Styleable.TabItem_android_layout = global::System.Application.Launch.Resource.Styleable.TabItem_android_layout;
+			global::System.Application.Resource.Styleable.TabItem_android_text = global::System.Application.Launch.Resource.Styleable.TabItem_android_text;
+			global::System.Application.Resource.Styleable.TabLayout = global::System.Application.Launch.Resource.Styleable.TabLayout;
+			global::System.Application.Resource.Styleable.TabLayout_tabBackground = global::System.Application.Launch.Resource.Styleable.TabLayout_tabBackground;
+			global::System.Application.Resource.Styleable.TabLayout_tabContentStart = global::System.Application.Launch.Resource.Styleable.TabLayout_tabContentStart;
+			global::System.Application.Resource.Styleable.TabLayout_tabGravity = global::System.Application.Launch.Resource.Styleable.TabLayout_tabGravity;
+			global::System.Application.Resource.Styleable.TabLayout_tabIconTint = global::System.Application.Launch.Resource.Styleable.TabLayout_tabIconTint;
+			global::System.Application.Resource.Styleable.TabLayout_tabIconTintMode = global::System.Application.Launch.Resource.Styleable.TabLayout_tabIconTintMode;
+			global::System.Application.Resource.Styleable.TabLayout_tabIndicator = global::System.Application.Launch.Resource.Styleable.TabLayout_tabIndicator;
+			global::System.Application.Resource.Styleable.TabLayout_tabIndicatorAnimationDuration = global::System.Application.Launch.Resource.Styleable.TabLayout_tabIndicatorAnimationDuration;
+			global::System.Application.Resource.Styleable.TabLayout_tabIndicatorColor = global::System.Application.Launch.Resource.Styleable.TabLayout_tabIndicatorColor;
+			global::System.Application.Resource.Styleable.TabLayout_tabIndicatorFullWidth = global::System.Application.Launch.Resource.Styleable.TabLayout_tabIndicatorFullWidth;
+			global::System.Application.Resource.Styleable.TabLayout_tabIndicatorGravity = global::System.Application.Launch.Resource.Styleable.TabLayout_tabIndicatorGravity;
+			global::System.Application.Resource.Styleable.TabLayout_tabIndicatorHeight = global::System.Application.Launch.Resource.Styleable.TabLayout_tabIndicatorHeight;
+			global::System.Application.Resource.Styleable.TabLayout_tabInlineLabel = global::System.Application.Launch.Resource.Styleable.TabLayout_tabInlineLabel;
+			global::System.Application.Resource.Styleable.TabLayout_tabMaxWidth = global::System.Application.Launch.Resource.Styleable.TabLayout_tabMaxWidth;
+			global::System.Application.Resource.Styleable.TabLayout_tabMinWidth = global::System.Application.Launch.Resource.Styleable.TabLayout_tabMinWidth;
+			global::System.Application.Resource.Styleable.TabLayout_tabMode = global::System.Application.Launch.Resource.Styleable.TabLayout_tabMode;
+			global::System.Application.Resource.Styleable.TabLayout_tabPadding = global::System.Application.Launch.Resource.Styleable.TabLayout_tabPadding;
+			global::System.Application.Resource.Styleable.TabLayout_tabPaddingBottom = global::System.Application.Launch.Resource.Styleable.TabLayout_tabPaddingBottom;
+			global::System.Application.Resource.Styleable.TabLayout_tabPaddingEnd = global::System.Application.Launch.Resource.Styleable.TabLayout_tabPaddingEnd;
+			global::System.Application.Resource.Styleable.TabLayout_tabPaddingStart = global::System.Application.Launch.Resource.Styleable.TabLayout_tabPaddingStart;
+			global::System.Application.Resource.Styleable.TabLayout_tabPaddingTop = global::System.Application.Launch.Resource.Styleable.TabLayout_tabPaddingTop;
+			global::System.Application.Resource.Styleable.TabLayout_tabRippleColor = global::System.Application.Launch.Resource.Styleable.TabLayout_tabRippleColor;
+			global::System.Application.Resource.Styleable.TabLayout_tabSelectedTextColor = global::System.Application.Launch.Resource.Styleable.TabLayout_tabSelectedTextColor;
+			global::System.Application.Resource.Styleable.TabLayout_tabTextAppearance = global::System.Application.Launch.Resource.Styleable.TabLayout_tabTextAppearance;
+			global::System.Application.Resource.Styleable.TabLayout_tabTextColor = global::System.Application.Launch.Resource.Styleable.TabLayout_tabTextColor;
+			global::System.Application.Resource.Styleable.TabLayout_tabUnboundedRipple = global::System.Application.Launch.Resource.Styleable.TabLayout_tabUnboundedRipple;
+			global::System.Application.Resource.Styleable.TextAppearance = global::System.Application.Launch.Resource.Styleable.TextAppearance;
+			global::System.Application.Resource.Styleable.TextAppearance_android_fontFamily = global::System.Application.Launch.Resource.Styleable.TextAppearance_android_fontFamily;
+			global::System.Application.Resource.Styleable.TextAppearance_android_shadowColor = global::System.Application.Launch.Resource.Styleable.TextAppearance_android_shadowColor;
+			global::System.Application.Resource.Styleable.TextAppearance_android_shadowDx = global::System.Application.Launch.Resource.Styleable.TextAppearance_android_shadowDx;
+			global::System.Application.Resource.Styleable.TextAppearance_android_shadowDy = global::System.Application.Launch.Resource.Styleable.TextAppearance_android_shadowDy;
+			global::System.Application.Resource.Styleable.TextAppearance_android_shadowRadius = global::System.Application.Launch.Resource.Styleable.TextAppearance_android_shadowRadius;
+			global::System.Application.Resource.Styleable.TextAppearance_android_textColor = global::System.Application.Launch.Resource.Styleable.TextAppearance_android_textColor;
+			global::System.Application.Resource.Styleable.TextAppearance_android_textColorHint = global::System.Application.Launch.Resource.Styleable.TextAppearance_android_textColorHint;
+			global::System.Application.Resource.Styleable.TextAppearance_android_textColorLink = global::System.Application.Launch.Resource.Styleable.TextAppearance_android_textColorLink;
+			global::System.Application.Resource.Styleable.TextAppearance_android_textFontWeight = global::System.Application.Launch.Resource.Styleable.TextAppearance_android_textFontWeight;
+			global::System.Application.Resource.Styleable.TextAppearance_android_textSize = global::System.Application.Launch.Resource.Styleable.TextAppearance_android_textSize;
+			global::System.Application.Resource.Styleable.TextAppearance_android_textStyle = global::System.Application.Launch.Resource.Styleable.TextAppearance_android_textStyle;
+			global::System.Application.Resource.Styleable.TextAppearance_android_typeface = global::System.Application.Launch.Resource.Styleable.TextAppearance_android_typeface;
+			global::System.Application.Resource.Styleable.TextAppearance_fontFamily = global::System.Application.Launch.Resource.Styleable.TextAppearance_fontFamily;
+			global::System.Application.Resource.Styleable.TextAppearance_fontVariationSettings = global::System.Application.Launch.Resource.Styleable.TextAppearance_fontVariationSettings;
+			global::System.Application.Resource.Styleable.TextAppearance_textAllCaps = global::System.Application.Launch.Resource.Styleable.TextAppearance_textAllCaps;
+			global::System.Application.Resource.Styleable.TextAppearance_textLocale = global::System.Application.Launch.Resource.Styleable.TextAppearance_textLocale;
+			global::System.Application.Resource.Styleable.TextInputEditText = global::System.Application.Launch.Resource.Styleable.TextInputEditText;
+			global::System.Application.Resource.Styleable.TextInputEditText_textInputLayoutFocusedRectEnabled = global::System.Application.Launch.Resource.Styleable.TextInputEditText_textInputLayoutFocusedRectEnabled;
+			global::System.Application.Resource.Styleable.TextInputLayout = global::System.Application.Launch.Resource.Styleable.TextInputLayout;
+			global::System.Application.Resource.Styleable.TextInputLayout_android_enabled = global::System.Application.Launch.Resource.Styleable.TextInputLayout_android_enabled;
+			global::System.Application.Resource.Styleable.TextInputLayout_android_hint = global::System.Application.Launch.Resource.Styleable.TextInputLayout_android_hint;
+			global::System.Application.Resource.Styleable.TextInputLayout_android_textColorHint = global::System.Application.Launch.Resource.Styleable.TextInputLayout_android_textColorHint;
+			global::System.Application.Resource.Styleable.TextInputLayout_boxBackgroundColor = global::System.Application.Launch.Resource.Styleable.TextInputLayout_boxBackgroundColor;
+			global::System.Application.Resource.Styleable.TextInputLayout_boxBackgroundMode = global::System.Application.Launch.Resource.Styleable.TextInputLayout_boxBackgroundMode;
+			global::System.Application.Resource.Styleable.TextInputLayout_boxCollapsedPaddingTop = global::System.Application.Launch.Resource.Styleable.TextInputLayout_boxCollapsedPaddingTop;
+			global::System.Application.Resource.Styleable.TextInputLayout_boxCornerRadiusBottomEnd = global::System.Application.Launch.Resource.Styleable.TextInputLayout_boxCornerRadiusBottomEnd;
+			global::System.Application.Resource.Styleable.TextInputLayout_boxCornerRadiusBottomStart = global::System.Application.Launch.Resource.Styleable.TextInputLayout_boxCornerRadiusBottomStart;
+			global::System.Application.Resource.Styleable.TextInputLayout_boxCornerRadiusTopEnd = global::System.Application.Launch.Resource.Styleable.TextInputLayout_boxCornerRadiusTopEnd;
+			global::System.Application.Resource.Styleable.TextInputLayout_boxCornerRadiusTopStart = global::System.Application.Launch.Resource.Styleable.TextInputLayout_boxCornerRadiusTopStart;
+			global::System.Application.Resource.Styleable.TextInputLayout_boxStrokeColor = global::System.Application.Launch.Resource.Styleable.TextInputLayout_boxStrokeColor;
+			global::System.Application.Resource.Styleable.TextInputLayout_boxStrokeErrorColor = global::System.Application.Launch.Resource.Styleable.TextInputLayout_boxStrokeErrorColor;
+			global::System.Application.Resource.Styleable.TextInputLayout_boxStrokeWidth = global::System.Application.Launch.Resource.Styleable.TextInputLayout_boxStrokeWidth;
+			global::System.Application.Resource.Styleable.TextInputLayout_boxStrokeWidthFocused = global::System.Application.Launch.Resource.Styleable.TextInputLayout_boxStrokeWidthFocused;
+			global::System.Application.Resource.Styleable.TextInputLayout_counterEnabled = global::System.Application.Launch.Resource.Styleable.TextInputLayout_counterEnabled;
+			global::System.Application.Resource.Styleable.TextInputLayout_counterMaxLength = global::System.Application.Launch.Resource.Styleable.TextInputLayout_counterMaxLength;
+			global::System.Application.Resource.Styleable.TextInputLayout_counterOverflowTextAppearance = global::System.Application.Launch.Resource.Styleable.TextInputLayout_counterOverflowTextAppearance;
+			global::System.Application.Resource.Styleable.TextInputLayout_counterOverflowTextColor = global::System.Application.Launch.Resource.Styleable.TextInputLayout_counterOverflowTextColor;
+			global::System.Application.Resource.Styleable.TextInputLayout_counterTextAppearance = global::System.Application.Launch.Resource.Styleable.TextInputLayout_counterTextAppearance;
+			global::System.Application.Resource.Styleable.TextInputLayout_counterTextColor = global::System.Application.Launch.Resource.Styleable.TextInputLayout_counterTextColor;
+			global::System.Application.Resource.Styleable.TextInputLayout_endIconCheckable = global::System.Application.Launch.Resource.Styleable.TextInputLayout_endIconCheckable;
+			global::System.Application.Resource.Styleable.TextInputLayout_endIconContentDescription = global::System.Application.Launch.Resource.Styleable.TextInputLayout_endIconContentDescription;
+			global::System.Application.Resource.Styleable.TextInputLayout_endIconDrawable = global::System.Application.Launch.Resource.Styleable.TextInputLayout_endIconDrawable;
+			global::System.Application.Resource.Styleable.TextInputLayout_endIconMode = global::System.Application.Launch.Resource.Styleable.TextInputLayout_endIconMode;
+			global::System.Application.Resource.Styleable.TextInputLayout_endIconTint = global::System.Application.Launch.Resource.Styleable.TextInputLayout_endIconTint;
+			global::System.Application.Resource.Styleable.TextInputLayout_endIconTintMode = global::System.Application.Launch.Resource.Styleable.TextInputLayout_endIconTintMode;
+			global::System.Application.Resource.Styleable.TextInputLayout_errorContentDescription = global::System.Application.Launch.Resource.Styleable.TextInputLayout_errorContentDescription;
+			global::System.Application.Resource.Styleable.TextInputLayout_errorEnabled = global::System.Application.Launch.Resource.Styleable.TextInputLayout_errorEnabled;
+			global::System.Application.Resource.Styleable.TextInputLayout_errorIconDrawable = global::System.Application.Launch.Resource.Styleable.TextInputLayout_errorIconDrawable;
+			global::System.Application.Resource.Styleable.TextInputLayout_errorIconTint = global::System.Application.Launch.Resource.Styleable.TextInputLayout_errorIconTint;
+			global::System.Application.Resource.Styleable.TextInputLayout_errorIconTintMode = global::System.Application.Launch.Resource.Styleable.TextInputLayout_errorIconTintMode;
+			global::System.Application.Resource.Styleable.TextInputLayout_errorTextAppearance = global::System.Application.Launch.Resource.Styleable.TextInputLayout_errorTextAppearance;
+			global::System.Application.Resource.Styleable.TextInputLayout_errorTextColor = global::System.Application.Launch.Resource.Styleable.TextInputLayout_errorTextColor;
+			global::System.Application.Resource.Styleable.TextInputLayout_helperText = global::System.Application.Launch.Resource.Styleable.TextInputLayout_helperText;
+			global::System.Application.Resource.Styleable.TextInputLayout_helperTextEnabled = global::System.Application.Launch.Resource.Styleable.TextInputLayout_helperTextEnabled;
+			global::System.Application.Resource.Styleable.TextInputLayout_helperTextTextAppearance = global::System.Application.Launch.Resource.Styleable.TextInputLayout_helperTextTextAppearance;
+			global::System.Application.Resource.Styleable.TextInputLayout_helperTextTextColor = global::System.Application.Launch.Resource.Styleable.TextInputLayout_helperTextTextColor;
+			global::System.Application.Resource.Styleable.TextInputLayout_hintAnimationEnabled = global::System.Application.Launch.Resource.Styleable.TextInputLayout_hintAnimationEnabled;
+			global::System.Application.Resource.Styleable.TextInputLayout_hintEnabled = global::System.Application.Launch.Resource.Styleable.TextInputLayout_hintEnabled;
+			global::System.Application.Resource.Styleable.TextInputLayout_hintTextAppearance = global::System.Application.Launch.Resource.Styleable.TextInputLayout_hintTextAppearance;
+			global::System.Application.Resource.Styleable.TextInputLayout_hintTextColor = global::System.Application.Launch.Resource.Styleable.TextInputLayout_hintTextColor;
+			global::System.Application.Resource.Styleable.TextInputLayout_passwordToggleContentDescription = global::System.Application.Launch.Resource.Styleable.TextInputLayout_passwordToggleContentDescription;
+			global::System.Application.Resource.Styleable.TextInputLayout_passwordToggleDrawable = global::System.Application.Launch.Resource.Styleable.TextInputLayout_passwordToggleDrawable;
+			global::System.Application.Resource.Styleable.TextInputLayout_passwordToggleEnabled = global::System.Application.Launch.Resource.Styleable.TextInputLayout_passwordToggleEnabled;
+			global::System.Application.Resource.Styleable.TextInputLayout_passwordToggleTint = global::System.Application.Launch.Resource.Styleable.TextInputLayout_passwordToggleTint;
+			global::System.Application.Resource.Styleable.TextInputLayout_passwordToggleTintMode = global::System.Application.Launch.Resource.Styleable.TextInputLayout_passwordToggleTintMode;
+			global::System.Application.Resource.Styleable.TextInputLayout_placeholderText = global::System.Application.Launch.Resource.Styleable.TextInputLayout_placeholderText;
+			global::System.Application.Resource.Styleable.TextInputLayout_placeholderTextAppearance = global::System.Application.Launch.Resource.Styleable.TextInputLayout_placeholderTextAppearance;
+			global::System.Application.Resource.Styleable.TextInputLayout_placeholderTextColor = global::System.Application.Launch.Resource.Styleable.TextInputLayout_placeholderTextColor;
+			global::System.Application.Resource.Styleable.TextInputLayout_prefixText = global::System.Application.Launch.Resource.Styleable.TextInputLayout_prefixText;
+			global::System.Application.Resource.Styleable.TextInputLayout_prefixTextAppearance = global::System.Application.Launch.Resource.Styleable.TextInputLayout_prefixTextAppearance;
+			global::System.Application.Resource.Styleable.TextInputLayout_prefixTextColor = global::System.Application.Launch.Resource.Styleable.TextInputLayout_prefixTextColor;
+			global::System.Application.Resource.Styleable.TextInputLayout_shapeAppearance = global::System.Application.Launch.Resource.Styleable.TextInputLayout_shapeAppearance;
+			global::System.Application.Resource.Styleable.TextInputLayout_shapeAppearanceOverlay = global::System.Application.Launch.Resource.Styleable.TextInputLayout_shapeAppearanceOverlay;
+			global::System.Application.Resource.Styleable.TextInputLayout_startIconCheckable = global::System.Application.Launch.Resource.Styleable.TextInputLayout_startIconCheckable;
+			global::System.Application.Resource.Styleable.TextInputLayout_startIconContentDescription = global::System.Application.Launch.Resource.Styleable.TextInputLayout_startIconContentDescription;
+			global::System.Application.Resource.Styleable.TextInputLayout_startIconDrawable = global::System.Application.Launch.Resource.Styleable.TextInputLayout_startIconDrawable;
+			global::System.Application.Resource.Styleable.TextInputLayout_startIconTint = global::System.Application.Launch.Resource.Styleable.TextInputLayout_startIconTint;
+			global::System.Application.Resource.Styleable.TextInputLayout_startIconTintMode = global::System.Application.Launch.Resource.Styleable.TextInputLayout_startIconTintMode;
+			global::System.Application.Resource.Styleable.TextInputLayout_suffixText = global::System.Application.Launch.Resource.Styleable.TextInputLayout_suffixText;
+			global::System.Application.Resource.Styleable.TextInputLayout_suffixTextAppearance = global::System.Application.Launch.Resource.Styleable.TextInputLayout_suffixTextAppearance;
+			global::System.Application.Resource.Styleable.TextInputLayout_suffixTextColor = global::System.Application.Launch.Resource.Styleable.TextInputLayout_suffixTextColor;
+			global::System.Application.Resource.Styleable.ThemeEnforcement = global::System.Application.Launch.Resource.Styleable.ThemeEnforcement;
+			global::System.Application.Resource.Styleable.ThemeEnforcement_android_textAppearance = global::System.Application.Launch.Resource.Styleable.ThemeEnforcement_android_textAppearance;
+			global::System.Application.Resource.Styleable.ThemeEnforcement_enforceMaterialTheme = global::System.Application.Launch.Resource.Styleable.ThemeEnforcement_enforceMaterialTheme;
+			global::System.Application.Resource.Styleable.ThemeEnforcement_enforceTextAppearance = global::System.Application.Launch.Resource.Styleable.ThemeEnforcement_enforceTextAppearance;
+			global::System.Application.Resource.Styleable.Toolbar = global::System.Application.Launch.Resource.Styleable.Toolbar;
+			global::System.Application.Resource.Styleable.Toolbar_android_gravity = global::System.Application.Launch.Resource.Styleable.Toolbar_android_gravity;
+			global::System.Application.Resource.Styleable.Toolbar_android_minHeight = global::System.Application.Launch.Resource.Styleable.Toolbar_android_minHeight;
+			global::System.Application.Resource.Styleable.Toolbar_buttonGravity = global::System.Application.Launch.Resource.Styleable.Toolbar_buttonGravity;
+			global::System.Application.Resource.Styleable.Toolbar_collapseContentDescription = global::System.Application.Launch.Resource.Styleable.Toolbar_collapseContentDescription;
+			global::System.Application.Resource.Styleable.Toolbar_collapseIcon = global::System.Application.Launch.Resource.Styleable.Toolbar_collapseIcon;
+			global::System.Application.Resource.Styleable.Toolbar_contentInsetEnd = global::System.Application.Launch.Resource.Styleable.Toolbar_contentInsetEnd;
+			global::System.Application.Resource.Styleable.Toolbar_contentInsetEndWithActions = global::System.Application.Launch.Resource.Styleable.Toolbar_contentInsetEndWithActions;
+			global::System.Application.Resource.Styleable.Toolbar_contentInsetLeft = global::System.Application.Launch.Resource.Styleable.Toolbar_contentInsetLeft;
+			global::System.Application.Resource.Styleable.Toolbar_contentInsetRight = global::System.Application.Launch.Resource.Styleable.Toolbar_contentInsetRight;
+			global::System.Application.Resource.Styleable.Toolbar_contentInsetStart = global::System.Application.Launch.Resource.Styleable.Toolbar_contentInsetStart;
+			global::System.Application.Resource.Styleable.Toolbar_contentInsetStartWithNavigation = global::System.Application.Launch.Resource.Styleable.Toolbar_contentInsetStartWithNavigation;
+			global::System.Application.Resource.Styleable.Toolbar_logo = global::System.Application.Launch.Resource.Styleable.Toolbar_logo;
+			global::System.Application.Resource.Styleable.Toolbar_logoDescription = global::System.Application.Launch.Resource.Styleable.Toolbar_logoDescription;
+			global::System.Application.Resource.Styleable.Toolbar_maxButtonHeight = global::System.Application.Launch.Resource.Styleable.Toolbar_maxButtonHeight;
+			global::System.Application.Resource.Styleable.Toolbar_menu = global::System.Application.Launch.Resource.Styleable.Toolbar_menu;
+			global::System.Application.Resource.Styleable.Toolbar_navigationContentDescription = global::System.Application.Launch.Resource.Styleable.Toolbar_navigationContentDescription;
+			global::System.Application.Resource.Styleable.Toolbar_navigationIcon = global::System.Application.Launch.Resource.Styleable.Toolbar_navigationIcon;
+			global::System.Application.Resource.Styleable.Toolbar_popupTheme = global::System.Application.Launch.Resource.Styleable.Toolbar_popupTheme;
+			global::System.Application.Resource.Styleable.Toolbar_subtitle = global::System.Application.Launch.Resource.Styleable.Toolbar_subtitle;
+			global::System.Application.Resource.Styleable.Toolbar_subtitleTextAppearance = global::System.Application.Launch.Resource.Styleable.Toolbar_subtitleTextAppearance;
+			global::System.Application.Resource.Styleable.Toolbar_subtitleTextColor = global::System.Application.Launch.Resource.Styleable.Toolbar_subtitleTextColor;
+			global::System.Application.Resource.Styleable.Toolbar_title = global::System.Application.Launch.Resource.Styleable.Toolbar_title;
+			global::System.Application.Resource.Styleable.Toolbar_titleMargin = global::System.Application.Launch.Resource.Styleable.Toolbar_titleMargin;
+			global::System.Application.Resource.Styleable.Toolbar_titleMarginBottom = global::System.Application.Launch.Resource.Styleable.Toolbar_titleMarginBottom;
+			global::System.Application.Resource.Styleable.Toolbar_titleMarginEnd = global::System.Application.Launch.Resource.Styleable.Toolbar_titleMarginEnd;
+			global::System.Application.Resource.Styleable.Toolbar_titleMargins = global::System.Application.Launch.Resource.Styleable.Toolbar_titleMargins;
+			global::System.Application.Resource.Styleable.Toolbar_titleMarginStart = global::System.Application.Launch.Resource.Styleable.Toolbar_titleMarginStart;
+			global::System.Application.Resource.Styleable.Toolbar_titleMarginTop = global::System.Application.Launch.Resource.Styleable.Toolbar_titleMarginTop;
+			global::System.Application.Resource.Styleable.Toolbar_titleTextAppearance = global::System.Application.Launch.Resource.Styleable.Toolbar_titleTextAppearance;
+			global::System.Application.Resource.Styleable.Toolbar_titleTextColor = global::System.Application.Launch.Resource.Styleable.Toolbar_titleTextColor;
+			global::System.Application.Resource.Styleable.Tooltip = global::System.Application.Launch.Resource.Styleable.Tooltip;
+			global::System.Application.Resource.Styleable.Tooltip_android_layout_margin = global::System.Application.Launch.Resource.Styleable.Tooltip_android_layout_margin;
+			global::System.Application.Resource.Styleable.Tooltip_android_minHeight = global::System.Application.Launch.Resource.Styleable.Tooltip_android_minHeight;
+			global::System.Application.Resource.Styleable.Tooltip_android_minWidth = global::System.Application.Launch.Resource.Styleable.Tooltip_android_minWidth;
+			global::System.Application.Resource.Styleable.Tooltip_android_padding = global::System.Application.Launch.Resource.Styleable.Tooltip_android_padding;
+			global::System.Application.Resource.Styleable.Tooltip_android_text = global::System.Application.Launch.Resource.Styleable.Tooltip_android_text;
+			global::System.Application.Resource.Styleable.Tooltip_android_textAppearance = global::System.Application.Launch.Resource.Styleable.Tooltip_android_textAppearance;
+			global::System.Application.Resource.Styleable.Tooltip_backgroundTint = global::System.Application.Launch.Resource.Styleable.Tooltip_backgroundTint;
+			global::System.Application.Resource.Styleable.View = global::System.Application.Launch.Resource.Styleable.View;
+			global::System.Application.Resource.Styleable.ViewBackgroundHelper = global::System.Application.Launch.Resource.Styleable.ViewBackgroundHelper;
+			global::System.Application.Resource.Styleable.ViewBackgroundHelper_android_background = global::System.Application.Launch.Resource.Styleable.ViewBackgroundHelper_android_background;
+			global::System.Application.Resource.Styleable.ViewBackgroundHelper_backgroundTint = global::System.Application.Launch.Resource.Styleable.ViewBackgroundHelper_backgroundTint;
+			global::System.Application.Resource.Styleable.ViewBackgroundHelper_backgroundTintMode = global::System.Application.Launch.Resource.Styleable.ViewBackgroundHelper_backgroundTintMode;
+			global::System.Application.Resource.Styleable.ViewPager2 = global::System.Application.Launch.Resource.Styleable.ViewPager2;
+			global::System.Application.Resource.Styleable.ViewPager2_android_orientation = global::System.Application.Launch.Resource.Styleable.ViewPager2_android_orientation;
+			global::System.Application.Resource.Styleable.ViewStubCompat = global::System.Application.Launch.Resource.Styleable.ViewStubCompat;
+			global::System.Application.Resource.Styleable.ViewStubCompat_android_id = global::System.Application.Launch.Resource.Styleable.ViewStubCompat_android_id;
+			global::System.Application.Resource.Styleable.ViewStubCompat_android_inflatedId = global::System.Application.Launch.Resource.Styleable.ViewStubCompat_android_inflatedId;
+			global::System.Application.Resource.Styleable.ViewStubCompat_android_layout = global::System.Application.Launch.Resource.Styleable.ViewStubCompat_android_layout;
+			global::System.Application.Resource.Styleable.View_android_focusable = global::System.Application.Launch.Resource.Styleable.View_android_focusable;
+			global::System.Application.Resource.Styleable.View_android_theme = global::System.Application.Launch.Resource.Styleable.View_android_theme;
+			global::System.Application.Resource.Styleable.View_paddingEnd = global::System.Application.Launch.Resource.Styleable.View_paddingEnd;
+			global::System.Application.Resource.Styleable.View_paddingStart = global::System.Application.Launch.Resource.Styleable.View_paddingStart;
+			global::System.Application.Resource.Styleable.View_theme = global::System.Application.Launch.Resource.Styleable.View_theme;
+			global::System.Application.Resource.Xml.image_share_filepaths = global::System.Application.Launch.Resource.Xml.image_share_filepaths;
+			global::System.Application.Resource.Xml.standalone_badge = global::System.Application.Launch.Resource.Xml.standalone_badge;
+			global::System.Application.Resource.Xml.standalone_badge_gravity_bottom_end = global::System.Application.Launch.Resource.Xml.standalone_badge_gravity_bottom_end;
+			global::System.Application.Resource.Xml.standalone_badge_gravity_bottom_start = global::System.Application.Launch.Resource.Xml.standalone_badge_gravity_bottom_start;
+			global::System.Application.Resource.Xml.standalone_badge_gravity_top_start = global::System.Application.Launch.Resource.Xml.standalone_badge_gravity_top_start;
+			global::System.Application.Resource.Xml.standalone_badge_offset = global::System.Application.Launch.Resource.Xml.standalone_badge_offset;
+			global::System.Application.Resource.Xml.xamarin_essentials_fileprovider_file_paths = global::System.Application.Launch.Resource.Xml.xamarin_essentials_fileprovider_file_paths;
 			global::Xamarin.Essentials.Resource.Attribute.alpha = global::System.Application.Launch.Resource.Attribute.alpha;
 			global::Xamarin.Essentials.Resource.Attribute.font = global::System.Application.Launch.Resource.Attribute.font;
 			global::Xamarin.Essentials.Resource.Attribute.fontProviderAuthority = global::System.Application.Launch.Resource.Attribute.fontProviderAuthority;
@@ -13489,472 +17172,487 @@ namespace System.Application.Launch
 			public const int checkbox_themeable_attribute_color = 2131034161;
 			
 			// aapt resource value: 0x7F050032
-			public const int design_bottom_navigation_shadow_color = 2131034162;
+			public const int colorAccent = 2131034162;
 			
 			// aapt resource value: 0x7F050033
-			public const int design_box_stroke_color = 2131034163;
+			public const int colorControlHighlight = 2131034163;
 			
 			// aapt resource value: 0x7F050034
-			public const int design_dark_default_color_background = 2131034164;
+			public const int colorPrimary = 2131034164;
 			
 			// aapt resource value: 0x7F050035
-			public const int design_dark_default_color_error = 2131034165;
+			public const int design_bottom_navigation_shadow_color = 2131034165;
 			
 			// aapt resource value: 0x7F050036
-			public const int design_dark_default_color_on_background = 2131034166;
+			public const int design_box_stroke_color = 2131034166;
 			
 			// aapt resource value: 0x7F050037
-			public const int design_dark_default_color_on_error = 2131034167;
+			public const int design_dark_default_color_background = 2131034167;
 			
 			// aapt resource value: 0x7F050038
-			public const int design_dark_default_color_on_primary = 2131034168;
+			public const int design_dark_default_color_error = 2131034168;
 			
 			// aapt resource value: 0x7F050039
-			public const int design_dark_default_color_on_secondary = 2131034169;
+			public const int design_dark_default_color_on_background = 2131034169;
 			
 			// aapt resource value: 0x7F05003A
-			public const int design_dark_default_color_on_surface = 2131034170;
+			public const int design_dark_default_color_on_error = 2131034170;
 			
 			// aapt resource value: 0x7F05003B
-			public const int design_dark_default_color_primary = 2131034171;
+			public const int design_dark_default_color_on_primary = 2131034171;
 			
 			// aapt resource value: 0x7F05003C
-			public const int design_dark_default_color_primary_dark = 2131034172;
+			public const int design_dark_default_color_on_secondary = 2131034172;
 			
 			// aapt resource value: 0x7F05003D
-			public const int design_dark_default_color_primary_variant = 2131034173;
+			public const int design_dark_default_color_on_surface = 2131034173;
 			
 			// aapt resource value: 0x7F05003E
-			public const int design_dark_default_color_secondary = 2131034174;
+			public const int design_dark_default_color_primary = 2131034174;
 			
 			// aapt resource value: 0x7F05003F
-			public const int design_dark_default_color_secondary_variant = 2131034175;
+			public const int design_dark_default_color_primary_dark = 2131034175;
 			
 			// aapt resource value: 0x7F050040
-			public const int design_dark_default_color_surface = 2131034176;
+			public const int design_dark_default_color_primary_variant = 2131034176;
 			
 			// aapt resource value: 0x7F050041
-			public const int design_default_color_background = 2131034177;
+			public const int design_dark_default_color_secondary = 2131034177;
 			
 			// aapt resource value: 0x7F050042
-			public const int design_default_color_error = 2131034178;
+			public const int design_dark_default_color_secondary_variant = 2131034178;
 			
 			// aapt resource value: 0x7F050043
-			public const int design_default_color_on_background = 2131034179;
+			public const int design_dark_default_color_surface = 2131034179;
 			
 			// aapt resource value: 0x7F050044
-			public const int design_default_color_on_error = 2131034180;
+			public const int design_default_color_background = 2131034180;
 			
 			// aapt resource value: 0x7F050045
-			public const int design_default_color_on_primary = 2131034181;
+			public const int design_default_color_error = 2131034181;
 			
 			// aapt resource value: 0x7F050046
-			public const int design_default_color_on_secondary = 2131034182;
+			public const int design_default_color_on_background = 2131034182;
 			
 			// aapt resource value: 0x7F050047
-			public const int design_default_color_on_surface = 2131034183;
+			public const int design_default_color_on_error = 2131034183;
 			
 			// aapt resource value: 0x7F050048
-			public const int design_default_color_primary = 2131034184;
+			public const int design_default_color_on_primary = 2131034184;
 			
 			// aapt resource value: 0x7F050049
-			public const int design_default_color_primary_dark = 2131034185;
+			public const int design_default_color_on_secondary = 2131034185;
 			
 			// aapt resource value: 0x7F05004A
-			public const int design_default_color_primary_variant = 2131034186;
+			public const int design_default_color_on_surface = 2131034186;
 			
 			// aapt resource value: 0x7F05004B
-			public const int design_default_color_secondary = 2131034187;
+			public const int design_default_color_primary = 2131034187;
 			
 			// aapt resource value: 0x7F05004C
-			public const int design_default_color_secondary_variant = 2131034188;
+			public const int design_default_color_primary_dark = 2131034188;
 			
 			// aapt resource value: 0x7F05004D
-			public const int design_default_color_surface = 2131034189;
+			public const int design_default_color_primary_variant = 2131034189;
 			
 			// aapt resource value: 0x7F05004E
-			public const int design_error = 2131034190;
+			public const int design_default_color_secondary = 2131034190;
 			
 			// aapt resource value: 0x7F05004F
-			public const int design_fab_shadow_end_color = 2131034191;
+			public const int design_default_color_secondary_variant = 2131034191;
 			
 			// aapt resource value: 0x7F050050
-			public const int design_fab_shadow_mid_color = 2131034192;
+			public const int design_default_color_surface = 2131034192;
 			
 			// aapt resource value: 0x7F050051
-			public const int design_fab_shadow_start_color = 2131034193;
+			public const int design_error = 2131034193;
 			
 			// aapt resource value: 0x7F050052
-			public const int design_fab_stroke_end_inner_color = 2131034194;
+			public const int design_fab_shadow_end_color = 2131034194;
 			
 			// aapt resource value: 0x7F050053
-			public const int design_fab_stroke_end_outer_color = 2131034195;
+			public const int design_fab_shadow_mid_color = 2131034195;
 			
 			// aapt resource value: 0x7F050054
-			public const int design_fab_stroke_top_inner_color = 2131034196;
+			public const int design_fab_shadow_start_color = 2131034196;
 			
 			// aapt resource value: 0x7F050055
-			public const int design_fab_stroke_top_outer_color = 2131034197;
+			public const int design_fab_stroke_end_inner_color = 2131034197;
 			
 			// aapt resource value: 0x7F050056
-			public const int design_icon_tint = 2131034198;
+			public const int design_fab_stroke_end_outer_color = 2131034198;
 			
 			// aapt resource value: 0x7F050057
-			public const int design_snackbar_background_color = 2131034199;
+			public const int design_fab_stroke_top_inner_color = 2131034199;
 			
 			// aapt resource value: 0x7F050058
-			public const int dim_foreground_disabled_material_dark = 2131034200;
+			public const int design_fab_stroke_top_outer_color = 2131034200;
 			
 			// aapt resource value: 0x7F050059
-			public const int dim_foreground_disabled_material_light = 2131034201;
+			public const int design_icon_tint = 2131034201;
 			
 			// aapt resource value: 0x7F05005A
-			public const int dim_foreground_material_dark = 2131034202;
+			public const int design_snackbar_background_color = 2131034202;
 			
 			// aapt resource value: 0x7F05005B
-			public const int dim_foreground_material_light = 2131034203;
+			public const int dim_foreground_disabled_material_dark = 2131034203;
 			
 			// aapt resource value: 0x7F05005C
-			public const int error_color_material_dark = 2131034204;
+			public const int dim_foreground_disabled_material_light = 2131034204;
 			
 			// aapt resource value: 0x7F05005D
-			public const int error_color_material_light = 2131034205;
+			public const int dim_foreground_material_dark = 2131034205;
 			
 			// aapt resource value: 0x7F05005E
-			public const int foreground_material_dark = 2131034206;
+			public const int dim_foreground_material_light = 2131034206;
 			
 			// aapt resource value: 0x7F05005F
-			public const int foreground_material_light = 2131034207;
+			public const int error_color_material_dark = 2131034207;
 			
 			// aapt resource value: 0x7F050060
-			public const int highlighted_text_material_dark = 2131034208;
+			public const int error_color_material_light = 2131034208;
 			
 			// aapt resource value: 0x7F050061
-			public const int highlighted_text_material_light = 2131034209;
+			public const int foreground_material_dark = 2131034209;
 			
 			// aapt resource value: 0x7F050062
-			public const int material_blue_grey_800 = 2131034210;
+			public const int foreground_material_light = 2131034210;
 			
 			// aapt resource value: 0x7F050063
-			public const int material_blue_grey_900 = 2131034211;
+			public const int highlighted_text_material_dark = 2131034211;
 			
 			// aapt resource value: 0x7F050064
-			public const int material_blue_grey_950 = 2131034212;
+			public const int highlighted_text_material_light = 2131034212;
 			
 			// aapt resource value: 0x7F050065
-			public const int material_deep_teal_200 = 2131034213;
+			public const int ic_launcher_background = 2131034213;
 			
 			// aapt resource value: 0x7F050066
-			public const int material_deep_teal_500 = 2131034214;
+			public const int material_blue_grey_800 = 2131034214;
 			
 			// aapt resource value: 0x7F050067
-			public const int material_grey_100 = 2131034215;
+			public const int material_blue_grey_900 = 2131034215;
 			
 			// aapt resource value: 0x7F050068
-			public const int material_grey_300 = 2131034216;
+			public const int material_blue_grey_950 = 2131034216;
 			
 			// aapt resource value: 0x7F050069
-			public const int material_grey_50 = 2131034217;
+			public const int material_deep_teal_200 = 2131034217;
 			
 			// aapt resource value: 0x7F05006A
-			public const int material_grey_600 = 2131034218;
+			public const int material_deep_teal_500 = 2131034218;
 			
 			// aapt resource value: 0x7F05006B
-			public const int material_grey_800 = 2131034219;
+			public const int material_grey_100 = 2131034219;
 			
 			// aapt resource value: 0x7F05006C
-			public const int material_grey_850 = 2131034220;
+			public const int material_grey_300 = 2131034220;
 			
 			// aapt resource value: 0x7F05006D
-			public const int material_grey_900 = 2131034221;
+			public const int material_grey_50 = 2131034221;
 			
 			// aapt resource value: 0x7F05006E
-			public const int material_on_background_disabled = 2131034222;
+			public const int material_grey_600 = 2131034222;
 			
 			// aapt resource value: 0x7F05006F
-			public const int material_on_background_emphasis_high_type = 2131034223;
+			public const int material_grey_800 = 2131034223;
 			
 			// aapt resource value: 0x7F050070
-			public const int material_on_background_emphasis_medium = 2131034224;
+			public const int material_grey_850 = 2131034224;
 			
 			// aapt resource value: 0x7F050071
-			public const int material_on_primary_disabled = 2131034225;
+			public const int material_grey_900 = 2131034225;
 			
 			// aapt resource value: 0x7F050072
-			public const int material_on_primary_emphasis_high_type = 2131034226;
+			public const int material_on_background_disabled = 2131034226;
 			
 			// aapt resource value: 0x7F050073
-			public const int material_on_primary_emphasis_medium = 2131034227;
+			public const int material_on_background_emphasis_high_type = 2131034227;
 			
 			// aapt resource value: 0x7F050074
-			public const int material_on_surface_disabled = 2131034228;
+			public const int material_on_background_emphasis_medium = 2131034228;
 			
 			// aapt resource value: 0x7F050075
-			public const int material_on_surface_emphasis_high_type = 2131034229;
+			public const int material_on_primary_disabled = 2131034229;
 			
 			// aapt resource value: 0x7F050076
-			public const int material_on_surface_emphasis_medium = 2131034230;
+			public const int material_on_primary_emphasis_high_type = 2131034230;
 			
 			// aapt resource value: 0x7F050077
-			public const int material_on_surface_stroke = 2131034231;
+			public const int material_on_primary_emphasis_medium = 2131034231;
 			
 			// aapt resource value: 0x7F050078
-			public const int material_slider_active_tick_marks_color = 2131034232;
+			public const int material_on_surface_disabled = 2131034232;
 			
 			// aapt resource value: 0x7F050079
-			public const int material_slider_active_track_color = 2131034233;
+			public const int material_on_surface_emphasis_high_type = 2131034233;
 			
 			// aapt resource value: 0x7F05007A
-			public const int material_slider_halo_color = 2131034234;
+			public const int material_on_surface_emphasis_medium = 2131034234;
 			
 			// aapt resource value: 0x7F05007B
-			public const int material_slider_inactive_tick_marks_color = 2131034235;
+			public const int material_on_surface_stroke = 2131034235;
 			
 			// aapt resource value: 0x7F05007C
-			public const int material_slider_inactive_track_color = 2131034236;
+			public const int material_slider_active_tick_marks_color = 2131034236;
 			
 			// aapt resource value: 0x7F05007D
-			public const int material_slider_thumb_color = 2131034237;
+			public const int material_slider_active_track_color = 2131034237;
 			
 			// aapt resource value: 0x7F05007E
-			public const int mtrl_bottom_nav_colored_item_tint = 2131034238;
+			public const int material_slider_halo_color = 2131034238;
 			
 			// aapt resource value: 0x7F05007F
-			public const int mtrl_bottom_nav_colored_ripple_color = 2131034239;
+			public const int material_slider_inactive_tick_marks_color = 2131034239;
 			
 			// aapt resource value: 0x7F050080
-			public const int mtrl_bottom_nav_item_tint = 2131034240;
+			public const int material_slider_inactive_track_color = 2131034240;
 			
 			// aapt resource value: 0x7F050081
-			public const int mtrl_bottom_nav_ripple_color = 2131034241;
+			public const int material_slider_thumb_color = 2131034241;
 			
 			// aapt resource value: 0x7F050082
-			public const int mtrl_btn_bg_color_selector = 2131034242;
+			public const int mtrl_bottom_nav_colored_item_tint = 2131034242;
 			
 			// aapt resource value: 0x7F050083
-			public const int mtrl_btn_ripple_color = 2131034243;
+			public const int mtrl_bottom_nav_colored_ripple_color = 2131034243;
 			
 			// aapt resource value: 0x7F050084
-			public const int mtrl_btn_stroke_color_selector = 2131034244;
+			public const int mtrl_bottom_nav_item_tint = 2131034244;
 			
 			// aapt resource value: 0x7F050085
-			public const int mtrl_btn_text_btn_bg_color_selector = 2131034245;
+			public const int mtrl_bottom_nav_ripple_color = 2131034245;
 			
 			// aapt resource value: 0x7F050086
-			public const int mtrl_btn_text_btn_ripple_color = 2131034246;
+			public const int mtrl_btn_bg_color_selector = 2131034246;
 			
 			// aapt resource value: 0x7F050087
-			public const int mtrl_btn_text_color_disabled = 2131034247;
+			public const int mtrl_btn_ripple_color = 2131034247;
 			
 			// aapt resource value: 0x7F050088
-			public const int mtrl_btn_text_color_selector = 2131034248;
+			public const int mtrl_btn_stroke_color_selector = 2131034248;
 			
 			// aapt resource value: 0x7F050089
-			public const int mtrl_btn_transparent_bg_color = 2131034249;
+			public const int mtrl_btn_text_btn_bg_color_selector = 2131034249;
 			
 			// aapt resource value: 0x7F05008A
-			public const int mtrl_calendar_item_stroke_color = 2131034250;
+			public const int mtrl_btn_text_btn_ripple_color = 2131034250;
 			
 			// aapt resource value: 0x7F05008B
-			public const int mtrl_calendar_selected_range = 2131034251;
+			public const int mtrl_btn_text_color_disabled = 2131034251;
 			
 			// aapt resource value: 0x7F05008C
-			public const int mtrl_card_view_foreground = 2131034252;
+			public const int mtrl_btn_text_color_selector = 2131034252;
 			
 			// aapt resource value: 0x7F05008D
-			public const int mtrl_card_view_ripple = 2131034253;
+			public const int mtrl_btn_transparent_bg_color = 2131034253;
 			
 			// aapt resource value: 0x7F05008E
-			public const int mtrl_chip_background_color = 2131034254;
+			public const int mtrl_calendar_item_stroke_color = 2131034254;
 			
 			// aapt resource value: 0x7F05008F
-			public const int mtrl_chip_close_icon_tint = 2131034255;
+			public const int mtrl_calendar_selected_range = 2131034255;
 			
 			// aapt resource value: 0x7F050090
-			public const int mtrl_chip_ripple_color = 2131034256;
+			public const int mtrl_card_view_foreground = 2131034256;
 			
 			// aapt resource value: 0x7F050091
-			public const int mtrl_chip_surface_color = 2131034257;
+			public const int mtrl_card_view_ripple = 2131034257;
 			
 			// aapt resource value: 0x7F050092
-			public const int mtrl_chip_text_color = 2131034258;
+			public const int mtrl_chip_background_color = 2131034258;
 			
 			// aapt resource value: 0x7F050093
-			public const int mtrl_choice_chip_background_color = 2131034259;
+			public const int mtrl_chip_close_icon_tint = 2131034259;
 			
 			// aapt resource value: 0x7F050094
-			public const int mtrl_choice_chip_ripple_color = 2131034260;
+			public const int mtrl_chip_ripple_color = 2131034260;
 			
 			// aapt resource value: 0x7F050095
-			public const int mtrl_choice_chip_text_color = 2131034261;
+			public const int mtrl_chip_surface_color = 2131034261;
 			
 			// aapt resource value: 0x7F050096
-			public const int mtrl_error = 2131034262;
+			public const int mtrl_chip_text_color = 2131034262;
 			
 			// aapt resource value: 0x7F050097
-			public const int mtrl_fab_bg_color_selector = 2131034263;
+			public const int mtrl_choice_chip_background_color = 2131034263;
 			
 			// aapt resource value: 0x7F050098
-			public const int mtrl_fab_icon_text_color_selector = 2131034264;
+			public const int mtrl_choice_chip_ripple_color = 2131034264;
 			
 			// aapt resource value: 0x7F050099
-			public const int mtrl_fab_ripple_color = 2131034265;
+			public const int mtrl_choice_chip_text_color = 2131034265;
 			
 			// aapt resource value: 0x7F05009A
-			public const int mtrl_filled_background_color = 2131034266;
+			public const int mtrl_error = 2131034266;
 			
 			// aapt resource value: 0x7F05009B
-			public const int mtrl_filled_icon_tint = 2131034267;
+			public const int mtrl_fab_bg_color_selector = 2131034267;
 			
 			// aapt resource value: 0x7F05009C
-			public const int mtrl_filled_stroke_color = 2131034268;
+			public const int mtrl_fab_icon_text_color_selector = 2131034268;
 			
 			// aapt resource value: 0x7F05009D
-			public const int mtrl_indicator_text_color = 2131034269;
+			public const int mtrl_fab_ripple_color = 2131034269;
 			
 			// aapt resource value: 0x7F05009E
-			public const int mtrl_navigation_item_background_color = 2131034270;
+			public const int mtrl_filled_background_color = 2131034270;
 			
 			// aapt resource value: 0x7F05009F
-			public const int mtrl_navigation_item_icon_tint = 2131034271;
+			public const int mtrl_filled_icon_tint = 2131034271;
 			
 			// aapt resource value: 0x7F0500A0
-			public const int mtrl_navigation_item_text_color = 2131034272;
+			public const int mtrl_filled_stroke_color = 2131034272;
 			
 			// aapt resource value: 0x7F0500A1
-			public const int mtrl_on_primary_text_btn_text_color_selector = 2131034273;
+			public const int mtrl_indicator_text_color = 2131034273;
 			
 			// aapt resource value: 0x7F0500A2
-			public const int mtrl_outlined_icon_tint = 2131034274;
+			public const int mtrl_navigation_item_background_color = 2131034274;
 			
 			// aapt resource value: 0x7F0500A3
-			public const int mtrl_outlined_stroke_color = 2131034275;
+			public const int mtrl_navigation_item_icon_tint = 2131034275;
 			
 			// aapt resource value: 0x7F0500A4
-			public const int mtrl_popupmenu_overlay_color = 2131034276;
+			public const int mtrl_navigation_item_text_color = 2131034276;
 			
 			// aapt resource value: 0x7F0500A5
-			public const int mtrl_scrim_color = 2131034277;
+			public const int mtrl_on_primary_text_btn_text_color_selector = 2131034277;
 			
 			// aapt resource value: 0x7F0500A6
-			public const int mtrl_tabs_colored_ripple_color = 2131034278;
+			public const int mtrl_outlined_icon_tint = 2131034278;
 			
 			// aapt resource value: 0x7F0500A7
-			public const int mtrl_tabs_icon_color_selector = 2131034279;
+			public const int mtrl_outlined_stroke_color = 2131034279;
 			
 			// aapt resource value: 0x7F0500A8
-			public const int mtrl_tabs_icon_color_selector_colored = 2131034280;
+			public const int mtrl_popupmenu_overlay_color = 2131034280;
 			
 			// aapt resource value: 0x7F0500A9
-			public const int mtrl_tabs_legacy_text_color_selector = 2131034281;
+			public const int mtrl_scrim_color = 2131034281;
 			
 			// aapt resource value: 0x7F0500AA
-			public const int mtrl_tabs_ripple_color = 2131034282;
-			
-			// aapt resource value: 0x7F0500AC
-			public const int mtrl_textinput_default_box_stroke_color = 2131034284;
-			
-			// aapt resource value: 0x7F0500AD
-			public const int mtrl_textinput_disabled_color = 2131034285;
-			
-			// aapt resource value: 0x7F0500AE
-			public const int mtrl_textinput_filled_box_default_background_color = 2131034286;
-			
-			// aapt resource value: 0x7F0500AF
-			public const int mtrl_textinput_focused_box_stroke_color = 2131034287;
-			
-			// aapt resource value: 0x7F0500B0
-			public const int mtrl_textinput_hovered_box_stroke_color = 2131034288;
+			public const int mtrl_tabs_colored_ripple_color = 2131034282;
 			
 			// aapt resource value: 0x7F0500AB
-			public const int mtrl_text_btn_text_color_selector = 2131034283;
+			public const int mtrl_tabs_icon_color_selector = 2131034283;
+			
+			// aapt resource value: 0x7F0500AC
+			public const int mtrl_tabs_icon_color_selector_colored = 2131034284;
+			
+			// aapt resource value: 0x7F0500AD
+			public const int mtrl_tabs_legacy_text_color_selector = 2131034285;
+			
+			// aapt resource value: 0x7F0500AE
+			public const int mtrl_tabs_ripple_color = 2131034286;
+			
+			// aapt resource value: 0x7F0500B0
+			public const int mtrl_textinput_default_box_stroke_color = 2131034288;
 			
 			// aapt resource value: 0x7F0500B1
-			public const int notification_action_color_filter = 2131034289;
+			public const int mtrl_textinput_disabled_color = 2131034289;
 			
 			// aapt resource value: 0x7F0500B2
-			public const int notification_icon_bg_color = 2131034290;
+			public const int mtrl_textinput_filled_box_default_background_color = 2131034290;
 			
 			// aapt resource value: 0x7F0500B3
-			public const int notification_material_background_media_default_color = 2131034291;
+			public const int mtrl_textinput_focused_box_stroke_color = 2131034291;
 			
 			// aapt resource value: 0x7F0500B4
-			public const int primary_dark_material_dark = 2131034292;
+			public const int mtrl_textinput_hovered_box_stroke_color = 2131034292;
+			
+			// aapt resource value: 0x7F0500AF
+			public const int mtrl_text_btn_text_color_selector = 2131034287;
 			
 			// aapt resource value: 0x7F0500B5
-			public const int primary_dark_material_light = 2131034293;
+			public const int notification_action_color_filter = 2131034293;
 			
 			// aapt resource value: 0x7F0500B6
-			public const int primary_material_dark = 2131034294;
+			public const int notification_icon_bg_color = 2131034294;
 			
 			// aapt resource value: 0x7F0500B7
-			public const int primary_material_light = 2131034295;
+			public const int notification_material_background_media_default_color = 2131034295;
 			
 			// aapt resource value: 0x7F0500B8
-			public const int primary_text_default_material_dark = 2131034296;
+			public const int primary_dark_material_dark = 2131034296;
 			
 			// aapt resource value: 0x7F0500B9
-			public const int primary_text_default_material_light = 2131034297;
+			public const int primary_dark_material_light = 2131034297;
 			
 			// aapt resource value: 0x7F0500BA
-			public const int primary_text_disabled_material_dark = 2131034298;
+			public const int primary_material_dark = 2131034298;
 			
 			// aapt resource value: 0x7F0500BB
-			public const int primary_text_disabled_material_light = 2131034299;
+			public const int primary_material_light = 2131034299;
 			
 			// aapt resource value: 0x7F0500BC
-			public const int radiobutton_themeable_attribute_color = 2131034300;
+			public const int primary_text_default_material_dark = 2131034300;
 			
 			// aapt resource value: 0x7F0500BD
-			public const int ripple_material_dark = 2131034301;
+			public const int primary_text_default_material_light = 2131034301;
 			
 			// aapt resource value: 0x7F0500BE
-			public const int ripple_material_light = 2131034302;
+			public const int primary_text_disabled_material_dark = 2131034302;
 			
 			// aapt resource value: 0x7F0500BF
-			public const int secondary_text_default_material_dark = 2131034303;
+			public const int primary_text_disabled_material_light = 2131034303;
 			
 			// aapt resource value: 0x7F0500C0
-			public const int secondary_text_default_material_light = 2131034304;
+			public const int radiobutton_themeable_attribute_color = 2131034304;
 			
 			// aapt resource value: 0x7F0500C1
-			public const int secondary_text_disabled_material_dark = 2131034305;
+			public const int ripple_material_dark = 2131034305;
 			
 			// aapt resource value: 0x7F0500C2
-			public const int secondary_text_disabled_material_light = 2131034306;
+			public const int ripple_material_light = 2131034306;
 			
 			// aapt resource value: 0x7F0500C3
-			public const int switch_thumb_disabled_material_dark = 2131034307;
+			public const int secondary_text_default_material_dark = 2131034307;
 			
 			// aapt resource value: 0x7F0500C4
-			public const int switch_thumb_disabled_material_light = 2131034308;
+			public const int secondary_text_default_material_light = 2131034308;
 			
 			// aapt resource value: 0x7F0500C5
-			public const int switch_thumb_material_dark = 2131034309;
+			public const int secondary_text_disabled_material_dark = 2131034309;
 			
 			// aapt resource value: 0x7F0500C6
-			public const int switch_thumb_material_light = 2131034310;
+			public const int secondary_text_disabled_material_light = 2131034310;
 			
 			// aapt resource value: 0x7F0500C7
-			public const int switch_thumb_normal_material_dark = 2131034311;
+			public const int splash_background = 2131034311;
 			
 			// aapt resource value: 0x7F0500C8
-			public const int switch_thumb_normal_material_light = 2131034312;
+			public const int switch_thumb_disabled_material_dark = 2131034312;
 			
 			// aapt resource value: 0x7F0500C9
-			public const int test_mtrl_calendar_day = 2131034313;
+			public const int switch_thumb_disabled_material_light = 2131034313;
 			
 			// aapt resource value: 0x7F0500CA
-			public const int test_mtrl_calendar_day_selected = 2131034314;
+			public const int switch_thumb_material_dark = 2131034314;
 			
 			// aapt resource value: 0x7F0500CB
-			public const int tooltip_background_dark = 2131034315;
+			public const int switch_thumb_material_light = 2131034315;
 			
 			// aapt resource value: 0x7F0500CC
-			public const int tooltip_background_light = 2131034316;
+			public const int switch_thumb_normal_material_dark = 2131034316;
 			
 			// aapt resource value: 0x7F0500CD
-			public const int white_disabled_material = 2131034317;
+			public const int switch_thumb_normal_material_light = 2131034317;
+			
+			// aapt resource value: 0x7F0500CE
+			public const int test_mtrl_calendar_day = 2131034318;
+			
+			// aapt resource value: 0x7F0500CF
+			public const int test_mtrl_calendar_day_selected = 2131034319;
+			
+			// aapt resource value: 0x7F0500D0
+			public const int tooltip_background_dark = 2131034320;
+			
+			// aapt resource value: 0x7F0500D1
+			public const int tooltip_background_light = 2131034321;
+			
+			// aapt resource value: 0x7F0500D2
+			public const int white_disabled_material = 2131034322;
 			
 			static Color()
 			{
@@ -15288,160 +18986,181 @@ namespace System.Application.Launch
 			public const int avd_show_password = 2131165277;
 			
 			// aapt resource value: 0x7F07005E
-			public const int btn_checkbox_checked_mtrl = 2131165278;
+			public const int bg_textbox = 2131165278;
 			
 			// aapt resource value: 0x7F07005F
-			public const int btn_checkbox_checked_to_unchecked_mtrl_animation = 2131165279;
+			public const int btn_checkbox_checked_mtrl = 2131165279;
 			
 			// aapt resource value: 0x7F070060
-			public const int btn_checkbox_unchecked_mtrl = 2131165280;
+			public const int btn_checkbox_checked_to_unchecked_mtrl_animation = 2131165280;
 			
 			// aapt resource value: 0x7F070061
-			public const int btn_checkbox_unchecked_to_checked_mtrl_animation = 2131165281;
+			public const int btn_checkbox_unchecked_mtrl = 2131165281;
 			
 			// aapt resource value: 0x7F070062
-			public const int btn_radio_off_mtrl = 2131165282;
+			public const int btn_checkbox_unchecked_to_checked_mtrl_animation = 2131165282;
 			
 			// aapt resource value: 0x7F070063
-			public const int btn_radio_off_to_on_mtrl_animation = 2131165283;
+			public const int btn_radio_off_mtrl = 2131165283;
 			
 			// aapt resource value: 0x7F070064
-			public const int btn_radio_on_mtrl = 2131165284;
+			public const int btn_radio_off_to_on_mtrl_animation = 2131165284;
 			
 			// aapt resource value: 0x7F070065
-			public const int btn_radio_on_to_off_mtrl_animation = 2131165285;
+			public const int btn_radio_on_mtrl = 2131165285;
 			
 			// aapt resource value: 0x7F070066
-			public const int design_bottom_navigation_item_background = 2131165286;
+			public const int btn_radio_on_to_off_mtrl_animation = 2131165286;
 			
 			// aapt resource value: 0x7F070067
-			public const int design_fab_background = 2131165287;
+			public const int design_bottom_navigation_item_background = 2131165287;
 			
 			// aapt resource value: 0x7F070068
-			public const int design_ic_visibility = 2131165288;
+			public const int design_fab_background = 2131165288;
 			
 			// aapt resource value: 0x7F070069
-			public const int design_ic_visibility_off = 2131165289;
+			public const int design_ic_visibility = 2131165289;
 			
 			// aapt resource value: 0x7F07006A
-			public const int design_password_eye = 2131165290;
+			public const int design_ic_visibility_off = 2131165290;
 			
 			// aapt resource value: 0x7F07006B
-			public const int design_snackbar_background = 2131165291;
+			public const int design_password_eye = 2131165291;
 			
 			// aapt resource value: 0x7F07006C
-			public const int ic_mtrl_checked_circle = 2131165292;
-			
-			// aapt resource value: 0x7F07006D
-			public const int ic_mtrl_chip_checked_black = 2131165293;
-			
-			// aapt resource value: 0x7F07006E
-			public const int ic_mtrl_chip_checked_circle = 2131165294;
-			
-			// aapt resource value: 0x7F07006F
-			public const int ic_mtrl_chip_close_circle = 2131165295;
-			
-			// aapt resource value: 0x7F070077
-			public const int MaterialActivityIndicatorBackground = 2131165303;
-			
-			// aapt resource value: 0x7F070078
-			public const int MaterialProgressBar = 2131165304;
-			
-			// aapt resource value: 0x7F070070
-			public const int material_ic_calendar_black_24dp = 2131165296;
+			public const int design_snackbar_background = 2131165292;
 			
 			// aapt resource value: 0x7F070071
-			public const int material_ic_clear_black_24dp = 2131165297;
+			public const int icon_about = 2131165297;
 			
 			// aapt resource value: 0x7F070072
-			public const int material_ic_edit_black_24dp = 2131165298;
+			public const int icon_feed = 2131165298;
 			
-			// aapt resource value: 0x7F070073
-			public const int material_ic_keyboard_arrow_left_black_24dp = 2131165299;
+			// aapt resource value: 0x7F07006D
+			public const int ic_mtrl_checked_circle = 2131165293;
 			
-			// aapt resource value: 0x7F070074
-			public const int material_ic_keyboard_arrow_right_black_24dp = 2131165300;
+			// aapt resource value: 0x7F07006E
+			public const int ic_mtrl_chip_checked_black = 2131165294;
 			
-			// aapt resource value: 0x7F070075
-			public const int material_ic_menu_arrow_down_black_24dp = 2131165301;
+			// aapt resource value: 0x7F07006F
+			public const int ic_mtrl_chip_checked_circle = 2131165295;
 			
-			// aapt resource value: 0x7F070076
-			public const int material_ic_menu_arrow_up_black_24dp = 2131165302;
-			
-			// aapt resource value: 0x7F070079
-			public const int mtrl_dialog_background = 2131165305;
+			// aapt resource value: 0x7F070070
+			public const int ic_mtrl_chip_close_circle = 2131165296;
 			
 			// aapt resource value: 0x7F07007A
-			public const int mtrl_dropdown_arrow = 2131165306;
+			public const int MaterialActivityIndicatorBackground = 2131165306;
 			
 			// aapt resource value: 0x7F07007B
-			public const int mtrl_ic_arrow_drop_down = 2131165307;
+			public const int MaterialProgressBar = 2131165307;
+			
+			// aapt resource value: 0x7F070073
+			public const int material_ic_calendar_black_24dp = 2131165299;
+			
+			// aapt resource value: 0x7F070074
+			public const int material_ic_clear_black_24dp = 2131165300;
+			
+			// aapt resource value: 0x7F070075
+			public const int material_ic_edit_black_24dp = 2131165301;
+			
+			// aapt resource value: 0x7F070076
+			public const int material_ic_keyboard_arrow_left_black_24dp = 2131165302;
+			
+			// aapt resource value: 0x7F070077
+			public const int material_ic_keyboard_arrow_right_black_24dp = 2131165303;
+			
+			// aapt resource value: 0x7F070078
+			public const int material_ic_menu_arrow_down_black_24dp = 2131165304;
+			
+			// aapt resource value: 0x7F070079
+			public const int material_ic_menu_arrow_up_black_24dp = 2131165305;
 			
 			// aapt resource value: 0x7F07007C
-			public const int mtrl_ic_arrow_drop_up = 2131165308;
+			public const int mtrl_dialog_background = 2131165308;
 			
 			// aapt resource value: 0x7F07007D
-			public const int mtrl_ic_cancel = 2131165309;
+			public const int mtrl_dropdown_arrow = 2131165309;
 			
 			// aapt resource value: 0x7F07007E
-			public const int mtrl_ic_error = 2131165310;
+			public const int mtrl_ic_arrow_drop_down = 2131165310;
 			
 			// aapt resource value: 0x7F07007F
-			public const int mtrl_popupmenu_background = 2131165311;
+			public const int mtrl_ic_arrow_drop_up = 2131165311;
 			
 			// aapt resource value: 0x7F070080
-			public const int mtrl_popupmenu_background_dark = 2131165312;
+			public const int mtrl_ic_cancel = 2131165312;
 			
 			// aapt resource value: 0x7F070081
-			public const int mtrl_tabs_default_indicator = 2131165313;
+			public const int mtrl_ic_error = 2131165313;
 			
 			// aapt resource value: 0x7F070082
-			public const int navigation_empty_icon = 2131165314;
+			public const int mtrl_popupmenu_background = 2131165314;
 			
 			// aapt resource value: 0x7F070083
-			public const int notification_action_background = 2131165315;
+			public const int mtrl_popupmenu_background_dark = 2131165315;
 			
 			// aapt resource value: 0x7F070084
-			public const int notification_bg = 2131165316;
+			public const int mtrl_tabs_default_indicator = 2131165316;
 			
 			// aapt resource value: 0x7F070085
-			public const int notification_bg_low = 2131165317;
+			public const int navigation_empty_icon = 2131165317;
 			
 			// aapt resource value: 0x7F070086
-			public const int notification_bg_low_normal = 2131165318;
+			public const int notification_action_background = 2131165318;
 			
 			// aapt resource value: 0x7F070087
-			public const int notification_bg_low_pressed = 2131165319;
+			public const int notification_bg = 2131165319;
 			
 			// aapt resource value: 0x7F070088
-			public const int notification_bg_normal = 2131165320;
+			public const int notification_bg_low = 2131165320;
 			
 			// aapt resource value: 0x7F070089
-			public const int notification_bg_normal_pressed = 2131165321;
+			public const int notification_bg_low_normal = 2131165321;
 			
 			// aapt resource value: 0x7F07008A
-			public const int notification_icon_background = 2131165322;
+			public const int notification_bg_low_pressed = 2131165322;
 			
 			// aapt resource value: 0x7F07008B
-			public const int notification_template_icon_bg = 2131165323;
+			public const int notification_bg_normal = 2131165323;
 			
 			// aapt resource value: 0x7F07008C
-			public const int notification_template_icon_low_bg = 2131165324;
+			public const int notification_bg_normal_pressed = 2131165324;
 			
 			// aapt resource value: 0x7F07008D
-			public const int notification_tile_bg = 2131165325;
+			public const int notification_icon_background = 2131165325;
 			
 			// aapt resource value: 0x7F07008E
-			public const int notify_panel_notification_icon_bg = 2131165326;
+			public const int notification_template_icon_bg = 2131165326;
 			
 			// aapt resource value: 0x7F07008F
-			public const int test_custom_background = 2131165327;
+			public const int notification_template_icon_low_bg = 2131165327;
 			
 			// aapt resource value: 0x7F070090
-			public const int tooltip_frame_dark = 2131165328;
+			public const int notification_tile_bg = 2131165328;
 			
 			// aapt resource value: 0x7F070091
-			public const int tooltip_frame_light = 2131165329;
+			public const int notify_panel_notification_icon_bg = 2131165329;
+			
+			// aapt resource value: 0x7F070092
+			public const int splash_logo = 2131165330;
+			
+			// aapt resource value: 0x7F070093
+			public const int splash_screen = 2131165331;
+			
+			// aapt resource value: 0x7F070094
+			public const int test_custom_background = 2131165332;
+			
+			// aapt resource value: 0x7F070095
+			public const int text_cursor = 2131165333;
+			
+			// aapt resource value: 0x7F070096
+			public const int tooltip_frame_dark = 2131165334;
+			
+			// aapt resource value: 0x7F070097
+			public const int tooltip_frame_light = 2131165335;
+			
+			// aapt resource value: 0x7F070098
+			public const int xamarin_logo = 2131165336;
 			
 			static Drawable()
 			{
@@ -16639,262 +20358,265 @@ namespace System.Application.Launch
 			public const int browser_actions_context_menu_row = 2131427358;
 			
 			// aapt resource value: 0x7F0B001F
-			public const int custom_dialog = 2131427359;
+			public const int controls_btntext = 2131427359;
 			
 			// aapt resource value: 0x7F0B0020
-			public const int design_bottom_navigation_item = 2131427360;
+			public const int custom_dialog = 2131427360;
 			
 			// aapt resource value: 0x7F0B0021
-			public const int design_bottom_sheet_dialog = 2131427361;
+			public const int design_bottom_navigation_item = 2131427361;
 			
 			// aapt resource value: 0x7F0B0022
-			public const int design_layout_snackbar = 2131427362;
+			public const int design_bottom_sheet_dialog = 2131427362;
 			
 			// aapt resource value: 0x7F0B0023
-			public const int design_layout_snackbar_include = 2131427363;
+			public const int design_layout_snackbar = 2131427363;
 			
 			// aapt resource value: 0x7F0B0024
-			public const int design_layout_tab_icon = 2131427364;
+			public const int design_layout_snackbar_include = 2131427364;
 			
 			// aapt resource value: 0x7F0B0025
-			public const int design_layout_tab_text = 2131427365;
+			public const int design_layout_tab_icon = 2131427365;
 			
 			// aapt resource value: 0x7F0B0026
-			public const int design_menu_item_action_area = 2131427366;
+			public const int design_layout_tab_text = 2131427366;
 			
 			// aapt resource value: 0x7F0B0027
-			public const int design_navigation_item = 2131427367;
+			public const int design_menu_item_action_area = 2131427367;
 			
 			// aapt resource value: 0x7F0B0028
-			public const int design_navigation_item_header = 2131427368;
+			public const int design_navigation_item = 2131427368;
 			
 			// aapt resource value: 0x7F0B0029
-			public const int design_navigation_item_separator = 2131427369;
+			public const int design_navigation_item_header = 2131427369;
 			
 			// aapt resource value: 0x7F0B002A
-			public const int design_navigation_item_subheader = 2131427370;
+			public const int design_navigation_item_separator = 2131427370;
 			
 			// aapt resource value: 0x7F0B002B
-			public const int design_navigation_menu = 2131427371;
+			public const int design_navigation_item_subheader = 2131427371;
 			
 			// aapt resource value: 0x7F0B002C
-			public const int design_navigation_menu_item = 2131427372;
+			public const int design_navigation_menu = 2131427372;
 			
 			// aapt resource value: 0x7F0B002D
-			public const int design_text_input_end_icon = 2131427373;
+			public const int design_navigation_menu_item = 2131427373;
 			
 			// aapt resource value: 0x7F0B002E
-			public const int design_text_input_start_icon = 2131427374;
+			public const int design_text_input_end_icon = 2131427374;
 			
 			// aapt resource value: 0x7F0B002F
-			public const int FallbackTabbarDoNotUse = 2131427375;
+			public const int design_text_input_start_icon = 2131427375;
 			
 			// aapt resource value: 0x7F0B0030
-			public const int FallbackToolbarDoNotUse = 2131427376;
+			public const int FallbackTabbarDoNotUse = 2131427376;
 			
 			// aapt resource value: 0x7F0B0031
-			public const int FlyoutContent = 2131427377;
+			public const int FallbackToolbarDoNotUse = 2131427377;
 			
 			// aapt resource value: 0x7F0B0032
-			public const int MaterialPickerTextInput = 2131427378;
+			public const int FlyoutContent = 2131427378;
 			
 			// aapt resource value: 0x7F0B0033
-			public const int mtrl_alert_dialog = 2131427379;
+			public const int MaterialPickerTextInput = 2131427379;
 			
 			// aapt resource value: 0x7F0B0034
-			public const int mtrl_alert_dialog_actions = 2131427380;
+			public const int mtrl_alert_dialog = 2131427380;
 			
 			// aapt resource value: 0x7F0B0035
-			public const int mtrl_alert_dialog_title = 2131427381;
+			public const int mtrl_alert_dialog_actions = 2131427381;
 			
 			// aapt resource value: 0x7F0B0036
-			public const int mtrl_alert_select_dialog_item = 2131427382;
+			public const int mtrl_alert_dialog_title = 2131427382;
 			
 			// aapt resource value: 0x7F0B0037
-			public const int mtrl_alert_select_dialog_multichoice = 2131427383;
+			public const int mtrl_alert_select_dialog_item = 2131427383;
 			
 			// aapt resource value: 0x7F0B0038
-			public const int mtrl_alert_select_dialog_singlechoice = 2131427384;
+			public const int mtrl_alert_select_dialog_multichoice = 2131427384;
 			
 			// aapt resource value: 0x7F0B0039
-			public const int mtrl_calendar_day = 2131427385;
-			
-			// aapt resource value: 0x7F0B003B
-			public const int mtrl_calendar_days_of_week = 2131427387;
+			public const int mtrl_alert_select_dialog_singlechoice = 2131427385;
 			
 			// aapt resource value: 0x7F0B003A
-			public const int mtrl_calendar_day_of_week = 2131427386;
+			public const int mtrl_calendar_day = 2131427386;
 			
 			// aapt resource value: 0x7F0B003C
-			public const int mtrl_calendar_horizontal = 2131427388;
+			public const int mtrl_calendar_days_of_week = 2131427388;
+			
+			// aapt resource value: 0x7F0B003B
+			public const int mtrl_calendar_day_of_week = 2131427387;
 			
 			// aapt resource value: 0x7F0B003D
-			public const int mtrl_calendar_month = 2131427389;
-			
-			// aapt resource value: 0x7F0B0040
-			public const int mtrl_calendar_months = 2131427392;
+			public const int mtrl_calendar_horizontal = 2131427389;
 			
 			// aapt resource value: 0x7F0B003E
-			public const int mtrl_calendar_month_labeled = 2131427390;
-			
-			// aapt resource value: 0x7F0B003F
-			public const int mtrl_calendar_month_navigation = 2131427391;
+			public const int mtrl_calendar_month = 2131427390;
 			
 			// aapt resource value: 0x7F0B0041
-			public const int mtrl_calendar_vertical = 2131427393;
+			public const int mtrl_calendar_months = 2131427393;
+			
+			// aapt resource value: 0x7F0B003F
+			public const int mtrl_calendar_month_labeled = 2131427391;
+			
+			// aapt resource value: 0x7F0B0040
+			public const int mtrl_calendar_month_navigation = 2131427392;
 			
 			// aapt resource value: 0x7F0B0042
-			public const int mtrl_calendar_year = 2131427394;
+			public const int mtrl_calendar_vertical = 2131427394;
 			
 			// aapt resource value: 0x7F0B0043
-			public const int mtrl_layout_snackbar = 2131427395;
+			public const int mtrl_calendar_year = 2131427395;
 			
 			// aapt resource value: 0x7F0B0044
-			public const int mtrl_layout_snackbar_include = 2131427396;
+			public const int mtrl_layout_snackbar = 2131427396;
 			
 			// aapt resource value: 0x7F0B0045
-			public const int mtrl_picker_actions = 2131427397;
+			public const int mtrl_layout_snackbar_include = 2131427397;
 			
 			// aapt resource value: 0x7F0B0046
-			public const int mtrl_picker_dialog = 2131427398;
+			public const int mtrl_picker_actions = 2131427398;
 			
 			// aapt resource value: 0x7F0B0047
-			public const int mtrl_picker_fullscreen = 2131427399;
+			public const int mtrl_picker_dialog = 2131427399;
 			
 			// aapt resource value: 0x7F0B0048
-			public const int mtrl_picker_header_dialog = 2131427400;
+			public const int mtrl_picker_fullscreen = 2131427400;
 			
 			// aapt resource value: 0x7F0B0049
-			public const int mtrl_picker_header_fullscreen = 2131427401;
+			public const int mtrl_picker_header_dialog = 2131427401;
 			
 			// aapt resource value: 0x7F0B004A
-			public const int mtrl_picker_header_selection_text = 2131427402;
+			public const int mtrl_picker_header_fullscreen = 2131427402;
 			
 			// aapt resource value: 0x7F0B004B
-			public const int mtrl_picker_header_title_text = 2131427403;
+			public const int mtrl_picker_header_selection_text = 2131427403;
 			
 			// aapt resource value: 0x7F0B004C
-			public const int mtrl_picker_header_toggle = 2131427404;
+			public const int mtrl_picker_header_title_text = 2131427404;
 			
 			// aapt resource value: 0x7F0B004D
-			public const int mtrl_picker_text_input_date = 2131427405;
+			public const int mtrl_picker_header_toggle = 2131427405;
 			
 			// aapt resource value: 0x7F0B004E
-			public const int mtrl_picker_text_input_date_range = 2131427406;
+			public const int mtrl_picker_text_input_date = 2131427406;
 			
 			// aapt resource value: 0x7F0B004F
-			public const int notification_action = 2131427407;
+			public const int mtrl_picker_text_input_date_range = 2131427407;
 			
 			// aapt resource value: 0x7F0B0050
-			public const int notification_action_tombstone = 2131427408;
+			public const int notification_action = 2131427408;
 			
 			// aapt resource value: 0x7F0B0051
-			public const int notification_media_action = 2131427409;
+			public const int notification_action_tombstone = 2131427409;
 			
 			// aapt resource value: 0x7F0B0052
-			public const int notification_media_cancel_action = 2131427410;
+			public const int notification_media_action = 2131427410;
 			
 			// aapt resource value: 0x7F0B0053
-			public const int notification_template_big_media = 2131427411;
+			public const int notification_media_cancel_action = 2131427411;
 			
 			// aapt resource value: 0x7F0B0054
-			public const int notification_template_big_media_custom = 2131427412;
+			public const int notification_template_big_media = 2131427412;
 			
 			// aapt resource value: 0x7F0B0055
-			public const int notification_template_big_media_narrow = 2131427413;
+			public const int notification_template_big_media_custom = 2131427413;
 			
 			// aapt resource value: 0x7F0B0056
-			public const int notification_template_big_media_narrow_custom = 2131427414;
+			public const int notification_template_big_media_narrow = 2131427414;
 			
 			// aapt resource value: 0x7F0B0057
-			public const int notification_template_custom_big = 2131427415;
+			public const int notification_template_big_media_narrow_custom = 2131427415;
 			
 			// aapt resource value: 0x7F0B0058
-			public const int notification_template_icon_group = 2131427416;
+			public const int notification_template_custom_big = 2131427416;
 			
 			// aapt resource value: 0x7F0B0059
-			public const int notification_template_lines_media = 2131427417;
+			public const int notification_template_icon_group = 2131427417;
 			
 			// aapt resource value: 0x7F0B005A
-			public const int notification_template_media = 2131427418;
+			public const int notification_template_lines_media = 2131427418;
 			
 			// aapt resource value: 0x7F0B005B
-			public const int notification_template_media_custom = 2131427419;
+			public const int notification_template_media = 2131427419;
 			
 			// aapt resource value: 0x7F0B005C
-			public const int notification_template_part_chronometer = 2131427420;
+			public const int notification_template_media_custom = 2131427420;
 			
 			// aapt resource value: 0x7F0B005D
-			public const int notification_template_part_time = 2131427421;
+			public const int notification_template_part_chronometer = 2131427421;
 			
 			// aapt resource value: 0x7F0B005E
-			public const int RootLayout = 2131427422;
+			public const int notification_template_part_time = 2131427422;
 			
 			// aapt resource value: 0x7F0B005F
-			public const int select_dialog_item_material = 2131427423;
+			public const int RootLayout = 2131427423;
 			
 			// aapt resource value: 0x7F0B0060
-			public const int select_dialog_multichoice_material = 2131427424;
+			public const int select_dialog_item_material = 2131427424;
 			
 			// aapt resource value: 0x7F0B0061
-			public const int select_dialog_singlechoice_material = 2131427425;
+			public const int select_dialog_multichoice_material = 2131427425;
 			
 			// aapt resource value: 0x7F0B0062
-			public const int ShellContent = 2131427426;
+			public const int select_dialog_singlechoice_material = 2131427426;
 			
 			// aapt resource value: 0x7F0B0063
-			public const int support_simple_spinner_dropdown_item = 2131427427;
+			public const int ShellContent = 2131427427;
 			
 			// aapt resource value: 0x7F0B0064
-			public const int Tabbar = 2131427428;
+			public const int support_simple_spinner_dropdown_item = 2131427428;
 			
 			// aapt resource value: 0x7F0B0065
-			public const int test_action_chip = 2131427429;
+			public const int Tabbar = 2131427429;
 			
 			// aapt resource value: 0x7F0B0066
-			public const int test_chip_zero_corner_radius = 2131427430;
+			public const int test_action_chip = 2131427430;
 			
 			// aapt resource value: 0x7F0B0067
-			public const int test_design_checkbox = 2131427431;
+			public const int test_chip_zero_corner_radius = 2131427431;
 			
 			// aapt resource value: 0x7F0B0068
-			public const int test_design_radiobutton = 2131427432;
+			public const int test_design_checkbox = 2131427432;
 			
 			// aapt resource value: 0x7F0B0069
-			public const int test_reflow_chipgroup = 2131427433;
+			public const int test_design_radiobutton = 2131427433;
 			
 			// aapt resource value: 0x7F0B006A
-			public const int test_toolbar = 2131427434;
+			public const int test_reflow_chipgroup = 2131427434;
 			
 			// aapt resource value: 0x7F0B006B
-			public const int test_toolbar_custom_background = 2131427435;
+			public const int test_toolbar = 2131427435;
 			
 			// aapt resource value: 0x7F0B006C
-			public const int test_toolbar_elevation = 2131427436;
+			public const int test_toolbar_custom_background = 2131427436;
 			
 			// aapt resource value: 0x7F0B006D
-			public const int test_toolbar_surface = 2131427437;
-			
-			// aapt resource value: 0x7F0B0073
-			public const int TextInputLayoutFilledBox = 2131427443;
-			
-			// aapt resource value: 0x7F0B0072
-			public const int text_view_without_line_height = 2131427442;
+			public const int test_toolbar_elevation = 2131427437;
 			
 			// aapt resource value: 0x7F0B006E
-			public const int text_view_with_line_height_from_appearance = 2131427438;
-			
-			// aapt resource value: 0x7F0B006F
-			public const int text_view_with_line_height_from_layout = 2131427439;
-			
-			// aapt resource value: 0x7F0B0070
-			public const int text_view_with_line_height_from_style = 2131427440;
-			
-			// aapt resource value: 0x7F0B0071
-			public const int text_view_with_theme_line_height = 2131427441;
+			public const int test_toolbar_surface = 2131427438;
 			
 			// aapt resource value: 0x7F0B0074
-			public const int Toolbar = 2131427444;
+			public const int TextInputLayoutFilledBox = 2131427444;
+			
+			// aapt resource value: 0x7F0B0073
+			public const int text_view_without_line_height = 2131427443;
+			
+			// aapt resource value: 0x7F0B006F
+			public const int text_view_with_line_height_from_appearance = 2131427439;
+			
+			// aapt resource value: 0x7F0B0070
+			public const int text_view_with_line_height_from_layout = 2131427440;
+			
+			// aapt resource value: 0x7F0B0071
+			public const int text_view_with_line_height_from_style = 2131427441;
+			
+			// aapt resource value: 0x7F0B0072
+			public const int text_view_with_theme_line_height = 2131427442;
+			
+			// aapt resource value: 0x7F0B0075
+			public const int Toolbar = 2131427445;
 			
 			static Layout()
 			{
@@ -16906,11 +20628,33 @@ namespace System.Application.Launch
 			}
 		}
 		
-		public partial class Plurals
+		public partial class Mipmap
 		{
 			
 			// aapt resource value: 0x7F0C0000
-			public const int mtrl_badge_content_description = 2131492864;
+			public const int ic_launcher = 2131492864;
+			
+			// aapt resource value: 0x7F0C0001
+			public const int ic_launcher_foreground = 2131492865;
+			
+			// aapt resource value: 0x7F0C0002
+			public const int ic_launcher_round = 2131492866;
+			
+			static Mipmap()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Mipmap()
+			{
+			}
+		}
+		
+		public partial class Plurals
+		{
+			
+			// aapt resource value: 0x7F0D0000
+			public const int mtrl_badge_content_description = 2131558400;
 			
 			static Plurals()
 			{
@@ -16925,275 +20669,278 @@ namespace System.Application.Launch
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7F0D0000
-			public const int abc_action_bar_home_description = 2131558400;
+			// aapt resource value: 0x7F0E0000
+			public const int abc_action_bar_home_description = 2131623936;
 			
-			// aapt resource value: 0x7F0D0001
-			public const int abc_action_bar_up_description = 2131558401;
+			// aapt resource value: 0x7F0E0001
+			public const int abc_action_bar_up_description = 2131623937;
 			
-			// aapt resource value: 0x7F0D0002
-			public const int abc_action_menu_overflow_description = 2131558402;
+			// aapt resource value: 0x7F0E0002
+			public const int abc_action_menu_overflow_description = 2131623938;
 			
-			// aapt resource value: 0x7F0D0003
-			public const int abc_action_mode_done = 2131558403;
+			// aapt resource value: 0x7F0E0003
+			public const int abc_action_mode_done = 2131623939;
 			
-			// aapt resource value: 0x7F0D0005
-			public const int abc_activitychooserview_choose_application = 2131558405;
+			// aapt resource value: 0x7F0E0005
+			public const int abc_activitychooserview_choose_application = 2131623941;
 			
-			// aapt resource value: 0x7F0D0004
-			public const int abc_activity_chooser_view_see_all = 2131558404;
+			// aapt resource value: 0x7F0E0004
+			public const int abc_activity_chooser_view_see_all = 2131623940;
 			
-			// aapt resource value: 0x7F0D0006
-			public const int abc_capital_off = 2131558406;
+			// aapt resource value: 0x7F0E0006
+			public const int abc_capital_off = 2131623942;
 			
-			// aapt resource value: 0x7F0D0007
-			public const int abc_capital_on = 2131558407;
+			// aapt resource value: 0x7F0E0007
+			public const int abc_capital_on = 2131623943;
 			
-			// aapt resource value: 0x7F0D0008
-			public const int abc_menu_alt_shortcut_label = 2131558408;
+			// aapt resource value: 0x7F0E0008
+			public const int abc_menu_alt_shortcut_label = 2131623944;
 			
-			// aapt resource value: 0x7F0D0009
-			public const int abc_menu_ctrl_shortcut_label = 2131558409;
+			// aapt resource value: 0x7F0E0009
+			public const int abc_menu_ctrl_shortcut_label = 2131623945;
 			
-			// aapt resource value: 0x7F0D000A
-			public const int abc_menu_delete_shortcut_label = 2131558410;
+			// aapt resource value: 0x7F0E000A
+			public const int abc_menu_delete_shortcut_label = 2131623946;
 			
-			// aapt resource value: 0x7F0D000B
-			public const int abc_menu_enter_shortcut_label = 2131558411;
+			// aapt resource value: 0x7F0E000B
+			public const int abc_menu_enter_shortcut_label = 2131623947;
 			
-			// aapt resource value: 0x7F0D000C
-			public const int abc_menu_function_shortcut_label = 2131558412;
+			// aapt resource value: 0x7F0E000C
+			public const int abc_menu_function_shortcut_label = 2131623948;
 			
-			// aapt resource value: 0x7F0D000D
-			public const int abc_menu_meta_shortcut_label = 2131558413;
+			// aapt resource value: 0x7F0E000D
+			public const int abc_menu_meta_shortcut_label = 2131623949;
 			
-			// aapt resource value: 0x7F0D000E
-			public const int abc_menu_shift_shortcut_label = 2131558414;
+			// aapt resource value: 0x7F0E000E
+			public const int abc_menu_shift_shortcut_label = 2131623950;
 			
-			// aapt resource value: 0x7F0D000F
-			public const int abc_menu_space_shortcut_label = 2131558415;
+			// aapt resource value: 0x7F0E000F
+			public const int abc_menu_space_shortcut_label = 2131623951;
 			
-			// aapt resource value: 0x7F0D0010
-			public const int abc_menu_sym_shortcut_label = 2131558416;
+			// aapt resource value: 0x7F0E0010
+			public const int abc_menu_sym_shortcut_label = 2131623952;
 			
-			// aapt resource value: 0x7F0D0011
-			public const int abc_prepend_shortcut_label = 2131558417;
+			// aapt resource value: 0x7F0E0011
+			public const int abc_prepend_shortcut_label = 2131623953;
 			
-			// aapt resource value: 0x7F0D0013
-			public const int abc_searchview_description_clear = 2131558419;
+			// aapt resource value: 0x7F0E0013
+			public const int abc_searchview_description_clear = 2131623955;
 			
-			// aapt resource value: 0x7F0D0014
-			public const int abc_searchview_description_query = 2131558420;
+			// aapt resource value: 0x7F0E0014
+			public const int abc_searchview_description_query = 2131623956;
 			
-			// aapt resource value: 0x7F0D0015
-			public const int abc_searchview_description_search = 2131558421;
+			// aapt resource value: 0x7F0E0015
+			public const int abc_searchview_description_search = 2131623957;
 			
-			// aapt resource value: 0x7F0D0016
-			public const int abc_searchview_description_submit = 2131558422;
+			// aapt resource value: 0x7F0E0016
+			public const int abc_searchview_description_submit = 2131623958;
 			
-			// aapt resource value: 0x7F0D0017
-			public const int abc_searchview_description_voice = 2131558423;
+			// aapt resource value: 0x7F0E0017
+			public const int abc_searchview_description_voice = 2131623959;
 			
-			// aapt resource value: 0x7F0D0012
-			public const int abc_search_hint = 2131558418;
+			// aapt resource value: 0x7F0E0012
+			public const int abc_search_hint = 2131623954;
 			
-			// aapt resource value: 0x7F0D0018
-			public const int abc_shareactionprovider_share_with = 2131558424;
+			// aapt resource value: 0x7F0E0018
+			public const int abc_shareactionprovider_share_with = 2131623960;
 			
-			// aapt resource value: 0x7F0D0019
-			public const int abc_shareactionprovider_share_with_application = 2131558425;
+			// aapt resource value: 0x7F0E0019
+			public const int abc_shareactionprovider_share_with_application = 2131623961;
 			
-			// aapt resource value: 0x7F0D001A
-			public const int abc_toolbar_collapse_description = 2131558426;
+			// aapt resource value: 0x7F0E001A
+			public const int abc_toolbar_collapse_description = 2131623962;
 			
-			// aapt resource value: 0x7F0D001B
-			public const int appbar_scrolling_view_behavior = 2131558427;
+			// aapt resource value: 0x7F0E001C
+			public const int appbar_scrolling_view_behavior = 2131623964;
 			
-			// aapt resource value: 0x7F0D001C
-			public const int bottom_sheet_behavior = 2131558428;
+			// aapt resource value: 0x7F0E001B
+			public const int app_name = 2131623963;
 			
-			// aapt resource value: 0x7F0D001D
-			public const int character_counter_content_description = 2131558429;
+			// aapt resource value: 0x7F0E001D
+			public const int bottom_sheet_behavior = 2131623965;
 			
-			// aapt resource value: 0x7F0D001E
-			public const int character_counter_overflowed_content_description = 2131558430;
+			// aapt resource value: 0x7F0E001E
+			public const int character_counter_content_description = 2131623966;
 			
-			// aapt resource value: 0x7F0D001F
-			public const int character_counter_pattern = 2131558431;
+			// aapt resource value: 0x7F0E001F
+			public const int character_counter_overflowed_content_description = 2131623967;
 			
-			// aapt resource value: 0x7F0D0020
-			public const int chip_text = 2131558432;
+			// aapt resource value: 0x7F0E0020
+			public const int character_counter_pattern = 2131623968;
 			
-			// aapt resource value: 0x7F0D0021
-			public const int clear_text_end_icon_content_description = 2131558433;
+			// aapt resource value: 0x7F0E0021
+			public const int chip_text = 2131623969;
 			
-			// aapt resource value: 0x7F0D0022
-			public const int copy_toast_msg = 2131558434;
+			// aapt resource value: 0x7F0E0022
+			public const int clear_text_end_icon_content_description = 2131623970;
 			
-			// aapt resource value: 0x7F0D0023
-			public const int error_icon_content_description = 2131558435;
+			// aapt resource value: 0x7F0E0023
+			public const int copy_toast_msg = 2131623971;
 			
-			// aapt resource value: 0x7F0D0024
-			public const int exposed_dropdown_menu_content_description = 2131558436;
+			// aapt resource value: 0x7F0E0024
+			public const int error_icon_content_description = 2131623972;
 			
-			// aapt resource value: 0x7F0D0025
-			public const int fab_transformation_scrim_behavior = 2131558437;
+			// aapt resource value: 0x7F0E0025
+			public const int exposed_dropdown_menu_content_description = 2131623973;
 			
-			// aapt resource value: 0x7F0D0026
-			public const int fab_transformation_sheet_behavior = 2131558438;
+			// aapt resource value: 0x7F0E0026
+			public const int fab_transformation_scrim_behavior = 2131623974;
 			
-			// aapt resource value: 0x7F0D0027
-			public const int fallback_menu_item_copy_link = 2131558439;
+			// aapt resource value: 0x7F0E0027
+			public const int fab_transformation_sheet_behavior = 2131623975;
 			
-			// aapt resource value: 0x7F0D0028
-			public const int fallback_menu_item_open_in_browser = 2131558440;
+			// aapt resource value: 0x7F0E0028
+			public const int fallback_menu_item_copy_link = 2131623976;
 			
-			// aapt resource value: 0x7F0D0029
-			public const int fallback_menu_item_share_link = 2131558441;
+			// aapt resource value: 0x7F0E0029
+			public const int fallback_menu_item_open_in_browser = 2131623977;
 			
-			// aapt resource value: 0x7F0D002A
-			public const int hide_bottom_view_on_scroll_behavior = 2131558442;
+			// aapt resource value: 0x7F0E002A
+			public const int fallback_menu_item_share_link = 2131623978;
 			
-			// aapt resource value: 0x7F0D002B
-			public const int icon_content_description = 2131558443;
+			// aapt resource value: 0x7F0E002B
+			public const int hide_bottom_view_on_scroll_behavior = 2131623979;
 			
-			// aapt resource value: 0x7F0D002C
-			public const int item_view_role_description = 2131558444;
+			// aapt resource value: 0x7F0E002C
+			public const int icon_content_description = 2131623980;
 			
-			// aapt resource value: 0x7F0D002D
-			public const int material_slider_range_end = 2131558445;
+			// aapt resource value: 0x7F0E002D
+			public const int item_view_role_description = 2131623981;
 			
-			// aapt resource value: 0x7F0D002E
-			public const int material_slider_range_start = 2131558446;
+			// aapt resource value: 0x7F0E002E
+			public const int material_slider_range_end = 2131623982;
 			
-			// aapt resource value: 0x7F0D002F
-			public const int mtrl_badge_numberless_content_description = 2131558447;
+			// aapt resource value: 0x7F0E002F
+			public const int material_slider_range_start = 2131623983;
 			
-			// aapt resource value: 0x7F0D0030
-			public const int mtrl_chip_close_icon_content_description = 2131558448;
+			// aapt resource value: 0x7F0E0030
+			public const int mtrl_badge_numberless_content_description = 2131623984;
 			
-			// aapt resource value: 0x7F0D0031
-			public const int mtrl_exceed_max_badge_number_content_description = 2131558449;
+			// aapt resource value: 0x7F0E0031
+			public const int mtrl_chip_close_icon_content_description = 2131623985;
 			
-			// aapt resource value: 0x7F0D0032
-			public const int mtrl_exceed_max_badge_number_suffix = 2131558450;
+			// aapt resource value: 0x7F0E0032
+			public const int mtrl_exceed_max_badge_number_content_description = 2131623986;
 			
-			// aapt resource value: 0x7F0D0033
-			public const int mtrl_picker_a11y_next_month = 2131558451;
+			// aapt resource value: 0x7F0E0033
+			public const int mtrl_exceed_max_badge_number_suffix = 2131623987;
 			
-			// aapt resource value: 0x7F0D0034
-			public const int mtrl_picker_a11y_prev_month = 2131558452;
+			// aapt resource value: 0x7F0E0034
+			public const int mtrl_picker_a11y_next_month = 2131623988;
 			
-			// aapt resource value: 0x7F0D0035
-			public const int mtrl_picker_announce_current_selection = 2131558453;
+			// aapt resource value: 0x7F0E0035
+			public const int mtrl_picker_a11y_prev_month = 2131623989;
 			
-			// aapt resource value: 0x7F0D0036
-			public const int mtrl_picker_cancel = 2131558454;
+			// aapt resource value: 0x7F0E0036
+			public const int mtrl_picker_announce_current_selection = 2131623990;
 			
-			// aapt resource value: 0x7F0D0037
-			public const int mtrl_picker_confirm = 2131558455;
+			// aapt resource value: 0x7F0E0037
+			public const int mtrl_picker_cancel = 2131623991;
 			
-			// aapt resource value: 0x7F0D0038
-			public const int mtrl_picker_date_header_selected = 2131558456;
+			// aapt resource value: 0x7F0E0038
+			public const int mtrl_picker_confirm = 2131623992;
 			
-			// aapt resource value: 0x7F0D0039
-			public const int mtrl_picker_date_header_title = 2131558457;
+			// aapt resource value: 0x7F0E0039
+			public const int mtrl_picker_date_header_selected = 2131623993;
 			
-			// aapt resource value: 0x7F0D003A
-			public const int mtrl_picker_date_header_unselected = 2131558458;
+			// aapt resource value: 0x7F0E003A
+			public const int mtrl_picker_date_header_title = 2131623994;
 			
-			// aapt resource value: 0x7F0D003B
-			public const int mtrl_picker_day_of_week_column_header = 2131558459;
+			// aapt resource value: 0x7F0E003B
+			public const int mtrl_picker_date_header_unselected = 2131623995;
 			
-			// aapt resource value: 0x7F0D003C
-			public const int mtrl_picker_invalid_format = 2131558460;
+			// aapt resource value: 0x7F0E003C
+			public const int mtrl_picker_day_of_week_column_header = 2131623996;
 			
-			// aapt resource value: 0x7F0D003D
-			public const int mtrl_picker_invalid_format_example = 2131558461;
+			// aapt resource value: 0x7F0E003D
+			public const int mtrl_picker_invalid_format = 2131623997;
 			
-			// aapt resource value: 0x7F0D003E
-			public const int mtrl_picker_invalid_format_use = 2131558462;
+			// aapt resource value: 0x7F0E003E
+			public const int mtrl_picker_invalid_format_example = 2131623998;
 			
-			// aapt resource value: 0x7F0D003F
-			public const int mtrl_picker_invalid_range = 2131558463;
+			// aapt resource value: 0x7F0E003F
+			public const int mtrl_picker_invalid_format_use = 2131623999;
 			
-			// aapt resource value: 0x7F0D0040
-			public const int mtrl_picker_navigate_to_year_description = 2131558464;
+			// aapt resource value: 0x7F0E0040
+			public const int mtrl_picker_invalid_range = 2131624000;
 			
-			// aapt resource value: 0x7F0D0041
-			public const int mtrl_picker_out_of_range = 2131558465;
+			// aapt resource value: 0x7F0E0041
+			public const int mtrl_picker_navigate_to_year_description = 2131624001;
 			
-			// aapt resource value: 0x7F0D0042
-			public const int mtrl_picker_range_header_only_end_selected = 2131558466;
+			// aapt resource value: 0x7F0E0042
+			public const int mtrl_picker_out_of_range = 2131624002;
 			
-			// aapt resource value: 0x7F0D0043
-			public const int mtrl_picker_range_header_only_start_selected = 2131558467;
+			// aapt resource value: 0x7F0E0043
+			public const int mtrl_picker_range_header_only_end_selected = 2131624003;
 			
-			// aapt resource value: 0x7F0D0044
-			public const int mtrl_picker_range_header_selected = 2131558468;
+			// aapt resource value: 0x7F0E0044
+			public const int mtrl_picker_range_header_only_start_selected = 2131624004;
 			
-			// aapt resource value: 0x7F0D0045
-			public const int mtrl_picker_range_header_title = 2131558469;
+			// aapt resource value: 0x7F0E0045
+			public const int mtrl_picker_range_header_selected = 2131624005;
 			
-			// aapt resource value: 0x7F0D0046
-			public const int mtrl_picker_range_header_unselected = 2131558470;
+			// aapt resource value: 0x7F0E0046
+			public const int mtrl_picker_range_header_title = 2131624006;
 			
-			// aapt resource value: 0x7F0D0047
-			public const int mtrl_picker_save = 2131558471;
+			// aapt resource value: 0x7F0E0047
+			public const int mtrl_picker_range_header_unselected = 2131624007;
 			
-			// aapt resource value: 0x7F0D0048
-			public const int mtrl_picker_text_input_date_hint = 2131558472;
+			// aapt resource value: 0x7F0E0048
+			public const int mtrl_picker_save = 2131624008;
 			
-			// aapt resource value: 0x7F0D0049
-			public const int mtrl_picker_text_input_date_range_end_hint = 2131558473;
+			// aapt resource value: 0x7F0E0049
+			public const int mtrl_picker_text_input_date_hint = 2131624009;
 			
-			// aapt resource value: 0x7F0D004A
-			public const int mtrl_picker_text_input_date_range_start_hint = 2131558474;
+			// aapt resource value: 0x7F0E004A
+			public const int mtrl_picker_text_input_date_range_end_hint = 2131624010;
 			
-			// aapt resource value: 0x7F0D004B
-			public const int mtrl_picker_text_input_day_abbr = 2131558475;
+			// aapt resource value: 0x7F0E004B
+			public const int mtrl_picker_text_input_date_range_start_hint = 2131624011;
 			
-			// aapt resource value: 0x7F0D004C
-			public const int mtrl_picker_text_input_month_abbr = 2131558476;
+			// aapt resource value: 0x7F0E004C
+			public const int mtrl_picker_text_input_day_abbr = 2131624012;
 			
-			// aapt resource value: 0x7F0D004D
-			public const int mtrl_picker_text_input_year_abbr = 2131558477;
+			// aapt resource value: 0x7F0E004D
+			public const int mtrl_picker_text_input_month_abbr = 2131624013;
 			
-			// aapt resource value: 0x7F0D004E
-			public const int mtrl_picker_toggle_to_calendar_input_mode = 2131558478;
+			// aapt resource value: 0x7F0E004E
+			public const int mtrl_picker_text_input_year_abbr = 2131624014;
 			
-			// aapt resource value: 0x7F0D004F
-			public const int mtrl_picker_toggle_to_day_selection = 2131558479;
+			// aapt resource value: 0x7F0E004F
+			public const int mtrl_picker_toggle_to_calendar_input_mode = 2131624015;
 			
-			// aapt resource value: 0x7F0D0050
-			public const int mtrl_picker_toggle_to_text_input_mode = 2131558480;
+			// aapt resource value: 0x7F0E0050
+			public const int mtrl_picker_toggle_to_day_selection = 2131624016;
 			
-			// aapt resource value: 0x7F0D0051
-			public const int mtrl_picker_toggle_to_year_selection = 2131558481;
+			// aapt resource value: 0x7F0E0051
+			public const int mtrl_picker_toggle_to_text_input_mode = 2131624017;
 			
-			// aapt resource value: 0x7F0D0052
-			public const int overflow_tab_title = 2131558482;
+			// aapt resource value: 0x7F0E0052
+			public const int mtrl_picker_toggle_to_year_selection = 2131624018;
 			
-			// aapt resource value: 0x7F0D0053
-			public const int password_toggle_content_description = 2131558483;
+			// aapt resource value: 0x7F0E0053
+			public const int overflow_tab_title = 2131624019;
 			
-			// aapt resource value: 0x7F0D0054
-			public const int path_password_eye = 2131558484;
+			// aapt resource value: 0x7F0E0054
+			public const int password_toggle_content_description = 2131624020;
 			
-			// aapt resource value: 0x7F0D0055
-			public const int path_password_eye_mask_strike_through = 2131558485;
+			// aapt resource value: 0x7F0E0055
+			public const int path_password_eye = 2131624021;
 			
-			// aapt resource value: 0x7F0D0056
-			public const int path_password_eye_mask_visible = 2131558486;
+			// aapt resource value: 0x7F0E0056
+			public const int path_password_eye_mask_strike_through = 2131624022;
 			
-			// aapt resource value: 0x7F0D0057
-			public const int path_password_strike_through = 2131558487;
+			// aapt resource value: 0x7F0E0057
+			public const int path_password_eye_mask_visible = 2131624023;
 			
-			// aapt resource value: 0x7F0D0058
-			public const int search_menu_title = 2131558488;
+			// aapt resource value: 0x7F0E0058
+			public const int path_password_strike_through = 2131624024;
 			
-			// aapt resource value: 0x7F0D0059
-			public const int status_bar_notification_info_overflow = 2131558489;
+			// aapt resource value: 0x7F0E0059
+			public const int search_menu_title = 2131624025;
+			
+			// aapt resource value: 0x7F0E005A
+			public const int status_bar_notification_info_overflow = 2131624026;
 			
 			static String()
 			{
@@ -17208,2138 +20955,2147 @@ namespace System.Application.Launch
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7F0E0000
-			public const int AlertDialog_AppCompat = 2131623936;
+			// aapt resource value: 0x7F0F0000
+			public const int AlertDialog_AppCompat = 2131689472;
 			
-			// aapt resource value: 0x7F0E0001
-			public const int AlertDialog_AppCompat_Light = 2131623937;
+			// aapt resource value: 0x7F0F0001
+			public const int AlertDialog_AppCompat_Light = 2131689473;
 			
-			// aapt resource value: 0x7F0E0002
-			public const int AndroidThemeColorAccentYellow = 2131623938;
+			// aapt resource value: 0x7F0F0002
+			public const int AndroidThemeColorAccentYellow = 2131689474;
 			
-			// aapt resource value: 0x7F0E0003
-			public const int Animation_AppCompat_Dialog = 2131623939;
+			// aapt resource value: 0x7F0F0003
+			public const int Animation_AppCompat_Dialog = 2131689475;
 			
-			// aapt resource value: 0x7F0E0004
-			public const int Animation_AppCompat_DropDownUp = 2131623940;
+			// aapt resource value: 0x7F0F0004
+			public const int Animation_AppCompat_DropDownUp = 2131689476;
 			
-			// aapt resource value: 0x7F0E0005
-			public const int Animation_AppCompat_Tooltip = 2131623941;
+			// aapt resource value: 0x7F0F0005
+			public const int Animation_AppCompat_Tooltip = 2131689477;
 			
-			// aapt resource value: 0x7F0E0006
-			public const int Animation_Design_BottomSheetDialog = 2131623942;
+			// aapt resource value: 0x7F0F0006
+			public const int Animation_Design_BottomSheetDialog = 2131689478;
 			
-			// aapt resource value: 0x7F0E0007
-			public const int Animation_MaterialComponents_BottomSheetDialog = 2131623943;
+			// aapt resource value: 0x7F0F0007
+			public const int Animation_MaterialComponents_BottomSheetDialog = 2131689479;
 			
-			// aapt resource value: 0x7F0E0008
-			public const int AppCompatDialogStyle = 2131623944;
+			// aapt resource value: 0x7F0F0008
+			public const int AppCompatDialogStyle = 2131689480;
 			
-			// aapt resource value: 0x7F0E0009
-			public const int Base_AlertDialog_AppCompat = 2131623945;
+			// aapt resource value: 0x7F0F0009
+			public const int Base_AlertDialog_AppCompat = 2131689481;
 			
-			// aapt resource value: 0x7F0E000A
-			public const int Base_AlertDialog_AppCompat_Light = 2131623946;
+			// aapt resource value: 0x7F0F000A
+			public const int Base_AlertDialog_AppCompat_Light = 2131689482;
 			
-			// aapt resource value: 0x7F0E000B
-			public const int Base_Animation_AppCompat_Dialog = 2131623947;
+			// aapt resource value: 0x7F0F000B
+			public const int Base_Animation_AppCompat_Dialog = 2131689483;
 			
-			// aapt resource value: 0x7F0E000C
-			public const int Base_Animation_AppCompat_DropDownUp = 2131623948;
+			// aapt resource value: 0x7F0F000C
+			public const int Base_Animation_AppCompat_DropDownUp = 2131689484;
 			
-			// aapt resource value: 0x7F0E000D
-			public const int Base_Animation_AppCompat_Tooltip = 2131623949;
+			// aapt resource value: 0x7F0F000D
+			public const int Base_Animation_AppCompat_Tooltip = 2131689485;
 			
-			// aapt resource value: 0x7F0E000E
-			public const int Base_CardView = 2131623950;
+			// aapt resource value: 0x7F0F000E
+			public const int Base_CardView = 2131689486;
 			
-			// aapt resource value: 0x7F0E0010
-			public const int Base_DialogWindowTitleBackground_AppCompat = 2131623952;
+			// aapt resource value: 0x7F0F0010
+			public const int Base_DialogWindowTitleBackground_AppCompat = 2131689488;
 			
-			// aapt resource value: 0x7F0E000F
-			public const int Base_DialogWindowTitle_AppCompat = 2131623951;
+			// aapt resource value: 0x7F0F000F
+			public const int Base_DialogWindowTitle_AppCompat = 2131689487;
 			
-			// aapt resource value: 0x7F0E0011
-			public const int Base_MaterialAlertDialog_MaterialComponents_Title_Icon = 2131623953;
+			// aapt resource value: 0x7F0F0011
+			public const int Base_MaterialAlertDialog_MaterialComponents_Title_Icon = 2131689489;
 			
-			// aapt resource value: 0x7F0E0012
-			public const int Base_MaterialAlertDialog_MaterialComponents_Title_Panel = 2131623954;
+			// aapt resource value: 0x7F0F0012
+			public const int Base_MaterialAlertDialog_MaterialComponents_Title_Panel = 2131689490;
 			
-			// aapt resource value: 0x7F0E0013
-			public const int Base_MaterialAlertDialog_MaterialComponents_Title_Text = 2131623955;
+			// aapt resource value: 0x7F0F0013
+			public const int Base_MaterialAlertDialog_MaterialComponents_Title_Text = 2131689491;
 			
-			// aapt resource value: 0x7F0E0014
-			public const int Base_TextAppearance_AppCompat = 2131623956;
+			// aapt resource value: 0x7F0F0014
+			public const int Base_TextAppearance_AppCompat = 2131689492;
 			
-			// aapt resource value: 0x7F0E0015
-			public const int Base_TextAppearance_AppCompat_Body1 = 2131623957;
+			// aapt resource value: 0x7F0F0015
+			public const int Base_TextAppearance_AppCompat_Body1 = 2131689493;
 			
-			// aapt resource value: 0x7F0E0016
-			public const int Base_TextAppearance_AppCompat_Body2 = 2131623958;
+			// aapt resource value: 0x7F0F0016
+			public const int Base_TextAppearance_AppCompat_Body2 = 2131689494;
 			
-			// aapt resource value: 0x7F0E0017
-			public const int Base_TextAppearance_AppCompat_Button = 2131623959;
+			// aapt resource value: 0x7F0F0017
+			public const int Base_TextAppearance_AppCompat_Button = 2131689495;
 			
-			// aapt resource value: 0x7F0E0018
-			public const int Base_TextAppearance_AppCompat_Caption = 2131623960;
+			// aapt resource value: 0x7F0F0018
+			public const int Base_TextAppearance_AppCompat_Caption = 2131689496;
 			
-			// aapt resource value: 0x7F0E0019
-			public const int Base_TextAppearance_AppCompat_Display1 = 2131623961;
+			// aapt resource value: 0x7F0F0019
+			public const int Base_TextAppearance_AppCompat_Display1 = 2131689497;
 			
-			// aapt resource value: 0x7F0E001A
-			public const int Base_TextAppearance_AppCompat_Display2 = 2131623962;
+			// aapt resource value: 0x7F0F001A
+			public const int Base_TextAppearance_AppCompat_Display2 = 2131689498;
 			
-			// aapt resource value: 0x7F0E001B
-			public const int Base_TextAppearance_AppCompat_Display3 = 2131623963;
+			// aapt resource value: 0x7F0F001B
+			public const int Base_TextAppearance_AppCompat_Display3 = 2131689499;
 			
-			// aapt resource value: 0x7F0E001C
-			public const int Base_TextAppearance_AppCompat_Display4 = 2131623964;
+			// aapt resource value: 0x7F0F001C
+			public const int Base_TextAppearance_AppCompat_Display4 = 2131689500;
 			
-			// aapt resource value: 0x7F0E001D
-			public const int Base_TextAppearance_AppCompat_Headline = 2131623965;
+			// aapt resource value: 0x7F0F001D
+			public const int Base_TextAppearance_AppCompat_Headline = 2131689501;
 			
-			// aapt resource value: 0x7F0E001E
-			public const int Base_TextAppearance_AppCompat_Inverse = 2131623966;
+			// aapt resource value: 0x7F0F001E
+			public const int Base_TextAppearance_AppCompat_Inverse = 2131689502;
 			
-			// aapt resource value: 0x7F0E001F
-			public const int Base_TextAppearance_AppCompat_Large = 2131623967;
+			// aapt resource value: 0x7F0F001F
+			public const int Base_TextAppearance_AppCompat_Large = 2131689503;
 			
-			// aapt resource value: 0x7F0E0020
-			public const int Base_TextAppearance_AppCompat_Large_Inverse = 2131623968;
+			// aapt resource value: 0x7F0F0020
+			public const int Base_TextAppearance_AppCompat_Large_Inverse = 2131689504;
 			
-			// aapt resource value: 0x7F0E0021
-			public const int Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = 2131623969;
+			// aapt resource value: 0x7F0F0021
+			public const int Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = 2131689505;
 			
-			// aapt resource value: 0x7F0E0022
-			public const int Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = 2131623970;
+			// aapt resource value: 0x7F0F0022
+			public const int Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = 2131689506;
 			
-			// aapt resource value: 0x7F0E0023
-			public const int Base_TextAppearance_AppCompat_Medium = 2131623971;
+			// aapt resource value: 0x7F0F0023
+			public const int Base_TextAppearance_AppCompat_Medium = 2131689507;
 			
-			// aapt resource value: 0x7F0E0024
-			public const int Base_TextAppearance_AppCompat_Medium_Inverse = 2131623972;
+			// aapt resource value: 0x7F0F0024
+			public const int Base_TextAppearance_AppCompat_Medium_Inverse = 2131689508;
 			
-			// aapt resource value: 0x7F0E0025
-			public const int Base_TextAppearance_AppCompat_Menu = 2131623973;
+			// aapt resource value: 0x7F0F0025
+			public const int Base_TextAppearance_AppCompat_Menu = 2131689509;
 			
-			// aapt resource value: 0x7F0E0026
-			public const int Base_TextAppearance_AppCompat_SearchResult = 2131623974;
+			// aapt resource value: 0x7F0F0026
+			public const int Base_TextAppearance_AppCompat_SearchResult = 2131689510;
 			
-			// aapt resource value: 0x7F0E0027
-			public const int Base_TextAppearance_AppCompat_SearchResult_Subtitle = 2131623975;
+			// aapt resource value: 0x7F0F0027
+			public const int Base_TextAppearance_AppCompat_SearchResult_Subtitle = 2131689511;
 			
-			// aapt resource value: 0x7F0E0028
-			public const int Base_TextAppearance_AppCompat_SearchResult_Title = 2131623976;
+			// aapt resource value: 0x7F0F0028
+			public const int Base_TextAppearance_AppCompat_SearchResult_Title = 2131689512;
 			
-			// aapt resource value: 0x7F0E0029
-			public const int Base_TextAppearance_AppCompat_Small = 2131623977;
+			// aapt resource value: 0x7F0F0029
+			public const int Base_TextAppearance_AppCompat_Small = 2131689513;
 			
-			// aapt resource value: 0x7F0E002A
-			public const int Base_TextAppearance_AppCompat_Small_Inverse = 2131623978;
+			// aapt resource value: 0x7F0F002A
+			public const int Base_TextAppearance_AppCompat_Small_Inverse = 2131689514;
 			
-			// aapt resource value: 0x7F0E002B
-			public const int Base_TextAppearance_AppCompat_Subhead = 2131623979;
+			// aapt resource value: 0x7F0F002B
+			public const int Base_TextAppearance_AppCompat_Subhead = 2131689515;
 			
-			// aapt resource value: 0x7F0E002C
-			public const int Base_TextAppearance_AppCompat_Subhead_Inverse = 2131623980;
+			// aapt resource value: 0x7F0F002C
+			public const int Base_TextAppearance_AppCompat_Subhead_Inverse = 2131689516;
 			
-			// aapt resource value: 0x7F0E002D
-			public const int Base_TextAppearance_AppCompat_Title = 2131623981;
+			// aapt resource value: 0x7F0F002D
+			public const int Base_TextAppearance_AppCompat_Title = 2131689517;
 			
-			// aapt resource value: 0x7F0E002E
-			public const int Base_TextAppearance_AppCompat_Title_Inverse = 2131623982;
+			// aapt resource value: 0x7F0F002E
+			public const int Base_TextAppearance_AppCompat_Title_Inverse = 2131689518;
 			
-			// aapt resource value: 0x7F0E002F
-			public const int Base_TextAppearance_AppCompat_Tooltip = 2131623983;
+			// aapt resource value: 0x7F0F002F
+			public const int Base_TextAppearance_AppCompat_Tooltip = 2131689519;
 			
-			// aapt resource value: 0x7F0E0030
-			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Menu = 2131623984;
+			// aapt resource value: 0x7F0F0030
+			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Menu = 2131689520;
 			
-			// aapt resource value: 0x7F0E0031
-			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle = 2131623985;
+			// aapt resource value: 0x7F0F0031
+			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle = 2131689521;
 			
-			// aapt resource value: 0x7F0E0032
-			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = 2131623986;
+			// aapt resource value: 0x7F0F0032
+			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = 2131689522;
 			
-			// aapt resource value: 0x7F0E0033
-			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Title = 2131623987;
+			// aapt resource value: 0x7F0F0033
+			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Title = 2131689523;
 			
-			// aapt resource value: 0x7F0E0034
-			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = 2131623988;
+			// aapt resource value: 0x7F0F0034
+			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = 2131689524;
 			
-			// aapt resource value: 0x7F0E0035
-			public const int Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle = 2131623989;
+			// aapt resource value: 0x7F0F0035
+			public const int Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle = 2131689525;
 			
-			// aapt resource value: 0x7F0E0036
-			public const int Base_TextAppearance_AppCompat_Widget_ActionMode_Title = 2131623990;
+			// aapt resource value: 0x7F0F0036
+			public const int Base_TextAppearance_AppCompat_Widget_ActionMode_Title = 2131689526;
 			
-			// aapt resource value: 0x7F0E0037
-			public const int Base_TextAppearance_AppCompat_Widget_Button = 2131623991;
+			// aapt resource value: 0x7F0F0037
+			public const int Base_TextAppearance_AppCompat_Widget_Button = 2131689527;
 			
-			// aapt resource value: 0x7F0E0038
-			public const int Base_TextAppearance_AppCompat_Widget_Button_Borderless_Colored = 2131623992;
+			// aapt resource value: 0x7F0F0038
+			public const int Base_TextAppearance_AppCompat_Widget_Button_Borderless_Colored = 2131689528;
 			
-			// aapt resource value: 0x7F0E0039
-			public const int Base_TextAppearance_AppCompat_Widget_Button_Colored = 2131623993;
+			// aapt resource value: 0x7F0F0039
+			public const int Base_TextAppearance_AppCompat_Widget_Button_Colored = 2131689529;
 			
-			// aapt resource value: 0x7F0E003A
-			public const int Base_TextAppearance_AppCompat_Widget_Button_Inverse = 2131623994;
+			// aapt resource value: 0x7F0F003A
+			public const int Base_TextAppearance_AppCompat_Widget_Button_Inverse = 2131689530;
 			
-			// aapt resource value: 0x7F0E003B
-			public const int Base_TextAppearance_AppCompat_Widget_DropDownItem = 2131623995;
+			// aapt resource value: 0x7F0F003B
+			public const int Base_TextAppearance_AppCompat_Widget_DropDownItem = 2131689531;
 			
-			// aapt resource value: 0x7F0E003C
-			public const int Base_TextAppearance_AppCompat_Widget_PopupMenu_Header = 2131623996;
+			// aapt resource value: 0x7F0F003C
+			public const int Base_TextAppearance_AppCompat_Widget_PopupMenu_Header = 2131689532;
 			
-			// aapt resource value: 0x7F0E003D
-			public const int Base_TextAppearance_AppCompat_Widget_PopupMenu_Large = 2131623997;
+			// aapt resource value: 0x7F0F003D
+			public const int Base_TextAppearance_AppCompat_Widget_PopupMenu_Large = 2131689533;
 			
-			// aapt resource value: 0x7F0E003E
-			public const int Base_TextAppearance_AppCompat_Widget_PopupMenu_Small = 2131623998;
+			// aapt resource value: 0x7F0F003E
+			public const int Base_TextAppearance_AppCompat_Widget_PopupMenu_Small = 2131689534;
 			
-			// aapt resource value: 0x7F0E003F
-			public const int Base_TextAppearance_AppCompat_Widget_Switch = 2131623999;
+			// aapt resource value: 0x7F0F003F
+			public const int Base_TextAppearance_AppCompat_Widget_Switch = 2131689535;
 			
-			// aapt resource value: 0x7F0E0040
-			public const int Base_TextAppearance_AppCompat_Widget_TextView_SpinnerItem = 2131624000;
+			// aapt resource value: 0x7F0F0040
+			public const int Base_TextAppearance_AppCompat_Widget_TextView_SpinnerItem = 2131689536;
 			
-			// aapt resource value: 0x7F0E0041
-			public const int Base_TextAppearance_MaterialComponents_Badge = 2131624001;
+			// aapt resource value: 0x7F0F0041
+			public const int Base_TextAppearance_MaterialComponents_Badge = 2131689537;
 			
-			// aapt resource value: 0x7F0E0042
-			public const int Base_TextAppearance_MaterialComponents_Button = 2131624002;
+			// aapt resource value: 0x7F0F0042
+			public const int Base_TextAppearance_MaterialComponents_Button = 2131689538;
 			
-			// aapt resource value: 0x7F0E0043
-			public const int Base_TextAppearance_MaterialComponents_Headline6 = 2131624003;
+			// aapt resource value: 0x7F0F0043
+			public const int Base_TextAppearance_MaterialComponents_Headline6 = 2131689539;
 			
-			// aapt resource value: 0x7F0E0044
-			public const int Base_TextAppearance_MaterialComponents_Subtitle2 = 2131624004;
+			// aapt resource value: 0x7F0F0044
+			public const int Base_TextAppearance_MaterialComponents_Subtitle2 = 2131689540;
 			
-			// aapt resource value: 0x7F0E0045
-			public const int Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item = 2131624005;
+			// aapt resource value: 0x7F0F0045
+			public const int Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item = 2131689541;
 			
-			// aapt resource value: 0x7F0E0046
-			public const int Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle = 2131624006;
+			// aapt resource value: 0x7F0F0046
+			public const int Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle = 2131689542;
 			
-			// aapt resource value: 0x7F0E0047
-			public const int Base_TextAppearance_Widget_AppCompat_Toolbar_Title = 2131624007;
+			// aapt resource value: 0x7F0F0047
+			public const int Base_TextAppearance_Widget_AppCompat_Toolbar_Title = 2131689543;
 			
-			// aapt resource value: 0x7F0E0069
-			public const int Base_ThemeOverlay_AppCompat = 2131624041;
+			// aapt resource value: 0x7F0F0069
+			public const int Base_ThemeOverlay_AppCompat = 2131689577;
 			
-			// aapt resource value: 0x7F0E006A
-			public const int Base_ThemeOverlay_AppCompat_ActionBar = 2131624042;
+			// aapt resource value: 0x7F0F006A
+			public const int Base_ThemeOverlay_AppCompat_ActionBar = 2131689578;
 			
-			// aapt resource value: 0x7F0E006B
-			public const int Base_ThemeOverlay_AppCompat_Dark = 2131624043;
+			// aapt resource value: 0x7F0F006B
+			public const int Base_ThemeOverlay_AppCompat_Dark = 2131689579;
 			
-			// aapt resource value: 0x7F0E006C
-			public const int Base_ThemeOverlay_AppCompat_Dark_ActionBar = 2131624044;
+			// aapt resource value: 0x7F0F006C
+			public const int Base_ThemeOverlay_AppCompat_Dark_ActionBar = 2131689580;
 			
-			// aapt resource value: 0x7F0E006D
-			public const int Base_ThemeOverlay_AppCompat_Dialog = 2131624045;
+			// aapt resource value: 0x7F0F006D
+			public const int Base_ThemeOverlay_AppCompat_Dialog = 2131689581;
 			
-			// aapt resource value: 0x7F0E006E
-			public const int Base_ThemeOverlay_AppCompat_Dialog_Alert = 2131624046;
+			// aapt resource value: 0x7F0F006E
+			public const int Base_ThemeOverlay_AppCompat_Dialog_Alert = 2131689582;
 			
-			// aapt resource value: 0x7F0E006F
-			public const int Base_ThemeOverlay_AppCompat_Light = 2131624047;
+			// aapt resource value: 0x7F0F006F
+			public const int Base_ThemeOverlay_AppCompat_Light = 2131689583;
 			
-			// aapt resource value: 0x7F0E0070
-			public const int Base_ThemeOverlay_MaterialComponents_Dialog = 2131624048;
+			// aapt resource value: 0x7F0F0070
+			public const int Base_ThemeOverlay_MaterialComponents_Dialog = 2131689584;
 			
-			// aapt resource value: 0x7F0E0071
-			public const int Base_ThemeOverlay_MaterialComponents_Dialog_Alert = 2131624049;
+			// aapt resource value: 0x7F0F0071
+			public const int Base_ThemeOverlay_MaterialComponents_Dialog_Alert = 2131689585;
 			
-			// aapt resource value: 0x7F0E0072
-			public const int Base_ThemeOverlay_MaterialComponents_Dialog_Alert_Framework = 2131624050;
+			// aapt resource value: 0x7F0F0072
+			public const int Base_ThemeOverlay_MaterialComponents_Dialog_Alert_Framework = 2131689586;
 			
-			// aapt resource value: 0x7F0E0073
-			public const int Base_ThemeOverlay_MaterialComponents_Light_Dialog_Alert_Framework = 2131624051;
+			// aapt resource value: 0x7F0F0073
+			public const int Base_ThemeOverlay_MaterialComponents_Light_Dialog_Alert_Framework = 2131689587;
 			
-			// aapt resource value: 0x7F0E0074
-			public const int Base_ThemeOverlay_MaterialComponents_MaterialAlertDialog = 2131624052;
+			// aapt resource value: 0x7F0F0074
+			public const int Base_ThemeOverlay_MaterialComponents_MaterialAlertDialog = 2131689588;
 			
-			// aapt resource value: 0x7F0E0048
-			public const int Base_Theme_AppCompat = 2131624008;
+			// aapt resource value: 0x7F0F0048
+			public const int Base_Theme_AppCompat = 2131689544;
 			
-			// aapt resource value: 0x7F0E0049
-			public const int Base_Theme_AppCompat_CompactMenu = 2131624009;
+			// aapt resource value: 0x7F0F0049
+			public const int Base_Theme_AppCompat_CompactMenu = 2131689545;
 			
-			// aapt resource value: 0x7F0E004A
-			public const int Base_Theme_AppCompat_Dialog = 2131624010;
+			// aapt resource value: 0x7F0F004A
+			public const int Base_Theme_AppCompat_Dialog = 2131689546;
 			
-			// aapt resource value: 0x7F0E004E
-			public const int Base_Theme_AppCompat_DialogWhenLarge = 2131624014;
+			// aapt resource value: 0x7F0F004E
+			public const int Base_Theme_AppCompat_DialogWhenLarge = 2131689550;
 			
-			// aapt resource value: 0x7F0E004B
-			public const int Base_Theme_AppCompat_Dialog_Alert = 2131624011;
+			// aapt resource value: 0x7F0F004B
+			public const int Base_Theme_AppCompat_Dialog_Alert = 2131689547;
 			
-			// aapt resource value: 0x7F0E004C
-			public const int Base_Theme_AppCompat_Dialog_FixedSize = 2131624012;
+			// aapt resource value: 0x7F0F004C
+			public const int Base_Theme_AppCompat_Dialog_FixedSize = 2131689548;
 			
-			// aapt resource value: 0x7F0E004D
-			public const int Base_Theme_AppCompat_Dialog_MinWidth = 2131624013;
+			// aapt resource value: 0x7F0F004D
+			public const int Base_Theme_AppCompat_Dialog_MinWidth = 2131689549;
 			
-			// aapt resource value: 0x7F0E004F
-			public const int Base_Theme_AppCompat_Light = 2131624015;
+			// aapt resource value: 0x7F0F004F
+			public const int Base_Theme_AppCompat_Light = 2131689551;
 			
-			// aapt resource value: 0x7F0E0050
-			public const int Base_Theme_AppCompat_Light_DarkActionBar = 2131624016;
+			// aapt resource value: 0x7F0F0050
+			public const int Base_Theme_AppCompat_Light_DarkActionBar = 2131689552;
 			
-			// aapt resource value: 0x7F0E0051
-			public const int Base_Theme_AppCompat_Light_Dialog = 2131624017;
+			// aapt resource value: 0x7F0F0051
+			public const int Base_Theme_AppCompat_Light_Dialog = 2131689553;
 			
-			// aapt resource value: 0x7F0E0055
-			public const int Base_Theme_AppCompat_Light_DialogWhenLarge = 2131624021;
+			// aapt resource value: 0x7F0F0055
+			public const int Base_Theme_AppCompat_Light_DialogWhenLarge = 2131689557;
 			
-			// aapt resource value: 0x7F0E0052
-			public const int Base_Theme_AppCompat_Light_Dialog_Alert = 2131624018;
+			// aapt resource value: 0x7F0F0052
+			public const int Base_Theme_AppCompat_Light_Dialog_Alert = 2131689554;
 			
-			// aapt resource value: 0x7F0E0053
-			public const int Base_Theme_AppCompat_Light_Dialog_FixedSize = 2131624019;
+			// aapt resource value: 0x7F0F0053
+			public const int Base_Theme_AppCompat_Light_Dialog_FixedSize = 2131689555;
 			
-			// aapt resource value: 0x7F0E0054
-			public const int Base_Theme_AppCompat_Light_Dialog_MinWidth = 2131624020;
+			// aapt resource value: 0x7F0F0054
+			public const int Base_Theme_AppCompat_Light_Dialog_MinWidth = 2131689556;
 			
-			// aapt resource value: 0x7F0E0056
-			public const int Base_Theme_MaterialComponents = 2131624022;
+			// aapt resource value: 0x7F0F0056
+			public const int Base_Theme_MaterialComponents = 2131689558;
 			
-			// aapt resource value: 0x7F0E0057
-			public const int Base_Theme_MaterialComponents_Bridge = 2131624023;
+			// aapt resource value: 0x7F0F0057
+			public const int Base_Theme_MaterialComponents_Bridge = 2131689559;
 			
-			// aapt resource value: 0x7F0E0058
-			public const int Base_Theme_MaterialComponents_CompactMenu = 2131624024;
+			// aapt resource value: 0x7F0F0058
+			public const int Base_Theme_MaterialComponents_CompactMenu = 2131689560;
 			
-			// aapt resource value: 0x7F0E0059
-			public const int Base_Theme_MaterialComponents_Dialog = 2131624025;
+			// aapt resource value: 0x7F0F0059
+			public const int Base_Theme_MaterialComponents_Dialog = 2131689561;
 			
-			// aapt resource value: 0x7F0E005E
-			public const int Base_Theme_MaterialComponents_DialogWhenLarge = 2131624030;
+			// aapt resource value: 0x7F0F005E
+			public const int Base_Theme_MaterialComponents_DialogWhenLarge = 2131689566;
 			
-			// aapt resource value: 0x7F0E005A
-			public const int Base_Theme_MaterialComponents_Dialog_Alert = 2131624026;
+			// aapt resource value: 0x7F0F005A
+			public const int Base_Theme_MaterialComponents_Dialog_Alert = 2131689562;
 			
-			// aapt resource value: 0x7F0E005B
-			public const int Base_Theme_MaterialComponents_Dialog_Bridge = 2131624027;
+			// aapt resource value: 0x7F0F005B
+			public const int Base_Theme_MaterialComponents_Dialog_Bridge = 2131689563;
 			
-			// aapt resource value: 0x7F0E005C
-			public const int Base_Theme_MaterialComponents_Dialog_FixedSize = 2131624028;
+			// aapt resource value: 0x7F0F005C
+			public const int Base_Theme_MaterialComponents_Dialog_FixedSize = 2131689564;
 			
-			// aapt resource value: 0x7F0E005D
-			public const int Base_Theme_MaterialComponents_Dialog_MinWidth = 2131624029;
+			// aapt resource value: 0x7F0F005D
+			public const int Base_Theme_MaterialComponents_Dialog_MinWidth = 2131689565;
 			
-			// aapt resource value: 0x7F0E005F
-			public const int Base_Theme_MaterialComponents_Light = 2131624031;
+			// aapt resource value: 0x7F0F005F
+			public const int Base_Theme_MaterialComponents_Light = 2131689567;
 			
-			// aapt resource value: 0x7F0E0060
-			public const int Base_Theme_MaterialComponents_Light_Bridge = 2131624032;
+			// aapt resource value: 0x7F0F0060
+			public const int Base_Theme_MaterialComponents_Light_Bridge = 2131689568;
 			
-			// aapt resource value: 0x7F0E0061
-			public const int Base_Theme_MaterialComponents_Light_DarkActionBar = 2131624033;
+			// aapt resource value: 0x7F0F0061
+			public const int Base_Theme_MaterialComponents_Light_DarkActionBar = 2131689569;
 			
-			// aapt resource value: 0x7F0E0062
-			public const int Base_Theme_MaterialComponents_Light_DarkActionBar_Bridge = 2131624034;
+			// aapt resource value: 0x7F0F0062
+			public const int Base_Theme_MaterialComponents_Light_DarkActionBar_Bridge = 2131689570;
 			
-			// aapt resource value: 0x7F0E0063
-			public const int Base_Theme_MaterialComponents_Light_Dialog = 2131624035;
+			// aapt resource value: 0x7F0F0063
+			public const int Base_Theme_MaterialComponents_Light_Dialog = 2131689571;
 			
-			// aapt resource value: 0x7F0E0068
-			public const int Base_Theme_MaterialComponents_Light_DialogWhenLarge = 2131624040;
+			// aapt resource value: 0x7F0F0068
+			public const int Base_Theme_MaterialComponents_Light_DialogWhenLarge = 2131689576;
 			
-			// aapt resource value: 0x7F0E0064
-			public const int Base_Theme_MaterialComponents_Light_Dialog_Alert = 2131624036;
+			// aapt resource value: 0x7F0F0064
+			public const int Base_Theme_MaterialComponents_Light_Dialog_Alert = 2131689572;
 			
-			// aapt resource value: 0x7F0E0065
-			public const int Base_Theme_MaterialComponents_Light_Dialog_Bridge = 2131624037;
+			// aapt resource value: 0x7F0F0065
+			public const int Base_Theme_MaterialComponents_Light_Dialog_Bridge = 2131689573;
 			
-			// aapt resource value: 0x7F0E0066
-			public const int Base_Theme_MaterialComponents_Light_Dialog_FixedSize = 2131624038;
+			// aapt resource value: 0x7F0F0066
+			public const int Base_Theme_MaterialComponents_Light_Dialog_FixedSize = 2131689574;
 			
-			// aapt resource value: 0x7F0E0067
-			public const int Base_Theme_MaterialComponents_Light_Dialog_MinWidth = 2131624039;
+			// aapt resource value: 0x7F0F0067
+			public const int Base_Theme_MaterialComponents_Light_Dialog_MinWidth = 2131689575;
 			
-			// aapt resource value: 0x7F0E007E
-			public const int Base_V14_ThemeOverlay_MaterialComponents_Dialog = 2131624062;
+			// aapt resource value: 0x7F0F007E
+			public const int Base_V14_ThemeOverlay_MaterialComponents_Dialog = 2131689598;
 			
-			// aapt resource value: 0x7F0E007F
-			public const int Base_V14_ThemeOverlay_MaterialComponents_Dialog_Alert = 2131624063;
+			// aapt resource value: 0x7F0F007F
+			public const int Base_V14_ThemeOverlay_MaterialComponents_Dialog_Alert = 2131689599;
 			
-			// aapt resource value: 0x7F0E0080
-			public const int Base_V14_ThemeOverlay_MaterialComponents_MaterialAlertDialog = 2131624064;
+			// aapt resource value: 0x7F0F0080
+			public const int Base_V14_ThemeOverlay_MaterialComponents_MaterialAlertDialog = 2131689600;
 			
-			// aapt resource value: 0x7F0E0075
-			public const int Base_V14_Theme_MaterialComponents = 2131624053;
+			// aapt resource value: 0x7F0F0075
+			public const int Base_V14_Theme_MaterialComponents = 2131689589;
 			
-			// aapt resource value: 0x7F0E0076
-			public const int Base_V14_Theme_MaterialComponents_Bridge = 2131624054;
+			// aapt resource value: 0x7F0F0076
+			public const int Base_V14_Theme_MaterialComponents_Bridge = 2131689590;
 			
-			// aapt resource value: 0x7F0E0077
-			public const int Base_V14_Theme_MaterialComponents_Dialog = 2131624055;
+			// aapt resource value: 0x7F0F0077
+			public const int Base_V14_Theme_MaterialComponents_Dialog = 2131689591;
 			
-			// aapt resource value: 0x7F0E0078
-			public const int Base_V14_Theme_MaterialComponents_Dialog_Bridge = 2131624056;
+			// aapt resource value: 0x7F0F0078
+			public const int Base_V14_Theme_MaterialComponents_Dialog_Bridge = 2131689592;
 			
-			// aapt resource value: 0x7F0E0079
-			public const int Base_V14_Theme_MaterialComponents_Light = 2131624057;
+			// aapt resource value: 0x7F0F0079
+			public const int Base_V14_Theme_MaterialComponents_Light = 2131689593;
 			
-			// aapt resource value: 0x7F0E007A
-			public const int Base_V14_Theme_MaterialComponents_Light_Bridge = 2131624058;
+			// aapt resource value: 0x7F0F007A
+			public const int Base_V14_Theme_MaterialComponents_Light_Bridge = 2131689594;
 			
-			// aapt resource value: 0x7F0E007B
-			public const int Base_V14_Theme_MaterialComponents_Light_DarkActionBar_Bridge = 2131624059;
+			// aapt resource value: 0x7F0F007B
+			public const int Base_V14_Theme_MaterialComponents_Light_DarkActionBar_Bridge = 2131689595;
 			
-			// aapt resource value: 0x7F0E007C
-			public const int Base_V14_Theme_MaterialComponents_Light_Dialog = 2131624060;
+			// aapt resource value: 0x7F0F007C
+			public const int Base_V14_Theme_MaterialComponents_Light_Dialog = 2131689596;
 			
-			// aapt resource value: 0x7F0E007D
-			public const int Base_V14_Theme_MaterialComponents_Light_Dialog_Bridge = 2131624061;
+			// aapt resource value: 0x7F0F007D
+			public const int Base_V14_Theme_MaterialComponents_Light_Dialog_Bridge = 2131689597;
 			
-			// aapt resource value: 0x7F0E0089
-			public const int Base_V21_ThemeOverlay_AppCompat_Dialog = 2131624073;
+			// aapt resource value: 0x7F0F0089
+			public const int Base_V21_ThemeOverlay_AppCompat_Dialog = 2131689609;
 			
-			// aapt resource value: 0x7F0E0081
-			public const int Base_V21_Theme_AppCompat = 2131624065;
+			// aapt resource value: 0x7F0F0081
+			public const int Base_V21_Theme_AppCompat = 2131689601;
 			
-			// aapt resource value: 0x7F0E0082
-			public const int Base_V21_Theme_AppCompat_Dialog = 2131624066;
+			// aapt resource value: 0x7F0F0082
+			public const int Base_V21_Theme_AppCompat_Dialog = 2131689602;
 			
-			// aapt resource value: 0x7F0E0083
-			public const int Base_V21_Theme_AppCompat_Light = 2131624067;
+			// aapt resource value: 0x7F0F0083
+			public const int Base_V21_Theme_AppCompat_Light = 2131689603;
 			
-			// aapt resource value: 0x7F0E0084
-			public const int Base_V21_Theme_AppCompat_Light_Dialog = 2131624068;
+			// aapt resource value: 0x7F0F0084
+			public const int Base_V21_Theme_AppCompat_Light_Dialog = 2131689604;
 			
-			// aapt resource value: 0x7F0E0085
-			public const int Base_V21_Theme_MaterialComponents = 2131624069;
+			// aapt resource value: 0x7F0F0085
+			public const int Base_V21_Theme_MaterialComponents = 2131689605;
 			
-			// aapt resource value: 0x7F0E0086
-			public const int Base_V21_Theme_MaterialComponents_Dialog = 2131624070;
+			// aapt resource value: 0x7F0F0086
+			public const int Base_V21_Theme_MaterialComponents_Dialog = 2131689606;
 			
-			// aapt resource value: 0x7F0E0087
-			public const int Base_V21_Theme_MaterialComponents_Light = 2131624071;
+			// aapt resource value: 0x7F0F0087
+			public const int Base_V21_Theme_MaterialComponents_Light = 2131689607;
 			
-			// aapt resource value: 0x7F0E0088
-			public const int Base_V21_Theme_MaterialComponents_Light_Dialog = 2131624072;
+			// aapt resource value: 0x7F0F0088
+			public const int Base_V21_Theme_MaterialComponents_Light_Dialog = 2131689608;
 			
-			// aapt resource value: 0x7F0E008A
-			public const int Base_V22_Theme_AppCompat = 2131624074;
+			// aapt resource value: 0x7F0F008A
+			public const int Base_V22_Theme_AppCompat = 2131689610;
 			
-			// aapt resource value: 0x7F0E008B
-			public const int Base_V22_Theme_AppCompat_Light = 2131624075;
+			// aapt resource value: 0x7F0F008B
+			public const int Base_V22_Theme_AppCompat_Light = 2131689611;
 			
-			// aapt resource value: 0x7F0E008C
-			public const int Base_V23_Theme_AppCompat = 2131624076;
+			// aapt resource value: 0x7F0F008C
+			public const int Base_V23_Theme_AppCompat = 2131689612;
 			
-			// aapt resource value: 0x7F0E008D
-			public const int Base_V23_Theme_AppCompat_Light = 2131624077;
+			// aapt resource value: 0x7F0F008D
+			public const int Base_V23_Theme_AppCompat_Light = 2131689613;
 			
-			// aapt resource value: 0x7F0E008E
-			public const int Base_V26_Theme_AppCompat = 2131624078;
+			// aapt resource value: 0x7F0F008E
+			public const int Base_V26_Theme_AppCompat = 2131689614;
 			
-			// aapt resource value: 0x7F0E008F
-			public const int Base_V26_Theme_AppCompat_Light = 2131624079;
+			// aapt resource value: 0x7F0F008F
+			public const int Base_V26_Theme_AppCompat_Light = 2131689615;
 			
-			// aapt resource value: 0x7F0E0090
-			public const int Base_V26_Widget_AppCompat_Toolbar = 2131624080;
+			// aapt resource value: 0x7F0F0090
+			public const int Base_V26_Widget_AppCompat_Toolbar = 2131689616;
 			
-			// aapt resource value: 0x7F0E0091
-			public const int Base_V28_Theme_AppCompat = 2131624081;
+			// aapt resource value: 0x7F0F0091
+			public const int Base_V28_Theme_AppCompat = 2131689617;
 			
-			// aapt resource value: 0x7F0E0092
-			public const int Base_V28_Theme_AppCompat_Light = 2131624082;
+			// aapt resource value: 0x7F0F0092
+			public const int Base_V28_Theme_AppCompat_Light = 2131689618;
 			
-			// aapt resource value: 0x7F0E0097
-			public const int Base_V7_ThemeOverlay_AppCompat_Dialog = 2131624087;
+			// aapt resource value: 0x7F0F0097
+			public const int Base_V7_ThemeOverlay_AppCompat_Dialog = 2131689623;
 			
-			// aapt resource value: 0x7F0E0093
-			public const int Base_V7_Theme_AppCompat = 2131624083;
+			// aapt resource value: 0x7F0F0093
+			public const int Base_V7_Theme_AppCompat = 2131689619;
 			
-			// aapt resource value: 0x7F0E0094
-			public const int Base_V7_Theme_AppCompat_Dialog = 2131624084;
+			// aapt resource value: 0x7F0F0094
+			public const int Base_V7_Theme_AppCompat_Dialog = 2131689620;
 			
-			// aapt resource value: 0x7F0E0095
-			public const int Base_V7_Theme_AppCompat_Light = 2131624085;
+			// aapt resource value: 0x7F0F0095
+			public const int Base_V7_Theme_AppCompat_Light = 2131689621;
 			
-			// aapt resource value: 0x7F0E0096
-			public const int Base_V7_Theme_AppCompat_Light_Dialog = 2131624086;
+			// aapt resource value: 0x7F0F0096
+			public const int Base_V7_Theme_AppCompat_Light_Dialog = 2131689622;
 			
-			// aapt resource value: 0x7F0E0098
-			public const int Base_V7_Widget_AppCompat_AutoCompleteTextView = 2131624088;
+			// aapt resource value: 0x7F0F0098
+			public const int Base_V7_Widget_AppCompat_AutoCompleteTextView = 2131689624;
 			
-			// aapt resource value: 0x7F0E0099
-			public const int Base_V7_Widget_AppCompat_EditText = 2131624089;
+			// aapt resource value: 0x7F0F0099
+			public const int Base_V7_Widget_AppCompat_EditText = 2131689625;
 			
-			// aapt resource value: 0x7F0E009A
-			public const int Base_V7_Widget_AppCompat_Toolbar = 2131624090;
+			// aapt resource value: 0x7F0F009A
+			public const int Base_V7_Widget_AppCompat_Toolbar = 2131689626;
 			
-			// aapt resource value: 0x7F0E009B
-			public const int Base_Widget_AppCompat_ActionBar = 2131624091;
+			// aapt resource value: 0x7F0F009B
+			public const int Base_Widget_AppCompat_ActionBar = 2131689627;
 			
-			// aapt resource value: 0x7F0E009C
-			public const int Base_Widget_AppCompat_ActionBar_Solid = 2131624092;
+			// aapt resource value: 0x7F0F009C
+			public const int Base_Widget_AppCompat_ActionBar_Solid = 2131689628;
 			
-			// aapt resource value: 0x7F0E009D
-			public const int Base_Widget_AppCompat_ActionBar_TabBar = 2131624093;
+			// aapt resource value: 0x7F0F009D
+			public const int Base_Widget_AppCompat_ActionBar_TabBar = 2131689629;
 			
-			// aapt resource value: 0x7F0E009E
-			public const int Base_Widget_AppCompat_ActionBar_TabText = 2131624094;
+			// aapt resource value: 0x7F0F009E
+			public const int Base_Widget_AppCompat_ActionBar_TabText = 2131689630;
 			
-			// aapt resource value: 0x7F0E009F
-			public const int Base_Widget_AppCompat_ActionBar_TabView = 2131624095;
+			// aapt resource value: 0x7F0F009F
+			public const int Base_Widget_AppCompat_ActionBar_TabView = 2131689631;
 			
-			// aapt resource value: 0x7F0E00A0
-			public const int Base_Widget_AppCompat_ActionButton = 2131624096;
+			// aapt resource value: 0x7F0F00A0
+			public const int Base_Widget_AppCompat_ActionButton = 2131689632;
 			
-			// aapt resource value: 0x7F0E00A1
-			public const int Base_Widget_AppCompat_ActionButton_CloseMode = 2131624097;
+			// aapt resource value: 0x7F0F00A1
+			public const int Base_Widget_AppCompat_ActionButton_CloseMode = 2131689633;
 			
-			// aapt resource value: 0x7F0E00A2
-			public const int Base_Widget_AppCompat_ActionButton_Overflow = 2131624098;
+			// aapt resource value: 0x7F0F00A2
+			public const int Base_Widget_AppCompat_ActionButton_Overflow = 2131689634;
 			
-			// aapt resource value: 0x7F0E00A3
-			public const int Base_Widget_AppCompat_ActionMode = 2131624099;
+			// aapt resource value: 0x7F0F00A3
+			public const int Base_Widget_AppCompat_ActionMode = 2131689635;
 			
-			// aapt resource value: 0x7F0E00A4
-			public const int Base_Widget_AppCompat_ActivityChooserView = 2131624100;
+			// aapt resource value: 0x7F0F00A4
+			public const int Base_Widget_AppCompat_ActivityChooserView = 2131689636;
 			
-			// aapt resource value: 0x7F0E00A5
-			public const int Base_Widget_AppCompat_AutoCompleteTextView = 2131624101;
+			// aapt resource value: 0x7F0F00A5
+			public const int Base_Widget_AppCompat_AutoCompleteTextView = 2131689637;
 			
-			// aapt resource value: 0x7F0E00A6
-			public const int Base_Widget_AppCompat_Button = 2131624102;
+			// aapt resource value: 0x7F0F00A6
+			public const int Base_Widget_AppCompat_Button = 2131689638;
 			
-			// aapt resource value: 0x7F0E00AC
-			public const int Base_Widget_AppCompat_ButtonBar = 2131624108;
+			// aapt resource value: 0x7F0F00AC
+			public const int Base_Widget_AppCompat_ButtonBar = 2131689644;
 			
-			// aapt resource value: 0x7F0E00AD
-			public const int Base_Widget_AppCompat_ButtonBar_AlertDialog = 2131624109;
+			// aapt resource value: 0x7F0F00AD
+			public const int Base_Widget_AppCompat_ButtonBar_AlertDialog = 2131689645;
 			
-			// aapt resource value: 0x7F0E00A7
-			public const int Base_Widget_AppCompat_Button_Borderless = 2131624103;
+			// aapt resource value: 0x7F0F00A7
+			public const int Base_Widget_AppCompat_Button_Borderless = 2131689639;
 			
-			// aapt resource value: 0x7F0E00A8
-			public const int Base_Widget_AppCompat_Button_Borderless_Colored = 2131624104;
+			// aapt resource value: 0x7F0F00A8
+			public const int Base_Widget_AppCompat_Button_Borderless_Colored = 2131689640;
 			
-			// aapt resource value: 0x7F0E00A9
-			public const int Base_Widget_AppCompat_Button_ButtonBar_AlertDialog = 2131624105;
+			// aapt resource value: 0x7F0F00A9
+			public const int Base_Widget_AppCompat_Button_ButtonBar_AlertDialog = 2131689641;
 			
-			// aapt resource value: 0x7F0E00AA
-			public const int Base_Widget_AppCompat_Button_Colored = 2131624106;
+			// aapt resource value: 0x7F0F00AA
+			public const int Base_Widget_AppCompat_Button_Colored = 2131689642;
 			
-			// aapt resource value: 0x7F0E00AB
-			public const int Base_Widget_AppCompat_Button_Small = 2131624107;
+			// aapt resource value: 0x7F0F00AB
+			public const int Base_Widget_AppCompat_Button_Small = 2131689643;
 			
-			// aapt resource value: 0x7F0E00AE
-			public const int Base_Widget_AppCompat_CompoundButton_CheckBox = 2131624110;
+			// aapt resource value: 0x7F0F00AE
+			public const int Base_Widget_AppCompat_CompoundButton_CheckBox = 2131689646;
 			
-			// aapt resource value: 0x7F0E00AF
-			public const int Base_Widget_AppCompat_CompoundButton_RadioButton = 2131624111;
+			// aapt resource value: 0x7F0F00AF
+			public const int Base_Widget_AppCompat_CompoundButton_RadioButton = 2131689647;
 			
-			// aapt resource value: 0x7F0E00B0
-			public const int Base_Widget_AppCompat_CompoundButton_Switch = 2131624112;
+			// aapt resource value: 0x7F0F00B0
+			public const int Base_Widget_AppCompat_CompoundButton_Switch = 2131689648;
 			
-			// aapt resource value: 0x7F0E00B1
-			public const int Base_Widget_AppCompat_DrawerArrowToggle = 2131624113;
+			// aapt resource value: 0x7F0F00B1
+			public const int Base_Widget_AppCompat_DrawerArrowToggle = 2131689649;
 			
-			// aapt resource value: 0x7F0E00B2
-			public const int Base_Widget_AppCompat_DrawerArrowToggle_Common = 2131624114;
+			// aapt resource value: 0x7F0F00B2
+			public const int Base_Widget_AppCompat_DrawerArrowToggle_Common = 2131689650;
 			
-			// aapt resource value: 0x7F0E00B3
-			public const int Base_Widget_AppCompat_DropDownItem_Spinner = 2131624115;
+			// aapt resource value: 0x7F0F00B3
+			public const int Base_Widget_AppCompat_DropDownItem_Spinner = 2131689651;
 			
-			// aapt resource value: 0x7F0E00B4
-			public const int Base_Widget_AppCompat_EditText = 2131624116;
+			// aapt resource value: 0x7F0F00B4
+			public const int Base_Widget_AppCompat_EditText = 2131689652;
 			
-			// aapt resource value: 0x7F0E00B5
-			public const int Base_Widget_AppCompat_ImageButton = 2131624117;
+			// aapt resource value: 0x7F0F00B5
+			public const int Base_Widget_AppCompat_ImageButton = 2131689653;
 			
-			// aapt resource value: 0x7F0E00B6
-			public const int Base_Widget_AppCompat_Light_ActionBar = 2131624118;
+			// aapt resource value: 0x7F0F00B6
+			public const int Base_Widget_AppCompat_Light_ActionBar = 2131689654;
 			
-			// aapt resource value: 0x7F0E00B7
-			public const int Base_Widget_AppCompat_Light_ActionBar_Solid = 2131624119;
+			// aapt resource value: 0x7F0F00B7
+			public const int Base_Widget_AppCompat_Light_ActionBar_Solid = 2131689655;
 			
-			// aapt resource value: 0x7F0E00B8
-			public const int Base_Widget_AppCompat_Light_ActionBar_TabBar = 2131624120;
+			// aapt resource value: 0x7F0F00B8
+			public const int Base_Widget_AppCompat_Light_ActionBar_TabBar = 2131689656;
 			
-			// aapt resource value: 0x7F0E00B9
-			public const int Base_Widget_AppCompat_Light_ActionBar_TabText = 2131624121;
+			// aapt resource value: 0x7F0F00B9
+			public const int Base_Widget_AppCompat_Light_ActionBar_TabText = 2131689657;
 			
-			// aapt resource value: 0x7F0E00BA
-			public const int Base_Widget_AppCompat_Light_ActionBar_TabText_Inverse = 2131624122;
+			// aapt resource value: 0x7F0F00BA
+			public const int Base_Widget_AppCompat_Light_ActionBar_TabText_Inverse = 2131689658;
 			
-			// aapt resource value: 0x7F0E00BB
-			public const int Base_Widget_AppCompat_Light_ActionBar_TabView = 2131624123;
+			// aapt resource value: 0x7F0F00BB
+			public const int Base_Widget_AppCompat_Light_ActionBar_TabView = 2131689659;
 			
-			// aapt resource value: 0x7F0E00BC
-			public const int Base_Widget_AppCompat_Light_PopupMenu = 2131624124;
+			// aapt resource value: 0x7F0F00BC
+			public const int Base_Widget_AppCompat_Light_PopupMenu = 2131689660;
 			
-			// aapt resource value: 0x7F0E00BD
-			public const int Base_Widget_AppCompat_Light_PopupMenu_Overflow = 2131624125;
+			// aapt resource value: 0x7F0F00BD
+			public const int Base_Widget_AppCompat_Light_PopupMenu_Overflow = 2131689661;
 			
-			// aapt resource value: 0x7F0E00BE
-			public const int Base_Widget_AppCompat_ListMenuView = 2131624126;
+			// aapt resource value: 0x7F0F00BE
+			public const int Base_Widget_AppCompat_ListMenuView = 2131689662;
 			
-			// aapt resource value: 0x7F0E00BF
-			public const int Base_Widget_AppCompat_ListPopupWindow = 2131624127;
+			// aapt resource value: 0x7F0F00BF
+			public const int Base_Widget_AppCompat_ListPopupWindow = 2131689663;
 			
-			// aapt resource value: 0x7F0E00C0
-			public const int Base_Widget_AppCompat_ListView = 2131624128;
+			// aapt resource value: 0x7F0F00C0
+			public const int Base_Widget_AppCompat_ListView = 2131689664;
 			
-			// aapt resource value: 0x7F0E00C1
-			public const int Base_Widget_AppCompat_ListView_DropDown = 2131624129;
+			// aapt resource value: 0x7F0F00C1
+			public const int Base_Widget_AppCompat_ListView_DropDown = 2131689665;
 			
-			// aapt resource value: 0x7F0E00C2
-			public const int Base_Widget_AppCompat_ListView_Menu = 2131624130;
+			// aapt resource value: 0x7F0F00C2
+			public const int Base_Widget_AppCompat_ListView_Menu = 2131689666;
 			
-			// aapt resource value: 0x7F0E00C3
-			public const int Base_Widget_AppCompat_PopupMenu = 2131624131;
+			// aapt resource value: 0x7F0F00C3
+			public const int Base_Widget_AppCompat_PopupMenu = 2131689667;
 			
-			// aapt resource value: 0x7F0E00C4
-			public const int Base_Widget_AppCompat_PopupMenu_Overflow = 2131624132;
+			// aapt resource value: 0x7F0F00C4
+			public const int Base_Widget_AppCompat_PopupMenu_Overflow = 2131689668;
 			
-			// aapt resource value: 0x7F0E00C5
-			public const int Base_Widget_AppCompat_PopupWindow = 2131624133;
+			// aapt resource value: 0x7F0F00C5
+			public const int Base_Widget_AppCompat_PopupWindow = 2131689669;
 			
-			// aapt resource value: 0x7F0E00C6
-			public const int Base_Widget_AppCompat_ProgressBar = 2131624134;
+			// aapt resource value: 0x7F0F00C6
+			public const int Base_Widget_AppCompat_ProgressBar = 2131689670;
 			
-			// aapt resource value: 0x7F0E00C7
-			public const int Base_Widget_AppCompat_ProgressBar_Horizontal = 2131624135;
+			// aapt resource value: 0x7F0F00C7
+			public const int Base_Widget_AppCompat_ProgressBar_Horizontal = 2131689671;
 			
-			// aapt resource value: 0x7F0E00C8
-			public const int Base_Widget_AppCompat_RatingBar = 2131624136;
+			// aapt resource value: 0x7F0F00C8
+			public const int Base_Widget_AppCompat_RatingBar = 2131689672;
 			
-			// aapt resource value: 0x7F0E00C9
-			public const int Base_Widget_AppCompat_RatingBar_Indicator = 2131624137;
+			// aapt resource value: 0x7F0F00C9
+			public const int Base_Widget_AppCompat_RatingBar_Indicator = 2131689673;
 			
-			// aapt resource value: 0x7F0E00CA
-			public const int Base_Widget_AppCompat_RatingBar_Small = 2131624138;
+			// aapt resource value: 0x7F0F00CA
+			public const int Base_Widget_AppCompat_RatingBar_Small = 2131689674;
 			
-			// aapt resource value: 0x7F0E00CB
-			public const int Base_Widget_AppCompat_SearchView = 2131624139;
+			// aapt resource value: 0x7F0F00CB
+			public const int Base_Widget_AppCompat_SearchView = 2131689675;
 			
-			// aapt resource value: 0x7F0E00CC
-			public const int Base_Widget_AppCompat_SearchView_ActionBar = 2131624140;
+			// aapt resource value: 0x7F0F00CC
+			public const int Base_Widget_AppCompat_SearchView_ActionBar = 2131689676;
 			
-			// aapt resource value: 0x7F0E00CD
-			public const int Base_Widget_AppCompat_SeekBar = 2131624141;
+			// aapt resource value: 0x7F0F00CD
+			public const int Base_Widget_AppCompat_SeekBar = 2131689677;
 			
-			// aapt resource value: 0x7F0E00CE
-			public const int Base_Widget_AppCompat_SeekBar_Discrete = 2131624142;
+			// aapt resource value: 0x7F0F00CE
+			public const int Base_Widget_AppCompat_SeekBar_Discrete = 2131689678;
 			
-			// aapt resource value: 0x7F0E00CF
-			public const int Base_Widget_AppCompat_Spinner = 2131624143;
+			// aapt resource value: 0x7F0F00CF
+			public const int Base_Widget_AppCompat_Spinner = 2131689679;
 			
-			// aapt resource value: 0x7F0E00D0
-			public const int Base_Widget_AppCompat_Spinner_Underlined = 2131624144;
+			// aapt resource value: 0x7F0F00D0
+			public const int Base_Widget_AppCompat_Spinner_Underlined = 2131689680;
 			
-			// aapt resource value: 0x7F0E00D1
-			public const int Base_Widget_AppCompat_TextView = 2131624145;
+			// aapt resource value: 0x7F0F00D1
+			public const int Base_Widget_AppCompat_TextView = 2131689681;
 			
-			// aapt resource value: 0x7F0E00D2
-			public const int Base_Widget_AppCompat_TextView_SpinnerItem = 2131624146;
+			// aapt resource value: 0x7F0F00D2
+			public const int Base_Widget_AppCompat_TextView_SpinnerItem = 2131689682;
 			
-			// aapt resource value: 0x7F0E00D3
-			public const int Base_Widget_AppCompat_Toolbar = 2131624147;
+			// aapt resource value: 0x7F0F00D3
+			public const int Base_Widget_AppCompat_Toolbar = 2131689683;
 			
-			// aapt resource value: 0x7F0E00D4
-			public const int Base_Widget_AppCompat_Toolbar_Button_Navigation = 2131624148;
+			// aapt resource value: 0x7F0F00D4
+			public const int Base_Widget_AppCompat_Toolbar_Button_Navigation = 2131689684;
 			
-			// aapt resource value: 0x7F0E00D5
-			public const int Base_Widget_Design_TabLayout = 2131624149;
+			// aapt resource value: 0x7F0F00D5
+			public const int Base_Widget_Design_TabLayout = 2131689685;
 			
-			// aapt resource value: 0x7F0E00D6
-			public const int Base_Widget_MaterialComponents_AutoCompleteTextView = 2131624150;
+			// aapt resource value: 0x7F0F00D6
+			public const int Base_Widget_MaterialComponents_AutoCompleteTextView = 2131689686;
 			
-			// aapt resource value: 0x7F0E00D7
-			public const int Base_Widget_MaterialComponents_CheckedTextView = 2131624151;
+			// aapt resource value: 0x7F0F00D7
+			public const int Base_Widget_MaterialComponents_CheckedTextView = 2131689687;
 			
-			// aapt resource value: 0x7F0E00D8
-			public const int Base_Widget_MaterialComponents_Chip = 2131624152;
+			// aapt resource value: 0x7F0F00D8
+			public const int Base_Widget_MaterialComponents_Chip = 2131689688;
 			
-			// aapt resource value: 0x7F0E00D9
-			public const int Base_Widget_MaterialComponents_PopupMenu = 2131624153;
+			// aapt resource value: 0x7F0F00D9
+			public const int Base_Widget_MaterialComponents_PopupMenu = 2131689689;
 			
-			// aapt resource value: 0x7F0E00DA
-			public const int Base_Widget_MaterialComponents_PopupMenu_ContextMenu = 2131624154;
+			// aapt resource value: 0x7F0F00DA
+			public const int Base_Widget_MaterialComponents_PopupMenu_ContextMenu = 2131689690;
 			
-			// aapt resource value: 0x7F0E00DB
-			public const int Base_Widget_MaterialComponents_PopupMenu_ListPopupWindow = 2131624155;
+			// aapt resource value: 0x7F0F00DB
+			public const int Base_Widget_MaterialComponents_PopupMenu_ListPopupWindow = 2131689691;
 			
-			// aapt resource value: 0x7F0E00DC
-			public const int Base_Widget_MaterialComponents_PopupMenu_Overflow = 2131624156;
+			// aapt resource value: 0x7F0F00DC
+			public const int Base_Widget_MaterialComponents_PopupMenu_Overflow = 2131689692;
 			
-			// aapt resource value: 0x7F0E00DD
-			public const int Base_Widget_MaterialComponents_Slider = 2131624157;
+			// aapt resource value: 0x7F0F00DD
+			public const int Base_Widget_MaterialComponents_Slider = 2131689693;
 			
-			// aapt resource value: 0x7F0E00DE
-			public const int Base_Widget_MaterialComponents_TextInputEditText = 2131624158;
+			// aapt resource value: 0x7F0F00DE
+			public const int Base_Widget_MaterialComponents_TextInputEditText = 2131689694;
 			
-			// aapt resource value: 0x7F0E00DF
-			public const int Base_Widget_MaterialComponents_TextInputLayout = 2131624159;
+			// aapt resource value: 0x7F0F00DF
+			public const int Base_Widget_MaterialComponents_TextInputLayout = 2131689695;
 			
-			// aapt resource value: 0x7F0E00E0
-			public const int Base_Widget_MaterialComponents_TextView = 2131624160;
+			// aapt resource value: 0x7F0F00E0
+			public const int Base_Widget_MaterialComponents_TextView = 2131689696;
 			
-			// aapt resource value: 0x7F0E00E1
-			public const int CardView = 2131624161;
+			// aapt resource value: 0x7F0F00E1
+			public const int CardView = 2131689697;
 			
-			// aapt resource value: 0x7F0E00E2
-			public const int CardView_Dark = 2131624162;
+			// aapt resource value: 0x7F0F00E2
+			public const int CardView_Dark = 2131689698;
 			
-			// aapt resource value: 0x7F0E00E3
-			public const int CardView_Light = 2131624163;
+			// aapt resource value: 0x7F0F00E3
+			public const int CardView_Light = 2131689699;
 			
-			// aapt resource value: 0x7F0E02C4
-			public const int collectionViewTheme = 2131624644;
+			// aapt resource value: 0x7F0F02C7
+			public const int collectionViewTheme = 2131690183;
 			
-			// aapt resource value: 0x7F0E00E4
-			public const int EmptyTheme = 2131624164;
+			// aapt resource value: 0x7F0F00E4
+			public const int EmptyTheme = 2131689700;
 			
-			// aapt resource value: 0x7F0E00E5
-			public const int MainTheme = 2131624165;
+			// aapt resource value: 0x7F0F00E5
+			public const int MainTheme = 2131689701;
 			
-			// aapt resource value: 0x7F0E00E6
-			public const int MainTheme_Base = 2131624166;
+			// aapt resource value: 0x7F0F00E6
+			public const int MainTheme_Base = 2131689702;
 			
-			// aapt resource value: 0x7F0E00E7
-			public const int MaterialAlertDialog_MaterialComponents = 2131624167;
+			// aapt resource value: 0x7F0F00E7
+			public const int MainTheme_Splash = 2131689703;
 			
-			// aapt resource value: 0x7F0E00E8
-			public const int MaterialAlertDialog_MaterialComponents_Body_Text = 2131624168;
+			// aapt resource value: 0x7F0F00E8
+			public const int MainTheme_Splash_Base = 2131689704;
 			
-			// aapt resource value: 0x7F0E00E9
-			public const int MaterialAlertDialog_MaterialComponents_Picker_Date_Calendar = 2131624169;
+			// aapt resource value: 0x7F0F00E9
+			public const int MainTheme_Splash_Base_V28 = 2131689705;
 			
-			// aapt resource value: 0x7F0E00EA
-			public const int MaterialAlertDialog_MaterialComponents_Picker_Date_Spinner = 2131624170;
+			// aapt resource value: 0x7F0F00EA
+			public const int MaterialAlertDialog_MaterialComponents = 2131689706;
 			
-			// aapt resource value: 0x7F0E00EB
-			public const int MaterialAlertDialog_MaterialComponents_Title_Icon = 2131624171;
+			// aapt resource value: 0x7F0F00EB
+			public const int MaterialAlertDialog_MaterialComponents_Body_Text = 2131689707;
 			
-			// aapt resource value: 0x7F0E00EC
-			public const int MaterialAlertDialog_MaterialComponents_Title_Icon_CenterStacked = 2131624172;
+			// aapt resource value: 0x7F0F00EC
+			public const int MaterialAlertDialog_MaterialComponents_Picker_Date_Calendar = 2131689708;
 			
-			// aapt resource value: 0x7F0E00ED
-			public const int MaterialAlertDialog_MaterialComponents_Title_Panel = 2131624173;
+			// aapt resource value: 0x7F0F00ED
+			public const int MaterialAlertDialog_MaterialComponents_Picker_Date_Spinner = 2131689709;
 			
-			// aapt resource value: 0x7F0E00EE
-			public const int MaterialAlertDialog_MaterialComponents_Title_Panel_CenterStacked = 2131624174;
+			// aapt resource value: 0x7F0F00EE
+			public const int MaterialAlertDialog_MaterialComponents_Title_Icon = 2131689710;
 			
-			// aapt resource value: 0x7F0E00EF
-			public const int MaterialAlertDialog_MaterialComponents_Title_Text = 2131624175;
+			// aapt resource value: 0x7F0F00EF
+			public const int MaterialAlertDialog_MaterialComponents_Title_Icon_CenterStacked = 2131689711;
 			
-			// aapt resource value: 0x7F0E00F0
-			public const int MaterialAlertDialog_MaterialComponents_Title_Text_CenterStacked = 2131624176;
+			// aapt resource value: 0x7F0F00F0
+			public const int MaterialAlertDialog_MaterialComponents_Title_Panel = 2131689712;
 			
-			// aapt resource value: 0x7F0E00F1
-			public const int Platform_AppCompat = 2131624177;
+			// aapt resource value: 0x7F0F00F1
+			public const int MaterialAlertDialog_MaterialComponents_Title_Panel_CenterStacked = 2131689713;
 			
-			// aapt resource value: 0x7F0E00F2
-			public const int Platform_AppCompat_Light = 2131624178;
+			// aapt resource value: 0x7F0F00F2
+			public const int MaterialAlertDialog_MaterialComponents_Title_Text = 2131689714;
 			
-			// aapt resource value: 0x7F0E00F3
-			public const int Platform_MaterialComponents = 2131624179;
+			// aapt resource value: 0x7F0F00F3
+			public const int MaterialAlertDialog_MaterialComponents_Title_Text_CenterStacked = 2131689715;
 			
-			// aapt resource value: 0x7F0E00F4
-			public const int Platform_MaterialComponents_Dialog = 2131624180;
+			// aapt resource value: 0x7F0F00F4
+			public const int Platform_AppCompat = 2131689716;
 			
-			// aapt resource value: 0x7F0E00F5
-			public const int Platform_MaterialComponents_Light = 2131624181;
+			// aapt resource value: 0x7F0F00F5
+			public const int Platform_AppCompat_Light = 2131689717;
 			
-			// aapt resource value: 0x7F0E00F6
-			public const int Platform_MaterialComponents_Light_Dialog = 2131624182;
+			// aapt resource value: 0x7F0F00F6
+			public const int Platform_MaterialComponents = 2131689718;
 			
-			// aapt resource value: 0x7F0E00F7
-			public const int Platform_ThemeOverlay_AppCompat = 2131624183;
+			// aapt resource value: 0x7F0F00F7
+			public const int Platform_MaterialComponents_Dialog = 2131689719;
 			
-			// aapt resource value: 0x7F0E00F8
-			public const int Platform_ThemeOverlay_AppCompat_Dark = 2131624184;
+			// aapt resource value: 0x7F0F00F8
+			public const int Platform_MaterialComponents_Light = 2131689720;
 			
-			// aapt resource value: 0x7F0E00F9
-			public const int Platform_ThemeOverlay_AppCompat_Light = 2131624185;
+			// aapt resource value: 0x7F0F00F9
+			public const int Platform_MaterialComponents_Light_Dialog = 2131689721;
 			
-			// aapt resource value: 0x7F0E00FA
-			public const int Platform_V21_AppCompat = 2131624186;
+			// aapt resource value: 0x7F0F00FA
+			public const int Platform_ThemeOverlay_AppCompat = 2131689722;
 			
-			// aapt resource value: 0x7F0E00FB
-			public const int Platform_V21_AppCompat_Light = 2131624187;
+			// aapt resource value: 0x7F0F00FB
+			public const int Platform_ThemeOverlay_AppCompat_Dark = 2131689723;
 			
-			// aapt resource value: 0x7F0E00FC
-			public const int Platform_V25_AppCompat = 2131624188;
+			// aapt resource value: 0x7F0F00FC
+			public const int Platform_ThemeOverlay_AppCompat_Light = 2131689724;
 			
-			// aapt resource value: 0x7F0E00FD
-			public const int Platform_V25_AppCompat_Light = 2131624189;
+			// aapt resource value: 0x7F0F00FD
+			public const int Platform_V21_AppCompat = 2131689725;
 			
-			// aapt resource value: 0x7F0E00FE
-			public const int Platform_Widget_AppCompat_Spinner = 2131624190;
+			// aapt resource value: 0x7F0F00FE
+			public const int Platform_V21_AppCompat_Light = 2131689726;
 			
-			// aapt resource value: 0x7F0E00FF
-			public const int RtlOverlay_DialogWindowTitle_AppCompat = 2131624191;
+			// aapt resource value: 0x7F0F00FF
+			public const int Platform_V25_AppCompat = 2131689727;
 			
-			// aapt resource value: 0x7F0E0100
-			public const int RtlOverlay_Widget_AppCompat_ActionBar_TitleItem = 2131624192;
+			// aapt resource value: 0x7F0F0100
+			public const int Platform_V25_AppCompat_Light = 2131689728;
 			
-			// aapt resource value: 0x7F0E0101
-			public const int RtlOverlay_Widget_AppCompat_DialogTitle_Icon = 2131624193;
+			// aapt resource value: 0x7F0F0101
+			public const int Platform_Widget_AppCompat_Spinner = 2131689729;
 			
-			// aapt resource value: 0x7F0E0102
-			public const int RtlOverlay_Widget_AppCompat_PopupMenuItem = 2131624194;
+			// aapt resource value: 0x7F0F0102
+			public const int RtlOverlay_DialogWindowTitle_AppCompat = 2131689730;
 			
-			// aapt resource value: 0x7F0E0103
-			public const int RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup = 2131624195;
+			// aapt resource value: 0x7F0F0103
+			public const int RtlOverlay_Widget_AppCompat_ActionBar_TitleItem = 2131689731;
 			
-			// aapt resource value: 0x7F0E0104
-			public const int RtlOverlay_Widget_AppCompat_PopupMenuItem_Shortcut = 2131624196;
+			// aapt resource value: 0x7F0F0104
+			public const int RtlOverlay_Widget_AppCompat_DialogTitle_Icon = 2131689732;
 			
-			// aapt resource value: 0x7F0E0105
-			public const int RtlOverlay_Widget_AppCompat_PopupMenuItem_SubmenuArrow = 2131624197;
+			// aapt resource value: 0x7F0F0105
+			public const int RtlOverlay_Widget_AppCompat_PopupMenuItem = 2131689733;
 			
-			// aapt resource value: 0x7F0E0106
-			public const int RtlOverlay_Widget_AppCompat_PopupMenuItem_Text = 2131624198;
+			// aapt resource value: 0x7F0F0106
+			public const int RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup = 2131689734;
 			
-			// aapt resource value: 0x7F0E0107
-			public const int RtlOverlay_Widget_AppCompat_PopupMenuItem_Title = 2131624199;
+			// aapt resource value: 0x7F0F0107
+			public const int RtlOverlay_Widget_AppCompat_PopupMenuItem_Shortcut = 2131689735;
 			
-			// aapt resource value: 0x7F0E010D
-			public const int RtlOverlay_Widget_AppCompat_SearchView_MagIcon = 2131624205;
+			// aapt resource value: 0x7F0F0108
+			public const int RtlOverlay_Widget_AppCompat_PopupMenuItem_SubmenuArrow = 2131689736;
 			
-			// aapt resource value: 0x7F0E0108
-			public const int RtlOverlay_Widget_AppCompat_Search_DropDown = 2131624200;
+			// aapt resource value: 0x7F0F0109
+			public const int RtlOverlay_Widget_AppCompat_PopupMenuItem_Text = 2131689737;
 			
-			// aapt resource value: 0x7F0E0109
-			public const int RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1 = 2131624201;
+			// aapt resource value: 0x7F0F010A
+			public const int RtlOverlay_Widget_AppCompat_PopupMenuItem_Title = 2131689738;
 			
-			// aapt resource value: 0x7F0E010A
-			public const int RtlOverlay_Widget_AppCompat_Search_DropDown_Icon2 = 2131624202;
+			// aapt resource value: 0x7F0F0110
+			public const int RtlOverlay_Widget_AppCompat_SearchView_MagIcon = 2131689744;
 			
-			// aapt resource value: 0x7F0E010B
-			public const int RtlOverlay_Widget_AppCompat_Search_DropDown_Query = 2131624203;
+			// aapt resource value: 0x7F0F010B
+			public const int RtlOverlay_Widget_AppCompat_Search_DropDown = 2131689739;
 			
-			// aapt resource value: 0x7F0E010C
-			public const int RtlOverlay_Widget_AppCompat_Search_DropDown_Text = 2131624204;
+			// aapt resource value: 0x7F0F010C
+			public const int RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1 = 2131689740;
 			
-			// aapt resource value: 0x7F0E010E
-			public const int RtlUnderlay_Widget_AppCompat_ActionButton = 2131624206;
+			// aapt resource value: 0x7F0F010D
+			public const int RtlOverlay_Widget_AppCompat_Search_DropDown_Icon2 = 2131689741;
 			
-			// aapt resource value: 0x7F0E010F
-			public const int RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = 2131624207;
+			// aapt resource value: 0x7F0F010E
+			public const int RtlOverlay_Widget_AppCompat_Search_DropDown_Query = 2131689742;
 			
-			// aapt resource value: 0x7F0E02C5
-			public const int scrollViewScrollBars = 2131624645;
+			// aapt resource value: 0x7F0F010F
+			public const int RtlOverlay_Widget_AppCompat_Search_DropDown_Text = 2131689743;
 			
-			// aapt resource value: 0x7F0E02C6
-			public const int scrollViewTheme = 2131624646;
+			// aapt resource value: 0x7F0F0111
+			public const int RtlUnderlay_Widget_AppCompat_ActionButton = 2131689745;
 			
-			// aapt resource value: 0x7F0E0116
-			public const int ShapeAppearanceOverlay = 2131624214;
+			// aapt resource value: 0x7F0F0112
+			public const int RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = 2131689746;
 			
-			// aapt resource value: 0x7F0E0117
-			public const int ShapeAppearanceOverlay_BottomLeftDifferentCornerSize = 2131624215;
+			// aapt resource value: 0x7F0F02C8
+			public const int scrollViewScrollBars = 2131690184;
 			
-			// aapt resource value: 0x7F0E0118
-			public const int ShapeAppearanceOverlay_BottomRightCut = 2131624216;
+			// aapt resource value: 0x7F0F02C9
+			public const int scrollViewTheme = 2131690185;
 			
-			// aapt resource value: 0x7F0E0119
-			public const int ShapeAppearanceOverlay_Cut = 2131624217;
+			// aapt resource value: 0x7F0F0119
+			public const int ShapeAppearanceOverlay = 2131689753;
 			
-			// aapt resource value: 0x7F0E011A
-			public const int ShapeAppearanceOverlay_DifferentCornerSize = 2131624218;
+			// aapt resource value: 0x7F0F011A
+			public const int ShapeAppearanceOverlay_BottomLeftDifferentCornerSize = 2131689754;
 			
-			// aapt resource value: 0x7F0E011B
-			public const int ShapeAppearanceOverlay_MaterialComponents_BottomSheet = 2131624219;
+			// aapt resource value: 0x7F0F011B
+			public const int ShapeAppearanceOverlay_BottomRightCut = 2131689755;
 			
-			// aapt resource value: 0x7F0E011C
-			public const int ShapeAppearanceOverlay_MaterialComponents_Chip = 2131624220;
+			// aapt resource value: 0x7F0F011C
+			public const int ShapeAppearanceOverlay_Cut = 2131689756;
 			
-			// aapt resource value: 0x7F0E011D
-			public const int ShapeAppearanceOverlay_MaterialComponents_ExtendedFloatingActionButton = 2131624221;
+			// aapt resource value: 0x7F0F011D
+			public const int ShapeAppearanceOverlay_DifferentCornerSize = 2131689757;
 			
-			// aapt resource value: 0x7F0E011E
-			public const int ShapeAppearanceOverlay_MaterialComponents_FloatingActionButton = 2131624222;
+			// aapt resource value: 0x7F0F011E
+			public const int ShapeAppearanceOverlay_MaterialComponents_BottomSheet = 2131689758;
 			
-			// aapt resource value: 0x7F0E011F
-			public const int ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Day = 2131624223;
+			// aapt resource value: 0x7F0F011F
+			public const int ShapeAppearanceOverlay_MaterialComponents_Chip = 2131689759;
 			
-			// aapt resource value: 0x7F0E0120
-			public const int ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Window_Fullscreen = 2131624224;
+			// aapt resource value: 0x7F0F0120
+			public const int ShapeAppearanceOverlay_MaterialComponents_ExtendedFloatingActionButton = 2131689760;
 			
-			// aapt resource value: 0x7F0E0121
-			public const int ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Year = 2131624225;
+			// aapt resource value: 0x7F0F0121
+			public const int ShapeAppearanceOverlay_MaterialComponents_FloatingActionButton = 2131689761;
 			
-			// aapt resource value: 0x7F0E0122
-			public const int ShapeAppearanceOverlay_MaterialComponents_TextInputLayout_FilledBox = 2131624226;
+			// aapt resource value: 0x7F0F0122
+			public const int ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Day = 2131689762;
 			
-			// aapt resource value: 0x7F0E0123
-			public const int ShapeAppearanceOverlay_TopLeftCut = 2131624227;
+			// aapt resource value: 0x7F0F0123
+			public const int ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Window_Fullscreen = 2131689763;
 			
-			// aapt resource value: 0x7F0E0124
-			public const int ShapeAppearanceOverlay_TopRightDifferentCornerSize = 2131624228;
+			// aapt resource value: 0x7F0F0124
+			public const int ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Year = 2131689764;
 			
-			// aapt resource value: 0x7F0E0110
-			public const int ShapeAppearance_MaterialComponents = 2131624208;
+			// aapt resource value: 0x7F0F0125
+			public const int ShapeAppearanceOverlay_MaterialComponents_TextInputLayout_FilledBox = 2131689765;
 			
-			// aapt resource value: 0x7F0E0111
-			public const int ShapeAppearance_MaterialComponents_LargeComponent = 2131624209;
+			// aapt resource value: 0x7F0F0126
+			public const int ShapeAppearanceOverlay_TopLeftCut = 2131689766;
 			
-			// aapt resource value: 0x7F0E0112
-			public const int ShapeAppearance_MaterialComponents_MediumComponent = 2131624210;
+			// aapt resource value: 0x7F0F0127
+			public const int ShapeAppearanceOverlay_TopRightDifferentCornerSize = 2131689767;
 			
-			// aapt resource value: 0x7F0E0113
-			public const int ShapeAppearance_MaterialComponents_SmallComponent = 2131624211;
+			// aapt resource value: 0x7F0F0113
+			public const int ShapeAppearance_MaterialComponents = 2131689747;
 			
-			// aapt resource value: 0x7F0E0114
-			public const int ShapeAppearance_MaterialComponents_Test = 2131624212;
+			// aapt resource value: 0x7F0F0114
+			public const int ShapeAppearance_MaterialComponents_LargeComponent = 2131689748;
 			
-			// aapt resource value: 0x7F0E0115
-			public const int ShapeAppearance_MaterialComponents_Tooltip = 2131624213;
+			// aapt resource value: 0x7F0F0115
+			public const int ShapeAppearance_MaterialComponents_MediumComponent = 2131689749;
 			
-			// aapt resource value: 0x7F0E012A
-			public const int TestStyleWithLineHeight = 2131624234;
+			// aapt resource value: 0x7F0F0116
+			public const int ShapeAppearance_MaterialComponents_SmallComponent = 2131689750;
 			
-			// aapt resource value: 0x7F0E012B
-			public const int TestStyleWithLineHeightAppearance = 2131624235;
+			// aapt resource value: 0x7F0F0117
+			public const int ShapeAppearance_MaterialComponents_Test = 2131689751;
 			
-			// aapt resource value: 0x7F0E012D
-			public const int TestStyleWithoutLineHeight = 2131624237;
+			// aapt resource value: 0x7F0F0118
+			public const int ShapeAppearance_MaterialComponents_Tooltip = 2131689752;
 			
-			// aapt resource value: 0x7F0E012C
-			public const int TestStyleWithThemeLineHeightAttribute = 2131624236;
+			// aapt resource value: 0x7F0F012D
+			public const int TestStyleWithLineHeight = 2131689773;
 			
-			// aapt resource value: 0x7F0E012E
-			public const int TestThemeWithLineHeight = 2131624238;
+			// aapt resource value: 0x7F0F012E
+			public const int TestStyleWithLineHeightAppearance = 2131689774;
 			
-			// aapt resource value: 0x7F0E012F
-			public const int TestThemeWithLineHeightDisabled = 2131624239;
+			// aapt resource value: 0x7F0F0130
+			public const int TestStyleWithoutLineHeight = 2131689776;
 			
-			// aapt resource value: 0x7F0E0125
-			public const int Test_ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Day = 2131624229;
+			// aapt resource value: 0x7F0F012F
+			public const int TestStyleWithThemeLineHeightAttribute = 2131689775;
 			
-			// aapt resource value: 0x7F0E0126
-			public const int Test_Theme_MaterialComponents_MaterialCalendar = 2131624230;
+			// aapt resource value: 0x7F0F0131
+			public const int TestThemeWithLineHeight = 2131689777;
 			
-			// aapt resource value: 0x7F0E0127
-			public const int Test_Widget_MaterialComponents_MaterialCalendar = 2131624231;
+			// aapt resource value: 0x7F0F0132
+			public const int TestThemeWithLineHeightDisabled = 2131689778;
 			
-			// aapt resource value: 0x7F0E0128
-			public const int Test_Widget_MaterialComponents_MaterialCalendar_Day = 2131624232;
+			// aapt resource value: 0x7F0F0128
+			public const int Test_ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Day = 2131689768;
 			
-			// aapt resource value: 0x7F0E0129
-			public const int Test_Widget_MaterialComponents_MaterialCalendar_Day_Selected = 2131624233;
+			// aapt resource value: 0x7F0F0129
+			public const int Test_Theme_MaterialComponents_MaterialCalendar = 2131689769;
 			
-			// aapt resource value: 0x7F0E0130
-			public const int TextAppearance_AppCompat = 2131624240;
+			// aapt resource value: 0x7F0F012A
+			public const int Test_Widget_MaterialComponents_MaterialCalendar = 2131689770;
 			
-			// aapt resource value: 0x7F0E0131
-			public const int TextAppearance_AppCompat_Body1 = 2131624241;
+			// aapt resource value: 0x7F0F012B
+			public const int Test_Widget_MaterialComponents_MaterialCalendar_Day = 2131689771;
 			
-			// aapt resource value: 0x7F0E0132
-			public const int TextAppearance_AppCompat_Body2 = 2131624242;
+			// aapt resource value: 0x7F0F012C
+			public const int Test_Widget_MaterialComponents_MaterialCalendar_Day_Selected = 2131689772;
 			
-			// aapt resource value: 0x7F0E0133
-			public const int TextAppearance_AppCompat_Button = 2131624243;
+			// aapt resource value: 0x7F0F0133
+			public const int TextAppearance_AppCompat = 2131689779;
 			
-			// aapt resource value: 0x7F0E0134
-			public const int TextAppearance_AppCompat_Caption = 2131624244;
+			// aapt resource value: 0x7F0F0134
+			public const int TextAppearance_AppCompat_Body1 = 2131689780;
 			
-			// aapt resource value: 0x7F0E0135
-			public const int TextAppearance_AppCompat_Display1 = 2131624245;
+			// aapt resource value: 0x7F0F0135
+			public const int TextAppearance_AppCompat_Body2 = 2131689781;
 			
-			// aapt resource value: 0x7F0E0136
-			public const int TextAppearance_AppCompat_Display2 = 2131624246;
+			// aapt resource value: 0x7F0F0136
+			public const int TextAppearance_AppCompat_Button = 2131689782;
 			
-			// aapt resource value: 0x7F0E0137
-			public const int TextAppearance_AppCompat_Display3 = 2131624247;
+			// aapt resource value: 0x7F0F0137
+			public const int TextAppearance_AppCompat_Caption = 2131689783;
 			
-			// aapt resource value: 0x7F0E0138
-			public const int TextAppearance_AppCompat_Display4 = 2131624248;
+			// aapt resource value: 0x7F0F0138
+			public const int TextAppearance_AppCompat_Display1 = 2131689784;
 			
-			// aapt resource value: 0x7F0E0139
-			public const int TextAppearance_AppCompat_Headline = 2131624249;
+			// aapt resource value: 0x7F0F0139
+			public const int TextAppearance_AppCompat_Display2 = 2131689785;
 			
-			// aapt resource value: 0x7F0E013A
-			public const int TextAppearance_AppCompat_Inverse = 2131624250;
+			// aapt resource value: 0x7F0F013A
+			public const int TextAppearance_AppCompat_Display3 = 2131689786;
 			
-			// aapt resource value: 0x7F0E013B
-			public const int TextAppearance_AppCompat_Large = 2131624251;
+			// aapt resource value: 0x7F0F013B
+			public const int TextAppearance_AppCompat_Display4 = 2131689787;
 			
-			// aapt resource value: 0x7F0E013C
-			public const int TextAppearance_AppCompat_Large_Inverse = 2131624252;
+			// aapt resource value: 0x7F0F013C
+			public const int TextAppearance_AppCompat_Headline = 2131689788;
 			
-			// aapt resource value: 0x7F0E013D
-			public const int TextAppearance_AppCompat_Light_SearchResult_Subtitle = 2131624253;
+			// aapt resource value: 0x7F0F013D
+			public const int TextAppearance_AppCompat_Inverse = 2131689789;
 			
-			// aapt resource value: 0x7F0E013E
-			public const int TextAppearance_AppCompat_Light_SearchResult_Title = 2131624254;
+			// aapt resource value: 0x7F0F013E
+			public const int TextAppearance_AppCompat_Large = 2131689790;
 			
-			// aapt resource value: 0x7F0E013F
-			public const int TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = 2131624255;
+			// aapt resource value: 0x7F0F013F
+			public const int TextAppearance_AppCompat_Large_Inverse = 2131689791;
 			
-			// aapt resource value: 0x7F0E0140
-			public const int TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = 2131624256;
+			// aapt resource value: 0x7F0F0140
+			public const int TextAppearance_AppCompat_Light_SearchResult_Subtitle = 2131689792;
 			
-			// aapt resource value: 0x7F0E0141
-			public const int TextAppearance_AppCompat_Medium = 2131624257;
+			// aapt resource value: 0x7F0F0141
+			public const int TextAppearance_AppCompat_Light_SearchResult_Title = 2131689793;
 			
-			// aapt resource value: 0x7F0E0142
-			public const int TextAppearance_AppCompat_Medium_Inverse = 2131624258;
+			// aapt resource value: 0x7F0F0142
+			public const int TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = 2131689794;
 			
-			// aapt resource value: 0x7F0E0143
-			public const int TextAppearance_AppCompat_Menu = 2131624259;
+			// aapt resource value: 0x7F0F0143
+			public const int TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = 2131689795;
 			
-			// aapt resource value: 0x7F0E0144
-			public const int TextAppearance_AppCompat_SearchResult_Subtitle = 2131624260;
+			// aapt resource value: 0x7F0F0144
+			public const int TextAppearance_AppCompat_Medium = 2131689796;
 			
-			// aapt resource value: 0x7F0E0145
-			public const int TextAppearance_AppCompat_SearchResult_Title = 2131624261;
+			// aapt resource value: 0x7F0F0145
+			public const int TextAppearance_AppCompat_Medium_Inverse = 2131689797;
 			
-			// aapt resource value: 0x7F0E0146
-			public const int TextAppearance_AppCompat_Small = 2131624262;
+			// aapt resource value: 0x7F0F0146
+			public const int TextAppearance_AppCompat_Menu = 2131689798;
 			
-			// aapt resource value: 0x7F0E0147
-			public const int TextAppearance_AppCompat_Small_Inverse = 2131624263;
+			// aapt resource value: 0x7F0F0147
+			public const int TextAppearance_AppCompat_SearchResult_Subtitle = 2131689799;
 			
-			// aapt resource value: 0x7F0E0148
-			public const int TextAppearance_AppCompat_Subhead = 2131624264;
+			// aapt resource value: 0x7F0F0148
+			public const int TextAppearance_AppCompat_SearchResult_Title = 2131689800;
 			
-			// aapt resource value: 0x7F0E0149
-			public const int TextAppearance_AppCompat_Subhead_Inverse = 2131624265;
+			// aapt resource value: 0x7F0F0149
+			public const int TextAppearance_AppCompat_Small = 2131689801;
 			
-			// aapt resource value: 0x7F0E014A
-			public const int TextAppearance_AppCompat_Title = 2131624266;
+			// aapt resource value: 0x7F0F014A
+			public const int TextAppearance_AppCompat_Small_Inverse = 2131689802;
 			
-			// aapt resource value: 0x7F0E014B
-			public const int TextAppearance_AppCompat_Title_Inverse = 2131624267;
+			// aapt resource value: 0x7F0F014B
+			public const int TextAppearance_AppCompat_Subhead = 2131689803;
 			
-			// aapt resource value: 0x7F0E014C
-			public const int TextAppearance_AppCompat_Tooltip = 2131624268;
+			// aapt resource value: 0x7F0F014C
+			public const int TextAppearance_AppCompat_Subhead_Inverse = 2131689804;
 			
-			// aapt resource value: 0x7F0E014D
-			public const int TextAppearance_AppCompat_Widget_ActionBar_Menu = 2131624269;
+			// aapt resource value: 0x7F0F014D
+			public const int TextAppearance_AppCompat_Title = 2131689805;
 			
-			// aapt resource value: 0x7F0E014E
-			public const int TextAppearance_AppCompat_Widget_ActionBar_Subtitle = 2131624270;
+			// aapt resource value: 0x7F0F014E
+			public const int TextAppearance_AppCompat_Title_Inverse = 2131689806;
 			
-			// aapt resource value: 0x7F0E014F
-			public const int TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = 2131624271;
+			// aapt resource value: 0x7F0F014F
+			public const int TextAppearance_AppCompat_Tooltip = 2131689807;
 			
-			// aapt resource value: 0x7F0E0150
-			public const int TextAppearance_AppCompat_Widget_ActionBar_Title = 2131624272;
+			// aapt resource value: 0x7F0F0150
+			public const int TextAppearance_AppCompat_Widget_ActionBar_Menu = 2131689808;
 			
-			// aapt resource value: 0x7F0E0151
-			public const int TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = 2131624273;
+			// aapt resource value: 0x7F0F0151
+			public const int TextAppearance_AppCompat_Widget_ActionBar_Subtitle = 2131689809;
 			
-			// aapt resource value: 0x7F0E0152
-			public const int TextAppearance_AppCompat_Widget_ActionMode_Subtitle = 2131624274;
+			// aapt resource value: 0x7F0F0152
+			public const int TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = 2131689810;
 			
-			// aapt resource value: 0x7F0E0153
-			public const int TextAppearance_AppCompat_Widget_ActionMode_Subtitle_Inverse = 2131624275;
+			// aapt resource value: 0x7F0F0153
+			public const int TextAppearance_AppCompat_Widget_ActionBar_Title = 2131689811;
 			
-			// aapt resource value: 0x7F0E0154
-			public const int TextAppearance_AppCompat_Widget_ActionMode_Title = 2131624276;
+			// aapt resource value: 0x7F0F0154
+			public const int TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = 2131689812;
 			
-			// aapt resource value: 0x7F0E0155
-			public const int TextAppearance_AppCompat_Widget_ActionMode_Title_Inverse = 2131624277;
+			// aapt resource value: 0x7F0F0155
+			public const int TextAppearance_AppCompat_Widget_ActionMode_Subtitle = 2131689813;
 			
-			// aapt resource value: 0x7F0E0156
-			public const int TextAppearance_AppCompat_Widget_Button = 2131624278;
+			// aapt resource value: 0x7F0F0156
+			public const int TextAppearance_AppCompat_Widget_ActionMode_Subtitle_Inverse = 2131689814;
 			
-			// aapt resource value: 0x7F0E0157
-			public const int TextAppearance_AppCompat_Widget_Button_Borderless_Colored = 2131624279;
+			// aapt resource value: 0x7F0F0157
+			public const int TextAppearance_AppCompat_Widget_ActionMode_Title = 2131689815;
 			
-			// aapt resource value: 0x7F0E0158
-			public const int TextAppearance_AppCompat_Widget_Button_Colored = 2131624280;
+			// aapt resource value: 0x7F0F0158
+			public const int TextAppearance_AppCompat_Widget_ActionMode_Title_Inverse = 2131689816;
 			
-			// aapt resource value: 0x7F0E0159
-			public const int TextAppearance_AppCompat_Widget_Button_Inverse = 2131624281;
+			// aapt resource value: 0x7F0F0159
+			public const int TextAppearance_AppCompat_Widget_Button = 2131689817;
 			
-			// aapt resource value: 0x7F0E015A
-			public const int TextAppearance_AppCompat_Widget_DropDownItem = 2131624282;
+			// aapt resource value: 0x7F0F015A
+			public const int TextAppearance_AppCompat_Widget_Button_Borderless_Colored = 2131689818;
 			
-			// aapt resource value: 0x7F0E015B
-			public const int TextAppearance_AppCompat_Widget_PopupMenu_Header = 2131624283;
+			// aapt resource value: 0x7F0F015B
+			public const int TextAppearance_AppCompat_Widget_Button_Colored = 2131689819;
 			
-			// aapt resource value: 0x7F0E015C
-			public const int TextAppearance_AppCompat_Widget_PopupMenu_Large = 2131624284;
+			// aapt resource value: 0x7F0F015C
+			public const int TextAppearance_AppCompat_Widget_Button_Inverse = 2131689820;
 			
-			// aapt resource value: 0x7F0E015D
-			public const int TextAppearance_AppCompat_Widget_PopupMenu_Small = 2131624285;
+			// aapt resource value: 0x7F0F015D
+			public const int TextAppearance_AppCompat_Widget_DropDownItem = 2131689821;
 			
-			// aapt resource value: 0x7F0E015E
-			public const int TextAppearance_AppCompat_Widget_Switch = 2131624286;
+			// aapt resource value: 0x7F0F015E
+			public const int TextAppearance_AppCompat_Widget_PopupMenu_Header = 2131689822;
 			
-			// aapt resource value: 0x7F0E015F
-			public const int TextAppearance_AppCompat_Widget_TextView_SpinnerItem = 2131624287;
+			// aapt resource value: 0x7F0F015F
+			public const int TextAppearance_AppCompat_Widget_PopupMenu_Large = 2131689823;
 			
-			// aapt resource value: 0x7F0E0160
-			public const int TextAppearance_Compat_Notification = 2131624288;
+			// aapt resource value: 0x7F0F0160
+			public const int TextAppearance_AppCompat_Widget_PopupMenu_Small = 2131689824;
 			
-			// aapt resource value: 0x7F0E0161
-			public const int TextAppearance_Compat_Notification_Info = 2131624289;
+			// aapt resource value: 0x7F0F0161
+			public const int TextAppearance_AppCompat_Widget_Switch = 2131689825;
 			
-			// aapt resource value: 0x7F0E0162
-			public const int TextAppearance_Compat_Notification_Info_Media = 2131624290;
+			// aapt resource value: 0x7F0F0162
+			public const int TextAppearance_AppCompat_Widget_TextView_SpinnerItem = 2131689826;
 			
-			// aapt resource value: 0x7F0E0163
-			public const int TextAppearance_Compat_Notification_Line2 = 2131624291;
+			// aapt resource value: 0x7F0F0163
+			public const int TextAppearance_Compat_Notification = 2131689827;
 			
-			// aapt resource value: 0x7F0E0164
-			public const int TextAppearance_Compat_Notification_Line2_Media = 2131624292;
+			// aapt resource value: 0x7F0F0164
+			public const int TextAppearance_Compat_Notification_Info = 2131689828;
 			
-			// aapt resource value: 0x7F0E0165
-			public const int TextAppearance_Compat_Notification_Media = 2131624293;
+			// aapt resource value: 0x7F0F0165
+			public const int TextAppearance_Compat_Notification_Info_Media = 2131689829;
 			
-			// aapt resource value: 0x7F0E0166
-			public const int TextAppearance_Compat_Notification_Time = 2131624294;
+			// aapt resource value: 0x7F0F0166
+			public const int TextAppearance_Compat_Notification_Line2 = 2131689830;
 			
-			// aapt resource value: 0x7F0E0167
-			public const int TextAppearance_Compat_Notification_Time_Media = 2131624295;
+			// aapt resource value: 0x7F0F0167
+			public const int TextAppearance_Compat_Notification_Line2_Media = 2131689831;
 			
-			// aapt resource value: 0x7F0E0168
-			public const int TextAppearance_Compat_Notification_Title = 2131624296;
+			// aapt resource value: 0x7F0F0168
+			public const int TextAppearance_Compat_Notification_Media = 2131689832;
 			
-			// aapt resource value: 0x7F0E0169
-			public const int TextAppearance_Compat_Notification_Title_Media = 2131624297;
+			// aapt resource value: 0x7F0F0169
+			public const int TextAppearance_Compat_Notification_Time = 2131689833;
 			
-			// aapt resource value: 0x7F0E016A
-			public const int TextAppearance_Design_CollapsingToolbar_Expanded = 2131624298;
+			// aapt resource value: 0x7F0F016A
+			public const int TextAppearance_Compat_Notification_Time_Media = 2131689834;
 			
-			// aapt resource value: 0x7F0E016B
-			public const int TextAppearance_Design_Counter = 2131624299;
+			// aapt resource value: 0x7F0F016B
+			public const int TextAppearance_Compat_Notification_Title = 2131689835;
 			
-			// aapt resource value: 0x7F0E016C
-			public const int TextAppearance_Design_Counter_Overflow = 2131624300;
+			// aapt resource value: 0x7F0F016C
+			public const int TextAppearance_Compat_Notification_Title_Media = 2131689836;
 			
-			// aapt resource value: 0x7F0E016D
-			public const int TextAppearance_Design_Error = 2131624301;
+			// aapt resource value: 0x7F0F016D
+			public const int TextAppearance_Design_CollapsingToolbar_Expanded = 2131689837;
 			
-			// aapt resource value: 0x7F0E016E
-			public const int TextAppearance_Design_HelperText = 2131624302;
+			// aapt resource value: 0x7F0F016E
+			public const int TextAppearance_Design_Counter = 2131689838;
 			
-			// aapt resource value: 0x7F0E016F
-			public const int TextAppearance_Design_Hint = 2131624303;
+			// aapt resource value: 0x7F0F016F
+			public const int TextAppearance_Design_Counter_Overflow = 2131689839;
 			
-			// aapt resource value: 0x7F0E0170
-			public const int TextAppearance_Design_Placeholder = 2131624304;
+			// aapt resource value: 0x7F0F0170
+			public const int TextAppearance_Design_Error = 2131689840;
 			
-			// aapt resource value: 0x7F0E0171
-			public const int TextAppearance_Design_Prefix = 2131624305;
+			// aapt resource value: 0x7F0F0171
+			public const int TextAppearance_Design_HelperText = 2131689841;
 			
-			// aapt resource value: 0x7F0E0172
-			public const int TextAppearance_Design_Snackbar_Message = 2131624306;
+			// aapt resource value: 0x7F0F0172
+			public const int TextAppearance_Design_Hint = 2131689842;
 			
-			// aapt resource value: 0x7F0E0173
-			public const int TextAppearance_Design_Suffix = 2131624307;
+			// aapt resource value: 0x7F0F0173
+			public const int TextAppearance_Design_Placeholder = 2131689843;
 			
-			// aapt resource value: 0x7F0E0174
-			public const int TextAppearance_Design_Tab = 2131624308;
+			// aapt resource value: 0x7F0F0174
+			public const int TextAppearance_Design_Prefix = 2131689844;
 			
-			// aapt resource value: 0x7F0E0175
-			public const int TextAppearance_MaterialComponents_Badge = 2131624309;
+			// aapt resource value: 0x7F0F0175
+			public const int TextAppearance_Design_Snackbar_Message = 2131689845;
 			
-			// aapt resource value: 0x7F0E0176
-			public const int TextAppearance_MaterialComponents_Body1 = 2131624310;
+			// aapt resource value: 0x7F0F0176
+			public const int TextAppearance_Design_Suffix = 2131689846;
 			
-			// aapt resource value: 0x7F0E0177
-			public const int TextAppearance_MaterialComponents_Body2 = 2131624311;
+			// aapt resource value: 0x7F0F0177
+			public const int TextAppearance_Design_Tab = 2131689847;
 			
-			// aapt resource value: 0x7F0E0178
-			public const int TextAppearance_MaterialComponents_Button = 2131624312;
+			// aapt resource value: 0x7F0F0178
+			public const int TextAppearance_MaterialComponents_Badge = 2131689848;
 			
-			// aapt resource value: 0x7F0E0179
-			public const int TextAppearance_MaterialComponents_Caption = 2131624313;
+			// aapt resource value: 0x7F0F0179
+			public const int TextAppearance_MaterialComponents_Body1 = 2131689849;
 			
-			// aapt resource value: 0x7F0E017A
-			public const int TextAppearance_MaterialComponents_Chip = 2131624314;
+			// aapt resource value: 0x7F0F017A
+			public const int TextAppearance_MaterialComponents_Body2 = 2131689850;
 			
-			// aapt resource value: 0x7F0E017B
-			public const int TextAppearance_MaterialComponents_Headline1 = 2131624315;
+			// aapt resource value: 0x7F0F017B
+			public const int TextAppearance_MaterialComponents_Button = 2131689851;
 			
-			// aapt resource value: 0x7F0E017C
-			public const int TextAppearance_MaterialComponents_Headline2 = 2131624316;
+			// aapt resource value: 0x7F0F017C
+			public const int TextAppearance_MaterialComponents_Caption = 2131689852;
 			
-			// aapt resource value: 0x7F0E017D
-			public const int TextAppearance_MaterialComponents_Headline3 = 2131624317;
+			// aapt resource value: 0x7F0F017D
+			public const int TextAppearance_MaterialComponents_Chip = 2131689853;
 			
-			// aapt resource value: 0x7F0E017E
-			public const int TextAppearance_MaterialComponents_Headline4 = 2131624318;
+			// aapt resource value: 0x7F0F017E
+			public const int TextAppearance_MaterialComponents_Headline1 = 2131689854;
 			
-			// aapt resource value: 0x7F0E017F
-			public const int TextAppearance_MaterialComponents_Headline5 = 2131624319;
+			// aapt resource value: 0x7F0F017F
+			public const int TextAppearance_MaterialComponents_Headline2 = 2131689855;
 			
-			// aapt resource value: 0x7F0E0180
-			public const int TextAppearance_MaterialComponents_Headline6 = 2131624320;
+			// aapt resource value: 0x7F0F0180
+			public const int TextAppearance_MaterialComponents_Headline3 = 2131689856;
 			
-			// aapt resource value: 0x7F0E0181
-			public const int TextAppearance_MaterialComponents_Overline = 2131624321;
+			// aapt resource value: 0x7F0F0181
+			public const int TextAppearance_MaterialComponents_Headline4 = 2131689857;
 			
-			// aapt resource value: 0x7F0E0182
-			public const int TextAppearance_MaterialComponents_Subtitle1 = 2131624322;
+			// aapt resource value: 0x7F0F0182
+			public const int TextAppearance_MaterialComponents_Headline5 = 2131689858;
 			
-			// aapt resource value: 0x7F0E0183
-			public const int TextAppearance_MaterialComponents_Subtitle2 = 2131624323;
+			// aapt resource value: 0x7F0F0183
+			public const int TextAppearance_MaterialComponents_Headline6 = 2131689859;
 			
-			// aapt resource value: 0x7F0E0184
-			public const int TextAppearance_MaterialComponents_Tooltip = 2131624324;
+			// aapt resource value: 0x7F0F0184
+			public const int TextAppearance_MaterialComponents_Overline = 2131689860;
 			
-			// aapt resource value: 0x7F0E0185
-			public const int TextAppearance_Widget_AppCompat_ExpandedMenu_Item = 2131624325;
+			// aapt resource value: 0x7F0F0185
+			public const int TextAppearance_MaterialComponents_Subtitle1 = 2131689861;
 			
-			// aapt resource value: 0x7F0E0186
-			public const int TextAppearance_Widget_AppCompat_Toolbar_Subtitle = 2131624326;
+			// aapt resource value: 0x7F0F0186
+			public const int TextAppearance_MaterialComponents_Subtitle2 = 2131689862;
 			
-			// aapt resource value: 0x7F0E0187
-			public const int TextAppearance_Widget_AppCompat_Toolbar_Title = 2131624327;
+			// aapt resource value: 0x7F0F0187
+			public const int TextAppearance_MaterialComponents_Tooltip = 2131689863;
 			
-			// aapt resource value: 0x7F0E0204
-			public const int ThemeOverlayColorAccentRed = 2131624452;
+			// aapt resource value: 0x7F0F0188
+			public const int TextAppearance_Widget_AppCompat_ExpandedMenu_Item = 2131689864;
 			
-			// aapt resource value: 0x7F0E01D5
-			public const int ThemeOverlay_AppCompat = 2131624405;
+			// aapt resource value: 0x7F0F0189
+			public const int TextAppearance_Widget_AppCompat_Toolbar_Subtitle = 2131689865;
 			
-			// aapt resource value: 0x7F0E01D6
-			public const int ThemeOverlay_AppCompat_ActionBar = 2131624406;
+			// aapt resource value: 0x7F0F018A
+			public const int TextAppearance_Widget_AppCompat_Toolbar_Title = 2131689866;
 			
-			// aapt resource value: 0x7F0E01D7
-			public const int ThemeOverlay_AppCompat_Dark = 2131624407;
+			// aapt resource value: 0x7F0F0207
+			public const int ThemeOverlayColorAccentRed = 2131689991;
 			
-			// aapt resource value: 0x7F0E01D8
-			public const int ThemeOverlay_AppCompat_Dark_ActionBar = 2131624408;
+			// aapt resource value: 0x7F0F01D8
+			public const int ThemeOverlay_AppCompat = 2131689944;
 			
-			// aapt resource value: 0x7F0E01D9
-			public const int ThemeOverlay_AppCompat_DayNight = 2131624409;
+			// aapt resource value: 0x7F0F01D9
+			public const int ThemeOverlay_AppCompat_ActionBar = 2131689945;
 			
-			// aapt resource value: 0x7F0E01DA
-			public const int ThemeOverlay_AppCompat_DayNight_ActionBar = 2131624410;
+			// aapt resource value: 0x7F0F01DA
+			public const int ThemeOverlay_AppCompat_Dark = 2131689946;
 			
-			// aapt resource value: 0x7F0E01DB
-			public const int ThemeOverlay_AppCompat_Dialog = 2131624411;
+			// aapt resource value: 0x7F0F01DB
+			public const int ThemeOverlay_AppCompat_Dark_ActionBar = 2131689947;
 			
-			// aapt resource value: 0x7F0E01DC
-			public const int ThemeOverlay_AppCompat_Dialog_Alert = 2131624412;
+			// aapt resource value: 0x7F0F01DC
+			public const int ThemeOverlay_AppCompat_DayNight = 2131689948;
 			
-			// aapt resource value: 0x7F0E01DD
-			public const int ThemeOverlay_AppCompat_Light = 2131624413;
+			// aapt resource value: 0x7F0F01DD
+			public const int ThemeOverlay_AppCompat_DayNight_ActionBar = 2131689949;
 			
-			// aapt resource value: 0x7F0E01DE
-			public const int ThemeOverlay_Design_TextInputEditText = 2131624414;
+			// aapt resource value: 0x7F0F01DE
+			public const int ThemeOverlay_AppCompat_Dialog = 2131689950;
 			
-			// aapt resource value: 0x7F0E01DF
-			public const int ThemeOverlay_MaterialComponents = 2131624415;
+			// aapt resource value: 0x7F0F01DF
+			public const int ThemeOverlay_AppCompat_Dialog_Alert = 2131689951;
 			
-			// aapt resource value: 0x7F0E01E0
-			public const int ThemeOverlay_MaterialComponents_ActionBar = 2131624416;
+			// aapt resource value: 0x7F0F01E0
+			public const int ThemeOverlay_AppCompat_Light = 2131689952;
 			
-			// aapt resource value: 0x7F0E01E1
-			public const int ThemeOverlay_MaterialComponents_ActionBar_Primary = 2131624417;
+			// aapt resource value: 0x7F0F01E1
+			public const int ThemeOverlay_Design_TextInputEditText = 2131689953;
 			
-			// aapt resource value: 0x7F0E01E2
-			public const int ThemeOverlay_MaterialComponents_ActionBar_Surface = 2131624418;
+			// aapt resource value: 0x7F0F01E2
+			public const int ThemeOverlay_MaterialComponents = 2131689954;
 			
-			// aapt resource value: 0x7F0E01E3
-			public const int ThemeOverlay_MaterialComponents_AutoCompleteTextView = 2131624419;
+			// aapt resource value: 0x7F0F01E3
+			public const int ThemeOverlay_MaterialComponents_ActionBar = 2131689955;
 			
-			// aapt resource value: 0x7F0E01E4
-			public const int ThemeOverlay_MaterialComponents_AutoCompleteTextView_FilledBox = 2131624420;
+			// aapt resource value: 0x7F0F01E4
+			public const int ThemeOverlay_MaterialComponents_ActionBar_Primary = 2131689956;
 			
-			// aapt resource value: 0x7F0E01E5
-			public const int ThemeOverlay_MaterialComponents_AutoCompleteTextView_FilledBox_Dense = 2131624421;
+			// aapt resource value: 0x7F0F01E5
+			public const int ThemeOverlay_MaterialComponents_ActionBar_Surface = 2131689957;
 			
-			// aapt resource value: 0x7F0E01E6
-			public const int ThemeOverlay_MaterialComponents_AutoCompleteTextView_OutlinedBox = 2131624422;
+			// aapt resource value: 0x7F0F01E6
+			public const int ThemeOverlay_MaterialComponents_AutoCompleteTextView = 2131689958;
 			
-			// aapt resource value: 0x7F0E01E7
-			public const int ThemeOverlay_MaterialComponents_AutoCompleteTextView_OutlinedBox_Dense = 2131624423;
+			// aapt resource value: 0x7F0F01E7
+			public const int ThemeOverlay_MaterialComponents_AutoCompleteTextView_FilledBox = 2131689959;
 			
-			// aapt resource value: 0x7F0E01E8
-			public const int ThemeOverlay_MaterialComponents_BottomAppBar_Primary = 2131624424;
+			// aapt resource value: 0x7F0F01E8
+			public const int ThemeOverlay_MaterialComponents_AutoCompleteTextView_FilledBox_Dense = 2131689960;
 			
-			// aapt resource value: 0x7F0E01E9
-			public const int ThemeOverlay_MaterialComponents_BottomAppBar_Surface = 2131624425;
+			// aapt resource value: 0x7F0F01E9
+			public const int ThemeOverlay_MaterialComponents_AutoCompleteTextView_OutlinedBox = 2131689961;
 			
-			// aapt resource value: 0x7F0E01EA
-			public const int ThemeOverlay_MaterialComponents_BottomSheetDialog = 2131624426;
+			// aapt resource value: 0x7F0F01EA
+			public const int ThemeOverlay_MaterialComponents_AutoCompleteTextView_OutlinedBox_Dense = 2131689962;
 			
-			// aapt resource value: 0x7F0E01EB
-			public const int ThemeOverlay_MaterialComponents_Dark = 2131624427;
+			// aapt resource value: 0x7F0F01EB
+			public const int ThemeOverlay_MaterialComponents_BottomAppBar_Primary = 2131689963;
 			
-			// aapt resource value: 0x7F0E01EC
-			public const int ThemeOverlay_MaterialComponents_Dark_ActionBar = 2131624428;
+			// aapt resource value: 0x7F0F01EC
+			public const int ThemeOverlay_MaterialComponents_BottomAppBar_Surface = 2131689964;
 			
-			// aapt resource value: 0x7F0E01ED
-			public const int ThemeOverlay_MaterialComponents_DayNight_BottomSheetDialog = 2131624429;
+			// aapt resource value: 0x7F0F01ED
+			public const int ThemeOverlay_MaterialComponents_BottomSheetDialog = 2131689965;
 			
-			// aapt resource value: 0x7F0E01EE
-			public const int ThemeOverlay_MaterialComponents_Dialog = 2131624430;
+			// aapt resource value: 0x7F0F01EE
+			public const int ThemeOverlay_MaterialComponents_Dark = 2131689966;
 			
-			// aapt resource value: 0x7F0E01EF
-			public const int ThemeOverlay_MaterialComponents_Dialog_Alert = 2131624431;
+			// aapt resource value: 0x7F0F01EF
+			public const int ThemeOverlay_MaterialComponents_Dark_ActionBar = 2131689967;
 			
-			// aapt resource value: 0x7F0E01F0
-			public const int ThemeOverlay_MaterialComponents_Dialog_Alert_Framework = 2131624432;
+			// aapt resource value: 0x7F0F01F0
+			public const int ThemeOverlay_MaterialComponents_DayNight_BottomSheetDialog = 2131689968;
 			
-			// aapt resource value: 0x7F0E01F1
-			public const int ThemeOverlay_MaterialComponents_Light = 2131624433;
+			// aapt resource value: 0x7F0F01F1
+			public const int ThemeOverlay_MaterialComponents_Dialog = 2131689969;
 			
-			// aapt resource value: 0x7F0E01F2
-			public const int ThemeOverlay_MaterialComponents_Light_BottomSheetDialog = 2131624434;
+			// aapt resource value: 0x7F0F01F2
+			public const int ThemeOverlay_MaterialComponents_Dialog_Alert = 2131689970;
 			
-			// aapt resource value: 0x7F0E01F3
-			public const int ThemeOverlay_MaterialComponents_Light_Dialog_Alert_Framework = 2131624435;
+			// aapt resource value: 0x7F0F01F3
+			public const int ThemeOverlay_MaterialComponents_Dialog_Alert_Framework = 2131689971;
 			
-			// aapt resource value: 0x7F0E01F4
-			public const int ThemeOverlay_MaterialComponents_MaterialAlertDialog = 2131624436;
+			// aapt resource value: 0x7F0F01F4
+			public const int ThemeOverlay_MaterialComponents_Light = 2131689972;
 			
-			// aapt resource value: 0x7F0E01F5
-			public const int ThemeOverlay_MaterialComponents_MaterialAlertDialog_Centered = 2131624437;
+			// aapt resource value: 0x7F0F01F5
+			public const int ThemeOverlay_MaterialComponents_Light_BottomSheetDialog = 2131689973;
 			
-			// aapt resource value: 0x7F0E01F6
-			public const int ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date = 2131624438;
+			// aapt resource value: 0x7F0F01F6
+			public const int ThemeOverlay_MaterialComponents_Light_Dialog_Alert_Framework = 2131689974;
 			
-			// aapt resource value: 0x7F0E01F7
-			public const int ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Calendar = 2131624439;
+			// aapt resource value: 0x7F0F01F7
+			public const int ThemeOverlay_MaterialComponents_MaterialAlertDialog = 2131689975;
 			
-			// aapt resource value: 0x7F0E01F8
-			public const int ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Header_Text = 2131624440;
+			// aapt resource value: 0x7F0F01F8
+			public const int ThemeOverlay_MaterialComponents_MaterialAlertDialog_Centered = 2131689976;
 			
-			// aapt resource value: 0x7F0E01F9
-			public const int ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Header_Text_Day = 2131624441;
+			// aapt resource value: 0x7F0F01F9
+			public const int ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date = 2131689977;
 			
-			// aapt resource value: 0x7F0E01FA
-			public const int ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Spinner = 2131624442;
+			// aapt resource value: 0x7F0F01FA
+			public const int ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Calendar = 2131689978;
 			
-			// aapt resource value: 0x7F0E01FB
-			public const int ThemeOverlay_MaterialComponents_MaterialCalendar = 2131624443;
+			// aapt resource value: 0x7F0F01FB
+			public const int ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Header_Text = 2131689979;
 			
-			// aapt resource value: 0x7F0E01FC
-			public const int ThemeOverlay_MaterialComponents_MaterialCalendar_Fullscreen = 2131624444;
+			// aapt resource value: 0x7F0F01FC
+			public const int ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Header_Text_Day = 2131689980;
 			
-			// aapt resource value: 0x7F0E01FD
-			public const int ThemeOverlay_MaterialComponents_TextInputEditText = 2131624445;
+			// aapt resource value: 0x7F0F01FD
+			public const int ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Spinner = 2131689981;
 			
-			// aapt resource value: 0x7F0E01FE
-			public const int ThemeOverlay_MaterialComponents_TextInputEditText_FilledBox = 2131624446;
+			// aapt resource value: 0x7F0F01FE
+			public const int ThemeOverlay_MaterialComponents_MaterialCalendar = 2131689982;
 			
-			// aapt resource value: 0x7F0E01FF
-			public const int ThemeOverlay_MaterialComponents_TextInputEditText_FilledBox_Dense = 2131624447;
+			// aapt resource value: 0x7F0F01FF
+			public const int ThemeOverlay_MaterialComponents_MaterialCalendar_Fullscreen = 2131689983;
 			
-			// aapt resource value: 0x7F0E0200
-			public const int ThemeOverlay_MaterialComponents_TextInputEditText_OutlinedBox = 2131624448;
+			// aapt resource value: 0x7F0F0200
+			public const int ThemeOverlay_MaterialComponents_TextInputEditText = 2131689984;
 			
-			// aapt resource value: 0x7F0E0201
-			public const int ThemeOverlay_MaterialComponents_TextInputEditText_OutlinedBox_Dense = 2131624449;
+			// aapt resource value: 0x7F0F0201
+			public const int ThemeOverlay_MaterialComponents_TextInputEditText_FilledBox = 2131689985;
 			
-			// aapt resource value: 0x7F0E0202
-			public const int ThemeOverlay_MaterialComponents_Toolbar_Primary = 2131624450;
+			// aapt resource value: 0x7F0F0202
+			public const int ThemeOverlay_MaterialComponents_TextInputEditText_FilledBox_Dense = 2131689986;
 			
-			// aapt resource value: 0x7F0E0203
-			public const int ThemeOverlay_MaterialComponents_Toolbar_Surface = 2131624451;
+			// aapt resource value: 0x7F0F0203
+			public const int ThemeOverlay_MaterialComponents_TextInputEditText_OutlinedBox = 2131689987;
 			
-			// aapt resource value: 0x7F0E0188
-			public const int Theme_AppCompat = 2131624328;
+			// aapt resource value: 0x7F0F0204
+			public const int ThemeOverlay_MaterialComponents_TextInputEditText_OutlinedBox_Dense = 2131689988;
 			
-			// aapt resource value: 0x7F0E0189
-			public const int Theme_AppCompat_CompactMenu = 2131624329;
+			// aapt resource value: 0x7F0F0205
+			public const int ThemeOverlay_MaterialComponents_Toolbar_Primary = 2131689989;
 			
-			// aapt resource value: 0x7F0E018A
-			public const int Theme_AppCompat_DayNight = 2131624330;
+			// aapt resource value: 0x7F0F0206
+			public const int ThemeOverlay_MaterialComponents_Toolbar_Surface = 2131689990;
 			
-			// aapt resource value: 0x7F0E018B
-			public const int Theme_AppCompat_DayNight_DarkActionBar = 2131624331;
+			// aapt resource value: 0x7F0F018B
+			public const int Theme_AppCompat = 2131689867;
 			
-			// aapt resource value: 0x7F0E018C
-			public const int Theme_AppCompat_DayNight_Dialog = 2131624332;
+			// aapt resource value: 0x7F0F018C
+			public const int Theme_AppCompat_CompactMenu = 2131689868;
 			
-			// aapt resource value: 0x7F0E018F
-			public const int Theme_AppCompat_DayNight_DialogWhenLarge = 2131624335;
+			// aapt resource value: 0x7F0F018D
+			public const int Theme_AppCompat_DayNight = 2131689869;
 			
-			// aapt resource value: 0x7F0E018D
-			public const int Theme_AppCompat_DayNight_Dialog_Alert = 2131624333;
+			// aapt resource value: 0x7F0F018E
+			public const int Theme_AppCompat_DayNight_DarkActionBar = 2131689870;
 			
-			// aapt resource value: 0x7F0E018E
-			public const int Theme_AppCompat_DayNight_Dialog_MinWidth = 2131624334;
+			// aapt resource value: 0x7F0F018F
+			public const int Theme_AppCompat_DayNight_Dialog = 2131689871;
 			
-			// aapt resource value: 0x7F0E0190
-			public const int Theme_AppCompat_DayNight_NoActionBar = 2131624336;
+			// aapt resource value: 0x7F0F0192
+			public const int Theme_AppCompat_DayNight_DialogWhenLarge = 2131689874;
 			
-			// aapt resource value: 0x7F0E0191
-			public const int Theme_AppCompat_Dialog = 2131624337;
+			// aapt resource value: 0x7F0F0190
+			public const int Theme_AppCompat_DayNight_Dialog_Alert = 2131689872;
 			
-			// aapt resource value: 0x7F0E0194
-			public const int Theme_AppCompat_DialogWhenLarge = 2131624340;
+			// aapt resource value: 0x7F0F0191
+			public const int Theme_AppCompat_DayNight_Dialog_MinWidth = 2131689873;
 			
-			// aapt resource value: 0x7F0E0192
-			public const int Theme_AppCompat_Dialog_Alert = 2131624338;
+			// aapt resource value: 0x7F0F0193
+			public const int Theme_AppCompat_DayNight_NoActionBar = 2131689875;
 			
-			// aapt resource value: 0x7F0E0193
-			public const int Theme_AppCompat_Dialog_MinWidth = 2131624339;
+			// aapt resource value: 0x7F0F0194
+			public const int Theme_AppCompat_Dialog = 2131689876;
 			
-			// aapt resource value: 0x7F0E0195
-			public const int Theme_AppCompat_Empty = 2131624341;
+			// aapt resource value: 0x7F0F0197
+			public const int Theme_AppCompat_DialogWhenLarge = 2131689879;
 			
-			// aapt resource value: 0x7F0E0196
-			public const int Theme_AppCompat_Light = 2131624342;
+			// aapt resource value: 0x7F0F0195
+			public const int Theme_AppCompat_Dialog_Alert = 2131689877;
 			
-			// aapt resource value: 0x7F0E0197
-			public const int Theme_AppCompat_Light_DarkActionBar = 2131624343;
+			// aapt resource value: 0x7F0F0196
+			public const int Theme_AppCompat_Dialog_MinWidth = 2131689878;
 			
-			// aapt resource value: 0x7F0E0198
-			public const int Theme_AppCompat_Light_Dialog = 2131624344;
+			// aapt resource value: 0x7F0F0198
+			public const int Theme_AppCompat_Empty = 2131689880;
 			
-			// aapt resource value: 0x7F0E019B
-			public const int Theme_AppCompat_Light_DialogWhenLarge = 2131624347;
+			// aapt resource value: 0x7F0F0199
+			public const int Theme_AppCompat_Light = 2131689881;
 			
-			// aapt resource value: 0x7F0E0199
-			public const int Theme_AppCompat_Light_Dialog_Alert = 2131624345;
+			// aapt resource value: 0x7F0F019A
+			public const int Theme_AppCompat_Light_DarkActionBar = 2131689882;
 			
-			// aapt resource value: 0x7F0E019A
-			public const int Theme_AppCompat_Light_Dialog_MinWidth = 2131624346;
+			// aapt resource value: 0x7F0F019B
+			public const int Theme_AppCompat_Light_Dialog = 2131689883;
 			
-			// aapt resource value: 0x7F0E019C
-			public const int Theme_AppCompat_Light_NoActionBar = 2131624348;
+			// aapt resource value: 0x7F0F019E
+			public const int Theme_AppCompat_Light_DialogWhenLarge = 2131689886;
 			
-			// aapt resource value: 0x7F0E019D
-			public const int Theme_AppCompat_NoActionBar = 2131624349;
+			// aapt resource value: 0x7F0F019C
+			public const int Theme_AppCompat_Light_Dialog_Alert = 2131689884;
 			
-			// aapt resource value: 0x7F0E019E
-			public const int Theme_Design = 2131624350;
+			// aapt resource value: 0x7F0F019D
+			public const int Theme_AppCompat_Light_Dialog_MinWidth = 2131689885;
 			
-			// aapt resource value: 0x7F0E019F
-			public const int Theme_Design_BottomSheetDialog = 2131624351;
+			// aapt resource value: 0x7F0F019F
+			public const int Theme_AppCompat_Light_NoActionBar = 2131689887;
 			
-			// aapt resource value: 0x7F0E01A0
-			public const int Theme_Design_Light = 2131624352;
+			// aapt resource value: 0x7F0F01A0
+			public const int Theme_AppCompat_NoActionBar = 2131689888;
 			
-			// aapt resource value: 0x7F0E01A1
-			public const int Theme_Design_Light_BottomSheetDialog = 2131624353;
+			// aapt resource value: 0x7F0F01A1
+			public const int Theme_Design = 2131689889;
 			
-			// aapt resource value: 0x7F0E01A2
-			public const int Theme_Design_Light_NoActionBar = 2131624354;
+			// aapt resource value: 0x7F0F01A2
+			public const int Theme_Design_BottomSheetDialog = 2131689890;
 			
-			// aapt resource value: 0x7F0E01A3
-			public const int Theme_Design_NoActionBar = 2131624355;
+			// aapt resource value: 0x7F0F01A3
+			public const int Theme_Design_Light = 2131689891;
 			
-			// aapt resource value: 0x7F0E01A4
-			public const int Theme_MaterialComponents = 2131624356;
+			// aapt resource value: 0x7F0F01A4
+			public const int Theme_Design_Light_BottomSheetDialog = 2131689892;
 			
-			// aapt resource value: 0x7F0E01A5
-			public const int Theme_MaterialComponents_BottomSheetDialog = 2131624357;
+			// aapt resource value: 0x7F0F01A5
+			public const int Theme_Design_Light_NoActionBar = 2131689893;
 			
-			// aapt resource value: 0x7F0E01A6
-			public const int Theme_MaterialComponents_Bridge = 2131624358;
+			// aapt resource value: 0x7F0F01A6
+			public const int Theme_Design_NoActionBar = 2131689894;
 			
-			// aapt resource value: 0x7F0E01A7
-			public const int Theme_MaterialComponents_CompactMenu = 2131624359;
+			// aapt resource value: 0x7F0F01A7
+			public const int Theme_MaterialComponents = 2131689895;
 			
-			// aapt resource value: 0x7F0E01A8
-			public const int Theme_MaterialComponents_DayNight = 2131624360;
+			// aapt resource value: 0x7F0F01A8
+			public const int Theme_MaterialComponents_BottomSheetDialog = 2131689896;
 			
-			// aapt resource value: 0x7F0E01A9
-			public const int Theme_MaterialComponents_DayNight_BottomSheetDialog = 2131624361;
+			// aapt resource value: 0x7F0F01A9
+			public const int Theme_MaterialComponents_Bridge = 2131689897;
 			
-			// aapt resource value: 0x7F0E01AA
-			public const int Theme_MaterialComponents_DayNight_Bridge = 2131624362;
+			// aapt resource value: 0x7F0F01AA
+			public const int Theme_MaterialComponents_CompactMenu = 2131689898;
 			
-			// aapt resource value: 0x7F0E01AB
-			public const int Theme_MaterialComponents_DayNight_DarkActionBar = 2131624363;
+			// aapt resource value: 0x7F0F01AB
+			public const int Theme_MaterialComponents_DayNight = 2131689899;
 			
-			// aapt resource value: 0x7F0E01AC
-			public const int Theme_MaterialComponents_DayNight_DarkActionBar_Bridge = 2131624364;
+			// aapt resource value: 0x7F0F01AC
+			public const int Theme_MaterialComponents_DayNight_BottomSheetDialog = 2131689900;
 			
-			// aapt resource value: 0x7F0E01AD
-			public const int Theme_MaterialComponents_DayNight_Dialog = 2131624365;
+			// aapt resource value: 0x7F0F01AD
+			public const int Theme_MaterialComponents_DayNight_Bridge = 2131689901;
 			
-			// aapt resource value: 0x7F0E01B5
-			public const int Theme_MaterialComponents_DayNight_DialogWhenLarge = 2131624373;
+			// aapt resource value: 0x7F0F01AE
+			public const int Theme_MaterialComponents_DayNight_DarkActionBar = 2131689902;
 			
-			// aapt resource value: 0x7F0E01AE
-			public const int Theme_MaterialComponents_DayNight_Dialog_Alert = 2131624366;
+			// aapt resource value: 0x7F0F01AF
+			public const int Theme_MaterialComponents_DayNight_DarkActionBar_Bridge = 2131689903;
 			
-			// aapt resource value: 0x7F0E01AF
-			public const int Theme_MaterialComponents_DayNight_Dialog_Alert_Bridge = 2131624367;
+			// aapt resource value: 0x7F0F01B0
+			public const int Theme_MaterialComponents_DayNight_Dialog = 2131689904;
 			
-			// aapt resource value: 0x7F0E01B0
-			public const int Theme_MaterialComponents_DayNight_Dialog_Bridge = 2131624368;
+			// aapt resource value: 0x7F0F01B8
+			public const int Theme_MaterialComponents_DayNight_DialogWhenLarge = 2131689912;
 			
-			// aapt resource value: 0x7F0E01B1
-			public const int Theme_MaterialComponents_DayNight_Dialog_FixedSize = 2131624369;
+			// aapt resource value: 0x7F0F01B1
+			public const int Theme_MaterialComponents_DayNight_Dialog_Alert = 2131689905;
 			
-			// aapt resource value: 0x7F0E01B2
-			public const int Theme_MaterialComponents_DayNight_Dialog_FixedSize_Bridge = 2131624370;
+			// aapt resource value: 0x7F0F01B2
+			public const int Theme_MaterialComponents_DayNight_Dialog_Alert_Bridge = 2131689906;
 			
-			// aapt resource value: 0x7F0E01B3
-			public const int Theme_MaterialComponents_DayNight_Dialog_MinWidth = 2131624371;
+			// aapt resource value: 0x7F0F01B3
+			public const int Theme_MaterialComponents_DayNight_Dialog_Bridge = 2131689907;
 			
-			// aapt resource value: 0x7F0E01B4
-			public const int Theme_MaterialComponents_DayNight_Dialog_MinWidth_Bridge = 2131624372;
+			// aapt resource value: 0x7F0F01B4
+			public const int Theme_MaterialComponents_DayNight_Dialog_FixedSize = 2131689908;
 			
-			// aapt resource value: 0x7F0E01B6
-			public const int Theme_MaterialComponents_DayNight_NoActionBar = 2131624374;
+			// aapt resource value: 0x7F0F01B5
+			public const int Theme_MaterialComponents_DayNight_Dialog_FixedSize_Bridge = 2131689909;
 			
-			// aapt resource value: 0x7F0E01B7
-			public const int Theme_MaterialComponents_DayNight_NoActionBar_Bridge = 2131624375;
+			// aapt resource value: 0x7F0F01B6
+			public const int Theme_MaterialComponents_DayNight_Dialog_MinWidth = 2131689910;
 			
-			// aapt resource value: 0x7F0E01B8
-			public const int Theme_MaterialComponents_Dialog = 2131624376;
+			// aapt resource value: 0x7F0F01B7
+			public const int Theme_MaterialComponents_DayNight_Dialog_MinWidth_Bridge = 2131689911;
 			
-			// aapt resource value: 0x7F0E01C0
-			public const int Theme_MaterialComponents_DialogWhenLarge = 2131624384;
+			// aapt resource value: 0x7F0F01B9
+			public const int Theme_MaterialComponents_DayNight_NoActionBar = 2131689913;
 			
-			// aapt resource value: 0x7F0E01B9
-			public const int Theme_MaterialComponents_Dialog_Alert = 2131624377;
+			// aapt resource value: 0x7F0F01BA
+			public const int Theme_MaterialComponents_DayNight_NoActionBar_Bridge = 2131689914;
 			
-			// aapt resource value: 0x7F0E01BA
-			public const int Theme_MaterialComponents_Dialog_Alert_Bridge = 2131624378;
+			// aapt resource value: 0x7F0F01BB
+			public const int Theme_MaterialComponents_Dialog = 2131689915;
 			
-			// aapt resource value: 0x7F0E01BB
-			public const int Theme_MaterialComponents_Dialog_Bridge = 2131624379;
+			// aapt resource value: 0x7F0F01C3
+			public const int Theme_MaterialComponents_DialogWhenLarge = 2131689923;
 			
-			// aapt resource value: 0x7F0E01BC
-			public const int Theme_MaterialComponents_Dialog_FixedSize = 2131624380;
+			// aapt resource value: 0x7F0F01BC
+			public const int Theme_MaterialComponents_Dialog_Alert = 2131689916;
 			
-			// aapt resource value: 0x7F0E01BD
-			public const int Theme_MaterialComponents_Dialog_FixedSize_Bridge = 2131624381;
+			// aapt resource value: 0x7F0F01BD
+			public const int Theme_MaterialComponents_Dialog_Alert_Bridge = 2131689917;
 			
-			// aapt resource value: 0x7F0E01BE
-			public const int Theme_MaterialComponents_Dialog_MinWidth = 2131624382;
+			// aapt resource value: 0x7F0F01BE
+			public const int Theme_MaterialComponents_Dialog_Bridge = 2131689918;
 			
-			// aapt resource value: 0x7F0E01BF
-			public const int Theme_MaterialComponents_Dialog_MinWidth_Bridge = 2131624383;
+			// aapt resource value: 0x7F0F01BF
+			public const int Theme_MaterialComponents_Dialog_FixedSize = 2131689919;
 			
-			// aapt resource value: 0x7F0E01C1
-			public const int Theme_MaterialComponents_Light = 2131624385;
+			// aapt resource value: 0x7F0F01C0
+			public const int Theme_MaterialComponents_Dialog_FixedSize_Bridge = 2131689920;
 			
-			// aapt resource value: 0x7F0E01C2
-			public const int Theme_MaterialComponents_Light_BarSize = 2131624386;
+			// aapt resource value: 0x7F0F01C1
+			public const int Theme_MaterialComponents_Dialog_MinWidth = 2131689921;
 			
-			// aapt resource value: 0x7F0E01C3
-			public const int Theme_MaterialComponents_Light_BottomSheetDialog = 2131624387;
+			// aapt resource value: 0x7F0F01C2
+			public const int Theme_MaterialComponents_Dialog_MinWidth_Bridge = 2131689922;
 			
-			// aapt resource value: 0x7F0E01C4
-			public const int Theme_MaterialComponents_Light_Bridge = 2131624388;
+			// aapt resource value: 0x7F0F01C4
+			public const int Theme_MaterialComponents_Light = 2131689924;
 			
-			// aapt resource value: 0x7F0E01C5
-			public const int Theme_MaterialComponents_Light_DarkActionBar = 2131624389;
+			// aapt resource value: 0x7F0F01C5
+			public const int Theme_MaterialComponents_Light_BarSize = 2131689925;
 			
-			// aapt resource value: 0x7F0E01C6
-			public const int Theme_MaterialComponents_Light_DarkActionBar_Bridge = 2131624390;
+			// aapt resource value: 0x7F0F01C6
+			public const int Theme_MaterialComponents_Light_BottomSheetDialog = 2131689926;
 			
-			// aapt resource value: 0x7F0E01C7
-			public const int Theme_MaterialComponents_Light_Dialog = 2131624391;
+			// aapt resource value: 0x7F0F01C7
+			public const int Theme_MaterialComponents_Light_Bridge = 2131689927;
 			
-			// aapt resource value: 0x7F0E01CF
-			public const int Theme_MaterialComponents_Light_DialogWhenLarge = 2131624399;
+			// aapt resource value: 0x7F0F01C8
+			public const int Theme_MaterialComponents_Light_DarkActionBar = 2131689928;
 			
-			// aapt resource value: 0x7F0E01C8
-			public const int Theme_MaterialComponents_Light_Dialog_Alert = 2131624392;
+			// aapt resource value: 0x7F0F01C9
+			public const int Theme_MaterialComponents_Light_DarkActionBar_Bridge = 2131689929;
 			
-			// aapt resource value: 0x7F0E01C9
-			public const int Theme_MaterialComponents_Light_Dialog_Alert_Bridge = 2131624393;
+			// aapt resource value: 0x7F0F01CA
+			public const int Theme_MaterialComponents_Light_Dialog = 2131689930;
 			
-			// aapt resource value: 0x7F0E01CA
-			public const int Theme_MaterialComponents_Light_Dialog_Bridge = 2131624394;
+			// aapt resource value: 0x7F0F01D2
+			public const int Theme_MaterialComponents_Light_DialogWhenLarge = 2131689938;
 			
-			// aapt resource value: 0x7F0E01CB
-			public const int Theme_MaterialComponents_Light_Dialog_FixedSize = 2131624395;
+			// aapt resource value: 0x7F0F01CB
+			public const int Theme_MaterialComponents_Light_Dialog_Alert = 2131689931;
 			
-			// aapt resource value: 0x7F0E01CC
-			public const int Theme_MaterialComponents_Light_Dialog_FixedSize_Bridge = 2131624396;
+			// aapt resource value: 0x7F0F01CC
+			public const int Theme_MaterialComponents_Light_Dialog_Alert_Bridge = 2131689932;
 			
-			// aapt resource value: 0x7F0E01CD
-			public const int Theme_MaterialComponents_Light_Dialog_MinWidth = 2131624397;
+			// aapt resource value: 0x7F0F01CD
+			public const int Theme_MaterialComponents_Light_Dialog_Bridge = 2131689933;
 			
-			// aapt resource value: 0x7F0E01CE
-			public const int Theme_MaterialComponents_Light_Dialog_MinWidth_Bridge = 2131624398;
+			// aapt resource value: 0x7F0F01CE
+			public const int Theme_MaterialComponents_Light_Dialog_FixedSize = 2131689934;
 			
-			// aapt resource value: 0x7F0E01D0
-			public const int Theme_MaterialComponents_Light_LargeTouch = 2131624400;
+			// aapt resource value: 0x7F0F01CF
+			public const int Theme_MaterialComponents_Light_Dialog_FixedSize_Bridge = 2131689935;
 			
-			// aapt resource value: 0x7F0E01D1
-			public const int Theme_MaterialComponents_Light_NoActionBar = 2131624401;
+			// aapt resource value: 0x7F0F01D0
+			public const int Theme_MaterialComponents_Light_Dialog_MinWidth = 2131689936;
 			
-			// aapt resource value: 0x7F0E01D2
-			public const int Theme_MaterialComponents_Light_NoActionBar_Bridge = 2131624402;
+			// aapt resource value: 0x7F0F01D1
+			public const int Theme_MaterialComponents_Light_Dialog_MinWidth_Bridge = 2131689937;
 			
-			// aapt resource value: 0x7F0E01D3
-			public const int Theme_MaterialComponents_NoActionBar = 2131624403;
+			// aapt resource value: 0x7F0F01D3
+			public const int Theme_MaterialComponents_Light_LargeTouch = 2131689939;
 			
-			// aapt resource value: 0x7F0E01D4
-			public const int Theme_MaterialComponents_NoActionBar_Bridge = 2131624404;
+			// aapt resource value: 0x7F0F01D4
+			public const int Theme_MaterialComponents_Light_NoActionBar = 2131689940;
 			
-			// aapt resource value: 0x7F0E0205
-			public const int Widget_AppCompat_ActionBar = 2131624453;
+			// aapt resource value: 0x7F0F01D5
+			public const int Theme_MaterialComponents_Light_NoActionBar_Bridge = 2131689941;
 			
-			// aapt resource value: 0x7F0E0206
-			public const int Widget_AppCompat_ActionBar_Solid = 2131624454;
+			// aapt resource value: 0x7F0F01D6
+			public const int Theme_MaterialComponents_NoActionBar = 2131689942;
 			
-			// aapt resource value: 0x7F0E0207
-			public const int Widget_AppCompat_ActionBar_TabBar = 2131624455;
+			// aapt resource value: 0x7F0F01D7
+			public const int Theme_MaterialComponents_NoActionBar_Bridge = 2131689943;
 			
-			// aapt resource value: 0x7F0E0208
-			public const int Widget_AppCompat_ActionBar_TabText = 2131624456;
+			// aapt resource value: 0x7F0F0208
+			public const int Widget_AppCompat_ActionBar = 2131689992;
 			
-			// aapt resource value: 0x7F0E0209
-			public const int Widget_AppCompat_ActionBar_TabView = 2131624457;
+			// aapt resource value: 0x7F0F0209
+			public const int Widget_AppCompat_ActionBar_Solid = 2131689993;
 			
-			// aapt resource value: 0x7F0E020A
-			public const int Widget_AppCompat_ActionButton = 2131624458;
+			// aapt resource value: 0x7F0F020A
+			public const int Widget_AppCompat_ActionBar_TabBar = 2131689994;
 			
-			// aapt resource value: 0x7F0E020B
-			public const int Widget_AppCompat_ActionButton_CloseMode = 2131624459;
+			// aapt resource value: 0x7F0F020B
+			public const int Widget_AppCompat_ActionBar_TabText = 2131689995;
 			
-			// aapt resource value: 0x7F0E020C
-			public const int Widget_AppCompat_ActionButton_Overflow = 2131624460;
+			// aapt resource value: 0x7F0F020C
+			public const int Widget_AppCompat_ActionBar_TabView = 2131689996;
 			
-			// aapt resource value: 0x7F0E020D
-			public const int Widget_AppCompat_ActionMode = 2131624461;
+			// aapt resource value: 0x7F0F020D
+			public const int Widget_AppCompat_ActionButton = 2131689997;
 			
-			// aapt resource value: 0x7F0E020E
-			public const int Widget_AppCompat_ActivityChooserView = 2131624462;
+			// aapt resource value: 0x7F0F020E
+			public const int Widget_AppCompat_ActionButton_CloseMode = 2131689998;
 			
-			// aapt resource value: 0x7F0E020F
-			public const int Widget_AppCompat_AutoCompleteTextView = 2131624463;
+			// aapt resource value: 0x7F0F020F
+			public const int Widget_AppCompat_ActionButton_Overflow = 2131689999;
 			
-			// aapt resource value: 0x7F0E0210
-			public const int Widget_AppCompat_Button = 2131624464;
+			// aapt resource value: 0x7F0F0210
+			public const int Widget_AppCompat_ActionMode = 2131690000;
 			
-			// aapt resource value: 0x7F0E0216
-			public const int Widget_AppCompat_ButtonBar = 2131624470;
+			// aapt resource value: 0x7F0F0211
+			public const int Widget_AppCompat_ActivityChooserView = 2131690001;
 			
-			// aapt resource value: 0x7F0E0217
-			public const int Widget_AppCompat_ButtonBar_AlertDialog = 2131624471;
+			// aapt resource value: 0x7F0F0212
+			public const int Widget_AppCompat_AutoCompleteTextView = 2131690002;
 			
-			// aapt resource value: 0x7F0E0211
-			public const int Widget_AppCompat_Button_Borderless = 2131624465;
+			// aapt resource value: 0x7F0F0213
+			public const int Widget_AppCompat_Button = 2131690003;
 			
-			// aapt resource value: 0x7F0E0212
-			public const int Widget_AppCompat_Button_Borderless_Colored = 2131624466;
+			// aapt resource value: 0x7F0F0219
+			public const int Widget_AppCompat_ButtonBar = 2131690009;
 			
-			// aapt resource value: 0x7F0E0213
-			public const int Widget_AppCompat_Button_ButtonBar_AlertDialog = 2131624467;
+			// aapt resource value: 0x7F0F021A
+			public const int Widget_AppCompat_ButtonBar_AlertDialog = 2131690010;
 			
-			// aapt resource value: 0x7F0E0214
-			public const int Widget_AppCompat_Button_Colored = 2131624468;
+			// aapt resource value: 0x7F0F0214
+			public const int Widget_AppCompat_Button_Borderless = 2131690004;
 			
-			// aapt resource value: 0x7F0E0215
-			public const int Widget_AppCompat_Button_Small = 2131624469;
+			// aapt resource value: 0x7F0F0215
+			public const int Widget_AppCompat_Button_Borderless_Colored = 2131690005;
 			
-			// aapt resource value: 0x7F0E0218
-			public const int Widget_AppCompat_CompoundButton_CheckBox = 2131624472;
+			// aapt resource value: 0x7F0F0216
+			public const int Widget_AppCompat_Button_ButtonBar_AlertDialog = 2131690006;
 			
-			// aapt resource value: 0x7F0E0219
-			public const int Widget_AppCompat_CompoundButton_RadioButton = 2131624473;
+			// aapt resource value: 0x7F0F0217
+			public const int Widget_AppCompat_Button_Colored = 2131690007;
 			
-			// aapt resource value: 0x7F0E021A
-			public const int Widget_AppCompat_CompoundButton_Switch = 2131624474;
+			// aapt resource value: 0x7F0F0218
+			public const int Widget_AppCompat_Button_Small = 2131690008;
 			
-			// aapt resource value: 0x7F0E021B
-			public const int Widget_AppCompat_DrawerArrowToggle = 2131624475;
+			// aapt resource value: 0x7F0F021B
+			public const int Widget_AppCompat_CompoundButton_CheckBox = 2131690011;
 			
-			// aapt resource value: 0x7F0E021C
-			public const int Widget_AppCompat_DropDownItem_Spinner = 2131624476;
+			// aapt resource value: 0x7F0F021C
+			public const int Widget_AppCompat_CompoundButton_RadioButton = 2131690012;
 			
-			// aapt resource value: 0x7F0E021D
-			public const int Widget_AppCompat_EditText = 2131624477;
+			// aapt resource value: 0x7F0F021D
+			public const int Widget_AppCompat_CompoundButton_Switch = 2131690013;
 			
-			// aapt resource value: 0x7F0E021E
-			public const int Widget_AppCompat_ImageButton = 2131624478;
+			// aapt resource value: 0x7F0F021E
+			public const int Widget_AppCompat_DrawerArrowToggle = 2131690014;
 			
-			// aapt resource value: 0x7F0E021F
-			public const int Widget_AppCompat_Light_ActionBar = 2131624479;
+			// aapt resource value: 0x7F0F021F
+			public const int Widget_AppCompat_DropDownItem_Spinner = 2131690015;
 			
-			// aapt resource value: 0x7F0E0220
-			public const int Widget_AppCompat_Light_ActionBar_Solid = 2131624480;
+			// aapt resource value: 0x7F0F0220
+			public const int Widget_AppCompat_EditText = 2131690016;
 			
-			// aapt resource value: 0x7F0E0221
-			public const int Widget_AppCompat_Light_ActionBar_Solid_Inverse = 2131624481;
+			// aapt resource value: 0x7F0F0221
+			public const int Widget_AppCompat_ImageButton = 2131690017;
 			
-			// aapt resource value: 0x7F0E0222
-			public const int Widget_AppCompat_Light_ActionBar_TabBar = 2131624482;
+			// aapt resource value: 0x7F0F0222
+			public const int Widget_AppCompat_Light_ActionBar = 2131690018;
 			
-			// aapt resource value: 0x7F0E0223
-			public const int Widget_AppCompat_Light_ActionBar_TabBar_Inverse = 2131624483;
+			// aapt resource value: 0x7F0F0223
+			public const int Widget_AppCompat_Light_ActionBar_Solid = 2131690019;
 			
-			// aapt resource value: 0x7F0E0224
-			public const int Widget_AppCompat_Light_ActionBar_TabText = 2131624484;
+			// aapt resource value: 0x7F0F0224
+			public const int Widget_AppCompat_Light_ActionBar_Solid_Inverse = 2131690020;
 			
-			// aapt resource value: 0x7F0E0225
-			public const int Widget_AppCompat_Light_ActionBar_TabText_Inverse = 2131624485;
+			// aapt resource value: 0x7F0F0225
+			public const int Widget_AppCompat_Light_ActionBar_TabBar = 2131690021;
 			
-			// aapt resource value: 0x7F0E0226
-			public const int Widget_AppCompat_Light_ActionBar_TabView = 2131624486;
+			// aapt resource value: 0x7F0F0226
+			public const int Widget_AppCompat_Light_ActionBar_TabBar_Inverse = 2131690022;
 			
-			// aapt resource value: 0x7F0E0227
-			public const int Widget_AppCompat_Light_ActionBar_TabView_Inverse = 2131624487;
+			// aapt resource value: 0x7F0F0227
+			public const int Widget_AppCompat_Light_ActionBar_TabText = 2131690023;
 			
-			// aapt resource value: 0x7F0E0228
-			public const int Widget_AppCompat_Light_ActionButton = 2131624488;
+			// aapt resource value: 0x7F0F0228
+			public const int Widget_AppCompat_Light_ActionBar_TabText_Inverse = 2131690024;
 			
-			// aapt resource value: 0x7F0E0229
-			public const int Widget_AppCompat_Light_ActionButton_CloseMode = 2131624489;
+			// aapt resource value: 0x7F0F0229
+			public const int Widget_AppCompat_Light_ActionBar_TabView = 2131690025;
 			
-			// aapt resource value: 0x7F0E022A
-			public const int Widget_AppCompat_Light_ActionButton_Overflow = 2131624490;
+			// aapt resource value: 0x7F0F022A
+			public const int Widget_AppCompat_Light_ActionBar_TabView_Inverse = 2131690026;
 			
-			// aapt resource value: 0x7F0E022B
-			public const int Widget_AppCompat_Light_ActionMode_Inverse = 2131624491;
+			// aapt resource value: 0x7F0F022B
+			public const int Widget_AppCompat_Light_ActionButton = 2131690027;
 			
-			// aapt resource value: 0x7F0E022C
-			public const int Widget_AppCompat_Light_ActivityChooserView = 2131624492;
+			// aapt resource value: 0x7F0F022C
+			public const int Widget_AppCompat_Light_ActionButton_CloseMode = 2131690028;
 			
-			// aapt resource value: 0x7F0E022D
-			public const int Widget_AppCompat_Light_AutoCompleteTextView = 2131624493;
+			// aapt resource value: 0x7F0F022D
+			public const int Widget_AppCompat_Light_ActionButton_Overflow = 2131690029;
 			
-			// aapt resource value: 0x7F0E022E
-			public const int Widget_AppCompat_Light_DropDownItem_Spinner = 2131624494;
+			// aapt resource value: 0x7F0F022E
+			public const int Widget_AppCompat_Light_ActionMode_Inverse = 2131690030;
 			
-			// aapt resource value: 0x7F0E022F
-			public const int Widget_AppCompat_Light_ListPopupWindow = 2131624495;
+			// aapt resource value: 0x7F0F022F
+			public const int Widget_AppCompat_Light_ActivityChooserView = 2131690031;
 			
-			// aapt resource value: 0x7F0E0230
-			public const int Widget_AppCompat_Light_ListView_DropDown = 2131624496;
+			// aapt resource value: 0x7F0F0230
+			public const int Widget_AppCompat_Light_AutoCompleteTextView = 2131690032;
 			
-			// aapt resource value: 0x7F0E0231
-			public const int Widget_AppCompat_Light_PopupMenu = 2131624497;
+			// aapt resource value: 0x7F0F0231
+			public const int Widget_AppCompat_Light_DropDownItem_Spinner = 2131690033;
 			
-			// aapt resource value: 0x7F0E0232
-			public const int Widget_AppCompat_Light_PopupMenu_Overflow = 2131624498;
+			// aapt resource value: 0x7F0F0232
+			public const int Widget_AppCompat_Light_ListPopupWindow = 2131690034;
 			
-			// aapt resource value: 0x7F0E0233
-			public const int Widget_AppCompat_Light_SearchView = 2131624499;
+			// aapt resource value: 0x7F0F0233
+			public const int Widget_AppCompat_Light_ListView_DropDown = 2131690035;
 			
-			// aapt resource value: 0x7F0E0234
-			public const int Widget_AppCompat_Light_Spinner_DropDown_ActionBar = 2131624500;
+			// aapt resource value: 0x7F0F0234
+			public const int Widget_AppCompat_Light_PopupMenu = 2131690036;
 			
-			// aapt resource value: 0x7F0E0235
-			public const int Widget_AppCompat_ListMenuView = 2131624501;
+			// aapt resource value: 0x7F0F0235
+			public const int Widget_AppCompat_Light_PopupMenu_Overflow = 2131690037;
 			
-			// aapt resource value: 0x7F0E0236
-			public const int Widget_AppCompat_ListPopupWindow = 2131624502;
+			// aapt resource value: 0x7F0F0236
+			public const int Widget_AppCompat_Light_SearchView = 2131690038;
 			
-			// aapt resource value: 0x7F0E0237
-			public const int Widget_AppCompat_ListView = 2131624503;
+			// aapt resource value: 0x7F0F0237
+			public const int Widget_AppCompat_Light_Spinner_DropDown_ActionBar = 2131690039;
 			
-			// aapt resource value: 0x7F0E0238
-			public const int Widget_AppCompat_ListView_DropDown = 2131624504;
+			// aapt resource value: 0x7F0F0238
+			public const int Widget_AppCompat_ListMenuView = 2131690040;
 			
-			// aapt resource value: 0x7F0E0239
-			public const int Widget_AppCompat_ListView_Menu = 2131624505;
+			// aapt resource value: 0x7F0F0239
+			public const int Widget_AppCompat_ListPopupWindow = 2131690041;
 			
-			// aapt resource value: 0x7F0E023A
-			public const int Widget_AppCompat_PopupMenu = 2131624506;
+			// aapt resource value: 0x7F0F023A
+			public const int Widget_AppCompat_ListView = 2131690042;
 			
-			// aapt resource value: 0x7F0E023B
-			public const int Widget_AppCompat_PopupMenu_Overflow = 2131624507;
+			// aapt resource value: 0x7F0F023B
+			public const int Widget_AppCompat_ListView_DropDown = 2131690043;
 			
-			// aapt resource value: 0x7F0E023C
-			public const int Widget_AppCompat_PopupWindow = 2131624508;
+			// aapt resource value: 0x7F0F023C
+			public const int Widget_AppCompat_ListView_Menu = 2131690044;
 			
-			// aapt resource value: 0x7F0E023D
-			public const int Widget_AppCompat_ProgressBar = 2131624509;
+			// aapt resource value: 0x7F0F023D
+			public const int Widget_AppCompat_PopupMenu = 2131690045;
 			
-			// aapt resource value: 0x7F0E023E
-			public const int Widget_AppCompat_ProgressBar_Horizontal = 2131624510;
+			// aapt resource value: 0x7F0F023E
+			public const int Widget_AppCompat_PopupMenu_Overflow = 2131690046;
 			
-			// aapt resource value: 0x7F0E023F
-			public const int Widget_AppCompat_RatingBar = 2131624511;
+			// aapt resource value: 0x7F0F023F
+			public const int Widget_AppCompat_PopupWindow = 2131690047;
 			
-			// aapt resource value: 0x7F0E0240
-			public const int Widget_AppCompat_RatingBar_Indicator = 2131624512;
+			// aapt resource value: 0x7F0F0240
+			public const int Widget_AppCompat_ProgressBar = 2131690048;
 			
-			// aapt resource value: 0x7F0E0241
-			public const int Widget_AppCompat_RatingBar_Small = 2131624513;
+			// aapt resource value: 0x7F0F0241
+			public const int Widget_AppCompat_ProgressBar_Horizontal = 2131690049;
 			
-			// aapt resource value: 0x7F0E0242
-			public const int Widget_AppCompat_SearchView = 2131624514;
+			// aapt resource value: 0x7F0F0242
+			public const int Widget_AppCompat_RatingBar = 2131690050;
 			
-			// aapt resource value: 0x7F0E0243
-			public const int Widget_AppCompat_SearchView_ActionBar = 2131624515;
+			// aapt resource value: 0x7F0F0243
+			public const int Widget_AppCompat_RatingBar_Indicator = 2131690051;
 			
-			// aapt resource value: 0x7F0E0244
-			public const int Widget_AppCompat_SeekBar = 2131624516;
+			// aapt resource value: 0x7F0F0244
+			public const int Widget_AppCompat_RatingBar_Small = 2131690052;
 			
-			// aapt resource value: 0x7F0E0245
-			public const int Widget_AppCompat_SeekBar_Discrete = 2131624517;
+			// aapt resource value: 0x7F0F0245
+			public const int Widget_AppCompat_SearchView = 2131690053;
 			
-			// aapt resource value: 0x7F0E0246
-			public const int Widget_AppCompat_Spinner = 2131624518;
+			// aapt resource value: 0x7F0F0246
+			public const int Widget_AppCompat_SearchView_ActionBar = 2131690054;
 			
-			// aapt resource value: 0x7F0E0247
-			public const int Widget_AppCompat_Spinner_DropDown = 2131624519;
+			// aapt resource value: 0x7F0F0247
+			public const int Widget_AppCompat_SeekBar = 2131690055;
 			
-			// aapt resource value: 0x7F0E0248
-			public const int Widget_AppCompat_Spinner_DropDown_ActionBar = 2131624520;
+			// aapt resource value: 0x7F0F0248
+			public const int Widget_AppCompat_SeekBar_Discrete = 2131690056;
 			
-			// aapt resource value: 0x7F0E0249
-			public const int Widget_AppCompat_Spinner_Underlined = 2131624521;
+			// aapt resource value: 0x7F0F0249
+			public const int Widget_AppCompat_Spinner = 2131690057;
 			
-			// aapt resource value: 0x7F0E024A
-			public const int Widget_AppCompat_TextView = 2131624522;
+			// aapt resource value: 0x7F0F024A
+			public const int Widget_AppCompat_Spinner_DropDown = 2131690058;
 			
-			// aapt resource value: 0x7F0E024B
-			public const int Widget_AppCompat_TextView_SpinnerItem = 2131624523;
+			// aapt resource value: 0x7F0F024B
+			public const int Widget_AppCompat_Spinner_DropDown_ActionBar = 2131690059;
 			
-			// aapt resource value: 0x7F0E024C
-			public const int Widget_AppCompat_Toolbar = 2131624524;
+			// aapt resource value: 0x7F0F024C
+			public const int Widget_AppCompat_Spinner_Underlined = 2131690060;
 			
-			// aapt resource value: 0x7F0E024D
-			public const int Widget_AppCompat_Toolbar_Button_Navigation = 2131624525;
+			// aapt resource value: 0x7F0F024D
+			public const int Widget_AppCompat_TextView = 2131690061;
 			
-			// aapt resource value: 0x7F0E024E
-			public const int Widget_Compat_NotificationActionContainer = 2131624526;
+			// aapt resource value: 0x7F0F024E
+			public const int Widget_AppCompat_TextView_SpinnerItem = 2131690062;
 			
-			// aapt resource value: 0x7F0E024F
-			public const int Widget_Compat_NotificationActionText = 2131624527;
+			// aapt resource value: 0x7F0F024F
+			public const int Widget_AppCompat_Toolbar = 2131690063;
 			
-			// aapt resource value: 0x7F0E0250
-			public const int Widget_Design_AppBarLayout = 2131624528;
+			// aapt resource value: 0x7F0F0250
+			public const int Widget_AppCompat_Toolbar_Button_Navigation = 2131690064;
 			
-			// aapt resource value: 0x7F0E0251
-			public const int Widget_Design_BottomNavigationView = 2131624529;
+			// aapt resource value: 0x7F0F0251
+			public const int Widget_Compat_NotificationActionContainer = 2131690065;
 			
-			// aapt resource value: 0x7F0E0252
-			public const int Widget_Design_BottomSheet_Modal = 2131624530;
+			// aapt resource value: 0x7F0F0252
+			public const int Widget_Compat_NotificationActionText = 2131690066;
 			
-			// aapt resource value: 0x7F0E0253
-			public const int Widget_Design_CollapsingToolbar = 2131624531;
+			// aapt resource value: 0x7F0F0253
+			public const int Widget_Design_AppBarLayout = 2131690067;
 			
-			// aapt resource value: 0x7F0E0254
-			public const int Widget_Design_FloatingActionButton = 2131624532;
+			// aapt resource value: 0x7F0F0254
+			public const int Widget_Design_BottomNavigationView = 2131690068;
 			
-			// aapt resource value: 0x7F0E0255
-			public const int Widget_Design_NavigationView = 2131624533;
+			// aapt resource value: 0x7F0F0255
+			public const int Widget_Design_BottomSheet_Modal = 2131690069;
 			
-			// aapt resource value: 0x7F0E0256
-			public const int Widget_Design_ScrimInsetsFrameLayout = 2131624534;
+			// aapt resource value: 0x7F0F0256
+			public const int Widget_Design_CollapsingToolbar = 2131690070;
 			
-			// aapt resource value: 0x7F0E0257
-			public const int Widget_Design_Snackbar = 2131624535;
+			// aapt resource value: 0x7F0F0257
+			public const int Widget_Design_FloatingActionButton = 2131690071;
 			
-			// aapt resource value: 0x7F0E0258
-			public const int Widget_Design_TabLayout = 2131624536;
+			// aapt resource value: 0x7F0F0258
+			public const int Widget_Design_NavigationView = 2131690072;
 			
-			// aapt resource value: 0x7F0E0259
-			public const int Widget_Design_TextInputEditText = 2131624537;
+			// aapt resource value: 0x7F0F0259
+			public const int Widget_Design_ScrimInsetsFrameLayout = 2131690073;
 			
-			// aapt resource value: 0x7F0E025A
-			public const int Widget_Design_TextInputLayout = 2131624538;
+			// aapt resource value: 0x7F0F025A
+			public const int Widget_Design_Snackbar = 2131690074;
 			
-			// aapt resource value: 0x7F0E025B
-			public const int Widget_MaterialComponents_ActionBar_Primary = 2131624539;
+			// aapt resource value: 0x7F0F025B
+			public const int Widget_Design_TabLayout = 2131690075;
 			
-			// aapt resource value: 0x7F0E025C
-			public const int Widget_MaterialComponents_ActionBar_PrimarySurface = 2131624540;
+			// aapt resource value: 0x7F0F025C
+			public const int Widget_Design_TextInputEditText = 2131690076;
 			
-			// aapt resource value: 0x7F0E025D
-			public const int Widget_MaterialComponents_ActionBar_Solid = 2131624541;
+			// aapt resource value: 0x7F0F025D
+			public const int Widget_Design_TextInputLayout = 2131690077;
 			
-			// aapt resource value: 0x7F0E025E
-			public const int Widget_MaterialComponents_ActionBar_Surface = 2131624542;
+			// aapt resource value: 0x7F0F025E
+			public const int Widget_MaterialComponents_ActionBar_Primary = 2131690078;
 			
-			// aapt resource value: 0x7F0E025F
-			public const int Widget_MaterialComponents_AppBarLayout_Primary = 2131624543;
+			// aapt resource value: 0x7F0F025F
+			public const int Widget_MaterialComponents_ActionBar_PrimarySurface = 2131690079;
 			
-			// aapt resource value: 0x7F0E0260
-			public const int Widget_MaterialComponents_AppBarLayout_PrimarySurface = 2131624544;
+			// aapt resource value: 0x7F0F0260
+			public const int Widget_MaterialComponents_ActionBar_Solid = 2131690080;
 			
-			// aapt resource value: 0x7F0E0261
-			public const int Widget_MaterialComponents_AppBarLayout_Surface = 2131624545;
+			// aapt resource value: 0x7F0F0261
+			public const int Widget_MaterialComponents_ActionBar_Surface = 2131690081;
 			
-			// aapt resource value: 0x7F0E0262
-			public const int Widget_MaterialComponents_AutoCompleteTextView_FilledBox = 2131624546;
+			// aapt resource value: 0x7F0F0262
+			public const int Widget_MaterialComponents_AppBarLayout_Primary = 2131690082;
 			
-			// aapt resource value: 0x7F0E0263
-			public const int Widget_MaterialComponents_AutoCompleteTextView_FilledBox_Dense = 2131624547;
+			// aapt resource value: 0x7F0F0263
+			public const int Widget_MaterialComponents_AppBarLayout_PrimarySurface = 2131690083;
 			
-			// aapt resource value: 0x7F0E0264
-			public const int Widget_MaterialComponents_AutoCompleteTextView_OutlinedBox = 2131624548;
+			// aapt resource value: 0x7F0F0264
+			public const int Widget_MaterialComponents_AppBarLayout_Surface = 2131690084;
 			
-			// aapt resource value: 0x7F0E0265
-			public const int Widget_MaterialComponents_AutoCompleteTextView_OutlinedBox_Dense = 2131624549;
+			// aapt resource value: 0x7F0F0265
+			public const int Widget_MaterialComponents_AutoCompleteTextView_FilledBox = 2131690085;
 			
-			// aapt resource value: 0x7F0E0266
-			public const int Widget_MaterialComponents_Badge = 2131624550;
+			// aapt resource value: 0x7F0F0266
+			public const int Widget_MaterialComponents_AutoCompleteTextView_FilledBox_Dense = 2131690086;
 			
-			// aapt resource value: 0x7F0E0267
-			public const int Widget_MaterialComponents_BottomAppBar = 2131624551;
+			// aapt resource value: 0x7F0F0267
+			public const int Widget_MaterialComponents_AutoCompleteTextView_OutlinedBox = 2131690087;
 			
-			// aapt resource value: 0x7F0E0268
-			public const int Widget_MaterialComponents_BottomAppBar_Colored = 2131624552;
+			// aapt resource value: 0x7F0F0268
+			public const int Widget_MaterialComponents_AutoCompleteTextView_OutlinedBox_Dense = 2131690088;
 			
-			// aapt resource value: 0x7F0E0269
-			public const int Widget_MaterialComponents_BottomAppBar_PrimarySurface = 2131624553;
+			// aapt resource value: 0x7F0F0269
+			public const int Widget_MaterialComponents_Badge = 2131690089;
 			
-			// aapt resource value: 0x7F0E026A
-			public const int Widget_MaterialComponents_BottomNavigationView = 2131624554;
+			// aapt resource value: 0x7F0F026A
+			public const int Widget_MaterialComponents_BottomAppBar = 2131690090;
 			
-			// aapt resource value: 0x7F0E026B
-			public const int Widget_MaterialComponents_BottomNavigationView_Colored = 2131624555;
+			// aapt resource value: 0x7F0F026B
+			public const int Widget_MaterialComponents_BottomAppBar_Colored = 2131690091;
 			
-			// aapt resource value: 0x7F0E026C
-			public const int Widget_MaterialComponents_BottomNavigationView_PrimarySurface = 2131624556;
+			// aapt resource value: 0x7F0F026C
+			public const int Widget_MaterialComponents_BottomAppBar_PrimarySurface = 2131690092;
 			
-			// aapt resource value: 0x7F0E026D
-			public const int Widget_MaterialComponents_BottomSheet = 2131624557;
+			// aapt resource value: 0x7F0F026D
+			public const int Widget_MaterialComponents_BottomNavigationView = 2131690093;
 			
-			// aapt resource value: 0x7F0E026E
-			public const int Widget_MaterialComponents_BottomSheet_Modal = 2131624558;
+			// aapt resource value: 0x7F0F026E
+			public const int Widget_MaterialComponents_BottomNavigationView_Colored = 2131690094;
 			
-			// aapt resource value: 0x7F0E026F
-			public const int Widget_MaterialComponents_Button = 2131624559;
+			// aapt resource value: 0x7F0F026F
+			public const int Widget_MaterialComponents_BottomNavigationView_PrimarySurface = 2131690095;
 			
-			// aapt resource value: 0x7F0E0270
-			public const int Widget_MaterialComponents_Button_Icon = 2131624560;
+			// aapt resource value: 0x7F0F0270
+			public const int Widget_MaterialComponents_BottomSheet = 2131690096;
 			
-			// aapt resource value: 0x7F0E0271
-			public const int Widget_MaterialComponents_Button_OutlinedButton = 2131624561;
+			// aapt resource value: 0x7F0F0271
+			public const int Widget_MaterialComponents_BottomSheet_Modal = 2131690097;
 			
-			// aapt resource value: 0x7F0E0272
-			public const int Widget_MaterialComponents_Button_OutlinedButton_Icon = 2131624562;
+			// aapt resource value: 0x7F0F0272
+			public const int Widget_MaterialComponents_Button = 2131690098;
 			
-			// aapt resource value: 0x7F0E0273
-			public const int Widget_MaterialComponents_Button_TextButton = 2131624563;
+			// aapt resource value: 0x7F0F0273
+			public const int Widget_MaterialComponents_Button_Icon = 2131690099;
 			
-			// aapt resource value: 0x7F0E0274
-			public const int Widget_MaterialComponents_Button_TextButton_Dialog = 2131624564;
+			// aapt resource value: 0x7F0F0274
+			public const int Widget_MaterialComponents_Button_OutlinedButton = 2131690100;
 			
-			// aapt resource value: 0x7F0E0275
-			public const int Widget_MaterialComponents_Button_TextButton_Dialog_Flush = 2131624565;
+			// aapt resource value: 0x7F0F0275
+			public const int Widget_MaterialComponents_Button_OutlinedButton_Icon = 2131690101;
 			
-			// aapt resource value: 0x7F0E0276
-			public const int Widget_MaterialComponents_Button_TextButton_Dialog_Icon = 2131624566;
+			// aapt resource value: 0x7F0F0276
+			public const int Widget_MaterialComponents_Button_TextButton = 2131690102;
 			
-			// aapt resource value: 0x7F0E0277
-			public const int Widget_MaterialComponents_Button_TextButton_Icon = 2131624567;
+			// aapt resource value: 0x7F0F0277
+			public const int Widget_MaterialComponents_Button_TextButton_Dialog = 2131690103;
 			
-			// aapt resource value: 0x7F0E0278
-			public const int Widget_MaterialComponents_Button_TextButton_Snackbar = 2131624568;
+			// aapt resource value: 0x7F0F0278
+			public const int Widget_MaterialComponents_Button_TextButton_Dialog_Flush = 2131690104;
 			
-			// aapt resource value: 0x7F0E0279
-			public const int Widget_MaterialComponents_Button_UnelevatedButton = 2131624569;
+			// aapt resource value: 0x7F0F0279
+			public const int Widget_MaterialComponents_Button_TextButton_Dialog_Icon = 2131690105;
 			
-			// aapt resource value: 0x7F0E027A
-			public const int Widget_MaterialComponents_Button_UnelevatedButton_Icon = 2131624570;
+			// aapt resource value: 0x7F0F027A
+			public const int Widget_MaterialComponents_Button_TextButton_Icon = 2131690106;
 			
-			// aapt resource value: 0x7F0E027B
-			public const int Widget_MaterialComponents_CardView = 2131624571;
+			// aapt resource value: 0x7F0F027B
+			public const int Widget_MaterialComponents_Button_TextButton_Snackbar = 2131690107;
 			
-			// aapt resource value: 0x7F0E027C
-			public const int Widget_MaterialComponents_CheckedTextView = 2131624572;
+			// aapt resource value: 0x7F0F027C
+			public const int Widget_MaterialComponents_Button_UnelevatedButton = 2131690108;
 			
-			// aapt resource value: 0x7F0E0281
-			public const int Widget_MaterialComponents_ChipGroup = 2131624577;
+			// aapt resource value: 0x7F0F027D
+			public const int Widget_MaterialComponents_Button_UnelevatedButton_Icon = 2131690109;
 			
-			// aapt resource value: 0x7F0E027D
-			public const int Widget_MaterialComponents_Chip_Action = 2131624573;
+			// aapt resource value: 0x7F0F027E
+			public const int Widget_MaterialComponents_CardView = 2131690110;
 			
-			// aapt resource value: 0x7F0E027E
-			public const int Widget_MaterialComponents_Chip_Choice = 2131624574;
+			// aapt resource value: 0x7F0F027F
+			public const int Widget_MaterialComponents_CheckedTextView = 2131690111;
 			
-			// aapt resource value: 0x7F0E027F
-			public const int Widget_MaterialComponents_Chip_Entry = 2131624575;
+			// aapt resource value: 0x7F0F0284
+			public const int Widget_MaterialComponents_ChipGroup = 2131690116;
 			
-			// aapt resource value: 0x7F0E0280
-			public const int Widget_MaterialComponents_Chip_Filter = 2131624576;
+			// aapt resource value: 0x7F0F0280
+			public const int Widget_MaterialComponents_Chip_Action = 2131690112;
 			
-			// aapt resource value: 0x7F0E0282
-			public const int Widget_MaterialComponents_CompoundButton_CheckBox = 2131624578;
+			// aapt resource value: 0x7F0F0281
+			public const int Widget_MaterialComponents_Chip_Choice = 2131690113;
 			
-			// aapt resource value: 0x7F0E0283
-			public const int Widget_MaterialComponents_CompoundButton_RadioButton = 2131624579;
+			// aapt resource value: 0x7F0F0282
+			public const int Widget_MaterialComponents_Chip_Entry = 2131690114;
 			
-			// aapt resource value: 0x7F0E0284
-			public const int Widget_MaterialComponents_CompoundButton_Switch = 2131624580;
+			// aapt resource value: 0x7F0F0283
+			public const int Widget_MaterialComponents_Chip_Filter = 2131690115;
 			
-			// aapt resource value: 0x7F0E0285
-			public const int Widget_MaterialComponents_ExtendedFloatingActionButton = 2131624581;
+			// aapt resource value: 0x7F0F0285
+			public const int Widget_MaterialComponents_CompoundButton_CheckBox = 2131690117;
 			
-			// aapt resource value: 0x7F0E0286
-			public const int Widget_MaterialComponents_ExtendedFloatingActionButton_Icon = 2131624582;
+			// aapt resource value: 0x7F0F0286
+			public const int Widget_MaterialComponents_CompoundButton_RadioButton = 2131690118;
 			
-			// aapt resource value: 0x7F0E0287
-			public const int Widget_MaterialComponents_FloatingActionButton = 2131624583;
+			// aapt resource value: 0x7F0F0287
+			public const int Widget_MaterialComponents_CompoundButton_Switch = 2131690119;
 			
-			// aapt resource value: 0x7F0E0288
-			public const int Widget_MaterialComponents_Light_ActionBar_Solid = 2131624584;
+			// aapt resource value: 0x7F0F0288
+			public const int Widget_MaterialComponents_ExtendedFloatingActionButton = 2131690120;
 			
-			// aapt resource value: 0x7F0E0289
-			public const int Widget_MaterialComponents_MaterialButtonToggleGroup = 2131624585;
+			// aapt resource value: 0x7F0F0289
+			public const int Widget_MaterialComponents_ExtendedFloatingActionButton_Icon = 2131690121;
 			
-			// aapt resource value: 0x7F0E028A
-			public const int Widget_MaterialComponents_MaterialCalendar = 2131624586;
+			// aapt resource value: 0x7F0F028A
+			public const int Widget_MaterialComponents_FloatingActionButton = 2131690122;
 			
-			// aapt resource value: 0x7F0E028B
-			public const int Widget_MaterialComponents_MaterialCalendar_Day = 2131624587;
+			// aapt resource value: 0x7F0F028B
+			public const int Widget_MaterialComponents_Light_ActionBar_Solid = 2131690123;
 			
-			// aapt resource value: 0x7F0E028F
-			public const int Widget_MaterialComponents_MaterialCalendar_DayTextView = 2131624591;
+			// aapt resource value: 0x7F0F028C
+			public const int Widget_MaterialComponents_MaterialButtonToggleGroup = 2131690124;
 			
-			// aapt resource value: 0x7F0E028C
-			public const int Widget_MaterialComponents_MaterialCalendar_Day_Invalid = 2131624588;
+			// aapt resource value: 0x7F0F028D
+			public const int Widget_MaterialComponents_MaterialCalendar = 2131690125;
 			
-			// aapt resource value: 0x7F0E028D
-			public const int Widget_MaterialComponents_MaterialCalendar_Day_Selected = 2131624589;
+			// aapt resource value: 0x7F0F028E
+			public const int Widget_MaterialComponents_MaterialCalendar_Day = 2131690126;
 			
-			// aapt resource value: 0x7F0E028E
-			public const int Widget_MaterialComponents_MaterialCalendar_Day_Today = 2131624590;
+			// aapt resource value: 0x7F0F0292
+			public const int Widget_MaterialComponents_MaterialCalendar_DayTextView = 2131690130;
 			
-			// aapt resource value: 0x7F0E0290
-			public const int Widget_MaterialComponents_MaterialCalendar_Fullscreen = 2131624592;
+			// aapt resource value: 0x7F0F028F
+			public const int Widget_MaterialComponents_MaterialCalendar_Day_Invalid = 2131690127;
 			
-			// aapt resource value: 0x7F0E0291
-			public const int Widget_MaterialComponents_MaterialCalendar_HeaderConfirmButton = 2131624593;
+			// aapt resource value: 0x7F0F0290
+			public const int Widget_MaterialComponents_MaterialCalendar_Day_Selected = 2131690128;
 			
-			// aapt resource value: 0x7F0E0292
-			public const int Widget_MaterialComponents_MaterialCalendar_HeaderDivider = 2131624594;
+			// aapt resource value: 0x7F0F0291
+			public const int Widget_MaterialComponents_MaterialCalendar_Day_Today = 2131690129;
 			
-			// aapt resource value: 0x7F0E0293
-			public const int Widget_MaterialComponents_MaterialCalendar_HeaderLayout = 2131624595;
+			// aapt resource value: 0x7F0F0293
+			public const int Widget_MaterialComponents_MaterialCalendar_Fullscreen = 2131690131;
 			
-			// aapt resource value: 0x7F0E0294
-			public const int Widget_MaterialComponents_MaterialCalendar_HeaderSelection = 2131624596;
+			// aapt resource value: 0x7F0F0294
+			public const int Widget_MaterialComponents_MaterialCalendar_HeaderConfirmButton = 2131690132;
 			
-			// aapt resource value: 0x7F0E0295
-			public const int Widget_MaterialComponents_MaterialCalendar_HeaderSelection_Fullscreen = 2131624597;
+			// aapt resource value: 0x7F0F0295
+			public const int Widget_MaterialComponents_MaterialCalendar_HeaderDivider = 2131690133;
 			
-			// aapt resource value: 0x7F0E0296
-			public const int Widget_MaterialComponents_MaterialCalendar_HeaderTitle = 2131624598;
+			// aapt resource value: 0x7F0F0296
+			public const int Widget_MaterialComponents_MaterialCalendar_HeaderLayout = 2131690134;
 			
-			// aapt resource value: 0x7F0E0297
-			public const int Widget_MaterialComponents_MaterialCalendar_HeaderToggleButton = 2131624599;
+			// aapt resource value: 0x7F0F0297
+			public const int Widget_MaterialComponents_MaterialCalendar_HeaderSelection = 2131690135;
 			
-			// aapt resource value: 0x7F0E0298
-			public const int Widget_MaterialComponents_MaterialCalendar_Item = 2131624600;
+			// aapt resource value: 0x7F0F0298
+			public const int Widget_MaterialComponents_MaterialCalendar_HeaderSelection_Fullscreen = 2131690136;
 			
-			// aapt resource value: 0x7F0E0299
-			public const int Widget_MaterialComponents_MaterialCalendar_Year = 2131624601;
+			// aapt resource value: 0x7F0F0299
+			public const int Widget_MaterialComponents_MaterialCalendar_HeaderTitle = 2131690137;
 			
-			// aapt resource value: 0x7F0E029A
-			public const int Widget_MaterialComponents_MaterialCalendar_Year_Selected = 2131624602;
+			// aapt resource value: 0x7F0F029A
+			public const int Widget_MaterialComponents_MaterialCalendar_HeaderToggleButton = 2131690138;
 			
-			// aapt resource value: 0x7F0E029B
-			public const int Widget_MaterialComponents_MaterialCalendar_Year_Today = 2131624603;
+			// aapt resource value: 0x7F0F029B
+			public const int Widget_MaterialComponents_MaterialCalendar_Item = 2131690139;
 			
-			// aapt resource value: 0x7F0E029C
-			public const int Widget_MaterialComponents_NavigationView = 2131624604;
+			// aapt resource value: 0x7F0F029C
+			public const int Widget_MaterialComponents_MaterialCalendar_Year = 2131690140;
 			
-			// aapt resource value: 0x7F0E029D
-			public const int Widget_MaterialComponents_PopupMenu = 2131624605;
+			// aapt resource value: 0x7F0F029D
+			public const int Widget_MaterialComponents_MaterialCalendar_Year_Selected = 2131690141;
 			
-			// aapt resource value: 0x7F0E029E
-			public const int Widget_MaterialComponents_PopupMenu_ContextMenu = 2131624606;
+			// aapt resource value: 0x7F0F029E
+			public const int Widget_MaterialComponents_MaterialCalendar_Year_Today = 2131690142;
 			
-			// aapt resource value: 0x7F0E029F
-			public const int Widget_MaterialComponents_PopupMenu_ListPopupWindow = 2131624607;
+			// aapt resource value: 0x7F0F029F
+			public const int Widget_MaterialComponents_NavigationView = 2131690143;
 			
-			// aapt resource value: 0x7F0E02A0
-			public const int Widget_MaterialComponents_PopupMenu_Overflow = 2131624608;
+			// aapt resource value: 0x7F0F02A0
+			public const int Widget_MaterialComponents_PopupMenu = 2131690144;
 			
-			// aapt resource value: 0x7F0E02A1
-			public const int Widget_MaterialComponents_ShapeableImageView = 2131624609;
+			// aapt resource value: 0x7F0F02A1
+			public const int Widget_MaterialComponents_PopupMenu_ContextMenu = 2131690145;
 			
-			// aapt resource value: 0x7F0E02A2
-			public const int Widget_MaterialComponents_Slider = 2131624610;
+			// aapt resource value: 0x7F0F02A2
+			public const int Widget_MaterialComponents_PopupMenu_ListPopupWindow = 2131690146;
 			
-			// aapt resource value: 0x7F0E02A3
-			public const int Widget_MaterialComponents_Snackbar = 2131624611;
+			// aapt resource value: 0x7F0F02A3
+			public const int Widget_MaterialComponents_PopupMenu_Overflow = 2131690147;
 			
-			// aapt resource value: 0x7F0E02A4
-			public const int Widget_MaterialComponents_Snackbar_FullWidth = 2131624612;
+			// aapt resource value: 0x7F0F02A4
+			public const int Widget_MaterialComponents_ShapeableImageView = 2131690148;
 			
-			// aapt resource value: 0x7F0E02A5
-			public const int Widget_MaterialComponents_Snackbar_TextView = 2131624613;
+			// aapt resource value: 0x7F0F02A5
+			public const int Widget_MaterialComponents_Slider = 2131690149;
 			
-			// aapt resource value: 0x7F0E02A6
-			public const int Widget_MaterialComponents_TabLayout = 2131624614;
+			// aapt resource value: 0x7F0F02A6
+			public const int Widget_MaterialComponents_Snackbar = 2131690150;
 			
-			// aapt resource value: 0x7F0E02A7
-			public const int Widget_MaterialComponents_TabLayout_Colored = 2131624615;
+			// aapt resource value: 0x7F0F02A7
+			public const int Widget_MaterialComponents_Snackbar_FullWidth = 2131690151;
 			
-			// aapt resource value: 0x7F0E02A8
-			public const int Widget_MaterialComponents_TabLayout_PrimarySurface = 2131624616;
+			// aapt resource value: 0x7F0F02A8
+			public const int Widget_MaterialComponents_Snackbar_TextView = 2131690152;
 			
-			// aapt resource value: 0x7F0E02A9
-			public const int Widget_MaterialComponents_TextInputEditText_FilledBox = 2131624617;
+			// aapt resource value: 0x7F0F02A9
+			public const int Widget_MaterialComponents_TabLayout = 2131690153;
 			
-			// aapt resource value: 0x7F0E02AA
-			public const int Widget_MaterialComponents_TextInputEditText_FilledBox_Dense = 2131624618;
+			// aapt resource value: 0x7F0F02AA
+			public const int Widget_MaterialComponents_TabLayout_Colored = 2131690154;
 			
-			// aapt resource value: 0x7F0E02AB
-			public const int Widget_MaterialComponents_TextInputEditText_OutlinedBox = 2131624619;
+			// aapt resource value: 0x7F0F02AB
+			public const int Widget_MaterialComponents_TabLayout_PrimarySurface = 2131690155;
 			
-			// aapt resource value: 0x7F0E02AC
-			public const int Widget_MaterialComponents_TextInputEditText_OutlinedBox_Dense = 2131624620;
+			// aapt resource value: 0x7F0F02AC
+			public const int Widget_MaterialComponents_TextInputEditText_FilledBox = 2131690156;
 			
-			// aapt resource value: 0x7F0E02AD
-			public const int Widget_MaterialComponents_TextInputLayout_FilledBox = 2131624621;
+			// aapt resource value: 0x7F0F02AD
+			public const int Widget_MaterialComponents_TextInputEditText_FilledBox_Dense = 2131690157;
 			
-			// aapt resource value: 0x7F0E02AE
-			public const int Widget_MaterialComponents_TextInputLayout_FilledBox_Dense = 2131624622;
+			// aapt resource value: 0x7F0F02AE
+			public const int Widget_MaterialComponents_TextInputEditText_OutlinedBox = 2131690158;
 			
-			// aapt resource value: 0x7F0E02AF
-			public const int Widget_MaterialComponents_TextInputLayout_FilledBox_Dense_ExposedDropdownMenu = 2131624623;
+			// aapt resource value: 0x7F0F02AF
+			public const int Widget_MaterialComponents_TextInputEditText_OutlinedBox_Dense = 2131690159;
 			
-			// aapt resource value: 0x7F0E02B0
-			public const int Widget_MaterialComponents_TextInputLayout_FilledBox_ExposedDropdownMenu = 2131624624;
+			// aapt resource value: 0x7F0F02B0
+			public const int Widget_MaterialComponents_TextInputLayout_FilledBox = 2131690160;
 			
-			// aapt resource value: 0x7F0E02B1
-			public const int Widget_MaterialComponents_TextInputLayout_OutlinedBox = 2131624625;
+			// aapt resource value: 0x7F0F02B1
+			public const int Widget_MaterialComponents_TextInputLayout_FilledBox_Dense = 2131690161;
 			
-			// aapt resource value: 0x7F0E02B2
-			public const int Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense = 2131624626;
+			// aapt resource value: 0x7F0F02B2
+			public const int Widget_MaterialComponents_TextInputLayout_FilledBox_Dense_ExposedDropdownMenu = 2131690162;
 			
-			// aapt resource value: 0x7F0E02B3
-			public const int Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense_ExposedDropdownMenu = 2131624627;
+			// aapt resource value: 0x7F0F02B3
+			public const int Widget_MaterialComponents_TextInputLayout_FilledBox_ExposedDropdownMenu = 2131690163;
 			
-			// aapt resource value: 0x7F0E02B4
-			public const int Widget_MaterialComponents_TextInputLayout_OutlinedBox_ExposedDropdownMenu = 2131624628;
+			// aapt resource value: 0x7F0F02B4
+			public const int Widget_MaterialComponents_TextInputLayout_OutlinedBox = 2131690164;
 			
-			// aapt resource value: 0x7F0E02B5
-			public const int Widget_MaterialComponents_TextView = 2131624629;
+			// aapt resource value: 0x7F0F02B5
+			public const int Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense = 2131690165;
 			
-			// aapt resource value: 0x7F0E02B6
-			public const int Widget_MaterialComponents_Toolbar = 2131624630;
+			// aapt resource value: 0x7F0F02B6
+			public const int Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense_ExposedDropdownMenu = 2131690166;
 			
-			// aapt resource value: 0x7F0E02B7
-			public const int Widget_MaterialComponents_Toolbar_Primary = 2131624631;
+			// aapt resource value: 0x7F0F02B7
+			public const int Widget_MaterialComponents_TextInputLayout_OutlinedBox_ExposedDropdownMenu = 2131690167;
 			
-			// aapt resource value: 0x7F0E02B8
-			public const int Widget_MaterialComponents_Toolbar_PrimarySurface = 2131624632;
+			// aapt resource value: 0x7F0F02B8
+			public const int Widget_MaterialComponents_TextView = 2131690168;
 			
-			// aapt resource value: 0x7F0E02B9
-			public const int Widget_MaterialComponents_Toolbar_Surface = 2131624633;
+			// aapt resource value: 0x7F0F02B9
+			public const int Widget_MaterialComponents_Toolbar = 2131690169;
 			
-			// aapt resource value: 0x7F0E02BA
-			public const int Widget_MaterialComponents_Tooltip = 2131624634;
+			// aapt resource value: 0x7F0F02BA
+			public const int Widget_MaterialComponents_Toolbar_Primary = 2131690170;
 			
-			// aapt resource value: 0x7F0E02BB
-			public const int Widget_Support_CoordinatorLayout = 2131624635;
+			// aapt resource value: 0x7F0F02BB
+			public const int Widget_MaterialComponents_Toolbar_PrimarySurface = 2131690171;
 			
-			// aapt resource value: 0x7F0E02BC
-			public const int XamarinFormsMaterialButton = 2131624636;
+			// aapt resource value: 0x7F0F02BC
+			public const int Widget_MaterialComponents_Toolbar_Surface = 2131690172;
 			
-			// aapt resource value: 0x7F0E02BD
-			public const int XamarinFormsMaterialButtonOutlined = 2131624637;
+			// aapt resource value: 0x7F0F02BD
+			public const int Widget_MaterialComponents_Tooltip = 2131690173;
 			
-			// aapt resource value: 0x7F0E02BE
-			public const int XamarinFormsMaterialCheckBox = 2131624638;
+			// aapt resource value: 0x7F0F02BE
+			public const int Widget_Support_CoordinatorLayout = 2131690174;
 			
-			// aapt resource value: 0x7F0E02BF
-			public const int XamarinFormsMaterialEntryFilled = 2131624639;
+			// aapt resource value: 0x7F0F02BF
+			public const int XamarinFormsMaterialButton = 2131690175;
 			
-			// aapt resource value: 0x7F0E02C0
-			public const int XamarinFormsMaterialProgressBarCircular = 2131624640;
+			// aapt resource value: 0x7F0F02C0
+			public const int XamarinFormsMaterialButtonOutlined = 2131690176;
 			
-			// aapt resource value: 0x7F0E02C1
-			public const int XamarinFormsMaterialProgressBarHorizontal = 2131624641;
+			// aapt resource value: 0x7F0F02C1
+			public const int XamarinFormsMaterialCheckBox = 2131690177;
 			
-			// aapt resource value: 0x7F0E02C2
-			public const int XamarinFormsMaterialSlider = 2131624642;
+			// aapt resource value: 0x7F0F02C2
+			public const int XamarinFormsMaterialEntryFilled = 2131690178;
 			
-			// aapt resource value: 0x7F0E02C3
-			public const int XamarinFormsMaterialTheme = 2131624643;
+			// aapt resource value: 0x7F0F02C3
+			public const int XamarinFormsMaterialProgressBarCircular = 2131690179;
+			
+			// aapt resource value: 0x7F0F02C4
+			public const int XamarinFormsMaterialProgressBarHorizontal = 2131690180;
+			
+			// aapt resource value: 0x7F0F02C5
+			public const int XamarinFormsMaterialSlider = 2131690181;
+			
+			// aapt resource value: 0x7F0F02C6
+			public const int XamarinFormsMaterialTheme = 2131690182;
 			
 			static Style()
 			{
@@ -23148,26 +26904,26 @@ namespace System.Application.Launch
 		public partial class Xml
 		{
 			
-			// aapt resource value: 0x7F100000
-			public const int image_share_filepaths = 2131755008;
+			// aapt resource value: 0x7F110000
+			public const int image_share_filepaths = 2131820544;
 			
-			// aapt resource value: 0x7F100001
-			public const int standalone_badge = 2131755009;
+			// aapt resource value: 0x7F110001
+			public const int standalone_badge = 2131820545;
 			
-			// aapt resource value: 0x7F100002
-			public const int standalone_badge_gravity_bottom_end = 2131755010;
+			// aapt resource value: 0x7F110002
+			public const int standalone_badge_gravity_bottom_end = 2131820546;
 			
-			// aapt resource value: 0x7F100003
-			public const int standalone_badge_gravity_bottom_start = 2131755011;
+			// aapt resource value: 0x7F110003
+			public const int standalone_badge_gravity_bottom_start = 2131820547;
 			
-			// aapt resource value: 0x7F100004
-			public const int standalone_badge_gravity_top_start = 2131755012;
+			// aapt resource value: 0x7F110004
+			public const int standalone_badge_gravity_top_start = 2131820548;
 			
-			// aapt resource value: 0x7F100005
-			public const int standalone_badge_offset = 2131755013;
+			// aapt resource value: 0x7F110005
+			public const int standalone_badge_offset = 2131820549;
 			
-			// aapt resource value: 0x7F100006
-			public const int xamarin_essentials_fileprovider_file_paths = 2131755014;
+			// aapt resource value: 0x7F110006
+			public const int xamarin_essentials_fileprovider_file_paths = 2131820550;
 			
 			static Xml()
 			{

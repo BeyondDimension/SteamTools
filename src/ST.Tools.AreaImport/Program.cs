@@ -1,4 +1,5 @@
-﻿using NPOI.SS.UserModel;
+﻿using MessagePack;
+using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System;
 using System.Application;
@@ -105,7 +106,7 @@ do
     var value = value_str.TryParseInt32();
     if (!value.HasValue || value.Value == 100000) continue;
     var name = row.GetCell(0).StringCellValue;
-    if (name.EndsWith("市辖区")) continue;
+    if (name.EndsWith("市辖区") || name == "重庆市郊县") continue;
     AreaLevel level;
     if (value_str.EndsWith("0000"))
     {
@@ -117,19 +118,33 @@ do
     }
     else
     {
-        level = AreaLevel.区县;
+        level = AreaLevel.区县_县级市;
+    }
+    int GetEndWithZero2() => int.Parse($"{value_str.Substring(0, 4)}00");
+    int GetEndWithZero4() => int.Parse($"{value_str.Substring(0, 2)}0000");
+    int? GetUpBy3()
+    {
+        var up_value = GetEndWithZero4();
+        if (areas.Any(x => x.Id == up_value)) return up_value;
+        return null;
+    }
+    int? GetUpBy4()
+    {
+        var up_value = GetEndWithZero2();
+        if (areas.Any(x => x.Id == up_value)) return up_value;
+        return GetUpBy3();
     }
     int? up = level switch
     {
-        AreaLevel.市_不包括直辖市 => int.Parse($"{value_str.Substring(0, 2)}0000"),
-        AreaLevel.区县 => int.Parse($"{value_str.Substring(0, 4)}00"),
+        AreaLevel.市_不包括直辖市 => GetUpBy3(),
+        AreaLevel.区县_县级市 => GetUpBy4(),
         _ => null,
     };
     string? GetShortNameBy2()
     {
         if (name.EndsWith("市")) return name.TrimEnd("市");
         if (name.EndsWith("省")) return name.TrimEnd("省");
-        if (name == "外国") return "其他";
+        if (name == "外国") return "海外";
         var shortName_value = shortNames_2.FirstOrDefault(x => name.Contains(x));
         return shortName_value;
     }
@@ -161,7 +176,7 @@ do
     {
         AreaLevel.省或直辖市或特别行政区 => GetShortNameBy2(),
         AreaLevel.市_不包括直辖市 => GetShortNameBy3(),
-        AreaLevel.区县 => GetShortNameBy4(),
+        AreaLevel.区县_县级市 => GetShortNameBy4(),
         _ => null,
     };
     areas.Add(new Area
@@ -173,7 +188,7 @@ do
         Up = up,
     });
 } while (true);
-
-var bytes = Serializable.SMP(areas);
+var lz4Options = MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4BlockArray);
+var bytes = MessagePackSerializer.Serialize(areas, lz4Options);
 File.WriteAllBytes(outFilePath, bytes);
 Console.WriteLine($"文件写入成功，路径：{outFilePath}");

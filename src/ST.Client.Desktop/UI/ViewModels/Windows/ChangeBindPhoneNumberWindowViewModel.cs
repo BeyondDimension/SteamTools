@@ -26,11 +26,7 @@ namespace System.Application.UI.ViewModels
 
         public async void Initialize()
         {
-            var phone_number = (await DI.Get<IUserManager>().GetCurrentUserAsync())?.PhoneNumber;
-#if DEBUG
-            if (string.IsNullOrWhiteSpace(phone_number)) phone_number = PhoneNumberHelper.SimulatorDefaultValue;
-#endif
-            CurrentPhoneNumber = PhoneNumberHelper.ToStringHideMiddleFour(phone_number);
+            CurrentPhoneNumber = await DI.Get<IUserManager>().GetCurrentUserPhoneNumberAsync();
         }
 
         bool _IsLoading;

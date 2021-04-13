@@ -12,7 +12,7 @@ namespace System.Application.Services
         /// <returns></returns>
         public TArea GetSecondaryOrThis(TArea area)
         {
-            if (area.Level == AreaLevel.区县 && area.Up.HasValue)
+            if (area.Level == AreaLevel.区县_县级市 && area.Up.HasValue)
             {
                 var all = GetAll();
                 var area_up_lever = all.FirstOrDefault(x => x.Id == area.Up.Value);

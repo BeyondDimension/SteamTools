@@ -60,5 +60,19 @@ namespace System.Application.Services
         /// <param name="user"></param>
         /// <returns></returns>
         Task InsertOrUpdateAsync(IUserDTO user);
+
+        /// <summary>
+        /// 获取当前登录用户的手机号码
+        /// </summary>
+        /// <param name="notHideMiddleFour"></param>
+        /// <returns></returns>
+        async Task<string> GetCurrentUserPhoneNumberAsync(bool notHideMiddleFour = false)
+        {
+            var phone_number = (await GetCurrentUserAsync())?.PhoneNumber;
+#if DEBUG
+            if (string.IsNullOrWhiteSpace(phone_number)) phone_number = PhoneNumberHelper.SimulatorDefaultValue;
+#endif
+            return notHideMiddleFour ? phone_number : PhoneNumberHelper.ToStringHideMiddleFour(phone_number);
+        }
     }
 }

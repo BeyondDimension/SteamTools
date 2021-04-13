@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Application.Entities;
 using System.Application.Repositories;
 using System.Application.Repositories.Implementation;
 using System.Application.Services;
@@ -30,6 +31,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection TryAddUserManager(this IServiceCollection services)
         {
+            services.AddAreaResource<Area>();
             services.TryAddSingleton<IUserManager, UserManager>();
             return services;
         }
