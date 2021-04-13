@@ -18,6 +18,7 @@
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -189,14 +190,28 @@ namespace WinAuth
         /// <summary>
         /// A class for a single confirmation
         /// </summary>
-        public class Confirmation
+        public class Confirmation : ReactiveObject
         {
             public string Id { get; set; } = string.Empty;
             public string Key { get; set; } = string.Empty;
             public bool Offline { get; set; }
             public bool IsNew { get; set; }
             public string Image { get; set; } = string.Empty;
-            public string? ImageStream { get; set; }
+
+            private string? _ImageStream;
+            public string? ImageStream
+            {
+                get => _ImageStream;
+                set => this.RaiseAndSetIfChanged(ref _ImageStream, value);
+            }
+
+            private int _IsOperate;
+            public int IsOperate
+            {
+                get => _IsOperate;
+                set => this.RaiseAndSetIfChanged(ref _IsOperate, value);
+            }
+
             public string Details { get; set; } = string.Empty;
             public string Traded { get; set; } = string.Empty;
             public string When { get; set; } = string.Empty;
@@ -938,7 +953,7 @@ namespace WinAuth
             ConfirmationsHtml = html;
             ConfirmationsQuery = string.Join("&", Array.ConvertAll(data.AllKeys, key => String.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(data[key]))));
 
-            List<Confirmation> trades = new List<Confirmation>();
+            List<Confirmation> trades = new();
 
             // extract the trades
             Match match = _tradesRegex.Match(html);

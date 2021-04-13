@@ -178,7 +178,7 @@
             </StackPanel>
 
             <StackPanel Grid.Row="2" Margin="20 0 20 50">
-                <Button Content="{Binding Path=Res.CommunityFix_StopProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Height="40" Width="250" VerticalContentAlignment="Center" FontSize="18" Command="{Binding StartProxyButton_Click}" CommandParameter="False" Background="{DynamicResource SystemAccentColor}"></Button>
+                <Button Classes="action" Content="{Binding Path=Res.CommunityFix_StopProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Height="40" Width="250" VerticalContentAlignment="Center" FontSize="16" Command="{Binding StartProxyButton_Click}" CommandParameter="False"></Button>
             </StackPanel>
         </Grid>
     </Panel>

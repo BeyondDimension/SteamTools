@@ -15,6 +15,6 @@
         Title="{Binding Title}">
     <Panel MaxWidth="{Binding $parent.MaxWidth}">
         <controls:TitleBar></controls:TitleBar>
-      
+        
     </Panel>
 </Window>

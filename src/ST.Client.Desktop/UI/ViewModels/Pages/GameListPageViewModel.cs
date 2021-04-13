@@ -49,12 +49,8 @@ namespace System.Application.UI.ViewModels
         internal async override void Initialize()
         {
             SteamApps = await ISteamService.Instance.GetAppInfos();
-#if DEBUG
-            if (Diagnostics.Debugger.IsAttached)
-            {
-                return;
-            }
-#endif
+
+
             //SteamApps = _AllSteamApps.Where(w => w.ParentId == 0);
             if (SteamApps.Any_Nullable())
             {

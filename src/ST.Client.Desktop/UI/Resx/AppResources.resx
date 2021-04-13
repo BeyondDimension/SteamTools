@@ -301,6 +301,9 @@
   <data name="LocalAuth_AuthTrade_CancelAll" xml:space="preserve">
     <value>取消所有交易</value>
   </data>
+  <data name="LocalAuth_AuthTrade_CancelError" xml:space="preserve">
+    <value>无法取消此交易</value>
+  </data>
   <data name="LocalAuth_AuthTrade_Confirm" xml:space="preserve">
     <value>确认交易</value>
   </data>

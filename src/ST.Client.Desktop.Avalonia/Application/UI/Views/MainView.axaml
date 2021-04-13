@@ -86,7 +86,7 @@
                         Items="{Binding TabItems}"
                         SelectedItem="{Binding SelectedItem}"
                         Margin="0 25 0 0"
-                        Classes="sidebar">
+                        Classes="NavBar">
       <TabControl.DataTemplates>
         <DataTemplate DataType="vm:DebugWebViewPageViewModel">
           <pages:DebugWebViewPage/>

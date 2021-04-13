@@ -31,5 +31,13 @@ namespace System.Application.UI.ViewModels
             get => _Items;
             set => this.RaiseAndSetIfChanged(ref _Items, value);
         }
+
+        public void CheckmarkChange(bool isCheck)
+        {
+            if (isCheck)
+                this.IconKey = "CheckmarkDrawing";
+            else
+                this.IconKey = null;
+        }
     }
 }

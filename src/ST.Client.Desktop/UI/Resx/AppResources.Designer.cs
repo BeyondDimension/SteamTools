@@ -610,6 +610,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 无法取消此交易 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_CancelError {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_CancelError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 确认交易 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AuthTrade_Confirm {

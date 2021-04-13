@@ -26,9 +26,11 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> EditHostsFileCommand { get; }
         public ReactiveCommand<Unit, Unit> AutoRunProxyCommand { get; }
         public ReactiveCommand<Unit, Unit> OnlySteamBrowserCommand { get; }
+        public ReactiveCommand<Unit, Unit> EnableProxyScriptCommand { get; }
 
         public MenuItemViewModel AutoRunProxy { get; }
         public MenuItemViewModel OnlySteamBrowser { get; }
+        public MenuItemViewModel EnableProxyScript { get; }
 
 
         public CommunityProxyPageViewModel()
@@ -36,6 +38,18 @@ namespace System.Application.UI.ViewModels
             SetupCertificateCommand = ReactiveCommand.Create(SetupCertificate_OnClick);
             DeleteCertificateCommand = ReactiveCommand.Create(DeleteCertificate_OnClick);
             EditHostsFileCommand = ReactiveCommand.Create(EditHostsFile_OnClick);
+            AutoRunProxyCommand = ReactiveCommand.Create(() =>
+            {
+                AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value = !ProxySettings.ProgramStartupRunProxy.Value);
+            });
+            OnlySteamBrowserCommand = ReactiveCommand.Create(() =>
+            {
+                OnlySteamBrowser?.CheckmarkChange(ProxySettings.IsOnlyWorkSteamBrowser.Value = !ProxySettings.IsOnlyWorkSteamBrowser.Value);
+            });
+            EnableProxyScriptCommand = ReactiveCommand.Create(() =>
+            {
+                EnableProxyScript?.CheckmarkChange(ProxySettings.IsEnableScript.Value = !ProxySettings.IsEnableScript.Value);
+            });
 
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
@@ -46,7 +60,7 @@ namespace System.Application.UI.ViewModels
                         (this.AutoRunProxy = new MenuItemViewModel (nameof(AppResources.CommunityFix_AutoRunProxy)){ Command=AutoRunProxyCommand }),
                         (this.OnlySteamBrowser = new MenuItemViewModel (nameof(AppResources.CommunityFix_OnlySteamBrowser)){ Command=OnlySteamBrowserCommand}),
                         new MenuItemViewModel (),
-                        new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)){ Command=EditHostsFileCommand ,IconKey="CheckmarkDrawing" },
+                        (this.EnableProxyScript = new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)){ Command=EnableProxyScriptCommand }),
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)){ Command=EditHostsFileCommand ,IconKey="JavaScriptDrawing" },
                         new MenuItemViewModel (),
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_CertificateSettings))
@@ -61,24 +75,6 @@ namespace System.Application.UI.ViewModels
                 //    }
                 //},
             };
-
-            AutoRunProxyCommand = ReactiveCommand.Create(() =>
-            {
-                ProxySettings.ProgramStartupRunProxy.Value = !ProxySettings.ProgramStartupRunProxy.Value;
-                if (ProxySettings.ProgramStartupRunProxy.Value)
-                    AutoRunProxy.IconKey = "CheckmarkDrawing";
-                else
-                    AutoRunProxy.IconKey = "";
-            });
-            OnlySteamBrowserCommand = ReactiveCommand.Create(() =>
-            {
-                ProxySettings.IsOnlyWorkSteamBrowser.Value = !ProxySettings.IsOnlyWorkSteamBrowser.Value;
-                if (ProxySettings.IsOnlyWorkSteamBrowser.Value)
-                    OnlySteamBrowser.IconKey = "CheckmarkDrawing";
-                else
-                    OnlySteamBrowser.IconKey = "";
-            });
-
         }
 
 

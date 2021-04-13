@@ -64,7 +64,7 @@
     <Style Selector="Button.action /template/ ContentPresenter">
         <Setter Property="Background" Value="{DynamicResource ThemeAccentBrushKey}" />
         <Setter Property="Padding" Value="20 10" />
-        <Setter Property="TextBlock.Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
+        <Setter Property="TextBlock.Foreground" Value="#FFFFFFFF" />
     </Style>
     <Style Selector="Button.action:pointerover /template/ ContentPresenter">
         <Setter Property="Background" Value="{DynamicResource ThemeAccentPointerOverBrushKey}" />

@@ -45,68 +45,106 @@
         </Panel>
 
         <Panel HorizontalAlignment="Stretch" IsVisible="{Binding IsLoggedIn}">
-            <TextBlock IsVisible="{Binding !IsConfirmationsEmpty}"
-                       Text="{Binding Path=Res.LocalAuth_AuthTrade_ListNullTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                       TextWrapping="WrapWithOverflow"
-                       VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
             <DockPanel>
-                
-            <Grid DockPanel.Dock="Top" RowDefinitions="Auto,*" ColumnDefinitions="*,Auto" Margin="20 40 20 10">
-                <StackPanel Spacing="10" Orientation="Horizontal">
-                    <Button Content="{Binding Path=Res.LocalAuth_AuthTrade_ConfirmAll,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding ConfirmAllButton_Click}"></Button>
-                    <Button Content="{Binding Path=Res.LocalAuth_AuthTrade_CancelAll,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding CancelAllButton_Click}"></Button>
-                    <Button Content="{Binding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Refresh_Click}"></Button>
-                    <Button Content="{Binding Path=Res.Logout,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Logout_Click}"></Button>
-                </StackPanel>
+                <Grid DockPanel.Dock="Top" ColumnDefinitions="*,Auto" Margin="20 40 20 10">
+                    <StackPanel Spacing="10" Orientation="Horizontal">
+                        <Button Content="{Binding Path=Res.LocalAuth_AuthTrade_ConfirmAll,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding ConfirmAllButton_Click}" IsEnabled="{Binding IsConfirmationsEmpty}"></Button>
+                        <Button Content="{Binding Path=Res.LocalAuth_AuthTrade_CancelAll,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding CancelAllButton_Click}"  IsEnabled="{Binding IsConfirmationsEmpty}"></Button>
+                        <Button Content="{Binding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Refresh_Click}"></Button>
+                        <Button Content="{Binding Path=Res.Logout,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Logout_Click}"></Button>
+                    </StackPanel>
+                    <TextBlock Text="{Binding ConfirmationsConutMessage}" Grid.Column="1"
+                               VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"></TextBlock>
+                </Grid>
+                <Panel DockPanel.Dock="Bottom">
+                    <StackPanel IsVisible="{Binding IsLoading}" VerticalAlignment="Center" Spacing="15" Margin="20 0" x:Name="load">
+                        <!--<TextBlock x:Name="EmptyTip" IsVisible="{Binding !IsConfirmationsEmpty}"
+                                Text="{Binding Path=Res.LocalAuth_AuthTrade_ListNullTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                TextWrapping="WrapWithOverflow"
+                                VerticalAlignment="Center" HorizontalAlignment="Center">
+                        </TextBlock>-->
+                        <!--<i:Interaction.Behaviors>
+                            <ia:DataTriggerBehavior Binding="{Binding IsLoading}" ComparisonCondition="Equal" Value="True">
+                                <ia:ChangePropertyAction TargetObject="{Binding #EmptyTip}" PropertyName="IsVisible" Value="False"/>
+                                <ia:ChangePropertyAction TargetObject="{Binding #load}" PropertyName="IsVisible" Value="True"/>
+                            </ia:DataTriggerBehavior>
+                            <ia:DataTriggerBehavior Binding="{Binding IsLoading}" ComparisonCondition="Equal" Value="False">
+                                <ia:ChangePropertyAction TargetObject="{Binding #EmptyTip}" PropertyName="IsVisible" Value="True"/>
+                                <ia:ChangePropertyAction TargetObject="{Binding #load}" PropertyName="IsVisible" Value="False"/>
+                            </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>-->
+                        <ProgressBar IsIndeterminate="True" HorizontalAlignment="Stretch" DockPanel.Dock="Top">
+                        </ProgressBar>
+                        <TextBlock Text="{Binding Path=Res.LocalAuth_AuthTrade_GetTip,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Center" FontSize="14"></TextBlock>
+                    </StackPanel>
 
-                <TextBlock Grid.Column="1" Text="{Binding ConfirmationsConutMessage}" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"></TextBlock>
-            </Grid>
-            <ScrollViewer DockPanel.Dock="Bottom" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"  Padding="0 0 0 10">
-                <ItemsRepeater Items="{Binding Confirmations}">
-                    <ItemsRepeater.Layout>
-                        <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"  Padding="0 0 0 10">
+                        <ItemsRepeater Items="{Binding Confirmations}">
+                            <ItemsRepeater.Layout>
+                                <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
                                        MaximumRowsOrColumns="6" />-->
-                        <StackLayout Orientation="Vertical" Spacing="20"></StackLayout>
-                    </ItemsRepeater.Layout>
-                    <ItemsRepeater.ItemTemplate>
-                        <DataTemplate>
-                            <Panel x:Name="panel" MinWidth="100" Margin="20 0">
-                                <Border x:Name="card" Classes="paper" CornerRadius="0" Background="{DynamicResource ThemeBrushKey}">
-                                    <Grid Width="{Binding #panel.Width}"
-                                          ColumnDefinitions="Auto,Auto,*,Auto">
-                                        <Panel>
-                                            <Image Width="128" Height="128" Margin="10 0" Stretch="Uniform" Source="{Binding ImageStream,Converter={StaticResource BitmapAssetValueConverter}}"/>
-                                        </Panel>
-                                        <Panel Grid.Column="1" Margin="10,5">
-                                            <StackPanel>
-                                                <DockPanel LastChildFill="True">
-                                                    <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding Details}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand"></controls:ScrollingTextBlock>
-                                                </DockPanel>
+                                <StackLayout Orientation="Vertical" Spacing="20"></StackLayout>
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate>
+                                    <Panel x:Name="panel" MinWidth="100" Margin="20 0">
+                                        <Border x:Name="card" Classes="paper" CornerRadius="0" Background="{DynamicResource ThemeBrushKey}">
+                                            <Grid Width="{Binding #panel.Width}"
+                                                  ColumnDefinitions="Auto,Auto,*,Auto">
+                                                <Panel>
+                                                    <Image Width="128" Height="128" Margin="10 0" Stretch="Uniform" Source="{Binding ImageStream,Converter={StaticResource BitmapAssetValueConverter}}"/>
+                                                </Panel>
+                                                <Panel Grid.Column="1" Margin="10,5">
+                                                    <StackPanel>
+                                                        <DockPanel LastChildFill="True">
+                                                            <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding Details}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand"></controls:ScrollingTextBlock>
+                                                        </DockPanel>
 
-                                                <TextBlock Text="{Binding Traded}" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                                                <TextBlock Text="{Binding When}" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                                            </StackPanel>
-                                        </Panel>
-                                        <Grid Grid.Column="3" RowDefinitions="*,Auto">
-                                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 0 0 0">
-                                                <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{Binding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                                                    <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" FontSize="16" Background="{DynamicResource ThemeBrushKey}" Command="{Binding #u.DataContext.ConfirmTrade_Click}" CommandParameter="{Binding}"></Button>
-                                                </Border>
-                                                <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness="0 .66 0 0" ToolTip.Tip="{Binding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                                                    <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Stretch" FontSize="16" Command="{Binding #u.DataContext.CancelTrade_Click}" CommandParameter="{Binding}"></Button>
-                                                </Border>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Grid>
-                                </Border>
-                            </Panel>
-                        </DataTemplate>
-                    </ItemsRepeater.ItemTemplate>
-                </ItemsRepeater>
-            </ScrollViewer>
+                                                        <TextBlock Text="{Binding Traded}" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                                                        <TextBlock Text="{Binding When}" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                                                    </StackPanel>
+                                                </Panel>
+                                                <Grid Grid.Column="3" RowDefinitions="*,Auto">
+                                                    <Panel>
+                                                        <TextBlock x:Name="OperateText" IsVisible="{Binding IsOperate}" 
+                                                                   VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                                   FontSize="16" Margin="0 0 10 0">
+                                                            <i:Interaction.Behaviors>
+                                                                <ia:DataTriggerBehavior Binding="{Binding IsOperate}" ComparisonCondition="Equal" Value="1">
+                                                                    <ia:ChangePropertyAction TargetObject="{Binding #OperateText}" PropertyName="Text" Value="已确认"/>
+                                                                    <ia:ChangePropertyAction TargetObject="{Binding #OperatePanel}" PropertyName="IsVisible" Value="False"/>
+                                                                </ia:DataTriggerBehavior>
+                                                                <ia:DataTriggerBehavior Binding="{Binding IsOperate}" ComparisonCondition="Equal" Value="2">
+                                                                    <ia:ChangePropertyAction TargetObject="{Binding #OperateText}" PropertyName="Text" Value="已取消"/>
+                                                                    <ia:ChangePropertyAction TargetObject="{Binding #OperatePanel}" PropertyName="IsVisible" Value="False"/>
+                                                                </ia:DataTriggerBehavior>
+                                                                <ia:DataTriggerBehavior Binding="{Binding IsOperate}" ComparisonCondition="Equal" Value="0">
+                                                                    <ia:ChangePropertyAction TargetObject="{Binding #OperateText}" PropertyName="IsVisible" Value="False"/>
+                                                                    <ia:ChangePropertyAction TargetObject="{Binding #OperatePanel}" PropertyName="IsVisible" Value="True"/>
+                                                                </ia:DataTriggerBehavior>
+                                                            </i:Interaction.Behaviors>
+                                                        </TextBlock>
+                                                    </Panel>
+                                                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 0 0 0" IsVisible="True" x:Name="OperatePanel">
+                                                        <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{Binding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                                                            <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" FontSize="16" Background="{DynamicResource ThemeBrushKey}" Command="{Binding #u.DataContext.ConfirmTrade_Click}" CommandParameter="{Binding}"></Button>
+                                                        </Border>
+                                                        <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness="0 .66 0 0" ToolTip.Tip="{Binding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                                                            <Button Classes="flatbutton" Cursor="Hand" Content="{Binding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Stretch" FontSize="16" Command="{Binding #u.DataContext.CancelTrade_Click}" CommandParameter="{Binding}"></Button>
+                                                        </Border>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+                                    </Panel>
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                    </ScrollViewer>
+                </Panel>
             </DockPanel>
         </Panel>
-
         <!--Toast-->
         <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
     </Panel>

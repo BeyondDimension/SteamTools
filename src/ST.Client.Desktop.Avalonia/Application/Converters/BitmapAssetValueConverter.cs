@@ -18,6 +18,12 @@ namespace System.Application.Converters
         {
             if (value == null)
                 return null;
+            int width = 0;
+            if (parameter is string para)
+            {
+                if (int.TryParse(para, out int w))
+                    width = w;
+            }
 
             if (value is string rawUri)
             {
@@ -25,12 +31,12 @@ namespace System.Application.Converters
                 // Allow for assembly overrides
                 if (File.Exists(rawUri))
                 {
-                    return new Bitmap(rawUri);
+                    return GetDecodeBitmap(rawUri, width);
                 }
                 //在列表中使用此方法性能极差
                 else if (rawUri.StartsWith("http://") || rawUri.StartsWith("https://"))
                 {
-                    return DownloadImage(rawUri);
+                    return DownloadImage(rawUri, width);
                 }
                 else if (rawUri.StartsWith("avares://"))
                 {
@@ -43,12 +49,12 @@ namespace System.Application.Converters
                 }
                 var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
                 var asset = assets.Open(uri);
-                return new Bitmap(asset);
+                return GetDecodeBitmap(asset, width);
             }
             else if (value is Stream s)
             {
                 TryReset(s);
-                return new Bitmap(s);
+                return GetDecodeBitmap(s, width);
             }
             else if (value is ImageClipStream ics)
             {
@@ -60,17 +66,17 @@ namespace System.Application.Converters
                 {
                     return null;
                 }
-                return DownloadImage(ImageUrlHelper.GetImageApiUrlById(imageid));
+                return DownloadImage(ImageUrlHelper.GetImageApiUrlById(imageid), width);
             }
             throw new NotSupportedException();
         }
 
-        static Bitmap DownloadImage(string url)
+        static Bitmap DownloadImage(string url, int width = 0)
         {
             using var web = new WebClient();
             var bt = web.DownloadData(url);
             using var stream = new MemoryStream(bt);
-            return new Bitmap(stream);
+            return GetDecodeBitmap(stream, width);
         }
 
         static void TryReset(Stream s)
@@ -84,7 +90,7 @@ namespace System.Application.Converters
             }
         }
 
-        static Bitmap GetBitmap(ImageClipStream ics)
+        static Bitmap GetBitmap(ImageClipStream ics, int width = 0)
         {
             TryReset(ics.Stream);
             using var ms = new MemoryStream();
@@ -115,7 +121,21 @@ namespace System.Application.Converters
             //    TryReset(stream);
             //}
 
-            return new Bitmap(stream);
+            return GetDecodeBitmap(stream, width);
+        }
+
+        static Bitmap GetDecodeBitmap(Stream s, int width)
+        {
+            if (width < 1)
+            {
+                return new Bitmap(s);
+            }
+            return Bitmap.DecodeToWidth(s, width, Avalonia.Visuals.Media.Imaging.BitmapInterpolationMode.MediumQuality);
+        }
+
+        static Bitmap GetDecodeBitmap(string s, int width)
+        {
+            return GetDecodeBitmap(File.OpenRead(s), width);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

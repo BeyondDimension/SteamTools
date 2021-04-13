@@ -42,6 +42,7 @@ namespace System.Application.UI.ViewModels
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_SteamAuthTrade;
 
             Refresh_Click();
+
         }
 
         #region LoginData
@@ -146,8 +147,8 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// Trade info state
         /// </summary>
-        private ICollection<WinAuthSteamClient.Confirmation>? _Confirmations;
-        public ICollection<WinAuthSteamClient.Confirmation>? Confirmations
+        private IList<WinAuthSteamClient.Confirmation> _Confirmations = new List<WinAuthSteamClient.Confirmation>();
+        public IList<WinAuthSteamClient.Confirmation> Confirmations
         {
             get => this._Confirmations;
             set
@@ -156,9 +157,23 @@ namespace System.Application.UI.ViewModels
                 {
                     this._Confirmations = value;
 
+                    this.RaisePropertyChanged();
                     this.RaisePropertyChanged(nameof(IsConfirmationsEmpty));
                     this.RaisePropertyChanged(nameof(ConfirmationsConutMessage));
+                }
+            }
+        }
+        private bool _IsLoading;
+        public bool IsLoading
+        {
+            get => this._IsLoading;
+            set
+            {
+                if (this._IsLoading != value)
+                {
+                    this._IsLoading = value;
                     this.RaisePropertyChanged();
+                    this.RaisePropertyChanged(nameof(ConfirmationsConutMessage));
                 }
             }
         }
@@ -172,9 +187,13 @@ namespace System.Application.UI.ViewModels
         {
             get
             {
-                if (!this.Confirmations.Any_Nullable())
+                if (IsLoading)
                 {
-                    return "";
+                    return string.Empty;
+                }
+                if (!IsConfirmationsEmpty)
+                {
+                    return AppResources.LocalAuth_AuthTrade_ListNullTip;
                 }
                 return string.Format(AppResources.LocalAuth_AuthTrade_ListCountTip, this.Confirmations.Count);
             }
@@ -207,6 +226,13 @@ namespace System.Application.UI.ViewModels
                 Process();
             }
         }
+
+        private void RefreshConfirmationsList()
+        {
+            if (!Confirmations.Any(s => s.IsOperate == 0))
+                Confirmations = new List<WinAuthSteamClient.Confirmation>();
+        }
+
         public void Logout_Click()
         {
             var steam = this._Authenticator.GetClient();
@@ -222,11 +248,16 @@ namespace System.Application.UI.ViewModels
 
         private void Process(string? captchaId = null, string? codeChar = null)
         {
+            if (IsLoading)
+                return;
             Task.Run(() =>
             {
+                Thread.CurrentThread.IsBackground = true;
+                IsLoading = true;
                 var steam = _Authenticator.GetClient();
-                if (!steam.IsLoggedIn())
+                if (!IsLoggedIn)
                 {
+                    IsLoading = false;
                     ToastService.Current.Set(AppResources.Logining);
                     //ToastService.Current.Notify(AppResources.Logining);
                     if (steam.Login(UserName, Password, captchaId, codeChar, R.GetCurrentCultureSteamLanguageName()) == false)
@@ -268,7 +299,8 @@ namespace System.Application.UI.ViewModels
                 }
                 try
                 {
-                    ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_GetTip);
+                    IsLoading = true;
+                    //ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_GetTip);
 
                     Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(steam.GetConfirmations());
 
@@ -282,11 +314,13 @@ namespace System.Application.UI.ViewModels
                     {
                         AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
                     }
+                    IsLoading = false;
                 }
                 catch (WinAuthUnauthorisedSteamRequestException)
                 {
                     // Family view is probably on
                     ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_GetError);
+                    IsLoading = false;
                     return;
                 }
                 catch (WinAuthInvalidSteamRequestException)
@@ -301,12 +335,14 @@ namespace System.Application.UI.ViewModels
                         {
                             confirmation.ImageStream = await IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
                         });
+                        IsLoading = false;
                     }
                     catch (Exception ex)
                     {
                         // reset and show normal login
                         Log.Error(nameof(Process), ex, "可能是没有开加速器导致无法连接Steam社区登录地址");
                         ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_GetError2);
+                        IsLoading = false;
                         //steam.Clear();
                         return;
                     }
@@ -338,7 +374,9 @@ namespace System.Application.UI.ViewModels
                     ToastService.Current.Notify($"{(accept ? AppResources.Agree : AppResources.Cancel)}{trade.Details}");
                     MainThreadDesktop.BeginInvokeOnMainThread(() =>
                     {
-                        Confirmations.Remove(trade);
+                        trade.IsOperate = accept ? 1 : 2;
+                        RefreshConfirmationsList();
+                        //Confirmations.Remove(trade);
                     });
                     //Refresh_Click();
                 }
@@ -368,6 +406,7 @@ namespace System.Application.UI.ViewModels
                 {
                     //throw new ApplicationException(AppResources.LocalAuth_AuthTrade_ConfirmError);
                     ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_ConfirmError);
+                    return false;
                 }
 
                 return true;
@@ -407,8 +446,9 @@ namespace System.Application.UI.ViewModels
                 });
                 if (result == false)
                 {
-                    //throw new ApplicationException(AppResources.LocalAuth_AuthTrade_ConfirmError);
-                    ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_ConfirmError);
+                    //throw new ApplicationException(AppResources.LocalAuth_AuthTrade_CancelError);
+                    ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_CancelError);
+                    return false;
                 }
 
                 return true;
@@ -437,7 +477,7 @@ namespace System.Application.UI.ViewModels
             OperationTrades(false);
         }
 
-        private void OperationTrades(bool accept)
+        private async void OperationTrades(bool accept)
         {
             if (!Confirmations.Any_Nullable())
             {
@@ -457,18 +497,17 @@ namespace System.Application.UI.ViewModels
 
             var str = (accept ? AppResources.Agree : AppResources.Cancel);
 
-            var result = MessageBoxCompat.ShowAsync(string.Format(AppResources.LocalAuth_AuthTrade_MessageBoxTip, str), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
-             {
-                 if (s.Result == MessageBoxResultCompat.OK)
-                 {
-                     ToastService.Current.Set(string.Format(AppResources.LocalAuth_AuthTrade_ConfirmTip, str));
+            var result = await MessageBoxCompat.ShowAsync(string.Format(AppResources.LocalAuth_AuthTrade_MessageBoxTip, str), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
 
-                     if (accept)
-                         AcceptAllTrade();
-                     else
-                         RejectAllTrade();
-                 }
-             });
+            if (result == MessageBoxResultCompat.OK)
+            {
+                ToastService.Current.Set(string.Format(AppResources.LocalAuth_AuthTrade_ConfirmTip, str));
+
+                if (accept)
+                    AcceptAllTrade();
+                else
+                    RejectAllTrade();
+            }
         }
 
         private async void AcceptAllTrade()
@@ -483,37 +522,46 @@ namespace System.Application.UI.ViewModels
 
             try
             {
-                var trades = Confirmations.Reverse().ToArray();
-                for (var i = trades.Length - 1; i >= 0; i--)
+                for (var i = 0; i < Confirmations.Count; i--)
                 {
                     if (CancelComfirmAll.IsCancellationRequested)
                     {
                         return;
                     }
+
+                    if (Confirmations[i].IsOperate != 0)
+                    {
+                        continue;
+                    }
+
                     DateTime start = DateTime.Now;
 
-                    var result = await AcceptTrade(trades[i]);
+                    var result = await AcceptTrade(Confirmations[i]);
                     if (result == false || CancelComfirmAll.IsCancellationRequested == true)
                     {
                         return;
                     }
                     await MainThreadDesktop.InvokeOnMainThreadAsync(() =>
                     {
-                        Confirmations.Remove(trades[i]);
+                        Confirmations[i].IsOperate = 1;
+                        //Confirmations.Remove(trades[i]);
                     });
-                    var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
-                    var delay = WinAuthSteamClient.CONFIRMATION_EVENT_DELAY + Random2.Next(WinAuthSteamClient.CONFIRMATION_EVENT_DELAY / 2); // delay is 100%-150% of CONFIRMATION_EVENT_DELAY
-                    if (delay > duration)
+                    if (i != Confirmations.Count - 1)
                     {
-                        await Task.Delay(delay - duration);
+                        var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
+                        var delay = WinAuthSteamClient.CONFIRMATION_EVENT_DELAY + Random2.Next(WinAuthSteamClient.CONFIRMATION_EVENT_DELAY / 2); // delay is 100%-150% of CONFIRMATION_EVENT_DELAY
+                        if (delay > duration)
+                        {
+                            await Task.Delay(delay - duration);
+                        }
                     }
                 }
             }
             finally
             {
                 CancelComfirmAll = null;
+                RefreshConfirmationsList();
                 ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_ConfirmSuccess);
-
                 AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
             }
         }
@@ -530,26 +578,31 @@ namespace System.Application.UI.ViewModels
 
             try
             {
-                var tradeIds = Confirmations.Reverse().ToArray();
-                for (var i = tradeIds.Length - 1; i >= 0; i--)
+                for (var i = 0; i < Confirmations.Count; i--)
                 {
                     if (CancelCancelAll.IsCancellationRequested)
                     {
                         break;
                     }
 
+                    if (Confirmations[i].IsOperate != 0)
+                    {
+                        continue;
+                    }
+
                     DateTime start = DateTime.Now;
 
-                    var result = await RejectTrade(tradeIds[i]);
+                    var result = await RejectTrade(Confirmations[i]);
                     if (result == false || CancelCancelAll.IsCancellationRequested == true)
                     {
                         break;
                     }
                     await MainThreadDesktop.InvokeOnMainThreadAsync(() =>
                     {
-                        Confirmations.Remove(tradeIds[i]);
+                        Confirmations[i].IsOperate = 2;
+                        //Confirmations.Remove(tradeIds[i]);
                     });
-                    if (i != 0)
+                    if (i != Confirmations.Count - 1)
                     {
                         var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
                         var delay = WinAuthSteamClient.CONFIRMATION_EVENT_DELAY + Random2.Next(WinAuthSteamClient.CONFIRMATION_EVENT_DELAY / 2); // delay is 100%-150% of CONFIRMATION_EVENT_DELAY
@@ -563,6 +616,7 @@ namespace System.Application.UI.ViewModels
             finally
             {
                 CancelCancelAll = null;
+                RefreshConfirmationsList();
                 ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_ConfirmCancel);
                 AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
             }

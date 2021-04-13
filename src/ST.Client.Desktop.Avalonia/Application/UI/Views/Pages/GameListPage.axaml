@@ -35,11 +35,11 @@
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Top">
                                 <Image
-                                        Source="{Binding SelectApp.LibraryHeaderStream,Converter={StaticResource BitmapAssetValueConverter}}"
+                                        Source="{Binding SelectApp.LibraryHeaderStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=500}"
                                         Stretch="Uniform"
                                         Width="500"></Image>
                                 <Image
-                                       Source="{Binding SelectApp.LibraryNameStream,Converter={StaticResource BitmapAssetValueConverter}}"
+                                       Source="{Binding SelectApp.LibraryNameStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}"
                                        Stretch="Uniform" Width="200" Margin="20 0 0 10"
                                        VerticalAlignment="Bottom"
                                        HorizontalAlignment="Left">
@@ -70,11 +70,11 @@
                                             </ia:EventTriggerBehavior>
                                         </i:Interaction.Behaviors>
                                         <Panel Width="200" Height="300">
-                                            <Image Stretch="UniformToFill" Source="{Binding DefaultLibraryLogo,Converter={StaticResource BitmapAssetValueConverter}}"/>
-                                            <Image Stretch="UniformToFill" Source="{Binding LibraryLogoStream,Converter={StaticResource BitmapAssetValueConverter}}" IsVisible="{Binding !LibraryLogoStream,Converter={StaticResource IsNullConverter}}"/>
+                                            <Image Stretch="UniformToFill" Source="{Binding DefaultLibraryLogo,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}"/>
+                                            <Image Stretch="UniformToFill" Source="{Binding LibraryLogoStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}" IsVisible="{Binding !LibraryLogoStream,Converter={StaticResource IsNullConverter}}"/>
 
                                             <Panel Width="200" IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}">
-                                                <Image Stretch="Uniform" Source="{Binding HeaderLogoStream,Converter={StaticResource BitmapAssetValueConverter}}" Opacity="0.8" IsVisible="{Binding !HeaderLogoStream,Converter={StaticResource IsNullConverter}}"/>
+                                                <Image Stretch="Uniform" Source="{Binding HeaderLogoStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}" Opacity="0.8" IsVisible="{Binding !HeaderLogoStream,Converter={StaticResource IsNullConverter}}"/>
 
                                                 <TextBlock
                                                     Text="{Binding DisplayName}"
