@@ -19,7 +19,7 @@
         Title="{Binding Title}">
     <Panel>
         <controls:TitleBar />
-            <Panel Margin="{StaticResource ContentMargin}">
+            <Panel>
             <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsLoading}"/>
             <Grid RowDefinitions="*,Auto" IsVisible="{Binding !IsLoading}">
                 <StackPanel VerticalAlignment="Center" Spacing="8" IsVisible="{Binding !IsLoading}" Margin="60 0">
