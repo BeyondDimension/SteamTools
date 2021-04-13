@@ -14,11 +14,13 @@ namespace System.Application.Services.CloudService
     {
         readonly IToast toast;
         readonly IModelValidator validator;
+        readonly ICloudServiceClient real;
 
-        public MockCloudServiceClient(IToast toast, IModelValidator validator)
+        public MockCloudServiceClient(IToast toast, IModelValidator validator, CloudServiceClientBase real)
         {
             this.toast = toast;
             this.validator = validator;
+            this.real = real;
         }
 
         public string ApiBaseUrl => DefaultApiBaseUrl;
@@ -117,7 +119,7 @@ namespace System.Application.Services.CloudService
 
         public Task<HttpResponseMessage> Forward(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return real.Forward(request, completionOption, cancellationToken);
         }
 
         public async Task<IApiResponse<LoginOrRegisterResponse>> LoginOrRegister(LoginOrRegisterRequest request)

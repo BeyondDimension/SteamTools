@@ -20,6 +20,19 @@ namespace Microsoft.Extensions.DependencyInjection
             where T : CloudServiceClientBase
         {
             services.TryAddHttpPlatformHelper();
+            services.AddHttpClient(CloudServiceClientBase.ClientName_, (s, c) =>
+            {
+                var sc = s.GetRequiredService<CloudServiceClientBase>();
+                c.Timeout = ThisAssembly.Debuggable ? TimeSpan.FromSeconds(29) : TimeSpan.FromSeconds(19); // 19s
+                c.BaseAddress = new Uri(sc.ApiBaseUrl);
+                c.DefaultRequestHeaders.UserAgent.ParseAdd(sc.UserAgent);
+                c.DefaultRequestHeaders.Add(Constants.Headers.Request.AppVersion, sc.Settings.AppVersion.ToStringN());
+#if NETCOREAPP3_0_OR_GREATER
+                c.DefaultRequestVersion = System.Net.HttpVersion.Version20;
+#endif
+            });
+            services.TryAddSingleton<T>();
+            services.TryAddSingleton<CloudServiceClientBase>(s => s.GetRequiredService<T>());
             if (useMock && ThisAssembly.Debuggable)
             {
 #if DEBUG
@@ -30,20 +43,7 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             else
             {
-                services.AddHttpClient(CloudServiceClientBase.ClientName_, (s, c) =>
-                {
-                    var sc = s.GetRequiredService<CloudServiceClientBase>();
-                    c.Timeout = ThisAssembly.Debuggable ? TimeSpan.FromSeconds(29) : TimeSpan.FromSeconds(19); // 19s
-                    c.BaseAddress = new Uri(sc.ApiBaseUrl);
-                    c.DefaultRequestHeaders.UserAgent.ParseAdd(sc.UserAgent);
-                    c.DefaultRequestHeaders.Add(Constants.Headers.Request.AppVersion, sc.Settings.AppVersion.ToStringN());
-#if NETCOREAPP3_0_OR_GREATER
-                    c.DefaultRequestVersion = System.Net.HttpVersion.Version20;
-#endif
-                });
-                services.TryAddSingleton<T>();
                 services.TryAddSingleton<ICloudServiceClient>(s => s.GetRequiredService<T>());
-                services.TryAddSingleton<CloudServiceClientBase>(s => s.GetRequiredService<T>());
             }
             return services;
         }

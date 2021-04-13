@@ -34,7 +34,7 @@ namespace System.Application.Services.Implementation
         /// <summary>
         /// 启用转发
         /// </summary>
-        static readonly bool EnableForward = !ThisAssembly.Debuggable;
+        static readonly bool EnableForward = true;
 
         public async Task<T?> GetAsync<T>(
             string requestUri,

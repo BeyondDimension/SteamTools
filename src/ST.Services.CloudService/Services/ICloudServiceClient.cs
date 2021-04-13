@@ -11,8 +11,9 @@ namespace System.Application.Services
 {
     public interface ICloudServiceClient
     {
-        protected const string DefaultApiBaseUrl = ThisAssembly.Debuggable ?
-            "https://steamtools-api.chinacloudsites.cn" :
+        protected const string DefaultApiBaseUrl =
+            //ThisAssembly.Debuggable ?
+            //Const.Prefix_HTTPS + "pan.mossimo.net:7070" :
             Const.Prefix_HTTPS + "api.steampp.net";
 
         string ApiBaseUrl { get; }
