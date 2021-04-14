@@ -60,15 +60,12 @@ namespace System.Application.Serialization
             }
         }
 
-        protected SerializablePropertyBase(string key, ISerializationProvider provider) : this(key, provider, default(T)) { }
+        protected SerializablePropertyBase(string key, ISerializationProvider provider) : this(key, provider, default) { }
 
         protected SerializablePropertyBase(string key, ISerializationProvider provider, T defaultValue)
         {
-            if (key == null) throw new ArgumentNullException(nameof(key));
-            if (provider == null) throw new ArgumentNullException(nameof(provider));
-
-            this.Key = key;
-            this.Provider = provider;
+            this.Key = key ?? throw new ArgumentNullException(nameof(key));
+            this.Provider = provider ?? throw new ArgumentNullException(nameof(provider));
             this.Default = defaultValue;
 
             this.Provider.Reloaded += (sender, args) =>
@@ -121,7 +118,7 @@ namespace System.Application.Serialization
             {
                 if (this.Provider.RemoveValue(this.Key))
                 {
-                    this._value = default(T);
+                    this._value = default;
                     this._cached = false;
                     this.OnValueChanged(DeserializeCore(old), this.Default);
 

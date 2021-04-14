@@ -40,7 +40,7 @@
                 </StackPanel>
 
                 <Button Content="{ReflectionBinding Path=Res.Login,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                        HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" 
+                        HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
                         Command="{ReflectionBinding LoginButton_Click,Mode=OneTime}">
                 </Button>
             </StackPanel>
@@ -76,8 +76,8 @@
                                 <ia:ChangePropertyAction TargetObject="{Binding #load}" PropertyName="IsVisible" Value="False"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>-->
-                        <ProgressBar IsIndeterminate="True" HorizontalAlignment="Stretch" DockPanel.Dock="Top">
-                        </ProgressBar>
+                        <controls:ProgressRing IsIndeterminate="True" HorizontalAlignment="Stretch" Height="100" Width="100">
+                        </controls:ProgressRing>
                         <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_GetTip,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Center" FontSize="14"></TextBlock>
                     </StackPanel>
 
@@ -110,8 +110,8 @@
                                                 </Panel>
                                                 <Grid Grid.Column="3" RowDefinitions="*,Auto">
                                                     <Panel>
-                                                        <TextBlock x:Name="OperateText" IsVisible="{Binding IsOperate}" 
-                                                                   VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                        <TextBlock x:Name="OperateText" IsVisible="{Binding IsOperate}"
+                                                                   VerticalAlignment="Center" HorizontalAlignment="Center"
                                                                    FontSize="16" Margin="0 0 10 0">
                                                             <i:Interaction.Behaviors>
                                                                 <ia:DataTriggerBehavior Binding="{Binding IsOperate}" ComparisonCondition="Equal" Value="1">

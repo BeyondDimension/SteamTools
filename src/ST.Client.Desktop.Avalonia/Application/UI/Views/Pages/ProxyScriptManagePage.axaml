@@ -27,7 +27,7 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <TextBox Watermark="{Binding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="" VerticalAlignment="Center" MinWidth="300">
+                        <TextBox Watermark="{Binding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{CompiledBinding SerachText,Mode=TwoWay}" VerticalAlignment="Center" MinWidth="300">
                             <TextBox.InnerLeftContent>
                                 <PathIcon Data="{StaticResource SearchDrawing}"
                                           Width="20" Height="20"
@@ -42,7 +42,7 @@
                 </DockPanel>
             </Border>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" Padding="20 0">
-                <ItemsRepeater Items="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyScripts,Mode=OneWay}">
+                <ItemsRepeater Items="{Binding ProxyScripts,Mode=OneWay}">
                     <ItemsRepeater.Layout>
                         <WrapLayout VerticalSpacing="20" HorizontalSpacing="20" Orientation="Horizontal"/>
                     </ItemsRepeater.Layout>
@@ -55,7 +55,7 @@
                                         <DockPanel>
                                             <controls:ScrollingTextBlock
                                                 Width="{Binding $parent.Width}"
-                                                Text="{Binding Name}"
+                                                Text="{Binding Name,Mode=OneWay}"
                                                 FontSize="16"
                                                 VerticalAlignment="Center"
                                                 Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
@@ -86,7 +86,7 @@
 
 
                                         <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Bottom">
-                                            <ToggleSwitch OnContent="" OffContent="">
+                                            <ToggleSwitch OnContent="" OffContent="" IsChecked="{Binding Enable}">
                                             </ToggleSwitch>
                                             <Button Background="Transparent" Cursor="Hand">
                                                 <PathIcon Width="20" Data="{StaticResource CodeDrawing}" />

@@ -1,6 +1,6 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:System.Application.UI.Views.Controls">
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls">
     <Design.PreviewWith>
         <Border Padding="10">
             <controls:ProgressRing IsIndeterminate="True" Height="100" Width="100">
@@ -8,15 +8,15 @@
         </Border>
     </Design.PreviewWith>
     <Styles.Resources>
-        <SolidColorBrush x:Key="ProgressRingForeground" Color="{StaticResource ThemeAccentBrushKey}"/>
+        <Easing x:Key="FluentEasing">0.4,0,0.6,1</Easing>
+        <KeySpline x:Key="FluentKeySpline">0.4,0,0.6,1</KeySpline>
     </Styles.Resources>
     <Style Selector="controls|ProgressRing">
-        <Setter Property="Foreground" Value="{StaticResource ProgressRingForeground}"/>
-        <Setter Property="Background" Value="{DynamicResource InactiveBorderBrushKey}"/>
+        <Setter Property="Foreground" Value="{StaticResource ThemeAccentBrushKey}"/>
+        <Setter Property="Background" Value="{DynamicResource SemiactiveBackgroundBrushKey}"/>
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel>
-
                     <controls:ProgressRingArc StrokeThickness="{TemplateBinding StrokeThickness}"
                                      SegmentColor="{TemplateBinding Background}"/>
 

@@ -29,7 +29,7 @@ namespace System.Application.Services.CloudService
                 },
                 new ScriptDTO
                 {
-                    Name = "GM",
+                    Name = "ABC",
                     Version = "0.1",
                     Author = "软妹币玩家",
                     Enable = false,
@@ -37,7 +37,7 @@ namespace System.Application.Services.CloudService
                 },
                 new ScriptDTO
                 {
-                    Name = "GM",
+                    Name = "测试",
                     Version = "0.1",
                     Author = "软妹币玩家",
                     Enable = false,

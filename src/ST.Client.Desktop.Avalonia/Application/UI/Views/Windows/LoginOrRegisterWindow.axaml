@@ -22,8 +22,9 @@
         Title="{Binding Title}">
     <Panel>
         <controls:TitleBar />
-            <Panel>
-            <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsLoading}"/>
+        <Panel>
+            <controls:ProgressRing IsIndeterminate="True" HorizontalAlignment="Stretch" Height="100" Width="100" IsVisible="{Binding IsLoading}">
+            </controls:ProgressRing>
             <Grid RowDefinitions="*,Auto" IsVisible="{Binding !IsLoading}">
                 <StackPanel VerticalAlignment="Center" Spacing="8" IsVisible="{Binding !IsLoading}" Margin="60 0">
                     <Image Source="/Application/UI/Assets/Icon9.ico" Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25">

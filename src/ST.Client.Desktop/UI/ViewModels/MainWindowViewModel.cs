@@ -98,6 +98,7 @@ namespace System.Application.UI.ViewModels
 
         public async void Initialize()
         {
+            Threading.Thread.CurrentThread.IsBackground = true;
             SteamConnectService.Current.Initialize();
             ProxyService.Current.Initialize();
             AuthService.Current.Initialize();
@@ -106,9 +107,8 @@ namespace System.Application.UI.ViewModels
             {
                 Parallel.ForEach(TabItems, item =>
                 {
-                    //if (item == GameListPage)
-                    //    return;
                     item.Initialize();
+                    //Task.Run(item.Initialize).ForgetAndDispose();
                 });
                 this.IsInitialized = true;
             }

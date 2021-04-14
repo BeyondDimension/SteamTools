@@ -1,6 +1,6 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:System.Application.UI.Views.Controls">
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls">
     <Design.PreviewWith>
         <Border Padding="10">
             <controls:ProgressRingArc IsIndeterminate="True" Width="30" Height="30">

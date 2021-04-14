@@ -27,4 +27,6 @@
   <StyleInclude Source="/Application/UI/Styles/Controls/ListBox.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/DataGrid.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/DatePicker.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Controls/ProgressRingArc.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Controls/ProgressRing.xaml" />
 </Styles>
