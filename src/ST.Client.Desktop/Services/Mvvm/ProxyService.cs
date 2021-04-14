@@ -242,5 +242,10 @@ namespace System.Application.Services
             IHostsFileService.OnExitRestoreHosts();
             httpProxyService.Dispose();
         }
+
+        public void AddNewScript(string filename)
+        {
+
+        }
     }
 }

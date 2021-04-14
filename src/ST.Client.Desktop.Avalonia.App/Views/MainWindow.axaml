@@ -6,20 +6,23 @@
         d:DesignWidth="1200" Width="1200" MinWidth="800"
         d:DesignHeight="600" Height="800" MinHeight="600"
         xmlns:local="clr-namespace:System.Application.UI.Views;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
+        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
         x:Class="System.Application.UI.Views.MainWindow"
         x:Name="MainWindow"
         WindowStartupLocation="CenterScreen"
         ExtendClientAreaTitleBarHeightHint="50"
         Background="{x:Null}"
         Title="{Binding Title,Mode=OneWay}"
-        Topmost="{Binding Topmost}">
-  <Window.Styles>
-    <Style Selector="TitleBar:fullscreen">
-      <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
-    </Style>
-  </Window.Styles>
+        Topmost="{Binding Topmost}"
+        x:DataType="vm:MainWindowViewModel"
+        x:CompileBindings="True">
+    <Window.Styles>
+        <Style Selector="TitleBar:fullscreen">
+            <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
+        </Style>
+    </Window.Styles>
 
-  <Panel Margin="{Binding #MainWindow.OffScreenMargin}">
-    <local:MainView />
-  </Panel>
+    <Panel Margin="{Binding #MainWindow.OffScreenMargin}">
+        <local:MainView DataContext="{Binding}"/>
+    </Panel>
 </Window>

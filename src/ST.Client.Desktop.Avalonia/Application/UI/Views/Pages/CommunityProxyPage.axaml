@@ -10,10 +10,11 @@
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              x:Name="u"
+             x:DataType="vm:CommunityProxyPageViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.CommunityProxyPage">
     <Panel HorizontalAlignment="Stretch">
-        <Grid IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=!ProxyStatus,Mode=OneWay}"
+        <Grid IsVisible="{ReflectionBinding Source={x:Static service:ProxyService.Current},Path=!ProxyStatus,Mode=OneWay}"
               ColumnDefinitions="Auto,*"
               RowDefinitions="Auto,*">
             <!--<Border Margin="10 0 10 10" Padding="20" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
@@ -100,7 +101,7 @@
                             </DockPanel>
 
                             <ScrollViewer>
-                                <ItemsControl Items="{Binding #items.SelectedItem.ObservableItems}">
+                                <ItemsControl Items="{ReflectionBinding #items.SelectedItem.ObservableItems}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel>
@@ -140,7 +141,7 @@
                     <DockPanel MinWidth="350">
                         <TextBlock Text="启用的加速服务" FontSize="16" DockPanel.Dock="Top"></TextBlock>
                         <ScrollViewer>
-                            <ItemsControl Items="{Binding EnableProxyDomains,Source={x:Static service:ProxyService.Current}}">
+                            <ItemsControl Items="{ReflectionBinding EnableProxyDomains,Source={x:Static service:ProxyService.Current}}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Margin="10">
@@ -160,7 +161,7 @@
                     <DockPanel MinWidth="350">
                         <TextBlock Text="启用的脚本服务" FontSize="16" DockPanel.Dock="Top"></TextBlock>
                         <ScrollViewer>
-                            <ItemsControl Items="{Binding EnableProxyScripts,Source={x:Static service:ProxyService.Current}}">
+                            <ItemsControl Items="{ReflectionBinding EnableProxyScripts,Source={x:Static service:ProxyService.Current}}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Margin="10">

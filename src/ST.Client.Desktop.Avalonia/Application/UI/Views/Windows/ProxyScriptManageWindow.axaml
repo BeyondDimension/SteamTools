@@ -12,8 +12,10 @@
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
-        Title="{Binding Title}">
-    <Panel MaxWidth="{Binding $parent.MaxWidth}">
+        Title="{Binding Title}"
+        x:DataType="vm:MainWindowViewModel"
+        x:CompileBindings="True">
+    <Panel HorizontalAlignment="Stretch">
         <controls:TitleBar></controls:TitleBar>
         
     </Panel>

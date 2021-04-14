@@ -37,6 +37,15 @@ namespace System.Application.UI.ViewModels
                    new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)),
                    new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)),
             };
+        }
+
+        public void UpdateAllScript() 
+        {
+
+        }
+
+        public void UpdateScript()
+        {
 
         }
     }

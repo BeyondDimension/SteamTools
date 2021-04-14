@@ -1244,7 +1244,7 @@ namespace WinAuth
                     request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
                     request.ContentLength = query.Length;
 
-                    StreamWriter requestStream = new StreamWriter(request.GetRequestStream());
+                    StreamWriter requestStream = new(request.GetRequestStream());
                     requestStream.Write(query);
                     requestStream.Close();
                 }
@@ -1262,7 +1262,7 @@ namespace WinAuth
                         }
 
                         // load the response
-                        using (MemoryStream ms = new MemoryStream())
+                        using (MemoryStream ms = new())
                         {
                             byte[] buffer = new byte[4096];
                             int read;

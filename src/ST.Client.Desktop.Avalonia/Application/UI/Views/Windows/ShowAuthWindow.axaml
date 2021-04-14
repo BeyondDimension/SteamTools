@@ -12,24 +12,26 @@
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
-        Title="{Binding Title}">
-    <Panel MaxWidth="{Binding $parent.MaxWidth}">
+        Title="{Binding Title}"
+        x:DataType="vm:ShowAuthWindowViewModel"
+        x:CompileBindings="True">
+    <Panel HorizontalAlignment="Stretch">
         <controls:TitleBar></controls:TitleBar>
         
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0 30 0 0" Padding="10" MaxWidth="{Binding $parent.MaxWidth}">
             <StackPanel>
-                <TextBlock Text="{Binding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                <TextBlock Text="{ReflectionBinding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
                      FontSize="30"
                      Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-                <TextBlock Text="{Binding Path=Res.LocalAuth_ShowSteamAuthTip2,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ShowSteamAuthTip2,Mode=OneWay,Source={x:Static resx:R.Current}}"
                          FontSize="16"  TextWrapping="WrapWithOverflow"/>
 
                 <DockPanel>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}{0}：}"
+                    <TextBlock VerticalAlignment="Center" Text="{ReflectionBinding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}{0}：}"
                      FontSize="20"
                      Foreground="{DynamicResource ActiveForegroundBrushKey}" />
 
-                    <TextBox FontSize="20" BorderThickness="0" Text="{Binding RecoveryCode,Mode=OneWay}" IsReadOnly="True"></TextBox>
+                    <TextBox FontSize="20" BorderThickness="0" Text="{Binding RecoveryCode,Mode=OneTime}" IsReadOnly="True"></TextBox>
                 </DockPanel>
 
                 <StackPanel Margin="0,12">
@@ -37,11 +39,11 @@
                 </StackPanel>
 
 
-                <TextBlock Text="{Binding Path=Res.LocalAuth_ShowSteamAuthTip1,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+                <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ShowSteamAuthTip1,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
                 <DockPanel>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.LocalAuth_SteamUUID,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                    <TextBlock VerticalAlignment="Center" Text="{ReflectionBinding Path=Res.LocalAuth_SteamUUID,Mode=OneWay,Source={x:Static resx:R.Current}}"
                      Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-                    <TextBox BorderThickness="0" Text="{Binding DeviceId,Mode=OneWay}" IsReadOnly="True"></TextBox>
+                    <TextBox BorderThickness="0" Text="{Binding DeviceId,Mode=OneTime}" IsReadOnly="True"></TextBox>
                 </DockPanel>
 
                 <StackPanel Margin="0,12">
@@ -49,7 +51,7 @@
                 </StackPanel>
                 
                 <TextBlock Text="SteamGuard："></TextBlock>
-                <TextBox BorderThickness="0" Text="{Binding SteamData,Mode=OneWay}" IsReadOnly="True" Height="150" AcceptsReturn="True" TextWrapping="Wrap" MaxWidth="{Binding $parent.MaxWidth}"></TextBox>
+                <TextBox BorderThickness="0" Text="{Binding SteamData,Mode=OneTime}" IsReadOnly="True" Height="150" AcceptsReturn="True" TextWrapping="Wrap" MaxWidth="{ReflectionBinding $parent.MaxWidth}"></TextBox>
             </StackPanel>
         </ScrollViewer>
     </Panel>

@@ -22,17 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaResource Remove="Application\UI\Assets\AppResources\app.png" />
-    <AvaloniaResource Remove="Application\UI\Styles\Controls\Separator.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AvaloniaXaml Include="Application\UI\Styles\Controls\Separator.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaXaml>
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
@@ -63,30 +52,4 @@
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0013694-beta" />
   </ItemGroup>
 
-  <ItemGroup>
-    <AvaloniaResource Update="Application\UI\Styles\Controls\DataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Application\UI\Styles\Controls\FontSizes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Application\UI\Styles\Controls\ListBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Application\UI\Styles\ThemeAccent.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Application\UI\Views\Pages\ProxyScriptManagePage.axaml.cs">
-      <DependentUpon>ProxyScriptManagePage.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Application\UI\Views\Windows\LoginOrRegisterWindow.axaml.cs">
-      <DependentUpon>LoginOrRegisterWindow.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Application\UI\Views\Windows\ProxyScriptManageWindow.axaml.cs">
-      <DependentUpon>ProxyScriptManageWindow.axaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
 </Project>

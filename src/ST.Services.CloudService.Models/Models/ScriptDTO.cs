@@ -1,5 +1,8 @@
 ﻿#if MVVM_VM
 using ReactiveUI;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Linq;
 #endif
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -23,6 +26,77 @@ namespace System.Application.Models
         : ReactiveObject
 #endif
     {
+#if MVVM_VM
+        const string HomepageURL = "HomepageURL";
+        const string DownloadURL = "DownloadURL";
+        const string UpdateURL = "UpdateURL";
+        const string Exclude = "Exclude";
+        const string Grant = "Grant";
+        const string Require = "Require";
+        const string Include = "Include";
+        const string DescRegex = @"(?<={0})[\s\S]*?(?=\n)";
+
+        public ScriptDTO()
+        {
+
+        }
+
+        public static bool TryParse(string path, [NotNullWhen(true)] out ScriptDTO? proxyScript)
+        {
+            var content = File.ReadAllText(path);
+            if (!string.IsNullOrEmpty(content))
+            {
+                var userScript = content.Substring("==UserScript==", "==/UserScript==");
+                if (!string.IsNullOrEmpty(userScript))
+                {
+                    var script = new ScriptDTO
+                    {
+                        FilePath = path,
+                        Content = content.Replace("</script>", "<\\/script>"),
+                        //Content = content.Replace("</script>", "<\\/script>").Replace(" ", "").Replace("\r", "").Replace("\n", "").Replace("\t", ""),
+                        Name = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Name)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                        //NameSpace = Regex.Matches(userScript, string.Format(DescRegex, $"@{nameof(NameSpace)}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true).ToArray(),
+                        Version = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Version)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                        Description = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Description)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                        Author = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Author)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                        SourceLink = Regex.Match(userScript, string.Format(DescRegex, $"@{HomepageURL}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                        //SupportURL = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(SupportURL)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                        DownloadLink = Regex.Match(userScript, string.Format(DescRegex, $"@{DownloadURL}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                        UpdateLink = Regex.Match(userScript, string.Format(DescRegex, $"@{UpdateURL}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                        ExcludeDomainNames = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Exclude}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true)),
+                        DependentGreasyForkFunction = Regex.Matches(userScript, string.Format(DescRegex, $"@{Grant}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true).Any_Nullable(),
+                        RequiredJs = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Require}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true))
+                    };
+                    var matchs = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{nameof(Match)}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true));
+                    var Includes = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Include}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true));
+                    script.MatchDomainNames = string.IsNullOrEmpty(matchs) ? Includes : matchs;
+                    var enable = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Enable)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true);
+
+                    script.Enable = bool.TryParse(enable, out var e) && e;
+                    proxyScript = script;
+                    return true;
+                }
+            }
+            proxyScript = null;
+            return false;
+        }
+
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public string? FilePath { get; set; } = string.Empty;
+
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public string? FileName => FilePath ?? Path.GetFileName(FilePath);
+
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public string? Content { get; set; } = string.Empty;
+#endif
+
         /// <summary>
         /// 显示名称
         /// </summary>

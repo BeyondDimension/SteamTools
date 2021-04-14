@@ -55,7 +55,10 @@
                         </MenuItem.Header>
                     </MenuItem>
                 </Menu>
-                <Popup IsOpen="{Binding IsOpenUserMenu,Mode=TwoWay, FallbackValue=False}" StaysOpen="False" Width="300" PlacementTarget="userBtn" PlacementMode="Pointer" IsLightDismissEnabled="True">
+                <Popup IsOpen="{Binding IsOpenUserMenu,Mode=TwoWay, FallbackValue=False}"
+                       StaysOpen="False" Width="300"
+                       PlacementTarget="userBtn"
+                       IsLightDismissEnabled="True">
                     <Border Background="{DynamicResource MenuFlyoutPresenterBackground}"
                                BorderBrush="{DynamicResource MenuFlyoutPresenterBorderBrush}"
                                BorderThickness="{DynamicResource MenuFlyoutPresenterBorderThemeThickness}"
@@ -72,7 +75,7 @@
                                             <EllipseGeometry Rect="0,0,100,100" />
                                         </Image.Clip>
                                     </Image>
-                                    <Button Content="未登录" FontSize="16" HorizontalAlignment="Center" Foreground="{DynamicResource HighlightForegroundBrushKey}" 
+                                    <Button Content="未登录" FontSize="16" HorizontalAlignment="Center" Foreground="{DynamicResource HighlightForegroundBrushKey}"
                                       Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}" CommandParameter="LoginOrRegister"></Button>
                                 </StackPanel>
                             </Panel>
@@ -116,25 +119,25 @@
                     <pages:DebugPage/>
                 </DataTemplate>
                 <DataTemplate DataType="vm:AboutPageViewModel">
-                    <pages:AboutPage />
+                    <pages:AboutPage/>
                 </DataTemplate>
                 <DataTemplate DataType="vm:SettingsPageViewModel">
-                    <pages:SettingsPage />
+                    <pages:SettingsPage/>
                 </DataTemplate>
                 <DataTemplate DataType="vm:StartPageViewModel">
-                    <pages:StartPage />
+                    <pages:StartPage/>
                 </DataTemplate>
                 <DataTemplate DataType="vm:SteamAccountPageViewModel">
-                    <pages:SteamAccountPage />
+                    <pages:SteamAccountPage/>
                 </DataTemplate>
                 <DataTemplate DataType="vm:GameListPageViewModel">
-                    <pages:GameListPage />
+                    <pages:GameListPage/>
                 </DataTemplate>
                 <DataTemplate DataType="vm:CommunityProxyPageViewModel">
-                    <pages:CommunityProxyPage />
+                    <pages:CommunityProxyPage/>
                 </DataTemplate>
                 <DataTemplate DataType="vm:LocalAuthPageViewModel">
-                    <pages:LocalAuthPage />
+                    <pages:LocalAuthPage/>
                 </DataTemplate>
             </TabControl.DataTemplates>
             <TabControl.ItemTemplate>
