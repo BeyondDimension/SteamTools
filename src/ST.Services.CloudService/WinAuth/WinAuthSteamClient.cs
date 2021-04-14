@@ -38,7 +38,7 @@ namespace WinAuth
     /// <summary>
     /// SteamClient for logging and getting/accepting/rejecting trade confirmations
     /// </summary>
-    public class WinAuthSteamClient : IDisposable
+    public partial class WinAuthSteamClient : IDisposable
     {
         /// <summary>
         /// URLs for all mobile services
