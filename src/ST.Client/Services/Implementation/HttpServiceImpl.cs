@@ -5,7 +5,6 @@ using System.IO;
 using System.IO.FileFormats;
 using System.Linq;
 using System.Net.Http;
-using System.Properties;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;

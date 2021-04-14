@@ -1,4 +1,7 @@
-﻿using System.Application.Security;
+﻿using Microsoft.Extensions.Options;
+using System.Application.Security;
+using System.Linq;
+using System.Properties;
 using System.Security.Cryptography;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using MPKey = MessagePack.KeyAttribute;
@@ -71,5 +74,28 @@ namespace System.Application.Models
                 return rsa;
             }
         }
+
+        static readonly Lazy<bool> mIsOfficialChannelPackage = new(() =>
+        {
+            var pk = typeof(AppSettings).Assembly.GetName().GetPublicKey();
+            if (pk == null) return false;
+            var pkStr = ", PublicKey=" + string.Join(string.Empty, pk.Select(x => x.ToString("x2")));
+            var r = pkStr == ThisAssembly.PublicKey;
+            if (!r) return false;
+            try
+            {
+                var s = DI.Get_Nullable<IOptions<AppSettings>>()?.Value;
+                return s != null && s.Aes != null && s.RSA != null;
+            }
+            catch (IsNotOfficialChannelPackageException)
+            {
+                return false;
+            }
+        });
+
+        /// <summary>
+        /// 当前运行程序是否为官方渠道包
+        /// </summary>
+        public static bool IsOfficialChannelPackage => mIsOfficialChannelPackage.Value;
     }
 }

@@ -10,7 +10,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using static System.Application.Services.ICloudServiceClient;
 
 namespace System.Application.Services.CloudService
 {
@@ -70,7 +69,7 @@ namespace System.Application.Services.CloudService
             this.toast = toast;
             settings = options.Value;
             ApiBaseUrl = string.IsNullOrWhiteSpace(settings.ApiBaseUrl)
-                ? DefaultApiBaseUrl : settings.ApiBaseUrl;
+                ? throw new ArgumentNullException(nameof(ApiBaseUrl)) : settings.ApiBaseUrl;
             connection = new ApiConnection(logger, this, http_helper, validator);
 
             #region SetClients

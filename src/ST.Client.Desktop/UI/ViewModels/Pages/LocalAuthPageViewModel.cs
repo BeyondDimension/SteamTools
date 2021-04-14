@@ -56,10 +56,7 @@ namespace System.Application.UI.ViewModels
 
         void AddAuthMenu_Click()
         {
-            if (!AppHelper.IsOfficialChannelPackage)
-            {
-                return;
-            }
+            if (!AppSettings.IsOfficialChannelPackage) return;
             DI.Get<IShowWindowService>().Show(CustomWindow.AddAuth, new AddAuthWindowViewModel());
         }
 

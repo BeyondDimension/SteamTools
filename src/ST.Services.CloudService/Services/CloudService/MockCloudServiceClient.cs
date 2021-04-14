@@ -6,7 +6,6 @@ using System.IO.FileFormats;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using static System.Application.Services.ICloudServiceClient;
 
 namespace System.Application.Services.CloudService
 {
@@ -23,7 +22,7 @@ namespace System.Application.Services.CloudService
             this.real = real;
         }
 
-        public string ApiBaseUrl => DefaultApiBaseUrl;
+        public string ApiBaseUrl => real.ApiBaseUrl;
         public IAccountClient Account => this;
         public IManageClient Manage => this;
         public IAuthMessageClient AuthMessage => this;

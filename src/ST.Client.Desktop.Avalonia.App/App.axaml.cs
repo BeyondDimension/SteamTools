@@ -260,7 +260,7 @@ namespace System.Application.UI
                     JumpLists.Init();
 #endif
 
-                    if (!AppHelper.IsOfficialChannelPackage)
+                    if (!AppSettings.IsOfficialChannelPackage)
                     {
                         IsNotOfficialChannelPackageWarning();
                     }

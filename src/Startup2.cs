@@ -18,6 +18,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Linq;
+using CSConst = System.Application.Services.CloudService.Constants;
+using System.Properties;
 
 namespace System.Application
 {
@@ -272,13 +274,19 @@ namespace System.Application
                     AppVersion = GetResValue("app-id", false).TryParseGuidN() ?? default,
                     AesSecret = GetResValue("aes-key", true),
                     RSASecret = GetResValue("rsa-public-key", false),
-                    ApiBaseUrl = GetResValue("api-base-url", false),
+                    ApiBaseUrl = GetApiBaseUrl(),
                 };
                 return options;
                 string? GetResValue(string name, bool isSingle)
                 {
                     const string namespacePrefix = "System.Application.UI.Resources.";
                     return AppClientAttribute.GetResValue(assembly, name, isSingle, namespacePrefix);
+                }
+                static string GetApiBaseUrl()
+                {
+                    return (ThisAssembly.Debuggable || !AppSettings.IsOfficialChannelPackage) ?
+                        CSConst.Prefix_HTTPS + "pan.mossimo.net:8862" :
+                        CSConst.Prefix_HTTPS + "api.steampp.net";
                 }
             }
         }

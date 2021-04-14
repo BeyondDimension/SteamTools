@@ -142,29 +142,6 @@ namespace System.Application.UI
 
         #endregion
 
-        static readonly Lazy<bool> mIsOfficialChannelPackage = new(() =>
-        {
-            var pk = typeof(AppHelper).Assembly.GetName().GetPublicKey();
-            if (pk == null) return false;
-            var pkStr = ", PublicKey=" + string.Join(string.Empty, pk.Select(x => x.ToString("x2")));
-            var r = pkStr == ThisAssembly.PublicKey;
-            if (!r) return false;
-            try
-            {
-                var s = DI.Get_Nullable<IOptions<AppSettings>>()?.Value;
-                return s != null && s.Aes != null && s.RSA != null;
-            }
-            catch (IsNotOfficialChannelPackageException)
-            {
-                return false;
-            }
-        });
-
-        /// <summary>
-        /// 当前运行程序是否为官方渠道包
-        /// </summary>
-        public static bool IsOfficialChannelPackage => mIsOfficialChannelPackage.Value;
-
         public static IDesktopAppService Current => DI.Get<IDesktopAppService>();
 
 #if DEBUG
