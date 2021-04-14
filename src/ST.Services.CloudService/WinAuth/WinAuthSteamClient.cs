@@ -230,7 +230,7 @@ namespace WinAuth
             /// <summary>
             /// Current cookies
             /// </summary>
-            public CookieContainer? Cookies;
+            public CookieContainer Cookies = new();
 
             /// <summary>
             /// Authorization token
@@ -257,7 +257,7 @@ namespace WinAuth
             /// </summary>
             public SteamSession()
             {
-                Clear();
+                Clear(false);
             }
 
             /// <summary>
@@ -282,11 +282,11 @@ namespace WinAuth
             /// <summary>
             /// Clear the session
             /// </summary>
-            public void Clear()
+            public void Clear(bool setCookies = true)
             {
                 OAuthToken = null;
                 UmqId = null;
-                Cookies = new CookieContainer();
+                if (setCookies) Cookies = new();
                 Confirmations = null;
             }
 
@@ -1212,6 +1212,7 @@ namespace WinAuth
         /// <param name="formdata">optional form data</param>
         /// <param name="headers">optional headers</param>
         /// <returns>returned data</returns>
+        [Obsolete]
         protected byte[] Request(string url, string method, NameValueCollection data, NameValueCollection headers)
         {
             // ensure only one request per account at a time
@@ -1223,6 +1224,8 @@ namespace WinAuth
                 {
                     url += (url.IndexOf("?") == -1 ? "?" : "&") + query;
                 }
+
+                url = TryGetForwardUrl(url);
 
                 // call the server
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);

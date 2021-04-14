@@ -9,6 +9,14 @@ namespace System.Application.Services
     {
         public static IHttpService Instance => DI.Get<IHttpService>();
 
+        Task<T?> SendAsync<T>(
+            string? requestUri,
+            HttpRequestMessage request,
+            string? accept,
+            bool enableForward,
+            CancellationToken cancellationToken,
+            string? clientName = null) where T : notnull;
+
         /// <summary>
         /// 通过 Get 请求 API 内容
         /// </summary>
@@ -40,7 +48,6 @@ namespace System.Application.Services
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<Stream?> GetImageAsync(string requestUri, CancellationToken cancellationToken = default);
-
     }
 
 #if DEBUG

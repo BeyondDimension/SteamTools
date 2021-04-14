@@ -26,7 +26,7 @@ namespace System.Net.Http
         /// <para>如果为 <see langword="null"/> 则调用 <see cref="HttpClientFactoryExtensions.CreateClient(IHttpClientFactory)"/></para>
         /// <para>默认值为 <see langword="null"/></para>
         /// </summary>
-        protected virtual string? ClientName { get; }
+        protected virtual string? DefaultClientName { get; }
 
         /// <summary>
         /// 默认超时时间，19秒
@@ -36,25 +36,26 @@ namespace System.Net.Http
         /// <inheritdoc cref="DefaultTimeout"/>
         protected virtual TimeSpan Timeout { get; } = DefaultTimeout;
 
-        protected virtual HttpClient CreateClient()
+        protected virtual HttpClient CreateClient(string? clientName = null)
         {
-            var client = CreateClient_();
+            var client = CreateClient_(clientName);
             client.Timeout = Timeout;
             return client;
         }
 
-        HttpClient CreateClient_()
+        HttpClient CreateClient_(string? clientName)
         {
+            clientName ??= DefaultClientName;
 #if DEBUG
-            logger.LogDebug("CreateClient, name: {0}", ClientName);
+            logger.LogDebug("CreateClient, clientName: {0}", clientName);
 #endif
-            if (ClientName == null)
+            if (clientName == null)
             {
                 return _clientFactory.CreateClient();
             }
             else
             {
-                return _clientFactory.CreateClient(ClientName);
+                return _clientFactory.CreateClient(clientName);
             }
         }
     }

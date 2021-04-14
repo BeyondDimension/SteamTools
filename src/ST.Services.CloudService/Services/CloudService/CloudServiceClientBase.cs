@@ -54,7 +54,7 @@ namespace System.Application.Services.CloudService
             }
         }
 
-        protected sealed override string? ClientName => ClientName_;
+        protected sealed override string? DefaultClientName => ClientName_;
 
         public CloudServiceClientBase(
             ILogger logger,

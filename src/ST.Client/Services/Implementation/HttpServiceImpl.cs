@@ -30,20 +30,20 @@ namespace System.Application.Services.Implementation
             this.cloud_client = cloud_client;
         }
 
-        /// <summary>
-        /// 启用转发
-        /// </summary>
-        static readonly bool EnableForward = true;
-
-        public async Task<T?> SendAsync<T>(HttpRequestMessage request, string? accept, CancellationToken cancellationToken) where T : notnull
+        public async Task<T?> SendAsync<T>(
+            string? requestUri,
+            HttpRequestMessage request,
+            string? accept,
+            bool enableForward,
+            CancellationToken cancellationToken,
+            string? clientName = null) where T : notnull
         {
             HttpResponseMessage? response = null;
             bool notDispose = false;
             try
             {
-                var requestUri = request.RequestUri.ToString();
-                if (EnableForward &&
-                    allowUrls.Any(x => requestUri.StartsWith(x, StringComparison.OrdinalIgnoreCase)))
+                requestUri ??= request.RequestUri.ToString();
+                if (enableForward && IsAllowUrl(requestUri))
                 {
                     try
                     {
@@ -60,7 +60,7 @@ namespace System.Application.Services.Implementation
 
                 if (response == null)
                 {
-                    var client = CreateClient();
+                    var client = CreateClient(clientName);
                     response = await client.SendAsync(request,
                       HttpCompletionOption.ResponseHeadersRead,
                       cancellationToken).ConfigureAwait(false);
@@ -129,105 +129,15 @@ namespace System.Application.Services.Implementation
             return default;
         }
 
-        public async Task<T?> GetAsync<T>(
+        public Task<T?> GetAsync<T>(
             string requestUri,
             string accept,
             CancellationToken cancellationToken) where T : notnull
         {
-            HttpRequestMessage? request = null;
-            HttpResponseMessage? response = null;
-            bool notDispose = false;
-            try
-            {
-                request = new HttpRequestMessage(HttpMethod.Get, requestUri);
-                request.Headers.Accept.ParseAdd(accept);
-                request.Headers.UserAgent.ParseAdd(http_helper.UserAgent);
-
-                if (EnableForward &&
-                    allowUrls.Any(x => requestUri.StartsWith(x, StringComparison.OrdinalIgnoreCase)))
-                {
-                    try
-                    {
-                        response = await cloud_client.Forward(request,
-                            HttpCompletionOption.ResponseHeadersRead,
-                            cancellationToken);
-                    }
-                    catch (Exception e)
-                    {
-                        logger.LogWarning(e, "CloudService Forward Fail.");
-                        response = null;
-                    }
-                }
-
-                if (response == null)
-                {
-                    var client = CreateClient();
-                    response = await client.SendAsync(request,
-                      HttpCompletionOption.ResponseHeadersRead,
-                      cancellationToken).ConfigureAwait(false);
-                }
-
-                if (response.IsSuccessStatusCode)
-                {
-                    if (response.Content != null)
-                    {
-                        var rspContentClrType = typeof(T);
-                        if (rspContentClrType == typeof(string))
-                        {
-                            return (T)(object)await response.Content.ReadAsStringAsync();
-                        }
-                        else if (rspContentClrType == typeof(byte[]))
-                        {
-                            return (T)(object)await response.Content.ReadAsByteArrayAsync();
-                        }
-                        else if (rspContentClrType == typeof(Stream))
-                        {
-                            notDispose = true;
-                            return (T)(object)await response.Content.ReadAsStreamAsync();
-                        }
-                        var mime = response.Content.Headers.ContentType?.MediaType ?? accept;
-                        switch (mime)
-                        {
-                            case MediaTypeNames.JSON:
-                            case MediaTypeNames.XML:
-                            case MediaTypeNames.XML_APP:
-                                {
-                                    using var stream = await response.Content
-                                        .ReadAsStreamAsync().ConfigureAwait(false);
-                                    using var reader = new StreamReader(stream, Encoding.UTF8);
-                                    switch (mime)
-                                    {
-                                        case MediaTypeNames.JSON:
-                                            {
-                                                using var json = new JsonTextReader(reader);
-                                                return jsonSerializer.Deserialize<T>(json);
-                                            }
-                                        case MediaTypeNames.XML:
-                                        case MediaTypeNames.XML_APP:
-                                            {
-                                                var xmlSerializer = new XmlSerializer(typeof(T));
-                                                return (T)xmlSerializer.Deserialize(reader);
-                                            }
-                                    }
-                                }
-                                break;
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Warn(TAG, e, "GetAsync Fail.");
-            }
-            finally
-            {
-                if (!notDispose)
-                {
-                    request?.Dispose();
-                    response?.Dispose();
-                }
-            }
-            return default;
+            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            request.Headers.Accept.ParseAdd(accept);
+            request.Headers.UserAgent.ParseAdd(http_helper.UserAgent);
+            return SendAsync<T>(requestUri, request, accept, true, cancellationToken);
         }
 
         async Task<string?> GetImageAsync_(

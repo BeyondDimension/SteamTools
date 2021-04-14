@@ -1,4 +1,6 @@
-﻿namespace System.Application
+﻿using System.Linq;
+
+namespace System.Application
 {
     /// <summary>
     /// 转发助手
@@ -11,5 +13,10 @@
         public static readonly string[] allowUrls = new[] {
             "https://steamcommunity.com/",
         };
+
+        public static bool IsAllowUrl(string requestUri)
+        {
+            return allowUrls.Any(x => requestUri.StartsWith(x, StringComparison.OrdinalIgnoreCase));
+        }
     }
 }
