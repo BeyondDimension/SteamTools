@@ -12,7 +12,7 @@ namespace System.Application.Models
 {
     [MPObject]
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
-    public sealed class UserInfoDTO : IUserDTO, IBirthDateTimeZoneTicks, IBirthDateCalcAge
+    public sealed class UserInfoDTO : IUserDTO, IBirthDateTimeZone
     {
         string DebuggerDisplay => IUserDTO.GetDebuggerDisplay(this);
 
@@ -91,7 +91,7 @@ namespace System.Application.Models
         [MPKey(11)]
         [N_JsonProperty("11")]
         [S_JsonProperty("11")]
-        public long TimeZoneTicks { get; set; }
+        public sbyte BirthDateTimeZone { get; set; }
 
         #endregion
 
@@ -103,12 +103,14 @@ namespace System.Application.Models
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
-        public byte Age
+        public string Age
         {
             get
             {
-                if (CalcAge.HasValue) return CalcAge.Value;
-                return this.CalcAge();
+                byte value;
+                if (CalcAge.HasValue) value = CalcAge.Value;
+                else value = BirthDateHelper.CalcAge(this.GetBirthDate()?.DateTime);
+                return BirthDateHelper.ToString(value);
             }
         }
 

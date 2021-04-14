@@ -26,12 +26,7 @@ namespace System.Application.UI.ViewModels
                 // (SetFields)DTO => VM
                 _NickName = userInfoSource.NickName;
                 _Gender = userInfoSource.Gender;
-                _BirthDate = userInfoSource.BirthDate.HasValue ?
-                    new DateTimeOffset(userInfoSource.BirthDate.Value.Year,
-                    userInfoSource.BirthDate.Value.Month,
-                    userInfoSource.BirthDate.Value.Day,
-                    0, 0, 0,
-                    new TimeSpan(userInfoSource.TimeZoneTicks)) : null;
+                _BirthDate = userInfoSource.GetBirthDate();
                 if (userInfoSource.AreaId.HasValue) this.SetAreaId(userInfoSource.AreaId.Value);
 
                 userInfoSource = Serializable.DMP<UserInfoDTO>(userInfoValue) ?? throw new ArgumentNullException(nameof(userInfoSource));
@@ -48,9 +43,7 @@ namespace System.Application.UI.ViewModels
                 void SubscribeFormItem<T>(Expression<Func<UserProfileWindowViewModel, T>> expression, Action<T> onNext) => this.WhenAnyValue(expression).Subscribe(value => SubscribeOnNext(value, onNext)).AddTo(this);
                 SubscribeFormItem(x => x.NickName, x => userInfoSource.NickName = x ?? string.Empty);
                 SubscribeFormItem(x => x.Gender, x => userInfoSource.Gender = x);
-                SubscribeFormItem(x => x.BirthDate, x => userInfoSource.BirthDate = x.HasValue ?
-                    new DateTime(x.Value.Year, x.Value.Month, x.Value.Day,
-                    0, 0, 0, userInfoSource.BirthDate?.Kind ?? DateTimeKind.Unspecified) : null);
+                SubscribeFormItem(x => x.BirthDate, x => userInfoSource.SetBirthDate(x));
                 void SubscribeAreaOnNext(IArea? area)
                 {
                     var areaId = area?.Id;

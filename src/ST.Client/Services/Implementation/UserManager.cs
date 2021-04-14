@@ -157,7 +157,7 @@ namespace System.Application.Services.Implementation
             var value = new TUserDTO
             {
                 Id = user.Id,
-                NickName = nickName,
+                NickName = nickName ?? string.Empty,
                 Avatar = user.Avatar,
             };
             return value;

@@ -37,12 +37,12 @@ namespace System.Application
         }
 
         /// <summary>
-        /// (仅适用于客户端计算)根据生日计算年龄
+        /// 根据生日计算年龄
         /// </summary>
         /// <param name="birthDate"></param>
         /// <param name="def"></param>
         /// <returns></returns>
-        static byte CalcAge(DateTime? birthDate, byte def = 0)
+        public static byte CalcAge(DateTime? birthDate, byte def = 0)
         {
             if (birthDate.HasValue)
             {
@@ -59,17 +59,17 @@ namespace System.Application
         }
 
         /// <summary>
-        /// (仅适用于服务端计算)根据生日及用户所在时区计算年龄
+        /// 根据生日及用户所在时区计算年龄
         /// </summary>
-        /// <param name="timeZoneTicks"></param>
+        /// <param name="timeZone"></param>
         /// <param name="birthDate"></param>
         /// <param name="def"></param>
         /// <returns></returns>
-        static byte CalcAge(long timeZoneTicks, DateTime? birthDate, byte def = 0)
+        public static byte CalcAge(sbyte timeZone, DateTime? birthDate, byte def = 0)
         {
             if (birthDate.HasValue)
             {
-                var offset = new TimeSpan(timeZoneTicks);
+                var offset = TimeSpan.FromHours(timeZone);
                 var today = DateTimeOffset.Now;
                 var birth = new DateTimeOffset(birthDate.Value.Year,
                     birthDate.Value.Month,
@@ -82,23 +82,30 @@ namespace System.Application
             return def;
         }
 
-        /// <summary>
-        /// (仅适用于服务端计算)根据生日及用户所在时区计算年龄
-        /// </summary>
-        /// <param name="birthDate"></param>
-        /// <returns></returns>
-        public static byte CalcAge(this IBirthDateTimeZoneTicks birthDate)
-            => CalcAge(birthDate.TimeZoneTicks, birthDate.BirthDate);
-
-        /// <summary>
-        /// (仅适用于客户端计算)根据生日计算年龄并转换为用于UI显示的字符串
-        /// </summary>
-        /// <param name="birthDate"></param>
-        /// <returns></returns>
-        public static string CalcAgeToString(this IBirthDateCalcAge birthDate)
+        public static DateTimeOffset? GetBirthDate(this IBirthDateTimeZone birthDate, bool forceLocal = true)
         {
-            var age = CalcAge(birthDate.BirthDate, birthDate.Age);
-            return ToString(age);
+            if (!birthDate.BirthDate.HasValue) return null;
+            return new DateTimeOffset(birthDate.BirthDate.Value.Year,
+                    birthDate.BirthDate.Value.Month,
+                    birthDate.BirthDate.Value.Day,
+                    0, 0, 0,
+                    forceLocal ? TimeZoneInfo.Local.BaseUtcOffset : TimeSpan.FromHours(birthDate.BirthDateTimeZone));
+        }
+
+        public static void SetBirthDate(this IBirthDateTimeZone birthDate, DateTimeOffset? value)
+        {
+            if (!value.HasValue)
+            {
+                birthDate.BirthDate = null;
+                birthDate.BirthDateTimeZone = 0;
+            }
+            else
+            {
+                birthDate.BirthDate = new DateTime(value.Value.Year, value.Value.Month, value.Value.Day,
+                    0, 0, 0,
+                    birthDate.BirthDate?.Kind ?? DateTimeKind.Unspecified);
+                birthDate.BirthDateTimeZone = (sbyte)value.Value.Offset.TotalHours;
+            }
         }
     }
 }

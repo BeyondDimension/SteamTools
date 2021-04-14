@@ -50,20 +50,11 @@
     }
 
     /// <inheritdoc cref="IBirthDate"/>
-    public interface IBirthDateTimeZoneTicks : IBirthDate
+    public interface IBirthDateTimeZone : IBirthDate
     {
         /// <summary>
         /// 填写生日/出生日期纪录的客户端所在时区
         /// </summary>
-        long TimeZoneTicks { get; set; }
-    }
-
-    /// <inheritdoc cref="IBirthDate"/>
-    public interface IBirthDateCalcAge : IBirthDate
-    {
-        /// <summary>
-        /// 年龄
-        /// </summary>
-        byte Age { get; }
+        sbyte BirthDateTimeZone { get; set; }
     }
 }

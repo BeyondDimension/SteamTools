@@ -144,7 +144,7 @@
           </WrapPanel>
           <TextBlock Classes="FormItemLabel" Text="生日" Grid.Row="13"/>
           <DatePicker Height="36"
-                      SelectedDate="{Binding BirthDate}"
+                      SelectedDate="{Binding BirthDate, Mode=TwoWay}"
                       Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="3" />
         </Grid>
         <Button Classes="action WidthUnify"
