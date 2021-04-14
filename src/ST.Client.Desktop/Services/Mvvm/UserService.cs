@@ -40,8 +40,7 @@ namespace System.Application.Services
                 var vmType = Type.GetType($"System.Application.UI.ViewModels.{@enum}WindowViewModel");
                 if (vmType != null && typeof(WindowViewModel).IsAssignableFrom(vmType))
                 {
-                    var vm = (WindowViewModel)Activator.CreateInstance(vmType);
-                    await DI.Get<IShowWindowService>().Show(@enum, vm);
+                    await IShowWindowService.Instance.Show(vmType, @enum);
                 }
             }
         }

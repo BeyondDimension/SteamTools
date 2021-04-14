@@ -3,7 +3,6 @@ using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
@@ -49,8 +48,12 @@ namespace System.Application.UI.ViewModels
         internal async override void Initialize()
         {
             SteamApps = await ISteamService.Instance.GetAppInfos();
-
-
+#if DEBUG
+            if (BuildConfig.IsAigioPC && BuildConfig.IsDebuggerAttached)
+            {
+                return;
+            }
+#endif
             //SteamApps = _AllSteamApps.Where(w => w.ParentId == 0);
             if (SteamApps.Any_Nullable())
             {
@@ -63,7 +66,6 @@ namespace System.Application.UI.ViewModels
                 });
             }
         }
-
 
         public void AppClick(SteamApp app)
         {

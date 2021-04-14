@@ -17,137 +17,137 @@
         x:DataType="vm:AddAuthWindowViewModel"
         x:CompileBindings="True"
         Title="{Binding Title}">
-    <Design.DataContext>
-        <vm:AddAuthWindowViewModel/>
-    </Design.DataContext>
-    <Panel>
-        <DockPanel HorizontalAlignment="Stretch">
-            <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="95">
-                <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
-                </ExperimentalAcrylicBorder.Material>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10 8 10 8">
-                    <Image Source="/Application/UI/Assets/Icon.ico" Height="24" Width="24" Margin="0,0,10,0"/>
-                    <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{Binding Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" FontSize="20"/>
-                </StackPanel>
-            </ExperimentalAcrylicBorder>
-<ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False">
-                <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
-                </ExperimentalAcrylicBorder.Material>
-            </ExperimentalAcrylicBorder>
-        </DockPanel>
-        <TabControl Margin="0 20 0 0">
-            <TabItem Header="{ReflectionBinding Path=Res.LocalAuth_SteamUserImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <Panel>
-                    <Grid IsVisible="{Binding RequiresLogin}" RowDefinitions="Auto,*,Auto" Margin="10">
-                        <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
-                            <PathIcon Data="{DynamicResource SteamDrawing}" Width="100" Height="100" HorizontalAlignment="Center" Margin="0 0 0 25"></PathIcon>
-                            
-                            <TextBox Watermark="{ReflectionBinding Path=Res.Steam_User,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding UserName}" MaxWidth="300"></TextBox>
-                            <TextBox Watermark="{ReflectionBinding Path=Res.Steam_Password,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding Password}" MaxWidth="300" PasswordChar="*"></TextBox>
+  <Design.DataContext>
+    <vm:AddAuthWindowViewModel/>
+  </Design.DataContext>
+  <Panel>
+    <DockPanel HorizontalAlignment="Stretch">
+      <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="95">
+        <ExperimentalAcrylicBorder.Material>
+          <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
+        </ExperimentalAcrylicBorder.Material>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10 8 10 8">
+          <Image Source="/Application/UI/Assets/Icon.ico" Height="24" Width="24" Margin="0,0,10,0"/>
+          <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{Binding Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" FontSize="20"/>
+        </StackPanel>
+      </ExperimentalAcrylicBorder>
+      <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False">
+        <ExperimentalAcrylicBorder.Material>
+          <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
+        </ExperimentalAcrylicBorder.Material>
+      </ExperimentalAcrylicBorder>
+    </DockPanel>
+    <TabControl Margin="0 20 0 0">
+      <TabItem Header="{ReflectionBinding Path=Res.LocalAuth_SteamUserImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <Panel>
+          <Grid IsVisible="{Binding RequiresLogin}" RowDefinitions="Auto,*,Auto" Margin="10">
+            <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
+              <PathIcon Data="{DynamicResource SteamDrawing}" Width="100" Height="100" HorizontalAlignment="Center" Margin="0 0 0 25"></PathIcon>
 
-                            <Button Content="{ReflectionBinding Path=Res.Login,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Command="{ReflectionBinding LoginSteamImport}"></Button>
-                        </StackPanel>
+              <TextBox Watermark="{ReflectionBinding Path=Res.Steam_User,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding UserName}" MaxWidth="300"></TextBox>
+              <TextBox Watermark="{ReflectionBinding Path=Res.Steam_Password,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding Password}" MaxWidth="300" PasswordChar="*"></TextBox>
 
-                        <TextBlock Grid.Row="2" Margin="10,0" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{ReflectionBinding Path=Res.Steam_UserLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-                    </Grid>
-                    <StackPanel IsVisible="{Binding !CaptchaImage,Converter={StaticResource IsNullConverter}}" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 90" Spacing="10">
-                        <Border Width="206" Height="37">
-                            <Image Width="206" Height="37" Source="{Binding CaptchaImage,Converter={StaticResource BitmapAssetValueConverter}}">
-                            </Image>
-                        </Border>
-                        <TextBox Watermark="{ReflectionBinding Path=Res.Steam_ImageCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding CaptchaText}" MaxWidth="200"></TextBox>
-                    </StackPanel>
-                    <Grid IsVisible="{Binding !EmailDomain,Converter={StaticResource IsNullConverter}}" RowDefinitions="Auto,*,Auto" Margin="10">
-                        <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
-                            <TextBox Watermark="{ReflectionBinding Path=Res.EmailCode,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding EmailAuthText}" MaxWidth="200"></TextBox>
+              <Button Content="{ReflectionBinding Path=Res.Login,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Command="{ReflectionBinding LoginSteamImport}"></Button>
+            </StackPanel>
 
-                            <Button Content="{ReflectionBinding Path=Res.Continue,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Command="{ReflectionBinding LoginSteamImport}"></Button>
-                        </StackPanel>
+            <TextBlock Grid.Row="2" Margin="10,0" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{ReflectionBinding Path=Res.Steam_UserLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+          </Grid>
+          <StackPanel IsVisible="{Binding !CaptchaImage,Converter={StaticResource IsNullConverter}}" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 90" Spacing="10">
+            <Border Width="206" Height="37">
+              <Image Width="206" Height="37" Source="{Binding CaptchaImage,Converter={StaticResource BitmapAssetValueConverter}}">
+              </Image>
+            </Border>
+            <TextBox Watermark="{ReflectionBinding Path=Res.Steam_ImageCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding CaptchaText}" MaxWidth="200"></TextBox>
+          </StackPanel>
+          <Grid IsVisible="{Binding !EmailDomain,Converter={StaticResource IsNullConverter}}" RowDefinitions="Auto,*,Auto" Margin="10">
+            <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
+              <TextBox Watermark="{ReflectionBinding Path=Res.EmailCode,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding EmailAuthText}" MaxWidth="200"></TextBox>
+
+              <Button Content="{ReflectionBinding Path=Res.Continue,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Command="{ReflectionBinding LoginSteamImport}"></Button>
+            </StackPanel>
 
 
-                        <StackPanel Grid.Row="2">
-                            <TextBlock Margin="10,0" HorizontalAlignment="Center" Text="{Binding EmailDomain}"></TextBlock>
-                            <TextBlock Margin="10,0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.LocalAuth_EmailCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-                        </StackPanel>
-                    </Grid>
+            <StackPanel Grid.Row="2">
+              <TextBlock Margin="10,0" HorizontalAlignment="Center" Text="{Binding EmailDomain}"></TextBlock>
+              <TextBlock Margin="10,0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.LocalAuth_EmailCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+            </StackPanel>
+          </Grid>
 
-                    <Grid IsVisible="{Binding RequiresActivation}" RowDefinitions="Auto,*,Auto" Margin="10">
-                        <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
-                            <TextBox Watermark="{ReflectionBinding Path=Res.SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding ActivationCode}" MaxWidth="200"></TextBox>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
-                                <TextBlock Text="{ReflectionBinding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
-                                <TextBox Text="{Binding RevocationCode,Mode=OneWay}" IsEnabled="False" MinWidth="200"></TextBox>
-                            </StackPanel>
-                            <CheckBox Content="{ReflectionBinding Path=Res.RecoveryCode_Remember,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center">
-                            </CheckBox>
+          <Grid IsVisible="{Binding RequiresActivation}" RowDefinitions="Auto,*,Auto" Margin="10">
+            <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
+              <TextBox Watermark="{ReflectionBinding Path=Res.SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding ActivationCode}" MaxWidth="200"></TextBox>
+              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+                <TextBlock Text="{ReflectionBinding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
+                <TextBox Text="{Binding RevocationCode,Mode=OneWay}" IsEnabled="False" MinWidth="200"></TextBox>
+              </StackPanel>
+              <CheckBox Content="{ReflectionBinding Path=Res.RecoveryCode_Remember,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center">
+              </CheckBox>
 
-                            <Button Content="{ReflectionBinding Path=Res.Continue,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Command="{ReflectionBinding LoginSteamImport}"></Button>
-                        </StackPanel>
+              <Button Content="{ReflectionBinding Path=Res.Continue,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Command="{ReflectionBinding LoginSteamImport}"></Button>
+            </StackPanel>
 
-                        <TextBlock Grid.Row="2" Margin="10,0" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{ReflectionBinding Path=Res.LocalAuth_SMSCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-                    </Grid>
+            <TextBlock Grid.Row="2" Margin="10,0" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{ReflectionBinding Path=Res.LocalAuth_SMSCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+          </Grid>
 
-                    <Grid IsVisible="{Binding RequiresAdd}" RowDefinitions="Auto,*,Auto" Margin="10">
-                        <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
-                                <TextBlock Text="{ReflectionBinding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
-                                <TextBox Text="{Binding RevocationCode,Mode=OneWay}" IsEnabled="False" MinWidth="200"></TextBox>
-                            </StackPanel>
-                            <!--<CheckBox Content="{ReflectionBinding Path=Res.RecoveryCode_Remember,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center"></CheckBox>-->
-                            <!--<Button Content="{ReflectionBinding Path=Res.Continue,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center"></Button>-->
-                        </StackPanel>
+          <Grid IsVisible="{Binding RequiresAdd}" RowDefinitions="Auto,*,Auto" Margin="10">
+            <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
+              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+                <TextBlock Text="{ReflectionBinding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
+                <TextBox Text="{Binding RevocationCode,Mode=OneWay}" IsEnabled="False" MinWidth="200"></TextBox>
+              </StackPanel>
+              <!--<CheckBox Content="{ReflectionBinding Path=Res.RecoveryCode_Remember,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center"></CheckBox>-->
+              <!--<Button Content="{ReflectionBinding Path=Res.Continue,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center"></Button>-->
+            </StackPanel>
 
-                        <TextBlock Grid.Row="2" Margin="10,0" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{ReflectionBinding Path=Res.RecoveryCode_RememberTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-                    </Grid>
-                </Panel>
-            </TabItem>
-            <TabItem Header="{ReflectionBinding Path=Res.LocalAuth_SteamAppImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <Grid RowDefinitions="Auto,*,Auto" Margin="10">
-                    <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center" MaxWidth="400">
-                        <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_AuthName,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding AuthName}"></TextBox>
-                        <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SteamuuidTip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="WrapWithOverflow"></TextBlock>
-                        <TextBox Text="{Binding UUID}"></TextBox>
-                        <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SteamGuardTip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="WrapWithOverflow"></TextBlock>
-                        <TextBox  TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding SteamGuard}" Height="80" MaxWidth="{Binding $parent.MaxWidth}"></TextBox>
-                    </StackPanel>
-                    <StackPanel Grid.Row="3" Spacing="8">
-                        <Button  Content="{ReflectionBinding Path=Res.ConfirmImport,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="200" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Command="{ReflectionBinding ImportSteamGuard}"></Button>
-                        <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SteamAppImportTip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="Wrap" ></TextBlock>
-                    </StackPanel>
+            <TextBlock Grid.Row="2" Margin="10,0" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{ReflectionBinding Path=Res.RecoveryCode_RememberTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+          </Grid>
+        </Panel>
+      </TabItem>
+      <TabItem Header="{ReflectionBinding Path=Res.LocalAuth_SteamAppImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <Grid RowDefinitions="Auto,*,Auto" Margin="10">
+          <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center" MaxWidth="400">
+            <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_AuthName,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding AuthName}"></TextBox>
+            <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SteamuuidTip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="WrapWithOverflow"></TextBlock>
+            <TextBox Text="{Binding UUID}"></TextBox>
+            <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SteamGuardTip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="WrapWithOverflow"></TextBlock>
+            <TextBox  TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding SteamGuard}" Height="80" MaxWidth="{Binding $parent.MaxWidth}"></TextBox>
+          </StackPanel>
+          <StackPanel Grid.Row="3" Spacing="8">
+            <Button  Content="{ReflectionBinding Path=Res.ConfirmImport,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="200" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Command="{ReflectionBinding ImportSteamGuard}"></Button>
+            <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SteamAppImportTip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="Wrap" ></TextBlock>
+          </StackPanel>
 
-                </Grid>
-            </TabItem>
-            <TabItem Header="{ReflectionBinding Path=Res.LocalAuth_SteamToolsImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <Panel Margin="10">
-                    <StackPanel Spacing="15" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SteamToolsV1Import,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Center"></TextBlock>
-                        <Button Content="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.dat}" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ImportSteamToolsBtn"></Button>
-                    </StackPanel>
-                </Panel>
-            </TabItem>
-            <TabItem Header="{ReflectionBinding Path=Res.LocalAuth_OtherImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <StackPanel Spacing="10" Margin="10">
-                    <RadioButton x:Name="WinAuthImport" Content="{ReflectionBinding Path=Res.LocalAuth_WinAuthImport,Mode=OneWay,Source={x:Static resx:R.Current}}"></RadioButton>
-                    <StackPanel Spacing="8">
-                        <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_WinAuthTip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="WrapWithOverflow"></TextBlock>
+        </Grid>
+      </TabItem>
+      <TabItem Header="{ReflectionBinding Path=Res.LocalAuth_SteamToolsImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <Panel Margin="10">
+          <StackPanel Spacing="15" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SteamToolsV1Import,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Center"></TextBlock>
+            <Button Content="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.dat}" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ImportSteamToolsBtn"></Button>
+          </StackPanel>
+        </Panel>
+      </TabItem>
+      <TabItem Header="{ReflectionBinding Path=Res.LocalAuth_OtherImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <StackPanel Spacing="10" Margin="10">
+          <RadioButton x:Name="WinAuthImport" Content="{ReflectionBinding Path=Res.LocalAuth_WinAuthImport,Mode=OneWay,Source={x:Static resx:R.Current}}"></RadioButton>
+          <StackPanel Spacing="8">
+            <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_WinAuthTip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="WrapWithOverflow"></TextBlock>
 
-                        <Panel IsVisible="{Binding ElementName=WinAuthImport,Path=IsChecked}">
-                            <Button x:Name="ImportWinAuthBtn" Content="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.txt}"></Button>
-                        </Panel>
-                    </StackPanel>
+            <Panel IsVisible="{Binding ElementName=WinAuthImport,Path=IsChecked}">
+              <Button x:Name="ImportWinAuthBtn" Content="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.txt}"></Button>
+            </Panel>
+          </StackPanel>
 
-                    <RadioButton x:Name="SdaImport" Content="{ReflectionBinding Path=Res.LocalAuth_SDAImport,Mode=OneWay,Source={x:Static resx:R.Current}}"></RadioButton>
-                    <StackPanel Spacing="8">
-                        <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SDATip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="WrapWithOverflow"></TextBlock>
+          <RadioButton x:Name="SdaImport" Content="{ReflectionBinding Path=Res.LocalAuth_SDAImport,Mode=OneWay,Source={x:Static resx:R.Current}}"></RadioButton>
+          <StackPanel Spacing="8">
+            <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SDATip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="WrapWithOverflow"></TextBlock>
 
-                        <Panel IsVisible="{Binding ElementName=SdaImport,Path=IsChecked}">
-                            <Button x:Name="ImportSDABtn" Content="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.maFile}"></Button>
-                        </Panel>
-                    </StackPanel>
+            <Panel IsVisible="{Binding ElementName=SdaImport,Path=IsChecked}">
+              <Button x:Name="ImportSDABtn" Content="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.maFile}"></Button>
+            </Panel>
+          </StackPanel>
 
-                    <!--<RadioButton x:Name="AsfImport" Content="ArchiSteamFarm导入"></RadioButton>
+          <!--<RadioButton x:Name="AsfImport" Content="ArchiSteamFarm导入"></RadioButton>
                     <StackPanel Spacing="8">
                         <TextBlock Text="ASF是功能最丰富的Steam工具之一，ASF本身还包括一堆功能，例如可以将其用作Steam验证器或聊天记录器。除此之外，ASF还包含了插件系统，任何人都可以根据自己的需求进一步扩展它。" TextWrapping="WrapWithOverflow"></TextBlock>
 
@@ -155,10 +155,10 @@
                             <Button Content="选择*.maFile文件导入"></Button>
                         </Panel>
                     </StackPanel>-->
-                </StackPanel>
-            </TabItem>
-        </TabControl>
-        <!--Toast-->
-        <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-    </Panel>
+        </StackPanel>
+      </TabItem>
+    </TabControl>
+    <!--Toast-->
+    <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+  </Panel>
 </Window>

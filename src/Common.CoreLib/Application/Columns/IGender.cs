@@ -1,23 +1,23 @@
-﻿//namespace System.Application.Columns
-//{
-//    /// <inheritdoc cref="Enums.Gender"/>
-//    public interface IGender
-//    {
-//        /// <inheritdoc cref="Enums.Gender"/>
-//        Gender Gender { get; set; }
-//    }
+﻿namespace System.Application.Columns
+{
+    /// <inheritdoc cref="Enums.Gender"/>
+    public interface IGender
+    {
+        /// <inheritdoc cref="Enums.Gender"/>
+        Gender Gender { get; set; }
+    }
 
-//    /// <inheritdoc cref="Enums.Gender"/>
-//    public interface IReadOnlyGender
-//    {
-//        /// <inheritdoc cref="Enums.Gender"/>
-//        Gender Gender { get; }
-//    }
+    /// <inheritdoc cref="Enums.Gender"/>
+    public interface IReadOnlyGender
+    {
+        /// <inheritdoc cref="Enums.Gender"/>
+        Gender Gender { get; }
+    }
 
-//#if DEBUG
+#if DEBUG
 
-//    [Obsolete("use IGender", true)]
-//    public interface IPropertyGender { }
+    [Obsolete("use IGender", true)]
+    public interface IPropertyGender { }
 
-//#endif
-//}
+#endif
+}

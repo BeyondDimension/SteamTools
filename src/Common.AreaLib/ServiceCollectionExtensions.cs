@@ -1,4 +1,5 @@
-﻿using System.Application.Entities;
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Application.Entities;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 
@@ -7,13 +8,13 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddAreaResource<TArea>(this IServiceCollection services)
+        public static IServiceCollection TryAddAreaResource<TArea>(this IServiceCollection services)
             where TArea : class, IArea
         {
-            services.AddSingleton<AreaResourceImpl<TArea>>();
-            services.AddSingleton<IAreaResourceHelper<TArea>>(s => s.GetRequiredService<AreaResourceImpl<TArea>>());
-            services.AddSingleton<IAreaResource<TArea>>(s => s.GetRequiredService<AreaResourceImpl<TArea>>());
-            services.AddSingleton<IAreaResource<IArea>>(s => s.GetRequiredService<AreaResourceImpl<TArea>>());
+            services.TryAddSingleton<AreaResourceImpl<TArea>>();
+            services.TryAddSingleton<IAreaResourceHelper<TArea>>(s => s.GetRequiredService<AreaResourceImpl<TArea>>());
+            services.TryAddSingleton<IAreaResource<TArea>>(s => s.GetRequiredService<AreaResourceImpl<TArea>>());
+            services.TryAddSingleton<IAreaResource<IArea>>(s => s.GetRequiredService<AreaResourceImpl<TArea>>());
             return services;
         }
     }

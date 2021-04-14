@@ -1,4 +1,6 @@
-﻿namespace System.Application.Models
+﻿using System.Application.Columns;
+
+namespace System.Application.Models
 {
     public interface IUserDTO
     {
@@ -7,7 +9,7 @@
         /// <summary>
         /// 昵称
         /// </summary>
-        string? NickName { get; set; }
+        string NickName { get; set; }
 
         /// <summary>
         /// 头像

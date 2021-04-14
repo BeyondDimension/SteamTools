@@ -11,11 +11,14 @@
         xmlns:controls="using:System.Application.UI.Views.Controls"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:ccl_services="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
+        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
         WindowStartupLocation="CenterOwner"
+        x:DataType="vm:LoginOrRegisterWindowViewModel"
+        x:CompileBindings="True"
         Title="{Binding Title}">
     <Panel>
         <controls:TitleBar />
@@ -30,20 +33,20 @@
                     </Image>
                     <TextBox
                       x:Name="TbPhoneNumber"
-                      Watermark="{Binding Path=Res.User_Phone,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Watermark="{ReflectionBinding Path=Res.User_Phone,Mode=OneWay,Source={x:Static resx:R.Current}}"
                       Text="{Binding PhoneNumber}"
                       MaxLength="{ReflectionBinding Path=PhoneNumber,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
                     <Panel>
                         <TextBox
                           x:Name="TbSmsCode"
-                          Watermark="{Binding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                          Watermark="{ReflectionBinding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
                           Text="{Binding SmsCode}"
-                          MaxLength="{Binding Path=SMS_CAPTCHA,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
+                          MaxLength="{ReflectionBinding Path=SMS_CAPTCHA,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
                         <Border HorizontalAlignment="Right" Cursor="Hand">
                             <Button Classes="CodeButton"
                                     Content="{Binding BtnSendSmsCodeText}"
                                     HorizontalAlignment="Right"
-                                    Command="{Binding SendSms}"
+                                    Command="{ReflectionBinding SendSms}"
                                     IsEnabled="{Binding !IsUnTimeLimit}" />
                         </Border>
                     </Panel>
@@ -54,16 +57,16 @@
                 </Panel>-->
 
                     <Button Classes="action"
-                            Content="{Binding Path=Res.LoginAndRegister,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                            Command="{Binding Submit}"
+                            Content="{ReflectionBinding Path=Res.LoginAndRegister,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                            Command="{ReflectionBinding Submit}"
                             HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">
                     </Button>
 
                     <WrapPanel HorizontalAlignment="Center" Margin="2 0 6 0">
-                        <TextBlock Text="{Binding Path=Res.User_RegisterAgreed,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="12"/>
-                        <Button FontSize="12" Classes="Hyperlink" Margin="5,0" Content="{Binding Path=Res.User_Agreement,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OpenHyperlink}" CommandParameter="https://steampp.net/Agreement"/>
-                        <TextBlock FontSize="12" Text="{Binding Path=Res.And,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                        <Button FontSize="12" Classes="Hyperlink" Margin="5,0" Content="{Binding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OpenHyperlink}" CommandParameter="https://steampp.net/Privacy"/>
+                        <TextBlock Text="{ReflectionBinding Path=Res.User_RegisterAgreed,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="12"/>
+                        <Button FontSize="12" Classes="Hyperlink" Margin="5,0" Content="{ReflectionBinding Path=Res.User_Agreement,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{ReflectionBinding OpenHyperlink}" CommandParameter="https://steampp.net/Agreement"/>
+                        <TextBlock FontSize="12" Text="{ReflectionBinding Path=Res.And,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                        <Button FontSize="12" Classes="Hyperlink" Margin="5,0" Content="{ReflectionBinding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{ReflectionBinding OpenHyperlink}" CommandParameter="https://steampp.net/Privacy"/>
                     </WrapPanel>
                 </StackPanel>
                 <!--<StackPanel Grid.Row="1" Margin="0 0 0 10">

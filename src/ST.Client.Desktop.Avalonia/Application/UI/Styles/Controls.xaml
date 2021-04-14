@@ -26,4 +26,5 @@
   <StyleInclude Source="/Application/UI/Styles/Controls/CheckBox.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/ListBox.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/DataGrid.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Controls/DatePicker.xaml" />
 </Styles>

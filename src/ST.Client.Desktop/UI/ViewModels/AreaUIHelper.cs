@@ -9,16 +9,126 @@ namespace System.Application.UI.ViewModels
 {
     public static class AreaUIHelper
     {
-        public interface IViewModel
+        public interface IViewModel : IViewModelBase
         {
-            IReadOnlyList<IArea> AreaItems2 { get; set; }
-            IArea AreaSelectItem2 { get; set; }
-            IReadOnlyList<IArea> AreaItems3 { get; set; }
-            IArea AreaSelectItem3 { get; set; }
-            IReadOnlyList<IArea> AreaItems4 { get; set; }
-            IArea AreaSelectItem4 { get; set; }
+            IReadOnlyList<IArea>? AreaItems2 { get; set; }
+            IArea? AreaSelectItem2 { get; set; }
+            IReadOnlyList<IArea>? AreaItems3 { get; set; }
+            IArea? AreaSelectItem3 { get; set; }
+            IReadOnlyList<IArea>? AreaItems4 { get; set; }
+            IArea? AreaSelectItem4 { get; set; }
             bool AreaNotVisible3 { get; set; }
             bool AreaNotVisible4 { get; set; }
+        }
+
+        public interface IViewModelField : IViewModel
+        {
+            IReadOnlyList<IArea>? MAreaItems3 { set; }
+            IReadOnlyList<IArea>? MAreaItems4 { set; }
+            IArea? MAreaSelectItem3 { set; }
+            IArea? MAreaSelectItem4 { set; }
+            bool MAreaNotVisible3 { set; }
+            bool MAreaNotVisible4 { set; }
+
+            private void SetAreaItems3(IReadOnlyList<IArea> value, bool isSetProperty)
+            {
+                if (isSetProperty)
+                {
+                    AreaItems3 = value;
+                }
+                else
+                {
+                    MAreaItems3 = value;
+                }
+            }
+
+            private void SetAreaSelectItem3(IArea value, bool isSetProperty)
+            {
+                if (isSetProperty)
+                {
+                    AreaSelectItem3 = value;
+                }
+                else
+                {
+                    MAreaSelectItem3 = value;
+                }
+            }
+
+            private void SetAreaNotVisible3(bool value, bool isSetProperty)
+            {
+                if (isSetProperty)
+                {
+                    AreaNotVisible3 = value;
+                }
+                else
+                {
+                    MAreaNotVisible3 = value;
+                }
+            }
+
+            private void SetAreaItems4(IReadOnlyList<IArea> value, bool isSetProperty)
+            {
+                if (isSetProperty)
+                {
+                    AreaItems4 = value;
+                }
+                else
+                {
+                    MAreaItems4 = value;
+                }
+            }
+
+            private void SetAreaNotVisible4(bool value, bool isSetProperty)
+            {
+                if (isSetProperty)
+                {
+                    AreaNotVisible4 = value;
+                }
+                else
+                {
+                    MAreaNotVisible4 = value;
+                }
+            }
+
+            private void SetAreaSelectItem4(IArea value, bool isSetProperty)
+            {
+                if (isSetProperty)
+                {
+                    AreaSelectItem4 = value;
+                }
+                else
+                {
+                    MAreaSelectItem4 = value;
+                }
+            }
+
+            internal void SetAreaId(int areaId, IArea? area, bool isSetProperty)
+            {
+                if (areaId == PleaseSelect.Id) return;
+                area ??= Res.GetAll().FirstOrDefault(x => x.Id == areaId);
+                if (area == null) return;
+                if (!isSetProperty && area.Up.HasValue) SetAreaId(area.Up.Value, null, isSetProperty);
+                switch (area.Level)
+                {
+                    case AreaLevel.省或直辖市或特别行政区:
+                        SetAreaItems3(GetAreasByLevel(AreaLevel.市_不包括直辖市, areaId), isSetProperty);
+                        SetAreaNotVisible3(AreaItems3 == GroupEmpty, isSetProperty);
+                        SetAreaItems4(AreaNotVisible3 ? GetAreasByLevel(AreaLevel.区县_县级市, areaId) : GroupEmpty, isSetProperty);
+                        SetAreaNotVisible4(AreaNotVisible3 && AreaItems4 == GroupEmpty, isSetProperty);
+                        if (!isSetProperty) AreaSelectItem2 = area;
+                        SetAreaSelectItem3(AreaSelectItem4 = PleaseSelect, isSetProperty);
+                        break;
+                    case AreaLevel.市_不包括直辖市:
+                        SetAreaItems4(GetAreasByLevel(AreaLevel.区县_县级市, areaId), isSetProperty);
+                        SetAreaNotVisible4(AreaItems4 == GroupEmpty, isSetProperty);
+                        if (!isSetProperty) AreaSelectItem3 = area;
+                        SetAreaSelectItem4(PleaseSelect, isSetProperty);
+                        break;
+                    case AreaLevel.区县_县级市:
+                        if (!isSetProperty) AreaSelectItem4 = area;
+                        break;
+                }
+            }
         }
 
         /// <summary>
@@ -26,19 +136,19 @@ namespace System.Application.UI.ViewModels
         /// </summary>
         /// <param name="v"></param>
         /// <returns></returns>
-        public static int GetSelectAreaId(this IViewModel v)
+        public static int? GetSelectAreaId(this IViewModel v)
         {
-            if (v.AreaSelectItem4.Id != PleaseSelect.Id) return v.AreaSelectItem4.Id;
-            else if (v.AreaSelectItem3.Id != PleaseSelect.Id) return v.AreaSelectItem3.Id;
-            else if (v.AreaSelectItem2.Id != PleaseSelect.Id) return v.AreaSelectItem2.Id;
-            return PleaseSelect.Id;
+            if (v.AreaSelectItem4 != null && v.AreaSelectItem4.Id != PleaseSelect.Id) return v.AreaSelectItem4.Id;
+            else if (v.AreaSelectItem3 != null && v.AreaSelectItem3.Id != PleaseSelect.Id) return v.AreaSelectItem3.Id;
+            else if (v.AreaSelectItem2 != null && v.AreaSelectItem2.Id != PleaseSelect.Id) return v.AreaSelectItem2.Id;
+            return null;
         }
 
         /// <summary>
         /// 初始化视图模型中的地区数据
         /// </summary>
         /// <param name="v"></param>
-        public static void InitAreas(this IViewModel v)
+        public static void InitAreas(this IViewModelField v)
         {
             v.AreaItems2 = Group2;
             v.AreaItems3 = v.AreaItems4 = GroupEmpty;
@@ -51,36 +161,8 @@ namespace System.Application.UI.ViewModels
                     v.SelectArea(area);
                 }
             }
-            v.WhenAnyValue(x => x.AreaSelectItem2).Subscribe(SubscribeAreaSelectItem);
-            v.WhenAnyValue(x => x.AreaSelectItem3).Subscribe(SubscribeAreaSelectItem);
-        }
-
-        static void SetAreaId(this IViewModel v, int areaId, IArea? area, bool isSelect)
-        {
-            if (areaId == PleaseSelect.Id) return;
-            area ??= Res.GetAll().FirstOrDefault(x => x.Id == areaId);
-            if (area == null) return;
-            if (!isSelect && area.Up.HasValue) v.SetAreaId(area.Up.Value);
-            switch (area.Level)
-            {
-                case AreaLevel.省或直辖市或特别行政区:
-                    v.AreaItems3 = GetAreasByLevel(AreaLevel.市_不包括直辖市, areaId);
-                    v.AreaNotVisible3 = v.AreaItems3 == GroupEmpty;
-                    v.AreaItems4 = v.AreaNotVisible3 ? GetAreasByLevel(AreaLevel.区县_县级市, areaId) : GroupEmpty;
-                    v.AreaNotVisible4 = v.AreaNotVisible3 && v.AreaItems4 == GroupEmpty;
-                    if (!isSelect) v.AreaSelectItem2 = area;
-                    v.AreaSelectItem3 = v.AreaSelectItem4 = PleaseSelect;
-                    break;
-                case AreaLevel.市_不包括直辖市:
-                    v.AreaItems4 = GetAreasByLevel(AreaLevel.区县_县级市, areaId);
-                    v.AreaNotVisible4 = v.AreaItems4 == GroupEmpty;
-                    if (!isSelect) v.AreaSelectItem3 = area;
-                    v.AreaSelectItem4 = PleaseSelect;
-                    break;
-                case AreaLevel.区县_县级市:
-                    if (!isSelect) v.AreaSelectItem4 = area;
-                    break;
-            }
+            v.WhenAnyValue(x => x.AreaSelectItem2).Subscribe(SubscribeAreaSelectItem).AddTo(v);
+            v.WhenAnyValue(x => x.AreaSelectItem3).Subscribe(SubscribeAreaSelectItem).AddTo(v);
         }
 
         /// <summary>
@@ -88,10 +170,10 @@ namespace System.Application.UI.ViewModels
         /// </summary>
         /// <param name="v"></param>
         /// <param name="areaId"></param>
-        public static void SetAreaId(this IViewModel v, int areaId) => v.SetAreaId(areaId, null, false);
+        public static void SetAreaId(this IViewModelField v, int areaId) => v.SetAreaId(areaId, null, false);
 
-        /// <inheritdoc cref="SetAreaId(IViewModel, int)"/>
-        public static void SetAreaId(this IViewModel v, IArea area) => v.SetAreaId(area.Id);
+        /// <inheritdoc cref="SetAreaId(IViewModelField, int)"/>
+        public static void SetAreaId(this IViewModelField v, IArea area) => v.SetAreaId(area.Id);
 
         /// <summary>
         /// 前端选中一个地区
@@ -101,13 +183,13 @@ namespace System.Application.UI.ViewModels
         /// <param name="area"></param>
         /// <param name="setArea"></param>
         /// <param name="isRecursionUp"></param>
-        static void SelectAreaId(this IViewModel v, int areaId, IArea? area) => v.SetAreaId(areaId, area, true);
+        static void SelectAreaId(this IViewModelField v, int areaId, IArea? area) => v.SetAreaId(areaId, area, true);
 
-        /// <inheritdoc cref="SelectAreaId(IViewModel, int, IArea?)"/>
-        public static void SelectAreaId(this IViewModel v, int areaId) => v.SelectAreaId(areaId, null);
+        /// <inheritdoc cref="SelectAreaId(IViewModelField, int, IArea?)"/>
+        public static void SelectAreaId(this IViewModelField v, int areaId) => v.SelectAreaId(areaId, null);
 
-        /// <inheritdoc cref="SelectAreaId(IViewModel, int, IArea?)"/>
-        public static void SelectArea(this IViewModel v, IArea area) => v.SelectAreaId(area.Id);
+        /// <inheritdoc cref="SelectAreaId(IViewModelField, int, IArea?)"/>
+        public static void SelectArea(this IViewModelField v, IArea area) => v.SelectAreaId(area.Id);
 
         /// <summary>
         /// 根据地区等级获取地区数据
@@ -150,45 +232,45 @@ namespace System.Application.UI.ViewModels
         public static IReadOnlyList<IArea> Group2 => mGroup2.Value;
     }
 
-    partial class UserProfileWindowViewModel : AreaUIHelper.IViewModel
+    partial class UserProfileWindowViewModel : AreaUIHelper.IViewModelField
     {
-        IReadOnlyList<IArea> _AreaItems2;
-        public IReadOnlyList<IArea> AreaItems2
+        IReadOnlyList<IArea>? _AreaItems2;
+        public IReadOnlyList<IArea>? AreaItems2
         {
             get => _AreaItems2;
             set => this.RaiseAndSetIfChanged(ref _AreaItems2, value);
         }
 
-        IReadOnlyList<IArea> _AreaItems3;
-        public IReadOnlyList<IArea> AreaItems3
+        IReadOnlyList<IArea>? _AreaItems3;
+        public IReadOnlyList<IArea>? AreaItems3
         {
             get => _AreaItems3;
             set => this.RaiseAndSetIfChanged(ref _AreaItems3, value);
         }
 
-        IReadOnlyList<IArea> _AreaItems4;
-        public IReadOnlyList<IArea> AreaItems4
+        IReadOnlyList<IArea>? _AreaItems4;
+        public IReadOnlyList<IArea>? AreaItems4
         {
             get => _AreaItems4;
             set => this.RaiseAndSetIfChanged(ref _AreaItems4, value);
         }
 
-        IArea _AreaSelectItem2;
-        public IArea AreaSelectItem2
+        IArea? _AreaSelectItem2;
+        public IArea? AreaSelectItem2
         {
             get => _AreaSelectItem2;
             set => this.RaiseAndSetIfChanged(ref _AreaSelectItem2, value);
         }
 
-        IArea _AreaSelectItem3;
-        public IArea AreaSelectItem3
+        IArea? _AreaSelectItem3;
+        public IArea? AreaSelectItem3
         {
             get => _AreaSelectItem3;
             set => this.RaiseAndSetIfChanged(ref _AreaSelectItem3, value);
         }
 
-        IArea _AreaSelectItem4;
-        public IArea AreaSelectItem4
+        IArea? _AreaSelectItem4;
+        public IArea? AreaSelectItem4
         {
             get => _AreaSelectItem4;
             set => this.RaiseAndSetIfChanged(ref _AreaSelectItem4, value);
@@ -206,6 +288,31 @@ namespace System.Application.UI.ViewModels
         {
             get => _AreaNotVisible4;
             set => this.RaiseAndSetIfChanged(ref _AreaNotVisible4, value);
+        }
+
+        IReadOnlyList<IArea>? AreaUIHelper.IViewModelField.MAreaItems3
+        {
+            set => _AreaItems3 = value;
+        }
+        IReadOnlyList<IArea>? AreaUIHelper.IViewModelField.MAreaItems4
+        {
+            set => _AreaItems4 = value;
+        }
+        IArea? AreaUIHelper.IViewModelField.MAreaSelectItem3
+        {
+            set => _AreaSelectItem3 = value;
+        }
+        IArea? AreaUIHelper.IViewModelField.MAreaSelectItem4
+        {
+            set => _AreaSelectItem4 = value;
+        }
+        bool AreaUIHelper.IViewModelField.MAreaNotVisible3
+        {
+            set => _AreaNotVisible3 = value;
+        }
+        bool AreaUIHelper.IViewModelField.MAreaNotVisible4
+        {
+            set => _AreaNotVisible4 = value;
         }
     }
 }

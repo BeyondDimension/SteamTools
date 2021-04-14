@@ -5,9 +5,9 @@ namespace System.Application
     public static class ViewModelExtensions
     {
         /// <summary>
-        /// <see cref="IDisposable"/> 将对象添加到<see cref="ViewModelBase"/> 的<see cref="ViewModelBase.CompositeDisposable"/>中
+        /// <see cref="IDisposable"/> 将对象添加到<see cref="IViewModelBase"/> 的<see cref="IViewModelBase.CompositeDisposable"/>中
         /// </summary>
-        public static T AddTo<T>(this T disposable, ViewModelBase vm) where T : IDisposable
+        public static T AddTo<T>(this T disposable, IViewModelBase vm) where T : IDisposable
         {
             if (vm == null)
             {
@@ -17,7 +17,7 @@ namespace System.Application
 
             if (vm.CompositeDisposable == null)
             {
-                throw new ArgumentNullException(nameof(ViewModelBase.CompositeDisposable));
+                throw new ArgumentNullException(nameof(IViewModelBase.CompositeDisposable));
             }
 
             vm.CompositeDisposable.Add(disposable);

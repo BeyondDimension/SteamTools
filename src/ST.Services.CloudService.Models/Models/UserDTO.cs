@@ -20,7 +20,7 @@ namespace System.Application.Models
         [MPKey(1)]
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]
-        public string? NickName { get; set; }
+        public string NickName { get; set; } = string.Empty;
 
         [MPKey(2)]
         [N_JsonProperty("2")]

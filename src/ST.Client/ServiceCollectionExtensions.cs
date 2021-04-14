@@ -31,7 +31,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection TryAddUserManager(this IServiceCollection services)
         {
-            services.AddAreaResource<Area>();
+            services.TryAddAreaResource<Area>();
             services.TryAddSingleton<IUserManager, UserManager>();
             return services;
         }

@@ -1,4 +1,8 @@
 ﻿using System.Properties;
+#if DEBUG
+using System.Diagnostics;
+using System.Security.Cryptography;
+#endif
 
 namespace System.Application
 {
@@ -20,5 +24,15 @@ namespace System.Application
 
         [Obsolete("NotImplemented", true)]
         public const string VERSION_NAME = "";
+
+#if DEBUG
+        static readonly Lazy<bool> mIsAigioPC = new(() =>
+        {
+            return Hashs.String.Crc32(Environment.MachineName, false) == "88DF9AB0" ||
+            Hashs.String.Crc32(Environment.UserName, false) == "8AA383BC";
+        });
+        public static bool IsAigioPC => mIsAigioPC.Value;
+        public static bool IsDebuggerAttached => Debugger.IsAttached;
+#endif
     }
 }

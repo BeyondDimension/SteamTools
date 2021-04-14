@@ -7,9 +7,9 @@ namespace System.Application.Repositories
     public interface IGameAccountPlatformAuthenticatorRepository
     {
         /// <summary>
-        /// 可游戏账号平台令牌数量最大值
+        /// 游戏账号平台令牌可导入数量最大值
         /// </summary>
-        public const int MaxValue = 50;
+        public const int MaxValue = 1000;
 
         /// <summary>
         /// 从本地获取所有

@@ -57,7 +57,7 @@ namespace System.Application.UI.ViewModels
         void AddAuthMenu_Click()
         {
             if (!AppSettings.IsOfficialChannelPackage) return;
-            DI.Get<IShowWindowService>().Show(CustomWindow.AddAuth, new AddAuthWindowViewModel());
+            IShowWindowService.Instance.Show<AddAuthWindowViewModel>(CustomWindow.AddAuth);
         }
 
         public void ShowAuthCode(MyAuthenticator auth)
@@ -105,7 +105,7 @@ namespace System.Application.UI.ViewModels
         {
             if (auth.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator)
             {
-                DI.Get<IShowWindowService>().Show(CustomWindow.ShowAuth, new ShowAuthWindowViewModel(auth), string.Empty, ResizeModeCompat.CanResize);
+                IShowWindowService.Instance.Show(CustomWindow.ShowAuth, new ShowAuthWindowViewModel(auth), string.Empty, ResizeModeCompat.CanResize);
             }
         }
 
@@ -113,7 +113,7 @@ namespace System.Application.UI.ViewModels
         {
             if (auth.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator)
             {
-                DI.Get<IShowWindowService>().Show(CustomWindow.AuthTrade, new AuthTradeWindowViewModel(auth), string.Empty, ResizeModeCompat.CanResize);
+                IShowWindowService.Instance.Show(CustomWindow.AuthTrade, new AuthTradeWindowViewModel(auth), string.Empty, ResizeModeCompat.CanResize);
             }
         }
     }

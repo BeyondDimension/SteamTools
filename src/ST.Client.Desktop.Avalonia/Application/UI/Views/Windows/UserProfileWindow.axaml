@@ -12,11 +12,14 @@
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:ccl_services="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
+        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
         WindowStartupLocation="CenterOwner"
+        x:DataType="vm:UserProfileWindowViewModel"
+        x:CompileBindings="True"
         Title="{Binding Title}">
   <Panel>
     <Panel.Styles>
@@ -53,7 +56,7 @@
     </Panel.Styles>
     <controls:TitleBar/>
     <Panel Margin="{StaticResource ContentMargin}">
-      <!--<ProgressBar IsIndeterminate="True" IsVisible="{Binding IsLoading}"/>-->
+      <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsLoading}"/>
       <StackPanel VerticalAlignment="Center" IsVisible="{Binding !IsLoading}">
         <DockPanel>
           <Image Source="/Application/UI/Assets/AppResources/avater.jpg" Width="184" Height="184" />
@@ -102,12 +105,12 @@
           <TextBox Watermark="请输入昵称"
                    Text="{Binding NickName}"
                    Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"
-                   MaxLength="{Binding Path=NickName,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}"/>
+                   MaxLength="{ReflectionBinding Path=NickName,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}"/>
           <TextBlock Classes="FormItemLabel" Text="手机号码" Grid.Row="3"/>
           <TextBox IsReadOnly="True" Focusable="False"
                    Watermark="{Binding CurrentPhoneNumber,Mode=OneWay}"
                    Grid.Row="3" Grid.Column="1"
-                   MaxLength="{Binding Path=PhoneNumber,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}"/>
+                   MaxLength="{ReflectionBinding Path=PhoneNumber,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}"/>
           <Button Classes="Secondary" Content="修改" Grid.Row="3" Grid.Column="3"/>
           <TextBlock Classes="FormItemLabel" Text="邮箱" Grid.Row="5"/>
           <TextBox IsReadOnly="True" Focusable="False" Watermark="该功能正在开发中，敬请期待" Text="" Grid.Row="5" Grid.Column="1"/>
@@ -141,14 +144,13 @@
           </WrapPanel>
           <TextBlock Classes="FormItemLabel" Text="生日" Grid.Row="13"/>
           <DatePicker Height="36"
-                      YearFormat="yyyy"
-                      MonthFormat="MM"
-                      DayFormat="dd"
+                      SelectedDate="{Binding BirthDate}"
                       Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="3" />
         </Grid>
         <Button Classes="action WidthUnify"
                 HorizontalAlignment="Center"
-                Command="{Binding Submit}"
+                Command="{ReflectionBinding Submit}"
+                IsEnabled="{Binding IsModify}"
                 Content="保存修改"/>
       </StackPanel>
     </Panel>

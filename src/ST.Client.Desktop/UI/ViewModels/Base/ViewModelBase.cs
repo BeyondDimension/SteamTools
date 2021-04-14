@@ -1,23 +1,14 @@
 ﻿using ReactiveUI;
 using System.Application.Mvvm;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace System.Application.UI.ViewModels
 {
-    public class ViewModelBase : ReactiveObject, IDisposable
+    public class ViewModelBase : ReactiveObject, IViewModelBase
     {
-        [NonSerialized] private CompositeDisposable? _compositeDisposable = new();
-        public CompositeDisposable? CompositeDisposable
-        {
-            get => _compositeDisposable;
-            set
-            {
-                if (_compositeDisposable != value)
-                {
-                    _compositeDisposable = value;
-                }
-            }
-        }
+        [IgnoreDataMember]
+        public CompositeDisposable CompositeDisposable { get; } = new();
 
         [IgnoreDataMember]
         public bool Disposed { get; private set; }
@@ -26,7 +17,6 @@ namespace System.Application.UI.ViewModels
         /// 是否在设计器的上下文中运行
         /// </summary>
         public static bool IsInDesignMode { get; set; } = true;
-
 
         /// <summary>
         /// 释放该实例使用的所有资源
@@ -43,5 +33,12 @@ namespace System.Application.UI.ViewModels
             if (disposing) CompositeDisposable?.Dispose();
             Disposed = true;
         }
+    }
+
+    public interface IViewModelBase : IReactiveObject, INotifyPropertyChanged, INotifyPropertyChanging, IDisposable
+    {
+        CompositeDisposable CompositeDisposable { get; }
+
+        bool Disposed { get; }
     }
 }

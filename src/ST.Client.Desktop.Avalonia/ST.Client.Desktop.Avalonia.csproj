@@ -31,10 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Application\UI\Assets\AppResources\app.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
   </ItemGroup>
@@ -51,5 +47,4 @@
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0013694-beta" />
   </ItemGroup>
-
 </Project>

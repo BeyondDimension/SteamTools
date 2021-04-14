@@ -16,31 +16,43 @@ namespace System.Application.Services
         /// </summary>
         /// <typeparam name="TWindowViewModel"></typeparam>
         /// <param name="customWindow"></param>
-        /// <param name="title"></param>
         /// <param name="viewModel"></param>
+        /// <param name="title"></param>
         /// <param name="resizeMode"></param>
+        /// <param name="isDialog"></param>
         /// <returns></returns>
         Task Show<TWindowViewModel>(
             CustomWindow customWindow,
             TWindowViewModel? viewModel = null,
-            string title= "",
-            ResizeModeCompat resizeMode = ResizeModeCompat.NoResize)
+            string title = "",
+            ResizeModeCompat resizeMode = ResizeModeCompat.NoResize,
+            bool isDialog = false)
             where TWindowViewModel : WindowViewModel, new();
 
-        /// <summary>
-        /// 显示一个弹窗，返回 <see langword="true"/> 确定，<see langword="false"/> 取消
-        /// </summary>
-        /// <typeparam name="TDialogWindowViewModel"></typeparam>
-        /// <param name="customWindow"></param>
-        /// <param name="title"></param>
-        /// <param name="viewModel"></param>
-        /// <param name="resizeMode"></param>
-        /// <returns></returns>
-        Task<bool> ShowDialog<TDialogWindowViewModel>(
+        /// <inheritdoc cref="Show{TWindowViewModel}(CustomWindow, TWindowViewModel?, string, ResizeModeCompat, bool)"/>
+        Task Show(Type typeWindowViewModel,
             CustomWindow customWindow,
-            TDialogWindowViewModel? viewModel = null,
+            WindowViewModel? viewModel = null,
             string title = "",
-            ResizeModeCompat resizeMode = ResizeModeCompat.NoResize)
-            where TDialogWindowViewModel : DialogWindowViewModel, new();
+            ResizeModeCompat resizeMode = ResizeModeCompat.NoResize,
+            bool isDialog = false);
+
+        /// <summary>
+        /// 显示一个弹窗，返回 <see langword="true"/> 确定(仅当ViewModel继承自<see cref="DialogWindowViewModel"/>时生效)，<see langword="false"/> 取消
+        /// </summary>
+        /// <typeparam name="TWindowViewModel"></typeparam>
+        /// <param name="customWindow"></param>
+        /// <param name="viewModel"></param>
+        /// <param name="title"></param>
+        /// <param name="resizeMode"></param>
+        /// <param name="isDialog"></param>
+        /// <returns></returns>
+        Task<bool> ShowDialog<TWindowViewModel>(
+            CustomWindow customWindow,
+            TWindowViewModel? viewModel = null,
+            string title = "",
+            ResizeModeCompat resizeMode = ResizeModeCompat.NoResize,
+            bool isDialog = true)
+            where TWindowViewModel : WindowViewModel, new();
     }
 }
