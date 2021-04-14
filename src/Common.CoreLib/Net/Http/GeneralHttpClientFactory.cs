@@ -28,7 +28,22 @@ namespace System.Net.Http
         /// </summary>
         protected virtual string? ClientName { get; }
 
+        /// <summary>
+        /// 默认超时时间，19秒
+        /// </summary>
+        public static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(19);
+
+        /// <inheritdoc cref="DefaultTimeout"/>
+        protected virtual TimeSpan Timeout { get; } = DefaultTimeout;
+
         protected virtual HttpClient CreateClient()
+        {
+            var client = CreateClient_();
+            client.Timeout = Timeout;
+            return client;
+        }
+
+        HttpClient CreateClient_()
         {
 #if DEBUG
             logger.LogDebug("CreateClient, name: {0}", ClientName);

@@ -115,7 +115,7 @@ namespace System.Application.Services.CloudService
         {
             var url = request.RequestUri.ThrowIsNull(nameof(request.RequestUri)).ToString();
             url = url.Base64UrlEncode();
-            request.RequestUri = new Uri($"api/forward?url={url}");
+            request.RequestUri = new Uri($"api/forward?url={url}", UriKind.Relative);
             return connection.SendAsync(request, completionOption, cancellationToken);
         }
     }
