@@ -55,10 +55,11 @@
 		- KB3063858 [64 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47442) / [32 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47409)
 	- macOS 10.13 High Sierra 或更高版本
 	- Linux 发行版
+		- Arch Linux
 		- Alpine Linux 3.11+
 		- CentOS 7+
 		- Debian 9+
-			- Deepin 20.1 / UOS 20
+		- Deepin 20.1 / UOS 20
 		- Fedora 32+
 		- Linux Mint 18+
 		- openSUSE 15+
@@ -110,6 +111,8 @@
 * [Hardcodet.NotifyIcon](https://github.com/HavenDV/Hardcodet.NotifyIcon.Wpf.NetCore)
 * [System.Reactive](https://github.com/dotnet/reactive)
 * [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy)
+* [BrotliSharpLib](https://github.com/master131/BrotliSharpLib)
+* [Portable.BouncyCastle](https://github.com/novotnyllc/bc-csharp)
 * [Ninject](https://github.com/ninject/Ninject)
 * [log4net](https://github.com/apache/logging-log4net)
 * [SteamDB-API](https://github.com/SteamDB-API/api)
@@ -137,8 +140,10 @@
 * [MessageBox.Avalonia](https://github.com/AvaloniaUtils/MessageBox.Avalonia)
 * [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia)
 * [AvaloniaGif](https://github.com/jmacato/AvaloniaGif)
+* [Avalonia XAML Behaviors](https://github.com/wieslawsoltes/AvaloniaBehaviors)
 * [Chromium Embedded Framework (CEF)](https://github.com/chromiumembedded/cef)
 * [Moq](https://github.com/moq/moq4)
+* [NPOI](https://github.com/nissl-lab/npoi)
 * [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
 * [AspNet.Security.OpenId.Providers](https://github.com/aspnet-contrib/AspNet.Security.OpenId.Providers)
 * [CefNet](https://github.com/CefNet/CefNet)
@@ -148,6 +153,7 @@
 * [Toast messages for Xamarin.iOS](https://github.com/andrius-k/Toast)
 * [Visual Studio App Center SDK for .NET](https://github.com/microsoft/appcenter-sdk-dotnet)
 * [AppCenter-XMac](https://github.com/nor0x/AppCenter-XMac)
+* [MSBuild.Sdk.Extras](https://github.com/novotnyllc/MSBuildSdkExtras)
 * [Xamarin.Essentials](https://github.com/xamarin/essentials)
 * [Xamarin.Forms](https://github.com/xamarin/Xamarin.Forms)
 * [Entity Framework Core](https://github.com/dotnet/efcore)

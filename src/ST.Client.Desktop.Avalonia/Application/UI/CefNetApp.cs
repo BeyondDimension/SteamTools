@@ -1,5 +1,6 @@
 ﻿using Avalonia.Threading;
 using CefNet;
+using System.Application.Models;
 using System.Application.UI.Resx;
 using System.Globalization;
 using System.IO;
@@ -166,9 +167,33 @@ navigator.__proto__ = newProto;
                     Dispatcher.UIThread.Post(CefApi.DoMessageLoopWork);
                 }
             };
+            // https://bitbucket.org/chromiumembedded/cef/wiki/JavaScriptIntegration.md
+            app.WebKitInitialized += (_, _) =>
+            {
+                // 疑似渲染进程中执行，可能取不到值，待测试
+                var extensionCode =
+                "var steampp;" +
+                "if (!steampp)" +
+                "  steampp = {};" +
+                "(function() {" +
+               $"  steampp.language = \"{R.Language}\";" +
+               $"  steampp.theme = \"{GetTheme()}\";" +
+                "})();";
+                CefApi.RegisterExtension("steampp.js", extensionCode, null);
+            };
             app.Initialize(cefPath, settings);
 
             InitState = CefNetAppInitState.Complete;
+        }
+
+        public static string GetTheme()
+        {
+            var theme = AppHelper.Current.Theme;
+            return theme switch
+            {
+                AppTheme.FollowingSystem => "auto",
+                _ => theme.ToString(),
+            };
         }
     }
 

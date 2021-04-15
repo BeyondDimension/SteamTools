@@ -148,31 +148,32 @@ namespace System.Application.UI.Views.Controls
             "https://localhost",
         };
 
-        protected override CefReturnValue OnBeforeResourceLoad(CefBrowser browser, CefFrame frame, CefRequest request, CefRequestCallback callback)
-        {
-            //using var header = new CefStringMultimap();
-            //request.GetHeaderMap(header);
-            //var header_new = new CefStringMultimap();
-            //foreach (var item in header.AllKeys)
-            //{
-            //    string value;
-            //    if ("Accept-Language".Equals(item, StringComparison.OrdinalIgnoreCase))
-            //    {
-            //        value = R.GetAcceptLanguage();
-            //    }
-            //    else
-            //    {
-            //        value = header[item];
-            //    }
-            //    header_new.Add(item, value);
-            //}
-            //request.SetHeaderMap(header_new);
-            if (urls.Any(x => request.Url.StartsWith(x, StringComparison.OrdinalIgnoreCase)))
-            {
-                request.SetHeaderByName("Accept-Language2", R.AcceptLanguage, true);
-            }
-            var returnValue = base.OnBeforeResourceLoad(browser, frame, request, callback);
-            return returnValue;
-        }
+
+        //protected override CefReturnValue OnBeforeResourceLoad(CefBrowser browser, CefFrame frame, CefRequest request, CefRequestCallback callback)
+        //{
+        //    //using var header = new CefStringMultimap();
+        //    //request.GetHeaderMap(header);
+        //    //var header_new = new CefStringMultimap();
+        //    //foreach (var item in header.AllKeys)
+        //    //{
+        //    //    string value;
+        //    //    if ("Accept-Language".Equals(item, StringComparison.OrdinalIgnoreCase))
+        //    //    {
+        //    //        value = R.GetAcceptLanguage();
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        value = header[item];
+        //    //    }
+        //    //    header_new.Add(item, value);
+        //    //}
+        //    //request.SetHeaderMap(header_new);
+        //    //if (urls.Any(x => request.Url.StartsWith(x, StringComparison.OrdinalIgnoreCase)))
+        //    //{
+        //    //    request.SetHeaderByName("Accept-Language2", R.AcceptLanguage, true);
+        //    //}
+        //    var returnValue = base.OnBeforeResourceLoad(browser, frame, request, callback);
+        //    return returnValue;
+        //}
     }
 }

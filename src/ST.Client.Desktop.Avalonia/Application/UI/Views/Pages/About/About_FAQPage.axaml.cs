@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using CefNet.Avalonia;
-using System.Application.Models;
+using System.Application.UI.Resx;
 using System.Application.UI.Views.Controls;
 
 namespace System.Application.UI.Views.Pages
@@ -9,19 +9,17 @@ namespace System.Application.UI.Views.Pages
     public class About_FAQPage : UserControl, IDisposable
     {
         readonly WebView webViewQA;
-        private bool disposedValue;
+        bool disposedValue;
 
         public About_FAQPage()
         {
             InitializeComponent();
 
             webViewQA = this.FindControl<WebView3>(nameof(webViewQA));
-            var theme = AppHelper.Current.Theme;
-            webViewQA.InitialUrl = string.Format("https://steampp.net/faqBox?theme={0}", theme switch
-            {
-                AppTheme.FollowingSystem => "auto",
-                _ => theme.ToString(),
-            });
+            webViewQA.InitialUrl = string.Format(
+                "https://steampp.net/faqBox?theme={0}&language={1}",
+                CefNetApp.GetTheme(),
+                R.Language);
         }
 
         private void InitializeComponent()

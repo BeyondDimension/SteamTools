@@ -72,6 +72,7 @@ namespace System.Application.UI.Resx
                 DefaultCurrentUICulture :
                 CultureInfo.GetCultureInfo(Languages.SingleOrDefault(x => x.Key == cultureName).Key);
             mAcceptLanguage = GetAcceptLanguageCore();
+            mLanguage = GetLanguageCore();
             Current.Res = new AppResources();
             Current.RaisePropertyChanged(nameof(Res));
         }
@@ -108,6 +109,49 @@ namespace System.Application.UI.Resx
                     mAcceptLanguage = GetAcceptLanguageCore();
                 }
                 return mAcceptLanguage;
+            }
+        }
+
+        static string? mLanguage;
+
+        static string GetLanguageCore()
+        {
+            var culture = AppResources.Culture ?? DefaultCurrentUICulture;
+            if (IsMatch(culture, "zh-Hans"))
+            {
+                return "zh-Hans";
+            }
+            else if (IsMatch(culture, "zh-Hant"))
+            {
+                return "zh-Hant";
+            }
+            else if (IsMatch(culture, "ko"))
+            {
+                return "ko";
+            }
+            else if (IsMatch(culture, "ja"))
+            {
+                return "ja";
+            }
+            else if (IsMatch(culture, "ru"))
+            {
+                return "ru";
+            }
+            else
+            {
+                return "en";
+            }
+        }
+
+        public static string Language
+        {
+            get
+            {
+                if (mLanguage == null)
+                {
+                    mLanguage = GetLanguageCore();
+                }
+                return mLanguage;
             }
         }
     }
