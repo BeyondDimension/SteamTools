@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using DynamicData;
 using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Application.Services;
@@ -12,6 +13,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using DynamicData.Binding;
 
 namespace System.Application.UI.ViewModels
 {
@@ -57,8 +59,8 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// steam记住的用户列表
         /// </summary>
-        private IList<SteamUser>? _steamUsers;
-        public IList<SteamUser>? SteamUsers
+        private ObservableCollection<SteamUser>? _steamUsers;
+        public ObservableCollection<SteamUser>? SteamUsers
         {
             get => _steamUsers;
             set => this.RaiseAndSetIfChanged(ref _steamUsers, value);
@@ -76,17 +78,19 @@ namespace System.Application.UI.ViewModels
                 return;
             }
 
-#if DEBUG
-            for (var i = 0; i < 10; i++)
-            {
-                SteamUsers.Add(SteamUsers[0]);
-            }
-#endif
+//#if DEBUG
+//            for (var i = 0; i < 10; i++)
+//            {
+//                SteamUsers.Add(SteamUsers[0]);
+//            }
+//#endif
 
             var users = SteamUsers.ToArray();
             for (var i = 0; i < SteamUsers.Count; i++)
             {
                 var temp = users[i];
+                string? remark = null;
+                SteamAccountSettings.AccountRemarks.Value?.TryGetValue(SteamUsers[i].SteamId64, out remark);
                 users[i] = await webApiService.GetUserInfo(SteamUsers[i].SteamId64);
                 users[i].AccountName = temp.AccountName;
                 users[i].SteamID = temp.SteamID;
@@ -98,10 +102,22 @@ namespace System.Application.UI.ViewModels
                 users[i].WantsOfflineMode = temp.WantsOfflineMode;
                 users[i].SkipOfflineModeWarning = temp.SkipOfflineModeWarning;
                 users[i].OriginVdfString = temp.OriginVdfString;
+                users[i].Remark = remark;
                 users[i].AvatarStream = string.IsNullOrEmpty(users[i].AvatarFull) ? null : await httpService.GetImageAsync(users[i].AvatarFull, ImageChannelType.SteamAvatars);
             }
             SteamUsers = new ObservableCollection<SteamUser>(
                 users.OrderByDescending(o => o.LastLoginTime).ToList());
+
+            this.WhenAnyValue(x => x.SteamUsers)
+                .Subscribe(items => items?
+                        .ToObservableChangeSet()
+                        .AutoRefresh(x => x.Remark)
+                        .WhenValueChanged(x => x.Remark, false)
+                        .Subscribe(_ =>
+                        {
+                            SteamAccountSettings.AccountRemarks.Value = items?.Where(x => !string.IsNullOrEmpty(x.Remark)).ToDictionary(k => k.SteamId64, v => v.Remark);
+                        }));
+
         }
 
         public void SteamId_Click(SteamUser user)

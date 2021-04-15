@@ -1,11 +1,12 @@
-﻿using System.IO;
+﻿using ReactiveUI;
+using System.IO;
 using System.Xml.Serialization;
 using static System.Application.SteamApiUrls;
 
 namespace System.Application.Models
 {
     [XmlRoot("profile")]
-    public class SteamUser
+    public class SteamUser : ReactiveObject
     {
         public const long UndefinedId = 76561197960265728;
 
@@ -151,11 +152,17 @@ namespace System.Application.Models
         [XmlIgnore]
         public bool SkipOfflineModeWarning { get; set; }
 
+        
+        private string? _Remark;
         /// <summary>
         /// 备注
         /// </summary>
         [XmlIgnore]
-        public string? Remark { get; set; }
+        public string? Remark
+        {
+            get => _Remark;
+            set => this.RaiseAndSetIfChanged(ref _Remark, value);
+        }
 
         /// <summary>
         /// 来源 Valve Data File 字符串

@@ -49,7 +49,7 @@ namespace System.Application.UI.ViewModels
         {
             SteamApps = await ISteamService.Instance.GetAppInfos();
 #if DEBUG
-            if (BuildConfig.IsAigioPC && BuildConfig.IsDebuggerAttached)
+            if (BuildConfig.IsDebuggerAttached)
             {
                 return;
             }

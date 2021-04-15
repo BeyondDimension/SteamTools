@@ -493,7 +493,7 @@ namespace WinAuth
             // clear error
             Error = null;
 
-            var data = new NameValueCollection();
+            var data = new Dictionary<string, string?>();
             string response;
 
             if (IsLoggedIn() == false)
@@ -510,12 +510,12 @@ namespace WinAuth
                     Session.Cookies.Add(cookieuri, new Cookie("Steam_Language", string.IsNullOrEmpty(language) ? "english" : language));
                     Session.Cookies.Add(cookieuri, new Cookie("dob", ""));
 
-                    NameValueCollection headers = new NameValueCollection
+                    Dictionary<string,string?> headers = new()
                     {
                         { "X-Requested-With", "com.valvesoftware.android.steam.community" }
                     };
 
-                    response = GetString(COMMUNITY_BASE + "/mobilelogin?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client", "GET", null, headers);
+                    response = GetString(COMMUNITY_BASE + "/mobilelogin?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client", HttpMethod.Get, null, headers);
                 }
 
                 // Steam strips any non-ascii chars from username and password
@@ -524,7 +524,7 @@ namespace WinAuth
 
                 // get the user's RSA key
                 data.Add("username", username);
-                response = GetString(COMMUNITY_BASE + "/mobilelogin/getrsakey", "POST", data);
+                response = GetString(COMMUNITY_BASE + "/mobilelogin/getrsakey", HttpMethod.Post, data);
                 var rsaresponse = JObject.Parse(response);
                 if (rsaresponse.SelectToken("success").Value<bool>() != true)
                 {
@@ -548,7 +548,7 @@ namespace WinAuth
                 }
 
                 // login request
-                data = new NameValueCollection
+                data = new Dictionary<string, string?>
                 {
                     { "password", encryptedPassword64 },
                     { "username", username },
@@ -564,7 +564,7 @@ namespace WinAuth
                     { "oauth_scope", "read_profile write_profile read_client write_client" },
                     { "donotache", new DateTime().ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds.ToString() }
                 };
-                response = GetString(COMMUNITY_BASE + "/mobilelogin/dologin/", "POST", data);
+                response = GetString(COMMUNITY_BASE + "/mobilelogin/dologin/", HttpMethod.Post, data);
                 Dictionary<string, object> loginresponse = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
 
                 if (loginresponse.ContainsKey("emailsteamid") == true)
@@ -659,12 +659,12 @@ namespace WinAuth
 
                 if (string.IsNullOrEmpty(Session.UmqId) == false)
                 {
-                    var data = new NameValueCollection
+                    var data = new Dictionary<string, string?>
                     {
                         { "access_token", Session.OAuthToken },
                         { "umqid", Session.UmqId }
                     };
-                    GetString(API_LOGOFF, "POST", data);
+                    GetString(API_LOGOFF, HttpMethod.Post, data);
                 }
             }
 
@@ -680,11 +680,11 @@ namespace WinAuth
         {
             try
             {
-                var data = new NameValueCollection
+                var data = new Dictionary<string, string?>
                 {
                     { "access_token", Session.OAuthToken }
                 };
-                string response = GetString(API_GETWGTOKEN, "POST", data);
+                string response = GetString(API_GETWGTOKEN, HttpMethod.Post, data);
                 if (string.IsNullOrEmpty(response) == true)
                 {
                     return false;
@@ -739,11 +739,11 @@ namespace WinAuth
                 return false;
             }
 
-            var data = new NameValueCollection
+            var data = new Dictionary<string, string?>
             {
                 { "access_token", Session.OAuthToken }
             };
-            var response = GetString(API_LOGON, "POST", data);
+            var response = GetString(API_LOGON, HttpMethod.Post, data);
             var loginresponse = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
             if (loginresponse.ContainsKey("umqid") == true)
             {
@@ -945,7 +945,7 @@ namespace WinAuth
 
             var timehash = CreateTimeHash(servertime, "conf", ids);
 
-            var data = new NameValueCollection
+            var data = new Dictionary<string, string?>
             {
                 { "p", Authenticator.DeviceId },
                 { "a", Session.SteamId },
@@ -955,11 +955,11 @@ namespace WinAuth
                 { "tag", "conf" }
             };
 
-            string html = GetString(COMMUNITY_BASE + "/mobileconf/conf", "GET", data);
+            string html = GetString(COMMUNITY_BASE + "/mobileconf/conf", HttpMethod.Get, data);
 
             // save last html for confirmations details
             ConfirmationsHtml = html;
-            ConfirmationsQuery = string.Join("&", Array.ConvertAll(data.AllKeys, key => String.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(data[key]))));
+            ConfirmationsQuery = string.Join("&", Array.ConvertAll(data.Keys.ToArray(), key => String.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(data[key]))));
 
             List<Confirmation> trades = new();
 
@@ -1089,7 +1089,7 @@ namespace WinAuth
             string ids = (jids != null ? jids.Value<string>() : string.Empty);
             var timehash = CreateTimeHash(servertime, "conf", ids);
 
-            var data = new NameValueCollection
+            var data = new Dictionary<string, string?>
             {
                 { "op", accept ? "allow" : "cancel" },
                 { "p", Authenticator.DeviceId },
@@ -1105,7 +1105,7 @@ namespace WinAuth
 
             try
             {
-                string response = GetString(COMMUNITY_BASE + "/mobileconf/ajaxop", "GET", data);
+                string response = GetString(COMMUNITY_BASE + "/mobileconf/ajaxop",HttpMethod.Get, data);
                 if (string.IsNullOrEmpty(response) == true)
                 {
                     Error = "Blank response";
@@ -1203,16 +1203,21 @@ namespace WinAuth
         /// <param name="headers">optional headers</param>
         /// <returns>string of returned data</returns>
         [Obsolete("use SendAsync")]
-        public string GetString(string url, string? method = null, NameValueCollection? formdata = null, NameValueCollection? headers = null)
+        public string GetString(string url, HttpMethod? method = null, IReadOnlyDictionary<string, string?>? formdata = null, IReadOnlyDictionary<string, string?>? headers = null)
         {
-            var data = Request(url, method ?? "GET", formdata, headers);
-            if (data == null || data.Length == 0)
+            var cance = new CancellationToken();
+            method ??= HttpMethod.Get;
+            var result = SendAsync<string>(url, method, formdata, headers, cance);
+            result.Wait();
+            //var data = Request(url, method, formdata, headers);
+            if (string.IsNullOrEmpty(result?.Result))
             {
                 return string.Empty;
             }
             else
             {
-                return Encoding.UTF8.GetString(data);
+                //return Encoding.UTF8.GetString(result.Result);
+                return result.Result;
             }
         }
 

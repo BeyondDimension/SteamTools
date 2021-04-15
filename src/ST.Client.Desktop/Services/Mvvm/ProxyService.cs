@@ -201,12 +201,13 @@ namespace System.Application.Services
             }
 
             this.WhenAnyValue(v => v.ProxyDomains)
+                  .DistinctUntilChanged()
                   .Subscribe(domain => domain?
                         .ToObservableChangeSet()
                         .AutoRefresh(x => x.ObservableItems)
                         .TransformMany(t => t.ObservableItems)
                         .AutoRefresh(x => x.Enable)
-                        .Subscribe(s =>
+                        .Subscribe(_ =>
                         {
                             ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Where(w => w.Id != null).Select(k => k.Id.ToString()).ToList();
                         }));

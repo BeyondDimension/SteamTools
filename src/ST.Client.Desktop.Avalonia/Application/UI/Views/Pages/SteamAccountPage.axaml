@@ -16,8 +16,8 @@
                    Text="{Binding Path=Res.UserChange_NoUserTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
                    TextWrapping="WrapWithOverflow"
                    VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-        <ScrollViewer  HorizontalScrollBarVisibility="Disabled" 
-                       VerticalScrollBarVisibility="Auto" 
+        <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
+                       VerticalScrollBarVisibility="Auto"
                        Padding="{StaticResource PageMargin}">
             <ItemsRepeater Items="{CompiledBinding SteamUsers}">
                 <ItemsRepeater.Layout>
@@ -30,17 +30,17 @@
                         <Panel x:Name="panel" MinWidth="200">
                             <Panel.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem 
-                                              Header="{Binding Path=Res.UserChange_BtnText,Mode=OneWay,Source={x:Static resx:R.Current}}" 
-                                              Command="{Binding #u.DataContext.SteamId_Click}" 
+                                    <MenuItem
+                                              Header="{Binding Path=Res.UserChange_BtnText,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                              Command="{Binding #u.DataContext.SteamId_Click}"
                                               CommandParameter="{Binding}" />
-                                    <MenuItem 
-                                              Header="{Binding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}" 
-                                              Command="{Binding #u.DataContext.OfflineModeButton_Click}" 
+                                    <MenuItem
+                                              Header="{Binding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                              Command="{Binding #u.DataContext.OfflineModeButton_Click}"
                                               CommandParameter="{Binding}" />
-                                    <MenuItem 
-                                              Header="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" 
-                                              Command="{Binding #u.DataContext.DeleteUserButton_Click}" 
+                                    <MenuItem
+                                              Header="{Binding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                              Command="{Binding #u.DataContext.DeleteUserButton_Click}"
                                               CommandParameter="{Binding}" />
                                 </ContextMenu>
                             </Panel.ContextMenu>
@@ -74,7 +74,7 @@
                                                         </ia:DataTriggerBehavior>
                                                     </i:Interaction.Behaviors>
                                                 </Ellipse>
-                                                <controls:ScrollingTextBlock x:Name="nickname" Width="{Binding $parent.Width}" Text="{Binding SteamNickName}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand" ToolTip.Tip="{Binding Path=Res.UserChange_OpenUserUrl,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                                                <controls:ScrollingTextBlock x:Name="nickname" Text="{Binding SteamNickName}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand" ToolTip.Tip="{Binding Path=Res.UserChange_OpenUserUrl,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                                     <!--OpenUserProfileUrl-->
                                                     <i:Interaction.Behaviors>
                                                         <ia:EventTriggerBehavior EventName="PointerPressed" SourceObject="{Binding #nickname}">
@@ -82,12 +82,36 @@
                                                         </ia:EventTriggerBehavior>
                                                     </i:Interaction.Behaviors>
                                                 </controls:ScrollingTextBlock>
+                                                <!--<WrapPanel VerticalAlignment="Center" IsVisible="{Binding Remark,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">-->
+                                                <WrapPanel VerticalAlignment="Center">
+                                                    <!--<TextBlock Text="("></TextBlock>-->
+                                                    <!--<controls:ScrollingTextBlock Text="{Binding Remark}">
+                                                    </controls:ScrollingTextBlock>-->
+                                                    <!--<TextBlock Text=")"></TextBlock>-->
+                                                    <!--<PathIcon Data="{StaticResource EditDrawing}" Width="10" Height="10"></PathIcon>-->
+                                                    <TextBox VerticalAlignment="Center"
+                                                         VerticalContentAlignment="Center"
+                                                         Watermark="点此添加备注"
+                                                         Text="{Binding Remark,Mode=TwoWay}"
+                                                         Classes="readonlybox"
+                                                         Foreground="{DynamicResource InactiveForegroundBrushKey}">
+                                                        <TextBox.InnerRightContent>
+                                                            <PathIcon Data="{StaticResource EditDrawing}"
+                                                                      Width="10" Height="10"
+                                                                      Opacity="0.8"
+                                                                      VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                                      Margin="0" 
+                                                                      IsVisible="{Binding Remark,Converter={StaticResource IsNullConverter}}"/>
+                                                        </TextBox.InnerRightContent>
+                                                    </TextBox>
+                                                </WrapPanel>
+
                                             </DockPanel>
 
                                             <WrapPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding AccountName}" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
                                                 <TextBlock Text="(" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                                                <TextBox Text="{Binding SteamId64,Mode=OneWay}" FontSize="14" Classes="readonlybox" Padding="0" Foreground="{DynamicResource InactiveForegroundBrushKey}"></TextBox>
+                                                <TextBox Text="{Binding SteamId64,Mode=OneWay}" FontSize="14" Classes="readonlybox" Padding="0" Foreground="{DynamicResource InactiveForegroundBrushKey}" IsReadOnly="True"></TextBox>
                                                 <TextBlock Text=")" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
                                             </WrapPanel>
                                         </StackPanel>

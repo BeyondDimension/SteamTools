@@ -7,13 +7,22 @@ namespace System.Application.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (parameter != null)
+            if (parameter is string p)
             {
-                var k = (string) parameter;
-                if (k.ToLowerInvariant().Contains("invert"))
+                if (p.ToLowerInvariant().Equals("invert"))
+                {
+                    if (value is string str)
+                    {
+                        return !string.IsNullOrEmpty(str);
+                    }
                     return value != null;
+                }
             }
 
+            if (value is string v)
+            {
+                return string.IsNullOrEmpty(v);
+            }
             return value is null;
         }
 
