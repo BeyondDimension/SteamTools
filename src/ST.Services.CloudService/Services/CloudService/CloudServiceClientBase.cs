@@ -113,9 +113,7 @@ namespace System.Application.Services.CloudService
             HttpCompletionOption completionOption,
             CancellationToken cancellationToken)
         {
-            var url = request.RequestUri.ThrowIsNull(nameof(request.RequestUri)).ToString();
-            url = url.Base64UrlEncode();
-            request.RequestUri = new Uri($"api/forward?url={url}", UriKind.Relative);
+            request.RequestUri = new Uri(ForwardHelper.GetForwardRelativeUrl(request), UriKind.Relative);
             return connection.SendAsync(request, completionOption, cancellationToken);
         }
     }

@@ -33,6 +33,11 @@ namespace System.Net.Http
         /// </summary>
         public static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(19);
 
+        static readonly Lazy<int> mDefaultTimeoutTotalMilliseconds = new(() => DefaultTimeout.TotalMilliseconds.ToInt32());
+
+        /// <inheritdoc cref="DefaultTimeout"/>
+        public static int DefaultTimeoutTotalMilliseconds => mDefaultTimeoutTotalMilliseconds.Value;
+
         /// <inheritdoc cref="DefaultTimeout"/>
         protected virtual TimeSpan Timeout { get; } = DefaultTimeout;
 

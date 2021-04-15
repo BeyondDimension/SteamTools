@@ -36,6 +36,8 @@ namespace System.Application.Services.Implementation
             string? accept,
             bool enableForward,
             CancellationToken cancellationToken,
+            Action<HttpResponseMessage>? handlerResponse = null,
+            Action<HttpResponseMessage>? handlerResponseByIsNotSuccessStatusCode = null,
             string? clientName = null) where T : notnull
         {
             HttpResponseMessage? response = null;
@@ -65,6 +67,8 @@ namespace System.Application.Services.Implementation
                       HttpCompletionOption.ResponseHeadersRead,
                       cancellationToken).ConfigureAwait(false);
                 }
+
+                handlerResponse?.Invoke(response);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -112,6 +116,10 @@ namespace System.Application.Services.Implementation
                                 break;
                         }
                     }
+                }
+                else
+                {
+                    handlerResponseByIsNotSuccessStatusCode?.Invoke(response);
                 }
             }
             catch (Exception e)

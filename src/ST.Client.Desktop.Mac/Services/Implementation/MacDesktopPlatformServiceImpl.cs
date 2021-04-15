@@ -6,7 +6,7 @@ using Foundation;
 using System.Application.Models;
 using System.Diagnostics;
 using System.IO;
-using Xamarin.Essentials;
+using System.Runtime.InteropServices;
 
 namespace System.Application.Services.Implementation
 {
@@ -68,10 +68,56 @@ namespace System.Application.Services.Implementation
         {
         }
 
+        #region MachineKey
+
+        // https://blog.csdn.net/lipingqingqing/article/details/8843606
+        // https://forums.xamarin.com/discussion/54210/iokit-framework
+        // https://gist.github.com/chamons/82ab06f5e83d2cb10193
+
+        [DllImport("/System/Library/Frameworks/IOKit.framework/IOKit")]
+        static extern uint IOServiceGetMatchingService(uint masterPort, IntPtr matching);
+
+        [DllImport("/System/Library/Frameworks/IOKit.framework/IOKit")]
+        static extern IntPtr IOServiceMatching(string s);
+
+        [DllImport("/System/Library/Frameworks/IOKit.framework/IOKit")]
+        static extern IntPtr IORegistryEntryCreateCFProperty(uint entry, IntPtr key, IntPtr allocator, uint options);
+
+        [DllImport("/System/Library/Frameworks/IOKit.framework/IOKit")]
+        static extern int IOObjectRelease(uint o);
+
+        static string GetIOPlatformExpertDevice(string keyName)
+        {
+            var value = string.Empty;
+            var platformExpert = IOServiceGetMatchingService(0, IOServiceMatching("IOPlatformExpertDevice"));
+            if (platformExpert != 0)
+            {
+                var key = (NSString)keyName;
+                var valueIntPtr = IORegistryEntryCreateCFProperty(platformExpert, key.Handle, IntPtr.Zero, 0);
+                if (valueIntPtr != IntPtr.Zero)
+                {
+                    value = NSString.FromHandle(valueIntPtr) ?? value;
+                }
+                IOObjectRelease(platformExpert);
+            }
+
+            return value;
+        }
+
+        static string GetSerialNumber() => GetIOPlatformExpertDevice("IOPlatformSerialNumber");
+
+#if DEBUG
+        public static string GetPlatformUUID() => GetIOPlatformExpertDevice("IOPlatformUUID");
+#endif
+
         static string GetMachineSecretKey()
         {
-            return DeviceInfo.Model + DeviceInfo.Name;
+            var value = GetSerialNumber();
+            return value;
+            //return DeviceInfo.Model + DeviceInfo.Name;
         }
+
+        #endregion
 
         static readonly Lazy<(byte[] key, byte[] iv)> mMachineSecretKey = IDesktopPlatformService.GetMachineSecretKey(GetMachineSecretKey);
 

@@ -27,7 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 c.Timeout = GeneralHttpClientFactory.DefaultTimeout;
                 c.BaseAddress = new Uri(sc.ApiBaseUrl);
                 c.DefaultRequestHeaders.UserAgent.ParseAdd(sc.UserAgent);
-                c.DefaultRequestHeaders.Add(Constants.Headers.Request.AppVersion, sc.Settings.AppVersion.ToStringN());
+                c.DefaultRequestHeaders.Add(Constants.Headers.Request.AppVersion, sc.Settings.AppVersionStr);
 #if NETCOREAPP3_0_OR_GREATER
                 c.DefaultRequestVersion = System.Net.HttpVersion.Version20;
 #endif

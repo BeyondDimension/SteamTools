@@ -1,19 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Application.Services;
+using System.Application.Services.CloudService;
+using System.Net;
 using static System.Application.ForwardHelper;
 
 namespace WinAuth
 {
     partial class WinAuthSteamClient
     {
-        static string TryGetForwardUrl(string url)
+        static bool TryGetForwardUrl(ref string url)
         {
             if (IsAllowUrl(url))
             {
-
+                url = GetForwardRelativeUrl(url);
+                url = CombineAbsoluteUrl(ICloudServiceClient.Instance.ApiBaseUrl, url);
+                return true;
             }
-            return url;
+            return false;
+        }
+
+        static void AppendForwardHeaders(WebHeaderCollection headers)
+        {
+            var sc = DI.Get<CloudServiceClientBase>();
+            headers.Add(Constants.Headers.Request.AppVersion, sc.Settings.AppVersionStr);
         }
     }
 }

@@ -15,6 +15,8 @@ namespace System.Application.Services
             string? accept,
             bool enableForward,
             CancellationToken cancellationToken,
+            Action<HttpResponseMessage>? handlerResponse = null,
+            Action<HttpResponseMessage>? handlerResponseByIsNotSuccessStatusCode = null,
             string? clientName = null) where T : notnull;
 
         /// <summary>

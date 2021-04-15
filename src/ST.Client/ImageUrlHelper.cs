@@ -4,15 +4,6 @@ namespace System.Application
 {
     public static class ImageUrlHelper
     {
-        static string ApiBaseUrl
-        {
-            get
-            {
-                var client = DI.Get<ICloudServiceClient>();
-                return client.ApiBaseUrl;
-            }
-        }
-
         /// <summary>
         /// 获取图片的APIURL(相对路径)
         /// </summary>
@@ -23,6 +14,6 @@ namespace System.Application
         /// </summary>
         /// <param name="imageId"></param>
         /// <returns></returns>
-        public static string GetImageApiUrlById(Guid imageId) => string.Format(GetImageApiUrl, imageId, ApiBaseUrl);
+        public static string GetImageApiUrlById(Guid imageId) => string.Format(GetImageApiUrl, imageId, ICloudServiceClient.Instance.ApiBaseUrl);
     }
 }

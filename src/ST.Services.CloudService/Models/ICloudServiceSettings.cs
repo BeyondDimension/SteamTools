@@ -9,5 +9,7 @@ namespace System.Application.Models
         Guid AppVersion { get; set; }
 
         RSA RSA { get; }
+
+        string AppVersionStr => AppVersion.ToStringN();
     }
 }

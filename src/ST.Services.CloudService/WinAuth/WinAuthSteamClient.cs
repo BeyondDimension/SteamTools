@@ -25,6 +25,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -282,7 +283,9 @@ namespace WinAuth
             /// <summary>
             /// Clear the session
             /// </summary>
-            public void Clear(bool setCookies = true)
+            public void Clear() => Clear(true);
+
+            void Clear(bool setCookies)
             {
                 OAuthToken = null;
                 UmqId = null;
@@ -484,7 +487,8 @@ namespace WinAuth
         /// <param name="captchaId"></param>
         /// <param name="captchaText"></param>
         /// <returns>true if successful</returns>
-        public bool Login(string username, string password, string captchaId = null, string captchaText = null, string language = null)
+        [Obsolete("use LoginAsync")]
+        public bool Login(string username, string password, string? captchaId = null, string? captchaText = null, string? language = null)
         {
             // clear error
             Error = null;
@@ -646,6 +650,7 @@ namespace WinAuth
         /// <summary>
         /// Logout of the current session
         /// </summary>
+        [Obsolete("use LogoutAsync")]
         public void Logout()
         {
             if (string.IsNullOrEmpty(Session.OAuthToken) == false)
@@ -670,6 +675,7 @@ namespace WinAuth
         /// Refresh the login session cookies from the OAuth code
         /// </summary>
         /// <returns>true if successful</returns>
+        [Obsolete("use RefreshAsync")]
         public bool Refresh()
         {
             try
@@ -725,6 +731,7 @@ namespace WinAuth
         /// Perform a UMQ login
         /// </summary>
         /// <returns></returns>
+        [Obsolete("use UmqLoginAsync")]
         bool UmqLogin()
         {
             if (IsLoggedIn() == false)
@@ -928,9 +935,10 @@ namespace WinAuth
         /// Get the current trade Confirmations
         /// </summary>
         /// <returns>list of Confirmation objects</returns>
+        [Obsolete("use GetConfirmationsAsync")]
         public List<Confirmation> GetConfirmations()
         {
-            long servertime = (SteamAuthenticator.CurrentTime + Authenticator.ServerTimeDiff) / 1000L;
+            long servertime = (CurrentTime + Authenticator.ServerTimeDiff) / 1000L;
 
             var jids = JObject.Parse(Authenticator.SteamData).SelectToken("identity_secret");
             string ids = (jids != null ? jids.Value<string>() : string.Empty);
@@ -1034,6 +1042,7 @@ namespace WinAuth
         /// </summary>
         /// <param name="trade">trade Confirmation</param>
         /// <returns>html string of details</returns>
+        [Obsolete("use GetConfirmationDetailsAsync")]
         public string GetConfirmationDetails(Confirmation trade)
         {
             // build details URL
@@ -1066,6 +1075,7 @@ namespace WinAuth
         /// <param name="key">key for trade</param>
         /// <param name="accept">true to accept, false to reject</param>
         /// <returns>true if successful</returns>
+        [Obsolete("use ConfirmTradeAsync")]
         public bool ConfirmTrade(string id, string key, bool accept)
         {
             if (string.IsNullOrEmpty(Session.OAuthToken) == true)
@@ -1127,7 +1137,7 @@ namespace WinAuth
 #if DEBUG
                 Error = ex.Message + Environment.NewLine + ex.StackTrace;
 #else
-				this.Error = ex.Message;
+                this.Error = ex.Message;
 #endif
                 return false;
             }
@@ -1178,7 +1188,8 @@ namespace WinAuth
         /// <param name="formdata">optional form data</param>
         /// <param name="headers">optional headers</param>
         /// <returns>array of returned data</returns>
-        public byte[] GetData(string url, string method = null, NameValueCollection formdata = null, NameValueCollection headers = null)
+        [Obsolete("use SendAsync")]
+        public byte[] GetData(string url, string? method = null, NameValueCollection? formdata = null, NameValueCollection? headers = null)
         {
             return Request(url, method ?? "GET", formdata, headers);
         }
@@ -1191,9 +1202,10 @@ namespace WinAuth
         /// <param name="formdata">optional form data</param>
         /// <param name="headers">optional headers</param>
         /// <returns>string of returned data</returns>
-        public string GetString(string url, string method = null, NameValueCollection formdata = null, NameValueCollection headers = null)
+        [Obsolete("use SendAsync")]
+        public string GetString(string url, string? method = null, NameValueCollection? formdata = null, NameValueCollection? headers = null)
         {
-            byte[] data = Request(url, method ?? "GET", formdata, headers);
+            var data = Request(url, method ?? "GET", formdata, headers);
             if (data == null || data.Length == 0)
             {
                 return string.Empty;
@@ -1212,23 +1224,42 @@ namespace WinAuth
         /// <param name="formdata">optional form data</param>
         /// <param name="headers">optional headers</param>
         /// <returns>returned data</returns>
-        [Obsolete]
-        protected byte[] Request(string url, string method, NameValueCollection data, NameValueCollection headers)
+        [Obsolete("use SendAsync")]
+        protected byte[]? Request(string url, string method, NameValueCollection? data, NameValueCollection? headers)
+        {
+            byte[]? responsedata;
+            try
+            {
+                responsedata = Request(url, method, data, headers, true);
+            }
+            catch (Exception e)
+            {
+                Log.Error(nameof(WinAuthSteamClient), e, "Forward Request Fail.");
+            }
+
+            responsedata = Request(url, method, data, headers, false);
+
+            return responsedata;
+        }
+
+        [Obsolete("use SendAsync")]
+        byte[]? Request(string url, string method, NameValueCollection? data, NameValueCollection? headers, bool enableForward)
         {
             // ensure only one request per account at a time
             lock (this)
             {
                 // create form-encoded data for query or body
-                string query = (data == null ? string.Empty : string.Join("&", Array.ConvertAll(data.AllKeys, key => String.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(data[key])))));
+                string query = (data == null ? string.Empty : string.Join("&", Array.ConvertAll(data.AllKeys, key => string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(data[key])))));
                 if (string.Compare(method, "GET", true) == 0)
                 {
-                    url += (url.IndexOf("?") == -1 ? "?" : "&") + query;
+                    url += (!url.Contains("?", StringComparison.CurrentCulture) ? "?" : "&") + query;
                 }
 
-                url = TryGetForwardUrl(url);
+                var isForward = enableForward && TryGetForwardUrl(ref url);
 
                 // call the server
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                HttpWebRequest request = WebRequest.CreateHttp(url);
+                request.Timeout = GeneralHttpClientFactory.DefaultTimeoutTotalMilliseconds;
                 request.Method = method;
                 request.Accept = "text/javascript, text/html, application/xml, text/xml, */*";
                 request.ServicePoint.Expect100Continue = false;
@@ -1239,6 +1270,8 @@ namespace WinAuth
                 {
                     request.Headers.Add(headers);
                 }
+
+                if (isForward) AppendForwardHeaders(request.Headers);
 
                 request.CookieContainer = Session.Cookies;
 
@@ -1254,43 +1287,44 @@ namespace WinAuth
 
                 try
                 {
-                    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                    using HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                    LogRequest(method, url, request.CookieContainer, data, response.StatusCode.ToString() + " " + response.StatusDescription);
+
+                    // OK?
+                    if (response.StatusCode != HttpStatusCode.OK)
                     {
-                        LogRequest(method, url, request.CookieContainer, data, response.StatusCode.ToString() + " " + response.StatusDescription);
-
-                        // OK?
-                        if (response.StatusCode != HttpStatusCode.OK)
-                        {
-                            throw new WinAuthInvalidSteamRequestException(string.Format("{0}: {1}", (int)response.StatusCode, response.StatusDescription));
-                        }
-
-                        // load the response
-                        using (MemoryStream ms = new())
-                        {
-                            byte[] buffer = new byte[4096];
-                            int read;
-                            while ((read = response.GetResponseStream().Read(buffer, 0, 4096)) > 0)
-                            {
-                                ms.Write(buffer, 0, read);
-                            }
-
-                            byte[] responsedata = ms.ToArray();
-
-                            LogRequest(method, url, request.CookieContainer, data, responsedata != null && responsedata.Length != 0 ? Encoding.UTF8.GetString(responsedata) : string.Empty);
-
-                            return responsedata;
-                        }
+                        throw new WinAuthInvalidSteamRequestException(string.Format("{0}: {1}", (int)response.StatusCode, response.StatusDescription));
                     }
+
+                    // load the response
+                    using MemoryStream ms = new();
+                    byte[] buffer = new byte[4096];
+                    int read;
+                    while ((read = response.GetResponseStream().Read(buffer, 0, 4096)) > 0)
+                    {
+                        ms.Write(buffer, 0, read);
+                    }
+
+                    byte[] responsedata = ms.ToArray();
+
+                    LogRequest(method, url, request.CookieContainer, data, responsedata != null && responsedata.Length != 0 ? Encoding.UTF8.GetString(responsedata) : string.Empty);
+
+                    return responsedata;
                 }
                 catch (Exception ex)
                 {
                     LogException(method, url, request.CookieContainer, data, ex);
 
-                    if (ex is WebException && ((WebException)ex).Response != null && ((HttpWebResponse)((WebException)ex).Response).StatusCode == HttpStatusCode.Forbidden)
+                    if (ex is WebException exception &&
+                        exception.Response is HttpWebResponse response &&
+                        response.StatusCode == HttpStatusCode.Forbidden)
                     {
                         throw new WinAuthUnauthorisedSteamRequestException(ex);
                     }
-                    throw new WinAuthInvalidSteamRequestException(ex.Message, ex);
+
+                    if (ex is WinAuthInvalidSteamRequestException) throw;
+                    else throw new WinAuthInvalidSteamRequestException(ex.Message, ex);
                 }
             }
         }
@@ -1303,42 +1337,45 @@ namespace WinAuth
         /// <param name="cookies">cookie container</param>
         /// <param name="request">Request data</param>
         /// <param name="ex">Thrown exception</param>
-        static void LogException(string method, string url, CookieContainer cookies, NameValueCollection request, Exception ex)
+        [Obsolete("use LogException(string, string, CookieContainer?, IReadOnlyDictionary{string, string}?, Exception)")]
+        static void LogException(string method, string url, CookieContainer? cookies, NameValueCollection? request, Exception ex)
         {
-            StringBuilder data = new StringBuilder();
-            if (cookies != null)
-            {
-                foreach (Cookie cookie in cookies.GetCookies(new Uri(url)))
-                {
-                    if (data.Length == 0)
-                    {
-                        data.Append("Cookies:");
-                    }
-                    else
-                    {
-                        data.Append("&");
-                    }
-                    data.Append(cookie.Name + "=" + cookie.Value);
-                }
-                data.Append(" ");
-            }
+            return;
 
-            if (request != null)
-            {
-                foreach (var key in request.AllKeys)
-                {
-                    if (data.Length == 0)
-                    {
-                        data.Append("Req:");
-                    }
-                    else
-                    {
-                        data.Append("&");
-                    }
-                    data.Append(key + "=" + request[key]);
-                }
-                data.Append(" ");
-            }
+            //StringBuilder data = new StringBuilder();
+            //if (cookies != null)
+            //{
+            //    foreach (Cookie cookie in cookies.GetCookies(new Uri(url)))
+            //    {
+            //        if (data.Length == 0)
+            //        {
+            //            data.Append("Cookies:");
+            //        }
+            //        else
+            //        {
+            //            data.Append("&");
+            //        }
+            //        data.Append(cookie.Name + "=" + cookie.Value);
+            //    }
+            //    data.Append(" ");
+            //}
+
+            //if (request != null)
+            //{
+            //    foreach (var key in request.AllKeys)
+            //    {
+            //        if (data.Length == 0)
+            //        {
+            //            data.Append("Req:");
+            //        }
+            //        else
+            //        {
+            //            data.Append("&");
+            //        }
+            //        data.Append(key + "=" + request[key]);
+            //    }
+            //    data.Append(" ");
+            //}
         }
 
         /// <summary>
@@ -1349,42 +1386,45 @@ namespace WinAuth
         /// <param name="cookies">cookie container</param>
         /// <param name="request">Request data</param>
         /// <param name="response">response body</param>
-        static void LogRequest(string method, string url, CookieContainer cookies, NameValueCollection request, string response)
+        [Obsolete("use LogRequest(string, string, CookieContainer?, IReadOnlyDictionary{string, string}?, string)")]
+        static void LogRequest(string method, string url, CookieContainer? cookies, NameValueCollection? request, string response)
         {
-            StringBuilder data = new StringBuilder();
-            if (cookies != null)
-            {
-                foreach (Cookie cookie in cookies.GetCookies(new Uri(url)))
-                {
-                    if (data.Length == 0)
-                    {
-                        data.Append("Cookies:");
-                    }
-                    else
-                    {
-                        data.Append("&");
-                    }
-                    data.Append(cookie.Name + "=" + cookie.Value);
-                }
-                data.Append(" ");
-            }
+            return;
 
-            if (request != null)
-            {
-                foreach (var key in request.AllKeys)
-                {
-                    if (data.Length == 0)
-                    {
-                        data.Append("Req:");
-                    }
-                    else
-                    {
-                        data.Append("&");
-                    }
-                    data.Append(key + "=" + request[key]);
-                }
-                data.Append(" ");
-            }
+            //StringBuilder data = new StringBuilder();
+            //if (cookies != null)
+            //{
+            //    foreach (Cookie cookie in cookies.GetCookies(new Uri(url)))
+            //    {
+            //        if (data.Length == 0)
+            //        {
+            //            data.Append("Cookies:");
+            //        }
+            //        else
+            //        {
+            //            data.Append("&");
+            //        }
+            //        data.Append(cookie.Name + "=" + cookie.Value);
+            //    }
+            //    data.Append(" ");
+            //}
+
+            //if (request != null)
+            //{
+            //    foreach (var key in request.AllKeys)
+            //    {
+            //        if (data.Length == 0)
+            //        {
+            //            data.Append("Req:");
+            //        }
+            //        else
+            //        {
+            //            data.Append("&");
+            //        }
+            //        data.Append(key + "=" + request[key]);
+            //    }
+            //    data.Append(" ");
+            //}
         }
 
         #endregion
@@ -1403,6 +1443,17 @@ namespace WinAuth
                 bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
             }
             return bytes;
+        }
+
+        static string SelectTokenValueStr(JObject obj, string path)
+        {
+            var value = obj.SelectToken(path)?.Value<string>();
+            return value.ThrowIsNull(path);
+        }
+
+        static byte[] StringToByteArray(JObject obj, string path)
+        {
+            return StringToByteArray(SelectTokenValueStr(obj, path));
         }
     }
 }
