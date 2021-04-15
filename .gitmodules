@@ -16,3 +16,6 @@
 [submodule "references/Depressurizer"]
 	path = references/Depressurizer
 	url = https://github.com/SteamTools-Team/Depressurizer.git
+[submodule "references/AvaloniaGif"]
+	path = references/AvaloniaGif
+	url = https://github.com/SteamTools-Team/AvaloniaGif
