@@ -1124,6 +1124,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 未查询到匹配的脚本文件 的本地化字符串。
+        /// </summary>
+        public static string ScriptConfig_ScriptEmptyTip {
+            get {
+                return ResourceManager.GetString("ScriptConfig_ScriptEmptyTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 搜索... 的本地化字符串。
         /// </summary>
         public static string Search {
@@ -1509,6 +1518,15 @@ namespace System.Application.UI.Resx {
         public static string UserChange_DeleteUserTip {
             get {
                 return ResourceManager.GetString("UserChange_DeleteUserTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 点此修改备注 的本地化字符串。
+        /// </summary>
+        public static string UserChange_EditRemark {
+            get {
+                return ResourceManager.GetString("UserChange_EditRemark", resourceCulture);
             }
         }
         

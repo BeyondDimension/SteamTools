@@ -45,7 +45,7 @@
                                        HorizontalAlignment="Left">
                                 </Image>
                                 <Button Content="安装" Classes="action"
-                                    Width="200"
+                                    MinWidth="200"
                                     FontSize="16"
                                     HorizontalAlignment="Right"
                                     HorizontalContentAlignment="Center"

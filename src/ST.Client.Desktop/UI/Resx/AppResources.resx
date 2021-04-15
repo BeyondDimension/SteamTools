@@ -475,6 +475,9 @@
   <data name="ScriptConfig" xml:space="preserve">
     <value>脚本配置</value>
   </data>
+  <data name="ScriptConfig_ScriptEmptyTip" xml:space="preserve">
+    <value>未查询到匹配的脚本文件</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>搜索...</value>
   </data>
@@ -546,6 +549,9 @@
   <data name="UserChange_DeleteUserTip" xml:space="preserve">
     <value>确定要删除这条本地记录帐户数据吗？
 这将会删除此账户在本地的Steam缓存数据。</value>
+  </data>
+  <data name="UserChange_EditRemark" xml:space="preserve">
+    <value>点此修改备注</value>
   </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
     <value>登录新Steam账号</value>

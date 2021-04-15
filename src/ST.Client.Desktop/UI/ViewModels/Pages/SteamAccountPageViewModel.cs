@@ -78,12 +78,12 @@ namespace System.Application.UI.ViewModels
                 return;
             }
 
-//#if DEBUG
-//            for (var i = 0; i < 10; i++)
-//            {
-//                SteamUsers.Add(SteamUsers[0]);
-//            }
-//#endif
+            //#if DEBUG
+            //            for (var i = 0; i < 10; i++)
+            //            {
+            //                SteamUsers.Add(SteamUsers[0]);
+            //            }
+            //#endif
 
             var users = SteamUsers.ToArray();
             for (var i = 0; i < SteamUsers.Count; i++)
@@ -92,6 +92,7 @@ namespace System.Application.UI.ViewModels
                 string? remark = null;
                 SteamAccountSettings.AccountRemarks.Value?.TryGetValue(SteamUsers[i].SteamId64, out remark);
                 users[i] = await webApiService.GetUserInfo(SteamUsers[i].SteamId64);
+                users[i].MiniProfile = await webApiService.GetUserMiniProfile(SteamUsers[i].SteamId3_Int);
                 users[i].AccountName = temp.AccountName;
                 users[i].SteamID = temp.SteamID;
                 users[i].PersonaName = temp.PersonaName;
@@ -117,7 +118,6 @@ namespace System.Application.UI.ViewModels
                         {
                             SteamAccountSettings.AccountRemarks.Value = items?.Where(x => !string.IsNullOrEmpty(x.Remark)).ToDictionary(k => k.SteamId64, v => v.Remark);
                         }));
-
         }
 
         public void SteamId_Click(SteamUser user)

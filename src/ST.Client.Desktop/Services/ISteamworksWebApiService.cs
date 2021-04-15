@@ -13,14 +13,7 @@ namespace System.Application.Services
         Task<List<SteamApp>> GetAllSteamAppList();
 
         Task<SteamUser> GetUserInfo(long steamId64);
+
+        Task<SteamMiniProfile> GetUserMiniProfile(long steamId3);
     }
-
-#if DEBUG
-
-    [Obsolete("use ISteamworksWebApiService", true)]
-    public class SteamworksWebApiService
-    {
-    }
-
-#endif
 }

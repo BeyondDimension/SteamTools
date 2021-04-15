@@ -113,10 +113,13 @@ namespace System.Application.UI.ViewModels
                 {
                     _ProxyScripts = value;
                     this.RaisePropertyChanged();
+                    this.RaisePropertyChanged(nameof(IsProxyScriptsEmpty));
                 }
             }
         }
 
+
+        public bool IsProxyScriptsEmpty => !ProxyScripts.Any_Nullable();
 
         public void UpdateAllScript()
         {

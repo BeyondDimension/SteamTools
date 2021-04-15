@@ -31,5 +31,17 @@ namespace System.Application.Services.Implementation
             var rsp = await s.GetAsync<SteamUser>(requestUri);
             return rsp ?? new SteamUser() { SteamId64 = steamId64 };
         }
+
+        /// <summary>
+        /// 获取mini资料
+        /// </summary>
+        /// <param name="steamId3"></param>
+        /// <returns></returns>
+        public async Task<SteamMiniProfile?> GetUserMiniProfile(long steamId3)
+        {
+            var requestUri = string.Format(SteamApiUrls.STEAM_MINIPROFILE_URL, steamId3);
+            var rsp = await s.GetAsync<SteamMiniProfile>(requestUri);
+            return rsp;
+        }
     }
 }

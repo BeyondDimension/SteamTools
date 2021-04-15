@@ -39,7 +39,12 @@
         public const string STORE_APP_URL = "https://store.steampowered.com/app/{0}";
         public const string STEAMDBINFO_URL = "https://steamdb.info/app/{0}";
 
+        /// <summary>
+        /// 这里需要steamid3而不是id64
+        /// </summary>
+        public const string STEAM_MINIPROFILE_URL = "https://steam-chat.com/miniprofile/{0}/json";
         public const string STEAM_USERINFO_XML_URL = "https://steamcommunity.com/profiles/{0}?xml=1";
+
 
         public const string STEAMCN_USERINFO_XML_URL = "https://my.steamchina.com/profiles/76561198289531723?xml=1";
     }

@@ -19,7 +19,7 @@
               RowDefinitions="Auto,*">
             <!--<Border Margin="10 0 10 10" Padding="20" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
                 <Button
-                    Content="{Binding Path=Res.CommunityFix_Acceleration,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                    Content="{ReflectionBinding Path=Res.CommunityFix_Acceleration,Mode=OneWay,Source={x:Static resx:R.Current}}"
                     Command="{Binding StartProxyButton_Click}"
                     Background="{DynamicResource SystemAccentColor}"
                     HorizontalAlignment="Stretch"
@@ -73,14 +73,14 @@
                 <Border DockPanel.Dock="Top" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="0 0 10 10" Padding="20" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
                     <DockPanel>
                         <StackPanel Orientation="Horizontal" Spacing="20">
-                            <Button Classes="action" Content="{Binding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="16" MinWidth="220" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Command="{Binding StartProxyButton_Click}" CommandParameter="True"></Button>
-                            <ToggleSwitch Content="{Binding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}"></ToggleSwitch>
-                            <!--<ToggleSwitch Content="{Binding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus}"></ToggleSwitch>-->
+                            <Button Classes="action" Content="{ReflectionBinding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="16" MinWidth="220" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Command="{Binding StartProxyButton_Click}" CommandParameter="True"></Button>
+                            <ToggleSwitch Content="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}"></ToggleSwitch>
+                            <!--<ToggleSwitch Content="{ReflectionBinding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus}"></ToggleSwitch>-->
                         </StackPanel>
                         <WrapPanel Orientation="Vertical" HorizontalAlignment="Right">
-                            <TextBlock Text="{Binding Path=Res.CommunityFix_ProxyMode,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 5" Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
-                            <RadioButton Content="{Binding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value, Mode=TwoWay}"></RadioButton>
-                            <RadioButton Content="{Binding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value, Mode=TwoWay}"></RadioButton>
+                            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 5" Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
+                            <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value, Mode=TwoWay}"></RadioButton>
+                            <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value, Mode=TwoWay}"></RadioButton>
                         </WrapPanel>
                     </DockPanel>
                 </Border>
@@ -90,7 +90,7 @@
                         <StackPanel>
                             <DockPanel Margin="0 10">
                                 <CheckBox MinWidth="20"
-                                          Content="{Binding Path=Res.CommunityFix_AllCheck,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                          Content="{ReflectionBinding Path=Res.CommunityFix_AllCheck,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                           IsChecked="{Binding #items.SelectedItem.ThreeStateEnable,Mode=TwoWay}">
                                 </CheckBox>
                                 <TextBlock Text="{Binding #items.SelectedItem.Name}"
@@ -131,7 +131,7 @@
               HorizontalAlignment="Stretch" IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus,Mode=OneWay}">
             <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0 10 0 0" Spacing="10">
                 <WrapPanel>
-                    <TextBlock Text="{Binding Path=Res.CommunityFix_AlreadyProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="26"></TextBlock>
+                    <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AlreadyProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="26"></TextBlock>
                     <TextBlock FontSize="26" Text="{Binding AccelerateTime,Source={x:Static service:ProxyService.Current},Converter={StaticResource DateFormatConverter},ConverterParameter='HH:mm:ss'}}"></TextBlock>
                 </WrapPanel>
                 <TextBlock Text="加速模式: Hosts代理模式" FontSize="14" HorizontalAlignment="Center"></TextBlock>
@@ -179,7 +179,7 @@
             </StackPanel>
 
             <StackPanel Grid.Row="2" Margin="20 0 20 50">
-                <Button Classes="action" Content="{Binding Path=Res.CommunityFix_StopProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Height="40" Width="250" VerticalContentAlignment="Center" FontSize="16" Command="{Binding StartProxyButton_Click}" CommandParameter="False"></Button>
+                <Button Classes="action" Content="{ReflectionBinding Path=Res.CommunityFix_StopProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Height="40" Width="250" VerticalContentAlignment="Center" FontSize="16" Command="{Binding StartProxyButton_Click}" CommandParameter="False"></Button>
             </StackPanel>
         </Grid>
     </Panel>

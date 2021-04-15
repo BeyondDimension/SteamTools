@@ -13,7 +13,7 @@
     HorizontalAlignment="Stretch"
     Spacing="16">
         <StackPanel Orientation="Vertical">
-          <TextBlock Text="{Binding Path=Res.Settings_Language,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 0 0 20" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_Language,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 0 0 20" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
           <ComboBox HorizontalAlignment="Stretch"
       SelectedItem="{Binding SelectLanguage, Mode=TwoWay}"
       Items="{Binding Mode=OneWay,Source={x:Static resx:R.Languages}}" >
@@ -25,14 +25,14 @@
           </ComboBox>
         </StackPanel>
         <StackPanel Orientation="Vertical">
-          <TextBlock Text="{Binding Path=Res.Settings_Theme,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 0 0 20" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_Theme,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 0 0 20" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
           <ComboBox x:Name="Themes"
                     SelectedIndex="{Binding Source={x:Static ms:UISettings.Theme},Path=Value, Mode=TwoWay}"
                     HorizontalAlignment="Stretch">
             <!--显示文本参考MSEdge-->
-            <ComboBoxItem Content="{Binding Path=Res.Settings_UI_SystemDefault,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
-            <ComboBoxItem Content="{Binding Path=Res.Settings_UI_Light,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
-            <ComboBoxItem Content="{Binding Path=Res.Settings_UI_Dark,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
+            <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_SystemDefault,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
+            <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Light,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
+            <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Dark,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
           </ComboBox>
         </StackPanel>
         <Separator BorderThickness=".88" Background="{DynamicResource SystemControlHighlightBaseLowBrush}"/>
