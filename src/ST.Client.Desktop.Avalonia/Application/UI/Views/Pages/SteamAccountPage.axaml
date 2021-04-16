@@ -58,16 +58,17 @@
                                 <Grid Width="{ReflectionBinding #panel.Width}" Height="184"
                                       ColumnDefinitions="Auto,Auto,*,Auto">
                                     <Panel>
-                                        <gif:GifImage x:Name="avatar"
+                                        <gif:Image2 x:Name="avatar"
                                                Width="184" 
                                                AutoStart="true"
                                                Stretch="Uniform"
                                                SourceStream="{Binding AvatarStream}"
-                                          IsVisible="{Binding AvatarStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>
-                                        <!--<gif:GifImage Width="184" Height="184" 
+                                               IsVisible="{Binding AvatarStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>
+                                        <gif:Image2 Width="184" Height="184" 
                                             AutoStart="true"
-                                            SourceUri="{Binding MiniProfile.AvatarFrameStream}"
-                                            Stretch="Uniform"/>-->
+                                            SourceStream="{Binding MiniProfile.AvatarFrameStream}"
+                                            Stretch="Uniform" 
+                                            IsVisible="{Binding MiniProfile.AvatarFrameStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>
                                         <Image Width="{ReflectionBinding #panel.Width}" Stretch="Uniform" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg" IsVisible="{ReflectionBinding !#avatar.IsVisible}}"/>
                                     </Panel>
                                     <Panel Grid.Column="1" Margin="10 5">

@@ -54,7 +54,6 @@ namespace System.Application.UI.ViewModels
                 return;
             }
 #endif
-
             if (SteamApps.Any_Nullable())
             {
                 Parallel.ForEach(SteamApps, async app =>
