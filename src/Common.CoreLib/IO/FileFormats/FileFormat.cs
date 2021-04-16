@@ -16,6 +16,7 @@ namespace System.IO.FileFormats
 
         static FileFormat()
         {
+            ImageFormats = Enum2.GetAll<ImageFormat>().OrderByDescending(x => (byte)x).ToArray();
             imgFileMagicNums = ImageFormats.ToDictionary(x => x, x => x.GetMagicNumber());
         }
 
@@ -32,7 +33,7 @@ namespace System.IO.FileFormats
         /// <summary>
         /// 支持的图片格式
         /// </summary>
-        public static ImageFormat[] ImageFormats { get; } = Enum2.GetAll<ImageFormat>();
+        public static ImageFormat[] ImageFormats { get; }
 
         /// <summary>
         /// HEIF/HEIC 高效率图像文件格式

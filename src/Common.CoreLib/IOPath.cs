@@ -218,5 +218,11 @@ namespace System
             }
             return ioPath;
         }
+
+        public static FileStream OpenRead(string filePath)
+        {
+            var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+            return fileStream;
+        }
     }
 }

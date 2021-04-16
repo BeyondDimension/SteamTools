@@ -1,6 +1,5 @@
 ﻿using System.Application.Models;
 using System.Application.Models.Settings;
-using System.Application.Properties;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -35,10 +34,12 @@ namespace System.Application.Services.Implementation
         readonly string? mSteamDirPath;
         readonly string? mSteamProgramPath;
         readonly string[] steamProcess = new[] { "steam", "steamservice", "steamwebhelper" };
+        readonly IHttpService http;
 
-        public SteamServiceImpl(IDesktopPlatformService platformService)
+        public SteamServiceImpl(IDesktopPlatformService platformService, IHttpService http)
         {
             this.platformService = platformService;
+            this.http = http;
             mSteamDirPath = platformService.GetSteamDirPath();
             mSteamProgramPath = platformService.GetSteamProgramPath();
             UserVdfPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "config", "loginusers.vdf");
@@ -267,42 +268,103 @@ namespace System.Application.Services.Implementation
         /// <summary>
         /// 从steam本地客户端缓存文件中读取游戏数据
         /// </summary>
-        public async Task<List<SteamApp>> GetAppInfos()
+        public /*async*/ Task<List<SteamApp>> GetAppInfos()
         {
-            var apps = new List<SteamApp>();
-            if (string.IsNullOrEmpty(AppInfoPath) && !File.Exists(AppInfoPath))
-                return apps;
-            using (BinaryReader binaryReader = new(File.OpenRead(AppInfoPath)))
+            return Task.FromResult(GetAppInfos_());
+            List<SteamApp> GetAppInfos_()
             {
-                uint num = binaryReader.ReadUInt32();
-                if (num != MagicNumber)
-                {
-                    Log.Error(nameof(GetAppInfos), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
+                var apps = new List<SteamApp>();
+                if (string.IsNullOrEmpty(AppInfoPath) && !File.Exists(AppInfoPath))
                     return apps;
-                }
-                SteamApp? app = new();
-                unknownValueAtStart = binaryReader.ReadUInt32();
-                while ((app = SteamApp.FromReader(binaryReader)) != null)
+                using (BinaryReader binaryReader = new(File.OpenRead(AppInfoPath)))
                 {
-                    if (app.AppId > 0)
+                    uint num = binaryReader.ReadUInt32();
+                    if (num != MagicNumber)
                     {
-                        if (GameLibrarySettings.DefaultIgnoreList.Contains(app.AppId))
-                            continue;
-                        if (app.ParentId > 0)
+                        Log.Error(nameof(GetAppInfos), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
+                        return apps;
+                    }
+                    SteamApp? app = new();
+                    unknownValueAtStart = binaryReader.ReadUInt32();
+                    while ((app = SteamApp.FromReader(binaryReader)) != null)
+                    {
+                        if (app.AppId > 0)
                         {
-                            var parentApp = apps.FirstOrDefault(f => f.AppId == app.ParentId);
-                            if (parentApp != null)
-                                parentApp.ChinldApp.Add(app);
-                            continue;
+                            if (GameLibrarySettings.DefaultIgnoreList.Contains(app.AppId))
+                                continue;
+                            if (app.ParentId > 0)
+                            {
+                                var parentApp = apps.FirstOrDefault(f => f.AppId == app.ParentId);
+                                if (parentApp != null)
+                                    parentApp.ChinldApp.Add(app);
+                                continue;
+                            }
+                            apps.Add(app);
+                            //app.Modified += (s, e) =>
+                            //{
+                            //};
                         }
-                        apps.Add(app);
-                        //app.Modified += (s, e) =>
-                        //{
-                        //};
                     }
                 }
+                return apps;
             }
-            return apps;
+        }
+
+        public string GetAppLibCacheFilePath(uint appId, SteamApp.LibCacheType type)
+        {
+            var fileName = type switch
+            {
+                SteamApp.LibCacheType.Header => $"{appId}_header.jpg",
+                SteamApp.LibCacheType.Icon => $"{appId}_icon.jpg",
+                SteamApp.LibCacheType.Library_600x900 => $"{appId}_library_600x900.jpg",
+                SteamApp.LibCacheType.Library_Hero => $"{appId}_library_hero.jpg",
+#pragma warning disable CS0612 // 类型或成员已过时
+                SteamApp.LibCacheType.Library_Hero_Blur => $"{appId}_library_hero_blur.jpg",
+#pragma warning restore CS0612 // 类型或成员已过时
+                SteamApp.LibCacheType.Logo => $"{appId}_logo.png",
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
+            };
+            var filePath = Path.Combine(SteamDirPath, "appcache", "librarycache", fileName);
+            return filePath;
+        }
+
+        public async Task<string> GetAppImageAsync(SteamApp app, SteamApp.LibCacheType type)
+        {
+            var cacheFilePath = GetAppLibCacheFilePath(app.AppId, type);
+            if (File.Exists(cacheFilePath)) return cacheFilePath;
+            var url = type switch
+            {
+                SteamApp.LibCacheType.Header => app.HeaderLogoUrl,
+                SteamApp.LibCacheType.Icon => app.IconUrl,
+                SteamApp.LibCacheType.Library_600x900 => app.LibraryLogoUrl,
+                SteamApp.LibCacheType.Library_Hero => app.LibraryHeaderUrl,
+                //SteamApp.LibCacheType.Library_Hero_Blur => "",
+                SteamApp.LibCacheType.Logo => app.LibraryNameUrl,
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
+            };
+            if (url == null) return string.Empty;
+            var value = await http.GetImageAsync(url, ImageChannelType.SteamGames);
+            return value ?? string.Empty;
+        }
+
+        public async ValueTask LoadAppImageAsync(SteamApp app)
+        {
+            if (app.LibraryLogoStream == null)
+            {
+                app.LibraryLogoStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Library_600x900);
+            }
+            if (app.LibraryHeaderStream == null)
+            {
+                app.LibraryHeaderStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Library_Hero);
+            }
+            if (app.LibraryNameStream == null)
+            {
+                app.LibraryNameStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Logo);
+            }
+            if (app.HeaderLogoStream == null)
+            {
+                app.HeaderLogoStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Header);
+            }
         }
 
 

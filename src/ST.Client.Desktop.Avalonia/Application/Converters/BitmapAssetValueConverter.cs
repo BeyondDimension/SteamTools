@@ -4,7 +4,6 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using SkiaSharp;
 using System.Application.Models;
-using System.Application.Services;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -27,6 +26,8 @@ namespace System.Application.Converters
 
             if (value is string rawUri)
             {
+                if (rawUri == string.Empty) return null;
+
                 Uri uri;
                 // Allow for assembly overrides
                 if (File.Exists(rawUri))
@@ -71,6 +72,7 @@ namespace System.Application.Converters
             throw new NotSupportedException();
         }
 
+        [Obsolete("use HttpClient")]
         static Bitmap DownloadImage(string url, int width = 0)
         {
             using var web = new WebClient();
@@ -135,7 +137,7 @@ namespace System.Application.Converters
 
         static Bitmap GetDecodeBitmap(string s, int width)
         {
-            return GetDecodeBitmap(File.OpenRead(s), width);
+            return GetDecodeBitmap(IOPath.OpenRead(s), width);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

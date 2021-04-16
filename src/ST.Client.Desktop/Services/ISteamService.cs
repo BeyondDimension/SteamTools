@@ -1,5 +1,6 @@
 ﻿using System.Application.Models;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace System.Application.Services
@@ -79,5 +80,7 @@ namespace System.Application.Services
         /// 从steam本地客户端缓存文件中读取游戏数据
         /// </summary>
         Task<List<SteamApp>> GetAppInfos();
+
+        ValueTask LoadAppImageAsync(SteamApp app);
     }
 }

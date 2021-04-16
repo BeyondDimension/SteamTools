@@ -60,5 +60,7 @@
         public const string WEBM = "video/webm";
 
         public const string MP4 = "video/mp4";
+
+        public const string APNG = "image/apng";
     }
 }

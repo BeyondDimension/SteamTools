@@ -159,7 +159,7 @@ namespace System.Application.Services.Implementation
             {
                 if (localCacheFilePathExists) // 存在缓存文件
                 {
-                    var fileStream = File.OpenRead(localCacheFilePath);
+                    using var fileStream = IOPath.OpenRead(localCacheFilePath);
                     if (FileFormat.IsImage(fileStream, out var format))
                     {
                         if (http_helper.SupportedImageFormats.Contains(format)) // 读取缓存并且格式符合要求
@@ -177,7 +177,6 @@ namespace System.Application.Services.Implementation
                     {
                         Log.Error(TAG, "GetImageAsync Unknown ImageFormat.");
                     }
-                    fileStream.Close();
                 }
             }
             catch (Exception e)

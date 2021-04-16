@@ -9,9 +9,9 @@ namespace System.Application.Models
 {
     public class SteamApp : ReactiveObject, IComparable<SteamApp>
     {
-        public SteamApp(){}
+        public SteamApp() { }
 
-        public SteamApp(uint appid) 
+        public SteamApp(uint appid)
         {
             AppId = appid;
         }
@@ -265,6 +265,37 @@ namespace System.Application.Models
                 Log.Error(nameof(SteamApp), ex, string.Format("Failed to load entry with appId {0:X8}", app.AppId));
             }
             return app;
+        }
+
+        public enum LibCacheType : byte
+        {
+            /// <summary>
+            /// <see cref="HeaderLogoUrl"/>
+            /// </summary>
+            Header,
+
+            /// <summary>
+            /// <see cref="IconUrl"/>
+            /// </summary>
+            Icon,
+
+            /// <summary>
+            /// <see cref="LibraryLogoUrl"/>
+            /// </summary>
+            Library_600x900,
+
+            /// <summary>
+            /// <see cref="LibraryHeaderUrl"/>
+            /// </summary>
+            Library_Hero,
+
+            [Obsolete]
+            Library_Hero_Blur,
+
+            /// <summary>
+            /// <see cref="LibraryNameUrl"/>
+            /// </summary>
+            Logo,
         }
     }
 }

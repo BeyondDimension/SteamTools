@@ -45,6 +45,7 @@ namespace System.Application.UI.ViewModels
 
             StringBuilder @string = new();
 
+            @string.AppendFormatLine("CLRVersion: {0}", Environment.Version);
             @string.AppendFormatLine("Culture: {0}", CultureInfo.CurrentCulture);
             @string.AppendFormatLine("UICulture: {0}", CultureInfo.CurrentUICulture);
             @string.AppendFormatLine("DefaultThreadCulture: {0}", CultureInfo.DefaultThreadCurrentCulture);

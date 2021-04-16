@@ -50,5 +50,7 @@
         public const string TAR_GZ = ".tar.gz";
 
         public const string BIN = ".bin";
+
+        public const string APNG = ".apng";
     }
 }
