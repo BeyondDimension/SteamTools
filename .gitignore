@@ -340,6 +340,11 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
+# macOS
 .DS_Store
 
+# Design Resource
 *.psd
+
+# Android Resource Designer
+Resources/Resource.designer.cs
