@@ -259,10 +259,19 @@ namespace System.Application.Services.Implementation
 
         readonly ConcurrentDictionary<string, ConcurrentDictionary<string, Task<string?>>> get_image_pipeline = new();
 
+        public async Task<Stream?> GetImageStreamAsync(
+        string requestUri,
+        string channelType,
+        CancellationToken cancellationToken)
+        {
+            var file = await GetImageAsync(requestUri, channelType, cancellationToken);
+            return string.IsNullOrEmpty(file) ? null : File.OpenRead(file);
+        }
+
         public async Task<string?> GetImageAsync(
-            string requestUri,
-            string channelType,
-            CancellationToken cancellationToken)
+        string requestUri,
+        string channelType,
+        CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(requestUri)) return null;
 
@@ -272,7 +281,7 @@ namespace System.Application.Services.Implementation
                 if (pairs.ContainsKey(requestUri))
                 {
                     var findResult = await pairs[requestUri];
-                    return FileOpenRead(findResult);
+                    return findResult;
                 }
             }
             else
@@ -290,13 +299,10 @@ namespace System.Application.Services.Implementation
             pairs2.TryAdd(requestUri, value);
             var result = await value;
             pairs2.TryRemove(requestUri, out var _);
-            return FileOpenRead(result);
-
-            //static Stream? FileOpenRead(string? p) => p == null ? null : File.OpenRead(p);
-            static string? FileOpenRead(string? fileName) => fileName;
+            return result;
         }
 
-        public async Task<Stream?> GetImageAsync(string requestUri, CancellationToken cancellationToken)
+        public async Task<Stream?> GetImageStreamAsync(string requestUri, CancellationToken cancellationToken)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
             request.Headers.Accept.ParseAdd(http_helper.AcceptImages);

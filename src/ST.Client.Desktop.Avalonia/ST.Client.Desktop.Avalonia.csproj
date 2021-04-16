@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\references\AvaloniaGif\AvaloniaGif\AvaloniaGif.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
   </ItemGroup>

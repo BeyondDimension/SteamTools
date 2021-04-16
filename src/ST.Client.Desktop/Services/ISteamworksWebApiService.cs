@@ -14,6 +14,6 @@ namespace System.Application.Services
 
         Task<SteamUser> GetUserInfo(long steamId64);
 
-        Task<SteamMiniProfile> GetUserMiniProfile(long steamId3);
+        Task<SteamMiniProfile?> GetUserMiniProfile(long steamId3);
     }
 }

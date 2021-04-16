@@ -32,7 +32,19 @@ namespace System.Application.Services
             CancellationToken cancellationToken = default) where T : notnull;
 
         /// <summary>
-        /// (带本地缓存)通过 Get 请求 Image 内容
+        /// (带本地缓存)通过 Get 请求 Image Stream
+        /// </summary>
+        /// <param name="requestUri"></param>
+        /// <param name="channelType">渠道类型，根据不同的类型建立不同的缓存文件夹</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<Stream?> GetImageStreamAsync(
+        string requestUri,
+        string channelType,
+        CancellationToken cancellationToken);
+
+        /// <summary>
+        /// (带本地缓存)通过 Get 请求 Image FilePath
         /// </summary>
         /// <param name="requestUri"></param>
         /// <param name="channelType">渠道类型，根据不同的类型建立不同的缓存文件夹</param>
@@ -49,7 +61,7 @@ namespace System.Application.Services
         /// <param name="requestUri"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<Stream?> GetImageAsync(string requestUri, CancellationToken cancellationToken = default);
+        Task<Stream?> GetImageStreamAsync(string requestUri, CancellationToken cancellationToken = default);
     }
 
 #if DEBUG

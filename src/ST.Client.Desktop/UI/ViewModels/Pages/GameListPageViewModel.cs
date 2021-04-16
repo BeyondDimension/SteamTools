@@ -49,12 +49,12 @@ namespace System.Application.UI.ViewModels
         {
             SteamApps = await ISteamService.Instance.GetAppInfos();
 #if DEBUG
-            if (BuildConfig.IsDebuggerAttached)
+            if (BuildConfig.IsAigioPC && BuildConfig.IsDebuggerAttached)
             {
                 return;
             }
 #endif
-            //SteamApps = _AllSteamApps.Where(w => w.ParentId == 0);
+
             if (SteamApps.Any_Nullable())
             {
                 Parallel.ForEach(SteamApps, async app =>

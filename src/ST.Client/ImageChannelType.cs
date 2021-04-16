@@ -46,5 +46,14 @@ namespace System
             var channelType_ = channelType.ToString();
             return httpService.GetImageAsync(requestUri, channelType_, cancellationToken);
         }
+
+        public static Task<Stream?> GetImageStreamAsync(this IHttpService httpService,
+        string requestUri,
+        ImageChannelType channelType,
+        CancellationToken cancellationToken = default)
+        {
+            var channelType_ = channelType.ToString();
+            return httpService.GetImageStreamAsync(requestUri, channelType_, cancellationToken);
+        }
     }
 }

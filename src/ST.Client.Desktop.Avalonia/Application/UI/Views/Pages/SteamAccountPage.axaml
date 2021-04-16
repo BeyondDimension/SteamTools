@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+             xmlns:gif="clr-namespace:AvaloniaGif;assembly=AvaloniaGif"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              x:Name="u"
@@ -28,7 +29,7 @@
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
-                        <Panel x:Name="panel" MinWidth="200">
+                        <Panel x:Name="panel" MinWidth="224">
                             <Panel.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem
@@ -57,8 +58,16 @@
                                 <Grid Width="{ReflectionBinding #panel.Width}" Height="184"
                                       ColumnDefinitions="Auto,Auto,*,Auto">
                                     <Panel>
-                                        <Image x:Name="avatar" Width="{ReflectionBinding #panel.Width}" Stretch="Uniform" Source="{Binding AvatarStream,Converter={StaticResource BitmapAssetValueConverter}}"
+                                        <gif:GifImage x:Name="avatar"
+                                               Width="184" 
+                                               AutoStart="true"
+                                               Stretch="Uniform"
+                                               SourceStream="{Binding AvatarStream}"
                                           IsVisible="{Binding AvatarStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>
+                                        <!--<gif:GifImage Width="184" Height="184" 
+                                            AutoStart="true"
+                                            SourceUri="{Binding MiniProfile.AvatarFrameStream}"
+                                            Stretch="Uniform"/>-->
                                         <Image Width="{ReflectionBinding #panel.Width}" Stretch="Uniform" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg" IsVisible="{ReflectionBinding !#avatar.IsVisible}}"/>
                                     </Panel>
                                     <Panel Grid.Column="1" Margin="10 5">
@@ -102,7 +111,7 @@
                                                                       Width="10" Height="10"
                                                                       Opacity="0.8"
                                                                       VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                                      Margin="0" 
+                                                                      Margin="0"
                                                                       IsVisible="{Binding Remark,Converter={StaticResource IsNullConverter}}"/>
                                                         </TextBox.InnerRightContent>
                                                     </TextBox>

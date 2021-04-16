@@ -64,7 +64,9 @@ namespace System.Application.Models
         public string AvatarMedium { get; set; }
 
         [XmlIgnore]
-        public string? AvatarStream { get; set; }
+        public Stream? AvatarFullStream { get; set; }
+
+        public Stream? AvatarStream => MiniProfile?.AnimatedAvatarStream ?? AvatarFullStream;
 
         [XmlElement("avatarFull")]
         public string? AvatarFull { get; set; }
@@ -152,7 +154,7 @@ namespace System.Application.Models
         [XmlIgnore]
         public bool SkipOfflineModeWarning { get; set; }
 
-        
+
         private string? _Remark;
         /// <summary>
         /// 备注
@@ -164,7 +166,7 @@ namespace System.Application.Models
             set => this.RaiseAndSetIfChanged(ref _Remark, value);
         }
 
-        public SteamMiniProfile MiniProfile { get; set; }
+        public SteamMiniProfile? MiniProfile { get; set; }
 
         /// <summary>
         /// 来源 Valve Data File 字符串
