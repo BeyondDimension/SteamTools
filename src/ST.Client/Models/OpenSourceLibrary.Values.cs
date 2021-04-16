@@ -1,4 +1,5 @@
-﻿using System.Application.Properties;
+﻿using MessagePack;
+using System.Application.Properties;
 using System.Collections.Generic;
 
 namespace System.Application.Models
@@ -9,7 +10,8 @@ namespace System.Application.Models
         {
             try
             {
-                var list = Serializable.DMP<List<OpenSourceLibrary>>(SR.OpenSourceLibraryList) ?? new List<OpenSourceLibrary>();
+                var lz4Options = MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4BlockArray);
+                var list = MessagePackSerializer.Deserialize<List<OpenSourceLibrary>>(SR.OpenSourceLibraryList, lz4Options) ?? new List<OpenSourceLibrary>();
                 return list;
             }
             catch

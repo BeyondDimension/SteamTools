@@ -2,6 +2,9 @@
 using Avalonia.Platform;
 using Avalonia.Styling;
 using System;
+using System.Application.UI.Resx;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 
 // ReSharper disable once CheckNamespace

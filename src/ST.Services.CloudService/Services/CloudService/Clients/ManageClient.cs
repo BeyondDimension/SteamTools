@@ -47,5 +47,14 @@ namespace System.Application.Services.CloudService.Clients
                     //ClientDeviceId = "",
                 },
                 cancellationToken: default);
+
+        public Task<IApiResponse> EditUserProfile(EditUserProfileRequest request)
+            => conn.SendAsync(
+                isAnonymous: false,
+                isSecurity: true,
+                method: HttpMethod.Post,
+                requestUri: "api/Manage/EditUserProfile",
+                request: request,
+                cancellationToken: default);
     }
 }

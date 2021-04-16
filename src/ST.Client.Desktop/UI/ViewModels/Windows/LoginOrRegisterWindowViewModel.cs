@@ -63,7 +63,7 @@ namespace System.Application.UI.ViewModels
 
         public async void Submit()
         {
-            if (!this.CanSubmit()) return;
+            if (IsLoading || !this.CanSubmit()) return;
 
             var request = new LoginOrRegisterRequest
             {

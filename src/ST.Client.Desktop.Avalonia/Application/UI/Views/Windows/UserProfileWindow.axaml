@@ -56,7 +56,7 @@
     </Panel.Styles>
     <controls:TitleBar/>
     <Panel Margin="{StaticResource ContentMargin}">
-      <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsLoading}"/>
+      <controls:ProgressRing IsIndeterminate="True" HorizontalAlignment="Stretch" Height="100" Width="100" IsVisible="{Binding IsLoading}" />
       <StackPanel VerticalAlignment="Center" IsVisible="{Binding !IsLoading}">
         <DockPanel>
           <Image Source="/Application/UI/Assets/AppResources/avater.jpg" Width="184" Height="184" />

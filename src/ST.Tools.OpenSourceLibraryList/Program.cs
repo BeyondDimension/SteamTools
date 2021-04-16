@@ -166,7 +166,8 @@ namespace System
             //    }
             //}
 
-            var bytes = MessagePackSerializer.Serialize(list);
+            var lz4Options = MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4BlockArray);
+            var bytes = MessagePackSerializer.Serialize(list, lz4Options);
             File.WriteAllBytes(file, bytes);
 
             Print(list);

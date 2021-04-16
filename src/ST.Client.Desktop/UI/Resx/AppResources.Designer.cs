@@ -1323,6 +1323,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 编辑资料 的本地化字符串。
+        /// </summary>
+        public static string User_EditProfile {
+            get {
+                return ResourceManager.GetString("User_EditProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 获取验证码 的本地化字符串。
         /// </summary>
         public static string User_GetSMSCode {

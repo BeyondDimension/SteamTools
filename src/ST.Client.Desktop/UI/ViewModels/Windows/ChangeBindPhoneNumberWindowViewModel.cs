@@ -183,6 +183,8 @@ namespace System.Application.UI.ViewModels
         string? code;
         public async void Submit()
         {
+            if (IsLoading) return;
+
             var sendSmsUIViewModel = SendSmsUIViewModel;
             if (sendSmsUIViewModel == null) return;
 

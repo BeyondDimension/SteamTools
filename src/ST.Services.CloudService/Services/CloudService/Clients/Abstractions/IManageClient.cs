@@ -25,6 +25,17 @@ namespace System.Application.Services.CloudService.Clients.Abstractions
         /// <returns></returns>
         Task<IApiResponse> DeleteAccount();
 
+        /// <summary>
+        /// 每日签到
+        /// </summary>
+        /// <returns></returns>
         Task<IApiResponse<ClockInResponse>> ClockIn();
+
+        /// <summary>
+        /// 编辑用户资料
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<IApiResponse> EditUserProfile(EditUserProfileRequest request);
     }
 }

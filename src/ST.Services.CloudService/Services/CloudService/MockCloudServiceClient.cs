@@ -165,6 +165,11 @@ namespace System.Application.Services.CloudService
             return new ValueTask<IApiResponse>(rsp);
         }
 
+        public async Task<IApiResponse> EditUserProfile(EditUserProfileRequest request)
+        {
+            await Task.Delay(1500);
+            return ApiResponse.Ok();
+        }
     }
 }
 #endif

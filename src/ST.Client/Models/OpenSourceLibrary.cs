@@ -100,6 +100,7 @@ namespace System.Application.Models
             { "https://github.com/nor0x/AppCenter-XMac", ("MIT", "") },
             { "https://github.com/moq/moq4", ("BSD-3-Clause", "") },
             { "https://github.com/xamarin/Xamarin.Forms", ("MIT", "") },
+            { "https://github.com/novotnyllc/bc-csharp", ("MIT", "") },
             //{ "", ("", "") },
         };
     }

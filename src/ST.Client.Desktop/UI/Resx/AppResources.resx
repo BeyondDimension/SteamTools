@@ -588,6 +588,9 @@
     <value>换绑手机</value>
     <comment>修改手机号</comment>
   </data>
+  <data name="User_EditProfile" xml:space="preserve">
+    <value>编辑资料</value>
+  </data>
   <data name="User_GetSMSCode" xml:space="preserve">
     <value>获取验证码</value>
   </data>

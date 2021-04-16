@@ -141,6 +141,7 @@
 * [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia)
 * [AvaloniaGif](https://github.com/jmacato/AvaloniaGif)
 * [Avalonia XAML Behaviors](https://github.com/wieslawsoltes/AvaloniaBehaviors)
+* [APNG.NET](https://github.com/jz5/APNG.NET)
 * [Chromium Embedded Framework (CEF)](https://github.com/chromiumembedded/cef)
 * [Moq](https://github.com/moq/moq4)
 * [NPOI](https://github.com/nissl-lab/npoi)

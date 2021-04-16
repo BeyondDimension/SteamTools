@@ -13,13 +13,15 @@ namespace System.Application.UI.ViewModels
     {
         byte[]? userInfoValue;
         UserInfoDTO? userInfoSource;
+        readonly IUserManager userManager;
         public UserProfileWindowViewModel()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.UserProfile;
+            userManager = DI.Get<IUserManager>();
             Initialize();
             async void Initialize()
             {
-                var userManager = DI.Get<IUserManager>();
+                this.InitAreas();
                 userInfoSource = await userManager.GetCurrentUserInfoAsync() ?? new UserInfoDTO();
                 userInfoValue = Serializable.SMP(userInfoSource);
 
@@ -31,7 +33,6 @@ namespace System.Application.UI.ViewModels
 
                 userInfoSource = Serializable.DMP<UserInfoDTO>(userInfoValue) ?? throw new ArgumentNullException(nameof(userInfoSource));
                 CurrentPhoneNumber = await userManager.GetCurrentUserPhoneNumberAsync();
-                this.InitAreas();
 
                 // IsModifySubscribe
                 void SubscribeOnNext<T>(T value, Action<T> onNext)
@@ -99,11 +100,42 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _BirthDate, value);
         }
 
-        public void Submit()
-        {
-            if (!IsModify) return;
+        public bool IsComplete { get; set; }
 
-            Toast.Show($"Gender: {Gender.ToStringDisplay()}, AreaId: {this.GetSelectAreaId()}");
+        public async void Submit()
+        {
+            if (!IsModify || IsLoading) return;
+
+            if (userInfoSource == null) throw new ArgumentNullException(nameof(userInfoSource));
+
+            IsLoading = true;
+
+            var request = new EditUserProfileRequest
+            {
+                NickName = NickName ?? string.Empty,
+                Avatar = userInfoSource.Avatar,
+                Gender = Gender,
+                BirthDate = userInfoSource.BirthDate,
+                BirthDateTimeZone = userInfoSource.BirthDateTimeZone,
+                AreaId = this.GetSelectAreaId(),
+            };
+
+            var response = await ICloudServiceClient.Instance.Manage.EditUserProfile(request);
+            if (response.IsSuccess)
+            {
+                await userManager.SetCurrentUserInfoAsync(userInfoSource, true);
+
+                // Notice Other UI
+
+                IsComplete = true;
+                var msg = string.Format(AppResources.Success_, AppResources.User_EditProfile);
+                Toast.Show(msg);
+                Close?.Invoke();
+            }
+
+            IsLoading = false;
         }
+
+        public Action? Close { private get; set; }
     }
 }
