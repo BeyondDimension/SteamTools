@@ -29,6 +29,7 @@ namespace System.Application.Services.Implementation
         /// </summary>
         readonly string? UserVdfPath;
         readonly string? AppInfoPath;
+        readonly string? LibrarycacheDirPath;
         const string UserDataDirectory = "userdata";
         readonly IDesktopPlatformService platformService;
         readonly string? mSteamDirPath;
@@ -42,7 +43,11 @@ namespace System.Application.Services.Implementation
             mSteamProgramPath = platformService.GetSteamProgramPath();
             UserVdfPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "config", "loginusers.vdf");
             AppInfoPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "appcache", "appinfo.vdf");
+            LibrarycacheDirPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "appcache", "librarycache");
+
             if (!File.Exists(UserVdfPath)) UserVdfPath = null;
+            if (!File.Exists(AppInfoPath)) AppInfoPath = null;
+            if (!Directory.Exists(LibrarycacheDirPath)) LibrarycacheDirPath = null;
         }
 
         public string? SteamDirPath => mSteamDirPath;
@@ -299,5 +304,7 @@ namespace System.Application.Services.Implementation
             }
             return apps;
         }
+
+
     }
 }

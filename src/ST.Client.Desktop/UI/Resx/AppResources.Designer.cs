@@ -1485,7 +1485,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 以该账号登录Steam 的本地化字符串。
+        ///   查找类似 一键登录Steam 的本地化字符串。
         /// </summary>
         public static string UserChange_BtnText {
             get {
