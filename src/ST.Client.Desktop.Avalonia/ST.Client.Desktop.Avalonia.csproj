@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\references\AvaloniaGif\AvaloniaGif\AvaloniaGif.csproj" />
+    <ProjectReference Include="..\..\references\CefNet\CefNet.Avalonia\CefNet.Avalonia.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
   </ItemGroup>
@@ -42,7 +43,7 @@
     <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.999-cibuild0013745-beta" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0013745-beta" />
     <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.0" />
-    <PackageReference Include="CefNet.Avalonia" Version="88.1.21022.1657" />
+    <!--<PackageReference Include="CefNet.Avalonia" Version="88.1.21022.1657" />-->
     <PackageReference Include="LibVLCSharp.Avalonia" Version="3.5.0" />
   </ItemGroup>
 

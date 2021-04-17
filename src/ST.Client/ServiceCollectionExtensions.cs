@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Application;
 using System.Application.Entities;
 using System.Application.Repositories;
 using System.Application.Repositories.Implementation;
@@ -44,6 +45,12 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddHttpProxyService(this IServiceCollection services)
         {
             services.AddSingleton<IHttpProxyService, HttpProxyServiceImpl>();
+            return services;
+        }
+
+        public static IServiceCollection AddAutoMapper(this IServiceCollection services)
+        {
+            services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperProfile>());
             return services;
         }
     }

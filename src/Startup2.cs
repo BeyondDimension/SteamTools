@@ -189,6 +189,8 @@ namespace System.Application
                 // 添加服务端API调用
                 services.TryAddCloudServiceClient<CloudServiceClient>(useMock: true);
 
+                services.AddAutoMapper();
+
                 // 添加仓储服务
                 services.AddRepositories();
 
