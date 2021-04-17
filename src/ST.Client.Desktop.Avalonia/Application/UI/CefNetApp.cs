@@ -169,19 +169,26 @@ navigator.__proto__ = newProto;
                 }
             };
             // https://bitbucket.org/chromiumembedded/cef/wiki/JavaScriptIntegration.md
-            app.WebKitInitialized += (_, _) =>
-            {
-                // 疑似渲染进程中执行，可能取不到值，待测试
-                var extensionCode =
-                "var steampp;" +
-                "if (!steampp)" +
-                "  steampp = {};" +
-                "(function() {" +
-               $"  steampp.language = \"{R.Language}\";" +
-               $"  steampp.theme = \"{GetTheme()}\";" +
-                "})();";
-                CefApi.RegisterExtension("steampp.js", extensionCode, null);
-            };
+            //app.WebKitInitialized += (_, _) =>
+            //{
+            //    try
+            //    {
+            //        // 疑似渲染进程中执行，取不到值。
+            //        var extensionCode =
+            //        "var steampp;" +
+            //        "if (!steampp)" +
+            //        "  steampp = {};" +
+            //        "(function() {" +
+            //       $"  steampp.language = \"{R.Language}\";" +
+            //       $"  steampp.theme = \"{GetTheme()}\";" +
+            //        "})();";
+            //        CefApi.RegisterExtension("steampp.js", extensionCode, null);
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Log.Error(nameof(WebKitInitialized), e, "Register steampp.js Fail.");
+            //    }
+            //};
             app.Initialize(cefPath, settings);
 
             InitState = CefNetAppInitState.Complete;

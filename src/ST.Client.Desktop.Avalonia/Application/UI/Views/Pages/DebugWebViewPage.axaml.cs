@@ -17,9 +17,8 @@ namespace System.Application.UI.Views.Pages
             InitializeComponent();
 
             webView = this.FindControl<WebView3>("webView");
-            webView.InitialUrl = "http://pan.mossimo.net:9710/c/";
-            //"chrome://version";
-            webView.BrowserCreated += WebView_BrowserCreated;
+            webView.InitialUrl = "chrome://version";
+            //webView.BrowserCreated += WebView_BrowserCreated;
 
             urlTextBox = this.FindControl<TextBox>("urlTextBox");
             urlTextBox.KeyUp += UrlTextBox_KeyUp;
@@ -33,10 +32,10 @@ namespace System.Application.UI.Views.Pages
             }
         }
 
-        private async void WebView_BrowserCreated(object sender, EventArgs e)
-        {
-            var value = await webView.GetUserAgentAsync();
-        }
+        //private async void WebView_BrowserCreated(object sender, EventArgs e)
+        //{
+        //    var value = await webView.GetUserAgentAsync();
+        //}
 
         private void InitializeComponent()
         {
