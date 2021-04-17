@@ -149,10 +149,10 @@ namespace System.Application.UI.Views.Controls
             return base.OnBeforePopup(browser, frame, targetUrl, targetFrameName, targetDisposition, userGesture, popupFeatures, windowInfo, ref client, settings, ref extraInfo, ref noJavascriptAccess);
         }
 
-        static readonly string[] urls = new[]
-        {
-            "https://localhost",
-        };
+        //static readonly string[] urls = new[]
+        //{
+        //    "https://localhost",
+        //};
 
 
         //protected override CefReturnValue OnBeforeResourceLoad(CefBrowser browser, CefFrame frame, CefRequest request, CefRequestCallback callback)
