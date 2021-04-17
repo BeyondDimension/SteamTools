@@ -166,7 +166,7 @@ namespace System.Application.UI.ViewModels
 
         public void OpenUserProfileUrl(SteamUser user)
         {
-            new Process().StartUrl(user.ProfileUrl);
+            ProcessExtensions.StartUrl(user.ProfileUrl);
         }
 
         public void LoginNewSteamAccount()

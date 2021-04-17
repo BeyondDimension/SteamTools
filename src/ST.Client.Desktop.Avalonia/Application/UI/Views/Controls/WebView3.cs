@@ -2,11 +2,7 @@
 using CefNet;
 using CefNet.Avalonia;
 using CefNet.Internal;
-using System;
-using System.Application.UI.Resx;
 using System.Diagnostics;
-using System.Linq;
-using Avalonia.Controls.Primitives;
 using System.Properties;
 
 // ReSharper disable once CheckNamespace
@@ -44,6 +40,8 @@ namespace System.Application.UI.Views.Controls
         {
             RaiseEvent(e);
         }
+
+        public bool OpenInBrowser { get; set; } = true;
     }
 
     public class FullscreenModeChangeEventArgs : RoutedEventArgs
@@ -61,8 +59,11 @@ namespace System.Application.UI.Views.Controls
         const int SHOW_DEV_TOOLS = (int)CefMenuId.UserFirst + 0;
         //const int INSPECT_ELEMENT = (int)CefMenuId.UserFirst + 1;
 
+        readonly WebView3 webView;
+
         public WebView3Glue(WebView3 view) : base(view)
         {
+            webView = view;
         }
 
         private new WebView3 WebView => (WebView3)base.WebView;
@@ -142,8 +143,15 @@ namespace System.Application.UI.Views.Controls
                 case CefWindowOpenDisposition.NewBackgroundTab:
                 case CefWindowOpenDisposition.NewPopup:
                 case CefWindowOpenDisposition.NewWindow:
-                    // 禁止创建新窗口，仅在当前窗口跳转
-                    browser.MainFrame.LoadUrl(targetUrl);
+                    if (webView.OpenInBrowser)
+                    {
+                        ProcessExtensions.StartUrl(targetUrl);
+                    }
+                    else
+                    {
+                        // 禁止创建新窗口，仅在当前窗口跳转
+                        browser.MainFrame.LoadUrl(targetUrl);
+                    }
                     return true;
             }
             return base.OnBeforePopup(browser, frame, targetUrl, targetFrameName, targetDisposition, userGesture, popupFeatures, windowInfo, ref client, settings, ref extraInfo, ref noJavascriptAccess);
@@ -153,7 +161,6 @@ namespace System.Application.UI.Views.Controls
         //{
         //    "https://localhost",
         //};
-
 
         //protected override CefReturnValue OnBeforeResourceLoad(CefBrowser browser, CefFrame frame, CefRequest request, CefRequestCallback callback)
         //{
