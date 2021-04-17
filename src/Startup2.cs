@@ -274,19 +274,20 @@ namespace System.Application
                     AppVersion = GetResValue("app-id", false).TryParseGuidN() ?? default,
                     AesSecret = GetResValue("aes-key", true),
                     RSASecret = GetResValue("rsa-public-key", false),
-                    ApiBaseUrl = GetApiBaseUrl(),
                 };
+                SetApiBaseUrl(options);
                 return options;
                 string? GetResValue(string name, bool isSingle)
                 {
                     const string namespacePrefix = "System.Application.UI.Resources.";
                     return AppClientAttribute.GetResValue(assembly, name, isSingle, namespacePrefix);
                 }
-                static string GetApiBaseUrl()
+                static void SetApiBaseUrl(AppSettings s)
                 {
-                    return (ThisAssembly.Debuggable || !AppSettings.IsOfficialChannelPackage) ?
+                    var value = (ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
                         CSConst.Prefix_HTTPS + "pan.mossimo.net:8862" :
                         CSConst.Prefix_HTTPS + "api.steampp.net";
+                    s.ApiBaseUrl = value;
                 }
             }
         }

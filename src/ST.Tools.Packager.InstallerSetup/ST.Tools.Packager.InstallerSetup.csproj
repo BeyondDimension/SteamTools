@@ -50,13 +50,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.0" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.0" />
+    <PackageReference Include="Avalonia" Version="0.10.999-cibuild0013745-beta" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0013745-beta" />
     <!--https://www.cnblogs.com/hez2010/p/dotnet-with-native-aot.html-->
     <!--<PackageReference Include="Microsoft.DotNet.ILCompiler" Version="6.0.0-*" />-->
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
-    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0013745-beta" />
   </ItemGroup>
 </Project>

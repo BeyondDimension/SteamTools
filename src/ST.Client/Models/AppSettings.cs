@@ -75,22 +75,35 @@ namespace System.Application.Models
             }
         }
 
+        bool? mGetIsOfficialChannelPackage;
+
+        public bool GetIsOfficialChannelPackage()
+        {
+            bool GetIsOfficialChannelPackage_()
+            {
+                var pk = typeof(AppSettings).Assembly.GetName().GetPublicKey();
+                if (pk == null) return false;
+                var pkStr = ", PublicKey=" + string.Join(string.Empty, pk.Select(x => x.ToString("x2")));
+                var r = pkStr == ThisAssembly.PublicKey;
+                if (!r) return false;
+                try
+                {
+                    return Aes != null && RSA != null;
+                }
+                catch (IsNotOfficialChannelPackageException)
+                {
+                    return false;
+                }
+            }
+            if (!mGetIsOfficialChannelPackage.HasValue)
+                mGetIsOfficialChannelPackage = GetIsOfficialChannelPackage_();
+            return mGetIsOfficialChannelPackage.Value;
+        }
+
         static readonly Lazy<bool> mIsOfficialChannelPackage = new(() =>
         {
-            var pk = typeof(AppSettings).Assembly.GetName().GetPublicKey();
-            if (pk == null) return false;
-            var pkStr = ", PublicKey=" + string.Join(string.Empty, pk.Select(x => x.ToString("x2")));
-            var r = pkStr == ThisAssembly.PublicKey;
-            if (!r) return false;
-            try
-            {
-                var s = DI.Get_Nullable<IOptions<AppSettings>>()?.Value;
-                return s != null && s.Aes != null && s.RSA != null;
-            }
-            catch (IsNotOfficialChannelPackageException)
-            {
-                return false;
-            }
+            var s = DI.Get_Nullable<IOptions<AppSettings>>()?.Value;
+            return s != null && s.GetIsOfficialChannelPackage();
         });
 
         /// <summary>
