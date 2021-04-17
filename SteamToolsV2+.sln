@@ -101,6 +101,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Tools.AreaImport", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvaloniaGif", "references\AvaloniaGif\AvaloniaGif\AvaloniaGif.csproj", "{71F3F25A-47A7-4F3D-97A7-50394E7EE21B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibAPNG", "references\AvaloniaGif\LibAPNG\LibAPNG.csproj", "{09591D9E-2186-42F1-B6C6-375326E2CF2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -741,6 +743,22 @@ Global
 		{71F3F25A-47A7-4F3D-97A7-50394E7EE21B}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{71F3F25A-47A7-4F3D-97A7-50394E7EE21B}.Release|x86.ActiveCfg = Release|Any CPU
 		{71F3F25A-47A7-4F3D-97A7-50394E7EE21B}.Release|x86.Build.0 = Release|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Debug|x86.Build.0 = Debug|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Release|iPhone.Build.0 = Release|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Release|x86.ActiveCfg = Release|Any CPU
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -781,6 +799,7 @@ Global
 		{314F0805-EB94-4685-B0EF-BF9418D19003} = {2D44BDCF-B70C-4C02-BDC8-4F1DD5066A75}
 		{6E3D25E9-544E-498A-8F23-BC4E767FF01B} = {5A7A506C-4DFF-4941-A9A6-B1182C7D5825}
 		{71F3F25A-47A7-4F3D-97A7-50394E7EE21B} = {8EB91F53-1062-4E9B-8E4A-096F35EA688D}
+		{09591D9E-2186-42F1-B6C6-375326E2CF2E} = {8EB91F53-1062-4E9B-8E4A-096F35EA688D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3833E7C5-69BC-4CB3-92CE-A8854AA35D8A}

@@ -7,6 +7,7 @@
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:gif="clr-namespace:AvaloniaGif;assembly=AvaloniaGif"
              x:Name="u"
              x:DataType="vm:GameListPageViewModel"
              x:CompileBindings="True"
@@ -70,11 +71,17 @@
                                             </ia:EventTriggerBehavior>
                                         </i:Interaction.Behaviors>
                                         <Panel Width="200" Height="300">
-                                            <Image Stretch="UniformToFill" Source="{Binding DefaultLibraryLogo,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}"/>
-                                            <Image Stretch="UniformToFill" Source="{Binding LibraryLogoStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}" IsVisible="{Binding !LibraryLogoStream,Converter={StaticResource IsNullConverter}}"/>
-
+                                            <gif:Image2 
+                                                Stretch="UniformToFill" 
+                                                Source="{Binding DefaultLibraryLogo,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}"
+                                                IsVisible="{Binding !LibraryLogoStream,Converter={StaticResource IsNullConverter}}"/>
+                                            <gif:Image2 
+                                                                Stretch="UniformToFill"
+                                                                DecodeWidth="200"
+                                                                Source="{Binding LibraryLogoStream}"
+                                                                IsVisible="{Binding !LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>
                                             <Panel Width="200" IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}">
-                                                <Image Stretch="Uniform" Source="{Binding HeaderLogoStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}" Opacity="0.8" IsVisible="{Binding !HeaderLogoStream,Converter={StaticResource IsNullConverter}}"/>
+                                                <!--<Image Stretch="Uniform" Source="{Binding HeaderLogoStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}" Opacity="0.8" IsVisible="{Binding !HeaderLogoStream,Converter={StaticResource IsNullConverter}}"/>-->
 
                                                 <TextBlock
                                                     Text="{Binding DisplayName}"
