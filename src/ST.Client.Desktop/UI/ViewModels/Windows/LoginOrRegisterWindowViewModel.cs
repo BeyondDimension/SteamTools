@@ -71,10 +71,8 @@ namespace System.Application.UI.ViewModels
                 SmsCode = SmsCode
             };
             IsLoading = true;
-#if DEBUG
-            var response =
-#endif
-                await ICloudServiceClient.Instance.Account.LoginOrRegister(request);
+
+            var response = await ICloudServiceClient.Instance.Account.LoginOrRegister(request);
 
             if (response.IsSuccess)
             {
