@@ -16,10 +16,10 @@ namespace System.Application.Models
             AppId = appid;
         }
 
-        /// <summary>
-        /// gog default logo 0~21
-        /// </summary>
-        public const string defaultLogoPath = @"avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/{0}.png";
+        ///// <summary>
+        ///// gog default logo 0~21
+        ///// </summary>
+        //public const string defaultLogoPath = @"avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/{0}.png";
 
         private const string NodeAppInfo = "appinfo";
 
@@ -120,7 +120,6 @@ namespace System.Application.Models
             set => this.RaiseAndSetIfChanged(ref _LibraryNameStream, value);
         }
 
-        public string DefaultLibraryLogo { get; } = string.Format(defaultLogoPath, Random2.Next(22));
 
         public string HeaderLogoUrl => string.Format(STEAMAPP_CAPSULE_URL, AppId);
 

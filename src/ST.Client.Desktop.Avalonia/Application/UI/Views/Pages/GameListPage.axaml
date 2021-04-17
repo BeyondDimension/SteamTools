@@ -71,26 +71,39 @@
                                             </ia:EventTriggerBehavior>
                                         </i:Interaction.Behaviors>
                                         <Panel Width="200" Height="300">
-                                            <gif:Image2 
-                                                Stretch="UniformToFill" 
-                                                Source="{Binding DefaultLibraryLogo,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}"
-                                                IsVisible="{Binding !LibraryLogoStream,Converter={StaticResource IsNullConverter}}"/>
-                                            <gif:Image2 
+                                            <!--<Image
+                                                   Stretch="UniformToFill"
+                                                   Source="{Binding DefaultLibraryLogo,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}"
+                                                   ZIndex="0" 
+                                                   IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}"/>-->
+                                            <!--<Image
+                                                   Stretch="UniformToFill"
+                                                   Source="{Binding LibraryLogoStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}"
+                                                   IsVisible="{Binding !LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>-->
+                                            <gif:Image2 x:Name="library"
                                                                 Stretch="UniformToFill"
                                                                 DecodeWidth="200"
-                                                                Source="{Binding LibraryLogoStream}"
-                                                                IsVisible="{Binding !LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>
-                                            <Panel Width="200" IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}">
-                                                <!--<Image Stretch="Uniform" Source="{Binding HeaderLogoStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}" Opacity="0.8" IsVisible="{Binding !HeaderLogoStream,Converter={StaticResource IsNullConverter}}"/>-->
-
-                                                <TextBlock
-                                                    Text="{Binding DisplayName}"
-                                                    VerticalAlignment="Center"
-                                                    HorizontalAlignment="Center"
-                                                    TextWrapping="WrapWithOverflow"
-                                                    FontSize="20" IsVisible="{Binding HeaderLogoStream,Converter={StaticResource IsNullConverter}}"
-                                                    Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                                            </Panel>
+                                                                Source="{Binding LibraryLogoStream}">
+                                                <i:Interaction.Behaviors>
+                                                    <ia:DataTriggerBehavior Binding="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}" ComparisonCondition="Equal" Value="True">
+                                                        <ia:ChangePropertyAction TargetObject="{ReflectionBinding #library}" PropertyName="Source" Value="{Binding LibraryLogoStream}"/>
+                                                    </ia:DataTriggerBehavior>
+                                                    <ia:DataTriggerBehavior Binding="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}" ComparisonCondition="Equal" Value="False">
+                                                        <ia:ChangePropertyAction TargetObject="{ReflectionBinding #library}" PropertyName="Source" Value="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/16.png"/>
+                                                    </ia:DataTriggerBehavior>
+                                                </i:Interaction.Behaviors>
+                                            </gif:Image2>
+                                            <!--<Panel Width="200" IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}">
+                                                <Image Stretch="Uniform" Source="{Binding HeaderLogoStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}" Opacity="0.8" IsVisible="{Binding !HeaderLogoStream,Converter={StaticResource IsNullConverter}}"/>-->
+                                            <TextBlock
+                                                Text="{Binding DisplayName}"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                TextWrapping="WrapWithOverflow"
+                                                FontSize="20"
+                                                Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                                                IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}"/>
+                                            <!--</Panel>-->
 
                                             <!--<TextBlock Text="{Binding AppId}" HorizontalAlignment="Center" VerticalAlignment="Bottom"></TextBlock>-->
                                         </Panel>

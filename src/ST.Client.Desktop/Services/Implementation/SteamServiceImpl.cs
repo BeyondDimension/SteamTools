@@ -324,7 +324,7 @@ namespace System.Application.Services.Implementation
                 SteamApp.LibCacheType.Logo => $"{appId}_logo.png",
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
             };
-            var filePath = Path.Combine(SteamDirPath, "appcache", "librarycache", fileName);
+            var filePath = Path.Combine(LibrarycacheDirPath, fileName);
             return filePath;
         }
 
