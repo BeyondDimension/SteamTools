@@ -7,6 +7,7 @@ using System.Application.UI.Resx;
 using System.Diagnostics;
 using System.Linq;
 using Avalonia.Controls.Primitives;
+using System.Properties;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.Views.Controls
@@ -75,13 +76,18 @@ namespace System.Application.UI.Views.Controls
 
         protected override void OnBeforeContextMenu(CefBrowser browser, CefFrame frame, CefContextMenuParams menuParams, CefMenuModel model)
         {
-            //model.Clear(); // 禁用右键菜单
+            if (ThisAssembly.Debuggable)
+            {
+                model.Remove((int)CefMenuId.Print);
+                model.Remove((int)CefMenuId.ViewSource);
+                if (model.Count >= 1) model.RemoveAt(model.Count - 1);
 
-            model.AddItem(SHOW_DEV_TOOLS, "&Show DevTools");
-
-            //model.Remove((int)CefMenuId.Print);
-            //model.Remove((int)CefMenuId.ViewSource);
-            //model.RemoveAt(model.Count - 1);
+                model.AddItem(SHOW_DEV_TOOLS, "&Show DevTools");
+            }
+            else
+            {
+                model.Clear(); // 禁用右键菜单
+            }
 
             //model.InsertItemAt(model.Count > 0 ? 1 : 0, (int)CefMenuId.ReloadNocache, "Refresh");
             //model.AddSeparator();
