@@ -76,7 +76,7 @@ namespace System.Application.UI.ViewModels
                    new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)),
                    new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)),
             };
-
+       
             this.updateSource
             .Do(_ => this.IsReloading = true)
             .SelectMany(x => this.UpdateAsync())

@@ -168,7 +168,7 @@ namespace System.Application.Services.Implementation
 									return;
 							}
 							foreach (var script in Scripts)
-							{ 
+							{  
 								foreach (var host in script.ExcludeDomainNamesArray)
 								{
 									if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
@@ -178,7 +178,7 @@ namespace System.Application.Services.Implementation
 								{
 									if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
 									{
-										var doc = await e.GetResponseBodyAsString();
+										var doc = await e.GetResponseBodyAsString(); 
 										if (script.RequiredJsArray.Length > 0 )//|| script.Grant.Length > 0
 										{
 											var t = e.HttpClient.Response.Headers.GetFirstHeader("Content-Security-Policy");

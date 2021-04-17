@@ -169,6 +169,9 @@ namespace System.Application
                 services.AddHttpService();
             }
 
+#if !__MOBILE__
+            services.TryAddScriptManager();
+#endif
             if (hasHttpProxy)
             {
                 // 通用 Http 代理服务
