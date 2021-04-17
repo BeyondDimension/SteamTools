@@ -347,4 +347,4 @@ healthchecksdb
 *.psd
 
 # Android Resource Designer
-Resources/Resource.designer.cs
+Resource.designer.cs
