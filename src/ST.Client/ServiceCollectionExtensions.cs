@@ -34,6 +34,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.TryAddAreaResource<Area>();
             services.TryAddSingleton<IUserManager, UserManager>();
+            services.TryAddSingleton<IScriptRepository, ScriptRepository>();
             return services;
         }
 

@@ -26,7 +26,7 @@ namespace System.Application.Services.Implementation
 
 		public IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
 
-		public IReadOnlyCollection<ProxyScript>? Scripts { get; set; }
+		public IReadOnlyCollection<ScriptDTO>? Scripts { get; set; }
 
 		public bool IsEnableScript { get; set; }
 
@@ -168,19 +168,18 @@ namespace System.Application.Services.Implementation
 									return;
 							}
 							foreach (var script in Scripts)
-							{
-
-								foreach (var host in script.Exclude)
+							{ 
+								foreach (var host in script.ExcludeDomainNamesArray)
 								{
 									if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
 										goto close;
 								}
-								foreach (var host in script.Match)
+								foreach (var host in script.MatchDomainNamesArray)
 								{
 									if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
 									{
 										var doc = await e.GetResponseBodyAsString();
-										if (script.Require.Length > 0 || script.Grant.Length > 0)
+										if (script.RequiredJsArray.Length > 0 )//|| script.Grant.Length > 0
 										{
 											var t = e.HttpClient.Response.Headers.GetFirstHeader("Content-Security-Policy");
 											if (!string.IsNullOrEmpty(t?.Value))
@@ -190,7 +189,7 @@ namespace System.Application.Services.Implementation
 #if DEBUG
 											Debug.WriteLine(e.HttpClient.Request.RequestUri.AbsoluteUri);
 #endif
-											foreach (var req in script.Require)
+											foreach (var req in script.RequiredJsArray)
 											{
 												var headIndex = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
 												var temp1 = $"<script type=\"text/javascript\" src=\"{req}\"></script>\n";
