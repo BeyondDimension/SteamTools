@@ -64,9 +64,9 @@ namespace System.Application.Models
         public string AvatarMedium { get; set; }
 
         [XmlIgnore]
-        public Stream? AvatarFullStream { get; set; }
+        public string? AvatarFullStream { get; set; }
 
-        public Stream? AvatarStream => MiniProfile?.AnimatedAvatarStream ?? AvatarFullStream;
+        public string? AvatarStream => MiniProfile?.AnimatedAvatarStream ?? AvatarFullStream;
 
         [XmlElement("avatarFull")]
         public string? AvatarFull { get; set; }

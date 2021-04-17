@@ -104,11 +104,11 @@ namespace System.Application.UI.ViewModels
                 users[i].SkipOfflineModeWarning = temp.SkipOfflineModeWarning;
                 users[i].OriginVdfString = temp.OriginVdfString;
                 users[i].Remark = remark;
-                users[i].AvatarFullStream = string.IsNullOrEmpty(users[i].AvatarFull) ? null : await httpService.GetImageStreamAsync(users[i].AvatarFull, ImageChannelType.SteamAvatars);
+                users[i].AvatarFullStream = string.IsNullOrEmpty(users[i].AvatarFull) ? null : await httpService.GetImageAsync(users[i].AvatarFull, ImageChannelType.SteamAvatars);
                 if (users[i].MiniProfile != null)
                 {
-                    users[i].MiniProfile.AnimatedAvatarStream = string.IsNullOrEmpty(users[i].MiniProfile.AnimatedAvatar) ? null : await httpService.GetImageStreamAsync(users[i].MiniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
-                    users[i].MiniProfile.AvatarFrameStream = string.IsNullOrEmpty(users[i].MiniProfile.AvatarFrame) ? null : await httpService.GetImageStreamAsync(users[i].MiniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
+                    users[i].MiniProfile.AnimatedAvatarStream = string.IsNullOrEmpty(users[i].MiniProfile.AnimatedAvatar) ? null : await httpService.GetImageAsync(users[i].MiniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
+                    users[i].MiniProfile.AvatarFrameStream = string.IsNullOrEmpty(users[i].MiniProfile.AvatarFrame) ? null : await httpService.GetImageAsync(users[i].MiniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
                 }
             }
             SteamUsers = new ObservableCollection<SteamUser>(

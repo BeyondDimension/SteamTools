@@ -123,7 +123,7 @@ namespace System.Application.Models
         [S_JsonProperty("avatar_frame")]
         public string? AvatarFrame { get; set; }
 
-        public Stream? AvatarFrameStream { get; set; }
+        public string? AvatarFrameStream { get; set; }
 
         /// <summary>
         /// 动态头像url
@@ -132,6 +132,6 @@ namespace System.Application.Models
         [S_JsonProperty("animated_avatar")]
         public string? AnimatedAvatar { get; set; }
 
-        public Stream? AnimatedAvatarStream { get; set; }
+        public string? AnimatedAvatarStream { get; set; }
     }
 }
