@@ -12,9 +12,11 @@ namespace System.Application.Services.Implementation
         protected const string TAG = "ScriptManager";
 
         protected readonly ILogger logger;
+        protected readonly IToast toast;
         public ScriptManager(
-          ILoggerFactory loggerFactory)
+          ILoggerFactory loggerFactory,IToast toast)
         {
+            this.toast = toast;
             logger = loggerFactory.CreateLogger(TAG); 
         }
         public async ValueTask<bool> AddScript() {
@@ -25,9 +27,9 @@ namespace System.Application.Services.Implementation
         {
 
 
-
+            //toast.Show();
             return null;
-        }
+        } 
 
     }
 }

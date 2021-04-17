@@ -15,6 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IGameAccountPlatformAuthenticatorRepository, GameAccountPlatformAuthenticatorRepository>();
+            services.AddSingleton<IScriptRepository, ScriptRepository>();
             return services;
         }
 
@@ -29,12 +30,20 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IHttpService, HttpServiceImpl>();
             return services;
         }
-
+        /// <summary>
+        /// 添加JS脚本 管理
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection TryAddScriptManager(this IServiceCollection services)
+        { 
+            //services.TryAddSingleton<IUserManager, UserManager>();
+            return services;
+        }
         public static IServiceCollection TryAddUserManager(this IServiceCollection services)
         {
             services.TryAddAreaResource<Area>();
             services.TryAddSingleton<IUserManager, UserManager>();
-            services.TryAddSingleton<IScriptRepository, ScriptRepository>();
             return services;
         }
 
