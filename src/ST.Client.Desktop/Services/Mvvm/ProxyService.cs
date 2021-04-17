@@ -137,6 +137,7 @@ namespace System.Application.Services
                             return;
                         }
                         httpProxyService.ProxyDomains = EnableProxyDomains;
+                        httpProxyService.Scripts = EnableProxyScripts;
                         this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         var hosts = httpProxyService.ProxyDomains.SelectMany(s =>
                         {
