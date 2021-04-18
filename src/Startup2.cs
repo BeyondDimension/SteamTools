@@ -289,6 +289,13 @@ namespace System.Application
                 }
                 static void SetApiBaseUrl(AppSettings s)
                 {
+#if DEBUG
+                    if (BuildConfig.IsAigioPC)
+                    {
+                        s.ApiBaseUrl = CSConst.Prefix_HTTPS + "localhost:5001";
+                        return;
+                    }
+#endif
                     var value = (ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
                         CSConst.Prefix_HTTPS + "pan.mossimo.net:8862" :
                         CSConst.Prefix_HTTPS + "api.steampp.net";

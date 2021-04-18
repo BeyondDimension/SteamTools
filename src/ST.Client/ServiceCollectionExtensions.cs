@@ -36,7 +36,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services"></param>
         /// <returns></returns>
         public static IServiceCollection TryAddScriptManager(this IServiceCollection services)
-        { 
+        {
             services.TryAddSingleton<IScriptManager, ScriptManager>();
             return services;
         }

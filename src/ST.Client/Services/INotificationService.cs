@@ -26,6 +26,11 @@ namespace System.Application.Services
         /// <param name="type"></param>
         static async void Notify(IApiResponse<NotificationRecordDTO?> rsp, ActiveUserType type)
         {
+            if (DI.DeviceIdiom == DeviceIdiom.Desktop)
+            {
+                return;
+                //throw new NotImplementedException();
+            }
             if (rsp.IsSuccess && rsp.Content != null)
             {
                 if (type == ActiveUserType.OnStartup)

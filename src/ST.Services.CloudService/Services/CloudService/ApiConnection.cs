@@ -619,8 +619,15 @@ namespace System.Application.Services.CloudService
                                     responseResult = await ApiResponse.DeserializeAsync<TResponseModel>(rspIsCiphertext ? cryptoStream.ThrowIsNull(nameof(cryptoStream)) : stream, cancellationToken);
                                 }
                                 break;
+#if DEBUG
+                            case MediaTypeNames.HTML:
+                            case MediaTypeNames.TXT:
+                                var htmlString = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                                responseResult = ApiResponse.Code<TResponseModel>(response.IsSuccessStatusCode ? ApiResponseCode.UnsupportedResponseMediaType : code, htmlString);
+                                break;
+#endif
                             default:
-                                responseResult = ApiResponse.Code<TResponseModel>(ApiResponseCode.UnsupportedResponseMediaType);
+                                responseResult = ApiResponse.Code<TResponseModel>(response.IsSuccessStatusCode ? ApiResponseCode.UnsupportedResponseMediaType : code);
                                 break;
                         }
                     }

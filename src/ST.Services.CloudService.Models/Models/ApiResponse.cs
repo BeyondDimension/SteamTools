@@ -80,7 +80,7 @@ namespace System.Application.Models
             Message = message,
         };
 
-        static readonly Lazy<IApiResponse> okRsp = new Lazy<IApiResponse>(() => Code(ApiResponseCode.OK));
+        static readonly Lazy<IApiResponse> okRsp = new(() => Code(ApiResponseCode.OK));
 
         public static IApiResponse Ok() => okRsp.Value;
 
