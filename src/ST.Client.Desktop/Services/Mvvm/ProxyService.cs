@@ -210,7 +210,10 @@ namespace System.Application.Services
                         .AutoRefresh(x => x.Enable)
                         .Subscribe(_ =>
                         {
-                            ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Where(w => w.Id != null).Select(k => k.Id.ToString()).ToList();
+                            if (EnableProxyDomains != null)
+                            {
+                                ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Where(w => w?.Id != null).Select(k => k.Id.ToString()).ToList();
+                            }
                         }));
             #endregion
 
