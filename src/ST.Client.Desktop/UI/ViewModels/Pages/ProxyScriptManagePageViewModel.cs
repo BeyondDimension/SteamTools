@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Reactive;
@@ -37,7 +38,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private IObservable<Unit> UpdateAsync()
-        {
+        { 
             bool Predicate(ScriptDTO s)
             {
                 if (string.IsNullOrEmpty(SerachText))
@@ -69,14 +70,14 @@ namespace System.Application.UI.ViewModels
             this.updateSource.OnNext(Unit.Default);
         }
 
-        public ProxyScriptManagePageViewModel()
+        public   ProxyScriptManagePageViewModel()
         {
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
                    new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)),
                    new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)),
             };
-       
+            var temp = DI.Get<IScriptManager>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, "Scripts", "h.js")).ConfigureAwait(true);
             this.updateSource
             .Do(_ => this.IsReloading = true)
             .SelectMany(x => this.UpdateAsync())

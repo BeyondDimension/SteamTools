@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Application.Entities;
 using System.Application.Models;
 using System.Collections.Generic;
 using System.Text;
@@ -13,5 +14,7 @@ namespace System.Application.Services
 		/// </summary>
 		/// <returns></returns>
 		Task<bool> BuildScriptAsync(ScriptDTO model);
+		//Task<ScriptDTO> AddScriptAsync(string path);
+		Task<bool> AddScriptAsync(string path);
 	}
 }

@@ -13,7 +13,7 @@ using MPObj = MessagePack.MessagePackObjectAttribute;
 using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
-using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
+using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute; 
 
 namespace System.Application.Models
 {
@@ -65,7 +65,7 @@ namespace System.Application.Models
                         UpdateLink = Regex.Match(userScript, string.Format(DescRegex, $"@{UpdateURL}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
                         ExcludeDomainNames = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Exclude}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true)),
                         DependentGreasyForkFunction = Regex.Matches(userScript, string.Format(DescRegex, $"@{Grant}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true).Any_Nullable(),
-                        RequiredJs = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Require}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true))
+                        RequiredJs = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Require}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true)),
                     };
                     var matchs = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{nameof(Match)}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true));
                     var Includes = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Include}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true));
@@ -79,12 +79,21 @@ namespace System.Application.Models
             }
             proxyScript = null;
             return false;
-        }
+        } 
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public int? LocalId { get; set; } 
 
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
         public string? FilePath { get; set; } = string.Empty;
+
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public string? CachePath { get; set; } = string.Empty;
 
         [MPIgnore]
         [N_JsonIgnore]

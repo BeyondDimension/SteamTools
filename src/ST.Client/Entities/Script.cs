@@ -57,7 +57,15 @@ namespace System.Application.Entities
         [Column("C9719845")]
         [SQLiteNotNull]
         [NotNull, DisallowNull] // C# 8 not null
-        public string? FilePath { get; set; } = string.Empty; 
+        public string? FilePath { get; set; } = string.Empty;
+
+        /// <summary>
+        /// 缓存文件地址
+        /// </summary>
+        [Column("997C6B59")]
+        [SQLiteNotNull]
+        [NotNull, DisallowNull] // C# 8 not null
+        public string? CachePath { get; set; } = string.Empty;
 
         /// <summary>
         /// 来源地址(脚本主页)
@@ -118,6 +126,25 @@ namespace System.Application.Entities
         /// </summary>
         [Column("5C02E4AA")]
         public string? RequiredJs { get; set; }
+
+
+        /// <summary>
+        /// 哈希值（MD5）
+        /// </summary> 
+        [Column("D965B4F5")]
+        public string MD5 { get; set; }
+
+        /// <summary>
+        /// 哈希值（SHA512）
+        /// </summary> 
+        [Column("C5645EF3")]
+        public string SHA512 { get; set; }
+
+
+        [Column("58FF2FF5")]
+        public DateTime CreationTime { get; set; } = DateTime.Now;
+
+
     }
 }
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
