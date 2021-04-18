@@ -16,10 +16,12 @@ using System.Application.Services.Implementation;
 using System.Application.UI;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Net;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Linq;
 using CSConst = System.Application.Services.CloudService.Constants;
 using System.Properties;
+using System.Diagnostics;
 
 namespace System.Application
 {
@@ -292,8 +294,19 @@ namespace System.Application
 #if DEBUG
                     if (BuildConfig.IsAigioPC)
                     {
-                        s.ApiBaseUrl = CSConst.Prefix_HTTPS + "localhost:5001";
-                        return;
+                        try
+                        {
+                            var url = CSConst.Prefix_HTTPS + "localhost:5001";
+                            var request = WebRequest.CreateHttp(url);
+                            request.Timeout = 200;
+                            request.GetResponse();
+                            s.ApiBaseUrl = url;
+                            return;
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine(e.ToString());
+                        }
                     }
 #endif
                     var value = (ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
