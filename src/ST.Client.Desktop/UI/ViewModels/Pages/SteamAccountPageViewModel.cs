@@ -14,6 +14,7 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using DynamicData.Binding;
+using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
 {
@@ -105,10 +106,11 @@ namespace System.Application.UI.ViewModels
                 users[i].OriginVdfString = temp.OriginVdfString;
                 users[i].Remark = remark;
                 users[i].AvatarFullStream = string.IsNullOrEmpty(users[i].AvatarFull) ? null : await httpService.GetImageAsync(users[i].AvatarFull, ImageChannelType.SteamAvatars);
-                if (users[i].MiniProfile != null)
+                var miniProfile = users[i].MiniProfile;
+                if (miniProfile != null)
                 {
-                    users[i].MiniProfile.AnimatedAvatarStream = string.IsNullOrEmpty(users[i].MiniProfile.AnimatedAvatar) ? null : await httpService.GetImageAsync(users[i].MiniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
-                    users[i].MiniProfile.AvatarFrameStream = string.IsNullOrEmpty(users[i].MiniProfile.AvatarFrame) ? null : await httpService.GetImageAsync(users[i].MiniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
+                    miniProfile.AnimatedAvatarStream = await httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
+                    miniProfile.AvatarFrameStream = await httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
                 }
             }
             SteamUsers = new ObservableCollection<SteamUser>(
@@ -131,7 +133,7 @@ namespace System.Application.UI.ViewModels
             {
                 UserModeChange(user, false);
             }
-            steamService.SetCurrentUser(user.AccountName);
+            steamService.SetCurrentUser(user.AccountName ?? string.Empty);
             steamService.TryKillSteamProcess();
             steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
         }
@@ -159,14 +161,14 @@ namespace System.Application.UI.ViewModels
                 if (s.Result == MessageBoxResultCompat.OK)
                 {
                     steamService.DeleteLocalUserData(user);
-                    SteamUsers.Remove(user);
+                    SteamUsers?.Remove(user);
                 }
             });
         }
 
         public void OpenUserProfileUrl(SteamUser user)
         {
-            ProcessExtensions.StartUrl(user.ProfileUrl);
+            BrowserOpen(user.ProfileUrl);
         }
 
         public void LoginNewSteamAccount()

@@ -66,21 +66,26 @@ namespace System.Application.Services.CloudService
             return cacheValuesArray;
         }
 
-        public static async void BrowserOpen(string uri)
+        /// <summary>
+        /// 兼容 Linux/Mac/.NetCore/Android/iOS 的打开链接方法
+        /// </summary>
+        /// <param name="url"></param>
+        public static async void BrowserOpen(string url)
         {
-            if (uri.StartsWith(Prefix_HTTPS))
+            if (url.StartsWith(Prefix_HTTPS, StringComparison.OrdinalIgnoreCase) ||
+                url.StartsWith(Prefix_HTTP, StringComparison.OrdinalIgnoreCase))
             {
-                if (DI.DeviceIdiom == DeviceIdiom.Desktop)
+                if (DI.DeviceIdiom == DeviceIdiom.Desktop && DI.Platform != Platform.UWP)
                 {
                     Process.Start(new ProcessStartInfo
                     {
-                        FileName = uri,
+                        FileName = url,
                         UseShellExecute = true,
                     });
                 }
                 else
                 {
-                    await Browser.OpenAsync(uri);
+                    await Browser.OpenAsync(url);
                 }
             }
         }

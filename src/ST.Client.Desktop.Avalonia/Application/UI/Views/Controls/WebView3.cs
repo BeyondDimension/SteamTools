@@ -4,6 +4,7 @@ using CefNet.Avalonia;
 using CefNet.Internal;
 using System.Diagnostics;
 using System.Properties;
+using static System.Application.Services.CloudService.Constants;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.Views.Controls
@@ -145,7 +146,7 @@ namespace System.Application.UI.Views.Controls
                 case CefWindowOpenDisposition.NewWindow:
                     if (webView.OpenInBrowser)
                     {
-                        ProcessExtensions.StartUrl(targetUrl);
+                        BrowserOpen(targetUrl);
                     }
                     else
                     {

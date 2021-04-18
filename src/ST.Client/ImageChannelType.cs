@@ -39,19 +39,21 @@ namespace System
     {
         /// <inheritdoc cref="IHttpService.GetImageAsync(string, string, CancellationToken)"/>
         public static Task<string?> GetImageAsync(this IHttpService httpService,
-            string requestUri,
+            string? requestUri,
             ImageChannelType channelType,
             CancellationToken cancellationToken = default)
         {
+            if (string.IsNullOrWhiteSpace(requestUri)) return Task.FromResult((string?)null);
             var channelType_ = channelType.ToString();
             return httpService.GetImageAsync(requestUri, channelType_, cancellationToken);
         }
 
         public static Task<Stream?> GetImageStreamAsync(this IHttpService httpService,
-        string requestUri,
-        ImageChannelType channelType,
-        CancellationToken cancellationToken = default)
+            string? requestUri,
+            ImageChannelType channelType,
+            CancellationToken cancellationToken = default)
         {
+            if (string.IsNullOrWhiteSpace(requestUri)) return Task.FromResult((Stream?)null);
             var channelType_ = channelType.ToString();
             return httpService.GetImageStreamAsync(requestUri, channelType_, cancellationToken);
         }

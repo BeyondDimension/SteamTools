@@ -17,7 +17,7 @@ namespace System
         Unknown = 1,
 
         /// <summary>
-        /// Microsoft Windows / UWP(Universal Windows Platform)
+        /// Microsoft Windows(Win32)
         /// </summary>
         Windows = 4,
 
@@ -35,6 +35,11 @@ namespace System
         /// iOS / iPadOS / watchOS / tvOS / macOS
         /// </summary>
         Apple = 32,
+
+        /// <summary>
+        /// Universal Windows Platform
+        /// </summary>
+        UWP = 64,
     }
 
     /// <summary>
@@ -58,7 +63,7 @@ namespace System
         {
             { DevicePlatform.Android, Platform.Android },
             { DevicePlatform.iOS, Platform.Apple },
-            { DevicePlatform.UWP, Platform.Windows },
+            { DevicePlatform.UWP, Platform.UWP },
             { DevicePlatform.tvOS, Platform.Apple },
             { DevicePlatform.Tizen, Platform.Linux },
             { DevicePlatform.watchOS, Platform.Apple },
