@@ -119,7 +119,6 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-
         public bool IsProxyScriptsEmpty => !ProxyScripts.Any_Nullable();
 
         public void UpdateAllScript()

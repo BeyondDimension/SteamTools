@@ -1313,6 +1313,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 程序启动时自动运行Steam 的本地化字符串。
+        /// </summary>
+        public static string Settings_Steam_AutoRunSteam {
+            get {
+                return ResourceManager.GetString("Settings_Steam_AutoRunSteam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam启动参数 的本地化字符串。
+        /// </summary>
+        public static string Settings_Steam_SteamStratParameter {
+            get {
+                return ResourceManager.GetString("Settings_Steam_SteamStratParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 主题 的本地化字符串。
         /// </summary>
         public static string Settings_Theme {

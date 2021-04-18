@@ -135,9 +135,9 @@ namespace System.Application.Models
 
         public Process? Process { get; set; }
 
-        public TradeCard? Card { get; set; }
+        //public TradeCard? Card { get; set; }
 
-        public SteamAppInfo? Common { get; set; }
+        //public SteamAppInfo? Common { get; set; }
 
         public string GetIdAndName()
         {

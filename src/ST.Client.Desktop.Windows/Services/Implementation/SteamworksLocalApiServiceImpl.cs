@@ -21,7 +21,7 @@ namespace System.Application.Services.Implementation
 
         public bool IsSupported => true;
 
-        public void DisposeSteamClient() 
+        public void DisposeSteamClient()
         {
             SteamClient.Dispose();
         }
@@ -68,22 +68,27 @@ namespace System.Application.Services.Implementation
             return SteamClient.SteamApps008.IsSubscribedApp(appid);
         }
 
-        public List<SteamApp> OwnsApps(List<SteamApp> apps)
+        public IEnumerable<SteamApp> OwnsApps(IEnumerable<SteamApp> apps)
         {
             if (SteamClient.SteamApps008 == null || SteamClient.SteamApps001 == null)
                 return new List<SteamApp>();
-            return apps.FindAll(f => SteamClient.SteamApps008.IsSubscribedApp(f.AppId))
-                .OrderBy(s => s.Name).Select((s, i) => new SteamApp
+            return apps.Where(f => SteamClient.SteamApps008.IsSubscribedApp(f.AppId))
+                .OrderBy(s => s.Name).Select((s) =>
                 {
-                    Index = i + 1,
-                    AppId = s.AppId,
-                    Name = s.Name,
-                    Type = Enum.TryParse<SteamAppType>(GetAppData(s.AppId, "type"), true, out var result) ? result : SteamAppType.Unknown,
-                    Icon = GetAppData(s.AppId, "icon"),
-                    Logo = GetAppData(s.AppId, "logo"),
-                    InstalledDir = GetAppInstallDir(s.AppId),
-                    IsInstalled = IsAppInstalled(s.AppId)
-                }).ToList();
+                    ////Index = i + 1,
+                    //AppId = s.AppId,
+                    //Name = s.Name,
+                    //Type = Enum.TryParse<SteamAppType>(GetAppData(s.AppId, "type"), true, out var result) ? result : SteamAppType.Unknown,
+                    ////Icon = GetAppData(s.AppId, "icon"),
+                    ////Logo = GetAppData(s.AppId, "logo"),
+                    //InstalledDir = GetAppInstallDir(s.AppId),
+                    //IsInstalled = IsAppInstalled(s.AppId)
+
+                    s.IsInstalled = IsAppInstalled(s.AppId);
+                    s.Type = Enum.TryParse<SteamAppType>(GetAppData(s.AppId, "type"), true, out var result) ? result : SteamAppType.Unknown;
+                    s.InstalledDir = GetAppInstallDir(s.AppId);
+                    return s;
+                });
         }
 
         public string GetAppData(uint appid, string key)

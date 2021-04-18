@@ -2,6 +2,7 @@
 using System.Application.Models;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,8 +21,8 @@ namespace System.Application.Services
         private readonly ISteamService SteamTool = ISteamService.Instance;
 
         #region Steam游戏列表
-        private IReadOnlyCollection<SteamApp> _SteamApps;
-        public IReadOnlyCollection<SteamApp> SteamApps
+        private IReadOnlyCollection<SteamApp>? _SteamApps;
+        public IReadOnlyCollection<SteamApp>? SteamApps
         {
             get => _SteamApps;
             set
@@ -52,8 +53,8 @@ namespace System.Application.Services
         #endregion
 
         #region 当前steam登录用户
-        private SteamUser _CurrentSteamUser;
-        public SteamUser CurrentSteamUser
+        private SteamUser? _CurrentSteamUser;
+        public SteamUser? CurrentSteamUser
         {
             get => _CurrentSteamUser;
             set
@@ -116,6 +117,8 @@ namespace System.Application.Services
 
         public void Initialize()
         {
+            Task.Run(InitializeGameList).ForgetAndDispose();
+
             var t = new Task(async () =>
             {
                 Thread.CurrentThread.IsBackground = true;
@@ -142,6 +145,11 @@ namespace System.Application.Services
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
 
                                     #region 初始化需要steam启动才能使用的功能
+                                    //if (SteamApps?.Any() == true)
+                                    //{
+                                    //    SteamApps = ApiService.OwnsApps(SteamApps).ToList();
+                                    //}
+
                                     //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
                                     //await mainViewModel.SteamAppPage.Initialize();
                                     //await mainViewModel.AccountPage.Initialize(id);
@@ -155,7 +163,7 @@ namespace System.Application.Services
                         {
                             IsConnectToSteam = false;
                         }
-                        await Task.Delay(2000);
+                        Thread.Sleep(2000);
                     }
                 }
                 catch (Exception ex)
@@ -175,6 +183,32 @@ namespace System.Application.Services
                 IsConnectToSteam = ApiService.Initialize(appid);
             }
         }
+
+        public async void InitializeGameList()
+        {
+            SteamApps = await ISteamService.Instance.GetAppInfos();
+#if DEBUG
+            if (BuildConfig.IsAigioPC && BuildConfig.IsDebuggerAttached)
+            {
+                return;
+            }
+#endif
+            if (SteamApps.Any_Nullable())
+            {
+                Parallel.ForEach(SteamApps, new ParallelOptions
+                {
+                    MaxDegreeOfParallelism = (Environment.ProcessorCount / 2) + 1
+                }, async app =>
+                {
+                    await ISteamService.Instance.LoadAppImageAsync(app);
+                    //app.LibraryLogoStream = await IHttpService.Instance.GetImageAsync(app.LibraryLogoUrl, ImageChannelType.SteamGames);
+                    //app.LibraryHeaderStream = await IHttpService.Instance.GetImageAsync(app.LibraryHeaderUrl, ImageChannelType.SteamGames);
+                    //app.LibraryNameStream = await IHttpService.Instance.GetImageAsync(app.LibraryNameUrl, ImageChannelType.SteamGames);
+                    //app.HeaderLogoStream = await IHttpService.Instance.GetImageAsync(app.HeaderLogoUrl, ImageChannelType.SteamGames);
+                });
+            }
+        }
+
 
         public void Dispose()
         {

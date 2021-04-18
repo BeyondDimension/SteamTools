@@ -3,6 +3,11 @@ using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
@@ -14,6 +19,9 @@ namespace System.Application.UI.ViewModels
             get => AppResources.GameList;
             protected set { throw new NotImplementedException(); }
         }
+
+        private readonly Subject<Unit> updateSource = new();
+        public bool IsReloading { get; set; }
 
         private bool _IsAppInfoOpen;
         public bool IsAppInfoOpen
@@ -39,32 +47,70 @@ namespace System.Application.UI.ViewModels
                 {
                     _SteamApps = value;
                     this.RaisePropertyChanged();
+                    this.RaisePropertyChanged(nameof(IsSteamAppsEmpty));
                 }
             }
         }
 
-        //private IReadOnlyCollection<SteamApp>? _AllSteamApps;
-
-        internal async override void Initialize()
+        private string? _SerachText;
+        public string? SerachText
         {
-            SteamApps = await ISteamService.Instance.GetAppInfos();
-#if DEBUG
-            if (BuildConfig.IsAigioPC && BuildConfig.IsDebuggerAttached)
+            get => _SerachText;
+            set => this.RaiseAndSetIfChanged(ref _SerachText, value);
+        }
+
+        public bool IsSteamAppsEmpty => !SteamApps.Any_Nullable();
+
+        internal override void Initialize()
+        {
+            this.updateSource
+                .Do(_ => this.IsReloading = true)
+                .SelectMany(x => this.UpdateAsync())
+                .Do(_ => this.IsReloading = false)
+                .Subscribe()
+                .AddTo(this);
+
+            SteamConnectService.Current
+              .WhenAnyValue(x => x.SteamApps)
+              .Subscribe(_ => Update());
+
+            this.WhenAnyValue(x => x.SerachText)
+                  .Subscribe(_ =>
+                  {
+                      Update();
+                  });
+        }
+
+        private IObservable<Unit> UpdateAsync()
+        {
+            bool Predicate(SteamApp s)
             {
-                return;
-            }
-#endif
-            if (SteamApps.Any_Nullable())
-            {
-                Parallel.ForEach(SteamApps, async app =>
+                if (string.IsNullOrEmpty(SerachText))
+                    return true;
+                if (!string.IsNullOrEmpty(SerachText))
                 {
-                    await ISteamService.Instance.LoadAppImageAsync(app);
-                    //app.LibraryLogoStream = await IHttpService.Instance.GetImageAsync(app.LibraryLogoUrl, ImageChannelType.SteamGames);
-                    //app.LibraryHeaderStream = await IHttpService.Instance.GetImageAsync(app.LibraryHeaderUrl, ImageChannelType.SteamGames);
-                    //app.LibraryNameStream = await IHttpService.Instance.GetImageAsync(app.LibraryNameUrl, ImageChannelType.SteamGames);
-                    //app.HeaderLogoStream = await IHttpService.Instance.GetImageAsync(app.HeaderLogoUrl, ImageChannelType.SteamGames);
-                });
+                    if (s.DisplayName?.Contains(SerachText, StringComparison.OrdinalIgnoreCase) == true ||
+                        s.AppId.ToString().Contains(SerachText, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+                }
+                return false;
             }
+
+            return Observable.Start(() =>
+            {
+                var list = SteamConnectService.Current.SteamApps?.Where(x => Predicate(x)).OrderBy(x => x.Name).ToList();
+                if (list.Any_Nullable())
+                    this.SteamApps = list;
+                else
+                    this.SteamApps = null;
+            });
+        }
+
+        public void Update()
+        {
+            this.updateSource.OnNext(Unit.Default);
         }
 
         public void AppClick(SteamApp app)

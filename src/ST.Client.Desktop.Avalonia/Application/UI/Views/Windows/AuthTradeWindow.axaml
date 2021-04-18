@@ -44,7 +44,12 @@
                         Command="{ReflectionBinding LoginButton_Click,Mode=OneTime}">
                 </Button>
             </StackPanel>
-            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 5" Text="{ReflectionBinding Path=Res.LocalAuth_SteamTradeLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+            <TextBlock
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Center"
+                Margin="0 5"
+                Text="{ReflectionBinding Path=Res.LocalAuth_SteamTradeLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                TextWrapping="WrapWithOverflow"></TextBlock>
         </Panel>
 
         <Panel HorizontalAlignment="Stretch" IsVisible="{Binding IsLoggedIn}">
@@ -80,7 +85,6 @@
                         </controls:ProgressRing>
                         <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_GetTip,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Center" FontSize="14"></TextBlock>
                     </StackPanel>
-
 
                     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"  Padding="0 0 0 10">
                         <ItemsRepeater Items="{Binding Confirmations,Mode=OneWay}">

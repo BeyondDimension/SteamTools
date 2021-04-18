@@ -6,10 +6,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="System.Application.UI.Views.Pages.Settings_UI">
+             x:Class="System.Application.UI.Views.Pages.Settings_Steam">
     <StackPanel Orientation="Vertical"
-  HorizontalAlignment="Stretch"
-  Spacing="20">
+            HorizontalAlignment="Stretch"
+            Spacing="20">
         <StackPanel.Styles>
             <Style Selector="TextBlock">
                 <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
@@ -28,31 +28,16 @@
             </Style>
         </StackPanel.Styles>
         
-        <StackPanel Orientation="Vertical" Spacing="10">
-            <TextBlock Text="{ReflectionBinding Path=Res.Settings_Language,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-            
-            <ComboBox HorizontalAlignment="Stretch"
-        SelectedItem="{Binding SelectLanguage, Mode=TwoWay}"
-        Items="{Binding Mode=OneWay,Source={x:Static resx:R.Languages}}" >
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Value,Mode=OneWay}"></TextBlock>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+        <DockPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_AutoRunSteam,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsAutoRunSteam},Path=Value, Mode=TwoWay}" />
+        </DockPanel>
+
+        <StackPanel Spacing="10">
+            <TextBlock Text= "{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static resx:R.Current}}" />
+            <TextBox Watermark="" Text="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamStratParameter},Path=Value, Mode=TwoWay}"></TextBox>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Spacing="10">
-            <TextBlock Text="{ReflectionBinding Path=Res.Settings_Theme,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-            
-            <ComboBox x:Name="Themes"
-                      SelectedIndex="{Binding Source={x:Static ms:UISettings.Theme},Path=Value, Mode=TwoWay}"
-                      HorizontalAlignment="Stretch">
-                <!--显示文本参考MSEdge-->
-                <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_SystemDefault,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
-                <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Light,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
-                <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Dark,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
-            </ComboBox>
-        </StackPanel>
+        
         <Separator BorderThickness=".88" Background="{DynamicResource SystemControlHighlightBaseLowBrush}"/>
     </StackPanel>
 </UserControl>

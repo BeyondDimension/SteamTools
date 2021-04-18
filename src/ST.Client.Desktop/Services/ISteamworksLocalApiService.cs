@@ -24,7 +24,7 @@ namespace System.Application.Services
 
         bool OwnsApps(uint appid);
 
-        List<SteamApp> OwnsApps(List<SteamApp> apps);
+        IEnumerable<SteamApp> OwnsApps(IEnumerable<SteamApp> apps);
 
         string GetAppData(uint appid, string key);
 

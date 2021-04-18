@@ -539,6 +539,12 @@
   <data name="Settings_Steam" xml:space="preserve">
     <value>Steam设置</value>
   </data>
+  <data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
+    <value>程序启动时自动运行Steam</value>
+  </data>
+  <data name="Settings_Steam_SteamStratParameter" xml:space="preserve">
+    <value>Steam启动参数</value>
+  </data>
   <data name="Settings_Theme" xml:space="preserve">
     <value>主题</value>
   </data>

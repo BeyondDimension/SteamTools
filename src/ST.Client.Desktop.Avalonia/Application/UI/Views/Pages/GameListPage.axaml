@@ -13,15 +13,59 @@
              x:CompileBindings="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.GameListPage">
-    <Grid ColumnDefinitions="Auto,*">
-        <!--<TreeView Grid.Column="0">
+    <DockPanel>
+        <Expander
+                  DockPanel.Dock="Top"
+                  Header="高级筛选"
+                  ExpandDirection="Down"
+                  Margin="20 0 20 10">
+            <Border Padding="10">
+                <DockPanel>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Spacing="8"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                        <Button Background="Transparent" Cursor="Hand">
+                            <PathIcon Width="20" Height="20"  Data="{StaticResource AddDrawing}" />
+                        </Button>
+                        <Button Background="Transparent" Cursor="Hand">
+                            <PathIcon Width="20" Height="20"  Data="{StaticResource RefreshDrawing}" />
+                        </Button>
+
+                        <!--<ToggleButton VerticalAlignment="Center">
+
+                        </ToggleButton>-->
+                    </StackPanel>
+
+
+                    <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="15"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center">
+                        <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{CompiledBinding SerachText,Mode=TwoWay}" VerticalAlignment="Center" MinWidth="300">
+                            <TextBox.InnerLeftContent>
+                                <PathIcon Data="{StaticResource SearchDrawing}"
+                                          Width="20" Height="20"
+                                          Opacity="0.8"
+                                          VerticalAlignment="Top" HorizontalAlignment="Left"
+                                          Margin="15,8,0,0" />
+                            </TextBox.InnerLeftContent>
+                        </TextBox>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+        </Expander>
+
+        <!--<TreeView DockPanel.Dock="Left">
             <TreeView.ItemTemplate>
                 <TreeDataTemplate ItemsSource="{Binding Children}">
                     <TextBlock Text="{Binding Name}"/>
                 </TreeDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>-->
-        <Panel Grid.Column="1" Grid.Row="1">
+        <Panel>
             <SplitView IsPaneOpen="{Binding IsAppInfoOpen,Mode=TwoWay}"
                 PanePlacement="Right"
                 OpenPaneLength="500"
@@ -118,5 +162,5 @@
                 </ScrollViewer>
             </SplitView>
         </Panel>
-    </Grid>
+    </DockPanel>
 </UserControl>

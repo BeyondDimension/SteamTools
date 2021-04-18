@@ -50,4 +50,10 @@
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0013745-beta" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Application\UI\Views\Pages\Settings\Settings_Steam.axaml.cs">
+      <DependentUpon>Settings_Steam.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>
