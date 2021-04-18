@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using System.Application.Services;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace System.Application.UI.Views.Windows
             sppBtn.Click += SppBtn_Click;
         }
 
-        private void SppBtn_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        private void SppBtn_Click(object? sender, RoutedEventArgs e)
         {
             var fileDialog = new OpenFileDialog
             {
@@ -51,7 +52,7 @@ namespace System.Application.UI.Views.Windows
             });
         }
 
-        private void SdaBtn_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        private void SdaBtn_Click(object? sender, RoutedEventArgs e)
         {
             var fileDialog = new OpenFileDialog
             {
@@ -72,7 +73,7 @@ namespace System.Application.UI.Views.Windows
             });
         }
 
-        private void WinAuthBtn_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        private void WinAuthBtn_Click(object? sender, RoutedEventArgs e)
         {
             var fileDialog = new OpenFileDialog
             {
@@ -92,7 +93,5 @@ namespace System.Application.UI.Views.Windows
             });
 
         }
-
-
     }
 }

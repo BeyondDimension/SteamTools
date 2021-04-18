@@ -187,7 +187,7 @@ namespace System.Application
                 services.TryAddModelValidator();
 
                 // 添加服务端API调用
-                services.TryAddCloudServiceClient<CloudServiceClient>(useMock: true);
+                services.TryAddCloudServiceClient<CloudServiceClient>();
 
                 services.AddAutoMapper();
 
