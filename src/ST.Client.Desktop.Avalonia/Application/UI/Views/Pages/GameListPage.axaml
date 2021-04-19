@@ -84,7 +84,7 @@
                                 StaysOpen="False" Width="{ReflectionBinding #typebutton.Width}"
                                 PlacementMode="Bottom"
                                 PlacementTarget="typebutton"
-                                HorizontalOffset="-3"
+                                HorizontalOffset="-2.5"
                                 IsLightDismissEnabled="True">
                                 <Border Background="Black" Width="201" Height="200">
                                     
