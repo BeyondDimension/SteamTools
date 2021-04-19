@@ -26,6 +26,8 @@ namespace System.Application.UI.ViewModels
 
         public SettingsPageViewModel()
         {
+            IconKey = nameof(SettingsPageViewModel).Replace("ViewModel", "Svg");
+
             SelectLanguage = R.Languages.SingleOrDefault(x => x.Key == UISettings.Language.Value);
             this.WhenAnyValue(x => x.SelectLanguage)
                   .DistinctUntilChanged()

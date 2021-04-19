@@ -232,6 +232,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 启用的加速服务 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_AccelerationsEnable {
+            get {
+                return ResourceManager.GetString("CommunityFix_AccelerationsEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 全部启用 的本地化字符串。
         /// </summary>
         public static string CommunityFix_AllCheck {
@@ -349,11 +358,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 加速模式: 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ProxyModeTip {
+            get {
+                return ResourceManager.GetString("CommunityFix_ProxyModeTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 管理脚本 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ScriptManage {
             get {
                 return ResourceManager.GetString("CommunityFix_ScriptManage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启用的脚本服务 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ScriptsEnable {
+            get {
+                return ResourceManager.GetString("CommunityFix_ScriptsEnable", resourceCulture);
             }
         }
         

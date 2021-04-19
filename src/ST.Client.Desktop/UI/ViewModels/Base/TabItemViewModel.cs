@@ -14,11 +14,23 @@ namespace System.Application.UI.ViewModels
 
         #endregion
 
+        #region IconKey 图标svg Resource key
+
+        private string? _IconKey;
+
+        public virtual string? IconKey
+        {
+            get => _IconKey;
+            protected set => this.RaiseAndSetIfChanged(ref _IconKey, value);
+        }
+
+        #endregion
+
         #region Badge 変更通知
 
-        private int? _Badge;
+        private int _Badge = 0;
 
-        public virtual int? Badge
+        public virtual int Badge
         {
             get => _Badge;
             protected set => this.RaiseAndSetIfChanged(ref _Badge, value);
@@ -28,21 +40,21 @@ namespace System.Application.UI.ViewModels
 
         #region Status 変更通知
 
-        private ViewModelBase? _Status;
+        //private ViewModelBase? _Status;
 
-        /// <summary>
-        /// 获取状态栏中显示的状态
-        /// </summary>
-        public virtual ViewModelBase? Status
-        {
-            get => _Status;
-            protected set => this.RaiseAndSetIfChanged(ref _Status, value);
-        }
+        ///// <summary>
+        ///// 获取状态栏中显示的状态
+        ///// </summary>
+        //public virtual ViewModelBase? Status
+        //{
+        //    get => _Status;
+        //    protected set => this.RaiseAndSetIfChanged(ref _Status, value);
+        //}
 
         #endregion
 
         private IList<MenuItemViewModel>? _MenuItems;
-        public virtual IList<MenuItemViewModel>? MenuItems 
+        public virtual IList<MenuItemViewModel>? MenuItems
         {
             get => _MenuItems;
             protected set => this.RaiseAndSetIfChanged(ref _MenuItems, value);

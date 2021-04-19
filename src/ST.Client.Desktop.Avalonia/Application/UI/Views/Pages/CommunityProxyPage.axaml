@@ -134,12 +134,24 @@
                     <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AlreadyProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="26"></TextBlock>
                     <TextBlock FontSize="26" Text="{Binding AccelerateTime,Source={x:Static service:ProxyService.Current},Converter={StaticResource DateFormatConverter},ConverterParameter='HH:mm:ss'}}"></TextBlock>
                 </WrapPanel>
-                <TextBlock Text="加速模式: Hosts代理模式" FontSize="14" HorizontalAlignment="Center"></TextBlock>
+                <WrapPanel HorizontalAlignment="Center">
+                    <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyModeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="14"/>
+                    <TextBlock x:Name="proxyModel" FontSize="14">
+                        <i:Interaction.Behaviors>
+                            <ia:DataTriggerBehavior Binding="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value}}" ComparisonCondition="Equal" Value="True">
+                                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #proxyModel}" PropertyName="Text" Value="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                            </ia:DataTriggerBehavior>
+                            <ia:DataTriggerBehavior Binding="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value}}" ComparisonCondition="Equal" Value="False">
+                                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #proxyModel}" PropertyName="Text" Value="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                            </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </TextBlock>
+                </WrapPanel>
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="30" Margin="0 20">
                 <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
                     <DockPanel MinWidth="300">
-                        <TextBlock Text="启用的加速服务" FontSize="16" DockPanel.Dock="Top"></TextBlock>
+                        <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AccelerationsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="16" DockPanel.Dock="Top"></TextBlock>
                         <ScrollViewer>
                             <ItemsControl Items="{ReflectionBinding EnableProxyDomains,Source={x:Static service:ProxyService.Current}}">
                                 <ItemsControl.ItemTemplate>
@@ -159,7 +171,7 @@
 
                 <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
                     <DockPanel MinWidth="300">
-                        <TextBlock Text="启用的脚本服务" FontSize="16" DockPanel.Dock="Top"></TextBlock>
+                        <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ScriptsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="16" DockPanel.Dock="Top"></TextBlock>
                         <ScrollViewer>
                             <ItemsControl Items="{ReflectionBinding EnableProxyScripts,Source={x:Static service:ProxyService.Current}}">
                                 <ItemsControl.ItemTemplate>

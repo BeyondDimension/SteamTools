@@ -70,14 +70,18 @@ namespace System.Application.UI.ViewModels
             this.updateSource.OnNext(Unit.Default);
         }
 
-        public   ProxyScriptManagePageViewModel()
+        public ProxyScriptManagePageViewModel()
         {
+            IconKey = nameof(ProxyScriptManagePageViewModel).Replace("ViewModel", "Svg");
+
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
                    new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)),
                    new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)),
             };
+
             var temp = DI.Get<IScriptManager>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, "Scripts", "h.js")).ConfigureAwait(true);
+
             this.updateSource
             .Do(_ => this.IsReloading = true)
             .SelectMany(x => this.UpdateAsync())

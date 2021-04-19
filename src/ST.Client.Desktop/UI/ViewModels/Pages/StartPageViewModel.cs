@@ -10,5 +10,9 @@ namespace System.Application.UI.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
+        public StartPageViewModel()
+        {
+            IconKey = nameof(StartPageViewModel).Replace("ViewModel", "Svg");
+        }
     }
 }

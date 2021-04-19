@@ -16,6 +16,8 @@ namespace System.Application.UI.ViewModels
     {
         public LocalAuthPageViewModel()
         {
+            IconKey = nameof(LocalAuthPageViewModel).Replace("ViewModel", "Svg");
+
             AddAuthCommand = ReactiveCommand.Create(AddAuthMenu_Click);
             RefreshAuthCommand = ReactiveCommand.Create(() => AuthService.Current.Initialize(true));
             MenuItems = new ObservableCollection<MenuItemViewModel>()

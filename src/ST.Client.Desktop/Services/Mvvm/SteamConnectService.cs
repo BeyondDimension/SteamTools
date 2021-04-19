@@ -188,7 +188,7 @@ namespace System.Application.Services
         {
             SteamApps = await ISteamService.Instance.GetAppInfos();
 #if DEBUG
-            if (BuildConfig.IsAigioPC && BuildConfig.IsDebuggerAttached)
+            if (BuildConfig.IsDebuggerAttached)
             {
                 return;
             }

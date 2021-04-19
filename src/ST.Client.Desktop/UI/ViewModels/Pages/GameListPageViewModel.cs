@@ -20,8 +20,20 @@ namespace System.Application.UI.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
+        public GameListPageViewModel()
+        {
+            IconKey = nameof(GameListPageViewModel).Replace("ViewModel", "Svg");
+        }
+
         private readonly Subject<Unit> updateSource = new();
         public bool IsReloading { get; set; }
+
+        private bool _IsOpenFilter;
+        public bool IsOpenFilter
+        {
+            get => _IsOpenFilter;
+            set => this.RaiseAndSetIfChanged(ref _IsOpenFilter, value);
+        }
 
         private bool _IsAppInfoOpen;
         public bool IsAppInfoOpen

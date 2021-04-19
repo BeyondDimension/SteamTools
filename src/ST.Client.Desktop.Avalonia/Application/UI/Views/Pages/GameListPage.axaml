@@ -13,154 +13,171 @@
              x:CompileBindings="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.GameListPage">
-    <DockPanel>
-        <Expander
-                  DockPanel.Dock="Top"
-                  Header="高级筛选"
-                  ExpandDirection="Down"
-                  Margin="20 0 20 10">
-            <Border Padding="10">
-                <DockPanel>
-                    <StackPanel
-                        Orientation="Horizontal"
-                        Spacing="8"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
-                        <Button Background="Transparent" Cursor="Hand">
-                            <PathIcon Width="20" Height="20"  Data="{StaticResource AddDrawing}" />
-                        </Button>
-                        <Button Background="Transparent" Cursor="Hand">
-                            <PathIcon Width="20" Height="20"  Data="{StaticResource RefreshDrawing}" />
-                        </Button>
+    <SplitView IsPaneOpen="{Binding IsAppInfoOpen,Mode=TwoWay}"
+    PanePlacement="Right"
+    OpenPaneLength="500"
+    DisplayMode="Overlay"
+    PaneBackground="Transparent">
+        <SplitView.Pane>
+            <ScrollViewer>
+                <Panel>
+                    <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" ZIndex="0">
+                    </Border>
+                    <Panel
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Top">
+                        <Image
+                                Source="{Binding SelectApp.LibraryHeaderStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=500}"
+                                Stretch="Uniform"
+                                Width="500"></Image>
+                        <Image
+                               Source="{Binding SelectApp.LibraryNameStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}"
+                               Stretch="Uniform" Width="200" Margin="20 0 0 10"
+                               VerticalAlignment="Bottom"
+                               HorizontalAlignment="Left">
+                        </Image>
+                        <Button Content="安装" Classes="action"
+                            MinWidth="200"
+                            FontSize="16"
+                            HorizontalAlignment="Right"
+                            HorizontalContentAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            VerticalContentAlignment="Center"></Button>
+                    </Panel>
+                </Panel>
+            </ScrollViewer>
+        </SplitView.Pane>
+        <DockPanel>
+            <Expander
+               DockPanel.Dock="Top"
+               Header="高级筛选"
+               ExpandDirection="Down"
+               Margin="20 0 20 10">
+                <Border Padding="10">
+                    <DockPanel>
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Spacing="8"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
+                            <Button Background="Transparent" Cursor="Hand">
+                                <PathIcon Width="20" Height="20"  Data="{StaticResource AddDrawing}" />
+                            </Button>
+                            <Button Background="Transparent" Cursor="Hand">
+                                <PathIcon Width="20" Height="20"  Data="{StaticResource RefreshDrawing}" />
+                            </Button>
 
-                        <!--<ToggleButton VerticalAlignment="Center">
+                            <ToggleButton x:Name="typebutton" 
+                                          VerticalAlignment="Center" 
+                                          MinWidth="200" 
+                                          IsChecked="{Binding IsOpenFilter,Mode=TwoWay}">
+                                <DockPanel>
+                                    <TextBlock Text="游戏和软件"></TextBlock>
+                                    <PathIcon 
+                                              HorizontalAlignment="Right" 
+                                              Data="{StaticResource ChevronDownDrawing}" 
+                                              Width="16"></PathIcon>
+                                </DockPanel>
+                            </ToggleButton>
+                            <Popup 
+                                IsOpen="{Binding IsOpenFilter,Mode=TwoWay, FallbackValue=False}"
+                                StaysOpen="False" Width="{ReflectionBinding #typebutton.Width}"
+                                PlacementMode="Bottom"
+                                PlacementTarget="typebutton"
+                                HorizontalOffset="-3"
+                                IsLightDismissEnabled="True">
+                                <Border Background="Black" Width="201" Height="200">
+                                    
+                                </Border>
+                            </Popup>
+                        </StackPanel>
 
-                        </ToggleButton>-->
-                    </StackPanel>
 
-
-                    <StackPanel
-                                Orientation="Horizontal"
-                                Spacing="15"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center">
-                        <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{CompiledBinding SerachText,Mode=TwoWay}" VerticalAlignment="Center" MinWidth="300">
-                            <TextBox.InnerLeftContent>
-                                <PathIcon Data="{StaticResource SearchDrawing}"
-                                          Width="20" Height="20"
-                                          Opacity="0.8"
-                                          VerticalAlignment="Top" HorizontalAlignment="Left"
-                                          Margin="15,8,0,0" />
-                            </TextBox.InnerLeftContent>
-                        </TextBox>
-                    </StackPanel>
-                </DockPanel>
-            </Border>
-        </Expander>
-
-        <!--<TreeView DockPanel.Dock="Left">
+                        <StackPanel
+                                    Orientation="Horizontal"
+                                    Spacing="15"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center">
+                            <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{CompiledBinding SerachText,Mode=TwoWay}" VerticalAlignment="Center" MinWidth="300">
+                                <TextBox.InnerLeftContent>
+                                    <PathIcon Data="{StaticResource SearchDrawing}"
+                                              Width="20" Height="20"
+                                              Opacity="0.8"
+                                              VerticalAlignment="Top" HorizontalAlignment="Left"
+                                              Margin="15,8,0,0" />
+                                </TextBox.InnerLeftContent>
+                            </TextBox>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+            </Expander>
+            <!--<TreeView DockPanel.Dock="Left">
             <TreeView.ItemTemplate>
                 <TreeDataTemplate ItemsSource="{Binding Children}">
                     <TextBlock Text="{Binding Name}"/>
                 </TreeDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>-->
-        <Panel>
-            <SplitView IsPaneOpen="{Binding IsAppInfoOpen,Mode=TwoWay}"
-                PanePlacement="Right"
-                OpenPaneLength="500"
-                DisplayMode="Overlay"
-                PaneBackground="Transparent">
-                <SplitView.Pane>
-                    <ScrollViewer>
-                        <Panel>
-                            <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" ZIndex="0">
-                            </Border>
-                            <Panel
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Top">
-                                <Image
-                                        Source="{Binding SelectApp.LibraryHeaderStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=500}"
-                                        Stretch="Uniform"
-                                        Width="500"></Image>
-                                <Image
-                                       Source="{Binding SelectApp.LibraryNameStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}"
-                                       Stretch="Uniform" Width="200" Margin="20 0 0 10"
-                                       VerticalAlignment="Bottom"
-                                       HorizontalAlignment="Left">
-                                </Image>
-                                <Button Content="安装" Classes="action"
-                                    MinWidth="200"
-                                    FontSize="16"
-                                    HorizontalAlignment="Right"
-                                    HorizontalContentAlignment="Center"
-                                    VerticalAlignment="Bottom"
-                                    VerticalContentAlignment="Center"></Button>
-                            </Panel>
-                        </Panel>
-                    </ScrollViewer>
-                </SplitView.Pane>
-                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="0 0 0 10">
-                    <ItemsRepeater Items="{Binding SteamApps}">
-                        <ItemsRepeater.Layout>
-                            <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20"  MaximumRowsOrColumns="8"/>
-                        </ItemsRepeater.Layout>
-                        <ItemsRepeater.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="20 0" Spacing="8">
-                                    <Border DockPanel.Dock="Top" Classes="paper" x:Name="app" Cursor="Hand">
-                                        <i:Interaction.Behaviors>
-                                            <ia:EventTriggerBehavior EventName="PointerPressed" SourceObject="{ReflectionBinding #app}">
-                                                <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.AppClick}" CommandParameter="{Binding}"/>
-                                            </ia:EventTriggerBehavior>
-                                        </i:Interaction.Behaviors>
-                                        <Panel Width="200" Height="300">
-                                            <!--<Image
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="0 0 0 10">
+                <ItemsRepeater Items="{Binding SteamApps}">
+                    <ItemsRepeater.Layout>
+                        <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20"  MaximumRowsOrColumns="8"/>
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="20 0" Spacing="8">
+                                <Border DockPanel.Dock="Top" Classes="paper" x:Name="app" Cursor="Hand">
+                                    <i:Interaction.Behaviors>
+                                        <ia:EventTriggerBehavior EventName="PointerPressed" SourceObject="{ReflectionBinding #app}">
+                                            <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.AppClick}" CommandParameter="{Binding}"/>
+                                        </ia:EventTriggerBehavior>
+                                    </i:Interaction.Behaviors>
+                                    <Panel Width="200" Height="300">
+                                        <!--<Image
                                                    Stretch="UniformToFill"
                                                    Source="{Binding DefaultLibraryLogo,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}"
                                                    ZIndex="0" 
                                                    IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}"/>-->
-                                            <!--<Image
+                                        <!--<Image
                                                    Stretch="UniformToFill"
                                                    Source="{Binding LibraryLogoStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}"
                                                    IsVisible="{Binding !LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>-->
-                                            <gif:Image2 x:Name="library"
-                                                                Stretch="UniformToFill"
-                                                                DecodeWidth="200"
-                                                                Source="{Binding LibraryLogoStream}">
-                                                <i:Interaction.Behaviors>
-                                                    <ia:DataTriggerBehavior Binding="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}" ComparisonCondition="Equal" Value="True">
-                                                        <ia:ChangePropertyAction TargetObject="{ReflectionBinding #library}" PropertyName="Source" Value="{Binding LibraryLogoStream}"/>
-                                                    </ia:DataTriggerBehavior>
-                                                    <ia:DataTriggerBehavior Binding="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}" ComparisonCondition="Equal" Value="False">
-                                                        <ia:ChangePropertyAction TargetObject="{ReflectionBinding #library}" PropertyName="Source" Value="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/16.png"/>
-                                                    </ia:DataTriggerBehavior>
-                                                </i:Interaction.Behaviors>
-                                            </gif:Image2>
-                                            <!--<Panel Width="200" IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}">
+                                        <gif:Image2 x:Name="library"
+                                                            Stretch="UniformToFill"
+                                                            DecodeWidth="200"
+                                                            Source="{Binding LibraryLogoStream}">
+                                            <i:Interaction.Behaviors>
+                                                <ia:DataTriggerBehavior Binding="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}" ComparisonCondition="Equal" Value="True">
+                                                    <ia:ChangePropertyAction TargetObject="{ReflectionBinding #library}" PropertyName="Source" Value="{Binding LibraryLogoStream}"/>
+                                                </ia:DataTriggerBehavior>
+                                                <ia:DataTriggerBehavior Binding="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}" ComparisonCondition="Equal" Value="False">
+                                                    <ia:ChangePropertyAction TargetObject="{ReflectionBinding #library}" PropertyName="Source" Value="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/16.png"/>
+                                                </ia:DataTriggerBehavior>
+                                            </i:Interaction.Behaviors>
+                                        </gif:Image2>
+                                        <!--<Panel Width="200" IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}">
                                                 <Image Stretch="Uniform" Source="{Binding HeaderLogoStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}" Opacity="0.8" IsVisible="{Binding !HeaderLogoStream,Converter={StaticResource IsNullConverter}}"/>-->
-                                            <TextBlock
-                                                Text="{Binding DisplayName}"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Center"
-                                                TextWrapping="WrapWithOverflow"
-                                                FontSize="20"
-                                                Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                                                IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}"/>
-                                            <!--</Panel>-->
+                                        <TextBlock
+                                            Text="{Binding DisplayName}"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            TextWrapping="WrapWithOverflow"
+                                            FontSize="20"
+                                            Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                                            IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}"/>
+                                        <!--</Panel>-->
 
-                                            <!--<TextBlock Text="{Binding AppId}" HorizontalAlignment="Center" VerticalAlignment="Bottom"></TextBlock>-->
-                                        </Panel>
-                                    </Border>
+                                        <!--<TextBlock Text="{Binding AppId}" HorizontalAlignment="Center" VerticalAlignment="Bottom"></TextBlock>-->
+                                    </Panel>
+                                </Border>
 
-                                    <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding DisplayName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                                    <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding AppId}" FontSize="10" Foreground="{DynamicResource InactiveForegroundBrushKey}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                    </ItemsRepeater>
-                </ScrollViewer>
-            </SplitView>
-        </Panel>
-    </DockPanel>
+                                <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding DisplayName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                                <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding AppId}" FontSize="10" Foreground="{DynamicResource InactiveForegroundBrushKey}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </ScrollViewer>
+        </DockPanel>
+    </SplitView>
 </UserControl>

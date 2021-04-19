@@ -32,6 +32,8 @@ namespace System.Application.UI.ViewModels
 
         public SteamAccountPageViewModel()
         {
+            IconKey = nameof(SteamAccountPageViewModel).Replace("ViewModel", "Svg");
+
             this.WhenAnyValue(x => x.SteamUsers)
                   .DistinctUntilChanged()
                   .Subscribe(s => this.RaisePropertyChanged(nameof(IsUserEmpty)));

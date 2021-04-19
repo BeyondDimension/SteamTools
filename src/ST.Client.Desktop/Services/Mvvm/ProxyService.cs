@@ -121,7 +121,7 @@ namespace System.Application.Services
             }
         }
 
-        #region 代理状态变更通知
+        #region 代理状态启动退出
         public bool ProxyStatus
         {
             get { return httpProxyService.ProxyRunning; }
@@ -201,12 +201,12 @@ namespace System.Application.Services
                 }
             }
 
-            this.WhenAnyValue(v => v.ProxyDomains)
+            this.WhenValueChanged(v => v.ProxyDomains, false)
                   .DistinctUntilChanged()
                   .Subscribe(domain => domain?
                         .ToObservableChangeSet()
                         .AutoRefresh(x => x.ObservableItems)
-                        .TransformMany(t => t.ObservableItems)
+                        .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
                         .AutoRefresh(x => x.Enable)
                         .Subscribe(_ =>
                         {

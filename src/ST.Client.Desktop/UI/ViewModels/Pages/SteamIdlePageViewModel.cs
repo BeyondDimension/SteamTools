@@ -10,5 +10,9 @@ namespace System.Application.UI.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
+        public SteamIdlePageViewModel()
+        {
+            IconKey = nameof(SteamIdlePageViewModel).Replace("ViewModel", "Svg");
+        }
     }
 }
