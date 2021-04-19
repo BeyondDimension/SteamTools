@@ -38,6 +38,14 @@ namespace System.Application.UI.ViewModels
         }
 
         public ReactiveCommand<Unit, Unit> OpenUserMenu { get; }
+
+        UserInfoDTO? _User;
+        public UserInfoDTO? User
+        {
+            get => _User;
+            set => this.RaiseAndSetIfChanged(ref _User, value);
+        }
+
         #endregion
 
         public StartPageViewModel StartPage { get; }
@@ -53,26 +61,33 @@ namespace System.Application.UI.ViewModels
 
         public IReadOnlyList<TabItemViewModel> TabItems { get; set; }
 
-#pragma warning disable CS8618 // SelectedItem不会为null
+        readonly IUserManager userManager;
         public MainWindowViewModel() : base()
-#pragma warning restore CS8618 // 
         {
             Title = ThisAssembly.AssemblyTrademark;
 
-            OpenUserMenu = ReactiveCommand.Create(() => { IsOpenUserMenu = true; });
-
-            this.TabItems = new List<TabItemViewModel>
+            userManager = DI.Get<IUserManager>();
+            OpenUserMenu = ReactiveCommand.Create(() =>
             {
-                (this.StartPage = new StartPageViewModel().AddTo(this)),
-                (this.CommunityProxyPage = new CommunityProxyPageViewModel().AddTo(this)),
-                (this.ProxyScriptPage = new ProxyScriptManagePageViewModel().AddTo(this)),
-                (this.SteamAccountPage = new SteamAccountPageViewModel().AddTo(this)),
-                (this.GameListPage = new GameListPageViewModel().AddTo(this)),
-                (this.LocalAuthPage = new LocalAuthPageViewModel().AddTo(this)),
-                (this.SteamIdlePage = new SteamIdlePageViewModel().AddTo(this)),
-                (this.ASFPage = new ArchiSteamFarmPlusPageViewModel().AddTo(this)),
-                (this.GameRelatedPage = new GameRelatedPageViewModel().AddTo(this)),
-                (this.OtherPlatformPage = new OtherPlatformPageViewModel().AddTo(this)),
+                IsOpenUserMenu = User != null;
+                if (!IsOpenUserMenu)
+                {
+                    UserService.Current.ShowWindow(CustomWindow.LoginOrRegister);
+                }
+            });
+
+            TabItems = new List<TabItemViewModel>
+            {
+                (StartPage = new StartPageViewModel().AddTo(this)),
+                (CommunityProxyPage = new CommunityProxyPageViewModel().AddTo(this)),
+                (ProxyScriptPage = new ProxyScriptManagePageViewModel().AddTo(this)),
+                (SteamAccountPage = new SteamAccountPageViewModel().AddTo(this)),
+                (GameListPage = new GameListPageViewModel().AddTo(this)),
+                (LocalAuthPage = new LocalAuthPageViewModel().AddTo(this)),
+                (SteamIdlePage = new SteamIdlePageViewModel().AddTo(this)),
+                (ASFPage = new ArchiSteamFarmPlusPageViewModel().AddTo(this)),
+                (GameRelatedPage = new GameRelatedPageViewModel().AddTo(this)),
+                (OtherPlatformPage = new OtherPlatformPageViewModel().AddTo(this)),
                 
 				#region SystemTab
                 SettingsPageViewModel.Instance,
@@ -84,14 +99,7 @@ namespace System.Application.UI.ViewModels
 				#endregion
             };
 
-            //#if DEBUG
-            //            if (AppHelper.Current.IsCefInitComplete)
-            //            {
-            //                TabItems.Add(new DebugWebViewPageViewModel().AddTo(this));
-            //            }
-            //#endif
-
-            this.SelectedItem = this.TabItems.First();
+            _SelectedItem = TabItems.First();
 
             Task.Run(Initialize).ForgetAndDispose();
         }
@@ -103,17 +111,17 @@ namespace System.Application.UI.ViewModels
             ProxyService.Current.Initialize();
             AuthService.Current.Initialize();
 
-            if (!this.IsInitialized)
+            if (!IsInitialized)
             {
                 Parallel.ForEach(TabItems, item =>
                 {
                     item.Initialize();
                     //Task.Run(item.Initialize).ForgetAndDispose();
                 });
-                this.IsInitialized = true;
+                IsInitialized = true;
             }
 
-            await Task.CompletedTask;
+            User = await userManager.GetCurrentUserInfoAsync();
         }
     }
 }

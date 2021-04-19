@@ -169,6 +169,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 绑定 的本地化字符串。
+        /// </summary>
+        public static string Bind {
+            get {
+                return ResourceManager.GetString("Bind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 完成 的本地化字符串。
         /// </summary>
         public static string Btn_Text_Complete {
@@ -421,11 +430,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 账号注销 的本地化字符串。
+        /// </summary>
+        public static string DelAccount {
+            get {
+                return ResourceManager.GetString("DelAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 编辑 的本地化字符串。
         /// </summary>
         public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 邮箱 的本地化字符串。
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
             }
         }
         
@@ -471,6 +498,42 @@ namespace System.Application.UI.Resx {
         public static string GameRelated {
             get {
                 return ResourceManager.GetString("GameRelated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 性别 的本地化字符串。
+        /// </summary>
+        public static string Gender {
+            get {
+                return ResourceManager.GetString("Gender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 女 的本地化字符串。
+        /// </summary>
+        public static string Gender_Female {
+            get {
+                return ResourceManager.GetString("Gender_Female", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 男 的本地化字符串。
+        /// </summary>
+        public static string Gender_Male {
+            get {
+                return ResourceManager.GetString("Gender_Male", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保密 的本地化字符串。
+        /// </summary>
+        public static string Gender_Unknown {
+            get {
+                return ResourceManager.GetString("Gender_Unknown", resourceCulture);
             }
         }
         
@@ -1052,6 +1115,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 修改 的本地化字符串。
+        /// </summary>
+        public static string Modify {
+            get {
+                return ResourceManager.GetString("Modify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 更多操作 的本地化字符串。
         /// </summary>
         public static string More {
@@ -1061,11 +1133,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 昵称 的本地化字符串。
+        /// </summary>
+        public static string NickName {
+            get {
+                return ResourceManager.GetString("NickName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 其它平台 的本地化字符串。
         /// </summary>
         public static string OtherGamePlaform {
             get {
                 return ResourceManager.GetString("OtherGamePlaform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入昵称 的本地化字符串。
+        /// </summary>
+        public static string PleaseEnterNickName {
+            get {
+                return ResourceManager.GetString("PleaseEnterNickName", resourceCulture);
             }
         }
         
@@ -1111,6 +1201,33 @@ namespace System.Application.UI.Resx {
         public static string Refresh {
             get {
                 return ResourceManager.GetString("Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 刷新 Steam 头像 的本地化字符串。
+        /// </summary>
+        public static string RefreshSteamAvatar {
+            get {
+                return ResourceManager.GetString("RefreshSteamAvatar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 绑定 Steam 账号后可手动同步刷新使用 Steam 账号头像。 的本地化字符串。
+        /// </summary>
+        public static string RefreshSteamAvatarDesc {
+            get {
+                return ResourceManager.GetString("RefreshSteamAvatarDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存修改 的本地化字符串。
+        /// </summary>
+        public static string SaveChanges {
+            get {
+                return ResourceManager.GetString("SaveChanges", resourceCulture);
             }
         }
         
@@ -1241,6 +1358,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 退出登录 的本地化字符串。
+        /// </summary>
+        public static string SignOut {
+            get {
+                return ResourceManager.GetString("SignOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 短信验证代码 的本地化字符串。
         /// </summary>
         public static string SMSCode {
@@ -1287,6 +1413,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 Steam 账号 的本地化字符串。
+        /// </summary>
+        public static string SteamAccount {
+            get {
+                return ResourceManager.GetString("SteamAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 {0}成功 的本地化字符串。
         /// </summary>
         public static string Success_ {
@@ -1296,11 +1431,38 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 该功能正在开发中，敬请期待 的本地化字符串。
+        /// </summary>
+        public static string UnderConstruction {
+            get {
+                return ResourceManager.GetString("UnderConstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 将丢弃未保存的编辑 的本地化字符串。
         /// </summary>
         public static string UnsavedEditingWillBeDiscarded {
             get {
                 return ResourceManager.GetString("UnsavedEditingWillBeDiscarded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 上传您的头像 的本地化字符串。
+        /// </summary>
+        public static string UploadYourAvatar {
+            get {
+                return ResourceManager.GetString("UploadYourAvatar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 从您的设备上传一个文件。图片应为方形，至少为 184px x 184px 的本地化字符串。
+        /// </summary>
+        public static string UploadYourAvatarDesc {
+            get {
+                return ResourceManager.GetString("UploadYourAvatarDesc", resourceCulture);
             }
         }
         
@@ -1618,6 +1780,24 @@ namespace System.Application.UI.Resx {
         public static string UserProfile {
             get {
                 return ResourceManager.GetString("UserProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 生日 的本地化字符串。
+        /// </summary>
+        public static string UserProfile_BirthDate {
+            get {
+                return ResourceManager.GetString("UserProfile_BirthDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 所在地 的本地化字符串。
+        /// </summary>
+        public static string UserProfile_Location {
+            get {
+                return ResourceManager.GetString("UserProfile_Location", resourceCulture);
             }
         }
         

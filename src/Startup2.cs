@@ -298,7 +298,7 @@ namespace System.Application
                         {
                             var url = CSConst.Prefix_HTTPS + "localhost:5001";
                             var request = WebRequest.CreateHttp(url);
-                            request.Timeout = 1500;
+                            request.Timeout = 999;
                             request.GetResponse();
                             s.ApiBaseUrl = url;
                             return;
@@ -309,7 +309,8 @@ namespace System.Application
                         }
                     }
 #endif
-                    var value = (ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
+                    var value =
+                        (ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
                         CSConst.Prefix_HTTPS + "pan.mossimo.net:8862" :
                         CSConst.Prefix_HTTPS + "api.steampp.net";
                     s.ApiBaseUrl = value;

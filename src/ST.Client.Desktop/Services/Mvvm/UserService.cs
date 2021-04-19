@@ -26,31 +26,21 @@ namespace System.Application.Services
 
         readonly IUserManager user = DI.Get<IUserManager>();
 
-        public async void ShowWindow(string windowName)
+        public async void ShowWindow(CustomWindow windowName)
         {
-            if (Enum.TryParse<CustomWindow>(windowName, out var @enum))
+            switch (windowName)
             {
-                switch (@enum)
-                {
-                    case CustomWindow.LoginOrRegister:
-                        var cUser = await user.GetCurrentUserAsync();
-                        if (cUser.HasValue()) return;
-                        break;
-                }
-                var vmType = Type.GetType($"System.Application.UI.ViewModels.{@enum}WindowViewModel");
-                if (vmType != null && typeof(WindowViewModel).IsAssignableFrom(vmType))
-                {
-                    await IShowWindowService.Instance.Show(vmType, @enum);
-                }
+                case CustomWindow.LoginOrRegister:
+                    var cUser = await user.GetCurrentUserAsync();
+                    if (cUser.HasValue()) return;
+                    break;
+            }
+            var vmType = Type.GetType($"System.Application.UI.ViewModels.{windowName}WindowViewModel");
+            if (vmType != null && typeof(WindowViewModel).IsAssignableFrom(vmType))
+            {
+                await IShowWindowService.Instance.Show(vmType, windowName);
             }
         }
-
-
-        //public void ShowLoginOrRegisterWindow_Click()
-        //{
-        //    if (!CurrentUser.HasValue())
-        //        DI.Get<IShowWindowService>().Show(CustomWindow.LoginOrRegister, new LoginOrRegisterWindowViewModel());
-        //}
 
         public async void SignOut()
         {

@@ -18,7 +18,7 @@ namespace System.Application.UI.Views.Pages
 
             webViewQA = this.FindControl<WebView3>(nameof(webViewQA));
             webViewQA.InitialUrl = string.Format(
-                "https://steampp.net/faqBox?theme={0}&language={1}",
+                "https://steampp.net/faqbox?theme={0}&language={1}",
                 CefNetApp.GetTheme(),
                 R.Language);
         }

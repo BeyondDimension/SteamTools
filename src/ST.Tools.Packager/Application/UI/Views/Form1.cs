@@ -8,7 +8,7 @@ using static System.ProjectPathUtil;
 namespace System.Application.UI.Views
 {
     /// <summary>
-    /// 发布新版本打包 tag.gz 格式，与带进度解压示例
+    /// 发布新版本打包 tar.gz/.tgz 格式，与带进度解压示例
     /// </summary>
     public partial class Form1 : Form
     {

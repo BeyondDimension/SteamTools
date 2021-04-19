@@ -9,7 +9,7 @@ namespace System.Application.UI.ViewModels
 {
     public class SettingsPageViewModel : TabItemViewModel
     {
-        public static SettingsPageViewModel Instance { get; } = new SettingsPageViewModel();
+        public static SettingsPageViewModel Instance { get; } = new();
 
         public override string Name
         {

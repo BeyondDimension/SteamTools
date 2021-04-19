@@ -153,6 +153,9 @@
   <data name="ArchiSteamFarmPlus" xml:space="preserve">
     <value>ASF Plus</value>
   </data>
+  <data name="Bind" xml:space="preserve">
+    <value>绑定</value>
+  </data>
   <data name="Btn_Text_Complete" xml:space="preserve">
     <value>完成</value>
   </data>
@@ -238,8 +241,14 @@
   <data name="Continue" xml:space="preserve">
     <value>继续</value>
   </data>
+  <data name="DelAccount" xml:space="preserve">
+    <value>账号注销</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>编辑</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>邮箱</value>
   </data>
   <data name="EmailCode" xml:space="preserve">
     <value>邮箱验证代码</value>
@@ -255,6 +264,18 @@
   </data>
   <data name="GameRelated" xml:space="preserve">
     <value>游戏功能</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>性别</value>
+  </data>
+  <data name="Gender_Female" xml:space="preserve">
+    <value>女</value>
+  </data>
+  <data name="Gender_Male" xml:space="preserve">
+    <value>男</value>
+  </data>
+  <data name="Gender_Unknown" xml:space="preserve">
+    <value>保密</value>
   </data>
   <data name="Hosts_Exists" xml:space="preserve">
     <value>写入的 hosts 已经存在</value>
@@ -451,11 +472,20 @@
   <data name="Logout" xml:space="preserve">
     <value>注销登录</value>
   </data>
+  <data name="Modify" xml:space="preserve">
+    <value>修改</value>
+  </data>
   <data name="More" xml:space="preserve">
     <value>更多操作</value>
   </data>
+  <data name="NickName" xml:space="preserve">
+    <value>昵称</value>
+  </data>
   <data name="OtherGamePlaform" xml:space="preserve">
     <value>其它平台</value>
+  </data>
+  <data name="PleaseEnterNickName" xml:space="preserve">
+    <value>请输入昵称</value>
   </data>
   <data name="PleaseSelect" xml:space="preserve">
     <value>请选择</value>
@@ -471,6 +501,15 @@
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
+  </data>
+  <data name="RefreshSteamAvatar" xml:space="preserve">
+    <value>刷新 Steam 头像</value>
+  </data>
+  <data name="RefreshSteamAvatarDesc" xml:space="preserve">
+    <value>绑定 Steam 账号后可手动同步刷新使用 Steam 账号头像。</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>保存修改</value>
   </data>
   <data name="ScriptConfig" xml:space="preserve">
     <value>脚本配置</value>
@@ -515,8 +554,14 @@
   <data name="Settings_UI_SystemDefault" xml:space="preserve">
     <value>跟随系统</value>
   </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>退出登录</value>
+  </data>
   <data name="SMSCode" xml:space="preserve">
     <value>短信验证代码</value>
+  </data>
+  <data name="SteamAccount" xml:space="preserve">
+    <value>Steam 账号</value>
   </data>
   <data name="Steam_ImageCodeTip" xml:space="preserve">
     <value>输入图中验证码</value>
@@ -534,8 +579,17 @@
   <data name="Success_" xml:space="preserve">
     <value>{0}成功</value>
   </data>
+  <data name="UnderConstruction" xml:space="preserve">
+    <value>该功能正在开发中，敬请期待</value>
+  </data>
   <data name="UnsavedEditingWillBeDiscarded" xml:space="preserve">
     <value>将丢弃未保存的编辑</value>
+  </data>
+  <data name="UploadYourAvatar" xml:space="preserve">
+    <value>上传您的头像</value>
+  </data>
+  <data name="UploadYourAvatarDesc" xml:space="preserve">
+    <value>从您的设备上传一个文件。图片应为方形，至少为 184px x 184px</value>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">
     <value>一键登录Steam</value>
@@ -580,6 +634,12 @@
   </data>
   <data name="UserProfile" xml:space="preserve">
     <value>个人资料</value>
+  </data>
+  <data name="UserProfile_BirthDate" xml:space="preserve">
+    <value>生日</value>
+  </data>
+  <data name="UserProfile_Location" xml:space="preserve">
+    <value>所在地</value>
   </data>
   <data name="User_Agreement" xml:space="preserve">
     <value>用户协议</value>

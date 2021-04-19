@@ -63,11 +63,11 @@ namespace System.Application.Services.Implementation
 
         #region disposable members
 
-        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => this.compositeDisposable;
+        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
 
         public void Dispose()
         {
-            this.compositeDisposable.Dispose();
+            compositeDisposable.Dispose();
             GC.SuppressFinalize(this);
         }
 

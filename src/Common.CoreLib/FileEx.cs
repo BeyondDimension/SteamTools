@@ -47,7 +47,7 @@
 
         public const string LOG = ".log";
 
-        public const string TAR_GZ = ".tar.gz";
+        public const string TAR_GZ = ".tgz";
 
         public const string BIN = ".bin";
 

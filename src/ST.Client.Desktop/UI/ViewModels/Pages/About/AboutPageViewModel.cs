@@ -4,7 +4,7 @@ namespace System.Application.UI.ViewModels
 {
     public class AboutPageViewModel : TabItemViewModel
     {
-        public static AboutPageViewModel Instance { get; } = new AboutPageViewModel();
+        public static AboutPageViewModel Instance { get; } = new();
 
         public override string Name
         {
