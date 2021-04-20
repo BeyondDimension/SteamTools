@@ -68,7 +68,7 @@ namespace System.Application.Services.Implementation
             return SteamClient.SteamApps008.IsSubscribedApp(appid);
         }
 
-        public IEnumerable<SteamApp> OwnsApps(IEnumerable<SteamApp> apps)
+        public IEnumerable<SteamApp>? OwnsApps(IEnumerable<SteamApp> apps)
         {
             if (SteamClient.SteamApps008 == null || SteamClient.SteamApps001 == null)
                 return new List<SteamApp>();

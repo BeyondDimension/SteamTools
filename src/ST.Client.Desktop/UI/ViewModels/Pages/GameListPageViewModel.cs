@@ -1,4 +1,6 @@
 ﻿using ReactiveUI;
+using DynamicData;
+using DynamicData.Binding;
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
@@ -23,7 +25,9 @@ namespace System.Application.UI.ViewModels
         public GameListPageViewModel()
         {
             IconKey = nameof(GameListPageViewModel).Replace("ViewModel", "Svg");
-            AppTypeFiltres = EnumModel.GetEnumModels<SteamAppType>();
+            AppTypeFiltres = new ObservableCollection<EnumModel<SteamAppType>>(EnumModel.GetEnumModels<SteamAppType>());
+            AppTypeFiltres[1].Enable = true;
+            AppTypeFiltres[2].Enable = true;
         }
 
         private readonly Subject<Unit> updateSource = new();
@@ -74,7 +78,12 @@ namespace System.Application.UI.ViewModels
 
         public bool IsSteamAppsEmpty => !SteamApps.Any_Nullable();
 
-        public IReadOnlyCollection<EnumModel<SteamAppType>> AppTypeFiltres { get; set; }
+        private ObservableCollection<EnumModel<SteamAppType>> _AppTypeFiltres;
+        public ObservableCollection<EnumModel<SteamAppType>> AppTypeFiltres
+        {
+            get => _AppTypeFiltres;
+            set => this.RaiseAndSetIfChanged(ref _AppTypeFiltres, value);
+        }
 
         internal override void Initialize()
         {
@@ -94,18 +103,42 @@ namespace System.Application.UI.ViewModels
                   {
                       Update();
                   });
+
+            this.WhenAnyValue(x => x.AppTypeFiltres)
+                  .Subscribe(type => type?
+                        .ToObservableChangeSet()
+                        .AutoRefresh(x => x.Enable)
+                        .WhenValueChanged(x => x.Enable, false)
+                        .Subscribe(_ =>
+                        {
+                            Update();
+                        }));
         }
 
         private IObservable<Unit> UpdateAsync()
         {
-            bool Predicate(SteamApp s)
+            var types = AppTypeFiltres.Where(x => x.Enable);
+            bool predicateName(SteamApp s)
             {
-                if (string.IsNullOrEmpty(SerachText))
-                    return true;
                 if (!string.IsNullOrEmpty(SerachText))
                 {
                     if (s.DisplayName?.Contains(SerachText, StringComparison.OrdinalIgnoreCase) == true ||
                         s.AppId.ToString().Contains(SerachText, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+                }
+                else 
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool predicateType(SteamApp s)
+            {
+                if (types.Any())
+                {
+                    if (types.Any(x => x.Value == s.Type))
                     {
                         return true;
                     }
@@ -115,18 +148,21 @@ namespace System.Application.UI.ViewModels
 
             return Observable.Start(() =>
             {
-                var list = SteamConnectService.Current.SteamApps?.Where(x => Predicate(x)).OrderBy(x => x.Name).ToList();
+                var list = SteamConnectService.Current.SteamApps?
+                .Where(x => predicateType(x))
+                .Where(x => predicateName(x))
+                .OrderBy(x => x.Name).ToList();
                 if (list.Any_Nullable())
                     this.SteamApps = list;
                 else
                     this.SteamApps = null;
+                this.CalcTypeCount();
             });
         }
 
         public void Update()
         {
             this.updateSource.OnNext(Unit.Default);
-            this.CalcTypeCount();
         }
 
         public void CalcTypeCount()

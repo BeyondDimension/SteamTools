@@ -31,7 +31,6 @@ namespace System.Application.UI.ViewModels
 
             SelectLanguage = R.Languages.SingleOrDefault(x => x.Key == UISettings.Language.Value);
             this.WhenAnyValue(x => x.SelectLanguage)
-                  .DistinctUntilChanged()
                   .Subscribe(x => UISettings.Language.Value = x.Key);
         }
     }

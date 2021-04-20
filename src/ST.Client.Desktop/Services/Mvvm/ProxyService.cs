@@ -202,7 +202,6 @@ namespace System.Application.Services
             }
 
             this.WhenValueChanged(v => v.ProxyDomains, false)
-                  .DistinctUntilChanged()
                   .Subscribe(domain => domain?
                         .ToObservableChangeSet()
                         .AutoRefresh(x => x.ObservableItems)

@@ -145,10 +145,17 @@ namespace System.Application.Services
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
 
                                     #region 初始化需要steam启动才能使用的功能
-                                    //if (SteamApps?.Any() == true)
-                                    //{
-                                    //    SteamApps = ApiService.OwnsApps(SteamApps).ToList();
-                                    //}
+
+                                    while (true)
+                                    {
+                                        if (SteamApps.Any_Nullable())
+                                        {
+                                            SteamApps = ApiService.OwnsApps(SteamApps).ToList();
+                                            UpdateGamesImage();
+                                            break;
+                                        }
+                                    }
+
 
                                     //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
                                     //await mainViewModel.SteamAppPage.Initialize();
@@ -172,7 +179,8 @@ namespace System.Application.Services
                     ToastService.Current.Notify(ex.Message);
                 }
             }, TaskCreationOptions.LongRunning);
-            t.Forget();
+
+            //t.Forget();
             t.Start();
         }
 
@@ -187,6 +195,11 @@ namespace System.Application.Services
         public async void InitializeGameList()
         {
             SteamApps = await ISteamService.Instance.GetAppInfos();
+            UpdateGamesImage();
+        }
+
+        public void UpdateGamesImage()
+        {
 #if DEBUG
             if (BuildConfig.IsDebuggerAttached)
             {

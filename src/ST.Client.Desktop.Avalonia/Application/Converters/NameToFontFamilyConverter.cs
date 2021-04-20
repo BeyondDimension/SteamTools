@@ -13,8 +13,8 @@ namespace System.Application.Converters
             if (value is string s)
             {
                 if (string.IsNullOrEmpty(s) || s.Equals("Default", StringComparison.OrdinalIgnoreCase))
-                    return new FontFamily(FontManager.Current.DefaultFontFamilyName);
-                return new FontFamily(s);
+                    return FontFamily.Default;
+                return FontFamily.Parse(s);
             }
             return null;
         }

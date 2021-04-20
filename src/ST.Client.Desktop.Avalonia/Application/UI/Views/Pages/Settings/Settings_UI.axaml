@@ -10,10 +10,11 @@
     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Spacing="20">
         <StackPanel.Styles>
             <Style Selector="TextBlock">
+                <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
                 <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
             </Style>
             <Style Selector="DockPanel > TextBlock">
-                <Setter Property="Margin" Value="0 8 20 0" />
+                <Setter Property="Margin" Value="0 0 20 0" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="(DockPanel.Dock)"  Value="Left" />
             </Style>
@@ -35,6 +36,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </StackPanel>
+
         <StackPanel Orientation="Vertical" Spacing="10">
             <TextBlock Text="{ReflectionBinding Path=Res.Settings_Theme,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
             <ComboBox x:Name="Themes"
@@ -45,6 +47,7 @@
                 <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Dark,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
             </ComboBox>
         </StackPanel>
+
         <StackPanel Orientation="Vertical" Spacing="10">
             <TextBlock Text="{ReflectionBinding Path=Res.Settings_Fonts,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
             <ComboBox
@@ -59,6 +62,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </StackPanel>
-        <Separator BorderThickness=".88" Background="{DynamicResource SystemControlHighlightBaseLowBrush}"/>
+
+        <Separator Classes="Separator"/>
     </StackPanel>
 </UserControl>

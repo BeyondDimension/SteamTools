@@ -14,8 +14,8 @@
         <Thickness x:Key="UnifyTitleBarAfterContentMargin">34, 30, 34, 0</Thickness>
         <Thickness x:Key="ContentMargin">34, 0, 34, 0</Thickness>
     </Styles.Resources>
+    <StyleInclude Source="/Application/UI/Styles/DrawingSvg.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/FontSizes.xaml" />
-    <StyleInclude Source="/Application/UI/Styles/Controls/DrawingSvg.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/Separator.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/SideBar.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/TabControl.xaml" />

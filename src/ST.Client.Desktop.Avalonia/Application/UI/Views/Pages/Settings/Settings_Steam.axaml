@@ -12,10 +12,11 @@
             Spacing="20">
         <StackPanel.Styles>
             <Style Selector="TextBlock">
+                <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
                 <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
             </Style>
             <Style Selector="DockPanel > TextBlock">
-                <Setter Property="Margin" Value="0 8 20 0" />
+                <Setter Property="Margin" Value="0 0 20 0" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="(DockPanel.Dock)"  Value="Left" />
             </Style>
@@ -27,27 +28,28 @@
                 <Setter Property="OffContent" Value="{x:Null}" />
             </Style>
         </StackPanel.Styles>
-        
+
         <DockPanel>
             <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_AutoRunSteam,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-            <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsAutoRunSteam},Path=Value, Mode=TwoWay}" />
+            <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsAutoRunSteam},Path=Value, Mode=TwoWay}"/>
         </DockPanel>
-        
+
         <DockPanel>
             <TextBlock Text="最小化启动Steam"/>
             <ToggleSwitch />
         </DockPanel>
-        
+
         <DockPanel>
             <TextBlock Text="Steam启动时不检查更新"/>
             <ToggleSwitch />
         </DockPanel>
-        
+
         <StackPanel Spacing="10">
             <TextBlock Text= "{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static resx:R.Current}}" />
-            <TextBox Watermark="" Text="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamStratParameter},Path=Value, Mode=TwoWay}"></TextBox>
+            <TextBox Watermark="" Text="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamStratParameter},Path=Value, Mode=TwoWay}"
+                     MinHeight="150" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
         </StackPanel>
-        
-        <Separator BorderThickness=".88" Background="{DynamicResource SystemControlHighlightBaseLowBrush}"/>
+
+        <Separator Classes="Separator"/>
     </StackPanel>
 </UserControl>
