@@ -593,6 +593,9 @@
   <data name="SteamAppType_Application" xml:space="preserve">
     <value>软件</value>
   </data>
+  <data name="SteamAppType_Beta" xml:space="preserve">
+    <value>测试</value>
+  </data>
   <data name="SteamAppType_Config" xml:space="preserve">
     <value>配置</value>
   </data>

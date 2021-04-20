@@ -60,6 +60,9 @@ namespace System.Application.Models
 
         [Description("SteamAppType_Mod")]
         Mod = 18,
+
+        [Description("SteamAppType_Beta")]
+        Beta = 19,
     }
 
 #if DEBUG

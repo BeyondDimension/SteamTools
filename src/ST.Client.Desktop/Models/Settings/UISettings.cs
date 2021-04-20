@@ -39,6 +39,12 @@ namespace System.Application.Models.Settings
         public static SerializableProperty<string> Language { get; }
             = new SerializableProperty<string>(GetKey(), Providers.Local, "") { AutoSave = true };
 
+        /// <summary>
+        /// ×ÖÌå
+        /// </summary>
+        public static SerializableProperty<string> FontName { get; }
+            = new SerializableProperty<string>(GetKey(), Providers.Local, "Default") { AutoSave = true };
+
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
             return nameof(UISettings) + "." + propertyName;

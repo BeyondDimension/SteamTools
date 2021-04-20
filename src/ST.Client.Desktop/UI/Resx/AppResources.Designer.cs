@@ -1512,6 +1512,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 测试 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Beta {
+            get {
+                return ResourceManager.GetString("SteamAppType_Beta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 配置 的本地化字符串。
         /// </summary>
         public static string SteamAppType_Config {

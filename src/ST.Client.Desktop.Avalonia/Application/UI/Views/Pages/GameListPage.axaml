@@ -95,13 +95,19 @@
                                                         <CheckBox IsChecked="{Binding Enable}"
                                                                   VerticalAlignment="Center">
                                                             <WrapPanel>
+                                                                <WrapPanel.Styles>
+                                                                    <Style Selector="TextBlock.count">
+                                                                        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                                                                        <Setter Property="FontSize" Value="12"></Setter>
+                                                                        <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}"></Setter>
+                                                                    </Style>
+                                                                </WrapPanel.Styles>
                                                                 <TextBlock Text="{Binding Name_Localiza}"
                                                                   VerticalAlignment="Center"/>
-                                                                <TextBlock Margin="5 0 0 0"
-                                                                           Text="{Binding Count}" 
-                                                                           VerticalAlignment="Center"
-                                                                           FontSize="12"
-                                                                           Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                                                                <TextBlock Margin="5 0 0 0" Text="(" Classes="count"/>
+                                                                <TextBlock Classes="count"
+                                                                           Text="{Binding Count}"/>
+                                                                <TextBlock Classes="count" Text=")"/>
                                                             </WrapPanel>
                                                         </CheckBox>
                                                     </DockPanel>

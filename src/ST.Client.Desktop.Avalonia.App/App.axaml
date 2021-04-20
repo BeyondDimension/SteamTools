@@ -8,7 +8,7 @@
   </Application.DataTemplates>
   <Application.Resources>
     <converters:IsNullConverter x:Key="IsNullConverter" />
-    <converters:CardTitleToPlaceholderConverter x:Key="CardTitleToPlaceholderConverter" />
+    <converters:NameToFontFamilyConverter x:Key="NameToFontFamilyConverter" />
     <converters:DrawingKeyValueConverter x:Key="DrawingKeyValueConverter" />
     <converters:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
     <converters:ReverseBooleanConverter x:Key="ReverseBooleanConverter" />

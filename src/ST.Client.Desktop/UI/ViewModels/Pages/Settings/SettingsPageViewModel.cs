@@ -25,13 +25,6 @@ namespace System.Application.UI.ViewModels
             protected set => this.RaiseAndSetIfChanged(ref _SelectLanguage, value);
         }
 
-        KeyValuePair<string, FontFamily?> _SelectFont;
-        public KeyValuePair<string, FontFamily?> SelectFont
-        {
-            get => _SelectFont;
-            protected set => this.RaiseAndSetIfChanged(ref _SelectFont, value);
-        }
-
         public SettingsPageViewModel()
         {
             IconKey = nameof(SettingsPageViewModel).Replace("ViewModel", "Svg");

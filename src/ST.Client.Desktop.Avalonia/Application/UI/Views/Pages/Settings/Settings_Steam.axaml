@@ -32,7 +32,17 @@
             <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_AutoRunSteam,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
             <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsAutoRunSteam},Path=Value, Mode=TwoWay}" />
         </DockPanel>
-
+        
+        <DockPanel>
+            <TextBlock Text="最小化启动Steam"/>
+            <ToggleSwitch />
+        </DockPanel>
+        
+        <DockPanel>
+            <TextBlock Text="Steam启动时不检查更新"/>
+            <ToggleSwitch />
+        </DockPanel>
+        
         <StackPanel Spacing="10">
             <TextBlock Text= "{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static resx:R.Current}}" />
             <TextBox Watermark="" Text="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamStratParameter},Path=Value, Mode=TwoWay}"></TextBox>

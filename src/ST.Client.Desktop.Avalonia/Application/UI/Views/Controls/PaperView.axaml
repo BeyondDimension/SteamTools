@@ -11,7 +11,6 @@
              x:Class="System.Application.UI.Views.Controls.PaperView">
     <UserControl.Resources>
         <converters:IsNullConverter x:Key="IsNullConverter" />
-        <converters:CardTitleToPlaceholderConverter x:Key="CardTitleToPlaceholderConverter" />
     </UserControl.Resources>
     <StackPanel Margin="20" Spacing="8">
         <DockPanel LastChildFill="True">

@@ -13,9 +13,9 @@ namespace System.Application.UI.Resx
     {
         public static R Current { get; }
 
-        public static readonly IList<KeyValuePair<string, string>> Languages;
+        public static readonly IReadOnlyCollection<KeyValuePair<string, string>> Languages;
         public static readonly Dictionary<string, string> SteamLanguages;
-        public static readonly IList<KeyValuePair<string, FontFamily?>> Fonts;
+        public static readonly IReadOnlyCollection<string> Fonts;
 
         public AppResources Res { get; set; } = new AppResources();
 
@@ -49,13 +49,12 @@ namespace System.Application.UI.Resx
             AppResources.Culture = DefaultCurrentUICulture;
         }
 
-        static IList<KeyValuePair<string, FontFamily?>> GetFonts()
+        static IReadOnlyCollection<string> GetFonts()
         {
             var culture = Culture;
             InstalledFontCollection ifc = new();
-            var list = ifc.Families.Select(x =>
-                KeyValuePair.Create(x.GetName(culture.LCID), (FontFamily?)x)).ToList();
-            list.Insert(0, KeyValuePair.Create("Default", (FontFamily?)null));
+            var list = ifc.Families.Select(x => x.GetName(culture.LCID)).ToList();
+            list.Insert(0, "Default");
             return list;
         }
 

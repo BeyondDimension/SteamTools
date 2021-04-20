@@ -8,6 +8,8 @@
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+        xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
+        FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Width="800" Height="600"
         WindowStartupLocation="CenterOwner"
         ExtendClientAreaToDecorationsHint="True"

@@ -121,52 +121,52 @@
     <value>About</value>
   </data>
   <data name="CommunityFix" xml:space="preserve">
-    <value>Fix Steam 302 Error</value>
+    <value>Community acceleration</value>
   </data>
   <data name="GameList" xml:space="preserve">
-    <value>My Games</value>
+    <value>Stock game</value>
   </data>
   <data name="GameRelated" xml:space="preserve">
-    <value>Game Related</value>
+    <value>Game features</value>
   </data>
   <data name="Hosts_Exists" xml:space="preserve">
     <value>The written hosts already exist</value>
   </data>
   <data name="Hosts_ReadError" xml:space="preserve">
-    <value>An error occurred while reading the hosts file</value>
+    <value>There was an error reading the hosts file</value>
   </data>
   <data name="Hosts_ReadSuccess" xml:space="preserve">
     <value>Read hosts successfully</value>
   </data>
   <data name="Hosts_UpdateSuccess" xml:space="preserve">
-    <value>Write hosts successfully</value>
+    <value>The write hosts succeeded</value>
   </data>
   <data name="Hosts_WirteError" xml:space="preserve">
-    <value>Error writing to hosts</value>
+    <value>An error occurred while writing hosts</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Set up</value>
   </data>
   <data name="Settings_Auth" xml:space="preserve">
-    <value>Auth Settings</value>
+    <value>Token settings</value>
   </data>
   <data name="Settings_General" xml:space="preserve">
-    <value>General Settings</value>
+    <value>Basic settings</value>
   </data>
   <data name="SteamAuth" xml:space="preserve">
     <value>Steam Auth</value>
   </data>
   <data name="UserFastChange" xml:space="preserve">
-    <value>Account Change</value>
+    <value>Account switching</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
   </data>
   <data name="Welcome" xml:space="preserve">
-    <value>Start Page</value>
+    <value>The start page</value>
   </data>
   <data name="About_FAQ" xml:space="preserve">
     <value>FAQ troubleshooting</value>
@@ -195,9 +195,6 @@
   <data name="CloudSync" xml:space="preserve">
     <value>Cloud sync</value>
   </data>
-  <data name="CommunityFix" xml:space="preserve">
-    <value>Community acceleration</value>
-  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Are you sure</value>
   </data>
@@ -218,27 +215,6 @@
   </data>
   <data name="Export" xml:space="preserve">
     <value>Export</value>
-  </data>
-  <data name="GameList" xml:space="preserve">
-    <value>Stock game</value>
-  </data>
-  <data name="GameRelated" xml:space="preserve">
-    <value>Game features</value>
-  </data>
-  <data name="Hosts_Exists" xml:space="preserve">
-    <value>The written hosts already exist</value>
-  </data>
-  <data name="Hosts_ReadError" xml:space="preserve">
-    <value>There was an error reading the hosts file</value>
-  </data>
-  <data name="Hosts_ReadSuccess" xml:space="preserve">
-    <value>Read hosts successfully</value>
-  </data>
-  <data name="Hosts_UpdateSuccess" xml:space="preserve">
-    <value>The write hosts succeeded</value>
-  </data>
-  <data name="Hosts_WirteError" xml:space="preserve">
-    <value>An error occurred while writing hosts</value>
   </data>
   <data name="IdleCard" xml:space="preserve">
     <value>Automatic set card</value>
@@ -375,15 +351,6 @@
   <data name="SelectFileImport" xml:space="preserve">
     <value>Select {0} file import</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Set up</value>
-  </data>
-  <data name="Settings_Auth" xml:space="preserve">
-    <value>Token settings</value>
-  </data>
-  <data name="Settings_General" xml:space="preserve">
-    <value>Basic settings</value>
-  </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>Language</value>
   </data>
@@ -423,13 +390,7 @@
   <data name="UserChange_OfflineBtn" xml:space="preserve">
     <value>Offline mode starts</value>
   </data>
-  <data name="UserFastChange" xml:space="preserve">
-    <value>Account switching</value>
-  </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
-  </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>The start page</value>
+  <data name="Settings_UI_SystemDefault" xml:space="preserve">
+    <value>Default System</value>
   </data>
 </root>
