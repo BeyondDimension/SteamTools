@@ -1,4 +1,5 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="20" Background="Green">
@@ -16,9 +17,15 @@
         <Thickness x:Key="TextControlBorderThemeThickness">0,0,0,2</Thickness>
         <Thickness x:Key="TextControlBorderThemeThicknessFocused">0,0,0,2</Thickness>
         <Thickness x:Key="TextControlThemePadding">15,10,15,8</Thickness>
+        <ContextMenu x:Key="DefaultTextBoxContextMenu" x:Name="TextBoxContextMenu">
+            <MenuItem x:Name="TextBoxContextMenuCutItem" Header="{ReflectionBinding Path=Res.Cut,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding $parent[TextBox].Cut}" IsEnabled="{Binding $parent[TextBox].CanCut}" InputGesture="{x:Static TextBox.CutGesture}" />
+            <MenuItem x:Name="TextBoxContextMenuCopyItem" Header="{ReflectionBinding Path=Res.Copy,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding $parent[TextBox].Copy}" IsEnabled="{Binding $parent[TextBox].CanCopy}" InputGesture="{x:Static TextBox.CopyGesture}"/>
+            <MenuItem x:Name="TextBoxContextMenuPasteItem" Header="{ReflectionBinding Path=Res.Paste,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding $parent[TextBox].Paste}" IsEnabled="{Binding $parent[TextBox].CanPaste}" InputGesture="{x:Static TextBox.PasteGesture}"/>
+        </ContextMenu>
     </Styles.Resources>
 
     <Style Selector="TextBox">
+        <Setter Property="ContextMenu" Value="{StaticResource DefaultTextBoxContextMenu}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <DockPanel>

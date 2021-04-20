@@ -85,6 +85,7 @@ namespace System.Application.UI.Resx
             AppResources.Culture = string.IsNullOrWhiteSpace(cultureName) ?
                 DefaultCurrentUICulture :
                 CultureInfo.GetCultureInfo(Languages.SingleOrDefault(x => x.Key == cultureName).Key);
+            CultureInfo.CurrentUICulture = AppResources.Culture;
             mAcceptLanguage = GetAcceptLanguageCore();
             mLanguage = GetLanguageCore();
             Current.Res = new AppResources();

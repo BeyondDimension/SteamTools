@@ -457,6 +457,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 复制 的本地化字符串。
+        /// </summary>
+        public static string Copy {
+            get {
+                return ResourceManager.GetString("Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 剪切 的本地化字符串。
+        /// </summary>
+        public static string Cut {
+            get {
+                return ResourceManager.GetString("Cut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 账号注销 的本地化字符串。
         /// </summary>
         public static string DelAccount {
@@ -1178,6 +1196,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 粘贴 的本地化字符串。
+        /// </summary>
+        public static string Paste {
+            get {
+                return ResourceManager.GetString("Paste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 请输入昵称 的本地化字符串。
         /// </summary>
         public static string PleaseEnterNickName {
@@ -1472,6 +1499,177 @@ namespace System.Application.UI.Resx {
         public static string SteamAccount {
             get {
                 return ResourceManager.GetString("SteamAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 软件 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Application {
+            get {
+                return ResourceManager.GetString("SteamAppType_Application", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 配置 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Config {
+            get {
+                return ResourceManager.GetString("SteamAppType_Config", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Demo 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Demo {
+            get {
+                return ResourceManager.GetString("SteamAppType_Demo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 仓库 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_DepotOnly {
+            get {
+                return ResourceManager.GetString("SteamAppType_DepotOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 DLC 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_DLC {
+            get {
+                return ResourceManager.GetString("SteamAppType_DLC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 驱动 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Driver {
+            get {
+                return ResourceManager.GetString("SteamAppType_Driver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 授权 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Franchise {
+            get {
+                return ResourceManager.GetString("SteamAppType_Franchise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 游戏 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Game {
+            get {
+                return ResourceManager.GetString("SteamAppType_Game", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 指南 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Guide {
+            get {
+                return ResourceManager.GetString("SteamAppType_Guide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 硬件 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Hardware {
+            get {
+                return ResourceManager.GetString("SteamAppType_Hardware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 预告视频 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Media {
+            get {
+                return ResourceManager.GetString("SteamAppType_Media", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 模组 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Mod {
+            get {
+                return ResourceManager.GetString("SteamAppType_Mod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 原声音轨 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Music {
+            get {
+                return ResourceManager.GetString("SteamAppType_Music", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 插件 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Plugin {
+            get {
+                return ResourceManager.GetString("SteamAppType_Plugin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 影视集 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Series {
+            get {
+                return ResourceManager.GetString("SteamAppType_Series", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 快捷方式 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Shortcut {
+            get {
+                return ResourceManager.GetString("SteamAppType_Shortcut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 工具 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Tool {
+            get {
+                return ResourceManager.GetString("SteamAppType_Tool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 未知 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Unknown {
+            get {
+                return ResourceManager.GetString("SteamAppType_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 视频 的本地化字符串。
+        /// </summary>
+        public static string SteamAppType_Video {
+            get {
+                return ResourceManager.GetString("SteamAppType_Video", resourceCulture);
             }
         }
         

@@ -10,22 +10,25 @@ namespace System.Application.Converters
         {
         }
 
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        public override object? ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
                 if (null != value)
                 {
-                    FieldInfo fi = value.GetType().GetField(value.ToString());
-
-                    if (null != fi)
+                    if (value.GetType().IsEnum)
                     {
-                        var attributes =
-                            (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+                        FieldInfo fi = value.GetType().GetField(value.ToString());
 
-                        return ((attributes.Length > 0) && (!string.IsNullOrEmpty(attributes[0].Description)))
-                            ? attributes[0].Description
-                            : value.ToString();
+                        if (null != fi)
+                        {
+                            var attributes =
+                                (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+                            return ((attributes.Length > 0) && (!string.IsNullOrEmpty(attributes[0].Description)))
+                                ? attributes[0].Description
+                                : value.ToString();
+                        }
                     }
                 }
 

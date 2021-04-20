@@ -4,66 +4,68 @@ namespace System.Application.Models
 {
     public enum SteamAppType : byte
     {
-        [Description("未知")]
+        [Description("SteamAppType_Unknown")]
         Unknown = 0,
 
-        [Description("游戏")]
+        [Description("SteamAppType_Game")]
         Game = 1,
 
-        [Description("软件")]
+        [Description("SteamAppType_Application")]
         Application = 2,
 
-        [Description("工具")]
+        [Description("SteamAppType_Tool")]
         Tool = 3,
 
-        [Description("Demo")]
+        [Description("SteamAppType_Demo")]
         Demo = 4,
 
-        [Description("预告视频")]
+        [Description("SteamAppType_Media")]
         Media = 5,
 
-        [Description("DLC")]
+        [Description("SteamAppType_DLC")]
         DLC = 6,
 
-        [Description("指南")]
+        [Description("SteamAppType_Guide")]
         Guide = 7,
 
-        [Description("驱动")]
+        [Description("SteamAppType_Driver")]
         Driver = 8,
 
-        [Description("隐藏软件")]
+        [Description("SteamAppType_Config")]
         Config = 9,
 
-        [Description("硬件")]
+        [Description("SteamAppType_Hardware")]
         Hardware = 10,
 
-        [Description("授权")]
+        [Description("SteamAppType_Franchise")]
         Franchise = 11,
 
-        [Description("视频")]
+        [Description("SteamAppType_Video")]
         Video = 12,
 
-        [Description("插件")]
+        [Description("SteamAppType_Plugin")]
         Plugin = 13,
 
-        [Description("原声音轨")]
+        [Description("SteamAppType_Music")]
         Music = 14,
 
-        [Description("影视集")]
+        [Description("SteamAppType_Series")]
         Series = 15,
 
-        [Description("快捷方式")]
+        [Description("SteamAppType_Shortcut")]
         Shortcut = 16,
 
-        [Description("仓库")]
+        [Description("SteamAppType_DepotOnly")]
         DepotOnly = 17,
 
+        [Description("SteamAppType_Mod")]
+        Mod = 18,
     }
 
 #if DEBUG
 
     [Obsolete("use SteamAppType", true)]
-    public enum SteamAppTypeEnum
+    public enum SteamAppTypeEnum : byte
     {
         /// <summary>
         ///     Unknown

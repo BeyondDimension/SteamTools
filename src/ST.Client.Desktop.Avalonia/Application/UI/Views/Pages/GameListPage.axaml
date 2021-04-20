@@ -67,19 +67,19 @@
                                 <PathIcon Width="20" Height="20"  Data="{StaticResource RefreshDrawing}" />
                             </Button>
 
-                            <ToggleButton x:Name="typebutton" 
-                                          VerticalAlignment="Center" 
-                                          MinWidth="200" 
+                            <ToggleButton x:Name="typebutton"
+                                          VerticalAlignment="Center"
+                                          MinWidth="200"
                                           IsChecked="{Binding IsOpenFilter,Mode=TwoWay}">
                                 <DockPanel>
                                     <TextBlock Text="游戏和软件"></TextBlock>
-                                    <PathIcon 
-                                              HorizontalAlignment="Right" 
-                                              Data="{StaticResource ChevronDownDrawing}" 
+                                    <PathIcon
+                                              HorizontalAlignment="Right"
+                                              Data="{StaticResource ChevronDownDrawing}"
                                               Width="16"></PathIcon>
                                 </DockPanel>
                             </ToggleButton>
-                            <Popup 
+                            <Popup
                                 IsOpen="{Binding IsOpenFilter,Mode=TwoWay, FallbackValue=False}"
                                 StaysOpen="False" Width="201"
                                 PlacementMode="Bottom"
@@ -87,16 +87,28 @@
                                 HorizontalOffset="-2.5"
                                 IsLightDismissEnabled="True">
                                 <Border Background="Black" Width="{Binding $parent.Width}" Height="200">
-                                    <!--<ItemsControl Items="{Binding GameFilters}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <DockPanel>
-                                                    <CheckBox IsChecked="{Binding Enable}"></CheckBox>
-                                                    <TextBlock Text="{Binding Name}"></TextBlock>
-                                                </DockPanel>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>-->
+                                    <ScrollViewer Padding="10 5">
+                                        <ItemsControl Items="{Binding AppTypeFiltres}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <DockPanel>
+                                                        <CheckBox IsChecked="{Binding Enable}"
+                                                                  VerticalAlignment="Center">
+                                                            <WrapPanel>
+                                                                <TextBlock Text="{Binding Name_Localiza}"
+                                                                  VerticalAlignment="Center"/>
+                                                                <TextBlock Margin="5 0 0 0"
+                                                                           Text="{Binding Count}" 
+                                                                           VerticalAlignment="Center"
+                                                                           FontSize="12"
+                                                                           Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                                                            </WrapPanel>
+                                                        </CheckBox>
+                                                    </DockPanel>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
                                 </Border>
                             </Popup>
                         </StackPanel>

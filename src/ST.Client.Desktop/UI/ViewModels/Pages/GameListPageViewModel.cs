@@ -23,6 +23,7 @@ namespace System.Application.UI.ViewModels
         public GameListPageViewModel()
         {
             IconKey = nameof(GameListPageViewModel).Replace("ViewModel", "Svg");
+            AppTypeFiltres = EnumModel.GetEnumModels<SteamAppType>();
         }
 
         private readonly Subject<Unit> updateSource = new();
@@ -73,12 +74,14 @@ namespace System.Application.UI.ViewModels
 
         public bool IsSteamAppsEmpty => !SteamApps.Any_Nullable();
 
+        public IReadOnlyCollection<EnumModel<SteamAppType>> AppTypeFiltres { get; set; }
+
         internal override void Initialize()
         {
-            updateSource
-                .Do(_ => IsReloading = true)
-                .SelectMany(x => UpdateAsync())
-                .Do(_ => IsReloading = false)
+            this.updateSource
+                .Do(_ => this.IsReloading = true)
+                .SelectMany(x => this.UpdateAsync())
+                .Do(_ => this.IsReloading = false)
                 .Subscribe()
                 .AddTo(this);
 
@@ -114,15 +117,25 @@ namespace System.Application.UI.ViewModels
             {
                 var list = SteamConnectService.Current.SteamApps?.Where(x => Predicate(x)).OrderBy(x => x.Name).ToList();
                 if (list.Any_Nullable())
-                    SteamApps = list;
+                    this.SteamApps = list;
                 else
-                    SteamApps = null;
+                    this.SteamApps = null;
             });
         }
 
         public void Update()
         {
-            updateSource.OnNext(Unit.Default);
+            this.updateSource.OnNext(Unit.Default);
+            this.CalcTypeCount();
+        }
+
+        public void CalcTypeCount()
+        {
+            if (SteamConnectService.Current.SteamApps.Any_Nullable())
+                foreach (var item in AppTypeFiltres)
+                {
+                    item.Count = SteamConnectService.Current.SteamApps.Count(s => s.Type == item.Value);
+                }
         }
 
         public void AppClick(SteamApp app)

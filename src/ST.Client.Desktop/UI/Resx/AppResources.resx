@@ -250,6 +250,12 @@
   <data name="Continue" xml:space="preserve">
     <value>继续</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="Cut" xml:space="preserve">
+    <value>剪切</value>
+  </data>
   <data name="DelAccount" xml:space="preserve">
     <value>账号注销</value>
   </data>
@@ -493,6 +499,9 @@
   <data name="OtherGamePlaform" xml:space="preserve">
     <value>其它平台</value>
   </data>
+  <data name="Paste" xml:space="preserve">
+    <value>粘贴</value>
+  </data>
   <data name="PleaseEnterNickName" xml:space="preserve">
     <value>请输入昵称</value>
   </data>
@@ -580,6 +589,63 @@
   </data>
   <data name="SteamAccount" xml:space="preserve">
     <value>Steam 账号</value>
+  </data>
+  <data name="SteamAppType_Application" xml:space="preserve">
+    <value>软件</value>
+  </data>
+  <data name="SteamAppType_Config" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="SteamAppType_Demo" xml:space="preserve">
+    <value>Demo</value>
+  </data>
+  <data name="SteamAppType_DepotOnly" xml:space="preserve">
+    <value>仓库</value>
+  </data>
+  <data name="SteamAppType_DLC" xml:space="preserve">
+    <value>DLC</value>
+  </data>
+  <data name="SteamAppType_Driver" xml:space="preserve">
+    <value>驱动</value>
+  </data>
+  <data name="SteamAppType_Franchise" xml:space="preserve">
+    <value>授权</value>
+  </data>
+  <data name="SteamAppType_Game" xml:space="preserve">
+    <value>游戏</value>
+  </data>
+  <data name="SteamAppType_Guide" xml:space="preserve">
+    <value>指南</value>
+  </data>
+  <data name="SteamAppType_Hardware" xml:space="preserve">
+    <value>硬件</value>
+  </data>
+  <data name="SteamAppType_Media" xml:space="preserve">
+    <value>预告视频</value>
+  </data>
+  <data name="SteamAppType_Mod" xml:space="preserve">
+    <value>模组</value>
+  </data>
+  <data name="SteamAppType_Music" xml:space="preserve">
+    <value>原声音轨</value>
+  </data>
+  <data name="SteamAppType_Plugin" xml:space="preserve">
+    <value>插件</value>
+  </data>
+  <data name="SteamAppType_Series" xml:space="preserve">
+    <value>影视集</value>
+  </data>
+  <data name="SteamAppType_Shortcut" xml:space="preserve">
+    <value>快捷方式</value>
+  </data>
+  <data name="SteamAppType_Tool" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="SteamAppType_Unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="SteamAppType_Video" xml:space="preserve">
+    <value>视频</value>
   </data>
   <data name="Steam_ImageCodeTip" xml:space="preserve">
     <value>输入图中验证码</value>
