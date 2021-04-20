@@ -81,13 +81,22 @@
                             </ToggleButton>
                             <Popup 
                                 IsOpen="{Binding IsOpenFilter,Mode=TwoWay, FallbackValue=False}"
-                                StaysOpen="False" Width="{ReflectionBinding #typebutton.Width}"
+                                StaysOpen="False" Width="201"
                                 PlacementMode="Bottom"
                                 PlacementTarget="typebutton"
                                 HorizontalOffset="-2.5"
                                 IsLightDismissEnabled="True">
-                                <Border Background="Black" Width="201" Height="200">
-                                    
+                                <Border Background="Black" Width="{Binding $parent.Width}" Height="200">
+                                    <!--<ItemsControl Items="{Binding GameFilters}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <DockPanel>
+                                                    <CheckBox IsChecked="{Binding Enable}"></CheckBox>
+                                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                                </DockPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>-->
                                 </Border>
                             </Popup>
                         </StackPanel>
