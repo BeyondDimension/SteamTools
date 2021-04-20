@@ -8,6 +8,8 @@ namespace System.Application.Services
     /// </summary>
     public interface IUserManager : IAuthHelper
     {
+        public static IUserManager Instance => DI.Get<IUserManager>();
+
         /// <inheritdoc cref="GetCurrentUserAsync"/>
         CurrentUser? GetCurrentUser();
 
@@ -74,5 +76,10 @@ namespace System.Application.Services
 #endif
             return notHideMiddleFour ? phone_number : PhoneNumberHelper.ToStringHideMiddleFour(phone_number);
         }
+
+        /// <summary>
+        /// 当登出时
+        /// </summary>
+        event Action? OnSignOut;
     }
 }

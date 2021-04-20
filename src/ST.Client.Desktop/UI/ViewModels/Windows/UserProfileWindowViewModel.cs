@@ -6,6 +6,7 @@ using System.Application.UI.Resx;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Properties;
+using System.Windows.Input;
 
 namespace System.Application.UI.ViewModels
 {
@@ -124,8 +125,7 @@ namespace System.Application.UI.ViewModels
             if (response.IsSuccess)
             {
                 await userManager.SetCurrentUserInfoAsync(userInfoSource, true);
-
-                // Notice Other UI
+                await UserService.Current.RefreshUserAsync();
 
                 IsComplete = true;
                 var msg = string.Format(AppResources.Success_, AppResources.User_EditProfile);
@@ -137,5 +137,10 @@ namespace System.Application.UI.ViewModels
         }
 
         public Action? Close { private get; set; }
+
+        public ICommand? OnBtnChangeBindPhoneNumberClick { get; } = ReactiveCommand.Create(() =>
+        {
+            UserService.Current.ShowWindow(CustomWindow.ChangeBindPhoneNumber);
+        });
     }
 }

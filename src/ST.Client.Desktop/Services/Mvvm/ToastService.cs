@@ -24,11 +24,11 @@ namespace System.Application.Services
         /// </summary>
         public string Message
         {
-            get { return this.notificationMessage ?? this.persisitentMessage; }
+            get { return notificationMessage ?? persisitentMessage; }
             set
             {
-                this.notificationMessage = value;
-                this.persisitentMessage = value;
+                notificationMessage = value;
+                persisitentMessage = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -47,18 +47,18 @@ namespace System.Application.Services
 
         private ToastService()
         {
-            this.notifier = new Subject<string>();
-            this.notifier
+            notifier = new Subject<string>();
+            notifier
                 .Do(x =>
                 {
-                    this.notificationMessage = x;
-                    this.RaiseMessagePropertyChanged();
+                    notificationMessage = x;
+                    RaiseMessagePropertyChanged();
                 })
                 .Throttle(TimeSpan.FromMilliseconds(5000))
                 .Subscribe(_ =>
                 {
-                    this.notificationMessage = string.Empty;
-                    this.RaiseMessagePropertyChanged();
+                    notificationMessage = string.Empty;
+                    RaiseMessagePropertyChanged();
                 });
 
             this.WhenAnyValue(x => x.Message)
@@ -71,17 +71,17 @@ namespace System.Application.Services
         }
         public void Set(string message)
         {
-            MainThreadDesktop.BeginInvokeOnMainThread(() => this.Message = message);
+            MainThreadDesktop.BeginInvokeOnMainThread(() => Message = message);
         }
 
         public void Notify(string message)
         {
-            this.notifier.OnNext(message);
+            notifier.OnNext(message);
         }
 
         private void RaiseMessagePropertyChanged()
         {
-            this.RaisePropertyChanged(nameof(this.Message));
+            this.RaisePropertyChanged(nameof(Message));
         }
 
         public void CloseBtn_Click()

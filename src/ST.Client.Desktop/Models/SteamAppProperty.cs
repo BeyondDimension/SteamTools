@@ -11,14 +11,14 @@ namespace System.Application.Models
         {
             get
             {
-                return this._propType;
+                return _propType;
             }
             internal set
             {
-                if (this._propType != value)
+                if (_propType != value)
                 {
-                    this._propType = value;
-                    this._value = null;
+                    _propType = value;
+                    _value = null;
                 }
             }
         }
@@ -27,7 +27,7 @@ namespace System.Application.Models
         {
             get
             {
-                return SteamAppProperty._types[(int)this._propType];
+                return SteamAppProperty._types[(int)_propType];
             }
         }
 
@@ -35,38 +35,38 @@ namespace System.Application.Models
         {
             get
             {
-                return this._value;
+                return _value;
             }
             set
             {
-                this._value = null;
-                if (this.ValueType.IsAssignableFrom(value.GetType()))
+                _value = null;
+                if (ValueType.IsAssignableFrom(value.GetType()))
                 {
-                    this._value = value;
+                    _value = value;
                     return;
                 }
                 string text = value as string;
                 if (text != null)
                 {
-                    switch (this._propType)
+                    switch (_propType)
                     {
                         case SteamAppPropertyType.String:
-                            this._value = text;
+                            _value = text;
                             return;
                         case SteamAppPropertyType.Int32:
-                            this._value = int.Parse(text);
+                            _value = int.Parse(text);
                             return;
                         case SteamAppPropertyType.Float:
-                            this._value = float.Parse(text);
+                            _value = float.Parse(text);
                             return;
                         case (SteamAppPropertyType)4:
                         case SteamAppPropertyType.Color:
                             break;
                         case SteamAppPropertyType.WString:
-                            this._value = text;
+                            _value = text;
                             return;
                         case SteamAppPropertyType.Uint64:
-                            this._value = ulong.Parse(text);
+                            _value = ulong.Parse(text);
                             break;
                         default:
                             return;
@@ -78,7 +78,7 @@ namespace System.Application.Models
         public T GetValue<T>()
         {
             T result;
-            this.TryGetValue<T>(out result);
+            TryGetValue<T>(out result);
             return result;
         }
 
@@ -86,13 +86,13 @@ namespace System.Application.Models
         {
             result = default(T);
             bool result2 = false;
-            int propType = (int)this._propType;
+            int propType = (int)_propType;
             if (propType >= 0 && propType < SteamAppProperty._types.Length)
             {
                 Type type = SteamAppProperty._types[propType];
                 if (type != null && typeof(T).IsAssignableFrom(type))
                 {
-                    result = (T)((object)this._value);
+                    result = (T)((object)_value);
                     result2 = true;
                 }
             }
@@ -101,28 +101,28 @@ namespace System.Application.Models
 
         public SteamAppProperty(string name)
         {
-            this.Name = name;
-            this._propType = SteamAppPropertyType._Invalid_;
-            this._value = null;
+            Name = name;
+            _propType = SteamAppPropertyType._Invalid_;
+            _value = null;
         }
 
         public SteamAppProperty(string name, SteamAppPropertyType type, object value)
         {
-            this.Name = name;
-            this._propType = type;
-            this._value = value;
+            Name = name;
+            _propType = type;
+            _value = value;
         }
 
         public SteamAppProperty(SteamAppProperty other)
         {
-            this.Name = other.Name;
-            this._propType = other._propType;
-            if (this._propType == SteamAppPropertyType.Table)
+            Name = other.Name;
+            _propType = other._propType;
+            if (_propType == SteamAppPropertyType.Table)
             {
-                this._value = new SteamAppPropertyTable((SteamAppPropertyTable)other._value);
+                _value = new SteamAppPropertyTable((SteamAppPropertyTable)other._value);
                 return;
             }
-            this._value = other._value;
+            _value = other._value;
         }
 
         public override bool Equals(object obj)
@@ -131,14 +131,14 @@ namespace System.Application.Models
             SteamAppProperty property = obj as SteamAppProperty;
             if (property != null)
             {
-                result = (this.Name == property.Name && this._propType == property._propType && this._value.Equals(property.Value));
+                result = (Name == property.Name && _propType == property._propType && _value.Equals(property.Value));
             }
             return result;
         }
 
         public override int GetHashCode()
         {
-            return base.GetType().GetHashCode() ^ this.Name.GetHashCode() ^ this._propType.GetHashCode() ^ this._value.GetHashCode();
+            return base.GetType().GetHashCode() ^ Name.GetHashCode() ^ _propType.GetHashCode() ^ _value.GetHashCode();
         }
 
         static SteamAppProperty()

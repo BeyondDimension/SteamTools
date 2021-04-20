@@ -11,8 +11,8 @@ namespace System.Application.Serialization
 
 		public ValueChangedEventArgs(T oldValue, T newValue)
 		{
-			this.OldValue = oldValue;
-			this.NewValue = newValue;
+			OldValue = oldValue;
+			NewValue = newValue;
 		}
 	}
 }

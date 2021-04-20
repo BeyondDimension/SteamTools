@@ -16,22 +16,22 @@ namespace System.Application.Serialization
 
         public FileSettingsProvider(string path)
         {
-            this._path = path;
+            _path = path;
         }
 
         public void SetValue<T>(string key, T value)
         {
-            lock (this._sync)
+            lock (_sync)
             {
-                this._settings[key] = value;
+                _settings[key] = value;
             }
         }
 
         public bool TryGetValue<T>(string key, out T value)
         {
-            lock (this._sync)
+            lock (_sync)
             {
-                if (this._settings.TryGetValue(key, out object obj) && obj is T t)
+                if (_settings.TryGetValue(key, out object obj) && obj is T t)
                 {
                     value = t;
                     return true;
@@ -44,17 +44,17 @@ namespace System.Application.Serialization
 
         public bool RemoveValue(string key)
         {
-            lock (this._sync)
+            lock (_sync)
             {
-                return this._settings.Remove(key);
+                return _settings.Remove(key);
             }
         }
 
         public void Save()
         {
-            if (this._settings.Count == 0) return;
+            if (_settings.Count == 0) return;
 
-            var dir = Path.GetDirectoryName(this._path);
+            var dir = Path.GetDirectoryName(_path);
             if (dir == null) throw new DirectoryNotFoundException();
 
             if (!Directory.Exists(dir))
@@ -62,14 +62,14 @@ namespace System.Application.Serialization
                 Directory.CreateDirectory(dir);
             }
 
-            lock (this._sync)
+            lock (_sync)
             {
-                using var stream = new FileStream(this._path, FileMode.Create, FileAccess.ReadWrite);
+                using var stream = new FileStream(_path, FileMode.Create, FileAccess.ReadWrite);
                 if (stream.Position > 0)
                 {
                     stream.Position = 0;
                 }
-                var data = Serializable.SMP(this._settings);
+                var data = Serializable.SMP(_settings);
                 stream.Write(data, 0, data.Length);
                 //XamlServices.Save(stream, this._settings);
             }
@@ -77,10 +77,10 @@ namespace System.Application.Serialization
 
         public void Load()
         {
-            if (File.Exists(this._path))
+            if (File.Exists(_path))
             {
-                using var stream = new FileStream(this._path, FileMode.Open, FileAccess.Read);
-                lock (this._sync)
+                using var stream = new FileStream(_path, FileMode.Open, FileAccess.Read);
+                lock (_sync)
                 {
                     if (stream.Position > 0)
                     {
@@ -89,20 +89,20 @@ namespace System.Application.Serialization
 
                     var source = Serializable.DMP<IDictionary<string, object>>(stream);
                     //var source = XamlServices.Load(stream) as IDictionary<string, object>;
-                    this._settings = source == null
+                    _settings = source == null
                         ? new SortedDictionary<string, object>()
                         : new SortedDictionary<string, object>(source);
                 }
             }
             else
             {
-                lock (this._sync)
+                lock (_sync)
                 {
-                    this._settings = new SortedDictionary<string, object>();
+                    _settings = new SortedDictionary<string, object>();
                 }
             }
 
-            this.IsLoaded = true;
+            IsLoaded = true;
         }
 
         event EventHandler ISerializationProvider.Reloaded

@@ -1,13 +1,9 @@
 ﻿using ReactiveUI;
-using System.Application.Models;
-using System.Application.Models.Settings;
 using System.Application.Services;
-using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Linq;
 using System.Properties;
 using System.Reactive;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
@@ -39,13 +35,6 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<Unit, Unit> OpenUserMenu { get; }
 
-        UserInfoDTO? _User;
-        public UserInfoDTO? User
-        {
-            get => _User;
-            set => this.RaiseAndSetIfChanged(ref _User, value);
-        }
-
         #endregion
 
         public StartPageViewModel StartPage { get; }
@@ -61,15 +50,18 @@ namespace System.Application.UI.ViewModels
 
         public IReadOnlyList<TabItemViewModel> TabItems { get; set; }
 
-        readonly IUserManager userManager;
         public MainWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark;
 
-            userManager = DI.Get<IUserManager>();
+            IUserManager.Instance.OnSignOut += () =>
+            {
+                IsOpenUserMenu = false;
+            };
+
             OpenUserMenu = ReactiveCommand.Create(() =>
             {
-                IsOpenUserMenu = User != null;
+                IsOpenUserMenu = UserService.Current.User != null;
                 if (!IsOpenUserMenu)
                 {
                     UserService.Current.ShowWindow(CustomWindow.LoginOrRegister);
@@ -88,7 +80,7 @@ namespace System.Application.UI.ViewModels
                 (ASFPage = new ArchiSteamFarmPlusPageViewModel().AddTo(this)),
                 (GameRelatedPage = new GameRelatedPageViewModel().AddTo(this)),
                 (OtherPlatformPage = new OtherPlatformPageViewModel().AddTo(this)),
-                
+
 				#region SystemTab
                 SettingsPageViewModel.Instance,
                 AboutPageViewModel.Instance,
@@ -104,7 +96,7 @@ namespace System.Application.UI.ViewModels
             Task.Run(Initialize).ForgetAndDispose();
         }
 
-        public async void Initialize()
+        public void Initialize()
         {
             Threading.Thread.CurrentThread.IsBackground = true;
             SteamConnectService.Current.Initialize();
@@ -120,8 +112,6 @@ namespace System.Application.UI.ViewModels
                 });
                 IsInitialized = true;
             }
-
-            User = await userManager.GetCurrentUserInfoAsync();
         }
     }
 }

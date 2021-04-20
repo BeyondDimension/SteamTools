@@ -17,7 +17,7 @@ namespace System.Application.Models
         /// <summary>
         /// 显示消息
         /// </summary>
-        [Obsolete("use IsSuccess()")]
+        [Obsolete("use IsSuccess")]
         string? Message { get; set; }
 
         /// <summary>

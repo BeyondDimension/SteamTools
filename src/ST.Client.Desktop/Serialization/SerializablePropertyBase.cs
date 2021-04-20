@@ -22,41 +22,41 @@ namespace System.Application.Serialization
         {
             get
             {
-                if (this._cached) return this._value;
+                if (_cached) return _value;
 
-                if (!this.Provider.IsLoaded)
+                if (!Provider.IsLoaded)
                 {
-                    this.Provider.Load();
+                    Provider.Load();
                 }
 
-                if (this.Provider.TryGetValue(this.Key, out object obj))
+                if (Provider.TryGetValue(Key, out object obj))
                 {
-                    this._value = DeserializeCore(obj);
-                    this._cached = true;
+                    _value = DeserializeCore(obj);
+                    _cached = true;
                 }
                 else
                 {
-                    this._value = this.Default;
+                    _value = Default;
                 }
 
-                return this._cached ? this._value : this.Default;
+                return _cached ? _value : Default;
             }
             set
             {
-                if (this._cached && Equals(this._value, value)) return;
+                if (_cached && Equals(_value, value)) return;
 
-                if (!this.Provider.IsLoaded)
+                if (!Provider.IsLoaded)
                 {
-                    this.Provider.Load();
+                    Provider.Load();
                 }
 
-                var old = this._value;
-                this._value = value;
-                this._cached = true;
-                this.Provider.SetValue(this.Key, value);
-                this.OnValueChanged(old, value);
+                var old = _value;
+                _value = value;
+                _cached = true;
+                Provider.SetValue(Key, value);
+                OnValueChanged(old, value);
 
-                if (this.AutoSave) this.Provider.Save();
+                if (AutoSave) Provider.Save();
             }
         }
 
@@ -64,28 +64,28 @@ namespace System.Application.Serialization
 
         protected SerializablePropertyBase(string key, ISerializationProvider provider, T defaultValue)
         {
-            this.Key = key ?? throw new ArgumentNullException(nameof(key));
-            this.Provider = provider ?? throw new ArgumentNullException(nameof(provider));
-            this.Default = defaultValue;
+            Key = key ?? throw new ArgumentNullException(nameof(key));
+            Provider = provider ?? throw new ArgumentNullException(nameof(provider));
+            Default = defaultValue;
 
-            this.Provider.Reloaded += (sender, args) =>
+            Provider.Reloaded += (sender, args) =>
             {
-                if (this._cached)
+                if (_cached)
                 {
-                    this._cached = false;
+                    _cached = false;
 
-                    var oldValue = this._value;
-                    var newValue = this.Value;
+                    var oldValue = _value;
+                    var newValue = Value;
                     if (!Equals(oldValue, newValue))
                     {
-                        this.OnValueChanged(oldValue, newValue);
+                        OnValueChanged(oldValue, newValue);
                     }
                 }
                 else
                 {
                     var oldValue = default(T);
-                    var newValue = this.Value;
-                    this.OnValueChanged(oldValue, newValue);
+                    var newValue = Value;
+                    OnValueChanged(oldValue, newValue);
                 }
             };
         }
@@ -103,26 +103,26 @@ namespace System.Application.Serialization
 
         public virtual IDisposable Subscribe(Action<T> listener)
         {
-            listener(this.Value);
+            listener(Value);
             return new ValueChangedEventListener(this, listener);
         }
 
         public virtual void Reset()
         {
-            if (!this.Provider.IsLoaded)
+            if (!Provider.IsLoaded)
             {
-                this.Provider.Load();
+                Provider.Load();
             }
 
-            if (this.Provider.TryGetValue(this.Key, out object old))
+            if (Provider.TryGetValue(Key, out object old))
             {
-                if (this.Provider.RemoveValue(this.Key))
+                if (Provider.RemoveValue(Key))
                 {
-                    this._value = default;
-                    this._cached = false;
-                    this.OnValueChanged(DeserializeCore(old), this.Default);
+                    _value = default;
+                    _cached = false;
+                    OnValueChanged(DeserializeCore(old), Default);
 
-                    if (this.AutoSave) this.Provider.Save();
+                    if (AutoSave) Provider.Save();
                 }
             }
         }
@@ -134,19 +134,19 @@ namespace System.Application.Serialization
 
             public ValueChangedEventListener(SerializablePropertyBase<T> property, Action<T> listener)
             {
-                this._listener = listener;
-                this._source = property;
-                this._source.ValueChanged += this.HandleValueChanged;
+                _listener = listener;
+                _source = property;
+                _source.ValueChanged += HandleValueChanged;
             }
 
             private void HandleValueChanged(object sender, ValueChangedEventArgs<T> args)
             {
-                this._listener(args.NewValue);
+                _listener(args.NewValue);
             }
 
             public void Dispose()
             {
-                this._source.ValueChanged -= this.HandleValueChanged;
+                _source.ValueChanged -= HandleValueChanged;
             }
         }
 
@@ -163,20 +163,20 @@ namespace System.Application.Serialization
 
         protected virtual void OnValueChanged(T oldValue, T newValue)
         {
-            this.ValueChanged?.Invoke(this, new ValueChangedEventArgs<T>(oldValue, newValue));
+            ValueChanged?.Invoke(this, new ValueChangedEventArgs<T>(oldValue, newValue));
         }
 
         private readonly Dictionary<PropertyChangedEventHandler, EventHandler<ValueChangedEventArgs<T>>> _handlers = new();
 
         event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
         {
-            add { this.ValueChanged += (this._handlers[value] = (sender, args) => value(sender, new PropertyChangedEventArgs(nameof(this.Value)))); }
+            add { ValueChanged += (_handlers[value] = (sender, args) => value(sender, new PropertyChangedEventArgs(nameof(Value)))); }
             remove
             {
-                if (this._handlers.TryGetValue(value, out EventHandler<ValueChangedEventArgs<T>> handler))
+                if (_handlers.TryGetValue(value, out EventHandler<ValueChangedEventArgs<T>> handler))
                 {
-                    this.ValueChanged -= handler;
-                    this._handlers.Remove(value);
+                    ValueChanged -= handler;
+                    _handlers.Remove(value);
                 }
             }
         }

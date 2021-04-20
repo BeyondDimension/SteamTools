@@ -467,8 +467,10 @@ namespace System.Application.Services.CloudService
             {
                 if (!validator.Validate(requestModel, out var errorMessage))
                 {
-                    return ApiResponse.Code<TResponseModel>(
+                    var validate_fail_r = ApiResponse.Code<TResponseModel>(
                         ApiResponseCode.RequestModelValidateFail, errorMessage);
+                    ShowResponseErrorMessage(validate_fail_r);
+                    return validate_fail_r;
                 }
             }
 

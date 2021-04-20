@@ -1,4 +1,5 @@
-﻿using MPIgnore = MessagePack.IgnoreMemberAttribute;
+﻿using System.Runtime.Serialization;
+using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using MPKey = MessagePack.KeyAttribute;
 using MPObject = MessagePack.MessagePackObjectAttribute;
 using NJSONIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
@@ -38,6 +39,7 @@ namespace System.Application.Models.Internals
         /// </summary>
         protected const int LastMKeyIndex = 1;
 
+        [IgnoreDataMember]
         [MPIgnore]
         [SJSONIgnore]
         [NJSONIgnore]

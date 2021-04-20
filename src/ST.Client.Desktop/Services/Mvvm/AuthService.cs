@@ -29,18 +29,18 @@ namespace System.Application.Services
         private ObservableCollection<MyAuthenticator> _Authenticators = new ObservableCollection<MyAuthenticator>();
         public ObservableCollection<MyAuthenticator> Authenticators
         {
-            get => this._Authenticators;
+            get => _Authenticators;
             set
             {
-                if (this._Authenticators != value)
+                if (_Authenticators != value)
                 {
-                    this._Authenticators = value;
+                    _Authenticators = value;
                     this.RaisePropertyChanged();
                 }
             }
         }
 
-        public bool IsAuthenticatorsEmpty => !this.Authenticators.Any_Nullable();
+        public bool IsAuthenticatorsEmpty => !Authenticators.Any_Nullable();
 
         public async void Initialize(bool isSync = false)
         {

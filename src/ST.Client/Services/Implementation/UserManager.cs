@@ -98,7 +98,7 @@ namespace System.Application.Services.Implementation
 
         public async Task SetCurrentUserAsync(CurrentUser? value)
         {
-            await storage.SetAsync(KEY_CURRENT_LOGIN_USER, currentUser);
+            await storage.SetAsync(KEY_CURRENT_LOGIN_USER, value);
             CurrentUser = value;
             PrintCurrentUser("SetCurrentUser");
         }
@@ -131,11 +131,14 @@ namespace System.Application.Services.Implementation
             return value?.AuthToken;
         }
 
+        public event Action? OnSignOut;
+
         public async Task SignOutAsync()
         {
             PrintCurrentUser("SignOut");
             currentUserInfo = default;
             await SetCurrentUserAsync(null);
+            OnSignOut?.Invoke();
         }
 
         ValueTask<User?> GetUserTableByIdAsync(Guid userId)

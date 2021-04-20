@@ -13,13 +13,13 @@ namespace System.Application.Models.Settings
         private static readonly Dictionary<Type, SettingsHost> instances = new();
         private readonly Dictionary<string, object> cachedProperties = new();
 
-        protected virtual string CategoryName => this.GetType().Name;
+        protected virtual string CategoryName => GetType().Name;
 
         public const string ConfigName = "Config.mpo";
 
         protected SettingsHost()
         {
-            instances[this.GetType()] = this;
+            instances[GetType()] = this;
         }
 
         /// <summary>
@@ -29,13 +29,13 @@ namespace System.Application.Models.Settings
         /// <returns></returns>
         protected SerializableProperty<T> Cache<T>(Func<string, SerializableProperty<T>> create, [CallerMemberName] string propertyName = "")
         {
-            var key = this.CategoryName + "." + propertyName;
+            var key = CategoryName + "." + propertyName;
 
-            if (this.cachedProperties.TryGetValue(key, out object obj) && obj is SerializableProperty<T> property1)
+            if (cachedProperties.TryGetValue(key, out object obj) && obj is SerializableProperty<T> property1)
                 return property1;
 
             var property = create(key);
-            this.cachedProperties[key] = property;
+            cachedProperties[key] = property;
 
             return property;
         }

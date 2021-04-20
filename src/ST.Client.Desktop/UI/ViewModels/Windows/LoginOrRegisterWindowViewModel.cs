@@ -76,6 +76,7 @@ namespace System.Application.UI.ViewModels
 
             if (response.IsSuccess)
             {
+                await UserService.Current.RefreshUserAsync();
                 var msg = string.Format(AppResources.Success_, (response.Content?.IsLoginOrRegister ?? false) ? AppResources.User_Login : AppResources.User_Register);
                 Toast.Show(msg);
                 Close?.Invoke();

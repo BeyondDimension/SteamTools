@@ -11,8 +11,5 @@ namespace System.Application.UI.ViewModels
             get => "WebView";
             protected set { throw new NotImplementedException(); }
         }
-
-
-
     }
 }

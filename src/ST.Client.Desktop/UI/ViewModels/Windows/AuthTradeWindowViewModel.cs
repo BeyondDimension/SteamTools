@@ -49,12 +49,12 @@ namespace System.Application.UI.ViewModels
         private string? _UserName;
         public string? UserName
         {
-            get => this._UserName;
+            get => _UserName;
             set
             {
-                if (this._UserName != value)
+                if (_UserName != value)
                 {
-                    this._UserName = value;
+                    _UserName = value;
                     this.RaisePropertyChanged();
                 }
             }
@@ -63,12 +63,12 @@ namespace System.Application.UI.ViewModels
         private string? _Password;
         public string? Password
         {
-            get => this._Password;
+            get => _Password;
             set
             {
-                if (this._Password != value)
+                if (_Password != value)
                 {
-                    this._Password = value;
+                    _Password = value;
                     this.RaisePropertyChanged();
                 }
             }
@@ -77,12 +77,12 @@ namespace System.Application.UI.ViewModels
         private bool _RememberMe;
         public bool RememberMe
         {
-            get => this._RememberMe;
+            get => _RememberMe;
             set
             {
-                if (this._RememberMe != value)
+                if (_RememberMe != value)
                 {
-                    this._RememberMe = value;
+                    _RememberMe = value;
                     this.RaisePropertyChanged();
                 }
             }
@@ -91,12 +91,12 @@ namespace System.Application.UI.ViewModels
         private string? _CodeImage;
         public string? CodeImage
         {
-            get => this._CodeImage;
+            get => _CodeImage;
             set
             {
-                if (this._CodeImage != value)
+                if (_CodeImage != value)
                 {
-                    this._CodeImage = value;
+                    _CodeImage = value;
                     this.RaisePropertyChanged();
                 }
             }
@@ -105,12 +105,12 @@ namespace System.Application.UI.ViewModels
         private string? _CodeImageChar;
         public string? CodeImageChar
         {
-            get => this._CodeImageChar;
+            get => _CodeImageChar;
             set
             {
-                if (this._CodeImageChar != value)
+                if (_CodeImageChar != value)
                 {
-                    this._CodeImageChar = value;
+                    _CodeImageChar = value;
                     this.RaisePropertyChanged();
                 }
             }
@@ -119,7 +119,7 @@ namespace System.Application.UI.ViewModels
 
         public bool IsLoggedIn
         {
-            get => this._Authenticator.GetClient().IsLoggedIn();
+            get => _Authenticator.GetClient().IsLoggedIn();
             set
             {
                 this.RaisePropertyChanged();
@@ -127,7 +127,7 @@ namespace System.Application.UI.ViewModels
         }
         public bool IsRequiresCaptcha
         {
-            get => this._Authenticator.GetClient().RequiresCaptcha;
+            get => _Authenticator.GetClient().RequiresCaptcha;
             set
             {
                 this.RaisePropertyChanged();
@@ -150,12 +150,12 @@ namespace System.Application.UI.ViewModels
         private IList<WinAuthSteamClient.Confirmation> _Confirmations = new List<WinAuthSteamClient.Confirmation>();
         public IList<WinAuthSteamClient.Confirmation> Confirmations
         {
-            get => this._Confirmations;
+            get => _Confirmations;
             set
             {
-                if (this._Confirmations != value)
+                if (_Confirmations != value)
                 {
-                    this._Confirmations = value;
+                    _Confirmations = value;
 
                     this.RaisePropertyChanged();
                     this.RaisePropertyChanged(nameof(IsConfirmationsEmpty));
@@ -166,12 +166,12 @@ namespace System.Application.UI.ViewModels
         private bool _IsLoading;
         public bool IsLoading
         {
-            get => this._IsLoading;
+            get => _IsLoading;
             set
             {
-                if (this._IsLoading != value)
+                if (_IsLoading != value)
                 {
-                    this._IsLoading = value;
+                    _IsLoading = value;
                     this.RaisePropertyChanged();
                     this.RaisePropertyChanged(nameof(ConfirmationsConutMessage));
                 }
@@ -180,7 +180,7 @@ namespace System.Application.UI.ViewModels
 
         public bool IsConfirmationsEmpty
         {
-            get => this.Confirmations.Any_Nullable();
+            get => Confirmations.Any_Nullable();
         }
 
         public string ConfirmationsConutMessage
@@ -195,7 +195,7 @@ namespace System.Application.UI.ViewModels
                 {
                     return AppResources.LocalAuth_AuthTrade_ListNullTip;
                 }
-                return string.Format(AppResources.LocalAuth_AuthTrade_ListCountTip, this.Confirmations.Count);
+                return string.Format(AppResources.LocalAuth_AuthTrade_ListCountTip, Confirmations.Count);
             }
         }
 
@@ -235,7 +235,7 @@ namespace System.Application.UI.ViewModels
 
         public void Logout_Click()
         {
-            var steam = this._Authenticator.GetClient();
+            var steam = _Authenticator.GetClient();
             steam.Logout();
 
             if (String.IsNullOrEmpty(_Authenticator.SessionData) == false)
@@ -400,7 +400,7 @@ namespace System.Application.UI.ViewModels
 
                 var result = await Task.Run<bool>(() =>
                 {
-                    return this._Authenticator.GetClient().ConfirmTrade(trade.Id, trade.Key, true);
+                    return _Authenticator.GetClient().ConfirmTrade(trade.Id, trade.Key, true);
                 });
                 if (result == false)
                 {
@@ -442,7 +442,7 @@ namespace System.Application.UI.ViewModels
                 }
                 var result = await Task.Run<bool>(() =>
                 {
-                    return this._Authenticator.GetClient().ConfirmTrade(trade.Id, trade.Key, false);
+                    return _Authenticator.GetClient().ConfirmTrade(trade.Id, trade.Key, false);
                 });
                 if (result == false)
                 {

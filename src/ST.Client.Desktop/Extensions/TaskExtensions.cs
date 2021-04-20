@@ -51,10 +51,10 @@ namespace System.Application
 
 		public TaskLog(string callerMemberName, string callerFilePath, int callerLineNumber, Exception exception)
 		{
-			this.CallerMemberName = callerMemberName;
-			this.CallerFilePath = callerFilePath;
-			this.CallerLineNumber = callerLineNumber;
-			this.Exception = exception;
+			CallerMemberName = callerMemberName;
+			CallerFilePath = callerFilePath;
+			CallerLineNumber = callerLineNumber;
+			Exception = exception;
 		}
 
 

@@ -1,8 +1,11 @@
 ﻿using ReactiveUI;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Text;
 using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Text.RegularExpressions;
 
 namespace System.Application.UI.Resx
 {
@@ -12,6 +15,7 @@ namespace System.Application.UI.Resx
 
         public static readonly IList<KeyValuePair<string, string>> Languages;
         public static readonly Dictionary<string, string> SteamLanguages;
+        public static readonly IList<KeyValuePair<string, FontFamily?>> Fonts;
 
         public AppResources Res { get; set; } = new AppResources();
 
@@ -21,7 +25,7 @@ namespace System.Application.UI.Resx
         {
             Current = new R();
             DefaultCurrentUICulture = CultureInfo.CurrentUICulture;
-            Languages = new Dictionary<string, string>()
+            Languages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { "", "Auto" },
                 { "zh-Hans", "Chinese(Simplified)" },
@@ -31,7 +35,7 @@ namespace System.Application.UI.Resx
                 { "ja", "Japanese" },
                 { "ru", "Russian" },
             }.ToList();
-            SteamLanguages = new Dictionary<string, string>()
+            SteamLanguages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { "zh-CN", "schinese" },
                 { "zh-Hans", "schinese" },
@@ -41,8 +45,18 @@ namespace System.Application.UI.Resx
                 { "ja", "japanese" },
                 { "ru", "russian" },
             };
-
+            Fonts = GetFonts();
             AppResources.Culture = DefaultCurrentUICulture;
+        }
+
+        static IList<KeyValuePair<string, FontFamily?>> GetFonts()
+        {
+            var culture = Culture;
+            InstalledFontCollection ifc = new();
+            var list = ifc.Families.Select(x =>
+                KeyValuePair.Create(x.GetName(culture.LCID), (FontFamily?)x)).ToList();
+            list.Insert(0, KeyValuePair.Create("Default", (FontFamily?)null));
+            return list;
         }
 
         static bool IsMatch(CultureInfo cultureInfo, string cultureName)
@@ -81,20 +95,28 @@ namespace System.Application.UI.Resx
         {
             try
             {
-                return AppResources.Culture == null ?
-                    Languages.First().Key :
-                    SteamLanguages[AppResources.Culture.Name];
+                var culture = Culture;
+                foreach (var item in SteamLanguages)
+                {
+                    if (IsMatch(culture, item.Key))
+                    {
+                        return item.Value;
+                    }
+                }
+                //return AppResources.Culture == null ?
+                //    Languages.First().Key :
+                //    SteamLanguages[AppResources.Culture.Name];
             }
             catch (Exception ex)
             {
                 Log.Error(nameof(R), ex, nameof(GetCurrentCultureSteamLanguageName));
-                return SteamLanguages["en"];
             }
+            return SteamLanguages["en"];
         }
 
         static string GetAcceptLanguageCore()
         {
-            var culture = AppResources.Culture ?? DefaultCurrentUICulture;
+            var culture = Culture;
             return culture.GetAcceptLanguage();
         }
 
@@ -116,7 +138,7 @@ namespace System.Application.UI.Resx
 
         static string GetLanguageCore()
         {
-            var culture = AppResources.Culture ?? DefaultCurrentUICulture;
+            var culture = Culture;
             if (IsMatch(culture, "zh-Hans"))
             {
                 return "zh-Hans";
@@ -154,5 +176,7 @@ namespace System.Application.UI.Resx
                 return mLanguage;
             }
         }
+
+        public static CultureInfo Culture => AppResources.Culture ?? DefaultCurrentUICulture;
     }
 }

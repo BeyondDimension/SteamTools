@@ -64,9 +64,9 @@ namespace System.Application.UI.ViewModels
         {
             if (IsInDesignMode) return;
 
-            this.CompositeDisposable?.Add(new PropertyChangedEventListener(R.Current)
+            CompositeDisposable?.Add(new PropertyChangedEventListener(R.Current)
             {
-                (sender, args) => this.RaisePropertyChanged(nameof(this.Name)),
+                (sender, args) => this.RaisePropertyChanged(nameof(Name)),
             });
         }
 

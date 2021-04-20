@@ -75,10 +75,10 @@ namespace System.Application.UI.ViewModels
 
         internal override void Initialize()
         {
-            this.updateSource
-                .Do(_ => this.IsReloading = true)
-                .SelectMany(x => this.UpdateAsync())
-                .Do(_ => this.IsReloading = false)
+            updateSource
+                .Do(_ => IsReloading = true)
+                .SelectMany(x => UpdateAsync())
+                .Do(_ => IsReloading = false)
                 .Subscribe()
                 .AddTo(this);
 
@@ -114,15 +114,15 @@ namespace System.Application.UI.ViewModels
             {
                 var list = SteamConnectService.Current.SteamApps?.Where(x => Predicate(x)).OrderBy(x => x.Name).ToList();
                 if (list.Any_Nullable())
-                    this.SteamApps = list;
+                    SteamApps = list;
                 else
-                    this.SteamApps = null;
+                    SteamApps = null;
             });
         }
 
         public void Update()
         {
-            this.updateSource.OnNext(Unit.Default);
+            updateSource.OnNext(Unit.Default);
         }
 
         public void AppClick(SteamApp app)

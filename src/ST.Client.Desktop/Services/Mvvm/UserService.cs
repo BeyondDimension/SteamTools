@@ -1,20 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using ReactiveUI;
+﻿using ReactiveUI;
 using System.Application.Models;
-using System.Application.Repositories;
-using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web;
-using System.Windows;
-using System.Xml;
-using WinAuth;
 
 namespace System.Application.Services
 {
@@ -24,14 +11,14 @@ namespace System.Application.Services
         public static UserService Current { get; } = new();
         #endregion
 
-        readonly IUserManager user = DI.Get<IUserManager>();
+        readonly IUserManager userManager = DI.Get<IUserManager>();
 
         public async void ShowWindow(CustomWindow windowName)
         {
             switch (windowName)
             {
                 case CustomWindow.LoginOrRegister:
-                    var cUser = await user.GetCurrentUserAsync();
+                    var cUser = await userManager.GetCurrentUserAsync();
                     if (cUser.HasValue()) return;
                     break;
             }
@@ -44,7 +31,33 @@ namespace System.Application.Services
 
         public async void SignOut()
         {
-            await user.SignOutAsync();
+            await userManager.SignOutAsync();
+        }
+
+        UserInfoDTO? _User;
+        public UserInfoDTO? User
+        {
+            get => _User;
+            set => this.RaiseAndSetIfChanged(ref _User, value);
+        }
+
+        public UserService()
+        {
+            userManager.OnSignOut += () =>
+            {
+                User = null;
+            };
+            Task.Run(Initialize).ForgetAndDispose();
+        }
+
+        async void Initialize()
+        {
+            await RefreshUserAsync();
+        }
+
+        public async Task RefreshUserAsync()
+        {
+            User = await userManager.GetCurrentUserInfoAsync();
         }
     }
 }

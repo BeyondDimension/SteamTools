@@ -1313,6 +1313,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 字体 的本地化字符串。
+        /// </summary>
+        public static string Settings_Fonts {
+            get {
+                return ResourceManager.GetString("Settings_Fonts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 基本设置 的本地化字符串。
         /// </summary>
         public static string Settings_General {

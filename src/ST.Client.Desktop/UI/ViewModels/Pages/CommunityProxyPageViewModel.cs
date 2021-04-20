@@ -59,10 +59,10 @@ namespace System.Application.UI.ViewModels
                 //{
                 //    Items = new[]
                 //    {
-                        (this.AutoRunProxy = new MenuItemViewModel (nameof(AppResources.CommunityFix_AutoRunProxy)){ Command=AutoRunProxyCommand }),
-                        (this.OnlySteamBrowser = new MenuItemViewModel (nameof(AppResources.CommunityFix_OnlySteamBrowser)){ Command=OnlySteamBrowserCommand}),
+                        (AutoRunProxy = new MenuItemViewModel (nameof(AppResources.CommunityFix_AutoRunProxy)){ Command=AutoRunProxyCommand }),
+                        (OnlySteamBrowser = new MenuItemViewModel (nameof(AppResources.CommunityFix_OnlySteamBrowser)){ Command=OnlySteamBrowserCommand}),
                         new MenuItemViewModel (),
-                        (this.EnableProxyScript = new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)){ Command=EnableProxyScriptCommand }),
+                        (EnableProxyScript = new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)){ Command=EnableProxyScriptCommand }),
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)){ Command=EditHostsFileCommand ,IconKey="JavaScriptDrawing" },
                         new MenuItemViewModel (),
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_CertificateSettings))

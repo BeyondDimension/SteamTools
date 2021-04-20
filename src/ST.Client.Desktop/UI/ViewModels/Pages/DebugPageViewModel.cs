@@ -6,9 +6,11 @@ using ReactiveUI;
 using System.Application.Models;
 using System.Application.Repositories;
 using System.Application.Services;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing.Text;
 using System.Globalization;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -378,6 +380,17 @@ namespace System.Application.UI.ViewModels
             [return: MaybeNull]
             public static T D<T>(string value)
                 => DeserializeObject<T>(value, mDebugViewTextSettings.Value);
+        }
+
+        public void TestFontsButton_Click()
+        {
+            InstalledFontCollection ifc = new();
+            StringBuilder s = new();
+            foreach (var item in ifc.Families)
+            {
+                s.AppendLine(item.GetName(R.Culture.LCID));
+            }
+            DebugString = s.ToString();
         }
     }
 }

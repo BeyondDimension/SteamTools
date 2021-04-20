@@ -35,9 +35,9 @@ namespace System.Application.UI.ViewModels
         public void CheckmarkChange(bool isCheck)
         {
             if (isCheck)
-                this.IconKey = "CheckmarkDrawing";
+                IconKey = "CheckmarkDrawing";
             else
-                this.IconKey = null;
+                IconKey = null;
         }
     }
 }

@@ -134,24 +134,24 @@ namespace System.Application.Models
             //{
             //    Id = id;
             //}
-            this.AuthenticatorData = new GAPAuthenticatorDTO();
+            AuthenticatorData = new GAPAuthenticatorDTO();
             string authenticatorType = reader.GetAttribute("type");
             switch (authenticatorType)
             {
                 case "WinAuth.SteamAuthenticator":
-                    this.AuthenticatorData.Value = new GAPAuthenticatorValueDTO.SteamAuthenticator();
+                    AuthenticatorData.Value = new GAPAuthenticatorValueDTO.SteamAuthenticator();
                     break;
                 case "WinAuth.BattleNetAuthenticator":
-                    this.AuthenticatorData.Value = new GAPAuthenticatorValueDTO.BattleNetAuthenticator();
+                    AuthenticatorData.Value = new GAPAuthenticatorValueDTO.BattleNetAuthenticator();
                     break;
                 case "WinAuth.GoogleAuthenticator":
-                    this.AuthenticatorData.Value = new GAPAuthenticatorValueDTO.GoogleAuthenticator();
+                    AuthenticatorData.Value = new GAPAuthenticatorValueDTO.GoogleAuthenticator();
                     break;
                 case "WinAuth.HOTPAuthenticator":
-                    this.AuthenticatorData.Value = new GAPAuthenticatorValueDTO.HOTPAuthenticator();
+                    AuthenticatorData.Value = new GAPAuthenticatorValueDTO.HOTPAuthenticator();
                     break;
                 case "WinAuth.MicrosoftAuthenticator":
-                    this.AuthenticatorData.Value = new GAPAuthenticatorValueDTO.MicrosoftAuthenticator();
+                    AuthenticatorData.Value = new GAPAuthenticatorValueDTO.MicrosoftAuthenticator();
                     break;
                 default:
                     return false;
@@ -207,7 +207,7 @@ namespace System.Application.Models
                             try
                             {
                                 // we don't pass the password as they are locked till clicked
-                                changed = this.AuthenticatorData.Value.ReadXml(reader) || changed;
+                                changed = AuthenticatorData.Value.ReadXml(reader) || changed;
                             }
                             catch (WinAuthEncryptedSecretDataException)
                             {
@@ -221,11 +221,11 @@ namespace System.Application.Models
 
                         // v2
                         case "authenticator":
-                            this.AuthenticatorData.Value = GAPAuthenticatorValueDTO.ReadXmlv2(reader, password);
+                            AuthenticatorData.Value = GAPAuthenticatorValueDTO.ReadXmlv2(reader, password);
                             break;
                         // v2
                         case "servertimediff":
-                            this.AuthenticatorData.Value.ServerTimeDiff = reader.ReadElementContentAsLong();
+                            AuthenticatorData.Value.ServerTimeDiff = reader.ReadElementContentAsLong();
                             break;
 
 
@@ -261,7 +261,7 @@ namespace System.Application.Models
 
         public override string ToString()
         {
-            return Username + " (" + this.SteamId + ")";
+            return Username + " (" + SteamId + ")";
         }
     }
 }

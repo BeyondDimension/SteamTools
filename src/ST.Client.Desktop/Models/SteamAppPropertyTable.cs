@@ -12,7 +12,7 @@ namespace System.Application.Models
 		{
 			get
 			{
-				return this._properties.Count;
+				return _properties.Count;
 			}
 		}
 
@@ -20,7 +20,7 @@ namespace System.Application.Models
 		{
 			get
 			{
-				return from prop in this._properties
+				return from prop in _properties
 					   select prop.Name;
 			}
 		}
@@ -29,7 +29,7 @@ namespace System.Application.Models
 		{
 			get
 			{
-				return this._properties;
+				return _properties;
 			}
 		}
 
@@ -37,7 +37,7 @@ namespace System.Application.Models
 		{
 			get
 			{
-				return this._properties.FirstOrDefault((SteamAppProperty prop) => prop.Name == name);
+				return _properties.FirstOrDefault((SteamAppProperty prop) => prop.Name == name);
 			}
 		}
 
@@ -57,7 +57,7 @@ namespace System.Application.Models
 
 		public T GetPropertyValue<T>(string name, T defValue = default)
 		{
-            if (!this.TryGetPropertyValue<T>(name, out T result))
+            if (!TryGetPropertyValue<T>(name, out T result))
             {
                 result = defValue;
             }
@@ -119,7 +119,7 @@ namespace System.Application.Models
 		public void AddPropertyValue(string name, SteamAppPropertyType type, object value)
 		{
 			SteamAppProperty item = new(name, type, value);
-			this._properties.Add(item);
+			_properties.Add(item);
 		}
 
 		public bool SetPropertyValue(string name, SteamAppPropertyType type, object value)
@@ -128,7 +128,7 @@ namespace System.Application.Models
 			if (property == null)
 			{
 				property = new SteamAppProperty(name);
-				this._properties.Add(property);
+				_properties.Add(property);
 			}
 			bool result = property.PropertyType != type || !property.Value.Equals(value);
 			property.PropertyType = type;
@@ -164,7 +164,7 @@ namespace System.Application.Models
 
 		public void RemoveProperty(string name)
 		{
-			this._properties.RemoveAll((SteamAppProperty prop) => prop.Name == name);
+			_properties.RemoveAll((SteamAppProperty prop) => prop.Name == name);
 		}
 
 		public void RemoveProperty(params string[] propertyPath)
@@ -190,7 +190,7 @@ namespace System.Application.Models
 					return;
 				}
 			}
-			this.RemoveProperty(propertyPath.Last<string>());
+			RemoveProperty(propertyPath.Last<string>());
 		}
 
 		public object ExtractProperty(string name)
@@ -206,14 +206,14 @@ namespace System.Application.Models
 		public string AddExtractedProperty(object extracted)
 		{
 			SteamAppProperty property = new BinaryReader((MemoryStream)extracted).ReadPropertyTable()._properties[0];
-			this.RemoveProperty(property.Name);
-			this._properties.Add(property);
+			RemoveProperty(property.Name);
+			_properties.Add(property);
 			return property.Name;
 		}
 
 		public void Clear()
 		{
-			this._properties.Clear();
+			_properties.Clear();
 		}
 
 		public SteamAppPropertyTable()
@@ -222,24 +222,24 @@ namespace System.Application.Models
 
 		public SteamAppPropertyTable(SteamAppPropertyTable other)
 		{
-			this._properties.AddRange(from prop in other._properties
+			_properties.AddRange(from prop in other._properties
 									  select new SteamAppProperty(prop));
 		}
 
 		public bool Equals(SteamAppPropertyTable other)
 		{
-			return other != null && this.Count == other.Count && this._properties.All((SteamAppProperty prop) => other._properties.Any((SteamAppProperty otherProp) => prop.Equals(otherProp)));
+			return other != null && Count == other.Count && _properties.All((SteamAppProperty prop) => other._properties.Any((SteamAppProperty otherProp) => prop.Equals(otherProp)));
 		}
 
 		public override bool Equals(object obj)
 		{
-			return this.Equals(obj as SteamAppPropertyTable);
+			return Equals(obj as SteamAppPropertyTable);
 		}
 
 		public override int GetHashCode()
 		{
 			int num = base.GetType().GetHashCode();
-			foreach (SteamAppProperty property in this._properties)
+			foreach (SteamAppProperty property in _properties)
 			{
 				num ^= property.GetHashCode();
 			}
@@ -250,7 +250,7 @@ namespace System.Application.Models
 		{
 			StringBuilder stringBuilder = new();
 			string arg = new('\t', indent);
-			foreach (SteamAppProperty property in this._properties)
+			foreach (SteamAppProperty property in _properties)
 			{
 				string arg2 = property.Name.Replace("\\", "\\\\").Replace("\"", "\\\"");
 				stringBuilder.AppendFormat("{0}\"{1}\"", arg, arg2);
@@ -284,7 +284,7 @@ namespace System.Application.Models
 
 		public override string ToString()
 		{
-			return this.ToStringInternal(0);
+			return ToStringInternal(0);
 		}
 
 		private readonly List<SteamAppProperty> _properties = new();

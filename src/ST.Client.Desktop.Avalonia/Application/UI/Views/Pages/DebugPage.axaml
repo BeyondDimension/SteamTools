@@ -17,6 +17,8 @@
                     Command="{Binding ShowDialogButton_Click}" />
             <Button Height="35" MinWidth="200" Content="Test Server Api"
                     Command="{Binding TestServerApiButton_Click}" />
+          <Button Height="35" MinWidth="200" Content="Test Fonts"
+                  Command="{Binding TestFontsButton_Click}" />
         </StackPanel>
     </Grid>
 </UserControl>

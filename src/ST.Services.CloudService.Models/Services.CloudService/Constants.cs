@@ -34,7 +34,7 @@ namespace System.Application.Services.CloudService
         /// <summary>
         /// 实际短信间隔
         /// </summary>
-        public const double SMSIntervalActually = SMSInterval * .95;
+        public const double SMSIntervalActually = 79.5;
 
         public const string Prefix_HTTPS = "https://";
 

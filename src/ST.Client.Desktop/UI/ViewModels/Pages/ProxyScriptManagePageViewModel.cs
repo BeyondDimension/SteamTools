@@ -59,15 +59,15 @@ namespace System.Application.UI.ViewModels
             {
                 var list = ProxyService.Current.ProxyScripts?.Where(x => Predicate(x)).OrderBy(x => x.Name).ToList();
                 if (list.Any_Nullable())
-                    this.ProxyScripts = new ObservableCollection<ScriptDTO>(list);
+                    ProxyScripts = new ObservableCollection<ScriptDTO>(list);
                 else
-                    this.ProxyScripts = null;
+                    ProxyScripts = null;
             });
         }
 
         public void Update()
         {
-            this.updateSource.OnNext(Unit.Default);
+            updateSource.OnNext(Unit.Default);
         }
 
         public ProxyScriptManagePageViewModel()
@@ -82,10 +82,10 @@ namespace System.Application.UI.ViewModels
 
             var temp = DI.Get<IScriptManager>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, "Scripts", "h.js")).ConfigureAwait(true);
 
-            this.updateSource
-            .Do(_ => this.IsReloading = true)
-            .SelectMany(x => this.UpdateAsync())
-            .Do(_ => this.IsReloading = false)
+            updateSource
+            .Do(_ => IsReloading = true)
+            .SelectMany(x => UpdateAsync())
+            .Do(_ => IsReloading = false)
             .Subscribe()
             .AddTo(this);
 

@@ -51,7 +51,7 @@ namespace System.Application
 
             internal ListenerWrapper(INotifyPropertyChanged source)
             {
-                this._listener = new PropertyChangedEventListener(source);
+                _listener = new PropertyChangedEventListener(source);
             }
 
             /// <summary>
@@ -63,11 +63,11 @@ namespace System.Application
             public ListenerWrapper Subscribe(string propertyName, Action action, bool immediately = true)
             {
                 if (immediately) action();
-                this._listener.Add(propertyName, (sender, args) => action());
+                _listener.Add(propertyName, (sender, args) => action());
                 return this;
             }
 
-            void IDisposable.Dispose() => this._listener.Dispose();
+            void IDisposable.Dispose() => _listener.Dispose();
         }
     }
 }

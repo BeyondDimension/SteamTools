@@ -121,6 +121,7 @@
                    MaxLength="{ReflectionBinding Path=PhoneNumber,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}"/>
           <Button Classes="Secondary"
                   Content="{ReflectionBinding Path=Res.Modify,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                  Command="{Binding OnBtnChangeBindPhoneNumberClick}"
                   Grid.Row="3"
                   Grid.Column="3"/>
           <TextBlock Classes="FormItemLabel"

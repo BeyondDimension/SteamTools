@@ -539,6 +539,9 @@
   <data name="Settings_Auth" xml:space="preserve">
     <value>令牌设置</value>
   </data>
+  <data name="Settings_Fonts" xml:space="preserve">
+    <value>字体</value>
+  </data>
   <data name="Settings_General" xml:space="preserve">
     <value>基本设置</value>
   </data>

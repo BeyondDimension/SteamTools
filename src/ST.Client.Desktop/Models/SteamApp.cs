@@ -55,26 +55,26 @@ namespace System.Application.Models
         {
             get
             {
-                if (this._cachedName == null)
+                if (_cachedName == null)
                 {
-                    this._cachedName = this._properties.GetPropertyValue<string>(null, new string[]
+                    _cachedName = _properties.GetPropertyValue<string>(null, new string[]
                     {
                         "appinfo",
                         "common",
                         "name"
                     });
                 }
-                return this._cachedName;
+                return _cachedName;
             }
             set
             {
-                this._properties.SetPropertyValue(SteamAppPropertyType.String, value, new string[]
+                _properties.SetPropertyValue(SteamAppPropertyType.String, value, new string[]
                 {
                     "appinfo",
                     "common",
                     "name"
                 });
-                this.ClearCachedProps();
+                ClearCachedProps();
             }
         }
 
@@ -162,16 +162,16 @@ namespace System.Application.Models
 
         private void ClearCachedProps()
         {
-            this._cachedName = null;
-            this._cachedSortAs = null;
-            this._cachedHasSortAs = null;
+            _cachedName = null;
+            _cachedSortAs = null;
+            _cachedHasSortAs = null;
         }
 
         public event EventHandler Modified;
 
         private void OnEntryModified(object sender, EventArgs e)
         {
-            EventHandler modified = this.Modified;
+            EventHandler modified = Modified;
             if (modified == null)
             {
                 return;
