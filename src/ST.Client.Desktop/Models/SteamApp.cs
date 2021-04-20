@@ -59,8 +59,8 @@ namespace System.Application.Models
                 {
                     _cachedName = _properties.GetPropertyValue<string>(null, new string[]
                     {
-                        "appinfo",
-                        "common",
+                        NodeAppInfo,
+                        NodeCommon,
                         "name"
                     });
                 }
@@ -70,8 +70,8 @@ namespace System.Application.Models
             {
                 _properties.SetPropertyValue(SteamAppPropertyType.String, value, new string[]
                 {
-                    "appinfo",
-                    "common",
+                    NodeAppInfo,
+                    NodeCommon,
                     "name"
                 });
                 ClearCachedProps();
@@ -215,17 +215,14 @@ namespace System.Application.Models
                 nodes[2] = NodeAppType;
                 string type = app._properties.GetPropertyValue<string>("", nodes);
 
-                if (string.IsNullOrEmpty(type))
+                if (Enum.TryParse(type, true, out SteamAppType apptype))
                 {
-                    if (Enum.TryParse(type, true, out SteamAppType apptype))
-                    {
-                        app.Type = apptype;
-                    }
-                    else
-                    {
-                        app.Type = SteamAppType.Unknown;
-                        Debug.WriteLine(string.Format("AppInfo: New AppType '{0}'", type));
-                    }
+                    app.Type = apptype;
+                }
+                else
+                {
+                    app.Type = SteamAppType.Unknown;
+                    Debug.WriteLine(string.Format("AppInfo: New AppType '{0}'", type));
                 }
 
 
