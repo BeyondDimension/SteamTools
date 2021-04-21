@@ -34,7 +34,7 @@ namespace System.Application.Models
         {
             var type = GetDeserializeType<T>();
             var obj = await MessagePackSerializer.DeserializeAsync(
-                type, stream, cancellationToken: cancellationToken);
+                type, stream, options: Serializable.lz4Options, cancellationToken: cancellationToken);
             return (IApiResponse<T>?)obj ?? ClientDeserializeFail<T>();
         }
 

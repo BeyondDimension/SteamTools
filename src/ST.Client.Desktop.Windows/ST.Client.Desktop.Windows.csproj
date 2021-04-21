@@ -34,11 +34,11 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-debug.pfx')">
-    <EmbeddedResource Include="..\..\appcenter-secret-debug.pfx" LinkBase="Resources" />
+    <EmbeddedResource Include="..\..\appcenter-secret-debug.pfx" Link="Resources\7EE83DD3" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-release.pfx')">
-    <EmbeddedResource Include="..\..\appcenter-secret-release.pfx" LinkBase="Resources" />
+    <EmbeddedResource Include="..\..\appcenter-secret-release.pfx" Link="Resources\0794704F" />
   </ItemGroup>
 
 </Project>

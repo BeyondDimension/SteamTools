@@ -11,7 +11,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>System.Application</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>System.Application.SteamTools.Client.Mobile.iOS.App</AssemblyName>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <ProvisioningType>automatic</ProvisioningType>

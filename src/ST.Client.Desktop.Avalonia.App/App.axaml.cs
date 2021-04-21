@@ -1,5 +1,4 @@
-﻿#pragma warning disable CA1416 // 验证平台兼容性
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
@@ -389,4 +388,3 @@ namespace System.Application.UI
         #endregion
     }
 }
-#pragma warning restore CA1416 // 验证平台兼容性

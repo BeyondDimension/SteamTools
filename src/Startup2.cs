@@ -1,5 +1,7 @@
 ﻿#if !__MOBILE__
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Platform;
 #else
 using Xamarin.Essentials;
 #endif
@@ -22,6 +24,8 @@ using System.Linq;
 using CSConst = System.Application.Services.CloudService.Constants;
 using System.Properties;
 using System.Diagnostics;
+using System.IO;
+using static System.Application.AppClientAttribute;
 
 namespace System.Application
 {
@@ -275,19 +279,22 @@ namespace System.Application
         {
             get
             {
-                var assembly = Assembly.GetExecutingAssembly();
                 var options = new AppSettings
                 {
-                    AppVersion = GetResValue("app-id", false).TryParseGuidN() ?? default,
-                    AesSecret = GetResValue("aes-key", true),
-                    RSASecret = GetResValue("rsa-public-key", false),
+                    AppVersion = GetResValueGuid("app-id", isSingle: false, ResValueFormat.StringGuidN),
+                    AesSecret = GetResValue("aes-key", isSingle: true, ResValueFormat.String),
+                    RSASecret = GetResValue("rsa-public-key", isSingle: false, ResValueFormat.String),
                 };
                 SetApiBaseUrl(options);
                 return options;
-                string? GetResValue(string name, bool isSingle)
+                static Guid GetResValueGuid(string name, bool isSingle, ResValueFormat format) => GetResValue(name, isSingle, format).TryParseGuidN() ?? default;
+                static string? GetResValue(string name, bool isSingle, ResValueFormat format)
                 {
                     const string namespacePrefix = "System.Application.UI.Resources.";
-                    return AppClientAttribute.GetResValue(assembly, name, isSingle, namespacePrefix);
+                    var assembly = Assembly.GetExecutingAssembly();
+                    Stream? func(string x) => assembly.GetManifestResourceStream(x);
+                    var r = AppClientAttribute.GetResValue(func, name, isSingle, namespacePrefix, format);
+                    return r;
                 }
                 static void SetApiBaseUrl(AppSettings s)
                 {

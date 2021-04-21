@@ -8,7 +8,7 @@
     <TemplateGuid>{6968b3a4-1835-46a3-ac5c-1ae33b475983}</TemplateGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>System.Application.Launch</RootNamespace>
-    <AssemblyName>System.Application.SteamTools.Client.Mobile.Droid.App</AssemblyName>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
     <Deterministic>True</Deterministic>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>

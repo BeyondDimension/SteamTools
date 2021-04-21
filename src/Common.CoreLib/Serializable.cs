@@ -136,6 +136,8 @@ namespace System
 
 #if !NOT_MP
 
+        public static readonly MessagePackSerializerOptions lz4Options = MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4BlockArray);
+
         /// <summary>
         /// (Serialize)MessagePack 序列化
         /// </summary>
@@ -143,7 +145,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         public static byte[] SMP<T>(T value, CancellationToken cancellationToken = default)
-            => MessagePackSerializer.Serialize(value, cancellationToken: cancellationToken);
+            => MessagePackSerializer.Serialize(value, options: lz4Options, cancellationToken: cancellationToken);
 
         /// <summary>
         /// (Serialize)MessagePack 序列化 + Base64Url Encode
@@ -206,7 +208,11 @@ namespace System
         /// <returns></returns>
         [return: MaybeNull]
         public static T DMP<T>(byte[] buffer, CancellationToken cancellationToken = default)
-            => MessagePackSerializer.Deserialize<T>(buffer, cancellationToken: cancellationToken);
+            => MessagePackSerializer.Deserialize<T>(buffer, options: lz4Options, cancellationToken: cancellationToken);
+
+        /// <inheritdoc cref="DMP{T}(byte[], CancellationToken)"/>
+        public static object? DMP(Type type, byte[] buffer, CancellationToken cancellationToken = default)
+         => MessagePackSerializer.Deserialize(type, buffer, options: lz4Options, cancellationToken: cancellationToken);
 
         /// <summary>
         /// (Deserialize)MessagePack 反序列化
@@ -216,7 +222,11 @@ namespace System
         /// <returns></returns>
         [return: MaybeNull]
         public static T DMP<T>(Stream buffer, CancellationToken cancellationToken = default)
-            => MessagePackSerializer.Deserialize<T>(buffer, cancellationToken: cancellationToken);
+            => MessagePackSerializer.Deserialize<T>(buffer, options: lz4Options, cancellationToken: cancellationToken);
+
+        /// <inheritdoc cref="DMP{T}(Stream, CancellationToken)"/>
+        public static object? DMP(Type type, Stream buffer, CancellationToken cancellationToken = default)
+            => MessagePackSerializer.Deserialize(type, buffer, options: lz4Options, cancellationToken: cancellationToken);
 
         /// <summary>
         /// (Deserialize)MessagePack 反序列化 + Base64Url Decode
@@ -232,6 +242,17 @@ namespace System
             {
                 var buffer = value.Base64UrlDecodeToByteArray();
                 return DMP<T>(buffer, cancellationToken);
+            }
+            return default;
+        }
+
+        /// <inheritdoc cref="DMPB64U{T}(string?, CancellationToken)"/>
+        public static object? DMPB64U(Type type, string? value, CancellationToken cancellationToken = default)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                var buffer = value.Base64UrlDecodeToByteArray();
+                return DMP(type, buffer, cancellationToken);
             }
             return default;
         }

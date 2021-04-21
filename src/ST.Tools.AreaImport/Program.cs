@@ -188,7 +188,6 @@ do
         Up = up,
     });
 } while (true);
-var lz4Options = MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4BlockArray);
-var bytes = MessagePackSerializer.Serialize(areas, lz4Options);
+var bytes = Serializable.SMP(areas);
 File.WriteAllBytes(outFilePath, bytes);
 Console.WriteLine($"文件写入成功，路径：{outFilePath}");

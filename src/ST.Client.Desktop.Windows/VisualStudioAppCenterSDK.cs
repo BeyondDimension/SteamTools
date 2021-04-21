@@ -1,6 +1,13 @@
 ﻿using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using System.IO;
+using static System.Application.AppClientAttribute;
+#if !__MOBILE__
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Platform;
+#endif
 
 namespace System.Application
 {
@@ -28,12 +35,22 @@ namespace System.Application
         {
             get
             {
+                var assembly = typeof(VisualStudioAppCenterSDK).Assembly;
                 const string namespacePrefix = "System.Application.Resources.";
-                var r = AppClientAttribute.GetResValue(
-                    typeof(VisualStudioAppCenterSDK).Assembly,
-                    name: "appcenter-secret",
+                Stream? func(string x) => assembly.GetManifestResourceStream(x);
+                var r = GetResValue(func,
+#if XAMARIN_MAC || MONO_MAC || MAC
+                    "appcenter-secret-mac",
+#elif __ANDROID__
+                    "appcenter-secret-android",
+#elif __IOS__
+                    "appcenter-secret-ios",
+#else
+                    "appcenter-secret",
+#endif
                     isSingle: false,
-                    namespacePrefix);
+                    namespacePrefix,
+                    ResValueFormat.StringGuidD);
                 return r;
             }
         }

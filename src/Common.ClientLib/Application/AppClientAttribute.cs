@@ -1,10 +1,10 @@
-﻿using MessagePack;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Properties;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace System.Application
@@ -26,6 +26,7 @@ namespace System.Application
             this.type = type;
             this.str = str;
             init();
+            if (Value == null) throw new ArgumentNullException(nameof(Value));
         }
 
 #pragma warning disable IDE1006 // 命名样式
@@ -40,8 +41,8 @@ namespace System.Application
 #if DEBUG
                 var stopwatch = Stopwatch.StartNew();
 #endif
-                var bytes = str.Base64UrlDecodeToByteArray_Nullable();
-                Value = MessagePackSerializer.Deserialize(type, bytes);
+                Value = Serializable.DMPB64U(type.ThrowIsNull(nameof(type)), str)
+                    .ThrowIsNull(nameof(Value));
                 str = null;
 #if DEBUG
                 stopwatch.Stop();
@@ -60,7 +61,7 @@ namespace System.Application
             var attrs = assembly.GetCustomAttributes<AppClientAttribute>();
             var type = typeof(T);
             var attr = attrs.FirstOrDefault(x => x.Value != null && x.type == type);
-            T t = (attr != default && attr.Value is T value) ? value : default;
+            var t = (attr != default && attr.Value is T value) ? value : default;
 #if DEBUG
             stopwatch.Stop();
             Debug.WriteLine($"AppClientAttr Get<{type.Name}> 耗时：{stopwatch.ElapsedMilliseconds}ms");
@@ -68,15 +69,55 @@ namespace System.Application
             return t;
         }
 
-        public static string? GetResValue(Assembly assembly, string name, bool isSingle, string namespacePrefix)
+        public enum ResValueFormat : byte
         {
-            var resName = isSingle ? $"{namespacePrefix}{name}.pfx" : $"{namespacePrefix}{name}-{(ThisAssembly.Debuggable ? "debug" : "release")}.pfx";
-            using var stream = assembly.GetManifestResourceStream(resName);
-            if (stream != null)
+            String,
+            StringGuidD,
+            StringGuidN,
+        }
+
+        public static string? GetResValue(Func<string, Stream?> func, string name, bool isSingle, string namespacePrefix, ResValueFormat format)
+        {
+            static string GetResFileName(string name, bool isSingle) => isSingle ? $"{name}.pfx" : $"{name}-{(ThisAssembly.Debuggable ? "debug" : "release")}.pfx";
+            static string GetResFileNameH(string name) => Hashs.String.Crc32(name, isLower: false);
+            static string GetResFullName(string name, string namespacePrefix) => string.IsNullOrEmpty(namespacePrefix) ? name : namespacePrefix + name;
+            static MemoryStream GetMemoryStream(Stream stream)
             {
-                using var reader = new StreamReader(stream, Encoding.UTF8);
-                return reader.ReadToEnd();
+                if (stream is not MemoryStream ms)
+                {
+                    ms = new MemoryStream();
+                    stream.CopyTo(ms);
+                }
+                return ms;
             }
+            static string ReadStream(Stream stream, ResValueFormat format)
+            {
+                if (format == ResValueFormat.String)
+                {
+                    using var reader = new StreamReader(stream, Encoding.UTF8);
+                    return reader.ReadToEnd();
+                }
+                if (format == ResValueFormat.StringGuidD || format == ResValueFormat.StringGuidN)
+                {
+                    using var ms = GetMemoryStream(stream);
+                    var guid = new Guid(ms.ToArray());
+                    return format switch
+                    {
+                        ResValueFormat.StringGuidD => guid.ToString("D"),
+                        ResValueFormat.StringGuidN => guid.ToString("N"),
+                        _ => throw new ArgumentOutOfRangeException(nameof(format), format, null),
+                    };
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException(nameof(format), format, null);
+                }
+            }
+            name = GetResFileName(name, isSingle);
+            name = GetResFileNameH(name);
+            name = GetResFullName(name, namespacePrefix);
+            using var stream = func(name);
+            if (stream != null) return ReadStream(stream, format);
             return null;
         }
     }

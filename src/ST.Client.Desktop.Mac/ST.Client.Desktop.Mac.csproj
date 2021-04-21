@@ -71,10 +71,10 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-mac-debug.pfx')">
-    <EmbeddedResource Include="..\..\appcenter-secret-mac-debug.pfx" LinkBase="Resources"/>
+    <EmbeddedResource Include="..\..\appcenter-secret-mac-debug.pfx" Link="Resources\547E2811"/>
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-mac-release.pfx')">
-    <EmbeddedResource Include="..\..\appcenter-secret-mac-release.pfx" LinkBase="Resources"/>
+    <EmbeddedResource Include="..\..\appcenter-secret-mac-release.pfx" Link="Resources\93850BFE"/>
   </ItemGroup>
 </Project>
