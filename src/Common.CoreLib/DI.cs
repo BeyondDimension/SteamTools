@@ -108,21 +108,63 @@ namespace System
 
 #if !NOT_DI
 
+        static Exception GetDIGetFailException(Exception e, Type serviceType) => new Exception($"DI.Get fail, serviceType: {serviceType}", e);
+
         /// <summary>
         /// 获取依赖注入服务
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T Get<T>() where T : notnull => Value.GetRequiredService<T>();
+        public static T Get<T>() where T : notnull
+        {
+            try
+            {
+                return Value.GetRequiredService<T>();
+            }
+            catch (NullReferenceException e)
+            {
+                throw GetDIGetFailException(e, typeof(T));
+            }
+        }
 
         /// <inheritdoc cref="Get{T}"/>
-        public static T? Get_Nullable<T>() where T : notnull => Value.GetService<T>();
+        public static T? Get_Nullable<T>() where T : notnull
+        {
+            try
+            {
+                return Value.GetService<T>();
+            }
+            catch (NullReferenceException e)
+            {
+                throw GetDIGetFailException(e, typeof(T));
+            }
+        }
 
         /// <inheritdoc cref="Get{T}"/>
-        public static object Get(Type serviceType) => Value.GetRequiredService(serviceType);
+        public static object Get(Type serviceType)
+        {
+            try
+            {
+                return Value.GetRequiredService(serviceType);
+            }
+            catch (NullReferenceException e)
+            {
+                throw GetDIGetFailException(e, serviceType);
+            }
+        }
 
         /// <inheritdoc cref="Get_Nullable{T}"/>
-        public static object? Get_Nullable(Type serviceType) => Value.GetService(serviceType);
+        public static object? Get_Nullable(Type serviceType)
+        {
+            try
+            {
+                return Value.GetService(serviceType);
+            }
+            catch (NullReferenceException e)
+            {
+                throw GetDIGetFailException(e, serviceType);
+            }
+        }
 
         public static IServiceScope CreateScope() => Value.CreateScope();
 
