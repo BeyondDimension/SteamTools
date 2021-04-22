@@ -30,7 +30,7 @@ namespace System
         /// <returns>如果源序列包含任何元素，则为 <see langword="true"/>；否则为 <see langword="false"/></returns>
         public static bool Any_Nullable<TSource>(this IEnumerable<TSource>? source)
         {
-            if (source == null) return false;
+            if (source is null) return false;
             return source.Any();
         }
 

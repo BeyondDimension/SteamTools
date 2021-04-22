@@ -77,6 +77,8 @@ namespace System.Application.Models.Settings
             104700,
             201700,
             224220,
+            232610,
+            375350,
             245550,
             254000,
             254020,

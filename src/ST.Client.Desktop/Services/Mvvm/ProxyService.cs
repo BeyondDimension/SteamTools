@@ -72,6 +72,8 @@ namespace System.Application.Services
         {
             get
             {
+                if (IsEnableScript == false)
+                    return null;
                 if (!ProxyScripts.Any_Nullable())
                     return null;
                 return ProxyScripts.Where(w => w.Enable).ToArray();
@@ -131,14 +133,16 @@ namespace System.Application.Services
                 {
                     if (value)
                     {
-                        if (!EnableProxyDomains.Any_Nullable())
-                        {
-                            Toast.Show(AppResources.CommunityFix_NoSelectAcceleration);
-                            return;
-                        }
+                        //if (!EnableProxyDomains.Any_Nullable())
+                        //{
+                        //    Toast.Show(AppResources.CommunityFix_NoSelectAcceleration);
+                        //    return;
+                        //}
                         httpProxyService.ProxyDomains = EnableProxyDomains;
                         httpProxyService.Scripts = EnableProxyScripts;
                         this.RaisePropertyChanged(nameof(EnableProxyDomains));
+                        this.RaisePropertyChanged(nameof(EnableProxyScripts));
+
                         var hosts = httpProxyService.ProxyDomains.SelectMany(s =>
                         {
                             return s?.HostsArray.Select(host =>

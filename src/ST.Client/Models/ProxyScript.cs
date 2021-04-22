@@ -88,7 +88,7 @@ namespace System.Application.Models
                     var script = new ProxyScript
                     {
                         FilePath = path,
-                        Content = RemoveComment(content.Replace("</script>", "<\\/script>")).Replace("\t", ""),
+                        Content = RemoveComment(content.Replace("</script>", "<\\/script>")),
                         //Content = content.Replace("</script>", "<\\/script>").Replace(" ", "").Replace("\r", "").Replace("\n", "").Replace("\t", ""),
                         FileName = Path.GetFileName(path),
                         Name = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Name)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),

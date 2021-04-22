@@ -55,16 +55,22 @@
                             </Button>
                         </Panel>
                         <Panel>
-                            <Border ZIndex="0">
+                            <Panel ZIndex="0">
                                 <gif:Image2
+                                        ZIndex="0"
                                         Source="{Binding SelectApp.LibraryHeaderBlurStream}"
                                         Stretch="UniformToFill"
                                         Height="500"
                                         Width="{ReflectionBinding #pane.Width}"
                                         DecodeWidth="{ReflectionBinding #pane.Width}">
                                 </gif:Image2>
-                            </Border>
-
+                                <ExperimentalAcrylicBorder IsHitTestVisible="False"
+                                                           Width="{ReflectionBinding #pane.Width}">
+                                    <ExperimentalAcrylicBorder.Material>
+                                        <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.50" TintOpacity="1"/>
+                                    </ExperimentalAcrylicBorder.Material>
+                                </ExperimentalAcrylicBorder>
+                            </Panel>
                         </Panel>
                     </StackPanel>
                 </ScrollViewer>
@@ -89,11 +95,11 @@
                                 <Setter Property="Height" Value="20"></Setter>
                             </Style>
                         </StackPanel.Styles>
-                        <Button Background="Transparent"
+                        <!--<Button Background="Transparent"
                                 Cursor="Hand"
                                 ToolTip.Tip="添加未拥有的游戏">
                             <PathIcon Data="{StaticResource AddDrawing}" />
-                        </Button>
+                        </Button>-->
                         <Button Background="Transparent"
                                 Cursor="Hand"
                                 ToolTip.Tip="刷新游戏列表">
@@ -127,9 +133,9 @@
                             StaysOpen="False" Width="201"
                             PlacementMode="Bottom"
                             PlacementTarget="typebutton"
-                            HorizontalOffset="-2.5"
+                            HorizontalOffset="-2.2"
                             IsLightDismissEnabled="True">
-                            <Border Background="Black" Width="{Binding $parent.Width}" Height="200">
+                            <Border Background="{DynamicResource ThemeBrushKey}" Width="{Binding $parent.Width}" Height="200">
                                 <ScrollViewer Padding="10 5">
                                     <ItemsControl Items="{Binding AppTypeFiltres}">
                                         <ItemsControl.ItemTemplate>
@@ -232,15 +238,6 @@
                                         </ia:EventTriggerBehavior>
                                     </i:Interaction.Behaviors>
                                     <Panel Width="200" Height="300">
-                                        <!--<Image
-                                                   Stretch="UniformToFill"
-                                                   Source="{Binding DefaultLibraryLogo,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}"
-                                                   ZIndex="0" 
-                                                   IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}"/>-->
-                                        <!--<Image
-                                                   Stretch="UniformToFill"
-                                                   Source="{Binding LibraryLogoStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}"
-                                                   IsVisible="{Binding !LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>-->
                                         <gif:Image2 x:Name="library"
                                                             Stretch="UniformToFill"
                                                             DecodeWidth="200"
@@ -254,8 +251,6 @@
                                                 </ia:DataTriggerBehavior>
                                             </i:Interaction.Behaviors>
                                         </gif:Image2>
-                                        <!--<Panel Width="200" IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}">
-                                                <Image Stretch="Uniform" Source="{Binding HeaderLogoStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}" Opacity="0.8" IsVisible="{Binding !HeaderLogoStream,Converter={StaticResource IsNullConverter}}"/>-->
                                         <TextBlock
                                             Text="{Binding DisplayName}"
                                             VerticalAlignment="Center"
@@ -264,9 +259,6 @@
                                             FontSize="20"
                                             Foreground="{DynamicResource HighlightForegroundBrushKey}"
                                             IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}"/>
-                                        <!--</Panel>-->
-
-                                        <!--<TextBlock Text="{Binding AppId}" HorizontalAlignment="Center" VerticalAlignment="Bottom"></TextBlock>-->
                                     </Panel>
                                 </Border>
 

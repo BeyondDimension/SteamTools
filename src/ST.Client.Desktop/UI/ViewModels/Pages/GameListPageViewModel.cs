@@ -199,5 +199,6 @@ namespace System.Application.UI.ViewModels
             IsAppInfoOpen = true;
             SelectApp = app;
         }
+
     }
 }

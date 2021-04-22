@@ -38,7 +38,7 @@
                             </TextBox.InnerLeftContent>
                         </TextBox>
                         <!--<TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>-->
-                        <ToggleSwitch Content="" OnContent="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}" OffContent="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}"></ToggleSwitch>
+                        <ToggleSwitch Content="" OnContent="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}" OffContent="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}"></ToggleSwitch>
                     </StackPanel>
                 </DockPanel>
             </Border>

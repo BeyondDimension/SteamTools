@@ -297,7 +297,7 @@ namespace System.Application.Services.Implementation
                                 var parentApp = apps.FirstOrDefault(f => f.AppId == app.ParentId);
                                 if (parentApp != null)
                                     parentApp.ChinldApp.Add(app);
-                                continue;
+                                //continue;
                             }
                             apps.Add(app);
                             //app.Modified += (s, e) =>
