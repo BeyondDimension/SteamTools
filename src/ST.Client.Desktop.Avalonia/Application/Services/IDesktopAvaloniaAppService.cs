@@ -27,6 +27,8 @@ namespace System.Application.Services
             return MainWindow;
         }
 
+        void HideWindow();
+
         /// <summary>
         /// 打开子窗口
         /// </summary>

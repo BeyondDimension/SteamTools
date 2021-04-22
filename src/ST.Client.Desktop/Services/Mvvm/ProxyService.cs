@@ -99,13 +99,10 @@ namespace System.Application.Services
             get => ProxySettings.IsEnableScript.Value;
             set
             {
-                if (ProxySettings.IsEnableScript.Value != value)
-                {
-                    ProxySettings.IsEnableScript.Value = value;
-                    httpProxyService.IsEnableScript = value;
-                    this.RaisePropertyChanged();
-                    this.RaisePropertyChanged(nameof(EnableProxyScripts));
-                }
+                ProxySettings.IsEnableScript.Value = value;
+                httpProxyService.IsEnableScript = value;
+                this.RaisePropertyChanged();
+                this.RaisePropertyChanged(nameof(EnableProxyScripts));
             }
         }
 

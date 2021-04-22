@@ -39,13 +39,7 @@ namespace System.Application.UI
     {
         public static App Instance => Current is App app ? app : throw new Exception("Impossible");
 
-        [Obsolete("use IOPath.AppDataDirectory", true)]
-        public DirectoryInfo LocalAppData => new(IOPath.AppDataDirectory);
-
         public static DirectoryInfo RootDirectory => new(AppContext.BaseDirectory);
-
-        [Obsolete("use AppHelper.ProgramName", true)]
-        public string ProgramName => AppHelper.ProgramName;
 
         AppTheme mTheme = AppTheme.Dark;
         public AppTheme Theme
@@ -266,16 +260,22 @@ namespace System.Application.UI
 
                     CheckDebugPackageReference();
                 }
+#if !UI_DEMO
+                if (Program.IsMinimize)
+                    desktop.MainWindow = null;
+                else
+#endif
+                    desktop.MainWindow = MainWindow;
 
-                desktop.MainWindow = MainWindow;
                 desktop.Startup += Desktop_Startup;
                 desktop.Exit += ApplicationLifetime_Exit;
                 desktop.ShutdownMode =
 #if UI_DEMO
                     ShutdownMode.OnMainWindowClose;
 #else
-                    Startup.HasNotifyIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnLastWindowClose;
+                Startup.HasNotifyIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnLastWindowClose;
 #endif
+
             }
 
             base.OnFrameworkInitializationCompleted();
@@ -336,11 +336,16 @@ namespace System.Application.UI
             if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 mainWindow = desktop.MainWindow;
+                if (mainWindow == null)
+                {
+                    mainWindow = MainWindow;
+                    desktop.MainWindow = MainWindow;
+                }
             }
 
             if (mainWindow == null)
             {
-                mainWindow = MainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
+                throw new ArgumentNullException(nameof(mainWindow));
             }
 
             mainWindow.Show();
@@ -352,6 +357,14 @@ namespace System.Application.UI
             // Again, ugly hack because of https://github.com/AvaloniaUI/Avalonia/issues/2994
             mainWindow.Width += 0.1;
             mainWindow.Width -= 0.1;
+        }
+
+        public void HideWindow()
+        {
+            if (CurrentApp.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                desktop.MainWindow.Hide();
+            }
         }
 
         /// <summary>

@@ -57,6 +57,7 @@ namespace System.Application
                     DI.Init(s => ConfigureServices(s, level));
                     static void ConfigureServices(IServiceCollection services, DILevel level)
                     {
+                        IsMainProcess = level == DILevel.MainProcess;
                         ConfigureRequiredServices(services);
                         ConfigureDemandServices(services, level);
                     }

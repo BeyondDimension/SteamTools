@@ -7,6 +7,8 @@ namespace System.Application.Services
 {
     public interface IDesktopAppService
     {
+        public static IDesktopAppService Instance => DI.Get<IDesktopAppService>();
+
         /// <summary>
         /// 当前桌面应用的主题
         /// </summary>
@@ -27,6 +29,7 @@ namespace System.Application.Services
         /// 主窗口恢复显示
         /// </summary>
         void RestoreMainWindow();
+        void HideWindow();
 
         /// <summary>
         /// 托盘菜单

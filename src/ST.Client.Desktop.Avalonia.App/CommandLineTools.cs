@@ -1,4 +1,5 @@
 ﻿using System.Application.Services;
+using System.Application.UI;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 
@@ -38,14 +39,28 @@ namespace System.Application
 
 #endif
 
+            // -clt c 
+            var common = new Command("c", "common");
+            common.AddOption(new Option<bool>("-silence", "静默启动（不弹窗口）"));
+            common.Handler = CommandHandler.Create((bool silence) =>
+            {
+                initStartup(DILevel.MainProcess);
+                initCef();
+                Program.IsMinimize = silence;
+                initUIApp();
+            });
+            rootCommand.AddCommand(common);
+
             // -clt unlock-achievement -appid 730
             var unlock_achievement = new Command("unlock-achievement", "打开成就解锁窗口");
             unlock_achievement.AddOption(new Option<int>("-appid", "指定一个Steam游戏Id"));
-            unlock_achievement.Handler = CommandHandler.Create((int appid) =>
+            unlock_achievement.AddOption(new Option<bool>("-silence", "静默启动（不弹窗口）"));
+            unlock_achievement.Handler = CommandHandler.Create((int appid, bool silence) =>
             {
                 if (appid <= 0) return;
                 initStartup(DILevel.GUI);
                 IWindowService.Instance.InitUnlockAchievement(appid);
+                Program.IsMinimize = silence;
                 initUIApp();
             });
             rootCommand.AddCommand(unlock_achievement);

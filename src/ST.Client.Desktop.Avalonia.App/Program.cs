@@ -115,6 +115,11 @@ namespace System.Application.UI
         exit: return 0;
         }
 
+        /// <summary>
+        /// 是否最小化
+        /// </summary>
+        internal static bool IsMinimize { get; set; }
+
         static string InitLogDir()
         {
             var logDirPath = Path.Combine(AppContext.BaseDirectory, "Logs");
