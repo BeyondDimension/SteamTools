@@ -116,8 +116,12 @@ namespace System.Application.Services.Implementation
 					scriptContent.AppendLine(model.Content);
 					scriptContent.AppendLine("})( )");
 					var fileInfo = new FileInfo(model.CachePath);
+					if (!fileInfo.Directory.Exists)
+					{
+						fileInfo.Directory.Create();
+					}
 					if (fileInfo.Exists)
-						fileInfo.Delete();
+						fileInfo.Delete(); 
 					using (var stream = fileInfo.CreateText())
 					{
 						stream.Write(scriptContent);
@@ -125,6 +129,7 @@ namespace System.Application.Services.Implementation
 						await stream.DisposeAsync();
 						//stream
 					}
+
 					return true;
 					//var scriptRequired = new string[model.RequiredJsArray.Length];
 					//Parallel.ForEach(model.RequiredJsArray, async (item,index)=>
@@ -143,7 +148,7 @@ namespace System.Application.Services.Implementation
 			return false;
 		}
 		public async Task<IList<ScriptDTO>> GetAllScript()
-		{
+		{ 
 			var scriptList = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
 			foreach (var item in scriptList)
 			{

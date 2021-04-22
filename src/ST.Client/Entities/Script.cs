@@ -26,23 +26,21 @@ namespace System.Application.Entities
         /// 显示名称
         /// </summary>
         [Column("7C85E5C4")]
-        [SQLiteNotNull]
-        [NotNull, DisallowNull] // C# 8 not null
-        public string Name { get; set; }
+        [SQLiteNotNull] 
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// 脚本作者
         /// </summary>
         [Column("23BE056E")]
-        public string? Author { get; set; } = string.Empty;
+        public string Author { get; set; } = string.Empty;
 
         /// <summary>
         /// 版本号
         /// </summary>
         [Column("8037C4C3")]
-        [SQLiteNotNull]
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? Version { get; set; } = string.Empty;
+        [SQLiteNotNull] 
+        public string Version { get; set; } = string.Empty;
 
         /// <summary>
         /// 服务器关联Guid
@@ -56,46 +54,44 @@ namespace System.Application.Entities
         /// </summary>
         [Column("C9719845")]
         [SQLiteNotNull]
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? FilePath { get; set; } = string.Empty;
+        public string FilePath { get; set; } = string.Empty;
 
         /// <summary>
         /// 缓存文件地址
         /// </summary>
         [Column("997C6B59")]
-        [SQLiteNotNull]
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? CachePath { get; set; } = string.Empty;
+        [SQLiteNotNull] 
+        public string CachePath { get; set; } = string.Empty;
 
         /// <summary>
         /// 来源地址(脚本主页)
         /// </summary>
         [Column("233E579D")]
-        public string? SourceLink { get; set; } = string.Empty;
+        public string SourceLink { get; set; } = string.Empty;
 
         /// <summary>
         /// 下载地址(当前版本下载地址)
         /// </summary>
         [Column("50EBB673")]
-        public string? DownloadLink { get; set; } = string.Empty;
+        public string DownloadLink { get; set; } = string.Empty;
 
         /// <summary>
         /// 更新地址(直链)
         /// </summary>
         [Column("A5AD2FBF")]
-        public string? UpdateLink { get; set; } = string.Empty;
+        public string UpdateLink { get; set; } = string.Empty;
          
         /// <summary>
         /// 说明
         /// </summary>
         [Column("B49B2587")]
-        public string? Description { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         /// <summary>
         /// 脚本匹配域名，分号分割多个
         /// </summary>
         [Column("29296F97")]
-        public string? MatchDomainNames { get; set; } = string.Empty;
+        public string MatchDomainNames { get; set; } = string.Empty;
          
         /// <summary>
         /// 是否启用

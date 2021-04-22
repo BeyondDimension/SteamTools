@@ -222,12 +222,13 @@ namespace System.Application.Services
 
 
             #region 加载脚本数据
-            var response = await client.Scripts();
-            if (!response.IsSuccess)
-            {
-                return;
-            }
-            ProxyScripts = new ObservableCollection<ScriptDTO>(response.Content);
+            var scriptList =await DI.Get<IScriptManager>().GetAllScript();
+            //var response =// await client.Scripts();
+            //if (!response.IsSuccess)
+            //{
+            //    return;
+            //}
+            ProxyScripts = scriptList;//new ObservableCollection<ScriptDTO>(response.Content);
 
             #endregion
         }

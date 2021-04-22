@@ -39,6 +39,7 @@ namespace System.Application.Services.Implementation
         public int ProxyPort { get; set; } = 26501;
 
         public bool ProxyRunning => proxyServer.ProxyRunning;
+        public IList<HttpHeader> JsHeader =>new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
 
         public HttpProxyServiceImpl()
         {
@@ -65,7 +66,10 @@ namespace System.Application.Services.Implementation
             {
                 return;
             }
-
+            if (e.HttpClient.Request.Host == "local.steampp.net") { 
+                e.Ok(Scripts.FirstOrDefault(x=>x.JsPathUrl == e.HttpClient.Request.RequestUri.LocalPath)?.Content??"404", JsHeader);
+                return;
+            }
             foreach (var item in ProxyDomains)
             {
                 foreach (var host in item.DomainNamesArray)
@@ -170,6 +174,7 @@ namespace System.Application.Services.Implementation
                             }
                             foreach (var script in Scripts)
                             {
+                                if(script.ExcludeDomainNamesArray!=null)
                                 foreach (var host in script.ExcludeDomainNamesArray)
                                 {
                                     if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
@@ -180,26 +185,8 @@ namespace System.Application.Services.Implementation
                                     if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
                                     {
                                         var doc = await e.GetResponseBodyAsString();
-                                        if (script.RequiredJsArray.Length > 0)//|| script.Grant.Length > 0
-                                        {
-                                            var t = e.HttpClient.Response.Headers.GetFirstHeader("Content-Security-Policy");
-                                            if (!string.IsNullOrEmpty(t?.Value))
-                                            {
-                                                e.HttpClient.Response.Headers.RemoveHeader(t);
-                                            }
-#if DEBUG
-                                            Debug.WriteLine(e.HttpClient.Request.RequestUri.AbsoluteUri);
-#endif
-                                            foreach (var req in script.RequiredJsArray)
-                                            {
-                                                var headIndex = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
-                                                var temp1 = $"<script type=\"text/javascript\" src=\"{req}\"></script>\n";
-                                                if (headIndex > -1)
-                                                    doc = doc.Insert(headIndex, temp1);
-                                            }
-                                        }
                                         var index = doc.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
-                                        var temp = $"<script type=\"text/javascript\">{script.@Content}</script>";
+                                        var temp = $"<script type=\"text/javascript\" src=\"{script.JsPathUrl}\"></script>";
                                         if (index > -1)
                                         {
                                             doc = doc.Insert(index, temp);

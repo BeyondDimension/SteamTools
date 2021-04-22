@@ -13,261 +13,266 @@ using MPObj = MessagePack.MessagePackObjectAttribute;
 using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
-using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute; 
+using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 
 namespace System.Application.Models
 {
-    /// <summary>
-    /// 脚本
-    /// </summary>
-    [MPObj]
-    public class ScriptDTO
+	/// <summary>
+	/// 脚本
+	/// </summary>
+	[MPObj]
+	public class ScriptDTO
 #if MVVM_VM
-        : ReactiveObject
+		: ReactiveObject
 #endif
-    {
+	{
 #if MVVM_VM
-        const string HomepageURL = "HomepageURL";
-        const string DownloadURL = "DownloadURL";
-        const string UpdateURL = "UpdateURL";
-        const string Exclude = "Exclude";
-        const string Grant = "Grant";
-        const string Require = "Require";
-        const string Include = "Include";
-        const string DescRegex = @"(?<={0})[\s\S]*?(?=\n)";
+		const string HomepageURL = "HomepageURL";
+		const string DownloadURL = "DownloadURL";
+		const string UpdateURL = "UpdateURL";
+		const string Exclude = "Exclude";
+		const string Grant = "Grant";
+		const string Require = "Require";
+		const string Include = "Include";
+		const string DescRegex = @"(?<={0})[\s\S]*?(?=\n)";
 
-        public ScriptDTO()
-        {
+		public ScriptDTO()
+		{
 
-        }
+		}
 
-        public static bool TryParse(string path, [NotNullWhen(true)] out ScriptDTO? proxyScript)
-        {
-            var content = File.ReadAllText(path);
-            if (!string.IsNullOrEmpty(content))
-            {
-                var userScript = content.Substring("==UserScript==", "==/UserScript==");
-                if (!string.IsNullOrEmpty(userScript))
-                {
-                    var script = new ScriptDTO
-                    {
-                        FilePath = path,
-                        Content = content.Replace("</script>", "<\\/script>"),
-                        //Content = content.Replace("</script>", "<\\/script>").Replace(" ", "").Replace("\r", "").Replace("\n", "").Replace("\t", ""),
-                        Name = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Name)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
-                        //NameSpace = Regex.Matches(userScript, string.Format(DescRegex, $"@{nameof(NameSpace)}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true).ToArray(),
-                        Version = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Version)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
-                        Description = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Description)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
-                        Author = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Author)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
-                        SourceLink = Regex.Match(userScript, string.Format(DescRegex, $"@{HomepageURL}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
-                        //SupportURL = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(SupportURL)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
-                        DownloadLink = Regex.Match(userScript, string.Format(DescRegex, $"@{DownloadURL}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
-                        UpdateLink = Regex.Match(userScript, string.Format(DescRegex, $"@{UpdateURL}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
-                        ExcludeDomainNames = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Exclude}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true)),
-                        DependentGreasyForkFunction = Regex.Matches(userScript, string.Format(DescRegex, $"@{Grant}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true).Any_Nullable(),
-                        RequiredJs = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Require}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true)),
-                    };
-                    var matchs = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{nameof(Match)}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true));
-                    var Includes = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Include}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true));
-                    script.MatchDomainNames = string.IsNullOrEmpty(matchs) ? Includes : matchs;
-                    var enable = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Enable)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true);
+		public static bool TryParse(string path, [NotNullWhen(true)] out ScriptDTO? proxyScript)
+		{
+			var content = File.ReadAllText(path);
+			if (!string.IsNullOrEmpty(content))
+			{
+				var userScript = content.Substring("==UserScript==", "==/UserScript==");
+				if (!string.IsNullOrEmpty(userScript))
+				{
+					var script = new ScriptDTO
+					{
+						FilePath = path,
+						Content = content.Replace("</script>", "<\\/script>"),
+						//Content = content.Replace("</script>", "<\\/script>").Replace(" ", "").Replace("\r", "").Replace("\n", "").Replace("\t", ""),
+						Name = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Name)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+						//NameSpace = Regex.Matches(userScript, string.Format(DescRegex, $"@{nameof(NameSpace)}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true).ToArray(),
+						Version = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Version)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+						Description = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Description)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+						Author = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Author)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+						SourceLink = Regex.Match(userScript, string.Format(DescRegex, $"@{HomepageURL}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+						//SupportURL = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(SupportURL)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+						DownloadLink = Regex.Match(userScript, string.Format(DescRegex, $"@{DownloadURL}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+						UpdateLink = Regex.Match(userScript, string.Format(DescRegex, $"@{UpdateURL}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+						ExcludeDomainNames = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Exclude}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true)),
+						DependentGreasyForkFunction = Regex.Matches(userScript, string.Format(DescRegex, $"@{Grant}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true).Any_Nullable(),
+						RequiredJs = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Require}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true)),
+					};
+					var matchs = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{nameof(Match)}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true));
+					var Includes = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Include}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true));
+					script.MatchDomainNames = string.IsNullOrEmpty(matchs) ? Includes : matchs;
+					var enable = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Enable)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true);
 
-                    script.Enable = bool.TryParse(enable, out var e) && e;
-                    proxyScript = script;
-                    return true;
-                }
-            }
-            proxyScript = null;
-            return false;
-        } 
-        [MPIgnore]
-        [N_JsonIgnore]
-        [S_JsonIgnore]
-        public int? LocalId { get; set; } 
+					script.Enable = bool.TryParse(enable, out var e) && e;
+					proxyScript = script;
+					return true;
+				}
+			}
+			proxyScript = null;
+			return false;
+		}
+		[MPIgnore]
+		[N_JsonIgnore]
+		[S_JsonIgnore]
+		public int? LocalId { get; set; }
 
-        [MPIgnore]
-        [N_JsonIgnore]
-        [S_JsonIgnore]
-        public string? FilePath { get; set; } = string.Empty;
+		[MPIgnore]
+		[N_JsonIgnore]
+		[S_JsonIgnore]
+		public string? FilePath { get; set; } = string.Empty;
 
-        [MPIgnore]
-        [N_JsonIgnore]
-        [S_JsonIgnore]
-        public string? CachePath { get; set; } = string.Empty;
+		[MPIgnore]
+		[N_JsonIgnore]
+		[S_JsonIgnore]
+		public string? CachePath { get; set; } = string.Empty;
 
-        [MPIgnore]
-        [N_JsonIgnore]
-        [S_JsonIgnore]
-        public string? FileName => FilePath ?? Path.GetFileName(FilePath);
+		[MPIgnore]
+		[N_JsonIgnore]
+		[S_JsonIgnore]
+		public string? FileName => FilePath ?? Path.GetFileName(FilePath);
 
-        [MPIgnore]
-        [N_JsonIgnore]
-        [S_JsonIgnore]
-        public string? Content { get; set; } = string.Empty;
+		[MPIgnore]
+		[N_JsonIgnore]
+		[S_JsonIgnore]
+		public string? Content { get; set; } = string.Empty;
+
+		[MPIgnore]
+		[N_JsonIgnore]
+		[S_JsonIgnore]
+		public string? JsPathUrl => $"/{Guid.NewGuid()}";
 #endif
 
-        /// <summary>
-        /// 显示名称
-        /// </summary>
-        [MPKey(0)]
-        [N_JsonProperty("0")]
-        [S_JsonProperty("0")]
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? Name { get; set; } = string.Empty;
+		/// <summary>
+		/// 显示名称
+		/// </summary>
+		[MPKey(0)]
+		[N_JsonProperty("0")]
+		[S_JsonProperty("0")]
+		[NotNull, DisallowNull] // C# 8 not null
+		public string? Name { get; set; } = string.Empty;
 
-        /// <summary>
-        /// 脚本作者
-        /// </summary>
-        [MPKey(1)]
-        [N_JsonProperty("1")]
-        [S_JsonProperty("1")]
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? Author { get; set; } = string.Empty;
+		/// <summary>
+		/// 脚本作者
+		/// </summary>
+		[MPKey(1)]
+		[N_JsonProperty("1")]
+		[S_JsonProperty("1")]
+		[NotNull, DisallowNull] // C# 8 not null
+		public string? Author { get; set; } = string.Empty;
 
-        /// <summary>
-        /// 版本号
-        /// </summary>
-        [MPKey(2)]
-        [N_JsonProperty("2")]
-        [S_JsonProperty("2")]
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? Version { get; set; } = string.Empty;
+		/// <summary>
+		/// 版本号
+		/// </summary>
+		[MPKey(2)]
+		[N_JsonProperty("2")]
+		[S_JsonProperty("2")]
+		[NotNull, DisallowNull] // C# 8 not null
+		public string? Version { get; set; } = string.Empty;
 
-        /// <summary>
-        /// 来源地址
-        /// </summary>
-        [MPKey(3)]
-        [N_JsonProperty("3")]
-        [S_JsonProperty("3")]
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? SourceLink { get; set; } = string.Empty;
+		/// <summary>
+		/// 来源地址
+		/// </summary>
+		[MPKey(3)]
+		[N_JsonProperty("3")]
+		[S_JsonProperty("3")]
+		[NotNull, DisallowNull] // C# 8 not null
+		public string? SourceLink { get; set; } = string.Empty;
 
-        /// <summary>
-        /// 下载地址
-        /// </summary>
-        [MPKey(4)]
-        [N_JsonProperty("4")]
-        [S_JsonProperty("4")]
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? DownloadLink { get; set; } = string.Empty;
+		/// <summary>
+		/// 下载地址
+		/// </summary>
+		[MPKey(4)]
+		[N_JsonProperty("4")]
+		[S_JsonProperty("4")]
+		[NotNull, DisallowNull] // C# 8 not null
+		public string? DownloadLink { get; set; } = string.Empty;
 
-        /// <summary>
-        /// 更新地址
-        /// </summary>
-        [MPKey(5)]
-        [N_JsonProperty("5")]
-        [S_JsonProperty("5")]
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? UpdateLink { get; set; } = string.Empty;
+		/// <summary>
+		/// 更新地址
+		/// </summary>
+		[MPKey(5)]
+		[N_JsonProperty("5")]
+		[S_JsonProperty("5")]
+		[NotNull, DisallowNull] // C# 8 not null
+		public string? UpdateLink { get; set; } = string.Empty;
 
-        /// <summary>
-        /// 说明
-        /// </summary>
-        [MPKey(6)]
-        [N_JsonProperty("6")]
-        [S_JsonProperty("6")]
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? Description { get; set; } = string.Empty;
+		/// <summary>
+		/// 说明
+		/// </summary>
+		[MPKey(6)]
+		[N_JsonProperty("6")]
+		[S_JsonProperty("6")]
+		[NotNull, DisallowNull] // C# 8 not null
+		public string? Description { get; set; } = string.Empty;
 
-        /// <summary>
-        /// 脚本匹配域名，分号分割多个
-        /// </summary>
-        [MPKey(7)]
-        [N_JsonProperty("7")]
-        [S_JsonProperty("7")]
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? MatchDomainNames { get; set; } = string.Empty;
+		/// <summary>
+		/// 脚本匹配域名，分号分割多个
+		/// </summary>
+		[MPKey(7)]
+		[N_JsonProperty("7")]
+		[S_JsonProperty("7")]
+		[NotNull, DisallowNull] // C# 8 not null
+		public string? MatchDomainNames { get; set; } = string.Empty;
 
-        /// <summary>
-        /// 是否默认启用
-        /// </summary>
-        [MPKey(8)]
-        [N_JsonProperty("8")]
-        [S_JsonProperty("8")]
-        public bool Enable
+		/// <summary>
+		/// 是否默认启用
+		/// </summary>
+		[MPKey(8)]
+		[N_JsonProperty("8")]
+		[S_JsonProperty("8")]
+		public bool Enable
 #if MVVM_VM
-        {
-            get => mEnable;
-            set => this.RaiseAndSetIfChanged(ref mEnable, value);
-        }
-        bool mEnable;
+		{
+			get => mEnable;
+			set => this.RaiseAndSetIfChanged(ref mEnable, value);
+		}
+		bool mEnable;
 #else
         { get; set; }
 #endif
 
-        string? mMatchDomainNames;
-        string[]? mMatchDomainNamesArray;
-        readonly object mMatchDomainNamesArrayLock = new();
+		string? mMatchDomainNames;
+		string[]? mMatchDomainNamesArray;
+		readonly object mMatchDomainNamesArrayLock = new();
 
-        /// <inheritdoc cref="MatchDomainNames"/>
-        [MPIgnore]
-        [N_JsonIgnore]
-        [S_JsonIgnore]
-        public string[] MatchDomainNamesArray
-            => GetSplitValues(mMatchDomainNamesArrayLock, MatchDomainNames, ref mMatchDomainNames, ref mMatchDomainNamesArray);
+		/// <inheritdoc cref="MatchDomainNames"/>
+		[MPIgnore]
+		[N_JsonIgnore]
+		[S_JsonIgnore]
+		public string[] MatchDomainNamesArray
+			=> GetSplitValues(mMatchDomainNamesArrayLock, MatchDomainNames, ref mMatchDomainNames, ref mMatchDomainNamesArray);
 
-        /// <summary>
-        /// 脚本显示图标
-        /// </summary>
-        [MPKey(9)]
-        [N_JsonProperty("9")]
-        [S_JsonProperty("9")]
-        public string? Icon { get; set; }
+		/// <summary>
+		/// 脚本显示图标
+		/// </summary>
+		[MPKey(9)]
+		[N_JsonProperty("9")]
+		[S_JsonProperty("9")]
+		public string? Icon { get; set; }
 
-        /// <summary>
-        /// 是否依赖油猴函数
-        /// </summary>
-        [MPKey(10)]
-        [N_JsonProperty("10")]
-        [S_JsonProperty("10")]
-        public bool DependentGreasyForkFunction { get; set; }
+		/// <summary>
+		/// 是否依赖油猴函数
+		/// </summary>
+		[MPKey(10)]
+		[N_JsonProperty("10")]
+		[S_JsonProperty("10")]
+		public bool DependentGreasyForkFunction { get; set; }
 
-        /// <summary>
-        /// 脚本排除域名，分号分割多个
-        /// </summary>
-        [MPKey(11)]
-        [N_JsonProperty("11")]
-        [S_JsonProperty("11")]
-        public string? ExcludeDomainNames { get; set; }
+		/// <summary>
+		/// 脚本排除域名，分号分割多个
+		/// </summary>
+		[MPKey(11)]
+		[N_JsonProperty("11")]
+		[S_JsonProperty("11")]
+		public string? ExcludeDomainNames { get; set; }
 
-        string? mExcludeDomainNames;
-        string[]? mExcludeDomainNamesArray;
-        readonly object mExcludeDomainNamesArrayLock = new();
+		string? mExcludeDomainNames;
+		string[]? mExcludeDomainNamesArray;
+		readonly object mExcludeDomainNamesArrayLock = new();
 
-        /// <inheritdoc cref="ExcludeDomainNames"/>
-        [MPIgnore]
-        [N_JsonIgnore]
-        [S_JsonIgnore]
-        public string[]? ExcludeDomainNamesArray
-            => ExcludeDomainNames == null ? null : GetSplitValues(mExcludeDomainNamesArrayLock, ExcludeDomainNames, ref mExcludeDomainNames, ref mExcludeDomainNamesArray);
+		/// <inheritdoc cref="ExcludeDomainNames"/>
+		[MPIgnore]
+		[N_JsonIgnore]
+		[S_JsonIgnore]
+		public string[]? ExcludeDomainNamesArray
+			=> ExcludeDomainNames == null ? null : GetSplitValues(mExcludeDomainNamesArrayLock, ExcludeDomainNames, ref mExcludeDomainNames, ref mExcludeDomainNamesArray);
 
-        [MPKey(12)]
-        [N_JsonProperty("12")]
-        [S_JsonProperty("12")]
-        public List<Guid>? AccelerateProjects { get; set; }
+		[MPKey(12)]
+		[N_JsonProperty("12")]
+		[S_JsonProperty("12")]
+		public List<Guid>? AccelerateProjects { get; set; }
 
-        /// <summary>
-        /// 依赖外部JS，分号分割多个
-        /// </summary>
-        [MPKey(13)]
-        [N_JsonProperty("13")]
-        [S_JsonProperty("13")]
-        public string? RequiredJs { get; set; }
+		/// <summary>
+		/// 依赖外部JS，分号分割多个
+		/// </summary>
+		[MPKey(13)]
+		[N_JsonProperty("13")]
+		[S_JsonProperty("13")]
+		public string? RequiredJs { get; set; }
 
-        string? mRequiredJs;
-        string[]? mRequiredJsArray;
-        readonly object mRequiredJsArrayLock = new();
+		string? mRequiredJs;
+		string[]? mRequiredJsArray;
+		readonly object mRequiredJsArrayLock = new();
 
-        /// <inheritdoc cref="RequiredJs"/>
-        [MPIgnore]
-        [N_JsonIgnore]
-        [S_JsonIgnore]
-        public string[]? RequiredJsArray
-            => RequiredJs == null ? null : GetSplitValues(mRequiredJsArrayLock, RequiredJs, ref mRequiredJs, ref mRequiredJsArray);
+		/// <inheritdoc cref="RequiredJs"/>
+		[MPIgnore]
+		[N_JsonIgnore]
+		[S_JsonIgnore]
+		public string[]? RequiredJsArray
+			=> RequiredJs == null ? null : GetSplitValues(mRequiredJsArrayLock, RequiredJs, ref mRequiredJs, ref mRequiredJsArray);
 
-        [MPKey(14)]
-        [N_JsonProperty("14")]
-        [S_JsonProperty("14")]
-        public Guid Id { get; set; }
-    }
+		[MPKey(14)]
+		[N_JsonProperty("14")]
+		[S_JsonProperty("14")]
+		public Guid Id { get; set; }
+	}
 }
