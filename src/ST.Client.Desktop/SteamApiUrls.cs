@@ -14,6 +14,7 @@
         public const string STEAMAPP_LOGO_URL = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{0}/{1}.jpg";
         public const string STEAMAPP_LIBRARY_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/library_600x900.jpg";
         public const string STEAMAPP_LIBRARYHERO_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/library_hero.jpg";
+        public const string STEAMAPP_LIBRARYHEROBLUR_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/library_hero_blur.jpg";
         public const string STEAMAPP_LIBRARYLOGO_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/logo.png";
 
         /// <summary>

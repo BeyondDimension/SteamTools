@@ -7,49 +7,51 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.Settings_Steam">
-    <StackPanel Orientation="Vertical"
-            HorizontalAlignment="Stretch"
-            Spacing="20">
-        <StackPanel.Styles>
-            <Style Selector="TextBlock">
-                <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
-                <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
-            </Style>
-            <Style Selector="DockPanel > TextBlock">
-                <Setter Property="Margin" Value="0 0 20 0" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="(DockPanel.Dock)"  Value="Left" />
-            </Style>
-            <Style Selector="DockPanel > ToggleSwitch">
-                <Setter Property="Margin" Value="0 0 -12 0" />
-                <Setter Property="HorizontalAlignment" Value="Right" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="OnContent" Value="{x:Null}" />
-                <Setter Property="OffContent" Value="{x:Null}" />
-            </Style>
-        </StackPanel.Styles>
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical"
+                HorizontalAlignment="Stretch"
+                Spacing="20">
+            <StackPanel.Styles>
+                <Style Selector="TextBlock">
+                    <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
+                </Style>
+                <Style Selector="DockPanel > TextBlock">
+                    <Setter Property="Margin" Value="0 0 20 0" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="(DockPanel.Dock)"  Value="Left" />
+                </Style>
+                <Style Selector="DockPanel > ToggleSwitch">
+                    <Setter Property="Margin" Value="0 0 -12 0" />
+                    <Setter Property="HorizontalAlignment" Value="Right" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="OnContent" Value="{x:Null}" />
+                    <Setter Property="OffContent" Value="{x:Null}" />
+                </Style>
+            </StackPanel.Styles>
 
-        <DockPanel>
-            <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_AutoRunSteam,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-            <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsAutoRunSteam},Path=Value, Mode=TwoWay}"/>
-        </DockPanel>
+            <DockPanel>
+                <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_AutoRunSteam,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsAutoRunSteam},Path=Value, Mode=TwoWay}"/>
+            </DockPanel>
 
-        <DockPanel>
-            <TextBlock Text="最小化启动Steam"/>
-            <ToggleSwitch />
-        </DockPanel>
+            <DockPanel>
+                <TextBlock Text="最小化启动Steam"/>
+                <ToggleSwitch />
+            </DockPanel>
 
-        <DockPanel>
-            <TextBlock Text="Steam启动时不检查更新"/>
-            <ToggleSwitch />
-        </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Steam启动时不检查更新"/>
+                <ToggleSwitch />
+            </DockPanel>
 
-        <StackPanel Spacing="10">
-            <TextBlock Text= "{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static resx:R.Current}}" />
-            <TextBox Watermark="" Text="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamStratParameter},Path=Value, Mode=TwoWay}"
-                     MinHeight="150" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
+            <StackPanel Spacing="10">
+                <TextBlock Text= "{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static resx:R.Current}}" />
+                <TextBox Watermark="" Text="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamStratParameter},Path=Value, Mode=TwoWay}"
+                         MinHeight="150" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
+            </StackPanel>
+
+            <Separator Classes="Separator"/>
         </StackPanel>
-
-        <Separator Classes="Separator"/>
-    </StackPanel>
+    </ScrollViewer>
 </UserControl>

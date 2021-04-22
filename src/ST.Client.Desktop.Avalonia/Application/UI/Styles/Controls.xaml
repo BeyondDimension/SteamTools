@@ -4,8 +4,8 @@
     <Styles.Resources>
         <BoxShadows x:Key="DialogBoxShadow">4 11 30 1 #3F000000</BoxShadows>
         <BoxShadows x:Key="InfoBoxShadow">2 2 5 #3F000000</BoxShadows>
-        <Thickness x:Key="PageMargin">20 0 20 10</Thickness>
-        <Thickness x:Key="PageMargin2">30 0 30 10</Thickness>
+        <Thickness x:Key="PageMargin">20 0 20 0</Thickness>
+        <Thickness x:Key="PageMargin2">30 0 30 0</Thickness>
         <sys:Double x:Key="IconElementThemeHeight">16</sys:Double>
         <Easing x:Key="FluentEasing">0.4,0,0.6,1</Easing>
         <KeySpline x:Key="FluentKeySpline">0.4,0,0.6,1</KeySpline>
@@ -17,7 +17,6 @@
     <StyleInclude Source="/Application/UI/Styles/DrawingSvg.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/FontSizes.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/Separator.xaml" />
-    <StyleInclude Source="/Application/UI/Styles/Controls/SideBar.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/TabControl.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/TextBox.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/Border.xaml" />

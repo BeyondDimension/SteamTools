@@ -40,6 +40,13 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsOpenFilter, value);
         }
 
+        private bool _IsInstalledFilter;
+        public bool IsInstalledFilter
+        {
+            get => _IsInstalledFilter;
+            set => this.RaiseAndSetIfChanged(ref _IsInstalledFilter, value);
+        }
+
         private bool _IsAppInfoOpen;
         public bool IsAppInfoOpen
         {
@@ -104,6 +111,12 @@ namespace System.Application.UI.ViewModels
                       Update();
                   });
 
+            this.WhenAnyValue(x => x.IsInstalledFilter)
+                  .Subscribe(_ =>
+                  {
+                      Update();
+                  });
+
             this.WhenAnyValue(x => x.AppTypeFiltres)
                   .Subscribe(type => type?
                         .ToObservableChangeSet()
@@ -128,7 +141,7 @@ namespace System.Application.UI.ViewModels
                         return true;
                     }
                 }
-                else 
+                else
                 {
                     return true;
                 }
@@ -145,12 +158,19 @@ namespace System.Application.UI.ViewModels
                 }
                 return false;
             }
+            bool predicateInstalled(SteamApp s)
+            {
+                if (IsInstalledFilter)
+                    return s.IsInstalled;
+                return true;
+            }
 
             return Observable.Start(() =>
             {
                 var list = SteamConnectService.Current.SteamApps?
                 .Where(x => predicateType(x))
                 .Where(x => predicateName(x))
+                .Where(x => predicateInstalled(x))
                 .OrderBy(x => x.Name).ToList();
                 if (list.Any_Nullable())
                     this.SteamApps = list;

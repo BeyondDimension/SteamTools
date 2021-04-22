@@ -475,6 +475,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 默认 的本地化字符串。
+        /// </summary>
+        public static string Default {
+            get {
+                return ResourceManager.GetString("Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 账号注销 的本地化字符串。
         /// </summary>
         public static string DelAccount {
@@ -534,6 +543,24 @@ namespace System.Application.UI.Resx {
         public static string GameList {
             get {
                 return ResourceManager.GetString("GameList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 安装 的本地化字符串。
+        /// </summary>
+        public static string GameList_Install {
+            get {
+                return ResourceManager.GetString("GameList_Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 开始游戏 的本地化字符串。
+        /// </summary>
+        public static string GameList_Play {
+            get {
+                return ResourceManager.GetString("GameList_Play", resourceCulture);
             }
         }
         

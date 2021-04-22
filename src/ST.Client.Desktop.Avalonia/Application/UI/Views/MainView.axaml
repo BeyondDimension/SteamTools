@@ -155,9 +155,16 @@
             </TabControl.DataTemplates>
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <!--<TextBlock Text="{Binding Name}" FontSize="14" FontWeight="Regular">
-                    </TextBlock>-->
-                    <controls:ScrollingTextBlock Text="{Binding Name}" FontSize="14" FontWeight="Regular"></controls:ScrollingTextBlock>
+                    <DockPanel>
+                        <PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"
+                              Width="18" Height="18" 
+                              HorizontalAlignment="Left" 
+                              Margin="0 0 10 0"></PathIcon>
+                        <controls:ScrollingTextBlock
+                            Text="{Binding Name}" 
+                            FontSize="14" 
+                            FontWeight="Regular"></controls:ScrollingTextBlock>
+                    </DockPanel>
                 </DataTemplate>
             </TabControl.ItemTemplate>
         </TabControl>

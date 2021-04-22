@@ -25,6 +25,13 @@ namespace System.Application.UI.ViewModels
             protected set => this.RaiseAndSetIfChanged(ref _SelectLanguage, value);
         }
 
+        KeyValuePair<string, string> _SelectFont;
+        public KeyValuePair<string, string> SelectFont
+        {
+            get => _SelectFont;
+            protected set => this.RaiseAndSetIfChanged(ref _SelectFont, value);
+        }
+
         public SettingsPageViewModel()
         {
             IconKey = nameof(SettingsPageViewModel).Replace("ViewModel", "Svg");
@@ -32,6 +39,10 @@ namespace System.Application.UI.ViewModels
             SelectLanguage = R.Languages.SingleOrDefault(x => x.Key == UISettings.Language.Value);
             this.WhenAnyValue(x => x.SelectLanguage)
                   .Subscribe(x => UISettings.Language.Value = x.Key);
+
+            SelectFont = R.Fonts.SingleOrDefault(x => x.Value == UISettings.FontName.Value);
+            this.WhenAnyValue(x => x.SelectFont)
+                  .Subscribe(x => UISettings.FontName.Value = x.Value);
         }
     }
 }

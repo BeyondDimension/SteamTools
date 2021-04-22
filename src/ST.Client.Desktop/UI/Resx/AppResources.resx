@@ -256,6 +256,9 @@
   <data name="Cut" xml:space="preserve">
     <value>剪切</value>
   </data>
+  <data name="Default" xml:space="preserve">
+    <value>默认</value>
+  </data>
   <data name="DelAccount" xml:space="preserve">
     <value>账号注销</value>
   </data>
@@ -276,6 +279,12 @@
   </data>
   <data name="GameList" xml:space="preserve">
     <value>库存游戏</value>
+  </data>
+  <data name="GameList_Install" xml:space="preserve">
+    <value>安装</value>
+  </data>
+  <data name="GameList_Play" xml:space="preserve">
+    <value>开始游戏</value>
   </data>
   <data name="GameRelated" xml:space="preserve">
     <value>游戏功能</value>

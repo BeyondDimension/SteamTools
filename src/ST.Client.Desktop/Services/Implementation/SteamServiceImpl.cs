@@ -338,7 +338,7 @@ namespace System.Application.Services.Implementation
                 SteamApp.LibCacheType.Icon => app.IconUrl,
                 SteamApp.LibCacheType.Library_600x900 => app.LibraryLogoUrl,
                 SteamApp.LibCacheType.Library_Hero => app.LibraryHeaderUrl,
-                //SteamApp.LibCacheType.Library_Hero_Blur => "",
+                SteamApp.LibCacheType.Library_Hero_Blur => app.LibraryHeaderBlurStream,
                 SteamApp.LibCacheType.Logo => app.LibraryNameUrl,
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
             };
@@ -356,6 +356,10 @@ namespace System.Application.Services.Implementation
             if (app.LibraryHeaderStream == null)
             {
                 app.LibraryHeaderStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Library_Hero);
+            }
+            if (app.LibraryHeaderBlurStream == null)
+            {
+                app.LibraryHeaderBlurStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Library_Hero_Blur);
             }
             if (app.LibraryNameStream == null)
             {

@@ -14,38 +14,61 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.GameListPage">
     <SplitView IsPaneOpen="{Binding IsAppInfoOpen,Mode=TwoWay}"
-    PanePlacement="Right"
-    OpenPaneLength="500"
-    DisplayMode="Overlay"
-    PaneBackground="Transparent">
+            PanePlacement="Right"
+            OpenPaneLength="550"
+            DisplayMode="Overlay"
+            PaneBackground="Transparent">
         <SplitView.Pane>
-            <ScrollViewer>
-                <Panel>
-                    <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" ZIndex="0">
-                    </Border>
-                    <Panel
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Top">
-                        <Image
-                                Source="{Binding SelectApp.LibraryHeaderStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=500}"
-                                Stretch="Uniform"
-                                Width="500"></Image>
-                        <Image
-                               Source="{Binding SelectApp.LibraryNameStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}"
-                               Stretch="Uniform" Width="200" Margin="20 0 0 10"
-                               VerticalAlignment="Bottom"
-                               HorizontalAlignment="Left">
-                        </Image>
-                        <Button Content="安装" Classes="action"
-                            MinWidth="200"
-                            FontSize="16"
-                            HorizontalAlignment="Right"
-                            HorizontalContentAlignment="Center"
-                            VerticalAlignment="Bottom"
-                            VerticalContentAlignment="Center"></Button>
-                    </Panel>
-                </Panel>
-            </ScrollViewer>
+            <Border x:Name="pane" Classes="RightPane" Width="500" HorizontalAlignment="Right"
+                           Background="{DynamicResource ThemeBrushKey}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <Panel
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top">
+                            <gif:Image2
+                                    Source="{Binding SelectApp.LibraryHeaderStream}"
+                                    Stretch="Uniform"
+                                    Width="{ReflectionBinding #pane.Width}"
+                                    DecodeWidth="{ReflectionBinding #pane.Width}"></gif:Image2>
+                            <Image
+                                   Source="{Binding SelectApp.LibraryNameStream,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=200}"
+                                   Stretch="Uniform" Width="200" Margin="20 0 0 10"
+                                   VerticalAlignment="Bottom"
+                                   HorizontalAlignment="Left">
+                            </Image>
+                            <Button
+                                Classes="action"
+                                MinWidth="200"
+                                HorizontalAlignment="Right"
+                                HorizontalContentAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                VerticalContentAlignment="Center">
+                                <StackPanel Orientation="Horizontal">
+                                    <PathIcon
+                                              Data="{StaticResource PlayDrawing}"
+                                              Width="20" Height="20" Margin="0 0 10 0">
+                                    </PathIcon>
+                                    <TextBlock
+                                        FontSize="16" Text="{ReflectionBinding Path=Res.GameList_Play,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                                </StackPanel>
+                            </Button>
+                        </Panel>
+                        <Panel>
+                            <Border ZIndex="0">
+                                <gif:Image2
+                                        Source="{Binding SelectApp.LibraryHeaderBlurStream}"
+                                        Stretch="UniformToFill"
+                                        Height="500"
+                                        Width="{ReflectionBinding #pane.Width}"
+                                        DecodeWidth="{ReflectionBinding #pane.Width}">
+                                </gif:Image2>
+                            </Border>
+
+                        </Panel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
         </SplitView.Pane>
         <DockPanel>
             <!--<Expander
@@ -78,14 +101,15 @@
                         </Button>
                         <ToggleButton Background="Transparent"
                                       Cursor="Hand"
+                                      IsChecked="{Binding IsInstalledFilter,Mode=TwoWay}"
                                       ToolTip.Tip="仅显示已安装的游戏">
                             <PathIcon Data="{StaticResource PlayCircleDrawing}" />
                         </ToggleButton>
-                        <ToggleButton Background="Transparent"
+                        <!--<ToggleButton Background="Transparent"
                                       Cursor="Hand"
                                       ToolTip.Tip="仅显示来源于家庭共享的游戏">
                             <PathIcon Data="{StaticResource ChannelShareDrawing}" />
-                        </ToggleButton>
+                        </ToggleButton>-->
                         <ToggleButton x:Name="typebutton"
                                       VerticalAlignment="Center"
                                       MinWidth="200"
@@ -173,8 +197,37 @@
                         <DataTemplate>
                             <StackPanel Margin="20 0" Spacing="8">
                                 <Border DockPanel.Dock="Top" Classes="paper" x:Name="app" Cursor="Hand">
+                                    <Border.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem
+                                                      Icon="{StaticResource PlayDrawing}"
+                                                      Header="启动游戏"
+                                                      Command="{ReflectionBinding #u.DataContext.SteamId_Click}"
+                                                      CommandParameter="{ReflectionBinding}" />
+                                            <MenuItem
+                                                      Header="{ReflectionBinding Path=Res.Edit,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                                      Command="{ReflectionBinding #u.DataContext.OfflineModeButton_Click}"
+                                                      CommandParameter="{ReflectionBinding}" />
+                                            <MenuItem
+                                                      Header="隐藏此游戏"
+                                                      Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
+                                                      CommandParameter="{ReflectionBinding}" />
+                                            <MenuItem
+                                                      Header="设置自定义封面"
+                                                      Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
+                                                      CommandParameter="{ReflectionBinding}" />
+                                            <MenuItem
+                                                      Header="打开商店页"
+                                                      Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
+                                                      CommandParameter="{ReflectionBinding}" />
+                                            <MenuItem
+                                                      Header="SteamDB Info"
+                                                      Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
+                                                      CommandParameter="{ReflectionBinding}" />
+                                        </ContextMenu>
+                                    </Border.ContextMenu>
                                     <i:Interaction.Behaviors>
-                                        <ia:EventTriggerBehavior EventName="PointerPressed" SourceObject="{ReflectionBinding #app}">
+                                        <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #app}">
                                             <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.AppClick}" CommandParameter="{Binding}"/>
                                         </ia:EventTriggerBehavior>
                                     </i:Interaction.Behaviors>

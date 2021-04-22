@@ -110,6 +110,14 @@ namespace System.Application.Models
             get => _LibraryHeaderStream;
             set => this.RaiseAndSetIfChanged(ref _LibraryHeaderStream, value);
         }
+        public string LibraryHeaderBlurUrl => string.Format(STEAMAPP_LIBRARYHEROBLUR_URL, AppId);
+
+        private string? _LibraryHeaderBlurStream;
+        public string? LibraryHeaderBlurStream
+        {
+            get => _LibraryHeaderBlurStream;
+            set => this.RaiseAndSetIfChanged(ref _LibraryHeaderBlurStream, value);
+        }
 
         public string LibraryNameUrl => string.Format(STEAMAPP_LIBRARYLOGO_URL, AppId);
 
@@ -285,7 +293,9 @@ namespace System.Application.Models
             /// </summary>
             Library_Hero,
 
-            [Obsolete]
+            /// <summary>
+            /// <see cref="LibraryHeaderBlurUrl"/>
+            /// </summary>
             Library_Hero_Blur,
 
             /// <summary>

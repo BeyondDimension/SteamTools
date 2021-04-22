@@ -95,7 +95,7 @@
                                                 <controls:ScrollingTextBlock x:Name="nickname" Text="{Binding SteamNickName}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OpenUserUrl,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                                     <!--OpenUserProfileUrl-->
                                                     <i:Interaction.Behaviors>
-                                                        <ia:EventTriggerBehavior EventName="PointerPressed" SourceObject="{ReflectionBinding #nickname}">
+                                                        <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #nickname}">
                                                             <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.OpenUserProfileUrl}" CommandParameter="{Binding}"/>
                                                         </ia:EventTriggerBehavior>
                                                     </i:Interaction.Behaviors>
