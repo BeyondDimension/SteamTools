@@ -132,7 +132,7 @@ namespace System.Application.Repositories
         protected static bool IsDefault(TPrimaryKey primaryKey)
         {
             if (primaryKey == null) return true; // null is default
-            TPrimaryKey defPrimaryKey = default;
+            var defPrimaryKey = default(TPrimaryKey);
             if (defPrimaryKey == null) return false; // primaryKey not null
             return EqualityComparer<TPrimaryKey>.Default.Equals(primaryKey, defPrimaryKey);
         }

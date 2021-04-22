@@ -3,11 +3,6 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using System.IO;
 using static System.Application.AppClientAttribute;
-#if !__MOBILE__
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Platform;
-#endif
 
 namespace System.Application
 {

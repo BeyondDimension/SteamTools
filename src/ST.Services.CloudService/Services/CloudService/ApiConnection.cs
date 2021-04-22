@@ -8,6 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.FileFormats;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
@@ -77,7 +78,7 @@ namespace System.Application.Services.CloudService
         /// <param name="requestUri"></param>
         async Task Unauthorized(HttpMethod method, string requestUri)
         {
-            logger.LogInformation("Unauthorized method: {0}, requestUri: {1}", method, requestUri);
+            logger.LogCritical("Unauthorized method: {0}, requestUri: {1}", method, requestUri);
             await conn_helper.Auth.SignOutAsync();
         }
 
@@ -497,6 +498,7 @@ namespace System.Application.Services.CloudService
 
                 using var request = new HttpRequestMessage(method, requestUri)
                 {
+                    Version = HttpVersion.Version20,
                     Content = GetRequestContent(
                         isSecurity,
                         aes,
@@ -672,7 +674,10 @@ namespace System.Application.Services.CloudService
             IApiResponse responseResult;
             try
             {
-                using var request = new HttpRequestMessage(method, requestUri);
+                using var request = new HttpRequestMessage(method, requestUri)
+                {
+                    Version = HttpVersion.Version20,
+                };
 
                 JWTEntity? jwt = null;
 

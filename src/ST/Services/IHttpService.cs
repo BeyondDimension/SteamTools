@@ -41,9 +41,9 @@ namespace System.Application.Services
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<Stream?> GetImageStreamAsync(
-        string requestUri,
-        string channelType,
-        CancellationToken cancellationToken);
+            string requestUri,
+            string channelType,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// (带本地缓存)通过 Get 请求 Image FilePath

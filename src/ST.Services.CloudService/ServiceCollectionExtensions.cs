@@ -2,6 +2,7 @@
 using System;
 using System.Application.Services;
 using System.Application.Services.CloudService;
+using System.Net;
 using System.Net.Http;
 using System.Properties;
 
@@ -17,7 +18,9 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services"></param>
         /// <param name="useMock"></param>
         /// <returns></returns>
-        public static IServiceCollection TryAddCloudServiceClient<T>(this IServiceCollection services, bool useMock = false)
+        public static IServiceCollection TryAddCloudServiceClient<T>(
+            this IServiceCollection services,
+            bool useMock = false)
             where T : CloudServiceClientBase
         {
             services.TryAddHttpPlatformHelper();
@@ -29,9 +32,20 @@ namespace Microsoft.Extensions.DependencyInjection
                 c.DefaultRequestHeaders.UserAgent.ParseAdd(sc.UserAgent);
                 c.DefaultRequestHeaders.Add(Constants.Headers.Request.AppVersion, sc.Settings.AppVersionStr);
 #if NETCOREAPP3_0_OR_GREATER
-                c.DefaultRequestVersion = System.Net.HttpVersion.Version20;
+                c.DefaultRequestVersion = HttpVersion.Version20;
 #endif
-            });
+#if NET5_0_OR_GREATER
+                c.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact;
+#endif
+            })
+#if NETCOREAPP2_1_OR_GREATER
+                .ConfigurePrimaryHttpMessageHandler(() => new SocketsHttpHandler
+                {
+                    UseCookies = false,
+                    AutomaticDecompression = DecompressionMethods.GZip,
+                })
+#endif
+                ;
             services.TryAddSingleton<T>();
             services.TryAddSingleton<CloudServiceClientBase>(s => s.GetRequiredService<T>());
             if (useMock && ThisAssembly.Debuggable)

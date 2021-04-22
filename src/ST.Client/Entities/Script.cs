@@ -7,13 +7,13 @@ using SQLiteNotNull = SQLite.NotNullAttribute;
 using SQLiteTable = SQLite.TableAttribute;
 
 namespace System.Application.Entities
-{ 
+{
     /// <summary>
     /// 游戏账号平台令牌
     /// </summary>
     [SQLiteTable("1B2D820C")]
     [DebuggerDisplay("{DebuggerDisplay(),nq}")]
-    public  class Script : IEntity<int>
+    public class Script : IEntity<int>
     {
         string DebuggerDisplay() => $"{Name}, {Id}";
 
@@ -26,7 +26,7 @@ namespace System.Application.Entities
         /// 显示名称
         /// </summary>
         [Column("7C85E5C4")]
-        [SQLiteNotNull] 
+        [SQLiteNotNull]
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace System.Application.Entities
         /// <summary>
         /// 服务器关联Guid
         /// </summary>
-        [Column("F1DDBF5B")] 
+        [Column("F1DDBF5B")]
         public Guid? Pid { get; set; }
 
 

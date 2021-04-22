@@ -7,7 +7,6 @@ using System.Application.Services.CloudService.Clients;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Net.Http;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,7 +14,7 @@ namespace System.Application.Services.CloudService
 {
     public abstract class CloudServiceClientBase : GeneralHttpClientFactory, ICloudServiceClient, IApiConnectionPlatformHelper
     {
-        public const string ClientName_ = "CloudServiceClient";
+        protected internal const string ClientName_ = "CloudServiceClient";
 
         #region Clients
 

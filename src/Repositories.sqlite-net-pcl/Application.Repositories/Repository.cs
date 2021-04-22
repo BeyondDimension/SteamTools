@@ -179,7 +179,18 @@ namespace System.Application.Repositories
         public virtual async Task<(int rowCount, DbRowExecResult result)> InsertOrUpdateAsync(TEntity entity)
         {
             var dbConnection = await GetDbConnection().ConfigureAwait(false);
-            var rowCount = await AttemptAndRetry(() => dbConnection.InsertOrReplaceAsync(entity)).ConfigureAwait(false);
+            var rowCount = await AttemptAndRetry(() =>
+            {
+                var primaryKey = GetPrimaryKey(entity);
+                if (IRepository<TEntity, TPrimaryKey>.IsDefault(primaryKey))
+                {
+                    return dbConnection.InsertAsync(entity);
+                }
+                else
+                {
+                    return dbConnection.InsertOrReplaceAsync(entity);
+                }
+            }).ConfigureAwait(false);
             return (rowCount, DbRowExecResult.InsertOrUpdate);
         }
 
