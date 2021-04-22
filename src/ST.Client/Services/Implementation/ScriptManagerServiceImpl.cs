@@ -55,6 +55,8 @@ namespace System.Application.Services.Implementation
 							if (await BuildScriptAsync(info))
 							{
 								var db = mapper.Map<Script>(info);
+								db.MD5 = md5;
+								db.SHA512 = sha512;
 								await scriptRepository.InsertOrUpdateAsync(db);
 								return true;
 							}

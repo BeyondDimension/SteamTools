@@ -1,5 +1,6 @@
 ﻿#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 using SQLite;
+using System.Application.Columns;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using NotNull = System.Diagnostics.CodeAnalysis.NotNullAttribute;
@@ -9,11 +10,11 @@ using SQLiteTable = SQLite.TableAttribute;
 namespace System.Application.Entities
 {
     /// <summary>
-    /// 游戏账号平台令牌
+    /// 脚本
     /// </summary>
     [SQLiteTable("1B2D820C")]
     [DebuggerDisplay("{DebuggerDisplay(),nq}")]
-    public class Script : IEntity<int>
+    public class Script : IEntity<int> ,IOrder
     {
         string DebuggerDisplay() => $"{Name}, {Id}";
 
@@ -22,6 +23,8 @@ namespace System.Application.Entities
         [AutoIncrement]
         public int Id { get; set; }
 
+        [Column("8061969F")]
+        public int Order { get; set; }
         /// <summary>
         /// 显示名称
         /// </summary>
