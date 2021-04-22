@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace System.Application.Services
 {
-	public interface IScriptManager
+	public interface IScriptManagerService
 	{
 		/// <summary>
 		/// 绑定JS

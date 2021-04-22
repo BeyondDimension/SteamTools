@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 namespace System.Application.Services.Implementation
 {
-	public class ScriptManager : IScriptManager
+	public class ScriptManagerServiceImpl : IScriptManagerService
 	{
 		protected const string TAG = "Script";
 
@@ -22,14 +22,14 @@ namespace System.Application.Services.Implementation
 		protected readonly IMapper mapper;
 
 		protected readonly IScriptRepository scriptRepository;
-		public ScriptManager(
+		public ScriptManagerServiceImpl(
 		  IScriptRepository scriptRepository, IMapper mapper, ILoggerFactory loggerFactory, IToast toast, IHttpService httpService)
 		{
 			this.scriptRepository = scriptRepository;
 			this.mapper = mapper;
 			this.toast = toast;
 			this.httpService = httpService;
-			logger = loggerFactory.CreateLogger<ScriptManager>();
+			logger = loggerFactory.CreateLogger<ScriptManagerServiceImpl>();
 		}
 
 		public async Task<bool> AddScriptAsync(string filePath)

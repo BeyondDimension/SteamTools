@@ -80,7 +80,7 @@ namespace System.Application.UI.ViewModels
                    new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)),
             };
 
-            var temp = DI.Get<IScriptManager>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, "Scripts", "h.js")).ConfigureAwait(true);
+            var temp = DI.Get<IScriptManagerService>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, "Scripts", "h.js")).ConfigureAwait(true);
 
             updateSource
             .Do(_ => IsReloading = true)
