@@ -184,9 +184,16 @@ namespace System.Application.Services.Implementation
                                 {
                                     if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
                                     {
+                                        var t = e.HttpClient.Response.Headers.GetFirstHeader("Content-Security-Policy");
+                                        if (!string.IsNullOrEmpty(t?.Value))
+                                        {
+                                            e.HttpClient.Response.Headers.RemoveHeader(t);
+                                        }
                                         var doc = await e.GetResponseBodyAsString();
                                         var index = doc.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
-                                        var temp = $"<script type=\"text/javascript\" src=\"{script.JsPathUrl}\"></script>";
+                                        if (script.JsPathUrl == null)
+                                            script.JsPathUrl = $"/{Guid.NewGuid()}";
+                                        var temp = $"<script type=\"text/javascript\" src=\"https://local.steampp.net{script.JsPathUrl}\"></script>";
                                         if (index > -1)
                                         {
                                             doc = doc.Insert(index, temp);

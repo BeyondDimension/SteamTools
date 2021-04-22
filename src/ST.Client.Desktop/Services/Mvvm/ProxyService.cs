@@ -222,7 +222,7 @@ namespace System.Application.Services
 
 
             #region 加载脚本数据
-            var scriptList =await DI.Get<IScriptManager>().GetAllScript();
+            var scriptList =await DI.Get<IScriptManagerService>().GetAllScript();
             //var response =// await client.Scripts();
             //if (!response.IsSuccess)
             //{

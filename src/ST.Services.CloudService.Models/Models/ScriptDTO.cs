@@ -108,7 +108,7 @@ namespace System.Application.Models
 		[MPIgnore]
 		[N_JsonIgnore]
 		[S_JsonIgnore]
-		public string? JsPathUrl => $"/{Guid.NewGuid()}";
+		public string? JsPathUrl { get; set; }
 #endif
 
 		/// <summary>
