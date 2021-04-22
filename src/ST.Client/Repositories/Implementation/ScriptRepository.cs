@@ -25,5 +25,14 @@ namespace System.Application.Repositories.Implementation
 				return  await dbConnection.Table<Script>().Take(IScriptRepository.MaxValue).ToArrayAsync();
 			}).ConfigureAwait(false);
 		}
-    } 
+		public async Task<Script> ExistsScriptName(string name)
+		{
+			var dbConnection = await GetDbConnection().ConfigureAwait(false);
+			return await AttemptAndRetry(async () =>
+			{
+				return await dbConnection.Table<Script>().FirstOrDefaultAsync(x=>x.Name==name);
+			}).ConfigureAwait(false);
+		}
+		
+	} 
 }

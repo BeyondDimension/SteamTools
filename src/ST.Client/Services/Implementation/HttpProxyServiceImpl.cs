@@ -132,10 +132,10 @@ namespace System.Application.Services.Implementation
             //    Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
             //});
 
-            ////没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
-            //e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine}not support proxy");
-            return;
-        }
+			////没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
+			//e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine}not support proxy"); 
+			return;
+		}
 
         public async Task OnResponse(object sender, SessionEventArgs e)
         {

@@ -14,6 +14,7 @@ namespace System.Application.Repositories
 		/// </summary>
 		public const int MaxValue = 100;
 		Task<bool> ExistsScript(string md5, string sha512);
+		Task<Script> ExistsScriptName(string name);
 		Task<IList<Script>> GetAllAsync();
 	}
 }

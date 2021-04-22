@@ -50,14 +50,16 @@ namespace System.Application.Services.Implementation
 							if (await scriptRepository.ExistsScript(md5, sha512))
 								return true;
 							var cachePath = Path.Combine(IOPath.CacheDirectory, TAG, $"{md5}.js");
-							info.FilePath = cachePath;
+							info.FilePath = filePath;
+							info.CachePath = cachePath;
 							if (await BuildScriptAsync(info))
 							{
 								var db = mapper.Map<Script>(info);
 								await scriptRepository.InsertOrUpdateAsync(db);
 								return true;
 							}
-							else {
+							else
+							{
 								var msg = $"JS打包出错:{filePath}";
 								logger.LogError(msg);
 								toast.Show(msg);
@@ -91,10 +93,12 @@ namespace System.Application.Services.Implementation
 		{
 			try
 			{ 
-
 				if (model.RequiredJsArray != null)
 				{
 					var scriptContent = new StringBuilder();
+					scriptContent.AppendLine("(function() {");
+
+
 					foreach (var item in model.RequiredJsArray)
 					{
 						try
@@ -110,11 +114,12 @@ namespace System.Application.Services.Implementation
 						}
 					}
 					scriptContent.AppendLine(model.Content);
-					var fileInfo = new FileInfo(model.FilePath);
+					scriptContent.AppendLine("})( )");
+					var fileInfo = new FileInfo(model.CachePath);
 					if (fileInfo.Exists)
-						fileInfo.Delete(); 
+						fileInfo.Delete();
 					using (var stream = fileInfo.CreateText())
-					{ 
+					{
 						stream.Write(scriptContent);
 						await stream.FlushAsync();
 						await stream.DisposeAsync();
@@ -138,12 +143,12 @@ namespace System.Application.Services.Implementation
 			return false;
 		}
 		public async Task<IList<ScriptDTO>> GetAllScript()
-		{ 
-			var scriptList= mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync()); 
+		{
+			var scriptList = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
 			foreach (var item in scriptList)
 			{
-				item.Content= File.ReadAllText(item.CachePath);
-			} 
+				item.Content = File.ReadAllText(item.CachePath);
+			}
 			return scriptList;
 		}
 
