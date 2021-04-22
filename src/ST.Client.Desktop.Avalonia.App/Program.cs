@@ -15,7 +15,7 @@ namespace System.Application.UI
         // yet and stuff might break.
         [STAThread]
         static int Main(string[] args)
-       {
+        {
             // 目前桌面端默认使用 SystemTextJson 如果出现兼容性问题可取消下面这行代码
             // Serializable.DefaultJsonImplType = Serializable.JsonImplType.NewtonsoftJson;
             Startup.IsMainProcess = args.Length == 0;
@@ -131,11 +131,14 @@ namespace System.Application.UI
                 "      internalLogLevel=\"Off\">" +
                 "  <targets>" +
                 "    <target xsi:type=\"File\" name=\"logfile\" fileName=\"" + logDirPath_ + "nlog-all-${shortdate}.log\"" +
-                "            layout=\"${longdate}|${level}|${message} |${all-event-properties} ${exception:format=tostring}\" />" +
+                "            layout=\"${longdate}|${level}|${logger}|${message} |${all-event-properties} ${exception:format=tostring}\" />" +
                 "    <target xsi:type=\"Console\" name=\"logconsole\"" +
-                "            layout=\"${longdate}|${level}|${message} |${all-event-properties} ${exception:format=tostring}\" />" +
+                "            layout=\"${longdate}|${level}|${logger}|${message} |${all-event-properties} ${exception:format=tostring}\" />" +
                 "  </targets>" +
                 "  <rules>" +
+                // Skip non-critical Microsoft logs and so log only own logs
+                "    <logger name=\"Microsoft.*\" maxlevel=\"Info\" final=\"true\"/>" +
+                "    <logger name=\"System.Net.Http.*\" maxlevel=\"Info\" final=\"true\" />" +
                 "    <logger name=\"*\" minlevel=\"" + AppHelper.DefaultNLoggerMinLevel.Name + "\" writeTo=\"logfile,logconsole\"/>" +
                 "  </rules>" +
                 "</nlog>"

@@ -47,8 +47,8 @@ namespace System.Application.Services.Implementation
         [Conditional("DEBUG")]
         void PrintCurrentUser(string name)
         {
-            logger.LogInformation(
-                $"{name}: {currentUser?.ToStringHideMiddleFour()}");
+            //logger.LogInformation(
+            //    $"{name}: {currentUser?.ToStringHideMiddleFour()}");
         }
 
         protected async ValueTask<CurrentUser?> GetCurrentUserAsync(bool clone)
@@ -180,7 +180,7 @@ namespace System.Application.Services.Implementation
                 logger.LogError("VerifyUserInfo Fail(Id).");
                 return false;
             }
-            var nickName = await security.D(user.NickName);
+            var nickName = await security.D(user.NickName) ?? string.Empty;
             if (nickName != userInfo.NickName)
             {
                 logger.LogError("VerifyUserInfo Fail(NickName).");

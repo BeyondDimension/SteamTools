@@ -19,8 +19,8 @@ namespace System.Application.UI
         {
             base.OnBeforeCommandLineProcessing(processType, commandLine);
 #if DEBUG
-            Log.Debug(TAG, "ChromiumWebBrowser_OnBeforeCommandLineProcessing");
-            Log.Debug(TAG, commandLine.CommandLineString);
+            //Log.Debug(TAG, "ChromiumWebBrowser_OnBeforeCommandLineProcessing");
+            //Log.Debug(TAG, commandLine.CommandLineString);
 #endif
 
             //commandLine.AppendSwitchWithValue("proxy-server", "127.0.0.1:8888");

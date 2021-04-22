@@ -81,12 +81,12 @@ namespace System.IO.FileFormats
 
         #endregion
 
-        /// <summary>
-        /// 动态可移植网络图形（Animated Portable Network Graphics，APNG）是一种继承自便携式网络图形（PNG）的文件格式，他允许像GIF格式一样播放动态图片，并且拥有GIF不支持的24位图像和8位透明性。 它还保留了与非动画PNG文件的向后兼容性。
-        /// <para>https://zh.wikipedia.org/wiki/APNG</para>
-        /// <para>https://wiki.mozilla.org/APNG_Specification</para>
-        /// </summary>
-        APNG,
+        ///// <summary>
+        ///// 动态可移植网络图形（Animated Portable Network Graphics，APNG）是一种继承自便携式网络图形（PNG）的文件格式，他允许像GIF格式一样播放动态图片，并且拥有GIF不支持的24位图像和8位透明性。 它还保留了与非动画PNG文件的向后兼容性。
+        ///// <para>https://zh.wikipedia.org/wiki/APNG</para>
+        ///// <para>https://wiki.mozilla.org/APNG_Specification</para>
+        ///// </summary>
+        //APNG,
     }
 }
 
@@ -117,7 +117,7 @@ namespace System
                 ImageFormat.HEIFSequence => HEIF_HEIC.HEIF.DefaultFileExtension,
                 ImageFormat.HEIC => HEIF_HEIC.HEIC.DefaultFileExtension,
                 ImageFormat.HEICSequence => HEIF_HEIC.HEIC.DefaultFileExtension,
-                ImageFormat.APNG => APNG.DefaultFileExtension,
+                //ImageFormat.APNG => APNG.DefaultFileExtension,
                 _ => throw new ArgumentOutOfRangeException(nameof(imageFormat), imageFormat, null),
             };
         }
@@ -142,7 +142,7 @@ namespace System
                 ImageFormat.HEIFSequence => HEIF_HEIC.HEIFSequence.DefaultMIME,
                 ImageFormat.HEIC => HEIF_HEIC.HEIC.DefaultMIME,
                 ImageFormat.HEICSequence => HEIF_HEIC.HEICSequence.DefaultMIME,
-                ImageFormat.APNG => APNG.DefaultMIME,
+                //ImageFormat.APNG => APNG.DefaultMIME,
                 _ => throw new ArgumentOutOfRangeException(nameof(imageFormat), imageFormat, null),
             };
         }
@@ -168,7 +168,7 @@ namespace System
                 ImageFormat.HEIFSequence => HEIF_HEIC.HEIFSequence.MagicNumber,
                 ImageFormat.HEIC => HEIF_HEIC.HEIC.MagicNumber,
                 ImageFormat.HEICSequence => HEIF_HEIC.HEICSequence.MagicNumber,
-                ImageFormat.APNG => APNG.MagicNumber,
+                //ImageFormat.APNG => APNG.MagicNumber,
                 _ => throw new ArgumentOutOfRangeException(nameof(imageFormat), imageFormat, null),
             };
         }

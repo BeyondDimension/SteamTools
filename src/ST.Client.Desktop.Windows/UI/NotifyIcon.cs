@@ -246,10 +246,10 @@ namespace System.Application.UI
         /// </summary>
         public void WndProc(uint msg, IntPtr wParam, IntPtr lParam)
         {
-            Log.Debug(TAG, "WndProc: MSG={0}, wParam={1}, lParam={2}",
-                ((UnmanagedMethods.CustomWindowsMessage)msg).ToString(),
-                ((UnmanagedMethods.WindowsMessage)wParam.ToInt32()).ToString(),
-                ((UnmanagedMethods.WindowsMessage)lParam.ToInt32()).ToString());
+            //Log.Debug(TAG, "WndProc: MSG={0}, wParam={1}, lParam={2}",
+            //    ((UnmanagedMethods.CustomWindowsMessage)msg).ToString(),
+            //    ((UnmanagedMethods.WindowsMessage)wParam.ToInt32()).ToString(),
+            //    ((UnmanagedMethods.WindowsMessage)lParam.ToInt32()).ToString());
 
             // We only care about tray icon messages
             if (msg != (uint)UnmanagedMethods.CustomWindowsMessage.WM_TRAYMOUSE)

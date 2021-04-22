@@ -73,6 +73,7 @@
                        FontSize="12"
                        Text="{ReflectionBinding Path=Res.UploadYourAvatarDesc,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
             <Button Classes="SecondaryMin MariginButton"
+                    IsEnabled="False"
                     Content="{ReflectionBinding Path=Res.RefreshSteamAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
             <TextBlock FontSize="12"
                        TextWrapping="Wrap"

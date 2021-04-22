@@ -52,7 +52,7 @@ namespace System.Net.Http
         {
             clientName ??= DefaultClientName;
 #if DEBUG
-            logger.LogDebug("CreateClient, clientName: {0}", clientName);
+            //logger.LogDebug("CreateClient, clientName: {0}", clientName);
 #endif
             if (clientName == null)
             {

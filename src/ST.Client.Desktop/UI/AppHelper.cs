@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using NLog;
 using NLog.Extensions.Logging;
 using System.Application.Models;
 using System.Application.Security;
@@ -109,7 +110,7 @@ namespace System.Application.UI
 
                 // 可以多个日志提供同时用，比如还可以在 Win 平台再添加一个 Windows 事件日志
 
-                builder.AddNLog(); // 添加 NLog 日志
+                builder.AddNLog(NLogManager.Configuration); // 添加 NLog 日志
             }
 
             return (minLevel, (Action<ILoggingBuilder>)_);

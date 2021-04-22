@@ -11,12 +11,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using static System.Application.ForwardHelper;
+using static System.Application.Services.IHttpService;
 
 namespace System.Application.Services.Implementation
 {
     internal sealed class HttpServiceImpl : GeneralHttpClientFactory, IHttpService
     {
-        const string TAG = "HttpS";
         readonly JsonSerializer jsonSerializer = new();
         readonly ICloudServiceClient cloud_client;
 
@@ -124,7 +124,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
-                Log.Warn(TAG, e, "GetAsync Fail.");
+                logger.LogWarning(e, "SendAsync Fail.");
             }
             finally
             {
@@ -165,23 +165,23 @@ namespace System.Application.Services.Implementation
                         if (http_helper.SupportedImageFormats.Contains(format)) // 读取缓存并且格式符合要求
                         {
                             fileStream.Close();
-                            Log.Debug(TAG, "GetImageAsync localCacheFilePath: {0}", localCacheFilePath);
+                            //logger.LogDebug("GetImageAsync localCacheFilePath: {0}", localCacheFilePath);
                             return localCacheFilePath;
                         }
                         else // 格式不准确
                         {
-                            Log.Error(TAG, "GetImageAsync Not Supported ImageFormat: {0}.", format);
+                            logger.LogError("GetImageAsync Not Supported ImageFormat: {0}.", format);
                         }
                     }
                     else // 未知的图片格式
                     {
-                        Log.Error(TAG, "GetImageAsync Unknown ImageFormat.");
+                        logger.LogError("GetImageAsync Unknown ImageFormat.");
                     }
                 }
             }
             catch (Exception e)
             {
-                Log.Error(TAG, e, "GetImageAsync Load LocalFile Fail.");
+                logger.LogError(e, "GetImageAsync_ Load LocalFile Fail.");
             }
 
             if (localCacheFilePathExists)
@@ -191,7 +191,7 @@ namespace System.Application.Services.Implementation
 
             try
             {
-                Log.Debug(TAG, "GetImageAsync requestUri: {0}", requestUri);
+                //logger.LogDebug("GetImageAsync requestUri: {0}", requestUri);
                 //#if DEBUG
                 //                var now = DateTime.Now;
                 //                var filePath = Path.Combine(IOPath.CacheDirectory, $"{now.ToString(DateTimeFormat.Connect)}-{Hashs.String.Crc32(requestUri)}");
@@ -226,14 +226,13 @@ namespace System.Application.Services.Implementation
                         }
                         else // 格式不准确
                         {
-                            Log.Error(TAG,
-                                "GetImageAsync Download Not Supported ImageFormat: {0}.", format);
+                            logger.LogError("GetImageAsync Download Not Supported ImageFormat: {0}.", format);
                             isSupportedImageFormat = false;
                         }
                     }
                     else // 未知的图片格式
                     {
-                        Log.Error(TAG, "GetImageAsync Download Unknown ImageFormat.");
+                        logger.LogError("GetImageAsync Download Unknown ImageFormat.");
                         isSupportedImageFormat = false;
                     }
                     fileStream.Close();
@@ -250,7 +249,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
-                Log.Error(TAG, e, "GetImageAsync Fail.");
+                logger.LogError(e, "GetImageAsync_ Fail.");
             }
 
             return default;
@@ -258,19 +257,13 @@ namespace System.Application.Services.Implementation
 
         readonly ConcurrentDictionary<string, ConcurrentDictionary<string, Task<string?>>> get_image_pipeline = new();
 
-        public async Task<Stream?> GetImageStreamAsync(
-        string requestUri,
-        string channelType,
-        CancellationToken cancellationToken)
+        public async Task<Stream?> GetImageStreamAsync(string requestUri, string channelType, CancellationToken cancellationToken)
         {
             var file = await GetImageAsync(requestUri, channelType, cancellationToken);
             return string.IsNullOrEmpty(file) ? null : File.OpenRead(file);
         }
 
-        public async Task<string?> GetImageAsync(
-        string requestUri,
-        string channelType,
-        CancellationToken cancellationToken)
+        public async Task<string?> GetImageAsync(string requestUri, string channelType, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(requestUri)) return null;
 
@@ -303,26 +296,33 @@ namespace System.Application.Services.Implementation
 
         public async Task<Stream?> GetImageStreamAsync(string requestUri, CancellationToken cancellationToken)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
-            request.Headers.Accept.ParseAdd(http_helper.AcceptImages);
-            request.Headers.UserAgent.ParseAdd(http_helper.UserAgent);
-            var client = CreateClient();
-            var response = await client.SendAsync(request,
-                HttpCompletionOption.ResponseHeadersRead,
-                cancellationToken)
-                .ConfigureAwait(false);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                //var dirPath = Path.Combine(IOPath.CacheDirectory, "Images", "Temp");
-                //IOPath.DirCreateByNotExists(dirPath);
-                //var filePath = Path.Combine(dirPath, Path.GetTempFileName());
-                //IOPath.FileIfExistsItDelete(filePath);
-                var stream = await response.Content.ReadAsStreamAsync();
-                //var fileStream = File.Create(filePath);
-                //await stream.CopyToAsync(fileStream, cancellationToken);
-                return stream;
+                var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+                request.Headers.Accept.ParseAdd(http_helper.AcceptImages);
+                request.Headers.UserAgent.ParseAdd(http_helper.UserAgent);
+                var client = CreateClient();
+                var response = await client.SendAsync(request,
+                    HttpCompletionOption.ResponseHeadersRead,
+                    cancellationToken)
+                    .ConfigureAwait(false);
+                if (response.IsSuccessStatusCode)
+                {
+                    //var dirPath = Path.Combine(IOPath.CacheDirectory, "Images", "Temp");
+                    //IOPath.DirCreateByNotExists(dirPath);
+                    //var filePath = Path.Combine(dirPath, Path.GetTempFileName());
+                    //IOPath.FileIfExistsItDelete(filePath);
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    //var fileStream = File.Create(filePath);
+                    //await stream.CopyToAsync(fileStream, cancellationToken);
+                    return stream;
+                }
             }
-            return null;
+            catch (Exception e)
+            {
+                logger.LogError(e, "GetImageStreamAsync Fail.");
+            }
+            return default;
         }
     }
 }

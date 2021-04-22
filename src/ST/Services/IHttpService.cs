@@ -7,6 +7,8 @@ namespace System.Application.Services
 {
     public interface IHttpService
     {
+        protected const string TAG = "HttpService";
+
         public static IHttpService Instance => DI.Get<IHttpService>();
 
         Task<T?> SendAsync<T>(
