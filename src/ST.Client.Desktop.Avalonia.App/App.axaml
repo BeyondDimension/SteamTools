@@ -15,6 +15,7 @@
     <converters:DateFormatConverter x:Key="DateFormatConverter" />
     <converters:StringFormatConverter x:Key="StringFormatConverter" />
     <converters:GenderEnumValueConverter x:Key="GenderEnumValueConverter" />
+    <converters:UserAvatarValueConverter x:Key="UserAvatarValueConverter" />
   </Application.Resources>
   <Application.Styles>
     <FluentTheme Mode="Dark" />

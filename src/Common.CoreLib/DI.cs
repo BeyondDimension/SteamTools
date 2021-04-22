@@ -108,7 +108,7 @@ namespace System
 
 #if !NOT_DI
 
-        static Exception GetDIGetFailException(Exception e, Type serviceType) => new Exception($"DI.Get fail, serviceType: {serviceType}", e);
+        static Exception GetDIGetFailException(Exception e, Type serviceType) => new($"DI.Get fail, serviceType: {serviceType}", e);
 
         /// <summary>
         /// 获取依赖注入服务

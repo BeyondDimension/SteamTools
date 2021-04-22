@@ -49,7 +49,7 @@
 
                     <MenuItem x:Name="userBtn" Command="{Binding OpenUserMenu}">
                         <MenuItem.Header>
-                            <Image Source="/Application/UI/Assets/Icon9.ico" Height="20" Width="20">
+                            <Image Source="{ReflectionBinding Path=User, Source={x:Static service:UserService.Current}}, Converter={StaticResource UserAvatarValueConverter}}" Height="20" Width="20">
                                 <Image.Clip>
                                     <EllipseGeometry Rect="0,0,20,20" />
                                 </Image.Clip>
@@ -68,7 +68,7 @@
                         <StackPanel>
                             <Panel Width="200" Margin="5">
                                 <StackPanel Spacing="8">
-                                    <Image Source="/Application/UI/Assets/Icon9.ico" Height="100" Width="100" HorizontalAlignment="Center">
+                                    <Image Source="{ReflectionBinding Path=User, Source={x:Static service:UserService.Current}}, Converter={StaticResource UserAvatarValueConverter}}" Height="100" Width="100" HorizontalAlignment="Center">
                                         <Image.Clip>
                                             <EllipseGeometry Rect="0,0,100,100" />
                                         </Image.Clip>
