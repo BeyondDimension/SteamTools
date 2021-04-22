@@ -133,6 +133,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 管理成就 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Manage {
+            get {
+                return ResourceManager.GetString("Achievement_Manage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 新增 的本地化字符串。
         /// </summary>
         public static string Add {
@@ -547,6 +556,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 隐藏此游戏 的本地化字符串。
+        /// </summary>
+        public static string GameList_HideTheGame {
+            get {
+                return ResourceManager.GetString("GameList_HideTheGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 安装 的本地化字符串。
         /// </summary>
         public static string GameList_Install {
@@ -556,11 +574,56 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 仅显示已安装的游戏 的本地化字符串。
+        /// </summary>
+        public static string GameList_OnlyInstalled {
+            get {
+                return ResourceManager.GetString("GameList_OnlyInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 SteamDB Info 的本地化字符串。
+        /// </summary>
+        public static string GameList_OpenSteamDBUrl {
+            get {
+                return ResourceManager.GetString("GameList_OpenSteamDBUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开商店页 的本地化字符串。
+        /// </summary>
+        public static string GameList_OpenStoreUrl {
+            get {
+                return ResourceManager.GetString("GameList_OpenStoreUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 开始游戏 的本地化字符串。
         /// </summary>
         public static string GameList_Play {
             get {
                 return ResourceManager.GetString("GameList_Play", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 刷新游戏列表 的本地化字符串。
+        /// </summary>
+        public static string GameList_RefreshGamesList {
+            get {
+                return ResourceManager.GetString("GameList_RefreshGamesList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置自定义封面 的本地化字符串。
+        /// </summary>
+        public static string GameList_SetCustomImage {
+            get {
+                return ResourceManager.GetString("GameList_SetCustomImage", resourceCulture);
             }
         }
         

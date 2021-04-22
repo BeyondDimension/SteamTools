@@ -45,7 +45,7 @@
         <Setter Property="Command" Value="{Binding Command}"/>
         <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
     </Style>-->
-
+    
     <Style Selector="MenuItem.BindItem MenuItem">
         <Setter Property="Icon">
             <Setter.Value>

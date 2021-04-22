@@ -92,6 +92,11 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _AppTypeFiltres, value);
         }
 
+        public string TypeFilterString
+        {
+            get => string.Join(',', AppTypeFiltres.Where(x => x.Enable).Select(s => s.Name_Localiza));
+        }
+
         internal override void Initialize()
         {
             this.updateSource
@@ -124,6 +129,7 @@ namespace System.Application.UI.ViewModels
                         .WhenValueChanged(x => x.Enable, false)
                         .Subscribe(_ =>
                         {
+                            this.RaisePropertyChanged(nameof(TypeFilterString));
                             Update();
                         }));
         }
@@ -200,5 +206,9 @@ namespace System.Application.UI.ViewModels
             SelectApp = app;
         }
 
+        public void RefreshGamesList()
+        {
+
+        }
     }
 }

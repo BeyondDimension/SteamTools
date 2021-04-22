@@ -141,6 +141,9 @@
   <data name="About_UpdateHistory" xml:space="preserve">
     <value>更新记录</value>
   </data>
+  <data name="Achievement_Manage" xml:space="preserve">
+    <value>管理成就</value>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>新增</value>
   </data>
@@ -280,11 +283,29 @@
   <data name="GameList" xml:space="preserve">
     <value>库存游戏</value>
   </data>
+  <data name="GameList_HideTheGame" xml:space="preserve">
+    <value>隐藏此游戏</value>
+  </data>
   <data name="GameList_Install" xml:space="preserve">
     <value>安装</value>
   </data>
+  <data name="GameList_OnlyInstalled" xml:space="preserve">
+    <value>仅显示已安装的游戏</value>
+  </data>
+  <data name="GameList_OpenSteamDBUrl" xml:space="preserve">
+    <value>SteamDB Info</value>
+  </data>
+  <data name="GameList_OpenStoreUrl" xml:space="preserve">
+    <value>打开商店页</value>
+  </data>
   <data name="GameList_Play" xml:space="preserve">
     <value>开始游戏</value>
+  </data>
+  <data name="GameList_RefreshGamesList" xml:space="preserve">
+    <value>刷新游戏列表</value>
+  </data>
+  <data name="GameList_SetCustomImage" xml:space="preserve">
+    <value>设置自定义封面</value>
   </data>
   <data name="GameRelated" xml:space="preserve">
     <value>游戏功能</value>
