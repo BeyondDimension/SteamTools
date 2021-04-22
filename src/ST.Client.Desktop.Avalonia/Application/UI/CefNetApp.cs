@@ -1,7 +1,6 @@
 ﻿using Avalonia.Threading;
 using CefNet;
 using System.Application.Models;
-using System.Application.UI.Resx;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -91,6 +90,13 @@ navigator.__proto__ = newProto;
                 Platform.Apple => DI.DeviceIdiom == DeviceIdiom.Desktop ? Path.Combine(AppContext.BaseDirectory, "Contents", "Frameworks", "Chromium Embedded Framework.framework") : throw new PlatformNotSupportedException(),
                 _ => throw new ArgumentOutOfRangeException(nameof(DI.Platform), DI.Platform, null),
             };
+
+#if DEBUG
+            if (BuildConfig.IsAigioPC)
+            {
+                cefPath = @"G:\CEF\win-x86";
+            }
+#endif
 
             if (!Directory.Exists(cefPath))
             {

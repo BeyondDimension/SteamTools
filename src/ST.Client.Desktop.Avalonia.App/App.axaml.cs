@@ -206,7 +206,7 @@ namespace System.Application.UI
                         {
                             case Platform.Windows:
                             case Platform.Linux:
-                                notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon9.ico";
+                                notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico";
                                 break;
                             case Platform.Apple:
                                 notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon_16.png";

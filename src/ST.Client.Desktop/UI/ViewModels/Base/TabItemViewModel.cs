@@ -16,7 +16,7 @@ namespace System.Application.UI.ViewModels
 
         #region IconKey 图标svg Resource key
 
-        private string? _IconKey;
+        protected string? _IconKey;
 
         public virtual string? IconKey
         {

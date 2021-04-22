@@ -32,7 +32,7 @@
         <!--Title-->
         <Grid ColumnDefinitions="240,*,Auto" ZIndex="0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
-                <Image Source="/Application/UI/Assets/Icon9.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
+                <Image Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
                 <Label Content="{ReflectionBinding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
             </StackPanel>
             <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{ReflectionBinding SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}" Padding="15 8 0 0" FontSize="28"/>

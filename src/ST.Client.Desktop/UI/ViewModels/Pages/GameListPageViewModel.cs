@@ -24,10 +24,10 @@ namespace System.Application.UI.ViewModels
 
         public GameListPageViewModel()
         {
-            IconKey = nameof(GameListPageViewModel).Replace("ViewModel", "Svg");
-            AppTypeFiltres = new ObservableCollection<EnumModel<SteamAppType>>(EnumModel.GetEnumModels<SteamAppType>());
-            AppTypeFiltres[1].Enable = true;
-            AppTypeFiltres[2].Enable = true;
+            _IconKey = nameof(GameListPageViewModel).Replace("ViewModel", "Svg");
+            _AppTypeFiltres = new ObservableCollection<EnumModel<SteamAppType>>(EnumModel.GetEnumModels<SteamAppType>());
+            _AppTypeFiltres[1].Enable = true;
+            _AppTypeFiltres[2].Enable = true;
         }
 
         private readonly Subject<Unit> updateSource = new();
