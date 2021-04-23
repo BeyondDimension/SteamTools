@@ -222,6 +222,52 @@ namespace System.Application.Services
             }
         }
 
+        public async void RefreshGamesList()
+        {
+            SteamApps = await ISteamService.Instance.GetAppInfos();
+            var t = new Task(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                try
+                {
+                    while (true)
+                    {
+                        if (SteamTool.IsRunningSteamProcess)
+                        {
+                            if (!IsConnectToSteam)
+                            {
+                                if (ApiService.Initialize())
+                                {
+                                    while (true)
+                                    {
+                                        if (SteamApps.Any_Nullable())
+                                        {
+                                            SteamApps = ApiService.OwnsApps(SteamApps).ToList();
+                                            UpdateGamesImage();
+                                            Toast.Show("刷新游戏列表完成");
+                                            break;
+                                        }
+                                    }
+
+                                    DisposeSteamClient();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            IsConnectToSteam = false;
+                        }
+                        Thread.Sleep(2000);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(nameof(SteamConnectService), ex, "Task RefreshGamesList");
+                    ToastService.Current.Notify(ex.Message);
+                }
+            }, TaskCreationOptions.LongRunning);
+            t.Start();
+        }
 
         public void Dispose()
         {

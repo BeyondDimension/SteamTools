@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+             xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              xmlns:gif="clr-namespace:AvaloniaGif;assembly=AvaloniaGif"
@@ -19,7 +20,7 @@
             DisplayMode="Overlay"
             PaneBackground="Transparent">
         <SplitView.Pane>
-            <Border x:Name="pane" Classes="RightPane" 
+            <Border x:Name="pane" Classes="RightPane"
                     Width="500" HorizontalAlignment="Right"
                            Background="{DynamicResource ThemeBrushKey}">
                 <ScrollViewer>
@@ -56,7 +57,7 @@
                             </Button>
                         </Panel>
                         <Border Classes="dialog">
-                            
+
                         </Border>
                     </StackPanel>
                 </ScrollViewer>
@@ -87,7 +88,7 @@
                             <PathIcon Data="{StaticResource AddDrawing}" />
                         </Button>-->
                         <Button Background="Transparent"
-                                Command="{ReflectionBinding RefreshGamesList}"
+                                Command="{ReflectionBinding RefreshGamesList,Source={x:Static service:SteamConnectService.Current},Mode=OneWay}"
                                 Cursor="Hand"
                                 ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RefreshGamesList,Mode=OneWay,Source={x:Static resx:R.Current}}">
                             <PathIcon Data="{StaticResource RefreshDrawing}" />
@@ -185,7 +186,7 @@
         </TreeView>-->
             <Panel>
                 <TextBlock IsVisible="{Binding IsSteamAppsEmpty}"
-                   Text="{ReflectionBinding Path=Res.UserChange_NoUserTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                   Text="{ReflectionBinding Path=Res.GameList_IsEmpty,Mode=OneWay,Source={x:Static resx:R.Current}}"
                    TextWrapping="WrapWithOverflow"
                    VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="0 0 0 10">
@@ -196,15 +197,25 @@
                         <ItemsRepeater.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="20 0" Spacing="8">
-                                    <Border DockPanel.Dock="Top" Classes="paper" x:Name="app" Cursor="Hand">
+                                    <Border DockPanel.Dock="Top" Classes="paper" x:Name="app">
                                         <Border.ContextMenu>
                                             <ContextMenu>
                                                 <MenuItem
                                                           Header="{ReflectionBinding Path=Res.GameList_Play,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                                           Command="{ReflectionBinding #u.DataContext.SteamId_Click}"
-                                                          CommandParameter="{ReflectionBinding}" >
+                                                          CommandParameter="{ReflectionBinding}"
+                                                          IsVisible="{Binding IsInstalled}">
                                                     <MenuItem.Icon>
                                                         <PathIcon Data="{StaticResource PlayDrawing}" Width="14"></PathIcon>
+                                                    </MenuItem.Icon>
+                                                </MenuItem>
+                                                <MenuItem
+                                                          Header="{ReflectionBinding Path=Res.GameList_Install,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                                          Command="{ReflectionBinding #u.DataContext.SteamId_Click}"
+                                                          CommandParameter="{ReflectionBinding}"
+                                                          IsVisible="{Binding !IsInstalled}">
+                                                    <MenuItem.Icon>
+                                                        <PathIcon Data="{StaticResource DownloadDrawing}" Width="14"></PathIcon>
                                                     </MenuItem.Icon>
                                                 </MenuItem>
                                                 <MenuItem

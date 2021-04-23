@@ -205,10 +205,5 @@ namespace System.Application.UI.ViewModels
             IsAppInfoOpen = true;
             SelectApp = app;
         }
-
-        public void RefreshGamesList()
-        {
-
-        }
     }
 }

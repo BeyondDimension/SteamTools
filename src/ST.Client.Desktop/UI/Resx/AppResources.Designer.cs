@@ -574,6 +574,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 没有获取到任何游戏数据 的本地化字符串。
+        /// </summary>
+        public static string GameList_IsEmpty {
+            get {
+                return ResourceManager.GetString("GameList_IsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 仅显示已安装的游戏 的本地化字符串。
         /// </summary>
         public static string GameList_OnlyInstalled {

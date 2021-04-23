@@ -226,7 +226,7 @@ namespace System.Application.Services
             //    return;
             //}
             ProxyScripts = scriptList;//new ObservableCollection<ScriptDTO>(response.Content);
-
+            httpProxyService.IsEnableScript = IsEnableScript;
             #endregion
         }
 

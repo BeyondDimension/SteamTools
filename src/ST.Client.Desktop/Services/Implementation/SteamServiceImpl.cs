@@ -318,9 +318,7 @@ namespace System.Application.Services.Implementation
                 SteamApp.LibCacheType.Icon => $"{appId}_icon.jpg",
                 SteamApp.LibCacheType.Library_600x900 => $"{appId}_library_600x900.jpg",
                 SteamApp.LibCacheType.Library_Hero => $"{appId}_library_hero.jpg",
-#pragma warning disable CS0612 // 类型或成员已过时
                 SteamApp.LibCacheType.Library_Hero_Blur => $"{appId}_library_hero_blur.jpg",
-#pragma warning restore CS0612 // 类型或成员已过时
                 SteamApp.LibCacheType.Logo => $"{appId}_logo.png",
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
             };
@@ -353,22 +351,22 @@ namespace System.Application.Services.Implementation
             {
                 app.LibraryLogoStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Library_600x900);
             }
-            if (app.LibraryHeaderStream == null)
-            {
-                app.LibraryHeaderStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Library_Hero);
-            }
-            if (app.LibraryHeaderBlurStream == null)
-            {
-                app.LibraryHeaderBlurStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Library_Hero_Blur);
-            }
-            if (app.LibraryNameStream == null)
-            {
-                app.LibraryNameStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Logo);
-            }
-            if (app.HeaderLogoStream == null)
-            {
-                app.HeaderLogoStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Header);
-            }
+            //if (app.LibraryHeaderStream == null)
+            //{
+            //    app.LibraryHeaderStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Library_Hero);
+            //}
+            //if (app.LibraryHeaderBlurStream == null)
+            //{
+            //    app.LibraryHeaderBlurStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Library_Hero_Blur);
+            //}
+            //if (app.LibraryNameStream == null)
+            //{
+            //    app.LibraryNameStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Logo);
+            //}
+            //if (app.HeaderLogoStream == null)
+            //{
+            //    app.HeaderLogoStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Header);
+            //}
         }
 
 
