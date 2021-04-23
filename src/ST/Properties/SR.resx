@@ -172,6 +172,6 @@
     <value>验证码不正确</value>
   </data>
   <data name="验证码已过期或不存在" xml:space="preserve">
-    <value>验证码已过期或不存在</value>
+    <value>验证码错误或已过期</value>
   </data>
 </root>

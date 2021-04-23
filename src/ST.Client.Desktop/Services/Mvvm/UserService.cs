@@ -41,28 +41,33 @@ namespace System.Application.Services
             set => this.RaiseAndSetIfChanged(ref _User, value);
         }
 
+        static string GetAvaterPath(UserInfoDTO? user)
+        {
+            if (user is UserInfoDTO userInfo && userInfo.SteamAccountId.HasValue)
+            {
+                // Steam Avatar
+            }
+
+            if (user is IUserDTO user2 && user2.Avatar.HasValue)
+            {
+                // Guid Avatar
+                return ImageUrlHelper.GetImageApiUrlById(user2.Avatar.Value);
+            }
+            return DefaultAvaterPath;
+        }
+
+        const string DefaultAvaterPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater_default.png";
+        string _AvaterPath = DefaultAvaterPath;
         public string AvaterPath
         {
-            get
-            {
-                if (User is UserInfoDTO userInfo && userInfo.SteamAccountId.HasValue)
-                {
-                    // Steam Avatar
-                }
-
-                if (User is IUserDTO user && user.Avatar.HasValue)
-                {
-                    // Guid Avatar
-                }
-
-                return "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater_default.png";
-            }
+            get => GetAvaterPath(User);
+            set => this.RaiseAndSetIfChanged(ref _AvaterPath, value);
         }
 
         public UserService()
         {
             this.WhenAnyValue(x => x.User)
-                  .Subscribe(_ => this.RaisePropertyChanged(nameof(AvaterPath)));
+                  .Subscribe(x => AvaterPath = GetAvaterPath(x));
 
             userManager.OnSignOut += () =>
             {
@@ -79,6 +84,7 @@ namespace System.Application.Services
         public async Task RefreshUserAsync()
         {
             User = await userManager.GetCurrentUserInfoAsync();
+            AvaterPath = GetAvaterPath(User);
         }
     }
 }
