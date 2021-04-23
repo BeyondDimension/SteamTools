@@ -5,7 +5,7 @@ using System.Text;
 
 namespace System.Application.Models
 {
-    class SteamAppProperty
+    public class SteamAppProperty
     {
         public SteamAppPropertyType PropertyType
         {
@@ -125,7 +125,7 @@ namespace System.Application.Models
             _value = other._value;
         }
 
-        public override bool Equals(object obj)
+        public new bool Equals(object obj)
         {
             bool result = false;
             SteamAppProperty property = obj as SteamAppProperty;
@@ -136,7 +136,7 @@ namespace System.Application.Models
             return result;
         }
 
-        public override int GetHashCode()
+        public new int GetHashCode()
         {
             return base.GetType().GetHashCode() ^ Name.GetHashCode() ^ _propType.GetHashCode() ^ _value.GetHashCode();
         }

@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
         xmlns:pages="clr-namespace:System.Application.UI.Views.Pages"
+        xmlns:gif="clr-namespace:AvaloniaGif;assembly=AvaloniaGif"
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
@@ -49,10 +50,14 @@
 
                     <MenuItem x:Name="userBtn" Command="{Binding OpenUserMenu}">
                         <MenuItem.Header>
-                            <Image Source="{ReflectionBinding Path=User, Source={x:Static service:UserService.Current}}, Converter={StaticResource UserAvatarValueConverter}}" Height="20" Width="20">
-                                <Image.Clip>
+                            <Image
+                                Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=20}"
+                                Stretch="Uniform"
+                                Height="20"
+                                Width="20">
+                                <!--<Image.Clip>
                                     <EllipseGeometry Rect="0,0,20,20" />
-                                </Image.Clip>
+                                </Image.Clip>-->
                             </Image>
                         </MenuItem.Header>
                     </MenuItem>

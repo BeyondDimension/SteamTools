@@ -231,12 +231,12 @@ namespace System.Application.Models
             return other != null && Count == other.Count && _properties.All((SteamAppProperty prop) => other._properties.Any((SteamAppProperty otherProp) => prop.Equals(otherProp)));
         }
 
-        public override bool Equals(object obj)
+        public new bool Equals(object obj)
         {
             return Equals(obj as SteamAppPropertyTable);
         }
 
-        public override int GetHashCode()
+        public new int GetHashCode()
         {
             int num = base.GetType().GetHashCode();
             foreach (SteamAppProperty property in _properties)
@@ -282,7 +282,7 @@ namespace System.Application.Models
             return stringBuilder.ToString();
         }
 
-        public override string ToString()
+        public new string ToString()
         {
             return ToStringInternal(0);
         }

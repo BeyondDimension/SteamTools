@@ -232,30 +232,22 @@ namespace System.Application.Services
                 {
                     while (true)
                     {
-                        if (SteamTool.IsRunningSteamProcess)
+                        if (SteamTool.IsRunningSteamProcess && IsDisposedClient == false)
                         {
-                            if (!IsConnectToSteam)
+                            if (ApiService.Initialize())
                             {
-                                if (ApiService.Initialize())
+                                while (true)
                                 {
-                                    while (true)
+                                    if (SteamApps.Any_Nullable())
                                     {
-                                        if (SteamApps.Any_Nullable())
-                                        {
-                                            SteamApps = ApiService.OwnsApps(SteamApps).ToList();
-                                            UpdateGamesImage();
-                                            Toast.Show("刷新游戏列表完成");
-                                            break;
-                                        }
+                                        SteamApps = ApiService.OwnsApps(SteamApps).ToList();
+                                        UpdateGamesImage();
+                                        Toast.Show("刷新游戏列表完成");
+                                        DisposeSteamClient();
+                                        return;
                                     }
-
-                                    DisposeSteamClient();
                                 }
                             }
-                        }
-                        else
-                        {
-                            IsConnectToSteam = false;
                         }
                         Thread.Sleep(2000);
                     }
