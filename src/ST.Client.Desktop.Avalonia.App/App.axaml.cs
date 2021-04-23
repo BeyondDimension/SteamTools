@@ -26,6 +26,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using Avalonia;
 using Thickness = Avalonia.Thickness;
+using System.Application.UI.Views.Windows;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
@@ -130,22 +131,33 @@ namespace System.Application.UI
             ViewModelBase.IsInDesignMode = ApplicationLifetime == null;
             if (ViewModelBase.IsInDesignMode) Startup.Init(DILevel.MainProcess);
 
-            #region 启动时加载的资源
-            SettingsHost.Load();
-            compositeDisposable.Add(SettingsHost.Save);
-            compositeDisposable.Add(ProxyService.Current.Dispose);
-            compositeDisposable.Add(SteamConnectService.Current.Dispose);
-            Theme = (AppTheme)UISettings.Theme.Value;
-            UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
-            UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
-            #endregion
-
             var windowService = IWindowService.Instance;
             windowService.Init();
-            MainWindow = new MainWindow
+
+            switch (windowService.MainWindow)
             {
-                DataContext = windowService.MainWindow,
-            };
+                case AchievementWindowViewModel window:
+                    MainWindow = new AchievementWindow
+                    {
+                        DataContext = windowService.MainWindow,
+                    };
+                    break;
+                default:
+                    #region 主窗口启动时加载的资源
+                    SettingsHost.Load();
+                    compositeDisposable.Add(SettingsHost.Save);
+                    compositeDisposable.Add(ProxyService.Current.Dispose);
+                    compositeDisposable.Add(SteamConnectService.Current.Dispose);
+                    Theme = (AppTheme)UISettings.Theme.Value;
+                    UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
+                    UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
+                    #endregion
+                    MainWindow = new MainWindow
+                    {
+                        DataContext = windowService.MainWindow,
+                    };
+                    break;
+            }
         }
 
         public ContextMenu? NotifyIconContextMenu { get; private set; }

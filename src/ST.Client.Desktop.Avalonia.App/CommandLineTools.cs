@@ -51,14 +51,14 @@ namespace System.Application
             });
             rootCommand.AddCommand(common);
 
-            // -clt app -id 730
+            // -clt app -id 632360
             var unlock_achievement = new Command("app", "打开成就解锁窗口");
             unlock_achievement.AddOption(new Option<int>("-id", "指定一个Steam游戏Id"));
             unlock_achievement.AddOption(new Option<bool>("-silence", "静默启动（不弹窗口）"));
             unlock_achievement.Handler = CommandHandler.Create((int id, bool silence) =>
             {
                 if (id <= 0) return;
-                initStartup(DILevel.GUI | DILevel.HttpClientFactory);
+                initStartup(DILevel.GUI | DILevel.Steam | DILevel.HttpClientFactory);
                 IWindowService.Instance.InitUnlockAchievement(id);
                 Program.IsMinimize = silence;
                 initUIApp();

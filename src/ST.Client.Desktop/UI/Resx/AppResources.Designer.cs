@@ -142,6 +142,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 成就管理 的本地化字符串。
+        /// </summary>
+        public static string AchievementManage {
+            get {
+                return ResourceManager.GetString("AchievementManage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 新增 的本地化字符串。
         /// </summary>
         public static string Add {

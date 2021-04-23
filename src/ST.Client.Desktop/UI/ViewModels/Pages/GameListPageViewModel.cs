@@ -179,7 +179,7 @@ namespace System.Application.UI.ViewModels
                 .Where(x => predicateType(x))
                 .Where(x => predicateName(x))
                 .Where(x => predicateInstalled(x))
-                .OrderBy(x => x.Name).ToList();
+                .OrderBy(x => x.DisplayName).ToList();
                 if (list.Any_Nullable())
                     this.SteamApps = list;
                 else

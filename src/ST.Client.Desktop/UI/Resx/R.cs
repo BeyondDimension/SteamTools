@@ -85,6 +85,9 @@ namespace System.Application.UI.Resx
                 DefaultCurrentUICulture :
                 CultureInfo.GetCultureInfo(Languages.SingleOrDefault(x => x.Key == cultureName).Key);
             CultureInfo.CurrentUICulture = AppResources.Culture;
+            CultureInfo.DefaultThreadCurrentUICulture = AppResources.Culture;
+            CultureInfo.CurrentCulture = AppResources.Culture;
+            CultureInfo.DefaultThreadCurrentCulture = AppResources.Culture;
             mAcceptLanguage = GetAcceptLanguageCore();
             mLanguage = GetLanguageCore();
             Current.Res = new AppResources();
