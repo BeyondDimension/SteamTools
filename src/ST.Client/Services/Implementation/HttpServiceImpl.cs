@@ -249,6 +249,12 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
+#if !DEBUG
+                if (e is SocketException se && se.SocketErrorCode == SocketError.ConnectionReset)
+                {
+                    return default;
+                }
+#endif
                 logger.LogError(e, "GetImageAsync_ Fail.");
             }
 

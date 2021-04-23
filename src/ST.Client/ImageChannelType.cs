@@ -48,6 +48,7 @@ namespace System
             return httpService.GetImageAsync(requestUri, channelType_, cancellationToken);
         }
 
+        /// <inheritdoc cref="IHttpService.GetImageStreamAsync(string, string, CancellationToken)"/>
         public static Task<Stream?> GetImageStreamAsync(this IHttpService httpService,
             string? requestUri,
             ImageChannelType channelType,

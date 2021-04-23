@@ -12,10 +12,27 @@ namespace System.Application.Services.Implementation
     [SupportedOSPlatform("Windows10.0.10240.0")]
     internal sealed class Windows10DataProtectionProvider : IDataProtectionProvider
     {
+        static DataProtectionProvider GetDataProtectionProvider(string? protectionDescriptor = null)
+        {
+            try
+            {
+                DataProtectionProvider provider = protectionDescriptor == null ? new() : new(protectionDescriptor);
+                return provider;
+            }
+            catch (Exception e)
+            {
+                Log.Error(nameof(DataProtectionProvider), e,
+                    "DPP ctor fail, desc: {0}, cl: {1}",
+                    protectionDescriptor,
+                    string.Join(' ', Environment.GetCommandLineArgs()));
+                throw;
+            }
+        }
+
         public async Task<byte[]> ProtectAsync(byte[] data)
         {
             // LOCAL=user and LOCAL=machine do not require enterprise auth capability
-            var provider = new DataProtectionProvider("LOCAL=user");
+            var provider = GetDataProtectionProvider("LOCAL=user");
 
             var buffer = await provider.ProtectAsync(data.AsBuffer());
 
@@ -26,7 +43,7 @@ namespace System.Application.Services.Implementation
 
         public async Task<byte[]> UnprotectAsync(byte[] data)
         {
-            var provider = new DataProtectionProvider();
+            var provider = GetDataProtectionProvider();
 
             var buffer = await provider.UnprotectAsync(data.AsBuffer());
 

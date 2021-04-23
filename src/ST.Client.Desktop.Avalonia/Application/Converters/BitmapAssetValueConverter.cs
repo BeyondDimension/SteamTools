@@ -30,7 +30,8 @@ namespace System.Application.Converters
                 //在列表中使用此方法性能极差
                 else if (rawUri.StartsWith("http://") || rawUri.StartsWith("https://"))
                 {
-                    return DownloadImage(rawUri, width);
+                    return null;
+                    //return DownloadImage(rawUri, width);
                 }
                 else if (rawUri.StartsWith("avares://"))
                 {
@@ -52,13 +53,13 @@ namespace System.Application.Converters
             {
                 return GetBitmap(ics);
             }
-            else if (value is Guid imageid)
+            else if (value is Guid /*imageid*/)
             {
-                if (Guid.Empty == imageid)
-                {
-                    return null;
-                }
-                return DownloadImage(ImageUrlHelper.GetImageApiUrlById(imageid), width);
+                //if (Guid.Empty == imageid)
+                //{
+                return null;
+                //}
+                //return DownloadImage(ImageUrlHelper.GetImageApiUrlById(imageid), width);
             }
             throw new NotSupportedException();
         }

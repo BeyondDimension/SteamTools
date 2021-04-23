@@ -7,7 +7,7 @@ namespace System.Application
         /// <summary>
         /// 获取图片的APIURL(相对路径)
         /// </summary>
-        const string GetImageApiUrl = "{1}/api/images/{0}";
+        const string GetImageApiUrl = "{1}/api/image/{0}";
 
         /// <summary>
         /// 根据图片Id获取APIURL(绝对路径)
