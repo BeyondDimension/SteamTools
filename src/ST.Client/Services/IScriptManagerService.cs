@@ -19,7 +19,7 @@ namespace System.Application.Services
 		/// </summary>
 		/// <param name="path"></param>
 		/// <returns></returns>
-		Task<(bool state,ScriptDTO model, string msg)> AddScriptAsync(string path);
+		Task<(bool state,ScriptDTO? model, string msg)> AddScriptAsync(string path, ScriptDTO? oldInfo=null);
 		/// <summary>
 		/// 获取Sqlite全部脚本
 		/// </summary>
@@ -30,6 +30,6 @@ namespace System.Application.Services
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		Task<(bool state, string msg)> DeleteScriptAsync(ScriptDTO item);
+		Task<(bool state, string msg)> DeleteScriptAsync(ScriptDTO item, bool rmDb = true);
 	}
 }

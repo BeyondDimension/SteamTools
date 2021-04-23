@@ -577,6 +577,12 @@
   <data name="ScriptConfig_ScriptEmptyTip" xml:space="preserve">
     <value>未查询到匹配的脚本文件</value>
   </data>
+  <data name="Script_DeleteItem" xml:space="preserve">
+    <value>确定要删除这个脚本吗？</value>
+  </data>
+  <data name="Script_EditTxt" xml:space="preserve">
+    <value>是否完成脚本修改，点击确定刷新缓存。</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>搜索...</value>
   </data>

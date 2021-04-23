@@ -161,6 +161,123 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 脚本依赖下载出错:[{0}]_{1} 的本地化字符串。
+        /// </summary>
+        internal static string Script_BuildDownloadError {
+            get {
+                return ResourceManager.GetString("Script_BuildDownloadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 脚本绑定出错:{0} 的本地化字符串。
+        /// </summary>
+        internal static string Script_BuildError {
+            get {
+                return ResourceManager.GetString("Script_BuildError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 缓存文件删除失败:{0} 的本地化字符串。
+        /// </summary>
+        internal static string Script_CacheDeleteError {
+            get {
+                return ResourceManager.GetString("Script_CacheDeleteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 删除失败 的本地化字符串。
+        /// </summary>
+        internal static string Script_DeleteError {
+            get {
+                return ResourceManager.GetString("Script_DeleteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 删除成功 的本地化字符串。
+        /// </summary>
+        internal static string Script_DeleteSuccess {
+            get {
+                return ResourceManager.GetString("Script_DeleteSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文件删除失败:{0} 的本地化字符串。
+        /// </summary>
+        internal static string Script_FileDeleteError {
+            get {
+                return ResourceManager.GetString("Script_FileDeleteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 脚本重复 的本地化字符串。
+        /// </summary>
+        internal static string Script_FileRepeat {
+            get {
+                return ResourceManager.GetString("Script_FileRepeat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 脚本:{0}_文件丢失已删除 的本地化字符串。
+        /// </summary>
+        internal static string Script_NoFile {
+            get {
+                return ResourceManager.GetString("Script_NoFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 脚本:{0}_文件丢失，删除失败去尝试手动删除 的本地化字符串。
+        /// </summary>
+        internal static string Script_NoFileDeleteError {
+            get {
+                return ResourceManager.GetString("Script_NoFileDeleteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 程序异常 主键为空 的本地化字符串。
+        /// </summary>
+        internal static string Script_NoKey {
+            get {
+                return ResourceManager.GetString("Script_NoKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 脚本读取异常请检查语法是否有错误:{0} 的本地化字符串。
+        /// </summary>
+        internal static string Script_ReadFileError {
+            get {
+                return ResourceManager.GetString("Script_ReadFileError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存数据出错请重试 的本地化字符串。
+        /// </summary>
+        internal static string Script_SaveDBError {
+            get {
+                return ResourceManager.GetString("Script_SaveDBError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 添加成功 的本地化字符串。
+        /// </summary>
+        internal static string Script_SaveDbSuccess {
+            get {
+                return ResourceManager.GetString("Script_SaveDbSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 文件校验失败，请打开官网手动更新 的本地化字符串。
         /// </summary>
         internal static string UpdatePackVerificationFail {

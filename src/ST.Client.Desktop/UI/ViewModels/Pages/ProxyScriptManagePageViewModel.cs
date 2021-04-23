@@ -15,6 +15,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Properties;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -123,29 +124,56 @@ namespace System.Application.UI.ViewModels
 
 		public bool IsProxyScriptsEmpty => !ProxyScripts.Any_Nullable();
 
-		public void UpdateAllScript()
-		{
-
-		}
-
 		public void RefreshScriptButton()
 		{
 			ProxyService.Current.RefreshScript();
-			Toast.Show("刷新成功");
+			Toast.Show(string.Format(@AppResources.Success_, @AppResources.Refresh));
 		}
-		public async void DeleteScriptItemButton(ScriptDTO script)
+		public void DeleteScriptItemButton(ScriptDTO script)
+		{
+			var result = MessageBoxCompat.ShowAsync(@AppResources.Script_DeleteItem, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
+			{
+				if (s.Result == MessageBoxResultCompat.OK)
+				{
+					var item = await DI.Get<IScriptManagerService>().DeleteScriptAsync(script);
+					if (item.state)
+					{
+						if (ProxyService.Current.ProxyScripts != null)
+							ProxyService.Current.ProxyScripts.Remove(script);
+
+					}
+					Toast.Show(item.msg);
+				}
+			});
+		}
+		public void EditScriptItemButton(ScriptDTO script)
 		{
 
-			var item = await DI.Get<IScriptManagerService>().DeleteScriptAsync(script);
-			if (item.state)
+			var url = Path.Combine(IOPath.AppDataDirectory, script.FilePath);
+			DI.Get<IDesktopPlatformService>().OpenFileByTextReader(url);
+			var result = MessageBoxCompat.ShowAsync(@AppResources.Script_EditTxt, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
 			{
-				if (ProxyService.Current.ProxyScripts != null)
-					ProxyService.Current.ProxyScripts.Remove(script);
-
-			}
-			Toast.Show(item.msg);
+				if (s.Result == MessageBoxResultCompat.OK)
+				{
+					var item = await DI.Get<IScriptManagerService>().AddScriptAsync(url, script);
+					if (item.state)
+					{
+						if (ProxyService.Current.ProxyScripts != null && item.model != null)
+						{
+							var index = ProxyService.Current.ProxyScripts.IndexOf(script);
+							if (index > -1)
+							{
+								ProxyService.Current.ProxyScripts[index] = item.model;
+							}
+						}
+					}
+				}
+			});
 		}
-
+		public void OpenHomeScriptItemButton(ScriptDTO script)
+		{
+			Services.CloudService.Constants.BrowserOpen(script.SourceLink);
+		}
 		public async void RefreshScriptItemButton(ScriptDTO script)
 		{
 			if (script != null)
@@ -153,12 +181,13 @@ namespace System.Application.UI.ViewModels
 				{
 					var item = await DI.Get<IScriptManagerService>().AddScriptAsync(script.FilePath);
 					if (item.state)
-						script = item.model;
-					else
-					{
-						script.Enable = false;
-						Toast.Show(item.msg);
-					}
+						if (item.model != null)
+							script = item.model;
+						else
+						{
+							script.Enable = false;
+							Toast.Show(item.msg);
+						}
 				}
 		}
 	}

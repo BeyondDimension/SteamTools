@@ -152,6 +152,45 @@
   <data name="OpenSourceLibraryList" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\..\Resources\OpenSourceLibraryList.mpo;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Script_BuildDownloadError" xml:space="preserve">
+    <value>脚本依赖下载出错:[{0}]_{1}</value>
+  </data>
+  <data name="Script_BuildError" xml:space="preserve">
+    <value>脚本绑定出错:{0}</value>
+  </data>
+  <data name="Script_CacheDeleteError" xml:space="preserve">
+    <value>缓存文件删除失败:{0}</value>
+  </data>
+  <data name="Script_DeleteError" xml:space="preserve">
+    <value>删除失败</value>
+  </data>
+  <data name="Script_DeleteSuccess" xml:space="preserve">
+    <value>删除成功</value>
+  </data>
+  <data name="Script_FileDeleteError" xml:space="preserve">
+    <value>文件删除失败:{0}</value>
+  </data>
+  <data name="Script_FileRepeat" xml:space="preserve">
+    <value>脚本重复</value>
+  </data>
+  <data name="Script_NoFile" xml:space="preserve">
+    <value>脚本:{0}_文件丢失已删除</value>
+  </data>
+  <data name="Script_NoFileDeleteError" xml:space="preserve">
+    <value>脚本:{0}_文件丢失，删除失败去尝试手动删除</value>
+  </data>
+  <data name="Script_NoKey" xml:space="preserve">
+    <value>程序异常 主键为空</value>
+  </data>
+  <data name="Script_ReadFileError" xml:space="preserve">
+    <value>脚本读取异常请检查语法是否有错误:{0}</value>
+  </data>
+  <data name="Script_SaveDBError" xml:space="preserve">
+    <value>保存数据出错请重试</value>
+  </data>
+  <data name="Script_SaveDbSuccess" xml:space="preserve">
+    <value>添加成功</value>
+  </data>
   <data name="UpdatePackVerificationFail" xml:space="preserve">
     <value>文件校验失败，请打开官网手动更新</value>
   </data>

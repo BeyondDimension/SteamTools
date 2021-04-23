@@ -1412,6 +1412,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 确定要删除这个脚本吗？ 的本地化字符串。
+        /// </summary>
+        public static string Script_DeleteItem {
+            get {
+                return ResourceManager.GetString("Script_DeleteItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否完成脚本修改，点击确定刷新缓存。 的本地化字符串。
+        /// </summary>
+        public static string Script_EditTxt {
+            get {
+                return ResourceManager.GetString("Script_EditTxt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 脚本配置 的本地化字符串。
         /// </summary>
         public static string ScriptConfig {
