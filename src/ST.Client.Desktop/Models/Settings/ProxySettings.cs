@@ -45,6 +45,14 @@ namespace System.Application.Models.Settings
         public static SerializableProperty<IReadOnlyCollection<string>> SupportProxyServicesStatus { get; }
             = new SerializableProperty<IReadOnlyCollection<string>>(GetKey(), Providers.Local, new List<string>());
 
+
+        /// <summary>
+        /// ½Å±¾ÆôÓÃ×´Ì¬
+        /// </summary>
+        public static SerializableProperty<IReadOnlyCollection<int>> ScriptsStatus { get; }
+            = new SerializableProperty<IReadOnlyCollection<int>>(GetKey(), Providers.Local, new List<int>());
+
+
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
             return nameof(ProxySettings) + "." + propertyName;

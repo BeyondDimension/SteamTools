@@ -119,7 +119,7 @@ namespace System.Application.Models
             _propType = other._propType;
             if (_propType == SteamAppPropertyType.Table)
             {
-                _value = new SteamAppPropertyTable((SteamAppPropertyTable)other._value);
+                _value = (SteamAppPropertyTable)other._value;
                 return;
             }
             _value = other._value;
