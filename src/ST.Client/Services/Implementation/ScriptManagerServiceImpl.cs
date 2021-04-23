@@ -32,7 +32,7 @@ namespace System.Application.Services.Implementation
 			logger = loggerFactory.CreateLogger<ScriptManagerServiceImpl>();
 		}
 
-		public async Task<bool> AddScriptAsync(string filePath)
+		public async Task<(bool state, string msg)> AddScriptAsync(string filePath)
 		{
 			var fileInfo = new FileInfo(filePath);
 			if (fileInfo.Exists)
@@ -48,7 +48,14 @@ namespace System.Application.Services.Implementation
 							var md5 = Hashs.String.MD5(info.Content);
 							var sha512 = Hashs.String.SHA512(info.Content);
 							if (await scriptRepository.ExistsScript(md5, sha512))
-								return true;
+								return (true, "文件重复");
+							var savePath = Path.Combine(IOPath.AppDataDirectory, TAG, fileInfo.Name);
+							var saveInfo = new FileInfo(savePath);
+							if (!saveInfo.Directory.Exists)
+							{
+								saveInfo.Directory.Create();
+							}
+							fileInfo.CopyTo(savePath);
 							var cachePath = Path.Combine(IOPath.CacheDirectory, TAG, $"{md5}.js");
 							info.FilePath = filePath;
 							info.CachePath = cachePath;
@@ -57,22 +64,23 @@ namespace System.Application.Services.Implementation
 								var db = mapper.Map<Script>(info);
 								db.MD5 = md5;
 								db.SHA512 = sha512;
-								await scriptRepository.InsertOrUpdateAsync(db);
-								return true;
+								var state = (await scriptRepository.InsertOrUpdateAsync(db)).rowCount > 0;
+								return (state, state ? "" : "保存数据出错请重试");
 							}
 							else
 							{
 								var msg = $"JS打包出错:{filePath}";
 								logger.LogError(msg);
 								toast.Show(msg);
+								return (true, msg);
 							}
-							return false;
 						}
 						else
 						{
 							var msg = $"JS读取出错:{filePath}";
 							logger.LogError(msg);
 							toast.Show(msg);
+							return (true, msg);
 						}
 					}
 					catch (Exception e)
@@ -82,19 +90,23 @@ namespace System.Application.Services.Implementation
 				}
 				else
 				{
-					logger.LogError($"文件读取失败{filePath}");
+					var msg = $"文件解析失败，请检查格式:{filePath}";
+					logger.LogError(msg);
+					return (true, msg);
 				}
 			}
 			else
 			{
-				logger.LogError($"文件不存在:{filePath}");
+				var msg = $"文件不存在:{filePath}";
+				logger.LogError(msg);
+				return (true, msg);
 			}
-			return false;
+			return (true, "文件出现异常。");
 		}
 		public async Task<bool> BuildScriptAsync(ScriptDTO model)
 		{
 			try
-			{ 
+			{
 				if (model.RequiredJsArray != null)
 				{
 					var scriptContent = new StringBuilder();
@@ -123,7 +135,7 @@ namespace System.Application.Services.Implementation
 						fileInfo.Directory.Create();
 					}
 					if (fileInfo.Exists)
-						fileInfo.Delete(); 
+						fileInfo.Delete();
 					using (var stream = fileInfo.CreateText())
 					{
 						stream.Write(scriptContent);
@@ -150,11 +162,20 @@ namespace System.Application.Services.Implementation
 			return false;
 		}
 		public async Task<IList<ScriptDTO>> GetAllScript()
-		{ 
+		{
 			var scriptList = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
-			foreach (var item in scriptList)
+			try
 			{
-				item.Content = File.ReadAllText(item.CachePath);
+				foreach (var item in scriptList)
+				{
+					item.Content = File.ReadAllText(item.CachePath);
+				}
+			}
+			catch(Exception e) {
+
+				var errorMsg = $"文件读取出错:[{e}]";
+				logger.LogError(e, errorMsg);
+				toast.Show(errorMsg);
 			}
 			return scriptList;
 		}

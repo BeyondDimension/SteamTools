@@ -14,12 +14,16 @@ namespace System.Application.Services
 		/// </summary>
 		/// <returns></returns>
 		Task<bool> BuildScriptAsync(ScriptDTO model);
-		//Task<ScriptDTO> AddScriptAsync(string path);
-		Task<bool> AddScriptAsync(string path);
+		/// <summary>
+		/// 添加Js
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		Task<(bool state, string msg)> AddScriptAsync(string path);
 		/// <summary>
 		/// 获取Sqlite全部脚本
 		/// </summary>
 		/// <returns></returns>
-		 Task<IList<ScriptDTO>> GetAllScript();
+		Task<IList<ScriptDTO>> GetAllScript();
 	}
 }

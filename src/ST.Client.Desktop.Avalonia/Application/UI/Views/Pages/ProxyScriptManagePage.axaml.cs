@@ -39,5 +39,9 @@ namespace System.Application.UI.Views.Pages
                 }
             });
         }
+        private void RefreshScriptButton_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            ProxyService.Current.RefreshScript();
+        }
     }
 }
