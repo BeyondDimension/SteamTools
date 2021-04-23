@@ -18,16 +18,15 @@ namespace System.Application.Services.Implementation
     internal sealed class HttpServiceImpl : GeneralHttpClientFactory, IHttpService
     {
         readonly JsonSerializer jsonSerializer = new();
-        readonly ICloudServiceClient cloud_client;
+        readonly Lazy<ICloudServiceClient> _csc = new(() => DI.Get<ICloudServiceClient>());
+        ICloudServiceClient Csc => _csc.Value;
 
         public HttpServiceImpl(
-            ICloudServiceClient cloud_client,
             ILoggerFactory loggerFactory,
             IHttpPlatformHelper http_helper,
             IHttpClientFactory clientFactory)
             : base(loggerFactory.CreateLogger(TAG), http_helper, clientFactory)
         {
-            this.cloud_client = cloud_client;
         }
 
         public async Task<T?> SendAsync<T>(
@@ -49,7 +48,7 @@ namespace System.Application.Services.Implementation
                 {
                     try
                     {
-                        response = await cloud_client.Forward(request,
+                        response = await Csc.Forward(request,
                             HttpCompletionOption.ResponseHeadersRead,
                             cancellationToken);
                     }
