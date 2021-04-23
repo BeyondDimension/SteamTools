@@ -24,7 +24,7 @@ namespace System.Application.Entities
         public int Id { get; set; }
 
         [Column("8061969F")]
-        public int Order { get; set; }
+        public int Order { get; set; } = 10;
         /// <summary>
         /// 显示名称
         /// </summary>

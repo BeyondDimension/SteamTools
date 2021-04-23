@@ -32,7 +32,7 @@ namespace System.Application.Services.Implementation
 			logger = loggerFactory.CreateLogger<ScriptManagerServiceImpl>();
 		}
 
-		public async Task<(bool state, string msg)> AddScriptAsync(string filePath)
+		public async Task<(bool state,ScriptDTO? model, string msg)> AddScriptAsync(string filePath)
 		{
 			var fileInfo = new FileInfo(filePath);
 			if (fileInfo.Exists)
@@ -48,7 +48,7 @@ namespace System.Application.Services.Implementation
 							var md5 = Hashs.String.MD5(info.Content);
 							var sha512 = Hashs.String.SHA512(info.Content);
 							if (await scriptRepository.ExistsScript(md5, sha512))
-								return (true, "文件重复");
+								return (true,null, "文件重复");
 							var savePath = Path.Combine(IOPath.AppDataDirectory, TAG, fileInfo.Name);
 							var saveInfo = new FileInfo(savePath);
 							if (!saveInfo.Directory.Exists)
@@ -64,15 +64,16 @@ namespace System.Application.Services.Implementation
 								var db = mapper.Map<Script>(info);
 								db.MD5 = md5;
 								db.SHA512 = sha512;
+								info.LocalId = db.Id;
 								var state = (await scriptRepository.InsertOrUpdateAsync(db)).rowCount > 0;
-								return (state, state ? "" : "保存数据出错请重试");
+								return (state, info, state ? "" : "保存数据出错请重试");
 							}
 							else
 							{
 								var msg = $"JS打包出错:{filePath}";
 								logger.LogError(msg);
 								toast.Show(msg);
-								return (true, msg);
+								return (true, null, msg);
 							}
 						}
 						else
@@ -80,7 +81,7 @@ namespace System.Application.Services.Implementation
 							var msg = $"JS读取出错:{filePath}";
 							logger.LogError(msg);
 							toast.Show(msg);
-							return (true, msg);
+							return (true, null, msg);
 						}
 					}
 					catch (Exception e)
@@ -92,16 +93,16 @@ namespace System.Application.Services.Implementation
 				{
 					var msg = $"文件解析失败，请检查格式:{filePath}";
 					logger.LogError(msg);
-					return (true, msg);
+					return (true, null, msg);
 				}
 			}
 			else
 			{
 				var msg = $"文件不存在:{filePath}";
 				logger.LogError(msg);
-				return (true, msg);
+				return (true,null, msg);
 			}
-			return (true, "文件出现异常。");
+			return (true,null, "文件出现异常。");
 		}
 		public async Task<bool> BuildScriptAsync(ScriptDTO model)
 		{
@@ -172,7 +173,6 @@ namespace System.Application.Services.Implementation
 				}
 			}
 			catch(Exception e) {
-
 				var errorMsg = $"文件读取出错:[{e}]";
 				logger.LogError(e, errorMsg);
 				toast.Show(errorMsg);

@@ -22,6 +22,7 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using static Newtonsoft.Json.JsonConvert;
 
 namespace System.Application.UI.ViewModels
@@ -131,5 +132,10 @@ namespace System.Application.UI.ViewModels
         {
 
         }
+        public ICommand? RefreshScriptButton_Click { get; } = ReactiveCommand.Create(() =>
+        {
+            ProxyService.Current.RefreshScript();
+        });
+        public ICommand? RefreshScriptItemButton_Click { get; } = ReactiveCommand.Create(ProxyService.Current.RefreshScript);
     }
 }

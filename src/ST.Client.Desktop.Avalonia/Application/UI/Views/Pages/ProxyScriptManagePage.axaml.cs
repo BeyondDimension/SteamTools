@@ -38,10 +38,6 @@ namespace System.Application.UI.Views.Pages
                     ProxyService.Current.AddNewScript(s.Result[0]);
                 }
             });
-        }
-        private void RefreshScriptButton_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
-        {
-            ProxyService.Current.RefreshScript();
-        }
+        }  
     }
 }
