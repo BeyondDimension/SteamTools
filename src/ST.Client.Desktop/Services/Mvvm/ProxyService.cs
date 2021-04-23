@@ -285,6 +285,8 @@ namespace System.Application.Services
 					ProxyScripts.Add(item.model);
 				else
 					ProxyScripts = new ObservableCollection<ScriptDTO>() { item.model };
+				if(!string.IsNullOrWhiteSpace(item.msg))
+					Toast.Show(item.msg);
 			}
 			else
 				Toast.Show(item.msg);

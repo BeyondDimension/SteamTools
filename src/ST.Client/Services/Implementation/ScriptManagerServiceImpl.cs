@@ -47,8 +47,9 @@ namespace System.Application.Services.Implementation
 						{
 							var md5 = Hashs.String.MD5(info.Content);
 							var sha512 = Hashs.String.SHA512(info.Content);
-							if (await scriptRepository.ExistsScript(md5, sha512))
-								return (true,null, "文件重复");
+							if (await scriptRepository.ExistsScript(md5, sha512)) { 
+								return (true, info, string.Empty);
+							}
 							var savePath = Path.Combine(IOPath.AppDataDirectory, TAG, fileInfo.Name);
 							var saveInfo = new FileInfo(savePath);
 							if (!saveInfo.Directory.Exists)
@@ -66,14 +67,14 @@ namespace System.Application.Services.Implementation
 								db.SHA512 = sha512;
 								info.LocalId = db.Id;
 								var state = (await scriptRepository.InsertOrUpdateAsync(db)).rowCount > 0;
-								return (state, info, state ? "" : "保存数据出错请重试");
+								return (state, info, state ? "添加成功" : "保存数据出错请重试");
 							}
 							else
 							{
 								var msg = $"JS打包出错:{filePath}";
 								logger.LogError(msg);
 								toast.Show(msg);
-								return (true, null, msg);
+								return (false, null, msg);
 							}
 						}
 						else
@@ -81,7 +82,7 @@ namespace System.Application.Services.Implementation
 							var msg = $"JS读取出错:{filePath}";
 							logger.LogError(msg);
 							toast.Show(msg);
-							return (true, null, msg);
+							return (false, null, msg);
 						}
 					}
 					catch (Exception e)
@@ -93,16 +94,16 @@ namespace System.Application.Services.Implementation
 				{
 					var msg = $"文件解析失败，请检查格式:{filePath}";
 					logger.LogError(msg);
-					return (true, null, msg);
+					return (false, null, msg);
 				}
 			}
 			else
 			{
 				var msg = $"文件不存在:{filePath}";
 				logger.LogError(msg);
-				return (true,null, msg);
+				return (false, null, msg);
 			}
-			return (true,null, "文件出现异常。");
+			return (false,null, "文件出现异常。");
 		}
 		public async Task<bool> BuildScriptAsync(ScriptDTO model)
 		{
