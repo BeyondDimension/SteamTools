@@ -9,15 +9,20 @@ namespace System
 
         public const string ProjectDir_AvaloniaApp = "ST.Client.Desktop.Avalonia.App";
 
+        public const string ProjectDir_Win7Troubleshoot = "ST.Tools.Win7Troubleshoot";
+
         public const string ProjectDir_CoreLib = "Common.CoreLib";
 
         public const string ProjectDir_ClientDesktop = "ST.Client.Desktop";
 
         public const string DirPublishWinX86 =
-            @"\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish\win-x86";
+            @"\src\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish\win-x86";
 
         public const string DirPublish =
-            @"\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish";
+            @"\src\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish";
+
+        public const string DirPublish_Win7Troubleshoot =
+            @"\src\" + ProjectDir_Win7Troubleshoot + @"\bin\Release\Publish\net35";
 
         static ProjectPathUtil()
         {

@@ -22,7 +22,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 
-[assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark + " v" + ThisAssembly.Version)]
+[assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark)]
 namespace System
 {
     static class Program
