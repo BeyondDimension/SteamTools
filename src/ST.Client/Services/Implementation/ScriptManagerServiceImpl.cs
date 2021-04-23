@@ -32,7 +32,7 @@ namespace System.Application.Services.Implementation
 			logger = loggerFactory.CreateLogger<ScriptManagerServiceImpl>();
 		}
 
-		public async Task<(bool state,ScriptDTO? model, string msg)> AddScriptAsync(string filePath)
+		public async Task<(bool state, ScriptDTO? model, string msg)> AddScriptAsync(string filePath)
 		{
 			var fileInfo = new FileInfo(filePath);
 			if (fileInfo.Exists)
@@ -47,7 +47,8 @@ namespace System.Application.Services.Implementation
 						{
 							var md5 = Hashs.String.MD5(info.Content);
 							var sha512 = Hashs.String.SHA512(info.Content);
-							if (await scriptRepository.ExistsScript(md5, sha512)) { 
+							if (await scriptRepository.ExistsScript(md5, sha512))
+							{
 								return (false, null, "脚本重复");
 							}
 							var savePath = Path.Combine(IOPath.AppDataDirectory, TAG, fileInfo.Name);
@@ -56,9 +57,11 @@ namespace System.Application.Services.Implementation
 							{
 								saveInfo.Directory.Create();
 							}
+							if (saveInfo.Exists)
+								saveInfo.Delete();
 							fileInfo.CopyTo(savePath);
 							var cachePath = Path.Combine(IOPath.CacheDirectory, TAG, $"{md5}.js");
-							info.FilePath = filePath;
+							info.FilePath = savePath;
 							info.CachePath = cachePath;
 							if (await BuildScriptAsync(info))
 							{
@@ -103,7 +106,7 @@ namespace System.Application.Services.Implementation
 				logger.LogError(msg);
 				return (false, null, msg);
 			}
-			return (false,null, "文件出现异常。");
+			return (false, null, "文件出现异常。");
 		}
 		public async Task<bool> BuildScriptAsync(ScriptDTO model)
 		{
@@ -163,6 +166,38 @@ namespace System.Application.Services.Implementation
 			}
 			return false;
 		}
+		public async Task<(bool state,string msg)> DeleteScriptAsync(ScriptDTO item)
+		{
+			if (item.LocalId.HasValue)
+			{ 
+				try
+				{
+					var cashInfo = new FileInfo(item.CachePath);
+					if (cashInfo.Exists)
+					cashInfo.Delete();
+				}
+				catch (Exception e) {
+					var msg = $"缓存文件删除失败:{e}";
+					logger.LogError(e, msg);
+					return (false,msg);
+				}
+				try
+				{
+					var fileInfo = new FileInfo(item.FilePath);
+					if (fileInfo.Exists)
+						fileInfo.Delete();
+				}
+				catch (Exception e)
+				{
+					var msg = $"文件删除失败:{e}";
+					logger.LogError(e, msg);
+					return (false, msg);
+				}
+				var state = (await scriptRepository.DeleteAsync(item.LocalId.Value)) > 0;
+				return (state, state ? "删除成功" : "删除失败");
+			}
+			return (false, "程序异常 主键为空");
+		}
 		public async Task<IList<ScriptDTO>> GetAllScript()
 		{
 			var scriptList = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
@@ -173,7 +208,8 @@ namespace System.Application.Services.Implementation
 					item.Content = File.ReadAllText(item.CachePath);
 				}
 			}
-			catch(Exception e) {
+			catch (Exception e)
+			{
 				var errorMsg = $"文件读取出错:[{e}]";
 				logger.LogError(e, errorMsg);
 				toast.Show(errorMsg);

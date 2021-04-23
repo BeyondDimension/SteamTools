@@ -25,5 +25,11 @@ namespace System.Application.Services
 		/// </summary>
 		/// <returns></returns>
 		Task<IList<ScriptDTO>> GetAllScript();
+		/// <summary>
+		/// 删除指定ID的脚本
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		Task<(bool state, string msg)> DeleteScriptAsync(ScriptDTO item);
 	}
 }
