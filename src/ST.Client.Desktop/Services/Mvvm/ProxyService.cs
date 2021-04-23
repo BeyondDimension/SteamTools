@@ -229,7 +229,7 @@ namespace System.Application.Services
             //new ObservableCollection<ScriptDTO>(response.Content);
             var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
             ProxyScripts = new ObservableCollection<ScriptDTO>(scriptList);
-
+            httpProxyService.IsEnableScript = IsEnableScript;
             if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && ProxyScripts.Any_Nullable())
             {
                 foreach (var item in ProxyScripts)
