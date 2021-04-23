@@ -22,7 +22,9 @@
                         <Button Background="Transparent" Cursor="Hand" Click="AddNewScriptButton_Click">
                             <PathIcon Width="16"  Data="{StaticResource AddDrawing}" />
                         </Button>
-                        <Button Background="Transparent" Cursor="Hand"  Click="RefreshScriptButton_Click">
+                        <Button Background="Transparent" Cursor="Hand"  
+                                Command="{ReflectionBinding RefreshScriptButton}"
+                                CommandParameter="{ReflectionBinding}">
                             <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
                         </Button>
                     </StackPanel>

@@ -127,7 +127,7 @@ namespace System.Application.UI.ViewModels
 
         }
 
-        public void UpdateScript()
+        public void RefreshScriptButton(ScriptDTO script)
         {
 
         }
