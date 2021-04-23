@@ -16,11 +16,6 @@ namespace System.Application.Models
             AppId = appid;
         }
 
-        ///// <summary>
-        ///// gog default logo 0~21
-        ///// </summary>
-        //public const string defaultLogoPath = @"avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/{0}.png";
-
         private const string NodeAppInfo = "appinfo";
 
         private const string NodeAppType = "type";
@@ -88,7 +83,7 @@ namespace System.Application.Models
 
         public uint ParentId { get; set; }
 
-        public IList<SteamApp> ChinldApp { get; set; } = new List<SteamApp>();
+        public IList<uint> ChildApp { get; set; } = new List<uint>();
 
         public string? LogoUrl => string.IsNullOrEmpty(Logo) ? null :
             string.Format(STEAMAPP_LOGO_URL, AppId, Logo);

@@ -295,8 +295,14 @@
   <data name="GameList_OnlyInstalled" xml:space="preserve">
     <value>仅显示已安装的游戏</value>
   </data>
+  <data name="GameList_OpenSteamCardUrl" xml:space="preserve">
+    <value>Steam Card Exchange</value>
+  </data>
   <data name="GameList_OpenSteamDBUrl" xml:space="preserve">
     <value>SteamDB Info</value>
+  </data>
+  <data name="GameList_OpenSteamGridUrl" xml:space="preserve">
+    <value>SteamGrid</value>
   </data>
   <data name="GameList_OpenStoreUrl" xml:space="preserve">
     <value>打开商店页</value>

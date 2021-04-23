@@ -11,6 +11,8 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
 {
@@ -204,6 +206,35 @@ namespace System.Application.UI.ViewModels
         {
             IsAppInfoOpen = true;
             SelectApp = app;
+        }
+
+        public void InstallOrStartApp(SteamApp app)
+        {
+            string url;
+            if (app.IsInstalled)
+                url = string.Format(SteamApiUrls.STEAM_RUNGAME_URL, app.AppId);
+            else
+                url = string.Format(SteamApiUrls.STEAM_INSTALL_URL, app.AppId);
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true,
+            });
+        }
+
+        public void OpenAppStoreUrl(SteamApp app)
+        {
+            BrowserOpen(string.Format(SteamApiUrls.STEAMSTORE_APP_URL, app.AppId));
+        }
+
+        public void OpenSteamDBUrl(SteamApp app)
+        {
+            BrowserOpen(string.Format(SteamApiUrls.STEAMDBINFO_APP_URL, app.AppId));
+        }
+
+        public void OpenSteamCardUrl(SteamApp app)
+        {
+            BrowserOpen(string.Format(SteamApiUrls.STEAMCARDEXCHANGE_APP_URL, app.AppId));
         }
     }
 }

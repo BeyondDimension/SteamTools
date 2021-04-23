@@ -37,8 +37,10 @@
 
         public const string STEAMDB_USERINFO_URL = "https://api.steamdb.ml/v1/users/{0}";
         public const string STEAMDB_APPINFO_URL = "https://api.steamdb.ml/v1/apps/{0}";
-        public const string STORE_APP_URL = "https://store.steampowered.com/app/{0}";
-        public const string STEAMDBINFO_URL = "https://steamdb.info/app/{0}";
+        public const string STEAMSTORE_APP_URL = "https://store.steampowered.com/app/{0}";
+        public const string STEAMDBINFO_APP_URL = "https://steamdb.info/app/{0}";
+        public const string STEAMGRID_APP_URL = "https://www.steamgriddb.com/game/{0}";
+        public const string STEAMCARDEXCHANGE_APP_URL = "https://www.steamcardexchange.net/index.php?gamepage-appid-{0}";
 
         /// <summary>
         /// 这里需要steamid3而不是id64

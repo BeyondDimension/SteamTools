@@ -296,7 +296,7 @@ namespace System.Application.Services.Implementation
                             {
                                 var parentApp = apps.FirstOrDefault(f => f.AppId == app.ParentId);
                                 if (parentApp != null)
-                                    parentApp.ChinldApp.Add(app);
+                                    parentApp.ChildApp.Add(app.AppId);
                                 //continue;
                             }
                             apps.Add(app);

@@ -592,11 +592,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 Steam Card Exchange 的本地化字符串。
+        /// </summary>
+        public static string GameList_OpenSteamCardUrl {
+            get {
+                return ResourceManager.GetString("GameList_OpenSteamCardUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 SteamDB Info 的本地化字符串。
         /// </summary>
         public static string GameList_OpenSteamDBUrl {
             get {
                 return ResourceManager.GetString("GameList_OpenSteamDBUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 SteamGrid 的本地化字符串。
+        /// </summary>
+        public static string GameList_OpenSteamGridUrl {
+            get {
+                return ResourceManager.GetString("GameList_OpenSteamGridUrl", resourceCulture);
             }
         }
         
