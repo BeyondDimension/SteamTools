@@ -24,7 +24,7 @@ namespace System.Application.Services
 		/// 获取Sqlite全部脚本
 		/// </summary>
 		/// <returns></returns>
-		Task<IList<ScriptDTO>> GetAllScript();
+		Task<IEnumerable<ScriptDTO>> GetAllScript();
 		/// <summary>
 		/// 删除指定ID的脚本
 		/// </summary>

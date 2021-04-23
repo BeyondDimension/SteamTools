@@ -33,7 +33,7 @@ namespace System.Application.Models
 		const string Exclude = "Exclude";
 		const string Grant = "Grant";
 		const string Require = "Require";
-		const string Include = "Include";
+		const string Include = "Include"; 
 		const string DescRegex = @"(?<={0})[\s\S]*?(?=\n)";
 
 		public ScriptDTO()

@@ -10,6 +10,8 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using System.Linq;
+
 namespace System.Application.Services.Implementation
 {
 	public class ScriptManagerServiceImpl : IScriptManagerService
@@ -51,7 +53,8 @@ namespace System.Application.Services.Implementation
 							{
 								return (false, null, "脚本重复");
 							}
-							var savePath = Path.Combine(IOPath.AppDataDirectory, TAG, fileInfo.Name);
+							var url = Path.Combine( TAG, $"{md5}.js");
+							var savePath = Path.Combine(IOPath.AppDataDirectory, url);
 							var saveInfo = new FileInfo(savePath);
 							if (!saveInfo.Directory.Exists)
 							{
@@ -60,9 +63,9 @@ namespace System.Application.Services.Implementation
 							if (saveInfo.Exists)
 								saveInfo.Delete();
 							fileInfo.CopyTo(savePath);
-							var cachePath = Path.Combine(IOPath.CacheDirectory, TAG, $"{md5}.js");
-							info.FilePath = savePath;
-							info.CachePath = cachePath;
+							var cachePath = Path.Combine(IOPath.CacheDirectory, url);
+							info.FilePath = url;
+							info.CachePath = url;
 							if (await BuildScriptAsync(info))
 							{
 								var db = mapper.Map<Script>(info);
@@ -116,8 +119,6 @@ namespace System.Application.Services.Implementation
 				{
 					var scriptContent = new StringBuilder();
 					scriptContent.AppendLine("(function() {");
-
-
 					foreach (var item in model.RequiredJsArray)
 					{
 						try
@@ -134,7 +135,8 @@ namespace System.Application.Services.Implementation
 					}
 					scriptContent.AppendLine(model.Content);
 					scriptContent.AppendLine("})( )");
-					var fileInfo = new FileInfo(model.CachePath);
+					var cachePath = Path.Combine(IOPath.CacheDirectory, model.CachePath);
+					var fileInfo = new FileInfo(cachePath);
 					if (!fileInfo.Directory.Exists)
 					{
 						fileInfo.Directory.Create();
@@ -169,43 +171,88 @@ namespace System.Application.Services.Implementation
 		public async Task<(bool state,string msg)> DeleteScriptAsync(ScriptDTO item)
 		{
 			if (item.LocalId.HasValue)
-			{ 
-				try
+			{
+				var info = await scriptRepository.FirstOrDefaultAsync(x => x.Id == item.LocalId);
+				if (info != null)
 				{
-					var cashInfo = new FileInfo(item.CachePath);
-					if (cashInfo.Exists)
-					cashInfo.Delete();
+					var url = Path.Combine(TAG, $"{info.MD5}.js");
+					try
+					{
+						var cachePath = Path.Combine(IOPath.CacheDirectory, url);
+						var cashInfo = new FileInfo(item.CachePath);
+						if (cashInfo.Exists)
+							cashInfo.Delete();
+					}
+					catch (Exception e)
+					{
+						var msg = $"缓存文件删除失败:{e}";
+						logger.LogError(e, msg);
+						return (false, msg);
+					}
+					try
+					{
+						var savePath = Path.Combine(IOPath.AppDataDirectory, url);
+						var fileInfo = new FileInfo(savePath);
+						if (fileInfo.Exists)
+							fileInfo.Delete();
+					}
+					catch (Exception e)
+					{
+						var msg = $"文件删除失败:{e}";
+						logger.LogError(e, msg);
+						return (false, msg);
+					}
+					var state = (await scriptRepository.DeleteAsync(item.LocalId.Value)) > 0;
+					return (state, state ? "删除成功" : "删除失败");
 				}
-				catch (Exception e) {
-					var msg = $"缓存文件删除失败:{e}";
-					logger.LogError(e, msg);
-					return (false,msg);
+				else { 
+					return (true, "删除成功");
 				}
-				try
-				{
-					var fileInfo = new FileInfo(item.FilePath);
-					if (fileInfo.Exists)
-						fileInfo.Delete();
-				}
-				catch (Exception e)
-				{
-					var msg = $"文件删除失败:{e}";
-					logger.LogError(e, msg);
-					return (false, msg);
-				}
-				var state = (await scriptRepository.DeleteAsync(item.LocalId.Value)) > 0;
-				return (state, state ? "删除成功" : "删除失败");
 			}
 			return (false, "程序异常 主键为空");
 		}
-		public async Task<IList<ScriptDTO>> GetAllScript()
+		public async Task<ScriptDTO> TryReadFile(ScriptDTO item) {
+			var cachePath = Path.Combine(IOPath.CacheDirectory, item.CachePath);
+			var fileInfo = new FileInfo(cachePath);
+			if (fileInfo.Exists)
+				item.Content = File.ReadAllText(cachePath);
+			else
+			{
+				var infoPath = Path.Combine(IOPath.AppDataDirectory, item.FilePath);
+				var infoFile = new FileInfo(infoPath);
+				if (infoFile.Exists)
+				{
+					if (await BuildScriptAsync(item))
+					{
+						cachePath = Path.Combine(IOPath.CacheDirectory, item.CachePath);
+						fileInfo = new FileInfo(cachePath);
+						if (fileInfo.Exists)
+							item.Content = File.ReadAllText(cachePath);
+					}
+					else {
+						toast.Show($"脚本:{item.Name}_读取异常请检查语法是否有错误");
+					}
+
+				}
+				else
+				{
+					var temp = await DeleteScriptAsync(item);
+					if (temp.state)
+						toast.Show($"脚本:{item.Name}_文件丢失已删除");
+					else
+						toast.Show($"脚本:{item.Name}_文件丢失，删除失败去尝试手动删除");
+				}
+			}
+			return item;
+		}
+		public async Task<IEnumerable<ScriptDTO>> GetAllScript()
 		{
 			var scriptList = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
 			try
 			{
 				foreach (var item in scriptList)
 				{
-					item.Content = File.ReadAllText(item.CachePath);
+					await TryReadFile(item);
 				}
 			}
 			catch (Exception e)
@@ -214,7 +261,7 @@ namespace System.Application.Services.Implementation
 				logger.LogError(e, errorMsg);
 				toast.Show(errorMsg);
 			}
-			return scriptList;
+			return scriptList.Where(x=>!string.IsNullOrWhiteSpace(x.Content));
 		}
 
 	}
