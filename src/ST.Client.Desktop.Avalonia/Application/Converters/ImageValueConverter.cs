@@ -7,9 +7,8 @@ using System.Application.Models;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
-using System.Application.Services;
-using System.Threading.Tasks;
 
 namespace System.Application.Converters
 {
@@ -26,6 +25,8 @@ namespace System.Application.Converters
         protected static Bitmap DownloadImage(string url, int width = 0)
         {
             using var web = new WebClient();
+            var ua = DI.Get<IHttpPlatformHelper>().UserAgent;
+            web.Headers.Add("User-Agent", ua);
             var bt = web.DownloadData(url);
             using var stream = new MemoryStream(bt);
             return GetDecodeBitmap(stream, width);
