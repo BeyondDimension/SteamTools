@@ -76,17 +76,17 @@ namespace System.Application.UI.ViewModels
                 (SteamAccountPage = new SteamAccountPageViewModel().AddTo(this)),
                 (GameListPage = new GameListPageViewModel().AddTo(this)),
                 (LocalAuthPage = new LocalAuthPageViewModel().AddTo(this)),
-                (SteamIdlePage = new SteamIdlePageViewModel().AddTo(this)),
-                (ASFPage = new ArchiSteamFarmPlusPageViewModel().AddTo(this)),
-                (GameRelatedPage = new GameRelatedPageViewModel().AddTo(this)),
-                (OtherPlatformPage = new OtherPlatformPageViewModel().AddTo(this)),
+                //(SteamIdlePage = new SteamIdlePageViewModel().AddTo(this)),
+                //(ASFPage = new ArchiSteamFarmPlusPageViewModel().AddTo(this)),
+                //(GameRelatedPage = new GameRelatedPageViewModel().AddTo(this)),
+                //(OtherPlatformPage = new OtherPlatformPageViewModel().AddTo(this)),
 
 				#region SystemTab
                 SettingsPageViewModel.Instance,
                 AboutPageViewModel.Instance,
 #if DEBUG
-				new DebugPageViewModel().AddTo(this),
-                new DebugWebViewPageViewModel().AddTo(this),
+				//new DebugPageViewModel().AddTo(this),
+    //            new DebugWebViewPageViewModel().AddTo(this),
 #endif
 				#endregion
             };
