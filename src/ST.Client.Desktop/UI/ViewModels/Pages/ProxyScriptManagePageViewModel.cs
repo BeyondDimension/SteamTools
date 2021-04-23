@@ -128,14 +128,13 @@ namespace System.Application.UI.ViewModels
 
         }
 
-        public void RefreshScriptButton(ScriptDTO script)
+        public void RefreshScriptButton()
+        { 
+            ProxyService.Current.RefreshScript();
+        }
+        public void RefreshScriptItemButton(ScriptDTO script)
         {
 
         }
-        public ICommand? RefreshScriptButton_Click { get; } = ReactiveCommand.Create(() =>
-        {
-            ProxyService.Current.RefreshScript();
-        });
-        public ICommand? RefreshScriptItemButton_Click { get; } = ReactiveCommand.Create(ProxyService.Current.RefreshScript);
     }
 }
