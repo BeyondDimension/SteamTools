@@ -275,27 +275,24 @@ namespace System.Application.Services
             httpProxyService.Dispose();
         }
 
-        public async void AddNewScript(string filename)
-        {
-            var item = await DI.Get<IScriptManagerService>().AddScriptAsync(filename).ConfigureAwait(true);
-            if (item.state)
-            {
-                //var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
-                if (ProxyScripts != null)
-                    ProxyScripts.Add(item.model);
-                else
-                    ProxyScripts = new ObservableCollection<ScriptDTO>() { item.model };
-                if (!string.IsNullOrWhiteSpace(item.msg))
-                    Toast.Show(item.msg);
-            }
-            else
-                Toast.Show(item.msg);
-        }
-        public async void RefreshScript()
-        {
-            var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
-            ProxyScripts = new ObservableCollection<ScriptDTO>(scriptList);
-        }
+		public async void AddNewScript(string filename)
+		{
+			var item = await DI.Get<IScriptManagerService>().AddScriptAsync(filename).ConfigureAwait(true);
+			if (item.state)
+			{
+				//var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
+				if (ProxyScripts != null)
+					ProxyScripts.Add(item.model);
+				else
+					ProxyScripts = new ObservableCollection<ScriptDTO>() { item.model };
+			}
+			Toast.Show(item.msg);
+		}
+		public async void RefreshScript()
+		{
+			var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
+			ProxyScripts = new ObservableCollection<ScriptDTO>(scriptList);
+		}
 
     }
 }

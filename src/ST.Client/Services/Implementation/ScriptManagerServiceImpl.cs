@@ -48,7 +48,7 @@ namespace System.Application.Services.Implementation
 							var md5 = Hashs.String.MD5(info.Content);
 							var sha512 = Hashs.String.SHA512(info.Content);
 							if (await scriptRepository.ExistsScript(md5, sha512)) { 
-								return (true, info, string.Empty);
+								return (false, null, "脚本重复");
 							}
 							var savePath = Path.Combine(IOPath.AppDataDirectory, TAG, fileInfo.Name);
 							var saveInfo = new FileInfo(savePath);
