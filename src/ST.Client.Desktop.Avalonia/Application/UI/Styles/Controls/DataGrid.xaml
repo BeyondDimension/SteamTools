@@ -1,6 +1,17 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <Styles.Resources>
+        <SolidColorBrush x:Key="DataGridRowIndicatorBrush" Color="{StaticResource SystemAccentColor}" />
+        <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundBrush" Color="Transparent" />
+        <SolidColorBrush x:Key="DataGridCellFocusVisualPrimaryBrush" Color="Transparent" />
+        <SolidColorBrush x:Key="DataGridCellFocusVisualSecondaryBrush" Color="Transparent" />
+        <SolidColorBrush x:Key="DataGridRowSelectedHoveredBackgroundColor" Color="Transparent" />
+        <SolidColorBrush x:Key="DataGridRowSelectedHoveredUnfocusedBackgroundColor" Color="Transparent" />
+        <x:Double x:Key="DataGridRowSelectedBackgroundOpacity">1.0</x:Double>
+        <x:Double x:Key="DataGridRowSelectedUnfocusedBackgroundOpacity">1.0</x:Double>
+    </Styles.Resources>
+
     <Style Selector="DataGrid">
         <Setter Property="GridLinesVisibility" Value="Horizontal"/>
         <Setter Property="IsReadOnly" Value="True"/>

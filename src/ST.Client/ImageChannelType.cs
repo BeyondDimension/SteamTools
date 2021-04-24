@@ -27,6 +27,11 @@ namespace System.Application
         SteamEconomys,
 
         /// <summary>
+        /// Steam 成就图标
+        /// </summary>
+        SteamAchievementIcon,
+
+        /// <summary>
         /// 验证码图片
         /// </summary>
         CodeImage,

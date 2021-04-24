@@ -1,6 +1,9 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
+using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
+using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
 
 namespace System.Application.Models
 {
@@ -123,7 +126,9 @@ namespace System.Application.Models
         [S_JsonProperty("avatar_frame")]
         public string? AvatarFrame { get; set; }
 
-        public string? AvatarFrameStream { get; set; }
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public Task<string?>? AvatarFrameStream { get; set; }
 
         /// <summary>
         /// 动态头像url
@@ -132,6 +137,8 @@ namespace System.Application.Models
         [S_JsonProperty("animated_avatar")]
         public string? AnimatedAvatar { get; set; }
 
-        public string? AnimatedAvatarStream { get; set; }
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public Task<string?>? AnimatedAvatarStream { get; set; }
     }
 }

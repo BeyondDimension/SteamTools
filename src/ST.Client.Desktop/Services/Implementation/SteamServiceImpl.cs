@@ -347,10 +347,10 @@ namespace System.Application.Services.Implementation
 
         public async ValueTask LoadAppImageAsync(SteamApp app)
         {
-            if (app.LibraryLogoStream == null)
-            {
-                app.LibraryLogoStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Library_600x900);
-            }
+            //if (app.LibraryLogoStream == null)
+            //{
+            //    app.LibraryLogoStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Library_600x900);
+            //}
             //if (app.LibraryHeaderStream == null)
             //{
             //    app.LibraryHeaderStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Library_Hero);

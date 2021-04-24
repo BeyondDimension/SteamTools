@@ -81,6 +81,8 @@ namespace System.Application.Services
         /// </summary>
         Task<List<SteamApp>> GetAppInfos();
 
+        Task<string> GetAppImageAsync(SteamApp app, SteamApp.LibCacheType type);
+
         ValueTask LoadAppImageAsync(SteamApp app);
     }
 }

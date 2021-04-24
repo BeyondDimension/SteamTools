@@ -250,7 +250,7 @@ namespace System.Application.UI.ViewModels
         {
             if (IsLoading)
                 return;
-            Task.Run(() =>
+            Task.Run(async () =>
             {
                 Thread.CurrentThread.IsBackground = true;
                 IsLoading = true;
@@ -301,13 +301,16 @@ namespace System.Application.UI.ViewModels
                 {
                     IsLoading = true;
                     //ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_GetTip);
+                    var list = await steam.GetConfirmationsAsync();
 
-                    Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(steam.GetConfirmations());
-
-                    Parallel.ForEach(Confirmations, async confirmation =>
+                    Parallel.ForEach(list, confirmation =>
                     {
-                        confirmation.ImageStream = await IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
+                        confirmation.ImageStream = IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
                     });
+
+                    Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(list);
+
+
 
                     // 获取新交易后保存
                     if (!string.IsNullOrEmpty(_Authenticator.SessionData))
@@ -328,13 +331,16 @@ namespace System.Application.UI.ViewModels
                     // likely a bad session so try a refresh first
                     try
                     {
-                        steam.Refresh();
-                        Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(steam.GetConfirmations());
+                        await steam.RefreshAsync();
+                        var list = await steam.GetConfirmationsAsync();
 
-                        Parallel.ForEach(Confirmations, async confirmation =>
+                        Parallel.ForEach(list, confirmation =>
                         {
-                            confirmation.ImageStream = await IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
+                            confirmation.ImageStream = IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
                         });
+
+                        Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(list);
+
                         IsLoading = false;
                     }
                     catch (Exception ex)

@@ -118,4 +118,5 @@
         <SolidColorBrush x:Key="ValidationErrorBrushKey"
                          Color="#FFC80000" />
     </Style.Resources>
+    
 </Style>

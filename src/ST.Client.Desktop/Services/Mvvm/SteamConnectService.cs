@@ -151,7 +151,7 @@ namespace System.Application.Services
                                         if (SteamApps.Any_Nullable())
                                         {
                                             SteamApps = ApiService.OwnsApps(SteamApps).ToList();
-                                            UpdateGamesImage();
+                                            //UpdateGamesImage();
                                             break;
                                         }
                                     }
@@ -195,7 +195,7 @@ namespace System.Application.Services
         public async void InitializeGameList()
         {
             SteamApps = await ISteamService.Instance.GetAppInfos();
-            UpdateGamesImage();
+            //UpdateGamesImage();
         }
 
         public void UpdateGamesImage()
@@ -241,7 +241,7 @@ namespace System.Application.Services
                                     if (SteamApps.Any_Nullable())
                                     {
                                         SteamApps = ApiService.OwnsApps(SteamApps).ToList();
-                                        UpdateGamesImage();
+                                        //UpdateGamesImage();
                                         Toast.Show("刷新游戏列表完成");
                                         DisposeSteamClient();
                                         return;

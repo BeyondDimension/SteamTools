@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿using System.Application.Services;
+using System.Globalization;
+using System.Threading.Tasks;
 using static System.Application.SteamApiUrls;
 
 namespace System.Application.Models
@@ -33,6 +35,8 @@ namespace System.Application.Models
             STEAMAPP_ICON_URL,
             AppId,
             IsAchieved ? IconNormal : IconLocked);
+
+        public Task<string?> IconStream => IHttpService.Instance.GetImageAsync(IconUrl, ImageChannelType.SteamAchievementIcon);
 
         public int Permission { get; set; }
 

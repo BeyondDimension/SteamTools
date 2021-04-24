@@ -20,7 +20,7 @@
                    VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
                        VerticalScrollBarVisibility="Auto"
-                       Padding="{StaticResource PageMargin}">
+                       Padding="{StaticResource ScrollMargin}">
             <ItemsRepeater Items="{CompiledBinding SteamUsers}">
                 <ItemsRepeater.Layout>
                     <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
@@ -62,21 +62,24 @@
                                                Width="184"
                                                AutoStart="true"
                                                Stretch="Uniform"
-                                               Source="{Binding AvatarStream}">
-                                            <i:Interaction.Behaviors>
+                                               Source="{Binding AvatarStream^}">
+                                            <!--<i:Interaction.Behaviors>
                                                 <ia:DataTriggerBehavior Binding="{Binding AvatarStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}" ComparisonCondition="Equal" Value="True">
                                                     <ia:ChangePropertyAction TargetObject="{ReflectionBinding #avatar}" PropertyName="Source" Value="{Binding AvatarStream}"/>
                                                 </ia:DataTriggerBehavior>
                                                 <ia:DataTriggerBehavior Binding="{Binding AvatarStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}" ComparisonCondition="Equal" Value="False">
                                                     <ia:ChangePropertyAction TargetObject="{ReflectionBinding #avatar}" PropertyName="Source" Value="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg"/>
                                                 </ia:DataTriggerBehavior>
-                                            </i:Interaction.Behaviors>
+                                            </i:Interaction.Behaviors>-->
                                         </gif:Image2>
+                                        <Image Width="184" Stretch="Uniform" IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
+                                               Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg">
+                                        </Image>
                                         <!--<gif:Image2 Width="184" Height="184" 
                                             AutoStart="true"
-                                            Source="{Binding MiniProfile.AvatarFrameStream}"
+                                            Source="{Binding MiniProfile.AvatarFrameStream^}"
                                             Stretch="Uniform" 
-                                            IsVisible="{Binding MiniProfile.AvatarFrameStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>-->
+                                            IsVisible="{Binding MiniProfile.AvatarFrameStream^,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>-->
                                     </Panel>
                                     <Panel Grid.Column="1" Margin="10 5">
                                         <StackPanel>

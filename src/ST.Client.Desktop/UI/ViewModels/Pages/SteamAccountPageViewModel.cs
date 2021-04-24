@@ -107,14 +107,15 @@ namespace System.Application.UI.ViewModels
                 users[i].SkipOfflineModeWarning = temp.SkipOfflineModeWarning;
                 users[i].OriginVdfString = temp.OriginVdfString;
                 users[i].Remark = remark;
-                users[i].AvatarFullStream = string.IsNullOrEmpty(users[i].AvatarFull) ? null : await httpService.GetImageAsync(users[i].AvatarFull, ImageChannelType.SteamAvatars);
+                users[i].AvatarFullStream = httpService.GetImageAsync(users[i].AvatarFull, ImageChannelType.SteamAvatars);
                 var miniProfile = users[i].MiniProfile;
                 if (miniProfile != null)
                 {
-                    miniProfile.AnimatedAvatarStream = await httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
-                    miniProfile.AvatarFrameStream = await httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
+                    miniProfile.AnimatedAvatarStream = httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
+                    //miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
                 }
             }
+
             SteamUsers = new ObservableCollection<SteamUser>(
                 users.OrderByDescending(o => o.LastLoginTime).ToList());
 

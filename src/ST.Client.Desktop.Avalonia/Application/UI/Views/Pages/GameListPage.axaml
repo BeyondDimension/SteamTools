@@ -106,10 +106,10 @@
                         </ToggleButton>-->
                     <ToggleButton x:Name="typebutton"
                                   VerticalAlignment="Center"
-                                  MinWidth="200"
+                                  Width="200" Height="35"
                                   IsChecked="{Binding IsOpenFilter,Mode=TwoWay}">
                         <DockPanel>
-                            <TextBlock Text="{Binding TypeFilterString}"></TextBlock>
+                            <TextBlock Text="{Binding TypeFilterString}" TextTrimming="CharacterEllipsis"/>
                             <PathIcon
                                       HorizontalAlignment="Right"
                                       Data="{StaticResource ChevronDownDrawing}"
@@ -261,16 +261,19 @@
                                         <gif:Image2 x:Name="library"
                                                             Stretch="UniformToFill"
                                                             DecodeWidth="200"
-                                                            Source="{Binding LibraryLogoStream}">
-                                            <i:Interaction.Behaviors>
+                                                            Source="{Binding LibraryLogoStream^}">
+                                            <!--<i:Interaction.Behaviors>
                                                 <ia:DataTriggerBehavior Binding="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}" ComparisonCondition="Equal" Value="True">
                                                     <ia:ChangePropertyAction TargetObject="{ReflectionBinding #library}" PropertyName="Source" Value="{Binding LibraryLogoStream}"/>
                                                 </ia:DataTriggerBehavior>
                                                 <ia:DataTriggerBehavior Binding="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}" ComparisonCondition="Equal" Value="False">
                                                     <ia:ChangePropertyAction TargetObject="{ReflectionBinding #library}" PropertyName="Source" Value="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/16.png"/>
                                                 </ia:DataTriggerBehavior>
-                                            </i:Interaction.Behaviors>
+                                            </i:Interaction.Behaviors>-->
                                         </gif:Image2>
+                                        <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/16.png" Stretch="UniformToFill"
+                                               IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}">
+                                        </Image>
                                         <TextBlock
                                             Text="{Binding DisplayName}"
                                             VerticalAlignment="Center"
@@ -278,7 +281,7 @@
                                             TextWrapping="WrapWithOverflow"
                                             FontSize="20"
                                             Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                                            IsVisible="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter}}"/>
+                                            IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
                                     </Panel>
                                 </Border>
 

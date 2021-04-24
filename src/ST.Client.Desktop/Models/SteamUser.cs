@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using System.IO;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 using static System.Application.SteamApiUrls;
 
@@ -12,9 +13,11 @@ namespace System.Application.Models
 
         public SteamUser()
         {
+            this.WhenAnyValue(x => x.AvatarFullStream, x => x.MiniProfile.AnimatedAvatarStream)
+                .Subscribe(_ => this.RaisePropertyChanged(nameof(AvatarStream)));
         }
 
-        public SteamUser(string vdfstring)
+        public SteamUser(string vdfstring) : this()
         {
             OriginVdfString = vdfstring;
         }
@@ -64,9 +67,10 @@ namespace System.Application.Models
         public string AvatarMedium { get; set; }
 
         [XmlIgnore]
-        public string? AvatarFullStream { get; set; }
+        public Task<string?>? AvatarFullStream { get; set; }
 
-        public string? AvatarStream => MiniProfile?.AnimatedAvatarStream ?? AvatarFullStream;
+        [XmlIgnore]
+        public Task<string?>? AvatarStream => (MiniProfile?.AnimatedAvatarStream) ?? AvatarFullStream;
 
         [XmlElement("avatarFull")]
         public string? AvatarFull { get; set; }

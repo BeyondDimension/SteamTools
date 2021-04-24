@@ -1,8 +1,10 @@
 ﻿using ReactiveUI;
+using System.Application.Services;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using static System.Application.SteamApiUrls;
 
 namespace System.Application.Models
@@ -90,12 +92,7 @@ namespace System.Application.Models
 
         public string LibraryLogoUrl => string.Format(STEAMAPP_LIBRARY_URL, AppId);
 
-        private string? _LibraryLogoStream;
-        public string? LibraryLogoStream
-        {
-            get => _LibraryLogoStream;
-            set => this.RaiseAndSetIfChanged(ref _LibraryLogoStream, value);
-        }
+        public Task<string> LibraryLogoStream => ISteamService.Instance.GetAppImageAsync(this, SteamApp.LibCacheType.Library_600x900);
 
         public string LibraryHeaderUrl => string.Format(STEAMAPP_LIBRARYHERO_URL, AppId);
 
