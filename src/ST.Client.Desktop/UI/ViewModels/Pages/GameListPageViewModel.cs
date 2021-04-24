@@ -13,6 +13,8 @@ using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using static System.Application.Services.CloudService.Constants;
+using System.Globalization;
+using System.IO;
 
 namespace System.Application.UI.ViewModels
 {
@@ -235,6 +237,24 @@ namespace System.Application.UI.ViewModels
         public void OpenSteamCardUrl(SteamApp app)
         {
             BrowserOpen(string.Format(SteamApiUrls.STEAMCARDEXCHANGE_APP_URL, app.AppId));
+        }
+
+        public void UnlockAchievement_Click(SteamApp app)
+        {
+            switch (app.Type)
+            {
+                case SteamAppType.Application:
+                case SteamAppType.Game:
+                    //if (WindowService.Current.MainWindow.Dialog("【风险提示】解锁成就可能会被游戏开发者视为作弊，并且会被成就统计网站封锁。若决定继续使用，请自行承担解锁成就带来的风险和后果。"))
+                    //{
+                    app.Process = Process.Start(Process.GetCurrentProcess().MainModule.FileName, "-clt app -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
+                    SteamConnectService.Current.RuningSteamApps.Add(app);
+                    //}
+                    break;
+                default:
+                    ToastService.Current.Notify("不支持的操作");
+                    break;
+            }
         }
     }
 }

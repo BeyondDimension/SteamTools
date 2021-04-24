@@ -70,7 +70,17 @@ namespace System.Application.Models
         public Task<string?>? AvatarFullStream { get; set; }
 
         [XmlIgnore]
-        public Task<string?>? AvatarStream => (MiniProfile?.AnimatedAvatarStream) ?? AvatarFullStream;
+        public Task<string?>? AvatarStream
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(MiniProfile?.AnimatedAvatar))
+                {
+                    return AvatarFullStream;
+                }
+                return MiniProfile.AnimatedAvatarStream;
+            }
+        }
 
         [XmlElement("avatarFull")]
         public string? AvatarFull { get; set; }

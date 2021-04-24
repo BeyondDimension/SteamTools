@@ -224,7 +224,7 @@
                                                       CommandParameter="{Binding}" />
                                             <MenuItem
                                                       Header="{ReflectionBinding Path=Res.Achievement_Manage,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                                      Command="{ReflectionBinding #u.DataContext.OfflineModeButton_Click}"
+                                                      Command="{ReflectionBinding #u.DataContext.UnlockAchievement_Click}"
                                                       CommandParameter="{Binding}" >
                                                 <MenuItem.Icon>
                                                     <PathIcon Data="{StaticResource TrophyDrawing}" Width="16"></PathIcon>
