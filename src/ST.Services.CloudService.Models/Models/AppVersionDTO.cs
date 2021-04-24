@@ -1,6 +1,7 @@
 ﻿using System.Application.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using static System.Application.Services.CloudService.Constants;
 using MPKey = MessagePack.KeyAttribute;
 using MPObject = MessagePack.MessagePackObjectAttribute;
 
@@ -59,7 +60,6 @@ namespace System.Application.Models
             [MPKey(3)]
             public string? FileId { get; set; }
 
-
             bool IExplicitHasValue.ExplicitHasValue()
             {
                 return !string.IsNullOrWhiteSpace(SHA256) &&
@@ -91,6 +91,6 @@ namespace System.Application.Models
             }
         }
 
-        public static string GetRequestUri(string fileId) => $"/{fileId}.{FileEx.BIN}";
+        public static string GetRequestUri(string fileId) => $"{Prefix_HTTPS}steampp.net/uploads/publish/files/{fileId}.{FileEx.BIN}";
     }
 }

@@ -249,7 +249,7 @@ namespace System.Application.Services.Implementation
             catch (Exception e)
             {
 #if !DEBUG
-                if (e is SocketException se && se.SocketErrorCode == SocketError.ConnectionReset)
+                if (e is Net.Sockets.SocketException se && se.SocketErrorCode == Net.Sockets.SocketError.ConnectionReset)
                 {
                     return default;
                 }
