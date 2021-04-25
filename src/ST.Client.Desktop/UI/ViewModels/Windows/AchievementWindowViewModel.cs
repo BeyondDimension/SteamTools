@@ -36,6 +36,13 @@ namespace System.Application.UI.ViewModels
         public ReadOnlyObservableCollection<StatInfo>? Statistics => _Statistics;
         #endregion
 
+        private bool? _IsCheckAll = false;
+        public bool? IsCheckAll
+        {
+            get => _IsCheckAll;
+            set => this.RaiseAndSetIfChanged(ref _IsCheckAll, value);
+        }
+
         public AchievementWindowViewModel(int appid)
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.AchievementManage;
@@ -56,7 +63,7 @@ namespace System.Application.UI.ViewModels
                 .Connect()
                 //.Filter(coinJoinFilter)
                 .ObserveOn(RxApp.MainThreadScheduler)
-                .Sort(SortExpressionComparer<AchievementInfo>.Descending(x => x.IsAchieved))
+                .Sort(SortExpressionComparer<AchievementInfo>.Descending(x => x.IsAchieved).ThenByAscending(x => x.Name))
                 .Bind(out _Achievements)
                 .Subscribe();
 
@@ -96,7 +103,7 @@ namespace System.Application.UI.ViewModels
                 GetStatistics();
 
 #pragma warning disable CS8602 // 解引用可能出现空引用。
-                ToastService.Current.Notify($"获取到 {this.Achievements.Count} 个成就和 {this.Statistics.Count} 条统计信息");
+                ToastService.Current.Notify($"获取到 {this._AchievementsSourceList.Count} 个成就和 {this._StatisticsSourceList.Count} 条统计信息");
 #pragma warning restore CS8602 // 解引用可能出现空引用。
             });
 
@@ -312,7 +319,7 @@ namespace System.Application.UI.ViewModels
                     IconNormal = string.IsNullOrEmpty(def.IconNormal) ? null : def.IconNormal,
                     IconLocked = string.IsNullOrEmpty(def.IconLocked) ? def.IconNormal : def.IconLocked,
                     Permission = def.Permission,
-                    UnlockTime = unlockTime.ToDateTime(),
+                    UnlockTime = unlockTime.ToDateTimeS(),
                     UnlockTimeUnix = unlockTime,
                     Name = def.Name,
                     Description = def.Description,

@@ -23,11 +23,11 @@ namespace System.Application.Services
 
         public SteamConnectService()
         {
-            SteamApps = new SourceList<SteamApp>();
+            SteamApps = new SourceCache<SteamApp, uint>(t => t.AppId);
         }
 
         #region Steam游戏列表
-        public SourceList<SteamApp> SteamApps { get; }
+        public SourceCache<SteamApp, uint> SteamApps { get; }
         #endregion
 
         #region 运行中的游戏列表
@@ -188,7 +188,7 @@ namespace System.Application.Services
         {
             SteamApps.Clear();
             if (apps.Any())
-                SteamApps.AddRange(apps);
+                SteamApps.AddOrUpdate(apps);
         }
 
         public async void InitializeGameList()

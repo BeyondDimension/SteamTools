@@ -43,11 +43,17 @@ namespace System.Application.Models
         [XmlIgnore]
         public string ProfileUrl => string.Format(STEAM_PROFILES_URL, SteamId64);
 
+        private string? _OnlineState;
         /// <summary>
         /// 在线状态
         /// </summary>
         [XmlElement("onlineState")]
-        public string? OnlineState { get; set; }
+        public string? OnlineState
+        {
+            get => _OnlineState;
+            set => this.RaiseAndSetIfChanged(ref _OnlineState, value);
+        }
+
 
         [XmlIgnore]
         public string? IPCountry { get; set; }

@@ -94,7 +94,6 @@ namespace System.Application.UI.ViewModels
                 string? remark = null;
                 SteamAccountSettings.AccountRemarks.Value?.TryGetValue(SteamUsers[i].SteamId64, out remark);
                 users[i] = await webApiService.GetUserInfo(SteamUsers[i].SteamId64);
-                users[i].MiniProfile = await webApiService.GetUserMiniProfile(SteamUsers[i].SteamId3_Int);
                 users[i].AccountName = temp.AccountName;
                 users[i].SteamID = temp.SteamID;
                 users[i].PersonaName = temp.PersonaName;
@@ -107,7 +106,14 @@ namespace System.Application.UI.ViewModels
                 users[i].OriginVdfString = temp.OriginVdfString;
                 users[i].Remark = remark;
                 users[i].AvatarFullStream = httpService.GetImageAsync(users[i].AvatarFull, ImageChannelType.SteamAvatars);
-                var miniProfile = users[i].MiniProfile;
+            }
+            SteamUsers = new ObservableCollection<SteamUser>(
+                users.OrderByDescending(o => o.LastLoginTime).ToList());
+
+            foreach (var item in SteamUsers)
+            {
+                item.MiniProfile = await webApiService.GetUserMiniProfile(item.SteamId3_Int);
+                var miniProfile = item.MiniProfile;
                 if (miniProfile != null)
                 {
                     miniProfile.AnimatedAvatarStream = httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);

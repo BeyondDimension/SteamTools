@@ -133,11 +133,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 受保护 的本地化字符串。
+        /// </summary>
+        public static string Achievement_IsProtection {
+            get {
+                return ResourceManager.GetString("Achievement_IsProtection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 管理成就 的本地化字符串。
         /// </summary>
         public static string Achievement_Manage {
             get {
                 return ResourceManager.GetString("Achievement_Manage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 解锁于{0:yyyy-MM-dd HH:mm:ss} 的本地化字符串。
+        /// </summary>
+        public static string Achievement_TimeFormat {
+            get {
+                return ResourceManager.GetString("Achievement_TimeFormat", resourceCulture);
             }
         }
         

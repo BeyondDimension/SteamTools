@@ -17,6 +17,7 @@
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
         Title="{Binding Title}"
+        x:Name="u"
         x:DataType="vm:AchievementWindowViewModel"
         WindowStartupLocation="CenterScreen">
     <Window.Styles>
@@ -50,25 +51,38 @@
 
         <TabControl Classes="flat">
             <TabItem Header="成就解锁">
-                <DataGrid Items="{Binding Achievements}">
+                <DataGrid Items="{Binding Achievements}" IsReadOnly="True">
                     <DataGrid.Columns>
                         <!--CheckBox-->
-                        <DataGridCheckBoxColumn
-                                            x:DataType="models:AchievementInfo"
-                                            Binding="{Binding IsChecked}"
-                                            Width="Auto">
-                            <DataGridCheckBoxColumn.Header>
-                                <CheckBox IsEnabled="{Binding IsAchieved,Mode=TwoWay}"></CheckBox>
-                            </DataGridCheckBoxColumn.Header>
-                        </DataGridCheckBoxColumn>
+                        <DataGridTemplateColumn
+                                            Width="58">
+                            <DataGridTemplateColumn.Header>
+                                <CheckBox Classes="onlyCheckBox"
+                                          IsChecked="{ReflectionBinding #u.DataContext.IsCheckAll,Mode=TwoWay}"
+                                          VerticalAlignment="Center"
+                                          Margin="8 0 0 0"></CheckBox>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="models:AchievementInfo">
+                                    <CheckBox Classes="onlyCheckBox"
+                                            IsChecked="{Binding IsChecked,Mode=TwoWay}"
+                                            VerticalAlignment="Center"
+                                            Margin="-5 0 0 0"
+                                            HorizontalAlignment="Center"
+                                            HorizontalContentAlignment="Center">
+                                    </CheckBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
                         <!-- Image -->
                         <DataGridTemplateColumn
                                                 Header="Logo"
-                                                Width="Auto" >
+                                                Width="84" >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate x:DataType="models:AchievementInfo">
-                                    <Image Source="{Binding IconStream^,Converter={StaticResource BitmapAssetValueConverter}}"
+                                    <Image Source="{Binding IconStream^,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=64}"
+                                           Margin="-8 0 0 0"
                                            Width="64" Height="64" Stretch="UniformToFill">
                                     </Image>
                                 </DataTemplate>
@@ -76,16 +90,36 @@
                         </DataGridTemplateColumn>
 
                         <!--Name-->
-                        <DataGridTextColumn Header="Name"
-                                            x:DataType="models:AchievementInfo"
-                                            Binding="{Binding Name}"
-                                            Width="Auto"  />
+                        <DataGridTemplateColumn Header="Name"
+                                            Width="*"  >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="models:AchievementInfo">
+                                    <WrapPanel Margin="10 0">
+                                        <TextBlock Text="{ReflectionBinding Path=Res.Achievement_IsProtection,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                                   IsVisible="{Binding IsProtection}"
+                                                   VerticalAlignment="Center"/>
+                                        <StackPanel Orientation="Vertical" Spacing="5" VerticalAlignment="Center">
+                                            <controls:ScrollingTextBlock Text="{Binding Name}"/>
+                                            <TextBlock Text="{Binding UnlockTime,StringFormat={x:Static resx:AppResources.Achievement_TimeFormat}}"
+                                                       FontSize="{StaticResource FontSizeH8}"
+                                                       IsVisible="{Binding IsAchieved}"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
                         <!--Description-->
-                        <DataGridTextColumn Header="Description"
-                                            x:DataType="models:AchievementInfo"
-                                            Width="*"
-                                            Binding="{Binding Description}"  />
+                        <DataGridTemplateColumn Header="Description"
+                                            Width="2*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="models:AchievementInfo">
+                                    <TextBlock Text="{Binding Description}"
+                                               VerticalAlignment="Center"
+                                               TextWrapping="WrapWithOverflow"></TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
                     </DataGrid.Columns>
                 </DataGrid>

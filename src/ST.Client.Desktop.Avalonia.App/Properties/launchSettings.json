@@ -1,7 +1,8 @@
 {
   "profiles": {
     "ST.Client.Desktop.Avalonia.App": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "-clt app -id 282800"
     }
   }
 }
