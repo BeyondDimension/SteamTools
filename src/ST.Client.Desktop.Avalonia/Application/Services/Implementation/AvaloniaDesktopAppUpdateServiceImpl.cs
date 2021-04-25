@@ -1,7 +1,5 @@
-﻿using Avalonia.Controls.ApplicationLifetimes;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using System.Application.Models;
-using AvaloniaApplication = Avalonia.Application;
 
 namespace System.Application.Services.Implementation
 {
@@ -19,12 +17,10 @@ namespace System.Application.Services.Implementation
 
         protected override async void OnExistNewVersion()
         {
-            if (AvaloniaApplication.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            var hasActiveWindow = IDesktopAppService.Instance.HasActiveWindow();
+            if (hasActiveWindow)
             {
-                if (desktop.Windows.Any_Nullable(x => x.IsActive))
-                {
-                    await IShowWindowService.Instance.Show(typeof(object), CustomWindow.NewVersion);
-                }
+                await IShowWindowService.Instance.Show(typeof(object), CustomWindow.NewVersion);
             }
         }
 

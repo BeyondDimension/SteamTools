@@ -1,8 +1,6 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
-using System.Linq;
+﻿using Avalonia.Controls;
 using System.Threading.Tasks;
+using AvaloniaApplication = Avalonia.Application;
 
 namespace System.Application.Services
 {
@@ -12,22 +10,9 @@ namespace System.Application.Services
 
         Window MainWindow { get; }
 
-        Avalonia.Application CurrentApp { get; }
+        AvaloniaApplication Current { get; }
 
-        protected Window GetActiveWindow()
-        {
-            if (CurrentApp.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            {
-                var activeWindow = desktop.Windows.FirstOrDefault(x => x.IsActive);
-                if (activeWindow != null)
-                {
-                    return activeWindow;
-                }
-            }
-            return MainWindow;
-        }
-
-        void HideWindow();
+        Window GetActiveWindow();
 
         /// <summary>
         /// 打开子窗口

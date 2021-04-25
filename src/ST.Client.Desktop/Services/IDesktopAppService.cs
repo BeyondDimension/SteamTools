@@ -29,7 +29,6 @@ namespace System.Application.Services
         /// 主窗口恢复显示
         /// </summary>
         void RestoreMainWindow();
-        void HideWindow();
 
         /// <summary>
         /// 托盘菜单
@@ -41,5 +40,11 @@ namespace System.Application.Services
         bool IsCefInitComplete { get; }
 
         CompositeDisposable CompositeDisposable { get; }
+
+        /// <summary>
+        /// 是否有活动窗口
+        /// </summary>
+        /// <returns></returns>
+        bool HasActiveWindow();
     }
 }

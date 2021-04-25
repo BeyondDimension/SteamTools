@@ -24,8 +24,6 @@ using System.Application.Models;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Avalonia;
-using Thickness = Avalonia.Thickness;
 using System.Application.UI.Views.Windows;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
@@ -287,7 +285,6 @@ namespace System.Application.UI
 #else
                 Startup.HasNotifyIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnLastWindowClose;
 #endif
-
             }
 
             base.OnFrameworkInitializationCompleted();
@@ -295,13 +292,12 @@ namespace System.Application.UI
 
         void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
         {
-            Startup.ActiveUserPost(ActiveUserType.OnStartup);
-
-            AppHelper.Initialized?.Invoke();
-
 #if WINDOWS
             VisualStudioAppCenterSDK.Init();
 #endif
+            AppHelper.Initialized?.Invoke();
+            Startup.ActiveUserPost(ActiveUserType.OnStartup);
+            IAppUpdateService.Instance.CheckUpdate();
         }
 
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
@@ -325,7 +321,7 @@ namespace System.Application.UI
             RestoreMainWindow();
         }
 
-        public async void SetClipboardText(string s) => await Current.Clipboard.SetTextAsync(s);
+        public async void SetClipboardText(string s) => await AvaloniaApplication.Current.Clipboard.SetTextAsync(s);
 
         Window? mMainWindow;
 
@@ -335,7 +331,7 @@ namespace System.Application.UI
             set => mMainWindow = value;
         }
 
-        public AvaloniaApplication CurrentApp => Current;
+        AvaloniaApplication IDesktopAvaloniaAppService.Current => Current;
 
         /// <summary>
         /// Restores the app's main window by setting its <c>WindowState</c> to
@@ -345,7 +341,7 @@ namespace System.Application.UI
         {
             Window? mainWindow = null;
 
-            if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (AvaloniaApplication.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 mainWindow = desktop.MainWindow;
                 if (mainWindow == null)
@@ -371,12 +367,29 @@ namespace System.Application.UI
             mainWindow.Width -= 0.1;
         }
 
-        public void HideWindow()
+        public bool HasActiveWindow()
         {
-            if (CurrentApp.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow.Hide();
+                if (desktop.Windows.Any_Nullable(x => x.IsActive))
+                {
+                    return true;
+                }
             }
+            return false;
+        }
+
+        public Window GetActiveWindow()
+        {
+            if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                var activeWindow = desktop.Windows.FirstOrDefault(x => x.IsActive);
+                if (activeWindow != null)
+                {
+                    return activeWindow;
+                }
+            }
+            return MainWindow;
         }
 
         /// <summary>
@@ -384,7 +397,7 @@ namespace System.Application.UI
         /// </summary>
         public static bool Shutdown(int exitCode = 0)
         {
-            if (Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (AvaloniaApplication.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.Shutdown(exitCode);
                 return true;

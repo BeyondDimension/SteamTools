@@ -17,7 +17,7 @@ namespace System.Application.Converters
 
             if (value is string key)
             {
-                return IDesktopAvaloniaAppService.Instance.CurrentApp.FindResource(key);
+                return IDesktopAvaloniaAppService.Instance.Current.FindResource(key);
             }
             throw new NotSupportedException();
         }
