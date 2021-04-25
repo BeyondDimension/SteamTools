@@ -27,6 +27,10 @@
                                Command="{ReflectionBinding RefreshScriptButton}">
                             <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
                         </Button>
+                        <Button Background="Transparent" Cursor="Hand"
+                               Command="{Binding ScriptStoreCommand}">
+                            <PathIcon Width="16"  Data="{StaticResource JavaScriptDrawing}" />
+                        </Button>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Right" VerticalAlignment="Center">
