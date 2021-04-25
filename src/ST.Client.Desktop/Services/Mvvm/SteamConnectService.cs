@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using DynamicData;
+using ReactiveUI;
 using System.Application.Models;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
@@ -20,20 +21,13 @@ namespace System.Application.Services
         private readonly ISteamDbWebApiService steamDbApiService = ISteamDbWebApiService.Instance;
         private readonly ISteamService SteamTool = ISteamService.Instance;
 
-        #region Steam游戏列表
-        private IReadOnlyCollection<SteamApp>? _SteamApps;
-        public IReadOnlyCollection<SteamApp>? SteamApps
+        public SteamConnectService()
         {
-            get => _SteamApps;
-            set
-            {
-                if (_SteamApps != value)
-                {
-                    _SteamApps = value;
-                    this.RaisePropertyChanged();
-                }
-            }
+            SteamApps = new SourceList<SteamApp>();
         }
+
+        #region Steam游戏列表
+        public SourceList<SteamApp> SteamApps { get; }
         #endregion
 
         #region 运行中的游戏列表
@@ -148,14 +142,12 @@ namespace System.Application.Services
 
                                     while (true)
                                     {
-                                        if (SteamApps.Any_Nullable())
+                                        if (SteamApps.Items.Any())
                                         {
-                                            SteamApps = ApiService.OwnsApps(SteamApps).ToList();
-                                            //UpdateGamesImage();
+                                            LoadGames(ApiService.OwnsApps(SteamApps.Items));
                                             break;
                                         }
                                     }
-
 
                                     //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
                                     //await mainViewModel.SteamAppPage.Initialize();
@@ -192,9 +184,16 @@ namespace System.Application.Services
             }
         }
 
+        private void LoadGames(IEnumerable<SteamApp> apps)
+        {
+            SteamApps.Clear();
+            if (apps.Any())
+                SteamApps.AddRange(apps);
+        }
+
         public async void InitializeGameList()
         {
-            SteamApps = await ISteamService.Instance.GetAppInfos();
+            LoadGames(await ISteamService.Instance.GetAppInfos());
             //UpdateGamesImage();
         }
 
@@ -206,9 +205,9 @@ namespace System.Application.Services
                 return;
             }
 #endif
-            if (SteamApps.Any_Nullable())
+            if (SteamApps.Items.Any())
             {
-                Parallel.ForEach(SteamApps, new ParallelOptions
+                Parallel.ForEach(SteamApps.Items, new ParallelOptions
                 {
                     MaxDegreeOfParallelism = (Environment.ProcessorCount / 2) + 1
                 }, async app =>
@@ -224,7 +223,8 @@ namespace System.Application.Services
 
         public async void RefreshGamesList()
         {
-            SteamApps = await ISteamService.Instance.GetAppInfos();
+            Task.Run(InitializeGameList).ForgetAndDispose();
+
             var t = new Task(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
@@ -232,15 +232,15 @@ namespace System.Application.Services
                 {
                     while (true)
                     {
-                        if (SteamTool.IsRunningSteamProcess && IsDisposedClient == false)
+                        if (SteamTool.IsRunningSteamProcess)
                         {
                             if (ApiService.Initialize())
                             {
                                 while (true)
                                 {
-                                    if (SteamApps.Any_Nullable())
+                                    if (SteamApps.Items.Any())
                                     {
-                                        SteamApps = ApiService.OwnsApps(SteamApps).ToList();
+                                        LoadGames(ApiService.OwnsApps(SteamApps.Items));
                                         //UpdateGamesImage();
                                         Toast.Show("刷新游戏列表完成");
                                         DisposeSteamClient();

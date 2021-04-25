@@ -109,7 +109,7 @@
                                                 </Button>
 
                                                 <Button Background="Transparent" Cursor="Hand"
-                                                        Command="{ReflectionBinding #u.DataContext.EditScriptItemButton}"
+                                                        Command="{ReflectionBinding #u.DataContext.OpenHomeScriptItemButton}"
                                                         CommandParameter="{Binding}">
                                                     <PathIcon Width="16"  Data="{StaticResource HomeDrawing}" />
                                                 </Button>

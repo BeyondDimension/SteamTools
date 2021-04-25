@@ -20,6 +20,11 @@ namespace System.Application.Services
         public static ProxyService Current { get; } = new ProxyService();
         readonly IHttpProxyService httpProxyService = DI.Get<IHttpProxyService>();
 
+        public ProxyService()
+        {
+            ProxyScripts = new SourceList<ScriptDTO>();
+        }
+
         private ObservableCollection<AccelerateProjectGroupDTO>? _ProxyDomains;
         public ObservableCollection<AccelerateProjectGroupDTO>? ProxyDomains
         {
@@ -41,19 +46,7 @@ namespace System.Application.Services
             set => this.RaiseAndSetIfChanged(ref _SelectGroup, value);
         }
 
-        private ObservableCollection<ScriptDTO>? _ProxyScripts;
-        public ObservableCollection<ScriptDTO>? ProxyScripts
-        {
-            get => _ProxyScripts;
-            set
-            {
-                if (_ProxyScripts != value)
-                {
-                    _ProxyScripts = value;
-                    this.RaisePropertyChanged();
-                }
-            }
-        }
+        public SourceList<ScriptDTO> ProxyScripts { get; }
 
         public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains
         {
@@ -74,9 +67,9 @@ namespace System.Application.Services
             {
                 if (IsEnableScript == false)
                     return null;
-                if (!ProxyScripts.Any_Nullable())
+                if (!ProxyScripts.Items.Any())
                     return null;
-                return ProxyScripts.Where(w => w.Enable).ToArray();
+                return ProxyScripts.Items.Where(w => w.Enable).ToArray();
             }
         }
 
@@ -228,13 +221,13 @@ namespace System.Application.Services
             //}
             //new ObservableCollection<ScriptDTO>(response.Content);
             var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
-            ProxyScripts = new ObservableCollection<ScriptDTO>(scriptList);
+            ProxyScripts.AddRange(scriptList);
             httpProxyService.IsEnableScript = IsEnableScript;
-            if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && ProxyScripts.Any_Nullable())
+            if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && ProxyScripts.Items.Any())
             {
-                foreach (var item in ProxyScripts)
+                foreach (var item in ProxyScripts.Items)
                 {
-                    if (item.LocalId != null && ProxySettings.ScriptsStatus.Value.Contains(item.LocalId.Value))
+                    if (item.LocalId > 0 && ProxySettings.ScriptsStatus.Value.Contains(item.LocalId))
                     {
                         item.Enable = true;
                     }
@@ -243,14 +236,14 @@ namespace System.Application.Services
 
             this.WhenAnyValue(v => v.ProxyScripts)
                   .Subscribe(script => script?
-                        .ToObservableChangeSet()
+                        .Connect()
                         .AutoRefresh(x => x.Enable)
                         .WhenPropertyChanged(x => x.Enable, false)
                         .Subscribe(_ =>
                         {
                             if (EnableProxyScripts != null)
                             {
-                                ProxySettings.ScriptsStatus.Value = EnableProxyScripts.Where(w => w?.LocalId != null).Select(k => k.LocalId.Value).ToList();
+                                ProxySettings.ScriptsStatus.Value = EnableProxyScripts.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
                             }
                         }));
             #endregion
@@ -275,24 +268,23 @@ namespace System.Application.Services
             httpProxyService.Dispose();
         }
 
-		public async void AddNewScript(string filename)
-		{
-			var item = await DI.Get<IScriptManagerService>().AddScriptAsync(filename).ConfigureAwait(true);
-			if (item.state)
-			{
-				//var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
-				if (ProxyScripts != null)
-					ProxyScripts.Add(item.model);
-				else
-					ProxyScripts = new ObservableCollection<ScriptDTO>() { item.model };
-			}
-			Toast.Show(item.msg);
-		}
-		public async void RefreshScript()
-		{
-			var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
-			ProxyScripts = new ObservableCollection<ScriptDTO>(scriptList);
-		}
+        public async void AddNewScript(string filename)
+        {
+            var item = await DI.Get<IScriptManagerService>().AddScriptAsync(filename).ConfigureAwait(true);
+            if (item.state)
+            {
+                //var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
+                if (item.model != null)
+                    ProxyScripts.Add(item.model);
+            }
+            Toast.Show(item.msg);
+        }
+        public async void RefreshScript()
+        {
+            var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
+            ProxyScripts.Clear();
+            ProxyScripts.AddRange(scriptList);
+        }
 
     }
 }

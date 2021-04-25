@@ -38,6 +38,6 @@ namespace System.Application.UI.Views.Pages
                     ProxyService.Current.AddNewScript(s.Result[0]);
                 }
             });
-        }  
+        }
     }
 }

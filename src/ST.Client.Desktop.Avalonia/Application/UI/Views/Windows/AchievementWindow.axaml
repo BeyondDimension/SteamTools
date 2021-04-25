@@ -102,5 +102,8 @@
                 </DataGrid>
             </TabItem>
         </TabControl>
+
+        <!--Toast-->
+        <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
     </Panel>
 </Window>

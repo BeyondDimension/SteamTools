@@ -53,5 +53,8 @@
     <Compile Update="Application\UI\Views\Windows\AchievementWindow.axaml.cs">
       <DependentUpon>AchievementWindow.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Application\UI\Views\Windows\ScriptStoreWindow.axaml.cs">
+      <DependentUpon>ScriptStoreWindow.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

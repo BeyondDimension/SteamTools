@@ -26,16 +26,98 @@ namespace System.Application.UI.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
+        Func<SteamApp, bool> PredicateName(string? text)
+        {
+            return s =>
+            {
+                if (s == null || s.DisplayName == null)
+                    return false;
+                if (string.IsNullOrEmpty(text))
+                    return true;
+                if (s.DisplayName.Contains(text, StringComparison.OrdinalIgnoreCase) ||
+                       s.AppId.ToString().Contains(text, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+
+                return false;
+            };
+        }
+
+        Func<SteamApp, bool> PredicateType(IEnumerable<EnumModel<SteamAppType>> types)
+        {
+            //var types = AppTypeFiltres.Where(x => x.Enable);
+            return (s) =>
+            {
+                if (types == null)
+                    return false;
+                if (types.Any())
+                {
+                    if (types.Any(x => x.Value == s.Type))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            };
+        }
+
+        Func<SteamApp, bool> PredicateInstalled(bool isInstalledFilter)
+        {
+            return s =>
+            {
+                if (isInstalledFilter)
+                    return s.IsInstalled;
+                return true;
+            };
+        }
+
+
         public GameListPageViewModel()
         {
             _IconKey = nameof(GameListPageViewModel).Replace("ViewModel", "Svg");
-            _AppTypeFiltres = new ObservableCollection<EnumModel<SteamAppType>>(EnumModel.GetEnumModels<SteamAppType>());
-            _AppTypeFiltres[1].Enable = true;
-            _AppTypeFiltres[2].Enable = true;
-        }
+            AppTypeFiltres = new ObservableCollection<EnumModel<SteamAppType>>(EnumModel.GetEnumModels<SteamAppType>());
+            AppTypeFiltres[1].Enable = true;
+            AppTypeFiltres[2].Enable = true;
 
-        private readonly Subject<Unit> updateSource = new();
-        public bool IsReloading { get; set; }
+            var nameFilter = this.WhenAnyValue(x => x.SerachText).Select(PredicateName);
+
+            var installFilter = this.WhenAnyValue(x => x.IsInstalledFilter).Select(PredicateInstalled);
+
+            var typeFilter = this.WhenAnyValue(x => x.EnableAppTypeFiltres).Select(PredicateType);
+
+            //var type = AppTypeFiltres
+            //    .ToObservableChangeSet()
+            //    .AutoRefresh(model => model.Enable)
+            //    //.ToCollection()
+            //    //.Select(PredicateType);
+
+            var type = this.WhenAnyValue(x => x.AppTypeFiltres)
+                 .Select(type => type?
+                     .ToObservableChangeSet()
+                     .AutoRefresh(x => x.Enable)
+                     .Subscribe(_ =>
+                     {
+                         EnableAppTypeFiltres = AppTypeFiltres.Where(s => s.Enable).ToList();
+                         this.RaisePropertyChanged(nameof(TypeFilterString));
+                     }));
+
+            //type.ToProperty(this, x => x.AppTypeFiltres);
+
+            SteamConnectService.Current.SteamApps
+                .Connect()
+                .Filter(nameFilter)
+                //.Filter(typeFilter)
+                .Filter(installFilter)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.DisplayName))
+                .Bind(out _SteamApps)
+                .Subscribe(_ =>
+                {
+                    this.RaisePropertyChanged(nameof(IsSteamAppsEmpty));
+                    this.CalcTypeCount();
+                });
+        }
 
         private bool _IsOpenFilter;
         public bool IsOpenFilter
@@ -65,20 +147,8 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _SelectApp, value);
         }
 
-        private IReadOnlyCollection<SteamApp>? _SteamApps;
-        public IReadOnlyCollection<SteamApp>? SteamApps
-        {
-            get => _SteamApps;
-            set
-            {
-                if (_SteamApps != value)
-                {
-                    _SteamApps = value;
-                    this.RaisePropertyChanged();
-                    this.RaisePropertyChanged(nameof(IsSteamAppsEmpty));
-                }
-            }
-        }
+        private readonly ReadOnlyObservableCollection<SteamApp> _SteamApps;
+        public ReadOnlyObservableCollection<SteamApp> SteamApps => _SteamApps;
 
         private string? _SerachText;
         public string? SerachText
@@ -96,111 +166,82 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _AppTypeFiltres, value);
         }
 
+
+        private IReadOnlyCollection<EnumModel<SteamAppType>> _EnableAppTypeFiltres;
+        public IReadOnlyCollection<EnumModel<SteamAppType>> EnableAppTypeFiltres
+        {
+            get => _EnableAppTypeFiltres;
+            set => this.RaiseAndSetIfChanged(ref _EnableAppTypeFiltres, value);
+        }
+
         public string TypeFilterString
         {
-            get => string.Join(',', AppTypeFiltres.Where(x => x.Enable).Select(s => s.Name_Localiza));
+            get => string.Join(',', EnableAppTypeFiltres.Select(s => s.Name_Localiza));
         }
 
-        internal override void Initialize()
-        {
-            this.updateSource
-                .Do(_ => this.IsReloading = true)
-                .SelectMany(x => this.UpdateAsync())
-                .Do(_ => this.IsReloading = false)
-                .Subscribe()
-                .AddTo(this);
+        //private IObservable<Unit> UpdateAsync()
+        //{
+        //    var types = AppTypeFiltres.Where(x => x.Enable);
+        //    bool predicateName(SteamApp s)
+        //    {
+        //        if (!string.IsNullOrEmpty(SerachText))
+        //        {
+        //            if (s.DisplayName?.Contains(SerachText, StringComparison.OrdinalIgnoreCase) == true ||
+        //                s.AppId.ToString().Contains(SerachText, StringComparison.OrdinalIgnoreCase))
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return true;
+        //        }
+        //        return false;
+        //    }
+        //    bool predicateType(SteamApp s)
+        //    {
+        //        if (types.Any())
+        //        {
+        //            if (types.Any(x => x.Value == s.Type))
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //        return false;
+        //    }
+        //    bool predicateInstalled(SteamApp s)
+        //    {
+        //        if (IsInstalledFilter)
+        //            return s.IsInstalled;
+        //        return true;
+        //    }
 
-            SteamConnectService.Current
-              .WhenAnyValue(x => x.SteamApps)
-              .Subscribe(_ => Update());
+        //    return Observable.Start(() =>
+        //    {
+        //        var list = SteamConnectService.Current.SteamApps?
+        //        .Where(x => predicateType(x))
+        //        .Where(x => predicateName(x))
+        //        .Where(x => predicateInstalled(x))
+        //        .OrderBy(x => x.DisplayName).ToList();
+        //        if (list.Any_Nullable())
+        //            this.SteamApps = list;
+        //        else
+        //            this.SteamApps = null;
+        //        this.CalcTypeCount();
+        //    });
+        //}
 
-            this.WhenAnyValue(x => x.SerachText)
-                  .Subscribe(_ =>
-                  {
-                      Update();
-                  });
-
-            this.WhenAnyValue(x => x.IsInstalledFilter)
-                  .Subscribe(_ =>
-                  {
-                      Update();
-                  });
-
-            this.WhenAnyValue(x => x.AppTypeFiltres)
-                  .Subscribe(type => type?
-                        .ToObservableChangeSet()
-                        .AutoRefresh(x => x.Enable)
-                        .WhenValueChanged(x => x.Enable, false)
-                        .Subscribe(_ =>
-                        {
-                            this.RaisePropertyChanged(nameof(TypeFilterString));
-                            Update();
-                        }));
-        }
-
-        private IObservable<Unit> UpdateAsync()
-        {
-            var types = AppTypeFiltres.Where(x => x.Enable);
-            bool predicateName(SteamApp s)
-            {
-                if (!string.IsNullOrEmpty(SerachText))
-                {
-                    if (s.DisplayName?.Contains(SerachText, StringComparison.OrdinalIgnoreCase) == true ||
-                        s.AppId.ToString().Contains(SerachText, StringComparison.OrdinalIgnoreCase))
-                    {
-                        return true;
-                    }
-                }
-                else
-                {
-                    return true;
-                }
-                return false;
-            }
-            bool predicateType(SteamApp s)
-            {
-                if (types.Any())
-                {
-                    if (types.Any(x => x.Value == s.Type))
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-            bool predicateInstalled(SteamApp s)
-            {
-                if (IsInstalledFilter)
-                    return s.IsInstalled;
-                return true;
-            }
-
-            return Observable.Start(() =>
-            {
-                var list = SteamConnectService.Current.SteamApps?
-                .Where(x => predicateType(x))
-                .Where(x => predicateName(x))
-                .Where(x => predicateInstalled(x))
-                .OrderBy(x => x.DisplayName).ToList();
-                if (list.Any_Nullable())
-                    this.SteamApps = list;
-                else
-                    this.SteamApps = null;
-                this.CalcTypeCount();
-            });
-        }
-
-        public void Update()
-        {
-            this.updateSource.OnNext(Unit.Default);
-        }
+        //public void Update()
+        //{
+        //    this.updateSource.OnNext(Unit.Default);
+        //}
 
         public void CalcTypeCount()
         {
-            if (SteamConnectService.Current.SteamApps.Any_Nullable())
+            if (SteamConnectService.Current.SteamApps.Items.Any())
                 foreach (var item in AppTypeFiltres)
                 {
-                    item.Count = SteamConnectService.Current.SteamApps.Count(s => s.Type == item.Value);
+                    item.Count = SteamConnectService.Current.SteamApps.Items.Count(s => s.Type == item.Value);
                 }
         }
 
@@ -247,7 +288,7 @@ namespace System.Application.UI.ViewModels
                 case SteamAppType.Game:
                     //if (WindowService.Current.MainWindow.Dialog("【风险提示】解锁成就可能会被游戏开发者视为作弊，并且会被成就统计网站封锁。若决定继续使用，请自行承担解锁成就带来的风险和后果。"))
                     //{
-                    app.Process = Process.Start(Process.GetCurrentProcess().MainModule.FileName, "-clt app -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
+                    app.Process = Process.Start(AppHelper.ProgramName, "-clt app -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
                     SteamConnectService.Current.RuningSteamApps.Add(app);
                     //}
                     break;

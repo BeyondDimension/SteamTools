@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class ProxyScriptManageWindow : FluentWindow
+    public class ScriptStoreWindow : FluentWindow
     {
-        public ProxyScriptManageWindow()
+        public ScriptStoreWindow()
         {
             InitializeComponent();
 #if DEBUG

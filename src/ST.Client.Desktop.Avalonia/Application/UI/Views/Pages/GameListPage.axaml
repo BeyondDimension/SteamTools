@@ -197,7 +197,7 @@
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="20 0" Spacing="8">
-                                <Border DockPanel.Dock="Top" Classes="paper" x:Name="app">
+                                <Border DockPanel.Dock="Top" Classes="paper">
                                     <Border.ContextMenu>
                                         <ContextMenu>
                                             <MenuItem
@@ -252,12 +252,12 @@
                                                       CommandParameter="{Binding}" />
                                         </ContextMenu>
                                     </Border.ContextMenu>
-                                    <!--<i:Interaction.Behaviors>
+                                    <Panel x:Name="app" Width="200" Height="300">
+                                        <!--<i:Interaction.Behaviors>
                                             <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #app}">
                                                 <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.AppClick}" CommandParameter="{Binding}"/>
                                             </ia:EventTriggerBehavior>
                                         </i:Interaction.Behaviors>-->
-                                    <Panel Width="200" Height="300">
                                         <gif:Image2 x:Name="library"
                                                             Stretch="UniformToFill"
                                                             DecodeWidth="200"
@@ -285,8 +285,8 @@
                                     </Panel>
                                 </Border>
 
-                                <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding DisplayName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                                <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding AppId}" FontSize="10" Foreground="{DynamicResource InactiveForegroundBrushKey}" />
+                                <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding DisplayName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                                <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding AppId}" FontSize="10" Foreground="{DynamicResource InactiveForegroundBrushKey}" />
                             </StackPanel>
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>

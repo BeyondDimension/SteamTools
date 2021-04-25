@@ -35,7 +35,6 @@ namespace System.Application.UI.ViewModels
             IconKey = nameof(SteamAccountPageViewModel).Replace("ViewModel", "Svg");
 
             this.WhenAnyValue(x => x.SteamUsers)
-                  .DistinctUntilChanged()
                   .Subscribe(s => this.RaisePropertyChanged(nameof(IsUserEmpty)));
             LoginAccountCommand = ReactiveCommand.Create(LoginNewSteamAccount);
             RefreshCommand = ReactiveCommand.Create(Initialize);
