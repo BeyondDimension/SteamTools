@@ -258,11 +258,12 @@ namespace System.Application.Services
 				var basicsItem = ProxyScripts.Items.FirstOrDefault(x => x.Id == Guid.Parse("00000000-0000-0000-0000-000000000001"));
 				if (basicsItem != null)
 				{
-					if (basicsItem.Version != basicsInfo.Content.Version && basicsInfo.Content.UpdateLink!=null)
+					if (basicsItem.Version != basicsInfo.Content.Version && basicsInfo.Content.UpdateLink != null)
 					{
 						var index = ProxyScripts.Items.IndexOf(basicsItem);
 						basicsItem.IsUpdate = true;
 						basicsItem.UpdateLink = basicsInfo.Content.UpdateLink;
+						basicsItem.NewVersion = basicsInfo.Content.Version;
 						ProxyScripts.ReplaceAt(index, basicsItem);
 					}
 				}
@@ -273,10 +274,11 @@ namespace System.Application.Services
 						var jspath = await DI.Get<IScriptManagerService>().DownloadScript(basicsInfo.Content.UpdateLink);
 						if (jspath.state)
 						{
-							var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, null, false,1,true);
-							if (build.state) {
+							var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, build: false, order: 1, deleteFile: true,pid: basicsInfo.Content.Id);
+							if (build.state)
+							{
 								if (build.model != null)
-									ProxyScripts.Insert(0,build.model);
+									ProxyScripts.Insert(0, build.model);
 							}
 						}
 					}

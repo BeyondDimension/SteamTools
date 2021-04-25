@@ -39,7 +39,7 @@ namespace System.Application.Services.Implementation
 		/// </summary>
 		/// <param name="filePath"></param>
 		/// <returns></returns>
-		public async Task<(bool state, ScriptDTO? model, string msg)> AddScriptAsync(string filePath, ScriptDTO? oldInfo = null, bool build = true, int order = 10, bool deleteFile = false)
+		public async Task<(bool state, ScriptDTO? model, string msg)> AddScriptAsync(string filePath, ScriptDTO? oldInfo = null, bool build = true, int order = 10, bool deleteFile = false, Guid? pid = null)
 		{
 			var fileInfo = new FileInfo(filePath);
 			if (fileInfo.Exists)
@@ -76,6 +76,8 @@ namespace System.Application.Services.Implementation
 								if (!state.state)
 									return (false, null, string.Format(SR.Script_FileDeleteError, oldInfo.FilePath));
 							}
+							if (pid.HasValue)
+								info.Id = pid.Value;
 							var cachePath = Path.Combine(IOPath.CacheDirectory, url);
 							info.FilePath = url;
 							info.CachePath = url;
@@ -83,10 +85,10 @@ namespace System.Application.Services.Implementation
 							{
 								var db = mapper.Map<Script>(info);
 								db.MD5 = md5;
-								db.SHA512 = sha512;
-								info.LocalId = db.Id;
+								db.SHA512 = sha512; 
 								db.Order = order;
-								try {
+								try
+								{
 									if (deleteFile)
 										fileInfo.Delete();
 								}
