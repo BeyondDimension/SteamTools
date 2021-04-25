@@ -39,7 +39,7 @@ namespace System.Application.Services.Implementation
 		/// </summary>
 		/// <param name="filePath"></param>
 		/// <returns></returns>
-		public async Task<(bool state, ScriptDTO? model, string msg)> AddScriptAsync(string filePath, ScriptDTO? oldInfo = null, bool build = true)
+		public async Task<(bool state, ScriptDTO? model, string msg)> AddScriptAsync(string filePath, ScriptDTO? oldInfo = null, bool build = true, int order = 10, bool deleteFile = false)
 		{
 			var fileInfo = new FileInfo(filePath);
 			if (fileInfo.Exists)
@@ -85,6 +85,12 @@ namespace System.Application.Services.Implementation
 								db.MD5 = md5;
 								db.SHA512 = sha512;
 								info.LocalId = db.Id;
+								db.Order = order;
+								try {
+									if (deleteFile)
+										fileInfo.Delete();
+								}
+								catch (Exception e) { logger.LogError(e.ToString()); }
 								var state = (await scriptRepository.InsertOrUpdateAsync(db)).rowCount > 0;
 								return (state, info, state ? SR.Script_SaveDbSuccess : SR.Script_SaveDBError);
 							}

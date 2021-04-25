@@ -13,7 +13,7 @@ namespace System.Application.Services.CloudService.Clients
         public Task<IApiResponse<ScriptResponse>> Basics()
         {
             var url =
-                $"api/acript/basics/";
+                $"api/script/basics";
             return conn.SendAsync<ScriptResponse>(
                 isAnonymous: true,
                 method: HttpMethod.Get,
