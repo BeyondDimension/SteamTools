@@ -16,7 +16,7 @@
         <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{ReflectionBinding $parent[Window].Title}" VerticalAlignment="Center" Foreground="{DynamicResource HighlightForegroundBrushKey}" FontSize="14"/>
       </StackPanel>
     </ExperimentalAcrylicBorder>
-    <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False">
+    <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False" Opacity="{StaticResource ContentOpacity}">
       <ExperimentalAcrylicBorder.Material>
         <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
       </ExperimentalAcrylicBorder.Material>

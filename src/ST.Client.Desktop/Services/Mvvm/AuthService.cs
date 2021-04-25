@@ -61,11 +61,11 @@ namespace System.Application.Services
                     {
                         foreach (var item in Authenticators.Items)
                             item.Sync();
-                        ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
+                        //ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
                     }).ForgetAndDispose();
                 }
-                else
-                    ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
+                //else
+                //    ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
             }
 
             //Authenticators.CollectionChanged += (s, e) =>

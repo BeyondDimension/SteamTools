@@ -348,3 +348,6 @@ healthchecksdb
 
 # Android Resource Designer
 Resource.designer.cs
+
+# csproject launchSettings
+launchSettings.json

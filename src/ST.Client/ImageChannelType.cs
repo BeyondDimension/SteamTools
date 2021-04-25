@@ -32,6 +32,16 @@ namespace System.Application
         SteamAchievementIcon,
 
         /// <summary>
+        /// Steam 加速项目图标
+        /// </summary>
+        AccelerateGroup,
+
+        /// <summary>
+        /// 脚本图标
+        /// </summary>
+        ScriptIcon,
+
+        /// <summary>
         /// 验证码图片
         /// </summary>
         CodeImage,

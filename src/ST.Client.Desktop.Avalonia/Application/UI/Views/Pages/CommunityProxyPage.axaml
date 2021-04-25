@@ -50,7 +50,7 @@
                                               IsChecked="{Binding ThreeStateEnable,Mode=TwoWay}"
                                               Margin="0 0 20 0">
                                     </CheckBox>
-                                    <Image Width="40" Source="{Binding ImageId,Converter={StaticResource BitmapAssetValueConverter}}">
+                                    <Image Width="40" Source="{Binding ImageStream^,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=40}">
                                     </Image>
                                     <!--<Image Width="40" Source="/Application/UI/Assets/AppResources/Steam.png">
                                     </Image>-->

@@ -8,6 +8,7 @@ using System.Linq;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
 using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
+using System.Threading.Tasks;
 #endif
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -71,6 +72,16 @@ namespace System.Application.Models
             get => _ObservableItems;
             set => this.RaiseAndSetIfChanged(ref _ObservableItems, value);
         }
+
+        /// <summary>
+        /// 显示图片，使用 System.Application.ImageUrlHelper.GetImageApiUrlById(Guid) 转换为Url
+        /// </summary>
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+
+        private Task<string?>? _ImageStream;
+        public Task<string?>? ImageStream { get;set; }
 #endif
 
         /// <summary>
