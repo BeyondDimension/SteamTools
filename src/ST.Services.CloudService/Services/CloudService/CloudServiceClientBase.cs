@@ -18,6 +18,7 @@ namespace System.Application.Services.CloudService
 
         #region Clients
 
+        public IScriptClient Script { get; }
         public IAccountClient Account { get; }
         public IManageClient Manage { get; }
         public IAuthMessageClient AuthMessage { get; }
@@ -78,6 +79,7 @@ namespace System.Application.Services.CloudService
             Version = new VersionClient(connection);
             ActiveUser = new ActiveUserClient(connection);
             Accelerate = new AccelerateClient(connection);
+            Script = new ScriptClient(connection);
 
             #endregion
         }

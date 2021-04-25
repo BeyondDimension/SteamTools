@@ -22,7 +22,7 @@ namespace System.Application.Repositories.Implementation
 			var dbConnection = await GetDbConnection().ConfigureAwait(false);
 			return await AttemptAndRetry(async () =>
 			{
-				return  await dbConnection.Table<Script>().Take(IScriptRepository.MaxValue).ToArrayAsync();
+				return  await dbConnection.Table<Script>().OrderBy(x=>x.Order).Take(IScriptRepository.MaxValue).ToArrayAsync();
 			}).ConfigureAwait(false);
 		}
 		public async Task<Script> ExistsScriptName(string name)

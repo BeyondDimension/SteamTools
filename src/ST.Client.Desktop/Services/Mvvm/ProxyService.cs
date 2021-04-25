@@ -222,6 +222,7 @@ namespace System.Application.Services
             //new ObservableCollection<ScriptDTO>(response.Content);
             var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
             ProxyScripts.AddRange(scriptList);
+            BasicsInfo();
             httpProxyService.IsEnableScript = IsEnableScript;
             if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && ProxyScripts.Items.Any())
             {
@@ -248,7 +249,18 @@ namespace System.Application.Services
                         }));
             #endregion
         }
+        public async void BasicsInfo()
+        {
+            var basicsInfo = await ICloudServiceClient.Instance.Script.Basics();
+            if(basicsInfo.Code== ApiResponseCode.OK) {
+                Toast.Show(basicsInfo.Content?.Version??"kong");
+            }
+           //var basicsInfo = await DI.Get<IScriptManagerService>().DownloadScript("");
+            //获取本地
+            //var basicsItem = ProxyScripts.Items.FirstOrDefault(x => x.Id == Guid.Parse("00000000-0000-0000-0000-000000000001"));
 
+
+        }
         public void StartTiming()
         {
             Task.Run(() =>

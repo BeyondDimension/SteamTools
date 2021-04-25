@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace System.Application.Services.CloudService
 {
-    public sealed partial class MockCloudServiceClient : ICloudServiceClient, IAccountClient, IManageClient, IAuthMessageClient, IVersionClient, IActiveUserClient, IAccelerateClient
+    public sealed partial class MockCloudServiceClient : ICloudServiceClient, IAccountClient, IManageClient, IAuthMessageClient, IVersionClient, IActiveUserClient, IAccelerateClient,IScriptClient
     {
         readonly IToast toast;
         readonly IModelValidator validator;
@@ -24,13 +24,14 @@ namespace System.Application.Services.CloudService
 
         public string ApiBaseUrl => real.ApiBaseUrl;
         public IAccountClient Account => this;
+        public IScriptClient Script => this;
         public IManageClient Manage => this;
         public IAuthMessageClient AuthMessage => this;
         public IVersionClient Version => this;
         public IActiveUserClient ActiveUser => this;
         public IAccelerateClient Accelerate => this;
 
-        #region ModelValidator
+#region ModelValidator
 
         IApiResponse? ModelValidator<TRequestModel>(TRequestModel requestModel) => ModelValidator<TRequestModel, object>(requestModel);
 
@@ -47,7 +48,7 @@ namespace System.Application.Services.CloudService
             return null;
         }
 
-        #endregion
+#endregion
 
         void ShowResponseErrorMessage(IApiResponse response)
         {
@@ -170,6 +171,14 @@ namespace System.Application.Services.CloudService
             await Task.Delay(1500);
             return ApiResponse.Ok();
         }
-    }
+
+		public async Task<IApiResponse<ScriptResponse>> Basics()
+        {
+            await Task.Delay(1500);
+            return ApiResponse.Ok(new ScriptResponse { 
+             Version="00.1"
+            });
+        }
+	}
 }
 #endif

@@ -13,13 +13,13 @@ namespace System.Application.Services
 		/// 绑定JS
 		/// </summary>
 		/// <returns></returns>
-		Task<bool> BuildScriptAsync(ScriptDTO model);
+		Task<bool> BuildScriptAsync(ScriptDTO model, bool build = true);
 		/// <summary>
 		/// 添加Js
 		/// </summary>
 		/// <param name="path"></param>
 		/// <returns></returns>
-		Task<(bool state,ScriptDTO? model, string msg)> AddScriptAsync(string path, ScriptDTO? oldInfo=null);
+		Task<(bool state,ScriptDTO? model, string msg)> AddScriptAsync(string path, ScriptDTO? oldInfo=null,bool build=true);
 		/// <summary>
 		/// 获取Sqlite全部脚本
 		/// </summary>
@@ -31,5 +31,11 @@ namespace System.Application.Services
 		/// <param name="id"></param>
 		/// <returns></returns>
 		Task<(bool state, string msg)> DeleteScriptAsync(ScriptDTO item, bool rmDb = true);
+		/// <summary>
+		/// 下载指定Urljs
+		/// </summary>
+		/// <param name="url"></param>
+		/// <returns></returns>
+		Task<(bool state, string path)> DownloadScript(string url);
 	}
 }

@@ -11,6 +11,7 @@ namespace System.Application.Services
     {
         string ApiBaseUrl { get; }
         IAccountClient Account { get; }
+        IScriptClient Script { get; }
         IManageClient Manage { get; }
         IAuthMessageClient AuthMessage { get; }
         IVersionClient Version { get; }
