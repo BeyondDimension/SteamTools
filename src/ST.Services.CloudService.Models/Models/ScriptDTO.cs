@@ -105,10 +105,23 @@ namespace System.Application.Models
         [S_JsonIgnore]
         public string? Content { get; set; } = string.Empty;
 
-        [MPIgnore]
-        [N_JsonIgnore]
-        [S_JsonIgnore]
-        public string? JsPathUrl { get; set; }
+		[MPIgnore]
+		[N_JsonIgnore]
+		[S_JsonIgnore]
+		public string? JsPathUrl { get; set; }
+		[MPIgnore]
+		[N_JsonIgnore]
+		[S_JsonIgnore]
+		public bool IsUpdate { get; set; } = false;
+		[MPIgnore]
+		[N_JsonIgnore]
+		[S_JsonIgnore]
+		public string? NewVersion { get; set; }
+		[MPIgnore]
+		[N_JsonIgnore]
+		[S_JsonIgnore]
+		public DateTimeOffset? UpdateTime { get; set; }
+
 #endif
 
         /// <summary>

@@ -173,122 +173,149 @@ namespace System.Application.Services.Implementation
                     //});
                 }
 
-            }
-            catch (Exception e)
-            {
-                var msg = string.Format(SR.Script_BuildError, e.ToString());
-                logger.LogError(e, msg);
-                toast.Show(msg);
-            }
-            return false;
-        }
-        public async Task<(bool state, string msg)> DeleteScriptAsync(ScriptDTO item, bool rmDb = true)
-        {
-            if (item.LocalId > 0)
-            {
-                var info = await scriptRepository.FirstOrDefaultAsync(x => x.Id == item.LocalId);
-                if (info != null)
-                {
-                    var url = Path.Combine(TAG, $"{info.MD5}.js");
-                    try
-                    {
-                        var cachePath = Path.Combine(IOPath.CacheDirectory, url);
-                        var cashInfo = new FileInfo(cachePath);
-                        if (cashInfo.Exists)
-                            cashInfo.Delete();
-                    }
-                    catch (Exception e)
-                    {
-                        var msg = string.Format(SR.Script_CacheDeleteError, e.ToString());
-                        logger.LogError(e, msg);
-                        return (false, msg);
-                    }
-                    try
-                    {
-                        var savePath = Path.Combine(IOPath.AppDataDirectory, url);
-                        var fileInfo = new FileInfo(savePath);
-                        if (fileInfo.Exists)
-                            fileInfo.Delete();
-                    }
-                    catch (Exception e)
-                    {
-                        var msg = string.Format(SR.Script_FileDeleteError, e.ToString());
-                        logger.LogError(e, msg);
-                        return (false, msg);
-                    }
-                    if (rmDb)
-                    {
-                        var state = (await scriptRepository.DeleteAsync(item.LocalId)) > 0;
-                        return (state, state ? SR.Script_DeleteSuccess : SR.Script_DeleteError);
-                    }
-                    return (true, SR.Script_DeleteSuccess);
-                }
-                else
-                {
-                    return (false, SR.Script_DeleteError);
-                }
-            }
-            return (false, SR.Script_NoKey);
-        }
-        public async Task<ScriptDTO> TryReadFile(ScriptDTO item)
-        {
-            var cachePath = Path.Combine(IOPath.CacheDirectory, item.CachePath);
-            var fileInfo = new FileInfo(cachePath);
-            if (fileInfo.Exists)
-                item.Content = File.ReadAllText(cachePath);
-            else
-            {
-                var infoPath = Path.Combine(IOPath.AppDataDirectory, item.FilePath);
-                var infoFile = new FileInfo(infoPath);
-                if (infoFile.Exists)
-                {
-                    if (await BuildScriptAsync(item))
-                    {
-                        cachePath = Path.Combine(IOPath.CacheDirectory, item.CachePath);
-                        fileInfo = new FileInfo(cachePath);
-                        if (fileInfo.Exists)
-                            item.Content = File.ReadAllText(cachePath);
-                    }
-                    else
-                    {
-                        toast.Show(string.Format(SR.Script_ReadFileError, item.Name));
-                    }
+			}
+			catch (Exception e)
+			{
+				var msg = string.Format(SR.Script_BuildError, e.ToString());
+				logger.LogError(e, msg);
+				toast.Show(msg);
+			}
+			return false;
+		}
+		public async Task<(bool state, string msg)> DeleteScriptAsync(ScriptDTO item, bool rmDb = true)
+		{
+			if (item.LocalId>0)
+			{
+				var info = await scriptRepository.FirstOrDefaultAsync(x => x.Id == item.LocalId);
+				if (info != null)
+				{
+					var url = Path.Combine(TAG, $"{info.MD5}.js");
+					try
+					{
+						var cachePath = Path.Combine(IOPath.CacheDirectory, url);
+						var cashInfo = new FileInfo(cachePath);
+						if (cashInfo.Exists)
+							cashInfo.Delete();
+					}
+					catch (Exception e)
+					{
+						var msg = string.Format(SR.Script_CacheDeleteError, e.ToString());
+						logger.LogError(e, msg);
+						return (false, msg);
+					}
+					try
+					{
+						var savePath = Path.Combine(IOPath.AppDataDirectory, url);
+						var fileInfo = new FileInfo(savePath);
+						if (fileInfo.Exists)
+							fileInfo.Delete();
+					}
+					catch (Exception e)
+					{
+						var msg = string.Format(SR.Script_FileDeleteError, e.ToString());
+						logger.LogError(e, msg);
+						return (false, msg);
+					}
+					if (rmDb)
+					{
+						var state = (await scriptRepository.DeleteAsync(item.LocalId)) > 0;
+						return (state, state ? SR.Script_DeleteSuccess : SR.Script_DeleteError);
+					}
+					return (true, SR.Script_DeleteSuccess);
+				}
+				else
+				{
+					return (false, SR.Script_DeleteError);
+				}
+			}
+			return (false, SR.Script_NoKey);
+		}
+		public async Task<ScriptDTO> TryReadFile(ScriptDTO item)
+		{
+			var cachePath = Path.Combine(IOPath.CacheDirectory, item.CachePath);
+			var fileInfo = new FileInfo(cachePath);
+			if (fileInfo.Exists)
+				item.Content = File.ReadAllText(cachePath);
+			else
+			{
+				var infoPath = Path.Combine(IOPath.AppDataDirectory, item.FilePath);
+				var infoFile = new FileInfo(infoPath);
+				if (infoFile.Exists)
+				{
+					if (await BuildScriptAsync(item))
+					{
+						cachePath = Path.Combine(IOPath.CacheDirectory, item.CachePath);
+						fileInfo = new FileInfo(cachePath);
+						if (fileInfo.Exists)
+							item.Content = File.ReadAllText(cachePath);
+					}
+					else
+					{
+						toast.Show(string.Format(SR.Script_ReadFileError, item.Name));
+					}
 
-                }
-                else
-                {
-                    var temp = await DeleteScriptAsync(item);
-                    if (temp.state)//$"脚本:{item.Name}_文件丢失已删除"
-                        toast.Show(string.Format(SR.Script_NoFile, item.Name));
-                    else
-                        toast.Show(string.Format(SR.Script_NoFileDeleteError, item.Name));
-                    //toast.Show($"脚本:{item.Name}_文件丢失，删除失败去尝试手动删除");
-                }
-            }
-            return item;
-        }
-        public async Task<IEnumerable<ScriptDTO>> GetAllScript()
-        {
-            var scriptList = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
-            try
-            {
-                foreach (var item in scriptList)
-                {
-                    await TryReadFile(item);
-                    //if (item.Content!= null) { 
+				}
+				else
+				{
+					var temp = await DeleteScriptAsync(item);
+					if (temp.state)//$"脚本:{item.Name}_文件丢失已删除"
+						toast.Show(string.Format(SR.Script_NoFile, item.Name));
+					else
+						toast.Show(string.Format(SR.Script_NoFileDeleteError, item.Name));
+					//toast.Show($"脚本:{item.Name}_文件丢失，删除失败去尝试手动删除");
+				}
+			}
+			return item;
+		}
+		public async Task<IEnumerable<ScriptDTO>> GetAllScript()
+		{
+			var scriptList = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
+			try
+			{
+				foreach (var item in scriptList)
+				{
+					await TryReadFile(item);
+					//if (item.Content!= null) { 
 
-                    //}
-                }
-            }
-            catch (Exception e)
-            {
-                var errorMsg = string.Format(SR.Script_ReadFileError, e.ToString());//$"文件读取出错:[{e}]";
-                logger.LogError(e, errorMsg);
-                toast.Show(errorMsg);
-            }
-            return scriptList.Where(x => !string.IsNullOrWhiteSpace(x.Content));
-        }
+					//}
+				}
+			}
+			catch (Exception e)
+			{
+				var errorMsg = string.Format(SR.Script_ReadFileError, e.ToString());//$"文件读取出错:[{e}]";
+				logger.LogError(e, errorMsg);
+				toast.Show(errorMsg);
+			}
+			return scriptList.Where(x => !string.IsNullOrWhiteSpace(x.Content));
+		}
+		//public async Task<ScriptDTO> BasicsTry(ScriptDTO script) { 
+		
+		//}
+		public async Task<(bool state,string path)> DownloadScript(string url)
+		{
+			var scriptInfo = await httpService.GetAsync<string>(url);
+			if (scriptInfo!=null&&scriptInfo.Length > 0) {
+				var md5 = Hashs.String.MD5(scriptInfo);
+				var cachePath = Path.Combine(IOPath.CacheDirectory,TAG, md5);
+
+			}
+			//var fileInfo = new FileInfo(savePath);
+			//if (!fileInfo.Directory.Exists)
+			//{
+			//	fileInfo.Directory.Create();
+			//}
+			//if (fileInfo.Exists)
+			//	fileInfo.Delete();
+			//using (var stream = fileInfo.CreateText())
+			//{
+			//	stream.Write(scriptContent);
+			//	await stream.FlushAsync();
+			//	await stream.DisposeAsync();
+			//	//stream
+			//}
 
 
-    }
+			return (false,string.Empty);
+		}
+	}
 }
