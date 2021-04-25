@@ -1466,6 +1466,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 脚本工坊 的本地化字符串。
+        /// </summary>
+        public static string ScriptStore {
+            get {
+                return ResourceManager.GetString("ScriptStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 搜索... 的本地化字符串。
         /// </summary>
         public static string Search {

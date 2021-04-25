@@ -1,14 +1,14 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using DynamicData;
+using DynamicData.Binding;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Properties;
+using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,9 +24,21 @@ namespace System.Application.UI.ViewModels
         public AuthTradeWindowViewModel()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_SteamAuthTrade;
+            _ConfirmationsSourceList = new SourceList<WinAuthSteamClient.Confirmation>();
+
+            _ConfirmationsSourceList
+               .Connect()
+               .ObserveOn(RxApp.MainThreadScheduler)
+               //.Sort(SortExpressionComparer<WinAuthSteamClient.Confirmation>.Descending(x => x.))
+               .Bind(out _Confirmations)
+               .Subscribe(_ =>
+               {
+                   this.RaisePropertyChanged(nameof(IsConfirmationsEmpty));
+                   this.RaisePropertyChanged(nameof(ConfirmationsConutMessage));
+               });
         }
 
-        public AuthTradeWindowViewModel(MyAuthenticator auth)
+        public AuthTradeWindowViewModel(MyAuthenticator auth) : this()
         {
             MyAuthenticator = auth;
             if (MyAuthenticator.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator authenticator)
@@ -39,10 +51,8 @@ namespace System.Application.UI.ViewModels
                 //非Steam令牌无法弹出确认交易框
                 throw new NullReferenceException();
             }
-            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_SteamAuthTrade;
 
             Refresh_Click();
-
         }
 
         #region LoginData
@@ -144,25 +154,10 @@ namespace System.Application.UI.ViewModels
         /// </summary>
         private CancellationTokenSource? CancelCancelAll;
 
-        /// <summary>
-        /// Trade info state
-        /// </summary>
-        private IList<WinAuthSteamClient.Confirmation> _Confirmations = new List<WinAuthSteamClient.Confirmation>();
-        public IList<WinAuthSteamClient.Confirmation> Confirmations
-        {
-            get => _Confirmations;
-            set
-            {
-                if (_Confirmations != value)
-                {
-                    _Confirmations = value;
+        private readonly ReadOnlyObservableCollection<WinAuthSteamClient.Confirmation>? _Confirmations;
+        private readonly SourceList<WinAuthSteamClient.Confirmation> _ConfirmationsSourceList;
+        public ReadOnlyObservableCollection<WinAuthSteamClient.Confirmation>? Confirmations => _Confirmations;
 
-                    this.RaisePropertyChanged();
-                    this.RaisePropertyChanged(nameof(IsConfirmationsEmpty));
-                    this.RaisePropertyChanged(nameof(ConfirmationsConutMessage));
-                }
-            }
-        }
         private bool _IsLoading;
         public bool IsLoading
         {
@@ -229,8 +224,10 @@ namespace System.Application.UI.ViewModels
 
         private void RefreshConfirmationsList()
         {
-            if (!Confirmations.Any(s => s.IsOperate == 0))
-                Confirmations = new List<WinAuthSteamClient.Confirmation>();
+            var items = _ConfirmationsSourceList.Items.Where(s => s.IsOperate == 0);
+            _ConfirmationsSourceList.Clear();
+            if (items.Any())
+                _ConfirmationsSourceList.AddRange(items);
         }
 
         public void Logout_Click()
@@ -250,7 +247,7 @@ namespace System.Application.UI.ViewModels
         {
             if (IsLoading)
                 return;
-            Task.Run(async () =>
+            Task.Run(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
                 IsLoading = true;
@@ -301,15 +298,15 @@ namespace System.Application.UI.ViewModels
                 {
                     IsLoading = true;
                     //ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_GetTip);
-                    var list = await steam.GetConfirmationsAsync();
+                    var list = steam.GetConfirmations();
 
                     Parallel.ForEach(list, confirmation =>
                     {
                         confirmation.ImageStream = IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
                     });
 
-                    Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(list);
-
+                    _ConfirmationsSourceList.Clear();
+                    _ConfirmationsSourceList.AddRange(list);
 
 
                     // 获取新交易后保存
@@ -331,15 +328,16 @@ namespace System.Application.UI.ViewModels
                     // likely a bad session so try a refresh first
                     try
                     {
-                        await steam.RefreshAsync();
-                        var list = await steam.GetConfirmationsAsync();
+                        steam.Refresh();
+                        var list = steam.GetConfirmations();
 
                         Parallel.ForEach(list, confirmation =>
                         {
                             confirmation.ImageStream = IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
                         });
 
-                        Confirmations = new ObservableCollection<WinAuthSteamClient.Confirmation>(list);
+                        _ConfirmationsSourceList.Clear();
+                        _ConfirmationsSourceList.AddRange(list);
 
                         IsLoading = false;
                     }

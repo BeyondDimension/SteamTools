@@ -86,28 +86,20 @@ namespace System.Application.UI.ViewModels
 
             var typeFilter = this.WhenAnyValue(x => x.EnableAppTypeFiltres).Select(PredicateType);
 
-            //var type = AppTypeFiltres
-            //    .ToObservableChangeSet()
-            //    .AutoRefresh(model => model.Enable)
-            //    //.ToCollection()
-            //    //.Select(PredicateType);
-
-            var type = this.WhenAnyValue(x => x.AppTypeFiltres)
-                 .Select(type => type?
-                     .ToObservableChangeSet()
-                     .AutoRefresh(x => x.Enable)
-                     .Subscribe(_ =>
-                     {
-                         EnableAppTypeFiltres = AppTypeFiltres.Where(s => s.Enable).ToList();
-                         this.RaisePropertyChanged(nameof(TypeFilterString));
-                     }));
-
-            //type.ToProperty(this, x => x.AppTypeFiltres);
+            this.WhenAnyValue(x => x.AppTypeFiltres)
+                .Subscribe(type => type?
+                      .ToObservableChangeSet()
+                      .AutoRefresh(x => x.Enable)
+                      .Subscribe(_ =>
+                      {
+                          EnableAppTypeFiltres = AppTypeFiltres.Where(s => s.Enable).ToList();
+                          this.RaisePropertyChanged(nameof(TypeFilterString));
+                      }));
 
             SteamConnectService.Current.SteamApps
                 .Connect()
                 .Filter(nameFilter)
-                //.Filter(typeFilter)
+                .Filter(typeFilter)
                 .Filter(installFilter)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.DisplayName))

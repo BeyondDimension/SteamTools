@@ -104,13 +104,15 @@
                                                 <Panel>
                                                     <Image Width="128"
                                                            Height="128"
-                                                           Margin="10 0" Stretch="Uniform"
+                                                           Stretch="None"
+                                                           Margin="10 0"
                                                            Source="{Binding ImageStream^,Converter={StaticResource BitmapAssetValueConverter}}"/>
                                                 </Panel>
                                                 <Panel Grid.Column="1" Margin="10,5">
                                                     <StackPanel>
                                                         <DockPanel LastChildFill="True">
-                                                            <controls:ScrollingTextBlock Width="{Binding $parent.Width}" Text="{Binding Details}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand"></controls:ScrollingTextBlock>
+                                                            <controls:ScrollingTextBlock Text="{Binding Details}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" TextWrapping="WrapWithOverflow" Cursor="Hand">
+                                                            </controls:ScrollingTextBlock>
                                                         </DockPanel>
 
                                                         <TextBlock Text="{Binding Traded}" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
@@ -140,10 +142,10 @@
                                                     </Panel>
                                                     <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 0 0 0" IsVisible="True" x:Name="OperatePanel">
                                                         <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                                                            <Button Classes="flatbutton" Cursor="Hand" Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" FontSize="16" Background="{DynamicResource ThemeBrushKey}" Command="{ReflectionBinding #u.DataContext.ConfirmTrade_Click}" CommandParameter="{Binding}"></Button>
+                                                            <Button Classes="flatbutton" Cursor="Hand" IsEnabled="{Binding ButtonEnable}" Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" FontSize="16" Background="{DynamicResource ThemeBrushKey}" Command="{ReflectionBinding #u.DataContext.ConfirmTrade_Click}" CommandParameter="{Binding}"></Button>
                                                         </Border>
                                                         <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness="0 .66 0 0" ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                                                            <Button Classes="flatbutton" Cursor="Hand" Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Stretch" FontSize="16" Command="{ReflectionBinding #u.DataContext.CancelTrade_Click}" CommandParameter="{Binding}"></Button>
+                                                            <Button Classes="flatbutton" Cursor="Hand" IsEnabled="{Binding ButtonEnable}" Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Stretch" FontSize="16" Command="{ReflectionBinding #u.DataContext.CancelTrade_Click}" CommandParameter="{Binding}"></Button>
                                                         </Border>
                                                     </StackPanel>
                                                 </Grid>

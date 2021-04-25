@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Properties;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
 
@@ -22,7 +23,6 @@ namespace System.Application.UI.ViewModels
         }
 
         private readonly ReadOnlyObservableCollection<ScriptDTO> _ProxyScripts;
-        //private readonly SourceList<ScriptDTO> _ProxyScriptsSourceList;
         public ReadOnlyObservableCollection<ScriptDTO> ProxyScripts => _ProxyScripts;
 
         private Func<ScriptDTO, bool> ScriptFilter(string? serachText)
@@ -48,13 +48,14 @@ namespace System.Application.UI.ViewModels
         {
             IconKey = nameof(ProxyScriptManagePageViewModel).Replace("ViewModel", "Svg");
 
+            ScriptStoreCommand = ReactiveCommand.Create(OpenScriptStoreWindow);
+
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
                    new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)),
-                   new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)),
+                   new MenuItemViewModel (nameof(AppResources.ScriptStore)){
+                       IconKey ="JavaScriptDrawing",Command=ScriptStoreCommand},
             };
-
-            //_ProxyScriptsSourceList = new SourceList<ScriptDTO>();
 
             var scriptFilter = this.WhenAnyValue(x => x.SerachText).Select(ScriptFilter);
 
@@ -67,6 +68,9 @@ namespace System.Application.UI.ViewModels
                 .Subscribe(_ => this.RaisePropertyChanged(nameof(IsProxyScriptsEmpty)));
 
         }
+
+        public ReactiveCommand<Unit, Unit> ScriptStoreCommand { get; }
+
 
         private string? _SerachText;
         public string? SerachText
@@ -141,6 +145,11 @@ namespace System.Application.UI.ViewModels
                         Toast.Show(item.msg);
                     }
             }
+        }
+
+        public void OpenScriptStoreWindow()
+        {
+            IShowWindowService.Instance.Show(CustomWindow.ScriptStore, new ScriptStoreWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
         }
     }
 }

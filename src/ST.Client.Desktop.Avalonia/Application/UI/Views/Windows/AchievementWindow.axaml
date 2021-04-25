@@ -56,9 +56,9 @@
                         <DataGridCheckBoxColumn
                                             x:DataType="models:AchievementInfo"
                                             Binding="{Binding IsChecked}"
-                                            Width="Auto" >
+                                            Width="Auto" IsThreeState="True">
                             <DataGridCheckBoxColumn.Header>
-                                <CheckBox></CheckBox>
+                                <CheckBox IsEnabled="{Binding IsAchieved,Mode=TwoWay}"></CheckBox>
                             </DataGridCheckBoxColumn.Header>
                         </DataGridCheckBoxColumn>
 

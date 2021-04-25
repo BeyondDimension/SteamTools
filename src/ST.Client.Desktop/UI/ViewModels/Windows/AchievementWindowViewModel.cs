@@ -289,7 +289,7 @@ namespace System.Application.UI.ViewModels
         private void GetAchievements()
         {
             var list = new List<AchievementInfo>();
-            foreach (var def in this.Achievements)
+            foreach (var def in this._AchievementsSourceList.Items)
             {
                 if (string.IsNullOrEmpty(def.Id) == true)
                 {
@@ -326,7 +326,7 @@ namespace System.Application.UI.ViewModels
             //{
             //    achievement.IconStream = await IHttpService.Instance.GetImageAsync(achievement.IconUrl, ImageChannelType.SteamAchievementIcon);
             //});
-
+            _AchievementsSourceList.Clear();
             this._AchievementsSourceList.AddRange(list);
             //_BackAchievements = Achievements;
         }
@@ -372,7 +372,7 @@ namespace System.Application.UI.ViewModels
         private void GetStatistics()
         {
             var list = new List<StatInfo>();
-            foreach (var rdef in this.Statistics)
+            foreach (var rdef in this._StatisticsSourceList.Items)
             {
                 if (string.IsNullOrEmpty(rdef.Id) == true)
                 {
@@ -410,6 +410,8 @@ namespace System.Application.UI.ViewModels
                 }
             }
             //this.Statistics = new ObservableCollection<StatInfo>(list);
+
+            _StatisticsSourceList.Clear();
             _StatisticsSourceList.AddRange(list);
         }
 

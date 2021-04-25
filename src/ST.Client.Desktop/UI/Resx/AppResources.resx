@@ -583,6 +583,9 @@
   <data name="ScriptConfig_ScriptEmptyTip" xml:space="preserve">
     <value>未查询到匹配的脚本文件</value>
   </data>
+  <data name="ScriptStore" xml:space="preserve">
+    <value>脚本工坊</value>
+  </data>
   <data name="Script_DeleteItem" xml:space="preserve">
     <value>确定要删除这个脚本吗？</value>
   </data>

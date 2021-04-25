@@ -10,15 +10,16 @@
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              x:Name="u"
              x:DataType="vm:LocalAuthPageViewModel"
+             x:CompileBindings="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.LocalAuthPage">
     <Panel HorizontalAlignment="Stretch">
-        <TextBlock IsVisible="{Binding IsAuthenticatorsEmpty,Mode=OneWay,Source={x:Static service:AuthService.Current}}"
+        <TextBlock IsVisible="{CompiledBinding IsAuthenticatorsEmpty}"
            Text="{ReflectionBinding Path=Res.LocalAuth_NoAuthTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
            TextWrapping="WrapWithOverflow"
            VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <ItemsRepeater Items="{Binding Source={x:Static service:AuthService.Current},Path=Authenticators,Mode=OneWay}">
+            <ItemsRepeater Items="{Binding Authenticators}">
                 <ItemsRepeater.Layout>
                     <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20"  MaximumRowsOrColumns="8" />
                 </ItemsRepeater.Layout>
@@ -27,11 +28,11 @@
                         <Panel>
                             <Border x:Name="panel" Classes="paper" Width="250" Height="250" Background="{DynamicResource ThemeBrushKey}">
                                 <i:Interaction.Behaviors>
-                                    <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{Binding #panel}">
-                                        <ia:ChangePropertyAction TargetObject="{Binding #delete_btn}" PropertyName="IsVisible" Value="True"/>
+                                    <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{ReflectionBinding #panel}">
+                                        <ia:ChangePropertyAction TargetObject="{ReflectionBinding #delete_btn}" PropertyName="IsVisible" Value="True"/>
                                     </ia:EventTriggerBehavior>
-                                    <ia:EventTriggerBehavior EventName="PointerLeave" SourceObject="{Binding #panel}">
-                                        <ia:ChangePropertyAction TargetObject="{Binding #delete_btn}" PropertyName="IsVisible" Value="False"/>
+                                    <ia:EventTriggerBehavior EventName="PointerLeave" SourceObject="{ReflectionBinding #panel}">
+                                        <ia:ChangePropertyAction TargetObject="{ReflectionBinding #delete_btn}" PropertyName="IsVisible" Value="False"/>
                                     </ia:EventTriggerBehavior>
                                 </i:Interaction.Behaviors>
                                 <Grid RowDefinitions="30,165,Auto">
@@ -54,7 +55,8 @@
                                                 </PathIcon>
                                             </TextBox.InnerRightContent>
                                         </TextBox>
-                                        <Button DockPanel.Dock="Right" x:Name="delete_btn" Classes="flatbutton" IsVisible="False" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Right" Cursor="Hand" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding #u.DataContext.DeleteAuth}" CommandParameter="{Binding}">
+                                        <Button DockPanel.Dock="Right" x:Name="delete_btn" Classes="flatbutton" IsVisible="False" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Right" Cursor="Hand" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                                                Command="{ReflectionBinding #u.DataContext.DeleteAuth}" CommandParameter="{Binding}">
                                             <PathIcon Data="{DynamicResource CloseDrawing}" Width="12"></PathIcon>
                                         </Button>
                                     </DockPanel>
@@ -75,11 +77,11 @@
 
                                         <StackPanel Orientation="Horizontal" Spacing="5">
 
-                                            <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowAuthCode}" CommandParameter="{Binding}" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
+                                            <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowAuthCode}" CommandParameter="{Binding}" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                                                 <PathIcon Data="{DynamicResource SearchDrawing}" Width="20"></PathIcon>
                                             </Button>
 
-                                            <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowSteamAuthTrade}" CommandParameter="{Binding}" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
+                                            <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowSteamAuthTrade}" CommandParameter="{Binding}" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                                                 <PathIcon Data="{DynamicResource TradeDrawing}" Width="20"></PathIcon>
                                             </Button>
 
@@ -87,12 +89,12 @@
                                                 <PathIcon Data="{DynamicResource CloudDrawing}" Width="20"></PathIcon>
                                             </Button>
 
-                                            <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.ShowSteamAuthData}" CommandParameter="{Binding}" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
+                                            <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowSteamAuthData}" CommandParameter="{Binding}" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                                                 <PathIcon Data="{DynamicResource SlideSearchDrawing}" Width="20"></PathIcon>
                                             </Button>
                                         </StackPanel>
 
-                                        <Button Cursor="Hand" Classes="flatbutton" Command="{Binding #u.DataContext.CopyCodeCilp}" CommandParameter="{Binding}" HorizontalAlignment="Right" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
+                                        <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.CopyCodeCilp}" CommandParameter="{Binding}" HorizontalAlignment="Right" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                                             <PathIcon Data="{DynamicResource CopyDrawing}" Width="20"></PathIcon>
                                         </Button>
                                     </DockPanel>

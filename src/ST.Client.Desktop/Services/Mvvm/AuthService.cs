@@ -26,21 +26,26 @@ namespace System.Application.Services
         public static AuthService Current { get; } = new();
         #endregion
 
-        private ObservableCollection<MyAuthenticator> _Authenticators = new ObservableCollection<MyAuthenticator>();
-        public ObservableCollection<MyAuthenticator> Authenticators
-        {
-            get => _Authenticators;
-            set
-            {
-                if (_Authenticators != value)
-                {
-                    _Authenticators = value;
-                    this.RaisePropertyChanged();
-                }
-            }
-        }
+        //private ObservableCollection<MyAuthenticator> _Authenticators = new();
+        //public ObservableCollection<MyAuthenticator> Authenticators
+        //{
+        //    get => _Authenticators;
+        //    set
+        //    {
+        //        if (_Authenticators != value)
+        //        {
+        //            _Authenticators = value;
+        //            this.RaisePropertyChanged();
+        //        }
+        //    }
+        //}
 
-        public bool IsAuthenticatorsEmpty => !Authenticators.Any_Nullable();
+        public SourceList<MyAuthenticator> Authenticators { get; }
+
+        public AuthService()
+        {
+            Authenticators = new SourceList<MyAuthenticator>();
+        }
 
         public async void Initialize(bool isSync = false)
         {
@@ -48,13 +53,13 @@ namespace System.Application.Services
             var list = await repository.GetAllAsync();
             if (list.Any_Nullable())
             {
-                Authenticators = new ObservableCollection<MyAuthenticator>(list.Select(s => new MyAuthenticator(s)));
+                Authenticators.AddRange(list.Select(s => new MyAuthenticator(s)));
 
                 if (isSync)
                 {
                     Task.Run(() =>
                     {
-                        foreach (var item in Authenticators)
+                        foreach (var item in Authenticators.Items)
                             item.Sync();
                         ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
                     }).ForgetAndDispose();
@@ -63,12 +68,10 @@ namespace System.Application.Services
                     ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
             }
 
-            Authenticators.CollectionChanged += (s, e) =>
-            {
-                this.RaisePropertyChanged(nameof(IsAuthenticatorsEmpty));
-            };
-
-
+            //Authenticators.CollectionChanged += (s, e) =>
+            //{
+            //    this.RaisePropertyChanged(nameof(IsAuthenticatorsEmpty));
+            //};
         }
 
 
@@ -477,7 +480,7 @@ namespace System.Application.Services
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
             await repository.InsertOrUpdateAsync(auth.AuthenticatorData, true);
-            if (Current.Authenticators.Any(s => s.Id == auth.Id))
+            if (Current.Authenticators.Items.Any(s => s.Id == auth.Id))
             {
                 return;
             }

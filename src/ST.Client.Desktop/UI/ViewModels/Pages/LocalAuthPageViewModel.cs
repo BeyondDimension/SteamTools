@@ -9,6 +9,9 @@ using System.Reactive;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Threading;
+using System.Reactive.Linq;
+using DynamicData.Binding;
+using DynamicData;
 
 namespace System.Application.UI.ViewModels
 {
@@ -40,6 +43,15 @@ namespace System.Application.UI.ViewModels
                 //    }
                 //},
             };
+
+
+            AuthService.Current.Authenticators
+                .Connect()
+                //.Filter(scriptFilter)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Sort(SortExpressionComparer<MyAuthenticator>.Ascending(x => x.Index).ThenBy(x=>x.Name))
+                .Bind(out _Authenticators)
+                .Subscribe(_ => this.RaisePropertyChanged(nameof(IsAuthenticatorsEmpty)));
         }
 
         public override string Name
@@ -47,6 +59,11 @@ namespace System.Application.UI.ViewModels
             get => AppResources.LocalAuth;
             protected set { throw new NotImplementedException(); }
         }
+
+        private readonly ReadOnlyObservableCollection<MyAuthenticator> _Authenticators;
+        public ReadOnlyObservableCollection<MyAuthenticator> Authenticators => _Authenticators;
+
+        public bool IsAuthenticatorsEmpty => !AuthService.Current.Authenticators.Items.Any_Nullable();
 
         public ReactiveCommand<Unit, Unit> AddAuthCommand { get; }
         public ReactiveCommand<Unit, Unit> RefreshAuthCommand { get; }

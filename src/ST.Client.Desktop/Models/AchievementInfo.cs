@@ -36,6 +36,13 @@ namespace System.Application.Models
             AppId,
             IsAchieved ? IconNormal : IconLocked);
 
+        //public Task<string?> IconNormalStream => IHttpService.Instance.GetImageAsync(string.Format(
+        //    STEAMAPP_ICON_URL,
+        //    AppId, IconNormal), ImageChannelType.SteamAchievementIcon);
+        //public Task<string?> IconLockedStream => IHttpService.Instance.GetImageAsync(string.Format(
+        //    STEAMAPP_ICON_URL,
+        //    AppId, IconLocked), ImageChannelType.SteamAchievementIcon);
+
         public Task<string?> IconStream => IHttpService.Instance.GetImageAsync(IconUrl, ImageChannelType.SteamAchievementIcon);
 
         public int Permission { get; set; }

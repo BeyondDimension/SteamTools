@@ -221,7 +221,7 @@ namespace System.Application.Services
             }
         }
 
-        public async void RefreshGamesList()
+        public /*async*/ void RefreshGamesList()
         {
             Task.Run(InitializeGameList).ForgetAndDispose();
 

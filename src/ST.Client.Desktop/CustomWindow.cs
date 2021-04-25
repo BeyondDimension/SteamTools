@@ -10,6 +10,7 @@
         AddAuth,
         ShowAuth,
         AuthTrade,
+        ScriptStore,
         ChangeBindPhoneNumber,
         UserProfile,
         NewVersion,
