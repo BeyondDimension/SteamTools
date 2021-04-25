@@ -21,7 +21,7 @@ namespace System.Application.Services.CloudService.Clients
         {
             var url =
                 $"api/version/checkupdate/{id}/{(int)platform}/{(int)deviceIdiom}" +
-                $"/{(int)supportedAbis}/{osVersion.Major}/{osVersion.Minor}/{(int)abi}";
+                $"/{(int)supportedAbis}/{osVersion.Major}/{osVersion.Minor}/{osVersion.Build}/{(int)abi}";
             return conn.SendAsync<AppVersionDTO?>(
                 isAnonymous: true,
                 method: HttpMethod.Get,
