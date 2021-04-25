@@ -26,8 +26,6 @@ namespace Avalonia.Controls
 
         void Constructor()
         {
-            //this.SetDefaultFontFamily();
-
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
 

@@ -23,12 +23,12 @@
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-    <TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <!--<TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>-->
+    <!--<SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>-->
     <Platforms>AnyCPU;x86</Platforms>
     <PlatformTarget>x86</PlatformTarget>
-    <UseWindowsForms>false</UseWindowsForms>
-    <UseWPF>false</UseWPF>
+    <!--<UseWindowsForms>false</UseWindowsForms>-->
+    <!--<UseWPF>false</UseWPF>-->
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
@@ -70,9 +70,9 @@
     <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Desktop.Windows.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) And $(DefineConstants.Contains(`PUBLISH`)) ">
+  <!--<ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) And $(DefineConstants.Contains(`PUBLISH`)) ">
     <PackageReference Include="System.Reactive" Version="5.0.0.1-exclude-winforms" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <ProjectReference Include="..\ST.Client.Desktop.Mac\ST.Client.Desktop.Mac.csproj" />
@@ -140,9 +140,5 @@
 
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-release.pfx')">
     <EmbeddedResource Include="..\..\rsa-public-key-release.pfx" Link="Resources\E88CA4F9" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Properties\launchSettings.json" />
   </ItemGroup>
 </Project>

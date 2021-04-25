@@ -21,7 +21,6 @@ namespace System.Application
             var rootCommand = new RootCommand("命令行工具(Command Line Tools/CLT)");
 
 #if DEBUG
-
             // -clt debug -args 730
             var debug = new Command("debug", "调试");
             debug.AddOption(new Option<string>("-args", () => "", "测试参数"));
@@ -36,10 +35,24 @@ namespace System.Application
                 initUIApp();
             });
             rootCommand.AddCommand(debug);
-
 #endif
 
-            // -clt c 
+            // -clt devtools
+            var devtools = new Command("devtools");
+            devtools.Handler = CommandHandler.Create(() =>
+            {
+                var appInstance = new ApplicationInstance();
+                if (!appInstance.IsFirst) return;
+                Startup.IsMainProcess = true;
+                Program.IsCLTProcess = false;
+                AppHelper.EnableDevtools = true;
+                initStartup(DILevel.MainProcess);
+                initCef();
+                initUIApp();
+            });
+            rootCommand.AddCommand(devtools);
+
+            // -clt c
             var common = new Command("c", "common");
             common.AddOption(new Option<bool>("-silence", "静默启动（不弹窗口）"));
             common.Handler = CommandHandler.Create((bool silence) =>

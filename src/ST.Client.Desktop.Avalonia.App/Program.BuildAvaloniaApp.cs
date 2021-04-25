@@ -38,6 +38,6 @@ namespace System.Application.UI
         /// <summary>
         /// 当前是否是命令行工具进程
         /// </summary>
-        internal static bool IsCLTProcess { get; private set; }
+        internal static bool IsCLTProcess { get; set; }
     }
 }

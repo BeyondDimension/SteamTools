@@ -78,7 +78,7 @@ namespace System.Application.UI.Views.Controls
 
         protected override void OnBeforeContextMenu(CefBrowser browser, CefFrame frame, CefContextMenuParams menuParams, CefMenuModel model)
         {
-            if (ThisAssembly.Debuggable)
+            if (AppHelper.EnableDevtools)
             {
                 model.Remove((int)CefMenuId.Print);
                 model.Remove((int)CefMenuId.ViewSource);

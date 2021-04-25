@@ -1,12 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <!--<TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>-->
+    <TargetFramework>net5.0</TargetFramework>
+    <!--<SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>-->
     <RootNamespace>System.Application</RootNamespace>
-    <UseWindowsForms>false</UseWindowsForms>
-    <UseWPF>false</UseWPF>
+    <!--<UseWindowsForms>false</UseWindowsForms>-->
+    <!--<UseWPF>false</UseWPF>-->
     <AssemblyName>System.Application.SteamTools.Client.Desktop.Windows</AssemblyName>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +26,7 @@
     <PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.2.0" />
     <PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.2.0" />
     <PackageReference Include="JumpLists.Win32.Avalonia" Version="0.0.1" Aliases="JumpLists" />
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="1.2.5" />
     <PackageReference Include="TaskScheduler" Version="2.9.1" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
   </ItemGroup>

@@ -3,7 +3,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using Windows.Security.Cryptography.DataProtection;
-using static System.Application.Services.ILocalDataProtectionProvider;
+using IDataProtectionProvider = System.Application.Services.ILocalDataProtectionProvider.IDataProtectionProvider;
+
 namespace System.Application.Services.Implementation
 {
     /// <summary>

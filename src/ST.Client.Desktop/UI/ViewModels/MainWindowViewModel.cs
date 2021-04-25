@@ -68,7 +68,7 @@ namespace System.Application.UI.ViewModels
                 }
             });
 
-            TabItems = new List<TabItemViewModel>
+            var tabItems = new List<TabItemViewModel>
             {
                 (StartPage = new StartPageViewModel().AddTo(this)),
                 (CommunityProxyPage = new CommunityProxyPageViewModel().AddTo(this)),
@@ -84,12 +84,16 @@ namespace System.Application.UI.ViewModels
 				#region SystemTab
                 SettingsPageViewModel.Instance,
                 AboutPageViewModel.Instance,
-#if DEBUG
-				new DebugPageViewModel().AddTo(this),
-                new DebugWebViewPageViewModel().AddTo(this),
-#endif
 				#endregion
             };
+
+            if (AppHelper.EnableDevtools)
+            {
+                tabItems.Add(new DebugPageViewModel().AddTo(this));
+                tabItems.Add(new DebugWebViewPageViewModel().AddTo(this));
+            }
+
+            TabItems = tabItems;
 
             _SelectedItem = TabItems.First();
 

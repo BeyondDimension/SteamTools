@@ -13,7 +13,6 @@ namespace System.Application.UI.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
-            this.SetDefaultFontFamily();
         }
 
         private void InitializeComponent()

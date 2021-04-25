@@ -18,6 +18,8 @@ namespace System.Application.UI
 {
     public static class AppHelper
     {
+        public static bool EnableDevtools { get; set; } = ThisAssembly.Debuggable;
+
         public static Action? Initialized { get; set; }
 
         public static Action? Shutdown { get; set; }
