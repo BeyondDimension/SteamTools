@@ -241,67 +241,64 @@ namespace System.Application.Services
                 }
             }
 
-            this.WhenAnyValue(v => v.ProxyScripts)
-                  .Subscribe(script => script?
-                        .Connect()
-                        .AutoRefresh(x => x.Enable)
-                        .WhenPropertyChanged(x => x.Enable, false)
-                        .Subscribe(_ =>
-                        {
-                            if (EnableProxyScripts != null)
-                            {
-                                ProxySettings.ScriptsStatus.Value = EnableProxyScripts.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
-                            }
-                        }));
-            #endregion
-        }
-        public async void BasicsInfo()
-        {
-            var basicsInfo = await ICloudServiceClient.Instance.Script.Basics();
-            if (basicsInfo.Code == ApiResponseCode.OK && basicsInfo.Content != null)
-            {
-                var basicsItem = ProxyScripts.Items.FirstOrDefault(x => x.Id == Guid.Parse("00000000-0000-0000-0000-000000000001"));
-                if (basicsItem != null)
-                {
-                    if (basicsItem.Version != basicsInfo.Content.Version && basicsInfo.Content.UpdateLink != null)
-                    {
-                        var index = ProxyScripts.Items.IndexOf(basicsItem);
-                        basicsItem.IsUpdate = true;
-                        basicsItem.UpdateLink = basicsInfo.Content.UpdateLink;
-                        basicsItem.NewVersion = basicsInfo.Content.Version;
-                        ProxyScripts.ReplaceAt(index, basicsItem);
-                    }
-                }
-                else
-                {
-                    if (basicsInfo.Content.UpdateLink != null)
-                    {
-                        var jspath = await DI.Get<IScriptManagerService>().DownloadScript(basicsInfo.Content.UpdateLink);
-                        if (jspath.state)
-                        {
-                            var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id);
-                            if (build.state)
-                            {
-                                if (build.model != null)
-                                    ProxyScripts.Insert(0, build.model);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        public void StartTiming()
-        {
-            Task.Run(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                while (ProxyStatus)
-                {
-                    AccelerateTime = AccelerateTime.AddSeconds(1);
-                    Thread.Sleep(1000);
-                }
-            });
-        }
+			this.WhenAnyValue(v => v.ProxyScripts)
+				  .Subscribe(script => script?
+						.Connect()
+						.AutoRefresh(x => x.Enable)
+						.WhenPropertyChanged(x => x.Enable, false)
+						.Subscribe(_ =>
+						{
+							if (EnableProxyScripts != null)
+							{
+								ProxySettings.ScriptsStatus.Value = EnableProxyScripts.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
+							}
+						}));
+			#endregion
+		}
+		public async void BasicsInfo()
+		{
+			var basicsInfo = await ICloudServiceClient.Instance.Script.Basics();
+			if (basicsInfo.Code == ApiResponseCode.OK && basicsInfo.Content != null)
+			{
+				var basicsItem = ProxyScripts.Items.FirstOrDefault(x => x.Id == Guid.Parse("00000000-0000-0000-0000-000000000001"));
+				if (basicsItem != null)
+				{
+					if (basicsItem.Version != basicsInfo.Content.Version)
+					{
+						var index = ProxyScripts.Items.IndexOf(basicsItem);
+						basicsItem.IsUpdate = true;
+						basicsItem.UpdateLink = basicsInfo.Content.UpdateLink;
+						basicsItem.NewVersion = basicsInfo.Content.Version;
+						ProxyScripts.ReplaceAt(index, basicsItem);
+					}
+				}
+				else
+				{
+					var jspath = await DI.Get<IScriptManagerService>().DownloadScript(basicsInfo.Content.UpdateLink);
+					if (jspath.state)
+					{
+						var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id);
+						if (build.state)
+						{
+							if (build.model != null)
+								ProxyScripts.Insert(0, build.model);
+						}
+					}
+				}
+			}
+		}
+		public void StartTiming()
+		{
+			Task.Run(() =>
+			{
+				Thread.CurrentThread.IsBackground = true;
+				while (ProxyStatus)
+				{
+					AccelerateTime = AccelerateTime.AddSeconds(1);
+					Thread.Sleep(1000);
+				}
+			});
+		}
 
         public void Dispose()
         {

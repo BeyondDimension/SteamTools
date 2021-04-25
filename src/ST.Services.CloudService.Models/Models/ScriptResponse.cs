@@ -18,7 +18,7 @@ namespace System.Application.Models
 		[MPKey(1)]
 		[N_JsonProperty("1")]
 		[S_JsonProperty("1")]
-		public string? Version { get; set; } = string.Empty;
+		public string Version { get; set; } = string.Empty;
 
 		/// <summary>
 		/// 更新地址
@@ -26,7 +26,7 @@ namespace System.Application.Models
 		[MPKey(2)]
 		[N_JsonProperty("2")]
 		[S_JsonProperty("2")] 
-		public string? UpdateLink { get; set; } = string.Empty;
+		public string UpdateLink { get; set; } = string.Empty;
 
 
 		/// <summary>
@@ -35,7 +35,7 @@ namespace System.Application.Models
 		[MPKey(3)]
 		[N_JsonProperty("3")]
 		[S_JsonProperty("3")]
-		public string? Description { get; set; } = string.Empty;
+		public string? Description { get; set; } 
 		/// <summary>
 		/// 更新时间
 		/// </summary>
