@@ -47,7 +47,7 @@ namespace System.Application.Models
                         .Select<IReadOnlyCollection<AccelerateProjectDTO>, bool?>(x =>
                         {
                             var count = x.Count(s => s.Enable);
-                            if (count == 0)
+                            if (x == null || count == 0)
                                 return false;
                             if (count == x.Count)
                                 return true;
@@ -76,12 +76,11 @@ namespace System.Application.Models
         /// <summary>
         /// 显示图片，使用 System.Application.ImageUrlHelper.GetImageApiUrlById(Guid) 转换为Url
         /// </summary>
+        private Task<string?>? _ImageStream;
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
-
-        private Task<string?>? _ImageStream;
-        public Task<string?>? ImageStream { get;set; }
+        public Task<string?>? ImageStream { get; set; }
 #endif
 
         /// <summary>

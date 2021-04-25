@@ -177,43 +177,44 @@ namespace System.Application.Services
             #region 加载代理服务数据
             var client = ICloudServiceClient.Instance.Accelerate;
             var result = await client.All();
-            if (!result.IsSuccess)
+            if (result.IsSuccess)
             {
-                return;
-            }
-            ProxyDomains = new ObservableCollection<AccelerateProjectGroupDTO>(result.Content);
-            Parallel.ForEach(ProxyDomains, item =>
-            {
-                item.ImageStream = IHttpService.Instance.GetImageAsync(ImageUrlHelper.GetImageApiUrlById(item.ImageId), ImageChannelType.AccelerateGroup);
-            });
-            SelectGroup = ProxyDomains.FirstOrDefault();
+                ProxyDomains = new ObservableCollection<AccelerateProjectGroupDTO>(result.Content);
 
-            if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && ProxyDomains.Any_Nullable())
-            {
-                var items = ProxyDomains.SelectMany(s => s.Items);
-                foreach (var item in items)
+                foreach (var item in ProxyDomains)
                 {
-                    if (ProxySettings.SupportProxyServicesStatus.Value.Contains(item.Id.ToString()))
+                    item.ImageStream = IHttpService.Instance.GetImageAsync(ImageUrlHelper.GetImageApiUrlById(item.ImageId), ImageChannelType.AccelerateGroup);
+                }
+
+                SelectGroup = ProxyDomains.FirstOrDefault();
+
+                if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && ProxyDomains.Any_Nullable())
+                {
+                    var items = ProxyDomains.SelectMany(s => s.Items);
+                    foreach (var item in items)
                     {
-                        item.Enable = true;
+                        if (ProxySettings.SupportProxyServicesStatus.Value.Contains(item.Id.ToString()))
+                        {
+                            item.Enable = true;
+                        }
                     }
                 }
             }
 
             this.WhenAnyValue(v => v.ProxyDomains)
-                  .Subscribe(domain => domain?
-                        .ToObservableChangeSet()
-                        .AutoRefresh(x => x.ObservableItems)
-                        .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
-                        .AutoRefresh(x => x.Enable)
-                        .WhenPropertyChanged(x => x.Enable, false)
-                        .Subscribe(_ =>
-                        {
-                            if (EnableProxyDomains != null)
-                            {
-                                ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Where(w => w?.Id != null).Select(k => k.Id.ToString()).ToList();
-                            }
-                        }));
+                 .Subscribe(domain => domain?
+                       .ToObservableChangeSet()
+                       .AutoRefresh(x => x.ObservableItems)
+                       .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
+                       .AutoRefresh(x => x.Enable)
+                       .WhenPropertyChanged(x => x.Enable, false)
+                       .Subscribe(_ =>
+                       {
+                           if (EnableProxyDomains != null)
+                           {
+                               ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Where(w => w?.Id != null).Select(k => k.Id.ToString()).ToList();
+                           }
+                       }));
             #endregion
 
 

@@ -73,7 +73,7 @@
                                                         FontSize="14"
                                                         VerticalAlignment="Center"
                                                         Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                                                    <TextBlock Text="/ version." FontSize="14" Margin="5 0"></TextBlock>
+                                                    <TextBlock Text=" / v" FontSize="14"></TextBlock>
                                                     <TextBlock
                                                         Text="{Binding Version}"
                                                         FontSize="14"
