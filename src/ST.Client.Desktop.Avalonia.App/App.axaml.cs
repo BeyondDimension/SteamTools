@@ -296,8 +296,11 @@ namespace System.Application.UI
             VisualStudioAppCenterSDK.Init();
 #endif
             AppHelper.Initialized?.Invoke();
-            Startup.ActiveUserPost(ActiveUserType.OnStartup);
-            IAppUpdateService.Instance.CheckUpdate();
+            if (Startup.IsMainProcess)
+            {
+                Startup.ActiveUserPost(ActiveUserType.OnStartup);
+                IAppUpdateService.Instance.CheckUpdate();
+            }
         }
 
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
