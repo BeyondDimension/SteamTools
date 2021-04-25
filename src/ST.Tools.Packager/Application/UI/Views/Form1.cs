@@ -186,10 +186,10 @@ namespace System.Application.UI.Views
                         {
                             void OnReport()
                             {
-                                progressBar1.Value = (int)MathF.Floor(v * progressBar1.Maximum);
+                                progressBar1.Value = (int)MathF.Floor(v * 100);
                             }
                             Invoke((Action)OnReport);
-                        }));
+                        }), maxProgress: 100f);
                     Invoke((Action)(() =>
                     {
                         button3.Enabled = true;

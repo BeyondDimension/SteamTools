@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Avalonia.Controls.ApplicationLifetimes;
+using Microsoft.Extensions.Options;
 using System.Application.Models;
+using AvaloniaApplication = Avalonia.Application;
 
 namespace System.Application.Services.Implementation
 {
@@ -15,12 +17,15 @@ namespace System.Application.Services.Implementation
             this.app = app;
         }
 
-        protected override void OnExistNewVersion()
+        protected override async void OnExistNewVersion()
         {
-            //if (WindowService.Current.MainWindow.Dialog($"检测到新版本更新内容：{UpdateInfo.body}{Environment.NewLine}是否立即下载更新？", $"{ProductInfo.Title} | 更新提示") == true)
-            //{
-            //    DownloadUpdate();
-            //}
+            if (AvaloniaApplication.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                if (desktop.Windows.Any_Nullable(x => x.IsActive))
+                {
+                    await IShowWindowService.Instance.Show(typeof(object), CustomWindow.NewVersion);
+                }
+            }
         }
 
         protected override void OnExit()

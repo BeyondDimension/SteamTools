@@ -12,5 +12,6 @@
         AuthTrade,
         ChangeBindPhoneNumber,
         UserProfile,
+        NewVersion,
     }
 }

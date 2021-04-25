@@ -36,8 +36,11 @@ namespace System.Application.Services.Implementation
             {
                 var windowType = GetWindowType(customWindow);
                 var window = (Window)Activator.CreateInstance(windowType);
-                if (viewModel == null) viewModel = (WindowViewModel)Activator.CreateInstance(typeWindowViewModel);
-                if (!string.IsNullOrEmpty(title))
+                if (viewModel == null && typeWindowViewModel != typeof(object))
+                {
+                    viewModel = (WindowViewModel)Activator.CreateInstance(typeWindowViewModel);
+                }
+                if (!string.IsNullOrEmpty(title) && viewModel != null)
                 {
                     viewModel.Title = title;
                 }
@@ -87,7 +90,7 @@ namespace System.Application.Services.Implementation
                         BindingDialogWindowViewModel(window, dialogWindowViewModel, actionDialogWindowViewModel);
                     }
                 }
-                window.DataContext = viewModel;
+                if (viewModel != null) window.DataContext = viewModel;
                 if (isDialog)
                 {
                     await IDesktopAvaloniaAppService.Instance.ShowDialogWindow(window);

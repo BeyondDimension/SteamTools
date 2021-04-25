@@ -511,6 +511,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 暂不更新 的本地化字符串。
+        /// </summary>
+        public static string DoNotUpdate {
+            get {
+                return ResourceManager.GetString("DoNotUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 编辑 的本地化字符串。
         /// </summary>
         public static string Edit {
@@ -1304,6 +1313,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 Steam++ 版本更新 的本地化字符串。
+        /// </summary>
+        public static string NewVersionUpdateTitle {
+            get {
+                return ResourceManager.GetString("NewVersionUpdateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 昵称 的本地化字符串。
         /// </summary>
         public static string NickName {
@@ -1601,6 +1619,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 开始更新 的本地化字符串。
+        /// </summary>
+        public static string StartUpdate {
+            get {
+                return ResourceManager.GetString("StartUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 输入图中验证码 的本地化字符串。
         /// </summary>
         public static string Steam_ImageCodeTip {
@@ -1850,6 +1877,15 @@ namespace System.Application.UI.Resx {
         public static string UnsavedEditingWillBeDiscarded {
             get {
                 return ResourceManager.GetString("UnsavedEditingWillBeDiscarded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 更新内容 的本地化字符串。
+        /// </summary>
+        public static string UpdateContent {
+            get {
+                return ResourceManager.GetString("UpdateContent", resourceCulture);
             }
         }
         

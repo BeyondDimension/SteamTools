@@ -268,6 +268,9 @@
   <data name="DelAccount" xml:space="preserve">
     <value>账号注销</value>
   </data>
+  <data name="DoNotUpdate" xml:space="preserve">
+    <value>暂不更新</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>编辑</value>
   </data>
@@ -535,6 +538,9 @@
   <data name="More" xml:space="preserve">
     <value>更多操作</value>
   </data>
+  <data name="NewVersionUpdateTitle" xml:space="preserve">
+    <value>Steam++ 版本更新</value>
+  </data>
   <data name="NickName" xml:space="preserve">
     <value>昵称</value>
   </data>
@@ -635,6 +641,9 @@
   <data name="SMSCode" xml:space="preserve">
     <value>短信验证代码</value>
   </data>
+  <data name="StartUpdate" xml:space="preserve">
+    <value>开始更新</value>
+  </data>
   <data name="SteamAccount" xml:space="preserve">
     <value>Steam 账号</value>
   </data>
@@ -719,6 +728,9 @@
   </data>
   <data name="UnsavedEditingWillBeDiscarded" xml:space="preserve">
     <value>将丢弃未保存的编辑</value>
+  </data>
+  <data name="UpdateContent" xml:space="preserve">
+    <value>更新内容</value>
   </data>
   <data name="UploadYourAvatar" xml:space="preserve">
     <value>上传您的头像</value>

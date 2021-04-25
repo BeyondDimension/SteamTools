@@ -22,8 +22,9 @@ namespace System.Application.Converters
         }
 
         [Obsolete("use HttpClient")]
-        protected static Bitmap DownloadImage(string url, int width = 0)
+        protected static Bitmap? DownloadImage(string? url, int width = 0)
         {
+            if (url == null) return null;
             using var web = new WebClient();
             var ua = DI.Get<IHttpPlatformHelper>().UserAgent;
             web.Headers.Add("User-Agent", ua);

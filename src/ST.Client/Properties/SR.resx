@@ -120,9 +120,21 @@
   <data name="AppName" xml:space="preserve">
     <value>Steam++</value>
   </data>
+  <data name="CalcHashing3_" xml:space="preserve">
+    <value>正在校验（{1}/{2}）：{0}%</value>
+  </data>
+  <data name="CalcHashing_" xml:space="preserve">
+    <value>正在校验：{0}%</value>
+  </data>
   <data name="CreateCertificateFaild" xml:space="preserve">
     <value>创建证书失败</value>
     <comment>Fail</comment>
+  </data>
+  <data name="Decompressing_" xml:space="preserve">
+    <value>正在解压：{0}%</value>
+  </data>
+  <data name="Downloading3_" xml:space="preserve">
+    <value>正在下载（{1}/{2}）：{0}%</value>
   </data>
   <data name="Downloading_" xml:space="preserve">
     <value>正在下载：{0}%</value>

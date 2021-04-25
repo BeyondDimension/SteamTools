@@ -1,19 +1,24 @@
 ﻿using Microsoft.Extensions.Options;
+using ReactiveUI;
 using System.Application.Models;
 using System.Application.Properties;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Windows.Input;
+using static System.Application.Services.CloudService.Constants;
 using static System.Application.Services.IAppUpdateService;
 
 namespace System.Application.Services.Implementation
 {
-    public abstract class AppUpdateServiceImpl : IAppUpdateService
+    public abstract class AppUpdateServiceImpl : ReactiveObject, IAppUpdateService
     {
         protected readonly ICloudServiceClient client;
         protected readonly AppSettings settings;
         protected readonly IToast toast;
+
+        public ICommand StartUpdateCommand { get; }
 
         public AppUpdateServiceImpl(
             IToast toast,
@@ -24,6 +29,7 @@ namespace System.Application.Services.Implementation
             this.client = client;
             settings = options.Value;
             SupportedAbis = GetSupportedAbis();
+            StartUpdateCommand = ReactiveCommand.Create(StartUpdate);
         }
 
         protected virtual ArchitectureFlags GetSupportedAbis()
@@ -36,7 +42,7 @@ namespace System.Application.Services.Implementation
 
         protected abstract Version OSVersion { get; }
 
-        public bool IsSupportedServerDistribution
+        public virtual bool IsSupportedServerDistribution
         {
             get
             {
@@ -59,8 +65,20 @@ namespace System.Application.Services.Implementation
 
         static bool isCheckUpdateing;
 
-        public async void CheckUpdate()
+        public async void CheckUpdate(bool force)
         {
+            if (!force && IsExistUpdate)
+            {
+                if (NewVersionInfo.HasValue())
+                {
+                    OnExistNewVersion();
+                }
+                else
+                {
+                    IsExistUpdate = false;
+                }
+            }
+
             if (isCheckUpdateing) return;
             isCheckUpdateing = true;
 
@@ -113,7 +131,7 @@ namespace System.Application.Services.Implementation
         /// </summary>
         /// <param name="m"></param>
         /// <returns></returns>
-        static string GetPackName(AppVersionDTO m, bool isDirOrFile) => $"{m.Version}@{Hashs.String.Crc32(m.Id.ToStringN())}{(isDirOrFile ? "" : $".{FileEx.TAR_GZ}")}";
+        static string GetPackName(AppVersionDTO m, bool isDirOrFile) => $"{m.Version}@{Hashs.String.Crc32(m.Id.ToByteArray())}{(isDirOrFile ? "" : $".{FileEx.TAR_GZ}")}";
 
         /// <summary>
         /// 获取存放升级包缓存文件夹的目录
@@ -145,21 +163,43 @@ namespace System.Application.Services.Implementation
         /// </summary>
         const bool isSupportedResume = false;
 
-        public float CurrentProgressValue { get; protected set; }
-
-        public float TotalProgressValue { get; protected set; }
-
-        protected void ClearProgressValue(float value = 0f)
+        float _ProgressValue;
+        public float ProgressValue
         {
-            CurrentProgressValue = value;
-            TotalProgressValue = value;
+            get => _ProgressValue;
+            protected set => this.RaiseAndSetIfChanged(ref _ProgressValue, value);
         }
 
-        bool UpdatePackVerification(string filePath, string sha256, bool notChangeProgress = false)
+        string _ProgressString = string.Empty;
+        public string ProgressString
         {
+            get => _ProgressString;
+            protected set => this.RaiseAndSetIfChanged(ref _ProgressString, value);
+        }
+
+        protected void OnReportDownloading3(float value, int current, int count) => OnReport(value, string.Format(SR.Downloading3_, value, current, count));
+        protected void OnReportCalcHashing3(float value, int current, int count) => OnReport(value, string.Format(SR.CalcHashing3_, value, current, count));
+        protected void OnReportDownloading(float value) => OnReport(value, string.Format(SR.Downloading_, value));
+        protected void OnReportCalcHashing(float value) => OnReport(value, string.Format(SR.CalcHashing_, value));
+        protected void OnReportDecompressing(float value) => OnReport(value, string.Format(SR.Decompressing_, value));
+        protected void OnReport(float value = 0f) => OnReport(value, string.Empty);
+        protected void OnReport(float value, string str)
+        {
+            ProgressValue = value;
+            ProgressString = str;
+        }
+
+        bool UpdatePackVerification(string filePath, string sha256, int current = 0, int count = 0)
+        {
+            void OnReportCalcHashing_(float value) => OnReportCalcHashing(value);
+            void OnReportCalcHashing3_(float value) => OnReportCalcHashing3(value, current, count);
+
+            Action<float> onReportCalcHashing = current > 0 && count > 0 ? OnReportCalcHashing3_ : OnReportCalcHashing_;
+            onReportCalcHashing(0);
             var sha256_ = Hashs.String.SHA256(File.OpenRead(filePath));  // 改为带进度的哈希计算
-            if (!notChangeProgress && TotalProgressValue < MaxProgressValue) TotalProgressValue += 10;
-            return string.Equals(sha256_, sha256, StringComparison.OrdinalIgnoreCase);
+            var value = string.Equals(sha256_, sha256, StringComparison.OrdinalIgnoreCase);
+            onReportCalcHashing(MaxProgressValue);
+            return value;
         }
 
         /// <summary>
@@ -173,13 +213,13 @@ namespace System.Application.Services.Implementation
 
             isDownloading = true;
 
-            ClearProgressValue();
+            OnReport();
 
             var newVersionInfo = NewVersionInfo;
 
             if (newVersionInfo.HasValue())
             {
-                if (newVersionInfo.IncrementalUpdate.Any_Nullable())
+                if (newVersionInfo.IncrementalUpdate.Any_Nullable()) // 增量更新
                 {
                     if (Path.DirectorySeparatorChar != '\\')
                     {
@@ -190,7 +230,6 @@ namespace System.Application.Services.Implementation
                         }
                     }
 
-                    // 增量更新
                     var packDirName = GetPackName(newVersionInfo, isDirOrFile: false);
                     var packDirPath = Path.Combine(GetPackCacheDirPath(!isSupportedResume), packDirName);
 
@@ -218,23 +257,26 @@ namespace System.Application.Services.Implementation
                         }
                     }
 
+                    int i = 1;
                     foreach (var item in incrementalUpdate)
                     {
+                        void OnReportDownloading3_(float value) => OnReportDownloading3(value, i, incrementalUpdate.Count);
+
                         var fileName = item.Value;
                         var cacheFileName = fileName + FileExDownloadCache;
                         var requestUri = AppVersionDTO.GetRequestUri(item.Key.FileId);
 
-                        OnReport(0);
+                        OnReportDownloading3_(0f);
                         var rsp = await client.Download(
                             isAnonymous: true,
                             requestUri: requestUri,
                             cacheFileName,
-                            new Progress<float>(OnReport));
+                            new Progress<float>(OnReportDownloading3_));
                         if (rsp.IsSuccess)
                         {
                             File.Move(cacheFileName, fileName);
 
-                            if (!UpdatePackVerification(fileName, item.Key.SHA256, notChangeProgress: true))
+                            if (!UpdatePackVerification(fileName, item.Key.SHA256, i, incrementalUpdate.Count))
                             {
                                 Fail(SR.UpdatePackVerificationFail);
                                 break;
@@ -245,29 +287,33 @@ namespace System.Application.Services.Implementation
                             Fail(SR.DownloadUpdateFail);
                             break;
                         }
-
-                        TotalProgressValue += incrementalUpdate.Count / 100f;
+                        i++;
                     }
 
-                    ClearProgressValue(MaxProgressValue);
+                    OnReport(MaxProgressValue);
                     OverwriteUpgrade(packDirPath, isIncrement: true);
                 }
-                else
+                else // 全量更新
                 {
-                    // 全量更新
-                    var compressed = newVersionInfo.Downloads.FirstOrDefault(x => x.DownloadType == AppDownloadType.Compressed);
-                    if (compressed.HasValue())
+                    var downloadType = DI.Platform switch
+                    {
+                        Platform.Windows or Platform.Linux or Platform.Apple => AppDownloadType.Compressed,
+                        Platform.Android => AppDownloadType.Install,
+                        _ => throw new PlatformNotSupportedException(),
+                    };
+                    var download = newVersionInfo.Downloads.FirstOrDefault(x => x.DownloadType == downloadType);
+                    if (download.HasValue()) // 压缩包格式是否正确
                     {
                         var packFileName = GetPackName(newVersionInfo, isDirOrFile: true);
                         var packFilePath = Path.Combine(GetPackCacheDirPath(!isSupportedResume), packFileName);
-                        if (File.Exists(packFilePath)) // 存在安装包文件
+                        if (File.Exists(packFilePath)) // 存在压缩包文件
                         {
-                            if (UpdatePackVerification(packFilePath, compressed.SHA256)) // (已有文件)哈希验证成功，进行覆盖安装
+                            if (UpdatePackVerification(packFilePath, download.SHA256)) // (已有文件)哈希验证成功，进行覆盖安装
                             {
                                 OverwriteUpgrade(packFilePath, isIncrement: false);
                                 goto end;
                             }
-                            else // 验证文件失败，删除源文件，将会重新下载 --提示用户，然后结束本次逻辑
+                            else // 验证文件失败，删除源文件，将会重新下载
                             {
                                 File.Delete(packFilePath);
                             }
@@ -275,22 +321,22 @@ namespace System.Application.Services.Implementation
 
                         var cacheFileName = packFileName + FileExDownloadCache;
 
-                        var requestUri = AppVersionDTO.GetRequestUri(compressed.FileId);
+                        var requestUri = AppVersionDTO.GetRequestUri(download.FileId);
+                        OnReportDownloading(0f);
                         var rsp = await client.Download(
                             isAnonymous: true,
                             requestUri: requestUri,
                             cacheFileName,
-                            new Progress<float>(OnReport));
+                            new Progress<float>(OnReportDownloading));
 
                         if (rsp.IsSuccess)
                         {
                             File.Move(cacheFileName, packFileName);
 
-                            if (UpdatePackVerification(packFilePath, compressed.SHA256)) // (下载文件)哈希验证成功，进行覆盖安装
+                            if (UpdatePackVerification(packFilePath, download.SHA256)) // (下载文件)哈希验证成功，进行覆盖安装
                             {
                                 OverwriteUpgrade(packFileName, isIncrement: false);
-                                OnReport(MaxProgressValue);
-                                if (TotalProgressValue < 50) TotalProgressValue = 50;
+                                OnReportDownloading(MaxProgressValue);
                             }
                             else
                             {
@@ -307,14 +353,13 @@ namespace System.Application.Services.Implementation
                         Fail("The new version compressed package is missing, please contact the administrator.");
                     }
                 }
-                void OnReport(float value) => CurrentProgressValue = value;
             }
 
         end: isDownloading = false;
             void Fail(string error)
             {
                 toast.Show(error);
-                ClearProgressValue(MaxProgressValue);
+                OnReport(MaxProgressValue);
             }
         }
 
@@ -331,6 +376,18 @@ namespace System.Application.Services.Implementation
         /// <summary>
         /// 在应用商店中打开
         /// </summary>
-        protected abstract void OpenInAppStore();
+        protected virtual void OpenInAppStore() => BrowserOpen("https://steampp.net/");
+
+        void StartUpdate()
+        {
+            if (IsSupportedServerDistribution)
+            {
+                DownloadUpdate();
+            }
+            else
+            {
+                OpenInAppStore();
+            }
+        }
     }
 }

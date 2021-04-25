@@ -1,4 +1,5 @@
 ﻿using System.Application.Models;
+using System.Windows.Input;
 
 namespace System.Application.Services
 {
@@ -12,14 +13,14 @@ namespace System.Application.Services
         public const float MaxProgressValue = 100f;
 
         /// <summary>
-        /// 当前进度值
+        /// 进度值
         /// </summary>
-        float CurrentProgressValue { get; }
+        float ProgressValue { get; }
 
         /// <summary>
-        /// 总进度值
+        /// 进度值描述
         /// </summary>
-        float TotalProgressValue { get; }
+        string ProgressString { get; }
 
         /// <summary>
         /// 是否支持服务端分发，如果返回 <see langword="false"/> 将不能使用 DownloadAsync 与 OverwriteUpgradeAsync
@@ -37,11 +38,24 @@ namespace System.Application.Services
         /// </summary>
         AppVersionDTO? NewVersionInfo { get; }
 
+        string NewVersionInfoDesc
+        {
+            get
+            {
+                var value = NewVersionInfo?.Description;
+                if (string.IsNullOrWhiteSpace(value)) return string.Empty;
+                var lines = value.Split(';', StringSplitOptions.RemoveEmptyEntries);
+                return string.Join(Environment.NewLine, lines);
+            }
+        }
+
         /// <summary>
         /// 检查更新，返回新版本信息
         /// </summary>
-        /// <returns></returns>
-        void CheckUpdate();
+        /// <param name="force">是否强制检查，如果为 <see langword="false"/> 当有新版本内存中缓存时将跳过 api 请求</param>
+        void CheckUpdate(bool force = false);
+
+        ICommand StartUpdateCommand { get; }
     }
 
 #if DEBUG

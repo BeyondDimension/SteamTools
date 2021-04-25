@@ -70,6 +70,24 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 正在校验：{0}% 的本地化字符串。
+        /// </summary>
+        internal static string CalcHashing_ {
+            get {
+                return ResourceManager.GetString("CalcHashing_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在校验（{1}/{2}）：{0}% 的本地化字符串。
+        /// </summary>
+        internal static string CalcHashing3_ {
+            get {
+                return ResourceManager.GetString("CalcHashing3_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 创建证书失败 的本地化字符串。
         /// </summary>
         internal static string CreateCertificateFaild {
@@ -79,11 +97,29 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 正在解压：{0}% 的本地化字符串。
+        /// </summary>
+        internal static string Decompressing_ {
+            get {
+                return ResourceManager.GetString("Decompressing_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 正在下载：{0}% 的本地化字符串。
         /// </summary>
         internal static string Downloading_ {
             get {
                 return ResourceManager.GetString("Downloading_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在下载（{1}/{2}）：{0}% 的本地化字符串。
+        /// </summary>
+        internal static string Downloading3_ {
+            get {
+                return ResourceManager.GetString("Downloading3_", resourceCulture);
             }
         }
         

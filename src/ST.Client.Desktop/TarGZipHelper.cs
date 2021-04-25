@@ -60,10 +60,12 @@ namespace System.Application
         /// <param name="dirPath">要解压的文件夹路径，文件夹必须不存在</param>
         /// <param name="progressMessage">进度消息监听</param>
         /// <param name="progress">进度值监听</param>
+        /// <param name="maxProgress"></param>
         /// <returns></returns>
         public static bool Unpack(string filePath, string dirPath,
             ProgressMessageHandler? progressMessage = null,
-            IProgress<float>? progress = null)
+            IProgress<float>? progress = null,
+            float maxProgress = 100f)
         {
             if (!File.Exists(filePath)) return false;
             if (Directory.Exists(dirPath)) return false;
@@ -77,7 +79,7 @@ namespace System.Application
             {
                 while (!isFinish)
                 {
-                    var value = fs.Position / length;
+                    var value = fs.Position / length * maxProgress;
                     progress.Report(value);
                     await Task.Delay(200);
                 }
@@ -89,7 +91,7 @@ namespace System.Application
             if (progress != null) Task.Factory.StartNew(ProgressMonitor);
             archive.ExtractContents(dirPath);
             isFinish = true;
-            progress?.Report(1f);
+            progress?.Report(maxProgress);
             return true;
         }
     }

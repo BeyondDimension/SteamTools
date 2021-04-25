@@ -17,8 +17,6 @@ namespace System.Application.Services.Implementation
 
         protected override Version OSVersion => Environment.OSVersion.Version;
 
-        protected sealed override void OpenInAppStore() => throw new NotImplementedException();
-
         /// <summary>
         /// 当更新下载完毕并校验完成时，即将退出程序之前
         /// </summary>
@@ -39,20 +37,16 @@ namespace System.Application.Services.Implementation
                     Directory.Delete(dirPath, true);
                 }
 
-                CurrentProgressValue = 0;
-
-                void OnReport(float value) => CurrentProgressValue = value;
-
-                if (TarGZipHelper.Unpack(value, dirPath, progress: new Progress<float>(OnReport)))
+                if (TarGZipHelper.Unpack(value, dirPath, progress: new Progress<float>(OnReportDecompressing), maxProgress: MaxProgressValue))
                 {
-                    ClearProgressValue(MaxProgressValue);
+                    OnReport(MaxProgressValue);
                     IOPath.FileTryDelete(value);
                     OverwriteUpgradePrivate(dirPath);
                 }
                 else
                 {
                     toast.Show(SR.UpdateUnpackFail);
-                    ClearProgressValue(MaxProgressValue);
+                    OnReport(MaxProgressValue);
                 }
             }
 
@@ -60,7 +54,7 @@ namespace System.Application.Services.Implementation
             {
                 OnExit();
 
-                var updateCommandPath = Path.Combine(AppContext.BaseDirectory, "update.cmd");
+                var updateCommandPath = Path.Combine(IOPath.CacheDirectory, "update.cmd");
                 IOPath.FileIfExistsItDelete(updateCommandPath);
 
                 var echo = SR.ProgramUpdateEcho;

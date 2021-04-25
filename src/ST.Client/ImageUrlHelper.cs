@@ -14,6 +14,6 @@ namespace System.Application
         /// </summary>
         /// <param name="imageId"></param>
         /// <returns></returns>
-        public static string GetImageApiUrlById(Guid imageId) => string.Format(GetImageApiUrl, imageId, ICloudServiceClient.Instance.ApiBaseUrl);
+        public static string? GetImageApiUrlById(Guid imageId) => imageId == default ? default : string.Format(GetImageApiUrl, imageId, ICloudServiceClient.Instance.ApiBaseUrl);
     }
 }
