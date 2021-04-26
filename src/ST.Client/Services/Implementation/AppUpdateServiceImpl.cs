@@ -124,7 +124,7 @@ namespace System.Application.Services.Implementation
         /// </summary>
         const string PackDirName = "UpgradePackage";
 
-        const string FileExDownloadCache = ".download_cache";
+        public const string FileExDownloadCache = ".download_cache";
 
         /// <summary>
         /// 根据新版本信息获取升级包路径名

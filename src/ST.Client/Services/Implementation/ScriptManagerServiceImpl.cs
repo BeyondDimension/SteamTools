@@ -17,7 +17,7 @@ namespace System.Application.Services.Implementation
 {
 	public class ScriptManagerServiceImpl : IScriptManagerService
 	{
-		public const string TAG = "Script";
+		public const string TAG = "Scripts";
 
 		protected readonly ILogger logger;
 		protected readonly IToast toast;
@@ -315,7 +315,7 @@ namespace System.Application.Services.Implementation
 				try
 				{
 					var md5 = Hashs.String.MD5(scriptInfo);
-					var cachePath = Path.Combine(IOPath.CacheDirectory, TAG, md5);
+					var cachePath = Path.Combine(IOPath.CacheDirectory, TAG, $"{md5}{AppUpdateServiceImpl.FileExDownloadCache}");
 					var fileInfo = new FileInfo(cachePath);
 					if (!fileInfo.Directory.Exists)
 					{
