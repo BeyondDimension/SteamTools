@@ -1565,6 +1565,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 安装脚本 的本地化字符串。
+        /// </summary>
+        public static string Script_Install {
+            get {
+                return ResourceManager.GetString("Script_Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 刷新缓存 的本地化字符串。
         /// </summary>
         public static string Script_Refresh {
@@ -1583,7 +1592,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 更新 的本地化字符串。
+        ///   查找类似 更新脚本 的本地化字符串。
         /// </summary>
         public static string Script_Update {
             get {

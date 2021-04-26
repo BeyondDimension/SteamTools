@@ -83,35 +83,14 @@ namespace System.Application.UI.ViewModels
 
 		public void RefreshScriptButton()
 		{
-			ProxyService.Current.RefreshScript(); CheckUpdate();
+			ProxyService.Current.RefreshScript();
 			Toast.Show(string.Format(@AppResources.Success_, @AppResources.Refresh));
 		}
 		public  void DownloadScriptItemButton(ScriptDTO model)
 		{
 			 ProxyService.Current.DownloadScript(model);
 		}
-		public async void CheckUpdate()
-		{
-			var items = ProxyService.Current.ProxyScripts.Items.Where(x => x.Id.HasValue).Select(x => x.Id.Value);
-			var client = ICloudServiceClient.Instance.Script;
-			var response = await client.ScriptUpdateInfo(items);
-			if (response.Code == ApiResponseCode.OK && response.Content != null)
-			{
-				foreach (var item in ProxyService.Current.ProxyScripts.Items)//response.Content)
-				{
-					var newItem = response.Content.FirstOrDefault(x => x.Id == item.Id);
-					if (item.Version != newItem.Version)
-					{
-						item.NewVersion = newItem.Version;
-						item.UpdateLink = newItem.UpdateLink;
-						item.IsUpdate = true;
-					}
-
-				}
-			}
-			else
-				Toast.Show(AppResources.Script_UpdateError);
-		}
+	
 		public void DeleteScriptItemButton(ScriptDTO script)
 		{
 			var result = MessageBoxCompat.ShowAsync(@AppResources.Script_DeleteItem, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>

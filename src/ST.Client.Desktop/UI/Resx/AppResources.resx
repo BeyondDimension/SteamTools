@@ -631,6 +631,9 @@
   <data name="Script_Home" xml:space="preserve">
     <value>脚本主页</value>
   </data>
+  <data name="Script_Install" xml:space="preserve">
+    <value>安装脚本</value>
+  </data>
   <data name="Script_Refresh" xml:space="preserve">
     <value>刷新缓存</value>
   </data>
@@ -638,7 +641,7 @@
     <value>脚本市场</value>
   </data>
   <data name="Script_Update" xml:space="preserve">
-    <value>更新</value>
+    <value>更新脚本</value>
   </data>
   <data name="Script_UpdateError" xml:space="preserve">
     <value>获取更新信息失败。</value>
