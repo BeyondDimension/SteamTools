@@ -126,6 +126,9 @@
   <data name="当前手机号发送短信过于频繁" xml:space="preserve">
     <value>操作有点频繁哦，1分钟以后再试试吧</value>
   </data>
+  <data name="当前手机号码不存在" xml:space="preserve">
+    <value>当前手机号码不存在</value>
+  </data>
   <data name="手机号码已存在" xml:space="preserve">
     <value>这个手机号已经被使用了哦</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="手机号码已存在_注册" xml:space="preserve">
     <value>这个手机号已经被注册了哦</value>
+  </data>
+  <data name="新手机号不能与旧手机号一样" xml:space="preserve">
+    <value>新手机号不能与旧手机号一样</value>
   </data>
   <data name="昵称最大长度不能超过_" xml:space="preserve">
     <value>昵称最大长度不能超过{0}个字</value>

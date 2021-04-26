@@ -2,8 +2,8 @@
 using CefNet;
 using CefNet.Avalonia;
 using CefNet.Internal;
+using System.Application.Services.CloudService;
 using System.Diagnostics;
-using System.Properties;
 using static System.Application.Services.CloudService.Constants;
 
 // ReSharper disable once CheckNamespace
@@ -156,6 +156,17 @@ namespace System.Application.UI.Views.Controls
                     return true;
             }
             return base.OnBeforePopup(browser, frame, targetUrl, targetFrameName, targetDisposition, userGesture, popupFeatures, windowInfo, ref client, settings, ref extraInfo, ref noJavascriptAccess);
+        }
+
+        protected override CefReturnValue OnBeforeResourceLoad(CefBrowser browser, CefFrame frame, CefRequest request, CefRequestCallback callback)
+        {
+            var sc = DI.Get<CloudServiceClientBase>();
+            if (request.Url.StartsWith(sc.ApiBaseUrl, StringComparison.OrdinalIgnoreCase))
+            {
+                request.SetHeaderByName(Headers.Request.AppVersion, sc.Settings.AppVersionStr, true);
+            }
+            var returnValue = base.OnBeforeResourceLoad(browser, frame, request, callback);
+            return returnValue;
         }
 
         //static readonly string[] urls = new[]

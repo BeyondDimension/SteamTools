@@ -180,6 +180,10 @@ namespace System.Application
             public static string 验证码已过期或不存在 => SR.验证码已过期或不存在;
 
             public static string 验证码不正确 => SR.验证码不正确;
+
+            public static string 新手机号不能与旧手机号一样 => SR.新手机号不能与旧手机号一样;
+
+            public static string 当前手机号码不存在 => SR.当前手机号码不存在;
         }
 
         public static class Lengths

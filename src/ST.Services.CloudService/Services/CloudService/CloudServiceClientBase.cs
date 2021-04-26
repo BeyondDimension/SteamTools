@@ -35,7 +35,7 @@ namespace System.Application.Services.CloudService
 
         public string ApiBaseUrl { get; }
 
-        internal ICloudServiceSettings Settings => settings;
+        public ICloudServiceSettings Settings => settings;
 
         RSA IApiConnectionPlatformHelper.RSA
         {

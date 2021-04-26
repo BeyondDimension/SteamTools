@@ -46,7 +46,7 @@ namespace System
             int current = IPagedModel.DefaultCurrent,
             int pageSize = IPagedModel.DefaultPageSize) where TEntity : new()
         {
-            var skipCount = (pageSize - 1) * pageSize;
+            var skipCount = (current - 1) * pageSize;
             var total = await source.CountAsync();
             var dataSource = await source.Skip(skipCount).Take(pageSize).ToListAsync();
             var pagedModel = new PagedModel<TEntity>
