@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using DynamicData.Binding;
+using ReactiveUI;
 using System.Application.Models.Settings;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
@@ -36,12 +37,12 @@ namespace System.Application.UI.ViewModels
         {
             IconKey = nameof(SettingsPageViewModel).Replace("ViewModel", "Svg");
 
-            SelectLanguage = R.Languages.SingleOrDefault(x => x.Key == UISettings.Language.Value);
-            this.WhenAnyValue(x => x.SelectLanguage)
+            SelectLanguage = R.Languages.FirstOrDefault(x => x.Key == UISettings.Language.Value);
+            this.WhenValueChanged(x => x.SelectLanguage, false)
                   .Subscribe(x => UISettings.Language.Value = x.Key);
 
-            SelectFont = R.Fonts.SingleOrDefault(x => x.Value == UISettings.FontName.Value);
-            this.WhenAnyValue(x => x.SelectFont)
+            SelectFont = R.Fonts.FirstOrDefault(x => x.Value == UISettings.FontName.Value);
+            this.WhenValueChanged(x => x.SelectFont, false)
                   .Subscribe(x => UISettings.FontName.Value = x.Value);
         }
     }

@@ -1,11 +1,12 @@
-﻿using System.Application.Services;
+﻿using ReactiveUI;
+using System.Application.Services;
 using System.Globalization;
 using System.Threading.Tasks;
 using static System.Application.SteamApiUrls;
 
 namespace System.Application.Models
 {
-    public class AchievementInfo
+    public class AchievementInfo : ReactiveObject
     {
         public int AppId { get; set; }
 
@@ -25,7 +26,12 @@ namespace System.Application.Models
 
         public bool IsAchieved { get; set; }
 
-        public bool IsChecked { get; set; }
+        private bool _IsChecked;
+        public bool IsChecked
+        {
+            get => _IsChecked;
+            set => this.RaiseAndSetIfChanged(ref _IsChecked, value);
+        }
 
         public long UnlockTimeUnix { get; set; }
 

@@ -50,6 +50,42 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _SearchText, value);
         }
 
+        Func<AchievementInfo, bool> PredicateAchievementName(string? text)
+        {
+            return s =>
+            {
+                if (s == null || s.Name == null || s.Description == null)
+                    return false;
+                if (string.IsNullOrEmpty(text))
+                    return true;
+                if (s.Name.Contains(text, StringComparison.OrdinalIgnoreCase) ||
+                       s.Description.ToString().Contains(text, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+
+                return false;
+            };
+        }
+
+        Func<StatInfo, bool> PredicateStatInfoName(string? text)
+        {
+            return s =>
+            {
+                if (s == null || s.DisplayName == null || s.Id == null)
+                    return false;
+                if (string.IsNullOrEmpty(text))
+                    return true;
+                if (s.DisplayName.Contains(text, StringComparison.OrdinalIgnoreCase) ||
+                       s.Id.ToString().Contains(text, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+
+                return false;
+            };
+        }
+
         public AchievementWindowViewModel(int appid)
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.AchievementManage;
@@ -59,30 +95,41 @@ namespace System.Application.UI.ViewModels
             if (SteamConnectService.Current.IsConnectToSteam == false)
             {
                 MessageBoxCompat.ShowAsync("与Steam建立连接失败，可能是该游戏没有成就，或者你没有该游戏。", Title, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
-                {
-                    EnforceClose();
-                });
+                 {
+                     EnforceClose();
+                 }).Wait();
             }
 
             _AchievementsSourceList = new SourceList<AchievementInfo>();
+            _StatisticsSourceList = new SourceList<StatInfo>();
+
+            var nameAchievementsFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateAchievementName);
+
+            var nameStatisticsFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateStatInfoName);
 
             _AchievementsSourceList
                 .Connect()
-                //.Filter(coinJoinFilter)
+                .Filter(nameAchievementsFilter)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Sort(SortExpressionComparer<AchievementInfo>.Descending(x => x.IsAchieved).ThenByAscending(x => x.Name))
                 .Bind(out _Achievements)
                 .Subscribe();
 
-            _StatisticsSourceList = new SourceList<StatInfo>();
 
             _StatisticsSourceList
                 .Connect()
-                //.Filter(coinJoinFilter)
+                .Filter(nameStatisticsFilter)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Sort(SortExpressionComparer<StatInfo>.Descending(x => x.Id))
                 .Bind(out _Statistics)
                 .Subscribe();
+
+            this.WhenAnyValue(x => x.IsCheckAll)
+                .Subscribe(x =>
+                {
+                    foreach (var item in _AchievementsSourceList.Items)
+                        item.IsChecked = x == true;
+                });
 
             AppId = appid;
             string name = ISteamworksLocalApiService.Instance.GetAppData((uint)appid, "name");
@@ -97,14 +144,14 @@ namespace System.Application.UI.ViewModels
                     MessageBoxCompat.ShowAsync($"错误代码: {param.Result}{Environment.NewLine}检索成就统计信息时出错，可能是该游戏没有成就，或者你没有该游戏。", Title, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
                     {
                         EnforceClose();
-                    });
+                    }).Wait();
                 }
                 if (this.LoadUserGameStatsSchema() == false)
                 {
                     MessageBoxCompat.ShowAsync($"Failed to load schema", Title, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
                     {
                         EnforceClose();
-                    });
+                    }).Wait();
                 }
                 GetAchievements();
                 GetStatistics();
@@ -125,6 +172,8 @@ namespace System.Application.UI.ViewModels
 
             this.RefreshStats_Click();
         }
+
+
 
         private void EnforceClose()
         {

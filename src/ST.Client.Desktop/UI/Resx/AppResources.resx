@@ -159,8 +159,17 @@
   <data name="Achievement_Name" xml:space="preserve">
     <value>名称</value>
   </data>
+  <data name="Achievement_RefreshTip" xml:space="preserve">
+    <value>刷新成就和统计</value>
+  </data>
+  <data name="Achievement_ResetTip" xml:space="preserve">
+    <value>复位成就和统计</value>
+  </data>
   <data name="Achievement_StatsEdit" xml:space="preserve">
     <value>统计修改</value>
+  </data>
+  <data name="Achievement_StoreTip" xml:space="preserve">
+    <value>保存并应用成就和统计</value>
   </data>
   <data name="Achievement_TimeFormat" xml:space="preserve">
     <value>解锁于{0:yyyy-MM-dd HH:mm:ss}</value>

@@ -178,11 +178,38 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 刷新成就和统计 的本地化字符串。
+        /// </summary>
+        public static string Achievement_RefreshTip {
+            get {
+                return ResourceManager.GetString("Achievement_RefreshTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 复位成就和统计 的本地化字符串。
+        /// </summary>
+        public static string Achievement_ResetTip {
+            get {
+                return ResourceManager.GetString("Achievement_ResetTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 统计修改 的本地化字符串。
         /// </summary>
         public static string Achievement_StatsEdit {
             get {
                 return ResourceManager.GetString("Achievement_StatsEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存并应用成就和统计 的本地化字符串。
+        /// </summary>
+        public static string Achievement_StoreTip {
+            get {
+                return ResourceManager.GetString("Achievement_StoreTip", resourceCulture);
             }
         }
         

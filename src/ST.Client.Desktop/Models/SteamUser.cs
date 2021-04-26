@@ -32,7 +32,7 @@ namespace System.Application.Models
         public string? SteamId32 { get; set; }
 
         [XmlIgnore]
-        public long SteamId32_Int { get; set; }
+        public long SteamId32_Int => (SteamId64 >> 0) & 0xFFFFFFFF;
 
         [XmlElement("steamID64")]
         public long SteamId64 { get; set; }

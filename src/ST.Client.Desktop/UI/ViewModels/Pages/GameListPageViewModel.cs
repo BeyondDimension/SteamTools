@@ -151,7 +151,7 @@ namespace System.Application.UI.ViewModels
 
         public bool IsSteamAppsEmpty => !SteamApps.Any_Nullable();
 
-        private ObservableCollection<EnumModel<SteamAppType>> _AppTypeFiltres;
+        private ObservableCollection<EnumModel<SteamAppType>> _AppTypeFiltres = new();
         public ObservableCollection<EnumModel<SteamAppType>> AppTypeFiltres
         {
             get => _AppTypeFiltres;
@@ -159,7 +159,7 @@ namespace System.Application.UI.ViewModels
         }
 
 
-        private IReadOnlyCollection<EnumModel<SteamAppType>> _EnableAppTypeFiltres;
+        private IReadOnlyCollection<EnumModel<SteamAppType>> _EnableAppTypeFiltres = new List<EnumModel<SteamAppType>>();
         public IReadOnlyCollection<EnumModel<SteamAppType>> EnableAppTypeFiltres
         {
             get => _EnableAppTypeFiltres;

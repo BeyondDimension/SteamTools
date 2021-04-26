@@ -69,7 +69,7 @@
                Header="筛选"
                ExpandDirection="Down"
                Margin="20 0 20 10">-->
-        <Border Padding="10" DockPanel.Dock="Top" Margin="20 0 20 10">
+        <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10" DockPanel.Dock="Top" Margin="20 0 20 10">
             <DockPanel>
                 <StackPanel
                     Orientation="Horizontal"

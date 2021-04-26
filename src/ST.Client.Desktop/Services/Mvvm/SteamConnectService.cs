@@ -111,7 +111,7 @@ namespace System.Application.Services
 
         public void Initialize()
         {
-            Task.Run(InitializeGameList).ForgetAndDispose();
+            //Task.Run(InitializeGameList).ForgetAndDispose();
 
             var t = new Task(async () =>
             {
@@ -139,7 +139,7 @@ namespace System.Application.Services
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
 
                                     #region 初始化需要steam启动才能使用的功能
-
+                                    Task.Run(InitializeGameList).ForgetAndDispose();
                                     while (true)
                                     {
                                         if (SteamApps.Items.Any())
