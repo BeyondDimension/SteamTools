@@ -22,11 +22,16 @@ namespace System.Application.UI.ViewModels
             get => AppResources.ScriptConfig;
             protected set { throw new NotImplementedException(); }
         }
-        internal override void ActivationOnFirst()
+
+        internal override void Activation()
         {
-            if (ProxySettings.IsAutoCheckScriptUpdate)
-                ProxyService.Current.CheckUpdate();
+            base.Activation();
+
+            if (IsFirstActivation)
+                if (ProxySettings.IsAutoCheckScriptUpdate)
+                    ProxyService.Current.CheckUpdate();
         }
+
         private readonly ReadOnlyObservableCollection<ScriptDTO> _ProxyScripts;
         public ReadOnlyObservableCollection<ScriptDTO> ProxyScripts => _ProxyScripts;
 

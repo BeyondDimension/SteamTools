@@ -102,8 +102,6 @@ namespace System.Application.UI.ViewModels
             this.WhenAnyValue(x => x.SelectedItem)
                 .Subscribe(x =>
                 {
-                    if (x._IsFirstActivation)
-                        Task.Run(x.FirstActivation).ForgetAndDispose();
                     Task.Run(x.Activation).ForgetAndDispose();
                 });
         }
