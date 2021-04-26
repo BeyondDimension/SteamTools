@@ -19,7 +19,7 @@ namespace System.Application.Services
 		/// </summary>
 		/// <param name="path"></param>
 		/// <returns></returns>
-		Task<(bool state,ScriptDTO? model, string msg)> AddScriptAsync(string path, ScriptDTO? oldInfo=null,bool build=true,int order =10,bool deleteFile=false,Guid? pid=null);
+		Task<(bool state, ScriptDTO? model, string msg)> AddScriptAsync(string path, ScriptDTO? oldInfo = null, bool build = true, int? order = null, bool deleteFile = false, Guid? pid = null);
 		/// <summary>
 		/// 获取Sqlite全部脚本
 		/// </summary>

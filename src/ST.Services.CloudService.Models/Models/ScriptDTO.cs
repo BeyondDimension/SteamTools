@@ -296,5 +296,10 @@ namespace System.Application.Models
         [N_JsonProperty("15")]
         [S_JsonProperty("15")]
         public int Order { get; set; }
+
+        [MPKey(16)]
+        [N_JsonProperty("16")]
+        [S_JsonProperty("16")]
+        public bool IsBuild { get; set; } = true;
     }
 }

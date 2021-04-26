@@ -86,11 +86,11 @@ namespace System.Application.UI.ViewModels
 			ProxyService.Current.RefreshScript();
 			Toast.Show(string.Format(@AppResources.Success_, @AppResources.Refresh));
 		}
-		public  void DownloadScriptItemButton(ScriptDTO model)
+		public void DownloadScriptItemButton(ScriptDTO model)
 		{
-			 ProxyService.Current.DownloadScript(model);
+			ProxyService.Current.DownloadScript(model);
 		}
-	
+
 		public void DeleteScriptItemButton(ScriptDTO script)
 		{
 			var result = MessageBoxCompat.ShowAsync(@AppResources.Script_DeleteItem, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
@@ -139,9 +139,10 @@ namespace System.Application.UI.ViewModels
 		{
 			if (script?.FilePath != null)
 			{
-				var item = await DI.Get<IScriptManagerService>().AddScriptAsync(script.FilePath);
+				var item = await DI.Get<IScriptManagerService>().AddScriptAsync(script.FilePath, build:script.IsBuild);
 				if (item.state)
-					if (item.model != null) { 
+					if (item.model != null)
+					{
 						script = item.model;
 						Toast.Show(AppResources.RefreshOK);
 					}
