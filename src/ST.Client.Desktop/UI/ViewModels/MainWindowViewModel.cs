@@ -100,7 +100,12 @@ namespace System.Application.UI.ViewModels
             Task.Run(Initialize).ForgetAndDispose();
 
             this.WhenAnyValue(x => x.SelectedItem)
-                .Subscribe(x => x.Activation());
+                .Subscribe(x =>
+                {
+                    if (x._IsFirstActivation)
+                        Task.Run(x.FirstActivation).ForgetAndDispose();
+                    Task.Run(x.Activation).ForgetAndDispose();
+                });
         }
 
         public void Initialize()

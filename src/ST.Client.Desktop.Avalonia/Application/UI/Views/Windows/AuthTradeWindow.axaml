@@ -160,6 +160,6 @@
             </DockPanel>
         </Panel>
         <!--Toast-->
-        <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        <controls:ToastMessage />
     </Panel>
 </Window>

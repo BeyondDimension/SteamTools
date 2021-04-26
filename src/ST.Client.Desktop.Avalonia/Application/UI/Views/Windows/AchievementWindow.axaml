@@ -207,6 +207,6 @@
         </TabControl>
 
         <!--Toast-->
-        <controls:ToastMessage VerticalAlignment="Bottom" HorizontalAlignment="Center" ZIndex="99"/>
+        <controls:ToastMessage  ZIndex="99"/>
     </Panel>
 </Window>
