@@ -647,7 +647,7 @@
     <value>更新脚本</value>
   </data>
   <data name="Script_UpdateError" xml:space="preserve">
-    <value>获取更新信息失败。</value>
+    <value>获取脚本新版本信息失败。</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>搜索...</value>

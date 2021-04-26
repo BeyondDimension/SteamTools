@@ -1610,7 +1610,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 获取更新信息失败。 的本地化字符串。
+        ///   查找类似 获取脚本新版本信息失败。 的本地化字符串。
         /// </summary>
         public static string Script_UpdateError {
             get {

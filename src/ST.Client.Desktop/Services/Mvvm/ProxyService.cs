@@ -171,7 +171,7 @@ namespace System.Application.Services
 			}
 		}
 		#endregion
-		public bool IsAutoCheck { get; set; } = true;
+		public bool IsAutoCheck { get; set; } = false;
 		public async void Initialize()
 		{
 			#region 加载代理服务数据
