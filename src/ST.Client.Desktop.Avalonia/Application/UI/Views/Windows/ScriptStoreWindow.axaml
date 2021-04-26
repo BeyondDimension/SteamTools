@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         Width="800" Height="600"
+        x:Name="u"
         x:Class="System.Application.UI.Views.Windows.ScriptStoreWindow"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
@@ -90,35 +91,17 @@
                                             Text="{Binding Description}"
                                             FontSize="12"
                                             Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-
-
                                             <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Bottom">
-                                                <ToggleSwitch OnContent="" OffContent="" IsChecked="{Binding Enable,Mode=TwoWay}">
-                                                </ToggleSwitch>
                                                 <Button Background="Transparent" Cursor="Hand"
-                                                         Command="{ReflectionBinding #u.DataContext.EditScriptItemButton}"
+                                                         Command="{ReflectionBinding #u.DataContext.DownloadScriptItemButton}"
                                                         CommandParameter="{Binding}">
                                                     <PathIcon Width="20" Data="{StaticResource CodeDrawing}" />
-                                                </Button>
-
+                                                </Button> 
                                                 <Button Background="Transparent" Cursor="Hand"
-                                                        Command="{ReflectionBinding #u.DataContext.RefreshScriptItemButton}"
+                                                        Command="{ReflectionBinding #u.DataContext.DownloadScriptItemButton}"
                                                         CommandParameter="{Binding}">
                                                     <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
-                                                </Button>
-
-                                                <Button Background="Transparent" Cursor="Hand"
-                                                        Command="{ReflectionBinding #u.DataContext.OpenHomeScriptItemButton}"
-                                                        CommandParameter="{Binding}">
-                                                    <PathIcon Width="16"  Data="{StaticResource HomeDrawing}" />
-                                                </Button>
-
-                                                <Button Background="Transparent" Cursor="Hand" HorizontalAlignment="Right"
-                                                          Command="{ReflectionBinding #u.DataContext.DeleteScriptItemButton}"
-                                                        CommandParameter="{Binding}"
-                                                        >
-                                                    <PathIcon Width="20"  Data="{StaticResource DeleteDrawing}" />
-                                                </Button>
+                                                </Button> 
                                             </StackPanel>
                                         </StackPanel>
                                     </DockPanel>

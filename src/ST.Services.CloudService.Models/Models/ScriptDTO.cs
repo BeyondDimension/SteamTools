@@ -113,7 +113,11 @@ namespace System.Application.Models
 		[N_JsonIgnore]
 		[S_JsonIgnore]
 		public bool IsUpdate { get; set; } = false;
-		[MPIgnore]
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public bool IsExist { get; set; } = false;
+        [MPIgnore]
 		[N_JsonIgnore]
 		[S_JsonIgnore]
 		public string? NewVersion { get; set; }
