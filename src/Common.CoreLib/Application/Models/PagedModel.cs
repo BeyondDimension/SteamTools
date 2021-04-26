@@ -51,9 +51,10 @@ namespace System.Application.Models
 
         bool IExplicitHasValue.ExplicitHasValue()
         {
-            return Total > 0 && PageSize > 0 && Current > 0 &&
-                Current <= ((IPagedModel)this).PageCount &&
-                mDataSource.Any_Nullable();
+            return Total >= 0 && PageSize > 0 && Current > 0;
+            //&&
+            //Current <= ((IPagedModel)this).PageCount &&
+            //mDataSource.Any_Nullable();
         }
 
         IReadOnlyList<T> IReadOnlyPagedModel<T>.DataSource => DataSource;

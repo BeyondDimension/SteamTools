@@ -179,6 +179,12 @@ namespace System.Application.Services.CloudService
              Version="00.1"
             });
         }
+
+		public async Task<IApiResponse<PagedModel<ScriptDTO>>> ScriptTable(string? name = null, int pageIndex = 1, int pageSize = 15)
+		{
+            await Task.Delay(1500);
+            return ApiResponse.Ok(new PagedModel<ScriptDTO> { });
+        }
 	}
 }
 #endif

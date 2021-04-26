@@ -52,14 +52,14 @@ namespace System.Application.UI.ViewModels
 
         private async void InitializeScriptList()
         {
-            var client = ICloudServiceClient.Instance.Accelerate;
-            var response = await client.Scripts();
-            if (!response.IsSuccess || response.Content == null)
-            {
-                return;
-            }
-            _ScriptsSourceList.Clear();
-            _ScriptsSourceList.AddRange(response.Content);
-        }
+            var client = ICloudServiceClient.Instance.Script;
+            var response = await client.ScriptTable(name: _SerachText);
+			if (!response.IsSuccess || response.Content == null)
+			{
+				return;
+			}
+			_ScriptsSourceList.Clear();
+			_ScriptsSourceList.AddRange(response.Content.DataSource);
+		} 
     }
 }
