@@ -20,12 +20,12 @@
         <DockPanel HorizontalAlignment="Stretch">
             <ExperimentalAcrylicBorder IsHitTestVisible="False" DockPanel.Dock="Left" Width="240">
                 <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.80" TintOpacity="1"/>
+                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.80" TintOpacity="1" BackgroundSource="None" PlatformTransparencyCompensationLevel="0.5"/>
                 </ExperimentalAcrylicBorder.Material>
             </ExperimentalAcrylicBorder>
             <ExperimentalAcrylicBorder IsHitTestVisible="False">
                 <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.80" TintOpacity="1"/>
+                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.80" TintOpacity="1" BackgroundSource="None" PlatformTransparencyCompensationLevel="0.5"/>
                 </ExperimentalAcrylicBorder.Material>
             </ExperimentalAcrylicBorder>
         </DockPanel>

@@ -2,6 +2,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Styles.Resources>
+        <SolidColorBrush x:Key="DataGridGridLinesBrush"
+                    Color="{DynamicResource SystemBaseMediumLowColor}"
+                    Opacity="0.4" />
         <SolidColorBrush x:Key="DataGridRowIndicatorBrush" Color="{StaticResource SystemAccentColor}" />
         <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundBrush" Color="Transparent" />
         <SolidColorBrush x:Key="DataGridCellFocusVisualPrimaryBrush" Color="Transparent" />
@@ -76,6 +79,7 @@
     </Style>
 
     <Style Selector="DataGridColumnHeader">
+        <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}"/>
         <Setter Property="FontSize" Value="{StaticResource FontSizeH7}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Padding" Value="10" />
