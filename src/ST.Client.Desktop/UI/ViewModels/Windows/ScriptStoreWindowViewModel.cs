@@ -53,35 +53,9 @@ namespace System.Application.UI.ViewModels
 		{
 			InitializeScriptList();
 		}
-		public async void DownloadScriptItemButton(ScriptDTO model)
-		{
-
-			var jspath = await DI.Get<IScriptManagerService>().DownloadScript(model.UpdateLink);
-			if (jspath.state)
-			{
-				var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, build: true, order: 10, deleteFile: true, pid: model.Id);
-				if (build.state)
-				{
-					if (build.model != null)
-					{
-						var basicsItem = ProxyService.Current.ProxyScripts.Items.FirstOrDefault(x => x.Id == model.Id);
-						if (basicsItem != null)
-						{
-							var index = ProxyService.Current.ProxyScripts.Items.IndexOf(basicsItem);
-							ProxyService.Current.ProxyScripts.ReplaceAt(index, basicsItem);
-						}
-						else
-						{
-							ProxyService.Current.ProxyScripts.Add(build.model);
-						}
-						Toast.Show(AppResources.Download_ScriptOk);
-					}
-				}
-				else
-					Toast.Show(build.msg);
-			}
-			else
-				Toast.Show(AppResources.Download_ScriptError);
+		public void DownloadScriptItemButton(ScriptDTO model)
+		{ 
+			ProxyService.Current.DownloadScript(model);
 		}
 		private async void InitializeScriptList()
 		{

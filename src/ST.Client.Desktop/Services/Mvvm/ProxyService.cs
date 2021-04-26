@@ -335,6 +335,35 @@ namespace System.Application.Services
             ProxyScripts.Clear();
             ProxyScripts.AddRange(scriptList);
         }
+        public async void DownloadScript(ScriptDTO model)
+        {
 
+            var jspath = await DI.Get<IScriptManagerService>().DownloadScript(model.UpdateLink);
+            if (jspath.state)
+            {
+                var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, build: true, order: 10, deleteFile: true, pid: model.Id);
+                if (build.state)
+                {
+                    if (build.model != null)
+                    {
+                        var basicsItem = Current.ProxyScripts.Items.FirstOrDefault(x => x.Id == model.Id);
+                        if (basicsItem != null)
+                        {
+                            var index = Current.ProxyScripts.Items.IndexOf(basicsItem);
+                            Current.ProxyScripts.ReplaceAt(index, basicsItem);
+                        }
+                        else
+                        {
+                            Current.ProxyScripts.Add(build.model);
+                        }
+                        Toast.Show(AppResources.Download_ScriptOk);
+                    }
+                }
+                else
+                    Toast.Show(build.msg);
+            }
+            else
+                Toast.Show(AppResources.Download_ScriptError);
+        }
     }
 }

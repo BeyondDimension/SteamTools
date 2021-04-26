@@ -86,6 +86,10 @@ namespace System.Application.UI.ViewModels
 			ProxyService.Current.RefreshScript(); CheckUpdate();
 			Toast.Show(string.Format(@AppResources.Success_, @AppResources.Refresh));
 		}
+		public  void DownloadScriptItemButton(ScriptDTO model)
+		{
+			 ProxyService.Current.DownloadScript(model);
+		}
 		public async void CheckUpdate()
 		{
 			var items = ProxyService.Current.ProxyScripts.Items.Where(x => x.Id.HasValue).Select(x => x.Id.Value);
