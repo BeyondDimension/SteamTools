@@ -48,13 +48,4 @@
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0013745-beta" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Application\UI\Views\Windows\AchievementWindow.axaml.cs">
-      <DependentUpon>AchievementWindow.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Application\UI\Views\Windows\ScriptStoreWindow.axaml.cs">
-      <DependentUpon>ScriptStoreWindow.axaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
 </Project>
