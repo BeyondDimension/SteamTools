@@ -631,6 +631,9 @@
   <data name="ScriptStore" xml:space="preserve">
     <value>脚本工坊</value>
   </data>
+  <data name="Script_AutoUpdate" xml:space="preserve">
+    <value>自动更新</value>
+  </data>
   <data name="Script_DeleteItem" xml:space="preserve">
     <value>确定要删除这个脚本吗？</value>
   </data>

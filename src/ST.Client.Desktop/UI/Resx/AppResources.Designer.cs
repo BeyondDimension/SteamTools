@@ -1565,6 +1565,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 自动更新 的本地化字符串。
+        /// </summary>
+        public static string Script_AutoUpdate {
+            get {
+                return ResourceManager.GetString("Script_AutoUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 确定要删除这个脚本吗？ 的本地化字符串。
         /// </summary>
         public static string Script_DeleteItem {

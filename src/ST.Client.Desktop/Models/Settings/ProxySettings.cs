@@ -10,6 +10,11 @@ namespace System.Application.Models.Settings
     public static class ProxySettings
     {
         /// <summary>
+        /// 启用脚本自动检查更新
+        /// </summary>
+        public static SerializableProperty<bool> IsAutoCheckScriptUpdate { get; }
+            = new SerializableProperty<bool>(GetKey(), Providers.Local, true) { AutoSave = true };
+        /// <summary>
         /// 启用GOG插件代理
         /// </summary>
         public static SerializableProperty<bool> IsProxyGOG { get; }

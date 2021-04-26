@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:pages="clr-namespace:System.Application.UI.Views.Pages"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
              mc:Ignorable="d"
@@ -32,7 +33,12 @@
                   Command="{Binding ScriptStoreCommand}"
                   ToolTip.Tip="{ReflectionBinding Path=Res.Script_Shop,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <PathIcon Width="16"  Data="{StaticResource JavaScriptDrawing}" />
-          </Button>
+          </Button> 
+            <ToggleSwitch 
+              Content="{ReflectionBinding Path=Res.Script_AutoUpdate,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+              IsChecked="{Binding Source={x:Static ms:ProxySettings.IsAutoCheckScriptUpdate},Path=Value}"
+              Margin="20 0">
+            </ToggleSwitch> 
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Right" VerticalAlignment="Center">

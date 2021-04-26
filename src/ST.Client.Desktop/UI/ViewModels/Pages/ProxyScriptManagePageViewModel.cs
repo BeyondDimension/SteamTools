@@ -2,6 +2,7 @@
 using DynamicData.Binding;
 using ReactiveUI;
 using System.Application.Models;
+using System.Application.Models.Settings;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.ObjectModel;
@@ -21,8 +22,11 @@ namespace System.Application.UI.ViewModels
 			get => AppResources.ScriptConfig;
 			protected set { throw new NotImplementedException(); }
 		}
-		internal  override void Initialize() {
-			ProxyService.Current.CheckUpdate();
+
+		internal override void Activation()
+		{
+			if (ProxySettings.IsAutoCheckScriptUpdate)
+				ProxyService.Current.CheckUpdate();
 		}
 		private readonly ReadOnlyObservableCollection<ScriptDTO> _ProxyScripts;
 		public ReadOnlyObservableCollection<ScriptDTO> ProxyScripts => _ProxyScripts;
@@ -141,7 +145,7 @@ namespace System.Application.UI.ViewModels
 		{
 			if (script?.FilePath != null)
 			{
-				var item = await DI.Get<IScriptManagerService>().AddScriptAsync(script.FilePath, build:script.IsBuild);
+				var item = await DI.Get<IScriptManagerService>().AddScriptAsync(script.FilePath, build: script.IsBuild);
 				if (item.state)
 					if (item.model != null)
 					{

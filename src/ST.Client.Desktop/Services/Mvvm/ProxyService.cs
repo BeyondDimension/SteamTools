@@ -170,8 +170,7 @@ namespace System.Application.Services
 				}
 			}
 		}
-		#endregion
-		public bool IsAutoCheck { get; set; } = false;
+		#endregion 
 		public async void Initialize()
 		{
 			#region 加载代理服务数据
@@ -240,8 +239,6 @@ namespace System.Application.Services
 					}
 				}
 			}
-			if (IsAutoCheck)
-				CheckUpdate();
 
 			this.WhenAnyValue(v => v.ProxyScripts)
 				  .Subscribe(script => script?
