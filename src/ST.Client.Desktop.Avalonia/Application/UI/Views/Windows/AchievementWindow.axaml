@@ -55,7 +55,7 @@
                     <DataGrid.Columns>
                         <!--CheckBox-->
                         <DataGridTemplateColumn
-                                            Width="58">
+                                            Width="58" CanUserSort="True" SortMemberPath="IsChecked">
                             <DataGridTemplateColumn.Header>
                                 <CheckBox Classes="onlyCheckBox"
                                           IsChecked="{ReflectionBinding #u.DataContext.IsCheckAll,Mode=TwoWay}"
@@ -91,7 +91,7 @@
 
                         <!--Name-->
                         <DataGridTemplateColumn Header="Name"
-                                            Width="*"  >
+                                            Width="*"  CanUserSort="True" SortMemberPath="Name">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate x:DataType="models:AchievementInfo">
                                     <WrapPanel Margin="10 0">
@@ -111,7 +111,7 @@
 
                         <!--Description-->
                         <DataGridTemplateColumn Header="Description"
-                                            Width="2*">
+                                            Width="2*" CanUserSort="True" SortMemberPath="Description">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate x:DataType="models:AchievementInfo">
                                     <TextBlock Text="{Binding Description}"
