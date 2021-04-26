@@ -23,10 +23,12 @@
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-    <!--<TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>-->
-    <!--<SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>-->
+    <!--<TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>-->
     <Platforms>AnyCPU;x86</Platforms>
     <PlatformTarget>x86</PlatformTarget>
+    <!-- 注意：RuntimeIdentifier win-x86 会导致亚克力效果会丢失 -->
+    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
     <!--<UseWindowsForms>false</UseWindowsForms>-->
     <!--<UseWPF>false</UseWPF>-->
   </PropertyGroup>
@@ -141,6 +143,4 @@
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-release.pfx')">
     <EmbeddedResource Include="..\..\rsa-public-key-release.pfx" Link="Resources\E88CA4F9" />
   </ItemGroup>
-
-  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>
