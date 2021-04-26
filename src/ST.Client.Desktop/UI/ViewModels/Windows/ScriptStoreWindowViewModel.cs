@@ -74,9 +74,14 @@ namespace System.Application.UI.ViewModels
 						{
 							ProxyService.Current.ProxyScripts.Add(build.model);
 						}
+						Toast.Show(AppResources.Download_ScriptOk);
 					}
 				}
+				else
+					Toast.Show(build.msg);
 			}
+			else
+				Toast.Show(AppResources.Download_ScriptError);
 		}
 		private async void InitializeScriptList()
 		{

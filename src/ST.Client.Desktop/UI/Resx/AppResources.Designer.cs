@@ -592,6 +592,33 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 下载 的本地化字符串。
+        /// </summary>
+        public static string Download {
+            get {
+                return ResourceManager.GetString("Download", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 脚本下载错误请重试。 的本地化字符串。
+        /// </summary>
+        public static string Download_ScriptError {
+            get {
+                return ResourceManager.GetString("Download_ScriptError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 脚本安装成功 的本地化字符串。
+        /// </summary>
+        public static string Download_ScriptOk {
+            get {
+                return ResourceManager.GetString("Download_ScriptOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 编辑 的本地化字符串。
         /// </summary>
         public static string Edit {
@@ -1561,6 +1588,15 @@ namespace System.Application.UI.Resx {
         public static string Script_Update {
             get {
                 return ResourceManager.GetString("Script_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 获取更新信息失败。 的本地化字符串。
+        /// </summary>
+        public static string Script_UpdateError {
+            get {
+                return ResourceManager.GetString("Script_UpdateError", resourceCulture);
             }
         }
         

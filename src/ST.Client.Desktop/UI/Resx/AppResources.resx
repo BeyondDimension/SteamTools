@@ -295,6 +295,15 @@
   <data name="DoNotUpdate" xml:space="preserve">
     <value>暂不更新</value>
   </data>
+  <data name="Download" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="Download_ScriptError" xml:space="preserve">
+    <value>脚本下载错误请重试。</value>
+  </data>
+  <data name="Download_ScriptOk" xml:space="preserve">
+    <value>脚本安装成功</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>编辑</value>
   </data>
@@ -630,6 +639,9 @@
   </data>
   <data name="Script_Update" xml:space="preserve">
     <value>更新</value>
+  </data>
+  <data name="Script_UpdateError" xml:space="preserve">
+    <value>获取更新信息失败。</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>搜索...</value>

@@ -290,7 +290,7 @@ namespace System.Application.Models
         [MPKey(14)]
         [N_JsonProperty("14")]
         [S_JsonProperty("14")]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         [MPKey(15)]
         [N_JsonProperty("15")]

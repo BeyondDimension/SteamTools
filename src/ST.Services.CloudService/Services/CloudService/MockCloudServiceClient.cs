@@ -185,6 +185,12 @@ namespace System.Application.Services.CloudService
             await Task.Delay(1500);
             return ApiResponse.Ok(new PagedModel<ScriptDTO> { });
         }
+
+		public async Task<IApiResponse<IList<ScriptResponse>>> ScriptUpdateInfo(IEnumerable<Guid> ids)
+        {
+            await Task.Delay(1500);
+            return ApiResponse.Ok(new List<ScriptResponse> { });
+        }
 	}
 }
 #endif

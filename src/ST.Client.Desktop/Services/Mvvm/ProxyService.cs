@@ -261,19 +261,7 @@ namespace System.Application.Services
 			if (basicsInfo.Code == ApiResponseCode.OK && basicsInfo.Content != null)
 			{
 				var basicsItem = ProxyScripts.Items.FirstOrDefault(x => x.Id == Guid.Parse("00000000-0000-0000-0000-000000000001"));
-				if (basicsItem != null)
-				{
-					if (basicsItem.Version != basicsInfo.Content.Version)
-					{
-						var index = ProxyScripts.Items.IndexOf(basicsItem);
-						basicsItem.IsUpdate = true;
-						basicsItem.UpdateLink = basicsInfo.Content.UpdateLink;
-						basicsItem.NewVersion = basicsInfo.Content.Version;
-						ProxyScripts.ReplaceAt(index, basicsItem);
-					}
-				}
-				else
-				{
+                if (basicsItem==null) {
 					var jspath = await DI.Get<IScriptManagerService>().DownloadScript(basicsInfo.Content.UpdateLink);
 					if (jspath.state)
 					{
@@ -285,7 +273,31 @@ namespace System.Application.Services
 						}
 					}
 				}
-			}
+                //if (basicsItem != null)
+                //{
+                //	if (basicsItem.Version != basicsInfo.Content.Version)
+                //	{
+                //		var index = ProxyScripts.Items.IndexOf(basicsItem);
+                //		basicsItem.IsUpdate = true;
+                //		basicsItem.UpdateLink = basicsInfo.Content.UpdateLink;
+                //		basicsItem.NewVersion = basicsInfo.Content.Version;
+                //		ProxyScripts.ReplaceAt(index, basicsItem);
+                //	}
+                //}
+                //else
+                //{
+                //	var jspath = await DI.Get<IScriptManagerService>().DownloadScript(basicsInfo.Content.UpdateLink);
+                //	if (jspath.state)
+                //	{
+                //		var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id);
+                //		if (build.state)
+                //		{
+                //			if (build.model != null)
+                //				ProxyScripts.Insert(0, build.model);
+                //		}
+                //	}
+                //}
+            }
 		}
 		public void StartTiming()
 		{

@@ -1,5 +1,6 @@
 ﻿using System.Application.Models;
 using System.Application.Services.CloudService.Clients.Abstractions;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -32,5 +33,16 @@ namespace System.Application.Services.CloudService.Clients
 				cancellationToken: default,
 				responseContentMaybeNull: true);
 		}
+		public Task<IApiResponse<IList<ScriptResponse>>> ScriptUpdateInfo(IEnumerable<Guid> ids) {
+			var url =
+				$"api/script/updates";
+			return conn.SendAsync<IEnumerable<Guid>,IList <ScriptResponse>>(
+				isAnonymous: true,
+				method: HttpMethod.Post,
+				request:ids,
+				requestUri: url,
+				cancellationToken: default);
+		}
+		
 	}
 }
