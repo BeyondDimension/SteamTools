@@ -212,7 +212,7 @@ namespace System.Application.UI.ViewModels
 
         public async void ShowDialogButton_Click()
         {
-            ToastService.Current.Notify("Test CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest CommandTest Command");
+            ToastService.Current.Notify("中文测试繁體測試🎉🧨🎇🎆🎄🖼🖼🖼🖼");
             DebugString += ToastService.Current.Message + Environment.NewLine;
             DebugString += ToastService.Current.IsVisible + Environment.NewLine;
 
