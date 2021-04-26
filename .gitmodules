@@ -19,6 +19,3 @@
 [submodule "references/AvaloniaGif"]
 	path = references/AvaloniaGif
 	url = https://github.com/SteamTools-Team/AvaloniaGif
-[submodule "references/CefNet"]
-	path = references/CefNet
-	url = https://github.com/SteamTools-Team/CefNet.git
