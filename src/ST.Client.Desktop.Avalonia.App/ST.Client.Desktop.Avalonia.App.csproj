@@ -141,4 +141,6 @@
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-release.pfx')">
     <EmbeddedResource Include="..\..\rsa-public-key-release.pfx" Link="Resources\E88CA4F9" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>
