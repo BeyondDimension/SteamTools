@@ -242,12 +242,12 @@ namespace System.Application.UI
                         IsNotOfficialChannelPackageWarning();
                     }
                 }
+
+                desktop.MainWindow =
 #if !UI_DEMO
-                if (Program.IsMinimize)
-                    desktop.MainWindow = null;
-                else
+                    Program.IsMinimize ? null :
 #endif
-                    desktop.MainWindow = MainWindow;
+                    MainWindow;
 
                 desktop.Startup += Desktop_Startup;
                 desktop.Exit += ApplicationLifetime_Exit;
