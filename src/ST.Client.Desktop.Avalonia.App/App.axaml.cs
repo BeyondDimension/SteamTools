@@ -244,7 +244,7 @@ namespace System.Application.UI
                     desktop.MainWindow = null;
                 else
 #endif
-                    desktop.MainWindow = MainWindow;
+                desktop.MainWindow = MainWindow;
 
                 desktop.Startup += Desktop_Startup;
                 desktop.Exit += ApplicationLifetime_Exit;
@@ -268,7 +268,7 @@ namespace System.Application.UI
             if (Startup.IsMainProcess)
             {
                 Startup.ActiveUserPost(ActiveUserType.OnStartup);
-                IAppUpdateService.Instance.CheckUpdate();
+                IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
             }
         }
 

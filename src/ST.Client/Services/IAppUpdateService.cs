@@ -53,7 +53,8 @@ namespace System.Application.Services
         /// 检查更新，返回新版本信息
         /// </summary>
         /// <param name="force">是否强制检查，如果为 <see langword="false"/> 当有新版本内存中缓存时将跳过 api 请求</param>
-        void CheckUpdate(bool force = false);
+        /// <param name="showIsExistUpdateFalse">是否显示已是最新版本吐司提示</param>
+        void CheckUpdate(bool force = false, bool showIsExistUpdateFalse = true);
 
         ICommand StartUpdateCommand { get; }
     }

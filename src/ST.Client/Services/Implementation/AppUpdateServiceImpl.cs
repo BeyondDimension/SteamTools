@@ -65,7 +65,7 @@ namespace System.Application.Services.Implementation
 
         static bool isCheckUpdateing;
 
-        public async void CheckUpdate(bool force)
+        public async void CheckUpdate(bool force, bool showIsExistUpdateFalse = true)
         {
             if (!force && IsExistUpdate)
             {
@@ -102,7 +102,7 @@ namespace System.Application.Services.Implementation
                 if (!rsp.Content.HasValue())
                 {
                     IsExistUpdate = false;
-                    toast.Show(SR.IsExistUpdateFalse);
+                    if (showIsExistUpdateFalse) toast.Show(SR.IsExistUpdateFalse);
                 }
                 else
                 {

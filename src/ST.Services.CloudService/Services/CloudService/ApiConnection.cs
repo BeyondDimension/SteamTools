@@ -285,7 +285,7 @@ namespace System.Application.Services.CloudService
                 {
                     if (isApi)
                     {
-                        if (response is IApiResponse<IExplicitHasValue> explicitHasValue && !explicitHasValue.Content.HasValue())
+                        if (!responseContentMaybeNull && response is IApiResponse<IExplicitHasValue> explicitHasValue && !explicitHasValue.Content.HasValue())
                         {
                             response.Code = ApiResponseCode.NoResponseContentValue;
                         }
