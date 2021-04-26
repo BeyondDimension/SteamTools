@@ -1502,6 +1502,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 刷新成功 的本地化字符串。
+        /// </summary>
+        public static string RefreshOK {
+            get {
+                return ResourceManager.GetString("RefreshOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 刷新 Steam 头像 的本地化字符串。
         /// </summary>
         public static string RefreshSteamAvatar {

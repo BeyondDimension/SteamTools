@@ -208,9 +208,9 @@ namespace System.Application.Services.Implementation
 					try
 					{
 						var cachePath = Path.Combine(IOPath.CacheDirectory, url);
-						var cashInfo = new FileInfo(cachePath);
-						if (cashInfo.Exists)
-							cashInfo.Delete();
+						var cacheInfo = new FileInfo(cachePath);
+						if (cacheInfo.Exists)
+							cacheInfo.Delete();
 					}
 					catch (Exception e)
 					{

@@ -601,6 +601,9 @@
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
+  <data name="RefreshOK" xml:space="preserve">
+    <value>刷新成功</value>
+  </data>
   <data name="RefreshSteamAvatar" xml:space="preserve">
     <value>刷新 Steam 头像</value>
   </data>

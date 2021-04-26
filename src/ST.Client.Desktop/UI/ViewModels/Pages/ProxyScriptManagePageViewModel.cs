@@ -141,8 +141,10 @@ namespace System.Application.UI.ViewModels
 			{
 				var item = await DI.Get<IScriptManagerService>().AddScriptAsync(script.FilePath);
 				if (item.state)
-					if (item.model != null)
+					if (item.model != null) { 
 						script = item.model;
+						Toast.Show(AppResources.RefreshOK);
+					}
 					else
 					{
 						script.Enable = false;
