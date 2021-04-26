@@ -74,5 +74,10 @@ namespace System.Application.UI.ViewModels
         {
             await Task.CompletedTask;
         }
+
+        internal async virtual void Activation()
+        {
+            await Task.CompletedTask;
+        }
     }
 }

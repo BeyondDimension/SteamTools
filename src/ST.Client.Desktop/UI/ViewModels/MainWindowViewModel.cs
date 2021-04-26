@@ -98,6 +98,9 @@ namespace System.Application.UI.ViewModels
             _SelectedItem = TabItems.First();
 
             Task.Run(Initialize).ForgetAndDispose();
+
+            this.WhenAnyValue(x => x.SelectedItem)
+                .Subscribe(x => x.Activation());
         }
 
         public void Initialize()
