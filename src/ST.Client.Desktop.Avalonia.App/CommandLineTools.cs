@@ -8,7 +8,7 @@ namespace System.Application
     /// <summary>
     /// 命令行工具(Command Line Tools/CLT)
     /// </summary>
-    public static class CommandLineTools
+    internal static class CommandLineTools
     {
         public static int Main(string[] args,
             Action<DILevel> initStartup,

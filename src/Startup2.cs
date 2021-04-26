@@ -111,6 +111,9 @@ namespace System.Application
             if (hasGUI)
             {
                 // 添加 Toast 提示服务
+#if !DEBUG
+                services.AddStartupToastIntercept();
+#endif
                 services.TryAddToast();
 #if __MOBILE__
                 // 添加电话服务

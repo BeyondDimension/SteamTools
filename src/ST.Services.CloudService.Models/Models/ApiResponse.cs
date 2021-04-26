@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Application.Models.Internals;
 using System.Application.Properties;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
@@ -46,7 +47,7 @@ namespace System.Application.Models
             return response.IsSuccess && content != null;
         }
 
-        public static string GetMessage(ApiResponseCode code)
+        public static string GetMessage(ApiResponseCode code, string? errorAppendText = null)
         {
             if (code == ApiResponseCode.Unauthorized)
             {
@@ -56,22 +57,21 @@ namespace System.Application.Models
             {
                 return SR.IsNotOfficialChannelPackageWarning;
             }
-            return string.Format(SR.ServerError_, (int)code);
+            if (string.IsNullOrWhiteSpace(errorAppendText))
+                return string.Format(SR.ServerError_, (int)code);
+            return string.Format(SR.ServerError__, (int)code, errorAppendText);
         }
 
-        public static string GetMessage(IApiResponse response)
+        public static string GetMessage(IApiResponse response, string? errorAppendText = null)
         {
 #pragma warning disable CS0618 // 类型或成员已过时
             var message = response.Message;
 #pragma warning restore CS0618 // 类型或成员已过时
             if (string.IsNullOrWhiteSpace(message))
             {
-                return GetMessage(response.Code);
+                message = GetMessage(response.Code, errorAppendText);
             }
-            else
-            {
-                return message;
-            }
+            return message;
         }
 
         public static IApiResponse Code(ApiResponseCode code, string? message = null) => new ApiResponseImpl

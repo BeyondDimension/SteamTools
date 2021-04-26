@@ -129,4 +129,7 @@
   <data name="ServerError_" xml:space="preserve">
     <value>서버 오류 {0}</value>
   </data>
+  <data name="ServerError__" xml:space="preserve">
+    <value>서버 오류 {0} - {1}</value>
+  </data>
 </root>

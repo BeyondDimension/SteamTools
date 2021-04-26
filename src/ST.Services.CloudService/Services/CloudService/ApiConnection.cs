@@ -244,21 +244,26 @@ namespace System.Application.Services.CloudService
             }
         }
 
-        void ShowResponseErrorMessage(IApiResponse response)
+        void ShowResponseErrorMessage(IApiResponse response, string? errorAppendText = null)
         {
             if (response.Code == ApiResponseCode.Canceled) return;
-            var message = ApiResponse.GetMessage(response);
+            var message = ApiResponse.GetMessage(response, errorAppendText);
             conn_helper.ShowResponseErrorMessage(message);
         }
 
         async Task GlobalResponseIntercept(
             HttpMethod method,
             string requestUri,
-            IApiResponse response)
+            IApiResponse response,
+            bool isShowResponseErrorMessage = true,
+            string? errorAppendText = null)
         {
             if (!response.IsSuccess)
             {
-                ShowResponseErrorMessage(response);
+                if (isShowResponseErrorMessage)
+                {
+                    ShowResponseErrorMessage(response, errorAppendText);
+                }
 
                 if (response.Code == ApiResponseCode.Unauthorized)
                 {
@@ -273,7 +278,9 @@ namespace System.Application.Services.CloudService
             string requestUri,
             object? request,
             IApiResponse<TResponseModel> response,
-            bool responseContentMaybeNull)
+            bool responseContentMaybeNull,
+            bool isShowResponseErrorMessage = true,
+            string? errorAppendText = null)
         {
             if (response.IsSuccess)
             {
@@ -351,7 +358,7 @@ namespace System.Application.Services.CloudService
                     }
                 }
             }
-            await GlobalResponseIntercept(method, requestUri, response);
+            await GlobalResponseIntercept(method, requestUri, response, isShowResponseErrorMessage, errorAppendText);
         }
 
         /// <summary>
@@ -366,7 +373,10 @@ namespace System.Application.Services.CloudService
             }
         }
 
-        bool GlobalBeforeIntercept<TResponseModel>([NotNullWhen(true)] out IApiResponse<TResponseModel>? responseResult)
+        bool GlobalBeforeIntercept<TResponseModel>(
+            [NotNullWhen(true)] out IApiResponse<TResponseModel>? responseResult,
+            bool isShowResponseErrorMessage = true,
+            string? errorAppendText = null)
         {
             responseResult = null;
 
@@ -379,9 +389,9 @@ namespace System.Application.Services.CloudService
 
             #endregion
 
-            if (responseResult != null && !responseResult.IsSuccess)
+            if (isShowResponseErrorMessage && responseResult != null && !responseResult.IsSuccess)
             {
-                ShowResponseErrorMessage(responseResult);
+                ShowResponseErrorMessage(responseResult, errorAppendText);
             }
 
             return responseResult != null;
@@ -458,7 +468,9 @@ namespace System.Application.Services.CloudService
             string requestUri,
             TRequestModel? requestModel,
             bool responseContentMaybeNull,
-            bool isSecurity)
+            bool isSecurity,
+            bool isShowResponseErrorMessage = true,
+            string? errorAppendText = null)
         {
             #region ModelValidator
 
@@ -470,14 +482,14 @@ namespace System.Application.Services.CloudService
                 {
                     var validate_fail_r = ApiResponse.Code<TResponseModel>(
                         ApiResponseCode.RequestModelValidateFail, errorMessage);
-                    ShowResponseErrorMessage(validate_fail_r);
+                    if (isShowResponseErrorMessage) ShowResponseErrorMessage(validate_fail_r, errorAppendText);
                     return validate_fail_r;
                 }
             }
 
             #endregion
 
-            if (GlobalBeforeIntercept<TResponseModel>(out var globalBeforeInterceptResponse))
+            if (GlobalBeforeIntercept<TResponseModel>(out var globalBeforeInterceptResponse, isShowResponseErrorMessage, errorAppendText))
             {
                 return globalBeforeInterceptResponse;
             }
@@ -567,7 +579,9 @@ namespace System.Application.Services.CloudService
                             requestUri,
                             requestModel,
                             responseContentMaybeNull,
-                            isSecurity);
+                            isSecurity,
+                            isShowResponseErrorMessage,
+                            errorAppendText);
                         return resultRecursion;
                     }
                 }
@@ -663,9 +677,11 @@ namespace System.Application.Services.CloudService
             string requestUri,
             string cacheFilePath,
             IProgress<float> progress,
-            bool isAnonymous)
+            bool isAnonymous,
+            bool isShowResponseErrorMessage = true,
+            string? errorAppendText = null)
         {
-            if (GlobalBeforeIntercept<object>(out var globalBeforeInterceptResponse))
+            if (GlobalBeforeIntercept<object>(out var globalBeforeInterceptResponse, isShowResponseErrorMessage, errorAppendText))
             {
                 return globalBeforeInterceptResponse;
             }
@@ -707,7 +723,9 @@ namespace System.Application.Services.CloudService
                             requestUri,
                             cacheFilePath,
                             progress,
-                            isAnonymous);
+                            isAnonymous,
+                            isShowResponseErrorMessage,
+                            errorAppendText);
                         return resultRecursion;
                     }
                 }
@@ -772,11 +790,13 @@ namespace System.Application.Services.CloudService
             await GlobalResponseIntercept(
                 method,
                 requestUri,
-                responseResult);
+                responseResult,
+                isShowResponseErrorMessage,
+                errorAppendText);
             return responseResult;
         }
 
-        public async Task<IApiResponse<TResponseModel>> SendAsync<TRequestModel, TResponseModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, TRequestModel? request, bool responseContentMaybeNull, bool isSecurity, bool isAnonymous)
+        public async Task<IApiResponse<TResponseModel>> SendAsync<TRequestModel, TResponseModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, TRequestModel? request, bool responseContentMaybeNull, bool isSecurity, bool isAnonymous, bool isShowResponseErrorMessage = true, string? errorAppendText = null)
         {
             var rsp = await SendCoreAsync<TRequestModel, TResponseModel>(
                 isAnonymous: isAnonymous,
@@ -786,11 +806,13 @@ namespace System.Application.Services.CloudService
                 requestUri,
                 requestModel: request,
                 responseContentMaybeNull,
-                isSecurity);
+                isSecurity,
+                isShowResponseErrorMessage,
+                errorAppendText);
             return rsp;
         }
 
-        public async Task<IApiResponse<byte[]>> GetRaw(CancellationToken cancellationToken, string requestUri, bool isAnonymous)
+        public async Task<IApiResponse<byte[]>> GetRaw(CancellationToken cancellationToken, string requestUri, bool isAnonymous, bool isShowResponseErrorMessage = true, string? errorAppendText = null)
         {
             var rsp = await SendCoreAsync<object, byte[]>(
                 isAnonymous: isAnonymous,
@@ -800,11 +822,13 @@ namespace System.Application.Services.CloudService
                 requestUri,
                 requestModel: null,
                 responseContentMaybeNull: false,
-                isSecurity: false);
+                isSecurity: false,
+                isShowResponseErrorMessage,
+                errorAppendText);
             return rsp;
         }
 
-        public async Task<IApiResponse<string>> GetHtml(CancellationToken cancellationToken, string requestUri, bool isAnonymous)
+        public async Task<IApiResponse<string>> GetHtml(CancellationToken cancellationToken, string requestUri, bool isAnonymous, bool isShowResponseErrorMessage = true, string? errorAppendText = null)
         {
             var rsp = await SendCoreAsync<object, string>(
                 isAnonymous: isAnonymous,
@@ -814,11 +838,13 @@ namespace System.Application.Services.CloudService
                 requestUri,
                 requestModel: null,
                 responseContentMaybeNull: false,
-                isSecurity: false);
+                isSecurity: false,
+                isShowResponseErrorMessage,
+                errorAppendText);
             return rsp;
         }
 
-        public async Task<IApiResponse> SendAsync<TRequestModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, TRequestModel? request, bool isSecurity, bool isAnonymous)
+        public async Task<IApiResponse> SendAsync<TRequestModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, TRequestModel? request, bool isSecurity, bool isAnonymous, bool isShowResponseErrorMessage = true, string? errorAppendText = null)
         {
             var rsp = await SendCoreAsync<TRequestModel, object>(
                 isAnonymous: isAnonymous,
@@ -828,11 +854,13 @@ namespace System.Application.Services.CloudService
                 requestUri,
                 requestModel: request,
                 responseContentMaybeNull: true,
-                isSecurity);
+                isSecurity,
+                isShowResponseErrorMessage,
+                errorAppendText);
             return rsp;
         }
 
-        public async Task<IApiResponse> SendAsync(CancellationToken cancellationToken, HttpMethod method, string requestUri, bool isAnonymous)
+        public async Task<IApiResponse> SendAsync(CancellationToken cancellationToken, HttpMethod method, string requestUri, bool isAnonymous, bool isShowResponseErrorMessage = true, string? errorAppendText = null)
         {
             var rsp = await SendCoreAsync<object, object>(
                 isAnonymous: isAnonymous,
@@ -842,11 +870,13 @@ namespace System.Application.Services.CloudService
                 requestUri,
                 requestModel: null,
                 responseContentMaybeNull: true,
-                isSecurity: false);
+                isSecurity: false,
+                isShowResponseErrorMessage,
+                errorAppendText);
             return rsp;
         }
 
-        public async Task<IApiResponse<TResponseModel>> SendAsync<TResponseModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, bool responseContentMaybeNull, bool isSecurity, bool isAnonymous)
+        public async Task<IApiResponse<TResponseModel>> SendAsync<TResponseModel>(CancellationToken cancellationToken, HttpMethod method, string requestUri, bool responseContentMaybeNull, bool isSecurity, bool isAnonymous, bool isShowResponseErrorMessage = true, string? errorAppendText = null)
         {
             var rsp = await SendCoreAsync<object, TResponseModel>(
                 isAnonymous: isAnonymous,
@@ -856,7 +886,9 @@ namespace System.Application.Services.CloudService
                 requestUri,
                 requestModel: null,
                 responseContentMaybeNull,
-                isSecurity);
+                isSecurity,
+                isShowResponseErrorMessage,
+                errorAppendText);
             return rsp;
         }
     }

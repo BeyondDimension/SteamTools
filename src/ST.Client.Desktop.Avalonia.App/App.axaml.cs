@@ -24,6 +24,7 @@ using System.Application.Models;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Application.UI.Views.Windows;
+using System.Application.Services.Implementation;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
@@ -246,7 +247,7 @@ namespace System.Application.UI
                     desktop.MainWindow = null;
                 else
 #endif
-                desktop.MainWindow = MainWindow;
+                    desktop.MainWindow = MainWindow;
 
                 desktop.Startup += Desktop_Startup;
                 desktop.Exit += ApplicationLifetime_Exit;
@@ -271,6 +272,12 @@ namespace System.Application.UI
             {
                 Startup.ActiveUserPost(ActiveUserType.OnStartup);
                 IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
+            }
+
+            var startupToastIntercept = DI.Get_Nullable<StartupToastIntercept>();
+            if (startupToastIntercept != null)
+            {
+                startupToastIntercept.IsStartuped = true;
             }
         }
 

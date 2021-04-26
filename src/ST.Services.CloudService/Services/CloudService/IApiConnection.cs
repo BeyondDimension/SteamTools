@@ -19,7 +19,7 @@ namespace System.Application.Services.CloudService
         /// <param name="requestUri">服务端接口URL地址</param>
         /// <param name="isAnonymous">是否使用匿名身份访问</param>
         /// <returns></returns>
-        Task<IApiResponse<byte[]>> GetRaw(CancellationToken cancellationToken, string requestUri, bool isAnonymous = true);
+        Task<IApiResponse<byte[]>> GetRaw(CancellationToken cancellationToken, string requestUri, bool isAnonymous = true, bool isShowResponseErrorMessage = true, string? errorAppendText = null);
 
         /// <summary>
         /// 获取服务端接口的HTML内容(String)
@@ -28,7 +28,7 @@ namespace System.Application.Services.CloudService
         /// <param name="requestUri">服务端接口URL地址</param>
         /// <param name="isAnonymous">是否使用匿名身份访问</param>
         /// <returns></returns>
-        Task<IApiResponse<string>> GetHtml(CancellationToken cancellationToken, string requestUri, bool isAnonymous = true);
+        Task<IApiResponse<string>> GetHtml(CancellationToken cancellationToken, string requestUri, bool isAnonymous = true, bool isShowResponseErrorMessage = true, string? errorAppendText = null);
 
         /// <summary>
         /// 下载服务端接口内容
@@ -40,14 +40,16 @@ namespace System.Application.Services.CloudService
         /// <param name="progress">进度报告</param>
         /// <param name="isAnonymous">是否使用匿名身份访问</param>
         /// <returns></returns>
-        Task<IApiResponse> DownloadAsync(CancellationToken cancellationToken, string requestUri, string cacheFilePath, IProgress<float> progress, bool isAnonymous = true);
+        Task<IApiResponse> DownloadAsync(CancellationToken cancellationToken, string requestUri, string cacheFilePath, IProgress<float> progress, bool isAnonymous = true, bool isShowResponseErrorMessage = true, string? errorAppendText = null);
 
         #region SendAsync
 
         Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request,
             HttpCompletionOption completionOption,
-            CancellationToken cancellationToken);
+            CancellationToken cancellationToken,
+            bool isShowResponseErrorMessage = true,
+            string? errorAppendText = null);
 
         /// <summary>
         /// RequestModel+ResponseModel(调用服务端接口)
@@ -68,7 +70,9 @@ namespace System.Application.Services.CloudService
             TRequestModel? request,
             bool responseContentMaybeNull = false,
             bool isSecurity = false,
-            bool isAnonymous = false);
+            bool isAnonymous = false,
+            bool isShowResponseErrorMessage = true,
+            string? errorAppendText = null);
 
         /// <summary>
         /// RequestModel(调用服务端接口)
@@ -86,7 +90,9 @@ namespace System.Application.Services.CloudService
             string requestUri,
             TRequestModel? request,
             bool isSecurity = false,
-            bool isAnonymous = false);
+            bool isAnonymous = false,
+            bool isShowResponseErrorMessage = true,
+            string? errorAppendText = null);
 
         /// <summary>
         /// NoModel(调用服务端接口)
@@ -100,7 +106,9 @@ namespace System.Application.Services.CloudService
             CancellationToken cancellationToken,
             HttpMethod method,
             string requestUri,
-            bool isAnonymous = false);
+            bool isAnonymous = false,
+            bool isShowResponseErrorMessage = true,
+            string? errorAppendText = null);
 
         /// <summary>
         /// ResponseModel(调用服务端接口)
@@ -117,7 +125,9 @@ namespace System.Application.Services.CloudService
             string requestUri,
             bool responseContentMaybeNull = false,
             bool isSecurity = false,
-            bool isAnonymous = false);
+            bool isAnonymous = false,
+            bool isShowResponseErrorMessage = true,
+            string? errorAppendText = null);
 
         #endregion
     }

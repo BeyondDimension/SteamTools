@@ -30,6 +30,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IHttpService, HttpServiceImpl>();
             return services;
         }
+
         /// <summary>
         /// 添加JS脚本 管理
         /// </summary>
@@ -40,6 +41,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddSingleton<IScriptManagerService, ScriptManagerServiceImpl>();
             return services;
         }
+
         public static IServiceCollection TryAddUserManager(this IServiceCollection services)
         {
             services.TryAddAreaResource<Area>();
@@ -61,6 +63,13 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddAutoMapper(this IServiceCollection services)
         {
             services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperProfile>());
+            return services;
+        }
+
+        public static IServiceCollection AddStartupToastIntercept(this IServiceCollection services)
+        {
+            services.AddSingleton<StartupToastIntercept>();
+            services.AddSingleton<IToastIntercept>(s => s.GetRequiredService<StartupToastIntercept>());
             return services;
         }
     }

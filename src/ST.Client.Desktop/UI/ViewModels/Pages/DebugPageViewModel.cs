@@ -47,6 +47,7 @@ namespace System.Application.UI.ViewModels
 
             StringBuilder @string = new();
 
+            @string.AppendFormatLine("CJKTest: {0}", "中文繁體русский языкカタカナ한글");
             @string.AppendFormatLine("CLRVersion: {0}", Environment.Version);
             @string.AppendFormatLine("Culture: {0}", CultureInfo.CurrentCulture);
             @string.AppendFormatLine("UICulture: {0}", CultureInfo.CurrentUICulture);

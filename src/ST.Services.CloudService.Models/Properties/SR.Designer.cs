@@ -95,5 +95,14 @@ namespace System.Application.Properties {
                 return ResourceManager.GetString("ServerError_", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 服务端错误 {0} - {1} 的本地化字符串。
+        /// </summary>
+        internal static string ServerError__ {
+            get {
+                return ResourceManager.GetString("ServerError__", resourceCulture);
+            }
+        }
     }
 }
