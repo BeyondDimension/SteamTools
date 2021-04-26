@@ -21,7 +21,9 @@ namespace System.Application.UI.ViewModels
 			get => AppResources.ScriptConfig;
 			protected set { throw new NotImplementedException(); }
 		}
-
+		internal  override void Initialize() {
+			ProxyService.Current.CheckUpdate();
+		}
 		private readonly ReadOnlyObservableCollection<ScriptDTO> _ProxyScripts;
 		public ReadOnlyObservableCollection<ScriptDTO> ProxyScripts => _ProxyScripts;
 
