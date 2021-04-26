@@ -94,16 +94,32 @@
                       Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
                       <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Bottom">
                         <Button Background="Transparent" Cursor="Hand"
-                                Command="{ReflectionBinding #u.DataContext.DownloadScriptItemButton}"
-                                CommandParameter="{Binding}"
-                                ToolTip.Tip="{ReflectionBinding Path=Res.Script_Update,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                          <PathIcon Width="20" Data="{StaticResource CodeDrawing}" />
+                           Command="{ReflectionBinding #u.DataContext.OpenHomeScriptItemButton}"
+                           CommandParameter="{Binding}"
+                           ToolTip.Tip="{ReflectionBinding Path=Res.Script_Home,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                          <PathIcon Width="16"  Data="{StaticResource HomeDrawing}" />
                         </Button>
-                        <Button Background="Transparent" Cursor="Hand"
+                        <Button IsVisible="{Binding !IsExist}" Background="Transparent" Cursor="Hand"
                                 Command="{ReflectionBinding #u.DataContext.DownloadScriptItemButton}"
                                 CommandParameter="{Binding}"
-                                ToolTip.Tip="{ReflectionBinding Path=Res.Download,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                          <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
+                                ToolTip.Tip="{ReflectionBinding Path=Res.Script_Install,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                          <PathIcon Width="16"  Data="{StaticResource DownloadDrawing}" />
+                        </Button>
+                        <Button IsVisible="{Binding IsUpdate}" Background="Transparent" Cursor="Hand"
+                               Command="{ReflectionBinding #u.DataContext.DownloadScriptItemButton}"
+                               CommandParameter="{Binding}"
+                               ToolTip.Tip="{ReflectionBinding Path=Res.Script_Update,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                          <WrapPanel Orientation="Horizontal">
+                            <PathIcon Width="20" Margin="5 0 5 0" Data="{StaticResource DownloadDrawing}" />
+                            <TextBlock
+                             Text="{Binding NewVersion}"
+                             FontSize="14"
+                             VerticalAlignment="Center"
+                             Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                            <Ellipse VerticalAlignment="Center"
+                HorizontalAlignment="Center" IsVisible="{Binding IsUpdate}" x:Name="circle" Margin="5 5 5 5" Height="10" Width="10" Fill="#F82805">
+                            </Ellipse>
+                          </WrapPanel>
                         </Button>
                       </StackPanel>
                     </StackPanel>

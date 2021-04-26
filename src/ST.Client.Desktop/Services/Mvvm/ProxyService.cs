@@ -337,6 +337,7 @@ namespace System.Application.Services
 			var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
 			ProxyScripts.Clear();
 			ProxyScripts.AddRange(scriptList);
+			CheckUpdate();
 		}
 		public async void DownloadScript(ScriptDTO model)
 		{
@@ -370,7 +371,7 @@ namespace System.Application.Services
 		}
 		public async void CheckUpdate()
 		{
-			var items = ProxyService.Current.ProxyScripts.Items.Where(x => x.Id.HasValue).Select(x => x.Id.Value);
+			var items = Current.ProxyScripts.Items.Where(x => x.Id.HasValue).Select(x => x.Id.Value).ToList();
 			var client = ICloudServiceClient.Instance.Script;
 			var response = await client.ScriptUpdateInfo(items);
 			if (response.Code == ApiResponseCode.OK && response.Content != null)
@@ -383,6 +384,7 @@ namespace System.Application.Services
 						item.NewVersion = newItem.Version;
 						item.UpdateLink = newItem.UpdateLink;
 						item.IsUpdate = true;
+						Current.ProxyScripts.Replace(item, item);
 					}
 
 				}

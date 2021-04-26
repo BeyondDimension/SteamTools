@@ -57,6 +57,11 @@ namespace System.Application.UI.ViewModels
 		{ 
 			ProxyService.Current.DownloadScript(model);
 		}
+		public void OpenHomeScriptItemButton(ScriptDTO script)
+		{
+			Services.CloudService.Constants.BrowserOpen(script.SourceLink);
+		}
+
 		private async void InitializeScriptList()
 		{
 			var client = ICloudServiceClient.Instance.Script;
