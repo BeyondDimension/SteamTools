@@ -632,7 +632,7 @@
     <value>脚本工坊</value>
   </data>
   <data name="Script_AutoUpdate" xml:space="preserve">
-    <value>自动更新</value>
+    <value>启用脚本自动检查更新</value>
   </data>
   <data name="Script_DeleteItem" xml:space="preserve">
     <value>确定要删除这个脚本吗？</value>
@@ -648,6 +648,9 @@
   </data>
   <data name="Script_Install" xml:space="preserve">
     <value>安装脚本</value>
+  </data>
+  <data name="Script_Installed" xml:space="preserve">
+    <value>已安装</value>
   </data>
   <data name="Script_Refresh" xml:space="preserve">
     <value>刷新缓存</value>

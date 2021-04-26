@@ -1565,7 +1565,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 自动更新 的本地化字符串。
+        ///   查找类似 启用脚本自动检查更新 的本地化字符串。
         /// </summary>
         public static string Script_AutoUpdate {
             get {
@@ -1615,6 +1615,15 @@ namespace System.Application.UI.Resx {
         public static string Script_Install {
             get {
                 return ResourceManager.GetString("Script_Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已安装 的本地化字符串。
+        /// </summary>
+        public static string Script_Installed {
+            get {
+                return ResourceManager.GetString("Script_Installed", resourceCulture);
             }
         }
         

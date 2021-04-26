@@ -15,11 +15,11 @@
              x:Class="System.Application.UI.Views.Controls.ToastMessage">
     <UserControl.Styles>
         <Style Selector="controls|ToastMessage">
-            <Setter Property="Margin" Value="0 0 20 30" />
-            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Margin" Value="0 0 0 20" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
         </Style>
-        
+
         <Style Selector="controls|ToastMessage > Border">
             <Setter Property="CornerRadius" Value="4" />
             <Setter Property="BoxShadow" Value="{DynamicResource InfoBoxShadow}" />
