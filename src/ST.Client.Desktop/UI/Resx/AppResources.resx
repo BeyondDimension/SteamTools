@@ -274,6 +274,9 @@
   <data name="DelAccount" xml:space="preserve">
     <value>账号注销</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
   <data name="DoNotUpdate" xml:space="preserve">
     <value>暂不更新</value>
   </data>
@@ -595,8 +598,23 @@
   <data name="Script_DeleteItem" xml:space="preserve">
     <value>确定要删除这个脚本吗？</value>
   </data>
+  <data name="Script_Edit" xml:space="preserve">
+    <value>编辑脚本</value>
+  </data>
   <data name="Script_EditTxt" xml:space="preserve">
     <value>是否完成脚本修改，点击确定刷新缓存。</value>
+  </data>
+  <data name="Script_Home" xml:space="preserve">
+    <value>脚本主页</value>
+  </data>
+  <data name="Script_Refresh" xml:space="preserve">
+    <value>刷新缓存</value>
+  </data>
+  <data name="Script_Shop" xml:space="preserve">
+    <value>脚本市场</value>
+  </data>
+  <data name="Script_Update" xml:space="preserve">
+    <value>更新</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>搜索...</value>

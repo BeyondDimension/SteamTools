@@ -19,15 +19,18 @@
         <Border DockPanel.Dock="Top" Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10" Margin="20 0 20 10">
             <DockPanel>
                 <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Left">
-                    <Button Background="Transparent" Cursor="Hand" Click="AddNewScriptButton_Click">
+                    <Button Background="Transparent" Cursor="Hand" Click="AddNewScriptButton_Click"
+                             ToolTip.Tip="{ReflectionBinding Path=Res.Import,Mode=OneWay,Source={x:Static resx:R.Current}}">
                         <PathIcon Width="16"  Data="{StaticResource AddDrawing}" />
                     </Button>
                     <Button Background="Transparent" Cursor="Hand"
-                           Command="{ReflectionBinding RefreshScriptButton}">
+                            Command="{ReflectionBinding RefreshScriptButton}"
+                            ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
                         <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
                     </Button>
                     <Button Background="Transparent" Cursor="Hand"
-                           Command="{Binding ScriptStoreCommand}">
+                            Command="{Binding ScriptStoreCommand}"
+                            ToolTip.Tip="{ReflectionBinding Path=Res.Script_Shop,Mode=OneWay,Source={x:Static resx:R.Current}}">
                         <PathIcon Width="16"  Data="{StaticResource JavaScriptDrawing}" />
                     </Button>
                 </StackPanel>
@@ -100,27 +103,30 @@
                                             <ToggleSwitch OnContent="" OffContent="" IsChecked="{Binding Enable,Mode=TwoWay}">
                                             </ToggleSwitch>
                                             <Button Background="Transparent" Cursor="Hand"
-                                                     Command="{ReflectionBinding #u.DataContext.EditScriptItemButton}"
-                                                    CommandParameter="{Binding}">
+                                                    Command="{ReflectionBinding #u.DataContext.EditScriptItemButton}"
+                                                    CommandParameter="{Binding}"
+                                                    ToolTip.Tip="{ReflectionBinding Path=Res.Script_Edit,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                                 <PathIcon Width="20" Data="{StaticResource CodeDrawing}" />
                                             </Button>
 
                                             <Button Background="Transparent" Cursor="Hand"
                                                     Command="{ReflectionBinding #u.DataContext.RefreshScriptItemButton}"
-                                                    CommandParameter="{Binding}">
+                                                    CommandParameter="{Binding}"
+                                                    ToolTip.Tip="{ReflectionBinding Path=Res.Script_Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                                 <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
                                             </Button>
 
                                             <Button Background="Transparent" Cursor="Hand"
                                                     Command="{ReflectionBinding #u.DataContext.OpenHomeScriptItemButton}"
-                                                    CommandParameter="{Binding}">
+                                                    CommandParameter="{Binding}"
+                                                    ToolTip.Tip="{ReflectionBinding Path=Res.Script_Home,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                                 <PathIcon Width="16"  Data="{StaticResource HomeDrawing}" />
                                             </Button>
 
                                             <Button Background="Transparent" Cursor="Hand" HorizontalAlignment="Right"
-                                                      Command="{ReflectionBinding #u.DataContext.DeleteScriptItemButton}"
+                                                    Command="{ReflectionBinding #u.DataContext.DeleteScriptItemButton}"
                                                     CommandParameter="{Binding}"
-                                                        >
+                                                    ToolTip.Tip="{ReflectionBinding Path=Res.Delete,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                                 <PathIcon Width="20"  Data="{StaticResource DeleteDrawing}" />
                                             </Button>
                                         </StackPanel>

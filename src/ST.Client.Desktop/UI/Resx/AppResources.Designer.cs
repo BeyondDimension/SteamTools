@@ -529,6 +529,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 删除 的本地化字符串。
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 暂不更新 的本地化字符串。
         /// </summary>
         public static string DoNotUpdate {
@@ -1457,11 +1466,56 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 编辑脚本 的本地化字符串。
+        /// </summary>
+        public static string Script_Edit {
+            get {
+                return ResourceManager.GetString("Script_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 是否完成脚本修改，点击确定刷新缓存。 的本地化字符串。
         /// </summary>
         public static string Script_EditTxt {
             get {
                 return ResourceManager.GetString("Script_EditTxt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 脚本主页 的本地化字符串。
+        /// </summary>
+        public static string Script_Home {
+            get {
+                return ResourceManager.GetString("Script_Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 刷新缓存 的本地化字符串。
+        /// </summary>
+        public static string Script_Refresh {
+            get {
+                return ResourceManager.GetString("Script_Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 脚本市场 的本地化字符串。
+        /// </summary>
+        public static string Script_Shop {
+            get {
+                return ResourceManager.GetString("Script_Shop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 更新 的本地化字符串。
+        /// </summary>
+        public static string Script_Update {
+            get {
+                return ResourceManager.GetString("Script_Update", resourceCulture);
             }
         }
         
