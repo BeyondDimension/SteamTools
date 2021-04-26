@@ -19,6 +19,7 @@
         Title="{Binding Title}"
         x:Name="u"
         x:DataType="vm:AchievementWindowViewModel"
+        x:CompileBindings="True"
         WindowStartupLocation="CenterScreen">
     <Window.Styles>
         <Style Selector="TabControl.flat">
@@ -49,8 +50,34 @@
             </ExperimentalAcrylicBorder>
         </DockPanel>
 
-        <TabControl Classes="flat">
-            <TabItem Header="成就解锁">
+        <!--Header-->
+        <WrapPanel ZIndex="2"
+                   Margin="0 35 10 0"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Top">
+            <Button>
+                <PathIcon Data="{StaticResource SaveDrawing}" Width="18" Height="18"/>
+            </Button>
+        </WrapPanel>
+
+        <TextBox 
+            Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+            Text="{Binding SearchText,Mode=TwoWay}" 
+            Margin="0 35 10 0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top" 
+            MinWidth="300">
+            <TextBox.InnerLeftContent>
+                <PathIcon Data="{StaticResource SearchDrawing}"
+                          Width="20" Height="20"
+                          Opacity="0.8"
+                          VerticalAlignment="Top" HorizontalAlignment="Left"
+                          Margin="15,8,0,0" />
+            </TextBox.InnerLeftContent>
+        </TextBox>
+
+        <TabControl Classes="flat" ZIndex="1">
+            <TabItem Header="{ReflectionBinding Path=Res.Achievement_Unlock,Mode=OneWay,Source={x:Static resx:R.Current}}">
                 <DataGrid Items="{Binding Achievements}" IsReadOnly="True">
                     <DataGrid.Columns>
                         <!--CheckBox-->
@@ -77,7 +104,7 @@
 
                         <!-- Image -->
                         <DataGridTemplateColumn
-                                                Header="Logo"
+                                                Header="{ReflectionBinding Path=Res.Achievement_Icon,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                                 Width="84" >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate x:DataType="models:AchievementInfo">
@@ -90,7 +117,7 @@
                         </DataGridTemplateColumn>
 
                         <!--Name-->
-                        <DataGridTemplateColumn Header="Name"
+                        <DataGridTemplateColumn Header="{ReflectionBinding Path=Res.Achievement_Name,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                             Width="*"  CanUserSort="True" SortMemberPath="Name">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate x:DataType="models:AchievementInfo">
@@ -110,7 +137,7 @@
                         </DataGridTemplateColumn>
 
                         <!--Description-->
-                        <DataGridTemplateColumn Header="Description"
+                        <DataGridTemplateColumn Header="{ReflectionBinding Path=Res.Achievement_Description,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                             Width="2*" CanUserSort="True" SortMemberPath="Description">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate x:DataType="models:AchievementInfo">
@@ -124,14 +151,18 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem Header="统计修改">
-                <DataGrid Items="{Binding Statistics}">
+            <TabItem Header="{ReflectionBinding Path=Res.Achievement_StatsEdit,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                <DataGrid Items="{Binding Statistics}" IsReadOnly="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" x:DataType="models:StatInfo"
-                                            Binding="{Binding Id}" Width="2*" />
-                        <DataGridTextColumn Header="Name" x:DataType="models:StatInfo" Binding="{Binding DisplayName}" Width="2*" />
-                        <DataGridTextColumn Header="Value" x:DataType="models:StatInfo" Binding="{Binding Value}" Width="*"  />
-                        <DataGridTextColumn Header="Extra" x:DataType="models:StatInfo" Binding="{Binding Extra}" Width="*"  />
+                                            Binding="{Binding Id}" Width="2*" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Name" 
+                                            x:DataType="models:StatInfo" 
+                                            Binding="{Binding DisplayName}" 
+                                            IsReadOnly="True" 
+                                            Width="2*" />
+                        <DataGridTextColumn Header="Value" x:DataType="models:StatInfo" Binding="{Binding Value}" Width="*"  IsReadOnly="False" />
+                        <DataGridTextColumn Header="Extra" x:DataType="models:StatInfo" Binding="{Binding Extra}" Width="*"  IsReadOnly="True" />
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>

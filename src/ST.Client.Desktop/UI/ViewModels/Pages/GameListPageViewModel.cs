@@ -80,7 +80,7 @@ namespace System.Application.UI.ViewModels
             AppTypeFiltres[1].Enable = true;
             AppTypeFiltres[2].Enable = true;
 
-            var nameFilter = this.WhenAnyValue(x => x.SerachText).Select(PredicateName);
+            var nameFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateName);
 
             var installFilter = this.WhenAnyValue(x => x.IsInstalledFilter).Select(PredicateInstalled);
 
@@ -142,11 +142,11 @@ namespace System.Application.UI.ViewModels
         private readonly ReadOnlyObservableCollection<SteamApp> _SteamApps;
         public ReadOnlyObservableCollection<SteamApp> SteamApps => _SteamApps;
 
-        private string? _SerachText;
-        public string? SerachText
+        private string? _SearchText;
+        public string? SearchText
         {
-            get => _SerachText;
-            set => this.RaiseAndSetIfChanged(ref _SerachText, value);
+            get => _SearchText;
+            set => this.RaiseAndSetIfChanged(ref _SearchText, value);
         }
 
         public bool IsSteamAppsEmpty => !SteamApps.Any_Nullable();

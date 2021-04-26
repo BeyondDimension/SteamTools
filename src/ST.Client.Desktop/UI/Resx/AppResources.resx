@@ -144,14 +144,29 @@
   <data name="AchievementManage" xml:space="preserve">
     <value>成就管理</value>
   </data>
+  <data name="Achievement_Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="Achievement_Icon" xml:space="preserve">
+    <value>图标</value>
+  </data>
   <data name="Achievement_IsProtection" xml:space="preserve">
     <value>受保护</value>
   </data>
   <data name="Achievement_Manage" xml:space="preserve">
     <value>管理成就</value>
   </data>
+  <data name="Achievement_Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Achievement_StatsEdit" xml:space="preserve">
+    <value>统计修改</value>
+  </data>
   <data name="Achievement_TimeFormat" xml:space="preserve">
     <value>解锁于{0:yyyy-MM-dd HH:mm:ss}</value>
+  </data>
+  <data name="Achievement_Unlock" xml:space="preserve">
+    <value>成就解锁</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>新增</value>

@@ -31,7 +31,7 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{CompiledBinding SerachText,Mode=TwoWay}" VerticalAlignment="Center" MinWidth="300">
+                        <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{CompiledBinding SearchText,Mode=TwoWay}" VerticalAlignment="Center" MinWidth="300">
                             <TextBox.InnerLeftContent>
                                 <PathIcon Data="{StaticResource SearchDrawing}"
                                           Width="20" Height="20"

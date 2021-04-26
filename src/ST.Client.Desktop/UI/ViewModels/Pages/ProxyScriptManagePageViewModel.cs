@@ -57,7 +57,7 @@ namespace System.Application.UI.ViewModels
                        IconKey ="JavaScriptDrawing",Command=ScriptStoreCommand},
             };
 
-            var scriptFilter = this.WhenAnyValue(x => x.SerachText).Select(ScriptFilter);
+            var scriptFilter = this.WhenAnyValue(x => x.SearchText).Select(ScriptFilter);
 
             ProxyService.Current.ProxyScripts
                 .Connect()
@@ -72,11 +72,11 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> ScriptStoreCommand { get; }
 
 
-        private string? _SerachText;
-        public string? SerachText
+        private string? _SearchText;
+        public string? SearchText
         {
-            get => _SerachText;
-            set => this.RaiseAndSetIfChanged(ref _SerachText, value);
+            get => _SearchText;
+            set => this.RaiseAndSetIfChanged(ref _SearchText, value);
         }
 
         public bool IsProxyScriptsEmpty => !ProxyScripts.Any_Nullable();

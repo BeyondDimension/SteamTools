@@ -133,6 +133,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 描述 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Description {
+            get {
+                return ResourceManager.GetString("Achievement_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 图标 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Icon {
+            get {
+                return ResourceManager.GetString("Achievement_Icon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 受保护 的本地化字符串。
         /// </summary>
         public static string Achievement_IsProtection {
@@ -151,11 +169,38 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 名称 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Name {
+            get {
+                return ResourceManager.GetString("Achievement_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 统计修改 的本地化字符串。
+        /// </summary>
+        public static string Achievement_StatsEdit {
+            get {
+                return ResourceManager.GetString("Achievement_StatsEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 解锁于{0:yyyy-MM-dd HH:mm:ss} 的本地化字符串。
         /// </summary>
         public static string Achievement_TimeFormat {
             get {
                 return ResourceManager.GetString("Achievement_TimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 成就解锁 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Unlock {
+            get {
+                return ResourceManager.GetString("Achievement_Unlock", resourceCulture);
             }
         }
         

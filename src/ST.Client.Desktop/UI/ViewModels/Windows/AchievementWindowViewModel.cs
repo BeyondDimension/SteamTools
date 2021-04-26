@@ -43,6 +43,13 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsCheckAll, value);
         }
 
+        private string? _SearchText;
+        public string? SearchText
+        {
+            get => _SearchText;
+            set => this.RaiseAndSetIfChanged(ref _SearchText, value);
+        }
+
         public AchievementWindowViewModel(int appid)
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.AchievementManage;

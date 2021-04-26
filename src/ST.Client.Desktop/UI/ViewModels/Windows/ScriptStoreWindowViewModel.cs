@@ -27,6 +27,13 @@ namespace System.Application.UI.ViewModels
                 .Subscribe(_ => this.RaisePropertyChanged(nameof(IsScriptsEmpty)));
 
             InitializeScriptList();
+
+            this.WhenAnyValue(x => x.SearchText)
+                .Subscribe(x =>
+                {
+                    //x
+                    
+                });
         }
 
         private readonly ReadOnlyObservableCollection<ScriptDTO> _Scripts;
@@ -36,11 +43,11 @@ namespace System.Application.UI.ViewModels
 
         public bool IsScriptsEmpty => !Scripts.Any_Nullable();
 
-        private string? _SerachText;
-        public string? SerachText
+        private string? _SearchText;
+        public string? SearchText
         {
-            get => _SerachText;
-            set => this.RaiseAndSetIfChanged(ref _SerachText, value);
+            get => _SearchText;
+            set => this.RaiseAndSetIfChanged(ref _SearchText, value);
         }
 
         private async void InitializeScriptList()
