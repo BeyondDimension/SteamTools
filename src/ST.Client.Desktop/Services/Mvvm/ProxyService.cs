@@ -349,7 +349,7 @@ namespace System.Application.Services
 			var jspath = await DI.Get<IScriptManagerService>().DownloadScript(model.UpdateLink);
 			if (jspath.state)
 			{
-				var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, model, build: true, order: 10, deleteFile: true, pid: model.Id);
+				var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, model, build: model.IsBuild, order: 10, deleteFile: true, pid: model.Id);
 				if (build.state)
 				{
 					if (build.model != null)
