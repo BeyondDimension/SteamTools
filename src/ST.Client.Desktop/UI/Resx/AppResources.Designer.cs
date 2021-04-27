@@ -1819,6 +1819,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 使用脚本工坊需要先登录。 的本地化字符串。
+        /// </summary>
+        public static string ScriptShop_NoLogin {
+            get {
+                return ResourceManager.GetString("ScriptShop_NoLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 脚本工坊 的本地化字符串。
         /// </summary>
         public static string ScriptStore {

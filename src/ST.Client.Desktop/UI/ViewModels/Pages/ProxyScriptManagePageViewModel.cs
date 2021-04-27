@@ -184,7 +184,19 @@ namespace System.Application.UI.ViewModels
 
 		public void OpenScriptStoreWindow()
 		{
+			if (IUserManager.Instance.GetCurrentUser() == null)
+			{
+				var result = MessageBoxCompat.ShowAsync(@AppResources.ScriptShop_NoLogin, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith((s) =>
+				{
+					if (s.Result == MessageBoxResultCompat.OK)
+					{
+						IShowWindowService.Instance.Show(CustomWindow.LoginOrRegister, new LoginOrRegisterWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+					}
+				});
+			}
+			else { 
 			IShowWindowService.Instance.Show(CustomWindow.ScriptStore, new ScriptStoreWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+			}
 		}
 	}
 }

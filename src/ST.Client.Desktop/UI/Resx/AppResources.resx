@@ -672,6 +672,9 @@
   <data name="ScriptShop_GetTableError" xml:space="preserve">
     <value>获取脚本工坊列表失败。</value>
   </data>
+  <data name="ScriptShop_NoLogin" xml:space="preserve">
+    <value>使用脚本工坊需要先登录。</value>
+  </data>
   <data name="ScriptStore" xml:space="preserve">
     <value>脚本工坊</value>
   </data>
