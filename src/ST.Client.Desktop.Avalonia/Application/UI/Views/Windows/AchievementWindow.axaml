@@ -197,7 +197,7 @@
                                             IsReadOnly="True"
                                             Width="2*" />
                         <DataGridTextColumn Header="Value"
-                                            x:DataType="models:StatInfo" Binding="{Binding Value}" Width="*"  IsReadOnly="False" />
+                                            x:DataType="models:StatInfo" Binding="{Binding Value,Mode=TwoWay}" Width="*"  IsReadOnly="False" />
                         <DataGridTextColumn Header="Extra" CanUserSort="True"
                                             SortMemberPath="Extra"
                                             x:DataType="models:StatInfo" Binding="{Binding Extra}" Width="*"  IsReadOnly="True" />

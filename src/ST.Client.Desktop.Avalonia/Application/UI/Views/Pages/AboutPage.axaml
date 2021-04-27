@@ -22,7 +22,7 @@
         <TabItem Header="{ReflectionBinding Path=Res.About_OpenSource,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <pages:About_OpenSourcePage />
         </TabItem>
-        <TabItem Header="{ReflectionBinding Path=Res.About_Contactus,Mode=OneWay,Source={x:Static resx:R.Current}}">
-        </TabItem>
+        <!--<TabItem Header="{ReflectionBinding Path=Res.About_Contactus,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        </TabItem>-->
     </TabControl>
 </UserControl>

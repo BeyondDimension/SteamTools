@@ -271,7 +271,7 @@
                                                 </ia:DataTriggerBehavior>
                                             </i:Interaction.Behaviors>-->
                                         </gif:Image2>
-                                        <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/16.png" Stretch="UniformToFill"
+                                        <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png" Stretch="UniformToFill"
                                                IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}">
                                         </Image>
                                         <TextBlock

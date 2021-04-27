@@ -891,6 +891,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 刷新游戏列表完成 的本地化字符串。
+        /// </summary>
+        public static string GameList_RefreshGamesListSucess {
+            get {
+                return ResourceManager.GetString("GameList_RefreshGamesListSucess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 设置自定义封面 的本地化字符串。
         /// </summary>
         public static string GameList_SetCustomImage {
@@ -1891,6 +1900,33 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 启动时自动检查更新 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_AutoCheckUpdate {
+            get {
+                return ResourceManager.GetString("Settings_General_AutoCheckUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启动时最小化到托盘 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_RuningMinimize {
+            get {
+                return ResourceManager.GetString("Settings_General_RuningMinimize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 开机自启动 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_StartAutoRun {
+            get {
+                return ResourceManager.GetString("Settings_General_StartAutoRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 语言 的本地化字符串。
         /// </summary>
         public static string Settings_Language {
@@ -1914,6 +1950,24 @@ namespace System.Application.UI.Resx {
         public static string Settings_Steam_AutoRunSteam {
             get {
                 return ResourceManager.GetString("Settings_Steam_AutoRunSteam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam启动时不检查更新 的本地化字符串。
+        /// </summary>
+        public static string Settings_Steam_NotCheckUpdate {
+            get {
+                return ResourceManager.GetString("Settings_Steam_NotCheckUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam启动时最小化到托盘 的本地化字符串。
+        /// </summary>
+        public static string Settings_Steam_RuningMinimize {
+            get {
+                return ResourceManager.GetString("Settings_Steam_RuningMinimize", resourceCulture);
             }
         }
         

@@ -1,6 +1,7 @@
 ﻿using DynamicData;
 using ReactiveUI;
 using System.Application.Models;
+using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -139,7 +140,8 @@ namespace System.Application.Services
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
 
                                     #region 初始化需要steam启动才能使用的功能
-                                    Task.Run(InitializeGameList).ForgetAndDispose();
+                                    InitializeGameList();
+
                                     while (true)
                                     {
                                         if (SteamApps.Items.Any())
@@ -223,8 +225,6 @@ namespace System.Application.Services
 
         public /*async*/ void RefreshGamesList()
         {
-            Task.Run(InitializeGameList).ForgetAndDispose();
-
             var t = new Task(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
@@ -238,11 +238,12 @@ namespace System.Application.Services
                             {
                                 while (true)
                                 {
+                                    InitializeGameList();
                                     if (SteamApps.Items.Any())
                                     {
                                         LoadGames(ApiService.OwnsApps(SteamApps.Items));
                                         //UpdateGamesImage();
-                                        Toast.Show("刷新游戏列表完成");
+                                        Toast.Show(AppResources.GameList_RefreshGamesListSucess);
                                         DisposeSteamClient();
                                         return;
                                     }

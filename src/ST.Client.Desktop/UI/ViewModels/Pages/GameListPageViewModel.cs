@@ -287,8 +287,11 @@ namespace System.Application.UI.ViewModels
                 case SteamAppType.Game:
                     var result = MessageBoxCompat.ShowAsync(AppResources.Achievement_RiskWarning, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
                     {
-                        app.Process = Process.Start(AppHelper.ProgramName, "-clt app -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
-                        SteamConnectService.Current.RuningSteamApps.Add(app);
+                        if (s.Result == MessageBoxResultCompat.OK)
+                        {
+                            app.Process = Process.Start(AppHelper.ProgramName, "-clt app -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
+                            SteamConnectService.Current.RuningSteamApps.Add(app);
+                        }
                     });
 
                     break;

@@ -396,6 +396,9 @@
   <data name="GameList_RefreshGamesList" xml:space="preserve">
     <value>刷新游戏列表</value>
   </data>
+  <data name="GameList_RefreshGamesListSucess" xml:space="preserve">
+    <value>刷新游戏列表完成</value>
+  </data>
   <data name="GameList_SetCustomImage" xml:space="preserve">
     <value>设置自定义封面</value>
   </data>
@@ -733,6 +736,15 @@
   <data name="Settings_General" xml:space="preserve">
     <value>基本设置</value>
   </data>
+  <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
+    <value>启动时自动检查更新</value>
+  </data>
+  <data name="Settings_General_RuningMinimize" xml:space="preserve">
+    <value>启动时最小化到托盘</value>
+  </data>
+  <data name="Settings_General_StartAutoRun" xml:space="preserve">
+    <value>开机自启动</value>
+  </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>语言</value>
   </data>
@@ -741,6 +753,12 @@
   </data>
   <data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
     <value>程序启动时自动运行Steam</value>
+  </data>
+  <data name="Settings_Steam_NotCheckUpdate" xml:space="preserve">
+    <value>Steam启动时不检查更新</value>
+  </data>
+  <data name="Settings_Steam_RuningMinimize" xml:space="preserve">
+    <value>Steam启动时最小化到托盘</value>
   </data>
   <data name="Settings_Steam_SteamStratParameter" xml:space="preserve">
     <value>Steam启动参数</value>

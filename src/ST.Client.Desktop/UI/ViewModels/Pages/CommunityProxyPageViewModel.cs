@@ -57,7 +57,7 @@ namespace System.Application.UI.ViewModels
                         (AutoRunProxy = new MenuItemViewModel (nameof(AppResources.CommunityFix_AutoRunProxy)){ Command=AutoRunProxyCommand }),
                     
                         (EnableProxyScript = new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)){ Command=EnableProxyScriptCommand }),
-                        new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)){ Command=EditHostsFileCommand ,IconKey="JavaScriptDrawing" },
+                        //new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)){ Command=EditHostsFileCommand ,IconKey="JavaScriptDrawing" },
                         new MenuItemViewModel (),
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_CertificateSettings))
                         {

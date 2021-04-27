@@ -53,5 +53,8 @@
     <Compile Update="Application\UI\Views\Pages\About\About_SoftwarePage.axaml.cs">
       <DependentUpon>About_SoftwarePage.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Application\UI\Views\Pages\Settings\Settings_General.axaml.cs">
+      <DependentUpon>Settings_General.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

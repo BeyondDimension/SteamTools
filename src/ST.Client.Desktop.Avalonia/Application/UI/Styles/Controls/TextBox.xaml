@@ -25,6 +25,7 @@
     </Styles.Resources>
 
     <Style Selector="TextBox">
+        <Setter Property="FontFamily" Value="Microsoft YaHei,Simsun,苹方-简,宋体-简"></Setter>
         <Setter Property="ContextMenu" Value="{StaticResource DefaultTextBoxContextMenu}" />
         <Setter Property="Template">
             <ControlTemplate>

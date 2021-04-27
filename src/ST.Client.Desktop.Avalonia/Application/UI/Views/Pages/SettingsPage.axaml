@@ -17,7 +17,11 @@
             </pages:Settings_UI>
         </TabItem>
         <TabItem Header="{ReflectionBinding Path=Res.Settings_General,Mode=OneWay,Source={x:Static resx:R.Current}}">
-
+            <pages:Settings_General x:DataType="vm:SettingsPageViewModel">
+                <pages:Settings_General.DataContext>
+                    <vm:SettingsPageViewModel/>
+                </pages:Settings_General.DataContext>
+            </pages:Settings_General>
         </TabItem>
         <TabItem Header="{ReflectionBinding Path=Res.Settings_Steam,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <pages:Settings_Steam x:DataType="vm:SettingsPageViewModel">
@@ -26,7 +30,7 @@
                 </pages:Settings_Steam.DataContext>
             </pages:Settings_Steam>
         </TabItem>
-        <TabItem Header="{ReflectionBinding Path=Res.Settings_Auth,Mode=OneWay,Source={x:Static resx:R.Current}}">
-        </TabItem>
+        <!--<TabItem Header="{ReflectionBinding Path=Res.Settings_Auth,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        </TabItem>-->
     </TabControl>
 </UserControl>

@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="System.Application.UI.Views.Pages.Settings_Steam">
+             x:Class="System.Application.UI.Views.Pages.Settings_General">
     <ScrollViewer>
         <StackPanel Orientation="Vertical"
                 HorizontalAlignment="Stretch"
@@ -31,27 +31,19 @@
             </StackPanel.Styles>
 
             <DockPanel>
-                <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_AutoRunSteam,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsAutoRunSteam},Path=Value, Mode=TwoWay}"/>
+                <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_StartAutoRun,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.WindowsStartupAutoRun},Path=Value, Mode=TwoWay}"/>
             </DockPanel>
 
             <DockPanel>
-                <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_RuningMinimize,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                <ToggleSwitch />
+                <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_RuningMinimize,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsStartupAppMinimized},Path=Value, Mode=TwoWay}"/>
             </DockPanel>
 
             <DockPanel>
-                <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_NotCheckUpdate,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                <ToggleSwitch />
+                <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_AutoCheckUpdate,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsAutoCheckUpdate},Path=Value, Mode=TwoWay}"/>
             </DockPanel>
-
-            <Separator Classes="Separator"/>
-
-            <StackPanel Spacing="10">
-                <TextBlock Text= "{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static resx:R.Current}}" />
-                <TextBox Watermark="{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamStratParameter},Path=Value, Mode=TwoWay}"
-                         MinHeight="150" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
-            </StackPanel>
 
             <Separator Classes="Separator"/>
         </StackPanel>
