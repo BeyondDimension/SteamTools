@@ -462,6 +462,9 @@
   <data name="LocalAuth_AuthName" xml:space="preserve">
     <value>令牌自定义名称</value>
   </data>
+  <data name="LocalAuth_AuthTrade" xml:space="preserve">
+    <value>确认交易</value>
+  </data>
   <data name="LocalAuth_AuthTrade_Cancel" xml:space="preserve">
     <value>取消交易</value>
   </data>
@@ -516,6 +519,12 @@
   <data name="LocalAuth_AuthTrade_TradeError" xml:space="preserve">
     <value>无效的交易</value>
   </data>
+  <data name="LocalAuth_CloudSync" xml:space="preserve">
+    <value>令牌云同步</value>
+  </data>
+  <data name="LocalAuth_Copy" xml:space="preserve">
+    <value>复制令牌</value>
+  </data>
   <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
     <value>已复制令牌 </value>
   </data>
@@ -551,6 +560,12 @@
   </data>
   <data name="LocalAuth_SDATip" xml:space="preserve">
     <value>Steam的移动身份验证器应用程序的桌面实现。导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件，请先移除密码在导入)</value>
+  </data>
+  <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
+    <value>查看令牌</value>
+  </data>
+  <data name="LocalAuth_ShowAuthInfo" xml:space="preserve">
+    <value>查看令牌详细数据</value>
   </data>
   <data name="LocalAuth_ShowSteamAuthTip1" xml:space="preserve">
     <value>Steam身份验证器的完整数据，可在导入不同软件时使用：</value>

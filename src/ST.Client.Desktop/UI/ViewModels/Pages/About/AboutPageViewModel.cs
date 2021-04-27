@@ -35,7 +35,21 @@ namespace System.Application.UI.ViewModels
 
         public Version ClientVersion => ThisAssembly.ClientVersion;
 
-        public static string ClearnetLink => "https://steampp.net/";
+        public static string RmbadminSteamLink => SteamApiUrls.MY_PROFILE_URL;
+
+        public static string RmbadminLink => "https://github.com/rmbadmin";
+
+        public static string AigioLLink => "https://github.com/AigioL";
+
+        public static string MossimosLink => "https://github.com/Mossimos";
+
+        public static string CliencerLink => "https://space.bilibili.com/30031316";
+
+        public static string PrivacyLink => "https://steampp.net/privacy";
+        public static string AgreementLink => "https://steampp.net/agreement";
+
+
+        public static string OfficialLink => "https://steampp.net/";
 
         public static string SourceCodeLink => "https://github.com/rmbadmin/SteamTools";
 
@@ -44,8 +58,6 @@ namespace System.Application.UI.ViewModels
         public static string BugReportLink => "https://github.com/rmbadmin/SteamTools/issues";
 
         public static string FAQLink => "https://steampp.net/faq";
-
-        public static string DocsLink => "https://docs.wasabiwallet.io/";
 
         public static string LicenseLink => "https://github.com/rmbadmin/SteamTools/blob/develop/LICENSE";
     }

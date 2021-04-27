@@ -52,7 +52,7 @@ namespace System.Application
             });
             rootCommand.AddCommand(devtools);
 
-            // -clt c
+            // -clt c -silence
             var common = new Command("c", "common");
             common.AddOption(new Option<bool>("-silence", "静默启动（不弹窗口）"));
             common.Handler = CommandHandler.Create((bool silence) =>

@@ -18,15 +18,17 @@ namespace System.Application.Models.Settings
         private static void IsRunSteamNoCheckUpdate_ValueChanged(object sender, ValueChangedEventArgs<bool> e)
         {
             if (e.NewValue)
-                SteamStratParameter.Value += "";
-
+                SteamStratParameter.Value += " -noverifyfiles";
+            else
+                SteamStratParameter.Value = SteamStratParameter.Value.Replace("-silent", "").Trim();
         }
 
         private static void IsRunSteamMinimized_ValueChanged(object sender, ValueChangedEventArgs<bool> e)
         {
             if (e.NewValue)
-                SteamStratParameter.Value += "";
-
+                SteamStratParameter.Value += " -silent";
+            else
+                SteamStratParameter.Value = SteamStratParameter.Value.Replace("-silent", "").Trim();
         }
 
         /// <summary>

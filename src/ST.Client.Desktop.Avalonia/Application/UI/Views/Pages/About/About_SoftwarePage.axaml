@@ -5,6 +5,7 @@
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
              xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:gif="clr-namespace:AvaloniaGif;assembly=AvaloniaGif"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:AboutPageViewModel"
              x:CompileBindings="True"
@@ -97,17 +98,17 @@
                                Text="Development: "
                                VerticalAlignment="Center"/>
                     <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
-                                    CommandParameter="{x:Static vm:AboutPageViewModel.SourceCodeLink}">
+                                    CommandParameter="{x:Static vm:AboutPageViewModel.RmbadminLink}">
                         <TextBlock Text="@软妹币玩家" Classes="Hyperlink" />
                     </Button>
                     <TextBlock Classes="LinkSeparatorPadding" Text="-" />
                     <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
-                                    CommandParameter="{x:Static vm:AboutPageViewModel.SourceCodeLink}">
+                                    CommandParameter="{x:Static vm:AboutPageViewModel.AigioLLink}">
                         <TextBlock Text="@AigioL" Classes="Hyperlink" />
                     </Button>
                     <TextBlock Classes="LinkSeparatorPadding" Text="-" />
                     <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
-                                    CommandParameter="{x:Static vm:AboutPageViewModel.SourceCodeLink}">
+                                    CommandParameter="{x:Static vm:AboutPageViewModel.MossimosLink}">
                         <TextBlock Text="@Mossimos" Classes="Hyperlink" />
                     </Button>
                 </StackPanel>
@@ -116,7 +117,7 @@
                                Text="Business And Art: "
                                VerticalAlignment="Center"/>
                     <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
-                                    CommandParameter="{x:Static vm:AboutPageViewModel.SourceCodeLink}">
+                                    CommandParameter="{x:Static vm:AboutPageViewModel.CliencerLink}">
                         <TextBlock Text="@Cliencer克总" Classes="Hyperlink" />
                     </Button>
                 </StackPanel>
@@ -134,10 +135,13 @@
                     </StackPanel>
                 </WrapPanel>
 
+                <WrapPanel>
+                    <gif:Image2 Width="500" Height="300" Stretch="UniformToFill" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/gg.gif"></gif:Image2>
+                </WrapPanel>
             </StackPanel>
 
             <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 20">
-                <StackPanel Spacing="10" 
+                <StackPanel Spacing="10"
                             DockPanel.Dock="Bottom" HorizontalAlignment="Center" Orientation="Vertical">
                     <WrapPanel Margin="0 0 0 10" HorizontalAlignment="Center">
                         <StackPanel Orientation="Horizontal" Spacing="5" Margin="2">
@@ -150,7 +154,7 @@
                         <StackPanel Orientation="Horizontal" Spacing="5" Margin="2">
                             <Button Classes="plain"
                                     Command="{Binding OpenBrowserCommand}"
-                                    CommandParameter="{x:Static vm:AboutPageViewModel.ClearnetLink}">
+                                    CommandParameter="{x:Static vm:AboutPageViewModel.OfficialLink}">
                                 <TextBlock Text="Website" Classes="Hyperlink" />
                             </Button>
                         </StackPanel>
@@ -179,17 +183,17 @@
                     </WrapPanel>
                     <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Center">
                         <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
-                                    CommandParameter="{x:Static vm:AboutPageViewModel.SourceCodeLink}">
+                                    CommandParameter="{x:Static vm:AboutPageViewModel.PrivacyLink}">
                             <TextBlock Text="用户协议" Classes="Hyperlink" />
                         </Button>
                         <TextBlock Classes="LinkSeparatorPadding" Text="-" />
                         <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
-                                        CommandParameter="{x:Static vm:AboutPageViewModel.SourceCodeLink}">
+                                        CommandParameter="{x:Static vm:AboutPageViewModel.AgreementLink}">
                             <TextBlock Text="隐私政策" Classes="Hyperlink" />
                         </Button>
                     </StackPanel>
                     <WrapPanel HorizontalAlignment="Center">
-                        <TextBlock Classes="Header light"
+                        <TextBlock Classes="h7 light"
                                        Text="长沙次元超越科技有限公司 - 2021© All Rights Reserved."
                                        VerticalAlignment="Center"/>
                     </WrapPanel>

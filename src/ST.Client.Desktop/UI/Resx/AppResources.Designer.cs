@@ -1089,6 +1089,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 确认交易 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 取消交易 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AuthTrade_Cancel {
@@ -1243,6 +1252,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 令牌云同步 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_CloudSync {
+            get {
+                return ResourceManager.GetString("LocalAuth_CloudSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 复制令牌 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_Copy {
+            get {
+                return ResourceManager.GetString("LocalAuth_Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已复制令牌  的本地化字符串。
         /// </summary>
         public static string LocalAuth_CopyAuthTip {
@@ -1347,6 +1374,24 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_SDATip {
             get {
                 return ResourceManager.GetString("LocalAuth_SDATip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 查看令牌 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ShowAuthCode {
+            get {
+                return ResourceManager.GetString("LocalAuth_ShowAuthCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 查看令牌详细数据 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ShowAuthInfo {
+            get {
+                return ResourceManager.GetString("LocalAuth_ShowAuthInfo", resourceCulture);
             }
         }
         

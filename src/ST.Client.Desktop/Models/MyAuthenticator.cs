@@ -12,9 +12,10 @@ namespace System.Application.Models
         {
         }
 
-        public MyAuthenticator(IGAPAuthenticatorDTO data)
+        public MyAuthenticator(IGAPAuthenticatorDTO data) : this()
         {
             AuthenticatorData = data;
+            OriginName = AuthenticatorData.Name;
         }
 
         public IGAPAuthenticatorDTO AuthenticatorData { get; set; }
@@ -32,6 +33,7 @@ namespace System.Application.Models
             }
         }
 
+        public string OriginName;
         public string Name
         {
             get
@@ -44,6 +46,7 @@ namespace System.Application.Models
                 this.RaisePropertyChanged();
             }
         }
+
 
         public int Index
         {
@@ -194,6 +197,7 @@ namespace System.Application.Models
                     {
                         case "name":
                             Name = reader.ReadElementContentAsString();
+                            OriginName = Name;
                             break;
 
                         case "created":

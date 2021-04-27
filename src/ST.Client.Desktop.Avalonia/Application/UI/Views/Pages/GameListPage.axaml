@@ -218,10 +218,10 @@
                                                     <PathIcon Data="{StaticResource DownloadDrawing}" Width="14"></PathIcon>
                                                 </MenuItem.Icon>
                                             </MenuItem>
-                                            <MenuItem
+                                            <!--<MenuItem
                                                       Header="{ReflectionBinding Path=Res.Edit,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                                       Command="{ReflectionBinding #u.DataContext.OfflineModeButton_Click}"
-                                                      CommandParameter="{Binding}" />
+                                                      CommandParameter="{Binding}" />-->
                                             <MenuItem
                                                       Header="{ReflectionBinding Path=Res.Achievement_Manage,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                                       Command="{ReflectionBinding #u.DataContext.UnlockAchievement_Click}"
@@ -230,14 +230,14 @@
                                                     <PathIcon Data="{StaticResource TrophyDrawing}" Width="16"></PathIcon>
                                                 </MenuItem.Icon>
                                             </MenuItem>
-                                            <MenuItem
+                                            <!--<MenuItem
                                                       Header="{ReflectionBinding Path=Res.GameList_HideTheGame,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                                       Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
                                                       CommandParameter="{Binding}" />
                                             <MenuItem
                                                       Header="{ReflectionBinding Path=Res.GameList_SetCustomImage,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                                       Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
-                                                      CommandParameter="{Binding}" />
+                                                      CommandParameter="{Binding}" />-->
                                             <MenuItem
                                                       Header="{ReflectionBinding Path=Res.GameList_OpenStoreUrl,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                                       Command="{ReflectionBinding #u.DataContext.OpenAppStoreUrl}"

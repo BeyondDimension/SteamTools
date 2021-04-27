@@ -483,5 +483,18 @@ namespace System.Application.Services
             await repository.DeleteAsync(auth.AuthenticatorData.Id);
             Current.Authenticators.Remove(auth);
         }
+
+
+        public void SaveEditNameAuthenticators()
+        {
+            Task.Run(() =>
+            {
+                var auths = Authenticators.Items.Where(x => x.Name != x.OriginName);
+
+                foreach (var auth in auths)
+                    AddOrUpdateSaveAuthenticators(auth);
+            });
+
+        }
     }
 }

@@ -77,24 +77,29 @@
 
                                         <StackPanel Orientation="Horizontal" Spacing="5">
 
-                                            <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowAuthCode}" CommandParameter="{Binding}" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
+                                            <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowAuthCode}" CommandParameter="{Binding}"
+                                                    ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_ShowAuthCode,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                                                 <PathIcon Data="{DynamicResource SearchDrawing}" Width="20"></PathIcon>
                                             </Button>
 
-                                            <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowSteamAuthTrade}" CommandParameter="{Binding}" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
+                                            <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowSteamAuthTrade}" CommandParameter="{Binding}"
+                                                    ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                                                 <PathIcon Data="{DynamicResource TradeDrawing}" Width="20"></PathIcon>
                                             </Button>
 
-                                            <Button Cursor="Hand" Classes="flatbutton" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
+                                            <!--<Button Cursor="Hand" Classes="flatbutton"
+                                                    ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_CloudSync,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                                                 <PathIcon Data="{DynamicResource CloudDrawing}" Width="20"></PathIcon>
-                                            </Button>
+                                            </Button>-->
 
-                                            <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowSteamAuthData}" CommandParameter="{Binding}" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
+                                            <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowSteamAuthData}" CommandParameter="{Binding}"
+                                                    ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_ShowAuthInfo,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                                                 <PathIcon Data="{DynamicResource SlideSearchDrawing}" Width="20"></PathIcon>
                                             </Button>
                                         </StackPanel>
 
-                                        <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.CopyCodeCilp}" CommandParameter="{Binding}" HorizontalAlignment="Right" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" >
+                                        <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.CopyCodeCilp}" CommandParameter="{Binding}" HorizontalAlignment="Right"
+                                                ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_Copy,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                                             <PathIcon Data="{DynamicResource CopyDrawing}" Width="20"></PathIcon>
                                         </Button>
                                     </DockPanel>

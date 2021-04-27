@@ -1,5 +1,6 @@
 ﻿using NLog;
 using NLog.Config;
+using System.Application.Models.Settings;
 using System.Application.Services;
 using System.IO;
 using System.Linq;

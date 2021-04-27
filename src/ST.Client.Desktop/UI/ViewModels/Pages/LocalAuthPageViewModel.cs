@@ -31,15 +31,15 @@ namespace System.Application.UI.ViewModels
                 //    {
                         new MenuItemViewModel(nameof(AppResources.Add)) { IconKey="AddDrawing",
                             Command= AddAuthCommand },
-                        new MenuItemViewModel(nameof(AppResources.Edit)) { IconKey="EditDrawing" },
-                        new MenuItemViewModel(nameof(AppResources.Export)) { IconKey="ExportDrawing",
-                            Command= RefreshAuthCommand  },
+                        //new MenuItemViewModel(nameof(AppResources.Edit)) { IconKey="EditDrawing" },
+                        //new MenuItemViewModel(nameof(AppResources.Export)) { IconKey="ExportDrawing",
+                        //    Command= RefreshAuthCommand  },
                         new MenuItemViewModel(),
                         new MenuItemViewModel(nameof(AppResources.Refresh)) {IconKey="RefreshDrawing",
                             Command= RefreshAuthCommand },
-                        new MenuItemViewModel(),
-                        new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="LockDrawing" },
-                        new MenuItemViewModel(nameof(AppResources.CloudSync)) {IconKey="CloudDrawing" },
+                        //new MenuItemViewModel(),
+                        //new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="LockDrawing" },
+                        //new MenuItemViewModel(nameof(AppResources.CloudSync)) {IconKey="CloudDrawing" },
                 //    }
                 //},
             };

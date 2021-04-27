@@ -133,6 +133,12 @@ namespace System.Application.UI
             windowService.Init();
 
             SettingsHost.Load();
+            if (GeneralSettings.IsStartupAppMinimized.Value)
+            {
+                Program.IsMinimize = true;
+                if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+                    desktop.MainWindow = null;
+            }
             Theme = (AppTheme)UISettings.Theme.Value;
             UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
@@ -150,7 +156,9 @@ namespace System.Application.UI
                     #region 主窗口启动时加载的资源
                     compositeDisposable.Add(SettingsHost.Save);
                     compositeDisposable.Add(ProxyService.Current.Dispose);
+                    compositeDisposable.Add(AuthService.Current.SaveEditNameAuthenticators);
                     compositeDisposable.Add(SteamConnectService.Current.Dispose);
+
                     #endregion
                     MainWindow = new MainWindow
                     {
