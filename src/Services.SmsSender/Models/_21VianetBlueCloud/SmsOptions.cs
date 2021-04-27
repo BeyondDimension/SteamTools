@@ -40,7 +40,7 @@
                 !string.IsNullOrWhiteSpace(ExtendCode) &&
                 !string.IsNullOrWhiteSpace(KeyName) &&
                 !string.IsNullOrWhiteSpace(KeyValue) &&
-                Templates.Any_Nullable();
+                (Templates.Any_Nullable() || DefaultTemplate != default);
         }
 
         bool IExplicitHasValue.ExplicitHasValue() => IsValid();

@@ -29,7 +29,7 @@
             return !string.IsNullOrWhiteSpace(AccessKeyId) &&
                 !string.IsNullOrWhiteSpace(AccessKeySecret) &&
                 !string.IsNullOrWhiteSpace(SignName) &&
-                Templates.Any_Nullable();
+                (Templates.Any_Nullable() || DefaultTemplate != default);
         }
 
         bool IExplicitHasValue.ExplicitHasValue() => IsValid();

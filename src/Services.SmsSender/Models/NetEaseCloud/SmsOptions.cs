@@ -23,7 +23,7 @@
         {
             return !string.IsNullOrWhiteSpace(AppKey) &&
                 !string.IsNullOrWhiteSpace(AppSecret) &&
-                Templates.Any_Nullable();
+                (Templates.Any_Nullable() || DefaultTemplate != default);
         }
 
         bool IExplicitHasValue.ExplicitHasValue() => IsValid();

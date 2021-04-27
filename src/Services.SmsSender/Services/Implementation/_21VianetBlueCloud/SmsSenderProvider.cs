@@ -48,7 +48,7 @@ namespace System.Application.Services.Implementation._21VianetBlueCloud
         const string SignKey = "sig";
         const string KeyNameKey = "skn";
         const string ExpiryKey = "se";
-        const string _endpoint = "https://bluecloudccs.21vbluecloud.com/services/sms/messages?api-version=2018-10-01";
+        const string _endpoint = "https://bluecloudccs.21vbluecloud.com:443/services/sms/messages?api-version=2018-10-01";
 
         /// <summary>
         /// create token
