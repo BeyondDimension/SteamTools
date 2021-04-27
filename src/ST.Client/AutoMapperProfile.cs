@@ -9,12 +9,13 @@ namespace System.Application
         public AutoMapperProfile()
         {
             CreateMap<ScriptDTO, Script>()
-                .ForMember(x => x.Id, d => d.Ignore())
-                .ForMember(x=>x.Pid,d=>d.MapFrom(x=>x.Id));
+                .ForMember(x => x.Pid, d => d.MapFrom(x => x.Id))
+                .ForMember(x => x.Id, d => d.MapFrom(x => x.LocalId));
+                //.ForMember(x => x.Id, d => d.Ignore());
             CreateMap<Script, ScriptDTO>()
                 .ForMember(x => x.LocalId, d => d.MapFrom(x => x.Id))
                 .ForMember(x => x.Id, d => d.MapFrom(x => x.Pid));
-                //.ForMember(x => x.Id, d => d.Ignore());
+              //  .ForMember(x => x.Id, d => d.Ignore());
             //CreateMap<AccelerateProjectGroup, AccelerateProjectGroupDTO>();
             //CreateMap<AccelerateProject, AccelerateProjectDTO>();
             //CreateMap<Script, ScriptDTO>();
