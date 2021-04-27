@@ -45,6 +45,18 @@ namespace System.Application.Models.Settings
         public static SerializableProperty<string> FontName { get; }
             = new SerializableProperty<string>(GetKey(), Providers.Local, "Default") { AutoSave = true };
 
+        /// <summary>
+        /// 背景图片路径
+        /// </summary>
+        public static SerializableProperty<string> BackgroundImagePath { get; }
+            = new SerializableProperty<string>(GetKey(), Providers.Local, "") { AutoSave = true };
+
+        /// <summary>
+        /// 主题选择
+        /// </summary>
+        public static SerializableProperty<int> ThemeAccent { get; }
+            = new SerializableProperty<int>(GetKey(), Providers.Local, 0) { AutoSave = true };
+
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
             return nameof(UISettings) + "." + propertyName;

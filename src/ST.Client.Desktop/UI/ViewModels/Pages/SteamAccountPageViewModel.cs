@@ -72,6 +72,10 @@ namespace System.Application.UI.ViewModels
 
         internal async override void Initialize()
         {
+            if (!steamService.IsRunningSteamProcess && SteamSettings.IsAutoRunSteam.Value)
+                steamService.StartSteam(SteamSettings.SteamStratParameter);
+
+
             SteamUsers = new ObservableCollection<SteamUser>(steamService.GetRememberUserList());
 
             if (!SteamUsers.Any_Nullable())
