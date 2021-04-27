@@ -9,6 +9,26 @@ namespace System.Application.Models.Settings
 {
     public static class SteamSettings
     {
+        static SteamSettings()
+        {
+            IsRunSteamMinimized.ValueChanged += IsRunSteamMinimized_ValueChanged;
+            IsRunSteamNoCheckUpdate.ValueChanged += IsRunSteamNoCheckUpdate_ValueChanged;
+        }
+
+        private static void IsRunSteamNoCheckUpdate_ValueChanged(object sender, ValueChangedEventArgs<bool> e)
+        {
+            if (e.NewValue)
+                SteamStratParameter.Value += "";
+
+        }
+
+        private static void IsRunSteamMinimized_ValueChanged(object sender, ValueChangedEventArgs<bool> e)
+        {
+            if (e.NewValue)
+                SteamStratParameter.Value += "";
+
+        }
+
         /// <summary>
         /// Steam启动参数
         /// </summary>
@@ -25,6 +45,18 @@ namespace System.Application.Models.Settings
         /// 自动运行Steam
         /// </summary>
         public static SerializableProperty<bool> IsAutoRunSteam { get; }
+            = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };
+
+        /// <summary>
+        /// Steam启动时最小化到托盘
+        /// </summary>
+        public static SerializableProperty<bool> IsRunSteamMinimized { get; }
+            = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };
+
+        /// <summary>
+        /// Steam启动时不检查更新
+        /// </summary>
+        public static SerializableProperty<bool> IsRunSteamNoCheckUpdate { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };
 
         /// <summary>

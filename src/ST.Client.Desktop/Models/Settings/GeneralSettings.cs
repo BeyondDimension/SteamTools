@@ -1,7 +1,9 @@
 using System;
 using System.Application.Serialization;
+using System.Application.Services;
 using System.Collections.Generic;
 using System.Linq;
+using System.Properties;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -12,18 +14,12 @@ namespace System.Application.Models.Settings
         static GeneralSettings()
         {
             WindowsStartupAutoRun.ValueChanged += WindowsStartupAutoRun_ValueChanged;
-            IsEnableLogRecord.ValueChanged += IsEnableLogRecord_ValueChanged;
             //CreateDesktopShortcut.ValueChanged += CreateDesktopShortcut_ValueChanged;
-        }
-
-        private static void IsEnableLogRecord_ValueChanged(object sender, ValueChangedEventArgs<bool> e)
-        {
-
         }
 
         private static void WindowsStartupAutoRun_ValueChanged(object sender, ValueChangedEventArgs<bool> e)
         {
-
+            DI.Get<IDesktopPlatformService>().SetBootAutoStart(e.NewValue, ThisAssembly.AssemblyTrademark);
         }
 
         /// <summary>

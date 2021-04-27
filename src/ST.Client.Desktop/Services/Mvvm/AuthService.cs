@@ -26,11 +26,11 @@ namespace System.Application.Services
         public static AuthService Current { get; } = new();
         #endregion
 
-        public SourceCache<MyAuthenticator, ushort> Authenticators { get; }
+        public SourceList<MyAuthenticator> Authenticators { get; }
 
         public AuthService()
         {
-            Authenticators = new SourceCache<MyAuthenticator, ushort>(t => t.Id);
+            Authenticators = new SourceList<MyAuthenticator>();
         }
 
         public async void Initialize(bool isSync = false)
@@ -39,7 +39,7 @@ namespace System.Application.Services
             var list = await repository.GetAllAsync();
             if (list.Any_Nullable())
             {
-                Authenticators.AddOrUpdate(list.Select(s => new MyAuthenticator(s)));
+                Authenticators.AddRange(list.Select(s => new MyAuthenticator(s)));
 
                 if (isSync)
                 {
@@ -470,7 +470,7 @@ namespace System.Application.Services
             {
                 return;
             }
-            Current.Authenticators.AddOrUpdate(auth);
+            Current.Authenticators.Add(auth);
         }
 
         public static async void DeleteSaveAuthenticators(MyAuthenticator auth)

@@ -49,7 +49,7 @@ namespace System.Application.UI.ViewModels
                 .Connect()
                 //.Filter(scriptFilter)
                 .ObserveOn(RxApp.MainThreadScheduler)
-                .Sort(SortExpressionComparer<MyAuthenticator>.Ascending(x => x.Index).ThenBy(x=>x.Name))
+                .Sort(SortExpressionComparer<MyAuthenticator>.Ascending(x=>x.Name))
                 .Bind(out _Authenticators)
                 .Subscribe(_ => this.RaisePropertyChanged(nameof(IsAuthenticatorsEmpty)));
         }
