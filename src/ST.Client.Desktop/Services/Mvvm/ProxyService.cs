@@ -131,11 +131,11 @@ namespace System.Application.Services
                 {
                     if (value)
                     {
-                        //if (!EnableProxyDomains.Any_Nullable())
-                        //{
-                        //    Toast.Show(AppResources.CommunityFix_NoSelectAcceleration);
-                        //    return;
-                        //}
+                        if (!EnableProxyDomains.Any_Nullable())
+                        {
+                            Toast.Show(AppResources.CommunityFix_NoSelectAcceleration);
+                            return;
+                        }
                         httpProxyService.ProxyDomains = EnableProxyDomains;
                         httpProxyService.Scripts = EnableProxyScripts;
                         this.RaisePropertyChanged(nameof(EnableProxyDomains));
@@ -178,6 +178,7 @@ namespace System.Application.Services
             }
         }
         #endregion
+
         public async void Initialize()
         {
             #region 加载代理服务数据
