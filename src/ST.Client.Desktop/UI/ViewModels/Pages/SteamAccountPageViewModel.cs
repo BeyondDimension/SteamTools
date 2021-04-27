@@ -91,7 +91,7 @@ namespace System.Application.UI.ViewModels
             }
 #endif
 
-            var users = SteamUsers.ToArray();
+            var users = SteamUsers.OrderByDescending(o => o.LastLoginTime).ToArray();
             for (var i = 0; i < SteamUsers.Count; i++)
             {
                 var temp = users[i];
@@ -111,10 +111,10 @@ namespace System.Application.UI.ViewModels
                 users[i].Remark = remark;
                 users[i].AvatarFullStream = httpService.GetImageAsync(users[i].AvatarFull, ImageChannelType.SteamAvatars);
             }
-            SteamUsers = new ObservableCollection<SteamUser>(
-                users.OrderByDescending(o => o.LastLoginTime).ToList());
 
-            foreach (var item in SteamUsers)
+            SteamUsers = new ObservableCollection<SteamUser>(users);
+
+            foreach (var item in users)
             {
                 item.MiniProfile = await webApiService.GetUserMiniProfile(item.SteamId3_Int);
                 var miniProfile = item.MiniProfile;
@@ -125,8 +125,7 @@ namespace System.Application.UI.ViewModels
                 }
             }
 
-            SteamUsers = new ObservableCollection<SteamUser>(
-                users.OrderByDescending(o => o.LastLoginTime).ToList());
+            SteamUsers = new ObservableCollection<SteamUser>(users);
 
             this.WhenAnyValue(x => x.SteamUsers)
                 .Subscribe(items => items?
