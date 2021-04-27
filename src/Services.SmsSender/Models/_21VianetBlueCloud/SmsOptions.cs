@@ -27,6 +27,8 @@
         /// </summary>
         public string CodeTemplateKeyName { get; set; } = "code";
 
+        public string? DefaultTemplate { get; set; }
+
         /// <summary>
         /// 开发者平台分配的模板标志
         /// </summary>

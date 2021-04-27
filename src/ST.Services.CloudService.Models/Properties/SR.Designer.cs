@@ -61,6 +61,15 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 客户端已过时，请升级新版本 的本地化字符串。
+        /// </summary>
+        internal static string ApiResponseCode_AppObsolete {
+            get {
+                return ResourceManager.GetString("ApiResponseCode_AppObsolete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 登录凭证失效，请重新登录 的本地化字符串。
         /// </summary>
         internal static string ApiResponseCode_Unauthorized {

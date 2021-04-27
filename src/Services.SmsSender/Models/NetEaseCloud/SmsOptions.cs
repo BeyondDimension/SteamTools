@@ -17,6 +17,8 @@
         /// </summary>
         public SmsOptionsTemplateId<int>[]? Templates { get; set; }
 
+        public int? DefaultTemplate { get; set; }
+
         public bool IsValid()
         {
             return !string.IsNullOrWhiteSpace(AppKey) &&

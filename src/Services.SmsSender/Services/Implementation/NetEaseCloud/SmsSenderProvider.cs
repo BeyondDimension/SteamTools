@@ -147,7 +147,7 @@ namespace System.Application.Services.Implementation.NetEaseCloud
         public override async Task<ISendSmsResult> SendSmsAsync(string number, string message, ushort type, CancellationToken cancellationToken)
         {
             var dictionary = new Dictionary<string, string?> { { "mobile", number } };
-            var template_id = options.Templates?.FirstOrDefault(x => x.Type == type)?.Template;
+            var template_id = options.Templates?.FirstOrDefault(x => x.Type == type)?.Template ?? options.DefaultTemplate;
             if (template_id.HasValue)
                 dictionary.Add("templateid", template_id.Value.ToString());
             dictionary.Add("authCode", message);

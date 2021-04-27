@@ -47,9 +47,7 @@ namespace System.Application.Services.CloudService
         Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request,
             HttpCompletionOption completionOption,
-            CancellationToken cancellationToken,
-            bool isShowResponseErrorMessage = true,
-            string? errorAppendText = null);
+            CancellationToken cancellationToken);
 
         /// <summary>
         /// RequestModel+ResponseModel(调用服务端接口)

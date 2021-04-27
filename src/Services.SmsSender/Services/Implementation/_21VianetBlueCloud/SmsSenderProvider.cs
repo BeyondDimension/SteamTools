@@ -83,7 +83,7 @@ namespace System.Application.Services.Implementation._21VianetBlueCloud
         {
             var key = options.KeyValue.ThrowIsNull(nameof(options.KeyValue));
             var keyName = options.KeyName.ThrowIsNull(nameof(options.KeyName));
-            var template_name = options.Templates?.FirstOrDefault(x => x.Type == type)?.Template;
+            var template_name = options.Templates?.FirstOrDefault(x => x.Type == type)?.Template ?? options.DefaultTemplate;
 
             var requestData = new RequestData
             {

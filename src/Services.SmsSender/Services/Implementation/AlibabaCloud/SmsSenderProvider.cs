@@ -89,7 +89,7 @@ namespace System.Application.Services.Implementation.AlibabaCloud
         public override async Task<ISendSmsResult> SendSmsAsync(string number, string message, ushort type, CancellationToken cancellationToken)
         {
             var now = DateTimeOffset.Now;
-            var template_code = options.Templates?.FirstOrDefault(x => x.Type == type)?.Template ?? options.DefaultTemplateCode;
+            var template_code = options.Templates?.FirstOrDefault(x => x.Type == type)?.Template ?? options.DefaultTemplate;
 
             var templateParam = "{\"code\":\"" + message + "\"}"; // JsonConvert.SerializeObject(new { code = message });
 

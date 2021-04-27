@@ -57,6 +57,10 @@ namespace System.Application.Models
             {
                 return SR.IsNotOfficialChannelPackageWarning;
             }
+            else if (code == ApiResponseCode.AppObsolete)
+            {
+                return SR.ApiResponseCode_AppObsolete;
+            }
             if (string.IsNullOrWhiteSpace(errorAppendText))
                 return string.Format(SR.ServerError_, (int)code);
             return string.Format(SR.ServerError__, (int)code, errorAppendText);

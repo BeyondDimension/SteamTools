@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ApiResponseCode_AppObsolete" xml:space="preserve">
+    <value>客户端已过时，请升级新版本</value>
+  </data>
   <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
     <value>登录凭证失效，请重新登录</value>
   </data>

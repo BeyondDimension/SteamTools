@@ -22,7 +22,7 @@
         /// <summary>
         /// (默认)短信模板ID，发送国际/港澳台消息时，请使用国际/港澳台短信模版
         /// </summary>
-        public string? DefaultTemplateCode { get; set; }
+        public string? DefaultTemplate { get; set; }
 
         public bool IsValid()
         {
