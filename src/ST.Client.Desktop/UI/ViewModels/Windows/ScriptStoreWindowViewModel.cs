@@ -65,7 +65,7 @@ namespace System.Application.UI.ViewModels
 		private async void InitializeScriptList()
 		{
 			var client = ICloudServiceClient.Instance.Script;
-			var response = await client.ScriptTable(name: SearchText);
+			var response = await client.ScriptTable(name: SearchText,pageSize:100,errormsg:AppResources.ScriptShop_GetTableError);
 			if (!response.IsSuccess || response.Content == null)
 			{
 				return;

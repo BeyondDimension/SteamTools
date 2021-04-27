@@ -1682,6 +1682,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 获取脚本工坊列表失败。 的本地化字符串。
+        /// </summary>
+        public static string ScriptShop_GetTableError {
+            get {
+                return ResourceManager.GetString("ScriptShop_GetTableError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 脚本工坊 的本地化字符串。
         /// </summary>
         public static string ScriptStore {

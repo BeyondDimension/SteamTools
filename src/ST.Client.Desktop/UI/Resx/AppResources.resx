@@ -628,6 +628,9 @@
   <data name="ScriptConfig_ScriptEmptyTip" xml:space="preserve">
     <value>未查询到匹配的脚本文件</value>
   </data>
+  <data name="ScriptShop_GetTableError" xml:space="preserve">
+    <value>获取脚本工坊列表失败。</value>
+  </data>
   <data name="ScriptStore" xml:space="preserve">
     <value>脚本工坊</value>
   </data>

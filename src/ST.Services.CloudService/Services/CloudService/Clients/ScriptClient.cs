@@ -11,7 +11,7 @@ namespace System.Application.Services.CloudService.Clients
 		public ScriptClient(IApiConnection conn) : base(conn)
 		{
 		}
-		public Task<IApiResponse<ScriptResponse>> Basics()
+		public Task<IApiResponse<ScriptResponse>> Basics(string? errormsg=null)
 		{
 			var url =
 				$"api/script/basics";
@@ -20,9 +20,10 @@ namespace System.Application.Services.CloudService.Clients
 				method: HttpMethod.Get,
 				requestUri: url,
 				cancellationToken: default,
-				responseContentMaybeNull: true);
+				responseContentMaybeNull: true,
+				errorAppendText: errormsg);
 		}
-		public Task<IApiResponse<PagedModel<ScriptDTO>>> ScriptTable(string? name = null, int pageIndex = 1, int pageSize = 15)
+		public Task<IApiResponse<PagedModel<ScriptDTO>>> ScriptTable(string? name = null, int pageIndex = 1, int pageSize = 15, string? errormsg=null)
 		{
 			var url =
 			$"api/script/table/{pageIndex}/{pageSize}/{name ?? string.Empty}";
@@ -31,9 +32,10 @@ namespace System.Application.Services.CloudService.Clients
 				method: HttpMethod.Get,
 				requestUri: url,
 				cancellationToken: default,
-				responseContentMaybeNull: true);
+				responseContentMaybeNull: true,
+				errorAppendText: errormsg);
 		}
-		public Task<IApiResponse<IList<ScriptResponse>>> ScriptUpdateInfo(IEnumerable<Guid> ids) {
+		public Task<IApiResponse<IList<ScriptResponse>>> ScriptUpdateInfo(IEnumerable<Guid> ids,string? errormsg=null) {
 			var url =
 				$"api/script/updates";
 			return conn.SendAsync<IEnumerable<Guid>,IList <ScriptResponse>>(
@@ -41,7 +43,8 @@ namespace System.Application.Services.CloudService.Clients
 				method: HttpMethod.Post,
 				request:ids,
 				requestUri: url,
-				cancellationToken: default);
+				cancellationToken: default,
+				errorAppendText: errormsg);
 		}
 		
 	}

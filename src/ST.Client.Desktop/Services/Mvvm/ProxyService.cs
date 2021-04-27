@@ -256,7 +256,7 @@ namespace System.Application.Services
 		}
 		public async void BasicsInfo()
 		{
-			var basicsInfo = await ICloudServiceClient.Instance.Script.Basics();
+			var basicsInfo = await ICloudServiceClient.Instance.Script.Basics(AppResources.Script_UpdateError);
 			if (basicsInfo.Code == ApiResponseCode.OK && basicsInfo.Content != null)
 			{
 				var basicsItem = ProxyScripts.Items.FirstOrDefault(x => x.Id == Guid.Parse("00000000-0000-0000-0000-000000000001"));
@@ -370,7 +370,7 @@ namespace System.Application.Services
 		{
 			var items = Current.ProxyScripts.Items.Where(x => x.Id.HasValue).Select(x => x.Id.Value).ToList();
 			var client = ICloudServiceClient.Instance.Script;
-			var response = await client.ScriptUpdateInfo(items);
+			var response = await client.ScriptUpdateInfo(items, AppResources.Script_UpdateError);
 			if (response.Code == ApiResponseCode.OK && response.Content != null)
 			{
 				foreach (var item in Current.ProxyScripts.Items)//response.Content)
@@ -386,8 +386,6 @@ namespace System.Application.Services
 
 				}
 			}
-			else
-				Toast.Show(AppResources.Script_UpdateError);
 		}
 	}
 }
