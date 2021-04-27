@@ -127,6 +127,11 @@ namespace System.Application.Models
         /// </summary>
         AppObsolete,
 
+        /// <summary>
+        /// 短信服务故障
+        /// </summary>
+        SMSServerError = 5001,
+
         #endregion
     }
 }

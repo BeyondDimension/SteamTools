@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
+    <value>服务端错误 {0} - 登录凭证失效，请重新登录</value>
+  </data>
+  <data name="UserIsBanErrorMessage" xml:space="preserve">
+    <value>账号已被封禁</value>
+  </data>
   <data name="内容值不能为空或不正确" xml:space="preserve">
     <value>内容值不能为空或不正确</value>
   </data>
@@ -148,7 +154,7 @@
     <value>用户不存在</value>
   </data>
   <data name="短信服务故障" xml:space="preserve">
-    <value>服务器错误【5001】</value>
+    <value>服务端错误 5001 - 短信服务</value>
   </data>
   <data name="短信验证码不正确" xml:space="preserve">
     <value>短信验证码不正确</value>

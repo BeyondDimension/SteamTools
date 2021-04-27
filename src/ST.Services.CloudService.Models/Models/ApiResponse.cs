@@ -2,11 +2,11 @@
 using Newtonsoft.Json;
 using System.Application.Models.Internals;
 using System.Application.Properties;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Const = System.Application.ModelValidatorProvider.Constants;
 
 namespace System.Application.Models
 {
@@ -60,6 +60,10 @@ namespace System.Application.Models
             else if (code == ApiResponseCode.AppObsolete)
             {
                 return SR.ApiResponseCode_AppObsolete;
+            }
+            else if (code == ApiResponseCode.UserIsBan)
+            {
+                return Const.UserIsBanErrorMessage;
             }
             if (string.IsNullOrWhiteSpace(errorAppendText))
                 return string.Format(SR.ServerError_, (int)code);

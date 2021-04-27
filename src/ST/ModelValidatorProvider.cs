@@ -184,6 +184,10 @@ namespace System.Application
             public static string 新手机号不能与旧手机号一样 => SR.新手机号不能与旧手机号一样;
 
             public static string 当前手机号码不存在 => SR.当前手机号码不存在;
+
+            public static string AuthorizationFailErrorMessage_ => SR.AuthorizationFailErrorMessage_;
+
+            public static string UserIsBanErrorMessage => SR.UserIsBanErrorMessage;
         }
 
         public static class Lengths

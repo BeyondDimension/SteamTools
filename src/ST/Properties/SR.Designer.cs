@@ -61,6 +61,24 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 服务端错误 {0} - 登录凭证失效，请重新登录 的本地化字符串。
+        /// </summary>
+        internal static string AuthorizationFailErrorMessage_ {
+            get {
+                return ResourceManager.GetString("AuthorizationFailErrorMessage_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 账号已被封禁 的本地化字符串。
+        /// </summary>
+        internal static string UserIsBanErrorMessage {
+            get {
+                return ResourceManager.GetString("UserIsBanErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 内容值不能为空或不正确 的本地化字符串。
         /// </summary>
         internal static string 内容值不能为空或不正确 {
@@ -151,7 +169,7 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
-        ///   查找类似 服务器错误【5001】 的本地化字符串。
+        ///   查找类似 服务端错误 5001 - 短信服务 的本地化字符串。
         /// </summary>
         internal static string 短信服务故障 {
             get {
