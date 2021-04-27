@@ -4,6 +4,8 @@
     {
         public const string Version = "2.0.0";
 
+        public static readonly Version ClientVersion = new(Version);
+
         /// <summary>
         /// 定义程序集清单的产品名自定义属性
         /// </summary>

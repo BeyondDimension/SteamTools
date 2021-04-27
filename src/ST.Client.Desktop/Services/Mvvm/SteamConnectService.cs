@@ -111,7 +111,7 @@ namespace System.Application.Services
 
         public void Initialize()
         {
-            //Task.Run(InitializeGameList).ForgetAndDispose();
+            Task.Run(InitializeGameList).ForgetAndDispose();
 
             var t = new Task(async () =>
             {

@@ -142,6 +142,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 修改了 {0} 个成就和 {1} 条统计信息 的本地化字符串。
+        /// </summary>
+        public static string Achievement_EditSucces {
+            get {
+                return ResourceManager.GetString("Achievement_EditSucces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 图标 的本地化字符串。
         /// </summary>
         public static string Achievement_Icon {
@@ -156,6 +165,24 @@ namespace System.Application.UI.Resx {
         public static string Achievement_IsProtection {
             get {
                 return ResourceManager.GetString("Achievement_IsProtection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加载成就和统计数据... 的本地化字符串。
+        /// </summary>
+        public static string Achievement_LoadData {
+            get {
+                return ResourceManager.GetString("Achievement_LoadData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 获取到 {0} 个成就和 {1} 条统计信息 的本地化字符串。
+        /// </summary>
+        public static string Achievement_LoadSucces {
+            get {
+                return ResourceManager.GetString("Achievement_LoadSucces", resourceCulture);
             }
         }
         
@@ -196,6 +223,43 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 确定要复位统计信息吗? 的本地化字符串。
+        /// </summary>
+        public static string Achievement_ResetWaring_1 {
+            get {
+                return ResourceManager.GetString("Achievement_ResetWaring_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 也想要复位成就信息吗? 的本地化字符串。
+        /// </summary>
+        public static string Achievement_ResetWaring_2 {
+            get {
+                return ResourceManager.GetString("Achievement_ResetWaring_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 该操作不是还原当前修改，而是使所有成就和统计数据归零。
+        ///真的确定吗? 的本地化字符串。
+        /// </summary>
+        public static string Achievement_ResetWaring_3 {
+            get {
+                return ResourceManager.GetString("Achievement_ResetWaring_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 【风险提示】解锁成就可能会被游戏开发者视为作弊，并且会被成就统计网站封锁。若决定继续使用，请自行承担解锁成就带来的风险和后果。 的本地化字符串。
+        /// </summary>
+        public static string Achievement_RiskWarning {
+            get {
+                return ResourceManager.GetString("Achievement_RiskWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 统计修改 的本地化字符串。
         /// </summary>
         public static string Achievement_StatsEdit {
@@ -228,6 +292,43 @@ namespace System.Application.UI.Resx {
         public static string Achievement_Unlock {
             get {
                 return ResourceManager.GetString("Achievement_Unlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 与Steam建立连接失败，可能是该游戏没有成就，或者你没有该游戏。 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Warning_1 {
+            get {
+                return ResourceManager.GetString("Achievement_Warning_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 错误代码: {0}
+        ///检索成就统计信息时出错，可能是该游戏没有成就，或者你没有该游戏。 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Warning_2 {
+            get {
+                return ResourceManager.GetString("Achievement_Warning_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 修改成就{0}时发生错误 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Warning_3 {
+            get {
+                return ResourceManager.GetString("Achievement_Warning_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 修改统计{0}时发生错误 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Warning_4 {
+            get {
+                return ResourceManager.GetString("Achievement_Warning_4", resourceCulture);
             }
         }
         
@@ -795,6 +896,24 @@ namespace System.Application.UI.Resx {
         public static string GameList_SetCustomImage {
             get {
                 return ResourceManager.GetString("GameList_SetCustomImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam未启动 的本地化字符串。
+        /// </summary>
+        public static string GameList_SteamNotRuning {
+            get {
+                return ResourceManager.GetString("GameList_SteamNotRuning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 不支持的操作 的本地化字符串。
+        /// </summary>
+        public static string GameList_Unsupport {
+            get {
+                return ResourceManager.GetString("GameList_Unsupport", resourceCulture);
             }
         }
         

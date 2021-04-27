@@ -75,4 +75,15 @@
     <Style Selector="Button.action:disabled /template/ ContentPresenter">
         <Setter Property="Background" Value="{DynamicResource ThemeAccentDisabledBrushKey}" />
     </Style>
+
+    <Style Selector="Button.plain">
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="Button.plain /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
 </Styles>

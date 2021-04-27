@@ -1,6 +1,7 @@
 <Style xmlns="https://github.com/avaloniaui"
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style.Resources>
+        
         <Color x:Key="ThemeAccentColorKey">#FF0078D7</Color>
         <SolidColorBrush x:Key="ThemeAccentBrushKey"
                          Color="#FF0078D7" />

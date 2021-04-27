@@ -94,7 +94,7 @@ namespace System.Application.UI.ViewModels
 
             if (SteamConnectService.Current.IsConnectToSteam == false)
             {
-                MessageBoxCompat.ShowAsync("与Steam建立连接失败，可能是该游戏没有成就，或者你没有该游戏。", Title, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+                MessageBoxCompat.ShowAsync(AppResources.Achievement_Warning_1, Title, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
                  {
                      EnforceClose();
                  }).Wait();
@@ -135,16 +135,16 @@ namespace System.Application.UI.ViewModels
             string name = ISteamworksLocalApiService.Instance.GetAppData((uint)appid, "name");
             name ??= appid.ToString();
             Title = ThisAssembly.AssemblyTrademark + " | " + name;
-            ToastService.Current.Set("加载成就和统计数据...");
+            ToastService.Current.Set(AppResources.Achievement_LoadData);
 
             ISteamworksLocalApiService.Instance.AddUserStatsReceivedCallback((param) =>
             {
                 if (param.Result != 1)
                 {
-                    MessageBoxCompat.ShowAsync($"错误代码: {param.Result}{Environment.NewLine}检索成就统计信息时出错，可能是该游戏没有成就，或者你没有该游戏。", Title, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
-                    {
-                        EnforceClose();
-                    }).Wait();
+                    MessageBoxCompat.ShowAsync(string.Format(AppResources.Achievement_Warning_2, param.Result), Title, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+                     {
+                         EnforceClose();
+                     }).Wait();
                 }
                 if (this.LoadUserGameStatsSchema() == false)
                 {
@@ -156,9 +156,8 @@ namespace System.Application.UI.ViewModels
                 GetAchievements();
                 GetStatistics();
 
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-                ToastService.Current.Notify($"获取到 {this._AchievementsSourceList.Count} 个成就和 {this._StatisticsSourceList.Count} 条统计信息");
-#pragma warning restore CS8602 // 解引用可能出现空引用。
+                //ToastService.Current.Notify($"获取到 {this._AchievementsSourceList.Count} 个成就和 {this._StatisticsSourceList.Count} 条统计信息");
+                ToastService.Current.Notify(string.Format(AppResources.Achievement_LoadSucces, _AchievementsSourceList.Count, _StatisticsSourceList.Count));
             });
 
             Task.Run(async () =>
@@ -421,7 +420,7 @@ namespace System.Application.UI.ViewModels
             {
                 if (ISteamworksLocalApiService.Instance.SetAchievement(info.Id, info.IsAchieved) == false)
                 {
-                    MessageBoxCompat.ShowAsync(string.Format(CultureInfo.CurrentCulture, "修改成就{0}时发生错误", info.Name), "Error", MessageBoxButtonCompat.OK).ContinueWith(s =>
+                    MessageBoxCompat.ShowAsync(string.Format(CultureInfo.CurrentCulture, AppResources.Achievement_Warning_3, info.Name), Title, MessageBoxButtonCompat.OK).ContinueWith(s =>
                     {
                         EnforceClose();
                     });
@@ -499,7 +498,7 @@ namespace System.Application.UI.ViewModels
                         intStat.Id,
                         intStat.IntValue) == false)
                     {
-                        Toast.Show(string.Format(CultureInfo.CurrentCulture, "修改统计{0}时发生错误", intStat.Id));
+                        Toast.Show(string.Format(CultureInfo.CurrentCulture, AppResources.Achievement_Warning_4, intStat.Id));
                         return -1;
                     }
                 }
@@ -509,7 +508,7 @@ namespace System.Application.UI.ViewModels
                         floatStat.Id,
                         floatStat.FloatValue) == false)
                     {
-                        Toast.Show(string.Format(CultureInfo.CurrentCulture, "修改统计{0}时发生错误", floatStat.Id));
+                        Toast.Show(string.Format(CultureInfo.CurrentCulture, AppResources.Achievement_Warning_4, floatStat.Id));
                         return -1;
                     }
                 }
@@ -535,14 +534,12 @@ namespace System.Application.UI.ViewModels
 
         public async void ResetAllStats_Click()
         {
-            //WindowService.Current.GetDialogWindow("测试").ShowDialog();
-
-            var result = await MessageBoxCompat.ShowAsync("确定要复位统计信息吗?", Title, MessageBoxButtonCompat.OKCancel);
+            var result = await MessageBoxCompat.ShowAsync(AppResources.Achievement_ResetWaring_1, Title, MessageBoxButtonCompat.OKCancel);
             if (result == MessageBoxResultCompat.OK)
             {
-                var achievementsToo = await MessageBoxCompat.ShowAsync("也要复位成就信息吗?", Title, MessageBoxButtonCompat.OKCancel);
+                var achievementsToo = await MessageBoxCompat.ShowAsync(AppResources.Achievement_ResetWaring_2, Title, MessageBoxButtonCompat.OKCancel);
 
-                var real = await MessageBoxCompat.ShowAsync($"该操作不是还原当前修改，而是使所有成就和统计数据归零。{Environment.NewLine}真的确定吗?", Title, MessageBoxButtonCompat.OKCancel);
+                var real = await MessageBoxCompat.ShowAsync(AppResources.Achievement_ResetWaring_3, Title, MessageBoxButtonCompat.OKCancel);
                 if (real == MessageBoxResultCompat.OK)
                 {
                     if (ISteamworksLocalApiService.Instance.ResetAllStats(achievementsToo == MessageBoxResultCompat.OK) == false)
@@ -575,9 +572,7 @@ namespace System.Application.UI.ViewModels
                 this.ResetAllStats_Click();
                 return;
             }
-            var text = $"修改了 {achievements} 个成就和 {stats} 条统计信息";
-            ToastService.Current.Notify(text);
-            //this.Dialog($"修改了 {achievements} 个成就和 {stats} 统计信息");
+            ToastService.Current.Notify(string.Format(AppResources.Achievement_EditSucces, achievements, stats));
             this.RefreshStats_Click();
         }
     }

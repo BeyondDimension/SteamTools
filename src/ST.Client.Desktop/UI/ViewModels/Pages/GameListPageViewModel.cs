@@ -15,6 +15,8 @@ using System.Diagnostics;
 using static System.Application.Services.CloudService.Constants;
 using System.Globalization;
 using System.IO;
+using System.Windows;
+using System.Properties;
 
 namespace System.Application.UI.ViewModels
 {
@@ -274,18 +276,24 @@ namespace System.Application.UI.ViewModels
 
         public void UnlockAchievement_Click(SteamApp app)
         {
+            if (!ISteamService.Instance.IsRunningSteamProcess)
+            {
+                Toast.Show(AppResources.GameList_SteamNotRuning);
+                return;
+            }
             switch (app.Type)
             {
                 case SteamAppType.Application:
                 case SteamAppType.Game:
-                    //if (WindowService.Current.MainWindow.Dialog("【风险提示】解锁成就可能会被游戏开发者视为作弊，并且会被成就统计网站封锁。若决定继续使用，请自行承担解锁成就带来的风险和后果。"))
-                    //{
-                    app.Process = Process.Start(AppHelper.ProgramName, "-clt app -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
-                    SteamConnectService.Current.RuningSteamApps.Add(app);
-                    //}
+                    var result = MessageBoxCompat.ShowAsync(AppResources.Achievement_RiskWarning, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+                    {
+                        app.Process = Process.Start(AppHelper.ProgramName, "-clt app -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
+                        SteamConnectService.Current.RuningSteamApps.Add(app);
+                    });
+
                     break;
                 default:
-                    ToastService.Current.Notify("不支持的操作");
+                    Toast.Show(AppResources.GameList_Unsupport);
                     break;
             }
         }

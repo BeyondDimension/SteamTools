@@ -147,11 +147,20 @@
   <data name="Achievement_Description" xml:space="preserve">
     <value>描述</value>
   </data>
+  <data name="Achievement_EditSucces" xml:space="preserve">
+    <value>修改了 {0} 个成就和 {1} 条统计信息</value>
+  </data>
   <data name="Achievement_Icon" xml:space="preserve">
     <value>图标</value>
   </data>
   <data name="Achievement_IsProtection" xml:space="preserve">
     <value>受保护</value>
+  </data>
+  <data name="Achievement_LoadData" xml:space="preserve">
+    <value>加载成就和统计数据...</value>
+  </data>
+  <data name="Achievement_LoadSucces" xml:space="preserve">
+    <value>获取到 {0} 个成就和 {1} 条统计信息</value>
   </data>
   <data name="Achievement_Manage" xml:space="preserve">
     <value>管理成就</value>
@@ -165,6 +174,19 @@
   <data name="Achievement_ResetTip" xml:space="preserve">
     <value>复位成就和统计</value>
   </data>
+  <data name="Achievement_ResetWaring_1" xml:space="preserve">
+    <value>确定要复位统计信息吗?</value>
+  </data>
+  <data name="Achievement_ResetWaring_2" xml:space="preserve">
+    <value>也想要复位成就信息吗?</value>
+  </data>
+  <data name="Achievement_ResetWaring_3" xml:space="preserve">
+    <value>该操作不是还原当前修改，而是使所有成就和统计数据归零。
+真的确定吗?</value>
+  </data>
+  <data name="Achievement_RiskWarning" xml:space="preserve">
+    <value>【风险提示】解锁成就可能会被游戏开发者视为作弊，并且会被成就统计网站封锁。若决定继续使用，请自行承担解锁成就带来的风险和后果。</value>
+  </data>
   <data name="Achievement_StatsEdit" xml:space="preserve">
     <value>统计修改</value>
   </data>
@@ -176,6 +198,19 @@
   </data>
   <data name="Achievement_Unlock" xml:space="preserve">
     <value>成就解锁</value>
+  </data>
+  <data name="Achievement_Warning_1" xml:space="preserve">
+    <value>与Steam建立连接失败，可能是该游戏没有成就，或者你没有该游戏。</value>
+  </data>
+  <data name="Achievement_Warning_2" xml:space="preserve">
+    <value>错误代码: {0}
+检索成就统计信息时出错，可能是该游戏没有成就，或者你没有该游戏。</value>
+  </data>
+  <data name="Achievement_Warning_3" xml:space="preserve">
+    <value>修改成就{0}时发生错误</value>
+  </data>
+  <data name="Achievement_Warning_4" xml:space="preserve">
+    <value>修改统计{0}时发生错误</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>新增</value>
@@ -363,6 +398,12 @@
   </data>
   <data name="GameList_SetCustomImage" xml:space="preserve">
     <value>设置自定义封面</value>
+  </data>
+  <data name="GameList_SteamNotRuning" xml:space="preserve">
+    <value>Steam未启动</value>
+  </data>
+  <data name="GameList_Unsupport" xml:space="preserve">
+    <value>不支持的操作</value>
   </data>
   <data name="GameRelated" xml:space="preserve">
     <value>游戏功能</value>
