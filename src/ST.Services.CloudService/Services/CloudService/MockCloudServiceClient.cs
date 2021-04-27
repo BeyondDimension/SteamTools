@@ -172,7 +172,7 @@ namespace System.Application.Services.CloudService
             return ApiResponse.Ok();
         }
 
-		public async Task<IApiResponse<ScriptResponse>> Basics()
+		public async Task<IApiResponse<ScriptResponse>> Basics( string? msg = null)
         {
             await Task.Delay(1500);
             return ApiResponse.Ok(new ScriptResponse { 
@@ -180,13 +180,13 @@ namespace System.Application.Services.CloudService
             });
         }
 
-		public async Task<IApiResponse<PagedModel<ScriptDTO>>> ScriptTable(string? name = null, int pageIndex = 1, int pageSize = 15)
+		public async Task<IApiResponse<PagedModel<ScriptDTO>>> ScriptTable(string? name = null, int pageIndex = 1, int pageSize = 15,string? msg=null)
 		{
             await Task.Delay(1500);
             return ApiResponse.Ok(new PagedModel<ScriptDTO> { });
         }
 
-		public async Task<IApiResponse<IList<ScriptResponse>>> ScriptUpdateInfo(IEnumerable<Guid> ids)
+		public async Task<IApiResponse<IList<ScriptResponse>>> ScriptUpdateInfo(IEnumerable<Guid> ids, string? msg = null)
         {
             await Task.Delay(1500);
             return ApiResponse.Ok(new List<ScriptResponse> { });
