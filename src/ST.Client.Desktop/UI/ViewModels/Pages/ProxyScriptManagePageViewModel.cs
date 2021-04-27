@@ -82,8 +82,7 @@ namespace System.Application.UI.ViewModels
 				   new MenuItemViewModel (),
 				   (ScriptAutoUpdate=new MenuItemViewModel (nameof(AppResources.Script_AutoUpdate))
 				   {Command=EnableScriptAutoUpdateCommand }),
-				(OnlySteamBrowser = new MenuItemViewModel (nameof(AppResources.CommunityFix_OnlySteamBrowser)){ Command=OnlySteamBrowserCommand}),
-						new MenuItemViewModel (),
+				(OnlySteamBrowser = new MenuItemViewModel (nameof(AppResources.CommunityFix_OnlySteamBrowser)){ Command=OnlySteamBrowserCommand})
 			};
 
 			var scriptFilter = this.WhenAnyValue(x => x.SearchText).Select(ScriptFilter);
