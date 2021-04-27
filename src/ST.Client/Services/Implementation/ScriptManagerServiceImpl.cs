@@ -68,7 +68,7 @@ namespace System.Application.Services.Implementation
 							if (saveInfo.Exists)
 								saveInfo.Delete();
 							fileInfo.CopyTo(savePath);
-							if (oldInfo != null)
+							if (oldInfo != null && oldInfo.LocalId > 0)
 							{
 								info.LocalId = oldInfo.LocalId;
 								info.Id = oldInfo.Id;
@@ -260,7 +260,7 @@ namespace System.Application.Services.Implementation
 				var infoFile = new FileInfo(infoPath);
 				if (infoFile.Exists)
 				{
-					if (await BuildScriptAsync(item,item.IsBuild))
+					if (await BuildScriptAsync(item, item.IsBuild))
 					{
 						cachePath = Path.Combine(IOPath.CacheDirectory, item.CachePath);
 						fileInfo = new FileInfo(cachePath);
