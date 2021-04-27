@@ -170,7 +170,7 @@ namespace System.Application.Services
 				}
 			}
 		}
-		#endregion 
+		#endregion
 		public async void Initialize()
 		{
 			#region 加载代理服务数据
@@ -342,7 +342,7 @@ namespace System.Application.Services
 			var jspath = await DI.Get<IScriptManagerService>().DownloadScript(model.UpdateLink);
 			if (jspath.state)
 			{
-				var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path,model, build: true, order: 10, deleteFile: true, pid: model.Id);
+				var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, model, build: true, order: 10, deleteFile: true, pid: model.Id);
 				if (build.state)
 				{
 					if (build.model != null)
@@ -357,6 +357,10 @@ namespace System.Application.Services
 						{
 							Current.ProxyScripts.Add(build.model);
 						}
+						model.IsUpdate = false;
+						model.UpdateLink = build.model.UpdateLink;
+						model.Version = build.model.Version;
+						model.Name = build.model.Name;
 						RefreshScript();
 						Toast.Show(AppResources.Download_ScriptOk);
 					}
@@ -377,7 +381,7 @@ namespace System.Application.Services
 				foreach (var item in Current.ProxyScripts.Items)//response.Content)
 				{
 					var newItem = response.Content.FirstOrDefault(x => x.Id == item.Id);
-					if (newItem!=null&&item.Version != newItem.Version)
+					if (newItem != null && item.Version != newItem.Version)
 					{
 						item.NewVersion = newItem.Version;
 						item.UpdateLink = newItem.UpdateLink;

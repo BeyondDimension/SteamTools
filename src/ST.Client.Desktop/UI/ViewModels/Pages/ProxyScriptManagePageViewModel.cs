@@ -58,6 +58,8 @@ namespace System.Application.UI.ViewModels
 
 		public MenuItemViewModel? ScriptAutoUpdate { get; }
 
+		public ReactiveCommand<Unit, Unit> OnlySteamBrowserCommand { get; }
+		public MenuItemViewModel OnlySteamBrowser { get; }
 		public ProxyScriptManagePageViewModel()
 		{
 			IconKey = nameof(ProxyScriptManagePageViewModel).Replace("ViewModel", "Svg");
@@ -67,7 +69,10 @@ namespace System.Application.UI.ViewModels
 			{
 				ScriptAutoUpdate?.CheckmarkChange(ProxySettings.IsAutoCheckScriptUpdate.Value = !ProxySettings.IsAutoCheckScriptUpdate.Value);
 			});
-
+			OnlySteamBrowserCommand = ReactiveCommand.Create(() =>
+			{
+				OnlySteamBrowser?.CheckmarkChange(ProxySettings.IsOnlyWorkSteamBrowser.Value = !ProxySettings.IsOnlyWorkSteamBrowser.Value);
+			});
 			MenuItems = new ObservableCollection<MenuItemViewModel>()
 			{
 				   new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)),
@@ -76,6 +81,8 @@ namespace System.Application.UI.ViewModels
 				   new MenuItemViewModel (),
 				   (ScriptAutoUpdate=new MenuItemViewModel (nameof(AppResources.Script_AutoUpdate))
 				   {Command=EnableScriptAutoUpdateCommand }),
+				(OnlySteamBrowser = new MenuItemViewModel (nameof(AppResources.CommunityFix_OnlySteamBrowser)){ Command=OnlySteamBrowserCommand}),
+						new MenuItemViewModel (),
 			};
 
 			var scriptFilter = this.WhenAnyValue(x => x.SearchText).Select(ScriptFilter);

@@ -25,11 +25,9 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> DeleteCertificateCommand { get; }
         public ReactiveCommand<Unit, Unit> EditHostsFileCommand { get; }
         public ReactiveCommand<Unit, Unit> AutoRunProxyCommand { get; }
-        public ReactiveCommand<Unit, Unit> OnlySteamBrowserCommand { get; }
         public ReactiveCommand<Unit, Unit> EnableProxyScriptCommand { get; }
 
         public MenuItemViewModel AutoRunProxy { get; }
-        public MenuItemViewModel OnlySteamBrowser { get; }
         public MenuItemViewModel EnableProxyScript { get; }
 
 
@@ -44,10 +42,7 @@ namespace System.Application.UI.ViewModels
             {
                 AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value = !ProxySettings.ProgramStartupRunProxy.Value);
             });
-            OnlySteamBrowserCommand = ReactiveCommand.Create(() =>
-            {
-                OnlySteamBrowser?.CheckmarkChange(ProxySettings.IsOnlyWorkSteamBrowser.Value = !ProxySettings.IsOnlyWorkSteamBrowser.Value);
-            });
+          
             EnableProxyScriptCommand = ReactiveCommand.Create(() =>
             {
                 EnableProxyScript?.CheckmarkChange(ProxySettings.IsEnableScript.Value = !ProxySettings.IsEnableScript.Value);
@@ -60,8 +55,7 @@ namespace System.Application.UI.ViewModels
                 //    Items = new[]
                 //    {
                         (AutoRunProxy = new MenuItemViewModel (nameof(AppResources.CommunityFix_AutoRunProxy)){ Command=AutoRunProxyCommand }),
-                        (OnlySteamBrowser = new MenuItemViewModel (nameof(AppResources.CommunityFix_OnlySteamBrowser)){ Command=OnlySteamBrowserCommand}),
-                        new MenuItemViewModel (),
+                    
                         (EnableProxyScript = new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)){ Command=EnableProxyScriptCommand }),
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)){ Command=EditHostsFileCommand ,IconKey="JavaScriptDrawing" },
                         new MenuItemViewModel (),
