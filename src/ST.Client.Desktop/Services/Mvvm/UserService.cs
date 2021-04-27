@@ -54,6 +54,7 @@ namespace System.Application.Services
 
         static string GetAvaterPath(UserInfoDTO? user)
         {
+            string? value = null;
             if (user is UserInfoDTO userInfo && userInfo.SteamAccountId.HasValue)
             {
                 // Steam Avatar
@@ -62,9 +63,9 @@ namespace System.Application.Services
             if (user is IUserDTO user2 && user2.Avatar.HasValue)
             {
                 // Guid Avatar
-                return ImageUrlHelper.GetImageApiUrlById(user2.Avatar.Value);
+                value = ImageUrlHelper.GetImageApiUrlById(user2.Avatar.Value);
             }
-            return DefaultAvaterPath;
+            return value ?? DefaultAvaterPath;
         }
 
         const string DefaultAvaterPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater_default.png";
