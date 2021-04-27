@@ -133,12 +133,14 @@ namespace System.Application.UI
             windowService.Init();
 
             SettingsHost.Load();
+#if !UI_DEMO
             if (GeneralSettings.IsStartupAppMinimized.Value)
             {
                 Program.IsMinimize = true;
                 if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
                     desktop.MainWindow = null;
             }
+#endif
             Theme = (AppTheme)UISettings.Theme.Value;
             UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));

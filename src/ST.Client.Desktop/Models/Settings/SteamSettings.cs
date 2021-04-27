@@ -20,7 +20,7 @@ namespace System.Application.Models.Settings
             if (e.NewValue)
                 SteamStratParameter.Value += " -noverifyfiles";
             else
-                SteamStratParameter.Value = SteamStratParameter.Value.Replace("-silent", "").Trim();
+                SteamStratParameter.Value = SteamStratParameter.Value.Replace("-noverifyfiles", "").Trim();
         }
 
         private static void IsRunSteamMinimized_ValueChanged(object sender, ValueChangedEventArgs<bool> e)

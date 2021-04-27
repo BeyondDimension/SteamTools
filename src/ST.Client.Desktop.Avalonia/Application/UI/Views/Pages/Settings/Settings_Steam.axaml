@@ -37,12 +37,12 @@
 
             <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_RuningMinimize,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsAutoRunSteam},Path=Value, Mode=TwoWay}"/>
+                <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsRunSteamMinimized},Path=Value, Mode=TwoWay}"/>
             </DockPanel>
 
             <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_NotCheckUpdate,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsAutoRunSteam},Path=Value, Mode=TwoWay}"/>
+                <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsRunSteamNoCheckUpdate},Path=Value, Mode=TwoWay}"/>
             </DockPanel>
 
             <Separator Classes="Separator"/>
