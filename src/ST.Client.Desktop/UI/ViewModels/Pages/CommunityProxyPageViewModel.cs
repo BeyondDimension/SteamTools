@@ -28,7 +28,7 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> EnableProxyScriptCommand { get; }
 
         public MenuItemViewModel AutoRunProxy { get; }
-        public MenuItemViewModel EnableProxyScript { get; }
+        //public MenuItemViewModel EnableProxyScript { get; }
 
 
         public CommunityProxyPageViewModel()
@@ -42,11 +42,11 @@ namespace System.Application.UI.ViewModels
             {
                 AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value = !ProxySettings.ProgramStartupRunProxy.Value);
             });
-          
-            EnableProxyScriptCommand = ReactiveCommand.Create(() =>
-            {
-                EnableProxyScript?.CheckmarkChange(ProxySettings.IsEnableScript.Value = !ProxySettings.IsEnableScript.Value);
-            });
+
+            //EnableProxyScriptCommand = ReactiveCommand.Create(() =>
+            //{
+            //    EnableProxyScript?.CheckmarkChange(ProxySettings.IsEnableScript.Value = !ProxySettings.IsEnableScript.Value);
+            //});
 
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
@@ -55,8 +55,8 @@ namespace System.Application.UI.ViewModels
                 //    Items = new[]
                 //    {
                         (AutoRunProxy = new MenuItemViewModel (nameof(AppResources.CommunityFix_AutoRunProxy)){ Command=AutoRunProxyCommand }),
-                    
-                        (EnableProxyScript = new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)){ Command=EnableProxyScriptCommand }),
+
+                        //(EnableProxyScript = new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)){ Command=EnableProxyScriptCommand }),
                         //new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)){ Command=EditHostsFileCommand ,IconKey="JavaScriptDrawing" },
                         new MenuItemViewModel (),
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_CertificateSettings))
@@ -74,10 +74,14 @@ namespace System.Application.UI.ViewModels
         }
 
 
-        //internal async override Task Initialize()
-        //{
-
-        //}
+        internal async override void Initialize()
+        {
+            if (ProxySettings.ProgramStartupRunProxy.Value)
+            {
+                ProxyService.Current.ProxyStatus = true;
+            }
+            await Task.CompletedTask;
+        }
 
 
         public void StartProxyButton_Click(bool start)

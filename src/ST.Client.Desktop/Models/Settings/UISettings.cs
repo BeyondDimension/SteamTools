@@ -57,6 +57,12 @@ namespace System.Application.Models.Settings
         public static SerializableProperty<int> ThemeAccent { get; }
             = new SerializableProperty<int>(GetKey(), Providers.Local, 0) { AutoSave = true };
 
+        /// <summary>
+        /// 库存游戏封面大小
+        /// </summary>
+        public static SerializableProperty<int> AppGridSize { get; }
+            = new SerializableProperty<int>(GetKey(), Providers.Local, 200) { AutoSave = true };
+
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
             return nameof(UISettings) + "." + propertyName;

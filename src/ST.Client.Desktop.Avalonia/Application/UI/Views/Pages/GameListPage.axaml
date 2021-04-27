@@ -6,6 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
              xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              xmlns:gif="clr-namespace:AvaloniaGif;assembly=AvaloniaGif"
@@ -87,6 +88,13 @@
                                 ToolTip.Tip="添加未拥有的游戏">
                             <PathIcon Data="{StaticResource AddDrawing}" />
                         </Button>-->
+                    <Button x:Name="gridSize" Background="Transparent"
+                            Cursor="Hand"
+                            Command="{ReflectionBinding AppGridReSize}"
+                            ToolTip.Tip="{ReflectionBinding Path=Res.GameList_ResizeAppLogo,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                        <PathIcon Data="{StaticResource GridDrawing}" />
+                    </Button>
+                    
                     <Button Background="Transparent"
                             Command="{ReflectionBinding RefreshGamesList,Source={x:Static service:SteamConnectService.Current},Mode=OneWay}"
                             Cursor="Hand"
@@ -252,7 +260,7 @@
                                                       CommandParameter="{Binding}" />
                                         </ContextMenu>
                                     </Border.ContextMenu>
-                                    <Panel x:Name="app" Width="200" Height="300">
+                                    <Panel x:Name="app" Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">
                                         <!--<i:Interaction.Behaviors>
                                             <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #app}">
                                                 <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.AppClick}" CommandParameter="{Binding}"/>
@@ -260,7 +268,7 @@
                                         </i:Interaction.Behaviors>-->
                                         <gif:Image2 x:Name="library"
                                                             Stretch="UniformToFill"
-                                                            DecodeWidth="200"
+                                                            DecodeWidth="{ReflectionBinding $parent.Width}"
                                                             Source="{Binding LibraryLogoStream^}">
                                             <!--<i:Interaction.Behaviors>
                                                 <ia:DataTriggerBehavior Binding="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}" ComparisonCondition="Equal" Value="True">
@@ -271,8 +279,7 @@
                                                 </ia:DataTriggerBehavior>
                                             </i:Interaction.Behaviors>-->
                                         </gif:Image2>
-                                        <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png" Stretch="UniformToFill"
-                                               IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}">
+                                        <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png" Stretch="UniformToFill" IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}">
                                         </Image>
                                         <TextBlock
                                             Text="{Binding DisplayName}"

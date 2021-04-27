@@ -900,6 +900,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 调整封面大小 的本地化字符串。
+        /// </summary>
+        public static string GameList_ResizeAppLogo {
+            get {
+                return ResourceManager.GetString("GameList_ResizeAppLogo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 设置自定义封面 的本地化字符串。
         /// </summary>
         public static string GameList_SetCustomImage {

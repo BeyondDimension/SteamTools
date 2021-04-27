@@ -399,6 +399,9 @@
   <data name="GameList_RefreshGamesListSucess" xml:space="preserve">
     <value>刷新游戏列表完成</value>
   </data>
+  <data name="GameList_ResizeAppLogo" xml:space="preserve">
+    <value>调整封面大小</value>
+  </data>
   <data name="GameList_SetCustomImage" xml:space="preserve">
     <value>设置自定义封面</value>
   </data>

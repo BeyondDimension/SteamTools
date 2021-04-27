@@ -13,7 +13,7 @@ namespace System.Application.Services
 
         readonly IUserManager userManager = DI.Get<IUserManager>();
 
-        public async void ShowWindow(CustomWindow windowName)
+        public async void ShowWindow(CustomWindow windowName, bool isDialog = false)
         {
             switch (windowName)
             {
@@ -25,7 +25,7 @@ namespace System.Application.Services
             var vmType = Type.GetType($"System.Application.UI.ViewModels.{windowName}WindowViewModel");
             if (vmType != null && typeof(WindowViewModel).IsAssignableFrom(vmType))
             {
-                await IShowWindowService.Instance.Show(vmType, windowName);
+                await IShowWindowService.Instance.ShowDialog(vmType, windowName);
             }
         }
 

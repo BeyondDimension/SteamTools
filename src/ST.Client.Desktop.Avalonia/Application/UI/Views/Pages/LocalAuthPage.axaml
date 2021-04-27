@@ -18,10 +18,11 @@
            Text="{ReflectionBinding Path=Res.LocalAuth_NoAuthTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
            TextWrapping="WrapWithOverflow"
            VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-        <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="{StaticResource PageMargin}">
             <ItemsRepeater Items="{Binding Authenticators,Mode=OneWay}">
                 <ItemsRepeater.Layout>
-                    <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20"  MaximumRowsOrColumns="8" />
+                    <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20"  MaximumRowsOrColumns="8" />-->
+                    <WrapLayout HorizontalSpacing="30" VerticalSpacing="30" Orientation="Horizontal"></WrapLayout>
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>

@@ -54,5 +54,14 @@ namespace System.Application.Services
             ResizeModeCompat resizeMode = ResizeModeCompat.NoResize,
             bool isDialog = true)
             where TWindowViewModel : WindowViewModel, new();
+
+
+        /// <inheritdoc cref="ShowDialog{TWindowViewModel}(CustomWindow, TWindowViewModel?, string, ResizeModeCompat, bool)"/>
+        Task ShowDialog(Type typeWindowViewModel,
+            CustomWindow customWindow,
+            WindowViewModel? viewModel = null,
+            string title = "",
+            ResizeModeCompat resizeMode = ResizeModeCompat.NoResize,
+            bool isDialog = true);
     }
 }

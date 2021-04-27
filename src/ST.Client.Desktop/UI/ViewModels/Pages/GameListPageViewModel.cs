@@ -17,6 +17,7 @@ using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Properties;
+using System.Application.Models.Settings;
 
 namespace System.Application.UI.ViewModels
 {
@@ -73,7 +74,6 @@ namespace System.Application.UI.ViewModels
                 return true;
             };
         }
-
 
         public GameListPageViewModel()
         {
@@ -299,6 +299,15 @@ namespace System.Application.UI.ViewModels
                     Toast.Show(AppResources.GameList_Unsupport);
                     break;
             }
+        }
+
+        public void AppGridReSize()
+        {
+            var back = SteamConnectService.Current.SteamApps.Items;
+            SteamConnectService.Current.SteamApps.Clear();
+            UISettings.AppGridSize.Value = UISettings.AppGridSize.Value == 200 ? 150 : 200;
+            SteamConnectService.Current.SteamApps.AddOrUpdate(back);
+            //SteamConnectService.Current.RefreshGamesList();
         }
     }
 }

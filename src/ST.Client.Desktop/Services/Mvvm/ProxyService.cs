@@ -39,12 +39,14 @@ namespace System.Application.Services
                 }
             }
         }
+
         bool _IsLoading = false;
         public bool IsLoading
         {
             get => _IsLoading;
             set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
         }
+
         private AccelerateProjectGroupDTO? _SelectGroup;
         public AccelerateProjectGroupDTO? SelectGroup
         {

@@ -76,7 +76,7 @@ namespace System.Application.UI.ViewModels
 			});
 			MenuItems = new ObservableCollection<MenuItemViewModel>()
 			{
-				   new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)),
+				   //new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)),
 				   new MenuItemViewModel (nameof(AppResources.ScriptStore)){
 					   IconKey ="JavaScriptDrawing",Command=ScriptStoreCommand},
 				   new MenuItemViewModel (),

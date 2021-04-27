@@ -134,5 +134,13 @@ namespace System.Application.Services.Implementation
             });
             return dialogWindowViewModel?.DialogResult ?? false;
         }
+
+        public Task ShowDialog(Type typeWindowViewModel,
+                CustomWindow customWindow,
+                WindowViewModel? viewModel = null,
+                string title = "",
+                ResizeModeCompat resizeMode = ResizeModeCompat.NoResize,
+                bool isDialog = true) => Show(typeWindowViewModel, isDialog, customWindow,
+            title, viewModel, resizeMode);
     }
 }
