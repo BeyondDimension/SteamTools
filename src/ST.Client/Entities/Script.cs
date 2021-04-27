@@ -143,6 +143,13 @@ namespace System.Application.Entities
         [Column("58FF2FF5")]
         public DateTime CreationTime { get; set; } = DateTime.Now;
 
+        /// <summary>
+        /// 哈希值（MD5）
+        /// </summary> 
+        [Column("8B9C94E5")]
+        public bool IsBuild { get; set; } = true;
+        
+
 
     }
 }

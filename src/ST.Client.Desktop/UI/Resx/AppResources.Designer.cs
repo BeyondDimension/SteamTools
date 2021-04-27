@@ -1729,6 +1729,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 处理导入脚本中 的本地化字符串。
+        /// </summary>
+        public static string Script_ImportLoading {
+            get {
+                return ResourceManager.GetString("Script_ImportLoading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 安装脚本 的本地化字符串。
         /// </summary>
         public static string Script_Install {

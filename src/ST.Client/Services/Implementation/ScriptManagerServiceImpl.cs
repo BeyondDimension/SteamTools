@@ -88,6 +88,8 @@ namespace System.Application.Services.Implementation
 								db.SHA512 = sha512;
 								if (order.HasValue)
 									db.Order = order.Value;
+								else
+									db.Order = 10;
 								try
 								{
 									if (deleteFile)

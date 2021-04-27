@@ -216,7 +216,7 @@ namespace System
         public static bool IsWildcard(this string str, string pattern)
             => Regex.IsMatch(str, "^" + Regex.Escape(pattern)
                 .Replace("\\*", ".*")
-                .Replace("\\?", ".") + "$");
+                .Replace("\\?", ".") + "$", RegexOptions.Compiled);
 
         #region Compressor
 

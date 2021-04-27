@@ -10,6 +10,7 @@ using System.Properties;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Titanium.Web.Proxy;
 using Titanium.Web.Proxy.EventArguments;
@@ -182,7 +183,12 @@ namespace System.Application.Services.Implementation
                                 }
                                 foreach (var host in script.MatchDomainNamesArray)
                                 {
-                                    if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
+                                    var state = host.IndexOf("/") == 0;
+                                    if (state)
+                                        state = Regex.IsMatch(e.HttpClient.Request.RequestUri.AbsoluteUri, host.Substring(1),RegexOptions.Compiled);
+                                    else
+                                        state = e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host);
+                                    if (state)
                                     {
                                         var t = e.HttpClient.Response.Headers.GetFirstHeader("Content-Security-Policy");
                                         if (!string.IsNullOrEmpty(t?.Value))
@@ -191,6 +197,8 @@ namespace System.Application.Services.Implementation
                                         }
                                         var doc = await e.GetResponseBodyAsString();
                                         var index = doc.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
+                                        if(index==-1)
+                                            index = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
                                         if (script.JsPathUrl == null)
                                             script.JsPathUrl = $"/{Guid.NewGuid()}";
                                         var temp = $"<script type=\"text/javascript\" src=\"https://local.steampp.net{script.JsPathUrl}\"></script>";

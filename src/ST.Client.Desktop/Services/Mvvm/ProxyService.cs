@@ -39,7 +39,12 @@ namespace System.Application.Services
 				}
 			}
 		}
-
+		bool _IsLoading = false;
+		public bool IsLoading
+		{
+			get => _IsLoading;
+			set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
+		}
 		private AccelerateProjectGroupDTO? _SelectGroup;
 		public AccelerateProjectGroupDTO? SelectGroup
 		{
@@ -318,8 +323,9 @@ namespace System.Application.Services
 			httpProxyService.Dispose();
 		}
 
-		public async void AddNewScript(string filename)
+		public async Task AddNewScript(string filename)
 		{
+			IsLoading = true;
 			var item = await DI.Get<IScriptManagerService>().AddScriptAsync(filename).ConfigureAwait(true);
 			if (item.state)
 			{
@@ -327,6 +333,7 @@ namespace System.Application.Services
 				if (item.model != null)
 					ProxyScripts.Add(item.model);
 			}
+			IsLoading = false;
 			Toast.Show(item.msg);
 		}
 		public async void RefreshScript()

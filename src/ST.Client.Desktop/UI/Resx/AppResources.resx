@@ -690,6 +690,9 @@
   <data name="Script_Home" xml:space="preserve">
     <value>脚本主页</value>
   </data>
+  <data name="Script_ImportLoading" xml:space="preserve">
+    <value>处理导入脚本中</value>
+  </data>
   <data name="Script_Install" xml:space="preserve">
     <value>安装脚本</value>
   </data>

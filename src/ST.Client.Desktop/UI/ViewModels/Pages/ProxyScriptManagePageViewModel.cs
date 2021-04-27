@@ -32,6 +32,7 @@ namespace System.Application.UI.ViewModels
 			base.Activation();
 		}
 
+	
 		private readonly ReadOnlyObservableCollection<ScriptDTO> _ProxyScripts;
 		public ReadOnlyObservableCollection<ScriptDTO> ProxyScripts => _ProxyScripts;
 
@@ -93,7 +94,7 @@ namespace System.Application.UI.ViewModels
 				.ObserveOn(RxApp.MainThreadScheduler)
 				.Sort(SortExpressionComparer<ScriptDTO>.Ascending(x => x.Order).ThenBy(x => x.Name))
 				.Bind(out _ProxyScripts)
-				.Subscribe(_ => this.RaisePropertyChanged(nameof(IsProxyScriptsEmpty)));
+				.Subscribe(_ => this.RaisePropertyChanged(nameof(IsProxyScriptsEmpty))); 
 
 		}
 
