@@ -453,7 +453,7 @@ namespace System.Application.Models
                     data.Add("access_token", state.OAuthToken);
                     response = Request(WEBAPI_BASE + "/ISteamWebUserPresenceOAuth/Logon/v0001", "POST", data);
 
-                    var sessionid = cookies.GetCookies(new Uri(COMMUNITY_BASE + "/"))["sessionid"].Value;
+                    var sessionid = cookies.GetCookies(new Uri(COMMUNITY_BASE + "/"))?["sessionid"]?.Value;
 
                     if (state.RequiresActivation == false)
                     {

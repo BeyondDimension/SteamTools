@@ -38,16 +38,7 @@ namespace System.Application.Services
         /// </summary>
         AppVersionDTO? NewVersionInfo { get; }
 
-        string NewVersionInfoDesc
-        {
-            get
-            {
-                var value = NewVersionInfo?.Description;
-                if (string.IsNullOrWhiteSpace(value)) return string.Empty;
-                var lines = value.Split(';', StringSplitOptions.RemoveEmptyEntries);
-                return string.Join(Environment.NewLine, lines);
-            }
-        }
+        string NewVersionInfoDesc { get; }
 
         /// <summary>
         /// 检查更新，返回新版本信息

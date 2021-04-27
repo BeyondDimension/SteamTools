@@ -56,7 +56,27 @@ namespace System.Application.Services.Implementation
 
         public bool IsExistUpdate { get; protected set; }
 
-        public AppVersionDTO? NewVersionInfo { get; protected set; }
+        AppVersionDTO? _NewVersionInfo;
+        public AppVersionDTO? NewVersionInfo
+        {
+            get => _NewVersionInfo;
+            protected set
+            {
+                _NewVersionInfo = value;
+                this.RaisePropertyChanged(nameof(NewVersionInfoDesc));
+            }
+        }
+
+        public string NewVersionInfoDesc
+        {
+            get
+            {
+                var value = NewVersionInfo?.Description;
+                if (string.IsNullOrWhiteSpace(value)) return string.Empty;
+                var lines = value.Split(';', StringSplitOptions.RemoveEmptyEntries);
+                return string.Join(Environment.NewLine, lines);
+            }
+        }
 
         /// <summary>
         /// 当存在新的版本时，重写此方法实现弹窗提示用户
@@ -147,7 +167,7 @@ namespace System.Application.Services.Implementation
             }
             else if (clear)
             {
-                var files = Directory.GetFiles("*" + FileExDownloadCache);
+                var files = Directory.GetFiles(dirPath, "*" + FileExDownloadCache);
                 foreach (var item in files)
                 {
                     IOPath.FileTryDelete(item);

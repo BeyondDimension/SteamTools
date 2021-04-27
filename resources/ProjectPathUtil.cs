@@ -21,6 +21,9 @@ namespace System
         public const string DirPublish =
             @"\src\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish";
 
+        public const string DirPublish_ =
+            @"\src\" + ProjectDir_AvaloniaApp + @"\bin\{0}\Publish";
+
         public const string DirPublish_Win7Troubleshoot =
             @"\src\" + ProjectDir_Win7Troubleshoot + @"\bin\Release\Publish\net35";
 

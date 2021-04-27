@@ -91,6 +91,6 @@ namespace System.Application.Models
             }
         }
 
-        public static string GetRequestUri(string fileId) => $"{Prefix_HTTPS}steampp.net/uploads/publish/files/{fileId}.{FileEx.BIN}";
+        public static string GetRequestUri(string fileId) => $"{Prefix_HTTPS}steampp.net/uploads/publish/files/{fileId}{FileEx.BIN}";
     }
 }

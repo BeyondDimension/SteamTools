@@ -1225,14 +1225,14 @@ namespace WinAuth
         protected byte[]? Request(string url, string method, NameValueCollection? data, NameValueCollection? headers)
         {
             byte[]? responsedata;
-            try
-            {
-                responsedata = Request(url, method, data, headers, true);
-            }
-            catch (Exception e)
-            {
-                Log.Error(nameof(WinAuthSteamClient), e, "Forward Request Fail.");
-            }
+            //try
+            //{
+            //    responsedata = Request(url, method, data, headers, true);
+            //}
+            //catch (Exception e)
+            //{
+            //    Log.Error(nameof(WinAuthSteamClient), e, "Forward Request Fail.");
+            //}
 
             responsedata = Request(url, method, data, headers, false);
 
