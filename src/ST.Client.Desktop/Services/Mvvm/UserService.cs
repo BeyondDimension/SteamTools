@@ -29,9 +29,20 @@ namespace System.Application.Services
             }
         }
 
-        public async void SignOut()
+        public void SignOut()
+        {
+            SignOutApi();
+            SignOutUserManager();
+        }
+
+        public async void SignOutUserManager()
         {
             await userManager.SignOutAsync();
+        }
+
+        public async void SignOutApi()
+        {
+            await ICloudServiceClient.Instance.Manage.SignOut();
         }
 
         UserInfoDTO? _User;

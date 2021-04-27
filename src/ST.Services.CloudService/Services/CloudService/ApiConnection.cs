@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Application.Columns;
 using System.Application.Models;
+using System.Application.Models.Internals;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -53,23 +54,43 @@ namespace System.Application.Services.CloudService
         }
 
         /// <summary>
-        /// 根据异常获取响应码
+        /// 根据异常获取响应
         /// </summary>
         /// <param name="ex"></param>
+        /// <param name="requestUri"></param>
         /// <returns></returns>
-        ApiResponseCode GetCodeByException(Exception ex)
+        (ApiResponseCode code, string? msg) GetRspByExceptionWithLog(Exception ex, string requestUri)
         {
-            logger.LogError(ex, nameof(GetCodeByException));
             if (ex is ApiResponseCodeException apiResponseCodeException)
             {
-                return apiResponseCodeException.Code;
+                return (apiResponseCodeException.Code, null);
             }
             var isCanceled = ex.IsCanceledException();
             if (isCanceled)
             {
-                return ApiResponseCode.Canceled;
+                return (ApiResponseCode.Canceled, null);
             }
-            return ApiResponseCode.ClientException;
+            var code = ApiResponseCode.ClientException;
+            logger.LogError(ex,
+                $"ApiConn Fail({(int)code})，Url：{requestUri}");
+            var exMsg = ex.GetAllMessage();
+            return (code, ApiResponse.GetMessage(code, exMsg));
+        }
+
+        /// <summary>
+        /// 根据异常获取响应并写入日志
+        /// </summary>
+        /// <typeparam name="TApiResponse"></typeparam>
+        /// <param name="ex"></param>
+        /// <param name="requestUri"></param>
+        /// <param name="new"></param>
+        /// <returns></returns>
+        TApiResponse GetRspByExceptionWithLog<TApiResponse>(Exception ex, string requestUri, Func<ApiResponseCode, string?, TApiResponse> @new)
+        {
+            (var code, var msg) = GetRspByExceptionWithLog(ex, requestUri);
+            var rsp = @new(code, msg);
+            if (rsp is ApiResponseImplBase rspImpl) rspImpl.ClientException = ex;
+            return rsp;
         }
 
         /// <summary>
@@ -269,6 +290,11 @@ namespace System.Application.Services.CloudService
                 {
                     await Unauthorized(method, requestUri);
                 }
+            }
+
+            if (response is ApiResponseImplBase rspImpl)
+            {
+                rspImpl.Url = requestUri;
             }
         }
 
@@ -595,14 +621,12 @@ namespace System.Application.Services.CloudService
                     if (!isApi && typeof(TResponseModel) == typeof(byte[]))
                     {
                         var bytes = await response.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
-                        responseResult = ApiResponse.Code(code,
-                            content: (TResponseModel)(object)bytes);
+                        responseResult = ApiResponse.Code(code, null, (TResponseModel)(object)bytes);
                     }
                     else if (!isApi && typeof(TResponseModel) == typeof(string))
                     {
                         var str = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-                        responseResult = ApiResponse.Code(code,
-                            content: (TResponseModel)(object)str);
+                        responseResult = ApiResponse.Code(code, null, (TResponseModel)(object)str);
                     }
                     else
                     {
@@ -653,8 +677,7 @@ namespace System.Application.Services.CloudService
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, nameof(ApiConnection));
-                responseResult = ApiResponse.Code<TResponseModel>(GetCodeByException(ex));
+                responseResult = GetRspByExceptionWithLog(ex, requestUri, ApiResponse.Code<TResponseModel>);
             }
             finally
             {
@@ -784,8 +807,7 @@ namespace System.Application.Services.CloudService
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, nameof(ApiConnection));
-                responseResult = ApiResponse.Code(GetCodeByException(ex));
+                responseResult = GetRspByExceptionWithLog(ex, requestUri, ApiResponse.Code);
             }
             await GlobalResponseIntercept(
                 method,

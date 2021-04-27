@@ -44,10 +44,22 @@ namespace System.Application.Models.Internals
         [SJSONIgnore]
         [NJSONIgnore]
         public bool IsSuccess => mIsSuccess;
+
+        [IgnoreDataMember]
+        [MPIgnore]
+        [SJSONIgnore]
+        [NJSONIgnore]
+        public Exception? ClientException { get; set; }
+
+        [IgnoreDataMember]
+        [MPIgnore]
+        [SJSONIgnore]
+        [NJSONIgnore]
+        public string? Url { get; set; }
     }
 
     [MPObject]
-    public class ApiResponseImpl<T> : ApiResponseImplBase, IApiResponse<T>
+    public sealed class ApiResponseImpl<T> : ApiResponseImplBase, IApiResponse<T>
     {
         [MPKey(LastMKeyIndex + 1)]
         [NJsonProperty("🦓")]
@@ -56,8 +68,9 @@ namespace System.Application.Models.Internals
     }
 
     [MPObject]
-    public class ApiResponseImpl : ApiResponseImplBase, IApiResponse<object>
+    public sealed class ApiResponseImpl : ApiResponseImplBase, IApiResponse<object>
     {
+        [IgnoreDataMember]
         [MPIgnore]
         [SJSONIgnore]
         [NJSONIgnore]

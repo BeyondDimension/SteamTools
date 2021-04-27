@@ -1,6 +1,4 @@
-﻿using MessagePack;
-using MessagePack.Formatters;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace System.Application.Models
 {

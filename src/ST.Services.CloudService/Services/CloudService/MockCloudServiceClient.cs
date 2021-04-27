@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace System.Application.Services.CloudService
 {
-    public sealed partial class MockCloudServiceClient : ICloudServiceClient, IAccountClient, IManageClient, IAuthMessageClient, IVersionClient, IActiveUserClient, IAccelerateClient,IScriptClient
+    public sealed partial class MockCloudServiceClient : ICloudServiceClient, IAccountClient, IManageClient, IAuthMessageClient, IVersionClient, IActiveUserClient, IAccelerateClient, IScriptClient
     {
         readonly IToast toast;
         readonly IModelValidator validator;
@@ -31,7 +31,7 @@ namespace System.Application.Services.CloudService
         public IActiveUserClient ActiveUser => this;
         public IAccelerateClient Accelerate => this;
 
-#region ModelValidator
+        #region ModelValidator
 
         IApiResponse? ModelValidator<TRequestModel>(TRequestModel requestModel) => ModelValidator<TRequestModel, object>(requestModel);
 
@@ -48,7 +48,7 @@ namespace System.Application.Services.CloudService
             return null;
         }
 
-#endregion
+        #endregion
 
         void ShowResponseErrorMessage(IApiResponse response)
         {
@@ -172,25 +172,32 @@ namespace System.Application.Services.CloudService
             return ApiResponse.Ok();
         }
 
-		public async Task<IApiResponse<ScriptResponse>> Basics( string? msg = null)
+        public async Task<IApiResponse<ScriptResponse>> Basics(string? msg = null)
         {
             await Task.Delay(1500);
-            return ApiResponse.Ok(new ScriptResponse { 
-             Version="00.1"
+            return ApiResponse.Ok(new ScriptResponse
+            {
+                Version = "00.1"
             });
         }
 
-		public async Task<IApiResponse<PagedModel<ScriptDTO>>> ScriptTable(string? name = null, int pageIndex = 1, int pageSize = 15,string? msg=null)
-		{
+        public async Task<IApiResponse<PagedModel<ScriptDTO>>> ScriptTable(string? name = null, int pageIndex = 1, int pageSize = 15, string? msg = null)
+        {
             await Task.Delay(1500);
             return ApiResponse.Ok(new PagedModel<ScriptDTO> { });
         }
 
-		public async Task<IApiResponse<IList<ScriptResponse>>> ScriptUpdateInfo(IEnumerable<Guid> ids, string? msg = null)
+        public async Task<IApiResponse<IList<ScriptResponse>>> ScriptUpdateInfo(IEnumerable<Guid> ids, string? msg = null)
         {
             await Task.Delay(1500);
             return ApiResponse.Ok(new List<ScriptResponse> { });
         }
-	}
+
+        public async Task<IApiResponse> SignOut()
+        {
+            await Task.Delay(1500);
+            return ApiResponse.Ok();
+        }
+    }
 }
 #endif

@@ -56,5 +56,12 @@ namespace System.Application.Services.CloudService.Clients
                 requestUri: "api/Manage/EditUserProfile",
                 request: request,
                 cancellationToken: default);
+
+        public Task<IApiResponse> SignOut()
+            => conn.SendAsync(
+                isAnonymous: false,
+                method: HttpMethod.Get,
+                requestUri: "api/Manage/SignOut",
+                cancellationToken: default);
     }
 }

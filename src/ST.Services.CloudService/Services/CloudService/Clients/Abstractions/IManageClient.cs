@@ -37,5 +37,11 @@ namespace System.Application.Services.CloudService.Clients.Abstractions
         /// <param name="request"></param>
         /// <returns></returns>
         Task<IApiResponse> EditUserProfile(EditUserProfileRequest request);
+
+        /// <summary>
+        /// 登出
+        /// </summary>
+        /// <returns></returns>
+        Task<IApiResponse> SignOut();
     }
 }

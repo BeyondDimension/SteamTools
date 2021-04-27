@@ -94,16 +94,20 @@ namespace System.Application.Models
 
         public static IApiResponse<T> Code<T>(
             ApiResponseCode code,
-            string? message = null,
-            T? content = default) => new ApiResponseImpl<T>
+            string? message,
+            T? content) => new ApiResponseImpl<T>
             {
                 Code = code,
                 Message = message,
                 Content = content,
             };
 
+        public static IApiResponse<T> Code<T>(
+            ApiResponseCode code,
+            string? message = null) => Code<T>(code, message, default);
+
         public static IApiResponse<T> Ok<T>(T? content = default)
-            => Code(ApiResponseCode.OK, content: content);
+            => Code(ApiResponseCode.OK, null, content);
 
         public static IApiResponse<T> Fail<T>(string? message = null)
             => Code<T>(ApiResponseCode.Fail, message);

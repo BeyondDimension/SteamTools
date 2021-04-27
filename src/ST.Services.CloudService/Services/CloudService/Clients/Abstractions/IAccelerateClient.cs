@@ -10,6 +10,7 @@ namespace System.Application.Services.CloudService.Clients.Abstractions
         /// 获取所有脚本数据
         /// </summary>
         /// <returns></returns>
+        [Obsolete]
         Task<IApiResponse<List<ScriptDTO>>> Scripts();
 
         /// <summary>
