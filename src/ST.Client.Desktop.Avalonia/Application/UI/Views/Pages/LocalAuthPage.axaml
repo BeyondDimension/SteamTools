@@ -19,7 +19,7 @@
            TextWrapping="WrapWithOverflow"
            VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <ItemsRepeater Items="{Binding Authenticators}">
+            <ItemsRepeater Items="{Binding Authenticators,Mode=OneWay}">
                 <ItemsRepeater.Layout>
                     <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20"  MaximumRowsOrColumns="8" />
                 </ItemsRepeater.Layout>
@@ -55,7 +55,7 @@
                                                 </PathIcon>
                                             </TextBox.InnerRightContent>
                                         </TextBox>
-                                        <Button DockPanel.Dock="Right" x:Name="delete_btn" Classes="flatbutton" IsVisible="False" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Right" Cursor="Hand" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                                        <Button DockPanel.Dock="Right" x:Name="delete_btn" Classes="flatbutton" IsVisible="False" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Right" Cursor="Hand" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                                 Command="{ReflectionBinding #u.DataContext.DeleteAuth}" CommandParameter="{Binding}">
                                             <PathIcon Data="{DynamicResource CloseDrawing}" Width="12"></PathIcon>
                                         </Button>
