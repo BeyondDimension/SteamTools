@@ -108,7 +108,7 @@ namespace System.Application.Services.Implementation._21VianetBlueCloud
 
             request.Headers.Add("Account", options.Account);
 
-            var token = CreateSASToken(key, keyName, TimeSpan.FromSeconds(30));
+            var token = CreateSASToken(key, keyName, TimeSpan.FromSeconds(600));
             request.Headers.Authorization = AuthenticationHeaderValue.Parse(token);
 
             using var response = await httpClient.SendAsync(request, cancellationToken);
@@ -129,6 +129,10 @@ namespace System.Application.Services.Implementation._21VianetBlueCloud
                     $"调用世纪互联蓝云短信接口接口失败，" +
                     $"手机号码：{PhoneNumberHelper.ToStringHideMiddleFour(number)}，" +
                     $"短信内容：{message}，" +
+                    //$"Content：{jsonPayload}，" +
+                    //$"Account：{options.Account}，" +
+                    //$"SASToken：{token}，" + 
+                    $"TemplateName：{template_name}，" +
                     $"HTTP状态码：{(int)response.StatusCode}");
             }
 
