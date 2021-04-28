@@ -1,4 +1,4 @@
-﻿using System.Application.Properties;
+using System.Application.Properties;
 using System.Diagnostics;
 using Xamarin.Essentials;
 
@@ -70,8 +70,9 @@ namespace System.Application.Services.CloudService
         /// 兼容 Linux/Mac/.NetCore/Android/iOS 的打开链接方法
         /// </summary>
         /// <param name="url"></param>
-        public static async void BrowserOpen(string url)
+        public static async void BrowserOpen(string? url)
         {
+            if (url == null) return;
             if (url.StartsWith(Prefix_HTTPS, StringComparison.OrdinalIgnoreCase) ||
                 url.StartsWith(Prefix_HTTP, StringComparison.OrdinalIgnoreCase))
             {

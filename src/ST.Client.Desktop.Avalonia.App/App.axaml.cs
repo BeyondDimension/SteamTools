@@ -312,7 +312,7 @@ namespace System.Application.UI
             RestoreMainWindow();
         }
 
-        public async void SetClipboardText(string s) => await AvaloniaApplication.Current.Clipboard.SetTextAsync(s);
+        public async void SetClipboardText(string? s) => await Current.Clipboard.SetTextAsync(s ?? string.Empty);
 
         Window? mMainWindow;
 

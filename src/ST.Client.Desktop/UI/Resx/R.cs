@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
@@ -53,7 +53,7 @@ namespace System.Application.UI.Resx
         {
             var culture = Culture;
             InstalledFontCollection ifc = new();
-            var list = ifc.Families.Select(x => KeyValuePair.Create(x.GetName(culture.LCID), x.GetName(1033))).ToList();
+            var list = ifc.Families.Where(x => x.IsStyleAvailable(FontStyle.Regular)).Select(x => KeyValuePair.Create(x.GetName(culture.LCID), x.GetName(1033))).ToList();
             list.Insert(0, KeyValuePair.Create(AppResources.Default, "Default"));
             return list;
         }

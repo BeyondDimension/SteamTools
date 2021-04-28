@@ -1,10 +1,17 @@
-﻿namespace System.Properties
+namespace System.Properties
 {
     public static class ThisAssembly
     {
-        public const string Version = "2.0.0";
+        public const string Version = "2.0.0.1";
 
-        public static readonly Version ClientVersion = new(Version);
+        public const string InfoVersion = Version + "-beta";
+
+        static readonly Lazy<string> mVersionDisplay = new(() =>
+        {
+            Version version = new(Version);
+            return $"{version.ToString(3)}{(IsBetaRelease ? " β" : "")}{(version.Revision <= 0 ? "" : " rev." + version.Revision)}";
+        });
+        public static string VersionDisplay => mVersionDisplay.Value;
 
         /// <summary>
         /// 定义程序集清单的产品名自定义属性
@@ -49,5 +56,8 @@ true
 false
 #endif
             ;
+
+        static readonly Lazy<bool> mIsBetaRelease = new(() => InfoVersion.Contains("beta", StringComparison.OrdinalIgnoreCase));
+        public static bool IsBetaRelease => mIsBetaRelease.Value;
     }
 }

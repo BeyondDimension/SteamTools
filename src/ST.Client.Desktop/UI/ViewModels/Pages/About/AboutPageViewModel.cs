@@ -1,9 +1,9 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.Resx;
-using System.CommandLine;
 using System.Properties;
 using System.Reactive;
+using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
 {
@@ -21,19 +21,30 @@ namespace System.Application.UI.ViewModels
         {
             IconKey = nameof(AboutPageViewModel).Replace("ViewModel", "Svg");
 
-            OpenBrowserCommand = ReactiveCommand.Create<string>(
-              (link) => System.Application.Services.CloudService.Constants.BrowserOpen(link));
+            OpenBrowserCommand = ReactiveCommand.Create<string>(BrowserOpen);
 
-            CopyLinkCommand = ReactiveCommand.Create<string>(
-                (link) => DI.Get<IDesktopAppService>().SetClipboardText(link));
+            CopyLinkCommand = ReactiveCommand.Create<string>(IDesktopAppService.Instance.SetClipboardText);
         }
 
         public ReactiveCommand<string, Unit> OpenBrowserCommand { get; }
 
         public ReactiveCommand<string, Unit> CopyLinkCommand { get; }
 
+        public string VersionDisplay => ThisAssembly.VersionDisplay;
 
-        public Version ClientVersion => ThisAssembly.ClientVersion;
+        public string LabelVersionDisplay => (ThisAssembly.IsBetaRelease ? "Beta " : null) + "Version: ";
+
+        public string Copyright
+        {
+            get
+            {
+                // https://www.w3cschool.cn/html/html-copyright.html
+                int startYear = 2020, thisYear = 2021;
+                var nowYear = DateTime.Now.Year;
+                if (nowYear < thisYear) nowYear = thisYear;
+                return $"© {startYear}{(nowYear == startYear ? startYear : "-" + nowYear)} {ThisAssembly.AssemblyCompany}. All Rights Reserved.";
+            }
+        }
 
         public static string RmbadminSteamLink => SteamApiUrls.MY_PROFILE_URL;
 
@@ -46,10 +57,10 @@ namespace System.Application.UI.ViewModels
         public static string CliencerLink => "https://space.bilibili.com/30031316";
 
         public static string PrivacyLink => "https://steampp.net/privacy";
+
         public static string AgreementLink => "https://steampp.net/agreement";
 
-
-        public static string OfficialLink => "https://steampp.net/";
+        public static string OfficialLink => "https://steampp.net";
 
         public static string SourceCodeLink => "https://github.com/rmbadmin/SteamTools";
 

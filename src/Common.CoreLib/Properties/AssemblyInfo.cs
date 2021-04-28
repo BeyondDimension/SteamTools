@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using static System.Properties.ThisAssembly;
 
@@ -9,4 +9,5 @@ using static System.Properties.ThisAssembly;
 [assembly: AssemblyCopyright(AssemblyCopyright)]
 [assembly: AssemblyCompany(AssemblyCompany)]
 [assembly: AssemblyFileVersion(Version)]
+[assembly: AssemblyInformationalVersion(InfoVersion)]
 [assembly: AssemblyVersion(Version)]
