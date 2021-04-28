@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Application.Columns;
@@ -777,15 +777,14 @@ namespace System.Application.Services.CloudService
                             var readAsyncToken = CancellationTokenSource.
                                 CreateLinkedTokenSource(cancellationToken);
                             readAsyncToken.CancelAfter(5000);
-                            var read = await stream.ReadAsync(
-                                buffer, 0, buffer.Length, readAsyncToken.Token);
+                            var read = await stream.ReadAsync(buffer.AsMemory(0, buffer.Length), readAsyncToken.Token);
                             if (read == 0)
                             {
                                 isMoreToRead = false;
                             }
                             else
                             {
-                                await fileStream.WriteAsync(buffer, 0, read, cancellationToken);
+                                await fileStream.WriteAsync(buffer.AsMemory(0, read), cancellationToken);
                                 totalRead += read;
                                 if (canReportProgress)
                                 {

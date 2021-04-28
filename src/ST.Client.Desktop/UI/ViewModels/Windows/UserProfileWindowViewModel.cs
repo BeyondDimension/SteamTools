@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using System.Application.Entities;
 using System.Application.Models;
 using System.Application.Services;
@@ -140,7 +140,7 @@ namespace System.Application.UI.ViewModels
 
         public ICommand? OnBtnChangeBindPhoneNumberClick { get; } = ReactiveCommand.Create(() =>
         {
-            UserService.Current.ShowWindow(CustomWindow.ChangeBindPhoneNumber);
+            UserService.Current.ShowWindowF(CustomWindow.ChangeBindPhoneNumber);
         });
     }
 }

@@ -64,7 +64,7 @@ namespace System.Application.UI.ViewModels
                 IsOpenUserMenu = UserService.Current.User != null;
                 if (!IsOpenUserMenu)
                 {
-                    UserService.Current.ShowWindow(CustomWindow.LoginOrRegister);
+                    UserService.Current.ShowWindowF(CustomWindow.LoginOrRegister);
                 }
             });
 
