@@ -88,10 +88,10 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal">
           <TextBlock Classes="Header light"
-                     Text="Current Version: "
+                     Text="{Binding LabelVersionDisplay,Mode=OneTime}"
                      VerticalAlignment="Center"/>
           <TextBox Classes="Content readonlybox"
-                   Text="{Binding LabelVersionDisplay}"/>
+                   Text="{Binding VersionDisplay,Mode=OneTime}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="5">
           <TextBlock Classes="Header light"
@@ -114,7 +114,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal">
           <TextBlock Classes="Header light"
-                     Text="Business And Art: "
+                     Text="Business and Art: "
                      VerticalAlignment="Center"/>
           <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
                           CommandParameter="{x:Static vm:AboutPageViewModel.CliencerLink}">
@@ -183,18 +183,18 @@
           </WrapPanel>
           <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Center">
             <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
-                        CommandParameter="{x:Static vm:AboutPageViewModel.PrivacyLink}">
-              <TextBlock Text="用户协议" Classes="Hyperlink" />
+                            CommandParameter="{x:Static vm:AboutPageViewModel.AgreementLink}">
+              <TextBlock Text="{ReflectionBinding Path=Res.User_Agreement,Mode=OneWay,Source={x:Static resx:R.Current}}" Classes="Hyperlink" />
             </Button>
             <TextBlock Classes="LinkSeparatorPadding" Text="-" />
             <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
-                            CommandParameter="{x:Static vm:AboutPageViewModel.AgreementLink}">
-              <TextBlock Text="隐私政策" Classes="Hyperlink" />
+                        CommandParameter="{x:Static vm:AboutPageViewModel.PrivacyLink}">
+              <TextBlock Text="{ReflectionBinding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}" Classes="Hyperlink" />
             </Button>
           </StackPanel>
           <WrapPanel HorizontalAlignment="Center">
             <TextBlock Classes="h7 light"
-                           Text="长沙次元超越科技有限公司 - 2021© All Rights Reserved."
+                           Text="{Binding Copyright}"
                            VerticalAlignment="Center"/>
           </WrapPanel>
         </StackPanel>

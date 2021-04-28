@@ -325,8 +325,8 @@ namespace System.Application
                     }
 #endif
                     var value =
-                        //(ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
-                        //CSConst.Prefix_HTTPS + "pan.mossimo.net:8862" :
+                        (ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
+                        CSConst.Prefix_HTTPS + "pan.mossimo.net:8862" :
                         CSConst.Prefix_HTTPS + "api.steampp.net";
                     s.ApiBaseUrl = value;
                 }
