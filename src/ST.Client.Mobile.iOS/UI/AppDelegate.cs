@@ -1,4 +1,4 @@
-﻿using Foundation;
+using Foundation;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -36,5 +36,10 @@ namespace System.Application.UI
 
             return base.FinishedLaunching(app, options);
         }
+
+        /// <summary>
+        /// 当前是否是主进程
+        /// </summary>
+        public static bool IsMainProcess { get; private set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Avalonia.Controls;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
@@ -188,7 +188,7 @@ namespace System.Application.UI
                 AppDelegate.Init();
 #endif
 
-                if (Startup.IsMainProcess)
+                if (Program.IsMainProcess)
                 {
                     if (Startup.HasNotifyIcon)
                     {
@@ -278,7 +278,7 @@ namespace System.Application.UI
             VisualStudioAppCenterSDK.Init();
 #endif
             AppHelper.Initialized?.Invoke();
-            if (Startup.IsMainProcess)
+            if (Program.IsMainProcess)
             {
                 Startup.ActiveUserPost(ActiveUserType.OnStartup);
                 IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);

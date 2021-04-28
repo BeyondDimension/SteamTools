@@ -7,6 +7,7 @@
     <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
     <RootNamespace>System.Application.UI</RootNamespace>
     <AssemblyName>Steam++</AssemblyName>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <!--<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -40,7 +41,8 @@
   <PropertyGroup Condition=" $(DefineConstants.Contains(`PUBLISH`)) ">
     <SelfContained>true</SelfContained>
     <PublishSingleFile>false</PublishSingleFile>
-    <PublishTrimmed>True</PublishTrimmed>
+    <!--目前裁剪存在问题，禁用-->
+    <PublishTrimmed>false</PublishTrimmed>
     <TrimMode>link</TrimMode>
     <TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
     <!--剪裁框架库功能 https://docs.microsoft.com/zh-cn/dotnet/core/deploying/trimming-options#trimming-framework-library-features -->
@@ -54,6 +56,11 @@
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
+
+  <!--<ItemGroup>
+      <TrimmerRootAssembly Include="CefNet" />
+      <TrimmerRootAssembly Include="CefNet.Avalonia" />
+    </ItemGroup>-->
 
   <ItemGroup>
     <Compile Include="..\Startup2.cs" />

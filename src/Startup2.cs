@@ -1,4 +1,4 @@
-﻿#if !__MOBILE__
+#if !__MOBILE__
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Platform;
@@ -26,6 +26,11 @@ using System.Properties;
 using System.Diagnostics;
 using System.IO;
 using static System.Application.AppClientAttribute;
+#if __ANDROID__
+using Program = System.Application.UI.MainApplication;
+#elif __IOS__
+using Program = System.Application.UI.AppDelegate;
+#endif
 
 namespace System.Application
 {
@@ -57,7 +62,6 @@ namespace System.Application
                     DI.Init(s => ConfigureServices(s, level));
                     static void ConfigureServices(IServiceCollection services, DILevel level)
                     {
-                        IsMainProcess = level == DILevel.MainProcess;
                         ConfigureRequiredServices(services);
                         ConfigureDemandServices(services, level);
                     }
@@ -219,7 +223,7 @@ namespace System.Application
             void AddNotificationService()
             {
 #if !__MOBILE__
-                if (!IsMainProcess) return;
+                if (!Program.IsMainProcess) return;
 #endif
                 services.AddNotificationService();
             }
@@ -466,15 +470,10 @@ namespace System.Application
         }
 #endif
 
-        /// <summary>
-        /// 当前是否是主进程
-        /// </summary>
-        internal static bool IsMainProcess { get; set; }
-
         /// <inheritdoc cref="IActiveUserClient.Post(ActiveUserRecordDTO, Guid?)"/>
         internal static async void ActiveUserPost(ActiveUserType type)
         {
-            if (!IsMainProcess) return;
+            if (!Program.IsMainProcess) return;
             try
             {
 #if !__MOBILE__

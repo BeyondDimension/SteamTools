@@ -1,10 +1,8 @@
-﻿using NLog;
+using NLog;
 using NLog.Config;
-using System.Application.Models.Settings;
 using System.Application.Services;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace System.Application.UI
@@ -19,8 +17,8 @@ namespace System.Application.UI
         {
             // 目前桌面端默认使用 SystemTextJson 如果出现兼容性问题可取消下面这行代码
             // Serializable.DefaultJsonImplType = Serializable.JsonImplType.NewtonsoftJson;
-            Startup.IsMainProcess = args.Length == 0;
-            IsCLTProcess = !Startup.IsMainProcess && args.FirstOrDefault() == "-clt";
+            IsMainProcess = args.Length == 0;
+            IsCLTProcess = !IsMainProcess && args.FirstOrDefault() == "-clt";
 
             var logDirPath = InitLogDir();
 
@@ -39,7 +37,7 @@ namespace System.Application.UI
                 {
                     Startup.Init(DILevel.MainProcess);
 
-                    if (Startup.IsMainProcess)
+                    if (IsMainProcess)
                     {
                         var appInstance = new ApplicationInstance();
                         if (!appInstance.IsFirst) goto exit;
@@ -47,7 +45,7 @@ namespace System.Application.UI
 
                     InitCefNetApp();
 
-                    if (Startup.IsMainProcess)
+                    if (IsMainProcess)
                     {
                         InitAvaloniaApp();
                     }
@@ -55,6 +53,7 @@ namespace System.Application.UI
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 AppHelper.TrySetLoggerMinLevel(LogLevel.Trace);
                 // NLog: catch any exception and log it.
                 logger.Error(ex, "Stopped program because of exception");
@@ -116,11 +115,6 @@ namespace System.Application.UI
         exit: return 0;
         }
 
-        /// <summary>
-        /// 是否最小化
-        /// </summary>
-        internal static bool IsMinimize { get; set; }
-
         static string InitLogDir()
         {
             var logDirPath = Path.Combine(AppContext.BaseDirectory, "Logs");
@@ -155,5 +149,20 @@ namespace System.Application.UI
 
             return logDirPath;
         }
+
+        /// <summary>
+        /// 是否最小化启动
+        /// </summary>
+        public static bool IsMinimize { get; /*private*/ set; }
+
+        /// <summary>
+        /// 当前是否是命令行工具进程
+        /// </summary>
+        public static bool IsCLTProcess { get; private set; }
+
+        /// <summary>
+        /// 当前是否是主进程
+        /// </summary>
+        public static bool IsMainProcess { get; private set; }
     }
 }

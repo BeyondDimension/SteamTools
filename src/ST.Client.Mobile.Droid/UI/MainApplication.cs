@@ -1,6 +1,5 @@
-﻿using Android.App;
+using Android.App;
 using Android.Runtime;
-using AndroidX.AppCompat.App;
 using System.Properties;
 using Xamarin.Essentials;
 using AndroidApplication = Android.App.Application;
@@ -18,17 +17,6 @@ namespace System.Application.UI
         {
         }
 
-        /// <summary>
-        /// 是否为主进程
-        /// </summary>
-        /// <returns></returns>
-        public bool IsMainProcess()
-        {
-            // 注意：进程名可以自定义，默认是包名，如果自定义了主进程名，这里就有误，所以不要自定义主进程名！
-            var name = this.GetCurrentProcessName();
-            return name == PackageName;
-        }
-
         public override void OnCreate()
         {
             base.OnCreate();
@@ -38,13 +26,19 @@ namespace System.Application.UI
             XEFileProvider.TemporaryLocation = FileProviderLocation.Internal;
             XEPlatform.Init(this); // 初始化 Xamarin.Essentials.Platform.Init
 
-            Startup.IsMainProcess = IsMainProcess();
+            bool GetIsMainProcess()
+            {
+                // 注意：进程名可以自定义，默认是包名，如果自定义了主进程名，这里就有误，所以不要自定义主进程名！
+                var name = this.GetCurrentProcessName();
+                return name == PackageName;
+            }
+            IsMainProcess = GetIsMainProcess();
 
             DILevel level = DILevel.Min;
-            if (Startup.IsMainProcess) level = DILevel.MainProcess;
+            if (IsMainProcess) level = DILevel.MainProcess;
             Startup.Init(level);
 
-            if (Startup.IsMainProcess)
+            if (IsMainProcess)
             {
                 XEVersionTracking.Track();
             }
@@ -53,5 +47,10 @@ namespace System.Application.UI
             Log.Debug("Application", "OnCreate Complete.");
 #endif
         }
+
+        /// <summary>
+        /// 当前是否是主进程
+        /// </summary>
+        public static bool IsMainProcess { get; private set; }
     }
 }

@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Runtime.Remoting;
-using System.Runtime.Serialization.Formatters;
-using System.Threading;
-using System.Threading.Tasks;
-using System.IO.Pipes;
 
 namespace System.Application.UI
 {
@@ -18,7 +8,7 @@ namespace System.Application.UI
     /// </summary>
     public sealed class ApplicationInstance
     {
-        private readonly ApplicationInstanceMessage _appInstanceMessage;
+        private readonly ApplicationInstanceMessage? _appInstanceMessage;
 
         /// <summary>
         /// 获取一个值，该值指示此实例是否是第一个要启动的实例。
@@ -28,23 +18,39 @@ namespace System.Application.UI
         /// <summary>
         /// 在接收新启动的实例的命令行时发生。
         /// </summary>
-        public event EventHandler<MessageEventArgs> CommandLineArgsReceived;
+        public event EventHandler<MessageEventArgs>? CommandLineArgsReceived;
 
-        public ApplicationInstance() : this(Assembly.GetEntryAssembly()) { }
+        //public ApplicationInstance() : this(Assembly.GetEntryAssembly() ?? typeof(ApplicationInstance).Assembly) { }
 
-		public ApplicationInstance(Assembly targetAssembly)
-		{
+        public ApplicationInstance(/*Assembly targetAssembly*/)
+        {
             // 获取应用程序的GUID
-            var portName = ((GuidAttribute)Attribute.GetCustomAttribute(targetAssembly, typeof(GuidAttribute))).Value;
+            //var portName = ((GuidAttribute)Attribute.GetCustomAttribute(targetAssembly, typeof(GuidAttribute))).Value;
 
             // 使用会话ID作为URI，以便它是每个会话URI
             //var uri = Process.GetCurrentProcess().SessionId.ToString(CultureInfo.InvariantCulture);
 
             // 如果成功创建了IPC服务器，则假定是首次创建使用指定端口的IPC通信。
             // 如果创建失败，则说明另一个实例正在创建IPC服务器，因此在创建客户端时，Mutex会同时保护其免受这些操作的影响。
-            using var mutex = new Mutex(true, typeof(ApplicationInstanceMessage).FullName + "_" + "b8335358-e2e6-4c32-b6e3-0bc501ad3e2f", out bool flag);
-            mutex.WaitOne();
-            this.IsFirst = flag;
+            //using var mutex = new Mutex(true, typeof(ApplicationInstanceMessage).FullName + "_" + "b8335358-e2e6-4c32-b6e3-0bc501ad3e2f", out bool flag);
+            //mutex.WaitOne();
+            //this.IsFirst = flag;
+            IsFirst = GetIsFirst();
+        }
+
+        static bool GetIsFirst()
+        {
+            var current = Process.GetCurrentProcess();
+            var query = from p in Process.GetProcesses()
+                        where p.Id != current.Id &&
+                            p.ProcessName == current.ProcessName &&
+                            (current.MainModule == null ||
+                                (p.MainModule != null &&
+                                    p.MainModule.FileName == current.MainModule.FileName &&
+                                        p.MainModule.ModuleName == current.MainModule.ModuleName))
+                        select p;
+            var r = query.Any();
+            return !r;
         }
 
         /// <summary>
@@ -62,9 +68,8 @@ namespace System.Application.UI
         /// <param name="commandLineArgs">当前进程的命令行参数。</param>
         public void SendCommandLineArgs(string[] commandLineArgs)
         {
-            this._appInstanceMessage.OnMessageReceived(commandLineArgs);
+            this._appInstanceMessage?.OnMessageReceived(commandLineArgs);
         }
-
 
         /// <summary>
         /// 存储所有进程共有的消息以及已发送和接收的消息。
@@ -74,7 +79,7 @@ namespace System.Application.UI
             /// <summary>
             /// 收到消息时发生。
             /// </summary>
-            public event Action<string[]> MessageReceived;
+            public event Action<string[]>? MessageReceived;
 
             /// <summary>
             /// <see cref="MessageReceived"/> 引发一个事件。
