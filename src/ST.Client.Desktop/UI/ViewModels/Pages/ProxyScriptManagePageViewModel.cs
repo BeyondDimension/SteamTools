@@ -1,4 +1,4 @@
-﻿using DynamicData;
+using DynamicData;
 using DynamicData.Binding;
 using ReactiveUI;
 using System.Application.Models;
@@ -72,7 +72,7 @@ namespace System.Application.UI.ViewModels
 			});
 			OnlySteamBrowserCommand = ReactiveCommand.Create(() =>
 			{
-				OnlySteamBrowser?.CheckmarkChange(ProxySettings.IsOnlyWorkSteamBrowser.Value = !ProxySettings.IsOnlyWorkSteamBrowser.Value);
+				OnlySteamBrowser?.CheckmarkChange(ProxyService.Current.IsOnlyWorkSteamBrowser = !ProxyService.Current.IsOnlyWorkSteamBrowser);
 			});
 			MenuItems = new ObservableCollection<MenuItemViewModel>()
 			{
@@ -82,7 +82,7 @@ namespace System.Application.UI.ViewModels
 				   new MenuItemViewModel (),
 				   (ScriptAutoUpdate=new MenuItemViewModel (nameof(AppResources.Script_AutoUpdate))
 				   {Command=EnableScriptAutoUpdateCommand }),
-				(OnlySteamBrowser = new MenuItemViewModel (nameof(AppResources.CommunityFix_OnlySteamBrowser)){ Command=OnlySteamBrowserCommand})
+				   (OnlySteamBrowser = new MenuItemViewModel (nameof(AppResources.CommunityFix_OnlySteamBrowser)){ Command=OnlySteamBrowserCommand})
 			};
 
 			var scriptFilter = this.WhenAnyValue(x => x.SearchText).Select(ScriptFilter);

@@ -13,11 +13,11 @@
              x:DataType="vm:CommunityProxyPageViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.CommunityProxyPage">
-    <Panel HorizontalAlignment="Stretch">
-        <Grid IsVisible="{ReflectionBinding Source={x:Static service:ProxyService.Current},Path=!ProxyStatus,Mode=OneWay}"
-              ColumnDefinitions="Auto,*"
-              RowDefinitions="Auto,*">
-            <!--<Border Margin="10 0 10 10" Padding="20" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
+  <Panel HorizontalAlignment="Stretch">
+    <Grid IsVisible="{ReflectionBinding Source={x:Static service:ProxyService.Current},Path=!ProxyStatus,Mode=OneWay}"
+          ColumnDefinitions="Auto,*"
+          RowDefinitions="Auto,*">
+      <!--<Border Margin="10 0 10 10" Padding="20" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
                 <Button
                     Content="{ReflectionBinding Path=Res.CommunityFix_Acceleration,Mode=OneWay,Source={x:Static resx:R.Current}}"
                     Command="{Binding StartProxyButton_Click}"
@@ -30,169 +30,178 @@
                     VerticalAlignment="Bottom"></Button>
             </Border>-->
 
-            <Border Grid.RowSpan="2"
-                    Margin="10 0 10 10"
-                    Classes="paper"
-                    Background="{DynamicResource ThemeBrushKey}">
-                <ListBox x:Name="items" Width="350"
-                               Items="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyDomains,Mode=OneWay}"
-                               SelectedItem="{Binding Source={x:Static service:ProxyService.Current},Path=SelectGroup,Mode=TwoWay}"
-                               ScrollViewer.VerticalScrollBarVisibility="Auto"
-                               AutoScrollToSelectedItem="True"
-                               Background="Transparent">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <!--<Border Classes="paper" Background="{DynamicResource ThemeBrushKey}">-->
-                            <StackPanel>
-                                <StackPanel Orientation="Horizontal"
-                                           Margin="20">
-                                    <CheckBox Classes="onlyCheckBox"
-                                              IsChecked="{Binding ThreeStateEnable,Mode=TwoWay}"
-                                              Margin="0 0 20 0">
-                                    </CheckBox>
-                                    <Image Width="40" Source="{Binding ImageStream^,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=40}">
-                                    </Image>
-                                    <!--<Image Width="40" Source="/Application/UI/Assets/AppResources/Steam.png">
+      <Border Grid.RowSpan="2"
+              Margin="10 0 10 10"
+              Classes="paper"
+              Background="{DynamicResource ThemeBrushKey}">
+        <ListBox x:Name="items" Width="350"
+                       Items="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyDomains,Mode=OneWay}"
+                       SelectedItem="{Binding Source={x:Static service:ProxyService.Current},Path=SelectGroup,Mode=TwoWay}"
+                       ScrollViewer.VerticalScrollBarVisibility="Auto"
+                       AutoScrollToSelectedItem="True"
+                       Background="Transparent">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <!--<Border Classes="paper" Background="{DynamicResource ThemeBrushKey}">-->
+              <StackPanel>
+                <StackPanel Orientation="Horizontal"
+                           Margin="20">
+                  <CheckBox Classes="onlyCheckBox"
+                            IsChecked="{Binding ThreeStateEnable,Mode=TwoWay}"
+                            Margin="0 0 20 0">
+                  </CheckBox>
+                  <Image Width="40" Source="{Binding ImageStream^,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=40}">
+                  </Image>
+                  <!--<Image Width="40" Source="/Application/UI/Assets/AppResources/Steam.png">
                                     </Image>-->
-                                    <controls:ScrollingTextBlock Text="{Binding Name}"
-                                                                 FontSize="22" MinWidth="230"
-                                                                 Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                                                                 VerticalAlignment="Center"
-                                                                 Margin="20 0 0 0">
-                                    </controls:ScrollingTextBlock>
-                                </StackPanel>
-                                <Separator Classes="Separator"  />
-                            </StackPanel>
-                            <!--</Border>-->
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Border>
+                  <controls:ScrollingTextBlock Text="{Binding Name}"
+                                               FontSize="22" MinWidth="230"
+                                               Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                                               VerticalAlignment="Center"
+                                               Margin="20 0 0 0">
+                  </controls:ScrollingTextBlock>
+                </StackPanel>
+                <Separator Classes="Separator"  />
+              </StackPanel>
+              <!--</Border>-->
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </Border>
 
-            <DockPanel Grid.Column="1" Grid.RowSpan="2">
-                <Border DockPanel.Dock="Top" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="0 0 10 10" Padding="20" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
-                    <WrapPanel>
-                        <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <Button Classes="action" Content="{ReflectionBinding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="16" MinWidth="220" MinHeight="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Command="{Binding StartProxyButton_Click}" CommandParameter="True"></Button>
-                            <ToggleSwitch Content="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}" Margin="20 0"></ToggleSwitch>
-                            <!--<ToggleSwitch Content="{ReflectionBinding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus}"></ToggleSwitch>-->
-                        </WrapPanel>
-                        <WrapPanel Orientation="Vertical" HorizontalAlignment="Right">
-                            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 5" Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
-                            <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value, Mode=TwoWay}"></RadioButton>
-                            <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value, Mode=TwoWay}"></RadioButton>
-                        </WrapPanel>
-                    </WrapPanel>
-                </Border>
+      <DockPanel Grid.Column="1" Grid.RowSpan="2">
+        <Border DockPanel.Dock="Top" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="0 0 10 10" Padding="20" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
+          <WrapPanel>
+            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
+              <Button Classes="action"
+                      Content="{ReflectionBinding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      FontSize="16"
+                      MinWidth="150"
+                      Width="220"
+                      MinHeight="40"
+                      HorizontalContentAlignment="Center"
+                      VerticalContentAlignment="Center"
+                      Command="{Binding StartProxyButton_Click}"
+                      CommandParameter="True"></Button>
+              <ToggleSwitch Content="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}" Margin="20 0"></ToggleSwitch>
+              <!--<ToggleSwitch Content="{ReflectionBinding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus}"></ToggleSwitch>-->
+            </WrapPanel>
+            <WrapPanel Orientation="Vertical" HorizontalAlignment="Right">
+              <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 5" Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
+              <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value, Mode=TwoWay}"></RadioButton>
+              <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value, Mode=TwoWay}"></RadioButton>
+            </WrapPanel>
+          </WrapPanel>
+        </Border>
 
-                <Border DockPanel.Dock="Bottom" Grid.Column="1" Grid.Row="1" Classes="paper" Margin="0 0 10 10" Background="{DynamicResource ThemeBrushKey}">
-                    <Panel Margin="20 0">
-                        <StackPanel>
-                            <DockPanel Margin="0 10">
-                                <CheckBox MinWidth="20"
-                                          Content="{ReflectionBinding Path=Res.CommunityFix_AllCheck,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                          IsChecked="{Binding #items.SelectedItem.ThreeStateEnable,Mode=TwoWay}">
-                                </CheckBox>
-                                <TextBlock Text="{Binding #items.SelectedItem.Name}"
-                                           FontSize="20"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Right"
-                                           Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
-                            </DockPanel>
+        <Border DockPanel.Dock="Bottom" Grid.Column="1" Grid.Row="1" Classes="paper" Margin="0 0 10 10" Background="{DynamicResource ThemeBrushKey}">
+          <Panel Margin="20 0">
+            <StackPanel>
+              <DockPanel Margin="0 10">
+                <CheckBox MinWidth="20"
+                          Content="{ReflectionBinding Path=Res.CommunityFix_AllCheck,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                          IsChecked="{Binding #items.SelectedItem.ThreeStateEnable,Mode=TwoWay}">
+                </CheckBox>
+                <TextBlock Text="{Binding #items.SelectedItem.Name}"
+                           FontSize="20"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
+              </DockPanel>
 
-                            <ScrollViewer>
-                                <ItemsControl Items="{ReflectionBinding #items.SelectedItem.ObservableItems}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel>
-                                                <DockPanel>
-                                                    <CheckBox HorizontalAlignment="Left" IsChecked="{Binding Enable}">
-                                                        <TextBlock Text="{Binding Name}"></TextBlock>
-                                                    </CheckBox>
-                                                    <TextBlock Text="{Binding DomainNamesArray[0]}"
-                                                               HorizontalAlignment="Right"
-                                                               VerticalAlignment="Center"
-                                                               Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
-                                                </DockPanel>
-                                                <Separator Classes="Separator"  />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </ScrollViewer>
-                        </StackPanel>
-                    </Panel>
-                </Border>
-            </DockPanel>
-
-        </Grid>
-
-        <Grid RowDefinitions="Auto,*,Auto"
-              HorizontalAlignment="Stretch" IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus,Mode=OneWay}">
-            <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0 10 0 0" Spacing="10">
-                <WrapPanel>
-                    <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AlreadyProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="26"></TextBlock>
-                    <TextBlock FontSize="26" Text="{Binding AccelerateTime,Source={x:Static service:ProxyService.Current},Converter={StaticResource DateFormatConverter},ConverterParameter='HH:mm:ss'}}"></TextBlock>
-                </WrapPanel>
-                <WrapPanel HorizontalAlignment="Center">
-                    <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyModeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="14"/>
-                    <TextBlock x:Name="proxyModel" FontSize="14">
-                        <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value}}" ComparisonCondition="Equal" Value="True">
-                                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #proxyModel}" PropertyName="Text" Value="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                            </ia:DataTriggerBehavior>
-                            <ia:DataTriggerBehavior Binding="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value}}" ComparisonCondition="Equal" Value="False">
-                                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #proxyModel}" PropertyName="Text" Value="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                            </ia:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </TextBlock>
-                </WrapPanel>
+              <ScrollViewer>
+                <ItemsControl Items="{ReflectionBinding #items.SelectedItem.ObservableItems}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <StackPanel>
+                        <DockPanel>
+                          <CheckBox HorizontalAlignment="Left" IsChecked="{Binding Enable}">
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                          </CheckBox>
+                          <TextBlock Text="{Binding DomainNamesArray[0]}"
+                                     HorizontalAlignment="Right"
+                                     VerticalAlignment="Center"
+                                     Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
+                        </DockPanel>
+                        <Separator Classes="Separator"  />
+                      </StackPanel>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </ScrollViewer>
             </StackPanel>
-            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="30" Margin="0 20">
-                <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
-                    <DockPanel MinWidth="300">
-                        <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AccelerationsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="16" DockPanel.Dock="Top"></TextBlock>
-                        <ScrollViewer>
-                            <ItemsControl Items="{ReflectionBinding EnableProxyDomains,Source={x:Static service:ProxyService.Current}}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Margin="10">
-                                            <DockPanel>
-                                                <TextBlock Text="{Binding Name}"></TextBlock>
-                                            </DockPanel>
-                                            <Separator Classes="Separator"  />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </DockPanel>
-                </Border>
+          </Panel>
+        </Border>
+      </DockPanel>
 
-                <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
-                    <DockPanel MinWidth="300">
-                        <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ScriptsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="16" DockPanel.Dock="Top"></TextBlock>
-                        <ScrollViewer>
-                            <ItemsControl Items="{ReflectionBinding EnableProxyScripts,Source={x:Static service:ProxyService.Current}}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Margin="10">
-                                            <DockPanel>
-                                                <TextBlock Text="{Binding Name}"></TextBlock>
-                                            </DockPanel>
-                                            <Separator Classes="Separator"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </DockPanel>
-                </Border>
-            </StackPanel>
+    </Grid>
 
-            <StackPanel Grid.Row="2" Margin="20 0 20 50">
-                <Button Classes="action" Content="{ReflectionBinding Path=Res.CommunityFix_StopProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Height="40" Width="250" VerticalContentAlignment="Center" FontSize="16" Command="{Binding StartProxyButton_Click}" CommandParameter="False"></Button>
-            </StackPanel>
-        </Grid>
-    </Panel>
+    <Grid RowDefinitions="Auto,*,Auto"
+          HorizontalAlignment="Stretch" IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus,Mode=OneWay}">
+      <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0 10 0 0" Spacing="10">
+        <WrapPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AlreadyProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="26"></TextBlock>
+          <TextBlock FontSize="26" Text="{Binding AccelerateTime,Source={x:Static service:ProxyService.Current},Converter={StaticResource DateFormatConverter},ConverterParameter='HH:mm:ss'}}"></TextBlock>
+        </WrapPanel>
+        <WrapPanel HorizontalAlignment="Center">
+          <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyModeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="14"/>
+          <TextBlock x:Name="proxyModel" FontSize="14">
+            <i:Interaction.Behaviors>
+              <ia:DataTriggerBehavior Binding="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value}}" ComparisonCondition="Equal" Value="True">
+                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #proxyModel}" PropertyName="Text" Value="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value}}" ComparisonCondition="Equal" Value="False">
+                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #proxyModel}" PropertyName="Text" Value="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+              </ia:DataTriggerBehavior>
+            </i:Interaction.Behaviors>
+          </TextBlock>
+        </WrapPanel>
+      </StackPanel>
+      <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="30" Margin="0 20">
+        <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
+          <DockPanel MinWidth="300">
+            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AccelerationsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="16" DockPanel.Dock="Top"></TextBlock>
+            <ScrollViewer>
+              <ItemsControl Items="{ReflectionBinding EnableProxyDomains,Source={x:Static service:ProxyService.Current}}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <StackPanel Margin="10">
+                      <DockPanel>
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                      </DockPanel>
+                      <Separator Classes="Separator"  />
+                    </StackPanel>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+          </DockPanel>
+        </Border>
+
+        <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
+          <DockPanel MinWidth="300">
+            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ScriptsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="16" DockPanel.Dock="Top"></TextBlock>
+            <ScrollViewer>
+              <ItemsControl Items="{ReflectionBinding EnableProxyScripts,Source={x:Static service:ProxyService.Current}}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <StackPanel Margin="10">
+                      <DockPanel>
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                      </DockPanel>
+                      <Separator Classes="Separator"/>
+                    </StackPanel>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+          </DockPanel>
+        </Border>
+      </StackPanel>
+
+      <StackPanel Grid.Row="2" Margin="20 0 20 50">
+        <Button Classes="action" Content="{ReflectionBinding Path=Res.CommunityFix_StopProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Height="40" Width="250" VerticalContentAlignment="Center" FontSize="16" Command="{Binding StartProxyButton_Click}" CommandParameter="False"></Button>
+      </StackPanel>
+    </Grid>
+  </Panel>
 </UserControl>

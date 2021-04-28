@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using DynamicData;
 using System.Application.Models;
 using System.Application.Models.Settings;
@@ -53,6 +53,16 @@ namespace System.Application.UI.ViewModels
                 //    }
                 //},
             };
+
+            _SteamUsersSourceList = new SourceCache<SteamUser, long>(t => t.SteamId64);
+
+            _SteamUsersSourceList
+              .Connect()
+              .ObserveOn(RxApp.MainThreadScheduler)
+              .Sort(SortExpressionComparer<SteamUser>.Descending(x => x.LastLoginTime
+              ))
+              .Bind(out _SteamUsers)
+              .Subscribe();
         }
 
         public ReactiveCommand<Unit, Unit> LoginAccountCommand { get; }
@@ -61,71 +71,57 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// steam记住的用户列表
         /// </summary>
-        private ObservableCollection<SteamUser>? _steamUsers;
-        public ObservableCollection<SteamUser>? SteamUsers
-        {
-            get => _steamUsers;
-            set => this.RaiseAndSetIfChanged(ref _steamUsers, value);
-        }
+        private ReadOnlyObservableCollection<SteamUser>? _SteamUsers;
+        private SourceCache<SteamUser, long> _SteamUsersSourceList;
+        public ReadOnlyObservableCollection<SteamUser>? SteamUsers => _SteamUsers;
 
         public bool IsUserEmpty => !SteamUsers.Any_Nullable();
 
         internal async override void Initialize()
         {
-            if (!steamService.IsRunningSteamProcess && SteamSettings.IsAutoRunSteam.Value)
-                steamService.StartSteam(SteamSettings.SteamStratParameter);
+            var list = steamService.GetRememberUserList();
 
-
-            SteamUsers = new ObservableCollection<SteamUser>(steamService.GetRememberUserList());
-
-            if (!SteamUsers.Any_Nullable())
+            if (!list.Any_Nullable())
             {
                 //Toast.Show("");
                 return;
             }
 
-#if DEBUG
-            for (var i = 0; i < 10; i++)
-            {
-                SteamUsers.Add(SteamUsers[0]);
-            }
-#endif
+            _SteamUsersSourceList.AddOrUpdate(list);
 
-            var users = SteamUsers.OrderByDescending(o => o.LastLoginTime).ToArray();
-            for (var i = 0; i < SteamUsers.Count; i++)
+            foreach (var user in _SteamUsersSourceList.Items)
             {
-                var temp = users[i];
                 string? remark = null;
-                SteamAccountSettings.AccountRemarks.Value?.TryGetValue(SteamUsers[i].SteamId64, out remark);
-                users[i] = await webApiService.GetUserInfo(SteamUsers[i].SteamId64);
-                users[i].AccountName = temp.AccountName;
-                users[i].SteamID = temp.SteamID;
-                users[i].PersonaName = temp.PersonaName;
-                users[i].RememberPassword = temp.RememberPassword;
-                users[i].MostRecent = temp.MostRecent;
-                users[i].Timestamp = temp.Timestamp;
-                users[i].LastLoginTime = temp.LastLoginTime;
-                users[i].WantsOfflineMode = temp.WantsOfflineMode;
-                users[i].SkipOfflineModeWarning = temp.SkipOfflineModeWarning;
-                users[i].OriginVdfString = temp.OriginVdfString;
-                users[i].Remark = remark;
-                users[i].AvatarFullStream = httpService.GetImageAsync(users[i].AvatarFull, ImageChannelType.SteamAvatars);
+                SteamAccountSettings.AccountRemarks.Value?.TryGetValue(user.SteamId64, out remark);
+                var temp = await webApiService.GetUserInfo(user.SteamId64);
+                user.Remark = remark;
+                user.SteamID = temp.SteamID;
+                user.OnlineState = temp.OnlineState;
+                user.MemberSince = temp.MemberSince;
+                user.VacBanned = temp.VacBanned;
+                user.Summary = temp.Summary;
+                user.PrivacyState = temp.PrivacyState;
+                user.AvatarIcon = temp.AvatarIcon;
+                user.AvatarMedium = temp.AvatarMedium;
+                user.AvatarFull = temp.AvatarFull;
+                user.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
             }
 
-            SteamUsers = new ObservableCollection<SteamUser>(users);
+            _SteamUsersSourceList.Refresh();
 
-            foreach (var item in users)
+            foreach (var item in _SteamUsersSourceList.Items)
             {
                 item.MiniProfile = await webApiService.GetUserMiniProfile(item.SteamId3_Int);
                 var miniProfile = item.MiniProfile;
                 if (miniProfile != null)
                 {
-                    miniProfile.AnimatedAvatarStream = httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
+                    if (!string.IsNullOrEmpty(miniProfile.AnimatedAvatar))
+                        item.AvatarStream = httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
                     //miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
                 }
             }
 
-            SteamUsers = new ObservableCollection<SteamUser>(users);
+            _SteamUsersSourceList.Refresh();
 
             this.WhenAnyValue(x => x.SteamUsers)
                 .Subscribe(items => items?
@@ -172,7 +168,7 @@ namespace System.Application.UI.ViewModels
                 if (s.Result == MessageBoxResultCompat.OK)
                 {
                     steamService.DeleteLocalUserData(user);
-                    SteamUsers?.Remove(user);
+                    _SteamUsersSourceList.Remove(user);
                 }
             });
         }

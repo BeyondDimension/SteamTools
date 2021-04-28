@@ -612,7 +612,8 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 启动加速服务失败，请检查443端口是否被占用或者证书安装失败。 的本地化字符串。
+        ///   查找类似 启动加速服务失败，请检查443端口是否被占用或者证书安装失败。
+        ///或者尝试使用Windows代理模式。 的本地化字符串。
         /// </summary>
         public static string CommunityFix_StartProxyFaild {
             get {
@@ -1864,7 +1865,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 未查询到匹配的脚本文件 的本地化字符串。
+        ///   查找类似 未查询到匹配的脚本文件，您可以从脚本工坊下载脚本文件。 的本地化字符串。
         /// </summary>
         public static string ScriptConfig_ScriptEmptyTip {
             get {

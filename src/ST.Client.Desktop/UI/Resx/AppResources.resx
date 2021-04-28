@@ -304,7 +304,8 @@
     <value>一键加速</value>
   </data>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
-    <value>启动加速服务失败，请检查443端口是否被占用或者证书安装失败。</value>
+    <value>启动加速服务失败，请检查443端口是否被占用或者证书安装失败。
+或者尝试使用Windows代理模式。</value>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
     <value>加速已启动成功</value>
@@ -688,7 +689,7 @@
     <value>脚本配置</value>
   </data>
   <data name="ScriptConfig_ScriptEmptyTip" xml:space="preserve">
-    <value>未查询到匹配的脚本文件</value>
+    <value>未查询到匹配的脚本文件，您可以从脚本工坊下载脚本文件。</value>
   </data>
   <data name="ScriptShop_GetTableError" xml:space="preserve">
     <value>获取脚本工坊列表失败。</value>

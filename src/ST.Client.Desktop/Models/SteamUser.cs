@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -13,8 +13,6 @@ namespace System.Application.Models
 
         public SteamUser()
         {
-            this.WhenAnyValue(x => x.AvatarFullStream, x => x.MiniProfile.AnimatedAvatarStream)
-                .Subscribe(_ => this.RaisePropertyChanged(nameof(AvatarStream)));
         }
 
         public SteamUser(string vdfstring) : this()
@@ -73,19 +71,11 @@ namespace System.Application.Models
         public string AvatarMedium { get; set; }
 
         [XmlIgnore]
-        public Task<string?>? AvatarFullStream { get; set; }
-
-        [XmlIgnore]
+        private Task<string?>? _AvatarStream;
         public Task<string?>? AvatarStream
         {
-            get
-            {
-                if (string.IsNullOrEmpty(MiniProfile?.AnimatedAvatar))
-                {
-                    return AvatarFullStream;
-                }
-                return MiniProfile.AnimatedAvatarStream;
-            }
+            get => _AvatarStream;
+            set => this.RaiseAndSetIfChanged(ref _AvatarStream, value);
         }
 
         [XmlElement("avatarFull")]

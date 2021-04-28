@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using DynamicData;
 using DynamicData.Binding;
 using System.Application.Models;
@@ -303,10 +303,10 @@ namespace System.Application.UI.ViewModels
 
         public void AppGridReSize()
         {
-            var back = SteamConnectService.Current.SteamApps.Items;
-            SteamConnectService.Current.SteamApps.Clear();
+            //var back = SteamConnectService.Current.SteamApps.Items;
+            //SteamConnectService.Current.SteamApps.Clear();
             UISettings.AppGridSize.Value = UISettings.AppGridSize.Value == 200 ? 150 : 200;
-            SteamConnectService.Current.SteamApps.AddOrUpdate(back);
+            SteamConnectService.Current.SteamApps.Refresh();
             //SteamConnectService.Current.RefreshGamesList();
         }
     }

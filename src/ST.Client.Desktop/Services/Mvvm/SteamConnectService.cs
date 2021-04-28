@@ -1,6 +1,7 @@
-﻿using DynamicData;
+using DynamicData;
 using ReactiveUI;
 using System.Application.Models;
+using System.Application.Models.Settings;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
@@ -112,6 +113,9 @@ namespace System.Application.Services
 
         public void Initialize()
         {
+            if (!SteamTool.IsRunningSteamProcess && SteamSettings.IsAutoRunSteam.Value)
+                SteamTool.StartSteam(SteamSettings.SteamStratParameter);
+
             Task.Run(InitializeGameList).ForgetAndDispose();
 
             var t = new Task(async () =>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Application.Models;
 using System.Application.Properties;
 using System.Collections.Generic;
@@ -346,31 +346,10 @@ namespace System.Application.Services.Implementation
             }
             else
             {
-                if (PortInUse(443))
-                {
-                    return false;
-                }
-
-                #region 写入Hosts
-                //var hosts = new List<(string, string)>();
-                //foreach (var proxyDomain in ProxyDomains)
+                //if (PortInUse(443))
                 //{
-                //    if (proxyDomain.IsEnable)
-                //    {
-                //        foreach (var host in proxyDomain.Hosts)
-                //        {
-                //            if (host.Contains(" "))
-                //            {
-                //                var h = host.Split(' ');
-                //                hosts.Add((h[0], h[1]));
-                //            }
-                //            else
-                //                hosts.Add((IPAddress.Loopback.ToString(), host));
-                //        }
-                //    }
+                //    return false;
                 //}
-                //IHostsFileService.Instance.UpdateHosts(hosts);
-                #endregion
 
                 proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 443, true)
                 {
