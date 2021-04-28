@@ -1,4 +1,4 @@
-﻿using System.Application.Entities;
+using System.Application.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using static System.Application.Services.CloudService.Constants;
@@ -36,6 +36,18 @@ namespace System.Application.Models
         /// </summary>
         [MPKey(4)]
         public IEnumerable<Download>? Downloads { get; set; }
+
+        /// <summary>
+        /// (单选)支持的平台
+        /// </summary>
+        [MPKey(5)]
+        public Platform Platform { get; set; }
+
+        /// <summary>
+        /// (多或单选)支持的CPU构架
+        /// </summary>
+        [MPKey(6)]
+        public ArchitectureFlags SupportedAbis { get; set; }
 
         bool IExplicitHasValue.ExplicitHasValue()
         {
@@ -90,7 +102,5 @@ namespace System.Application.Models
                     Length > 0;
             }
         }
-
-        public static string GetRequestUri(string fileId) => $"{Prefix_HTTPS}steampp.net/uploads/publish/files/{fileId}{FileEx.BIN}";
     }
 }

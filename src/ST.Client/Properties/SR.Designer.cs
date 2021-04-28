@@ -314,6 +314,15 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 下载更新包失败，请打开官网手动更新 的本地化字符串。
+        /// </summary>
+        internal static string UpdateEnumOutOfRange {
+            get {
+                return ResourceManager.GetString("UpdateEnumOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 文件校验失败，请打开官网手动更新 的本地化字符串。
         /// </summary>
         internal static string UpdatePackVerificationFail {

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Options;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Properties;
@@ -222,6 +222,10 @@ namespace System.Application.Services.Implementation
             return value;
         }
 
+        static string GetSingleFileUrl(string fileId) => $"{Prefix_HTTPS}steampp.net/uploads/publish/files/{fileId}{FileEx.BIN}";
+
+        static string GetPackFileUrl(string fileName) => $"{Prefix_HTTPS}steampp.net/uploads/publish/{fileName}";
+
         /// <summary>
         /// 下载更新包文件到本地缓存
         /// </summary>
@@ -284,7 +288,7 @@ namespace System.Application.Services.Implementation
 
                         var fileName = item.Value;
                         var cacheFileName = fileName + FileExDownloadCache;
-                        var requestUri = AppVersionDTO.GetRequestUri(item.Key.FileId);
+                        var requestUri = GetSingleFileUrl(item.Key.FileId);
 
                         OnReportDownloading3_(0f);
                         var rsp = await client.Download(
@@ -339,19 +343,70 @@ namespace System.Application.Services.Implementation
                             }
                         }
 
-                        var cacheFileName = packFileName + FileExDownloadCache;
-
-                        var requestUri = AppVersionDTO.GetRequestUri(download.FileId);
+                        string fileEx;
+                        string filePlatform;
+                        string fileArch;
+                        switch (newVersionInfo.Platform)
+                        {
+                            case Platform.Android:
+                                fileEx = FileEx.APK;
+                                break;
+                            case Platform.Windows:
+                            case Platform.Linux:
+                            case Platform.Apple:
+                                fileEx = FileEx.TAR_GZ;
+                                break;
+                            default:
+                                Fail(SR.UpdateEnumOutOfRange);
+                                goto end;
+                        }
+                        switch (newVersionInfo.Platform)
+                        {
+                            case Platform.Windows:
+                                filePlatform = "win";
+                                break;
+                            case Platform.Linux:
+                                filePlatform = "linux";
+                                break;
+                            case Platform.Android:
+                                filePlatform = "android";
+                                break;
+                            default:
+                                Fail(SR.UpdateEnumOutOfRange);
+                                goto end;
+                        }
+                        switch (newVersionInfo.SupportedAbis)
+                        {
+                            case ArchitectureFlags.X86:
+                                fileArch = "x86";
+                                break;
+                            case ArchitectureFlags.X64:
+                                fileArch = "x64";
+                                break;
+                            case ArchitectureFlags.Arm64:
+                                fileArch = "arm64";
+                                break;
+                            default:
+                                fileArch = ((int)newVersionInfo.SupportedAbis).ToString();
+                                break;
+                            case 0:
+                            case ArchitectureFlags.Arm:
+                                Fail(SR.UpdateEnumOutOfRange);
+                                goto end;
+                        }
+                        var downloadFileName = $"{filePlatform}-{fileArch}_{newVersionInfo.Version}{fileEx}";
+                        var requestUri = GetPackFileUrl(downloadFileName);
+                        var cacheFilePath = packFilePath + FileExDownloadCache;
                         OnReportDownloading(0f);
                         var rsp = await client.Download(
                             isAnonymous: true,
                             requestUri: requestUri,
-                            cacheFileName,
+                            cacheFilePath,
                             new Progress<float>(OnReportDownloading));
 
                         if (rsp.IsSuccess)
                         {
-                            File.Move(cacheFileName, packFileName);
+                            File.Move(cacheFilePath, packFilePath);
 
                             if (UpdatePackVerification(packFilePath, download.SHA256)) // (下载文件)哈希验证成功，进行覆盖安装
                             {
