@@ -160,7 +160,7 @@
         </StackPanel>
       </TabItem>
     </TabControl>
-      <!--Toast-->
-      <controls:ToastMessage />
+    <!--Toast-->
+    <controls:ToastMessage />
   </Panel>
 </Window>

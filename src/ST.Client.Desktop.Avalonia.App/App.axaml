@@ -11,9 +11,6 @@
         <converters:NameToFontFamilyConverter x:Key="NameToFontFamilyConverter" />
         <converters:DrawingKeyValueConverter x:Key="DrawingKeyValueConverter" />
         <converters:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
-        <converters:ReverseBooleanConverter x:Key="ReverseBooleanConverter" />
-        <converters:DateFormatConverter x:Key="DateFormatConverter" />
-        <converters:StringFormatConverter x:Key="StringFormatConverter" />
         <converters:GenderEnumValueConverter x:Key="GenderEnumValueConverter" />
     </Application.Resources>
     <Application.Styles>
