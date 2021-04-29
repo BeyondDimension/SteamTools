@@ -158,6 +158,9 @@
                                                 ToolTip.Tip="{ReflectionBinding Path=Res.Script_Update,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                                     <PathIcon Width="20" Height="20" Data="{StaticResource DownloadDrawing}" />
                                                 </Button>-->
+                        <controls:ProgressRing IsIndeterminate="True"
+                                               ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30"
+                                               IsVisible="{Binding IsLoading}" />
                         <Button Classes="Hyperlink"
                                  Command="{ReflectionBinding #u.DataContext.DownloadScriptItemButton}"
                                  CommandParameter="{Binding}"
