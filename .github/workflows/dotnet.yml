@@ -17,13 +17,11 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-
+        
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Checkout submodules
-      uses: textbook/git-checkout-submodule-action@master
-      with:
-        remote: true
+      run: git submodule update --init --recursive
 
     - name: dotnet info
       run: dotnet --info
