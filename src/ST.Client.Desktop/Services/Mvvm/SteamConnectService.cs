@@ -227,43 +227,49 @@ namespace System.Application.Services
             }
         }
 
+        private bool _IsRefreshing;
         public /*async*/ void RefreshGamesList()
         {
-            var t = new Task(() =>
+            if (_IsRefreshing == false)
             {
-                Thread.CurrentThread.IsBackground = true;
-                try
+                var t = new Task(() =>
                 {
-                    while (true)
+                    _IsRefreshing = true;
+                    Thread.CurrentThread.IsBackground = true;
+                    try
                     {
-                        if (SteamTool.IsRunningSteamProcess)
+                        while (true)
                         {
-                            if (ApiService.Initialize())
+                            if (SteamTool.IsRunningSteamProcess)
                             {
-                                while (true)
+                                if (ApiService.Initialize())
                                 {
-                                    InitializeGameList();
-                                    if (SteamApps.Items.Any())
+                                    while (true)
                                     {
-                                        LoadGames(ApiService.OwnsApps(SteamApps.Items));
-                                        //UpdateGamesImage();
-                                        Toast.Show(AppResources.GameList_RefreshGamesListSucess);
-                                        DisposeSteamClient();
-                                        return;
+                                        InitializeGameList();
+                                        if (SteamApps.Items.Any())
+                                        {
+                                            LoadGames(ApiService.OwnsApps(SteamApps.Items));
+                                            //UpdateGamesImage();
+                                            Toast.Show(AppResources.GameList_RefreshGamesListSucess);
+                                            DisposeSteamClient();
+                                            _IsRefreshing = false;
+                                            return;
+                                        }
                                     }
                                 }
                             }
+                            Thread.Sleep(2000);
                         }
-                        Thread.Sleep(2000);
                     }
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(nameof(SteamConnectService), ex, "Task RefreshGamesList");
-                    ToastService.Current.Notify(ex.Message);
-                }
-            }, TaskCreationOptions.LongRunning);
-            t.Start();
+                    catch (Exception ex)
+                    {
+                        Log.Error(nameof(SteamConnectService), ex, "Task RefreshGamesList");
+                        ToastService.Current.Notify(ex.Message);
+                    }
+                }, TaskCreationOptions.LongRunning);
+                t.Start();
+            }
         }
 
         public void Dispose()

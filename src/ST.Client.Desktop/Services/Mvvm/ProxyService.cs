@@ -261,10 +261,10 @@ namespace System.Application.Services
                         }));
             #endregion
 
-            if (EnableProxyDomains.Any_Nullable() && ProxySettings.ProgramStartupRunProxy.Value)
-            {
-                ProxyStatus = true;
-            }
+            //if (EnableProxyDomains.Any_Nullable() && ProxySettings.ProgramStartupRunProxy.Value)
+            //{
+            //    ProxyStatus = true;
+            //}
         }
         public async void BasicsInfo()
         {
@@ -280,7 +280,8 @@ namespace System.Application.Services
                         var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id);
                         if (build.state)
                         {
-                            if (build.model != null) {
+                            if (build.model != null)
+                            {
                                 build.model.IsBasics = true;
                                 ProxyScripts.Insert(0, build.model);
                             }

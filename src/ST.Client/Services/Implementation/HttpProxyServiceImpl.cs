@@ -44,6 +44,11 @@ namespace System.Application.Services.Implementation
 
         public HttpProxyServiceImpl()
         {
+            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            //    proxyServer.CertificateManager.CertificateEngine = CertificateEngine.DefaultWindows;
+            //else
+            proxyServer.EnableConnectionPool = true;
+            proxyServer.CertificateManager.CertificateEngine = CertificateEngine.BouncyCastleFast;
             //proxyServer.CertificateManager.PfxPassword = $"{CertificateName}";
             proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
             proxyServer.CertificateManager.PfxFilePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pfx");
@@ -51,13 +56,9 @@ namespace System.Application.Services.Implementation
             proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
             proxyServer.CertificateManager.CertificateValidDays = 300;
             // 可选地设置证书引擎
-            //proxyServer.CertificateManager.SaveFakeCertificates = true;
+            proxyServer.CertificateManager.SaveFakeCertificates = true;
 
-            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            //    proxyServer.CertificateManager.CertificateEngine = CertificateEngine.DefaultWindows;
-            //else
-            proxyServer.EnableConnectionPool = true;
-            proxyServer.CertificateManager.CertificateEngine = CertificateEngine.BouncyCastleFast;
+            proxyServer.CertificateManager.RootCertificate = proxyServer.CertificateManager.LoadRootCertificate();
         }
 
         public async Task OnRequest(object sender, SessionEventArgs e)
