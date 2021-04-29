@@ -86,11 +86,12 @@
               <ToggleSwitch Content="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}" Margin="20 0"></ToggleSwitch>
               <!--<ToggleSwitch Content="{ReflectionBinding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus}"></ToggleSwitch>-->
             </WrapPanel>
-            <WrapPanel Orientation="Vertical" HorizontalAlignment="Right">
-              <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 5" Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
+            <StackPanel HorizontalAlignment="Right">
+              <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 5"
+               Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
               <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value, Mode=TwoWay}"></RadioButton>
               <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value, Mode=TwoWay}"></RadioButton>
-            </WrapPanel>
+            </StackPanel>
           </WrapPanel>
         </Border>
 
