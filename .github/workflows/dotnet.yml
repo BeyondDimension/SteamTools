@@ -28,18 +28,18 @@ jobs:
     - name: dotnet restore
       run: dotnet restore ./SteamToolsV2+.sln
     - name: dotnet CommonUnit build
-      run: dotnet build ./test/Common.UnitTest/Common.UnitTest.csproj
+      run: dotnet build ./tests/Common.UnitTest/Common.UnitTest.csproj
     - name: dotnet CommonUnit test
-      run: dotnet test ./test/Common.UnitTest/Common.UnitTest.csproj
+      run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj
     - name: dotnet Common.UnitTest.Droid build
-      run: dotnet build ./test/Common.UnitTest.Droid/Common.UnitTest.Droid.csproj
+      run: dotnet build ./tests/Common.UnitTest.Droid/Common.UnitTest.Droid.csproj
     - name: dotnet Common.UnitTest.Droid test
-      run: dotnet test ./test/Common.UnitTest.Droid/Common.UnitTest.Droid.csproj
+      run: dotnet test ./tests/Common.UnitTest.Droid/Common.UnitTest.Droid.csproj
     - name: dotnet Common.UnitTest.Droid.App build
-      run: dotnet build ./test/Common.UnitTest.Droid.App/Common.UnitTest.Droid.App.csproj
+      run: dotnet build ./tests/Common.UnitTest.Droid.App/Common.UnitTest.Droid.App.csproj
     - name: dotnet Common.UnitTest.Droid.App test
-      run: dotnet test ./test/Common.UnitTest.Droid.App/Common.UnitTest.Droid.App.csproj
+      run: dotnet test ./tests/Common.UnitTest.Droid.App/Common.UnitTest.Droid.App.csproj
     - name: dotnet ST.Client.UnitTest build
-      run: dotnet build ./test/ST.Client.UnitTest/ST.Client.UnitTest.csproj
+      run: dotnet build ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj
     - name: dotnet ST.Client.UnitTest test
-      run: dotnet test ./test/ST.Client.UnitTest/ST.Client.UnitTest.csproj
+      run: dotnet test ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj
