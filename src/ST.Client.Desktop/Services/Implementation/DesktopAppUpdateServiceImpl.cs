@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Options;
 using System.Application.Models;
 using System.Application.Properties;
 using System.Application.UI;

@@ -64,6 +64,7 @@ namespace System.Application.Services.Implementation
             {
                 _NewVersionInfo = value;
                 this.RaisePropertyChanged(nameof(NewVersionInfoDesc));
+                this.RaisePropertyChanged(nameof(NewVersionInfoTitle));
             }
         }
 
@@ -77,6 +78,8 @@ namespace System.Application.Services.Implementation
                 return string.Join(Environment.NewLine, lines);
             }
         }
+
+        public string NewVersionInfoTitle => SR.NewVersionUpdateTitle_.Format(NewVersionInfo?.Version);
 
         /// <summary>
         /// 当存在新的版本时，重写此方法实现弹窗提示用户

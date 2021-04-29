@@ -151,6 +151,15 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Steam++ v{0} 版本更新 的本地化字符串。
+        /// </summary>
+        internal static string NewVersionUpdateTitle_ {
+            get {
+                return ResourceManager.GetString("NewVersionUpdateTitle_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 当有新公告时的提示通知。 的本地化字符串。
         /// </summary>
         internal static string NotificationChannelType_Description_BusinessPlatform {

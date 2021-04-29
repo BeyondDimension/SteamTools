@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -645,9 +645,6 @@
   </data>
   <data name="More" xml:space="preserve">
     <value>更多操作</value>
-  </data>
-  <data name="NewVersionUpdateTitle" xml:space="preserve">
-    <value>Steam++ 版本更新</value>
   </data>
   <data name="NickName" xml:space="preserve">
     <value>昵称</value>

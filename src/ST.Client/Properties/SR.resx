@@ -148,6 +148,9 @@
   <data name="NewVersionUpdate" xml:space="preserve">
     <value>新版本更新</value>
   </data>
+  <data name="NewVersionUpdateTitle_" xml:space="preserve">
+    <value>Steam++ v{0} 版本更新</value>
+  </data>
   <data name="NotificationChannelType_Description_BusinessPlatform" xml:space="preserve">
     <value>当有新公告时的提示通知。</value>
   </data>

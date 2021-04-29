@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -278,5 +278,19 @@ namespace System
         public static string GetCurrentPath(this string url) => GetCurrentPath(url);
 
 #endif
+
+        public static string Format(this string format, params object?[] args)
+        {
+            try
+            {
+                return string.Format(format, args);
+            }
+            catch
+            {
+                var args_ = args.ToList();
+                args_.Insert(0, format);
+                return string.Join(' ', args_);
+            }
+        }
     }
 }

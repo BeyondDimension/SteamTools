@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Windows.Input;
 
 namespace System.Application.Services
@@ -39,6 +39,8 @@ namespace System.Application.Services
         AppVersionDTO? NewVersionInfo { get; }
 
         string NewVersionInfoDesc { get; }
+
+        string NewVersionInfoTitle { get; }
 
         /// <summary>
         /// 检查更新，返回新版本信息

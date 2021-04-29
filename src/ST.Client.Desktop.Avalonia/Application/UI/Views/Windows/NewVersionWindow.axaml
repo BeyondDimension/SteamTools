@@ -22,7 +22,7 @@
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
         CanResize="False"
-        Title="{ReflectionBinding Path=Res.NewVersionUpdateTitle,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        Title="{ReflectionBinding Path=NewVersionInfoTitle,Mode=OneWay,Source={x:Static ccl_services:IAppUpdateService.Instance}}">
   <Grid RowDefinitions="1,30,*,Auto,Auto,1">
     <controls:TitleBar Grid.RowSpan="5"/>
     <StackPanel Margin="12 10 12 0" Grid.Row="2" x:Name="content">

@@ -1631,15 +1631,6 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam++ 版本更新 的本地化字符串。
-        /// </summary>
-        public static string NewVersionUpdateTitle {
-            get {
-                return ResourceManager.GetString("NewVersionUpdateTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 昵称 的本地化字符串。
         /// </summary>
         public static string NickName {
