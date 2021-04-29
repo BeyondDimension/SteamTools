@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <!--<TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>-->
@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\references\Steam4NET\Steam4NET\Steam4NET.csproj" />
+    <!--<ProjectReference Include="..\..\references\Steam4NET\Steam4NET\Steam4NET.csproj" />-->
     <ProjectReference Include="..\..\references\SteamAchievementManager\SAM.API\SAM.API.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
   </ItemGroup>
