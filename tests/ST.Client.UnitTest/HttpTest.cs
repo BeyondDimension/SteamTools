@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System.Application.Models;
 using System.Application.Services;
 using System.Linq;
@@ -46,43 +46,43 @@ namespace System.Application
 
 #if DEBUG
 
-        /// <summary>
-        /// 测试 登陆与注册 接口，先开服务端(私有)，再测试
-        /// </summary>
-        /// <returns></returns>
-        [Test]
-        public async Task LoginOrRegister()
-        {
-            var client = ICloudServiceClient.Instance;
+        ///// <summary>
+        ///// 测试 登陆与注册 接口，先开服务端(私有)，再测试
+        ///// </summary>
+        ///// <returns></returns>
+        //[Test]
+        //public async Task LoginOrRegister()
+        //{
+        //    var client = ICloudServiceClient.Instance;
 
-            var req1 = new SendSmsRequest
-            {
-                PhoneNumber = "18611112222",
-                Type = SmsCodeType.LoginOrRegister,
-            };
+        //    var req1 = new SendSmsRequest
+        //    {
+        //        PhoneNumber = "18611112222",
+        //        Type = SmsCodeType.LoginOrRegister,
+        //    };
 
-            var rsp1 = await client.AuthMessage.SendSms(req1);
+        //    var rsp1 = await client.AuthMessage.SendSms(req1);
 
-            Assert.IsTrue(rsp1.IsSuccess);
+        //    Assert.IsTrue(rsp1.IsSuccess);
 
-            var req2 = new LoginOrRegisterRequest
-            {
-                PhoneNumber = req1.PhoneNumber,
-                SmsCode = "666666",
-            };
-            var rsp2 = await ICloudServiceClient.Instance.Account.LoginOrRegister(req2);
+        //    var req2 = new LoginOrRegisterRequest
+        //    {
+        //        PhoneNumber = req1.PhoneNumber,
+        //        SmsCode = "666666",
+        //    };
+        //    var rsp2 = await ICloudServiceClient.Instance.Account.LoginOrRegister(req2);
 
-            Assert.IsTrue(rsp2.IsSuccess);
+        //    Assert.IsTrue(rsp2.IsSuccess);
 
-            var isLoginOrRegister = rsp2.Content.ThrowIsNull(nameof(rsp2.Content)).IsLoginOrRegister;
+        //    var isLoginOrRegister = rsp2.Content.ThrowIsNull(nameof(rsp2.Content)).IsLoginOrRegister;
 
-            TestContext.WriteLine($"isLoginOrRegister: {isLoginOrRegister}");
+        //    TestContext.WriteLine($"isLoginOrRegister: {isLoginOrRegister}");
 
-            var jsonStr = Serializable2.S(rsp2.Content);
+        //    var jsonStr = Serializable2.S(rsp2.Content);
 
-            TestContext.WriteLine("jsonStr: ");
-            TestContext.WriteLine(jsonStr);
-        }
+        //    TestContext.WriteLine("jsonStr: ");
+        //    TestContext.WriteLine(jsonStr);
+        //}
 
 #endif
     }
