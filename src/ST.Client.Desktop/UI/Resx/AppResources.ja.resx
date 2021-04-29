@@ -242,7 +242,7 @@
     <value>トークンを編集します</value>
   </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
-    <value>まだトークンをインポートしていない。</value>
+    <value>トークンをインポートしていない場合は、右上のピニオン アイコンに新しいトークンを追加できます。</value>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
     <value>その他のソフトウェアのインポート</value>
@@ -266,7 +266,7 @@
     <value>携帯電話に送信された SMS 確認コードを入力してください。</value>
   </data>
   <data name="LocalAuth_SteamAppImport" xml:space="preserve">
-    <value>モバイルアプリのインポート</value>
+    <value>携帯電話のスチームのインポート</value>
   </data>
   <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
     <value>ルートされた Android デバイスで SteamGuard 認証パスをインポートできます: /data/data/com.valvesoftware.android.steam.community 次の 2 つのファイルの内容を以下の対応する入力ボックスにコピーします</value>
@@ -305,7 +305,7 @@
     <value>WinAuth は、カウンタ ベースまたは時間ベースの RFC 6238 認証システムと一般的な実装を提供する Windows のポータブル オープンソース認証システムです。 インポート方法: WinAuth から txt ファイルをエクスポートした後、WinAuth からエクスポートされた txt ファイルを選択してインポートします。</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>サインインします</value>
+    <value>記録</value>
   </data>
   <data name="Logining" xml:space="preserve">
     <value>着陸中...</value>
@@ -362,7 +362,7 @@
     <value>Steam ユーザー名</value>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">
-    <value>このアカウントで Steam にログインします</value>
+    <value>Steam に 1 回のクリックでログインします</value>
   </data>
   <data name="UserChange_BtnTootlip" xml:space="preserve">
     <value>このボタンを押すと、Steam が再起動され、そのアカウントでログインします</value>
@@ -383,19 +383,10 @@
     <value>スタート ページ</value>
   </data>
   <data name="About" xml:space="preserve">
-    <value>オン</value>
-  </data>
-  <data name="About" xml:space="preserve">
     <value>について</value>
   </data>
   <data name="About_Contactus" xml:space="preserve">
     <value>お問い合わせ下さい</value>
-  </data>
-  <data name="About_OpenSource" xml:space="preserve">
-    <value>オープンソースライセンス</value>
-  </data>
-  <data name="About_ThisSoft" xml:space="preserve">
-    <value>このソフトウェア</value>
   </data>
   <data name="AchievementManage" xml:space="preserve">
     <value>成果管理</value>
@@ -475,12 +466,6 @@
   <data name="Btn_Text_Continue" xml:space="preserve">
     <value>続けよ</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>キャンセルします</value>
-  </data>
-  <data name="CommunityFix" xml:space="preserve">
-    <value>コミュニティアクセラレーション</value>
-  </data>
   <data name="CommunityFix_Acceleration" xml:space="preserve">
     <value>1回のクリックで加速します</value>
   </data>
@@ -547,9 +532,6 @@
   <data name="CommunityFix_StopProxy" xml:space="preserve">
     <value>加速を停止します</value>
   </data>
-  <data name="Confirm" xml:space="preserve">
-    <value>OK</value>
-  </data>
   <data name="Copy" xml:space="preserve">
     <value>コピーします</value>
   </data>
@@ -579,12 +561,6 @@
   </data>
   <data name="Email" xml:space="preserve">
     <value>メールボックス</value>
-  </data>
-  <data name="Export" xml:space="preserve">
-    <value>エクスポートします</value>
-  </data>
-  <data name="GameList" xml:space="preserve">
-    <value>ストックゲーム</value>
   </data>
   <data name="GameList_HideTheGame" xml:space="preserve">
     <value>このゲームを非表示にします</value>
@@ -636,21 +612,6 @@
   </data>
   <data name="Gender_Unknown" xml:space="preserve">
     <value>秘密にしておく</value>
-  </data>
-  <data name="IdleCard" xml:space="preserve">
-    <value>オートセットカード</value>
-  </data>
-  <data name="Import" xml:space="preserve">
-    <value>インポートします</value>
-  </data>
-  <data name="LocalAuth" xml:space="preserve">
-    <value>ローカル トークン</value>
-  </data>
-  <data name="LocalAuth_AddAuth" xml:space="preserve">
-    <value>トークンをインポートします</value>
-  </data>
-  <data name="LocalAuth_AuthData" xml:space="preserve">
-    <value>トークン データ</value>
   </data>
   <data name="LocalAuth_AuthTrade" xml:space="preserve">
     <value>取引を確認します</value>
@@ -709,50 +670,17 @@
   <data name="LocalAuth_Copy" xml:space="preserve">
     <value>トークンをコピーします</value>
   </data>
-  <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
-    <value>トークンがコピーされます </value>
-  </data>
-  <data name="LocalAuth_ExportAuth" xml:space="preserve">
-    <value>トークンをエクスポートします</value>
-  </data>
-  <data name="LocalAuth_NoAuthTip" xml:space="preserve">
-    <value>トークンをインポートしていない場合は、右上のピニオン アイコンに新しいトークンを追加できます。</value>
-  </data>
-  <data name="LocalAuth_SDAImport" xml:space="preserve">
-    <value>Steam Desktop Auth がインポートされます</value>
-  </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
     <value>トークンを表示します</value>
   </data>
   <data name="LocalAuth_ShowAuthInfo" xml:space="preserve">
     <value>トークンの詳細データを表示します</value>
   </data>
-  <data name="LocalAuth_SteamAppImport" xml:space="preserve">
-    <value>携帯電話のスチームのインポート</value>
-  </data>
   <data name="LocalAuth_SteamAuthTrade" xml:space="preserve">
     <value>取引を確認します</value>
   </data>
-  <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
-    <value>Steam++ インポート</value>
-  </data>
-  <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
-    <value>Steam++ V1 バージョンのエクスポートされたトークンデータをインポートします</value>
-  </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
     <value>取引を確認するにはSteamへのログインが必要で、プログラムはパスワードを記録しませんが、ログインステータスはローカルに保存されます。</value>
-  </data>
-  <data name="LocalAuth_SteamUserImport" xml:space="preserve">
-    <value>Steam アカウントのインポート</value>
-  </data>
-  <data name="LocalAuth_SteamUUID" xml:space="preserve">
-    <value>デバイス ID (uuid):</value>
-  </data>
-  <data name="LocalAuth_WinAuthImport" xml:space="preserve">
-    <value>WinAuth インポート</value>
-  </data>
-  <data name="Login" xml:space="preserve">
-    <value>記録</value>
   </data>
   <data name="LoginAndRegister" xml:space="preserve">
     <value>ログイン/登録します</value>
@@ -865,9 +793,6 @@
   <data name="Settings_Steam_SteamStratParameter" xml:space="preserve">
     <value>Steam 起動パラメータ</value>
   </data>
-  <data name="Settings_Theme" xml:space="preserve">
-    <value>テーマ</value>
-  </data>
   <data name="Settings_UI_Dark" xml:space="preserve">
     <value>暗い色</value>
   </data>
@@ -940,9 +865,6 @@
   <data name="SteamAppType_Video" xml:space="preserve">
     <value>ビデオ</value>
   </data>
-  <data name="Steam_Password" xml:space="preserve">
-    <value>スチームパスワード</value>
-  </data>
   <data name="Success_" xml:space="preserve">
     <value>{0}成功</value>
   </data>
@@ -960,9 +882,6 @@
   </data>
   <data name="UploadYourAvatarDesc" xml:space="preserve">
     <value>デバイスからファイルをアップロードします。 画像は、少なくとも 184px x 184px の正方形である必要があります</value>
-  </data>
-  <data name="UserChange_BtnText" xml:space="preserve">
-    <value>Steam に 1 回のクリックでログインします</value>
   </data>
   <data name="UserChange_EditRemark" xml:space="preserve">
     <value>メモを変更するには、この点をクリックしてください</value>
@@ -1051,7 +970,7 @@
   <data name="User_SteamFastLogin" xml:space="preserve">
     <value>スチームクイックログイン</value>
   </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>スタート ページ</value>
+  <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
+    <value>GM は基本フレームであり、削除は許可されていません</value>
   </data>
 </root>

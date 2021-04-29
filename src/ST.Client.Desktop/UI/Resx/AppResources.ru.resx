@@ -175,7 +175,7 @@
     <value>Экспорт</value>
   </data>
   <data name="GameList" xml:space="preserve">
-    <value>Стоковая игра</value>
+    <value>Стоковые игры</value>
   </data>
   <data name="GameRelated" xml:space="preserve">
     <value>Особенности игры</value>
@@ -241,7 +241,7 @@
     <value>Отредактируйте маркер</value>
   </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
-    <value>Вы еще не импортируете маркеры.</value>
+    <value>Вы еще не импортли маркеры, вы можете добавить маркеры на значок пинион в правом верхнем углу.</value>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
     <value>Импорт другого программного обеспечения</value>
@@ -253,7 +253,7 @@
     <value>Импорт Steam Desktop Auth</value>
   </data>
   <data name="LocalAuth_SDATip" xml:space="preserve">
-    <value>Реализация рабочего стола мобильного приложения аутентификации Steam. Метод импорта: Выберите файл maFile для папки maFiles в каталоге SDA для импорта. (Импорт зашифрованных файлов не поддерживается, сначала удалите пароль при импорте)</value>
+    <value>Реализация рабочего стола мобильного приложения аутентификации Steam. Метод импорта: Выберите файл maFile для папки maFiles в каталоге SDA для импорта. (Импорт зашифрованных файлов не поддерживается, сначала удалите пароль в импорте)</value>
   </data>
   <data name="LocalAuth_ShowSteamAuthTip1" xml:space="preserve">
     <value>Полные данные аутентификации Steam, которые можно использовать при импорте различных программ:</value>
@@ -262,10 +262,10 @@
     <value>После включения двухстороннего маркера проверки в Steam создается код восстановления, который можно использовать в клиенте Steam для отмены двух шагов маркера проверки, копирования и сохранения в надежном месте.</value>
   </data>
   <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
-    <value>Введите код подтверждения SMS, отправленный на телефон.</value>
+    <value>Введите код подтверждения SMS, отправленный на ваш телефон.</value>
   </data>
   <data name="LocalAuth_SteamAppImport" xml:space="preserve">
-    <value>Импорт мобильного приложения</value>
+    <value>Импорт мобильного телефона Steam</value>
   </data>
   <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
     <value>Вы можете импортировать путь аутентификации SteamGuard на устройство Android, которое уже имеет root: /data/data/com.valvesoftware.android.steam.community, а затем скопировать содержимое следующих двух файлов в соответствующее поле ввода ниже</value>
@@ -286,13 +286,13 @@
     <value>Не удается добавить дополнительный аутентификационик в свою учетную запись.</value>
   </data>
   <data name="LocalAuth_SteamUser_Requires2FA" xml:space="preserve">
-    <value>Похоже, в учетную запись добавлен аутентификациот, и для импорта через нее необходимо удалить существующий аутентификациотор.</value>
+    <value>Похоже, в учетную запись добавлен аутентификациот, и для импорта через нее необходимо удалить существующий аутентификационик.</value>
   </data>
   <data name="LocalAuth_SteamUUID" xml:space="preserve">
     <value>Идентификатор устройства (uuid):</value>
   </data>
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
-    <value>В shared_prefs папке вставьте uuidKey steam_uuid.xml's Key</value>
+    <value>В shared_prefs папке вставьте uuidKey steam_uuid.xml '000'</value>
   </data>
   <data name="LocalAuth_SyncTime" xml:space="preserve">
     <value>Синхронизация часов</value>
@@ -304,7 +304,7 @@
     <value>WinAuth — это портативный аутентификационер с открытым исходным кодом для Windows, который предоставляет аутентификацию RBC 6238 на основе счетчиков или времени и общие реализации. Метод импорта: После экспорта файла txt из WinAuth выберите файл txt, экспортированный из WinAuth для импорта.</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Войдите в систему</value>
+    <value>Запись</value>
   </data>
   <data name="Logining" xml:space="preserve">
     <value>Посадка...</value>
@@ -361,7 +361,7 @@
     <value>Имя пользователя Steam</value>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">
-    <value>Войдите в Steam с этой учетной записью</value>
+    <value>Войдите в Steam одним щелчком мыши</value>
   </data>
   <data name="UserChange_BtnTootlip" xml:space="preserve">
     <value>Нажатие этой кнопки перезагрузит Steam и войдите в систему с этой учетной записью</value>
@@ -382,31 +382,10 @@
     <value>Начальная страница</value>
   </data>
   <data name="About" xml:space="preserve">
-    <value>на</value>
-  </data>
-  <data name="About" xml:space="preserve">
     <value>О нем</value>
   </data>
   <data name="About_Contactus" xml:space="preserve">
     <value>Свяжитесь с нами</value>
-  </data>
-  <data name="About_FAQ" xml:space="preserve">
-    <value>Устранение неполадок часто задаваемых вопросов</value>
-  </data>
-  <data name="About_Joinus" xml:space="preserve">
-    <value>Присоединяйтесь к нам</value>
-  </data>
-  <data name="About_OpenSource" xml:space="preserve">
-    <value>Лицензирование с открытым исходным кодом</value>
-  </data>
-  <data name="About_ProductionStaff" xml:space="preserve">
-    <value>Список продюсеров</value>
-  </data>
-  <data name="About_ThisSoft" xml:space="preserve">
-    <value>Это программное обеспечение</value>
-  </data>
-  <data name="About_UpdateHistory" xml:space="preserve">
-    <value>Обновите запись</value>
   </data>
   <data name="AchievementManage" xml:space="preserve">
     <value>Управление достижениями</value>
@@ -471,9 +450,6 @@
   <data name="Achievement_Warning_4" xml:space="preserve">
     <value>Произошла ошибка {0} при изменении статистики</value>
   </data>
-  <data name="Add" xml:space="preserve">
-    <value>Добавлено</value>
-  </data>
   <data name="Agree" xml:space="preserve">
     <value>Согласен</value>
   </data>
@@ -488,15 +464,6 @@
   </data>
   <data name="Btn_Text_Continue" xml:space="preserve">
     <value>Продолжай</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Отмена</value>
-  </data>
-  <data name="CloudSync" xml:space="preserve">
-    <value>Облачная синхронизация</value>
-  </data>
-  <data name="CommunityFix" xml:space="preserve">
-    <value>Ускорение сообщества</value>
   </data>
   <data name="CommunityFix_Acceleration" xml:space="preserve">
     <value>Ускорение одним щелчком мыши</value>
@@ -564,15 +531,6 @@
   <data name="CommunityFix_StopProxy" xml:space="preserve">
     <value>Остановите ускорение</value>
   </data>
-  <data name="Confirm" xml:space="preserve">
-    <value>ОК</value>
-  </data>
-  <data name="ConfirmImport" xml:space="preserve">
-    <value>Подтвердите импорт</value>
-  </data>
-  <data name="Continue" xml:space="preserve">
-    <value>Продолжай</value>
-  </data>
   <data name="Copy" xml:space="preserve">
     <value>Копирование</value>
   </data>
@@ -600,23 +558,8 @@
   <data name="Download_ScriptOk" xml:space="preserve">
     <value>Сценарий успешно установлен</value>
   </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Редактирование</value>
-  </data>
   <data name="Email" xml:space="preserve">
     <value>Почтовый ящик</value>
-  </data>
-  <data name="EmailCode" xml:space="preserve">
-    <value>Код проверки почтового ящика</value>
-  </data>
-  <data name="Encrypt" xml:space="preserve">
-    <value>Шифрование</value>
-  </data>
-  <data name="Export" xml:space="preserve">
-    <value>Экспорт</value>
-  </data>
-  <data name="GameList" xml:space="preserve">
-    <value>Стоковые игры</value>
   </data>
   <data name="GameList_HideTheGame" xml:space="preserve">
     <value>Скройте эту игру</value>
@@ -657,9 +600,6 @@
   <data name="GameList_Unsupport" xml:space="preserve">
     <value>Не поддерживается</value>
   </data>
-  <data name="GameRelated" xml:space="preserve">
-    <value>Особенности игры</value>
-  </data>
   <data name="Gender" xml:space="preserve">
     <value>Пол</value>
   </data>
@@ -671,45 +611,6 @@
   </data>
   <data name="Gender_Unknown" xml:space="preserve">
     <value>Конфиденциальность</value>
-  </data>
-  <data name="Hosts_Exists" xml:space="preserve">
-    <value>Записанный хост уже существует</value>
-  </data>
-  <data name="Hosts_ReadError" xml:space="preserve">
-    <value>Произошла ошибка при чтении файла hosts</value>
-  </data>
-  <data name="Hosts_ReadSuccess" xml:space="preserve">
-    <value>Чтение хоста выполнено успешно</value>
-  </data>
-  <data name="Hosts_UpdateSuccess" xml:space="preserve">
-    <value>Запись hosts прошла успешно</value>
-  </data>
-  <data name="Hosts_WirteError" xml:space="preserve">
-    <value>Произошла ошибка при записи хоста</value>
-  </data>
-  <data name="IdleCard" xml:space="preserve">
-    <value>Автоматический набор карт</value>
-  </data>
-  <data name="Import" xml:space="preserve">
-    <value>Импорт</value>
-  </data>
-  <data name="LocalAuth" xml:space="preserve">
-    <value>Локальный маркер</value>
-  </data>
-  <data name="LocalAuth_AddAuth" xml:space="preserve">
-    <value>Импорт маркера</value>
-  </data>
-  <data name="LocalAuth_AddAuthSuccess" xml:space="preserve">
-    <value>Импорт маркера завершен</value>
-  </data>
-  <data name="LocalAuth_AddAuthSyncTip" xml:space="preserve">
-    <value>Синхронизация часов сервера маркеров</value>
-  </data>
-  <data name="LocalAuth_AuthData" xml:space="preserve">
-    <value>Данные маркера</value>
-  </data>
-  <data name="LocalAuth_AuthName" xml:space="preserve">
-    <value>Пользовательское имя маркера</value>
   </data>
   <data name="LocalAuth_AuthTrade" xml:space="preserve">
     <value>Подтвердите транзакцию</value>
@@ -768,110 +669,20 @@
   <data name="LocalAuth_Copy" xml:space="preserve">
     <value>Скопируйте маркер</value>
   </data>
-  <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
-    <value>Маркер был скопирован </value>
-  </data>
-  <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
-    <value>Вы уверены, что хотите окончательно удалить этот маркер?</value>
-  </data>
-  <data name="LocalAuth_EditAuth" xml:space="preserve">
-    <value>Отредактируйте маркер</value>
-  </data>
-  <data name="LocalAuth_EmailCodeTip" xml:space="preserve">
-    <value>Введите код, отправленный на ваш адрес электронной почты, чтобы утвердить доступ с нового устройства.</value>
-  </data>
-  <data name="LocalAuth_ExportAuth" xml:space="preserve">
-    <value>Экспорт маркера</value>
-  </data>
-  <data name="LocalAuth_ImportFaild" xml:space="preserve">
-    <value>Сбой импорта, проверьте правильность данных.</value>
-  </data>
-  <data name="LocalAuth_MenuName" xml:space="preserve">
-    <value>Отредактируйте маркер</value>
-  </data>
-  <data name="LocalAuth_NoAuthTip" xml:space="preserve">
-    <value>Вы еще не импортли маркеры, вы можете добавить маркеры на значок пинион в правом верхнем углу.</value>
-  </data>
-  <data name="LocalAuth_OtherImport" xml:space="preserve">
-    <value>Импорт другого программного обеспечения</value>
-  </data>
-  <data name="LocalAuth_RefreshAuthSuccess" xml:space="preserve">
-    <value>Загрузка данных маркера завершена</value>
-  </data>
-  <data name="LocalAuth_SDAImport" xml:space="preserve">
-    <value>Импорт Steam Desktop Auth</value>
-  </data>
-  <data name="LocalAuth_SDATip" xml:space="preserve">
-    <value>Реализация рабочего стола мобильного приложения аутентификации Steam. Метод импорта: Выберите файл maFile для папки maFiles в каталоге SDA для импорта. (Импорт зашифрованных файлов не поддерживается, сначала удалите пароль в импорте)</value>
-  </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
     <value>Просмотр маркера</value>
   </data>
   <data name="LocalAuth_ShowAuthInfo" xml:space="preserve">
     <value>Просмотр подробных данных маркера</value>
   </data>
-  <data name="LocalAuth_ShowSteamAuthTip1" xml:space="preserve">
-    <value>Полные данные аутентификации Steam, которые можно использовать при импорте различных программ:</value>
-  </data>
-  <data name="LocalAuth_ShowSteamAuthTip2" xml:space="preserve">
-    <value>После включения двухстороннего маркера проверки в Steam создается код восстановления, который можно использовать в клиенте Steam для отмены двух шагов маркера проверки, копирования и сохранения в надежном месте.</value>
-  </data>
-  <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
-    <value>Введите код подтверждения SMS, отправленный на ваш телефон.</value>
-  </data>
-  <data name="LocalAuth_SteamAppImport" xml:space="preserve">
-    <value>Импорт мобильного телефона Steam</value>
-  </data>
-  <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
-    <value>Вы можете импортировать путь аутентификации SteamGuard на устройство Android, которое уже имеет root: /data/data/com.valvesoftware.android.steam.community, а затем скопировать содержимое следующих двух файлов в соответствующее поле ввода ниже</value>
-  </data>
   <data name="LocalAuth_SteamAuthTrade" xml:space="preserve">
     <value>Подтвердите транзакцию</value>
-  </data>
-  <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
-    <value>В папке files откройте файл 'SteamGuard-NNNNNN' и вставьте все содержимое файла</value>
-  </data>
-  <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
-    <value>Импорт Steam++</value>
-  </data>
-  <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
-    <value>Импортируйте экспортированные данные маркера для версии Steam++ V1</value>
   </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
     <value>Убедитесь, что транзакция требует входа в Steam, программа не записывает ваш пароль, а только сохраняет статус входа локально.</value>
   </data>
-  <data name="LocalAuth_SteamUserImport" xml:space="preserve">
-    <value>Импорт учетной записи Steam</value>
-  </data>
-  <data name="LocalAuth_SteamUser_Error" xml:space="preserve">
-    <value>Не удается добавить дополнительный аутентификационик в свою учетную запись.</value>
-  </data>
-  <data name="LocalAuth_SteamUser_Requires2FA" xml:space="preserve">
-    <value>Похоже, в учетную запись добавлен аутентификациот, и для импорта через нее необходимо удалить существующий аутентификационик.</value>
-  </data>
-  <data name="LocalAuth_SteamUUID" xml:space="preserve">
-    <value>Идентификатор устройства (uuid):</value>
-  </data>
-  <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
-    <value>В shared_prefs папке вставьте uuidKey steam_uuid.xml '000'</value>
-  </data>
-  <data name="LocalAuth_SyncTime" xml:space="preserve">
-    <value>Синхронизация часов</value>
-  </data>
-  <data name="LocalAuth_WinAuthImport" xml:space="preserve">
-    <value>Импорт WinAuth</value>
-  </data>
-  <data name="LocalAuth_WinAuthTip" xml:space="preserve">
-    <value>WinAuth — это портативный аутентификационер с открытым исходным кодом для Windows, который предоставляет аутентификацию RBC 6238 на основе счетчиков или времени и общие реализации. Метод импорта: После экспорта файла txt из WinAuth выберите файл txt, экспортированный из WinAuth для импорта.</value>
-  </data>
-  <data name="Login" xml:space="preserve">
-    <value>Запись</value>
-  </data>
   <data name="LoginAndRegister" xml:space="preserve">
     <value>Войдите в систему / зарегистрируйтесь</value>
-  </data>
-  <data name="Logining" xml:space="preserve">
-    <value>Посадка...</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Выйдите из системы</value>
@@ -879,14 +690,8 @@
   <data name="Modify" xml:space="preserve">
     <value>Изменения</value>
   </data>
-  <data name="More" xml:space="preserve">
-    <value>Больше действий</value>
-  </data>
   <data name="NickName" xml:space="preserve">
     <value>Прозвище</value>
-  </data>
-  <data name="OtherGamePlaform" xml:space="preserve">
-    <value>Другие платформы</value>
   </data>
   <data name="Paste" xml:space="preserve">
     <value>Вставьте</value>
@@ -896,18 +701,6 @@
   </data>
   <data name="PleaseSelect" xml:space="preserve">
     <value>Пожалуйста, выберите</value>
-  </data>
-  <data name="RecoveryCode" xml:space="preserve">
-    <value>Код восстановления</value>
-  </data>
-  <data name="RecoveryCode_Remember" xml:space="preserve">
-    <value>Я записал код восстановления</value>
-  </data>
-  <data name="RecoveryCode_RememberTip" xml:space="preserve">
-    <value>Ваш аутентификационик был добавлен в вашу учетную запись Steam и успешно импортирован в Steam++. Это код восстановления, который можно использовать для удаления из учетной записи, если вы потеряли аутентификацию. Пожалуйста, запишите его сейчас и поместите его в безопасное место.</value>
-  </data>
-  <data name="Refresh" xml:space="preserve">
-    <value>Обновление</value>
   </data>
   <data name="RefreshOK" xml:space="preserve">
     <value>Обновление выполнено успешно</value>
@@ -975,20 +768,8 @@
   <data name="Search" xml:space="preserve">
     <value>Поиск...</value>
   </data>
-  <data name="SelectFileImport" xml:space="preserve">
-    <value>Выберите {0} импорт файла</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Настройки</value>
-  </data>
-  <data name="Settings_Auth" xml:space="preserve">
-    <value>Параметры маркера</value>
-  </data>
   <data name="Settings_Fonts" xml:space="preserve">
     <value>Шрифты</value>
-  </data>
-  <data name="Settings_General" xml:space="preserve">
-    <value>Основные настройки</value>
   </data>
   <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
     <value>Обновления проверяются автоматически при запуске</value>
@@ -998,12 +779,6 @@
   </data>
   <data name="Settings_General_StartAutoRun" xml:space="preserve">
     <value>Загрузка и само запускается</value>
-  </data>
-  <data name="Settings_Language" xml:space="preserve">
-    <value>Язык</value>
-  </data>
-  <data name="Settings_Steam" xml:space="preserve">
-    <value>Настройки Steam</value>
   </data>
   <data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
     <value>Программа запускает Steam автоматически при запуске программы</value>
@@ -1017,12 +792,6 @@
   <data name="Settings_Steam_SteamStratParameter" xml:space="preserve">
     <value>Параметры запуска Steam</value>
   </data>
-  <data name="Settings_Theme" xml:space="preserve">
-    <value>Тема</value>
-  </data>
-  <data name="Settings_UI" xml:space="preserve">
-    <value>Настройки интерфейса</value>
-  </data>
   <data name="Settings_UI_Dark" xml:space="preserve">
     <value>Темный цвет</value>
   </data>
@@ -1034,9 +803,6 @@
   </data>
   <data name="SignOut" xml:space="preserve">
     <value>Выйдите из системы</value>
-  </data>
-  <data name="SMSCode" xml:space="preserve">
-    <value>Код проверки SMS</value>
   </data>
   <data name="StartUpdate" xml:space="preserve">
     <value>Начните обновление</value>
@@ -1098,15 +864,6 @@
   <data name="SteamAppType_Video" xml:space="preserve">
     <value>Видео</value>
   </data>
-  <data name="Steam_ImageCodeTip" xml:space="preserve">
-    <value>Введите код подтверждения на рисунке</value>
-  </data>
-  <data name="Steam_Password" xml:space="preserve">
-    <value>Пароль Steam</value>
-  </data>
-  <data name="Steam_User" xml:space="preserve">
-    <value>Имя пользователя Steam</value>
-  </data>
   <data name="Success_" xml:space="preserve">
     <value>{0} успеха</value>
   </data>
@@ -1125,26 +882,11 @@
   <data name="UploadYourAvatarDesc" xml:space="preserve">
     <value>Загрузите файл с устройства. Изображение должно быть квадратным, по крайней мере 184px x 184px</value>
   </data>
-  <data name="UserChange_BtnText" xml:space="preserve">
-    <value>Войдите в Steam одним щелчком мыши</value>
-  </data>
-  <data name="UserChange_BtnTootlip" xml:space="preserve">
-    <value>Нажатие этой кнопки перезагрузит Steam и войдите в систему с этой учетной записью</value>
-  </data>
-  <data name="UserChange_DeleteUser" xml:space="preserve">
-    <value>Удалите эти данные учетной записи</value>
-  </data>
   <data name="UserChange_EditRemark" xml:space="preserve">
     <value>Нажмите здесь, чтобы изменить заметку</value>
   </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
     <value>Войдите в новую учетную запись Steam</value>
-  </data>
-  <data name="UserChange_NoUserTip" xml:space="preserve">
-    <value>Данные учетной записи Steam не были прочитаны на компьютере.</value>
-  </data>
-  <data name="UserChange_OfflineBtn" xml:space="preserve">
-    <value>Запуск в автономном режиме</value>
   </data>
   <data name="UserChange_OpenUserUrl" xml:space="preserve">
     <value>Откройте страницу профиля</value>
@@ -1154,9 +896,6 @@
   </data>
   <data name="UserChange_RememberMe" xml:space="preserve">
     <value>Пароль запомнился</value>
-  </data>
-  <data name="UserFastChange" xml:space="preserve">
-    <value>Переключение учетных записей</value>
   </data>
   <data name="UserProfile" xml:space="preserve">
     <value>Личные данные</value>
@@ -1230,10 +969,7 @@
   <data name="User_SteamFastLogin" xml:space="preserve">
     <value>Steam быстро входит в систему</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Предупреждение</value>
-  </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>Начальная страница</value>
+  <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
+    <value>GM базовый шаблон не позволяет удалять</value>
   </data>
 </root>

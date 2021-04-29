@@ -975,4 +975,7 @@
   <data name="User_SteamFastLogin" xml:space="preserve">
     <value>Steam快速登錄</value>
   </data>
+  <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
+    <value>GM 是基礎框架不允許删除</value>
+  </data>
 </root>

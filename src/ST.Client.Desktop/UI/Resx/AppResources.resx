@@ -697,7 +697,7 @@
     <value>获取脚本工坊列表失败。</value>
   </data>
   <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
-    <value>GM是基础框架不允许删除</value>
+    <value>GM 是基础框架不允许删除</value>
   </data>
   <data name="ScriptShop_NoLogin" xml:space="preserve">
     <value>使用脚本工坊需要先登录。</value>
