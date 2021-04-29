@@ -4,6 +4,7 @@ using System.Application.Properties;
 using System.Application.UI;
 using System.Diagnostics;
 using System.IO;
+using System.Properties;
 using System.Text;
 using static System.Application.Services.IAppUpdateService;
 
@@ -65,15 +66,15 @@ namespace System.Application.Services.Implementation
                    AppHelper.ProgramName,
                    dirPath,
                    AppContext.BaseDirectory,
-                   AppHelper.ProgramName,
+                   AppHelper.ProgramPath,
                    echo);
 
-                File.WriteAllText(updateCommandPath, updateCommand, Encoding.Default);
+                File.WriteAllText(updateCommandPath, updateCommand, Encoding.UTF8);
 
                 using var p = new Process();
                 p.StartInfo.FileName = updateCommandPath;
                 p.StartInfo.UseShellExecute = false;
-                p.StartInfo.CreateNoWindow = true; // 不显示程序窗口
+                p.StartInfo.CreateNoWindow = !ThisAssembly.Debuggable; // 不显示程序窗口
                 p.StartInfo.Verb = "runas"; // 管理员权限运行
                 p.Start(); // 启动程序
             }

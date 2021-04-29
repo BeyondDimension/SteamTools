@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NLog;
 using NLog.Extensions.Logging;
@@ -29,14 +29,19 @@ namespace System.Application.UI
             var mainModule = Process.GetCurrentProcess().MainModule;
             if (mainModule == null)
                 throw new ArgumentNullException(nameof(mainModule));
-            var fullName = mainModule.FileName;
-            if (fullName == null)
-                throw new ArgumentNullException(nameof(fullName));
-            var programName = Path.GetFileName(fullName);
+            ProgramPath = mainModule.FileName;
+            if (ProgramPath == null)
+                throw new ArgumentNullException(nameof(ProgramPath));
+            var programName = Path.GetFileName(ProgramPath);
             if (programName == null)
                 throw new ArgumentNullException(nameof(programName));
             ProgramName = programName;
         }
+
+        /// <summary>
+        /// 当前主程序所在绝对路径
+        /// </summary>
+        public static string ProgramPath { get; }
 
         /// <summary>
         /// 获取当前主程序文件名，例如word.exe

@@ -277,6 +277,7 @@ namespace System.Application.Services.Implementation
                                     if (sha256 == item.SHA256)
                                     {
                                         incrementalUpdate.Remove(item);
+                                        continue;
                                     }
                                 }
                                 fileInfo.Delete();
