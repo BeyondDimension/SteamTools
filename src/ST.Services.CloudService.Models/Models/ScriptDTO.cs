@@ -39,7 +39,12 @@ namespace System.Application.Models
         public ScriptDTO()
         {
             this.WhenAnyValue(x => x.IsUpdate, c => c.IsLoading, v => v.IsExist)
-                .Subscribe(_ => this.RaisePropertyChanged(nameof(DownloadLoading)));
+                .Subscribe(_ =>
+                {
+                    this.RaisePropertyChanged(nameof(DownloadLoading));
+                    this.RaisePropertyChanged(nameof(DownloadButtonLoading));
+                });
+            
         }
 
         public static bool TryParse(string path, [NotNullWhen(true)] out ScriptDTO? proxyScript)
@@ -134,7 +139,12 @@ namespace System.Application.Models
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
-        public bool DownloadLoading => !IsUpdate && IsLoading && !IsExist;
+        public bool DownloadLoading => !IsUpdate && IsLoading;
+
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public bool DownloadButtonLoading => !IsExist && !DownloadLoading;
 
         private bool _IsLoading = false;
         [MPIgnore]

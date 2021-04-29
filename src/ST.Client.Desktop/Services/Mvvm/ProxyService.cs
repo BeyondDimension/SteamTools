@@ -379,6 +379,7 @@ namespace System.Application.Services
                             Current.ProxyScripts.Add(build.model);
                         }
                         model.IsUpdate = false;
+                        model.IsExist = true;
                         model.UpdateLink = build.model.UpdateLink;
                         model.Version = build.model.Version;
                         model.Name = build.model.Name;

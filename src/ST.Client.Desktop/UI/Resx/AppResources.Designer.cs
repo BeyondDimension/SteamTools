@@ -1891,6 +1891,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 GM是基础框架不允许删除 的本地化字符串。
+        /// </summary>
+        public static string ScriptShop_NoDelete_Basics {
+            get {
+                return ResourceManager.GetString("ScriptShop_NoDelete_Basics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 使用脚本工坊需要先登录。 的本地化字符串。
         /// </summary>
         public static string ScriptShop_NoLogin {
