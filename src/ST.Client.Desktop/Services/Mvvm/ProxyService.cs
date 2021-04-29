@@ -261,10 +261,10 @@ namespace System.Application.Services
                         }));
             #endregion
 
-            //if (EnableProxyDomains.Any_Nullable() && ProxySettings.ProgramStartupRunProxy.Value)
-            //{
-            //    ProxyStatus = true;
-            //}
+            if (EnableProxyDomains.Any_Nullable() && ProxySettings.ProgramStartupRunProxy.Value)
+            {
+                ProxyStatus = true;
+            }
         }
         public async void BasicsInfo()
         {
