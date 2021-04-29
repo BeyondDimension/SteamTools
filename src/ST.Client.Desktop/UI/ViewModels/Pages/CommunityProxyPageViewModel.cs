@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Application.Services;
@@ -54,7 +54,8 @@ namespace System.Application.UI.ViewModels
                 //{
                 //    Items = new[]
                 //    {
-                        (AutoRunProxy = new MenuItemViewModel (nameof(AppResources.CommunityFix_AutoRunProxy)){ Command=AutoRunProxyCommand }),
+                        (AutoRunProxy = new MenuItemViewModel (nameof(AppResources.CommunityFix_AutoRunProxy)){
+                            Command=AutoRunProxyCommand}),
 
                         //(EnableProxyScript = new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)){ Command=EnableProxyScriptCommand }),
                         //new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)){ Command=EditHostsFileCommand ,IconKey="JavaScriptDrawing" },
@@ -71,6 +72,8 @@ namespace System.Application.UI.ViewModels
                 //    }
                 //},
             };
+
+            AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value);
         }
 
 

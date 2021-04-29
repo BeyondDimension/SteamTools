@@ -1,4 +1,4 @@
-﻿using DynamicData;
+using DynamicData;
 using DynamicData.Binding;
 using Newtonsoft.Json.Linq;
 using ReactiveUI;
@@ -539,10 +539,11 @@ namespace System.Application.UI.ViewModels
             {
                 var achievementsToo = await MessageBoxCompat.ShowAsync(AppResources.Achievement_ResetWaring_2, Title, MessageBoxButtonCompat.OKCancel);
 
+
                 var real = await MessageBoxCompat.ShowAsync(AppResources.Achievement_ResetWaring_3, Title, MessageBoxButtonCompat.OKCancel);
                 if (real == MessageBoxResultCompat.OK)
                 {
-                    if (ISteamworksLocalApiService.Instance.ResetAllStats(achievementsToo == MessageBoxResultCompat.OK) == false)
+                    if (ISteamworksLocalApiService.Instance.ResetAllStats(achievementsToo == MessageBoxResultCompat.OK))
                     {
                         return;
                     }

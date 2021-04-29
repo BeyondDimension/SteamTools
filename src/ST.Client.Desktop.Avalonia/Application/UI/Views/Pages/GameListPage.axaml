@@ -88,13 +88,6 @@
                                 ToolTip.Tip="添加未拥有的游戏">
                             <PathIcon Data="{StaticResource AddDrawing}" />
                         </Button>-->
-          <Button x:Name="gridSize" Background="Transparent"
-                  Cursor="Hand"
-                  Command="{ReflectionBinding AppGridReSize}"
-                  ToolTip.Tip="{ReflectionBinding Path=Res.GameList_ResizeAppLogo,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <PathIcon Data="{StaticResource GridDrawing}" />
-          </Button>
-
           <Button Background="Transparent"
                   Command="{ReflectionBinding RefreshGamesList,Source={x:Static service:SteamConnectService.Current},Mode=OneWay}"
                   Cursor="Hand"
@@ -112,6 +105,12 @@
                                       ToolTip.Tip="仅显示来源于家庭共享的游戏">
                             <PathIcon Data="{StaticResource ChannelShareDrawing}" />
                         </ToggleButton>-->
+          <Button x:Name="gridSize" Background="Transparent"
+                  Cursor="Hand"
+                  Command="{ReflectionBinding AppGridReSize}"
+                  ToolTip.Tip="{ReflectionBinding Path=Res.GameList_ResizeAppLogo,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <PathIcon Data="{StaticResource GridDrawing}" />
+          </Button>
           <ToggleButton x:Name="typebutton"
                         VerticalAlignment="Center"
                         Width="200" Height="35"
@@ -172,7 +171,7 @@
                     Spacing="15"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center">
-          <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{CompiledBinding SearchText,Mode=TwoWay}" VerticalAlignment="Center" 
+          <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{CompiledBinding SearchText,Mode=TwoWay}" VerticalAlignment="Center"
                    Width="300"
                    MinWidth="200">
             <TextBox.InnerLeftContent>

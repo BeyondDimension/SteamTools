@@ -1,4 +1,4 @@
-﻿using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Primitives;
 using Avalonia.Platform;
 using Avalonia.Styling;
 using System;
@@ -27,8 +27,7 @@ namespace Avalonia.Controls
         void Constructor()
         {
             ExtendClientAreaToDecorationsHint = true;
-            ExtendClientAreaTitleBarHeightHint = -1;
-
+            //ExtendClientAreaTitleBarHeightHint = -1;
             TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
 
             this.GetObservable(WindowStateProperty)

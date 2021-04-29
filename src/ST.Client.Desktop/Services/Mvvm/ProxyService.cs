@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using DynamicData;
 using DynamicData.Binding;
 using System.Application.Models;
@@ -73,8 +73,6 @@ namespace System.Application.Services
         {
             get
             {
-                if (IsEnableScript == false)
-                    return null;
                 if (!ProxyScripts.Items.Any())
                     return null;
                 return ProxyScripts.Items.Where(w => w.Enable).ToArray();
@@ -255,10 +253,7 @@ namespace System.Application.Services
                         .WhenPropertyChanged(x => x.Enable, false)
                         .Subscribe(_ =>
                         {
-                            if (EnableProxyScripts != null)
-                            {
-                                ProxySettings.ScriptsStatus.Value = EnableProxyScripts.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
-                            }
+                            ProxySettings.ScriptsStatus.Value = EnableProxyScripts.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
                         }));
             #endregion
         }
@@ -343,17 +338,18 @@ namespace System.Application.Services
         {
             var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
             ProxyScripts.Clear();
-            ProxyScripts.AddRange(scriptList);
-            if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && ProxyScripts.Items.Any())
+            if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
             {
-                foreach (var item in ProxyScripts.Items)
+                foreach (var item in scriptList)
                 {
-                    if (item.LocalId > 0 && ProxySettings.ScriptsStatus.Value.Contains(item.LocalId))
+                    if (ProxySettings.ScriptsStatus.Value.Contains(item.LocalId))
                     {
                         item.Enable = true;
                     }
                 }
             }
+            ProxyScripts.AddRange(scriptList);
+
             CheckUpdate();
         }
         public async void DownloadScript(ScriptDTO model)

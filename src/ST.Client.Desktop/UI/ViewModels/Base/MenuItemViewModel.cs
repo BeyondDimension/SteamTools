@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using System.Collections.Generic;
 using System.Windows.Input;
 using System.Application.UI.Resx;

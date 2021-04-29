@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using System.Application.Services;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,7 +64,7 @@ namespace System.Application.UI.ViewModels
                 IsOpenUserMenu = UserService.Current.User != null;
                 if (!IsOpenUserMenu)
                 {
-                    UserService.Current.ShowWindowF(CustomWindow.LoginOrRegister);
+                    UserService.Current.ShowWindow(CustomWindow.LoginOrRegister);
                 }
             });
 

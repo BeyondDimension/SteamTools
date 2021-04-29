@@ -289,6 +289,7 @@ namespace System.Application.UI.ViewModels
                     {
                         if (s.Result == MessageBoxResultCompat.OK)
                         {
+                            Toast.Show(AppResources.GameList_RuningWait);
                             app.Process = Process.Start(AppHelper.ProgramName, "-clt app -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
                             SteamConnectService.Current.RuningSteamApps.Add(app);
                         }

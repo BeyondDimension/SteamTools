@@ -10,52 +10,52 @@ namespace System.Application.Models.Settings
     public static class ProxySettings
     {
         /// <summary>
-        /// ÆôÓÃ½Å±¾×Ô¶¯¼ì²é¸üĞÂ
+        /// å¯ç”¨è„šæœ¬è‡ªåŠ¨æ£€æŸ¥æ›´æ–°
         /// </summary>
         public static SerializableProperty<bool> IsAutoCheckScriptUpdate { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, true) { AutoSave = true };
         /// <summary>
-        /// ÆôÓÃGOG²å¼ş´úÀí
+        /// å¯ç”¨GOGæ’ä»¶ä»£ç†
         /// </summary>
         public static SerializableProperty<bool> IsProxyGOG { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };
 
         /// <summary>
-        /// ÆôÓÃwindowsÏµÍ³´úÀíÄ£Ê½
+        /// å¯ç”¨windowsç³»ç»Ÿä»£ç†æ¨¡å¼
         /// </summary>
         public static SerializableProperty<bool> EnableWindowsProxy { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };
 
         /// <summary>
-        /// ÆôÓÃ´úÀí½Å±¾
+        /// å¯ç”¨ä»£ç†è„šæœ¬
         /// </summary>
         public static SerializableProperty<bool> IsEnableScript { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };
 
         /// <summary>
-        /// ³ÌĞòÆô¶¯Ê±×Ô¶¯Æô¶¯´úÀí
+        /// ç¨‹åºå¯åŠ¨æ—¶è‡ªåŠ¨å¯åŠ¨ä»£ç†
         /// </summary>
         public static SerializableProperty<bool> ProgramStartupRunProxy { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };
 
         /// <summary>
-        /// ÊÇ·ñÖ»Õë¶ÔSteamÄÚÖÃä¯ÀÀÆ÷ÆôÓÃ½Å±¾
+        /// æ˜¯å¦åªé’ˆå¯¹Steamå†…ç½®æµè§ˆå™¨å¯ç”¨è„šæœ¬
         /// </summary>
         public static SerializableProperty<bool> IsOnlyWorkSteamBrowser { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };
 
         /// <summary>
-        /// ´úÀí·şÎñÆôÓÃ×´Ì¬
+        /// ä»£ç†æœåŠ¡å¯ç”¨çŠ¶æ€
         /// </summary>
         public static SerializableProperty<IReadOnlyCollection<string>> SupportProxyServicesStatus { get; }
             = new SerializableProperty<IReadOnlyCollection<string>>(GetKey(), Providers.Local, new List<string>());
 
 
         /// <summary>
-        /// ½Å±¾ÆôÓÃ×´Ì¬
+        /// è„šæœ¬å¯ç”¨çŠ¶æ€
         /// </summary>
         public static SerializableProperty<IReadOnlyCollection<int>> ScriptsStatus { get; }
-            = new SerializableProperty<IReadOnlyCollection<int>>(GetKey(), Providers.Local, new List<int>());
+            = new SerializableProperty<IReadOnlyCollection<int>>(GetKey(), Providers.Local, new List<int>()) { AutoSave = true };
 
 
         private static string GetKey([CallerMemberName] string propertyName = "")

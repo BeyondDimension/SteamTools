@@ -910,6 +910,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 正在启动中... 的本地化字符串。
+        /// </summary>
+        public static string GameList_RuningWait {
+            get {
+                return ResourceManager.GetString("GameList_RuningWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 设置自定义封面 的本地化字符串。
         /// </summary>
         public static string GameList_SetCustomImage {
@@ -1343,7 +1352,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 你还没有导入任何令牌哦。 的本地化字符串。
+        ///   查找类似 你还没有导入任何令牌哦，可以在右上角小齿轮图标处新增令牌。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_NoAuthTip {
             get {

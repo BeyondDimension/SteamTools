@@ -140,7 +140,7 @@ namespace System.Application.UI.ViewModels
 
         public ICommand? OnBtnChangeBindPhoneNumberClick { get; } = ReactiveCommand.Create(() =>
         {
-            UserService.Current.ShowWindowF(CustomWindow.ChangeBindPhoneNumber);
+            UserService.Current.ShowWindow(CustomWindow.ChangeBindPhoneNumber);
         });
     }
 }

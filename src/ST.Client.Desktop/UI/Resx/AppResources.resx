@@ -403,6 +403,9 @@
   <data name="GameList_ResizeAppLogo" xml:space="preserve">
     <value>调整封面大小</value>
   </data>
+  <data name="GameList_RuningWait" xml:space="preserve">
+    <value>正在启动中...</value>
+  </data>
   <data name="GameList_SetCustomImage" xml:space="preserve">
     <value>设置自定义封面</value>
   </data>
@@ -551,7 +554,7 @@
     <value>编辑令牌</value>
   </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
-    <value>你还没有导入任何令牌哦。</value>
+    <value>你还没有导入任何令牌哦，可以在右上角小齿轮图标处新增令牌。</value>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
     <value>其它软件导入</value>
