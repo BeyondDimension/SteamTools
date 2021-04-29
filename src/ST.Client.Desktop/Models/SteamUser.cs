@@ -70,8 +70,8 @@ namespace System.Application.Models
         [XmlElement("avatarMedium")]
         public string AvatarMedium { get; set; }
 
-        [XmlIgnore]
         private Task<string?>? _AvatarStream;
+        [XmlIgnore]
         public Task<string?>? AvatarStream
         {
             get => _AvatarStream;

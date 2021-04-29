@@ -222,7 +222,6 @@ namespace System.Application.Services
                        }));
             #endregion
 
-
             #region 加载脚本数据
 
             //var response =// await client.Scripts();
@@ -256,6 +255,11 @@ namespace System.Application.Services
                             ProxySettings.ScriptsStatus.Value = EnableProxyScripts.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
                         }));
             #endregion
+
+            if (EnableProxyDomains.Any_Nullable() && ProxySettings.ProgramStartupRunProxy.Value)
+            {
+                ProxyStatus = true;
+            }
         }
         public async void BasicsInfo()
         {
@@ -302,6 +306,7 @@ namespace System.Application.Services
                 //}
             }
         }
+
         public void StartTiming()
         {
             Task.Run(() =>

@@ -1,4 +1,4 @@
-﻿#if (DEBUG && !UI_DEMO) || (!DEBUG && UI_DEMO)
+#if (DEBUG && !UI_DEMO) || (!DEBUG && UI_DEMO)
 using System.Application.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;

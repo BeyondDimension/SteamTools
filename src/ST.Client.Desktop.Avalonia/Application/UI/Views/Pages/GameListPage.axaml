@@ -116,8 +116,8 @@
                         Width="200" Height="35"
                         IsChecked="{Binding IsOpenFilter,Mode=TwoWay}">
             <DockPanel>
-              <TextBlock Text="{Binding TypeFilterString}" TextTrimming="CharacterEllipsis"/>
-              <PathIcon
+              <TextBlock VerticalAlignment="Center" Text="{Binding TypeFilterString}" TextTrimming="CharacterEllipsis"/>
+              <PathIcon VerticalAlignment="Center"
                         HorizontalAlignment="Right"
                         Data="{StaticResource ChevronDownDrawing}"
                         Width="16"></PathIcon>

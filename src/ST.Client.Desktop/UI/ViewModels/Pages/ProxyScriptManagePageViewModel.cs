@@ -60,7 +60,7 @@ namespace System.Application.UI.ViewModels
         public MenuItemViewModel? ScriptAutoUpdate { get; }
 
         public ReactiveCommand<Unit, Unit> OnlySteamBrowserCommand { get; }
-        public MenuItemViewModel OnlySteamBrowser { get; }
+        public MenuItemViewModel? OnlySteamBrowser { get; }
         public ProxyScriptManagePageViewModel()
         {
             IconKey = nameof(ProxyScriptManagePageViewModel).Replace("ViewModel", "Svg");

@@ -70,7 +70,7 @@
       <ScrollViewer HorizontalScrollBarVisibility="Disabled" Padding="{StaticResource ScrollMargin}">
         <ItemsRepeater Items="{Binding ProxyScripts}">
           <ItemsRepeater.Layout>
-            <WrapLayout VerticalSpacing="20" HorizontalSpacing="20" Orientation="Horizontal"/>
+            <WrapLayout HorizontalSpacing="20" VerticalSpacing="20" Orientation="Horizontal"/>
           </ItemsRepeater.Layout>
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>
