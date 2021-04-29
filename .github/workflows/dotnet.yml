@@ -2,9 +2,9 @@ name: .NET
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master,develop ]
   pull_request:
-    branches: [ master ]
+    branches: [ master,develop ]
 
 jobs:
   build:
@@ -17,9 +17,23 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - name: dotnet info
+      run: dotnet --info
+    - name: dotnet restore
+      run: dotnet restore ./SteamToolsV2+.sln
+    - name: dotnet CommonUnit build
+      run: dotnet build ./test/Common.UnitTest/Common.UnitTest.csproj
+    - name: dotnet CommonUnit test
+      run: dotnet test ./test/Common.UnitTest/Common.UnitTest.csproj
+    - name: dotnet Common.UnitTest.Droid build
+      run: dotnet build ./test/Common.UnitTest.Droid/Common.UnitTest.Droid.csproj
+    - name: dotnet Common.UnitTest.Droid test
+      run: dotnet test ./test/Common.UnitTest.Droid/Common.UnitTest.Droid.csproj
+    - name: dotnet Common.UnitTest.Droid.App build
+      run: dotnet build ./test/Common.UnitTest.Droid.App/Common.UnitTest.Droid.App.csproj
+    - name: dotnet Common.UnitTest.Droid.App test
+      run: dotnet test ./test/Common.UnitTest.Droid.App/Common.UnitTest.Droid.App.csproj
+    - name: dotnet ST.Client.UnitTest build
+      run: dotnet build ./test/ST.Client.UnitTest/ST.Client.UnitTest.csproj
+    - name: dotnet ST.Client.UnitTest test
+      run: dotnet test ./test/ST.Client.UnitTest/ST.Client.UnitTest.csproj
