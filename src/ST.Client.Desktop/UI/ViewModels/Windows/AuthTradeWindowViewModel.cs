@@ -526,38 +526,36 @@ namespace System.Application.UI.ViewModels
 
             try
             {
-                for (var i = 0; i < Confirmations.Count; i--)
+                foreach (var item in _ConfirmationsSourceList.Items)
                 {
                     if (CancelComfirmAll.IsCancellationRequested)
                     {
                         return;
                     }
 
-                    if (Confirmations[i].IsOperate != 0)
+                    if (item.IsOperate != 0)
                     {
                         continue;
                     }
 
                     DateTime start = DateTime.Now;
 
-                    var result = await AcceptTrade(Confirmations[i]);
+                    var result = await AcceptTrade(item);
                     if (result == false || CancelComfirmAll.IsCancellationRequested == true)
                     {
                         return;
                     }
                     await MainThreadDesktop.InvokeOnMainThreadAsync(() =>
                     {
-                        Confirmations[i].IsOperate = 1;
+                        item.IsOperate = 1;
                         //Confirmations.Remove(trades[i]);
                     });
-                    if (i != Confirmations.Count - 1)
+
+                    var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
+                    var delay = WinAuthSteamClient.CONFIRMATION_EVENT_DELAY + Random2.Next(WinAuthSteamClient.CONFIRMATION_EVENT_DELAY / 2); // delay is 100%-150% of CONFIRMATION_EVENT_DELAY
+                    if (delay > duration)
                     {
-                        var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
-                        var delay = WinAuthSteamClient.CONFIRMATION_EVENT_DELAY + Random2.Next(WinAuthSteamClient.CONFIRMATION_EVENT_DELAY / 2); // delay is 100%-150% of CONFIRMATION_EVENT_DELAY
-                        if (delay > duration)
-                        {
-                            await Task.Delay(delay - duration);
-                        }
+                        await Task.Delay(delay - duration);
                     }
                 }
             }
@@ -582,38 +580,36 @@ namespace System.Application.UI.ViewModels
 
             try
             {
-                for (var i = 0; i < Confirmations.Count; i--)
+                foreach (var item in _ConfirmationsSourceList.Items)
                 {
                     if (CancelCancelAll.IsCancellationRequested)
                     {
                         break;
                     }
 
-                    if (Confirmations[i].IsOperate != 0)
+                    if (item.IsOperate != 0)
                     {
                         continue;
                     }
 
                     DateTime start = DateTime.Now;
 
-                    var result = await RejectTrade(Confirmations[i]);
+                    var result = await RejectTrade(item);
                     if (result == false || CancelCancelAll.IsCancellationRequested == true)
                     {
                         break;
                     }
                     await MainThreadDesktop.InvokeOnMainThreadAsync(() =>
                     {
-                        Confirmations[i].IsOperate = 2;
+                        item.IsOperate = 2;
                         //Confirmations.Remove(tradeIds[i]);
                     });
-                    if (i != Confirmations.Count - 1)
+
+                    var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
+                    var delay = WinAuthSteamClient.CONFIRMATION_EVENT_DELAY + Random2.Next(WinAuthSteamClient.CONFIRMATION_EVENT_DELAY / 2); // delay is 100%-150% of CONFIRMATION_EVENT_DELAY
+                    if (delay > duration)
                     {
-                        var duration = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
-                        var delay = WinAuthSteamClient.CONFIRMATION_EVENT_DELAY + Random2.Next(WinAuthSteamClient.CONFIRMATION_EVENT_DELAY / 2); // delay is 100%-150% of CONFIRMATION_EVENT_DELAY
-                        if (delay > duration)
-                        {
-                            await Task.Delay(delay - duration);
-                        }
+                        await Task.Delay(delay - duration);
                     }
                 }
             }
