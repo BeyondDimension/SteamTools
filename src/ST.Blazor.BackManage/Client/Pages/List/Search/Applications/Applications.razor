@@ -1,0 +1,117 @@
+﻿@namespace System.Application.Pages.List
+@layout SearchList
+@page "/list/search/applications"
+
+<div class="filterCardList">
+    <Card>
+        <Form Model="_model"
+              Layout="inline">
+            <StandardFormRow Title="Category" Block Style="padding-bottom: 11px">
+                <FormItem>
+                    <TagSelect Expandable Value="_selectCategories">
+                        <TagSelectOption Value="cat1">Category 1</TagSelectOption>
+                        <TagSelectOption Value="cat2">Category 2</TagSelectOption>
+                        <TagSelectOption Value="cat3">Category 3</TagSelectOption>
+                        <TagSelectOption Value="cat4">Category 4</TagSelectOption>
+                        <TagSelectOption Value="cat5">Category 5</TagSelectOption>
+                        <TagSelectOption Value="cat6">Category 6</TagSelectOption>
+                        <TagSelectOption Value="cat7">Category 7</TagSelectOption>
+                        <TagSelectOption Value="cat8">Category 8</TagSelectOption>
+                        <TagSelectOption Value="cat9">Category 9</TagSelectOption>
+                        <TagSelectOption Value="cat10">Category 10</TagSelectOption>
+                        <TagSelectOption Value="cat11">Category 11</TagSelectOption>
+                        <TagSelectOption Value="cat12">Category 12</TagSelectOption>
+                    </TagSelect>
+                </FormItem>
+            </StandardFormRow>
+            <StandardFormRow Title="Other Options" Grid Last>
+                <Row Gutter="16">
+                    <AntDesign.Col Lg="8" Md="10" Sm="10" Xs="24">
+                        <FormItem Label="Author">
+                            <Select TItem="string"
+                                    TItemValue="string"
+                                    Placeholder="All"
+                                    Style="max-width: 200px; width: 100%;"
+                                    @bind-Value="_model.ActiveUser">
+                                <SelectOptions>
+                                    <SelectOption TItem="string" TItemValue="string" Value="@("lisa")" Label="Wang Zhaojun" />
+                                </SelectOptions>
+                            </Select>
+                        </FormItem>
+                    </AntDesign.Col>
+                    <AntDesign.Col Lg="8" Md="10" Sm="10" Xs="24">
+                        <FormItem Label="Rating">
+                            <Select TItem="string"
+                                    TItemValue="string"
+                                    Placeholder="All"
+                                    Style="max-width: 200px; width: 100%;"
+                                    @bind-Value="_model.Satisfaction">
+                                <SelectOptions>
+                                    <SelectOption TItem="string" TItemValue="string" Value="@("good")" Label="Excellent" />
+                                    <SelectOption TItem="string" TItemValue="string" Value="@("normal")" Label="Normal" />
+                                </SelectOptions>
+                            </Select>
+                        </FormItem>
+                    </AntDesign.Col>
+                </Row>
+            </StandardFormRow>
+        </Form>
+    </Card>
+    <br />
+    <AntList TItem="ListItemDataType"
+             Grid="_listGridType"
+             DataSource="_fakeList">
+        <ListItem NoFlex Grid="_listGridType">
+            <Card Hoverable
+                  BodyStyle="padding-bottom: 20px;"
+                  Actions="Actions">
+                <CardMeta>
+                    <TitleTemplate>
+                        @context.Title
+                    </TitleTemplate>
+                    <AvatarTemplate>
+                        <Avatar Size="small" Src="@context.Avatar" />
+                    </AvatarTemplate>
+                </CardMeta>
+                <div class="cardItemContent">
+                    <div class="cardInfo">
+                        <div>
+                            <p>Active</p>
+                            <p>@FormatWan(context.ActiveUser)</p>
+                        </div>
+                        <div>
+                            <p>New</p>
+                            <p>@context.NewUser.ToString("0,0")</p>
+                        </div>
+                    </div>
+                </div>
+            </Card>
+        </ListItem>
+    </AntList>
+</div>
+
+@code
+{
+    private static readonly RenderFragment Download =@<AntDesign.Tooltip Title="@("下载")">
+    <Icon Type="download" Theme="outline" />
+</AntDesign.Tooltip>;
+
+private static readonly IList<RenderFragment> Actions = new List<RenderFragment>
+{
+        Download,
+@<AntDesign.Tooltip Title="@("Edit")"><Icon Type="edit" Theme="outline" /></AntDesign.Tooltip>,
+@<AntDesign.Tooltip Title="@("Share")"><Icon Type="share-alt" Theme="outline" /></AntDesign.Tooltip>,
+@<Dropdown><Icon Type="ellipsis" Theme="outline" /></Dropdown>
+    };
+
+        private static RenderFragment FormatWan(int val) {
+            if (val > 10000) {
+                val = (int) Math.Floor((double) val / 10000);
+            }
+
+            return @<span>
+            @val
+            <span style="position: relative; top: -2px; font-size: 14px; font-style: normal; margin-left: 2px;">k</span>
+        </span>;
+ }
+}

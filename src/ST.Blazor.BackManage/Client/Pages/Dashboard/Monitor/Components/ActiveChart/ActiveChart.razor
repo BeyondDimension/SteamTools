@@ -1,0 +1,53 @@
+﻿@namespace System.Application.Pages.Dashboard.Monitor
+@using System.Application.Models
+@inherits AntDomComponentBase
+
+<div class="activeChart">
+    <Statistic Title="@("Goal evaluation")" Value="@("Expected to meet expectations")" />
+    <div style="margin-top: 32px">
+        <MiniArea Data="ActiveData" />
+    </div>
+    @if (ActiveData != null) {
+        <div>
+            <div class="activeChartGrid">
+                <p>@(ActiveData.OrderBy(x => x.Y).Last().Y + 200) Billion</p>
+                <p>@(ActiveData.OrderBy(x=>x.Y).ToArray()[ActiveData.Length/2].Y) Billion</p>
+            </div>
+            <div class="dashedLine">
+                <div class="line" />
+            </div>
+            <div class="dashedLine">
+                <div class="line" />
+            </div>
+        </div>
+
+        <div class="activeChartLegend">
+            <span>00:00</span>
+            <span>@ActiveData[ActiveData.Length / 2].X</span>
+            <span>@ActiveData.Last().X</span>
+        </div>
+    }
+
+</div>
+
+@code
+{
+    public ChartDataItem[] ActiveData { get; set; }
+
+    protected override void OnInitialized() {
+        base.OnInitializedAsync();
+        ActiveData = GetActiveData();
+    }
+
+    private ChartDataItem[] GetActiveData() {
+        var activeData = new ChartDataItem[24];
+        var random = new Random();
+        for (var i = 0; i < 24; i++) {
+            activeData[i] = new ChartDataItem {
+                X = $"{i.ToString().PadRight(2, '0')}: 00",
+                Y = (int) (Math.Floor(random.NextDouble() * 200) + i * 50)
+            };
+        }
+        return activeData;
+    }
+}

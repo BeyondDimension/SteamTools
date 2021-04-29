@@ -1,0 +1,183 @@
+﻿@namespace System.Application.Pages.Profile
+@page "/profile/advanced"
+
+<PageContainer Title="Order Number: 234231029431"
+               Class="pageHeader"
+               TabList="_tabList">
+    <Breadcrumb>
+        <Breadcrumb>
+            <BreadcrumbItem>Home</BreadcrumbItem>
+            <BreadcrumbItem>Profile</BreadcrumbItem>
+            <BreadcrumbItem>Advanced Profile</BreadcrumbItem>
+        </Breadcrumb>
+    </Breadcrumb>
+    <Extra>
+        <ButtonGroup>
+            <Button>Operation 1</Button>
+            <Button>Operation 2</Button>
+            <Dropdown Placement="@PlacementType.BottomRight">
+                <Overlay>
+                    <Menu>
+                        <MenuItem Key="1">Option One</MenuItem>
+                        <MenuItem Key="2">Option Two</MenuItem>
+                        <MenuItem Key="3">Option Three</MenuItem>
+                    </Menu>
+                </Overlay>
+                <ChildContent>
+                    <Button>
+                        <Icon Type="ellipsis" Theme="outline" />
+                    </Button>
+                </ChildContent>
+            </Dropdown>
+        </ButtonGroup>
+        <Button Type="primary">Main Operation</Button>
+    </Extra>
+    <ExtraContent>
+        <div class="moreInfo">
+            <Statistic Title="@("Status")" Value="@("Pending")" />
+            <Statistic Title="@("Order Amount")" Value="568.08" Prefix="@("¥")" />
+        </div>
+    </ExtraContent>
+    <Content>
+        <Descriptions Class="headerList" Size="small" Column="2">
+            <DescriptionsItem Title="@("Founder")">Qu Lili</DescriptionsItem>
+            <DescriptionsItem Title="@("Ordering Products")">XX Service</DescriptionsItem>
+            <DescriptionsItem Title="@("Creation Time")">2017-07-07</DescriptionsItem>
+            <DescriptionsItem Title="@("Associated documents")">
+                <a href="">12421</a>
+            </DescriptionsItem>
+            <DescriptionsItem Title="@("Effective Date")">2017-07-07 ~ 2017-08-08</DescriptionsItem>
+            <DescriptionsItem Title="@("Remarks")">Please confirm within two working days</DescriptionsItem>
+        </Descriptions>
+    </Content>
+    <ChildContent>
+        <div class="main__b__3">
+            <GridContent>
+                <Card Title="@("Process Progress")" Style="margin-bottom: 24px;">
+                    <Steps Direction="horizontal"
+                           Current="1">
+                        <ChildContent>
+                            <Step Title="@("Created Project")" DescriptionTemplate="@_desc1" />
+                            <Step Title="@("Departmental Preliminary Review")" DescriptionTemplate="@_desc2" />
+                            <Step Title="@("Financial Review")" />
+                            <Step Title="@("Proceed")" />
+                        </ChildContent>
+                    </Steps>
+                </Card>
+
+                <Card Title="@("User Info")" Style="margin-bottom: 24px;">
+                    <Descriptions Style="margin-bottom: 24px;">
+                        <DescriptionsItem Title="@("Username")">Pay small</DescriptionsItem>
+                        <DescriptionsItem Title="@("Member Card Number")">32943898021309809423</DescriptionsItem>
+                        <DescriptionsItem Title="@("ID Card")">3321944288191034921</DescriptionsItem>
+                        <DescriptionsItem Title="@("Contact Details")">18112345678</DescriptionsItem>
+                        <DescriptionsItem Title="@("Contact Address")">
+                            Qu Lili 18100000000 Intersection of Gongzhuan Road, Huanggushan Road, Xihu District, Hangzhou City, Zhejiang Province
+                        </DescriptionsItem>
+                    </Descriptions>
+                    <Descriptions Style="margin-bottom: 24px;" Title="@("Information Group")">
+                        <DescriptionsItem Title="@("A Certain Data")">725</DescriptionsItem>
+                        <DescriptionsItem Title="@("Update Time")">2017-08-08</DescriptionsItem>
+                        <DescriptionsItem TitleTemplate="@_title">
+                            725
+                        </DescriptionsItem>
+                        <DescriptionsItem Title="@("Update Time")">2017-08-08</DescriptionsItem>
+                    </Descriptions>
+                    <h4 style="margin-bottom: 16px;">Information Group</h4>
+                    <Card Type="inner" Title="@("Multi-Level Information Group")" Bordered>
+                        <Descriptions Style="margin-bottom: 16px;" Title="@("Group Name")">
+                            <DescriptionsItem Title="@("Principal")">Lin Dongdong</DescriptionsItem>
+                            <DescriptionsItem Title="@("Role Code")">1234567</DescriptionsItem>
+                            <DescriptionsItem Title="@("Department")">XX Company-YY Department</DescriptionsItem>
+                            <DescriptionsItem Title="@("Expiry Date")">2017-08-08</DescriptionsItem>
+                            <DescriptionsItem Title="@("Description")">
+                                This description is very long, very long, very long, very long, very long, very long, very long, very long, very long, very long, very long...
+                            </DescriptionsItem>
+                        </Descriptions>
+                        <Divider Style="margin: 16px 0;" />
+                        <Descriptions Style="margin-bottom: 16px;" Title="@("Group Name")" Column="1">
+                            <DescriptionsItem Title="@("Scientific Name")">
+                                Citrullus lanatus (Thunb.) Matsum. et
+                                Nakai is an annual trailing vine; the stems and branches are strong, with distinct edges.The tendrils are thicker...
+                            </DescriptionsItem>
+                        </Descriptions>
+                        <Divider Style="margin: 16px 0;" />
+                        <Descriptions Title="@("Group Name")">
+                            <DescriptionsItem Title="@("Principal")">Fu Xiaoxiao</DescriptionsItem>
+                            <DescriptionsItem Title="@("Role Code")">1234568</DescriptionsItem>
+                        </Descriptions>
+                    </Card>
+                </Card>
+
+                <Card Title="@("Electricity Records Of Users In The Past Six Months")" Style="margin-bottom: 24px;">
+                    <Empty />
+                </Card>
+
+                <Card Class="tabsCard">
+                    <Tabs DefaultActiveKey="tab1">
+                        <TabPane Key="tab1">
+                            <Tab>Operation Log 1</Tab>
+                            <ChildContent>
+                                <Table DataSource="@_data.AdvancedOperation1"
+                                       HidePagination>
+                                    <AntDesign.Column Title="Operating Type" @bind-Field="@context.Type" />
+                                    <AntDesign.Column Title="Operator" @bind-Field="@context.Name" />
+                                    <AntDesign.Column Title="Results" @bind-Field="@context.Status" />
+                                    <AntDesign.Column Title="Operating time" @bind-Field="@context.UpdatedAt" />
+                                    <AntDesign.Column Title="Remarks" @bind-Field="@context.Memo" />
+                                </Table>
+                            </ChildContent>
+                        </TabPane>
+                        <TabPane Key="tab2">
+                            <Tab>Operation Log 2</Tab>
+                            <ChildContent>
+                                <Table DataSource="@_data.AdvancedOperation2"
+                                       HidePagination>
+                                    <AntDesign.Column Title="Operation Type" @bind-Field="@context.Type" />
+                                    <AntDesign.Column Title="Operator" @bind-Field="@context.Name" />
+                                    <AntDesign.Column Title="Results" @bind-Field="@context.Status" />
+                                    <AntDesign.Column Title="Operating time" @bind-Field="@context.UpdatedAt" />
+                                    <AntDesign.Column Title="Remarks" @bind-Field="@context.Memo" />
+                                </Table>
+                            </ChildContent>
+                        </TabPane>
+                        <TabPane Key="tab3">
+                            <Tab>Operation Log 3</Tab>
+                            <ChildContent>
+                                <Table DataSource="@_data.AdvancedOperation3"
+                                       HidePagination>
+                                    <AntDesign.Column Title="Operation Type" @bind-Field="@context.Type" />
+                                    <AntDesign.Column Title="Operator" @bind-Field="@context.Name" />
+                                    <AntDesign.Column Title="Results" @bind-Field="@context.Status" />
+                                    <AntDesign.Column Title="Operating Time" @bind-Field="@context.UpdatedAt" />
+                                    <AntDesign.Column Title="Remarks" @bind-Field="@context.Memo" />
+                                </Table>
+                            </ChildContent>
+                        </TabPane>
+                    </Tabs>
+                </Card>
+            </GridContent>
+        </div>
+    </ChildContent>
+</PageContainer>
+
+@code
+{
+    private readonly RenderFragment _desc1 = @<div class="textSecondary stepDescription">
+    Qu Lili <Icon Type="dingding" Theme="outline" />
+</div>;
+private readonly RenderFragment _desc2 = @<div class="stepDescription">
+    Zhou Maomao
+    <Icon Type="dingding" Theme="outline" />
+    <div>
+        <a href="">Hurry Up</a>
+    </div>
+</div>;
+
+private readonly RenderFragment _title = @<span>
+    Another Data
+    <AntDesign.Tooltip Title="@("The Data Shows")">
+        <Icon Type="info-circle" Theme="outline" Style="color: rgba(0, 0, 0, 0.43); margin-left: 4px;" />
+    </AntDesign.Tooltip>
+</span>;
+}

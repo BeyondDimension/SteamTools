@@ -1,0 +1,77 @@
+@namespace System.Application.Pages.Dashboard.Analysis
+@inherits AntDomComponentBase
+
+<Card>
+    <CardTabs>
+        <div class="salesCard">
+            <Tabs ActiveKeyChanged="OnTabChanged" TabBarStyle="margin-bottom: 24px;">
+                <TabPane Key="1">
+                    <Tab>Sales</Tab>
+                    <ChildContent>
+                        <Row>
+                            <AntDesign.Col Xl="16" Lg="12" Md="12" Sm="24" Xs="24">
+                                <AntDesign.Charts.Column @ref="_saleChart" TItem="ChartDataItem" Config="_saleChartConfig"/>
+                            </AntDesign.Col>
+                            <AntDesign.Col Xl="8" Lg="12" Md="12" Sm="24" Xs="24">
+                                <div class="salesRank">
+                                    <h1 class="rankingTitle">
+                                        Sales Ranking
+                                    </h1>
+                                    <ul class="rankingList">
+                                        @foreach (var item in Items)
+                                        {
+                                            <li key="@item.Title">
+                                                <span class="rankingItemNumber @(item.Id <= 3 ? "active" : "")">
+                                                    @item.Id
+                                                </span>
+                                                <span class="rankingItemTitle" title="@item.Title">
+                                                    @item.Title
+                                                </span>
+                                                <span class="rankingItemValue">
+                                                    @item.Total
+                                                </span>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </AntDesign.Col>
+                        </Row>
+                    </ChildContent>
+                </TabPane>
+                <TabPane Key="2">
+                    <Tab>Visits</Tab>
+                    <ChildContent>
+                        <Row>
+                            <AntDesign.Col Xl="16" Lg="12" Md="12" Sm="24" Xs="24">
+                                <AntDesign.Charts.Column @ref="_visitChart" TItem="ChartDataItem" Config="_visitChartConfig"/>
+                            </AntDesign.Col>
+                            <AntDesign.Col Xl="8" Lg="12" Md="12" Sm="24" Xs="24">
+                                <div class="salesRank">
+                                    <h1 class="rankingTitle">
+                                        Visits Ranking
+                                    </h1>
+                                    <ul class="rankingList">
+                                        @foreach (var item in Items)
+                                        {
+                                            <li key="@item.Title">
+                                                <span class="rankingItemNumber @(item.Id <= 3 ? "active" : "")">
+                                                    @item.Id
+                                                </span>
+                                                <span class="rankingItemTitle" title="@item.Title">
+                                                    @item.Title
+                                                </span>
+                                                <span class="rankingItemValue">
+                                                    @item.Total
+                                                </span>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </AntDesign.Col>
+                        </Row>
+                    </ChildContent>
+                </TabPane>
+            </Tabs>
+        </div>
+    </CardTabs>
+</Card>

@@ -1,0 +1,29 @@
+@using System.Application.Models
+@namespace System.Application.Pages.Dashboard.Monitor
+
+<Area @ref="_chart" TItem="ChartDataItem" Data="Data" Config="_chartConfig" />
+
+@code
+{
+    private IChartComponent _chart;
+
+    private readonly AreaConfig _chartConfig = new AreaConfig
+    {
+        XField = "x",
+        YField = "y",
+        Height = 84,
+        Padding = new[] { 8, 8, 8, 8 },
+        ForceFit = true,
+        XAxis = new ValueCatTimeAxis
+        {
+            Visible = false
+        },
+        YAxis = new ValueAxis
+        {
+            Visible = false
+        }
+    };
+
+    [Parameter]
+    public ChartDataItem[] Data { get; set; }
+}

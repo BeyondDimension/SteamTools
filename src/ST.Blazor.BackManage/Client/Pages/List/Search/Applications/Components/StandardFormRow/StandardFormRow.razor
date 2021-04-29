@@ -1,0 +1,14 @@
+@namespace System.Application.Pages.List
+@inherits AntDomComponentBase
+
+<div class="@ClassMapper.Class">
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <div class="label">
+            <span>@Title</span>
+        </div>
+    }
+    <div class="content">
+        @ChildContent
+    </div>
+</div>

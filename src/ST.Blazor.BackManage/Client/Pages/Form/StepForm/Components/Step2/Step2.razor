@@ -1,0 +1,28 @@
+@namespace System.Application.Pages.Form
+
+<Form LabelCol="new ColLayoutParam{ Span = 5 }"
+      WrapperCol="new ColLayoutParam{ Span = 19 }"
+      Layout="@FormLayout.Horizontal"
+      Class="stepForm"
+      Model="@_model">
+    <Alert Closable
+           ShowIcon="true"
+           Message="After the transfer is confirmed, the funds will be directly credited to the other party's account and cannot be returned."
+           Style="margin-bottom: 24px;" />
+    <Descriptions Column="@(1)">
+        <DescriptionsItem Title="Account">@_model.PayAccount</DescriptionsItem>
+        <DescriptionsItem Title="Recipient">@_model.ReceiverAccount</DescriptionsItem>
+        <DescriptionsItem Title="Payee Name">@_model.ReceiverName</DescriptionsItem>
+        <DescriptionsItem Title="Amount">
+            <Statistic Value="@_model.Amount" Suffix="Yuan" />
+        </DescriptionsItem>
+    </Descriptions>
+    <Divider Style="margin: 24px 0" />
+    <FormItem Label="Password">
+        <Input Type="password" Style="width: 80%" @bind-Value="@context.Password" />
+    </FormItem>
+    <FormItem Style="margin-bottom: 8px;" WrapperCol="_formLayout.WrapperCol">
+        <Button Type="primary" OnClick="OnValidateForm">Submit</Button>
+        <Button OnClick="Preview" Style="margin-left: 8px;">Previous Step</Button>
+    </FormItem>
+</Form>

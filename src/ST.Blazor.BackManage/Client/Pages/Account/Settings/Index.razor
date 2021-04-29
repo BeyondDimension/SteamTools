@@ -1,0 +1,36 @@
+@namespace System.Application.Pages.Account.Settings
+@page "/account/settings"
+
+<GridContent>
+    <div class="main__b__2">
+        <div class="leftMenu">
+            <Menu 
+                Mode="MenuMode.Inline" 
+                SelectedKeys="new []{_selectKey}" 
+                OnMenuItemClicked="SelectKey">
+                @foreach (var item in _menuMap)
+                {
+                    <MenuItem Key="@item.Key">@item.Value</MenuItem>
+                }
+            </Menu>
+        </div>
+        <div class="right__b__0">
+            <div class="title">@_menuMap[_selectKey]</div>
+            @switch (_selectKey)
+            {
+                case "base":
+                     <BaseView />
+                    break;
+                case "security":
+                    <SecurityView />
+                    break;
+                case "binding":
+                    <BindingView />
+                    break;
+                case "notification":
+                    <NotificationView />
+                    break;
+            }
+        </div>
+    </div>
+</GridContent>

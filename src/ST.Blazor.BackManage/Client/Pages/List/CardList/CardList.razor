@@ -1,0 +1,85 @@
+﻿@namespace System.Application.Pages.List
+@page "/list/card-list"
+
+<PageContainer Title="Card List">
+    <Breadcrumb>
+        <Breadcrumb>
+            <BreadcrumbItem>Home</BreadcrumbItem>
+            <BreadcrumbItem>List</BreadcrumbItem>
+            <BreadcrumbItem>Card List</BreadcrumbItem>
+        </Breadcrumb>
+    </Breadcrumb>
+    <Content>
+        <div class="pageHeaderContent__b__1">
+            <p>
+                Paragraph: Ant.design, the service design platform of Ant Financial, seamlessly connects to the ecosystem of Ant Financial with minimal workload.
+                Provide experience solutions that span design and development.
+            </p>
+            <div class="contentLink">
+                <a>
+                    <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/MjEImQtenlyueSmVEfUD.svg" />
+                    Quick start
+                </a>
+                <a>
+                    <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/NbuDUAuBlIApFuDvWiND.svg" />
+                    Product Introduction
+                </a>
+                <a>
+                    <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/ohOEPSYdDTNnyMbGuyLb.svg" />
+                    Product Documentation
+                </a>
+            </div>
+        </div>
+    </Content>
+    <ExtraContent>
+        <div class="extraImg">
+            <img alt="This is a title"
+                 src="https://gw.alipayobjects.com/zos/rmsportal/RzwpdLnhmvDJToTdfDPe.png" />
+        </div>
+    </ExtraContent>
+    <ChildContent>
+        <div class="cardList">
+            <AntList TItem="ListItemDataType"
+                     DataSource="_data"
+                     ItemLayout="ListItemLayout.Horizontal"
+                     Grid="_listGridType">
+                <ListItem NoFlex Grid="_listGridType">
+                    @if (string.IsNullOrEmpty(context.Id)) {
+                        <Button Type="dashed" class="newButton">
+                            <Icon Type="plus" Theme="outline" /> Add Product
+                        </Button>
+                    }
+                    else {
+                        <Card Hoverable Bordered Class="card" Actions="_actions">
+                            <CardMeta>
+                                <AvatarTemplate>
+                                    <img alt="" class="cardAvatar" src="@context.Avatar" />
+                                </AvatarTemplate>
+                                <TitleTemplate>
+                                    <a>@context.Title</a>
+                                </TitleTemplate>
+                                <DescriptionTemplate>
+                                    <Paragraph class="item" Ellipsis>
+                                        <!--todo: Ellipsis not working-->
+                                        @context.Description
+                                    </Paragraph>
+                                </DescriptionTemplate>
+                            </CardMeta>
+                        </Card>
+                    }
+                </ListItem>
+            </AntList>
+        </div>
+    </ChildContent>
+</PageContainer>
+
+@code
+{
+    private static readonly RenderFragment Operate = @<a key="option1">Operation one</a>;
+
+private readonly RenderFragment[] _actions =
+{
+        Operate,
+@<a key="option2">Operation two</a>,
+    };
+}

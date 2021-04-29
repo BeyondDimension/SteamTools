@@ -1,0 +1,35 @@
+@namespace System.Application.Pages.Result
+@page "/result/fail"
+
+<GridContent>
+    <Card>
+        <Result Status="error"
+                Title="Submission Failed"
+                SubTitle="Please check and modify the following information before resubmitting."
+                Style="margin-top: 48px; margin-bottom: 16px;">
+            <Extra>
+                <Button Type="primary">Return to modify</Button>
+            </Extra>
+            <ChildContent>
+                <div class="title__b__0">
+                    The content you submitted has the following error:
+                </div>
+                <div style="margin-bottom: 16px;">
+                    <Icon Type="close-circle" Theme="outline" Class="error_icon" />
+                    Your account has been blocked
+                    <a style="margin-left: 16px;">
+                        Unblock account
+                        <Icon Type="right" Theme="outline" />
+                    </a>
+                </div>
+                <div>
+                    <Icon Type="close-circle" Theme="outline" Class="error_icon" Style="margin-right: 8px;" />
+                    Your account is not valid for use
+                    <a style="margin-left: 16px;">
+                        Upgrade account
+                    </a>
+                </div>
+            </ChildContent>
+        </Result>
+    </Card>
+</GridContent>

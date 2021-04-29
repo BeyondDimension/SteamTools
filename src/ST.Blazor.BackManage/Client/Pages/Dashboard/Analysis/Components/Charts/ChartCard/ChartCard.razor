@@ -1,0 +1,26 @@
+﻿@namespace System.Application.Pages.Dashboard.Analysis
+@inherits AntDomComponentBase
+
+<Card>
+    <div class="chartCard">
+        <div class="chartTop">
+            <div class="avatar">@Avatar</div>
+            <div class="metaWrap">
+                <div class="meta">
+                    <span>@Title</span>
+                    <span class="action"><Icon Type="info-circle" /></span>
+                </div>
+                <div class="total">
+                    <span>@Total</span>
+                </div>
+            </div>
+        </div>
+        <div class="content" style="height: @(string.IsNullOrEmpty(ContentHeight) ? "auto" : ContentHeight+"px")">
+            <div class="@(string.IsNullOrEmpty(ContentHeight) ? "" : "contentFixed")">@ChildContent</div>
+        </div>
+        <div class="footer">
+            @Footer
+        </div>
+    </div>
+</Card>
+

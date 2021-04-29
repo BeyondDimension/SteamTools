@@ -1,0 +1,105 @@
+﻿@namespace System.Application.Pages.List
+@page "/list/basic-list"
+
+<div>
+    <PageContainer Title="Basic List">
+        <Breadcrumb>
+            <Breadcrumb>
+                <BreadcrumbItem>Home</BreadcrumbItem>
+                <BreadcrumbItem>List</BreadcrumbItem>
+                <BreadcrumbItem>Basic List </BreadcrumbItem>
+            </Breadcrumb>
+        </Breadcrumb>
+        <ChildContent>
+            <div class="standardList">
+                <Card>
+                    <Row Gutter="24">
+                        <AntDesign.Col Sm="8" Xs="24">
+                            @Info("My to do", "8 tasks", true)
+                        </AntDesign.Col>
+                        <AntDesign.Col Sm="8" Xs="24">
+                            @Info("Average task processing time this week", "32 minutes", true)
+                        </AntDesign.Col>
+                        <AntDesign.Col Sm="8" Xs="24">
+                            @Info("Number of tasks completed this week", "24 tasks")
+                        </AntDesign.Col>
+                    </Row>
+                </Card>
+
+                <Card Class="listCard"
+                      Title="Basic list"
+                      Style="margin-top: 24px;"
+                      BodyStyle="padding: 0 32px 40px 32px">
+                    <Extra>
+                        <div class="extraContent">
+                            <RadioGroup @bind-Value="_model.Status">
+                                <Radio RadioButton Value="@("all")">All</Radio>
+                                <Radio RadioButton Value="@("progress")">Processing</Radio>
+                                <Radio RadioButton Value="@("waiting")">Waiting</Radio>
+                            </RadioGroup>
+                            <Search Class="extraContentSearch" Placeholder="Please Enter" @bind-Value="_model.SearchKeyword" />
+                        </div>
+                    </Extra>
+                    <ChildContent>
+                        <Button Type="dashed"
+                                Style="width: 100%; margin-bottom: 8px;"
+                                OnClick="ShowModal">
+                            <Icon Type="plus" Theme="outline" />
+                            Add
+                        </Button>
+
+                        <AntList TItem="ListItemDataType"
+                                 DataSource="_data"
+                                 ItemLayout="ListItemLayout.Horizontal">
+                            <ListItem Actions="_actions">
+                                <ListItemMeta Avatar="@context.Avatar" Description="@context.SubDescription">
+                                    <TitleTemplate>
+                                        <a href="@context.Href">@context.Title</a>
+                                    </TitleTemplate>
+                                </ListItemMeta>
+                                <div class="listContent">
+                                    <div class="listContentItem">
+                                        <span>Owner</span>
+                                        <p>@context.Owner</p>
+                                    </div>
+                                    <div class="listContentItem">
+                                        <span>Starting time</span>
+                                        <p>@context.CreatedAt.ToString("yyyy-MM-dd HH:mm")</p>
+                                    </div>
+                                    <div class="listContentItem">
+                                        <AntDesign.Progress Percent="@context.Percent"
+                                                            Status="@_pStatus[context.Status]"
+                                                            StrokeWidth="6"
+                                                            Style="width: 180px;" />
+                                    </div>
+                                </div>
+                            </ListItem>
+                        </AntList>
+                    </ChildContent>
+                </Card>
+            </div>
+        </ChildContent>
+    </PageContainer>
+</div>
+
+@code
+{
+    private static readonly RenderFragment Edit = @<a key="edit">
+    Edit
+</a>;
+
+private readonly RenderFragment[] _actions =
+{
+        Edit
+    };
+
+private RenderFragment Info(string title, string value, bool bordered = false) {
+return @<div class="headerInfo">
+    <span>@title</span>
+    <p>@value</p>
+    @if (bordered) {
+        <em />
+    }
+</div>;
+}
+}

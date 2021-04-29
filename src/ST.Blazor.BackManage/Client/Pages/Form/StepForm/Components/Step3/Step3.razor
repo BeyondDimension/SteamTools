@@ -1,0 +1,25 @@
+﻿@namespace System.Application.Pages.Form
+
+<Result Status="success"
+        Title="@("Success!")"
+        SubTitle="@("Expected to arrive within two hours")"
+        Class="result">
+    <Extra>
+        <Button Type="primary" OnClick="OnFinish">
+            Make Aanother Transaction
+        </Button>
+        <Button>View Bill</Button>
+    </Extra>
+    <ChildContent>
+        <div class="information">
+            <Descriptions Column="1">
+                <DescriptionsItem Title="@("Account")"> @_model.PayAccount</DescriptionsItem>
+                <DescriptionsItem Title="@("Receipient")"> @_model.ReceiverAccount</DescriptionsItem>
+                <DescriptionsItem Title="@("Payee Name")"> @_model.ReceiverName</DescriptionsItem>
+                <DescriptionsItem Title="@("Amount")">
+                    <Statistic Value="_model.Amount" Suffix="@("Yuan")" />
+                </DescriptionsItem>
+            </Descriptions>
+        </div>
+    </ChildContent>
+</Result>

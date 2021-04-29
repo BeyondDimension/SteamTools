@@ -1,0 +1,37 @@
+﻿@namespace System.Application.Pages.Form
+@page "/form/step-form"
+
+<PageContainer Title="Step Form">
+    <Breadcrumb>
+        <Breadcrumb>
+            <BreadcrumbItem>Home</BreadcrumbItem>
+            <BreadcrumbItem>Form</BreadcrumbItem>
+            <BreadcrumbItem>Step Form</BreadcrumbItem>
+        </Breadcrumb>
+    </Breadcrumb>
+    <Content>
+        <span>Divide a lengthy or unfamiliar form task into multiple steps to guide users through.</span>
+    </Content>
+    <ChildContent>
+        <Card>
+            <Steps Current="@_current" Class="steps">
+                <Step Title="@("Fill in the transfer information")" />
+                <Step Title="@("Confirm transfer information")" />
+                <Step Title="@("Proceed")" />
+            </Steps>
+            <CascadingValue Value="this">
+                @switch (_current) {
+                    case 0:
+                        <Step1 />
+                        break;
+                    case 1:
+                        <Step2 />
+                        break;
+                    case 2:
+                        <Step3 />
+                        break;
+                }
+            </CascadingValue>
+        </Card>
+    </ChildContent>
+</PageContainer>

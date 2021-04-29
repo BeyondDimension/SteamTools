@@ -1,0 +1,27 @@
+@namespace System.Application.Pages.List
+@inherits AntDomComponentBase
+
+<div class="@ClassMapper.Class" style="@Style">
+    @if (!HideCheckAll)
+    {
+        <Tag Mode="checkable" Checked="_checkedAll" CheckedChange="HandleCheckedChange">@SelectAllText</Tag>
+    }
+    
+    <CascadingValue Value="this">
+        @ChildContent
+    </CascadingValue>
+
+    @if (Expandable)
+    {
+        <a class="trigger" @onclick="HandleExpand">
+            @if (_expand)
+            {
+                @CollapseText <Icon Type="Up" Theme="outline" />
+            }
+            else
+            {
+                @ExpandText <Icon Type="Down" Theme="outline" />
+            }
+        </a>
+    }
+</div>

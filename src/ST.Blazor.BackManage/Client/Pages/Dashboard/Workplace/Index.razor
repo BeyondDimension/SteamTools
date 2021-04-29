@@ -1,0 +1,153 @@
+﻿@namespace System.Application.Pages.Dashboard.Workplace
+@using System.Text.RegularExpressions
+@page "/dashboard/workplace"
+
+<PageContainer Title="Workplace">
+    <Breadcrumb>
+        <Breadcrumb>
+            <BreadcrumbItem>Home</BreadcrumbItem>
+            <BreadcrumbItem>Dashboard</BreadcrumbItem>
+            <BreadcrumbItem>Workplace</BreadcrumbItem>
+        </Breadcrumb>
+    </Breadcrumb>
+    <Content>
+        <div class="pageHeaderContent__b__0">
+            <div class="avatar">
+                <Avatar size="large" src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png" />
+            </div>
+            <div class="content">
+                <div class="contentTitle">
+                    Good Morning, Serati Ma. Have a great day!
+                </div>
+                <div>
+                    Interaction Expert | Ant Financial Service-XX Business Group-XX Platform Department-XX Technology Department-UED
+                </div>
+            </div>
+        </div>
+    </Content>
+    <ExtraContent>
+        <div class="extraContent">
+            <div class="statItem">
+                <Statistic Title="@("Number of Items")" Value="56" />
+            </div>
+            <div class="statItem">
+                <Statistic Title="@("Rank within the Team")" Value="8" Suffix="@("/ 24")" />
+            </div>
+            <div class="statItem">
+                <Statistic Title="@("Project Visit")" Value="2223" />
+            </div>
+        </div>
+    </ExtraContent>
+    <ChildContent>
+        <Row Gutter="24">
+            <AntDesign.Col Xl="16" Lg="24" Md="24" Sm="24" Xs="24">
+                <Card Class="projectList"
+                      Style="margin-bottom: 24px;"
+                      Title="Project in Progress"
+                      BodyStyle="padding: 0px;">
+                    <Extra>
+                        <a href="/">All items</a>
+                    </Extra>
+                    <ChildContent>
+                        @foreach (var item in _projectNotice) {
+                            <CardGrid Hoverable>
+                                <Card BodyStyle="padding: 0px;" Bordered="false">
+                                    <CardMeta>
+                                        <TitleTemplate>
+                                            <div class="cardTitle">
+                                                <Avatar Size="small" Src="@item.Logo"></Avatar>
+                                                <a href="@item.Href">@item.Title</a>
+                                            </div>
+                                        </TitleTemplate>
+                                        <DescriptionTemplate>
+                                            <!--todo: submit a pr to card component-->
+                                            <div class="ant-card-meta-description">
+                                                @item.Description
+                                            </div>
+                                        </DescriptionTemplate>
+                                    </CardMeta>
+                                    <div class="projectItemContent">
+                                        <a href="@item.MemberLink">@item.Member</a>
+                                        @if (!string.IsNullOrEmpty(item.UpdatedAt)) {
+                                            <span class="datetime" title="@item.UpdatedAt">
+
+                                            </span>
+                                        }
+                                    </div>
+                                </Card>
+                            </CardGrid>
+                        }
+                    </ChildContent>
+                </Card>
+
+                <Card BodyStyle="padding: 0px;"
+                      Class="activeCard"
+                      Title="Dynamic">
+                    <AntList TItem="ActivitiesType"
+                             DataSource="@_activities"
+                             Class="activitiesList"
+                             Size="large"
+                             ItemLayout="ListItemLayout.Horizontal">
+                        <ListItem>
+                            <ListItemMeta Avatar="@context.User.Avatar" Description="@context.UpdatedAt.ToFriendlyDisplay()">
+                                <TitleTemplate>
+                                    <span>
+                                        <a class="username">@context.User.Name</a>
+                                        &nbsp;
+                                        <span class="event">
+                                            @foreach (var str in Regex.Split(context.Template, @"@\{([^{}]*)\}")) {
+                                                if (str == "group") {
+                                                    <a href="@context.Group.Link" key="@context.Group.Name">
+                                                        @context.Group.Name
+                                                    </a>
+                                                }
+                                                else if (str == "project") {
+                                                    <a href="@context.Project.Link" key="@context.Project.Name">
+                                                        @context.Project.Name
+                                                    </a>
+                                                }
+                                                else {
+                                                    @str
+                                                }
+                                            }
+                                        </span>
+                                    </span>
+                                </TitleTemplate>
+                            </ListItemMeta>
+                        </ListItem>
+                    </AntList>
+                </Card>
+            </AntDesign.Col>
+            <AntDesign.Col Xl="8" Lg="24" Md="24" Sm="24" Xs="24">
+                <Card Style="margin-bottom: 24px;"
+                      Title="Quick Start / Quick Navigation"
+                      BodyStyle="padding: 0px;">
+                    <EditableLinkGroup Links="_links" />
+                </Card>
+
+                <Card Style="margin-bottom: 24px;"
+                      Title="XX Index">
+                    <div class="chart">
+                        <System.Application.Pages.Dashboard.Workplace.Radar />
+                    </div>
+                </Card>
+
+                <Card BodyStyle="padding-top: 12px; padding-bottom: 12px;"
+                      Title="Team">
+                    <div class="members">
+                        <Row Gutter="48">
+                            @foreach (var item in _projectNotice) {
+                                <AntDesign.Col Span="12" Style="padding-left: 24px; padding-right: 24px;">
+                                    <a href="@item.Href">
+                                        <Avatar Src="@item.Logo" Size="small" />
+                                        <span class="member">@item.Member</span>
+                                    </a>
+                                </AntDesign.Col>
+                            }
+                        </Row>
+                    </div>
+                </Card>
+            </AntDesign.Col>
+        </Row>
+    </ChildContent>
+</PageContainer>

@@ -1,0 +1,69 @@
+@namespace System.Application.Pages.Result
+@page "/result/success"
+
+<GridContent>
+    <Card>
+        <Result Status="success"
+                Title="Submission Success"
+                SubTitle="The submission results page is used to feed back the results of a series of operational tasks. If it is a simple operation, use the Message global prompt feedback. This text area can show a simple supplementary explanation. If there is a similar requirement for displaying documents, the following gray area can present more complicated content."
+                Style="margin-bottom: 16px">
+            <Extra>
+                <span>
+                    <Button Type="primary">Back List</Button>
+                    <Button>View Project</Button>
+                    <Button>Print</Button>
+                </span>
+            </Extra>
+            <ChildContent>
+                <Descriptions Title="Project Name">
+                    <DescriptionsItem Title="Project ID: ">23421</DescriptionsItem>
+                    <DescriptionsItem Title="Principal: ">Qu Lili</DescriptionsItem>
+                    <DescriptionsItem Title="Effective time: ">2016-12-12 ~ 2017-12-12</DescriptionsItem>
+                </Descriptions>
+                <br />
+                <Steps ShowProgressDot Current="1">
+                    <Step>
+                        <TitleTemplate>
+                            <span style="font-size: 14px">Create project</span>
+                        </TitleTemplate>
+                        <DescriptionTemplate>
+                            <div class="title__b__1">
+                                <div style="margin: 8px 0 4px">
+                                    Qu Lili
+                                    <Icon Type="dingding" Theme="outline" Style="color: #00A0E9; margin-left: 8px;"></Icon>
+                                </div>
+                                <div>2016-12-12 12:32</div>
+                            </div>
+                        </DescriptionTemplate>
+                    </Step>
+                    <Step>
+                        <TitleTemplate>
+                            <span style="font-size: 14px">Departmental preliminary review</span>
+                        </TitleTemplate>
+                        <DescriptionTemplate>
+                            <div style="font-size: 12px" class="title">
+                                <div style="margin: 8px 0 4px">
+                                    Zhou Maomao
+                                    <a href="">
+                                        <Icon Type="dingding" Theme="outline" Style="color: #00A0E9; margin-left: 8px;"></Icon>
+                                        Urge
+                                    </a>
+                                </div>
+                            </div>
+                        </DescriptionTemplate>
+                    </Step>
+                    <Step>
+                        <TitleTemplate>
+                            <span style="font-size: 14px">Financial review</span>
+                        </TitleTemplate>
+                    </Step>
+                    <Step>
+                        <TitleTemplate>
+                            <span style="font-size: 14px">Finish</span>
+                        </TitleTemplate>
+                    </Step>
+                </Steps>
+            </ChildContent>
+        </Result>
+    </Card>
+</GridContent>

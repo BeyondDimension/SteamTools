@@ -1,0 +1,60 @@
+﻿@namespace System.Application.Pages.Account.Settings
+
+<div class="baseView">
+    <div class="left" style="min-width: 310px;">
+        <Form 
+            Layout="vertical"
+            OnFinish="HandleFinish"
+            Model="@_currentUser">
+            <FormItem Label="Email">
+                <AntDesign.Input @bind-Value="@context.Email" />
+            </FormItem>
+            <FormItem Label="Nickname">
+                <AntDesign.Input @bind-Value="@context.Name" />
+            </FormItem>
+            <FormItem Label="Personal profile">
+                <AntDesign.TextArea @bind-Value="@context.Signature" />
+            </FormItem>
+            <FormItem Label="Country/Region">
+                <Select
+                    TItem="string"
+                    TItemValue="string"
+                    Style="max-width: 220px;"
+                    @bind-Value="@context.Country">
+                    <SelectOptions>
+                        <SelectOption TItem="string" TItemValue="string" Value="@("China")" Label="中国"/>
+                    </SelectOptions>
+                </Select>
+            </FormItem>
+            <FormItem Label="Province or city">
+                <GeographicView />
+            </FormItem>
+            <FormItem Label="Street Address">
+                <AntDesign.Input @bind-Value="@context.Address" />
+            </FormItem>
+            <FormItem Label="Phone Number">
+                <PhoneView />
+            </FormItem>
+            <FormItem>
+                <Button HtmlType="submit" Type="primary">
+                    Update Information
+                </Button>
+            </FormItem>
+        </Form>
+    </div>
+    <div class="right__b__1">
+        <div class="avatar_title">
+            Avatar
+        </div>
+        <div class="avatar">
+            <img src="@_currentUser.Avatar" alt="avatar" />
+        </div>
+        <Upload ShowUploadList="false">
+            <div class="button_view">
+                <Button Icon="upload">
+                    Change avatar
+                </Button>
+            </div>
+        </Upload>
+    </div>
+</div>
