@@ -58,8 +58,8 @@ namespace System.Application.Services.CloudService
                     {
                         new AccelerateProjectDTO
                         {
-                            Id=Guid.Parse("bd30bffd-0c1c-450f-870a-a3143bf4b6fa"),
-                            Name = "Steam社区",
+                            Id = Guid.Parse("abd6dafa-c295-eb11-abaa-a0d3c1f2a15d"),
+                            Name = "Steam 社区",
                             DomainNames = "steamcommunity.com",
                             ForwardDomainName = "steamcommunity.rmbgame.net",
                             Hosts = "steamcommunity.com;www.steamcommunity.com",
@@ -67,8 +67,8 @@ namespace System.Application.Services.CloudService
                         },
                         new AccelerateProjectDTO
                         {
-                            Id=Guid.Parse("bb6cf2ee-32a1-451f-acaf-9d39945c4a75"),
-                            Name = "Steam商店",
+                            Id =    Guid.Parse("bdd6dafa-c295-eb11-abaa-a0d3c1f2a15d"),
+                            Name = "Steam 商店",
                             DomainNames="store.steampowered.com;api.steampowered.com",
                             ForwardDomainName = "steamstore.rmbgame.net",
                             Hosts = "store.steampowered.com;api.steampowered.com",
@@ -76,33 +76,36 @@ namespace System.Application.Services.CloudService
                         },
                         new AccelerateProjectDTO
                         {
-                            Id=Guid.Parse("93ed4df8-19d2-464d-9f2e-2a583fd21f3f"),
-                            Name = "Steam更新",
-                            DomainNames="media.steampowered.com",
-                            ForwardDomainName="steammedia.rmbgame.net",
+                            Id = Guid.Parse("bcd6dafa-c295-eb11-abaa-a0d3c1f2a15d"),
+                            Name = "Steam 更新",
+                            DomainNames = "media.steampowered.com",
+                            ForwardDomainName = "steammedia.rmbgame.net",
                             Hosts = "media.steampowered.com",
                             Enable = false,
                         },
                         new AccelerateProjectDTO
                         {
-                            Name = "Steam图片",
-                            DomainNames="steamcdn-a.akamaihd.net;steamuserimages-a.akamaihd.net;cdn.akamai.steamstatic.com",
-                            ForwardDomainName="steamimage.rmbgame.net",
+                            Id = Guid.Parse("bbd6dafa-c295-eb11-abaa-a0d3c1f2a15d"),
+                            Name = "Steam 图片",
+                            DomainNames = "steamcdn-a.akamaihd.net;steamuserimages-a.akamaihd.net;cdn.akamai.steamstatic.com",
+                            ForwardDomainName = "steamimage.rmbgame.net",
                             Hosts = "steamcdn-a.akamaihd.net;steamuserimages-a.akamaihd.net;cdn.akamai.steamstatic.com",
                             Enable = false,
                         },
+                        //new AccelerateProjectDTO
+                        //{
+                        //    Id = Guid.Parse("bad6dafa-c295-eb11-abaa-a0d3c1f2a15d"),
+                        //    Name = "Steam 图片上传",
+                        //    DomainNames = "steamcloud-ugc-hkg.oss-cn-hongkong.aliyuncs.com",
+                        //    ForwardDomainName = "steamcloud-ugc.rmbgame.net",
+                        //    //ForwardDomainIP = "47.97.233.33",
+                        //    Hosts = "steamcloud-ugc-hkg.oss-cn-hongkong.aliyuncs.com",
+                        //    Enable = false,
+                        //},
                         new AccelerateProjectDTO
                         {
-                            Name = "Steam图片上传",
-                            DomainNames="steamcloud-ugc-hkg.oss-cn-hongkong.aliyuncs.com",
-                            ForwardDomainName="steamcloud-ugc.rmbgame.net",
-                            //ForwardDomainIP = "47.97.233.33",
-                            Hosts = "steamcloud-ugc-hkg.oss-cn-hongkong.aliyuncs.com",
-                            Enable = false,
-                        },
-                        new AccelerateProjectDTO
-                        {
-                            Name = "Steam好友聊天",
+                            Id = Guid.Parse("b9d6dafa-c295-eb11-abaa-a0d3c1f2a15d"),
+                            Name = "Steam 好友聊天",
                             DomainNames="steam-chat.com",
                             ForwardDomainName="steamchat.rmbgame.net",
                             Hosts = "steam-chat.com",
@@ -117,7 +120,7 @@ namespace System.Application.Services.CloudService
                     {
                         new AccelerateProjectDTO
                         {
-                            Id=Guid.Parse("3e5ec009-a69d-4344-ac97-84afb3a7e657"),
+                            Id = Guid.Parse("b8d6dafa-c295-eb11-abaa-a0d3c1f2a15d"),
                             Name = "Discord 语音",
                             DomainNames = "discordapp.com",
                             //ForwardDomainName = "discord.rmbgame.net",
@@ -128,7 +131,7 @@ namespace System.Application.Services.CloudService
                         },
                         new AccelerateProjectDTO
                         {
-                            Id=Guid.Parse("434ff726-03e7-4430-ab96-de6b8eb52520"),
+                            Id = Guid.Parse("b2f7423e-f36b-1410-8745-00bf2430ffa9"),
                             Name = "Discord 语音",
                             DomainNames = "discord.com",
                             ForwardDomainName = "discordcom.rmbgame.net",
@@ -138,7 +141,7 @@ namespace System.Application.Services.CloudService
                         },
                         new AccelerateProjectDTO
                         {
-                            Id=Guid.Parse("88aecefd-24e4-4407-a02e-9cd48b7c6462"),
+                            Id = Guid.Parse("c1f7423e-f36b-1410-8745-00bf2430ffa9"),
                             Name = "Discord 图片加载",
                             DomainNames = "discordapp.net",
                             ForwardDomainName = "discordnet.rmbgame.net",
@@ -285,7 +288,7 @@ namespace System.Application.Services.CloudService
                     {
                         new AccelerateProjectDTO
                         {
-                            Name = "Github 图片Raw加载",
+                            Name = "Github Raw(图片加载)",
                             DomainNames = "githubusercontent.com;raw.github.com",
                             ForwardDomainName = "githubusercontent.rmbgame.net",
                             Hosts = "raw.github.com;githubusercontent.com;raw.githubusercontent.com;camo.githubusercontent.com;cloud.githubusercontent.com;avatars.githubusercontent.com;avatars0.githubusercontent.com;avatars1.githubusercontent.com;avatars2.githubusercontent.com;avatars3.githubusercontent.com;user-images.githubusercontent.com",

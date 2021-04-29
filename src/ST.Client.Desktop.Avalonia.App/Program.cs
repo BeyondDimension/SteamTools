@@ -1,14 +1,21 @@
 using NLog;
 using NLog.Config;
+using ReactiveUI;
 using System.Application.Services;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reactive;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace System.Application.UI
 {
     static partial class Program
     {
+        static Logger? logger;
+        static readonly HashSet<Exception> exceptions = new();
+        static readonly object lock_global_ex_log = new();
+
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
@@ -25,7 +32,19 @@ namespace System.Application.UI
             void InitCefNetApp() => CefNetApp.Init(logDirPath, args);
             void InitAvaloniaApp() => BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
             void InitStartup(DILevel level) => Startup.Init(level);
-            var logger = LogManager.GetCurrentClassLogger();
+            logger = LogManager.GetCurrentClassLogger();
+            AppDomain.CurrentDomain.UnhandledException += (_, e) =>
+            {
+                if (e.ExceptionObject is Exception ex)
+                {
+                    HandleGlobalException(ex, nameof(AppDomain.UnhandledException), e.IsTerminating);
+                }
+            };
+            RxApp.DefaultExceptionHandler = Observer.Create<Exception>(ex =>
+            {
+                // https://github.com/AvaloniaUI/Avalonia/issues/5290#issuecomment-760751036
+                HandleGlobalException(ex, nameof(RxApp.DefaultExceptionHandler));
+            });
             try
             {
                 if (IsCLTProcess) // 命令行模式
@@ -53,10 +72,28 @@ namespace System.Application.UI
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                HandleGlobalException(ex, nameof(Main));
+                throw;
+            }
+            finally
+            {
+                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+                LogManager.Shutdown();
+            }
+
+        exit: return 0;
+
+            static void HandleGlobalException(Exception ex, string name, bool? isTerminating = null)
+            {
+                lock (lock_global_ex_log)
+                {
+                    if (exceptions.Contains(ex)) return;
+                    exceptions.Add(ex);
+                }
+
                 AppHelper.TrySetLoggerMinLevel(LogLevel.Trace);
                 // NLog: catch any exception and log it.
-                logger.Error(ex, "Stopped program because of exception");
+                logger?.Error(ex, "Stopped program because of exception, name: {1}, isTerminating: {0}", isTerminating, name);
 
                 try
                 {
@@ -64,7 +101,7 @@ namespace System.Application.UI
                 }
                 catch (Exception ex_restore_hosts)
                 {
-                    logger.Error(ex_restore_hosts, "(App)Close exception when OnExitRestoreHosts");
+                    logger?.Error(ex_restore_hosts, "(App)Close exception when OnExitRestoreHosts");
                 }
 
                 try
@@ -77,14 +114,14 @@ namespace System.Application.UI
                         }
                         catch (Exception ex_shutdown_app_helper)
                         {
-                            logger.Error(ex_shutdown_app_helper,
+                            logger?.Error(ex_shutdown_app_helper,
                                 "(AppHelper)Close exception when exception occurs");
                         }
                     }
                 }
                 catch (Exception ex_shutdown)
                 {
-                    logger.Error(ex_shutdown,
+                    logger?.Error(ex_shutdown,
                         "(App)Close exception when exception occurs");
                 }
 
@@ -96,23 +133,13 @@ namespace System.Application.UI
                 if (ex.InnerException is BadImageFormatException)
                 {
                     typeof(Program).Assembly.ManifestModule.GetPEKind(out var peKind, out var _);
-                    if (!peKind.HasFlag(PortableExecutableKinds.Required32Bit))
+                    if (!peKind.HasFlag(Reflection.PortableExecutableKinds.Required32Bit))
                     {
-                        Windows.MessageBox.Show("Some references need to work on X86 platforms.", "Error", Windows.MessageBoxButton.OK, Windows.MessageBoxImage.Error);
-                        goto exit;
+                        logger?.Error("Some references need to work on X86 platforms.");
                     }
                 }
 #endif
-
-                throw;
             }
-            finally
-            {
-                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-                LogManager.Shutdown();
-            }
-
-        exit: return 0;
         }
 
         static string InitLogDir()

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Collections.Concurrent;
 using System.IO;
@@ -251,6 +251,8 @@ namespace System.Application.Services.Implementation
 #if !DEBUG
                 if (e is Net.Sockets.SocketException se && se.SocketErrorCode == Net.Sockets.SocketError.ConnectionReset)
                 {
+                    // https://docs.microsoft.com/en-us/windows/win32/winsock/windows-sockets-error-codes-2
+                    // 10054 WSAECONNRESET
                     return default;
                 }
 #endif
