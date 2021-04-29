@@ -16,15 +16,15 @@ using System.IO;
 
 namespace System.Application.Services
 {
-	public class ProxyService : ReactiveObject
-	{
-		public static ProxyService Current { get; } = new ProxyService();
-		readonly IHttpProxyService httpProxyService = DI.Get<IHttpProxyService>();
+    public class ProxyService : ReactiveObject
+    {
+        public static ProxyService Current { get; } = new ProxyService();
+        readonly IHttpProxyService httpProxyService = DI.Get<IHttpProxyService>();
 
-		public ProxyService()
-		{
-			ProxyScripts = new SourceList<ScriptDTO>();
-		}
+        public ProxyService()
+        {
+            ProxyScripts = new SourceList<ScriptDTO>();
+        }
 
         private ObservableCollection<AccelerateProjectGroupDTO>? _ProxyDomains;
         public ObservableCollection<AccelerateProjectGroupDTO>? ProxyDomains
@@ -54,20 +54,20 @@ namespace System.Application.Services
             set => this.RaiseAndSetIfChanged(ref _SelectGroup, value);
         }
 
-		public SourceList<ScriptDTO> ProxyScripts { get; }
+        public SourceList<ScriptDTO> ProxyScripts { get; }
 
-		public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains
-		{
-			get
-			{
-				if (!ProxyDomains.Any_Nullable())
-					return null;
-				return ProxyDomains.SelectMany(s =>
-				{
-					return s.Items.Where(w => w.Enable);
-				}).ToArray();
-			}
-		}
+        public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains
+        {
+            get
+            {
+                if (!ProxyDomains.Any_Nullable())
+                    return null;
+                return ProxyDomains.SelectMany(s =>
+                {
+                    return s.Items.Where(w => w.Enable);
+                }).ToArray();
+            }
+        }
 
         public IReadOnlyCollection<ScriptDTO>? EnableProxyScripts
         {
@@ -79,45 +79,45 @@ namespace System.Application.Services
             }
         }
 
-		private DateTime _AccelerateTime = new();
-		public DateTime AccelerateTime
-		{
-			get => _AccelerateTime;
-			set
-			{
-				if (_AccelerateTime != value)
-				{
-					_AccelerateTime = value;
-					this.RaisePropertyChanged();
-				}
-			}
-		}
+        private DateTime _AccelerateTime = new();
+        public DateTime AccelerateTime
+        {
+            get => _AccelerateTime;
+            set
+            {
+                if (_AccelerateTime != value)
+                {
+                    _AccelerateTime = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
 
-		public bool IsEnableScript
-		{
-			get => ProxySettings.IsEnableScript.Value;
-			set
-			{
-				ProxySettings.IsEnableScript.Value = value;
-				httpProxyService.IsEnableScript = value;
-				this.RaisePropertyChanged();
-				this.RaisePropertyChanged(nameof(EnableProxyScripts));
-			}
-		}
+        public bool IsEnableScript
+        {
+            get => ProxySettings.IsEnableScript.Value;
+            set
+            {
+                ProxySettings.IsEnableScript.Value = value;
+                httpProxyService.IsEnableScript = value;
+                this.RaisePropertyChanged();
+                this.RaisePropertyChanged(nameof(EnableProxyScripts));
+            }
+        }
 
-		public bool IsOnlyWorkSteamBrowser
-		{
-			get => ProxySettings.IsOnlyWorkSteamBrowser.Value;
-			set
-			{
-				if (ProxySettings.IsOnlyWorkSteamBrowser.Value != value)
-				{
-					ProxySettings.IsOnlyWorkSteamBrowser.Value = value;
-					httpProxyService.IsOnlyWorkSteamBrowser = value;
-					this.RaisePropertyChanged();
-				}
-			}
-		}
+        public bool IsOnlyWorkSteamBrowser
+        {
+            get => ProxySettings.IsOnlyWorkSteamBrowser.Value;
+            set
+            {
+                if (ProxySettings.IsOnlyWorkSteamBrowser.Value != value)
+                {
+                    ProxySettings.IsOnlyWorkSteamBrowser.Value = value;
+                    httpProxyService.IsOnlyWorkSteamBrowser = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
 
         #region 代理状态启动退出
         public bool ProxyStatus
@@ -139,20 +139,20 @@ namespace System.Application.Services
                         this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         this.RaisePropertyChanged(nameof(EnableProxyScripts));
 
-						var hosts = httpProxyService.ProxyDomains.SelectMany(s =>
-						{
-							return s?.HostsArray.Select(host =>
-							{
-								if (host.Contains(" "))
-								{
-									var h = host.Split(' ');
-									return (h[0], h[1]);
-								}
-								return (IPAddress.Loopback.ToString(), host);
-							});
-						}).Where(w => !string.IsNullOrEmpty(w.Item1));
+                        var hosts = httpProxyService.ProxyDomains.SelectMany(s =>
+                        {
+                            return s?.HostsArray.Select(host =>
+                            {
+                                if (host.Contains(" "))
+                                {
+                                    var h = host.Split(' ');
+                                    return (h[0], h[1]);
+                                }
+                                return (IPAddress.Loopback.ToString(), host);
+                            });
+                        }).Where(w => !string.IsNullOrEmpty(w.Item1));
 
-						var isRun = httpProxyService.StartProxy(ProxySettings.EnableWindowsProxy.Value, ProxySettings.IsProxyGOG.Value);
+                        var isRun = httpProxyService.StartProxy(ProxySettings.EnableWindowsProxy.Value, ProxySettings.IsProxyGOG.Value);
 
                         if (isRun)
                         {
@@ -186,64 +186,69 @@ namespace System.Application.Services
             {
                 ProxyDomains = new ObservableCollection<AccelerateProjectGroupDTO>(result.Content);
 
-				foreach (var item in ProxyDomains)
-				{
-					item.ImageStream = IHttpService.Instance.GetImageAsync(ImageUrlHelper.GetImageApiUrlById(item.ImageId), ImageChannelType.AccelerateGroup);
-				}
+                foreach (var item in ProxyDomains)
+                {
+                    item.ImageStream = IHttpService.Instance.GetImageAsync(ImageUrlHelper.GetImageApiUrlById(item.ImageId), ImageChannelType.AccelerateGroup);
+                }
 
-				SelectGroup = ProxyDomains.FirstOrDefault();
+                SelectGroup = ProxyDomains.FirstOrDefault();
 
-				if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && ProxyDomains.Any_Nullable())
-				{
-					var items = ProxyDomains.SelectMany(s => s.Items);
-					foreach (var item in items)
-					{
-						if (ProxySettings.SupportProxyServicesStatus.Value.Contains(item.Id.ToString()))
-						{
-							item.Enable = true;
-						}
-					}
-				}
-			}
+                if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && ProxyDomains.Any_Nullable())
+                {
+                    var items = ProxyDomains.SelectMany(s => s.Items);
+                    foreach (var item in items)
+                    {
+                        if (ProxySettings.SupportProxyServicesStatus.Value.Contains(item.Id.ToString()))
+                        {
+                            item.Enable = true;
+                        }
+                    }
+                }
+            }
 
-			this.WhenAnyValue(v => v.ProxyDomains)
-				 .Subscribe(domain => domain?
-					   .ToObservableChangeSet()
-					   .AutoRefresh(x => x.ObservableItems)
-					   .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
-					   .AutoRefresh(x => x.Enable)
-					   .WhenPropertyChanged(x => x.Enable, false)
-					   .Subscribe(_ =>
-					   {
-						   if (EnableProxyDomains != null)
-						   {
-							   ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Where(w => w?.Id != null).Select(k => k.Id.ToString()).ToList();
-						   }
-					   }));
-			#endregion
+            this.WhenAnyValue(v => v.ProxyDomains)
+                 .Subscribe(domain => domain?
+                       .ToObservableChangeSet()
+                       .AutoRefresh(x => x.ObservableItems)
+                       .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
+                       .AutoRefresh(x => x.Enable)
+                       .WhenPropertyChanged(x => x.Enable, false)
+                       .Subscribe(_ =>
+                       {
+                           if (EnableProxyDomains != null)
+                           {
+                               ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Where(w => w?.Id != null).Select(k => k.Id.ToString()).ToList();
+                           }
+                       }));
+            #endregion
 
             #region 加载脚本数据
 
-			//var response =// await client.Scripts();
-			//if (!response.IsSuccess)
-			//{
-			//    return;
-			//}
-			//new ObservableCollection<ScriptDTO>(response.Content);
-			var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
-			ProxyScripts.AddRange(scriptList);
-			BasicsInfo();
-			httpProxyService.IsEnableScript = IsEnableScript;
-			if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && ProxyScripts.Items.Any())
-			{
-				foreach (var item in ProxyScripts.Items)
-				{
-					if (item.LocalId > 0 && ProxySettings.ScriptsStatus.Value.Contains(item.LocalId))
-					{
-						item.Enable = true;
-					}
-				}
-			}
+            //var response =// await client.Scripts();
+            //if (!response.IsSuccess)
+            //{
+            //    return;
+            //}
+            //new ObservableCollection<ScriptDTO>(response.Content);
+            var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
+            var basicsId = Guid.Parse("00000000-0000-0000-0000-000000000001");
+            foreach (var item in scriptList)
+            {
+                item.IsBasics = item.Id == basicsId;
+            }
+            ProxyScripts.AddRange(scriptList);
+            BasicsInfo();
+            httpProxyService.IsEnableScript = IsEnableScript;
+            if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && ProxyScripts.Items.Any())
+            {
+                foreach (var item in ProxyScripts.Items)
+                {
+                    if (item.LocalId > 0 && ProxySettings.ScriptsStatus.Value.Contains(item.LocalId))
+                    {
+                        item.Enable = true;
+                    }
+                }
+            }
 
             this.WhenAnyValue(v => v.ProxyScripts)
                   .Subscribe(script => script?
@@ -275,8 +280,10 @@ namespace System.Application.Services
                         var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id);
                         if (build.state)
                         {
-                            if (build.model != null)
+                            if (build.model != null) {
+                                build.model.IsBasics = true;
                                 ProxyScripts.Insert(0, build.model);
+                            }
                         }
                     }
                 }
@@ -320,11 +327,11 @@ namespace System.Application.Services
             });
         }
 
-		public void Dispose()
-		{
-			IHostsFileService.OnExitRestoreHosts();
-			httpProxyService.Dispose();
-		}
+        public void Dispose()
+        {
+            IHostsFileService.OnExitRestoreHosts();
+            httpProxyService.Dispose();
+        }
 
         public async Task AddNewScript(string filename)
         {
@@ -343,10 +350,12 @@ namespace System.Application.Services
         {
             var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
             ProxyScripts.Clear();
+            var basicsId = Guid.Parse("00000000-0000-0000-0000-000000000001");
             if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
             {
                 foreach (var item in scriptList)
                 {
+                    item.IsBasics = item.Id == basicsId;
                     if (ProxySettings.ScriptsStatus.Value.Contains(item.LocalId))
                     {
                         item.Enable = true;
@@ -412,8 +421,8 @@ namespace System.Application.Services
                         Current.ProxyScripts.Replace(item, item);
                     }
 
-				}
-			}
-		}
-	}
+                }
+            }
+        }
+    }
 }

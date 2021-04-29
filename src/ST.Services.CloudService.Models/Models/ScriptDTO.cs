@@ -90,6 +90,11 @@ namespace System.Application.Models
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
+        public bool IsBasics { get; set; } = false;
+
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
         public int LocalId { get; set; }
 
         [MPIgnore]

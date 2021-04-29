@@ -123,26 +123,21 @@ namespace System.Application.UI.ViewModels
 
         public void DeleteScriptItemButton(ScriptDTO script)
         {
-            if (script.Id == Guid.Parse("00000000-0000-0000-0000-000000000001"))
-            {
-                var result = MessageBoxCompat.ShowAsync(@AppResources.ScriptShop_NoDelete_Basics, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OK);
-            }
-            else {
-                var result = MessageBoxCompat.ShowAsync(@AppResources.Script_DeleteItem, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
-                {
-                    if (s.Result == MessageBoxResultCompat.OK)
-                    {
-                        var item = await DI.Get<IScriptManagerService>().DeleteScriptAsync(script);
-                        if (item.state)
-                        {
-                            if (ProxyService.Current.ProxyScripts != null)
-                                ProxyService.Current.ProxyScripts.Remove(script);
 
-                        }
-                        Toast.Show(item.msg);
+            var result = MessageBoxCompat.ShowAsync(@AppResources.Script_DeleteItem, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
+            {
+                if (s.Result == MessageBoxResultCompat.OK)
+                {
+                    var item = await DI.Get<IScriptManagerService>().DeleteScriptAsync(script);
+                    if (item.state)
+                    {
+                        if (ProxyService.Current.ProxyScripts != null)
+                            ProxyService.Current.ProxyScripts.Remove(script);
+
                     }
-                });
-            }
+                    Toast.Show(item.msg);
+                }
+            });
         }
 
         public void EditScriptItemButton(ScriptDTO script)

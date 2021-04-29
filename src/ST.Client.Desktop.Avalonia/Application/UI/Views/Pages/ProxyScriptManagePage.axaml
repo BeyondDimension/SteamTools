@@ -137,7 +137,7 @@
                           <PathIcon Width="16"  Data="{StaticResource HomeDrawing}" />
                         </Button>
 
-                        <Button Background="Transparent" Cursor="Hand" HorizontalAlignment="Right"
+                        <Button Background="Transparent" IsVisible="{Binding !IsBasics}" Cursor="Hand" HorizontalAlignment="Right"
                                 Command="{ReflectionBinding #u.DataContext.DeleteScriptItemButton}"
                                 CommandParameter="{Binding}"
                                 ToolTip.Tip="{ReflectionBinding Path=Res.Delete,Mode=OneWay,Source={x:Static resx:R.Current}}">
