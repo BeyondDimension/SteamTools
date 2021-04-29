@@ -70,7 +70,7 @@ namespace System.Application.UI.ViewModels
 
             var tabItems = new List<TabItemViewModel>
             {
-                (StartPage = new StartPageViewModel().AddTo(this)),
+                //(StartPage = new StartPageViewModel().AddTo(this)),
                 (CommunityProxyPage = new CommunityProxyPageViewModel().AddTo(this)),
                 (ProxyScriptPage = new ProxyScriptManagePageViewModel().AddTo(this)),
                 (SteamAccountPage = new SteamAccountPageViewModel().AddTo(this)),
