@@ -1,0 +1,8 @@
+
+              - name: Sync to Gitee  
+              uses: SteamTools-Team/SteamTools@master
+              env:
+                  SSH_PRIVATE_KEY: ${{ secrets.GITEE_PRIVATE_KEY }}
+              with:
+                  source-repo: "git@github.com:SteamTools-Team/SteamTools.git"
+                  destination-repo: "git@gitee.com:rmbgame/SteamTools"
