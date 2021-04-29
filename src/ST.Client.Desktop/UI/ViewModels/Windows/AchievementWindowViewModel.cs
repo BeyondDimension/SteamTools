@@ -141,10 +141,10 @@ namespace System.Application.UI.ViewModels
             {
                 if (param.Result != 1)
                 {
-                    MessageBoxCompat.ShowAsync(string.Format(AppResources.Achievement_Warning_2, param.Result), Title, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
-                     {
-                         EnforceClose();
-                     }).Wait();
+                    MessageBoxCompat.ShowAsync(AppResources.Achievement_Warning_2.Format(param.Result), Title, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+                    {
+                        EnforceClose();
+                    }).Wait();
                 }
                 if (this.LoadUserGameStatsSchema() == false)
                 {
@@ -157,7 +157,7 @@ namespace System.Application.UI.ViewModels
                 GetStatistics();
 
                 //ToastService.Current.Notify($"获取到 {this._AchievementsSourceList.Count} 个成就和 {this._StatisticsSourceList.Count} 条统计信息");
-                ToastService.Current.Notify(string.Format(AppResources.Achievement_LoadSucces, _AchievementsSourceList.Count, _StatisticsSourceList.Count));
+                ToastService.Current.Notify(AppResources.Achievement_LoadSucces.Format(_AchievementsSourceList.Count, _StatisticsSourceList.Count));
             });
 
             Task.Run(async () =>
@@ -420,7 +420,7 @@ namespace System.Application.UI.ViewModels
             {
                 if (ISteamworksLocalApiService.Instance.SetAchievement(info.Id, info.IsAchieved) == false)
                 {
-                    MessageBoxCompat.ShowAsync(string.Format(CultureInfo.CurrentCulture, AppResources.Achievement_Warning_3, info.Name), Title, MessageBoxButtonCompat.OK).ContinueWith(s =>
+                    MessageBoxCompat.ShowAsync(AppResources.Achievement_Warning_3.Format(info.Name), Title, MessageBoxButtonCompat.OK).ContinueWith(s =>
                     {
                         EnforceClose();
                     });
@@ -498,7 +498,7 @@ namespace System.Application.UI.ViewModels
                         intStat.Id,
                         intStat.IntValue) == false)
                     {
-                        Toast.Show(string.Format(CultureInfo.CurrentCulture, AppResources.Achievement_Warning_4, intStat.Id));
+                        Toast.Show(AppResources.Achievement_Warning_4.Format(intStat.Id));
                         return -1;
                     }
                 }
@@ -508,7 +508,7 @@ namespace System.Application.UI.ViewModels
                         floatStat.Id,
                         floatStat.FloatValue) == false)
                     {
-                        Toast.Show(string.Format(CultureInfo.CurrentCulture, AppResources.Achievement_Warning_4, floatStat.Id));
+                        Toast.Show(AppResources.Achievement_Warning_4.Format(floatStat.Id));
                         return -1;
                     }
                 }
@@ -573,7 +573,7 @@ namespace System.Application.UI.ViewModels
                 this.ResetAllStats_Click();
                 return;
             }
-            ToastService.Current.Notify(string.Format(AppResources.Achievement_EditSucces, achievements, stats));
+            ToastService.Current.Notify(AppResources.Achievement_EditSucces.Format(achievements, stats));
             this.RefreshStats_Click();
         }
     }

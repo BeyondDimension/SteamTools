@@ -128,7 +128,7 @@ namespace System.Application.UI.ViewModels
                 await UserService.Current.RefreshUserAsync();
 
                 IsComplete = true;
-                var msg = string.Format(AppResources.Success_, AppResources.User_EditProfile);
+                var msg = AppResources.Success_.Format(AppResources.User_EditProfile);
                 Toast.Show(msg);
                 Close?.Invoke();
             }

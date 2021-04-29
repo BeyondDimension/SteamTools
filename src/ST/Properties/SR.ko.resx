@@ -117,67 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Age_" xml:space="preserve">
-    <value>{0} years</value>
+  <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
+    <value>서비스 오류 {0} - 로그인 자격 증명이 만료되었습니다. 다시 로그인하십시오</value>
   </data>
-  <data name="DayOfWeek_L0" xml:space="preserve">
-    <value>Sunday</value>
+  <data name="UserIsBanErrorMessage" xml:space="preserve">
+    <value>계정이 차단되었습니다</value>
   </data>
-  <data name="DayOfWeek_L1" xml:space="preserve">
-    <value>Monday</value>
+  <data name="内容值不能为空或不正确" xml:space="preserve">
+    <value>콘텐츠 값은 비어 있거나 올바르지 않을 수 없습니다</value>
   </data>
-  <data name="DayOfWeek_L2" xml:space="preserve">
-    <value>Tuesday</value>
+  <data name="当前手机号今日发送短信数量超过最大上限" xml:space="preserve">
+    <value>인증 코드 획득 횟수가 오늘 한도에 도달했습니다</value>
   </data>
-  <data name="DayOfWeek_L3" xml:space="preserve">
-    <value>Wednesday</value>
+  <data name="当前手机号发送短信过于频繁" xml:space="preserve">
+    <value>조작이 좀 자주 오, 1분 후에 다시 해보자</value>
   </data>
-  <data name="DayOfWeek_L4" xml:space="preserve">
-    <value>Thursday</value>
+  <data name="当前手机号码不存在" xml:space="preserve">
+    <value>현재 휴대폰 번호가 없습니다</value>
   </data>
-  <data name="DayOfWeek_L5" xml:space="preserve">
-    <value>Friday</value>
+  <data name="手机号码已存在" xml:space="preserve">
+    <value>이 핸드폰 번호는 이미 사용중이에요</value>
   </data>
-  <data name="DayOfWeek_L6" xml:space="preserve">
-    <value>Saturday</value>
+  <data name="手机号码已存在_换绑手机" xml:space="preserve">
+    <value>이 핸드폰 번호가 이미 바인딩돼 있어요</value>
   </data>
-  <data name="DayOfWeek_S0" xml:space="preserve">
-    <value>Sunday</value>
+  <data name="手机号码已存在_注册" xml:space="preserve">
+    <value>이 핸드폰 번호가 이미 등록돼 있어요</value>
   </data>
-  <data name="DayOfWeek_S1" xml:space="preserve">
-    <value>Monday</value>
+  <data name="新手机号不能与旧手机号一样" xml:space="preserve">
+    <value>새 휴대폰 번호는 이전 휴대폰 번호와 동일할 수 없습니다</value>
   </data>
-  <data name="DayOfWeek_S2" xml:space="preserve">
-    <value>Tuesday</value>
+  <data name="昵称最大长度不能超过_" xml:space="preserve">
+    <value>별명의 최대 길이는 두 단어를 {0} 수 없습니다</value>
   </data>
-  <data name="DayOfWeek_S3" xml:space="preserve">
-    <value>Wednesday</value>
+  <data name="用户不存在" xml:space="preserve">
+    <value>사용자가 없습니다</value>
   </data>
-  <data name="DayOfWeek_S4" xml:space="preserve">
-    <value>Thursday</value>
+  <data name="短信服务故障" xml:space="preserve">
+    <value>서비스 측 오류 5001 - SMS 서비스</value>
   </data>
-  <data name="DayOfWeek_S5" xml:space="preserve">
-    <value>Friday</value>
+  <data name="短信验证码不正确" xml:space="preserve">
+    <value>SMS 인증 코드가 올바르지 않습니다</value>
   </data>
-  <data name="DayOfWeek_S6" xml:space="preserve">
-    <value>Saturday</value>
+  <data name="请输入手机号码哦" xml:space="preserve">
+    <value>휴대 전화 번호를 입력하십시오</value>
   </data>
-  <data name="Female" xml:space="preserve">
-    <value>Woman</value>
+  <data name="请输入昵称" xml:space="preserve">
+    <value>닉네임을 입력하십시오</value>
   </data>
-  <data name="He" xml:space="preserve">
-    <value>He</value>
+  <data name="请输入正确的手机号码哦" xml:space="preserve">
+    <value>올바른 휴대폰 번호를 입력하십시오</value>
   </data>
-  <data name="Male" xml:space="preserve">
-    <value>Man</value>
+  <data name="请输入正确的邀请码哦" xml:space="preserve">
+    <value>올바른 초대 코드를 입력하십시오</value>
   </data>
-  <data name="She" xml:space="preserve">
-    <value>She</value>
+  <data name="请输入短信验证码哦" xml:space="preserve">
+    <value>문자 메시지 확인 코드를 입력하십시오</value>
   </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>Unknown</value>
+  <data name="请输入邀请码哦" xml:space="preserve">
+    <value>초대 코드를 입력하십시오</value>
   </data>
-  <data name="UnsupportedPhoneNumberSegment_" xml:space="preserve">
-    <value>Unsupported mobile phone number({0})</value>
+  <data name="请选择头像" xml:space="preserve">
+    <value>아바타를 선택하십시오</value>
+  </data>
+  <data name="验证码不正确" xml:space="preserve">
+    <value>인증 코드가 올바르지 않습니다</value>
+  </data>
+  <data name="验证码已过期或不存在" xml:space="preserve">
+    <value>인증 코드가 잘못되었거나 만료되었습니다</value>
   </data>
 </root>

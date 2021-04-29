@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Linq;
 
 namespace System
@@ -8,12 +8,12 @@ namespace System
         public static readonly string projPath;
 
         public const string ProjectDir_AvaloniaApp = "ST.Client.Desktop.Avalonia.App";
-
         public const string ProjectDir_Win7Troubleshoot = "ST.Tools.Win7Troubleshoot";
-
         public const string ProjectDir_CoreLib = "Common.CoreLib";
-
+        public const string ProjectDir_ClienDroidLib = "Common.ClientLib.Droid";
         public const string ProjectDir_ClientDesktop = "ST.Client.Desktop";
+        public const string ProjectDir_ST = "ST";
+        public const string ProjectDir_STClient = "ST.Client";
 
         public const string DirPublishWinX86 =
             @"\src\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish\win-x86";

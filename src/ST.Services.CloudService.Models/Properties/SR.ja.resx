@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ApiResponseCode_AppObsolete" xml:space="preserve">
+    <value>クライアントが古いので、新しいバージョンにアップグレードしてください。</value>
+  </data>
   <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
     <value>ログイン資格情報が無効です。もう一度ログインしてください</value>
   </data>

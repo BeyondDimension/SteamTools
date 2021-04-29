@@ -61,7 +61,7 @@ namespace System.Properties {
         }
         
         /// <summary>
-        ///   查找类似 {0}岁 的本地化字符串。
+        ///   查找类似 {0} 岁 的本地化字符串。
         /// </summary>
         internal static string Age_ {
             get {

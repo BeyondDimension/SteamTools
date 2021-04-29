@@ -117,67 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Age_" xml:space="preserve">
-    <value>{0} years</value>
+  <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
+    <value>Ошибка на стороне службы {0} - Учетные данные для входа недействительны, пожалуйста, снова войдите в систему</value>
   </data>
-  <data name="DayOfWeek_L0" xml:space="preserve">
-    <value>Sunday</value>
+  <data name="UserIsBanErrorMessage" xml:space="preserve">
+    <value>Учетная запись заблокирована</value>
   </data>
-  <data name="DayOfWeek_L1" xml:space="preserve">
-    <value>Monday</value>
+  <data name="内容值不能为空或不正确" xml:space="preserve">
+    <value>Значение содержимого не может быть пустым или неправильным</value>
   </data>
-  <data name="DayOfWeek_L2" xml:space="preserve">
-    <value>Tuesday</value>
+  <data name="当前手机号今日发送短信数量超过最大上限" xml:space="preserve">
+    <value>Количество приобретений кода проверки достигло сегодняшнего потолка, попробуйте еще раз завтра</value>
   </data>
-  <data name="DayOfWeek_L3" xml:space="preserve">
-    <value>Wednesday</value>
+  <data name="当前手机号发送短信过于频繁" xml:space="preserve">
+    <value>Операция немного часто, попробуйте еще раз через 1 минуту</value>
   </data>
-  <data name="DayOfWeek_L4" xml:space="preserve">
-    <value>Thursday</value>
+  <data name="当前手机号码不存在" xml:space="preserve">
+    <value>Текущий номер мобильного телефона не существует</value>
   </data>
-  <data name="DayOfWeek_L5" xml:space="preserve">
-    <value>Friday</value>
+  <data name="手机号码已存在" xml:space="preserve">
+    <value>Этот номер мобильного телефона уже используется</value>
   </data>
-  <data name="DayOfWeek_L6" xml:space="preserve">
-    <value>Saturday</value>
+  <data name="手机号码已存在_换绑手机" xml:space="preserve">
+    <value>Этот номер мобильного телефона уже привязан</value>
   </data>
-  <data name="DayOfWeek_S0" xml:space="preserve">
-    <value>Sunday</value>
+  <data name="手机号码已存在_注册" xml:space="preserve">
+    <value>Этот номер мобильного телефона уже зарегистрирован</value>
   </data>
-  <data name="DayOfWeek_S1" xml:space="preserve">
-    <value>Monday</value>
+  <data name="新手机号不能与旧手机号一样" xml:space="preserve">
+    <value>Новый номер мобильного телефона не может быть такой же, как старый</value>
   </data>
-  <data name="DayOfWeek_S2" xml:space="preserve">
-    <value>Tuesday</value>
+  <data name="昵称最大长度不能超过_" xml:space="preserve">
+    <value>Максимальная длина псевдонима не может превышать {0} слова</value>
   </data>
-  <data name="DayOfWeek_S3" xml:space="preserve">
-    <value>Wednesday</value>
+  <data name="用户不存在" xml:space="preserve">
+    <value>Пользователь не существует</value>
   </data>
-  <data name="DayOfWeek_S4" xml:space="preserve">
-    <value>Thursday</value>
+  <data name="短信服务故障" xml:space="preserve">
+    <value>Ошибка на стороне службы 5001 - SMS-сервис</value>
   </data>
-  <data name="DayOfWeek_S5" xml:space="preserve">
-    <value>Friday</value>
+  <data name="短信验证码不正确" xml:space="preserve">
+    <value>Код подтверждения SMS неверен</value>
   </data>
-  <data name="DayOfWeek_S6" xml:space="preserve">
-    <value>Saturday</value>
+  <data name="请输入手机号码哦" xml:space="preserve">
+    <value>Пожалуйста, введите номер мобильного телефона</value>
   </data>
-  <data name="Female" xml:space="preserve">
-    <value>Woman</value>
+  <data name="请输入昵称" xml:space="preserve">
+    <value>Введите псевдоним</value>
   </data>
-  <data name="He" xml:space="preserve">
-    <value>He</value>
+  <data name="请输入正确的手机号码哦" xml:space="preserve">
+    <value>Пожалуйста, введите правильный номер мобильного телефона</value>
   </data>
-  <data name="Male" xml:space="preserve">
-    <value>Man</value>
+  <data name="请输入正确的邀请码哦" xml:space="preserve">
+    <value>Пожалуйста, введите правильный код приглашения</value>
   </data>
-  <data name="She" xml:space="preserve">
-    <value>She</value>
+  <data name="请输入短信验证码哦" xml:space="preserve">
+    <value>Пожалуйста, введите код подтверждения SMS</value>
   </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>Unknown</value>
+  <data name="请输入邀请码哦" xml:space="preserve">
+    <value>Пожалуйста, введите код приглашения</value>
   </data>
-  <data name="UnsupportedPhoneNumberSegment_" xml:space="preserve">
-    <value>Unsupported mobile phone number({0})</value>
+  <data name="请选择头像" xml:space="preserve">
+    <value>Пожалуйста, выберите аватар</value>
+  </data>
+  <data name="验证码不正确" xml:space="preserve">
+    <value>Код подтверждения неверен</value>
+  </data>
+  <data name="验证码已过期或不存在" xml:space="preserve">
+    <value>Код проверки неверный или истек</value>
   </data>
 </root>

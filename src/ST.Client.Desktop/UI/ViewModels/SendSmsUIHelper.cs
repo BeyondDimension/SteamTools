@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Threading;
@@ -49,7 +49,7 @@ namespace System.Application.UI.ViewModels
                         }
                         else
                         {
-                            i.BtnSendSmsCodeText = string.Format(AppResources.User_LoginCodeTimeLimitTip, i.TimeLimit);
+                            i.BtnSendSmsCodeText = AppResources.User_LoginCodeTimeLimitTip.Format(i.TimeLimit);
                             return true;
                         }
                     }

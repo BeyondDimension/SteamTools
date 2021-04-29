@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using Avalonia.Data.Converters;
 
 namespace System.Application.Converters
@@ -9,7 +9,7 @@ namespace System.Application.Converters
         {
             if (value is string str && parameter is string para && !string.IsNullOrEmpty(para))
             {
-                return string.Format(str, para);
+                return str.Format(para);
             }
             return value;
         }

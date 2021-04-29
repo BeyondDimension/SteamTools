@@ -1,4 +1,4 @@
-﻿using DynamicData;
+using DynamicData;
 using DynamicData.Binding;
 using ReactiveUI;
 using System.Application.Models;
@@ -190,7 +190,7 @@ namespace System.Application.UI.ViewModels
                 {
                     return AppResources.LocalAuth_AuthTrade_ListNullTip;
                 }
-                return string.Format(AppResources.LocalAuth_AuthTrade_ListCountTip, Confirmations.Count);
+                return AppResources.LocalAuth_AuthTrade_ListCountTip.Format(Confirmations.Count);
             }
         }
 
@@ -501,11 +501,11 @@ namespace System.Application.UI.ViewModels
 
             var str = (accept ? AppResources.Agree : AppResources.Cancel);
 
-            var result = await MessageBoxCompat.ShowAsync(string.Format(AppResources.LocalAuth_AuthTrade_MessageBoxTip, str), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
+            var result = await MessageBoxCompat.ShowAsync(AppResources.LocalAuth_AuthTrade_MessageBoxTip.Format(str), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
 
             if (result == MessageBoxResultCompat.OK)
             {
-                ToastService.Current.Set(string.Format(AppResources.LocalAuth_AuthTrade_ConfirmTip, str));
+                ToastService.Current.Set(AppResources.LocalAuth_AuthTrade_ConfirmTip.Format(str));
 
                 if (accept)
                     AcceptAllTrade();

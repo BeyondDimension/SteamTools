@@ -117,67 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Age_" xml:space="preserve">
-    <value>{0} years</value>
+  <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
+    <value>服務端錯誤 {0} - 登錄憑證失效，請重新登錄</value>
   </data>
-  <data name="DayOfWeek_L0" xml:space="preserve">
-    <value>Sunday</value>
+  <data name="UserIsBanErrorMessage" xml:space="preserve">
+    <value>帳號已被封禁</value>
   </data>
-  <data name="DayOfWeek_L1" xml:space="preserve">
-    <value>Monday</value>
+  <data name="内容值不能为空或不正确" xml:space="preserve">
+    <value>內容值不能為空或不正確</value>
   </data>
-  <data name="DayOfWeek_L2" xml:space="preserve">
-    <value>Tuesday</value>
+  <data name="当前手机号今日发送短信数量超过最大上限" xml:space="preserve">
+    <value>驗證碼獲取次數達到今日上限了哦，明天再試試吧</value>
   </data>
-  <data name="DayOfWeek_L3" xml:space="preserve">
-    <value>Wednesday</value>
+  <data name="当前手机号发送短信过于频繁" xml:space="preserve">
+    <value>操作有點頻繁哦，1分鐘以後再試試吧</value>
   </data>
-  <data name="DayOfWeek_L4" xml:space="preserve">
-    <value>Thursday</value>
+  <data name="当前手机号码不存在" xml:space="preserve">
+    <value>當前手機號碼不存在</value>
   </data>
-  <data name="DayOfWeek_L5" xml:space="preserve">
-    <value>Friday</value>
+  <data name="手机号码已存在" xml:space="preserve">
+    <value>這個手機號已經被使用了哦</value>
   </data>
-  <data name="DayOfWeek_L6" xml:space="preserve">
-    <value>Saturday</value>
+  <data name="手机号码已存在_换绑手机" xml:space="preserve">
+    <value>這個手機號已經被綁定了哦</value>
   </data>
-  <data name="DayOfWeek_S0" xml:space="preserve">
-    <value>Sunday</value>
+  <data name="手机号码已存在_注册" xml:space="preserve">
+    <value>這個手機號已經被註冊了哦</value>
   </data>
-  <data name="DayOfWeek_S1" xml:space="preserve">
-    <value>Monday</value>
+  <data name="新手机号不能与旧手机号一样" xml:space="preserve">
+    <value>新手機號不能與舊手機號一樣</value>
   </data>
-  <data name="DayOfWeek_S2" xml:space="preserve">
-    <value>Tuesday</value>
+  <data name="昵称最大长度不能超过_" xml:space="preserve">
+    <value>昵稱最大長度不能超過{0}個字</value>
   </data>
-  <data name="DayOfWeek_S3" xml:space="preserve">
-    <value>Wednesday</value>
+  <data name="用户不存在" xml:space="preserve">
+    <value>使用者不存在</value>
   </data>
-  <data name="DayOfWeek_S4" xml:space="preserve">
-    <value>Thursday</value>
+  <data name="短信服务故障" xml:space="preserve">
+    <value>服務端錯誤 5001 - 短信服務</value>
   </data>
-  <data name="DayOfWeek_S5" xml:space="preserve">
-    <value>Friday</value>
+  <data name="短信验证码不正确" xml:space="preserve">
+    <value>簡訊驗證碼不正確</value>
   </data>
-  <data name="DayOfWeek_S6" xml:space="preserve">
-    <value>Saturday</value>
+  <data name="请输入手机号码哦" xml:space="preserve">
+    <value>請輸入手機號碼哦</value>
   </data>
-  <data name="Female" xml:space="preserve">
-    <value>Woman</value>
+  <data name="请输入昵称" xml:space="preserve">
+    <value>請輸入暱稱</value>
   </data>
-  <data name="He" xml:space="preserve">
-    <value>He</value>
+  <data name="请输入正确的手机号码哦" xml:space="preserve">
+    <value>請輸入正確的手機號碼哦</value>
   </data>
-  <data name="Male" xml:space="preserve">
-    <value>Man</value>
+  <data name="请输入正确的邀请码哦" xml:space="preserve">
+    <value>請輸入正確的邀請碼哦</value>
   </data>
-  <data name="She" xml:space="preserve">
-    <value>She</value>
+  <data name="请输入短信验证码哦" xml:space="preserve">
+    <value>請輸入簡訊驗證碼哦</value>
   </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>Unknown</value>
+  <data name="请输入邀请码哦" xml:space="preserve">
+    <value>請輸入邀請碼哦</value>
   </data>
-  <data name="UnsupportedPhoneNumberSegment_" xml:space="preserve">
-    <value>Unsupported mobile phone number({0})</value>
+  <data name="请选择头像" xml:space="preserve">
+    <value>請選擇頭像</value>
+  </data>
+  <data name="验证码不正确" xml:space="preserve">
+    <value>驗證碼不正確</value>
+  </data>
+  <data name="验证码已过期或不存在" xml:space="preserve">
+    <value>驗證碼錯誤或已過期</value>
   </data>
 </root>

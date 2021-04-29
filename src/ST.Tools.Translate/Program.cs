@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using NPOI.XSSF.UserModel;
 using System.Collections.Generic;
 using System.IO;
@@ -34,6 +34,9 @@ namespace System
         }
 
         public const string CoreLib = ProjectDir_CoreLib + @"\Properties\SR";
+        public const string ClienDroidLib = ProjectDir_ClienDroidLib + @"\Properties\SR";
+        public const string ST = ProjectDir_ST + @"\Properties\SR";
+        public const string STClient = ProjectDir_STClient + @"\Properties\SR";
         public const string AppRes = ProjectDir_ClientDesktop + @"\UI\Resx\AppResources";
 
         static async Task Main(string[] args)
@@ -80,7 +83,7 @@ namespace System
 
         static async Task Handle(string path, bool isReadOrWrite, bool isOverwrite)
         {
-            path = Path.Combine(projPath, path);
+            path = Path.Combine(projPath, "src", path);
             if (!path.EndsWith(".resx", StringComparison.OrdinalIgnoreCase)) path += ".resx";
             if (!File.Exists(path)) throw new FileNotFoundException(nameof(path));
 
@@ -128,6 +131,8 @@ namespace System
                 {
                     var row = sheet.GetRow(index_row++);
                     if (row == null) break;
+
+                    index_cell = 0;
 
                     while (true)
                     {
@@ -274,7 +279,7 @@ namespace System
                     var value = line.Substring("<value>", "</value>");
                     if (Is_zh_Hans(value))
                     {
-                        if (lastName != "ProgramUpdateCmd_")
+                        if (lastName != "ProgramUpdateCmd_" && lastName != "VacFixCmd")
                         {
                             dict.Add(lastName, value);
                         }

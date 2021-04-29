@@ -390,4 +390,589 @@
   <data name="UserChange_OfflineBtn" xml:space="preserve">
     <value>離線模式啟動</value>
   </data>
+  <data name="About_Contactus" xml:space="preserve">
+    <value>聯繫我們</value>
+  </data>
+  <data name="AchievementManage" xml:space="preserve">
+    <value>成就管理</value>
+  </data>
+  <data name="Achievement_Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="Achievement_EditSucces" xml:space="preserve">
+    <value>修改了 {0} 個成就和 {1} 條統計資訊</value>
+  </data>
+  <data name="Achievement_Icon" xml:space="preserve">
+    <value>圖示</value>
+  </data>
+  <data name="Achievement_IsProtection" xml:space="preserve">
+    <value>受保護</value>
+  </data>
+  <data name="Achievement_LoadData" xml:space="preserve">
+    <value>載入成就與統計資料...</value>
+  </data>
+  <data name="Achievement_LoadSucces" xml:space="preserve">
+    <value>獲取到 {0} 個成就和 {1} 條統計資訊</value>
+  </data>
+  <data name="Achievement_Manage" xml:space="preserve">
+    <value>管理成就</value>
+  </data>
+  <data name="Achievement_Name" xml:space="preserve">
+    <value>名稱</value>
+  </data>
+  <data name="Achievement_RefreshTip" xml:space="preserve">
+    <value>刷新成就和統計</value>
+  </data>
+  <data name="Achievement_ResetTip" xml:space="preserve">
+    <value>複位成就和統計</value>
+  </data>
+  <data name="Achievement_ResetWaring_1" xml:space="preserve">
+    <value>確定要復位統計資訊嗎？</value>
+  </data>
+  <data name="Achievement_ResetWaring_2" xml:space="preserve">
+    <value>也想要複位成就資訊嗎？</value>
+  </data>
+  <data name="Achievement_RiskWarning" xml:space="preserve">
+    <value>【風險提示】解鎖成就可能會被遊戲開發者視為作弊，並且會被成就統計網站封鎖。 若決定繼續使用，請自行承擔解鎖成就帶來的風險和後果。</value>
+  </data>
+  <data name="Achievement_StatsEdit" xml:space="preserve">
+    <value>統計修改</value>
+  </data>
+  <data name="Achievement_StoreTip" xml:space="preserve">
+    <value>保存並應用成就和統計</value>
+  </data>
+  <data name="Achievement_TimeFormat" xml:space="preserve">
+    <value>解除鎖定於{0：yyyy-MM-dd HH：mm：ss}</value>
+  </data>
+  <data name="Achievement_Unlock" xml:space="preserve">
+    <value>成就解鎖</value>
+  </data>
+  <data name="Achievement_Warning_1" xml:space="preserve">
+    <value>與Steam建立連接失敗，可能是該遊戲沒有成就，或者你沒有該遊戲。</value>
+  </data>
+  <data name="Achievement_Warning_3" xml:space="preserve">
+    <value>修改成就{0}時發生錯誤</value>
+  </data>
+  <data name="Achievement_Warning_4" xml:space="preserve">
+    <value>修改統計{0}時發生錯誤</value>
+  </data>
+  <data name="Agree" xml:space="preserve">
+    <value>同意</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>和</value>
+  </data>
+  <data name="Bind" xml:space="preserve">
+    <value>綁定</value>
+  </data>
+  <data name="Btn_Text_Complete" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="Btn_Text_Continue" xml:space="preserve">
+    <value>繼續</value>
+  </data>
+  <data name="CommunityFix_Acceleration" xml:space="preserve">
+    <value>一鍵加速</value>
+  </data>
+  <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
+    <value>啟用的加速服務</value>
+  </data>
+  <data name="CommunityFix_AllCheck" xml:space="preserve">
+    <value>全部啟用</value>
+  </data>
+  <data name="CommunityFix_AlreadyProxy" xml:space="preserve">
+    <value>已加速  </value>
+  </data>
+  <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
+    <value>程序啟動時自動啟動加速</value>
+  </data>
+  <data name="CommunityFix_CertificateSettings" xml:space="preserve">
+    <value>證書設置</value>
+  </data>
+  <data name="CommunityFix_DeleteCertificate" xml:space="preserve">
+    <value>拿掉證書</value>
+  </data>
+  <data name="CommunityFix_EditHostsFile" xml:space="preserve">
+    <value>編輯hosts檔</value>
+  </data>
+  <data name="CommunityFix_EnableScriptService" xml:space="preserve">
+    <value>啟用腳稿</value>
+  </data>
+  <data name="CommunityFix_MenuName" xml:space="preserve">
+    <value>加速設置</value>
+  </data>
+  <data name="CommunityFix_NoSelectAcceleration" xml:space="preserve">
+    <value>沒有選擇任何加速服務</value>
+  </data>
+  <data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
+    <value>僅對Steam內置瀏覽器生效</value>
+  </data>
+  <data name="CommunityFix_ProxyMode" xml:space="preserve">
+    <value>加速模式</value>
+  </data>
+  <data name="CommunityFix_ProxyModeTip" xml:space="preserve">
+    <value>加速模式：</value>
+  </data>
+  <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
+    <value>Hosts代理模式</value>
+  </data>
+  <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
+    <value>Windows系統代理模式</value>
+  </data>
+  <data name="CommunityFix_ScriptManage" xml:space="preserve">
+    <value>管理腳本</value>
+  </data>
+  <data name="CommunityFix_ScriptsEnable" xml:space="preserve">
+    <value>啟用的腳本服務</value>
+  </data>
+  <data name="CommunityFix_SetupCertificate" xml:space="preserve">
+    <value>安裝證書</value>
+  </data>
+  <data name="CommunityFix_StartProxy" xml:space="preserve">
+    <value>一鍵加速</value>
+  </data>
+  <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
+    <value>加速已啟動成功</value>
+  </data>
+  <data name="CommunityFix_StopProxy" xml:space="preserve">
+    <value>停止加速</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="Cut" xml:space="preserve">
+    <value>剪切</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>預設</value>
+  </data>
+  <data name="DelAccount" xml:space="preserve">
+    <value>賬號註銷</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="DoNotUpdate" xml:space="preserve">
+    <value>暫不更新</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>下載</value>
+  </data>
+  <data name="Download_ScriptError" xml:space="preserve">
+    <value>腳本下載錯誤請重試。</value>
+  </data>
+  <data name="Download_ScriptOk" xml:space="preserve">
+    <value>腳本安裝成功</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>郵箱</value>
+  </data>
+  <data name="GameList_HideTheGame" xml:space="preserve">
+    <value>隱藏此遊戲</value>
+  </data>
+  <data name="GameList_Install" xml:space="preserve">
+    <value>安裝</value>
+  </data>
+  <data name="GameList_IsEmpty" xml:space="preserve">
+    <value>沒有獲取到任何遊戲數據</value>
+  </data>
+  <data name="GameList_OnlyInstalled" xml:space="preserve">
+    <value>僅顯示已安裝的遊戲</value>
+  </data>
+  <data name="GameList_OpenStoreUrl" xml:space="preserve">
+    <value>打開商店頁</value>
+  </data>
+  <data name="GameList_Play" xml:space="preserve">
+    <value>開始遊戲</value>
+  </data>
+  <data name="GameList_RefreshGamesList" xml:space="preserve">
+    <value>刷新遊戲清單</value>
+  </data>
+  <data name="GameList_RefreshGamesListSucess" xml:space="preserve">
+    <value>刷新遊戲清單完成</value>
+  </data>
+  <data name="GameList_ResizeAppLogo" xml:space="preserve">
+    <value>調整封面大小</value>
+  </data>
+  <data name="GameList_RuningWait" xml:space="preserve">
+    <value>啟動中...</value>
+  </data>
+  <data name="GameList_SetCustomImage" xml:space="preserve">
+    <value>設置自定義封面</value>
+  </data>
+  <data name="GameList_SteamNotRuning" xml:space="preserve">
+    <value>Steam未啟動</value>
+  </data>
+  <data name="GameList_Unsupport" xml:space="preserve">
+    <value>不支援的操作</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>性別</value>
+  </data>
+  <data name="Gender_Female" xml:space="preserve">
+    <value>女</value>
+  </data>
+  <data name="Gender_Male" xml:space="preserve">
+    <value>男</value>
+  </data>
+  <data name="Gender_Unknown" xml:space="preserve">
+    <value>保密</value>
+  </data>
+  <data name="LocalAuth_AuthTrade" xml:space="preserve">
+    <value>確認交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_Cancel" xml:space="preserve">
+    <value>取消交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_CancelAll" xml:space="preserve">
+    <value>取消所有交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_CancelError" xml:space="preserve">
+    <value>無法取消此交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_Confirm" xml:space="preserve">
+    <value>確認交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ConfirmAll" xml:space="preserve">
+    <value>確認所有交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ConfirmCancel" xml:space="preserve">
+    <value>已成功取消所有交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ConfirmError" xml:space="preserve">
+    <value>無法確認此交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ConfirmSuccess" xml:space="preserve">
+    <value>已成功同意所有交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ConfirmTip" xml:space="preserve">
+    <value>正在{0}所有交易中...</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
+    <value>您沒有權限檢視確認資訊. 是否啟用了 'community-generated content' in Family View？</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_GetError2" xml:space="preserve">
+    <value>獲取Steam令牌交易數據失敗，請確認是否正常加速了Steam社區位址。</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_GetTip" xml:space="preserve">
+    <value>取得最新的交易報價資訊...</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ListCountTip" xml:space="preserve">
+    <value>{0}條交易待處理</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ListNullTip" xml:space="preserve">
+    <value>當前沒有任何需要處理的交易報價</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
+    <value>當前沒有任何交易</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_TradeError" xml:space="preserve">
+    <value>無效的交易</value>
+  </data>
+  <data name="LocalAuth_CloudSync" xml:space="preserve">
+    <value>令牌雲同步</value>
+  </data>
+  <data name="LocalAuth_Copy" xml:space="preserve">
+    <value>複製權杖</value>
+  </data>
+  <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
+    <value>查看權杖</value>
+  </data>
+  <data name="LocalAuth_ShowAuthInfo" xml:space="preserve">
+    <value>查看權杖詳細數據</value>
+  </data>
+  <data name="LocalAuth_SteamAuthTrade" xml:space="preserve">
+    <value>確認交易</value>
+  </data>
+  <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
+    <value>確認交易需要登錄Steam，程式不會記錄你的密碼，只會在本地保存登錄的狀態。</value>
+  </data>
+  <data name="LoginAndRegister" xml:space="preserve">
+    <value>登錄 / 註冊</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>註銷登錄</value>
+  </data>
+  <data name="Modify" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="NickName" xml:space="preserve">
+    <value>昵稱</value>
+  </data>
+  <data name="Paste" xml:space="preserve">
+    <value>粘貼</value>
+  </data>
+  <data name="PleaseEnterNickName" xml:space="preserve">
+    <value>請輸入暱稱</value>
+  </data>
+  <data name="PleaseSelect" xml:space="preserve">
+    <value>請選擇</value>
+  </data>
+  <data name="RefreshOK" xml:space="preserve">
+    <value>刷新成功</value>
+  </data>
+  <data name="RefreshSteamAvatar" xml:space="preserve">
+    <value>刷新 Steam 頭像</value>
+  </data>
+  <data name="RefreshSteamAvatarDesc" xml:space="preserve">
+    <value>綁定 Steam 帳號後可手動同步刷新使用 Steam 帳號頭像。</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>保存修改</value>
+  </data>
+  <data name="ScriptConfig" xml:space="preserve">
+    <value>腳本配置</value>
+  </data>
+  <data name="ScriptConfig_ScriptEmptyTip" xml:space="preserve">
+    <value>未查詢到匹配的文稿檔，您可以從腳本工坊下載文稿檔。</value>
+  </data>
+  <data name="ScriptShop_GetTableError" xml:space="preserve">
+    <value>取得文本工坊清單失敗。</value>
+  </data>
+  <data name="ScriptShop_NoLogin" xml:space="preserve">
+    <value>使用腳本工坊需要先登錄。</value>
+  </data>
+  <data name="ScriptStore" xml:space="preserve">
+    <value>腳本工坊</value>
+  </data>
+  <data name="Script_AutoUpdate" xml:space="preserve">
+    <value>啟用文本自動檢查更新</value>
+  </data>
+  <data name="Script_DeleteItem" xml:space="preserve">
+    <value>確定要刪除這個腳本嗎？</value>
+  </data>
+  <data name="Script_Edit" xml:space="preserve">
+    <value>編輯文稿</value>
+  </data>
+  <data name="Script_EditTxt" xml:space="preserve">
+    <value>是否完成腳本修改，點擊確定刷新緩存。</value>
+  </data>
+  <data name="Script_Home" xml:space="preserve">
+    <value>腳本主頁</value>
+  </data>
+  <data name="Script_ImportLoading" xml:space="preserve">
+    <value>處理導入腳本中</value>
+  </data>
+  <data name="Script_Install" xml:space="preserve">
+    <value>安裝腳本</value>
+  </data>
+  <data name="Script_Installed" xml:space="preserve">
+    <value>已安裝</value>
+  </data>
+  <data name="Script_Refresh" xml:space="preserve">
+    <value>刷新緩存</value>
+  </data>
+  <data name="Script_Shop" xml:space="preserve">
+    <value>腳本市場</value>
+  </data>
+  <data name="Script_Update" xml:space="preserve">
+    <value>更新腳本</value>
+  </data>
+  <data name="Script_UpdateError" xml:space="preserve">
+    <value>獲取腳本新版本資訊失敗。</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜尋...</value>
+  </data>
+  <data name="Settings_Fonts" xml:space="preserve">
+    <value>字體</value>
+  </data>
+  <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
+    <value>啟動時自動檢查更新</value>
+  </data>
+  <data name="Settings_General_RuningMinimize" xml:space="preserve">
+    <value>啟動時最小化到托盤</value>
+  </data>
+  <data name="Settings_General_StartAutoRun" xml:space="preserve">
+    <value>開機自啟動</value>
+  </data>
+  <data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
+    <value>程序啟動時自動運行Steam</value>
+  </data>
+  <data name="Settings_Steam_NotCheckUpdate" xml:space="preserve">
+    <value>Steam啟動時不檢查更新</value>
+  </data>
+  <data name="Settings_Steam_RuningMinimize" xml:space="preserve">
+    <value>Steam啟動時最小化到托盤</value>
+  </data>
+  <data name="Settings_Steam_SteamStratParameter" xml:space="preserve">
+    <value>Steam啟動參數</value>
+  </data>
+  <data name="Settings_UI_Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="Settings_UI_Light" xml:space="preserve">
+    <value>淺色</value>
+  </data>
+  <data name="Settings_UI_SystemDefault" xml:space="preserve">
+    <value>跟隨系統</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>退出登錄</value>
+  </data>
+  <data name="StartUpdate" xml:space="preserve">
+    <value>開始更新</value>
+  </data>
+  <data name="SteamAccount" xml:space="preserve">
+    <value>Steam 帳號</value>
+  </data>
+  <data name="SteamAppType_Application" xml:space="preserve">
+    <value>軟體</value>
+  </data>
+  <data name="SteamAppType_Beta" xml:space="preserve">
+    <value>測試</value>
+  </data>
+  <data name="SteamAppType_Config" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="SteamAppType_DepotOnly" xml:space="preserve">
+    <value>倉庫</value>
+  </data>
+  <data name="SteamAppType_Driver" xml:space="preserve">
+    <value>驅動</value>
+  </data>
+  <data name="SteamAppType_Franchise" xml:space="preserve">
+    <value>授權</value>
+  </data>
+  <data name="SteamAppType_Game" xml:space="preserve">
+    <value>遊戲</value>
+  </data>
+  <data name="SteamAppType_Guide" xml:space="preserve">
+    <value>指南</value>
+  </data>
+  <data name="SteamAppType_Hardware" xml:space="preserve">
+    <value>硬體</value>
+  </data>
+  <data name="SteamAppType_Media" xml:space="preserve">
+    <value>預告視頻</value>
+  </data>
+  <data name="SteamAppType_Mod" xml:space="preserve">
+    <value>模組</value>
+  </data>
+  <data name="SteamAppType_Music" xml:space="preserve">
+    <value>原聲音軌</value>
+  </data>
+  <data name="SteamAppType_Plugin" xml:space="preserve">
+    <value>外掛程式</value>
+  </data>
+  <data name="SteamAppType_Series" xml:space="preserve">
+    <value>影視集</value>
+  </data>
+  <data name="SteamAppType_Shortcut" xml:space="preserve">
+    <value>快捷方式</value>
+  </data>
+  <data name="SteamAppType_Tool" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="SteamAppType_Unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="SteamAppType_Video" xml:space="preserve">
+    <value>視頻</value>
+  </data>
+  <data name="Success_" xml:space="preserve">
+    <value>{0}成功</value>
+  </data>
+  <data name="UnderConstruction" xml:space="preserve">
+    <value>該功能正在開發中，敬請期待</value>
+  </data>
+  <data name="UnsavedEditingWillBeDiscarded" xml:space="preserve">
+    <value>將丟棄未保存的編輯</value>
+  </data>
+  <data name="UpdateContent" xml:space="preserve">
+    <value>更新內容</value>
+  </data>
+  <data name="UploadYourAvatar" xml:space="preserve">
+    <value>上傳您的頭像</value>
+  </data>
+  <data name="UploadYourAvatarDesc" xml:space="preserve">
+    <value>從您的裝置上傳一個檔。 圖片應為方形，至少為 184px x 184px</value>
+  </data>
+  <data name="UserChange_EditRemark" xml:space="preserve">
+    <value>點此修改備註</value>
+  </data>
+  <data name="UserChange_LoginNewAccount" xml:space="preserve">
+    <value>登錄新Steam帳號</value>
+  </data>
+  <data name="UserChange_OpenUserUrl" xml:space="preserve">
+    <value>打開個人資料頁面</value>
+  </data>
+  <data name="UserChange_RecentLogin" xml:space="preserve">
+    <value>最近登陸</value>
+  </data>
+  <data name="UserChange_RememberMe" xml:space="preserve">
+    <value>已記住密碼</value>
+  </data>
+  <data name="UserProfile" xml:space="preserve">
+    <value>個人資料</value>
+  </data>
+  <data name="UserProfile_BirthDate" xml:space="preserve">
+    <value>生日</value>
+  </data>
+  <data name="UserProfile_Location" xml:space="preserve">
+    <value>所在地</value>
+  </data>
+  <data name="User_Agreement" xml:space="preserve">
+    <value>使用者協定</value>
+  </data>
+  <data name="User_ChangePhoneNum" xml:space="preserve">
+    <value>換綁手機</value>
+  </data>
+  <data name="User_EditProfile" xml:space="preserve">
+    <value>編輯資料</value>
+  </data>
+  <data name="User_GetSMSCode" xml:space="preserve">
+    <value>獲取驗證碼</value>
+  </data>
+  <data name="User_Login" xml:space="preserve">
+    <value>登錄</value>
+  </data>
+  <data name="User_LoginCodeTimeLimitTip" xml:space="preserve">
+    <value>重新取得（{0}）</value>
+  </data>
+  <data name="User_LoginError" xml:space="preserve">
+    <value>帳號或密碼錯誤</value>
+  </data>
+  <data name="User_LoginError_Auth" xml:space="preserve">
+    <value>不合法權杖：您確定登入的是您目前權杖的帳號？</value>
+  </data>
+  <data name="User_LoginError_CodeImage" xml:space="preserve">
+    <value>請輸入圖片驗證碼</value>
+  </data>
+  <data name="User_LoginError_Null" xml:space="preserve">
+    <value>請輸入您的帳號和密碼</value>
+  </data>
+  <data name="User_LoginTroubleshoot" xml:space="preserve">
+    <value>無法登錄？</value>
+  </data>
+  <data name="User_LoiginSuccess" xml:space="preserve">
+    <value>登錄成功</value>
+  </data>
+  <data name="User_NewPhone" xml:space="preserve">
+    <value>新手機號碼</value>
+  </data>
+  <data name="User_Phone" xml:space="preserve">
+    <value>手機號碼</value>
+  </data>
+  <data name="User_Privacy" xml:space="preserve">
+    <value>隱私政策</value>
+  </data>
+  <data name="User_Register" xml:space="preserve">
+    <value>註冊</value>
+  </data>
+  <data name="User_RegisterAgreed" xml:space="preserve">
+    <value>註冊即代表您已閱讀並同意</value>
+  </data>
+  <data name="User_Rememberme" xml:space="preserve">
+    <value>記住登陸狀態</value>
+  </data>
+  <data name="User_SMSCode" xml:space="preserve">
+    <value>短信驗證碼</value>
+  </data>
+  <data name="User_SMSCode_Error" xml:space="preserve">
+    <value>請先獲取驗證碼</value>
+  </data>
+  <data name="User_SteamFastLogin" xml:space="preserve">
+    <value>Steam快速登錄</value>
+  </data>
 </root>

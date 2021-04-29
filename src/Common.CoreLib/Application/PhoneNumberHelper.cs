@@ -1,4 +1,4 @@
-﻿using System.Application.Columns;
+using System.Application.Columns;
 using System.Common;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -141,14 +141,14 @@ namespace System.Application
             var segment = value.Substring(0, 3).TryParseByte();
             if (!segment.HasValue)
             {
-                errMsg = string.Format(SR.UnsupportedPhoneNumberSegment_, 0);
+                errMsg = SR.UnsupportedPhoneNumberSegment_.Format(0);
                 return false;
             }
             if (ChineseMainlandPhoneNumberSegmentVerifyUseBlacklistOrWhitelist)
             {
                 if (ChineseMainlandPhoneNumberSegment.Blacklist.Contains(segment.Value))
                 {
-                    errMsg = string.Format(SR.UnsupportedPhoneNumberSegment_, segment ?? 0);
+                    errMsg = SR.UnsupportedPhoneNumberSegment_.Format(segment ?? 0);
                     return false;
                 }
             }
@@ -156,7 +156,7 @@ namespace System.Application
             {
                 if (!ChineseMainlandPhoneNumberSegment.Summary.Contains(segment.Value))
                 {
-                    errMsg = string.Format(SR.UnsupportedPhoneNumberSegment_, segment ?? 0);
+                    errMsg = SR.UnsupportedPhoneNumberSegment_.Format(segment ?? 0);
                     return false;
                 }
             }

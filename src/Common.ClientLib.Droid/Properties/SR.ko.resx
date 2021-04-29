@@ -117,67 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Age_" xml:space="preserve">
-    <value>{0} years</value>
+  <data name="ExitCode_IsVirtualApk" xml:space="preserve">
+    <value>이 앱은 다중 켜기를 지원하지 않습니다</value>
   </data>
-  <data name="DayOfWeek_L0" xml:space="preserve">
-    <value>Sunday</value>
+  <data name="ExitCode_IsXposedExists" xml:space="preserve">
+    <value>이 앱은 Xposed 프레임워크가 설치된 장치에서 실행할 수 없습니다</value>
   </data>
-  <data name="DayOfWeek_L1" xml:space="preserve">
-    <value>Monday</value>
+  <data name="ExitCode_IsRoot" xml:space="preserve">
+    <value>이 앱은 ROOT 권한이 있는 장치에서 실행할 수 없습니다</value>
   </data>
-  <data name="DayOfWeek_L2" xml:space="preserve">
-    <value>Tuesday</value>
+  <data name="ExitCode_IsVirtualApk" xml:space="preserve">
+    <value>이 앱은 다중 켜기를 지원하지 않습니다</value>
   </data>
-  <data name="DayOfWeek_L3" xml:space="preserve">
-    <value>Wednesday</value>
-  </data>
-  <data name="DayOfWeek_L4" xml:space="preserve">
-    <value>Thursday</value>
-  </data>
-  <data name="DayOfWeek_L5" xml:space="preserve">
-    <value>Friday</value>
-  </data>
-  <data name="DayOfWeek_L6" xml:space="preserve">
-    <value>Saturday</value>
-  </data>
-  <data name="DayOfWeek_S0" xml:space="preserve">
-    <value>Sunday</value>
-  </data>
-  <data name="DayOfWeek_S1" xml:space="preserve">
-    <value>Monday</value>
-  </data>
-  <data name="DayOfWeek_S2" xml:space="preserve">
-    <value>Tuesday</value>
-  </data>
-  <data name="DayOfWeek_S3" xml:space="preserve">
-    <value>Wednesday</value>
-  </data>
-  <data name="DayOfWeek_S4" xml:space="preserve">
-    <value>Thursday</value>
-  </data>
-  <data name="DayOfWeek_S5" xml:space="preserve">
-    <value>Friday</value>
-  </data>
-  <data name="DayOfWeek_S6" xml:space="preserve">
-    <value>Saturday</value>
-  </data>
-  <data name="Female" xml:space="preserve">
-    <value>Woman</value>
-  </data>
-  <data name="He" xml:space="preserve">
-    <value>He</value>
-  </data>
-  <data name="Male" xml:space="preserve">
-    <value>Man</value>
-  </data>
-  <data name="She" xml:space="preserve">
-    <value>She</value>
-  </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>Unknown</value>
-  </data>
-  <data name="UnsupportedPhoneNumberSegment_" xml:space="preserve">
-    <value>Unsupported mobile phone number({0})</value>
+  <data name="ExitCode_IsXposedExists" xml:space="preserve">
+    <value>이 앱은 Xposed 프레임워크가 설치된 장치에서 실행할 수 없습니다</value>
   </data>
 </root>

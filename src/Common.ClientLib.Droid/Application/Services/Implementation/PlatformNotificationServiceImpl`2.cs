@@ -1,4 +1,4 @@
-﻿using Android.App;
+using Android.App;
 using Android.Content;
 using AndroidX.Core.App;
 using System.Collections.Generic;
@@ -220,7 +220,7 @@ namespace System.Application.Services.Implementation
             var context = AndroidApplication.Context;
             var manager = NotificationManagerCompat.From(context);
             var builder = BuildNotify(context, manager,
-                text: string.Format(text, 0),
+                text: text.Format(0),
                 notificationType,
                 title: title);
             // 进度单位说明
@@ -267,7 +267,7 @@ namespace System.Application.Services.Implementation
                     if (builder == null) throw new ArgumentNullException(nameof(builder));
                     if (manager == null) throw new ArgumentNullException(nameof(manager));
                     builder.SetProgress(PROGRESS_MAX, currentInt32, false);
-                    builder.SetContentText(string.Format(text, currentInt32));
+                    builder.SetContentText(text.Format(currentInt32));
                     manager.Notify(notifyId, builder.Build());
                 }
             }

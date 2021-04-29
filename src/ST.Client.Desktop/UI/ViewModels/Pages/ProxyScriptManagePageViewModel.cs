@@ -114,7 +114,7 @@ namespace System.Application.UI.ViewModels
         public void RefreshScriptButton()
         {
             ProxyService.Current.RefreshScript();
-            Toast.Show(string.Format(@AppResources.Success_, @AppResources.Refresh));
+            Toast.Show(@AppResources.Success_.Format(@AppResources.Refresh));
         }
         public void DownloadScriptItemButton(ScriptDTO model)
         {

@@ -1,4 +1,4 @@
-﻿using MessagePack;
+using MessagePack;
 using Newtonsoft.Json;
 using System.Application.Models.Internals;
 using System.Application.Properties;
@@ -66,8 +66,8 @@ namespace System.Application.Models
                 return Const.UserIsBanErrorMessage;
             }
             if (string.IsNullOrWhiteSpace(errorAppendText))
-                return string.Format(SR.ServerError_, (int)code);
-            return string.Format(SR.ServerError__, (int)code, errorAppendText);
+                return SR.ServerError_.Format((int)code);
+            return SR.ServerError__.Format((int)code, errorAppendText);
         }
 
         public static string GetMessage(IApiResponse response, string? errorAppendText = null)

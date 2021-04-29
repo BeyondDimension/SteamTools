@@ -117,67 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Age_" xml:space="preserve">
-    <value>{0} years</value>
+  <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
+    <value>Service-side error {0} - login credentials are invalid, please log back in</value>
   </data>
-  <data name="DayOfWeek_L0" xml:space="preserve">
-    <value>Sunday</value>
+  <data name="UserIsBanErrorMessage" xml:space="preserve">
+    <value>The account number has been blocked</value>
   </data>
-  <data name="DayOfWeek_L1" xml:space="preserve">
-    <value>Monday</value>
+  <data name="内容值不能为空或不正确" xml:space="preserve">
+    <value>The content value cannot be empty or incorrect</value>
   </data>
-  <data name="DayOfWeek_L2" xml:space="preserve">
-    <value>Tuesday</value>
+  <data name="当前手机号今日发送短信数量超过最大上限" xml:space="preserve">
+    <value>The number of verification code acquisitions has reached today's limit Oh, try again tomorrow</value>
   </data>
-  <data name="DayOfWeek_L3" xml:space="preserve">
-    <value>Wednesday</value>
+  <data name="当前手机号发送短信过于频繁" xml:space="preserve">
+    <value>Operation is a little frequent Oh, try it again in a minute</value>
   </data>
-  <data name="DayOfWeek_L4" xml:space="preserve">
-    <value>Thursday</value>
+  <data name="当前手机号码不存在" xml:space="preserve">
+    <value>The current mobile phone number does not exist</value>
   </data>
-  <data name="DayOfWeek_L5" xml:space="preserve">
-    <value>Friday</value>
+  <data name="手机号码已存在" xml:space="preserve">
+    <value>This cell phone number has been used</value>
   </data>
-  <data name="DayOfWeek_L6" xml:space="preserve">
-    <value>Saturday</value>
+  <data name="手机号码已存在_换绑手机" xml:space="preserve">
+    <value>This cell phone number has been bound</value>
   </data>
-  <data name="DayOfWeek_S0" xml:space="preserve">
-    <value>Sunday</value>
+  <data name="手机号码已存在_注册" xml:space="preserve">
+    <value>This cell phone number has been registered</value>
   </data>
-  <data name="DayOfWeek_S1" xml:space="preserve">
-    <value>Monday</value>
+  <data name="新手机号不能与旧手机号一样" xml:space="preserve">
+    <value>The new phone number cannot be the same as the old phone number</value>
   </data>
-  <data name="DayOfWeek_S2" xml:space="preserve">
-    <value>Tuesday</value>
+  <data name="昵称最大长度不能超过_" xml:space="preserve">
+    <value>The maximum length of a nickname cannot exceed {0} words</value>
   </data>
-  <data name="DayOfWeek_S3" xml:space="preserve">
-    <value>Wednesday</value>
+  <data name="用户不存在" xml:space="preserve">
+    <value>The user does not exist</value>
   </data>
-  <data name="DayOfWeek_S4" xml:space="preserve">
-    <value>Thursday</value>
+  <data name="短信服务故障" xml:space="preserve">
+    <value>Service-side error 5001 - SMS service</value>
   </data>
-  <data name="DayOfWeek_S5" xml:space="preserve">
-    <value>Friday</value>
+  <data name="短信验证码不正确" xml:space="preserve">
+    <value>The SMS verification code is incorrect</value>
   </data>
-  <data name="DayOfWeek_S6" xml:space="preserve">
-    <value>Saturday</value>
+  <data name="请输入手机号码哦" xml:space="preserve">
+    <value>Please enter your mobile phone number</value>
   </data>
-  <data name="Female" xml:space="preserve">
-    <value>Woman</value>
+  <data name="请输入昵称" xml:space="preserve">
+    <value>Please enter your nickname</value>
   </data>
-  <data name="He" xml:space="preserve">
-    <value>He</value>
+  <data name="请输入正确的手机号码哦" xml:space="preserve">
+    <value>Please enter the correct mobile phone number</value>
   </data>
-  <data name="Male" xml:space="preserve">
-    <value>Man</value>
+  <data name="请输入正确的邀请码哦" xml:space="preserve">
+    <value>Please enter the correct invitation code</value>
   </data>
-  <data name="She" xml:space="preserve">
-    <value>She</value>
+  <data name="请输入短信验证码哦" xml:space="preserve">
+    <value>Please enter the SMS verification code</value>
   </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>Unknown</value>
+  <data name="请输入邀请码哦" xml:space="preserve">
+    <value>Please enter the invitation code</value>
   </data>
-  <data name="UnsupportedPhoneNumberSegment_" xml:space="preserve">
-    <value>Unsupported mobile phone number({0})</value>
+  <data name="请选择头像" xml:space="preserve">
+    <value>Please select an avatar</value>
+  </data>
+  <data name="验证码不正确" xml:space="preserve">
+    <value>The verification code is incorrect</value>
+  </data>
+  <data name="验证码已过期或不存在" xml:space="preserve">
+    <value>The verification code is incorrect or expired</value>
   </data>
 </root>

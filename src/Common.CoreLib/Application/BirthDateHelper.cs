@@ -1,4 +1,4 @@
-﻿using System.Application.Columns;
+using System.Application.Columns;
 using System.Properties;
 
 namespace System.Application
@@ -17,7 +17,7 @@ namespace System.Application
         /// <returns></returns>
         public static string ToString(byte age)
         {
-            return string.Format(SR.Age_, age);
+            return SR.Age_.Format(age);
         }
 
         static byte AgeResultCorrect(int age)

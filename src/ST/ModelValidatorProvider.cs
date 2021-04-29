@@ -1,4 +1,4 @@
-﻿/* (模型验证提供者)模块说明
+/* (模型验证提供者)模块说明
  * 模型类 应当继承接口 IReadOnlyXXX 或 IReadOnlyNullableXXX
  * IXXX接口 不继承 IReadOnly 或 IReadOnlyNullable
  * 所以 应当 使用 IReadOnlyXXX 或 IReadOnlyNullableXXX
@@ -113,7 +113,7 @@ namespace System.Application
             }
             else if (value.NickName.Length > Lengths.NickName)
             {
-                return string.Format(Constants.昵称最大长度不能超过_, Lengths.NickName);
+                return Constants.昵称最大长度不能超过_.Format(Lengths.NickName);
             }
             return null;
         }

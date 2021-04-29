@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
@@ -236,7 +236,7 @@ namespace System.Application.UI.ViewModels
                 if (response.IsSuccess)
                 {
                     IsComplete = true;
-                    var msg = string.Format(AppResources.Success_, AppResources.User_ChangePhoneNum);
+                    var msg = AppResources.Success_.Format(AppResources.User_ChangePhoneNum);
                     Toast.Show(msg);
                     Close?.Invoke();
                 }
