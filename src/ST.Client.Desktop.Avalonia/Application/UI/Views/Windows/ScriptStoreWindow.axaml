@@ -101,7 +101,7 @@
                                                        ToolTip.Tip="{ReflectionBinding Path=Res.Script_Home,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                                         <PathIcon Width="16"  Data="{StaticResource HomeDrawing}" />
                                                     </Button>
-                                                    <Button IsVisible="{Binding !IsExist}" Background="Transparent" Cursor="Hand"
+                                                    <Button IsVisible="{Binding !DownloadLoading}" Background="Transparent" Cursor="Hand"
                                                             Command="{ReflectionBinding #u.DataContext.DownloadScriptItemButton}"
                                                             CommandParameter="{Binding}"
                                                             ToolTip.Tip="{ReflectionBinding Path=Res.Script_Install,Mode=OneWay,Source={x:Static resx:R.Current}}">
