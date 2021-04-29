@@ -1,7 +1,7 @@
 
         name: Sync To Gitee
 
-        on: [ develop, master ]
+        on: [ push, delete, create ]
 
         jobs:
           build:
