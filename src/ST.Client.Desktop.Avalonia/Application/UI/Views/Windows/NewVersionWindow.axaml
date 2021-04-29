@@ -47,7 +47,7 @@
       <Panel Margin="0,0,0,10">
         <ProgressBar
           Height="28"
-          Value="{ReflectionBinding Path=TotalProgressValue,Mode=OneWay,Source={x:Static ccl_services:IAppUpdateService.Instance}}"/>
+          Value="{ReflectionBinding Path=ProgressValue,Mode=OneWay,Source={x:Static ccl_services:IAppUpdateService.Instance}}"/>
         <TextBlock
           Text="{ReflectionBinding Path=ProgressString,Mode=OneWay,Source={x:Static ccl_services:IAppUpdateService.Instance}}"
           Foreground="White"

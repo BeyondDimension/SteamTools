@@ -704,6 +704,10 @@ namespace System.Application.Services.CloudService
             bool isShowResponseErrorMessage = true,
             string? errorAppendText = null)
         {
+            var cacheDirPath = Path.GetDirectoryName(cacheFilePath);
+            if (cacheDirPath == null) throw new ArgumentNullException(nameof(cacheDirPath));
+            IOPath.DirCreateByNotExists(cacheDirPath);
+
             if (GlobalBeforeIntercept<object>(out var globalBeforeInterceptResponse, isShowResponseErrorMessage, errorAppendText))
             {
                 return globalBeforeInterceptResponse;

@@ -154,7 +154,7 @@ namespace System.Application.Services.Implementation
         /// </summary>
         /// <param name="m"></param>
         /// <returns></returns>
-        static string GetPackName(AppVersionDTO m, bool isDirOrFile) => $"{m.Version}@{Hashs.String.Crc32(m.Id.ToByteArray())}{(isDirOrFile ? "" : $".{FileEx.TAR_GZ}")}";
+        static string GetPackName(AppVersionDTO m, bool isDirOrFile) => $"{m.Version}@{Hashs.String.Crc32(m.Id.ToByteArray())}{(isDirOrFile ? "" : $"{FileEx.TAR_GZ}")}";
 
         /// <summary>
         /// 获取存放升级包缓存文件夹的目录
