@@ -40,21 +40,24 @@ namespace System.Application.Services.Implementation
         public int ProxyPort { get; set; } = 26501;
 
         public bool ProxyRunning => proxyServer.ProxyRunning;
-        public IList<HttpHeader> JsHeader =>new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
+        public IList<HttpHeader> JsHeader => new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
 
         public HttpProxyServiceImpl()
         {
             //proxyServer.CertificateManager.PfxPassword = $"{CertificateName}";
-            //proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
+            proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
             proxyServer.CertificateManager.PfxFilePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pfx");
             proxyServer.CertificateManager.RootCertificateIssuerName = $"{CertificateName} Certificate Authority";
             proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
+            proxyServer.CertificateManager.CertificateValidDays = 300;
             // 可选地设置证书引擎
             //proxyServer.CertificateManager.SaveFakeCertificates = true;
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                proxyServer.CertificateManager.CertificateEngine = CertificateEngine.DefaultWindows;
-            else
-                proxyServer.CertificateManager.CertificateEngine = CertificateEngine.BouncyCastle;
+
+            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            //    proxyServer.CertificateManager.CertificateEngine = CertificateEngine.DefaultWindows;
+            //else
+            proxyServer.EnableConnectionPool = true;
+            proxyServer.CertificateManager.CertificateEngine = CertificateEngine.BouncyCastleFast;
         }
 
         public async Task OnRequest(object sender, SessionEventArgs e)
@@ -67,8 +70,9 @@ namespace System.Application.Services.Implementation
             {
                 return;
             }
-            if (e.HttpClient.Request.Host == "local.steampp.net") { 
-                e.Ok(Scripts.FirstOrDefault(x=>x.JsPathUrl == e.HttpClient.Request.RequestUri.LocalPath)?.Content??"404", JsHeader);
+            if (e.HttpClient.Request.Host == "local.steampp.net")
+            {
+                e.Ok(Scripts.FirstOrDefault(x => x.JsPathUrl == e.HttpClient.Request.RequestUri.LocalPath)?.Content ?? "404", JsHeader);
                 return;
             }
             foreach (var item in ProxyDomains)
@@ -125,22 +129,19 @@ namespace System.Application.Services.Implementation
                 }
             }
 
-            //await Dns.GetHostAddressesAsync(e.HttpClient.Request.Host).ContinueWith(s =>
-            //{
-            //    //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
-            //    if (IPAddress.IsLoopback(s.Result.FirstOrDefault())
-            //  && ProxyDomains.Count(w => w.Enable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
-            //    {
-            //        e.Ok($"IsLoopback URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} \r\n not support proxy");
-            //        return;
-            //    }
-            //    Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
-            //});
+            var s = await Dns.GetHostAddressesAsync(e.HttpClient.Request.Host);
+            //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
+            if (IPAddress.IsLoopback(s.FirstOrDefault()) && ProxyDomains.Count(w => w.Enable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
+            {
+                e.TerminateSession();
+                return;
+            }
+            Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
 
-			////没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
-			//e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine}not support proxy"); 
-			return;
-		}
+            ////没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
+            //e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine}not support proxy"); 
+            return;
+        }
 
         public async Task OnResponse(object sender, SessionEventArgs e)
         {
@@ -175,17 +176,17 @@ namespace System.Application.Services.Implementation
                             }
                             foreach (var script in Scripts)
                             {
-                                if(script.ExcludeDomainNamesArray!=null)
-                                foreach (var host in script.ExcludeDomainNamesArray)
-                                {
-                                    if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
-                                        goto close;
-                                }
+                                if (script.ExcludeDomainNamesArray != null)
+                                    foreach (var host in script.ExcludeDomainNamesArray)
+                                    {
+                                        if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
+                                            goto close;
+                                    }
                                 foreach (var host in script.MatchDomainNamesArray)
                                 {
                                     var state = host.IndexOf("/") == 0;
                                     if (state)
-                                        state = Regex.IsMatch(e.HttpClient.Request.RequestUri.AbsoluteUri, host.Substring(1),RegexOptions.Compiled);
+                                        state = Regex.IsMatch(e.HttpClient.Request.RequestUri.AbsoluteUri, host.Substring(1), RegexOptions.Compiled);
                                     else
                                         state = e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host);
                                     if (state)
@@ -197,7 +198,7 @@ namespace System.Application.Services.Implementation
                                         }
                                         var doc = await e.GetResponseBodyAsString();
                                         var index = doc.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
-                                        if(index==-1)
+                                        if (index == -1)
                                             index = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
                                         if (script.JsPathUrl == null)
                                             script.JsPathUrl = $"/{Guid.NewGuid()}";
@@ -314,6 +315,7 @@ namespace System.Application.Services.Implementation
         {
             if (!IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
             {
+                DeleteCertificate();
                 var isOk = SetupCertificate();
                 if (!isOk)
                 {
@@ -441,6 +443,8 @@ namespace System.Application.Services.Implementation
         public bool IsCertificateInstalled(X509Certificate2? certificate2)
         {
             if (certificate2 == null)
+                return false;
+            if (certificate2.NotAfter <= DateTime.Now)
                 return false;
             using var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
             store.Open(OpenFlags.MaxAllowed);

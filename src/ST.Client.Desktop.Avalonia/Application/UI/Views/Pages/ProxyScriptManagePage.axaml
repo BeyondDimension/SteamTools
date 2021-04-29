@@ -46,7 +46,7 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Right" VerticalAlignment="Center">
-          <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{CompiledBinding SearchText,Mode=TwoWay}" VerticalAlignment="Center" 
+          <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{CompiledBinding SearchText,Mode=TwoWay}" VerticalAlignment="Center"
                    Width="300"
                    MinWidth="200">
             <TextBox.InnerLeftContent>
@@ -162,7 +162,8 @@
                                  Command="{ReflectionBinding #u.DataContext.DownloadScriptItemButton}"
                                  CommandParameter="{Binding}"
                                  Content="{Binding NewVersion,StringFormat={}v{0}}"
-                                 FontSize="{DynamicResource FontSizeH8}"
+                                 FontSize="{DynamicResource FontSizeH7}"
+                                VerticalContentAlignment="Center"
                                  VerticalAlignment="Center"
                                  Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
                         <Ellipse VerticalAlignment="Center"

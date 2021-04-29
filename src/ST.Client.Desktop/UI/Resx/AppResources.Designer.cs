@@ -612,12 +612,20 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 启动加速服务失败，请检查443端口是否被占用或者证书安装失败。
-        ///或者尝试使用Windows代理模式。 的本地化字符串。
+        ///   查找类似 启动加速服务失败，证书安装失败。 的本地化字符串。
         /// </summary>
         public static string CommunityFix_StartProxyFaild {
             get {
                 return ResourceManager.GetString("CommunityFix_StartProxyFaild", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加速服务启动失败，443端口被占用。请检查您的443端口或者尝试使用Windows代理模式。 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_StartProxyFaild443 {
+            get {
+                return ResourceManager.GetString("CommunityFix_StartProxyFaild443", resourceCulture);
             }
         }
         
