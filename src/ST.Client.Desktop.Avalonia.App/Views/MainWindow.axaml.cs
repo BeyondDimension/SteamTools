@@ -1,7 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Avalonia.Platform;
 using System.ComponentModel;
 
 namespace System.Application.UI.Views
@@ -13,7 +12,9 @@ namespace System.Application.UI.Views
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
-            StartTrace.Restart("MainWindow.ctor");
+#endif
+#if StartupTrace
+            StartupTrace.Restart("MainWindow.ctor");
 #endif
         }
 

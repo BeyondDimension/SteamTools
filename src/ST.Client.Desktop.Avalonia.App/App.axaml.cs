@@ -123,29 +123,29 @@ namespace System.Application.UI
 
         public override void Initialize()
         {
-#if DEBUG
-            StartTrace.Restart("App.Initialize");
+#if StartupTrace
+            StartupTrace.Restart("App.Initialize");
 #endif
             AvaloniaXamlLoader.Load(this);
-#if DEBUG
-            StartTrace.Restart("App.LoadXAML");
+#if StartupTrace
+            StartupTrace.Restart("App.LoadXAML");
 #endif
             Name = ThisAssembly.AssemblyTrademark;
             ViewModelBase.IsInDesignMode = ApplicationLifetime == null;
             if (ViewModelBase.IsInDesignMode) Startup.Init(DILevel.MainProcess);
-#if DEBUG
-            StartTrace.Restart("App.SetP");
+#if StartupTrace
+            StartupTrace.Restart("App.SetP");
 #endif
             var windowService = IWindowService.Instance;
             windowService.Init();
 
-#if DEBUG
-            StartTrace.Restart("WindowService.Init");
+#if StartupTrace
+            StartupTrace.Restart("WindowService.Init");
 #endif
 
             SettingsHost.Load();
-#if DEBUG
-            StartTrace.Restart("SettingsHost.Init");
+#if StartupTrace
+            StartupTrace.Restart("SettingsHost.Init");
 #endif
 
 #if !UI_DEMO
@@ -157,10 +157,13 @@ namespace System.Application.UI
             }
 #endif
             Theme = (AppTheme)UISettings.Theme.Value;
+#if StartupTrace
+            StartupTrace.Restart("Theme");
+#endif
             UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
-#if DEBUG
-            StartTrace.Restart("Theme + UISettings.Subscribe");
+#if StartupTrace
+            StartupTrace.Restart("UISettings.Subscribe");
 #endif
             switch (windowService.MainWindow)
             {
@@ -185,8 +188,8 @@ namespace System.Application.UI
                     };
                     break;
             }
-#if DEBUG
-            StartTrace.Restart("Set MainWindow");
+#if StartupTrace
+            StartupTrace.Restart("Set MainWindow");
 #endif
         }
 
@@ -294,14 +297,26 @@ namespace System.Application.UI
 
         void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
         {
+#if StartupTrace
+            StartupTrace.Restart("Desktop_Startup.Start");
+#endif
 #if WINDOWS
             VisualStudioAppCenterSDK.Init();
 #endif
+#if StartupTrace
+            StartupTrace.Restart("AppCenterSDK.Init");
+#endif
             AppHelper.Initialized?.Invoke();
+#if StartupTrace
+            StartupTrace.Restart("Desktop_Startup.AppHelper.Initialized?");
+#endif
             if (Program.IsMainProcess)
             {
                 Startup.ActiveUserPost(ActiveUserType.OnStartup);
                 IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
+#if StartupTrace
+                StartupTrace.Restart("Desktop_Startup.MainProcess");
+#endif
             }
 
             var startupToastIntercept = DI.Get_Nullable<StartupToastIntercept>();
@@ -309,6 +324,9 @@ namespace System.Application.UI
             {
                 startupToastIntercept.IsStartuped = true;
             }
+#if StartupTrace
+            StartupTrace.Restart("Desktop_Startup.SetIsStartuped");
+#endif
         }
 
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)

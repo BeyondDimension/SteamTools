@@ -1,5 +1,7 @@
 using NLog;
+using NLog.Common;
 using NLog.Config;
+using NLog.Targets;
 using ReactiveUI;
 using System.Application.Services;
 using System.Collections.Generic;
@@ -7,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+using NLogLevel = NLog.LogLevel;
 
 namespace System.Application.UI
 {
@@ -22,8 +25,8 @@ namespace System.Application.UI
         [STAThread]
         static int Main(string[] args)
         {
-#if DEBUG
-            StartTrace.Restart();
+#if StartupTrace
+            StartupTrace.Restart();
 #endif
             // 目前桌面端默认使用 SystemTextJson 如果出现兼容性问题可取消下面这行代码
             // Serializable.DefaultJsonImplType = Serializable.JsonImplType.NewtonsoftJson;
@@ -31,6 +34,9 @@ namespace System.Application.UI
             IsCLTProcess = !IsMainProcess && args.FirstOrDefault() == "-clt";
 
             var logDirPath = InitLogDir();
+#if StartupTrace
+            StartupTrace.Restart("InitLogDir");
+#endif
 
             void InitCefNetApp() => CefNetApp.Init(logDirPath, args);
             void InitAvaloniaApp() => BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
@@ -57,33 +63,33 @@ namespace System.Application.UI
                 }
                 else
                 {
-#if DEBUG
-                    StartTrace.Restart("ProcessCheck");
+#if StartupTrace
+                    StartupTrace.Restart("ProcessCheck");
 #endif
 
                     Startup.Init(IsMainProcess ? DILevel.MainProcess : DILevel.Min);
-#if DEBUG
-                    StartTrace.Restart("Startup.Init");
+#if StartupTrace
+                    StartupTrace.Restart("Startup.Init");
 #endif
                     if (IsMainProcess)
                     {
                         var appInstance = new ApplicationInstance();
                         if (!appInstance.IsFirst) goto exit;
                     }
-#if DEBUG
-                    StartTrace.Restart("ApplicationInstance");
+#if StartupTrace
+                    StartupTrace.Restart("ApplicationInstance");
 #endif
                     InitCefNetApp();
-#if DEBUG
-                    StartTrace.Restart("InitCefNetApp");
+#if StartupTrace
+                    StartupTrace.Restart("InitCefNetApp");
 #endif
 
                     if (IsMainProcess)
                     {
                         InitAvaloniaApp();
                     }
-#if DEBUG
-                    StartTrace.Restart("InitAvaloniaApp");
+#if StartupTrace
+                    StartupTrace.Restart("InitAvaloniaApp");
 #endif
                 }
             }
@@ -163,33 +169,27 @@ namespace System.Application.UI
         {
             var logDirPath = Path.Combine(AppContext.BaseDirectory, "Logs");
             IOPath.DirCreateByNotExists(logDirPath);
-
+#if StartupTrace
+            StartupTrace.Restart("InitLogDir.IO");
+#endif
             var logDirPath_ = logDirPath + Path.DirectorySeparatorChar;
 
-            var xmlConfigStr =
-                "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" +
-                "<nlog xmlns=\"http://www.nlog-project.org/schemas/NLog.xsd\"" +
-                "      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" +
-                "      autoReload=\"true\"" +
-                "      internalLogFile=\"" + logDirPath_ + "internal-nlog.txt\"" +
-                "      internalLogLevel=\"Off\">" +
-                "  <targets>" +
-                "    <target xsi:type=\"File\" name=\"logfile\" fileName=\"" + logDirPath_ + "nlog-all-${shortdate}.log\"" +
-                "            layout=\"${longdate}|${level}|${logger}|${message} |${all-event-properties} ${exception:format=tostring}\" />" +
-                "    <target xsi:type=\"Console\" name=\"logconsole\"" +
-                "            layout=\"${longdate}|${level}|${logger}|${message} |${all-event-properties} ${exception:format=tostring}\" />" +
-                "  </targets>" +
-                "  <rules>" +
-                // Skip non-critical Microsoft logs and so log only own logs
-                "    <logger name=\"Microsoft.*\" maxlevel=\"Info\" final=\"true\"/>" +
-                "    <logger name=\"System.Net.Http.*\" maxlevel=\"Info\" final=\"true\" />" +
-                "    <logger name=\"*\" minlevel=\"" + AppHelper.DefaultNLoggerMinLevel.Name + "\" writeTo=\"logfile,logconsole\"/>" +
-                "  </rules>" +
-                "</nlog>"
-            ;
-
-            var xmlConfig = XmlLoggingConfiguration.CreateFromXmlString(xmlConfigStr);
-            LogManager.Configuration = xmlConfig;
+            InternalLogger.LogFile = logDirPath_ + "internal-nlog.txt";
+            InternalLogger.LogLevel = NLogLevel.Error;
+            var objConfig = new LoggingConfiguration();
+            var logfile = new FileTarget("logfile")
+            {
+                FileName = logDirPath_ + "nlog-all-${shortdate}.log",
+                Layout = "${longdate}|${level}|${logger}|${message} |${all-event-properties} ${exception:format=tostring}",
+            };
+            objConfig.AddTarget(logfile);
+            objConfig.AddRule(NLogLevel.Error, NLogLevel.Fatal, logfile, "Microsoft.*");
+            objConfig.AddRule(NLogLevel.Error, NLogLevel.Fatal, logfile, "System.Net.Http.*");
+            objConfig.AddRule(AppHelper.DefaultNLoggerMinLevel, NLogLevel.Fatal, logfile, "*");
+#if StartupTrace
+            StartupTrace.Restart("InitLogDir.CreateLoggingConfiguration");
+#endif
+            LogManager.Configuration = objConfig;
 
             return logDirPath;
         }

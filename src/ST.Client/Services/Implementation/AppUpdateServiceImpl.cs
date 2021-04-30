@@ -246,11 +246,11 @@ namespace System.Application.Services.Implementation
 
             if (newVersionInfo.HasValue())
             {
-                if (newVersionInfo.IncrementalUpdate.Any_Nullable()) // 增量更新
+                if (newVersionInfo!.IncrementalUpdate.Any_Nullable()) // 增量更新
                 {
                     if (Path.DirectorySeparatorChar != '\\')
                     {
-                        foreach (var item in newVersionInfo.IncrementalUpdate)
+                        foreach (var item in newVersionInfo.IncrementalUpdate!)
                         {
                             item.FileRelativePath =
                                 item.FileRelativePath?.Replace('\\', Path.DirectorySeparatorChar);
@@ -264,7 +264,7 @@ namespace System.Application.Services.Implementation
 
                     if (Directory.Exists(packDirPath))
                     {
-                        foreach (var item in newVersionInfo.IncrementalUpdate)
+                        foreach (var item in newVersionInfo.IncrementalUpdate!)
                         {
                             var filePath = incrementalUpdate[item];
                             var fileInfo = new FileInfo(filePath);
@@ -292,7 +292,7 @@ namespace System.Application.Services.Implementation
                     {
                         var fileName = item.Value;
                         var cacheFileName = fileName + FileExDownloadCache;
-                        var requestUri = GetSingleFileUrl(item.Key.FileId);
+                        var requestUri = GetSingleFileUrl(item.Key.FileId!);
 
                         var rsp = await client.Download(
                             isAnonymous: true,
@@ -303,7 +303,7 @@ namespace System.Application.Services.Implementation
                         {
                             File.Move(cacheFileName, fileName);
 
-                            if (!UpdatePackVerification(fileName, item.Key.SHA256, i, incrementalUpdate.Count))
+                            if (!UpdatePackVerification(fileName, item.Key.SHA256!, i, incrementalUpdate.Count))
                             {
                                 Fail(SR.UpdatePackVerificationFail);
                                 break;
@@ -336,7 +336,7 @@ namespace System.Application.Services.Implementation
                         var packFilePath = Path.Combine(GetPackCacheDirPath(!isSupportedResume), packFileName);
                         if (File.Exists(packFilePath)) // 存在压缩包文件
                         {
-                            if (UpdatePackVerification(packFilePath, download.SHA256)) // (已有文件)哈希验证成功，进行覆盖安装
+                            if (UpdatePackVerification(packFilePath, download.SHA256!)) // (已有文件)哈希验证成功，进行覆盖安装
                             {
                                 OverwriteUpgrade(packFilePath, isIncrement: false);
                                 goto end;
@@ -412,7 +412,7 @@ namespace System.Application.Services.Implementation
                         {
                             File.Move(cacheFilePath, packFilePath);
 
-                            if (UpdatePackVerification(packFilePath, download.SHA256)) // (下载文件)哈希验证成功，进行覆盖安装
+                            if (UpdatePackVerification(packFilePath, download.SHA256!)) // (下载文件)哈希验证成功，进行覆盖安装
                             {
                                 OverwriteUpgrade(packFileName, isIncrement: false);
                                 OnReportDownloading(MaxProgressValue);

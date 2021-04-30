@@ -18,12 +18,10 @@ using System.Application.Services.Implementation;
 using System.Application.UI;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Net;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Linq;
 using CSConst = System.Application.Services.CloudService.Constants;
 using System.Properties;
-using System.Diagnostics;
 using System.IO;
 using static System.Application.AppClientAttribute;
 #if __ANDROID__
@@ -31,10 +29,13 @@ using Program = System.Application.UI.MainApplication;
 #elif __IOS__
 using Program = System.Application.UI.AppDelegate;
 #endif
+#if StartupTrace
+using System.Diagnostics;
+#endif
 
 namespace System.Application
 {
-    internal static class Startup
+    static class Startup
     {
         static bool isInitialized;
 
@@ -48,12 +49,21 @@ namespace System.Application
                 isInitialized = true;
 #if !__MOBILE__
                 FileSystemDesktop.InitFileSystem();
+#if StartupTrace
+                StartupTrace.Restart("Startup.InitFileSystem");
+#endif
 #endif
                 if (level.HasFlag(DILevel.ServerApiClient))
                 {
                     ModelValidatorProvider.Init();
+#if StartupTrace
+                    StartupTrace.Restart("ModelValidatorProvider.Init");
+#endif
                 }
                 InitDI(level);
+#if StartupTrace
+                StartupTrace.Restart($"InitDI: {level}");
+#endif
                 static void InitDI(DILevel level)
                 {
 #if UI_DEMO
@@ -63,7 +73,13 @@ namespace System.Application
                     static void ConfigureServices(IServiceCollection services, DILevel level)
                     {
                         ConfigureRequiredServices(services);
+#if StartupTrace
+                        StartupTrace.Restart("DI.ConfigureRequiredServices");
+#endif
                         ConfigureDemandServices(services, level);
+#if StartupTrace
+                        StartupTrace.Restart("DI.ConfigureDemandServices");
+#endif
                     }
 #endif
                 }
@@ -111,6 +127,10 @@ namespace System.Application
             var hasHttpProxy = level.HasFlag(DILevel.HttpProxy);
             var hasHosts = level.HasFlag(DILevel.Hosts);
             var hasSteam = level.HasFlag(DILevel.Steam);
+
+#if StartupTrace
+            StartupTrace.Restart("DI.ConfigureDemandServices.Calc");
+#endif
 
             if (hasGUI)
             {
@@ -160,6 +180,9 @@ namespace System.Application
 
                 #endregion
 #endif
+#if StartupTrace
+                StartupTrace.Restart("DI.ConfigureDemandServices.GUI");
+#endif
             }
 
             if (hasHttpClientFactory || hasServerApiClient)
@@ -171,6 +194,9 @@ namespace System.Application
                 // 添加 Http 平台助手桌面端实现
                 services.AddDesktopHttpPlatformHelper();
 #endif
+#if StartupTrace
+                StartupTrace.Restart("DI.ConfigureDemandServices.HttpPlatformHelper");
+#endif
             }
 
             if (hasHttpClientFactory)
@@ -181,21 +207,33 @@ namespace System.Application
 #endif
                 // 通用 Http 服务
                 services.AddHttpService();
+#if StartupTrace
+                StartupTrace.Restart("DI.ConfigureDemandServices.HttpClientFactory");
+#endif
             }
 
 #if !__MOBILE__
             services.TryAddScriptManager();
 #endif
+#if StartupTrace
+            StartupTrace.Restart("DI.ConfigureDemandServices.ScriptManager");
+#endif
             if (hasHttpProxy)
             {
                 // 通用 Http 代理服务
                 services.AddHttpProxyService();
+#if StartupTrace
+                StartupTrace.Restart("DI.ConfigureDemandServices.HttpProxy");
+#endif
             }
 
             if (hasServerApiClient)
             {
                 // 添加 app 配置项
                 services.TryAddOptions(AppSettings);
+#if StartupTrace
+                StartupTrace.Restart("DI.ConfigureDemandServices.AppSettings");
+#endif
 #if !__MOBILE__
                 // 添加安全服务
                 services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
@@ -216,10 +254,16 @@ namespace System.Application
 
                 // 业务平台用户管理
                 services.TryAddUserManager();
+#if StartupTrace
+                StartupTrace.Restart("DI.ConfigureDemandServices.ServerApiClient");
+#endif
             }
 
             // 添加通知服务
             AddNotificationService();
+#if StartupTrace
+            StartupTrace.Restart("DI.ConfigureDemandServices.AddNotificationService");
+#endif
             void AddNotificationService()
             {
 #if !__MOBILE__
@@ -229,16 +273,19 @@ namespace System.Application
             }
 
 #if !__MOBILE__
-            if (hasGUI || hasServerApiClient)
-            {
-                // 业务用户配置文件服务()
-                //services.AddConfigFileService();
-            }
+            //if (hasGUI || hasServerApiClient)
+            //{
+            //    // 业务用户配置文件服务()
+            //    //services.AddConfigFileService();
+            //}
 
             if (hasHosts)
             {
                 // hosts 文件助手服务
                 services.AddHostsFileService();
+#if StartupTrace
+                StartupTrace.Restart("DI.ConfigureDemandServices.HostsFileService");
+#endif
             }
 
             if (hasSteam)
@@ -254,12 +301,18 @@ namespace System.Application
 
                 // Steamworks WebApi Service
                 services.AddSteamworksWebApiService();
+#if StartupTrace
+                StartupTrace.Restart("DI.ConfigureDemandServices.Steam");
+#endif
             }
 
             if (hasMainProcessRequired)
             {
                 // 应用程序更新服务
                 services.AddAppUpdateService();
+#if StartupTrace
+                StartupTrace.Restart("DI.ConfigureDemandServices.AppUpdateService");
+#endif
             }
             if (HasNotifyIcon)
             {
@@ -269,6 +322,9 @@ namespace System.Application
 #endif
 #if !UI_DEMO
                 services.AddNotifyIcon<NotifyIconImpl>();
+#endif
+#if StartupTrace
+                StartupTrace.Restart("DI.ConfigureDemandServices.NotifyIcon");
 #endif
             }
 #endif
@@ -287,6 +343,9 @@ namespace System.Application
         {
             get
             {
+#if StartupTrace
+                var stopwatch = Stopwatch.StartNew();
+#endif
                 var options = new AppSettings
                 {
                     AppVersion = GetResValueGuid("app-id", isSingle: false, ResValueFormat.StringGuidN),
@@ -294,6 +353,10 @@ namespace System.Application
                     RSASecret = GetResValue("rsa-public-key", isSingle: false, ResValueFormat.String),
                 };
                 SetApiBaseUrl(options);
+#if StartupTrace
+                stopwatch.Stop();
+                Console.WriteLine($"Load AppSettings, value: {stopwatch.ElapsedMilliseconds}");
+#endif
                 return options;
                 static Guid GetResValueGuid(string name, bool isSingle, ResValueFormat format) => GetResValue(name, isSingle, format).TryParseGuidN() ?? default;
                 static string? GetResValue(string name, bool isSingle, ResValueFormat format)
@@ -307,22 +370,22 @@ namespace System.Application
                 static void SetApiBaseUrl(AppSettings s)
                 {
 #if DEBUG
-                    if (BuildConfig.IsAigioPC)
-                    {
-                        try
-                        {
-                            var url = CSConst.Prefix_HTTPS + "localhost:5001";
-                            var request = WebRequest.CreateHttp(url);
-                            request.Timeout = 999;
-                            request.GetResponse();
-                            s.ApiBaseUrl = url;
-                            return;
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.WriteLine(e.ToString());
-                        }
-                    }
+                    //if (BuildConfig.IsAigioPC)
+                    //{
+                    //    try
+                    //    {
+                    //        var url = CSConst.Prefix_HTTPS + "localhost:5001";
+                    //        var request = WebRequest.CreateHttp(url);
+                    //        request.Timeout = 999;
+                    //        request.GetResponse();
+                    //        s.ApiBaseUrl = url;
+                    //        return;
+                    //    }
+                    //    catch (Exception e)
+                    //    {
+                    //        Debug.WriteLine(e.ToString());
+                    //    }
+                    //}
 #endif
                     var value =
                         (ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
@@ -516,4 +579,31 @@ namespace System.Application
             }
         }
     }
+
+#if StartupTrace
+    /// <summary>
+    /// 启动耗时跟踪
+    /// </summary>
+    static class StartupTrace
+    {
+        static Stopwatch? sw;
+
+        public static void Restart(string? mark = null)
+        {
+            if (sw != null)
+            {
+                sw.Stop();
+                var args = string.Join(" ", Environment.GetCommandLineArgs().Skip(1).Take(1));
+                var msg = $"{(string.IsNullOrWhiteSpace(args) ? "" : args + " ")}mark: {mark}, value: {sw.ElapsedMilliseconds}";
+                Debug.WriteLine(msg);
+                Console.WriteLine(msg);
+                sw.Restart();
+            }
+            else
+            {
+                sw = Stopwatch.StartNew();
+            }
+        }
+    }
+#endif
 }
