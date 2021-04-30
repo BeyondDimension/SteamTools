@@ -48,6 +48,7 @@ namespace System.Application.Services.Implementation
             //    proxyServer.CertificateManager.CertificateEngine = CertificateEngine.DefaultWindows;
             //else
             proxyServer.EnableConnectionPool = true;
+            // 可选地设置证书引擎
             proxyServer.CertificateManager.CertificateEngine = CertificateEngine;
             //proxyServer.CertificateManager.PfxPassword = $"{CertificateName}";
             proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
@@ -55,8 +56,7 @@ namespace System.Application.Services.Implementation
             proxyServer.CertificateManager.RootCertificateIssuerName = $"{CertificateName} Certificate Authority";
             proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
             proxyServer.CertificateManager.CertificateValidDays = 300;
-            // 可选地设置证书引擎
-            proxyServer.CertificateManager.SaveFakeCertificates = true;
+            //proxyServer.CertificateManager.SaveFakeCertificates = true;
 
             proxyServer.CertificateManager.RootCertificate = proxyServer.CertificateManager.LoadRootCertificate();
         }
@@ -89,6 +89,12 @@ namespace System.Application.Services.Implementation
                         }
                         if (item.Redirect)
                         {
+                            if (CloudService.Constants.IsHttpUrl(item.ForwardDomainName))
+                            {
+                                e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Scheme + "://" + e.HttpClient.Request.RequestUri.Host, item.ForwardDomainName));
+                                return;
+                            }
+
                             e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Host, item.ForwardDomainName));
                             return;
                         }
@@ -135,9 +141,9 @@ namespace System.Application.Services.Implementation
             if (IPAddress.IsLoopback(s.FirstOrDefault()) && ProxyDomains.Count(w => w.Enable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
             {
                 e.TerminateSession();
+                Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
                 return;
             }
-            Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
 
             ////没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
             //e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine}not support proxy"); 

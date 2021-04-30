@@ -26,36 +26,10 @@ namespace System.Application.Services
         {
             ProxyScripts = new SourceList<ScriptDTO>();
             httpProxyService.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.BouncyCastleFast;
-
-            this.WhenAnyValue(v => v.ProxyDomains)
-                .Subscribe(domain => domain?
-                .ToObservableChangeSet()
-                .AutoRefresh(x => x.ObservableItems)
-                .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
-                .AutoRefresh(x => x.Enable)
-                .WhenPropertyChanged(x => x.Enable, false)
-                .Subscribe(_ =>
-                 {
-                     if (EnableProxyDomains != null)
-                     {
-                         ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Select(k => k.Id.ToString()).ToList();
-                     }
-                 }));
-
-
-            this.WhenAnyValue(v => v.ProxyScripts)
-                  .Subscribe(script => script?
-                  .Connect()
-                  .AutoRefresh(x => x.Enable)
-                  .WhenPropertyChanged(x => x.Enable, false)
-                  .Subscribe(_ =>
-                  {
-                      ProxySettings.ScriptsStatus.Value = EnableProxyScripts.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
-                  }));
         }
 
-        private ObservableCollection<AccelerateProjectGroupDTO>? _ProxyDomains;
-        public ObservableCollection<AccelerateProjectGroupDTO>? ProxyDomains
+        private ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? _ProxyDomains;
+        public ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? ProxyDomains
         {
             get => _ProxyDomains;
             set
@@ -231,7 +205,7 @@ namespace System.Application.Services
             var result = await client.All();
             if (result.IsSuccess)
             {
-                ProxyDomains = new ObservableCollection<AccelerateProjectGroupDTO>(result.Content);
+                ProxyDomains = new ReadOnlyObservableCollection<AccelerateProjectGroupDTO>(new ObservableCollection<AccelerateProjectGroupDTO>(result.Content));
 
                 foreach (var item in ProxyDomains)
                 {
@@ -251,6 +225,21 @@ namespace System.Application.Services
                         }
                     }
                 }
+
+                this.WhenAnyValue(v => v.ProxyDomains)
+                      .Subscribe(domain => domain?
+                      .ToObservableChangeSet()
+                      .AutoRefresh(x => x.ObservableItems)
+                      .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
+                      .AutoRefresh(x => x.Enable)
+                      .WhenPropertyChanged(x => x.Enable, false)
+                      .Subscribe(_ =>
+                      {
+                          if (EnableProxyDomains != null)
+                          {
+                              ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Select(k => k.Id.ToString()).ToList();
+                          }
+                      }));
             }
             #endregion
         }
@@ -284,6 +273,15 @@ namespace System.Application.Services
                     }
                 }
             }
+            this.WhenAnyValue(v => v.ProxyScripts)
+                  .Subscribe(script => script?
+                  .Connect()
+                  .AutoRefresh(x => x.Enable)
+                  .WhenPropertyChanged(x => x.Enable, false)
+                  .Subscribe(_ =>
+                  {
+                      ProxySettings.ScriptsStatus.Value = EnableProxyScripts.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
+                  }));
             #endregion
         }
 
