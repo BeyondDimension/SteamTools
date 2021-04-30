@@ -279,6 +279,9 @@
   <data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
     <value>仅对Steam内置浏览器生效</value>
   </data>
+  <data name="CommunityFix_OpenCertificateDir" xml:space="preserve">
+    <value>打开证书文件夹</value>
+  </data>
   <data name="CommunityFix_ProxyMode" xml:space="preserve">
     <value>加速模式</value>
   </data>

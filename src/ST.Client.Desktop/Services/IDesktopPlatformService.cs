@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -94,6 +94,12 @@ namespace System.Application.Services
                 }
             }
         }
+
+        /// <summary>
+        /// 使用资源管理器打开某个路径
+        /// </summary>
+        /// <param name="dirPath"></param>
+        void OpenFolder(string dirPath);
 
         /// <summary>
         /// 获取文本阅读器提供商程序文件路径或文件名(如果提供程序已注册环境变量)

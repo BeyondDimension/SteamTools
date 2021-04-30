@@ -1,4 +1,4 @@
-﻿#pragma warning disable CA1416 // 验证平台兼容性
+#pragma warning disable CA1416 // 验证平台兼容性
 using Microsoft.Win32;
 using Microsoft.Win32.TaskScheduler;
 using System.Application.Models;
@@ -62,6 +62,19 @@ namespace System.Application.Services.Implementation
                 default:
                     return Environment.GetFolderPath(folder);
             }
+        }
+
+        /// <summary>
+        /// 使用资源管理器打开某个路径
+        /// </summary>
+        /// <param name="dirPath"></param>
+        public void OpenFolder(string dirPath)
+        {
+            if (File.Exists(dirPath))
+            {
+                Process.Start("explorer.exe", "/select," + dirPath);
+            }
+            Process.Start("explorer.exe", dirPath);
         }
 
         public string? GetFileName(TextReaderProvider provider)

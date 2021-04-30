@@ -540,6 +540,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 打开证书文件夹 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_OpenCertificateDir {
+            get {
+                return ResourceManager.GetString("CommunityFix_OpenCertificateDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 加速模式 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyMode {

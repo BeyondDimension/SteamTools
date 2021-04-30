@@ -70,6 +70,8 @@
                         <TextBlock FontSize="12" Text="{ReflectionBinding Path=Res.And,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                         <Button FontSize="12" Classes="Hyperlink" Margin="5,0" Content="{ReflectionBinding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{ReflectionBinding OpenHyperlink}" CommandParameter="https://steampp.net/PrivacyBox"/>
                     </WrapPanel>
+                  
+                  
                 </StackPanel>
                 <!--<StackPanel Grid.Row="1" Margin="0 0 0 10">
                     <Button

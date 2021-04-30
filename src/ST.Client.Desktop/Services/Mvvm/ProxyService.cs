@@ -205,6 +205,18 @@ namespace System.Application.Services
             var result = await client.All();
             if (result.IsSuccess)
             {
+                if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && result.Content.Any_Nullable())
+                {
+                    var items = result.Content.SelectMany(s => s.Items);
+                    foreach (var item in items)
+                    {
+                        if (ProxySettings.SupportProxyServicesStatus.Value.Contains(item.Id.ToString()))
+                        {
+                            item.Enable = true;
+                        }
+                    }
+                }
+
                 ProxyDomains = new ReadOnlyObservableCollection<AccelerateProjectGroupDTO>(new ObservableCollection<AccelerateProjectGroupDTO>(result.Content));
 
                 foreach (var item in ProxyDomains)
@@ -214,17 +226,7 @@ namespace System.Application.Services
 
                 SelectGroup = ProxyDomains.FirstOrDefault();
 
-                if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && ProxyDomains.Any_Nullable())
-                {
-                    var items = ProxyDomains.SelectMany(s => s.Items);
-                    foreach (var item in items)
-                    {
-                        if (ProxySettings.SupportProxyServicesStatus.Value.Contains(item.Id.ToString()))
-                        {
-                            item.Enable = true;
-                        }
-                    }
-                }
+    
 
                 this.WhenAnyValue(v => v.ProxyDomains)
                       .Subscribe(domain => domain?
