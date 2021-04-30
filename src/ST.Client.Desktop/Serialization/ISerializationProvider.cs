@@ -1,26 +1,24 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace System.Application.Serialization
 {
-	public interface ISerializationProvider
-	{
-		bool IsLoaded { get; }
+    public interface ISerializationProvider
+    {
+        bool IsLoaded { get; }
 
-		void Save();
+        void Save();
 
-		void Load();
+        void Load();
 
-		/// <summary>
-		/// 在provider已重新加载到期时发生
-		/// </summary>
-		event EventHandler Reloaded;
+        /// <summary>
+        /// 鍦╬rovider宸查噸鏂板姞杞藉埌鏈熸椂鍙戠敓
+        /// </summary>
+        event EventHandler Reloaded;
 
-		void SetValue<T>(string key, T value);
+        void SetValue<T>(string key, T value);
 
-		bool TryGetValue<T>(string key, out T value);
+        bool TryGetValue<T>(string key, [NotNullWhen(true)] out T? value) where T : notnull;
 
-		bool RemoveValue(string key);
-	}
+        bool RemoveValue(string key);
+    }
 }

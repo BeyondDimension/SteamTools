@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
+<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <TargetFramework>MonoAndroid10.0</TargetFramework>
@@ -20,30 +20,30 @@
       <Link>Utils\TargetFramework.cs</Link>
     </Compile>
     <Compile Include="..\Common.UnitTest\*.cs">
-      <Link />
+      <Link/>
     </Compile>
     <Compile Include="..\Common.UnitTest\Logging\*.cs">
-      <Link />
+      <Link/>
       <LinkBase>Logging</LinkBase>
     </Compile>
     <Compile Include="..\Common.UnitTest\Utils\*.cs">
-      <Link />
+      <Link/>
       <LinkBase>Utils</LinkBase>
     </Compile>
     <Compile Include="..\Common.UnitTest\Droid\*.cs">
-      <Link />
+      <Link/>
       <LinkBase>Droid</LinkBase>
     </Compile>
     <!--https://docs.microsoft.com/zh-cn/visualstudio/msbuild/common-msbuild-item-metadata?view=vs-2019-->
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.13.1" />
+    <PackageReference Include="NUnit" Version="3.13.1"/>
   </ItemGroup>
 
   <ItemGroup>
-    <!--<ProjectReference Include="..\..\src\Services.Pinyin.TinyPinyin\Services.Pinyin.TinyPinyin.csproj" />
+    <!--<ProjectReference Include="..\..\src\Services.Pinyin.TinyPinyin\Services.Pinyin.TinyPinyin.csproj"/>
     <ProjectReference Include="..\..\src\Services.Pinyin\Services.Pinyin.csproj" />-->
-    <ProjectReference Include="..\..\src\Common.ClientLib.Droid\Common.ClientLib.Droid.csproj" />
+    <ProjectReference Include="..\..\src\Common.ClientLib.Droid\Common.ClientLib.Droid.csproj"/>
   </ItemGroup>
 </Project>

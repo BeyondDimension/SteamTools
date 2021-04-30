@@ -1,4 +1,4 @@
-﻿namespace System.Application.Security
+namespace System.Security
 {
     /// <summary>
     /// 加密模式

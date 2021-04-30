@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 
 namespace System.Application.Serialization
 {
     [DebuggerDisplay("Value={Value}, Key={Key}, Default={Default}")]
-    public abstract class SerializablePropertyBase<T> : INotifyPropertyChanged
+    public abstract class SerializablePropertyBase<T> : INotifyPropertyChanged where T : notnull
     {
-        private T _value;
+        private T? _value;
         private bool _cached;
 
         public string Key { get; }
@@ -16,9 +16,9 @@ namespace System.Application.Serialization
 
         public bool AutoSave { get; set; }
 
-        public T Default { get; }
+        public T? Default { get; }
 
-        public virtual T Value
+        public virtual T? Value
         {
             get
             {
@@ -29,7 +29,7 @@ namespace System.Application.Serialization
                     Provider.Load();
                 }
 
-                if (Provider.TryGetValue(Key, out object obj))
+                if (Provider.TryGetValue(Key, out object? obj))
                 {
                     _value = DeserializeCore(obj);
                     _cached = true;
@@ -60,9 +60,11 @@ namespace System.Application.Serialization
             }
         }
 
-        protected SerializablePropertyBase(string key, ISerializationProvider provider) : this(key, provider, default) { }
+        protected SerializablePropertyBase(string key, ISerializationProvider provider) : this(key, provider, default)
+        {
+        }
 
-        protected SerializablePropertyBase(string key, ISerializationProvider provider, T defaultValue)
+        protected SerializablePropertyBase(string key, ISerializationProvider provider, T? defaultValue)
         {
             Key = key ?? throw new ArgumentNullException(nameof(key));
             Provider = provider ?? throw new ArgumentNullException(nameof(provider));
@@ -90,7 +92,7 @@ namespace System.Application.Serialization
             };
         }
 
-        protected virtual T DeserializeCore(object value)
+        protected virtual T? DeserializeCore(object value)
         {
             if (typeof(T).IsValueType || typeof(T) == typeof(string))
             {
@@ -100,8 +102,7 @@ namespace System.Application.Serialization
             return Serializable.DMP<T>(temp);
         }
 
-
-        public virtual IDisposable Subscribe(Action<T> listener)
+        public virtual IDisposable Subscribe(Action<T?> listener)
         {
             listener(Value);
             return new ValueChangedEventListener(this, listener);
@@ -114,7 +115,7 @@ namespace System.Application.Serialization
                 Provider.Load();
             }
 
-            if (Provider.TryGetValue(Key, out object old))
+            if (Provider.TryGetValue(Key, out object? old))
             {
                 if (Provider.RemoveValue(Key))
                 {
@@ -129,10 +130,10 @@ namespace System.Application.Serialization
 
         private class ValueChangedEventListener : IDisposable
         {
-            private readonly Action<T> _listener;
+            private readonly Action<T?> _listener;
             private readonly SerializablePropertyBase<T> _source;
 
-            public ValueChangedEventListener(SerializablePropertyBase<T> property, Action<T> listener)
+            public ValueChangedEventListener(SerializablePropertyBase<T> property, Action<T?> listener)
             {
                 _listener = listener;
                 _source = property;
@@ -150,18 +151,16 @@ namespace System.Application.Serialization
             }
         }
 
-
-        public static implicit operator T(SerializablePropertyBase<T> property)
+        public static implicit operator T?(SerializablePropertyBase<T> property)
         {
             return property.Value;
         }
 
-
         #region events
 
-        public event EventHandler<ValueChangedEventArgs<T>> ValueChanged;
+        public event EventHandler<ValueChangedEventArgs<T>>? ValueChanged;
 
-        protected virtual void OnValueChanged(T oldValue, T newValue)
+        protected virtual void OnValueChanged(T? oldValue, T? newValue)
         {
             ValueChanged?.Invoke(this, new ValueChangedEventArgs<T>(oldValue, newValue));
         }

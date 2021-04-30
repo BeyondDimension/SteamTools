@@ -68,7 +68,7 @@ English | [简体中文](./README.md)
 	- Only version 1.X is available, and version 2.X is not supported. It is recommended to upgrade to **Windows Server 2012 R2** or higher
 - Windows Server / Linux version without desktop GUI
 
-## 🌎 Roadmap
+## 🌏 Roadmap
 Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/milestones), and feel free to ask questions.
 
 ## ⌨️ Development Environment

@@ -105,7 +105,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibAPNG", "references\Avalo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CefNet.Avalonia", "references\CefNet\CefNet.Avalonia\CefNet.Avalonia.csproj", "{38A8EE9F-81A8-4B11-A6E9-864A12C43089}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST.Tools.MinifyStaticSites", "src\ST.Tools.MinifyStaticSites\ST.Tools.MinifyStaticSites.csproj", "{5E8F54E8-02A6-45D9-A7F9-7C9B43705BE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Tools.MinifyStaticSites", "src\ST.Tools.MinifyStaticSites\ST.Tools.MinifyStaticSites.csproj", "{5E8F54E8-02A6-45D9-A7F9-7C9B43705BE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

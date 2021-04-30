@@ -11,7 +11,7 @@
 - ⚙️ 基于 .NET Standard 2.1 / .NET 5，可直接引用丰富的 .NET 类库。
 - 🎁 可与已有的 ASP.NET Core MVC、Razor Pages 项目无缝集成。
 
-## [ASP.NET Core Blazor 简介](https://docs.microsoft.com/zh-cn/aspnet/core/blazor/?view=aspnetcore-5.0)
+## 🌐 [ASP.NET Core Blazor 简介](https://docs.microsoft.com/zh-cn/aspnet/core/blazor/?view=aspnetcore-5.0)
 Blazor 是一个使用 [.NET](/dotnet/standard/tour) 生成交互式客户端 Web UI 的框架：
 
 * 使用 [C#](/dotnet/csharp/) 代替 [JavaScript](https://www.javascript.com) 来创建信息丰富的交互式 UI。
@@ -43,5 +43,5 @@ Blazor 是一个使用 [.NET](/dotnet/standard/tour) 生成交互式客户端 We
 
 > 由于 [WebAssembly](https://webassembly.org) 的限制，Blazor WebAssembly 不支持 IE 浏览器，但 Blazor Server 支持 IE 11†。 详见[官网说明](https://docs.microsoft.com/en-us/aspnet/core/blazor/supported-platforms?view=aspnetcore-3.1&WT.mc_id=DT-MVP-5003987)。
 
-## 热重载
+## 🚀 热重载
 dotnet watch run debug
