@@ -27,6 +27,8 @@ jobs:
       run: dotnet --info
     - name: dotnet restore
       run: dotnet restore ./SteamToolsV2+.sln
+    - name: dotnet AvaloniaApp build
+      run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Desktop.Avalonia.App.csproj
     - name: dotnet CommonUnit build
       run: dotnet build ./tests/Common.UnitTest/Common.UnitTest.csproj
     - name: dotnet CommonUnit test
