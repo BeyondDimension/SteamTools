@@ -34,19 +34,22 @@ namespace SteamTools.Services
                     }
                 }
             }
+
             Proxy = new HttpProxy(ProxyDomains.Value, ProductInfo.Product)
             {
                 IsEnableScript = IsEnableScript,
                 IsOnlyWorkSteamBrowser = IsOnlyWorkSteamBrowser
             };
+
             InitJsScript();
+
             if (ProxySettings.ProgramStartupRunProxy.Value)
             {
                 ProxyStatus = true;
             }
         }
 
-        private Lazy<IReadOnlyCollection<ProxyDomainModel>> _ProxyDomains = new Lazy<IReadOnlyCollection<ProxyDomainModel>>(() => new List<ProxyDomainModel>
+        private Lazy<IReadOnlyCollection<ProxyDomainModel>> _ProxyDomains = new(() => new List<ProxyDomainModel>
 {
 new ProxyDomainModel{
 Name=Resources.SteamCommunity,
@@ -74,10 +77,10 @@ IsEnable= false,
 },
 new ProxyDomainModel{
 Name=Resources.SteamImage,
-Domains = new List<string>{"steamcdn-a.akamaihd.net","steamuserimages-a.akamaihd.net" },
+Domains = new List<string>{"steamcdn-a.akamaihd.net","steamuserimages-a.akamaihd.net","cdn.akamai.steamstatic.com" },
 //ToDomain = "cdn.akamai.steamstatic.com",
 ToDomain = "steamimage.rmbgame.net",
-Hosts = new List<string>{ "steamcdn-a.akamaihd.net","steamuserimages-a.akamaihd.net"},
+Hosts = new List<string>{ "steamcdn-a.akamaihd.net","steamuserimages-a.akamaihd.net","cdn.akamai.steamstatic.com"},
 DomainTag = DomainTag.SteamImage,
 IsEnable= false,
 },
@@ -101,8 +104,8 @@ IsEnable= false,
 new ProxyDomainModel{
 Name=Resources.Discord,
 Domains = new List<string>{ "discordapp.com"},
-ToDomain = "discord.rmbgame.net",
-//ProxyIPAddres="162.159.130.233",
+//ToDomain = "discord.rmbgame.net",
+ProxyIPAddres="162.159.135.233",
 Hosts = new List<string>{
 "discordapp.com",
 "support.discordapp.com",
@@ -387,6 +390,7 @@ IsEnable = false,
                 }
             }
         }
+
         public bool IsOnlyWorkSteamBrowser
         {
             get => ProxySettings.IsOnlyWorkSteamBrowser.Value;
@@ -418,8 +422,8 @@ IsEnable = false,
                         }
                         else
                         {
-                            //WindowService.Current.ShowDialogWindow("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。");
-                            StatusService.Current.Notify("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。\n\n如果安装了vmware虚拟机，可能会导致443端口被占用。");
+                            WindowService.Current.ShowDialogWindow("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。\n如果安装了vmware虚拟机，会导致443端口被占用。");
+                            //StatusService.Current.Notify("启动加速服务失败，请检查443端口是否被占用或者证书安装失败。\n\n如果安装了vmware虚拟机，可能会导致443端口被占用。");
                         }
                     }
                     else

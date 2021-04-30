@@ -1,0 +1,13 @@
+@namespace System.Application.Pages.Dashboard.Analysis
+@inherits AntDomComponentBase
+
+<div class="trendItem">
+    <span>@ChildContent</span>
+    <span class="@Flag">
+        @if(Flag == "up"){
+            <Icon Type="caret-up" />
+        } else {
+            <Icon Type="caret-down" />
+        }
+    </span>
+</div>

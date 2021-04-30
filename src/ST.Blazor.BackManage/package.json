@@ -1,0 +1,27 @@
+{
+    "name": "ST.Blazor.BackManage",
+    "version": "1.0.0",
+    "description": "An out-of-box UI solution for enterprise applications as a Blazor boilerplate.",
+    "scripts": {
+        "start": "dotnet watch -p ./src/Server run",
+        "build": "dotnet publish -o dist",
+        "gulp:pro": "gulp --gulpfile ./src/Client/gulpfile.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "antd": "^4.6.0"
+    },
+    "devDependencies": {
+        "gulp": "^4.0.2",
+        "gulp-clean-css": "^4.2.0",
+        "gulp-concat-css": "^3.1.0",
+        "gulp-less": "^4.0.1",
+        "gulp-rename": "^2.0.0",
+        "gulp-sourcemaps": "^2.6.5",
+        "gulp-uglify": "^3.0.2",
+        "less-plugin-npm-import": "^2.1.0",
+        "husky": "^4.2.3",
+        "vinyl-buffer": "^1.0.1",
+        "vinyl-source-stream": "^2.0.0"
+    }
+}

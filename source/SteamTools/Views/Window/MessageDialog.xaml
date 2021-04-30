@@ -14,9 +14,6 @@
         Title="{Binding Title}"
         Topmost="{Binding Topmost}" 
         Style="{DynamicResource MetroDialogStyleKey}"
-        UseLayoutRounding="True"
-        TextOptions.TextFormattingMode="Display"
-        SnapsToDevicePixels="True"
         WindowStartupLocation="CenterOwner"
 		SizeToContent="Height"
         d:DataContext="{d:DesignInstance vm:DialogWindowViewModel}">
@@ -49,7 +46,7 @@
 						   Foreground="{DynamicResource ActiveForegroundBrushKey}"
 						   Margin="12,0"
 						   HorizontalAlignment="Left"
-                               TextWrapping="WrapWithOverflow"
+                           TextWrapping="WrapWithOverflow"
 						   VerticalAlignment="Center" />
                 </DockPanel>
 

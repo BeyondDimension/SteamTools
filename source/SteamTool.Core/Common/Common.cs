@@ -15,7 +15,7 @@ namespace SteamTool.Core.Common
         /// <returns></returns>
         public static DateTime ToDateTime(this long timestamp)
         {
-           return TimeZoneInfo.ConvertTimeFromUtc(new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(timestamp), TimeZoneInfo.Local);
+            return TimeZoneInfo.ConvertTimeFromUtc(new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(timestamp), TimeZoneInfo.Local);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace SteamTool.Core.Common
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string RemovePattern(this string inputString) 
+        public static string RemovePattern(this string inputString)
         {
             return inputString.Replace("\t", "").Replace("\r", "").Replace("\n", "");
         }
@@ -119,6 +119,7 @@ namespace SteamTool.Core.Common
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>
         /// <returns></returns>
+        [Obsolete("V2 中使用 MessagePack反序列化与序列化进行拷贝，同时仅扩展序列化接口，避免扩展大范围全局污染")]
         public static T Clone<T>(this T source)
         {
             //如果是字符串或值类型则直接返回

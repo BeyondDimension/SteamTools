@@ -1,0 +1,36 @@
+@namespace System.Application
+@using OneOf
+@inherits LayoutComponentBase
+
+<div class="container__b__0">
+    <div class="lang">
+        <!--todo: selectLang-->
+    </div>
+    <div class="content">
+        <div class="top">
+            <div class="header">
+                <a>
+                    <img alt="logo" class="logo" src="logo.png" />
+                    <span class="title">后台管理系统</span>
+                </a>
+            </div>
+            <div class="desc">企业级产品设计体系，创造高效愉悦的工作体验。</div>
+        </div>
+        @Body
+    </div>
+    <GlobalFooter Links="_links">
+        <Copyright>
+            <Icon Type="copyright" /> 2021 长沙次元超越科技有限公司. All Rights Reserved.
+        </Copyright>
+    </GlobalFooter>
+</div>
+
+@code
+{
+    readonly LinkItem[] _links = 
+    {
+        new LinkItem{ Key = "", BlankTarget = true, Title = "Source Code", Href = "https://github.com/SteamTools-Team/SteamTools"},
+        new LinkItem{ Key = "", BlankTarget = true, Title = OneOf<string, RenderFragment>.FromT1(@<Icon Type="github" />), Href = "https://github.com/SteamTools-Team"},
+        new LinkItem{ Key = "", BlankTarget = true, Title = "Website", Href = "https://steampp.net"}
+    };
+}

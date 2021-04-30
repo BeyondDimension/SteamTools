@@ -1,0 +1,976 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>警告</value>
+    <comment>此值是日语不是中文！</comment>
+  </data>
+  <data name="About_FAQ" xml:space="preserve">
+    <value>よく寄せられる質問のトラブルシューティング</value>
+  </data>
+  <data name="About_Joinus" xml:space="preserve">
+    <value>ご参加ください</value>
+  </data>
+  <data name="About_OpenSource" xml:space="preserve">
+    <value>オープンソースライセンス</value>
+  </data>
+  <data name="About_ProductionStaff" xml:space="preserve">
+    <value>制作者のリスト</value>
+  </data>
+  <data name="About_ThisSoft" xml:space="preserve">
+    <value>このソフトウェア</value>
+  </data>
+  <data name="About_UpdateHistory" xml:space="preserve">
+    <value>レコードを更新します</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>が追加された</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセルします</value>
+  </data>
+  <data name="CloudSync" xml:space="preserve">
+    <value>クラウド同期</value>
+  </data>
+  <data name="CommunityFix" xml:space="preserve">
+    <value>コミュニティアクセラレーション</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ConfirmImport" xml:space="preserve">
+    <value>インポートを確認します</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>続けよ</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>編集します</value>
+  </data>
+  <data name="EmailCode" xml:space="preserve">
+    <value>メールボックスの検証コード</value>
+  </data>
+  <data name="Encrypt" xml:space="preserve">
+    <value>暗号化</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>エクスポートします</value>
+  </data>
+  <data name="GameList" xml:space="preserve">
+    <value>ストックゲーム</value>
+  </data>
+  <data name="GameRelated" xml:space="preserve">
+    <value>ゲームの機能</value>
+  </data>
+  <data name="Hosts_Exists" xml:space="preserve">
+    <value>書き込まれた hosts は既に存在します</value>
+  </data>
+  <data name="Hosts_ReadError" xml:space="preserve">
+    <value>hosts ファイルの読み取り中にエラーが発生しました</value>
+  </data>
+  <data name="Hosts_ReadSuccess" xml:space="preserve">
+    <value>hosts の読み取りに成功しました</value>
+  </data>
+  <data name="Hosts_UpdateSuccess" xml:space="preserve">
+    <value>hosts への書き込みに成功しました</value>
+  </data>
+  <data name="Hosts_WirteError" xml:space="preserve">
+    <value>hosts への書き込み中にエラーが発生しました</value>
+  </data>
+  <data name="IdleCard" xml:space="preserve">
+    <value>オートセットカード</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>インポートします</value>
+  </data>
+  <data name="LocalAuth" xml:space="preserve">
+    <value>ローカル トークン</value>
+  </data>
+  <data name="LocalAuth_AddAuth" xml:space="preserve">
+    <value>トークンをインポートします</value>
+  </data>
+  <data name="LocalAuth_AddAuthSuccess" xml:space="preserve">
+    <value>トークンのインポートが完了しました</value>
+  </data>
+  <data name="LocalAuth_AddAuthSyncTip" xml:space="preserve">
+    <value>トークン サーバー クロックを同期しています</value>
+  </data>
+  <data name="LocalAuth_AuthData" xml:space="preserve">
+    <value>トークン データ</value>
+  </data>
+  <data name="LocalAuth_AuthName" xml:space="preserve">
+    <value>トークンのカスタム名</value>
+  </data>
+  <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
+    <value>トークンがコピーされます </value>
+  </data>
+  <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
+    <value>このトークンを完全に削除しますか?</value>
+  </data>
+  <data name="LocalAuth_EditAuth" xml:space="preserve">
+    <value>トークンを編集します</value>
+  </data>
+  <data name="LocalAuth_EmailCodeTip" xml:space="preserve">
+    <value>新しいデバイスからのアクセスを承認するには、電子メール アドレスに送信されたコードを入力してください。</value>
+  </data>
+  <data name="LocalAuth_ExportAuth" xml:space="preserve">
+    <value>トークンをエクスポートします</value>
+  </data>
+  <data name="LocalAuth_ImportFaild" xml:space="preserve">
+    <value>インポートに失敗しました。</value>
+  </data>
+  <data name="LocalAuth_MenuName" xml:space="preserve">
+    <value>トークンを編集します</value>
+  </data>
+  <data name="LocalAuth_NoAuthTip" xml:space="preserve">
+    <value>トークンをインポートしていない場合は、右上のピニオン アイコンに新しいトークンを追加できます。</value>
+  </data>
+  <data name="LocalAuth_OtherImport" xml:space="preserve">
+    <value>その他のソフトウェアのインポート</value>
+  </data>
+  <data name="LocalAuth_RefreshAuthSuccess" xml:space="preserve">
+    <value>トークン データの読み込みが完了しました</value>
+  </data>
+  <data name="LocalAuth_SDAImport" xml:space="preserve">
+    <value>Steam Desktop Auth がインポートされます</value>
+  </data>
+  <data name="LocalAuth_SDATip" xml:space="preserve">
+    <value>Steam のモバイル認証アプリケーションのデスクトップ実装。 インポート方法:SDAディレクトリの下のmaFilesフォルダのmaFileファイルを選択してインポートします。 (暗号化されたファイルのインポートはサポートされていませんので、最初にインポートでパスワードを削除してください)</value>
+  </data>
+  <data name="LocalAuth_ShowSteamAuthTip1" xml:space="preserve">
+    <value>Steam 認証システムの完全なデータで、さまざまなソフトウェアをインポートするときに使用できます。</value>
+  </data>
+  <data name="LocalAuth_ShowSteamAuthTip2" xml:space="preserve">
+    <value>Steam で 2 ステップ認証トークンを有効にすると、Steam クライアントで回復コードを使用して 2 ステップ認証トークンを解除し、コピーして安全な場所に保存できる回復コードが生成されます。</value>
+  </data>
+  <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
+    <value>携帯電話に送信された SMS 確認コードを入力してください。</value>
+  </data>
+  <data name="LocalAuth_SteamAppImport" xml:space="preserve">
+    <value>携帯電話のスチームのインポート</value>
+  </data>
+  <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
+    <value>ルートされた Android デバイスで SteamGuard 認証パスをインポートできます: /data/data/com.valvesoftware.android.steam.community 次の 2 つのファイルの内容を以下の対応する入力ボックスにコピーします</value>
+  </data>
+  <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
+    <value>files フォルダで、'SteamGuard-NNNNNNNNNNN'ファイルを開き、ファイルの内容全体を貼り付けます</value>
+  </data>
+  <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
+    <value>Steam++ インポート</value>
+  </data>
+  <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
+    <value>Steam++ V1 バージョンのエクスポートされたトークンデータをインポートします</value>
+  </data>
+  <data name="LocalAuth_SteamUserImport" xml:space="preserve">
+    <value>Steam アカウントのインポート</value>
+  </data>
+  <data name="LocalAuth_SteamUser_Error" xml:space="preserve">
+    <value>アカウントに認証システムを追加できません。</value>
+  </data>
+  <data name="LocalAuth_SteamUser_Requires2FA" xml:space="preserve">
+    <value>アカウントに認証システムが追加されているように見え、アカウントからインポートするには既存の認証システムを削除する必要があります。</value>
+  </data>
+  <data name="LocalAuth_SteamUUID" xml:space="preserve">
+    <value>デバイス ID (uuid):</value>
+  </data>
+  <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
+    <value>フォルダshared_prefs、'steam_uuid.xml uidKey を貼り付けます</value>
+  </data>
+  <data name="LocalAuth_SyncTime" xml:space="preserve">
+    <value>同期クロック</value>
+  </data>
+  <data name="LocalAuth_WinAuthImport" xml:space="preserve">
+    <value>WinAuth インポート</value>
+  </data>
+  <data name="LocalAuth_WinAuthTip" xml:space="preserve">
+    <value>WinAuth は、カウンタ ベースまたは時間ベースの RFC 6238 認証システムと一般的な実装を提供する Windows のポータブル オープンソース認証システムです。 インポート方法: WinAuth から txt ファイルをエクスポートした後、WinAuth からエクスポートされた txt ファイルを選択してインポートします。</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>記録</value>
+  </data>
+  <data name="Logining" xml:space="preserve">
+    <value>着陸中...</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>より多くの操作</value>
+  </data>
+  <data name="OtherGamePlaform" xml:space="preserve">
+    <value>他のプラットフォーム</value>
+  </data>
+  <data name="RecoveryCode" xml:space="preserve">
+    <value>回復コード</value>
+  </data>
+  <data name="RecoveryCode_Remember" xml:space="preserve">
+    <value>私は回復コードを書き留めた</value>
+  </data>
+  <data name="RecoveryCode_RememberTip" xml:space="preserve">
+    <value>認証システムが Steam アカウントに追加され、Steam++ に正常にインポートされました。 これは回復コードであり、認証システムを紛失した場合はアカウントから削除できます。 今すぐ書き留めて、安全な場所に保管してください。</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>更新します</value>
+  </data>
+  <data name="SelectFileImport" xml:space="preserve">
+    <value>[ファイルの{0}] を選択します</value>
+  </data>
+  <data name="Settings_Auth" xml:space="preserve">
+    <value>トークンの設定</value>
+  </data>
+  <data name="Settings_General" xml:space="preserve">
+    <value>基本設定</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>言語</value>
+  </data>
+  <data name="Settings_Steam" xml:space="preserve">
+    <value>スチームの設定</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>テーマ</value>
+  </data>
+  <data name="Settings_UI" xml:space="preserve">
+    <value>インターフェイスの設定</value>
+  </data>
+  <data name="SMSCode" xml:space="preserve">
+    <value>SMS 検証コード</value>
+  </data>
+  <data name="Steam_ImageCodeTip" xml:space="preserve">
+    <value>図の確認コードを入力します</value>
+  </data>
+  <data name="Steam_Password" xml:space="preserve">
+    <value>スチームパスワード</value>
+  </data>
+  <data name="Steam_User" xml:space="preserve">
+    <value>Steam ユーザー名</value>
+  </data>
+  <data name="UserChange_BtnText" xml:space="preserve">
+    <value>Steam に 1 回のクリックでログインします</value>
+  </data>
+  <data name="UserChange_BtnTootlip" xml:space="preserve">
+    <value>このボタンを押すと、Steam が再起動され、そのアカウントでログインします</value>
+  </data>
+  <data name="UserChange_DeleteUser" xml:space="preserve">
+    <value>このアカウント データを削除します</value>
+  </data>
+  <data name="UserChange_NoUserTip" xml:space="preserve">
+    <value>Pc で Steam アカウントデータが読み取りされません。</value>
+  </data>
+  <data name="UserChange_OfflineBtn" xml:space="preserve">
+    <value>オフライン モードが開始されます</value>
+  </data>
+  <data name="UserFastChange" xml:space="preserve">
+    <value>アカウントの切り替え</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>スタート ページ</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>について</value>
+  </data>
+  <data name="About_Contactus" xml:space="preserve">
+    <value>お問い合わせ下さい</value>
+  </data>
+  <data name="AchievementManage" xml:space="preserve">
+    <value>成果管理</value>
+  </data>
+  <data name="Achievement_Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="Achievement_EditSucces" xml:space="preserve">
+    <value>{0} 実績と {1} 統計が変更されました</value>
+  </data>
+  <data name="Achievement_Icon" xml:space="preserve">
+    <value>アイコン</value>
+  </data>
+  <data name="Achievement_IsProtection" xml:space="preserve">
+    <value>保護されています</value>
+  </data>
+  <data name="Achievement_LoadData" xml:space="preserve">
+    <value>実績と統計の読み込み...</value>
+  </data>
+  <data name="Achievement_LoadSucces" xml:space="preserve">
+    <value>{0} 実績と {1} 統計を取得します</value>
+  </data>
+  <data name="Achievement_Manage" xml:space="preserve">
+    <value>実績の管理</value>
+  </data>
+  <data name="Achievement_Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="Achievement_RefreshTip" xml:space="preserve">
+    <value>実績と統計を更新します</value>
+  </data>
+  <data name="Achievement_ResetTip" xml:space="preserve">
+    <value>実績と統計をリセットします</value>
+  </data>
+  <data name="Achievement_ResetWaring_1" xml:space="preserve">
+    <value>統計をリセットしますか?</value>
+  </data>
+  <data name="Achievement_ResetWaring_2" xml:space="preserve">
+    <value>実績情報もリセットしたいですか?</value>
+  </data>
+  <data name="Achievement_RiskWarning" xml:space="preserve">
+    <value>リスクのヒント: アチーブメントのロックを解除すると、ゲーム開発者によって不正行為と見なされ、アチーブメント統計サイトによってブロックされる可能性があります。 引き続き使用する場合は、成果のロック解除に伴うリスクと結果についてご自身の責任で行ってください。</value>
+  </data>
+  <data name="Achievement_StatsEdit" xml:space="preserve">
+    <value>統計の変更</value>
+  </data>
+  <data name="Achievement_StoreTip" xml:space="preserve">
+    <value>実績と統計を保存して適用します</value>
+  </data>
+  <data name="Achievement_TimeFormat" xml:space="preserve">
+    <value>{0:yyyy-MM-dd HH:mm:ss} でロック解除</value>
+  </data>
+  <data name="Achievement_Unlock" xml:space="preserve">
+    <value>成果のロックを解除します</value>
+  </data>
+  <data name="Achievement_Warning_1" xml:space="preserve">
+    <value>Steam との接続に失敗したか、ゲームに実績がないか、ゲームを持っていない可能性があります。</value>
+  </data>
+  <data name="Achievement_Warning_3" xml:space="preserve">
+    <value>実績の変更中{0}エラーが発生しました</value>
+  </data>
+  <data name="Achievement_Warning_4" xml:space="preserve">
+    <value>統計データの{0}中にエラーが発生しました</value>
+  </data>
+  <data name="Agree" xml:space="preserve">
+    <value>同意します</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>と</value>
+  </data>
+  <data name="Bind" xml:space="preserve">
+    <value>バインドします</value>
+  </data>
+  <data name="Btn_Text_Complete" xml:space="preserve">
+    <value>完了です</value>
+  </data>
+  <data name="Btn_Text_Continue" xml:space="preserve">
+    <value>続けよ</value>
+  </data>
+  <data name="CommunityFix_Acceleration" xml:space="preserve">
+    <value>1回のクリックで加速します</value>
+  </data>
+  <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
+    <value>有効なアクセラレーション サービス</value>
+  </data>
+  <data name="CommunityFix_AllCheck" xml:space="preserve">
+    <value>すべて有効にします</value>
+  </data>
+  <data name="CommunityFix_AlreadyProxy" xml:space="preserve">
+    <value>加速されています  </value>
+  </data>
+  <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
+    <value>プログラムの起動時にアクセラレーションが自動的に開始されます</value>
+  </data>
+  <data name="CommunityFix_CertificateSettings" xml:space="preserve">
+    <value>証明書の設定</value>
+  </data>
+  <data name="CommunityFix_DeleteCertificate" xml:space="preserve">
+    <value>証明書を削除します</value>
+  </data>
+  <data name="CommunityFix_EditHostsFile" xml:space="preserve">
+    <value>hosts ファイルを編集します</value>
+  </data>
+  <data name="CommunityFix_EnableScriptService" xml:space="preserve">
+    <value>スクリプトを有効にします</value>
+  </data>
+  <data name="CommunityFix_MenuName" xml:space="preserve">
+    <value>加速設定</value>
+  </data>
+  <data name="CommunityFix_NoSelectAcceleration" xml:space="preserve">
+    <value>アクセラレーション サービスが選択されていない</value>
+  </data>
+  <data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
+    <value>Steam 組み込みブラウザでのみ有効です</value>
+  </data>
+  <data name="CommunityFix_ProxyMode" xml:space="preserve">
+    <value>加速モード</value>
+  </data>
+  <data name="CommunityFix_ProxyModeTip" xml:space="preserve">
+    <value>加速モード:</value>
+  </data>
+  <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
+    <value>Hosts プロキシ モード</value>
+  </data>
+  <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
+    <value>Windows システム エージェント モード</value>
+  </data>
+  <data name="CommunityFix_ScriptManage" xml:space="preserve">
+    <value>スクリプトを管理します</value>
+  </data>
+  <data name="CommunityFix_ScriptsEnable" xml:space="preserve">
+    <value>有効なスクリプト サービス</value>
+  </data>
+  <data name="CommunityFix_SetupCertificate" xml:space="preserve">
+    <value>証明書をインストールします</value>
+  </data>
+  <data name="CommunityFix_StartProxy" xml:space="preserve">
+    <value>1回のクリックで加速します</value>
+  </data>
+  <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
+    <value>アクセラレーションが正常に開始されました</value>
+  </data>
+  <data name="CommunityFix_StopProxy" xml:space="preserve">
+    <value>加速を停止します</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>コピーします</value>
+  </data>
+  <data name="Cut" xml:space="preserve">
+    <value>カット</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>デフォルト</value>
+  </data>
+  <data name="DelAccount" xml:space="preserve">
+    <value>アカウントの損金処理</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>削除します</value>
+  </data>
+  <data name="DoNotUpdate" xml:space="preserve">
+    <value>現時点では更新されません</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>ダウンロードしてください</value>
+  </data>
+  <data name="Download_ScriptError" xml:space="preserve">
+    <value>スクリプトのダウンロード エラーをもう一度実行してください。</value>
+  </data>
+  <data name="Download_ScriptOk" xml:space="preserve">
+    <value>スクリプトのインストールに成功しました</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>メールボックス</value>
+  </data>
+  <data name="GameList_HideTheGame" xml:space="preserve">
+    <value>このゲームを非表示にします</value>
+  </data>
+  <data name="GameList_Install" xml:space="preserve">
+    <value>インストールします</value>
+  </data>
+  <data name="GameList_IsEmpty" xml:space="preserve">
+    <value>ゲーム データは取得されません</value>
+  </data>
+  <data name="GameList_OnlyInstalled" xml:space="preserve">
+    <value>インストールされているゲームのみが表示されます</value>
+  </data>
+  <data name="GameList_OpenStoreUrl" xml:space="preserve">
+    <value>ストア ページを開きます</value>
+  </data>
+  <data name="GameList_Play" xml:space="preserve">
+    <value>ゲームを開始します</value>
+  </data>
+  <data name="GameList_RefreshGamesList" xml:space="preserve">
+    <value>ゲームの一覧を更新します</value>
+  </data>
+  <data name="GameList_RefreshGamesListSucess" xml:space="preserve">
+    <value>ゲームリストの更新が完了しました</value>
+  </data>
+  <data name="GameList_ResizeAppLogo" xml:space="preserve">
+    <value>カバーのサイズを変更します</value>
+  </data>
+  <data name="GameList_RuningWait" xml:space="preserve">
+    <value>起動中...</value>
+  </data>
+  <data name="GameList_SetCustomImage" xml:space="preserve">
+    <value>カスタム送付状を設定します</value>
+  </data>
+  <data name="GameList_SteamNotRuning" xml:space="preserve">
+    <value>Steam が起動しません</value>
+  </data>
+  <data name="GameList_Unsupport" xml:space="preserve">
+    <value>サポートされていない操作</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>性別</value>
+  </data>
+  <data name="Gender_Female" xml:space="preserve">
+    <value>女性</value>
+  </data>
+  <data name="Gender_Male" xml:space="preserve">
+    <value>男</value>
+  </data>
+  <data name="Gender_Unknown" xml:space="preserve">
+    <value>秘密にしておく</value>
+  </data>
+  <data name="LocalAuth_AuthTrade" xml:space="preserve">
+    <value>取引を確認します</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_Cancel" xml:space="preserve">
+    <value>取引をキャンセルします</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_CancelAll" xml:space="preserve">
+    <value>すべてのトランザクションをキャンセルします</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_CancelError" xml:space="preserve">
+    <value>このトランザクションはキャンセルできません</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_Confirm" xml:space="preserve">
+    <value>取引を確認します</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ConfirmAll" xml:space="preserve">
+    <value>すべてのトランザクションを確認します</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ConfirmCancel" xml:space="preserve">
+    <value>すべてのトランザクションが正常にキャンセルされました</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ConfirmError" xml:space="preserve">
+    <value>このトランザクションは確認できません</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ConfirmSuccess" xml:space="preserve">
+    <value>すべてのトランザクションに正常に同意しました</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ConfirmTip" xml:space="preserve">
+    <value>すべての{0}を表示しています...</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
+    <value>確認情報を表示する権限がありません。 'community-generated content' in Family View が有効になっているか。</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_GetError2" xml:space="preserve">
+    <value>Steam トークントランザクションデータの取得に失敗しました。</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_GetTip" xml:space="preserve">
+    <value>最新の取引相場情報を取得しています...</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ListCountTip" xml:space="preserve">
+    <value>{0}トランザクションが保留中です</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_ListNullTip" xml:space="preserve">
+    <value>現在、処理するトランザクションの見積もりはありません</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
+    <value>現在、取引はありません</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_TradeError" xml:space="preserve">
+    <value>無効なトランザクションです</value>
+  </data>
+  <data name="LocalAuth_CloudSync" xml:space="preserve">
+    <value>トークン クラウドの同期</value>
+  </data>
+  <data name="LocalAuth_Copy" xml:space="preserve">
+    <value>トークンをコピーします</value>
+  </data>
+  <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
+    <value>トークンを表示します</value>
+  </data>
+  <data name="LocalAuth_ShowAuthInfo" xml:space="preserve">
+    <value>トークンの詳細データを表示します</value>
+  </data>
+  <data name="LocalAuth_SteamAuthTrade" xml:space="preserve">
+    <value>取引を確認します</value>
+  </data>
+  <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
+    <value>取引を確認するにはSteamへのログインが必要で、プログラムはパスワードを記録しませんが、ログインステータスはローカルに保存されます。</value>
+  </data>
+  <data name="LoginAndRegister" xml:space="preserve">
+    <value>ログイン/登録します</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>サインアウトしてサインインします</value>
+  </data>
+  <data name="Modify" xml:space="preserve">
+    <value>変更します</value>
+  </data>
+  <data name="NickName" xml:space="preserve">
+    <value>ニックネーム</value>
+  </data>
+  <data name="Paste" xml:space="preserve">
+    <value>貼り付けます</value>
+  </data>
+  <data name="PleaseEnterNickName" xml:space="preserve">
+    <value>ニックネームを入力してください</value>
+  </data>
+  <data name="PleaseSelect" xml:space="preserve">
+    <value>選択してください</value>
+  </data>
+  <data name="RefreshOK" xml:space="preserve">
+    <value>更新は成功しました</value>
+  </data>
+  <data name="RefreshSteamAvatar" xml:space="preserve">
+    <value>スチームアバターをリフレッシュします</value>
+  </data>
+  <data name="RefreshSteamAvatarDesc" xml:space="preserve">
+    <value>Steam アカウントをバインドすると、Steam アカウントのアバターを使用して手動で同期更新できます。</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>変更を保存します</value>
+  </data>
+  <data name="ScriptConfig" xml:space="preserve">
+    <value>スクリプト構成</value>
+  </data>
+  <data name="ScriptConfig_ScriptEmptyTip" xml:space="preserve">
+    <value>一致するスクリプト ファイルに対してクエリが実行されていない場合は、スクリプト ワークショップからスクリプト ファイルをダウンロードできます。</value>
+  </data>
+  <data name="ScriptShop_GetTableError" xml:space="preserve">
+    <value>スクリプト ワークショップの一覧の取得に失敗しました。</value>
+  </data>
+  <data name="ScriptShop_NoLogin" xml:space="preserve">
+    <value>スクリプト ワークショップを使用するには、最初にサインインする必要があります。</value>
+  </data>
+  <data name="ScriptStore" xml:space="preserve">
+    <value>スクリプト ワークショップ</value>
+  </data>
+  <data name="Script_AutoUpdate" xml:space="preserve">
+    <value>スクリプトを有効にして、更新を自動的にチェックします</value>
+  </data>
+  <data name="Script_DeleteItem" xml:space="preserve">
+    <value>このスクリプトを削除しますか?</value>
+  </data>
+  <data name="Script_Edit" xml:space="preserve">
+    <value>スクリプトを編集します</value>
+  </data>
+  <data name="Script_EditTxt" xml:space="preserve">
+    <value>スクリプトの変更を完了するには、[OK] をクリックしてキャッシュを更新します。</value>
+  </data>
+  <data name="Script_Home" xml:space="preserve">
+    <value>スクリプトのホーム ページ</value>
+  </data>
+  <data name="Script_ImportLoading" xml:space="preserve">
+    <value>インポート スクリプトを処理します</value>
+  </data>
+  <data name="Script_Install" xml:space="preserve">
+    <value>インストール スクリプト</value>
+  </data>
+  <data name="Script_Installed" xml:space="preserve">
+    <value>インストールされています</value>
+  </data>
+  <data name="Script_Refresh" xml:space="preserve">
+    <value>キャッシュをフラッシュします</value>
+  </data>
+  <data name="Script_Shop" xml:space="preserve">
+    <value>スクリプト市場</value>
+  </data>
+  <data name="Script_Update" xml:space="preserve">
+    <value>スクリプトを更新します</value>
+  </data>
+  <data name="Script_UpdateError" xml:space="preserve">
+    <value>スクリプトの新しいバージョン情報の取得に失敗しました。</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>検索...</value>
+  </data>
+  <data name="Settings_Fonts" xml:space="preserve">
+    <value>フォント</value>
+  </data>
+  <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
+    <value>起動時に更新が自動的にチェックされます</value>
+  </data>
+  <data name="Settings_General_RuningMinimize" xml:space="preserve">
+    <value>起動時にトレイに最小化します</value>
+  </data>
+  <data name="Settings_General_StartAutoRun" xml:space="preserve">
+    <value>電源を入れ、自己起動します</value>
+  </data>
+  <data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
+    <value>プログラムの起動時に自動的に Steam が実行されます</value>
+  </data>
+  <data name="Settings_Steam_NotCheckUpdate" xml:space="preserve">
+    <value>Steam の起動時にアップデートはチェックされません</value>
+  </data>
+  <data name="Settings_Steam_RuningMinimize" xml:space="preserve">
+    <value>Steam の起動時にトレイに最小化されます</value>
+  </data>
+  <data name="Settings_Steam_SteamStratParameter" xml:space="preserve">
+    <value>Steam 起動パラメータ</value>
+  </data>
+  <data name="Settings_UI_Dark" xml:space="preserve">
+    <value>暗い色</value>
+  </data>
+  <data name="Settings_UI_Light" xml:space="preserve">
+    <value>明るい色</value>
+  </data>
+  <data name="Settings_UI_SystemDefault" xml:space="preserve">
+    <value>システムに従ってください</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>ログインを終了します</value>
+  </data>
+  <data name="StartUpdate" xml:space="preserve">
+    <value>更新を開始します</value>
+  </data>
+  <data name="SteamAccount" xml:space="preserve">
+    <value>スチームアカウント</value>
+  </data>
+  <data name="SteamAppType_Application" xml:space="preserve">
+    <value>ソフトウェアです</value>
+  </data>
+  <data name="SteamAppType_Beta" xml:space="preserve">
+    <value>テストします</value>
+  </data>
+  <data name="SteamAppType_Config" xml:space="preserve">
+    <value>構成</value>
+  </data>
+  <data name="SteamAppType_DepotOnly" xml:space="preserve">
+    <value>倉庫</value>
+  </data>
+  <data name="SteamAppType_Driver" xml:space="preserve">
+    <value>駆動します</value>
+  </data>
+  <data name="SteamAppType_Franchise" xml:space="preserve">
+    <value>承認</value>
+  </data>
+  <data name="SteamAppType_Game" xml:space="preserve">
+    <value>ゲーム</value>
+  </data>
+  <data name="SteamAppType_Guide" xml:space="preserve">
+    <value>ガイド</value>
+  </data>
+  <data name="SteamAppType_Hardware" xml:space="preserve">
+    <value>ハードウェア</value>
+  </data>
+  <data name="SteamAppType_Media" xml:space="preserve">
+    <value>予告編ビデオ</value>
+  </data>
+  <data name="SteamAppType_Mod" xml:space="preserve">
+    <value>モッズ</value>
+  </data>
+  <data name="SteamAppType_Music" xml:space="preserve">
+    <value>オリジナルのサウンドトラック</value>
+  </data>
+  <data name="SteamAppType_Plugin" xml:space="preserve">
+    <value>プラグイン</value>
+  </data>
+  <data name="SteamAppType_Series" xml:space="preserve">
+    <value>映画とテレビのコレクション</value>
+  </data>
+  <data name="SteamAppType_Shortcut" xml:space="preserve">
+    <value>ショートカット</value>
+  </data>
+  <data name="SteamAppType_Tool" xml:space="preserve">
+    <value>ツール</value>
+  </data>
+  <data name="SteamAppType_Unknown" xml:space="preserve">
+    <value>不明です</value>
+  </data>
+  <data name="SteamAppType_Video" xml:space="preserve">
+    <value>ビデオ</value>
+  </data>
+  <data name="Success_" xml:space="preserve">
+    <value>{0}成功</value>
+  </data>
+  <data name="UnderConstruction" xml:space="preserve">
+    <value>この機能は開発中ですので、ご期待ください</value>
+  </data>
+  <data name="UnsavedEditingWillBeDiscarded" xml:space="preserve">
+    <value>保存されていない編集は破棄されます</value>
+  </data>
+  <data name="UpdateContent" xml:space="preserve">
+    <value>コンテンツを更新します</value>
+  </data>
+  <data name="UploadYourAvatar" xml:space="preserve">
+    <value>アバターをアップロードします</value>
+  </data>
+  <data name="UploadYourAvatarDesc" xml:space="preserve">
+    <value>デバイスからファイルをアップロードします。 画像は、少なくとも 184px x 184px の正方形である必要があります</value>
+  </data>
+  <data name="UserChange_EditRemark" xml:space="preserve">
+    <value>メモを変更するには、この点をクリックしてください</value>
+  </data>
+  <data name="UserChange_LoginNewAccount" xml:space="preserve">
+    <value>新しい Steam アカウントにログインします</value>
+  </data>
+  <data name="UserChange_OpenUserUrl" xml:space="preserve">
+    <value>プロフィール ページを開きます</value>
+  </data>
+  <data name="UserChange_RecentLogin" xml:space="preserve">
+    <value>最近上陸した</value>
+  </data>
+  <data name="UserChange_RememberMe" xml:space="preserve">
+    <value>パスワードは既に記憶されています</value>
+  </data>
+  <data name="UserProfile" xml:space="preserve">
+    <value>プロフィール</value>
+  </data>
+  <data name="UserProfile_BirthDate" xml:space="preserve">
+    <value>誕生日</value>
+  </data>
+  <data name="UserProfile_Location" xml:space="preserve">
+    <value>場所</value>
+  </data>
+  <data name="User_Agreement" xml:space="preserve">
+    <value>ユーザー契約</value>
+  </data>
+  <data name="User_ChangePhoneNum" xml:space="preserve">
+    <value>携帯電話を縛り替えます</value>
+  </data>
+  <data name="User_EditProfile" xml:space="preserve">
+    <value>プロファイルを編集します</value>
+  </data>
+  <data name="User_GetSMSCode" xml:space="preserve">
+    <value>確認コードを取得します</value>
+  </data>
+  <data name="User_Login" xml:space="preserve">
+    <value>サインインします</value>
+  </data>
+  <data name="User_LoginCodeTimeLimitTip" xml:space="preserve">
+    <value>再取得 ({0})</value>
+  </data>
+  <data name="User_LoginError" xml:space="preserve">
+    <value>アカウントまたはパスワードが正しくありません</value>
+  </data>
+  <data name="User_LoginError_Auth" xml:space="preserve">
+    <value>無効なトークン: 現在のトークンのアカウントにログインしていますか?</value>
+  </data>
+  <data name="User_LoginError_CodeImage" xml:space="preserve">
+    <value>画像確認コードを入力してください</value>
+  </data>
+  <data name="User_LoginError_Null" xml:space="preserve">
+    <value>アカウント番号とパスワードを入力してください</value>
+  </data>
+  <data name="User_LoginTroubleshoot" xml:space="preserve">
+    <value>ログインできませんか?</value>
+  </data>
+  <data name="User_LoiginSuccess" xml:space="preserve">
+    <value>ログインに成功しました</value>
+  </data>
+  <data name="User_NewPhone" xml:space="preserve">
+    <value>新しい携帯電話番号</value>
+  </data>
+  <data name="User_Phone" xml:space="preserve">
+    <value>携帯電話番号</value>
+  </data>
+  <data name="User_Privacy" xml:space="preserve">
+    <value>プライバシーポリシー</value>
+  </data>
+  <data name="User_Register" xml:space="preserve">
+    <value>サインアップします</value>
+  </data>
+  <data name="User_RegisterAgreed" xml:space="preserve">
+    <value>登録は、あなたが読んで同意したことを意味します</value>
+  </data>
+  <data name="User_Rememberme" xml:space="preserve">
+    <value>ログイン状態を覚えておいてください</value>
+  </data>
+  <data name="User_SMSCode" xml:space="preserve">
+    <value>SMS 確認コード</value>
+  </data>
+  <data name="User_SMSCode_Error" xml:space="preserve">
+    <value>まず、確認コードを入手してください</value>
+  </data>
+  <data name="User_SteamFastLogin" xml:space="preserve">
+    <value>スチームクイックログイン</value>
+  </data>
+  <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
+    <value>GM は基本フレームであり、削除は許可されていません</value>
+  </data>
+</root>

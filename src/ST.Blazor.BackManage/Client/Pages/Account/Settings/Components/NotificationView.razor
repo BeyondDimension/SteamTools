@@ -1,0 +1,18 @@
+@namespace System.Application.Pages.Account.Settings
+
+<AntList 
+    TItem="UserLiteItem"
+    ItemLayout="ListItemLayout.Horizontal"
+    DataSource="_data">
+    <ListItem  Actions="_actions">
+        <ListItemMeta Avatar="" Description="@context.Description">
+            <TitleTemplate>@context.Title</TitleTemplate>
+        </ListItemMeta>
+    </ListItem>
+</AntList>
+
+@code
+{
+    private static RenderFragment _switch = @<Switch CheckedChildren="@("Open")" UnCheckedChildren="@("Close")" Checked="true"/>;
+    private readonly RenderFragment[] _actions = {_switch};
+}

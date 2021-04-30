@@ -1,0 +1,12 @@
+﻿@namespace System.Application.Pages.Dashboard.Workplace
+
+<div class="linkGroup">
+    @foreach (var link in Links)
+    {
+        <a href="@link.Href">@link.Title</a>
+    }
+    
+    <Button Size="small" Type="primary" Ghost>
+        <Icon Type="plus" /> Add
+    </Button>
+</div>

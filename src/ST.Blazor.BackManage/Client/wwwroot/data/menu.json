@@ -1,0 +1,170 @@
+[
+  {
+    "path": "/dashboard",
+    "name": "Dashboard",
+    "key": "dashboard",
+    "icon": "dashboard",
+    "children": [
+      {
+        "path": "/",
+        "name": "Analysis Page",
+        "key": "dashboard.analysis"
+      },
+      {
+        "path": "/dashboard/monitor",
+        "name": "Monitoring Page",
+        "key": "dashboard.monitor"
+      },
+      {
+        "path": "/dashboard/workplace",
+        "name": "Workbench",
+        "key": "dashboard.workplace"
+      }
+    ]
+  },
+  {
+    "path": "/form",
+    "name": "Form page",
+    "key": "form",
+    "icon": "form",
+    "children": [
+      {
+        "path": "/form/basic-form",
+        "name": "Basic Form",
+        "key": "form.basic-form"
+      },
+      {
+        "path": "/form/step-form",
+        "name": "Step Form",
+        "key": "form.step-form"
+      },
+      {
+        "path": "/form/advanced-form",
+        "name": "Advanced Form",
+        "key": "form.advanced-form"
+      }
+    ]
+  },
+  {
+    "path": "/list",
+    "name": "List",
+    "key": "list",
+    "icon": "table",
+    "children": [
+      {
+        "path": "/list/search",
+        "name": "Search List",
+        "key": "list.search",
+        "children": [
+          {
+            "path": "/list/search/articles",
+            "name": "Search List (Article)",
+            "key": "list.search.articles"
+          },
+          {
+            "path": "/list/search/projects",
+            "name": "Search List (Items)",
+            "key": "list.search.projects"
+          },
+          {
+            "path": "/list/search/applications",
+            "name": "Search List (Application)",
+            "key": "list.search.applications"
+          }
+        ]
+      },
+      {
+        "path": "/list/table-list",
+        "name": "Inquiry Form",
+        "key": "list.table-list"
+      },
+      {
+        "path": "/list/basic-list",
+        "name": "Basic List",
+        "key": "list.basic-list"
+      },
+      {
+        "path": "/list/card-list",
+        "name": "Card List",
+        "key": "list.card-list"
+      }
+    ]
+  },
+  {
+    "path": "/profile",
+    "name": "Profile",
+    "key": "profile",
+    "icon": "profile",
+    "children": [
+      {
+        "path": "/profile/basic",
+        "name": "Basic Profile",
+        "key": "profile.basic"
+      },
+      {
+        "path": "/profile/advanced",
+        "name": "Advanced Profile",
+        "key": "profile.advanced"
+      }
+    ]
+  },
+  {
+    "path": "/result",
+    "name": "Result Pages",
+    "key": "result",
+    "icon": "check-circle",
+    "children": [
+      {
+        "path": "/result/success",
+        "name": "Success Page",
+        "key": "result.success"
+      },
+      {
+        "path": "/result/fail",
+        "name": "Failed page",
+        "key": "result.fail"
+      }
+    ]
+  },
+  {
+    "path": "/exception",
+    "name": "Error Pages",
+    "key": "exception",
+    "icon": "exception",
+    "children": [
+      {
+        "path": "/exception/403",
+        "name": "403",
+        "key": "exception.403"
+      },
+      {
+        "path": "/exception/404",
+        "name": "404",
+        "key": "exception.404"
+      },
+      {
+        "path": "/exception/500",
+        "name": "500",
+        "key": "exception.500"
+      }
+    ]
+  },
+  {
+    "path": "/account",
+    "name": "Account",
+    "key": "account",
+    "icon": "user",
+    "children": [
+      {
+        "path": "/account/center",
+        "name": "Account Center",
+        "key": "account.center"
+      },
+      {
+        "path": "/account/settings",
+        "name": "Personal settings",
+        "key": "account.settings"
+      }
+    ]
+  }
+]

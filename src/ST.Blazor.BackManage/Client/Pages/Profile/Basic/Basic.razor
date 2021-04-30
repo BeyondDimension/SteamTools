@@ -1,0 +1,53 @@
+﻿@namespace System.Application.Pages.Profile
+@page "/profile/basic"
+
+<PageContainer Title="Basic Profile">
+    <Breadcrumb>
+        <Breadcrumb>
+            <BreadcrumbItem>Home</BreadcrumbItem>
+            <BreadcrumbItem>Profile</BreadcrumbItem>
+            <BreadcrumbItem>Basic Profile </BreadcrumbItem>
+        </Breadcrumb>
+    </Breadcrumb>
+    <ChildContent>
+        <Card>
+            <Descriptions Title="Refund Application" Style="margin-bottom: 32px;">
+                <DescriptionsItem Title="Pickup Order Number">1000000000</DescriptionsItem>
+                <DescriptionsItem Title="Status">Picked Up</DescriptionsItem>
+                <DescriptionsItem Title="Sales Order Number">1234123421</DescriptionsItem>
+                <DescriptionsItem Title="Sub-Order">3214321432</DescriptionsItem>
+            </Descriptions>
+            <Divider Style="margin-bottom: 32px;" />
+            <Descriptions Title="User Info" Style="margin-bottom: 32px;">
+                <DescriptionsItem Title="Username">Fu Xiaoxiao</DescriptionsItem>
+                <DescriptionsItem Title="Contact Number">18100000000</DescriptionsItem>
+                <DescriptionsItem Title="Default Delivery">Cainiao Warehouse</DescriptionsItem>
+                <DescriptionsItem Title="Pickup Address">No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China</DescriptionsItem>
+                <DescriptionsItem Title="Remarks">N/A</DescriptionsItem>
+            </Descriptions>
+            <Divider Style="margin-bottom: 32px;" />
+            <div class="title">Returned Goods</div>
+            <!--todo: table style not working-->
+            <Table Style="margin-bottom: 24px;"
+                   DataSource="@_data.BasicGoods"
+                   HidePagination>
+                <AntDesign.Column Title="Product Number" @bind-Field="@context.Id" />
+                <AntDesign.Column Title="Product Name" @bind-Field="@context.Name" />
+                <AntDesign.Column Title="Barcode" @bind-Field="@context.Barcode" />
+                <AntDesign.Column Title="Unit Price" @bind-Field="@context.Price" />
+                <AntDesign.Column Title="Quantity" @bind-Field="@context.Num" />
+                <AntDesign.Column Title="Amount" @bind-Field="@context.Amount" />
+            </Table>
+            <div class="title">Progress</div>
+            <Table Style="margin-bottom: 16px;"
+                   DataSource="@_data.BasicProgress"
+                   HidePagination>
+                <AntDesign.Column Title="Time" @bind-Field="@context.Time" />
+                <AntDesign.Column Title="Current Progress" @bind-Field="@context.Rate" />
+                <AntDesign.Column Title="Status" @bind-Field="@context.Status" />
+                <AntDesign.Column Title="Operator ID" @bind-Field="@context.Operator" />
+                <AntDesign.Column Title="Cost" @bind-Field="@context.Cost" />
+            </Table>
+        </Card>
+    </ChildContent>
+</PageContainer>

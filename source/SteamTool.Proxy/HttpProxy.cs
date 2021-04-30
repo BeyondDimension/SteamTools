@@ -143,7 +143,7 @@ namespace SteamTool.Proxy
                Logger.Info("Steam++ IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
            });
 
-            ////没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
+            //没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
             //e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine}not support proxy");
             return;
         }
@@ -220,13 +220,17 @@ namespace SteamTool.Proxy
                                                 {
                                                     var headIndex = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
                                                     var temp1 = $"<script type=\"text/javascript\" src=\"{req}\"></script>\n";
-                                                    doc = doc.Insert(headIndex, temp1);
+                                                    if (headIndex > -1)
+                                                        doc = doc.Insert(headIndex, temp1);
                                                 }
                                             }
                                             var index = doc.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
                                             var temp = $"<script type=\"text/javascript\">{script.@Content}</script>";
-                                            doc = doc.Insert(index, temp);
-                                            e.SetResponseBodyString(doc);
+                                            if (index > -1)
+                                            {
+                                                doc = doc.Insert(index, temp);
+                                                e.SetResponseBodyString(doc);
+                                            }
                                         }
                                     }
                                 }

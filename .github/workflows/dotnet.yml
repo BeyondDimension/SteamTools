@@ -1,0 +1,39 @@
+name: .NET
+
+on:
+  push:
+    branches: [ master,develop ]
+  pull_request:
+    branches: [ master,develop ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+        
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Checkout submodules
+      run: git submodule update --init --recursive
+
+    - name: dotnet info
+      run: dotnet --info
+    - name: dotnet restore
+      run: dotnet restore ./SteamToolsV2+.sln
+    - name: dotnet AvaloniaApp build
+      run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Desktop.Avalonia.App.csproj
+    - name: dotnet CommonUnit build
+      run: dotnet build ./tests/Common.UnitTest/Common.UnitTest.csproj
+    - name: dotnet CommonUnit test
+      run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj
+    - name: dotnet ST.Client.UnitTest build
+      run: dotnet build ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj
+    - name: dotnet ST.Client.UnitTest test
+      run: dotnet test ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj

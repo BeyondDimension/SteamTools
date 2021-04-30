@@ -1,0 +1,27 @@
+﻿@namespace System.Application.Pages.List
+@inherits LayoutComponentBase
+@layout System.Application.BasicLayout
+
+<PageContainer Title="Search"
+               TabList="_tabList"
+               OnTabChange="HandleTabChange"
+               TabActiveKey="@GetTabKey()">
+    <Breadcrumb>
+        <Breadcrumb>
+            <BreadcrumbItem>Home</BreadcrumbItem>
+            <BreadcrumbItem>List</BreadcrumbItem>
+            <BreadcrumbItem>Search</BreadcrumbItem>
+        </Breadcrumb>
+    </Breadcrumb>
+    <Content>
+        <div style="text-align: center;">
+            <Search Placeholder="Please Enter"
+                    EnterButton="@("Search For")"
+                    Size="large"
+                    Style="max-width: 522px; width: 100%;" />
+        </div>
+    </Content>
+    <ChildContent>
+        @Body
+    </ChildContent>
+</PageContainer>

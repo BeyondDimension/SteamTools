@@ -26,8 +26,8 @@ namespace SteamTools.Models.Settings
         }
 
         /// <summary>
-        /// <请参阅cref ="SerializableProperty {T}" />缓存在当前实例中获取
-        ///  如果没有缓存，请根据<see cref ="create"  />创建它
+        /// 请参阅 <see cref="SerializableProperty{T}"/> 缓存在当前实例中获取
+        ///  如果没有缓存，请根据<see cref="create" />创建它
         /// </summary>
         /// <returns></returns>
         protected SerializableProperty<T> Cache<T>(Func<string, SerializableProperty<T>> create, [CallerMemberName] string propertyName = "")

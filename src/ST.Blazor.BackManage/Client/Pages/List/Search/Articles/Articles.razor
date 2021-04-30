@@ -1,0 +1,90 @@
+﻿@namespace System.Application.Pages.List
+@layout SearchList
+@page "/list/search/articles"
+
+<Card>
+    <Form Model="_model"
+          Layout="inline">
+        <StandardFormRow Title="Category" Block Style="padding-bottom: 11px;">
+            <TagSelect Expandable>
+                <TagSelectOption Value="cat1">Category 1</TagSelectOption>
+                <TagSelectOption Value="cat2">Category 2</TagSelectOption>
+                <TagSelectOption Value="cat3">Category 3</TagSelectOption>
+                <TagSelectOption Value="cat4">Category 4</TagSelectOption>
+                <TagSelectOption Value="cat5">Category 5</TagSelectOption>
+                <TagSelectOption Value="cat6">Category 6</TagSelectOption>
+                <TagSelectOption Value="cat7">Category 7</TagSelectOption>
+                <TagSelectOption Value="cat8">Category 8</TagSelectOption>
+                <TagSelectOption Value="cat9">Category 9</TagSelectOption>
+                <TagSelectOption Value="cat10">Category 10</TagSelectOption>
+                <TagSelectOption Value="cat11">Category 11</TagSelectOption>
+                <TagSelectOption Value="cat12">Category 12</TagSelectOption>
+            </TagSelect>
+        </StandardFormRow>
+        <StandardFormRow Title="Author" Grid>
+            <Select TItem="string"
+                    TItemValue="string"
+                    Mode="multiple"
+                    Placeholder="Select Author"
+                    DefaultValues="_defaultOwners"
+                    Style="width:inherit"
+                    @bind-Value="_model.Owner">
+                <SelectOptions>
+                    @foreach (var owner in _owners) {
+                        <SelectOption TItem="string" TItemValue="string" Value="@owner.Id" Label="@owner.Name" />
+                    }
+                </SelectOptions>
+            </Select>
+            <a class="selfTrigger" @onclick="SetOwner">
+                Only Me
+            </a>
+        </StandardFormRow>
+        <StandardFormRow Title="Other Options" Grid Last>
+            <Row Gutter="16">
+                <AntDesign.Col Lg="8" Md="10" Sm="10" Xs="24">
+                    <FormItem Label="Active User">
+                        <Select TItem="string"
+                                TItemValue="string"
+                                Placeholder="All"
+                                Style="max-width: 200px; width: 100%;"
+                                @bind-Value="_model.ActiveUser">
+                            <SelectOptions>
+                                <SelectOption TItem="string" TItemValue="string" Value="@("lisa")" Label="Li San" />
+                            </SelectOptions>
+                        </Select>
+                    </FormItem>
+                </AntDesign.Col>
+                <AntDesign.Col Lg="8" Md="10" Sm="10" Xs="24">
+                    <FormItem Label="Rating">
+                        <Select TItem="string"
+                                TItemValue="string"
+                                Placeholder="All"
+                                Style="max-width: 200px; width: 100%;"
+                                @bind-Value="_model.Satisfaction">
+                            <SelectOptions>
+                                <SelectOption TItem="string" TItemValue="string" Value="@("good")" Label="Excellent" />
+                            </SelectOptions>
+                        </Select>
+                    </FormItem>
+                </AntDesign.Col>
+            </Row>
+        </StandardFormRow>
+    </Form>
+</Card>
+<Card Style="margin-top: 24px;"
+      BodyStyle="padding: 8px 32px 32px 32px;">
+    <AntList TItem="ListItemDataType"
+             Size="large"
+             Class="articleList"
+             ItemLayout="ListItemLayout.Vertical"
+             DataSource="_fakeList">
+        <ListItem NoFlex>
+            <ListItemMeta Description="">
+                <TitleTemplate>
+                    <a href="https://ng.ant.design">@context.Title</a>
+                </TitleTemplate>
+            </ListItemMeta>
+            <System.Application.Pages.Account.Center.ArticleListContent Data="@context" />
+        </ListItem>
+    </AntList>
+</Card>

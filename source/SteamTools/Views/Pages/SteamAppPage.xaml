@@ -142,6 +142,8 @@
 					BorderThickness=".99">
             <ListView ItemsSource="{Binding Games,Mode=OneWay}"
 						  ItemContainerStyle="{DynamicResource GridViewItemContainerStyleKey}"
+                          VirtualizingPanel.IsVirtualizing="True" 
+                          ScrollViewer.CanContentScroll="True"
 						  ScrollViewer.PanningMode="Both">
                 <ListView.Resources>
                     <Style TargetType="{x:Type TextBlock}">

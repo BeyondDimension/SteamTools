@@ -92,7 +92,6 @@ namespace SteamTools.Services
                 Logger.Error("更新出错：", ex);
                 StatusService.Current.Notify($"更新出错：{ex.Message}");
             }
-
         }
 
         public async void DownloadUpdate()

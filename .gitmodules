@@ -1,6 +1,21 @@
 [submodule "references/Titanium-Web-Proxy"]
 	path = references/Titanium-Web-Proxy
-	url = https://github.com/rmbadmin/Titanium-Web-Proxy.git
+	url = https://github.com/SteamTools-Team/Titanium-Web-Proxy.git
 [submodule "references/MetroRadiance"]
 	path = references/MetroRadiance
 	url = https://github.com/rmbadmin/MetroRadiance.git
+[submodule "references/SteamAchievementManager"]
+	path = references/SteamAchievementManager
+	url = https://github.com/SteamTools-Team/SteamAchievementManager.git
+[submodule "references/Steam4NET"]
+	path = references/Steam4NET
+	url = https://github.com/SteamTools-Team/Steam4NET.git
+[submodule "references/WinAuth"]
+	path = references/WinAuth
+	url = https://github.com/SteamTools-Team/WinAuth.git
+[submodule "references/Depressurizer"]
+	path = references/Depressurizer
+	url = https://github.com/SteamTools-Team/Depressurizer.git
+[submodule "references/AvaloniaGif"]
+	path = references/AvaloniaGif
+	url = https://github.com/SteamTools-Team/AvaloniaGif

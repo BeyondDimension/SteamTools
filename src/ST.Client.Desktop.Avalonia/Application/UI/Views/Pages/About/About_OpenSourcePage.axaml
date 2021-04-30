@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:System.Application.Models;assembly=System.Application.SteamTools.Client"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="System.Application.UI.Views.Pages.About_OpenSourcePage">
+    <ScrollViewer HorizontalAlignment="Stretch" Background="Transparent" 
+                  Padding="{StaticResource PageMargin}">
+        <TextBox Classes="readonlybox" Text="{Binding Source={x:Static models:OpenSourceLibrary.StringValues},Mode=OneWay}"
+                 TextWrapping="WrapWithOverflow" IsReadOnly="True">
+        </TextBox>
+    </ScrollViewer>
+</UserControl>

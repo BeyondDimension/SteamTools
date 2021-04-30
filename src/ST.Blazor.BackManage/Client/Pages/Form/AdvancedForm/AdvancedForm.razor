@@ -1,0 +1,166 @@
+﻿@namespace System.Application.Pages.Form
+@page "/form/advanced-form"
+@using OneOf
+
+<Form Layout="@FormLayout.Vertical"
+      Model="@_model">
+    <PageContainer>
+        <Content>Advanced forms are commonly used in scenarios where large quantities of data are entered and submitted at once.</Content>
+        <ChildContent>
+            <Card Title="@("Warehouse Management ")" Class="CARD">
+                <Row Gutter="16">
+                    <AntDesign.Col Lg="6" Md="12" Sm="24">
+                        <FormItem Label="Warehouse name">
+                            <Input Placeholder="Please enter the warehouse name" @bind-Value="@context.Name" />
+                        </FormItem>
+                    </AntDesign.Col>
+                    <AntDesign.Col Xl="new EmbeddedProperty{Span = 6, Offset = 2}"
+                                   Lg="new EmbeddedProperty{Span = 8}"
+                                   Md="new EmbeddedProperty{Span = 12}"
+                                   Sm="24">
+                        <FormItem Label="Warehouse domain">
+                            <AntDesign.Input Style="width: 100%" Placeholder="website" @bind-Value="@context.Url">
+                                <AddOnBefore>http://</AddOnBefore>
+                                <AddOnAfter>.com</AddOnAfter>
+                            </AntDesign.Input>
+                        </FormItem>
+                    </AntDesign.Col>
+                    <AntDesign.Col Xl="new EmbeddedProperty{Span = 8, Offset = 2}"
+                                   Lg="new EmbeddedProperty{Span = 10}"
+                                   Md="new EmbeddedProperty{Span = 24}"
+                                   Sm="24">
+                        <FormItem Label="Warehouse Manager">
+                            <Select TItem="string"
+                                    TItemValue="string"
+                                    Placeholder="Please select an administrator"
+                                    @bind-Value="@context.Owner">
+                                <SelectOptions>
+                                    <SelectOption TItem="string" TItemValue="string" Value="@("xiao")" Label="Fu Xiaoxiao" />
+                                    <SelectOption TItem="string" TItemValue="string" Value="@("mao")" Label="Zhou Maomao" />
+                                </SelectOptions>
+                            </Select>
+                        </FormItem>
+                    </AntDesign.Col>
+                </Row>
+                <Row Gutter="16">
+                    <AntDesign.Col Lg="6" Md="12" Sm="24">
+                        <FormItem Label="Approver">
+                            <Select TItem="string"
+                                    TItemValue="string"
+                                    Placeholder="Please select an approver"
+                                    @bind-Value="@context.Approver">
+                                <SelectOptions>
+                                    <SelectOption TItem="string" TItemValue="string" Value="@("xiao")" Label="Fu Xiaoxiao" />
+                                    <SelectOption TItem="string" TItemValue="string" Value="@("mao")" Label="Zhou Maomao" />
+                                </SelectOptions>
+                            </Select>
+                        </FormItem>
+                    </AntDesign.Col>
+                    <AntDesign.Col Xl="new EmbeddedProperty{Span = 6, Offset = 2}"
+                                   Lg="new EmbeddedProperty{Span = 8}"
+                                   Md="new EmbeddedProperty{Span = 12}"
+                                   Sm="24">
+                        <FormItem Label="Effectivity Date">
+                            <RangePicker Placeholder="@(new [] {"Start date", "End date"})" Style="width: 100%" @bind-Value="@context.DateRange" />
+                        </FormItem>
+                    </AntDesign.Col>
+                    <AntDesign.Col Xl="new EmbeddedProperty{Span = 8, Offset = 2}"
+                                   Lg="new EmbeddedProperty{Span = 10}"
+                                   Md="new EmbeddedProperty{Span = 24}"
+                                   Sm="24">
+                        <FormItem Label="Warehouse type">
+                            <Select TItem="string"
+                                    TItemValue="string"
+                                    Placeholder="Please select warehouse type"
+                                    @bind-Value="@context.Type">
+                                <SelectOptions>
+                                    <SelectOption TItem="string" TItemValue="string" Value="@("private")" Label="Private" />
+                                    <SelectOption TItem="string" TItemValue="string" Value="@("public")" Label="Public" />
+                                </SelectOptions>
+                            </Select>
+                        </FormItem>
+                    </AntDesign.Col>
+                </Row>
+            </Card>
+
+            <Card Title="@("Task Management")">
+                <Row Gutter="16">
+                    <AntDesign.Col Lg="6" Md="12" Sm="24">
+                        <FormItem Label="Task Name">
+                            <Input Placeholder="Please enter task name" @bind-Value="@context.Name2" />
+                        </FormItem>
+                    </AntDesign.Col>
+                    <AntDesign.Col Xl="new EmbeddedProperty{Span = 6, Offset = 2}"
+                                   Lg="new EmbeddedProperty{Span = 8}"
+                                   Md="new EmbeddedProperty{Span = 12}"
+                                   Sm="24">
+                        <FormItem Label="Assignment Details">
+                            <Input Placeholder="Please enter assignment details" @bind-Value="@context.Url2" />
+                        </FormItem>
+                    </AntDesign.Col>
+                    <AntDesign.Col Xl="new EmbeddedProperty{Span = 8, Offset = 2}"
+                                   Lg="new EmbeddedProperty{Span = 10}"
+                                   Md="new EmbeddedProperty{Span = 24}"
+                                   Sm="24">
+                        <FormItem Label="Facilitator">
+                            <Select TItem="string"
+                                    TItemValue="string"
+                                    Placeholder="Please select the facilitator"
+                                    @bind-Value="@context.Owner2">
+                                <SelectOptions>
+                                    <SelectOption TItem="string" TItemValue="string" Value="@("xiao")" Label="Fu Xiaoxiao" />
+                                    <SelectOption TItem="string" TItemValue="string" Value="@("mao")" Label="Zhou Maomao" />
+                                </SelectOptions>
+                            </Select>
+                        </FormItem>
+                    </AntDesign.Col>
+                </Row>
+                <Row Gutter="16">
+                    <AntDesign.Col Lg="6" Md="12" Sm="24">
+                        <FormItem Label="Assigned Personel">
+                            <Select TItem="string"
+                                    TItemValue="string"
+                                    Placeholder="Please choose the assigned personel"
+                                    @bind-Value="@context.Approver2">
+                                <SelectOptions>
+                                    <SelectOption TItem="string" TItemValue="string" Value="@("xiao")" Label="Fu Xiaoxiao" />
+                                    <SelectOption TItem="string" TItemValue="string" Value="@("mao")" Label="Zhou Maomao" />
+                                </SelectOptions>
+                            </Select>
+                        </FormItem>
+                    </AntDesign.Col>
+                    <AntDesign.Col Xl="new EmbeddedProperty{Span = 6, Offset = 2}"
+                                   Lg="new EmbeddedProperty{Span = 8}"
+                                   Md="new EmbeddedProperty{Span = 12}"
+                                   Sm="24">
+                        <FormItem Label="Deadline">
+                            <TimePicker Placeholder="@("Deadline")" Style="width: 100%" @bind-Value="@context.DateRange2" />
+                        </FormItem>
+                    </AntDesign.Col>
+                    <AntDesign.Col Xl="new EmbeddedProperty{Span = 8, Offset = 2}"
+                                   Lg="new EmbeddedProperty{Span = 10}"
+                                   Md="new EmbeddedProperty{Span = 24}"
+                                   Sm="24">
+                        <FormItem Label="Task Type">
+                            <Select TItem="string"
+                                    TItemValue="string"
+                                    Placeholder="Please select task type"
+                                    @bind-Value="@context.Type2">
+                                <SelectOptions>
+                                    <SelectOption TItem="string" TItemValue="string" Value="@("private")" Label="Private" />
+                                    <SelectOption TItem="string" TItemValue="string" Value="@("public")" Label="Public" />
+                                </SelectOptions>
+                            </Select>
+                        </FormItem>
+                    </AntDesign.Col>
+                </Row>
+            </Card>
+
+            <Card Title="@("Member management")">
+                <FormItem>
+                    <!--todo: Table Form-->
+                </FormItem>
+            </Card>
+        </ChildContent>
+    </PageContainer>
+</Form>

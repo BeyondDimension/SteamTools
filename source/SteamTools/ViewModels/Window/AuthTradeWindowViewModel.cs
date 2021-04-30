@@ -280,6 +280,7 @@ namespace SteamTools.ViewModels
         {
             OperationTrade(true, trade);
         }
+
         public void CancelTrade_Click(SteamClient.Confirmation trade)
         {
             OperationTrade(false, trade);
@@ -391,6 +392,7 @@ namespace SteamTools.ViewModels
         {
             OperationTrades(true);
         }
+
         public void CancelAllButton_Click()
         {
             OperationTrades(false);
@@ -528,5 +530,6 @@ namespace SteamTools.ViewModels
                 AuthService.Current.SaveCurrentAuth();
             }
         }
+
     }
 }

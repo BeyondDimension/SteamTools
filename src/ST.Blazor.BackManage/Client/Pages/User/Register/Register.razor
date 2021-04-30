@@ -1,0 +1,56 @@
+﻿@namespace System.Application.Pages.User
+@layout UserLayout
+@page "/user/register"
+
+<div class="main__b__1">
+    <div class="register">
+        <h3>Registration</h3>
+        <Form Model="@_user">
+            <FormItem>
+                <Input Placeholder="Mailbox" @bind-Value="@context.UserName" Size="@InputSize.Large"></Input>
+            </FormItem>
+
+            <FormItem>
+                <Input Placeholder="At Least 6-Digit Password, Case Sensitive" @bind-Value="@context.Password" Size="@InputSize.Large" Type="password"></Input>
+            </FormItem>
+
+            <FormItem>
+                <Input Placeholder="Confirm Password" @bind-Value="@context.ConfirmPassword" Size="@InputSize.Large" Type="password"></Input>
+            </FormItem>
+
+            <FormItem>
+                <InputGroup Compact Size="@InputSize.Large" Style="display: table">
+                    <Select TItem="string"
+                            TItemValue="string"
+                            DefaultValue=@("+86")
+                            Style="width: 25%"
+                            Size="large">
+                        <SelectOptions>
+                            <SelectOption TItem="string" TItemValue="string" Value="@("+86")" Label="+86" />
+                            <SelectOption TItem="string" TItemValue="string" Value="@("+87")" Label="+87" />
+                        </SelectOptions>
+                    </Select>
+                    <AntDesign.Input Placeholder="Phone Number" Style="width: 75%;" @bind-Value="@context.Phone"></AntDesign.Input>
+                </InputGroup>
+            </FormItem>
+
+            <FormItem>
+                <FormItem>
+                    <Row Gutter="8">
+                        <AntDesign.Col Span="16">
+                            <AntDesign.Input Placeholder="Verification Code" @bind-Value="@context.Captcha" Size="@InputSize.Large"></AntDesign.Input>
+                        </AntDesign.Col>
+                        <AntDesign.Col Span="8">
+                            <Button Size="large" Block>Get Code</Button>
+                        </AntDesign.Col>
+                    </Row>
+                </FormItem>
+            </FormItem>
+
+            <FormItem>
+                <Button Type="primary" Size="large" OnClick="Reg" class="submit">Register</Button>
+                <a class="login" href="/user/login">Log in with an existing account</a>
+            </FormItem>
+        </Form>
+    </div>
+</div>

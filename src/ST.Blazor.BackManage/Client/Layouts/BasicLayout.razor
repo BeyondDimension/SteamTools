@@ -1,0 +1,23 @@
+@namespace System.Application
+@inherits LayoutComponentBase
+
+<AntDesign.Pro.Layout.BasicLayout Logo="@("/logo.png")" MenuData="_menuData">
+    <RightContentRender>
+        <System.Application.Components.RightContent />
+    </RightContentRender>
+    <ChildContent>
+        @Body
+    </ChildContent>
+</AntDesign.Pro.Layout.BasicLayout>
+<SettingDrawer />
+
+@code
+{ private MenuDataItem[] _menuData = { };
+
+    [Inject] public HttpClient HttpClient { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _menuData = await HttpClient.GetFromJsonAsync<MenuDataItem[]>("data/menu.json");
+    } }

@@ -1,0 +1,38 @@
+@namespace System.Application.Pages.Dashboard.Analysis
+@inherits AntDomComponentBase
+
+<div class="miniProgress">
+    <AntDesign.Tooltip Title="@("TargetLabel")">
+        <Unbound>
+            <div @ref="@context.Current" class="target" style="left: @(Target.HasValue ? $"{Target}%" : "")">
+                <span style="background-color: @Color" />
+                <span style="background-color: @Color" />
+            </div>
+        </Unbound>
+    </AntDesign.Tooltip>
+    <div class="progressWrap">
+        <div class="progress"
+             style="
+                background-color: @Color;
+                width: @(Percent.HasValue ? $"{Percent}%" : "");
+                height: @(StrokeWidth.HasValue ? $"{StrokeWidth}px" : "");" />
+    </div>
+</div>
+
+@code
+{
+    [Parameter]
+    public int? Target { get; set; }
+
+    [Parameter]
+    public string TargetLabel { get; set; }
+
+    [Parameter]
+    public string Color { get; set; }
+
+    [Parameter]
+    public int? StrokeWidth { get; set; }
+
+    [Parameter]
+    public int? Percent { get; set; }
+}

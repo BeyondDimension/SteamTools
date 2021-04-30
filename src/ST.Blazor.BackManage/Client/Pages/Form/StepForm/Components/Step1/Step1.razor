@@ -1,0 +1,56 @@
+﻿@namespace System.Application.Pages.Form
+
+<Form LabelCol="new ColLayoutParam{ Span = 5 }"
+      WrapperCol="new ColLayoutParam{ Span = 19 }"
+      Layout="@FormLayout.Horizontal"
+      Class="stepForm"
+      Model="_model">
+    <FormItem Label="Account">
+        <Select TItem="string"
+                TItemValue="string"
+                Placeholder="test@example.com"
+                @bind-Value="@context.PayAccount">
+            <SelectOptions>
+                <SelectOption TItem="string" TItemValue="string" Value="@("ant - design @alipay.com")" Label="ant-design@alipay.com" />
+            </SelectOptions>
+        </Select>
+    </FormItem>
+    <FormItem Label="Recipient">
+        <InputGroup Compact Style="display: table">
+            <Select TItem="string"
+                    TItemValue="string"
+                    DefaultValue="@("alipay")"
+                    Style="width: 100px;"
+                    @bind-Value="@context.ReceiverAccountType">
+                <SelectOptions>
+                    <SelectOption TItem="string" TItemValue="string" Value="@("alipay")" Label="Alipay" />
+                    <SelectOption TItem="string" TItemValue="string" Value="@("bank")" Label="Bank Account" />
+                </SelectOptions>
+            </Select>
+            <Input Style="width: calc(100% - 100px);" Placeholder="test@example.com" @bind-Value="@context.ReceiverAccount" />
+        </InputGroup>
+    </FormItem>
+    <FormItem Label="Payee Name">
+        <Input Placeholder="Please enter the payee name" @bind-Value="@context.ReceiverName" />
+    </FormItem>
+    <FormItem Label=" Amount">
+        <Input Placeholder="Please enter the transfer amount" @bind-Value="@context.Amount" />
+    </FormItem>
+    <FormItem WrapperCol="_formLayout.WrapperCol">
+        <Button Type="primary" OnClick="OnValidateForm">
+            Next Step
+        </Button>
+    </FormItem>
+</Form>
+<Divider Style="margin: 40px 0 24px 0;" />
+<div class="desc">
+    <h3>Description</h3>
+    <h4>Transfer to Alipay account</h4>
+    <p>
+        If necessary, some common questions about the product can be put here.If necessary, some common questions about the product can be put here.If necessary, some common questions about the product can be put here.
+    </p>
+    <h4>Transfer To Bank Card</h4>
+    <p>
+        If necessary, some common questions about the product can be put here.If necessary, some common questions about the product can be put here.If necessary, some common questions about the product can be put here.
+    </p>
+</div>

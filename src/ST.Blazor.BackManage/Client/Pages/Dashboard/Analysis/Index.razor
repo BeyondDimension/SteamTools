@@ -1,0 +1,68 @@
+@namespace System.Application.Pages.Dashboard.Analysis
+@page "/"
+
+<GridContent>
+    <Row Type="flex" Gutter="24">
+        <AntDesign.Col Xs="24" Sm="12" Md="12" Lg="12" Xl="6" Style="margin-bottom: 24px;">
+            <ChartCard Title="Total Sales"
+                       Total="$ 126,560"
+                       ContentHeight="46">
+                <ChildContent>
+                    <Trend Flag="up">
+                        WoW Change
+                        <span class="trendText">12%</span>
+                    </Trend>
+                    <Trend Flag="down">
+                        DoD Change
+                        <span class="trendText">11%</span>
+                    </Trend>
+                </ChildContent>
+                <Footer>
+                    <Field Label="Daily Sale" Value="$12,423" />
+                </Footer>
+            </ChartCard>
+        </AntDesign.Col>
+        <AntDesign.Col Xs="24" Sm="12" Md="12" Lg="12" Xl="6" Style="margin-bottom: 24px;">
+            <ChartCard Title="Visits"
+                       Total="8846"
+                       ContentHeight="46">
+                <ChildContent>
+                    <MiniArea />
+                </ChildContent>
+                <Footer>
+                    <Field Label="Daily Visits" Value="1243" />
+                </Footer>
+            </ChartCard>
+        </AntDesign.Col>
+        <AntDesign.Col Xs="24" Sm="12" Md="12" Lg="12" Xl="6" Style="margin-bottom: 24px;">
+            <ChartCard Title="Payments"
+                       Total="6560"
+                       ContentHeight="46">
+                <ChildContent>
+                    <MiniBar />
+                </ChildContent>
+                <Footer>
+                    <Field Label="Conversion Rate" Value="60%" />
+                </Footer>
+            </ChartCard>
+        </AntDesign.Col>
+        <AntDesign.Col Xs="24" Sm="12" Md="12" Lg="12" Xl="6" Style="margin-bottom: 24px;">
+            <ChartCard Title="Operational Effect"
+                       Total="78%"
+                       ContentHeight="46">
+                <ChildContent>
+                    <MiniProgress 
+                        Percent="78" 
+                        StrokeWidth="8" 
+                        Target="80" 
+                        Color="#13C2C2" />
+                </ChildContent>
+                <Footer>
+                    <Field Label="Conversion Rate" Value="60%" />
+                </Footer>
+            </ChartCard>
+        </AntDesign.Col>
+    </Row>
+
+    <SalesCard />
+</GridContent>

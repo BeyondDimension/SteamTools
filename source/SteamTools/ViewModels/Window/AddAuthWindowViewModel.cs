@@ -96,6 +96,7 @@ namespace SteamTools.ViewModels
                 }
             }
         }
+
         private string _UUID;
         public string UUID
         {

@@ -14,5 +14,6 @@ namespace SteamTools.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
+
     }
 }

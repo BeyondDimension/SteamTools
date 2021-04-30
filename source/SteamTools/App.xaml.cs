@@ -75,8 +75,8 @@ namespace SteamTools
         /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e)
         {
-          //AppCenter.Start("ccca922e-40fe-48ab-9982-45ba496b1201",
-          //typeof(Analytics), typeof(Crashes));
+            //AppCenter.Start("ccca922e-40fe-48ab-9982-45ba496b1201",
+            //typeof(Analytics), typeof(Crashes));
 #if !DEBUG
             var appInstance = new MetroTrilithon.Desktop.ApplicationInstance().AddTo(this);
             if (appInstance.IsFirst)

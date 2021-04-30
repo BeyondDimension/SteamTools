@@ -1,0 +1,194 @@
+using ReactiveUI;
+using DynamicData;
+using System.Application.Models;
+using System.Application.Models.Settings;
+using System.Application.Services;
+using System.Application.UI.Resx;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Properties;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using DynamicData.Binding;
+using static System.Application.Services.CloudService.Constants;
+
+namespace System.Application.UI.ViewModels
+{
+    public class SteamAccountPageViewModel : TabItemViewModel
+    {
+        readonly ISteamService steamService = DI.Get<ISteamService>();
+        readonly IHttpService httpService = DI.Get<IHttpService>();
+        readonly ISteamworksWebApiService webApiService = DI.Get<ISteamworksWebApiService>();
+
+        public override string Name
+        {
+            get => AppResources.UserFastChange;
+            protected set { throw new NotImplementedException(); }
+        }
+
+        public SteamAccountPageViewModel()
+        {
+            IconKey = nameof(SteamAccountPageViewModel).Replace("ViewModel", "Svg");
+
+            this.WhenAnyValue(x => x.SteamUsers)
+                  .Subscribe(s => this.RaisePropertyChanged(nameof(IsUserEmpty)));
+            LoginAccountCommand = ReactiveCommand.Create(LoginNewSteamAccount);
+            RefreshCommand = ReactiveCommand.Create(Initialize);
+
+            MenuItems = new ObservableCollection<MenuItemViewModel>()
+            {
+                //new MenuItemViewModel(nameof(AppResources.More))
+                //{
+                //    Items = new[]
+                //    {
+                        new MenuItemViewModel(nameof(AppResources.UserChange_LoginNewAccount))
+                            { IconKey="SteamDrawing", Command=LoginAccountCommand },
+                        new MenuItemViewModel (),
+                        new MenuItemViewModel (nameof(AppResources.Refresh))
+                            { IconKey="RefreshDrawing" , Command = RefreshCommand},
+                //    }
+                //},
+            };
+
+            _SteamUsersSourceList = new SourceCache<SteamUser, long>(t => t.SteamId64);
+
+            _SteamUsersSourceList
+              .Connect()
+              .ObserveOn(RxApp.MainThreadScheduler)
+              .Sort(SortExpressionComparer<SteamUser>.Descending(x => x.LastLoginTime
+              ))
+              .Bind(out _SteamUsers)
+              .Subscribe();
+        }
+
+        public ReactiveCommand<Unit, Unit> LoginAccountCommand { get; }
+        public ReactiveCommand<Unit, Unit> RefreshCommand { get; }
+
+        /// <summary>
+        /// steam记住的用户列表
+        /// </summary>
+        private ReadOnlyObservableCollection<SteamUser>? _SteamUsers;
+        private SourceCache<SteamUser, long> _SteamUsersSourceList;
+        public ReadOnlyObservableCollection<SteamUser>? SteamUsers => _SteamUsers;
+
+        public bool IsUserEmpty => !SteamUsers.Any_Nullable();
+
+        internal async override void Initialize()
+        {
+            var list = steamService.GetRememberUserList();
+
+            if (!list.Any_Nullable())
+            {
+                //Toast.Show("");
+                return;
+            }
+
+            _SteamUsersSourceList.AddOrUpdate(list);
+
+            foreach (var user in _SteamUsersSourceList.Items)
+            {
+                string? remark = null;
+                SteamAccountSettings.AccountRemarks.Value?.TryGetValue(user.SteamId64, out remark);
+                var temp = await webApiService.GetUserInfo(user.SteamId64);
+                user.Remark = remark;
+                user.SteamID = temp.SteamID;
+                user.OnlineState = temp.OnlineState;
+                user.MemberSince = temp.MemberSince;
+                user.VacBanned = temp.VacBanned;
+                user.Summary = temp.Summary;
+                user.PrivacyState = temp.PrivacyState;
+                user.AvatarIcon = temp.AvatarIcon;
+                user.AvatarMedium = temp.AvatarMedium;
+                user.AvatarFull = temp.AvatarFull;
+                user.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
+            }
+
+            _SteamUsersSourceList.Refresh();
+
+            foreach (var item in _SteamUsersSourceList.Items)
+            {
+                item.MiniProfile = await webApiService.GetUserMiniProfile(item.SteamId3_Int);
+                var miniProfile = item.MiniProfile;
+                if (miniProfile != null)
+                {
+                    if (!string.IsNullOrEmpty(miniProfile.AnimatedAvatar))
+                        item.AvatarStream = httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
+                    //miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
+                }
+            }
+
+            _SteamUsersSourceList.Refresh();
+
+            this.WhenAnyValue(x => x.SteamUsers)
+                .Subscribe(items => items?
+                        .ToObservableChangeSet()
+                        .AutoRefresh(x => x.Remark)
+                        .WhenValueChanged(x => x.Remark, false)
+                        .Subscribe(_ =>
+                        {
+                            SteamAccountSettings.AccountRemarks.Value = items?.Where(x => !string.IsNullOrEmpty(x.Remark)).ToDictionary(k => k.SteamId64, v => v.Remark);
+                        }));
+        }
+
+        public void SteamId_Click(SteamUser user)
+        {
+            if (user.WantsOfflineMode)
+            {
+                UserModeChange(user, false);
+            }
+            steamService.SetCurrentUser(user.AccountName ?? string.Empty);
+            steamService.TryKillSteamProcess();
+            steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
+        }
+
+        public void OfflineModeButton_Click(SteamUser user)
+        {
+            if (user.WantsOfflineMode == false)
+            {
+                UserModeChange(user, true);
+            }
+            SteamId_Click(user);
+        }
+
+        private void UserModeChange(SteamUser user, bool OfflineMode)
+        {
+            user.WantsOfflineMode = OfflineMode;
+            steamService.UpdateLocalUserData(user);
+            user.OriginVdfString = user.CurrentVdfString;
+        }
+
+        public void DeleteUserButton_Click(SteamUser user)
+        {
+            var result = MessageBoxCompat.ShowAsync(@AppResources.UserChange_DeleteUserTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+            {
+                if (s.Result == MessageBoxResultCompat.OK)
+                {
+                    steamService.DeleteLocalUserData(user);
+                    _SteamUsersSourceList.Remove(user);
+                }
+            });
+        }
+
+        public void OpenUserProfileUrl(SteamUser user)
+        {
+            BrowserOpen(user.ProfileUrl);
+        }
+
+        public void LoginNewSteamAccount()
+        {
+            var result = MessageBoxCompat.ShowAsync(@AppResources.UserChange_LoginNewAccountTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+            {
+                if (s.Result == MessageBoxResultCompat.OK)
+                {
+                    steamService.SetCurrentUser("");
+                    steamService.TryKillSteamProcess();
+                    steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
+                }
+            });
+        }
+    }
+}

@@ -1,0 +1,60 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="200"
+        x:Class="System.Application.UI.Views.Windows.MessageBoxWindow"
+        xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+        xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
+        FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
+        UseLayoutRounding="True"
+        WindowStartupLocation="CenterOwner"
+        SizeToContent="WidthAndHeight"
+        MinWidth="450" MinHeight="50"
+        ShowInTaskbar="False"
+        Padding="0" Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="30"
+        CanResize="False" 
+        Title="{Binding Title}"
+        x:DataType="vm:MessageBoxWindowViewModel"
+        x:CompileBindings="True">
+    <Design.DataContext>
+        <vm:MessageBoxWindowViewModel/>
+    </Design.DataContext>
+    <Grid RowDefinitions="1,30,*,Auto,1">
+        <controls:TitleBar Grid.RowSpan="5"></controls:TitleBar>
+        <!--<DockPanel HorizontalAlignment="Stretch" Grid.RowSpan="5">
+            <ExperimentalAcrylicBorder IsHitTestVisible="False">
+                <ExperimentalAcrylicBorder.Material>
+                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.55" TintOpacity="1"/>
+                </ExperimentalAcrylicBorder.Material>
+            </ExperimentalAcrylicBorder>
+        </DockPanel>-->
+        <!--<StackPanel Grid.Row="1" Margin="10 5 0 5" IsHitTestVisible="False">
+            <TextBlock Text="{Binding Title}" FontSize="16"></TextBlock>
+        </StackPanel>-->
+        <StackPanel Margin="12 10 12 5" Grid.Row="2" x:Name="content">
+            <DockPanel>
+                <TextBlock Text="{Binding Content}" MaxWidth="500"
+                           Margin="12,0" FontSize="14"
+                           HorizontalAlignment="Left"
+                           TextWrapping="WrapWithOverflow"
+                           VerticalAlignment="Center"></TextBlock>
+            </DockPanel>
+            
+            <Border Margin="0 15 0 0">
+                <Separator Classes="Separator"/>
+            </Border>
+        </StackPanel>
+        <WrapPanel  Grid.Row="3"
+                   HorizontalAlignment="Right"
+                   Margin="10,0,10,0">
+            <Button MinWidth="90" Padding="30,6" Margin="6" IsDefault="True" Content="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OK}"></Button>
+            <Button MinWidth="90" Padding="30,6" Margin="6" IsCancel="True" Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Cancel}" IsVisible="{Binding IsCancelcBtn}"></Button>
+        </WrapPanel>
+    </Grid>
+</Window>

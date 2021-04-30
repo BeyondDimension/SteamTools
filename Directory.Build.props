@@ -1,16 +1,20 @@
 <Project>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
-  </PropertyGroup>
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TrimMode>link</TrimMode>
   </PropertyGroup>
-  <PropertyGroup Condition="Exists('..\Unicorn.pfx')">
+
+  <PropertyGroup Condition=" Exists('$(MSBuildProjectDirectory)\..\..\Unicorn.pfx') ">
+    <DefineConstants>SIGN_ASSEMBLY;$(DefineConstants)</DefineConstants>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\Unicorn.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\Unicorn.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 </Project>

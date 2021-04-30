@@ -1,0 +1,58 @@
+@namespace System.Application.Pages.Dashboard.Workplace
+
+<AntDesign.Charts.Radar @ref="_chart" TItem="RadarDataItem" Config="_chartConfig" />
+
+@if (HasLegend)
+{
+    <Row Class="legend">
+        <AntDesign.Col>
+            <div class="legendItem">
+                <p>
+                    <span class="dot" style="background-color: #aaa"></span>
+                    <span></span>
+                </p>
+                <h6></h6>
+            </div>
+        </AntDesign.Col>
+    </Row>
+}
+
+@inject IChartService ChartService
+@code
+{
+    [Parameter] public bool HasLegend { get; set; }
+
+    [Parameter] public int Height { get; set; } = 343;
+
+    private IChartComponent _chart;
+
+    private readonly RadarConfig _chartConfig = new RadarConfig
+    {
+        Height = 343,
+        ForceFit = true,
+        AngleField = "label",
+        RadiusField = "value",
+        RadiusAxis = new ValueAxis
+        {
+            Grid = new BaseAxisGrid
+            {
+                AlternateColor = new[] { "rgba(0, 0, 0, 0.04)", null }
+            }
+        },
+        Area = new RadarViewConfigArea
+        {
+            Visible = false
+        },
+        Point = new RadarViewConfigPoint
+        {
+            Visible = true
+        }
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        var data = await ChartService.GetRadarDataAsync();
+        await _chart.ChangeData(data);
+    }
+}

@@ -1,0 +1,14 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20" MinWidth="200">
+            <Separator />
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="Separator.Separator">
+        <Setter Property="Height" Value="0.88" />
+        <Setter Property="Background" Value="{DynamicResource SystemControlHighlightBaseLowBrush}" />
+        <Setter Property="Opacity" Value="0.5" />
+    </Style>
+</Styles>

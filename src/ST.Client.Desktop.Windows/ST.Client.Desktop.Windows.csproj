@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!--<TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>-->
+    <TargetFramework>net5.0</TargetFramework>
+    <!--<SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>-->
+    <RootNamespace>System.Application</RootNamespace>
+    <!--<UseWindowsForms>false</UseWindowsForms>-->
+    <!--<UseWPF>false</UseWPF>-->
+    <AssemblyName>System.Application.SteamTools.Client.Desktop.Windows</AssemblyName>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
+      <Link>Properties\InternalsVisibleTo.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aigio.Avalonia.AppCenter" Version="4.2.0" />
+    <PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.2.0" />
+    <PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.2.0" />
+    <PackageReference Include="JumpLists.Win32.Avalonia" Version="0.0.1" Aliases="JumpLists" />
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="1.2.5" />
+    <PackageReference Include="TaskScheduler" Version="2.9.1" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<ProjectReference Include="..\..\references\Steam4NET\Steam4NET\Steam4NET.csproj" />-->
+    <ProjectReference Include="..\..\references\SteamAchievementManager\SAM.API\SAM.API.csproj" />
+    <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-debug.pfx')">
+    <EmbeddedResource Include="..\..\appcenter-secret-debug.pfx" Link="Resources\7EE83DD3" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-release.pfx')">
+    <EmbeddedResource Include="..\..\appcenter-secret-release.pfx" Link="Resources\0794704F" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="UI\Resx\SR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SR.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="UI\Resx\SR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

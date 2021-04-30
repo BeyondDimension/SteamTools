@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SteamTool.Core;
+using SteamTool.Core.Common;
 using SteamTool.Model;
 using System;
 using System.Collections.Generic;
@@ -34,8 +35,15 @@ namespace SteamTool.Steam.Service.Web
             if (!string.IsNullOrEmpty(r))
             {
                 using StringReader sr = new StringReader(r);
-                var xmldes = new XmlSerializer(typeof(SteamUser));
-                return xmldes.Deserialize(sr) as SteamUser;
+                try
+                {
+                    var xmldes = new XmlSerializer(typeof(SteamUser));
+                    return xmldes.Deserialize(sr) as SteamUser;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex);
+                }
             }
             return new SteamUser() { SteamId64 = steamId64 };
         }

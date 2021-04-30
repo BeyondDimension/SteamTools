@@ -1,0 +1,799 @@
+{
+  "visitData": [
+    {
+      "x": "2020-08-25",
+      "y": 7
+    },
+    {
+      "x": "2020-08-26",
+      "y": 5
+    },
+    {
+      "x": "2020-08-27",
+      "y": 4
+    },
+    {
+      "x": "2020-08-28",
+      "y": 2
+    },
+    {
+      "x": "2020-08-29",
+      "y": 4
+    },
+    {
+      "x": "2020-08-30",
+      "y": 7
+    },
+    {
+      "x": "2020-08-31",
+      "y": 5
+    },
+    {
+      "x": "2020-09-01",
+      "y": 6
+    },
+    {
+      "x": "2020-09-02",
+      "y": 5
+    },
+    {
+      "x": "2020-09-03",
+      "y": 9
+    },
+    {
+      "x": "2020-09-04",
+      "y": 6
+    },
+    {
+      "x": "2020-09-05",
+      "y": 3
+    },
+    {
+      "x": "2020-09-06",
+      "y": 1
+    },
+    {
+      "x": "2020-09-07",
+      "y": 5
+    },
+    {
+      "x": "2020-09-08",
+      "y": 3
+    },
+    {
+      "x": "2020-09-09",
+      "y": 6
+    },
+    {
+      "x": "2020-09-10",
+      "y": 5
+    }
+  ],
+  "visitData2": [
+    {
+      "x": "2020-08-25",
+      "y": 1
+    },
+    {
+      "x": "2020-08-26",
+      "y": 6
+    },
+    {
+      "x": "2020-08-27",
+      "y": 4
+    },
+    {
+      "x": "2020-08-28",
+      "y": 8
+    },
+    {
+      "x": "2020-08-29",
+      "y": 3
+    },
+    {
+      "x": "2020-08-30",
+      "y": 7
+    },
+    {
+      "x": "2020-08-31",
+      "y": 2
+    }
+  ],
+  "salesData": [
+    {
+      "x": "January",
+      "y": 1003
+    },
+    {
+      "x": "February",
+      "y": 878
+    },
+    {
+      "x": "March",
+      "y": 408
+    },
+    {
+      "x": "April",
+      "y": 426
+    },
+    {
+      "x": "May",
+      "y": 357
+    },
+    {
+      "x": "June",
+      "y": 1056
+    },
+    {
+      "x": "July",
+      "y": 369
+    },
+    {
+      "x": "August",
+      "y": 284
+    },
+    {
+      "x": "September",
+      "y": 1173
+    },
+    {
+      "x": "October",
+      "y": 639
+    },
+    {
+      "x": "November",
+      "y": 1117
+    },
+    {
+      "x": "December",
+      "y": 512
+    }
+  ],
+  "searchData": [
+    {
+      "index": 1,
+      "keyword": "Search Keyword-0",
+      "count": 190,
+      "range": 64,
+      "status": 1
+    },
+    {
+      "index": 2,
+      "keyword": "Search Keyword-1",
+      "count": 347,
+      "range": 19,
+      "status": 0
+    },
+    {
+      "index": 3,
+      "keyword": "Search Keyword-2",
+      "count": 314,
+      "range": 35,
+      "status": 1
+    },
+    {
+      "index": 4,
+      "keyword": "Search Keyword-3",
+      "count": 81,
+      "range": 59,
+      "status": 1
+    },
+    {
+      "index": 5,
+      "keyword": "Search Keyword-4",
+      "count": 235,
+      "range": 16,
+      "status": 1
+    },
+    {
+      "index": 6,
+      "keyword": "Search Keyword-5",
+      "count": 834,
+      "range": 46,
+      "status": 0
+    },
+    {
+      "index": 7,
+      "keyword": "Search Keyword-6",
+      "count": 806,
+      "range": 45,
+      "status": 1
+    },
+    {
+      "index": 8,
+      "keyword": "Search Keywords-7",
+      "count": 116,
+      "range": 96,
+      "status": 1
+    },
+    {
+      "index": 9,
+      "keyword": "Search Keyword-8",
+      "count": 355,
+      "range": 44,
+      "status": 1
+    },
+    {
+      "index": 10,
+      "keyword": "Search keyword-9",
+      "count": 903,
+      "range": 91,
+      "status": 0
+    },
+    {
+      "index": 11,
+      "keyword": "Search Keyword-10",
+      "count": 411,
+      "range": 64,
+      "status": 0
+    },
+    {
+      "index": 12,
+      "keyword": "Search Keyword-11",
+      "count": 266,
+      "range": 15,
+      "status": 1
+    },
+    {
+      "index": 13,
+      "keyword": "Search Keywords-12",
+      "count": 163,
+      "range": 59,
+      "status": 1
+    },
+    {
+      "index": 14,
+      "keyword": "Search Keyword-13",
+      "count": 815,
+      "range": 30,
+      "status": 1
+    },
+    {
+      "index": 15,
+      "keyword": "Search keyword-14",
+      "count": 130,
+      "range": 35,
+      "status": 1
+    },
+    {
+      "index": 16,
+      "keyword": "Search Keyword-15",
+      "count": 342,
+      "range": 8,
+      "status": 1
+    },
+    {
+      "index": 17,
+      "keyword": "Search Keyword-16",
+      "count": 970,
+      "range": 90,
+      "status": 1
+    },
+    {
+      "index": 18,
+      "keyword": "Search Keyword-17",
+      "count": 613,
+      "range": 24,
+      "status": 0
+    },
+    {
+      "index": 19,
+      "keyword": "Search Keyword-18",
+      "count": 807,
+      "range": 23,
+      "status": 1
+    },
+    {
+      "index": 20,
+      "keyword": "Search Keyword-19",
+      "count": 480,
+      "range": 21,
+      "status": 1
+    },
+    {
+      "index": 21,
+      "keyword": "Search Keyword-20",
+      "count": 57,
+      "range": 82,
+      "status": 0
+    },
+    {
+      "index": 22,
+      "keyword": "Search Keyword-21",
+      "count": 513,
+      "range": 89,
+      "status": 0
+    },
+    {
+      "index": 23,
+      "keyword": "Search Keyword-22",
+      "count": 733,
+      "range": 62,
+      "status": 1
+    },
+    {
+      "index": 24,
+      "keyword": "Search Keyword-23",
+      "count": 887,
+      "range": 82,
+      "status": 1
+    },
+    {
+      "index": 25,
+      "keyword": "Search Keyword-24",
+      "count": 668,
+      "range": 9,
+      "status": 0
+    },
+    {
+      "index": 26,
+      "keyword": "Search Keyword-25",
+      "count": 398,
+      "range": 99,
+      "status": 1
+    },
+    {
+      "index": 27,
+      "keyword": "Search Keyword-26",
+      "count": 73,
+      "range": 48,
+      "status": 1
+    },
+    {
+      "index": 28,
+      "keyword": "Search Keyword-27",
+      "count": 63,
+      "range": 53,
+      "status": 1
+    },
+    {
+      "index": 29,
+      "keyword": "Search Keywords-28",
+      "count": 23,
+      "range": 32,
+      "status": 1
+    },
+    {
+      "index": 30,
+      "keyword": "Search Keywords-29",
+      "count": 650,
+      "range": 48,
+      "status": 0
+    },
+    {
+      "index": 31,
+      "keyword": "Search Keyword-30",
+      "count": 752,
+      "range": 13,
+      "status": 1
+    },
+    {
+      "index": 32,
+      "keyword": "Search Keyword-31",
+      "count": 571,
+      "range": 0,
+      "status": 0
+    },
+    {
+      "index": 33,
+      "keyword": "Search Keyword-32",
+      "count": 778,
+      "range": 33,
+      "status": 1
+    },
+    {
+      "index": 34,
+      "keyword": "Search Keyword-33",
+      "count": 537,
+      "range": 1,
+      "status": 1
+    },
+    {
+      "index": 35,
+      "keyword": "Search keyword -34",
+      "count": 467,
+      "range": 17,
+      "status": 0
+    },
+    {
+      "index": 36,
+      "keyword": "Search keyword -35",
+      "count": 106,
+      "range": 72,
+      "status": 0
+    },
+    {
+      "index": 37,
+      "keyword": "Search keyword -36",
+      "count": 984,
+      "range": 67,
+      "status": 0
+    },
+    {
+      "index": 38,
+      "keyword": "Search key word -37",
+      "count": 850,
+      "range": 7,
+      "status": 1
+    },
+    {
+      "index": 39,
+      "keyword": "Search Keyword-38",
+      "count": 475,
+      "range": 46,
+      "status": 1
+    },
+    {
+      "index": 40,
+      "keyword": "Search Keyword-39",
+      "count": 943,
+      "range": 38,
+      "status": 0
+    },
+    {
+      "index": 41,
+      "keyword": "Search Keyword-40",
+      "count": 915,
+      "range": 37,
+      "status": 1
+    },
+    {
+      "index": 42,
+      "keyword": "Search Keyword-41",
+      "count": 852,
+      "range": 67,
+      "status": 0
+    },
+    {
+      "index": 43,
+      "keyword": "Search Keyword-42",
+      "count": 21,
+      "range": 29,
+      "status": 1
+    },
+    {
+      "index": 44,
+      "keyword": "Search Keyword-43",
+      "count": 224,
+      "range": 25,
+      "status": 0
+    },
+    {
+      "index": 45,
+      "keyword": "Search Keyword-44",
+      "count": 904,
+      "range": 23,
+      "status": 0
+    },
+    {
+      "index": 46,
+      "keyword": "Search Keyword-45",
+      "count": 240,
+      "range": 39,
+      "status": 0
+    },
+    {
+      "index": 47,
+      "keyword": "Search Keyword-46",
+      "count": 735,
+      "range": 33,
+      "status": 0
+    },
+    {
+      "index": 48,
+      "keyword": "Search Keyword-47",
+      "count": 612,
+      "range": 15,
+      "status": 1
+    },
+    {
+      "index": 49,
+      "keyword": "Search Keyword-48",
+      "count": 877,
+      "range": 62,
+      "status": 1
+    },
+    {
+      "index": 50,
+      "keyword": "Search Keyword-49",
+      "count": 146,
+      "range": 48,
+      "status": 1
+    }
+  ],
+  "offlineData": [
+    {
+      "name": "Stores 0",
+      "cvr": 0.8
+    },
+    {
+      "name": "Stores 1",
+      "cvr": 0.7
+    },
+    {
+      "name": "Stores 2",
+      "cvr": 0.4
+    },
+    {
+      "name": "Stores 3",
+      "cvr": 0.3
+    },
+    {
+      "name": "Stores 4",
+      "cvr": 0.1
+    },
+    {
+      "name": "Stores 5",
+      "cvr": 0.1
+    },
+    {
+      "name": "Stores 6",
+      "cvr": 0.6
+    },
+    {
+      "name": "Stores 7",
+      "cvr": 0.9
+    },
+    {
+      "name": "Stores 8",
+      "cvr": 0.3
+    },
+    {
+      "name": "Stores 9",
+      "cvr": 0.9
+    }
+  ],
+  "offlineChartData": [
+    {
+      "x": 1598358002462,
+      "y1": 63,
+      "y2": 21
+    },
+    {
+      "x": 1598359802462,
+      "y1": 50,
+      "y2": 73
+    },
+    {
+      "x": 1598361602462,
+      "y1": 35,
+      "y2": 99
+    },
+    {
+      "x": 1598363402462,
+      "y1": 105,
+      "y2": 105
+    },
+    {
+      "x": 1598365202462,
+      "y1": 86,
+      "y2": 22
+    },
+    {
+      "x": 1598367002462,
+      "y1": 90,
+      "y2": 47
+    },
+    {
+      "x": 1598368802462,
+      "y1": 41,
+      "y2": 44
+    },
+    {
+      "x": 1598370602462,
+      "y1": 71,
+      "y2": 16
+    },
+    {
+      "x": 1598372402462,
+      "y1": 63,
+      "y2": 72
+    },
+    {
+      "x": 1598374202462,
+      "y1": 95,
+      "y2": 35
+    },
+    {
+      "x": 1598376002462,
+      "y1": 14,
+      "y2": 54
+    },
+    {
+      "x": 1598377802462,
+      "y1": 48,
+      "y2": 65
+    },
+    {
+      "x": 1598379602462,
+      "y1": 84,
+      "y2": 28
+    },
+    {
+      "x": 1598381402462,
+      "y1": 41,
+      "y2": 74
+    },
+    {
+      "x": 1598383202462,
+      "y1": 37,
+      "y2": 38
+    },
+    {
+      "x": 1598385002462,
+      "y1": 106,
+      "y2": 94
+    },
+    {
+      "x": 1598386802462,
+      "y1": 70,
+      "y2": 53
+    },
+    {
+      "x": 1598388602462,
+      "y1": 48,
+      "y2": 89
+    },
+    {
+      "x": 1598390402462,
+      "y1": 60,
+      "y2": 12
+    },
+    {
+      "x": 1598392202462,
+      "y1": 48,
+      "y2": 52
+    }
+  ],
+  "salesTypeData": [
+    {
+      "x": "Household Appliance",
+      "y": 4544
+    },
+    {
+      "x": "Food and Drink",
+      "y": 3321
+    },
+    {
+      "x": "Personal Health",
+      "y": 3113
+    },
+    {
+      "x": "Clothing bags",
+      "y": 2341
+    },
+    {
+      "x": "Maternal and Child Products",
+      "y": 1231
+    },
+    {
+      "x": "other",
+      "y": 1231
+    }
+  ],
+  "salesTypeDataOnline": [
+    {
+      "x": "Household Appliances",
+      "y": 244
+    },
+    {
+      "x": "Eating wine",
+      "y": 321
+    },
+    {
+      "x": "Note Health",
+      "y": 311
+    },
+    {
+      "x": "Clothing Bags",
+      "y": 41
+    },
+    {
+      "x": "Mother and Baby Products",
+      "y": 121
+    },
+    {
+      "x": "other",
+      "y": 111
+    }
+  ],
+  "salesTypeDataOffline": [
+    {
+      "x": "Household Appliances",
+      "y": 99
+    },
+    {
+      "x": "Food and Drink",
+      "y": 188
+    },
+    {
+      "x": "Personal Health",
+      "y": 344
+    },
+    {
+      "x": "Clothing Bags",
+      "y": 255
+    },
+    {
+      "x": "other",
+      "y": 65
+    }
+  ],
+  "radarData": [
+    {
+      "name": "personal",
+      "label": "Quote",
+      "value": 10
+    },
+    {
+      "name": "personal",
+      "label": "Word of mouth",
+      "value": 8
+    },
+    {
+      "name": "personal",
+      "label": "Yield",
+      "value": 4
+    },
+    {
+      "name": "personal",
+      "label": "contribution",
+      "value": 5
+    },
+    {
+      "name": "personal",
+      "label": "heat",
+      "value": 7
+    },
+    {
+      "name": "team",
+      "label": "Quote",
+      "value": 3
+    },
+    {
+      "name": "team",
+      "label": "Word of mouth",
+      "value": 9
+    },
+    {
+      "name": "team",
+      "label": "Yield",
+      "value": 6
+    },
+    {
+      "name": "team",
+      "label": "contribution",
+      "value": 3
+    },
+    {
+      "name": "team",
+      "label": "heat",
+      "value": 1
+    },
+    {
+      "name": "department",
+      "label": "Quote",
+      "value": 4
+    },
+    {
+      "name": "department",
+      "label": "Word of mouth",
+      "value": 1
+    },
+    {
+      "name": "department",
+      "label": "Yield",
+      "value": 6
+    },
+    {
+      "name": "department",
+      "label": "contribution",
+      "value": 5
+    },
+    {
+      "name": "department",
+      "label": "heat",
+      "value": 7
+    }
+  ]
+}

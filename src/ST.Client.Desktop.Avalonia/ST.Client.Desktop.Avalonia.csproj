@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>System</RootNamespace>
+    <SignAssembly>false</SignAssembly>
+    <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
+    <AssemblyName>System.Application.SteamTools.Client.Desktop.Avalonia</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <AvaloniaResource Include="**\*.xaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Include="Application\UI\Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Application\UI\Assets\AppResources\gg.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
+      <Link>Properties\InternalsVisibleTo.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\references\AvaloniaGif\AvaloniaGif\AvaloniaGif.csproj" />
+    <ProjectReference Include="..\..\references\CefNet\CefNet.Avalonia\CefNet.Avalonia.csproj" />
+    <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
+    <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.999-cibuild0013745-beta" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0013745-beta" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.999-cibuild0013745-beta" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0013745-beta" />
+    <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.0" />
+    <!--<PackageReference Include="CefNet.Avalonia" Version="88.1.21022.1657" />-->
+    <PackageReference Include="LibVLCSharp.Avalonia" Version="3.5.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0013745-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Application\UI\Views\Pages\About\About_SoftwarePage.axaml.cs">
+      <DependentUpon>About_SoftwarePage.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Application\UI\Views\Pages\Settings\Settings_General.axaml.cs">
+      <DependentUpon>Settings_General.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

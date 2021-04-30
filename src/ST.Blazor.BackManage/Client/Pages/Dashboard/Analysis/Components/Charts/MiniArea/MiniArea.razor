@@ -1,0 +1,34 @@
+@using System.Application.Services
+@namespace System.Application.Pages.Dashboard.Analysis
+@inject IChartService ChartService
+
+<Area @ref="_visitChart" TItem="ChartDataItem" Config="_visitChartConfig" />
+
+@code
+{
+    private IChartComponent _visitChart;
+
+    private readonly AreaConfig _visitChartConfig = new AreaConfig
+    {
+        XField = "x",
+        YField = "y",
+        Height = 45,
+        Padding = new[] { 8, 8, 8, 8 },
+        ForceFit = true,
+        XAxis = new ValueCatTimeAxis
+        {
+            Visible = false
+        },
+        YAxis = new ValueAxis
+        {
+            Visible = false
+        }
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        var data = await ChartService.GetVisitDataAsync();
+        await _visitChart.ChangeData(data);
+    }
+}

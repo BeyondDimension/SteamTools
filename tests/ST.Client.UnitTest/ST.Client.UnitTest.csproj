@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>System.Application</RootNamespace>
+    <DefineConstants>UnitTest;$(DefineConstants)</DefineConstants>
+    <AssemblyName>System.Application.SteamTools.Client.UnitTest</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\src\Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.UnitTest\Logging\NUnitLogger.cs">
+      <Link>Logging\NUnitLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.UnitTest\Logging\NUnitLoggerProvider.cs">
+      <Link>Logging\NUnitLoggerProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.UnitTest\Utils\Serializable2.cs">
+      <Link>Utils\Serializable2.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\ST.Client.Desktop\ST.Client.Desktop.csproj" />
+    <ProjectReference Include="..\..\src\ST.Client\ST.Client.csproj" />
+    <ProjectReference Include="..\..\src\Common.CoreLib\Common.CoreLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.13.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="Moq" Version="4.16.1" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+@namespace System.Application.Pages.Account.Center
+
+<AntList 
+    TItem="ListItemDataType"
+    Size="large"
+    Class="articleList"
+    DataSource="List">
+    <ListItem NoFlex>
+        <ListItemMeta Description="">
+            <TitleTemplate>
+                <a href="https://ng.ant.design">@context.Title</a>
+            </TitleTemplate>
+        </ListItemMeta>
+        <ArticleListContent Data="@context" />
+    </ListItem>
+</AntList>
