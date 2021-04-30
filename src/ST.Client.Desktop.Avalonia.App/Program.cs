@@ -22,6 +22,9 @@ namespace System.Application.UI
         [STAThread]
         static int Main(string[] args)
         {
+#if DEBUG
+            StartTrace.Restart();
+#endif
             // 目前桌面端默认使用 SystemTextJson 如果出现兼容性问题可取消下面这行代码
             // Serializable.DefaultJsonImplType = Serializable.JsonImplType.NewtonsoftJson;
             IsMainProcess = args.Length == 0;
@@ -54,20 +57,34 @@ namespace System.Application.UI
                 }
                 else
                 {
-                    Startup.Init(DILevel.MainProcess);
+#if DEBUG
+                    StartTrace.Restart("ProcessCheck");
+#endif
 
+                    Startup.Init(IsMainProcess ? DILevel.MainProcess : DILevel.Min);
+#if DEBUG
+                    StartTrace.Restart("Startup.Init");
+#endif
                     if (IsMainProcess)
                     {
                         var appInstance = new ApplicationInstance();
                         if (!appInstance.IsFirst) goto exit;
                     }
-
+#if DEBUG
+                    StartTrace.Restart("ApplicationInstance");
+#endif
                     InitCefNetApp();
+#if DEBUG
+                    StartTrace.Restart("InitCefNetApp");
+#endif
 
                     if (IsMainProcess)
                     {
                         InitAvaloniaApp();
                     }
+#if DEBUG
+                    StartTrace.Restart("InitAvaloniaApp");
+#endif
                 }
             }
             catch (Exception ex)

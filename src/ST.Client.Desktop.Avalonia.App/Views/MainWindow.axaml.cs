@@ -13,15 +13,8 @@ namespace System.Application.UI.Views
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
+            StartTrace.Restart("MainWindow.ctor");
 #endif
-        }
-
-        public MainWindow(IWindowImpl impl) : base(impl)
-        {
-            InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif 
         }
 
         protected override void OnClosing(CancelEventArgs e)

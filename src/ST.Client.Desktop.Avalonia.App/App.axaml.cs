@@ -123,16 +123,31 @@ namespace System.Application.UI
 
         public override void Initialize()
         {
+#if DEBUG
+            StartTrace.Restart("App.Initialize");
+#endif
             AvaloniaXamlLoader.Load(this);
-
+#if DEBUG
+            StartTrace.Restart("App.LoadXAML");
+#endif
             Name = ThisAssembly.AssemblyTrademark;
             ViewModelBase.IsInDesignMode = ApplicationLifetime == null;
             if (ViewModelBase.IsInDesignMode) Startup.Init(DILevel.MainProcess);
-
+#if DEBUG
+            StartTrace.Restart("App.SetP");
+#endif
             var windowService = IWindowService.Instance;
             windowService.Init();
 
+#if DEBUG
+            StartTrace.Restart("WindowService.Init");
+#endif
+
             SettingsHost.Load();
+#if DEBUG
+            StartTrace.Restart("SettingsHost.Init");
+#endif
+
 #if !UI_DEMO
             if (GeneralSettings.IsStartupAppMinimized.Value)
             {
@@ -144,7 +159,9 @@ namespace System.Application.UI
             Theme = (AppTheme)UISettings.Theme.Value;
             UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
-
+#if DEBUG
+            StartTrace.Restart("Theme + UISettings.Subscribe");
+#endif
             switch (windowService.MainWindow)
             {
                 case AchievementWindowViewModel window:
@@ -168,6 +185,9 @@ namespace System.Application.UI
                     };
                     break;
             }
+#if DEBUG
+            StartTrace.Restart("Set MainWindow");
+#endif
         }
 
         public ContextMenu? NotifyIconContextMenu { get; private set; }

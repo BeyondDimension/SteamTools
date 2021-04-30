@@ -1,4 +1,6 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using CefNet;
 using CefNet.Avalonia;
@@ -28,28 +30,40 @@ namespace System.Application.UI.Views.Pages
             AvaloniaXamlLoader.Load(this);
         }
 
+        protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
+        {
+            base.OnDetachedFromLogicalTree(e);
+            Dispose();
+        }
+
+        protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            base.OnDetachedFromVisualTree(e);
+            Dispose();
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
                 if (disposing)
                 {
-                    // TODO: ÊÍ·ÅÍĞ¹Ü×´Ì¬(ÍĞ¹Ü¶ÔÏó)
+                    // TODO: é‡Šæ”¾æ‰˜ç®¡çŠ¶æ€(æ‰˜ç®¡å¯¹è±¡)
                     if (webViewQA != null)
                     {
                         ((IDisposable)webViewQA).Dispose();
                     }
                 }
 
-                // TODO: ÊÍ·ÅÎ´ÍĞ¹ÜµÄ×ÊÔ´(Î´ÍĞ¹ÜµÄ¶ÔÏó)²¢Ìæ´úÖÕ½áÆ÷
-                // TODO: ½«´óĞÍ×Ö¶ÎÉèÖÃÎª null
+                // TODO: é‡Šæ”¾æœªæ‰˜ç®¡çš„èµ„æº(æœªæ‰˜ç®¡çš„å¯¹è±¡)å¹¶æ›¿ä»£ç»ˆç»“å™¨
+                // TODO: å°†å¤§å‹å­—æ®µè®¾ç½®ä¸º null
                 disposedValue = true;
             }
         }
 
         public void Dispose()
         {
-            // ²»Òª¸ü¸Ä´Ë´úÂë¡£Çë½«ÇåÀí´úÂë·ÅÈë¡°Dispose(bool disposing)¡±·½·¨ÖĞ
+            // ä¸è¦æ›´æ”¹æ­¤ä»£ç ã€‚è¯·å°†æ¸…ç†ä»£ç æ”¾å…¥â€œDispose(bool disposing)â€æ–¹æ³•ä¸­
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
