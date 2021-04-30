@@ -86,10 +86,10 @@ namespace System.Application.UI.ViewModels
             await Task.CompletedTask;
         }
 
-        public void RefreshButton_Click()
+        public async void RefreshButton_Click()
         {
             if (ProxyService.Current.ProxyStatus == false)
-                ProxyService.Current.Initialize();
+                await ProxyService.Current.InitializeAccelerate();
         }
 
         public void StartProxyButton_Click(bool start)
