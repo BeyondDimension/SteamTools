@@ -2,8 +2,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
-using CefNet;
-using CefNet.Avalonia;
 using System.Application.UI.Resx;
 using System.Application.UI.Views.Controls;
 
@@ -11,7 +9,7 @@ namespace System.Application.UI.Views.Pages
 {
     public class About_FAQPage : UserControl, IDisposable
     {
-        readonly WebView webViewQA;
+        readonly WebView3 webViewQA;
         bool disposedValue;
 
         public About_FAQPage()

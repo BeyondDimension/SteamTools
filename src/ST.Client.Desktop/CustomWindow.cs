@@ -1,4 +1,4 @@
-﻿namespace System.Application
+namespace System.Application
 {
     /// <summary>
     /// 业务自定义窗口
@@ -14,5 +14,6 @@
         ChangeBindPhoneNumber,
         UserProfile,
         NewVersion,
+        WebView3,
     }
 }

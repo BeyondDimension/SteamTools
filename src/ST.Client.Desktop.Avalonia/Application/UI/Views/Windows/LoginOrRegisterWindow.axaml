@@ -66,9 +66,9 @@
 
                     <WrapPanel HorizontalAlignment="Center" Margin="2 0 6 0">
                         <TextBlock Text="{ReflectionBinding Path=Res.User_RegisterAgreed,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="12"/>
-                        <Button FontSize="12" Classes="Hyperlink" Margin="5,0" Content="{ReflectionBinding Path=Res.User_Agreement,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{ReflectionBinding OpenHyperlink}" CommandParameter="https://steampp.net/Agreement"/>
+                        <Button FontSize="12" Classes="Hyperlink" Margin="5,0" Content="{ReflectionBinding Path=Res.User_Agreement,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{ReflectionBinding OpenHyperlink}" CommandParameter="https://steampp.net/AgreementBox"/>
                         <TextBlock FontSize="12" Text="{ReflectionBinding Path=Res.And,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                        <Button FontSize="12" Classes="Hyperlink" Margin="5,0" Content="{ReflectionBinding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{ReflectionBinding OpenHyperlink}" CommandParameter="https://steampp.net/Privacy"/>
+                        <Button FontSize="12" Classes="Hyperlink" Margin="5,0" Content="{ReflectionBinding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{ReflectionBinding OpenHyperlink}" CommandParameter="https://steampp.net/PrivacyBox"/>
                     </WrapPanel>
                 </StackPanel>
                 <!--<StackPanel Grid.Row="1" Margin="0 0 0 10">

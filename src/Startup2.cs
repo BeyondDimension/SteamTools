@@ -24,6 +24,8 @@ using CSConst = System.Application.Services.CloudService.Constants;
 using System.Properties;
 using System.IO;
 using static System.Application.AppClientAttribute;
+using System.Net;
+using System.Diagnostics;
 #if __ANDROID__
 using Program = System.Application.UI.MainApplication;
 #elif __IOS__
@@ -370,22 +372,22 @@ namespace System.Application
                 static void SetApiBaseUrl(AppSettings s)
                 {
 #if DEBUG
-                    //if (BuildConfig.IsAigioPC)
-                    //{
-                    //    try
-                    //    {
-                    //        var url = CSConst.Prefix_HTTPS + "localhost:5001";
-                    //        var request = WebRequest.CreateHttp(url);
-                    //        request.Timeout = 999;
-                    //        request.GetResponse();
-                    //        s.ApiBaseUrl = url;
-                    //        return;
-                    //    }
-                    //    catch (Exception e)
-                    //    {
-                    //        Debug.WriteLine(e.ToString());
-                    //    }
-                    //}
+                    if (BuildConfig.IsAigioPC)
+                    {
+                        try
+                        {
+                            var url = CSConst.Prefix_HTTPS + "localhost:5001";
+                            var request = WebRequest.CreateHttp(url);
+                            request.Timeout = 888;
+                            request.GetResponse();
+                            s.ApiBaseUrl = url;
+                            return;
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine(e.ToString());
+                        }
+                    }
 #endif
                     var value =
                         (ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?

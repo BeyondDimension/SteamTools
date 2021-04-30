@@ -1,4 +1,4 @@
-﻿using Avalonia.Interactivity;
+using Avalonia.Interactivity;
 using CefNet;
 using CefNet.Avalonia;
 using CefNet.Internal;
@@ -78,6 +78,29 @@ namespace System.Application.UI.Views.Controls
 
         protected override void OnBeforeContextMenu(CefBrowser browser, CefFrame frame, CefContextMenuParams menuParams, CefMenuModel model)
         {
+            var count = model.Count;
+            if (count > 0)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    var commandId = (CefMenuId)model.GetCommandIdAt(i);
+                    switch (commandId)
+                    {
+                        case CefMenuId.Undo:
+                        case CefMenuId.Redo:
+                        case CefMenuId.Cut:
+                        case CefMenuId.Copy:
+                        case CefMenuId.Paste:
+                        case CefMenuId.Delete:
+                        case CefMenuId.SelectAll:
+                        case CefMenuId.Find:
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
             if (AppHelper.EnableDevtools)
             {
                 model.Remove((int)CefMenuId.Print);

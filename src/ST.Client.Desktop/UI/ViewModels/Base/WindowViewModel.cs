@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 
 namespace System.Application.UI.ViewModels
 {
@@ -11,7 +11,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref title, value);
         }
 
-        public bool IsInitialized { get; set; }
+        public bool IsInitialized { get; protected set; }
 
         protected void InvokeOnUIDispatcher(Action action)
         {

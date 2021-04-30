@@ -4,6 +4,7 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Properties;
 using System.Threading;
+using System.Windows;
 using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
@@ -112,7 +113,15 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public void OpenHyperlink(string parameter) => BrowserOpen(parameter);
+        public void OpenHyperlink(string parameter)
+        {
+            //BrowserOpen(parameter);
+
+            IShowWindowService.Instance.Show(CustomWindow.WebView3, new WebView3WindowViewModel
+            {
+                Url = parameter,
+            }, resizeMode: ResizeModeCompat.CanResize);
+        }
 
         public void SteamFastLogin()
         {
