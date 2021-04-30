@@ -113,6 +113,13 @@ namespace System.Application.UI.ViewModels
                 });
         }
 
+        internal override async void Activation()
+        {
+            if (IsFirstActivation)
+                SteamConnectService.Current.Initialize();
+            base.Activation();
+        }
+
         private bool _IsOpenFilter;
         public bool IsOpenFilter
         {

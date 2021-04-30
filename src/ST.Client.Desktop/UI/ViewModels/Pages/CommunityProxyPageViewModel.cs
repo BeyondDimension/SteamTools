@@ -30,6 +30,7 @@ namespace System.Application.UI.ViewModels
         public MenuItemViewModel AutoRunProxy { get; }
         //public MenuItemViewModel EnableProxyScript { get; }
 
+        public ReactiveCommand<Unit, Unit> RefreshCommand { get; }
 
         public CommunityProxyPageViewModel()
         {
@@ -43,6 +44,7 @@ namespace System.Application.UI.ViewModels
                 AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value = !ProxySettings.ProgramStartupRunProxy.Value);
             });
 
+            RefreshCommand = ReactiveCommand.Create(RefreshButton_Click);
             //EnableProxyScriptCommand = ReactiveCommand.Create(() =>
             //{
             //    EnableProxyScript?.CheckmarkChange(ProxySettings.IsEnableScript.Value = !ProxySettings.IsEnableScript.Value);
@@ -60,6 +62,8 @@ namespace System.Application.UI.ViewModels
                         //(EnableProxyScript = new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)){ Command=EnableProxyScriptCommand }),
                         //new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)){ Command=EditHostsFileCommand ,IconKey="JavaScriptDrawing" },
                         new MenuItemViewModel (),
+                        new MenuItemViewModel (nameof(AppResources.Refresh))
+                            { IconKey="RefreshDrawing" , Command = RefreshCommand},
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_CertificateSettings))
                         {
                             Items = new[]
@@ -79,13 +83,13 @@ namespace System.Application.UI.ViewModels
 
         internal async override void Initialize()
         {
-            if (ProxySettings.ProgramStartupRunProxy.Value)
-            {
-                ProxyService.Current.ProxyStatus = true;
-            }
             await Task.CompletedTask;
         }
 
+        public void RefreshButton_Click()
+        {
+            ProxyService.Current.Initialize();
+        }
 
         public void StartProxyButton_Click(bool start)
         {

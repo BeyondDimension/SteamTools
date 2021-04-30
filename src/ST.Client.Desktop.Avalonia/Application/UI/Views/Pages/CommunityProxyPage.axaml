@@ -146,16 +146,15 @@
         </WrapPanel>
         <WrapPanel HorizontalAlignment="Center">
           <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyModeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="14"/>
-          <TextBlock x:Name="proxyModel" FontSize="14">
-            <i:Interaction.Behaviors>
-              <ia:DataTriggerBehavior Binding="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value}}" ComparisonCondition="Equal" Value="True">
-                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #proxyModel}" PropertyName="Text" Value="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-              </ia:DataTriggerBehavior>
-              <ia:DataTriggerBehavior Binding="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value}}" ComparisonCondition="Equal" Value="False">
-                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #proxyModel}" PropertyName="Text" Value="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-              </ia:DataTriggerBehavior>
-            </i:Interaction.Behaviors>
-          </TextBlock>
+
+          <TextBlock
+            Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}"
+            FontSize="14"
+            IsVisible="{ReflectionBinding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value}}"/>
+          <TextBlock
+            Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}"
+            FontSize="14"
+            IsVisible="{ReflectionBinding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value}}"/>
         </WrapPanel>
       </StackPanel>
       <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="30" Margin="0 20">

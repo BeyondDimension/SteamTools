@@ -114,7 +114,7 @@ namespace System.Application.Services
         public void Initialize()
         {
             if (!SteamTool.IsRunningSteamProcess && SteamSettings.IsAutoRunSteam.Value)
-                SteamTool.StartSteam(SteamSettings.SteamStratParameter);
+                SteamTool.StartSteam(SteamSettings.SteamStratParameter.Value);
 
             Task.Run(InitializeGameList).ForgetAndDispose();
 

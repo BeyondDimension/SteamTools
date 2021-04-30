@@ -48,7 +48,7 @@ namespace System.Application.Services.Implementation
             //    proxyServer.CertificateManager.CertificateEngine = CertificateEngine.DefaultWindows;
             //else
             proxyServer.EnableConnectionPool = true;
-            proxyServer.CertificateManager.CertificateEngine = CertificateEngine.BouncyCastleFast;
+            proxyServer.CertificateManager.CertificateEngine = CertificateEngine;
             //proxyServer.CertificateManager.PfxPassword = $"{CertificateName}";
             proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
             proxyServer.CertificateManager.PfxFilePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pfx");

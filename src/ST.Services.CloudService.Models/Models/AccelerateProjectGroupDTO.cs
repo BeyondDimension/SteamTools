@@ -1,4 +1,4 @@
-﻿#if MVVM_VM
+#if MVVM_VM
 using ReactiveUI;
 using DynamicData;
 using DynamicData.Binding;
@@ -80,7 +80,11 @@ namespace System.Application.Models
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
-        public Task<string?>? ImageStream { get; set; }
+        public Task<string?>? ImageStream
+        {
+            get => _ImageStream;
+            set => this.RaiseAndSetIfChanged(ref _ImageStream, value);
+        }
 #endif
 
         /// <summary>

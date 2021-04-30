@@ -25,6 +25,33 @@ namespace System.Application.Services
         public ProxyService()
         {
             ProxyScripts = new SourceList<ScriptDTO>();
+            httpProxyService.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.BouncyCastleFast;
+
+            this.WhenAnyValue(v => v.ProxyDomains)
+                .Subscribe(domain => domain?
+                .ToObservableChangeSet()
+                .AutoRefresh(x => x.ObservableItems)
+                .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
+                .AutoRefresh(x => x.Enable)
+                .WhenPropertyChanged(x => x.Enable, false)
+                .Subscribe(_ =>
+                 {
+                     if (EnableProxyDomains != null)
+                     {
+                         ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Select(k => k.Id.ToString()).ToList();
+                     }
+                 }));
+
+
+            this.WhenAnyValue(v => v.ProxyScripts)
+                  .Subscribe(script => script?
+                  .Connect()
+                  .AutoRefresh(x => x.Enable)
+                  .WhenPropertyChanged(x => x.Enable, false)
+                  .Subscribe(_ =>
+                  {
+                      ProxySettings.ScriptsStatus.Value = EnableProxyScripts.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
+                  }));
         }
 
         private ObservableCollection<AccelerateProjectGroupDTO>? _ProxyDomains;
@@ -137,6 +164,8 @@ namespace System.Application.Services
                         }
                         httpProxyService.ProxyDomains = EnableProxyDomains;
                         httpProxyService.Scripts = EnableProxyScripts;
+                        httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
+                        httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
                         this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         this.RaisePropertyChanged(nameof(EnableProxyScripts));
 
@@ -158,7 +187,8 @@ namespace System.Application.Services
                         if (isRun)
                         {
                             StartTiming();
-                            IHostsFileService.Instance.UpdateHosts(hosts);
+                            if (ProxySettings.EnableWindowsProxy.Value == false)
+                                IHostsFileService.Instance.UpdateHosts(hosts);
                             Toast.Show(AppResources.CommunityFix_StartProxySuccess);
                         }
                         else
@@ -179,6 +209,16 @@ namespace System.Application.Services
         #endregion
 
         public async void Initialize()
+        {
+            await InitializeAccelerate();
+            await InitializeScript();
+            if (ProxySettings.ProgramStartupRunProxy.Value)
+            {
+                ProxyService.Current.ProxyStatus = true;
+            }
+        }
+
+        public async Task InitializeAccelerate()
         {
             #region 加载代理服务数据
             var client = ICloudServiceClient.Instance.Accelerate;
@@ -206,23 +246,11 @@ namespace System.Application.Services
                     }
                 }
             }
-
-            this.WhenAnyValue(v => v.ProxyDomains)
-                 .Subscribe(domain => domain?
-                       .ToObservableChangeSet()
-                       .AutoRefresh(x => x.ObservableItems)
-                       .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
-                       .AutoRefresh(x => x.Enable)
-                       .WhenPropertyChanged(x => x.Enable, false)
-                       .Subscribe(_ =>
-                       {
-                           if (EnableProxyDomains != null)
-                           {
-                               ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Where(w => w?.Id != null).Select(k => k.Id.ToString()).ToList();
-                           }
-                       }));
             #endregion
+        }
 
+        public async Task InitializeScript()
+        {
             #region 加载脚本数据
 
             //var response =// await client.Scripts();
@@ -250,23 +278,9 @@ namespace System.Application.Services
                     }
                 }
             }
-
-            this.WhenAnyValue(v => v.ProxyScripts)
-                  .Subscribe(script => script?
-                        .Connect()
-                        .AutoRefresh(x => x.Enable)
-                        .WhenPropertyChanged(x => x.Enable, false)
-                        .Subscribe(_ =>
-                        {
-                            ProxySettings.ScriptsStatus.Value = EnableProxyScripts.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
-                        }));
             #endregion
-
-            if (EnableProxyDomains.Any_Nullable() && ProxySettings.ProgramStartupRunProxy.Value)
-            {
-                ProxyStatus = true;
-            }
         }
+
         public async void BasicsInfo()
         {
             var basicsInfo = await ICloudServiceClient.Instance.Script.Basics(AppResources.Script_UpdateError);
