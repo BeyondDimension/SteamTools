@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using CefNet;
 using CefNet.Avalonia;
 using ReactiveUI;
+using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
 using static System.Application.Services.CloudService.Constants;
@@ -40,6 +41,11 @@ namespace System.Application.UI.Views.Windows
                     }
                     else if (IsHttpUrl(x))
                     {
+                        if (x.Contains("steampp.net"))
+                            x = string.Format(
+                                x + "?theme={0}&language={1}",
+                                CefNetApp.GetTheme(),
+                                R.Language);
                         if (webView.Opacity != 1) webView.Opacity = 1;
                         if (webView.BrowserObject == null)
                         {

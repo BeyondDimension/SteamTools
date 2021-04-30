@@ -116,11 +116,10 @@ namespace System.Application.UI.ViewModels
         public void OpenHyperlink(string parameter)
         {
             //BrowserOpen(parameter);
-
             IShowWindowService.Instance.Show(CustomWindow.WebView3, new WebView3WindowViewModel
             {
                 Url = parameter,
-            }, resizeMode: ResizeModeCompat.CanResize);
+            }, resizeMode: ResizeModeCompat.NoResize);
         }
 
         public void SteamFastLogin()
