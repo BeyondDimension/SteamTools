@@ -88,7 +88,8 @@ namespace System.Application.UI.ViewModels
 
         public void RefreshButton_Click()
         {
-            ProxyService.Current.Initialize();
+            if (ProxyService.Current.ProxyStatus == false)
+                ProxyService.Current.Initialize();
         }
 
         public void StartProxyButton_Click(bool start)

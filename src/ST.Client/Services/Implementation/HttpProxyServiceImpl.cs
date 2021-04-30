@@ -293,7 +293,7 @@ namespace System.Application.Services.Implementation
             return true;
         }
 
-        public static bool PortInUse(int port)
+        public bool PortInUse(int port)
         {
             bool inUse = false;
 
@@ -328,8 +328,8 @@ namespace System.Application.Services.Implementation
             #region 启动代理
             proxyServer.BeforeRequest += OnRequest;
             proxyServer.BeforeResponse += OnResponse;
-            proxyServer.ServerCertificateValidationCallback += OnCertificateValidation;
-            proxyServer.ClientCertificateSelectionCallback += OnCertificateSelection;
+            //proxyServer.ServerCertificateValidationCallback += OnCertificateValidation;
+            //proxyServer.ClientCertificateSelectionCallback += OnCertificateSelection;
 
             //var explicitEndPoint = new ExplicitProxyEndPoint(IPAddress.Any, 8888, true)
             //{

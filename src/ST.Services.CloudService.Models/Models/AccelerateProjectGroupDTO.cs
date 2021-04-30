@@ -139,6 +139,11 @@ namespace System.Application.Models
         { get; set; }
 #endif
 
+        [MPKey(4)]
+        [N_JsonProperty("4")]
+        [S_JsonProperty("4")]
+        public int Order { get; set; }
+
 #if MVVM_VM
         /// <summary>
         /// 是否有子项目选中的第三状态（仅客户端）

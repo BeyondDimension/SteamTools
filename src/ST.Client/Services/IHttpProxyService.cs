@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Application.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -40,6 +40,8 @@ namespace System.Application.Services
         public bool SetupCertificate();
 
         public bool DeleteCertificate();
+
+        bool PortInUse(int port);
 
         public bool StartProxy(bool IsWindowsProxy = false, bool IsProxyGOG = false);
 

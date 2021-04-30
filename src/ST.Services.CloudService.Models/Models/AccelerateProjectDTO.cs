@@ -1,4 +1,4 @@
-﻿#if MVVM_VM
+#if MVVM_VM
 using ReactiveUI;
 #endif
 using System.Diagnostics.CodeAnalysis;
@@ -155,5 +155,10 @@ namespace System.Application.Models
         [N_JsonProperty("9")]
         [S_JsonProperty("9")]
         public Guid Id { get; set; }
+
+        [MPKey(10)]
+        [N_JsonProperty("10")]
+        [S_JsonProperty("10")]
+        public int Order { get; set; }
     }
 }
