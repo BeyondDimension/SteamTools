@@ -735,6 +735,9 @@
   <data name="Script_Refresh" xml:space="preserve">
     <value>刷新缓存</value>
   </data>
+  <data name="Script_ReplaceTips" xml:space="preserve">
+    <value>已安装此脚本确定替换已安装的版本？</value>
+  </data>
   <data name="Script_Shop" xml:space="preserve">
     <value>脚本市场</value>
   </data>

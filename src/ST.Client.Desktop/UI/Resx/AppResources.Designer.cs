@@ -1846,6 +1846,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 已安装此脚本确定替换已安装的版本？ 的本地化字符串。
+        /// </summary>
+        public static string Script_ReplaceTips {
+            get {
+                return ResourceManager.GetString("Script_ReplaceTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 脚本市场 的本地化字符串。
         /// </summary>
         public static string Script_Shop {

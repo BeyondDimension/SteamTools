@@ -346,7 +346,7 @@ namespace System.Application.Services
                     var scriptItem = ProxyScripts.Items.FirstOrDefault(x => x.Name == info.Name);
                     if (scriptItem != null)
                     {
-                        var result = MessageBoxCompat.ShowAsync(@AppResources.Script_EditTxt, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
+                        var result = MessageBoxCompat.ShowAsync(@AppResources.Script_ReplaceTips, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
                         {
                             if (s.Result == MessageBoxResultCompat.OK)
                             {
