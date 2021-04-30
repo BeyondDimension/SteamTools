@@ -58,6 +58,10 @@ namespace System.Application.UI
                 common.AddOption(new Option<bool>("-silence", "静默启动（不弹窗口）"));
                 common.Handler = CommandHandler.Create((bool silence) =>
                 {
+                    var appInstance = new ApplicationInstance();
+                    if (!appInstance.IsFirst) return;
+                    IsMainProcess = true;
+                    IsCLTProcess = false;
                     initStartup(DILevel.MainProcess);
                     initCef();
                     IsMinimize = silence;
