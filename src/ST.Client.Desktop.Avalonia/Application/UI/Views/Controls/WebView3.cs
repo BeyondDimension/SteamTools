@@ -3,6 +3,7 @@ using CefNet;
 using CefNet.Avalonia;
 using CefNet.Internal;
 using System.Application.Services.CloudService;
+using System.Collections.Generic;
 using System.Diagnostics;
 using static System.Application.Services.CloudService.Constants;
 
@@ -81,6 +82,7 @@ namespace System.Application.UI.Views.Controls
             var count = model.Count;
             if (count > 0)
             {
+                List<int> list = new();
                 for (int i = 0; i < count; i++)
                 {
                     var commandId = (CefMenuId)model.GetCommandIdAt(i);
@@ -96,24 +98,16 @@ namespace System.Application.UI.Views.Controls
                         case CefMenuId.Find:
                             break;
                         default:
+                            list.Add((int)commandId);
                             break;
                     }
                 }
+                list.ForEach(x => model.Remove(x));
             }
-
             if (AppHelper.EnableDevtools)
             {
-                model.Remove((int)CefMenuId.Print);
-                model.Remove((int)CefMenuId.ViewSource);
-                if (model.Count >= 1) model.RemoveAt(model.Count - 1);
-
                 model.AddItem(SHOW_DEV_TOOLS, "&Show DevTools");
             }
-            else
-            {
-                model.Clear(); // 禁用右键菜单
-            }
-
             //model.InsertItemAt(model.Count > 0 ? 1 : 0, (int)CefMenuId.ReloadNocache, "Refresh");
             //model.AddSeparator();
             //model.AddItem(SHOW_DEV_TOOLS, "&Show DevTools");

@@ -12,7 +12,7 @@
         x:DataType="vm:WebView3WindowViewModel"
         x:CompileBindings="True"
         Title="{Binding Title}">
-  <DockPanel>
+  <DockPanel Background="Transparent">
     <controls:TitleBar DockPanel.Dock="Top" />
     <controls:WebView3 x:Name="webView" Background="Transparent"/>
   </DockPanel>
