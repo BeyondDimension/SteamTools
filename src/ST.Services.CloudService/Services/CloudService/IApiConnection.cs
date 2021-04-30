@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -40,7 +40,7 @@ namespace System.Application.Services.CloudService
         /// <param name="progress">进度报告</param>
         /// <param name="isAnonymous">是否使用匿名身份访问</param>
         /// <returns></returns>
-        Task<IApiResponse> DownloadAsync(CancellationToken cancellationToken, string requestUri, string cacheFilePath, IProgress<float> progress, bool isAnonymous = true, bool isShowResponseErrorMessage = true, string? errorAppendText = null);
+        Task<IApiResponse> DownloadAsync(CancellationToken cancellationToken, string requestUri, string cacheFilePath, IProgress<float>? progress, bool isAnonymous = true, bool isShowResponseErrorMessage = true, string? errorAppendText = null);
 
         #region SendAsync
 

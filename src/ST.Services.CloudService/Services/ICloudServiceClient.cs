@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Application.Services.CloudService;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Net.Http;
@@ -19,7 +19,7 @@ namespace System.Application.Services
         IAccelerateClient Accelerate { get; }
 
         /// <inheritdoc cref="IApiConnection.DownloadAsync(bool, CancellationToken, string, string, IProgress{float})"/>
-        Task<IApiResponse> Download(bool isAnonymous, string requestUri, string cacheFilePath, IProgress<float> progress, CancellationToken cancellationToken = default);
+        Task<IApiResponse> Download(bool isAnonymous, string requestUri, string cacheFilePath, IProgress<float>? progress, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 请求代理

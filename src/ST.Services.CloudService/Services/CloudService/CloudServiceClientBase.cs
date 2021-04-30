@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Application.Columns;
 using System.Application.Models;
@@ -101,7 +101,7 @@ namespace System.Application.Services.CloudService
         HttpClient IApiConnectionPlatformHelper.CreateClient() => CreateClient();
 
         Task<IApiResponse> ICloudServiceClient.Download(bool isAnonymous, string requestUri,
-            string cacheFilePath, IProgress<float> progress, CancellationToken cancellationToken)
+            string cacheFilePath, IProgress<float>? progress, CancellationToken cancellationToken)
             => connection.DownloadAsync(cancellationToken, requestUri, cacheFilePath, progress, isAnonymous);
 
         Task<IApiResponse<JWTEntity>> IApiConnectionPlatformHelper.RefreshToken(JWTEntity jwt)

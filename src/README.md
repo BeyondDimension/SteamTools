@@ -1,6 +1,6 @@
 # Steam++ v2.X Source Code
 
-## 🏗️ 项目架构
+## 🏗️ 项目结构
 - Common **通用基础类库**
     - Common.AreaLib **地区数据**
     - Common.ClientLib **适用于客户端的通用基础类库**

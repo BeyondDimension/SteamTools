@@ -286,20 +286,19 @@ namespace System.Application.Services.Implementation
                     }
 
                     int i = 1;
+                    void OnReportDownloading3_(float value) => OnReportDownloading3(value, i, incrementalUpdate.Count);
+                    OnReportDownloading3_(0f);
                     foreach (var item in incrementalUpdate)
                     {
-                        void OnReportDownloading3_(float value) => OnReportDownloading3(value, i, incrementalUpdate.Count);
-
                         var fileName = item.Value;
                         var cacheFileName = fileName + FileExDownloadCache;
                         var requestUri = GetSingleFileUrl(item.Key.FileId);
 
-                        OnReportDownloading3_(0f);
                         var rsp = await client.Download(
                             isAnonymous: true,
                             requestUri: requestUri,
                             cacheFileName,
-                            new Progress<float>(OnReportDownloading3_));
+                            null);
                         if (rsp.IsSuccess)
                         {
                             File.Move(cacheFileName, fileName);
@@ -316,6 +315,7 @@ namespace System.Application.Services.Implementation
                             break;
                         }
                         i++;
+                        OnReportDownloading3_(i / (float)incrementalUpdate.Count);
                     }
 
                     OnReport(MaxProgressValue);

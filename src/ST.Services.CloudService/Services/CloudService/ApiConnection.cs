@@ -699,7 +699,7 @@ namespace System.Application.Services.CloudService
             CancellationToken cancellationToken,
             string requestUri,
             string cacheFilePath,
-            IProgress<float> progress,
+            IProgress<float>? progress,
             bool isAnonymous,
             bool isShowResponseErrorMessage = true,
             string? errorAppendText = null)

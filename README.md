@@ -103,6 +103,8 @@
 	- [Avalonia for Visual Studio](https://marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaforVisualStudio)
 	- [NUnit VS Templates](https://marketplace.visualstudio.com/items?itemName=NUnitDevelopers.NUnitTemplatesforVisualStudio)
 
+## 🏗️ [项目结构](./src/README.md)
+
 <!--👇图标如果发生更改，还需更改 Tools.OpenSourceLibraryList(Program.OpenSourceLibraryListEmoji) -->
 ## 📄 感谢以下开源项目
 * [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)

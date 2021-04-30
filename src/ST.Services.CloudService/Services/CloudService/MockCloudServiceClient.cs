@@ -1,4 +1,4 @@
-﻿#if (DEBUG && !UI_DEMO) || (!DEBUG && UI_DEMO)
+#if (DEBUG && !UI_DEMO) || (!DEBUG && UI_DEMO)
 using System.Application.Models;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Collections.Generic;
@@ -111,7 +111,7 @@ namespace System.Application.Services.CloudService
             return Task.FromResult(ApiResponse.Ok());
         }
 
-        public Task<IApiResponse> Download(bool isAnonymous, string requestUri, string cacheFilePath, IProgress<float> progress, CancellationToken cancellationToken = default)
+        public Task<IApiResponse> Download(bool isAnonymous, string requestUri, string cacheFilePath, IProgress<float>? progress, CancellationToken cancellationToken = default)
         {
             return Task.FromResult(ApiResponse.Ok());
         }
