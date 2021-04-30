@@ -1792,6 +1792,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 找不到文件，请检查路径{0} 的本地化字符串。
+        /// </summary>
+        public static string Script_FileError {
+            get {
+                return ResourceManager.GetString("Script_FileError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 脚本主页 的本地化字符串。
         /// </summary>
         public static string Script_Home {

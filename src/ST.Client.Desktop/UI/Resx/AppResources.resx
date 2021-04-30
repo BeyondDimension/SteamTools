@@ -717,6 +717,9 @@
   <data name="Script_EditTxt" xml:space="preserve">
     <value>是否完成脚本修改，点击确定刷新缓存。</value>
   </data>
+  <data name="Script_FileError" xml:space="preserve">
+    <value>找不到文件，请检查路径{0}</value>
+  </data>
   <data name="Script_Home" xml:space="preserve">
     <value>脚本主页</value>
   </data>

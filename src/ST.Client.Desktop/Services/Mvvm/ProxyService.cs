@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.IO;
+using System.Properties;
 
 namespace System.Application.Services
 {
@@ -336,13 +337,50 @@ namespace System.Application.Services
 
         public async Task AddNewScript(string filename)
         {
+            var fileInfo = new FileInfo(filename);
+            if (fileInfo.Exists)
+            {
+                ScriptDTO.TryParse(filename, out ScriptDTO? info);
+                if (info != null)
+                {
+                    var scriptItem = ProxyScripts.Items.FirstOrDefault(x => x.Name == info.Name);
+                    if (scriptItem != null)
+                    {
+                        var result = MessageBoxCompat.ShowAsync(@AppResources.Script_EditTxt, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
+                        {
+                            if (s.Result == MessageBoxResultCompat.OK)
+                            {
+                                await AddNewScript(fileInfo, info, scriptItem);
+                            }
+                        });
+                    }
+                    else
+                    {
+                        await AddNewScript(fileInfo, info);
+                    }
+                }
+                else
+                {
+                    await AddNewScript(fileInfo, info);
+                }
+            }
+            else
+            {
+                var msg = AppResources.Script_FileError.Format(filename);// $"文件不存在:{filePath}";
+                Toast.Show(msg);
+            }
+        }
+        public async Task AddNewScript(FileInfo fileInfo, ScriptDTO? info, ScriptDTO? oldInfo = null)
+        {
             IsLoading = true;
-            var item = await DI.Get<IScriptManagerService>().AddScriptAsync(filename).ConfigureAwait(true);
+            var item = await DI.Get<IScriptManagerService>().AddScriptAsync(fileInfo, info, oldInfo);
             if (item.state)
             {
-                //var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
                 if (item.model != null)
-                    ProxyScripts.Add(item.model);
+                    if (oldInfo == null)
+                        ProxyScripts.Add(item.model);
+                    else
+                        ProxyScripts.Replace(oldInfo, item.model);
             }
             IsLoading = false;
             Toast.Show(item.msg);

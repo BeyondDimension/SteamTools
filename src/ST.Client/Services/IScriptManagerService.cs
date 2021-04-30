@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Application.Entities;
 using System.Application.Models;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,11 +21,17 @@ namespace System.Application.Services
 		/// <param name="path"></param>
 		/// <returns></returns>
 		Task<(bool state, ScriptDTO? model, string msg)> AddScriptAsync(string path, ScriptDTO? oldInfo = null, bool build = true, int? order = null, bool deleteFile = false, Guid? pid = null);
-		/// <summary>
-		/// 获取Sqlite全部脚本
-		/// </summary>
-		/// <returns></returns>
-		Task<IEnumerable<ScriptDTO>> GetAllScript();
+        /// <summary>
+        /// 添加Js
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        Task<(bool state, ScriptDTO? model, string msg)> AddScriptAsync(FileInfo path, ScriptDTO? info, ScriptDTO? oldInfo = null, bool build = true, int? order = null, bool deleteFile = false, Guid? pid = null);
+        /// <summary>
+        /// 获取Sqlite全部脚本
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<ScriptDTO>> GetAllScript();
 		/// <summary>
 		/// 删除指定ID的脚本
 		/// </summary>
