@@ -1,0 +1,168 @@
+ï»?
+# This is a sample HOSTS file used by Microsoft TCP/IP for Windows.
+#
+# This file contains the mappings of IP addresses to host names. Each
+# entry should be kept on an individual line. The IP address should
+# be placed in the first column followed by the corresponding host name.
+# The IP address and the host name should be separated by at least one
+# space.
+#
+# Additionally, comments (such as these) may be inserted on individual
+# lines or following the machine name denoted by a '#' symbol.
+#
+# For example:
+#
+#      102.54.94.97     rhino.acme.com          # source server
+#       38.25.63.10     x.acme.com              # x client host
+# localhost name resolution is handled within DNS itself.
+#	127.0.0.1       localhost
+#	::1             localhost
+104.21.3.121 blog.reimu.net
+35.186.224.12 spclient.wg.spotify.com #UHE_
+35.186.224.12 wg.spotify.com #UHE_
+35.186.224.12 gae-spclient.spotify.com #UHE_
+255.255.255.255 audio-fa.spotifycdn.com #UHE_
+255.255.255.255 audio-fa.scdn.co #UHE_
+223.119.248.18 audio4-ak-spotify-com.akamaized.net #UHE_
+223.119.248.18 heads4-ak-spotify-com.akamaized.net #UHE_
+223.119.248.18 audio-ak-spotify-com.akamaized.net #UHE_
+223.119.248.18 audio4-ak-spotify-com.akamaized.net #UHE_
+223.119.248.18 audio-akp-quic-spotify-com.akamaized.net #UHE_
+127.0.0.1 steamcommunity.com #S302
+
+127.0.0.1 www.steamcommunity.com #S302
+
+127.0.0.1 store.steampowered.com #S302
+
+127.0.0.1 api.steampowered.com #S302
+
+127.0.0.1 discord.com #S302
+
+127.0.0.1 discordapp.com #S302
+
+127.0.0.1 dl.discordapp.net #S302
+
+127.0.0.1 media.discordapp.net #S302
+
+127.0.0.1 images-ext-2.discordapp.net #S302
+
+127.0.0.1 images-ext-1.discordapp.net #S302
+
+127.0.0.1 support.discordapp.com #S302
+
+127.0.0.1 url9177.discordapp.com #S302
+
+127.0.0.1 canary-api.discordapp.com #S302
+
+127.0.0.1 cdn-ptb.discordapp.com #S302
+
+127.0.0.1 ptb.discordapp.com #S302
+
+127.0.0.1 status.discordapp.com #S302
+
+127.0.0.1 cdn-canary.discordapp.com #S302
+
+127.0.0.1 cdn.discordapp.com #S302
+
+127.0.0.1 streamkit.discordapp.com #S302
+
+127.0.0.1 i18n.discordapp.com #S302
+
+127.0.0.1 url9624.discordapp.com #S302
+
+127.0.0.1 url7195.discordapp.com #S302
+
+127.0.0.1 merch.discordapp.com #S302
+
+127.0.0.1 printer.discordapp.com #S302
+
+127.0.0.1 canary.discordapp.com #S302
+
+127.0.0.1 apps.discordapp.com #S302
+
+127.0.0.1 pax.discordapp.com #S302
+
+127.0.0.1 twitch.tv #S302
+
+127.0.0.1 www.twitch.tv #S302
+
+127.0.0.1 m.twitch.tv #S302
+
+127.0.0.1 app.twitch.tv #S302
+
+13.224.161.2 music.twitch.tv #S302
+
+127.0.0.1 badges.twitch.tv #S302
+
+54.192.23.117 blog.twitch.tv #S302
+
+127.0.0.1 inspector.twitch.tv #S302
+
+13.226.123.47 stream.twitch.tv #S302
+
+127.0.0.1 dev.twitch.tv #S302
+
+127.0.0.1 clips.twitch.tv #S302
+
+127.0.0.1 spade.twitch.tv #S302
+
+127.0.0.1 gql.twitch.tv #S302
+
+13.224.161.5 vod-secure.twitch.tv #S302
+
+13.226.123.56 vod-storyboards.twitch.tv #S302
+
+127.0.0.1 trowel.twitch.tv #S302
+
+127.0.0.1 countess.twitch.tv #S302
+
+13.224.161.88 extension-files.twitch.tv #S302
+
+54.192.23.31 vod-metro.twitch.tv #S302
+
+127.0.0.1 pubster.twitch.tv #S302
+
+127.0.0.1 help.twitch.tv #S302
+
+127.0.0.1 passport.twitch.tv #S302
+
+127.0.0.1 id.twitch.tv #S302
+
+67.199.248.12 link.twitch.tv #S302
+
+13.226.123.78 id-cdn.twitch.tv #S302
+
+127.0.0.1 player.twitch.tv #S302
+
+127.0.0.1 api.twitch.tv #S302
+
+127.0.0.1 cvp.twitch.tv #S302
+
+127.0.0.1 pubsub-edge.twitch.tv #S302
+
+13.224.161.92 clips-media-assets2.twitch.tv #S302
+
+127.0.0.1 client-event-reporter.twitch.tv #S302
+
+13.226.123.21 gds-vhs-drops-campaign-images.twitch.tv #S302
+
+127.0.0.1 us-west-2.uploads-regional.twitch.tv #S302
+
+54.192.23.110 assets.help.twitch.tv #S302
+
+127.0.0.1 discuss.dev.twitch.tv #S302
+
+127.0.0.1 irc-ws.chat.twitch.tv #S302
+
+127.0.0.1 irc-ws-r.chat.twitch.tv #S302
+
+127.0.0.1 usher.ttvnw.net #S302
+
+127.0.0.1 steamcdn-a.akamaihd.net #S302
+
+127.0.0.1 cdn.akamai.steamstatic.com #S302
+
+127.0.0.1 www.google.com #S302
+
+127.0.0.1 steam-chat.com #S302
+
