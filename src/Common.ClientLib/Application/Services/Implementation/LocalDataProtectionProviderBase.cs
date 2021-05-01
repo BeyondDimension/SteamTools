@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using static System.Application.Services.ILocalDataProtectionProvider;
@@ -45,6 +45,8 @@ namespace System.Application.Services.Implementation
             _aes = new Lazy<Aes>(() =>
             {
                 (byte[] key, byte[] iv) = MachineSecretKey;
+                // https://github.com/dotnet/runtime/issues/42214#issuecomment-698495584
+                // AES CFB in Windows 7 catch Internal.Cryptography.CryptoThrowHelper+WindowsCryptographicException: Unknown error (0xc10000bb)
                 var r = AESUtils.Create(key, iv, CipherMode.CFB, PaddingMode.PKCS7);
                 return r;
             });
