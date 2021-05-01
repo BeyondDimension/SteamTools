@@ -8,9 +8,10 @@ on:
 
 jobs:
   build:
-
-    runs-on: [ ubuntu-latest, windows-latest, macos-latest ]
-
+    runs-on: ${{ matrix.os }}    
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]        
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET 5
@@ -20,8 +21,8 @@ jobs:
     - name: Setup .NET 6
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.100-preview.3.21202.5
-        
+        dotnet-version: 6.0.100-preview.3.21202.5        
+
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Checkout submodules
