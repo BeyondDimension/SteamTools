@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32;
+using Microsoft.Win32;
 using System.Application.Models;
 using System.Application.UI;
 using System.Management;
@@ -42,9 +42,8 @@ namespace System.Application.Services.Implementation
 
         public void SetLightOrDarkThemeFollowingSystem(bool enable)
         {
-            if (Environment.OSVersion.Version.Major < 10) return;
-            if (Environment.OSVersion.Version.Major == 10 &&
-                Environment.OSVersion.Version.Build < 18282) return;
+            var major = Environment.OSVersion.Version.Major;
+            if (major < 10 || major == 10 && Environment.OSVersion.Version.Build < 18282) return;
 
             var currentUser = WindowsIdentity.GetCurrent()?.User;
             if (currentUser == null) return;

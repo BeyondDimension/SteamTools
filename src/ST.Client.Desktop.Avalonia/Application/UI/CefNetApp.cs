@@ -1,4 +1,4 @@
-﻿using Avalonia.Threading;
+using Avalonia.Threading;
 using CefNet;
 using System.Application.Models;
 using System.Globalization;
@@ -205,9 +205,26 @@ navigator.__proto__ = newProto;
             var theme = AppHelper.Current.Theme;
             return theme switch
             {
-                AppTheme.FollowingSystem => "auto",
+                AppTheme.FollowingSystem => GetThemeStringByFollowingSystem(),
                 _ => theme.ToString(),
             };
+            static string GetThemeStringByFollowingSystem()
+            {
+                if (DI.Platform == Platform.Windows)
+                {
+                    var major = Environment.OSVersion.Version.Major;
+                    if (major < 10 || major == 10 && Environment.OSVersion.Version.Build < 18282)
+                    {
+                        goto dark;
+                    }
+                }
+                else if (DI.Platform == Platform.Linux)
+                {
+                    goto dark;
+                }
+                return "auto";
+            dark: return AppTheme.Dark.ToString();
+            }
         }
     }
 

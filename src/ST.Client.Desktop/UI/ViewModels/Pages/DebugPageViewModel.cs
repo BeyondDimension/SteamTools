@@ -13,11 +13,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Text;
 using System.Globalization;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using static Newtonsoft.Json.JsonConvert;
 
 namespace System.Application.UI.ViewModels
@@ -301,6 +299,7 @@ namespace System.Application.UI.ViewModels
 
         public async void TestServerApiButton_Click()
         {
+#if DEBUG
             DebugString = string.Empty;
             var client = ICloudServiceClient.Instance;
 
@@ -334,6 +333,11 @@ namespace System.Application.UI.ViewModels
             var jsonStr = Serializable2.S(rsp2.Content);
 
             DebugString = $"JSON: {jsonStr}";
+
+#else
+            await Task.Delay(300);
+            DebugString = nameof(TestServerApiButton_Click);
+#endif
         }
 
         /// <summary>
