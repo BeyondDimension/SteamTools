@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -165,7 +165,7 @@
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="OpenSourceLibraryList" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OpenSourceLibraryList.mpo;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\..\..\Resources\OpenSourceLibraryList.mpo;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Script_BuildDownloadError" xml:space="preserve">
     <value>脚本依赖下载出错:[{0}]_{1}</value>
