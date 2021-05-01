@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 
 namespace System.Application.Services
 {
@@ -84,12 +84,12 @@ namespace System.Application.Services
         /// <summary>
         /// 获取或设置 操作返回信息
         /// </summary>
-        public string? Message { get; set; }
+        public string Message { get; set; } = string.Empty;
 
         /// <summary>
         /// 获取或设置 操作返回的日志消息，用于记录日志
         /// </summary>
-        public string? LogMessage { get; set; }
+        public string LogMessage { get; set; } = string.Empty;
 
         /// <summary>
         /// 获取或设置 操作结果附加信息

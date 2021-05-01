@@ -61,6 +61,15 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 操作 hosts 错误 {0} 的本地化字符串。
+        /// </summary>
+        internal static string OperationHostsError_ {
+            get {
+                return ResourceManager.GetString("OperationHostsError_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 echo &quot;{4}&quot;
         ///taskkill /f /im &quot;{0}&quot;
         ///xcopy /y /c /h /r /s &quot;{1}\*.*&quot; &quot;{2}&quot;

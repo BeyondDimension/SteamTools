@@ -61,7 +61,7 @@ namespace System
             p.StandardInput.AutoFlush = true;
             var str = p.StandardOutput.ReadToEnd();
             p.WaitForExit();
-            var items = str.Split(new[] { "KB" }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Substring(0, 7));
+            var items = str.Split(new[] { "KB" }, StringSplitOptions.RemoveEmptyEntries).Where(x => x.Length >= 7).Select(x => x.Substring(0, 7));
             foreach (var item in items)
             {
                 if (int.TryParse(item, out var value))

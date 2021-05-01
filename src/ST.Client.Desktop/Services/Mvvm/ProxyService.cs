@@ -1,19 +1,20 @@
-using ReactiveUI;
 using DynamicData;
 using DynamicData.Binding;
+using ReactiveUI;
 using System.Application.Models;
 using System.Application.Models.Settings;
+using System.Application.Properties;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Properties;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.IO;
-using System.Properties;
 
 namespace System.Application.Services
 {
@@ -166,9 +167,17 @@ namespace System.Application.Services
 
                         if (isRun)
                         {
+                            if (!ProxySettings.EnableWindowsProxy.Value)
+                            {
+                                var r = IHostsFileService.Instance.UpdateHosts(hosts);
+                                if (r.ResultType != OperationResultType.Success)
+                                {
+                                    Toast.Show(SR.OperationHostsError_.Format(r.Message));
+                                    httpProxyService.StopProxy();
+                                    return;
+                                }
+                            }
                             StartTiming();
-                            if (ProxySettings.EnableWindowsProxy.Value == false)
-                                IHostsFileService.Instance.UpdateHosts(hosts);
                             Toast.Show(AppResources.CommunityFix_StartProxySuccess);
                         }
                         else
@@ -179,7 +188,12 @@ namespace System.Application.Services
                     else
                     {
                         httpProxyService.StopProxy();
-                        IHostsFileService.Instance.RemoveHostsByTag();
+                        var r = IHostsFileService.Instance.RemoveHostsByTag();
+                        if (r.ResultType != OperationResultType.Success)
+                        {
+                            Toast.Show(SR.OperationHostsError_.Format(r.Message));
+                            //return;
+                        }
                         //Toast.Show(SteamTools.Properties.Resources.ProxyStop);
                     }
                     this.RaisePropertyChanged();
@@ -225,8 +239,6 @@ namespace System.Application.Services
                 }
 
                 SelectGroup = ProxyDomains.FirstOrDefault();
-
-    
 
                 this.WhenAnyValue(v => v.ProxyDomains)
                       .Subscribe(domain => domain?
@@ -464,7 +476,7 @@ namespace System.Application.Services
         }
         public async void CheckUpdate()
         {
-            var items = Current.ProxyScripts.Items.Where(x => x.Id.HasValue).Select(x => x.Id.Value).ToList();
+            var items = Current.ProxyScripts.Items.Where(x => x.Id.HasValue).Select(x => x.Id!.Value).ToList();
             var client = ICloudServiceClient.Instance.Script;
             var response = await client.ScriptUpdateInfo(items, AppResources.Script_UpdateError);
             if (response.Code == ApiResponseCode.OK && response.Content != null)
@@ -479,7 +491,6 @@ namespace System.Application.Services
                         item.IsUpdate = true;
                         Current.ProxyScripts.Replace(item, item);
                     }
-
                 }
             }
         }
