@@ -440,13 +440,13 @@ namespace System.Application.Services.Implementation
                 var is_effective_value_v2 = HandleLineV2(Contains, index, dict, line, out var array);
                 if (is_effective_value_v2 == HandleLineResult.Duplicate)
                 {
-                    dict[array[0]] = array[1];
+                    dict[array[1]] = array[0];
                 }
                 else
                 {
                     var is_effective_value = Convert(is_effective_value_v2);
                     if (!is_effective_value.HasValue || !is_effective_value.Value) continue;
-                    dict.Add(array[0], array[1]);
+                    dict.Add(array[1], array[0]);
                 }
             }
             return dict;
@@ -457,7 +457,7 @@ namespace System.Application.Services.Implementation
             static IEnumerable<(string ip, string domain)> ReadHostsAllLines_(StreamReader fileReader)
             {
                 var value = ReadHostsAllLines(fileReader);
-                return value.Select(x => (x.Key, x.Value));
+                return value.Select(x => (x.Value, x.Key));
             }
             var result = new OperationResult<List<(string ip, string domain)>>(OperationResultType.Error, AppResources.Hosts_ReadError);
             if (!TryOperation(out var errmsg, out var fileInfo, out var _))

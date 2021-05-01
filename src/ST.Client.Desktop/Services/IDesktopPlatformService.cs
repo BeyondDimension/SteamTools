@@ -177,5 +177,10 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="enable"></param>
         void SetLightOrDarkThemeFollowingSystem(bool enable);
+
+        /// <summary>
+        /// 打开桌面图标设置
+        /// </summary>
+        void OpenDesktopIconsSettings();
     }
 }

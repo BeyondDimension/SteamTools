@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
@@ -213,6 +213,8 @@ namespace System.Application.UI.ViewModels
 
         public async void ShowDialogButton_Click()
         {
+            DI.Get<IDesktopPlatformService>().OpenDesktopIconsSettings();
+
             ToastService.Current.Notify("中文测试繁體測試🎉🧨🎇🎆🎄🖼🖼🖼🖼");
             DebugString += ToastService.Current.Message + Environment.NewLine;
             DebugString += ToastService.Current.IsVisible + Environment.NewLine;

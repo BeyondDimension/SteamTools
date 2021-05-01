@@ -1,10 +1,10 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Diagnostics;
 using System.IO;
 
 namespace System.Application.Services.Implementation
 {
-    internal sealed class LinuxDesktopPlatformServiceImpl : IDesktopPlatformService
+    internal sealed partial class LinuxDesktopPlatformServiceImpl : IDesktopPlatformService
     {
         public void SetResizeMode(IntPtr hWnd, int value)
         {
@@ -13,6 +13,10 @@ namespace System.Application.Services.Implementation
         public string GetCommandLineArgs(Process process)
         {
             return string.Empty;
+        }
+
+        public void OpenFolder(string dirPath)
+        {
         }
 
         public const string kate = "kate";
@@ -58,7 +62,6 @@ namespace System.Application.Services.Implementation
 
         public void SetLightOrDarkThemeFollowingSystem(bool enable)
         {
-
         }
     }
 }
