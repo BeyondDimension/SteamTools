@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="AMap_adcode_citycode_20210406.xlsx.mpo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\Resources\Areas\AMap_adcode_citycode_20210406.xlsx.mpo;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="AMap_adcode_citycode_20210406_xlsx" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AMap_adcode_citycode_20210406.xlsx.mpo;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
