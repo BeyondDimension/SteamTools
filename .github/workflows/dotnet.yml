@@ -2,16 +2,16 @@ name: .NET
 
 on:
   push:
-    branches: [ master,develop ]
+    branches: [ master, develop ]
   pull_request:
-    branches: [ master,develop ]
+    branches: [ master, develop ]
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}    
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]        
+        os: [ ubuntu-latest, windows-latest, macOS-latest ]        
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET 5
@@ -30,22 +30,27 @@ jobs:
 
     - name: dotnet info
       run: dotnet --info
+      
     - name: dotnet restore SteamToolsV2+.sln
       if: matrix.os == 'windows-latest'
       run: dotnet restore ./SteamToolsV2+.sln
+      
     - name: dotnet restore SteamTools.Desktop.Linux.sln
-      if: matrix.os == 'macOS-latest'
-      run: dotnet restore ./SteamTools.Desktop.Linux.sln
-    - name: dotnet restore SteamTools.Desktop.Mac.sln
       if: matrix.os == 'ubuntu-latest'
+      run: dotnet restore ./SteamTools.Desktop.Linux.sln
+      
+    - name: dotnet restore SteamTools.Desktop.Mac.sln
+      if: matrix.os == 'macOS-latest'
       run: dotnet restore ./SteamTools.Desktop.Mac.sln
+      
     - name: dotnet AvaloniaApp build
       run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Desktop.Avalonia.App.csproj
     - name: dotnet CommonUnit build
       run: dotnet build ./tests/Common.UnitTest/Common.UnitTest.csproj
-    - name: dotnet CommonUnit test
-      run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj
     - name: dotnet ST.Client.UnitTest build
       run: dotnet build ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj
+      
+    - name: dotnet CommonUnit test
+      run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj
     - name: dotnet ST.Client.UnitTest test
       run: dotnet test ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj
