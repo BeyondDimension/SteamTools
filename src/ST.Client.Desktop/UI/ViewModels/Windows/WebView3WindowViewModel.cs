@@ -21,5 +21,7 @@ namespace System.Application.UI.ViewModels
         }
 
         public Action<string, byte[]>? OnStreamResponseFilterResourceLoadComplete { get; set; }
+
+        public bool FixedSinglePage { get; set; }
     }
 }

@@ -32,6 +32,7 @@ namespace System.Application.UI.Views.Windows
             base.OnDataContextChanged(e);
             if (DataContext is WebView3WindowViewModel vm)
             {
+                if (!string.IsNullOrWhiteSpace(vm.Title)) webView.DocumentTitleChanged -= WebView_DocumentTitleChanged;
                 vm.WhenAnyValue(x => x.Url).WhereNotNull().Subscribe(x =>
                 {
                     if (x == WebView3WindowViewModel.AboutBlank)
@@ -56,10 +57,8 @@ namespace System.Application.UI.Views.Windows
                         }
                     }
                 }).AddTo(vm);
-                vm.WhenAnyValue(x => x.StreamResponseFilterUrls).Subscribe(x =>
-                {
-                    webView.StreamResponseFilterUrls = x;
-                }).AddTo(vm);
+                vm.WhenAnyValue(x => x.StreamResponseFilterUrls).Subscribe(x => webView.StreamResponseFilterUrls = x).AddTo(vm);
+                vm.WhenAnyValue(x => x.FixedSinglePage).Subscribe(x => webView.FixedSinglePage = x).AddTo(vm);
                 webView.OnStreamResponseFilterResourceLoadComplete += vm.OnStreamResponseFilterResourceLoadComplete;
             }
         }

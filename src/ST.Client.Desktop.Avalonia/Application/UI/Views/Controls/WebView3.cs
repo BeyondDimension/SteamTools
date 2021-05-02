@@ -46,9 +46,14 @@ namespace System.Application.UI.Views.Controls
         }
 
         /// <summary>
-        /// 在浏览器中打开新窗口
+        /// 在浏览器中打开新窗口，所有新页面打开的Url会在浏览器中打开
         /// </summary>
         public bool OpenInBrowser { get; set; } = true;
+
+        /// <summary>
+        /// 是否固定单页，为 <see langword="true"/> 时所有跳转都将在浏览器中打开
+        /// </summary>
+        public bool FixedSinglePage { get; set; } = false;
 
         /// <summary>
         /// 需要拦截响应流的Url
@@ -170,6 +175,11 @@ namespace System.Application.UI.Views.Controls
 
         protected override bool OnBeforePopup(CefBrowser browser, CefFrame frame, string targetUrl, string targetFrameName, CefWindowOpenDisposition targetDisposition, bool userGesture, CefPopupFeatures popupFeatures, CefWindowInfo windowInfo, ref CefClient client, CefBrowserSettings settings, ref CefDictionaryValue extraInfo, ref int noJavascriptAccess)
         {
+            if (webView.FixedSinglePage)
+            {
+                BrowserOpen(targetUrl);
+                return true;
+            }
             switch (targetDisposition)
             {
                 case CefWindowOpenDisposition.NewForegroundTab:
@@ -183,7 +193,10 @@ namespace System.Application.UI.Views.Controls
                     else
                     {
                         // 禁止创建新窗口，仅在当前窗口跳转
-                        browser.MainFrame.LoadUrl(targetUrl);
+                        if (IsHttpUrl(targetUrl))
+                        {
+                            browser.MainFrame.LoadUrl(targetUrl);
+                        }
                     }
                     return true;
             }

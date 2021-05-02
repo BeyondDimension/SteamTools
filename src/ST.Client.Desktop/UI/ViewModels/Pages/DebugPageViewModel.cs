@@ -16,6 +16,7 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using static Newtonsoft.Json.JsonConvert;
 
 namespace System.Application.UI.ViewModels
@@ -209,15 +210,34 @@ namespace System.Application.UI.ViewModels
             DebugString = @string.ToString();
         }
 
-        public async void ShowDialogButton_Click()
+        public /*async*/ void ShowDialogButton_Click()
         {
-            DI.Get<IDesktopPlatformService>().OpenDesktopIconsSettings();
+#if DEBUG
+            var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
+            var vm = new WebView3WindowViewModel
+            {
+                Url = apiBaseUrl + "/ExternalLogin",
+                StreamResponseFilterUrls = new[]
+                {
+                    apiBaseUrl + "/ExternalLoginCallback"
+                },
+                OnStreamResponseFilterResourceLoadComplete = (url, data) =>
+                {
 
-            ToastService.Current.Notify("中文测试繁體測試🎉🧨🎇🎆🎄🖼🖼🖼🖼");
-            DebugString += ToastService.Current.Message + Environment.NewLine;
-            DebugString += ToastService.Current.IsVisible + Environment.NewLine;
+                },
+                FixedSinglePage = true,
+                Title = "Steam 快速登录",
+            };
+            IShowWindowService.Instance.Show(CustomWindow.WebView3, vm, resizeMode: ResizeModeCompat.NoResize);
+#endif
 
-            await IShowWindowService.Instance.Show(typeof(object), CustomWindow.NewVersion);
+            //DI.Get<IDesktopPlatformService>().OpenDesktopIconsSettings();
+
+            //ToastService.Current.Notify("中文测试繁體測試🎉🧨🎇🎆🎄🖼🖼🖼🖼");
+            //DebugString += ToastService.Current.Message + Environment.NewLine;
+            //DebugString += ToastService.Current.IsVisible + Environment.NewLine;
+
+            //await IShowWindowService.Instance.Show(typeof(object), CustomWindow.NewVersion);
 
             //    var r = await MessageBoxCompat.ShowAsync(@"Steam++ v1.1.2   2021-01-29
             //更新内容
