@@ -120,13 +120,13 @@
                         Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                         CommandParameter="ChangeBindPhoneNumber"></Button>
                 </ListBoxItem>
-                <ListBoxItem>
+                <!--<ListBoxItem>
                   <Button
                       Classes="CodeButton"
                       Content="{ReflectionBinding Path=Res.DelAccount,Mode=OneWay,Source={x:Static resx:R.Current}}"
                       Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                       CommandParameter="ChangeBindPhoneNumber"></Button>
-                </ListBoxItem>
+                </ListBoxItem>-->
                 <ListBoxItem>
                   <Button
                       Classes="CodeButton"
