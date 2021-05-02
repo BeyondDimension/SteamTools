@@ -65,7 +65,6 @@ namespace System.Application.Services.Implementation
         public async Task HttpRequest(SessionEventArgs e) {
             //IHttpService.Instance.SendAsync<object>();
             var url = Web.HttpUtility.UrlDecode(e.HttpClient.Request.RequestUri.Query.Replace("?request=", ""));
-            var cancellationToken = new CancellationToken();
             switch (e.HttpClient.Request.Method.ToUpperInvariant())
             {
                 case "GET":
