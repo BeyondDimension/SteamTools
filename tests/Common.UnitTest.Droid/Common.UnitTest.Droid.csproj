@@ -16,7 +16,7 @@
     <Compile Include="..\..\src\Common.CoreLib\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
     </Compile>
-    <Compile Include="..\..\Resources\TargetFramework.cs">
+    <Compile Include="..\..\src\TargetFramework.cs">
       <Link>Utils\TargetFramework.cs</Link>
     </Compile>
     <Compile Include="..\Common.UnitTest\*.cs">

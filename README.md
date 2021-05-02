@@ -19,9 +19,10 @@
 [![Official WebSite](https://img.shields.io/badge/website@official-Ant%20Design%20of%20React-blue.svg?style=flat-square&color=61dafb)](https://github.com/ant-design/ant-design)
 [![BackManage WebSite](https://img.shields.io/badge/website@back_manage-Ant%20Design%20of%20Blazor-purple.svg?style=flat-square&color=512bd4)](https://github.com/ant-design-blazor/ant-design-blazor)
 
-[![](https://img.shields.io/badge/QQ群-479036439-blue.svg?style=flat-square&color=12b7f5)](https://jq.qq.com/?_wv=1027&k=MWH729dD)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FSteamTools-Team%2FSteamTools%2Fbadge%3Fref%3Ddevelop&style=flat-square)](https://actions-badge.atrox.dev/SteamTools-Team/SteamTools/goto?ref=develop)
 [![GitHub Star](https://img.shields.io/github/stars/rmbadmin/SteamTools.svg?style=social)](https://github.com/SteamTools-Team/SteamTools)
 [![Gitee Star](https://gitee.com/rmbgame/SteamTools/badge/star.svg)](https://gitee.com/rmbgame/SteamTools)
+[![](https://img.shields.io/badge/QQ群-479036439-blue.svg?style=flat-square&color=12b7f5)](https://jq.qq.com/?_wv=1027&k=MWH729dD)
 </div>
 
 <div align="center"><img src="./resources/screenshots.jpg" /></div>
