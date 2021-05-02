@@ -91,6 +91,7 @@ namespace System.Application.Services.Implementation
                             info.Id = pid.Value;
                         var cachePath = Path.Combine(IOPath.CacheDirectory, url);
                         info.FilePath = url;
+                        info.IsBuild = build;
                         info.CachePath = url;
                         if (await BuildScriptAsync(info, build))
                         {

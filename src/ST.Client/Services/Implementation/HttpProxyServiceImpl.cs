@@ -6,11 +6,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Properties;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Titanium.Web.Proxy;
 using Titanium.Web.Proxy.EventArguments;
@@ -41,7 +44,6 @@ namespace System.Application.Services.Implementation
 
         public bool ProxyRunning => proxyServer.ProxyRunning;
         public IList<HttpHeader> JsHeader => new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
-
         public HttpProxyServiceImpl()
         {
             //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -60,7 +62,31 @@ namespace System.Application.Services.Implementation
 
             proxyServer.CertificateManager.RootCertificate = proxyServer.CertificateManager.LoadRootCertificate();
         }
-
+        public async Task HttpRequest(SessionEventArgs e) {
+            //IHttpService.Instance.SendAsync<object>();
+            var url = Web.HttpUtility.UrlDecode(e.HttpClient.Request.RequestUri.Query.Replace("?request=", ""));
+            var cancellationToken = new CancellationToken();
+            switch (e.HttpClient.Request.Method.ToUpperInvariant())
+            {
+                case "GET":
+                    var body =await IHttpService.Instance.GetAsync<string>(url);
+                    e.Ok(body??"500", new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"), new HttpHeader("Access-Control-Allow-Headers", "*") });
+                    return;
+                case "POST":
+                    var requestStream = new StreamWriter(new MemoryStream());
+                    requestStream.Write(e.HttpClient.Request.BodyString);
+                    var send = new HttpRequestMessage {  
+                        Method= HttpMethod.Post,
+                        Content= new StreamContent(requestStream.BaseStream),
+                    };
+                    send.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(e.HttpClient.Request.ContentType);
+                    send.Content.Headers.ContentLength = e.HttpClient.Request.BodyString.Length;
+                    var conext = await IHttpService.Instance.SendAsync<string>(url, send,null,false,new CancellationToken());
+                    e.Ok(conext ?? "500", new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"), new HttpHeader("Access-Control-Allow-Headers", "*") });
+                    return;
+            } 
+            //e.Ok(respone, new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*") });
+        }
         public async Task OnRequest(object sender, SessionEventArgs e)
         {
 #if DEBUG
@@ -73,8 +99,21 @@ namespace System.Application.Services.Implementation
             }
             if (e.HttpClient.Request.Host == "local.steampp.net")
             {
-                e.Ok(Scripts.FirstOrDefault(x => x.JsPathUrl == e.HttpClient.Request.RequestUri.LocalPath)?.Content ?? "404", JsHeader);
-                return;
+                if (e.HttpClient.Request.Method.ToUpperInvariant() == "OPTIONS") {
+                    e.Ok("", new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"),new HttpHeader("Access-Control-Allow-Headers", "*") });
+                    return;
+                }
+                var type = e.HttpClient.Request.Headers.GetFirstHeader("requestType")?.Value;
+                switch (type)
+                {
+                    case "xhr":
+                        await HttpRequest(e);
+                     
+                        return;
+                    default:
+                        e.Ok(Scripts.FirstOrDefault(x => x.JsPathUrl == e.HttpClient.Request.RequestUri.LocalPath)?.Content ?? "404", JsHeader);
+                        return;
+                } 
             }
             foreach (var item in ProxyDomains)
             {

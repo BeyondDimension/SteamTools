@@ -149,12 +149,12 @@ namespace System.Application.UI.ViewModels
             {
                 if (s.Result == MessageBoxResultCompat.OK)
                 {
-                    var item = await DI.Get<IScriptManagerService>().AddScriptAsync(url, script);
+                    var item = await DI.Get<IScriptManagerService>().AddScriptAsync(url, script,build: script.IsBuild,order:script.Order);
                     if (item.state)
                     {
                         if (ProxyService.Current.ProxyScripts.Items.Any() && item.model != null)
                         {
-                            ProxyService.Current.ProxyScripts.Replace(script, item.model);
+                            ProxyService.Current.ProxyScripts.Replace(script, item.model) ;
                         }
                     }
                 }
@@ -170,7 +170,7 @@ namespace System.Application.UI.ViewModels
         {
             if (script?.FilePath != null)
             {
-                var item = await DI.Get<IScriptManagerService>().AddScriptAsync(script.FilePath, build: script.IsBuild);
+                var item = await DI.Get<IScriptManagerService>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, script.FilePath), build: script.IsBuild);
                 if (item.state)
                     if (item.model != null)
                     {
