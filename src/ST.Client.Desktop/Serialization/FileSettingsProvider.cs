@@ -84,7 +84,6 @@ namespace System.Application.Serialization
                     {
                         stream.Position = 0;
                     }
-
                     var source = Serializable.DMP<IDictionary<string, object?>>(stream);
                     //var source = XamlServices.Load(stream) as IDictionary<string, object>;
                     _settings = source == null

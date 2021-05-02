@@ -1,6 +1,7 @@
 using System;
 using System.Application.Serialization;
 using System.Application.UI;
+using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -28,41 +29,47 @@ namespace System.Application.Models.Settings
         }
 
         /// <summary>
-        /// Ö÷Ìâ
+        /// ä¸»é¢˜
         /// </summary>
         public static SerializableProperty<short> Theme { get; }
             = new SerializableProperty<short>(GetKey(), Providers.Local, 0) { AutoSave = true };
 
         /// <summary>
-        /// ÓïÑÔ
+        /// è¯­è¨€
         /// </summary>
         public static SerializableProperty<string> Language { get; }
             = new SerializableProperty<string>(GetKey(), Providers.Local, "") { AutoSave = true };
 
         /// <summary>
-        /// ×ÖÌå
+        /// å­—ä½“
         /// </summary>
         public static SerializableProperty<string> FontName { get; }
             = new SerializableProperty<string>(GetKey(), Providers.Local, "Default") { AutoSave = true };
 
         /// <summary>
-        /// ±³¾°Í¼Æ¬Â·¾¶
+        /// èƒŒæ™¯å›¾ç‰‡è·¯å¾„
         /// </summary>
         public static SerializableProperty<string> BackgroundImagePath { get; }
             = new SerializableProperty<string>(GetKey(), Providers.Local, "") { AutoSave = true };
 
         /// <summary>
-        /// Ö÷ÌâÑ¡Ôñ
+        /// ä¸»é¢˜é€‰æ‹©
         /// </summary>
         public static SerializableProperty<int> ThemeAccent { get; }
             = new SerializableProperty<int>(GetKey(), Providers.Local, 0) { AutoSave = true };
 
         /// <summary>
-        /// ¿â´æÓÎÏ··âÃæ´óĞ¡
+        /// åº“å­˜æ¸¸æˆå°é¢å¤§å°
         /// </summary>
         public static SerializableProperty<int> AppGridSize { get; }
             = new SerializableProperty<int>(GetKey(), Providers.Local, 200) { AutoSave = true };
 
+        /// <summary>
+        /// æ‰€æœ‰çª—å£ä½ç½®è®°å¿†é›†åˆ
+        /// </summary>
+        public static SerializableProperty<Dictionary<string, WindowSizePosition>> WindowSizePositions { get; }
+            = new SerializableProperty<Dictionary<string, WindowSizePosition>>(GetKey(), Providers.Local, new Dictionary<string, WindowSizePosition>()) { AutoSave = true };
+        
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
             return nameof(UISettings) + "." + propertyName;

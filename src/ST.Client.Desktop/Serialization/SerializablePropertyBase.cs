@@ -60,6 +60,13 @@ namespace System.Application.Serialization
             }
         }
 
+        public virtual void RaiseValueChanged()
+        {
+            Provider.SetValue(Key, _value);
+            OnValueChanged(_value, _value);
+            if (AutoSave) Provider.Save();
+        }
+
         protected SerializablePropertyBase(string key, ISerializationProvider provider) : this(key, provider, default)
         {
         }

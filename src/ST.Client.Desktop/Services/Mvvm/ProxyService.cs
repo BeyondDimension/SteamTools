@@ -298,6 +298,8 @@ namespace System.Application.Services
                   .Subscribe(_ =>
                   {
                       ProxySettings.ScriptsStatus.Value = EnableProxyScripts.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
+                      httpProxyService.Scripts = EnableProxyScripts;
+                      this.RaisePropertyChanged(nameof(EnableProxyScripts));
                   }));
             #endregion
         }
