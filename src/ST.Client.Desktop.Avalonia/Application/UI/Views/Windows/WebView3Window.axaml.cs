@@ -25,6 +25,19 @@ namespace System.Application.UI.Views.Windows
             webView.InitialUrl = WebView3WindowViewModel.AboutBlank;
             webView.Opacity = 0;
             webView.DocumentTitleChanged += WebView_DocumentTitleChanged;
+            webView.LoadingStateChange += WebView_LoadingStateChange;
+        }
+
+        private void WebView_LoadingStateChange(object? sender, LoadingStateChangeEventArgs e)
+        {
+            if (!e.Busy)
+            {
+                if (webView.Opacity != 1) webView.Opacity = 1;
+                if (DataContext is WebView3WindowViewModel vm && vm.IsLoading)
+                {
+                    vm.IsLoading = false;
+                }
+            }
         }
 
         protected override void OnDataContextChanged(EventArgs e)
@@ -46,7 +59,7 @@ namespace System.Application.UI.Views.Windows
                                 x + "?theme={0}&language={1}",
                                 CefNetApp.GetTheme(),
                                 R.Language);
-                        if (webView.Opacity != 1) webView.Opacity = 1;
+                        //if (webView.Opacity != 1) webView.Opacity = 1;
                         if (webView.BrowserObject == null)
                         {
                             webView.InitialUrl = x;
@@ -95,6 +108,8 @@ namespace System.Application.UI.Views.Windows
                     // TODO: 释放托管状态(托管对象)
                     if (webView != null)
                     {
+                        webView.DocumentTitleChanged -= WebView_DocumentTitleChanged;
+                        webView.LoadingStateChange -= WebView_LoadingStateChange;
                         if (DataContext is WebView3WindowViewModel vm)
                         {
                             webView.OnStreamResponseFilterResourceLoadComplete -= vm.OnStreamResponseFilterResourceLoadComplete;

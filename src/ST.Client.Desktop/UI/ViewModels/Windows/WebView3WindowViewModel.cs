@@ -23,5 +23,12 @@ namespace System.Application.UI.ViewModels
         public Action<string, byte[]>? OnStreamResponseFilterResourceLoadComplete { get; set; }
 
         public bool FixedSinglePage { get; set; }
+
+        bool _IsLoading = true;
+        public bool IsLoading
+        {
+            get => _IsLoading;
+            set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
+        }
     }
 }
