@@ -152,7 +152,7 @@ namespace System.Application.Services.Implementation
                     var scriptContent = new StringBuilder();
                     if (build)
                     {
-                        scriptContent.AppendLine("(function() {");
+                        scriptContent.AppendLine("(function () {");
                         foreach (var item in model.RequiredJsArray)
                         {
                             try
@@ -167,8 +167,9 @@ namespace System.Application.Services.Implementation
                                 toast.Show(errorMsg);
                             }
                         }
-                        scriptContent.AppendLine(model.Content);
-                        scriptContent.AppendLine("})( )");
+                        scriptContent.AppendLine("var jq = jQuery.noConflict();(($, jQuery) => {");
+                        scriptContent.AppendLine(model.Content); 
+                        scriptContent.AppendLine("})(jq, jq)})()");
                     }
                     else
                     {
