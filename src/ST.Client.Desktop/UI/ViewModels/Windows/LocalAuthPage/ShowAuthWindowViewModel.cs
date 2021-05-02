@@ -13,13 +13,12 @@ namespace System.Application.UI.ViewModels
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_AuthData;
         }
-        public ShowAuthWindowViewModel(MyAuthenticator auth)
+        public ShowAuthWindowViewModel(MyAuthenticator auth) : this()
         {
             if (auth.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator authenticator)
             {
                 _Authenticator = authenticator;
             }
-            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_AuthData;
         }
 
         public string? RecoveryCode => _Authenticator?.RecoveryCode;

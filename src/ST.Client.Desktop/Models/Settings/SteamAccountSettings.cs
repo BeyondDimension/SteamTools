@@ -11,7 +11,7 @@ namespace System.Application.Models.Settings
     public static class SteamAccountSettings
     {
         /// <summary>
-        /// Steam�˺ű�ע�ֵ�
+        /// Steam账号备注字典
         /// </summary>
         public static SerializableProperty<IReadOnlyDictionary<long, string?>?> AccountRemarks { get; }
             = new SerializableProperty<IReadOnlyDictionary<long, string?>?>(GetKey(), Providers.Local, null);

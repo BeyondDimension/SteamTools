@@ -819,6 +819,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 编辑游戏信息 的本地化字符串。
+        /// </summary>
+        public static string GameList_EditAppInfo {
+            get {
+                return ResourceManager.GetString("GameList_EditAppInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 隐藏此游戏 的本地化字符串。
         /// </summary>
         public static string GameList_HideTheGame {

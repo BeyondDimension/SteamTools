@@ -372,6 +372,9 @@
   <data name="GameList" xml:space="preserve">
     <value>库存游戏</value>
   </data>
+  <data name="GameList_EditAppInfo" xml:space="preserve">
+    <value>编辑游戏信息</value>
+  </data>
   <data name="GameList_HideTheGame" xml:space="preserve">
     <value>隐藏此游戏</value>
   </data>

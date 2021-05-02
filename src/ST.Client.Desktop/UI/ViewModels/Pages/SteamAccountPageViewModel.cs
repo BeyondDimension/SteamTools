@@ -88,11 +88,12 @@ namespace System.Application.UI.ViewModels
             }
 
             _SteamUsersSourceList.AddOrUpdate(list);
+            var accountRemarks = SteamAccountSettings.AccountRemarks.Value;
 
             foreach (var user in _SteamUsersSourceList.Items)
             {
                 string? remark = null;
-                SteamAccountSettings.AccountRemarks.Value?.TryGetValue(user.SteamId64, out remark);
+                accountRemarks?.TryGetValue(user.SteamId64, out remark);
                 var temp = await webApiService.GetUserInfo(user.SteamId64);
                 user.Remark = remark;
                 user.SteamID = temp.SteamID;
@@ -124,14 +125,14 @@ namespace System.Application.UI.ViewModels
             _SteamUsersSourceList.Refresh();
 
             this.WhenAnyValue(x => x.SteamUsers)
-                .Subscribe(items => items?
-                        .ToObservableChangeSet()
-                        .AutoRefresh(x => x.Remark)
-                        .WhenValueChanged(x => x.Remark, false)
-                        .Subscribe(_ =>
-                        {
-                            SteamAccountSettings.AccountRemarks.Value = items?.Where(x => !string.IsNullOrEmpty(x.Remark)).ToDictionary(k => k.SteamId64, v => v.Remark);
-                        }));
+                  .Subscribe(items => items?
+                  .ToObservableChangeSet()
+                  .AutoRefresh(x => x.Remark)
+                  .WhenValueChanged(x => x.Remark, false)
+                  .Subscribe(_ =>
+                  {
+                      SteamAccountSettings.AccountRemarks.Value = items?.Where(x => !string.IsNullOrEmpty(x.Remark)).ToDictionary(k => k.SteamId64, v => v.Remark);
+                  }));
         }
 
         public void SteamId_Click(SteamUser user)
@@ -140,9 +141,7 @@ namespace System.Application.UI.ViewModels
             {
                 UserModeChange(user, false);
             }
-            steamService.SetCurrentUser(user.AccountName ?? string.Empty);
-            steamService.TryKillSteamProcess();
-            steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
+            ReStartSteamByUser(user);
         }
 
         public void OfflineModeButton_Click(SteamUser user)
@@ -151,7 +150,14 @@ namespace System.Application.UI.ViewModels
             {
                 UserModeChange(user, true);
             }
-            SteamId_Click(user);
+            ReStartSteamByUser(user);
+        }
+
+        private void ReStartSteamByUser(SteamUser user)
+        {
+            steamService.SetCurrentUser(user.AccountName ?? string.Empty);
+            steamService.TryKillSteamProcess();
+            steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
         }
 
         private void UserModeChange(SteamUser user, bool OfflineMode)

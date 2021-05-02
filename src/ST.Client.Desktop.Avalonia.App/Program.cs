@@ -120,6 +120,7 @@ namespace System.Application.UI
 
                 try
                 {
+                    DI.Get<IHttpProxyService>().StopProxy();
                     IHostsFileService.OnExitRestoreHosts();
                 }
                 catch (Exception ex_restore_hosts)

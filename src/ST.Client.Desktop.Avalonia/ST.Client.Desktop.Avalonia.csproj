@@ -61,5 +61,8 @@
     <Compile Update="Application\UI\Views\Pages\Settings\Settings_General.axaml.cs">
       <DependentUpon>Settings_General.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Application\UI\Views\Windows\GameListPage\EditAppInfoWindow.axaml.cs">
+      <DependentUpon>EditAppInfoWindow.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

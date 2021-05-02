@@ -176,6 +176,7 @@ namespace System.Application.Models
             set => this.RaiseAndSetIfChanged(ref _Remark, value);
         }
 
+
         public SteamMiniProfile? MiniProfile { get; set; }
 
         /// <summary>
