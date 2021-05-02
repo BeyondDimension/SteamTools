@@ -2,7 +2,7 @@ namespace System.Properties
 {
     public static class ThisAssembly
     {
-        public const string Version = "2.0.0.7";
+        public const string Version = "2.0.0.8";
 
         public const string InfoVersion = Version + "-beta";
 

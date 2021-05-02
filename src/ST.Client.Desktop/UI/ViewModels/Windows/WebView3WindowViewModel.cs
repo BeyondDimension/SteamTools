@@ -12,5 +12,14 @@ namespace System.Application.UI.ViewModels
             get => _Url;
             set => this.RaiseAndSetIfChanged(ref _Url, value);
         }
+
+        string[]? _StreamResponseFilterUrls;
+        public string[]? StreamResponseFilterUrls
+        {
+            get => _StreamResponseFilterUrls;
+            set => this.RaiseAndSetIfChanged(ref _StreamResponseFilterUrls, value);
+        }
+
+        public Action<string, byte[]>? OnStreamResponseFilterResourceLoadComplete { get; set; }
     }
 }

@@ -5,6 +5,8 @@ using CefNet.Internal;
 using System.Application.Services.CloudService;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using static System.Application.Services.CloudService.Constants;
 
 // ReSharper disable once CheckNamespace
@@ -43,7 +45,20 @@ namespace System.Application.UI.Views.Controls
             RaiseEvent(e);
         }
 
+        /// <summary>
+        /// 在浏览器中打开新窗口
+        /// </summary>
         public bool OpenInBrowser { get; set; } = true;
+
+        /// <summary>
+        /// 需要拦截响应流的Url
+        /// </summary>
+        public string[]? StreamResponseFilterUrls { get; set; }
+
+        /// <summary>
+        /// 拦截响应流的处理
+        /// </summary>
+        public Action<string, byte[]>? OnStreamResponseFilterResourceLoadComplete { get; set; }
     }
 
     public class FullscreenModeChangeEventArgs : RoutedEventArgs
@@ -217,5 +232,104 @@ namespace System.Application.UI.Views.Controls
         //    var returnValue = base.OnBeforeResourceLoad(browser, frame, request, callback);
         //    return returnValue;
         //}
+
+        protected override void OnResourceLoadComplete(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response, CefUrlRequestStatus status, long receivedContentLength)
+        {
+            base.OnResourceLoadComplete(browser, frame, request, response, status, receivedContentLength);
+            if (responseDictionary.TryGetValue(request.Identifier, out var filter))
+            {
+                webView.OnStreamResponseFilterResourceLoadComplete?.Invoke(request.Url, filter.Data);
+            }
+        }
+
+        readonly Dictionary<ulong, StreamResponseFilter> responseDictionary = new();
+
+        protected override CefResponseFilter GetResourceResponseFilter(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response)
+        {
+            if (webView.StreamResponseFilterUrls != null && webView.StreamResponseFilterUrls.Contains(request.Url, StringComparer.OrdinalIgnoreCase))
+            {
+                var dataFilter = new StreamResponseFilter();
+                responseDictionary.Add(request.Identifier, dataFilter);
+                return dataFilter;
+            }
+            return base.GetResourceResponseFilter(browser, frame, request, response);
+        }
+
+        /// <summary>
+        /// https://stackoverflow.com/questions/45816851/using-cefsharp-to-capture-resource-response-data-body
+        /// </summary>
+        unsafe class StreamResponseFilter : CefResponseFilter
+        {
+            MemoryStream? memoryStream;
+
+            protected override bool InitFilter()
+            {
+                memoryStream = new();
+                return true;
+            }
+
+            protected override CefResponseFilterStatus Filter(IntPtr dataIn, long dataInSize, ref long dataInRead, IntPtr dataOut, long dataOutSize, ref long dataOutWritten)
+            {
+                Stream? dataInStream;
+                if (dataIn == default)
+                {
+                    dataInStream = default;
+                }
+                else
+                {
+                    var dataInBytePtr = (byte*)dataIn.ToPointer();
+                    dataInStream = new UnmanagedMemoryStream(dataInBytePtr, dataInSize, dataInSize, FileAccess.Read);
+                }
+
+                var dataOutBytePtr = (byte*)dataOut.ToPointer();
+                UnmanagedMemoryStream dataOutStream = new(dataOutBytePtr, dataOutSize, dataOutSize, FileAccess.Write);
+
+                return Filter(dataInStream, dataInSize, ref dataInRead, dataOutStream, dataOutSize, ref dataOutWritten);
+            }
+
+            protected virtual CefResponseFilterStatus Filter(Stream? dataIn, long dataInSize, ref long dataInRead, Stream dataOut, long dataOutSize, ref long dataOutWritten)
+            {
+                if (dataIn == null)
+                {
+                    dataInRead = 0;
+                    dataOutWritten = 0;
+
+                    return CefResponseFilterStatus.Done;
+                }
+
+                dataInRead = dataIn.Length;
+                dataOutWritten = Math.Min(dataInRead, dataOut.Length);
+
+                //Important we copy dataIn to dataOut
+                dataIn.CopyTo(dataOut);
+
+                //Copy data to stream
+                dataIn.Position = 0;
+                dataIn.CopyTo(memoryStream!);
+
+                return CefResponseFilterStatus.Done;
+            }
+
+            protected override void Dispose(bool disposing)
+            {
+                if (!disposing)
+                {
+                    if (disposing)
+                    {
+                        if (memoryStream != null)
+                        {
+                            memoryStream.Dispose();
+                            memoryStream = null;
+                        }
+                    }
+                }
+                base.Dispose(disposing);
+            }
+
+            public byte[] Data
+            {
+                get { return memoryStream!.ToArray(); }
+            }
+        }
     }
 }

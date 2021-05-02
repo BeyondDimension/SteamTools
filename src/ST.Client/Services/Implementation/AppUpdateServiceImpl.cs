@@ -315,7 +315,7 @@ namespace System.Application.Services.Implementation
                             break;
                         }
                         i++;
-                        OnReportDownloading3_(i / (float)incrementalUpdate.Count);
+                        OnReportDownloading3_(i / (float)incrementalUpdate.Count * MaxProgressValue);
                     }
 
                     OnReport(MaxProgressValue);

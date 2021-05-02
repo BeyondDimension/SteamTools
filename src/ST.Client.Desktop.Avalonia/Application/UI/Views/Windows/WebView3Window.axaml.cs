@@ -2,7 +2,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using CefNet;
-using CefNet.Avalonia;
 using ReactiveUI;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
@@ -57,6 +56,11 @@ namespace System.Application.UI.Views.Windows
                         }
                     }
                 }).AddTo(vm);
+                vm.WhenAnyValue(x => x.StreamResponseFilterUrls).Subscribe(x =>
+                {
+                    webView.StreamResponseFilterUrls = x;
+                }).AddTo(vm);
+                webView.OnStreamResponseFilterResourceLoadComplete += vm.OnStreamResponseFilterResourceLoadComplete;
             }
         }
 
@@ -92,6 +96,10 @@ namespace System.Application.UI.Views.Windows
                     // TODO: 释放托管状态(托管对象)
                     if (webView != null)
                     {
+                        if (DataContext is WebView3WindowViewModel vm)
+                        {
+                            webView.OnStreamResponseFilterResourceLoadComplete -= vm.OnStreamResponseFilterResourceLoadComplete;
+                        }
                         ((IDisposable)webView).Dispose();
                     }
                     if (DataContext is IDisposable d)
