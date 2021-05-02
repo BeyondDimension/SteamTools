@@ -2621,11 +2621,20 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam快速登录 的本地化字符串。
+        ///   查找类似 Steam 快速登录 的本地化字符串。
         /// </summary>
         public static string User_SteamFastLogin {
             get {
                 return ResourceManager.GetString("User_SteamFastLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 连接到 Steam 社区超时，请检查是否开启社区加速。 的本地化字符串。
+        /// </summary>
+        public static string User_SteamFastLoginTimeoutErrorMessage {
+            get {
+                return ResourceManager.GetString("User_SteamFastLoginTimeoutErrorMessage", resourceCulture);
             }
         }
         

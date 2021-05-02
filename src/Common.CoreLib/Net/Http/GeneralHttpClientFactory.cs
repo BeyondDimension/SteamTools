@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace System.Net.Http
 {
@@ -39,7 +39,7 @@ namespace System.Net.Http
         public static int DefaultTimeoutTotalMilliseconds => mDefaultTimeoutTotalMilliseconds.Value;
 
         /// <inheritdoc cref="DefaultTimeout"/>
-        protected virtual TimeSpan Timeout { get; } = DefaultTimeout;
+        protected /*virtual*/ TimeSpan Timeout { get; } = DefaultTimeout;
 
         protected virtual HttpClient CreateClient(string? clientName = null)
         {

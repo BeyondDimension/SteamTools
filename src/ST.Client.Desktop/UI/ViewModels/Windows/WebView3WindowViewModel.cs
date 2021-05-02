@@ -1,4 +1,5 @@
 using ReactiveUI;
+using System.Net.Http;
 
 namespace System.Application.UI.ViewModels
 {
@@ -30,5 +31,15 @@ namespace System.Application.UI.ViewModels
             get => _IsLoading;
             set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
         }
+
+        /// <summary>
+        /// 设置网页加载超时时间
+        /// </summary>
+        public TimeSpan Timeout { get; set; } = GeneralHttpClientFactory.DefaultTimeout;
+
+        /// <summary>
+        /// 网页加载超时时提示文本
+        /// </summary>
+        public string? TimeoutErrorMessage { get; set; }
     }
 }

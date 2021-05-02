@@ -226,7 +226,8 @@ namespace System.Application.UI.ViewModels
 
                 },
                 FixedSinglePage = true,
-                Title = "Steam 快速登录",
+                Title = AppResources.User_SteamFastLogin,
+                TimeoutErrorMessage = AppResources.User_SteamFastLoginTimeoutErrorMessage,
             };
             IShowWindowService.Instance.Show(CustomWindow.WebView3, vm, resizeMode: ResizeModeCompat.NoResize);
 #endif
