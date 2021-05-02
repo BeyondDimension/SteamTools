@@ -343,7 +343,7 @@ namespace System.Application.Services.Implementation
             //    // 当代理客户端不需要证书信任时非常有用
             //    //GenericCertificate = new X509Certificate2(Path.Combine(AppContext.BaseDirectory, "genericcert.pfx"), "password")
             //};
-            var explicitProxyEndPoint = new ExplicitProxyEndPoint(IPAddress.Any, ProxyPort, true)
+            var explicitProxyEndPoint = new ExplicitProxyEndPoint(IPAddress.Loopback, ProxyPort, true)
             {
                 // 通过不启用为每个http的域创建证书来优化性能
                 //GenericCertificate = proxyServer.CertificateManager.RootCertificate
@@ -360,12 +360,14 @@ namespace System.Application.Services.Implementation
                 //    return false;
                 //}
 
-                proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 443, true)
+                proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Loopback, 443, true)
                 {
                     // 通过不启用为每个http的域创建证书来优化性能
                     //GenericCertificate = proxyServer.CertificateManager.RootCertificate
                 });
-                proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Any, 80, false));
+
+                if (PortInUse(80) == false)
+                    proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Loopback, 80, false));
             }
 
             proxyServer.ExceptionFunc = ((Exception exception) =>
@@ -408,10 +410,10 @@ namespace System.Application.Services.Implementation
                 proxyServer.BeforeResponse -= OnResponse;
                 proxyServer.ServerCertificateValidationCallback -= OnCertificateValidation;
                 proxyServer.ClientCertificateSelectionCallback -= OnCertificateSelection;
-                proxyServer.DisableSystemHttpProxy();
-                proxyServer.DisableSystemHttpsProxy();
                 proxyServer.Stop();
             }
+            proxyServer.DisableSystemHttpProxy();
+            proxyServer.DisableSystemHttpsProxy();
         }
 
         public bool WirtePemCertificateToGoGSteamPlugins()
