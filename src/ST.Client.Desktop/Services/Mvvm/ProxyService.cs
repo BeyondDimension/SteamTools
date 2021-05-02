@@ -26,7 +26,7 @@ namespace System.Application.Services
         public ProxyService()
         {
             ProxyScripts = new SourceList<ScriptDTO>();
-            httpProxyService.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.BouncyCastleFast;
+            httpProxyService.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.BouncyCastle;
         }
 
         private ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? _ProxyDomains;
@@ -353,6 +353,7 @@ namespace System.Application.Services
 
         public void StartTiming()
         {
+            AccelerateTime = new();
             Task.Run(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
