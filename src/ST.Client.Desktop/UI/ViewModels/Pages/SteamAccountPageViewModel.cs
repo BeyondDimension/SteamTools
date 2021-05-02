@@ -88,7 +88,7 @@ namespace System.Application.UI.ViewModels
             }
 
             _SteamUsersSourceList.AddOrUpdate(list);
-            var accountRemarks = SteamAccountSettings.AccountRemarks.Value;
+            var accountRemarks = Serializable.Clone<IReadOnlyDictionary<long, string?>?>(SteamAccountSettings.AccountRemarks.Value);
 
             foreach (var user in _SteamUsersSourceList.Items)
             {

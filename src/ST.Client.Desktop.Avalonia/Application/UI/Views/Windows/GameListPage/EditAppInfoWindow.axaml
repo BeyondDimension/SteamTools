@@ -15,13 +15,13 @@
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
         Title="{Binding Title}"
-        x:DataType="vm:ShowAuthWindowViewModel"
+        x:DataType="vm:EditAppInfoWindowViewModel"
         x:CompileBindings="True">
   <DockPanel>
     <controls:TitleBar DockPanel.Dock="Top"></controls:TitleBar>
     <StackPanel>
       <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}">
-        <TextBox Text="{Binding Name}"></TextBox>
+        <TextBox></TextBox>
       </Border>
     </StackPanel>
   </DockPanel>
