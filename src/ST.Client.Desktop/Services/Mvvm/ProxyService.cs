@@ -157,10 +157,13 @@ namespace System.Application.Services
                             });
                         }).Where(w => !string.IsNullOrEmpty(w.Item1));
 
-                        if (httpProxyService.PortInUse(443))
+                        if (!ProxySettings.EnableWindowsProxy.Value)
                         {
-                            Toast.Show(AppResources.CommunityFix_StartProxyFaild443);
-                            return;
+                            if (httpProxyService.PortInUse(443))
+                            {
+                                Toast.Show(AppResources.CommunityFix_StartProxyFaild443);
+                                return;
+                            }
                         }
 
                         var isRun = httpProxyService.StartProxy(ProxySettings.EnableWindowsProxy.Value, ProxySettings.IsProxyGOG.Value);
