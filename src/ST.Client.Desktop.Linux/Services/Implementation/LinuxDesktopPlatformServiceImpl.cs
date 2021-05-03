@@ -27,6 +27,11 @@ namespace System.Application.Services.Implementation
             return vi;
         }
 
+        public void SetSystemSessionEnding(Action action) 
+        {
+
+        }
+
         public void SetBootAutoStart(bool isAutoStart, string name)
         {
         }

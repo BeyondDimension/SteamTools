@@ -31,6 +31,11 @@ namespace System.Application.Services.Implementation
             p?.Close();
         }
 
+        public void SetSystemSessionEnding(Action action)
+        {
+
+        }
+
         public void OpenFolder(string dirPath)
         {
 
