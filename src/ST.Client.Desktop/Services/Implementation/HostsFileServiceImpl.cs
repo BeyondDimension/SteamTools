@@ -84,12 +84,23 @@ namespace System.Application.Services.Implementation
             bool checkReadOnly = false,
             bool checkMaxLength = true)
         {
+            message = null;
             removeReadOnly = false;
             fileInfo = new FileInfo(s.HostsFilePath);
             if (!fileInfo.Exists)
             {
-                message = "hosts file was not found";
-                return false;
+                //message = "hosts file was not found";
+                //return false;
+                try
+                {
+                    fileInfo.Create().Dispose();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    message = ex.GetAllMessage();
+                    return false;
+                }
             }
             if (checkMaxLength)
             {
@@ -108,7 +119,6 @@ namespace System.Application.Services.Implementation
                     removeReadOnly = true;
                 }
             }
-            message = null;
             return true;
         }
 
