@@ -39,13 +39,13 @@ namespace System.Application.Services.Implementation
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public async Task<(bool state, ScriptDTO? model, string msg)> AddScriptAsync(string filePath, ScriptDTO? oldInfo = null, bool build = true, int? order = null, bool deleteFile = false, Guid? pid = null)
+        public async Task<(bool state, ScriptDTO? model, string msg)> AddScriptAsync(string filePath, ScriptDTO? oldInfo = null, bool build = true, int? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false)
         {
             var fileInfo = new FileInfo(filePath);
             if (fileInfo.Exists)
             {
                 ScriptDTO.TryParse(filePath, out ScriptDTO? info);
-                return await AddScriptAsync(fileInfo, info, oldInfo, build, order, deleteFile, pid);
+                return await AddScriptAsync(fileInfo, info, oldInfo, build, order, deleteFile, pid, ignoreCache);
             }
             else
             {
@@ -54,7 +54,7 @@ namespace System.Application.Services.Implementation
                 return (false, null, msg);
             }
         }
-        public async Task<(bool state, ScriptDTO? model, string msg)> AddScriptAsync(FileInfo fileInfo, ScriptDTO? info, ScriptDTO? oldInfo = null, bool build = true, int? order = null, bool deleteFile = false, Guid? pid = null)
+        public async Task<(bool state, ScriptDTO? model, string msg)> AddScriptAsync(FileInfo fileInfo, ScriptDTO? info, ScriptDTO? oldInfo = null, bool build = true, int? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false)
         {
             if (info != null)
             {
@@ -64,10 +64,11 @@ namespace System.Application.Services.Implementation
                     {
                         var md5 = Hashs.String.MD5(info.Content);
                         var sha512 = Hashs.String.SHA512(info.Content);
-                        if (await scriptRepository.ExistsScript(md5, sha512))
-                        {
-                            return (false, null, SR.Script_FileRepeat);
-                        }
+                        if (!ignoreCache)
+                            if (await scriptRepository.ExistsScript(md5, sha512))
+                            {
+                                return (false, null, SR.Script_FileRepeat);
+                            }
                         var url = Path.Combine(TAG, $"{md5}.js");
                         var savePath = Path.Combine(IOPath.AppDataDirectory, url);
                         var saveInfo = new FileInfo(savePath);
@@ -168,7 +169,7 @@ namespace System.Application.Services.Implementation
                             }
                         }
                         scriptContent.AppendLine("var jq = jQuery.noConflict();(($, jQuery) => {");
-                        scriptContent.AppendLine(model.Content); 
+                        scriptContent.AppendLine(model.Content);
                         scriptContent.AppendLine("})(jq, jq)})()");
                     }
                     else
