@@ -738,6 +738,9 @@
   <data name="Script_Installed" xml:space="preserve">
     <value>已安装</value>
   </data>
+  <data name="Script_NoFileDeleteItem" xml:space="preserve">
+    <value>该文本文件已丢失，是否删除脚本记录。</value>
+  </data>
   <data name="Script_Refresh" xml:space="preserve">
     <value>刷新缓存</value>
   </data>

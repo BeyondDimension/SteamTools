@@ -276,7 +276,6 @@ namespace System.Application.Services
             //}
             //new ObservableCollection<ScriptDTO>(response.Content);
             var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
-            BasicsInfo();
             if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
             {
                 foreach (var item in scriptList)
@@ -289,6 +288,7 @@ namespace System.Application.Services
             }
 
             ProxyScripts.AddRange(scriptList);
+            BasicsInfo();
             httpProxyService.IsEnableScript = IsEnableScript;
 
             this.WhenAnyValue(v => v.ProxyScripts)
@@ -425,7 +425,7 @@ namespace System.Application.Services
             var jspath = await DI.Get<IScriptManagerService>().DownloadScript(model.UpdateLink);
             if (jspath.state)
             {
-                var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, model, build: model.IsBuild, order: 10, deleteFile: true, pid: model.Id);
+                var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, model, build: model.IsBuild, order: model.Order, deleteFile: true, pid: model.Id);
                 if (build.state)
                 {
                     if (build.model != null)

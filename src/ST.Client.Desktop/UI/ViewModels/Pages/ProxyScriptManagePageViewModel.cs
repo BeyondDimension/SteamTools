@@ -139,7 +139,25 @@ namespace System.Application.UI.ViewModels
                 }
             });
         }
+        public void DeleteNoFileScriptItemButton(ScriptDTO script)
+        {
 
+            var result = MessageBoxCompat.ShowAsync(@AppResources.Script_NoFileDeleteItem , ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
+            {
+                if (s.Result == MessageBoxResultCompat.OK)
+                {
+                    var item = await DI.Get<IScriptManagerService>().DeleteScriptAsync(script);
+                    if (item.state)
+                    {
+                        if (ProxyService.Current.ProxyScripts != null)
+                            ProxyService.Current.ProxyScripts.Remove(script);
+
+                    }
+                    Toast.Show(item.msg);
+                }
+            });
+        }
+        
         public void EditScriptItemButton(ScriptDTO script)
         {
 
@@ -154,7 +172,8 @@ namespace System.Application.UI.ViewModels
                     {
                         if (ProxyService.Current.ProxyScripts.Items.Any() && item.model != null)
                         {
-                            ProxyService.Current.ProxyScripts.Replace(script, item.model) ;
+                            ProxyService.Current.ProxyScripts.Replace(script, item.model);
+                            Toast.Show(AppResources.Success_.Format(AppResources.Script_Edit));
                         }
                     }
                 }
@@ -170,11 +189,12 @@ namespace System.Application.UI.ViewModels
         {
             if (script?.FilePath != null)
             {
-                var item = await DI.Get<IScriptManagerService>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, script.FilePath),order:script.Order, build: script.IsBuild, ignoreCache:true);
+                var item = await DI.Get<IScriptManagerService>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, script.FilePath),script,order:script.Order, build: script.IsBuild, ignoreCache:true);
                 if (item.state)
+                {
                     if (item.model != null)
-                    {
-                        script = item.model;
+                    { 
+                        ProxyService.Current.ProxyScripts.Replace(script, item.model);
                         Toast.Show(AppResources.RefreshOK);
                     }
                     else
@@ -182,6 +202,11 @@ namespace System.Application.UI.ViewModels
                         script.Enable = false;
                         Toast.Show(item.msg);
                     }
+                }
+                else
+                {
+                    DeleteNoFileScriptItemButton(script);
+                }
             }
         }
 

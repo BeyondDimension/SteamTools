@@ -1855,6 +1855,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 该文本文件已丢失，是否删除脚本记录。 的本地化字符串。
+        /// </summary>
+        public static string Script_NoFileDeleteItem {
+            get {
+                return ResourceManager.GetString("Script_NoFileDeleteItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 刷新缓存 的本地化字符串。
         /// </summary>
         public static string Script_Refresh {

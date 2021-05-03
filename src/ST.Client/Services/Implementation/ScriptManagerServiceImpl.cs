@@ -72,13 +72,14 @@ namespace System.Application.Services.Implementation
                         var url = Path.Combine(TAG, $"{md5}.js");
                         var savePath = Path.Combine(IOPath.AppDataDirectory, url);
                         var saveInfo = new FileInfo(savePath);
+                        var isNoRepeat = saveInfo.FullName != fileInfo.FullName;
                         if (!saveInfo.Directory.Exists)
                         {
                             saveInfo.Directory.Create();
                         }
                         if (saveInfo.Exists)
                         {
-                            if (saveInfo.FullName != fileInfo.FullName)
+                            if (isNoRepeat)
                                 saveInfo.Delete();
                         }
                         else
@@ -88,9 +89,12 @@ namespace System.Application.Services.Implementation
                             info.LocalId = oldInfo.LocalId;
                             info.Id = oldInfo.Id;
                             info.Order = oldInfo.Order;
-                            var state = await DeleteScriptAsync(oldInfo, false);
-                            if (!state.state)
-                                return (false, null, SR.Script_FileDeleteError.Format(oldInfo.FilePath));
+                            if (isNoRepeat)
+                            {
+                                var state = await DeleteScriptAsync(oldInfo, false);
+                                if (!state.state)
+                                    return (false, null, SR.Script_FileDeleteError.Format(oldInfo.FilePath));
+                            }
                         }
                         if (pid.HasValue)
                             info.Id = pid.Value;
@@ -103,6 +107,8 @@ namespace System.Application.Services.Implementation
                             var db = mapper.Map<Script>(info);
                             db.MD5 = md5;
                             db.SHA512 = sha512;
+                            if (db.Pid == Guid.Parse("00000000-0000-0000-0000-000000000001"))
+                                info.IsBasics = true;
                             if (order.HasValue)
                                 db.Order = order.Value;
                             else if (db.Order == 0)
@@ -301,7 +307,31 @@ namespace System.Application.Services.Implementation
         public async Task<IEnumerable<ScriptDTO>> GetAllScript()
         {
             var scriptList = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
+
             var basicsId = Guid.Parse("00000000-0000-0000-0000-000000000001");
+            if (scriptList.Count(x => x.Id == basicsId) > 1)
+            {
+                var allpath = scriptList.Where(x => x.Id == basicsId);
+                string? savePath = null;
+                foreach (var item in allpath)
+                {
+                    var path = new FileInfo(Path.Combine(IOPath.AppDataDirectory, item.FilePath));
+                    if (path.Exists)
+                    {
+                        if (savePath == null)
+                        {
+                            savePath = item.FilePath;
+                        }
+                        else {
+                            var state = (await scriptRepository.DeleteAsync(item.LocalId)) > 0;
+                        }
+                    }
+                    else {
+                        await DeleteScriptAsync(item);
+                    }
+                }
+                scriptList = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
+            }
             try
             {
                 foreach (var item in scriptList)
