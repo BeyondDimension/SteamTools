@@ -170,7 +170,7 @@ namespace System.Application.UI.ViewModels
         {
             if (script?.FilePath != null)
             {
-                var item = await DI.Get<IScriptManagerService>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, script.FilePath), build: script.IsBuild, ignoreCache:true);
+                var item = await DI.Get<IScriptManagerService>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, script.FilePath),order:script.Order, build: script.IsBuild, ignoreCache:true);
                 if (item.state)
                     if (item.model != null)
                     {

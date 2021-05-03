@@ -276,12 +276,7 @@ namespace System.Application.Services
             //}
             //new ObservableCollection<ScriptDTO>(response.Content);
             var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
-            var basicsId = Guid.Parse("00000000-0000-0000-0000-000000000001");
-            foreach (var item in scriptList)
-            {
-                item.IsBasics = item.Id == basicsId;
-            }
-
+            BasicsInfo();
             if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
             {
                 foreach (var item in scriptList)
@@ -294,7 +289,6 @@ namespace System.Application.Services
             }
 
             ProxyScripts.AddRange(scriptList);
-            BasicsInfo();
             httpProxyService.IsEnableScript = IsEnableScript;
 
             this.WhenAnyValue(v => v.ProxyScripts)
@@ -313,16 +307,16 @@ namespace System.Application.Services
 
         public async void BasicsInfo()
         {
-            var basicsInfo = await ICloudServiceClient.Instance.Script.Basics(AppResources.Script_UpdateError);
-            if (basicsInfo.Code == ApiResponseCode.OK && basicsInfo.Content != null)
+            var basicsItem = ProxyScripts.Items.FirstOrDefault(x => x.Id == Guid.Parse("00000000-0000-0000-0000-000000000001"));
+            if (basicsItem == null)
             {
-                var basicsItem = ProxyScripts.Items.FirstOrDefault(x => x.Id == Guid.Parse("00000000-0000-0000-0000-000000000001"));
-                if (basicsItem == null)
+                var basicsInfo = await ICloudServiceClient.Instance.Script.Basics(AppResources.Script_UpdateError);
+                if (basicsInfo.Code == ApiResponseCode.OK && basicsInfo.Content != null)
                 {
                     var jspath = await DI.Get<IScriptManagerService>().DownloadScript(basicsInfo.Content.UpdateLink);
                     if (jspath.state)
                     {
-                        var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id);
+                        var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id,ignoreCache:true);
                         if (build.state)
                         {
                             if (build.model != null)
@@ -333,30 +327,6 @@ namespace System.Application.Services
                         }
                     }
                 }
-                //if (basicsItem != null)
-                //{
-                //	if (basicsItem.Version != basicsInfo.Content.Version)
-                //	{
-                //		var index = ProxyScripts.Items.IndexOf(basicsItem);
-                //		basicsItem.IsUpdate = true;
-                //		basicsItem.UpdateLink = basicsInfo.Content.UpdateLink;
-                //		basicsItem.NewVersion = basicsInfo.Content.Version;
-                //		ProxyScripts.ReplaceAt(index, basicsItem);
-                //	}
-                //}
-                //else
-                //{
-                //	var jspath = await DI.Get<IScriptManagerService>().DownloadScript(basicsInfo.Content.UpdateLink);
-                //	if (jspath.state)
-                //	{
-                //		var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id);
-                //		if (build.state)
-                //		{
-                //			if (build.model != null)
-                //				ProxyScripts.Insert(0, build.model);
-                //		}
-                //	}
-                //}
             }
         }
 
@@ -434,13 +404,11 @@ namespace System.Application.Services
         public async void RefreshScript()
         {
             var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
-            ProxyScripts.Clear();
-            var basicsId = Guid.Parse("00000000-0000-0000-0000-000000000001");
+            ProxyScripts.Clear(); 
             if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
             {
                 foreach (var item in scriptList)
-                {
-                    item.IsBasics = item.Id == basicsId;
+                { 
                     if (ProxySettings.ScriptsStatus.Value.Contains(item.LocalId))
                     {
                         item.Enable = true;
@@ -475,6 +443,7 @@ namespace System.Application.Services
                         model.IsUpdate = false;
                         model.IsExist = true;
                         model.UpdateLink = build.model.UpdateLink;
+                        model.FilePath = build.model.FilePath;
                         model.Version = build.model.Version;
                         model.Name = build.model.Name;
                         RefreshScript();

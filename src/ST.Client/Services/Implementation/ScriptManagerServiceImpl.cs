@@ -77,8 +77,12 @@ namespace System.Application.Services.Implementation
                             saveInfo.Directory.Create();
                         }
                         if (saveInfo.Exists)
-                            saveInfo.Delete();
-                        fileInfo.CopyTo(savePath);
+                        {
+                            if (saveInfo.FullName != fileInfo.FullName)
+                                saveInfo.Delete();
+                        }
+                        else
+                            fileInfo.CopyTo(savePath);
                         if (oldInfo != null && oldInfo.LocalId > 0)
                         {
                             info.LocalId = oldInfo.LocalId;
@@ -297,11 +301,27 @@ namespace System.Application.Services.Implementation
         public async Task<IEnumerable<ScriptDTO>> GetAllScript()
         {
             var scriptList = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
+            var basicsId = Guid.Parse("00000000-0000-0000-0000-000000000001");
             try
             {
                 foreach (var item in scriptList)
                 {
                     await TryReadFile(item);
+                    if (item.Id == basicsId)
+                    {
+                        item.IsBasics = true;
+                        if (item.IsBuild)
+                        {
+                            item.IsBuild = false;
+                            var fileInfo = new FileInfo(item.FilePath);
+                            if (fileInfo.Exists)
+                            {
+                                var state = await AddScriptAsync(fileInfo, item, item, false, 0, ignoreCache: true);
+                                if (state.state && state.model?.Content != null)
+                                    item.Content = state.model!.Content;
+                            }
+                        }
+                    }
                     //if (item.Content!= null) { 
 
                     //}
