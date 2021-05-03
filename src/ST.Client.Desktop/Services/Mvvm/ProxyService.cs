@@ -132,30 +132,18 @@ namespace System.Application.Services
                 {
                     if (value)
                     {
-                        if (!EnableProxyDomains.Any_Nullable())
+                        if (EnableProxyDomains.Any_Nullable())
                         {
-                            Toast.Show(AppResources.CommunityFix_NoSelectAcceleration);
-                            return;
+                            //Toast.Show(AppResources.CommunityFix_NoSelectAcceleration);
+                            //return;
+                            httpProxyService.ProxyDomains = EnableProxyDomains;
+                            this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         }
                         httpProxyService.ProxyDomains = EnableProxyDomains;
                         httpProxyService.Scripts = EnableProxyScripts;
                         httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
                         httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
-                        this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         this.RaisePropertyChanged(nameof(EnableProxyScripts));
-
-                        var hosts = httpProxyService.ProxyDomains.SelectMany(s =>
-                        {
-                            return s?.HostsArray.Select(host =>
-                            {
-                                if (host.Contains(" "))
-                                {
-                                    var h = host.Split(' ');
-                                    return (h[0], h[1]);
-                                }
-                                return (IPAddress.Loopback.ToString(), host);
-                            });
-                        }).Where(w => !string.IsNullOrEmpty(w.Item1));
 
                         if (!ProxySettings.EnableWindowsProxy.Value)
                         {
@@ -172,12 +160,28 @@ namespace System.Application.Services
                         {
                             if (!ProxySettings.EnableWindowsProxy.Value)
                             {
-                                var r = IHostsFileService.Instance.UpdateHosts(hosts);
-                                if (r.ResultType != OperationResultType.Success)
+                                if (httpProxyService.ProxyDomains.Any_Nullable())
                                 {
-                                    Toast.Show(SR.OperationHostsError_.Format(r.Message));
-                                    httpProxyService.StopProxy();
-                                    return;
+                                    var hosts = httpProxyService.ProxyDomains.SelectMany(s =>
+                                    {
+                                        return s?.HostsArray.Select(host =>
+                                        {
+                                            if (host.Contains(" "))
+                                            {
+                                                var h = host.Split(' ');
+                                                return (h[0], h[1]);
+                                            }
+                                            return (IPAddress.Loopback.ToString(), host);
+                                        });
+                                    }).Where(w => !string.IsNullOrEmpty(w.Item1));
+
+                                    var r = IHostsFileService.Instance.UpdateHosts(hosts);
+                                    if (r.ResultType != OperationResultType.Success)
+                                    {
+                                        Toast.Show(SR.OperationHostsError_.Format(r.Message));
+                                        httpProxyService.StopProxy();
+                                        return;
+                                    }
                                 }
                             }
                             StartTiming();
