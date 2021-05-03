@@ -76,7 +76,9 @@
       <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
   </UserControl.Styles>
-  <Border Padding="{StaticResource PageMargin2}">
+  <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto"
+                Padding="{StaticResource PageMargin2}">
     <DockPanel>
       <StackPanel Spacing="10" DockPanel.Dock="Top">
         <StackPanel Orientation="Horizontal">
@@ -201,5 +203,5 @@
         <Panel Height="150" />
       </DockPanel>
     </DockPanel>
-  </Border>
+  </ScrollViewer>
 </UserControl>

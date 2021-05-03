@@ -74,7 +74,7 @@
           </ItemsRepeater.Layout>
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>
-              <Border MinWidth="450" Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="20 10">
+              <Border Width="450" Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="20 10">
                 <DockPanel>
                   <Image Source="{Binding Icon}" DockPanel.Dock="Left"></Image>
                   <StackPanel Spacing="8" DockPanel.Dock="Right">
