@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using static System.Application.Services.CloudService.Constants;
 
 // ReSharper disable once CheckNamespace
@@ -64,6 +66,10 @@ namespace System.Application.UI.Views.Controls
         /// 拦截响应流的处理
         /// </summary>
         public Action<string, byte[]>? OnStreamResponseFilterResourceLoadComplete { get; set; }
+
+        public bool IsSecurity { get; set; }
+
+        public Aes? Aes { get; internal set; }
     }
 
     public class FullscreenModeChangeEventArgs : RoutedEventArgs
@@ -209,6 +215,15 @@ namespace System.Application.UI.Views.Controls
             if (request.Url.StartsWith(sc.ApiBaseUrl, StringComparison.OrdinalIgnoreCase))
             {
                 request.SetHeaderByName(Headers.Request.AppVersion, sc.Settings.AppVersionStr, true);
+                if (webView.IsSecurity)
+                {
+                    webView.Aes?.Dispose();
+                    webView.Aes = AESUtils.Create();
+                    var skey_bytes = webView.Aes.ToParamsByteArray();
+                    var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
+                    var skey_str = conn_helper.RSA.EncryptToString(skey_bytes);
+                    request.SetHeaderByName(Headers.Request.SecurityKey, skey_str, true);
+                }
             }
             var returnValue = base.OnBeforeResourceLoad(browser, frame, request, callback);
             return returnValue;
@@ -261,7 +276,20 @@ namespace System.Application.UI.Views.Controls
         {
             if (webView.StreamResponseFilterUrls != null && webView.StreamResponseFilterUrls.Contains(request.Url, StringComparer.OrdinalIgnoreCase))
             {
-                var dataFilter = new StreamResponseFilter();
+                var rspIsCiphertext = false;
+                if (webView.IsSecurity)
+                {
+                    var contentType = response.GetHeaderByName("Content-Type");
+                    if (!string.IsNullOrWhiteSpace(contentType) && MediaTypeHeaderValue.TryParse(contentType, out var contentType_))
+                    {
+                        var mime = contentType_.MediaType;
+                        if (mime == MediaTypeNames.Security)
+                        {
+                            rspIsCiphertext = true;
+                        }
+                    }
+                }
+                var dataFilter = new StreamResponseFilter(webView, rspIsCiphertext);
                 responseDictionary.Add(request.Identifier, dataFilter);
                 return dataFilter;
             }
@@ -273,7 +301,14 @@ namespace System.Application.UI.Views.Controls
         /// </summary>
         unsafe class StreamResponseFilter : CefResponseFilter
         {
+            readonly WebView3 webView;
+            readonly bool rspIsCiphertext;
             MemoryStream? memoryStream;
+
+            public StreamResponseFilter(WebView3 webView, bool rspIsCiphertext)
+            {
+                this.webView = webView;
+            }
 
             protected override bool InitFilter()
             {
@@ -339,9 +374,25 @@ namespace System.Application.UI.Views.Controls
                 base.Dispose(disposing);
             }
 
+            byte[]? data;
+
             public byte[] Data
             {
-                get { return memoryStream!.ToArray(); }
+                get
+                {
+                    if (data == null) data = GetData();
+                    return data;
+                }
+            }
+
+            byte[] GetData()
+            {
+                var value = memoryStream!.ToArray();
+                if (rspIsCiphertext && webView.Aes != null)
+                {
+                    value = webView.Aes.Decrypt(value);
+                }
+                return value;
             }
         }
     }

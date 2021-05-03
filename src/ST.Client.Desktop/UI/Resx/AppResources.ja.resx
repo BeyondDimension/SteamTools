@@ -757,9 +757,6 @@
   <data name="Script_Refresh" xml:space="preserve">
     <value>キャッシュをフラッシュします</value>
   </data>
-  <data name="Script_Shop" xml:space="preserve">
-    <value>スクリプト市場</value>
-  </data>
   <data name="Script_Update" xml:space="preserve">
     <value>スクリプトを更新します</value>
   </data>

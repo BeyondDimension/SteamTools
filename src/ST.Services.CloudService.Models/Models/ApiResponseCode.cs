@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 
 namespace System.Application.Models
 {
@@ -126,6 +126,8 @@ namespace System.Application.Models
         /// 客户端版本已弃用，需要更新版本
         /// </summary>
         AppObsolete,
+
+        RequiredWebViwe3,
 
         /// <summary>
         /// 短信服务故障

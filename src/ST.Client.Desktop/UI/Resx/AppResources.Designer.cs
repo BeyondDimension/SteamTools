@@ -1873,15 +1873,6 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 脚本市场 的本地化字符串。
-        /// </summary>
-        public static string Script_Shop {
-            get {
-                return ResourceManager.GetString("Script_Shop", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 更新脚本 的本地化字符串。
         /// </summary>
         public static string Script_Update {

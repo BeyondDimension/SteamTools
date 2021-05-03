@@ -267,11 +267,7 @@ namespace System.Application.Services.CloudService
         }
 
         void ShowResponseErrorMessage(IApiResponse response, string? errorAppendText = null)
-        {
-            if (response.Code == ApiResponseCode.Canceled) return;
-            var message = ApiResponse.GetMessage(response, errorAppendText);
-            conn_helper.ShowResponseErrorMessage(message);
-        }
+            => conn_helper.ShowResponseErrorMessage(response, errorAppendText);
 
         async Task GlobalResponseIntercept(
             HttpMethod method,

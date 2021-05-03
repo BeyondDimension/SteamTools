@@ -756,9 +756,6 @@
   <data name="Script_Refresh" xml:space="preserve">
     <value>캐시를 새로 고칩니다</value>
   </data>
-  <data name="Script_Shop" xml:space="preserve">
-    <value>스크립트 마켓</value>
-  </data>
   <data name="Script_Update" xml:space="preserve">
     <value>스크립트를 업데이트합니다</value>
   </data>

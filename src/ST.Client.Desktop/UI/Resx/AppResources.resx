@@ -744,9 +744,6 @@
   <data name="Script_ReplaceTips" xml:space="preserve">
     <value>已安装此脚本确定替换已安装的版本？</value>
   </data>
-  <data name="Script_Shop" xml:space="preserve">
-    <value>脚本市场</value>
-  </data>
   <data name="Script_Update" xml:space="preserve">
     <value>更新脚本</value>
   </data>

@@ -41,5 +41,9 @@ namespace System.Application.UI.ViewModels
         /// 网页加载超时时提示文本
         /// </summary>
         public string? TimeoutErrorMessage { get; set; }
+
+        public bool IsSecurity { get; set; }
+
+        public Action? Close { get; set; }
     }
 }

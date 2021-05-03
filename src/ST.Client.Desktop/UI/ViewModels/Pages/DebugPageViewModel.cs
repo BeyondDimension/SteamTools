@@ -16,7 +16,6 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using static Newtonsoft.Json.JsonConvert;
 
 namespace System.Application.UI.ViewModels
@@ -210,26 +209,10 @@ namespace System.Application.UI.ViewModels
             DebugString = @string.ToString();
         }
 
-        public /*async*/ void ShowDialogButton_Click()
+        public async void ShowDialogButton_Click()
         {
 #if DEBUG
-            var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
-            var vm = new WebView3WindowViewModel
-            {
-                Url = apiBaseUrl + "/ExternalLogin",
-                StreamResponseFilterUrls = new[]
-                {
-                    apiBaseUrl + "/ExternalLoginCallback"
-                },
-                OnStreamResponseFilterResourceLoadComplete = (url, data) =>
-                {
-
-                },
-                FixedSinglePage = true,
-                Title = AppResources.User_SteamFastLogin,
-                TimeoutErrorMessage = AppResources.User_SteamFastLoginTimeoutErrorMessage,
-            };
-            IShowWindowService.Instance.Show(CustomWindow.WebView3, vm, resizeMode: ResizeModeCompat.NoResize);
+            await LoginOrRegisterWindowViewModel.FastLoginOrRegisterAsync();
 #endif
 
             //DI.Get<IDesktopPlatformService>().OpenDesktopIconsSettings();

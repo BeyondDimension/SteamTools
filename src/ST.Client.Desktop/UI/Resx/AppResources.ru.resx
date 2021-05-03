@@ -756,9 +756,6 @@
   <data name="Script_Refresh" xml:space="preserve">
     <value>Обновите кэш</value>
   </data>
-  <data name="Script_Shop" xml:space="preserve">
-    <value>Рынок скриптов</value>
-  </data>
   <data name="Script_Update" xml:space="preserve">
     <value>Обновите сценарий</value>
   </data>

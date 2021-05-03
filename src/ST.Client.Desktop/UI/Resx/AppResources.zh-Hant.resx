@@ -762,9 +762,6 @@
   <data name="Script_Refresh" xml:space="preserve">
     <value>刷新緩存</value>
   </data>
-  <data name="Script_Shop" xml:space="preserve">
-    <value>腳本市場</value>
-  </data>
   <data name="Script_Update" xml:space="preserve">
     <value>更新腳本</value>
   </data>

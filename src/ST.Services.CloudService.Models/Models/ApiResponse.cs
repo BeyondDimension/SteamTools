@@ -39,9 +39,16 @@ namespace System.Application.Models
             return (IApiResponse<T>?)obj ?? ClientDeserializeFail<T>();
         }
 
+        public static IApiResponse<T> Deserialize<T>(byte[] buffer)
+        {
+            var type = GetDeserializeType<T>();
+            var obj = MessagePackSerializer.Deserialize(type, buffer, options: Serializable.lz4Options);
+            return (IApiResponse<T>?)obj ?? ClientDeserializeFail<T>();
+        }
+
         public static bool TryGetContent<T>(
-            this IApiResponse<T> response,
-            [NotNullWhen(true)] out T? content)
+             this IApiResponse<T> response,
+             [NotNullWhen(true)] out T? content)
         {
             content = response.Content;
             return response.IsSuccess && content != null;

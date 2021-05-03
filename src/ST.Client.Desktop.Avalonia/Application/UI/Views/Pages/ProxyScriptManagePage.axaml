@@ -40,7 +40,7 @@
           </Button>
           <Button Background="Transparent" Cursor="Hand"
                   Command="{Binding ScriptStoreCommand}"
-                  ToolTip.Tip="{ReflectionBinding Path=Res.Script_Shop,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                  ToolTip.Tip="{ReflectionBinding Path=Res.ScriptStore,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <PathIcon Width="16"  Data="{StaticResource JavaScriptDrawing}" />
           </Button>
         </StackPanel>
