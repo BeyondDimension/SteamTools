@@ -3,6 +3,7 @@ using System.Application.Models;
 using System.Application.Services;
 using System.Application.Services.CloudService;
 using System.Application.UI.Resx;
+using System.IO;
 using System.Properties;
 using System.Threading;
 using System.Threading.Tasks;
@@ -112,11 +113,11 @@ namespace System.Application.UI.ViewModels
                 TimeoutErrorMessage = AppResources.User_SteamFastLoginTimeoutErrorMessage,
                 IsSecurity = true,
             };
-            async void _OnStreamResponseFilterResourceLoadComplete(string url, byte[] data)
+            async void _OnStreamResponseFilterResourceLoadComplete(string url, Stream data)
             {
                 if (url.StartsWith(urlExternalLoginCallback, StringComparison.OrdinalIgnoreCase))
                 {
-                    var response = ApiResponse.Deserialize<LoginOrRegisterResponse>(data);
+                    var response = await ApiResponse.DeserializeAsync<LoginOrRegisterResponse>(data, default);
                     if (response.IsSuccess && response.Content == null)
                     {
                         response.Code = ApiResponseCode.NoResponseContent;
@@ -125,12 +126,18 @@ namespace System.Application.UI.ViewModels
                     if (response.IsSuccess)
                     {
                         await conn_helper.OnLoginedAsync(null, response.Content!);
-                        await SuccessAsync(response.Content!, vm?.Close);
+                        await MainThreadDesktop.InvokeOnMainThreadAsync(async () =>
+                        {
+                            await SuccessAsync(response.Content!, vm?.Close);
+                        });
                     }
                     else
                     {
-                        conn_helper.ShowResponseErrorMessage(response);
-                        vm?.Close?.Invoke();
+                        MainThreadDesktop.BeginInvokeOnMainThread(() =>
+                        {
+                            conn_helper.ShowResponseErrorMessage(response);
+                            vm?.Close?.Invoke();
+                        });
                     }
                 }
             }

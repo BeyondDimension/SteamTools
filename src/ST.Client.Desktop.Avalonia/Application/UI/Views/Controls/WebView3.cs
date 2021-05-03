@@ -65,11 +65,22 @@ namespace System.Application.UI.Views.Controls
         /// <summary>
         /// 拦截响应流的处理
         /// </summary>
-        public Action<string, byte[]>? OnStreamResponseFilterResourceLoadComplete { get; set; }
+        public Action<string, Stream>? OnStreamResponseFilterResourceLoadComplete { get; set; }
 
         public bool IsSecurity { get; set; }
 
         public Aes? Aes { get; internal set; }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Aes?.Dispose();
+                StreamResponseFilterUrls = null;
+                OnStreamResponseFilterResourceLoadComplete = null;
+            }
+            base.Dispose(disposing);
+        }
     }
 
     public class FullscreenModeChangeEventArgs : RoutedEventArgs
@@ -217,8 +228,10 @@ namespace System.Application.UI.Views.Controls
                 request.SetHeaderByName(Headers.Request.AppVersion, sc.Settings.AppVersionStr, true);
                 if (webView.IsSecurity)
                 {
-                    webView.Aes?.Dispose();
-                    webView.Aes = AESUtils.Create();
+                    if (webView.Aes == null)
+                    {
+                        webView.Aes = AESUtils.Create();
+                    }
                     var skey_bytes = webView.Aes.ToParamsByteArray();
                     var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
                     var skey_str = conn_helper.RSA.EncryptToString(skey_bytes);
@@ -274,7 +287,7 @@ namespace System.Application.UI.Views.Controls
 
         protected override CefResponseFilter GetResourceResponseFilter(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response)
         {
-            if (webView.StreamResponseFilterUrls != null && webView.StreamResponseFilterUrls.Contains(request.Url, StringComparer.OrdinalIgnoreCase))
+            if (webView.StreamResponseFilterUrls != null && webView.StreamResponseFilterUrls.Any(x => request.Url.StartsWith(x, StringComparison.OrdinalIgnoreCase)))
             {
                 var rspIsCiphertext = false;
                 if (webView.IsSecurity)
@@ -308,6 +321,7 @@ namespace System.Application.UI.Views.Controls
             public StreamResponseFilter(WebView3 webView, bool rspIsCiphertext)
             {
                 this.webView = webView;
+                this.rspIsCiphertext = rspIsCiphertext;
             }
 
             protected override bool InitFilter()
@@ -366,33 +380,36 @@ namespace System.Application.UI.Views.Controls
                     {
                         if (memoryStream != null)
                         {
-                            memoryStream.Dispose();
+                            memoryStream?.Dispose();
                             memoryStream = null;
+                            stream?.Dispose();
+                            stream = null;
                         }
                     }
                 }
                 base.Dispose(disposing);
             }
 
-            byte[]? data;
+            Stream? stream;
 
-            public byte[] Data
+            public Stream Data
             {
                 get
                 {
-                    if (data == null) data = GetData();
-                    return data;
+                    if (stream == null) stream = GetStream();
+                    return stream;
                 }
             }
 
-            byte[] GetData()
+            Stream GetStream()
             {
-                var value = memoryStream!.ToArray();
                 if (rspIsCiphertext && webView.Aes != null)
                 {
-                    value = webView.Aes.Decrypt(value);
+                    memoryStream!.Position = 0;
+                    var cryptoStream = new CryptoStream(memoryStream, webView.Aes.CreateDecryptor(), CryptoStreamMode.Read);
+                    return cryptoStream;
                 }
-                return value;
+                return memoryStream!;
             }
         }
     }

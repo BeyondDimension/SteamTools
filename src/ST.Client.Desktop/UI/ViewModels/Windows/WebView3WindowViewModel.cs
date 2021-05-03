@@ -1,4 +1,5 @@
 using ReactiveUI;
+using System.IO;
 using System.Net.Http;
 
 namespace System.Application.UI.ViewModels
@@ -21,7 +22,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _StreamResponseFilterUrls, value);
         }
 
-        public Action<string, byte[]>? OnStreamResponseFilterResourceLoadComplete { get; set; }
+        public Action<string, Stream>? OnStreamResponseFilterResourceLoadComplete { get; set; }
 
         public bool FixedSinglePage { get; set; }
 

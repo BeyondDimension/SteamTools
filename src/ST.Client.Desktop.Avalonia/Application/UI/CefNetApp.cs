@@ -1,5 +1,7 @@
 using Avalonia.Threading;
 using CefNet;
+using CefNet.Input;
+using System;
 using System.Application.Models;
 using System.Globalization;
 using System.IO;
@@ -166,6 +168,8 @@ navigator.__proto__ = newProto;
                 }
             };
 
+            KeycodeConverter.Default = new FixChineseInptKeycodeConverter();
+
             app = new CefNetApp
             {
                 ScheduleMessagePumpWorkCallback = async delayMs =>
@@ -244,5 +248,35 @@ navigator.__proto__ = newProto;
         /// 初始化完成
         /// </summary>
         Complete,
+    }
+}
+
+namespace CefNet.Input
+{
+    /// <summary>
+    /// https://github.com/CefNet/CefNet/issues/21
+    /// </summary>
+    public class FixChineseInptKeycodeConverter : KeycodeConverter
+    {
+        public override VirtualKeys CharacterToVirtualKey(char character)
+        {
+            // https://github.com/CefNet/CefNet/blob/master/CefNet/Input/KeycodeConverter.cs#L41
+            // https://github.com/CefNet/CefNet/blob/90.5.21109.1453/CefNet/Input/KeycodeConverter.cs#L41
+            try
+            {
+                return base.CharacterToVirtualKey(character);
+            }
+            catch (Exception e)
+            {
+                if (PlatformInfo.IsWindows)
+                {
+                    if (e.Message == "Incompatible input locale.")
+                    {
+                        return VirtualKeys.None;
+                    }
+                }
+                throw;
+            }
+        }
     }
 }
