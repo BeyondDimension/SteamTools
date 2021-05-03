@@ -18,7 +18,7 @@ namespace System.Application.UI.Views.Windows
         readonly WebView3 webView;
         bool disposedValue;
 
-        public WebView3Window()
+        public WebView3Window() : base()
         {
             InitializeComponent();
 #if DEBUG

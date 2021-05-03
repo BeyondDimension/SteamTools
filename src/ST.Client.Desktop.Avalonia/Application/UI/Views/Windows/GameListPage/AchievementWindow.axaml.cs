@@ -6,7 +6,7 @@ namespace System.Application.UI.Views.Windows
 {
     public class AchievementWindow : FluentWindow
     {
-        public AchievementWindow()
+        public AchievementWindow() : base()
         {
             InitializeComponent();
 #if DEBUG

@@ -15,7 +15,7 @@ namespace System.Application.UI.Views.Windows
         readonly TextBox TbSmsCodeValidation;
         readonly TextBox TbSmsCodeNew;
 
-        public ChangeBindPhoneNumberWindow()
+        public ChangeBindPhoneNumberWindow() : base()
         {
             InitializeComponent();
             TbSmsCodeValidation = this.FindControl<TextBox>(nameof(TbSmsCodeValidation));

@@ -6,7 +6,7 @@ namespace System.Application.UI.Views.Windows
 {
     public class ScriptStoreWindow : FluentWindow
     {
-        public ScriptStoreWindow()
+        public ScriptStoreWindow() : base()
         {
             InitializeComponent();
 #if DEBUG

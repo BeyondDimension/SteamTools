@@ -6,7 +6,7 @@ namespace System.Application.UI.Views.Windows
 {
     public class ShowAuthWindow : FluentWindow
     {
-        public ShowAuthWindow()
+        public ShowAuthWindow() : base()
         {
             InitializeComponent();
 #if DEBUG

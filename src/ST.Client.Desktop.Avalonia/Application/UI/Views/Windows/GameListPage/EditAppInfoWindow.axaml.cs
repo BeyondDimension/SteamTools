@@ -6,7 +6,7 @@ namespace System.Application.UI.Views.Windows
 {
     public class EditAppInfoWindow : FluentWindow
     {
-        public EditAppInfoWindow()
+        public EditAppInfoWindow() : base()
         {
             InitializeComponent();
 #if DEBUG

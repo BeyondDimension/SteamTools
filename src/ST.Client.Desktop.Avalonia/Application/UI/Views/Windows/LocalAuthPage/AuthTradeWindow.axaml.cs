@@ -6,7 +6,7 @@ namespace System.Application.UI.Views.Windows
 {
     public class AuthTradeWindow : FluentWindow
     {
-        public AuthTradeWindow()
+        public AuthTradeWindow() : base()
         {
             InitializeComponent();
 #if DEBUG

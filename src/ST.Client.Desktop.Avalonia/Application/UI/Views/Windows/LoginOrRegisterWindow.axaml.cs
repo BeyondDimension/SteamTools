@@ -11,7 +11,7 @@ namespace System.Application.UI.Views.Windows
         readonly TextBox TbPhoneNumber;
         readonly TextBox TbSmsCode;
 
-        public LoginOrRegisterWindow()
+        public LoginOrRegisterWindow() : base()
         {
             InitializeComponent();
             TbPhoneNumber = this.FindControl<TextBox>(nameof(TbPhoneNumber));
