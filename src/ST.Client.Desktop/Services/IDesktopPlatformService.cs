@@ -102,6 +102,11 @@ namespace System.Application.Services
         void OpenFolder(string dirPath);
 
         /// <summary>
+        /// 设置系统关闭时任务
+        /// </summary>
+        void SetSystemSessionEnding(Action action);
+
+        /// <summary>
         /// 获取文本阅读器提供商程序文件路径或文件名(如果提供程序已注册环境变量)
         /// </summary>
         /// <param name="provider"></param>

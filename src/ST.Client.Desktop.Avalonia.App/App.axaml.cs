@@ -138,7 +138,10 @@ namespace System.Application.UI
 #endif
             var windowService = IWindowService.Instance;
             windowService.Init();
-
+            DI.Get<IDesktopPlatformService>().SetSystemSessionEnding(() =>
+            {
+                compositeDisposable.Dispose();
+            });
 #if StartupTrace
             StartupTrace.Restart("WindowService.Init");
 #endif

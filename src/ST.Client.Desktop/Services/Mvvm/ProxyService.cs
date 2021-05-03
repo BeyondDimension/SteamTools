@@ -346,8 +346,8 @@ namespace System.Application.Services
 
         public void Dispose()
         {
-            IHostsFileService.OnExitRestoreHosts();
             httpProxyService.StopProxy();
+            IHostsFileService.OnExitRestoreHosts();
             httpProxyService.Dispose();
         }
 
