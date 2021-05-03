@@ -2639,7 +2639,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 按下此按钮将重启Steam并以该账号登录 的本地化字符串。
+        ///   查找类似 按下此按钮将重启 Steam 并以该账号登录 的本地化字符串。
         /// </summary>
         public static string UserChange_BtnTootlip {
             get {
@@ -2658,7 +2658,7 @@ namespace System.Application.UI.Resx {
         
         /// <summary>
         ///   查找类似 确定要删除这条本地记录帐户数据吗？
-        ///这将会删除此账户在本地的Steam缓存数据。 的本地化字符串。
+        ///这将会删除此账户在本地的 Steam 缓存数据。 的本地化字符串。
         /// </summary>
         public static string UserChange_DeleteUserTip {
             get {
@@ -2676,7 +2676,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 登录新Steam账号 的本地化字符串。
+        ///   查找类似 登录新 Steam 账号 的本地化字符串。
         /// </summary>
         public static string UserChange_LoginNewAccount {
             get {
@@ -2685,8 +2685,8 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 确定要登录Steam新账户吗？
-        ///此操作会结束正在运行的Steamt跳转到新账号登录窗口。 的本地化字符串。
+        ///   查找类似 确定要登录 Steam 新账户吗？
+        ///此操作会结束正在运行的 Steam 跳转到新账号登录窗口。 的本地化字符串。
         /// </summary>
         public static string UserChange_LoginNewAccountTip {
             get {
@@ -2695,7 +2695,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 没有在您的电脑上读取到任何Steam帐户数据。 的本地化字符串。
+        ///   查找类似 没有在您的电脑上读取到任何 Steam 帐户数据。 的本地化字符串。
         /// </summary>
         public static string UserChange_NoUserTip {
             get {
