@@ -277,12 +277,10 @@ namespace System.Application.Services
             {
                 item.IsBasics = item.Id == basicsId;
             }
-            ProxyScripts.AddRange(scriptList);
-            BasicsInfo();
-            httpProxyService.IsEnableScript = IsEnableScript;
-            if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && ProxyScripts.Items.Any())
+
+            if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
             {
-                foreach (var item in ProxyScripts.Items)
+                foreach (var item in scriptList)
                 {
                     if (item.LocalId > 0 && ProxySettings.ScriptsStatus.Value.Contains(item.LocalId))
                     {
@@ -290,6 +288,11 @@ namespace System.Application.Services
                     }
                 }
             }
+
+            ProxyScripts.AddRange(scriptList);
+            BasicsInfo();
+            httpProxyService.IsEnableScript = IsEnableScript;
+
             this.WhenAnyValue(v => v.ProxyScripts)
                   .Subscribe(script => script?
                   .Connect()
