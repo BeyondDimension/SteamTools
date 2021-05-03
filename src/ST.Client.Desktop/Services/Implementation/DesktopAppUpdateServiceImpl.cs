@@ -69,6 +69,8 @@ namespace System.Application.Services.Implementation
                    AppHelper.ProgramPath,
                    echo);
 
+                updateCommand = "chcp" + Environment.NewLine + "chcp 65001" + Environment.NewLine + updateCommand;
+
                 File.WriteAllText(updateCommandPath, updateCommand, Encoding.UTF8);
 
                 using var p = new Process();

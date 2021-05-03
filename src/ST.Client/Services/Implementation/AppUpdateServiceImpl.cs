@@ -200,11 +200,11 @@ namespace System.Application.Services.Implementation
             protected set => this.RaiseAndSetIfChanged(ref _ProgressString, value);
         }
 
-        protected void OnReportDownloading3(float value, int current, int count) => OnReport(value, SR.Downloading3_.Format(value, current, count));
-        protected void OnReportCalcHashing3(float value, int current, int count) => OnReport(value, SR.CalcHashing3_.Format(value, current, count));
-        protected void OnReportDownloading(float value) => OnReport(value, SR.Downloading_.Format(value));
-        protected void OnReportCalcHashing(float value) => OnReport(value, SR.CalcHashing_.Format(value));
-        protected void OnReportDecompressing(float value) => OnReport(value, SR.Decompressing_.Format(value));
+        protected void OnReportDownloading3(float value, int current, int count) => OnReport(value, SR.Downloading3_.Format(MathF.Round(value, 2), current, count));
+        protected void OnReportCalcHashing3(float value, int current, int count) => OnReport(value, SR.CalcHashing3_.Format(MathF.Round(value, 2), current, count));
+        protected void OnReportDownloading(float value) => OnReport(value, SR.Downloading_.Format(MathF.Round(value, 2)));
+        protected void OnReportCalcHashing(float value) => OnReport(value, SR.CalcHashing_.Format(MathF.Round(value, 2)));
+        protected void OnReportDecompressing(float value) => OnReport(value, SR.Decompressing_.Format(MathF.Round(value, 2)));
         protected void OnReport(float value = 0f) => OnReport(value, string.Empty);
         protected void OnReport(float value, string str)
         {

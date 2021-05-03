@@ -313,7 +313,10 @@ namespace System.Application.UI
             if (Program.IsMainProcess)
             {
                 Startup.ActiveUserPost(ActiveUserType.OnStartup);
-                IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
+                if (GeneralSettings.IsAutoCheckUpdate.Value)
+                {
+                    IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
+                }
 #if StartupTrace
                 StartupTrace.Restart("Desktop_Startup.MainProcess");
 #endif
