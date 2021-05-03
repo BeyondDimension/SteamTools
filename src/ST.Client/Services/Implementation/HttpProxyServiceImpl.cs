@@ -66,11 +66,15 @@ namespace System.Application.Services.Implementation
         {
             //IHttpService.Instance.SendAsync<object>();
             var url = Web.HttpUtility.UrlDecode(e.HttpClient.Request.RequestUri.Query.Replace("?request=", ""));
+            var cookie = e.HttpClient.Request.Headers.GetFirstHeader("cookie-steamTool")?.Value?? e.HttpClient.Request.Headers.GetFirstHeader("Cookie")?.Value;
+            var headrs = new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"), new HttpHeader("Access-Control-Allow-Headers", "*"), new HttpHeader("Access-Control-Allow-Methods", "*"), new HttpHeader("Access-Control-Allow-Credentials", "true")};
+            //if (cookie != null)
+            //    headrs.Add(new HttpHeader("Cookie", cookie));
             switch (e.HttpClient.Request.Method.ToUpperInvariant())
             {
                 case "GET":
-                    var body = await IHttpService.Instance.GetAsync<string>(url);
-                    e.Ok(body ?? "500", new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"), new HttpHeader("Access-Control-Allow-Headers", "*") });
+                    var body =await IHttpService.Instance.GetAsync<string>(url,cookie:cookie);
+                    e.Ok(body??"500", headrs);
                     return;
                 case "POST":
                     var requestStream = new StreamWriter(new MemoryStream());
@@ -82,8 +86,8 @@ namespace System.Application.Services.Implementation
                     };
                     send.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(e.HttpClient.Request.ContentType);
                     send.Content.Headers.ContentLength = e.HttpClient.Request.BodyString.Length;
-                    var conext = await IHttpService.Instance.SendAsync<string>(url, send, null, false, new CancellationToken());
-                    e.Ok(conext ?? "500", new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"), new HttpHeader("Access-Control-Allow-Headers", "*") });
+                    var conext = await IHttpService.Instance.SendAsync<string>(url, send,null,false,new CancellationToken());
+                    e.Ok(conext ?? "500", headrs);
                     return;
             }
             //e.Ok(respone, new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*") });
@@ -100,9 +104,12 @@ namespace System.Application.Services.Implementation
             }
             if (e.HttpClient.Request.Host == "local.steampp.net")
             {
-                if (e.HttpClient.Request.Method.ToUpperInvariant() == "OPTIONS")
-                {
-                    e.Ok("", new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"), new HttpHeader("Access-Control-Allow-Headers", "*") });
+                if (e.HttpClient.Request.Method.ToUpperInvariant() == "OPTIONS") {
+                    e.Ok("", new List<HttpHeader>() { 
+                        new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"),
+                        new HttpHeader("Access-Control-Allow-Headers", "*"),
+                        new HttpHeader("Access-Control-Allow-Methods", "*"),
+                        new HttpHeader("Access-Control-Allow-Credentials", "true") });
                     return;
                 }
                 var type = e.HttpClient.Request.Headers.GetFirstHeader("requestType")?.Value;

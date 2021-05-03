@@ -166,10 +166,14 @@ namespace System.Application.Services.Implementation
         public Task<T?> GetAsync<T>(
             string requestUri,
             string accept,
-            CancellationToken cancellationToken) where T : notnull
+            CancellationToken cancellationToken,
+            string? cookie = null) where T : notnull
         {
             if (!IsHttpUrl(requestUri)) return Task.FromResult(default(T?));
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            if (cookie != null) { 
+                request.Headers.Add("Cooike", cookie);
+            }
             request.Headers.Accept.ParseAdd(accept);
             request.Headers.UserAgent.ParseAdd(http_helper.UserAgent);
             return SendAsync<T>(isCheckHttpUrl: true, requestUri, request, accept, true, cancellationToken);
