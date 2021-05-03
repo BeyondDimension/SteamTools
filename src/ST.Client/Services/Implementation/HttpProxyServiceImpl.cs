@@ -62,28 +62,30 @@ namespace System.Application.Services.Implementation
 
             proxyServer.CertificateManager.RootCertificate = proxyServer.CertificateManager.LoadRootCertificate();
         }
-        public async Task HttpRequest(SessionEventArgs e) {
+        public async Task HttpRequest(SessionEventArgs e)
+        {
             //IHttpService.Instance.SendAsync<object>();
             var url = Web.HttpUtility.UrlDecode(e.HttpClient.Request.RequestUri.Query.Replace("?request=", ""));
             switch (e.HttpClient.Request.Method.ToUpperInvariant())
             {
                 case "GET":
-                    var body =await IHttpService.Instance.GetAsync<string>(url);
-                    e.Ok(body??"500", new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"), new HttpHeader("Access-Control-Allow-Headers", "*") });
+                    var body = await IHttpService.Instance.GetAsync<string>(url);
+                    e.Ok(body ?? "500", new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"), new HttpHeader("Access-Control-Allow-Headers", "*") });
                     return;
                 case "POST":
                     var requestStream = new StreamWriter(new MemoryStream());
                     requestStream.Write(e.HttpClient.Request.BodyString);
-                    var send = new HttpRequestMessage {  
-                        Method= HttpMethod.Post,
-                        Content= new StreamContent(requestStream.BaseStream),
+                    var send = new HttpRequestMessage
+                    {
+                        Method = HttpMethod.Post,
+                        Content = new StreamContent(requestStream.BaseStream),
                     };
                     send.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(e.HttpClient.Request.ContentType);
                     send.Content.Headers.ContentLength = e.HttpClient.Request.BodyString.Length;
-                    var conext = await IHttpService.Instance.SendAsync<string>(url, send,null,false,new CancellationToken());
+                    var conext = await IHttpService.Instance.SendAsync<string>(url, send, null, false, new CancellationToken());
                     e.Ok(conext ?? "500", new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"), new HttpHeader("Access-Control-Allow-Headers", "*") });
                     return;
-            } 
+            }
             //e.Ok(respone, new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*") });
         }
         public async Task OnRequest(object sender, SessionEventArgs e)
@@ -98,8 +100,9 @@ namespace System.Application.Services.Implementation
             }
             if (e.HttpClient.Request.Host == "local.steampp.net")
             {
-                if (e.HttpClient.Request.Method.ToUpperInvariant() == "OPTIONS") {
-                    e.Ok("", new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"),new HttpHeader("Access-Control-Allow-Headers", "*") });
+                if (e.HttpClient.Request.Method.ToUpperInvariant() == "OPTIONS")
+                {
+                    e.Ok("", new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"), new HttpHeader("Access-Control-Allow-Headers", "*") });
                     return;
                 }
                 var type = e.HttpClient.Request.Headers.GetFirstHeader("requestType")?.Value;
@@ -107,12 +110,12 @@ namespace System.Application.Services.Implementation
                 {
                     case "xhr":
                         await HttpRequest(e);
-                     
+
                         return;
                     default:
                         e.Ok(Scripts.FirstOrDefault(x => x.JsPathUrl == e.HttpClient.Request.RequestUri.LocalPath)?.Content ?? "404", JsHeader);
                         return;
-                } 
+                }
             }
             foreach (var item in ProxyDomains)
             {
@@ -375,12 +378,6 @@ namespace System.Application.Services.Implementation
             //proxyServer.ServerCertificateValidationCallback += OnCertificateValidation;
             //proxyServer.ClientCertificateSelectionCallback += OnCertificateSelection;
 
-            //var explicitEndPoint = new ExplicitProxyEndPoint(IPAddress.Any, 8888, true)
-            //{
-            //    // 在所有https请求上使用自颁发的通用证书
-            //    // 当代理客户端不需要证书信任时非常有用
-            //    //GenericCertificate = new X509Certificate2(Path.Combine(AppContext.BaseDirectory, "genericcert.pfx"), "password")
-            //};
             var explicitProxyEndPoint = new ExplicitProxyEndPoint(IPAddress.Loopback, ProxyPort, true)
             {
                 // 通过不启用为每个http的域创建证书来优化性能
@@ -427,8 +424,6 @@ namespace System.Application.Services.Implementation
             {
                 proxyServer.SetAsSystemHttpProxy(explicitProxyEndPoint);
                 proxyServer.SetAsSystemHttpsProxy(explicitProxyEndPoint);
-                //proxyServer.UpStreamHttpProxy = new ExternalProxy() { HostName = "localhost", Port = 26501 };
-                //proxyServer.UpStreamHttpsProxy = new ExternalProxy() { HostName = "localhost", Port = 26501 };      
             }
             #endregion
 #if DEBUG
