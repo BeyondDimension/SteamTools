@@ -27,6 +27,7 @@
     <Panel>
       <controls:ProgressRing IsIndeterminate="True" HorizontalAlignment="Stretch" Height="100" Width="100" IsVisible="{Binding IsLoading}" />
       <Grid RowDefinitions="*,Auto" IsVisible="{Binding !IsLoading}">
+        
         <StackPanel VerticalAlignment="Center" Spacing="8" IsVisible="{Binding !IsLoading}" Margin="60 0">
           <Image Source="/Application/UI/Assets/Icon.ico" Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25">
             <!--<Image.Clip>
@@ -73,6 +74,7 @@
 
 
         </StackPanel>
+        
         <StackPanel Grid.Row="1" Margin="0 0 0 10">
           <Button
                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" Background="Transparent" BorderThickness="0" Cursor="Hand"
