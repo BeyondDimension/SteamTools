@@ -142,42 +142,51 @@ namespace System.Application.UI.ViewModels
         public void DeleteNoFileScriptItemButton(ScriptDTO script)
         {
 
-            var result = MessageBoxCompat.ShowAsync(@AppResources.Script_NoFileDeleteItem , ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
-            {
-                if (s.Result == MessageBoxResultCompat.OK)
-                {
-                    var item = await DI.Get<IScriptManagerService>().DeleteScriptAsync(script);
-                    if (item.state)
-                    {
-                        if (ProxyService.Current.ProxyScripts != null)
-                            ProxyService.Current.ProxyScripts.Remove(script);
+            var result = MessageBoxCompat.ShowAsync(@AppResources.Script_NoFileDeleteItem, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
+           {
+               if (s.Result == MessageBoxResultCompat.OK)
+               {
+                   var item = await DI.Get<IScriptManagerService>().DeleteScriptAsync(script);
+                   if (item.state)
+                   {
+                       if (ProxyService.Current.ProxyScripts != null)
+                           ProxyService.Current.ProxyScripts.Remove(script);
 
-                    }
-                    Toast.Show(item.msg);
-                }
-            });
+                   }
+                   Toast.Show(item.msg);
+               }
+           });
         }
-        
+
         public void EditScriptItemButton(ScriptDTO script)
         {
 
             var url = Path.Combine(IOPath.AppDataDirectory, script.FilePath);
-            DI.Get<IDesktopPlatformService>().OpenFileByTextReader(url);
-            var result = MessageBoxCompat.ShowAsync(@AppResources.Script_EditTxt, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
+            var fileInfo = new FileInfo(url);
+            if (fileInfo.Exists)
             {
-                if (s.Result == MessageBoxResultCompat.OK)
+                DI.Get<IDesktopPlatformService>().OpenFileByTextReader(url);
+                var result = MessageBoxCompat.ShowAsync(@AppResources.Script_EditTxt, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
                 {
-                    var item = await DI.Get<IScriptManagerService>().AddScriptAsync(url, script,build: script.IsBuild,order:script.Order);
-                    if (item.state)
+                    if (s.Result == MessageBoxResultCompat.OK)
                     {
-                        if (ProxyService.Current.ProxyScripts.Items.Any() && item.model != null)
+                        var item = await DI.Get<IScriptManagerService>().AddScriptAsync(url, script, build: script.IsBuild, order: script.Order, ignoreCache: true);
+                        if (item.state)
                         {
-                            ProxyService.Current.ProxyScripts.Replace(script, item.model);
-                            Toast.Show(AppResources.Success_.Format(AppResources.Script_Edit));
+                            if (ProxyService.Current.ProxyScripts.Items.Any() && item.model != null)
+                            {
+                                ProxyService.Current.ProxyScripts.Replace(script, item.model);
+                                Toast.Show(AppResources.Success_.Format(AppResources.Script_Edit));
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
+            else
+            {
+                DeleteNoFileScriptItemButton(script); 
+            }
+
         }
 
         public void OpenHomeScriptItemButton(ScriptDTO script)
@@ -189,11 +198,11 @@ namespace System.Application.UI.ViewModels
         {
             if (script?.FilePath != null)
             {
-                var item = await DI.Get<IScriptManagerService>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, script.FilePath),script,order:script.Order, build: script.IsBuild, ignoreCache:true);
+                var item = await DI.Get<IScriptManagerService>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, script.FilePath), script, order: script.Order, build: script.IsBuild, ignoreCache: true);
                 if (item.state)
                 {
                     if (item.model != null)
-                    { 
+                    {
                         ProxyService.Current.ProxyScripts.Replace(script, item.model);
                         Toast.Show(AppResources.RefreshOK);
                     }

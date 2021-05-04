@@ -316,7 +316,7 @@ namespace System.Application.Services
                     var jspath = await DI.Get<IScriptManagerService>().DownloadScript(basicsInfo.Content.UpdateLink);
                     if (jspath.state)
                     {
-                        var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id,ignoreCache:true);
+                        var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
                         if (build.state)
                         {
                             if (build.model != null)
@@ -389,7 +389,15 @@ namespace System.Application.Services
         public async Task AddNewScript(FileInfo fileInfo, ScriptDTO? info, ScriptDTO? oldInfo = null)
         {
             IsLoading = true;
-            var item = await DI.Get<IScriptManagerService>().AddScriptAsync(fileInfo, info, oldInfo);
+            bool isbuild = true;
+            int order = 10;
+            if (oldInfo != null)
+            {
+                isbuild = oldInfo.IsBuild;
+                order = oldInfo.Order;
+
+            }
+            var item = await DI.Get<IScriptManagerService>().AddScriptAsync(fileInfo, info, oldInfo, build: isbuild, order: order);
             if (item.state)
             {
                 if (item.model != null)
@@ -404,11 +412,11 @@ namespace System.Application.Services
         public async void RefreshScript()
         {
             var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
-            ProxyScripts.Clear(); 
+            ProxyScripts.Clear();
             if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
             {
                 foreach (var item in scriptList)
-                { 
+                {
                     if (ProxySettings.ScriptsStatus.Value.Contains(item.LocalId))
                     {
                         item.Enable = true;
