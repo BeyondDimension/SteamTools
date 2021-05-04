@@ -65,7 +65,7 @@
         </ComboBox>
       </StackPanel>
       <Separator Classes="Separator"/>
-      <StackPanel Orientation="Vertical" Spacing="10">
+      <StackPanel Orientation="Vertical" Spacing="8">
         <TextBlock Text="{ReflectionBinding Path=Res.Settings_UI_AcrylicTransparency,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         <Slider Value="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=TwoWay}" Minimum="0" Maximum="1.0"></Slider>
       </StackPanel>
