@@ -153,6 +153,7 @@
 * [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
 * [AspNet.Security.OpenId.Providers](https://github.com/aspnet-contrib/AspNet.Security.OpenId.Providers)
 * [CefNet](https://github.com/CefNet/CefNet)
+* [CefSharp](https://github.com/cefsharp/CefSharp)
 * [React](https://github.com/facebook/react)
 * [Ant Design](https://github.com/ant-design/ant-design)
 * [Ant Design Blazor](https://github.com/ant-design-blazor/ant-design-blazor)

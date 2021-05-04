@@ -20,7 +20,11 @@ namespace System.Application.Services.Implementation
     {
         readonly JsonSerializer jsonSerializer = new();
         readonly Lazy<ICloudServiceClient> _csc = new(() => DI.Get<ICloudServiceClient>());
+
         ICloudServiceClient Csc => _csc.Value;
+        JsonSerializer IHttpService.Serializer => jsonSerializer;
+        IHttpClientFactory IHttpService.Factory => _clientFactory;
+        IHttpPlatformHelper IHttpService.PlatformHelper => http_helper;
 
         public HttpServiceImpl(
             ILoggerFactory loggerFactory,
@@ -171,7 +175,8 @@ namespace System.Application.Services.Implementation
         {
             if (!IsHttpUrl(requestUri)) return Task.FromResult(default(T?));
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
-            if (cookie != null) { 
+            if (cookie != null)
+            {
                 request.Headers.Add("Cooike", cookie);
             }
             request.Headers.Accept.ParseAdd(accept);

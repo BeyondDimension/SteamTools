@@ -1,9 +1,13 @@
-﻿using System.Application.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -346,8 +350,9 @@ namespace System.Application.Services.Implementation
             return value ?? string.Empty;
         }
 
-        public async ValueTask LoadAppImageAsync(SteamApp app)
+        public /*async*/ ValueTask LoadAppImageAsync(SteamApp app)
         {
+            return ValueTask.CompletedTask;
             //if (app.LibraryLogoStream == null)
             //{
             //    app.LibraryLogoStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Library_600x900);
@@ -370,6 +375,62 @@ namespace System.Application.Services.Implementation
             //}
         }
 
+        public async Task<(CookieCollection cookies, Uri uri)> GetLoginUsingSteamClientCookiesAsync()
+        {
+            const string url_localhost_auth_public = "http://127.0.0.1:27060/auth/?u=public";
+            const string url_steamcommunity_checkclientautologin = "https://steamcommunity.com//login/checkclientautologin";
+            var uri_steamcommunity_checkclientautologin = new Uri(url_steamcommunity_checkclientautologin);
+            try
+            {
+                var client = http.Factory.CreateClient();
+                client.Timeout = TimeSpan.FromSeconds(.85);
+                var request = new HttpRequestMessage(HttpMethod.Get, url_localhost_auth_public);
+                request.Headers.Add("Origin", "https://steamcommunity.com");
+                //request.Headers.Add("Accept", MediaTypeNames.JSON);
+                request.Headers.UserAgent.ParseAdd(http.PlatformHelper.UserAgent);
+                var response = await client.SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                    using var reader = new StreamReader(stream, Encoding.UTF8);
+                    using var json = new JsonTextReader(reader);
+                    var jsonObj = JObject.Load(json);
+                    var steamid = jsonObj["steamid"]!.ToString();
+                    var encrypted_loginkey = jsonObj["encrypted_loginkey"]!.ToString();
+                    var sessionkey = jsonObj["sessionkey"]!.ToString();
+                    var digest = jsonObj["digest"]!.ToString();
 
+                    request = new HttpRequestMessage(HttpMethod.Post, uri_steamcommunity_checkclientautologin)
+                    {
+#pragma warning disable CS8620 // 由于引用类型的可为 null 性差异，实参不能用于形参。
+                        Content = new FormUrlEncodedContent(new Dictionary<string, string?>
+                    {
+                        { "steamid", steamid },
+                        { "encrypted_loginkey", encrypted_loginkey },
+                        { "sessionkey", sessionkey },
+                        { "digest", digest },
+                    }),
+#pragma warning restore CS8620 // 由于引用类型的可为 null 性差异，实参不能用于形参。
+                    };
+                    client.Timeout = TimeSpan.FromSeconds(9.75);
+                    response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+                    if (response.IsSuccessStatusCode && response.Headers.TryGetValues("Set-Cookie", out var cookies))
+                    {
+                        CookieContainer container = new();
+                        foreach (var item in cookies)
+                        {
+                            if (string.IsNullOrWhiteSpace(item)) continue;
+                            container.SetCookies(uri_steamcommunity_checkclientautologin, item);
+                        }
+                        var cookies2 = container.GetCookies(uri_steamcommunity_checkclientautologin);
+                        return (cookies2, uri_steamcommunity_checkclientautologin);
+                    }
+                }
+            }
+            catch (OperationCanceledException)
+            {
+            }
+            return default;
+        }
     }
 }

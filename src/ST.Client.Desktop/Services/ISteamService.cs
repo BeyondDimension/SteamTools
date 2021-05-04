@@ -1,6 +1,7 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace System.Application.Services
@@ -84,5 +85,11 @@ namespace System.Application.Services
         Task<string> GetAppImageAsync(SteamApp app, SteamApp.LibCacheType type);
 
         ValueTask LoadAppImageAsync(SteamApp app);
+
+        /// <summary>
+        /// 获取 Steam 客户端登录 Cookie(用于写入到 WebView3 中免登录)
+        /// </summary>
+        /// <returns></returns>
+        Task<(CookieCollection cookies, Uri uri)> GetLoginUsingSteamClientCookiesAsync();
     }
 }

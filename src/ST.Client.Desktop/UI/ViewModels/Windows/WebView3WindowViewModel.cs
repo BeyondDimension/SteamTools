@@ -52,5 +52,7 @@ namespace System.Application.UI.ViewModels
         /// </summary>
         [Obsolete]
         public bool UseLoginUsingSteamClient { get; set; }
+
+        public bool UseLoginUsingSteamClientV2 { get; set; }
     }
 }

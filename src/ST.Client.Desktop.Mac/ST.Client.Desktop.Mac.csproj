@@ -3,7 +3,8 @@
 
   <PropertyGroup>
     <!--<TargetFramework>net6.0-macos</TargetFramework>-->
-    <TargetFrameworks>Xamarin.Mac20;netstandard2.1</TargetFrameworks>
+    <!--<TargetFrameworks>Xamarin.Mac20;net5.0</TargetFrameworks>-->
+    <TargetFrameworks>net5.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Desktop.Mac</AssemblyName>
   </PropertyGroup>
@@ -23,7 +24,7 @@
     <DefineConstants>XAMARIN_MAC;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('netstandard')) OR $(TargetFramework.StartsWith('net5')) ">
     <DefineConstants>MONO_MAC;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
@@ -48,7 +49,7 @@
     <PackageReference Include="nor0x.AppCenter.Crashes" Version="4.1.0.1-XMAC"/>
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) OR $(TargetFramework.StartsWith('net5')) ">
     <PackageReference Include="MonoMac.NetStandard" Version="0.0.4"/>
   </ItemGroup>
 

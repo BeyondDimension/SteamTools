@@ -3,10 +3,14 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using CefNet;
 using CefNet.JSInterop;
+using CefNet.Net;
+using CefSharp;
 using ReactiveUI;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -90,17 +94,12 @@ namespace System.Application.UI.Views.Windows
                 }
                 if (!e.Busy)
                 {
-                    void LoginUsingSteamClientFinishNavigate()
-                    {
-                        loginUsingSteamClientState = LoginUsingSteamClientState.None;
-                        Navigate(vm.Url);
-                    }
                     if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
                     {
                         var frame = webView.GetMainFrame();
                         if (frame == null)
                         {
-                            LoginUsingSteamClientFinishNavigate();
+                            LoginUsingSteamClientFinishNavigate(vm);
                         }
                         try
                         {
@@ -114,12 +113,12 @@ namespace System.Application.UI.Views.Windows
 #if DEBUG
                             Log.Error(nameof(WebView3Window), ex, "JSInterop fail.");
 #endif
-                            LoginUsingSteamClientFinishNavigate();
+                            LoginUsingSteamClientFinishNavigate(vm);
                         }
                     }
                     else if (loginUsingSteamClientState == LoginUsingSteamClientState.Success)
                     {
-                        LoginUsingSteamClientFinishNavigate();
+                        LoginUsingSteamClientFinishNavigate(vm);
                     }
                     else
                     {
@@ -145,6 +144,34 @@ namespace System.Application.UI.Views.Windows
             }
         }
 
+        void LoginUsingSteamClientFinishNavigate(WebView3WindowViewModel? vm = null)
+        {
+            loginUsingSteamClientState = LoginUsingSteamClientState.None;
+            if (vm == null && DataContext is WebView3WindowViewModel vm2) vm = vm2;
+            Navigate(vm?.Url ?? WebView3WindowViewModel.AboutBlank);
+        }
+
+        async void GetLoginUsingSteamClientCookiesAsync()
+        {
+            var value = await ISteamService.Instance.GetLoginUsingSteamClientCookiesAsync();
+            if (value != default)
+            {
+                var url = value.uri.ToString();
+                var cookies = value.cookies;
+                var manager = CefRequestContext.GetGlobalContext().GetCookieManager(null);
+                foreach (Cookie item in cookies)
+                {
+                    var cookie = new CefNetCookie(item.Name, item.Value);
+                    var setCookieResult = await manager.SetCookieAsync(url, cookie);
+                    if (item.Name == "steamLoginSecure" && !setCookieResult)
+                    {
+                        return;
+                    }
+                }
+            }
+            LoginUsingSteamClientFinishNavigate();
+        }
+
         LoginUsingSteamClientState loginUsingSteamClientState;
         protected override void OnDataContextChanged(EventArgs e)
         {
@@ -152,11 +179,17 @@ namespace System.Application.UI.Views.Windows
             if (DataContext is WebView3WindowViewModel vm)
             {
                 vm.Close = Close;
-                if (!string.IsNullOrWhiteSpace(vm.Title)) webView.DocumentTitleChanged -= WebView_DocumentTitleChanged;
+                if (!string.IsNullOrWhiteSpace(vm.Title))
+                    webView.DocumentTitleChanged -= WebView_DocumentTitleChanged;
                 if (vm.UseLoginUsingSteamClient)
                 {
                     loginUsingSteamClientState = LoginUsingSteamClientState.Loading;
                     Navigate("https://steamcommunity.com/login/home/?goto=my/profile");
+                }
+                else if (vm.UseLoginUsingSteamClientV2)
+                {
+                    loginUsingSteamClientState = LoginUsingSteamClientState.Loading;
+                    GetLoginUsingSteamClientCookiesAsync();
                 }
                 vm.WhenAnyValue(x => x.Url).WhereNotNull().Subscribe(x =>
                 {

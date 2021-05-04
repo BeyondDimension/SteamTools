@@ -121,14 +121,14 @@ namespace System.Application
             /// 黑名单
             /// </summary>
             public static readonly byte[] Blacklist = new byte[] {
-                148, 149, 146, 148, // 物联网号段
+                148, 149, 146, // 物联网号段
             };
         }
 
         /// <summary>
         /// 中国大陆地区手机号码号段验证使用 黑名单(<see langword="true"/>) 或 白名单(<see langword="false"/>)
         /// </summary>
-        public static bool ChineseMainlandPhoneNumberSegmentVerifyUseBlacklistOrWhitelist { get; set; }
+        public static bool ChineseMainlandPhoneNumberSegmentVerifyUseBlacklistOrWhitelist { get; set; } = true;
 
         /// <summary>
         /// 中国大陆地区手机号码号段验证(通常仅服务端验证)

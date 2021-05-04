@@ -211,20 +211,20 @@ namespace System.Application.Services
                 return;
             }
 #endif
-            if (SteamApps.Items.Any())
-            {
-                Parallel.ForEach(SteamApps.Items, new ParallelOptions
-                {
-                    MaxDegreeOfParallelism = (Environment.ProcessorCount / 2) + 1
-                }, async app =>
-                {
-                    await ISteamService.Instance.LoadAppImageAsync(app);
-                    //app.LibraryLogoStream = await IHttpService.Instance.GetImageAsync(app.LibraryLogoUrl, ImageChannelType.SteamGames);
-                    //app.LibraryHeaderStream = await IHttpService.Instance.GetImageAsync(app.LibraryHeaderUrl, ImageChannelType.SteamGames);
-                    //app.LibraryNameStream = await IHttpService.Instance.GetImageAsync(app.LibraryNameUrl, ImageChannelType.SteamGames);
-                    //app.HeaderLogoStream = await IHttpService.Instance.GetImageAsync(app.HeaderLogoUrl, ImageChannelType.SteamGames);
-                });
-            }
+            //if (SteamApps.Items.Any())
+            //{
+            //    Parallel.ForEach(SteamApps.Items, new ParallelOptions
+            //    {
+            //        MaxDegreeOfParallelism = (Environment.ProcessorCount / 2) + 1
+            //    }, async app =>
+            //    {
+            //        await ISteamService.Instance.LoadAppImageAsync(app);
+            //        //app.LibraryLogoStream = await IHttpService.Instance.GetImageAsync(app.LibraryLogoUrl, ImageChannelType.SteamGames);
+            //        //app.LibraryHeaderStream = await IHttpService.Instance.GetImageAsync(app.LibraryHeaderUrl, ImageChannelType.SteamGames);
+            //        //app.LibraryNameStream = await IHttpService.Instance.GetImageAsync(app.LibraryNameUrl, ImageChannelType.SteamGames);
+            //        //app.HeaderLogoStream = await IHttpService.Instance.GetImageAsync(app.HeaderLogoUrl, ImageChannelType.SteamGames);
+            //    });
+            //}
         }
 
         private bool _IsRefreshing;
