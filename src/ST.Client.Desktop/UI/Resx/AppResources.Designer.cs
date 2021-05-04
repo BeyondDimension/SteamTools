@@ -2495,6 +2495,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 快速登录 的本地化字符串。
+        /// </summary>
+        public static string User_FastLogin {
+            get {
+                return ResourceManager.GetString("User_FastLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 获取验证码 的本地化字符串。
         /// </summary>
         public static string User_GetSMSCode {
@@ -2590,6 +2599,15 @@ namespace System.Application.UI.Resx {
         public static string User_Phone {
             get {
                 return ResourceManager.GetString("User_Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 手机号登录 的本地化字符串。
+        /// </summary>
+        public static string User_PhoneLogin {
+            get {
+                return ResourceManager.GetString("User_PhoneLogin", resourceCulture);
             }
         }
         

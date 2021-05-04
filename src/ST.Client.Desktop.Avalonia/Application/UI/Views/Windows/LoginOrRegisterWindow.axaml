@@ -27,7 +27,7 @@
     <Panel>
       <controls:ProgressRing IsIndeterminate="True" HorizontalAlignment="Stretch" Height="100" Width="100" IsVisible="{Binding IsLoading}" />
       <Grid RowDefinitions="*,Auto" IsVisible="{Binding !IsLoading}">
-        
+
         <StackPanel VerticalAlignment="Center" Spacing="8" IsVisible="{Binding !IsLoading}" Margin="60 0">
           <Image Source="/Application/UI/Assets/Icon.ico" Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25">
             <!--<Image.Clip>
@@ -72,17 +72,19 @@
             <Button FontSize="12" Classes="Hyperlink" Margin="5,0" Content="{ReflectionBinding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{ReflectionBinding OpenHyperlink}" CommandParameter="https://steampp.net/PrivacyBox"/>
           </WrapPanel>
 
-
         </StackPanel>
-        
-        <StackPanel Grid.Row="1" Margin="0 0 0 10">
-          <Button
-                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" Background="Transparent" BorderThickness="0" Cursor="Hand"
+
+        <StackPanel HorizontalAlignment="Center" Grid.Row="1" Margin="0 0 0 10" Orientation="Horizontal" Spacing="10">
+          <Button Classes="plain"
+                  HorizontalContentAlignment="Center"
                   Command="{ReflectionBinding SteamFastLogin}">
-            <StackPanel Orientation="Horizontal" Spacing="10">
-              <PathIcon Data="{StaticResource SteamDrawing}" Width="18"></PathIcon>
-              <TextBlock Text="{ReflectionBinding Path=Res.User_SteamFastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-            </StackPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.User_FastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+          </Button>
+          <Separator Classes="Separator" Height="{ReflectionBinding $parent.Height}" Width="0.88"></Separator>
+          <Button Classes="plain"
+                  HorizontalContentAlignment="Center"
+                  Command="{ReflectionBinding SteamFastLogin}">
+            <TextBlock Text="{ReflectionBinding Path=Res.User_PhoneLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
           </Button>
         </StackPanel>
       </Grid>

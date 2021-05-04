@@ -986,6 +986,9 @@
   <data name="User_EditProfile" xml:space="preserve">
     <value>编辑资料</value>
   </data>
+  <data name="User_FastLogin" xml:space="preserve">
+    <value>快速登录</value>
+  </data>
   <data name="User_GetSMSCode" xml:space="preserve">
     <value>获取验证码</value>
   </data>
@@ -1019,6 +1022,9 @@
   </data>
   <data name="User_Phone" xml:space="preserve">
     <value>手机号码</value>
+  </data>
+  <data name="User_PhoneLogin" xml:space="preserve">
+    <value>手机号登录</value>
   </data>
   <data name="User_Privacy" xml:space="preserve">
     <value>隐私政策</value>

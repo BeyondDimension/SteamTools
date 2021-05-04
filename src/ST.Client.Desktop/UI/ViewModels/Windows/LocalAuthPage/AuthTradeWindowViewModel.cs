@@ -286,7 +286,6 @@ namespace System.Application.UI.ViewModels
                             ToastService.Current.Notify(steam.Error);
                             return;
                         }
-
                         return;
                     }
                     ToastService.Current.Notify(AppResources.User_LoiginSuccess);
