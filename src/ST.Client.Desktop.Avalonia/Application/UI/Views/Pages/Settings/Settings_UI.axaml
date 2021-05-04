@@ -27,7 +27,7 @@
                     <Setter Property="OffContent" Value="{x:Null}" />
                 </Style>
             </StackPanel.Styles>
-            <StackPanel Orientation="Vertical" Spacing="10">
+            <StackPanel Orientation="Vertical" Spacing="10" Margin="0,8,0,0">
                 <TextBlock Text="{ReflectionBinding Path=Res.Settings_Language,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                 <ComboBox HorizontalAlignment="Stretch" SelectedItem="{Binding SelectLanguage, Mode=TwoWay}" Items="{Binding Mode=OneWay,Source={x:Static resx:R.Languages}}" >
                     <ComboBox.ItemTemplate>

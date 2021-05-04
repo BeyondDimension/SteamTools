@@ -51,6 +51,7 @@ namespace System.Application.UI.Resx
 
         static IReadOnlyCollection<KeyValuePair<string, string>> GetFonts()
         {
+            // https://docs.microsoft.com/zh-cn/typography/font-list
             var culture = Culture;
             InstalledFontCollection ifc = new();
             var list = ifc.Families.Where(x => x.IsStyleAvailable(FontStyle.Regular)).Select(x => KeyValuePair.Create(x.GetName(culture.LCID), x.GetName(1033))).ToList();

@@ -145,7 +145,7 @@ namespace System.Application.Services.Implementation
         /// <summary>
         /// 升级包存放文件夹名称
         /// </summary>
-        const string PackDirName = "UpgradePackage";
+        const string PackDirName = "UpgradePackages";
 
         public const string FileExDownloadCache = ".download_cache";
 

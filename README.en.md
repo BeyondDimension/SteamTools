@@ -24,6 +24,8 @@
 [![Gitee Star](https://gitee.com/rmbgame/SteamTools/badge/star.svg)](https://gitee.com/rmbgame/SteamTools)
 </div>
 
+<div align="center"><img src="./resources/screenshots.en.jpg" /></div>
+
 English | [简体中文](./README.md)
 
 ## ✨ Functions
