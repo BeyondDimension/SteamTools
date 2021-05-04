@@ -53,6 +53,8 @@ namespace System.Application.UI
             //    commandLine.AppendSwitch("no-zygote");
             //    commandLine.AppendSwitch("no-sandbox");
             //}
+
+            //commandLine.AppendSwitch("disable-web-security"); // LoginUsingSteamClient
         }
 
         protected override void OnContextCreated(CefBrowser browser, CefFrame frame, CefV8Context context)

@@ -2,9 +2,9 @@ namespace System.Properties
 {
     public static class ThisAssembly
     {
-        public const string Version = "2.0.1";
+        public const string Version = "2.0.0.9";
 
-        public const string InfoVersion = Version /*+ "-beta"*/;
+        public const string InfoVersion = Version + "-beta";
 
 #if NETSTANDARD2_1 || NETCOREAPP2_1_OR_GREATER
         static readonly Lazy<string> mVersionDisplay = new(() =>

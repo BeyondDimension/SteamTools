@@ -46,5 +46,11 @@ namespace System.Application.UI.ViewModels
         public bool IsSecurity { get; set; }
 
         public Action? Close { get; set; }
+
+        /// <summary>
+        /// 使用 Steam 客户端登录
+        /// </summary>
+        [Obsolete]
+        public bool UseLoginUsingSteamClient { get; set; }
     }
 }

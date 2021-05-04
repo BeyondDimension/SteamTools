@@ -112,6 +112,7 @@ namespace System.Application.UI.ViewModels
                 Title = AppResources.User_SteamFastLogin,
                 TimeoutErrorMessage = AppResources.User_SteamFastLoginTimeoutErrorMessage,
                 IsSecurity = true,
+                //UseLoginUsingSteamClient = true,
             };
             async void _OnStreamResponseFilterResourceLoadComplete(string url, Stream data)
             {
