@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using System;
 using System.Application.Mvvm;
 using System.Application.UI.ViewModels;
@@ -26,15 +26,22 @@ namespace System.Application.Services.Implementation
 
         public void Init()
         {
-            if (appidUnlockAchievement.HasValue)
+            try
             {
-                achievementWindow = new AchievementWindowViewModel(appidUnlockAchievement.Value);
-                MainWindow = achievementWindow;
+                if (appidUnlockAchievement.HasValue)
+                {
+                    achievementWindow = new AchievementWindowViewModel(appidUnlockAchievement.Value);
+                    MainWindow = achievementWindow;
+                }
+                else
+                {
+                    mainWindow = new MainWindowViewModel();
+                    MainWindow = mainWindow;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                mainWindow = new MainWindowViewModel();
-                MainWindow = mainWindow;
+                Log.Error("WindowService", ex, "Init WindowViewModel");
             }
         }
 

@@ -9,7 +9,7 @@ namespace System.Application.UI.ViewModels
     {
         private readonly SteamApp? _App;
 
-        public EditAppInfoWindowViewModel()
+        public EditAppInfoWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_EditAppInfo;
         }

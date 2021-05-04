@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using System.Application.Models;
 using System.Application.UI.Resx;
 using System.Properties;
@@ -9,7 +9,7 @@ namespace System.Application.UI.ViewModels
     {
         private readonly GAPAuthenticatorValueDTO.SteamAuthenticator? _Authenticator;
 
-        public ShowAuthWindowViewModel()
+        public ShowAuthWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_AuthData;
         }

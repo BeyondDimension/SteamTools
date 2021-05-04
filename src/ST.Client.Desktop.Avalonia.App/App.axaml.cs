@@ -150,15 +150,6 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("SettingsHost.Init");
 #endif
-
-#if !UI_DEMO
-            if (GeneralSettings.IsStartupAppMinimized.Value)
-            {
-                Program.IsMinimize = true;
-                if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-                    desktop.MainWindow = null;
-            }
-#endif
             Theme = (AppTheme)UISettings.Theme.Value;
 #if StartupTrace
             StartupTrace.Restart("Theme");
@@ -185,6 +176,14 @@ namespace System.Application.UI
                     compositeDisposable.Add(SteamConnectService.Current.Dispose);
 
                     #endregion
+#if !UI_DEMO
+                    if (GeneralSettings.IsStartupAppMinimized.Value)
+                    {
+                        Program.IsMinimize = true;
+                        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+                            desktop.MainWindow = null;
+                    }
+#endif
                     MainWindow = new MainWindow
                     {
                         DataContext = windowService.MainWindow,

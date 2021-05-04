@@ -14,7 +14,7 @@ namespace System.Application.UI.ViewModels
 {
     public class LoginOrRegisterWindowViewModel : WindowViewModel, SendSmsUIHelper.IViewModel
     {
-        public LoginOrRegisterWindowViewModel()
+        public LoginOrRegisterWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LoginAndRegister;
         }
