@@ -23,7 +23,6 @@ namespace Microsoft.Extensions.DependencyInjection
             bool useMock = false)
             where T : CloudServiceClientBase
         {
-            services.TryAddHttpPlatformHelper();
             services.AddHttpClient(CloudServiceClientBase.ClientName_, (s, c) =>
             {
                 var sc = s.GetRequiredService<CloudServiceClientBase>();
