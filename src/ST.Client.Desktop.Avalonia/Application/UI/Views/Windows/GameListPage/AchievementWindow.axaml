@@ -36,7 +36,7 @@
         <DockPanel HorizontalAlignment="Stretch">
             <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="80">
                 <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
+                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
                 </ExperimentalAcrylicBorder.Material>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10 8 10 8">
                     <Image Source="/Application/UI/Assets/Icon.ico" Height="24" Width="24" Margin="0,0,10,0"/>
@@ -45,7 +45,7 @@
             </ExperimentalAcrylicBorder>
             <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False" Opacity="{StaticResource ContentOpacity}">
                 <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.85" TintOpacity="1"/>
+                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
                 </ExperimentalAcrylicBorder.Material>
             </ExperimentalAcrylicBorder>
         </DockPanel>

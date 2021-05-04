@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
              mc:Ignorable="d"
              x:Name="u" IsHitTestVisible="False"
              Background="Transparent"
@@ -9,7 +10,7 @@
   <DockPanel HorizontalAlignment="Stretch">
     <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="{StaticResource TitleBarHeight}">
       <ExperimentalAcrylicBorder.Material>
-        <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.80" TintOpacity="1"/>
+        <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
       </ExperimentalAcrylicBorder.Material>
       <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10 6 10 6">
         <Image Source="/Application/UI/Assets/Icon.ico" Height="18" Width="18" Margin="0,0,10,0"/>
@@ -18,7 +19,7 @@
     </ExperimentalAcrylicBorder>
     <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False" Opacity="{StaticResource ContentOpacity}">
       <ExperimentalAcrylicBorder.Material>
-        <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="0.75" TintOpacity="1"/>
+        <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
       </ExperimentalAcrylicBorder.Material>
     </ExperimentalAcrylicBorder>
   </DockPanel>

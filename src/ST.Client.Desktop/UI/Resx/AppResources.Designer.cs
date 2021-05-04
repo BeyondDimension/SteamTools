@@ -2125,6 +2125,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 背景透明度 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_AcrylicTransparency {
+            get {
+                return ResourceManager.GetString("Settings_UI_AcrylicTransparency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 深色 的本地化字符串。
         /// </summary>
         public static string Settings_UI_Dark {

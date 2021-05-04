@@ -59,6 +59,12 @@ namespace System.Application.Models.Settings
             = new SerializableProperty<int>(GetKey(), Providers.Local, 0) { AutoSave = true };
 
         /// <summary>
+        /// 窗口毛玻璃背景透明度
+        /// </summary>
+        public static SerializableProperty<double> AcrylicOpacity { get; }
+            = new SerializableProperty<double>(GetKey(), Providers.Local, 0.80) { AutoSave = true };
+
+        /// <summary>
         /// 库存游戏封面大小
         /// </summary>
         public static SerializableProperty<int> AppGridSize { get; }
@@ -69,7 +75,7 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<Dictionary<string, WindowSizePosition>> WindowSizePositions { get; }
             = new SerializableProperty<Dictionary<string, WindowSizePosition>>(GetKey(), Providers.Local, new Dictionary<string, WindowSizePosition>()) { AutoSave = true };
-        
+
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
             return nameof(UISettings) + "." + propertyName;

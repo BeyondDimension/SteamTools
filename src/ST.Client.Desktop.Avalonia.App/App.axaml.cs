@@ -145,7 +145,6 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("WindowService.Init");
 #endif
-
             SettingsHost.Load();
 #if StartupTrace
             StartupTrace.Restart("SettingsHost.Init");
@@ -170,13 +169,11 @@ namespace System.Application.UI
 
                 default:
                     #region 主窗口启动时加载的资源
+#if !UI_DEMO
                     compositeDisposable.Add(SettingsHost.Save);
                     compositeDisposable.Add(ProxyService.Current.Dispose);
                     compositeDisposable.Add(AuthService.Current.SaveEditNameAuthenticators);
                     compositeDisposable.Add(SteamConnectService.Current.Dispose);
-
-                    #endregion
-#if !UI_DEMO
                     if (GeneralSettings.IsStartupAppMinimized.Value)
                     {
                         Program.IsMinimize = true;
@@ -184,6 +181,7 @@ namespace System.Application.UI
                             desktop.MainWindow = null;
                     }
 #endif
+                    #endregion
                     MainWindow = new MainWindow
                     {
                         DataContext = windowService.MainWindow,
