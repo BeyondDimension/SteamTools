@@ -75,7 +75,17 @@
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Center" Grid.Row="1" Margin="0 0 0 10" Orientation="Horizontal" Spacing="10">
-          <Button Classes="plain"
+          <Button HorizontalContentAlignment="Center"
+                  Background="Transparent"
+                  BorderThickness="0"
+                  Cursor="Hand"
+                  Command="{ReflectionBinding SteamFastLogin}">
+            <StackPanel Orientation="Horizontal" Spacing="10">
+              <PathIcon Data="{StaticResource SteamDrawing}" Width="18"></PathIcon>
+              <TextBlock Text="{ReflectionBinding Path=Res.User_SteamFastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+            </StackPanel>
+          </Button>
+          <!--<Button Classes="plain"
                   HorizontalContentAlignment="Center"
                   Command="{ReflectionBinding SteamFastLogin}">
             <TextBlock Text="{ReflectionBinding Path=Res.User_FastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
@@ -85,7 +95,7 @@
                   HorizontalContentAlignment="Center"
                   Command="{ReflectionBinding SteamFastLogin}">
             <TextBlock Text="{ReflectionBinding Path=Res.User_PhoneLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-          </Button>
+          </Button>-->
         </StackPanel>
       </Grid>
     </Panel>
