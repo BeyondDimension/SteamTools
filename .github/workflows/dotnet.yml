@@ -57,4 +57,5 @@ jobs:
     - name: dotnet ST.Client.UnitTest test
       run: dotnet test ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj
     - name: dotnet ST.Client.Desktop.UnitTest test
+      if: matrix.os != 'windows-latest'
       run: dotnet test ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj
