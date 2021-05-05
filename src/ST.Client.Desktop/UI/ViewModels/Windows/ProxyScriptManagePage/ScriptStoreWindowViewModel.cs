@@ -26,8 +26,6 @@ namespace System.Application.UI.ViewModels
 				.Bind(out _Scripts)
 				.Subscribe(_ => this.RaisePropertyChanged(nameof(IsScriptsEmpty)));
 
-			InitializeScriptList();
-
 			this.WhenAnyValue(x => x.SearchText)
 				.Subscribe(x =>
 				{
