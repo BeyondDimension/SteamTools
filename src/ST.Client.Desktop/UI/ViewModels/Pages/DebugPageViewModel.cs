@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
@@ -13,11 +13,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Text;
 using System.Globalization;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using static Newtonsoft.Json.JsonConvert;
 
 namespace System.Application.UI.ViewModels
@@ -213,11 +211,17 @@ namespace System.Application.UI.ViewModels
 
         public async void ShowDialogButton_Click()
         {
-            ToastService.Current.Notify("中文测试繁體測試🎉🧨🎇🎆🎄🖼🖼🖼🖼");
-            DebugString += ToastService.Current.Message + Environment.NewLine;
-            DebugString += ToastService.Current.IsVisible + Environment.NewLine;
+#if DEBUG
+            await LoginOrRegisterWindowViewModel.FastLoginOrRegisterAsync();
+#endif
 
-            await IShowWindowService.Instance.Show(typeof(object), CustomWindow.NewVersion);
+            //DI.Get<IDesktopPlatformService>().OpenDesktopIconsSettings();
+
+            //ToastService.Current.Notify("中文测试繁體測試🎉🧨🎇🎆🎄🖼🖼🖼🖼");
+            //DebugString += ToastService.Current.Message + Environment.NewLine;
+            //DebugString += ToastService.Current.IsVisible + Environment.NewLine;
+
+            //await IShowWindowService.Instance.Show(typeof(object), CustomWindow.NewVersion);
 
             //    var r = await MessageBoxCompat.ShowAsync(@"Steam++ v1.1.2   2021-01-29
             //更新内容
@@ -297,41 +301,47 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public async void TestServerApiButton_Click()
+        public /*async*/ void TestServerApiButton_Click()
         {
-            DebugString = string.Empty;
-            var client = ICloudServiceClient.Instance;
+#if DEBUG
+            //DebugString = string.Empty;
+            //var client = ICloudServiceClient.Instance;
 
-            var req1 = new SendSmsRequest
-            {
-                PhoneNumber = "18611112222",
-                Type = SmsCodeType.LoginOrRegister,
-            };
+            //var req1 = new SendSmsRequest
+            //{
+            //    PhoneNumber = "00011112222",
+            //    Type = SmsCodeType.LoginOrRegister,
+            //};
 
-            var rsp1 = await client.AuthMessage.SendSms(req1);
+            //var rsp1 = await client.AuthMessage.SendSms(req1);
 
-            if (!rsp1.IsSuccess)
-            {
-                DebugString = $"SendSms: Fail({rsp1.Code}).";
-                return;
-            }
+            //if (!rsp1.IsSuccess)
+            //{
+            //    DebugString = $"SendSms: Fail({rsp1.Code}).";
+            //    return;
+            //}
 
-            var req2 = new LoginOrRegisterRequest
-            {
-                PhoneNumber = req1.PhoneNumber,
-                SmsCode = "666666",
-            };
-            var rsp2 = await ICloudServiceClient.Instance.Account.LoginOrRegister(req2);
+            //var req2 = new LoginOrRegisterRequest
+            //{
+            //    PhoneNumber = req1.PhoneNumber,
+            //    SmsCode = "666666",
+            //};
+            //var rsp2 = await ICloudServiceClient.Instance.Account.LoginOrRegister(req2);
 
-            if (!rsp2.IsSuccess)
-            {
-                DebugString = $"LoginOrRegister: Fail({rsp2.Code}).";
-                return;
-            }
+            //if (!rsp2.IsSuccess)
+            //{
+            //    DebugString = $"LoginOrRegister: Fail({rsp2.Code}).";
+            //    return;
+            //}
 
-            var jsonStr = Serializable2.S(rsp2.Content);
+            //var jsonStr = Serializable2.S(rsp2.Content);
 
-            DebugString = $"JSON: {jsonStr}";
+            //DebugString = $"JSON: {jsonStr}";
+
+#else
+            //await Task.Delay(300);
+            //DebugString = nameof(TestServerApiButton_Click);
+#endif
         }
 
         /// <summary>

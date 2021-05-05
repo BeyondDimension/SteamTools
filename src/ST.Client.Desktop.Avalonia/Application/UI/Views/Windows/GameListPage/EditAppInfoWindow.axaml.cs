@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class ScriptStoreWindow : FluentWindow
+    public class EditAppInfoWindow : FluentWindow
     {
-        public ScriptStoreWindow()
+        public EditAppInfoWindow() : base()
         {
             InitializeComponent();
 #if DEBUG

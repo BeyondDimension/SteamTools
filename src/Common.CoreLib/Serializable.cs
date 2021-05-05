@@ -1,4 +1,4 @@
-﻿#if !NOT_MP
+#if !NOT_MP
 using MessagePack;
 #endif
 #if !NOT_NJSON
@@ -146,6 +146,10 @@ namespace System
         /// <returns></returns>
         public static byte[] SMP<T>(T value, CancellationToken cancellationToken = default)
             => MessagePackSerializer.Serialize(value, options: lz4Options, cancellationToken: cancellationToken);
+
+        /// <inheritdoc cref="SMP{T}(T, CancellationToken)"/>
+        public static byte[] SMP(Type type, object value, CancellationToken cancellationToken = default)
+            => MessagePackSerializer.Serialize(type, value, options: lz4Options, cancellationToken: cancellationToken);
 
         /// <summary>
         /// (Serialize)MessagePack 序列化 + Base64Url Encode

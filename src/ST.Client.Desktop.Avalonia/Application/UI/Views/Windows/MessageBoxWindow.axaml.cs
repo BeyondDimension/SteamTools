@@ -8,7 +8,7 @@ namespace System.Application.UI.Views.Windows
 {
     public class MessageBoxWindow : FluentWindow
     {
-        public MessageBoxWindow()
+        public MessageBoxWindow() : base()
         {
             //if (PlatformImpl is Win32WindowImpl win)
             //{

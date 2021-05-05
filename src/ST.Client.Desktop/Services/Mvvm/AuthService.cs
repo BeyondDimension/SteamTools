@@ -1,4 +1,4 @@
-﻿using DynamicData;
+using DynamicData;
 using DynamicData.Binding;
 using Newtonsoft.Json.Linq;
 using ReactiveUI;
@@ -487,14 +487,10 @@ namespace System.Application.Services
 
         public void SaveEditNameAuthenticators()
         {
-            Task.Run(() =>
-            {
-                var auths = Authenticators.Items.Where(x => x.Name != x.OriginName);
+            var auths = Authenticators.Items.Where(x => x.Name != x.OriginName);
 
-                foreach (var auth in auths)
-                    AddOrUpdateSaveAuthenticators(auth);
-            });
-
+            foreach (var auth in auths)
+                AddOrUpdateSaveAuthenticators(auth);
         }
     }
 }

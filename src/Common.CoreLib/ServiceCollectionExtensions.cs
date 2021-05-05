@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Net.Http;
@@ -16,17 +16,6 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection TryAddModelValidator(this IServiceCollection services)
         {
             services.TryAddSingleton<IModelValidator, ModelValidator>();
-            return services;
-        }
-
-        /// <summary>
-        /// 尝试添加 <see cref="IHttpPlatformHelper"/>
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection TryAddHttpPlatformHelper(this IServiceCollection services)
-        {
-            services.TryAddSingleton<IHttpPlatformHelper, HttpPlatformHelper>();
             return services;
         }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Application.Models;
 using System.Collections.Generic;
 using System.Text;
@@ -14,7 +14,7 @@ namespace System.Application.Services.CloudService
         /// <returns></returns>
         Task<IApiResponse<ScriptResponse>> Basics(string? errormsg = null);
         /// <summary>
-        /// 脚本市场接口
+        /// 脚本工坊接口
         /// </summary>
         /// <param name="name">脚本名称</param>
         /// <param name="pageIndex">页码</param>

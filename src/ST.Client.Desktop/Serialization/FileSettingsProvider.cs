@@ -62,7 +62,7 @@ namespace System.Application.Serialization
 
             lock (_sync)
             {
-                using var stream = new FileStream(_path, FileMode.Create, FileAccess.ReadWrite);
+                using var stream = new FileStream(_path, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite | FileShare.Delete);
                 if (stream.Position > 0)
                 {
                     stream.Position = 0;
@@ -77,14 +77,13 @@ namespace System.Application.Serialization
         {
             if (File.Exists(_path))
             {
-                using var stream = new FileStream(_path, FileMode.Open, FileAccess.Read);
+                using var stream = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
                 lock (_sync)
                 {
                     if (stream.Position > 0)
                     {
                         stream.Position = 0;
                     }
-
                     var source = Serializable.DMP<IDictionary<string, object?>>(stream);
                     //var source = XamlServices.Load(stream) as IDictionary<string, object>;
                     _settings = source == null

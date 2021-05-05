@@ -86,7 +86,7 @@ namespace System.Application.UI.ViewModels
             };
         }
 
-        public AchievementWindowViewModel(int appid)
+        public AchievementWindowViewModel(int appid) : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.AchievementManage;
 
@@ -160,12 +160,12 @@ namespace System.Application.UI.ViewModels
                 ToastService.Current.Notify(AppResources.Achievement_LoadSucces.Format(_AchievementsSourceList.Count, _StatisticsSourceList.Count));
             });
 
-            Task.Run(async () =>
+            Task.Run(() =>
             {
                 while (true)
                 {
                     ISteamworksLocalApiService.Instance.RunCallbacks(false);
-                    await Task.Delay(2000);
+                    Threading.Thread.Sleep(2000);
                 }
             }).Forget();
 

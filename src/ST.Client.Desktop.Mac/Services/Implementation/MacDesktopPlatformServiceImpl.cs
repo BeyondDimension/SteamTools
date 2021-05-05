@@ -1,4 +1,4 @@
-﻿#if MONO_MAC
+#if MONO_MAC
 using MonoMac.Foundation;
 #elif XAMARIN_MAC
 using Foundation;
@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 
 namespace System.Application.Services.Implementation
 {
-    internal sealed class MacDesktopPlatformServiceImpl : IDesktopPlatformService
+    internal sealed partial class MacDesktopPlatformServiceImpl : IDesktopPlatformService
     {
         public void SetResizeMode(IntPtr hWnd, int value)
         {
@@ -29,6 +29,16 @@ namespace System.Application.Services.Implementation
                 Arguments = $"-a \"{name}\" \"{filePath}\"",
             });
             p?.Close();
+        }
+
+        public void SetSystemSessionEnding(Action action)
+        {
+
+        }
+
+        public void OpenFolder(string dirPath)
+        {
+
         }
 
         public string? GetFileName(TextReaderProvider provider)
@@ -147,6 +157,16 @@ namespace System.Application.Services.Implementation
 
         public void SetLightOrDarkThemeFollowingSystem(bool enable)
         {
+        }
+
+        public Process StartAsInvoker(string fileName)
+        {
+            return Process.Start(fileName);
+        }
+
+        public Process? StartAsInvoker(ProcessStartInfo startInfo)
+        {
+            return Process.Start(startInfo);
         }
     }
 }

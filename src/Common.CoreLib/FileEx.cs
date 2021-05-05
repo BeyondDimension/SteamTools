@@ -1,4 +1,4 @@
-﻿namespace System
+namespace System
 {
     /// <summary>
     /// 文件扩展名(FileExtensions)
@@ -52,5 +52,7 @@
         public const string BIN = ".bin";
 
         public const string APNG = ".apng";
+
+        public const string EXE = ".exe";
     }
 }

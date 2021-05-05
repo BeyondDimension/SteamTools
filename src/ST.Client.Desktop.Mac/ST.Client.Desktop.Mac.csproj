@@ -1,9 +1,10 @@
-﻿<!--<Project Sdk="Microsoft.NET.Sdk">-->
-<Project Sdk="MSBuild.Sdk.Extras">
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--<Project Sdk="MSBuild.Sdk.Extras">-->
 
   <PropertyGroup>
     <!--<TargetFramework>net6.0-macos</TargetFramework>-->
-    <TargetFrameworks>Xamarin.Mac20;netstandard2.1</TargetFrameworks>
+    <!--<TargetFrameworks>Xamarin.Mac20;net5.0</TargetFrameworks>-->
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Desktop.Mac</AssemblyName>
   </PropertyGroup>
@@ -23,7 +24,7 @@
     <DefineConstants>XAMARIN_MAC;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('netstandard')) OR $(TargetFramework.StartsWith('net5')) OR $(TargetFramework.EndsWith('net6.0')) ">
     <DefineConstants>MONO_MAC;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
@@ -43,13 +44,13 @@
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) ">
-    <PackageReference Include="nor0x.AppCenter" Version="4.1.0.1-XMAC"/>
-    <PackageReference Include="nor0x.AppCenter.Analytics" Version="4.1.0.1-XMAC"/>
-    <PackageReference Include="nor0x.AppCenter.Crashes" Version="4.1.0.1-XMAC"/>
+    <PackageReference Include="nor0x.AppCenter" Version="4.1.0.1-XMAC" />
+    <PackageReference Include="nor0x.AppCenter.Analytics" Version="4.1.0.1-XMAC" />
+    <PackageReference Include="nor0x.AppCenter.Crashes" Version="4.1.0.1-XMAC" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
-    <PackageReference Include="MonoMac.NetStandard" Version="0.0.4"/>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) OR $(TargetFramework.StartsWith('net5'))  OR $(TargetFramework.EndsWith('net6.0')) ">
+    <PackageReference Include="MonoMac.NetStandard" Version="0.0.4" />
   </ItemGroup>
 
   <!--<ItemGroup Condition=" '$(OS)' == 'Windows_NT' ">
@@ -67,14 +68,14 @@
   </ItemGroup>-->
 
   <ItemGroup>
-    <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj"/>
+    <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-mac-debug.pfx')">
-    <EmbeddedResource Include="..\..\appcenter-secret-mac-debug.pfx" Link="Resources\547E2811"/>
+    <EmbeddedResource Include="..\..\appcenter-secret-mac-debug.pfx" Link="Resources\547E2811" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-mac-release.pfx')">
-    <EmbeddedResource Include="..\..\appcenter-secret-mac-release.pfx" Link="Resources\93850BFE"/>
+    <EmbeddedResource Include="..\..\appcenter-secret-mac-release.pfx" Link="Resources\93850BFE" />
   </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@ namespace System.Application.UI.Views.Windows
         readonly TextBox TbSmsCodeValidation;
         readonly TextBox TbSmsCodeNew;
 
-        public ChangeBindPhoneNumberWindow()
+        public ChangeBindPhoneNumberWindow() : base()
         {
             InitializeComponent();
             TbSmsCodeValidation = this.FindControl<TextBox>(nameof(TbSmsCodeValidation));
@@ -28,7 +28,7 @@ namespace System.Application.UI.Views.Windows
                     TbPhoneNumber.Focus();
                 }
             };
-            void Submit(object _, KeyEventArgs e)
+            void Submit(object? _, KeyEventArgs e)
             {
                 if (e.Key == Key.Return)
                 {
@@ -65,7 +65,7 @@ namespace System.Application.UI.Views.Windows
         {
             if (DataContext is ChangeBindPhoneNumberWindowViewModel vm && vm.CurrentStepIsNew && !vm.IsComplete)
             {
-                // 进入第二步时，如果关闭窗口，则需二次确认
+                // 杩涘叆绗簩姝ユ椂锛屽鏋滃叧闂獥鍙ｏ紝鍒欓渶浜屾纭
                 e.Cancel = true;
                 var r = await MessageBoxCompat.ShowAsync(AppResources.UnsavedEditingWillBeDiscarded, AppResources.Warning, MessageBoxButtonCompat.OKCancel);
                 if (r == MessageBoxResultCompat.OK)

@@ -1,4 +1,4 @@
-﻿using System.Application.UI.Resx;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -84,32 +84,52 @@ namespace System.Application.Services.Implementation
             bool checkReadOnly = false,
             bool checkMaxLength = true)
         {
-            removeReadOnly = false;
-            fileInfo = new FileInfo(s.HostsFilePath);
-            if (!fileInfo.Exists)
+            try
             {
-                message = "hosts file was not found";
+                message = null;
+                removeReadOnly = false;
+                fileInfo = new FileInfo(s.HostsFilePath);
+                if (!fileInfo.Exists)
+                {
+                    //message = "hosts file was not found";
+                    //return false;
+                    try
+                    {
+                        fileInfo.Create().Dispose();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        message = ex.GetAllMessage();
+                        return false;
+                    }
+                }
+                if (checkMaxLength)
+                {
+                    if (fileInfo.Length > MaxFileLength)
+                    {
+                        message = "hosts file is too large";
+                        return false;
+                    }
+                }
+                if (checkReadOnly)
+                {
+                    var attr = fileInfo.Attributes;
+                    if (attr.HasFlag(FileAttributes.ReadOnly))
+                    {
+                        fileInfo.Attributes = attr & ~FileAttributes.ReadOnly;
+                        removeReadOnly = true;
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                removeReadOnly = false;
+                fileInfo = new FileInfo(s.HostsFilePath);
+                message = ex.Message;
                 return false;
             }
-            if (checkMaxLength)
-            {
-                if (fileInfo.Length > MaxFileLength)
-                {
-                    message = "hosts file is too large";
-                    return false;
-                }
-            }
-            if (checkReadOnly)
-            {
-                var attr = fileInfo.Attributes;
-                if (attr.HasFlag(FileAttributes.ReadOnly))
-                {
-                    fileInfo.Attributes = attr & ~FileAttributes.ReadOnly;
-                    removeReadOnly = true;
-                }
-            }
-            message = null;
-            return true;
         }
 
         /// <summary>
@@ -140,6 +160,50 @@ namespace System.Application.Services.Implementation
 
         internal static bool IsV1Format(string[] line_split_array) => line_split_array.Length == 3 && line_split_array[2] == "#Steam++";
 
+        enum HandleLineResult
+        {
+            /// <summary>
+            /// 当前行格式不正确，不处理直接写入
+            /// </summary>
+            IncorrectFormatNoneHandleWrite_W_False,
+
+            /// <summary>
+            /// 当前行格式正确，开始处理
+            /// </summary>
+            CorrectFormatStartHandle,
+
+            /// <summary>
+            /// 当前行格式不正确，不处理也不写入
+            /// </summary>
+            IncorrectFormatNoneHandleNoWrite_Null,
+
+            /// <summary>
+            /// 重复项
+            /// </summary>
+            Duplicate,
+        }
+
+        static bool? Convert(HandleLineResult handleLineResult)
+        {
+            switch (handleLineResult)
+            {
+                case HandleLineResult.IncorrectFormatNoneHandleWrite_W_False:
+                    return false;
+                case HandleLineResult.CorrectFormatStartHandle:
+                    return true;
+                case HandleLineResult.IncorrectFormatNoneHandleNoWrite_Null:
+                    return null;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(handleLineResult), handleLineResult, null); ;
+            }
+        }
+
+        static HandleLineResult HandleLineV2(int line_num, HashSet<string> domains, string line_value, out string[] line_split_array, Func<string[], bool?>? func = null)
+        {
+            static bool Contains(HashSet<string> hs, string value) => !hs.Add(value);
+            return HandleLineV2(Contains, line_num, domains, line_value, out line_split_array, func);
+        }
+
         /// <summary>
         /// 处理一行数据
         /// <para><see langword="false"/> 当前行格式不正确，不处理直接写入</para>
@@ -152,22 +216,21 @@ namespace System.Application.Services.Implementation
         /// <param name="line_split_array"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        static bool? HandleLine(int line_num, HashSet<string> domains, string line_value, out string[] line_split_array, Func<string[], bool?>? func = null)
+        static HandleLineResult HandleLineV2<T>(Func<T, string, bool> contains, int line_num, T domains, string line_value, out string[] line_split_array, Func<string[], bool?>? func = null)
         {
             line_split_array = GetLineSplitArray(line_value);
             if (func != null)
             {
                 var r = func.Invoke(line_split_array);
-                if (!r.HasValue) return null;
-                if (!r.Value) return false;
+                if (!r.HasValue) return HandleLineResult.IncorrectFormatNoneHandleNoWrite_Null;
+                if (!r.Value) return HandleLineResult.IncorrectFormatNoneHandleWrite_W_False;
             }
-            if (line_split_array.Length < 2) return false;
-            if (line_split_array[0].StartsWith('#')) return false;
-            if (line_split_array.Length > 2 && !line_split_array[2].StartsWith('#')) return false;
-            if (IsV1Format(line_split_array)) return null; // Compat V1
-            if (!domains.Add(line_split_array[1]))
-                throw new Exception($"hosts file line {line_num} duplicate");
-            return true;
+            if (line_split_array.Length < 2) return HandleLineResult.IncorrectFormatNoneHandleWrite_W_False;
+            if (line_split_array[0].StartsWith('#')) return HandleLineResult.IncorrectFormatNoneHandleWrite_W_False;
+            if (line_split_array.Length > 2 && !line_split_array[2].StartsWith('#')) return HandleLineResult.IncorrectFormatNoneHandleWrite_W_False;
+            if (IsV1Format(line_split_array)) return HandleLineResult.IncorrectFormatNoneHandleNoWrite_Null; // Compat V1
+            if (contains != null && contains(domains, line_split_array[1])) return HandleLineResult.Duplicate;
+            return HandleLineResult.CorrectFormatStartHandle;
         }
 
         OperationResult HandleHosts(bool isUpdateOrRemove, IReadOnlyDictionary<string, string>? hosts = null)
@@ -203,7 +266,7 @@ namespace System.Application.Services.Implementation
                         if (line_value == null) break;
 
                         var not_append = false;
-                        var is_effective_value = HandleLine(line_num, domains, line_value, out var line_split_array, line_split_array =>
+                        var is_effective_value_v2 = HandleLineV2(line_num, domains, line_value, out var line_split_array, line_split_array =>
                         {
                             if (markLength.Contains(BackupMarkStart) && !markLength.Contains(BackupMarkEnd))
                             {
@@ -230,26 +293,30 @@ namespace System.Application.Services.Implementation
                             if (!markLength.Add(mark)) throw new Exception($"hosts file mark duplicate, value: {mark}");
                             return null;
                         });
-                        if (!is_effective_value.HasValue) goto skip;
-                        if (!is_effective_value.Value) goto append; // 当前行是无效值，直接写入
+                        if (is_effective_value_v2 != HandleLineResult.Duplicate)
+                        {
+                            var is_effective_value = Convert(is_effective_value_v2);
+                            if (!is_effective_value.HasValue) goto skip;
+                            if (!is_effective_value.Value) goto append; // 当前行是无效值，直接写入
+                        }
                         string ip, domain;
                         ip = line_split_array[0];
                         domain = line_split_array[1];
-                        var match_domain = has_hosts && hosts.ContainsKey(domain); // 与要修改的项匹配
+                        var match_domain = has_hosts && hosts!.ContainsKey(domain); // 与要修改的项匹配
                         if (markLength.Contains(MarkStart) && !markLength.Contains(MarkEnd)) // 在标记区域内
                         {
                             if (match_domain)
                             {
                                 if (isUpdateOrRemove) // 更新值
                                 {
-                                    ip = hosts[domain];
+                                    ip = hosts![domain];
                                 }
                                 else // 删除值
                                 {
                                     goto skip;
                                 }
                             }
-                            insert_mark_datas.TryAdd(domain, ip);
+                            insert_mark_datas[domain] = ip;
                             goto skip;
                         }
                         else // 在标记区域外
@@ -258,9 +325,9 @@ namespace System.Application.Services.Implementation
                             {
                                 if (isUpdateOrRemove) // 更新值
                                 {
-                                    insert_mark_datas.TryAdd(domain, ip);
+                                    insert_mark_datas[domain] = ip;
                                 }
-                                backup_insert_mark_datas.TryAdd(domain, (line_num, line_value));
+                                backup_insert_mark_datas[domain] = (line_num, line_value);
                                 goto skip;
                             }
                         }
@@ -281,9 +348,9 @@ namespace System.Application.Services.Implementation
 
                 if (isUpdateOrRemove)
                 {
-                    foreach (var item in hosts)
+                    foreach (var item in hosts!)
                     {
-                        insert_mark_datas.TryAdd(item.Key, item.Value);
+                        insert_mark_datas[item.Key] = item.Value;
                     }
                 }
 
@@ -367,7 +434,7 @@ namespace System.Application.Services.Implementation
                 Log.Error(TAG, ex, "UpdateHosts catch.");
                 result.ResultType = OperationResultType.Error;
                 result.AppendData = ex;
-                result.Message = ex.Message;
+                result.Message = ex.GetAllMessage();
                 return result;
             }
 
@@ -379,22 +446,38 @@ namespace System.Application.Services.Implementation
 
         public void OpenFile() => s.OpenFileByTextReader(s.HostsFilePath);
 
+        static Dictionary<string, string> ReadHostsAllLines(StreamReader fileReader)
+        {
+            int index = 0;
+            Dictionary<string, string> dict = new();
+            static bool Contains(Dictionary<string, string> d, string v) => d.ContainsKey(v);
+            while (true)
+            {
+                index++;
+                var line = fileReader.ReadLine();
+                if (line == null) break;
+                if (string.IsNullOrWhiteSpace(line)) continue;
+                var is_effective_value_v2 = HandleLineV2(Contains, index, dict, line, out var array);
+                if (is_effective_value_v2 == HandleLineResult.Duplicate)
+                {
+                    dict[array[1]] = array[0];
+                }
+                else
+                {
+                    var is_effective_value = Convert(is_effective_value_v2);
+                    if (!is_effective_value.HasValue || !is_effective_value.Value) continue;
+                    dict.Add(array[1], array[0]);
+                }
+            }
+            return dict;
+        }
+
         public OperationResult<List<(string ip, string domain)>> ReadHostsAllLines()
         {
-            static IEnumerable<(string ip, string domain)> ReadHostsAllLines(StreamReader fileReader)
+            static IEnumerable<(string ip, string domain)> ReadHostsAllLines_(StreamReader fileReader)
             {
-                int index = 0;
-                HashSet<string> list = new();
-                while (true)
-                {
-                    index++;
-                    var line = fileReader.ReadLine();
-                    if (line == null) break;
-                    if (string.IsNullOrWhiteSpace(line)) continue;
-                    var is_effective_value = HandleLine(index, list, line, out var array);
-                    if (!is_effective_value.HasValue || !is_effective_value.Value) continue;
-                    yield return (array[0], array[1]);
-                }
+                var value = ReadHostsAllLines(fileReader);
+                return value.Select(x => (x.Value, x.Key));
             }
             var result = new OperationResult<List<(string ip, string domain)>>(OperationResultType.Error, AppResources.Hosts_ReadError);
             if (!TryOperation(out var errmsg, out var fileInfo, out var _))
@@ -405,7 +488,7 @@ namespace System.Application.Services.Implementation
             try
             {
                 using var fileReader = fileInfo.OpenText();
-                result.AppendData.AddRange(ReadHostsAllLines(fileReader));
+                result.AppendData.AddRange(ReadHostsAllLines_(fileReader));
                 result.ResultType = OperationResultType.Success;
                 result.Message = AppResources.Hosts_ReadSuccess;
             }
@@ -413,7 +496,33 @@ namespace System.Application.Services.Implementation
             {
                 Log.Error(TAG, ex, "ReadHostsAllLines catch.");
                 result.ResultType = OperationResultType.Error;
-                result.Message = ex.Message;
+                result.Message = ex.GetAllMessage();
+            }
+            return result;
+        }
+
+        public OperationResult<Dictionary<string, string>> ReadHostsAllLinesV2()
+        {
+            OperationResult<Dictionary<string, string>> result;
+            if (!TryOperation(out var errmsg, out var fileInfo, out var _))
+            {
+                result = new OperationResult<Dictionary<string, string>>(OperationResultType.Error, errmsg);
+                return result;
+            }
+            try
+            {
+                using var fileReader = fileInfo.OpenText();
+                result = new OperationResult<Dictionary<string, string>>()
+                {
+                    AppendData = ReadHostsAllLines(fileReader),
+                    ResultType = OperationResultType.Success,
+                    Message = AppResources.Hosts_ReadSuccess
+                };
+            }
+            catch (Exception ex)
+            {
+                Log.Error(TAG, ex, "ReadHostsAllLines catch.");
+                result = new OperationResult<Dictionary<string, string>>(OperationResultType.Error, ex.GetAllMessage());
             }
             return result;
         }

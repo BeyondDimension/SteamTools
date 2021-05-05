@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -6,10 +6,6 @@
     <DefineConstants>ORM_SQLITE_PCL;$(DefineConstants)</DefineConstants>
     <AssemblyName>System.Application.SteamTools.Client</AssemblyName>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Services\Implementation\HttpProxyServiceImpl.cs~RF49d5c0a.TMP" />
-  </ItemGroup>
 
   <ItemGroup>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">

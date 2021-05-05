@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using System.Application.Models;
 using System.Application.UI.Resx;
 using System.Properties;
@@ -9,17 +9,16 @@ namespace System.Application.UI.ViewModels
     {
         private readonly GAPAuthenticatorValueDTO.SteamAuthenticator? _Authenticator;
 
-        public ShowAuthWindowViewModel()
+        public ShowAuthWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_AuthData;
         }
-        public ShowAuthWindowViewModel(MyAuthenticator auth)
+        public ShowAuthWindowViewModel(MyAuthenticator auth) : this()
         {
             if (auth.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator authenticator)
             {
                 _Authenticator = authenticator;
             }
-            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_AuthData;
         }
 
         public string? RecoveryCode => _Authenticator?.RecoveryCode;

@@ -15,7 +15,7 @@ namespace System.Application.UI.ViewModels
         byte[]? userInfoValue;
         UserInfoDTO? userInfoSource;
         readonly IUserManager userManager;
-        public UserProfileWindowViewModel()
+        public UserProfileWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.UserProfile;
             userManager = DI.Get<IUserManager>();

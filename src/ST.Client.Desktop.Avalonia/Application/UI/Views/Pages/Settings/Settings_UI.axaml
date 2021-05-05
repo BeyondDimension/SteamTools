@@ -7,64 +7,70 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.Settings_UI">
-    <ScrollViewer>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Spacing="20">
-            <StackPanel.Styles>
-                <Style Selector="TextBlock">
-                    <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
-                    <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
-                </Style>
-                <Style Selector="DockPanel > TextBlock">
-                    <Setter Property="Margin" Value="0 0 20 0" />
-                    <Setter Property="VerticalAlignment" Value="Center" />
-                    <Setter Property="(DockPanel.Dock)"  Value="Left" />
-                </Style>
-                <Style Selector="DockPanel > ToggleSwitch">
-                    <Setter Property="Margin" Value="0 0 -12 0" />
-                    <Setter Property="HorizontalAlignment" Value="Right" />
-                    <Setter Property="VerticalAlignment" Value="Center" />
-                    <Setter Property="OnContent" Value="{x:Null}" />
-                    <Setter Property="OffContent" Value="{x:Null}" />
-                </Style>
-            </StackPanel.Styles>
-            <StackPanel Orientation="Vertical" Spacing="10">
-                <TextBlock Text="{ReflectionBinding Path=Res.Settings_Language,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                <ComboBox HorizontalAlignment="Stretch" SelectedItem="{Binding SelectLanguage, Mode=TwoWay}" Items="{Binding Mode=OneWay,Source={x:Static resx:R.Languages}}" >
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Value,Mode=OneWay}"></TextBlock>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </StackPanel>
+  <ScrollViewer>
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Spacing="20">
+      <StackPanel.Styles>
+        <Style Selector="TextBlock">
+          <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
+          <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
+        </Style>
+        <Style Selector="DockPanel > TextBlock">
+          <Setter Property="Margin" Value="0 0 20 0" />
+          <Setter Property="VerticalAlignment" Value="Center" />
+          <Setter Property="(DockPanel.Dock)"  Value="Left" />
+        </Style>
+        <Style Selector="DockPanel > ToggleSwitch">
+          <Setter Property="Margin" Value="0 0 -12 0" />
+          <Setter Property="HorizontalAlignment" Value="Right" />
+          <Setter Property="VerticalAlignment" Value="Center" />
+          <Setter Property="OnContent" Value="{x:Null}" />
+          <Setter Property="OffContent" Value="{x:Null}" />
+        </Style>
+      </StackPanel.Styles>
 
-            <StackPanel Orientation="Vertical" Spacing="10">
-                <TextBlock Text="{ReflectionBinding Path=Res.Settings_Theme,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                <ComboBox x:Name="Themes"
-                          SelectedIndex="{Binding Source={x:Static ms:UISettings.Theme},Path=Value, Mode=TwoWay}"
-                          HorizontalAlignment="Stretch">
-                    <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_SystemDefault,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
-                    <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Light,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
-                    <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Dark,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
-                </ComboBox>
-            </StackPanel>
+      <StackPanel Orientation="Vertical" Spacing="10" Margin="0 5 0 0">
+        <TextBlock Text="{ReflectionBinding Path=Res.Settings_Language,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+        <ComboBox HorizontalAlignment="Stretch" SelectedItem="{Binding SelectLanguage, Mode=TwoWay}" Items="{Binding Mode=OneWay,Source={x:Static resx:R.Languages}}" >
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding Value,Mode=OneWay}"></TextBlock>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+      </StackPanel>
 
-            <StackPanel Orientation="Vertical" Spacing="10">
-                <TextBlock Text="{ReflectionBinding Path=Res.Settings_Fonts,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                <ComboBox
-                          Items="{Binding Mode=OneWay,Source={x:Static resx:R.Fonts}}"
-                          SelectedItem="{Binding SelectFont}"
-                          HorizontalAlignment="Stretch"
-                          MaxDropDownHeight="450">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Key,Mode=OneWay}"
-                                       FontFamily="{Binding Value,Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"></TextBlock>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </StackPanel>
-            <Separator Classes="Separator"/>
-        </StackPanel>
-    </ScrollViewer>
+      <StackPanel Orientation="Vertical" Spacing="10">
+        <TextBlock Text="{ReflectionBinding Path=Res.Settings_Theme,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+        <ComboBox x:Name="Themes"
+                  SelectedIndex="{Binding Source={x:Static ms:UISettings.Theme},Path=Value, Mode=TwoWay}"
+                  HorizontalAlignment="Stretch">
+          <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_SystemDefault,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
+          <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Light,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
+          <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Dark,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
+        </ComboBox>
+      </StackPanel>
+
+      <StackPanel Orientation="Vertical" Spacing="10">
+        <TextBlock Text="{ReflectionBinding Path=Res.Settings_Fonts,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+        <ComboBox
+                  Items="{Binding Mode=OneWay,Source={x:Static resx:R.Fonts}}"
+                  SelectedItem="{Binding SelectFont}"
+                  HorizontalAlignment="Stretch"
+                  MaxDropDownHeight="450">
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding Key,Mode=OneWay}"
+                         FontFamily="{Binding Value,Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"></TextBlock>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+      </StackPanel>
+      <Separator Classes="Separator"/>
+      <StackPanel Orientation="Vertical" Spacing="8">
+        <TextBlock Text="{ReflectionBinding Path=Res.Settings_UI_AcrylicTransparency,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+        <Slider Value="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=TwoWay}" Minimum="0" Maximum="1.0"></Slider>
+      </StackPanel>
+      <Separator Classes="Separator"/>
+    </StackPanel>
+  </ScrollViewer>
 </UserControl>

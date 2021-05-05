@@ -1,4 +1,4 @@
-﻿using Android.Webkit;
+using Android.Webkit;
 using System.IO;
 using System.Net.Http;
 using AndroidApplication = Android.App.Application;
@@ -13,7 +13,7 @@ namespace System.Application.Services.Implementation
             return userAgent;
         });
 
-        public override string UserAgent => mUserAgent.Value ?? base.UserAgent;
+        public override string UserAgent => mUserAgent.Value ?? DefaultUserAgent;
 
         public override (string filePath, string mime)? TryHandleUploadFile(Stream fileStream)
         {

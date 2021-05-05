@@ -1,5 +1,7 @@
-﻿using Avalonia.Threading;
+using Avalonia.Threading;
 using CefNet;
+using CefNet.Input;
+using System;
 using System.Application.Models;
 using System.Globalization;
 using System.IO;
@@ -51,6 +53,8 @@ namespace System.Application.UI
             //    commandLine.AppendSwitch("no-zygote");
             //    commandLine.AppendSwitch("no-sandbox");
             //}
+
+            //commandLine.AppendSwitch("disable-web-security"); // LoginUsingSteamClient
         }
 
         protected override void OnContextCreated(CefBrowser browser, CefFrame frame, CefV8Context context)
@@ -166,6 +170,8 @@ navigator.__proto__ = newProto;
                 }
             };
 
+            KeycodeConverter.Default = new FixChineseInptKeycodeConverter();
+
             app = new CefNetApp
             {
                 ScheduleMessagePumpWorkCallback = async delayMs =>
@@ -205,9 +211,26 @@ navigator.__proto__ = newProto;
             var theme = AppHelper.Current.Theme;
             return theme switch
             {
-                AppTheme.FollowingSystem => "auto",
+                AppTheme.FollowingSystem => GetThemeStringByFollowingSystem(),
                 _ => theme.ToString(),
             };
+            static string GetThemeStringByFollowingSystem()
+            {
+                if (DI.Platform == Platform.Windows)
+                {
+                    var major = Environment.OSVersion.Version.Major;
+                    if (major < 10 || major == 10 && Environment.OSVersion.Version.Build < 18282)
+                    {
+                        goto dark;
+                    }
+                }
+                else if (DI.Platform == Platform.Linux)
+                {
+                    goto dark;
+                }
+                return "auto";
+            dark: return AppTheme.Dark.ToString();
+            }
         }
     }
 
@@ -227,5 +250,35 @@ navigator.__proto__ = newProto;
         /// 初始化完成
         /// </summary>
         Complete,
+    }
+}
+
+namespace CefNet.Input
+{
+    /// <summary>
+    /// https://github.com/CefNet/CefNet/issues/21
+    /// </summary>
+    public class FixChineseInptKeycodeConverter : KeycodeConverter
+    {
+        public override VirtualKeys CharacterToVirtualKey(char character)
+        {
+            // https://github.com/CefNet/CefNet/blob/master/CefNet/Input/KeycodeConverter.cs#L41
+            // https://github.com/CefNet/CefNet/blob/90.5.21109.1453/CefNet/Input/KeycodeConverter.cs#L41
+            try
+            {
+                return base.CharacterToVirtualKey(character);
+            }
+            catch (Exception e)
+            {
+                if (PlatformInfo.IsWindows)
+                {
+                    if (e.Message == "Incompatible input locale.")
+                    {
+                        return VirtualKeys.None;
+                    }
+                }
+                throw;
+            }
+        }
     }
 }

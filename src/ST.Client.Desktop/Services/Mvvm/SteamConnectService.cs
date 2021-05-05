@@ -146,13 +146,15 @@ namespace System.Application.Services
                                     #region 初始化需要steam启动才能使用的功能
                                     InitializeGameList();
 
-                                    while (true)
+                                    //尝试十次无法获取到就不再尝试
+                                    for (var i = 0; i < 10; i++)
                                     {
                                         if (SteamApps.Items.Any())
                                         {
                                             LoadGames(ApiService.OwnsApps(SteamApps.Items));
                                             break;
                                         }
+                                        await Task.Delay(2000);
                                     }
 
                                     //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
@@ -168,7 +170,7 @@ namespace System.Application.Services
                         {
                             IsConnectToSteam = false;
                         }
-                        Thread.Sleep(2000);
+                        await Task.Delay(2000);
                     }
                 }
                 catch (Exception ex)
@@ -211,20 +213,20 @@ namespace System.Application.Services
                 return;
             }
 #endif
-            if (SteamApps.Items.Any())
-            {
-                Parallel.ForEach(SteamApps.Items, new ParallelOptions
-                {
-                    MaxDegreeOfParallelism = (Environment.ProcessorCount / 2) + 1
-                }, async app =>
-                {
-                    await ISteamService.Instance.LoadAppImageAsync(app);
-                    //app.LibraryLogoStream = await IHttpService.Instance.GetImageAsync(app.LibraryLogoUrl, ImageChannelType.SteamGames);
-                    //app.LibraryHeaderStream = await IHttpService.Instance.GetImageAsync(app.LibraryHeaderUrl, ImageChannelType.SteamGames);
-                    //app.LibraryNameStream = await IHttpService.Instance.GetImageAsync(app.LibraryNameUrl, ImageChannelType.SteamGames);
-                    //app.HeaderLogoStream = await IHttpService.Instance.GetImageAsync(app.HeaderLogoUrl, ImageChannelType.SteamGames);
-                });
-            }
+            //if (SteamApps.Items.Any())
+            //{
+            //    Parallel.ForEach(SteamApps.Items, new ParallelOptions
+            //    {
+            //        MaxDegreeOfParallelism = (Environment.ProcessorCount / 2) + 1
+            //    }, async app =>
+            //    {
+            //        await ISteamService.Instance.LoadAppImageAsync(app);
+            //        //app.LibraryLogoStream = await IHttpService.Instance.GetImageAsync(app.LibraryLogoUrl, ImageChannelType.SteamGames);
+            //        //app.LibraryHeaderStream = await IHttpService.Instance.GetImageAsync(app.LibraryHeaderUrl, ImageChannelType.SteamGames);
+            //        //app.LibraryNameStream = await IHttpService.Instance.GetImageAsync(app.LibraryNameUrl, ImageChannelType.SteamGames);
+            //        //app.HeaderLogoStream = await IHttpService.Instance.GetImageAsync(app.HeaderLogoUrl, ImageChannelType.SteamGames);
+            //    });
+            //}
         }
 
         private bool _IsRefreshing;

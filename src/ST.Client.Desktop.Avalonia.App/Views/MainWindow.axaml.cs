@@ -7,7 +7,7 @@ namespace System.Application.UI.Views
 {
     public class MainWindow : FluentWindow
     {
-        public MainWindow()
+        public MainWindow() : base()
         {
             InitializeComponent();
 #if DEBUG

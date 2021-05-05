@@ -6,6 +6,7 @@ using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Properties;
 using System.Reactive;
 using System.Threading.Tasks;
 
@@ -23,6 +24,7 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<Unit, Unit> SetupCertificateCommand { get; }
         public ReactiveCommand<Unit, Unit> DeleteCertificateCommand { get; }
+        public ReactiveCommand<Unit, Unit> OpenCertificateDirCommand { get; }
         public ReactiveCommand<Unit, Unit> EditHostsFileCommand { get; }
         public ReactiveCommand<Unit, Unit> AutoRunProxyCommand { get; }
         public ReactiveCommand<Unit, Unit> EnableProxyScriptCommand { get; }
@@ -43,7 +45,10 @@ namespace System.Application.UI.ViewModels
             {
                 AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value = !ProxySettings.ProgramStartupRunProxy.Value);
             });
-
+            OpenCertificateDirCommand = ReactiveCommand.Create(() =>
+            {
+                DI.Get<IDesktopPlatformService>().OpenFolder(IOPath.AppDataDirectory + @$"\{ThisAssembly.AssemblyProduct}.Certificate.cer");
+            });
             RefreshCommand = ReactiveCommand.Create(RefreshButton_Click);
             //EnableProxyScriptCommand = ReactiveCommand.Create(() =>
             //{
@@ -70,6 +75,7 @@ namespace System.Application.UI.ViewModels
                             {
                                 new MenuItemViewModel(nameof(AppResources.CommunityFix_SetupCertificate)){ Command=SetupCertificateCommand },
                                 new MenuItemViewModel(nameof(AppResources.CommunityFix_DeleteCertificate)){ Command=DeleteCertificateCommand },
+                                new MenuItemViewModel(nameof(AppResources.CommunityFix_OpenCertificateDir)){ Command=OpenCertificateDirCommand },
                             }
                         },
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_EditHostsFile)){ Command=EditHostsFileCommand,IconKey="DocumentEditDrawing" },
@@ -86,10 +92,10 @@ namespace System.Application.UI.ViewModels
             await Task.CompletedTask;
         }
 
-        public void RefreshButton_Click()
+        public async void RefreshButton_Click()
         {
             if (ProxyService.Current.ProxyStatus == false)
-                ProxyService.Current.Initialize();
+                await ProxyService.Current.InitializeAccelerate();
         }
 
         public void StartProxyButton_Click(bool start)

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace System.Net.Http
 {
@@ -9,7 +9,7 @@ namespace System.Net.Http
     {
         protected readonly ILogger logger;
         protected readonly IHttpPlatformHelper http_helper;
-        readonly IHttpClientFactory _clientFactory;
+        protected readonly IHttpClientFactory _clientFactory;
 
         public GeneralHttpClientFactory(
             ILogger logger,
@@ -29,9 +29,9 @@ namespace System.Net.Http
         protected virtual string? DefaultClientName { get; }
 
         /// <summary>
-        /// 默认超时时间，19秒
+        /// 默认超时时间，16秒
         /// </summary>
-        public static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(19);
+        public static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(16);
 
         static readonly Lazy<int> mDefaultTimeoutTotalMilliseconds = new(() => DefaultTimeout.TotalMilliseconds.ToInt32());
 
@@ -39,7 +39,7 @@ namespace System.Net.Http
         public static int DefaultTimeoutTotalMilliseconds => mDefaultTimeoutTotalMilliseconds.Value;
 
         /// <inheritdoc cref="DefaultTimeout"/>
-        protected virtual TimeSpan Timeout { get; } = DefaultTimeout;
+        protected /*virtual*/ TimeSpan Timeout { get; } = DefaultTimeout;
 
         protected virtual HttpClient CreateClient(string? clientName = null)
         {

@@ -3,7 +3,12 @@ using CefNet;
 using CefNet.Avalonia;
 using CefNet.Internal;
 using System.Application.Services.CloudService;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using static System.Application.Services.CloudService.Constants;
 
 // ReSharper disable once CheckNamespace
@@ -42,7 +47,40 @@ namespace System.Application.UI.Views.Controls
             RaiseEvent(e);
         }
 
+        /// <summary>
+        /// 在浏览器中打开新窗口，所有新页面打开的Url会在浏览器中打开
+        /// </summary>
         public bool OpenInBrowser { get; set; } = true;
+
+        /// <summary>
+        /// 是否固定单页，为 <see langword="true"/> 时所有跳转都将在浏览器中打开
+        /// </summary>
+        public bool FixedSinglePage { get; set; } = false;
+
+        /// <summary>
+        /// 需要拦截响应流的Url
+        /// </summary>
+        public string[]? StreamResponseFilterUrls { get; set; }
+
+        /// <summary>
+        /// 拦截响应流的处理
+        /// </summary>
+        public Action<string, Stream>? OnStreamResponseFilterResourceLoadComplete { get; set; }
+
+        public bool IsSecurity { get; set; }
+
+        public Aes? Aes { get; internal set; }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Aes?.Dispose();
+                StreamResponseFilterUrls = null;
+                OnStreamResponseFilterResourceLoadComplete = null;
+            }
+            base.Dispose(disposing);
+        }
     }
 
     public class FullscreenModeChangeEventArgs : RoutedEventArgs
@@ -81,6 +119,7 @@ namespace System.Application.UI.Views.Controls
             var count = model.Count;
             if (count > 0)
             {
+                List<int> list = new();
                 for (int i = 0; i < count; i++)
                 {
                     var commandId = (CefMenuId)model.GetCommandIdAt(i);
@@ -96,24 +135,16 @@ namespace System.Application.UI.Views.Controls
                         case CefMenuId.Find:
                             break;
                         default:
+                            list.Add((int)commandId);
                             break;
                     }
                 }
+                list.ForEach(x => model.Remove(x));
             }
-
             if (AppHelper.EnableDevtools)
             {
-                model.Remove((int)CefMenuId.Print);
-                model.Remove((int)CefMenuId.ViewSource);
-                if (model.Count >= 1) model.RemoveAt(model.Count - 1);
-
                 model.AddItem(SHOW_DEV_TOOLS, "&Show DevTools");
             }
-            else
-            {
-                model.Clear(); // 禁用右键菜单
-            }
-
             //model.InsertItemAt(model.Count > 0 ? 1 : 0, (int)CefMenuId.ReloadNocache, "Refresh");
             //model.AddSeparator();
             //model.AddItem(SHOW_DEV_TOOLS, "&Show DevTools");
@@ -161,6 +192,11 @@ namespace System.Application.UI.Views.Controls
 
         protected override bool OnBeforePopup(CefBrowser browser, CefFrame frame, string targetUrl, string targetFrameName, CefWindowOpenDisposition targetDisposition, bool userGesture, CefPopupFeatures popupFeatures, CefWindowInfo windowInfo, ref CefClient client, CefBrowserSettings settings, ref CefDictionaryValue extraInfo, ref int noJavascriptAccess)
         {
+            if (webView.FixedSinglePage)
+            {
+                BrowserOpen(targetUrl);
+                return true;
+            }
             switch (targetDisposition)
             {
                 case CefWindowOpenDisposition.NewForegroundTab:
@@ -174,7 +210,10 @@ namespace System.Application.UI.Views.Controls
                     else
                     {
                         // 禁止创建新窗口，仅在当前窗口跳转
-                        browser.MainFrame.LoadUrl(targetUrl);
+                        if (IsHttpUrl(targetUrl))
+                        {
+                            browser.MainFrame.LoadUrl(targetUrl);
+                        }
                     }
                     return true;
             }
@@ -187,6 +226,17 @@ namespace System.Application.UI.Views.Controls
             if (request.Url.StartsWith(sc.ApiBaseUrl, StringComparison.OrdinalIgnoreCase))
             {
                 request.SetHeaderByName(Headers.Request.AppVersion, sc.Settings.AppVersionStr, true);
+                if (webView.IsSecurity)
+                {
+                    if (webView.Aes == null)
+                    {
+                        webView.Aes = AESUtils.Create();
+                    }
+                    var skey_bytes = webView.Aes.ToParamsByteArray();
+                    var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
+                    var skey_str = conn_helper.RSA.EncryptToString(skey_bytes);
+                    request.SetHeaderByName(Headers.Request.SecurityKey, skey_str, true);
+                }
             }
             var returnValue = base.OnBeforeResourceLoad(browser, frame, request, callback);
             return returnValue;
@@ -223,5 +273,144 @@ namespace System.Application.UI.Views.Controls
         //    var returnValue = base.OnBeforeResourceLoad(browser, frame, request, callback);
         //    return returnValue;
         //}
+
+        protected override void OnResourceLoadComplete(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response, CefUrlRequestStatus status, long receivedContentLength)
+        {
+            base.OnResourceLoadComplete(browser, frame, request, response, status, receivedContentLength);
+            if (responseDictionary.TryGetValue(request.Identifier, out var filter))
+            {
+                webView.OnStreamResponseFilterResourceLoadComplete?.Invoke(request.Url, filter.Data);
+            }
+        }
+
+        readonly Dictionary<ulong, StreamResponseFilter> responseDictionary = new();
+
+        protected override CefResponseFilter GetResourceResponseFilter(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response)
+        {
+            if (webView.StreamResponseFilterUrls != null && webView.StreamResponseFilterUrls.Any(x => request.Url.StartsWith(x, StringComparison.OrdinalIgnoreCase)))
+            {
+                var rspIsCiphertext = false;
+                if (webView.IsSecurity)
+                {
+                    var contentType = response.GetHeaderByName("Content-Type");
+                    if (!string.IsNullOrWhiteSpace(contentType) && MediaTypeHeaderValue.TryParse(contentType, out var contentType_))
+                    {
+                        var mime = contentType_.MediaType;
+                        if (mime == MediaTypeNames.Security)
+                        {
+                            rspIsCiphertext = true;
+                        }
+                    }
+                }
+                var dataFilter = new StreamResponseFilter(webView, rspIsCiphertext);
+                responseDictionary.Add(request.Identifier, dataFilter);
+                return dataFilter;
+            }
+            return base.GetResourceResponseFilter(browser, frame, request, response);
+        }
+
+        /// <summary>
+        /// https://stackoverflow.com/questions/45816851/using-cefsharp-to-capture-resource-response-data-body
+        /// </summary>
+        unsafe class StreamResponseFilter : CefResponseFilter
+        {
+            readonly WebView3 webView;
+            readonly bool rspIsCiphertext;
+            MemoryStream? memoryStream;
+
+            public StreamResponseFilter(WebView3 webView, bool rspIsCiphertext)
+            {
+                this.webView = webView;
+                this.rspIsCiphertext = rspIsCiphertext;
+            }
+
+            protected override bool InitFilter()
+            {
+                memoryStream = new();
+                return true;
+            }
+
+            protected override CefResponseFilterStatus Filter(IntPtr dataIn, long dataInSize, ref long dataInRead, IntPtr dataOut, long dataOutSize, ref long dataOutWritten)
+            {
+                Stream? dataInStream;
+                if (dataIn == default)
+                {
+                    dataInStream = default;
+                }
+                else
+                {
+                    var dataInBytePtr = (byte*)dataIn.ToPointer();
+                    dataInStream = new UnmanagedMemoryStream(dataInBytePtr, dataInSize, dataInSize, FileAccess.Read);
+                }
+
+                var dataOutBytePtr = (byte*)dataOut.ToPointer();
+                UnmanagedMemoryStream dataOutStream = new(dataOutBytePtr, dataOutSize, dataOutSize, FileAccess.Write);
+
+                return Filter(dataInStream, dataInSize, ref dataInRead, dataOutStream, dataOutSize, ref dataOutWritten);
+            }
+
+            protected virtual CefResponseFilterStatus Filter(Stream? dataIn, long dataInSize, ref long dataInRead, Stream dataOut, long dataOutSize, ref long dataOutWritten)
+            {
+                if (dataIn == null)
+                {
+                    dataInRead = 0;
+                    dataOutWritten = 0;
+
+                    return CefResponseFilterStatus.Done;
+                }
+
+                dataInRead = dataIn.Length;
+                dataOutWritten = Math.Min(dataInRead, dataOut.Length);
+
+                //Important we copy dataIn to dataOut
+                dataIn.CopyTo(dataOut);
+
+                //Copy data to stream
+                dataIn.Position = 0;
+                dataIn.CopyTo(memoryStream!);
+
+                return CefResponseFilterStatus.Done;
+            }
+
+            protected override void Dispose(bool disposing)
+            {
+                if (!disposing)
+                {
+                    if (disposing)
+                    {
+                        if (memoryStream != null)
+                        {
+                            memoryStream?.Dispose();
+                            memoryStream = null;
+                            stream?.Dispose();
+                            stream = null;
+                        }
+                    }
+                }
+                base.Dispose(disposing);
+            }
+
+            Stream? stream;
+
+            public Stream Data
+            {
+                get
+                {
+                    if (stream == null) stream = GetStream();
+                    return stream;
+                }
+            }
+
+            Stream GetStream()
+            {
+                if (rspIsCiphertext && webView.Aes != null)
+                {
+                    memoryStream!.Position = 0;
+                    var cryptoStream = new CryptoStream(memoryStream, webView.Aes.CreateDecryptor(), CryptoStreamMode.Read);
+                    return cryptoStream;
+                }
+                return memoryStream!;
+            }
+        }
     }
 }

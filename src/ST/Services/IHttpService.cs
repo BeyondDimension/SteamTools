@@ -1,4 +1,5 @@
-﻿using System.IO;
+using Newtonsoft.Json;
+using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,6 +11,10 @@ namespace System.Application.Services
         protected const string TAG = "HttpService";
 
         public static IHttpService Instance => DI.Get<IHttpService>();
+
+        public JsonSerializer Serializer { get; }
+        public IHttpClientFactory Factory { get; }
+        public IHttpPlatformHelper PlatformHelper { get; }
 
         Task<T?> SendAsync<T>(
             string? requestUri,
@@ -31,7 +36,7 @@ namespace System.Application.Services
         /// <returns></returns>
         Task<T?> GetAsync<T>(string requestUri,
             string accept = MediaTypeNames.JSON,
-            CancellationToken cancellationToken = default) where T : notnull;
+            CancellationToken cancellationToken = default, string? cookie = null) where T : notnull;
 
         /// <summary>
         /// (带本地缓存)通过 Get 请求 Image Stream

@@ -17,9 +17,7 @@
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.ProxyScriptManagePage">
   <DockPanel>
-
     <Border  DockPanel.Dock="Top" Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10" Margin="20 0 20 10">
-
       <DockPanel>
         <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Left">
           <ToggleSwitch Content="" OnContent="" OffContent=""
@@ -40,7 +38,7 @@
           </Button>
           <Button Background="Transparent" Cursor="Hand"
                   Command="{Binding ScriptStoreCommand}"
-                  ToolTip.Tip="{ReflectionBinding Path=Res.Script_Shop,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                  ToolTip.Tip="{ReflectionBinding Path=Res.ScriptStore,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <PathIcon Width="16"  Data="{StaticResource JavaScriptDrawing}" />
           </Button>
         </StackPanel>
@@ -70,115 +68,116 @@
       <ScrollViewer HorizontalScrollBarVisibility="Disabled" Padding="{StaticResource ScrollMargin}">
         <ItemsRepeater Items="{Binding ProxyScripts}">
           <ItemsRepeater.Layout>
-            <WrapLayout HorizontalSpacing="20" VerticalSpacing="20" Orientation="Horizontal"/>
+            <StackLayout Spacing="20" Orientation="Vertical"/>
+            <!--<UniformGridLayout ItemsJustification="Start" ItemsStretch="Uniform" MinColumnSpacing="20" MinRowSpacing="20" MaximumRowsOrColumns="2" Orientation="Horizontal"/>-->
           </ItemsRepeater.Layout>
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>
-              <Border Width="450" Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="20 10">
-                <DockPanel>
-                  <Image Source="{Binding Icon}" DockPanel.Dock="Left"></Image>
-                  <StackPanel Spacing="8" DockPanel.Dock="Right">
-                    <DockPanel>
-                      <controls:ScrollingTextBlock
-                          Width="{Binding $parent.Width}"
-                          Text="{Binding Name,Mode=OneWay}"
-                          FontSize="16"
-                          VerticalAlignment="Center"
-                          Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-
-                      <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <TextBlock
-                            Text="{Binding Author}"
-                            FontSize="14"
+                <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="20 10">
+                  <DockPanel>
+                    <Image Source="{Binding Icon}" DockPanel.Dock="Left"></Image>
+                    <StackPanel Spacing="8" DockPanel.Dock="Right">
+                      <DockPanel>
+                        <controls:ScrollingTextBlock
+                            Width="{Binding $parent.Width}"
+                            Text="{Binding Name,Mode=OneWay}"
+                            FontSize="16"
                             VerticalAlignment="Center"
                             Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
 
-                        <TextBlock Text=" / v" FontSize="14"></TextBlock>
-                        <TextBlock
-                            Text="{Binding Version}"
-                            FontSize="14"
-                            VerticalAlignment="Center"
-                            Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                      </WrapPanel>
-                    </DockPanel>
+                        <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                          <TextBlock
+                              Text="{Binding Author}"
+                              FontSize="14"
+                              VerticalAlignment="Center"
+                              Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
 
-                    <Separator Classes="Separator" Margin="0 0 0 5"></Separator>
+                          <TextBlock Text=" / v" FontSize="14"></TextBlock>
+                          <TextBlock
+                              Text="{Binding Version}"
+                              FontSize="14"
+                              VerticalAlignment="Center"
+                              Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                        </WrapPanel>
+                      </DockPanel>
 
-                    <TextBlock
-                    Width="{Binding $parent.Width}"
-                    TextWrapping="WrapWithOverflow"
-                    Text="{Binding Description}"
-                    FontSize="12"
-                    Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                      <Separator Classes="Separator" Margin="0 0 0 5"></Separator>
+
+                      <TextBlock
+                      Width="{Binding $parent.Width}"
+                      TextWrapping="WrapWithOverflow"
+                      Text="{Binding Description}"
+                      FontSize="12"
+                      Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
 
 
-                    <DockPanel VerticalAlignment="Bottom">
-                      <StackPanel Orientation="Horizontal" Spacing="10">
-                        <ToggleSwitch OnContent="" OffContent="" IsChecked="{Binding Enable,Mode=TwoWay}">
-                        </ToggleSwitch>
-                        <Button Background="Transparent" Cursor="Hand"
-                                Command="{ReflectionBinding #u.DataContext.EditScriptItemButton}"
-                                CommandParameter="{Binding}"
-                                ToolTip.Tip="{ReflectionBinding Path=Res.Script_Edit,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                          <PathIcon Width="20" Data="{StaticResource CodeDrawing}" />
-                        </Button>
+                      <DockPanel VerticalAlignment="Bottom">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                          <ToggleSwitch OnContent="" OffContent="" IsChecked="{Binding Enable,Mode=TwoWay}">
+                          </ToggleSwitch>
+                          <Button Background="Transparent" Cursor="Hand"
+                                  Command="{ReflectionBinding #u.DataContext.EditScriptItemButton}"
+                                  CommandParameter="{Binding}"
+                                  ToolTip.Tip="{ReflectionBinding Path=Res.Script_Edit,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                            <PathIcon Width="20" Data="{StaticResource CodeDrawing}" />
+                          </Button>
 
-                        <Button Background="Transparent" Cursor="Hand"
-                                Command="{ReflectionBinding #u.DataContext.RefreshScriptItemButton}"
-                                CommandParameter="{Binding}"
-                                ToolTip.Tip="{ReflectionBinding Path=Res.Script_Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                          <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
-                        </Button>
+                          <Button Background="Transparent" Cursor="Hand"
+                                  Command="{ReflectionBinding #u.DataContext.RefreshScriptItemButton}"
+                                  CommandParameter="{Binding}"
+                                  ToolTip.Tip="{ReflectionBinding Path=Res.Script_Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                            <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
+                          </Button>
 
-                        <Button Background="Transparent" Cursor="Hand"
-                                Command="{ReflectionBinding #u.DataContext.OpenHomeScriptItemButton}"
-                                CommandParameter="{Binding}"
-                                ToolTip.Tip="{ReflectionBinding Path=Res.Script_Home,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                          <PathIcon Width="16"  Data="{StaticResource HomeDrawing}" />
-                        </Button>
+                          <Button Background="Transparent" Cursor="Hand"
+                                  Command="{ReflectionBinding #u.DataContext.OpenHomeScriptItemButton}"
+                                  CommandParameter="{Binding}"
+                                  ToolTip.Tip="{ReflectionBinding Path=Res.Script_Home,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                            <PathIcon Width="16"  Data="{StaticResource HomeDrawing}" />
+                          </Button>
 
-                        <Button Background="Transparent" IsVisible="{Binding !IsBasics}" Cursor="Hand" HorizontalAlignment="Right"
-                                Command="{ReflectionBinding #u.DataContext.DeleteScriptItemButton}"
-                                CommandParameter="{Binding}"
-                                ToolTip.Tip="{ReflectionBinding Path=Res.Delete,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                          <PathIcon Width="20"  Data="{StaticResource DeleteDrawing}" />
-                        </Button>
+                          <Button Background="Transparent" IsVisible="{Binding !IsBasics}" Cursor="Hand" HorizontalAlignment="Right"
+                                  Command="{ReflectionBinding #u.DataContext.DeleteScriptItemButton}"
+                                  CommandParameter="{Binding}"
+                                  ToolTip.Tip="{ReflectionBinding Path=Res.Delete,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                            <PathIcon Width="20"  Data="{StaticResource DeleteDrawing}" />
+                          </Button>
 
-                      </StackPanel>
+                        </StackPanel>
 
-                      <WrapPanel
-                                 DockPanel.Dock="Right"
-                                 HorizontalAlignment="Right"
-                                 VerticalAlignment="Center"
-                                 ToolTip.Tip="{ReflectionBinding Path=Res.Script_Update,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                 IsVisible="{Binding IsUpdate}">
-                        <!--<Button Background="Transparent" IsVisible="{Binding IsUpdate}"  Cursor="Hand" HorizontalAlignment="Right"
+                        <WrapPanel
+                                   DockPanel.Dock="Right"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   ToolTip.Tip="{ReflectionBinding Path=Res.Script_Update,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                   IsVisible="{Binding IsUpdate}">
+                          <!--<Button Background="Transparent" IsVisible="{Binding IsUpdate}"  Cursor="Hand" HorizontalAlignment="Right"
                                                 Command="{ReflectionBinding #u.DataContext.DownloadScriptItemButton}"
                                                 CommandParameter="{Binding}"
                                                 ToolTip.Tip="{ReflectionBinding Path=Res.Script_Update,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                                     <PathIcon Width="20" Height="20" Data="{StaticResource DownloadDrawing}" />
                                                 </Button>-->
-                        <controls:ProgressRing IsIndeterminate="True"
-                                               ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30"
-                                               IsVisible="{Binding IsLoading}" />
-                        <Button Classes="Hyperlink"
-                                 Command="{ReflectionBinding #u.DataContext.DownloadScriptItemButton}"
-                                 CommandParameter="{Binding}"
-                                 Content="{Binding NewVersion,StringFormat={}v{0}}"
-                                 FontSize="{DynamicResource FontSizeH7}"
-                                VerticalContentAlignment="Center"
-                                 VerticalAlignment="Center"
-                                 Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                        <Ellipse VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Height="6" Width="6" Margin="5 0"
-                                Fill="{DynamicResource ValidationErrorColorKey}">
-                        </Ellipse>
-                      </WrapPanel>
-                    </DockPanel>
-                  </StackPanel>
-                </DockPanel>
-              </Border>
+                          <controls:ProgressRing IsIndeterminate="True"
+                                                 ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30"
+                                                 IsVisible="{Binding IsLoading}" />
+                          <Button Classes="Hyperlink"
+                                   Command="{ReflectionBinding #u.DataContext.DownloadScriptItemButton}"
+                                   CommandParameter="{Binding}"
+                                   Content="{Binding NewVersion,StringFormat={}v{0}}"
+                                   FontSize="{DynamicResource FontSizeH7}"
+                                  VerticalContentAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                          <Ellipse VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"
+                                  Height="6" Width="6" Margin="5 0"
+                                  Fill="{DynamicResource ValidationErrorColorKey}">
+                          </Ellipse>
+                        </WrapPanel>
+                      </DockPanel>
+                    </StackPanel>
+                  </DockPanel>
+                </Border>
             </DataTemplate>
           </ItemsRepeater.ItemTemplate>
         </ItemsRepeater>

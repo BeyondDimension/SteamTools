@@ -1,4 +1,4 @@
-﻿using CoreGraphics;
+using CoreGraphics;
 using Foundation;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -34,6 +34,6 @@ namespace System.Application.Services.Implementation
             return result.ToString();
         }
 
-        public override string UserAgent => mUserAgent.Value ?? base.UserAgent;
+        public override string UserAgent => mUserAgent.Value ?? DefaultUserAgent;
     }
 }

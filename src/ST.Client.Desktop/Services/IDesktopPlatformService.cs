@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -96,6 +96,17 @@ namespace System.Application.Services
         }
 
         /// <summary>
+        /// 使用资源管理器打开某个路径
+        /// </summary>
+        /// <param name="dirPath"></param>
+        void OpenFolder(string dirPath);
+
+        /// <summary>
+        /// 设置系统关闭时任务
+        /// </summary>
+        void SetSystemSessionEnding(Action action);
+
+        /// <summary>
         /// 获取文本阅读器提供商程序文件路径或文件名(如果提供程序已注册环境变量)
         /// </summary>
         /// <param name="provider"></param>
@@ -171,5 +182,19 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="enable"></param>
         void SetLightOrDarkThemeFollowingSystem(bool enable);
+
+        /// <summary>
+        /// 打开桌面图标设置
+        /// </summary>
+        void OpenDesktopIconsSettings();
+
+        /// <summary>
+        /// 已正常权限启动进程
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        Process StartAsInvoker(string fileName);
+
+        Process? StartAsInvoker(ProcessStartInfo startInfo);
     }
 }

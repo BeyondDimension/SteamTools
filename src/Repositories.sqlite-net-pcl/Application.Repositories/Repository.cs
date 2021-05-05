@@ -1,4 +1,4 @@
-﻿using Polly;
+using Polly;
 using SQLite;
 using System.Application.Entities;
 using System.Collections.Generic;

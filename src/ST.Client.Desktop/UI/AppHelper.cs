@@ -29,7 +29,7 @@ namespace System.Application.UI
             var mainModule = Process.GetCurrentProcess().MainModule;
             if (mainModule == null)
                 throw new ArgumentNullException(nameof(mainModule));
-            ProgramPath = mainModule.FileName;
+            ProgramPath = mainModule.FileName!;
             if (ProgramPath == null)
                 throw new ArgumentNullException(nameof(ProgramPath));
             var programName = Path.GetFileName(ProgramPath);

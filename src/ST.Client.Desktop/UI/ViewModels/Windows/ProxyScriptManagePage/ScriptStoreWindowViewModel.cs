@@ -1,4 +1,4 @@
-﻿using DynamicData;
+using DynamicData;
 using DynamicData.Binding;
 using Newtonsoft.Json.Linq;
 using ReactiveUI;
@@ -13,8 +13,8 @@ namespace System.Application.UI.ViewModels
 {
 	public class ScriptStoreWindowViewModel : WindowViewModel
 	{
-		public ScriptStoreWindowViewModel()
-		{
+		public ScriptStoreWindowViewModel() : base()
+        {
 			Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.ScriptStore;
 			_ScriptsSourceList = new SourceList<ScriptDTO>();
 

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using System.Application.Services;
 using System.Application.Services.Implementation;
@@ -98,7 +98,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddSingleton<IHttpPlatformHelper, DesktopHttpPlatformHelper>();
             return services;
-        } 
+        }
         /// <summary>
         /// 添加 Window 窗口viewmodel
         /// </summary>

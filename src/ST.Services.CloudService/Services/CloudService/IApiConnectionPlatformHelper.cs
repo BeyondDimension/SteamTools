@@ -1,4 +1,4 @@
-﻿using System.Application.Columns;
+using System.Application.Columns;
 using System.Application.Models;
 using System.Net.Http;
 using System.Security.Cryptography;
@@ -32,6 +32,13 @@ namespace System.Application.Services.CloudService
         /// </summary>
         /// <param name="message"></param>
         void ShowResponseErrorMessage(string message);
+
+        void ShowResponseErrorMessage(IApiResponse response, string? errorAppendText = null)
+        {
+            if (response.Code == ApiResponseCode.Canceled) return;
+            var message = ApiResponse.GetMessage(response, errorAppendText);
+            ShowResponseErrorMessage(message);
+        }
 
         HttpClient CreateClient();
 

@@ -13,7 +13,7 @@ namespace System.Application.UI.ViewModels
     public class ChangeBindPhoneNumberWindowViewModel : WindowViewModel
     {
         readonly IReadOnlyDictionary<Step, SendSmsUIHelper.IViewModel> sendSmsUIViewModels;
-        public ChangeBindPhoneNumberWindowViewModel()
+        public ChangeBindPhoneNumberWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.User_ChangePhoneNum;
             sendSmsUIViewModels = new Dictionary<Step, SendSmsUIHelper.IViewModel>

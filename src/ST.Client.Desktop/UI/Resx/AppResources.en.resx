@@ -765,9 +765,6 @@
   <data name="Script_Refresh" xml:space="preserve">
     <value>Refresh the cache</value>
   </data>
-  <data name="Script_Shop" xml:space="preserve">
-    <value>Script market</value>
-  </data>
   <data name="Script_Update" xml:space="preserve">
     <value>Update the script</value>
   </data>

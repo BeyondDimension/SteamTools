@@ -540,6 +540,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 打开证书文件夹 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_OpenCertificateDir {
+            get {
+                return ResourceManager.GetString("CommunityFix_OpenCertificateDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 加速模式 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyMode {
@@ -549,11 +558,20 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Hosts代理模式 的本地化字符串。
+        ///   查找类似 Hosts代理模式(推荐) 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyMode_Hosts {
             get {
                 return ResourceManager.GetString("CommunityFix_ProxyMode_Hosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 修改Hosts文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机443端口未被使用。 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ProxyMode_HostsTip {
+            get {
+                return ResourceManager.GetString("CommunityFix_ProxyMode_HostsTip", resourceCulture);
             }
         }
         
@@ -563,6 +581,15 @@ namespace System.Application.UI.Resx {
         public static string CommunityFix_ProxyMode_WinSystem {
             get {
                 return ResourceManager.GetString("CommunityFix_ProxyMode_WinSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置Windows系统代理来监听请求，不需要占用443端口，会全局代理本机所有流量，如果你使用Hosts方式没有问题，那就不需要使用此模式。 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ProxyMode_WinSystemTip {
+            get {
+                return ResourceManager.GetString("CommunityFix_ProxyMode_WinSystemTip", resourceCulture);
             }
         }
         
@@ -806,6 +833,15 @@ namespace System.Application.UI.Resx {
         public static string GameList {
             get {
                 return ResourceManager.GetString("GameList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 编辑游戏信息 的本地化字符串。
+        /// </summary>
+        public static string GameList_EditAppInfo {
+            get {
+                return ResourceManager.GetString("GameList_EditAppInfo", resourceCulture);
             }
         }
         
@@ -1837,6 +1873,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 该文本文件已丢失，是否删除脚本记录。 的本地化字符串。
+        /// </summary>
+        public static string Script_NoFileDeleteItem {
+            get {
+                return ResourceManager.GetString("Script_NoFileDeleteItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 刷新缓存 的本地化字符串。
         /// </summary>
         public static string Script_Refresh {
@@ -1851,15 +1896,6 @@ namespace System.Application.UI.Resx {
         public static string Script_ReplaceTips {
             get {
                 return ResourceManager.GetString("Script_ReplaceTips", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 脚本市场 的本地化字符串。
-        /// </summary>
-        public static string Script_Shop {
-            get {
-                return ResourceManager.GetString("Script_Shop", resourceCulture);
             }
         }
         
@@ -2085,6 +2121,15 @@ namespace System.Application.UI.Resx {
         public static string Settings_UI {
             get {
                 return ResourceManager.GetString("Settings_UI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 背景透明度 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_AcrylicTransparency {
+            get {
+                return ResourceManager.GetString("Settings_UI_AcrylicTransparency", resourceCulture);
             }
         }
         
@@ -2450,6 +2495,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 快速登录 的本地化字符串。
+        /// </summary>
+        public static string User_FastLogin {
+            get {
+                return ResourceManager.GetString("User_FastLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 获取验证码 的本地化字符串。
         /// </summary>
         public static string User_GetSMSCode {
@@ -2549,6 +2603,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 手机号登录 的本地化字符串。
+        /// </summary>
+        public static string User_PhoneLogin {
+            get {
+                return ResourceManager.GetString("User_PhoneLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 隐私政策 的本地化字符串。
         /// </summary>
         public static string User_Privacy {
@@ -2603,11 +2666,20 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam快速登录 的本地化字符串。
+        ///   查找类似 Steam 快速登录 的本地化字符串。
         /// </summary>
         public static string User_SteamFastLogin {
             get {
                 return ResourceManager.GetString("User_SteamFastLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 连接到 Steam 社区超时，请检查是否开启社区加速。 的本地化字符串。
+        /// </summary>
+        public static string User_SteamFastLoginTimeoutErrorMessage {
+            get {
+                return ResourceManager.GetString("User_SteamFastLoginTimeoutErrorMessage", resourceCulture);
             }
         }
         
@@ -2621,7 +2693,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 按下此按钮将重启Steam并以该账号登录 的本地化字符串。
+        ///   查找类似 按下此按钮将重启 Steam 并以该账号登录 的本地化字符串。
         /// </summary>
         public static string UserChange_BtnTootlip {
             get {
@@ -2640,7 +2712,7 @@ namespace System.Application.UI.Resx {
         
         /// <summary>
         ///   查找类似 确定要删除这条本地记录帐户数据吗？
-        ///这将会删除此账户在本地的Steam缓存数据。 的本地化字符串。
+        ///这将会删除此账户在本地的 Steam 缓存数据。 的本地化字符串。
         /// </summary>
         public static string UserChange_DeleteUserTip {
             get {
@@ -2658,7 +2730,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 登录新Steam账号 的本地化字符串。
+        ///   查找类似 登录新 Steam 账号 的本地化字符串。
         /// </summary>
         public static string UserChange_LoginNewAccount {
             get {
@@ -2667,8 +2739,8 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 确定要登录Steam新账户吗？
-        ///此操作会结束正在运行的Steamt跳转到新账号登录窗口。 的本地化字符串。
+        ///   查找类似 确定要登录 Steam 新账户吗？
+        ///此操作会结束正在运行的 Steam 跳转到新账号登录窗口。 的本地化字符串。
         /// </summary>
         public static string UserChange_LoginNewAccountTip {
             get {
@@ -2677,7 +2749,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 没有在您的电脑上读取到任何Steam帐户数据。 的本地化字符串。
+        ///   查找类似 没有在您的电脑上读取到任何 Steam 帐户数据。 的本地化字符串。
         /// </summary>
         public static string UserChange_NoUserTip {
             get {

@@ -138,23 +138,16 @@ namespace System.Application.UI
 #endif
             var windowService = IWindowService.Instance;
             windowService.Init();
-
+            DI.Get<IDesktopPlatformService>().SetSystemSessionEnding(() =>
+            {
+                compositeDisposable.Dispose();
+            });
 #if StartupTrace
             StartupTrace.Restart("WindowService.Init");
 #endif
-
             SettingsHost.Load();
 #if StartupTrace
             StartupTrace.Restart("SettingsHost.Init");
-#endif
-
-#if !UI_DEMO
-            if (GeneralSettings.IsStartupAppMinimized.Value)
-            {
-                Program.IsMinimize = true;
-                if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-                    desktop.MainWindow = null;
-            }
 #endif
             Theme = (AppTheme)UISettings.Theme.Value;
 #if StartupTrace
@@ -176,11 +169,18 @@ namespace System.Application.UI
 
                 default:
                     #region 主窗口启动时加载的资源
+#if !UI_DEMO
                     compositeDisposable.Add(SettingsHost.Save);
                     compositeDisposable.Add(ProxyService.Current.Dispose);
                     compositeDisposable.Add(AuthService.Current.SaveEditNameAuthenticators);
                     compositeDisposable.Add(SteamConnectService.Current.Dispose);
-
+                    if (GeneralSettings.IsStartupAppMinimized.Value)
+                    {
+                        Program.IsMinimize = true;
+                        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+                            desktop.MainWindow = null;
+                    }
+#endif
                     #endregion
                     MainWindow = new MainWindow
                     {
@@ -313,7 +313,10 @@ namespace System.Application.UI
             if (Program.IsMainProcess)
             {
                 Startup.ActiveUserPost(ActiveUserType.OnStartup);
-                IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
+                if (GeneralSettings.IsAutoCheckUpdate.Value)
+                {
+                    IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
+                }
 #if StartupTrace
                 StartupTrace.Restart("Desktop_Startup.MainProcess");
 #endif

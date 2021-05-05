@@ -279,6 +279,9 @@
   <data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
     <value>仅对Steam内置浏览器生效</value>
   </data>
+  <data name="CommunityFix_OpenCertificateDir" xml:space="preserve">
+    <value>打开证书文件夹</value>
+  </data>
   <data name="CommunityFix_ProxyMode" xml:space="preserve">
     <value>加速模式</value>
   </data>
@@ -286,10 +289,16 @@
     <value>加速模式:</value>
   </data>
   <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
-    <value>Hosts代理模式</value>
+    <value>Hosts代理模式(推荐)</value>
+  </data>
+  <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
+    <value>修改Hosts文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机443端口未被使用。</value>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
     <value>Windows系统代理模式</value>
+  </data>
+  <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
+    <value>设置Windows系统代理来监听请求，不需要占用443端口，会全局代理本机所有流量，如果你使用Hosts方式没有问题，那就不需要使用此模式。</value>
   </data>
   <data name="CommunityFix_ScriptManage" xml:space="preserve">
     <value>管理脚本</value>
@@ -368,6 +377,9 @@
   </data>
   <data name="GameList" xml:space="preserve">
     <value>库存游戏</value>
+  </data>
+  <data name="GameList_EditAppInfo" xml:space="preserve">
+    <value>编辑游戏信息</value>
   </data>
   <data name="GameList_HideTheGame" xml:space="preserve">
     <value>隐藏此游戏</value>
@@ -732,14 +744,14 @@
   <data name="Script_Installed" xml:space="preserve">
     <value>已安装</value>
   </data>
+  <data name="Script_NoFileDeleteItem" xml:space="preserve">
+    <value>该文本文件已丢失，是否删除脚本记录。</value>
+  </data>
   <data name="Script_Refresh" xml:space="preserve">
     <value>刷新缓存</value>
   </data>
   <data name="Script_ReplaceTips" xml:space="preserve">
     <value>已安装此脚本确定替换已安装的版本？</value>
-  </data>
-  <data name="Script_Shop" xml:space="preserve">
-    <value>脚本市场</value>
   </data>
   <data name="Script_Update" xml:space="preserve">
     <value>更新脚本</value>
@@ -798,6 +810,9 @@
   </data>
   <data name="Settings_UI" xml:space="preserve">
     <value>界面设置</value>
+  </data>
+  <data name="Settings_UI_AcrylicTransparency" xml:space="preserve">
+    <value>背景透明度</value>
   </data>
   <data name="Settings_UI_Dark" xml:space="preserve">
     <value>深色</value>
@@ -915,27 +930,27 @@
     <value>一键登录Steam</value>
   </data>
   <data name="UserChange_BtnTootlip" xml:space="preserve">
-    <value>按下此按钮将重启Steam并以该账号登录</value>
+    <value>按下此按钮将重启 Steam 并以该账号登录</value>
   </data>
   <data name="UserChange_DeleteUser" xml:space="preserve">
     <value>删除此账号数据</value>
   </data>
   <data name="UserChange_DeleteUserTip" xml:space="preserve">
     <value>确定要删除这条本地记录帐户数据吗？
-这将会删除此账户在本地的Steam缓存数据。</value>
+这将会删除此账户在本地的 Steam 缓存数据。</value>
   </data>
   <data name="UserChange_EditRemark" xml:space="preserve">
     <value>点此修改备注</value>
   </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
-    <value>登录新Steam账号</value>
+    <value>登录新 Steam 账号</value>
   </data>
   <data name="UserChange_LoginNewAccountTip" xml:space="preserve">
-    <value>确定要登录Steam新账户吗？
-此操作会结束正在运行的Steamt跳转到新账号登录窗口。</value>
+    <value>确定要登录 Steam 新账户吗？
+此操作会结束正在运行的 Steam 跳转到新账号登录窗口。</value>
   </data>
   <data name="UserChange_NoUserTip" xml:space="preserve">
-    <value>没有在您的电脑上读取到任何Steam帐户数据。</value>
+    <value>没有在您的电脑上读取到任何 Steam 帐户数据。</value>
   </data>
   <data name="UserChange_OfflineBtn" xml:space="preserve">
     <value>离线模式启动</value>
@@ -971,6 +986,9 @@
   <data name="User_EditProfile" xml:space="preserve">
     <value>编辑资料</value>
   </data>
+  <data name="User_FastLogin" xml:space="preserve">
+    <value>快速登录</value>
+  </data>
   <data name="User_GetSMSCode" xml:space="preserve">
     <value>获取验证码</value>
   </data>
@@ -1005,6 +1023,9 @@
   <data name="User_Phone" xml:space="preserve">
     <value>手机号码</value>
   </data>
+  <data name="User_PhoneLogin" xml:space="preserve">
+    <value>手机号登录</value>
+  </data>
   <data name="User_Privacy" xml:space="preserve">
     <value>隐私政策</value>
   </data>
@@ -1024,7 +1045,10 @@
     <value>请先获取验证码</value>
   </data>
   <data name="User_SteamFastLogin" xml:space="preserve">
-    <value>Steam快速登录</value>
+    <value>Steam 快速登录</value>
+  </data>
+  <data name="User_SteamFastLoginTimeoutErrorMessage" xml:space="preserve">
+    <value>连接到 Steam 社区超时，请检查是否开启社区加速。</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>警告</value>

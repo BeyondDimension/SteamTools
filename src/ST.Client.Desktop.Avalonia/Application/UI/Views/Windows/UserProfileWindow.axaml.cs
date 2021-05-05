@@ -10,7 +10,7 @@ namespace System.Application.UI.Views.Windows
 {
     public class UserProfileWindow : FluentWindow
     {
-        public UserProfileWindow()
+        public UserProfileWindow() : base()
         {
             InitializeComponent();
 #if DEBUG
@@ -36,7 +36,7 @@ namespace System.Application.UI.Views.Windows
         {
             if (DataContext is UserProfileWindowViewModel vm && vm.IsModify && !vm.IsComplete)
             {
-                // 有修改时，如果关闭窗口，则需二次确认
+                // 鏈変慨鏀规椂锛屽鏋滃叧闂獥鍙ｏ紝鍒欓渶浜屾纭
                 e.Cancel = true;
                 var r = await MessageBoxCompat.ShowAsync(AppResources.UnsavedEditingWillBeDiscarded, AppResources.Warning, MessageBoxButtonCompat.OKCancel);
                 if (r == MessageBoxResultCompat.OK)

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Application.Services;
 using System.Application.Services.CloudService;
@@ -23,7 +23,6 @@ namespace Microsoft.Extensions.DependencyInjection
             bool useMock = false)
             where T : CloudServiceClientBase
         {
-            services.TryAddHttpPlatformHelper();
             services.AddHttpClient(CloudServiceClientBase.ClientName_, (s, c) =>
             {
                 var sc = s.GetRequiredService<CloudServiceClientBase>();
@@ -48,6 +47,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 ;
             services.TryAddSingleton<T>();
             services.TryAddSingleton<CloudServiceClientBase>(s => s.GetRequiredService<T>());
+            services.TryAddSingleton<IApiConnectionPlatformHelper>(s => s.GetRequiredService<T>());
             if (useMock && ThisAssembly.Debuggable)
             {
 #if DEBUG

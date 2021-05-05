@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
@@ -14,7 +14,7 @@ namespace System.Application.UI.ViewModels
     {
         readonly IHttpService httpService = DI.Get<IHttpService>();
 
-        public AddAuthWindowViewModel()
+        public AddAuthWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_AddAuth;
         }

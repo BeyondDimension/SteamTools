@@ -21,7 +21,7 @@ namespace System.Application.UI.ViewModels
         private readonly MyAuthenticator MyAuthenticator;
         private readonly GAPAuthenticatorValueDTO.SteamAuthenticator _Authenticator;
 
-        public AuthTradeWindowViewModel()
+        public AuthTradeWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_SteamAuthTrade;
             _ConfirmationsSourceList = new SourceList<WinAuthSteamClient.Confirmation>();
@@ -286,7 +286,6 @@ namespace System.Application.UI.ViewModels
                             ToastService.Current.Notify(steam.Error);
                             return;
                         }
-
                         return;
                     }
                     ToastService.Current.Notify(AppResources.User_LoiginSuccess);

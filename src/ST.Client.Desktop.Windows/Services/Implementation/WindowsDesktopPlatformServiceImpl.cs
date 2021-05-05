@@ -1,4 +1,4 @@
-﻿#pragma warning disable CA1416 // 验证平台兼容性
+#pragma warning disable CA1416 // 验证平台兼容性
 using Microsoft.Win32;
 using Microsoft.Win32.TaskScheduler;
 using System.Application.Models;
@@ -64,6 +64,19 @@ namespace System.Application.Services.Implementation
             }
         }
 
+        /// <summary>
+        /// 使用资源管理器打开某个路径
+        /// </summary>
+        /// <param name="dirPath"></param>
+        public void OpenFolder(string dirPath)
+        {
+            if (File.Exists(dirPath))
+            {
+                Process.Start("explorer.exe", "/select," + dirPath);
+            }
+            Process.Start("explorer.exe", dirPath);
+        }
+
         public string? GetFileName(TextReaderProvider provider)
         {
             switch (provider)
@@ -122,6 +135,15 @@ namespace System.Application.Services.Implementation
             }
         }
 
+        public void SetSystemSessionEnding(Action action)
+        {
+            Microsoft.Win32.SystemEvents.SessionEnding += (sender, e) =>
+            {
+                //IDesktopAppService.Instance.CompositeDisposable.Dispose();
+                action.Invoke();
+            };
+        }
+
         static string? GetFullPath(string s)
         {
             if (!string.IsNullOrWhiteSpace(s))
@@ -151,6 +173,17 @@ namespace System.Application.Services.Implementation
         static readonly Lazy<(byte[] key, byte[] iv)> mMachineSecretKey = IDesktopPlatformService.GetMachineSecretKey(GetMachineSecretKey);
 
         public (byte[] key, byte[] iv) MachineSecretKey => mMachineSecretKey.Value;
+
+        public Process StartAsInvoker(string fileName)
+        {
+            return Process.Start($"/trustlevel:0x20000 \"{fileName}\"");
+        }
+
+        public Process? StartAsInvoker(ProcessStartInfo startInfo)
+        {
+            startInfo.FileName = $"/trustlevel:0x20000 \"{startInfo.FileName}\"";
+            return Process.Start(startInfo);
+        }
     }
 }
 #pragma warning restore CA1416 // 验证平台兼容性

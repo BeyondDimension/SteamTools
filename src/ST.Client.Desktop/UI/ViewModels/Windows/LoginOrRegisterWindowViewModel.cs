@@ -1,19 +1,25 @@
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Services;
+using System.Application.Services.CloudService;
 using System.Application.UI.Resx;
+using System.IO;
 using System.Properties;
+using System.Reactive;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
 {
     public class LoginOrRegisterWindowViewModel : WindowViewModel, SendSmsUIHelper.IViewModel
     {
-        public LoginOrRegisterWindowViewModel()
+        public LoginOrRegisterWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LoginAndRegister;
+            SteamFastLogin = ReactiveCommand.CreateFromTask(async () => await FastLoginOrRegisterAsync(Close));
         }
 
         private string? _PhoneNumber;
@@ -77,14 +83,72 @@ namespace System.Application.UI.ViewModels
 
             if (response.IsSuccess)
             {
-                await UserService.Current.RefreshUserAsync();
-                var msg = AppResources.Success_.Format((response.Content?.IsLoginOrRegister ?? false) ? AppResources.User_Login : AppResources.User_Register);
-                Toast.Show(msg);
-                Close?.Invoke();
+                await SuccessAsync(response.Content!, Close);
                 return;
             }
 
             IsLoading = false;
+        }
+
+        static async Task SuccessAsync(LoginOrRegisterResponse rsp, Action? close)
+        {
+            await UserService.Current.RefreshUserAsync();
+            var msg = AppResources.Success_.Format((rsp?.IsLoginOrRegister ?? false) ? AppResources.User_Login : AppResources.User_Register);
+            Toast.Show(msg);
+            close?.Invoke();
+        }
+
+        internal static async Task FastLoginOrRegisterAsync(Action? close = null)
+        {
+            var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
+            var urlExternalLoginCallback = apiBaseUrl + "/ExternalLoginCallback";
+            WebView3WindowViewModel? vm = null;
+            vm = new WebView3WindowViewModel
+            {
+                Url = apiBaseUrl + "/ExternalLogin",
+                StreamResponseFilterUrls = new[]
+                {
+                    urlExternalLoginCallback,
+                },
+                OnStreamResponseFilterResourceLoadComplete = _OnStreamResponseFilterResourceLoadComplete,
+                FixedSinglePage = true,
+                Title = AppResources.User_SteamFastLogin,
+                TimeoutErrorMessage = AppResources.User_SteamFastLoginTimeoutErrorMessage,
+                IsSecurity = true,
+                //UseLoginUsingSteamClient = true,
+                UseLoginUsingSteamClientV2 = false,
+                Close = close,
+            };
+            async void _OnStreamResponseFilterResourceLoadComplete(string url, Stream data)
+            {
+                if (url.StartsWith(urlExternalLoginCallback, StringComparison.OrdinalIgnoreCase))
+                {
+                    var response = await ApiResponse.DeserializeAsync<LoginOrRegisterResponse>(data, default);
+                    if (response.IsSuccess && response.Content == null)
+                    {
+                        response.Code = ApiResponseCode.NoResponseContent;
+                    }
+                    var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
+                    if (response.IsSuccess)
+                    {
+                        await conn_helper.OnLoginedAsync(null, response.Content!);
+                        await MainThreadDesktop.InvokeOnMainThreadAsync(async () =>
+                        {
+                            await SuccessAsync(response.Content!, vm?.Close);
+                        });
+                    }
+                    else
+                    {
+                        MainThreadDesktop.BeginInvokeOnMainThread(() =>
+                        {
+                            conn_helper.ShowResponseErrorMessage(response);
+                            close?.Invoke();
+                            vm?.Close?.Invoke();
+                        });
+                    }
+                }
+            }
+            await IShowWindowService.Instance.Show(CustomWindow.WebView3, vm, resizeMode: ResizeModeCompat.CanResize);
         }
 
         public Action? Close { private get; set; }
@@ -99,7 +163,6 @@ namespace System.Application.UI.ViewModels
         {
             if (this.TimeStart())
             {
-
                 var request = new SendSmsRequest
                 {
                     PhoneNumber = PhoneNumber,
@@ -116,16 +179,13 @@ namespace System.Application.UI.ViewModels
         public void OpenHyperlink(string parameter)
         {
             //BrowserOpen(parameter);
-
             IShowWindowService.Instance.Show(CustomWindow.WebView3, new WebView3WindowViewModel
             {
                 Url = parameter,
-            }, resizeMode: ResizeModeCompat.CanResize);
+            }, resizeMode: ResizeModeCompat.NoResize);
         }
 
-        public void SteamFastLogin()
-        {
-        }
+        public ICommand SteamFastLogin { get; }
 
         protected override void Dispose(bool disposing)
         {

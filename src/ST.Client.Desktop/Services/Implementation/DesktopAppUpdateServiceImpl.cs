@@ -58,16 +58,14 @@ namespace System.Application.Services.Implementation
                 var updateCommandPath = Path.Combine(IOPath.CacheDirectory, "update.cmd");
                 IOPath.FileIfExistsItDelete(updateCommandPath);
 
-                var echo = SR.ProgramUpdateEcho;
-                if (echo.Contains('"')) echo = "Steam++ is upgrading...";
-
                 var updateCommand = string.Format(
                    SR.ProgramUpdateCmd_,
                    AppHelper.ProgramName,
-                   dirPath,
+                   dirPath.TrimEnd(Path.DirectorySeparatorChar),
                    AppContext.BaseDirectory,
-                   AppHelper.ProgramPath,
-                   echo);
+                   AppHelper.ProgramPath);
+
+                updateCommand = "chcp" + Environment.NewLine + "chcp 65001" + Environment.NewLine + updateCommand;
 
                 File.WriteAllText(updateCommandPath, updateCommand, Encoding.UTF8);
 

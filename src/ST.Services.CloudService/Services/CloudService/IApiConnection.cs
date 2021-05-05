@@ -19,7 +19,7 @@ namespace System.Application.Services.CloudService
         /// <param name="requestUri">服务端接口URL地址</param>
         /// <param name="isAnonymous">是否使用匿名身份访问</param>
         /// <returns></returns>
-        Task<IApiResponse<byte[]>> GetRaw(CancellationToken cancellationToken, string requestUri, bool isAnonymous = true, bool isShowResponseErrorMessage = true, string? errorAppendText = null);
+        Task<IApiResponse<byte[]>> GetRaw(CancellationToken cancellationToken, string requestUri, bool isAnonymous = true, bool isShowResponseErrorMessage = true, string? errorAppendText = null, bool isPolly = true);
 
         /// <summary>
         /// 获取服务端接口的HTML内容(String)
@@ -28,7 +28,7 @@ namespace System.Application.Services.CloudService
         /// <param name="requestUri">服务端接口URL地址</param>
         /// <param name="isAnonymous">是否使用匿名身份访问</param>
         /// <returns></returns>
-        Task<IApiResponse<string>> GetHtml(CancellationToken cancellationToken, string requestUri, bool isAnonymous = true, bool isShowResponseErrorMessage = true, string? errorAppendText = null);
+        Task<IApiResponse<string>> GetHtml(CancellationToken cancellationToken, string requestUri, bool isAnonymous = true, bool isShowResponseErrorMessage = true, string? errorAppendText = null, bool isPolly = true);
 
         /// <summary>
         /// 下载服务端接口内容
@@ -40,7 +40,7 @@ namespace System.Application.Services.CloudService
         /// <param name="progress">进度报告</param>
         /// <param name="isAnonymous">是否使用匿名身份访问</param>
         /// <returns></returns>
-        Task<IApiResponse> DownloadAsync(CancellationToken cancellationToken, string requestUri, string cacheFilePath, IProgress<float>? progress, bool isAnonymous = true, bool isShowResponseErrorMessage = true, string? errorAppendText = null);
+        Task<IApiResponse> DownloadAsync(CancellationToken cancellationToken, string requestUri, string cacheFilePath, IProgress<float>? progress, bool isAnonymous = true, bool isShowResponseErrorMessage = true, string? errorAppendText = null, bool isPolly = true);
 
         #region SendAsync
 
@@ -70,7 +70,8 @@ namespace System.Application.Services.CloudService
             bool isSecurity = false,
             bool isAnonymous = false,
             bool isShowResponseErrorMessage = true,
-            string? errorAppendText = null);
+            string? errorAppendText = null,
+            bool isPolly = false);
 
         /// <summary>
         /// RequestModel(调用服务端接口)
@@ -90,7 +91,8 @@ namespace System.Application.Services.CloudService
             bool isSecurity = false,
             bool isAnonymous = false,
             bool isShowResponseErrorMessage = true,
-            string? errorAppendText = null);
+            string? errorAppendText = null,
+            bool isPolly = false);
 
         /// <summary>
         /// NoModel(调用服务端接口)
@@ -106,7 +108,8 @@ namespace System.Application.Services.CloudService
             string requestUri,
             bool isAnonymous = false,
             bool isShowResponseErrorMessage = true,
-            string? errorAppendText = null);
+            string? errorAppendText = null,
+            bool isPolly = false);
 
         /// <summary>
         /// ResponseModel(调用服务端接口)
@@ -125,7 +128,8 @@ namespace System.Application.Services.CloudService
             bool isSecurity = false,
             bool isAnonymous = false,
             bool isShowResponseErrorMessage = true,
-            string? errorAppendText = null);
+            string? errorAppendText = null,
+            bool isPolly = false);
 
         #endregion
     }

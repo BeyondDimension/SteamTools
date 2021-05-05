@@ -32,7 +32,7 @@ namespace System.Application.UI.ViewModels
 
         public string VersionDisplay => ThisAssembly.VersionDisplay;
 
-        public string LabelVersionDisplay => (ThisAssembly.IsBetaRelease ? "Beta " : "Current") + "Version: ";
+        public string LabelVersionDisplay => ThisAssembly.IsBetaRelease ? "Beta Version: " : "Current Version: ";
 
         public string Copyright
         {

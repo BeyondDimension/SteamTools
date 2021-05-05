@@ -8,7 +8,7 @@ namespace System.Application.UI.Views.Windows
     {
         public Button BtnCancel { get; }
 
-        public NewVersionWindow()
+        public NewVersionWindow() : base()
         {
             InitializeComponent();
 #if DEBUG

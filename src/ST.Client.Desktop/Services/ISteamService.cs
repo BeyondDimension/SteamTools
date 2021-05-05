@@ -1,6 +1,6 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Collections.Generic;
-using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace System.Application.Services
@@ -84,5 +84,26 @@ namespace System.Application.Services
         Task<string> GetAppImageAsync(SteamApp app, SteamApp.LibCacheType type);
 
         ValueTask LoadAppImageAsync(SteamApp app);
+
+        /// <summary>
+        /// Steam 客户端自动登录
+        /// </summary>
+        /// <param name="runasInvoker"></param>
+        /// <returns></returns>
+        Task<(string steamid, string encrypted_loginkey, string sessionkey, string digest)> GetLoginUsingSteamClientAuthAsync(bool runasInvoker = false);
+
+        /// <summary>
+        /// 获取 Steam 客户端自动登录 Cookie(用于写入到 WebView3 中免登录)
+        /// </summary>
+        /// <param name="auth_data"></param>
+        /// <returns></returns>
+        Task<(CookieCollection cookies, Uri uri)> GetLoginUsingSteamClientCookiesAsync((string steamid, string encrypted_loginkey, string sessionkey, string digest) auth_data);
+
+        /// <summary>
+        /// 获取 Steam 客户端自动登录 Cookie(用于写入到 WebView3 中免登录)
+        /// </summary>
+        /// <param name="runasInvoker"></param>
+        /// <returns></returns>
+        Task<(CookieCollection cookies, Uri uri)> GetLoginUsingSteamClientCookiesAsync(bool runasInvoker = false);
     }
 }

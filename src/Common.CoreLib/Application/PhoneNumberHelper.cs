@@ -94,21 +94,22 @@ namespace System.Application
             /// <summary>
             /// 中国移动
             /// </summary>
-            public static byte[] ChinaMobile = { 139, 138, 137, 136, 135, 134, 147, 150, 151, 152, 157, 158, 159, 178, 182, 183, 184, 187, 188, 198, 148, 172 };
+            public static byte[] ChinaMobile = { 139, 138, 137, 136, 135, 134, 147, 150, 151, 152, 157, 158, 159, 178, 182, 183, 184, 187, 188, 198 };
 
             /// <summary>
             /// 虚拟运营商
             /// </summary>
-            public static byte[] MobileVirtualNetwork = { 170, 171 };
+            public static byte[] MobileVirtualNetwork = { 170, 171, 172 };
 
-            public static byte[] Other = { 190, 197, 196, 192 };
+            public static byte[] Other = { 190, 191, 192, 193, 195, 196, 197, 198, 199 };
 
-            static Lazy<byte[]> mSummary = new(() => new[]
+            static readonly Lazy<byte[]> mSummary = new(() => new[]
             {
                 ChinaTelecom,
                 ChinaUnicom,
                 ChinaMobile,
-                MobileVirtualNetwork
+                MobileVirtualNetwork,
+                Other,
             }.SelectMany(b => b).ToArray());
 
             /// <summary>
@@ -127,7 +128,7 @@ namespace System.Application
         /// <summary>
         /// 中国大陆地区手机号码号段验证使用 黑名单(<see langword="true"/>) 或 白名单(<see langword="false"/>)
         /// </summary>
-        public static bool ChineseMainlandPhoneNumberSegmentVerifyUseBlacklistOrWhitelist { get; set; }
+        public static bool ChineseMainlandPhoneNumberSegmentVerifyUseBlacklistOrWhitelist { get; set; } = true;
 
         /// <summary>
         /// 中国大陆地区手机号码号段验证(通常仅服务端验证)
