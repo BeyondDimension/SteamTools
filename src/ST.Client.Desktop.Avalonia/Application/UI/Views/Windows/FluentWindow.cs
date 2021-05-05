@@ -45,7 +45,11 @@ namespace Avalonia.Controls
             if (this.DataContext is WindowViewModel vm)
             {
                 if (vm.SizePosition.X > 0 && vm.SizePosition.Y > 0)
-                    this.Position = new PixelPoint(vm.SizePosition.X, vm.SizePosition.Y);
+                {
+                    var point = new PixelPoint(vm.SizePosition.X, vm.SizePosition.Y);
+                    if (Screens.Primary.WorkingArea.Contains(point))
+                        this.Position = point;
+                }
 
                 if (vm.SizePosition.Width > 0)
                     this.Width = vm.SizePosition.Width;
@@ -54,6 +58,7 @@ namespace Avalonia.Controls
                     this.Height = vm.SizePosition.Height;
 
                 HandleResized(new Size(this.Width, this.Height));
+
                 this.GetObservable(WidthProperty).Subscribe(v =>
                 {
                     vm.SizePosition.Width = v;
