@@ -135,7 +135,7 @@ namespace System.Application.UI.Views.Controls
                 var constraints = this.Bounds.Deflate(Padding);
                 var constraintsWidth = constraints.Width;
 
-                //ÈÃÎÄ×Ö²»ÒªÔÚ¿í¶ÈºÏÊÊµÄÊ±ºò¹ö¶¯
+                //è®©æ–‡å­—ä¸è¦åœ¨å®½åº¦åˆé€‚çš„æ—¶å€™æ»šåŠ¨
                 _isConstrained = _textWidth > constraintsWidth + 1;
 
                 if (_isConstrained & !_waiting)
@@ -154,7 +154,7 @@ namespace System.Application.UI.Views.Controls
 
                         if (nC.Intersects(nR))
                             using (context.PushPostTransform(Matrix.CreateTranslation(offset, padding.Top)))
-                                TextLayout.Draw(context);
+                                TextLayout.Draw(context, new Point(Padding.Left, Padding.Top));
                     }
                 }
                 else
@@ -162,7 +162,7 @@ namespace System.Application.UI.Views.Controls
                     _animate = false;
 
                     using (context.PushPostTransform(Matrix.CreateTranslation(padding.Left, padding.Top)))
-                        TextLayout.Draw(context);
+                        TextLayout.Draw(context, new Point(Padding.Left, Padding.Top));
                 }
             }
         }
