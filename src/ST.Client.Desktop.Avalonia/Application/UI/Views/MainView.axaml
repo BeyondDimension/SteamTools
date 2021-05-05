@@ -81,7 +81,7 @@
             <StackPanel>
               <Panel x:Name="UserMenu" Width="300" Margin="0 20">
                 <StackPanel Spacing="15">
-                  <Image Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=100}"
+                  <Image Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=80}"
                          Stretch="Uniform"
                          Height="80" Width="80"
                          HorizontalAlignment="Center">

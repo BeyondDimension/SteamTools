@@ -58,12 +58,20 @@ namespace System.Application.Services
             set => this.RaiseAndSetIfChanged(ref _User, value);
         }
 
-        static string GetAvaterPath(UserInfoDTO? user)
+        SteamUser? _SteamUser;
+        public SteamUser? CurrentSteamUser
         {
-            string? value = null;
+            get => _SteamUser;
+            set => this.RaiseAndSetIfChanged(ref _SteamUser, value);
+        }
+
+        object GetAvaterPath(UserInfoDTO? user)
+        {
+            object? value = null;
             if (user is UserInfoDTO userInfo && userInfo.SteamAccountId.HasValue)
             {
                 // Steam Avatar
+                value = CurrentSteamUser?.AvatarStream;
             }
 
             if (user is IUserDTO user2 && user2.Avatar.HasValue)
@@ -75,17 +83,18 @@ namespace System.Application.Services
         }
 
         const string DefaultAvaterPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater_default.png";
-        string _AvaterPath = DefaultAvaterPath;
-        public string AvaterPath
+
+        //string _AvaterPath = DefaultAvaterPath;
+        public object AvaterPath
         {
             get => GetAvaterPath(User);
-            set => this.RaiseAndSetIfChanged(ref _AvaterPath, value);
+            //set => this.RaiseAndSetIfChanged(ref _AvaterPath, value);
         }
 
         public UserService()
         {
             this.WhenAnyValue(x => x.User)
-                  .Subscribe(x => AvaterPath = GetAvaterPath(x));
+                  .Subscribe(_ => this.RaisePropertyChanged(nameof(AvaterPath)));
 
             userManager.OnSignOut += () =>
             {
@@ -114,7 +123,14 @@ namespace System.Application.Services
         public async Task RefreshUserAsync()
         {
             User = await userManager.GetCurrentUserInfoAsync();
-            AvaterPath = GetAvaterPath(User);
+
+            if (User != null && User.SteamAccountId.HasValue)
+            {
+                CurrentSteamUser = await ISteamworksWebApiService.Instance.GetUserInfo(User.SteamAccountId.Value);
+                CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
+            }
+
+            this.RaisePropertyChanged(nameof(AvaterPath));
             var userInfo = await userManager.GetCurrentUserAsync();
             HasPhoneNumber = !string.IsNullOrWhiteSpace(userInfo?.PhoneNumber);
         }
