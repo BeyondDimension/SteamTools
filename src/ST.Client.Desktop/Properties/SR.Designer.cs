@@ -70,12 +70,20 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
-        ///   查找类似 echo &quot;{4}&quot;
-        ///taskkill /f /im &quot;{0}&quot;
+        ///   查找类似 @echo off
+        ///:loop
+        ///ping -n 5 127.0.0.1&gt;nul
+        ///tasklist|find /i &quot;{0}&quot;&gt;nul
+        ///if %errorlevel%==1 (
         ///xcopy /y /c /h /r /s &quot;{1}\*.*&quot; &quot;{2}&quot;
         ///rmdir /s /q &quot;{1}&quot;
         ///&quot;{3}&quot;
-        ///del %0 的本地化字符串。
+        ///exit
+        ///del %0
+        ///)else(
+        ///taskkill /f /im &quot;{0}&quot;
+        ///)
+        ///goto :loop 的本地化字符串。
         /// </summary>
         internal static string ProgramUpdateCmd_ {
             get {

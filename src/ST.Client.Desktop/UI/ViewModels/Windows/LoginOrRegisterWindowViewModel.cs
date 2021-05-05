@@ -148,7 +148,7 @@ namespace System.Application.UI.ViewModels
                     }
                 }
             }
-            await IShowWindowService.Instance.Show(CustomWindow.WebView3, vm, resizeMode: ResizeModeCompat.NoResize);
+            await IShowWindowService.Instance.Show(CustomWindow.WebView3, vm, resizeMode: ResizeModeCompat.CanResize);
         }
 
         public Action? Close { private get; set; }
