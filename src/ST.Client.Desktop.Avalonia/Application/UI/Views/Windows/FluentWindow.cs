@@ -51,10 +51,12 @@ namespace Avalonia.Controls
                         this.Position = point;
                 }
 
-                if (vm.SizePosition.Width > 0)
+                if (vm.SizePosition.Width > 0
+                    && Screens.Primary.WorkingArea.Width >= vm.SizePosition.Width)
                     this.Width = vm.SizePosition.Width;
 
-                if (vm.SizePosition.Height > 0)
+                if (vm.SizePosition.Height > 0
+                    && Screens.Primary.WorkingArea.Height >= vm.SizePosition.Height)
                     this.Height = vm.SizePosition.Height;
 
                 HandleResized(new Size(this.Width, this.Height));
