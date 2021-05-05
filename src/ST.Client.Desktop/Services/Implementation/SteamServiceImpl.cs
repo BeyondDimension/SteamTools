@@ -63,7 +63,7 @@ namespace System.Application.Services.Implementation
         {
             get
             {
-                return Process.GetProcesses().Any(p => steamProcess.Contains(p.ProcessName, StringComparer.OrdinalIgnoreCase));
+                return Process.GetProcessesByName(steamProcess[0])?.Length > 0;
             }
         }
 
@@ -74,8 +74,11 @@ namespace System.Application.Services.Implementation
             {
                 if (steamProcess.Contains(p.ProcessName, StringComparer.OrdinalIgnoreCase))
                 {
-                    p.Kill();
-                    p.WaitForExit();
+                    if (p.HasExited == false)
+                    {
+                        p.Kill();
+                        p.WaitForExit();
+                    }
                 }
             }
         }

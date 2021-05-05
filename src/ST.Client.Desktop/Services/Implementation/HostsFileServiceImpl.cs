@@ -84,42 +84,52 @@ namespace System.Application.Services.Implementation
             bool checkReadOnly = false,
             bool checkMaxLength = true)
         {
-            message = null;
-            removeReadOnly = false;
-            fileInfo = new FileInfo(s.HostsFilePath);
-            if (!fileInfo.Exists)
+            try
             {
-                //message = "hosts file was not found";
-                //return false;
-                try
+                message = null;
+                removeReadOnly = false;
+                fileInfo = new FileInfo(s.HostsFilePath);
+                if (!fileInfo.Exists)
                 {
-                    fileInfo.Create().Dispose();
-                    return true;
+                    //message = "hosts file was not found";
+                    //return false;
+                    try
+                    {
+                        fileInfo.Create().Dispose();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        message = ex.GetAllMessage();
+                        return false;
+                    }
                 }
-                catch (Exception ex)
+                if (checkMaxLength)
                 {
-                    message = ex.GetAllMessage();
-                    return false;
+                    if (fileInfo.Length > MaxFileLength)
+                    {
+                        message = "hosts file is too large";
+                        return false;
+                    }
                 }
+                if (checkReadOnly)
+                {
+                    var attr = fileInfo.Attributes;
+                    if (attr.HasFlag(FileAttributes.ReadOnly))
+                    {
+                        fileInfo.Attributes = attr & ~FileAttributes.ReadOnly;
+                        removeReadOnly = true;
+                    }
+                }
+                return true;
             }
-            if (checkMaxLength)
+            catch (Exception ex)
             {
-                if (fileInfo.Length > MaxFileLength)
-                {
-                    message = "hosts file is too large";
-                    return false;
-                }
+                removeReadOnly = false;
+                fileInfo = new FileInfo(s.HostsFilePath);
+                message = ex.Message;
+                return false;
             }
-            if (checkReadOnly)
-            {
-                var attr = fileInfo.Attributes;
-                if (attr.HasFlag(FileAttributes.ReadOnly))
-                {
-                    fileInfo.Attributes = attr & ~FileAttributes.ReadOnly;
-                    removeReadOnly = true;
-                }
-            }
-            return true;
         }
 
         /// <summary>

@@ -169,6 +169,7 @@ namespace System.Application.Services.Implementation
                         {
                             e.HttpClient.UpStreamEndPoint = new IPEndPoint(ip, item.PortId);
                         }
+                        //e.HttpClient.Request.Host = item.ForwardDomainName ?? e.HttpClient.Request.Host;
                         if (e.HttpClient.ConnectRequest?.ClientHelloInfo?.Extensions != null)
                         {
                             //Logger.Info("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
