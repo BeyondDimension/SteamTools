@@ -1,19 +1,27 @@
-1. 新增 CSGO 市场查看磨损与印花脚本适配
-2. 新增 窗口位置保存功能
-3. 修复 加速证书安装失败的问题
-4. 修复 账号切换离线登录失效的问题
-5. 修复 Windows 代理加速导致断网的问题
-6. 修复 Discord 客户端代理失效的问题
-7. 修复 多个 UI 错误
-8. 修复 脚本以及备注无法保存的问题
-9. 修复 多个可能导致闪退的问题
-10. 修复 更新进度条显示不正确的问题
-11. 改进 当 hosts 文件不存在时自动创建空文件而不是返回错误
+1. 修复 多个 GM.js 同时存在
+2. 修复 GM.js 打包错误
+3. 修复 手动添加 GM.js 重名替换导致出错
+4. 修复 成就解锁窗口不显示
+5. 新增 背景透明度 UI 设置
+6. 调整 脚本列表 UI
+7. 修复 代理过程中的闪退错误
+8. 修复 库存游戏闪退错误
+9. 修复 Discord 更新代理失效
+10. 修复 hosts 闪退错误
+11. 新增 Steam 快速登录
 
 |  File   | Checksum (SHA256)  |
 |  ----  | ----  |
-| FileName  | SHA256 |
-| FileName  | SHA256 |
+| Steam++_win_x86_v2.1.0.7z  | SHA256 |
+| Steam++_win_x86_v2.1.0.exe  | SHA256 |
+| Steam++_linux_x64_v2.1.0.7z  | SHA256 |
+| Steam++_linux_x64_v2.1.0.deb  | SHA256 |
+| Steam++_macos_x64_v2.1.0.dmg  | SHA256 |
+| Steam++_macos_arm64_v2.1.0.dmg  | SHA256 |
+| Steam++_android_arm_v2.1.0.apk  | SHA256 |
+| Steam++_android_arm64_v2.1.0.apk  | SHA256 |
+| Steam++_win_arm64_v2.1.0.7z  | SHA256 |
+| Steam++_win_arm64_v2.1.0.exe  | SHA256 |
 
 ***
 

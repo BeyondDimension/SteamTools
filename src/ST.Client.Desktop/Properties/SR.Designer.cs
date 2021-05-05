@@ -72,16 +72,17 @@ namespace System.Application.Properties {
         /// <summary>
         ///   查找类似 @echo off
         ///:loop
-        ///ping -n 5 127.0.0.1&gt;nul
-        ///tasklist|find /i &quot;{0}&quot;&gt;nul
-        ///if %errorlevel%==1 (
+        ///ping -n 1 127.0.0.1 
+        ///tasklist|find /i &quot;{0}&quot;
+        ///if %errorlevel%==0 (
+        ///taskkill /im &quot;{0}&quot; /f
+        ///)
+        ///else(
+        ///taskkill /im &quot;{0}&quot; /f
         ///xcopy /y /c /h /r /s &quot;{1}\*.*&quot; &quot;{2}&quot;
         ///rmdir /s /q &quot;{1}&quot;
         ///&quot;{3}&quot;
-        ///exit
         ///del %0
-        ///)else(
-        ///taskkill /f /im &quot;{0}&quot;
         ///)
         ///goto :loop 的本地化字符串。
         /// </summary>
