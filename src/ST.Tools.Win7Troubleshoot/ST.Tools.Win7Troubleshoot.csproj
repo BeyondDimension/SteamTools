@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -56,7 +56,7 @@
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
     <!--Win8.1/10的开始菜单磁贴配置-->
     <None Include="..\..\Resources\AppIcon\visualelementsmanifest.xml">
-      <Link>steam++.Win7.visualelementsmanifest.xml</Link>
+      <Link>Steam++.Win7.visualelementsmanifest.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

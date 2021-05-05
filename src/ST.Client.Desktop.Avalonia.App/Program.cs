@@ -5,6 +5,7 @@ using NLog.Targets;
 using ReactiveUI;
 using System.Application.Services;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reactive;
@@ -15,7 +16,6 @@ namespace System.Application.UI
 {
     static partial class Program
     {
-        static Logger? logger;
         static readonly HashSet<Exception> exceptions = new();
         static readonly object lock_global_ex_log = new();
 
@@ -164,35 +164,6 @@ namespace System.Application.UI
                 }
 #endif
             }
-        }
-
-        static string InitLogDir()
-        {
-            var logDirPath = Path.Combine(AppContext.BaseDirectory, "Logs");
-            IOPath.DirCreateByNotExists(logDirPath);
-#if StartupTrace
-            StartupTrace.Restart("InitLogDir.IO");
-#endif
-            var logDirPath_ = logDirPath + Path.DirectorySeparatorChar;
-
-            InternalLogger.LogFile = logDirPath_ + "internal-nlog.txt";
-            InternalLogger.LogLevel = NLogLevel.Error;
-            var objConfig = new LoggingConfiguration();
-            var logfile = new FileTarget("logfile")
-            {
-                FileName = logDirPath_ + "nlog-all-${shortdate}.log",
-                Layout = "${longdate}|${level}|${logger}|${message} |${all-event-properties} ${exception:format=tostring}",
-            };
-            objConfig.AddTarget(logfile);
-            objConfig.AddRule(NLogLevel.Error, NLogLevel.Fatal, logfile, "Microsoft.*");
-            objConfig.AddRule(NLogLevel.Error, NLogLevel.Fatal, logfile, "System.Net.Http.*");
-            objConfig.AddRule(AppHelper.DefaultNLoggerMinLevel, NLogLevel.Fatal, logfile, "*");
-#if StartupTrace
-            StartupTrace.Restart("InitLogDir.CreateLoggingConfiguration");
-#endif
-            LogManager.Configuration = objConfig;
-
-            return logDirPath;
         }
 
         /// <summary>

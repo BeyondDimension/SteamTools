@@ -173,6 +173,17 @@ namespace System.Application.Services.Implementation
         static readonly Lazy<(byte[] key, byte[] iv)> mMachineSecretKey = IDesktopPlatformService.GetMachineSecretKey(GetMachineSecretKey);
 
         public (byte[] key, byte[] iv) MachineSecretKey => mMachineSecretKey.Value;
+
+        public Process StartAsInvoker(string fileName)
+        {
+            return Process.Start($"/trustlevel:0x20000 \"{fileName}\"");
+        }
+
+        public Process? StartAsInvoker(ProcessStartInfo startInfo)
+        {
+            startInfo.FileName = $"/trustlevel:0x20000 \"{startInfo.FileName}\"";
+            return Process.Start(startInfo);
+        }
     }
 }
 #pragma warning restore CA1416 // 验证平台兼容性

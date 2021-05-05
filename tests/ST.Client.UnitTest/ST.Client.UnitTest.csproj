@@ -1,10 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
     <DefineConstants>UnitTest;$(DefineConstants)</DefineConstants>
     <AssemblyName>System.Application.SteamTools.Client.UnitTest</AssemblyName>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

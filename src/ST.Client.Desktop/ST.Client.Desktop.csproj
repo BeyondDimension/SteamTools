@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Desktop</AssemblyName>
   </PropertyGroup>

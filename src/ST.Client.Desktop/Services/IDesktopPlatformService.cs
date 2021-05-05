@@ -187,5 +187,14 @@ namespace System.Application.Services
         /// 打开桌面图标设置
         /// </summary>
         void OpenDesktopIconsSettings();
+
+        /// <summary>
+        /// 已正常权限启动进程
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        Process StartAsInvoker(string fileName);
+
+        Process? StartAsInvoker(ProcessStartInfo startInfo);
     }
 }

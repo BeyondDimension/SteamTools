@@ -1,4 +1,4 @@
-#if !__MOBILE__
+#if !__MOBILE__ && !CONSOLEAPP
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Platform;
@@ -116,17 +116,24 @@ namespace System.Application
         static void ConfigureDemandServices(IServiceCollection services, DILevel level)
         {
             var hasMainProcessRequired = level.HasFlag(DILevel.MainProcessRequired);
+
 #if !__MOBILE__
+#if !CONSOLEAPP
             HasNotifyIcon = hasMainProcessRequired;
+#endif
 #if !UI_DEMO
             // 桌面平台服务 此项放在其他通用业务实现服务之前
             services.AddDesktopPlatformService();
 #endif
 #endif
+#if !CONSOLEAPP
             var hasGUI = level.HasFlag(DILevel.GUI);
             var hasServerApiClient = level.HasFlag(DILevel.ServerApiClient);
+#endif
             var hasHttpClientFactory = level.HasFlag(DILevel.HttpClientFactory);
+#if !CONSOLEAPP
             var hasHttpProxy = level.HasFlag(DILevel.HttpProxy);
+#endif
             var hasHosts = level.HasFlag(DILevel.Hosts);
             var hasSteam = level.HasFlag(DILevel.Steam);
 
@@ -134,6 +141,7 @@ namespace System.Application
             StartupTrace.Restart("DI.ConfigureDemandServices.Calc");
 #endif
 
+#if !CONSOLEAPP
             if (hasGUI)
             {
                 // 添加 Toast 提示服务
@@ -186,8 +194,13 @@ namespace System.Application
                 StartupTrace.Restart("DI.ConfigureDemandServices.GUI");
 #endif
             }
+#endif
 
-            if (hasHttpClientFactory || hasServerApiClient)
+            if (hasHttpClientFactory
+#if !CONSOLEAPP
+                || hasServerApiClient
+#endif
+                )
             {
 #if __MOBILE__
                 // 添加 Http 平台助手移动端实现
@@ -220,6 +233,8 @@ namespace System.Application
 #if StartupTrace
             StartupTrace.Restart("DI.ConfigureDemandServices.ScriptManager");
 #endif
+
+#if !CONSOLEAPP
             if (hasHttpProxy)
             {
                 // 通用 Http 代理服务
@@ -228,7 +243,9 @@ namespace System.Application
                 StartupTrace.Restart("DI.ConfigureDemandServices.HttpProxy");
 #endif
             }
+#endif
 
+#if !CONSOLEAPP
             if (hasServerApiClient)
             {
                 // 添加 app 配置项
@@ -260,7 +277,9 @@ namespace System.Application
                 StartupTrace.Restart("DI.ConfigureDemandServices.ServerApiClient");
 #endif
             }
+#endif
 
+#if !CONSOLEAPP
             // 添加通知服务
             AddNotificationService();
 #if StartupTrace
@@ -273,6 +292,7 @@ namespace System.Application
 #endif
                 services.AddNotificationService();
             }
+#endif
 
 #if !__MOBILE__
             //if (hasGUI || hasServerApiClient)
@@ -281,6 +301,7 @@ namespace System.Application
             //    //services.AddConfigFileService();
             //}
 
+#if !CONSOLEAPP
             if (hasHosts)
             {
                 // hosts 文件助手服务
@@ -289,6 +310,7 @@ namespace System.Application
                 StartupTrace.Restart("DI.ConfigureDemandServices.HostsFileService");
 #endif
             }
+#endif
 
             if (hasSteam)
             {
@@ -308,6 +330,7 @@ namespace System.Application
 #endif
             }
 
+#if !CONSOLEAPP
             if (hasMainProcessRequired)
             {
                 // 应用程序更新服务
@@ -330,6 +353,7 @@ namespace System.Application
 #endif
             }
 #endif
+#endif
         }
 
 #if UI_DEMO
@@ -341,6 +365,7 @@ namespace System.Application
         }
 #endif
 
+#if !CONSOLEAPP
         static AppSettings AppSettings
         {
             get
@@ -397,15 +422,16 @@ namespace System.Application
                 }
             }
         }
+#endif
 
-#if !__MOBILE__
+#if !__MOBILE__ && !CONSOLEAPP
         public static bool HasNotifyIcon { get; private set; }
 
-#if !UI_DEMO
+#if !UI_DEMO && !CONSOLEAPP
         sealed class NotifyIconImpl : NotifyIcon<ContextMenu>, INotifyIcon { }
 #endif
 
-#if WINDOWS
+#if WINDOWS && !CONSOLEAPP
         //sealed class Win32NotifyIconWindow : MainWindow, INotifyIconWindow<ContextMenu>
         //{
         //    sealed class Win32WindowImpl : Avalonia.Win32.WindowImpl
@@ -535,6 +561,7 @@ namespace System.Application
         }
 #endif
 
+#if !CONSOLEAPP
         /// <inheritdoc cref="IActiveUserClient.Post(ActiveUserRecordDTO, Guid?)"/>
         internal static async void ActiveUserPost(ActiveUserType type)
         {
@@ -580,6 +607,7 @@ namespace System.Application
                 Log.Error(nameof(App), e, "ActiveUserPost");
             }
         }
+#endif
     }
 
 #if StartupTrace

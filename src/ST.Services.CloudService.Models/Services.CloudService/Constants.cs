@@ -1,4 +1,5 @@
 using System.Application.Properties;
+using System.ComponentModel;
 using System.Diagnostics;
 using Xamarin.Essentials;
 
@@ -86,11 +87,22 @@ namespace System.Application.Services.CloudService
             {
                 if (DI.DeviceIdiom == DeviceIdiom.Desktop && DI.Platform != Platform.UWP)
                 {
-                    Process.Start(new ProcessStartInfo
+                    try
                     {
-                        FileName = url,
-                        UseShellExecute = true,
-                    });
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = url,
+                            UseShellExecute = true,
+                        });
+                    }
+                    catch (Win32Exception e)
+                    {
+#if MVVM_VM
+                        // [Win32Exception: 找不到应用程序] 39次报告
+                        // 疑似缺失没有默认浏览器设置会导致此异常，可能与杀毒软件有关
+                        Toast.Show(e.GetAllMessage());
+#endif
+                    }
                 }
                 else
                 {

@@ -113,7 +113,7 @@ namespace System.Application.UI.ViewModels
                 TimeoutErrorMessage = AppResources.User_SteamFastLoginTimeoutErrorMessage,
                 IsSecurity = true,
                 //UseLoginUsingSteamClient = true,
-                UseLoginUsingSteamClientV2 = true,
+                UseLoginUsingSteamClientV2 = false,
             };
             async void _OnStreamResponseFilterResourceLoadComplete(string url, Stream data)
             {

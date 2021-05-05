@@ -151,9 +151,10 @@ namespace System.Application.UI.Views.Windows
             Navigate(vm?.Url ?? WebView3WindowViewModel.AboutBlank);
         }
 
-        async void GetLoginUsingSteamClientCookiesAsync()
+        static Task? mGetLoginUsingSteamClientCookiesAsync;
+        static async Task GetLoginUsingSteamClientCookiesAsync()
         {
-            var value = await ISteamService.Instance.GetLoginUsingSteamClientCookiesAsync();
+            var value = await ISteamService.Instance.GetLoginUsingSteamClientCookiesAsync(runasInvoker: DI.Platform == Platform.Windows);
             if (value != default)
             {
                 var url = value.uri.ToString();
@@ -169,6 +170,13 @@ namespace System.Application.UI.Views.Windows
                     }
                 }
             }
+        }
+
+        async void GetLoginUsingSteamClientCookies()
+        {
+            if (mGetLoginUsingSteamClientCookiesAsync == null)
+                mGetLoginUsingSteamClientCookiesAsync = GetLoginUsingSteamClientCookiesAsync();
+            await mGetLoginUsingSteamClientCookiesAsync;
             LoginUsingSteamClientFinishNavigate();
         }
 
@@ -189,7 +197,7 @@ namespace System.Application.UI.Views.Windows
                 else if (vm.UseLoginUsingSteamClientV2)
                 {
                     loginUsingSteamClientState = LoginUsingSteamClientState.Loading;
-                    GetLoginUsingSteamClientCookiesAsync();
+                    GetLoginUsingSteamClientCookies();
                 }
                 vm.WhenAnyValue(x => x.Url).WhereNotNull().Subscribe(x =>
                 {

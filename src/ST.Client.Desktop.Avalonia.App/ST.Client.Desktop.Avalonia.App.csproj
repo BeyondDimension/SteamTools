@@ -1,15 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <!--<DefineConstants>StartupTrace;$(DefineConstants)</DefineConstants>-->
-        <TargetFramework>net6.0</TargetFramework>
-        <SignAssembly>false</SignAssembly>
-        <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
-        <RootNamespace>System.Application.UI</RootNamespace>
-        <AssemblyName>Steam++</AssemblyName>
-        <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-    </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!--<DefineConstants>StartupTrace;$(DefineConstants)</DefineConstants>-->
+    <TargetFramework>net6.0</TargetFramework>
+    <SignAssembly>false</SignAssembly>
+    <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
+    <RootNamespace>System.Application.UI</RootNamespace>
+    <AssemblyName>Steam++</AssemblyName>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
 
     <PropertyGroup Condition=" $(DefineConstants.Contains(`StartupTrace`)) ">
         <OutputType>Exe</OutputType>
@@ -63,41 +63,41 @@
         <DebugSymbols>false</DebugSymbols>
     </PropertyGroup>
 
-    <!--<ItemGroup>
+  <!--<ItemGroup>
       <TrimmerRootAssembly Include="CefNet"/>
       <TrimmerRootAssembly Include="CefNet.Avalonia"/>
     </ItemGroup>-->
 
-    <ItemGroup>
-        <Compile Include="..\Startup2.cs"/>
-        <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
-            <Link>Properties\AssemblyInfo.cs</Link>
-        </Compile>
-    </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Startup2.cs"/>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\ST.Client.Desktop.Avalonia\ST.Client.Desktop.Avalonia.csproj"/>
-        <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj"/>
-        <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj"/>
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ST.Client.Desktop.Avalonia\ST.Client.Desktop.Avalonia.csproj"/>
+    <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj"/>
+    <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj"/>
+  </ItemGroup>
 
-    <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-        <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Desktop.Windows.csproj"/>
-    </ItemGroup>
+  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+    <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Desktop.Windows.csproj"/>
+  </ItemGroup>
 
-    <!--<ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) And $(DefineConstants.Contains(`PUBLISH`)) ">
+  <!--<ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) And $(DefineConstants.Contains(`PUBLISH`)) ">
     <PackageReference Include="System.Reactive" Version="5.0.0.1-exclude-winforms"/>
   </ItemGroup>-->
 
-    <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-        <ProjectReference Include="..\ST.Client.Desktop.Mac\ST.Client.Desktop.Mac.csproj"/>
-    </ItemGroup>
+  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+    <ProjectReference Include="..\ST.Client.Desktop.Mac\ST.Client.Desktop.Mac.csproj"/>
+  </ItemGroup>
 
-    <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`linux`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-        <ProjectReference Include="..\ST.Client.Desktop.Linux\ST.Client.Desktop.Linux.csproj"/>
-    </ItemGroup>
+  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`linux`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+    <ProjectReference Include="..\ST.Client.Desktop.Linux\ST.Client.Desktop.Linux.csproj"/>
+  </ItemGroup>
 
-    <!--<ItemGroup Condition=" '$(OS)' == 'Windows_NT' And $(RuntimeIdentifier.Contains(`osx`)) And $(DefineConstants.Contains(`PUBLISH`)) ">
+  <!--<ItemGroup Condition=" '$(OS)' == 'Windows_NT' And $(RuntimeIdentifier.Contains(`osx`)) And $(DefineConstants.Contains(`PUBLISH`)) ">
     <Reference Include="Xamarin.Mac">
       <HintPath>$(MSBuildExtensionsPath)\..\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\Xamarin.Mac\v2.0\Xamarin.Mac.dll</HintPath>
     </Reference>
@@ -105,21 +105,21 @@
 
   <ItemGroup Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And (($(RuntimeIdentifier.Contains(`osx`)) And $(DefineConstants.Contains(`PUBLISH`))) Or !$(DefineConstants.Contains(`PUBLISH`))) ">
     -->
-    <!--<Reference Include="Xamarin.Mac">
+  <!--<Reference Include="Xamarin.Mac">
       <HintPath>$(MSBuildExtensionsPath)/???/Xamarin.Mac.dll</HintPath>
     </Reference>-->
-    <!--
+  <!--
   </ItemGroup>-->
 
-    <ItemGroup>
-        <Compile Update="**\*.xaml.cs">
-            <DependentUpon>%(Filename)</DependentUpon>
-        </Compile>
-        <AvaloniaResource Include="**\*.xaml">
-            <SubType>Designer</SubType>
-        </AvaloniaResource>
-        <AvaloniaResource Include="Assets\**"/>
-    </ItemGroup>
+  <ItemGroup>
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <AvaloniaResource Include="**\*.xaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <AvaloniaResource Include="Assets\**"/>
+  </ItemGroup>
 
     <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
         <!--Win8.1/10的开始菜单磁贴配置-->
@@ -137,23 +137,23 @@
         </None>
     </ItemGroup>
 
-    <ItemGroup Condition="Exists('$(MSBuildProjectDirectory)\..\..\aes-key.pfx')">
-        <EmbeddedResource Include="..\..\aes-key.pfx" Link="Resources\3A613E8D"/>
-    </ItemGroup>
+  <ItemGroup Condition="Exists('$(MSBuildProjectDirectory)\..\..\aes-key.pfx')">
+    <EmbeddedResource Include="..\..\aes-key.pfx" Link="Resources\3A613E8D"/>
+  </ItemGroup>
 
-    <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\app-id-debug.pfx')">
-        <EmbeddedResource Include="..\..\app-id-debug.pfx" Link="Resources\0093BF84"/>
-    </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\app-id-debug.pfx')">
+    <EmbeddedResource Include="..\..\app-id-debug.pfx" Link="Resources\0093BF84"/>
+  </ItemGroup>
 
-    <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-debug.pfx')">
-        <EmbeddedResource Include="..\..\rsa-public-key-debug.pfx" Link="Resources\6D72ED26"/>
-    </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-debug.pfx')">
+    <EmbeddedResource Include="..\..\rsa-public-key-debug.pfx" Link="Resources\6D72ED26"/>
+  </ItemGroup>
 
-    <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\app-id-release.pfx')">
-        <EmbeddedResource Include="..\..\app-id-release.pfx" Link="Resources\F1D827AB"/>
-    </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\app-id-release.pfx')">
+    <EmbeddedResource Include="..\..\app-id-release.pfx" Link="Resources\F1D827AB"/>
+  </ItemGroup>
 
-    <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-release.pfx')">
-        <EmbeddedResource Include="..\..\rsa-public-key-release.pfx" Link="Resources\E88CA4F9"/>
-    </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-release.pfx')">
+    <EmbeddedResource Include="..\..\rsa-public-key-release.pfx" Link="Resources\E88CA4F9"/>
+  </ItemGroup>
 </Project>

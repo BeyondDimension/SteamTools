@@ -27,7 +27,7 @@ namespace System.Application.Services.Implementation
             return vi;
         }
 
-        public void SetSystemSessionEnding(Action action) 
+        public void SetSystemSessionEnding(Action action)
         {
 
         }
@@ -67,6 +67,16 @@ namespace System.Application.Services.Implementation
 
         public void SetLightOrDarkThemeFollowingSystem(bool enable)
         {
+        }
+
+        public Process StartAsInvoker(string fileName)
+        {
+            return Process.Start(fileName);
+        }
+
+        public Process? StartAsInvoker(ProcessStartInfo startInfo)
+        {
+            return Process.Start(startInfo);
         }
     }
 }
