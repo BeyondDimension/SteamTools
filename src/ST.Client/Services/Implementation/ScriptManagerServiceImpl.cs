@@ -322,11 +322,13 @@ namespace System.Application.Services.Implementation
                         {
                             savePath = item.FilePath;
                         }
-                        else {
+                        else
+                        {
                             var state = (await scriptRepository.DeleteAsync(item.LocalId)) > 0;
                         }
                     }
-                    else {
+                    else
+                    {
                         await DeleteScriptAsync(item);
                     }
                 }
@@ -340,15 +342,30 @@ namespace System.Application.Services.Implementation
                     if (item.Id == basicsId)
                     {
                         item.IsBasics = true;
+                        item.Order = 1;
                         if (item.IsBuild)
                         {
                             item.IsBuild = false;
                             var fileInfo = new FileInfo(item.FilePath);
                             if (fileInfo.Exists)
                             {
-                                var state = await AddScriptAsync(fileInfo, item, item, false, 0, ignoreCache: true);
+                                var state = await AddScriptAsync(fileInfo, item, item, false, 1, ignoreCache: true);
                                 if (state.state && state.model?.Content != null)
                                     item.Content = state.model!.Content;
+                            }
+                            else
+                            {
+                                var basicsInfo = await ICloudServiceClient.Instance.Script.Basics(SR.Script_NoFile.Format(item.FilePath));
+                                if (basicsInfo.Code == ApiResponseCode.OK && basicsInfo.Content != null)
+                                {
+                                    var jspath = await DI.Get<IScriptManagerService>().DownloadScript(basicsInfo.Content.UpdateLink);
+                                    if (jspath.state)
+                                    {
+                                        var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path,item, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
+                                        if (build.state && build.model?.Content != null)
+                                            item.Content = build.model!.Content;
+                                    }
+                                }
                             }
                         }
                     }
