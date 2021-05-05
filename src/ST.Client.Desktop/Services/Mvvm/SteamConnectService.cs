@@ -146,13 +146,15 @@ namespace System.Application.Services
                                     #region 初始化需要steam启动才能使用的功能
                                     InitializeGameList();
 
-                                    while (true)
+                                    //尝试十次无法获取到就不再尝试
+                                    for (var i = 0; i < 10; i++)
                                     {
                                         if (SteamApps.Items.Any())
                                         {
                                             LoadGames(ApiService.OwnsApps(SteamApps.Items));
                                             break;
                                         }
+                                        await Task.Delay(2000);
                                     }
 
                                     //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
@@ -168,7 +170,7 @@ namespace System.Application.Services
                         {
                             IsConnectToSteam = false;
                         }
-                        Thread.Sleep(2000);
+                        await Task.Delay(2000);
                     }
                 }
                 catch (Exception ex)

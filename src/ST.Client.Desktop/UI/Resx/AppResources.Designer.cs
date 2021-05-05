@@ -567,7 +567,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 修改Hosts文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好。 的本地化字符串。
+        ///   查找类似 修改Hosts文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机443端口未被使用。 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyMode_HostsTip {
             get {
@@ -585,7 +585,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 设置Windows系统代理来监听请求，此方式会全局代理本机所有流量，如果你使用Hosts方式没有问题，那就不需要使用此模式。 的本地化字符串。
+        ///   查找类似 设置Windows系统代理来监听请求，不需要占用443端口，会全局代理本机所有流量，如果你使用Hosts方式没有问题，那就不需要使用此模式。 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyMode_WinSystemTip {
             get {

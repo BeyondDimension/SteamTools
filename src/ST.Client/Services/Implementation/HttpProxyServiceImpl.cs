@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Sockets;
 using System.Properties;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -42,6 +43,8 @@ namespace System.Application.Services.Implementation
 
         public int ProxyPort { get; set; } = 26501;
 
+        public IPAddress ProxyIp { get; set; } = IPAddress.Any;
+
         public bool ProxyRunning => proxyServer.ProxyRunning;
         public IList<HttpHeader> JsHeader => new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
         public HttpProxyServiceImpl()
@@ -66,15 +69,15 @@ namespace System.Application.Services.Implementation
         {
             //IHttpService.Instance.SendAsync<object>();
             var url = Web.HttpUtility.UrlDecode(e.HttpClient.Request.RequestUri.Query.Replace("?request=", ""));
-            var cookie = e.HttpClient.Request.Headers.GetFirstHeader("cookie-steamTool")?.Value?? e.HttpClient.Request.Headers.GetFirstHeader("Cookie")?.Value;
-            var headrs = new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"), new HttpHeader("Access-Control-Allow-Headers", "*"), new HttpHeader("Access-Control-Allow-Methods", "*"), new HttpHeader("Access-Control-Allow-Credentials", "true")};
+            var cookie = e.HttpClient.Request.Headers.GetFirstHeader("cookie-steamTool")?.Value ?? e.HttpClient.Request.Headers.GetFirstHeader("Cookie")?.Value;
+            var headrs = new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"), new HttpHeader("Access-Control-Allow-Headers", "*"), new HttpHeader("Access-Control-Allow-Methods", "*"), new HttpHeader("Access-Control-Allow-Credentials", "true") };
             //if (cookie != null)
             //    headrs.Add(new HttpHeader("Cookie", cookie));
             switch (e.HttpClient.Request.Method.ToUpperInvariant())
             {
                 case "GET":
-                    var body =await IHttpService.Instance.GetAsync<string>(url,cookie:cookie);
-                    e.Ok(body??"500", headrs);
+                    var body = await IHttpService.Instance.GetAsync<string>(url, cookie: cookie);
+                    e.Ok(body ?? "500", headrs);
                     return;
                 case "POST":
                     var requestStream = new StreamWriter(new MemoryStream());
@@ -86,7 +89,7 @@ namespace System.Application.Services.Implementation
                     };
                     send.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(e.HttpClient.Request.ContentType);
                     send.Content.Headers.ContentLength = e.HttpClient.Request.BodyString.Length;
-                    var conext = await IHttpService.Instance.SendAsync<string>(url, send,null,false,new CancellationToken());
+                    var conext = await IHttpService.Instance.SendAsync<string>(url, send, null, false, new CancellationToken());
                     e.Ok(conext ?? "500", headrs);
                     return;
             }
@@ -104,8 +107,9 @@ namespace System.Application.Services.Implementation
             }
             if (e.HttpClient.Request.Host == "local.steampp.net")
             {
-                if (e.HttpClient.Request.Method.ToUpperInvariant() == "OPTIONS") {
-                    e.Ok("", new List<HttpHeader>() { 
+                if (e.HttpClient.Request.Method.ToUpperInvariant() == "OPTIONS")
+                {
+                    e.Ok("", new List<HttpHeader>() {
                         new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"),
                         new HttpHeader("Access-Control-Allow-Headers", "*"),
                         new HttpHeader("Access-Control-Allow-Methods", "*"),
@@ -165,7 +169,7 @@ namespace System.Application.Services.Implementation
                         {
                             e.HttpClient.UpStreamEndPoint = new IPEndPoint(ip, item.PortId);
                         }
-                        if (e.HttpClient.ConnectRequest?.ClientHelloInfo != null)
+                        if (e.HttpClient.ConnectRequest?.ClientHelloInfo?.Extensions != null)
                         {
                             //Logger.Info("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
                             if (!string.IsNullOrEmpty(item.ServerName))
@@ -347,6 +351,15 @@ namespace System.Application.Services.Implementation
             return true;
         }
 
+        public int GetRandomUnusedPort()
+        {
+            var listener = new TcpListener(ProxyIp, 0);
+            listener.Start();
+            var port = ((IPEndPoint)listener.LocalEndpoint).Port;
+            listener.Stop();
+            return port;
+        }
+
         public bool PortInUse(int port)
         {
             bool inUse = false;
@@ -385,11 +398,13 @@ namespace System.Application.Services.Implementation
             //proxyServer.ServerCertificateValidationCallback += OnCertificateValidation;
             //proxyServer.ClientCertificateSelectionCallback += OnCertificateSelection;
 
-            var explicitProxyEndPoint = new ExplicitProxyEndPoint(IPAddress.Loopback, ProxyPort, true)
+
+            var explicitProxyEndPoint = new ExplicitProxyEndPoint(ProxyIp, GetRandomUnusedPort(), true)
             {
                 // 通过不启用为每个http的域创建证书来优化性能
                 //GenericCertificate = proxyServer.CertificateManager.RootCertificate
             };
+
             if (IsWindowsProxy)
             {
                 //explicit endpoint 是客户端知道代理存在的地方
@@ -402,14 +417,14 @@ namespace System.Application.Services.Implementation
                 //    return false;
                 //}
 
-                proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Loopback, 443, true)
+                proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 443, true)
                 {
                     // 通过不启用为每个http的域创建证书来优化性能
                     //GenericCertificate = proxyServer.CertificateManager.RootCertificate
                 });
 
                 if (PortInUse(80) == false)
-                    proxyServer.AddEndPoint(new TransparentProxyEndPoint(IPAddress.Loopback, 80, false));
+                    proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 80, false));
             }
 
             proxyServer.ExceptionFunc = ((Exception exception) =>
