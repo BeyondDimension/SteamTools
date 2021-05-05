@@ -5,9 +5,11 @@ using System.Application.Services.CloudService;
 using System.Application.UI.Resx;
 using System.IO;
 using System.Properties;
+using System.Reactive;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
@@ -17,6 +19,7 @@ namespace System.Application.UI.ViewModels
         public LoginOrRegisterWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LoginAndRegister;
+            SteamFastLogin = ReactiveCommand.CreateFromTask(async () => await FastLoginOrRegisterAsync(Close));
         }
 
         private string? _PhoneNumber;
@@ -95,7 +98,7 @@ namespace System.Application.UI.ViewModels
             close?.Invoke();
         }
 
-        internal static async Task FastLoginOrRegisterAsync()
+        internal static async Task FastLoginOrRegisterAsync(Action? close = null)
         {
             var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
             var urlExternalLoginCallback = apiBaseUrl + "/ExternalLoginCallback";
@@ -114,6 +117,7 @@ namespace System.Application.UI.ViewModels
                 IsSecurity = true,
                 //UseLoginUsingSteamClient = true,
                 UseLoginUsingSteamClientV2 = false,
+                Close = close,
             };
             async void _OnStreamResponseFilterResourceLoadComplete(string url, Stream data)
             {
@@ -138,6 +142,7 @@ namespace System.Application.UI.ViewModels
                         MainThreadDesktop.BeginInvokeOnMainThread(() =>
                         {
                             conn_helper.ShowResponseErrorMessage(response);
+                            close?.Invoke();
                             vm?.Close?.Invoke();
                         });
                     }
@@ -180,9 +185,7 @@ namespace System.Application.UI.ViewModels
             }, resizeMode: ResizeModeCompat.NoResize);
         }
 
-        public void SteamFastLogin()
-        {
-        }
+        public ICommand SteamFastLogin { get; }
 
         protected override void Dispose(bool disposing)
         {

@@ -17,12 +17,16 @@ namespace System.Application.Services
 
         public async void ShowWindow(CustomWindow windowName)
         {
-            switch (windowName)
+            if (windowName == CustomWindow.LoginOrRegister)
             {
-                case CustomWindow.LoginOrRegister:
-                    var cUser = await userManager.GetCurrentUserAsync();
-                    if (cUser.HasValue()) return;
-                    break;
+                var cUser = await userManager.GetCurrentUserAsync();
+                if (cUser.HasValue()) return;
+            }
+            else if (windowName == CustomWindow.ChangeBindPhoneNumber)
+            {
+                var cUser = await userManager.GetCurrentUserAsync();
+                if (!cUser.HasValue()) return;
+                if (string.IsNullOrWhiteSpace(cUser!.PhoneNumber)) return;
             }
             var vmType = Type.GetType($"System.Application.UI.ViewModels.{windowName}WindowViewModel");
             if (vmType != null && typeof(WindowViewModel).IsAssignableFrom(vmType))
@@ -100,10 +104,19 @@ namespace System.Application.Services
             await RefreshUserAsync();
         }
 
+        bool _HasPhoneNumber;
+        public bool HasPhoneNumber
+        {
+            get => _HasPhoneNumber;
+            set => this.RaiseAndSetIfChanged(ref _HasPhoneNumber, value);
+        }
+
         public async Task RefreshUserAsync()
         {
             User = await userManager.GetCurrentUserInfoAsync();
             AvaterPath = GetAvaterPath(User);
+            var userInfo = await userManager.GetCurrentUserAsync();
+            HasPhoneNumber = !string.IsNullOrWhiteSpace(userInfo?.PhoneNumber);
         }
     }
 }

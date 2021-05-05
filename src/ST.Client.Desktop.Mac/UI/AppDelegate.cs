@@ -60,7 +60,7 @@ namespace System.Application.UI
         /// <param name="notification"></param>
         public override void DidFinishLaunching(NSNotification notification)
         {
-#if !NETSTANDARD && !NET5_0
+#if !NETSTANDARD && !NET5_0 && !NET6_0
             VisualStudioAppCenterSDK.Init();
 #endif
 

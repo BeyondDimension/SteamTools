@@ -186,7 +186,7 @@ namespace System.Application.UI.Views.Windows
             base.OnDataContextChanged(e);
             if (DataContext is WebView3WindowViewModel vm)
             {
-                vm.Close = Close;
+                vm.Close += Close;
                 if (!string.IsNullOrWhiteSpace(vm.Title))
                     webView.DocumentTitleChanged -= WebView_DocumentTitleChanged;
                 if (vm.UseLoginUsingSteamClient)

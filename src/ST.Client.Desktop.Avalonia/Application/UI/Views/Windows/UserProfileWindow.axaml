@@ -63,7 +63,7 @@
         <DockPanel>
           <Image Source="/Application/UI/Assets/AppResources/avater.jpg" Width="184" Height="184"/>
           <StackPanel Orientation="Vertical" Margin="16,0,0,0">
-            <Button Content="{ReflectionBinding Path=Res.UploadYourAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}"
+            <Button Content="{ReflectionBinding Path=Res.RefreshSteamAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}"
                     Opacity="0"
                     IsEnabled="False"
                     Classes="SecondaryMin MariginButton WidthUnify"/>
@@ -71,13 +71,13 @@
                        Margin="0,0,0,32"
                        Opacity="0"
                        FontSize="12"
-                       Text="{ReflectionBinding Path=Res.UploadYourAvatarDesc,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                       Text="{ReflectionBinding Path=Res.RefreshSteamAvatarDesc,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
             <Button Classes="SecondaryMin MariginButton"
                     IsEnabled="False"
-                    Content="{ReflectionBinding Path=Res.RefreshSteamAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                    Content="{ReflectionBinding Path=Res.UploadYourAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
             <TextBlock FontSize="12"
                        TextWrapping="Wrap"
-                       Text="{ReflectionBinding Path=Res.RefreshSteamAvatarDesc,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                       Text="{ReflectionBinding Path=Res.UploadYourAvatarDesc,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
           </StackPanel>
         </DockPanel>
         <Grid>
