@@ -1,4 +1,4 @@
-﻿using Avalonia.Controls;
+using Avalonia.Controls;
 using System.Threading.Tasks;
 using AvaloniaApplication = Avalonia.Application;
 
@@ -29,6 +29,12 @@ namespace System.Application.Services
         {
             var owner = GetActiveWindow();
             window.Show(owner);
+        }
+
+        void ShowWindowNoParent(Window window)
+        {
+            var owner = GetActiveWindow();
+            window.Show();
         }
     }
 }

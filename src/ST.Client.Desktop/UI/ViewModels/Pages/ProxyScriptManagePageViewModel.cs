@@ -25,7 +25,6 @@ namespace System.Application.UI.ViewModels
 
         internal override void Activation()
         {
-
             if (IsFirstActivation)
                 if (ProxySettings.IsAutoCheckScriptUpdate)
                     ProxyService.Current.CheckUpdate();
@@ -184,7 +183,7 @@ namespace System.Application.UI.ViewModels
             }
             else
             {
-                DeleteNoFileScriptItemButton(script); 
+                DeleteNoFileScriptItemButton(script);
             }
 
         }

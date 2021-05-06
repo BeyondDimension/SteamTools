@@ -94,6 +94,10 @@
                      VerticalAlignment="Center"/>
           <TextBox Classes="Content readonlybox"
                    Text="{Binding VersionDisplay,Mode=OneTime}"/>
+          <Button Classes="plain" Command="{Binding CheckUpdateCommand}"
+                  VerticalAlignment="Center" VerticalContentAlignment="Center">
+            <TextBlock Text="{ReflectionBinding Path=Res.CheckUpdate,Source={x:Static resx:R.Current},Mode=OneWay}" Classes="Hyperlink" />
+          </Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="5">
           <TextBlock Classes="Header light"

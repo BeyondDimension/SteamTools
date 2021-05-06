@@ -64,7 +64,7 @@ namespace System.Application.Services.Implementation
         {
             get
             {
-                return Process.GetProcessesByName(steamProcess[0])?.Length > 0;
+                return Process.GetProcessesByName(steamProcess[0]).Any_Nullable();
             }
         }
 

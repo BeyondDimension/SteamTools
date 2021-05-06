@@ -394,9 +394,9 @@ namespace System.Application.UI
             mainWindow.ActivateWorkaround(); // Extension method hack because of https://github.com/AvaloniaUI/Avalonia/issues/2975
             mainWindow.Focus();
 
-            // Again, ugly hack because of https://github.com/AvaloniaUI/Avalonia/issues/2994
-            mainWindow.Width += 0.1;
-            mainWindow.Width -= 0.1;
+            //// Again, ugly hack because of https://github.com/AvaloniaUI/Avalonia/issues/2994
+            //mainWindow.Width += 0.1;
+            //mainWindow.Width -= 0.1;
         }
 
         public bool HasActiveWindow()
