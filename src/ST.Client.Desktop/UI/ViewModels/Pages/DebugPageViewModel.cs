@@ -17,6 +17,7 @@ using System.IO.Pipes;
 using System.Linq;
 using System.Security;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static Newtonsoft.Json.JsonConvert;
 
@@ -41,12 +42,22 @@ namespace System.Application.UI.ViewModels
         {
         }
 
-        public async void DebugButton_Click()
+        public void DebugButton_Click()
+        {
+            Parallel.For(0, 10, (_, _) =>
+            {
+                DebugButton_Click1();
+                //Task.Run(DebugButton_Click1);
+            });
+        }
+
+        public async void DebugButton_Click1()
         {
             Toast.Show(DateTime.Now.ToString());
 
             StringBuilder @string = new();
 
+            @string.AppendFormatLine("ThreadId: {0}", Thread.CurrentThread.ManagedThreadId);
             @string.AppendFormatLine("CJKTest: {0}", "中文繁體русский языкカタカナ한글");
             @string.AppendFormatLine("CLRVersion: {0}", Environment.Version);
             @string.AppendFormatLine("Culture: {0}", CultureInfo.CurrentCulture);
@@ -208,18 +219,22 @@ namespace System.Application.UI.ViewModels
             }
             @string.AppendFormatLine("EmbeddedAes: {0}", embeddedAes);
 
-            DebugString = @string.ToString();
+            DebugString += @string.ToString() + Environment.NewLine;
         }
 
         public void ShowDialogButton_Click()
         {
 #if DEBUG
-            IPCTest();
+            if (DI.Platform == Platform.Windows)
+            {
+                //IPCTest();
+                FileShareTest();
+            }
 #endif
         }
 
 #if DEBUG
-        void IPCTest()
+        public void IPCTest()
         {
             if (AppHelper.ProgramPath.EndsWith(FileEx.EXE))
             {
@@ -267,6 +282,53 @@ namespace System.Application.UI.ViewModels
                     pipeClient.WaitForExit();
                     pipeClient.Close();
                     DebugString += Environment.NewLine + "[SERVER] Client quit. Server terminating.";
+                }
+            }
+        }
+
+        public void FileShareTest()
+        {
+            if (AppHelper.ProgramPath.EndsWith(FileEx.EXE))
+            {
+                var consoleProgramPath = AppHelper.ProgramPath.Substring(0, AppHelper.ProgramPath.Length - FileEx.EXE.Length) + ".Console" + FileEx.EXE;
+                if (File.Exists(consoleProgramPath))
+                {
+                    var pipeClient = new Process();
+                    pipeClient.StartInfo.FileName = "runas.exe";
+
+                    var tempFileDirectoryName = IOPath.CacheDirectory;
+                    var tempFileName = Path.GetFileName(Path.GetTempFileName());
+                    var tempFilePath = Path.Combine(tempFileDirectoryName, tempFileName);
+                    IOPath.FileIfExistsItDelete(tempFilePath);
+
+                    using var watcher = new FileSystemWatcher(tempFileDirectoryName, tempFileName)
+                    {
+                        NotifyFilter = NotifyFilters.Attributes
+                            | NotifyFilters.CreationTime
+                            | NotifyFilters.DirectoryName
+                            | NotifyFilters.FileName
+                            | NotifyFilters.LastAccess
+                            | NotifyFilters.LastWrite
+                            | NotifyFilters.Security
+                            | NotifyFilters.Size,
+                    };
+
+                    var connStr = tempFilePath;
+                    connStr = Serializable.SMPB64U(connStr);
+                    pipeClient.StartInfo.Arguments = $"/trustlevel:0x20000 \"\"{consoleProgramPath}\" ipc2 -key \"{connStr}\"\"";
+                    pipeClient.StartInfo.UseShellExecute = false;
+                    pipeClient.Start();
+
+                    pipeClient.WaitForExit();
+                    pipeClient.Close();
+
+                    watcher.WaitForChanged(WatcherChangeTypes.Created, 950);
+                    if (File.Exists(tempFilePath))
+                    {
+                        var value = File.ReadAllText(tempFilePath);
+                        File.Delete(tempFilePath);
+                        DebugString = value;
+                    }
                 }
             }
         }

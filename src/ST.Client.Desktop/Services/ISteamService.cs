@@ -10,6 +10,8 @@ namespace System.Application.Services
     /// </summary>
     public interface ISteamService
     {
+        public const int IPC_Call_GetLoginUsingSteamClient_Timeout_MS = 15000;
+
         public static ISteamService Instance => DI.Get<ISteamService>();
 
         /// <summary>

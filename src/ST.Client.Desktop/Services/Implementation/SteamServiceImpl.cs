@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Application.Services.ISteamService;
 
 namespace System.Application.Services.Implementation
 {
@@ -381,40 +382,64 @@ namespace System.Application.Services.Implementation
 
         public async Task<(string steamid, string encrypted_loginkey, string sessionkey, string digest)> GetLoginUsingSteamClientAuthAsync(bool runasInvoker = false)
         {
-            if (runasInvoker)
+            if (runasInvoker && DI.Platform == Platform.Windows)
             {
                 if (AppHelper.ProgramPath.EndsWith(FileEx.EXE))
                 {
                     var consoleProgramPath = AppHelper.ProgramPath.Substring(0, AppHelper.ProgramPath.Length - FileEx.EXE.Length) + ".Console" + FileEx.EXE;
-                    string? value = null;
                     if (File.Exists(consoleProgramPath))
                     {
-                        var startInfo = new ProcessStartInfo
+                        //var pipeClient = new Process();
+                        //pipeClient.StartInfo.FileName = "runas.exe";
+
+                        var tempFileDirectoryName = IOPath.CacheDirectory;
+                        var tempFileName = Path.GetFileName(Path.GetTempFileName());
+                        var tempFilePath = Path.Combine(tempFileDirectoryName, tempFileName);
+                        IOPath.FileIfExistsItDelete(tempFilePath);
+
+                        using var watcher = new FileSystemWatcher(tempFileDirectoryName, tempFileName)
                         {
-                            FileName = consoleProgramPath + " getstmauth",
-                            UseShellExecute = false,
-                            RedirectStandardOutput = true,
-                            CreateNoWindow = true,
+                            NotifyFilter = NotifyFilters.Attributes
+                                | NotifyFilters.CreationTime
+                                | NotifyFilters.DirectoryName
+                                | NotifyFilters.FileName
+                                | NotifyFilters.LastAccess
+                                | NotifyFilters.LastWrite
+                                | NotifyFilters.Security
+                                | NotifyFilters.Size,
                         };
-                        using var p = platformService.StartAsInvoker(startInfo)!;
-                        var reader = p.StandardOutput;
-                        StringBuilder sb = new();
-                        while (!reader.EndOfStream)
-                        {
-                            sb.AppendLine(reader.ReadLine());
-                        }
-                        value = sb.ToString();
-                        p.WaitForExit();
-                    }
-                    if (value != null)
-                    {
+
+                        var connStr = tempFilePath;
+                        connStr = Serializable.SMPB64U(connStr);
+                        //pipeClient.StartInfo.Arguments = $"/trustlevel:0x20000 \"\"{consoleProgramPath}\" getstmauth -key \"{connStr}\"\"";
+                        //pipeClient.StartInfo.UseShellExecute = false;
                         try
                         {
-                            var r = Serializable.DMPB64U<(string steamid, string encrypted_loginkey, string sessionkey, string digest)>(value);
-                            return r;
+                            //pipeClient.Start();
+
+                            //pipeClient.WaitForExit();
+                            //pipeClient.Close();
+
+                            platformService.UnelevatedProcessStart($"runas.exe /trustlevel:0x20000 \"\"{consoleProgramPath}\" getstmauth -key \"{connStr}\"\"");
+
+                            watcher.WaitForChanged(WatcherChangeTypes.Created, IPC_Call_GetLoginUsingSteamClient_Timeout_MS);
+                            if (File.Exists(tempFilePath))
+                            {
+                                var value = File.ReadAllText(tempFilePath);
+                                File.Delete(tempFilePath);
+                                try
+                                {
+                                    var r = Serializable.DMPB64U<(string steamid, string encrypted_loginkey, string sessionkey, string digest)>(value);
+                                    return r;
+                                }
+                                catch
+                                {
+                                }
+                            }
                         }
                         catch
                         {
+
                         }
                     }
                 }
@@ -431,6 +456,10 @@ namespace System.Application.Services.Implementation
                     request.Headers.Add("Accept", MediaTypeNames.JSON);
                     request.Headers.UserAgent.ParseAdd(http.PlatformHelper.UserAgent);
                     var response = await client.SendAsync(request);
+#if DEBUG
+                    Console.WriteLine("GetLoginUsingSteamClientAuthAsync");
+                    Console.WriteLine($"StatusCode: {response.StatusCode}");
+#endif
                     if (response.IsSuccessStatusCode)
                     {
                         using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
@@ -438,6 +467,9 @@ namespace System.Application.Services.Implementation
                         using var json = new JsonTextReader(reader);
                         var jsonObj = JObject.Load(json);
                         var steamid = jsonObj["steamid"]!.ToString();
+#if DEBUG
+                        Console.WriteLine($"steamid: {steamid}");
+#endif
                         var encrypted_loginkey = jsonObj["encrypted_loginkey"]!.ToString();
                         var sessionkey = jsonObj["sessionkey"]!.ToString();
                         var digest = jsonObj["digest"]!.ToString();
@@ -455,7 +487,7 @@ namespace System.Application.Services.Implementation
         {
             if (auth_data == default) return default;
 
-            const string url_steamcommunity_checkclientautologin = "https://steamcommunity.com//login/checkclientautologin";
+            const string url_steamcommunity_checkclientautologin = "https://steamcommunity.com/login/checkclientautologin";
             var uri_steamcommunity_checkclientautologin = new Uri(url_steamcommunity_checkclientautologin);
             var request = new HttpRequestMessage(HttpMethod.Post, uri_steamcommunity_checkclientautologin)
             {
@@ -471,7 +503,7 @@ namespace System.Application.Services.Implementation
             };
             var client = http.Factory.CreateClient();
             client.Timeout = TimeSpan.FromSeconds(9.75);
-            var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+            var response = await client.SendAsync(request/*, HttpCompletionOption.ResponseHeadersRead*/);
             if (response.IsSuccessStatusCode && response.Headers.TryGetValues("Set-Cookie", out var cookies))
             {
                 CookieContainer container = new();

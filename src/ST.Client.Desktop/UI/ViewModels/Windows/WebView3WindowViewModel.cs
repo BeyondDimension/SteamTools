@@ -1,6 +1,7 @@
 using ReactiveUI;
 using System.IO;
 using System.Net.Http;
+using System.Properties;
 
 namespace System.Application.UI.ViewModels
 {
@@ -36,7 +37,12 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// 设置网页加载超时时间
         /// </summary>
-        public TimeSpan Timeout { get; set; } = GeneralHttpClientFactory.DefaultTimeout;
+        public TimeSpan Timeout { get; set; } =
+#if DEBUG
+            TimeSpan.FromMinutes(15);
+#else
+            GeneralHttpClientFactory.DefaultTimeout;
+#endif
 
         /// <summary>
         /// 网页加载超时时提示文本

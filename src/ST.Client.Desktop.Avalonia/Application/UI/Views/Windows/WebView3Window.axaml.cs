@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using static System.Application.Services.CloudService.Constants;
+using static System.Application.Services.ISteamService;
 
 namespace System.Application.UI.Views.Windows
 {
@@ -162,7 +163,7 @@ namespace System.Application.UI.Views.Windows
                 var manager = CefRequestContext.GetGlobalContext().GetCookieManager(null);
                 foreach (Cookie item in cookies)
                 {
-                    var cookie = new CefNetCookie(item.Name, item.Value);
+                    var cookie = item.GetCefNetCookie();
                     var setCookieResult = await manager.SetCookieAsync(url, cookie);
                     if (item.Name == "steamLoginSecure" && !setCookieResult)
                     {
@@ -196,6 +197,7 @@ namespace System.Application.UI.Views.Windows
                 }
                 else if (vm.UseLoginUsingSteamClientV2)
                 {
+                    vm.Timeout += TimeSpan.FromMilliseconds(IPC_Call_GetLoginUsingSteamClient_Timeout_MS);
                     loginUsingSteamClientState = LoginUsingSteamClientState.Loading;
                     GetLoginUsingSteamClientCookies();
                 }

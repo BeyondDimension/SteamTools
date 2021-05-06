@@ -74,14 +74,16 @@ namespace System.Application.Services.Implementation
             return Process.Start(fileName);
         }
 
-        public Process? StartAsInvoker(ProcessStartInfo startInfo)
-        {
-            return Process.Start(startInfo);
-        }
-
         public Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true)
         {
             return null;
+        }
+
+        public bool IsAdministrator => false;
+
+        public void UnelevatedProcessStart(string cmdArgs)
+        {
+            throw new PlatformNotSupportedException();
         }
     }
 }

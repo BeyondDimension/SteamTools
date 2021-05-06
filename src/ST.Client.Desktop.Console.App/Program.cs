@@ -34,12 +34,21 @@ if (!args.Any())
 var rootCommand = new RootCommand("命令行工具(Command Line Tools/CLT)");
 
 var getstmauth = new Command("getstmauth", "获取 Steam 客户端自动登录数据");
-getstmauth.Handler = CommandHandler.Create(async () =>
+getstmauth.AddOption(new Option<string>("-key"));
+getstmauth.Handler = CommandHandler.Create(async (string key) =>
 {
-    var s = DISafeGet.GetLoginUsingSteamClientAuth();
-    var r = await s.GetLoginUsingSteamClientAuthAsync(false);
-    var r2 = Serializable.SMPB64U(r);
-    Console.WriteLine(r2);
+    if (!string.IsNullOrWhiteSpace(key))
+    {
+        var connStr = Serializable.DMPB64U<string>(key)!;
+        var s = DISafeGet.GetLoginUsingSteamClientAuth();
+#if DEBUG
+        var dps = DI.Get<IDesktopPlatformService>();
+        Console.WriteLine($"IsAdministrator: {dps.IsAdministrator}");
+#endif
+        var r = await s.GetLoginUsingSteamClientAuthAsync(false);
+        var r2 = Serializable.SMPB64U(r);
+        File.WriteAllText(connStr, r2);
+    }
 });
 rootCommand.AddCommand(getstmauth);
 
@@ -92,7 +101,6 @@ if (DI.Platform == Platform.Windows)
             }
             catch
             {
-
             }
             if (kill)
             {
@@ -135,7 +143,22 @@ ipc.Handler = CommandHandler.Create((string key) =>
     }
 });
 rootCommand.AddCommand(ipc);
+
+var ipc2 = new Command("ipc2");
+ipc2.AddOption(new Option<string>("-key"));
+ipc2.Handler = CommandHandler.Create((string key) =>
+{
+    if (!string.IsNullOrWhiteSpace(key))
+    {
+        var connStr = Serializable.DMPB64U<string>(key)!;
+        Console.WriteLine("connStr: " + connStr);
+
+        File.WriteAllText(connStr, "TestFileW");
+    }
+});
+rootCommand.AddCommand(ipc2);
 #endif
 
 var r = rootCommand.InvokeAsync(args).Result;
+Console.ReadLine();
 return r;

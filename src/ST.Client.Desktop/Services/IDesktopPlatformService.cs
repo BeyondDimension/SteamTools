@@ -2,6 +2,7 @@ using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using ResizeMode = System.Int32;
 
@@ -186,8 +187,10 @@ namespace System.Application.Services
         /// <summary>
         /// 打开桌面图标设置
         /// </summary>
+        [SupportedOSPlatform("Windows")]
         void OpenDesktopIconsSettings();
 
+        [SupportedOSPlatform("Windows")]
         void OpenGameControllers();
 
         /// <summary>
@@ -195,9 +198,8 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
+        [SupportedOSPlatform("Windows")]
         Process StartAsInvoker(string fileName);
-
-        Process? StartAsInvoker(ProcessStartInfo startInfo);
 
         /// <summary>
         /// 获取占用端口的进程
@@ -205,6 +207,17 @@ namespace System.Application.Services
         /// <param name="port"></param>
         /// <param name="isTCPorUDP"></param>
         /// <returns></returns>
+        [SupportedOSPlatform("Windows")]
         Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true);
+
+        [SupportedOSPlatform("Windows")]
+        bool IsAdministrator { get; }
+
+        /// <summary>
+        /// 从管理员权限进程中降权到普通权限启动进程
+        /// </summary>
+        /// <param name="cmdArgs"></param>
+        [SupportedOSPlatform("Windows")]
+        void UnelevatedProcessStart(string cmdArgs);
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Security.Principal;
+using System.Security.Principal;
 
 namespace System.Application.Services.Implementation
 {
@@ -17,6 +17,8 @@ namespace System.Application.Services.Implementation
         /// </summary>
         /// <returns></returns>
         public static bool IsAdministrator => mIsAdministrator.Value;
+
+        bool IDesktopPlatformService.IsAdministrator => IsAdministrator;
 
         #endregion
     }
