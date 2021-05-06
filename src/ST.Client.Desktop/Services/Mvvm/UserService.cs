@@ -17,10 +17,12 @@ namespace System.Application.Services
 
         public async void ShowWindow(CustomWindow windowName)
         {
+            var isDialog = true;
             if (windowName == CustomWindow.LoginOrRegister)
             {
                 var cUser = await userManager.GetCurrentUserAsync();
                 if (cUser.HasValue()) return;
+                isDialog = false;
             }
             else if (windowName == CustomWindow.ChangeBindPhoneNumber)
             {
@@ -31,7 +33,7 @@ namespace System.Application.Services
             var vmType = Type.GetType($"System.Application.UI.ViewModels.{windowName}WindowViewModel");
             if (vmType != null && typeof(WindowViewModel).IsAssignableFrom(vmType))
             {
-                await IShowWindowService.Instance.ShowDialog(vmType, windowName);
+                await IShowWindowService.Instance.ShowDialog(vmType, windowName, isDialog: isDialog);
             }
         }
 
@@ -129,7 +131,7 @@ namespace System.Application.Services
                 CurrentSteamUser = await ISteamworksWebApiService.Instance.GetUserInfo(User.SteamAccountId.Value);
                 CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
             }
-            
+
             this.RaisePropertyChanged(nameof(AvaterPath));
             var userInfo = await userManager.GetCurrentUserAsync();
             HasPhoneNumber = !string.IsNullOrWhiteSpace(userInfo?.PhoneNumber);

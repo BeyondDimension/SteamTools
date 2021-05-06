@@ -12,6 +12,8 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Text;
 using System.Globalization;
+using System.IO;
+using System.IO.Pipes;
 using System.Linq;
 using System.Security;
 using System.Text;
@@ -209,7 +211,68 @@ namespace System.Application.UI.ViewModels
             DebugString = @string.ToString();
         }
 
-        public async void ShowDialogButton_Click()
+        public void ShowDialogButton_Click()
+        {
+#if DEBUG
+            IPCTest();
+#endif
+        }
+
+#if DEBUG
+        void IPCTest()
+        {
+            if (AppHelper.ProgramPath.EndsWith(FileEx.EXE))
+            {
+                var consoleProgramPath = AppHelper.ProgramPath.Substring(0, AppHelper.ProgramPath.Length - FileEx.EXE.Length) + ".Console" + FileEx.EXE;
+                if (File.Exists(consoleProgramPath))
+                {
+                    var pipeClient = new Process();
+                    //pipeClient.StartInfo.FileName = "runas.exe";
+                    pipeClient.StartInfo.FileName = consoleProgramPath;
+                    using (var pipeServer = new AnonymousPipeServerStream(PipeDirection.Out, HandleInheritability.Inheritable))
+                    {
+                        DebugString = string.Format("[SERVER] Current TransmissionMode: {0}.", pipeServer.TransmissionMode);
+
+                        // Pass the client process a handle to the server.
+
+                        var connStr = pipeServer.GetClientHandleAsString();
+                        connStr = Serializable.SMPB64U(connStr);
+                        //pipeClient.StartInfo.Arguments = $"/trustlevel:0x20000 \"\"{consoleProgramPath}\" ipc -key \"{connStr}\"\"";
+                        pipeClient.StartInfo.Arguments = $"ipc -key \"{connStr}\"";
+                        pipeClient.StartInfo.UseShellExecute = false;
+                        pipeClient.Start();
+
+                        pipeServer.DisposeLocalCopyOfClientHandle();
+
+                        try
+                        {
+                            // Read user input and send that to the client process.
+                            using var sw = new StreamWriter(pipeServer);
+                            sw.AutoFlush = true;
+                            // Send a 'sync message' and wait for client to receive it.
+                            sw.WriteLine("SYNC");
+                            pipeServer.WaitForPipeDrain();
+                            // Send the console input to the client process.
+                            //Console.Write("[SERVER] Enter text: ");
+                            //sw.WriteLine(Console.ReadLine());
+                            sw.WriteLine("[SERVER] Enter text: ");
+                        }
+                        // Catch the IOException that is raised if the pipe is broken
+                        // or disconnected.
+                        catch (IOException e)
+                        {
+                            DebugString += Environment.NewLine + string.Format("[SERVER] Error: {0}", e.Message);
+                        }
+                    }
+                    pipeClient.WaitForExit();
+                    pipeClient.Close();
+                    DebugString += Environment.NewLine + "[SERVER] Client quit. Server terminating.";
+                }
+            }
+        }
+#endif
+
+        public async void ShowDialogButton_Click1()
         {
 #if DEBUG
             await LoginOrRegisterWindowViewModel.FastLoginOrRegisterAsync();

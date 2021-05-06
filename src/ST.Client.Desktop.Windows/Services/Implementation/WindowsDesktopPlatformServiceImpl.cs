@@ -184,6 +184,38 @@ namespace System.Application.Services.Implementation
             startInfo.FileName = $"/trustlevel:0x20000 \"{startInfo.FileName}\"";
             return Process.Start(startInfo);
         }
+
+        public Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true)
+        {
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "netstat.exe",
+                    Arguments = $"-a -n -o",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                },
+            };
+            p.Start();
+            var reader = p.StandardOutput;
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                if (line == null) break;
+                var lineArray = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                if (lineArray.Length != 5) continue;
+                if (!lineArray[0].Equals(isTCPorUDP ? "TCP" : "UDP", StringComparison.OrdinalIgnoreCase)) continue;
+                if (!lineArray[3].Equals("LISTENING", StringComparison.OrdinalIgnoreCase)) continue;
+                if (!lineArray[1].EndsWith($":{port}")) continue;
+                if (!ushort.TryParse(lineArray[4], out var pid)) continue;
+                p.Close();
+                return Process.GetProcessById(pid);
+            }
+            p.WaitForExit();
+            return default;
+        }
     }
 }
 #pragma warning restore CA1416 // 验证平台兼容性

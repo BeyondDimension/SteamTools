@@ -188,6 +188,8 @@ namespace System.Application.Services
         /// </summary>
         void OpenDesktopIconsSettings();
 
+        void OpenGameControllers();
+
         /// <summary>
         /// 已正常权限启动进程
         /// </summary>
@@ -196,5 +198,13 @@ namespace System.Application.Services
         Process StartAsInvoker(string fileName);
 
         Process? StartAsInvoker(ProcessStartInfo startInfo);
+
+        /// <summary>
+        /// 获取占用端口的进程
+        /// </summary>
+        /// <param name="port"></param>
+        /// <param name="isTCPorUDP"></param>
+        /// <returns></returns>
+        Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true);
     }
 }

@@ -78,5 +78,10 @@ namespace System.Application.Services.Implementation
         {
             return Process.Start(startInfo);
         }
+
+        public Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true)
+        {
+            return null;
+        }
     }
 }

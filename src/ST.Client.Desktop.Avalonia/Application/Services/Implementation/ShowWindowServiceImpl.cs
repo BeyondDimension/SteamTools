@@ -1,8 +1,11 @@
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using ReactiveUI;
 using System.Application.UI.ViewModels;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using AvaloniaApplication = Avalonia.Application;
 
 namespace System.Application.Services.Implementation
 {
@@ -25,6 +28,29 @@ namespace System.Application.Services.Implementation
         //    _ => throw new ArgumentOutOfRangeException(nameof(customWindow), customWindow, null),
         //};
 
+        static bool IsSingletonWindow(CustomWindow customWindow) => customWindow switch
+        {
+            CustomWindow.LoginOrRegister or
+            CustomWindow.ChangeBindPhoneNumber or
+            CustomWindow.UserProfile => true,
+            _ => false,
+        };
+
+        static bool TryShowSingletonWindow(Type windowType)
+        {
+            if (AvaloniaApplication.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                var window = desktop.Windows.FirstOrDefault(x => x.GetType() == windowType);
+                if (window != null)
+                {
+                    if (window.WindowState != WindowState.Normal) window.WindowState = WindowState.Normal;
+                    window.Activate();
+                    return true;
+                }
+            }
+            return false;
+        }
+
         Task Show(Type typeWindowViewModel,
             bool isDialog,
             CustomWindow customWindow,
@@ -36,6 +62,10 @@ namespace System.Application.Services.Implementation
             => MainThreadDesktop.InvokeOnMainThreadAsync(async () =>
             {
                 var windowType = GetWindowType(customWindow);
+                if (IsSingletonWindow(customWindow) && TryShowSingletonWindow(windowType))
+                {
+                    return;
+                }
                 var window = (Window)Activator.CreateInstance(windowType);
                 if (viewModel == null && typeWindowViewModel != typeof(object))
                 {

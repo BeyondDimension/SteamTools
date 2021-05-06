@@ -3,12 +3,14 @@ using MessagePack;
 #endif
 #if !NOT_NJSON
 using Newtonsoft.Json;
+using System;
 #endif
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using System.Text.Encodings.Web;
+using System.Text.Json;
 using System.Threading;
 #if !NOT_NJSON
 using static Newtonsoft.Json.JsonConvert;
@@ -330,6 +332,35 @@ namespace System
                 JsonImplType.SystemTextJson => ImplType.SystemTextJson,
                 _ => ImplType.NewtonsoftJson,
             };
+        }
+    }
+}
+
+namespace Newtonsoft.Json.Serialization
+{
+    /// <summary>
+    /// 将忽略 <see cref="JsonPropertyAttribute"/> 属性
+    /// </summary>
+    public sealed class IgnoreJsonPropertyContractResolver : DefaultContractResolver
+    {
+        readonly bool useCamelCase;
+
+        public IgnoreJsonPropertyContractResolver(bool useCamelCase = false)
+        {
+            this.useCamelCase = useCamelCase;
+        }
+
+        protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
+        {
+            var result = base.CreateProperties(type, memberSerialization);
+            foreach (var item in result)
+            {
+                item.PropertyName = item.UnderlyingName == null ? null :
+                    (useCamelCase ?
+                        JsonNamingPolicy.CamelCase.ConvertName(item.UnderlyingName) :
+                        item.UnderlyingName);
+            }
+            return result;
         }
     }
 }

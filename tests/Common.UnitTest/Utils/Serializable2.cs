@@ -1,4 +1,4 @@
-﻿// Rename Serializable.DebugView / DebugViewText
+// Rename Serializable.DebugView / DebugViewText
 // Rename CrossLanguageSettings
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -25,22 +25,6 @@ namespace System
                 new StringEnumConverter(),
             },
         };
-
-        /// <summary>
-        /// 将忽略 <see cref="JsonPropertyAttribute"/> 属性
-        /// </summary>
-        sealed class IgnoreJsonPropertyContractResolver : DefaultContractResolver
-        {
-            protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
-            {
-                var result = base.CreateProperties(type, memberSerialization);
-                foreach (var item in result)
-                {
-                    item.PropertyName = item.UnderlyingName;
-                }
-                return result;
-            }
-        }
 
         /// <summary>
         /// 序列化 JSON 模型，使用原键名，仅调试使用

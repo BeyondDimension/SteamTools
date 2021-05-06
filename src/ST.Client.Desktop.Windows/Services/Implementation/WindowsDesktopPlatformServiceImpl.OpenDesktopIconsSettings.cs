@@ -18,5 +18,15 @@ namespace System.Application.Services.Implementation
                 UseShellExecute = true,
             });
         }
+
+        public void OpenGameControllers()
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "rundll32.exe",
+                Arguments = OpenGameControllersCommandArguments,
+                UseShellExecute = true,
+            });
+        }
     }
 }

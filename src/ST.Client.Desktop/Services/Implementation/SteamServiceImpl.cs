@@ -391,7 +391,7 @@ namespace System.Application.Services.Implementation
                     {
                         var startInfo = new ProcessStartInfo
                         {
-                            FileName = consoleProgramPath + " glusca",
+                            FileName = consoleProgramPath + " getstmauth",
                             UseShellExecute = false,
                             RedirectStandardOutput = true,
                             CreateNoWindow = true,
