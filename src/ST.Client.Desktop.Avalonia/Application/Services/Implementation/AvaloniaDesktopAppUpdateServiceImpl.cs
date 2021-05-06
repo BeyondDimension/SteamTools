@@ -20,7 +20,7 @@ namespace System.Application.Services.Implementation
             var hasActiveWindow = IDesktopAppService.Instance.HasActiveWindow();
             if (hasActiveWindow)
             {
-                await IShowWindowService.Instance.Show(typeof(object), CustomWindow.NewVersion);
+                await IShowWindowService.Instance.Show(typeof(object), CustomWindow.NewVersion, isParent: false);
             }
         }
 

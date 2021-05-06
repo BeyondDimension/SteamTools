@@ -24,7 +24,13 @@ namespace System.Application.UI.ViewModels
             OpenBrowserCommand = ReactiveCommand.Create<string>(BrowserOpen);
 
             CopyLinkCommand = ReactiveCommand.Create<string>(IDesktopAppService.Instance.SetClipboardText);
+
+            CheckUpdateCommand = ReactiveCommand.Create(() =>
+            {
+                IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: true);
+            });
         }
+        public ReactiveCommand<Unit, Unit> CheckUpdateCommand { get; }
 
         public ReactiveCommand<string, Unit> OpenBrowserCommand { get; }
 

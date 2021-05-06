@@ -27,7 +27,7 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> OpenCertificateDirCommand { get; }
         public ReactiveCommand<Unit, Unit> EditHostsFileCommand { get; }
         public ReactiveCommand<Unit, Unit> AutoRunProxyCommand { get; }
-        public ReactiveCommand<Unit, Unit> EnableProxyScriptCommand { get; }
+        //public ReactiveCommand<Unit, Unit> EnableProxyScriptCommand { get; }
 
         public MenuItemViewModel AutoRunProxy { get; }
         //public MenuItemViewModel EnableProxyScript { get; }

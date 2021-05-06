@@ -414,6 +414,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 检查更新 的本地化字符串。
+        /// </summary>
+        public static string CheckUpdate {
+            get {
+                return ResourceManager.GetString("CheckUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 云同步 的本地化字符串。
         /// </summary>
         public static string CloudSync {
@@ -2017,7 +2026,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 基本设置 的本地化字符串。
+        ///   查找类似 通用设置 的本地化字符串。
         /// </summary>
         public static string Settings_General {
             get {

@@ -236,6 +236,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="CheckUpdate" xml:space="preserve">
+    <value>检查更新</value>
+  </data>
   <data name="CloudSync" xml:space="preserve">
     <value>云同步</value>
   </data>
@@ -776,7 +779,7 @@
     <value>字体</value>
   </data>
   <data name="Settings_General" xml:space="preserve">
-    <value>基本设置</value>
+    <value>通用设置</value>
   </data>
   <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
     <value>启动时自动检查更新</value>

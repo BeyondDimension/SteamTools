@@ -399,43 +399,48 @@ namespace System.Application.Services.Implementation
             //proxyServer.ServerCertificateValidationCallback += OnCertificateValidation;
             //proxyServer.ClientCertificateSelectionCallback += OnCertificateSelection;
 
-
-            var explicitProxyEndPoint = new ExplicitProxyEndPoint(ProxyIp, GetRandomUnusedPort(), true)
+            try
             {
-                // 通过不启用为每个http的域创建证书来优化性能
-                //GenericCertificate = proxyServer.CertificateManager.RootCertificate
-            };
-
-            if (IsWindowsProxy)
-            {
-                //explicit endpoint 是客户端知道代理存在的地方
-                proxyServer.AddEndPoint(explicitProxyEndPoint);
-            }
-            else
-            {
-                //if (PortInUse(443))
-                //{
-                //    return false;
-                //}
-
-                proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 443, true)
+                var explicitProxyEndPoint = new ExplicitProxyEndPoint(ProxyIp, GetRandomUnusedPort(), true)
                 {
                     // 通过不启用为每个http的域创建证书来优化性能
                     //GenericCertificate = proxyServer.CertificateManager.RootCertificate
+                };
+
+                if (IsWindowsProxy)
+                {
+                    //explicit endpoint 是客户端知道代理存在的地方
+                    proxyServer.AddEndPoint(explicitProxyEndPoint);
+                }
+                else
+                {
+                    //if (PortInUse(443))
+                    //{
+                    //    return false;
+                    //}
+
+                    proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 443, true)
+                    {
+                        // 通过不启用为每个http的域创建证书来优化性能
+                        //GenericCertificate = proxyServer.CertificateManager.RootCertificate
+                    });
+
+                    if (PortInUse(80) == false)
+                        proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 80, false));
+                }
+
+                proxyServer.ExceptionFunc = ((Exception exception) =>
+                {
+                    Log.Error("Proxy", exception, "ProxyServer ExceptionFunc");
                 });
 
-                if (PortInUse(80) == false)
-                    proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 80, false));
-            }
-
-            proxyServer.ExceptionFunc = ((Exception exception) =>
-            {
-                Log.Error("Proxy", exception, "ProxyServer ExceptionFunc");
-            });
-
-            try
-            {
                 proxyServer.Start();
+
+                if (IsWindowsProxy)
+                {
+                    proxyServer.SetAsSystemHttpProxy(explicitProxyEndPoint);
+                    proxyServer.SetAsSystemHttpsProxy(explicitProxyEndPoint);
+                }
             }
             catch (Exception ex)
             {
@@ -443,11 +448,6 @@ namespace System.Application.Services.Implementation
                 return false;
             }
 
-            if (IsWindowsProxy)
-            {
-                proxyServer.SetAsSystemHttpProxy(explicitProxyEndPoint);
-                proxyServer.SetAsSystemHttpsProxy(explicitProxyEndPoint);
-            }
             #endregion
 #if DEBUG
             foreach (var endPoint in proxyServer.ProxyEndPoints)
