@@ -53,4 +53,10 @@
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0013977-beta" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Application\UI\Views\Pages\GameRelatedPage.axaml.cs">
+      <DependentUpon>GameRelatedPage.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

@@ -170,7 +170,7 @@ namespace System.Application.Services
                         {
                             IsConnectToSteam = false;
                         }
-                        await Task.Delay(2000);
+                        Thread.Sleep(2000);
                     }
                 }
                 catch (Exception ex)

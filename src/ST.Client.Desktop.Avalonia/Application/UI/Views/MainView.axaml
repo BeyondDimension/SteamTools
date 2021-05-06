@@ -178,6 +178,9 @@
         <DataTemplate DataType="vm:LocalAuthPageViewModel">
           <pages:LocalAuthPage/>
         </DataTemplate>
+        <DataTemplate DataType="vm:GameRelatedPageViewModel">
+          <pages:GameRelatedPage/>
+        </DataTemplate>
       </TabControl.DataTemplates>
       <TabControl.ItemTemplate>
         <DataTemplate>

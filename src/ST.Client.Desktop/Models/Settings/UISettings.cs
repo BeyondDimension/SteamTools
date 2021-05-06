@@ -74,7 +74,7 @@ namespace System.Application.Models.Settings
         /// 所有窗口位置记忆集合
         /// </summary>
         public static SerializableProperty<Dictionary<string, WindowSizePosition>> WindowSizePositions { get; }
-            = new SerializableProperty<Dictionary<string, WindowSizePosition>>(GetKey(), Providers.Local, new Dictionary<string, WindowSizePosition>()) { AutoSave = true };
+            = new SerializableProperty<Dictionary<string, WindowSizePosition>>(GetKey(), Providers.Local, new Dictionary<string, WindowSizePosition>()) { AutoSave = false };
 
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
