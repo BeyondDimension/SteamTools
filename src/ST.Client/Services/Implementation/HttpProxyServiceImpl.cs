@@ -3,6 +3,7 @@ using System.Application.Models;
 using System.Application.Properties;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -96,17 +97,19 @@ namespace System.Application.Services.Implementation
             }
             //e.Ok(respone, new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*") });
         }
+
         public async Task OnRequest(object sender, SessionEventArgs e)
         {
 #if DEBUG
             Debug.WriteLine("OnRequest " + e.HttpClient.Request.RequestUri.AbsoluteUri);
             Debug.WriteLine("OnRequest HTTP " + e.HttpClient.Request.HttpVersion);
+            Debug.WriteLine("ClientRemoteEndPoint " + e.ClientRemoteEndPoint.ToString());
 #endif
-            if (ProxyDomains is null)
+            if (ProxyDomains is null || e.HttpClient.Request.Host == null)
             {
                 return;
             }
-            if (e.HttpClient.Request.Host == "local.steampp.net")
+            if (e.HttpClient.Request.Host.Equals("local.steampp.net", StringComparison.OrdinalIgnoreCase))
             {
                 if (e.HttpClient.Request.Method.ToUpperInvariant() == "OPTIONS")
                 {
@@ -190,14 +193,16 @@ namespace System.Application.Services.Implementation
                 }
             }
 
-            var s = await Dns.GetHostAddressesAsync(e.HttpClient.Request.Host);
             //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
-            if (IPAddress.IsLoopback(s.FirstOrDefault()) && ProxyDomains.Count(w => w.Enable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
+            //if (!e.IsTransparent)
+            //{
+            if (IPAddress.IsLoopback(e.ClientRemoteEndPoint.Address) && ProxyDomains.Count(w => w.Enable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
             {
                 e.TerminateSession();
                 Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
                 return;
             }
+            //}
 
             ////没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
             //e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine}not support proxy"); 
@@ -395,9 +400,11 @@ namespace System.Application.Services.Implementation
             if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
 
             #region 启动代理
+            proxyServer.Enable100ContinueBehaviour = true;
+            proxyServer.EnableHttp2 = true;
             proxyServer.BeforeRequest += OnRequest;
             proxyServer.BeforeResponse += OnResponse;
-            //proxyServer.ServerCertificateValidationCallback += OnCertificateValidation;
+            proxyServer.ServerCertificateValidationCallback += OnCertificateValidation;
             //proxyServer.ClientCertificateSelectionCallback += OnCertificateSelection;
 
             try
@@ -407,6 +414,7 @@ namespace System.Application.Services.Implementation
                     // 通过不启用为每个http的域创建证书来优化性能
                     //GenericCertificate = proxyServer.CertificateManager.RootCertificate
                 };
+                explicitProxyEndPoint.BeforeTunnelConnectRequest += ExplicitProxyEndPoint_BeforeTunnelConnectRequest;
 
                 if (IsWindowsProxy)
                 {
@@ -419,12 +427,14 @@ namespace System.Application.Services.Implementation
                     //{
                     //    return false;
                     //}
-
-                    proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 443, true)
+                    var transparentProxyEndPoint = new TransparentProxyEndPoint(ProxyIp, 443, true)
                     {
                         // 通过不启用为每个http的域创建证书来优化性能
                         //GenericCertificate = proxyServer.CertificateManager.RootCertificate
-                    });
+                    };
+                    transparentProxyEndPoint.BeforeSslAuthenticate += TransparentProxyEndPoint_BeforeSslAuthenticate;
+
+                    proxyServer.AddEndPoint(transparentProxyEndPoint);
 
                     if (PortInUse(80) == false)
                         proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 80, false));
@@ -457,6 +467,48 @@ namespace System.Application.Services.Implementation
 #endif
             return true;
 
+        }
+
+        private Task TransparentProxyEndPoint_BeforeSslAuthenticate(object sender, BeforeSslAuthenticateEventArgs e)
+        {
+            e.DecryptSsl = false;
+            if (ProxyDomains is null)
+            {
+                return Task.CompletedTask;
+            }
+            foreach (var item in ProxyDomains)
+            {
+                foreach (var host in item.DomainNamesArray)
+                {
+                    if (e.SniHostName.Contains(host))
+                    {
+                        e.DecryptSsl = true;
+                        return Task.CompletedTask;
+                    }
+                }
+            }
+            return Task.CompletedTask;
+        }
+
+        private Task ExplicitProxyEndPoint_BeforeTunnelConnectRequest(object sender, TunnelConnectSessionEventArgs e)
+        {
+            e.DecryptSsl = false;
+            if (ProxyDomains is null)
+            {
+                return Task.CompletedTask;
+            }
+            foreach (var item in ProxyDomains)
+            {
+                foreach (var host in item.DomainNamesArray)
+                {
+                    if (e.HttpClient.Request.Url.Contains(host))
+                    {
+                        e.DecryptSsl = true;
+                        return Task.CompletedTask;
+                    }
+                }
+            }
+            return Task.CompletedTask;
         }
 
         public void StopProxy()
