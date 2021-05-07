@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
+    <value>文件屬性為只讀，修改失敗</value>
+  </data>
+  <data name="FileSizeTooLarge" xml:space="preserve">
+    <value>文件大小過大</value>
+  </data>
   <data name="OperationHostsError_" xml:space="preserve">
     <value>操作 hosts 錯誤 {0}</value>
   </data>

@@ -61,6 +61,24 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 文件属性为只读，修改失败 的本地化字符串。
+        /// </summary>
+        internal static string FileAttributeIsReadOnlyModifyFail {
+            get {
+                return ResourceManager.GetString("FileAttributeIsReadOnlyModifyFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文件大小过大 的本地化字符串。
+        /// </summary>
+        internal static string FileSizeTooLarge {
+            get {
+                return ResourceManager.GetString("FileSizeTooLarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 操作 hosts 错误 {0} 的本地化字符串。
         /// </summary>
         internal static string OperationHostsError_ {

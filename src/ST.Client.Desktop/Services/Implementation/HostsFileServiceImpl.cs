@@ -1,3 +1,4 @@
+using System.Application.Properties;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -91,8 +92,6 @@ namespace System.Application.Services.Implementation
                 fileInfo = new FileInfo(s.HostsFilePath);
                 if (!fileInfo.Exists)
                 {
-                    //message = "hosts file was not found";
-                    //return false;
                     try
                     {
                         fileInfo.Create().Dispose();
@@ -108,7 +107,7 @@ namespace System.Application.Services.Implementation
                 {
                     if (fileInfo.Length > MaxFileLength)
                     {
-                        message = "hosts file is too large";
+                        message = SR.FileSizeTooLarge;
                         return false;
                     }
                 }
@@ -117,7 +116,15 @@ namespace System.Application.Services.Implementation
                     var attr = fileInfo.Attributes;
                     if (attr.HasFlag(FileAttributes.ReadOnly))
                     {
-                        fileInfo.Attributes = attr & ~FileAttributes.ReadOnly;
+                        try
+                        {
+                            fileInfo.Attributes = attr & ~FileAttributes.ReadOnly;
+                        }
+                        catch (Exception)
+                        {
+                            message = SR.FileAttributeIsReadOnlyModifyFail;
+                            return false;
+                        }
                         removeReadOnly = true;
                     }
                 }

@@ -65,7 +65,7 @@ namespace System.Application.Services
             {
                 if (!ProxyDomains.Any_Nullable())
                     return null;
-                return ProxyDomains.SelectMany(s =>
+                return ProxyDomains!.SelectMany(s =>
                 {
                     return s.Items.Where(w => w.Enable);
                 }).ToArray();
@@ -162,9 +162,10 @@ namespace System.Application.Services
                             {
                                 if (httpProxyService.ProxyDomains.Any_Nullable())
                                 {
-                                    var hosts = httpProxyService.ProxyDomains.SelectMany(s =>
+                                    var hosts = httpProxyService.ProxyDomains!.SelectMany(s =>
                                     {
-                                        return s?.HostsArray.Select(host =>
+                                        if (s == null) return default!;
+                                        return s.HostsArray.Select(host =>
                                         {
                                             if (host.Contains(" "))
                                             {
@@ -228,17 +229,17 @@ namespace System.Application.Services
             {
                 if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && result.Content.Any_Nullable())
                 {
-                    var items = result.Content.SelectMany(s => s.Items);
+                    var items = result.Content!.SelectMany(s => s.Items);
                     foreach (var item in items)
                     {
-                        if (ProxySettings.SupportProxyServicesStatus.Value.Contains(item.Id.ToString()))
+                        if (ProxySettings.SupportProxyServicesStatus.Value!.Contains(item.Id.ToString()))
                         {
                             item.Enable = true;
                         }
                     }
                 }
 
-                ProxyDomains = new ReadOnlyObservableCollection<AccelerateProjectGroupDTO>(new ObservableCollection<AccelerateProjectGroupDTO>(result.Content));
+                ProxyDomains = new ReadOnlyObservableCollection<AccelerateProjectGroupDTO>(new ObservableCollection<AccelerateProjectGroupDTO>(result.Content!));
 
                 foreach (var item in ProxyDomains)
                 {
@@ -280,7 +281,7 @@ namespace System.Application.Services
             {
                 foreach (var item in scriptList)
                 {
-                    if (item.LocalId > 0 && ProxySettings.ScriptsStatus.Value.Contains(item.LocalId))
+                    if (item.LocalId > 0 && ProxySettings.ScriptsStatus.Value!.Contains(item.LocalId))
                     {
                         item.Enable = true;
                     }
@@ -298,7 +299,7 @@ namespace System.Application.Services
                   .WhenPropertyChanged(x => x.Enable, false)
                   .Subscribe(_ =>
                   {
-                      ProxySettings.ScriptsStatus.Value = EnableProxyScripts.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
+                      ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
                       httpProxyService.Scripts = EnableProxyScripts;
                       this.RaisePropertyChanged(nameof(EnableProxyScripts));
                   }));
@@ -417,7 +418,7 @@ namespace System.Application.Services
             {
                 foreach (var item in scriptList)
                 {
-                    if (ProxySettings.ScriptsStatus.Value.Contains(item.LocalId))
+                    if (ProxySettings.ScriptsStatus.Value!.Contains(item.LocalId))
                     {
                         item.Enable = true;
                     }
