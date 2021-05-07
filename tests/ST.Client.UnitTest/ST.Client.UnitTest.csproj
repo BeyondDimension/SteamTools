@@ -12,6 +12,9 @@
     <Compile Include="..\..\src\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\..\src\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
     <Compile Include="..\Common.UnitTest\Logging\NUnitLogger.cs">
       <Link>Logging\NUnitLogger.cs</Link>
     </Compile>

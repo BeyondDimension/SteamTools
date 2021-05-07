@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <!--<TargetFrameworks>netstandard2.0;netstandard2.1;net5.0</TargetFrameworks>-->
@@ -32,8 +32,13 @@
     <PackageReference Include="CefNet" Version="90.5.21109.1453" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Events\" />
+  <ItemGroup Condition=" Exists('$(MSBuildProjectDirectory)\..\..\..\src\Common.CoreLib\Properties\ThisAssembly.Version.cs') ">
+    <Compile Include="..\..\..\src\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Common.CoreLib\Properties\ThisAssembly.Version.cs">
+      <Link>Properties\ThisAssembly.Version.cs</Link>
+    </Compile>
   </ItemGroup>
 
 </Project>

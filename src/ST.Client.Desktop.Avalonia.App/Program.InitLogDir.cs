@@ -32,6 +32,9 @@ namespace System.Application.UI
             {
                 FileName = logDirPath_ + "nlog-all-${shortdate}" + alias + ".log",
                 Layout = "${longdate}|${level}|${logger}|${message} |${all-event-properties} ${exception:format=tostring}",
+                ArchiveAboveSize = 10485760,
+                MaxArchiveFiles = 14,
+                MaxArchiveDays = 7,
             };
             objConfig.AddTarget(logfile);
             objConfig.AddRule(NLogLevel.Error, NLogLevel.Fatal, logfile, "Microsoft.*");

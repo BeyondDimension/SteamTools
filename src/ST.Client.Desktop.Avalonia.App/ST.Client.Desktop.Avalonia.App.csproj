@@ -63,24 +63,29 @@
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
-  <ItemGroup>
-    <!--<TrimmerRootAssembly Include="CefNet" />
-    <TrimmerRootAssembly Include="CefNet.Avalonia" />-->
-    <TrimmerRootAssembly Include="Steam++.Console" />
-  </ItemGroup>
+  <!--<ItemGroup>
+    <TrimmerRootAssembly Include="CefNet" />
+    <TrimmerRootAssembly Include="CefNet.Avalonia" />
+  </ItemGroup>-->
 
   <ItemGroup>
     <Compile Include="..\Startup2.cs" />
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ST.Client.Desktop.Avalonia\ST.Client.Desktop.Avalonia.csproj" />
-    <ProjectReference Include="..\ST.Client.Desktop.Console.App\ST.Client.Desktop.Console.App.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" !$(DefineConstants.Contains(`PUBLISH`)) ">
+    <ProjectReference Include="..\ST.Client.Desktop.Console.App\ST.Client.Desktop.Console.App.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
