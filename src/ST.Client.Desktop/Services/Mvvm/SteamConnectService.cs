@@ -110,6 +110,19 @@ namespace System.Application.Services
         }
         #endregion
 
+        private bool _IsLoadingGameList = true;
+        public bool IsLoadingGameList
+        {
+            get => _IsLoadingGameList;
+            set
+            {
+                if (_IsLoadingGameList != value)
+                {
+                    _IsLoadingGameList = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
 
         public void Initialize()
         {
@@ -117,7 +130,6 @@ namespace System.Application.Services
                 SteamTool.StartSteam(SteamSettings.SteamStratParameter.Value);
 
             Task.Run(InitializeGameList).ForgetAndDispose();
-
             var t = new Task(async () =>
             {
                 Thread.CurrentThread.IsBackground = true;
@@ -144,7 +156,14 @@ namespace System.Application.Services
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
 
                                     #region 初始化需要steam启动才能使用的功能
-                                    InitializeGameList();
+                                    if (SteamApps.Items.Any())
+                                    {
+                                        LoadGames(SteamApps.Items);
+                                    }
+                                    else
+                                    {
+                                        LoadGames(await ISteamService.Instance.GetAppInfos());
+                                    }
 
                                     //尝试十次无法获取到就不再尝试
                                     for (var i = 0; i < 10; i++)
@@ -201,8 +220,10 @@ namespace System.Application.Services
 
         public async void InitializeGameList()
         {
+            IsLoadingGameList = true;
             LoadGames(await ISteamService.Instance.GetAppInfos());
             //UpdateGamesImage();
+            IsLoadingGameList = false;
         }
 
         public void UpdateGamesImage()
@@ -246,6 +267,7 @@ namespace System.Application.Services
                             {
                                 if (ApiService.Initialize())
                                 {
+                                    SteamApps.Clear();
                                     while (true)
                                     {
                                         InitializeGameList();

@@ -70,6 +70,9 @@
     <Compile Update="Application\UI\Views\Windows\LocalAuthPage\EncryptionAuthWindow.axaml.cs">
       <DependentUpon>EncryptionAuthWindow.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Application\UI\Views\Windows\LocalAuthPage\PasswordWindow.axaml.cs">
+      <DependentUpon>PasswordWindow.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Application\UI\Views\Windows\LocalAuthPage\ExportAuthWindow.axaml.cs">
       <DependentUpon>ExportAuthWindow.axaml</DependentUpon>
     </Compile>

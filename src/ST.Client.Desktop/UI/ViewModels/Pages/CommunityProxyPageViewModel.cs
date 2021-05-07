@@ -14,8 +14,6 @@ namespace System.Application.UI.ViewModels
 {
     public class CommunityProxyPageViewModel : TabItemViewModel
     {
-        readonly IHttpProxyService httpProxyService = DI.Get<IHttpProxyService>();
-
         public override string Name
         {
             get => AppResources.CommunityFix;
@@ -105,12 +103,12 @@ namespace System.Application.UI.ViewModels
 
         public void SetupCertificate_OnClick()
         {
-            httpProxyService.SetupCertificate();
+            DI.Get<IHttpProxyService>().SetupCertificate();
         }
 
         public void DeleteCertificate_OnClick()
         {
-            httpProxyService.DeleteCertificate();
+            DI.Get<IHttpProxyService>().DeleteCertificate();
         }
 
         public void EditHostsFile_OnClick()

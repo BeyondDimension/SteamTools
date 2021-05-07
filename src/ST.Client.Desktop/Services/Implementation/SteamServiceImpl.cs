@@ -280,39 +280,47 @@ namespace System.Application.Services.Implementation
             List<SteamApp> GetAppInfos_()
             {
                 var apps = new List<SteamApp>();
-                if (string.IsNullOrEmpty(AppInfoPath) && !File.Exists(AppInfoPath))
-                    return apps;
-                using (BinaryReader binaryReader = new(File.OpenRead(AppInfoPath)))
+                try
                 {
-                    uint num = binaryReader.ReadUInt32();
-                    if (num != MagicNumber)
-                    {
-                        Log.Error(nameof(GetAppInfos), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
+                    if (string.IsNullOrEmpty(AppInfoPath) && !File.Exists(AppInfoPath))
                         return apps;
-                    }
-                    SteamApp? app = new();
-                    unknownValueAtStart = binaryReader.ReadUInt32();
-                    while ((app = SteamApp.FromReader(binaryReader)) != null)
+                    using (BinaryReader binaryReader = new(File.OpenRead(AppInfoPath)))
                     {
-                        if (app.AppId > 0)
+                        uint num = binaryReader.ReadUInt32();
+                        if (num != MagicNumber)
                         {
-                            if (GameLibrarySettings.DefaultIgnoreList.Contains(app.AppId))
-                                continue;
-                            if (app.ParentId > 0)
+                            Log.Error(nameof(GetAppInfos), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
+                            return apps;
+                        }
+                        SteamApp? app = new();
+                        unknownValueAtStart = binaryReader.ReadUInt32();
+                        while ((app = SteamApp.FromReader(binaryReader)) != null)
+                        {
+                            if (app.AppId > 0)
                             {
-                                var parentApp = apps.FirstOrDefault(f => f.AppId == app.ParentId);
-                                if (parentApp != null)
-                                    parentApp.ChildApp.Add(app.AppId);
-                                //continue;
+                                if (GameLibrarySettings.DefaultIgnoreList.Contains(app.AppId))
+                                    continue;
+                                if (app.ParentId > 0)
+                                {
+                                    var parentApp = apps.FirstOrDefault(f => f.AppId == app.ParentId);
+                                    if (parentApp != null)
+                                        parentApp.ChildApp.Add(app.AppId);
+                                    //continue;
+                                }
+                                apps.Add(app);
+                                //app.Modified += (s, e) =>
+                                //{
+                                //};
                             }
-                            apps.Add(app);
-                            //app.Modified += (s, e) =>
-                            //{
-                            //};
                         }
                     }
+                    return apps;
                 }
-                return apps;
+                catch (Exception ex)
+                {
+                    Log.Error(nameof(SteamServiceImpl), ex, nameof(GetAppInfos));
+                    return apps;
+                }
             }
         }
 

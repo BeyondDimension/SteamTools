@@ -83,11 +83,11 @@
               <Setter Property="Height" Value="20"></Setter>
             </Style>
           </StackPanel.Styles>
-          <!--<Button Background="Transparent"
+          <Button Background="Transparent"
                                 Cursor="Hand"
                                 ToolTip.Tip="添加未拥有的游戏">
-                            <PathIcon Data="{StaticResource AddDrawing}" />
-                        </Button>-->
+            <PathIcon Data="{StaticResource AddDrawing}" />
+          </Button>
           <Button Background="Transparent"
                   Command="{ReflectionBinding RefreshGamesList,Source={x:Static service:SteamConnectService.Current},Mode=OneWay}"
                   Cursor="Hand"
@@ -194,12 +194,12 @@
             </TreeView.ItemTemplate>
         </TreeView>-->
     <Panel>
-      <StackPanel IsVisible="{Binding IsSteamAppsEmpty}"
+      <StackPanel IsVisible="{ReflectionBinding Source={x:Static service:SteamConnectService.Current},Path=IsLoadingGameList,Mode=OneWay}"
                   HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
         <controls:ProgressRing IsIndeterminate="True"
-                               Width="150" Height="150">
+                               Width="100" Height="100">
         </controls:ProgressRing>
-        <TextBlock Text="正在加载游戏列表..."></TextBlock>
+        <TextBlock Text="{ReflectionBinding Path=Res.GameList_IsLoading,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
       </StackPanel>
 
       <TextBlock IsVisible="{Binding IsSteamAppsEmpty}"
@@ -209,12 +209,12 @@
       <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="0 0 0 10">
         <ItemsRepeater Items="{Binding SteamApps}">
           <ItemsRepeater.Layout>
-            <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="10" MinColumnSpacing="10" MaximumRowsOrColumns="10" ItemsStretch="Fill" />
+            <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="10" MinColumnSpacing="20" MaximumRowsOrColumns="10" ItemsStretch="Fill" />
           </ItemsRepeater.Layout>
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>
               <StackPanel Spacing="8">
-                <Border DockPanel.Dock="Top" Classes="paper">
+                <Border DockPanel.Dock="Top" Classes="paper" Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">
                   <Border.ContextMenu>
                     <ContextMenu>
                       <MenuItem
@@ -259,6 +259,8 @@
                                 Header="{ReflectionBinding Path=Res.GameList_SetCustomImage,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
                                 CommandParameter="{Binding}" />-->
+
+                      <MenuItem Header="-"></MenuItem>
                       <MenuItem
                                 Header="{ReflectionBinding Path=Res.GameList_OpenStoreUrl,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.OpenAppStoreUrl}"
@@ -273,7 +275,7 @@
                                 CommandParameter="{Binding}" />
                     </ContextMenu>
                   </Border.ContextMenu>
-                  <Panel x:Name="app" Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">
+                  <Panel x:Name="app" Width="{ReflectionBinding $parent.Width}">
                     <!--<i:Interaction.Behaviors>
                                             <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #app}">
                                                 <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.AppClick}" CommandParameter="{Binding}"/>

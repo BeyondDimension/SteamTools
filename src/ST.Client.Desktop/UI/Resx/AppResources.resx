@@ -384,14 +384,23 @@
   <data name="GameList_EditAppInfo" xml:space="preserve">
     <value>编辑游戏信息</value>
   </data>
+  <data name="GameList_HideGameManger" xml:space="preserve">
+    <value>管理隐藏游戏列表</value>
+  </data>
   <data name="GameList_HideTheGame" xml:space="preserve">
     <value>隐藏此游戏</value>
+  </data>
+  <data name="GameList_IdleGamesManger" xml:space="preserve">
+    <value>管理游戏时长挂机列表</value>
   </data>
   <data name="GameList_Install" xml:space="preserve">
     <value>安装</value>
   </data>
   <data name="GameList_IsEmpty" xml:space="preserve">
     <value>没有获取到任何游戏数据</value>
+  </data>
+  <data name="GameList_IsLoading" xml:space="preserve">
+    <value>正在加载游戏列表...</value>
   </data>
   <data name="GameList_OnlyInstalled" xml:space="preserve">
     <value>仅显示已安装的游戏</value>

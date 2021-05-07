@@ -43,6 +43,7 @@
                             Header="{ReflectionBinding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"
                             Command="{ReflectionBinding #u.DataContext.OfflineModeButton_Click}"
                             CommandParameter="{Binding}" />
+                  <MenuItem Header="-"></MenuItem>
                   <MenuItem
                             Header="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
                             Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"

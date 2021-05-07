@@ -387,6 +387,7 @@ namespace System.Application.Services
                 Toast.Show(msg);
             }
         }
+
         public async Task AddNewScript(FileInfo fileInfo, ScriptDTO? info, ScriptDTO? oldInfo = null)
         {
             IsLoading = true;
@@ -410,6 +411,7 @@ namespace System.Application.Services
             IsLoading = false;
             Toast.Show(item.msg);
         }
+
         public async void RefreshScript()
         {
             var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
@@ -428,6 +430,7 @@ namespace System.Application.Services
 
             CheckUpdate();
         }
+
         public async void DownloadScript(ScriptDTO model)
         {
             model.IsLoading = true;
@@ -466,6 +469,7 @@ namespace System.Application.Services
                 Toast.Show(AppResources.Download_ScriptError);
             model.IsLoading = false;
         }
+
         public async void CheckUpdate()
         {
             var items = Current.ProxyScripts.Items.Where(x => x.Id.HasValue).Select(x => x.Id!.Value).ToList();

@@ -38,7 +38,7 @@ namespace System.Application.UI
         static bool GetIsFirst()
         {
             var current = Process.GetCurrentProcess();
-            var query = from p in Process.GetProcesses()
+            var query = from p in Process.GetProcessesByName(current.ProcessName)
                         where p.Id != current.Id &&
                             p.ProcessName == current.ProcessName &&
                             (current.MainModule == null ||

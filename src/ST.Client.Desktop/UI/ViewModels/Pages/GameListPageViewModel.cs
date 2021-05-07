@@ -111,6 +111,13 @@ namespace System.Application.UI.ViewModels
                     this.RaisePropertyChanged(nameof(IsSteamAppsEmpty));
                     this.CalcTypeCount();
                 });
+
+
+            MenuItems = new ObservableCollection<MenuItemViewModel>()
+            {
+                  new MenuItemViewModel(nameof(AppResources.GameList_HideGameManger)),
+                  new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)),
+            };
         }
 
         internal override void Activation()
@@ -158,8 +165,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _SearchText, value);
         }
 
-        public bool IsSteamAppsLoading => IsSteamAppsEmpty;
-        public bool IsSteamAppsEmpty => !SteamApps.Any_Nullable();
+        public bool IsSteamAppsEmpty => !SteamApps.Any_Nullable() && !SteamConnectService.Current.IsLoadingGameList;
 
         private ObservableCollection<EnumModel<SteamAppType>> _AppTypeFiltres = new();
         public ObservableCollection<EnumModel<SteamAppType>> AppTypeFiltres
@@ -167,7 +173,6 @@ namespace System.Application.UI.ViewModels
             get => _AppTypeFiltres;
             set => this.RaiseAndSetIfChanged(ref _AppTypeFiltres, value);
         }
-
 
         private IReadOnlyCollection<EnumModel<SteamAppType>> _EnableAppTypeFiltres = new List<EnumModel<SteamAppType>>();
         public IReadOnlyCollection<EnumModel<SteamAppType>> EnableAppTypeFiltres

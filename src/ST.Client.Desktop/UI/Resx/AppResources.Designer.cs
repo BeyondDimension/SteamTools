@@ -855,11 +855,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 管理隐藏游戏列表 的本地化字符串。
+        /// </summary>
+        public static string GameList_HideGameManger {
+            get {
+                return ResourceManager.GetString("GameList_HideGameManger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 隐藏此游戏 的本地化字符串。
         /// </summary>
         public static string GameList_HideTheGame {
             get {
                 return ResourceManager.GetString("GameList_HideTheGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 管理游戏时长挂机列表 的本地化字符串。
+        /// </summary>
+        public static string GameList_IdleGamesManger {
+            get {
+                return ResourceManager.GetString("GameList_IdleGamesManger", resourceCulture);
             }
         }
         
@@ -878,6 +896,15 @@ namespace System.Application.UI.Resx {
         public static string GameList_IsEmpty {
             get {
                 return ResourceManager.GetString("GameList_IsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在加载游戏列表... 的本地化字符串。
+        /// </summary>
+        public static string GameList_IsLoading {
+            get {
+                return ResourceManager.GetString("GameList_IsLoading", resourceCulture);
             }
         }
         
