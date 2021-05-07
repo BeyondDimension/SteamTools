@@ -10,6 +10,9 @@ namespace System.Application.Services.Implementation
             UnelevatedProcessStarter.Start(cmdArgs);
         }
 
+        /// <summary>
+        /// https://stackoverflow.com/a/49997055/15855120
+        /// </summary>
         static class UnelevatedProcessStarter
         {
             public static void Start(string cmdArgs)

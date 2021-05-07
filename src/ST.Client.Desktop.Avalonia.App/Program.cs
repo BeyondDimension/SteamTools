@@ -56,42 +56,17 @@ namespace System.Application.UI
             });
             try
             {
+                string[] args_clt;
                 if (IsCLTProcess) // 命令行模式
                 {
-                    var args_clt = args.Skip(1).ToArray();
-                    return CommandLineTools.Main(args_clt, InitStartup, InitAvaloniaApp, InitCefNetApp);
+                    args_clt = args.Skip(1).ToArray();
+                    if (args_clt.Length == 1 && args_clt[0].Equals(command_main, StringComparison.OrdinalIgnoreCase)) return default;
                 }
                 else
                 {
-#if StartupTrace
-                    StartupTrace.Restart("ProcessCheck");
-#endif
-
-                    Startup.Init(IsMainProcess ? DILevel.MainProcess : DILevel.Min);
-#if StartupTrace
-                    StartupTrace.Restart("Startup.Init");
-#endif
-                    if (IsMainProcess)
-                    {
-                        var appInstance = new ApplicationInstance();
-                        if (!appInstance.IsFirst) goto exit;
-                    }
-#if StartupTrace
-                    StartupTrace.Restart("ApplicationInstance");
-#endif
-                    InitCefNetApp();
-#if StartupTrace
-                    StartupTrace.Restart("InitCefNetApp");
-#endif
-
-                    if (IsMainProcess)
-                    {
-                        InitAvaloniaApp();
-                    }
-#if StartupTrace
-                    StartupTrace.Restart("InitAvaloniaApp");
-#endif
+                    args_clt = new[] { command_main };
                 }
+                return CommandLineTools.Run(args_clt, InitStartup, InitAvaloniaApp, InitCefNetApp);
             }
             catch (Exception ex)
             {
@@ -100,11 +75,10 @@ namespace System.Application.UI
             }
             finally
             {
+                appInstance?.Dispose();
                 // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
                 LogManager.Shutdown();
             }
-
-        exit: return 0;
 
             static void HandleGlobalException(Exception ex, string name, bool? isTerminating = null)
             {

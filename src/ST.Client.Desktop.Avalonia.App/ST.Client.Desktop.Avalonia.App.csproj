@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <!--<DefineConstants>StartupTrace;$(DefineConstants)</DefineConstants>-->
     <TargetFramework>net6.0</TargetFramework>
     <SignAssembly>false</SignAssembly>
@@ -11,62 +11,63 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
 
-    <PropertyGroup Condition=" $(DefineConstants.Contains(`StartupTrace`)) ">
-        <OutputType>Exe</OutputType>
-    </PropertyGroup>
+  <PropertyGroup Condition=" $(DefineConstants.Contains(`StartupTrace`)) ">
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
 
-    <!--<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+  <!--<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <AllowedReferenceRelatedFileExtensions>
       -->
-    <!-- Prevent default XML and PDB files copied to output in RELEASE.
+  <!-- Prevent default XML and PDB files copied to output in RELEASE.
            Only *.allowedextension files will be included, which doesn't exist in my case.
        -->
-    <!--
+  <!--
       .allowedextension
     </AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>-->
 
-    <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-        <DefineConstants>WINDOWS;$(DefineConstants)</DefineConstants>
-        <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
-        <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-        <!--<TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
+  <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+    <DefineConstants>WINDOWS;$(DefineConstants)</DefineConstants>
+    <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <!--<TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>-->
-        <Platforms>AnyCPU;x86</Platforms>
-        <PlatformTarget>x86</PlatformTarget>
-        <!-- 注意：RuntimeIdentifier win-x86 会导致亚克力效果会丢失 -->
-        <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
-        <!--<UseWindowsForms>false</UseWindowsForms>-->
-        <!--<UseWPF>false</UseWPF>-->
-    </PropertyGroup>
+    <Platforms>AnyCPU;x86</Platforms>
+    <PlatformTarget>x86</PlatformTarget>
+    <!-- 注意：RuntimeIdentifier win-x86 会导致亚克力效果会丢失 -->
+    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
+    <!--<UseWindowsForms>false</UseWindowsForms>-->
+    <!--<UseWPF>false</UseWPF>-->
+  </PropertyGroup>
 
-    <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-        <DefineConstants>MAC;$(DefineConstants)</DefineConstants>
-    </PropertyGroup>
+  <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+    <DefineConstants>MAC;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
 
-    <PropertyGroup Condition=" $(DefineConstants.Contains(`PUBLISH`)) ">
-        <SelfContained>true</SelfContained>
-        <PublishSingleFile>false</PublishSingleFile>
-        <!--目前裁剪存在问题，禁用-->
-        <PublishTrimmed>false</PublishTrimmed>
-        <TrimMode>link</TrimMode>
-        <TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
-        <!--剪裁框架库功能 https://docs.microsoft.com/zh-cn/dotnet/core/deploying/trimming-options#trimming-framework-library-features -->
-        <DebuggerSupport>false</DebuggerSupport>
-        <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
-        <EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
-        <SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
-        <EventSourceSupport>false</EventSourceSupport>
-        <HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
-        <UseSystemResourceKeys>true</UseSystemResourceKeys>
-        <DebugType>none</DebugType>
-        <DebugSymbols>false</DebugSymbols>
-    </PropertyGroup>
+  <PropertyGroup Condition=" $(DefineConstants.Contains(`PUBLISH`)) ">
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>false</PublishSingleFile>
+    <!--目前裁剪存在问题，禁用-->
+    <PublishTrimmed>false</PublishTrimmed>
+    <TrimMode>link</TrimMode>
+    <TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
+    <!--剪裁框架库功能 https://docs.microsoft.com/zh-cn/dotnet/core/deploying/trimming-options#trimming-framework-library-features -->
+    <DebuggerSupport>false</DebuggerSupport>
+    <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
+    <EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
+    <SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
+    <EventSourceSupport>false</EventSourceSupport>
+    <HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
+    <UseSystemResourceKeys>true</UseSystemResourceKeys>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
 
-  <!--<ItemGroup>
-      <TrimmerRootAssembly Include="CefNet"/>
-      <TrimmerRootAssembly Include="CefNet.Avalonia"/>
-    </ItemGroup>-->
+  <ItemGroup>
+    <!--<TrimmerRootAssembly Include="CefNet" />
+    <TrimmerRootAssembly Include="CefNet.Avalonia" />-->
+    <TrimmerRootAssembly Include="Steam++.Console" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Include="..\Startup2.cs" />
@@ -122,21 +123,21 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
-    <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-        <!--Win8.1/10的开始菜单磁贴配置-->
-        <None Include="..\..\Resources\AppIcon\visualelementsmanifest.xml">
-            <Link>steam++.visualelementsmanifest.xml</Link>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\..\Resources\AppIcon\VisualElements_150.png">
-            <Link>Assets\VisualElements_150.png</Link>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\..\Resources\AppIcon\VisualElements_70.png">
-            <Link>Assets\VisualElements_70.png</Link>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-    </ItemGroup>
+  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+    <!--Win8.1/10的开始菜单磁贴配置-->
+    <None Include="..\..\Resources\AppIcon\visualelementsmanifest.xml">
+      <Link>steam++.visualelementsmanifest.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Resources\AppIcon\VisualElements_150.png">
+      <Link>Assets\VisualElements_150.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Resources\AppIcon\VisualElements_70.png">
+      <Link>Assets\VisualElements_70.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
   <ItemGroup Condition="Exists('$(MSBuildProjectDirectory)\..\..\aes-key.pfx')">
     <EmbeddedResource Include="..\..\aes-key.pfx" Link="Resources\3A613E8D" />

@@ -42,10 +42,13 @@ getstmauth.Handler = CommandHandler.Create(async (string key) =>
         var connStr = Serializable.DMPB64U<string>(key)!;
         var s = DISafeGet.GetLoginUsingSteamClientAuth();
 #if DEBUG
-        var dps = DI.Get<IDesktopPlatformService>();
-        Console.WriteLine($"IsAdministrator: {dps.IsAdministrator}");
+        if (DI.Platform == Platform.Windows)
+        {
+            var dps = DI.Get<IDesktopPlatformService>();
+            Console.WriteLine($"IsAdministrator: {dps.IsAdministrator}");
+        }
 #endif
-        var r = await s.GetLoginUsingSteamClientAuthAsync(false);
+        var r = await s.GetLoginUsingSteamClientCookiesAsync(false);
         var r2 = Serializable.SMPB64U(r);
         File.WriteAllText(connStr, r2);
     }

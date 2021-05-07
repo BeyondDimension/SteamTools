@@ -11,6 +11,9 @@ namespace System.Application.Services
     public interface ISteamService
     {
         public const int IPC_Call_GetLoginUsingSteamClient_Timeout_MS = 15000;
+        protected const string url_localhost_auth_public = "http://127.0.0.1:27060/auth/?u=public";
+        public const string url_steamcommunity_checkclientautologin = "https://steamcommunity.com/login/checkclientautologin";
+        public static readonly Uri uri_steamcommunity_checkclientautologin = new(url_steamcommunity_checkclientautologin);
 
         public static ISteamService Instance => DI.Get<ISteamService>();
 
@@ -88,24 +91,16 @@ namespace System.Application.Services
         ValueTask LoadAppImageAsync(SteamApp app);
 
         /// <summary>
-        /// Steam 客户端自动登录
-        /// </summary>
-        /// <param name="runasInvoker"></param>
-        /// <returns></returns>
-        Task<(string steamid, string encrypted_loginkey, string sessionkey, string digest)> GetLoginUsingSteamClientAuthAsync(bool runasInvoker = false);
-
-        /// <summary>
-        /// 获取 Steam 客户端自动登录 Cookie(用于写入到 WebView3 中免登录)
-        /// </summary>
-        /// <param name="auth_data"></param>
-        /// <returns></returns>
-        Task<(CookieCollection cookies, Uri uri)> GetLoginUsingSteamClientCookiesAsync((string steamid, string encrypted_loginkey, string sessionkey, string digest) auth_data);
-
-        /// <summary>
         /// 获取 Steam 客户端自动登录 Cookie(用于写入到 WebView3 中免登录)
         /// </summary>
         /// <param name="runasInvoker"></param>
         /// <returns></returns>
-        Task<(CookieCollection cookies, Uri uri)> GetLoginUsingSteamClientCookiesAsync(bool runasInvoker = false);
+        Task<CookieCollection?> GetLoginUsingSteamClientCookiesAsync(bool runasInvoker = false);
+
+        /// <summary>
+        /// 获取 Steam 客户端自动登录 Cookie(用于写入到 WebView3 中免登录)
+        /// </summary>
+        /// <returns></returns>
+        Task<string[]?> GetLoginUsingSteamClientCookiesAsync();
     }
 }

@@ -38,13 +38,12 @@ namespace System.Application.Services.Implementation
 
         static bool TryShowSingletonWindow(Type windowType)
         {
-            if (AvaloniaApplication.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (AvaloniaApplication.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 var window = desktop.Windows.FirstOrDefault(x => x.GetType() == windowType);
                 if (window != null)
                 {
-                    if (window.WindowState != WindowState.Normal) window.WindowState = WindowState.Normal;
-                    window.Activate();
+                    window.ShowActivate();
                     return true;
                 }
             }

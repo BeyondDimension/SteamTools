@@ -3,10 +3,8 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using CefNet;
 using CefNet.JSInterop;
-using CefNet.Net;
 using CefSharp;
 using ReactiveUI;
-using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
@@ -155,16 +153,14 @@ namespace System.Application.UI.Views.Windows
         static Task? mGetLoginUsingSteamClientCookiesAsync;
         static async Task GetLoginUsingSteamClientCookiesAsync()
         {
-            var value = await ISteamService.Instance.GetLoginUsingSteamClientCookiesAsync(runasInvoker: DI.Platform == Platform.Windows);
-            if (value != default)
+            var cookies = await Instance.GetLoginUsingSteamClientCookiesAsync(runasInvoker: DI.Platform == Platform.Windows);
+            if (cookies != default)
             {
-                var url = value.uri.ToString();
-                var cookies = value.cookies;
                 var manager = CefRequestContext.GetGlobalContext().GetCookieManager(null);
                 foreach (Cookie item in cookies)
                 {
                     var cookie = item.GetCefNetCookie();
-                    var setCookieResult = await manager.SetCookieAsync(url, cookie);
+                    var setCookieResult = await manager.SetCookieAsync(url_steamcommunity_checkclientautologin, cookie);
                     if (item.Name == "steamLoginSecure" && !setCookieResult)
                     {
                         return;

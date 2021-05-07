@@ -380,8 +380,9 @@ namespace System.Application.Services.Implementation
             //}
         }
 
-        public async Task<(string steamid, string encrypted_loginkey, string sessionkey, string digest)> GetLoginUsingSteamClientAuthAsync(bool runasInvoker = false)
+        public async Task<CookieCollection?> GetLoginUsingSteamClientCookiesAsync(bool runasInvoker = false)
         {
+            var cookies = (string[]?)null;
             if (runasInvoker && DI.Platform == Platform.Windows)
             {
                 if (AppHelper.ProgramPath.EndsWith(FileEx.EXE))
@@ -429,8 +430,7 @@ namespace System.Application.Services.Implementation
                                 File.Delete(tempFilePath);
                                 try
                                 {
-                                    var r = Serializable.DMPB64U<(string steamid, string encrypted_loginkey, string sessionkey, string digest)>(value);
-                                    return r;
+                                    cookies = Serializable.DMPB64U<string[]>(value);
                                 }
                                 catch
                                 {
@@ -439,56 +439,58 @@ namespace System.Application.Services.Implementation
                         }
                         catch
                         {
-
                         }
                     }
                 }
             }
             else
             {
-                const string url_localhost_auth_public = "http://127.0.0.1:27060/auth/?u=public";
-                try
-                {
-                    var client = http.Factory.CreateClient();
-                    client.Timeout = TimeSpan.FromSeconds(.85);
-                    var request = new HttpRequestMessage(HttpMethod.Get, url_localhost_auth_public);
-                    request.Headers.Add("Origin", "https://steamcommunity.com");
-                    request.Headers.Add("Accept", MediaTypeNames.JSON);
-                    request.Headers.UserAgent.ParseAdd(http.PlatformHelper.UserAgent);
-                    var response = await client.SendAsync(request);
+                cookies = await GetLoginUsingSteamClientCookiesAsync();
+            }
+            var cookieCollection = GetCookieCollection(uri_steamcommunity_checkclientautologin, cookies);
+            return cookieCollection;
+        }
+
+        async Task<(string steamid, string encrypted_loginkey, string sessionkey, string digest)> GetLoginUsingSteamClientAuthAsync()
+        {
+            try
+            {
+                var client = http.Factory.CreateClient();
+                client.Timeout = TimeSpan.FromSeconds(.85);
+                var request = new HttpRequestMessage(HttpMethod.Get, url_localhost_auth_public);
+                request.Headers.Add("Origin", "https://steamcommunity.com");
+                request.Headers.Add("Accept", MediaTypeNames.JSON);
+                request.Headers.UserAgent.ParseAdd(http.PlatformHelper.UserAgent);
+                var response = await client.SendAsync(request);
 #if DEBUG
-                    Console.WriteLine("GetLoginUsingSteamClientAuthAsync");
-                    Console.WriteLine($"StatusCode: {response.StatusCode}");
+                Console.WriteLine("GetLoginUsingSteamClientAuthAsync");
+                Console.WriteLine($"StatusCode: {response.StatusCode}");
 #endif
-                    if (response.IsSuccessStatusCode)
-                    {
-                        using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-                        using var reader = new StreamReader(stream, Encoding.UTF8);
-                        using var json = new JsonTextReader(reader);
-                        var jsonObj = JObject.Load(json);
-                        var steamid = jsonObj["steamid"]!.ToString();
-#if DEBUG
-                        Console.WriteLine($"steamid: {steamid}");
-#endif
-                        var encrypted_loginkey = jsonObj["encrypted_loginkey"]!.ToString();
-                        var sessionkey = jsonObj["sessionkey"]!.ToString();
-                        var digest = jsonObj["digest"]!.ToString();
-                        return (steamid, encrypted_loginkey, sessionkey, digest);
-                    }
-                }
-                catch (OperationCanceledException)
+                if (response.IsSuccessStatusCode)
                 {
+                    using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                    using var reader = new StreamReader(stream, Encoding.UTF8);
+                    using var json = new JsonTextReader(reader);
+                    var jsonObj = JObject.Load(json);
+                    var steamid = jsonObj["steamid"]!.ToString();
+#if DEBUG
+                    Console.WriteLine($"steamid: {steamid}");
+#endif
+                    var encrypted_loginkey = jsonObj["encrypted_loginkey"]!.ToString();
+                    var sessionkey = jsonObj["sessionkey"]!.ToString();
+                    var digest = jsonObj["digest"]!.ToString();
+                    return (steamid, encrypted_loginkey, sessionkey, digest);
                 }
+            }
+            catch (OperationCanceledException)
+            {
             }
             return default;
         }
 
-        public async Task<(CookieCollection cookies, Uri uri)> GetLoginUsingSteamClientCookiesAsync((string steamid, string encrypted_loginkey, string sessionkey, string digest) auth_data)
+        async Task<string[]?> GetLoginUsingSteamClientCookiesAsync((string steamid, string encrypted_loginkey, string sessionkey, string digest) auth_data)
         {
             if (auth_data == default) return default;
-
-            const string url_steamcommunity_checkclientautologin = "https://steamcommunity.com/login/checkclientautologin";
-            var uri_steamcommunity_checkclientautologin = new Uri(url_steamcommunity_checkclientautologin);
             var request = new HttpRequestMessage(HttpMethod.Post, uri_steamcommunity_checkclientautologin)
             {
 #pragma warning disable CS8620 // 由于引用类型的可为 null 性差异，实参不能用于形参。
@@ -506,24 +508,30 @@ namespace System.Application.Services.Implementation
             var response = await client.SendAsync(request/*, HttpCompletionOption.ResponseHeadersRead*/);
             if (response.IsSuccessStatusCode && response.Headers.TryGetValues("Set-Cookie", out var cookies))
             {
-                CookieContainer container = new();
-                foreach (var item in cookies)
-                {
-                    if (string.IsNullOrWhiteSpace(item)) continue;
-                    container.SetCookies(uri_steamcommunity_checkclientautologin, item);
-                }
-                var cookies2 = container.GetCookies(uri_steamcommunity_checkclientautologin);
-                return (cookies2, uri_steamcommunity_checkclientautologin);
+                return cookies.ToArray();
             }
 
             return default;
         }
 
-        public async Task<(CookieCollection cookies, Uri uri)> GetLoginUsingSteamClientCookiesAsync(bool runasInvoker = false)
+        public async Task<string[]?> GetLoginUsingSteamClientCookiesAsync()
         {
-            var auth_data = await GetLoginUsingSteamClientAuthAsync(runasInvoker);
-            var r = await GetLoginUsingSteamClientCookiesAsync(auth_data);
-            return r;
+            var auth_data = await GetLoginUsingSteamClientAuthAsync();
+            var cookies = await GetLoginUsingSteamClientCookiesAsync(auth_data);
+            return cookies;
+        }
+
+        static CookieCollection? GetCookieCollection(Uri url, IEnumerable<string>? cookies)
+        {
+            if (cookies == null) return null;
+            CookieContainer container = new();
+            foreach (var item in cookies)
+            {
+                if (string.IsNullOrWhiteSpace(item)) continue;
+                container.SetCookies(url, item);
+            }
+            var cookies2 = container.GetCookies(url);
+            return cookies2;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Application.Services;
+using Avalonia.Controls;
+using System.Application.Services;
 using System.Runtime.InteropServices;
 using Window = Avalonia.Controls.Window;
 
@@ -66,6 +67,12 @@ namespace System.Windows
             {
                 // ignored
             }
+        }
+
+        public static void ShowActivate(this Window window)
+        {
+            if (window.WindowState != WindowState.Normal) window.WindowState = WindowState.Normal;
+            window.Activate();
         }
     }
 }

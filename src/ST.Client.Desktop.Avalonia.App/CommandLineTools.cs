@@ -1,17 +1,23 @@
+using Avalonia.Controls.ApplicationLifetimes;
 using System.Application.Services;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.Windows;
+using AvaloniaApplication = Avalonia.Application;
 
 namespace System.Application.UI
 {
     partial class Program
     {
+        const string command_main = "main";
+        static ApplicationInstance? appInstance;
+
         /// <summary>
         /// 命令行工具(Command Line Tools/CLT)
         /// </summary>
         static class CommandLineTools
         {
-            public static int Main(string[] args,
+            public static int Run(string[] args,
                 Action<DILevel> initStartup,
                 Action initUIApp,
                 Action initCef)
@@ -20,6 +26,58 @@ namespace System.Application.UI
 
                 // https://docs.microsoft.com/zh-cn/archive/msdn-magazine/2019/march/net-parse-the-command-line-with-system-commandline
                 var rootCommand = new RootCommand("命令行工具(Command Line Tools/CLT)");
+
+                void MainHandler()
+                {
+#if StartupTrace
+                    StartupTrace.Restart("ProcessCheck");
+#endif
+                    initStartup(IsMainProcess ? DILevel.MainProcess : DILevel.Min);
+#if StartupTrace
+                    StartupTrace.Restart("Startup.Init");
+#endif
+                    if (IsMainProcess)
+                    {
+                        appInstance = new ApplicationInstance();
+                        if (!appInstance.IsFirst)
+                        {
+                            //Console.WriteLine("ApplicationInstance.SendMessage(string.Empty);");
+                            ApplicationInstance.SendMessage(string.Empty);
+                            return;
+                        }
+                        appInstance.MessageReceived += value =>
+                        {
+                            if (string.IsNullOrEmpty(value))
+                            {
+                                var app = App.Instance;
+                                if (app != null)
+                                {
+                                    MainThreadDesktop.BeginInvokeOnMainThread(app.RestoreMainWindow);
+                                }
+                            }
+                        };
+                    }
+#if StartupTrace
+                    StartupTrace.Restart("ApplicationInstance");
+#endif
+                    initCef();
+#if StartupTrace
+                    StartupTrace.Restart("InitCefNetApp");
+#endif
+                    if (IsMainProcess)
+                    {
+                        initUIApp();
+                    }
+#if StartupTrace
+                    StartupTrace.Restart("InitAvaloniaApp");
+#endif
+                }
+                void MainHandlerByCLT()
+                {
+                    IsMainProcess = true;
+                    IsCLTProcess = false;
+                    MainHandler();
+                }
 
 #if DEBUG
                 // -clt debug -args 730
@@ -31,25 +89,21 @@ namespace System.Application.UI
                     // OutputType WinExe 导致控制台输入不会显示，只能附加一个新的控制台窗口显示内容，不合适
                     // 如果能取消 管理员权限要求，改为运行时管理员权限，
                     // 则可尝试通过 Windows Terminal 或直接 Host 进行命令行模式
-                    initStartup(DILevel.MainProcess);
-                    initCef();
-                    initUIApp();
+                    MainHandlerByCLT();
                 });
                 rootCommand.AddCommand(debug);
 #endif
+
+                var main = new Command(command_main);
+                main.Handler = CommandHandler.Create(MainHandler);
+                rootCommand.AddCommand(main);
 
                 // -clt devtools
                 var devtools = new Command("devtools");
                 devtools.Handler = CommandHandler.Create(() =>
                 {
-                    var appInstance = new ApplicationInstance();
-                    if (!appInstance.IsFirst) return;
-                    IsMainProcess = true;
-                    IsCLTProcess = false;
                     AppHelper.EnableDevtools = true;
-                    initStartup(DILevel.MainProcess);
-                    initCef();
-                    initUIApp();
+                    MainHandlerByCLT();
                 });
                 rootCommand.AddCommand(devtools);
 
@@ -58,14 +112,8 @@ namespace System.Application.UI
                 common.AddOption(new Option<bool>("-silence", "静默启动（不弹窗口）"));
                 common.Handler = CommandHandler.Create((bool silence) =>
                 {
-                    var appInstance = new ApplicationInstance();
-                    if (!appInstance.IsFirst) return;
-                    IsMainProcess = true;
-                    IsCLTProcess = false;
-                    initStartup(DILevel.MainProcess);
-                    initCef();
                     IsMinimize = silence;
-                    initUIApp();
+                    MainHandlerByCLT();
                 });
                 rootCommand.AddCommand(common);
 
