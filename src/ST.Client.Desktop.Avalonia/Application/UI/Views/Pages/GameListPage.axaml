@@ -194,6 +194,14 @@
             </TreeView.ItemTemplate>
         </TreeView>-->
     <Panel>
+      <StackPanel IsVisible="{Binding IsSteamAppsEmpty}"
+                  HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+        <controls:ProgressRing IsIndeterminate="True"
+                               Width="150" Height="150">
+        </controls:ProgressRing>
+        <TextBlock Text="正在加载游戏列表..."></TextBlock>
+      </StackPanel>
+
       <TextBlock IsVisible="{Binding IsSteamAppsEmpty}"
          Text="{ReflectionBinding Path=Res.GameList_IsEmpty,Mode=OneWay,Source={x:Static resx:R.Current}}"
          TextWrapping="WrapWithOverflow"

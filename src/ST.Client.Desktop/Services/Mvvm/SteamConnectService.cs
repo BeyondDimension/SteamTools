@@ -154,7 +154,7 @@ namespace System.Application.Services
                                             LoadGames(ApiService.OwnsApps(SteamApps.Items));
                                             break;
                                         }
-                                        await Task.Delay(2000);
+                                        Thread.Sleep(2000);
                                     }
 
                                     //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);

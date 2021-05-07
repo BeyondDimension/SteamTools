@@ -158,6 +158,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _SearchText, value);
         }
 
+        public bool IsSteamAppsLoading => IsSteamAppsEmpty;
         public bool IsSteamAppsEmpty => !SteamApps.Any_Nullable();
 
         private ObservableCollection<EnumModel<SteamAppType>> _AppTypeFiltres = new();
