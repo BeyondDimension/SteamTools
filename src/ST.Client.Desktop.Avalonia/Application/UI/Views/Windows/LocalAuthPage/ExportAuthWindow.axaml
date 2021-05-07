@@ -19,6 +19,43 @@
         x:CompileBindings="True">
   <Panel HorizontalAlignment="Stretch">
     <controls:TitleBar></controls:TitleBar>
-    
+    <Border Padding="10" Margin="{StaticResource TitleBarAfterMargin}">
+      <StackPanel Spacing="10">
+        <StackPanel.Styles>
+          <Style Selector="TextBlock">
+            <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
+            <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
+          </Style>
+          <Style Selector="DockPanel > TextBlock">
+            <Setter Property="Margin" Value="0 0 20 0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="(DockPanel.Dock)"  Value="Left" />
+          </Style>
+          <Style Selector="DockPanel > ToggleSwitch">
+            <Setter Property="Margin" Value="0 0 -12 0" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="OnContent" Value="{x:Null}" />
+            <Setter Property="OffContent" Value="{x:Null}" />
+          </Style>
+        </StackPanel.Styles>
+
+        <TextBlock Text="是否需要导出带加密的数据" TextWrapping="WrapWithOverflow">
+        </TextBlock>
+
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_EnablePassword,Source={x:Static resx:R.Current},Mode=OneWay}"/>
+          <ToggleSwitch/>
+        </DockPanel>
+
+        <StackPanel Spacing="10">
+          <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_EnablePasswordTip,Source={x:Static resx:R.Current},Mode=OneWay}" TextWrapping="WrapWithOverflow"></TextBlock>
+          <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_Password,Source={x:Static resx:R.Current},Mode=OneWay}"  PasswordChar="*"></TextBox>
+        </StackPanel>
+
+        <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                Content="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_SaveApply,Source={x:Static resx:R.Current},Mode=OneWay}"></Button>
+      </StackPanel>
+    </Border>
   </Panel>
 </Window>
