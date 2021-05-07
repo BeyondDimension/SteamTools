@@ -2828,8 +2828,16 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 确定要删除这条本地记录帐户数据吗？
-        ///这将会删除此账户在本地的 Steam 缓存数据。 的本地化字符串。
+        ///   查找类似 是否也要同时删除此账户在本地的 Steam 缓存数据。 的本地化字符串。
+        /// </summary>
+        public static string UserChange_DeleteUserDataTip {
+            get {
+                return ResourceManager.GetString("UserChange_DeleteUserDataTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定要删除这条本地记录帐户吗？ 的本地化字符串。
         /// </summary>
         public static string UserChange_DeleteUserTip {
             get {

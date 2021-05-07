@@ -974,9 +974,11 @@
   <data name="UserChange_DeleteUser" xml:space="preserve">
     <value>删除此账号数据</value>
   </data>
+  <data name="UserChange_DeleteUserDataTip" xml:space="preserve">
+    <value>是否也要同时删除此账户在本地的 Steam 缓存数据。</value>
+  </data>
   <data name="UserChange_DeleteUserTip" xml:space="preserve">
-    <value>确定要删除这条本地记录帐户数据吗？
-这将会删除此账户在本地的 Steam 缓存数据。</value>
+    <value>确定要删除这条本地记录帐户吗？</value>
   </data>
   <data name="UserChange_EditRemark" xml:space="preserve">
     <value>点此修改备注</value>

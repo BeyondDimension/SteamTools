@@ -167,16 +167,22 @@ namespace System.Application.UI.ViewModels
             user.OriginVdfString = user.CurrentVdfString;
         }
 
-        public void DeleteUserButton_Click(SteamUser user)
+        public async void DeleteUserButton_Click(SteamUser user)
         {
-            var result = MessageBoxCompat.ShowAsync(@AppResources.UserChange_DeleteUserTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+            var result = await MessageBoxCompat.ShowAsync(@AppResources.UserChange_DeleteUserTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
+            if (result == MessageBoxResultCompat.OK)
             {
-                if (s.Result == MessageBoxResultCompat.OK)
+                result = await MessageBoxCompat.ShowAsync(@AppResources.UserChange_DeleteUserDataTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
+                if (result == MessageBoxResultCompat.OK)
                 {
-                    steamService.DeleteLocalUserData(user);
-                    _SteamUsersSourceList.Remove(user);
+                    steamService.DeleteLocalUserData(user, true);
                 }
-            });
+                else
+                {
+                    steamService.DeleteLocalUserData(user, false);
+                }
+                _SteamUsersSourceList.Remove(user);
+            }
         }
 
         public void OpenUserProfileUrl(SteamUser user)

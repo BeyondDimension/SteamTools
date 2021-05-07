@@ -77,7 +77,7 @@ namespace System.Application.Services
 
         bool UpdateAppListJson(string appsJsonStr, string filePath);
 
-        void DeleteLocalUserData(SteamUser user);
+        void DeleteLocalUserData(SteamUser user, bool IsDeleteUserData = false);
 
         void UpdateLocalUserData(SteamUser user);
 
