@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Application.Services.ISteamService;
@@ -380,7 +381,7 @@ namespace System.Application.Services.Implementation
             //}
         }
 
-        public async Task<CookieCollection?> GetLoginUsingSteamClientCookiesAsync(bool runasInvoker = false)
+        public async Task<CookieCollection?> GetLoginUsingSteamClientCookieCollectionAsync(bool runasInvoker = false)
         {
             var cookies = (string[]?)null;
             if (runasInvoker && DI.Platform == Platform.Windows)
@@ -411,7 +412,9 @@ namespace System.Application.Services.Implementation
                         };
 
                         var connStr = tempFilePath;
-                        connStr = Serializable.SMPB64U(connStr);
+                        using var rsa = RSA.Create(2048);
+                        var rsaPK = rsa.ToJsonString(false);
+                        var key = Serializable.SMPB64U((connStr, rsaPK));
                         //pipeClient.StartInfo.Arguments = $"/trustlevel:0x20000 \"\"{consoleProgramPath}\" getstmauth -key \"{connStr}\"\"";
                         //pipeClient.StartInfo.UseShellExecute = false;
                         try
@@ -421,16 +424,21 @@ namespace System.Application.Services.Implementation
                             //pipeClient.WaitForExit();
                             //pipeClient.Close();
 
-                            platformService.UnelevatedProcessStart($"runas.exe /trustlevel:0x20000 \"\"{consoleProgramPath}\" getstmauth -key \"{connStr}\"\"");
+                            var command = $"runas.exe /trustlevel:0x20000 \"\"{consoleProgramPath}\" getstmauth -key \"{key}\"\"";
+                            platformService.UnelevatedProcessStart(command);
 
                             watcher.WaitForChanged(WatcherChangeTypes.Created, IPC_Call_GetLoginUsingSteamClient_Timeout_MS);
                             if (File.Exists(tempFilePath))
                             {
-                                var value = File.ReadAllText(tempFilePath);
+                                var value = File.ReadAllBytes(tempFilePath);
                                 File.Delete(tempFilePath);
                                 try
                                 {
-                                    cookies = Serializable.DMPB64U<string[]>(value);
+                                    var fileBytes = Serializable.DMP<(byte[] cookiesBytes, byte[] aesKey)>(value);
+                                    var aesKey = rsa.Decrypt(fileBytes.aesKey);
+                                    using var aes = AESUtils.Create(aesKey);
+                                    var cookiesBytes = aes.Decrypt(fileBytes.cookiesBytes);
+                                    cookies = Serializable.DMP<string[]>(cookiesBytes);
                                 }
                                 catch
                                 {
@@ -463,8 +471,8 @@ namespace System.Application.Services.Implementation
                 request.Headers.UserAgent.ParseAdd(http.PlatformHelper.UserAgent);
                 var response = await client.SendAsync(request);
 #if DEBUG
-                Console.WriteLine("GetLoginUsingSteamClientAuthAsync");
-                Console.WriteLine($"StatusCode: {response.StatusCode}");
+                //Console.WriteLine("GetLoginUsingSteamClientAuthAsync");
+                //Console.WriteLine($"StatusCode: {response.StatusCode}");
 #endif
                 if (response.IsSuccessStatusCode)
                 {
@@ -474,11 +482,20 @@ namespace System.Application.Services.Implementation
                     var jsonObj = JObject.Load(json);
                     var steamid = jsonObj["steamid"]!.ToString();
 #if DEBUG
-                    Console.WriteLine($"steamid: {steamid}");
+                    //Console.WriteLine($"steamid: {steamid}");
 #endif
                     var encrypted_loginkey = jsonObj["encrypted_loginkey"]!.ToString();
+#if DEBUG
+                    //Console.WriteLine($"encrypted_loginkey: {encrypted_loginkey}");
+#endif
                     var sessionkey = jsonObj["sessionkey"]!.ToString();
+#if DEBUG
+                    //Console.WriteLine($"sessionkey: {sessionkey}");
+#endif
                     var digest = jsonObj["digest"]!.ToString();
+#if DEBUG
+                    //Console.WriteLine($"digest: {digest}");
+#endif
                     return (steamid, encrypted_loginkey, sessionkey, digest);
                 }
             }
@@ -495,20 +512,30 @@ namespace System.Application.Services.Implementation
             {
 #pragma warning disable CS8620 // 由于引用类型的可为 null 性差异，实参不能用于形参。
                 Content = new FormUrlEncodedContent(new Dictionary<string, string?>
-                    {
-                        { "steamid", auth_data.steamid },
-                        { "encrypted_loginkey", auth_data.encrypted_loginkey },
-                        { "sessionkey",  auth_data.sessionkey },
-                        { "digest",  auth_data.digest },
-                    }),
+                {
+                    { "steamid", auth_data.steamid },
+                    { "sessionkey",  auth_data.sessionkey },
+                    { "encrypted_loginkey", auth_data.encrypted_loginkey },
+                    { "digest",  auth_data.digest },
+                }),
 #pragma warning restore CS8620 // 由于引用类型的可为 null 性差异，实参不能用于形参。
             };
+            request.Headers.Add("Accept", MediaTypeNames.JSON);
+            request.Headers.UserAgent.ParseAdd(http.PlatformHelper.UserAgent);
             var client = http.Factory.CreateClient();
             client.Timeout = TimeSpan.FromSeconds(9.75);
             var response = await client.SendAsync(request/*, HttpCompletionOption.ResponseHeadersRead*/);
             if (response.IsSuccessStatusCode && response.Headers.TryGetValues("Set-Cookie", out var cookies))
             {
-                return cookies.ToArray();
+                var r = cookies.ToArray();
+#if DEBUG
+                //foreach (var item in r)
+                //{
+                //    Console.WriteLine($"Set-Cookie: {item}");
+                //}
+                //Console.WriteLine("OK");
+#endif
+                return r;
             }
 
             return default;

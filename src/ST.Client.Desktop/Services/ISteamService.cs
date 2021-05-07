@@ -95,7 +95,7 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="runasInvoker"></param>
         /// <returns></returns>
-        Task<CookieCollection?> GetLoginUsingSteamClientCookiesAsync(bool runasInvoker = false);
+        Task<CookieCollection?> GetLoginUsingSteamClientCookieCollectionAsync(bool runasInvoker = false);
 
         /// <summary>
         /// 获取 Steam 客户端自动登录 Cookie(用于写入到 WebView3 中免登录)

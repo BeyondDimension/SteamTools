@@ -80,7 +80,7 @@ namespace System.Application.Services.Implementation
         /// <param name="checkMaxLength"></param>
         /// <returns></returns>
         bool TryOperation([NotNullWhen(false)] out string? message,
-            out FileInfo fileInfo,
+            [NotNullWhen(true)] out FileInfo? fileInfo,
             out bool removeReadOnly,
             bool checkReadOnly = false,
             bool checkMaxLength = true)
@@ -133,7 +133,7 @@ namespace System.Application.Services.Implementation
             catch (Exception ex)
             {
                 removeReadOnly = false;
-                fileInfo = new FileInfo(s.HostsFilePath);
+                fileInfo = null;
                 message = ex.Message;
                 return false;
             }

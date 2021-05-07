@@ -153,7 +153,7 @@ namespace System.Application.UI.Views.Windows
         static Task? mGetLoginUsingSteamClientCookiesAsync;
         static async Task GetLoginUsingSteamClientCookiesAsync()
         {
-            var cookies = await Instance.GetLoginUsingSteamClientCookiesAsync(runasInvoker: DI.Platform == Platform.Windows);
+            var cookies = await Instance.GetLoginUsingSteamClientCookieCollectionAsync(runasInvoker: DI.Platform == Platform.Windows);
             if (cookies != default)
             {
                 var manager = CefRequestContext.GetGlobalContext().GetCookieManager(null);
