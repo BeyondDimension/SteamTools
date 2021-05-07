@@ -65,6 +65,7 @@ namespace System.Application.Services.Implementation
 
             proxyServer.CertificateManager.RootCertificate = proxyServer.CertificateManager.LoadRootCertificate();
         }
+
         public async Task HttpRequest(SessionEventArgs e)
         {
             //IHttpService.Instance.SendAsync<object>();
