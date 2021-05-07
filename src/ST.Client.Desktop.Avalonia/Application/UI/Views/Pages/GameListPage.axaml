@@ -209,11 +209,11 @@
       <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="0 0 0 10">
         <ItemsRepeater Items="{Binding SteamApps}">
           <ItemsRepeater.Layout>
-            <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20"  MaximumRowsOrColumns="8" ItemsStretch="Fill" />
+            <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="10" MinColumnSpacing="10" MaximumRowsOrColumns="10" ItemsStretch="Fill" />
           </ItemsRepeater.Layout>
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>
-              <StackPanel Margin="20 0" Spacing="8">
+              <StackPanel Spacing="8">
                 <Border DockPanel.Dock="Top" Classes="paper">
                   <Border.ContextMenu>
                     <ContextMenu>
@@ -247,14 +247,18 @@
                           <PathIcon Data="{StaticResource TrophyDrawing}" Width="16"></PathIcon>
                         </MenuItem.Icon>
                       </MenuItem>
-                      <!--<MenuItem
-                                                      Header="{ReflectionBinding Path=Res.GameList_HideTheGame,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      <MenuItem
+                        Header="{ReflectionBinding Path=Res.GameList_HideTheGame,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                                       Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
                                                       CommandParameter="{Binding}" />
-                                            <MenuItem
-                                                      Header="{ReflectionBinding Path=Res.GameList_SetCustomImage,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                                      Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
-                                                      CommandParameter="{Binding}" />-->
+                      <MenuItem
+                                Header="添加到挂时长列表"
+                                Command="{ReflectionBinding #u.DataContext.OpenAppStoreUrl}"
+                                CommandParameter="{Binding}" />
+                      <!--<MenuItem
+                                Header="{ReflectionBinding Path=Res.GameList_SetCustomImage,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
+                                CommandParameter="{Binding}" />-->
                       <MenuItem
                                 Header="{ReflectionBinding Path=Res.GameList_OpenStoreUrl,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.OpenAppStoreUrl}"

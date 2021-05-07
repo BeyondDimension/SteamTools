@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
@@ -23,6 +23,8 @@ namespace System.Application.UI.ViewModels
 
             AddAuthCommand = ReactiveCommand.Create(AddAuthMenu_Click);
             RefreshAuthCommand = ReactiveCommand.Create(() => AuthService.Current.Initialize(true));
+            EncryptionAuthCommand = ReactiveCommand.Create(ShowEncryptionAuthWindow);
+
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
                 //new MenuItemViewModel(nameof(AppResources.LocalAuth_EditAuth))
@@ -31,6 +33,8 @@ namespace System.Application.UI.ViewModels
                 //    {
                         new MenuItemViewModel(nameof(AppResources.Add)) { IconKey="AddDrawing",
                             Command= AddAuthCommand },
+                        new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="LockDrawing",
+                            Command =EncryptionAuthCommand },
                         //new MenuItemViewModel(nameof(AppResources.Edit)) { IconKey="EditDrawing" },
                         //new MenuItemViewModel(nameof(AppResources.Export)) { IconKey="ExportDrawing",
                         //    Command= RefreshAuthCommand  },
@@ -66,6 +70,9 @@ namespace System.Application.UI.ViewModels
         public bool IsAuthenticatorsEmpty => !AuthService.Current.Authenticators.Items.Any_Nullable();
 
         public ReactiveCommand<Unit, Unit> AddAuthCommand { get; }
+
+        public ReactiveCommand<Unit, Unit> EncryptionAuthCommand { get; }
+
         public ReactiveCommand<Unit, Unit> RefreshAuthCommand { get; }
 
         //internal async override Task Initialize()
@@ -135,5 +142,11 @@ namespace System.Application.UI.ViewModels
                 IShowWindowService.Instance.Show(CustomWindow.AuthTrade, new AuthTradeWindowViewModel(auth), string.Empty, ResizeModeCompat.CanResize);
             }
         }
+
+        public void ShowEncryptionAuthWindow()
+        {
+            IShowWindowService.Instance.Show(CustomWindow.EncryptionAuth, new EncryptionAuthWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+        }
+
     }
 }

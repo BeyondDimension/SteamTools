@@ -58,5 +58,17 @@
     <Compile Update="Application\UI\Views\Pages\GameRelatedPage.axaml.cs">
       <DependentUpon>GameRelatedPage.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Application\UI\Views\Windows\GameListPage\HideAppWindow.axaml.cs">
+      <DependentUpon>HideAppWindow.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Application\UI\Views\Windows\GameListPage\IdleAppWindow.axaml.cs">
+      <DependentUpon>IdleAppWindow.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Application\UI\Views\Windows\LocalAuthPage\EncryptionAuthWindow.axaml.cs">
+      <DependentUpon>EncryptionAuthWindow.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Application\UI\Views\Windows\LocalAuthPage\ExportAuthWindow.axaml.cs">
+      <DependentUpon>ExportAuthWindow.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

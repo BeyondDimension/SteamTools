@@ -576,6 +576,33 @@
   <data name="LocalAuth_OtherImport" xml:space="preserve">
     <value>其它软件导入</value>
   </data>
+  <data name="LocalAuth_ProtectionAuth" xml:space="preserve">
+    <value>令牌加密</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_EnablePassword" xml:space="preserve">
+    <value>启用自定义密码保护</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_EnablePasswordTip" xml:space="preserve">
+    <value>您的认证器将使用您自己的密码进行加密，您需要输入您的密码才能打开WinAuth。如果您忘记了密码，并且没有备份，您的认证器将无法访问。</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_Info" xml:space="preserve">
+    <value>强烈建议使用密码保护你的认证器，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但你的令牌数据会有被盗取的风险。</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt" xml:space="preserve">
+    <value>启用令牌仅在这台电脑上可解密</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
+    <value>此外，你可以使用内置的Windows账户加密来保护和加密你的数据。这将把您的认证器锁定在这台计算机或用户上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装Windows或删除这个用户账户，你必须把这个功能关掉。</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_Password" xml:space="preserve">
+    <value>自定义密码</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_SaveApply" xml:space="preserve">
+    <value>保存并应用</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_VerifyPassword" xml:space="preserve">
+    <value>再次输入密码</value>
+  </data>
   <data name="LocalAuth_RefreshAuthSuccess" xml:space="preserve">
     <value>令牌数据加载完成</value>
   </data>

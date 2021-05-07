@@ -10,6 +10,7 @@ namespace System.Application
         AddAuth,
         ShowAuth,
         AuthTrade,
+        EncryptionAuth,
         ScriptStore,
         ChangeBindPhoneNumber,
         UserProfile,

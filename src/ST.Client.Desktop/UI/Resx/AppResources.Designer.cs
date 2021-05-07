@@ -1423,6 +1423,87 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 令牌加密 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启用自定义密码保护 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth_EnablePassword {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth_EnablePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 您的认证器将使用您自己的密码进行加密，您需要输入您的密码才能打开WinAuth。如果您忘记了密码，并且没有备份，您的认证器将无法访问。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth_EnablePasswordTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth_EnablePasswordTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 强烈建议使用密码保护你的认证器，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但你的令牌数据会有被盗取的风险。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth_Info {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启用令牌仅在这台电脑上可解密 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 此外，你可以使用内置的Windows账户加密来保护和加密你的数据。这将把您的认证器锁定在这台计算机或用户上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装Windows或删除这个用户账户，你必须把这个功能关掉。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 自定义密码 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth_Password {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存并应用 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth_SaveApply {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth_SaveApply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 再次输入密码 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth_VerifyPassword {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth_VerifyPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 令牌数据加载完成 的本地化字符串。
         /// </summary>
         public static string LocalAuth_RefreshAuthSuccess {

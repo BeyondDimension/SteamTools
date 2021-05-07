@@ -72,15 +72,15 @@ namespace System.Application.Services.Implementation
 
         public void KillSteamProcess()
         {
-            var processes = Process.GetProcesses();
-            foreach (var p in processes)
+            foreach (var p in steamProcess)
             {
-                if (steamProcess.Contains(p.ProcessName, StringComparer.OrdinalIgnoreCase))
+                var process = Process.GetProcessesByName(p).FirstOrDefault();
+                if (process != null)
                 {
-                    if (p.HasExited == false)
+                    if (process.HasExited == false)
                     {
-                        p.Kill();
-                        p.WaitForExit();
+                        process.Kill();
+                        process.WaitForExit();
                     }
                 }
             }
@@ -110,14 +110,9 @@ namespace System.Application.Services.Implementation
 
         public int? GetSteamProcessPid()
         {
-            var processes = Process.GetProcesses();
-            foreach (var p in processes)
-            {
-                if (string.Equals(p.ProcessName, steamProcess[0], StringComparison.OrdinalIgnoreCase))
-                {
-                    return p.Id;
-                }
-            }
+            var processes = Process.GetProcessesByName(steamProcess[0]);
+            if (processes.Any_Nullable())
+                return processes.First().Id;
             return default;
         }
 
