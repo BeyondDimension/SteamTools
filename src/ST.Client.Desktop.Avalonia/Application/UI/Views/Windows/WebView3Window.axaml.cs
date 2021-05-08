@@ -33,6 +33,7 @@ namespace System.Application.UI.Views.Windows
             webView.Opacity = 0;
             webView.DocumentTitleChanged += WebView_DocumentTitleChanged;
             webView.LoadingStateChange += WebView_LoadingStateChange;
+            webView.BrowserCreated += WebView_BrowserCreated;
         }
 
         CancellationTokenSource? cts;
@@ -131,11 +132,20 @@ namespace System.Application.UI.Views.Windows
             }
         }
 
+        string? initialUrl;
+        private void WebView_BrowserCreated(object? sender, EventArgs e)
+        {
+            if (initialUrl != null && webView.BrowserObject != null)
+            {
+                webView.Navigate(initialUrl);
+            }
+        }
+
         void Navigate(string url)
         {
             if (webView.BrowserObject == null)
             {
-                webView.InitialUrl = url;
+                initialUrl = url;
             }
             else
             {
