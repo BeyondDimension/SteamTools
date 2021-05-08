@@ -48,6 +48,9 @@ namespace System.Application.Services.Implementation
 
         public bool ProxyRunning => proxyServer.ProxyRunning;
         public IList<HttpHeader> JsHeader => new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
+
+        public const string LocalDomain = "local.steampp.net";
+
         public HttpProxyServiceImpl()
         {
             //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -109,7 +112,7 @@ namespace System.Application.Services.Implementation
             {
                 return;
             }
-            if (e.HttpClient.Request.Host.Equals("local.steampp.net", StringComparison.OrdinalIgnoreCase))
+            if (e.HttpClient.Request.Host.Equals(LocalDomain, StringComparison.OrdinalIgnoreCase))
             {
                 if (e.HttpClient.Request.Method.ToUpperInvariant() == "OPTIONS")
                 {
@@ -476,6 +479,11 @@ namespace System.Application.Services.Implementation
             {
                 return Task.CompletedTask;
             }
+            if (e.SniHostName.Equals(LocalDomain, StringComparison.OrdinalIgnoreCase))
+            {
+                e.DecryptSsl = true;
+                return Task.CompletedTask;
+            }
             foreach (var item in ProxyDomains)
             {
                 foreach (var host in item.DomainNamesArray)
@@ -493,8 +501,13 @@ namespace System.Application.Services.Implementation
         private Task ExplicitProxyEndPoint_BeforeTunnelConnectRequest(object sender, TunnelConnectSessionEventArgs e)
         {
             e.DecryptSsl = false;
-            if (ProxyDomains is null)
+            if (ProxyDomains is null || e.HttpClient?.Request?.Host == null)
             {
+                return Task.CompletedTask;
+            }
+            if (e.HttpClient.Request.Host.Equals(LocalDomain, StringComparison.OrdinalIgnoreCase))
+            {
+                e.DecryptSsl = true;
                 return Task.CompletedTask;
             }
             foreach (var item in ProxyDomains)
