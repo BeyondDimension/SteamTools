@@ -4,6 +4,6 @@ namespace System.Properties
     {
         public const string Version = "2.2.0";
 
-        public const string InfoVersion = Version + "-beta";
+        public const string InfoVersion = Version /*+ "-beta"*/;
     }
 }
