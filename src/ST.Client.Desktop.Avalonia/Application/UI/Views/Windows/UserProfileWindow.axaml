@@ -62,7 +62,7 @@
       <controls:ProgressRing IsIndeterminate="True" HorizontalAlignment="Stretch" Height="100" Width="100" IsVisible="{Binding IsLoading}"/>
       <StackPanel VerticalAlignment="Center" IsVisible="{Binding !IsLoading}">
         <DockPanel>
-          <Image Source="/Application/UI/Assets/AppResources/avater.jpg" Width="184" Height="184"/>
+          <Image Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=184}" Width="184" Height="184"/>
           <StackPanel Orientation="Vertical" Margin="16,0,0,0">
             <Button Content="{ReflectionBinding Path=Res.RefreshSteamAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}"
                     Opacity="0"

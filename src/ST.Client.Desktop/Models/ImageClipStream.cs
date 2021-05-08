@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 
 namespace System.Application.Models
 {
@@ -64,7 +64,10 @@ namespace System.Application.Models
         {
             Circle = true;
         }
-
+        public CircleImageStream(string path) : base(IOPath.OpenRead(path))
+        {
+            Circle = true;
+        }
         public static implicit operator CircleImageStream?(Stream? stream)
             => stream == null ? null : new(stream);
     }

@@ -86,11 +86,12 @@ namespace System.Application.Services
 
         const string DefaultAvaterPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater_default.png";
 
-        //string _AvaterPath = DefaultAvaterPath;
-        public object AvaterPath
+        object? _AvaterPath = DefaultAvaterPath;
+
+        public object? AvaterPath
         {
-            get => GetAvaterPath(User);
-            //set => this.RaiseAndSetIfChanged(ref _AvaterPath, value);
+            get => _AvaterPath;
+            set => this.RaiseAndSetIfChanged(ref _AvaterPath, value);
         }
 
         public UserService()
@@ -130,9 +131,11 @@ namespace System.Application.Services
             {
                 CurrentSteamUser = await ISteamworksWebApiService.Instance.GetUserInfo(User.SteamAccountId.Value);
                 CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
+                AvaterPath = new CircleImageStream(await CurrentSteamUser.AvatarStream);
             }
 
-            this.RaisePropertyChanged(nameof(AvaterPath));
+            //AvaterPath = GetAvaterPath(User);
+
             var userInfo = await userManager.GetCurrentUserAsync();
             HasPhoneNumber = !string.IsNullOrWhiteSpace(userInfo?.PhoneNumber);
         }
