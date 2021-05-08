@@ -390,6 +390,8 @@ namespace System.Application.UI
 
             mainWindow.Show();
             mainWindow.WindowState = WindowState.Normal;
+            mainWindow.Topmost = true;
+            mainWindow.Topmost = false;
             mainWindow.BringIntoView();
             mainWindow.ActivateWorkaround(); // Extension method hack because of https://github.com/AvaloniaUI/Avalonia/issues/2975
             mainWindow.Focus();

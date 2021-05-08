@@ -492,5 +492,10 @@ namespace System.Application.Services
             foreach (var auth in auths)
                 AddOrUpdateSaveAuthenticators(auth);
         }
+
+        public void ExportAuthenticators() 
+        {
+
+        }
     }
 }

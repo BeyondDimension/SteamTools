@@ -106,6 +106,10 @@ namespace System.Application.Services.Implementation
                 Log.Error(TAG, e, "KillSteamProcess Fail.");
                 return false;
             }
+            finally
+            {
+                SteamConnectService.Current.IsConnectToSteam = false;
+            }
         }
 
         public int? GetSteamProcessPid()

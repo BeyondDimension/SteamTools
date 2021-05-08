@@ -123,7 +123,10 @@ namespace System.Application.UI.ViewModels
         internal override void Activation()
         {
             if (IsFirstActivation)
-                SteamConnectService.Current.Initialize();
+            {
+                //SteamConnectService.Current.Initialize();
+                Task.Run(SteamConnectService.Current.RefreshGamesList).ForgetAndDispose();
+            }
             base.Activation();
         }
 
