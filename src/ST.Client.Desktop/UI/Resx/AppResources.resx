@@ -1085,11 +1085,20 @@
   <data name="User_SMSCode_Error" xml:space="preserve">
     <value>请先获取验证码</value>
   </data>
+  <data name="User_SteamAvaterTip" xml:space="preserve">
+    <value>点击头像快速登录</value>
+  </data>
   <data name="User_SteamFastLogin" xml:space="preserve">
     <value>Steam 快速登录</value>
   </data>
   <data name="User_SteamFastLoginTimeoutErrorMessage" xml:space="preserve">
     <value>连接到 Steam 社区超时，请检查是否开启社区加速。</value>
+  </data>
+  <data name="User_SteamLogoTip" xml:space="preserve">
+    <value>点击跳转到快速登录窗口</value>
+  </data>
+  <data name="User_SteamUnLoginTip" xml:space="preserve">
+    <value>点击Steam Logo登录</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>警告</value>

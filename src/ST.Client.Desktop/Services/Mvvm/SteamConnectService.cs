@@ -62,6 +62,14 @@ namespace System.Application.Services
                 }
             }
         }
+
+        const string DefaultAvaterPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg";
+        object? _AvaterPath = DefaultAvaterPath;
+        public object? AvaterPath
+        {
+            get => _AvaterPath;
+            set => this.RaiseAndSetIfChanged(ref _AvaterPath, value);
+        }
         #endregion
 
         #region 连接steamclient是否成功
@@ -151,6 +159,9 @@ namespace System.Application.Services
                                     }
                                     IsConnectToSteam = true;
                                     CurrentSteamUser = await SteamworksWebApiService.GetUserInfo(id);
+                                    CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
+                                    AvaterPath = new CircleImageStream(await CurrentSteamUser.AvatarStream);
+
                                     CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
 

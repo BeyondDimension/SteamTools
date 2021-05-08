@@ -68,6 +68,7 @@ namespace System.Application.Models
         {
             Circle = true;
         }
+
         public static implicit operator CircleImageStream?(Stream? stream)
             => stream == null ? null : new(stream);
     }

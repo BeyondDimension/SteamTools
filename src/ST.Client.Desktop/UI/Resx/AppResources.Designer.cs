@@ -2783,6 +2783,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 点击头像快速登录 的本地化字符串。
+        /// </summary>
+        public static string User_SteamAvaterTip {
+            get {
+                return ResourceManager.GetString("User_SteamAvaterTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam 快速登录 的本地化字符串。
         /// </summary>
         public static string User_SteamFastLogin {
@@ -2797,6 +2806,24 @@ namespace System.Application.UI.Resx {
         public static string User_SteamFastLoginTimeoutErrorMessage {
             get {
                 return ResourceManager.GetString("User_SteamFastLoginTimeoutErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 点击跳转到快速登录窗口 的本地化字符串。
+        /// </summary>
+        public static string User_SteamLogoTip {
+            get {
+                return ResourceManager.GetString("User_SteamLogoTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 点击Steam Logo登录 的本地化字符串。
+        /// </summary>
+        public static string User_SteamUnLoginTip {
+            get {
+                return ResourceManager.GetString("User_SteamUnLoginTip", resourceCulture);
             }
         }
         

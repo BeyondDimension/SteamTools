@@ -68,6 +68,15 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
         }
 
+        short _LoginState;
+        public short LoginState
+        {
+            get => _LoginState;
+            set => this.RaiseAndSetIfChanged(ref _LoginState, value);
+        }
+
+        public SteamUser? SteamUser { get; } = SteamConnectService.Current.CurrentSteamUser;
+
         public async void Submit()
         {
             if (IsLoading || !this.CanSubmit()) return;
@@ -96,6 +105,11 @@ namespace System.Application.UI.ViewModels
             var msg = AppResources.Success_.Format((rsp?.IsLoginOrRegister ?? false) ? AppResources.User_Login : AppResources.User_Register);
             Toast.Show(msg);
             close?.Invoke();
+        }
+
+        public void ChangeLoginState(short state)
+        {
+            LoginState = state;
         }
 
         internal static async Task FastLoginOrRegisterAsync(Action? close = null)
