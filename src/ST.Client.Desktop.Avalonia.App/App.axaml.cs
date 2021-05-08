@@ -345,7 +345,7 @@ namespace System.Application.UI
 #if WINDOWS
             //WpfApplication.Current.Shutdown();
 #endif
-            AppHelper.Shutdown?.Invoke();
+            AppHelper.TryShutdown();
         }
 
         void NotifyIcon_Click(object? sender, EventArgs e)
@@ -431,7 +431,10 @@ namespace System.Application.UI
         {
             if (AvaloniaApplication.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.Shutdown(exitCode);
+                MainThreadDesktop.BeginInvokeOnMainThread(() =>
+                {
+                    desktop.Shutdown(exitCode);
+                });
                 return true;
             }
             return false;

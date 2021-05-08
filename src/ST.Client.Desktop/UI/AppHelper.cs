@@ -24,6 +24,14 @@ namespace System.Application.UI
 
         public static Action? Shutdown { get; set; }
 
+        static bool isShutdown = false;
+        public static void TryShutdown()
+        {
+            if (isShutdown) return;
+            isShutdown = true;
+            Shutdown?.Invoke();
+        }
+
         static AppHelper()
         {
             var mainModule = Process.GetCurrentProcess().MainModule;

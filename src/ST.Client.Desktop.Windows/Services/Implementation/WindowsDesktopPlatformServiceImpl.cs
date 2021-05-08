@@ -137,7 +137,7 @@ namespace System.Application.Services.Implementation
 
         public void SetSystemSessionEnding(Action action)
         {
-            Microsoft.Win32.SystemEvents.SessionEnding += (sender, e) =>
+            SystemEvents.SessionEnding += (sender, e) =>
             {
                 //IDesktopAppService.Instance.CompositeDisposable.Dispose();
                 action.Invoke();

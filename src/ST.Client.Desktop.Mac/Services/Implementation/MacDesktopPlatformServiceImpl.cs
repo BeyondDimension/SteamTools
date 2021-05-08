@@ -28,7 +28,8 @@ namespace System.Application.Services.Implementation
                 FileName = "open",
                 Arguments = $"-a \"{name}\" \"{filePath}\"",
             });
-            p?.Close();
+            if (p == null) throw new FileNotFoundException(name);
+            p.Close();
         }
 
         public void SetSystemSessionEnding(Action action)

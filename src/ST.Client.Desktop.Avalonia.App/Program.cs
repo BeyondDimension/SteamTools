@@ -108,7 +108,7 @@ namespace System.Application.UI
                     {
                         try
                         {
-                            AppHelper.Shutdown?.Invoke();
+                            AppHelper.TryShutdown();
                         }
                         catch (Exception ex_shutdown_app_helper)
                         {

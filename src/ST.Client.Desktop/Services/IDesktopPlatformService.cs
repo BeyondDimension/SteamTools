@@ -29,7 +29,17 @@ namespace System.Application.Services
         /// </summary>
         string HostsFilePath => "/etc/hosts";
 
-        void StartProcess(string name, string filePath) => Process.Start(name, filePath);
+        /// <summary>
+        /// 启动进程，传递文件名参数
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="filePath"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="ComponentModel.Win32Exception"></exception>
+        /// <exception cref="ObjectDisposedException"></exception>
+        /// <exception cref="IO.FileNotFoundException"></exception>
+        void StartProcess(string name, string filePath) => Process.Start(name, $"\"{filePath}\"");
 
         /// <summary>
         /// 使用文本阅读器打开文件

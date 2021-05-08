@@ -1,4 +1,4 @@
-﻿namespace System.Application.Columns
+namespace System.Application.Columns
 {
     /// <summary>
     /// 手机号码
@@ -7,6 +7,8 @@
     {
         /// <inheritdoc cref="IPhoneNumber"/>
         string? PhoneNumber { get; set; }
+
+        public const int Db_MaxLength_PhoneNumber = 20;
     }
 
     /// <inheritdoc cref="IPhoneNumber"/>
