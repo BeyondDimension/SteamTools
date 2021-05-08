@@ -147,9 +147,11 @@ namespace System.Application.Services
 
                         if (!ProxySettings.EnableWindowsProxy.Value)
                         {
-                            if (httpProxyService.PortInUse(443))
+                            var p = DI.Get<IDesktopPlatformService>().GetProcessByPortOccupy(443, true);
+
+                            if (p != null)
                             {
-                                Toast.Show(AppResources.CommunityFix_StartProxyFaild443);
+                                Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, p.ProcessName));
                                 return;
                             }
                         }

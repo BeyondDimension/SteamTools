@@ -102,6 +102,8 @@ namespace System.Application.Services
             userManager.OnSignOut += () =>
             {
                 User = null;
+                CurrentSteamUser = null;
+                AvaterPath = DefaultAvaterPath;
             };
 
             //ShowWindow = ReactiveCommand.Create<CustomWindow>(n => ShowWindowF(n));
