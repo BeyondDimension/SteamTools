@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 using static System.Application.Services.CloudService.Constants;
 
 // ReSharper disable once CheckNamespace
@@ -279,7 +280,13 @@ namespace System.Application.UI.Views.Controls
             base.OnResourceLoadComplete(browser, frame, request, response, status, receivedContentLength);
             if (responseDictionary.TryGetValue(request.Identifier, out var filter))
             {
-                webView.OnStreamResponseFilterResourceLoadComplete?.Invoke(request.Url, filter.Data);
+                if (webView.OnStreamResponseFilterResourceLoadComplete != null)
+                {
+                    Task.Run(() =>
+                    {
+                        webView.OnStreamResponseFilterResourceLoadComplete(request.Url, filter.Data);
+                    });
+                }
             }
         }
 

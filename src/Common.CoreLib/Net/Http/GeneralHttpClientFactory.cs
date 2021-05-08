@@ -31,7 +31,7 @@ namespace System.Net.Http
         /// <summary>
         /// 默认超时时间，16秒
         /// </summary>
-        public static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(16);
+        public static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(11);
 
         static readonly Lazy<int> mDefaultTimeoutTotalMilliseconds = new(() => DefaultTimeout.TotalMilliseconds.ToInt32());
 

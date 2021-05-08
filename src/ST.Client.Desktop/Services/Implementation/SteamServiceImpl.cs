@@ -392,70 +392,7 @@ namespace System.Application.Services.Implementation
             var cookies = (string[]?)null;
             if (runasInvoker && DI.Platform == Platform.Windows)
             {
-                if (AppHelper.ProgramPath.EndsWith(FileEx.EXE))
-                {
-                    var consoleProgramPath = AppHelper.ProgramPath.Substring(0, AppHelper.ProgramPath.Length - FileEx.EXE.Length) + ".Console" + FileEx.EXE;
-                    if (File.Exists(consoleProgramPath))
-                    {
-                        //var pipeClient = new Process();
-                        //pipeClient.StartInfo.FileName = "runas.exe";
-
-                        var tempFileDirectoryName = IOPath.CacheDirectory;
-                        var tempFileName = Path.GetFileName(Path.GetTempFileName());
-                        var tempFilePath = Path.Combine(tempFileDirectoryName, tempFileName);
-                        IOPath.FileIfExistsItDelete(tempFilePath);
-
-                        using var watcher = new FileSystemWatcher(tempFileDirectoryName, tempFileName)
-                        {
-                            NotifyFilter = NotifyFilters.Attributes
-                                | NotifyFilters.CreationTime
-                                | NotifyFilters.DirectoryName
-                                | NotifyFilters.FileName
-                                | NotifyFilters.LastAccess
-                                | NotifyFilters.LastWrite
-                                | NotifyFilters.Security
-                                | NotifyFilters.Size,
-                        };
-
-                        var connStr = tempFilePath;
-                        using var rsa = RSA.Create(2048);
-                        var rsaPK = rsa.ToJsonString(false);
-                        var key = Serializable.SMPB64U((connStr, rsaPK));
-                        //pipeClient.StartInfo.Arguments = $"/trustlevel:0x20000 \"\"{consoleProgramPath}\" getstmauth -key \"{connStr}\"\"";
-                        //pipeClient.StartInfo.UseShellExecute = false;
-                        try
-                        {
-                            //pipeClient.Start();
-
-                            //pipeClient.WaitForExit();
-                            //pipeClient.Close();
-
-                            var command = $"runas.exe /trustlevel:0x20000 \"\"{consoleProgramPath}\" getstmauth -key \"{key}\"\"";
-                            platformService.UnelevatedProcessStart(command);
-
-                            watcher.WaitForChanged(WatcherChangeTypes.Created, IPC_Call_GetLoginUsingSteamClient_Timeout_MS);
-                            if (File.Exists(tempFilePath))
-                            {
-                                var value = File.ReadAllBytes(tempFilePath);
-                                File.Delete(tempFilePath);
-                                try
-                                {
-                                    var fileBytes = Serializable.DMP<(byte[] cookiesBytes, byte[] aesKey)>(value);
-                                    var aesKey = rsa.Decrypt(fileBytes.aesKey);
-                                    using var aes = AESUtils.Create(aesKey);
-                                    var cookiesBytes = aes.Decrypt(fileBytes.cookiesBytes);
-                                    cookies = Serializable.DMP<string[]>(cookiesBytes);
-                                }
-                                catch
-                                {
-                                }
-                            }
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
+                cookies = await Task.Run(GetLoginUsingSteamClientCookies);
             }
             else
             {
@@ -552,6 +489,76 @@ namespace System.Application.Services.Implementation
             var auth_data = await GetLoginUsingSteamClientAuthAsync();
             var cookies = await GetLoginUsingSteamClientCookiesAsync(auth_data);
             return cookies;
+        }
+
+        string[]? GetLoginUsingSteamClientCookies()
+        {
+            if (AppHelper.ProgramPath.EndsWith(FileEx.EXE))
+            {
+                var consoleProgramPath = AppHelper.ProgramPath.Substring(0, AppHelper.ProgramPath.Length - FileEx.EXE.Length) + ".Console" + FileEx.EXE;
+                if (File.Exists(consoleProgramPath))
+                {
+                    //var pipeClient = new Process();
+                    //pipeClient.StartInfo.FileName = "runas.exe";
+
+                    var tempFileDirectoryName = IOPath.CacheDirectory;
+                    var tempFileName = Path.GetFileName(Path.GetTempFileName());
+                    var tempFilePath = Path.Combine(tempFileDirectoryName, tempFileName);
+                    IOPath.FileIfExistsItDelete(tempFilePath);
+
+                    using var watcher = new FileSystemWatcher(tempFileDirectoryName, tempFileName)
+                    {
+                        NotifyFilter = NotifyFilters.Attributes
+                            | NotifyFilters.CreationTime
+                            | NotifyFilters.DirectoryName
+                            | NotifyFilters.FileName
+                            | NotifyFilters.LastAccess
+                            | NotifyFilters.LastWrite
+                            | NotifyFilters.Security
+                            | NotifyFilters.Size,
+                    };
+
+                    var connStr = tempFilePath;
+                    using var rsa = RSA.Create(2048);
+                    var rsaPK = rsa.ToJsonString(false);
+                    var key = Serializable.SMPB64U((connStr, rsaPK));
+                    //pipeClient.StartInfo.Arguments = $"/trustlevel:0x20000 \"\"{consoleProgramPath}\" getstmauth -key \"{connStr}\"\"";
+                    //pipeClient.StartInfo.UseShellExecute = false;
+                    try
+                    {
+                        //pipeClient.Start();
+
+                        //pipeClient.WaitForExit();
+                        //pipeClient.Close();
+
+                        var command = $"runas.exe /trustlevel:0x20000 \"\"{consoleProgramPath}\" getstmauth -key \"{key}\"\"";
+                        platformService.UnelevatedProcessStart(command);
+
+                        watcher.WaitForChanged(WatcherChangeTypes.Created, IPC_Call_GetLoginUsingSteamClient_Timeout_MS);
+                        if (File.Exists(tempFilePath))
+                        {
+                            var value = File.ReadAllBytes(tempFilePath);
+                            File.Delete(tempFilePath);
+                            try
+                            {
+                                var fileBytes = Serializable.DMP<(byte[] cookiesBytes, byte[] aesKey)>(value);
+                                var aesKey = rsa.Decrypt(fileBytes.aesKey);
+                                using var aes = AESUtils.Create(aesKey);
+                                var cookiesBytes = aes.Decrypt(fileBytes.cookiesBytes);
+                                var cookies = Serializable.DMP<string[]>(cookiesBytes);
+                                return cookies;
+                            }
+                            catch
+                            {
+                            }
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            return default;
         }
 
         static CookieCollection? GetCookieCollection(Uri url, IEnumerable<string>? cookies)

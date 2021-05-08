@@ -10,7 +10,7 @@ namespace System.Application.Services
     /// </summary>
     public interface ISteamService
     {
-        public const int IPC_Call_GetLoginUsingSteamClient_Timeout_MS = 15000;
+        public const int IPC_Call_GetLoginUsingSteamClient_Timeout_MS = 7000;
         protected const string url_localhost_auth_public = "http://127.0.0.1:27060/auth/?u=public";
         public const string url_steamcommunity_checkclientautologin = "https://steamcommunity.com/login/checkclientautologin";
         public static readonly Uri uri_steamcommunity_checkclientautologin = new(url_steamcommunity_checkclientautologin);
