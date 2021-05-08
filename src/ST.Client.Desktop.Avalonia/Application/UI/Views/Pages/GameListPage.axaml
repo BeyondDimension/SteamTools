@@ -83,11 +83,11 @@
               <Setter Property="Height" Value="20"></Setter>
             </Style>
           </StackPanel.Styles>
-          <Button Background="Transparent"
+          <!--<Button Background="Transparent"
                                 Cursor="Hand"
                                 ToolTip.Tip="添加未拥有的游戏">
             <PathIcon Data="{StaticResource AddDrawing}" />
-          </Button>
+          </Button>-->
           <Button Background="Transparent"
                   Command="{ReflectionBinding RefreshGamesList,Source={x:Static service:SteamConnectService.Current},Mode=OneWay}"
                   Cursor="Hand"
@@ -247,14 +247,14 @@
                           <PathIcon Data="{StaticResource TrophyDrawing}" Width="16"></PathIcon>
                         </MenuItem.Icon>
                       </MenuItem>
-                      <MenuItem
+                      <!--<MenuItem
                         Header="{ReflectionBinding Path=Res.GameList_HideTheGame,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                                       Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
                                                       CommandParameter="{Binding}" />
                       <MenuItem
                                 Header="添加到挂时长列表"
                                 Command="{ReflectionBinding #u.DataContext.OpenAppStoreUrl}"
-                                CommandParameter="{Binding}" />
+                                CommandParameter="{Binding}" />-->
                       <!--<MenuItem
                                 Header="{ReflectionBinding Path=Res.GameList_SetCustomImage,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"

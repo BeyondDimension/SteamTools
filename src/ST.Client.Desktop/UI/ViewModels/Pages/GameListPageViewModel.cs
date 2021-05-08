@@ -113,11 +113,11 @@ namespace System.Application.UI.ViewModels
                 });
 
 
-            MenuItems = new ObservableCollection<MenuItemViewModel>()
-            {
-                  new MenuItemViewModel(nameof(AppResources.GameList_HideGameManger)),
-                  new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)),
-            };
+            //MenuItems = new ObservableCollection<MenuItemViewModel>()
+            //{
+            //      new MenuItemViewModel(nameof(AppResources.GameList_HideGameManger)),
+            //      new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)),
+            //};
         }
 
         internal override void Activation()

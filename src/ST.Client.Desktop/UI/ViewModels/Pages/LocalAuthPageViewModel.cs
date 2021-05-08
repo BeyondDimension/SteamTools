@@ -33,8 +33,8 @@ namespace System.Application.UI.ViewModels
                 //    {
                         new MenuItemViewModel(nameof(AppResources.Add)) { IconKey="AddDrawing",
                             Command= AddAuthCommand },
-                        new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="LockDrawing",
-                            Command =EncryptionAuthCommand },
+                        //new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="LockDrawing",
+                        //    Command =EncryptionAuthCommand },
                         //new MenuItemViewModel(nameof(AppResources.Edit)) { IconKey="EditDrawing" },
                         //new MenuItemViewModel(nameof(AppResources.Export)) { IconKey="ExportDrawing",
                         //    Command= RefreshAuthCommand  },
