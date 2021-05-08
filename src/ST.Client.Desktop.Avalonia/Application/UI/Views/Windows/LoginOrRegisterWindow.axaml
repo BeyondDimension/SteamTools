@@ -137,7 +137,7 @@
                   Command="{ReflectionBinding ChangeLoginState}" CommandParameter="0">
             <!--<WrapPanel>
               <PathIcon Data="{StaticResource SteamDrawing}" Width="18" Margin="5 0"></PathIcon>-->
-              <TextBlock Text="{ReflectionBinding Path=Res.User_SteamFastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+            <TextBlock Text="{ReflectionBinding Path=Res.User_SteamFastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
             <!--</WrapPanel>-->
           </Button>
           <Separator Classes="Separator" Height="{ReflectionBinding $parent.Height}" Width="0.88"></Separator>
