@@ -294,7 +294,9 @@ namespace System.Application.UI.Views.Controls
 
         protected override CefResponseFilter GetResourceResponseFilter(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response)
         {
-            if (webView.StreamResponseFilterUrls != null && webView.StreamResponseFilterUrls.Any(x => request.Url.StartsWith(x, StringComparison.OrdinalIgnoreCase)))
+            if (webView.StreamResponseFilterUrls != null &&
+                webView.StreamResponseFilterUrls.Any(x => request.Url.StartsWith(x, StringComparison.OrdinalIgnoreCase)) &&
+                webView.OnStreamResponseFilterResourceLoadComplete != null)
             {
                 var rspIsCiphertext = false;
                 if (webView.IsSecurity)
