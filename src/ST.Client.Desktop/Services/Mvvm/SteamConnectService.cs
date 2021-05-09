@@ -289,7 +289,7 @@ namespace System.Application.Services
                     }, TaskCreationOptions.LongRunning);
                     t.Start();
                 }
-                else 
+                else
                 {
                     InitializeGameList();
                     Toast.Show(AppResources.GameList_RefreshGamesListSucess);

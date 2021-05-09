@@ -305,7 +305,7 @@ namespace System.Application.Services.Implementation
                         {
                             if (app.AppId > 0)
                             {
-                                if (GameLibrarySettings.DefaultIgnoreList.Contains(app.AppId))
+                                if (GameLibrarySettings.DefaultIgnoreList.Value.Contains(app.AppId))
                                     continue;
                                 if (app.ParentId > 0)
                                 {

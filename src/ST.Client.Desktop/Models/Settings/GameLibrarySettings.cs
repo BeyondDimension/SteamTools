@@ -10,7 +10,7 @@ namespace System.Application.Models.Settings
 {
     public static class GameLibrarySettings
     {
-        public static readonly IReadOnlyCollection<uint> DefaultIgnoreList = new ReadOnlyCollection<uint>(new List<uint>
+        public static readonly Lazy<ReadOnlyCollection<uint>> DefaultIgnoreList = new Lazy<ReadOnlyCollection<uint>>(new ReadOnlyCollection<uint>(new List<uint>
         {
             5,
             7,
@@ -152,7 +152,8 @@ namespace System.Application.Models.Settings
             605470,
             654310,
             700580
-        });
+        }));
+
 
 
         private static string GetKey([CallerMemberName] string propertyName = "")
