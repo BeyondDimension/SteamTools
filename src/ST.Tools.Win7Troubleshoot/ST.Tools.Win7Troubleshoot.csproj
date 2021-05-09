@@ -20,6 +20,9 @@
     <Compile Include="..\Common.CoreLib\Properties\ThisAssembly.cs">
       <Link>Properties\ThisAssembly.cs</Link>
     </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\ThisAssembly.Version.cs">
+      <Link>Properties\ThisAssembly.Version.cs</Link>
+    </Compile>
     <Compile Include="..\Common.CoreLib\Security\Cryptography\Hashs.cs">
       <Link>Security\Cryptography\Hashs.cs</Link>
     </Compile>

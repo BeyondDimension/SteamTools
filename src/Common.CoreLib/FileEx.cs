@@ -54,5 +54,7 @@ namespace System
         public const string APNG = ".apng";
 
         public const string EXE = ".exe";
+
+        public const string _7Z = ".7z";
     }
 }

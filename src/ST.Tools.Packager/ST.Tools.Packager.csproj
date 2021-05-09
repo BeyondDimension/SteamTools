@@ -19,6 +19,9 @@
     <Compile Include="..\Common.CoreLib\Properties\ThisAssembly.cs">
       <Link>Properties\ThisAssembly.cs</Link>
     </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\ThisAssembly.Version.cs">
+      <Link>Properties\ThisAssembly.Version.cs</Link>
+    </Compile>
     <Compile Include="..\ST.Client.Desktop\TarGZipHelper.cs">
       <Link>Application\TarGZipHelper.cs</Link>
     </Compile>
@@ -37,7 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SharpZipLib" Version="1.3.1" />
+    <PackageReference Include="SharpZipLib" Version="1.3.2" />
   </ItemGroup>
 
 </Project>
