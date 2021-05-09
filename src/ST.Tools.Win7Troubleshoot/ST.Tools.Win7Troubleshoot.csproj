@@ -59,7 +59,7 @@
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
     <!--Win8.1/10的开始菜单磁贴配置-->
     <None Include="..\..\Resources\AppIcon\visualelementsmanifest.xml">
-      <Link>Steam++.Win7.visualelementsmanifest.xml</Link>
+      <Link>Steam++.Win7.VisualElementsManifest.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

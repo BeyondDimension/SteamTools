@@ -131,7 +131,7 @@
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <!--Win8.1/10的开始菜单磁贴配置-->
     <None Include="..\..\Resources\AppIcon\visualelementsmanifest.xml">
-      <Link>steam++.visualelementsmanifest.xml</Link>
+      <Link>Steam++.VisualElementsManifest.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\..\Resources\AppIcon\VisualElements_150.png">
