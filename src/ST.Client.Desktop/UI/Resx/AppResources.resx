@@ -381,8 +381,14 @@
   <data name="GameList" xml:space="preserve">
     <value>库存游戏</value>
   </data>
+  <data name="GameList_AddAFKAppsSuccess" xml:space="preserve">
+    <value>添加到挂时常列表成功</value>
+  </data>
   <data name="GameList_EditAppInfo" xml:space="preserve">
     <value>编辑游戏信息</value>
+  </data>
+  <data name="GameList_HideAppsSuccess" xml:space="preserve">
+    <value>隐藏游戏成功</value>
   </data>
   <data name="GameList_HideGameManger" xml:space="preserve">
     <value>管理隐藏游戏列表</value>

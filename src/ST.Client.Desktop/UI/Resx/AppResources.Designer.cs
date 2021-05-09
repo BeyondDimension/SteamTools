@@ -846,11 +846,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 添加到挂时常列表成功 的本地化字符串。
+        /// </summary>
+        public static string GameList_AddAFKAppsSuccess {
+            get {
+                return ResourceManager.GetString("GameList_AddAFKAppsSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 编辑游戏信息 的本地化字符串。
         /// </summary>
         public static string GameList_EditAppInfo {
             get {
                 return ResourceManager.GetString("GameList_EditAppInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 隐藏游戏成功 的本地化字符串。
+        /// </summary>
+        public static string GameList_HideAppsSuccess {
+            get {
+                return ResourceManager.GetString("GameList_HideAppsSuccess", resourceCulture);
             }
         }
         

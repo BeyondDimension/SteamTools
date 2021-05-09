@@ -247,14 +247,14 @@
                           <PathIcon Data="{StaticResource TrophyDrawing}" Width="16"></PathIcon>
                         </MenuItem.Icon>
                       </MenuItem>
-                      <!--<MenuItem
+                     <MenuItem
                         Header="{ReflectionBinding Path=Res.GameList_HideTheGame,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                                      Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
+                                                      Command="{ReflectionBinding #u.DataContext.AddHideAppList}"
                                                       CommandParameter="{Binding}" />
                       <MenuItem
                                 Header="添加到挂时长列表"
-                                Command="{ReflectionBinding #u.DataContext.OpenAppStoreUrl}"
-                                CommandParameter="{Binding}" />-->
+                                Command="{ReflectionBinding #u.DataContext.AddAFKAppList}"
+                                CommandParameter="{Binding}" />
                       <!--<MenuItem
                                 Header="{ReflectionBinding Path=Res.GameList_SetCustomImage,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"

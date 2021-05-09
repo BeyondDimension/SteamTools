@@ -68,6 +68,19 @@ namespace System.Application.Models.Settings
             = new SerializableProperty<IReadOnlyCollection<int>>(GetKey(), Providers.Local, new List<int>()) { AutoSave = true };
 
 
+        /// <summary>
+        /// 隐藏的游戏列表
+        /// </summary>
+        public static SerializableProperty<List<SteamHideApps>?> HideGameList { get; }
+            = new SerializableProperty<List<SteamHideApps>?>(GetKey(), Providers.Local, null) { AutoSave = true };
+
+        /// <summary>
+        /// 隐藏的游戏列表
+        /// </summary>
+        public static SerializableProperty<List<SteamAFKApps>?> AFKAppList { get; }
+            = new SerializableProperty<List<SteamAFKApps>?>(GetKey(), Providers.Local, null) { AutoSave = true };
+
+        
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
             return nameof(ProxySettings) + "." + propertyName;
