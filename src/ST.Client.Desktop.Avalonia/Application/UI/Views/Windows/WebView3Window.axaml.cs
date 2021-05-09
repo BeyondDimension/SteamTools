@@ -59,21 +59,29 @@ namespace System.Application.UI.Views.Windows
                 if (isDelayed && vm.IsLoading)
                 {
                     webView.Stop();
-                    Hide();
-                    await MessageBoxCompat.ShowAsync(
-                        vm.TimeoutErrorMessage!,
-                        vm.Title,
-                        MessageBoxButtonCompat.OKCancel);
-                    Close();
+                    await WebViewLoadingTimeoutAsync(vm);
                 }
             }
+        }
+
+        async Task WebViewLoadingTimeoutAsync(WebView3WindowViewModel vm)
+        {
+            if (vm.TimeoutErrorMessage != null)
+            {
+                Hide();
+                await MessageBoxCompat.ShowAsync(
+                    vm.TimeoutErrorMessage!,
+                    vm.Title,
+                    MessageBoxButtonCompat.OKCancel);
+            }
+            Close();
         }
 
         bool isFirstWebViewLoading;
         //#if DEBUG
         //        bool isShowDevTools;
         //#endif
-        private void WebView_LoadingStateChange(object? sender, LoadingStateChangeEventArgs e)
+        private async void WebView_LoadingStateChange(object? sender, LoadingStateChangeEventArgs e)
         {
             //#if DEBUG
             //            if (!isShowDevTools)
@@ -94,10 +102,20 @@ namespace System.Application.UI.Views.Windows
                 }
                 if (!e.Busy)
                 {
-                    if (webView.Opacity != 1) webView.Opacity = 1;
-                    if (vm.IsLoading)
+                    var mainFrame = webView.GetMainFrame();
+                    if (mainFrame != null)
                     {
-                        vm.IsLoading = false;
+                        var mainFrameSource = await mainFrame.GetSourceAsync(default);
+                        if (mainFrameSource == "<html><head></head><body></body></html>")
+                        {
+                            await WebViewLoadingTimeoutAsync(vm);
+                            return;
+                        }
+                        if (webView.Opacity != 1) webView.Opacity = 1;
+                        if (vm.IsLoading)
+                        {
+                            vm.IsLoading = false;
+                        }
                     }
                 }
             }
@@ -124,8 +142,7 @@ namespace System.Application.UI.Views.Windows
             }
         }
 
-        static Task? mGetLoginUsingSteamClientCookiesAsync;
-        static async Task GetLoginUsingSteamClientCookiesAsync()
+        static async Task LoginUsingSteamClientCookiesAsync()
         {
             var cookies = await Instance.GetLoginUsingSteamClientCookieCollectionAsync(runasInvoker: DI.Platform == Platform.Windows);
             if (cookies != default)
@@ -134,7 +151,7 @@ namespace System.Application.UI.Views.Windows
                 foreach (Cookie item in cookies)
                 {
                     var cookie = item.GetCefNetCookie();
-                    var setCookieResult = await manager.SetCookieAsync(url_steamcommunity_checkclientautologin, cookie);
+                    var setCookieResult = await manager.SetCookieAsync(url_steamcommunity/*url_store_steampowered_checkclientautologin*/, cookie);
                     if (item.Name == "steamLoginSecure" && setCookieResult)
                     {
                         loginUsingSteamClientState = LoginUsingSteamClientState.Success;
@@ -149,9 +166,7 @@ namespace System.Application.UI.Views.Windows
 
         async void GetLoginUsingSteamClientCookies()
         {
-            if (mGetLoginUsingSteamClientCookiesAsync == null)
-                mGetLoginUsingSteamClientCookiesAsync = GetLoginUsingSteamClientCookiesAsync();
-            await mGetLoginUsingSteamClientCookiesAsync;
+            await LoginUsingSteamClientCookiesAsync();
             if (loginUsingSteamClientState == LoginUsingSteamClientState.Success
                 && webView.BrowserObject != null)
             {
@@ -237,6 +252,10 @@ namespace System.Application.UI.Views.Windows
                 if (disposing)
                 {
                     // TODO: 释放托管状态(托管对象)
+                    if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
+                    {
+                        loginUsingSteamClientState = LoginUsingSteamClientState.None;
+                    }
                     if (webView != null)
                     {
                         cts?.Cancel();

@@ -12,8 +12,10 @@ namespace System.Application.Services
     {
         public const int IPC_Call_GetLoginUsingSteamClient_Timeout_MS = 7000;
         protected const string url_localhost_auth_public = "http://127.0.0.1:27060/auth/?u=public";
-        public const string url_steamcommunity_checkclientautologin = "https://steamcommunity.com/login/checkclientautologin";
-        public static readonly Uri uri_steamcommunity_checkclientautologin = new(url_steamcommunity_checkclientautologin);
+        public const string url_steamcommunity = "https://steamcommunity.com";
+        public const string url_store_steampowered = "https://store.steampowered.com";
+        public const string url_store_steampowered_checkclientautologin = url_store_steampowered + "/login/checkclientautologin";
+        public static readonly Uri uri_store_steampowered_checkclientautologin = new(url_store_steampowered_checkclientautologin);
 
         public static ISteamService Instance => DI.Get<ISteamService>();
 
@@ -101,6 +103,7 @@ namespace System.Application.Services
         /// 获取 Steam 客户端自动登录 Cookie(用于写入到 WebView3 中免登录)
         /// </summary>
         /// <returns></returns>
+        /// <exception cref="OperationCanceledException"></exception>
         Task<string[]?> GetLoginUsingSteamClientCookiesAsync();
     }
 }

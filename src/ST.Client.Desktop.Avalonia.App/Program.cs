@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reactive;
+using System.Runtime.ExceptionServices;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 using NLogLevel = NLog.LogLevel;
 
@@ -23,6 +24,7 @@ namespace System.Application.UI
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
         [STAThread]
+        [HandleProcessCorruptedStateExceptions]
         static int Main(string[] args)
         {
 #if StartupTrace

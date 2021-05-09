@@ -56,7 +56,15 @@ getstmauth.Handler = CommandHandler.Create(async (string key) =>
             Console.WriteLine($"IsAdministrator: {dps.IsAdministrator}");
         }
 #endif
-        var cookies = await s.GetLoginUsingSteamClientCookiesAsync();
+        string[]? cookies;
+        try
+        {
+            cookies = await s.GetLoginUsingSteamClientCookiesAsync();
+        }
+        catch (OperationCanceledException)
+        {
+            return;
+        }
         var cookiesBytes = Serializable.SMP(cookies);
         cookiesBytes = aes.Encrypt(cookiesBytes);
         var aesKey = aes.ToParamsByteArray();
@@ -175,5 +183,7 @@ rootCommand.AddCommand(ipc2);
 #endif
 
 var r = rootCommand.InvokeAsync(args).Result;
+#if DEBUG
 Console.ReadLine();
+#endif
 return r;
