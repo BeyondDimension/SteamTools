@@ -33,6 +33,9 @@
       </ExperimentalAcrylicBorder>
       <controls:WebView3 x:Name="webView"/>
       <controls:ProgressRing IsIndeterminate="True" HorizontalAlignment="Stretch" Height="100" Width="100" IsVisible="{Binding IsLoading}" />
+
+      <!--Toast-->
+      <controls:ToastMessage />
     </Panel>
   </DockPanel>
 </Window>

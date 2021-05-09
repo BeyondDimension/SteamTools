@@ -90,26 +90,26 @@
 
           <StackPanel x:Name="SteamLogin"  Spacing="8">
             <i:Interaction.Behaviors>
-              <ia:DataTriggerBehavior Binding="{Binding SteamUser}" ComparisonCondition="NotEqual" Value="{x:Null}">
-                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #UserAvater}" PropertyName="IsVisible" Value="True"/>
-                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #SteamLogo}" PropertyName="IsVisible" Value="False"/>
-              </ia:DataTriggerBehavior>
               <ia:DataTriggerBehavior Binding="{Binding SteamUser}" ComparisonCondition="Equal" Value="{x:Null}">
                 <ia:ChangePropertyAction TargetObject="{ReflectionBinding #SteamLogo}" PropertyName="IsVisible" Value="True"/>
                 <ia:ChangePropertyAction TargetObject="{ReflectionBinding #UserAvater}" PropertyName="IsVisible" Value="False"/>
               </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding SteamUser}" ComparisonCondition="NotEqual" Value="{x:Null}">
+                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #UserAvater}" PropertyName="IsVisible" Value="True"/>
+                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #SteamLogo}" PropertyName="IsVisible" Value="False"/>
+              </ia:DataTriggerBehavior>
             </i:Interaction.Behaviors>
 
-            <Button Classes="plain" Command="{ReflectionBinding SteamFastLogin}">
-              <Image x:Name="UserAvater"
+            <Button x:Name="UserAvater" Classes="plain" Command="{ReflectionBinding SteamFastLogin}" IsVisible="False">
+              <Image
                         Source="{ReflectionBinding Source={x:Static service:SteamConnectService.Current},Path=AvaterPath,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=128}"
                         Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25"
                         ToolTip.Tip="{ReflectionBinding Path=Res.User_SteamAvaterTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
               </Image>
             </Button>
 
-            <Button Classes="plain" Command="{ReflectionBinding SteamFastLogin}">
-              <PathIcon x:Name="SteamLogo"
+            <Button x:Name="SteamLogo" Classes="plain" Command="{ReflectionBinding SteamFastLogin}">
+              <PathIcon
                           Data="{StaticResource SteamDrawing}"
                           Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25"
                           ToolTip.Tip="{ReflectionBinding Path=Res.User_SteamLogoTip,Mode=OneWay,Source={x:Static resx:R.Current}}">

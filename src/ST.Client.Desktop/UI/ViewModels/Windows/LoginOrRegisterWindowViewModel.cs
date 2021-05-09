@@ -20,6 +20,9 @@ namespace System.Application.UI.ViewModels
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LoginAndRegister;
             SteamFastLogin = ReactiveCommand.CreateFromTask(async () => await FastLoginOrRegisterAsync(Close));
+
+            SteamConnectService.Current.WhenAnyValue(x => x.CurrentSteamUser)
+                .Subscribe(_ => this.RaisePropertyChanged(nameof(SteamUser)));
         }
 
         private string? _PhoneNumber;

@@ -183,6 +183,8 @@ namespace System.Application.Services
                         else
                         {
                             IsConnectToSteam = false;
+                            CurrentSteamUser = null;
+                            AvaterPath = DefaultAvaterPath;
                         }
                         Thread.Sleep(2000);
                     }
