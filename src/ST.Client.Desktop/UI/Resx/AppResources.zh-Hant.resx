@@ -975,4 +975,7 @@
   <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
     <value>GM 是基礎框架不允許删除</value>
   </data>
+  <data name="GetLoginUsingSteamClientCookies" xml:space="preserve">
+    <value>正在獲取 Steam 登錄狀態</value>
+  </data>
 </root>

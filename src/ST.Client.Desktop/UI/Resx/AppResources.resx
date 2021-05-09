@@ -456,6 +456,9 @@
   <data name="Gender_Unknown" xml:space="preserve">
     <value>保密</value>
   </data>
+  <data name="GetLoginUsingSteamClientCookies" xml:space="preserve">
+    <value>正在获取 Steam 登录状态</value>
+  </data>
   <data name="Hosts_Exists" xml:space="preserve">
     <value>写入的 hosts 已经存在</value>
   </data>

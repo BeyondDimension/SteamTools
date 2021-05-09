@@ -969,4 +969,7 @@
   <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
     <value>GM 은 기본 프레임 인 데 삭제 가 안 돼 요</value>
   </data>
+  <data name="GetLoginUsingSteamClientCookies" xml:space="preserve">
+    <value>Steam 로그인 상태 얻기</value>
+  </data>
 </root>

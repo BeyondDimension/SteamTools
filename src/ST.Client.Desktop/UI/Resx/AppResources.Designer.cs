@@ -1071,6 +1071,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 正在获取 Steam 登录状态 的本地化字符串。
+        /// </summary>
+        public static string GetLoginUsingSteamClientCookies {
+            get {
+                return ResourceManager.GetString("GetLoginUsingSteamClientCookies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 写入的 hosts 已经存在 的本地化字符串。
         /// </summary>
         public static string Hosts_Exists {

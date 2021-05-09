@@ -975,4 +975,7 @@
   <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
     <value>GM is the basic framework and cannot be deleted</value>
   </data>
+  <data name="GetLoginUsingSteamClientCookies" xml:space="preserve">
+    <value>Getting Steam login status</value>
+  </data>
 </root>

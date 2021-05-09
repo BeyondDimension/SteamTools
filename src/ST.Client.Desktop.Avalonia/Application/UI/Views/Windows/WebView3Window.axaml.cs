@@ -135,14 +135,13 @@ namespace System.Application.UI.Views.Windows
                 {
                     var cookie = item.GetCefNetCookie();
                     var setCookieResult = await manager.SetCookieAsync(url_steamcommunity_checkclientautologin, cookie);
-                    if (item.Name == "steamLoginSecure" && !setCookieResult)
+                    if (item.Name == "steamLoginSecure" && setCookieResult)
                     {
-                        return;
+                        loginUsingSteamClientState = LoginUsingSteamClientState.Success;
                     }
                 }
-                loginUsingSteamClientState = LoginUsingSteamClientState.Success;
             }
-            else
+            if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
             {
                 loginUsingSteamClientState = LoginUsingSteamClientState.None;
             }
@@ -153,7 +152,8 @@ namespace System.Application.UI.Views.Windows
             if (mGetLoginUsingSteamClientCookiesAsync == null)
                 mGetLoginUsingSteamClientCookiesAsync = GetLoginUsingSteamClientCookiesAsync();
             await mGetLoginUsingSteamClientCookiesAsync;
-            if (webView.BrowserObject != null)
+            if (loginUsingSteamClientState == LoginUsingSteamClientState.Success
+                && webView.BrowserObject != null)
             {
                 webView.Reload();
             }
@@ -178,7 +178,7 @@ namespace System.Application.UI.Views.Windows
                         if (steamUser != null)
                         {
                             loginUsingSteamClientState = LoginUsingSteamClientState.Loading;
-                            Toast.Show("正在获取 Steam 登录状态");
+                            Toast.Show(AppResources.GetLoginUsingSteamClientCookies);
                             GetLoginUsingSteamClientCookies();
                         }
                     }

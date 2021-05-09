@@ -418,8 +418,8 @@ namespace System.Application.Services.Implementation
                 request.Headers.UserAgent.ParseAdd(http.PlatformHelper.UserAgent);
                 var response = await client.SendAsync(request);
 #if DEBUG
-                //Console.WriteLine("GetLoginUsingSteamClientAuthAsync");
-                //Console.WriteLine($"StatusCode: {response.StatusCode}");
+                Console.WriteLine("GetLoginUsingSteamClientAuthAsync");
+                Console.WriteLine($"StatusCode: {response.StatusCode}");
 #endif
                 if (response.IsSuccessStatusCode)
                 {
@@ -429,19 +429,19 @@ namespace System.Application.Services.Implementation
                     var jsonObj = JObject.Load(json);
                     var steamid = jsonObj["steamid"]!.ToString();
 #if DEBUG
-                    //Console.WriteLine($"steamid: {steamid}");
+                    Console.WriteLine($"steamid: {steamid}");
 #endif
                     var encrypted_loginkey = jsonObj["encrypted_loginkey"]!.ToString();
 #if DEBUG
-                    //Console.WriteLine($"encrypted_loginkey: {encrypted_loginkey}");
+                    Console.WriteLine($"encrypted_loginkey: {encrypted_loginkey}");
 #endif
                     var sessionkey = jsonObj["sessionkey"]!.ToString();
 #if DEBUG
-                    //Console.WriteLine($"sessionkey: {sessionkey}");
+                    Console.WriteLine($"sessionkey: {sessionkey}");
 #endif
                     var digest = jsonObj["digest"]!.ToString();
 #if DEBUG
-                    //Console.WriteLine($"digest: {digest}");
+                    Console.WriteLine($"digest: {digest}");
 #endif
                     return (steamid, encrypted_loginkey, sessionkey, digest);
                 }
@@ -476,11 +476,11 @@ namespace System.Application.Services.Implementation
             {
                 var r = cookies.ToArray();
 #if DEBUG
-                //foreach (var item in r)
-                //{
-                //    Console.WriteLine($"Set-Cookie: {item}");
-                //}
-                //Console.WriteLine("OK");
+                foreach (var item in r)
+                {
+                    Console.WriteLine($"Set-Cookie: {item}");
+                }
+                Console.WriteLine("OK");
 #endif
                 return r;
             }

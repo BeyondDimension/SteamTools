@@ -969,4 +969,7 @@
   <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
     <value>GM базовый шаблон не позволяет удалять</value>
   </data>
+  <data name="GetLoginUsingSteamClientCookies" xml:space="preserve">
+    <value>Получение статуса входа в Steam</value>
+  </data>
 </root>
