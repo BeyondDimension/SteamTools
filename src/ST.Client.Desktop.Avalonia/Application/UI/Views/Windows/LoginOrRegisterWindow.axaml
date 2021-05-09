@@ -132,7 +132,7 @@
               <TextBlock Text="{ReflectionBinding Path=Res.User_SteamFastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
             </StackPanel>
           </Button>-->
-          
+
           <Button Classes="plain"
                   HorizontalContentAlignment="Center"
                   Command="{ReflectionBinding ChangeLoginState}" CommandParameter="0">

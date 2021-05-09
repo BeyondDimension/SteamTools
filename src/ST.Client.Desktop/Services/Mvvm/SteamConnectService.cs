@@ -63,9 +63,9 @@ namespace System.Application.Services
             }
         }
 
-        const string DefaultAvaterPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg";
-        object? _AvaterPath = DefaultAvaterPath;
-        public object? AvaterPath
+        static readonly CircleImageStream DefaultAvaterPath = new CircleImageStream("avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg");
+        CircleImageStream? _AvaterPath = DefaultAvaterPath;
+        public CircleImageStream? AvaterPath
         {
             get => _AvaterPath;
             set => this.RaiseAndSetIfChanged(ref _AvaterPath, value);
