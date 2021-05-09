@@ -56,9 +56,6 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// 使用 Steam 客户端登录
         /// </summary>
-        [Obsolete]
         public bool UseLoginUsingSteamClient { get; set; }
-
-        public bool UseLoginUsingSteamClientV2 { get; set; }
     }
 }

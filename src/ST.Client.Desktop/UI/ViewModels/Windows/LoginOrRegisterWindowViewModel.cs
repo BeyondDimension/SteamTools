@@ -130,7 +130,7 @@ namespace System.Application.UI.ViewModels
                 TimeoutErrorMessage = AppResources.User_SteamFastLoginTimeoutErrorMessage,
                 IsSecurity = true,
                 //UseLoginUsingSteamClient = true,
-                UseLoginUsingSteamClientV2 = true,
+                UseLoginUsingSteamClient = true,
                 Close = close,
             };
             async void _OnStreamResponseFilterResourceLoadComplete(string url, Stream data)
@@ -162,7 +162,10 @@ namespace System.Application.UI.ViewModels
                     }
                 }
             }
-            await IShowWindowService.Instance.Show(CustomWindow.WebView3, vm, resizeMode: ResizeModeCompat.CanResize);
+            await IShowWindowService.Instance.Show(CustomWindow.WebView3, vm,
+                resizeMode: ResizeModeCompat.CanResize,
+                isDialog: true // 锁定父窗口，防止打开多个 WebViewWindow
+                );
         }
 
         public Action? Close { private get; set; }
