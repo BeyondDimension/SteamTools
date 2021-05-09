@@ -531,15 +531,15 @@ namespace System.Application.Services.CloudService
 
                 var serializableImplType = Serializable.ImplType.MessagePack;
 
-                using var request = new HttpRequestMessage(method, requestUri)
+                var request = new HttpRequestMessage(method, requestUri)
                 {
                     Version = HttpVersion.Version20,
                     Content = GetRequestContent(
-                        isSecurity,
-                        aes,
-                        serializableImplType,
-                        requestModel,
-                        cancellationToken),
+                       isSecurity,
+                       aes,
+                       serializableImplType,
+                       requestModel,
+                       cancellationToken),
                 };
 
                 switch (serializableImplType)
@@ -580,10 +580,10 @@ namespace System.Application.Services.CloudService
 
                 HandleHttpRequest(request);
 
-                using var response = await client.SendAsync(request,
-                    HttpCompletionOption.ResponseHeadersRead,
-                    cancellationToken)
-                    .ConfigureAwait(false);
+                var response = await client.SendAsync(request,
+                   HttpCompletionOption.ResponseHeadersRead,
+                   cancellationToken)
+                   .ConfigureAwait(false);
 
                 HandleAppObsolete(response.Headers);
 
@@ -780,7 +780,7 @@ namespace System.Application.Services.CloudService
             IApiResponse responseResult;
             try
             {
-                using var request = new HttpRequestMessage(method, requestUri)
+                var request = new HttpRequestMessage(method, requestUri)
                 {
                     Version = HttpVersion.Version20,
                 };
@@ -796,10 +796,10 @@ namespace System.Application.Services.CloudService
 
                 HandleHttpRequest(request);
 
-                using var response = await client.SendAsync(request,
-                    HttpCompletionOption.ResponseHeadersRead,
-                    cancellationToken)
-                    .ConfigureAwait(false);
+                var response = await client.SendAsync(request,
+                   HttpCompletionOption.ResponseHeadersRead,
+                   cancellationToken)
+                   .ConfigureAwait(false);
 
                 var code = (ApiResponseCode)response.StatusCode;
 
