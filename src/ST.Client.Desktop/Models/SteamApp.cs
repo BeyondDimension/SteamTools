@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using System.Application.Services;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -258,7 +258,7 @@ namespace System.Application.Models
             }
             catch (Exception ex)
             {
-                Log.Error(nameof(SteamApp), ex, string.Format("Failed to load entry with appId {0:X8}", app.AppId));
+                Log.Error(nameof(SteamApp), ex, string.Format("Failed to load entry with appId {0}", app.AppId));
             }
             return app;
         }
