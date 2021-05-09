@@ -1,4 +1,5 @@
-﻿using System.IO;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
 #if !NET35 && !NOT_XE
 using Xamarin.Essentials;
 #endif
@@ -219,8 +220,10 @@ namespace System
             return ioPath;
         }
 
-        public static FileStream OpenRead(string filePath)
+        [return: NotNullIfNotNull("filePath")]
+        public static FileStream? OpenRead(string? filePath)
         {
+            if (filePath == null) return null;
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
             return fileStream;
         }

@@ -160,9 +160,7 @@ namespace System.Application.Services
                                     IsConnectToSteam = true;
                                     CurrentSteamUser = await SteamworksWebApiService.GetUserInfo(id);
                                     CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
-                                    var avater = await CurrentSteamUser.AvatarStream;
-                                    if (avater != null)
-                                        AvaterPath = new CircleImageStream(avater);
+                                    AvaterPath = CircleImageStream.Convert(await CurrentSteamUser.AvatarStream);
 
                                     CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();

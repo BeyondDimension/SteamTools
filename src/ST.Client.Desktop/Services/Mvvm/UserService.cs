@@ -133,7 +133,7 @@ namespace System.Application.Services
             {
                 CurrentSteamUser = await ISteamworksWebApiService.Instance.GetUserInfo(User.SteamAccountId.Value);
                 CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
-                AvaterPath = new CircleImageStream(await CurrentSteamUser.AvatarStream);
+                AvaterPath = CircleImageStream.Convert(await CurrentSteamUser.AvatarStream);
             }
 
             //AvaterPath = GetAvaterPath(User);
