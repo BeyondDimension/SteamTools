@@ -63,9 +63,9 @@ namespace System.Application.Services
             }
         }
 
-        static readonly CircleImageStream DefaultAvaterPath = new CircleImageStream("avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg");
-        CircleImageStream? _AvaterPath = DefaultAvaterPath;
-        public CircleImageStream? AvaterPath
+        const string DefaultAvaterPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg";
+        object? _AvaterPath = DefaultAvaterPath;
+        public object? AvaterPath
         {
             get => _AvaterPath;
             set => this.RaiseAndSetIfChanged(ref _AvaterPath, value);
@@ -160,7 +160,9 @@ namespace System.Application.Services
                                     IsConnectToSteam = true;
                                     CurrentSteamUser = await SteamworksWebApiService.GetUserInfo(id);
                                     CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
-                                    AvaterPath = new CircleImageStream(await CurrentSteamUser.AvatarStream);
+                                    var avater = await CurrentSteamUser.AvatarStream;
+                                    if (avater != null)
+                                        AvaterPath = new CircleImageStream(avater);
 
                                     CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
