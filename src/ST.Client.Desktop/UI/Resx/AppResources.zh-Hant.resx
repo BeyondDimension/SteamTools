@@ -978,4 +978,106 @@
   <data name="GetLoginUsingSteamClientCookies" xml:space="preserve">
     <value>正在獲取 Steam 登錄狀態</value>
   </data>
+  <data name="CheckUpdate" xml:space="preserve">
+    <value>檢查更新</value>
+  </data>
+  <data name="CommunityFix_OpenCertificateDir" xml:space="preserve">
+    <value>打開證書資料夾</value>
+  </data>
+  <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
+    <value>修改Hosts檔來監聽本機請求實現代理，此方式速度更快且只會影響加速的網站，效果最好，但需要本機443埠未被使用。</value>
+  </data>
+  <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
+    <value>設置Windows系統代理來監聽請求，不需要佔用443埠，會全域代理本機所有流量，如果你使用Hosts方式沒有問題，那就不需要使用此模式。</value>
+  </data>
+  <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
+    <value>啟動加速服務失敗，證書安裝失敗。</value>
+  </data>
+  <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
+    <value>加速服務啟動失敗，443埠被{0}佔用。 請檢查您的443埠或者嘗試使用Windows代理模式。</value>
+  </data>
+  <data name="GameList_AddAFKAppsSuccess" xml:space="preserve">
+    <value>添加到掛時常清單成功</value>
+  </data>
+  <data name="GameList_EditAppInfo" xml:space="preserve">
+    <value>編輯遊戲資訊</value>
+  </data>
+  <data name="GameList_HideAppsSuccess" xml:space="preserve">
+    <value>隱藏遊戲成功</value>
+  </data>
+  <data name="GameList_HideGameManger" xml:space="preserve">
+    <value>管理隱藏遊戲清單</value>
+  </data>
+  <data name="GameList_IdleGamesManger" xml:space="preserve">
+    <value>管理遊戲時長掛機清單</value>
+  </data>
+  <data name="GameList_IsLoading" xml:space="preserve">
+    <value>載入遊戲清單中...</value>
+  </data>
+  <data name="GetLoginUsingSteamClientCookiesFail_" xml:space="preserve">
+    <value>獲取 Steam 登錄狀態失敗 {0}，請輸入 Steam 使用者名密碼進行快速登錄</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth" xml:space="preserve">
+    <value>令牌加密</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_EnablePassword" xml:space="preserve">
+    <value>啟用自定義密碼保護</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_EnablePasswordTip" xml:space="preserve">
+    <value>您的認證器將使用您自己的密碼進行加密，您需要輸入您的密碼才能打開WinAuth。 如果您忘記了密碼，並且沒有備份，您的認證器將無法訪問。</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_Info" xml:space="preserve">
+    <value>強烈建議使用密碼保護你的認證器，否則您的數據可能會被您電腦上運行的惡意軟體讀取和竊取。 當然，你也可以不啟用任何加密，這不是強制性的，但你的令牌數據會有被盜取的風險。</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt" xml:space="preserve">
+    <value>啟用權杖僅在這台電腦上可解密</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
+    <value>此外，你可以使用內置的Windows帳戶加密來保護和加密你的數據。 這將把您的認證器鎖定在這台電腦或使用者上，因此即使檔被複製，也無法打開它們。 如果你要重新格式化你的磁碟，重新安裝Windows或刪除這個使用者帳戶，你必須把這個功能關掉。</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_Password" xml:space="preserve">
+    <value>自定義密碼</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_SaveApply" xml:space="preserve">
+    <value>保存並應用</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_VerifyPassword" xml:space="preserve">
+    <value>再次輸入密碼</value>
+  </data>
+  <data name="Script_FileError" xml:space="preserve">
+    <value>找不到檔案，請檢查路徑{0}</value>
+  </data>
+  <data name="Script_NoFileDeleteItem" xml:space="preserve">
+    <value>該文字檔已丟失，是否刪除文本記錄。</value>
+  </data>
+  <data name="Script_ReplaceTips" xml:space="preserve">
+    <value>已安裝此文本確定替換已安裝的版本？</value>
+  </data>
+  <data name="Settings_UI_AcrylicTransparency" xml:space="preserve">
+    <value>背景透明度</value>
+  </data>
+  <data name="UserChange_DeleteUserDataTip" xml:space="preserve">
+    <value>是否也要同時刪除此帳戶在本地的 Steam 緩存數據。</value>
+  </data>
+  <data name="UserChange_DeleteUserTip" xml:space="preserve">
+    <value>確定要刪除這條本地記錄帳戶嗎？</value>
+  </data>
+  <data name="User_FastLogin" xml:space="preserve">
+    <value>快速登錄</value>
+  </data>
+  <data name="User_PhoneLogin" xml:space="preserve">
+    <value>手機號登錄</value>
+  </data>
+  <data name="User_SteamAvaterTip" xml:space="preserve">
+    <value>點擊頭像快速登錄</value>
+  </data>
+  <data name="User_SteamFastLoginTimeoutErrorMessage" xml:space="preserve">
+    <value>連接到 Steam 社區超時，請檢查是否開啟社區加速。</value>
+  </data>
+  <data name="User_SteamLogoTip" xml:space="preserve">
+    <value>點擊跳到快速登錄視窗</value>
+  </data>
+  <data name="User_SteamUnLoginTip" xml:space="preserve">
+    <value>點擊Steam Logo登錄</value>
+  </data>
 </root>

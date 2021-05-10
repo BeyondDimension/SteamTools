@@ -465,6 +465,9 @@
   <data name="GetLoginUsingSteamClientCookies" xml:space="preserve">
     <value>正在获取 Steam 登录状态</value>
   </data>
+  <data name="GetLoginUsingSteamClientCookiesFail_" xml:space="preserve">
+    <value>获取 Steam 登录状态失败 {0}，请输入 Steam 用户名密码进行快速登录</value>
+  </data>
   <data name="Hosts_Exists" xml:space="preserve">
     <value>写入的 hosts 已经存在</value>
   </data>

@@ -1098,6 +1098,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 获取 Steam 登录状态失败 {0}，请输入 Steam 用户名密码进行快速登录 的本地化字符串。
+        /// </summary>
+        public static string GetLoginUsingSteamClientCookiesFail_ {
+            get {
+                return ResourceManager.GetString("GetLoginUsingSteamClientCookiesFail_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 写入的 hosts 已经存在 的本地化字符串。
         /// </summary>
         public static string Hosts_Exists {

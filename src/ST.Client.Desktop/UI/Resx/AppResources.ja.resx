@@ -973,4 +973,304 @@
   <data name="GetLoginUsingSteamClientCookies" xml:space="preserve">
     <value>Steamログイン状態の取得</value>
   </data>
+  <data name="About" xml:space="preserve">
+    <value>について</value>
+  </data>
+  <data name="About_OpenSource" xml:space="preserve">
+    <value>オープンソースライセンス</value>
+  </data>
+  <data name="About_ThisSoft" xml:space="preserve">
+    <value>このソフトウェア</value>
+  </data>
+  <data name="Achievement_Icon" xml:space="preserve">
+    <value>アイコン</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>と</value>
+  </data>
+  <data name="Bind" xml:space="preserve">
+    <value>バインドします</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセルします</value>
+  </data>
+  <data name="CheckUpdate" xml:space="preserve">
+    <value>更新プログラムを確認します</value>
+  </data>
+  <data name="CommunityFix" xml:space="preserve">
+    <value>コミュニティアクセラレーション</value>
+  </data>
+  <data name="CommunityFix_OpenCertificateDir" xml:space="preserve">
+    <value>証明書フォルダを開きます</value>
+  </data>
+  <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
+    <value>Hosts プロキシ モード (推奨)</value>
+  </data>
+  <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
+    <value>Hosts ファイルを変更して、ネイティブ要求実装プロキシをリッスンし、高速化された Web サイトにのみ影響し、最も効果的ですが、ネイティブ 443 ポートが使用されていない必要があります。</value>
+  </data>
+  <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
+    <value>Windows システム エージェント モード</value>
+  </data>
+  <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
+    <value>要求をリッスンする Windows システム プロキシを設定し、443 ポートを占有する必要はなく、すべてのトラフィックをグローバルにプロキシし、Hosts を使用しても問題がない場合は、このモードを使用する必要はありません。</value>
+  </data>
+  <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
+    <value>アクセラレーション サービスの開始に失敗し、証明書のインストールに失敗しました。</value>
+  </data>
+  <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
+    <value>アクセラレーション サービスの開始に失敗し、443 ポートが{0}されました。 443 ポートを確認するか、Windows エージェント モードを試してください。</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>コピーします</value>
+  </data>
+  <data name="Cut" xml:space="preserve">
+    <value>カット</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>デフォルト</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>ダウンロードしてください</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>メールボックス</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>エクスポートします</value>
+  </data>
+  <data name="GameList" xml:space="preserve">
+    <value>ストックゲーム</value>
+  </data>
+  <data name="GameList_AddAFKAppsSuccess" xml:space="preserve">
+    <value>ハング時のリストへの追加は成功しました</value>
+  </data>
+  <data name="GameList_EditAppInfo" xml:space="preserve">
+    <value>ゲーム情報を編集します</value>
+  </data>
+  <data name="GameList_HideAppsSuccess" xml:space="preserve">
+    <value>隠されたゲームが成功しました</value>
+  </data>
+  <data name="GameList_HideGameManger" xml:space="preserve">
+    <value>隠されたゲームのリストを管理します</value>
+  </data>
+  <data name="GameList_IdleGamesManger" xml:space="preserve">
+    <value>ゲームの長いオンフック リストを管理します</value>
+  </data>
+  <data name="GameList_Install" xml:space="preserve">
+    <value>インストールします</value>
+  </data>
+  <data name="GameList_IsLoading" xml:space="preserve">
+    <value>ゲームの一覧を読み込み中...</value>
+  </data>
+  <data name="GetLoginUsingSteamClientCookiesFail_" xml:space="preserve">
+    <value>Steam ログインステータスの取得に失敗 {0}Steam ユーザー名パスワードを入力してすばやくログインします</value>
+  </data>
+  <data name="IdleCard" xml:space="preserve">
+    <value>オートセットカード</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>インポートします</value>
+  </data>
+  <data name="LocalAuth" xml:space="preserve">
+    <value>ローカル トークン</value>
+  </data>
+  <data name="LocalAuth_AddAuth" xml:space="preserve">
+    <value>トークンをインポートします</value>
+  </data>
+  <data name="LocalAuth_AuthData" xml:space="preserve">
+    <value>トークン データ</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_CancelAll" xml:space="preserve">
+    <value>すべてのトランザクションをキャンセルします</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_CancelError" xml:space="preserve">
+    <value>このトランザクションはキャンセルできません</value>
+  </data>
+  <data name="LocalAuth_Copy" xml:space="preserve">
+    <value>トークンをコピーします</value>
+  </data>
+  <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
+    <value>トークンがコピーされます </value>
+  </data>
+  <data name="LocalAuth_ExportAuth" xml:space="preserve">
+    <value>トークンをエクスポートします</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth" xml:space="preserve">
+    <value>トークンの暗号化</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_EnablePassword" xml:space="preserve">
+    <value>カスタム パスワード保護を有効にします</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_EnablePasswordTip" xml:space="preserve">
+    <value>認証者は独自のパスワードで暗号化され、WinAuth を開くためにパスワードを入力する必要があります。 パスワードを忘れていて、バックアップがない場合、認証システムにアクセスできません。</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_Info" xml:space="preserve">
+    <value>認証システムをパスワードで保護することを強くお勧めします。 もちろん、必須ではない暗号化を有効にすることもできますが、トークン データが盗まれる危険性があります。</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt" xml:space="preserve">
+    <value>有効なトークンは、この PC でのみ復号化できます</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
+    <value>さらに、組み込みの Windows アカウント暗号化を使用して、データを保護および暗号化できます。 これにより、認証者がこのコンピュータまたはユーザーにロックされるため、ファイルがコピーされた場合でも開くことができません。 ディスクを再フォーマットしたり、Windows を再インストールしたり、このユーザー アカウントを削除したりする場合は、この機能をオフにする必要があります。</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_Password" xml:space="preserve">
+    <value>カスタム パスワード</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_SaveApply" xml:space="preserve">
+    <value>保存して適用します</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_VerifyPassword" xml:space="preserve">
+    <value>パスワードをもう一度入力します</value>
+  </data>
+  <data name="LocalAuth_SDAImport" xml:space="preserve">
+    <value>Steam Desktop Auth がインポートされます</value>
+  </data>
+  <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
+    <value>Steam++ インポート</value>
+  </data>
+  <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
+    <value>Steam++ V1 バージョンのエクスポートされたトークンデータをインポートします</value>
+  </data>
+  <data name="LocalAuth_SteamUserImport" xml:space="preserve">
+    <value>Steam アカウントのインポート</value>
+  </data>
+  <data name="LocalAuth_SteamUUID" xml:space="preserve">
+    <value>デバイス ID (uuid):</value>
+  </data>
+  <data name="LocalAuth_WinAuthImport" xml:space="preserve">
+    <value>WinAuth インポート</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>サインアウトしてサインインします</value>
+  </data>
+  <data name="NickName" xml:space="preserve">
+    <value>ニックネーム</value>
+  </data>
+  <data name="RefreshSteamAvatar" xml:space="preserve">
+    <value>スチームアバターをリフレッシュします</value>
+  </data>
+  <data name="ScriptStore" xml:space="preserve">
+    <value>スクリプト ワークショップ</value>
+  </data>
+  <data name="Script_FileError" xml:space="preserve">
+    <value>ファイルが見つからない場合は、パスを確認してください{0}</value>
+  </data>
+  <data name="Script_Home" xml:space="preserve">
+    <value>スクリプトのホーム ページ</value>
+  </data>
+  <data name="Script_Install" xml:space="preserve">
+    <value>インストール スクリプト</value>
+  </data>
+  <data name="Script_Installed" xml:space="preserve">
+    <value>インストールされています</value>
+  </data>
+  <data name="Script_NoFileDeleteItem" xml:space="preserve">
+    <value>スクリプト レコードを削除するかどうかは、テキスト ファイルが失われています。</value>
+  </data>
+  <data name="Script_Refresh" xml:space="preserve">
+    <value>キャッシュをフラッシュします</value>
+  </data>
+  <data name="Script_ReplaceTips" xml:space="preserve">
+    <value>このスクリプトは、インストールされているバージョンを置き換える決定をインストールしましたか?</value>
+  </data>
+  <data name="Settings_Fonts" xml:space="preserve">
+    <value>フォント</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>テーマ</value>
+  </data>
+  <data name="Settings_UI_AcrylicTransparency" xml:space="preserve">
+    <value>背景の透明度</value>
+  </data>
+  <data name="SteamAccount" xml:space="preserve">
+    <value>スチームアカウント</value>
+  </data>
+  <data name="SteamAppType_Application" xml:space="preserve">
+    <value>ソフトウェア</value>
+  </data>
+  <data name="SteamAppType_Beta" xml:space="preserve">
+    <value>テスト</value>
+  </data>
+  <data name="SteamAppType_Game" xml:space="preserve">
+    <value>ゲーム</value>
+  </data>
+  <data name="SteamAppType_Guide" xml:space="preserve">
+    <value>ガイド</value>
+  </data>
+  <data name="SteamAppType_Hardware" xml:space="preserve">
+    <value>ハードウェア</value>
+  </data>
+  <data name="SteamAppType_Mod" xml:space="preserve">
+    <value>モッズ</value>
+  </data>
+  <data name="SteamAppType_Music" xml:space="preserve">
+    <value>オリジナルのサウンドトラック</value>
+  </data>
+  <data name="SteamAppType_Plugin" xml:space="preserve">
+    <value>プラグイン</value>
+  </data>
+  <data name="SteamAppType_Shortcut" xml:space="preserve">
+    <value>ショートカット</value>
+  </data>
+  <data name="SteamAppType_Tool" xml:space="preserve">
+    <value>ツール</value>
+  </data>
+  <data name="SteamAppType_Video" xml:space="preserve">
+    <value>ビデオ</value>
+  </data>
+  <data name="Steam_Password" xml:space="preserve">
+    <value>スチームパスワード</value>
+  </data>
+  <data name="UploadYourAvatar" xml:space="preserve">
+    <value>アバターをアップロードします</value>
+  </data>
+  <data name="UserChange_DeleteUserDataTip" xml:space="preserve">
+    <value>このアカウントのローカル Steam キャッシュデータも削除するかどうか。</value>
+  </data>
+  <data name="UserChange_DeleteUserTip" xml:space="preserve">
+    <value>このローカル レコード アカウントを削除しますか?</value>
+  </data>
+  <data name="UserProfile" xml:space="preserve">
+    <value>プロフィール</value>
+  </data>
+  <data name="User_FastLogin" xml:space="preserve">
+    <value>すばやくサインインします</value>
+  </data>
+  <data name="User_Login" xml:space="preserve">
+    <value>サインインします</value>
+  </data>
+  <data name="User_LoginTroubleshoot" xml:space="preserve">
+    <value>ログインできませんか?</value>
+  </data>
+  <data name="User_PhoneLogin" xml:space="preserve">
+    <value>携帯電話番号でログインします</value>
+  </data>
+  <data name="User_Privacy" xml:space="preserve">
+    <value>プライバシーポリシー</value>
+  </data>
+  <data name="User_Register" xml:space="preserve">
+    <value>サインアップします</value>
+  </data>
+  <data name="User_SteamAvaterTip" xml:space="preserve">
+    <value>アバターをタップしてすばやくログインします</value>
+  </data>
+  <data name="User_SteamFastLogin" xml:space="preserve">
+    <value>Steam クイックログイン</value>
+  </data>
+  <data name="User_SteamFastLoginTimeoutErrorMessage" xml:space="preserve">
+    <value>Steam コミュニティへの接続がタイムアウトしました。</value>
+  </data>
+  <data name="User_SteamLogoTip" xml:space="preserve">
+    <value>[クイック ログイン] ウィンドウに移動します</value>
+  </data>
+  <data name="User_SteamUnLoginTip" xml:space="preserve">
+    <value>Steam Logo をクリックしてログインします</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>スタート ページ</value>
+  </data>
 </root>

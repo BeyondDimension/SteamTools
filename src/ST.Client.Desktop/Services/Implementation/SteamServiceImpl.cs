@@ -307,7 +307,7 @@ namespace System.Application.Services.Implementation
                             {
                                 if (GameLibrarySettings.DefaultIgnoreList.Value.Contains(app.AppId))
                                     continue;
-                                if (ProxySettings.HideGameList.Value!= null && ProxySettings.HideGameList.Value.FindIndex(x => x.AppId == app.AppId) > -1)
+                                if (ProxySettings.HideGameList.Value != null && ProxySettings.HideGameList.Value.FindIndex(x => x.AppId == app.AppId) > -1)
                                     continue;
                                 if (app.ParentId > 0)
                                 {
@@ -393,23 +393,34 @@ namespace System.Application.Services.Implementation
             //}
         }
 
-        public async Task<CookieCollection?> GetLoginUsingSteamClientCookieCollectionAsync(bool runasInvoker = false)
+        #region LoginUsingSteamClient
+
+        public async Task<(LoginUsingSteamClientResultCode resultCode, CookieCollection? cookies)> GetLoginUsingSteamClientCookieCollectionAsync(bool runasInvoker = false)
         {
-            var cookies = (string[]?)null;
+            (LoginUsingSteamClientResultCode resultCode, string[]? cookies) result;
             if (runasInvoker && DI.Platform == Platform.Windows)
             {
-                cookies = await Task.Run(GetLoginUsingSteamClientCookies);
+                result = await Task.Run(GetLoginUsingSteamClientCookies);
             }
             else
             {
-                cookies = await GetLoginUsingSteamClientCookiesAsync();
+                result = await GetLoginUsingSteamClientCookiesAsync();
             }
-            var cookieCollection = GetCookieCollection(uri_store_steampowered_checkclientautologin, cookies);
-            return cookieCollection;
+            CookieCollection? cookieCollection;
+            if (result.resultCode == LoginUsingSteamClientResultCode.Success)
+            {
+                cookieCollection = GetCookieCollection(uri_store_steampowered_checkclientautologin, result.cookies);
+            }
+            else
+            {
+                cookieCollection = default;
+            }
+            return (result.resultCode, cookieCollection);
         }
 
-        async Task<(string steamid, string encrypted_loginkey, string sessionkey, string digest)> GetLoginUsingSteamClientAuthAsync()
+        async Task<(LoginUsingSteamClientResultCode resultCode, string steamid, string encrypted_loginkey, string sessionkey, string digest)> GetLoginUsingSteamClientAuthAsync()
         {
+            LoginUsingSteamClientResultCode resultCode;
             var canConn = await CanConnSteamCommunity();
             if (canConn)
             {
@@ -448,17 +459,31 @@ namespace System.Application.Services.Implementation
 #if DEBUG
                         Console.WriteLine($"digest: {digest}");
 #endif
-                        return (steamid, encrypted_loginkey, sessionkey, digest);
+                        resultCode = LoginUsingSteamClientResultCode.Success;
+                        return (resultCode, steamid, encrypted_loginkey, sessionkey, digest);
+                    }
+                    else
+                    {
+                        resultCode = (LoginUsingSteamClientResultCode)response.StatusCode;
                     }
                 }
                 catch (OperationCanceledException)
                 {
+                    resultCode = LoginUsingSteamClientResultCode.Canceled;
+                }
+                catch (Exception)
+                {
+                    resultCode = LoginUsingSteamClientResultCode.Exception1;
                 }
             }
-            return default;
+            else
+            {
+                resultCode = LoginUsingSteamClientResultCode.CantConnSteamCommunity;
+            }
+            return (resultCode, string.Empty, string.Empty, string.Empty, string.Empty);
         }
 
-        const double url_steamcommunity_timeout_s = 6.95;
+        const double url_steamcommunity_timeout_s = 5.95;
 
         async Task<bool> CanConnSteamCommunity()
         {
@@ -474,16 +499,21 @@ namespace System.Application.Services.Implementation
             catch (OperationCanceledException)
             {
             }
+            catch (Exception)
+            {
+            }
             return default;
         }
 
-        async Task<string[]?> GetLoginUsingSteamClientCookiesAsync((string steamid, string encrypted_loginkey, string sessionkey, string digest) auth_data)
+        async Task<(LoginUsingSteamClientResultCode resultCode, string[]? cookies)> GetLoginUsingSteamClientCookiesAsync((string steamid, string encrypted_loginkey, string sessionkey, string digest) auth_data)
         {
-            if (auth_data == default) return default;
-            var request = new HttpRequestMessage(HttpMethod.Post, uri_store_steampowered_checkclientautologin)
+            LoginUsingSteamClientResultCode resultCode;
+            try
             {
+                var request = new HttpRequestMessage(HttpMethod.Post, uri_store_steampowered_checkclientautologin)
+                {
 #pragma warning disable CS8620 // 由于引用类型的可为 null 性差异，实参不能用于形参。
-                Content = new FormUrlEncodedContent(new Dictionary<string, string?>
+                    Content = new FormUrlEncodedContent(new Dictionary<string, string?>
                 {
                     { "steamid", auth_data.steamid },
                     { "sessionkey",  auth_data.sessionkey },
@@ -491,37 +521,61 @@ namespace System.Application.Services.Implementation
                     { "digest",  auth_data.digest },
                 }),
 #pragma warning restore CS8620 // 由于引用类型的可为 null 性差异，实参不能用于形参。
-            };
-            request.Headers.Add("Origin", url_store_steampowered);
-            request.Headers.Add("Accept", MediaTypeNames.JSON);
-            request.Headers.UserAgent.ParseAdd(http.PlatformHelper.UserAgent);
-            var client = http.Factory.CreateClient();
-            client.Timeout = TimeSpan.FromSeconds(url_steamcommunity_timeout_s);
-            var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
-            if (response.IsSuccessStatusCode && response.Headers.TryGetValues("Set-Cookie", out var cookies))
-            {
-                var r = cookies.ToArray();
+                };
+                request.Headers.Add("Origin", url_store_steampowered);
+                request.Headers.Add("Accept", MediaTypeNames.JSON);
+                request.Headers.UserAgent.ParseAdd(http.PlatformHelper.UserAgent);
+                var client = http.Factory.CreateClient();
+                client.Timeout = TimeSpan.FromSeconds(url_steamcommunity_timeout_s);
+                var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
 #if DEBUG
-                foreach (var item in r)
-                {
-                    Console.WriteLine($"Set-Cookie: {item}");
-                }
-                Console.WriteLine("OK");
+                Console.WriteLine($"GetLoginUsingSteamClientCookiesAsync statusCode: {response.StatusCode}");
 #endif
-                return r;
+                if (response.IsSuccessStatusCode && response.Headers.TryGetValues("Set-Cookie", out var cookies))
+                {
+                    var r = cookies.ToArray();
+#if DEBUG
+                    foreach (var item in r)
+                    {
+                        Console.WriteLine($"Set-Cookie: {item}");
+                    }
+                    Console.WriteLine("OK");
+#endif
+                    resultCode = LoginUsingSteamClientResultCode.Success;
+                    return (resultCode, r);
+                }
+                else
+                {
+#if DEBUG
+                    Console.WriteLine("Missing response headers set-cookie");
+#endif
+                    resultCode = response.StatusCode == HttpStatusCode.OK ?
+                        LoginUsingSteamClientResultCode.MissingCookieSteamLoginSecure :
+                        (LoginUsingSteamClientResultCode)response.StatusCode;
+                }
             }
-
-            return default;
+            catch (Exception)
+            {
+                resultCode = LoginUsingSteamClientResultCode.Exception2;
+            }
+            return (resultCode, default);
         }
 
-        public async Task<string[]?> GetLoginUsingSteamClientCookiesAsync()
+        public async Task<(LoginUsingSteamClientResultCode resultCode, string[]? cookies)> GetLoginUsingSteamClientCookiesAsync()
         {
-            var auth_data = await GetLoginUsingSteamClientAuthAsync();
-            var cookies = await GetLoginUsingSteamClientCookiesAsync(auth_data);
+            var (resultCode, steamid, encrypted_loginkey, sessionkey, digest) = await GetLoginUsingSteamClientAuthAsync();
+#if DEBUG
+            Console.WriteLine($"GetLoginUsingSteamClientAuthAsync resultCode: {resultCode}");
+#endif
+            if (resultCode != LoginUsingSteamClientResultCode.Success)
+            {
+                return (resultCode, default);
+            }
+            var cookies = await GetLoginUsingSteamClientCookiesAsync((steamid, encrypted_loginkey, sessionkey, digest));
             return cookies;
         }
 
-        string[]? GetLoginUsingSteamClientCookies()
+        (LoginUsingSteamClientResultCode resultCode, string[]? cookies) GetLoginUsingSteamClientCookies()
         {
             if (AppHelper.ProgramPath.EndsWith(FileEx.EXE))
             {
@@ -534,6 +588,7 @@ namespace System.Application.Services.Implementation
                     var tempFileDirectoryName = IOPath.CacheDirectory;
                     var tempFileName = Path.GetFileName(Path.GetTempFileName());
                     var tempFilePath = Path.Combine(tempFileDirectoryName, tempFileName);
+                    bool isDelTempFilePath = false;
                     IOPath.FileIfExistsItDelete(tempFilePath);
 
                     using var watcher = new FileSystemWatcher(tempFileDirectoryName, tempFileName)
@@ -569,13 +624,14 @@ namespace System.Application.Services.Implementation
                         {
                             var value = File.ReadAllBytes(tempFilePath);
                             File.Delete(tempFilePath);
+                            isDelTempFilePath = true;
                             try
                             {
                                 var fileBytes = Serializable.DMP<(byte[] cookiesBytes, byte[] aesKey)>(value);
                                 var aesKey = rsa.Decrypt(fileBytes.aesKey);
                                 using var aes = AESUtils.Create(aesKey);
                                 var cookiesBytes = aes.Decrypt(fileBytes.cookiesBytes);
-                                var cookies = Serializable.DMP<string[]>(cookiesBytes);
+                                var cookies = Serializable.DMP<(LoginUsingSteamClientResultCode resultCode, string[]? result)>(cookiesBytes);
                                 return cookies;
                             }
                             catch
@@ -586,6 +642,7 @@ namespace System.Application.Services.Implementation
                     catch
                     {
                     }
+                    if (!isDelTempFilePath) IOPath.FileIfExistsItDelete(tempFilePath, true);
                 }
             }
             return default;
@@ -603,5 +660,7 @@ namespace System.Application.Services.Implementation
             var cookies2 = container.GetCookies(url);
             return cookies2;
         }
+
+        #endregion
     }
 }

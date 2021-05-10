@@ -11,6 +11,7 @@ using System.IO.Pipes;
 using System.Linq;
 using System.Security.Cryptography;
 using static System.Application.Program;
+using static System.Application.Services.ISteamService;
 using Process = System.Diagnostics.Process;
 
 var logDirPath = InitLogDir("_console");
@@ -45,9 +46,9 @@ getstmauth.Handler = CommandHandler.Create(async (string key) =>
 {
     if (!string.IsNullOrWhiteSpace(key))
     {
-        var key2 = Serializable.DMPB64U<(string connStr, string rsaPK)>(key)!;
+        var (connStr, rsaPK) = Serializable.DMPB64U<(string connStr, string rsaPK)>(key)!;
         var s = DISafeGet.GetLoginUsingSteamClientAuth();
-        using var rsa = RSAUtils.CreateFromJsonString(key2.rsaPK);
+        using var rsa = RSAUtils.CreateFromJsonString(rsaPK);
         using var aes = AESUtils.Create();
 #if DEBUG
         if (DI.Platform == Platform.Windows)
@@ -56,21 +57,21 @@ getstmauth.Handler = CommandHandler.Create(async (string key) =>
             Console.WriteLine($"IsAdministrator: {dps.IsAdministrator}");
         }
 #endif
-        string[]? cookies;
+        (LoginUsingSteamClientResultCode resultCode, string[]? cookies) result;
         try
         {
-            cookies = await s.GetLoginUsingSteamClientCookiesAsync();
+            result = await s.GetLoginUsingSteamClientCookiesAsync();
         }
         catch (OperationCanceledException)
         {
             return;
         }
-        var cookiesBytes = Serializable.SMP(cookies);
+        var cookiesBytes = Serializable.SMP(result);
         cookiesBytes = aes.Encrypt(cookiesBytes);
         var aesKey = aes.ToParamsByteArray();
         aesKey = rsa.Encrypt(aesKey);
         var fileBytes = Serializable.SMP((cookiesBytes, aesKey));
-        File.WriteAllBytes(key2.connStr, fileBytes);
+        File.WriteAllBytes(connStr, fileBytes);
     }
 });
 rootCommand.AddCommand(getstmauth);

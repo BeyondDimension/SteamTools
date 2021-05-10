@@ -64,10 +64,14 @@ namespace System.Application.UI.Views.Windows
             }
         }
 
-        async Task WebViewLoadingTimeoutAsync(WebView3WindowViewModel vm)
+        bool isShowTimeoutErrorMessageed;
+        async Task WebViewLoadingTimeoutAsync(WebView3WindowViewModel? vm = null)
         {
-            if (vm.TimeoutErrorMessage != null)
+            if (disposedValue) return;
+            if (vm == null && DataContext is WebView3WindowViewModel _vm) vm = _vm;
+            if (vm != null && !isShowTimeoutErrorMessageed && vm.TimeoutErrorMessage != null)
             {
+                isShowTimeoutErrorMessageed = true;
                 Hide();
                 await MessageBoxCompat.ShowAsync(
                     vm.TimeoutErrorMessage!,
@@ -142,25 +146,56 @@ namespace System.Application.UI.Views.Windows
             }
         }
 
-        static async Task LoginUsingSteamClientCookiesAsync()
+        async Task LoginUsingSteamClientCookiesAsync()
         {
-            var cookies = await Instance.GetLoginUsingSteamClientCookieCollectionAsync(runasInvoker: DI.Platform == Platform.Windows);
-            if (cookies != default)
+            var (resultCode, cookies) = await Instance.GetLoginUsingSteamClientCookieCollectionAsync(runasInvoker: DI.Platform == Platform.Windows);
+            if (resultCode == LoginUsingSteamClientResultCode.Success && cookies != null)
             {
                 var manager = CefRequestContext.GetGlobalContext().GetCookieManager(null);
                 foreach (Cookie item in cookies)
                 {
+                    if (item.Domain.Equals(url_store_steampowered_, StringComparison.OrdinalIgnoreCase))
+                    {
+                        item.Domain = url_steamcommunity_;
+                    }
                     var cookie = item.GetCefNetCookie();
-                    var setCookieResult = await manager.SetCookieAsync(url_steamcommunity/*url_store_steampowered_checkclientautologin*/, cookie);
+                    var setCookieResult = await manager.SetCookieAsync(url_steamcommunity_checkclientautologin, cookie);
                     if (item.Name == "steamLoginSecure" && setCookieResult)
                     {
                         loginUsingSteamClientState = LoginUsingSteamClientState.Success;
                     }
                 }
+                foreach (Cookie item in cookies)
+                {
+                    var cookie = item.GetCefNetCookie();
+                    await manager.SetCookieAsync(url_store_steampowered_checkclientautologin, cookie);
+                }
+            }
+            else
+            {
+                resultCode = resultCode ==
+                    LoginUsingSteamClientResultCode.Success ?
+                    LoginUsingSteamClientResultCode.EmptyOrNull :
+                    resultCode;
             }
             if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
             {
                 loginUsingSteamClientState = LoginUsingSteamClientState.None;
+                resultCode = resultCode ==
+                    LoginUsingSteamClientResultCode.Success ?
+                    LoginUsingSteamClientResultCode.MissingCookieSteamLoginSecure :
+                    resultCode;
+            }
+            if (resultCode != LoginUsingSteamClientResultCode.Success)
+            {
+                if (resultCode == LoginUsingSteamClientResultCode.CantConnSteamCommunity)
+                {
+                    await WebViewLoadingTimeoutAsync();
+                }
+                else
+                {
+                    Toast.Show(AppResources.GetLoginUsingSteamClientCookiesFail_.Format((int)resultCode));
+                }
             }
         }
 
@@ -193,7 +228,6 @@ namespace System.Application.UI.Views.Windows
                         if (steamUser != null)
                         {
                             loginUsingSteamClientState = LoginUsingSteamClientState.Loading;
-                            Toast.Show(AppResources.GetLoginUsingSteamClientCookies);
                             GetLoginUsingSteamClientCookies();
                         }
                     }
@@ -219,6 +253,15 @@ namespace System.Application.UI.Views.Windows
                 vm.WhenAnyValue(x => x.FixedSinglePage).Subscribe(x => webView.FixedSinglePage = x).AddTo(vm);
                 vm.WhenAnyValue(x => x.IsSecurity).Subscribe(x => webView.IsSecurity = x).AddTo(vm);
                 webView.OnStreamResponseFilterResourceLoadComplete += vm.OnStreamResponseFilterResourceLoadComplete;
+            }
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
+            {
+                Toast.Show(AppResources.GetLoginUsingSteamClientCookies);
             }
         }
 

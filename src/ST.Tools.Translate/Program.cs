@@ -249,11 +249,15 @@ namespace System
                     var translationResults = await Translatecs.TranslateTextAsync(url, inputText);
                     var translationResult = translationResults.FirstOrDefault(x => x != null);
 
+                    Console.WriteLine($"正在翻译：{itemKey}");
+
                     foreach (var translation in translationResult.Translations)
                     {
                         var cell_t_index = dict_langs_cell[translation.To];
                         cell = row.CreateCell(cell_t_index);
                         cell.SetCellValue(translation.Text);
+                        Console.WriteLine($"to：{translation.To}");
+                        Console.WriteLine($"value：{translation.Text}");
                     }
                 }
                 workbook.Write(fs);

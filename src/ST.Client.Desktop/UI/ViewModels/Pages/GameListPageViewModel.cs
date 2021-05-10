@@ -113,11 +113,13 @@ namespace System.Application.UI.ViewModels
                 });
 
 
+#if DEBUG
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
                   new MenuItemViewModel(nameof(AppResources.GameList_HideGameManger)),
                   new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)),
             };
+#endif
         }
 
         internal override void Activation()
@@ -310,18 +312,19 @@ namespace System.Application.UI.ViewModels
         }
         public void AddHideAppList(SteamApp app)
         {
-            try { 
-            if (ProxySettings.HideGameList.Value == null)
-                ProxySettings.HideGameList.Value = new List<SteamHideApps>();
-            ProxySettings.HideGameList.Value!.Add(new SteamHideApps
+            try
             {
-                AppId = app.AppId,
-                Name = app.DisplayName
-            });
-            SteamConnectService.Current.SteamApps.Remove(app);
-            Toast.Show(AppResources.GameList_HideAppsSuccess);
+                if (ProxySettings.HideGameList.Value == null)
+                    ProxySettings.HideGameList.Value = new List<SteamHideApps>();
+                ProxySettings.HideGameList.Value!.Add(new SteamHideApps
+                {
+                    AppId = app.AppId,
+                    Name = app.DisplayName
+                });
+                SteamConnectService.Current.SteamApps.Remove(app);
+                Toast.Show(AppResources.GameList_HideAppsSuccess);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Toast.Show(e.ToString());
             }

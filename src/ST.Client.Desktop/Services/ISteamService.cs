@@ -2,6 +2,7 @@ using System.Application.Models;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.Services
 {
@@ -10,11 +11,14 @@ namespace System.Application.Services
     /// </summary>
     public interface ISteamService
     {
-        public const int IPC_Call_GetLoginUsingSteamClient_Timeout_MS = 7000;
-        protected const string url_localhost_auth_public = "http://127.0.0.1:27060/auth/?u=public";
-        public const string url_steamcommunity = "https://steamcommunity.com";
-        public const string url_store_steampowered = "https://store.steampowered.com";
+        public const int IPC_Call_GetLoginUsingSteamClient_Timeout_MS = 6500;
+        protected const string url_localhost_auth_public = Prefix_HTTP + "127.0.0.1:27060/auth/?u=public";
+        public const string url_steamcommunity_ = "steamcommunity.com";
+        public const string url_store_steampowered_ = "store.steampowered.com";
+        public const string url_steamcommunity = Prefix_HTTPS + url_steamcommunity_;
+        public const string url_store_steampowered = Prefix_HTTPS + url_store_steampowered_;
         public const string url_store_steampowered_checkclientautologin = url_store_steampowered + "/login/checkclientautologin";
+        public const string url_steamcommunity_checkclientautologin = url_steamcommunity + "/login/checkclientautologin";
         public static readonly Uri uri_store_steampowered_checkclientautologin = new(url_store_steampowered_checkclientautologin);
 
         public static ISteamService Instance => DI.Get<ISteamService>();
@@ -97,13 +101,25 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="runasInvoker"></param>
         /// <returns></returns>
-        Task<CookieCollection?> GetLoginUsingSteamClientCookieCollectionAsync(bool runasInvoker = false);
+        Task<(LoginUsingSteamClientResultCode resultCode, CookieCollection? cookies)> GetLoginUsingSteamClientCookieCollectionAsync(bool runasInvoker = false);
 
         /// <summary>
         /// 获取 Steam 客户端自动登录 Cookie(用于写入到 WebView3 中免登录)
         /// </summary>
         /// <returns></returns>
         /// <exception cref="OperationCanceledException"></exception>
-        Task<string[]?> GetLoginUsingSteamClientCookiesAsync();
+        Task<(LoginUsingSteamClientResultCode resultCode, string[]? cookies)> GetLoginUsingSteamClientCookiesAsync();
+
+        public enum LoginUsingSteamClientResultCode
+        {
+            Success = 200,
+            Canceled = 601,
+            Exception1,
+            Exception2,
+            CantConnSteamCommunity,
+            CantConnLocalHost27060,
+            MissingCookieSteamLoginSecure,
+            EmptyOrNull,
+        }
     }
 }

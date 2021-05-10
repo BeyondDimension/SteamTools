@@ -549,7 +549,7 @@ namespace System.Application.Services.CloudService
                         request.Headers.Accept.ParseAdd(MediaTypeNames.JSON);
                         break;
                     case Serializable.ImplType.MessagePack:
-                        if (isSecurity)
+                        if (isSecurity) 
                         {
                             request.Headers.Accept.ParseAdd(MediaTypeNames.Security);
                         }
