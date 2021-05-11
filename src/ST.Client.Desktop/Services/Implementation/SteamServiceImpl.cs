@@ -294,7 +294,7 @@ namespace System.Application.Services.Implementation
                 {
                     if (string.IsNullOrEmpty(AppInfoPath) && !File.Exists(AppInfoPath))
                         return apps;
-                    using (BinaryReader binaryReader = new(File.OpenRead(AppInfoPath)))
+                    using (BinaryReader binaryReader = new(IOPath.OpenRead(AppInfoPath)))
                     {
                         uint num = binaryReader.ReadUInt32();
                         if (num != MagicNumber)
