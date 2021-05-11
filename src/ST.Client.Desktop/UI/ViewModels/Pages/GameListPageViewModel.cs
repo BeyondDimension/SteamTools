@@ -113,14 +113,22 @@ namespace System.Application.UI.ViewModels
                 });
 
 
+            HideAppCommand = ReactiveCommand.Create(OpenHideAppWindow);
 #if DEBUG
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
-                  new MenuItemViewModel(nameof(AppResources.GameList_HideGameManger)),
+                  new MenuItemViewModel(nameof(AppResources.GameList_HideGameManger)){
+                  Command=HideAppCommand
+                  },
                   new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)),
             };
 #endif
         }
+        public void OpenHideAppWindow() {
+
+            IShowWindowService.Instance.Show(CustomWindow.HideApp, new HideAppWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+        }
+        public ReactiveCommand<Unit, Unit> HideAppCommand { get; }
 
         internal override void Activation()
         {
