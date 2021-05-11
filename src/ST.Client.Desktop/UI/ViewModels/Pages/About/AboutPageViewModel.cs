@@ -3,6 +3,7 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Properties;
 using System.Reactive;
+using System.Windows;
 using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
@@ -29,12 +30,25 @@ namespace System.Application.UI.ViewModels
             {
                 IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: true);
             });
+
+            DelAccountCommand = ReactiveCommand.CreateFromTask(async () =>
+            {
+                if (!UserService.Current.IsAuthenticated) return;
+                var r = await MessageBoxCompat.ShowAsync(AppResources.DelAccountTips, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
+                if (r == MessageBoxResultCompat.OK)
+                {
+                    UserService.Current.DelAccount();
+                }
+            });
         }
+
         public ReactiveCommand<Unit, Unit> CheckUpdateCommand { get; }
 
         public ReactiveCommand<string, Unit> OpenBrowserCommand { get; }
 
         public ReactiveCommand<string, Unit> CopyLinkCommand { get; }
+
+        public ReactiveCommand<Unit, Unit> DelAccountCommand { get; }
 
         public string VersionDisplay => ThisAssembly.VersionDisplay;
 

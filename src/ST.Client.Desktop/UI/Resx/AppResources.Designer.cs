@@ -747,6 +747,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 您现有的账号信息将被删除，且无法以原先的身份信息重新登录，是否确定注销？ 的本地化字符串。
+        /// </summary>
+        public static string DelAccountTips {
+            get {
+                return ResourceManager.GetString("DelAccountTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 删除 的本地化字符串。
         /// </summary>
         public static string Delete {

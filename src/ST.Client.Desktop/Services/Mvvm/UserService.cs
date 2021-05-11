@@ -1,9 +1,7 @@
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.UI.ViewModels;
-using System.Reactive;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace System.Application.Services
 {
@@ -37,20 +35,27 @@ namespace System.Application.Services
             }
         }
 
-        public void SignOut()
+        public async Task SignOutAsync(Func<Task>? apiCall = null)
         {
-            SignOutApi();
-            SignOutUserManager();
+            if (User == null) return;
+            if (apiCall != null) await apiCall();
+            await SignOutUserManagerAsync();
+            await RefreshUserAsync();
         }
 
-        public async void SignOutUserManager()
+        public async void SignOut()
+        {
+            await SignOutAsync(ICloudServiceClient.Instance.Manage.SignOut);
+        }
+
+        public async void DelAccount()
+        {
+            await SignOutAsync(ICloudServiceClient.Instance.Manage.DeleteAccount);
+        }
+
+        public async Task SignOutUserManagerAsync()
         {
             await userManager.SignOutAsync();
-        }
-
-        public async void SignOutApi()
-        {
-            await ICloudServiceClient.Instance.Manage.SignOut();
         }
 
         UserInfoDTO? _User;
@@ -59,6 +64,11 @@ namespace System.Application.Services
             get => _User;
             set => this.RaiseAndSetIfChanged(ref _User, value);
         }
+
+        /// <summary>
+        /// 指示当前用户是否已通过身份验证（已登录）
+        /// </summary>
+        public bool IsAuthenticated => User != null;
 
         SteamUser? _SteamUser;
         public SteamUser? CurrentSteamUser
@@ -128,6 +138,7 @@ namespace System.Application.Services
         public async Task RefreshUserAsync()
         {
             User = await userManager.GetCurrentUserInfoAsync();
+            this.RaisePropertyChanged(nameof(IsAuthenticated));
 
             if (User != null && User.SteamAccountId.HasValue)
             {

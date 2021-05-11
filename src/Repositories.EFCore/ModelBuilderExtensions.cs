@@ -73,6 +73,7 @@ namespace System
 
                 if (pSoftDeleted.IsAssignableFrom(type))
                 {
+                    // https://docs.microsoft.com/zh-cn/ef/core/querying/filters
                     modelBuilder.Entity(type, p => p.HasIndex(nameof(ISoftDeleted.SoftDeleted)));
                     modelBuilder.Entity(type).HasQueryFilter(SoftDeletedQueryFilter(type));
                     softDeleted.Add(type);

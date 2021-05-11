@@ -62,7 +62,7 @@ namespace System.Application.UI.ViewModels
 
             OpenUserMenu = ReactiveCommand.Create(() =>
             {
-                IsOpenUserMenu = UserService.Current.User != null;
+                IsOpenUserMenu = UserService.Current.IsAuthenticated;
                 if (!IsOpenUserMenu)
                 {
                     UserService.Current.ShowWindow(CustomWindow.LoginOrRegister);

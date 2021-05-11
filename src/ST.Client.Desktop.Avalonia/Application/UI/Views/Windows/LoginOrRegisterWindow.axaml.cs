@@ -40,7 +40,7 @@ namespace System.Application.UI.Views.Windows
             base.OnDataContextChanged(e);
             if (DataContext is LoginOrRegisterWindowViewModel vm)
             {
-                vm.Close = Close;
+                vm.Close += Close;
                 vm.TbPhoneNumberFocus = TbPhoneNumber.Focus;
                 vm.TbSmsCodeFocus = TbSmsCode.Focus;
             }

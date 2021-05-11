@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
              xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:gif="clr-namespace:AvaloniaGif;assembly=AvaloniaGif"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -94,13 +95,15 @@
                      Text="{Binding LabelVersionDisplay,Mode=OneTime}"
                      VerticalAlignment="Center"/>
           <TextBox Classes="Content readonlybox"
+                   IsReadOnly="True"
+                   MinWidth="10" Margin="0,0,6,0"
                    Text="{Binding VersionDisplay,Mode=OneTime}"/>
           <Button Classes="plain" Command="{Binding CheckUpdateCommand}"
                   VerticalAlignment="Center" VerticalContentAlignment="Center">
             <TextBlock Text="{ReflectionBinding Path=Res.CheckUpdate,Source={x:Static resx:R.Current},Mode=OneWay}" Classes="Hyperlink" />
           </Button>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Spacing="5">
+        <StackPanel Orientation="Horizontal">
           <TextBlock Classes="Header light"
                      Margin="0,0,6,0"
                      Text="Development:"
@@ -144,9 +147,9 @@
           </StackPanel>
         </WrapPanel>
 
-        <WrapPanel>
+        <!--<WrapPanel>
           <gif:Image2 Width="500" Height="300" Stretch="UniformToFill" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/gg.gif"></gif:Image2>
-        </WrapPanel>
+        </WrapPanel>-->
       </StackPanel>
 
       <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 20">
@@ -200,6 +203,13 @@
                         CommandParameter="{x:Static vm:AboutPageViewModel.PrivacyLink}">
               <TextBlock Text="{ReflectionBinding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}" Classes="Hyperlink" />
             </Button>
+            <TextBlock Classes="LinkSeparatorPadding" Text="-"
+                       IsVisible="{ReflectionBinding Path=IsAuthenticated,Source={x:Static service:UserService.Current}}" />
+            <Button Classes="plain"
+                    Command="{Binding DelAccountCommand}"
+                    IsVisible="{ReflectionBinding Path=IsAuthenticated,Source={x:Static service:UserService.Current}}">
+              <TextBlock Text="{ReflectionBinding Path=Res.DelAccount,Mode=OneWay,Source={x:Static resx:R.Current}}" Classes="Hyperlink" />
+            </Button>
           </StackPanel>
           <WrapPanel HorizontalAlignment="Center">
             <TextBlock Classes="h7 light"
@@ -207,7 +217,7 @@
                            VerticalAlignment="Center"/>
           </WrapPanel>
         </StackPanel>
-        <Panel Height="140" />
+        <!--<Panel Height="140" />-->
       </DockPanel>
     </DockPanel>
   </ScrollViewer>

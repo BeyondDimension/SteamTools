@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Win32;
@@ -196,6 +196,12 @@ namespace System.Application
                 });
             }
             return controller.NotFound();
+        }
+
+        public static IActionResult GetEnv(ControllerBase controller, IWebHostEnvironment environment)
+        {
+            var content = $"<h1>{environment.EnvironmentName}</h1>";
+            return controller.Content(content, MediaTypeNames.HTML);
         }
 
         /// <inheritdoc cref="Path2.InitFileSystem(Func{string}, Func{string})"/>

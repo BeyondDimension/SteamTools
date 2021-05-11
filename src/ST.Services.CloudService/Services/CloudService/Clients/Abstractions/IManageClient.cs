@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Threading.Tasks;
 
 namespace System.Application.Services.CloudService.Clients.Abstractions

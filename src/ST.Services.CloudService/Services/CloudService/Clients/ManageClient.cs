@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -31,9 +31,11 @@ namespace System.Application.Services.CloudService.Clients
                 cancellationToken: default);
 
         public Task<IApiResponse> DeleteAccount()
-        {
-            throw new NotImplementedException();
-        }
+            => conn.SendAsync(
+                isAnonymous: false,
+                method: HttpMethod.Get,
+                requestUri: "api/Manage/DeleteAccount",
+                cancellationToken: default);
 
         public Task<IApiResponse<ClockInResponse>> ClockIn()
             => conn.SendAsync<ClockInRequest, ClockInResponse>(

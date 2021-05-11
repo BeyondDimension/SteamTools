@@ -171,7 +171,7 @@ namespace System.Application.UI.ViewModels
                 );
         }
 
-        public Action? Close { private get; set; }
+        public Action? Close { get; set; }
 
         public Action? TbPhoneNumberFocus { get; set; }
 
