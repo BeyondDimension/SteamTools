@@ -31,7 +31,6 @@ using System.Application.Services.Implementation;
 using APIConst = System.Application.Services.CloudService.Constants;
 
 [assembly: Guid("82cda250-48a2-48ad-ab03-5cda873ef80c")]
-[assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark)]
 namespace System.Application.UI
 {
     public partial class App : AvaloniaApplication, IDisposableHolder, IDesktopAppService, IDesktopAvaloniaAppService

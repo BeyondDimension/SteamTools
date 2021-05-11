@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -134,5 +134,8 @@
   </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
     <value>更新包解壓失敗，請打開官網手動更新</value>
+  </data>
+  <data name="FileUnauthorized" xml:space="preserve">
+    <value>檔案訪問被拒絕，沒有許可權</value>
   </data>
 </root>

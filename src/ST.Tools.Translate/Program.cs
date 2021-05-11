@@ -37,8 +37,9 @@ namespace System
         public const string ClienDroidLib = ProjectDir_ClienDroidLib + @"\Properties\SR";
         public const string ST = ProjectDir_ST + @"\Properties\SR";
         public const string STClient = ProjectDir_STClient + @"\Properties\SR";
+        public const string STClientDesktop = ProjectDir_ClientDesktop + @"\Properties\SR";
         public const string AppRes = ProjectDir_ClientDesktop + @"\UI\Resx\AppResources";
-
+        
         static async Task Main(string[] args)
         {
             ReadAzureTranslationKey();
@@ -48,7 +49,7 @@ namespace System
             //var r = await Translatecs.TranslateTextAsync(route + to_ + "en", "测试翻译文本");
 
             // 不带后缀的相对路径
-            var resx_path = AppRes;
+            var resx_path = STClientDesktop;
 
             // true 读取翻译后的excel写入resx
             // false 读取resx机翻后写入excel

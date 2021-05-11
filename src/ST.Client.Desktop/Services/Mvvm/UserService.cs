@@ -35,10 +35,17 @@ namespace System.Application.Services
             }
         }
 
-        public async Task SignOutAsync(Func<Task>? apiCall = null)
+        public async Task SignOutAsync(Func<Task<IApiResponse>>? apiCall = null)
         {
             if (User == null) return;
-            if (apiCall != null) await apiCall();
+            if (apiCall != null)
+            {
+                var rsp = await apiCall();
+                if (!rsp.IsSuccess)
+                {
+                    return;
+                }
+            }
             await SignOutUserManagerAsync();
             await RefreshUserAsync();
         }

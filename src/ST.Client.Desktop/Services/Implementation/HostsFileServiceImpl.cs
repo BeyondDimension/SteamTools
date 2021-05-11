@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.Text;
 using static System.Application.Services.IHostsFileService;
 
@@ -441,7 +442,14 @@ namespace System.Application.Services.Implementation
                 Log.Error(TAG, ex, "UpdateHosts catch.");
                 result.ResultType = OperationResultType.Error;
                 result.AppendData = ex;
-                result.Message = ex.GetAllMessage();
+                if (ex is UnauthorizedAccessException || ex is SecurityException)
+                {
+                    result.Message = SR.FileUnauthorized;
+                }
+                else
+                {
+                    result.Message = ex.GetAllMessage();
+                }
                 return result;
             }
 

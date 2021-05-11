@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -134,5 +134,26 @@
   </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
     <value>Не удалось распаковать пакет обновления, откройте официальный веб-сайт, чтобы обновить его вручную.</value>
+  </data>
+  <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
+    <value>Свойства файла доступен только для чтения, и изменение завершается неудачей</value>
+  </data>
+  <data name="FileSizeTooLarge" xml:space="preserve">
+    <value>Размер файла слишком большой</value>
+  </data>
+  <data name="FileUnauthorized" xml:space="preserve">
+    <value>Доступ к файлам отклоняется без разрешений</value>
+  </data>
+  <data name="OperationHostsError_" xml:space="preserve">
+    <value>Ошибка действия hosts {0}</value>
+  </data>
+  <data name="ProgramUpdateEcho" xml:space="preserve">
+    <value>В обновлении замены Steam++ ...</value>
+  </data>
+  <data name="SteamInstallPathNotFound" xml:space="preserve">
+    <value>Не удалось найти путь установки Steam</value>
+  </data>
+  <data name="UpdateUnpackFail" xml:space="preserve">
+    <value>Пакет обновления не удалось распаковки, пожалуйста, откройте официальный сайт для обновления вручную</value>
   </data>
 </root>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -134,5 +134,8 @@
   </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
     <value>更新パッケージの解凍に失敗しました。公式Webサイトを開いて手動で更新してください</value>
+  </data>
+  <data name="FileUnauthorized" xml:space="preserve">
+    <value>ファイル アクセスが拒否され、アクセス許可がありません</value>
   </data>
 </root>
