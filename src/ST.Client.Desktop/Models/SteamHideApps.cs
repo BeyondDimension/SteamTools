@@ -24,5 +24,9 @@ namespace System.Application.Models
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
         public string? Name { get; set; }
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public bool Enable { get; set; } = false;
     }
 }

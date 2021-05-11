@@ -177,7 +177,7 @@ namespace System.Application.Services.Implementation
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
             if (cookie != null)
             {
-                request.Headers.Add("Cooike", cookie);
+                request.Headers.Add("Cookie", cookie);
             }
             request.Headers.Accept.ParseAdd(accept);
             request.Headers.UserAgent.ParseAdd(http_helper.UserAgent);

@@ -1,6 +1,8 @@
 using Newtonsoft.Json.Linq;
+using ReactiveUI;
 using System.Application.Models;
 using System.Application.UI.Resx;
+using System.Collections.ObjectModel;
 using System.Properties;
 
 namespace System.Application.UI.ViewModels
@@ -11,8 +13,22 @@ namespace System.Application.UI.ViewModels
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_EditAppInfo;
         }
-        
 
+
+
+        private ObservableCollection<SteamHideApps>? _SteamHideApp;
+        public ObservableCollection<SteamHideApps>? SteamHideApp
+        {
+            get => _SteamHideApp;
+            set
+            {
+                if (_SteamHideApp != value)
+                {
+                    _SteamHideApp = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
 
 
     }

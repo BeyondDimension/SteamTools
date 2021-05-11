@@ -12,6 +12,7 @@ namespace System.Application
         AuthTrade,
         EncryptionAuth,
         ScriptStore,
+        HideApp,
         ChangeBindPhoneNumber,
         UserProfile,
         NewVersion,
