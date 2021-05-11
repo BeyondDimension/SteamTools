@@ -120,11 +120,14 @@ namespace System.Application.Services.Implementation
             return default;
         }
 
-        public void StartSteam(string arguments)
+        public void StartSteam(string? arguments)
         {
             if (!string.IsNullOrEmpty(SteamProgramPath))
             {
-                Process.Start(SteamProgramPath, arguments);
+                if (!string.IsNullOrEmpty(arguments))
+                    Process.Start(SteamProgramPath, arguments);
+                else
+                    Process.Start(SteamProgramPath);
             }
         }
 
@@ -328,6 +331,7 @@ namespace System.Application.Services.Implementation
                 catch (Exception ex)
                 {
                     Log.Error(nameof(SteamServiceImpl), ex, nameof(GetAppInfos));
+                    GC.Collect();
                     return apps;
                 }
             }
