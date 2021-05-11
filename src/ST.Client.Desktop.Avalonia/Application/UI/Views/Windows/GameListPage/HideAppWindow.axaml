@@ -40,7 +40,7 @@
             </DockPanel>
 
             <ScrollViewer>
-              <ItemsControl Items="{Binding SteamHideApp">
+              <ItemsControl Items="{Binding SteamHideApp}">
                 <ItemsControl.ItemTemplate>
                   <DataTemplate>
                     <StackPanel>
@@ -48,7 +48,7 @@
                         <CheckBox HorizontalAlignment="Left" IsChecked="{Binding Enable}">
                           <TextBlock Text="{Binding Name}"></TextBlock>
                         </CheckBox>
-                        <TextBlock Text="{Binding AppId"
+                        <TextBlock Text="{Binding AppId}"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Center"></TextBlock>
                       </DockPanel>
