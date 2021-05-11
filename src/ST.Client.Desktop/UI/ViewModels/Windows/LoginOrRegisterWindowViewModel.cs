@@ -105,9 +105,9 @@ namespace System.Application.UI.ViewModels
         static async Task SuccessAsync(LoginOrRegisterResponse rsp, Action? close)
         {
             await UserService.Current.RefreshUserAsync();
+            close?.Invoke();
             var msg = AppResources.Success_.Format((rsp?.IsLoginOrRegister ?? false) ? AppResources.User_Login : AppResources.User_Register);
             Toast.Show(msg);
-            close?.Invoke();
         }
 
         public void ChangeLoginState(short state)
@@ -158,9 +158,9 @@ namespace System.Application.UI.ViewModels
                     {
                         MainThreadDesktop.BeginInvokeOnMainThread(() =>
                         {
-                            conn_helper.ShowResponseErrorMessage(response);
                             close?.Invoke();
                             vm?.Close?.Invoke();
+                            conn_helper.ShowResponseErrorMessage(response);
                         });
                     }
                 }

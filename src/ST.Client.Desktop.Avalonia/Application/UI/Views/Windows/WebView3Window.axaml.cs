@@ -256,9 +256,9 @@ namespace System.Application.UI.Views.Windows
             }
         }
 
-        protected override void OnInitialized()
+        protected override void OnOpened(EventArgs e)
         {
-            base.OnInitialized();
+            base.OnOpened(e);
             if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
             {
                 Toast.Show(AppResources.GetLoginUsingSteamClientCookies);
