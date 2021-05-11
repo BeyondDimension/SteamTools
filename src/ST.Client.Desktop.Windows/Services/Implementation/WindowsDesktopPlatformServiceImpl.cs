@@ -187,33 +187,41 @@ namespace System.Application.Services.Implementation
 
         public Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true)
         {
-            var p = new Process
+            try
             {
-                StartInfo = new ProcessStartInfo
+                using var p = new Process
                 {
-                    FileName = "netstat.exe",
-                    Arguments = $"-a -n -o",
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true,
-                },
-            };
-            p.Start();
-            var reader = p.StandardOutput;
-            while (!reader.EndOfStream)
-            {
-                var line = reader.ReadLine();
-                if (line == null) break;
-                var lineArray = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                if (lineArray.Length != 5) continue;
-                if (!lineArray[0].Equals(isTCPorUDP ? "TCP" : "UDP", StringComparison.OrdinalIgnoreCase)) continue;
-                if (!lineArray[3].Equals("LISTENING", StringComparison.OrdinalIgnoreCase)) continue;
-                if (!lineArray[1].EndsWith($":{port}")) continue;
-                if (!ushort.TryParse(lineArray[4], out var pid)) continue;
-                p.Close();
-                return Process.GetProcessById(pid);
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "cmd",
+                        UseShellExecute = false,
+                        RedirectStandardInput = true,
+                        RedirectStandardOutput = true,
+                        CreateNoWindow = true,
+                    },
+                };
+                p.Start();
+                p.StandardInput.WriteLine($"netstat -ano|findstr \"{port}\"&exit");
+                p.StandardInput.AutoFlush = true;
+                var reader = p.StandardOutput;
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    if (line == null) break;
+                    var lineArray = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    if (lineArray.Length != 5) continue;
+                    if (!lineArray[0].Equals(isTCPorUDP ? "TCP" : "UDP", StringComparison.OrdinalIgnoreCase)) continue;
+                    if (!lineArray[3].Equals("LISTENING", StringComparison.OrdinalIgnoreCase)) continue;
+                    if (!lineArray[1].EndsWith($":{port}")) continue;
+                    if (!ushort.TryParse(lineArray[4], out var pid)) continue;
+                    p.Close();
+                    return Process.GetProcessById(pid);
+                }
+                p.WaitForExit(6000);
             }
-            p.WaitForExit();
+            catch
+            {
+            }
             return default;
         }
     }

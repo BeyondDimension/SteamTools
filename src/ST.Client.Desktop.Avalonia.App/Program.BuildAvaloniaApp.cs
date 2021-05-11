@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.ReactiveUI;
+using System.Diagnostics;
 
 namespace System.Application.UI
 {

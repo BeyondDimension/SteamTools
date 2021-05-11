@@ -90,6 +90,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal">
           <TextBlock Classes="Header light"
+                     Margin="0,0,6,0"
                      Text="{Binding LabelVersionDisplay,Mode=OneTime}"
                      VerticalAlignment="Center"/>
           <TextBox Classes="Content readonlybox"
@@ -101,7 +102,8 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="5">
           <TextBlock Classes="Header light"
-                     Text="Development: "
+                     Margin="0,0,6,0"
+                     Text="Development:"
                      VerticalAlignment="Center"/>
           <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
                           CommandParameter="{x:Static vm:AboutPageViewModel.RmbadminLink}">
@@ -120,7 +122,8 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal">
           <TextBlock Classes="Header light"
-                     Text="Business and Art: "
+                     Margin="0,0,6,0"
+                     Text="Business and Art:"
                      VerticalAlignment="Center"/>
           <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
                           CommandParameter="{x:Static vm:AboutPageViewModel.CliencerLink}">
@@ -129,7 +132,7 @@
         </StackPanel>
 
         <WrapPanel>
-          <TextBlock Margin=" 0 0 0 -0.5"
+          <TextBlock Margin=" 0 0 6 -0.5"
                      VerticalAlignment="Center"
                      Text="This open source software is licensed with " />
           <StackPanel Orientation="Horizontal" Spacing="5" Margin="2">
@@ -204,7 +207,7 @@
                            VerticalAlignment="Center"/>
           </WrapPanel>
         </StackPanel>
-        <Panel Height="150" />
+        <Panel Height="140" />
       </DockPanel>
     </DockPanel>
   </ScrollViewer>
