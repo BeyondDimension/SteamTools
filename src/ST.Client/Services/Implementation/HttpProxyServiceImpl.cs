@@ -488,7 +488,7 @@ namespace System.Application.Services.Implementation
             {
                 foreach (var host in item.DomainNamesArray)
                 {
-                    if (e.SniHostName.Contains(host))
+                    if (e.SniHostName.Contains(new Uri(host).Host))
                     {
                         e.DecryptSsl = true;
                         return Task.CompletedTask;
