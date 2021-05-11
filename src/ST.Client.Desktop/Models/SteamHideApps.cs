@@ -1,3 +1,5 @@
+
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +16,8 @@ using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 namespace System.Application.Models
 {
     [MPObj]
-    public class SteamHideApps
-    {
+    public class SteamHideApps : ReactiveObject
+    { 
         [MPKey(1)]
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]

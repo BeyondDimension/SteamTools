@@ -307,7 +307,7 @@ namespace System.Application.Services.Implementation
                             {
                                 if (GameLibrarySettings.DefaultIgnoreList.Value.Contains(app.AppId))
                                     continue;
-                                if (ProxySettings.HideGameList.Value != null && ProxySettings.HideGameList.Value.FindIndex(x => x.AppId == app.AppId) > -1)
+                                if (ProxySettings.HideGameList.Value.Any_Nullable(x => x.AppId == app.AppId))
                                     continue;
                                 if (app.ParentId > 0)
                                 {

@@ -323,7 +323,7 @@ namespace System.Application.UI.ViewModels
             try
             {
                 if (ProxySettings.HideGameList.Value == null)
-                    ProxySettings.HideGameList.Value = new List<SteamHideApps>();
+                    ProxySettings.HideGameList.Value = new ObservableCollection<SteamHideApps>();
                 ProxySettings.HideGameList.Value!.Add(new SteamHideApps
                 {
                     AppId = app.AppId,

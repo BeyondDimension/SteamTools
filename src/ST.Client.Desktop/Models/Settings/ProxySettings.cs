@@ -1,5 +1,6 @@
 using System.Application.Serialization;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -71,8 +72,8 @@ namespace System.Application.Models.Settings
         /// <summary>
         /// 隐藏的游戏列表
         /// </summary>
-        public static SerializableProperty<List<SteamHideApps>?> HideGameList { get; }
-            = new SerializableProperty<List<SteamHideApps>?>(GetKey(), Providers.Local, null) { AutoSave = true };
+        public static SerializableProperty<ObservableCollection<SteamHideApps>> HideGameList { get; }
+            = new SerializableProperty<ObservableCollection<SteamHideApps>>(GetKey(), Providers.Local, new ObservableCollection<SteamHideApps>()) { AutoSave = true };
 
         /// <summary>
         /// 隐藏的游戏列表

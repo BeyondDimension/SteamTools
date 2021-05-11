@@ -873,6 +873,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 全部选中 的本地化字符串。
+        /// </summary>
+        public static string GameList_HideApp_AllCheck {
+            get {
+                return ResourceManager.GetString("GameList_HideApp_AllCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 隐藏游戏成功 的本地化字符串。
         /// </summary>
         public static string GameList_HideAppsSuccess {
