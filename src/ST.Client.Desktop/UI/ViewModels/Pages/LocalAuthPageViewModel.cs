@@ -25,6 +25,8 @@ namespace System.Application.UI.ViewModels
             RefreshAuthCommand = ReactiveCommand.Create(() => AuthService.Current.Initialize(true));
             EncryptionAuthCommand = ReactiveCommand.Create(ShowEncryptionAuthWindow);
 
+            ExportAuthCommand = ReactiveCommand.Create(ShowExportAuthAuthWindow);
+
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
                 //new MenuItemViewModel(nameof(AppResources.LocalAuth_EditAuth))
@@ -33,11 +35,11 @@ namespace System.Application.UI.ViewModels
                 //    {
                         new MenuItemViewModel(nameof(AppResources.Add)) { IconKey="AddDrawing",
                             Command= AddAuthCommand },
-                        //new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="LockDrawing",
-                        //    Command =EncryptionAuthCommand },
+                        new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="LockDrawing",
+                            Command =EncryptionAuthCommand },
                         //new MenuItemViewModel(nameof(AppResources.Edit)) { IconKey="EditDrawing" },
-                        //new MenuItemViewModel(nameof(AppResources.Export)) { IconKey="ExportDrawing",
-                        //    Command= RefreshAuthCommand  },
+                        new MenuItemViewModel(nameof(AppResources.Export)) { IconKey="ExportDrawing",
+                            Command= ExportAuthCommand  },
                         new MenuItemViewModel(),
                         new MenuItemViewModel(nameof(AppResources.Refresh)) {IconKey="RefreshDrawing",
                             Command= RefreshAuthCommand },
@@ -74,6 +76,8 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> EncryptionAuthCommand { get; }
 
         public ReactiveCommand<Unit, Unit> RefreshAuthCommand { get; }
+
+        public ReactiveCommand<Unit, Unit> ExportAuthCommand { get; }
 
         //internal async override Task Initialize()
         //{
@@ -148,5 +152,9 @@ namespace System.Application.UI.ViewModels
             IShowWindowService.Instance.Show(CustomWindow.EncryptionAuth, new EncryptionAuthWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
         }
 
+        public void ShowExportAuthAuthWindow()
+        {
+            IShowWindowService.Instance.Show(CustomWindow.ExportAuth, new ExportAuthWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+        }
     }
 }

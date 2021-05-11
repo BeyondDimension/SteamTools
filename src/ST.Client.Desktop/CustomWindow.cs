@@ -11,6 +11,7 @@ namespace System.Application
         ShowAuth,
         AuthTrade,
         EncryptionAuth,
+        ExportAuth,
         ScriptStore,
         HideApp,
         ChangeBindPhoneNumber,

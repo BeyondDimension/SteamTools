@@ -199,7 +199,7 @@ namespace System.Application.Services.Implementation
             //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
             //if (!e.IsTransparent)
             //{
-            if (IPAddress.IsLoopback(e.ClientRemoteEndPoint.Address) && ProxyDomains.Count(w => w.Enable && w.Hosts.Contains(e.HttpClient.Request.Host)) == 0)
+            if (IPAddress.IsLoopback(e.ClientRemoteEndPoint.Address))
             {
                 e.TerminateSession();
                 Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
