@@ -2071,6 +2071,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 刷新列表 的本地化字符串。
+        /// </summary>
+        public static string RefreshList {
+            get {
+                return ResourceManager.GetString("RefreshList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 刷新成功 的本地化字符串。
         /// </summary>
         public static string RefreshOK {

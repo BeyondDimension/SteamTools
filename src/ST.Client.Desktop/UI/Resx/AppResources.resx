@@ -792,6 +792,9 @@
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
+  <data name="RefreshList" xml:space="preserve">
+    <value>刷新列表</value>
+  </data>
   <data name="RefreshOK" xml:space="preserve">
     <value>刷新成功</value>
   </data>
