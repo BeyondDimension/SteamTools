@@ -140,6 +140,7 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 * [NPOI](https://github.com/nissl-lab/npoi)
 * [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
 * [AspNet.Security.OpenId.Providers](https://github.com/aspnet-contrib/AspNet.Security.OpenId.Providers)
+* [AspNet.Security.OAuth.Providers](https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers)
 * [CefNet](https://github.com/CefNet/CefNet)
 * [CefSharp](https://github.com/cefsharp/CefSharp)
 * [React](https://github.com/facebook/react)

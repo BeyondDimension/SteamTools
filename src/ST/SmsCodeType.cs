@@ -1,4 +1,4 @@
-﻿namespace System.Application
+namespace System.Application
 {
     /// <summary>
     /// 短信验证码类型
@@ -34,5 +34,10 @@
         /// [通过手机号码]登录
         /// </summary>
         Login = 205,
+
+        /// <summary>
+        /// 绑定手机号码
+        /// </summary>
+        BindPhoneNumber = 206,
     }
 }
