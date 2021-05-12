@@ -112,7 +112,7 @@ namespace System.Application.Services.Implementation
             {
                 return;
             }
-            if (e.HttpClient.Request.Host.Equals(LocalDomain, StringComparison.OrdinalIgnoreCase))
+            if (e.HttpClient.Request.Host.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
             {
                 if (e.HttpClient.Request.Method.ToUpperInvariant() == "OPTIONS")
                 {
@@ -475,20 +475,20 @@ namespace System.Application.Services.Implementation
         private Task TransparentProxyEndPoint_BeforeSslAuthenticate(object sender, BeforeSslAuthenticateEventArgs e)
         {
             e.DecryptSsl = false;
-            if (ProxyDomains is null)
-            {
-                return Task.CompletedTask;
-            }
-            if (e.SniHostName.Equals(LocalDomain, StringComparison.OrdinalIgnoreCase))
+            if (e.SniHostName.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
             {
                 e.DecryptSsl = true;
+                return Task.CompletedTask;
+            }
+            if (ProxyDomains is null)
+            {
                 return Task.CompletedTask;
             }
             foreach (var item in ProxyDomains)
             {
                 foreach (var host in item.DomainNamesArray)
                 {
-                    if (e.SniHostName.Contains(new Uri(host).Host))
+                    if (e.SniHostName.Contains(new Uri("https://" + host).Host))
                     {
                         e.DecryptSsl = true;
                         return Task.CompletedTask;
@@ -505,7 +505,7 @@ namespace System.Application.Services.Implementation
             {
                 return Task.CompletedTask;
             }
-            if (e.HttpClient.Request.Host.Equals(LocalDomain, StringComparison.OrdinalIgnoreCase))
+            if (e.HttpClient.Request.Host.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
             {
                 e.DecryptSsl = true;
                 return Task.CompletedTask;
