@@ -34,7 +34,7 @@
               Margin="10 0 10 10"
               Classes="paper"
               Background="{DynamicResource ThemeBrushKey}">
-        <ListBox x:Name="items" Width="350"
+        <ListBox x:Name="items" Classes="metro" Width="350"
                        Items="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyDomains,Mode=OneWay}"
                        SelectedItem="{Binding Source={x:Static service:ProxyService.Current},Path=SelectGroup,Mode=TwoWay}"
                        ScrollViewer.VerticalScrollBarVisibility="Auto"

@@ -250,18 +250,13 @@ namespace System.Application.UI.ViewModels
         {
             BrowserOpen(string.Format(SteamApiUrls.STEAMCARDEXCHANGE_APP_URL, app.AppId));
         }
+
         public void AddAFKAppList(SteamApp app)
         {
             try
             {
-                if (ProxySettings.AFKAppList.Value == null)
-                    ProxySettings.AFKAppList.Value = new ObservableCollection<SteamAFKApps>();
-                ProxySettings.AFKAppList.Value!.Add(new SteamAFKApps
-                {
-                    AppId = app.AppId,
-                    Name = app.DisplayName
-                });
-                SteamConnectService.Current.SteamApps.Remove(app);
+                GameLibrarySettings.AFKAppList.Value!.Add(app.AppId, app.DisplayName);
+
                 Toast.Show(AppResources.GameList_AddAFKAppsSuccess);
             }
             catch (Exception e)
@@ -269,18 +264,14 @@ namespace System.Application.UI.ViewModels
                 Toast.Show(e.ToString());
             }
         }
+
         public void AddHideAppList(SteamApp app)
         {
             try
             {
-                if (ProxySettings.HideGameList.Value == null)
-                    ProxySettings.HideGameList.Value = new ObservableCollection<SteamHideApps>();
-                ProxySettings.HideGameList.Value!.Add(new SteamHideApps
-                {
-                    AppId = app.AppId,
-                    Name = app.DisplayName
-                });
-                ProxySettings.HideGameList.RaiseValueChanged();
+                GameLibrarySettings.HideGameList.Value!.Add(app.AppId, app.DisplayName);
+                GameLibrarySettings.HideGameList.RaiseValueChanged();
+
                 SteamConnectService.Current.SteamApps.Remove(app);
                 Toast.Show(AppResources.GameList_HideAppsSuccess);
             }

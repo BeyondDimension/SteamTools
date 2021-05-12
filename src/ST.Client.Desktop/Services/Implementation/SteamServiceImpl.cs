@@ -310,7 +310,7 @@ namespace System.Application.Services.Implementation
                             {
                                 if (GameLibrarySettings.DefaultIgnoreList.Value.Contains(app.AppId))
                                     continue;
-                                if (ProxySettings.HideGameList.Value.Any_Nullable(x => x.AppId == app.AppId))
+                                if (GameLibrarySettings.HideGameList.Value!.ContainsKey(app.AppId))
                                     continue;
                                 if (app.ParentId > 0)
                                 {

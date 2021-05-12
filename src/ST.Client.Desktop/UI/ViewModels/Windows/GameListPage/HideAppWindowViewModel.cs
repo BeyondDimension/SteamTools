@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Models.Settings;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,77 +19,46 @@ namespace System.Application.UI.ViewModels
         public HideAppWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_EditAppInfo;
-            //_SteamHideApp = new ObservableCollection<SteamHideApps>();
-            //_SteamHideApp.Subscribe(_ => this.RaisePropertyChanged(nameof(IsHideAppEmpty)));
 
-            SteamHideApp = new ReadOnlyObservableCollection<SteamHideApps>(ProxySettings.HideGameList.Value ?? new ObservableCollection<SteamHideApps>());
-
-
-            this.WhenAnyValue(v => v.SteamHideApp)
-                       .Subscribe(apps => apps?
-                       .ToObservableChangeSet()
-                       .AutoRefresh(x => x.Enable)
-                       .ToCollection()
-                       .Select<IReadOnlyCollection<SteamHideApps>, bool?>(x =>
-                       {
-                           var count = x.Count(s => s.Enable);
-                           if (x == null || count == 0)
-                               return false;
-                           if (count == x.Count)
-                               return true;
-                           return null;
-                       })
-                       .Subscribe(s =>
-                       {
-                           if (ThreeStateEnable != s)
-                           {
-                               _ThreeStateEnable = s;
-                               this.RaisePropertyChanged(nameof(ThreeStateEnable));
-                           }
-                       })
-                       );
-
-            this.WhenAnyValue(x => x.SearchText)
-                .Subscribe(x =>
-                {
-                    //InitializeScriptList();
-                });
-
+            Refresh_Click();
         }
-        public bool? _ThreeStateEnable;
-        public bool? ThreeStateEnable
+
+        public ObservableCollection<KeyValuePair<uint, string>> _HideGameList = new();
+        public ObservableCollection<KeyValuePair<uint, string>> HideGameList
         {
-            get => _ThreeStateEnable;
-            set
+            get => _HideGameList;
+            set => this.RaiseAndSetIfChanged(ref _HideGameList, value);
+        }
+
+        //private string? _SearchText;
+        //public string? SearchText
+        //{
+        //    get => _SearchText;
+        //    set => this.RaiseAndSetIfChanged(ref _SearchText, value);
+        //}
+
+        public void Refresh_Click()
+        {
+            HideGameList = new ObservableCollection<KeyValuePair<uint, string>>(GameLibrarySettings.HideGameList.Value!);
+        }
+
+        public void ChangeCheck(KeyValuePair<uint, string> keyValue)
+        {
+            if (GameLibrarySettings.HideGameList.Value!.ContainsKey(keyValue.Key))
             {
-                if (SteamHideApp != null)
-                    foreach (var item in SteamHideApp)
-                    {
-                        item.Enable = value ?? false;
-                    }
-                this.RaiseAndSetIfChanged(ref _ThreeStateEnable, value);
+                GameLibrarySettings.HideGameList.Value!.Remove(keyValue.Key);
             }
-        }
-        private string? _SearchText;
-        public string? SearchText
-        {
-            get => _SearchText;
-            set => this.RaiseAndSetIfChanged(ref _SearchText, value);
-        }
-        private ReadOnlyObservableCollection<SteamHideApps>? _SteamHideApp;
-        public ReadOnlyObservableCollection<SteamHideApps>? SteamHideApp
-        {
-            get => _SteamHideApp;
-            set
+            else
             {
-                if (_SteamHideApp != value)
-                {
-                    _SteamHideApp = value;
-                    this.RaisePropertyChanged();
-                }
+                GameLibrarySettings.HideGameList.Value!.Add(keyValue.Key, keyValue.Value);
             }
         }
 
-
+        public void SaveChange_Click()
+        {
+            GameLibrarySettings.HideGameList.RaiseValueChanged();
+            Refresh_Click();
+            SteamConnectService.Current.RefreshGamesList();
+        }
     }
 }

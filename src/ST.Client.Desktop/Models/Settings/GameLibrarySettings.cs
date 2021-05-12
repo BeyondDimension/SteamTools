@@ -154,7 +154,17 @@ namespace System.Application.Models.Settings
             700580
         }));
 
+        /// <summary>
+        /// 隐藏的游戏列表
+        /// </summary>
+        public static SerializableProperty<Dictionary<uint, string?>> HideGameList { get; }
+            = new SerializableProperty<Dictionary<uint, string?>>(GetKey(), Providers.Local, new Dictionary<uint, string?>()) { AutoSave = false };
 
+        /// <summary>
+        /// 挂时长游戏列表
+        /// </summary>
+        public static SerializableProperty<Dictionary<uint, string?>> AFKAppList { get; }
+            = new SerializableProperty<Dictionary<uint, string?>>(GetKey(), Providers.Local, new Dictionary<uint, string?>()) { AutoSave = false };
 
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
