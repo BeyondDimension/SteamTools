@@ -114,21 +114,29 @@ namespace System.Application.UI.ViewModels
 
 
             HideAppCommand = ReactiveCommand.Create(OpenHideAppWindow);
+            IdleAppCommand = ReactiveCommand.Create(OpenIdleAppWindow);
 #if DEBUG
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
                   new MenuItemViewModel(nameof(AppResources.GameList_HideGameManger)){
-                  Command=HideAppCommand
+                    Command =   HideAppCommand
                   },
-                  new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)),
+                  new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)){ Command = IdleAppCommand },
             };
 #endif
         }
-        public void OpenHideAppWindow() {
-
+        public void OpenHideAppWindow()
+        {
             IShowWindowService.Instance.Show(CustomWindow.HideApp, new HideAppWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
         }
+
+        public void OpenIdleAppWindow()
+        {
+            IShowWindowService.Instance.Show(CustomWindow.IdleApp, new IdleAppWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+        }
+
         public ReactiveCommand<Unit, Unit> HideAppCommand { get; }
+        public ReactiveCommand<Unit, Unit> IdleAppCommand { get; }
 
         internal override void Activation()
         {
@@ -198,63 +206,6 @@ namespace System.Application.UI.ViewModels
         {
             get => string.Join(',', EnableAppTypeFiltres.Select(s => s.Name_Localiza));
         }
-
-        //private IObservable<Unit> UpdateAsync()
-        //{
-        //    var types = AppTypeFiltres.Where(x => x.Enable);
-        //    bool predicateName(SteamApp s)
-        //    {
-        //        if (!string.IsNullOrEmpty(SerachText))
-        //        {
-        //            if (s.DisplayName?.Contains(SerachText, StringComparison.OrdinalIgnoreCase) == true ||
-        //                s.AppId.ToString().Contains(SerachText, StringComparison.OrdinalIgnoreCase))
-        //            {
-        //                return true;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return true;
-        //        }
-        //        return false;
-        //    }
-        //    bool predicateType(SteamApp s)
-        //    {
-        //        if (types.Any())
-        //        {
-        //            if (types.Any(x => x.Value == s.Type))
-        //            {
-        //                return true;
-        //            }
-        //        }
-        //        return false;
-        //    }
-        //    bool predicateInstalled(SteamApp s)
-        //    {
-        //        if (IsInstalledFilter)
-        //            return s.IsInstalled;
-        //        return true;
-        //    }
-
-        //    return Observable.Start(() =>
-        //    {
-        //        var list = SteamConnectService.Current.SteamApps?
-        //        .Where(x => predicateType(x))
-        //        .Where(x => predicateName(x))
-        //        .Where(x => predicateInstalled(x))
-        //        .OrderBy(x => x.DisplayName).ToList();
-        //        if (list.Any_Nullable())
-        //            this.SteamApps = list;
-        //        else
-        //            this.SteamApps = null;
-        //        this.CalcTypeCount();
-        //    });
-        //}
-
-        //public void Update()
-        //{
-        //    this.updateSource.OnNext(Unit.Default);
-        //}
 
         public void CalcTypeCount()
         {

@@ -14,6 +14,7 @@ namespace System.Application
         ExportAuth,
         ScriptStore,
         HideApp,
+        IdleApp,
         ChangeBindPhoneNumber,
         UserProfile,
         NewVersion,

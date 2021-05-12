@@ -15,7 +15,7 @@
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
         Title="{Binding Title}"
-        x:DataType="vm:ShowAuthWindowViewModel"
+        x:DataType="vm:ExportAuthWindowViewModel"
         x:CompileBindings="True">
   <Panel HorizontalAlignment="Stretch">
     <controls:TitleBar></controls:TitleBar>
@@ -42,14 +42,14 @@
 
         <DockPanel>
           <TextBlock Text="导出文件路径: "/>
-          <Button Content="选择路径"/>
+          <Button Content="选择路径" HorizontalAlignment="Right"/>
         </DockPanel>
         <Separator Classes="Separator"></Separator>
         <DockPanel>
           <TextBlock Text="是否需要导出带加密的数据"/>
-          <ToggleSwitch/>
+          <ToggleSwitch IsChecked="{Binding IsEncryption}"/>
         </DockPanel>
-        <StackPanel Spacing="10">
+        <StackPanel Spacing="10" IsEnabled="{Binding IsEncryption}">
           <TextBlock Text="导出数据密码" TextWrapping="WrapWithOverflow"></TextBlock>
           <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_Password,Source={x:Static resx:R.Current},Mode=OneWay}"  PasswordChar="*"></TextBox>
           <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip,Source={x:Static resx:R.Current},Mode=OneWay}"  PasswordChar="*"></TextBox>

@@ -13,7 +13,12 @@ namespace System.Application.UI.ViewModels
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_ProtectionAuth;
         }
 
-
+        private bool _IsEncryption;
+        public bool IsEncryption
+        {
+            get => _IsEncryption;
+            set => this.RaiseAndSetIfChanged(ref _IsEncryption, value);
+        }
 
     }
 }

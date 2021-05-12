@@ -17,12 +17,12 @@
         Title="{Binding Title}"
         x:DataType="vm:EditAppInfoWindowViewModel"
         x:CompileBindings="True">
-  <DockPanel>
-    <controls:TitleBar DockPanel.Dock="Top"></controls:TitleBar>
-    <StackPanel>
+  <Panel>
+    <controls:TitleBar></controls:TitleBar>
+    <StackPanel Margin="{StaticResource TitleBarAfterMargin}">
       <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}">
         <TextBox></TextBox>
       </Border>
     </StackPanel>
-  </DockPanel>
+  </Panel>
 </Window>

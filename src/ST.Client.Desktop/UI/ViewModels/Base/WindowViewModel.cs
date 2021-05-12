@@ -76,7 +76,7 @@ namespace System.Application.UI.ViewModels
                  {
                      if (x.Item1 == 0 && x.Item2 == 0 && x.Item3 == 0 && x.Item4 == 0)
                          return;
-                     if (UISettings.WindowSizePositions.Value!.ContainsKey(name))
+                     else if (UISettings.WindowSizePositions.Value!.ContainsKey(name))
                          UISettings.WindowSizePositions.Value[name] = _SizePosition;
                      else
                          UISettings.WindowSizePositions.Value.Add(name, _SizePosition);
