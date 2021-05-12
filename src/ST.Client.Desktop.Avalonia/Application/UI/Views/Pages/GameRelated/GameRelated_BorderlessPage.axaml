@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
+             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
@@ -11,11 +12,11 @@
              x:DataType="vm:GameRelated_BorderlessPageViewModel"
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.GameRelated_BorderlessPage">
-  <Panel Margin="10">
-    <StackPanel>
-      <TextBlock Text="无边框窗口化"></TextBlock>
-      <StackPanel Orientation="Horizontal"
-					Margin="20,10,0,0">
+  <ScrollViewer Padding="10">
+    <StackPanel Spacing="20">
+      <TextBlock Text="{ReflectionBinding Path=Res.GameRelated_Borderless,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+      <WrapPanel
+          Margin="20,0,0,0">
         <Image x:Name="move" Width="64" HorizontalAlignment="Left" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/movecross.png">
           <i:Interaction.Behaviors>
             <ia:EventTriggerBehavior EventName="PointerPressed" SourceObject="{ReflectionBinding #move}">
@@ -24,8 +25,74 @@
           </i:Interaction.Behaviors>
         </Image>
         <TextBlock Margin="10,0" VerticalAlignment="Center"
-                   Text="拖拽十字到游戏窗口，即可获取游戏信息执行对应操作。"/>
+                   Text="{ReflectionBinding Path=Res.GameRelated_Borderless_MoveMouseTip,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+      </WrapPanel>
+
+      <StackPanel Spacing="10" IsVisible="{Binding !!SelectWindow}">
+        <WrapPanel>
+          <TextBlock Text="标题:"/>
+          <TextBlock Text="{Binding SelectWindow.Title,Mode=OneWay}"/>
+        </WrapPanel>
+        <WrapPanel>
+          <TextBlock Text="类名:"/>
+          <TextBlock Text="{Binding SelectWindow.ClassName,Mode=OneWay}"/>
+        </WrapPanel>
+        <WrapPanel>
+          <TextBlock Text="进程:"/>
+          <TextBlock Text="{Binding SelectWindow.Name,Mode=OneWay}"/>
+        </WrapPanel>
+        <WrapPanel>
+          <TextBlock Text="程序路径:"/>
+          <TextBlock Text="{Binding SelectWindow.Path,Mode=OneWay}"
+                     TextWrapping="WrapWithOverflow"/>
+        </WrapPanel>
       </StackPanel>
+
+      <WrapPanel Orientation="Horizontal">
+        <Button Height="30"  Content="结束进程"
+                Command="{ReflectionBinding WindowKill_Click}">
+        </Button>
+        <Button Height="30" Content="无边框窗口化"
+                Command="{ReflectionBinding BorderlessWindow_Click}">
+        </Button>
+        <Button Height="30" Content="最大化"
+                Command="{ReflectionBinding MaximizeWindow_Click}">
+        </Button>
+        <Button Height="30"  Content="还原最大化"
+                Command="{ReflectionBinding NormalWindow_Click}">
+        </Button>
+        <Button Height="30"  Content="隐藏"
+                Command="{ReflectionBinding HideWindow_Click}">
+        </Button>
+        <Button Height="30"  Content="显示"
+                Command="{ReflectionBinding ShowWindow_Click}">
+        </Button>
+        <Button Height="30"  Content="置于壁纸层"
+                Command="{ReflectionBinding ToWallerpaperWindow_Click}">
+        </Button>
+        <Button Height="30"  Content="刷新壁纸"
+                Command="{ReflectionBinding ResetWallerpaper_Click}">
+        </Button>
+      </WrapPanel>
+
+      <TextBlock TextWrapping="WrapWithOverflow" Text="*置于壁纸层的游戏可能会无法操控，这个问题可以解决但是目前开发精力不在这，目前这个功能就这样了。游戏结束后桌面会依然留下冻结的画面，这时可以点击刷新壁纸来恢复默认壁纸。并且将窗口放置于桌面壁纸层功能与Wallpaper Engine和其它动态桌面软件不兼容，使用时注意关掉Wallpaper Engine等软件。">
+      </TextBlock>
+
+      <ListBox Items="{Binding WindowList,Mode=OneWay}"
+         Background="Transparent"
+         Height="200" Margin="0,5"
+         SelectedItem="{Binding SelectWindow}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <WrapPanel VerticalAlignment="Center">
+              <TextBlock Text="{Binding Name,Mode=OneWay}"/>
+              <TextBlock Text="("/>
+              <TextBlock Text="{Binding Title,Mode=OneWay}"/>
+              <TextBlock Text=")"/>
+            </WrapPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
     </StackPanel>
-  </Panel>
+  </ScrollViewer>
 </UserControl>

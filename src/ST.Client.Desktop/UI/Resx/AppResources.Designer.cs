@@ -1071,6 +1071,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 无边框窗口化 的本地化字符串。
+        /// </summary>
+        public static string GameRelated_Borderless {
+            get {
+                return ResourceManager.GetString("GameRelated_Borderless", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 拖拽十字到游戏窗口，即可获取游戏信息执行对应操作。 的本地化字符串。
+        /// </summary>
+        public static string GameRelated_Borderless_MoveMouseTip {
+            get {
+                return ResourceManager.GetString("GameRelated_Borderless_MoveMouseTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 性别 的本地化字符串。
         /// </summary>
         public static string Gender {

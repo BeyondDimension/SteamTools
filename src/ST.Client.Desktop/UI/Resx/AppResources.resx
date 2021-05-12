@@ -456,6 +456,12 @@
   <data name="GameRelated" xml:space="preserve">
     <value>游戏功能</value>
   </data>
+  <data name="GameRelated_Borderless" xml:space="preserve">
+    <value>无边框窗口化</value>
+  </data>
+  <data name="GameRelated_Borderless_MoveMouseTip" xml:space="preserve">
+    <value>拖拽十字到游戏窗口，即可获取游戏信息执行对应操作。</value>
+  </data>
   <data name="Gender" xml:space="preserve">
     <value>性别</value>
   </data>
