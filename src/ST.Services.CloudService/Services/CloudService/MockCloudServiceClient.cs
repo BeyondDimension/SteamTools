@@ -112,6 +112,11 @@ namespace System.Application.Services.CloudService
             return Task.FromResult(ApiResponse.Ok<AppVersionDTO?>(default));
         }
 
+        public Task<IApiResponse> UnbundleAccount(FastLoginChannel channel)
+        {
+            return Task.FromResult(ApiResponse.Ok());
+        }
+
         public Task<IApiResponse<ClockInResponse>> ClockIn()
         {
             return Task.FromResult(ApiResponse.Ok(new ClockInResponse
