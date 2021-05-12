@@ -72,14 +72,14 @@ namespace System.Application.Models.Settings
         /// <summary>
         /// 隐藏的游戏列表
         /// </summary>
-        public static SerializableProperty<ObservableCollection<SteamHideApps>> HideGameList { get; }
-            = new SerializableProperty<ObservableCollection<SteamHideApps>>(GetKey(), Providers.Local, new ObservableCollection<SteamHideApps>()) { AutoSave = true };
+        public static SerializableProperty<ObservableCollection<SteamHideApps>?> HideGameList { get; }
+            = new SerializableProperty<ObservableCollection<SteamHideApps>?>(GetKey(), Providers.Local,null) { AutoSave = true };
 
         /// <summary>
         /// 隐藏的游戏列表
         /// </summary>
-        public static SerializableProperty<List<SteamAFKApps>?> AFKAppList { get; }
-            = new SerializableProperty<List<SteamAFKApps>?>(GetKey(), Providers.Local, null) { AutoSave = true };
+        public static SerializableProperty<ObservableCollection<SteamAFKApps>?> AFKAppList { get; }
+            = new SerializableProperty<ObservableCollection<SteamAFKApps>?>(GetKey(), Providers.Local, null) { AutoSave = true };
 
         
         private static string GetKey([CallerMemberName] string propertyName = "")

@@ -255,7 +255,7 @@ namespace System.Application.UI.ViewModels
             try
             {
                 if (ProxySettings.AFKAppList.Value == null)
-                    ProxySettings.AFKAppList.Value = new List<SteamAFKApps>();
+                    ProxySettings.AFKAppList.Value = new ObservableCollection<SteamAFKApps>();
                 ProxySettings.AFKAppList.Value!.Add(new SteamAFKApps
                 {
                     AppId = app.AppId,
@@ -280,6 +280,7 @@ namespace System.Application.UI.ViewModels
                     AppId = app.AppId,
                     Name = app.DisplayName
                 });
+                ProxySettings.HideGameList.RaiseValueChanged();
                 SteamConnectService.Current.SteamApps.Remove(app);
                 Toast.Show(AppResources.GameList_HideAppsSuccess);
             }

@@ -26,10 +26,22 @@ namespace System.Application.Services
         public SteamConnectService()
         {
             SteamApps = new SourceCache<SteamApp, uint>(t => t.AppId);
+            //HideApps = new SourceCache<SteamHideApps, uint>(t => t.AppId);
         }
 
         #region Steam游戏列表
         public SourceCache<SteamApp, uint> SteamApps { get; }
+        //private SourceCache<SteamHideApps, uint> _HideApps;
+        //public SourceCache<SteamHideApps, uint> HideApps
+        //{
+        //    get => _HideApps;
+        //    set
+        //    {
+        //        ProxySettings.HideGameList.Value = value.Items;
+        //        ProxySettings.HideGameList.RaiseValueChanged();
+        //        _HideApps = value;
+        //    }
+        //}
         #endregion
 
         #region 运行中的游戏列表
@@ -136,7 +148,7 @@ namespace System.Application.Services
         {
             if (!SteamTool.IsRunningSteamProcess && SteamSettings.IsAutoRunSteam.Value)
                 SteamTool.StartSteam(SteamSettings.SteamStratParameter.Value);
-
+ 
             var t = new Task(async () =>
             {
                 Thread.CurrentThread.IsBackground = true;
@@ -207,11 +219,12 @@ namespace System.Application.Services
                 IsConnectToSteam = ApiService.Initialize(appid);
             }
         }
+ 
 
-        private void LoadGames(IEnumerable<SteamApp> apps)
+        private void LoadGames(IEnumerable<SteamApp>? apps)
         {
             SteamApps.Clear();
-            if (apps.Any())
+            if (apps.Any_Nullable())
                 SteamApps.AddOrUpdate(apps);
         }
 
