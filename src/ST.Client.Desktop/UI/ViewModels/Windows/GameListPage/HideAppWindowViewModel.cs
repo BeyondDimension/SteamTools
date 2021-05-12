@@ -4,7 +4,6 @@ using Newtonsoft.Json.Linq;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Models.Settings;
-using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,7 +21,7 @@ namespace System.Application.UI.ViewModels
             //_SteamHideApp = new ObservableCollection<SteamHideApps>();
             //_SteamHideApp.Subscribe(_ => this.RaisePropertyChanged(nameof(IsHideAppEmpty)));
 
-            SteamHideApp = ProxySettings.HideGameList.Value;
+            SteamHideApp = new ReadOnlyObservableCollection<SteamHideApps>(ProxySettings.HideGameList.Value ?? new ObservableCollection<SteamHideApps>());
 
 
             this.WhenAnyValue(v => v.SteamHideApp)
@@ -40,9 +39,12 @@ namespace System.Application.UI.ViewModels
                            return null;
                        })
                        .Subscribe(s =>
-                       { 
+                       {
+                           if (ThreeStateEnable != s)
+                           {
                                _ThreeStateEnable = s;
-                               this.RaisePropertyChanged(); 
+                               this.RaisePropertyChanged(nameof(ThreeStateEnable));
+                           }
                        })
                        );
 
@@ -73,8 +75,8 @@ namespace System.Application.UI.ViewModels
             get => _SearchText;
             set => this.RaiseAndSetIfChanged(ref _SearchText, value);
         }
-        private ObservableCollection<SteamHideApps>? _SteamHideApp;
-        public ObservableCollection<SteamHideApps>? SteamHideApp
+        private ReadOnlyObservableCollection<SteamHideApps>? _SteamHideApp;
+        public ReadOnlyObservableCollection<SteamHideApps>? SteamHideApp
         {
             get => _SteamHideApp;
             set
