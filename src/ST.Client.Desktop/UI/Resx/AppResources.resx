@@ -141,6 +141,9 @@
   <data name="About_UpdateHistory" xml:space="preserve">
     <value>更新记录</value>
   </data>
+  <data name="About_UpdateLog" xml:space="preserve">
+    <value>更新日志</value>
+  </data>
   <data name="AchievementManage" xml:space="preserve">
     <value>成就管理</value>
   </data>

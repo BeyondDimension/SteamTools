@@ -58,6 +58,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Compile Update="Application\UI\Views\Pages\About\About_Changelog.axaml.cs">
+          <DependentUpon>About_ChangeLog.axaml</DependentUpon>
+        </Compile>
         <Compile Update="Application\UI\Views\Pages\GameRelatedPage.axaml.cs">
             <DependentUpon>GameRelatedPage.axaml</DependentUpon>
         </Compile>

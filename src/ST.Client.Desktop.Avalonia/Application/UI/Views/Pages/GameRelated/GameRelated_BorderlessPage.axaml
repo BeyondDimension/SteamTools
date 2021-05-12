@@ -79,7 +79,6 @@
       </TextBlock>
 
       <ListBox Items="{Binding WindowList,Mode=OneWay}"
-         Background="Transparent"
          Height="200" Margin="0,5"
          SelectedItem="{Binding SelectWindow}">
         <ListBox.ItemTemplate>

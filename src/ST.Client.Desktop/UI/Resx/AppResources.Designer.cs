@@ -133,6 +133,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 更新日志 的本地化字符串。
+        /// </summary>
+        public static string About_UpdateLog {
+            get {
+                return ResourceManager.GetString("About_UpdateLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 描述 的本地化字符串。
         /// </summary>
         public static string Achievement_Description {
