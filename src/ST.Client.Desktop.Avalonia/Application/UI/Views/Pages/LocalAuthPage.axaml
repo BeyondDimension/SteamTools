@@ -109,7 +109,6 @@
                   <!--<controls:ScrollingTextBlock HorizontalAlignment="Center" Width="{Binding #panel.Width}" Text="{Binding}" FontSize="14" Foreground="{DynamicResource HighlightForegroundBrushKey}" ></controls:ScrollingTextBlock>-->
 
                   <StackPanel Orientation="Horizontal" Spacing="5">
-
                     <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowAuthCode}" CommandParameter="{Binding}"
                             ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_ShowAuthCode,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                       <PathIcon Data="{DynamicResource SearchDrawing}" Width="20"></PathIcon>

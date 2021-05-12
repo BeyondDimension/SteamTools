@@ -21,6 +21,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Remove="Application\UI\Assets\movecross.png" />
+    </ItemGroup>
+
+    <ItemGroup>
         <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
             <Link>Properties\AssemblyInfo.cs</Link>
         </Compile>
@@ -56,6 +60,9 @@
     <ItemGroup>
         <Compile Update="Application\UI\Views\Pages\GameRelatedPage.axaml.cs">
             <DependentUpon>GameRelatedPage.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Application\UI\Views\Pages\GameRelated\GameRelated_BorderlessPage.axaml.cs">
+          <DependentUpon>GameRelated_BorderlessPage.axaml</DependentUpon>
         </Compile>
         <Compile Update="Application\UI\Views\Windows\GameListPage\HideAppWindow.axaml.cs">
             <DependentUpon>HideAppWindow.axaml</DependentUpon>

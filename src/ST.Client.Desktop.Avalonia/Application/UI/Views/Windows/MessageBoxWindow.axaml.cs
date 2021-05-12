@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class MessageBoxWindow : FluentWindow
+    public class MessageBoxWindow : Window
     {
         public MessageBoxWindow() : base()
         {
@@ -18,6 +18,8 @@ namespace System.Application.UI.Views.Windows
             //    s_setExtendedStyle.Invoke(win, new object[] { exStyle, true });
             //}
             InitializeComponent();
+
+            this.ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
 #if DEBUG
             this.AttachDevTools();
 #endif

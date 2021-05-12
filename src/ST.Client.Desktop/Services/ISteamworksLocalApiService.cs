@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Collections.Generic;
 
 namespace System.Application.Services
@@ -75,13 +75,4 @@ namespace System.Application.Services
             int Result { get; }
         }
     }
-
-#if DEBUG
-
-    [Obsolete("use ISteamworksLocalApiService", true)]
-    public class SteamworksApiService
-    {
-    }
-
-#endif
 }

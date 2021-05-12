@@ -20,7 +20,7 @@ namespace System.Application.UI.ViewModels
 
         public AboutPageViewModel()
         {
-            IconKey = nameof(AboutPageViewModel).Replace("ViewModel", "Svg");
+            IconKey = nameof(GameRelated_BorderlessPageViewModel).Replace("ViewModel", "Svg");
 
             OpenBrowserCommand = ReactiveCommand.Create<string>(BrowserOpen);
 

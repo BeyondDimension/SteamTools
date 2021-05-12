@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 using System.Text;
 
 // ReSharper disable once CheckNamespace
@@ -182,6 +182,9 @@ namespace System
         }
 
         [DllImport(LibraryName, CharSet = CharSet.Auto)]
+        public static extern int GetWindowLongA(IntPtr hWnd, int nIndex);
+
+        [DllImport(LibraryName, CharSet = CharSet.Auto)]
         static extern int GetWindowLong(IntPtr hwnd, int nIndex);
 
         [DllImport(LibraryName, CharSet = CharSet.Auto, EntryPoint = "GetWindowLongPtr")]
@@ -197,10 +200,13 @@ namespace System
         }
 
         [DllImport(LibraryName, CharSet = CharSet.Auto)]
-        static extern int SetWindowLong(IntPtr hwnd, int nIndex, int dwNewLong);
+        public static extern int SetWindowLong(IntPtr hwnd, int nIndex, int dwNewLong);
 
         [DllImport(LibraryName, CharSet = CharSet.Auto, EntryPoint = "SetWindowLongPtr")]
-        static extern IntPtr SetWindowLongPtr_x64(IntPtr hwnd, int nIndex, IntPtr dwNewLong);
+        public static extern IntPtr SetWindowLongPtr_x64(IntPtr hwnd, int nIndex, IntPtr dwNewLong);
+
+        [DllImport(LibraryName, CharSet = CharSet.Auto)]
+        public static extern IntPtr SetActiveWindow(IntPtr hWnd);
 
         public static void FlashWindow(IntPtr hwnd)
         {

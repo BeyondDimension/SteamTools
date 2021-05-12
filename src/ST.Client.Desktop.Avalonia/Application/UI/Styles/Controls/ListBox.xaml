@@ -16,7 +16,7 @@
   </Design.PreviewWith>
   <Styles.Resources>
   </Styles.Resources>
-  
+
   <Style Selector="ListBox.metro ListBoxItem">
     <Setter Property="Padding" Value="0 0 0 0"></Setter>
   </Style>
