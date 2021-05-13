@@ -42,6 +42,9 @@ namespace System.Application.UI.ViewModels
         }
 
 
+        public void Encryption() 
+        {
 
+        }
     }
 }

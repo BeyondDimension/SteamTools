@@ -81,7 +81,7 @@
                      CornerRadius="{DynamicResource OverlayCornerRadius}">
             <StackPanel>
               <Panel x:Name="UserMenu" Width="300" Margin="0 20">
-                <StackPanel Spacing="15">
+                <StackPanel Spacing="10">
                   <Image Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=100}"
                          Stretch="Uniform"
                          Height="100" Width="100"
@@ -97,7 +97,7 @@
                     Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
                 </StackPanel>
               </Panel>
-              <ListBox SelectionMode="Single"
+              <ListBox SelectionMode="Single" Classes="metro"
                        Background="{DynamicResource ThemeBrushKey}">
                 <ListBox.Styles>
                   <Style Selector="Button">

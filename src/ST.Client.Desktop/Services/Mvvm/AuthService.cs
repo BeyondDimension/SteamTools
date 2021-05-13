@@ -493,9 +493,18 @@ namespace System.Application.Services
                 AddOrUpdateSaveAuthenticators(auth);
         }
 
-        public void ExportAuthenticators() 
+        public void ExportAuthenticators()
         {
 
+        }
+
+        public async void EncryptionAuthenticators(string password)
+        {
+            var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
+            foreach (var item in Authenticators.Items)
+            {
+                await repository.InsertOrUpdateAsync(item.AuthenticatorData, true, password);
+            }
         }
     }
 }
