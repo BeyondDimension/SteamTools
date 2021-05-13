@@ -2675,6 +2675,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 绑定手机 的本地化字符串。
+        /// </summary>
+        public static string User_BindPhoneNum {
+            get {
+                return ResourceManager.GetString("User_BindPhoneNum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 换绑手机 的本地化字符串。
         /// </summary>
         public static string User_ChangePhoneNum {

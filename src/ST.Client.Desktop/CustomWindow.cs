@@ -19,5 +19,6 @@ namespace System.Application
         UserProfile,
         NewVersion,
         WebView3,
+        BindPhoneNumber,
     }
 }

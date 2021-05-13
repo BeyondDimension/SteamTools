@@ -1047,6 +1047,9 @@
   <data name="User_Agreement" xml:space="preserve">
     <value>用户协议</value>
   </data>
+  <data name="User_BindPhoneNum" xml:space="preserve">
+    <value>绑定手机</value>
+  </data>
   <data name="User_ChangePhoneNum" xml:space="preserve">
     <value>换绑手机</value>
     <comment>修改手机号</comment>
