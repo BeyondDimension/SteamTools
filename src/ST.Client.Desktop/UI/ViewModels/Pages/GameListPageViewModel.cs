@@ -256,7 +256,7 @@ namespace System.Application.UI.ViewModels
             try
             {
                 GameLibrarySettings.AFKAppList.Value!.Add(app.AppId, app.DisplayName);
-
+                GameLibrarySettings.AFKAppList.RaiseValueChanged();
                 Toast.Show(AppResources.GameList_AddAFKAppsSuccess);
             }
             catch (Exception e)
