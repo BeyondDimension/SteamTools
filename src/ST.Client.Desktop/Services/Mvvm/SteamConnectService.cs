@@ -2,9 +2,12 @@ using DynamicData;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Models.Settings;
+using System.Application.UI;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -143,12 +146,33 @@ namespace System.Application.Services
                 }
             }
         }
-
+        public void RunAFKApps()
+        {
+            if (SteamApps.Items.Any_Nullable() && GameLibrarySettings.AFKAppList.Value?.Count > 0)
+            {
+                var apps = GameLibrarySettings.AFKAppList.Value!.Select(x => x.Key);
+                foreach (var item in apps)
+                {
+                    var appInfo = SteamApps.Items.FirstOrDefault(x => x.AppId == item);
+                    if (appInfo != null && RuningSteamApps.FirstOrDefault(x => x.AppId == item) == null) 
+                        RuningSteamApps.Add(appInfo); 
+                }
+                var t = new Task(() =>
+                {
+                    foreach (var item in RuningSteamApps)
+                    {
+                        if(item.Process==null)
+                        item.Process = Process.Start(AppHelper.ProgramPath, "-clt app -id -silence " + item.AppId.ToString(CultureInfo.InvariantCulture));
+                    }
+                });
+                t.Start();
+            }
+        }
         public void Initialize()
         {
             if (!SteamTool.IsRunningSteamProcess && SteamSettings.IsAutoRunSteam.Value)
                 SteamTool.StartSteam(SteamSettings.SteamStratParameter.Value);
- 
+
             var t = new Task(async () =>
             {
                 Thread.CurrentThread.IsBackground = true;
@@ -158,6 +182,7 @@ namespace System.Application.Services
                     {
                         if (SteamTool.IsRunningSteamProcess)
                         {
+                         
                             if (!IsConnectToSteam)
                             {
                                 if (ApiService.Initialize())
@@ -182,7 +207,6 @@ namespace System.Application.Services
                                     {
                                         LoadGames(ApiService.OwnsApps(await ISteamService.Instance.GetAppInfos()));
                                     }
-
                                     //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
                                     //await mainViewModel.SteamAppPage.Initialize();
                                     //await mainViewModel.AccountPage.Initialize(id);
@@ -219,13 +243,15 @@ namespace System.Application.Services
                 IsConnectToSteam = ApiService.Initialize(appid);
             }
         }
- 
+
 
         private void LoadGames(IEnumerable<SteamApp>? apps)
         {
             SteamApps.Clear();
             if (apps.Any_Nullable())
                 SteamApps.AddOrUpdate(apps);
+            if (GameLibrarySettings.IsAutoAFKApps)
+                RunAFKApps();
         }
 
         public async void InitializeGameList()

@@ -11,8 +11,9 @@
         xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
-               xmlns:i="using:Avalonia.Xaml.Interactivity"
-          xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:gif="clr-namespace:AvaloniaGif;assembly=AvaloniaGif"
+        xmlns:i="using:Avalonia.Xaml.Interactivity"
+        xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
@@ -59,7 +60,7 @@
             <ItemsRepeater.ItemTemplate>
               <DataTemplate>
                 <StackPanel Spacing="8">
-                  <Border DockPanel.Dock="Top" Classes="paper" Width="100"  x:Name="card">
+                  <Border DockPanel.Dock="Top" Classes="paper" Width="120"  x:Name="card">
 
                     <i:Interaction.Behaviors>
                       <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{ReflectionBinding #card}">
@@ -70,23 +71,24 @@
                       </ia:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
                     <Panel x:Name="app" Width="{ReflectionBinding $parent.Width}">
-                      <!--<gif:Image2 x:Name="library"
-                                            Stretch="UniformToFill"
-                                            DecodeWidth="{ReflectionBinding $parent.Width}"
-                                            Source="{Binding LibraryLogoStream^}">
-                         
-                        </gif:Image2>-->
+                      <gif:Image2 x:Name="library"
+                                              Stretch="UniformToFill"
+                                              DecodeWidth="{ReflectionBinding $parent.Width}"
+                                              Source="{Binding LibraryLogoStream^}">
+
+                      </gif:Image2>
                       <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png"
-                             Stretch="UniformToFill">
+                             Stretch="UniformToFill"
+                             IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}">
                       </Image>
                       <TextBlock
-                        Text="{Binding Value}"
+                        Text="{Binding DisplayName}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         TextWrapping="WrapWithOverflow"
                         FontSize="20"
                         Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                            />
+                        IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
                       <Panel Background="{DynamicResource ThemeBrushKey}" IsVisible="False" Opacity="0.8" x:Name="item_box">
                         <Button Classes="flatbutton plain" x:Name="runstop_btn"
                                 Background="Transparent"
@@ -97,17 +99,17 @@
                          ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
                          Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
                          CommandParameter="{Binding}">
-                          <PathIcon Width="48" Data="{DynamicResource PauseCircleDrawing}">
+                          <PathIcon Width="48" Height="48" Data="{DynamicResource PauseCircleDrawing}">
                           </PathIcon>
                         </Button>
                         <Button Classes="flatbutton" x:Name="delete_btn"
                                 Background="Transparent"
-                                Cursor="Hand" HorizontalAlignment="Right" 
-                                Margin="0,0,0,121"
+                                Cursor="Hand" HorizontalAlignment="Right"
+                                Margin="0,0,0,150"
                           ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
                           Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
                           CommandParameter="{Binding}">
-                          <PathIcon Width="12" Data="{DynamicResource CloseDrawing}">
+                          <PathIcon Width="10" Data="{DynamicResource CloseDrawing}">
                           </PathIcon>
                         </Button>
                       </Panel>
@@ -115,8 +117,8 @@
                     </Panel>
                   </Border>
 
-                  <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding Value}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                  <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding Key}" FontSize="10" Foreground="{DynamicResource InactiveForegroundBrushKey}" />
+                  <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding DisplayName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                  <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding AppId}" FontSize="10" Foreground="{DynamicResource InactiveForegroundBrushKey}" />
                 </StackPanel>
               </DataTemplate>
             </ItemsRepeater.ItemTemplate>

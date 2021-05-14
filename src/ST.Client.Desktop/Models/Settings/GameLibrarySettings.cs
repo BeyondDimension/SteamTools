@@ -170,6 +170,11 @@ namespace System.Application.Models.Settings
         public static SerializableProperty<Dictionary<uint, string?>> AFKAppList { get; }
             = new SerializableProperty<Dictionary<uint, string?>>(GetKey(), Providers.Local, new Dictionary<uint, string?>()) { AutoSave = false };
 
+        /// <summary>
+        /// 启用自动挂机
+        /// </summary>
+        public static SerializableProperty<bool> IsAutoAFKApps { get; }
+            = new SerializableProperty<bool>(GetKey(), Providers.Local, true) { AutoSave = true };
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
             return nameof(GameLibrarySettings) + "." + propertyName;

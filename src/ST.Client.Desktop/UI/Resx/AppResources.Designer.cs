@@ -1026,11 +1026,38 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 移除全部 的本地化字符串。
+        /// </summary>
+        public static string GameList_RemoveBtn {
+            get {
+                return ResourceManager.GetString("GameList_RemoveBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 调整封面大小 的本地化字符串。
         /// </summary>
         public static string GameList_ResizeAppLogo {
             get {
                 return ResourceManager.GetString("GameList_ResizeAppLogo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启动全部 的本地化字符串。
+        /// </summary>
+        public static string GameList_RuningBtn {
+            get {
+                return ResourceManager.GetString("GameList_RuningBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启动游戏 的本地化字符串。
+        /// </summary>
+        public static string GameList_RuningItemBtn {
+            get {
+                return ResourceManager.GetString("GameList_RuningItemBtn", resourceCulture);
             }
         }
         
@@ -1058,6 +1085,24 @@ namespace System.Application.UI.Resx {
         public static string GameList_SteamNotRuning {
             get {
                 return ResourceManager.GetString("GameList_SteamNotRuning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 全部暂停 的本地化字符串。
+        /// </summary>
+        public static string GameList_StopBtn {
+            get {
+                return ResourceManager.GetString("GameList_StopBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 暂停 的本地化字符串。
+        /// </summary>
+        public static string GameList_StopItemBtn {
+            get {
+                return ResourceManager.GetString("GameList_StopItemBtn", resourceCulture);
             }
         }
         
