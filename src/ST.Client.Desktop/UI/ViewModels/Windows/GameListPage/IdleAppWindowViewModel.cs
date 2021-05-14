@@ -41,7 +41,34 @@ namespace System.Application.UI.ViewModels
         }
         public void Refresh_Click()
         {
-            IdleGameList = new ObservableCollection<SteamApp>(SteamConnectService.Current.RuningSteamApps.Where(x => GameLibrarySettings.AFKAppList.Value?.ContainsKey(x.AppId) ?? false));
+            var list = new ObservableCollection<SteamApp>();
+            if (GameLibrarySettings.AFKAppList.Value != null)
+                foreach (var item in GameLibrarySettings.AFKAppList.Value)
+                {
+                    var appInfo =SteamConnectService.Current.SteamApps.Items.FirstOrDefault(x => x.AppId == item.Key);
+                    if (appInfo != null)
+                        list.Add(appInfo);
+                }
+            IdleGameList = new ObservableCollection<SteamApp>(list);
+            //if (SteamApps.Items.Any_Nullable() && GameLibrarySettings.AFKAppList.Value?.Count > 0)
+            //{
+            //    var apps = GameLibrarySettings.AFKAppList.Value!.Select(x => x.Key);
+            //    foreach (var item in apps)
+            //    {
+            //        var appInfo = SteamApps.Items.FirstOrDefault(x => x.AppId == item);
+            //        if (appInfo != null && RuningSteamApps.FirstOrDefault(x => x.AppId == item) == null)
+            //            RuningSteamApps.Add(appInfo);
+            //    }
+            //    var t = new Task(() =>
+            //    {
+            //        foreach (var item in RuningSteamApps)
+            //        {
+            //            if (item.Process == null)
+            //                item.Process = Process.Start(AppHelper.ProgramPath, "-clt app -id -silence " + item.AppId.ToString(CultureInfo.InvariantCulture));
+            //        }
+            //    });
+            //    t.Start();
+            //}
         }
 
     }

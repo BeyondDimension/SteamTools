@@ -148,21 +148,23 @@ namespace System.Application.Services
         }
         public void RunAFKApps()
         {
-            if (SteamApps.Items.Any_Nullable() && GameLibrarySettings.AFKAppList.Value?.Count > 0)
+            if (GameLibrarySettings.AFKAppList.Value?.Count > 0)
             {
-                var apps = GameLibrarySettings.AFKAppList.Value!.Select(x => x.Key);
-                foreach (var item in apps)
+                foreach (var item in GameLibrarySettings.AFKAppList.Value)
                 {
-                    var appInfo = SteamApps.Items.FirstOrDefault(x => x.AppId == item);
-                    if (appInfo != null && RuningSteamApps.FirstOrDefault(x => x.AppId == item) == null) 
-                        RuningSteamApps.Add(appInfo); 
+                    if (RuningSteamApps.FirstOrDefault(x => x.AppId == item.Key) == null)
+                        RuningSteamApps.Add(new SteamApp
+                        {
+                            AppId = item.Key,
+                            Name = item.Value
+                        });
                 }
                 var t = new Task(() =>
                 {
                     foreach (var item in RuningSteamApps)
                     {
-                        if(item.Process==null)
-                        item.Process = Process.Start(AppHelper.ProgramPath, "-clt app -id -silence " + item.AppId.ToString(CultureInfo.InvariantCulture));
+                        if (item.Process == null)
+                            item.Process = Process.Start(AppHelper.ProgramPath, "-clt app -silence -id " + item.AppId.ToString(CultureInfo.InvariantCulture));
                     }
                 });
                 t.Start();
@@ -182,7 +184,6 @@ namespace System.Application.Services
                     {
                         if (SteamTool.IsRunningSteamProcess)
                         {
-                         
                             if (!IsConnectToSteam)
                             {
                                 if (ApiService.Initialize())
@@ -202,10 +203,14 @@ namespace System.Application.Services
                                     CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
 
+                                    if (GameLibrarySettings.IsAutoAFKApps)
+                                        RunAFKApps();
+
                                     #region 初始化需要steam启动才能使用的功能
                                     if (SteamApps.Items.Any())
                                     {
                                         LoadGames(ApiService.OwnsApps(await ISteamService.Instance.GetAppInfos()));
+
                                     }
                                     //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
                                     //await mainViewModel.SteamAppPage.Initialize();
@@ -250,8 +255,6 @@ namespace System.Application.Services
             SteamApps.Clear();
             if (apps.Any_Nullable())
                 SteamApps.AddOrUpdate(apps);
-            if (GameLibrarySettings.IsAutoAFKApps)
-                RunAFKApps();
         }
 
         public async void InitializeGameList()
