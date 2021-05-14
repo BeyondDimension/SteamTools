@@ -1089,11 +1089,128 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 无边框窗口化 的本地化字符串。
+        /// </summary>
+        public static string GameRelated_Borderless_BorderlessWindow {
+            get {
+                return ResourceManager.GetString("GameRelated_Borderless_BorderlessWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 类名 的本地化字符串。
+        /// </summary>
+        public static string GameRelated_Borderless_ClassName {
+            get {
+                return ResourceManager.GetString("GameRelated_Borderless_ClassName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 隐藏 的本地化字符串。
+        /// </summary>
+        public static string GameRelated_Borderless_Hide {
+            get {
+                return ResourceManager.GetString("GameRelated_Borderless_Hide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 结束进程 的本地化字符串。
+        /// </summary>
+        public static string GameRelated_Borderless_KillProcess {
+            get {
+                return ResourceManager.GetString("GameRelated_Borderless_KillProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 最大化 的本地化字符串。
+        /// </summary>
+        public static string GameRelated_Borderless_Maximize {
+            get {
+                return ResourceManager.GetString("GameRelated_Borderless_Maximize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 拖拽十字到游戏窗口，即可获取游戏信息执行对应操作。 的本地化字符串。
         /// </summary>
         public static string GameRelated_Borderless_MoveMouseTip {
             get {
                 return ResourceManager.GetString("GameRelated_Borderless_MoveMouseTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 默认大小 的本地化字符串。
+        /// </summary>
+        public static string GameRelated_Borderless_Normal {
+            get {
+                return ResourceManager.GetString("GameRelated_Borderless_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 程序路径 的本地化字符串。
+        /// </summary>
+        public static string GameRelated_Borderless_Path {
+            get {
+                return ResourceManager.GetString("GameRelated_Borderless_Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 进程 的本地化字符串。
+        /// </summary>
+        public static string GameRelated_Borderless_Process {
+            get {
+                return ResourceManager.GetString("GameRelated_Borderless_Process", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 刷新壁纸 的本地化字符串。
+        /// </summary>
+        public static string GameRelated_Borderless_ResetWallerpaper {
+            get {
+                return ResourceManager.GetString("GameRelated_Borderless_ResetWallerpaper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 显示 的本地化字符串。
+        /// </summary>
+        public static string GameRelated_Borderless_Show {
+            get {
+                return ResourceManager.GetString("GameRelated_Borderless_Show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 标题 的本地化字符串。
+        /// </summary>
+        public static string GameRelated_Borderless_Title {
+            get {
+                return ResourceManager.GetString("GameRelated_Borderless_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 置于壁纸层 的本地化字符串。
+        /// </summary>
+        public static string GameRelated_Borderless_ToWallerpaper {
+            get {
+                return ResourceManager.GetString("GameRelated_Borderless_ToWallerpaper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 置于壁纸层的游戏可能会无法操控，这个问题可以解决但是目前开发精力不在这，目前这个功能就这样了。游戏结束后桌面会依然留下冻结的画面，这时可以点击刷新壁纸来恢复默认壁纸。并且将窗口放置于桌面壁纸层功能与Wallpaper Engine和其它动态桌面软件不兼容，使用时注意关掉Wallpaper Engine等软件。 的本地化字符串。
+        /// </summary>
+        public static string GameRelated_Borderless_ToWallerpaperTip {
+            get {
+                return ResourceManager.GetString("GameRelated_Borderless_ToWallerpaperTip", resourceCulture);
             }
         }
         

@@ -20,7 +20,6 @@
         ExtendClientAreaTitleBarHeightHint="30"
         WindowStartupLocation="CenterOwner"
         x:DataType="vm:BindPhoneNumberWindowViewModel"
-        x:CompileBindings="True"
         Title="{Binding Title}">
   <Panel>
     <controls:TitleBar />

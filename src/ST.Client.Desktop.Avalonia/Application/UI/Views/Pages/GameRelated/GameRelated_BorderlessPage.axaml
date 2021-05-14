@@ -30,52 +30,52 @@
 
       <StackPanel Spacing="10" IsVisible="{Binding !!SelectWindow}">
         <WrapPanel>
-          <TextBlock Text="标题:"/>
+          <TextBlock Text="{ReflectionBinding Path=Res.GameRelated_Borderless_Title,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}{0}：}"/>
           <TextBlock Text="{Binding SelectWindow.Title,Mode=OneWay}"/>
         </WrapPanel>
         <WrapPanel>
-          <TextBlock Text="类名:"/>
+          <TextBlock Text="{ReflectionBinding Path=Res.GameRelated_Borderless_ClassName,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}{0}：}"/>
           <TextBlock Text="{Binding SelectWindow.ClassName,Mode=OneWay}"/>
         </WrapPanel>
         <WrapPanel>
-          <TextBlock Text="进程:"/>
+          <TextBlock Text="{ReflectionBinding Path=Res.GameRelated_Borderless_Process,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}{0}：}"/>
           <TextBlock Text="{Binding SelectWindow.Name,Mode=OneWay}"/>
         </WrapPanel>
         <WrapPanel>
-          <TextBlock Text="程序路径:"/>
+          <TextBlock Text="{ReflectionBinding Path=Res.GameRelated_Borderless_Path,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}{0}：}"/>
           <TextBlock Text="{Binding SelectWindow.Path,Mode=OneWay}"
                      TextWrapping="WrapWithOverflow"/>
         </WrapPanel>
       </StackPanel>
 
       <WrapPanel Orientation="Horizontal">
-        <Button Height="30"  Content="结束进程"
+        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_KillProcess,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding WindowKill_Click}">
         </Button>
-        <Button Height="30" Content="无边框窗口化"
+        <Button Height="30" Content="{ReflectionBinding Path=Res.GameRelated_Borderless_BorderlessWindow,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding BorderlessWindow_Click}">
         </Button>
-        <Button Height="30" Content="最大化"
+        <Button Height="30" Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Maximize,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding MaximizeWindow_Click}">
         </Button>
-        <Button Height="30"  Content="还原最大化"
+        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Normal,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding NormalWindow_Click}">
         </Button>
-        <Button Height="30"  Content="隐藏"
+        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Hide,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding HideWindow_Click}">
         </Button>
-        <Button Height="30"  Content="显示"
+        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Show,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding ShowWindow_Click}">
         </Button>
-        <Button Height="30"  Content="置于壁纸层"
+        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_ToWallerpaper,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.GameRelated_Borderless_ToWallerpaperTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding ToWallerpaperWindow_Click}">
         </Button>
-        <Button Height="30"  Content="刷新壁纸"
+        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_ResetWallerpaper,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding ResetWallerpaper_Click}">
         </Button>
       </WrapPanel>
 
-      <TextBlock TextWrapping="WrapWithOverflow" Text="*置于壁纸层的游戏可能会无法操控，这个问题可以解决但是目前开发精力不在这，目前这个功能就这样了。游戏结束后桌面会依然留下冻结的画面，这时可以点击刷新壁纸来恢复默认壁纸。并且将窗口放置于桌面壁纸层功能与Wallpaper Engine和其它动态桌面软件不兼容，使用时注意关掉Wallpaper Engine等软件。">
+      <TextBlock TextWrapping="WrapWithOverflow" Text="{ReflectionBinding Path=Res.GameRelated_Borderless_ToWallerpaperTip,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat=*{0}}">
       </TextBlock>
 
       <ListBox Items="{Binding WindowList,Mode=OneWay}"

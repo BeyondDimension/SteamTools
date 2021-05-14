@@ -465,7 +465,7 @@ namespace System.Application.Services
         public static async void AddOrUpdateSaveAuthenticators(MyAuthenticator auth)
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
-            await repository.InsertOrUpdateAsync(auth.AuthenticatorData, true);
+            await repository.InsertOrUpdateAsync(auth.AuthenticatorData, false);
             if (Current.Authenticators.Items.Any(s => s.Id == auth.Id))
             {
                 return;
@@ -498,13 +498,10 @@ namespace System.Application.Services
 
         }
 
-        public async void EncryptionAuthenticators(string password)
+        public async void EncryptionAuthenticators(bool isLocal, string password)
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
-            foreach (var item in Authenticators.Items)
-            {
-                await repository.InsertOrUpdateAsync(item.AuthenticatorData, true, password);
-            }
+            await repository.SwitchEncryptionModeAsync(isLocal, password, Authenticators.Items.Select(s => s.AuthenticatorData));
         }
     }
 }

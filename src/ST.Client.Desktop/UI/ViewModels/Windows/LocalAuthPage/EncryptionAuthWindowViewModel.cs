@@ -41,10 +41,5 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsOnlyCurrentComputerEncrypt, value);
         }
 
-
-        public void Encryption() 
-        {
-
-        }
     }
 }

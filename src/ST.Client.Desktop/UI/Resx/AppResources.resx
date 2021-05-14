@@ -462,8 +462,47 @@
   <data name="GameRelated_Borderless" xml:space="preserve">
     <value>无边框窗口化</value>
   </data>
+  <data name="GameRelated_Borderless_BorderlessWindow" xml:space="preserve">
+    <value>无边框窗口化</value>
+  </data>
+  <data name="GameRelated_Borderless_ClassName" xml:space="preserve">
+    <value>类名</value>
+  </data>
+  <data name="GameRelated_Borderless_Hide" xml:space="preserve">
+    <value>隐藏</value>
+  </data>
+  <data name="GameRelated_Borderless_KillProcess" xml:space="preserve">
+    <value>结束进程</value>
+  </data>
+  <data name="GameRelated_Borderless_Maximize" xml:space="preserve">
+    <value>最大化</value>
+  </data>
   <data name="GameRelated_Borderless_MoveMouseTip" xml:space="preserve">
     <value>拖拽十字到游戏窗口，即可获取游戏信息执行对应操作。</value>
+  </data>
+  <data name="GameRelated_Borderless_Normal" xml:space="preserve">
+    <value>默认大小</value>
+  </data>
+  <data name="GameRelated_Borderless_Path" xml:space="preserve">
+    <value>程序路径</value>
+  </data>
+  <data name="GameRelated_Borderless_Process" xml:space="preserve">
+    <value>进程</value>
+  </data>
+  <data name="GameRelated_Borderless_ResetWallerpaper" xml:space="preserve">
+    <value>刷新壁纸</value>
+  </data>
+  <data name="GameRelated_Borderless_Show" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="GameRelated_Borderless_Title" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="GameRelated_Borderless_ToWallerpaper" xml:space="preserve">
+    <value>置于壁纸层</value>
+  </data>
+  <data name="GameRelated_Borderless_ToWallerpaperTip" xml:space="preserve">
+    <value>置于壁纸层的游戏可能会无法操控，这个问题可以解决但是目前开发精力不在这，目前这个功能就这样了。游戏结束后桌面会依然留下冻结的画面，这时可以点击刷新壁纸来恢复默认壁纸。并且将窗口放置于桌面壁纸层功能与Wallpaper Engine和其它动态桌面软件不兼容，使用时注意关掉Wallpaper Engine等软件。</value>
   </data>
   <data name="Gender" xml:space="preserve">
     <value>性别</value>

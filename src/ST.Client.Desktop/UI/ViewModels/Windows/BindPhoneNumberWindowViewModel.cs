@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using static System.Application.Services.CloudService.Constants;
 
-namespace System.Application.UI.ViewModels.Windows
+namespace System.Application.UI.ViewModels
 {
     public class BindPhoneNumberWindowViewModel : WindowViewModel
     {
@@ -22,6 +22,13 @@ namespace System.Application.UI.ViewModels.Windows
         {
             get => _IsLoading;
             set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
+        }
+
+        string _PhoneNumber;
+        public string PhoneNumber
+        {
+            get => _PhoneNumber;
+            set => this.RaiseAndSetIfChanged(ref _PhoneNumber, value);
         }
     }
 }
