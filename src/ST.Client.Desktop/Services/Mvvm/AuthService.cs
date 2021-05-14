@@ -26,6 +26,8 @@ namespace System.Application.Services
         public static AuthService Current { get; } = new();
         #endregion
 
+        private readonly IGameAccountPlatformAuthenticatorRepository repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
+
         public SourceCache<MyAuthenticator, int> Authenticators { get; }
 
         public AuthService()
@@ -35,7 +37,6 @@ namespace System.Application.Services
 
         public async void Initialize(bool isSync = false)
         {
-            var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
             var list = await repository.GetAllAsync();
             if (list.Any_Nullable())
             {
@@ -53,11 +54,6 @@ namespace System.Application.Services
                 //else
                 //    ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
             }
-
-            //Authenticators.CollectionChanged += (s, e) =>
-            //{
-            //    this.RaisePropertyChanged(nameof(IsAuthenticatorsEmpty));
-            //};
         }
 
 
@@ -465,7 +461,7 @@ namespace System.Application.Services
         public static async void AddOrUpdateSaveAuthenticators(MyAuthenticator auth)
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
-            await repository.InsertOrUpdateAsync(auth.AuthenticatorData, false);
+            await repository.InsertOrUpdateAsync(auth.AuthenticatorData, true);
             if (Current.Authenticators.Items.Any(s => s.Id == auth.Id))
             {
                 return;
@@ -484,23 +480,25 @@ namespace System.Application.Services
             Current.Authenticators.Remove(auth);
         }
 
-
-        public void SaveEditNameAuthenticators()
+        public void SaveEditNameAuthenticators(bool isLocal = false, string? password = null)
         {
             var auths = Authenticators.Items.Where(x => x.Name != x.OriginName);
 
             foreach (var auth in auths)
-                AddOrUpdateSaveAuthenticators(auth);
+                repository.RenameAsync(auth.Id, auth.Name, true, password);
         }
 
-        public void ExportAuthenticators()
+        public async void ExportAuthenticators(string filePath, bool isLocal = false, string? password = null)
         {
-
+            var auths = await repository.GetAllAsync(password);
+            var b = Serializable.SMP(auths);
+            using var stream = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write);
+            await stream.WriteAsync(b);
+            stream.Close();
         }
 
-        public async void EncryptionAuthenticators(bool isLocal, string password)
+        public async void SwitchEncryptionAuthenticators(bool isLocal, string password)
         {
-            var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
             await repository.SwitchEncryptionModeAsync(isLocal, password, Authenticators.Items.Select(s => s.AuthenticatorData));
         }
     }

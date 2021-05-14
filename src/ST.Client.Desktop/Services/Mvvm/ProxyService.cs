@@ -132,17 +132,17 @@ namespace System.Application.Services
                 {
                     if (value)
                     {
-                        if (EnableProxyDomains.Any_Nullable())
-                        {
+                        //if (EnableProxyDomains.Any_Nullable())
+                        //{
                             //Toast.Show(AppResources.CommunityFix_NoSelectAcceleration);
                             //return;
-                            httpProxyService.ProxyDomains = EnableProxyDomains;
-                            this.RaisePropertyChanged(nameof(EnableProxyDomains));
-                        }
+                            //httpProxyService.ProxyDomains = EnableProxyDomains;
+                        //}
                         httpProxyService.ProxyDomains = EnableProxyDomains;
                         httpProxyService.Scripts = EnableProxyScripts;
                         httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
                         httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
+                        this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         this.RaisePropertyChanged(nameof(EnableProxyScripts));
 
                         if (!ProxySettings.EnableWindowsProxy.Value)

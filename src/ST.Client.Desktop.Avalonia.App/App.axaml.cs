@@ -171,7 +171,7 @@ namespace System.Application.UI
 #if !UI_DEMO
                     compositeDisposable.Add(SettingsHost.Save);
                     compositeDisposable.Add(ProxyService.Current.Dispose);
-                    compositeDisposable.Add(AuthService.Current.SaveEditNameAuthenticators);
+                    //compositeDisposable.Add(AuthService.Current.SaveEditNameAuthenticators);
                     compositeDisposable.Add(SteamConnectService.Current.Dispose);
                     if (GeneralSettings.IsStartupAppMinimized.Value)
                     {

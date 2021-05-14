@@ -1,4 +1,5 @@
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Threading;
 using System.Application.Services;
 using System.CommandLine;
 using System.CommandLine.Invocation;
@@ -126,8 +127,15 @@ namespace System.Application.UI
                     if (id <= 0) return;
                     initStartup(DILevel.GUI | DILevel.Steam | DILevel.HttpClientFactory);
                     IWindowService.Instance.InitUnlockAchievement(id);
-                    IsMinimize = silence;
-                    initUIApp();
+                    if (!silence)
+                    {
+                        initUIApp();
+                    }
+                    else 
+                    {
+                        SteamConnectService.Current.Initialize(id);
+                        Dispatcher.UIThread.MainLoop(new Threading.CancellationToken());
+                    }
                 });
                 rootCommand.AddCommand(unlock_achievement);
 
