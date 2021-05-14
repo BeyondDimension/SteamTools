@@ -26,12 +26,13 @@
       <Border  DockPanel.Dock="Top" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"  Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10" Margin="20 20 20 0">
         <DockPanel>
           <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Left">
-            <ToggleSwitch Content="" OnContent="" OffContent=""
-                          Margin="5 0 0 5"
-                          IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}"
-                          ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                          VerticalAlignment="Center"></ToggleSwitch>
 
+            <ToggleButton Background="Transparent"
+                                   Cursor="Hand"
+                                   IsChecked="{Binding RunState,Mode=TwoWay}"
+                                   ToolTip.Tip="{ReflectionBinding Path=Res.GameList_OnlyInstalled,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <PathIcon Data="{StaticResource PlayCircleDrawing}" />
+            </ToggleButton>
 
             <Button Background="Transparent" Cursor="Hand"
                     Command="{ReflectionBinding RefreshScriptButton}"
@@ -40,53 +41,89 @@
             </Button>
 
           </StackPanel>
-
+          <Button Background="Transparent" Cursor="Hand" HorizontalAlignment="Right"
+                 Command="{ReflectionBinding RefreshScriptButton}"
+                 ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <PathIcon Width="16"  Data="{StaticResource DeleteDrawing}" />
+          </Button>
         </DockPanel>
       </Border>
       <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto"
                   Padding="20">
-          <StackPanel>
-            <ItemsRepeater Items="{Binding IdleGameList}">
-              <ItemsRepeater.Layout>
-                <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="10" MinColumnSpacing="20" MaximumRowsOrColumns="10" ItemsStretch="Fill" />
-              </ItemsRepeater.Layout>
-              <ItemsRepeater.ItemTemplate>
-                <DataTemplate>
-                  <StackPanel Spacing="8">
-                    <Border DockPanel.Dock="Top" Classes="paper" Width="100">
-        
-                      <Panel x:Name="app" Width="{ReflectionBinding $parent.Width}"> 
-                        <!--<gif:Image2 x:Name="library"
+        <StackPanel>
+          <ItemsRepeater Items="{Binding IdleGameList}">
+            <ItemsRepeater.Layout>
+              <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="10" MinColumnSpacing="20" MaximumRowsOrColumns="10" ItemsStretch="Fill" />
+            </ItemsRepeater.Layout>
+            <ItemsRepeater.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Spacing="8">
+                  <Border DockPanel.Dock="Top" Classes="paper" Width="100"  x:Name="card">
+
+                    <i:Interaction.Behaviors>
+                      <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{ReflectionBinding #card}">
+                        <ia:ChangePropertyAction TargetObject="{ReflectionBinding #item_box}" PropertyName="IsVisible" Value="True"/>
+                      </ia:EventTriggerBehavior>
+                      <ia:EventTriggerBehavior EventName="PointerLeave" SourceObject="{ReflectionBinding #card}">
+                        <ia:ChangePropertyAction TargetObject="{ReflectionBinding #item_box}" PropertyName="IsVisible" Value="False"/>
+                      </ia:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                    <Panel x:Name="app" Width="{ReflectionBinding $parent.Width}">
+                      <!--<gif:Image2 x:Name="library"
                                             Stretch="UniformToFill"
                                             DecodeWidth="{ReflectionBinding $parent.Width}"
                                             Source="{Binding LibraryLogoStream^}">
                          
                         </gif:Image2>-->
-                        <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png" 
-                               Stretch="UniformToFill" 
-                               >
-                        </Image>
-                        <TextBlock
-                            Text="{Binding Value}"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            TextWrapping="WrapWithOverflow"
-                            FontSize="20"
-                            Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                      <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png"
+                             Stretch="UniformToFill">
+                      </Image>
+                      <TextBlock
+                        Text="{Binding Value}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        TextWrapping="WrapWithOverflow"
+                        FontSize="20"
+                        Foreground="{DynamicResource HighlightForegroundBrushKey}"
                             />
+                      <Panel Background="{DynamicResource ThemeBrushKey}" IsVisible="False" Opacity="0.8" x:Name="item_box">
+                        <Button Classes="flatbutton plain" x:Name="runstop_btn"
+                                Background="Transparent"
+                                Cursor="Hand"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                            
+                         ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                         Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
+                         CommandParameter="{Binding}">
+                          <PathIcon Width="48" Data="{DynamicResource PauseCircleDrawing}">
+                          </PathIcon>
+                        </Button>
+                        <Button Classes="flatbutton" x:Name="delete_btn"
+                                Background="Transparent"
+                                Cursor="Hand" HorizontalAlignment="Right" 
+                                Margin="0,0,0,121"
+                          ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                          Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
+                          CommandParameter="{Binding}">
+                          <PathIcon Width="12" Data="{DynamicResource CloseDrawing}">
+                          </PathIcon>
+                        </Button>
                       </Panel>
-                    </Border>
 
-                    <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding Value}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                    <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding Key}" FontSize="10" Foreground="{DynamicResource InactiveForegroundBrushKey}" />
-                  </StackPanel>
-                </DataTemplate>
-              </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
-          </StackPanel>
+                    </Panel>
+                  </Border>
 
-    </ScrollViewer>
+                  <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding Value}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                  <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding Key}" FontSize="10" Foreground="{DynamicResource InactiveForegroundBrushKey}" />
+                </StackPanel>
+              </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+          </ItemsRepeater>
+        </StackPanel>
+
+      </ScrollViewer>
     </DockPanel>
 
   </Panel>

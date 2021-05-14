@@ -17,6 +17,15 @@ namespace System.Application.UI.ViewModels
 
             Refresh_Click();
         }
+
+        private bool _RunState;
+        public bool RunState
+        {
+            get => _RunState;
+            set => this.RaiseAndSetIfChanged(ref _RunState, value);
+        }
+
+        
         public ObservableCollection<KeyValuePair<uint, string>> _IdleGameList = new();
         public ObservableCollection<KeyValuePair<uint, string>> IdleGameList
         {
