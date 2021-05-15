@@ -241,12 +241,13 @@ namespace System.Application.Services
             t.Start();
         }
 
-        public void Initialize(int appid)
+        public bool Initialize(int appid)
         {
             if (SteamTool.IsRunningSteamProcess)
             {
-                IsConnectToSteam = ApiService.Initialize(appid);
+                return IsConnectToSteam = ApiService.Initialize(appid);
             }
+            return false;
         }
 
 

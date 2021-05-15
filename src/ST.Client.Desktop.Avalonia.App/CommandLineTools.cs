@@ -125,16 +125,19 @@ namespace System.Application.UI
                 unlock_achievement.Handler = CommandHandler.Create((int id, bool silence) =>
                 {
                     if (id <= 0) return;
-                    initStartup(DILevel.GUI | DILevel.Steam | DILevel.HttpClientFactory);
-                    IWindowService.Instance.InitUnlockAchievement(id);
                     if (!silence)
                     {
+                        initStartup(DILevel.GUI | DILevel.Steam | DILevel.HttpClientFactory);
+                        IWindowService.Instance.InitUnlockAchievement(id);
                         initUIApp();
                     }
-                    else 
+                    else
                     {
+                        initStartup(DILevel.Steam | DILevel.HttpClientFactory);
                         SteamConnectService.Current.Initialize(id);
-                        Dispatcher.UIThread.MainLoop(new Threading.CancellationToken());
+                        var day = 86400000;
+                        while (true)
+                            Threading.Thread.Sleep(day);
                     }
                 });
                 rootCommand.AddCommand(unlock_achievement);
