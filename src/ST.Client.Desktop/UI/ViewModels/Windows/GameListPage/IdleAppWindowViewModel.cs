@@ -39,6 +39,9 @@ namespace System.Application.UI.ViewModels
 
 
         }
+        public void onExited(object? sender, EventArgs e) { 
+        
+        }
         public void Refresh_Click()
         {
             var list = new ObservableCollection<SteamApp>();
@@ -46,8 +49,15 @@ namespace System.Application.UI.ViewModels
                 foreach (var item in GameLibrarySettings.AFKAppList.Value)
                 {
                     var appInfo =SteamConnectService.Current.SteamApps.Items.FirstOrDefault(x => x.AppId == item.Key);
-                    if (appInfo != null)
+                    if (appInfo != null) {
+                        var runState = SteamConnectService.Current.RuningSteamApps.FirstOrDefault(x => x.AppId == item.Key);
+                        if (runState != null && runState.Process != null) {
+
+                            appInfo.Process = runState.Process;
+                            appInfo.Process.Exited += new EventHandler(onExited);
+                        }
                         list.Add(appInfo);
+                    }
                 }
             IdleGameList = new ObservableCollection<SteamApp>(list);
             //if (SteamApps.Items.Any_Nullable() && GameLibrarySettings.AFKAppList.Value?.Count > 0)

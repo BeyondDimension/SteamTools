@@ -95,11 +95,23 @@
                                 Cursor="Hand"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
-                            
+                             IsVisible="{Binding Process,Converter={StaticResource IsNullConverter}}"
                          ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
                          Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
                          CommandParameter="{Binding}">
                           <PathIcon Width="48" Height="48" Data="{DynamicResource PauseCircleDrawing}">
+                          </PathIcon>
+                        </Button>
+                        <Button Classes="flatbutton plain" x:Name="runstop_btn"
+                            Background="Transparent"
+                            Cursor="Hand"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                       IsVisible="{Binding !Process,Converter={StaticResource IsNullConverter}}"
+                     ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                     Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
+                     CommandParameter="{Binding}">
+                          <PathIcon Width="48" Height="48" Data="{DynamicResource PlayCircleDrawing}">
                           </PathIcon>
                         </Button>
                         <Button Classes="flatbutton" x:Name="delete_btn"
