@@ -36,14 +36,14 @@
             </ToggleButton>
 
             <Button Background="Transparent" Cursor="Hand"
-                    Command="{ReflectionBinding RefreshScriptButton}"
+                    Command="{ReflectionBinding Refresh_Click}"
                     ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
             </Button>
 
           </StackPanel>
           <Button Background="Transparent" Cursor="Hand" HorizontalAlignment="Right"
-                 Command="{ReflectionBinding RefreshScriptButton}"
+                 Command="{ReflectionBinding DeleteAllButton_Click}"
                  ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <PathIcon Width="16"  Data="{StaticResource DeleteDrawing}" />
           </Button>
@@ -72,10 +72,9 @@
                     </i:Interaction.Behaviors>
                     <Panel x:Name="app" Width="{ReflectionBinding $parent.Width}">
                       <gif:Image2 x:Name="library"
-                                              Stretch="UniformToFill"
-                                              DecodeWidth="{ReflectionBinding $parent.Width}"
-                                              Source="{Binding LibraryLogoStream^}">
-
+                                  Stretch="UniformToFill"
+                                  DecodeWidth="{ReflectionBinding $parent.Width}"
+                                  Source="{Binding LibraryLogoStream^}">
                       </gif:Image2>
                       <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png"
                              Stretch="UniformToFill"
@@ -89,38 +88,42 @@
                         FontSize="20"
                         Foreground="{DynamicResource HighlightForegroundBrushKey}"
                         IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
-                      <Panel Background="{DynamicResource ThemeBrushKey}" IsVisible="False" Opacity="0.8" x:Name="item_box">
-                        <Button Classes="flatbutton plain" x:Name="runstop_btn"
+                      <Panel Background="{DynamicResource ThemeBrushKey}" 
+                             IsVisible="False" 
+                             Opacity="0.8" 
+                             x:Name="item_box">
+                        <Button Classes="flatbutton plain" x:Name="stop_btn"
                                 Background="Transparent"
                                 Cursor="Hand"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                              IsVisible="{Binding Process,Converter={StaticResource IsNullConverter}}"
                          ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                         Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
+                         Command="{ReflectionBinding #u.DataContext.RunStopBtn_Click}"
                          CommandParameter="{Binding}">
                           <PathIcon Width="48" Height="48" Data="{DynamicResource PauseCircleDrawing}">
                           </PathIcon>
                         </Button>
-                        <Button Classes="flatbutton plain" x:Name="runstop_btn"
+                        <Button Classes="flatbutton plain" x:Name="run_btn"
                             Background="Transparent"
                             Cursor="Hand"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
-                       IsVisible="{Binding !Process,Converter={StaticResource IsNullConverter}}"
-                     ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                     Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
-                     CommandParameter="{Binding}">
+                            IsVisible="{Binding !Process,Converter={StaticResource IsNullConverter}}"
+                            ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                            Command="{ReflectionBinding #u.DataContext.RunStopBtn_Click}"
+                            CommandParameter="{Binding}">
                           <PathIcon Width="48" Height="48" Data="{DynamicResource PlayCircleDrawing}">
                           </PathIcon>
                         </Button>
                         <Button Classes="flatbutton" x:Name="delete_btn"
                                 Background="Transparent"
-                                Cursor="Hand" HorizontalAlignment="Right"
+                                Cursor="Hand"
+                                HorizontalAlignment="Right"
                                 Margin="0,0,0,150"
-                          ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                          Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
-                          CommandParameter="{Binding}">
+                                ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                Command="{ReflectionBinding #u.DataContext.DeleteButton_Click}"
+                                CommandParameter="{Binding}">
                           <PathIcon Width="10" Data="{DynamicResource CloseDrawing}">
                           </PathIcon>
                         </Button>

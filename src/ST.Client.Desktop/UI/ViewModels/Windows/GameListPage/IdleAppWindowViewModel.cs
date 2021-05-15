@@ -6,9 +6,11 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Properties;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace System.Application.UI.ViewModels
 {
@@ -39,8 +41,61 @@ namespace System.Application.UI.ViewModels
 
 
         }
-        public void onExited(object? sender, EventArgs e) { 
-        
+        public void DeleteAllButton_Click()
+        {
+            var result = MessageBoxCompat.ShowAsync(@AppResources.ScriptShop_NoLogin, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith((s) =>
+            {
+                if (s.Result == MessageBoxResultCompat.OK)
+                {
+                    if (GameLibrarySettings.AFKAppList.Value != null)
+                    {
+                        foreach (var item in GameLibrarySettings.AFKAppList.Value)
+                        {
+                            var runState = SteamConnectService.Current.RuningSteamApps.FirstOrDefault(x => x.AppId == item.Key);
+                            if (runState != null)
+                            {
+                                runState.Process?.Kill();
+                                SteamConnectService.Current.RuningSteamApps.Remove(runState);
+                            }
+                        }
+                        GameLibrarySettings.AFKAppList.Value = new Dictionary<uint, string?>();
+                        GameLibrarySettings.AFKAppList.RaiseValueChanged();
+
+                    } 
+                }
+            });
+        }
+        public void DeleteButton_Click(SteamApp app)
+        {
+            var result = MessageBoxCompat.ShowAsync(@AppResources.ScriptShop_NoLogin, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith((s) =>
+            {
+                if (s.Result == MessageBoxResultCompat.OK)
+                {
+                    if (GameLibrarySettings.AFKAppList.Value != null)
+                    {
+                        var item = GameLibrarySettings.AFKAppList.Value.ContainsKey(app.AppId);
+                        if (item)
+                        {
+                            GameLibrarySettings.AFKAppList.Value.Remove(app.AppId);
+                            GameLibrarySettings.AFKAppList.RaiseValueChanged();
+                            var runState = SteamConnectService.Current.RuningSteamApps.FirstOrDefault(x => x.AppId == app.AppId);
+                            if (runState != null)
+                            {
+                                runState.Process?.Kill();
+                                SteamConnectService.Current.RuningSteamApps.Remove(runState);
+                            }
+
+                        }
+
+                    }
+                }
+            });
+
+        }
+        public void RunStopBtn_Click(SteamApp app)
+        {
+
+
         }
         public void Refresh_Click()
         {
@@ -48,37 +103,19 @@ namespace System.Application.UI.ViewModels
             if (GameLibrarySettings.AFKAppList.Value != null)
                 foreach (var item in GameLibrarySettings.AFKAppList.Value)
                 {
-                    var appInfo =SteamConnectService.Current.SteamApps.Items.FirstOrDefault(x => x.AppId == item.Key);
-                    if (appInfo != null) {
+                    var appInfo = SteamConnectService.Current.SteamApps.Items.FirstOrDefault(x => x.AppId == item.Key);
+                    if (appInfo != null)
+                    {
                         var runState = SteamConnectService.Current.RuningSteamApps.FirstOrDefault(x => x.AppId == item.Key);
-                        if (runState != null && runState.Process != null) {
+                        if (runState != null && runState.Process != null)
+                        {
 
                             appInfo.Process = runState.Process;
-                            appInfo.Process.Exited += new EventHandler(onExited);
                         }
                         list.Add(appInfo);
                     }
                 }
-            IdleGameList = new ObservableCollection<SteamApp>(list);
-            //if (SteamApps.Items.Any_Nullable() && GameLibrarySettings.AFKAppList.Value?.Count > 0)
-            //{
-            //    var apps = GameLibrarySettings.AFKAppList.Value!.Select(x => x.Key);
-            //    foreach (var item in apps)
-            //    {
-            //        var appInfo = SteamApps.Items.FirstOrDefault(x => x.AppId == item);
-            //        if (appInfo != null && RuningSteamApps.FirstOrDefault(x => x.AppId == item) == null)
-            //            RuningSteamApps.Add(appInfo);
-            //    }
-            //    var t = new Task(() =>
-            //    {
-            //        foreach (var item in RuningSteamApps)
-            //        {
-            //            if (item.Process == null)
-            //                item.Process = Process.Start(AppHelper.ProgramPath, "-clt app -id -silence " + item.AppId.ToString(CultureInfo.InvariantCulture));
-            //        }
-            //    });
-            //    t.Start();
-            //}
+            IdleGameList = list;
         }
 
     }
