@@ -121,6 +121,13 @@
                         Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                         CommandParameter="ChangeBindPhoneNumber"></Button>
                 </ListBoxItem>
+                <ListBoxItem IsVisible="{ReflectionBinding Path=!HasPhoneNumber,Source={x:Static service:UserService.Current}}}">
+                  <Button
+                        Classes="CodeButton"
+                        Content="{ReflectionBinding Path=Res.User_BindPhoneNum,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                        Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
+                        CommandParameter="BindPhoneNumber"></Button>
+                </ListBoxItem>
                 <!--<ListBoxItem>
                   <Button
                       Classes="CodeButton"

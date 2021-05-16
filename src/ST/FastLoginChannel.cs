@@ -6,68 +6,35 @@ namespace System.Application
     public enum FastLoginChannel
     {
         /// <summary>
-        /// https://www.nuget.org/packages/AspNet.Security.OpenId.Steam
+        /// <list type="bullet">
+        /// <item>Documentation：https://steamcommunity.com/dev </item>
+        /// <item>Package：https://www.nuget.org/packages/AspNet.Security.OpenId.Steam </item>
+        /// </list>
         /// </summary>
         Steam,
 
         /// <summary>
-        /// https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.MicrosoftAccount
+        /// <list type="bullet">
+        /// <item>Documentation：https://docs.microsoft.com/zh-cn/aspnet/core/security/authentication/social/microsoft-logins </item>
+        /// <item>Package：https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.MicrosoftAccount </item>
+        /// </list>
         /// </summary>
         Microsoft,
 
         /// <summary>
-        /// https://www.nuget.org/packages/AspNet.Security.OAuth.QQ
+        /// <list type="bullet">
+        /// <item>Documentation：https://developers.e.qq.com/docs/apilist/auth/oauth2 </item>
+        /// <item>Package：https://www.nuget.org/packages/AspNet.Security.OAuth.QQ </item>
+        /// </list>
         /// </summary>
         QQ,
 
         /// <summary>
-        /// https://www.nuget.org/packages/AspNet.Security.OAuth.Apple
+        /// <list type="bullet">
+        /// <item>Documentation：https://developer.apple.com/documentation/signinwithapplerestapi </item>
+        /// <item>Package：https://www.nuget.org/packages/AspNet.Security.OAuth.Apple </item>
+        /// </list>
         /// </summary>
         Apple,
-
-        ///// <summary>
-        ///// https://www.nuget.org/packages/AspNet.Security.OAuth.Weixin
-        ///// </summary>
-        //Weixin,
-
-        ///// <summary>
-        ///// https://www.nuget.org/packages/AspNet.Security.OAuth.Weibo
-        ///// </summary>
-        //Weibo,
-
-        ///// <summary>
-        ///// https://www.nuget.org/packages/AspNet.Security.OAuth.BattleNet
-        ///// </summary>
-        //BattleNet,
-
-        ///// <summary>
-        ///// https://www.nuget.org/packages/AspNet.Security.OAuth.NetEase
-        ///// </summary>
-        //NetEase,
-
-        ///// <summary>
-        ///// https://www.nuget.org/packages/AspNet.Security.OAuth.LinkedIn
-        ///// </summary>
-        //LinkedIn,
-
-        ///// <summary>
-        ///// https://www.nuget.org/packages/AspNet.Security.OAuth.GitHub
-        ///// </summary>
-        //GitHub,
-
-        ///// <summary>
-        ///// https://www.nuget.org/packages/AspNet.Security.OAuth.Discord
-        ///// </summary>
-        //Discord,
-
-        ///// <summary>
-        ///// https://www.nuget.org/packages/AspNet.Security.OAuth.Baidu
-        ///// </summary>
-        //Baidu,
-
-        ///// <summary>
-        ///// https://www.nuget.org/packages/AspNet.Security.OAuth.Gitee
-        ///// </summary>
-        //Gitee,
     }
 }

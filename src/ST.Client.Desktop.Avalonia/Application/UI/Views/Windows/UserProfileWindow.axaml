@@ -126,7 +126,13 @@
           <Button Classes="Secondary"
                   Content="{ReflectionBinding Path=Res.Modify,Mode=OneWay,Source={x:Static resx:R.Current}}"
                   Command="{Binding OnBtnChangeBindPhoneNumberClick}"
-                  IsEnabled="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
+                  IsVisible="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
+                  Grid.Row="3"
+                  Grid.Column="3"/>
+          <Button Classes="Secondary"
+                  Content="{ReflectionBinding Path=Res.Bind,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                  Command="{Binding OnBtnBindPhoneNumberClick}"
+                  IsVisible="{ReflectionBinding Path=!HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
                   Grid.Row="3"
                   Grid.Column="3"/>
           <TextBlock Classes="FormItemLabel"

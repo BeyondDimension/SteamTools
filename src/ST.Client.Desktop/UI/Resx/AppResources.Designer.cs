@@ -2882,6 +2882,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 {0} 快速登录 的本地化字符串。
+        /// </summary>
+        public static string User_FastLogin_ {
+            get {
+                return ResourceManager.GetString("User_FastLogin_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 获取验证码 的本地化字符串。
         /// </summary>
         public static string User_GetSMSCode {

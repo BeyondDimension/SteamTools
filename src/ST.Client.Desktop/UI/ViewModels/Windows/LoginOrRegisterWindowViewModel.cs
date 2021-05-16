@@ -19,7 +19,7 @@ namespace System.Application.UI.ViewModels
         public LoginOrRegisterWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LoginAndRegister;
-            SteamFastLogin = ReactiveCommand.CreateFromTask(async () => await FastLoginOrRegisterAsync(Close));
+            FastLogin = ReactiveCommand.CreateFromTask<FastLoginChannel>(async channel => await FastLoginOrRegisterAsync(Close, channel));
 
             SteamConnectService.Current.WhenAnyValue(x => x.CurrentSteamUser)
                 .Subscribe(_ => this.RaisePropertyChanged(nameof(SteamUser)));
@@ -115,25 +115,25 @@ namespace System.Application.UI.ViewModels
             LoginState = state;
         }
 
-        internal static async Task FastLoginOrRegisterAsync(Action? close = null)
+        internal static async Task FastLoginOrRegisterAsync(Action? close = null, FastLoginChannel channel = FastLoginChannel.Steam, bool isBind = false)
         {
             var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
             var urlExternalLoginCallback = apiBaseUrl + "/ExternalLoginCallback";
+            if (isBind) urlExternalLoginCallback += "?isBind=true";
             WebView3WindowViewModel? vm = null;
             vm = new WebView3WindowViewModel
             {
-                Url = apiBaseUrl + "/ExternalLogin",
+                Url = apiBaseUrl + $"/ExternalLogin/{(int)channel}",
                 StreamResponseFilterUrls = new[]
                 {
                     urlExternalLoginCallback,
                 },
                 OnStreamResponseFilterResourceLoadComplete = _OnStreamResponseFilterResourceLoadComplete,
                 FixedSinglePage = true,
-                Title = AppResources.User_SteamFastLogin,
-                TimeoutErrorMessage = AppResources.User_SteamFastLoginTimeoutErrorMessage,
+                Title = AppResources.User_FastLogin_.Format(channel),
+                TimeoutErrorMessage = channel == FastLoginChannel.Steam ? AppResources.User_SteamFastLoginTimeoutErrorMessage : null,
                 IsSecurity = true,
-                //UseLoginUsingSteamClient = true,
-                UseLoginUsingSteamClient = true,
+                UseLoginUsingSteamClient = channel == FastLoginChannel.Steam,
                 Close = close,
             };
             async void _OnStreamResponseFilterResourceLoadComplete(string url, Stream data)
@@ -205,7 +205,7 @@ namespace System.Application.UI.ViewModels
             }, resizeMode: ResizeModeCompat.NoResize);
         }
 
-        public ICommand SteamFastLogin { get; }
+        public ICommand FastLogin { get; }
 
         protected override void Dispose(bool disposing)
         {

@@ -6,6 +6,7 @@ using System.Application.UI.Resx;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Properties;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace System.Application.UI.ViewModels
@@ -57,6 +58,8 @@ namespace System.Application.UI.ViewModels
                 SubscribeFormItem(x => x.AreaSelectItem3, SubscribeAreaOnNext);
                 SubscribeFormItem(x => x.AreaSelectItem4, SubscribeAreaOnNext);
             }
+            OnBindFastLoginClick = ReactiveCommand.CreateFromTask<FastLoginChannel>(OnBindFastLoginClickAsync);
+            OnUnbundleFastLoginClick = ReactiveCommand.CreateFromTask<FastLoginChannel>(OnUnbundleFastLoginClickAsync);
         }
 
         bool _IsModify;
@@ -138,9 +141,61 @@ namespace System.Application.UI.ViewModels
 
         public Action? Close { private get; set; }
 
-        public ICommand? OnBtnChangeBindPhoneNumberClick { get; } = ReactiveCommand.Create(() =>
+        /// <summary>
+        /// 换绑手机号码 按钮点击
+        /// </summary>
+        public ICommand OnBtnChangeBindPhoneNumberClick { get; } = ReactiveCommand.Create(() =>
         {
             UserService.Current.ShowWindow(CustomWindow.ChangeBindPhoneNumber);
         });
+
+        /// <summary>
+        /// 绑定手机号码 按钮点击
+        /// </summary>
+        public ICommand OnBtnBindPhoneNumberClick { get; } = ReactiveCommand.Create(() =>
+        {
+            UserService.Current.ShowWindow(CustomWindow.BindPhoneNumber);
+        });
+
+        /// <summary>
+        /// 绑定用于快速登录的第三方账号 按钮点击
+        /// </summary>
+        public ICommand OnBindFastLoginClick { get; }
+
+        async Task OnBindFastLoginClickAsync(FastLoginChannel channel)
+        {
+            await LoginOrRegisterWindowViewModel.FastLoginOrRegisterAsync(Close, channel, isBind: true);
+        }
+
+        /// <summary>
+        /// 解绑用于快速登录的第三方账号 按钮点击
+        /// </summary>
+        public ICommand OnUnbundleFastLoginClick { get; }
+
+        async Task OnUnbundleFastLoginClickAsync(FastLoginChannel channel)
+        {
+            if (IsLoading) return;
+
+            IsLoading = true;
+
+            var response = await ICloudServiceClient.Instance.Manage.UnbundleAccount(channel);
+
+            if (response.IsSuccess)
+            {
+                switch (channel)
+                {
+                    case FastLoginChannel.Steam:
+                        break;
+                    case FastLoginChannel.Microsoft:
+                        break;
+                    case FastLoginChannel.QQ:
+                        break;
+                    case FastLoginChannel.Apple:
+                        break;
+                }
+            }
+
+            IsLoading = false;
+        }
     }
 }

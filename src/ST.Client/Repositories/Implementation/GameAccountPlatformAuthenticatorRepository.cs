@@ -16,7 +16,7 @@ namespace System.Application.Repositories.Implementation
             this.ss = ss;
         }
 
-        async Task<GameAccountPlatformAuthenticator[]> GetAllAsync()
+        public async Task<GameAccountPlatformAuthenticator[]> GetAllSourceAsync()
         {
             var dbConnection = await GetDbConnection().ConfigureAwait(false);
             return await AttemptAndRetry(() =>
@@ -62,11 +62,9 @@ namespace System.Application.Repositories.Implementation
             }
         }
 
-        public async Task<List<IGAPAuthenticatorDTO>> GetAllAsync(string? secondaryPassword = null)
+        public async Task<List<IGAPAuthenticatorDTO>> ConvertToList(IEnumerable<GameAccountPlatformAuthenticator> sources, string? secondaryPassword = null)
         {
-            var items = await GetAllAsync();
-
-            var query = Convert(items, secondaryPassword);
+            var query = Convert(sources, secondaryPassword);
 
             var list = new List<IGAPAuthenticatorDTO>();
 
@@ -81,7 +79,19 @@ namespace System.Application.Repositories.Implementation
             return list;
         }
 
+        public async Task<List<IGAPAuthenticatorDTO>> GetAllAsync(string? secondaryPassword = null)
+        {
+            var sources = await GetAllSourceAsync();
+            return await ConvertToList(sources);
+        }
+
         static EncryptionMode GetEncryptionMode(bool isLocal, string? secondaryPassword)
+        {
+            (bool _, EncryptionMode mode) = GetEncryptionMode2(isLocal, secondaryPassword);
+            return mode;
+        }
+
+        static (bool notSecondaryPassword, EncryptionMode mode) GetEncryptionMode2(bool isLocal, string? secondaryPassword)
         {
             var notSecondaryPassword = string.IsNullOrEmpty(secondaryPassword);
             var encryptionMode =
@@ -92,7 +102,7 @@ namespace System.Application.Repositories.Implementation
                     (notSecondaryPassword ?
                         EncryptionMode.EmbeddedAes :
                         EncryptionMode.EmbeddedAesWithSecondaryPassword);
-            return encryptionMode;
+            return (notSecondaryPassword, encryptionMode);
         }
 
         public async Task InsertOrUpdateAsync(IGAPAuthenticatorDTO item, bool isLocal,
@@ -100,7 +110,7 @@ namespace System.Application.Repositories.Implementation
         {
             var value = Serializable.SMP(item.Value);
 
-            var encryptionMode = GetEncryptionMode(isLocal, secondaryPassword);
+            (var notSecondaryPassword, var encryptionMode) = GetEncryptionMode2(isLocal, secondaryPassword);
 
             var name_bytes = await ss.E(item.Name, encryptionMode, secondaryPassword);
             name_bytes = name_bytes.ThrowIsNull(nameof(name_bytes));
@@ -114,6 +124,8 @@ namespace System.Application.Repositories.Implementation
                 Name = name_bytes,
                 ServerId = item.ServerId,
                 Value = value_bytes,
+                IsNotLocal = !isLocal,
+                IsNeedSecondaryPassword = !notSecondaryPassword,
             };
 
             await InsertOrUpdateAsync(entity);
@@ -152,28 +164,38 @@ namespace System.Application.Repositories.Implementation
         async Task IGameAccountPlatformAuthenticatorRepository.DeleteAsync(Guid serverId)
             => await DeleteAsync(serverId);
 
+        public async Task RenameAsync(GameAccountPlatformAuthenticator source, string name, bool isLocal, string? secondaryPassword)
+        {
+            var encryptionMode = GetEncryptionMode(isLocal, secondaryPassword);
+
+            var name_bytes = await ss.E(name, encryptionMode, secondaryPassword);
+            name_bytes = name_bytes.ThrowIsNull(nameof(name_bytes));
+
+            source.Name = name_bytes;
+            await UpdateAsync(source);
+        }
+
         public async Task RenameAsync(ushort id, string name, bool isLocal, string? secondaryPassword)
         {
-            var item = await FindAsync(id);
-            if (item != null)
+            var source = await FindAsync(id);
+            if (source != null)
             {
-                var encryptionMode = GetEncryptionMode(isLocal, secondaryPassword);
-
-                var name_bytes = await ss.E(name, encryptionMode, secondaryPassword);
-                name_bytes = name_bytes.ThrowIsNull(nameof(name_bytes));
-
-                item.Name = name_bytes;
-                await UpdateAsync(item);
+                await RenameAsync(source, name, isLocal, secondaryPassword);
             }
+        }
+
+        public async Task SetServerIdAsync(GameAccountPlatformAuthenticator source, Guid serverId)
+        {
+            source.ServerId = serverId;
+            await UpdateAsync(source);
         }
 
         public async Task SetServerIdAsync(ushort id, Guid serverId)
         {
-            var item = await FindAsync(id);
-            if (item != null)
+            var source = await FindAsync(id);
+            if (source != null)
             {
-                item.ServerId = serverId;
-                await UpdateAsync(item);
+                await SetServerIdAsync(source, serverId);
             }
         }
 

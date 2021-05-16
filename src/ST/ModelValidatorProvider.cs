@@ -188,6 +188,8 @@ namespace System.Application
             public static string AuthorizationFailErrorMessage_ => SR.AuthorizationFailErrorMessage_;
 
             public static string UserIsBanErrorMessage => SR.UserIsBanErrorMessage;
+
+            public static string BindFail_UserIsNotNull => SR.BindFail_UserIsNotNull;
         }
 
         public static class Lengths

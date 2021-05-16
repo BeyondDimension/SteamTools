@@ -100,7 +100,7 @@
               </ia:DataTriggerBehavior>
             </i:Interaction.Behaviors>
 
-            <Button x:Name="UserAvater" Classes="plain" Command="{ReflectionBinding SteamFastLogin}" IsVisible="False">
+            <Button x:Name="UserAvater" Classes="plain" Command="{ReflectionBinding FastLogin}" IsVisible="False" CommandParameter="Steam">
               <Image
                         Source="{ReflectionBinding Source={x:Static service:SteamConnectService.Current},Path=AvaterPath,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=128}"
                         Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25"
@@ -108,7 +108,7 @@
               </Image>
             </Button>
 
-            <Button x:Name="SteamLogo" Classes="plain" Command="{ReflectionBinding SteamFastLogin}">
+            <Button x:Name="SteamLogo" Classes="plain" Command="{ReflectionBinding FastLogin}" CommandParameter="Steam">
               <PathIcon
                           Data="{StaticResource SteamDrawing}"
                           Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25"
@@ -126,7 +126,8 @@
                   Background="Transparent"
                   BorderThickness="0"
                   Cursor="Hand"
-                  Command="{ReflectionBinding SteamFastLogin}">
+                  Command="{ReflectionBinding FastLogin}"
+                  CommandParameter="Steam">
             <StackPanel Orientation="Horizontal" Spacing="10">
               <PathIcon Data="{StaticResource SteamDrawing}" Width="18"></PathIcon>
               <TextBlock Text="{ReflectionBinding Path=Res.User_SteamFastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>

@@ -10,7 +10,7 @@ using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
 {
-    public class BindPhoneNumberWindowViewModel : WindowViewModel
+    public class BindPhoneNumberWindowViewModel : WindowViewModel, SendSmsUIHelper.IViewModel
     {
         public BindPhoneNumberWindowViewModel() : base()
         {
@@ -24,11 +24,99 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
         }
 
-        string _PhoneNumber;
-        public string PhoneNumber
+        private string? _PhoneNumber;
+        public string? PhoneNumber
         {
             get => _PhoneNumber;
             set => this.RaiseAndSetIfChanged(ref _PhoneNumber, value);
+        }
+
+        private string? _SmsCode;
+        public string? SmsCode
+        {
+            get => _SmsCode;
+            set => this.RaiseAndSetIfChanged(ref _SmsCode, value);
+        }
+
+        private int _TimeLimit = SMSInterval;
+        public int TimeLimit
+        {
+            get => _TimeLimit;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _TimeLimit, value);
+                this.RaisePropertyChanged(nameof(IsUnTimeLimit));
+            }
+        }
+
+        string _BtnSendSmsCodeText = AppResources.User_GetSMSCode;
+        public string BtnSendSmsCodeText
+        {
+            get => _BtnSendSmsCodeText;
+            set => this.RaiseAndSetIfChanged(ref _BtnSendSmsCodeText, value);
+        }
+
+        public bool IsUnTimeLimit
+        {
+            get => TimeLimit != SMSInterval;
+        }
+
+        public bool SendSmsCodeSuccess { get; set; }
+
+        public async void Submit()
+        {
+            if (IsLoading || !this.CanSubmit()) return;
+
+            var request = new BindPhoneNumberRequest
+            {
+                PhoneNumber = PhoneNumber,
+                SmsCode = SmsCode
+            };
+            IsLoading = true;
+
+            var response = await ICloudServiceClient.Instance.Manage.BindPhoneNumber(request);
+
+            if (response.IsSuccess)
+            {
+                Close?.Invoke();
+                return;
+            }
+
+            IsLoading = false;
+        }
+
+        public Action? Close { get; set; }
+
+        public Action? TbPhoneNumberFocus { get; set; }
+
+        public Action? TbSmsCodeFocus { get; set; }
+
+        public CancellationTokenSource? CTS { get; set; }
+
+        public async void SendSms()
+        {
+            if (this.TimeStart())
+            {
+                var request = new SendSmsRequest
+                {
+                    PhoneNumber = PhoneNumber,
+                    Type = SmsCodeType.BindPhoneNumber,
+                };
+
+#if DEBUG
+                var response =
+#endif
+                await this.SendSms(request);
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                CTS?.Cancel();
+            }
+            base.Dispose(disposing);
         }
     }
 }

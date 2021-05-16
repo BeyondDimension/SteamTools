@@ -1,4 +1,4 @@
-﻿#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 using SQLite;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -45,6 +45,18 @@ namespace System.Application.Entities
         [SQLiteNotNull]
         [NotNull, DisallowNull] // C# 8 not null
         public byte[]? Value { get; set; }
+
+        /// <summary>
+        /// 是否未启用本地加密
+        /// </summary>
+        [Column("44FF3988")]
+        public bool IsNotLocal { get; set; }
+
+        /// <summary>
+        /// 是否需要二级密码
+        /// </summary>
+        [Column("4AF8A895")]
+        public bool IsNeedSecondaryPassword { get; set; }
 
         [Column("7D808E24")]
         [SQLiteNotNull]

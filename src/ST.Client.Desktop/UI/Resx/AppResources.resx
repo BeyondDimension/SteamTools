@@ -1117,6 +1117,9 @@
   <data name="User_FastLogin" xml:space="preserve">
     <value>快速登录</value>
   </data>
+  <data name="User_FastLogin_" xml:space="preserve">
+    <value>{0} 快速登录</value>
+  </data>
   <data name="User_GetSMSCode" xml:space="preserve">
     <value>获取验证码</value>
   </data>
