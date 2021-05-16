@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Application\UI\Assets\movecross.png" />
+        <None Remove="Application\UI\Assets\movecross.png" />
     </ItemGroup>
 
     <ItemGroup>
@@ -44,43 +44,16 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="0.10.999-cibuild0014036-beta" />
-        <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0014036-beta" />
-        <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.999-cibuild0014036-beta" />
-        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0014036-beta" />
-        <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.3.3" />
+        <PackageReference Include="Avalonia" Version="0.10.999-cibuild0014123-beta" />
+        <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0014123-beta" />
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.999-cibuild0014123-beta" />
+        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0014123-beta" />
+        <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.4" />
         <!--<PackageReference Include="CefNet.Avalonia" Version="88.1.21022.1657" />-->
         <PackageReference Include="LibVLCSharp.Avalonia" Version="3.5.0" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)'=='Debug'">
-        <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0014036-beta" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Compile Update="Application\UI\Views\Pages\About\About_Changelog.axaml.cs">
-          <DependentUpon>About_ChangeLog.axaml</DependentUpon>
-        </Compile>
-        <Compile Update="Application\UI\Views\Pages\GameRelatedPage.axaml.cs">
-            <DependentUpon>GameRelatedPage.axaml</DependentUpon>
-        </Compile>
-        <Compile Update="Application\UI\Views\Pages\GameRelated\GameRelated_BorderlessPage.axaml.cs">
-          <DependentUpon>GameRelated_BorderlessPage.axaml</DependentUpon>
-        </Compile>
-        <Compile Update="Application\UI\Views\Windows\GameListPage\HideAppWindow.axaml.cs">
-            <DependentUpon>HideAppWindow.axaml</DependentUpon>
-        </Compile>
-        <Compile Update="Application\UI\Views\Windows\GameListPage\IdleAppWindow.axaml.cs">
-            <DependentUpon>IdleAppWindow.axaml</DependentUpon>
-        </Compile>
-        <Compile Update="Application\UI\Views\Windows\LocalAuthPage\EncryptionAuthWindow.axaml.cs">
-            <DependentUpon>EncryptionAuthWindow.axaml</DependentUpon>
-        </Compile>
-        <Compile Update="Application\UI\Views\Windows\LocalAuthPage\PasswordWindow.axaml.cs">
-            <DependentUpon>PasswordWindow.axaml</DependentUpon>
-        </Compile>
-        <Compile Update="Application\UI\Views\Windows\LocalAuthPage\ExportAuthWindow.axaml.cs">
-            <DependentUpon>ExportAuthWindow.axaml</DependentUpon>
-        </Compile>
+        <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0014123-beta" />
     </ItemGroup>
 </Project>
