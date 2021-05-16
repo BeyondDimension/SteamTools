@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Eto.Forms" Version="2.5.10" />
+    <PackageReference Include="Eto.Forms" Version="2.5.11" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>WinAuth</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NLog" Version="4.7.10" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.10" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
+  </ItemGroup>
+</Project>
