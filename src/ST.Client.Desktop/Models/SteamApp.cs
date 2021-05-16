@@ -133,7 +133,12 @@ namespace System.Application.Models
         public string? IconUrl => string.IsNullOrEmpty(Icon) ? null :
             string.Format(STEAMAPP_LOGO_URL, AppId, Icon);
 
-        public Process? Process { get; set; }
+        private Process? _Process;
+        public Process? Process
+        {
+            get => _Process;
+            set => this.RaiseAndSetIfChanged(ref _Process, value);
+        } 
 
         //public TradeCard? Card { get; set; }
 
