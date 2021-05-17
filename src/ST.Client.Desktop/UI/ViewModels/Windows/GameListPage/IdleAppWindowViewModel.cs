@@ -129,13 +129,13 @@ namespace System.Application.UI.ViewModels
                         if (runState == null)
                         {
 
-                            item.Process = Process.Start(AppHelper.ProgramPath, "-clt app -silence -id " + item.AppId.ToString(CultureInfo.InvariantCulture));
+                            item.Process = Process.Start(AppHelper.ProgramPath, "-clt -silence app -id " + item.AppId.ToString(CultureInfo.InvariantCulture));
                             SteamConnectService.Current.RuningSteamApps.Add(item);
                         }
                         else
                         {
                             if (runState.Process == null)
-                                runState.Process = Process.Start(AppHelper.ProgramPath, "-clt app -silence -id " + item.AppId.ToString(CultureInfo.InvariantCulture));
+                                runState.Process = Process.Start(AppHelper.ProgramPath, "-clt -silence app -id " + runState.AppId.ToString(CultureInfo.InvariantCulture));
                             item.Process = runState.Process;
                         }
                     }
@@ -181,7 +181,7 @@ namespace System.Application.UI.ViewModels
         {
             if (app.Process == null)
             {
-                app.Process = Process.Start(AppHelper.ProgramPath, "-clt app -silence -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
+                app.Process = Process.Start(AppHelper.ProgramPath, "-clt -silence app -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
             }
             else
             {

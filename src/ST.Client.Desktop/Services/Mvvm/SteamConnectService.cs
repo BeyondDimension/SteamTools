@@ -164,7 +164,7 @@ namespace System.Application.Services
                     foreach (var item in RuningSteamApps)
                     {
                         if (item.Process == null)
-                            item.Process = Process.Start(AppHelper.ProgramPath, "-clt app -silence -id " + item.AppId.ToString(CultureInfo.InvariantCulture));
+                            item.Process = Process.Start(AppHelper.ProgramPath, "-clt -silence app -id " + item.AppId.ToString(CultureInfo.InvariantCulture));
                     }
                 });
                 t.Start();
