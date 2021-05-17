@@ -41,12 +41,12 @@ namespace System.Application.Services.Implementation
         readonly string? mSteamDirPath;
         readonly string? mSteamProgramPath;
         readonly string[] steamProcess = new[] { "steam", "steamservice", "steamwebhelper" };
-        readonly IHttpService http;
+        readonly Lazy<IHttpService> _http = new(() => DI.Get<IHttpService>());
+        IHttpService Http => _http.Value;
 
-        public SteamServiceImpl(IDesktopPlatformService platformService, IHttpService http)
+        public SteamServiceImpl(IDesktopPlatformService platformService)
         {
             this.platformService = platformService;
-            this.http = http;
             mSteamDirPath = platformService.GetSteamDirPath();
             mSteamProgramPath = platformService.GetSteamProgramPath();
             UserVdfPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "config", "loginusers.vdf");
@@ -368,7 +368,7 @@ namespace System.Application.Services.Implementation
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
             };
             if (url == null) return string.Empty;
-            var value = await http.GetImageAsync(url, ImageChannelType.SteamGames);
+            var value = await Http.GetImageAsync(url, ImageChannelType.SteamGames);
             return value ?? string.Empty;
         }
 
@@ -430,12 +430,12 @@ namespace System.Application.Services.Implementation
             {
                 try
                 {
-                    var client = http.Factory.CreateClient();
+                    var client = Http.Factory.CreateClient();
                     client.Timeout = TimeSpan.FromSeconds(.85);
                     var request = new HttpRequestMessage(HttpMethod.Get, url_localhost_auth_public);
                     request.Headers.Add("Origin", url_store_steampowered);
                     request.Headers.Add("Accept", MediaTypeNames.JSON);
-                    request.Headers.UserAgent.ParseAdd(http.PlatformHelper.UserAgent);
+                    request.Headers.UserAgent.ParseAdd(Http.PlatformHelper.UserAgent);
                     var response = await client.SendAsync(request);
 #if DEBUG
                     Console.WriteLine("GetLoginUsingSteamClientAuthAsync");
@@ -493,10 +493,10 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                var client = http.Factory.CreateClient();
+                var client = Http.Factory.CreateClient();
                 client.Timeout = TimeSpan.FromSeconds(url_steamcommunity_timeout_s);
                 var request = new HttpRequestMessage(HttpMethod.Get, url_store_steampowered);
-                request.Headers.UserAgent.ParseAdd(http.PlatformHelper.UserAgent);
+                request.Headers.UserAgent.ParseAdd(Http.PlatformHelper.UserAgent);
                 var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
                 return response.IsSuccessStatusCode;
             }
@@ -528,8 +528,8 @@ namespace System.Application.Services.Implementation
                 };
                 request.Headers.Add("Origin", url_store_steampowered);
                 request.Headers.Add("Accept", MediaTypeNames.JSON);
-                request.Headers.UserAgent.ParseAdd(http.PlatformHelper.UserAgent);
-                var client = http.Factory.CreateClient();
+                request.Headers.UserAgent.ParseAdd(Http.PlatformHelper.UserAgent);
+                var client = Http.Factory.CreateClient();
                 client.Timeout = TimeSpan.FromSeconds(url_steamcommunity_timeout_s);
                 var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
 #if DEBUG
