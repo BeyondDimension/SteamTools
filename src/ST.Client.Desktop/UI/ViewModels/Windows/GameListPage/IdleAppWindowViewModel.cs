@@ -151,6 +151,11 @@ namespace System.Application.UI.ViewModels
                             SteamConnectService.Current.RuningSteamApps.Remove(runState);
                             item.Process = null;
                         }
+                        else
+                        {
+                            item.Process = null;
+                            SteamConnectService.Current.RuningSteamApps.Add(item);
+                        }
                     }
                 }
                 RunLoaingState = false;
@@ -210,7 +215,16 @@ namespace System.Application.UI.ViewModels
                             };
                             appInfo.Process.EnableRaisingEvents = true;
                         }
+                        appInfo.Process = null;
                         list.Add(appInfo);
+                    }
+                    else
+                    {
+                        list.Add(new SteamApp
+                        {
+                            AppId = item.Key,
+                            Name = item.Value
+                        });
                     }
                 }
             IdleGameList = list;

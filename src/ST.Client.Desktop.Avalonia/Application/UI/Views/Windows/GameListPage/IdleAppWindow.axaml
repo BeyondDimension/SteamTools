@@ -141,22 +141,20 @@
                   </Border>
 
                   <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding DisplayName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                  <Panel IsVisible="{Binding !Process,Converter={StaticResource IsNullConverter}}">
+                  <StackPanel IsVisible="{Binding !Process,Converter={StaticResource IsNullConverter}}">
                     <Ellipse Height="6" Width="6" Fill="#47A42B"></Ellipse>
                     <TextBlock
                          Text="{ReflectionBinding Path=Res.GameList_RunState,Mode=OneWay,Source={x:Static resx:R.Current}}"
                          VerticalAlignment="Center"
-                         TextWrapping="WrapWithOverflow"
-                         FontSize="10" />
-                  </Panel>
-                  <Panel IsVisible="{Binding Process,Converter={StaticResource IsNullConverter}}">
+                         FontSize="12" />
+                  </StackPanel>
+                  <StackPanel  IsVisible="{Binding Process,Converter={StaticResource IsNullConverter}}">
                     <Ellipse Height="6" Width="6"  Fill="#FF4F58"> </Ellipse>
                     <TextBlock
                          Text="{ReflectionBinding Path=Res.GameList_StopState,Mode=OneWay,Source={x:Static resx:R.Current}}"
                          VerticalAlignment="Center"
-                         TextWrapping="WrapWithOverflow"
-                         FontSize="10" />
-                  </Panel>
+                         FontSize="12" />
+                  </StackPanel>
                 </StackPanel>
               </DataTemplate>
             </ItemsRepeater.ItemTemplate>
