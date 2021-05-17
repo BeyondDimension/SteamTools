@@ -1,17 +1,12 @@
 using NLog;
-using NLog.Common;
-using NLog.Config;
-using NLog.Targets;
 using ReactiveUI;
 using System.Application.Services;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Runtime.ExceptionServices;
+using AvaloniaApplication = Avalonia.Application;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
-using NLogLevel = NLog.LogLevel;
 
 namespace System.Application.UI
 {
@@ -104,25 +99,39 @@ namespace System.Application.UI
                     logger?.Error(ex_restore_hosts, "(App)Close exception when OnExitRestoreHosts");
                 }
 
+                var callTryShutdown = true;
                 try
                 {
-                    if (!App.Shutdown())
-                    {
-                        try
-                        {
-                            AppHelper.TryShutdown();
-                        }
-                        catch (Exception ex_shutdown_app_helper)
-                        {
-                            logger?.Error(ex_shutdown_app_helper,
-                                "(AppHelper)Close exception when exception occurs");
-                        }
-                    }
+                    callTryShutdown = !App.Shutdown();
                 }
                 catch (Exception ex_shutdown)
                 {
                     logger?.Error(ex_shutdown,
                         "(App)Close exception when exception occurs");
+                }
+
+                if (callTryShutdown)
+                {
+                    try
+                    {
+                        AppHelper.TryShutdown();
+                    }
+                    catch (Exception ex_shutdown_app_helper)
+                    {
+                        logger?.Error(ex_shutdown_app_helper,
+                            "(AppHelper)Close exception when exception occurs");
+                    }
+                }
+
+                try
+                {
+                    if (AvaloniaApplication.Current is App app)
+                    {
+                        app.compositeDisposable.Dispose();
+                    }
+                }
+                catch
+                {
                 }
 
 #if DEBUG

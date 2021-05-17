@@ -132,7 +132,7 @@ namespace System.Application
 #endif
             var hasHosts = level.HasFlag(DILevel.Hosts);
             var hasSteam = level.HasFlag(DILevel.Steam);
-#if !UI_DEMO
+#if !UI_DEMO && !__MOBILE__
             // 桌面平台服务 此项放在其他通用业务实现服务之前
             services.AddDesktopPlatformService(hasSteam);
 #endif
