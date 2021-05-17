@@ -873,6 +873,33 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 是否移除全部挂时常的游戏？ 的本地化字符串。
+        /// </summary>
+        public static string GameList_DeleteAll {
+            get {
+                return ResourceManager.GetString("GameList_DeleteAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否将该游戏挂时常? 的本地化字符串。
+        /// </summary>
+        public static string GameList_DeleteItem {
+            get {
+                return ResourceManager.GetString("GameList_DeleteItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 移除成功 的本地化字符串。
+        /// </summary>
+        public static string GameList_DeleteSuccess {
+            get {
+                return ResourceManager.GetString("GameList_DeleteSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 编辑游戏信息 的本地化字符串。
         /// </summary>
         public static string GameList_EditAppInfo {
@@ -954,6 +981,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 操作进行中请稍后再试 的本地化字符串。
+        /// </summary>
+        public static string GameList_LoaingTips {
+            get {
+                return ResourceManager.GetString("GameList_LoaingTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 仅显示已安装的游戏 的本地化字符串。
         /// </summary>
         public static string GameList_OnlyInstalled {
@@ -999,6 +1035,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 操作成功 的本地化字符串。
+        /// </summary>
+        public static string GameList_OperationSuccess {
+            get {
+                return ResourceManager.GetString("GameList_OperationSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 开始游戏 的本地化字符串。
         /// </summary>
         public static string GameList_Play {
@@ -1031,6 +1076,15 @@ namespace System.Application.UI.Resx {
         public static string GameList_RemoveBtn {
             get {
                 return ResourceManager.GetString("GameList_RemoveBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 取消挂时常 的本地化字符串。
+        /// </summary>
+        public static string GameList_RemoveItemBtn {
+            get {
+                return ResourceManager.GetString("GameList_RemoveItemBtn", resourceCulture);
             }
         }
         
@@ -1071,6 +1125,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 运行中 的本地化字符串。
+        /// </summary>
+        public static string GameList_RunState {
+            get {
+                return ResourceManager.GetString("GameList_RunState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 设置自定义封面 的本地化字符串。
         /// </summary>
         public static string GameList_SetCustomImage {
@@ -1103,6 +1166,15 @@ namespace System.Application.UI.Resx {
         public static string GameList_StopItemBtn {
             get {
                 return ResourceManager.GetString("GameList_StopItemBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 暂停中 的本地化字符串。
+        /// </summary>
+        public static string GameList_StopState {
+            get {
+                return ResourceManager.GetString("GameList_StopState", resourceCulture);
             }
         }
         

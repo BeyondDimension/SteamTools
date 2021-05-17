@@ -27,12 +27,27 @@ namespace System.Application.UI.ViewModels
             //   .AutoRefresh(x => x.Process));
             Refresh_Click();
         }
-
+        private string _RunStateTxt;
+        public string RunStateTxt
+        {
+            get => _RunStateTxt;
+            set => this.RaiseAndSetIfChanged(ref _RunStateTxt, value);
+        }
+        private bool _RunLoaingState;
+        public bool RunLoaingState
+        {
+            get => _RunLoaingState;
+            set => this.RaiseAndSetIfChanged(ref _RunLoaingState, value);
+        }
         private bool _RunState;
         public bool RunState
         {
             get => _RunState;
-            set => this.RaiseAndSetIfChanged(ref _RunState, value);
+            set
+            {
+                RunStateTxt = value ? AppResources.GameList_StopBtn : AppResources.GameList_RuningBtn;
+                this.RaiseAndSetIfChanged(ref _RunState, value);
+            }
         }
 
         public ObservableCollection<SteamApp> _IdleGameList = new();
@@ -43,7 +58,7 @@ namespace System.Application.UI.ViewModels
         }
         public void DeleteAllButton_Click()
         {
-            var result = MessageBoxCompat.ShowAsync(@AppResources.ScriptShop_NoLogin, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith((s) =>
+            var result = MessageBoxCompat.ShowAsync(@AppResources.GameList_DeleteAll, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith((s) =>
             {
                 if (s.Result == MessageBoxResultCompat.OK)
                 {
@@ -59,16 +74,17 @@ namespace System.Application.UI.ViewModels
                             }
                         }
                         IdleGameList.Clear();
-                        GameLibrarySettings.AFKAppList.Value = new Dictionary<uint, string?>();
+                        GameLibrarySettings.AFKAppList.Value.Clear();
                         GameLibrarySettings.AFKAppList.RaiseValueChanged();
-
+                        RunState = false;
+                        Toast.Show(AppResources.GameList_DeleteSuccess);
                     }
                 }
             });
         }
         public void DeleteButton_Click(SteamApp app)
         {
-            var result = MessageBoxCompat.ShowAsync(@AppResources.ScriptShop_NoLogin, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith((s) =>
+            var result = MessageBoxCompat.ShowAsync(@AppResources.GameList_DeleteItem, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith((s) =>
             {
                 if (s.Result == MessageBoxResultCompat.OK)
                 {
@@ -84,9 +100,10 @@ namespace System.Application.UI.ViewModels
                                 SteamConnectService.Current.RuningSteamApps.Remove(runState);
                             }
                             IdleGameList.Remove(app);
+                            RunState = IdleGameList.Count(x => x.Process != null) > 0;
                             GameLibrarySettings.AFKAppList.Value.Remove(app.AppId);
                             GameLibrarySettings.AFKAppList.RaiseValueChanged();
-
+                            Toast.Show(AppResources.GameList_DeleteSuccess);
                         }
 
                     }
@@ -97,10 +114,48 @@ namespace System.Application.UI.ViewModels
 
         public void RunOrStopAllButton_Click()
         {
-            if (RunState) {
-            
-            } else { 
-            
+            if (!RunLoaingState)
+            {
+                RunLoaingState = true;
+                if (RunState)
+                {
+
+                    foreach (var item in IdleGameList)
+                    {
+                        var runState = SteamConnectService.Current.RuningSteamApps.FirstOrDefault(x => x.AppId == item.AppId);
+                        if (runState == null)
+                        {
+
+                            item.Process = Process.Start(AppHelper.ProgramPath, "-clt app -silence -id " + item.AppId.ToString(CultureInfo.InvariantCulture));
+                            SteamConnectService.Current.RuningSteamApps.Add(item);
+                        }
+                        else
+                        {
+                            if (runState.Process == null)
+                                runState.Process = Process.Start(AppHelper.ProgramPath, "-clt app -silence -id " + item.AppId.ToString(CultureInfo.InvariantCulture));
+                            item.Process = runState.Process;
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var item in IdleGameList)
+                    {
+                        var runState = SteamConnectService.Current.RuningSteamApps.FirstOrDefault(x => x.AppId == item.AppId);
+                        if (runState != null)
+                        {
+                            runState.Process?.Kill();
+                            SteamConnectService.Current.RuningSteamApps.Remove(runState);
+                            item.Process = null;
+                        }
+                    }
+                }
+                RunLoaingState = false;
+                Toast.Show(AppResources.GameList_OperationSuccess);
+            }
+            else
+            {
+                Toast.Show(AppResources.GameList_LoaingTips);
             }
         }
         public void RunStopBtn_Click(SteamApp app)
@@ -116,6 +171,8 @@ namespace System.Application.UI.ViewModels
                 RunOrStop(runInfoState);
                 app.Process = runInfoState.Process;
             }
+            RunState = IdleGameList.Count(x => x.Process != null) > 0;
+            Toast.Show(AppResources.GameList_OperationSuccess);
         }
         public void RunOrStop(SteamApp app)
         {
@@ -142,7 +199,7 @@ namespace System.Application.UI.ViewModels
                         var runState = SteamConnectService.Current.RuningSteamApps.FirstOrDefault(x => x.AppId == item.Key);
                         if (runState != null && runState.Process != null)
                         {
-
+                            RunState = true;
                             appInfo.Process = runState.Process;
                             appInfo.Process.Exited += (object? item, EventArgs e) =>
                             {
@@ -154,6 +211,7 @@ namespace System.Application.UI.ViewModels
                     }
                 }
             IdleGameList = list;
+            Toast.Show(AppResources.GameList_OperationSuccess);
         }
 
     }

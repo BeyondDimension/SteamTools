@@ -390,6 +390,15 @@
   <data name="GameList_AddAFKAppsSuccess" xml:space="preserve">
     <value>添加到挂时常列表成功</value>
   </data>
+  <data name="GameList_DeleteAll" xml:space="preserve">
+    <value>是否移除全部挂时常的游戏？</value>
+  </data>
+  <data name="GameList_DeleteItem" xml:space="preserve">
+    <value>是否将该游戏挂时常?</value>
+  </data>
+  <data name="GameList_DeleteSuccess" xml:space="preserve">
+    <value>移除成功</value>
+  </data>
   <data name="GameList_EditAppInfo" xml:space="preserve">
     <value>编辑游戏信息</value>
   </data>
@@ -417,6 +426,9 @@
   <data name="GameList_IsLoading" xml:space="preserve">
     <value>正在加载游戏列表...</value>
   </data>
+  <data name="GameList_LoaingTips" xml:space="preserve">
+    <value>操作进行中请稍后再试</value>
+  </data>
   <data name="GameList_OnlyInstalled" xml:space="preserve">
     <value>仅显示已安装的游戏</value>
   </data>
@@ -432,6 +444,9 @@
   <data name="GameList_OpenStoreUrl" xml:space="preserve">
     <value>打开商店页</value>
   </data>
+  <data name="GameList_OperationSuccess" xml:space="preserve">
+    <value>操作成功</value>
+  </data>
   <data name="GameList_Play" xml:space="preserve">
     <value>开始游戏</value>
   </data>
@@ -443,6 +458,9 @@
   </data>
   <data name="GameList_RemoveBtn" xml:space="preserve">
     <value>移除全部</value>
+  </data>
+  <data name="GameList_RemoveItemBtn" xml:space="preserve">
+    <value>取消挂时常</value>
   </data>
   <data name="GameList_ResizeAppLogo" xml:space="preserve">
     <value>调整封面大小</value>
@@ -456,6 +474,9 @@
   <data name="GameList_RuningWait" xml:space="preserve">
     <value>正在启动中...</value>
   </data>
+  <data name="GameList_RunState" xml:space="preserve">
+    <value>运行中</value>
+  </data>
   <data name="GameList_SetCustomImage" xml:space="preserve">
     <value>设置自定义封面</value>
   </data>
@@ -467,6 +488,9 @@
   </data>
   <data name="GameList_StopItemBtn" xml:space="preserve">
     <value>暂停</value>
+  </data>
+  <data name="GameList_StopState" xml:space="preserve">
+    <value>暂停中</value>
   </data>
   <data name="GameList_Unsupport" xml:space="preserve">
     <value>不支持的操作</value>

@@ -28,11 +28,18 @@
       <Border  DockPanel.Dock="Top" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"  Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10" Margin="20 20 20 0">
         <DockPanel>
           <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Left">
-
+            <controls:ProgressRing IsIndeterminate="True"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RuningWait,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                        HorizontalAlignment="Stretch"
+                        Height="30"
+                        Width="30"
+                        IsVisible="{Binding RunLoaingState}" />
             <ToggleButton Background="Transparent"
-                                   Cursor="Hand"
-                                   IsChecked="{Binding RunState,Mode=TwoWay}"
-                                   ToolTip.Tip="{ReflectionBinding Path=Res.GameList_OnlyInstalled,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                          Cursor="Hand"
+                          IsVisible="{Binding !RunLoaingState}"
+                          IsChecked="{Binding RunState,Mode=TwoWay}"
+                          Command="{ReflectionBinding RunOrStopAllButton_Click}"
+                          ToolTip.Tip="{Binding RunStateTxt}">
               <PathIcon Data="{StaticResource PlayCircleDrawing}" />
             </ToggleButton>
 
@@ -45,7 +52,7 @@
           </StackPanel>
           <Button Background="Transparent" Cursor="Hand" HorizontalAlignment="Right"
                  Command="{ReflectionBinding DeleteAllButton_Click}"
-                 ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                 ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RemoveBtn,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <PathIcon Width="16"  Data="{StaticResource DeleteDrawing}" />
           </Button>
         </DockPanel>
@@ -99,7 +106,7 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                              IsVisible="{Binding !Process,Converter={StaticResource IsNullConverter}}"
-                         ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                         ToolTip.Tip="{ReflectionBinding Path=Res.GameList_StopItemBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"
                          Command="{ReflectionBinding #u.DataContext.RunStopBtn_Click}"
                          CommandParameter="{Binding}">
                           <PathIcon Width="48" Height="48" Data="{DynamicResource PauseCircleDrawing}">
@@ -111,7 +118,7 @@
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
                             IsVisible="{Binding Process,Converter={StaticResource IsNullConverter}}"
-                            ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                            ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RuningItemBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"
                             Command="{ReflectionBinding #u.DataContext.RunStopBtn_Click}"
                             CommandParameter="{Binding}">
                           <PathIcon Width="48" Height="48" Data="{DynamicResource PlayCircleDrawing}">
@@ -122,7 +129,7 @@
                                 Cursor="Hand"
                                 HorizontalAlignment="Right"
                                 Margin="0,0,0,150"
-                                ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RemoveItemBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.DeleteButton_Click}"
                                 CommandParameter="{Binding}">
                           <PathIcon Width="10" Data="{DynamicResource CloseDrawing}">
@@ -134,7 +141,22 @@
                   </Border>
 
                   <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding DisplayName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                  <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding AppId}" FontSize="10" Foreground="{DynamicResource InactiveForegroundBrushKey}" />
+                  <Panel IsVisible="{Binding !Process,Converter={StaticResource IsNullConverter}}">
+                    <Ellipse Height="6" Width="6" Fill="#47A42B"></Ellipse>
+                    <TextBlock
+                         Text="{ReflectionBinding Path=Res.GameList_RunState,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                         VerticalAlignment="Center"
+                         TextWrapping="WrapWithOverflow"
+                         FontSize="10" />
+                  </Panel>
+                  <Panel IsVisible="{Binding Process,Converter={StaticResource IsNullConverter}}">
+                    <Ellipse Height="6" Width="6"  Fill="#FF4F58"> </Ellipse>
+                    <TextBlock
+                         Text="{ReflectionBinding Path=Res.GameList_StopState,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                         VerticalAlignment="Center"
+                         TextWrapping="WrapWithOverflow"
+                         FontSize="10" />
+                  </Panel>
                 </StackPanel>
               </DataTemplate>
             </ItemsRepeater.ItemTemplate>
