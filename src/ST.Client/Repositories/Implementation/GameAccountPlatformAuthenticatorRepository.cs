@@ -112,7 +112,7 @@ namespace System.Application.Repositories.Implementation
 
             (var notSecondaryPassword, var encryptionMode) = GetEncryptionMode2(isLocal, secondaryPassword);
 
-            var name_bytes = await ss.E(item.Name, encryptionMode, secondaryPassword);
+            var name_bytes = await ss.E(item.Name ?? string.Empty, encryptionMode, secondaryPassword);
             name_bytes = name_bytes.ThrowIsNull(nameof(name_bytes));
 
             var value_bytes = await ss.EB(value, encryptionMode, secondaryPassword);

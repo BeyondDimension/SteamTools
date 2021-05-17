@@ -1,4 +1,4 @@
-﻿namespace System.Application.Models
+namespace System.Application.Models
 {
     /// <summary>
     /// 游戏平台令牌可传输模型
@@ -7,7 +7,7 @@
     {
         ushort Id { get; set; }
 
-        public int Index { get; set; }
+        int Index { get; set; }
 
         string Name { get; set; }
 
