@@ -115,16 +115,26 @@ namespace System.Application.UI.ViewModels
 
             HideAppCommand = ReactiveCommand.Create(OpenHideAppWindow);
             IdleAppCommand = ReactiveCommand.Create(OpenIdleAppWindow);
-#if DEBUG
+
+            EnableAFKAutoUpdateCommand = ReactiveCommand.Create(() =>
+            {
+                AFKAutoUpdate?.CheckmarkChange(GameLibrarySettings.IsAutoAFKApps.Value = !GameLibrarySettings.IsAutoAFKApps.Value);
+            });
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
+                   (AFKAutoUpdate=new MenuItemViewModel (nameof(AppResources.GameList_AutoAFK))
+                   {Command=EnableAFKAutoUpdateCommand }),
+                   new MenuItemViewModel (),
+
                   new MenuItemViewModel(nameof(AppResources.GameList_HideGameManger)){
                     Command =   HideAppCommand
                   },
                   new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)){ Command = IdleAppCommand },
             };
-#endif
         }
+        public ReactiveCommand<Unit, Unit> EnableAFKAutoUpdateCommand { get; }
+
+        public MenuItemViewModel? AFKAutoUpdate { get; }
         public void OpenHideAppWindow()
         {
             IShowWindowService.Instance.Show(CustomWindow.HideApp, new HideAppWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);

@@ -27,8 +27,8 @@ namespace System.Application.UI.ViewModels
             //   .AutoRefresh(x => x.Process));
             Refresh_Click();
         }
-        private string _RunStateTxt;
-        public string RunStateTxt
+        private string? _RunStateTxt;
+        public string? RunStateTxt
         {
             get => _RunStateTxt;
             set => this.RaiseAndSetIfChanged(ref _RunStateTxt, value);
@@ -99,11 +99,14 @@ namespace System.Application.UI.ViewModels
                                 runState.Process?.Kill();
                                 SteamConnectService.Current.RuningSteamApps.Remove(runState);
                             }
-                            IdleGameList.Remove(app);
-                            RunState = IdleGameList.Count(x => x.Process != null) > 0;
-                            GameLibrarySettings.AFKAppList.Value.Remove(app.AppId);
-                            GameLibrarySettings.AFKAppList.RaiseValueChanged();
-                            Toast.Show(AppResources.GameList_DeleteSuccess);
+                            MainThreadDesktop.BeginInvokeOnMainThread(() =>
+                            {
+                                IdleGameList.Remove(app);
+                                RunState = IdleGameList.Count(x => x.Process != null) > 0;
+                                GameLibrarySettings.AFKAppList.Value.Remove(app.AppId);
+                                GameLibrarySettings.AFKAppList.RaiseValueChanged();
+                                Toast.Show(AppResources.GameList_DeleteSuccess);
+                            });
                         }
 
                     }
@@ -163,8 +166,8 @@ namespace System.Application.UI.ViewModels
             var runInfoState = SteamConnectService.Current.RuningSteamApps.FirstOrDefault(x => x.AppId == app.AppId);
             if (runInfoState == null)
             {
-                SteamConnectService.Current.RuningSteamApps.Add(app);
                 RunOrStop(app);
+                SteamConnectService.Current.RuningSteamApps.Add(app);
             }
             else
             {

@@ -873,6 +873,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 自动挂时常 的本地化字符串。
+        /// </summary>
+        public static string GameList_AutoAFK {
+            get {
+                return ResourceManager.GetString("GameList_AutoAFK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 是否移除全部挂时常的游戏？ 的本地化字符串。
         /// </summary>
         public static string GameList_DeleteAll {
