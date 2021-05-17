@@ -133,7 +133,7 @@ namespace System.Application.UI
                     }
                     else
                     {
-                        initStartup(DILevel.Steam);
+                        initStartup(DILevel.Steam | DILevel.HttpClientFactory);
                         SteamConnectService.Current.Initialize(id);
                         var day = 86400000;
                         while (true)
