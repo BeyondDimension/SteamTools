@@ -1,9 +1,11 @@
 using System.Application.Models;
 using System.Diagnostics;
+using System.Runtime.Versioning;
 using System.Text;
 
 namespace System.Application.Services.Implementation
 {
+    [SupportedOSPlatform("Windows")]
     internal sealed class SystemWindowApiServiceImpl : ISystemWindowApiService
     {
         /// <summary>
@@ -29,14 +31,37 @@ namespace System.Application.Services.Implementation
                 //SelectWindow.ClassName = className.ToString();
                 User32Window.GetWindowThreadProcessId(handle, out int pid);
                 //SelectWindow.Process = Process.GetProcessById(pid);
-                var window = new HandleWindow
+                try
                 {
-                    Title = title.ToString(),
-                    ClassName = className.ToString(),
-                    Handle = handle,
-                    Process = Process.GetProcessById(pid)
-                };
-                action?.Invoke(window);
+                    var process = Process.GetProcessById(pid);
+                    string? path = null;
+                    if (process != null)
+                    {
+                        try
+                        {
+                            path = process.MainModule?.FileName;
+                        }
+                        catch // 32位进程无法访问64位进程
+                        {
+                            path = NativeMethods.QueryFullProcessImageName(process);
+                        }
+                    }
+                    var window = new HandleWindow
+                    {
+                        Title = title.ToString(),
+                        ClassName = className.ToString(),
+                        Handle = handle,
+                        Process = process,
+                        Path = path,
+                        Name = process?.ProcessName,
+                    };
+                    action?.Invoke(window);
+                }
+                catch (Exception e)
+                {
+                    var errorMessage = e.GetAllMessage();
+                    Toast.Show(errorMessage);
+                }
             }
             MouseHook.SetSystemCursor(MouseHook.LoadCursor(IntPtr.Zero, MouseHook.OCR_CROSS), MouseHook.OCR_NORMAL);
             MouseHook.OnMouseUp += MouseHook_OnMouseUp;

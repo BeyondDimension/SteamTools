@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 
@@ -12,6 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
             if (DI.Platform == Platform.Linux)
             {
                 services.AddSingleton<IDesktopPlatformService, LinuxDesktopPlatformServiceImpl>();
+                services.AddSingleton<ISteamworksLocalApiService, EmptySteamworksLocalApiServiceImpl>();
             }
             else
             {

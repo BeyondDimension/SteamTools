@@ -1,7 +1,9 @@
 using System.Application.Models;
+using System.Runtime.Versioning;
 
 namespace System.Application.Services
 {
+    [SupportedOSPlatform("Windows")]
     public interface ISystemWindowApiService
     {
         /// <summary>

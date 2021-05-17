@@ -20,6 +20,7 @@
         ExtendClientAreaTitleBarHeightHint="30"
         WindowStartupLocation="CenterOwner"
         x:DataType="vm:BindPhoneNumberWindowViewModel"
+        x:CompileBindings="True"
         Title="{Binding Title}">
   <Panel>
     <controls:TitleBar />
@@ -31,7 +32,6 @@
           x:Name="TbPhoneNumber"
           Text="{Binding PhoneNumber}"
           Watermark="{ReflectionBinding Path=Res.User_NewPhone,Mode=OneWay,Source={x:Static resx:R.Current}}"
-          IsEnabled="{Binding CurrentStepIsValidation}"
           MaxLength="{ReflectionBinding Path=PhoneNumber,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
 
         <Panel>
@@ -49,7 +49,7 @@
         </Panel>
 
         <Button Classes="action"
-          Content="{Binding BtnSubmitText}"
+          Content="{ReflectionBinding Path=Res.Btn_Text_Complete,Mode=OneWay,Source={x:Static resx:R.Current}}"
           Command="{ReflectionBinding Submit}"
                 HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
 

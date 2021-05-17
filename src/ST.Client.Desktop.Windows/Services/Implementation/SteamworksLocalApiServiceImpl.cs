@@ -1,8 +1,9 @@
-﻿using SAM.API;
+using SAM.API;
 using SAM.API.Types;
 using System.Application.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using static System.Application.Services.ISteamworksLocalApiService;
 using UserStatsReceivedCallback = SAM.API.Callbacks.UserStatsReceived;
 
@@ -19,7 +20,7 @@ namespace System.Application.Services.Implementation
             SteamClient = new Client();
         }
 
-        public bool IsSupported => true;
+        public bool IsSupported => RuntimeInformation.ProcessArchitecture == Architecture.X86;
 
         public void DisposeSteamClient()
         {

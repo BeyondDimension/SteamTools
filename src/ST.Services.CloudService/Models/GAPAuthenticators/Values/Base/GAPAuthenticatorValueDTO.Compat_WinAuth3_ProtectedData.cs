@@ -1,8 +1,15 @@
-﻿namespace System.Security.Cryptography
+namespace System.Security.Cryptography
 {
     public interface IProtectedData
     {
-        public static IProtectedData Instance => DI.Get<IProtectedData>();
+        public static IProtectedData Instance
+        {
+            get
+            {
+                var value = DI.Get_Nullable<IProtectedData>();
+                return value ?? throw new PlatformNotSupportedException();
+            }
+        }
 
         public enum DataProtectionScope
         {

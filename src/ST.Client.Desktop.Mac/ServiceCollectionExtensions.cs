@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Application.UI;
@@ -14,6 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 services.AddSingleton<AppDelegate>();
                 services.AddSingleton<IDesktopPlatformService, MacDesktopPlatformServiceImpl>();
+                services.AddSingleton<ISteamworksLocalApiService, EmptySteamworksLocalApiServiceImpl>();
             }
             else
             {

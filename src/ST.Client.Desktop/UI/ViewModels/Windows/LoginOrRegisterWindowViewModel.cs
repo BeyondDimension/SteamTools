@@ -5,7 +5,6 @@ using System.Application.Services.CloudService;
 using System.Application.UI.Resx;
 using System.IO;
 using System.Properties;
-using System.Reactive;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,7 +18,11 @@ namespace System.Application.UI.ViewModels
         public LoginOrRegisterWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LoginAndRegister;
-            FastLogin = ReactiveCommand.CreateFromTask<FastLoginChannel>(async channel => await FastLoginOrRegisterAsync(Close, channel));
+            FastLogin = ReactiveCommand.CreateFromTask<string>(async channel =>
+            {
+                if (Enum.TryParse<FastLoginChannel>(channel, out var channel_))
+                    await FastLoginOrRegisterAsync(Close, channel_);
+            });
 
             SteamConnectService.Current.WhenAnyValue(x => x.CurrentSteamUser)
                 .Subscribe(_ => this.RaisePropertyChanged(nameof(SteamUser)));
@@ -123,7 +126,7 @@ namespace System.Application.UI.ViewModels
             WebView3WindowViewModel? vm = null;
             vm = new WebView3WindowViewModel
             {
-                Url = apiBaseUrl + $"/ExternalLogin/{(int)channel}",
+                Url = apiBaseUrl + (channel == FastLoginChannel.Steam ? "/ExternalLogin" : $"/ExternalLogin/{(int)channel}"),
                 StreamResponseFilterUrls = new[]
                 {
                     urlExternalLoginCallback,
