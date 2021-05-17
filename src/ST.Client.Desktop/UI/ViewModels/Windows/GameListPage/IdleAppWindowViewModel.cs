@@ -41,12 +41,6 @@ namespace System.Application.UI.ViewModels
             get => _IdleGameList;
             set => this.RaiseAndSetIfChanged(ref _IdleGameList, value);
         }
-        public void StopOrRunItem(SteamApp item)
-        {
-            SteamConnectService.Current.RuningSteamApps.FirstOrDefault(x => x.AppId == item.AppId);
-
-
-        }
         public void DeleteAllButton_Click()
         {
             var result = MessageBoxCompat.ShowAsync(@AppResources.ScriptShop_NoLogin, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith((s) =>
@@ -101,6 +95,14 @@ namespace System.Application.UI.ViewModels
 
         }
 
+        public void RunOrStopAllButton_Click()
+        {
+            if (RunState) {
+            
+            } else { 
+            
+            }
+        }
         public void RunStopBtn_Click(SteamApp app)
         {
             var runInfoState = SteamConnectService.Current.RuningSteamApps.FirstOrDefault(x => x.AppId == app.AppId);
@@ -112,6 +114,7 @@ namespace System.Application.UI.ViewModels
             else
             {
                 RunOrStop(runInfoState);
+                app.Process = runInfoState.Process;
             }
         }
         public void RunOrStop(SteamApp app)
@@ -128,6 +131,7 @@ namespace System.Application.UI.ViewModels
         }
         public void Refresh_Click()
         {
+            IdleGameList.Clear();
             var list = new ObservableCollection<SteamApp>();
             if (GameLibrarySettings.AFKAppList.Value != null)
                 foreach (var item in GameLibrarySettings.AFKAppList.Value)
