@@ -497,7 +497,7 @@ namespace System.Application.Services
             stream.Close();
         }
 
-        public async void SwitchEncryptionAuthenticators(bool isLocal, string password)
+        public async void SwitchEncryptionAuthenticators(bool isLocal, string? password)
         {
             await repository.SwitchEncryptionModeAsync(isLocal, password, Authenticators.Items.Select(s => s.AuthenticatorData));
         }
