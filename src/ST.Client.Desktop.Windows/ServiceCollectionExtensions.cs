@@ -14,18 +14,14 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services)
+        public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services, bool hasSteam)
         {
             if (DI.Platform == Platform.Windows)
             {
                 services.AddSingleton<IDesktopPlatformService, WindowsDesktopPlatformServiceImpl>();
-                if (RuntimeInformation.ProcessArchitecture == Architecture.X86)
+                if (hasSteam && RuntimeInformation.ProcessArchitecture == Architecture.X86)
                 {
                     services.AddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();
-                }
-                else
-                {
-                    services.AddSingleton<ISteamworksLocalApiService, EmptySteamworksLocalApiServiceImpl>();
                 }
                 services.AddSingleton<WindowsProtectedData>();
                 services.AddSingleton<IProtectedData>(s => s.GetRequiredService<WindowsProtectedData>());

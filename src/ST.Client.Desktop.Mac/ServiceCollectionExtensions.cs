@@ -8,13 +8,12 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services)
+        public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services, bool hasSteam)
         {
             if (DI.Platform == Platform.Apple)
             {
                 services.AddSingleton<AppDelegate>();
                 services.AddSingleton<IDesktopPlatformService, MacDesktopPlatformServiceImpl>();
-                services.AddSingleton<ISteamworksLocalApiService, EmptySteamworksLocalApiServiceImpl>();
             }
             else
             {

@@ -121,10 +121,6 @@ namespace System.Application
 #if !CONSOLEAPP
             HasNotifyIcon = hasMainProcessRequired;
 #endif
-#if !UI_DEMO
-            // 桌面平台服务 此项放在其他通用业务实现服务之前
-            services.AddDesktopPlatformService();
-#endif
 #endif
 #if !CONSOLEAPP
             var hasGUI = level.HasFlag(DILevel.GUI);
@@ -136,6 +132,10 @@ namespace System.Application
 #endif
             var hasHosts = level.HasFlag(DILevel.Hosts);
             var hasSteam = level.HasFlag(DILevel.Steam);
+#if !UI_DEMO
+            // 桌面平台服务 此项放在其他通用业务实现服务之前
+            services.AddDesktopPlatformService(hasSteam);
+#endif
 
 #if StartupTrace
             StartupTrace.Restart("DI.ConfigureDemandServices.Calc");

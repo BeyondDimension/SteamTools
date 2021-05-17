@@ -7,12 +7,11 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services)
+        public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services, bool hasSteam)
         {
             if (DI.Platform == Platform.Linux)
             {
                 services.AddSingleton<IDesktopPlatformService, LinuxDesktopPlatformServiceImpl>();
-                services.AddSingleton<ISteamworksLocalApiService, EmptySteamworksLocalApiServiceImpl>();
             }
             else
             {
