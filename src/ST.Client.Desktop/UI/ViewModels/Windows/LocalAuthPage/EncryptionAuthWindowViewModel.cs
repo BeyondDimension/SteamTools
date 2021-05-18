@@ -59,7 +59,7 @@ namespace System.Application.UI.ViewModels
                     {
                         if (hasPassword && hasLocal)
                         {
-                            Toast.Show("已经设置了加密");
+                            Toast.Show("已经设置了密码和本机加密");
                             return;
                         }
                     }
@@ -77,12 +77,24 @@ namespace System.Application.UI.ViewModels
                     Toast.Show("两次输入的密码不一致");
                 }
             }
-            //else if (IsOnlyCurrentComputerEncrypt)
-            //{
-            //}
-            //else
-            //{
-            //}
+            else if (IsOnlyCurrentComputerEncrypt)
+            {
+                if (hasLocal)
+                {
+                    Toast.Show("已经设置了本机加密");
+                    return;
+                }
+                VerifyPassword = null;
+            }
+            else
+            {
+                if (!hasPassword && !hasLocal)
+                {
+                    Toast.Show("");
+                    return;
+                }
+                VerifyPassword = null;
+            }
 
             AuthService.Current.SwitchEncryptionAuthenticators(IsOnlyCurrentComputerEncrypt, VerifyPassword);
         }

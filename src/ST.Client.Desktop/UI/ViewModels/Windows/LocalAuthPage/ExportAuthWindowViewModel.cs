@@ -20,5 +20,9 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsEncryption, value);
         }
 
+        public void ExportAuth() 
+        {
+
+        }
     }
 }

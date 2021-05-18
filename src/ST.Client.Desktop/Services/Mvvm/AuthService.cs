@@ -5,6 +5,7 @@ using ReactiveUI;
 using System.Application.Models;
 using System.Application.Repositories;
 using System.Application.UI.Resx;
+using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -37,7 +38,13 @@ namespace System.Application.Services
 
         public async void Initialize(bool isSync = false)
         {
-            var list = await repository.GetAllAsync();
+            var auths = await repository.GetAllSourceAsync();
+            var hasPassword = repository.HasSecondaryPassword(auths);
+            if (hasPassword)
+            {
+                await IShowWindowService.Instance.ShowDialog(CustomWindow.EncryptionAuth, new PasswordWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+            }
+            var list = await repository.ConvertToList(auths);
             if (list.Any_Nullable())
             {
                 Authenticators.AddOrUpdate(list.Select(s => new MyAuthenticator(s)));
@@ -498,6 +505,11 @@ namespace System.Application.Services
         }
 
         public async void SwitchEncryptionAuthenticators(bool isLocal, string? password)
+        {
+            await repository.SwitchEncryptionModeAsync(isLocal, password, Authenticators.Items.Select(s => s.AuthenticatorData));
+        }
+
+        public async void ExportAuthenticators(bool isLocal, string? password)
         {
             await repository.SwitchEncryptionModeAsync(isLocal, password, Authenticators.Items.Select(s => s.AuthenticatorData));
         }

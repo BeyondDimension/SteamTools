@@ -55,6 +55,7 @@
           <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip,Source={x:Static resx:R.Current},Mode=OneWay}"  PasswordChar="*"></TextBox>
         </StackPanel>
         <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                Command="{ReflectionBinding ExportAuth}"
                 Content="确认导出"></Button>
       </StackPanel>
     </Border>
