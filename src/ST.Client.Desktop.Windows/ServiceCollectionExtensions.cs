@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class ServiceCollectionExtensions
+    public static partial class ServiceCollectionExtensions
     {
         /// <summary>
         /// 添加桌面平台服务
@@ -36,6 +36,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 throw new PlatformNotSupportedException();
             }
+            services.AddMSAppCenterApplicationSettings();
             return services;
         }
     }

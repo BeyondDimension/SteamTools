@@ -1,10 +1,10 @@
-﻿using System.Text;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace System.Security
 {
     /// <summary>
-    /// 为键/值对提供简单的安全存储
+    /// 为键/值对提供简单的安全存储(值类型泛型与非泛型重载方法不兼容)
     /// </summary>
     /// <remarks>
     /// <para>每个平台使用平台提供的本机API来安全存储数据：</para>
@@ -127,6 +127,8 @@ namespace System.Security
                 return SetAsync(key, strValue);
             }
         }
+
+        Task<bool> ContainsKeyAsync(string key);
 
         static IStorage Instance => DI.Get<IStorage>();
 

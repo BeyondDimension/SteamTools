@@ -1,4 +1,4 @@
-﻿using System.Application.Repositories;
+using System.Application.Repositories;
 using System.Application.Services;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -56,6 +56,13 @@ namespace System.Security
             key = GetKey(key);
             var result = await DeleteAsync(key);
             return result > 0;
+        }
+
+        async Task<bool> IStorage.ContainsKeyAsync(string key)
+        {
+            key = GetKey(key);
+            var item = await FirstOrDefaultAsync(x => x.Id == key);
+            return item != null;
         }
     }
 }

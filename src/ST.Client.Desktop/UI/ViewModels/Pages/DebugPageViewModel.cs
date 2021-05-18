@@ -44,11 +44,12 @@ namespace System.Application.UI.ViewModels
 
         public void DebugButton_Click()
         {
-            Parallel.For(0, 10, (_, _) =>
-            {
-                DebugButton_Click1();
-                //Task.Run(DebugButton_Click1);
-            });
+            DebugButton_Click1();
+            //Parallel.For(0, 10, (_, _) =>
+            //{
+            //    DebugButton_Click1();
+            //    //Task.Run(DebugButton_Click1);
+            //});
         }
 
         public async void DebugButton_Click1()
@@ -218,6 +219,10 @@ namespace System.Application.UI.ViewModels
                 embeddedAes = e.ToString();
             }
             @string.AppendFormatLine("EmbeddedAes: {0}", embeddedAes);
+
+#if DEBUG
+            DI.Get<ITestAppCenter>().Test(@string);
+#endif
 
             DebugString += @string.ToString() + Environment.NewLine;
         }
@@ -530,5 +535,12 @@ namespace System.Application.UI.ViewModels
             }
             DebugString = s.ToString();
         }
+
+#if DEBUG
+        public interface ITestAppCenter
+        {
+            void Test(StringBuilder @string);
+        }
+#endif
     }
 }

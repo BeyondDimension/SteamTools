@@ -10,6 +10,7 @@
     <AssemblyName>System.Application.SteamTools.Client.Desktop.Windows</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
+    <DefineConstants>WINDOWS;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
