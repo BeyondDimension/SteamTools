@@ -39,12 +39,29 @@ namespace System.Application.UI
 #endif
                     if (IsMainProcess)
                     {
-                        appInstance = new ApplicationInstance();
+                        var isInitAppInstanceReset = false;
+                    initAppInstance: appInstance = new ApplicationInstance();
                         if (!appInstance.IsFirst)
                         {
                             //Console.WriteLine("ApplicationInstance.SendMessage(string.Empty);");
-                            ApplicationInstance.SendMessage(string.Empty);
-                            return;
+                            if (ApplicationInstance.SendMessage(string.Empty))
+                            {
+                                return;
+                            }
+                            else
+                            {
+                                if (!isInitAppInstanceReset &&
+                                    ApplicationInstance.TryKillCurrentAllProcess())
+                                {
+                                    isInitAppInstanceReset = true;
+                                    appInstance.Dispose();
+                                    goto initAppInstance;
+                                }
+                                else
+                                {
+                                    return;
+                                }
+                            }
                         }
                         appInstance.MessageReceived += value =>
                         {

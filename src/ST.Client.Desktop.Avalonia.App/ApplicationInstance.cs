@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
@@ -35,7 +36,7 @@ namespace System.Application.UI
             }
         }
 
-        static bool GetIsFirst()
+        static IEnumerable<Process> GetCurrentAllProcess()
         {
             var current = Process.GetCurrentProcess();
             var query = from p in Process.GetProcessesByName(current.ProcessName)
@@ -46,6 +47,29 @@ namespace System.Application.UI
                                     p.MainModule.FileName == current.MainModule.FileName &&
                                         p.MainModule.ModuleName == current.MainModule.ModuleName))
                         select p;
+            return query;
+        }
+
+        public static bool TryKillCurrentAllProcess()
+        {
+            foreach (var p in GetCurrentAllProcess())
+            {
+                try
+                {
+                    p.Kill(true);
+                    p.WaitForExit(500);
+                }
+                catch
+                {
+
+                }
+            }
+            return GetIsFirst();
+        }
+
+        static bool GetIsFirst()
+        {
+            var query = GetCurrentAllProcess();
             var r = query.Any();
             return !r;
         }
@@ -97,19 +121,20 @@ namespace System.Application.UI
         /// 给主进程发送消息
         /// </summary>
         /// <param name="value"></param>
-        public static void SendMessage(string value)
+        public static bool SendMessage(string value)
         {
             var name = GetPipeName();
             try
             {
                 using var pipeClient = new NamedPipeClientStream(".", name, PipeDirection.Out, PipeOptions.None, TokenImpersonationLevel.Impersonation);
-                pipeClient.Connect();
+                pipeClient.Connect(1000);
                 using StreamWriter sw = new StreamWriter(pipeClient);
                 sw.WriteLine(value);
+                return true;
             }
-            catch (IOException)
+            catch
             {
-
+                return false;
             }
         }
 
