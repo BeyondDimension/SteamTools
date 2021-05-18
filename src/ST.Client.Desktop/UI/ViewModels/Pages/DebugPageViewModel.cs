@@ -44,12 +44,12 @@ namespace System.Application.UI.ViewModels
 
         public void DebugButton_Click()
         {
-            DebugButton_Click1();
-            //Parallel.For(0, 10, (_, _) =>
-            //{
-            //    DebugButton_Click1();
-            //    //Task.Run(DebugButton_Click1);
-            //});
+            //DebugButton_Click1();
+            Parallel.For(0, 10, (_, _) =>
+            {
+                DebugButton_Click1();
+                //Task.Run(DebugButton_Click1);
+            });
         }
 
         public async void DebugButton_Click1()

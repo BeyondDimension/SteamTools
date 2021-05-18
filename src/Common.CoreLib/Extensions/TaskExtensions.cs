@@ -1,4 +1,4 @@
-﻿// https://github.com/aspnet/AspNetIdentity/blob/master/src/Microsoft.AspNet.Identity.Core/AsyncHelper.cs
+// https://github.com/aspnet/AspNetIdentity/blob/master/src/Microsoft.AspNet.Identity.Core/AsyncHelper.cs
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ namespace System
 {
     public static class TaskExtensions
     {
-        static readonly TaskFactory _myTaskFactory = new TaskFactory(CancellationToken.None,
+        static readonly TaskFactory _myTaskFactory = new(CancellationToken.None,
             TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
 
         public static TResult RunSync<TResult>(this Func<Task<TResult>> func)

@@ -78,6 +78,7 @@ namespace Microsoft.AppCenter.Utils
 {
     internal sealed class ApplicationSettings : IApplicationSettings
     {
+        static readonly object configLock = new();
         readonly IStorage storage;
 
         public ApplicationSettings(IStorage storage)
@@ -87,34 +88,46 @@ namespace Microsoft.AppCenter.Utils
 
         public bool ContainsKey(string key)
         {
-            Func<Task<bool>> func = () => storage.ContainsKeyAsync(key);
-            var r = func.RunSync();
-            return r;
+            lock (configLock)
+            {
+                Func<Task<bool>> func = () => storage.ContainsKeyAsync(key);
+                var r = func.RunSync();
+                return r;
+            }
         }
 
         public T? GetValue<T>(string key, T? defaultValue = default) where T : notnull
         {
-            Func<Task<string?>> func = () => storage.GetAsync(key);
-            var r = func.RunSync();
-            if (r != null)
+            lock (configLock)
             {
-                var r2 = (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(r);
-                return r2;
+                Func<Task<string?>> func = () => storage.GetAsync(key);
+                var r = func.RunSync();
+                if (r != null)
+                {
+                    var r2 = (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(r);
+                    return r2;
+                }
             }
             return defaultValue;
         }
 
         public void Remove(string key)
         {
-            Func<Task> func = () => storage.RemoveAsync(key);
-            func.RunSync();
+            lock (configLock)
+            {
+                Func<Task> func = () => storage.RemoveAsync(key);
+                func.RunSync();
+            }
         }
 
         public void SetValue(string key, object value)
         {
             var invariant = value != null ? TypeDescriptor.GetConverter(value.GetType()).ConvertToInvariantString(value) : null;
-            Func<Task> func = () => storage.SetAsync(key, invariant);
-            func.RunSync();
+            lock (configLock)
+            {
+                Func<Task> func = () => storage.SetAsync(key, invariant);
+                func.RunSync();
+            }
         }
     }
 
