@@ -134,9 +134,14 @@ namespace System.Application.UI.ViewModels
                         }
                         else
                         {
-                            if (runState.Process == null)
+                            if (runState.Process == null || !runState.Process.HasExited)
+                            {
                                 runState.Process = Process.Start(AppHelper.ProgramPath, "-clt -silence app -id " + runState.AppId.ToString(CultureInfo.InvariantCulture));
-                            item.Process = runState.Process;
+                            }
+                            else
+                            {
+                                item.Process = runState.Process;
+                            }
                         }
                     }
                 }
@@ -177,7 +182,6 @@ namespace System.Application.UI.ViewModels
             else
             {
                 RunOrStop(runInfoState);
-                app.Process = runInfoState.Process;
             }
             RunState = IdleGameList.Count(x => x.Process != null) > 0;
             Toast.Show(AppResources.GameList_OperationSuccess);
@@ -208,18 +212,29 @@ namespace System.Application.UI.ViewModels
                         if (runState != null && runState.Process != null)
                         {
                             RunState = true;
-                            appInfo.Process = runState.Process;
-                            appInfo.Process.Exited += (object? item, EventArgs e) =>
+                            if (runState.Process.HasExited)
                             {
-                                SteamConnectService.Current.RuningSteamApps.Remove(runState);
-                            };
-                            appInfo.Process.EnableRaisingEvents = true;
+                                appInfo.Process = runState.Process;
+                                appInfo.Process.Exited += (object? item, EventArgs e) =>
+                                {
+                                    SteamConnectService.Current.RuningSteamApps.Remove(runState);
+                                };
+                                appInfo.Process.EnableRaisingEvents = true;
+                            }
+                            else
+                                appInfo.Process = null;
                         }
-                        appInfo.Process = null;
+                        else
+                        {
+                            appInfo.Process = null;
+                        }
                         list.Add(appInfo);
                     }
                     else
                     {
+                        var runState = SteamConnectService.Current.RuningSteamApps.FirstOrDefault(x => x.AppId == item.Key);
+                        runState?.Process?.Kill(); 
+
                         list.Add(new SteamApp
                         {
                             AppId = item.Key,
