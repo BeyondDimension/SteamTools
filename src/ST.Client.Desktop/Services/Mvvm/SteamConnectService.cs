@@ -22,8 +22,8 @@ namespace System.Application.Services
         #endregion
 
         private readonly ISteamworksLocalApiService ApiService = ISteamworksLocalApiService.Instance;
-        private readonly ISteamworksWebApiService SteamworksWebApiService = ISteamworksWebApiService.Instance;
-        private readonly ISteamDbWebApiService steamDbApiService = ISteamDbWebApiService.Instance;
+        //private readonly ISteamworksWebApiService SteamworksWebApiService = ISteamworksWebApiService.Instance;
+        //private readonly ISteamDbWebApiService steamDbApiService = ISteamDbWebApiService.Instance;
         private readonly ISteamService SteamTool = ISteamService.Instance;
 
         public SteamConnectService()
@@ -196,7 +196,7 @@ namespace System.Application.Services
                                         continue;
                                     }
                                     IsConnectToSteam = true;
-                                    CurrentSteamUser = await SteamworksWebApiService.GetUserInfo(id);
+                                    CurrentSteamUser = await DI.Get<ISteamworksWebApiService>().GetUserInfo(id);
                                     CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
                                     AvaterPath = CircleImageStream.Convert(await CurrentSteamUser.AvatarStream);
 

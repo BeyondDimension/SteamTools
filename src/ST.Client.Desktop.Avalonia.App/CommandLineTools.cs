@@ -150,11 +150,18 @@ namespace System.Application.UI
                     }
                     else
                     {
-                        initStartup(DILevel.Steam);
-                        SteamConnectService.Current.Initialize(id);
-                        var day = 86400000;
-                        while (true)
-                            Threading.Thread.Sleep(day);
+                        try
+                        {
+                            initStartup(DILevel.Steam);
+                            SteamConnectService.Current.Initialize(id);
+                            var day = 86400000;
+                            while (true)
+                                Threading.Thread.Sleep(day);
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
                     }
                 });
                 rootCommand.AddCommand(unlock_achievement);
