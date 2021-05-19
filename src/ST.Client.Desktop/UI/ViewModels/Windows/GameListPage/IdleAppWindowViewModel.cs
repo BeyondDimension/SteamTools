@@ -182,6 +182,7 @@ namespace System.Application.UI.ViewModels
             else
             {
                 RunOrStop(runInfoState);
+                app.Process = runInfoState.Process;
             }
             RunState = IdleGameList.Count(x => x.Process != null) > 0;
             Toast.Show(AppResources.GameList_OperationSuccess);
