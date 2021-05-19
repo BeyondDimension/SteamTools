@@ -4,6 +4,7 @@ using System.Application.Models.Settings;
 using System.Runtime.Serialization;
 using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
+using System.Application.Services;
 
 namespace System.Application.UI.ViewModels
 {
@@ -90,6 +91,14 @@ namespace System.Application.UI.ViewModels
         protected void InvokeOnUIDispatcher(Action action)
         {
             MainThreadDesktop.BeginInvokeOnMainThread(action);
+        }
+
+        /// <summary>
+        /// 关闭当前viewmodel绑定的窗口
+        /// </summary>
+        protected void Close()
+        {
+            IShowWindowService.Instance.CloseWindow(this);
         }
     }
 }

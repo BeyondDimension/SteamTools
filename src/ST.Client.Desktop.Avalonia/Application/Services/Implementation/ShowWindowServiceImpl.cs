@@ -177,5 +177,11 @@ namespace System.Application.Services.Implementation
                 ResizeModeCompat resizeMode = ResizeModeCompat.NoResize,
                 bool isDialog = true) => Show(typeWindowViewModel, isDialog, customWindow,
             title, viewModel, resizeMode);
+
+
+        public void CloseWindow(WindowViewModel vm) 
+        {
+            IDesktopAvaloniaAppService.Instance.CloseWindow(vm);
+        }
     }
 }

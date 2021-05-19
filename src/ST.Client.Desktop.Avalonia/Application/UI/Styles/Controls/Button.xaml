@@ -1,4 +1,4 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
+<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="20" Background="Black">
@@ -86,4 +86,17 @@
     <Style Selector="Button.plain /template/ ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
     </Style>
+
+  <Style Selector="Button.clip">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+  </Style>
+
+  <Style Selector="Button.clip /template/ ContentPresenter">
+    <Setter Property="Height" Value="30" />
+    <Setter Property="Width" Value="30" />
+    <Setter Property="CornerRadius" Value="15" />
+  </Style>
 </Styles>

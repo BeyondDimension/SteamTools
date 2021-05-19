@@ -103,9 +103,8 @@ namespace System.Application.UI.ViewModels
         public void Initialize()
         {
             Threading.Thread.CurrentThread.IsBackground = true;
-            SteamConnectService.Current.Initialize();
             ProxyService.Current.Initialize();
-            AuthService.Current.Initialize();
+            SteamConnectService.Current.Initialize();
 
             if (!IsInitialized)
             {

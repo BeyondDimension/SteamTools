@@ -1,8 +1,11 @@
 using Newtonsoft.Json.Linq;
 using ReactiveUI;
 using System.Application.Models;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Properties;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace System.Application.UI.ViewModels
 {
@@ -10,7 +13,7 @@ namespace System.Application.UI.ViewModels
     {
         public PasswordWindowViewModel() : base()
         {
-            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_AuthData;
+            Title = AppResources.LocalAuth_PasswordRequired;
         }
 
         private string? _Password;
@@ -20,5 +23,29 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _Password, value);
         }
 
+
+        public static async Task<string?> ShowPasswordDialog()
+        {
+            var vm = new PasswordWindowViewModel();
+            await IShowWindowService.Instance.ShowDialog(CustomWindow.Password, vm, string.Empty, ResizeModeCompat.CanResize);
+            return vm.Password;
+        }
+
+
+        public void Ok()
+        {
+            if (string.IsNullOrEmpty(Password))
+            {
+                Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
+                return;
+            }
+            this.Close();
+        }
+
+        public void Cancel()
+        {
+            Password = null;
+            this.Close();
+        }
     }
 }

@@ -40,11 +40,17 @@ namespace System.Application.Services
         {
             var auths = await repository.GetAllSourceAsync();
             var hasPassword = repository.HasSecondaryPassword(auths);
+            //var list = await repository.ConvertToList(auths);
+            List<IGAPAuthenticatorDTO> list;
             if (hasPassword)
             {
-                await IShowWindowService.Instance.ShowDialog(CustomWindow.EncryptionAuth, new PasswordWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+                var password = await PasswordWindowViewModel.ShowPasswordDialog();
+                list = await repository.ConvertToList(auths, password);
             }
-            var list = await repository.ConvertToList(auths);
+            else
+            {
+                list = await repository.ConvertToList(auths);
+            }
             if (list.Any_Nullable())
             {
                 Authenticators.AddOrUpdate(list.Select(s => new MyAuthenticator(s)));
@@ -63,6 +69,11 @@ namespace System.Application.Services
             }
         }
 
+        public async Task<int> GetRealAuthenticatorCount()
+        {
+            var auths = await repository.GetAllSourceAsync();
+            return auths.Count();
+        }
 
         /// <summary>
         /// WinAuth令牌导入
@@ -506,7 +517,16 @@ namespace System.Application.Services
 
         public async void SwitchEncryptionAuthenticators(bool isLocal, string? password)
         {
-            await repository.SwitchEncryptionModeAsync(isLocal, password, Authenticators.Items.Select(s => s.AuthenticatorData));
+            try
+            {
+                await repository.SwitchEncryptionModeAsync(isLocal, password, Authenticators.Items.Select(s => s.AuthenticatorData));
+            }
+            catch (Exception ex)
+            {
+                Toast.Show(AppResources.LocalAuth_ProtectionAuth_Error + ex.Message);
+                return;
+            }
+            Toast.Show(AppResources.LocalAuth_ProtectionAuth_Success);
         }
 
         public async void ExportAuthenticators(bool isLocal, string? password)

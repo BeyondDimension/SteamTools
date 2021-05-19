@@ -85,12 +85,9 @@
       <Border Padding="10">
         <TextBlock Text="{Binding Source={x:Static service:ToastService.Current},Path=Message,Mode=OneWay}" FontSize="14" Foreground="{DynamicResource HighlightForegroundColorKey}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" MaxWidth="780"/>
       </Border>
-      <Button Width="40" Height="40"
-              Background="Transparent"
-              VerticalContentAlignment="Center"
-              Command="{ReflectionBinding Source={x:Static service:ToastService.Current},Path=CloseBtn_Click}"
-              Cursor="Hand">
-        <PathIcon Data="{DynamicResource CloseDrawing}" Width="12" Height="12"></PathIcon>
+      <Button Classes="clip"
+            Command="{ReflectionBinding Source={x:Static service:ToastService.Current},Path=CloseBtn_Click}">
+        <PathIcon Data="{DynamicResource CloseDrawing}" Width="10" Height="10"></PathIcon>
       </Button>
     </StackPanel>
   </Border>

@@ -1774,6 +1774,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 需要解密才能继续 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_PasswordRequired {
+            get {
+                return ResourceManager.GetString("LocalAuth_PasswordRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入密码 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_PasswordRequired1 {
+            get {
+                return ResourceManager.GetString("LocalAuth_PasswordRequired1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 令牌加密 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth {
@@ -1797,6 +1815,15 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_ProtectionAuth_EnablePasswordTip {
             get {
                 return ResourceManager.GetString("LocalAuth_ProtectionAuth_EnablePasswordTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存加密选项出现错误 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth_Error {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth_Error", resourceCulture);
             }
         }
         
@@ -1828,11 +1855,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 没有任何更改需要保存 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth_NoChangeTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth_NoChangeTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 自定义密码 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_Password {
             get {
                 return ResourceManager.GetString("LocalAuth_ProtectionAuth_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入正确的密码 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth_PasswordErrorTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth_PasswordErrorTip", resourceCulture);
             }
         }
         
@@ -1846,11 +1891,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 保存加密设置成功 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth_Success {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 再次输入密码 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_VerifyPassword {
             get {
                 return ResourceManager.GetString("LocalAuth_ProtectionAuth_VerifyPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 两次输入的密码不一致 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth_VerifyPasswordErrorTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth_VerifyPasswordErrorTip", resourceCulture);
             }
         }
         
@@ -2860,6 +2923,15 @@ namespace System.Application.UI.Resx {
         public static string SteamAppType_Video {
             get {
                 return ResourceManager.GetString("SteamAppType_Video", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

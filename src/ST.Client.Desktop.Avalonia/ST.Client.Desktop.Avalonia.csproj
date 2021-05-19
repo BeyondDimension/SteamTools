@@ -21,6 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Remove="Application\UI\Assets\Fonts\WenQuanYiMicroHei-01.ttf" />
         <None Remove="Application\UI\Assets\movecross.png" />
     </ItemGroup>
 

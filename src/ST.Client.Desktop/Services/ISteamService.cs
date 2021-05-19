@@ -72,6 +72,12 @@ namespace System.Application.Services
         List<SteamUser> GetRememberUserList();
 
         /// <summary>
+        /// 获取所有当前PC共享授权信息
+        /// </summary>
+        /// <returns></returns>
+        List<AuthorizedDevice> GetAuthorizedDeviceList();
+
+        /// <summary>
         /// 设置下次登陆 Steam 用户
         /// </summary>
         /// <param name="userName"></param>

@@ -47,7 +47,7 @@
               <PathIcon Data="{DynamicResource SteamDrawing}" Width="100" Height="100" HorizontalAlignment="Center" Margin="0 0 0 25"></PathIcon>
 
               <TextBox Watermark="{ReflectionBinding Path=Res.Steam_User,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding UserName}" MaxWidth="300"></TextBox>
-              <TextBox Watermark="{ReflectionBinding Path=Res.Steam_Password,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding Password}" MaxWidth="300" PasswordChar="*"></TextBox>
+              <TextBox Watermark="{ReflectionBinding Path=Res.Steam_Password,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding Password}" MaxWidth="300" PasswordChar="*" Classes="revealPasswordButton"></TextBox>
 
               <Button Content="{ReflectionBinding Path=Res.Login,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Command="{ReflectionBinding LoginSteamImport}"></Button>
             </StackPanel>

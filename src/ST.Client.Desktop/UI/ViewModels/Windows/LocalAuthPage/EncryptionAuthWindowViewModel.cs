@@ -15,6 +15,19 @@ namespace System.Application.UI.ViewModels
         public EncryptionAuthWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_ProtectionAuth;
+            Initialize();
+        }
+
+        public async void Initialize()
+        {
+            var auths = await repository.GetAllSourceAsync();
+            IsPasswordEncrypt = repository.HasSecondaryPassword(auths);
+            IsOnlyCurrentComputerEncrypt = repository.HasLocal(auths);
+            if (IsPasswordEncrypt)
+            {
+                Password = "******";
+                VerifyPassword = "******";
+            }
         }
 
         private string? _Password;
@@ -59,7 +72,8 @@ namespace System.Application.UI.ViewModels
                     {
                         if (hasPassword && hasLocal)
                         {
-                            Toast.Show("已经设置了密码和本机加密");
+                            //Toast.Show("已经设置了密码和本机加密");
+                            Toast.Show(AppResources.LocalAuth_ProtectionAuth_NoChangeTip);
                             return;
                         }
                     }
@@ -67,21 +81,23 @@ namespace System.Application.UI.ViewModels
                     {
                         if (hasPassword)
                         {
-                            Toast.Show("已经开启了加密");
+                            //Toast.Show("已经开启了加密");
+                            Toast.Show(AppResources.LocalAuth_ProtectionAuth_NoChangeTip);
                             return;
                         }
                     }
                 }
                 else
                 {
-                    Toast.Show("两次输入的密码不一致");
+                    Toast.Show(AppResources.LocalAuth_ProtectionAuth_VerifyPasswordErrorTip);
                 }
             }
             else if (IsOnlyCurrentComputerEncrypt)
             {
                 if (hasLocal)
                 {
-                    Toast.Show("已经设置了本机加密");
+                    //Toast.Show("已经设置了本机加密");
+                    Toast.Show(AppResources.LocalAuth_ProtectionAuth_NoChangeTip);
                     return;
                 }
                 VerifyPassword = null;
@@ -90,11 +106,13 @@ namespace System.Application.UI.ViewModels
             {
                 if (!hasPassword && !hasLocal)
                 {
-                    Toast.Show("");
+                    Toast.Show(AppResources.LocalAuth_ProtectionAuth_NoChangeTip);
                     return;
                 }
                 VerifyPassword = null;
             }
+
+            this.Close();
 
             AuthService.Current.SwitchEncryptionAuthenticators(IsOnlyCurrentComputerEncrypt, VerifyPassword);
         }

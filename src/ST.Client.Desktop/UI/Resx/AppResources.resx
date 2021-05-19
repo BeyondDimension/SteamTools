@@ -693,6 +693,12 @@
   <data name="LocalAuth_OtherImport" xml:space="preserve">
     <value>其它软件导入</value>
   </data>
+  <data name="LocalAuth_PasswordRequired" xml:space="preserve">
+    <value>需要解密才能继续</value>
+  </data>
+  <data name="LocalAuth_PasswordRequired1" xml:space="preserve">
+    <value>请输入密码</value>
+  </data>
   <data name="LocalAuth_ProtectionAuth" xml:space="preserve">
     <value>令牌加密</value>
   </data>
@@ -701,6 +707,9 @@
   </data>
   <data name="LocalAuth_ProtectionAuth_EnablePasswordTip" xml:space="preserve">
     <value>您的认证器将使用您自己的密码进行加密，您需要输入您的密码才能打开WinAuth。如果您忘记了密码，并且没有备份，您的认证器将无法访问。</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_Error" xml:space="preserve">
+    <value>保存加密选项出现错误</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_Info" xml:space="preserve">
     <value>强烈建议使用密码保护你的认证器，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但你的令牌数据会有被盗取的风险。</value>
@@ -711,14 +720,26 @@
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
     <value>此外，你可以使用内置的Windows账户加密来保护和加密你的数据。这将把您的认证器锁定在这台计算机或用户上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装Windows或删除这个用户账户，你必须把这个功能关掉。</value>
   </data>
+  <data name="LocalAuth_ProtectionAuth_NoChangeTip" xml:space="preserve">
+    <value>没有任何更改需要保存</value>
+  </data>
   <data name="LocalAuth_ProtectionAuth_Password" xml:space="preserve">
     <value>自定义密码</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_PasswordErrorTip" xml:space="preserve">
+    <value>请输入正确的密码</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_SaveApply" xml:space="preserve">
     <value>保存并应用</value>
   </data>
+  <data name="LocalAuth_ProtectionAuth_Success" xml:space="preserve">
+    <value>保存加密设置成功</value>
+  </data>
   <data name="LocalAuth_ProtectionAuth_VerifyPassword" xml:space="preserve">
     <value>再次输入密码</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_VerifyPasswordErrorTip" xml:space="preserve">
+    <value>两次输入的密码不一致</value>
   </data>
   <data name="LocalAuth_RefreshAuthSuccess" xml:space="preserve">
     <value>令牌数据加载完成</value>
@@ -1057,6 +1078,9 @@
   <data name="Steam_UserLoginTip" xml:space="preserve">
     <value>登陆Steam账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易15天冷却期。
 (如果没有开Steam社区加速会导致无法登陆成功)</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
   </data>
   <data name="Success_" xml:space="preserve">
     <value>{0}成功</value>

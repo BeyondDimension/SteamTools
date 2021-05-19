@@ -67,9 +67,8 @@
             </ItemsRepeater.Layout>
             <ItemsRepeater.ItemTemplate>
               <DataTemplate>
-                <StackPanel Spacing="8">
-                  <Border DockPanel.Dock="Top" Classes="paper" Width="120"  x:Name="card">
-
+                <StackPanel Spacing="8" Width="120">
+                  <Border DockPanel.Dock="Top" Classes="paper" x:Name="card">
                     <i:Interaction.Behaviors>
                       <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{ReflectionBinding #card}">
                         <ia:ChangePropertyAction TargetObject="{ReflectionBinding #item_box}" PropertyName="IsVisible" Value="True"/>
@@ -78,10 +77,10 @@
                         <ia:ChangePropertyAction TargetObject="{ReflectionBinding #item_box}" PropertyName="IsVisible" Value="False"/>
                       </ia:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
-                    <Panel x:Name="app" Width="{ReflectionBinding $parent.Width}">
+                    <Panel x:Name="app" Width="{ReflectionBinding $parent[StackPanel].Width}">
                       <gif:Image2 x:Name="library"
                                   Stretch="UniformToFill"
-                                  DecodeWidth="{ReflectionBinding $parent.Width}"
+                                  DecodeWidth="{ReflectionBinding $parent[StackPanel].Width}"
                                   Source="{Binding LibraryLogoStream^}">
                       </gif:Image2>
                       <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png"
@@ -141,20 +140,20 @@
                   </Border>
 
                   <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding DisplayName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                  <StackPanel IsVisible="{Binding !Process,Converter={StaticResource IsNullConverter}}">
-                    <Ellipse Height="6" Width="6" Fill="#47A42B"></Ellipse>
+                  <WrapPanel IsVisible="{Binding !Process,Converter={StaticResource IsNullConverter}}">
+                    <Ellipse Height="6" Width="6" Fill="#47A42B" Margin="0 0 5 0"></Ellipse>
                     <TextBlock
                          Text="{ReflectionBinding Path=Res.GameList_RunState,Mode=OneWay,Source={x:Static resx:R.Current}}"
                          VerticalAlignment="Center"
                          FontSize="12" />
-                  </StackPanel>
-                  <StackPanel  IsVisible="{Binding Process,Converter={StaticResource IsNullConverter}}">
-                    <Ellipse Height="6" Width="6"  Fill="#FF4F58"> </Ellipse>
+                  </WrapPanel>
+                  <WrapPanel IsVisible="{Binding Process,Converter={StaticResource IsNullConverter}}">
+                    <Ellipse Height="6" Width="6"  Fill="#FF4F58" Margin="0 0 5 0"> </Ellipse>
                     <TextBlock
                          Text="{ReflectionBinding Path=Res.GameList_StopState,Mode=OneWay,Source={x:Static resx:R.Current}}"
                          VerticalAlignment="Center"
                          FontSize="12" />
-                  </StackPanel>
+                  </WrapPanel>
                 </StackPanel>
               </DataTemplate>
             </ItemsRepeater.ItemTemplate>

@@ -79,10 +79,14 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<Unit, Unit> ExportAuthCommand { get; }
 
-        //internal async override Task Initialize()
-        //{
-        //    await Task.CompletedTask;
-        //}
+        internal async override void Activation()
+        {
+            var authcount = await AuthService.Current.GetRealAuthenticatorCount();
+            //if (IsFirstActivation)
+            if (authcount > 0 && IsAuthenticatorsEmpty == true)
+                AuthService.Current.Initialize();
+            base.Activation();
+        }
 
         void AddAuthMenu_Click()
         {

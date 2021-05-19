@@ -34,6 +34,7 @@ namespace System.Application.Services.Implementation
         /// </list>
         /// </summary>
         readonly string? UserVdfPath;
+        readonly string? ConfigVdfPath;
         readonly string? AppInfoPath;
         readonly string? LibrarycacheDirPath;
         const string UserDataDirectory = "userdata";
@@ -52,9 +53,11 @@ namespace System.Application.Services.Implementation
             UserVdfPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "config", "loginusers.vdf");
             AppInfoPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "appcache", "appinfo.vdf");
             LibrarycacheDirPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "appcache", "librarycache");
+            ConfigVdfPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "config", "config.vdf");
 
             if (!File.Exists(UserVdfPath)) UserVdfPath = null;
             if (!File.Exists(AppInfoPath)) AppInfoPath = null;
+            if (!File.Exists(ConfigVdfPath)) ConfigVdfPath = null;
             if (!Directory.Exists(LibrarycacheDirPath)) LibrarycacheDirPath = null;
         }
 
@@ -92,7 +95,6 @@ namespace System.Application.Services.Implementation
             {
                 KillSteamProcess();
                 return true;
-
                 //if (IsRunningSteamProcess)
                 //{
                 //    Process closeProc = Process.Start(new ProcessStartInfo(SteamProgramPath, "-shutdown"));
@@ -185,6 +187,46 @@ namespace System.Application.Services.Implementation
                 Log.Error(TAG, e, "GetRememberUserList Fail(1).");
             }
             return users;
+        }
+
+        public List<AuthorizedDevice> GetAuthorizedDeviceList()
+        {
+            var authorizeds = new List<AuthorizedDevice>();
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(ConfigVdfPath) && File.Exists(ConfigVdfPath))
+                {
+                    // 注意：动态类型在移动端受限，且运行时可能抛出异常
+                    dynamic v = VdfHelper.Read(ConfigVdfPath);
+                    var authorizedDevice = v.Value.AuthorizedDevice.Value;
+                    if (authorizedDevice != null)
+                    {
+                        foreach (var item in authorizedDevice)
+                        {
+                            try
+                            {
+                                var i = item.Value;
+                                authorizeds.Add(new AuthorizedDevice()
+                                {
+                                    SteamId3 = item.Key,
+                                    Timeused = i.timeused,
+                                    Description = i.description,
+                                    Tokenid = i.tokenid,
+                                });
+                            }
+                            catch (Exception e)
+                            {
+                                Log.Error(TAG, e, "GetAuthorizedDeviceList Fail(0).");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e, "GetAuthorizedDeviceList Fail(1).");
+            }
+            return authorizeds;
         }
 
         public void SetCurrentUser(string userName) => platformService.SetCurrentUser(userName);
