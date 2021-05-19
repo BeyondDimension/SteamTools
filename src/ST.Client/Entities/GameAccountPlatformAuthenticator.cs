@@ -1,7 +1,10 @@
 #pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 using SQLite;
+using System.Application.Columns;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using MPIgnore = MessagePack.IgnoreMemberAttribute;
+using MPObject = MessagePack.MessagePackObjectAttribute;
 using NotNull = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 using SQLiteNotNull = SQLite.NotNullAttribute;
 using SQLiteTable = SQLite.TableAttribute;
@@ -13,7 +16,8 @@ namespace System.Application.Entities
     /// </summary>
     [SQLiteTable(TableName)]
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
-    public sealed class GameAccountPlatformAuthenticator : IEntity<ushort>
+    [MPObject(keyAsPropertyName: true)]
+    public sealed class GameAccountPlatformAuthenticator : IEntity<ushort>, IOrder, IOrderGAPAuthenticator
     {
         public const string TableName = "E4401864";
         public const string ColumnName_ServerId = "C9835F84";
@@ -23,6 +27,7 @@ namespace System.Application.Entities
         [Column("1DEF5924")]
         [PrimaryKey]
         [AutoIncrement]
+        [MPIgnore]
         public ushort Id { get; set; }
 
         [Column("41B24805")]
@@ -72,7 +77,14 @@ namespace System.Application.Entities
         /// 云同步Id
         /// </summary>
         [Column(ColumnName_ServerId)]
+        [MPIgnore]
         public Guid? ServerId { get; set; }
+
+        int IOrder.Order
+        {
+            get => Index;
+            set => Index = value;
+        }
     }
 }
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。

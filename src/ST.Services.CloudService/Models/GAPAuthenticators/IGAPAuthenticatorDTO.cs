@@ -1,14 +1,12 @@
+using System.Application.Columns;
+
 namespace System.Application.Models
 {
     /// <summary>
     /// 游戏平台令牌可传输模型
     /// </summary>
-    public interface IGAPAuthenticatorDTO
+    public interface IGAPAuthenticatorDTO : IOrderGAPAuthenticator
     {
-        ushort Id { get; set; }
-
-        int Index { get; set; }
-
         string Name { get; set; }
 
         GamePlatform Platform { get; }

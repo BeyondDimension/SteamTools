@@ -34,7 +34,7 @@ namespace System.Application.Repositories
         /// <param name="sources"></param>
         /// <returns></returns>
         bool HasLocal(IEnumerable<GameAccountPlatformAuthenticator> sources)
-            => sources.Any(x => !x.IsNotLocal);
+            => sources.Any() && sources.Any(x => !x.IsNotLocal);
 
         /// <summary>
         /// 源数据中是否含有需要二级密码的数据
@@ -42,7 +42,7 @@ namespace System.Application.Repositories
         /// <param name="sources"></param>
         /// <returns></returns>
         bool HasSecondaryPassword(IEnumerable<GameAccountPlatformAuthenticator> sources)
-            => sources.Any(x => x.IsNeedSecondaryPassword);
+            => sources.Any() && sources.Any(x => x.IsNeedSecondaryPassword);
 
         /// <summary>
         /// 将源数据转换为传输模型
@@ -60,6 +60,15 @@ namespace System.Application.Repositories
         /// <param name="secondaryPassword"></param>
         /// <returns></returns>
         Task InsertOrUpdateAsync(IGAPAuthenticatorDTO item, bool isLocal, string? secondaryPassword = null);
+
+        /// <inheritdoc cref="InsertOrUpdateAsync(IGAPAuthenticatorDTO, bool, string?)"/>
+        async Task InsertOrUpdateAsync(IEnumerable<IGAPAuthenticatorDTO> items, bool isLocal, string? secondaryPassword = null)
+        {
+            foreach (var item in items)
+            {
+                await InsertOrUpdateAsync(item, isLocal, secondaryPassword);
+            }
+        }
 
         /// <summary>
         /// 根据本地Id删除一条
@@ -111,6 +120,7 @@ namespace System.Application.Repositories
         /// <returns></returns>
         Task SetServerIdAsync(ushort id, Guid serverId);
 
+        /// <inheritdoc cref="SetServerIdAsync(ushort, Guid)"/>
         Task SetServerIdAsync(GameAccountPlatformAuthenticator source, Guid serverId);
 
         /// <summary>
@@ -121,5 +131,92 @@ namespace System.Application.Repositories
         /// <param name="items">可传递当前在视图模型上的数据，也可以传递 <see langword="null"/> 重新从数据库中查询</param>
         /// <returns></returns>
         Task SwitchEncryptionModeAsync(bool isLocal, string? secondaryPassword, IEnumerable<IGAPAuthenticatorDTO>? items = null);
+
+        /// <summary>
+        /// 导出一组DTO模型
+        /// </summary>
+        /// <param name="isLocal"></param>
+        /// <param name="secondaryPassword"></param>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        Task<byte[]> ExportAsync(bool isLocal, string? secondaryPassword, IEnumerable<IGAPAuthenticatorDTO> items);
+
+        /// <inheritdoc cref="ExportAsync(bool, string?, IEnumerable{IGAPAuthenticatorDTO})"/>
+        Task<byte[]> ExportAsync(bool isLocal, string? secondaryPassword, params IGAPAuthenticatorDTO[] items)
+        {
+            IEnumerable<IGAPAuthenticatorDTO> sources_ = items;
+            return ExportAsync(isLocal, secondaryPassword, sources_);
+        }
+
+        /// <summary>
+        /// 导入一组数据，返回对应的DTO模型组，之后可调用 <see cref="InsertOrUpdateAsync(IEnumerable{IGAPAuthenticatorDTO}, bool, string?)"/> 插入数据库
+        /// </summary>
+        /// <param name="secondaryPassword"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        Task<(ImportResultCode resultCode, IEnumerable<IGAPAuthenticatorDTO> result, int sourcesCount)> ImportAsync(string? secondaryPassword, byte[] content);
+
+        /// <summary>
+        /// 移动排序值，上移或下移，返回受影响的行数
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="index"></param>
+        /// <param name="upOrDown"></param>
+        /// <returns></returns>
+        Task<int> MoveOrderByIndexAsync(IList<IGAPAuthenticatorDTO> items, int index, bool upOrDown);
+
+        /// <inheritdoc cref="MoveOrderByIndexAsync(IList{IGAPAuthenticatorDTO}, int, bool)"/>
+        async Task<int> MoveOrderByItemAsync(IList<IGAPAuthenticatorDTO> items, IGAPAuthenticatorDTO item, bool upOrDown)
+        {
+            var index = items.IndexOf(item);
+            if (index > -1)
+            {
+                return await MoveOrderByIndexAsync(items, index, upOrDown);
+            }
+            return 0;
+        }
+
+        /// <inheritdoc cref="MoveOrderByIndexAsync(IList{IGAPAuthenticatorDTO}, int, bool)"/>
+        async Task<int> MoveOrderByIdAsync(IList<IGAPAuthenticatorDTO> items, int id, bool upOrDown)
+        {
+            var index = -1;
+            for (int i = 0; i < items.Count; i++)
+            {
+                var item = items[i];
+                if (item.Id == id)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            if (index > -1)
+            {
+                return await MoveOrderByIndexAsync(items, index, upOrDown);
+            }
+            return 0;
+        }
+
+        public enum ImportResultCode
+        {
+            /// <summary>
+            /// 导入成功
+            /// </summary>
+            Success,
+
+            /// <summary>
+            /// 部分数据导入成功
+            /// </summary>
+            PartSuccess,
+
+            /// <summary>
+            /// 密码不正确 或 仅本机加密导致非本机上无法解密
+            /// </summary>
+            IncorrectPwdOrIsNotLocal,
+
+            /// <summary>
+            /// 格式不正确，反序列化失败
+            /// </summary>
+            IncorrectFormat,
+        }
     }
 }

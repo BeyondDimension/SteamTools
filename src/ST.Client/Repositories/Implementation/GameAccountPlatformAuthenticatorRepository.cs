@@ -1,9 +1,12 @@
+using System.Application.Columns;
 using System.Application.Entities;
 using System.Application.Models;
 using System.Application.Services;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
+using static System.Application.Repositories.IGameAccountPlatformAuthenticatorRepository;
 
 namespace System.Application.Repositories.Implementation
 {
@@ -21,8 +24,14 @@ namespace System.Application.Repositories.Implementation
             var dbConnection = await GetDbConnection().ConfigureAwait(false);
             return await AttemptAndRetry(() =>
             {
-                return dbConnection.Table<GameAccountPlatformAuthenticator>().Take(IGameAccountPlatformAuthenticatorRepository.MaxValue).ToArrayAsync();
+                return dbConnection.Table<GameAccountPlatformAuthenticator>().Take(MaxValue).ToArrayAsync();
             }).ConfigureAwait(false);
+        }
+
+        static int GetOrder(IOrderGAPAuthenticator item)
+        {
+            var index = item.Index == default ? item.Id : item.Index;
+            return index;
         }
 
         async Task<IGAPAuthenticatorDTO?> Convert(GameAccountPlatformAuthenticator item, string? secondaryPassword)
@@ -44,18 +53,22 @@ namespace System.Application.Repositories.Implementation
                 return null;
             }
 
+            var index = GetOrder(item);
             return new GAPAuthenticatorDTO
             {
                 Id = item.Id,
                 Name = name_str,
                 ServerId = item.ServerId,
                 Value = value,
+                Index = index,
+                Created = item.Created,
+                LastUpdate = item.LastUpdate,
             };
         }
 
-        async IAsyncEnumerable<IGAPAuthenticatorDTO?> Convert(IEnumerable<GameAccountPlatformAuthenticator> items, string? secondaryPassword)
+        async IAsyncEnumerable<IGAPAuthenticatorDTO?> Convert(IEnumerable<GameAccountPlatformAuthenticator> sources, string? secondaryPassword)
         {
-            foreach (var item in items)
+            foreach (var item in sources)
             {
                 var value = await Convert(item, secondaryPassword);
                 yield return value;
@@ -105,8 +118,8 @@ namespace System.Application.Repositories.Implementation
             return (notSecondaryPassword, encryptionMode);
         }
 
-        public async Task InsertOrUpdateAsync(IGAPAuthenticatorDTO item, bool isLocal,
-            string? secondaryPassword = null)
+        async Task<GameAccountPlatformAuthenticator> Convert(IGAPAuthenticatorDTO item, bool isLocal,
+           string? secondaryPassword = null)
         {
             var value = Serializable.SMP(item.Value);
 
@@ -126,7 +139,17 @@ namespace System.Application.Repositories.Implementation
                 Value = value_bytes,
                 IsNotLocal = !isLocal,
                 IsNeedSecondaryPassword = !notSecondaryPassword,
+                Index = item.Index,
+                Created = item.Created,
+                LastUpdate = item.LastUpdate,
             };
+            return entity;
+        }
+
+        public async Task InsertOrUpdateAsync(IGAPAuthenticatorDTO item, bool isLocal,
+            string? secondaryPassword = null)
+        {
+            var entity = await Convert(item, isLocal, secondaryPassword);
 
             await InsertOrUpdateAsync(entity);
 
@@ -210,6 +233,103 @@ namespace System.Application.Repositories.Implementation
             {
                 await InsertOrUpdateAsync(item, isLocal, secondaryPassword);
             }
+        }
+
+        byte[] Export(IEnumerable<GameAccountPlatformAuthenticator> sources)
+        {
+            var result = Serializable.SMP(sources);
+            return result;
+        }
+
+        IEnumerable<GameAccountPlatformAuthenticator>? Import(byte[] content)
+        {
+            try
+            {
+                var result = Serializable.DMP<IEnumerable<GameAccountPlatformAuthenticator>>(content);
+                return result;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public async Task<byte[]> ExportAsync(bool isLocal, string? secondaryPassword, IEnumerable<IGAPAuthenticatorDTO> items)
+        {
+            var list = new List<GameAccountPlatformAuthenticator>();
+            foreach (var item in items)
+            {
+                var entity = await Convert(item, isLocal, secondaryPassword);
+                list.Add(entity);
+            }
+            var result = Export(list);
+            return result;
+        }
+
+        public async Task<(ImportResultCode resultCode, IEnumerable<IGAPAuthenticatorDTO> result, int sourcesCount)> ImportAsync(string? secondaryPassword, byte[] content)
+        {
+            int sourcesCount = 0;
+            var resultCode = ImportResultCode.Success;
+            IEnumerable<IGAPAuthenticatorDTO>? result = null;
+            var sources = Import(content);
+            if (sources == null)
+            {
+                resultCode = ImportResultCode.IncorrectFormat;
+            }
+            else
+            {
+                sourcesCount = sources.Count();
+                var list = new List<IGAPAuthenticatorDTO>();
+                foreach (var source in sources)
+                {
+                    var item = await Convert(source, secondaryPassword);
+                    if (item != null)
+                    {
+                        list.Add(item);
+                    }
+                    else
+                    {
+                        resultCode = ImportResultCode.PartSuccess;
+                    }
+                }
+                if (!list.Any())
+                {
+                    resultCode = ImportResultCode.IncorrectPwdOrIsNotLocal;
+                }
+                result = list;
+            }
+            return (resultCode, result ?? Array.Empty<IGAPAuthenticatorDTO>(), sourcesCount);
+        }
+
+        async Task<int> UpdateIndexByItemAsync(IGAPAuthenticatorDTO item)
+        {
+            var source = await FindAsync(item.Id);
+            if (source != null)
+            {
+                source.Index = item.Index;
+                var r = await UpdateAsync(source);
+                return r;
+            }
+            return 0;
+        }
+
+        public async Task<int> MoveOrderByIndexAsync(IList<IGAPAuthenticatorDTO> items, int index, bool upOrDown)
+        {
+            var item = items[index];
+            var item2Index = upOrDown ? index - 1 : index + 1;
+            if (item2Index > -1 && item2Index < items.Count)
+            {
+                var item2 = items[item2Index];
+                var orderIndex = GetOrder(item);
+                var orderIndex2 = GetOrder(item2);
+                item.Index = orderIndex2;
+                item2.Index = orderIndex;
+                var r = await Task.WhenAll(
+                    UpdateIndexByItemAsync(item),
+                    UpdateIndexByItemAsync(item2));
+                return r.Sum();
+            }
+            return 0;
         }
     }
 }
