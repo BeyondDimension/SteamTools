@@ -129,14 +129,14 @@ namespace System.Application.UI.ViewModels
                         if (runState == null)
                         {
 
-                            item.Process = Process.Start(AppHelper.ProgramPath, "-clt app -silence -id " + item.AppId.ToString(CultureInfo.InvariantCulture));
+                            item.Process = SteamConnectService.Current.RunProcess(item.AppId);
                             SteamConnectService.Current.RuningSteamApps.Add(item);
                         }
                         else
                         {
                             if (runState.Process == null || !runState.Process.HasExited)
                             {
-                                runState.Process = Process.Start(AppHelper.ProgramPath, "-clt app -silence -id " + runState.AppId.ToString(CultureInfo.InvariantCulture));
+                                runState.Process = SteamConnectService.Current.RunProcess(runState.AppId);
                             }
                             else
                             {
@@ -191,7 +191,7 @@ namespace System.Application.UI.ViewModels
         {
             if (app.Process == null)
             {
-                app.Process = Process.Start(AppHelper.ProgramPath, "-clt app -silence -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
+                app.Process = SteamConnectService.Current.RunProcess(app.AppId);
             }
             else
             {
@@ -213,7 +213,7 @@ namespace System.Application.UI.ViewModels
                         if (runState != null && runState.Process != null)
                         {
                             RunState = true;
-                            if (runState.Process.HasExited)
+                            if (!runState.Process.HasExited)
                             {
                                 appInfo.Process = runState.Process;
                                 appInfo.Process.Exited += (object? item, EventArgs e) =>
