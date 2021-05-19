@@ -131,6 +131,8 @@ namespace System.Application.UI.ViewModels
                   },
                   new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)){ Command = IdleAppCommand },
             };
+
+            AFKAutoUpdate?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value);
         }
         public ReactiveCommand<Unit, Unit> EnableAFKAutoUpdateCommand { get; }
 
