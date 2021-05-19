@@ -128,15 +128,14 @@ namespace System.Application.UI.ViewModels
                         var runState = SteamConnectService.Current.RuningSteamApps.FirstOrDefault(x => x.AppId == item.AppId);
                         if (runState == null)
                         {
-
-                            item.Process = SteamConnectService.Current.RunProcess(item.AppId);
+                            item.StartSteamAppProcess();
                             SteamConnectService.Current.RuningSteamApps.Add(item);
                         }
                         else
                         {
                             if (runState.Process == null || !runState.Process.HasExited)
                             {
-                                runState.Process = SteamConnectService.Current.RunProcess(runState.AppId);
+                                runState.StartSteamAppProcess();
                             }
                             else
                             {
@@ -191,7 +190,7 @@ namespace System.Application.UI.ViewModels
         {
             if (app.Process == null)
             {
-                app.Process = SteamConnectService.Current.RunProcess(app.AppId);
+                app.StartSteamAppProcess();
             }
             else
             {

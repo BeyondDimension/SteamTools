@@ -146,9 +146,7 @@ namespace System.Application.Services
                 }
             }
         }
-        public Process RunProcess(uint appid) { 
-        return Process.Start(AppHelper.ProgramPath, "-clt app -silence -id " + appid.ToString(CultureInfo.InvariantCulture));
-        }
+
         public void RunAFKApps()
         {
             if (GameLibrarySettings.AFKAppList.Value?.Count > 0)
@@ -167,12 +165,13 @@ namespace System.Application.Services
                     foreach (var item in RuningSteamApps)
                     {
                         if (item.Process == null)
-                            item.Process = RunProcess(item.AppId);
+                            item.StartSteamAppProcess();
                     }
                 });
                 t.Start();
             }
         }
+
         public void Initialize()
         {
             if (!SteamTool.IsRunningSteamProcess && SteamSettings.IsAutoRunSteam.Value)

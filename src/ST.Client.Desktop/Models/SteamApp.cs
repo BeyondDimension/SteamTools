@@ -1,5 +1,6 @@
 using ReactiveUI;
 using System.Application.Services;
+using System.Application.UI;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -138,7 +139,7 @@ namespace System.Application.Models
         {
             get => _Process;
             set => this.RaiseAndSetIfChanged(ref _Process, value);
-        } 
+        }
 
         //public TradeCard? Card { get; set; }
 
@@ -184,6 +185,10 @@ namespace System.Application.Models
             modified(this, new EventArgs());
         }
 
+        public Process StartSteamAppProcess()
+        {
+            return Process = Process.Start(AppHelper.ProgramPath, "-clt app -silence -id " + AppId.ToString());
+        }
 
         public static SteamApp? FromReader(BinaryReader reader)
         {
