@@ -1738,6 +1738,51 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 确认导出 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ExportAuth_ConfirmExport {
+            get {
+                return ResourceManager.GetString("LocalAuth_ExportAuth_ConfirmExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否需要导出带加密的数据 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ExportAuth_EncryptionExport {
+            get {
+                return ResourceManager.GetString("LocalAuth_ExportAuth_EncryptionExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入导出的数据密码 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ExportAuth_ExportPassword {
+            get {
+                return ResourceManager.GetString("LocalAuth_ExportAuth_ExportPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导出文件路径 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ExportAuth_ExportPath {
+            get {
+                return ResourceManager.GetString("LocalAuth_ExportAuth_ExportPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 选择路径 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ExportAuth_SelectPath {
+            get {
+                return ResourceManager.GetString("LocalAuth_ExportAuth_SelectPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 导入失败，请检查数据是否正确。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ImportFaild {
@@ -1810,7 +1855,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 您的认证器将使用您自己的密码进行加密，您需要输入您的密码才能打开WinAuth。如果您忘记了密码，并且没有备份，您的认证器将无法访问。 的本地化字符串。
+        ///   查找类似 *您的认证器将使用您自己的密码进行加密，您需要输入您的密码才能打开你被加密的令牌。如果您忘记了密码，并且没有备份，您的认证器将无法访问。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_EnablePasswordTip {
             get {

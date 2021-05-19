@@ -60,6 +60,10 @@ namespace System.Application.UI.ViewModels
 
         public async void EncryptionAuth()
         {
+            if (!await AuthService.Current.HasPasswordEncryptionShowPassWordWindow())
+            {
+                return;
+            }
             var auths = await repository.GetAllSourceAsync();
             var hasPassword = repository.HasSecondaryPassword(auths);
             var hasLocal = repository.HasLocal(auths);
@@ -68,24 +72,24 @@ namespace System.Application.UI.ViewModels
             {
                 if (!string.IsNullOrEmpty(VerifyPassword) && Password == VerifyPassword)
                 {
-                    if (IsOnlyCurrentComputerEncrypt)
-                    {
-                        if (hasPassword && hasLocal)
-                        {
-                            //Toast.Show("已经设置了密码和本机加密");
-                            Toast.Show(AppResources.LocalAuth_ProtectionAuth_NoChangeTip);
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        if (hasPassword)
-                        {
-                            //Toast.Show("已经开启了加密");
-                            Toast.Show(AppResources.LocalAuth_ProtectionAuth_NoChangeTip);
-                            return;
-                        }
-                    }
+                    //if (IsOnlyCurrentComputerEncrypt)
+                    //{
+                    //    if (hasPassword && hasLocal)
+                    //    {
+                    //        //Toast.Show("已经设置了密码和本机加密");
+                    //        Toast.Show(AppResources.LocalAuth_ProtectionAuth_NoChangeTip);
+                    //        return;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    if (hasPassword)
+                    //    {
+                    //        //Toast.Show("已经开启了加密");
+                    //        Toast.Show(AppResources.LocalAuth_ProtectionAuth_NoChangeTip);
+                    //        return;
+                    //    }
+                    //}
                 }
                 else
                 {

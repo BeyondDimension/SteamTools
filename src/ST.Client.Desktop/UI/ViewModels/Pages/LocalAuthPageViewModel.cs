@@ -135,11 +135,14 @@ namespace System.Application.UI.ViewModels
             });
         }
 
-        public void ShowSteamAuthData(MyAuthenticator auth)
+        public async void ShowSteamAuthData(MyAuthenticator auth)
         {
-            if (auth.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator)
+            if (await AuthService.Current.HasPasswordEncryptionShowPassWordWindow())
             {
-                IShowWindowService.Instance.Show(CustomWindow.ShowAuth, new ShowAuthWindowViewModel(auth), string.Empty, ResizeModeCompat.CanResize);
+                if (auth.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator)
+                {
+                    await IShowWindowService.Instance.Show(CustomWindow.ShowAuth, new ShowAuthWindowViewModel(auth), string.Empty, ResizeModeCompat.CanResize);
+                }
             }
         }
 
@@ -151,14 +154,20 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public void ShowEncryptionAuthWindow()
+        public async void ShowEncryptionAuthWindow()
         {
-            IShowWindowService.Instance.Show(CustomWindow.EncryptionAuth, new EncryptionAuthWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+            //if (await AuthService.Current.HasPasswordEncryptionShowPassWordWindow())
+            //{
+            await IShowWindowService.Instance.Show(CustomWindow.EncryptionAuth, new EncryptionAuthWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+            //}
         }
 
-        public void ShowExportAuthAuthWindow()
+        public async void ShowExportAuthAuthWindow()
         {
-            IShowWindowService.Instance.Show(CustomWindow.ExportAuth, new ExportAuthWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+            //if (await AuthService.Current.HasPasswordEncryptionShowPassWordWindow())
+            //{
+            await IShowWindowService.Instance.Show(CustomWindow.ExportAuth, new ExportAuthWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+            //}
         }
     }
 }

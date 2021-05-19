@@ -20,7 +20,15 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsEncryption, value);
         }
 
-        public void ExportAuth() 
+        private string? _Path;
+        public string? Path
+        {
+            get => _Path;
+            set => this.RaiseAndSetIfChanged(ref _Path, value);
+        }
+
+
+        public void ExportAuth()
         {
 
         }

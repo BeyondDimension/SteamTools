@@ -69,6 +69,27 @@ namespace System.Application.Services
             }
         }
 
+        public async Task<bool> HasPasswordEncryptionShowPassWordWindow()
+        {
+            var auths = await repository.GetAllSourceAsync();
+            var hasPassword = repository.HasSecondaryPassword(auths);
+            if (hasPassword)
+            {
+                var password = await PasswordWindowViewModel.ShowPasswordDialog();
+                var list = await repository.ConvertToList(auths, password);
+                if (list.Any_Nullable())
+                {
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                //没有密码直接成功
+                return true;
+            }
+        }
+
         public async Task<int> GetRealAuthenticatorCount()
         {
             var auths = await repository.GetAllSourceAsync();
@@ -479,7 +500,7 @@ namespace System.Application.Services
         public static async void AddOrUpdateSaveAuthenticators(MyAuthenticator auth)
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
-            await repository.InsertOrUpdateAsync(auth.AuthenticatorData, true);
+            await repository.InsertOrUpdateAsync(auth.AuthenticatorData, false);
             if (Current.Authenticators.Items.Any(s => s.Id == auth.Id))
             {
                 return;
