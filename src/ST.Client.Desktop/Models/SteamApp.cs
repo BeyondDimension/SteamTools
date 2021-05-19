@@ -54,7 +54,7 @@ namespace System.Application.Models
             {
                 if (_cachedName == null)
                 {
-                    _cachedName = _properties.GetPropertyValue<string>(null, new string[]
+                    _cachedName = _properties?.GetPropertyValue<string>(null, new string[]
                     {
                         NodeAppInfo,
                         NodeCommon,
@@ -65,7 +65,7 @@ namespace System.Application.Models
             }
             set
             {
-                _properties.SetPropertyValue(SteamAppPropertyType.String, value, new string[]
+                _properties?.SetPropertyValue(SteamAppPropertyType.String, value, new string[]
                 {
                     NodeAppInfo,
                     NodeCommon,

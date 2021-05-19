@@ -253,7 +253,6 @@ namespace System.Application.Services
             return false;
         }
 
-
         private void LoadGames(IEnumerable<SteamApp>? apps)
         {
             SteamApps.Clear();

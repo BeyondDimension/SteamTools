@@ -354,13 +354,13 @@ namespace System.Application.Services.Implementation
                                     continue;
                                 if (GameLibrarySettings.HideGameList.Value!.ContainsKey(app.AppId))
                                     continue;
-                                if (app.ParentId > 0)
-                                {
-                                    var parentApp = apps.FirstOrDefault(f => f.AppId == app.ParentId);
-                                    if (parentApp != null)
-                                        parentApp.ChildApp.Add(app.AppId);
-                                    //continue;
-                                }
+                                //if (app.ParentId > 0)
+                                //{
+                                //    var parentApp = apps.FirstOrDefault(f => f.AppId == app.ParentId);
+                                //    if (parentApp != null)
+                                //        parentApp.ChildApp.Add(app.AppId);
+                                //    //continue;
+                                //}
                                 apps.Add(app);
                                 //app.Modified += (s, e) =>
                                 //{
