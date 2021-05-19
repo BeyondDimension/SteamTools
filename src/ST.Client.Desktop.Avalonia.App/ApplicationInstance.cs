@@ -39,13 +39,15 @@ namespace System.Application.UI
         static IEnumerable<Process> GetCurrentAllProcess()
         {
             var current = Process.GetCurrentProcess();
+            var currentMainModule = current.TryGetMainModule();
             var query = from p in Process.GetProcessesByName(current.ProcessName)
+                        let pMainModule = p.TryGetMainModule()
                         where p.Id != current.Id &&
                             p.ProcessName == current.ProcessName &&
-                            (current.MainModule == null ||
-                                (p.MainModule != null &&
-                                    p.MainModule.FileName == current.MainModule.FileName &&
-                                        p.MainModule.ModuleName == current.MainModule.ModuleName))
+                            (currentMainModule == null ||
+                                (pMainModule != null &&
+                                    pMainModule.FileName == currentMainModule.FileName &&
+                                        pMainModule.ModuleName == currentMainModule.ModuleName))
                         select p;
             return query;
         }
@@ -61,7 +63,6 @@ namespace System.Application.UI
                 }
                 catch
                 {
-
                 }
             }
             return GetIsFirst();

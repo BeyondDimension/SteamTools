@@ -8,7 +8,6 @@
     <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
     <RootNamespace>System.Application.UI</RootNamespace>
     <AssemblyName>Steam++</AssemblyName>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(DefineConstants.Contains(`StartupTrace`)) ">
@@ -84,9 +83,9 @@
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition=" !$(DefineConstants.Contains(`PUBLISH`)) ">
+  <!--<ItemGroup Condition=" !$(DefineConstants.Contains(`PUBLISH`)) ">
     <ProjectReference Include="..\ST.Client.Desktop.Console.App\ST.Client.Desktop.Console.App.csproj" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Desktop.Windows.csproj" />
