@@ -25,8 +25,8 @@ namespace System.Application.UI.ViewModels
             IsOnlyCurrentComputerEncrypt = repository.HasLocal(auths);
             if (IsPasswordEncrypt)
             {
-                Password = "******";
-                VerifyPassword = "******";
+                //Password = "******";
+                //VerifyPassword = "******";
             }
         }
 

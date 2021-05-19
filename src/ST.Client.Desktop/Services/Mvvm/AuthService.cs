@@ -67,11 +67,19 @@ namespace System.Application.Services
                 //else
                 //    ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
             }
+            else if (auths.Any_Nullable() && !list.Any_Nullable())
+            {
+                Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordError);
+            }
         }
 
         public async Task<bool> HasPasswordEncryptionShowPassWordWindow()
         {
             var auths = await repository.GetAllSourceAsync();
+            if (!auths.Any_Nullable())
+            {
+                return false;
+            }
             var hasPassword = repository.HasSecondaryPassword(auths);
             if (hasPassword)
             {
@@ -81,6 +89,7 @@ namespace System.Application.Services
                 {
                     return true;
                 }
+                Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordError);
                 return false;
             }
             else

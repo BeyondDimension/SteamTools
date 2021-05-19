@@ -741,6 +741,9 @@
   <data name="LocalAuth_ProtectionAuth_Password" xml:space="preserve">
     <value>自定义密码</value>
   </data>
+  <data name="LocalAuth_ProtectionAuth_PasswordError" xml:space="preserve">
+    <value>密码错误</value>
+  </data>
   <data name="LocalAuth_ProtectionAuth_PasswordErrorTip" xml:space="preserve">
     <value>请输入正确的密码</value>
   </data>

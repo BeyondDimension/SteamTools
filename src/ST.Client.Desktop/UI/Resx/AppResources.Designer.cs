@@ -1918,6 +1918,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 密码错误 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth_PasswordError {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth_PasswordError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 请输入正确的密码 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_PasswordErrorTip {
