@@ -1103,6 +1103,9 @@
   <data name="Success_" xml:space="preserve">
     <value>{0}成功</value>
   </data>
+  <data name="Unbound" xml:space="preserve">
+    <value>未绑定</value>
+  </data>
   <data name="UnderConstruction" xml:space="preserve">
     <value>该功能正在开发中，敬请期待</value>
   </data>

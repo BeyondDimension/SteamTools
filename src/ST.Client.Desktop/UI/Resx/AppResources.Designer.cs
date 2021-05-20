@@ -2999,6 +2999,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 未绑定 的本地化字符串。
+        /// </summary>
+        public static string Unbound {
+            get {
+                return ResourceManager.GetString("Unbound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 该功能正在开发中，敬请期待 的本地化字符串。
         /// </summary>
         public static string UnderConstruction {

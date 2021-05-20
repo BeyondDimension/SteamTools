@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Threading.Tasks;
 
 namespace System.Application.Services
@@ -71,9 +71,7 @@ namespace System.Application.Services
         async Task<string> GetCurrentUserPhoneNumberAsync(bool notHideMiddleFour = false)
         {
             var phone_number = (await GetCurrentUserAsync())?.PhoneNumber;
-#if DEBUG
-            if (string.IsNullOrWhiteSpace(phone_number)) phone_number = PhoneNumberHelper.SimulatorDefaultValue;
-#endif
+            if (string.IsNullOrWhiteSpace(phone_number)) return string.Empty;
             return notHideMiddleFour ? phone_number : PhoneNumberHelper.ToStringHideMiddleFour(phone_number);
         }
 

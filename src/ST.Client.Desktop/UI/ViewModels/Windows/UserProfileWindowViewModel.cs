@@ -34,7 +34,8 @@ namespace System.Application.UI.ViewModels
                 if (userInfoSource.AreaId.HasValue) this.SetAreaId(userInfoSource.AreaId.Value);
 
                 userInfoSource = Serializable.DMP<UserInfoDTO>(userInfoValue) ?? throw new ArgumentNullException(nameof(userInfoSource));
-                CurrentPhoneNumber = await userManager.GetCurrentUserPhoneNumberAsync();
+                _CurrentPhoneNumber = await userManager.GetCurrentUserPhoneNumberAsync();
+                if (string.IsNullOrWhiteSpace(_CurrentPhoneNumber)) _CurrentPhoneNumber = AppResources.Unbound;
 
                 // IsModifySubscribe
                 void SubscribeOnNext<T>(T value, Action<T> onNext)
