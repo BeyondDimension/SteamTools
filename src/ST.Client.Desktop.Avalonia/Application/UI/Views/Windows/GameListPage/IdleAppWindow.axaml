@@ -34,21 +34,35 @@
                         Height="30"
                         Width="30"
                         IsVisible="{Binding RunLoaingState}" />
-            <ToggleButton Background="Transparent"
-                          Cursor="Hand"
-                          IsVisible="{Binding !RunLoaingState}"
-                          IsChecked="{Binding RunState,Mode=TwoWay}"
-                          Command="{ReflectionBinding RunOrStopAllButton_Click}"
-                          ToolTip.Tip="{Binding RunStateTxt}">
-              <PathIcon Data="{StaticResource PlayCircleDrawing}" />
-            </ToggleButton>
-
+            <Button 
+                     Background="Transparent"
+                     Cursor="Hand"
+                     IsVisible="{Binding RunState}"
+                     ToolTip.Tip="{Binding RunStateTxt}"
+                     Command="{ReflectionBinding RunOrStopAllButton_Click}">
+              <PathIcon Width="16" Height="16" Data="{DynamicResource PauseCircleDrawing}">
+              </PathIcon>
+            </Button>
+            <Button  
+                Background="Transparent"
+                Cursor="Hand"
+                IsVisible="{Binding !RunState}"
+                ToolTip.Tip="{Binding RunStateTxt}"
+                Command="{ReflectionBinding RunOrStopAllButton_Click}">
+              <PathIcon Width="16" Height="16" Data="{DynamicResource PlayCircleDrawing}">
+              </PathIcon>
+            </Button>
             <Button Background="Transparent" Cursor="Hand"
                     Command="{ReflectionBinding Refresh_Click}"
                     ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
             </Button>
-
+            <ToggleSwitch Content="" OnContent="" OffContent=""
+                                  Margin="5 0 0 5"
+                                  IsChecked="{Binding Source={x:Static service:SteamConnectService.Current},Path=IsAutoAFKApps}"
+                                  ToolTip.Tip="{ReflectionBinding Path=Res.GameList_AutoAFK,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                  VerticalAlignment="Center">
+            </ToggleSwitch>
           </StackPanel>
           <Button Background="Transparent" Cursor="Hand" HorizontalAlignment="Right"
                  Command="{ReflectionBinding DeleteAllButton_Click}"

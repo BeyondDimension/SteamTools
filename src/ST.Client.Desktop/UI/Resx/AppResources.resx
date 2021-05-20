@@ -391,7 +391,7 @@
     <value>添加到挂时常列表成功</value>
   </data>
   <data name="GameList_AutoAFK" xml:space="preserve">
-    <value>自动挂时常</value>
+    <value>程序启动时自动挂时常</value>
   </data>
   <data name="GameList_DeleteAll" xml:space="preserve">
     <value>是否移除全部挂时常的游戏？</value>

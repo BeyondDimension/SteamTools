@@ -118,7 +118,7 @@ namespace System.Application.UI.ViewModels
 
             EnableAFKAutoUpdateCommand = ReactiveCommand.Create(() =>
             {
-                AFKAutoUpdate?.CheckmarkChange(GameLibrarySettings.IsAutoAFKApps.Value = !GameLibrarySettings.IsAutoAFKApps.Value);
+                AFKAutoUpdate?.CheckmarkChange(SteamConnectService.Current.IsAutoAFKApps = !SteamConnectService.Current.IsAutoAFKApps);
             });
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
@@ -132,7 +132,7 @@ namespace System.Application.UI.ViewModels
                   new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)){ Command = IdleAppCommand },
             };
 
-            AFKAutoUpdate?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value);
+            AFKAutoUpdate?.CheckmarkChange(SteamConnectService.Current.IsAutoAFKApps);
         }
         public ReactiveCommand<Unit, Unit> EnableAFKAutoUpdateCommand { get; }
 

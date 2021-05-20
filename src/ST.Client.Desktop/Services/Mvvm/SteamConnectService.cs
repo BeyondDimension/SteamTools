@@ -146,7 +146,15 @@ namespace System.Application.Services
                 }
             }
         }
-
+        public bool IsAutoAFKApps
+        {
+            get => GameLibrarySettings.IsAutoAFKApps.Value;
+            set
+            {
+                GameLibrarySettings.IsAutoAFKApps.Value = value; 
+                this.RaisePropertyChanged(nameof(IsAutoAFKApps));
+            }
+        }
         public void RunAFKApps()
         {
             if (GameLibrarySettings.AFKAppList.Value?.Count > 0)
@@ -205,7 +213,7 @@ namespace System.Application.Services
                                     CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
 
-                                    if (GameLibrarySettings.IsAutoAFKApps)
+                                    if (IsAutoAFKApps)
                                         RunAFKApps();
 
                                     #region 初始化需要steam启动才能使用的功能

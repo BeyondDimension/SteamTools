@@ -18,7 +18,7 @@ namespace System.Application.UI.ViewModels
     {
         public HideAppWindowViewModel() : base()
         {
-            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_EditAppInfo;
+            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_HideGameManger;
 
             Refresh_Click();
         }

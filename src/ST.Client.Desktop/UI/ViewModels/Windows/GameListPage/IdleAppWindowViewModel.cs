@@ -21,7 +21,7 @@ namespace System.Application.UI.ViewModels
     {
         public IdleAppWindowViewModel() : base()
         {
-            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_EditAppInfo;
+            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_IdleGamesManger;
             //this.WhenAnyValue(x => x.IdleGameList)
             //   .Subscribe(x => x?.ToObservableChangeSet()
             //   .AutoRefresh(x => x.Process));
@@ -120,6 +120,7 @@ namespace System.Application.UI.ViewModels
             if (!RunLoaingState)
             {
                 RunLoaingState = true;
+                RunState = !RunState;
                 if (RunState)
                 {
 
