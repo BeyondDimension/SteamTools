@@ -34,10 +34,17 @@
           <ia:DataTriggerBehavior Binding="{Binding LoginState}" ComparisonCondition="Equal" Value="0">
             <ia:ChangePropertyAction TargetObject="{ReflectionBinding #SteamLogin}" PropertyName="IsVisible" Value="True"/>
             <ia:ChangePropertyAction TargetObject="{ReflectionBinding #PhoneLogin}" PropertyName="IsVisible" Value="False"/>
+            <ia:ChangePropertyAction TargetObject="{ReflectionBinding #FastLogin}" PropertyName="IsVisible" Value="False"/>
           </ia:DataTriggerBehavior>
           <ia:DataTriggerBehavior Binding="{Binding LoginState}" ComparisonCondition="Equal" Value="1">
             <ia:ChangePropertyAction TargetObject="{ReflectionBinding #PhoneLogin}" PropertyName="IsVisible" Value="True"/>
             <ia:ChangePropertyAction TargetObject="{ReflectionBinding #SteamLogin}" PropertyName="IsVisible" Value="False"/>
+            <ia:ChangePropertyAction TargetObject="{ReflectionBinding #FastLogin}" PropertyName="IsVisible" Value="False"/>
+          </ia:DataTriggerBehavior>
+          <ia:DataTriggerBehavior Binding="{Binding LoginState}" ComparisonCondition="Equal" Value="2">
+            <ia:ChangePropertyAction TargetObject="{ReflectionBinding #FastLogin}" PropertyName="IsVisible" Value="True"/>
+            <ia:ChangePropertyAction TargetObject="{ReflectionBinding #SteamLogin}" PropertyName="IsVisible" Value="False"/>
+            <ia:ChangePropertyAction TargetObject="{ReflectionBinding #PhoneLogin}" PropertyName="IsVisible" Value="False"/>
           </ia:DataTriggerBehavior>
         </i:Interaction.Behaviors>
 
@@ -118,9 +125,55 @@
 
             <TextBlock HorizontalAlignment="Center" Text="{ReflectionBinding Source={x:Static service:SteamConnectService.Current},Path=CurrentSteamUser.SteamNickName}" Classes="h5 bold"></TextBlock>
           </StackPanel>
+
+          <StackPanel x:Name="FastLogin"  Spacing="8">
+            <TextBlock Text="{ReflectionBinding Path=Res.User_FastLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+            <ListBox Background="Transparent">
+              <ListBox.Styles>
+                <Style Selector="ListBoxItem">
+                  <Setter Property="MinHeight" Value="50"></Setter>
+                  <Setter Property="Margin" Value="0 5"></Setter>
+                  <Setter Property="Background" Value="{StaticResource ThemeBrushKey}"></Setter>
+                </Style>
+                <Style Selector="PathIcon">
+                  <Setter Property="Height" Value="20"></Setter>
+                  <Setter Property="Width" Value="20"></Setter>
+                </Style>
+              </ListBox.Styles>
+              <ListBoxItem>
+                <DockPanel>
+                  <Panel DockPanel.Dock="Left">
+                    <PathIcon Data="{StaticResource QQ}"></PathIcon>
+                  </Panel>
+                  <Panel DockPanel.Dock="Right" Margin="10 0 0 0">
+                    <TextBlock Text="{ReflectionBinding Path=Res.User_QQLogin,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
+                  </Panel>
+                </DockPanel>
+              </ListBoxItem>
+              <ListBoxItem>
+                <DockPanel>
+                  <Panel DockPanel.Dock="Left">
+                    <PathIcon Data="{StaticResource Microsoft}"></PathIcon>
+                  </Panel>
+                  <Panel DockPanel.Dock="Right" Margin="10 0 0 0">
+                    <TextBlock Text="{ReflectionBinding Path=Res.User_MicroSoftLogin,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
+                  </Panel>
+                </DockPanel>
+              </ListBoxItem>
+              <ListBoxItem>
+                <DockPanel>
+                  <Panel DockPanel.Dock="Left">
+                    <PathIcon Data="{StaticResource Apple}" VerticalAlignment="Center"></PathIcon>
+                  </Panel>
+                  <Panel DockPanel.Dock="Right" Margin="10 0 0 0">
+                    <TextBlock Text="{ReflectionBinding Path=Res.User_AppleLogin,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
+                  </Panel>
+                </DockPanel>
+              </ListBoxItem>
+            </ListBox>
+          </StackPanel>
+
         </Panel>
-
-
         <StackPanel HorizontalAlignment="Center" Grid.Row="1" Margin="0 0 0 10" Orientation="Horizontal" Spacing="10">
           <!--<Button HorizontalContentAlignment="Center"
                   Background="Transparent"
@@ -141,6 +194,12 @@
               <PathIcon Data="{StaticResource SteamDrawing}" Width="18" Margin="5 0"></PathIcon>-->
             <TextBlock Text="{ReflectionBinding Path=Res.User_SteamFastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
             <!--</WrapPanel>-->
+          </Button>
+          <Separator Classes="Separator" Height="{ReflectionBinding $parent.Height}" Width="0.88"></Separator>
+          <Button Classes="plain"
+         HorizontalContentAlignment="Center"
+         Command="{ReflectionBinding ChangeLoginState}" CommandParameter="2">
+            <TextBlock Text="{ReflectionBinding Path=Res.User_OtherFastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
           </Button>
           <Separator Classes="Separator" Height="{ReflectionBinding $parent.Height}" Width="0.88"></Separator>
           <Button Classes="plain"

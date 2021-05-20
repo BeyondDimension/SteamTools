@@ -1173,6 +1173,9 @@
   <data name="User_Agreement" xml:space="preserve">
     <value>用户协议</value>
   </data>
+  <data name="User_AppleLogin" xml:space="preserve">
+    <value>使用 Apple 登录</value>
+  </data>
   <data name="User_BindPhoneNum" xml:space="preserve">
     <value>绑定手机</value>
   </data>
@@ -1185,6 +1188,9 @@
   </data>
   <data name="User_FastLogin" xml:space="preserve">
     <value>快速登录</value>
+  </data>
+  <data name="User_FastLoginTip" xml:space="preserve">
+    <value>选择如何登录您的 Steam++ 帐户</value>
   </data>
   <data name="User_FastLogin_" xml:space="preserve">
     <value>{0} 快速登录</value>
@@ -1217,8 +1223,14 @@
   <data name="User_LoiginSuccess" xml:space="preserve">
     <value>登录成功</value>
   </data>
+  <data name="User_MicroSoftLogin" xml:space="preserve">
+    <value>使用 Microsoft 登录</value>
+  </data>
   <data name="User_NewPhone" xml:space="preserve">
     <value>新手机号码</value>
+  </data>
+  <data name="User_OtherFastLogin" xml:space="preserve">
+    <value>其它快速登录</value>
   </data>
   <data name="User_Phone" xml:space="preserve">
     <value>手机号码</value>
@@ -1228,6 +1240,9 @@
   </data>
   <data name="User_Privacy" xml:space="preserve">
     <value>隐私政策</value>
+  </data>
+  <data name="User_QQLogin" xml:space="preserve">
+    <value>使用 QQ 登录</value>
   </data>
   <data name="User_Register" xml:space="preserve">
     <value>注册</value>

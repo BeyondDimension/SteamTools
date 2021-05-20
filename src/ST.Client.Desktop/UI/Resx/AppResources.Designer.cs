@@ -3053,6 +3053,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 使用 Apple 登录 的本地化字符串。
+        /// </summary>
+        public static string User_AppleLogin {
+            get {
+                return ResourceManager.GetString("User_AppleLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 绑定手机 的本地化字符串。
         /// </summary>
         public static string User_BindPhoneNum {
@@ -3094,6 +3103,15 @@ namespace System.Application.UI.Resx {
         public static string User_FastLogin_ {
             get {
                 return ResourceManager.GetString("User_FastLogin_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 选择如何登录您的 Steam++ 帐户 的本地化字符串。
+        /// </summary>
+        public static string User_FastLoginTip {
+            get {
+                return ResourceManager.GetString("User_FastLoginTip", resourceCulture);
             }
         }
         
@@ -3179,11 +3197,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 使用 Microsoft 登录 的本地化字符串。
+        /// </summary>
+        public static string User_MicroSoftLogin {
+            get {
+                return ResourceManager.GetString("User_MicroSoftLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 新手机号码 的本地化字符串。
         /// </summary>
         public static string User_NewPhone {
             get {
                 return ResourceManager.GetString("User_NewPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 其它快速登录 的本地化字符串。
+        /// </summary>
+        public static string User_OtherFastLogin {
+            get {
+                return ResourceManager.GetString("User_OtherFastLogin", resourceCulture);
             }
         }
         
@@ -3211,6 +3247,15 @@ namespace System.Application.UI.Resx {
         public static string User_Privacy {
             get {
                 return ResourceManager.GetString("User_Privacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 使用 QQ 登录 的本地化字符串。
+        /// </summary>
+        public static string User_QQLogin {
+            get {
+                return ResourceManager.GetString("User_QQLogin", resourceCulture);
             }
         }
         
