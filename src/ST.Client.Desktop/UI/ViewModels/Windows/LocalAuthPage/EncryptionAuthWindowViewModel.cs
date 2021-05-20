@@ -93,7 +93,8 @@ namespace System.Application.UI.ViewModels
                 }
                 else
                 {
-                    Toast.Show(AppResources.LocalAuth_ProtectionAuth_VerifyPasswordErrorTip);
+                    Toast.Show(AppResources.LocalAuth_ProtectionAuth_VerifyPasswordErrorTip); 
+                    return;
                 }
             }
             else if (IsOnlyCurrentComputerEncrypt)

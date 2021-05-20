@@ -216,7 +216,7 @@ namespace System.Application.UI.ViewModels
                             if (!runState.Process.HasExited)
                             {
                                 appInfo.Process = runState.Process;
-                                appInfo.Process.Exited += (object? item, EventArgs e) =>
+                                appInfo.Process.Exited += (object? _, EventArgs _) =>
                                 {
                                     SteamConnectService.Current.RuningSteamApps.Remove(runState);
                                 };
