@@ -50,7 +50,7 @@
         </DockPanel>
         <Separator Classes="Separator"></Separator>
         <DockPanel>
-          <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_EncryptionExport,Source={x:Static resx:R.Current},Mode=OneWay}"/>
+          <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_EncryptionExport,Source={x:Static resx:R.Current},Mode=OneWay}" VerticalAlignment="Center"/>
           <ToggleSwitch IsChecked="{Binding IsEncryption}"/>
         </DockPanel>
         <StackPanel Spacing="10" IsEnabled="{Binding IsEncryption}">
@@ -63,5 +63,9 @@
                 Content="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_ConfirmExport,Source={x:Static resx:R.Current},Mode=OneWay}"></Button>
       </StackPanel>
     </Border>
+
+
+    <!--Toast-->
+    <controls:ToastMessage />
   </Panel>
 </Window>

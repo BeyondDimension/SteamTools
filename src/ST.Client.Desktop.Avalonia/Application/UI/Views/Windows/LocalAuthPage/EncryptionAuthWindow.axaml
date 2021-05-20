@@ -69,5 +69,9 @@
                 Content="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_SaveApply,Source={x:Static resx:R.Current},Mode=OneWay}"></Button>
       </StackPanel>
     </Border>
+
+
+    <!--Toast-->
+    <controls:ToastMessage />
   </Panel>
 </Window>

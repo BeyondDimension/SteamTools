@@ -24,7 +24,7 @@
                             Opacity="0.8">
         </Image>-->
     <!--Background-->
-    <DockPanel HorizontalAlignment="Stretch">
+    <DockPanel HorizontalAlignment="Stretch" ZIndex="0">
       <ExperimentalAcrylicBorder IsHitTestVisible="False" DockPanel.Dock="Left" Width="240">
         <ExperimentalAcrylicBorder.Material>
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
@@ -38,7 +38,7 @@
     </DockPanel>
 
     <!--Title-->
-    <Grid ColumnDefinitions="240,*,Auto" ZIndex="0">
+    <Grid ColumnDefinitions="240,*,Auto">
       <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
         <Image Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
         <Label Content="{ReflectionBinding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
