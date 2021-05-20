@@ -210,6 +210,31 @@ namespace System.Application.UI.ViewModels
 
         public ICommand FastLogin { get; }
 
+        public FastLoginChannel[] FastLoginChannels { get; } = new[] {
+            FastLoginChannel.QQ,
+            FastLoginChannel.Microsoft,
+            FastLoginChannel.Apple,
+        };
+
+        int _FastLoginChannelsSelectedIndex = -1;
+        public int FastLoginChannelsSelectedIndex
+        {
+            get => _FastLoginChannelsSelectedIndex;
+            set
+            {
+                if (value > -1 && value < FastLoginChannels.Length)
+                {
+                    var item = FastLoginChannels[value].ToString();
+                    if (FastLogin.CanExecute(item))
+                    {
+                        FastLogin.Execute(item);
+                    }
+                    value = -1;
+                }
+                this.RaiseAndSetIfChanged(ref _FastLoginChannelsSelectedIndex, value);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -8,6 +8,7 @@
         MinWidth="400" MinHeight="470"
         MaxWidth="400" MaxHeight="470"
         x:Class="System.Application.UI.Views.Windows.LoginOrRegisterWindow"
+        xmlns:converters="clr-namespace:System.Application.Converters;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
         xmlns:controls="using:System.Application.UI.Views.Controls"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:ccl_services="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
@@ -25,6 +26,9 @@
         x:DataType="vm:LoginOrRegisterWindowViewModel"
         x:CompileBindings="True"
         Title="{Binding Title}">
+  <Window.Resources>
+    <converters:IconIsVisibleValueConverter x:Key="IconIsVisibleValueConverter" />
+  </Window.Resources>
   <Panel>
     <controls:TitleBar />
     <Panel>
@@ -128,7 +132,7 @@
 
           <StackPanel x:Name="FastLogin"  Spacing="8">
             <TextBlock Text="{ReflectionBinding Path=Res.User_FastLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-            <ListBox Background="Transparent">
+            <ListBox Background="Transparent" Items="{Binding FastLoginChannels}" SelectedIndex="{Binding FastLoginChannelsSelectedIndex}">
               <ListBox.Styles>
                 <Style Selector="ListBoxItem">
                   <Setter Property="MinHeight" Value="50"></Setter>
@@ -140,7 +144,31 @@
                   <Setter Property="Width" Value="20"></Setter>
                 </Style>
               </ListBox.Styles>
-              <ListBoxItem>
+              <ListBox.ItemTemplate>
+                <DataTemplate x:CompileBindings="False">
+                  <DockPanel>
+                    <Panel DockPanel.Dock="Left">
+                      <PathIcon Data="{StaticResource QQ}"
+                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource IconIsVisibleValueConverter},ConverterParameter=QQ}" />
+                      <PathIcon Data="{StaticResource Microsoft}"
+                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource IconIsVisibleValueConverter},ConverterParameter=Microsoft}" />
+                      <PathIcon Data="{StaticResource Apple}"
+                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource IconIsVisibleValueConverter},ConverterParameter=Apple}" />
+                    </Panel>
+                    <Panel DockPanel.Dock="Right" Margin="10 0 0 0">
+                      <TextBlock VerticalAlignment="Center" Tag="{Binding,Mode=OneWay}">
+                        <TextBlock.Text>
+                          <MultiBinding x:CompileBindings="False" Converter="{StaticResource StringFormatConverter}" Mode="OneWay">
+                            <Binding Path="Res.User_UseFastLoginChannel_" Source="{x:Static resx:R.Current}"/>
+                            <Binding Path="$self.Tag" />
+                          </MultiBinding>
+                        </TextBlock.Text>
+                      </TextBlock>
+                    </Panel>
+                  </DockPanel>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+              <!--<ListBoxItem>
                 <DockPanel>
                   <Panel DockPanel.Dock="Left">
                     <PathIcon Data="{StaticResource QQ}"></PathIcon>
@@ -169,7 +197,7 @@
                     <TextBlock Text="{ReflectionBinding Path=Res.User_AppleLogin,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
                   </Panel>
                 </DockPanel>
-              </ListBoxItem>
+              </ListBoxItem>-->
             </ListBox>
           </StackPanel>
 

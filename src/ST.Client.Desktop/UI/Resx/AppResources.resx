@@ -1277,6 +1277,9 @@
   <data name="User_SteamUnLoginTip" xml:space="preserve">
     <value>点击Steam Logo登录</value>
   </data>
+  <data name="User_UseFastLoginChannel_" xml:space="preserve">
+    <value>使用 {0} 登录</value>
+  </data>
   <data name="Warning" xml:space="preserve">
     <value>警告</value>
   </data>

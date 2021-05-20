@@ -3359,6 +3359,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 使用 {0} 登录 的本地化字符串。
+        /// </summary>
+        public static string User_UseFastLoginChannel_ {
+            get {
+                return ResourceManager.GetString("User_UseFastLoginChannel_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 一键登录Steam 的本地化字符串。
         /// </summary>
         public static string UserChange_BtnText {
