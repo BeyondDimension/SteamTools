@@ -1,7 +1,6 @@
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using Microsoft.AppCenter.Utils;
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
@@ -13,6 +12,7 @@ using static System.Application.AppClientAttribute;
 using System.Reflection;
 using static System.Application.VisualStudioAppCenterSDK;
 using System.Text;
+using Microsoft.AppCenter.Utils;
 #if DEBUG
 using static System.Application.UI.ViewModels.DebugPageViewModel;
 #endif

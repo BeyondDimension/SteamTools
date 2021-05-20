@@ -16,13 +16,11 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Properties;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 
-[assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark)]
 namespace System
 {
     static class Program
