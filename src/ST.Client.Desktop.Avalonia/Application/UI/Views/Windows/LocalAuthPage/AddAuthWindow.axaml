@@ -71,7 +71,8 @@
 
             <StackPanel Grid.Row="2">
               <TextBlock Margin="10,0" HorizontalAlignment="Center" Text="{Binding EmailDomain}"></TextBlock>
-              <TextBlock Margin="10,0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.LocalAuth_EmailCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+              <TextBlock Margin="10,0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.LocalAuth_EmailCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                TextAlignment="Center"></TextBlock>
             </StackPanel>
           </Grid>
 
@@ -88,7 +89,8 @@
               <Button Content="{ReflectionBinding Path=Res.Continue,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Command="{ReflectionBinding LoginSteamImport}"></Button>
             </StackPanel>
 
-            <TextBlock Grid.Row="2" Margin="10,0" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{ReflectionBinding Path=Res.LocalAuth_SMSCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+            <TextBlock Grid.Row="2" Margin="10,0" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{ReflectionBinding Path=Res.LocalAuth_SMSCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                TextAlignment="Center"></TextBlock>
           </Grid>
 
           <Grid IsVisible="{Binding RequiresAdd}" RowDefinitions="Auto,*,Auto" Margin="10">
@@ -112,7 +114,8 @@
             <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SteamuuidTip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="WrapWithOverflow"></TextBlock>
             <TextBox Text="{Binding UUID}"></TextBox>
             <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SteamGuardTip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="WrapWithOverflow"></TextBlock>
-            <TextBox  TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding SteamGuard}" Height="80" MaxWidth="{Binding $parent.MaxWidth}"></TextBox>
+            <TextBox  TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding SteamGuard}" Height="80" MaxWidth="{Binding $parent.MaxWidth}"
+                TextAlignment="Center"></TextBox>
           </StackPanel>
           <StackPanel Grid.Row="3" Spacing="8">
             <Button  Content="{ReflectionBinding Path=Res.ConfirmImport,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="200" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Command="{ReflectionBinding ImportSteamGuard}"></Button>
@@ -123,9 +126,11 @@
       </TabItem>
       <TabItem Header="{ReflectionBinding Path=Res.LocalAuth_SteamToolsImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <Panel Margin="10">
-          <StackPanel Spacing="15" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SteamToolsV1Import,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Center"></TextBlock>
-            <Button Content="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.dat}" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ImportSteamToolsBtn"></Button>
+          <StackPanel Spacing="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <!--<TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SteamToolsV1Import,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Center"></TextBlock>-->
+            <Button Content="{ReflectionBinding Path=Res.LocalAuth_SteamToolsV1Import,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.dat}" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ImportSteamToolsBtn"></Button>
+
+            <Button Content="{ReflectionBinding Path=Res.LocalAuth_SteamToolsV2Import,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.mpo}" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ImportSteamToolsV2Btn"></Button>
           </StackPanel>
         </Panel>
       </TabItem>

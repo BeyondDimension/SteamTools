@@ -30,6 +30,29 @@ namespace System.Application.UI.Views.Windows
 
             var sppBtn = this.FindControl<Button>("ImportSteamToolsBtn");
             sppBtn.Click += SppBtn_Click;
+            var spp2Btn = this.FindControl<Button>("ImportSteamToolsV2Btn");
+            spp2Btn.Click += SppV2Btn_Click;
+        }
+
+        private void SppV2Btn_Click(object? sender, RoutedEventArgs e)
+        {
+            var fileDialog = new OpenFileDialog
+            {
+                Filters = new List<FileDialogFilter> {
+                    new FileDialogFilter { Name = "MsgPack Files", Extensions = new List<string> { "mpo" } },
+                    new FileDialogFilter { Name = "Data Files", Extensions = new List<string> { "dat" } },
+                    new FileDialogFilter { Name = "All Files", Extensions = new List<string> { "*" } },
+                },
+                Title = ThisAssembly.AssemblyTrademark,
+                AllowMultiple = false,
+            };
+            fileDialog.ShowAsync(IDesktopAvaloniaAppService.Instance.MainWindow).ContinueWith(s =>
+            {
+                if (s != null && s.Result.Length > 0)
+                {
+                    AuthService.Current.ImportAuthenticatorFile(s.Result[0]);
+                }
+            });
         }
 
         private void SppBtn_Click(object? sender, RoutedEventArgs e)

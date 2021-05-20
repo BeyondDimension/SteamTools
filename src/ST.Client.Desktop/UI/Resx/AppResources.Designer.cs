@@ -1476,6 +1476,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 部分数据导入成功 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AddAuth_PartSuccess {
+            get {
+                return ResourceManager.GetString("LocalAuth_AddAuth_PartSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 令牌导入完成 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AddAuthSuccess {
@@ -1756,6 +1765,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 导入数据出现错误，错误代码:{0} 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ExportAuth_Error {
+            get {
+                return ResourceManager.GetString("LocalAuth_ExportAuth_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 请输入导出的数据密码 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ExportAuth_ExportPassword {
@@ -1770,6 +1788,15 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_ExportAuth_ExportPath {
             get {
                 return ResourceManager.GetString("LocalAuth_ExportAuth_ExportPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导出成功 {0} 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ExportAuth_ExportSuccess {
+            get {
+                return ResourceManager.GetString("LocalAuth_ExportAuth_ExportSuccess", resourceCulture);
             }
         }
         
@@ -1846,7 +1873,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 启用自定义密码保护 的本地化字符串。
+        ///   查找类似 自定义密码保护 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_EnablePassword {
             get {
@@ -1873,7 +1900,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 强烈建议使用密码保护你的认证器，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但你的令牌数据会有被盗取的风险。 的本地化字符串。
+        ///   查找类似 强烈建议使用密码保护你的令牌，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但你的令牌数据会有被盗取的风险。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_Info {
             get {
@@ -1882,7 +1909,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 启用令牌仅在这台电脑上可解密 的本地化字符串。
+        ///   查找类似 令牌仅在这台电脑上可解密 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt {
             get {
@@ -1891,7 +1918,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 此外，你可以使用内置的Windows账户加密来保护和加密你的数据。这将把您的认证器锁定在这台计算机或用户上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装Windows或删除这个用户账户，你必须把这个功能关掉。 的本地化字符串。
+        ///   查找类似 你也可以使用内置的Windows账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装Windows或删除这个用户账户，你必须把这个功能关掉，否则你得数据也会无法解密。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip {
             get {
@@ -1932,6 +1959,15 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_ProtectionAuth_PasswordErrorTip {
             get {
                 return ResourceManager.GetString("LocalAuth_ProtectionAuth_PasswordErrorTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文件路径不正确 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ProtectionAuth_PathError {
+            get {
+                return ResourceManager.GetString("LocalAuth_ProtectionAuth_PathError", resourceCulture);
             }
         }
         
@@ -2094,6 +2130,15 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_SteamToolsV1Import {
             get {
                 return ResourceManager.GetString("LocalAuth_SteamToolsV1Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导入Steam++ V2版本的导出的令牌数据 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SteamToolsV2Import {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamToolsV2Import", resourceCulture);
             }
         }
         

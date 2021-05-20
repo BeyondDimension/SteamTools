@@ -70,7 +70,7 @@ namespace System.Application.UI.ViewModels
 
             if (IsPasswordEncrypt)
             {
-                if (!string.IsNullOrEmpty(VerifyPassword) && Password == VerifyPassword)
+                if (!string.IsNullOrWhiteSpace(VerifyPassword) && Password == VerifyPassword)
                 {
                     //if (IsOnlyCurrentComputerEncrypt)
                     //{
@@ -93,7 +93,7 @@ namespace System.Application.UI.ViewModels
                 }
                 else
                 {
-                    Toast.Show(AppResources.LocalAuth_ProtectionAuth_VerifyPasswordErrorTip);
+                    Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
                     return;
                 }
             }

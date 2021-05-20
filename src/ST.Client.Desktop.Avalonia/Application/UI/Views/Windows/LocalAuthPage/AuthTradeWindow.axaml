@@ -51,6 +51,7 @@
                 HorizontalAlignment="Center"
                 Margin="0 5"
                 Text="{ReflectionBinding Path=Res.LocalAuth_SteamTradeLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                TextAlignment="Center"
                 TextWrapping="WrapWithOverflow"></TextBlock>
         </Panel>
 

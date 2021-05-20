@@ -597,6 +597,9 @@
   <data name="LocalAuth_AddAuthSyncTip" xml:space="preserve">
     <value>正在同步令牌服务器时钟</value>
   </data>
+  <data name="LocalAuth_AddAuth_PartSuccess" xml:space="preserve">
+    <value>部分数据导入成功</value>
+  </data>
   <data name="LocalAuth_AuthData" xml:space="preserve">
     <value>令牌数据</value>
   </data>
@@ -687,11 +690,17 @@
   <data name="LocalAuth_ExportAuth_EncryptionExport" xml:space="preserve">
     <value>是否需要导出带加密的数据</value>
   </data>
+  <data name="LocalAuth_ExportAuth_Error" xml:space="preserve">
+    <value>导入数据出现错误，错误代码:{0}</value>
+  </data>
   <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
     <value>请输入导出的数据密码</value>
   </data>
   <data name="LocalAuth_ExportAuth_ExportPath" xml:space="preserve">
     <value>导出文件路径</value>
+  </data>
+  <data name="LocalAuth_ExportAuth_ExportSuccess" xml:space="preserve">
+    <value>导出成功 {0}</value>
   </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
     <value>选择路径</value>
@@ -718,7 +727,7 @@
     <value>令牌加密</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_EnablePassword" xml:space="preserve">
-    <value>启用自定义密码保护</value>
+    <value>自定义密码保护</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_EnablePasswordTip" xml:space="preserve">
     <value>*您的认证器将使用您自己的密码进行加密，您需要输入您的密码才能打开你被加密的令牌。如果您忘记了密码，并且没有备份，您的认证器将无法访问。</value>
@@ -727,13 +736,13 @@
     <value>保存加密选项出现错误</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_Info" xml:space="preserve">
-    <value>强烈建议使用密码保护你的认证器，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但你的令牌数据会有被盗取的风险。</value>
+    <value>强烈建议使用密码保护你的令牌，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但你的令牌数据会有被盗取的风险。</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt" xml:space="preserve">
-    <value>启用令牌仅在这台电脑上可解密</value>
+    <value>令牌仅在这台电脑上可解密</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
-    <value>此外，你可以使用内置的Windows账户加密来保护和加密你的数据。这将把您的认证器锁定在这台计算机或用户上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装Windows或删除这个用户账户，你必须把这个功能关掉。</value>
+    <value>你也可以使用内置的Windows账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装Windows或删除这个用户账户，你必须把这个功能关掉，否则你得数据也会无法解密。</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_NoChangeTip" xml:space="preserve">
     <value>没有任何更改需要保存</value>
@@ -746,6 +755,9 @@
   </data>
   <data name="LocalAuth_ProtectionAuth_PasswordErrorTip" xml:space="preserve">
     <value>请输入正确的密码</value>
+  </data>
+  <data name="LocalAuth_ProtectionAuth_PathError" xml:space="preserve">
+    <value>文件路径不正确</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_SaveApply" xml:space="preserve">
     <value>保存并应用</value>
@@ -800,6 +812,9 @@
   </data>
   <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
     <value>导入Steam++ V1版本的导出的令牌数据</value>
+  </data>
+  <data name="LocalAuth_SteamToolsV2Import" xml:space="preserve">
+    <value>导入Steam++ V2版本的导出的令牌数据</value>
   </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
     <value>确认交易需要登录Steam，程序不会记录你的密码，只会在本地保存登录的状态。</value>

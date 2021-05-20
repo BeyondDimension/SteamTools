@@ -460,9 +460,35 @@ namespace System.Application.Services
         /// <summary>
         /// 导入Steam++导出的令牌数据文件 V2
         /// </summary>
-        public void ImportAuthenticatorFile()
+        public async void ImportAuthenticatorFile(string file, string? password = null)
         {
+            if (File.Exists(file))
+            {
+                var bt = await File.ReadAllBytesAsync(file);
 
+                var result = await repository.ImportAsync(null, bt);
+
+                if (result.resultCode == IGameAccountPlatformAuthenticatorRepository.ImportResultCode.Success)
+                {
+                    foreach (var item in result.result)
+                    {
+                        await repository.InsertOrUpdateAsync(item, true);
+                    }
+                    ToastService.Current.Notify(AppResources.LocalAuth_AddAuthSuccess);
+                }
+                else if (result.resultCode == IGameAccountPlatformAuthenticatorRepository.ImportResultCode.PartSuccess)
+                {
+                    foreach (var item in result.result)
+                    {
+                        await repository.InsertOrUpdateAsync(item, true);
+                    }
+                    Toast.Show(AppResources.LocalAuth_AddAuth_PartSuccess);
+                }
+                else
+                {
+                    Toast.Show(string.Format(AppResources.LocalAuth_ExportAuth_Error, result.resultCode));
+                }
+            };
         }
 
         public void LoadSteamToolsV1Authenticator(string file)
@@ -536,15 +562,6 @@ namespace System.Application.Services
                 repository.RenameAsync(auth.Id, auth.Name, true, password);
         }
 
-        public async void ExportAuthenticators(string filePath, bool isLocal = false, string? password = null)
-        {
-            var auths = await repository.GetAllAsync(password);
-            var b = Serializable.SMP(auths);
-            using var stream = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write);
-            await stream.WriteAsync(b);
-            stream.Close();
-        }
-
         public async void SwitchEncryptionAuthenticators(bool isLocal, string? password)
         {
             try
@@ -559,9 +576,24 @@ namespace System.Application.Services
             Toast.Show(AppResources.LocalAuth_ProtectionAuth_Success);
         }
 
-        public async void ExportAuthenticators(bool isLocal, string? password)
+        public async void ExportAuthenticators(string? filePath, bool isLocal, string? password = null)
         {
-            await repository.SwitchEncryptionModeAsync(isLocal, password, Authenticators.Items.Select(s => s.AuthenticatorData));
+            try
+            {
+                if (string.IsNullOrEmpty(filePath))
+                {
+                    Toast.Show(AppResources.LocalAuth_ProtectionAuth_PathError);
+                    return;
+                }
+                var bt = await repository.ExportAsync(isLocal, password, Authenticators.Items.Select(s => s.AuthenticatorData));
+
+                await File.WriteAllBytesAsync(filePath, bt);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(AuthService), ex, nameof(ExportAuthenticators));
+                Toast.Show(ex.Message);
+            }
         }
     }
 }
