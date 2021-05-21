@@ -31,7 +31,7 @@
         <TextBox
           x:Name="TbPhoneNumber"
           Text="{Binding PhoneNumber}"
-          Watermark="{ReflectionBinding Path=Res.User_NewPhone,Mode=OneWay,Source={x:Static resx:R.Current}}"
+          Watermark="{ReflectionBinding Path=Res.User_Phone,Mode=OneWay,Source={x:Static resx:R.Current}}"
           MaxLength="{ReflectionBinding Path=PhoneNumber,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
 
         <Panel>

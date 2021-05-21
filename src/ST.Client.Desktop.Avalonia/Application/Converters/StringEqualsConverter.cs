@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace System.Application.Converters
 {
-    public class IconIsVisibleValueConverter : IValueConverter
+    public class StringEqualsConverter : IValueConverter
     {
         static string ToString(object? obj) => obj?.ToString() ?? string.Empty;
 

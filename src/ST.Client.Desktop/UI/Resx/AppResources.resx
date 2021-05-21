@@ -1121,6 +1121,9 @@
   <data name="Unbound" xml:space="preserve">
     <value>未绑定</value>
   </data>
+  <data name="Unbundling" xml:space="preserve">
+    <value>解绑</value>
+  </data>
   <data name="UnderConstruction" xml:space="preserve">
     <value>该功能正在开发中，敬请期待</value>
   </data>
@@ -1188,11 +1191,20 @@
   <data name="UserProfile_Location" xml:space="preserve">
     <value>所在地</value>
   </data>
+  <data name="User_AccountBind" xml:space="preserve">
+    <value>账号绑定</value>
+  </data>
+  <data name="User_AccountBindTip" xml:space="preserve">
+    <value>解绑第三方账号需要已绑定手机号才能解绑，如果要将已绑定第三方账号换绑至另一个账号，可以使用 [关于-此软件-账号注销] 注销已绑定的账号。</value>
+  </data>
   <data name="User_Agreement" xml:space="preserve">
     <value>用户协议</value>
   </data>
   <data name="User_AppleLogin" xml:space="preserve">
     <value>使用 Apple 登录</value>
+  </data>
+  <data name="User_BasicInfo" xml:space="preserve">
+    <value>基本资料</value>
   </data>
   <data name="User_BindPhoneNum" xml:space="preserve">
     <value>绑定手机</value>

@@ -59,8 +59,20 @@ namespace System.Application.UI.ViewModels
                 SubscribeFormItem(x => x.AreaSelectItem3, SubscribeAreaOnNext);
                 SubscribeFormItem(x => x.AreaSelectItem4, SubscribeAreaOnNext);
             }
-            OnBindFastLoginClick = ReactiveCommand.CreateFromTask<FastLoginChannel>(OnBindFastLoginClickAsync);
-            OnUnbundleFastLoginClick = ReactiveCommand.CreateFromTask<FastLoginChannel>(OnUnbundleFastLoginClickAsync);
+            OnBindFastLoginClick = ReactiveCommand.CreateFromTask<string>(async channel_ =>
+            {
+                if (Enum.TryParse<FastLoginChannel>(channel_, out var channel))
+                {
+                    await OnBindFastLoginClickAsync(channel);
+                }
+            });
+            OnUnbundleFastLoginClick = ReactiveCommand.CreateFromTask<string>(async channel_ =>
+            {
+                if (Enum.TryParse<FastLoginChannel>(channel_, out var channel))
+                {
+                    await OnUnbundleFastLoginClickAsync(channel);
+                }
+            });
         }
 
         bool _IsModify;
@@ -175,6 +187,11 @@ namespace System.Application.UI.ViewModels
 
         async Task OnUnbundleFastLoginClickAsync(FastLoginChannel channel)
         {
+            if (!UserService.Current.HasPhoneNumber)
+            {
+                return;
+            }
+
             if (IsLoading) return;
 
             IsLoading = true;

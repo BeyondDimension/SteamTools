@@ -3053,6 +3053,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 解绑 的本地化字符串。
+        /// </summary>
+        public static string Unbundling {
+            get {
+                return ResourceManager.GetString("Unbundling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 该功能正在开发中，敬请期待 的本地化字符串。
         /// </summary>
         public static string UnderConstruction {
@@ -3098,6 +3107,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 账号绑定 的本地化字符串。
+        /// </summary>
+        public static string User_AccountBind {
+            get {
+                return ResourceManager.GetString("User_AccountBind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 解绑第三方账号需要已绑定手机号才能解绑，如果要将已绑定第三方账号换绑至另一个账号，可以使用 [关于-此软件-账号注销] 注销已绑定的账号。 的本地化字符串。
+        /// </summary>
+        public static string User_AccountBindTip {
+            get {
+                return ResourceManager.GetString("User_AccountBindTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 用户协议 的本地化字符串。
         /// </summary>
         public static string User_Agreement {
@@ -3112,6 +3139,15 @@ namespace System.Application.UI.Resx {
         public static string User_AppleLogin {
             get {
                 return ResourceManager.GetString("User_AppleLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 基本资料 的本地化字符串。
+        /// </summary>
+        public static string User_BasicInfo {
+            get {
+                return ResourceManager.GetString("User_BasicInfo", resourceCulture);
             }
         }
         

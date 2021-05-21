@@ -27,7 +27,7 @@
         x:CompileBindings="True"
         Title="{Binding Title}">
   <Window.Resources>
-    <converters:IconIsVisibleValueConverter x:Key="IconIsVisibleValueConverter" />
+    <converters:StringEqualsConverter x:Key="StringEqualsConverter" />
   </Window.Resources>
   <Panel>
     <controls:TitleBar />
@@ -149,11 +149,11 @@
                   <DockPanel>
                     <Panel DockPanel.Dock="Left">
                       <PathIcon Data="{StaticResource QQ}"
-                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource IconIsVisibleValueConverter},ConverterParameter=QQ}" />
+                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=QQ}" />
                       <PathIcon Data="{StaticResource Microsoft}"
-                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource IconIsVisibleValueConverter},ConverterParameter=Microsoft}" />
+                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Microsoft}" />
                       <PathIcon Data="{StaticResource Apple}"
-                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource IconIsVisibleValueConverter},ConverterParameter=Apple}" />
+                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Apple}" />
                     </Panel>
                     <Panel DockPanel.Dock="Right" Margin="10 0 0 0">
                       <TextBlock VerticalAlignment="Center" Tag="{Binding,Mode=OneWay}">
