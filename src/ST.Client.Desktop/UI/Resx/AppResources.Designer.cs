@@ -1918,7 +1918,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 你也可以使用内置的Windows账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装Windows或删除这个用户账户，你必须把这个功能关掉，否则你得数据也会无法解密。 的本地化字符串。
+        ///   查找类似 你也可以使用内置的Windows账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装Windows或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip {
             get {
@@ -2242,7 +2242,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 正在登陆中... 的本地化字符串。
+        ///   查找类似 正在登录中... 的本地化字符串。
         /// </summary>
         public static string Logining {
             get {
@@ -2827,8 +2827,8 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 登陆Steam账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易15天冷却期。
-        ///(如果没有开Steam社区加速会导致无法登陆成功) 的本地化字符串。
+        ///   查找类似 登录Steam账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易15天冷却期。
+        ///(如果没有开Steam社区加速会导致无法登录成功) 的本地化字符串。
         /// </summary>
         public static string Steam_UserLoginTip {
             get {
@@ -3368,7 +3368,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 记住登陆状态 的本地化字符串。
+        ///   查找类似 记住登录状态 的本地化字符串。
         /// </summary>
         public static string User_Rememberme {
             get {
@@ -3549,7 +3549,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 最近登陆 的本地化字符串。
+        ///   查找类似 最近登录 的本地化字符串。
         /// </summary>
         public static string UserChange_RecentLogin {
             get {

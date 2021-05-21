@@ -742,7 +742,7 @@
     <value>令牌仅在这台电脑上可解密</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
-    <value>你也可以使用内置的Windows账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装Windows或删除这个用户账户，你必须把这个功能关掉，否则你得数据也会无法解密。</value>
+    <value>你也可以使用内置的Windows账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装Windows或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密。</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_NoChangeTip" xml:space="preserve">
     <value>没有任何更改需要保存</value>
@@ -850,7 +850,7 @@
     <value>登录 / 注册</value>
   </data>
   <data name="Logining" xml:space="preserve">
-    <value>正在登陆中...</value>
+    <value>正在登录中...</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>注销登录</value>
@@ -1109,8 +1109,8 @@
     <value>Steam用户名</value>
   </data>
   <data name="Steam_UserLoginTip" xml:space="preserve">
-    <value>登陆Steam账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易15天冷却期。
-(如果没有开Steam社区加速会导致无法登陆成功)</value>
+    <value>登录Steam账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易15天冷却期。
+(如果没有开Steam社区加速会导致无法登录成功)</value>
   </data>
   <data name="String1" xml:space="preserve">
     <value />
@@ -1174,7 +1174,7 @@
     <value>打开个人资料页面</value>
   </data>
   <data name="UserChange_RecentLogin" xml:space="preserve">
-    <value>最近登陆</value>
+    <value>最近登录</value>
   </data>
   <data name="UserChange_RememberMe" xml:space="preserve">
     <value>已记住密码</value>
@@ -1281,7 +1281,7 @@
     <value>注册即代表您已阅读并同意</value>
   </data>
   <data name="User_Rememberme" xml:space="preserve">
-    <value>记住登陆状态</value>
+    <value>记住登录状态</value>
   </data>
   <data name="User_SMSCode" xml:space="preserve">
     <value>短信验证码</value>
