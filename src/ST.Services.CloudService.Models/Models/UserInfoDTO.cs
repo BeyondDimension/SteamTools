@@ -1,4 +1,4 @@
-﻿using System.Application.Columns;
+using System.Application.Columns;
 using System.Diagnostics;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using MPKey = MessagePack.KeyAttribute;
@@ -121,5 +121,20 @@ namespace System.Application.Models
         [N_JsonProperty("13")]
         [S_JsonProperty("13")]
         public int? AreaId { get; set; }
+
+        [MPKey(14)]
+        [N_JsonProperty("14")]
+        [S_JsonProperty("14")]
+        public string? MicrosoftAccountEmail { get; set; }
+
+        [MPKey(15)]
+        [N_JsonProperty("15")]
+        [S_JsonProperty("15")]
+        public long? QQAccountNumber { get; set; }
+
+        [MPKey(16)]
+        [N_JsonProperty("16")]
+        [S_JsonProperty("16")]
+        public string? AppleAccountEmail { get; set; }
     }
 }
