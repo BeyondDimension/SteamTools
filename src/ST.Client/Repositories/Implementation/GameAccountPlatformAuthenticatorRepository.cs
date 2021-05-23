@@ -43,11 +43,11 @@ namespace System.Application.Repositories.Implementation
             var dbConnection = await GetDbConnection().ConfigureAwait(false);
             return await AttemptAndRetry(async () =>
             {
-                var count = await dbConnection.Table<GameAccountPlatformAuthenticator>().CountAsync();
-                if (count >= 0)
+                var item = await dbConnection.Table<GameAccountPlatformAuthenticator>().FirstOrDefaultAsync();
+                if (item != null)
                 {
-                    var anyCount = await dbConnection.Table<GameAccountPlatformAuthenticator>().CountAsync(x => !x.IsNotLocal);
-                    return anyCount > 0;
+                    item = await dbConnection.Table<GameAccountPlatformAuthenticator>().FirstOrDefaultAsync(x => !x.IsNotLocal);
+                    return item != null;
                 }
                 return false;
             }).ConfigureAwait(false);
@@ -58,11 +58,11 @@ namespace System.Application.Repositories.Implementation
             var dbConnection = await GetDbConnection().ConfigureAwait(false);
             return await AttemptAndRetry(async () =>
             {
-                var count = await dbConnection.Table<GameAccountPlatformAuthenticator>().CountAsync();
-                if (count >= 0)
+                var item = await dbConnection.Table<GameAccountPlatformAuthenticator>().FirstOrDefaultAsync();
+                if (item != null)
                 {
-                    var anyCount = await dbConnection.Table<GameAccountPlatformAuthenticator>().CountAsync(x => !x.IsNeedSecondaryPassword);
-                    return anyCount > 0;
+                    item = await dbConnection.Table<GameAccountPlatformAuthenticator>().FirstOrDefaultAsync(x => !x.IsNeedSecondaryPassword);
+                    return item != null;
                 }
                 return false;
             }).ConfigureAwait(false);
