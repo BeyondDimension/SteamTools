@@ -390,6 +390,9 @@
   <data name="GameList_AddAFKAppsSuccess" xml:space="preserve">
     <value>添加到挂时常列表成功</value>
   </data>
+  <data name="GameList_AddAfkGameList" xml:space="preserve">
+    <value>添加到挂时长列表</value>
+  </data>
   <data name="GameList_AddHideAppEmpty" xml:space="preserve">
     <value>隐藏游戏列表为空，请从游戏列表右键添加需要隐藏的游戏。</value>
   </data>

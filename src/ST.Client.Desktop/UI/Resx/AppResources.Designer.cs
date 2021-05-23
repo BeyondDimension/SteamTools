@@ -873,6 +873,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 添加到挂时长列表 的本地化字符串。
+        /// </summary>
+        public static string GameList_AddAfkGameList {
+            get {
+                return ResourceManager.GetString("GameList_AddAfkGameList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 隐藏游戏列表为空，请从游戏列表右键添加需要隐藏的游戏。 的本地化字符串。
         /// </summary>
         public static string GameList_AddHideAppEmpty {
