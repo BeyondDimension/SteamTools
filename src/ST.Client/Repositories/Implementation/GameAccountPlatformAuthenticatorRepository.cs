@@ -29,6 +29,45 @@ namespace System.Application.Repositories.Implementation
             }).ConfigureAwait(false);
         }
 
+        public async Task<GameAccountPlatformAuthenticator?> GetFirstOrDefaultSourceAsync()
+        {
+            var dbConnection = await GetDbConnection().ConfigureAwait(false);
+            return await AttemptAndRetry(() =>
+            {
+                return dbConnection.Table<GameAccountPlatformAuthenticator>().FirstOrDefaultAsync();
+            }).ConfigureAwait(false);
+        }
+
+        public async Task<bool> HasLocalAsync()
+        {
+            var dbConnection = await GetDbConnection().ConfigureAwait(false);
+            return await AttemptAndRetry(async () =>
+            {
+                var count = await dbConnection.Table<GameAccountPlatformAuthenticator>().CountAsync();
+                if (count >= 0)
+                {
+                    var anyCount = await dbConnection.Table<GameAccountPlatformAuthenticator>().CountAsync(x => !x.IsNotLocal);
+                    return anyCount > 0;
+                }
+                return false;
+            }).ConfigureAwait(false);
+        }
+
+        public async Task<bool> HasSecondaryPasswordAsync()
+        {
+            var dbConnection = await GetDbConnection().ConfigureAwait(false);
+            return await AttemptAndRetry(async () =>
+            {
+                var count = await dbConnection.Table<GameAccountPlatformAuthenticator>().CountAsync();
+                if (count >= 0)
+                {
+                    var anyCount = await dbConnection.Table<GameAccountPlatformAuthenticator>().CountAsync(x => !x.IsNeedSecondaryPassword);
+                    return anyCount > 0;
+                }
+                return false;
+            }).ConfigureAwait(false);
+        }
+
         static int GetOrder(IOrderGAPAuthenticator item)
         {
             var index = item.Index == default ? item.Id : item.Index;

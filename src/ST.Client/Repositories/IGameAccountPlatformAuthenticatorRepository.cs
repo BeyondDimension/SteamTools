@@ -30,12 +30,28 @@ namespace System.Application.Repositories
         Task<GameAccountPlatformAuthenticator[]> GetAllSourceAsync();
 
         /// <summary>
+        /// 从本地获取第一条源数据
+        /// </summary>
+        /// <returns></returns>
+        Task<GameAccountPlatformAuthenticator?> GetFirstOrDefaultSourceAsync();
+
+        /// <summary>
         /// 源数据中是否含有本地加密的数据
         /// </summary>
         /// <param name="sources"></param>
         /// <returns></returns>
         bool HasLocal(IEnumerable<GameAccountPlatformAuthenticator> sources)
             => sources.Any() && sources.Any(x => !x.IsNotLocal);
+
+        /// <inheritdoc cref="HasLocal(IEnumerable{GameAccountPlatformAuthenticator})"/>
+        bool HasLocal(params GameAccountPlatformAuthenticator[] sources)
+        {
+            IEnumerable<GameAccountPlatformAuthenticator> sources_ = sources;
+            return HasLocal(sources_);
+        }
+
+        /// <inheritdoc cref="HasLocal(IEnumerable{GameAccountPlatformAuthenticator})"/>
+        Task<bool> HasLocalAsync();
 
         /// <summary>
         /// 源数据中是否含有需要二级密码的数据
@@ -44,6 +60,16 @@ namespace System.Application.Repositories
         /// <returns></returns>
         bool HasSecondaryPassword(IEnumerable<GameAccountPlatformAuthenticator> sources)
             => sources.Any() && sources.Any(x => x.IsNeedSecondaryPassword);
+
+        /// <inheritdoc cref="HasSecondaryPassword(IEnumerable{GameAccountPlatformAuthenticator})"/>
+        bool HasSecondaryPassword(params GameAccountPlatformAuthenticator[] sources)
+        {
+            IEnumerable<GameAccountPlatformAuthenticator> sources_ = sources;
+            return HasSecondaryPassword(sources_);
+        }
+
+        /// <inheritdoc cref="HasSecondaryPassword(IEnumerable{GameAccountPlatformAuthenticator})"/>
+        Task<bool> HasSecondaryPasswordAsync();
 
         /// <summary>
         /// 将源数据转换为传输模型
