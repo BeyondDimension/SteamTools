@@ -107,6 +107,8 @@ namespace System.Application
             services.TryAddPermissions();
             services.AddPlatformPermissions();
 #endif
+            // 添加 app 配置项
+            services.TryAddOptions(AppSettings);
             // 键值对存储
             services.TryAddStorage();
 #if !__MOBILE__
@@ -248,8 +250,6 @@ namespace System.Application
 #if !CONSOLEAPP
             if (hasServerApiClient)
             {
-                // 添加 app 配置项
-                services.TryAddOptions(AppSettings);
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.AppSettings");
 #endif
@@ -380,7 +380,7 @@ namespace System.Application
                 static void SetApiBaseUrl(AppSettings s)
                 {
 #if DEBUG
-                    if (BuildConfig.IsAigioPC)
+                    if (BuildConfig.IsAigioPC && Program.IsMainProcess)
                     {
                         try
                         {
