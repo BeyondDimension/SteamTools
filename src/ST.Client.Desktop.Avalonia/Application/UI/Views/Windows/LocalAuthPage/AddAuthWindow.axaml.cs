@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using System.Application.Services;
+using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Properties;
 
@@ -10,9 +11,11 @@ namespace System.Application.UI.Views.Windows
 {
     public class AddAuthWindow : FluentWindow
     {
+        private AddAuthWindowViewModel? vm;
         public AddAuthWindow() : base()
         {
             InitializeComponent();
+            vm = this.DataContext as AddAuthWindowViewModel;
 #if DEBUG
             this.AttachDevTools();
 #endif
@@ -50,7 +53,7 @@ namespace System.Application.UI.Views.Windows
             {
                 if (s != null && s.Result.Length > 0)
                 {
-                    AuthService.Current.ImportAuthenticatorFile(s.Result[0]);
+                    vm.ImportSteamPlusPlusV2(s.Result[0]);
                 }
             });
         }
@@ -70,7 +73,7 @@ namespace System.Application.UI.Views.Windows
             {
                 if (s != null && s.Result.Length > 0)
                 {
-                    AuthService.Current.LoadSteamToolsV1Authenticator(s.Result[0]);
+                    vm.ImportSteamPlusPlusV1(s.Result[0]);
                 }
             });
         }
@@ -91,7 +94,7 @@ namespace System.Application.UI.Views.Windows
             {
                 if (s != null && s.Result.Length > 0)
                 {
-                    AuthService.Current.ImportSDAFile(s.Result[0]);
+                    vm.ImportSDA(s.Result[0]);
                 }
             });
         }
@@ -111,7 +114,7 @@ namespace System.Application.UI.Views.Windows
             {
                 if (s != null && s.Result.Length > 0)
                 {
-                    AuthService.Current.ImportWinAuthenticators(s.Result[0]);
+                    vm.ImportWinAuth(s.Result[0]);
                 }
             });
 

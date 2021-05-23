@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using System.Reflection;
@@ -19,7 +20,6 @@ namespace System.Application.UI.Views.Windows
             //}
             InitializeComponent();
 
-            this.ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
 #if DEBUG
             this.AttachDevTools();
 #endif
@@ -28,6 +28,12 @@ namespace System.Application.UI.Views.Windows
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+        {
+            base.OnApplyTemplate(e);
+            ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
         }
     }
 }

@@ -18,15 +18,21 @@ namespace System.Application.UI.ViewModels
             Initialize();
         }
 
-        public async void Initialize()
+        private async void Initialize()
         {
+            var result = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
+            if (!result.success)
+            {
+                this.Close();
+            }
+
             var auths = await repository.GetAllSourceAsync();
             IsPasswordEncrypt = repository.HasSecondaryPassword(auths);
             IsOnlyCurrentComputerEncrypt = repository.HasLocal(auths);
             if (IsPasswordEncrypt)
             {
-                //Password = "******";
-                //VerifyPassword = "******";
+                Password = result.password;
+                VerifyPassword = result.password;
             }
         }
 
@@ -60,10 +66,6 @@ namespace System.Application.UI.ViewModels
 
         public async void EncryptionAuth()
         {
-            if (!await AuthService.Current.HasPasswordEncryptionShowPassWordWindow())
-            {
-                return;
-            }
             var auths = await repository.GetAllSourceAsync();
             var hasPassword = repository.HasSecondaryPassword(auths);
             var hasLocal = repository.HasLocal(auths);

@@ -1,5 +1,6 @@
 using ReactiveUI;
 using System.Application.Models;
+using System.Application.Repositories;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.IO;
@@ -13,20 +14,40 @@ namespace System.Application.UI.ViewModels
     public class AddAuthWindowViewModel : WindowViewModel
     {
         readonly IHttpService httpService = DI.Get<IHttpService>();
+        readonly IGameAccountPlatformAuthenticatorRepository repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
 
         public AddAuthWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LocalAuth_AddAuth;
+            Initialize();
         }
 
-        private GAPAuthenticatorValueDTO.SteamAuthenticator _SteamAuthenticator;
+        private GAPAuthenticatorValueDTO.SteamAuthenticator? _SteamAuthenticator;
         private GAPAuthenticatorValueDTO.SteamAuthenticator.EnrollState _Enroll = new() { RequiresLogin = true };
+        private string? AuthPassword;
+        private bool AuthIsLocal;
 
-        public string AuthName { get; set; }
+        private async void Initialize()
+        {
+            var result = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
+            if (result.success)
+            {
+                AuthPassword = result.password;
+            }
+            else
+            {
+                AuthPassword = null;
+            }
+            var auths = await repository.GetAllSourceAsync();
+            AuthIsLocal = repository.HasLocal(auths);
+        }
 
-        public string UUID { get; set; }
 
-        public string SteamGuard { get; set; }
+        public string? AuthName { get; set; }
+
+        public string? UUID { get; set; }
+
+        public string? SteamGuard { get; set; }
 
         public bool RequiresLogin
         {
@@ -53,7 +74,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public string UserName
+        public string? UserName
         {
             get
             {
@@ -65,7 +86,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public string Password
+        public string? Password
         {
             get
             {
@@ -149,7 +170,7 @@ namespace System.Application.UI.ViewModels
 
         public void ImportSteamGuard()
         {
-            if (AuthService.Current.ImportSteamGuard(AuthName, UUID, SteamGuard))
+            if (AuthService.Current.ImportSteamGuard(AuthName, UUID, SteamGuard, AuthIsLocal, AuthPassword))
             {
                 ToastService.Current.Notify(AppResources.LocalAuth_AddAuthSuccess);
             }
@@ -225,7 +246,7 @@ namespace System.Application.UI.ViewModels
                         {
                             Name = nameof(GamePlatform.Steam) + "(" + UserName + ")",
                             Value = _SteamAuthenticator
-                        });
+                        }, AuthIsLocal, AuthPassword);
 
                         RequiresActivation = true;
                         RevocationCode = _Enroll.RevocationCode;
@@ -261,5 +282,24 @@ namespace System.Application.UI.ViewModels
 
         }
 
+        public void ImportWinAuth(string file)
+        {
+            AuthService.Current.ImportWinAuthenticators(file,AuthIsLocal,AuthPassword);
+        }
+
+        public void ImportSDA(string file)
+        {
+            AuthService.Current.ImportSDAFile(file, AuthIsLocal, AuthPassword);
+        }
+
+        public void ImportSteamPlusPlusV1(string file)
+        {
+            AuthService.Current.ImportSteamToolsV1Authenticator(file, AuthIsLocal, AuthPassword);
+        }
+
+        public void ImportSteamPlusPlusV2(string file)
+        {
+            AuthService.Current.ImportAuthenticatorFile(file, AuthIsLocal, AuthPassword);
+        }
     }
 }

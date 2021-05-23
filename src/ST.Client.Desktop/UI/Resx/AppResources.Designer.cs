@@ -1819,6 +1819,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 没有设置密码无法锁定令牌 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_LockError {
+            get {
+                return ResourceManager.GetString("LocalAuth_LockError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 编辑令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_MenuName {
@@ -2220,6 +2229,15 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_WinAuthTip {
             get {
                 return ResourceManager.GetString("LocalAuth_WinAuthTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 锁定 的本地化字符串。
+        /// </summary>
+        public static string Lock {
+            get {
+                return ResourceManager.GetString("Lock", resourceCulture);
             }
         }
         

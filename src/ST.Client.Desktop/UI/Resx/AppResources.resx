@@ -708,6 +708,9 @@
   <data name="LocalAuth_ImportFaild" xml:space="preserve">
     <value>导入失败，请检查数据是否正确。</value>
   </data>
+  <data name="LocalAuth_LockError" xml:space="preserve">
+    <value>没有设置密码无法锁定令牌</value>
+  </data>
   <data name="LocalAuth_MenuName" xml:space="preserve">
     <value>编辑令牌</value>
   </data>
@@ -842,6 +845,9 @@
   </data>
   <data name="LocalAuth_WinAuthTip" xml:space="preserve">
     <value>WinAuth是Windows的便携式开放源代码身份验证器，它提供基于计数器或基于时间的RFC 6238身份验证器和常见的实现。导入方法：从WinAuth导出txt文件之后在此选择从WinAuth导出的txt文件进行导入。</value>
+  </data>
+  <data name="Lock" xml:space="preserve">
+    <value>锁定</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>登 录</value>

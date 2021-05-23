@@ -73,12 +73,30 @@ namespace System.Application.Services
             }
         }
 
-        public async Task<bool> HasPasswordEncryptionShowPassWordWindow()
+        /// <summary>
+        /// 是否设置了密码加密
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> HasPasswordEncryption()
         {
             var auths = await repository.GetAllSourceAsync();
             if (!auths.Any_Nullable())
             {
                 return false;
+            }
+            return repository.HasSecondaryPassword(auths);
+        }
+
+        /// <summary>
+        /// 是否设置了密码加密且弹出解密框
+        /// </summary>
+        /// <returns></returns>
+        public async Task<(bool success, string? password)> HasPasswordEncryptionShowPassWordWindow()
+        {
+            var auths = await repository.GetAllSourceAsync();
+            if (!auths.Any_Nullable())
+            {
+                return (false, null);
             }
             var hasPassword = repository.HasSecondaryPassword(auths);
             if (hasPassword)
@@ -87,15 +105,15 @@ namespace System.Application.Services
                 var list = await repository.ConvertToList(auths, password);
                 if (list.Any_Nullable())
                 {
-                    return true;
+                    return (true, password);
                 }
                 Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordError);
-                return false;
+                return (false, null);
             }
             else
             {
-                //没有密码直接成功
-                return true;
+                //没有设置密码直接成功
+                return (true, null);
             }
         }
 
@@ -108,7 +126,7 @@ namespace System.Application.Services
         /// <summary>
         /// WinAuth令牌导入
         /// </summary>
-        public void ImportWinAuthenticators(string file)
+        public void ImportWinAuthenticators(string file, bool isLocal, string? password)
         {
             StringBuilder lines = new StringBuilder();
             bool retry;
@@ -124,7 +142,7 @@ namespace System.Application.Services
             try
             {
                 using var sr = new StringReader(lines.ToString());
-                string line;
+                string? line;
                 while ((line = sr.ReadLine()) != null)
                 {
                     linenumber++;
@@ -282,7 +300,7 @@ namespace System.Application.Services
                     ToastService.Current.Notify(AppResources.LocalAuth_AddAuthSyncTip);
                     importedAuthenticator.Value.Sync();
 
-                    AuthService.AddOrUpdateSaveAuthenticators(importedAuthenticator);
+                    AuthService.AddOrUpdateSaveAuthenticators(importedAuthenticator, isLocal, password);
                 }
                 ToastService.Current.Notify(AppResources.LocalAuth_AddAuthSuccess);
             }
@@ -300,7 +318,7 @@ namespace System.Application.Services
         /// Steam APP令牌导入
         /// </summary>
         /// <returns>true if successful</returns>
-        public bool ImportSteamGuard(string name, string uuid, string steamGuard)
+        public bool ImportSteamGuard(string name, string uuid, string steamGuard, bool isLocal, string? password)
         {
             if (string.IsNullOrEmpty(uuid))
             {
@@ -389,11 +407,11 @@ namespace System.Application.Services
             {
                 Name = name,
                 Value = auth,
-            });
+            }, isLocal, password);
             return true;
         }
 
-        public bool ImportSDAFile(string mafile)
+        public bool ImportSDAFile(string mafile, bool isLocal, string? password)
         {
             string data;
             if (File.Exists(mafile) == false || (data = File.ReadAllText(mafile)) == null)
@@ -453,36 +471,47 @@ namespace System.Application.Services
             auth.SteamData = token.ToString(Newtonsoft.Json.Formatting.None);
             winAuth.Value = auth;
 
-            AddOrUpdateSaveAuthenticators(winAuth);
+            AddOrUpdateSaveAuthenticators(winAuth,isLocal,password);
             return true;
         }
 
         /// <summary>
         /// 导入Steam++导出的令牌数据文件 V2
         /// </summary>
-        public async void ImportAuthenticatorFile(string file, string? password = null)
+        public async void ImportAuthenticatorFile(string file, bool isLocal, string? password, string? exportPassword = null)
         {
             if (File.Exists(file))
             {
                 var bt = await File.ReadAllBytesAsync(file);
 
-                var result = await repository.ImportAsync(null, bt);
+            Run:
+                var result = await repository.ImportAsync(password, bt);
 
                 if (result.resultCode == IGameAccountPlatformAuthenticatorRepository.ImportResultCode.Success)
                 {
                     foreach (var item in result.result)
                     {
-                        await repository.InsertOrUpdateAsync(item, true);
+                        AddOrUpdateSaveAuthenticators(new MyAuthenticator(item), isLocal, password);
                     }
+
                     ToastService.Current.Notify(AppResources.LocalAuth_AddAuthSuccess);
                 }
                 else if (result.resultCode == IGameAccountPlatformAuthenticatorRepository.ImportResultCode.PartSuccess)
                 {
                     foreach (var item in result.result)
                     {
-                        await repository.InsertOrUpdateAsync(item, true);
+                        AddOrUpdateSaveAuthenticators(new MyAuthenticator(item), isLocal, password);
                     }
                     Toast.Show(AppResources.LocalAuth_AddAuth_PartSuccess);
+                }
+                else if (result.resultCode == IGameAccountPlatformAuthenticatorRepository.ImportResultCode.IncorrectPwdOrIsNotLocal)
+                {
+                    Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
+                    password = await PasswordWindowViewModel.ShowPasswordDialog();
+                    if (string.IsNullOrWhiteSpace(password))
+                    {
+                        goto Run;
+                    }
                 }
                 else
                 {
@@ -491,7 +520,7 @@ namespace System.Application.Services
             };
         }
 
-        public void LoadSteamToolsV1Authenticator(string file)
+        public void ImportSteamToolsV1Authenticator(string file, bool isLocal, string? password)
         {
             var authString = File.ReadAllText(file).DecompressString();
             if (!string.IsNullOrEmpty(authString))
@@ -515,7 +544,7 @@ namespace System.Application.Services
                         {
                             var wa = new MyAuthenticator();
                             wa.ReadXml(reader, null);
-                            AddOrUpdateSaveAuthenticators(wa);
+                            AddOrUpdateSaveAuthenticators(wa, isLocal, password);
                         }
                     }
                     else
@@ -527,20 +556,46 @@ namespace System.Application.Services
             }
         }
 
-        public static void AddOrUpdateSaveAuthenticators(GAPAuthenticatorDTO auth)
+        public static void AddOrUpdateSaveAuthenticators(GAPAuthenticatorDTO auth, bool isLocal, string? password)
         {
-            AddOrUpdateSaveAuthenticators(new MyAuthenticator(auth));
+            AddOrUpdateSaveAuthenticators(new MyAuthenticator(auth), isLocal, password);
         }
 
-        public static async void AddOrUpdateSaveAuthenticators(MyAuthenticator auth)
+        public static async void AddOrUpdateSaveAuthenticators(MyAuthenticator auth, bool isLocal, string? password)
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
-            await repository.InsertOrUpdateAsync(auth.AuthenticatorData, false);
+            await repository.InsertOrUpdateAsync(auth.AuthenticatorData, isLocal, password);
             if (Current.Authenticators.Items.Any(s => s.Id == auth.Id))
             {
                 return;
             }
             Current.Authenticators.AddOrUpdate(auth);
+        }
+
+        public static async void AddOrUpdateSaveAuthenticators(IEnumerable<MyAuthenticator> auths)
+        {
+            if (auths.Any_Nullable())
+            {
+                var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
+                var sources = await repository.GetAllSourceAsync();
+                if (!sources.Any_Nullable())
+                {
+                    foreach (var item in auths)
+                    {
+                        AddOrUpdateSaveAuthenticators(item, false, null);
+                    }
+                }
+                else
+                {
+                    var hasLocal = repository.HasLocal(sources);
+                    var result = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
+                    var password = result.password;
+                    foreach (var item in auths)
+                    {
+                        AddOrUpdateSaveAuthenticators(item, hasLocal, password);
+                    }
+                }
+            }
         }
 
         public static async void DeleteSaveAuthenticators(MyAuthenticator auth)

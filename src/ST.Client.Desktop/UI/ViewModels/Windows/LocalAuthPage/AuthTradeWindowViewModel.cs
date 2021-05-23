@@ -2,6 +2,7 @@ using DynamicData;
 using DynamicData.Binding;
 using ReactiveUI;
 using System.Application.Models;
+using System.Application.Repositories;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
@@ -36,6 +37,8 @@ namespace System.Application.UI.ViewModels
                    this.RaisePropertyChanged(nameof(IsConfirmationsEmpty));
                    this.RaisePropertyChanged(nameof(ConfirmationsConutMessage));
                });
+
+            Initialize();
         }
 
         public AuthTradeWindowViewModel(MyAuthenticator auth) : this()
@@ -53,6 +56,25 @@ namespace System.Application.UI.ViewModels
             }
 
             Refresh_Click();
+        }
+
+        private string? AuthPassword;
+        private bool AuthIsLocal;
+
+        private async void Initialize()
+        {
+            var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
+            var result = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
+            if (result.success)
+            {
+                AuthPassword = result.password;
+            }
+            else
+            {
+                AuthPassword = null;
+            }
+            var auths = await repository.GetAllSourceAsync();
+            AuthIsLocal = repository.HasLocal(auths);
         }
 
         #region LoginData
@@ -239,7 +261,7 @@ namespace System.Application.UI.ViewModels
             {
                 IsLoggedIn = false;
                 _Authenticator.SessionData = null;
-                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
+                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator,AuthIsLocal,AuthPassword);
             }
         }
 
@@ -291,7 +313,7 @@ namespace System.Application.UI.ViewModels
                     ToastService.Current.Notify(AppResources.User_LoiginSuccess);
                     IsLoggedIn = true;
                     _Authenticator.SessionData = RememberMe ? steam.Session.ToString() : null;
-                    AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
+                    AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator, AuthIsLocal, AuthPassword);
                 }
                 try
                 {
@@ -311,7 +333,7 @@ namespace System.Application.UI.ViewModels
                     // 获取新交易后保存
                     if (!string.IsNullOrEmpty(_Authenticator.SessionData))
                     {
-                        AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
+                        AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator, AuthIsLocal, AuthPassword);
                     }
                     IsLoading = false;
                 }
@@ -563,7 +585,7 @@ namespace System.Application.UI.ViewModels
                 CancelComfirmAll = null;
                 RefreshConfirmationsList();
                 ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_ConfirmSuccess);
-                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
+                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator, AuthIsLocal, AuthPassword);
             }
         }
 
@@ -617,7 +639,7 @@ namespace System.Application.UI.ViewModels
                 CancelCancelAll = null;
                 RefreshConfirmationsList();
                 ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_ConfirmCancel);
-                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator);
+                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator, AuthIsLocal, AuthPassword);
             }
         }
 

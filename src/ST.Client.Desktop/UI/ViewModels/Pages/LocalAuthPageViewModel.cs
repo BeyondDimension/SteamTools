@@ -24,8 +24,20 @@ namespace System.Application.UI.ViewModels
             AddAuthCommand = ReactiveCommand.Create(AddAuthMenu_Click);
             RefreshAuthCommand = ReactiveCommand.Create(() => AuthService.Current.Initialize(true));
             EncryptionAuthCommand = ReactiveCommand.Create(ShowEncryptionAuthWindow);
-
             ExportAuthCommand = ReactiveCommand.Create(ShowExportAuthAuthWindow);
+            LockCommand = ReactiveCommand.Create(async () =>
+            {
+                var result = await AuthService.Current.HasPasswordEncryption();
+                if (result)
+                {
+                    AuthService.Current.Authenticators.Clear();
+                    Activation();
+                }
+                else
+                {
+                    Toast.Show(AppResources.LocalAuth_LockError);
+                }
+            });
 
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
@@ -34,15 +46,17 @@ namespace System.Application.UI.ViewModels
                 //    Items = new[]
                 //    {
                         new MenuItemViewModel(nameof(AppResources.Add)) { IconKey="AddDrawing",
-                            Command= AddAuthCommand },
-                        new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="LockDrawing",
-                            Command =EncryptionAuthCommand },
+                            Command = AddAuthCommand },
+                        new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="ShieldLockDrawing",
+                            Command = EncryptionAuthCommand },
                         //new MenuItemViewModel(nameof(AppResources.Edit)) { IconKey="EditDrawing" },
                         new MenuItemViewModel(nameof(AppResources.Export)) { IconKey="ExportDrawing",
-                            Command= ExportAuthCommand  },
+                            Command = ExportAuthCommand  },
                         new MenuItemViewModel(),
+                        new MenuItemViewModel(nameof(AppResources.Lock)) {IconKey="LockDrawing",
+                            Command = LockCommand },
                         new MenuItemViewModel(nameof(AppResources.Refresh)) {IconKey="RefreshDrawing",
-                            Command= RefreshAuthCommand },
+                            Command = RefreshAuthCommand },
                         //new MenuItemViewModel(),
                         //new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="LockDrawing" },
                         //new MenuItemViewModel(nameof(AppResources.CloudSync)) {IconKey="CloudDrawing" },
@@ -74,6 +88,8 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> AddAuthCommand { get; }
 
         public ReactiveCommand<Unit, Unit> EncryptionAuthCommand { get; }
+
+        public ReactiveCommand<Unit, Task> LockCommand { get; }
 
         public ReactiveCommand<Unit, Unit> RefreshAuthCommand { get; }
 
@@ -137,7 +153,8 @@ namespace System.Application.UI.ViewModels
 
         public async void ShowSteamAuthData(MyAuthenticator auth)
         {
-            if (await AuthService.Current.HasPasswordEncryptionShowPassWordWindow())
+            var result = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
+            if (result.success)
             {
                 if (auth.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator)
                 {

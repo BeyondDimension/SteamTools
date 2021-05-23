@@ -51,8 +51,20 @@ namespace System.Application.UI.ViewModels
         }
 
 
-        public void ExportAuth()
+        public async void ExportAuth()
         {
+            var result = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
+            if (!result.success)
+            {
+                this.Close();
+            }
+
+            if (string.IsNullOrEmpty(Path))
+            {
+                Toast.Show(AppResources.LocalAuth_ProtectionAuth_PathError);
+                return;
+            }
+
             if (IsPasswordEncrypt)
             {
                 if (string.IsNullOrWhiteSpace(VerifyPassword) && VerifyPassword != Password)
