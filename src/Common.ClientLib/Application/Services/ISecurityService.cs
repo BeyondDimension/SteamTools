@@ -40,7 +40,7 @@ namespace System.Application.Services
         ValueTask<byte[]?> DB(byte[]? value, string? secondaryPassword = null);
 
         /// <inheritdoc cref="D(byte[]?, string?)"/>
-        ValueTask<(byte[]? content, DResultCode resultCode)> DB2(byte[]? value, string? secondaryPassword = nuint);
+        ValueTask<(byte[]? content, DResultCode resultCode)> DB2(byte[]? value, string? secondaryPassword = null);
 
         public enum DResultCode
         {
