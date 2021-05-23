@@ -141,27 +141,28 @@ namespace System.Application.UI
                 unlock_achievement.AddOption(new Option<bool>("-silence", "挂运行服务，不加载窗口，内存占用更小"));
                 unlock_achievement.Handler = CommandHandler.Create((int id, bool silence) =>
                 {
-                    if (id <= 0) return;
-                    if (!silence)
+                    try
                     {
-                        initStartup(DILevel.GUI | DILevel.Steam | DILevel.HttpClientFactory);
-                        IWindowService.Instance.InitUnlockAchievement(id);
-                        initUIApp();
-                    }
-                    else
-                    {
-                        try
+                        if (id <= 0) return;
+                        if (!silence)
+                        {
+                            initStartup(DILevel.GUI | DILevel.Steam | DILevel.HttpClientFactory);
+                            IWindowService.Instance.InitUnlockAchievement(id);
+                            initUIApp();
+                        }
+                        else
                         {
                             initStartup(DILevel.Steam);
                             SteamConnectService.Current.Initialize(id);
                             var day = 86400000;
                             while (true)
                                 Threading.Thread.Sleep(day);
-                        }
-                        catch (Exception ex)
-                        {
 
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(nameof(unlock_achievement), ex, "Start");
                     }
                 });
                 rootCommand.AddCommand(unlock_achievement);

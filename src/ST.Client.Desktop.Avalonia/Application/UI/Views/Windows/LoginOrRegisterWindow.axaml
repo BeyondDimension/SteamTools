@@ -227,7 +227,7 @@
           <Button Classes="plain"
          HorizontalContentAlignment="Center"
          Command="{ReflectionBinding ChangeLoginState}" CommandParameter="2">
-            <TextBlock Text="{ReflectionBinding Path=Res.User_OtherFastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+            <TextBlock Text="{ReflectionBinding Path=Res.User_FastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
           </Button>
           <Separator Classes="Separator" Height="{ReflectionBinding $parent.Height}" Width="0.88"></Separator>
           <Button Classes="plain"
