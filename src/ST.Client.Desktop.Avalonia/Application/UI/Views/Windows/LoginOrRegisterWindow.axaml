@@ -126,52 +126,53 @@
 
           <StackPanel x:Name="FastLogin"  Spacing="8">
             <TextBlock Text="{ReflectionBinding Path=Res.User_FastLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-            <ListBox Background="Transparent" Items="{Binding FastLoginChannels}">
-              <ListBox.Styles>
-                <Style Selector="ListBoxItem">
+            <ItemsControl Background="Transparent" Items="{Binding FastLoginChannels}">
+              <ItemsControl.Styles>
+                <!--<Style Selector="ListBoxItem">
                   <Setter Property="MinHeight" Value="50"></Setter>
                   <Setter Property="Margin" Value="0 5"></Setter>
                   <Setter Property="Background" Value="{StaticResource ThemeBrushKey}"></Setter>
-                </Style>
+                </Style>-->
                 <Style Selector="PathIcon">
                   <Setter Property="Height" Value="20"></Setter>
                   <Setter Property="Width" Value="20"></Setter>
                 </Style>
-              </ListBox.Styles>
-              <ListBox.ItemTemplate>
+              </ItemsControl.Styles>
+              <ItemsControl.ItemTemplate>
                 <DataTemplate x:CompileBindings="False">
-                  <DockPanel x:Name="FastLoginChannelItem">
-                    <i:Interaction.Behaviors>
-                      <ia:EventTriggerBehavior EventName="Tapped"
-                                               SourceObject="{ReflectionBinding #FastLoginChannelItem}">
-                        <ia:InvokeCommandAction
-                          Command="{ReflectionBinding #u.DataContext.FastLogin}"
-                          CommandParameter="{Binding}"/>
-                      </ia:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                    <Panel DockPanel.Dock="Left">
-                      <PathIcon Data="{StaticResource SteamDrawing}"
-                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Steam}" />
-                      <PathIcon Data="{StaticResource QQ}"
-                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=QQ}" />
-                      <PathIcon Data="{StaticResource Xbox}"
-                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Xbox}" />
-                      <PathIcon Data="{StaticResource Apple}"
-                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Apple}" />
-                    </Panel>
-                    <Panel DockPanel.Dock="Right" Margin="10 0 0 0">
-                      <TextBlock VerticalAlignment="Center" Tag="{Binding,Mode=OneWay}">
-                        <TextBlock.Text>
-                          <MultiBinding x:CompileBindings="False" Converter="{StaticResource StringFormatConverter}" Mode="OneWay">
-                            <Binding Path="Res.User_UseFastLoginChannel_" Source="{x:Static resx:R.Current}"/>
-                            <Binding Path="$self.Tag" />
-                          </MultiBinding>
-                        </TextBlock.Text>
-                      </TextBlock>
-                    </Panel>
-                  </DockPanel>
+                  <Button Command="{Binding #u.DataContext.FastLogin}" CommandParameter="{Binding}" MinHeight="50" Width="296" HorizontalContentAlignment="Left" Margin="0 5" Background="{StaticResource ThemeBrushKey}">
+                    <DockPanel x:Name="FastLoginChannelItem">
+                      <!--<i:Interaction.Behaviors>
+                        <ia:EventTriggerBehavior EventName="Tapped"
+                                                 SourceObject="{ReflectionBinding #FastLoginChannelItem}">
+                          <ia:InvokeCommandAction
+                            Command="{ReflectionBinding #u.DataContext.FastLogin}"/>
+                        </ia:EventTriggerBehavior>
+                      </i:Interaction.Behaviors>-->
+                      <Panel DockPanel.Dock="Left">
+                        <PathIcon Data="{StaticResource SteamDrawing}"
+                                  IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Steam}" />
+                        <PathIcon Data="{StaticResource QQ}"
+                                  IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=QQ}" />
+                        <PathIcon Data="{StaticResource Xbox}"
+                                  IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Xbox}" />
+                        <PathIcon Data="{StaticResource Apple}"
+                                  IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Apple}" />
+                      </Panel>
+                      <Panel DockPanel.Dock="Right" Margin="10 0 0 0">
+                        <TextBlock VerticalAlignment="Center" Tag="{Binding,Mode=OneWay}">
+                          <TextBlock.Text>
+                            <MultiBinding x:CompileBindings="False" Converter="{StaticResource StringFormatConverter}" Mode="OneWay">
+                              <Binding Path="Res.User_UseFastLoginChannel_" Source="{x:Static resx:R.Current}"/>
+                              <Binding Path="$self.Tag" />
+                            </MultiBinding>
+                          </TextBlock.Text>
+                        </TextBlock>
+                      </Panel>
+                    </DockPanel>
+                  </Button>
                 </DataTemplate>
-              </ListBox.ItemTemplate>
+              </ItemsControl.ItemTemplate>
               <!--<ListBoxItem>
                 <DockPanel>
                   <Panel DockPanel.Dock="Left">
@@ -202,7 +203,7 @@
                   </Panel>
                 </DockPanel>
               </ListBoxItem>-->
-            </ListBox>
+            </ItemsControl>
           </StackPanel>
 
           <WrapPanel HorizontalAlignment="Center" Margin="2 0 6 0">
