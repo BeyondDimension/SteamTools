@@ -49,11 +49,8 @@ namespace System.Application
             if (!isInitialized)
             {
                 isInitialized = true;
-#if !__MOBILE__
-                FileSystemDesktop.InitFileSystem();
 #if StartupTrace
                 StartupTrace.Restart("Startup.InitFileSystem");
-#endif
 #endif
                 if (level.HasFlag(DILevel.ServerApiClient))
                 {
@@ -169,7 +166,7 @@ namespace System.Application
                 // 添加主线程助手(MainThreadDesktop)
                 services.AddMainThreadPlatformService();
 
-            #region MessageBox
+                #region MessageBox
 
                 /* System.Windows.MessageBox 在 WPF 库中，仅支持 Win 平台
                  * 改为 System.Windows.MessageBoxCompat 可跨平台兼容
@@ -195,7 +192,7 @@ namespace System.Application
                 //services.AddSingleton<IMessageBoxCompatService, WPFMessageBoxCompatService>();
 #endif
 
-            #endregion
+                #endregion
 #endif
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.GUI");

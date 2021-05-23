@@ -1,4 +1,4 @@
-﻿namespace System
+namespace System
 {
     /// <summary>
     /// MIME 类型
@@ -62,5 +62,15 @@
         public const string MP4 = "video/mp4";
 
         public const string APNG = "image/apng";
+
+        public const string APPX = "application/appx";
+
+        public const string MSIX = "application/msix";
+
+        public const string APPX_Bundle = "application/appxbundle";
+
+        public const string MSIX_Bundle = "application/msixbundle";
+
+        public const string AppInstaller = "application/appinstaller";
     }
 }

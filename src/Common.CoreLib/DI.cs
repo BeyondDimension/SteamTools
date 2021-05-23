@@ -1,4 +1,4 @@
-﻿#if !NOT_DI
+#if !NOT_DI
 using Microsoft.Extensions.DependencyInjection;
 #endif
 using System.Linq;
@@ -12,7 +12,7 @@ namespace System
     /// <summary>
     /// 依赖注入服务组(DependencyInjection)
     /// </summary>
-    public static class DI
+    public static partial class DI
     {
 #if !NOT_DI
 

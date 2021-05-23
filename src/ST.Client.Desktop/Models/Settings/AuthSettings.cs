@@ -21,19 +21,19 @@ namespace System.Application.Models.Settings
             {
                 if (AuthSettings.IsCurrentDirectorySaveAuthData.Value)
                 {
-                    File.WriteAllText(Path.Combine(AppContext.BaseDirectory, Constants.AUTHDATA_FILE), e.NewValue);
+                    File.WriteAllText(Path.Combine(IOPath.AppDataDirectory, Constants.AUTHDATA_FILE), e.NewValue);
                 }
             }
         }
 
         /// <summary>
-        /// ÁîÅÆÊı¾İ(Ñ¹Ëõ´æ´¢£©
+        /// ä»¤ç‰Œæ•°æ®(å‹ç¼©å­˜å‚¨ï¼‰
         /// </summary>
         public static SerializableProperty<string> Authenticators { get; }
             = new SerializableProperty<string>(GetKey(), Providers.Local) { AutoSave = true };
 
         /// <summary>
-        /// ÊÇ·ñ½«ÁîÅÆÊı¾İ´æ´¢ÔÚ³ÌĞòÂ·¾¶ÏÂ
+        /// æ˜¯å¦å°†ä»¤ç‰Œæ•°æ®å­˜å‚¨åœ¨ç¨‹åºè·¯å¾„ä¸‹
         /// </summary>
         public static SerializableProperty<bool> IsCurrentDirectorySaveAuthData { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };

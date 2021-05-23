@@ -18,7 +18,13 @@ namespace System.Application.UI
 
         public static string InitLogDir(string? alias = null)
         {
-            var logDirPath = Path.Combine(AppContext.BaseDirectory, "Logs");
+            var logDirPath = Path.Combine(
+#if WINDOWS_DESKTOP_BRIDGE
+                IOPath.CacheDirectory
+#else
+                AppContext.BaseDirectory
+#endif
+                , "Logs");
             IOPath.DirCreateByNotExists(logDirPath);
 #if StartupTrace
             StartupTrace.Restart("InitLogDir.IO");

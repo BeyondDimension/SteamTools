@@ -2,13 +2,15 @@ using NLog;
 using ReactiveUI;
 using System.Application.Services;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Runtime.ExceptionServices;
 using AvaloniaApplication = Avalonia.Application;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+#if WINDOWS_DESKTOP_BRIDGE
+using System.ApplicationModel;
+using WSApplicationData = Windows.Storage.ApplicationData;
+#endif
 
 namespace System.Application.UI
 {
@@ -24,6 +26,20 @@ namespace System.Application.UI
         [HandleProcessCorruptedStateExceptions]
         static int Main(string[] args)
         {
+#if WINDOWS_DESKTOP_BRIDGE
+            if (DI.Platform != Platform.Windows) return 0;
+            var osVer = Environment.OSVersion.Version;
+            if (osVer.Major != 10 || osVer.Build < 17763) return 0;
+            DesktopBridgeHelper.IsDesktopBridge = true;
+            // https://github.com/xamarin/Essentials/blob/1.6.1/Xamarin.Essentials/FileSystem/FileSystem.uwp.cs#L12
+            // https://docs.microsoft.com/zh-cn/windows/msix/desktop/desktop-to-uwp-behind-the-scenes
+            // 不允许在 C:\Program Files\WindowsApps\package_name 下写入。
+            // C:\Users\{user}\AppData\Local\Packages\net.steampp.app_gvn1zxq6vcwjj\LocalState
+            // C:\Users\{user}\AppData\Local\Packages\net.steampp.app_gvn1zxq6vcwjj\LocalCache
+            IOPath.InitFileSystem(() => WSApplicationData.Current.LocalFolder.Path, () => WSApplicationData.Current.LocalCacheFolder.Path);
+#elif !__MOBILE__
+            FileSystemDesktop.InitFileSystem();
+#endif
 #if StartupTrace
             StartupTrace.Restart();
 #endif

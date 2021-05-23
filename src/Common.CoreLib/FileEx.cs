@@ -56,5 +56,15 @@ namespace System
         public const string EXE = ".exe";
 
         public const string _7Z = ".7z";
+
+        public const string APPX = ".appx";
+
+        public const string MSIX = ".msix";
+
+        public const string APPX_Bundle = ".appxbundle";
+
+        public const string MSIX_Bundle = ".msixbundle";
+
+        public const string AppInstaller = ".appinstaller";
     }
 }

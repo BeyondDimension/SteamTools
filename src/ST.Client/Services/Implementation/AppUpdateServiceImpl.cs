@@ -46,7 +46,7 @@ namespace System.Application.Services.Implementation
         {
             get
             {
-                if (DI.Platform == Platform.Apple && DI.DeviceIdiom != DeviceIdiom.Desktop)
+                if (DI.IsDesktopBridge || (DI.Platform == Platform.Apple && DI.DeviceIdiom != DeviceIdiom.Desktop))
                 {
                     return false;
                 }

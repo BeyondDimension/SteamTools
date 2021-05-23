@@ -1,12 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!--<TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>-->
-    <TargetFramework>net6.0</TargetFramework>
-    <!--<SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>-->
+    <TargetFrameworks>net6.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
-    <!--<UseWindowsForms>false</UseWindowsForms>-->
-    <!--<UseWPF>false</UseWPF>-->
     <AssemblyName>System.Application.SteamTools.Client.Desktop.Windows</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
