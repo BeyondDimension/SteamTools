@@ -93,16 +93,16 @@ namespace System.Application.Services
         /// <returns></returns>
         public async Task<(bool success, string? password)> HasPasswordEncryptionShowPassWordWindow()
         {
-            var auths = await repository.GetAllSourceAsync();
-            if (!auths.Any_Nullable())
+            var auth = await repository.GetFirstOrDefaultSourceAsync();
+            if (auth == null)
             {
                 return (false, null);
             }
-            var hasPassword = repository.HasSecondaryPassword(auths);
+            var hasPassword = repository.HasSecondaryPassword(auth);
             if (hasPassword)
             {
                 var password = await PasswordWindowViewModel.ShowPasswordDialog();
-                var list = await repository.ConvertToList(auths, password);
+                var list = await repository.ConvertToList(new[] { auth }, password);
                 if (list.Any_Nullable())
                 {
                     return (true, password);
@@ -471,7 +471,7 @@ namespace System.Application.Services
             auth.SteamData = token.ToString(Newtonsoft.Json.Formatting.None);
             winAuth.Value = auth;
 
-            AddOrUpdateSaveAuthenticators(winAuth,isLocal,password);
+            AddOrUpdateSaveAuthenticators(winAuth, isLocal, password);
             return true;
         }
 
@@ -504,7 +504,7 @@ namespace System.Application.Services
                     }
                     Toast.Show(AppResources.LocalAuth_AddAuth_PartSuccess);
                 }
-                else if (result.resultCode == IGameAccountPlatformAuthenticatorRepository.ImportResultCode.IncorrectPwdOrIsNotLocal)
+                else if (result.resultCode == IGameAccountPlatformAuthenticatorRepository.ImportResultCode.SecondaryPasswordFail)
                 {
                     Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
                     password = await PasswordWindowViewModel.ShowPasswordDialog();

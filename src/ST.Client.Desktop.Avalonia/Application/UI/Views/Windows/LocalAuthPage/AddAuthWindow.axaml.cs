@@ -11,11 +11,9 @@ namespace System.Application.UI.Views.Windows
 {
     public class AddAuthWindow : FluentWindow
     {
-        private AddAuthWindowViewModel? vm;
         public AddAuthWindow() : base()
         {
             InitializeComponent();
-            vm = this.DataContext as AddAuthWindowViewModel;
 #if DEBUG
             this.AttachDevTools();
 #endif
@@ -39,6 +37,7 @@ namespace System.Application.UI.Views.Windows
 
         private void SppV2Btn_Click(object? sender, RoutedEventArgs e)
         {
+            var vm = this.DataContext as AddAuthWindowViewModel;
             var fileDialog = new OpenFileDialog
             {
                 Filters = new List<FileDialogFilter> {
@@ -53,13 +52,14 @@ namespace System.Application.UI.Views.Windows
             {
                 if (s != null && s.Result.Length > 0)
                 {
-                    vm.ImportSteamPlusPlusV2(s.Result[0]);
+                    vm?.ImportSteamPlusPlusV2(s.Result[0]);
                 }
             });
         }
 
         private void SppBtn_Click(object? sender, RoutedEventArgs e)
         {
+            var vm = this.DataContext as AddAuthWindowViewModel;
             var fileDialog = new OpenFileDialog
             {
                 Filters = new List<FileDialogFilter> {
@@ -80,6 +80,7 @@ namespace System.Application.UI.Views.Windows
 
         private void SdaBtn_Click(object? sender, RoutedEventArgs e)
         {
+            var vm = this.DataContext as AddAuthWindowViewModel;
             var fileDialog = new OpenFileDialog
             {
                 Filters = new List<FileDialogFilter> {
@@ -101,6 +102,7 @@ namespace System.Application.UI.Views.Windows
 
         private void WinAuthBtn_Click(object? sender, RoutedEventArgs e)
         {
+            var vm = this.DataContext as AddAuthWindowViewModel;
             var fileDialog = new OpenFileDialog
             {
                 Filters = new List<FileDialogFilter> {

@@ -19,9 +19,6 @@
         x:DataType="vm:AddAuthWindowViewModel"
         x:CompileBindings="True"
         Title="{Binding Title}">
-  <Design.DataContext>
-    <vm:AddAuthWindowViewModel/>
-  </Design.DataContext>
   <Panel>
     <DockPanel HorizontalAlignment="Stretch">
       <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="95">
