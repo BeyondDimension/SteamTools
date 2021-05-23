@@ -107,6 +107,7 @@ namespace System.Application
             services.TryAddPermissions();
             services.AddPlatformPermissions();
 #endif
+#if !CONSOLEAPP
             // 添加 app 配置项
             services.TryAddOptions(AppSettings);
             // 键值对存储
@@ -114,6 +115,7 @@ namespace System.Application
 #if !__MOBILE__
             // 添加安全服务
             services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
+#endif
 #endif
         }
 
@@ -167,7 +169,7 @@ namespace System.Application
                 // 添加主线程助手(MainThreadDesktop)
                 services.AddMainThreadPlatformService();
 
-                #region MessageBox
+            #region MessageBox
 
                 /* System.Windows.MessageBox 在 WPF 库中，仅支持 Win 平台
                  * 改为 System.Windows.MessageBoxCompat 可跨平台兼容
@@ -193,7 +195,7 @@ namespace System.Application
                 //services.AddSingleton<IMessageBoxCompatService, WPFMessageBoxCompatService>();
 #endif
 
-                #endregion
+            #endregion
 #endif
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.GUI");

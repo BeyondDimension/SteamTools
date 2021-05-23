@@ -44,7 +44,6 @@
         - 目标框架使用 .NET Framework 3.5 并通过 App.config 配置允许在 4.X 中运行 实现在 Windows 上兼容所有的运行库环境
 - Launch **启动项**
     - ST.Client.Desktop.Avalonia.App **桌面客户端**
-    - ST.Client.Desktop.Avalonia.App.Bridge **Desktop Bridge**
     - ST.Client.Desktop.Avalonia.App.Bridge.Package **Desktop Bridge**
     - ST.Client.Desktop.Avalonia.Demo.App **桌面客户端(UI演示)**
     - ST.Client.Mobile.Droid.App **Android 客户端**

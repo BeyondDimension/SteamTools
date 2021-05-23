@@ -21,8 +21,10 @@
 |  ----  | ----  |
 | Steam++_win_x86_v2.2.0.7z  | SHA256 |
 | Steam++_win_x86_v2.2.0.exe  | SHA256 |
+| Steam++_win_x86_v2.2.0.msix  | SHA256 |
 | Steam++_win_arm64_v2.2.0.7z  | SHA256 |
 | Steam++_win_arm64_v2.2.0.exe  | SHA256 |
+| Steam++_win_arm64_v2.2.0.msix  | SHA256 |
 | Steam++_linux_x64_v2.2.0.7z  | SHA256 |
 | Steam++_linux_x64_v2.2.0.deb  | SHA256 |
 | Steam++_macos_x64_v2.2.0.dmg  | SHA256 |
