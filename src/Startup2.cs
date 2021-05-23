@@ -141,6 +141,9 @@ namespace System.Application
             StartupTrace.Restart("DI.ConfigureDemandServices.Calc");
 #endif
 
+            // 键值对存储
+            services.TryAddStorage();
+
 #if !CONSOLEAPP
             if (hasGUI)
             {
@@ -267,9 +270,6 @@ namespace System.Application
 
                 // 添加仓储服务
                 services.AddRepositories();
-
-                // 键值对存储
-                services.TryAddStorage();
 
                 // 业务平台用户管理
                 services.TryAddUserManager();

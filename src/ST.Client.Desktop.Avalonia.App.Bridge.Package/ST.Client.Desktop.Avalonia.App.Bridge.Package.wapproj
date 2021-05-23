@@ -52,11 +52,11 @@
   <PropertyGroup>
     <ProjectGuid>1f659618-71e2-4aaf-9d86-62700fd4cf02</ProjectGuid>
     <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-    <EntryPointProjectUniqueName>..\ST.Client.Desktop.Avalonia.App.Bridge\ST.Client.Desktop.Avalonia.App.Bridge.csproj</EntryPointProjectUniqueName>
     <PackageCertificateThumbprint>B6D2933B81EEDE587801E0C3E0D570DFD3DEFA70</PackageCertificateThumbprint>
+    <EntryPointProjectUniqueName>..\ST.Client.Desktop.Avalonia.App\ST.Client.Desktop.Avalonia.App.csproj</EntryPointProjectUniqueName>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -126,7 +126,7 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.19041.8" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ST.Client.Desktop.Avalonia.App.Bridge\ST.Client.Desktop.Avalonia.App.Bridge.csproj">
+    <ProjectReference Include="..\ST.Client.Desktop.Avalonia.App\ST.Client.Desktop.Avalonia.App.csproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
     </ProjectReference>
   </ItemGroup>
