@@ -107,6 +107,12 @@ namespace System.Application
             services.TryAddPermissions();
             services.AddPlatformPermissions();
 #endif
+            // 键值对存储
+            services.TryAddStorage();
+#if !__MOBILE__
+            // 添加安全服务
+            services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
+#endif
         }
 
         /// <summary>
@@ -116,7 +122,6 @@ namespace System.Application
         static void ConfigureDemandServices(IServiceCollection services, DILevel level)
         {
             var hasMainProcessRequired = level.HasFlag(DILevel.MainProcessRequired);
-
 #if !__MOBILE__
 #if !CONSOLEAPP
             HasNotifyIcon = hasMainProcessRequired;
@@ -136,14 +141,9 @@ namespace System.Application
             // 桌面平台服务 此项放在其他通用业务实现服务之前
             services.AddDesktopPlatformService(hasSteam);
 #endif
-
 #if StartupTrace
             StartupTrace.Restart("DI.ConfigureDemandServices.Calc");
 #endif
-
-            // 键值对存储
-            services.TryAddStorage();
-
 #if !CONSOLEAPP
             if (hasGUI)
             {
@@ -198,7 +198,6 @@ namespace System.Application
 #endif
             }
 #endif
-
             if (hasHttpClientFactory
 #if !CONSOLEAPP
                 || hasServerApiClient
@@ -229,7 +228,6 @@ namespace System.Application
                 StartupTrace.Restart("DI.ConfigureDemandServices.HttpClientFactory");
 #endif
             }
-
 #if !__MOBILE__
             services.TryAddScriptManager();
 #endif
@@ -247,7 +245,6 @@ namespace System.Application
 #endif
             }
 #endif
-
 #if !CONSOLEAPP
             if (hasServerApiClient)
             {
@@ -255,10 +252,6 @@ namespace System.Application
                 services.TryAddOptions(AppSettings);
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.AppSettings");
-#endif
-#if !__MOBILE__
-                // 添加安全服务
-                services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
 #endif
                 // 添加模型验证框架
                 services.TryAddModelValidator();
@@ -278,7 +271,6 @@ namespace System.Application
 #endif
             }
 #endif
-
 #if !CONSOLEAPP
             // 添加通知服务
             AddNotificationService();
@@ -293,14 +285,7 @@ namespace System.Application
                 services.AddNotificationService();
             }
 #endif
-
 #if !__MOBILE__
-            //if (hasGUI || hasServerApiClient)
-            //{
-            //    // 业务用户配置文件服务()
-            //    //services.AddConfigFileService();
-            //}
-
 #if !CONSOLEAPP
             if (hasHosts)
             {
@@ -311,7 +296,6 @@ namespace System.Application
 #endif
             }
 #endif
-
             if (hasSteam)
             {
                 // Steam 相关助手、工具类服务
@@ -329,7 +313,6 @@ namespace System.Application
                 StartupTrace.Restart("DI.ConfigureDemandServices.Steam");
 #endif
             }
-
 #if !CONSOLEAPP
             if (hasMainProcessRequired)
             {

@@ -104,8 +104,14 @@ namespace Microsoft.AppCenter.Utils
                 var r = func.RunSync();
                 if (r != null)
                 {
-                    var r2 = (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(r);
-                    return r2;
+                    try
+                    {
+                        var r2 = (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(r);
+                        return r2;
+                    }
+                    catch
+                    {
+                    }
                 }
             }
             return defaultValue;
