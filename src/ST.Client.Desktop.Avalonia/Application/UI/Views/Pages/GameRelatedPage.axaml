@@ -10,14 +10,14 @@
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.GameRelatedPage">
   <TabControl TabStripPlacement="Left">
-    <TabItem Header="无边框窗口化">
+    <TabItem Header="{ReflectionBinding Path=Res.GameRelated_Borderless_MoveMouseTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
       <pages:GameRelated_BorderlessPage>
         <pages:GameRelated_BorderlessPage.DataContext>
           <vm:GameRelated_BorderlessPageViewModel/>
         </pages:GameRelated_BorderlessPage.DataContext>
       </pages:GameRelated_BorderlessPage>
     </TabItem>
-    <TabItem Header="CS:GO">
-    </TabItem>
+    <!--<TabItem Header="CS:GO">
+    </TabItem>-->
   </TabControl>
 </UserControl>
