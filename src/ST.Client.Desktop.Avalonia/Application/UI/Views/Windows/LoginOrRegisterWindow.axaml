@@ -25,6 +25,7 @@
         WindowStartupLocation="CenterOwner"
         x:DataType="vm:LoginOrRegisterWindowViewModel"
         x:CompileBindings="True"
+        x:Name="u"
         Title="{Binding Title}">
   <Window.Resources>
     <converters:StringEqualsConverter x:Key="StringEqualsConverter" />
@@ -125,7 +126,7 @@
 
           <StackPanel x:Name="FastLogin"  Spacing="8">
             <TextBlock Text="{ReflectionBinding Path=Res.User_FastLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-            <ListBox Background="Transparent" Items="{Binding FastLoginChannels}" SelectedIndex="{Binding FastLoginChannelsSelectedIndex}">
+            <ListBox Background="Transparent" Items="{Binding FastLoginChannels}">
               <ListBox.Styles>
                 <Style Selector="ListBoxItem">
                   <Setter Property="MinHeight" Value="50"></Setter>
@@ -139,7 +140,15 @@
               </ListBox.Styles>
               <ListBox.ItemTemplate>
                 <DataTemplate x:CompileBindings="False">
-                  <DockPanel>
+                  <DockPanel x:Name="FastLoginChannelItem">
+                    <i:Interaction.Behaviors>
+                      <ia:EventTriggerBehavior EventName="Tapped"
+                                               SourceObject="{ReflectionBinding #FastLoginChannelItem}">
+                        <ia:InvokeCommandAction
+                          Command="{ReflectionBinding #u.DataContext.FastLogin}"
+                          CommandParameter="{Binding}"/>
+                      </ia:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
                     <Panel DockPanel.Dock="Left">
                       <PathIcon Data="{StaticResource SteamDrawing}"
                                 IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Steam}" />
