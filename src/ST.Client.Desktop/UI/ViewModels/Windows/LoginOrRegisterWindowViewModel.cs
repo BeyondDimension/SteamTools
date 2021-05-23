@@ -213,7 +213,7 @@ namespace System.Application.UI.ViewModels
         public FastLoginChannel[] FastLoginChannels { get; } = new[] {
             FastLoginChannel.Steam,
             FastLoginChannel.QQ,
-            FastLoginChannel.Microsoft,
+            FastLoginChannel.Xbox,
             FastLoginChannel.Apple,
         };
 

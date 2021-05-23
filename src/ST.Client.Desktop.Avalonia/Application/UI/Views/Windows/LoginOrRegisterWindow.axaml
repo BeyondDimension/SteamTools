@@ -152,8 +152,8 @@
                                 IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Steam}" />
                       <PathIcon Data="{StaticResource QQ}"
                                 IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=QQ}" />
-                      <PathIcon Data="{StaticResource Microsoft}"
-                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Microsoft}" />
+                      <PathIcon Data="{StaticResource Xbox}"
+                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Xbox}" />
                       <PathIcon Data="{StaticResource Apple}"
                                 IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Apple}" />
                     </Panel>

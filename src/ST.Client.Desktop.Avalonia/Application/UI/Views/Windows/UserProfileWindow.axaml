@@ -254,7 +254,7 @@
                       IsEnabled="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
                       IsVisible="{ReflectionBinding Path=User.SteamAccountId,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={x:Static ObjectConverters.IsNotNull}}"/>
 
-              <PathIcon Classes="FormItemLabel" Data="{StaticResource Microsoft}" Grid.Row="3"/>
+              <PathIcon Classes="FormItemLabel" Data="{StaticResource Xbox}" Grid.Row="3"/>
               <TextBox IsReadOnly="True"
                        Focusable="False"
                        Watermark="{ReflectionBinding Path=Res.Unbound,Mode=OneWay,Source={x:Static resx:R.Current}}"
