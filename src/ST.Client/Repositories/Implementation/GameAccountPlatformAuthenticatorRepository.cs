@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
 using static System.Application.Repositories.IGameAccountPlatformAuthenticatorRepository;
+using static System.Application.Services.ISecurityService;
 
 namespace System.Application.Repositories.Implementation
 {
@@ -36,34 +37,48 @@ namespace System.Application.Repositories.Implementation
 
         async Task<IGAPAuthenticatorDTO?> Convert(GameAccountPlatformAuthenticator item, string? secondaryPassword)
         {
-            var value_bytes = await ss.DB(item.Value, secondaryPassword);
-            if (value_bytes == null) return null;
+            (var value, var _) = await Convert2(item, secondaryPassword);
+            return value;
+        }
 
-            var name_str = await ss.D(item.Name, secondaryPassword);
-            if (name_str == null) return null;
+        static ImportResultCode Convert(DResultCode resultCode)
+        {
+            var resultCode_ = (int)resultCode;
+            var resultCode__ = (ImportResultCode)resultCode_;
+            return resultCode__;
+        }
+
+        async Task<(IGAPAuthenticatorDTO? value, ImportResultCode resultCode)> Convert2(GameAccountPlatformAuthenticator item, string? secondaryPassword)
+        {
+            var (value_bytes, result_code) = await ss.DB2(item.Value, secondaryPassword);
+            if (result_code != DResultCode.Success) return (null, Convert(result_code));
+
+            var (name_str, name_result_code) = await ss.D2(item.Name, secondaryPassword);
+            if (name_result_code != DResultCode.Success) return (null, Convert(name_result_code));
 
             IGAPAuthenticatorValueDTO? value;
             try
             {
-                value = Serializable.DMP<IGAPAuthenticatorValueDTO>(value_bytes);
-                if (value == null) return null;
+                value = Serializable.DMP<IGAPAuthenticatorValueDTO>(value_bytes!);
+                if (value == null) return (null, ImportResultCode.Success);
             }
             catch
             {
-                return null;
+                return (null, ImportResultCode.IncorrectFormat);
             }
 
             var index = GetOrder(item);
-            return new GAPAuthenticatorDTO
+            var result = new GAPAuthenticatorDTO
             {
                 Id = item.Id,
-                Name = name_str,
+                Name = name_str ?? string.Empty,
                 ServerId = item.ServerId,
                 Value = value,
                 Index = index,
                 Created = item.Created,
                 LastUpdate = item.LastUpdate,
             };
+            return (result, ImportResultCode.Success);
         }
 
         async IAsyncEnumerable<IGAPAuthenticatorDTO?> Convert(IEnumerable<GameAccountPlatformAuthenticator> sources, string? secondaryPassword)
@@ -266,11 +281,11 @@ namespace System.Application.Repositories.Implementation
             return result;
         }
 
-        public async Task<(ImportResultCode resultCode, IEnumerable<IGAPAuthenticatorDTO> result, int sourcesCount)> ImportAsync(string? secondaryPassword, byte[] content)
+        public async Task<(ImportResultCode resultCode, IReadOnlyList<IGAPAuthenticatorDTO> result, int sourcesCount)> ImportAsync(string? secondaryPassword, byte[] content)
         {
             int sourcesCount = 0;
             var resultCode = ImportResultCode.Success;
-            IEnumerable<IGAPAuthenticatorDTO>? result = null;
+            IReadOnlyList<IGAPAuthenticatorDTO>? result = null;
             var sources = Import(content);
             if (sources == null)
             {
@@ -282,7 +297,12 @@ namespace System.Application.Repositories.Implementation
                 var list = new List<IGAPAuthenticatorDTO>();
                 foreach (var source in sources)
                 {
-                    var item = await Convert(source, secondaryPassword);
+                    (var item, var item_result_code) = await Convert2(source, secondaryPassword);
+                    if (item_result_code != ImportResultCode.Success)
+                    {
+                        resultCode = item_result_code;
+                        break;
+                    }
                     if (item != null)
                     {
                         list.Add(item);
@@ -292,13 +312,12 @@ namespace System.Application.Repositories.Implementation
                         resultCode = ImportResultCode.PartSuccess;
                     }
                 }
-                if (!list.Any())
-                {
-                    resultCode = ImportResultCode.IncorrectPwdOrIsNotLocal;
-                }
                 result = list;
             }
-            return (resultCode, result ?? Array.Empty<IGAPAuthenticatorDTO>(), sourcesCount);
+            result ??= Array.Empty<IGAPAuthenticatorDTO>();
+            if (!result.Any() && resultCode == ImportResultCode.Success)
+                resultCode = ImportResultCode.IncorrectFormat;
+            return (resultCode, result, sourcesCount);
         }
 
         async Task<int> UpdateIndexByItemAsync(IGAPAuthenticatorDTO item)

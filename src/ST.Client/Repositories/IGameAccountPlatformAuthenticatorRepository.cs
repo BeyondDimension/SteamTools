@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Application.Services.ISecurityService;
 
 namespace System.Application.Repositories
 {
@@ -154,7 +155,7 @@ namespace System.Application.Repositories
         /// <param name="secondaryPassword"></param>
         /// <param name="content"></param>
         /// <returns></returns>
-        Task<(ImportResultCode resultCode, IEnumerable<IGAPAuthenticatorDTO> result, int sourcesCount)> ImportAsync(string? secondaryPassword, byte[] content);
+        Task<(ImportResultCode resultCode, IReadOnlyList<IGAPAuthenticatorDTO> result, int sourcesCount)> ImportAsync(string? secondaryPassword, byte[] content);
 
         /// <summary>
         /// 移动排序值，上移或下移，返回受影响的行数
@@ -201,7 +202,7 @@ namespace System.Application.Repositories
             /// <summary>
             /// 导入成功
             /// </summary>
-            Success,
+            Success = 200,
 
             /// <summary>
             /// 部分数据导入成功
@@ -209,14 +210,24 @@ namespace System.Application.Repositories
             PartSuccess,
 
             /// <summary>
-            /// 密码不正确 或 仅本机加密导致非本机上无法解密
-            /// </summary>
-            IncorrectPwdOrIsNotLocal,
-
-            /// <summary>
             /// 格式不正确，反序列化失败
             /// </summary>
-            IncorrectFormat,
+            IncorrectFormat = 400,
+
+            /// <inheritdoc cref="DResultCode.EmbeddedAesFail"/>
+            EmbeddedAesFail = DResultCode.EmbeddedAesFail,
+
+            /// <inheritdoc cref="DResultCode.LocalFail"/>
+            LocalFail = DResultCode.LocalFail,
+
+            /// <inheritdoc cref="DResultCode.SecondaryPasswordFail"/>
+            SecondaryPasswordFail = DResultCode.SecondaryPasswordFail,
+
+            /// <inheritdoc cref="DResultCode.IncorrectValueFail"/>
+            IncorrectValueFail = DResultCode.IncorrectValueFail,
+
+            /// <inheritdoc cref="DResultCode.UTF8GetStringFail"/>
+            UTF8GetStringFail = DResultCode.UTF8GetStringFail,
         }
     }
 }
