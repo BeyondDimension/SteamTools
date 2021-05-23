@@ -99,7 +99,7 @@
 
           </StackPanel>
 
-          <StackPanel x:Name="SteamLogin"  Spacing="8">
+          <StackPanel x:Name="SteamLogin"  Spacing="8" IsVisible="False">
             <i:Interaction.Behaviors>
               <ia:DataTriggerBehavior Binding="{Binding SteamUser}" ComparisonCondition="Equal" Value="{x:Null}">
                 <ia:ChangePropertyAction TargetObject="{ReflectionBinding #SteamLogo}" PropertyName="IsVisible" Value="True"/>
@@ -148,6 +148,8 @@
                 <DataTemplate x:CompileBindings="False">
                   <DockPanel>
                     <Panel DockPanel.Dock="Left">
+                      <PathIcon Data="{StaticResource SteamDrawing}"
+                                IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Steam}" />
                       <PathIcon Data="{StaticResource QQ}"
                                 IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=QQ}" />
                       <PathIcon Data="{StaticResource Microsoft}"
@@ -215,15 +217,15 @@
             </StackPanel>
           </Button>-->
 
-          <Button Classes="plain"
+          <!--<Button Classes="plain"
                   HorizontalContentAlignment="Center"
                   Command="{ReflectionBinding ChangeLoginState}" CommandParameter="0">
-            <!--<WrapPanel>
-              <PathIcon Data="{StaticResource SteamDrawing}" Width="18" Margin="5 0"></PathIcon>-->
+            --><!--<WrapPanel>
+              <PathIcon Data="{StaticResource SteamDrawing}" Width="18" Margin="5 0"></PathIcon>--><!--
             <TextBlock Text="{ReflectionBinding Path=Res.User_SteamFastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-            <!--</WrapPanel>-->
+            --><!--</WrapPanel>--><!--
           </Button>
-          <Separator Classes="Separator" Height="{ReflectionBinding $parent.Height}" Width="0.88"></Separator>
+          <Separator Classes="Separator" Height="{ReflectionBinding $parent.Height}" Width="0.88"></Separator>-->
           <Button Classes="plain"
          HorizontalContentAlignment="Center"
          Command="{ReflectionBinding ChangeLoginState}" CommandParameter="2">

@@ -74,7 +74,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
         }
 
-        short _LoginState;
+        short _LoginState = 2;
         public short LoginState
         {
             get => _LoginState;
@@ -211,6 +211,7 @@ namespace System.Application.UI.ViewModels
         public ICommand FastLogin { get; }
 
         public FastLoginChannel[] FastLoginChannels { get; } = new[] {
+            FastLoginChannel.Steam,
             FastLoginChannel.QQ,
             FastLoginChannel.Microsoft,
             FastLoginChannel.Apple,

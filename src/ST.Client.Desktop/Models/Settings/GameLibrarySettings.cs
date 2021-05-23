@@ -175,6 +175,7 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<bool> IsAutoAFKApps { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, true) { AutoSave = true };
+
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
             return nameof(GameLibrarySettings) + "." + propertyName;
