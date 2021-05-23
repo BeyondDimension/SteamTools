@@ -873,6 +873,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 隐藏游戏列表为空，请从游戏列表右键添加需要隐藏的游戏。 的本地化字符串。
+        /// </summary>
+        public static string GameList_AddHideAppEmpty {
+            get {
+                return ResourceManager.GetString("GameList_AddHideAppEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 未添加挂时常的游戏，请冲游戏列表邮件添加。 的本地化字符串。
+        /// </summary>
+        public static string GameList_AddIdeaAppEmpty {
+            get {
+                return ResourceManager.GetString("GameList_AddIdeaAppEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 程序启动时自动挂时常 的本地化字符串。
         /// </summary>
         public static string GameList_AutoAFK {

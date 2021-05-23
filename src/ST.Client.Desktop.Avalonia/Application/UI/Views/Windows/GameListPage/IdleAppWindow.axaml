@@ -34,7 +34,7 @@
                         Height="30"
                         Width="30"
                         IsVisible="{Binding RunLoaingState}" />
-            <Button 
+            <Button
                      Background="Transparent"
                      Cursor="Hand"
                      IsVisible="{Binding RunState}"
@@ -43,7 +43,7 @@
               <PathIcon Width="16" Height="16" Data="{DynamicResource PauseCircleDrawing}">
               </PathIcon>
             </Button>
-            <Button  
+            <Button
                 Background="Transparent"
                 Cursor="Hand"
                 IsVisible="{Binding !RunState}"
@@ -71,10 +71,15 @@
           </Button>
         </DockPanel>
       </Border>
+
       <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto"
                   Padding="20">
         <StackPanel>
+          <TextBlock IsVisible="{CompiledBinding IsIdleAppEmpty}"
+     Text="{ReflectionBinding Path=Res.GameList_AddIdeaAppEmpty,Mode=OneWay,Source={x:Static resx:R.Current}}"
+     TextWrapping="WrapWithOverflow"
+     VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
           <ItemsRepeater Items="{Binding IdleGameList}">
             <ItemsRepeater.Layout>
               <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="10" MinColumnSpacing="20" MaximumRowsOrColumns="10" ItemsStretch="Fill" />

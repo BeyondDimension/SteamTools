@@ -49,6 +49,13 @@ namespace System.Application.UI.ViewModels
                 this.RaiseAndSetIfChanged(ref _RunState, value);
             }
         }
+        public bool _IsIdleAppEmpty;
+        public bool IsIdleAppEmpty
+        {
+            get => _IsIdleAppEmpty;
+            set => this.RaiseAndSetIfChanged(ref _IsIdleAppEmpty, value);
+        }
+
 
         public ObservableCollection<SteamApp> _IdleGameList = new();
         public ObservableCollection<SteamApp> IdleGameList
@@ -64,6 +71,7 @@ namespace System.Application.UI.ViewModels
                 {
                     if (GameLibrarySettings.AFKAppList.Value != null)
                     {
+                        try { 
                         foreach (var item in GameLibrarySettings.AFKAppList.Value)
                         {
                             var runState = SteamConnectService.Current.RuningSteamApps.FirstOrDefault(x => x.AppId == item.Key);
@@ -73,11 +81,19 @@ namespace System.Application.UI.ViewModels
                                 SteamConnectService.Current.RuningSteamApps.Remove(runState);
                             }
                         }
-                        IdleGameList.Clear();
-                        GameLibrarySettings.AFKAppList.Value.Clear();
-                        GameLibrarySettings.AFKAppList.RaiseValueChanged();
-                        RunState = false;
-                        Toast.Show(AppResources.GameList_DeleteSuccess);
+                        }
+                        catch{
+                        }
+                        MainThreadDesktop.BeginInvokeOnMainThread(() =>
+                        {
+                            IdleGameList.Clear();
+                            RunState = false;
+                            IsIdleAppEmpty = true;
+                            GameLibrarySettings.AFKAppList.Value.Clear();
+                            GameLibrarySettings.AFKAppList.RaiseValueChanged();
+                            Toast.Show(AppResources.GameList_DeleteSuccess);
+                        });
+                      
                     }
                 }
             });
@@ -244,6 +260,11 @@ namespace System.Application.UI.ViewModels
                     }
                 }
             IdleGameList = list;
+            if (IdleGameList.Count == 0)
+                IsIdleAppEmpty = true;
+            else
+                IsIdleAppEmpty = false;
+
             Toast.Show(AppResources.GameList_OperationSuccess);
         }
 

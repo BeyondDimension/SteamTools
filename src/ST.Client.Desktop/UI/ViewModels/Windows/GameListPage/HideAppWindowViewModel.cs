@@ -22,6 +22,12 @@ namespace System.Application.UI.ViewModels
 
             Refresh_Click();
         }
+        public bool _IsHideGameListEmpty;
+        public bool IsHideGameListEmpty
+        {
+            get => _IsHideGameListEmpty;
+            set => this.RaiseAndSetIfChanged(ref _IsHideGameListEmpty, value);
+        }
 
         public ObservableCollection<KeyValuePair<uint, string>> _HideGameList = new();
         public ObservableCollection<KeyValuePair<uint, string>> HideGameList
@@ -40,6 +46,11 @@ namespace System.Application.UI.ViewModels
         public void Refresh_Click()
         {
             HideGameList = new ObservableCollection<KeyValuePair<uint, string>>(GameLibrarySettings.HideGameList.Value!);
+            if (HideGameList.Count == 0)
+                IsHideGameListEmpty = true;
+            else
+                IsHideGameListEmpty = false;
+
         }
 
         public void ChangeCheck(KeyValuePair<uint, string> keyValue)
