@@ -1,4 +1,4 @@
-﻿using MPKey = MessagePack.KeyAttribute;
+using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
@@ -33,6 +33,11 @@ namespace System.Application.Models
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
         public bool IsLoginOrRegister { get; set; }
+
+        [MPKey(3)]
+        [N_JsonProperty("3")]
+        [S_JsonProperty("3")]
+        public string? PhoneNumber { get; set; }
 
         bool IExplicitHasValue.ExplicitHasValue()
         {

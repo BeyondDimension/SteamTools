@@ -18,10 +18,9 @@ namespace System.Application.UI.ViewModels
         public LoginOrRegisterWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LoginAndRegister;
-            FastLogin = ReactiveCommand.CreateFromTask<string>(async channel =>
+            FastLogin = ReactiveCommand.CreateFromTask<FastLoginChannel>(async channel =>
             {
-                if (Enum.TryParse<FastLoginChannel>(channel, out var channel_))
-                    await FastLoginOrRegisterAsync(Close, channel_);
+                await FastLoginOrRegisterAsync(Close, channel);
             });
 
             SteamConnectService.Current.WhenAnyValue(x => x.CurrentSteamUser)
@@ -151,7 +150,7 @@ namespace System.Application.UI.ViewModels
                     var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
                     if (response.IsSuccess)
                     {
-                        await conn_helper.OnLoginedAsync(null, response.Content!);
+                        await conn_helper.OnLoginedAsync(response.Content!, response.Content!);
                         await MainThreadDesktop.InvokeOnMainThreadAsync(async () =>
                         {
                             await SuccessAsync(response.Content!, vm?.Close);

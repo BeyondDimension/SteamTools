@@ -39,7 +39,7 @@ namespace System.Application.UI.Views.Windows
                             TbSmsCodeNew.Focus();
                             return;
                         }
-                        ((ChangeBindPhoneNumberWindowViewModel?)DataContext)?.Submit();
+                        vm.Submit();
                     }
                 }
             }

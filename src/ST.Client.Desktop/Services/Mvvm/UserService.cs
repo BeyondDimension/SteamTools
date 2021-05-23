@@ -159,5 +159,19 @@ namespace System.Application.Services
             var userInfo = await userManager.GetCurrentUserAsync();
             HasPhoneNumber = !string.IsNullOrWhiteSpace(userInfo?.PhoneNumber);
         }
+
+        /// <summary>
+        /// 更新当前登录用户的手机号码
+        /// </summary>
+        /// <param name="phoneNumber"></param>
+        /// <returns></returns>
+        public async Task UpdateCurrentUserPhoneNumber(string phoneNumber)
+        {
+            var user = await userManager.GetCurrentUserAsync();
+            if (user == null) return;
+            user.PhoneNumber = phoneNumber;
+            await userManager.SetCurrentUserAsync(user);
+            HasPhoneNumber = true;
+        }
     }
 }

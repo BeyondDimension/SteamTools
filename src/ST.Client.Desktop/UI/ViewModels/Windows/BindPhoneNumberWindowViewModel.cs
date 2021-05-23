@@ -72,12 +72,16 @@ namespace System.Application.UI.ViewModels
                 PhoneNumber = PhoneNumber,
                 SmsCode = SmsCode
             };
+
             IsLoading = true;
 
             var response = await ICloudServiceClient.Instance.Manage.BindPhoneNumber(request);
 
             if (response.IsSuccess)
             {
+                await UserService.Current.UpdateCurrentUserPhoneNumber(request.PhoneNumber!);
+                var msg = AppResources.Success_.Format(AppResources.User_BindPhoneNum);
+                Toast.Show(msg);
                 Close?.Invoke();
                 return;
             }

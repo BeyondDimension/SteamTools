@@ -324,14 +324,15 @@ namespace System.Application.Services.CloudService
                             if (response is IApiResponse<ILoginResponse> loginResponse
                                   && loginResponse.Content != null)
                             {
-                                IReadOnlyPhoneNumber? phoneNumber;
-                                if (loginResponse.Content is IReadOnlyPhoneNumber phoneNumber1)
-                                    phoneNumber = phoneNumber1;
-                                else if (request is IReadOnlyPhoneNumber phoneNumber2)
-                                    phoneNumber = phoneNumber2;
-                                else
-                                    phoneNumber = null;
-                                await conn_helper.OnLoginedAsync(phoneNumber, loginResponse.Content);
+                                //IReadOnlyPhoneNumber? phoneNumber;
+                                //if (loginResponse.Content is IReadOnlyPhoneNumber phoneNumber1)
+                                //    phoneNumber = phoneNumber1;
+                                //else if (request is IReadOnlyPhoneNumber phoneNumber2)
+                                //    phoneNumber = phoneNumber2;
+                                //else
+                                //    phoneNumber = null;
+                                //await conn_helper.OnLoginedAsync(phoneNumber, loginResponse.Content);
+                                await conn_helper.OnLoginedAsync(loginResponse.Content, loginResponse.Content);
                             }
                             else if (response is IApiResponse<IReadOnlyAuthToken> authTokenResponse
                                 && authTokenResponse.Content != null)
@@ -549,7 +550,7 @@ namespace System.Application.Services.CloudService
                         request.Headers.Accept.ParseAdd(MediaTypeNames.JSON);
                         break;
                     case Serializable.ImplType.MessagePack:
-                        if (isSecurity) 
+                        if (isSecurity)
                         {
                             request.Headers.Accept.ParseAdd(MediaTypeNames.Security);
                         }

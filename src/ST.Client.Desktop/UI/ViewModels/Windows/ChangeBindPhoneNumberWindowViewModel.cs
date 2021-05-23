@@ -235,6 +235,7 @@ namespace System.Application.UI.ViewModels
                 var response = await ICloudServiceClient.Instance.Manage.ChangeBindPhoneNumber(request);
                 if (response.IsSuccess)
                 {
+                    await UserService.Current.UpdateCurrentUserPhoneNumber(request.PhoneNumber!);
                     IsComplete = true;
                     var msg = AppResources.Success_.Format(AppResources.User_ChangePhoneNum);
                     Toast.Show(msg);

@@ -1,9 +1,11 @@
-﻿namespace System.Application.Models
+using System.Application.Columns;
+
+namespace System.Application.Models
 {
     /// <summary>
     /// 登录响应内容
     /// </summary>
-    public interface ILoginResponse : IReadOnlyAuthToken
+    public interface ILoginResponse : IReadOnlyAuthToken, IReadOnlyPhoneNumber
     {
         /// <summary>
         /// 用户Id
