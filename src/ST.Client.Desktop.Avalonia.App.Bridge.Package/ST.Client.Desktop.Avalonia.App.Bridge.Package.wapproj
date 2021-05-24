@@ -128,6 +128,65 @@
   <ItemGroup>
     <ProjectReference Include="..\ST.Client.Desktop.Avalonia.App.Bridge\ST.Client.Desktop.Avalonia.App.Bridge.csproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
+      <PublishProfile>Properties\PublishProfiles\win10-x86.aot.pubxml</PublishProfile>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\..\CEF\win-x86\locales\zh-CN.pak">
+      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\locales\zh-CN.pak</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\CEF\win-x86\swiftshader\libEGL.dll">
+      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\swiftshader\libEGL.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\CEF\win-x86\swiftshader\libGLESv2.dll">
+      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\swiftshader\libGLESv2.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\CEF\win-x86\chrome_100_percent.pak">
+      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\chrome_100_percent.pak</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\CEF\win-x86\chrome_200_percent.pak">
+      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\chrome_200_percent.pak</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\CEF\win-x86\chrome_elf.dll">
+      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\chrome_elf.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\CEF\win-x86\d3dcompiler_47.dll">
+      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\d3dcompiler_47.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\CEF\win-x86\icudtl.dat">
+      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\icudtl.dat</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\CEF\win-x86\libcef.dll">
+      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\libcef.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\CEF\win-x86\libEGL.dll">
+      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\libEGL.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\CEF\win-x86\libGLESv2.dll">
+      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\libGLESv2.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\CEF\win-x86\resources.pak">
+      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\resources.pak</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\CEF\win-x86\snapshot_blob.bin">
+      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\snapshot_blob.bin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\CEF\win-x86\v8_context_snapshot.bin">
+      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\v8_context_snapshot.bin</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

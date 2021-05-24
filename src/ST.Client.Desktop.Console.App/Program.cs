@@ -14,6 +14,9 @@ using static System.Application.Program;
 using static System.Application.Services.ISteamService;
 using Process = System.Diagnostics.Process;
 
+#if WINDOWS_DESKTOP_BRIDGE
+if (!DesktopBridgeHelper2.Init()) return 0;
+#endif
 var logDirPath = InitLogDir("_console");
 
 logger = LogManager.GetCurrentClassLogger();
