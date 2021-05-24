@@ -1,4 +1,5 @@
-﻿namespace System.Extensions
+// ReSharper disable once CheckNamespace
+namespace System
 {
     public static partial class StringExtensions
     {

@@ -5,24 +5,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>Steam++.Console</AssemblyName>
-    <DefineConstants>WINDOWS_DESKTOP_BRIDGE;CONSOLEAPP;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-    <DefineConstants>WINDOWS;$(DefineConstants)</DefineConstants>
+    <DefineConstants>WINDOWS;WINDOWS_DESKTOP_BRIDGE;CONSOLEAPP;$(DefineConstants)</DefineConstants>
     <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
-    <!--<TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>-->
     <Platforms>AnyCPU;x86</Platforms>
     <PlatformTarget>x86</PlatformTarget>
-    <!-- 注意：RuntimeIdentifier win-x86 会导致亚克力效果会丢失 -->
-    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
-    <!--<UseWindowsForms>false</UseWindowsForms>-->
-    <!--<UseWPF>false</UseWPF>-->
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-    <DefineConstants>MAC;$(DefineConstants)</DefineConstants>
+    <RuntimeIdentifier>win10-x86</RuntimeIdentifier>
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(DefineConstants.Contains(`PUBLISH`)) ">
@@ -67,29 +54,10 @@
     <ProjectReference Include="..\ST.Client.Desktop.Avalonia\ST.Client.Desktop.Avalonia.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
+    <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Desktop.Windows.csproj" />
     <Reference Include="Microsoft.Windows.SDK.NET">
       <HintPath>..\..\references\Microsoft.Windows.SDK.NET.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-    <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Desktop.Windows.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-    <ProjectReference Include="..\ST.Client.Desktop.Mac\ST.Client.Desktop.Mac.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`linux`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-    <ProjectReference Include="..\ST.Client.Desktop.Linux\ST.Client.Desktop.Linux.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-    <!--Win8.1/10的开始菜单磁贴配置-->
-    <None Include="..\..\Resources\AppIcon\visualelementsmanifest.xml">
-      <Link>Steam++.Console.VisualElementsManifest.xml</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

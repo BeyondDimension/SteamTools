@@ -1,3 +1,6 @@
+#if MVVM_VM
+using ReactiveUI;
+#endif
 using System.Application.Columns;
 using System.Diagnostics;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
@@ -12,7 +15,12 @@ namespace System.Application.Models
 {
     [MPObject]
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
-    public sealed class UserInfoDTO : IUserDTO, IBirthDateTimeZone
+    public sealed class UserInfoDTO :
+
+#if MVVM_VM
+        ReactiveObject,
+#endif
+        IUserDTO, IBirthDateTimeZone
     {
         string DebuggerDisplay => IUserDTO.GetDebuggerDisplay(this);
 
@@ -74,7 +82,16 @@ namespace System.Application.Models
         [MPKey(8)]
         [N_JsonProperty("8")]
         [S_JsonProperty("8")]
-        public long? SteamAccountId { get; set; }
+        public long? SteamAccountId
+#if MVVM_VM
+        {
+            get => _SteamAccountId;
+            set => this.RaiseAndSetIfChanged(ref _SteamAccountId, value);
+        }
+        long? _SteamAccountId;
+#else
+        { get; set; }
+#endif
 
         [MPKey(9)]
         [N_JsonProperty("9")]
@@ -125,16 +142,43 @@ namespace System.Application.Models
         [MPKey(14)]
         [N_JsonProperty("14")]
         [S_JsonProperty("14")]
-        public string? MicrosoftAccountEmail { get; set; }
+        public string? MicrosoftAccountEmail
+#if MVVM_VM
+        {
+            get => _MicrosoftAccountEmail;
+            set => this.RaiseAndSetIfChanged(ref _MicrosoftAccountEmail, value);
+        }
+        string? _MicrosoftAccountEmail;
+#else
+        { get; set; }
+#endif
 
         [MPKey(15)]
         [N_JsonProperty("15")]
         [S_JsonProperty("15")]
-        public long? QQAccountNumber { get; set; }
+        public long? QQAccountNumber
+#if MVVM_VM
+        {
+            get => _QQAccountNumber;
+            set => this.RaiseAndSetIfChanged(ref _QQAccountNumber, value);
+        }
+        long? _QQAccountNumber;
+#else
+        { get; set; }
+#endif
 
         [MPKey(16)]
         [N_JsonProperty("16")]
         [S_JsonProperty("16")]
-        public string? AppleAccountEmail { get; set; }
+        public string? AppleAccountEmail
+#if MVVM_VM
+        {
+            get => _AppleAccountEmail;
+            set => this.RaiseAndSetIfChanged(ref _AppleAccountEmail, value);
+        }
+        string? _AppleAccountEmail;
+#else
+        { get; set; }
+#endif
     }
 }

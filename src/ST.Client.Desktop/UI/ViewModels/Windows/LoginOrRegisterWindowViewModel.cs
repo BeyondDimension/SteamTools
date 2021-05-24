@@ -211,29 +211,10 @@ namespace System.Application.UI.ViewModels
 
         public FastLoginChannel[] FastLoginChannels { get; } = new[] {
             FastLoginChannel.Steam,
-            FastLoginChannel.QQ,
             FastLoginChannel.Xbox,
-            FastLoginChannel.Apple,
+            //FastLoginChannel.Apple,
+            //FastLoginChannel.QQ,
         };
-
-        //int _FastLoginChannelsSelectedIndex = -1;
-        //public int FastLoginChannelsSelectedIndex
-        //{
-        //    get => _FastLoginChannelsSelectedIndex;
-        //    set
-        //    {
-        //        if (value > -1 && value < FastLoginChannels.Length)
-        //        {
-        //            var item = FastLoginChannels[value].ToString();
-        //            if (FastLogin.CanExecute(item))
-        //            {
-        //                FastLogin.Execute(item);
-        //            }
-        //        }
-        //        this.RaiseAndSetIfChanged(ref _FastLoginChannelsSelectedIndex, value);
-        //        this.RaiseAndSetIfChanged(ref _FastLoginChannelsSelectedIndex, -1);
-        //    }
-        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Properties;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace System.Application.UI.ViewModels
@@ -194,26 +195,22 @@ namespace System.Application.UI.ViewModels
 
             if (IsLoading) return;
 
-            IsLoading = true;
-
-            var response = await ICloudServiceClient.Instance.Manage.UnbundleAccount(channel);
-
-            if (response.IsSuccess)
+            var r = await MessageBoxCompat.ShowAsync(AppResources.User_UnbundleAccountTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
+            if (r == MessageBoxResultCompat.OK)
             {
-                switch (channel)
-                {
-                    case FastLoginChannel.Steam:
-                        break;
-                    case FastLoginChannel.Microsoft:
-                        break;
-                    case FastLoginChannel.QQ:
-                        break;
-                    case FastLoginChannel.Apple:
-                        break;
-                }
-            }
+                IsLoading = true;
 
-            IsLoading = false;
+                var response = await ICloudServiceClient.Instance.Manage.UnbundleAccount(channel);
+
+                if (response.IsSuccess)
+                {
+                    await UserService.Current.UnbundleAccountAfterUpdateAsync(channel);
+                    var msg = AppResources.Success_.Format(AppResources.Unbundling);
+                    Toast.Show(msg);
+                }
+
+                IsLoading = false;
+            }
         }
     }
 }

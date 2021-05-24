@@ -79,7 +79,7 @@ namespace System.Application.UI.ViewModels
 
             if (response.IsSuccess)
             {
-                await UserService.Current.UpdateCurrentUserPhoneNumber(request.PhoneNumber!);
+                await UserService.Current.UpdateCurrentUserPhoneNumberAsync(request.PhoneNumber!);
                 var msg = AppResources.Success_.Format(AppResources.User_BindPhoneNum);
                 Toast.Show(msg);
                 Close?.Invoke();

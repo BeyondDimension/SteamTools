@@ -1,7 +1,10 @@
 using ReactiveUI;
 using System.Application.Models;
+using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using System.Properties;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace System.Application.Services
 {
@@ -35,7 +38,7 @@ namespace System.Application.Services
             }
         }
 
-        public async Task SignOutAsync(Func<Task<IApiResponse>>? apiCall = null)
+        public async Task SignOutAsync(Func<Task<IApiResponse>>? apiCall = null, string? message = null)
         {
             if (User == null) return;
             if (apiCall != null)
@@ -48,16 +51,27 @@ namespace System.Application.Services
             }
             await SignOutUserManagerAsync();
             await RefreshUserAsync();
+            if (message != null)
+            {
+                Toast.Show(message);
+            }
         }
 
         public async void SignOut()
         {
-            await SignOutAsync(ICloudServiceClient.Instance.Manage.SignOut);
+            if (!IsAuthenticated) return;
+            var r = await MessageBoxCompat.ShowAsync(AppResources.User_SignOutTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
+            if (r == MessageBoxResultCompat.OK)
+            {
+                await SignOutAsync(ICloudServiceClient.Instance.Manage.SignOut);
+            }
         }
 
         public async void DelAccount()
         {
-            await SignOutAsync(ICloudServiceClient.Instance.Manage.DeleteAccount);
+            if (!IsAuthenticated) return;
+            var msg = AppResources.Success_.Format(AppResources.DelAccount);
+            await SignOutAsync(ICloudServiceClient.Instance.Manage.DeleteAccount, msg);
         }
 
         public async Task SignOutUserManagerAsync()
@@ -153,8 +167,10 @@ namespace System.Application.Services
                 CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
                 AvaterPath = CircleImageStream.Convert(await CurrentSteamUser.AvatarStream);
             }
-
-            //AvaterPath = GetAvaterPath(User);
+            else
+            {
+                AvaterPath = DefaultAvaterPath;
+            }
 
             var userInfo = await userManager.GetCurrentUserAsync();
             HasPhoneNumber = !string.IsNullOrWhiteSpace(userInfo?.PhoneNumber);
@@ -165,13 +181,43 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="phoneNumber"></param>
         /// <returns></returns>
-        public async Task UpdateCurrentUserPhoneNumber(string phoneNumber)
+        public async Task UpdateCurrentUserPhoneNumberAsync(string phoneNumber)
         {
             var user = await userManager.GetCurrentUserAsync();
             if (user == null) return;
             user.PhoneNumber = phoneNumber;
             await userManager.SetCurrentUserAsync(user);
             HasPhoneNumber = true;
+        }
+
+        /// <summary>
+        /// 解绑账号后更新
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <returns></returns>
+        public async Task UnbundleAccountAfterUpdateAsync(FastLoginChannel channel)
+        {
+            var user = await userManager.GetCurrentUserInfoAsync();
+            if (user == null) return;
+            switch (channel)
+            {
+                case FastLoginChannel.Steam:
+                    user.SteamAccountId = null;
+                    break;
+                case FastLoginChannel.Microsoft:
+                    user.MicrosoftAccountEmail = null;
+                    break;
+                case FastLoginChannel.QQ:
+                    user.QQAccountNumber = null;
+                    break;
+                case FastLoginChannel.Apple:
+                    user.AppleAccountEmail = null;
+                    break;
+                default:
+                    return;
+            }
+            await userManager.SetCurrentUserInfoAsync(user, true);
+            User = user;
         }
     }
 }

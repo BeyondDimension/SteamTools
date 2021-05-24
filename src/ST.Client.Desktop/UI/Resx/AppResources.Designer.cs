@@ -3422,6 +3422,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 确定要退出 Steam++? 的本地化字符串。
+        /// </summary>
+        public static string User_SignOutTip {
+            get {
+                return ResourceManager.GetString("User_SignOutTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 短信验证码 的本地化字符串。
         /// </summary>
         public static string User_SMSCode {
@@ -3481,6 +3490,15 @@ namespace System.Application.UI.Resx {
         public static string User_SteamUnLoginTip {
             get {
                 return ResourceManager.GetString("User_SteamUnLoginTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 解绑第三方账号关联后将无法以该第三方账号快速登录，是否确定解绑？ 的本地化字符串。
+        /// </summary>
+        public static string User_UnbundleAccountTip {
+            get {
+                return ResourceManager.GetString("User_UnbundleAccountTip", resourceCulture);
             }
         }
         

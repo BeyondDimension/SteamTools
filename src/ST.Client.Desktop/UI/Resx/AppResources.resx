@@ -1298,6 +1298,9 @@
   <data name="User_Rememberme" xml:space="preserve">
     <value>记住登录状态</value>
   </data>
+  <data name="User_SignOutTip" xml:space="preserve">
+    <value>确定要退出 Steam++?</value>
+  </data>
   <data name="User_SMSCode" xml:space="preserve">
     <value>短信验证码</value>
   </data>
@@ -1318,6 +1321,9 @@
   </data>
   <data name="User_SteamUnLoginTip" xml:space="preserve">
     <value>点击Steam Logo登录</value>
+  </data>
+  <data name="User_UnbundleAccountTip" xml:space="preserve">
+    <value>解绑第三方账号关联后将无法以该第三方账号快速登录，是否确定解绑？</value>
   </data>
   <data name="User_UseFastLoginChannel_" xml:space="preserve">
     <value>使用 {0} 登录</value>
