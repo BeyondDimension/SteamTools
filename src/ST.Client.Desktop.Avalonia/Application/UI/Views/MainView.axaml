@@ -91,7 +91,7 @@
                     </Image.Clip>-->
                   </Image>
                   <TextBlock
-                    Text="{ReflectionBinding Path=User.NickName,Source={x:Static service:UserService.Current}}"
+                    Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
                     FontSize="14"
                     HorizontalAlignment="Center"
                     Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>

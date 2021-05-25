@@ -129,7 +129,7 @@
                            Grid.Row="3"/>
                 <TextBox IsReadOnly="True"
                          Focusable="False"
-                         Watermark="{Binding CurrentPhoneNumber,Mode=OneWay}"
+                         Watermark="{ReflectionBinding Path=PhoneNumber,Mode=OneWay,Source={x:Static service:UserService.Current}}"
                          Grid.Row="3"
                          Grid.Column="1"
                          MaxLength="{ReflectionBinding Path=PhoneNumber,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}"/>

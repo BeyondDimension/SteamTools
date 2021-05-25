@@ -35,8 +35,6 @@ namespace System.Application.UI.ViewModels
                 if (userInfoSource.AreaId.HasValue) this.SetAreaId(userInfoSource.AreaId.Value);
 
                 userInfoSource = Serializable.DMP<UserInfoDTO>(userInfoValue) ?? throw new ArgumentNullException(nameof(userInfoSource));
-                _CurrentPhoneNumber = await userManager.GetCurrentUserPhoneNumberAsync();
-                if (string.IsNullOrWhiteSpace(_CurrentPhoneNumber)) _CurrentPhoneNumber = AppResources.Unbound;
 
                 // IsModifySubscribe
                 void SubscribeOnNext<T>(T value, Action<T> onNext)
@@ -95,13 +93,6 @@ namespace System.Application.UI.ViewModels
         {
             get => _NickName;
             set => this.RaiseAndSetIfChanged(ref _NickName, value);
-        }
-
-        string? _CurrentPhoneNumber;
-        public string? CurrentPhoneNumber
-        {
-            get => _CurrentPhoneNumber;
-            set => this.RaiseAndSetIfChanged(ref _CurrentPhoneNumber, value);
         }
 
         Gender _Gender;

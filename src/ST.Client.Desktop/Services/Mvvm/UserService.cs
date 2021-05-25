@@ -150,15 +150,41 @@ namespace System.Application.Services
         }
 
         bool _HasPhoneNumber;
+        /// <summary>
+        /// 当前登录用户是否有手机号码
+        /// </summary>
         public bool HasPhoneNumber
         {
             get => _HasPhoneNumber;
             set => this.RaiseAndSetIfChanged(ref _HasPhoneNumber, value);
         }
 
-        public async Task RefreshUserAsync()
+        string _PhoneNumber = string.Empty;
+        /// <summary>
+        /// 用于 UI 显示的当前登录用户的手机号码(隐藏中间四位)
+        /// </summary>
+        public string PhoneNumber
         {
-            User = await userManager.GetCurrentUserInfoAsync();
+            get => _PhoneNumber;
+            set => this.RaiseAndSetIfChanged(ref _PhoneNumber, value);
+        }
+
+        static string GetCurrentUserPhoneNumber(CurrentUser? user, bool notHideMiddleFour = false)
+        {
+            var phone_number = user?.PhoneNumber;
+            if (string.IsNullOrWhiteSpace(phone_number)) return AppResources.Unbound;
+            return notHideMiddleFour ? phone_number : PhoneNumberHelper.ToStringHideMiddleFour(phone_number);
+        }
+
+        public void RefreshCurrentUser(CurrentUser? currentUser)
+        {
+            PhoneNumber = GetCurrentUserPhoneNumber(currentUser);
+            HasPhoneNumber = !string.IsNullOrWhiteSpace(currentUser?.PhoneNumber);
+        }
+
+        public async Task RefreshUserAsync(UserInfoDTO? user)
+        {
+            User = user;
             this.RaisePropertyChanged(nameof(IsAuthenticated));
 
             if (User != null && User.SteamAccountId.HasValue)
@@ -172,8 +198,14 @@ namespace System.Application.Services
                 AvaterPath = DefaultAvaterPath;
             }
 
-            var userInfo = await userManager.GetCurrentUserAsync();
-            HasPhoneNumber = !string.IsNullOrWhiteSpace(userInfo?.PhoneNumber);
+            var currentUser = await userManager.GetCurrentUserAsync();
+            RefreshCurrentUser(currentUser);
+        }
+
+        public async Task RefreshUserAsync()
+        {
+            var user = await userManager.GetCurrentUserInfoAsync();
+            await RefreshUserAsync(user);
         }
 
         /// <summary>
@@ -187,7 +219,7 @@ namespace System.Application.Services
             if (user == null) return;
             user.PhoneNumber = phoneNumber;
             await userManager.SetCurrentUserAsync(user);
-            HasPhoneNumber = true;
+            RefreshCurrentUser(user);
         }
 
         /// <summary>
@@ -217,7 +249,7 @@ namespace System.Application.Services
                     return;
             }
             await userManager.SetCurrentUserInfoAsync(user, true);
-            User = user;
+            await RefreshUserAsync(user);
         }
 
         /// <summary>
@@ -248,7 +280,7 @@ namespace System.Application.Services
                     return;
             }
             await userManager.SetCurrentUserInfoAsync(user, true);
-            User = user;
+            await RefreshUserAsync(user);
         }
     }
 }

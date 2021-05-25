@@ -21,12 +21,6 @@ namespace System.Application.UI.ViewModels
                 { Step.Validation, new SendSmsUIViewModelValidation(this) },
                 { Step.New, new SendSmsUIViewModelNew(this) },
             };
-            Initialize();
-        }
-
-        public async void Initialize()
-        {
-            CurrentPhoneNumber = await DI.Get<IUserManager>().GetCurrentUserPhoneNumberAsync();
         }
 
         bool _IsLoading;
@@ -34,13 +28,6 @@ namespace System.Application.UI.ViewModels
         {
             get => _IsLoading;
             set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
-        }
-
-        string? _CurrentPhoneNumber;
-        public string? CurrentPhoneNumber
-        {
-            get => _CurrentPhoneNumber;
-            set => this.RaiseAndSetIfChanged(ref _CurrentPhoneNumber, value);
         }
 
         string? _SmsCodeValidation;
