@@ -433,7 +433,7 @@
     <value>隐藏此游戏</value>
   </data>
   <data name="GameList_IdleGamesManger" xml:space="preserve">
-    <value>管理游戏时长挂机列表</value>
+    <value>游戏时长挂机列表</value>
   </data>
   <data name="GameList_Install" xml:space="preserve">
     <value>安装</value>
@@ -443,6 +443,9 @@
   </data>
   <data name="GameList_IsLoading" xml:space="preserve">
     <value>正在加载游戏列表...</value>
+  </data>
+  <data name="GameList_ListCount" xml:space="preserve">
+    <value>已添加 ({0}/{1})</value>
   </data>
   <data name="GameList_LoaingTips" xml:space="preserve">
     <value>操作进行中请稍后再试</value>
@@ -487,7 +490,7 @@
     <value>启动全部</value>
   </data>
   <data name="GameList_RuningCount" xml:space="preserve">
-    <value>运行中的{0}/{1}</value>
+    <value>正在运行 {0}/{1}</value>
   </data>
   <data name="GameList_RuningItemBtn" xml:space="preserve">
     <value>启动游戏</value>

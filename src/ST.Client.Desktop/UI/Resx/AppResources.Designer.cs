@@ -999,7 +999,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 管理游戏时长挂机列表 的本地化字符串。
+        ///   查找类似 游戏时长挂机列表 的本地化字符串。
         /// </summary>
         public static string GameList_IdleGamesManger {
             get {
@@ -1031,6 +1031,15 @@ namespace System.Application.UI.Resx {
         public static string GameList_IsLoading {
             get {
                 return ResourceManager.GetString("GameList_IsLoading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已添加 ({0}/{1}) 的本地化字符串。
+        /// </summary>
+        public static string GameList_ListCount {
+            get {
+                return ResourceManager.GetString("GameList_ListCount", resourceCulture);
             }
         }
         
@@ -1161,7 +1170,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 运行中的{0}/{1} 的本地化字符串。
+        ///   查找类似 正在运行 {0}/{1} 的本地化字符串。
         /// </summary>
         public static string GameList_RuningCount {
             get {

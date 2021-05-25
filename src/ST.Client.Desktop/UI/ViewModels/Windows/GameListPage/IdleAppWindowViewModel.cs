@@ -69,7 +69,10 @@ namespace System.Application.UI.ViewModels
         public ObservableCollection<SteamApp> IdleGameList
         {
             get => _IdleGameList;
-            set => this.RaiseAndSetIfChanged(ref _IdleGameList, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _IdleGameList, value); 
+            }
         }
         public void DeleteAllButton_Click()
         {
@@ -281,6 +284,7 @@ namespace System.Application.UI.ViewModels
 
             var count = IdleGameList.Count(x => x.Process != null);
             RuningCountTxt = AppResources.GameList_RuningCount.Format(count, IdleGameList.Count);
+            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_IdleGamesManger + AppResources.GameList_ListCount.Format(IdleGameList.Count, SteamConnectService.Current.SteamAFKMaxCount);
             Toast.Show(AppResources.GameList_OperationSuccess);
         }
 
