@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static System.Application.Services.ISteamService;
 
@@ -665,12 +666,19 @@ namespace System.Application.Services.Implementation
                         var command = $"runas.exe /trustlevel:0x20000 \"\"{consoleProgramPath}\" getstmauth -key \"{key}\"\"";
                         platformService.UnelevatedProcessStart(command);
 
-                        watcher.WaitForChanged(WatcherChangeTypes.Created, IPC_Call_GetLoginUsingSteamClient_Timeout_MS);
+                        watcher.WaitForChanged(WatcherChangeTypes.Changed, IPC_Call_GetLoginUsingSteamClient_Timeout_MS);
                         if (File.Exists(tempFilePath))
                         {
                             var value = File.ReadAllBytes(tempFilePath);
-                            File.Delete(tempFilePath);
-                            isDelTempFilePath = true;
+                            try
+                            {
+                                File.Delete(tempFilePath);
+                                isDelTempFilePath = true;
+                            }
+                            catch
+                            {
+                                isDelTempFilePath = false;
+                            }
                             try
                             {
                                 var fileBytes = Serializable.DMP<(byte[] cookiesBytes, byte[] aesKey)>(value);
@@ -688,7 +696,17 @@ namespace System.Application.Services.Implementation
                     catch
                     {
                     }
-                    if (!isDelTempFilePath) IOPath.FileIfExistsItDelete(tempFilePath, true);
+                    if (!isDelTempFilePath)
+                    {
+                        try
+                        {
+                            IOPath.FileIfExistsItDelete(tempFilePath, true);
+                        }
+                        catch
+                        {
+
+                        }
+                    }
                 }
             }
             return default;
