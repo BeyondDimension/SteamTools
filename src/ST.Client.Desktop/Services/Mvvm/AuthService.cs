@@ -508,10 +508,7 @@ namespace System.Application.Services
                 {
                     Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
                     password = await PasswordWindowViewModel.ShowPasswordDialog();
-                    if (string.IsNullOrWhiteSpace(password))
-                    {
-                        goto Run;
-                    }
+                    goto Run;
                 }
                 else
                 {

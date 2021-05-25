@@ -34,7 +34,7 @@ namespace System.Application.UI.ViewModels
 
         public void Ok()
         {
-            if (string.IsNullOrEmpty(Password))
+            if (string.IsNullOrWhiteSpace(Password))
             {
                 Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
                 return;
