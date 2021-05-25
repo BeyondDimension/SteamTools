@@ -25,7 +25,7 @@ namespace System.Application.UI.ViewModels
             //this.WhenAnyValue(x => x.IdleGameList)
             //   .Subscribe(x => x?.ToObservableChangeSet()
             //   .AutoRefresh(x => x.Process));
-            Refresh_Click();
+            Refresh_Click(false);
         }
         private string? _RunStateTxt;
         public string? RunStateTxt
@@ -232,7 +232,7 @@ namespace System.Application.UI.ViewModels
                 app.Process = null;
             }
         }
-        public void Refresh_Click()
+        public void Refresh_Click(bool showTips=true)
         {
             IdleGameList.Clear();
             var list = new ObservableCollection<SteamApp>();
@@ -285,6 +285,7 @@ namespace System.Application.UI.ViewModels
             var count = IdleGameList.Count(x => x.Process != null);
             RuningCountTxt = AppResources.GameList_RuningCount.Format(count, IdleGameList.Count);
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_IdleGamesManger + AppResources.GameList_ListCount.Format(IdleGameList.Count, SteamConnectService.Current.SteamAFKMaxCount);
+            if(showTips)
             Toast.Show(AppResources.GameList_OperationSuccess);
         }
 
