@@ -406,13 +406,13 @@
     <value>未添加挂时常的游戏，请冲游戏列表邮件添加。</value>
   </data>
   <data name="GameList_AutoAFK" xml:space="preserve">
-    <value>程序启动时自动挂时常</value>
+    <value>程序启动时自动挂时长</value>
   </data>
   <data name="GameList_DeleteAll" xml:space="preserve">
-    <value>是否移除全部挂时常的游戏？</value>
+    <value>是否移除全部挂时长的游戏？</value>
   </data>
   <data name="GameList_DeleteItem" xml:space="preserve">
-    <value>是否将该游戏挂时常?</value>
+    <value>是否将该游戏挂时长?</value>
   </data>
   <data name="GameList_DeleteSuccess" xml:space="preserve">
     <value>移除成功</value>

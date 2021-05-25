@@ -283,7 +283,8 @@ namespace System.Application.UI.ViewModels
                             }
                         });
                     }
-                    else {
+                    else
+                    {
 
                         AddAFKAppListFunc(app);
                     }
@@ -298,8 +299,11 @@ namespace System.Application.UI.ViewModels
         {
             try
             {
-                GameLibrarySettings.AFKAppList.Value!.Add(app.AppId, app.DisplayName);
-                GameLibrarySettings.AFKAppList.RaiseValueChanged();
+                if (GameLibrarySettings.AFKAppList.Value != null && GameLibrarySettings.AFKAppList.Value.ContainsKey(app.AppId))
+                {
+                    GameLibrarySettings.AFKAppList.Value!.Add(app.AppId, app.DisplayName);
+                    GameLibrarySettings.AFKAppList.RaiseValueChanged();
+                }
                 Toast.Show(AppResources.GameList_AddAFKAppsSuccess);
             }
             catch (Exception e)

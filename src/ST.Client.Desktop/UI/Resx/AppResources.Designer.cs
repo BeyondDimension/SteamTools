@@ -918,7 +918,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 程序启动时自动挂时常 的本地化字符串。
+        ///   查找类似 程序启动时自动挂时长 的本地化字符串。
         /// </summary>
         public static string GameList_AutoAFK {
             get {
@@ -927,7 +927,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 是否移除全部挂时常的游戏？ 的本地化字符串。
+        ///   查找类似 是否移除全部挂时长的游戏？ 的本地化字符串。
         /// </summary>
         public static string GameList_DeleteAll {
             get {
@@ -936,7 +936,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 是否将该游戏挂时常? 的本地化字符串。
+        ///   查找类似 是否将该游戏挂时长? 的本地化字符串。
         /// </summary>
         public static string GameList_DeleteItem {
             get {
