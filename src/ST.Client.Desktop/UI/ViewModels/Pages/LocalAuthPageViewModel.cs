@@ -12,6 +12,7 @@ using System.Threading;
 using System.Reactive.Linq;
 using DynamicData.Binding;
 using DynamicData;
+using System.Application.Repositories;
 
 namespace System.Application.UI.ViewModels
 {
@@ -185,6 +186,15 @@ namespace System.Application.UI.ViewModels
             //{
             await IShowWindowService.Instance.Show(CustomWindow.ExportAuth, new ExportAuthWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
             //}
+        }
+
+        public async void UpMoveOrderById(MyAuthenticator auth)
+        {
+            //var row = await DI.Get<IGameAccountPlatformAuthenticatorRepository>().MoveOrderByIdAsync();
+        }
+        public async void DownMoveOrderById(MyAuthenticator auth)
+        {
+            //var row = await DI.Get<IGameAccountPlatformAuthenticatorRepository>().MoveOrderByIdAsync();
         }
     }
 }

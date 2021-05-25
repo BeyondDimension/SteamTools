@@ -32,8 +32,8 @@
               <Border.ContextMenu>
                 <ContextMenu>
                   <MenuItem
-                            Header="复制令牌"
-                            Command="{ReflectionBinding #u.DataContext.InstallOrStartApp}"
+                            Header="{ReflectionBinding Path=Res.LocalAuth_Copy,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                            Command="{ReflectionBinding #u.DataContext.CopyCodeCilp}"
                             CommandParameter="{Binding}">
                     <MenuItem.Icon>
                       <PathIcon Data="{StaticResource CopyDrawing}" Width="14"></PathIcon>
@@ -41,16 +41,16 @@
                   </MenuItem>
                   <MenuItem Header="-"></MenuItem>
                   <MenuItem
-                            Header="上移"
-                            Command="{ReflectionBinding #u.DataContext.InstallOrStartApp}"
+                            Header="{ReflectionBinding Path=Res.MoveUp,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                            Command="{ReflectionBinding #u.DataContext.UpMoveOrderById}"
                             CommandParameter="{Binding}">
                     <MenuItem.Icon>
                       <PathIcon Data="{StaticResource DownloadDrawing}" Width="14"></PathIcon>
                     </MenuItem.Icon>
                   </MenuItem>
                   <MenuItem
-                            Header="下移"
-                            Command="{ReflectionBinding #u.DataContext.InstallOrStartApp}"
+                            Header="{ReflectionBinding Path=Res.MoveDown,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                            Command="{ReflectionBinding #u.DataContext.DownMoveOrderById}"
                             CommandParameter="{Binding}">
                     <MenuItem.Icon>
                       <PathIcon Data="{StaticResource DownloadDrawing}" Width="14"></PathIcon>

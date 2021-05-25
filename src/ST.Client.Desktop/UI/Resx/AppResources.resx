@@ -876,6 +876,12 @@
   <data name="More" xml:space="preserve">
     <value>更多操作</value>
   </data>
+  <data name="MoveDown" xml:space="preserve">
+    <value>下移</value>
+  </data>
+  <data name="MoveUp" xml:space="preserve">
+    <value>上移</value>
+  </data>
   <data name="NickName" xml:space="preserve">
     <value>昵称</value>
   </data>
