@@ -14,10 +14,18 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.LocalAuthPage">
   <Panel HorizontalAlignment="Stretch">
+
     <TextBlock IsVisible="{CompiledBinding IsAuthenticatorsEmpty}"
-       Text="{ReflectionBinding Path=Res.LocalAuth_NoAuthTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
-       TextWrapping="WrapWithOverflow"
-       VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+      Text="{ReflectionBinding Path=Res.LocalAuth_NoAuthTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+      TextWrapping="WrapWithOverflow"
+      VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+
+    <!--<StackPanel IsVisible="{CompiledBinding IsAuthenticatorsEmptyAndHasPassword}" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
+      <TextBlock
+        Text="{ReflectionBinding Path=Res.LocalAuth_NoAuthTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+        TextWrapping="WrapWithOverflow"></TextBlock>
+    </StackPanel>-->
+
     <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="40 0 40 10">
       <ItemsRepeater Items="{Binding Authenticators,Mode=OneWay}">
         <ItemsRepeater.Layout>
@@ -61,8 +69,6 @@
                       </PathIcon>
                     </MenuItem.Icon>
                   </MenuItem>
-
-
                 </ContextMenu>
               </Border.ContextMenu>
               <i:Interaction.Behaviors>

@@ -1873,6 +1873,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 当前数据已加密，请先解锁才能访问。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_HasPasswordUnEncryptionAuth {
+            get {
+                return ResourceManager.GetString("LocalAuth_HasPasswordUnEncryptionAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 导入失败，请检查数据是否正确。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ImportFaild {

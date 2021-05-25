@@ -87,6 +87,10 @@ namespace System.Application.UI.ViewModels
 
         public bool IsAuthenticatorsEmpty => !AuthService.Current.Authenticators.Items.Any_Nullable();
 
+        public bool IsAuthenticatorsEmptyAndHasPassword => SourceAuthCount > 0 && IsAuthenticatorsEmpty == true;
+
+        public int SourceAuthCount { get; set; }
+
         public ReactiveCommand<Unit, Unit> AddAuthCommand { get; }
 
         public ReactiveCommand<Unit, Unit> EncryptionAuthCommand { get; }
@@ -99,11 +103,16 @@ namespace System.Application.UI.ViewModels
 
         internal async override void Activation()
         {
-            var authcount = await AuthService.Current.GetRealAuthenticatorCount();
+            SourceAuthCount = await AuthService.Current.GetRealAuthenticatorCount();
             //if (IsFirstActivation)
-            if (authcount > 0 && IsAuthenticatorsEmpty == true)
+            if (IsAuthenticatorsEmptyAndHasPassword)
                 AuthService.Current.Initialize();
             base.Activation();
+        }
+
+        public void Refreshing() 
+        {
+            AuthService.Current.Initialize();
         }
 
         void AddAuthMenu_Click()
