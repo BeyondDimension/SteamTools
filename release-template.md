@@ -15,6 +15,8 @@
 15. 新增 令牌导入导出
 16. 新增 游戏时长挂机功能
 17. 新增 Microsoft 账号快速登录与绑定
+18. 新增 社区加速 hCaptcha 验证码 / EPIC 验证码 / artstation / v2ex
+19. 修复 社区加速 discord 更新下载 
 
 |  File   | Checksum (SHA256)  |
 |  ----  | ----  |
