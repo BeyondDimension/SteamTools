@@ -299,7 +299,7 @@ namespace System.Application.UI.ViewModels
         {
             try
             {
-                if (GameLibrarySettings.AFKAppList.Value != null && GameLibrarySettings.AFKAppList.Value.ContainsKey(app.AppId))
+                if (GameLibrarySettings.AFKAppList.Value != null && !GameLibrarySettings.AFKAppList.Value.ContainsKey(app.AppId))
                 {
                     GameLibrarySettings.AFKAppList.Value!.Add(app.AppId, app.DisplayName);
                     GameLibrarySettings.AFKAppList.RaiseValueChanged();

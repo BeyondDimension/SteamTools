@@ -391,7 +391,7 @@
     <value>挂机的游戏已达到限制{0}个，请移除部分游戏再添加。</value>
   </data>
   <data name="GameList_AddAFKAppsSuccess" xml:space="preserve">
-    <value>添加到挂时常列表成功</value>
+    <value>添加到挂时长列表成功</value>
   </data>
   <data name="GameList_AddAFKAppsWarningCountTips" xml:space="preserve">
     <value>警告：Steam允许的同时运行游戏数量为{0}个，如果您同时挂时长{1}款游戏，将无法正常游玩游戏！</value>
@@ -485,6 +485,9 @@
   </data>
   <data name="GameList_RuningBtn" xml:space="preserve">
     <value>启动全部</value>
+  </data>
+  <data name="GameList_RuningCount" xml:space="preserve">
+    <value>运行中的{0}/{1}</value>
   </data>
   <data name="GameList_RuningItemBtn" xml:space="preserve">
     <value>启动游戏</value>

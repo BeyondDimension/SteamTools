@@ -55,7 +55,15 @@ namespace System.Application.UI.ViewModels
             get => _IsIdleAppEmpty;
             set => this.RaiseAndSetIfChanged(ref _IsIdleAppEmpty, value);
         }
-
+        public string _RuningCountTxt;
+        public string RuningCountTxt
+        {
+            get => _RuningCountTxt;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _RuningCountTxt, value);
+            }
+        }
 
         public ObservableCollection<SteamApp> _IdleGameList = new();
         public ObservableCollection<SteamApp> IdleGameList
@@ -71,18 +79,20 @@ namespace System.Application.UI.ViewModels
                 {
                     if (GameLibrarySettings.AFKAppList.Value != null)
                     {
-                        try { 
-                        foreach (var item in GameLibrarySettings.AFKAppList.Value)
+                        try
                         {
-                            var runState = SteamConnectService.Current.RuningSteamApps.FirstOrDefault(x => x.AppId == item.Key);
-                            if (runState != null)
+                            foreach (var item in GameLibrarySettings.AFKAppList.Value)
                             {
-                                runState.Process?.Kill();
-                                SteamConnectService.Current.RuningSteamApps.Remove(runState);
+                                var runState = SteamConnectService.Current.RuningSteamApps.FirstOrDefault(x => x.AppId == item.Key);
+                                if (runState != null)
+                                {
+                                    runState.Process?.Kill();
+                                    SteamConnectService.Current.RuningSteamApps.Remove(runState);
+                                }
                             }
                         }
-                        }
-                        catch{
+                        catch
+                        {
                         }
                         MainThreadDesktop.BeginInvokeOnMainThread(() =>
                         {
@@ -93,7 +103,7 @@ namespace System.Application.UI.ViewModels
                             GameLibrarySettings.AFKAppList.RaiseValueChanged();
                             Toast.Show(AppResources.GameList_DeleteSuccess);
                         });
-                      
+
                     }
                 }
             });
@@ -160,6 +170,8 @@ namespace System.Application.UI.ViewModels
                             }
                         }
                     }
+                    var count = IdleGameList.Count(x => x.Process != null);
+                    RuningCountTxt = AppResources.GameList_RuningCount.Format(count, IdleGameList.Count);
                 }
                 else
                 {
@@ -200,7 +212,9 @@ namespace System.Application.UI.ViewModels
                 RunOrStop(runInfoState);
                 app.Process = runInfoState.Process;
             }
-            RunState = IdleGameList.Count(x => x.Process != null) > 0;
+            var count = IdleGameList.Count(x => x.Process != null);
+            RunState = count > 0;
+            RuningCountTxt = AppResources.GameList_RuningCount.Format(count, IdleGameList.Count);
             Toast.Show(AppResources.GameList_OperationSuccess);
         }
         public void RunOrStop(SteamApp app)
@@ -265,6 +279,8 @@ namespace System.Application.UI.ViewModels
             else
                 IsIdleAppEmpty = false;
 
+            var count = IdleGameList.Count(x => x.Process != null);
+            RuningCountTxt = AppResources.GameList_RuningCount.Format(count, IdleGameList.Count);
             Toast.Show(AppResources.GameList_OperationSuccess);
         }
 

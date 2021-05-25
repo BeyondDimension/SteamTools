@@ -873,7 +873,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 添加到挂时常列表成功 的本地化字符串。
+        ///   查找类似 添加到挂时长列表成功 的本地化字符串。
         /// </summary>
         public static string GameList_AddAFKAppsSuccess {
             get {
@@ -1157,6 +1157,15 @@ namespace System.Application.UI.Resx {
         public static string GameList_RuningBtn {
             get {
                 return ResourceManager.GetString("GameList_RuningBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 运行中的{0}/{1} 的本地化字符串。
+        /// </summary>
+        public static string GameList_RuningCount {
+            get {
+                return ResourceManager.GetString("GameList_RuningCount", resourceCulture);
             }
         }
         
