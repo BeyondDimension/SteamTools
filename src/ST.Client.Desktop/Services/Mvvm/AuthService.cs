@@ -615,7 +615,7 @@ namespace System.Application.Services
             var auths = Authenticators.Items.Where(x => x.Name != x.OriginName);
 
             foreach (var auth in auths)
-                repository.RenameAsync(auth.Id, auth.Name, true, password);
+                repository.RenameAsync(auth.Id, auth.Name, isLocal, password);
         }
 
         public async void SwitchEncryptionAuthenticators(bool isLocal, string? password)

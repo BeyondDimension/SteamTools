@@ -45,7 +45,11 @@
                             Command="{ReflectionBinding #u.DataContext.UpMoveOrderById}"
                             CommandParameter="{Binding}">
                     <MenuItem.Icon>
-                      <PathIcon Data="{StaticResource DownloadDrawing}" Width="14"></PathIcon>
+                      <PathIcon Data="{StaticResource ChevronDownDrawing}" Width="14">
+                        <PathIcon.RenderTransform>
+                          <RotateTransform Angle="180"></RotateTransform>
+                        </PathIcon.RenderTransform>
+                      </PathIcon>
                     </MenuItem.Icon>
                   </MenuItem>
                   <MenuItem
@@ -53,7 +57,8 @@
                             Command="{ReflectionBinding #u.DataContext.DownMoveOrderById}"
                             CommandParameter="{Binding}">
                     <MenuItem.Icon>
-                      <PathIcon Data="{StaticResource DownloadDrawing}" Width="14"></PathIcon>
+                      <PathIcon Data="{StaticResource ChevronDownDrawing}" Width="14">
+                      </PathIcon>
                     </MenuItem.Icon>
                   </MenuItem>
 
