@@ -162,13 +162,13 @@ namespace System.Application.Models.Settings
         /// 隐藏的游戏列表
         /// </summary>
         public static SerializableProperty<Dictionary<uint, string?>> HideGameList { get; }
-            = new SerializableProperty<Dictionary<uint, string?>>(GetKey(), Providers.Local, new Dictionary<uint, string?>()) { AutoSave = false };
+            = new SerializableProperty<Dictionary<uint, string?>>(GetKey(), Providers.Local, new Dictionary<uint, string?>()) { AutoSave = true };
 
         /// <summary>
         /// 挂时长游戏列表
         /// </summary>
         public static SerializableProperty<Dictionary<uint, string?>> AFKAppList { get; }
-            = new SerializableProperty<Dictionary<uint, string?>>(GetKey(), Providers.Local, new Dictionary<uint, string?>()) { AutoSave = false };
+            = new SerializableProperty<Dictionary<uint, string?>>(GetKey(), Providers.Local, new Dictionary<uint, string?>()) { AutoSave = true };
 
         /// <summary>
         /// 启用自动挂机
