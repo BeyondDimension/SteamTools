@@ -275,7 +275,7 @@ namespace System.Application.UI.ViewModels
                 {
                     if (GameLibrarySettings.AFKAppList.Value?.Count == SteamConnectService.Current.SteamAFKMaxCount - 2)
                     {
-                        var result = MessageBoxCompat.ShowAsync(AppResources.GameList_AddAFKAppsWarningCountTips.Format(SteamConnectService.Current.SteamAFKMaxCount - 2, SteamConnectService.Current.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+                        var result = MessageBoxCompat.ShowAsync(AppResources.GameList_AddAFKAppsWarningCountTips.Format(SteamConnectService.Current.SteamAFKMaxCount, SteamConnectService.Current.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
                         {
                             if (s.Result == MessageBoxResultCompat.OK)
                             {
