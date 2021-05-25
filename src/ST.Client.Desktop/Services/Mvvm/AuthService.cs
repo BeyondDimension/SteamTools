@@ -610,12 +610,13 @@ namespace System.Application.Services
             Current.Authenticators.Remove(auth);
         }
 
-        public void SaveEditNameAuthenticators(bool isLocal = false, string? password = null)
+        public async void SaveEditNameAuthenticators()
         {
             var auths = Authenticators.Items.Where(x => x.Name != x.OriginName);
+            var hasLocal = await DI.Get<IGameAccountPlatformAuthenticatorRepository>().HasLocalAsync();
 
             foreach (var auth in auths)
-                repository.RenameAsync(auth.Id, auth.Name, isLocal, password);
+                await repository.RenameAsync(auth.Id, auth.Name, hasLocal);
         }
 
         public async void SwitchEncryptionAuthenticators(bool isLocal, string? password)
