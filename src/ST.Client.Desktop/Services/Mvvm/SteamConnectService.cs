@@ -31,6 +31,7 @@ namespace System.Application.Services
             SteamApps = new SourceCache<SteamApp, uint>(t => t.AppId);
             //HideApps = new SourceCache<SteamHideApps, uint>(t => t.AppId);
         }
+        public  int SteamAFKMaxCount = 32;
 
         #region Steam游戏列表
         public SourceCache<SteamApp, uint> SteamApps { get; }

@@ -267,6 +267,37 @@ namespace System.Application.UI.ViewModels
         {
             try
             {
+                if (GameLibrarySettings.AFKAppList.Value?.Count >= SteamConnectService.Current.SteamAFKMaxCount)
+                {
+                    var result = MessageBoxCompat.ShowAsync(AppResources.GameList_AddAFKAppsMaxCountTips.Format(SteamConnectService.Current.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OK);
+                }
+                else
+                {
+                    if (GameLibrarySettings.AFKAppList.Value?.Count == SteamConnectService.Current.SteamAFKMaxCount - 2)
+                    {
+                        var result = MessageBoxCompat.ShowAsync(AppResources.GameList_AddAFKAppsWarningCountTips.Format(SteamConnectService.Current.SteamAFKMaxCount - 2, SteamConnectService.Current.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+                        {
+                            if (s.Result == MessageBoxResultCompat.OK)
+                            {
+                                AddAFKAppListFunc(app);
+                            }
+                        });
+                    }
+                    else {
+
+                        AddAFKAppListFunc(app);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.Show(e.ToString());
+            }
+        }
+        public void AddAFKAppListFunc(SteamApp app)
+        {
+            try
+            {
                 GameLibrarySettings.AFKAppList.Value!.Add(app.AppId, app.DisplayName);
                 GameLibrarySettings.AFKAppList.RaiseValueChanged();
                 Toast.Show(AppResources.GameList_AddAFKAppsSuccess);
@@ -276,7 +307,6 @@ namespace System.Application.UI.ViewModels
                 Toast.Show(e.ToString());
             }
         }
-
         public void AddHideAppList(SteamApp app)
         {
             try

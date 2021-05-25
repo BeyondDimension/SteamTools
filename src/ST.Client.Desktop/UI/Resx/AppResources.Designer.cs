@@ -864,11 +864,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 挂机的游戏已达到限制{0}个，请移除部分游戏再添加。 的本地化字符串。
+        /// </summary>
+        public static string GameList_AddAFKAppsMaxCountTips {
+            get {
+                return ResourceManager.GetString("GameList_AddAFKAppsMaxCountTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 添加到挂时常列表成功 的本地化字符串。
         /// </summary>
         public static string GameList_AddAFKAppsSuccess {
             get {
                 return ResourceManager.GetString("GameList_AddAFKAppsSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 警告：Steam允许的同时运行游戏数量为{0}个，如果您同时挂时长{1}款游戏，将无法正常游玩游戏！ 的本地化字符串。
+        /// </summary>
+        public static string GameList_AddAFKAppsWarningCountTips {
+            get {
+                return ResourceManager.GetString("GameList_AddAFKAppsWarningCountTips", resourceCulture);
             }
         }
         
