@@ -13,6 +13,7 @@ using System.Reactive.Linq;
 using DynamicData.Binding;
 using DynamicData;
 using System.Application.Repositories;
+using System.Linq;
 
 namespace System.Application.UI.ViewModels
 {
@@ -190,13 +191,18 @@ namespace System.Application.UI.ViewModels
             //}
         }
 
-        public async void UpMoveOrderById(MyAuthenticator auth)
+        public void UpMoveOrderById(MyAuthenticator auth)
         {
-            //var row = await DI.Get<IGameAccountPlatformAuthenticatorRepository>().MoveOrderByIdAsync();
+            MoveOrderById(auth, true);
         }
-        public async void DownMoveOrderById(MyAuthenticator auth)
+        public void DownMoveOrderById(MyAuthenticator auth)
         {
-            //var row = await DI.Get<IGameAccountPlatformAuthenticatorRepository>().MoveOrderByIdAsync();
+            MoveOrderById(auth, false);
+        }
+
+        async void MoveOrderById(MyAuthenticator auth, bool upOrDown)
+        {
+            var row = await DI.Get<IGameAccountPlatformAuthenticatorRepository>().MoveOrderByIdAsync(AuthService.Current.Authenticators.Items.Select(x => x.AuthenticatorData).ToList(), auth.Id, upOrDown);
         }
     }
 }
