@@ -403,7 +403,7 @@
     <value>隐藏游戏列表为空，请从游戏列表右键添加需要隐藏的游戏。</value>
   </data>
   <data name="GameList_AddIdeaAppEmpty" xml:space="preserve">
-    <value>未添加挂时常的游戏，请冲游戏列表邮件添加。</value>
+    <value>未添加挂时长的游戏，请从游戏列表右键添加。</value>
   </data>
   <data name="GameList_AutoAFK" xml:space="preserve">
     <value>程序启动时自动挂时长</value>
@@ -481,7 +481,7 @@
     <value>移除全部</value>
   </data>
   <data name="GameList_RemoveItemBtn" xml:space="preserve">
-    <value>取消挂时常</value>
+    <value>取消挂时长</value>
   </data>
   <data name="GameList_ResizeAppLogo" xml:space="preserve">
     <value>调整封面大小</value>

@@ -909,7 +909,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 未添加挂时常的游戏，请冲游戏列表邮件添加。 的本地化字符串。
+        ///   查找类似 未添加挂时长的游戏，请从游戏列表右键添加。 的本地化字符串。
         /// </summary>
         public static string GameList_AddIdeaAppEmpty {
             get {
@@ -1143,7 +1143,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 取消挂时常 的本地化字符串。
+        ///   查找类似 取消挂时长 的本地化字符串。
         /// </summary>
         public static string GameList_RemoveItemBtn {
             get {
