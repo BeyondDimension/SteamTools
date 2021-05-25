@@ -219,5 +219,36 @@ namespace System.Application.Services
             await userManager.SetCurrentUserInfoAsync(user, true);
             User = user;
         }
+
+        /// <summary>
+        /// 绑定账号后更新
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <param name="rsp"></param>
+        /// <returns></returns>
+        public async Task BindAccountAfterUpdateAsync(FastLoginChannel channel, LoginOrRegisterResponse rsp)
+        {
+            var user = await userManager.GetCurrentUserInfoAsync();
+            if (user == null) return;
+            switch (channel)
+            {
+                case FastLoginChannel.Steam:
+                    user.SteamAccountId = rsp.User?.SteamAccountId;
+                    break;
+                case FastLoginChannel.Microsoft:
+                    user.MicrosoftAccountEmail = rsp.User?.MicrosoftAccountEmail;
+                    break;
+                case FastLoginChannel.QQ:
+                    user.QQAccountNumber = rsp.User?.QQAccountNumber;
+                    break;
+                case FastLoginChannel.Apple:
+                    user.AppleAccountEmail = rsp.User?.AppleAccountEmail;
+                    break;
+                default:
+                    return;
+            }
+            await userManager.SetCurrentUserInfoAsync(user, true);
+            User = user;
+        }
     }
 }

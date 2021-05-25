@@ -121,11 +121,16 @@ namespace System.Application.UI.ViewModels
         {
             var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
             var urlExternalLoginCallback = apiBaseUrl + "/ExternalLoginCallback";
-            if (isBind) urlExternalLoginCallback += "?isBind=true";
             WebView3WindowViewModel? vm = null;
             vm = new WebView3WindowViewModel
             {
-                Url = apiBaseUrl + (channel == FastLoginChannel.Steam ? "/ExternalLogin" : $"/ExternalLogin/{(int)channel}"),
+                Url = apiBaseUrl +
+                    (channel == FastLoginChannel.Steam ?
+                    "/ExternalLogin" :
+                    $"/ExternalLogin/{(int)channel}") +
+                    (isBind ?
+                    "?isBind=true" :
+                    string.Empty),
                 StreamResponseFilterUrls = new[]
                 {
                     urlExternalLoginCallback,
@@ -150,11 +155,24 @@ namespace System.Application.UI.ViewModels
                     var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
                     if (response.IsSuccess)
                     {
-                        await conn_helper.OnLoginedAsync(response.Content!, response.Content!);
-                        await MainThreadDesktop.InvokeOnMainThreadAsync(async () =>
+                        if (isBind)
                         {
-                            await SuccessAsync(response.Content!, vm?.Close);
-                        });
+                            await MainThreadDesktop.InvokeOnMainThreadAsync(async () =>
+                            {
+                                await UserService.Current.BindAccountAfterUpdateAsync(channel, response.Content!);
+                                close?.Invoke();
+                                var msg = AppResources.Success_.Format(AppResources.User_AccountBind);
+                                Toast.Show(msg);
+                            });
+                        }
+                        else
+                        {
+                            await conn_helper.OnLoginedAsync(response.Content!, response.Content!);
+                            await MainThreadDesktop.InvokeOnMainThreadAsync(async () =>
+                            {
+                                await SuccessAsync(response.Content!, vm?.Close);
+                            });
+                        }
                     }
                     else
                     {

@@ -2,7 +2,6 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Polly;
 using System;
-using System.Application.Columns;
 using System.Application.Models;
 using System.Application.Models.Internals;
 using System.Collections.Generic;
@@ -45,10 +44,10 @@ namespace System.Application.Services.CloudService
         async ValueTask<JWTEntity?> SetRequestHeaderAuthorization(HttpRequestMessage request)
         {
             var authToken = await conn_helper.Auth.GetAuthTokenAsync();
-            if (authToken.HasValue())
+            var authHeaderValue = conn_helper.GetAuthenticationHeaderValue(authToken);
+            if (authHeaderValue != null)
             {
-                request.Headers.Authorization = new AuthenticationHeaderValue(
-                    Constants.Basic, authToken?.AccessToken);
+                request.Headers.Authorization = authHeaderValue;
                 return authToken;
             }
             return null;

@@ -2,6 +2,7 @@ using Avalonia.Interactivity;
 using CefNet;
 using CefNet.Avalonia;
 using CefNet.Internal;
+using System.Application.Models;
 using System.Application.Services.CloudService;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -226,6 +227,7 @@ namespace System.Application.UI.Views.Controls
             var sc = DI.Get<CloudServiceClientBase>();
             if (request.Url.StartsWith(sc.ApiBaseUrl, StringComparison.OrdinalIgnoreCase))
             {
+                var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
                 request.SetHeaderByName(Headers.Request.AppVersion, sc.Settings.AppVersionStr, true);
                 if (webView.IsSecurity)
                 {
@@ -234,9 +236,16 @@ namespace System.Application.UI.Views.Controls
                         webView.Aes = AESUtils.Create();
                     }
                     var skey_bytes = webView.Aes.ToParamsByteArray();
-                    var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
                     var skey_str = conn_helper.RSA.EncryptToString(skey_bytes);
                     request.SetHeaderByName(Headers.Request.SecurityKey, skey_str, true);
+                }
+                Func<Task<JWTEntity?>> getAuthTokenAsync = () => conn_helper.Auth.GetAuthTokenAsync().AsTask();
+                var authToken = getAuthTokenAsync.RunSync();
+                var authHeaderValue = conn_helper.GetAuthenticationHeaderValue(authToken);
+                if (authHeaderValue != null)
+                {
+                    var authHeaderValueStr = authHeaderValue.ToString();
+                    request.SetHeaderByName("Authorization", authHeaderValueStr, true);
                 }
             }
             var returnValue = base.OnBeforeResourceLoad(browser, frame, request, callback);

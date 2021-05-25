@@ -178,7 +178,7 @@ namespace System.Application.UI.ViewModels
 
         async Task OnBindFastLoginClickAsync(FastLoginChannel channel)
         {
-            await LoginOrRegisterWindowViewModel.FastLoginOrRegisterAsync(Close, channel, isBind: true);
+            await LoginOrRegisterWindowViewModel.FastLoginOrRegisterAsync(null, channel, isBind: true);
         }
 
         /// <summary>
