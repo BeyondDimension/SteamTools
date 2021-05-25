@@ -1,4 +1,4 @@
-﻿using System.Application.Columns;
+using System.Application.Columns;
 using System.Runtime.CompilerServices;
 
 namespace System
@@ -78,14 +78,14 @@ namespace System
         /// <returns></returns>
         public static FormattableString SoftDeleteFromTableNameWhereIdEqual(string tableName, object id)
         {
-            var sql = UpdateFrom + tableName + " set " + nameof(ISoftDeleted.SoftDeleted) + " = 1" + WhereIdEqual_0;
+            var sql = Update + tableName + " set " + nameof(ISoftDeleted.SoftDeleted) + " = 1" + WhereIdEqual_0;
             return FormattableStringFactory.Create(sql, id);
         }
 
         /// <summary>
-        /// "update from "
+        /// "update "
         /// </summary>
-        public const string UpdateFrom = "update from ";
+        public const string Update = "update ";
 
         /// <summary>
         /// " where Id in ("

@@ -179,7 +179,8 @@ namespace System.Application.Repositories.Implementation
 
             (var notSecondaryPassword, var encryptionMode) = GetEncryptionMode2(isLocal, secondaryPassword);
 
-            var name_bytes = await ss.E(item.Name ?? string.Empty, encryptionMode, secondaryPassword);
+            var name_encryptionMode = GetEncryptionMode(isLocal, null);
+            var name_bytes = await ss.E(item.Name ?? string.Empty, name_encryptionMode, null);
             name_bytes = name_bytes.ThrowIsNull(nameof(name_bytes));
 
             var value_bytes = await ss.EB(value, encryptionMode, secondaryPassword);
@@ -241,23 +242,23 @@ namespace System.Application.Repositories.Implementation
         async Task IGameAccountPlatformAuthenticatorRepository.DeleteAsync(Guid serverId)
             => await DeleteAsync(serverId);
 
-        public async Task RenameAsync(GameAccountPlatformAuthenticator source, string name, bool isLocal, string? secondaryPassword)
+        public async Task RenameAsync(GameAccountPlatformAuthenticator source, string name, bool isLocal)
         {
-            var encryptionMode = GetEncryptionMode(isLocal, secondaryPassword);
+            var encryptionMode = GetEncryptionMode(isLocal, null);
 
-            var name_bytes = await ss.E(name, encryptionMode, secondaryPassword);
+            var name_bytes = await ss.E(name, encryptionMode, null);
             name_bytes = name_bytes.ThrowIsNull(nameof(name_bytes));
 
             source.Name = name_bytes;
             await UpdateAsync(source);
         }
 
-        public async Task RenameAsync(ushort id, string name, bool isLocal, string? secondaryPassword)
+        public async Task RenameAsync(ushort id, string name, bool isLocal)
         {
             var source = await FindAsync(id);
             if (source != null)
             {
-                await RenameAsync(source, name, isLocal, secondaryPassword);
+                await RenameAsync(source, name, isLocal);
             }
         }
 
@@ -361,14 +362,30 @@ namespace System.Application.Repositories.Implementation
 
         async Task<int> UpdateIndexByItemAsync(IGAPAuthenticatorDTO item)
         {
-            var source = await FindAsync(item.Id);
-            if (source != null)
+            var dbConnection = await GetDbConnection().ConfigureAwait(false);
+            return await AttemptAndRetry(async () =>
             {
-                source.Index = item.Index;
-                var r = await UpdateAsync(source);
+                var sql =
+                    SQLStrings.Update +
+                    "[" + GameAccountPlatformAuthenticator.TableName + "]" +
+                    " set " +
+                    "[" + GameAccountPlatformAuthenticator.ColumnName_Index + "]" +
+                    $" = {item.Index}" +
+                    " where " +
+                    "[" + GameAccountPlatformAuthenticator.ColumnName_Id + "]" +
+                    $" = {item.Id}";
+                var r = await dbConnection.ExecuteAsync(sql);
                 return r;
-            }
-            return 0;
+            }).ConfigureAwait(false);
+
+            //var source = await FindAsync(item.Id);
+            //if (source != null)
+            //{
+            //    source.Index = item.Index;
+            //    var r = await UpdateAsync(source);
+            //    return r;
+            //}
+            //return 0;
         }
 
         public async Task<int> MoveOrderByIndexAsync(IList<IGAPAuthenticatorDTO> items, int index, bool upOrDown)
@@ -382,6 +399,9 @@ namespace System.Application.Repositories.Implementation
                 var orderIndex2 = GetOrder(item2);
                 item.Index = orderIndex2;
                 item2.Index = orderIndex;
+                //var r = await UpdateIndexByItemAsync(item);
+                //r += await UpdateIndexByItemAsync(item2);
+                //return r;
                 var r = await Task.WhenAll(
                     UpdateIndexByItemAsync(item),
                     UpdateIndexByItemAsync(item2));

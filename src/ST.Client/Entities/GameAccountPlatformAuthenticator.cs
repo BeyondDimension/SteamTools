@@ -21,10 +21,12 @@ namespace System.Application.Entities
     {
         public const string TableName = "E4401864";
         public const string ColumnName_ServerId = "C9835F84";
+        public const string ColumnName_Id = "1DEF5924";
+        public const string ColumnName_Index = "41B24805";
 
         string DebuggerDisplay => $"{Name}, {Id}";
 
-        [Column("1DEF5924")]
+        [Column(ColumnName_Id)]
         [PrimaryKey]
         [AutoIncrement]
         [MPIgnore]

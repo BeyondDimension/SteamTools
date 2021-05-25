@@ -125,9 +125,8 @@ namespace System.Application.Repositories
         /// <param name="source"></param>
         /// <param name="name"></param>
         /// <param name="isLocal"></param>
-        /// <param name="secondaryPassword"></param>
         /// <returns></returns>
-        Task RenameAsync(GameAccountPlatformAuthenticator source, string name, bool isLocal, string? secondaryPassword);
+        Task RenameAsync(GameAccountPlatformAuthenticator source, string name, bool isLocal);
 
         /// <summary>
         /// 根据本地Id修改显示名称
@@ -135,9 +134,8 @@ namespace System.Application.Repositories
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="isLocal"></param>
-        /// <param name="secondaryPassword"></param>
         /// <returns></returns>
-        Task RenameAsync(ushort id, string name, bool isLocal, string? secondaryPassword = null);
+        Task RenameAsync(ushort id, string name, bool isLocal);
 
         /// <summary>
         /// 根据本地Id设置云同步Id
