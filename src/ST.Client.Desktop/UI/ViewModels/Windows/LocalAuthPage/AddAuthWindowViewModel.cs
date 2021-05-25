@@ -29,16 +29,20 @@ namespace System.Application.UI.ViewModels
 
         private async void Initialize()
         {
-            var result = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
-            if (result.success)
-            {
-                AuthPassword = result.password;
-            }
-            else
-            {
-                AuthPassword = null;
-            }
             var auths = await repository.GetAllSourceAsync();
+            var hasPassword = repository.HasSecondaryPassword(auths);
+            if (hasPassword)
+            {
+                var result = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
+                if (result.success)
+                {
+                    AuthPassword = result.password;
+                }
+                else 
+                {
+                    this.Close();
+                }
+            }
             AuthIsLocal = repository.HasLocal(auths);
         }
 

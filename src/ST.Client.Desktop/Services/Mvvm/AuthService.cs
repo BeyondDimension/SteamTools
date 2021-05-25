@@ -485,7 +485,7 @@ namespace System.Application.Services
                 var bt = await File.ReadAllBytesAsync(file);
 
             Run:
-                var result = await repository.ImportAsync(password, bt);
+                var result = await repository.ImportAsync(exportPassword, bt);
 
                 if (result.resultCode == IGameAccountPlatformAuthenticatorRepository.ImportResultCode.Success)
                 {
@@ -507,7 +507,7 @@ namespace System.Application.Services
                 else if (result.resultCode == IGameAccountPlatformAuthenticatorRepository.ImportResultCode.SecondaryPasswordFail)
                 {
                     Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
-                    password = await PasswordWindowViewModel.ShowPasswordDialog();
+                    exportPassword = await PasswordWindowViewModel.ShowPasswordDialog();
                     goto Run;
                 }
                 else
