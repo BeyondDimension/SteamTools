@@ -160,7 +160,7 @@ namespace System.Application.UI.ViewModels
                             await MainThreadDesktop.InvokeOnMainThreadAsync(async () =>
                             {
                                 await UserService.Current.BindAccountAfterUpdateAsync(channel, response.Content!);
-                                close?.Invoke();
+                                vm?.Close?.Invoke();
                                 var msg = AppResources.Success_.Format(AppResources.User_AccountBind);
                                 Toast.Show(msg);
                             });
@@ -178,7 +178,6 @@ namespace System.Application.UI.ViewModels
                     {
                         MainThreadDesktop.BeginInvokeOnMainThread(() =>
                         {
-                            close?.Invoke();
                             vm?.Close?.Invoke();
                             conn_helper.ShowResponseErrorMessage(response);
                         });
