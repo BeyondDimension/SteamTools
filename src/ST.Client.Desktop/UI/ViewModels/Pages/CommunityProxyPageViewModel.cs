@@ -52,7 +52,6 @@ namespace System.Application.UI.ViewModels
             //{
             //    EnableProxyScript?.CheckmarkChange(ProxySettings.IsEnableScript.Value = !ProxySettings.IsEnableScript.Value);
             //});
-
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
                 //new MenuItemViewModel(nameof(AppResources.CommunityFix_MenuName))
@@ -69,11 +68,12 @@ namespace System.Application.UI.ViewModels
                             { IconKey="RefreshDrawing" , Command = RefreshCommand},
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_CertificateSettings))
                         {
+                            IconKey="MoreDrawing",
                             Items = new[]
                             {
-                                new MenuItemViewModel(nameof(AppResources.CommunityFix_SetupCertificate)){ Command=SetupCertificateCommand },
-                                new MenuItemViewModel(nameof(AppResources.CommunityFix_DeleteCertificate)){ Command=DeleteCertificateCommand },
-                                new MenuItemViewModel(nameof(AppResources.CommunityFix_OpenCertificateDir)){ Command=OpenCertificateDirCommand },
+                                new MenuItemViewModel(nameof(AppResources.CommunityFix_SetupCertificate)){ IconKey="CertificateDrawing", Command=SetupCertificateCommand },
+                                new MenuItemViewModel(nameof(AppResources.CommunityFix_DeleteCertificate)){ IconKey="CertificateDrawing", Command=DeleteCertificateCommand },
+                                new MenuItemViewModel(nameof(AppResources.CommunityFix_OpenCertificateDir)){ IconKey="FolderOpenDrawing", Command=OpenCertificateDirCommand },
                             }
                         },
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_EditHostsFile)){ Command=EditHostsFileCommand,IconKey="DocumentEditDrawing" },

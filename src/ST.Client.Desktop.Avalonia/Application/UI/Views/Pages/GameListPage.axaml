@@ -250,12 +250,20 @@
                       <MenuItem
                           Header="{ReflectionBinding Path=Res.GameList_HideTheGame,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                                         Command="{ReflectionBinding #u.DataContext.AddHideAppList}"
-                                                        CommandParameter="{Binding}" />
+                                                        CommandParameter="{Binding}" >
+                        <MenuItem.Icon>
+                          <PathIcon Data="{StaticResource EyeHideDrawing}" Width="14"></PathIcon>
+                        </MenuItem.Icon>
+                      </MenuItem>
                       <MenuItem
                                 Header="{ReflectionBinding Path=Res.GameList_AddAfkGameList,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.AddAFKAppList}"
-                                CommandParameter="{Binding}" />
-                      
+                                CommandParameter="{Binding}">
+                        <MenuItem.Icon>
+                          <PathIcon Data="{StaticResource TopSpeedDrawing}" Width="14"></PathIcon>
+                        </MenuItem.Icon>
+                      </MenuItem>
+
                       <!--<MenuItem
                                   Header="{ReflectionBinding Path=Res.GameList_SetCustomImage,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                   Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
@@ -265,15 +273,27 @@
                       <MenuItem
                                 Header="{ReflectionBinding Path=Res.GameList_OpenStoreUrl,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.OpenAppStoreUrl}"
-                                CommandParameter="{Binding}" />
+                                CommandParameter="{Binding}">
+                        <MenuItem.Icon>
+                          <PathIcon Data="{StaticResource GlobeSearchDrawing}" Width="14"></PathIcon>
+                        </MenuItem.Icon>
+                      </MenuItem>
                       <MenuItem
                                 Header="{ReflectionBinding Path=Res.GameList_OpenSteamDBUrl,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.OpenSteamDBUrl}"
-                                CommandParameter="{Binding}" />
+                                CommandParameter="{Binding}">
+                        <MenuItem.Icon>
+                          <PathIcon Data="{StaticResource GlobeSearchDrawing}" Width="14"></PathIcon>
+                        </MenuItem.Icon>
+                      </MenuItem>
                       <MenuItem
                                 Header="{ReflectionBinding Path=Res.GameList_OpenSteamCardUrl,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.OpenSteamCardUrl}"
-                                CommandParameter="{Binding}" />
+                                CommandParameter="{Binding}">
+                        <MenuItem.Icon>
+                          <PathIcon Data="{StaticResource GlobeSearchDrawing}" Width="14"></PathIcon>
+                        </MenuItem.Icon>
+                      </MenuItem>
                     </ContextMenu>
                   </Border.ContextMenu>
                   <Panel x:Name="app" Width="{ReflectionBinding $parent.Width}">

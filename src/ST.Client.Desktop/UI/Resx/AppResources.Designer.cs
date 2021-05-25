@@ -1224,7 +1224,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 游戏功能 的本地化字符串。
+        ///   查找类似 游戏工具 的本地化字符串。
         /// </summary>
         public static string GameRelated {
             get {

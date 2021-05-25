@@ -80,7 +80,7 @@ namespace System.Application.UI.ViewModels
                        IconKey ="JavaScriptDrawing",Command=ScriptStoreCommand},
                    new MenuItemViewModel (),
                    (ScriptAutoUpdate=new MenuItemViewModel (nameof(AppResources.Script_AutoUpdate))
-                   {Command=EnableScriptAutoUpdateCommand }),
+                   { Command=EnableScriptAutoUpdateCommand }),
                    (OnlySteamBrowser = new MenuItemViewModel (nameof(AppResources.CommunityFix_OnlySteamBrowser)){ Command=OnlySteamBrowserCommand})
             };
 

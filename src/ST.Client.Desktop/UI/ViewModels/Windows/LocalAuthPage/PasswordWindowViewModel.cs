@@ -44,7 +44,7 @@ namespace System.Application.UI.ViewModels
 
         public void Cancel()
         {
-            Password = null;
+            Password = string.Empty;
             this.Close();
         }
     }

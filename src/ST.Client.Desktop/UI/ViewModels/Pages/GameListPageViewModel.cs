@@ -120,16 +120,16 @@ namespace System.Application.UI.ViewModels
             {
                 AFKAutoUpdate?.CheckmarkChange(SteamConnectService.Current.IsAutoAFKApps = !SteamConnectService.Current.IsAutoAFKApps);
             });
+
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
-                   (AFKAutoUpdate=new MenuItemViewModel (nameof(AppResources.GameList_AutoAFK))
+                  (AFKAutoUpdate=new MenuItemViewModel (nameof(AppResources.GameList_AutoAFK))
                    {Command=EnableAFKAutoUpdateCommand }),
-                   new MenuItemViewModel (),
-
+                  new MenuItemViewModel (),
                   new MenuItemViewModel(nameof(AppResources.GameList_HideGameManger)){
-                    Command =   HideAppCommand
-                  },
-                  new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)){ Command = IdleAppCommand },
+                      IconKey ="EyeHideDrawing", Command = HideAppCommand },
+                  new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)){
+                      IconKey ="TopSpeedDrawing", Command = IdleAppCommand },
             };
 
             AFKAutoUpdate?.CheckmarkChange(SteamConnectService.Current.IsAutoAFKApps);

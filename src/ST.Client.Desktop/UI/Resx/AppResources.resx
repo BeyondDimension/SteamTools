@@ -508,7 +508,7 @@
     <value>不支持的操作</value>
   </data>
   <data name="GameRelated" xml:space="preserve">
-    <value>游戏功能</value>
+    <value>游戏工具</value>
   </data>
   <data name="GameRelated_Borderless" xml:space="preserve">
     <value>无边框窗口化</value>

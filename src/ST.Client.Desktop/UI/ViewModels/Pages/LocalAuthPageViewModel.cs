@@ -141,15 +141,17 @@ namespace System.Application.UI.ViewModels
             ToastService.Current.Notify(AppResources.LocalAuth_CopyAuthTip + auth.Name);
         }
 
-        public void DeleteAuth(MyAuthenticator auth)
+        public async void DeleteAuth(MyAuthenticator auth)
         {
-            var result = MessageBoxCompat.ShowAsync(@AppResources.LocalAuth_DeleteAuthTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+            var result = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
+            if (result.success)
             {
-                if (s.Result == MessageBoxResultCompat.OK)
+                var r = await MessageBoxCompat.ShowAsync(@AppResources.LocalAuth_DeleteAuthTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
+                if (r == MessageBoxResultCompat.OK)
                 {
                     AuthService.DeleteSaveAuthenticators(auth);
                 }
-            });
+            }
         }
 
         public async void ShowSteamAuthData(MyAuthenticator auth)

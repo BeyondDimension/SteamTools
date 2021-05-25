@@ -45,6 +45,10 @@ namespace System.Application.Services
             if (hasPassword)
             {
                 var password = await PasswordWindowViewModel.ShowPasswordDialog();
+                if (string.IsNullOrEmpty(password))
+                {
+                    return;
+                }
                 list = await repository.ConvertToList(auths, password);
             }
             else
