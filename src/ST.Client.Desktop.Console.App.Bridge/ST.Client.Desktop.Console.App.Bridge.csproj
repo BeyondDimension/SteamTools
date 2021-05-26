@@ -9,10 +9,7 @@
     <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
     <Platforms>AnyCPU;x86</Platforms>
     <PlatformTarget>x86</PlatformTarget>
-    <RuntimeIdentifier>win10-x86</RuntimeIdentifier>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" $(DefineConstants.Contains(`PUBLISH`)) ">
+    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
     <SelfContained>true</SelfContained>
     <PublishSingleFile>false</PublishSingleFile>
     <!--目前裁剪存在问题，禁用-->

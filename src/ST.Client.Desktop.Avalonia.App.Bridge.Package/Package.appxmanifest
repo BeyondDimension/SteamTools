@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
@@ -7,13 +7,13 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="net.steampp.app"
-    Publisher="CN=长沙次元超越科技有限公司"
-    Version="2.3.0.0" />
+    Name="4651ED44255E.47979655102CE"
+    Publisher="CN=A90E406B-B2D3-4A23-B061-0FA1D65C4F66"
+    Version="2.3.1.0" />
 
   <Properties>
     <DisplayName>Steam++</DisplayName>
-    <PublisherDisplayName>长沙次元超越科技有限公司</PublisherDisplayName>
+    <PublisherDisplayName>软妹币玩家</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
 
@@ -50,7 +50,7 @@
         <uap:LockScreen BadgeLogo="Images\BadgeLogo.png" Notification="badgeAndTileText"/>
       </uap:VisualElements>
       <Extensions>
-        <desktop:Extension xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" Category="windows.fullTrustProcess" Executable="ST.Client.Desktop.Avalonia.App\Steam++.exe" />
+        <desktop:Extension xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" Category="windows.fullTrustProcess" Executable="ST.Client.Desktop.Avalonia.App.Bridge\Steam++.exe" />
       </Extensions>
     </Application>
   </Applications>
