@@ -181,7 +181,6 @@ namespace System.Application.Repositories.Implementation
 
             var name_encryptionMode = GetEncryptionMode(isLocal, null);
             var name_bytes = await ss.E(item.Name ?? string.Empty, name_encryptionMode, null);
-            name_bytes = name_bytes.ThrowIsNull(nameof(name_bytes));
 
             var value_bytes = await ss.EB(value, encryptionMode, secondaryPassword);
             value_bytes = value_bytes.ThrowIsNull(nameof(value_bytes));
@@ -247,7 +246,6 @@ namespace System.Application.Repositories.Implementation
             var encryptionMode = GetEncryptionMode(isLocal, null);
 
             var name_bytes = await ss.E(name, encryptionMode, null);
-            name_bytes = name_bytes.ThrowIsNull(nameof(name_bytes));
 
             source.Name = name_bytes;
             await UpdateAsync(source);
