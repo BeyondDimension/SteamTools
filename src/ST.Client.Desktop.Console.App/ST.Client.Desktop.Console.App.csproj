@@ -6,6 +6,7 @@
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>Steam++.Console</AssemblyName>
     <DefineConstants>CONSOLEAPP;$(DefineConstants)</DefineConstants>
+    <ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
@@ -26,6 +27,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(DefineConstants.Contains(`PUBLISH`)) ">
+    <SelfContained>true</SelfContained>
     <PublishSingleFile>false</PublishSingleFile>
     <!--目前裁剪存在问题，禁用-->
     <PublishTrimmed>false</PublishTrimmed>
