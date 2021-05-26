@@ -26,7 +26,6 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(DefineConstants.Contains(`PUBLISH`)) ">
-    <SelfContained>true</SelfContained>
     <PublishSingleFile>false</PublishSingleFile>
     <!--目前裁剪存在问题，禁用-->
     <PublishTrimmed>false</PublishTrimmed>

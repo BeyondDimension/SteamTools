@@ -21,7 +21,7 @@ jobs:
     - name: Setup .NET 6
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.100-preview.3.21202.5        
+        dotnet-version: 6.0.100-preview.4.21255.9
 
     - name: Checkout repository
       uses: actions/checkout@v2
