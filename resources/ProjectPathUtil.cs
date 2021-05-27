@@ -7,6 +7,9 @@ namespace System
     {
         public static readonly string projPath;
 
+        public const string ProjectDir_AvaloniaAppBridge = "ST.Client.Desktop.Avalonia.App.Bridge";
+        public const string ProjectDir_ConsoleAppBridge = "ST.Client.Desktop.Console.App.Bridge";
+        public const string ProjectDir_ConsoleAppBridgePackage = "ST.Client.Desktop.Avalonia.App.Bridge.Package";
         public const string ProjectDir_AvaloniaApp = "ST.Client.Desktop.Avalonia.App";
         public const string ProjectDir_Win7Troubleshoot = "ST.Tools.Win7Troubleshoot";
         public const string ProjectDir_CoreLib = "Common.CoreLib";

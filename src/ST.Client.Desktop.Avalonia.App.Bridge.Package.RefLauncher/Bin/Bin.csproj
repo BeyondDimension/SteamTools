@@ -10,6 +10,12 @@
     <ApplicationIcon>..\..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
+  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+    <Compile Include="..\..\..\resources\ProjectPathUtil.cs">
+      <Link>ProjectPathUtil.cs</Link>
+    </Compile>
+  </ItemGroup>
+
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
