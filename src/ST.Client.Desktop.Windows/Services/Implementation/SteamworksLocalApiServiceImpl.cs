@@ -20,7 +20,7 @@ namespace System.Application.Services.Implementation
             SteamClient = new Client();
         }
 
-        public bool IsSupported => RuntimeInformation.ProcessArchitecture == Architecture.X86;
+        public bool IsSupported => RuntimeInformation.ProcessArchitecture == (Architecture.X86 | Architecture.X64);
 
         public void DisposeSteamClient()
         {

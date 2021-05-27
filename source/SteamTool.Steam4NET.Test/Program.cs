@@ -102,8 +102,8 @@ namespace SteamTool.Steam4NET.Test
 
             Console.WriteLine("\nSteam3 tests:");
 
-            ISteamClient012 steamclient = Steamworks.CreateInterface<ISteamClient012>();
-            ISteamClient009 steamclient9 = Steamworks.CreateInterface<ISteamClient009>();
+            ISteamClient017 steamclient = Steamworks.CreateInterface<ISteamClient017>();
+            //ISteamClient009 steamclient9 = Steamworks.CreateInterface<ISteamClient009>();
             if (steamclient == null)
             {
                 Console.WriteLine("steamclient is null !");
@@ -161,6 +161,21 @@ namespace SteamTool.Steam4NET.Test
                 Console.WriteLine("clientuser is null !");
                 return -1;
             }
+
+            ISteamApps001 clientapps = steamclient.GetISteamApps<ISteamApps001>(user, pipe);
+            if (clientapps == null)
+            {
+                Console.WriteLine("clientapps is null !");
+                return -1;
+            }
+
+            ISteamApps006 clientapps6 = steamclient.GetISteamApps<ISteamApps006>(user, pipe);
+            if (clientapps6 == null)
+            {
+                Console.WriteLine("clientapps6 is null !");
+                return -1;
+            }
+
             IClientFriends clientfriends = clientengine.GetIClientFriends<IClientFriends>(user, pipe);
             if (clientfriends == null)
             {

@@ -31,10 +31,10 @@
         <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
         <!--<TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>-->
-        <Platforms>AnyCPU;x86</Platforms>
-        <PlatformTarget>x86</PlatformTarget>
+        <Platforms>AnyCPU;x86;x64</Platforms>
+        <PlatformTarget>AnyCPU</PlatformTarget>
         <!-- 注意：RuntimeIdentifier win-x86 会导致亚克力效果会丢失 -->
-        <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
+        <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
         <!--<UseWindowsForms>false</UseWindowsForms>-->
         <!--<UseWPF>false</UseWPF>-->
     </PropertyGroup>
@@ -60,6 +60,10 @@
         <UseSystemResourceKeys>true</UseSystemResourceKeys>
         <DebugType>none</DebugType>
         <DebugSymbols>false</DebugSymbols>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <!--<ItemGroup>
