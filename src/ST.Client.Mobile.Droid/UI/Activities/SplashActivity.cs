@@ -1,4 +1,4 @@
-﻿using Android.App;
+using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
@@ -23,7 +23,10 @@ namespace System.Application.UI.Activities
         {
             base.OnCreate(savedInstanceState);
 
-            AllowStart = DeviceSecurityCheckUtil.IsSupported(ThisAssembly.Debuggable);
+            AllowStart = DeviceSecurityCheckUtil.IsSupported(
+                enableEmulator: ThisAssembly.Debuggable,
+                allowXposed: true,
+                allowRoot: true);
             if (!this.IsAllowStart()) return;
 
             StartActivity(new Intent(this, typeof(MainActivity)));

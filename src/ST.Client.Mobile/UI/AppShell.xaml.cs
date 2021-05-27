@@ -1,4 +1,4 @@
-﻿using System.Application.UI.Views;
+using System.Application.UI.Views;
 using Xamarin.Forms;
 
 namespace System.Application.UI
@@ -14,7 +14,7 @@ namespace System.Application.UI
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
-            await Current.GoToAsync("//LoginPage");
+            await Current.GoToAsync("//LoginOrRegisterPage");
         }
     }
 }

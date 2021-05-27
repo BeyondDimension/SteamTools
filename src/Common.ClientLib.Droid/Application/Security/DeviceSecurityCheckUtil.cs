@@ -1,4 +1,4 @@
-﻿using Android.Content;
+using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using System.Application.Properties;
@@ -51,7 +51,7 @@ namespace System.Application.Security
         /// </summary>
         /// <param name="enableEmulator"></param>
         /// <returns></returns>
-        public static bool IsSupported(bool enableEmulator)
+        public static bool IsSupported(bool enableEmulator, bool allowXposed = false, bool allowRoot = false)
         {
             if (!enableEmulator && IsEmulator)
                 return Exit(ExitCode.IsEmulator);
@@ -59,10 +59,10 @@ namespace System.Application.Security
             if (!enableEmulator && SecurityCheckUtil.CheckIsDebuggerConnected())
                 return Exit(ExitCode.IsDebuggerConnected);
 
-            if (SecurityCheckUtil.IsXposedExists())
+            if (!allowXposed && SecurityCheckUtil.IsXposedExists())
                 return Exit(ExitCode.IsXposedExists);
 
-            if (!enableEmulator && SecurityCheckUtil.IsRoot())
+            if (!enableEmulator && !allowRoot && SecurityCheckUtil.IsRoot())
                 return Exit(ExitCode.IsRoot);
 
             var context = AndroidApplication.Context;

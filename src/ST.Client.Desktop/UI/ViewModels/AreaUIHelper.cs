@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using System.Application.Entities;
 using System.Application.Services;
 using System.Application.UI.Resx;
@@ -247,6 +247,7 @@ namespace System.Application.UI.ViewModels
         public static IReadOnlyList<IArea> Group2 => mGroup2.Value;
     }
 
+#if !__MOBILE__
     partial class UserProfileWindowViewModel : AreaUIHelper.IViewModelField
     {
         IReadOnlyList<IArea>? _AreaItems2;
@@ -334,4 +335,5 @@ namespace System.Application.UI.ViewModels
             set => _AreaNotVisible4 = value;
         }
     }
+#endif
 }

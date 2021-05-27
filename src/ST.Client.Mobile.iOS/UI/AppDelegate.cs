@@ -32,6 +32,7 @@ namespace System.Application.UI
 
             Forms.Init();
             FormsMaterial.Init();
+            XF.Material.iOS.Material.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

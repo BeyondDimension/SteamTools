@@ -1,4 +1,4 @@
-﻿using Android.App;
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
@@ -21,6 +21,7 @@ namespace System.Application.UI.Activities
 
             Forms.Init(this, savedInstanceState);
             FormsMaterial.Init(this, savedInstanceState);
+            XF.Material.Droid.Material.Init(this, savedInstanceState);
 
             LoadApplication(new App());
         }

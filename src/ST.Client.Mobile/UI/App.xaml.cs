@@ -1,4 +1,4 @@
-﻿using System.Application.Services;
+using System.Application.Services;
 using System.Application.UI.Styles;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,6 +12,7 @@ namespace System.Application.UI
         public App()
         {
             InitializeComponent();
+            XF.Material.Forms.Material.Init(this);
             AppTheme = RequestedTheme;
             RequestedThemeChanged += (_, e) => AppTheme = e.RequestedTheme;
             DependencyService.Register<MockDataStore>();

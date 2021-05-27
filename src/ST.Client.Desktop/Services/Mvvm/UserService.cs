@@ -16,6 +16,7 @@ namespace System.Application.Services
 
         readonly IUserManager userManager = DI.Get<IUserManager>();
 
+#if !__MOBILE__
         public async void ShowWindow(CustomWindow windowName)
         {
             var isDialog = true;
@@ -37,6 +38,7 @@ namespace System.Application.Services
                 await IShowWindowService.Instance.ShowDialog(vmType, windowName, isDialog: isDialog);
             }
         }
+#endif
 
         public async Task SignOutAsync(Func<Task<IApiResponse>>? apiCall = null, string? message = null)
         {
@@ -60,11 +62,15 @@ namespace System.Application.Services
         public async void SignOut()
         {
             if (!IsAuthenticated) return;
+#if !__MOBILE__
             var r = await MessageBoxCompat.ShowAsync(AppResources.User_SignOutTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
             if (r == MessageBoxResultCompat.OK)
             {
                 await SignOutAsync(ICloudServiceClient.Instance.Manage.SignOut);
             }
+#else
+            await SignOutAsync(ICloudServiceClient.Instance.Manage.SignOut);
+#endif
         }
 
         public async void DelAccount()
@@ -91,6 +97,7 @@ namespace System.Application.Services
         /// </summary>
         public bool IsAuthenticated => User != null;
 
+#if !__MOBILE__
         SteamUser? _SteamUser;
         public SteamUser? CurrentSteamUser
         {
@@ -114,6 +121,7 @@ namespace System.Application.Services
             }
             return value ?? DefaultAvaterPath;
         }
+#endif
 
         const string DefaultAvaterPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater_default.png";
 
@@ -133,7 +141,9 @@ namespace System.Application.Services
             userManager.OnSignOut += () =>
             {
                 User = null;
+#if !__MOBILE__
                 CurrentSteamUser = null;
+#endif
                 AvaterPath = DefaultAvaterPath;
             };
 
@@ -189,9 +199,13 @@ namespace System.Application.Services
 
             if (User != null && User.SteamAccountId.HasValue)
             {
+#if !__MOBILE__
                 CurrentSteamUser = await ISteamworksWebApiService.Instance.GetUserInfo(User.SteamAccountId.Value);
                 CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
                 AvaterPath = CircleImageStream.Convert(await CurrentSteamUser.AvatarStream);
+#else
+                AvaterPath = DefaultAvaterPath;
+#endif
             }
             else
             {

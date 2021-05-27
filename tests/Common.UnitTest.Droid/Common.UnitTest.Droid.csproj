@@ -1,7 +1,7 @@
 <Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFramework>MonoAndroid10.0</TargetFramework>
+    <TargetFramework>MonoAndroid11.0</TargetFramework>
     <RootNamespace>System.UnitTest</RootNamespace>
     <AssemblyName>System.Common.UnitTest.Droid</AssemblyName>
     <IsPackable>false</IsPackable>

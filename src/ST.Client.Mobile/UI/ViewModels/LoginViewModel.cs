@@ -1,8 +1,9 @@
-﻿using System.Application.UI.Views;
+using System.Application.UI.Views;
 using Xamarin.Forms;
 
 namespace System.Application.UI.ViewModels
 {
+    [Obsolete]
     public class LoginViewModel : BaseViewModel
     {
         public Command LoginCommand { get; }
