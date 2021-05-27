@@ -87,14 +87,14 @@
 
             <Button Classes="action"
                     Content="{ReflectionBinding Path=Res.LoginAndRegister,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                    Command="{ReflectionBinding Submit}"
+                    Command="{Binding Submit}"
                     HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">
             </Button>
 
           </StackPanel>
 
           <StackPanel x:Name="SteamLogin"  Spacing="8" IsVisible="False">
-            <i:Interaction.Behaviors>
+            <!--<i:Interaction.Behaviors>
               <ia:DataTriggerBehavior Binding="{Binding SteamUser}" ComparisonCondition="Equal" Value="{x:Null}">
                 <ia:ChangePropertyAction TargetObject="{ReflectionBinding #SteamLogo}" PropertyName="IsVisible" Value="True"/>
                 <ia:ChangePropertyAction TargetObject="{ReflectionBinding #UserAvater}" PropertyName="IsVisible" Value="False"/>
@@ -103,7 +103,7 @@
                 <ia:ChangePropertyAction TargetObject="{ReflectionBinding #UserAvater}" PropertyName="IsVisible" Value="True"/>
                 <ia:ChangePropertyAction TargetObject="{ReflectionBinding #SteamLogo}" PropertyName="IsVisible" Value="False"/>
               </ia:DataTriggerBehavior>
-            </i:Interaction.Behaviors>
+            </i:Interaction.Behaviors>-->
 
             <Button x:Name="UserAvater" Classes="plain" Command="{ReflectionBinding FastLogin}" IsVisible="False" CommandParameter="Steam">
               <Image

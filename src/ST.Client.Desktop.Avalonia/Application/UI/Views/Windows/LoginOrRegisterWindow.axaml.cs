@@ -27,7 +27,13 @@ namespace System.Application.UI.Views.Windows
             {
                 if (e.Key == Key.Return)
                 {
-                    ((LoginOrRegisterWindowViewModel?)DataContext)?.Submit();
+                    if (DataContext is LoginOrRegisterWindowViewModel vm)
+                    {
+                        if (vm.Submit.CanExecute(null))
+                        {
+                            vm.Submit.Execute(null);
+                        }
+                    }
                 }
             };
 #if DEBUG
