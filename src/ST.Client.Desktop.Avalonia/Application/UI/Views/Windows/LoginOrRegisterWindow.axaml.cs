@@ -29,10 +29,7 @@ namespace System.Application.UI.Views.Windows
                 {
                     if (DataContext is LoginOrRegisterWindowViewModel vm)
                     {
-                        if (vm.Submit.CanExecute(null))
-                        {
-                            vm.Submit.Execute(null);
-                        }
+                        vm.Submit.Invoke();
                     }
                 }
             };
