@@ -7,10 +7,7 @@
     <AssemblyName>Steam++.Console</AssemblyName>
     <DefineConstants>WINDOWS;WINDOWS_DESKTOP_BRIDGE;CONSOLEAPP;$(DefineConstants)</DefineConstants>
     <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
-    <Platforms>AnyCPU;x86</Platforms>
-    <PlatformTarget>x86</PlatformTarget>
-    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
-    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
     <PublishSingleFile>false</PublishSingleFile>
     <!--目前裁剪存在问题，禁用-->
     <PublishTrimmed>false</PublishTrimmed>

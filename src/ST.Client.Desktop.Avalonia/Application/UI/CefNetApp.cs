@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Properties;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -87,10 +88,18 @@ navigator.__proto__ = newProto;
         {
             if (InitState != CefNetAppInitState.Uninitialized) return;
 
+            static string GetArch() => RuntimeInformation.ProcessArchitecture switch
+            {
+                Architecture.X86 => "x86",
+                Architecture.X64 => "x64",
+                Architecture.Arm64 => "arm64",
+                _ => throw new PlatformNotSupportedException(),
+            };
+
             var cefPath = DI.Platform switch
             {
-                Platform.Windows => Path.Combine(AppContext.BaseDirectory, "CEF", "win-x86"),
-                Platform.Linux => Path.Combine(AppContext.BaseDirectory, "CEF", "linux-x64"),
+                Platform.Windows => Path.Combine(AppContext.BaseDirectory, "CEF", "win-" + GetArch()),
+                Platform.Linux => Path.Combine(AppContext.BaseDirectory, "CEF", "linux-" + GetArch()),
                 Platform.Apple => DI.DeviceIdiom == DeviceIdiom.Desktop ? Path.Combine(AppContext.BaseDirectory, "Contents", "Frameworks", "Chromium Embedded Framework.framework") : throw new PlatformNotSupportedException(),
                 _ => throw new ArgumentOutOfRangeException(nameof(DI.Platform), DI.Platform, null),
             };
@@ -98,7 +107,7 @@ navigator.__proto__ = newProto;
 #if DEBUG
             if (BuildConfig.IsAigioPC)
             {
-                cefPath = @"G:\CEF\win-x86";
+                cefPath = @"G:\CEF\win-" + GetArch();
             }
 #endif
 

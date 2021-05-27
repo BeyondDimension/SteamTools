@@ -12,38 +12,38 @@
       <Configuration>Release</Configuration>
       <Platform>x86</Platform>
     </ProjectConfiguration>
-    <!--<ProjectConfiguration Include="Debug|x64">
+    <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
-      <Platform>x86</Platform>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
-      <Platform>x86</Platform>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|ARM">
       <Configuration>Debug</Configuration>
-      <Platform>x86</Platform>
+      <Platform>ARM</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|ARM">
       <Configuration>Release</Configuration>
-      <Platform>x86</Platform>
+      <Platform>ARM</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|ARM64">
       <Configuration>Debug</Configuration>
-      <Platform>x86</Platform>
+      <Platform>ARM64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|ARM64">
       <Configuration>Release</Configuration>
-      <Platform>x86</Platform>
+      <Platform>ARM64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|AnyCPU">
       <Configuration>Debug</Configuration>
-      <Platform>x86</Platform>
+      <Platform>AnyCPU</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|AnyCPU">
       <Configuration>Release</Configuration>
-      <Platform>x86</Platform>
-    </ProjectConfiguration>-->
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup>
     <WapProjPath Condition="'$(WapProjPath)'==''">$(MSBuildExtensionsPath)\Microsoft\DesktopBridge\</WapProjPath>
@@ -56,19 +56,18 @@
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <PackageCertificateThumbprint>B6D2933B81EEDE587801E0C3E0D570DFD3DEFA70</PackageCertificateThumbprint>
-    <EntryPointProjectUniqueName>..\ST.Client.Desktop.Avalonia.App.Bridge\ST.Client.Desktop.Avalonia.App.Bridge.csproj</EntryPointProjectUniqueName>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
-    <AppxBundlePlatforms>x86</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <ItemGroup>
@@ -139,64 +138,61 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.19041.8" PrivateAssets="all" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ST.Client.Desktop.Avalonia.App.Bridge\ST.Client.Desktop.Avalonia.App.Bridge.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\..\..\CEF\win-x86\locales\zh-CN.pak">
-      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\locales\zh-CN.pak</Link>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Content Include="..\..\..\CEF\win-x64\locales\zh-CN.pak">
+      <Link>Bin\CEF\win-x64\locales\zh-CN.pak</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\CEF\win-x86\swiftshader\libEGL.dll">
-      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\swiftshader\libEGL.dll</Link>
+    <Content Include="..\..\..\CEF\win-x64\swiftshader\libEGL.dll">
+      <Link>Bin\CEF\win-x64\swiftshader\libEGL.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\CEF\win-x86\swiftshader\libGLESv2.dll">
-      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\swiftshader\libGLESv2.dll</Link>
+    <Content Include="..\..\..\CEF\win-x64\swiftshader\libGLESv2.dll">
+      <Link>Bin\CEF\win-x64\swiftshader\libGLESv2.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\CEF\win-x86\chrome_100_percent.pak">
-      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\chrome_100_percent.pak</Link>
+    <Content Include="..\..\..\CEF\win-x64\chrome_100_percent.pak">
+      <Link>Bin\CEF\win-x64\chrome_100_percent.pak</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\CEF\win-x86\chrome_200_percent.pak">
-      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\chrome_200_percent.pak</Link>
+    <Content Include="..\..\..\CEF\win-x64\chrome_200_percent.pak">
+      <Link>Bin\CEF\win-x64\chrome_200_percent.pak</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\CEF\win-x86\chrome_elf.dll">
-      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\chrome_elf.dll</Link>
+    <Content Include="..\..\..\CEF\win-x64\chrome_elf.dll">
+      <Link>Bin\CEF\win-x64\chrome_elf.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\CEF\win-x86\d3dcompiler_47.dll">
-      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\d3dcompiler_47.dll</Link>
+    <Content Include="..\..\..\CEF\win-x64\d3dcompiler_47.dll">
+      <Link>Bin\CEF\win-x64\d3dcompiler_47.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\CEF\win-x86\icudtl.dat">
-      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\icudtl.dat</Link>
+    <Content Include="..\..\..\CEF\win-x64\icudtl.dat">
+      <Link>Bin\CEF\win-x64\icudtl.dat</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\CEF\win-x86\libcef.dll">
-      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\libcef.dll</Link>
+    <Content Include="..\..\..\CEF\win-x64\libcef.dll">
+      <Link>Bin\CEF\win-x64\libcef.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\CEF\win-x86\libEGL.dll">
-      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\libEGL.dll</Link>
+    <Content Include="..\..\..\CEF\win-x64\libEGL.dll">
+      <Link>Bin\CEF\win-x64\libEGL.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\CEF\win-x86\libGLESv2.dll">
-      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\libGLESv2.dll</Link>
+    <Content Include="..\..\..\CEF\win-x64\libGLESv2.dll">
+      <Link>Bin\CEF\win-x64\libGLESv2.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\CEF\win-x86\resources.pak">
-      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\resources.pak</Link>
+    <Content Include="..\..\..\CEF\win-x64\resources.pak">
+      <Link>Bin\CEF\win-x64\resources.pak</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\CEF\win-x86\snapshot_blob.bin">
-      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\snapshot_blob.bin</Link>
+    <Content Include="..\..\..\CEF\win-x64\snapshot_blob.bin">
+      <Link>Bin\CEF\win-x64\snapshot_blob.bin</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\CEF\win-x86\v8_context_snapshot.bin">
-      <Link>ST.Client.Desktop.Avalonia.App.Bridge\CEF\win-x86\v8_context_snapshot.bin</Link>
+    <Content Include="..\..\..\CEF\win-x64\v8_context_snapshot.bin">
+      <Link>Bin\CEF\win-x64\v8_context_snapshot.bin</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
