@@ -124,6 +124,8 @@ namespace System.Application.UI.ViewModels
 
             _SteamUsersSourceList.Refresh();
 
+             
+
             this.WhenAnyValue(x => x.SteamUsers)
                   .Subscribe(items => items?
                   .ToObservableChangeSet()

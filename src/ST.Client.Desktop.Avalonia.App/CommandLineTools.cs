@@ -128,10 +128,25 @@ namespace System.Application.UI
                 // -clt c -silence
                 var common = new Command("c", "common");
                 common.AddOption(new Option<bool>("-silence", "静默启动（不弹窗口）"));
-                common.Handler = CommandHandler.Create((bool silence) =>
+                common.Handler = CommandHandler.Create((bool silence, long steamuser) =>
                 {
                     IsMinimize = silence;
                     MainHandlerByCLT();
+                });
+                rootCommand.AddCommand(common);
+
+                // -clt steam -account
+                var steamuser = new Command("steam", "Steam相关操作");
+                common.AddOption(new Option<string>("-account", "指定对应steam用户名"));
+                common.Handler = CommandHandler.Create((string account) =>
+                {
+                    if (!string.IsNullOrEmpty(account))
+                    {
+                        initStartup(DILevel.Steam);
+                        //ISteamService.Instance.TryKillSteamProcess();
+                        //ISteamService.Instance.SetCurrentUser(account);
+                        //ISteamService.Instance.StartSteam();
+                    }
                 });
                 rootCommand.AddCommand(common);
 
@@ -157,7 +172,6 @@ namespace System.Application.UI
                             var day = 86400000;
                             while (true)
                                 Threading.Thread.Sleep(day);
-
                         }
                     }
                     catch (Exception ex)

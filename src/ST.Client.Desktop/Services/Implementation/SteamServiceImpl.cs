@@ -123,7 +123,7 @@ namespace System.Application.Services.Implementation
             return default;
         }
 
-        public void StartSteam(string? arguments)
+        public void StartSteam(string? arguments = null)
         {
             if (!string.IsNullOrEmpty(SteamProgramPath))
             {

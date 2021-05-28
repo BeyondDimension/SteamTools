@@ -57,7 +57,7 @@ namespace System.Application.Services
         /// 启动 Steam
         /// </summary>
         /// <param name="arguments"></param>
-        void StartSteam(string? arguments);
+        void StartSteam(string? arguments = null);
 
         /// <summary>
         /// 获取最后一次自动登陆 Steam 用户名称

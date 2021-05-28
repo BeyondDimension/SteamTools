@@ -1,4 +1,4 @@
-﻿#pragma warning disable CA1416 // 验证平台兼容性
+#pragma warning disable CA1416 // 验证平台兼容性
 extern alias JumpLists;
 using JumpLists::System.Windows.Shell;
 using AvaloniaApplication = Avalonia.Application;
@@ -22,25 +22,49 @@ namespace System.Application.UI
             };
             //jumpList1.JumpItemsRejected += JumpList1_JumpItemsRejected;
             //jumpList1.JumpItemsRemovedByUser += JumpList1_JumpItemsRemovedByUser;
-            jumpList1.JumpItems.Add(new JumpTask
-            {
-                Title = "Notepad",
-                Description = "Open Notepad.",
-                ApplicationPath = @"C:\Windows\notepad.exe",
-                IconResourcePath = @"C:\Windows\notepad.exe",
-            });
-            jumpList1.JumpItems.Add(new JumpTask
-            {
-                Title = "Read Me",
-                Description = "Open readme.txt in Notepad.",
-                ApplicationPath = @"C:\Windows\notepad.exe",
-                IconResourcePath = @"C:\Windows\System32\imageres.dll",
-                IconResourceIndex = 14,
-                WorkingDirectory = @"C:\Users\Public\Documents",
-                Arguments = "readme.txt",
-            });
+            //jumpList1.JumpItems.Add(new JumpTask
+            //{
+            //    Title = "RuaRua",
+            //    Description = "以该账号启动Steam",
+            //    ApplicationPath = AppHelper.ProgramPath,
+            //    Arguments = "-clt steam -account rmbadmin",
+            //    IconResourcePath = AppHelper.ProgramPath,
+            //});
+            //jumpList1.JumpItems.Add(new JumpTask
+            //{
+            //    Title = "DarkMaple",
+            //    Description = "以该账号启动Steam",
+            //    ApplicationPath = AppHelper.ProgramPath,
+            //    Arguments = "-clt steam -account kuafaaf",
+            //    IconResourcePath = AppHelper.ProgramPath,
+            //});
+            //jumpList1.JumpItems.Add(new JumpTask
+            //{
+            //    Title = "Read Me",
+            //    Description = "Open readme.txt in Notepad.",
+            //    ApplicationPath = @"C:\Windows\notepad.exe",
+            //    IconResourcePath = @"C:\Windows\System32\imageres.dll",
+            //    IconResourceIndex = 14,
+            //    WorkingDirectory = @"C:\Users\Public\Documents",
+            //    Arguments = "readme.txt",
+            //});
             JumpList.SetJumpList(AvaloniaApplication.Current, jumpList1);
         }
+
+
+        public static void AddJumpTask(JumpTask task)
+        {
+            var jumpList1 = new JumpList
+            {
+                ShowRecentCategory = true,
+                ShowFrequentCategory = true,
+            };
+            //jumpList1.JumpItemsRejected += JumpList1_JumpItemsRejected;
+            //jumpList1.JumpItemsRemovedByUser += JumpList1_JumpItemsRemovedByUser;
+            jumpList1.JumpItems.Add(task);
+            JumpList.SetJumpList(AvaloniaApplication.Current, jumpList1);
+        }
+
 
         //static void AddJumpTask()
         //{
