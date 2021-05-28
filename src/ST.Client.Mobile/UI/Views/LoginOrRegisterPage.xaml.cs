@@ -5,7 +5,7 @@ using Xamarin.Forms.Xaml;
 namespace System.Application.UI.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoginOrRegisterPage : ContentPage
+    partial class LoginOrRegisterPage
     {
         public LoginOrRegisterPage()
         {

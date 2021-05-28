@@ -46,6 +46,12 @@
         <Setter Property="TextDecorations" Value="Underline" />
         <Setter Property="TextColor" Value="{DynamicResource TextLink}"/>
       </Style>
+      <Style x:Key="PathIcon" TargetType="Path">
+        <Setter Property="Aspect" Value="Uniform" />
+        <Setter Property="Fill" Value="Black" />
+        <Setter Property="HeightRequest" Value="32" />
+        <Setter Property="WidthRequest" Value="32" />
+      </Style>
     </ResourceDictionary>
   </Shell.Resources>
 

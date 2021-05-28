@@ -4,9 +4,9 @@ using Xamarin.Forms.Xaml;
 namespace System.Application.UI.Styles
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ThemeDark : ResourceDictionary
+    public partial class DrawingSvg : ResourceDictionary
     {
-        public ThemeDark()
+        public DrawingSvg()
         {
             InitializeComponent();
         }

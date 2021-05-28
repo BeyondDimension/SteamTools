@@ -1,92 +1,167 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:viewmodels="clr-namespace:System.Application.UI.ViewModels"
-             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Mobile"
-             xmlns:resx="clr-namespace:System.Application.UI.Resx"
-             xmlns:ccl_services="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
-             x:DataType="viewmodels:LoginOrRegisterPageViewModel"
-             mc:Ignorable="d"
-             x:Class="System.Application.UI.Views.LoginOrRegisterPage"
-             BackgroundColor="{DynamicResource WindowBackground}"
-             Shell.NavBarIsVisible="False">
-  <ContentPage.Content>
-    <ScrollView>
-      <StackLayout Orientation="Vertical">
-        <ActivityIndicator IsRunning="True" 
-                           IsVisible="False" 
-                           Color="{StaticResource Primary}" 
-                           VerticalOptions="CenterAndExpand"/>
-        <Grid Margin="22,42" IsVisible="True">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="192"/>
-            <RowDefinition Height="56"/>
-            <RowDefinition Height="56"/>
-            <RowDefinition Height="56"/>
-            <RowDefinition Height="*"/>
-          </Grid.RowDefinitions>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="96"/>
-          </Grid.ColumnDefinitions>
-          <Image Scale="2" Source="splash_logo.png" Grid.ColumnSpan="2"/>
-          <controls:TextBox x:Name="TbPhoneNumber" 
-                            ReturnType="Next" 
-                            Margin="0,0,0,10" 
-                            Placeholder="{x:Static resx:AppResources.User_Phone}" 
-                            Keyboard="Telephone" 
-                            MaxLength="{Binding Path=PhoneNumber, Mode=OneTime, Source={x:Static ccl_services:InputLengthConstants.Current}}" 
-                            Grid.Row="1" 
-                            Grid.ColumnSpan="2"/>
-          <controls:TextBox x:Name="TbSmsCode" 
-                            ReturnType="Done" 
-                            Margin="0,0,0,10" 
-                            Placeholder="{x:Static resx:AppResources.User_SMSCode}" 
-                            MaxLength="{Binding Path=SMS_CAPTCHA, Mode=OneTime, Source={x:Static ccl_services:InputLengthConstants.Current}}" 
-                            Keyboard="Numeric" 
-                            Grid.Row="2" 
-                            Grid.ColumnSpan="2"/>
-          <controls:TextButton Margin="0,0,0,8" 
-                               Text="{Binding BtnSendSmsCodeText}" 
-                               Grid.Row="2" 
-                               Grid.Column="1" 
-                               Command="{Binding SendSms}"/>
-          <Button Margin="0,0,0,12" 
-                  Text="{x:Static resx:AppResources.LoginAndRegister}" 
-                  Command="{Binding Submit}" 
-                  Grid.Row="3" 
-                  Grid.ColumnSpan="2"/>
-          <Label Margin="0,0,0,32" HorizontalOptions="Center" Grid.Row="4" Grid.ColumnSpan="2">
-            <Label.FormattedText>
-              <FormattedString>
-                <FormattedString.Spans>
-                  <Span Text="{x:Static resx:AppResources.User_RegisterAgreed}"/>
-                  <Span Text=" "/>
-                  <Span Text="{x:Static resx:AppResources.User_Agreement}" 
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:converters="clr-namespace:System.Application.Converters;assembly=System.Application.SteamTools.Client.Mobile"
+            xmlns:ccl_services="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
+            xmlns:resx="clr-namespace:System.Application.UI.Resx"
+            xmlns:viewmodels="clr-namespace:System.Application.UI.ViewModels"
+            xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Mobile"
+            xmlns:st_root="clr-namespace:System.Application;assembly=System.Application.SteamTools"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            x:DataType="viewmodels:LoginOrRegisterPageViewModel"
+            mc:Ignorable="d"
+            android:TabbedPage.ToolbarPlacement="Top"
+            x:Class="System.Application.UI.Views.LoginOrRegisterPage"
+            Title="{Binding Title}"
+            Shell.NavBarIsVisible="True">
+  <TabbedPage.Resources>
+    <ControlTemplate x:Key="AgreementAndPrivacy">
+      <Label HorizontalOptions="Center" BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}">
+        <Label.FormattedText>
+          <FormattedString>
+            <FormattedString.Spans>
+              <Span Text="{x:Static resx:AppResources.User_RegisterAgreed}"/>
+              <Span Text=" "/>
+              <Span Text="{x:Static resx:AppResources.User_Agreement}"
                         Style="{DynamicResource LinkText}">
-                    <Span.GestureRecognizers>
-                      <TapGestureRecognizer Command="{Binding OpenHyperlink}"
+                <Span.GestureRecognizers>
+                  <TapGestureRecognizer Command="{Binding OpenHyperlink}"
                                           CommandParameter="Agreement"/>
-                    </Span.GestureRecognizers>
-                  </Span>
-                  <Span Text=" "/>
-                  <Span Text="{x:Static resx:AppResources.And}"/>
-                  <Span Text=" "/>
-                  <Span Text="{x:Static resx:AppResources.User_Privacy}" 
+                </Span.GestureRecognizers>
+              </Span>
+              <Span Text=" "/>
+              <Span Text="{x:Static resx:AppResources.And}"/>
+              <Span Text=" "/>
+              <Span Text="{x:Static resx:AppResources.User_Privacy}"
                         Style="{DynamicResource LinkText}">
-                    <Span.GestureRecognizers>
-                      <TapGestureRecognizer Command="{Binding OpenHyperlink}"
+                <Span.GestureRecognizers>
+                  <TapGestureRecognizer Command="{Binding OpenHyperlink}"
                                           CommandParameter="Privacy"/>
-                    </Span.GestureRecognizers>
-                  </Span>
-                </FormattedString.Spans>
-              </FormattedString>
-            </Label.FormattedText>
-          </Label>
-        </Grid>
-      </StackLayout>
-    </ScrollView>
-  </ContentPage.Content>
-</ContentPage>
+                </Span.GestureRecognizers>
+              </Span>
+            </FormattedString.Spans>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+    </ControlTemplate>
+    <ResourceDictionary Source="..\Styles\DrawingSvg.xaml"/>
+    <converters:StringFormatConverter x:Key="StringFormatConverter"/>
+    <converters:PathGeometryConverter x:Key="PathGeometryConverter"/>
+  </TabbedPage.Resources>
+  <TabbedPage.Children>
+    <ContentPage Title="{x:Static resx:AppResources.User_FastLogin}"
+                 BackgroundColor="{DynamicResource WindowBackground}">
+      <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand">
+          <Label Padding="22" FontSize="17" Text="{x:Static resx:AppResources.User_FastLoginTip}"/>
+          <StackLayout BindableLayout.ItemsSource="{Binding FastLoginChannels}">
+            <BindableLayout.ItemTemplate>
+              <DataTemplate x:DataType="st_root:FastLoginChannel">
+                <ContentView VerticalOptions="CenterAndExpand">
+                  <Frame Padding="16" Margin="22,0,22,22">
+                    <Frame.GestureRecognizers>
+                      <TapGestureRecognizer CommandParameter="{Binding}"
+                                            Command="{Binding Path=FastLogin, Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout Spacing="16" Orientation="Horizontal">
+                      <Path Style="{DynamicResource PathIcon}" Data="{Binding Source={StaticResource QQ}, Converter={StaticResource PathGeometryConverter}}"/>
+                      <Label FontSize="22">
+                        <Label.Text>
+                          <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                            <Binding Source="{x:Static resx:AppResources.User_UseFastLoginChannel_}"/>
+                            <Binding Path="."/>
+                          </MultiBinding>
+                        </Label.Text>
+                      </Label>
+                    </StackLayout>
+                  </Frame>
+                </ContentView>
+              </DataTemplate>
+            </BindableLayout.ItemTemplate>
+            <!--<CollectionView ItemsSource="{Binding FastLoginChannels}" HeightRequest="450" VerticalOptions="CenterAndExpand">
+            <CollectionView.Header>
+              <Label Padding="22" FontSize="16" Text="{x:Static resx:AppResources.User_FastLoginTip}"/>
+            </CollectionView.Header>
+            <CollectionView.Footer>
+              <ContentView Margin="0,0,0,22" ControlTemplate="{StaticResource AgreementAndPrivacy}"/>
+            </CollectionView.Footer>
+            <CollectionView.ItemTemplate>
+              <DataTemplate x:DataType="st_root:FastLoginChannel">
+                <ContentView>
+                  <Frame Padding="16" Margin="22,0,22,22">
+                    <Frame.GestureRecognizers>
+                      <TapGestureRecognizer CommandParameter="{Binding}"
+                                          Command="{Binding Path=FastLogin, Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout Spacing="16">
+                      <Label Text="{Binding}"
+                           FontSize="24"/>
+                    </StackLayout>
+                  </Frame>
+                </ContentView>
+              </DataTemplate>
+            </CollectionView.ItemTemplate>
+          </CollectionView>-->
+          </StackLayout>
+          <ContentView Margin="0,0,0,22" ControlTemplate="{StaticResource AgreementAndPrivacy}"/>
+        </StackLayout>
+      </ContentPage.Content>
+    </ContentPage>
+    <ContentPage Title="{x:Static resx:AppResources.User_PhoneLogin}"
+                 BackgroundColor="{DynamicResource WindowBackground}">
+      <ContentPage.Content>
+        <ScrollView>
+          <StackLayout Orientation="Vertical">
+            <ActivityIndicator IsRunning="True"
+                           IsVisible="False"
+                           Color="{StaticResource Primary}"
+                           VerticalOptions="CenterAndExpand"/>
+            <Grid Margin="22,42" IsVisible="True" VerticalOptions="CenterAndExpand">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="192"/>
+                <RowDefinition Height="56"/>
+                <RowDefinition Height="56"/>
+                <RowDefinition Height="56"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="96"/>
+              </Grid.ColumnDefinitions>
+              <Image Scale="2" Source="splash_logo.png" Grid.ColumnSpan="2"/>
+              <controls:TextBox x:Name="TbPhoneNumber"
+                            ReturnType="Next"
+                            Margin="0,0,0,10"
+                            Placeholder="{x:Static resx:AppResources.User_Phone}"
+                            Keyboard="Telephone"
+                            MaxLength="{Binding Path=PhoneNumber, Mode=OneTime, Source={x:Static ccl_services:InputLengthConstants.Current}}"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"/>
+              <controls:TextBox x:Name="TbSmsCode"
+                            ReturnType="Done"
+                            Margin="0,0,0,10"
+                            Placeholder="{x:Static resx:AppResources.User_SMSCode}"
+                            MaxLength="{Binding Path=SMS_CAPTCHA, Mode=OneTime, Source={x:Static ccl_services:InputLengthConstants.Current}}"
+                            Keyboard="Numeric"
+                            Grid.Row="2"
+                            Grid.ColumnSpan="2"/>
+              <controls:TextButton Margin="0,0,0,8"
+                               Text="{Binding BtnSendSmsCodeText}"
+                               Grid.Row="2"
+                               Grid.Column="1"
+                               Command="{Binding SendSms}"/>
+              <Button Margin="0,0,0,12"
+                  Text="{x:Static resx:AppResources.LoginAndRegister}"
+                  Command="{Binding Submit}"
+                  Grid.Row="3"
+                  Grid.ColumnSpan="2"/>
+              <ContentView Margin="0,0,0,32" Grid.Row="4" Grid.ColumnSpan="2" ControlTemplate="{StaticResource AgreementAndPrivacy}"/>
+            </Grid>
+          </StackLayout>
+        </ScrollView>
+      </ContentPage.Content>
+    </ContentPage>
+  </TabbedPage.Children>
+</TabbedPage>

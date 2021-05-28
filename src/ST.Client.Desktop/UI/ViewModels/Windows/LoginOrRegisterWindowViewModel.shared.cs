@@ -30,9 +30,12 @@ namespace System.Application.UI.ViewModels
 #endif
             () : base()
         {
+            Title =
 #if !__MOBILE__
-            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LoginAndRegister;
+                ThisAssembly.AssemblyTrademark + " | " + 
 #endif
+                AppResources.LoginAndRegister;
+
             FastLogin = ReactiveCommand.CreateFromTask<FastLoginChannel>(async channel =>
             {
                 await FastLoginOrRegisterAsync(Close, channel);
