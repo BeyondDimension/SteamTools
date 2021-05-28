@@ -77,10 +77,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _BtnSendSmsCodeText, value);
         }
 
-        public bool IsUnTimeLimit
-        {
-            get => TimeLimit != SMSInterval;
-        }
+        public bool IsUnTimeLimit => TimeLimit != SMSInterval;
 
         public bool SendSmsCodeSuccess { get; set; }
 

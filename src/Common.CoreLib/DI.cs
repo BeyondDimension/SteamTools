@@ -20,8 +20,6 @@ namespace System
 
         internal static bool IsInit => value != null;
 
-        internal static IServiceProvider Value => value ?? throw new NullReferenceException("init must be called.");
-
         /// <summary>
         /// 初始化依赖注入服务组(通过配置服务项的方式)
         /// </summary>
@@ -76,7 +74,7 @@ namespace System
         {
             IsRunningOnMono = Type.GetType("Mono.Runtime") != null;
             var processArchitecture = RuntimeInformation.ProcessArchitecture;
-            IsX86OrX64 = processArchitecture == Architecture.X64 || processArchitecture == Architecture.X86;
+            IsX86OrX64 = processArchitecture is Architecture.X64 or Architecture.X86;
             IsArm64 = processArchitecture == Architecture.Arm64;
             static Platform RuntimeInformationOSPlatform()
             {
@@ -108,7 +106,7 @@ namespace System
 
 #if !NOT_DI
 
-        static Exception GetDIGetFailException(Exception e, Type serviceType) => new($"DI.Get fail, serviceType: {serviceType}", e);
+        static Exception GetDIGetFailException(Type serviceType) => new($"DI.Get* fail, serviceType: {serviceType}");
 
         /// <summary>
         /// 获取依赖注入服务
@@ -117,56 +115,51 @@ namespace System
         /// <returns></returns>
         public static T Get<T>() where T : notnull
         {
-            try
+            if (value == null)
             {
-                return Value.GetRequiredService<T>();
+                throw GetDIGetFailException(typeof(T));
             }
-            catch (NullReferenceException e)
-            {
-                throw GetDIGetFailException(e, typeof(T));
-            }
+            return value.GetRequiredService<T>();
         }
 
         /// <inheritdoc cref="Get{T}"/>
         public static T? Get_Nullable<T>() where T : notnull
         {
-            try
+            if (value == null)
             {
-                return Value.GetService<T>();
+                throw GetDIGetFailException(typeof(T));
             }
-            catch (NullReferenceException e)
-            {
-                throw GetDIGetFailException(e, typeof(T));
-            }
+            return value.GetService<T>();
         }
 
         /// <inheritdoc cref="Get{T}"/>
         public static object Get(Type serviceType)
         {
-            try
+            if (value == null)
             {
-                return Value.GetRequiredService(serviceType);
+                throw GetDIGetFailException(serviceType);
             }
-            catch (NullReferenceException e)
-            {
-                throw GetDIGetFailException(e, serviceType);
-            }
+            return value.GetRequiredService(serviceType);
         }
 
         /// <inheritdoc cref="Get_Nullable{T}"/>
         public static object? Get_Nullable(Type serviceType)
         {
-            try
+            if (value == null)
             {
-                return Value.GetService(serviceType);
+                throw GetDIGetFailException(serviceType);
             }
-            catch (NullReferenceException e)
-            {
-                throw GetDIGetFailException(e, serviceType);
-            }
+            return value.GetService(serviceType);
         }
 
-        public static IServiceScope CreateScope() => Value.CreateScope();
+        public static IServiceScope CreateScope()
+        {
+            if (value == null)
+            {
+                throw new Exception("DI.CreateScope fail.");
+            }
+            return value.CreateScope();
+        }
 
 #endif
     }
