@@ -51,7 +51,6 @@ namespace System.Application.UI.ViewModels
                     switch (channel)
                     {
                         case nameof(PhoneNumber):
-
                             break;
                     }
                 }

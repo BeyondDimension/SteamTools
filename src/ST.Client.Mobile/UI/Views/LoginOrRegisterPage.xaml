@@ -8,7 +8,6 @@
             xmlns:resx="clr-namespace:System.Application.UI.Resx"
             xmlns:viewmodels="clr-namespace:System.Application.UI.ViewModels"
             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Mobile"
-            xmlns:st_root="clr-namespace:System.Application;assembly=System.Application.SteamTools"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             x:DataType="viewmodels:LoginOrRegisterPageViewModel"
             mc:Ignorable="d"
@@ -46,66 +45,76 @@
         </Label.FormattedText>
       </Label>
     </ControlTemplate>
-    <converters:StringFormatConverter x:Key="StringFormatConverter"/>
+    <converters:LoginOrRegisterChannelTextConverter x:Key="LoginOrRegisterChannelTextConverter"/>
     <converters:PathIconConverter x:Key="PathIconConverter"/>
+    <converters:LoginOrRegisterChannelBackgroundColorConverter x:Key="LoginOrRegisterChannelBackgroundColorConverter"/>
   </TabbedPage.Resources>
   <TabbedPage.Children>
     <ContentPage Title="{x:Static resx:AppResources.User_FastLogin}"
                  BackgroundColor="{DynamicResource WindowBackground}">
       <ContentPage.Content>
-        <StackLayout VerticalOptions="CenterAndExpand">
-          <Label Padding="22" FontSize="17" Text="{x:Static resx:AppResources.User_FastLoginTip}"/>
-          <StackLayout BindableLayout.ItemsSource="{Binding Channels}">
-            <BindableLayout.ItemTemplate>
-              <DataTemplate x:DataType="st_root:FastLoginChannel">
-                <ContentView VerticalOptions="CenterAndExpand">
-                  <controls:CardButton Padding="16" 
-                                       Margin="22,0,22,22" 
-                                       CommandParameter="{Binding}" 
-                                       Command="{Binding Path=ChooseChannel, Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}">
-                    <StackLayout Spacing="16" Orientation="Horizontal">
-                      <Path Style="{DynamicResource PathIcon}" 
-                            Data="{Binding Converter={StaticResource PathIconConverter}}"/>
-                      <Label FontSize="22">
-                        <Label.Text>
-                          <MultiBinding Converter="{StaticResource StringFormatConverter}">
-                            <Binding Source="{x:Static resx:AppResources.User_UseFastLoginChannel_}"/>
-                            <Binding Path="."/>
-                          </MultiBinding>
-                        </Label.Text>
-                      </Label>
-                    </StackLayout>
-                  </controls:CardButton>
-                </ContentView>
-              </DataTemplate>
-            </BindableLayout.ItemTemplate>
-            <!--<CollectionView ItemsSource="{Binding FastLoginChannels}" HeightRequest="450" VerticalOptions="CenterAndExpand">
-            <CollectionView.Header>
-              <Label Padding="22" FontSize="16" Text="{x:Static resx:AppResources.User_FastLoginTip}"/>
-            </CollectionView.Header>
-            <CollectionView.Footer>
-              <ContentView Margin="0,0,0,22" ControlTemplate="{StaticResource AgreementAndPrivacy}"/>
-            </CollectionView.Footer>
-            <CollectionView.ItemTemplate>
-              <DataTemplate x:DataType="st_root:FastLoginChannel">
-                <ContentView>
-                  <Frame Padding="16" Margin="22,0,22,22">
-                    <Frame.GestureRecognizers>
-                      <TapGestureRecognizer CommandParameter="{Binding}"
-                                          Command="{Binding Path=FastLogin, Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}"/>
-                    </Frame.GestureRecognizers>
-                    <StackLayout Spacing="16">
-                      <Label Text="{Binding}"
-                           FontSize="24"/>
-                    </StackLayout>
-                  </Frame>
-                </ContentView>
-              </DataTemplate>
-            </CollectionView.ItemTemplate>
-          </CollectionView>-->
+        <ScrollView>
+          <NavigationPage.TitleView>
+            <Slider HeightRequest="44" WidthRequest="300" />
+          </NavigationPage.TitleView>
+          <StackLayout VerticalOptions="CenterAndExpand">
+            <Label Padding="22" FontSize="17" Text="{x:Static resx:AppResources.User_FastLoginTip}"/>
+            <StackLayout BindableLayout.ItemsSource="{Binding Channels}">
+              <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                  <ContentView VerticalOptions="CenterAndExpand">
+                    <controls:CardButton Padding="0" 
+                                         Margin="22,0,22,22"  
+                                         CommandParameter="{Binding}"  
+                                         Command="{Binding Path=ChooseChannel, Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}">
+                      <StackLayout Orientation="Horizontal">
+                        <ContentView Padding="16" 
+                                     BackgroundColor="{Binding Converter={StaticResource LoginOrRegisterChannelBackgroundColorConverter}}">
+                          <Path Style="{DynamicResource PathIcon}" 
+                                Data="{Binding Converter={StaticResource PathIconConverter}}"/>
+                        </ContentView>
+                        <Label Margin="16" FontSize="20">
+                          <Label.Text>
+                            <MultiBinding Converter="{StaticResource LoginOrRegisterChannelTextConverter}">
+                              <Binding Source="{x:Static resx:AppResources.User_UseFastLoginChannel_}"/>
+                              <Binding Path="."/>
+                              <Binding Source="{x:Static resx:AppResources.User_UsePhoneNumLoginChannel}"/>
+                            </MultiBinding>
+                          </Label.Text>
+                        </Label>
+                      </StackLayout>
+                    </controls:CardButton>
+                  </ContentView>
+                </DataTemplate>
+              </BindableLayout.ItemTemplate>
+            </StackLayout>
+            <ContentView Margin="0,0,0,22" ControlTemplate="{StaticResource AgreementAndPrivacy}"/>
           </StackLayout>
-          <ContentView Margin="0,0,0,22" ControlTemplate="{StaticResource AgreementAndPrivacy}"/>
-        </StackLayout>
+        </ScrollView>
+        <!--<CollectionView ItemsSource="{Binding FastLoginChannels}" HeightRequest="450" VerticalOptions="CenterAndExpand">
+          <CollectionView.Header>
+            <Label Padding="22" FontSize="16" Text="{x:Static resx:AppResources.User_FastLoginTip}"/>
+          </CollectionView.Header>
+          <CollectionView.Footer>
+            <ContentView Margin="0,0,0,22" ControlTemplate="{StaticResource AgreementAndPrivacy}"/>
+          </CollectionView.Footer>
+          <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="st_root:FastLoginChannel">
+              <ContentView>
+                <Frame Padding="16" Margin="22,0,22,22">
+                  <Frame.GestureRecognizers>
+                    <TapGestureRecognizer CommandParameter="{Binding}"
+                                          Command="{Binding Path=FastLogin, Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}"/>
+                  </Frame.GestureRecognizers>
+                  <StackLayout Spacing="16">
+                    <Label Text="{Binding}"
+                           FontSize="24"/>
+                  </StackLayout>
+                </Frame>
+              </ContentView>
+            </DataTemplate>
+          </CollectionView.ItemTemplate>
+        </CollectionView>-->
       </ContentPage.Content>
     </ContentPage>
     <ContentPage Title="{x:Static resx:AppResources.User_PhoneLogin}"

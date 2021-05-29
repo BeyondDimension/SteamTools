@@ -1,4 +1,4 @@
-﻿using Avalonia.Controls;
+using Avalonia.Controls;
 using System;
 using System.Application.Services;
 using System.Application.Services.Implementation;
@@ -65,6 +65,12 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddNotificationService(this IServiceCollection services)
         {
             services.AddSingleton<INotificationService, PlatformNotificationServiceImpl>();
+            return services;
+        }
+
+        public static IServiceCollection AddFontManager(this IServiceCollection services, bool useGdiPlusFirst)
+        {
+            services.AddSingleton<IFontManager>(new AvaloniaFontManagerImpl(useGdiPlusFirst));
             return services;
         }
     }

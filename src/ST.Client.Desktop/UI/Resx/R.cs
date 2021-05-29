@@ -1,4 +1,5 @@
 using ReactiveUI;
+using System.Application.Services;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
@@ -45,18 +46,8 @@ namespace System.Application.UI.Resx
                 { "ja", "japanese" },
                 { "ru", "russian" },
             };
-            Fonts = GetFonts();
+            Fonts = IFontManager.Instance.GetFonts();
             AppResources.Culture = DefaultCurrentUICulture;
-        }
-
-        static IReadOnlyCollection<KeyValuePair<string, string>> GetFonts()
-        {
-            // https://docs.microsoft.com/zh-cn/typography/font-list
-            var culture = Culture;
-            InstalledFontCollection ifc = new();
-            var list = ifc.Families.Where(x => x.IsStyleAvailable(FontStyle.Regular)).Select(x => KeyValuePair.Create(x.GetName(culture.LCID), x.GetName(1033))).ToList();
-            list.Insert(0, KeyValuePair.Create(AppResources.Default, "Default"));
-            return list;
         }
 
         static bool IsMatch(CultureInfo cultureInfo, string cultureName)

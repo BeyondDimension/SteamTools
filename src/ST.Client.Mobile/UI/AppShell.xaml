@@ -6,13 +6,6 @@
        Title="Steam++"
        Visual="Material"
        x:Class="System.Application.UI.AppShell">
-
-  <!--
-        The overall app visual hierarchy is defined here, along with navigation.
-
-        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
-    -->
-
   <Shell.Resources>
     <ResourceDictionary>
       <Style TargetType="controls:TextBox">
@@ -48,24 +41,17 @@
       </Style>
       <Style x:Key="PathIcon" TargetType="Path">
         <Setter Property="Aspect" Value="Uniform" />
-        <Setter Property="Fill" Value="Black" />
+        <Setter Property="Fill" Value="White" />
         <Setter Property="HeightRequest" Value="32" />
         <Setter Property="WidthRequest" Value="32" />
       </Style>
     </ResourceDictionary>
   </Shell.Resources>
-
   <TabBar>
     <ShellContent Title="About" Icon="icon_about.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}"/>
-    <ShellContent Title="Browse" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}"/>
+    <ShellContent Title="Browse" Icon="icon_feed.png" Route="BrowsePage" ContentTemplate="{DataTemplate local:ItemsPage}"/>
   </TabBar>
-
-  <!--
-        If you would like to navigate to this content you can do so by calling
-        await Shell.Current.GoToAsync("//LoginOrRegisterPage");
-    -->
   <TabBar>
-    <ShellContent Route="LoginOrRegisterPage" ContentTemplate="{DataTemplate local:LoginOrRegisterPage}"/>
+    <ShellContent Route="LoginOrRegister" ContentTemplate="{DataTemplate local:LoginOrRegisterPage}"/>
   </TabBar>
-
 </Shell>
