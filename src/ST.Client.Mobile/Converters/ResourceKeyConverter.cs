@@ -21,6 +21,9 @@ namespace System.Application.Converters
                         case "Steam":
                             key = "SteamDrawing";
                             break;
+                        case "PhoneNumber":
+                            key = "Phone";
+                            break;
                     }
                     if (drawingSvg.ContainsKey(key))
                     {

@@ -188,13 +188,26 @@ namespace System.Application.UI.ViewModels
 #endif
         }
 
+        [Obsolete]
         public ICommand FastLogin { get; }
 
+        [Obsolete("use Channels")]
         public FastLoginChannel[] FastLoginChannels { get; } = new[] {
             FastLoginChannel.Steam,
             FastLoginChannel.Xbox,
             //FastLoginChannel.Apple,
             //FastLoginChannel.QQ,
+        };
+
+        public string[] Channels { get; } = new[]
+        {
+            nameof(FastLoginChannel.Steam),
+            nameof(FastLoginChannel.Xbox),
+#if DEBUG
+            nameof(FastLoginChannel.Apple),
+            nameof(FastLoginChannel.QQ),
+#endif
+            nameof(PhoneNumber),
         };
 
         protected override void Dispose(bool disposing)
