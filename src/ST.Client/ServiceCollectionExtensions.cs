@@ -72,11 +72,5 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IToastIntercept>(s => s.GetRequiredService<StartupToastIntercept>());
             return services;
         }
-
-        public static IServiceCollection TryAddFontManager(this IServiceCollection services)
-        {
-            services.TryAddSingleton<IFontManager, FontManagerImpl>();
-            return services;
-        }
     }
 }

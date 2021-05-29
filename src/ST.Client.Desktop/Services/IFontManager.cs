@@ -17,7 +17,13 @@ namespace System.Application.Services
         protected static IReadOnlyCollection<KeyValuePair<string, string>> GetFontsByGdiPlus()
         {
             // https://docs.microsoft.com/zh-cn/typography/font-list
-            var culture = R.Culture;
+            var culture =
+#if __MOBILE__
+                AppResources
+#else
+                R
+#endif
+                .Culture;
             InstalledFontCollection ifc = new();
             var list = ifc.Families.Where(x => x.IsStyleAvailable(FontStyle.Regular)).Select(x => KeyValuePair.Create(x.GetName(culture.LCID), x.GetName(1033))).ToList();
             list.Insert(0, Default);
