@@ -32,13 +32,29 @@ namespace System.Application.UI.ViewModels
         {
             Title =
 #if !__MOBILE__
-                ThisAssembly.AssemblyTrademark + " | " + 
+                ThisAssembly.AssemblyTrademark + " | " +
 #endif
                 AppResources.LoginAndRegister;
 
             FastLogin = ReactiveCommand.CreateFromTask<FastLoginChannel>(async channel =>
             {
                 await FastLoginOrRegisterAsync(Close, channel);
+            });
+            ChooseChannel = ReactiveCommand.CreateFromTask<string>(async channel =>
+            {
+                if (Enum.TryParse<FastLoginChannel>(channel, out var channel_))
+                {
+                    await FastLoginOrRegisterAsync(Close, channel_);
+                }
+                else
+                {
+                    switch (channel)
+                    {
+                        case nameof(PhoneNumber):
+
+                            break;
+                    }
+                }
             });
             SendSms = ReactiveCommand.CreateFromTask(SendSmsAsync);
             Submit = ReactiveCommand.CreateFromTask(SubmitAsync);
@@ -188,7 +204,7 @@ namespace System.Application.UI.ViewModels
 #endif
         }
 
-        [Obsolete]
+        [Obsolete("use ChooseChannel")]
         public ICommand FastLogin { get; }
 
         [Obsolete("use Channels")]
@@ -209,6 +225,8 @@ namespace System.Application.UI.ViewModels
 #endif
             nameof(PhoneNumber),
         };
+
+        public ICommand ChooseChannel { get; }
 
         protected override void Dispose(bool disposing)
         {

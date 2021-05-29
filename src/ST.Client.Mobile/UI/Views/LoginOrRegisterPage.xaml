@@ -55,14 +55,14 @@
       <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand">
           <Label Padding="22" FontSize="17" Text="{x:Static resx:AppResources.User_FastLoginTip}"/>
-          <StackLayout BindableLayout.ItemsSource="{Binding FastLoginChannels}">
+          <StackLayout BindableLayout.ItemsSource="{Binding Channels}">
             <BindableLayout.ItemTemplate>
               <DataTemplate x:DataType="st_root:FastLoginChannel">
                 <ContentView VerticalOptions="CenterAndExpand">
                   <controls:CardButton Padding="16" 
                                        Margin="22,0,22,22" 
                                        CommandParameter="{Binding}" 
-                                       Command="{Binding Path=FastLogin, Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}">
+                                       Command="{Binding Path=ChooseChannel, Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}">
                     <StackLayout Spacing="16" Orientation="Horizontal">
                       <Path Style="{DynamicResource PathIcon}" 
                             Data="{Binding Converter={StaticResource PathIconConverter}}"/>

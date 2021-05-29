@@ -119,7 +119,7 @@ navigator.__proto__ = newProto;
             }
 
             string? localesDirPath = null;
-            if (PlatformInfo.IsMacOS)
+            if (!PlatformInfo.IsMacOS)
             {
                 localesDirPath = Path.Combine(cefPath, "locales");
                 if (!Directory.Exists(localesDirPath))
