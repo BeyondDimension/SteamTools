@@ -46,9 +46,8 @@
         </Label.FormattedText>
       </Label>
     </ControlTemplate>
-    <ResourceDictionary Source="..\Styles\DrawingSvg.xaml"/>
     <converters:StringFormatConverter x:Key="StringFormatConverter"/>
-    <converters:PathGeometryConverter x:Key="PathGeometryConverter"/>
+    <converters:PathIconConverter x:Key="PathIconConverter"/>
   </TabbedPage.Resources>
   <TabbedPage.Children>
     <ContentPage Title="{x:Static resx:AppResources.User_FastLogin}"
@@ -60,13 +59,13 @@
             <BindableLayout.ItemTemplate>
               <DataTemplate x:DataType="st_root:FastLoginChannel">
                 <ContentView VerticalOptions="CenterAndExpand">
-                  <Frame Padding="16" Margin="22,0,22,22">
-                    <Frame.GestureRecognizers>
-                      <TapGestureRecognizer CommandParameter="{Binding}"
-                                            Command="{Binding Path=FastLogin, Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}"/>
-                    </Frame.GestureRecognizers>
+                  <controls:CardButton Padding="16" 
+                                       Margin="22,0,22,22" 
+                                       CommandParameter="{Binding}" 
+                                       Command="{Binding Path=FastLogin, Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}">
                     <StackLayout Spacing="16" Orientation="Horizontal">
-                      <Path Style="{DynamicResource PathIcon}" Data="{Binding Source={StaticResource QQ}, Converter={StaticResource PathGeometryConverter}}"/>
+                      <Path Style="{DynamicResource PathIcon}" 
+                            Data="{Binding Converter={StaticResource PathIconConverter}}"/>
                       <Label FontSize="22">
                         <Label.Text>
                           <MultiBinding Converter="{StaticResource StringFormatConverter}">
@@ -76,7 +75,7 @@
                         </Label.Text>
                       </Label>
                     </StackLayout>
-                  </Frame>
+                  </controls:CardButton>
                 </ContentView>
               </DataTemplate>
             </BindableLayout.ItemTemplate>
@@ -128,7 +127,7 @@
               </Grid.RowDefinitions>
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="96"/>
+                <ColumnDefinition Width="106"/>
               </Grid.ColumnDefinitions>
               <Image Scale="2" Source="splash_logo.png" Grid.ColumnSpan="2"/>
               <controls:TextBox x:Name="TbPhoneNumber"

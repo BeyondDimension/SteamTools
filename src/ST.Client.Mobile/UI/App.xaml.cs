@@ -1,5 +1,6 @@
 using System.Application.Services;
 using System.Application.UI.Styles;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XFApplication = Xamarin.Forms.Application;
@@ -21,11 +22,14 @@ namespace System.Application.UI
 
         public OSAppTheme AppTheme
         {
-            set => Resources = value switch
+            set
             {
-                OSAppTheme.Dark => new ThemeDark(),
-                _ => new ThemeLight(),
-            };
+                var appRes = Resources.MergedDictionaries.Skip(1).ToArray();
+                Resources.MergedDictionaries.Clear();
+                ResourceDictionary appThemeRes = value == OSAppTheme.Dark ? new ThemeDark() : new ThemeLight();
+                Resources.MergedDictionaries.Add(appThemeRes);
+                Array.ForEach(appRes, Resources.MergedDictionaries.Add);
+            }
         }
 
         protected override void OnStart()

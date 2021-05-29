@@ -6,20 +6,27 @@ namespace System.Application.Converters
 {
     public class PathGeometryConverter : XFSPathGeometryConverter, IValueConverter
     {
+        internal static object? GetGeometryByPathString(XFSPathGeometryConverter converter, string pathStr)
+        {
+            try
+            {
+                // https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/shapes/path-markup-syntax
+                var pathData = converter.ConvertFromInvariantString(pathStr);
+                return pathData;
+            }
+            catch
+            {
+            }
+            return null;
+        }
+
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             var valueStr = value?.ToString();
             if (!string.IsNullOrWhiteSpace(valueStr))
             {
-                try
-                {
-                    // https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/shapes/path-markup-syntax
-                    var pathData = ConvertFromInvariantString(valueStr);
-                    return pathData;
-                }
-                catch
-                {
-                }
+                var r = GetGeometryByPathString(this, valueStr);
+                return r;
             }
             return null;
         }
