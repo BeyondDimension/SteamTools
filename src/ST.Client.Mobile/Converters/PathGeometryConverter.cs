@@ -17,7 +17,7 @@ namespace System.Application.Converters
             catch
             {
             }
-            return null;
+            return Binding.DoNothing;
         }
 
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -28,7 +28,7 @@ namespace System.Application.Converters
                 var r = GetGeometryByPathString(this, valueStr);
                 return r;
             }
-            return null;
+            return Binding.DoNothing;
         }
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotImplementedException();

@@ -24,7 +24,7 @@ namespace System.Application.Converters
                 nameof(FastLoginChannel.Apple) => ColorFromHex("#000000"),
                 nameof(FastLoginChannel.QQ) => ColorFromHex("#12B7F5"),
                 "Phone" or "PhoneNumber" => ColorFromHex("#2196F3"),
-                _ => null,
+                _ => Binding.DoNothing,
             };
         }
 

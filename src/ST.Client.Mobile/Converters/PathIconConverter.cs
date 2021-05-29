@@ -20,7 +20,7 @@ namespace System.Application.Converters
                     return r;
                 }
             }
-            return null;
+            return Binding.DoNothing;
         }
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotImplementedException();

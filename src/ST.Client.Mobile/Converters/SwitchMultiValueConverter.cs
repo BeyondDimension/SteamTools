@@ -9,24 +9,28 @@ using Xamarin.Forms;
 
 namespace System.Application.Converters
 {
-    public class LoginOrRegisterChannelTextConverter : IMultiValueConverter
+    public class SwitchMultiValueConverter : IMultiValueConverter
     {
         public object? Convert(IList<object?>? values, Type? targetType, object? parameter, CultureInfo? culture)
         {
-            if (values != null && values.Count >= 3)
+            if (values != null && values.Count > 0)
             {
-                var stringValues = values.Select(x => (x is not string str) ? x?.ToString() ?? string.Empty : str).ToArray();
-                var args = stringValues.Skip(1).FirstOrDefault();
-                switch (args)
+                var first = values.FirstOrDefault();
+                if (first != null)
                 {
-                    case "Xbox":
-                        args = "Xbox Live";
-                        break;
-                    case "Phone" or "PhoneNumber":
-                        return stringValues[2];
+                    try
+                    {
+                        var index = System.Convert.ToInt32(first);
+                        if (index > 0 && index < values.Count)
+                        {
+                            return values[index];
+                        }
+                    }
+                    catch
+                    {
+
+                    }
                 }
-                var format = stringValues.FirstOrDefault() ?? string.Empty;
-                return format.Format(args);
             }
             return Binding.DoNothing;
         }

@@ -51,6 +51,7 @@ namespace System.Application.UI.ViewModels
                     switch (channel)
                     {
                         case nameof(PhoneNumber):
+                            await GoToLoginOrRegisterByPhoneNumberAsync();
                             break;
                     }
                 }
@@ -106,7 +107,8 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
         }
 
-        short _LoginState = 2;
+        const short _LoginStateDefault = 2;
+        short _LoginState = _LoginStateDefault;
         public short LoginState
         {
             get => _LoginState;
@@ -147,10 +149,12 @@ namespace System.Application.UI.ViewModels
             Toast.Show(msg);
         }
 
+#if !__MOBILE__
         public void ChangeLoginState(short state)
         {
             LoginState = state;
         }
+#endif
 
         public Action? Close { get; set; }
 
