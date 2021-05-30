@@ -10,7 +10,7 @@ namespace System.Application.Services
     {
         public static IFontManager Instance => DI.Get<IFontManager>();
 
-        static KeyValuePair<string, string> Default { get; } = KeyValuePair.Create(AppResources.Default, "Default");
+        protected static KeyValuePair<string, string> Default { get; } = KeyValuePair.Create(AppResources.Default, "Default");
 
         IReadOnlyCollection<KeyValuePair<string, string>> GetFonts();
 

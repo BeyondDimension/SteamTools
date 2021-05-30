@@ -16,7 +16,8 @@ namespace System.Application.UI.Resx
 
         public static readonly IReadOnlyCollection<KeyValuePair<string, string>> Languages;
         public static readonly Dictionary<string, string> SteamLanguages;
-        public static readonly IReadOnlyCollection<KeyValuePair<string, string>> Fonts;
+        static readonly Lazy<IReadOnlyCollection<KeyValuePair<string, string>>> mFonts = new(() => IFontManager.Instance.GetFonts());
+        public static IReadOnlyCollection<KeyValuePair<string, string>> Fonts => mFonts.Value;
 
         public AppResources Res { get; set; } = new AppResources();
 
@@ -46,7 +47,6 @@ namespace System.Application.UI.Resx
                 { "ja", "japanese" },
                 { "ru", "russian" },
             };
-            Fonts = IFontManager.Instance.GetFonts();
             AppResources.Culture = DefaultCurrentUICulture;
         }
 

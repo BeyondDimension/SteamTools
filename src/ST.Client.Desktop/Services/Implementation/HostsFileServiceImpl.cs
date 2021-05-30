@@ -13,6 +13,7 @@ namespace System.Application.Services.Implementation
     internal sealed class HostsFileServiceImpl : IHostsFileService
     {
         readonly IDesktopPlatformService s;
+        readonly object lockObj = new();
 
         public HostsFileServiceImpl(IDesktopPlatformService s)
         {
@@ -243,218 +244,221 @@ namespace System.Application.Services.Implementation
 
         OperationResult HandleHosts(bool isUpdateOrRemove, IReadOnlyDictionary<string, string>? hosts = null)
         {
-            var result = new OperationResult(OperationResultType.Error, AppResources.Hosts_WirteError);
-            if (!TryOperation(out var errmsg, out var fileInfo, out var removeReadOnly, checkReadOnly: true))
+            lock (lockObj)
             {
-                result.Message = errmsg;
-                return result;
-            }
-
-            try
-            {
-                var has_hosts = hosts.Any_Nullable();
-                if (isUpdateOrRemove && !has_hosts) throw new InvalidOperationException();
-
-                StringBuilder stringBuilder = new();
-                HashSet<string> markLength = new(); // mark 标志
-                Dictionary<string, string> insert_mark_datas = new(); // 直接插入标记区数据
-                Dictionary<string, (int line_num, string line_value)> backup_insert_mark_datas = new(); // 备份插入标记区数据，项已存在的情况下
-                Dictionary<string, (int line_num, string line_value)> backup_datas = new(); // 备份区域数据
-
-                using (var fileReader = fileInfo.OpenText())
+                var result = new OperationResult(OperationResultType.Error, AppResources.Hosts_WirteError);
+                if (!TryOperation(out var errmsg, out var fileInfo, out var removeReadOnly, checkReadOnly: true))
                 {
-                    int line_num = 0;
-                    HashSet<string> domains = new(); // 域名唯一检查
-                    var last_line_value = (string?)null;
-                    while (true)
+                    result.Message = errmsg;
+                    return result;
+                }
+
+                try
+                {
+                    var has_hosts = hosts.Any_Nullable();
+                    if (isUpdateOrRemove && !has_hosts) throw new InvalidOperationException();
+
+                    StringBuilder stringBuilder = new();
+                    HashSet<string> markLength = new(); // mark 标志
+                    Dictionary<string, string> insert_mark_datas = new(); // 直接插入标记区数据
+                    Dictionary<string, (int line_num, string line_value)> backup_insert_mark_datas = new(); // 备份插入标记区数据，项已存在的情况下
+                    Dictionary<string, (int line_num, string line_value)> backup_datas = new(); // 备份区域数据
+
+                    using (var fileReader = fileInfo.OpenText())
                     {
-                        line_num++;
-
-                        var line_value = fileReader.ReadLine();
-                        if (line_value == null) break;
-
-                        var not_append = false;
-                        var is_effective_value_v2 = HandleLineV2(line_num, domains, line_value, out var line_split_array, line_split_array =>
+                        int line_num = 0;
+                        HashSet<string> domains = new(); // 域名唯一检查
+                        var last_line_value = (string?)null;
+                        while (true)
                         {
-                            if (markLength.Contains(BackupMarkStart) && !markLength.Contains(BackupMarkEnd))
+                            line_num++;
+
+                            var line_value = fileReader.ReadLine();
+                            if (line_value == null) break;
+
+                            var not_append = false;
+                            var is_effective_value_v2 = HandleLineV2(line_num, domains, line_value, out var line_split_array, line_split_array =>
                             {
-                                if (line_split_array.Length >= 2 && line_split_array[0].StartsWith('#') && int.TryParse(line_split_array[0].TrimStart('#'), out var bak_line_num)) // #{line_num} {line_value}
+                                if (markLength.Contains(BackupMarkStart) && !markLength.Contains(BackupMarkEnd))
                                 {
-                                    var bak_line_split_array = line_split_array.AsSpan()[1..];
-                                    if (bak_line_split_array.Length >= 2)
+                                    if (line_split_array.Length >= 2 && line_split_array[0].StartsWith('#') && int.TryParse(line_split_array[0].TrimStart('#'), out var bak_line_num)) // #{line_num} {line_value}
                                     {
-                                        backup_datas.TryAdd(bak_line_split_array[1], (bak_line_num, string.Join(' ', bak_line_split_array.ToArray())));
+                                        var bak_line_split_array = line_split_array.AsSpan()[1..];
+                                        if (bak_line_split_array.Length >= 2)
+                                        {
+                                            backup_datas.TryAdd(bak_line_split_array[1], (bak_line_num, string.Join(' ', bak_line_split_array.ToArray())));
+                                        }
+                                    }
+                                    return null;
+                                }
+
+                                var mark = GetMarkValue(line_split_array);
+                                if (mark == null) return true;
+                                if (mark == MarkEnd && !markLength.Contains(MarkStart)) return null;
+                                if (mark == BackupMarkEnd && !markLength.Contains(BackupMarkStart)) return null;
+                                if ((mark == MarkStart || mark == BackupMarkStart) && last_line_value != null && string.IsNullOrWhiteSpace(last_line_value))
+                                {
+                                    var removeLen = last_line_value.Length + Environment.NewLine.Length;
+                                    stringBuilder.Remove(stringBuilder.Length - removeLen, removeLen);
+                                }
+                                if (!markLength.Add(mark)) throw new Exception($"hosts file mark duplicate, value: {mark}");
+                                return null;
+                            });
+                            if (is_effective_value_v2 != HandleLineResult.Duplicate)
+                            {
+                                var is_effective_value = Convert(is_effective_value_v2);
+                                if (!is_effective_value.HasValue) goto skip;
+                                if (!is_effective_value.Value) goto append; // 当前行是无效值，直接写入
+                            }
+                            string ip, domain;
+                            ip = line_split_array[0];
+                            domain = line_split_array[1];
+                            var match_domain = has_hosts && hosts!.ContainsKey(domain); // 与要修改的项匹配
+                            if (markLength.Contains(MarkStart) && !markLength.Contains(MarkEnd)) // 在标记区域内
+                            {
+                                if (match_domain)
+                                {
+                                    if (isUpdateOrRemove) // 更新值
+                                    {
+                                        ip = hosts![domain];
+                                    }
+                                    else // 删除值
+                                    {
+                                        goto skip;
                                     }
                                 }
-                                return null;
+                                insert_mark_datas[domain] = ip;
+                                goto skip;
                             }
-
-                            var mark = GetMarkValue(line_split_array);
-                            if (mark == null) return true;
-                            if (mark == MarkEnd && !markLength.Contains(MarkStart)) return null;
-                            if (mark == BackupMarkEnd && !markLength.Contains(BackupMarkStart)) return null;
-                            if ((mark == MarkStart || mark == BackupMarkStart) && last_line_value != null && string.IsNullOrWhiteSpace(last_line_value))
+                            else // 在标记区域外
                             {
-                                var removeLen = last_line_value.Length + Environment.NewLine.Length;
-                                stringBuilder.Remove(stringBuilder.Length - removeLen, removeLen);
-                            }
-                            if (!markLength.Add(mark)) throw new Exception($"hosts file mark duplicate, value: {mark}");
-                            return null;
-                        });
-                        if (is_effective_value_v2 != HandleLineResult.Duplicate)
-                        {
-                            var is_effective_value = Convert(is_effective_value_v2);
-                            if (!is_effective_value.HasValue) goto skip;
-                            if (!is_effective_value.Value) goto append; // 当前行是无效值，直接写入
-                        }
-                        string ip, domain;
-                        ip = line_split_array[0];
-                        domain = line_split_array[1];
-                        var match_domain = has_hosts && hosts!.ContainsKey(domain); // 与要修改的项匹配
-                        if (markLength.Contains(MarkStart) && !markLength.Contains(MarkEnd)) // 在标记区域内
-                        {
-                            if (match_domain)
-                            {
-                                if (isUpdateOrRemove) // 更新值
+                                if (match_domain)
                                 {
-                                    ip = hosts![domain];
-                                }
-                                else // 删除值
-                                {
+                                    if (isUpdateOrRemove) // 更新值
+                                    {
+                                        insert_mark_datas[domain] = ip;
+                                    }
+                                    backup_insert_mark_datas[domain] = (line_num, line_value);
                                     goto skip;
                                 }
                             }
-                            insert_mark_datas[domain] = ip;
-                            goto skip;
-                        }
-                        else // 在标记区域外
-                        {
-                            if (match_domain)
+
+                            if (not_append)
                             {
-                                if (isUpdateOrRemove) // 更新值
-                                {
-                                    insert_mark_datas[domain] = ip;
-                                }
-                                backup_insert_mark_datas[domain] = (line_num, line_value);
                                 goto skip;
                             }
+
+                        append: stringBuilder.AppendLine(line_value);
+                            last_line_value = line_value;
+                            continue;
+
+                        skip: line_num--;
+                            continue;
                         }
-
-                        if (not_append)
-                        {
-                            goto skip;
-                        }
-
-                    append: stringBuilder.AppendLine(line_value);
-                        last_line_value = line_value;
-                        continue;
-
-                    skip: line_num--;
-                        continue;
-                    }
-                }
-
-                if (isUpdateOrRemove)
-                {
-                    foreach (var item in hosts!)
-                    {
-                        insert_mark_datas[item.Key] = item.Value;
-                    }
-                }
-
-                var is_restore = !has_hosts && !isUpdateOrRemove;
-
-                void Restore(IEnumerable<KeyValuePair<string, (int line_num, string line_value)>> datas)
-                {
-                    if (!is_restore && datas == backup_datas) datas = new List<KeyValuePair<string, (int line_num, string line_value)>>(datas);
-                    foreach (var item in datas)
-                    {
-                        var line_index = stringBuilder.GetLineIndex(item.Value.line_num - 1);
-                        var line_value = item.Value.line_value;
-                        if (line_index >= 0)
-                        {
-                            stringBuilder.Insert(line_index, $"{line_value}{Environment.NewLine}");
-                        }
-                        else
-                        {
-                            stringBuilder.AppendLine(line_value);
-                        }
-                        if (!is_restore) backup_datas.Remove(item.Key);
-                    }
-                }
-
-                if (is_restore)
-                {
-                    Restore(backup_datas);
-                }
-                else
-                {
-                    var any_insert_mark_datas = insert_mark_datas.Any();
-
-                    var restore_backup_datas = any_insert_mark_datas ? backup_datas.Where(x => !insert_mark_datas.ContainsKey(x.Key)) : backup_datas;
-                    Restore(restore_backup_datas); // 恢复备份数据
-
-                    if (any_insert_mark_datas) // 插入新增数据
-                    {
-                        stringBuilder.AppendLine();
-                        stringBuilder.AppendLine(MarkStart);
-                        foreach (var item in insert_mark_datas)
-                        {
-                            stringBuilder.AppendFormat("{0} {1}", item.Value, item.Key);
-                            stringBuilder.AppendLine();
-                        }
-                        stringBuilder.AppendLine(MarkEnd);
                     }
 
-                    var any_backup_insert_mark_datas = backup_insert_mark_datas.Any();
-                    var insert_or_remove_backup_datas = any_insert_mark_datas ? backup_datas.Where(x => insert_mark_datas.ContainsKey(x.Key)) : backup_datas;
-                    if (any_backup_insert_mark_datas) insert_or_remove_backup_datas = insert_or_remove_backup_datas.Where(x => !backup_insert_mark_datas.ContainsKey(x.Key));
-                    if (any_backup_insert_mark_datas || insert_or_remove_backup_datas.Any()) // 插入备份数据
+                    if (isUpdateOrRemove)
                     {
-                        stringBuilder.AppendLine();
-                        stringBuilder.AppendLine(BackupMarkStart);
-                        if (any_backup_insert_mark_datas)
+                        foreach (var item in hosts!)
                         {
-                            foreach (var item in backup_insert_mark_datas) // #{line_num} {line_value}
+                            insert_mark_datas[item.Key] = item.Value;
+                        }
+                    }
+
+                    var is_restore = !has_hosts && !isUpdateOrRemove;
+
+                    void Restore(IEnumerable<KeyValuePair<string, (int line_num, string line_value)>> datas)
+                    {
+                        if (!is_restore && datas == backup_datas) datas = new List<KeyValuePair<string, (int line_num, string line_value)>>(datas);
+                        foreach (var item in datas)
+                        {
+                            var line_index = stringBuilder.GetLineIndex(item.Value.line_num - 1);
+                            var line_value = item.Value.line_value;
+                            if (line_index >= 0)
                             {
-                                stringBuilder.Append('#');
-                                stringBuilder.Append(item.Value.line_num);
-                                stringBuilder.Append(' ');
+                                stringBuilder.Insert(line_index, $"{line_value}{Environment.NewLine}");
+                            }
+                            else
+                            {
+                                stringBuilder.AppendLine(line_value);
+                            }
+                            if (!is_restore) backup_datas.Remove(item.Key);
+                        }
+                    }
+
+                    if (is_restore)
+                    {
+                        Restore(backup_datas);
+                    }
+                    else
+                    {
+                        var any_insert_mark_datas = insert_mark_datas.Any();
+
+                        var restore_backup_datas = any_insert_mark_datas ? backup_datas.Where(x => !insert_mark_datas.ContainsKey(x.Key)) : backup_datas;
+                        Restore(restore_backup_datas); // 恢复备份数据
+
+                        if (any_insert_mark_datas) // 插入新增数据
+                        {
+                            stringBuilder.AppendLine();
+                            stringBuilder.AppendLine(MarkStart);
+                            foreach (var item in insert_mark_datas)
+                            {
+                                stringBuilder.AppendFormat("{0} {1}", item.Value, item.Key);
+                                stringBuilder.AppendLine();
+                            }
+                            stringBuilder.AppendLine(MarkEnd);
+                        }
+
+                        var any_backup_insert_mark_datas = backup_insert_mark_datas.Any();
+                        var insert_or_remove_backup_datas = any_insert_mark_datas ? backup_datas.Where(x => insert_mark_datas.ContainsKey(x.Key)) : backup_datas;
+                        if (any_backup_insert_mark_datas) insert_or_remove_backup_datas = insert_or_remove_backup_datas.Where(x => !backup_insert_mark_datas.ContainsKey(x.Key));
+                        if (any_backup_insert_mark_datas || insert_or_remove_backup_datas.Any()) // 插入备份数据
+                        {
+                            stringBuilder.AppendLine();
+                            stringBuilder.AppendLine(BackupMarkStart);
+                            if (any_backup_insert_mark_datas)
+                            {
+                                foreach (var item in backup_insert_mark_datas) // #{line_num} {line_value}
+                                {
+                                    stringBuilder.Append('#');
+                                    stringBuilder.Append(item.Value.line_num);
+                                    stringBuilder.Append(' ');
+                                    stringBuilder.AppendLine(item.Value.line_value);
+                                }
+                            }
+                            foreach (var item in insert_or_remove_backup_datas)
+                            {
                                 stringBuilder.AppendLine(item.Value.line_value);
                             }
+                            stringBuilder.AppendLine(BackupMarkEnd);
                         }
-                        foreach (var item in insert_or_remove_backup_datas)
-                        {
-                            stringBuilder.AppendLine(item.Value.line_value);
-                        }
-                        stringBuilder.AppendLine(BackupMarkEnd);
                     }
+
+                    var contents = stringBuilder.ToString();
+                    File.WriteAllText(fileInfo.FullName, contents);
+
+                    result.ResultType = OperationResultType.Success;
+                    result.Message = AppResources.Hosts_UpdateSuccess;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(TAG, ex, "UpdateHosts catch.");
+                    result.ResultType = OperationResultType.Error;
+                    result.AppendData = ex;
+                    if (ex is UnauthorizedAccessException || ex is SecurityException)
+                    {
+                        result.Message = SR.FileUnauthorized;
+                    }
+                    else
+                    {
+                        result.Message = ex.GetAllMessage();
+                    }
+                    return result;
                 }
 
-                var contents = stringBuilder.ToString();
-                File.WriteAllText(fileInfo.FullName, contents);
-
-                result.ResultType = OperationResultType.Success;
-                result.Message = AppResources.Hosts_UpdateSuccess;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(TAG, ex, "UpdateHosts catch.");
-                result.ResultType = OperationResultType.Error;
-                result.AppendData = ex;
-                if (ex is UnauthorizedAccessException || ex is SecurityException)
-                {
-                    result.Message = SR.FileUnauthorized;
-                }
-                else
-                {
-                    result.Message = ex.GetAllMessage();
-                }
+                if (removeReadOnly) SetReadOnly(fileInfo);
                 return result;
             }
-
-            if (removeReadOnly) SetReadOnly(fileInfo);
-            return result;
         }
 
         #endregion
@@ -489,57 +493,63 @@ namespace System.Application.Services.Implementation
 
         public OperationResult<List<(string ip, string domain)>> ReadHostsAllLines()
         {
-            static IEnumerable<(string ip, string domain)> ReadHostsAllLines_(StreamReader fileReader)
+            lock (lockObj)
             {
-                var value = ReadHostsAllLines(fileReader);
-                return value.Select(x => (x.Value, x.Key));
-            }
-            var result = new OperationResult<List<(string ip, string domain)>>(OperationResultType.Error, AppResources.Hosts_ReadError);
-            if (!TryOperation(out var errmsg, out var fileInfo, out var _))
-            {
-                result.Message = errmsg;
+                static IEnumerable<(string ip, string domain)> ReadHostsAllLines_(StreamReader fileReader)
+                {
+                    var value = ReadHostsAllLines(fileReader);
+                    return value.Select(x => (x.Value, x.Key));
+                }
+                var result = new OperationResult<List<(string ip, string domain)>>(OperationResultType.Error, AppResources.Hosts_ReadError);
+                if (!TryOperation(out var errmsg, out var fileInfo, out var _))
+                {
+                    result.Message = errmsg;
+                    return result;
+                }
+                try
+                {
+                    using var fileReader = fileInfo.OpenText();
+                    result.AppendData.AddRange(ReadHostsAllLines_(fileReader));
+                    result.ResultType = OperationResultType.Success;
+                    result.Message = AppResources.Hosts_ReadSuccess;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(TAG, ex, "ReadHostsAllLines catch.");
+                    result.ResultType = OperationResultType.Error;
+                    result.Message = ex.GetAllMessage();
+                }
                 return result;
             }
-            try
-            {
-                using var fileReader = fileInfo.OpenText();
-                result.AppendData.AddRange(ReadHostsAllLines_(fileReader));
-                result.ResultType = OperationResultType.Success;
-                result.Message = AppResources.Hosts_ReadSuccess;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(TAG, ex, "ReadHostsAllLines catch.");
-                result.ResultType = OperationResultType.Error;
-                result.Message = ex.GetAllMessage();
-            }
-            return result;
         }
 
         public OperationResult<Dictionary<string, string>> ReadHostsAllLinesV2()
         {
-            OperationResult<Dictionary<string, string>> result;
-            if (!TryOperation(out var errmsg, out var fileInfo, out var _))
+            lock (lockObj)
             {
-                result = new OperationResult<Dictionary<string, string>>(OperationResultType.Error, errmsg);
+                OperationResult<Dictionary<string, string>> result;
+                if (!TryOperation(out var errmsg, out var fileInfo, out var _))
+                {
+                    result = new OperationResult<Dictionary<string, string>>(OperationResultType.Error, errmsg);
+                    return result;
+                }
+                try
+                {
+                    using var fileReader = fileInfo.OpenText();
+                    result = new OperationResult<Dictionary<string, string>>()
+                    {
+                        AppendData = ReadHostsAllLines(fileReader),
+                        ResultType = OperationResultType.Success,
+                        Message = AppResources.Hosts_ReadSuccess
+                    };
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(TAG, ex, "ReadHostsAllLines catch.");
+                    result = new OperationResult<Dictionary<string, string>>(OperationResultType.Error, ex.GetAllMessage());
+                }
                 return result;
             }
-            try
-            {
-                using var fileReader = fileInfo.OpenText();
-                result = new OperationResult<Dictionary<string, string>>()
-                {
-                    AppendData = ReadHostsAllLines(fileReader),
-                    ResultType = OperationResultType.Success,
-                    Message = AppResources.Hosts_ReadSuccess
-                };
-            }
-            catch (Exception ex)
-            {
-                Log.Error(TAG, ex, "ReadHostsAllLines catch.");
-                result = new OperationResult<Dictionary<string, string>>(OperationResultType.Error, ex.GetAllMessage());
-            }
-            return result;
         }
 
         public OperationResult UpdateHosts(string ip, string domain)
