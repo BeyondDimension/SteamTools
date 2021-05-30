@@ -57,8 +57,8 @@
         <Button Content="{ReflectionBinding Path=Res.CommunityFix,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
         <Button Content="{ReflectionBinding Path=Res.ScriptConfig,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
         <Button Content="{ReflectionBinding Path=Res.UserFastChange,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
-        <Button Content="{ReflectionBinding Path=Res.LocalAuth,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
         <Button Content="{ReflectionBinding Path=Res.GameList,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
+        <Button Content="{ReflectionBinding Path=Res.LocalAuth,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
       </StackPanel>
       <Separator Classes="Separator"/>
       <StackPanel>
