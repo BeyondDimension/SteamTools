@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Application.Services;
 using System.Application.Services.Implementation;
@@ -63,7 +63,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddSecurityService<TEmbeddedAes, TLocal>(this IServiceCollection services)
             where TEmbeddedAes : EmbeddedAesDataProtectionProviderBase
-            where TLocal : LocalDataProtectionProviderBase
+            where TLocal : class, ILocalDataProtectionProvider
         {
             services.TryAddSingleton<IProtectedData, EmptyProtectedData>();
             services.TryAddSingleton<IDataProtectionProvider, EmptyDataProtectionProvider>();

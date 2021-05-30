@@ -109,10 +109,9 @@ namespace System.Application
             services.TryAddOptions(AppSettings);
             // 键值对存储
             services.TryAddStorage();
-#if !__MOBILE__
+
             // 添加安全服务
             services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
-#endif
 #endif
         }
 

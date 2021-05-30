@@ -8,10 +8,8 @@
             xmlns:resx="clr-namespace:System.Application.UI.Resx"
             xmlns:viewmodels="clr-namespace:System.Application.UI.ViewModels"
             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Mobile"
-            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             x:DataType="viewmodels:LoginOrRegisterPageViewModel"
             mc:Ignorable="d"
-            android:TabbedPage.ToolbarPlacement="Top"
             x:Class="System.Application.UI.Views.LoginOrRegisterPage"
             Title="{Binding Title}"
             BackgroundColor="{DynamicResource WindowBackground}"
@@ -151,7 +149,7 @@
   <ContentPage.Content>
     <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand">
       <ActivityIndicator IsRunning="True"
-                           IsVisible="False"
+                           IsVisible="{Binding IsLoading}"
                            Color="{StaticResource Primary}"
                            VerticalOptions="CenterAndExpand"/>
       <ContentView>

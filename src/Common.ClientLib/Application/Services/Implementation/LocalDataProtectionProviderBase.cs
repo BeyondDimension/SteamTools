@@ -23,28 +23,16 @@ namespace System.Application.Services.Implementation
         {
             this.protectedData = protectedData;
             this.dataProtectionProvider = dataProtectionProvider;
-            switch (DI.Platform)
+            defaultELocalDataProtectionType = DI.Platform switch
             {
-                case Platform.Windows:
-                    if (Environment.OSVersion.Version.Major >= 10)
-                    {
-                        defaultELocalDataProtectionType = LocalDataProtectionType.Win10WithAesOFB;
-                    }
-                    else
-                    {
-                        defaultELocalDataProtectionType = LocalDataProtectionType.ProtectedDataWithAesOFB;
-                    }
-                    break;
-                case Platform.Linux:
-                    defaultELocalDataProtectionType = LocalDataProtectionType.AesOFB;
-                    break;
-                default:
-                    defaultELocalDataProtectionType = LocalDataProtectionType.None;
-                    break;
-            }
+                Platform.Windows => Environment.OSVersion.Version.Major >= 10
+                                       ? LocalDataProtectionType.Win10WithAesCFB
+                                       : LocalDataProtectionType.ProtectedDataWithAesCFB,
+                _ => LocalDataProtectionType.AesCFB,
+            };
             _aes = new Lazy<Aes>(() =>
             {
-                (byte[] key, byte[] iv) = MachineSecretKey;
+                (var key, var iv) = MachineSecretKey;
                 // https://github.com/dotnet/runtime/issues/42214#issuecomment-698495584
                 // AES CFB in Windows 7 catch Internal.Cryptography.CryptoThrowHelper+WindowsCryptographicException: Unknown error (0xc10000bb)
                 var r = AESUtils.Create(key, iv, CipherMode.CFB, PaddingMode.PKCS7);
@@ -56,11 +44,11 @@ namespace System.Application.Services.Implementation
         {
             None,
 
-            AesOFB,
+            AesCFB,
 
-            ProtectedDataWithAesOFB,
+            ProtectedDataWithAesCFB,
 
-            Win10WithAesOFB,
+            Win10WithAesCFB,
         }
 
         protected abstract (byte[] key, byte[] iv) MachineSecretKey { get; }
@@ -85,16 +73,16 @@ namespace System.Application.Services.Implementation
             {
                 case LocalDataProtectionType.None:
                     return value;
-                case LocalDataProtectionType.AesOFB:
+                case LocalDataProtectionType.AesCFB:
                     var value_1 = E___(value);
                     var value_1_r = Concat(value_1);
                     return value_1_r;
-                case LocalDataProtectionType.ProtectedDataWithAesOFB:
+                case LocalDataProtectionType.ProtectedDataWithAesCFB:
                     var value_2 = E___(value);
                     var value_2_pd = protectedData.Protect(value_2);
                     var value_2_r = Concat(value_2_pd);
                     return value_2_r;
-                case LocalDataProtectionType.Win10WithAesOFB:
+                case LocalDataProtectionType.Win10WithAesCFB:
                     var value_3 = E___(value);
                     var value_3_dpp = await dataProtectionProvider.ProtectAsync(value_3);
                     var value_3_r = Concat(value_3_dpp);
@@ -126,14 +114,14 @@ namespace System.Application.Services.Implementation
                 {
                     case LocalDataProtectionType.None:
                         return value;
-                    case LocalDataProtectionType.AesOFB:
+                    case LocalDataProtectionType.AesCFB:
                         return D___(value);
-                    case LocalDataProtectionType.ProtectedDataWithAesOFB:
+                    case LocalDataProtectionType.ProtectedDataWithAesCFB:
                         var value_2 = UnConcat(value);
                         var value_2_pd = protectedData.Unprotect(value_2);
                         var value_2_r = AESUtils.Decrypt(aes, value_2_pd);
                         return value_2_r;
-                    case LocalDataProtectionType.Win10WithAesOFB:
+                    case LocalDataProtectionType.Win10WithAesCFB:
                         var value_3 = UnConcat(value);
                         var value_3_dpp = await dataProtectionProvider.UnprotectAsync(value_3);
                         var value_3_r = AESUtils.Decrypt(aes, value_3_dpp);

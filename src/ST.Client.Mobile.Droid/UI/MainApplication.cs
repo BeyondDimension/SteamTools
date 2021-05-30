@@ -34,7 +34,7 @@ namespace System.Application.UI
             }
             IsMainProcess = GetIsMainProcess();
 
-            DILevel level = DILevel.Min;
+            var level = DILevel.Min;
             if (IsMainProcess) level = DILevel.MainProcess;
             Startup.Init(level);
 
