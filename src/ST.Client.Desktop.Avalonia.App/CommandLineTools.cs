@@ -143,12 +143,12 @@ namespace System.Application.UI
                     if (!string.IsNullOrEmpty(account))
                     {
                         initStartup(DILevel.Steam);
-                        //ISteamService.Instance.TryKillSteamProcess();
-                        //ISteamService.Instance.SetCurrentUser(account);
-                        //ISteamService.Instance.StartSteam();
+                        ISteamService.Instance.TryKillSteamProcess();
+                        ISteamService.Instance.SetCurrentUser(account);
+                        ISteamService.Instance.StartSteam();
                     }
                 });
-                rootCommand.AddCommand(common);
+                rootCommand.AddCommand(steamuser);
 
                 // -clt app -id 632360
                 var unlock_achievement = new Command("app", "打开成就解锁窗口");

@@ -208,6 +208,10 @@ namespace System
         [DllImport(LibraryName, CharSet = CharSet.Auto)]
         public static extern IntPtr SetActiveWindow(IntPtr hWnd);
 
+        [DllImport(LibraryName, CharSet = CharSet.Auto, EntryPoint = "SetForegroundWindow")]
+        //设置此窗体为活动窗体
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
+
         public static void FlashWindow(IntPtr hwnd)
         {
             //ShowWindow(hwnd, (short)Cmd_SHOWWINDOWS.SW_NORMAL);

@@ -1,4 +1,4 @@
-﻿// https://github.com/AvaloniaUI/Avalonia/issues/2649#issuecomment-620720914
+// https://github.com/AvaloniaUI/Avalonia/issues/2649#issuecomment-620720914
 
 using System.IO;
 

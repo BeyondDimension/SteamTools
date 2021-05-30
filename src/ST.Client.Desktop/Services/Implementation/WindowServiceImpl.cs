@@ -15,14 +15,19 @@ namespace System.Application.Services.Implementation
 #pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
         private MainWindowViewModel mainWindow;
         private AchievementWindowViewModel achievementWindow;
+        private TaskBarWindowViewModel taskbarWindow;
         private readonly CompositeDisposable compositeDisposable = new();
 
         /// <summary>
         /// 获取为当前主窗口提供的数据。
         /// </summary>
-
         public WindowViewModel MainWindow { get; private set; }
+
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+        /// <summary>
+        /// 获取为当前主窗口提供的数据。
+        /// </summary>
+        public TaskBarWindowViewModel? TaskBarWindow => taskbarWindow;
 
         public void Init()
         {
@@ -38,6 +43,7 @@ namespace System.Application.Services.Implementation
                     mainWindow = new MainWindowViewModel();
                     MainWindow = mainWindow;
                 }
+                taskbarWindow = new TaskBarWindowViewModel();
             }
             catch (Exception ex)
             {
@@ -67,6 +73,21 @@ namespace System.Application.Services.Implementation
         //    }
         //    throw new InvalidOperationException();
         //}
+
+        /// <summary>
+        /// 打开托盘菜单窗口
+        /// </summary>
+        public void ShowTaskBarWindow(int x = 0, int y = 0)
+        {
+            if (!taskbarWindow.IsVisible)
+            {
+                taskbarWindow.Show(x, y);
+            }
+            else
+            {
+                taskbarWindow.SetPosition(x, y);
+            }
+        }
 
         #region disposable members
 

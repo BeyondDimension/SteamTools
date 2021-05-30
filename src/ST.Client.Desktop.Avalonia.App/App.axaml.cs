@@ -228,12 +228,17 @@ namespace System.Application.UI
                                 notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon_16.png";
                                 break;
                         }
-
-                        notifyIcon.DoubleClick += (s, e) =>
+#if WINDOWS
+                        notifyIcon.RightClick += (s, e) =>
                         {
-                            RestoreMainWindow();
+                            if (e is MouseEventArgs args)
+                            {
+                                IWindowService.Instance.ShowTaskBarWindow(args.MousePosition.X, args.MousePosition.Y);
+                            }
                         };
+#endif
 
+#if !WINDOWS
                         NotifyIconContextMenu = new ContextMenu();
 
                         mNotifyIconMenus.Add("Light", ReactiveCommand.Create(() =>
@@ -255,6 +260,8 @@ namespace System.Application.UI
                         NotifyIconContextMenu.Items = mNotifyIconMenus
                             .Select(x => new MenuItem { Header = x.Key, Command = x.Value }).ToList();
                         notifyIcon.ContextMenu = NotifyIconContextMenu;
+#endif
+
                         notifyIcon.Visible = true;
                         notifyIcon.Click += NotifyIcon_Click;
                         notifyIcon.DoubleClick += NotifyIcon_Click;
@@ -262,8 +269,9 @@ namespace System.Application.UI
                         {
                             notifyIcon.IconPath = string.Empty;
                         });
-                        #endregion
                     }
+
+                    #endregion
 
 #if WINDOWS
                     JumpLists.Init();

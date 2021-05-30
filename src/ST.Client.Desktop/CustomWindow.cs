@@ -12,6 +12,7 @@ namespace System.Application
         AuthTrade,
         EncryptionAuth,
         Password,
+        TaskBar,
         ExportAuth,
         ScriptStore,
         HideApp,

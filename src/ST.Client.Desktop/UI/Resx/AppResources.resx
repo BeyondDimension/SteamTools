@@ -381,6 +381,9 @@
   <data name="Encrypt" xml:space="preserve">
     <value>加密</value>
   </data>
+  <data name="Exit" xml:space="preserve">
+    <value>退出</value>
+  </data>
   <data name="Export" xml:space="preserve">
     <value>导出</value>
   </data>

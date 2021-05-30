@@ -81,9 +81,25 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// 关闭当前viewmodel绑定的窗口
         /// </summary>
-        protected void Close()
+        public virtual void Close()
         {
             IShowWindowService.Instance.CloseWindow(this);
+        }
+
+        /// <summary>
+        /// 显示当前viewmodel绑定的窗口
+        /// </summary>
+        public virtual void Show()
+        {
+            IShowWindowService.Instance.ShowWindow(this);
+        }
+
+        /// <summary>
+        /// 隐藏当前viewmodel绑定的窗口
+        /// </summary>
+        public virtual void Hide()
+        {
+            IShowWindowService.Instance.HideWindow(this);
         }
     }
 }

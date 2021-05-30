@@ -167,5 +167,12 @@ namespace System.Application.Services.Implementation
             MouseHook.SystemParametersInfo((uint)MouseHook.SystemParametersDesktopInfo.SPI_SETDESKWALLPAPER, 1, p, (uint)MouseHook.SystemParamtersInfoFlags.SPIF_UPDATEINIFILE | (uint)MouseHook.SystemParamtersInfoFlags.SPIF_SENDWININICHANGE);
             //Marshal.FreeHGlobal(p);
         }
+
+
+        public void SetActiveWindow(HandleWindow window) 
+        {
+            User32Window.SetActiveWindow(window.Handle);
+            User32Window.SetForegroundWindow(window.Handle);
+        }
     }
 }

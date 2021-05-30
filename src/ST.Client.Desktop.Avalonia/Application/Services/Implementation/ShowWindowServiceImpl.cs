@@ -30,6 +30,7 @@ namespace System.Application.Services.Implementation
 
         static bool IsSingletonWindow(CustomWindow customWindow) => customWindow switch
         {
+            CustomWindow.TaskBar or
             CustomWindow.LoginOrRegister or
             CustomWindow.ChangeBindPhoneNumber or
             CustomWindow.UserProfile => true,
@@ -43,7 +44,8 @@ namespace System.Application.Services.Implementation
                 var window = desktop.Windows.FirstOrDefault(x => x.GetType() == windowType);
                 if (window != null)
                 {
-                    window.ShowActivate();
+                    window.Show();
+                    window.Activate();
                     return true;
                 }
             }
@@ -179,9 +181,19 @@ namespace System.Application.Services.Implementation
             title, viewModel, resizeMode);
 
 
-        public void CloseWindow(WindowViewModel vm) 
+        public void CloseWindow(WindowViewModel vm)
         {
             IDesktopAvaloniaAppService.Instance.CloseWindow(vm);
+        }
+
+        public void HideWindow(WindowViewModel vm)
+        {
+            IDesktopAvaloniaAppService.Instance.HideWindow(vm);
+        }
+
+        public void ShowWindow(WindowViewModel vm)
+        {
+            IDesktopAvaloniaAppService.Instance.ShowWindowNoParent(vm);
         }
     }
 }

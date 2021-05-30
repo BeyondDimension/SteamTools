@@ -21,7 +21,7 @@ namespace System.Application.UI.ViewModels
         public AboutPageViewModel()
         {
             IconKey = nameof(AboutPageViewModel).Replace("ViewModel", "Svg");
-
+            
             OpenBrowserCommand = ReactiveCommand.Create<string>(BrowserOpen);
 
             CopyLinkCommand = ReactiveCommand.Create<string>(IDesktopAppService.Instance.SetClipboardText);

@@ -53,5 +53,8 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="window"></param>
         void ResetWallerpaper();
+
+
+        void SetActiveWindow(HandleWindow window);
     }
 }

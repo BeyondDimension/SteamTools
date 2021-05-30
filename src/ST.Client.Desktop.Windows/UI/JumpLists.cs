@@ -27,15 +27,7 @@ namespace System.Application.UI
             //    Title = "RuaRua",
             //    Description = "以该账号启动Steam",
             //    ApplicationPath = AppHelper.ProgramPath,
-            //    Arguments = "-clt steam -account rmbadmin",
-            //    IconResourcePath = AppHelper.ProgramPath,
-            //});
-            //jumpList1.JumpItems.Add(new JumpTask
-            //{
-            //    Title = "DarkMaple",
-            //    Description = "以该账号启动Steam",
-            //    ApplicationPath = AppHelper.ProgramPath,
-            //    Arguments = "-clt steam -account kuafaaf",
+            //    Arguments = "-clt steam -account ruarua",
             //    IconResourcePath = AppHelper.ProgramPath,
             //});
             //jumpList1.JumpItems.Add(new JumpTask

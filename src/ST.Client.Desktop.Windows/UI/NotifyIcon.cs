@@ -1,4 +1,5 @@
-﻿using System.Application.UI.Views;
+using System.Application.Models;
+using System.Application.UI.Views;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -272,8 +273,8 @@ namespace System.Application.UI
                     break;
 
                 case (int)UnmanagedMethods.WindowsMessage.WM_RBUTTONUP:
-                    EventArgs e = new EventArgs();
-                    RightClick?.Invoke(this, e);
+                    MouseHook.GetCursorPos(out var pointInt);
+                    RightClick?.Invoke(this, new MouseEventArgs(pointInt));
                     ShowContextMenu();
                     break;
 

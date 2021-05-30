@@ -1,0 +1,69 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Width="200" Height="400"
+        x:Class="System.Application.UI.Views.Windows.TaskBarWindow"
+        xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+        FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
+        x:DataType="vm:TaskBarWindowViewModel"
+        x:CompileBindings="True"
+        x:Name="taskbarWindow"
+        Background="{x:Null}"
+        Title="{Binding Title}">
+  <!--Background-->
+  <Panel>
+    <ExperimentalAcrylicBorder IsHitTestVisible="True">
+      <ExperimentalAcrylicBorder.Material>
+        <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
+      </ExperimentalAcrylicBorder.Material>
+    </ExperimentalAcrylicBorder>
+    <StackPanel Spacing="10">
+      <StackPanel.Styles>
+        <Style Selector="Button">
+          <Setter Property="Background" Value="Transparent"></Setter>
+          <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+          <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+          <Setter Property="Padding" Value="12,10,12,10"></Setter>
+        </Style>
+        <Style Selector="Separator">
+          <Setter Property="Margin" Value="8 0"></Setter>
+        </Style>
+      </StackPanel.Styles>
+
+      <DockPanel Margin="0 10 0 0">
+        <Image Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="10 0" DockPanel.Dock="Left"/>
+        <!--<Image Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=100}"
+                         Stretch="Uniform"
+                         Height="100" Width="100"
+                         HorizontalAlignment="Center">
+          </Image>-->
+        <StackPanel DockPanel.Dock="Right" Spacing="8" VerticalAlignment="Center">
+          <controls:ScrollingTextBlock Text="{Binding Title}"
+                                Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                                FontSize="16"/>
+          <TextBlock Text="{Binding Path=Version, StringFormat=v{0}, Mode=OneWay}"
+                   Foreground="{DynamicResource HighlightForegroundBrushKey}" FontSize="11"/>
+        </StackPanel>
+      </DockPanel>
+      <Separator Classes="Separator"/>
+      <StackPanel>
+        <Button Content="{ReflectionBinding Path=Res.CommunityFix,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
+        <Button Content="{ReflectionBinding Path=Res.ScriptConfig,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
+        <Button Content="{ReflectionBinding Path=Res.UserFastChange,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
+        <Button Content="{ReflectionBinding Path=Res.LocalAuth,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
+        <Button Content="{ReflectionBinding Path=Res.GameList,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
+      </StackPanel>
+      <Separator Classes="Separator"/>
+      <StackPanel>
+        <Button Content="{ReflectionBinding Path=Res.About,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
+        <Button Content="{ReflectionBinding Path=Res.Exit,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="Exit"></Button>
+      </StackPanel>
+    </StackPanel>
+  </Panel>
+</Window>
