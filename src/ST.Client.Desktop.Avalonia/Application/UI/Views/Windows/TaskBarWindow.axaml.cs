@@ -63,10 +63,8 @@ namespace System.Application.UI.Views.Windows
                         }
                     });
             }
-#if Windows
-            DI.Get<ISystemWindowApiService>().SetActiveWindow(new Models.HandleWindow { Handle = this.PlatformImpl.Handle.Handle });
-#endif
 
+            DI.Get<ISystemWindowApiService>().SetActiveWindow(new Models.HandleWindow { Handle = this.PlatformImpl.Handle.Handle });
         }
 
 
