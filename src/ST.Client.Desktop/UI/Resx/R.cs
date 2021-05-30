@@ -70,9 +70,9 @@ namespace System.Application.UI.Resx
         /// 更改语言
         /// </summary>
         /// <param name="cultureName"></param>
-        public static void ChangeLanguage(string cultureName)
+        public static void ChangeLanguage(string? cultureName)
         {
-            if (IsMatch(AppResources.Culture, cultureName)) return;
+            if (cultureName == null || IsMatch(AppResources.Culture, cultureName)) return;
             AppResources.Culture = string.IsNullOrWhiteSpace(cultureName) ?
                 DefaultCurrentUICulture :
                 CultureInfo.GetCultureInfo(Languages.SingleOrDefault(x => x.Key == cultureName).Key);

@@ -153,13 +153,13 @@ navigator.__proto__ = newProto;
                 UncaughtExceptionStackSize = 8,
             };
 
-            if (!PlatformInfo.IsMacOS)
+            if (PlatformInfo.IsMacOS)
             {
-                settings.LocalesDirPath = localesDirPath;
                 settings.ResourcesDirPath = Path.Combine(cefPath, "Resources");
             }
             else
             {
+                settings.LocalesDirPath = localesDirPath;
                 settings.ResourcesDirPath = cefPath;
             }
 

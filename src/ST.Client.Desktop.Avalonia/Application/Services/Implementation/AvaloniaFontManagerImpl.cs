@@ -40,7 +40,7 @@ namespace System.Application.Services.Implementation
         {
             var fonts = FontManager.Current.GetInstalledFontFamilyNames();
             var list = fonts.Select(x => KeyValuePair.Create(x, x)).ToList();
-            list.Insert(0, Default);
+            list.Insert(0, IFontManager.Default);
             return list;
         }
     }

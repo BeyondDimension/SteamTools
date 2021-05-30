@@ -15,6 +15,7 @@ using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Security;
 
 namespace System.Application.Services
 {
@@ -124,6 +125,22 @@ namespace System.Application.Services
             }
         }
 
+        #region HOSTS_PROXY_RUNNING_STATUS
+
+        const string KEY_HOSTS_PROXY_RUNNING_STATUS = "KEY_HOSTS_PROXY_RUNNING_STATUS";
+        static async void SaveHostsProxyStatus(bool value)
+        {
+            await IStorage.Instance.SetAsync<bool>(KEY_HOSTS_PROXY_RUNNING_STATUS, value);
+        }
+
+        public static async Task<bool> GetHostsProxyStatusAsync()
+        {
+            var r = await IStorage.Instance.GetAsync<bool>(KEY_HOSTS_PROXY_RUNNING_STATUS);
+            return r;
+        }
+
+        #endregion
+
         #region 代理状态启动退出
         public bool ProxyStatus
         {
@@ -187,6 +204,10 @@ namespace System.Application.Services
                                         httpProxyService.StopProxy();
                                         return;
                                     }
+                                    else
+                                    {
+                                        SaveHostsProxyStatus(true);
+                                    }
                                 }
                             }
                             StartTiming();
@@ -200,12 +221,24 @@ namespace System.Application.Services
                     else
                     {
                         httpProxyService.StopProxy();
-                        var r = IHostsFileService.Instance.RemoveHostsByTag();
-                        if (r.ResultType != OperationResultType.Success)
+                        async void OnStopRemoveHostsByTag()
                         {
-                            Toast.Show(SR.OperationHostsError_.Format(r.Message));
-                            //return;
+                            var needClear = await GetHostsProxyStatusAsync();
+                            if (needClear)
+                            {
+                                var r = IHostsFileService.Instance.RemoveHostsByTag();
+                                if (r.ResultType != OperationResultType.Success)
+                                {
+                                    Toast.Show(SR.OperationHostsError_.Format(r.Message));
+                                    //return;
+                                }
+                                else
+                                {
+                                    SaveHostsProxyStatus(false);
+                                }
+                            }
                         }
+                        OnStopRemoveHostsByTag();
                         //Toast.Show(SteamTools.Properties.Resources.ProxyStop);
                     }
                     this.RaisePropertyChanged();
@@ -349,10 +382,19 @@ namespace System.Application.Services
             });
         }
 
+        public static async void OnExitRestoreHosts()
+        {
+            var needClear = await GetHostsProxyStatusAsync();
+            if (needClear)
+            {
+                IHostsFileService.OnExitRestoreHosts();
+            }
+        }
+
         public void Dispose()
         {
             httpProxyService.StopProxy();
-            IHostsFileService.OnExitRestoreHosts();
+            OnExitRestoreHosts();
             httpProxyService.Dispose();
         }
 

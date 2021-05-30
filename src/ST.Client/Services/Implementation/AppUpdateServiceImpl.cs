@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using static System.Application.Services.CloudService.Constants;
 using static System.Application.Services.IAppUpdateService;
@@ -88,7 +89,7 @@ namespace System.Application.Services.Implementation
 
         static bool isCheckUpdateing;
 
-        public async void CheckUpdate(bool force, bool showIsExistUpdateFalse = true)
+        public async Task CheckUpdateAsync(bool force, bool showIsExistUpdateFalse = true)
         {
             if (!force && IsExistUpdate)
             {

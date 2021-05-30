@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace System.Application.Services
 {
@@ -58,16 +58,20 @@ namespace System.Application.Services
         /// <returns></returns>
         OperationResult RemoveHostsByTag();
 
-        private static bool mOnExitRestoreHosts;
+        static bool mOnExitRestoreHosts;
+        static readonly object mOnExitRestoreHostsLock = new();
 
         /// <summary>
         /// 当程序退出时还原 hosts 文件
         /// </summary>
         static void OnExitRestoreHosts()
         {
-            if (mOnExitRestoreHosts) return;
-            Instance.RemoveHostsByTag();
-            mOnExitRestoreHosts = true;
+            lock (mOnExitRestoreHostsLock)
+            {
+                if (mOnExitRestoreHosts) return;
+                Instance.RemoveHostsByTag();
+                mOnExitRestoreHosts = true;
+            }
         }
     }
 }

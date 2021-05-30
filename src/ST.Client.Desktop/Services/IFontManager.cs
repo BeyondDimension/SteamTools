@@ -26,7 +26,7 @@ namespace System.Application.Services
                 .Culture;
             InstalledFontCollection ifc = new();
             var list = ifc.Families.Where(x => x.IsStyleAvailable(FontStyle.Regular)).Select(x => KeyValuePair.Create(x.GetName(culture.LCID), x.GetName(1033))).ToList();
-            list.Insert(0, Default);
+            list.Insert(0, IFontManager.Default);
             return list;
         }
     }

@@ -26,9 +26,9 @@ namespace System.Application.UI.ViewModels
 
             CopyLinkCommand = ReactiveCommand.Create<string>(IDesktopAppService.Instance.SetClipboardText);
 
-            CheckUpdateCommand = ReactiveCommand.Create(() =>
+            CheckUpdateCommand = ReactiveCommand.CreateFromTask(async () =>
             {
-                IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: true);
+                await IAppUpdateService.Instance.CheckUpdateAsync(showIsExistUpdateFalse: true);
             });
 
             DelAccountCommand = ReactiveCommand.CreateFromTask(async () =>
