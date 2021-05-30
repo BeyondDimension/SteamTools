@@ -100,7 +100,7 @@ navigator.__proto__ = newProto;
             {
                 Platform.Windows => Path.Combine(AppContext.BaseDirectory, "CEF", "win-" + GetArch()),
                 Platform.Linux => Path.Combine(AppContext.BaseDirectory, "CEF", "linux-" + GetArch()),
-                Platform.Apple => DI.DeviceIdiom == DeviceIdiom.Desktop ? Path.Combine(AppContext.BaseDirectory, "Contents", "Frameworks", "Chromium Embedded Framework.framework") : throw new PlatformNotSupportedException(),
+                Platform.Apple => DI.DeviceIdiom == DeviceIdiom.Desktop ? Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "Contents", "Frameworks", "Chromium Embedded Framework.framework")) : throw new PlatformNotSupportedException(),
                 _ => throw new ArgumentOutOfRangeException(nameof(DI.Platform), DI.Platform, null),
             };
 
@@ -118,12 +118,16 @@ navigator.__proto__ = newProto;
                 return;
             }
 
-            var localesDirPath = Path.Combine(cefPath, "locales");
-            if (!Directory.Exists(localesDirPath))
+            string? localesDirPath = null;
+            if (!PlatformInfo.IsMacOS)
             {
-                Log.Error(TAG, "Missing Chromium Embedded Framework Binaries(locales), path: {0}", cefPath);
-                InitState = CefNetAppInitState.MissingBinaries;
-                return;
+                localesDirPath = Path.Combine(cefPath, "locales");
+                if (!Directory.Exists(localesDirPath))
+                {
+                    Log.Error(TAG, "Missing Chromium Embedded Framework Binaries(locales), path: {0}", cefPath);
+                    InitState = CefNetAppInitState.MissingBinaries;
+                    return;
+                }
             }
 
             var externalMessagePump = args.Contains("--external-message-pump");
@@ -142,14 +146,22 @@ navigator.__proto__ = newProto;
                 MultiThreadedMessageLoop = !externalMessagePump,
                 ExternalMessagePump = externalMessagePump,
                 WindowlessRenderingEnabled = true,
-                LocalesDirPath = localesDirPath,
-                ResourcesDirPath = cefPath,
                 // https://magpcss.org/ceforum/viewtopic.php?t=14648#p32857
                 LogSeverity = ThisAssembly.Debuggable ? CefLogSeverity.Error : CefLogSeverity.Disable,
                 LogFile = logFile,
                 IgnoreCertificateErrors = true,
                 UncaughtExceptionStackSize = 8,
             };
+
+            if (!PlatformInfo.IsMacOS)
+            {
+                settings.LocalesDirPath = localesDirPath;
+                settings.ResourcesDirPath = Path.Combine(cefPath, "Resources");
+            }
+            else
+            {
+                settings.ResourcesDirPath = cefPath;
+            }
 
             AppHelper.Initialized += () =>
             {

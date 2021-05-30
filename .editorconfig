@@ -100,7 +100,7 @@ csharp_style_expression_bodied_constructors = false
 csharp_style_expression_bodied_indexers = true
 csharp_style_expression_bodied_lambdas = true
 csharp_style_expression_bodied_local_functions = false
-csharp_style_expression_bodied_methods = when_on_single_line
+csharp_style_expression_bodied_methods = false
 csharp_style_expression_bodied_operators = false
 csharp_style_expression_bodied_properties = true
 
@@ -234,3 +234,9 @@ dotnet_diagnostic.IDE0011.severity = none
 
 # IDE0040: 添加可访问性修饰符
 dotnet_diagnostic.IDE0040.severity = none
+
+# IDE0130: 命名空间与文件夹结构不匹配
+dotnet_style_namespace_match_folder = false
+
+# IDE0130: 命名空间与文件夹结构不匹配
+dotnet_diagnostic.IDE0130.severity = none

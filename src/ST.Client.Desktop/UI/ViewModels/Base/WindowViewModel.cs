@@ -1,10 +1,9 @@
 using ReactiveUI;
-using DynamicData.Binding;
 using System.Application.Models.Settings;
+using System.Application.Services;
 using System.Runtime.Serialization;
 using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
-using System.Application.Services;
 
 namespace System.Application.UI.ViewModels
 {
@@ -44,17 +43,8 @@ namespace System.Application.UI.ViewModels
         }
     }
 
-    //[DataContract]
-    public class WindowViewModel : ViewModelBase
+    partial class WindowViewModel
     {
-        string title = string.Empty;
-        [IgnoreDataMember]
-        public string Title
-        {
-            get => title;
-            set => this.RaiseAndSetIfChanged(ref title, value);
-        }
-
         //[DataMember]
         WindowSizePosition _SizePosition = new();
         public WindowSizePosition SizePosition
@@ -87,11 +77,6 @@ namespace System.Application.UI.ViewModels
 
         [IgnoreDataMember]
         public bool IsInitialized { get; protected set; }
-
-        protected void InvokeOnUIDispatcher(Action action)
-        {
-            MainThreadDesktop.BeginInvokeOnMainThread(action);
-        }
 
         /// <summary>
         /// 关闭当前viewmodel绑定的窗口

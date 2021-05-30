@@ -5,16 +5,14 @@ namespace System.Application.UI
 {
     public partial class AppShell : Shell
     {
+        public const string Route_LoginOrRegister_Secondary = "LoginOrRegister/Secondary";
+
         public AppShell()
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
-        }
-
-        private async void OnMenuItemClicked(object sender, EventArgs e)
-        {
-            await Current.GoToAsync("//LoginOrRegisterPage");
+            Routing.RegisterRoute(Route_LoginOrRegister_Secondary, typeof(LoginOrRegisterPage));
         }
     }
 }

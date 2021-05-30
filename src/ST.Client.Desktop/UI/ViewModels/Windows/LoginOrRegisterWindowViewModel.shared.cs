@@ -30,12 +30,31 @@ namespace System.Application.UI.ViewModels
 #endif
             () : base()
         {
+            Title =
 #if !__MOBILE__
-            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.LoginAndRegister;
+                ThisAssembly.AssemblyTrademark + " | " +
 #endif
+                AppResources.LoginAndRegister;
+
             FastLogin = ReactiveCommand.CreateFromTask<FastLoginChannel>(async channel =>
             {
                 await FastLoginOrRegisterAsync(Close, channel);
+            });
+            ChooseChannel = ReactiveCommand.CreateFromTask<string>(async channel =>
+            {
+                if (Enum.TryParse<FastLoginChannel>(channel, out var channel_))
+                {
+                    await FastLoginOrRegisterAsync(Close, channel_);
+                }
+                else
+                {
+                    switch (channel)
+                    {
+                        case nameof(PhoneNumber):
+                            await GoToLoginOrRegisterByPhoneNumberAsync();
+                            break;
+                    }
+                }
             });
             SendSms = ReactiveCommand.CreateFromTask(SendSmsAsync);
             Submit = ReactiveCommand.CreateFromTask(SubmitAsync);
@@ -88,7 +107,8 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
         }
 
-        short _LoginState = 2;
+        const short _LoginStateDefault = 2;
+        short _LoginState = _LoginStateDefault;
         public short LoginState
         {
             get => _LoginState;
@@ -129,10 +149,12 @@ namespace System.Application.UI.ViewModels
             Toast.Show(msg);
         }
 
+#if !__MOBILE__
         public void ChangeLoginState(short state)
         {
             LoginState = state;
         }
+#endif
 
         public Action? Close { get; set; }
 
@@ -185,14 +207,29 @@ namespace System.Application.UI.ViewModels
 #endif
         }
 
+        [Obsolete("use ChooseChannel")]
         public ICommand FastLogin { get; }
 
+        [Obsolete("use Channels")]
         public FastLoginChannel[] FastLoginChannels { get; } = new[] {
             FastLoginChannel.Steam,
             FastLoginChannel.Xbox,
             //FastLoginChannel.Apple,
             //FastLoginChannel.QQ,
         };
+
+        public string[] Channels { get; } = new[]
+        {
+            nameof(FastLoginChannel.Steam),
+            nameof(FastLoginChannel.Xbox),
+#if DEBUG
+            nameof(FastLoginChannel.Apple),
+            nameof(FastLoginChannel.QQ),
+#endif
+            nameof(PhoneNumber),
+        };
+
+        public ICommand ChooseChannel { get; }
 
         protected override void Dispose(bool disposing)
         {

@@ -27,6 +27,9 @@
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Base\ViewModelBase.cs">
       <Link>UI\ViewModels\Base\ViewModelBase.cs</Link>
     </Compile>
+    <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Base\WindowViewModel.shared.cs">
+      <Link>UI\ViewModels\Base\PageViewModel.shared.cs</Link>
+    </Compile>
     <Compile Include="..\ST.Client.Desktop\Mvvm\*.cs">
       <LinkBase>Mvvm</LinkBase>
     </Compile>
@@ -51,10 +54,26 @@
     <Compile Include="..\ST.Client.Desktop\Extensions\ViewModelExtensions.cs">
       <LinkBase>Extensions</LinkBase>
     </Compile>
+    <Compile Include="..\ST.Client.Desktop.Avalonia\Application\Converters\StringFormatConverter.cs">
+      <LinkBase>Converters</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop\Services\IFontManager.cs">
+      <LinkBase>Services</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop\Services\Implementation\FontManagerImpl.cs">
+      <LinkBase>Services\Implementation</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.TryAddFontManager.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj" />
+    <Compile Remove="Proxy\**" />
+    <EmbeddedResource Remove="Proxy\**" />
+    <None Remove="Proxy\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<ProjectReference Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj" />-->
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>
 
@@ -63,6 +82,7 @@
     <PackageReference Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2012" />
     <PackageReference Include="StatefulModel.Standard" Version="0.1.0" />
     <PackageReference Include="XF.Material" Version="1.7.8" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -75,6 +95,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="UI\Styles\DrawingSvg.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="UI\Styles\ThemeDark.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

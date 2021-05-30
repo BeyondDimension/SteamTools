@@ -82,5 +82,11 @@ namespace System.Application.UI.ViewModels
                 isDialog: true // 锁定父窗口，防止打开多个 WebViewWindow
                 );
         }
+
+        internal Task GoToLoginOrRegisterByPhoneNumberAsync()
+        {
+            LoginState = 1;
+            return Task.CompletedTask;
+        }
     }
 }

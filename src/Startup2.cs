@@ -148,6 +148,11 @@ namespace System.Application
 #if !CONSOLEAPP
             if (hasGUI)
             {
+#if __MOBILE__
+                services.TryAddFontManager();
+#else
+                services.AddFontManager(useGdiPlusFirst: true);
+#endif
                 // 添加 Toast 提示服务
 #if !DEBUG
                 services.AddStartupToastIntercept();

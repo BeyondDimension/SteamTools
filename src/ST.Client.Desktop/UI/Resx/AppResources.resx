@@ -1349,6 +1349,9 @@
   <data name="User_UseFastLoginChannel_" xml:space="preserve">
     <value>使用 {0} 登录</value>
   </data>
+  <data name="User_UsePhoneNumLoginChannel" xml:space="preserve">
+    <value>使用手机号码登录</value>
+  </data>
   <data name="Warning" xml:space="preserve">
     <value>警告</value>
   </data>

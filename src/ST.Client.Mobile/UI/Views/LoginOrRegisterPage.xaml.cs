@@ -1,3 +1,4 @@
+using ReactiveUI;
 using System.Application.UI.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -5,20 +6,19 @@ using Xamarin.Forms.Xaml;
 namespace System.Application.UI.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoginOrRegisterPage : ContentPage
+    partial class LoginOrRegisterPage
     {
         public LoginOrRegisterPage()
         {
             InitializeComponent();
-            BindingContext = new LoginOrRegisterPageViewModel();
-            TbPhoneNumber.ReturnCommand = new Command(() => TbSmsCode.Focus());
-            TbSmsCode.ReturnCommand = new Command(() =>
+            BindingContext = new LoginOrRegisterPageViewModel
             {
-                if (BindingContext is LoginOrRegisterPageViewModel vm)
+                TbPhoneNumberReturnCommand = ReactiveCommand.Create<Entry>(textBox =>
                 {
-                    vm.Submit.Invoke();
-                }
-            });
+                    if (BindingContext is LoginOrRegisterPageViewModel vm) vm.SendSms.Invoke();
+                    textBox?.Focus();
+                }),
+            };
         }
     }
 }

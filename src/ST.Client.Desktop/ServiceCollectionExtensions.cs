@@ -8,7 +8,7 @@ using System.Net.Http;
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class ServiceCollectionExtensions
+    public static partial class ServiceCollectionExtensions
     {
         /// <summary>
         /// 尝试添加适用于Desktop的Toast
@@ -99,6 +99,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IHttpPlatformHelper, DesktopHttpPlatformHelper>();
             return services;
         }
+
         /// <summary>
         /// 添加 Window 窗口viewmodel
         /// </summary>
