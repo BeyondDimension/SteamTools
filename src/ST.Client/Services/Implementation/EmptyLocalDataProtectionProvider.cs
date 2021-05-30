@@ -1,14 +1,17 @@
-﻿using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace System.Application.Services.Implementation
 {
-    public sealed class EmptyLocalDataProtectionProvider : LocalDataProtectionProviderBase
+    public sealed class EmptyLocalDataProtectionProvider : ILocalDataProtectionProvider
     {
-        public EmptyLocalDataProtectionProvider(ILocalDataProtectionProvider.IProtectedData protectedData, ILocalDataProtectionProvider.IDataProtectionProvider dataProtectionProvider) : base(protectedData, dataProtectionProvider)
+        public ValueTask<byte[]?> DB(byte[]? value)
         {
-            MachineSecretKey = AESUtils.GetParameters(Environment.MachineName);
+            return new(value);
         }
 
-        protected override (byte[] key, byte[] iv) MachineSecretKey { get; }
+        public ValueTask<byte[]?> EB(byte[]? value)
+        {
+            return new(value);
+        }
     }
 }

@@ -39,8 +39,9 @@ namespace System.Application.Services.Implementation
         static IReadOnlyCollection<KeyValuePair<string, string>> GetFontsByAvalonia()
         {
             var fonts = FontManager.Current.GetInstalledFontFamilyNames();
-            var fonts_ = fonts.Select(x => KeyValuePair.Create(x, x)).ToArray();
-            return fonts_;
+            var list = fonts.Select(x => KeyValuePair.Create(x, x)).ToList();
+            list.Insert(0, Default);
+            return list;
         }
     }
 }
