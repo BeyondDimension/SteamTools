@@ -75,7 +75,7 @@ English | [简体中文](./README.md)
 Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/milestones), and feel free to ask questions.
 
 ## ⌨️ Development Environment
-[Visual Studio 2019 Version 16.10 Or Higher](https://visualstudio.microsoft.com/vs/) Or [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/) Or [JetBrains Rider](https://www.jetbrains.com/rider/) Or ~~[Visual Studio Code](https://code.visualstudio.com/)~~
+[Visual Studio 2019 Version 16.10 Or Higher](https://visualstudio.microsoft.com/vs/) Or [JetBrains Rider](https://www.jetbrains.com/rider/) Or ~~[Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/)~~ Or ~~[Visual Studio Code](https://code.visualstudio.com/)~~
 - Supported Operating Systems
 	- [Windows 10 version 2004 or higher: Home, Professional, Education, and Enterprise (LTSC and S are not supported)](https://docs.microsoft.com/en-us/visualstudio/releases/2019/system-requirements)
 	- [macOS 10.13 High Sierra Or Higher](https://docs.microsoft.com/en-us/visualstudio/productinfo/vs2019-system-requirements-mac)
