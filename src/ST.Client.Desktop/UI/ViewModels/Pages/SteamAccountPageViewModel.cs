@@ -131,7 +131,7 @@ namespace System.Application.UI.ViewModels
                 {
                     title = item.SteamNickName + "(" + item.Remark + ")";
                 }
-                DI.Get<ISystemJumpListService>().AddJumpTask(title, AppHelper.ProgramPath, AppHelper.ProgramPath, "-clt steam -account " + item.AccountName, "以该账号启动Steam");
+                DI.Get<ISystemJumpListService>().AddJumpTask(title, AppHelper.ProgramPath, AppHelper.ProgramPath, "-clt steam -account " + item.AccountName, AppResources.UserChange_BtnTootlip, this.Name);
             }
 
             this.WhenAnyValue(x => x.SteamUsers)
