@@ -22,9 +22,9 @@ namespace System.Application.UI.ViewModels
         public IdleAppWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_IdleGamesManger;
-            //this.WhenAnyValue(x => x.IdleGameList)
-            //   .Subscribe(x => x?.ToObservableChangeSet()
-            //   .AutoRefresh(x => x.Process));
+
+            GameLibrarySettings.AFKAppList.Subscribe(_ => Refresh_Click(false));
+
             Refresh_Click(false);
         }
         private string? _RunStateTxt;
@@ -71,7 +71,7 @@ namespace System.Application.UI.ViewModels
             get => _IdleGameList;
             set
             {
-                this.RaiseAndSetIfChanged(ref _IdleGameList, value); 
+                this.RaiseAndSetIfChanged(ref _IdleGameList, value);
             }
         }
         public void DeleteAllButton_Click()
@@ -232,9 +232,9 @@ namespace System.Application.UI.ViewModels
                 app.Process = null;
             }
         }
-        public void Refresh_Click(bool showTips=true)
+        public void Refresh_Click(bool showTips = true)
         {
-            IdleGameList.Clear();
+            //IdleGameList.Clear();
             var list = new ObservableCollection<SteamApp>();
             if (GameLibrarySettings.AFKAppList.Value != null)
                 foreach (var item in GameLibrarySettings.AFKAppList.Value)
@@ -285,8 +285,8 @@ namespace System.Application.UI.ViewModels
             var count = IdleGameList.Count(x => x.Process != null);
             RuningCountTxt = AppResources.GameList_RuningCount.Format(count, IdleGameList.Count);
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_IdleGamesManger + AppResources.GameList_ListCount.Format(IdleGameList.Count, SteamConnectService.Current.SteamAFKMaxCount);
-            if(showTips)
-            Toast.Show(AppResources.GameList_OperationSuccess);
+            if (showTips)
+                Toast.Show(AppResources.GameList_OperationSuccess);
         }
 
     }

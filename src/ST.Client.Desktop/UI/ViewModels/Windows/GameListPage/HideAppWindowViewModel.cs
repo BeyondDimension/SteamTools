@@ -20,6 +20,8 @@ namespace System.Application.UI.ViewModels
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_HideGameManger;
 
+            GameLibrarySettings.HideGameList.Subscribe(_ => Refresh_Click());
+
             Refresh_Click();
         }
         public bool _IsHideGameListEmpty;
