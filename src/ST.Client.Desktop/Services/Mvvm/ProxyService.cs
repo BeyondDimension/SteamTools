@@ -44,7 +44,7 @@ namespace System.Application.Services
             }
         }
 
-        bool _IsLoading = false;
+        bool _IsLoading;
         public bool IsLoading
         {
             get => _IsLoading;
@@ -85,7 +85,7 @@ namespace System.Application.Services
             }
         }
 
-        private DateTime _AccelerateTime = new();
+        private DateTime _AccelerateTime;
         public DateTime AccelerateTime
         {
             get => _AccelerateTime;

@@ -20,6 +20,10 @@ namespace System.Application.UI.Views.Windows
             {
                 if (e.Key == Key.Return)
                 {
+                    if (DataContext is LoginOrRegisterWindowViewModel vm)
+                    {
+                        vm.SendSms.Invoke();
+                    }
                     TbSmsCode.Focus();
                 }
             };

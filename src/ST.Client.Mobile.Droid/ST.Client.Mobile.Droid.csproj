@@ -95,6 +95,7 @@
     <PackageReference Include="Microsoft.AppCenter" Version="4.2.0" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.2.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.2.0" />
+    <PackageReference Include="TencentOpenApiSDK.Android" Version="3.5.4.11-alpha210531" />
   </ItemGroup>
 
   <ItemGroup>

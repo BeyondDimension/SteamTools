@@ -155,7 +155,14 @@ navigator.__proto__ = newProto;
 
             if (PlatformInfo.IsMacOS)
             {
-                settings.ResourcesDirPath = Path.Combine(cefPath, "Resources");
+                var resourcesDirPath = Path.Combine(cefPath, "Resources");
+                if (!Directory.Exists(resourcesDirPath))
+                {
+                    Log.Error(TAG, "Missing Chromium Embedded Framework Resources, path: {0}", resourcesDirPath);
+                    InitState = CefNetAppInitState.MissingBinaries;
+                    return;
+                }
+                settings.ResourcesDirPath = resourcesDirPath;
             }
             else
             {
