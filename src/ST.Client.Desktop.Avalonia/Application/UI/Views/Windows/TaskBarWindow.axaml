@@ -3,7 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        Width="200" Height="400"
+        Width="180" Height="400"
         x:Class="System.Application.UI.Views.Windows.TaskBarWindow"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
@@ -29,8 +29,11 @@
           <Setter Property="Background" Value="Transparent"></Setter>
           <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
           <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-          <Setter Property="FontSize" Value="14"></Setter>
+          <Setter Property="FontSize" Value="12"></Setter>
           <Setter Property="Padding" Value="12,8,12,8"></Setter>
+        </Style>
+        <Style Selector="Button /template/ ContentPresenter">
+          <Setter Property="CornerRadius" Value="0" />
         </Style>
         <Style Selector="Separator">
           <Setter Property="Margin" Value="8 0"></Setter>

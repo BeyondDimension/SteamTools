@@ -200,7 +200,7 @@
       </StackPanel>
 
       <StackPanel Grid.Row="2" Margin="20 0 20 50">
-        <Button Classes="action" Content="{ReflectionBinding Path=Res.CommunityFix_StopProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Height="40" Width="250" VerticalContentAlignment="Center" FontSize="16" Command="{Binding StartProxyButton_Click}" CommandParameter="False"></Button>
+        <Button Classes="action" Content="{ReflectionBinding Path=Res.CommunityFix_StopProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" MinHeight="40" Width="250" VerticalContentAlignment="Center" FontSize="16" Command="{Binding StartProxyButton_Click}" CommandParameter="False"></Button>
       </StackPanel>
     </Grid>
   </Panel>
