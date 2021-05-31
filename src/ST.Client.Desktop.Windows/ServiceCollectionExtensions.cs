@@ -32,6 +32,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     services.AddSingleton<ILocalDataProtectionProvider.IDataProtectionProvider, Windows10DataProtectionProvider>();
                 }
                 services.AddSingleton<ISystemWindowApiService, SystemWindowApiServiceImpl>();
+                services.AddSingleton<ISystemJumpListService, SystemJumpListServiceImpl>();
             }
             else
             {

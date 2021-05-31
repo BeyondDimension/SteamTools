@@ -166,12 +166,23 @@ namespace System.Application.Services
 
                         if (!ProxySettings.EnableWindowsProxy.Value)
                         {
-                            var p = DI.Get<IDesktopPlatformService>().GetProcessByPortOccupy(443, true);
-
-                            if (p != null)
+                            if (DI.Platform == Platform.Windows)
                             {
-                                Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, p.ProcessName));
-                                return;
+                                var p = DI.Get<IDesktopPlatformService>().GetProcessByPortOccupy(443, true);
+                                if (p != null)
+                                {
+                                    Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, p.ProcessName));
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                var inUse = httpProxyService.PortInUse(443);
+                                if (inUse)
+                                {
+                                    Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, ""));
+                                    return;
+                                }
                             }
                         }
 

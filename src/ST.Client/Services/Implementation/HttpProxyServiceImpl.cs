@@ -495,6 +495,13 @@ namespace System.Application.Services.Implementation
                     }
                 }
             }
+
+            var ip = Dns.GetHostAddresses(e.SniHostName).FirstOrDefault();
+            if (IPAddress.IsLoopback(ip))
+            {
+                e.TerminateSession();
+                return Task.CompletedTask;
+            }
             return Task.CompletedTask;
         }
 
@@ -520,6 +527,12 @@ namespace System.Application.Services.Implementation
                         return Task.CompletedTask;
                     }
                 }
+            }
+            var ip = Dns.GetHostAddresses(e.HttpClient.Request.Host).FirstOrDefault();
+            if (IPAddress.IsLoopback(ip))
+            {
+                e.TerminateSession();
+                return Task.CompletedTask;
             }
             return Task.CompletedTask;
         }

@@ -44,19 +44,23 @@ namespace System.Application.UI
         }
 
 
-        public static void AddJumpTask(JumpTask task)
+        public static void AddJumpTask(JumpTask task, bool isRecent = false)
         {
-            var jumpList1 = new JumpList
-            {
-                ShowRecentCategory = true,
-                ShowFrequentCategory = true,
-            };
-            //jumpList1.JumpItemsRejected += JumpList1_JumpItemsRejected;
-            //jumpList1.JumpItemsRemovedByUser += JumpList1_JumpItemsRemovedByUser;
+            // Get the JumpList from the application and update it.
+            JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
             jumpList1.JumpItems.Add(task);
-            JumpList.SetJumpList(AvaloniaApplication.Current, jumpList1);
+            if (isRecent)
+                JumpList.AddToRecentCategory(task);
+            MainThreadDesktop.BeginInvokeOnMainThread(() => jumpList1.Apply());
         }
 
+        public static void AddRecentJumpTask(JumpTask task)
+        {
+            // Get the JumpList from the application and update it.
+            JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
+            JumpList.AddToRecentCategory(task);
+            MainThreadDesktop.BeginInvokeOnMainThread(() => jumpList1.Apply());
+        }
 
         //static void AddJumpTask()
         //{

@@ -137,8 +137,8 @@ namespace System.Application.UI
 
                 // -clt steam -account
                 var steamuser = new Command("steam", "Steam相关操作");
-                common.AddOption(new Option<string>("-account", "指定对应steam用户名"));
-                common.Handler = CommandHandler.Create((string account) =>
+                steamuser.AddOption(new Option<string>("-account", "指定对应steam用户名"));
+                steamuser.Handler = CommandHandler.Create((string account) =>
                 {
                     if (!string.IsNullOrEmpty(account))
                     {

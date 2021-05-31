@@ -124,7 +124,15 @@ namespace System.Application.UI.ViewModels
 
             _SteamUsersSourceList.Refresh();
 
-             
+            foreach (var item in _SteamUsersSourceList.Items)
+            {
+                var title = item.SteamNickName;
+                if (!string.IsNullOrEmpty(item.Remark))
+                {
+                    title = item.SteamNickName + "(" + item.Remark + ")";
+                }
+                DI.Get<ISystemJumpListService>().AddJumpTask(title, AppHelper.ProgramPath, AppHelper.ProgramPath, "-clt steam -account " + item.AccountName, "以该账号启动Steam");
+            }
 
             this.WhenAnyValue(x => x.SteamUsers)
                   .Subscribe(items => items?
