@@ -60,7 +60,7 @@ namespace System.Application.Services.Implementation
             // 可选地设置证书引擎
             proxyServer.CertificateManager.CertificateEngine = CertificateEngine;
             //proxyServer.CertificateManager.PfxPassword = $"{CertificateName}";
-            proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
+            //proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
             proxyServer.CertificateManager.PfxFilePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pfx");
             proxyServer.CertificateManager.RootCertificateIssuerName = $"{CertificateName} Certificate Authority";
             proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
@@ -403,7 +403,7 @@ namespace System.Application.Services.Implementation
             if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
 
             #region 启动代理
-            proxyServer.Enable100ContinueBehaviour = true;
+            //proxyServer.Enable100ContinueBehaviour = true;
             proxyServer.EnableHttp2 = true;
             proxyServer.BeforeRequest += OnRequest;
             proxyServer.BeforeResponse += OnResponse;
@@ -547,8 +547,14 @@ namespace System.Application.Services.Implementation
                 proxyServer.ClientCertificateSelectionCallback -= OnCertificateSelection;
                 proxyServer.Stop();
             }
-            proxyServer.DisableSystemHttpProxy();
-            proxyServer.DisableSystemHttpsProxy();
+            try
+            {
+                proxyServer.DisableAllSystemProxies();
+            }
+            catch 
+            {
+                //忽略异常导致的崩溃
+            }
         }
 
         public bool WirtePemCertificateToGoGSteamPlugins()
