@@ -229,5 +229,10 @@ namespace System.Application.Services
         /// <param name="cmdArgs"></param>
         [SupportedOSPlatform("Windows")]
         void UnelevatedProcessStart(string cmdArgs);
+
+        void FixFluentWindowStyleOnWin7(IntPtr hWnd)
+        {
+
+        }
     }
 }

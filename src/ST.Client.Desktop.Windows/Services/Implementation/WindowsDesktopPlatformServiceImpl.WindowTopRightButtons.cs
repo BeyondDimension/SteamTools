@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 
 namespace System.Application.Services.Implementation
 {
@@ -13,6 +13,24 @@ namespace System.Application.Services.Implementation
         public const int SC_CLOSE = 0xF060;
         public const int SC_MINIMIZE = 0xF020;
         public const int SC_MAXIMIZE = 0xF030;
+        //public const int CS_DROPSHADOW = 0x20000;
+
+        static readonly Lazy<bool> mIsWindows7 = new(() =>
+        {
+            var osVer = Environment.OSVersion.Version;
+            return osVer.Major == 6 && osVer.Minor == 1;
+        });
+        public static bool IsWindows7 => mIsWindows7.Value;
+
+        public void FixFluentWindowStyleOnWin7(IntPtr hWnd)
+        {
+            if (!IsWindows7) return;
+            var value = GetWindowLong(hWnd, GWL_STYLE);
+            value &= ~WS_MAXIMIZEBOX;
+            value &= ~WS_MINIMIZEBOX;
+            //value &= ~CS_DROPSHADOW;
+            _ = SetWindowLong(hWnd, GWL_STYLE, value);
+        }
 
         [DllImport("user32.dll")]
         public static extern int DeleteMenu(IntPtr hMenu, int nPosition, int wFlags);

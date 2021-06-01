@@ -43,7 +43,7 @@ namespace System.Application.Services.Implementation
         public void SetLightOrDarkThemeFollowingSystem(bool enable)
         {
             var major = Environment.OSVersion.Version.Major;
-            if (major < 10 || major == 10 && Environment.OSVersion.Version.Build < 18282) return;
+            if (major < 10 || (major == 10 && Environment.OSVersion.Version.Build < 18282)) return;
 
             var currentUser = WindowsIdentity.GetCurrent()?.User;
             if (currentUser == null) return;

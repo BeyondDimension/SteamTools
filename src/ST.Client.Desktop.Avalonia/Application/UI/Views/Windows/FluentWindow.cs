@@ -2,6 +2,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Platform;
 using Avalonia.Styling;
 using System;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.ComponentModel;
@@ -17,14 +18,32 @@ namespace Avalonia.Controls
 
         public FluentWindow()
         {
-            Constructor();
+            ExtendClientAreaToDecorationsHint = true;
+            ExtendClientAreaTitleBarHeightHint = -1;
+            //SystemDecorations = SystemDecorations.BorderOnly;
+            TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
+
+            DI.Get<IDesktopPlatformService>().FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
+
+            this.GetObservable(WindowStateProperty)
+                .Subscribe(x =>
+                {
+                    PseudoClasses.Set(":maximized", x == WindowState.Maximized);
+                    PseudoClasses.Set(":fullscreen", x == WindowState.FullScreen);
+                });
+
+            this.GetObservable(IsExtendedIntoWindowDecorationsProperty)
+                .Subscribe(x =>
+                {
+                    if (!x)
+                    {
+                        SystemDecorations = SystemDecorations.Full;
+                        //TransparencyLevelHint = WindowTransparencyLevel.Blur;
+                    }
+                });
+
             this.Opened += FluentWindow_Opened;
             this.PositionChanged += FluentWindow_PositionChanged;
-        }
-
-        public FluentWindow(IWindowImpl impl) : base(impl)
-        {
-            Constructor();
         }
 
         private void FluentWindow_PositionChanged(object? sender, PixelPointEventArgs e)
@@ -70,31 +89,6 @@ namespace Avalonia.Controls
                     vm.SizePosition.Height = v;
                 });
             }
-        }
-
-        void Constructor()
-        {
-            ExtendClientAreaToDecorationsHint = true;
-            ExtendClientAreaTitleBarHeightHint = -1;
-            //SystemDecorations = SystemDecorations.BorderOnly;
-            TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
-
-            this.GetObservable(WindowStateProperty)
-                .Subscribe(x =>
-                {
-                    PseudoClasses.Set(":maximized", x == WindowState.Maximized);
-                    PseudoClasses.Set(":fullscreen", x == WindowState.FullScreen);
-                });
-
-            this.GetObservable(IsExtendedIntoWindowDecorationsProperty)
-                .Subscribe(x =>
-                {
-                    if (!x)
-                    {
-                        SystemDecorations = SystemDecorations.Full;
-                        //TransparencyLevelHint = WindowTransparencyLevel.Blur;
-                    }
-                });
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)

@@ -95,7 +95,11 @@
     <PackageReference Include="Microsoft.AppCenter" Version="4.2.0" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.2.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.2.0" />
-    <PackageReference Include="TencentOpenApiSDK.Android" Version="3.5.4.11-alpha210531" />
+    <PackageReference Include="TencentOpenApiSDK.Android" Version="3.5.4.11" />
+    <PackageReference Include="Xamarin.AndroidX.Legacy.Support.Core.UI" Version="1.0.0.8" />
+    <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.3.1" />
+    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.8" />
+    <PackageReference Include="Xamarin.AndroidX.RecyclerView" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>
