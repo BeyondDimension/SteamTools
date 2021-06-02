@@ -10,6 +10,7 @@ using System.Linq;
 using System.Management;
 using System.Reflection;
 using System.Runtime.Versioning;
+using System.Threading;
 
 namespace System.Application.Services.Implementation
 {
@@ -217,10 +218,11 @@ namespace System.Application.Services.Implementation
                     p.Close();
                     return Process.GetProcessById(pid);
                 }
-                p.WaitForExit(6000);
+                _ = p.WaitForExit(550);
             }
             catch
             {
+
             }
             return default;
         }

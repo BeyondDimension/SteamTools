@@ -359,5 +359,5 @@ Resource.designer.cs
 launchSettings.json
 
 # Android KeyStore
-/Xamarin.Android.KeyStore.props
 *.jks
+/Xamarin.Android.KeyStore.props

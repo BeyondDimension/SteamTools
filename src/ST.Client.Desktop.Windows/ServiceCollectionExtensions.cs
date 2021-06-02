@@ -19,7 +19,6 @@ namespace Microsoft.Extensions.DependencyInjection
             if (DI.Platform == Platform.Windows)
             {
                 services.AddSingleton<IDesktopPlatformService, WindowsDesktopPlatformServiceImpl>();
-                //if (hasSteam && RuntimeInformation.ProcessArchitecture == Architecture.X86)
                 if (hasSteam)
                 {
                     services.AddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();

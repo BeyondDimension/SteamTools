@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Options;
 using System.Application.Security;
 using System.Linq;
 using System.Properties;
@@ -74,6 +74,13 @@ namespace System.Application.Models
                 return rsa;
             }
         }
+
+#if __MOBILE__
+        [MPKey(4)]
+        [N_JsonProperty("4")]
+        [S_JsonProperty("4")]
+        public Guid MASLClientId { get; set; }
+#endif
 
         bool? mGetIsOfficialChannelPackage;
 

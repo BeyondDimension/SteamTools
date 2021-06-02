@@ -10,7 +10,9 @@ namespace System.Application.Services
 {
     public interface IDesktopPlatformService
     {
-        const string TAG = "DesktopPlatformS";
+        protected const string TAG = "DesktopPlatformS";
+
+        public static IDesktopPlatformService Instance => DI.Get<IDesktopPlatformService>();
 
         void SetResizeMode(IntPtr hWnd, ResizeMode value);
 

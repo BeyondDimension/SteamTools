@@ -10,6 +10,8 @@ namespace System.Application.UI
 {
     public partial class App : XFApplication
     {
+        public static new App Current => (App)XFApplication.Current;
+
         public App()
         {
             InitializeComponent();

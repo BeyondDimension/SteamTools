@@ -1,3 +1,4 @@
+#if FEATURE_HTTP_PROXY
 using System;
 using System.Application.Models;
 using System.Collections.Generic;
@@ -54,3 +55,4 @@ namespace System.Application.Services
         public void Dispose();
     }
 }
+#endif

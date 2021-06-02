@@ -1,3 +1,4 @@
+#if FEATURE_HTTP_PROXY
 using System;
 using System.Application.Models;
 using System.Application.Properties;
@@ -462,7 +463,7 @@ namespace System.Application.Services.Implementation
                 return false;
             }
 
-            #endregion
+#endregion
 #if DEBUG
             foreach (var endPoint in proxyServer.ProxyEndPoints)
                 Debug.WriteLine("Listening on '{0}' endpoint at Ip {1} and port: {2} ",
@@ -611,3 +612,4 @@ namespace System.Application.Services.Implementation
         }
     }
 }
+#endif

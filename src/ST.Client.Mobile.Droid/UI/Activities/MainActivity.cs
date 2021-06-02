@@ -1,8 +1,10 @@
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using AndroidX.AppCompat.App;
+using Microsoft.Identity.Client;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XEPlatform = Xamarin.Essentials.Platform;
@@ -30,6 +32,14 @@ namespace System.Application.UI.Activities
         {
             XEPlatform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            // Return control to MSAL
+            AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
         }
     }
 }

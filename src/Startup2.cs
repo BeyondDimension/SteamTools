@@ -141,6 +141,9 @@ namespace System.Application
             // 桌面平台服务 此项放在其他通用业务实现服务之前
             services.AddDesktopPlatformService(hasSteam);
 #endif
+#if __MOBILE__
+            services.AddMobilePlatformService();
+#endif
 #if StartupTrace
             StartupTrace.Restart("DI.ConfigureDemandServices.Calc");
 #endif
@@ -160,6 +163,8 @@ namespace System.Application
 #if __MOBILE__
                 // 添加电话服务
                 services.AddTelephonyService();
+
+                services.AddMSALPublicClientApp(AppSettings.MASLClientId);
 #else
                 services.AddSingleton<IDesktopAppService>(s => App.Instance);
                 services.AddSingleton<IDesktopAvaloniaAppService>(s => App.Instance);
@@ -240,7 +245,7 @@ namespace System.Application
             StartupTrace.Restart("DI.ConfigureDemandServices.ScriptManager");
 #endif
 
-#if !CONSOLEAPP
+#if !CONSOLEAPP && !__MOBILE__
             if (hasHttpProxy)
             {
                 // 通用 Http 代理服务
@@ -352,60 +357,67 @@ namespace System.Application
 #endif
 
 #if !CONSOLEAPP
-        static AppSettings AppSettings
+        static AppSettings? mAppSettings;
+        public static AppSettings AppSettings
         {
             get
             {
+                if (mAppSettings == null)
+                {
 #if StartupTrace
-                var stopwatch = Stopwatch.StartNew();
+                    var stopwatch = Stopwatch.StartNew();
 #endif
-                var options = new AppSettings
-                {
-                    AppVersion = GetResValueGuid("app-id", isSingle: false, ResValueFormat.StringGuidN),
-                    AesSecret = GetResValue("aes-key", isSingle: true, ResValueFormat.String),
-                    RSASecret = GetResValue("rsa-public-key", isSingle: false, ResValueFormat.String),
-                };
-                SetApiBaseUrl(options);
-#if StartupTrace
-                stopwatch.Stop();
-                Console.WriteLine($"Load AppSettings, value: {stopwatch.ElapsedMilliseconds}");
-#endif
-                return options;
-                static Guid GetResValueGuid(string name, bool isSingle, ResValueFormat format) => GetResValue(name, isSingle, format).TryParseGuidN() ?? default;
-                static string? GetResValue(string name, bool isSingle, ResValueFormat format)
-                {
-                    const string namespacePrefix = "System.Application.UI.Resources.";
-                    var assembly = Assembly.GetExecutingAssembly();
-                    Stream? func(string x) => assembly.GetManifestResourceStream(x);
-                    var r = AppClientAttribute.GetResValue(func, name, isSingle, namespacePrefix, format);
-                    return r;
-                }
-                static void SetApiBaseUrl(AppSettings s)
-                {
-#if DEBUG
-                    if (BuildConfig.IsAigioPC && Program.IsMainProcess)
+                    mAppSettings = new AppSettings
                     {
-                        try
-                        {
-                            var url = CSConst.Prefix_HTTPS + "localhost:5001";
-                            var request = WebRequest.CreateHttp(url);
-                            request.Timeout = 888;
-                            request.GetResponse();
-                            s.ApiBaseUrl = url;
-                            return;
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.WriteLine(e.ToString());
-                        }
-                    }
+                        AppVersion = GetResValueGuid("app-id", isSingle: false, ResValueFormat.StringGuidN),
+                        AesSecret = GetResValue("aes-key", isSingle: true, ResValueFormat.String),
+                        RSASecret = GetResValue("rsa-public-key", isSingle: false, ResValueFormat.String),
+#if __MOBILE__
+                        MASLClientId = GetResValueGuid("masl-client-id", isSingle: true, ResValueFormat.StringGuidN),
 #endif
-                    var value =
-                        (ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
-                        CSConst.Prefix_HTTPS + "pan.mossimo.net:8862" :
-                        CSConst.Prefix_HTTPS + "api.steampp.net";
-                    s.ApiBaseUrl = value;
+                    };
+                    SetApiBaseUrl(mAppSettings);
+#if StartupTrace
+                    stopwatch.Stop();
+                    Console.WriteLine($"Load AppSettings, value: {stopwatch.ElapsedMilliseconds}");
+#endif
+                    static Guid GetResValueGuid(string name, bool isSingle, ResValueFormat format) => GetResValue(name, isSingle, format).TryParseGuidN() ?? default;
+                    static string? GetResValue(string name, bool isSingle, ResValueFormat format)
+                    {
+                        const string namespacePrefix = "System.Application.UI.Resources.";
+                        var assembly = Assembly.GetExecutingAssembly();
+                        Stream? func(string x) => assembly.GetManifestResourceStream(x);
+                        var r = AppClientAttribute.GetResValue(func, name, isSingle, namespacePrefix, format);
+                        return r;
+                    }
+                    static void SetApiBaseUrl(AppSettings s)
+                    {
+#if DEBUG
+                        if (BuildConfig.IsAigioPC && Program.IsMainProcess)
+                        {
+                            try
+                            {
+                                var url = CSConst.Prefix_HTTPS + "localhost:5001";
+                                var request = WebRequest.CreateHttp(url);
+                                request.Timeout = 888;
+                                request.GetResponse();
+                                s.ApiBaseUrl = url;
+                                return;
+                            }
+                            catch (Exception e)
+                            {
+                                Debug.WriteLine(e.ToString());
+                            }
+                        }
+#endif
+                        var value =
+                            (ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
+                            CSConst.Prefix_HTTPS + "pan.mossimo.net:8862" :
+                            CSConst.Prefix_HTTPS + "api.steampp.net";
+                        s.ApiBaseUrl = value;
+                    }
                 }
+                return mAppSettings;
             }
         }
 #endif
