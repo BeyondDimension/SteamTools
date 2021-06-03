@@ -17,7 +17,10 @@
   <ContentPage.Resources>
     <converters:SwitchMultiValueConverter x:Key="SwitchMultiValueConverter"/>
     <ControlTemplate x:Key="AgreementAndPrivacy">
-      <Label HorizontalOptions="Center" BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}">
+      <Label HorizontalOptions="Center" 
+             BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}"
+             Margin="0 16"
+             FontSize="14">
         <Label.FormattedText>
           <FormattedString>
             <FormattedString.Spans>

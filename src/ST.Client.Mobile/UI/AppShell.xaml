@@ -43,6 +43,8 @@
       <Style x:Key="PathIcon" TargetType="Path">
         <Setter Property="Aspect" Value="Uniform" />
         <Setter Property="Fill" Value="White" />
+        <Setter Property="Stroke" Value="Transparent" />
+        <Setter Property="StrokeThickness" Value="0" />
         <Setter Property="HeightRequest" Value="32" />
         <Setter Property="WidthRequest" Value="32" />
       </Style>

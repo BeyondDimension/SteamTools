@@ -8,7 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddMSALPublicClientApp(this IServiceCollection services, Guid clientId)
         {
-            if (clientId != default)
+            if (clientId != default && DI.Platform == Platform.Android)
             {
                 // https://docs.microsoft.com/en-us/azure/active-directory/develop/msal-client-application-configuration#client-id
                 var publicClientApp = PublicClientApplicationBuilder.Create(clientId.ToString())

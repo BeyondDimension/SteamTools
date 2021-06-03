@@ -1,4 +1,4 @@
-﻿extern alias NUGET_PACKAGE_TOAST_IOS;
+extern alias NUGET_PACKAGE_TOAST_IOS;
 
 using Microsoft.Extensions.DependencyInjection;
 using iOSToast = NUGET_PACKAGE_TOAST_IOS::GlobalToast.Toast;
@@ -18,6 +18,7 @@ namespace System.Application.Services.Implementation
         {
             iOSToast.ShowToast(text)
                 .SetDuration(duration)
+                .SetShowShadow(false)
                 .Show();
         }
 
