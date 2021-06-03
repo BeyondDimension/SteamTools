@@ -168,11 +168,15 @@ namespace System.Application.Services
                         {
                             if (DI.Platform == Platform.Windows)
                             {
-                                var p = DI.Get<IDesktopPlatformService>().GetProcessByPortOccupy(443, true);
-                                if (p != null)
+                                var inUse = httpProxyService.PortInUse(443);
+                                if (inUse)
                                 {
-                                    Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, p.ProcessName));
-                                    return;
+                                    var p = DI.Get<IDesktopPlatformService>().GetProcessByPortOccupy(443, true);
+                                    if (p != null)
+                                    {
+                                        Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, p.ProcessName));
+                                        return;
+                                    }
                                 }
                             }
                             else
