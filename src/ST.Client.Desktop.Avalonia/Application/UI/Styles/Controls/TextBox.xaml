@@ -167,7 +167,16 @@
       </ControlTemplate>
     </Setter>
   </Style>
-
+  
+  <Style Selector="TextBox.revealPasswordButton[AcceptsReturn=False]:not(TextBox:empty)">
+    <Setter Property="InnerRightContent">
+      <Template>
+        <ToggleButton Classes="passwordBoxRevealButton"
+                      IsChecked="{Binding $parent[TextBox].RevealPassword, Mode=TwoWay}" />
+      </Template>
+    </Setter>
+  </Style>
+  
   <Style Selector="TextBox.readonlybox">
     <Setter Property="Background" Value="Transparent"/>
     <Setter Property="BorderBrush" Value="Transparent"/>
