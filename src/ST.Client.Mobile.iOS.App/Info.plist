@@ -27,7 +27,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>net.steampp.app</string>
 	<key>CFBundleVersion</key>
-	<string>2.0.0.1</string>
+	<string>2.3.1.1</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
@@ -35,6 +35,6 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0.0</string>
+	<string>2.3.1</string>
 </dict>
 </plist>

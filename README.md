@@ -22,7 +22,7 @@
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FSteamTools-Team%2FSteamTools%2Fbadge%3Fref%3Ddevelop&style=flat-square)](https://actions-badge.atrox.dev/SteamTools-Team/SteamTools/goto?ref=develop)
 [![GitHub Star](https://img.shields.io/github/stars/rmbadmin/SteamTools.svg?style=social)](https://github.com/SteamTools-Team/SteamTools)
 [![Gitee Star](https://gitee.com/rmbgame/SteamTools/badge/star.svg)](https://gitee.com/rmbgame/SteamTools)
-[![](https://img.shields.io/badge/QQ群-479036439-blue.svg?style=flat-square&color=12b7f5)](https://jq.qq.com/?_wv=1027&k=MWH729dD)
+[![QQ群](https://img.shields.io/badge/QQ群-101075312-blue.svg?style=flat-square&color=12b7f5)](https://qm.qq.com/cgi-bin/qm/qr?k=JVlZF31RKSDqcsxfEaw6AQE75P2NF18F&jump_from=webapi)
 </div>
 
 <div align="center"><img src="./resources/screenshots.jpg" /></div>
@@ -165,6 +165,9 @@
 * [MSBuild.Sdk.Extras](https://github.com/novotnyllc/MSBuildSdkExtras)
 * [Xamarin.Essentials](https://github.com/xamarin/essentials)
 * [Xamarin.Forms](https://github.com/xamarin/Xamarin.Forms)
+* [Open Source Components for Xamarin](https://github.com/xamarin/XamarinComponents)
+* [AndroidX for Xamarin.Android](https://github.com/xamarin/AndroidX)
+* [MSAL.NET](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet)
 * [Entity Framework Core](https://github.com/dotnet/efcore)
 * [ASP.NET Core](https://github.com/dotnet/aspnetcore)
 * [Windows Forms](https://github.com/dotnet/winforms)
@@ -173,3 +176,4 @@
 * [command-line-api](https://github.com/dotnet/command-line-api)
 * [.NET Runtime](https://github.com/dotnet/runtime)
 * [Fluent UI System Icons](https://github.com/microsoft/fluentui-system-icons)
+* [Material design icons](https://github.com/google/material-design-icons)

@@ -48,8 +48,8 @@
     </ResourceDictionary>
   </Shell.Resources>
   <TabBar>
-    <ShellContent Title="About" Icon="icon_about.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}"/>
-    <ShellContent Title="Browse" Icon="icon_feed.png" Route="BrowsePage" ContentTemplate="{DataTemplate local:ItemsPage}"/>
+    <ShellContent Title="About" Icon="baseline_home_repair_service_black_24" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}"/>
+    <ShellContent Title="Browse" Icon="baseline_person_black_24" Route="BrowsePage" ContentTemplate="{DataTemplate local:ItemsPage}"/>
   </TabBar>
   <TabBar>
     <ShellContent Route="LoginOrRegister" ContentTemplate="{DataTemplate local:LoginOrRegisterPage}"/>
