@@ -5,6 +5,7 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Windows;
 using AvaloniaApplication = Avalonia.Application;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace System.Application.UI
 {
@@ -121,6 +122,7 @@ namespace System.Application.UI
                 devtools.Handler = CommandHandler.Create(() =>
                 {
                     AppHelper.EnableDevtools = true;
+                    AppHelper.LoggerMinLevel = LogLevel.Debug;
                     MainHandlerByCLT();
                 });
                 rootCommand.AddCommand(devtools);

@@ -900,6 +900,9 @@
   <data name="MoveUp" xml:space="preserve">
     <value>上移</value>
   </data>
+  <data name="My" xml:space="preserve">
+    <value>我的</value>
+  </data>
   <data name="NickName" xml:space="preserve">
     <value>昵称</value>
   </data>
@@ -1156,6 +1159,9 @@
   </data>
   <data name="Success_" xml:space="preserve">
     <value>{0}成功</value>
+  </data>
+  <data name="Toolbox" xml:space="preserve">
+    <value>工具箱</value>
   </data>
   <data name="Unbound" xml:space="preserve">
     <value>未绑定</value>

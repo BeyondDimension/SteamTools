@@ -3,6 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:System.Application.UI.Views"
        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Mobile"
+       xmlns:resx="clr-namespace:System.Application.UI.Resx"
        Title="Steam++"
        Visual="Material"
        x:Class="System.Application.UI.AppShell">
@@ -48,8 +49,8 @@
     </ResourceDictionary>
   </Shell.Resources>
   <TabBar>
-    <ShellContent Title="About" Icon="baseline_home_repair_service_black_24" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}"/>
-    <ShellContent Title="Browse" Icon="baseline_person_black_24" Route="BrowsePage" ContentTemplate="{DataTemplate local:ItemsPage}"/>
+    <ShellContent Title="{x:Static resx:AppResources.Toolbox}" Icon="baseline_home_repair_service_black_24" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}"/>
+    <ShellContent Title="{x:Static resx:AppResources.My}" Icon="baseline_person_black_24" Route="MyPage" ContentTemplate="{DataTemplate local:MyPage}"/>
   </TabBar>
   <TabBar>
     <ShellContent Route="LoginOrRegister" ContentTemplate="{DataTemplate local:LoginOrRegisterPage}"/>
