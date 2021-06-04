@@ -295,7 +295,7 @@ namespace System.Application.UI
 #if UI_DEMO
                     ShutdownMode.OnMainWindowClose;
 #else
-                Startup.HasNotifyIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnLastWindowClose;
+                Startup.HasNotifyIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnMainWindowClose;
 #endif
             }
 

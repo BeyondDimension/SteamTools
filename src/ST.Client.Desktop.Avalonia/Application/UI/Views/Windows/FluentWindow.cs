@@ -60,7 +60,7 @@ namespace Avalonia.Controls
             }
         }
 
-        bool _isOpenWindow;
+        protected bool _isOpenWindow;
         private void FluentWindow_Opened(object? sender, EventArgs e)
         {
             _isOpenWindow = true;
