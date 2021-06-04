@@ -16,7 +16,7 @@ namespace Avalonia.Controls
     {
         Type IStyleable.StyleKey => typeof(Window);
 
-        public FluentWindow()
+        public FluentWindow(bool isSaveStatus = true)
         {
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
@@ -42,8 +42,11 @@ namespace Avalonia.Controls
                     }
                 });
 
-            this.Opened += FluentWindow_Opened;
-            this.PositionChanged += FluentWindow_PositionChanged;
+            if (isSaveStatus)
+            {
+                this.Opened += FluentWindow_Opened;
+                this.PositionChanged += FluentWindow_PositionChanged;
+            }
         }
 
         private void FluentWindow_PositionChanged(object? sender, PixelPointEventArgs e)

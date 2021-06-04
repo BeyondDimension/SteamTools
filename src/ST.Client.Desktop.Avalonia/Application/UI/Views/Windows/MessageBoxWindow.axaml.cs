@@ -7,9 +7,9 @@ using System.Reflection;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class MessageBoxWindow : Window
+    public class MessageBoxWindow : FluentWindow
     {
-        public MessageBoxWindow() : base()
+        public MessageBoxWindow() : base(false)
         {
             //if (PlatformImpl is Win32WindowImpl win)
             //{

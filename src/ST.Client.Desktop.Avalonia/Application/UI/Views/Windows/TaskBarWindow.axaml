@@ -23,7 +23,7 @@
         <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
       </ExperimentalAcrylicBorder.Material>
     </ExperimentalAcrylicBorder>
-    <StackPanel Spacing="8">
+    <StackPanel Spacing="8" Background="Transparent">
       <StackPanel.Styles>
         <Style Selector="Button">
           <Setter Property="Background" Value="Transparent"></Setter>

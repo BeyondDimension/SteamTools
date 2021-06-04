@@ -5,9 +5,9 @@ using Avalonia.Markup.Xaml;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class PasswordWindow : Window
+    public class PasswordWindow : FluentWindow
     {
-        public PasswordWindow() : base()
+        public PasswordWindow() : base(false)
         {
             InitializeComponent();
 #if DEBUG
