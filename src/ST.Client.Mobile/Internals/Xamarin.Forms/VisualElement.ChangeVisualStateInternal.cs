@@ -2,14 +2,14 @@ using System;
 using System.Reflection;
 
 // ReSharper disable once CheckNamespace
-namespace Xamarin.Forms
+namespace Xamarin.Forms.Internals
 {
-    public interface IVisualElement_ChangeVisualStateInternal
+    internal interface IVisualElement_ChangeVisualStateInternal
     {
         void ChangeVisualStateInternal();
     }
 
-    public static partial class VisualElementExtensions
+    internal static partial class VisualElementExtensions
     {
         static readonly Lazy<MethodInfo> mChangeVisualStateInternal = new(() =>
         {

@@ -19,7 +19,7 @@
     <ControlTemplate x:Key="AgreementAndPrivacy">
       <Label HorizontalOptions="Center" 
              BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}"
-             Margin="0 16"
+             Margin="16,0"
              FontSize="14">
         <Label.FormattedText>
           <FormattedString>

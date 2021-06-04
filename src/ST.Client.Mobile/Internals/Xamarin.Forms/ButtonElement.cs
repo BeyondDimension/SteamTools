@@ -6,7 +6,7 @@ using Xamarin.Forms.Internals;
 // ReSharper disable once CheckNamespace
 namespace Xamarin.Forms
 {
-    public static class ButtonElement
+    internal static class ButtonElement
     {
         public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(IButtonElement.Command), typeof(ICommand), typeof(IButtonElement), null, propertyChanging: OnCommandChanging, propertyChanged: OnCommandChanged);
 

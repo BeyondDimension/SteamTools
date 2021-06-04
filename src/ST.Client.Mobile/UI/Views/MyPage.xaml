@@ -5,6 +5,14 @@
              x:Class="System.Application.UI.Views.MyPage"
              Title="{x:Static resx:AppResources.My}">
   <ContentPage.Resources>
+    <OnPlatform x:Key="baseline_phone_black_24" 
+                x:TypeArguments="FileImageSource" 
+                Default="baseline_phone_iphone_black_24">
+      <OnPlatform.Platforms>
+        <!--<On Platform="iOS" Value="baseline_phone_iphone_black_24" />-->
+        <On Platform="Android" Value="baseline_phone_android_black_24" />
+      </OnPlatform.Platforms>
+    </OnPlatform>
   </ContentPage.Resources>
   <ContentPage.Content>
     <TableView>
@@ -12,26 +20,8 @@
         <TableSection>
           <ImageCell ImageSource="baseline_person_black_24" Text="NickName" />
           <ImageCell ImageSource="baseline_account_box_black_24" Text="{x:Static resx:AppResources.User_EditProfile}" />
-          <ImageCell Text="{x:Static resx:AppResources.User_BindPhoneNum}">
-            <ImageCell.ImageSource>
-              <OnPlatform x:TypeArguments="FileImageSource">
-                <OnPlatform.Platforms>
-                  <On Platform="iOS" Value="baseline_phone_iphone_black_24" />
-                  <On Platform="Android" Value="baseline_phone_android_black_24" />
-                </OnPlatform.Platforms>
-              </OnPlatform>
-            </ImageCell.ImageSource>
-          </ImageCell>
-          <ImageCell Text="{x:Static resx:AppResources.User_ChangePhoneNum}">
-            <ImageCell.ImageSource>
-              <OnPlatform x:TypeArguments="FileImageSource">
-                <OnPlatform.Platforms>
-                  <On Platform="iOS" Value="baseline_phone_iphone_black_24" />
-                  <On Platform="Android" Value="baseline_phone_android_black_24" />
-                </OnPlatform.Platforms>
-              </OnPlatform>
-            </ImageCell.ImageSource>
-          </ImageCell>
+          <ImageCell ImageSource="{x:StaticResource Key=baseline_phone_black_24}" Text="{x:Static resx:AppResources.User_BindPhoneNum}" />
+          <ImageCell ImageSource="{x:StaticResource Key=baseline_phone_black_24}" Text="{x:Static resx:AppResources.User_ChangePhoneNum}" />
           <ImageCell ImageSource="baseline_settings_black_24" Text="{x:Static resx:AppResources.Settings}" />
           <ImageCell ImageSource="baseline_info_black_24" Text="{x:Static resx:AppResources.About}" />
         </TableSection>

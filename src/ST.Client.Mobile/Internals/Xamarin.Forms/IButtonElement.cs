@@ -7,7 +7,7 @@ using System.Windows.Input;
 namespace Xamarin.Forms.Internals
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public interface IButtonElement
+    internal interface IButtonElement
     {
         //note to implementor: implement this property publicly
         object CommandParameter { get; set; }

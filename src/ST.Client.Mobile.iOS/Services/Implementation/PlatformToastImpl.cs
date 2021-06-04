@@ -16,9 +16,10 @@ namespace System.Application.Services.Implementation
 
         protected override void PlatformShow(string text, int duration)
         {
-            iOSToast.ShowToast(text)
+            _ = iOSToast.ShowToast(text)
                 .SetDuration(duration)
                 .SetShowShadow(false)
+                .SetAutoDismiss(true)
                 .Show();
         }
 
