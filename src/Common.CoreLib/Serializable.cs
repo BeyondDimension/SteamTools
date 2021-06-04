@@ -3,6 +3,8 @@ using MessagePack;
 #endif
 #if !NOT_NJSON
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using System;
 #endif
 using System.Collections.Generic;
@@ -14,7 +16,6 @@ using System.Text.Json;
 using System.Threading;
 #if !NOT_NJSON
 using static Newtonsoft.Json.JsonConvert;
-using Newtonsoft.Json.Serialization;
 #endif
 using static System.Serializable;
 using SJsonSerializer = System.Text.Json.JsonSerializer;
