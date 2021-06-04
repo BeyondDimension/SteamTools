@@ -14,6 +14,7 @@ using System.Text.Json;
 using System.Threading;
 #if !NOT_NJSON
 using static Newtonsoft.Json.JsonConvert;
+using Newtonsoft.Json.Serialization;
 #endif
 using static System.Serializable;
 using SJsonSerializer = System.Text.Json.JsonSerializer;
@@ -285,6 +286,39 @@ namespace System
             return MessagePackSerializer.Deserialize<T>(bytes);
 #endif
         }
+
+#if !NOT_NJSON
+        static readonly Lazy<JsonSerializerSettings> mIgnoreJsonPropertyContractResolverWithStringEnumConverterSettings = new(GetIgnoreJsonPropertyContractResolverWithStringEnumConverterSettings);
+
+        static JsonSerializerSettings GetIgnoreJsonPropertyContractResolverWithStringEnumConverterSettings() => new()
+        {
+            ContractResolver = new IgnoreJsonPropertyContractResolver(),
+            Converters = new List<JsonConverter>
+            {
+                new StringEnumConverter(),
+            },
+        };
+
+        public static JsonSerializerSettings IgnoreJsonPropertyContractResolverWithStringEnumConverterSettings => mIgnoreJsonPropertyContractResolverWithStringEnumConverterSettings.Value;
+
+        /// <summary>
+        /// 序列化 JSON 模型，使用原键名
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string SJSON_Original(object? value)
+            => SerializeObject(value, Formatting.Indented, Serializable.IgnoreJsonPropertyContractResolverWithStringEnumConverterSettings);
+
+        /// <summary>
+        /// 反序列化 JSON 模型，使用原键名
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [return: MaybeNull]
+        public static T DJSON_Original<T>(string value)
+            => DeserializeObject<T>(value, Serializable.IgnoreJsonPropertyContractResolverWithStringEnumConverterSettings);
+#endif
     }
 
     public interface ICloneableSerializable
@@ -336,6 +370,7 @@ namespace System
     }
 }
 
+#if !NOT_NJSON
 namespace Newtonsoft.Json.Serialization
 {
     /// <summary>
@@ -364,3 +399,4 @@ namespace Newtonsoft.Json.Serialization
         }
     }
 }
+#endif

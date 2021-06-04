@@ -12,10 +12,11 @@ using System.Linq;
 using System.Net;
 using System.Properties;
 using System.Reactive.Linq;
+using System.Security;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Security;
 
 namespace System.Application.Services
 {
@@ -364,25 +365,34 @@ namespace System.Application.Services
 
         private void LoadOrSaveLocalAccelerate()
         {
-            var filepath = Path.Combine(IOPath.CacheDirectory, "Accelerates.json");
+            var filepath = Path.Combine(IOPath.AppDataDirectory, "LOCAL_ACCELERATE.json");
             var file = new FileInfo(filepath);
             if (ProxyDomains.Items.Any_Nullable())
             {
                 using var stream = file.Open(FileMode.Create, FileAccess.Write);
-                var content = Serializable.SJSON(ProxyDomains.Items);
-                stream.Write(Text.Encoding.UTF8.GetBytes(content));
-                stream.Close();
+                using var writer = new StreamWriter(stream, Encoding.UTF8);
+                var content = Serializable.SJSON_Original(ProxyDomains.Items);
+                writer.Write(content);
+                writer.Flush();
             }
             else
             {
                 if (file.Exists)
                 {
-                    using var stream = file.Open(FileMode.Open, FileAccess.ReadWrite);
+                    using var stream = file.Open(FileMode.Open, FileAccess.Read);
                     ProxyDomains.Clear();
-                    var accelerates = Serializable.DJSON<List<AccelerateProjectGroupDTO>>(stream.ReadStringUnicode());
+                    using var reader = new StreamReader(stream, Encoding.UTF8);
+                    var content = reader.ReadToEnd();
+                    List<AccelerateProjectGroupDTO>? accelerates = null;
+                    try
+                    {
+                        accelerates = Serializable.DJSON_Original<List<AccelerateProjectGroupDTO>>(content);
+                    }
+                    catch
+                    {
+                    }
                     if (accelerates.Any_Nullable())
                         ProxyDomains.AddRange(accelerates!);
-                    stream.Close();
                 }
             }
         }
@@ -487,7 +497,6 @@ namespace System.Application.Services
             {
                 isbuild = oldInfo.IsBuild;
                 order = oldInfo.Order;
-
             }
             var item = await DI.Get<IScriptManagerService>().AddScriptAsync(fileInfo, info, oldInfo, build: isbuild, order: order);
             if (item.state)
