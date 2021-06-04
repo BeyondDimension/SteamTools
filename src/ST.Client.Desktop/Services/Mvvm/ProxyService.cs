@@ -364,13 +364,13 @@ namespace System.Application.Services
 
         private void LoadOrSaveLocalAccelerate()
         {
-            var filepath = Path.Combine(IOPath.AppDataDirectory, "Accelerates.json");
+            var filepath = Path.Combine(IOPath.CacheDirectory, "Accelerates.json");
             var file = new FileInfo(filepath);
             if (ProxyDomains.Items.Any_Nullable())
             {
                 using var stream = file.Open(FileMode.Create, FileAccess.Write);
                 var content = Serializable.SJSON(ProxyDomains.Items);
-                stream.Write(Text.Encoding.ASCII.GetBytes(content));
+                stream.Write(Text.Encoding.UTF8.GetBytes(content));
                 stream.Close();
             }
             else
@@ -379,7 +379,7 @@ namespace System.Application.Services
                 {
                     using var stream = file.Open(FileMode.Open, FileAccess.ReadWrite);
                     ProxyDomains.Clear();
-                    var accelerates = Serializable.DJSON<List<AccelerateProjectGroupDTO>>(stream.ReadStringAscii());
+                    var accelerates = Serializable.DJSON<List<AccelerateProjectGroupDTO>>(stream.ReadStringUnicode());
                     if (accelerates.Any_Nullable())
                         ProxyDomains.AddRange(accelerates!);
                     stream.Close();
