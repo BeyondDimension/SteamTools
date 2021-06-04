@@ -312,14 +312,6 @@
                                         Stretch="UniformToFill"
                                         DecodeWidth="{ReflectionBinding $parent.Width}"
                                         Source="{Binding LibraryLogoStream^}">
-                      <!--<i:Interaction.Behaviors>
-                                                <ia:DataTriggerBehavior Binding="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}" ComparisonCondition="Equal" Value="True">
-                                                    <ia:ChangePropertyAction TargetObject="{ReflectionBinding #library}" PropertyName="Source" Value="{Binding LibraryLogoStream}"/>
-                                                </ia:DataTriggerBehavior>
-                                                <ia:DataTriggerBehavior Binding="{Binding LibraryLogoStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}" ComparisonCondition="Equal" Value="False">
-                                                    <ia:ChangePropertyAction TargetObject="{ReflectionBinding #library}" PropertyName="Source" Value="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/16.png"/>
-                                                </ia:DataTriggerBehavior>
-                                            </i:Interaction.Behaviors>-->
                     </gif:Image2>
                     <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png" Stretch="UniformToFill" IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}">
                     </Image>
