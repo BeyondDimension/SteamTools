@@ -26,23 +26,23 @@ namespace System.Application.Services
 
         public ProxyService()
         {
+            ProxyDomains = new SourceList<AccelerateProjectGroupDTO>();
             ProxyScripts = new SourceList<ScriptDTO>();
             httpProxyService.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.BouncyCastle;
+
+            this.ProxyDomains
+                     .Connect()
+                     //.Filter(scriptFilter)
+                     .ObserveOn(RxApp.MainThreadScheduler)
+                     .Sort(SortExpressionComparer<AccelerateProjectGroupDTO>.Ascending(x => x.Order).ThenBy(x => x.Name))
+                     .Bind(out _ProxyDomainsList)
+                     .Subscribe(_ => SelectGroup = ProxyDomains.Items.FirstOrDefault());
         }
 
-        private ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? _ProxyDomains;
-        public ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? ProxyDomains
-        {
-            get => _ProxyDomains;
-            set
-            {
-                if (_ProxyDomains != value)
-                {
-                    _ProxyDomains = value;
-                    this.RaisePropertyChanged();
-                }
-            }
-        }
+        public SourceList<AccelerateProjectGroupDTO> ProxyDomains { get; }
+
+        private ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? _ProxyDomainsList;
+        public ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? ProxyDomainsList => _ProxyDomainsList;
 
         bool _IsLoading;
         public bool IsLoading
@@ -64,9 +64,9 @@ namespace System.Application.Services
         {
             get
             {
-                if (!ProxyDomains.Any_Nullable())
+                if (!ProxyDomains.Items.Any_Nullable())
                     return null;
-                return ProxyDomains!.SelectMany(s =>
+                return ProxyDomains.Items.SelectMany(s =>
                 {
                     return s.Items.Where(w => w.Enable);
                 }).ToArray();
@@ -166,28 +166,28 @@ namespace System.Application.Services
 
                         if (!ProxySettings.EnableWindowsProxy.Value)
                         {
-                            if (DI.Platform == Platform.Windows)
+                            //if (DI.Platform == Platform.Windows)
+                            //{
+                            //    var inUse = httpProxyService.PortInUse(443);
+                            //    if (inUse)
+                            //    {
+                            //        var p = DI.Get<IDesktopPlatformService>().GetProcessByPortOccupy(443, true);
+                            //        if (p != null)
+                            //        {
+                            //            Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, p.ProcessName));
+                            //            return;
+                            //        }
+                            //    }
+                            //}
+                            //else
+                            //{
+                            var inUse = httpProxyService.PortInUse(443);
+                            if (inUse)
                             {
-                                var inUse = httpProxyService.PortInUse(443);
-                                if (inUse)
-                                {
-                                    var p = DI.Get<IDesktopPlatformService>().GetProcessByPortOccupy(443, true);
-                                    if (p != null)
-                                    {
-                                        Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, p.ProcessName));
-                                        return;
-                                    }
-                                }
+                                Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, ""));
+                                return;
                             }
-                            else
-                            {
-                                var inUse = httpProxyService.PortInUse(443);
-                                if (inUse)
-                                {
-                                    Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, ""));
-                                    return;
-                                }
-                            }
+                            //}
                         }
 
                         var isRun = httpProxyService.StartProxy(ProxySettings.EnableWindowsProxy.Value, ProxySettings.IsProxyGOG.Value);
@@ -291,30 +291,34 @@ namespace System.Application.Services
                     }
                 }
 
-                ProxyDomains = new ReadOnlyObservableCollection<AccelerateProjectGroupDTO>(new ObservableCollection<AccelerateProjectGroupDTO>(result.Content!));
+                ProxyDomains.Clear();
+                ProxyDomains.AddRange(result.Content);
+            }
 
-                foreach (var item in ProxyDomains)
+            LoadOrSaveLocalAccelerate();
+
+            if (ProxyDomains.Items.Any_Nullable())
+            {
+                foreach (var item in ProxyDomains.Items)
                 {
                     item.ImageStream = IHttpService.Instance.GetImageAsync(ImageUrlHelper.GetImageApiUrlById(item.ImageId), ImageChannelType.AccelerateGroup);
                 }
-
-                SelectGroup = ProxyDomains.FirstOrDefault();
-
-                this.WhenAnyValue(v => v.ProxyDomains)
-                      .Subscribe(domain => domain?
-                      .ToObservableChangeSet()
-                      .AutoRefresh(x => x.ObservableItems)
-                      .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
-                      .AutoRefresh(x => x.Enable)
-                      .WhenPropertyChanged(x => x.Enable, false)
-                      .Subscribe(_ =>
-                      {
-                          if (EnableProxyDomains != null)
-                          {
-                              ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Select(k => k.Id.ToString()).ToList();
-                          }
-                      }));
             }
+
+            this.WhenAnyValue(v => v.ProxyDomainsList)
+                  .Subscribe(domain => domain?
+                  .ToObservableChangeSet()
+                  .AutoRefresh(x => x.ObservableItems)
+                  .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
+                  .AutoRefresh(x => x.Enable)
+                  .WhenPropertyChanged(x => x.Enable, false)
+                  .Subscribe(_ =>
+                  {
+                      if (EnableProxyDomains != null)
+                      {
+                          ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Select(k => k.Id.ToString()).ToList();
+                      }
+                  }));
             #endregion
         }
 
@@ -356,6 +360,31 @@ namespace System.Application.Services
                       this.RaisePropertyChanged(nameof(EnableProxyScripts));
                   }));
             #endregion
+        }
+
+        private void LoadOrSaveLocalAccelerate()
+        {
+            var filepath = Path.Combine(IOPath.AppDataDirectory, "Accelerates.json");
+            var file = new FileInfo(filepath);
+            if (ProxyDomains.Items.Any_Nullable())
+            {
+                using var stream = file.Open(FileMode.Create, FileAccess.Write);
+                var content = Serializable.SJSON(ProxyDomains.Items);
+                stream.Write(Text.Encoding.ASCII.GetBytes(content));
+                stream.Close();
+            }
+            else
+            {
+                if (file.Exists)
+                {
+                    using var stream = file.Open(FileMode.Open, FileAccess.ReadWrite);
+                    ProxyDomains.Clear();
+                    var accelerates = Serializable.DJSON<List<AccelerateProjectGroupDTO>>(stream.ReadStringAscii());
+                    if (accelerates.Any_Nullable())
+                        ProxyDomains.AddRange(accelerates!);
+                    stream.Close();
+                }
+            }
         }
 
         public async void BasicsInfo()
