@@ -68,7 +68,7 @@ namespace System.Application.Models.Settings
         /// 库存游戏封面大小
         /// </summary>
         public static SerializableProperty<int> AppGridSize { get; }
-            = new SerializableProperty<int>(GetKey(), Providers.Local, 200) { AutoSave = true };
+            = new SerializableProperty<int>(GetKey(), Providers.Local, 150) { AutoSave = true };
 
         /// <summary>
         /// 所有窗口位置记忆集合
