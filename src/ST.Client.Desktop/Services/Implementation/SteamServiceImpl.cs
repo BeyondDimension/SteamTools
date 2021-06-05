@@ -9,9 +9,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using static System.Application.Services.ISteamService;
 
@@ -622,23 +622,24 @@ namespace System.Application.Services.Implementation
             return cookies;
         }
 
+        [SupportedOSPlatform("Windows")]
         (LoginUsingSteamClientResultCode resultCode, string[]? cookies) GetLoginUsingSteamClientCookies()
         {
-            if (AppHelper.ProgramPath.EndsWith(FileEx.EXE))
+            if (AppHelper.ProgramPath.EndsWith(FileEx.EXE, StringComparison.OrdinalIgnoreCase))
             {
                 var consoleProgramPath = AppHelper.ProgramPath.Substring(0, AppHelper.ProgramPath.Length - FileEx.EXE.Length) + ".Console" + FileEx.EXE;
                 if (File.Exists(consoleProgramPath))
                 {
-                    //var pipeClient = new Process();
-                    //pipeClient.StartInfo.FileName = "runas.exe";
-
                     var tempFileDirectoryName = IOPath.CacheDirectory;
                     var tempFileName = Path.GetFileName(Path.GetTempFileName());
                     var tempFilePath = Path.Combine(tempFileDirectoryName, tempFileName);
-                    bool isDelTempFilePath = false;
+                    var isDelTempFilePath = false;
                     IOPath.FileIfExistsItDelete(tempFilePath);
 
-                    using var watcher = new FileSystemWatcher(tempFileDirectoryName, tempFileName)
+                    byte[]? value = null;
+                    using var rsa = RSA.Create(2048);
+
+                    using (var watcher = new FileSystemWatcher(tempFileDirectoryName, tempFileName)
                     {
                         NotifyFilter = NotifyFilters.Attributes
                             | NotifyFilters.CreationTime
@@ -648,63 +649,62 @@ namespace System.Application.Services.Implementation
                             | NotifyFilters.LastWrite
                             | NotifyFilters.Security
                             | NotifyFilters.Size,
-                    };
-
-                    var connStr = tempFilePath;
-                    using var rsa = RSA.Create(2048);
-                    var rsaPK = rsa.ToJsonString(false);
-                    var key = Serializable.SMPB64U((connStr, rsaPK));
-                    //pipeClient.StartInfo.Arguments = $"/trustlevel:0x20000 \"\"{consoleProgramPath}\" getstmauth -key \"{connStr}\"\"";
-                    //pipeClient.StartInfo.UseShellExecute = false;
-                    try
+                    })
                     {
-                        //pipeClient.Start();
-
-                        //pipeClient.WaitForExit();
-                        //pipeClient.Close();
-
-                        var command = $"runas.exe /trustlevel:0x20000 \"\"{consoleProgramPath}\" getstmauth -key \"{key}\"\"";
-                        platformService.UnelevatedProcessStart(command);
-
-                        watcher.WaitForChanged(WatcherChangeTypes.Changed, IPC_Call_GetLoginUsingSteamClient_Timeout_MS);
-                        if (File.Exists(tempFilePath))
-                        {
-                            var value = File.ReadAllBytes(tempFilePath);
-                            try
-                            {
-                                File.Delete(tempFilePath);
-                                isDelTempFilePath = true;
-                            }
-                            catch
-                            {
-                                isDelTempFilePath = false;
-                            }
-                            try
-                            {
-                                var fileBytes = Serializable.DMP<(byte[] cookiesBytes, byte[] aesKey)>(value);
-                                var aesKey = rsa.Decrypt(fileBytes.aesKey);
-                                using var aes = AESUtils.Create(aesKey);
-                                var cookiesBytes = aes.Decrypt(fileBytes.cookiesBytes);
-                                var cookies = Serializable.DMP<(LoginUsingSteamClientResultCode resultCode, string[]? result)>(cookiesBytes);
-                                return cookies;
-                            }
-                            catch
-                            {
-                            }
-                        }
-                    }
-                    catch
-                    {
-                    }
-                    if (!isDelTempFilePath)
-                    {
+                        var connStr = tempFilePath;
+                        var rsaPK = rsa.ToJsonString(false);
+                        var key = Serializable.SMPB64U((connStr, rsaPK));
                         try
                         {
-                            IOPath.FileIfExistsItDelete(tempFilePath, true);
+                            var command = $"runas.exe /trustlevel:0x20000 \"\"{consoleProgramPath}\" getstmauth -key \"{key}\"\"";
+                            platformService.UnelevatedProcessStart(command);
+
+                            watcher.WaitForChanged(WatcherChangeTypes.Changed, IPC_Call_GetLoginUsingSteamClient_Timeout_MS);
+                            if (File.Exists(tempFilePath))
+                            {
+                                value = File.ReadAllBytes(tempFilePath);
+                            }
                         }
                         catch
                         {
+                        }
+                    }
 
+                    if (value != null)
+                    {
+                        try
+                        {
+                            File.Delete(tempFilePath);
+                            isDelTempFilePath = true;
+                        }
+                        catch
+                        {
+                            isDelTempFilePath = false;
+                        }
+                        try
+                        {
+                            var fileBytes = Serializable.DMP<(byte[] cookiesBytes, byte[] aesKey)>(value);
+                            var aesKey = rsa.Decrypt(fileBytes.aesKey);
+                            using var aes = AESUtils.Create(aesKey);
+                            var cookiesBytes = aes.Decrypt(fileBytes.cookiesBytes);
+                            var cookies = Serializable.DMP<(LoginUsingSteamClientResultCode resultCode, string[]? result)>(cookiesBytes);
+                            return cookies;
+                        }
+                        catch
+                        {
+                        }
+                        finally
+                        {
+                            if (!isDelTempFilePath)
+                            {
+                                try
+                                {
+                                    IOPath.FileIfExistsItDelete(tempFilePath, true);
+                                }
+                                catch
+                                {
+                                }
+                            }
                         }
                     }
                 }
