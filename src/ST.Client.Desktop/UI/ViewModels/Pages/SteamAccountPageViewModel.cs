@@ -106,6 +106,17 @@ namespace System.Application.UI.ViewModels
                 user.AvatarMedium = temp.AvatarMedium;
                 user.AvatarFull = temp.AvatarFull;
                 user.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
+
+                if (DI.Platform == Platform.Windows)
+                {
+                    var title = user.SteamNickName;
+                    if (!string.IsNullOrEmpty(user.Remark))
+                    {
+                        title = user.SteamNickName + "(" + user.Remark + ")";
+                    }
+
+                    DI.Get<ISystemJumpListService>().AddJumpTask(title, AppHelper.ProgramPath, AppHelper.ProgramPath, "-clt steam -account " + user.AccountName, AppResources.UserChange_BtnTootlip, this.Name);
+                }
             }
 
             _SteamUsersSourceList.Refresh();
@@ -124,15 +135,6 @@ namespace System.Application.UI.ViewModels
 
             _SteamUsersSourceList.Refresh();
 
-            foreach (var item in _SteamUsersSourceList.Items)
-            {
-                var title = item.SteamNickName;
-                if (!string.IsNullOrEmpty(item.Remark))
-                {
-                    title = item.SteamNickName + "(" + item.Remark + ")";
-                }
-                DI.Get<ISystemJumpListService>().AddJumpTask(title, AppHelper.ProgramPath, AppHelper.ProgramPath, "-clt steam -account " + item.AccountName, AppResources.UserChange_BtnTootlip, this.Name);
-            }
 
             this.WhenAnyValue(x => x.SteamUsers)
                   .Subscribe(items => items?
