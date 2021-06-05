@@ -12,7 +12,7 @@
       <ExperimentalAcrylicBorder.Material>
         <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
       </ExperimentalAcrylicBorder.Material>
-      <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10 6 10 6">
+      <StackPanel x:Name="title" Orientation="Horizontal" VerticalAlignment="Top" Margin="10 6 10 6">
         <Image Source="/Application/UI/Assets/Icon.ico" Height="18" Width="18" Margin="0,0,10,0"/>
         <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{ReflectionBinding $parent[Window].Title}" VerticalAlignment="Center" Foreground="{DynamicResource HighlightForegroundBrushKey}" FontSize="14"/>
       </StackPanel>

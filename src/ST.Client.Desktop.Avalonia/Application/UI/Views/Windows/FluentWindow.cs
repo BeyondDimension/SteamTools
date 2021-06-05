@@ -26,11 +26,11 @@ namespace Avalonia.Controls
             DI.Get<IDesktopPlatformService>().FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
 
             this.GetObservable(WindowStateProperty)
-                .Subscribe(x =>
-                {
-                    PseudoClasses.Set(":maximized", x == WindowState.Maximized);
-                    PseudoClasses.Set(":fullscreen", x == WindowState.FullScreen);
-                });
+            .Subscribe(x =>
+            {
+                PseudoClasses.Set(":maximized", x == WindowState.Maximized);
+                PseudoClasses.Set(":fullscreen", x == WindowState.FullScreen);
+            });
 
             this.GetObservable(IsExtendedIntoWindowDecorationsProperty)
                 .Subscribe(x =>
