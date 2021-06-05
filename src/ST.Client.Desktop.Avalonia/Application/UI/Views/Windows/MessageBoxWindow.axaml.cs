@@ -3,11 +3,12 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
+using System.Application.UI.ViewModels;
 using System.Reflection;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class MessageBoxWindow : FluentWindow
+    public class MessageBoxWindow : FluentWindow<MessageBoxWindowViewModel>
     {
         public MessageBoxWindow() : base(false)
         {

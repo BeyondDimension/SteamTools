@@ -5,6 +5,7 @@ using R_CompositeDisposable = System.Reactive.Disposables.CompositeDisposable;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Reactive.Disposables;
+using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
 {
@@ -27,9 +28,11 @@ namespace System.Application.UI.ViewModels
         {
             Activator = new ViewModelActivator();
 
-            this.WhenActivated((R_CompositeDisposable disposables) =>
+            this.WhenActivated(disposables =>
             {
-                disposables.DisposeWith(disposables);
+                Activation();
+                Disposable.Create(() => { DeActivation(); })
+                                  .DisposeWith(disposables);
             });
         }
 
@@ -47,6 +50,20 @@ namespace System.Application.UI.ViewModels
             if (Disposed) return;
             if (disposing) CompositeDisposable?.Dispose();
             Disposed = true;
+        }
+
+        protected bool IsFirstActivation = true;
+        internal async virtual void Activation()
+        {
+            if (IsFirstActivation)
+            {
+                IsFirstActivation = false;
+            }
+            await Task.CompletedTask;
+        }
+        internal async virtual void DeActivation()
+        {
+            await Task.CompletedTask;
         }
     }
 

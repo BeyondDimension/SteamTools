@@ -9,7 +9,7 @@ using System.Properties;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class ExportAuthWindow : FluentWindow
+    public class ExportAuthWindow : FluentWindow<ExportAuthWindowViewModel>
     {
         public ExportAuthWindow() : base()
         {

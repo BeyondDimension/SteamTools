@@ -9,7 +9,7 @@ using System.Properties;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class AddAuthWindow : FluentWindow
+    public class AddAuthWindow : FluentWindow<AddAuthWindowViewModel>
     {
         public AddAuthWindow() : base()
         {

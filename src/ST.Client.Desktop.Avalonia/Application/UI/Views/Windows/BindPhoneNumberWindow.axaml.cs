@@ -6,7 +6,7 @@ using System.Application.UI.ViewModels;
 
 namespace System.Application.UI.Views.Windows
 {
-    public partial class BindPhoneNumberWindow : FluentWindow
+    public partial class BindPhoneNumberWindow : FluentWindow<BindPhoneNumberWindowViewModel>
     {
         readonly TextBox TbPhoneNumber;
         readonly TextBox TbSmsCode;

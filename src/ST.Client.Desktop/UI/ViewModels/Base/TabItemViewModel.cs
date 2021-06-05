@@ -74,16 +74,5 @@ namespace System.Application.UI.ViewModels
         {
             await Task.CompletedTask;
         }
-
-        protected bool IsFirstActivation = true;
-
-        internal async virtual void Activation()
-        {
-            if (IsFirstActivation)
-            {
-                IsFirstActivation = false;
-            }
-            await Task.CompletedTask;
-        }
     }
 }

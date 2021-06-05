@@ -17,7 +17,7 @@ using static System.Application.Services.ISteamService;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class WebView3Window : FluentWindow, IDisposable
+    public class WebView3Window : FluentWindow<WebView3WindowViewModel>, IDisposable
     {
         readonly WebView3 webView;
         bool disposedValue;

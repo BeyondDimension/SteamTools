@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class ChangeBindPhoneNumberWindow : FluentWindow
+    public class ChangeBindPhoneNumberWindow : FluentWindow<ChangeBindPhoneNumberWindowViewModel>
     {
         readonly TextBox TbPhoneNumber;
         readonly TextBox TbSmsCodeValidation;

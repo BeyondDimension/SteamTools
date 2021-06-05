@@ -6,7 +6,7 @@ using System.Application.UI.ViewModels;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class LoginOrRegisterWindow : FluentWindow
+    public class LoginOrRegisterWindow : FluentWindow<LoginOrRegisterWindowViewModel>
     {
         readonly TextBox TbPhoneNumber;
         readonly TextBox TbSmsCode;

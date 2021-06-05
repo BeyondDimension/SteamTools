@@ -3,11 +3,13 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
+using Avalonia.ReactiveUI;
+using System.Application.UI.ViewModels;
 using System.Runtime.InteropServices;
 
 namespace System.Application.UI.Views
 {
-    public class MainView : UserControl
+    public class MainView : ReactiveUserControl<MainWindowViewModel>
     {
         public MainView()
         {

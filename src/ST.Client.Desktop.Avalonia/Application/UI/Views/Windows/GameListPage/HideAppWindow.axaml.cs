@@ -1,10 +1,11 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using System.Application.UI.ViewModels;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class HideAppWindow : FluentWindow
+    public class HideAppWindow : FluentWindow<HideAppWindowViewModel>
     {
         public HideAppWindow() : base()
         {

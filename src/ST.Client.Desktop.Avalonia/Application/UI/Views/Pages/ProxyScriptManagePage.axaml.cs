@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Properties;
 
 namespace System.Application.UI.Views.Pages
 {
-    public class ProxyScriptManagePage : UserControl
+    public class ProxyScriptManagePage : ReactiveUserControl<ProxyScriptManagePageViewModel>
     {
         public ProxyScriptManagePage()
         {

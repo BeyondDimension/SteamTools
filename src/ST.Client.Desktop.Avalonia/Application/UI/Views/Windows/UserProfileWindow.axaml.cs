@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class UserProfileWindow : FluentWindow
+    public class UserProfileWindow : FluentWindow<UserProfileWindowViewModel>
     {
         public UserProfileWindow() : base()
         {

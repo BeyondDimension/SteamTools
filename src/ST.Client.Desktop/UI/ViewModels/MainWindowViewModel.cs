@@ -97,11 +97,11 @@ namespace System.Application.UI.ViewModels
 
             Task.Run(Initialize).ForgetAndDispose();
 
-            this.WhenAnyValue(x => x.SelectedItem)
-                .Subscribe(x =>
-                {
-                    Task.Run(x.Activation).ForgetAndDispose();
-                });
+            //this.WhenAnyValue(x => x.SelectedItem)
+            //    .Subscribe(x =>
+            //    {
+            //        Task.Run(x.Activation).ForgetAndDispose();
+            //    });
         }
 
         public void Initialize()

@@ -2,11 +2,12 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using System.Application.UI.ViewModels;
 using System.ComponentModel;
 
 namespace System.Application.UI.Views
 {
-    public class MainWindow : FluentWindow
+    public class MainWindow : FluentWindow<MainWindowViewModel>
     {
         public MainWindow() : base()
         {
