@@ -100,7 +100,7 @@ navigator.__proto__ = newProto;
             {
                 Platform.Windows => Path.Combine(AppContext.BaseDirectory, "CEF", "win-" + GetArch()),
                 Platform.Linux => Path.Combine(AppContext.BaseDirectory, "CEF", "linux-" + GetArch()),
-                Platform.Apple => DI.DeviceIdiom == DeviceIdiom.Desktop ? Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "Contents", "Frameworks", "Chromium Embedded Framework.framework")) : throw new PlatformNotSupportedException(),
+                Platform.Apple => DI.DeviceIdiom == DeviceIdiom.Desktop ? Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", "Contents", "Frameworks", "Chromium Embedded Framework.framework")) : throw new PlatformNotSupportedException(),
                 _ => throw new ArgumentOutOfRangeException(nameof(DI.Platform), DI.Platform, null),
             };
 

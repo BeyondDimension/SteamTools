@@ -14,6 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 services.AddSingleton<AppDelegate>();
                 services.AddSingleton<IDesktopPlatformService, MacDesktopPlatformServiceImpl>();
+                services.AddSingleton<ISystemJumpListService, SystemJumpListServiceImpl>();
             }
             else
             {
