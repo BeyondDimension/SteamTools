@@ -594,12 +594,11 @@ namespace System.Application.Services.Implementation
         public bool ContainsHostsByTag()
         {
             var lines = File.ReadAllLines(s.HostsFilePath);
-            if (lines.Contains(MarkStart)) 
+            if (lines.Reverse().Any(x => x.StartsWith(MarkEnd)))
             {
                 return true;
             }
             return false;
         }
-
     }
 }

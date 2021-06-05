@@ -73,5 +73,7 @@ namespace System.Application.Services
                 mOnExitRestoreHosts = true;
             }
         }
+
+        bool ContainsHostsByTag();
     }
 }
