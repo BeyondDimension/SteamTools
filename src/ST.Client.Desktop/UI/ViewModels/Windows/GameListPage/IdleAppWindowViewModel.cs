@@ -19,13 +19,14 @@ namespace System.Application.UI.ViewModels
 {
     public class IdleAppWindowViewModel : WindowViewModel
     {
+        private bool init=false;
         public IdleAppWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_IdleGamesManger;
 
-            GameLibrarySettings.AFKAppList.Subscribe(_ => Refresh_Click(false));
+            GameLibrarySettings.AFKAppList.Subscribe(_ => Refresh_Click());
 
-            Refresh_Click(false);
+            Refresh_Click();
         }
         private string? _RunStateTxt;
         public string? RunStateTxt
@@ -131,7 +132,7 @@ namespace System.Application.UI.ViewModels
                             MainThreadDesktop.BeginInvokeOnMainThread(() =>
                             {
                                 IdleGameList.Remove(app);
-                                RunState = IdleGameList.Count(x => x.Process != null) > 0;
+                                ChangeRunTxt(); 
                                 GameLibrarySettings.AFKAppList.Value.Remove(app.AppId);
                                 GameLibrarySettings.AFKAppList.RaiseValueChanged();
                                 Toast.Show(AppResources.GameList_DeleteSuccess);
@@ -144,6 +145,13 @@ namespace System.Application.UI.ViewModels
 
         }
 
+        public void ChangeRunTxt(bool title=false) {
+            var count = IdleGameList.Count(x => x.Process != null);
+            RuningCountTxt = AppResources.GameList_RuningCount.Format(count, IdleGameList.Count);
+            RunState = count > 0;
+            if (title)
+                Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_IdleGamesManger + AppResources.GameList_ListCount.Format(IdleGameList.Count, SteamConnectService.Current.SteamAFKMaxCount);
+        }
         public void RunOrStopAllButton_Click()
         {
             if (!RunLoaingState)
@@ -172,9 +180,8 @@ namespace System.Application.UI.ViewModels
                                 item.Process = runState.Process;
                             }
                         }
-                    }
-                    var count = IdleGameList.Count(x => x.Process != null);
-                    RuningCountTxt = AppResources.GameList_RuningCount.Format(count, IdleGameList.Count);
+                    } 
+                    ChangeRunTxt();
                 }
                 else
                 {
@@ -215,9 +222,8 @@ namespace System.Application.UI.ViewModels
                 RunOrStop(runInfoState);
                 app.Process = runInfoState.Process;
             }
-            var count = IdleGameList.Count(x => x.Process != null);
-            RunState = count > 0;
-            RuningCountTxt = AppResources.GameList_RuningCount.Format(count, IdleGameList.Count);
+              
+            ChangeRunTxt();
             Toast.Show(AppResources.GameList_OperationSuccess);
         }
         public void RunOrStop(SteamApp app)
@@ -232,7 +238,7 @@ namespace System.Application.UI.ViewModels
                 app.Process = null;
             }
         }
-        public void Refresh_Click(bool showTips = true)
+        public void Refresh_Click()
         {
             //IdleGameList.Clear();
             var list = new ObservableCollection<SteamApp>();
@@ -277,16 +283,18 @@ namespace System.Application.UI.ViewModels
                     }
                 }
             IdleGameList = list;
-            if (IdleGameList.Count == 0)
+            var allCount = IdleGameList.Count;
+            if (allCount == 0)
                 IsIdleAppEmpty = true;
             else
                 IsIdleAppEmpty = false;
 
-            var count = IdleGameList.Count(x => x.Process != null);
-            RuningCountTxt = AppResources.GameList_RuningCount.Format(count, IdleGameList.Count);
-            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_IdleGamesManger + AppResources.GameList_ListCount.Format(IdleGameList.Count, SteamConnectService.Current.SteamAFKMaxCount);
-            if (showTips)
+
+            ChangeRunTxt(true);
+            if (init)
                 Toast.Show(AppResources.GameList_OperationSuccess);
+            else
+                init = true;
         }
 
     }
