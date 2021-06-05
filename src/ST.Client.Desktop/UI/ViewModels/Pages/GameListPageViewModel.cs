@@ -160,12 +160,6 @@ namespace System.Application.UI.ViewModels
             base.Activation();
         }
 
-        internal override void DeActivation()
-        {
-            SteamConnectService.Current.SteamApps.Clear();
-            base.DeActivation();
-        }
-
         private bool _IsOpenFilter;
         public bool IsOpenFilter
         {
