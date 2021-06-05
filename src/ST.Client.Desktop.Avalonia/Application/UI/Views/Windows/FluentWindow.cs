@@ -18,16 +18,19 @@ namespace Avalonia.Controls
 
         public FluentWindow(bool isSaveStatus = true)
         {
-            if (DI.Platform == System.Platform.Windows)
-            {
-                ExtendClientAreaToDecorationsHint = true;
-                ExtendClientAreaTitleBarHeightHint = -1;
+            //if (DI.Platform == System.Platform.Windows)
+            //{
+            ExtendClientAreaToDecorationsHint = true;
+            //ExtendClientAreaTitleBarHeightHint = -1;
 
-                DI.Get<IDesktopPlatformService>().FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
-            }
+            //}
             //SystemDecorations = SystemDecorations.BorderOnly;
             TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
 
+            if (DI.Platform == System.Platform.Windows)
+            {
+                DI.Get<IDesktopPlatformService>().FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
+            }
 
             this.GetObservable(WindowStateProperty)
             .Subscribe(x =>

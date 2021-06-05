@@ -13,7 +13,6 @@ namespace System.Application.UI.Views.Controls
             if (DI.Platform == System.Platform.Apple)
             {
                 var title = this.FindControl<StackPanel>("title");
-
                 title.HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center;
             }
         }
