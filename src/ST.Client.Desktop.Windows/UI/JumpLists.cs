@@ -55,7 +55,7 @@ namespace System.Application.UI
             JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
             if (jumpList1 != null)
             {
-                var tk = jumpList1.JumpItems.FirstOrDefault(s => s is JumpTask t && t.Arguments == task.Arguments);
+                var tk = jumpList1.JumpItems.FirstOrDefault(s => s is JumpTask t && t.ApplicationPath == task.ApplicationPath && t.Arguments == task.Arguments);
                 if (tk != null)
                 {
                     jumpList1.JumpItems.Remove(tk);

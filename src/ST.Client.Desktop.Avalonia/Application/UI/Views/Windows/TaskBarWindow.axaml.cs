@@ -55,11 +55,11 @@ namespace System.Application.UI.Views.Windows
                     {
                         if ((x.Item1 + (int)this.Width + 30) > workingAreaWidth)
                         {
-                            this.Position = new PixelPoint(x.Item1 - (int)this.Width, x.Item2 - (int)this.Height);
+                            this.Position = new PixelPoint(x.Item1 - (int)this.Width, x.Item2 - (int)(this.Height * this.Screens.Primary.PixelDensity));
                         }
                         else
                         {
-                            this.Position = new PixelPoint(x.Item1, x.Item2 - (int)this.Height);
+                            this.Position = new PixelPoint(x.Item1, x.Item2 - (int)(this.Height * this.Screens.Primary.PixelDensity));
                         }
                     });
             }
