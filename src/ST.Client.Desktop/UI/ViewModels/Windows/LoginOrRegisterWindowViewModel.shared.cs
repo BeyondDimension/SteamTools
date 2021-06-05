@@ -209,10 +209,17 @@ namespace System.Application.UI.ViewModels
 #if __MOBILE__
             BrowserOpen(parameter);
 #else
-            IShowWindowService.Instance.Show(CustomWindow.WebView3, new WebView3WindowViewModel
+            if (AppHelper.IsSystemWebViewAvailable)
             {
-                Url = parameter,
-            }, resizeMode: ResizeModeCompat.NoResize);
+                IShowWindowService.Instance.Show(CustomWindow.WebView3, new WebView3WindowViewModel
+                {
+                    Url = parameter,
+                }, resizeMode: ResizeModeCompat.NoResize);
+            }
+            else
+            {
+                BrowserOpen(parameter);
+            }
 #endif
         }
 

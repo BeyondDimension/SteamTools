@@ -76,7 +76,16 @@ navigator.__proto__ = newProto;
             ScheduleMessagePumpWorkCallback?.Invoke(delayMs);
         }
 
-        public static CefNetAppInitState InitState { get; private set; }
+        static CefNetAppInitState _InitState;
+        public static CefNetAppInitState InitState
+        {
+            get => _InitState;
+            private set
+            {
+                _InitState = value;
+                AppHelper.IsSystemWebViewAvailable = value == CefNetAppInitState.Complete;
+            }
+        }
 
         static CefNetApp? app;
         static Timer? messagePump;

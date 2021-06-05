@@ -12,6 +12,7 @@ namespace System.Application.UI.ViewModels
     {
         internal static async Task FastLoginOrRegisterAsync(Action? close = null, FastLoginChannel channel = FastLoginChannel.Steam, bool isBind = false)
         {
+            if (!AppHelper.IsSystemWebViewAvailable) return;
             var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
             var urlExternalLoginCallback = apiBaseUrl + "/ExternalLoginCallback";
             WebView3WindowViewModel? vm = null;

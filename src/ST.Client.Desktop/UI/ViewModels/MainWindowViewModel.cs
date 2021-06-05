@@ -87,7 +87,10 @@ namespace System.Application.UI.ViewModels
             if (AppHelper.EnableDevtools)
             {
                 AddTabItem<DebugPageViewModel>();
-                AddTabItem<DebugWebViewPageViewModel>();
+                if (AppHelper.IsSystemWebViewAvailable)
+                {
+                    AddTabItem<DebugWebViewPageViewModel>();
+                }
             }
 
             _SelectedItem = TabItems.First();
