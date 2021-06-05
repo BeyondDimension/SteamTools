@@ -49,17 +49,21 @@ namespace System.Application.UI.Views.Windows
                 //{
                 //    this.Position = new PixelPoint(vm.SizePosition.X, vm.SizePosition.Y - (int)this.Height);
                 //}
-                var workingAreaWidth = this.Screens.Primary.WorkingArea.Width;
+
                 vm.WhenAnyValue(x => x.SizePosition.X, x => x.SizePosition.Y)
                     .Subscribe(x =>
                     {
+                        var screen = this.Screens.ScreenFromPoint(new PixelPoint(x.Item1, x.Item2));
+                        var workingAreaWidth = screen.WorkingArea.Width;
+
                         if ((x.Item1 + (int)this.Width + 30) > workingAreaWidth)
                         {
-                            this.Position = new PixelPoint(x.Item1 - (int)this.Width, x.Item2 - (int)(this.Height * this.Screens.Primary.PixelDensity));
+                            this.Position = new PixelPoint(x.Item1 - (int)(this.Width * screen.PixelDensity), x.Item2 - (int)(this.Height * screen.PixelDensity));
                         }
                         else
                         {
-                            this.Position = new PixelPoint(x.Item1, x.Item2 - (int)(this.Height * this.Screens.Primary.PixelDensity));
+                            this.Position = new PixelPoint(x.Item1, x.Item2 - (int)(this.Height * screen.PixelDensity));
+
                         }
                     });
             }
