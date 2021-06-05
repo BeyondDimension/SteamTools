@@ -17,7 +17,7 @@ namespace System.Application.UI
             var jumpList1 = new JumpList
             {
                 ShowRecentCategory = true,
-                ShowFrequentCategory = true,
+                ShowFrequentCategory = false,
             };
             //jumpList1.JumpItemsRejected += JumpList1_JumpItemsRejected;
             //jumpList1.JumpItemsRemovedByUser += JumpList1_JumpItemsRemovedByUser;
@@ -39,6 +39,12 @@ namespace System.Application.UI
             //    WorkingDirectory = @"C:\Users\Public\Documents",
             //    Arguments = "readme.txt",
             //});
+            //JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
+            //if (jumpList1 != null)
+            //{
+            //    jumpList1.JumpItems.Clear();
+            //    jumpList1.Apply();
+            //}
             JumpList.SetJumpList(AvaloniaApplication.Current, jumpList1);
         }
 
