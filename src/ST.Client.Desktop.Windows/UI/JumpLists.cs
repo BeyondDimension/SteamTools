@@ -52,18 +52,24 @@ namespace System.Application.UI
         {
             // Get the JumpList from the application and update it.
             JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
-            jumpList1.JumpItems.Add(task);
-            if (isRecent)
-                JumpList.AddToRecentCategory(task);
-            MainThreadDesktop.BeginInvokeOnMainThread(() => jumpList1.Apply());
+            if (jumpList1 != null)
+            {
+                jumpList1.JumpItems.Add(task);
+                if (isRecent)
+                    JumpList.AddToRecentCategory(task);
+                MainThreadDesktop.BeginInvokeOnMainThread(() => jumpList1.Apply());
+            }
         }
 
         public static void AddRecentJumpTask(JumpTask task)
         {
             // Get the JumpList from the application and update it.
             JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
-            JumpList.AddToRecentCategory(task);
-            MainThreadDesktop.BeginInvokeOnMainThread(() => jumpList1.Apply());
+            if (jumpList1 != null)
+            {
+                JumpList.AddToRecentCategory(task);
+                MainThreadDesktop.BeginInvokeOnMainThread(() => jumpList1.Apply());
+            }
         }
 
         //static void AddJumpTask()
