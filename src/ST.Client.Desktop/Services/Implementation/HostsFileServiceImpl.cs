@@ -590,5 +590,16 @@ namespace System.Application.Services.Implementation
         {
             return HandleHosts(isUpdateOrRemove: false);
         }
+
+        public bool ContainsHostsByTag()
+        {
+            var lines = File.ReadAllLines(s.HostsFilePath);
+            if (lines.Contains(MarkStart)) 
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }
