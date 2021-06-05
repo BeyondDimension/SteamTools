@@ -1,4 +1,4 @@
-﻿using Org.BouncyCastle.OpenSsl;
+using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Security;
 using System.Collections.Generic;
 using System.IO;
@@ -23,22 +23,23 @@ namespace System.Application
             return builder.ToString();
         }
 
-        public static string GetPrivatePemCertificateString(this X509Certificate2 @this)
-        {
-            if (@this.PrivateKey is RSACryptoServiceProvider pkey)
-            {
-                var keyPair = DotNetUtilities.GetRsaKeyPair(pkey);
-                using TextWriter tw = new StreamWriter(Path.Combine(AppContext.BaseDirectory, @this.IssuerName.Name + ".key"), false, new UTF8Encoding(false));
-                PemWriter pw = new PemWriter(tw);
-                pw.WriteObject(keyPair.Private);
-                tw.Flush();
-                return tw.ToString();
-            }
-            else
-            {
-                throw new InvalidCastException(nameof(X509Certificate2.PrivateKey));
-            }
-        }
+        //[Obsolete("warn AppContext.BaseDirectory ?", true)]
+        //public static string GetPrivatePemCertificateString(this X509Certificate2 @this)
+        //{
+        //    if (@this.PrivateKey is RSACryptoServiceProvider pkey)
+        //    {
+        //        var keyPair = DotNetUtilities.GetRsaKeyPair(pkey);
+        //        using TextWriter tw = new StreamWriter(Path.Combine(IOPath.BaseDirectory, @this.IssuerName.Name + ".key"), false, new UTF8Encoding(false));
+        //        PemWriter pw = new PemWriter(tw);
+        //        pw.WriteObject(keyPair.Private);
+        //        tw.Flush();
+        //        return tw.ToString();
+        //    }
+        //    else
+        //    {
+        //        throw new InvalidCastException(nameof(X509Certificate2.PrivateKey));
+        //    }
+        //}
 
         public static List<string> GetSubjectAlternativeNames(this X509Certificate2 certificate)
         {

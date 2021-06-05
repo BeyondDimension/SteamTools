@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 #if NET35
 using WinFormsApplication = System.Windows.Forms.Application;
 #endif
@@ -32,7 +32,7 @@ namespace System.Application
 #if NET35
                 WinFormsApplication.StartupPath;
 #else
-                AppContext.BaseDirectory;
+                IOPath.BaseDirectory;
 #endif
 
             var appDataPath = Path.Combine(appDataRootPath, AppDataDirName);

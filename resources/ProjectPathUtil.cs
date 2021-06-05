@@ -21,6 +21,9 @@ namespace System
         public const string DirPublishWinX86 =
             @"\src\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish\win-x86";
 
+        public const string DirPublishWinX64 =
+            @"\src\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish\win-x64";
+
         public const string DirPublish =
             @"\src\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish";
 

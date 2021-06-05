@@ -37,7 +37,7 @@ namespace System.Application.UI
     {
         public static App Instance => Current is App app ? app : throw new Exception("Impossible");
 
-        //public static DirectoryInfo RootDirectory => new(AppContext.BaseDirectory);
+        //public static DirectoryInfo RootDirectory => new(IOPath.BaseDirectory);
 
         AppTheme mTheme = AppTheme.Dark;
         public AppTheme Theme

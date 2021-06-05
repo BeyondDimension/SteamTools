@@ -22,7 +22,7 @@ namespace System.Application.UI
 #if WINDOWS_DESKTOP_BRIDGE
                 IOPath.CacheDirectory
 #else
-                AppContext.BaseDirectory
+                IOPath.BaseDirectory
 #endif
                 , "Logs");
             IOPath.DirCreateByNotExists(logDirPath);

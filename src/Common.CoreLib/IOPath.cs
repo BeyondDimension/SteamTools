@@ -147,6 +147,23 @@ namespace System
 
         #endregion
 
+        #region BaseDirectory
+
+        static readonly Lazy<string> _BaseDirectory = new(() =>
+        {
+            var value = AppContext.BaseDirectory;
+            var value2 = new DirectoryInfo(value);
+            if (value2.Parent != null && string.Equals(value2.Name, "Bin", StringComparison.OrdinalIgnoreCase))
+            {
+                value = value2.Parent.FullName;
+            }
+            return value;
+        });
+
+        public static string BaseDirectory => _BaseDirectory.Value;
+
+        #endregion
+
         /// <summary>
         /// 获取[文件(File)]资源路径
         /// </summary>

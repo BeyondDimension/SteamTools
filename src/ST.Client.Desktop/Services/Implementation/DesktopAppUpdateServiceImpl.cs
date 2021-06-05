@@ -31,7 +31,7 @@ namespace System.Application.Services.Implementation
             }
             else // 全量更新
             {
-                var dirPath = Path.Combine(AppContext.BaseDirectory, Path.GetFileNameWithoutExtension(value));
+                var dirPath = Path.Combine(IOPath.BaseDirectory, Path.GetFileNameWithoutExtension(value));
 
                 if (Directory.Exists(dirPath))
                 {
@@ -62,7 +62,7 @@ namespace System.Application.Services.Implementation
                    SR.ProgramUpdateCmd_,
                    AppHelper.ProgramName,
                    dirPath.TrimEnd(Path.DirectorySeparatorChar),
-                   AppContext.BaseDirectory,
+                   IOPath.BaseDirectory,
                    AppHelper.ProgramPath);
 
                 updateCommand = "chcp" + Environment.NewLine + "chcp 65001" + Environment.NewLine + updateCommand;
