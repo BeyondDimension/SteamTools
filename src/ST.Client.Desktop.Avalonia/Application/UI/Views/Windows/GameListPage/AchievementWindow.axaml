@@ -13,8 +13,6 @@
         xmlns:gif="clr-namespace:AvaloniaGif;assembly=AvaloniaGif"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
-        ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
         Title="{Binding Title}"
         x:Name="u"

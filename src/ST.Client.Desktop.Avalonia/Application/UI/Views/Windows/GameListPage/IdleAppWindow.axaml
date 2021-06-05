@@ -16,8 +16,6 @@
         xmlns:i="using:Avalonia.Xaml.Interactivity"
         xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
-        ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
         Title="{Binding Title}"
         x:DataType="vm:IdleAppWindowViewModel"

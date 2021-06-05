@@ -18,8 +18,6 @@
         SizeToContent="WidthAndHeight"
         ShowInTaskbar="False"
         Padding="0" Background="Transparent"
-        ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
         CanResize="False"
         Title="{ReflectionBinding Path=NewVersionInfoTitle,Mode=OneWay,Source={x:Static ccl_services:IAppUpdateService.Instance}}">

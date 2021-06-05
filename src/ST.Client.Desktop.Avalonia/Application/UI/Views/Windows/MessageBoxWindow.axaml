@@ -15,8 +15,6 @@
         MinWidth="450" MinHeight="50"
         ShowInTaskbar="False"
         Padding="0" Background="Transparent"
-        ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
         CanResize="False" 
         Title="{Binding Title}"

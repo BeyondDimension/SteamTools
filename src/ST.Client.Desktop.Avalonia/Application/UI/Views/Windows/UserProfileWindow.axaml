@@ -16,8 +16,6 @@
         xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
-        ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
         WindowStartupLocation="CenterOwner"
         x:DataType="vm:UserProfileWindowViewModel"
