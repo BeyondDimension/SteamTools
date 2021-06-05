@@ -1,19 +1,18 @@
-using ReactiveUI;
 using DynamicData;
+using DynamicData.Binding;
+using ReactiveUI;
 using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Properties;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Threading.Tasks;
 using System.Windows;
-using DynamicData.Binding;
 using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
@@ -109,7 +108,7 @@ namespace System.Application.UI.ViewModels
 
                 if (DI.Platform == Platform.Windows)
                 {
-                    var title = user.SteamNickName;
+                    var title = user.SteamNickName ?? user.SteamId64.ToString(CultureInfo.InvariantCulture);
                     if (!string.IsNullOrEmpty(user.Remark))
                     {
                         title = user.SteamNickName + "(" + user.Remark + ")";
@@ -134,7 +133,6 @@ namespace System.Application.UI.ViewModels
             }
 
             _SteamUsersSourceList.Refresh();
-
 
             this.WhenAnyValue(x => x.SteamUsers)
                   .Subscribe(items => items?
