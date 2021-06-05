@@ -97,8 +97,8 @@
 
         <Border DockPanel.Dock="Bottom" Grid.Column="1" Grid.Row="1" Classes="paper" Margin="0 0 10 10" Background="{DynamicResource ThemeBrushKey}">
           <Panel Margin="20 0">
-            <StackPanel>
-              <DockPanel Margin="0 10">
+            <DockPanel>
+              <DockPanel Margin="0 10" DockPanel.Dock="Top">
                 <CheckBox MinWidth="20"
                           Content="{ReflectionBinding Path=Res.CommunityFix_AllCheck,Mode=OneWay,Source={x:Static resx:R.Current}}"
                           IsChecked="{Binding #items.SelectedItem.ThreeStateEnable,Mode=TwoWay}">
@@ -110,7 +110,7 @@
                            Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
               </DockPanel>
 
-              <ScrollViewer>
+              <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" DockPanel.Dock="Bottom">
                 <ItemsControl Items="{ReflectionBinding #items.SelectedItem.ObservableItems}">
                   <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -130,7 +130,7 @@
                   </ItemsControl.ItemTemplate>
                 </ItemsControl>
               </ScrollViewer>
-            </StackPanel>
+            </DockPanel>
           </Panel>
         </Border>
       </DockPanel>

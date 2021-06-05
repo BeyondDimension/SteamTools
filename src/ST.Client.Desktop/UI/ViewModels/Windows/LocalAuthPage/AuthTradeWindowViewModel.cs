@@ -197,7 +197,7 @@ namespace System.Application.UI.ViewModels
 
         public bool IsConfirmationsEmpty
         {
-            get => Confirmations.Any_Nullable();
+            get => _ConfirmationsSourceList.Items.Any_Nullable();
         }
 
         public string ConfirmationsConutMessage
@@ -212,7 +212,7 @@ namespace System.Application.UI.ViewModels
                 {
                     return AppResources.LocalAuth_AuthTrade_ListNullTip;
                 }
-                return AppResources.LocalAuth_AuthTrade_ListCountTip.Format(Confirmations.Count);
+                return AppResources.LocalAuth_AuthTrade_ListCountTip.Format(_ConfirmationsSourceList.Count);
             }
         }
 
@@ -504,7 +504,7 @@ namespace System.Application.UI.ViewModels
 
         private async void OperationTrades(bool accept)
         {
-            if (!Confirmations.Any_Nullable())
+            if (!_ConfirmationsSourceList.Items.Any_Nullable())
             {
                 ToastService.Current.Notify(AppResources.LocalAuth_AuthTrade_Null);
                 return;

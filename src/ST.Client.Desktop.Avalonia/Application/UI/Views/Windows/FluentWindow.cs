@@ -97,9 +97,22 @@ namespace Avalonia.Controls
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
-            ExtendClientAreaChromeHints =
-                ExtendClientAreaChromeHints.PreferSystemChrome |
-                ExtendClientAreaChromeHints.OSXThickTitleBar;
+
+            if (DI.Platform == System.Platform.Windows)
+            {
+                ExtendClientAreaChromeHints =
+                ExtendClientAreaChromeHints.PreferSystemChrome;
+            }
+            else if (DI.Platform == System.Platform.Apple)
+            {
+                ExtendClientAreaChromeHints =
+                    ExtendClientAreaChromeHints.OSXThickTitleBar;
+            }
+            else
+            {
+                ExtendClientAreaChromeHints =
+                    ExtendClientAreaChromeHints.SystemChrome;
+            }
         }
     }
 }
