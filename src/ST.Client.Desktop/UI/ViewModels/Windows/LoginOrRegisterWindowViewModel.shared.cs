@@ -112,7 +112,16 @@ namespace System.Application.UI.ViewModels
         public short LoginState
         {
             get => _LoginState;
-            set => this.RaiseAndSetIfChanged(ref _LoginState, value);
+            set
+            {
+                //this.RaiseAndSetIfChanged(ref _LoginState, value);
+                if (_LoginState == value) return;
+                _LoginState = value;
+                this.RaisePropertyChanged();
+#if __MOBILE__
+                Title = _LoginState == 1 ? AppResources.User_PhoneLogin : AppResources.LoginAndRegister;
+#endif
+            }
         }
 
         //public SteamUser? SteamUser { get; } = SteamConnectService.Current.CurrentSteamUser;

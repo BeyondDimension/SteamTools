@@ -75,12 +75,10 @@ namespace System.Application.Models
             }
         }
 
-#if __MOBILE__
         [MPKey(4)]
         [N_JsonProperty("4")]
         [S_JsonProperty("4")]
         public Guid MASLClientId { get; set; }
-#endif
 
         bool? mGetIsOfficialChannelPackage;
 

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>MonoAndroid11.0</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
-    <AssemblyName>System.Application.SteamTools.Client.Mobile.Droid</AssemblyName>
+    <AssemblyName>iOSUnitTests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

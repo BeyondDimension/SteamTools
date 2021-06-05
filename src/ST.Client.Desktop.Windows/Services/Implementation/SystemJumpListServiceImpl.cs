@@ -1,11 +1,7 @@
 extern alias JumpLists;
 using JumpLists::System.Windows.Shell;
-
-using System.Application.Models;
-using JumpList = System.Application.UI.JumpLists;
-using System.Diagnostics;
 using System.Runtime.Versioning;
-using System.Text;
+using JumpList = System.Application.UI.JumpLists;
 
 namespace System.Application.Services.Implementation
 {

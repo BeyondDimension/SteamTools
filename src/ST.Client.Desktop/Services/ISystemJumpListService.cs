@@ -1,6 +1,3 @@
-using System.Application.Models;
-using System.Runtime.Versioning;
-
 namespace System.Application.Services
 {
     public interface ISystemJumpListService

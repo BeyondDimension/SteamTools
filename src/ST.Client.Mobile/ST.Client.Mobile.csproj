@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
-    <AssemblyName>System.Application.SteamTools.Client.Mobile</AssemblyName>
+    <AssemblyName>Xamarin.Forms.Core.UnitTests</AssemblyName>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <DefineConstants>__MOBILE__;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
@@ -105,6 +105,10 @@
     <EmbeddedResource Update="UI\Views\MyPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UI\Views\Controls\" />
   </ItemGroup>
 
 </Project>

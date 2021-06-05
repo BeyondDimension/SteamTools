@@ -1,10 +1,7 @@
-#if FEATURE_HTTP_PROXY
-using System;
 using System.Application.Models;
 using System.Application.Properties;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -12,7 +9,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Sockets;
 using System.Properties;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
@@ -209,7 +205,7 @@ namespace System.Application.Services.Implementation
             //}
 
             ////没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
-            //e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine}not support proxy"); 
+            //e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine}not support proxy");
             return;
         }
 
@@ -306,7 +302,7 @@ namespace System.Application.Services.Implementation
 
         public bool SetupCertificate()
         {
-            // 此代理使用的本地信任根证书 
+            // 此代理使用的本地信任根证书
             //proxyServer.CertificateManager.TrustRootCertificate(true);
             //proxyServer.CertificateManager
             //    .CreateServerCertificate($"{Assembly.GetCallingAssembly().GetName().Name} Certificate")
@@ -463,14 +459,13 @@ namespace System.Application.Services.Implementation
                 return false;
             }
 
-#endregion
+            #endregion
 #if DEBUG
             foreach (var endPoint in proxyServer.ProxyEndPoints)
                 Debug.WriteLine("Listening on '{0}' endpoint at Ip {1} and port: {2} ",
                     endPoint.GetType().Name, endPoint.IpAddress, endPoint.Port);
 #endif
             return true;
-
         }
 
         private Task TransparentProxyEndPoint_BeforeSslAuthenticate(object sender, BeforeSslAuthenticateEventArgs e)
@@ -552,7 +547,7 @@ namespace System.Application.Services.Implementation
             {
                 proxyServer.DisableAllSystemProxies();
             }
-            catch 
+            catch
             {
                 //忽略异常导致的崩溃
             }
@@ -612,4 +607,3 @@ namespace System.Application.Services.Implementation
         }
     }
 }
-#endif

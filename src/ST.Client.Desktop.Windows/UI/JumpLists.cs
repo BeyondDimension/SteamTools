@@ -1,4 +1,3 @@
-#pragma warning disable CA1416 // 验证平台兼容性
 extern alias JumpLists;
 using JumpLists::System.Windows.Shell;
 using AvaloniaApplication = Avalonia.Application;
@@ -43,7 +42,6 @@ namespace System.Application.UI
             JumpList.SetJumpList(AvaloniaApplication.Current, jumpList1);
         }
 
-
         public static void AddJumpTask(JumpTask task, bool isRecent = false)
         {
             // Get the JumpList from the application and update it.
@@ -82,4 +80,3 @@ namespace System.Application.UI
         //}
     }
 }
-#pragma warning restore CA1416 // 验证平台兼容性

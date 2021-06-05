@@ -1,18 +1,10 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;Xamarin.iOS10;MonoAndroid11.0</TargetFrameworks>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
     <DefineConstants>ORM_SQLITE_PCL;$(DefineConstants)</DefineConstants>
     <AssemblyName>System.Application.SteamTools.Client</AssemblyName>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
-    <AndroidUseIntermediateDesignerFile>false</AndroidUseIntermediateDesignerFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
-    <DefineConstants>FEATURE_HTTP_PROXY;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,11 +26,8 @@
     <PackageReference Include="ReactiveUI" Version="13.3.2" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(DefineConstants.Contains('FEATURE_HTTP_PROXY')) ">
-    <ProjectReference Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj" />
-  </ItemGroup>
-
   <ItemGroup>
+    <ProjectReference Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj" />
     <ProjectReference Include="..\Repositories.sqlite-net-pcl\Repositories.sqlite-net-pcl.csproj" />
     <ProjectReference Include="..\ST.Services.CloudService\ST.Services.CloudService.csproj" />
     <ProjectReference Include="..\Common.ClientLib\Common.ClientLib.csproj" />

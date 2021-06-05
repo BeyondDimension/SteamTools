@@ -6,7 +6,7 @@ using Android.Runtime;
 using AndroidX.AppCompat.App;
 using System.Application.Security;
 using System.Application.UI.Activities;
-using System.Properties;
+using _ThisAssembly = System.Properties.ThisAssembly;
 
 namespace System.Application.UI.Activities
 {
@@ -24,7 +24,7 @@ namespace System.Application.UI.Activities
             base.OnCreate(savedInstanceState);
 
             AllowStart = DeviceSecurityCheckUtil.IsSupported(
-                enableEmulator: ThisAssembly.Debuggable,
+                enableEmulator: _ThisAssembly.Debuggable,
                 allowXposed: true,
                 allowRoot: true);
             if (!this.IsAllowStart()) return;

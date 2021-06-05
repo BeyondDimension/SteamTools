@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>Xamarin.iOS10</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
-    <AssemblyName>System.Application.SteamTools.Client.Mobile.iOS</AssemblyName>
+    <AssemblyName>iOSUnitTests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +24,9 @@
       <LinkBase>Services\Implementation</LinkBase>
     </Compile>
     <Compile Include="..\ST.Client.Mobile.Droid\ServiceCollectionExtensions.MobilePlatformServiceImpl.cs" />
+    <Compile Include="..\ST.Client.Mobile.Droid\UI\Views.Controls\*.shared.cs">
+      <LinkBase>UI\Views.Controls</LinkBase>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

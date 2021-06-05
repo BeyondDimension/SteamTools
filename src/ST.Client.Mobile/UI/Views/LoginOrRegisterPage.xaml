@@ -3,11 +3,11 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-            xmlns:converters="clr-namespace:System.Application.Converters;assembly=System.Application.SteamTools.Client.Mobile"
+            xmlns:converters="clr-namespace:System.Application.Converters"
             xmlns:ccl_services="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
             xmlns:resx="clr-namespace:System.Application.UI.Resx"
             xmlns:viewmodels="clr-namespace:System.Application.UI.ViewModels"
-            xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Mobile"
+            xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
             x:DataType="viewmodels:LoginOrRegisterPageViewModel"
             mc:Ignorable="d"
             x:Class="System.Application.UI.Views.LoginOrRegisterPage"
@@ -134,10 +134,10 @@
                               Grid.Row="2"
                               Grid.ColumnSpan="2"/>
             <controls:TextButton Margin="0,0,0,8"
-                               Text="{Binding BtnSendSmsCodeText}"
-                               Grid.Row="2"
-                               Grid.Column="1"
-                               Command="{Binding SendSms}"/>
+                                 Text="{Binding BtnSendSmsCodeText}"
+                                 Grid.Row="2"
+                                 Grid.Column="1"
+                                 Command="{Binding SendSms}"/>
             <Button Margin="0,0,0,12"
                   Text="{x:Static resx:AppResources.LoginAndRegister}"
                   Command="{Binding Submit}"

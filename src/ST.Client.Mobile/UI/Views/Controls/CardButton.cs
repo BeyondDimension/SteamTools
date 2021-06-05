@@ -10,7 +10,7 @@ namespace System.Application.UI.Views.Controls
     /// <para>Cards contain content and actions about a single subject.</para>
     /// <para>https://material.io/components/cards</para>
     /// </summary>
-    public class CardButton : Frame, IButtonController, IButtonElement, IVisualElement_ChangeVisualStateInternal
+    public class CardButton : Frame, IButtonController, IButtonElement
     {
         public static readonly BindableProperty CommandProperty = ButtonElement.CommandProperty;
 
@@ -65,7 +65,5 @@ namespace System.Application.UI.Views.Controls
         {
             set { SetValueCore(IsEnabledProperty, value); }
         }
-
-        void IVisualElement_ChangeVisualStateInternal.ChangeVisualStateInternal() => ChangeVisualState();
     }
 }

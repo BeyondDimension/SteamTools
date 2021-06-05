@@ -34,6 +34,7 @@ using Program = System.Application.UI.AppDelegate;
 #if StartupTrace
 using System.Diagnostics;
 #endif
+using _ThisAssembly = System.Properties.ThisAssembly;
 
 namespace System.Application
 {
@@ -411,7 +412,7 @@ namespace System.Application
                         }
 #endif
                         var value =
-                            (ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
+                            (_ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
                             CSConst.Prefix_HTTPS + "pan.mossimo.net:8862" :
                             CSConst.Prefix_HTTPS + "api.steampp.net";
                         s.ApiBaseUrl = value;

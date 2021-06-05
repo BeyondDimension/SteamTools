@@ -49,7 +49,6 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
-#if FEATURE_HTTP_PROXY
         /// <summary>
         /// 添加 HttpProxy 代理服务
         /// </summary>
@@ -60,7 +59,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IHttpProxyService, HttpProxyServiceImpl>();
             return services;
         }
-#endif
 
         public static IServiceCollection AddAutoMapper(this IServiceCollection services)
         {

@@ -3,22 +3,27 @@
 3. 64 位程序支持
 4. CEF 升级至 90.6.3
 5. 改进 程序目录结构，所有相关 dll 将放入 bin 文件夹中
+6. 新增 全新的托盘菜单
+7. 改进 隐藏游戏列表与挂机游戏列表实时刷新
+8. 新增 JumpList 菜单切换账号
+9. 修复 Win7 中右上角按钮样式错误
+10. 改进 缓存获取加速项目数据，避免失败时无数据
 
 |  File   | Checksum (SHA256)  |
 |  ----  | ----  |
-| Steam++_win_x64_v2.3.1.7z  | SHA256 |
-| Steam++_win_x64_v2.3.1.exe  | SHA256 |
-| Steam++_win_x64_v2.3.1.msix  | SHA256 |
-| Steam++_win_arm64_v2.3.1.7z  | SHA256 |
-| Steam++_win_arm64_v2.3.1.exe  | SHA256 |
-| Steam++_win_arm64_v2.3.1.msix  | SHA256 |
-| Steam++_linux_x64_v2.3.1.7z  | SHA256 |
-| Steam++_linux_x64_v2.3.1.deb  | SHA256 |
-| Steam++_macos_x64_v2.3.1.dmg  | SHA256 |
-| Steam++_macos_arm64_v2.3.1.dmg  | SHA256 |
-| Steam++_android_v2.3.1.apk  | SHA256 |
-| Steam++_android_arm64_v2.3.1.apk  | SHA256 |
-| Steam++_android_arm_v2.3.1.apk  | SHA256 |
+| Steam++_win_x64_v2.4.0.7z  | SHA256 |
+| Steam++_win_x64_v2.4.0.exe  | SHA256 |
+| Steam++_win_x64_v2.4.0.msix  | SHA256 |
+| Steam++_win_arm64_v2.4.0.7z  | SHA256 |
+| Steam++_win_arm64_v2.4.0.exe  | SHA256 |
+| Steam++_win_arm64_v2.4.0.msix  | SHA256 |
+| Steam++_linux_x64_v2.4.0.7z  | SHA256 |
+| Steam++_linux_x64_v2.4.0.deb  | SHA256 |
+| Steam++_macos_x64_v2.4.0.dmg  | SHA256 |
+| Steam++_macos_arm64_v2.4.0.dmg  | SHA256 |
+| Steam++_android_v2.4.0.apk  | SHA256 |
+| Steam++_android_arm64_v2.4.0.apk  | SHA256 |
+| Steam++_android_arm_v2.4.0.apk  | SHA256 |
 
 ***
 

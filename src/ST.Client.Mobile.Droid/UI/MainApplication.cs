@@ -1,7 +1,7 @@
 using Android.App;
 using Android.Runtime;
-using System.Properties;
 using Xamarin.Essentials;
+using _ThisAssembly = System.Properties.ThisAssembly;
 using AndroidApplication = Android.App.Application;
 using XEFileProvider = Xamarin.Essentials.FileProvider;
 using XEPlatform = Xamarin.Essentials.Platform;
@@ -10,7 +10,7 @@ using XEVersionTracking = Xamarin.Essentials.VersionTracking;
 namespace System.Application.UI
 {
     [Register(JavaPackageConstants.UI + nameof(MainApplication))]
-    [Application(Debuggable = ThisAssembly.Debuggable)]
+    [Application(Debuggable = _ThisAssembly.Debuggable)]
     public sealed class MainApplication : AndroidApplication
     {
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
