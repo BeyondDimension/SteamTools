@@ -18,12 +18,16 @@ namespace Avalonia.Controls
 
         public FluentWindow(bool isSaveStatus = true)
         {
-            ExtendClientAreaToDecorationsHint = true;
-            ExtendClientAreaTitleBarHeightHint = -1;
+            if (DI.Platform == System.Platform.Windows)
+            {
+                ExtendClientAreaToDecorationsHint = true;
+                ExtendClientAreaTitleBarHeightHint = -1;
+
+                DI.Get<IDesktopPlatformService>().FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
+            }
             //SystemDecorations = SystemDecorations.BorderOnly;
             TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
 
-            DI.Get<IDesktopPlatformService>().FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
 
             this.GetObservable(WindowStateProperty)
             .Subscribe(x =>
@@ -106,7 +110,7 @@ namespace Avalonia.Controls
             else if (DI.Platform == System.Platform.Apple)
             {
                 ExtendClientAreaChromeHints =
-                    ExtendClientAreaChromeHints.OSXThickTitleBar;
+                    ExtendClientAreaChromeHints.SystemChrome;
             }
             else
             {
