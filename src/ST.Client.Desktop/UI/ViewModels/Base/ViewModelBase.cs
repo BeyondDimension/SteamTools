@@ -26,6 +26,7 @@ namespace System.Application.UI.ViewModels
         public ViewModelBase()
         {
             Activator = new ViewModelActivator();
+
             this.WhenActivated((R_CompositeDisposable disposables) =>
             {
                 disposables.DisposeWith(disposables);

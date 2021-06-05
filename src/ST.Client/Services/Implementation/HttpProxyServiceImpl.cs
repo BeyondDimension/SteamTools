@@ -316,6 +316,8 @@ namespace System.Application.Services.Implementation
             }
             proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer"));
 
+            proxyServer.CertificateManager.TrustRootCertificate();
+
             proxyServer.CertificateManager.EnsureRootCertificate();
 
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
@@ -388,7 +390,7 @@ namespace System.Application.Services.Implementation
 
         public bool StartProxy(bool IsWindowsProxy = false, bool IsProxyGOG = false)
         {
-            if (!IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
+            if (DI.Platform == Platform.Windows && !IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
             {
                 DeleteCertificate();
                 var isOk = SetupCertificate();
@@ -397,6 +399,11 @@ namespace System.Application.Services.Implementation
                     return false;
                 }
             }
+            else
+            {
+                SetupCertificate();
+            }
+
             if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
 
             #region 启动代理
