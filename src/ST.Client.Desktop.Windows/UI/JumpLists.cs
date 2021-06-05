@@ -1,6 +1,7 @@
 extern alias JumpLists;
 using JumpLists::System.Windows.Shell;
 using AvaloniaApplication = Avalonia.Application;
+using System.Linq;
 
 namespace System.Application.UI
 {
@@ -54,6 +55,11 @@ namespace System.Application.UI
             JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
             if (jumpList1 != null)
             {
+                var tk = jumpList1.JumpItems.FirstOrDefault(s => s is JumpTask t && t.Arguments == task.Arguments);
+                if (tk != null)
+                {
+                    jumpList1.JumpItems.Remove(tk);
+                }
                 jumpList1.JumpItems.Add(task);
                 if (isRecent)
                     JumpList.AddToRecentCategory(task);
