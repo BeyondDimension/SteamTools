@@ -330,7 +330,7 @@ namespace System.Application.Services.Implementation
                         Platform.Android => AppDownloadType.Install,
                         _ => throw new PlatformNotSupportedException(),
                     };
-                    var download = newVersionInfo.Downloads.FirstOrDefault(x => x.DownloadType == downloadType);
+                    var download = newVersionInfo.Downloads?.FirstOrDefault(x => x.DownloadType == downloadType);
                     if (download.HasValue()) // 压缩包格式是否正确
                     {
                         var packFileName = GetPackName(newVersionInfo, isDirOrFile: true);

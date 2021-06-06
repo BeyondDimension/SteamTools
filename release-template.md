@@ -10,22 +10,23 @@
 10. 改进 缓存获取加速项目数据，避免失败时无数据
 11. 修复 手动检查更新时有概率出现两个新版本窗口
 12. 改进 未使用社区加速时退出程序不再清理 hosts 文件
+13. 修复 托盘位置因 DPI 缩放导致位置不正确
 
 |  File   | Checksum (SHA256)  |
 |  ----  | ----  |
-| Steam++_win_x64_v2.4.0.7z  | SHA256 |
-| Steam++_win_x64_v2.4.0.exe  | SHA256 |
-| Steam++_win_x64_v2.4.0.msix  | SHA256 |
-| Steam++_win_arm64_v2.4.0.7z  | SHA256 |
-| Steam++_win_arm64_v2.4.0.exe  | SHA256 |
-| Steam++_win_arm64_v2.4.0.msix  | SHA256 |
-| Steam++_linux_x64_v2.4.0.7z  | SHA256 |
-| Steam++_linux_x64_v2.4.0.deb  | SHA256 |
-| Steam++_macos_x64_v2.4.0.dmg  | SHA256 |
-| Steam++_macos_arm64_v2.4.0.dmg  | SHA256 |
-| Steam++_android_v2.4.0.apk  | SHA256 |
-| Steam++_android_arm64_v2.4.0.apk  | SHA256 |
-| Steam++_android_arm_v2.4.0.apk  | SHA256 |
+| Steam++_win_x64_v2.4.1.7z  | SHA256 |
+| Steam++_win_x64_v2.4.1.exe  | SHA256 |
+| Steam++_win_x64_v2.4.1.msix  | SHA256 |
+| Steam++_win_arm64_v2.4.1.7z  | SHA256 |
+| Steam++_win_arm64_v2.4.1.exe  | SHA256 |
+| Steam++_win_arm64_v2.4.1.msix  | SHA256 |
+| Steam++_linux_x64_v2.4.1.7z  | SHA256 |
+| Steam++_linux_x64_v2.4.1.deb  | SHA256 |
+| Steam++_macos_x64_v2.4.1.dmg  | SHA256 |
+| Steam++_macos_arm64_v2.4.1.dmg  | SHA256 |
+| Steam++_android_v2.4.1.apk  | SHA256 |
+| Steam++_android_arm64_v2.4.1.apk  | SHA256 |
+| Steam++_android_arm_v2.4.1.apk  | SHA256 |
 
 ***
 
