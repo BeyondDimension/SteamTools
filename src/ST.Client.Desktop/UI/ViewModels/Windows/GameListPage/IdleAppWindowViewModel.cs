@@ -213,7 +213,7 @@ namespace System.Application.UI.ViewModels
                 }
             }
             else {
-                var result = MessageBoxCompat.ShowAsync(@AppResources.GameList_SteamNotRuning, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
+                var result = MessageBoxCompat.ShowAsync(@AppResources.GameList_SteamNotRuning, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OK);
             }
         }
         public void RunStopBtn_Click(SteamApp app)
@@ -237,7 +237,7 @@ namespace System.Application.UI.ViewModels
             }
             else
             {
-                var result = MessageBoxCompat.ShowAsync(@AppResources.GameList_SteamNotRuning, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
+                var result = MessageBoxCompat.ShowAsync(@AppResources.GameList_SteamNotRuning, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OK);
             }
         }
         public void RunOrStop(SteamApp app)
