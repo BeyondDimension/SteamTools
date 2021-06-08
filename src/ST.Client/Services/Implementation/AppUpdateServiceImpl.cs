@@ -3,6 +3,7 @@ using ReactiveUI;
 using System.Application.Models;
 using System.Application.Properties;
 using System.IO;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -247,28 +248,63 @@ namespace System.Application.Services.Implementation
 
             if (newVersionInfo.HasValue())
             {
-                if (newVersionInfo!.IncrementalUpdate.Any_Nullable()) // 增量更新
+                if (newVersionInfo!.DisableAutomateUpdate)
                 {
-                    if (Path.DirectorySeparatorChar != '\\')
+                    Fail(SR.UpdateFail);
+                    goto end;
+                }
+
+                if (newVersionInfo.CurrentAllFiles.Any_Nullable() &&
+                    newVersionInfo.CurrentAllFiles.All(x => x.HasValue()) &&
+                    newVersionInfo.AllFiles.Any_Nullable() &&
+                    newVersionInfo.AllFiles.All(x => x.HasValue())) // 增量更新 v2
+                {
+                    if (Path.DirectorySeparatorChar != '\\') // 路径分隔符在客户端系统上与服务端纪录的值不同时，替换分隔符
                     {
-                        foreach (var item in newVersionInfo.IncrementalUpdate!)
+                        void CorrectionDirectorySeparatorChar(IEnumerable<AppVersionDTO.IncrementalUpdateDownload> items)
                         {
-                            item.FileRelativePath =
-                                item.FileRelativePath?.Replace('\\', Path.DirectorySeparatorChar);
+                            foreach (var item in items)
+                            {
+                                item.FileRelativePath =
+                                    item.FileRelativePath?.Replace('\\',
+                                        Path.DirectorySeparatorChar);
+                            }
                         }
+                        CorrectionDirectorySeparatorChar(newVersionInfo.AllFiles!);
+                        CorrectionDirectorySeparatorChar(newVersionInfo.CurrentAllFiles!);
                     }
 
                     var packDirName = GetPackName(newVersionInfo, isDirOrFile: false);
                     var packDirPath = Path.Combine(GetPackCacheDirPath(!isSupportedResume), packDirName);
+                    var packDirPathExists = Directory.Exists(packDirPath);
 
-                    var incrementalUpdate = newVersionInfo.IncrementalUpdate.ToDictionary(x => x, x => packDirPath + Path.DirectorySeparatorChar + x.FileRelativePath);
+                    string GetDownloadPath(string fileRelativePath)
+                        => packDirPath + Path.DirectorySeparatorChar + fileRelativePath;
+                    static string GetFilePath(string fileRelativePath)
+                        => IOPath.AppDataDirectory + Path.DirectorySeparatorChar + fileRelativePath;
+                    var allFiles = newVersionInfo.AllFiles.ToDictionary(x => x, x => (
+                        downloadPath: GetDownloadPath(x.FileRelativePath),
+                        filePath: GetFilePath(x.FileRelativePath)
+                    ));
+                    var currentAllFiles = newVersionInfo.CurrentAllFiles.ToDictionary(x => x,
+                        x => GetFilePath(x.FileRelativePath));
 
-                    if (Directory.Exists(packDirPath))
+                    var hashFiles = new Dictionary<(string sha256, long fileLen), string>();
+
+                    int i = 1;
+                    void OnReportDownloading3_(float value) => OnReportDownloading3(value, i, allFiles.Count);
+                    OnReportDownloading3_(0f);
+
+                    foreach (var item in allFiles.Keys)
                     {
-                        foreach (var item in newVersionInfo.IncrementalUpdate!)
+                        var (downloadPath, filePath) = allFiles[item]; // (downloadPath)文件下载存放路径，(filePath)文件要覆盖的路径
+                        var hashFileKey = (item.SHA256!, item.Length); // 使用 sha256 与 文件大小 作为唯一标识
+                        var fileInfo = new FileInfo(filePath);
+                        if (!fileInfo.Directory.Exists) fileInfo.Directory.Create(); // 文件所在目录必须存在
+
+                        #region 当前下载更新文件缓存文件夹存在，检查是否已下载了文件
+                        if (packDirPathExists)
                         {
-                            var filePath = incrementalUpdate[item];
-                            var fileInfo = new FileInfo(filePath);
                             if (fileInfo.Exists)
                             {
                                 if (fileInfo.Length == item.Length)
@@ -277,53 +313,161 @@ namespace System.Application.Services.Implementation
                                     var sha256 = Hashs.String.SHA256(fileStream);
                                     if (sha256 == item.SHA256)
                                     {
-                                        incrementalUpdate.Remove(item);
-                                        continue;
+                                        hashFiles.Add(hashFileKey, filePath);
+                                        goto for_end; // 文件已下载，校验通过
                                     }
                                 }
-                                fileInfo.Delete();
+                                fileInfo.Delete(); // 文件已下载，校验不通过，删除文件重新下载
                             }
                         }
-                    }
+                        #endregion
 
-                    int i = 1;
-                    void OnReportDownloading3_(float value) => OnReportDownloading3(value, i, incrementalUpdate.Count);
-                    OnReportDownloading3_(0f);
-                    foreach (var item in incrementalUpdate)
-                    {
-                        var fileName = item.Value;
-                        var cacheFileName = fileName + FileExDownloadCache;
-                        var requestUri = GetSingleFileUrl(item.Key.FileId!);
+                        #region 根据当前版本文件清单匹配新版本文件清单查找相同项
+                        var query_current_files = from m in currentAllFiles
+                                                  where m.Key.SHA256 == item.SHA256 && m.Key.Length == item.Length
+                                                  let local_file_info = new FileInfo(m.Value)
+                                                  where local_file_info.Exists
+                                                  select local_file_info;
+                        if (query_current_files.Any(x => x.FullName == fileInfo.FullName)) // 如果路径相同，则忽略
+                        {
+                            goto for_end;
+                        }
+                        var query_current_file = query_current_files.FirstOrDefault();
+                        if (query_current_file != null) // 如果路径不同，则复制
+                        {
+                            hashFiles.Add(hashFileKey, query_current_file.FullName);
+                            File.Copy(query_current_file.FullName, fileInfo.FullName);
+                            goto for_end;
+                        }
+                        #endregion
+
+                        #region 根据哈希值匹配已有文件
+                        if (hashFiles.ContainsKey(hashFileKey))
+                        {
+                            var hashFilePath = hashFiles[hashFileKey];
+                            File.Copy(hashFilePath, fileInfo.FullName);
+                            goto for_end;
+                        }
+                        #endregion
+
+                        #region 下载文件，并加入 hashFiles 中
+                        var cacheFileDownloadPath = downloadPath + FileExDownloadCache;
+                        var requestUri = GetSingleFileUrl(item.FileId!);
 
                         var rsp = await client.Download(
                             isAnonymous: true,
                             requestUri: requestUri,
-                            cacheFileName,
+                            cacheFileDownloadPath,
                             null);
                         if (rsp.IsSuccess)
                         {
-                            File.Move(cacheFileName, fileName);
+                            File.Move(cacheFileDownloadPath, downloadPath);
 
-                            if (!UpdatePackVerification(fileName, item.Key.SHA256!, i, incrementalUpdate.Count))
+                            if (!UpdatePackVerification(downloadPath, item.SHA256!, i, allFiles.Count))
                             {
                                 Fail(SR.UpdatePackVerificationFail);
                                 break;
                             }
+
+                            hashFiles.Add(hashFileKey, downloadPath);
                         }
                         else
                         {
                             Fail(SR.DownloadUpdateFail);
                             break;
                         }
-                        i++;
-                        OnReportDownloading3_(i / (float)incrementalUpdate.Count * MaxProgressValue);
+                    #endregion
+
+                    for_end: i++;
+                        OnReportDownloading3_(i / (float)allFiles.Count * MaxProgressValue);
                     }
 
                     OnReport(MaxProgressValue);
                     OverwriteUpgrade(packDirPath, isIncrement: true);
                 }
+                //if (newVersionInfo!.IncrementalUpdate.Any_Nullable()) // 增量更新 v1
+                //{
+                //    if (Path.DirectorySeparatorChar != '\\')
+                //    {
+                //        foreach (var item in newVersionInfo.IncrementalUpdate!)
+                //        {
+                //            item.FileRelativePath =
+                //                item.FileRelativePath?.Replace('\\', Path.DirectorySeparatorChar);
+                //        }
+                //    }
+
+                //    var packDirName = GetPackName(newVersionInfo, isDirOrFile: false);
+                //    var packDirPath = Path.Combine(GetPackCacheDirPath(!isSupportedResume), packDirName);
+
+                //    var incrementalUpdate = newVersionInfo.IncrementalUpdate.ToDictionary(x => x, x => packDirPath + Path.DirectorySeparatorChar + x.FileRelativePath);
+
+                //    if (Directory.Exists(packDirPath))
+                //    {
+                //        foreach (var item in newVersionInfo.IncrementalUpdate!)
+                //        {
+                //            var filePath = incrementalUpdate[item];
+                //            var fileInfo = new FileInfo(filePath);
+                //            if (fileInfo.Exists)
+                //            {
+                //                if (fileInfo.Length == item.Length)
+                //                {
+                //                    using var fileStream = fileInfo.OpenRead();
+                //                    var sha256 = Hashs.String.SHA256(fileStream);
+                //                    if (sha256 == item.SHA256)
+                //                    {
+                //                        incrementalUpdate.Remove(item);
+                //                        continue;
+                //                    }
+                //                }
+                //                fileInfo.Delete();
+                //            }
+                //        }
+                //    }
+
+                //    int i = 1;
+                //    void OnReportDownloading3_(float value) => OnReportDownloading3(value, i, incrementalUpdate.Count);
+                //    OnReportDownloading3_(0f);
+                //    foreach (var item in incrementalUpdate)
+                //    {
+                //        var fileName = item.Value;
+                //        var cacheFileName = fileName + FileExDownloadCache;
+                //        var requestUri = GetSingleFileUrl(item.Key.FileId!);
+
+                //        var rsp = await client.Download(
+                //            isAnonymous: true,
+                //            requestUri: requestUri,
+                //            cacheFileName,
+                //            null);
+                //        if (rsp.IsSuccess)
+                //        {
+                //            File.Move(cacheFileName, fileName);
+
+                //            if (!UpdatePackVerification(fileName, item.Key.SHA256!, i, incrementalUpdate.Count))
+                //            {
+                //                Fail(SR.UpdatePackVerificationFail);
+                //                break;
+                //            }
+                //        }
+                //        else
+                //        {
+                //            Fail(SR.DownloadUpdateFail);
+                //            break;
+                //        }
+                //        i++;
+                //        OnReportDownloading3_(i / (float)incrementalUpdate.Count * MaxProgressValue);
+                //    }
+
+                //    OnReport(MaxProgressValue);
+                //    OverwriteUpgrade(packDirPath, isIncrement: true);
+                //}
                 else // 全量更新
                 {
+                    if (DI.Platform != Platform.Android) // 全量更新预计仅支持 Android 平台
+                    {
+                        OpenInAppStore();
+                        goto end;
+                    }
+
                     var downloadType = DI.Platform switch
                     {
                         Platform.Windows or Platform.Linux or Platform.Apple => AppDownloadType.Compressed,
@@ -337,7 +481,7 @@ namespace System.Application.Services.Implementation
                         var packFilePath = Path.Combine(GetPackCacheDirPath(!isSupportedResume), packFileName);
                         if (File.Exists(packFilePath)) // 存在压缩包文件
                         {
-                            if (UpdatePackVerification(packFilePath, download.SHA256!)) // (已有文件)哈希验证成功，进行覆盖安装
+                            if (UpdatePackVerification(packFilePath, download!.SHA256!)) // (已有文件)哈希验证成功，进行覆盖安装
                             {
                                 OverwriteUpgrade(packFilePath, isIncrement: false);
                                 goto end;
@@ -413,7 +557,7 @@ namespace System.Application.Services.Implementation
                         {
                             File.Move(cacheFilePath, packFilePath);
 
-                            if (UpdatePackVerification(packFilePath, download.SHA256!)) // (下载文件)哈希验证成功，进行覆盖安装
+                            if (UpdatePackVerification(packFilePath, download!.SHA256!)) // (下载文件)哈希验证成功，进行覆盖安装
                             {
                                 OverwriteUpgrade(packFileName, isIncrement: false);
                                 OnReportDownloading(MaxProgressValue);
@@ -460,7 +604,9 @@ namespace System.Application.Services.Implementation
 
         void StartUpdate()
         {
-            if (IsSupportedServerDistribution)
+            if (IsSupportedServerDistribution &&
+                NewVersionInfo.HasValue() &&
+                !NewVersionInfo!.DisableAutomateUpdate)
             {
                 DownloadUpdate();
             }
