@@ -172,6 +172,7 @@ navigator.__proto__ = newProto;
                     return;
                 }
                 settings.ResourcesDirPath = resourcesDirPath;
+                settings.NoSandbox = true;
             }
             else
             {
