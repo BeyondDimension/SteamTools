@@ -29,11 +29,10 @@ namespace System.Application.UI.Views.Windows
             this.AttachDevTools();
 #endif
             webView = this.FindControl<WebView3>(nameof(webView));
-            webView.InitialUrl = WebView3WindowViewModel.AboutBlank;
-            webView.Opacity = 0;
-            webView.DocumentTitleChanged += WebView_DocumentTitleChanged;
-            webView.LoadingStateChange += WebView_LoadingStateChange;
-            webView.BrowserCreated += WebView_BrowserCreated;
+            webView.Browser.InitialUrl = WebView3WindowViewModel.AboutBlank;
+            webView.Browser.DocumentTitleChanged += WebView_DocumentTitleChanged;
+            webView.Browser.LoadingStateChange += WebView_LoadingStateChange;
+            webView.Browser.BrowserCreated += WebView_BrowserCreated;
         }
 
         CancellationTokenSource? cts;
@@ -58,7 +57,7 @@ namespace System.Application.UI.Views.Windows
                 }
                 if (isDelayed && vm.IsLoading)
                 {
-                    webView.Stop();
+                    webView.Browser.Stop();
                     await WebViewLoadingTimeoutAsync(vm);
                 }
             }
@@ -106,7 +105,7 @@ namespace System.Application.UI.Views.Windows
                 }
                 if (!e.Busy)
                 {
-                    var mainFrame = webView.GetMainFrame();
+                    var mainFrame = webView.Browser.GetMainFrame();
                     if (mainFrame != null)
                     {
                         var mainFrameSource = await mainFrame.GetSourceAsync(default);
@@ -115,7 +114,6 @@ namespace System.Application.UI.Views.Windows
                             await WebViewLoadingTimeoutAsync(vm);
                             return;
                         }
-                        if (webView.Opacity != 1) webView.Opacity = 1;
                         if (vm.IsLoading)
                         {
                             vm.IsLoading = false;
@@ -128,7 +126,7 @@ namespace System.Application.UI.Views.Windows
         string? initialUrl;
         private void WebView_BrowserCreated(object? sender, EventArgs e)
         {
-            if (initialUrl != null && webView.BrowserObject != null)
+            if (initialUrl != null && webView.Browser.BrowserObject != null)
             {
                 webView.Navigate(initialUrl);
             }
@@ -136,7 +134,7 @@ namespace System.Application.UI.Views.Windows
 
         void Navigate(string url)
         {
-            if (webView.BrowserObject == null)
+            if (webView.Browser.BrowserObject == null)
             {
                 initialUrl = url;
             }
@@ -203,9 +201,9 @@ namespace System.Application.UI.Views.Windows
         {
             await LoginUsingSteamClientCookiesAsync();
             if (loginUsingSteamClientState == LoginUsingSteamClientState.Success
-                && webView.BrowserObject != null)
+                && webView.Browser.BrowserObject != null)
             {
-                webView.Reload();
+                webView.Browser.Reload();
             }
         }
 
@@ -218,7 +216,7 @@ namespace System.Application.UI.Views.Windows
                 vm.Close += Close;
                 if (!string.IsNullOrWhiteSpace(vm.Title))
                 {
-                    webView.DocumentTitleChanged -= WebView_DocumentTitleChanged;
+                    webView.Browser.DocumentTitleChanged -= WebView_DocumentTitleChanged;
                 }
                 if (vm.UseLoginUsingSteamClient)
                 {
@@ -249,10 +247,10 @@ namespace System.Application.UI.Views.Windows
                         Navigate(x);
                     }
                 }).AddTo(vm);
-                vm.WhenAnyValue(x => x.StreamResponseFilterUrls).Subscribe(x => webView.StreamResponseFilterUrls = x).AddTo(vm);
-                vm.WhenAnyValue(x => x.FixedSinglePage).Subscribe(x => webView.FixedSinglePage = x).AddTo(vm);
-                vm.WhenAnyValue(x => x.IsSecurity).Subscribe(x => webView.IsSecurity = x).AddTo(vm);
-                webView.OnStreamResponseFilterResourceLoadComplete += vm.OnStreamResponseFilterResourceLoadComplete;
+                vm.WhenAnyValue(x => x.StreamResponseFilterUrls).Subscribe(x => webView.Browser.StreamResponseFilterUrls = x).AddTo(vm);
+                vm.WhenAnyValue(x => x.FixedSinglePage).Subscribe(x => webView.Browser.FixedSinglePage = x).AddTo(vm);
+                vm.WhenAnyValue(x => x.IsSecurity).Subscribe(x => webView.Browser.IsSecurity = x).AddTo(vm);
+                webView.Browser.OnStreamResponseFilterResourceLoadComplete += vm.OnStreamResponseFilterResourceLoadComplete;
             }
         }
 
@@ -302,11 +300,11 @@ namespace System.Application.UI.Views.Windows
                     if (webView != null)
                     {
                         cts?.Cancel();
-                        webView.DocumentTitleChanged -= WebView_DocumentTitleChanged;
-                        webView.LoadingStateChange -= WebView_LoadingStateChange;
+                        webView.Browser.DocumentTitleChanged -= WebView_DocumentTitleChanged;
+                        webView.Browser.LoadingStateChange -= WebView_LoadingStateChange;
                         if (DataContext is WebView3WindowViewModel vm)
                         {
-                            webView.OnStreamResponseFilterResourceLoadComplete -= vm.OnStreamResponseFilterResourceLoadComplete;
+                            webView.Browser.OnStreamResponseFilterResourceLoadComplete -= vm.OnStreamResponseFilterResourceLoadComplete;
                         }
                         ((IDisposable)webView).Dispose();
                     }

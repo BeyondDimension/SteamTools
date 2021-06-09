@@ -11,5 +11,19 @@
              x:DataType="vm:ArchiSteamFarmPlusPageViewModel"
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.ArchiSteamFarmPlusPage">
-  
+
+  <TabControl TabStripPlacement="Left">
+    <TabItem Header="ASF控制台">
+      
+    </TabItem>
+    <TabItem Header="ASF Web UI">
+      
+    </TabItem>
+    <TabItem Header="Bot配置">
+
+    </TabItem>
+    <TabItem Header="ASF配置">
+      
+    </TabItem>
+  </TabControl>
 </UserControl>

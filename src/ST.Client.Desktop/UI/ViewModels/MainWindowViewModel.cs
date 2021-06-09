@@ -75,8 +75,8 @@ namespace System.Application.UI.ViewModels
             AddTabItem<SteamAccountPageViewModel>();
             AddTabItem<GameListPageViewModel>();
             AddTabItem<LocalAuthPageViewModel>();
+            AddTabItem<ArchiSteamFarmPlusPageViewModel>();
             //AddTabItem<SteamIdlePageViewModel>();
-            //AddTabItem<ArchiSteamFarmPlusPageViewModel>();
             if (DI.Platform == Platform.Windows)
                 AddTabItem<GameRelatedPageViewModel>();
             //AddTabItem<OtherPlatformPageViewModel>();

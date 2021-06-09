@@ -57,9 +57,4 @@
         <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0014488-beta" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Compile Update="Application\UI\Views\Pages\ArchiSteamFarmPlusPage.axaml.cs">
-        <DependentUpon>ArchiSteamFarmPlusPage.axaml</DependentUpon>
-      </Compile>
-    </ItemGroup>
 </Project>

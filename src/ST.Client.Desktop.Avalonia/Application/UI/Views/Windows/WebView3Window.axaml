@@ -31,9 +31,9 @@
                                        MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
       </ExperimentalAcrylicBorder>
-      <controls:WebView3 x:Name="webView"/>
-      <controls:ProgressRing IsIndeterminate="True" HorizontalAlignment="Stretch" Height="100" Width="100" IsVisible="{Binding IsLoading}" />
-
+      
+      <controls:WebView3 x:Name="webView" Url="{Binding Url}"/>
+      
       <!--Toast-->
       <controls:ToastMessage />
     </Panel>

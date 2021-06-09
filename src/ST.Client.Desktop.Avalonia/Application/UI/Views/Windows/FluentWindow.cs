@@ -114,7 +114,7 @@ namespace Avalonia.Controls
             else if (DI.Platform == System.Platform.Apple)
             {
                 ExtendClientAreaChromeHints =
-                    ExtendClientAreaChromeHints.SystemChrome;
+                    ExtendClientAreaChromeHints.OSXThickTitleBar;
             }
             else
             {
@@ -225,7 +225,7 @@ namespace Avalonia.Controls
             else if (DI.Platform == System.Platform.Apple)
             {
                 ExtendClientAreaChromeHints =
-                    ExtendClientAreaChromeHints.SystemChrome;
+                    ExtendClientAreaChromeHints.OSXThickTitleBar;
             }
             else
             {

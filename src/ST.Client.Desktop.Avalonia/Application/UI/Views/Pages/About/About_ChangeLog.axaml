@@ -6,7 +6,6 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.About_ChangeLog">
   <Panel>
-    <controls:WebView3 x:Name="webViewQA" Background="Transparent" />
-    <controls:ProgressRing x:Name="webViewQALoading" IsIndeterminate="True" HorizontalAlignment="Stretch" Height="100" Width="100" />
+    <controls:WebView3 x:Name="webView" Background="Transparent" />
   </Panel>
 </UserControl>
