@@ -54,16 +54,19 @@ namespace System.Application.UI.Views.Windows
                     .Subscribe(x =>
                     {
                         var screen = this.Screens.ScreenFromPoint(new PixelPoint(x.Item1, x.Item2));
-                        var workingAreaWidth = screen.WorkingArea.Width;
+                        var heightPoint = x.Item2 - (int)(this.Height * screen.PixelDensity);
 
-                        if ((x.Item1 + (int)this.Width + 30) > workingAreaWidth)
+                        if (heightPoint < 0)
                         {
-                            this.Position = new PixelPoint(x.Item1 - (int)(this.Width * screen.PixelDensity), x.Item2 - (int)(this.Height * screen.PixelDensity));
+                            this.Position = new PixelPoint(x.Item1, x.Item2);
+                        }
+                        else if ((x.Item1 + (int)this.Width + 30) > screen.WorkingArea.Width)
+                        {
+                            this.Position = new PixelPoint(x.Item1 - (int)(this.Width * screen.PixelDensity), heightPoint);
                         }
                         else
                         {
-                            this.Position = new PixelPoint(x.Item1, x.Item2 - (int)(this.Height * screen.PixelDensity));
-
+                            this.Position = new PixelPoint(x.Item1, heightPoint);
                         }
                     });
             }

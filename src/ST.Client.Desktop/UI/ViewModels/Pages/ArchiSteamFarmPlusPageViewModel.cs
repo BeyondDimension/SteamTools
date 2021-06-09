@@ -1,4 +1,4 @@
-﻿using System.Application.UI.Resx;
+using System.Application.UI.Resx;
 
 namespace System.Application.UI.ViewModels
 {
@@ -14,5 +14,7 @@ namespace System.Application.UI.ViewModels
         {
             IconKey = nameof(ArchiSteamFarmPlusPageViewModel).Replace("ViewModel", "Svg");
         }
+
+        
     }
 }
