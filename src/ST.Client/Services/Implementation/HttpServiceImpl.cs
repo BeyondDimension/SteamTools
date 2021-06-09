@@ -304,7 +304,7 @@ namespace System.Application.Services.Implementation
 
         public async Task<Stream?> GetImageStreamAsync(string requestUri, string channelType, CancellationToken cancellationToken)
         {
-            var file = await GetImageAsync(requestUri, channelType, cancellationToken);
+            var file = await GetImageLocalFilePathByPollyAsync(requestUri, channelType, cancellationToken);
             return string.IsNullOrEmpty(file) ? null : File.OpenRead(file);
         }
 
