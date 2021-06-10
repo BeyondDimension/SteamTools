@@ -79,7 +79,7 @@
       </TextBlock>
 
       <ListBox Items="{Binding WindowList,Mode=OneWay}"
-         Height="200" Margin="0,5"
+         Height="200" Margin="0,5" Background="{DynamicResource ThemeBrushKey}"
          SelectedItem="{Binding SelectWindow}">
         <ListBox.ItemTemplate>
           <DataTemplate>

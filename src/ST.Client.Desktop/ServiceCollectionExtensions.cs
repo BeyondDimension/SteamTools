@@ -110,5 +110,16 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IWindowService, WindowServiceImpl>();
             return services;
         }
+
+        /// <summary>
+        /// 添加 asf 功能
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddArchiSteamFarmService(this IServiceCollection services)
+        {
+            services.AddSingleton<IArchiSteamFarmService, ArchiSteamFarmServiceImpl>();
+            return services;
+        }
     }
 }

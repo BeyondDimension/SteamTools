@@ -24,7 +24,7 @@ namespace System.Application.UI.Views.Pages
             urlTextBox.KeyUp += UrlTextBox_KeyUp;
         }
 
-        private void UrlTextBox_KeyUp(object sender, Avalonia.Input.KeyEventArgs e)
+        private void UrlTextBox_KeyUp(object? sender, Avalonia.Input.KeyEventArgs e)
         {
             if (e.Key == Avalonia.Input.Key.Enter)
             {

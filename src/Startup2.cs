@@ -318,6 +318,9 @@ namespace System.Application
 
                 // Steamworks WebApi Service
                 services.AddSteamworksWebApiService();
+
+                // ASF Service
+                services.AddArchiSteamFarmService();
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.Steam");
 #endif
