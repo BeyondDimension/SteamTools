@@ -212,13 +212,15 @@ namespace System.Application.Services
                                             return (IPAddress.Loopback.ToString(), host);
                                         });
                                     }).Where(w => !string.IsNullOrEmpty(w.Item1));
-
-                                    var r = IHostsFileService.Instance.UpdateHosts(hosts);
-                                    if (r.ResultType != OperationResultType.Success)
+                                    if (DI.Platform == Platform.Windows)
                                     {
-                                        Toast.Show(SR.OperationHostsError_.Format(r.Message));
-                                        httpProxyService.StopProxy();
-                                        return;
+                                        var r = IHostsFileService.Instance.UpdateHosts(hosts);
+                                        if (r.ResultType != OperationResultType.Success)
+                                        {
+                                            Toast.Show(SR.OperationHostsError_.Format(r.Message));
+                                            httpProxyService.StopProxy();
+                                            return;
+                                        }
                                     }
                                 }
                             }
