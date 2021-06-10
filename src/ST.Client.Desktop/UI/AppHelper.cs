@@ -65,7 +65,7 @@ namespace System.Application.UI
 
         const LogLevel DefaultLoggerMinLevel = ThisAssembly.Debuggable ? LogLevel.Debug : LogLevel.Error;
 
-        public static NLogLevel DefaultNLoggerMinLevel = ConvertLogLevel(DefaultLoggerMinLevel);
+        public static readonly NLogLevel DefaultNLoggerMinLevel = ConvertLogLevel(DefaultLoggerMinLevel);
 
         /// <summary>
         /// Convert log level to NLog variant.

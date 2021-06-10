@@ -29,7 +29,8 @@ namespace System.Application.UI
                 // https://docs.microsoft.com/zh-cn/archive/msdn-magazine/2019/march/net-parse-the-command-line-with-system-commandline
                 var rootCommand = new RootCommand("命令行工具(Command Line Tools/CLT)");
 
-                void MainHandler()
+                void MainHandler() => MainHandler_(null);
+                void MainHandler_(Action? onInitStartuped)
                 {
 #if StartupTrace
                     StartupTrace.Restart("ProcessCheck");
@@ -38,6 +39,7 @@ namespace System.Application.UI
 #if StartupTrace
                     StartupTrace.Restart("Startup.Init");
 #endif
+                    onInitStartuped?.Invoke();
                     if (IsMainProcess)
                     {
                         var isInitAppInstanceReset = false;
@@ -91,11 +93,12 @@ namespace System.Application.UI
                     StartupTrace.Restart("InitAvaloniaApp");
 #endif
                 }
-                void MainHandlerByCLT()
+                void MainHandlerByCLT() => MainHandlerByCLT_(null);
+                void MainHandlerByCLT_(Action? onInitStartuped)
                 {
                     IsMainProcess = true;
                     IsCLTProcess = false;
-                    MainHandler();
+                    MainHandler_(onInitStartuped);
                 }
 
 #if DEBUG
@@ -122,8 +125,10 @@ namespace System.Application.UI
                 devtools.Handler = CommandHandler.Create(() =>
                 {
                     AppHelper.EnableDevtools = true;
-                    AppHelper.LoggerMinLevel = LogLevel.Debug;
-                    MainHandlerByCLT();
+                    MainHandlerByCLT_(onInitStartuped: () =>
+                    {
+                        AppHelper.LoggerMinLevel = LogLevel.Debug;
+                    });
                 });
                 rootCommand.AddCommand(devtools);
 
