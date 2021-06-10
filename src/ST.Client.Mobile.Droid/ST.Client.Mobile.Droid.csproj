@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>MonoAndroid11.0</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
-    <AssemblyName>iOSUnitTests</AssemblyName>
+    <AssemblyName>Xamarin.Forms.Platform.Android.UnitTests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

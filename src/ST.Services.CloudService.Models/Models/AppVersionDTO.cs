@@ -1,7 +1,6 @@
 using System.Application.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using static System.Application.Services.CloudService.Constants;
 using MPKey = MessagePack.KeyAttribute;
 using MPObject = MessagePack.MessagePackObjectAttribute;
 
@@ -26,9 +25,10 @@ namespace System.Application.Models
         public string? Description { get; set; }
 
         /// <summary>
-        /// 新版本文件增量更新
+        /// (增量更新V1)新版本文件增量更新，由服务端比较版本差异返回差集，当文件哈希值相同时或路径不同时无法正确更新
         /// </summary>
         [MPKey(3)]
+        [Obsolete("use AllFiles")]
         public IEnumerable<IncrementalUpdateDownload>? IncrementalUpdate { get; set; }
 
         /// <summary>
@@ -48,6 +48,24 @@ namespace System.Application.Models
         /// </summary>
         [MPKey(6)]
         public ArchitectureFlags SupportedAbis { get; set; }
+
+        /// <summary>
+        /// (增量更新V2)新版本的完整文件列表清单，由客户端计算当前文件哈希比对清单，出现不一致时下载文件，注意文件哈希值相同但路径不同的情况下不要重复下载
+        /// </summary>
+        [MPKey(7)]
+        public IEnumerable<IncrementalUpdateDownload>? AllFiles { get; set; }
+
+        /// <summary>
+        /// 是否禁用自动化更新，当此值为 <see langword="true"/> 时，仅提供跳转官网的手动更新方式
+        /// </summary>
+        [MPKey(8)]
+        public bool DisableAutomateUpdate { get; set; }
+
+        /// <summary>
+        /// (增量更新V2)当前版本的完整文件列表清单
+        /// </summary>
+        [MPKey(9)]
+        public IEnumerable<IncrementalUpdateDownload>? CurrentAllFiles { get; set; }
 
         bool IExplicitHasValue.ExplicitHasValue()
         {

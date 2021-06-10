@@ -154,6 +154,7 @@ navigator.__proto__ = newProto;
                 AcceptLanguageList = CultureInfo.CurrentUICulture.GetAcceptLanguage(),
                 MultiThreadedMessageLoop = !externalMessagePump,
                 ExternalMessagePump = externalMessagePump,
+                NoSandbox = true,
                 WindowlessRenderingEnabled = true,
                 // https://magpcss.org/ceforum/viewtopic.php?t=14648#p32857
                 LogSeverity = ThisAssembly.Debuggable ? CefLogSeverity.Error : CefLogSeverity.Disable,
@@ -172,6 +173,7 @@ navigator.__proto__ = newProto;
                     return;
                 }
                 settings.ResourcesDirPath = resourcesDirPath;
+                settings.NoSandbox = true;
             }
             else
             {
@@ -181,7 +183,7 @@ navigator.__proto__ = newProto;
 
             AppHelper.Initialized += () =>
             {
-                if (PlatformInfo.IsMacOS || Environment.GetCommandLineArgs().Contains("--external-message-pump"))
+                if (Instance.UsesExternalMessageLoop)
                 {
                     messagePump = new Timer(_ => Dispatcher.UIThread.Post(CefApi.DoMessageLoopWork), null, messagePumpDelay, messagePumpDelay);
                 }

@@ -119,7 +119,7 @@ namespace System.Application.Services.Implementation
                     td.Settings.StopIfGoingOnBatteries = false;
                     td.Settings.DisallowStartIfOnBatteries = false;
                     td.Triggers.Add(new LogonTrigger());
-                    td.Actions.Add(new ExecAction(AppHelper.ProgramName, "-clt c -silence", Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)));
+                    td.Actions.Add(new ExecAction(AppHelper.ProgramName, "-clt c -silence", IOPath.BaseDirectory));
                     if (IsAdministrator)
                         td.Principal.RunLevel = TaskRunLevel.Highest;
                     TaskService.Instance.RootFolder.RegisterTaskDefinition(name, td);

@@ -254,7 +254,7 @@ namespace System.Application.Services
                     user.MicrosoftAccountEmail = null;
                     break;
                 case FastLoginChannel.QQ:
-                    user.QQAccountNumber = null;
+                    user.QQNickName = null;
                     break;
                 case FastLoginChannel.Apple:
                     user.AppleAccountEmail = null;
@@ -285,7 +285,7 @@ namespace System.Application.Services
                     user.MicrosoftAccountEmail = rsp.User?.MicrosoftAccountEmail;
                     break;
                 case FastLoginChannel.QQ:
-                    user.QQAccountNumber = rsp.User?.QQAccountNumber;
+                    user.QQNickName = rsp.User?.QQNickName;
                     break;
                 case FastLoginChannel.Apple:
                     user.AppleAccountEmail = rsp.User?.AppleAccountEmail;

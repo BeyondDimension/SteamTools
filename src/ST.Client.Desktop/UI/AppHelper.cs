@@ -1,13 +1,9 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NLog;
 using NLog.Extensions.Logging;
-using System.Application.Models;
-using System.Application.Security;
 using System.Application.Services;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Properties;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 using NInternalLogger = NLog.Common.InternalLogger;
@@ -101,7 +97,8 @@ namespace System.Application.UI
         {
             try
             {
-                LoggerFilterOptions.MinLevel = logLevel;
+                var o = LoggerFilterOptions;
+                if (o != null) o.MinLevel = logLevel;
             }
             catch
             {
@@ -109,10 +106,22 @@ namespace System.Application.UI
             SetNLoggerMinLevel(ConvertLogLevel(logLevel));
         }
 
+        static LoggerFilterOptions? _LoggerFilterOptions;
         /// <summary>
         /// 日志过滤选项
         /// </summary>
-        static LoggerFilterOptions LoggerFilterOptions => DI.Get<IOptions<LoggerFilterOptions>>().Value;
+        static LoggerFilterOptions? LoggerFilterOptions
+        {
+            get
+            {
+                if (_LoggerFilterOptions != null) return _LoggerFilterOptions;
+                return DI.Get_Nullable<IOptions<LoggerFilterOptions>>()?.Value;
+            }
+            set
+            {
+                _LoggerFilterOptions = value;
+            }
+        }
 
         internal static (LogLevel minLevel, Action<ILoggingBuilder> cfg) Configure()
         {
@@ -138,10 +147,23 @@ namespace System.Application.UI
         /// </summary>
         public static LogLevel LoggerMinLevel
         {
-            get => LoggerFilterOptions.MinLevel;
+            get
+            {
+                var o = LoggerFilterOptions;
+                if (o == null)
+                {
+                    o = new();
+                    LoggerFilterOptions = o;
+                }
+                return o.MinLevel;
+            }
             set
             {
-                LoggerFilterOptions.MinLevel = value;
+                var o = LoggerFilterOptions;
+                if (o != null)
+                {
+                    o.MinLevel = value;
+                }
                 SetNLoggerMinLevel(value);
             }
         }

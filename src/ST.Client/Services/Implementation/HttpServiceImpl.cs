@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Polly;
 using System.Collections.Concurrent;
 using System.IO;
 using System.IO.FileFormats;
@@ -303,11 +304,39 @@ namespace System.Application.Services.Implementation
 
         public async Task<Stream?> GetImageStreamAsync(string requestUri, string channelType, CancellationToken cancellationToken)
         {
-            var file = await GetImageAsync(requestUri, channelType, cancellationToken);
+            var file = await GetImageLocalFilePathByPollyAsync(requestUri, channelType, cancellationToken);
             return string.IsNullOrEmpty(file) ? null : File.OpenRead(file);
         }
 
-        public async Task<string?> GetImageAsync(string requestUri, string channelType, CancellationToken cancellationToken)
+        #region Polly
+
+        const int numRetries = 5;
+
+        static TimeSpan PollyRetryAttempt(int attemptNumber)
+        {
+            var powY = attemptNumber % numRetries;
+            var timeSpan = TimeSpan.FromMilliseconds(Math.Pow(2, powY));
+            int addS = attemptNumber / numRetries;
+            if (addS > 0) timeSpan = timeSpan.Add(TimeSpan.FromSeconds(addS));
+            return timeSpan;
+        }
+
+        #endregion
+
+        Task<string?> IHttpService.GetImageAsync(string requestUri, string channelType, CancellationToken cancellationToken)
+        {
+            return GetImageLocalFilePathByPollyAsync(requestUri, channelType, cancellationToken);
+        }
+
+        public async Task<string?> GetImageLocalFilePathByPollyAsync(string requestUri, string channelType, CancellationToken cancellationToken)
+        {
+            var r = await Policy.HandleResult<string?>(string.IsNullOrWhiteSpace)
+              .WaitAndRetryAsync(numRetries, PollyRetryAttempt)
+              .ExecuteAsync(ct => GetImageLocalFilePathAsync(requestUri, channelType, ct), cancellationToken);
+            return r;
+        }
+
+        public async Task<string?> GetImageLocalFilePathAsync(string requestUri, string channelType, CancellationToken cancellationToken)
         {
             if (!IsHttpUrl(requestUri)) return null;
 

@@ -153,6 +153,7 @@ namespace System.Application.Models
         { get; set; }
 #endif
 
+        [Obsolete("use QQNickName", true)]
         [MPKey(15)]
         [N_JsonProperty("15")]
         [S_JsonProperty("15")]
@@ -177,6 +178,20 @@ namespace System.Application.Models
             set => this.RaiseAndSetIfChanged(ref _AppleAccountEmail, value);
         }
         string? _AppleAccountEmail;
+#else
+        { get; set; }
+#endif
+
+        [MPKey(17)]
+        [N_JsonProperty("17")]
+        [S_JsonProperty("17")]
+        public string? QQNickName
+#if MVVM_VM
+        {
+            get => _QQNickName;
+            set => this.RaiseAndSetIfChanged(ref _QQNickName, value);
+        }
+        string? _QQNickName;
 #else
         { get; set; }
 #endif
