@@ -12,6 +12,11 @@
         android:title="@string/community_fix" />
 
     <item
+        android:id="@+id/navigation_game_list"
+        android:icon="@drawable/baseline_person_black_24"
+        android:title="@string/game_list" />
+
+    <item
         android:id="@+id/navigation_my"
         android:icon="@drawable/baseline_person_black_24"
         android:title="@string/my" />

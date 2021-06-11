@@ -39,6 +39,12 @@ namespace System.Application.UI
         static IEnumerable<Process> GetCurrentAllProcess()
         {
             var current = Process.GetCurrentProcess();
+#if DEBUG
+            if (string.Equals("dotnet", Path.GetFileNameWithoutExtension(current.MainModule?.FileName), StringComparison.OrdinalIgnoreCase))
+            {
+                return Array.Empty<Process>();
+            }
+#endif
             var currentMainModule = current.TryGetMainModule();
             var query = from p in Process.GetProcessesByName(current.ProcessName)
                         let pMainModule = p.TryGetMainModule()

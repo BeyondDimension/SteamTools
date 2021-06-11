@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_community_fix" />
 
     <fragment
+        android:id="@+id/navigation_game_list"
+        android:name="net.steampp.app.design.ui.fragments.GameListFragment"
+        android:label="@string/game_list"
+        tools:layout="@layout/fragment_game_list" />
+
+    <fragment
         android:id="@+id/navigation_my"
         android:name="net.steampp.app.design.ui.fragments.MyFragment"
         android:label="@string/my"
