@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_local_auth"
+        android:icon="@drawable/baseline_account_box_black_24"
+        android:title="@string/local_auth" />
+
+    <item
+        android:id="@+id/navigation_community_fix"
+        android:icon="@drawable/baseline_person_black_24"
+        android:title="@string/community_fix" />
+
+    <item
+        android:id="@+id/navigation_my"
+        android:icon="@drawable/baseline_person_black_24"
+        android:title="@string/my" />
+
+</menu>

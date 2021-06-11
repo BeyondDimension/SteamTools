@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_local_auth">
+
+    <fragment
+        android:id="@+id/navigation_local_auth"
+        android:name="net.steampp.app.design.ui.fragments.LocalAuthFragment"
+        android:label="@string/local_auth"
+        tools:layout="@layout/fragment_local_auth" />
+
+    <fragment
+        android:id="@+id/navigation_community_fix"
+        android:name="net.steampp.app.design.ui.fragments.CommunityFixFragment"
+        android:label="@string/community_fix"
+        tools:layout="@layout/fragment_community_fix" />
+
+    <fragment
+        android:id="@+id/navigation_my"
+        android:name="net.steampp.app.design.ui.fragments.MyFragment"
+        android:label="@string/my"
+        tools:layout="@layout/fragment_my" />
+</navigation>
