@@ -188,6 +188,9 @@
         <DataTemplate DataType="vm:GameRelatedPageViewModel">
           <pages:GameRelatedPage/>
         </DataTemplate>
+        <DataTemplate DataType="vm:ArchiSteamFarmPlusPageViewModel">
+          <pages:ArchiSteamFarmPlusPage/>
+        </DataTemplate>
       </TabControl.DataTemplates>
       <TabControl.ItemTemplate>
         <DataTemplate>

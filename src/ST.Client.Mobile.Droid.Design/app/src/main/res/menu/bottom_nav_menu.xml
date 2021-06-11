@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_local_auth"
+        android:icon="@drawable/baseline_verified_user_black_24"
+        android:title="@string/local_auth" />
+
+    <item
+        android:id="@+id/navigation_community_fix"
+        android:icon="@drawable/mdi_rocket_black_24"
+        android:title="@string/community_fix" />
+
+    <item
+        android:id="@+id/navigation_game_list"
+        android:icon="@drawable/baseline_sports_esports_black_24"
+        android:title="@string/game_list" />
+
+    <item
+        android:id="@+id/navigation_my"
+        android:icon="@drawable/baseline_person_black_24"
+        android:title="@string/my" />
+
+</menu>

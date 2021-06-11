@@ -16,7 +16,7 @@ using static System.Application.Services.CloudService.Constants;
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.Views.Controls
 {
-    public sealed class WebView3 : WebView
+    public class WebViewBase : WebView
     {
         public static readonly RoutedEvent<FullscreenModeChangeEventArgs> FullscreenEvent = RoutedEvent.Register<WebView, FullscreenModeChangeEventArgs>("Fullscreen", RoutingStrategies.Bubble);
 
@@ -26,11 +26,11 @@ namespace System.Application.UI.Views.Controls
             remove { RemoveHandler(FullscreenEvent, value); }
         }
 
-        public WebView3()
+        public WebViewBase()
         {
         }
 
-        public WebView3(WebView opener) : base(opener)
+        public WebViewBase(WebView opener) : base(opener)
         {
         }
 
@@ -87,7 +87,7 @@ namespace System.Application.UI.Views.Controls
 
     public class FullscreenModeChangeEventArgs : RoutedEventArgs
     {
-        public FullscreenModeChangeEventArgs(IInteractive source, bool fullscreen) : base(WebView3.FullscreenEvent, source)
+        public FullscreenModeChangeEventArgs(IInteractive source, bool fullscreen) : base(WebViewBase.FullscreenEvent, source)
         {
             Fullscreen = fullscreen;
         }
@@ -100,14 +100,14 @@ namespace System.Application.UI.Views.Controls
         const int SHOW_DEV_TOOLS = (int)CefMenuId.UserFirst + 0;
         //const int INSPECT_ELEMENT = (int)CefMenuId.UserFirst + 1;
 
-        readonly WebView3 webView;
+        readonly WebViewBase webView;
 
-        public WebView3Glue(WebView3 view) : base(view)
+        public WebView3Glue(WebViewBase view) : base(view)
         {
             webView = view;
         }
 
-        private new WebView3 WebView => (WebView3)base.WebView;
+        private new WebViewBase WebView => (WebViewBase)base.WebView;
 
         protected override bool OnSetFocus(CefBrowser browser, CefFocusSource source)
         {
@@ -332,11 +332,11 @@ namespace System.Application.UI.Views.Controls
         /// </summary>
         unsafe class StreamResponseFilter : CefResponseFilter
         {
-            readonly WebView3 webView;
+            readonly WebViewBase webView;
             readonly bool rspIsCiphertext;
             MemoryStream? memoryStream;
 
-            public StreamResponseFilter(WebView3 webView, bool rspIsCiphertext)
+            public StreamResponseFilter(WebViewBase webView, bool rspIsCiphertext)
             {
                 this.webView = webView;
                 this.rspIsCiphertext = rspIsCiphertext;

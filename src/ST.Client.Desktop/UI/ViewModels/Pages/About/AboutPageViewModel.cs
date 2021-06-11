@@ -21,7 +21,7 @@ namespace System.Application.UI.ViewModels
         public AboutPageViewModel()
         {
             IconKey = nameof(AboutPageViewModel).Replace("ViewModel", "Svg");
-            
+
             OpenBrowserCommand = ReactiveCommand.Create<string>(BrowserOpen);
 
             CopyLinkCommand = ReactiveCommand.Create<string>(IDesktopAppService.Instance.SetClipboardText);
@@ -50,7 +50,7 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<Unit, Unit> DelAccountCommand { get; }
 
-        public string VersionDisplay => ThisAssembly.VersionDisplay;
+        public string VersionDisplay => ThisAssembly.VersionDisplay + (Environment.Is64BitProcess ? " (x64)" : " (x32)");
 
         public string LabelVersionDisplay => ThisAssembly.IsBetaRelease ? "Beta Version:" : "Current Version:";
 

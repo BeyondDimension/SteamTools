@@ -56,4 +56,5 @@
     <ItemGroup Condition="'$(Configuration)'=='Debug'">
         <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0014488-beta" />
     </ItemGroup>
+
 </Project>

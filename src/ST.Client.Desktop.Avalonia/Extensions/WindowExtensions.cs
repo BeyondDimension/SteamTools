@@ -1,7 +1,7 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using System.Application.Services;
-using System.Net;
 
 // ReSharper disable once CheckNamespace
 namespace System
@@ -21,5 +21,13 @@ namespace System
             }
             return false;
         }
+
+#if DEBUG
+        public static void AttachDevTools2(this TopLevel root)
+        {
+            if (DI.Platform == Platform.Apple && DI.DeviceIdiom == DeviceIdiom.Desktop) return;
+            root.AttachDevTools();
+        }
+#endif
     }
 }

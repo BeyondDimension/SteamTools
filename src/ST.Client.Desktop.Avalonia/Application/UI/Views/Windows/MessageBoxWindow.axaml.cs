@@ -22,7 +22,7 @@ namespace System.Application.UI.Views.Windows
             InitializeComponent();
 
 #if DEBUG
-            this.AttachDevTools();
+            this.AttachDevTools2();
 #endif
         }
 

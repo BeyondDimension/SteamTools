@@ -2,9 +2,9 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        xmlns:sys="clr-namespace:System;assembly=netstandard">
     <Style.Resources>
-        <Color x:Key="ThemeColorKey">#FF222222</Color>
+        <Color x:Key="ThemeColorKey">#66000000</Color>
         <SolidColorBrush x:Key="ThemeBrushKey"
-                         Color="#FF222222" />
+                         Color="#66000000" />
 
         <Color x:Key="BackgroundColorKey">#FF000000</Color>
         <SolidColorBrush x:Key="BackgroundBrushKey"

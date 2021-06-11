@@ -1,0 +1,64 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="clr-namespace:System.Application.UI.Views.Pages"
+             mc:Ignorable="d"
+             d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:ArchiSteamFarmPlusPageViewModel"
+             x:CompileBindings="True"
+             x:Class="System.Application.UI.Views.Pages.ArchiSteamFarmPlusPage">
+
+  <TabControl TabStripPlacement="Left">
+    <TabItem Header="ASF控制台">
+      <TextBox AcceptsReturn="True"/>
+    </TabItem>
+    <TabItem Header="ASF Web UI">
+      <controls:WebView3 Url="{Binding WebUrl}"/>
+    </TabItem>
+    <TabItem Header="Bot配置">
+
+    </TabItem>
+    <TabItem Header="ASF配置">
+      <StackPanel Spacing="20">
+        <StackPanel.Styles>
+          <Style Selector="TextBlock">
+            <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
+            <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
+          </Style>
+          <Style Selector="DockPanel > TextBlock">
+            <Setter Property="Margin" Value="0 0 20 0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="(DockPanel.Dock)"  Value="Left" />
+          </Style>
+          <Style Selector="DockPanel > ToggleSwitch">
+            <Setter Property="Margin" Value="0 0 -12 0" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="OnContent" Value="{x:Null}" />
+            <Setter Property="OffContent" Value="{x:Null}" />
+          </Style>
+        </StackPanel.Styles>
+
+        <DockPanel>
+          <TextBlock Text="ASF路径"/>
+          <Button Content="选择路径"></Button>
+        </DockPanel>
+
+        <DockPanel>
+          <TextBlock Text="启用IPC"/>
+          <ToggleSwitch />
+        </DockPanel>
+
+        <StackPanel Orientation="Vertical" Spacing="8">
+          <TextBlock Text="IPC密码"/>
+          <TextBox Watermark="IPC密码"></TextBox>
+        </StackPanel>
+
+      </StackPanel>
+    </TabItem>
+  </TabControl>
+</UserControl>
