@@ -390,7 +390,7 @@ namespace System.Application.Services.Implementation
 
         public bool StartProxy(bool IsWindowsProxy = false, bool IsProxyGOG = false)
         {
-            if (DI.Platform == Platform.Windows && !IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
+            if (!IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
             {
                 DeleteCertificate();
                 var isOk = SetupCertificate();
@@ -599,7 +599,7 @@ namespace System.Application.Services.Implementation
                 return false;
             if (certificate2.NotAfter <= DateTime.Now)
                 return false;
-            using var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
+            using var store = new X509Store(DI.Platform==Platform.Apple ? StoreName.My:StoreName.Root, StoreLocation.CurrentUser);
             store.Open(OpenFlags.MaxAllowed);
             return store.Certificates.Contains(certificate2);
         }
