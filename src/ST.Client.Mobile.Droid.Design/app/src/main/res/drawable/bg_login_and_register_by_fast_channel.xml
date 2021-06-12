@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<clip xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clipOrientation="horizontal"
+    android:drawable="@drawable/mdi_rocket_black_24"
+    android:gravity="start">
+
+</clip>
