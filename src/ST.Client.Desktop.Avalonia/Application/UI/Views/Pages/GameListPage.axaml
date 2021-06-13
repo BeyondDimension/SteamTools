@@ -316,10 +316,12 @@
                     <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png" Stretch="UniformToFill" IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}">
                     </Image>
                     <TextBlock
+                        Margin="5 0"
                         Text="{Binding DisplayName}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         TextWrapping="WrapWithOverflow"
+                        TextAlignment="Center"
                         FontSize="20"
                         Foreground="{DynamicResource HighlightForegroundBrushKey}"
                         IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
