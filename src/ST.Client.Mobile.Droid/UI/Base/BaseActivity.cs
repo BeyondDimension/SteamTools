@@ -50,7 +50,7 @@ namespace System.Application.UI.Activities
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            OnViewBinding();
+            OnCreateViewBinding();
         }
     }
 
@@ -63,7 +63,7 @@ namespace System.Application.UI.Activities
             base.OnCreate(savedInstanceState);
             if (!MainApplication.IsAllowStart(this)) return;
             SetContentView();
-            OnViewBinding();
+            OnCreateViewBinding();
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)

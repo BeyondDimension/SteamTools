@@ -13,10 +13,10 @@ namespace System.Application.UI.Activities
     [Register(JavaPackageConstants.Activities + nameof(SplashActivity))]
     [Activity(Theme = "@style/MainTheme.Splash",
         MainLauncher = true,
-        LaunchMode = LaunchMode.SingleInstance,
+        LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges,
         NoHistory = true)]
-    public sealed class SplashActivity : AppCompatActivity
+    internal sealed class SplashActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle? savedInstanceState)
         {

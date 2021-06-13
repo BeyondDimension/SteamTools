@@ -11,7 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import net.steampp.app.design.R;
-import net.steampp.app.design.databinding.ActivityMainBinding;
+import net.steampp.app.ui.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 

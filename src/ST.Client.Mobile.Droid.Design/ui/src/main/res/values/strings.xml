@@ -1,0 +1,10 @@
+<resources>
+    <string name="local_auth">本地令牌</string>
+    <string name="my">我的</string>
+    <string name="community_fix">社区加速</string>
+    <string name="game_list">库存游戏</string>
+    <string name="under_construction">该功能正在开发中，敬请期待</string>
+    <string name="login_and_register">登录 / 注册</string>
+    <string name="settings">设置</string>
+    <string name="edit_profile">编辑资料</string>
+</resources>

@@ -120,7 +120,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST.Client.Mobile.iOS.App", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bin", "src\ST.Client.Desktop.Avalonia.App.Bridge.Package.RefLauncher\Bin\Bin.csproj", "{AC8E40AE-CED2-415A-BC47-A68F3F14CB09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST.Tools.AndroidResourceLink", "src\ST.Tools.AndroidResourceLink\ST.Tools.AndroidResourceLink.csproj", "{9A8D2254-9B2B-4B92-8498-43A73BB9A410}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Tools.AndroidResourceLink", "src\ST.Tools.AndroidResourceLink\ST.Tools.AndroidResourceLink.csproj", "{9A8D2254-9B2B-4B92-8498-43A73BB9A410}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

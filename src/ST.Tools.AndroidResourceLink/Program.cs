@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 const string Mark = "<!--ST.Tools.AndroidResourceLink-->";
-var resPath = ProjectPathUtil.projPath + Path.DirectorySeparatorChar + "src" + Path.DirectorySeparatorChar + string.Join(Path.DirectorySeparatorChar, new[] { "ST.Client.Mobile.Droid.Design", "app", "src", "main", "res" });
+var resPath = ProjectPathUtil.projPath + Path.DirectorySeparatorChar + "src" + Path.DirectorySeparatorChar + string.Join(Path.DirectorySeparatorChar, new[] { "ST.Client.Mobile.Droid.Design", "ui", "src", "main", "res" });
 var androidProjPath = ProjectPathUtil.projPath + Path.DirectorySeparatorChar + "src" + Path.DirectorySeparatorChar + "ST.Client.Mobile.Droid";
 var androidProjFilePath = androidProjPath + Path.DirectorySeparatorChar + "ST.Client.Mobile.Droid.csproj";
 
@@ -31,9 +31,10 @@ foreach (var file in files)
     var include = Path.GetRelativePath(androidProjPath, file);
     var link = Path.GetRelativePath(androidProjPath, resPath);
     link = "Resources" + include.Substring(link.Length, include.Length - link.Length);
-    sb.AppendFormat("    <AndroidResource Include=\"{0}\">", include).AppendLine()
+    var tag = link.Contains("\\layout") ? "AndroidBoundLayout" : "AndroidResource";
+    sb.AppendFormat("    <{1} Include=\"{0}\">", include, tag).AppendLine()
         .AppendFormat("    <Link>{0}</Link>", link).AppendLine()
-        .AppendLine("    </AndroidResource>");
+        .AppendFormat("    </{0}>", tag).AppendLine();
 }
 sb.AppendLine("  </ItemGroup>");
 Array.ForEach(bottom, x => sb.AppendLine(x));

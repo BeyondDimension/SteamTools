@@ -606,7 +606,7 @@ namespace System.Application
             }
             catch (Exception e)
             {
-                Log.Error(nameof(App), e, "ActiveUserPost");
+                Log.Error(nameof(Startup), e, "ActiveUserPost");
             }
         }
 #endif

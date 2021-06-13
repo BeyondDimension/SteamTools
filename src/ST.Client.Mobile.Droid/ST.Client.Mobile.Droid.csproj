@@ -1,10 +1,10 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <TargetFramework>MonoAndroid11.0</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Mobile.Android</AssemblyName>
-    <AndroidGenerateLayoutBindings>true</AndroidGenerateLayoutBindings>
+    <DefineConstants>__HAVE_ANDROIDX__;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +24,6 @@
     <Compile Include="..\Common.ClientLib.Droid\Application\Security\*.cs">
       <LinkBase>Security</LinkBase>
     </Compile>
-    <None Remove="Resources\values\strings_app_name.xml" />
     <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\Permissions\GetPhoneNumberPermission.cs">
       <LinkBase>Services\Implementation\Permissions</LinkBase>
     </Compile>
@@ -73,8 +72,10 @@
     <Compile Include="..\Common.ClientLib.Droid\Extensions\DimenUnitConverterExtensions.cs">
       <LinkBase>Extensions</LinkBase>
     </Compile>
-    <!--<AndroidResource Include="Resources\**\*" />-->
-    <AndroidResource Include="Resources\values\strings_app_name.xml" />
+    <AndroidResource Include="Resources\values\strings_.xml" />
+    <Compile Remove="UI\Views.Controls\**" />
+    <EmbeddedResource Remove="UI\Views.Controls\**" />
+    <None Remove="UI\Views.Controls\**" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
@@ -111,6 +112,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!--<ProjectReference Include="..\ST.Client.Mobile.Droid.Resources\ST.Client.Mobile.Droid.Resources.csproj" />-->
     <ProjectReference Include="..\ST.Client.Mobile\ST.Client.Mobile.csproj" />
   </ItemGroup>
 
@@ -142,262 +144,293 @@
     <EmbeddedResource Include="..\..\rsa-public-key-release.pfx" Link="UI\Resources\E88CA4F9" />
   </ItemGroup>
 
-  <ItemGroup Condition="Exists('$(MSBuildProjectDirectory)\..\..\masl-client-id.pfx')">
+  <ItemGroup Condition="Exists('$(MSBuildProjectDistringsrectory)\..\..\masl-client-id.pfx')">
     <EmbeddedResource Include="..\..\masl-client-id.pfx" Link="UI\Resources\A608D029" />
   </ItemGroup>
 
   <!--ST.Tools.AndroidResourceLink-->
   <ItemGroup>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable\baseline_account_box_black_24.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_account_box_black_24.xml">
       <Link>Resources\drawable\baseline_account_box_black_24.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable\baseline_info_black_24.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_info_black_24.xml">
       <Link>Resources\drawable\baseline_info_black_24.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable\baseline_person_black_24.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_person_black_24.xml">
       <Link>Resources\drawable\baseline_person_black_24.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable\baseline_phone_android_black_24.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_phone_android_black_24.xml">
       <Link>Resources\drawable\baseline_phone_android_black_24.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable\baseline_settings_black_24.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_settings_black_24.xml">
       <Link>Resources\drawable\baseline_settings_black_24.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable\baseline_sports_esports_black_24.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_sports_esports_black_24.xml">
       <Link>Resources\drawable\baseline_sports_esports_black_24.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable\baseline_verified_user_black_24.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_verified_user_black_24.xml">
       <Link>Resources\drawable\baseline_verified_user_black_24.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable\bg_textbox.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\bg_textbox.xml">
       <Link>Resources\drawable\bg_textbox.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable\mdi_rocket_black_24.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\mdi_rocket_black_24.xml">
       <Link>Resources\drawable\mdi_rocket_black_24.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable\splash_screen.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\splash_screen.xml">
       <Link>Resources\drawable\splash_screen.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable\text_cursor.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\text_cursor.xml">
       <Link>Resources\drawable\text_cursor.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-hdpi\avater_default.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\avater_default.png">
       <Link>Resources\drawable-hdpi\avater_default.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-hdpi\baseline_account_box_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_account_box_black_24.png">
       <Link>Resources\drawable-hdpi\baseline_account_box_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-hdpi\baseline_info_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_info_black_24.png">
       <Link>Resources\drawable-hdpi\baseline_info_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-hdpi\baseline_person_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_person_black_24.png">
       <Link>Resources\drawable-hdpi\baseline_person_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-hdpi\baseline_phone_android_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_phone_android_black_24.png">
       <Link>Resources\drawable-hdpi\baseline_phone_android_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-hdpi\baseline_settings_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_settings_black_24.png">
       <Link>Resources\drawable-hdpi\baseline_settings_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-hdpi\baseline_sports_esports_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_sports_esports_black_24.png">
       <Link>Resources\drawable-hdpi\baseline_sports_esports_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-hdpi\baseline_verified_user_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_verified_user_black_24.png">
       <Link>Resources\drawable-hdpi\baseline_verified_user_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-mdpi\avater_default.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\avater_default.png">
       <Link>Resources\drawable-mdpi\avater_default.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-mdpi\baseline_account_box_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_account_box_black_24.png">
       <Link>Resources\drawable-mdpi\baseline_account_box_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-mdpi\baseline_info_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_info_black_24.png">
       <Link>Resources\drawable-mdpi\baseline_info_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-mdpi\baseline_person_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_person_black_24.png">
       <Link>Resources\drawable-mdpi\baseline_person_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-mdpi\baseline_phone_android_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_phone_android_black_24.png">
       <Link>Resources\drawable-mdpi\baseline_phone_android_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-mdpi\baseline_settings_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_settings_black_24.png">
       <Link>Resources\drawable-mdpi\baseline_settings_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-mdpi\baseline_sports_esports_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_sports_esports_black_24.png">
       <Link>Resources\drawable-mdpi\baseline_sports_esports_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-mdpi\baseline_verified_user_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_verified_user_black_24.png">
       <Link>Resources\drawable-mdpi\baseline_verified_user_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xhdpi\avater_default.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\avater_default.png">
       <Link>Resources\drawable-xhdpi\avater_default.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xhdpi\baseline_account_box_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_account_box_black_24.png">
       <Link>Resources\drawable-xhdpi\baseline_account_box_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xhdpi\baseline_info_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_info_black_24.png">
       <Link>Resources\drawable-xhdpi\baseline_info_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xhdpi\baseline_person_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_person_black_24.png">
       <Link>Resources\drawable-xhdpi\baseline_person_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xhdpi\baseline_phone_android_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_phone_android_black_24.png">
       <Link>Resources\drawable-xhdpi\baseline_phone_android_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xhdpi\baseline_settings_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_settings_black_24.png">
       <Link>Resources\drawable-xhdpi\baseline_settings_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xhdpi\baseline_sports_esports_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_sports_esports_black_24.png">
       <Link>Resources\drawable-xhdpi\baseline_sports_esports_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xhdpi\baseline_verified_user_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_verified_user_black_24.png">
       <Link>Resources\drawable-xhdpi\baseline_verified_user_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxhdpi\avater_default.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\avater_default.png">
       <Link>Resources\drawable-xxhdpi\avater_default.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxhdpi\baseline_account_box_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_account_box_black_24.png">
       <Link>Resources\drawable-xxhdpi\baseline_account_box_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxhdpi\baseline_info_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_info_black_24.png">
       <Link>Resources\drawable-xxhdpi\baseline_info_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxhdpi\baseline_person_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_person_black_24.png">
       <Link>Resources\drawable-xxhdpi\baseline_person_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxhdpi\baseline_phone_android_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_phone_android_black_24.png">
       <Link>Resources\drawable-xxhdpi\baseline_phone_android_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxhdpi\baseline_settings_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_settings_black_24.png">
       <Link>Resources\drawable-xxhdpi\baseline_settings_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxhdpi\baseline_sports_esports_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_sports_esports_black_24.png">
       <Link>Resources\drawable-xxhdpi\baseline_sports_esports_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxhdpi\baseline_verified_user_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_verified_user_black_24.png">
       <Link>Resources\drawable-xxhdpi\baseline_verified_user_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxhdpi\logo.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\logo.png">
       <Link>Resources\drawable-xxhdpi\logo.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxhdpi\splash_logo.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\splash_logo.png">
       <Link>Resources\drawable-xxhdpi\splash_logo.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxxhdpi\avater_default.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\avater_default.png">
       <Link>Resources\drawable-xxxhdpi\avater_default.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxxhdpi\baseline_account_box_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_account_box_black_24.png">
       <Link>Resources\drawable-xxxhdpi\baseline_account_box_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxxhdpi\baseline_info_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_info_black_24.png">
       <Link>Resources\drawable-xxxhdpi\baseline_info_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxxhdpi\baseline_person_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_person_black_24.png">
       <Link>Resources\drawable-xxxhdpi\baseline_person_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxxhdpi\baseline_phone_android_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_phone_android_black_24.png">
       <Link>Resources\drawable-xxxhdpi\baseline_phone_android_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxxhdpi\baseline_settings_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_settings_black_24.png">
       <Link>Resources\drawable-xxxhdpi\baseline_settings_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxxhdpi\baseline_sports_esports_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_sports_esports_black_24.png">
       <Link>Resources\drawable-xxxhdpi\baseline_sports_esports_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\drawable-xxxhdpi\baseline_verified_user_black_24.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_verified_user_black_24.png">
       <Link>Resources\drawable-xxxhdpi\baseline_verified_user_black_24.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\layout\activity_main.xml">
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_main.xml">
       <Link>Resources\layout\activity_main.xml</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\layout\fragment_community_fix.xml">
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_community_fix.xml">
       <Link>Resources\layout\fragment_community_fix.xml</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\layout\fragment_game_list.xml">
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_game_list.xml">
       <Link>Resources\layout\fragment_game_list.xml</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\layout\fragment_local_auth.xml">
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth.xml">
       <Link>Resources\layout\fragment_local_auth.xml</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\layout\fragment_login_and_register_by_fast.xml">
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_login_and_register_by_fast.xml">
       <Link>Resources\layout\fragment_login_and_register_by_fast.xml</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\layout\fragment_login_and_register_by_phone_number.xml">
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_login_and_register_by_phone_number.xml">
       <Link>Resources\layout\fragment_login_and_register_by_phone_number.xml</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\layout\fragment_login_and_register_by_phone_number_content.xml">
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_login_and_register_by_phone_number_content.xml">
       <Link>Resources\layout\fragment_login_and_register_by_phone_number_content.xml</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\layout\fragment_my.xml">
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_my.xml">
       <Link>Resources\layout\fragment_my.xml</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\layout\fragment_my_content.xml">
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_my_content.xml">
       <Link>Resources\layout\fragment_my_content.xml</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\layout\layout_login_and_register_by_fast_channel.xml">
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_login_and_register_by_fast_channel.xml">
       <Link>Resources\layout\layout_login_and_register_by_fast_channel.xml</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\layout\layout_preference_large_button.xml">
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_preference_large_button.xml">
       <Link>Resources\layout\layout_preference_large_button.xml</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\layout\shared_loading.xml">
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\shared_loading.xml">
       <Link>Resources\layout\shared_loading.xml</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\layout\shared_toolbar.xml">
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\shared_toolbar.xml">
       <Link>Resources\layout\shared_toolbar.xml</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\menu\bottom_nav_menu.xml">
+    </AndroidBoundLayout>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\bottom_nav_menu.xml">
       <Link>Resources\menu\bottom_nav_menu.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\mipmap-anydpi-v26\ic_launcher.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-anydpi-v26\ic_launcher.xml">
       <Link>Resources\mipmap-anydpi-v26\ic_launcher.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\mipmap-anydpi-v26\ic_launcher_round.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-anydpi-v26\ic_launcher_round.xml">
       <Link>Resources\mipmap-anydpi-v26\ic_launcher_round.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\mipmap-hdpi\ic_launcher_foreground.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-hdpi\ic_launcher.png">
+      <Link>Resources\mipmap-hdpi\ic_launcher.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-hdpi\ic_launcher_foreground.png">
       <Link>Resources\mipmap-hdpi\ic_launcher_foreground.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\mipmap-mdpi\ic_launcher_foreground.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-hdpi\ic_launcher_round.png">
+      <Link>Resources\mipmap-hdpi\ic_launcher_round.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-mdpi\ic_launcher.png">
+      <Link>Resources\mipmap-mdpi\ic_launcher.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-mdpi\ic_launcher_foreground.png">
       <Link>Resources\mipmap-mdpi\ic_launcher_foreground.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\mipmap-xhdpi\ic_launcher_foreground.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-mdpi\ic_launcher_round.png">
+      <Link>Resources\mipmap-mdpi\ic_launcher_round.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-xhdpi\ic_launcher.png">
+      <Link>Resources\mipmap-xhdpi\ic_launcher.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-xhdpi\ic_launcher_foreground.png">
       <Link>Resources\mipmap-xhdpi\ic_launcher_foreground.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\mipmap-xxhdpi\ic_launcher_foreground.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-xhdpi\ic_launcher_round.png">
+      <Link>Resources\mipmap-xhdpi\ic_launcher_round.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-xxhdpi\ic_launcher.png">
+      <Link>Resources\mipmap-xxhdpi\ic_launcher.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-xxhdpi\ic_launcher_foreground.png">
       <Link>Resources\mipmap-xxhdpi\ic_launcher_foreground.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\mipmap-xxxhdpi\ic_launcher_foreground.png">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-xxhdpi\ic_launcher_round.png">
+      <Link>Resources\mipmap-xxhdpi\ic_launcher_round.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-xxxhdpi\ic_launcher.png">
+      <Link>Resources\mipmap-xxxhdpi\ic_launcher.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-xxxhdpi\ic_launcher_foreground.png">
       <Link>Resources\mipmap-xxxhdpi\ic_launcher_foreground.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\navigation\mobile_navigation.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-xxxhdpi\ic_launcher_round.png">
+      <Link>Resources\mipmap-xxxhdpi\ic_launcher_round.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\navigation\mobile_navigation.xml">
       <Link>Resources\navigation\mobile_navigation.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\values\colors.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values\colors.xml">
       <Link>Resources\values\colors.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\values\dimens.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values\dimens.xml">
       <Link>Resources\values\dimens.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\values\ic_launcher_background.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values\ic_launcher_background.xml">
       <Link>Resources\values\ic_launcher_background.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\values\strings.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values\strings.xml">
       <Link>Resources\values\strings.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\values\themes.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values\themes.xml">
       <Link>Resources\values\themes.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\values-night\colors.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-night\colors.xml">
       <Link>Resources\values-night\colors.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\values-night\themes.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-night\themes.xml">
       <Link>Resources\values-night\themes.xml</Link>
     </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\app\src\main\res\values-v28\themes.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-v28\themes.xml">
       <Link>Resources\values-v28\themes.xml</Link>
     </AndroidResource>
   </ItemGroup>
 </Project>
+
 
 

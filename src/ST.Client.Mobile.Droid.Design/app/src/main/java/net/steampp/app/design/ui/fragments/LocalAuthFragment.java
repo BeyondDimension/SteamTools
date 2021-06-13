@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import net.steampp.app.design.databinding.FragmentLocalAuthBinding;
+import net.steampp.app.ui.databinding.FragmentLocalAuthBinding;
 import net.steampp.app.design.ui.viewmodels.LocalAuthViewModel;
 
 public class LocalAuthFragment extends Fragment {

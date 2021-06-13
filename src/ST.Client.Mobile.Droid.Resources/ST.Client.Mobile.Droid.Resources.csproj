@@ -1,0 +1,47 @@
+<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <TargetFramework>MonoAndroid11.0</TargetFramework>
+    <RootNamespace>System.Application</RootNamespace>
+    <AssemblyName>System.Application.SteamTools.Client.Mobile.Android.Resources</AssemblyName>
+    <IsBindingProject>true</IsBindingProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--<EmbeddedJar Include="Jars\*.jar" />
+    <TransformFile Include="Transforms\*.xml" />-->
+    <LibraryProjectZip Include="..\ST.Client.Mobile.Droid.Design\ui\build\outputs\aar\ui-release.aar">
+      <Link>Jars\ui-release.aar</Link>
+    </LibraryProjectZip>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
+      <Link>Properties\InternalsVisibleTo.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--dependencies implementation-->
+    <PackageReference Include="Xamarin.AndroidX.DataBinding.ViewBinding" Version="4.2.1" />
+    <PackageReference Include="de.hdodenhof.circleimageview" Version="3.1.0" />
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.3.0" />
+    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.3.0.1" />
+    <PackageReference Include="Xamarin.AndroidX.ConstraintLayout" Version="2.0.4.2" />
+    <PackageReference Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.3.5" />
+    <PackageReference Include="Xamarin.AndroidX.Navigation.UI" Version="2.3.5" />
+    <PackageReference Include="Xamarin.AndroidX.RecyclerView" Version="1.2.1" />
+    <PackageReference Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
+  </ItemGroup>
+
+</Project>

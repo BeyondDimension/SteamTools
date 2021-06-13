@@ -1,45 +1,36 @@
-//using Android.App;
-//using Android.Content;
-//using Android.Content.PM;
-//using Android.OS;
-//using Android.Runtime;
-//using AndroidX.AppCompat.App;
-//using Microsoft.Identity.Client;
-//using Xamarin.Forms;
-//using Xamarin.Forms.Platform.Android;
-//using XEPlatform = Xamarin.Essentials.Platform;
+using Android.App;
+using Android.Content.PM;
+using Android.OS;
+using Android.Runtime;
+using AndroidX.Navigation;
+using AndroidX.Navigation.UI;
+using Binding;
 
-//namespace System.Application.UI.Activities
-//{
-//    [Register(JavaPackageConstants.Activities + nameof(MainActivity))]
-//    [Activity(Theme = "@style/MainTheme", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
-//    public sealed class MainActivity : FormsAppCompatActivity
-//    {
-//        protected override void OnCreate(Bundle? savedInstanceState)
-//        {
-//            base.OnCreate(savedInstanceState);
+namespace System.Application.UI.Activities
+{
+    [Register(JavaPackageConstants.Activities + nameof(MainActivity))]
+    [Activity(Theme = "@style/MainTheme",
+        LaunchMode = LaunchMode.SingleTask,
+        ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
+    internal sealed class MainActivity : BaseActivity<activity_main>
+    {
+        protected override int? LayoutResource => Resource.Layout.activity_main;
 
-//            if (!this.IsAllowStart()) return;
+        protected override bool BackToHome => true;
 
-//            Forms.Init(this, savedInstanceState);
-//            FormsMaterial.Init(this, savedInstanceState);
-//            XF.Material.Droid.Material.Init(this, savedInstanceState);
+        protected override void OnCreate(Bundle? savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
 
-//            LoadApplication(new App());
-//        }
-
-//        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
-//        {
-//            XEPlatform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-//            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-//        }
-
-//        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
-//        {
-//            base.OnActivityResult(requestCode, resultCode, data);
-
-//            // Return control to MSAL
-//            AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
-//        }
-//    }
-//}
+            var appBarConfiguration = new AppBarConfiguration.Builder(
+                Resource.Id.navigation_local_auth,
+                Resource.Id.navigation_community_fix,
+                Resource.Id.navigation_game_list,
+                Resource.Id.navigation_my)
+                .Build();
+            var navController = Navigation.FindNavController(this, Resource.Id.nav_host_fragment_activity_main);
+            NavigationUI.SetupActionBarWithNavController(this, navController, appBarConfiguration);
+            NavigationUI.SetupWithNavController(binding!.nav_view, navController);
+        }
+    }
+}

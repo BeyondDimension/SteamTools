@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import net.steampp.app.design.databinding.FragmentCommunityFixBinding;
+import net.steampp.app.ui.databinding.FragmentCommunityFixBinding;
 import net.steampp.app.design.ui.viewmodels.CommunityFixViewModel;
 
 public class CommunityFixFragment extends Fragment {

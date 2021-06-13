@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import net.steampp.app.design.databinding.FragmentGameListBinding;
+import net.steampp.app.ui.databinding.FragmentGameListBinding;
 import net.steampp.app.design.ui.viewmodels.GameListViewModel;
 
 public class GameListFragment extends Fragment {

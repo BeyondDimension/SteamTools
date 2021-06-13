@@ -4,9 +4,9 @@ namespace System.Application.UI.Activities
     {
         protected TViewBinding? binding;
 
-        protected virtual void OnViewBinding()
+        protected virtual void OnCreateViewBinding()
         {
-            binding = (TViewBinding)Activator.CreateInstance(typeof(TViewBinding), this);
+            binding = (TViewBinding)Activator.CreateInstance(typeof(TViewBinding), new[] { this, null });
         }
     }
 
@@ -14,9 +14,9 @@ namespace System.Application.UI.Activities
     {
         protected TViewBinding? binding;
 
-        protected virtual void OnViewBinding()
+        protected virtual void OnCreateViewBinding()
         {
-            binding = (TViewBinding)Activator.CreateInstance(typeof(TViewBinding), this);
+            binding = (TViewBinding)Activator.CreateInstance(typeof(TViewBinding), new[] { this, null });
         }
     }
 }

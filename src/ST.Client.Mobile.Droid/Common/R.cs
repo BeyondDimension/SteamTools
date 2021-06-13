@@ -1,4 +1,4 @@
-﻿using System.Application;
+using System.Application;
 using System.Application.UI.Activities;
 using AndroidApplication = Android.App.Application;
 using JClass = Java.Lang.Class;

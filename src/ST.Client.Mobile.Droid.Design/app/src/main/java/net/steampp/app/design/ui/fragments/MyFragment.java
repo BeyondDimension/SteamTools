@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import net.steampp.app.design.databinding.FragmentMyBinding;
+import net.steampp.app.ui.databinding.FragmentMyBinding;
 import net.steampp.app.design.ui.viewmodels.MyViewModel;
 
 public class MyFragment extends Fragment {
