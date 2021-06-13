@@ -1,4 +1,6 @@
 using ReactiveUI;
+using System.Application.Models.Settings;
+using System.Application.UI.Resx;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -9,14 +11,33 @@ namespace System.Application.Services.Implementation
     internal sealed class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarmService
     {
         readonly IDesktopPlatformService platformService;
-        public string? ArchiSteamFarmExePath { get; private set; }
-        public string? ArchiSteamFarmConfigPath => string.IsNullOrEmpty(ArchiSteamFarmExePath) ? Path.GetDirectoryName(ArchiSteamFarmExePath) : null;
 
-        public StringBuilder ArchiSteamFarmOutText { get; private set; } = new StringBuilder();
+        string? _ArchiSteamFarmExePath;
+        public string? ArchiSteamFarmExePath
+        {
+            get => _ArchiSteamFarmExePath;
+            private set => this.RaiseAndSetIfChanged(ref _ArchiSteamFarmExePath, value);
+        }
 
-        public Process? Process { get; private set; }
+        public string? ArchiSteamFarmConfigPath => !string.IsNullOrEmpty(ArchiSteamFarmExePath) ? Path.GetDirectoryName(ArchiSteamFarmExePath) : null;
 
-        public bool IsArchiSteamFarmExists => File.Exists(ArchiSteamFarmExePath);
+        public string? ArchiSteamFarmVersion => !string.IsNullOrEmpty(ArchiSteamFarmExePath) ? FileVersionInfo.GetVersionInfo(ArchiSteamFarmExePath).ProductVersion : null;
+
+        string? _ArchiSteamFarmOutText;
+        public string? ArchiSteamFarmOutText
+        {
+            get => _ArchiSteamFarmOutText;
+            private set => this.RaiseAndSetIfChanged(ref _ArchiSteamFarmOutText, value);
+        }
+
+        Process? _Process;
+        public Process? Process
+        {
+            get => _Process;
+            private set => this.RaiseAndSetIfChanged(ref _Process, value);
+        }
+
+        public bool IsArchiSteamFarmExists => !string.IsNullOrEmpty(ArchiSteamFarmExePath) ? File.Exists(ArchiSteamFarmExePath) : false;
 
         public bool IsArchiSteamFarmRuning => !Process?.HasExited ?? false;
 
@@ -24,15 +45,20 @@ namespace System.Application.Services.Implementation
         {
             platformService = platform;
 
-            var temp = Path.Combine(IOPath.BaseDirectory, "ASF", "ArchiSteamFarm.exe");
-            SetArchiSteamFarmExePath(temp);
+            ArchiSteamFarmExePath = ASFSettings.ArchiSteamFarmExePath.Value;
+            if (string.IsNullOrEmpty(ArchiSteamFarmExePath))
+            {
+                var temp = Path.Combine(IOPath.BaseDirectory, "ASF", "ArchiSteamFarm.exe");
+                SetArchiSteamFarmExePath(temp);
+            }
         }
 
         public void SetArchiSteamFarmExePath(string path)
         {
-            if (File.Exists(path) && Path.GetExtension(path) == "exe")
+            if (File.Exists(path) && Path.GetExtension(path).Equals(".exe", StringComparison.OrdinalIgnoreCase))
             {
                 ArchiSteamFarmExePath = path;
+                ASFSettings.ArchiSteamFarmExePath.Value = path;
             }
         }
 
@@ -40,34 +66,51 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                if (IsArchiSteamFarmExists)
+                if (!IsArchiSteamFarmRuning)
                 {
-                    Task.Run(() =>
+                    if (IsArchiSteamFarmExists)
                     {
-                        Process = new Process();
-                        Process.StartInfo.FileName = ArchiSteamFarmExePath;//要执行的程序名称 
-                        Process.StartInfo.UseShellExecute = true;
-                        Process.StartInfo.StandardOutputEncoding = Encoding.Default;
-                        Process.StartInfo.RedirectStandardInput = true;
-                        Process.StartInfo.RedirectStandardOutput = true;
-                        Process.StartInfo.RedirectStandardError = true;
-                        Process.StartInfo.CreateNoWindow = true;//不显示程序窗口 
-                        Process.Start();//启动程序 
-                        Process.StandardInput.AutoFlush = true;
-                        //Process.StartInfo.Verb = "runas";
-
-                        //Process.StandardInput.WriteLine();
-                        StreamReader standardOutput = Process.StandardOutput;
-
-                        while (!standardOutput.EndOfStream)
+                        Task.Run(() =>
                         {
-                            string? text = standardOutput.ReadLine();
-                            ArchiSteamFarmOutText.Append(text + Environment.NewLine);
-                        }
+                            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                            Process = new Process();
+                            Process.StartInfo.FileName = ArchiSteamFarmExePath;//要执行的程序名称 
+                            Process.StartInfo.UseShellExecute = false;
+                            Process.StartInfo.StandardOutputEncoding = Encoding.GetEncoding(R.Culture.TextInfo.ANSICodePage);
+                            Process.StartInfo.StandardInputEncoding = Process.StartInfo.StandardOutputEncoding;
+                            Process.StartInfo.StandardErrorEncoding = Process.StartInfo.StandardOutputEncoding;
+                            Process.StartInfo.RedirectStandardInput = true;
+                            Process.StartInfo.RedirectStandardOutput = true;
+                            Process.StartInfo.RedirectStandardError = true;
+                            Process.StartInfo.CreateNoWindow = true;//不显示程序窗口 
+                            Process.Start();//启动程序 
+                            Process.StandardInput.AutoFlush = true;
+                            //Process.StartInfo.Verb = "runas";
+                            this.RaisePropertyChanged(nameof(IsArchiSteamFarmRuning));
+                            //Process.StandardInput.WriteLine();
+                            using StreamReader standardOutput = Process.StandardOutput;
 
-                        Process.Close();
-                        standardOutput.Close();
-                    }).Forget();
+                            while (!standardOutput.EndOfStream)
+                            {
+                                string? text = standardOutput.ReadLine();
+#if DEBUG
+                                Debug.WriteLine(text);
+#endif
+                                ArchiSteamFarmOutText += (text + Environment.NewLine);
+                            }
+
+                            Process.Close();
+                            standardOutput.Close();
+                        }).Forget();
+                    }
+                    else
+                    {
+                        Toast.Show(AppResources.ASF_ExeNoExists);
+                    }
+                }
+                else
+                {
+                    Toast.Show(AppResources.ASF_RuningTip);
                 }
             }
             catch (Exception ex)
@@ -77,9 +120,17 @@ namespace System.Application.Services.Implementation
             return IsArchiSteamFarmRuning;
         }
 
+        public void StopArchiSteamFarm()
+        {
+            if (IsArchiSteamFarmRuning)
+            {
+                Process?.Kill();
+            }
+        }
+
         public string GetArchiSteamFarmIPCUrl()
         {
-            return "http://0.0.0.0:1242";
+            return "http://127.0.0.1:1242";
         }
 
         public void SetArchiSteamFarmConfig()
@@ -99,6 +150,13 @@ namespace System.Application.Services.Implementation
 
         public void SaveBotConfig()
         {
+
+        }
+
+
+        public void UpdateOrDownloadASF()
+        {
+
 
         }
     }

@@ -1,11 +1,12 @@
 using ReactiveUI;
-using System.Application.Services.Implementation;
+using System.Application.Services;
 using System.Application.UI.Resx;
 
 namespace System.Application.UI.ViewModels
 {
     public class ArchiSteamFarmPlusPageViewModel : TabItemViewModel
     {
+        readonly IArchiSteamFarmService asfSerivce = DI.Get<IArchiSteamFarmService>();
         public override string Name
         {
             get => AppResources.ArchiSteamFarmPlus;
@@ -16,7 +17,7 @@ namespace System.Application.UI.ViewModels
         {
             IconKey = nameof(ArchiSteamFarmPlusPageViewModel).Replace("ViewModel", "Svg");
 
-            WebUrl = IArchiSteamFarmService.Instance.GetArchiSteamFarmIPCUrl();
+            WebUrl = asfSerivce.GetArchiSteamFarmIPCUrl();
         }
 
         private string? _WebUrl;
@@ -26,6 +27,16 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _WebUrl, value);
         }
 
-
+        public void RunOrStopASF()
+        {
+            if (asfSerivce.IsArchiSteamFarmRuning)
+            {
+                asfSerivce.StopArchiSteamFarm();
+            }
+            else
+            {
+                asfSerivce.RunArchiSteamFarm();
+            }
+        }
     }
 }

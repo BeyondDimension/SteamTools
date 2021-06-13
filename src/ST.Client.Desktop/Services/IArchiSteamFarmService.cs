@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace System.Application.Services.Implementation
+namespace System.Application.Services
 {
     public interface IArchiSteamFarmService
     {
@@ -12,7 +12,7 @@ namespace System.Application.Services.Implementation
 
         public string? ArchiSteamFarmExePath { get; }
         public string? ArchiSteamFarmConfigPath { get; }
-        public StringBuilder ArchiSteamFarmOutText { get; }
+        public string? ArchiSteamFarmOutText { get; }
 
         public Process? Process { get; }
 
@@ -20,10 +20,13 @@ namespace System.Application.Services.Implementation
 
         public bool IsArchiSteamFarmRuning { get; }
 
+
+
         void SetArchiSteamFarmExePath(string path);
         string GetArchiSteamFarmIPCUrl();
 
         bool RunArchiSteamFarm();
+        void StopArchiSteamFarm();
 
         void SetArchiSteamFarmConfig();
 

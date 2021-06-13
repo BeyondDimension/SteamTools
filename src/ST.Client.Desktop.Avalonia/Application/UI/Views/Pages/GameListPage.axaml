@@ -131,12 +131,12 @@
           </ToggleButton>
           <Popup
               IsOpen="{Binding IsOpenFilter,Mode=TwoWay, FallbackValue=False}"
-              StaysOpen="False" Width="201"
+              StaysOpen="False" Width="200"
               PlacementMode="Bottom"
               PlacementTarget="typebutton"
-              HorizontalOffset="-2"
+              HorizontalOffset="-1.5"
               IsLightDismissEnabled="True">
-            <Border Background="{DynamicResource ThemeBrushKey}"
+            <Border Background="{DynamicResource BackgroundBrushKey}"
                     Classes="dialog"
                     Width="{Binding $parent.Width}" Height="200">
               <ScrollViewer Padding="10 5">

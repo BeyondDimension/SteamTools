@@ -387,6 +387,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 未检测到ASF路径，请手动指定目录或下载asf 的本地化字符串。
+        /// </summary>
+        public static string ASF_ExeNoExists {
+            get {
+                return ResourceManager.GetString("ASF_ExeNoExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ASF已经运行 的本地化字符串。
+        /// </summary>
+        public static string ASF_RuningTip {
+            get {
+                return ResourceManager.GetString("ASF_RuningTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 绑定 的本地化字符串。
         /// </summary>
         public static string Bind {

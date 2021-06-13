@@ -173,6 +173,7 @@ namespace System.Application.UI
                     compositeDisposable.Add(ProxyService.Current.Dispose);
                     compositeDisposable.Add(AuthService.Current.SaveEditNameAuthenticators);
                     compositeDisposable.Add(SteamConnectService.Current.Dispose);
+                    compositeDisposable.Add(IArchiSteamFarmService.Instance.StopArchiSteamFarm);
                     if (GeneralSettings.IsStartupAppMinimized.Value)
                     {
                         Program.IsMinimize = true;

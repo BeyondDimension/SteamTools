@@ -227,6 +227,12 @@
   <data name="ArchiSteamFarmPlus" xml:space="preserve">
     <value>ASF Plus</value>
   </data>
+  <data name="ASF_ExeNoExists" xml:space="preserve">
+    <value>未检测到ASF路径，请手动指定目录或下载asf</value>
+  </data>
+  <data name="ASF_RuningTip" xml:space="preserve">
+    <value>ASF已经运行</value>
+  </data>
   <data name="Bind" xml:space="preserve">
     <value>绑定</value>
   </data>

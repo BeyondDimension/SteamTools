@@ -126,7 +126,7 @@
         <StackPanel Orientation="Horizontal">
           <TextBlock Classes="Header light"
                      Margin="0,0,6,0"
-                     Text="Business and Art:"
+                     Text="Business Cooperation Contact:"
                      VerticalAlignment="Center"/>
           <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
                           CommandParameter="{x:Static vm:AboutPageViewModel.CliencerLink}">
