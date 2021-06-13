@@ -9,7 +9,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_login_and_register_by_fast_channel"
         android:clickable="true"
         android:focusable="true"
         android:orientation="horizontal">
@@ -27,6 +26,7 @@
             android:layout_alignStart="@+id/bgIcon"
             android:layout_alignEnd="@+id/bgIcon"
             android:layout_centerVertical="true"
+            android:tint="@color/white"
             tools:src="@drawable/mdi_rocket_black_24" />
 
         <androidx.appcompat.widget.AppCompatTextView

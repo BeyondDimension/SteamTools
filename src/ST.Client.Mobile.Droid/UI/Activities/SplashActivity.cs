@@ -4,9 +4,6 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using AndroidX.AppCompat.App;
-using System.Application.Security;
-using System.Application.UI.Activities;
-using _ThisAssembly = System.Properties.ThisAssembly;
 
 namespace System.Application.UI.Activities
 {
@@ -14,43 +11,24 @@ namespace System.Application.UI.Activities
     /// 页面 - 启动屏幕
     /// </summary>
     [Register(JavaPackageConstants.Activities + nameof(SplashActivity))]
-    [Activity(Theme = "@style/MainTheme.Splash", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize, NoHistory = true)]
+    [Activity(Theme = "@style/MainTheme.Splash",
+        MainLauncher = true,
+        LaunchMode = LaunchMode.SingleInstance,
+        ConfigurationChanges = ManifestConstants.ConfigurationChanges,
+        NoHistory = true)]
     public sealed class SplashActivity : AppCompatActivity
     {
-        internal static bool AllowStart { get; private set; }
-
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            AllowStart = DeviceSecurityCheckUtil.IsSupported(
-                enableEmulator: _ThisAssembly.Debuggable,
-                allowXposed: true,
-                allowRoot: true);
-            if (!this.IsAllowStart()) return;
-
+            if (!MainApplication.IsAllowStart(this)) return;
             StartActivity(new Intent(this, typeof(MainActivity)));
         }
 
         public override void OnBackPressed()
         {
-        }
-    }
-}
-
-namespace System
-{
-    public static partial class ActivityExtensions
-    {
-        public static bool IsAllowStart(this Activity activity)
-        {
-            if (!SplashActivity.AllowStart)
-            {
-                activity.Finish();
-                Java.Lang.JavaSystem.Exit(0);
-                return false;
-            }
-            return true;
+            GoToPlatformPages.MockHomePressed(this);
+            return;
         }
     }
 }

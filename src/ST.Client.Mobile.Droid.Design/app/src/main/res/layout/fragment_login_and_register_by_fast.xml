@@ -29,12 +29,13 @@
             tools:listitem="@layout/layout_login_and_register_by_fast_channel" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAgreementAndPrivacy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/fast_login_or_register_margin"
             android:layout_marginTop="22dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="@dimen/fast_login_or_register_margin"
             android:layout_marginBottom="22dp"
             android:textColor="@color/text_primary"
             android:textSize="14sp"

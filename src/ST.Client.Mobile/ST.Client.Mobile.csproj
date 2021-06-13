@@ -3,8 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
-    <AssemblyName>Xamarin.Forms.Core.UnitTests</AssemblyName>
-    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <AssemblyName>System.Application.SteamTools.Client.Mobile</AssemblyName>
     <DefineConstants>__MOBILE__;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
@@ -54,9 +53,9 @@
     <Compile Include="..\ST.Client.Desktop\Extensions\ViewModelExtensions.cs">
       <LinkBase>Extensions</LinkBase>
     </Compile>
-    <Compile Include="..\ST.Client.Desktop.Avalonia\Application\Converters\StringFormatConverter.cs">
+    <!--<Compile Include="..\ST.Client.Desktop.Avalonia\Application\Converters\StringFormatConverter.cs">
       <LinkBase>Converters</LinkBase>
-    </Compile>
+    </Compile>-->
     <Compile Include="..\ST.Client.Desktop\Services\IFontManager.cs">
       <LinkBase>Services</LinkBase>
     </Compile>
@@ -67,45 +66,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Proxy\**" />
-    <EmbeddedResource Remove="Proxy\**" />
-    <None Remove="Proxy\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <!--<ProjectReference Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj" />-->
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.31.0" />
-    <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
-    <PackageReference Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2012" />
+    <PackageReference Include="ReactiveUI" Version="13.3.2" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.32.1" />
     <PackageReference Include="StatefulModel.Standard" Version="0.1.0" />
-    <PackageReference Include="XF.Material" Version="1.7.8" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="UI\Styles\ThemeLight.xaml.cs">
-      <DependentUpon>ThemeLight.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Views\LoginOrRegisterPage.xaml.cs">
-      <DependentUpon>LoginOrRegisterPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="UI\Styles\DrawingSvg.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="UI\Styles\ThemeDark.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="UI\Views\MyPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

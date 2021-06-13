@@ -7,4 +7,7 @@
     <dimen name="user_profile_avater_nickname_vertical_space">16dp</dimen>
     <dimen name="avater_border_width">1px</dimen>
     <dimen name="preference_buttons_space">12dp</dimen>
+    <dimen name="textbox_height">56dp</dimen>
+    <dimen name="textbox_padding">10dp</dimen>
+    <dimen name="input_font_size">18sp</dimen>
 </resources>

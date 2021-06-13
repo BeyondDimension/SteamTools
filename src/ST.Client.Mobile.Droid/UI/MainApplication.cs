@@ -1,5 +1,6 @@
 using Android.App;
 using Android.Runtime;
+using System.Application.Security;
 using Xamarin.Essentials;
 using _ThisAssembly = System.Properties.ThisAssembly;
 using AndroidApplication = Android.App.Application;
@@ -17,6 +18,8 @@ namespace System.Application.UI
         {
         }
 
+        public static bool AllowStart { get; private set; }
+
         public override void OnCreate()
         {
             base.OnCreate();
@@ -33,6 +36,13 @@ namespace System.Application.UI
                 return name == PackageName;
             }
             IsMainProcess = GetIsMainProcess();
+            if (IsMainProcess)
+            {
+                AllowStart = DeviceSecurityCheckUtil.IsSupported(
+                    enableEmulator: _ThisAssembly.Debuggable,
+                    allowXposed: true,
+                    allowRoot: true);
+            }
 
             var level = DILevel.Min;
             if (IsMainProcess) level = DILevel.MainProcess;
@@ -52,5 +62,16 @@ namespace System.Application.UI
         /// 当前是否是主进程
         /// </summary>
         public static bool IsMainProcess { get; private set; }
+
+        public static bool IsAllowStart(Activity activity)
+        {
+            if (!AllowStart)
+            {
+                activity.Finish();
+                Java.Lang.JavaSystem.Exit(0);
+                return false;
+            }
+            return true;
+        }
     }
 }

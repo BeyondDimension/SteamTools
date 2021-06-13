@@ -1,4 +1,4 @@
-﻿using Android.App;
+using Android.App;
 using Android.Content;
 using Android.Provider;
 using AndroidX.Core.Content;
@@ -18,10 +18,17 @@ namespace System.Application
         /// <param name="context"></param>
         public static void MockHomePressed(Context context)
         {
-            var intent = new Intent(Intent.ActionMain);
-            intent.SetFlags(ActivityFlags.NewTask);
-            intent.AddCategory(Intent.CategoryHome);
-            context.StartActivity(intent);
+            try
+            {
+                var intent = new Intent(Intent.ActionMain)
+                    .SetFlags(ActivityFlags.NewTask)
+                    .AddCategory(Intent.CategoryHome);
+                context.StartActivity(intent);
+            }
+            catch
+            {
+
+            }
         }
 
         /// <summary>

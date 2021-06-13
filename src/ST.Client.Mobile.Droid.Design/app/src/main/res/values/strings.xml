@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Steam++(Design)</string>
     <string name="local_auth">本地令牌</string>
     <string name="my">我的</string>
     <string name="community_fix">社区加速</string>

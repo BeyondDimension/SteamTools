@@ -13,11 +13,13 @@
         <activity
             android:name=".ui.activities.MainActivity"
             android:configChanges="screenSize|orientation|keyboard|keyboardHidden|screenLayout|smallestScreenSize"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:launchMode="singleInstance" />
         <activity
             android:name=".ui.activities.SplashActivity"
             android:configChanges="screenSize|orientation|keyboard|keyboardHidden|screenLayout|smallestScreenSize"
             android:label="@string/app_name"
+            android:launchMode="singleInstance"
             android:noHistory="true"
             android:theme="@style/MainTheme.Splash">
             <intent-filter>

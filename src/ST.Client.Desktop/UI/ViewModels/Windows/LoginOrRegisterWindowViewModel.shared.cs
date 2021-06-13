@@ -8,9 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using static System.Application.Services.CloudService.Constants;
-#if __MOBILE__
-using Xamarin.Forms;
-#endif
 
 namespace System.Application.UI.ViewModels
 {
