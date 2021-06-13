@@ -22,21 +22,34 @@
         <StackPanel Spacing="20" IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=!IsArchiSteamFarmRuning}"
                 VerticalAlignment="Center">
           <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
-            <!--<Ellipse Height="6" Width="6"  Fill="#FF4F58" Margin="0 0 5 0" VerticalAlignment="Center"> </Ellipse>-->
-            <Ellipse Height="6" Width="6" Fill="#47A42B" Margin="0 0 5 0" VerticalAlignment="Center"></Ellipse>
-            <TextBlock Text="ArchiSteamFarm 已运行" VerticalAlignment="Center"></TextBlock>
+            <Ellipse Height="6" Width="6"  Fill="#FF4F58" Margin="0 0 5 0" VerticalAlignment="Center"/>
+            <!--<Ellipse Height="6" Width="6" Fill="#47A42B" Margin="0 0 5 0" VerticalAlignment="Center" />-->
+            <TextBlock Text="ArchiSteamFarm 未运行" VerticalAlignment="Center"></TextBlock>
           </StackPanel>
           <Button Content="启动ASF" Width="200"
                 Classes="action" Command="{ReflectionBinding RunOrStopASF}"
                 HorizontalAlignment="Center"/>
         </StackPanel>
 
-        <TextBox AcceptsReturn="True" TextWrapping="Wrap" Text="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=ArchiSteamFarmOutText}" IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsArchiSteamFarmRuning}"/>
+        <TextBox x:Name="console" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Text="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=ArchiSteamFarmOutText}" IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsArchiSteamFarmRuning}"/>
       </Panel>
     </TabItem>
     <TabItem Header="ASF Web UI">
+      <Panel>
+        <StackPanel Spacing="20" IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=!IsArchiSteamFarmRuning}"
+                VerticalAlignment="Center">
+          <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
+            <Ellipse Height="6" Width="6"  Fill="#FF4F58" Margin="0 0 5 0" VerticalAlignment="Center"/>
+            <!--<Ellipse Height="6" Width="6" Fill="#47A42B" Margin="0 0 5 0" VerticalAlignment="Center" />-->
+            <TextBlock Text="ArchiSteamFarm 未运行" VerticalAlignment="Center"></TextBlock>
+          </StackPanel>
+          <Button Content="启动ASF" Width="200"
+                Classes="action" Command="{ReflectionBinding RunOrStopASF}"
+                HorizontalAlignment="Center"/>
+        </StackPanel>
 
-      <controls:WebView3 Url="{Binding WebUrl}"/>
+        <controls:WebView3 Url="{Binding WebUrl}" IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsArchiSteamFarmRuning}"/>
+      </Panel>
     </TabItem>
     <TabItem Header="Bot配置">
 
@@ -65,7 +78,7 @@
         <DockPanel>
           <TextBlock Text="ASF可执行文件路径：" DockPanel.Dock="Left"/>
           <controls:ScrollingTextBlock x:Name="asfPath" Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}" DockPanel.Dock="Right" IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=!IsArchiSteamFarmExists,Mode=OneWay}"/>
-          <controls:ScrollingTextBlock  Text="{ReflectionBinding Path=Res.ASF_ExeNoExists,Source={x:Static resx:R.Current},Mode=OneWay}" DockPanel.Dock="Right" 
+          <controls:ScrollingTextBlock  Text="{ReflectionBinding Path=Res.ASF_ExeNoExists,Source={x:Static resx:R.Current},Mode=OneWay}" DockPanel.Dock="Right"
            IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsArchiSteamFarmExists,Mode=OneWay}"/>
           <!--<i:Interaction.Behaviors>
             <ia:DataTriggerBehavior Binding="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsArchiSteamFarmExists,Mode=OneWay}" ComparisonCondition="Equal" Value="True">

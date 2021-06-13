@@ -14,7 +14,10 @@ namespace System.Application.UI.Views.Pages
         {
             InitializeComponent();
             var selectAsfPath = this.FindControl<Button>("selectAsfPath");
-            selectAsfPath.Click += SelectAsfPath_Click; ;
+            selectAsfPath.Click += SelectAsfPath_Click;
+
+            //var console = this.FindControl<TextBox>("console");
+            //console.SelectionStart = 999;
         }
 
         private async void SelectAsfPath_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
