@@ -38,7 +38,7 @@ namespace System.Application.UI.Views.Windows
                 }
             };
 #if DEBUG
-            this.AttachDevTools2();
+            this.AttachDevTools();
 #endif
         }
 

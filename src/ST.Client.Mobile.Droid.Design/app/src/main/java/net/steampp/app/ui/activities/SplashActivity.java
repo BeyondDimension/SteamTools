@@ -1,4 +1,4 @@
-package net.steampp.app.design.ui.activities;
+package net.steampp.app.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -7,6 +7,7 @@ using ReactiveUI.AndroidX;
 using System.Application.UI.ViewModels;
 using XEPlatform = Xamarin.Essentials.Platform;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI.Activities
 {
     /// <summary>
@@ -18,7 +19,7 @@ namespace System.Application.UI.Activities
         {
             base.OnCreate(savedInstanceState);
             if (!MainApplication.IsAllowStart(this)) return;
-            SetContentView();
+            SetContentView(this, LayoutResource);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
@@ -45,24 +46,30 @@ namespace System.Application.UI.Activities
     }
 
     /// <inheritdoc cref="BaseActivity"/>
-    public abstract partial class BaseActivity<TViewBinding> : BaseActivity
+    public abstract partial class BaseActivity<TViewBinding> : BaseActivity where TViewBinding : class
     {
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             OnCreateViewBinding();
         }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            binding = null;
+        }
     }
 
     /// <inheritdoc cref="BaseActivity"/>
-    public abstract partial class BaseActivity<TViewBinding, TViewModel> : ReactiveAppCompatActivity<TViewModel>
+    public abstract partial class BaseActivity<TViewBinding, TViewModel> : ReactiveAppCompatActivity<TViewModel> where TViewBinding : class
         where TViewModel : ViewModelBase
     {
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             if (!MainApplication.IsAllowStart(this)) return;
-            SetContentView();
+            BaseActivity.SetContentView(this, LayoutResource);
             OnCreateViewBinding();
         }
 
@@ -86,6 +93,7 @@ namespace System.Application.UI.Activities
         {
             ClearOnClickListener();
             base.OnDestroy();
+            binding = null;
         }
     }
 }

@@ -1,11 +1,11 @@
-package net.steampp.app.design.ui.viewmodels;
+package net.steampp.app.ui.viewmodels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import net.steampp.app.design.R;
-import net.steampp.app.design.ui.MainApplication;
+import net.steampp.app.ui.MainApplication;
 
 import java.util.Arrays;
 

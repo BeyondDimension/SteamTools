@@ -25,7 +25,7 @@ namespace System.Application.UI.Views.Windows
             this.Opened += Window_Opened;
             this.LostFocus += Window_LostFocus;
 #if DEBUG
-            this.AttachDevTools2();
+            this.AttachDevTools();
 #endif
         }
 

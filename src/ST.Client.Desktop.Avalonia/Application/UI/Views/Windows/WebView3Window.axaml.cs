@@ -26,7 +26,7 @@ namespace System.Application.UI.Views.Windows
         {
             InitializeComponent();
 #if DEBUG
-            this.AttachDevTools2();
+            this.AttachDevTools();
 #endif
             webView = this.FindControl<WebView3>(nameof(webView));
             webView.Browser.InitialUrl = WebView3WindowViewModel.AboutBlank;

@@ -1,4 +1,4 @@
-package net.steampp.app.design.ui.fragments;
+package net.steampp.app.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,20 +12,20 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import net.steampp.app.ui.databinding.FragmentGameListBinding;
-import net.steampp.app.design.ui.viewmodels.GameListViewModel;
+import net.steampp.app.ui.databinding.FragmentLocalAuthBinding;
+import net.steampp.app.ui.viewmodels.LocalAuthViewModel;
 
-public class GameListFragment extends Fragment {
+public class LocalAuthFragment extends Fragment {
 
-    private GameListViewModel viewModel;
-    private FragmentGameListBinding binding;
+    private LocalAuthViewModel viewModel;
+    private FragmentLocalAuthBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         viewModel =
-                new ViewModelProvider(this).get(GameListViewModel.class);
+                new ViewModelProvider(this).get(LocalAuthViewModel.class);
 
-        binding = FragmentGameListBinding.inflate(inflater, container, false);
+        binding = FragmentLocalAuthBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textView;

@@ -12,7 +12,7 @@ namespace System.Application.UI.Views.Windows
         {
             InitializeComponent();
 #if DEBUG
-            this.AttachDevTools2();
+            this.AttachDevTools();
 #endif
             BtnCancel = this.FindControl<Button>(nameof(BtnCancel));
             BtnCancel.Click += (_, _) => Close();

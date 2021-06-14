@@ -23,11 +23,11 @@ namespace System
         }
 
 #if DEBUG
-        public static void AttachDevTools2(this TopLevel root)
-        {
-            if (DI.Platform == Platform.Apple && DI.DeviceIdiom == DeviceIdiom.Desktop) return;
-            root.AttachDevTools();
-        }
+        //public static void AttachDevTools2(this TopLevel root)
+        //{
+        //    if (DI.Platform == Platform.Apple && DI.DeviceIdiom == DeviceIdiom.Desktop) return;
+        //    root.AttachDevTools();
+        //}
 #endif
     }
 }

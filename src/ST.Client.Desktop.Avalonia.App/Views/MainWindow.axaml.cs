@@ -13,7 +13,7 @@ namespace System.Application.UI.Views
         {
             InitializeComponent();
 #if DEBUG
-            this.AttachDevTools2();
+            this.AttachDevTools();
 #endif
 #if StartupTrace
             StartupTrace.Restart("MainWindow.ctor");

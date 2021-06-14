@@ -11,7 +11,7 @@ namespace System.Application.UI.Views.Windows
         {
             InitializeComponent();
 #if DEBUG
-            this.AttachDevTools2();
+            this.AttachDevTools();
 #endif
         }
 

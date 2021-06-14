@@ -1,4 +1,4 @@
-package net.steampp.app.design.ui;
+package net.steampp.app.ui;
 
 import android.app.Application;
 import android.content.Context;

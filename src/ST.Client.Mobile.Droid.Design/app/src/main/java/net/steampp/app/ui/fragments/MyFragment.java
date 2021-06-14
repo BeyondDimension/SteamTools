@@ -1,4 +1,4 @@
-package net.steampp.app.design.ui.fragments;
+package net.steampp.app.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import net.steampp.app.ui.databinding.FragmentMyBinding;
-import net.steampp.app.design.ui.viewmodels.MyViewModel;
+import net.steampp.app.ui.viewmodels.MyViewModel;
 
 public class MyFragment extends Fragment {
 

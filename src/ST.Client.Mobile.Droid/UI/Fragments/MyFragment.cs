@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using Android.Runtime;
+using Binding;
 
 namespace System.Application.UI.Fragments
 {
-    class MyFragment
+    [Register(JavaPackageConstants.Fragments + nameof(MyFragment))]
+    internal sealed class MyFragment : BaseFragment<fragment_my>
     {
+        protected override int? LayoutResource => Resource.Layout.fragment_my;
     }
 }

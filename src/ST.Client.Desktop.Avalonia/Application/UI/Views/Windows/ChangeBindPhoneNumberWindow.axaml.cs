@@ -46,7 +46,7 @@ namespace System.Application.UI.Views.Windows
             TbPhoneNumber.KeyUp += Submit;
             TbSmsCodeNew.KeyUp += Submit;
 #if DEBUG
-            this.AttachDevTools2();
+            this.AttachDevTools();
 #endif
         }
 
