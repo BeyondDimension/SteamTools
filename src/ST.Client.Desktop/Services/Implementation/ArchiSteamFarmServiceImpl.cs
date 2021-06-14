@@ -87,9 +87,9 @@ namespace System.Application.Services.Implementation
                             Process.StandardInput.AutoFlush = true;
                             //Process.StartInfo.Verb = "runas";
                             this.RaisePropertyChanged(nameof(IsArchiSteamFarmRuning));
-                            //Process.StandardInput.WriteLine();
                             using StreamReader standardOutput = Process.StandardOutput;
 
+                            //Process.StandardInput.WriteLine();
                             while (!standardOutput.EndOfStream)
                             {
                                 string? text = standardOutput.ReadLine();
@@ -118,6 +118,15 @@ namespace System.Application.Services.Implementation
                 Log.Error(nameof(IArchiSteamFarmService), ex, nameof(RunArchiSteamFarm));
             }
             return IsArchiSteamFarmRuning;
+        }
+
+        public void WirteLineCommand(string command) 
+        {
+            if (IsArchiSteamFarmRuning && !string.IsNullOrEmpty(command)) 
+            {
+                Process!.StandardInput.WriteLine(command);
+                Process!.StandardInput.Flush();
+            }
         }
 
         public void StopArchiSteamFarm()
@@ -152,7 +161,6 @@ namespace System.Application.Services.Implementation
         {
 
         }
-
 
         public void UpdateOrDownloadASF()
         {

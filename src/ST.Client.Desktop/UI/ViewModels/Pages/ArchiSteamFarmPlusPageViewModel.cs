@@ -27,6 +27,13 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _WebUrl, value);
         }
 
+        private string? _CommandString;
+        public string? CommandString
+        {
+            get => _CommandString;
+            set => this.RaiseAndSetIfChanged(ref _CommandString, value);
+        }
+
         public void RunOrStopASF()
         {
             if (asfSerivce.IsArchiSteamFarmRuning)
@@ -38,5 +45,6 @@ namespace System.Application.UI.ViewModels
                 asfSerivce.RunArchiSteamFarm();
             }
         }
+
     }
 }

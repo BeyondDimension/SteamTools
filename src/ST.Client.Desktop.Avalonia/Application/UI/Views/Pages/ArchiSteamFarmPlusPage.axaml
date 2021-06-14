@@ -31,7 +31,10 @@
                 HorizontalAlignment="Center"/>
         </StackPanel>
 
-        <TextBox x:Name="console" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Text="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=ArchiSteamFarmOutText}" IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsArchiSteamFarmRuning}"/>
+        <StackPanel IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsArchiSteamFarmRuning}">
+          <TextBox x:Name="console" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Text="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=ArchiSteamFarmOutText}"/>
+          <TextBox Text="{Binding CommandString}"/>
+        </StackPanel>
       </Panel>
     </TabItem>
     <TabItem Header="ASF Web UI">
