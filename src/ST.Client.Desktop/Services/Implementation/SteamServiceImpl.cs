@@ -42,7 +42,7 @@ namespace System.Application.Services.Implementation
         readonly IDesktopPlatformService platformService;
         readonly string? mSteamDirPath;
         readonly string? mSteamProgramPath;
-        readonly string[] steamProcess = new[] { "steam", "steamservice", "steamwebhelper" };
+        readonly string[] steamProcess = new[] { "steam","steam_osx", "steamservice", "steamwebhelper" };
         readonly Lazy<IHttpService> _http = new(() => DI.Get<IHttpService>());
         IHttpService Http => _http.Value;
 
@@ -78,13 +78,13 @@ namespace System.Application.Services.Implementation
         {
             foreach (var p in steamProcess)
             {
-                var process = Process.GetProcessesByName(p).FirstOrDefault();
-                if (process != null)
+                var process = Process.GetProcessesByName(p);
+                foreach (var item in process)
                 {
-                    if (process.HasExited == false)
+                    if (item.HasExited == false)
                     {
-                        process.Kill();
-                        process.WaitForExit();
+                        item.Kill();
+                        item.WaitForExit();
                     }
                 }
             }
@@ -128,9 +128,9 @@ namespace System.Application.Services.Implementation
             if (!string.IsNullOrEmpty(SteamProgramPath))
             {
                 if (!string.IsNullOrEmpty(arguments))
-                    Process.Start(SteamProgramPath, arguments);
+                    DI.Get<IDesktopPlatformService>().OpenProcess(SteamProgramPath, arguments);
                 else
-                    Process.Start(SteamProgramPath);
+                    DI.Get<IDesktopPlatformService>().OpenProcess(SteamProgramPath);
             }
         }
 

@@ -34,6 +34,32 @@ namespace System.Application.Services.Implementation
             p.Close();
         }
 
+
+        void IDesktopPlatformService.OpenProcess(string name)
+        {
+            var pInfo = new ProcessStartInfo
+            {
+                FileName = "open",
+                Arguments = $"{name}",
+            };
+            pInfo.UseShellExecute = true;
+            var p = Process.Start(pInfo);
+            if (p == null) throw new FileNotFoundException(name);
+            p.Close();
+        }
+
+        void IDesktopPlatformService.OpenProcess(string name, string arguments)
+        {
+            var pInfo = new ProcessStartInfo
+            {
+                FileName = "open",
+                Arguments = $"{name} \"{arguments}\"",
+            };
+            pInfo.UseShellExecute = true;
+            var p = Process.Start(pInfo);
+            if (p == null) throw new FileNotFoundException(name);
+            p.Close();
+        }
         public void SetSystemSessionEnding(Action action)
         {
 
@@ -72,7 +98,11 @@ namespace System.Application.Services.Implementation
 
         public string? GetSteamProgramPath()
         {
-            return null;
+            var value = string.Format(
+                 "{0}{1}{0}Application{0}Steam.app",
+                 Path.DirectorySeparatorChar,
+                Environment.UserName);
+            return value;
         }
 
         public string GetLastSteamLoginUserName() => string.Empty;

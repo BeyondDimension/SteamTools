@@ -314,12 +314,13 @@ namespace System.Application.Services.Implementation
                 Toast.Show(SR.CreateCertificateFaild);
                 return false;
             }
-            proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer"));
+            var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer");
+            proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(filePath);
 
             proxyServer.CertificateManager.TrustRootCertificate();
 
             proxyServer.CertificateManager.EnsureRootCertificate();
-
+           
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
 
