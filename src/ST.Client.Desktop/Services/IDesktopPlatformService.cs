@@ -80,8 +80,8 @@ namespace System.Application.Services
             }
 
             var providers = new List<TextReaderProvider>() {
-                TextReaderProvider.VSCode,
-                TextReaderProvider.Notepad };
+                TextReaderProvider.Notepad,
+                TextReaderProvider.VSCode };
 
             if (userProvider.HasValue)
             {
