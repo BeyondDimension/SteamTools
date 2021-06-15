@@ -79,7 +79,7 @@ namespace System.Application
             // 业务平台用户管理
             services.TryAddUserManager();
 
-            services.AddDesktopHttpPlatformHelper();
+            services.TryAddDesktopHttpPlatformHelper();
 
             // 服务端API调用
             services.TryAddCloudServiceClient<CloudServiceClient>();

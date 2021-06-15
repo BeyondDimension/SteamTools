@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <!--<Project Sdk="MSBuild.Sdk.Extras">-->
 
   <PropertyGroup>
@@ -24,7 +24,7 @@
     <DefineConstants>XAMARIN_MAC;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" $(TargetFramework.StartsWith('netstandard')) OR $(TargetFramework.StartsWith('net5')) OR $(TargetFramework.EndsWith('net6.0')) ">
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('netstandard')) OR $(TargetFramework.EndsWith('net5.0')) OR $(TargetFramework.EndsWith('net6.0')) ">
     <DefineConstants>MONO_MAC;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 

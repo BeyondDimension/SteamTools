@@ -12,6 +12,12 @@ namespace System.Application.UI.Activities
 {
     /// <summary>
     /// 当前应用的 <see cref="AppCompatActivity"/> 基类
+    /// <list type="bullet">
+    ///     <item>Activity(<see href="https://developer.android.google.cn/guide/components/activities/intro-activities"/>)</item>
+    ///     <item>Activity 类是 Android 应用的关键组件，而 Activity 的启动和组合方式则是该平台应用模型的基本组成部分。</item>
+    ///     <item>在编程范式中，应用是通过 main() 方法启动的，而 Android 系统与此不同，</item>
+    ///     <item>它会调用与其生命周期特定阶段相对应的特定回调方法来启动 Activity 实例中的代码。</item>
+    /// </list>
     /// </summary>
     public abstract partial class BaseActivity : AppCompatActivity, View.IOnClickListener
     {
@@ -61,7 +67,18 @@ namespace System.Application.UI.Activities
         }
     }
 
-    /// <inheritdoc cref="BaseActivity"/>
+    /// <summary>
+    /// 当前应用的 <see cref="ReactiveAppCompatActivity"/>(ReactiveUI) 基类
+    /// <list type="bullet">
+    ///     <item>ReactiveAppCompatActivity(<see href="https://github.com/reactiveui/ReactiveUI/blob/main/src/ReactiveUI.AndroidX/ReactiveAppCompatActivity.cs"/>)</item>
+    ///     <item>Activity(<see href="https://developer.android.google.cn/guide/components/activities/intro-activities"/>)</item>
+    ///     <item>Activity 类是 Android 应用的关键组件，而 Activity 的启动和组合方式则是该平台应用模型的基本组成部分。</item>
+    ///     <item>在编程范式中，应用是通过 main() 方法启动的，而 Android 系统与此不同，</item>
+    ///     <item>它会调用与其生命周期特定阶段相对应的特定回调方法来启动 Activity 实例中的代码。</item>
+    /// </list>
+    /// </summary>
+    /// <typeparam name="TViewBinding"></typeparam>
+    /// <typeparam name="TViewModel"></typeparam>
     public abstract partial class BaseActivity<TViewBinding, TViewModel> : ReactiveAppCompatActivity<TViewModel> where TViewBinding : class
         where TViewModel : ViewModelBase
     {

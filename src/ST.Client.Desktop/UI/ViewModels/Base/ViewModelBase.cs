@@ -1,18 +1,22 @@
 using ReactiveUI;
-using System.Application.Mvvm;
-using M_CompositeDisposable = System.Application.Mvvm.CompositeDisposable;
-using R_CompositeDisposable = System.Reactive.Disposables.CompositeDisposable;
+#if __MOBILE__
+using CompositeDisposable = System.Reactive.Disposables.CompositeDisposable;
+#else
+using CompositeDisposable = System.Application.Mvvm.CompositeDisposable;
+#endif
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
+using System.Application.Mvvm;
+using System.Collections.Generic;
 
 namespace System.Application.UI.ViewModels
 {
     public class ViewModelBase : ReactiveObject, IViewModelBase, IActivatableViewModel
     {
         [IgnoreDataMember]
-        public M_CompositeDisposable CompositeDisposable { get; } = new();
+        public CompositeDisposable CompositeDisposable { get; } = new();
 
         [IgnoreDataMember]
         public bool Disposed { get; private set; }
@@ -31,7 +35,7 @@ namespace System.Application.UI.ViewModels
             this.WhenActivated(disposables =>
             {
                 Activation();
-                Disposable.Create(() => { DeActivation(); })
+                Disposable.Create(() => { Deactivation(); })
                                   .DisposeWith(disposables);
             });
         }
@@ -61,15 +65,18 @@ namespace System.Application.UI.ViewModels
             }
             await Task.CompletedTask;
         }
-        internal async virtual void DeActivation()
+
+        internal async virtual void Deactivation()
         {
             await Task.CompletedTask;
         }
     }
 
-    public interface IViewModelBase : IReactiveObject, INotifyPropertyChanged, INotifyPropertyChanging, IDisposable
+    public interface IViewModelBase : IReactiveObject, INotifyPropertyChanged, INotifyPropertyChanging, IDisposable, IDisposableHolder
     {
-        M_CompositeDisposable CompositeDisposable { get; }
+        new CompositeDisposable CompositeDisposable { get; }
+
+        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => CompositeDisposable;
 
         bool Disposed { get; }
     }

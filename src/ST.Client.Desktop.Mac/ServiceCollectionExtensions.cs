@@ -2,6 +2,7 @@ using System;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Application.UI;
+using System.Net.Http;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -12,6 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             if (DI.Platform == Platform.Apple)
             {
+                services.AddSingleton<IHttpPlatformHelper, PlatformHttpPlatformHelper>();
                 services.AddSingleton<AppDelegate>();
                 services.AddSingleton<IDesktopPlatformService, MacDesktopPlatformServiceImpl>();
                 services.AddSingleton<ISystemJumpListService, SystemJumpListServiceImpl>();

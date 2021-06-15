@@ -94,9 +94,9 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AddDesktopHttpPlatformHelper(this IServiceCollection services)
+        public static IServiceCollection TryAddDesktopHttpPlatformHelper(this IServiceCollection services)
         {
-            services.AddSingleton<IHttpPlatformHelper, DesktopHttpPlatformHelper>();
+            services.TryAddSingleton<IHttpPlatformHelper, DesktopHttpPlatformHelper>();
             return services;
         }
 

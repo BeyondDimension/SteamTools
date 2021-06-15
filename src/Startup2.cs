@@ -220,7 +220,7 @@ namespace System.Application
                 services.AddPlatformHttpPlatformHelper();
 #else
                 // 添加 Http 平台助手桌面端实现
-                services.AddDesktopHttpPlatformHelper();
+                services.TryAddDesktopHttpPlatformHelper();
 #endif
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.HttpPlatformHelper");

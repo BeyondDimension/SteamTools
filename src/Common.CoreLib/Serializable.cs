@@ -80,8 +80,7 @@ namespace System
 #if NOT_NJSON
             return JsonImplType.SystemTextJson;
 #else
-            if (DI.Platform == Platform.Android ||
-                (DI.Platform == Platform.Apple && DI.DeviceIdiom != DeviceIdiom.Desktop))
+            if (DI.Platform == Platform.Android || DI.IsiOSOriPadOSOrwatchOS)
             {
                 return JsonImplType.NewtonsoftJson;
             }
