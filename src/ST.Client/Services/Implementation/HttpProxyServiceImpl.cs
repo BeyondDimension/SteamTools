@@ -11,6 +11,7 @@ using System.Net.Sockets;
 using System.Properties;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -320,7 +321,24 @@ namespace System.Application.Services.Implementation
             proxyServer.CertificateManager.TrustRootCertificate();
 
             proxyServer.CertificateManager.EnsureRootCertificate();
-           
+            //if (DI.Platform == Platform.Apple)
+            //{
+            //    var installCersh= Path.Combine(IOPath.AppDataDirectory, $@"InstallCertificate.sh");
+            //    var fileInfo = new FileInfo(installCersh);
+            //    if (!fileInfo.Exists)
+            //    {
+            //        var command = $"sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain {filePath}";
+            //        File.WriteAllText(installCersh, command, Encoding.UTF8);
+            //    }
+            //    try {
+            //    using var p = new Process();
+            //    p.StartInfo.FileName = installCersh;
+            //    p.Start();
+            //    }
+            //    catch (Exception e) {
+            //        Log.Error("Proxy",e, "InstallCertificate error");
+            //    }
+            //}
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
 

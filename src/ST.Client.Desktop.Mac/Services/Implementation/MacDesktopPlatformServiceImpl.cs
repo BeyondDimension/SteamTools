@@ -99,7 +99,7 @@ namespace System.Application.Services.Implementation
         public string? GetSteamProgramPath()
         {
             var value = string.Format(
-                 "{0}{1}{0}Application{0}Steam.app",
+                 "{0}{1}{0}Applications{0}Steam.app",
                  Path.DirectorySeparatorChar,
                 Environment.UserName);
             return value;
