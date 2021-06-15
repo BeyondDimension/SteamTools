@@ -23,11 +23,13 @@ namespace System.Application.Services.Implementation
 
         void IDesktopPlatformService.StartProcess(string name, string filePath)
         {
-            var p = Process.Start(new ProcessStartInfo
+            var pInfo = new ProcessStartInfo
             {
                 FileName = "open",
                 Arguments = $"-a \"{name}\" \"{filePath}\"",
-            });
+            };
+            pInfo.UseShellExecute = true;
+            var p = Process.Start(pInfo); 
             if (p == null) throw new FileNotFoundException(name);
             p.Close();
         }
