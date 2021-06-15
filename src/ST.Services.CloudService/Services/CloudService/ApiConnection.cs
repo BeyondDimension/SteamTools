@@ -384,18 +384,6 @@ namespace System.Application.Services.CloudService
             await GlobalResponseIntercept(method, requestUri, response, isShowResponseErrorMessage, errorAppendText);
         }
 
-        /// <summary>
-        /// 是否有网络链接
-        /// </summary>
-        bool IsConnected
-        {
-            get
-            {
-                if (DI.Platform == Platform.Windows || (DI.Platform == Platform.Apple && DI.DeviceIdiom == DeviceIdiom.Desktop) || DI.Platform == Platform.Linux || DI.Platform == Platform.Unknown) return true;
-                return Connectivity.NetworkAccess == NetworkAccess.Internet;
-            }
-        }
-
         bool GlobalBeforeIntercept<TResponseModel>(
             [NotNullWhen(true)] out IApiResponse<TResponseModel>? responseResult,
             bool isShowResponseErrorMessage = true,
@@ -405,7 +393,7 @@ namespace System.Application.Services.CloudService
 
             #region NetworkAccess
 
-            if (!IsConnected)
+            if (!http_helper.IsConnected)
             {
                 responseResult = ApiResponse.Code<TResponseModel>(ApiResponseCode.NetworkConnectionInterruption, Constants.NetworkConnectionInterruption);
             }

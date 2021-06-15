@@ -1,6 +1,7 @@
 using System;
 using System.Application.Services;
 using System.Application.Services.Implementation;
+using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 
@@ -18,6 +19,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             if (DI.Platform == Platform.Windows)
             {
+                services.AddSingleton<IHttpPlatformHelper, PlatformHttpPlatformHelper>();
                 services.AddSingleton<IDesktopPlatformService, WindowsDesktopPlatformServiceImpl>();
                 if (hasSteam)
                 {
@@ -26,7 +28,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<WindowsProtectedData>();
                 services.AddSingleton<IProtectedData>(s => s.GetRequiredService<WindowsProtectedData>());
                 services.AddSingleton<ILocalDataProtectionProvider.IProtectedData>(s => s.GetRequiredService<WindowsProtectedData>());
-                if (Environment.OSVersion.Version.Major >= 10)
+                if (DI.IsWindows10)
                 {
                     services.AddSingleton<ILocalDataProtectionProvider.IDataProtectionProvider, Windows10DataProtectionProvider>();
                 }

@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Layout;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
@@ -10,10 +11,10 @@ namespace System.Application.UI.Views.Controls
         {
             InitializeComponent();
 
-            if (DI.Platform == System.Platform.Apple)
+            if (DI.Platform == Platform.Apple)
             {
                 var title = this.FindControl<StackPanel>("title");
-                title.HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center;
+                title.HorizontalAlignment = HorizontalAlignment.Center;
             }
         }
 

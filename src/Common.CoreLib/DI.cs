@@ -63,6 +63,21 @@ namespace System
         /// </summary>
         public static bool IsArm64 { get; }
 
+        /// <summary>
+        /// 当前是否运行在 macOS 上
+        /// </summary>
+        public static bool IsmacOS { get; }
+
+        /// <summary>
+        /// 当前是否运行在 iOS/iPadOS/watchOS 上
+        /// </summary>
+        public static bool IsiOSOriPadOSOrwatchOS { get; }
+
+        /// <summary>
+        /// 当前是否运行在 Windows 10 上
+        /// </summary>
+        public static bool IsWindows10 { get; }
+
         const string DesktopWindowTypeNames =
             "Avalonia.Controls.Window, Avalonia.Controls" +
             "\n" +
@@ -102,6 +117,15 @@ namespace System
             Platform = RuntimeInformationOSPlatform();
             DeviceIdiom = GetDeviceIdiom();
 #endif
+            if (Platform == Platform.Apple)
+            {
+                IsmacOS = DeviceIdiom == DeviceIdiom.Desktop;
+                IsiOSOriPadOSOrwatchOS = !IsmacOS;
+            }
+            else if (Platform == Platform.Windows)
+            {
+                IsWindows10 = Environment.OSVersion.Version.Major >= 10;
+            }
         }
 
 #if !NOT_DI
