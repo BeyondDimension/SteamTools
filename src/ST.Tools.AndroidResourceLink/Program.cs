@@ -31,7 +31,7 @@ foreach (var file in files)
     var include = Path.GetRelativePath(androidProjPath, file);
     var link = Path.GetRelativePath(androidProjPath, resPath);
     link = "Resources" + include.Substring(link.Length, include.Length - link.Length);
-    var tag = link.Contains("\\layout") && !link.Contains("\\shared_") ? "AndroidBoundLayout" : "AndroidResource";
+    var tag = link.Contains("\\layout") && !link.Contains("\\shared_") && !link.Contains("_content.xml") ? "AndroidBoundLayout" : "AndroidResource";
     sb.AppendFormat("    <{1} Include=\"{0}\">", include, tag).AppendLine()
         .AppendFormat("    <Link>{0}</Link>", link).AppendLine()
         .AppendFormat("    </{0}>", tag).AppendLine();

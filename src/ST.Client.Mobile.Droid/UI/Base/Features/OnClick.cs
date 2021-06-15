@@ -16,8 +16,14 @@ namespace System.Application.UI.Activities
         /// 控件的点击事件
         /// </summary>
         /// <param name="view"></param>
-        public virtual void OnClick(View? view)
+        protected virtual void OnClick(View view)
         {
+        }
+
+        void View.IOnClickListener.OnClick(View? view)
+        {
+            if (view == null) return;
+            OnClick(view);
         }
 
         internal static void SetOnClickListener(View.IOnClickListener listener, List<View>? clickViews, IEnumerable<View> views)
@@ -54,8 +60,14 @@ namespace System.Application.UI.Activities
         /// 控件的点击事件
         /// </summary>
         /// <param name="view"></param>
-        public virtual void OnClick(View? view)
+        protected virtual void OnClick(View? view)
         {
+        }
+
+        void View.IOnClickListener.OnClick(View? view)
+        {
+            if (view == null) return;
+            OnClick(view);
         }
 
         List<View>? clickViews;
@@ -70,15 +82,12 @@ namespace System.Application.UI.Fragments
 {
     partial class BaseFragment : View.IOnClickListener
     {
-        internal static void OnClick(Fragment fragment, View? view, Func<View?, bool> onClick)
+        internal static void OnClick(Fragment fragment, View view, Func<View, bool> onClick)
         {
-            if (view != null)
+            var stopCall = onClick(view);
+            if (!stopCall && fragment.Activity is View.IOnClickListener listener)
             {
-                var stopCall = onClick(view);
-                if (!stopCall && fragment.Activity is View.IOnClickListener listener)
-                {
-                    listener.OnClick(view);
-                }
+                listener.OnClick(view);
             }
         }
 
@@ -89,9 +98,13 @@ namespace System.Application.UI.Fragments
         /// </summary>
         /// <param name="view"></param>
         /// <returns></returns>
-        protected virtual bool OnClick(View? view) => false;
+        protected virtual bool OnClick(View view) => false;
 
-        void View.IOnClickListener.OnClick(View? view) => OnClick(this, view, OnClick);
+        void View.IOnClickListener.OnClick(View? view)
+        {
+            if (view == null) return;
+            OnClick(this, view, OnClick);
+        }
 
         List<View>? clickViews;
         protected void SetOnClickListener(IEnumerable<View> views) => BaseActivity.SetOnClickListener(this, clickViews, views);
@@ -108,9 +121,13 @@ namespace System.Application.UI.Fragments
         /// </summary>
         /// <param name="view"></param>
         /// <returns></returns>
-        protected virtual bool OnClick(View? view) => false;
+        protected virtual bool OnClick(View view) => false;
 
-        void View.IOnClickListener.OnClick(View? view) => BaseFragment.OnClick(this, view, OnClick);
+        void View.IOnClickListener.OnClick(View? view)
+        {
+            if (view == null) return;
+            BaseFragment.OnClick(this, view, OnClick);
+        }
 
         List<View>? clickViews;
         protected void SetOnClickListener(IEnumerable<View> views) => BaseActivity.SetOnClickListener(this, clickViews, views);

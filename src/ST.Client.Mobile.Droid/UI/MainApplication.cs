@@ -1,6 +1,7 @@
 using Android.App;
 using Android.Runtime;
 using System.Application.Security;
+using System.Application.UI.ViewModels;
 using Xamarin.Essentials;
 using _ThisAssembly = System.Properties.ThisAssembly;
 using AndroidApplication = Android.App.Application;
@@ -16,6 +17,7 @@ namespace System.Application.UI
     {
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
+            ViewModelBase.IsInDesignMode = false;
         }
 
         public static bool AllowStart { get; private set; }

@@ -22,7 +22,7 @@ namespace System.Application.UI.Activities
         {
             base.OnCreate(savedInstanceState);
             if (!MainApplication.IsAllowStart(this)) return;
-            StartActivity(new Intent(this, typeof(MainActivity)));
+            this.StartActivity<MainActivity>();
         }
 
         public override void OnBackPressed()

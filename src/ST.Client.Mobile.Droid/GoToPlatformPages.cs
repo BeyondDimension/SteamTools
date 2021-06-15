@@ -1,4 +1,6 @@
+using Android.App;
 using Android.Content;
+using Fragment = AndroidX.Fragment.App.Fragment;
 
 namespace System.Application
 {
@@ -24,6 +26,18 @@ namespace System.Application
             {
 
             }
+        }
+
+        public static void StartActivity<TActivity>(this Activity activity) where TActivity : Activity
+        {
+            var intent = new Intent(activity, typeof(TActivity));
+            activity.StartActivity(intent);
+        }
+
+        public static void StartActivity<TActivity>(this Fragment fragment) where TActivity : Activity
+        {
+            var intent = new Intent(fragment.Activity, typeof(TActivity));
+            fragment.StartActivity(intent);
         }
     }
 }

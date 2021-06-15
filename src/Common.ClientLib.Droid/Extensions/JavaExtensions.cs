@@ -1,4 +1,4 @@
-﻿using Android.Runtime;
+using Android.Runtime;
 using System.Common;
 using System.Diagnostics;
 using System.Reflection;
@@ -87,7 +87,7 @@ namespace System
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static JString ToJavaString(this string s) => new JString(s);
+        public static JString ToJavaString(this string s) => new(s);
 
         /// <inheritdoc cref="ToJavaString(string)"/>
         public static JString? ToJavaString_Nullable(this string? s)

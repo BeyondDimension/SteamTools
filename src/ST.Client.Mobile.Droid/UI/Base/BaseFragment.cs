@@ -9,6 +9,13 @@ namespace System.Application.UI.Fragments
 {
     /// <summary>
     /// 当前应用的 <see cref="Fragment"/> 基类
+    /// <list type="bullet">
+    ///     <item>Fragment(<see href="https://developer.android.google.cn/guide/fragments"/>)</item>
+    ///     <item>Fragment 表示应用界面中可重复使用的一部分。</item>
+    ///     <item>Fragment 定义和管理自己的布局，具有自己的生命周期，并且可以处理自己的输入事件。</item>
+    ///     <item>Fragment 不能独立存在，而是必须由 Activity 或另一个 Fragment 托管。</item>
+    ///     <item>Fragment 的视图层次结构会成为宿主的视图层次结构的一部分，或附加到宿主的视图层次结构。</item>
+    /// </list>
     /// </summary>
     public abstract partial class BaseFragment : Fragment
     {
@@ -42,7 +49,19 @@ namespace System.Application.UI.Fragments
         }
     }
 
-    /// <inheritdoc cref="BaseFragment"/>
+    /// <summary>
+    /// 当前应用的 <see cref="ReactiveFragment"/>(ReactiveUI) 基类
+    /// <list type="bullet">
+    ///     <item>ReactiveFragment(<see href="https://github.com/reactiveui/ReactiveUI/blob/main/src/ReactiveUI.AndroidX/ReactiveFragment.cs"/>)</item>
+    ///     <item>Fragment(<see href="https://developer.android.google.cn/guide/fragments"/>)</item>
+    ///     <item>Fragment 表示应用界面中可重复使用的一部分。</item>
+    ///     <item>Fragment 定义和管理自己的布局，具有自己的生命周期，并且可以处理自己的输入事件。</item>
+    ///     <item>Fragment 不能独立存在，而是必须由 Activity 或另一个 Fragment 托管。</item>
+    ///     <item>Fragment 的视图层次结构会成为宿主的视图层次结构的一部分，或附加到宿主的视图层次结构。</item>
+    /// </list>
+    /// </summary>
+    /// <typeparam name="TViewBinding"></typeparam>
+    /// <typeparam name="TViewModel"></typeparam>
     public abstract partial class BaseFragment<TViewBinding, TViewModel> : ReactiveFragment<TViewModel>
         where TViewBinding : class
         where TViewModel : ViewModelBase
