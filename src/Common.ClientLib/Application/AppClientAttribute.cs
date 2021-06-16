@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -6,6 +6,7 @@ using System.Properties;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using _ThisAssembly = System.Properties.ThisAssembly;
 
 namespace System.Application
 {
@@ -78,7 +79,7 @@ namespace System.Application
 
         public static string? GetResValue(Func<string, Stream?> func, string name, bool isSingle, string namespacePrefix, ResValueFormat format)
         {
-            static string GetResFileName(string name, bool isSingle) => isSingle ? $"{name}.pfx" : $"{name}-{(ThisAssembly.Debuggable ? "debug" : "release")}.pfx";
+            static string GetResFileName(string name, bool isSingle) => isSingle ? $"{name}.pfx" : $"{name}-{(_ThisAssembly.Debuggable ? "debug" : "release")}.pfx";
             static string GetResFileNameH(string name) => Hashs.String.Crc32(name, isLower: false);
             static string GetResFullName(string name, string namespacePrefix) => string.IsNullOrEmpty(namespacePrefix) ? name : namespacePrefix + name;
             static MemoryStream GetMemoryStream(Stream stream)

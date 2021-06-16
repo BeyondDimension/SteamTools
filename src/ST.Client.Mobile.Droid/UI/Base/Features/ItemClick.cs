@@ -10,7 +10,7 @@ namespace System.Application.UI.Adapters
 {
     partial class BaseRecycleViewAdapter<TViewHolder, TViewModel, TViewType> : IItemClickViewAdapter<TViewHolder, TViewModel>
     {
-        (bool isSuccess, TViewModel? viewModel) TryGetViewModelByPosition(int position)
+        protected virtual (bool isSuccess, TViewModel? viewModel) TryGetViewModelByPosition(int position)
         {
             if (position < 0 || position >= ViewModels.Count)
             {
