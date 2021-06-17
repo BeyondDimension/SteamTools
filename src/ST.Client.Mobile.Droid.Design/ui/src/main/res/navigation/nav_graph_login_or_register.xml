@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_login_or_register"
+    app:startDestination="@+id/navigation_login_or_register_fast">
+
+    <fragment
+        android:id="@+id/navigation_login_or_register_fast"
+        android:name="net.steampp.app.ui.fragments.FastLoginOrRegisterFragment"
+        tools:layout="@layout/fragment_login_and_register_by_fast">
+        <action
+            android:id="@+id/action_navigation_login_or_register_fast_to_navigation_login_or_register_phone_number"
+            app:destination="@id/navigation_login_or_register_phone_number" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_login_or_register_phone_number"
+        android:name="net.steampp.app.ui.fragments.PhoneNumberLoginOrRegisterFragment"
+        tools:layout="@layout/fragment_login_and_register_by_phone_number" />
+</navigation>

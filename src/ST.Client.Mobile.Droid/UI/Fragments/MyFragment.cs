@@ -9,6 +9,7 @@ using System.Application.UI.Adapters;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
+using static System.Application.UI.ViewModels.MyPageViewModel;
 
 namespace System.Application.UI.Fragments
 {
@@ -46,19 +47,16 @@ namespace System.Application.UI.Fragments
             var adapter = new MyPreferenceButtonAdapter(ViewModel);
             adapter.ItemClick += (_, e) =>
             {
-                switch (e.Current.Id)
+                var activityType = e.Current.Id switch
                 {
-                    case MyPageViewModel.PreferenceButton.EditProfile:
-                        break;
-                    case MyPageViewModel.PreferenceButton.BindPhoneNum:
-                        break;
-                    case MyPageViewModel.PreferenceButton.ChangePhoneNum:
-                        break;
-                    case MyPageViewModel.PreferenceButton.Settings:
-                        break;
-                    case MyPageViewModel.PreferenceButton.About:
-                        break;
-                }
+                    PreferenceButton.EditProfile => typeof(EditProfileActivity),
+                    PreferenceButton.BindPhoneNumber => typeof(BindPhoneNumberActivity),
+                    PreferenceButton.ChangePhoneNumber => typeof(ChangePhoneNumberActivity),
+                    PreferenceButton.Settings => typeof(SettingsActivity),
+                    PreferenceButton.About => typeof(AboutActivity),
+                    _ => (Type?)null,
+                };
+                if (activityType != null) this.StartActivity(activityType);
             };
             var layout = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
             binding.rvPreferenceButtons.SetLayoutManager(layout);
@@ -81,7 +79,7 @@ namespace System.Application.UI.Fragments
         {
             if (view.Id == Resource.Id.layoutUser)
             {
-                //this.StartActivity<LoginOrRegisterActivity>();
+                this.StartActivity<LoginOrRegisterActivity>();
             }
             //else if (view.Id == Resource.Id.???)
             //{

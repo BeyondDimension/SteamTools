@@ -24,20 +24,26 @@ namespace System.Application
             }
             catch
             {
-
             }
         }
 
-        public static void StartActivity<TActivity>(this Activity activity) where TActivity : Activity
+        public static void StartActivity(this Activity activity, Type activityType)
         {
-            var intent = new Intent(activity, typeof(TActivity));
+            var intent = new Intent(activity, activityType);
             activity.StartActivity(intent);
         }
 
-        public static void StartActivity<TActivity>(this Fragment fragment) where TActivity : Activity
+        public static void StartActivity<TActivity>(this Activity activity) where TActivity : Activity
+            => StartActivity(activity, typeof(TActivity));
+
+        public static void StartActivity(this Fragment fragment, Type activityType)
         {
-            var intent = new Intent(fragment.Activity, typeof(TActivity));
-            fragment.StartActivity(intent);
+            var activity = fragment.Activity;
+            if (activity == null) return;
+            StartActivity(activity, activityType);
         }
+
+        public static void StartActivity<TActivity>(this Fragment fragment) where TActivity : Activity
+            => StartActivity(fragment, typeof(TActivity));
     }
 }

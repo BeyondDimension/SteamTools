@@ -47,6 +47,7 @@ namespace System.Application.UI.Activities
         protected override void OnDestroy()
         {
             ClearOnClickListener();
+            if (navController != null) navController = null;
             base.OnDestroy();
         }
     }
@@ -109,6 +110,7 @@ namespace System.Application.UI.Activities
         protected override void OnDestroy()
         {
             ClearOnClickListener();
+            if (navController != null) navController = null;
             base.OnDestroy();
             binding = null;
         }

@@ -97,8 +97,8 @@ namespace System.Application.UI.ViewModels
         public enum PreferenceButton
         {
             EditProfile,
-            BindPhoneNum,
-            ChangePhoneNum,
+            BindPhoneNumber,
+            ChangePhoneNumber,
             Settings,
             About,
         }
@@ -122,8 +122,8 @@ namespace System.Application.UI.ViewModels
                 var title = id switch
                 {
                     PreferenceButton.EditProfile => AppResources.User_EditProfile,
-                    PreferenceButton.BindPhoneNum => AppResources.User_BindPhoneNum,
-                    PreferenceButton.ChangePhoneNum => AppResources.User_ChangePhoneNum,
+                    PreferenceButton.BindPhoneNumber => AppResources.User_BindPhoneNum,
+                    PreferenceButton.ChangePhoneNumber => AppResources.User_ChangePhoneNum,
                     PreferenceButton.Settings => AppResources.Settings,
                     PreferenceButton.About => AppResources.About,
                     _ => string.Empty,
@@ -141,8 +141,8 @@ namespace System.Application.UI.ViewModels
                 var icon = id switch
                 {
                     PreferenceButton.EditProfile => ResIcon.baseline_account_box_black_24,
-                    PreferenceButton.BindPhoneNum => ResIcon.baseline_phone_black_24,
-                    PreferenceButton.ChangePhoneNum => ResIcon.baseline_phone_black_24,
+                    PreferenceButton.BindPhoneNumber => ResIcon.baseline_phone_black_24,
+                    PreferenceButton.ChangePhoneNumber => ResIcon.baseline_phone_black_24,
                     PreferenceButton.Settings => ResIcon.baseline_settings_black_24,
                     PreferenceButton.About => ResIcon.baseline_info_black_24,
                     _ => default,
@@ -155,7 +155,7 @@ namespace System.Application.UI.ViewModels
             /// </summary>
             /// <param name="id"></param>
             /// <returns></returns>
-            public static bool IsPhoneNumber(PreferenceButton id) => id == PreferenceButton.BindPhoneNum || id == PreferenceButton.ChangePhoneNum;
+            public static bool IsPhoneNumber(PreferenceButton id) => id == PreferenceButton.BindPhoneNumber || id == PreferenceButton.ChangePhoneNumber;
 
             /// <summary>
             /// 从选项按钮组中移除已登录才有的选项组
@@ -179,7 +179,7 @@ namespace System.Application.UI.ViewModels
             /// <returns></returns>
             public static PreferenceButton GetPhoneNumberId(bool hasPhoneNumber)
             {
-                return hasPhoneNumber ? PreferenceButton.ChangePhoneNum : PreferenceButton.BindPhoneNum;
+                return hasPhoneNumber ? PreferenceButton.ChangePhoneNumber : PreferenceButton.BindPhoneNumber;
             }
 
             PreferenceButton id;

@@ -20,7 +20,6 @@ namespace System.Application.UI.Activities
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class MainActivity : BaseActivity<activity_main>, IDisposableHolder
     {
-        NavController? navController;
         readonly CompositeDisposable disposables = new();
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
 

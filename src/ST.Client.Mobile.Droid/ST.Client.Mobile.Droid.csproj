@@ -309,6 +309,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_verified_user_black_24.png">
     <Link>Resources\drawable-xxxhdpi\baseline_verified_user_black_24.png</Link>
     </AndroidResource>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_login_or_register.xml">
+    <Link>Resources\layout\activity_login_or_register.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_main.xml">
     <Link>Resources\layout\activity_main.xml</Link>
     </AndroidBoundLayout>
@@ -405,6 +408,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\navigation\mobile_navigation.xml">
     <Link>Resources\navigation\mobile_navigation.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\navigation\nav_graph_login_or_register.xml">
+    <Link>Resources\navigation\nav_graph_login_or_register.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values\colors.xml">
     <Link>Resources\values\colors.xml</Link>
     </AndroidResource>
@@ -431,5 +437,6 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
 
 
