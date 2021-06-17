@@ -140,11 +140,11 @@ namespace System.Application.UI.ViewModels
             {
                 var icon = id switch
                 {
-                    PreferenceButton.EditProfile => ResIcon.None,
-                    PreferenceButton.BindPhoneNum => ResIcon.None,
-                    PreferenceButton.ChangePhoneNum => ResIcon.None,
-                    PreferenceButton.Settings => ResIcon.None,
-                    PreferenceButton.About => ResIcon.None,
+                    PreferenceButton.EditProfile => ResIcon.baseline_account_box_black_24,
+                    PreferenceButton.BindPhoneNum => ResIcon.baseline_phone_black_24,
+                    PreferenceButton.ChangePhoneNum => ResIcon.baseline_phone_black_24,
+                    PreferenceButton.Settings => ResIcon.baseline_settings_black_24,
+                    PreferenceButton.About => ResIcon.baseline_info_black_24,
                     _ => default,
                 };
                 return icon;
@@ -168,7 +168,7 @@ namespace System.Application.UI.ViewModels
                 Array.ForEach(removeArray, x =>
                 {
                     collection.Remove(x);
-                    x.Unbind(vm);
+                    x.OnUnbind(vm);
                 });
             }
 
@@ -193,6 +193,7 @@ namespace System.Application.UI.ViewModels
                 {
                     if (this.RaiseAndSetIfChanged2(ref id, value)) return;
                     Title = GetTitleById(value);
+                    Icon = GetIconById(value);
                 }
             }
 
@@ -223,7 +224,7 @@ namespace System.Application.UI.ViewModels
             /// </summary>
             /// <param name="vm"></param>
             /// <returns></returns>
-            PreferenceButtonViewModel Bind(IDisposableHolder vm)
+            PreferenceButtonViewModel OnBind(IDisposableHolder vm)
             {
                 disposable = R.Current.WhenAnyValue(x => x).Subscribe(_ =>
                 {
@@ -238,7 +239,7 @@ namespace System.Application.UI.ViewModels
             /// </summary>
             /// <param name="vm"></param>
             /// <returns></returns>
-            PreferenceButtonViewModel Unbind(IDisposableHolder vm)
+            PreferenceButtonViewModel OnUnbind(IDisposableHolder vm)
             {
                 if (disposable != null)
                 {
@@ -256,7 +257,7 @@ namespace System.Application.UI.ViewModels
             public static PreferenceButtonViewModel Create(PreferenceButton id, IDisposableHolder vm)
             {
                 PreferenceButtonViewModel r = new() { Id = id };
-                r.Bind(vm);
+                r.OnBind(vm);
                 return r;
             }
 

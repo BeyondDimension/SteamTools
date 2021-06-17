@@ -2,6 +2,9 @@ using Android.Views;
 using AndroidX.RecyclerView.Widget;
 using ReactiveUI;
 using ReactiveUI.AndroidX;
+using System.Application.Mvvm;
+using System.Collections.Generic;
+using System.Reactive.Disposables;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.Adapters
@@ -50,11 +53,30 @@ namespace System.Application.UI.Adapters
     /// </list>
     /// </summary>
     /// <typeparam name="TViewModel"></typeparam>
-    public abstract partial class BaseReactiveViewHolder<TViewModel> : ReactiveRecyclerViewViewHolder<TViewModel>
+    public abstract partial class BaseReactiveViewHolder<TViewModel> : ReactiveRecyclerViewViewHolder<TViewModel>, IDisposableHolder
         where TViewModel : class, IReactiveObject
     {
+        CompositeDisposable? disposables;
+        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
+
         public BaseReactiveViewHolder(View itemView) : base(itemView)
         {
+        }
+
+        public virtual void OnBind()
+        {
+            disposables?.Dispose();
+            disposables = new();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                disposables?.Dispose();
+                disposables = null;
+            }
+            base.Dispose(disposing);
         }
     }
 

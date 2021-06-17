@@ -1,4 +1,4 @@
-﻿namespace System.Application.UI.ViewModels
+namespace System.Application.UI.ViewModels
 {
     public interface IReadOnlyItemViewType
     {
@@ -8,5 +8,7 @@
     public interface IReadOnlyItemViewType<TItemViewType> : IReadOnlyItemViewType where TItemViewType : struct, IConvertible
     {
         new TItemViewType ItemViewType { get; }
+
+        int IReadOnlyItemViewType.ItemViewType => ItemViewType.ConvertToInt32();
     }
 }

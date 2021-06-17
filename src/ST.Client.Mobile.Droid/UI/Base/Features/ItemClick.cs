@@ -53,7 +53,7 @@ namespace System.Application.UI.Adapters
         protected virtual bool DisableSetItemClickListener => false;
 
         protected virtual ItemClickEventArgs<TViewModel>? GetItemClickEventArgs(View view, TViewHolder holder, View.LongClickEventArgs? longClickEventArgs = null)
-            => GetItemClickEventArgs(view, holder, longClickEventArgs);
+            => IItemClickViewAdapter<TViewHolder, TViewModel>.GetItemClickEventArgs(view, holder, longClickEventArgs);
         ItemClickEventArgs<TViewModel>? IItemClickViewAdapter<TViewHolder, TViewModel>.GetItemClickEventArgs(View view, TViewHolder holder, View.LongClickEventArgs? longClickEventArgs)
             => GetItemClickEventArgs(view, holder, longClickEventArgs);
 

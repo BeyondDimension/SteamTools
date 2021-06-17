@@ -1,5 +1,7 @@
+using Android.Content;
 using Android.OS;
 using Android.Views;
+using AndroidX.Fragment.App;
 using ReactiveUI.AndroidX;
 using System.Application.UI.ViewModels;
 using Fragment = AndroidX.Fragment.App.Fragment;

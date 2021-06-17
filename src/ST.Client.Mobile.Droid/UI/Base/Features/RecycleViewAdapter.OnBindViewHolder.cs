@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Android.Views;
 using AndroidX.RecyclerView.Widget;
 
 // ReSharper disable once CheckNamespace
@@ -26,13 +22,15 @@ namespace System.Application.UI.Adapters
 
     partial class BaseReactiveRecycleViewAdapter<TViewHolder, TViewModel, TViewType>
     {
-        public abstract void OnBindViewHolder(TViewHolder holder, TViewModel item, int position);
+        //public abstract void OnBindViewHolder(TViewHolder holder, TViewModel item, int position);
 
         public sealed override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
+            base.OnBindViewHolder(holder, position);
             if (holder is TViewHolder viewHolder)
             {
-                OnBindViewHolder(viewHolder, viewHolder.ViewModel, position);
+                //OnBindViewHolder(viewHolder, viewHolder.ViewModel, position);
+                viewHolder.OnBind();
             }
         }
     }
