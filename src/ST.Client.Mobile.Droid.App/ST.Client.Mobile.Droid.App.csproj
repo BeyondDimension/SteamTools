@@ -25,6 +25,7 @@
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <AndroidNdkDirectory>H:\Android\android-sdk\ndk\22.1.7171670</AndroidNdkDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,7 +60,7 @@
     <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <MandroidI18n />
-    <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
+    <AndroidSupportedAbis>armeabi-v7a;x86_64;arm64-v8a</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">

@@ -12,5 +12,9 @@ namespace System.Application
             ConfigChanges.KeyboardHidden |
             ConfigChanges.ScreenLayout |
             ConfigChanges.SmallestScreenSize;
+
+        public const string MainTheme = "@style/MainTheme";
+        public const string MainTheme_NoActionBar = "@style/MainTheme.NoActionBar";
+        public const string MainTheme_Splash = "@style/MainTheme.Splash";
     }
 }

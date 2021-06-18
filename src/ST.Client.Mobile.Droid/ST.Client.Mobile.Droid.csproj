@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
+<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <TargetFramework>MonoAndroid11.0</TargetFramework>
@@ -432,11 +432,15 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-night\themes.xml">
     <Link>Resources\values-night\themes.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-v23\themes.xml">
+    <Link>Resources\values-v23\themes.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-v28\themes.xml">
     <Link>Resources\values-v28\themes.xml</Link>
     </AndroidResource>
   </ItemGroup>
 </Project>
+
 
 
 

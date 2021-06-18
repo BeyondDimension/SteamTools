@@ -18,7 +18,7 @@ namespace System.Application.Services.Implementation
         {
             get
             {
-                if (DI.IsWindows10)
+                if (DI.IsWindows10OrLater)
                 {
                     var networkAccess = PlatformNetworkAccess;
                     return networkAccess == NetworkAccess.Internet;

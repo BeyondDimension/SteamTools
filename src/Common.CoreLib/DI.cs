@@ -74,9 +74,9 @@ namespace System
         public static bool IsiOSOriPadOSOrwatchOS { get; }
 
         /// <summary>
-        /// 当前是否运行在 Windows 10 上
+        /// 当前是否运行在 >= Windows 10 上
         /// </summary>
-        public static bool IsWindows10 { get; }
+        public static bool IsWindows10OrLater { get; }
 
         const string DesktopWindowTypeNames =
             "Avalonia.Controls.Window, Avalonia.Controls" +
@@ -124,7 +124,7 @@ namespace System
             }
             else if (Platform == Platform.Windows)
             {
-                IsWindows10 = Environment.OSVersion.Version.Major >= 10;
+                IsWindows10OrLater = Environment.OSVersion.Version.Major >= 10;
             }
         }
 

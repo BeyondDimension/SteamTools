@@ -25,9 +25,9 @@ namespace System.Application.Services.Implementation
             this.dataProtectionProvider = dataProtectionProvider;
             defaultELocalDataProtectionType = DI.Platform switch
             {
-                Platform.Windows => Environment.OSVersion.Version.Major >= 10
-                                       ? LocalDataProtectionType.Win10WithAesCFB
-                                       : LocalDataProtectionType.ProtectedDataWithAesCFB,
+                Platform.Windows => DI.IsWindows10OrLater
+                    ? LocalDataProtectionType.Win10WithAesCFB
+                    : LocalDataProtectionType.ProtectedDataWithAesCFB,
                 _ => LocalDataProtectionType.AesCFB,
             };
             _aes = new Lazy<Aes>(() =>

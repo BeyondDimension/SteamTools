@@ -24,16 +24,10 @@ namespace System.Application.UI.Fragments
         {
             base.OnCreateView(view);
 
-            if (Activity is AppCompatActivity activity)
-            {
-                activity.SetSupportActionBar(binding!.toolbar);
-            }
-
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
                 if (binding != null)
                 {
-                    binding.toolbar.Title = AppResources.LoginAndRegister;
                     binding.tvTip.Text = AppResources.User_FastLoginTip;
                     binding.tvAgreementAndPrivacy.TextFormatted = LoginOrRegisterActivity.CreateAgreementAndPrivacy(ViewModel!);
                 }

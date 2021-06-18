@@ -11,8 +11,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/shared_toolbar" />
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTip"
             android:layout_width="wrap_content"

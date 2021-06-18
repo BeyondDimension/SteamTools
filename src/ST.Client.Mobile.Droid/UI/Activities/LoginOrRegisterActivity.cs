@@ -21,7 +21,7 @@ using JObject = Java.Lang.Object;
 namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(LoginOrRegisterActivity))]
-    [Activity(Theme = "@style/MainTheme.NoActionBar",
+    [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
           LaunchMode = LaunchMode.SingleTask,
           ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class LoginOrRegisterActivity : BaseActivity<activity_login_or_register, LoginOrRegisterPageViewModel>, IDisposableHolder
@@ -31,15 +31,17 @@ namespace System.Application.UI.Activities
 
         protected override int? LayoutResource => Resource.Layout.activity_login_or_register;
 
-        //static readonly Dictionary<int, Func<string>> title_strings = new()
-        //{
-        //    { Resource.Id.navigation_login_or_register_fast, () => AppResources.LoginAndRegister },
-        //    { Resource.Id.navigation_login_or_register_phone_number, () => AppResources.User_PhoneLogin },
-        //};
+        static readonly Dictionary<int, Func<string>> title_strings = new()
+        {
+            { Resource.Id.navigation_login_or_register_fast, () => AppResources.LoginAndRegister },
+            { Resource.Id.navigation_login_or_register_phone_number, () => AppResources.User_PhoneLogin },
+        };
 
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            SetSupportActionBar(binding!.toolbar);
 
             ViewModel = new();
             ViewModel.AddTo(this);
@@ -48,19 +50,19 @@ namespace System.Application.UI.Activities
             navController = ((NavHostFragment)SupportFragmentManager.FindFragmentById(Resource.Id.nav_host_fragment)).NavController;
             NavigationUI.SetupActionBarWithNavController(this, navController, appBarConfiguration);
 
-            //R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
-            //{
-            //    var currentDestinationId = navController.CurrentDestination.Id;
-            //    foreach (var item in title_strings)
-            //    {
-            //        var title = item.Value();
-            //        this.SetNavigationGraphTitle(item.Key, title);
-            //        if (currentDestinationId == item.Key && ActionBar != null)
-            //        {
-            //            ActionBar.Title = title;
-            //        }
-            //    }
-            //}).AddTo(this);
+            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            {
+                var currentDestinationId = navController.CurrentDestination.Id;
+                foreach (var item in title_strings)
+                {
+                    var title = item.Value();
+                    this.SetNavigationGraphTitle(item.Key, title);
+                    if (currentDestinationId == item.Key && binding?.toolbar != null)
+                    {
+                        binding.toolbar.Title = title;
+                    }
+                }
+            }).AddTo(this);
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent? data)

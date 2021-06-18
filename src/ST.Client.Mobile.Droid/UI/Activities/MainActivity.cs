@@ -15,7 +15,7 @@ using System.Reactive.Disposables;
 namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(MainActivity))]
-    [Activity(Theme = "@style/MainTheme",
+    [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class MainActivity : BaseActivity<activity_main>, IDisposableHolder, IReadOnlyViewFor<MyPageViewModel>
@@ -50,6 +50,8 @@ namespace System.Application.UI.Activities
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            SetSupportActionBar(binding!.toolbar);
 
             MyPageViewModel.AddTo(this);
 

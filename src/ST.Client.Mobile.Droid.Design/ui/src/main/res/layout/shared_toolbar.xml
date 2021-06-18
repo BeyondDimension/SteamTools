@@ -3,6 +3,7 @@
     xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
+    style="@style/Widget.MaterialComponents.Toolbar"
     android:layout_height="wrap_content"
     xamarin:managedType="AndroidX.AppCompat.Widget.Toolbar">
 
