@@ -1,8 +1,8 @@
-using Android.Content;
 using Android.OS;
 using Android.Views;
-using AndroidX.Fragment.App;
 using ReactiveUI.AndroidX;
+using System.Application;
+using System.Application.Mvvm;
 using System.Application.UI.ViewModels;
 using Fragment = AndroidX.Fragment.App.Fragment;
 
@@ -64,7 +64,7 @@ namespace System.Application.UI.Fragments
     /// </summary>
     /// <typeparam name="TViewBinding"></typeparam>
     /// <typeparam name="TViewModel"></typeparam>
-    public abstract partial class BaseFragment<TViewBinding, TViewModel> : ReactiveFragment<TViewModel>
+    public abstract partial class BaseFragment<TViewBinding, TViewModel> : ReactiveFragment<TViewModel>, ReactiveUI.IReadOnlyViewFor<TViewModel>
         where TViewBinding : class
         where TViewModel : ViewModelBase
     {
@@ -73,6 +73,7 @@ namespace System.Application.UI.Fragments
             var view = BaseFragment.CreateView(LayoutResource, inflater, container);
             if (view == null)
                 return base.OnCreateView(inflater, container, savedInstanceState);
+            ViewModel = this.GetViewModel<TViewModel>();
             OnCreateView(view);
             return view;
         }
@@ -82,6 +83,38 @@ namespace System.Application.UI.Fragments
             ClearOnClickListener();
             base.OnDestroy();
             binding = null;
+        }
+    }
+}
+
+// ReSharper disable once CheckNamespace
+namespace System
+{
+    public static partial class BaseUIExtensions
+    {
+        public static TViewModel GetViewModel<TViewModel>(this Fragment fragment)
+            where TViewModel : class, IDisposable
+        {
+            if (fragment.Activity is ReactiveUI.IReadOnlyViewFor<TViewModel> rvf && rvf.ViewModel != null)
+            {
+                return rvf.ViewModel;
+            }
+
+            if (fragment.Activity is ReactiveUI.IViewFor<TViewModel> vf && vf.ViewModel != null)
+            {
+                return vf.ViewModel;
+            }
+
+            if (fragment is IDisposableHolder dh)
+            {
+                TViewModel r = Activator.CreateInstance<TViewModel>();
+                r.AddTo(dh);
+                return r;
+            }
+            else
+            {
+                throw new InvalidOperationException("fragment must implement IDisposableHolder.");
+            }
         }
     }
 }

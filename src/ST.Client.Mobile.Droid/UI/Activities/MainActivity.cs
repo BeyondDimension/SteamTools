@@ -18,7 +18,7 @@ namespace System.Application.UI.Activities
     [Activity(Theme = "@style/MainTheme",
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class MainActivity : BaseActivity<activity_main>, IDisposableHolder
+    internal sealed class MainActivity : BaseActivity<activity_main>, IDisposableHolder, IReadOnlyViewFor<MyPageViewModel>
     {
         readonly CompositeDisposable disposables = new();
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
@@ -29,6 +29,8 @@ namespace System.Application.UI.Activities
 
         public MyPageViewModel MyPageViewModel { get; } = new();
 
+        MyPageViewModel? IReadOnlyViewFor<MyPageViewModel>.ViewModel => MyPageViewModel;
+
         void SetBottomNavigationMenuTitle(int resId, ICharSequence value)
         {
             if (binding == null) return;
@@ -38,24 +40,18 @@ namespace System.Application.UI.Activities
             menuItem.SetTitle(value);
         }
 
-        void SetNavigationGraphTitle(int resId, ICharSequence value)
-        {
-            if (navController == null) return;
-            var navNode = navController.Graph.FindNode(resId);
-            if (navNode == null) return;
-            navNode.LabelFormatted = value;
-        }
-
         void SetSubPageTitle(int resId, string value)
         {
             var value_ = value.ToJavaString();
             SetBottomNavigationMenuTitle(resId, value_);
-            SetNavigationGraphTitle(resId, value_);
+            this.SetNavigationGraphTitle(resId, value_);
         }
 
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            MyPageViewModel.AddTo(this);
 
             var appBarConfiguration = new AppBarConfiguration.Builder(
                 Resource.Id.navigation_local_auth,

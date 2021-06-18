@@ -1,31 +1,32 @@
 using ReactiveUI;
 using System.Application.Services;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Text;
 using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text.RegularExpressions;
+#if __MOBILE__
+using R_Res_TYPE = System.Byte;
+#else
+using R_Res_TYPE = System.Application.UI.Resx.AppResources;
+#endif
 
 namespace System.Application.UI.Resx
 {
     public sealed class R : ReactiveObject
     {
-        public static R Current { get; }
+        public static R Current { get; } = new();
 
         public static readonly IReadOnlyCollection<KeyValuePair<string, string>> Languages;
         public static readonly Dictionary<string, string> SteamLanguages;
         static readonly Lazy<IReadOnlyCollection<KeyValuePair<string, string>>> mFonts = new(() => IFontManager.Instance.GetFonts());
         public static IReadOnlyCollection<KeyValuePair<string, string>> Fonts => mFonts.Value;
 
-        public AppResources Res { get; set; } = new AppResources();
+        public R_Res_TYPE Res { get; set; } = new();
 
         public static CultureInfo DefaultCurrentUICulture { get; }
 
         static R()
         {
-            Current = new R();
             DefaultCurrentUICulture = CultureInfo.CurrentUICulture;
             Languages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
@@ -82,7 +83,12 @@ namespace System.Application.UI.Resx
             CultureInfo.DefaultThreadCurrentCulture = AppResources.Culture;
             mAcceptLanguage = GetAcceptLanguageCore();
             mLanguage = GetLanguageCore();
-            Current.Res = new AppResources();
+            Current.Res =
+#if __MOBILE__
+                ++Current.Res;
+#else
+                new AppResources();
+#endif
             Current.RaisePropertyChanged(nameof(Res));
         }
 

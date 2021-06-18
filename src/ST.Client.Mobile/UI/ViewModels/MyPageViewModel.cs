@@ -28,7 +28,7 @@ namespace System.Application.UI.ViewModels
                 if (value == null)
                 {
                     nickNameNullValLangChangeSubscribe?.RemoveTo(this);
-                    nickNameNullValLangChangeSubscribe = R.Current.WhenAnyValue(x => x)
+                    nickNameNullValLangChangeSubscribe = R.Current.WhenAnyValue(x => x.Res)
                     .Subscribe(_ =>
                     {
                         // 未登录时显示的文本，多语言绑定
@@ -226,7 +226,7 @@ namespace System.Application.UI.ViewModels
             /// <returns></returns>
             PreferenceButtonViewModel OnBind(IDisposableHolder vm)
             {
-                disposable = R.Current.WhenAnyValue(x => x).Subscribe(_ =>
+                disposable = R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
                 {
                     Title = GetTitleById(id);
                 });

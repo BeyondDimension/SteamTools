@@ -4,8 +4,7 @@
     xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_vertical"
-    android:background="@color/grey_window_background">
+    android:layout_gravity="center_vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,7 +40,10 @@
             android:layout_marginTop="22dp"
             android:layout_marginEnd="@dimen/fast_login_or_register_margin"
             android:layout_marginBottom="22dp"
+            android:clickable="true"
+            android:focusable="true"
             android:textColor="@color/text_primary"
+            android:textColorLink="@color/text_link"
             android:textSize="14sp"
             tools:text="注册即代表您已阅读并同意 用户协议 和 隐私政策"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />

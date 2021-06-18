@@ -53,11 +53,11 @@ namespace System.Application.UI.Adapters
     /// </list>
     /// </summary>
     /// <typeparam name="TViewModel"></typeparam>
-    public abstract partial class BaseReactiveViewHolder<TViewModel> : ReactiveRecyclerViewViewHolder<TViewModel>, IDisposableHolder
+    public abstract partial class BaseReactiveViewHolder<TViewModel> : ReactiveRecyclerViewViewHolder<TViewModel>, IDisposableHolder, IReadOnlyViewFor<TViewModel>
         where TViewModel : class, IReactiveObject
     {
         CompositeDisposable? disposables;
-        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
+        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables!;
 
         public BaseReactiveViewHolder(View itemView) : base(itemView)
         {

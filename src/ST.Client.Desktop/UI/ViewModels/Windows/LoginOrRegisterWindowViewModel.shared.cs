@@ -191,15 +191,18 @@ namespace System.Application.UI.ViewModels
 
         public ICommand OpenHyperlink { get; }
 
+        public const string Agreement = "Agreement";
+        public const string Privacy = "Privacy";
+
         void OpenHyperlink_(string parameter)
         {
             if (string.IsNullOrWhiteSpace(parameter)) return;
             switch (parameter)
             {
-                case "Agreement":
+                case Agreement:
                     parameter = "https://steampp.net/AgreementBox";
                     break;
-                case "Privacy":
+                case Privacy:
                     parameter = "https://steampp.net/PrivacyBox";
                     break;
             }

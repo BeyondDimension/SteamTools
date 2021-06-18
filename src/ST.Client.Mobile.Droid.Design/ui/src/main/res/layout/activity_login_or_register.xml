@@ -6,6 +6,7 @@
     android:name="androidx.navigation.fragment.NavHostFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey_window_background"
     app:defaultNavHost="true"
     app:navGraph="@navigation/nav_graph_login_or_register"
     xamarin:managedType="AndroidX.Fragment.App.FragmentContainerView">

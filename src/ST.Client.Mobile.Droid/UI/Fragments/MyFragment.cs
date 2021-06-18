@@ -16,7 +16,6 @@ namespace System.Application.UI.Fragments
     [Register(JavaPackageConstants.Fragments + nameof(MyFragment))]
     internal sealed class MyFragment : BaseFragment<fragment_my, MyPageViewModel>, IDisposableHolder
     {
-        bool disposeViewModel;
         readonly CompositeDisposable disposables = new();
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
 
@@ -25,16 +24,6 @@ namespace System.Application.UI.Fragments
         public override void OnCreateView(View view)
         {
             base.OnCreateView(view);
-
-            if (Activity is MainActivity mainActivity)
-            {
-                ViewModel = mainActivity.MyPageViewModel;
-            }
-            else
-            {
-                ViewModel = new();
-                disposeViewModel = true;
-            }
 
             ViewModel.WhenAnyValue(x => x.NickName).Subscribe(value =>
             {
@@ -68,11 +57,6 @@ namespace System.Application.UI.Fragments
         {
             base.OnDestroyView();
             disposables.Dispose();
-            if (ViewModel != null)
-            {
-                if (disposeViewModel) ViewModel.Dispose();
-                ViewModel = null;
-            }
         }
 
         protected override bool OnClick(View view)

@@ -3,6 +3,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using AndroidX.AppCompat.App;
+using ReactiveUI;
 using ReactiveUI.AndroidX;
 using System.Application.UI.ViewModels;
 using XEPlatform = Xamarin.Essentials.Platform;
@@ -80,7 +81,7 @@ namespace System.Application.UI.Activities
     /// </summary>
     /// <typeparam name="TViewBinding"></typeparam>
     /// <typeparam name="TViewModel"></typeparam>
-    public abstract partial class BaseActivity<TViewBinding, TViewModel> : ReactiveAppCompatActivity<TViewModel> where TViewBinding : class
+    public abstract partial class BaseActivity<TViewBinding, TViewModel> : ReactiveAppCompatActivity<TViewModel>, IReadOnlyViewFor<TViewModel> where TViewBinding : class
         where TViewModel : ViewModelBase
     {
         protected override void OnCreate(Bundle? savedInstanceState)

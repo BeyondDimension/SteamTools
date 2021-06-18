@@ -4,4 +4,5 @@
     <color name="grey_window_background">#FF000000</color>
     <color name="text_primary">#f2f2f7</color>
     <color name="text_secondary">#979797</color>
+    <color name="text_link">#0089ff</color>
 </resources>

@@ -25,4 +25,9 @@
     <style name="MainTheme.Splash.Base.V28" parent="MainTheme.Splash.Base" />
 
     <style name="MainTheme.Splash" parent="MainTheme.Splash.Base.V28" />
+
+    <style name="MainTheme.NoActionBar" parent="MainTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

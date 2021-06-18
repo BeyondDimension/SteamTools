@@ -13,4 +13,5 @@
     <color name="grey_window_background">#F9F9F9</color>
     <color name="text_primary">#333333</color>
     <color name="text_secondary">#666666</color>
+    <color name="text_link">#007ffc</color>
 </resources>
