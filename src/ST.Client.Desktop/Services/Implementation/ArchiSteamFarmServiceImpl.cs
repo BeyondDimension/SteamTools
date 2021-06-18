@@ -164,12 +164,20 @@ namespace System.Application.Services.Implementation
             return IsArchiSteamFarmRuning;
         }
 
-        public void WirteLineCommand(string command)
+        public void WirteLineCommand(string command, bool useipc = false)
         {
             if (IsArchiSteamFarmRuning && !string.IsNullOrEmpty(command))
             {
                 Process!.StandardInput.WriteLine(command);
                 //Process!.StandardInput.Flush();
+            }
+        }
+
+        private void IPCCommand(string command)
+        {
+            if (IsArchiSteamFarmRuning && !string.IsNullOrEmpty(command))
+            {
+                //httpService.GetAsync("");
             }
         }
 

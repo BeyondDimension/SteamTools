@@ -27,7 +27,7 @@ namespace System.Application.Services
         bool RunArchiSteamFarm();
         void StopArchiSteamFarm();
 
-        void WirteLineCommand(string command);
+        void WirteLineCommand(string command, bool useipc = false);
         void SetArchiSteamFarmConfig();
 
         void AddBot();
