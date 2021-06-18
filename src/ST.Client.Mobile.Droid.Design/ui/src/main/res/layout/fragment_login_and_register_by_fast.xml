@@ -25,6 +25,7 @@
             android:id="@+id/rvFastLoginChannels"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:overScrollMode="never"
             tools:itemCount="5"
             tools:listitem="@layout/layout_login_and_register_by_fast_channel"
             xamarin:managedType="AndroidX.RecyclerView.Widget.RecyclerView" />

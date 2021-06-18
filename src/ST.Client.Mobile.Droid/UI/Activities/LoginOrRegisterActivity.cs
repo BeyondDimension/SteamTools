@@ -57,9 +57,9 @@ namespace System.Application.UI.Activities
                 {
                     var title = item.Value();
                     this.SetNavigationGraphTitle(item.Key, title);
-                    if (currentDestinationId == item.Key && binding?.toolbar != null)
+                    if (currentDestinationId == item.Key)
                     {
-                        binding.toolbar.Title = title;
+                        Title = title;
                     }
                 }
             }).AddTo(this);

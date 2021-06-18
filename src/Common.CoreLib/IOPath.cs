@@ -173,6 +173,7 @@ namespace System
 
         #endregion
 
+#if !NET35
         #region BaseDirectory
 
         static readonly Lazy<string> _BaseDirectory = new(() =>
@@ -189,6 +190,7 @@ namespace System
         public static string BaseDirectory => _BaseDirectory.Value;
 
         #endregion
+#endif
 
         /// <summary>
         /// 获取[文件(File)]资源路径

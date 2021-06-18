@@ -19,8 +19,10 @@ namespace System.Application.UI.ViewModels
 
             preferenceButtons = new ObservableCollection<PreferenceButtonViewModel>
             {
-                PreferenceButtonViewModel.Create(PreferenceButton.Settings, this),
-                PreferenceButtonViewModel.Create(PreferenceButton.About, this),
+                PreferenceButtonViewModel.Create(PreferenceButton.EditProfile, this),
+                PreferenceButtonViewModel.Create(PreferenceButton.BindPhoneNumber, this),
+                PreferenceButtonViewModel.Create(PreferenceButton.Settings, this, 1),
+                PreferenceButtonViewModel.Create(PreferenceButton.About, this, 1),
             };
 
             UserService.Current.WhenAnyValue(x => x.User).Subscribe(value =>
@@ -35,7 +37,7 @@ namespace System.Application.UI.ViewModels
                         NickName = NickNameNullVal;
                     }).AddTo(this);
 
-                    PreferenceButtonViewModel.RemoveAuthorized(preferenceButtons, this);
+                    //PreferenceButtonViewModel.RemoveAuthorized(preferenceButtons, this);
                 }
                 else
                 {
@@ -96,7 +98,7 @@ namespace System.Application.UI.ViewModels
         /// </summary>
         public enum PreferenceButton
         {
-            EditProfile,
+            EditProfile = 1,
             BindPhoneNumber,
             ChangePhoneNumber,
             Settings,
@@ -106,11 +108,13 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// 我的选项按钮视图模型
         /// </summary>
-        public sealed class PreferenceButtonViewModel : ReactiveObject, IDisposable
+        public sealed class PreferenceButtonViewModel : ReactiveObject, IDisposable, IReadOnlyItemViewGroup
         {
             PreferenceButtonViewModel()
             {
             }
+
+            public int ItemViewGroup { get; set; }
 
             /// <summary>
             /// 根据键获取标题文本
@@ -254,14 +258,31 @@ namespace System.Application.UI.ViewModels
             /// <param name="id"></param>
             /// <param name="vm"></param>
             /// <returns></returns>
-            public static PreferenceButtonViewModel Create(PreferenceButton id, IDisposableHolder vm)
+            public static PreferenceButtonViewModel Create(PreferenceButton id, IDisposableHolder vm, int groupId = default)
             {
-                PreferenceButtonViewModel r = new() { Id = id };
+                PreferenceButtonViewModel r = new() { Id = id, ItemViewGroup = groupId, };
                 r.OnBind(vm);
                 return r;
             }
 
             public void Dispose() => disposable?.Dispose();
+
+            static bool GetAuthentication(PreferenceButton id)
+            {
+                var r = id switch
+                {
+                    PreferenceButton.EditProfile or
+                    PreferenceButton.BindPhoneNumber or
+                    PreferenceButton.ChangePhoneNumber => true,
+                    _ => false,
+                };
+                return r;
+            }
+
+            /// <summary>
+            /// 是否需要已登录的用户
+            /// </summary>
+            public bool Authentication => GetAuthentication(id);
         }
     }
 }

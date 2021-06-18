@@ -57,6 +57,7 @@
         android:id="@+id/rvPreferenceButtons"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:overScrollMode="never"
         android:paddingTop="@dimen/preference_buttons_space"
         android:paddingBottom="@dimen/preference_buttons_space"
         app:layout_constraintEnd_toEndOf="parent"

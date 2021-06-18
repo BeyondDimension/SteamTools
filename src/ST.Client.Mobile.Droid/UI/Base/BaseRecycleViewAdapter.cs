@@ -89,21 +89,25 @@ namespace System.Application.UI.Adapters
     /// <typeparam name="TViewHolder"></typeparam>
     /// <typeparam name="TViewModel"></typeparam>
     /// <typeparam name="TViewType"></typeparam>
-    public abstract partial class BaseReactiveRecycleViewAdapter<TViewHolder, TViewModel, TViewType> : ReactiveRecyclerViewAdapter<TViewModel>
+    public abstract partial class BaseReactiveRecycleViewAdapter<TViewHolder, TViewModel, TViewType> : ReactiveRecyclerViewAdapter<TViewModel>, IReadOnlyViewModels<TViewModel>
         where TViewHolder : BaseReactiveViewHolder<TViewModel>
         where TViewModel : class, IReactiveObject
         where TViewType : struct, IConvertible
     {
-        public BaseReactiveRecycleViewAdapter(IObservable<IChangeSet<TViewModel>> backingList) : base(backingList)
-        {
-        }
+        readonly IList<TViewModel> viewModels;
+
+        public IList<TViewModel> ViewModels => viewModels;
+
+        IReadOnlyList<TViewModel> IReadOnlyViewModels<TViewModel>.ViewModels => IAdapter<TViewModel>.AsReadOnly(ViewModels);
 
         public BaseReactiveRecycleViewAdapter(ObservableCollection<TViewModel> collection) : base(collection.ToObservableChangeSet())
         {
+            viewModels = collection;
         }
 
         public BaseReactiveRecycleViewAdapter(ReadOnlyObservableCollection<TViewModel> collection) : base(collection.ToObservableChangeSet())
         {
+            viewModels = collection;
         }
     }
 
@@ -112,10 +116,6 @@ namespace System.Application.UI.Adapters
         where TViewHolder : BaseReactiveViewHolder<TViewModel>
         where TViewModel : class, IReactiveObject
     {
-        public BaseReactiveRecycleViewAdapter(IObservable<IChangeSet<TViewModel>> backingList) : base(backingList)
-        {
-        }
-
         public BaseReactiveRecycleViewAdapter(ObservableCollection<TViewModel> collection) : base(collection)
         {
         }

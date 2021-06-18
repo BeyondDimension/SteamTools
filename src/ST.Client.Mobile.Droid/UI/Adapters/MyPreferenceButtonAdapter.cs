@@ -32,11 +32,11 @@ namespace System.Application.UI.Adapters
         {
             base.OnBind();
 
-            ViewModel.WhenAnyValue(x => x.Icon).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.Icon).Subscribe(value =>
             {
                 binding.ivIcon.SetImageResourceIcon(value);
             }).AddTo(this);
-            ViewModel.WhenAnyValue(x => x.Title).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.Title).Subscribe(value =>
             {
                 binding.tvTitle.Text = value;
             }).AddTo(this);

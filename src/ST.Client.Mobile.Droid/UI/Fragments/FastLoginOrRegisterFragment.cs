@@ -1,6 +1,6 @@
 using Android.Runtime;
+using Android.Text.Method;
 using Android.Views;
-using AndroidX.AppCompat.App;
 using Binding;
 using ReactiveUI;
 using System.Application.Mvvm;
@@ -23,6 +23,8 @@ namespace System.Application.UI.Fragments
         public override void OnCreateView(View view)
         {
             base.OnCreateView(view);
+
+            binding!.tvAgreementAndPrivacy.MovementMethod = LinkMovementMethod.Instance;
 
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {

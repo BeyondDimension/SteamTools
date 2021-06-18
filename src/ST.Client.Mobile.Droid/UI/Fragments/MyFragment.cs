@@ -4,6 +4,7 @@ using AndroidX.RecyclerView.Widget;
 using Binding;
 using ReactiveUI;
 using System.Application.Mvvm;
+using System.Application.Services;
 using System.Application.UI.Activities;
 using System.Application.UI.Adapters;
 using System.Application.UI.ViewModels;
@@ -25,7 +26,7 @@ namespace System.Application.UI.Fragments
         {
             base.OnCreateView(view);
 
-            ViewModel.WhenAnyValue(x => x.NickName).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.NickName).Subscribe(value =>
             {
                 if (binding == null) return;
                 binding.tvNickName.Text = value;
@@ -33,9 +34,15 @@ namespace System.Application.UI.Fragments
 
             SetOnClickListener(binding!.layoutUser);
 
-            var adapter = new MyPreferenceButtonAdapter(ViewModel);
+            var adapter = new MyPreferenceButtonAdapter(ViewModel!);
             adapter.ItemClick += (_, e) =>
             {
+                if (e.Current.Authentication && !UserService.Current.IsAuthenticated)
+                {
+                    OnClick(binding!.layoutUser);
+                    return;
+                }
+
                 var activityType = e.Current.Id switch
                 {
                     PreferenceButton.EditProfile => typeof(EditProfileActivity),
@@ -49,7 +56,7 @@ namespace System.Application.UI.Fragments
             };
             var layout = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
             binding.rvPreferenceButtons.SetLayoutManager(layout);
-            //binding.rvPreferenceButtons.AddItemDecoration();
+            binding.rvPreferenceButtons.AddItemDecoration(new VerticalItemViewGroupDecoration(binding.rvPreferenceButtons.PaddingTop));
             binding.rvPreferenceButtons.SetAdapter(adapter);
         }
 
