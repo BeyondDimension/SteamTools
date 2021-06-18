@@ -369,6 +369,9 @@
   <data name="Download" xml:space="preserve">
     <value>下载</value>
   </data>
+  <data name="Downloading" xml:space="preserve">
+    <value>正在下载：{0}%</value>
+  </data>
   <data name="Download_ScriptError" xml:space="preserve">
     <value>脚本下载错误请重试。</value>
   </data>

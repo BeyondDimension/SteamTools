@@ -1,8 +1,10 @@
 using ReactiveUI;
+using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Application.UI.Resx;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +13,20 @@ namespace System.Application.Services.Implementation
     internal sealed class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarmService
     {
         readonly IDesktopPlatformService platformService;
+        readonly IHttpService httpService;
+        readonly ICloudServiceClient clientService;
+
+        const string GITHUB_LATEST_RELEASEAPI_URL = "https://api.github.com/repos/JustArchiNET/ArchiSteamFarm/releases/latest";
+
+        static string Variant => DI.Platform switch
+        {
+            Platform.Windows => "win-x64",
+            Platform.Linux => "linux-x64",
+            Platform.Apple => "osx-x64",
+            _ => "win-x64",
+        };
+
+
 
         string? _ArchiSteamFarmExePath;
         public string? ArchiSteamFarmExePath
@@ -19,9 +35,9 @@ namespace System.Application.Services.Implementation
             private set => this.RaiseAndSetIfChanged(ref _ArchiSteamFarmExePath, value);
         }
 
-        public string? ArchiSteamFarmConfigPath => !string.IsNullOrEmpty(ArchiSteamFarmExePath) ? Path.GetDirectoryName(ArchiSteamFarmExePath) : null;
+        public string? ArchiSteamFarmConfigDirPath => !string.IsNullOrEmpty(ArchiSteamFarmExePath) ? Path.GetDirectoryName(ArchiSteamFarmExePath) : null;
 
-        public string? ArchiSteamFarmVersion => !string.IsNullOrEmpty(ArchiSteamFarmExePath) ? FileVersionInfo.GetVersionInfo(ArchiSteamFarmExePath).ProductVersion : null;
+        public Version? ArchiSteamFarmVersion => !string.IsNullOrEmpty(ArchiSteamFarmExePath) ? new Version(FileVersionInfo.GetVersionInfo(ArchiSteamFarmExePath).ProductVersion) : null;
 
         string? _ArchiSteamFarmOutText;
         public string? ArchiSteamFarmOutText
@@ -41,15 +57,43 @@ namespace System.Application.Services.Implementation
 
         public bool IsArchiSteamFarmRuning => !Process?.HasExited ?? false;
 
-        public ArchiSteamFarmServiceImpl(IDesktopPlatformService platform)
+        bool _IsNewVerison;
+        public bool IsNewVerison
         {
+            get => _IsNewVerison;
+            private set => this.RaiseAndSetIfChanged(ref _IsNewVerison, value);
+        }
+
+        GithubReleaseModel? _NewVerison;
+        public GithubReleaseModel? NewVerison
+        {
+            get => _NewVerison;
+            private set => this.RaiseAndSetIfChanged(ref _NewVerison, value);
+        }
+
+        string? _IPCUrl;
+        public string? IPCUrl
+        {
+            get => _IPCUrl;
+            private set => this.RaiseAndSetIfChanged(ref _IPCUrl, value);
+        }
+
+        public ArchiSteamFarmServiceImpl(IDesktopPlatformService platform, IHttpService http, ICloudServiceClient client)
+        {
+            clientService = client;
             platformService = platform;
+            httpService = http;
 
             ArchiSteamFarmExePath = ASFSettings.ArchiSteamFarmExePath.Value;
             if (string.IsNullOrEmpty(ArchiSteamFarmExePath))
             {
                 var temp = Path.Combine(IOPath.BaseDirectory, "ASF", "ArchiSteamFarm.exe");
                 SetArchiSteamFarmExePath(temp);
+            }
+
+            if (IsArchiSteamFarmExists)
+            {
+                IPCUrl = "http://127.0.0.1:1242";
             }
         }
 
@@ -120,12 +164,12 @@ namespace System.Application.Services.Implementation
             return IsArchiSteamFarmRuning;
         }
 
-        public void WirteLineCommand(string command) 
+        public void WirteLineCommand(string command)
         {
-            if (IsArchiSteamFarmRuning && !string.IsNullOrEmpty(command)) 
+            if (IsArchiSteamFarmRuning && !string.IsNullOrEmpty(command))
             {
                 Process!.StandardInput.WriteLine(command);
-                Process!.StandardInput.Flush();
+                //Process!.StandardInput.Flush();
             }
         }
 
@@ -135,11 +179,6 @@ namespace System.Application.Services.Implementation
             {
                 Process?.Kill();
             }
-        }
-
-        public string GetArchiSteamFarmIPCUrl()
-        {
-            return "http://127.0.0.1:1242";
         }
 
         public void SetArchiSteamFarmConfig()
@@ -154,7 +193,12 @@ namespace System.Application.Services.Implementation
 
         public void GetAllBots()
         {
+            if (IsArchiSteamFarmExists && IsArchiSteamFarmRuning)
+            {
+                var botNames = Directory.EnumerateFiles(ArchiSteamFarmConfigDirPath!, "*" + ".json").Select(Path.GetFileNameWithoutExtension).Where(botName => !string.IsNullOrEmpty(botName));
 
+
+            }
         }
 
         public void SaveBotConfig()
@@ -162,10 +206,90 @@ namespace System.Application.Services.Implementation
 
         }
 
-        public void UpdateOrDownloadASF()
+        protected void OnReportDownloading(float value) => OnReport(value, AppResources.Downloading.Format(MathF.Round(value, 2)));
+        protected void OnReport(float value, string str)
         {
+            ProgressValue = value;
+            ProgressString = str;
+        }
 
+        float _ProgressValue;
+        public float ProgressValue
+        {
+            get => _ProgressValue;
+            private set => this.RaiseAndSetIfChanged(ref _ProgressValue, value);
+        }
 
+        string _ProgressString = string.Empty;
+        public string ProgressString
+        {
+            get => _ProgressString;
+            private set => this.RaiseAndSetIfChanged(ref _ProgressString, value);
+        }
+
+        public async void UpdateOrDownloadASF()
+        {
+            string targetFile = "ASF-" + Variant + ".zip";
+            GithubReleaseModel.Assets? binaryAsset = null;
+            if (IsArchiSteamFarmExists)
+            {
+                var releaseModel = await CheckUpdate();
+                if (releaseModel != null && IsNewVerison)
+                {
+                    binaryAsset = releaseModel.assets.FirstOrDefault(asset => !string.IsNullOrEmpty(asset.name) && asset.name!.Equals(targetFile, StringComparison.OrdinalIgnoreCase));
+                }
+            }
+            else
+            {
+                var result = await httpService.GetAsync<GithubReleaseModel>(GITHUB_LATEST_RELEASEAPI_URL);
+                binaryAsset = result.assets.FirstOrDefault(asset => !string.IsNullOrEmpty(asset.name) && asset.name!.Equals(targetFile, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (binaryAsset?.browser_download_url == null)
+            {
+                Toast.Show("未获取到下载链接");
+                return;
+            }
+            var downloadFilePath = IOPath.CacheDirectory + Path.DirectorySeparatorChar + targetFile;
+            var download = await clientService.Download(true, binaryAsset?.browser_download_url, downloadFilePath, new Progress<float>(OnReportDownloading));
+
+            if (download.IsSuccess)
+            {
+                var dirPath = Path.GetDirectoryName(ArchiSteamFarmExePath);
+                if (string.IsNullOrEmpty(dirPath))
+                {
+                    dirPath = Path.Combine(IOPath.BaseDirectory, "ASF");
+                }
+                TarGZipHelper.Unpack(downloadFilePath, dirPath);
+                Toast.Show("升级完成");
+            }
+            else // 下载失败，进度条填满，可能服务器崩了
+            {
+                Toast.Show("下载失败:" + binaryAsset?.browser_download_url);
+            }
+        }
+
+        public async Task<GithubReleaseModel?> CheckUpdate()
+        {
+            NewVerison = await httpService.GetAsync<GithubReleaseModel>(GITHUB_LATEST_RELEASEAPI_URL);
+
+            if (NewVerison == null)
+            {
+                return null;
+            }
+
+            IsNewVerison = (ArchiSteamFarmVersion >= NewVerison.version);
+
+            if (IsNewVerison)
+            {
+                Toast.Show("ASF已是最新版本");
+            }
+            else
+            {
+                Toast.Show("检测到新版本" + NewVerison.version);
+            }
+
+            return NewVerison;
         }
     }
 }

@@ -10,14 +10,27 @@ namespace System.Application.UI.Views.Pages
 {
     public class ArchiSteamFarmPlusPage : ReactiveUserControl<ArchiSteamFarmPlusPageViewModel>
     {
+        readonly TextBox commandTextbox;
+
         public ArchiSteamFarmPlusPage()
         {
             InitializeComponent();
             var selectAsfPath = this.FindControl<Button>("selectAsfPath");
             selectAsfPath.Click += SelectAsfPath_Click;
+            commandTextbox = this.FindControl<TextBox>("CommandTextbox");
+            commandTextbox.KeyUp += CommandTextbox_KeyUp;
 
             //var console = this.FindControl<TextBox>("console");
             //console.SelectionStart = 999;
+        }
+
+        private void CommandTextbox_KeyUp(object? sender, Avalonia.Input.KeyEventArgs e)
+        {
+            if (e.Key == Avalonia.Input.Key.Enter && !string.IsNullOrEmpty(commandTextbox.Text))
+            {
+                IArchiSteamFarmService.Instance.WirteLineCommand(commandTextbox.Text);
+                commandTextbox.Text = "";
+            }
         }
 
         private async void SelectAsfPath_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

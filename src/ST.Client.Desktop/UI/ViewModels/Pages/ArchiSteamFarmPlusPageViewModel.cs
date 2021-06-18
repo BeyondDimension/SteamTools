@@ -16,16 +16,9 @@ namespace System.Application.UI.ViewModels
         public ArchiSteamFarmPlusPageViewModel()
         {
             IconKey = nameof(ArchiSteamFarmPlusPageViewModel).Replace("ViewModel", "Svg");
-
-            WebUrl = asfSerivce.GetArchiSteamFarmIPCUrl();
         }
 
-        private string? _WebUrl;
-        public string? WebUrl
-        {
-            get => _WebUrl;
-            set => this.RaiseAndSetIfChanged(ref _WebUrl, value);
-        }
+        public string? WebUrl => asfSerivce.IPCUrl;
 
         private string? _CommandString;
         public string? CommandString

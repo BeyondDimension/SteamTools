@@ -31,10 +31,11 @@
                 HorizontalAlignment="Center"/>
         </StackPanel>
 
-        <StackPanel IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsArchiSteamFarmRuning}">
+        <Grid IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsArchiSteamFarmRuning}"
+              RowDefinitions="*,Auto">
           <TextBox x:Name="console" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Text="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=ArchiSteamFarmOutText}"/>
-          <TextBox Text="{Binding CommandString}"/>
-        </StackPanel>
+          <TextBox x:Name="CommandTextbox" Grid.Row="1" Watermark="输入指令后按下Enter执行"/>
+        </Grid>
       </Panel>
     </TabItem>
     <TabItem Header="ASF Web UI">
