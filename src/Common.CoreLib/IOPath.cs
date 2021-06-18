@@ -113,7 +113,20 @@ namespace System
 #if NET35 || NOT_XE
                 throw new PlatformNotSupportedException();
 #else
-                return FileSystem.AppDataDirectory;
+                try
+                {
+                    return FileSystem.AppDataDirectory;
+                }
+                catch
+                {
+                    if (DI.DeviceIdiom == DeviceIdiom.Desktop)
+                    {
+                        var r = Path.Combine(BaseDirectory, "AppData");
+                        DirCreateByNotExists(r);
+                        return r;
+                    }
+                    throw;
+                }
 #endif
             }
         }
@@ -128,7 +141,20 @@ namespace System
 #if NET35 || NOT_XE
                 throw new PlatformNotSupportedException();
 #else
-                return FileSystem.CacheDirectory;
+                try
+                {
+                    return FileSystem.CacheDirectory;
+                }
+                catch
+                {
+                    if (DI.DeviceIdiom == DeviceIdiom.Desktop)
+                    {
+                        var r = Path.Combine(BaseDirectory, "Cache");
+                        DirCreateByNotExists(r);
+                        return r;
+                    }
+                    throw;
+                }
 #endif
             }
         }
