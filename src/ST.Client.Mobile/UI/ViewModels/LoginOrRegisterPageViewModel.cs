@@ -1,4 +1,5 @@
 using Microsoft.Identity.Client;
+using ReactiveUI;
 using System.Application.Services;
 using System.Threading.Tasks;
 using System.Windows.Input;

@@ -19,6 +19,11 @@ namespace System
                 ResIcon.baseline_settings_black_24 => Resource.Drawable.baseline_settings_black_24,
                 ResIcon.baseline_sports_esports_black_24 => Resource.Drawable.baseline_sports_esports_black_24,
                 ResIcon.baseline_verified_user_black_24 => Resource.Drawable.baseline_verified_user_black_24,
+                ResIcon.Steam => Resource.Drawable.icon_steam_24,
+                ResIcon.Xbox => Resource.Drawable.icon_xbox_24,
+                ResIcon.Apple => Resource.Drawable.icon_apple_24,
+                ResIcon.QQ => Resource.Drawable.icon_qq_24,
+                ResIcon.Phone => Resource.Drawable.icon_phone_24,
                 _ => (int?)null,
             };
             return resId;

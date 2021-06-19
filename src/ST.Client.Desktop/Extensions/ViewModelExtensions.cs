@@ -1,6 +1,7 @@
 using System.Application.Mvvm;
 
-namespace System.Application
+// ReSharper disable once CheckNamespace
+namespace System
 {
     public static class ViewModelExtensions
     {

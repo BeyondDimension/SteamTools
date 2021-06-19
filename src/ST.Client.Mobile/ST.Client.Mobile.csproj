@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -35,7 +35,7 @@
     <Compile Include="..\ST.Client.Desktop\Mvvm\*.cs">
       <LinkBase>Mvvm</LinkBase>
     </Compile>
-    <Compile Remove="..\ST.Client.Desktop\Mvvm\CompositeDisposable.cs" />
+    <Compile Remove="..\ST.Client.Desktop\Mvvm\CompositeDisposable.cs"/>
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\AreaUIHelper.cs">
       <LinkBase>UI\ViewModels</LinkBase>
     </Compile>
@@ -63,18 +63,16 @@
     <Compile Include="..\ST.Client.Desktop\Services\Implementation\FontManagerImpl.cs">
       <LinkBase>Services\Implementation</LinkBase>
     </Compile>
-    <Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.TryAddFontManager.cs" />
+    <Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.TryAddFontManager.cs"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
+    <ProjectReference Include="..\ST.Client\ST.Client.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ReactiveUI" Version="13.3.2" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.32.1" />
+    <PackageReference Include="ReactiveUI" Version="13.3.2"/>
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.32.1"/>
     <!--<PackageReference Include="StatefulModel.Standard" Version="0.1.0" />-->
-    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
   </ItemGroup>
-
 </Project>

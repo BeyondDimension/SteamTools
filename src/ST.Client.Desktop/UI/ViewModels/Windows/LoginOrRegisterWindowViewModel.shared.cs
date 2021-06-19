@@ -1,12 +1,16 @@
 using ReactiveUI;
 using System.Application.Models;
+using System.Application.Mvvm;
 using System.Application.Services;
 using System.Application.UI.Resx;
+using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Properties;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
@@ -33,10 +37,12 @@ namespace System.Application.UI.ViewModels
 #endif
                 AppResources.LoginAndRegister;
 
+#if !__MOBILE__
             FastLogin = ReactiveCommand.CreateFromTask<FastLoginChannel>(async channel =>
             {
                 await FastLoginOrRegisterAsync(Close, channel);
             });
+#endif
             ChooseChannel = ReactiveCommand.CreateFromTask<string>(async channel =>
             {
                 if (Enum.TryParse<FastLoginChannel>(channel, out var channel_))
@@ -47,7 +53,7 @@ namespace System.Application.UI.ViewModels
                 {
                     switch (channel)
                     {
-                        case nameof(PhoneNumber):
+                        case FastLoginChannelViewModel.PhoneNumber:
                             await GoToLoginOrRegisterByPhoneNumberAsync();
                             break;
                     }
@@ -59,6 +65,17 @@ namespace System.Application.UI.ViewModels
 
             //SteamConnectService.Current.WhenAnyValue(x => x.CurrentSteamUser)
             //    .Subscribe(_ => this.RaisePropertyChanged(nameof(SteamUser)));
+
+            fastLoginChannels = new()
+            {
+                FastLoginChannelViewModel.Create(nameof(FastLoginChannel.Steam), this),
+                FastLoginChannelViewModel.Create(nameof(FastLoginChannel.Xbox), this),
+#if DEBUG
+                FastLoginChannelViewModel.Create(nameof(FastLoginChannel.Apple), this),
+                FastLoginChannelViewModel.Create(nameof(FastLoginChannel.QQ), this),
+#endif
+                FastLoginChannelViewModel.Create(FastLoginChannelViewModel.PhoneNumber, this),
+            };
         }
 
         private string? _PhoneNumber;
@@ -223,17 +240,11 @@ namespace System.Application.UI.ViewModels
 #endif
         }
 
+#if !__MOBILE__
         [Obsolete("use ChooseChannel")]
         public ICommand FastLogin { get; }
 
-        [Obsolete("use Channels")]
-        public FastLoginChannel[] FastLoginChannels { get; } = new[] {
-            FastLoginChannel.Steam,
-            FastLoginChannel.Xbox,
-            //FastLoginChannel.Apple,
-            //FastLoginChannel.QQ,
-        };
-
+        [Obsolete("use FastLoginChannels")]
         public string[] Channels { get; } = new[]
         {
             nameof(FastLoginChannel.Steam),
@@ -242,9 +253,13 @@ namespace System.Application.UI.ViewModels
             nameof(FastLoginChannel.Apple),
             nameof(FastLoginChannel.QQ),
 #endif
-            nameof(PhoneNumber),
+            FastLoginChannelViewModel.PhoneNumber,
         };
+#endif
 
+        /// <summary>
+        /// 选择快速登录渠道点击命令，参数类型为 <see cref="FastLoginChannelViewModel"/>.Id
+        /// </summary>
         public ICommand ChooseChannel { get; }
 
         protected override void Dispose(bool disposing)
@@ -254,6 +269,97 @@ namespace System.Application.UI.ViewModels
                 CTS?.Cancel();
             }
             base.Dispose(disposing);
+        }
+
+        ObservableCollection<FastLoginChannelViewModel> fastLoginChannels;
+        /// <summary>
+        /// 快速登录渠道组
+        /// </summary>
+        public ObservableCollection<FastLoginChannelViewModel> FastLoginChannels
+        {
+            get => fastLoginChannels;
+            set => this.RaiseAndSetIfChanged(ref fastLoginChannels, value);
+        }
+
+        public sealed class FastLoginChannelViewModel : RIdTitleIconViewModel<string, ResIcon>
+        {
+            FastLoginChannelViewModel()
+            {
+            }
+
+            Color iconBgColor;
+            public Color IconBgColor
+            {
+                get => iconBgColor;
+                set => this.RaiseAndSetIfChanged(ref iconBgColor, value);
+            }
+
+            protected override void OnIdChanged(string? value)
+            {
+                IconBgColor = GetIconBgColorById(value);
+            }
+
+            public const string PhoneNumber = nameof(PhoneNumber);
+
+            protected override ResIcon GetIconById(string? id)
+            {
+                return id switch
+                {
+                    nameof(FastLoginChannel.Steam) => ResIcon.Steam,
+                    nameof(FastLoginChannel.Xbox) or
+                    nameof(FastLoginChannel.Microsoft) => ResIcon.Xbox,
+                    nameof(FastLoginChannel.Apple) => ResIcon.Apple,
+                    nameof(FastLoginChannel.QQ) => ResIcon.QQ,
+                    PhoneNumber => ResIcon.Phone,
+                    _ => ResIcon.none,
+                };
+            }
+
+            protected override string GetTitleById(string? id)
+            {
+                if (id == PhoneNumber)
+                {
+                    return AppResources.User_UsePhoneNumLoginChannel;
+                }
+                else if (!string.IsNullOrWhiteSpace(id))
+                {
+                    if (id == nameof(FastLoginChannel.Xbox) ||
+                        id == nameof(FastLoginChannel.Microsoft))
+                    {
+                        id = "Xbox Live";
+                    }
+                    return AppResources.User_UseFastLoginChannel_.Format(id);
+                }
+                return string.Empty;
+            }
+
+            static Color GetIconBgColorById(string? id)
+            {
+                var hexColor = id switch
+                {
+                    nameof(FastLoginChannel.Steam) => "#145c8f",
+                    nameof(FastLoginChannel.Xbox) or
+                    nameof(FastLoginChannel.Microsoft) => "#027d00",
+                    nameof(FastLoginChannel.Apple) => "#000000",
+                    nameof(FastLoginChannel.QQ) => "#12B7F5",
+                    PhoneNumber => "#2196F3",
+                    _ => default,
+                };
+                return hexColor == default ? default : ColorConverters.FromHex(hexColor);
+            }
+
+            /// <summary>
+            /// 创建实例
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="vm"></param>
+            /// <returns></returns>
+            public static FastLoginChannelViewModel Create(string id, IDisposableHolder vm)
+            {
+                FastLoginChannelViewModel r = new() { Id = id, };
+                r.OnBind(vm);
+                return r;
+            }
         }
     }
 }

@@ -44,11 +44,7 @@ namespace System.Application.UI.Adapters
             return base.GetItemViewType(position, viewModel);
         }
     }
-}
 
-// ReSharper disable once CheckNamespace
-namespace System.Application.UI.Adapters.Internals
-{
     public static partial class RecycleViewAdapterHelper
     {
         public static bool IsImplItemViewType<TViewModel>()

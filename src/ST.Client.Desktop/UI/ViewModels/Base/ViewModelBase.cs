@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Application.Mvvm;
 using System.Collections.Generic;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
     public class ViewModelBase : ReactiveObject, IViewModelBase, IActivatableViewModel

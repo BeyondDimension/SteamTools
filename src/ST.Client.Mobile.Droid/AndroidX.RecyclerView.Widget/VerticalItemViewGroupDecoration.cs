@@ -4,10 +4,11 @@ using ReactiveUI;
 using System.Application.UI.Adapters;
 using System.Application.UI.ViewModels;
 
+// ReSharper disable once CheckNamespace
 namespace AndroidX.RecyclerView.Widget
 {
     /// <summary>
-    /// 列表项的垂直间距
+    /// 列表组项的垂直间距
     /// </summary>
     public sealed class VerticalItemViewGroupDecoration : RecyclerView.ItemDecoration
     {

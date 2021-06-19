@@ -61,6 +61,15 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 此应用不支持在模拟器中运行 的本地化字符串。
+        /// </summary>
+        internal static string ExitCode_IsEmulator {
+            get {
+                return ResourceManager.GetString("ExitCode_IsEmulator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 此应用不支持在有ROOT权限的设备中运行 的本地化字符串。
         /// </summary>
         internal static string ExitCode_IsRoot {

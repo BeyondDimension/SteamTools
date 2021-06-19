@@ -1,5 +1,5 @@
-﻿// ReSharper disable once CheckNamespace
-namespace System.Application
+// ReSharper disable once CheckNamespace
+namespace System
 {
     public static class StartupArgsExtensions
     {

@@ -41,9 +41,9 @@ namespace System.Application.UI.Activities
         {
             base.OnCreate(savedInstanceState);
 
-            SetSupportActionBar(binding!.toolbar);
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
 
-            ViewModel = new();
+            ViewModel = new() { Close = OnBackPressed };
             ViewModel.AddTo(this);
 
             var appBarConfiguration = new AppBarConfiguration.Builder(Resource.Id.navigation_login_or_register_fast).Build();

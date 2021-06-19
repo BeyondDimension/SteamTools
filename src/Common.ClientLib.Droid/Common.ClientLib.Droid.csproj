@@ -1,4 +1,4 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <TargetFramework>MonoAndroid11.0</TargetFramework>
@@ -42,8 +42,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Properties\SR.Designer.cs">
+    <Compile Update="Application\Properties\SR.Designer.cs">
       <DesignTime>True</DesignTime>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Application\Properties\SR.resx">
+      <LastGenOutput>SR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

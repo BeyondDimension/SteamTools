@@ -45,19 +45,19 @@ namespace System.Application.UI.ViewModels
                     nickNameNullValLangChangeSubscribe = null;
                     NickName = value.NickName;
 
-                    var editProfile = preferenceButtons.FirstOrDefault(x => x.Id == PreferenceButton.EditProfile);
-                    if (editProfile == null)
-                    {
-                        editProfile = PreferenceButtonViewModel.Create(PreferenceButton.EditProfile, this);
-                        preferenceButtons.Insert(0, editProfile);
-                    }
+                    //var editProfile = preferenceButtons.FirstOrDefault(x => x.Id == PreferenceButton.EditProfile);
+                    //if (editProfile == null)
+                    //{
+                    //    editProfile = PreferenceButtonViewModel.Create(PreferenceButton.EditProfile, this);
+                    //    preferenceButtons.Insert(0, editProfile);
+                    //}
 
-                    var phoneNumber = preferenceButtons.FirstOrDefault(x => PreferenceButtonViewModel.IsPhoneNumber(x.Id));
-                    if (phoneNumber == null)
-                    {
-                        phoneNumber = PreferenceButtonViewModel.Create(PreferenceButtonViewModel.GetPhoneNumberId(UserService.Current.HasPhoneNumber), this);
-                        preferenceButtons.Insert(1, phoneNumber);
-                    }
+                    //var phoneNumber = preferenceButtons.FirstOrDefault(x => PreferenceButtonViewModel.IsPhoneNumber(x.Id));
+                    //if (phoneNumber == null)
+                    //{
+                    //    phoneNumber = PreferenceButtonViewModel.Create(PreferenceButtonViewModel.GetPhoneNumberId(UserService.Current.HasPhoneNumber), this);
+                    //    preferenceButtons.Insert(1, phoneNumber);
+                    //}
                 }
             }).AddTo(this);
 
@@ -108,7 +108,7 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// 我的选项按钮视图模型
         /// </summary>
-        public sealed class PreferenceButtonViewModel : ReactiveObject, IDisposable, IReadOnlyItemViewGroup
+        public sealed class PreferenceButtonViewModel : RIdTitleIconViewModel<PreferenceButton, ResIcon>, IReadOnlyItemViewGroup
         {
             PreferenceButtonViewModel()
             {
@@ -116,12 +116,7 @@ namespace System.Application.UI.ViewModels
 
             public int ItemViewGroup { get; set; }
 
-            /// <summary>
-            /// 根据键获取标题文本
-            /// </summary>
-            /// <param name="id"></param>
-            /// <returns></returns>
-            static string GetTitleById(PreferenceButton id)
+            protected override string GetTitleById(PreferenceButton id)
             {
                 var title = id switch
                 {
@@ -135,12 +130,7 @@ namespace System.Application.UI.ViewModels
                 return title;
             }
 
-            /// <summary>
-            /// 根据键获取图标
-            /// </summary>
-            /// <param name="id"></param>
-            /// <returns></returns>
-            static ResIcon GetIconById(PreferenceButton id)
+            protected override ResIcon GetIconById(PreferenceButton id)
             {
                 var icon = id switch
                 {
@@ -161,11 +151,13 @@ namespace System.Application.UI.ViewModels
             /// <returns></returns>
             public static bool IsPhoneNumber(PreferenceButton id) => id == PreferenceButton.BindPhoneNumber || id == PreferenceButton.ChangePhoneNumber;
 
+#if DEBUG
             /// <summary>
             /// 从选项按钮组中移除已登录才有的选项组
             /// </summary>
             /// <param name="collection"></param>
             /// <param name="vm"></param>
+            [Obsolete("未登录时不隐藏选项，点击相关选项跳转登录", true)]
             public static void RemoveAuthorized(ICollection<PreferenceButtonViewModel> collection, IDisposableHolder vm)
             {
                 var removeArray = collection.Where(x => IsPhoneNumber(x.Id) || x.Id == PreferenceButton.EditProfile).ToArray();
@@ -175,6 +167,7 @@ namespace System.Application.UI.ViewModels
                     x.OnUnbind(vm);
                 });
             }
+#endif
 
             /// <summary>
             /// 根据是否有手机号码确定键为[绑定手机]还是[换绑手机]
@@ -184,72 +177,6 @@ namespace System.Application.UI.ViewModels
             public static PreferenceButton GetPhoneNumberId(bool hasPhoneNumber)
             {
                 return hasPhoneNumber ? PreferenceButton.ChangePhoneNumber : PreferenceButton.BindPhoneNumber;
-            }
-
-            PreferenceButton id;
-            /// <summary>
-            /// 唯一键
-            /// </summary>
-            public PreferenceButton Id
-            {
-                get => id;
-                set
-                {
-                    if (this.RaiseAndSetIfChanged2(ref id, value)) return;
-                    Title = GetTitleById(value);
-                    Icon = GetIconById(value);
-                }
-            }
-
-            string title = string.Empty;
-            /// <summary>
-            /// 标题文本
-            /// </summary>
-            public string Title
-            {
-                get => title;
-                set => this.RaiseAndSetIfChanged(ref title, value);
-            }
-
-            ResIcon icon;
-            /// <summary>
-            /// 图标
-            /// </summary>
-            public ResIcon Icon
-            {
-                get => icon;
-                set => this.RaiseAndSetIfChanged(ref icon, value);
-            }
-
-            IDisposable? disposable;
-
-            /// <summary>
-            /// 绑定父视图模型
-            /// </summary>
-            /// <param name="vm"></param>
-            /// <returns></returns>
-            PreferenceButtonViewModel OnBind(IDisposableHolder vm)
-            {
-                disposable = R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
-                {
-                    Title = GetTitleById(id);
-                });
-                disposable.AddTo(vm);
-                return this;
-            }
-
-            /// <summary>
-            /// 解绑父视图模型
-            /// </summary>
-            /// <param name="vm"></param>
-            /// <returns></returns>
-            PreferenceButtonViewModel OnUnbind(IDisposableHolder vm)
-            {
-                if (disposable != null)
-                {
-                    disposable.RemoveTo(vm);
-                }
-                return this;
             }
 
             /// <summary>
@@ -264,8 +191,6 @@ namespace System.Application.UI.ViewModels
                 r.OnBind(vm);
                 return r;
             }
-
-            public void Dispose() => disposable?.Dispose();
 
             static bool GetAuthentication(PreferenceButton id)
             {

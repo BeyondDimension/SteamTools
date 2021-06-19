@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -15,6 +15,12 @@
     </Compile>
     <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
+    </Compile>
+    <Compile Include="..\ST.Client.Mobile\UI\ViewModels\Base\RIdTitleIconViewModel.cs">
+      <LinkBase>UI\ViewModels\Base</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Mobile\UI\ResIcon.cs">
+      <LinkBase>UI</LinkBase>
     </Compile>
   </ItemGroup>
 

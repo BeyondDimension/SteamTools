@@ -1,11 +1,13 @@
-﻿using Android.App;
+using Android.App;
 using Android.OS;
 using Android.Views.InputMethods;
 using Android.Widget;
+using AndroidX.AppCompat.App;
 using AndroidX.Fragment.App;
 using AndroidX.Navigation.Fragment;
 using System.Diagnostics.CodeAnalysis;
 using Fragment = AndroidX.Fragment.App.Fragment;
+using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 // ReSharper disable once CheckNamespace
 namespace System
@@ -116,5 +118,11 @@ namespace System
         public static bool IsAvailable(this Activity? activity) => activity.HasValue();
 
 #endif
+
+        public static void SetSupportActionBarWithNavigationClick(this AppCompatActivity activity, Toolbar toolbar)
+        {
+            activity.SetSupportActionBar(toolbar);
+            toolbar.NavigationClick += (_, _) => activity.OnBackPressed();
+        }
     }
 }

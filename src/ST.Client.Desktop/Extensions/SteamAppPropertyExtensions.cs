@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application
 {
     public static class SteamAppPropertyExtensions

@@ -28,11 +28,40 @@ namespace System.Application.UI.Fragments
 
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
-                if (binding != null)
+                if (binding == null) return;
+                binding.tbPhoneNumber.Hint = AppResources.User_Phone;
+                binding.tbSmsCode.Hint = AppResources.SMSCode;
+                binding.btnSubmit.Text = AppResources.LoginAndRegister;
+                binding.tvAgreementAndPrivacy.TextFormatted = LoginOrRegisterActivity.CreateAgreementAndPrivacy(ViewModel!);
+                if (!ViewModel!.IsUnTimeLimit)
                 {
-                    binding.tvAgreementAndPrivacy.TextFormatted = LoginOrRegisterActivity.CreateAgreementAndPrivacy(ViewModel!);
+                    binding.btnSendSms.Text = AppResources.User_GetSMSCode;
                 }
             }).AddTo(this);
+            ViewModel!.WhenAnyValue(x => x.IsLoading).Subscribe(value =>
+            {
+                if (binding == null) return;
+                binding.loading.Visibility = value ? ViewStates.Visible : ViewStates.Gone;
+                binding.content_group.Visibility = !value ? ViewStates.Visible : ViewStates.Gone;
+            }).AddTo(this);
+
+            SetOnClickListener(binding.btnSendSms, binding.btnSubmit);
+        }
+
+        protected override bool OnClick(View view)
+        {
+            if (view.Id == Resource.Id.btnSendSms)
+            {
+                ViewModel!.SendSms.Invoke();
+                return true;
+            }
+            else if (view.Id == Resource.Id.btnSubmit)
+            {
+                ViewModel!.Submit.Invoke();
+                return true;
+            }
+
+            return base.OnClick(view);
         }
     }
 }

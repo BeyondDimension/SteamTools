@@ -1,14 +1,17 @@
 using Android.Runtime;
 using Android.Text.Method;
 using Android.Views;
+using AndroidX.RecyclerView.Widget;
 using Binding;
 using ReactiveUI;
 using System.Application.Mvvm;
 using System.Application.UI.Activities;
+using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
+using static System.Application.UI.ViewModels.LoginOrRegisterPageViewModel;
 
 namespace System.Application.UI.Fragments
 {
@@ -34,6 +37,24 @@ namespace System.Application.UI.Fragments
                     binding.tvAgreementAndPrivacy.TextFormatted = LoginOrRegisterActivity.CreateAgreementAndPrivacy(ViewModel!);
                 }
             }).AddTo(this);
+
+            var adapter = new FastLoginChannelAdapter(ViewModel!);
+            adapter.ItemClick += (_, e) =>
+            {
+                switch (e.Current.Id)
+                {
+                    case FastLoginChannelViewModel.PhoneNumber:
+                        GoToUsePhoneNumberPage(e.GetView());
+                        break;
+                    default:
+                        ViewModel!.ChooseChannel.Invoke(e.Current.Id);
+                        break;
+                }
+            };
+            var layout = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
+            binding.rvFastLoginChannels.SetLayoutManager(layout);
+            binding.rvFastLoginChannels.AddItemDecoration(new VerticalItemViewDecoration(Context.Resources!.GetDimensionPixelSize(Resource.Dimension.fast_login_or_register_margin_subtract_compat_padding)));
+            binding.rvFastLoginChannels.SetAdapter(adapter);
         }
 
         void GoToUsePhoneNumberPage(View? view)

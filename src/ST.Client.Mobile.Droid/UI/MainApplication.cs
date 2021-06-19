@@ -38,20 +38,16 @@ namespace System.Application.UI
                 return name == PackageName;
             }
             IsMainProcess = GetIsMainProcess();
+
+            var level = DILevel.Min;
+            if (IsMainProcess) level = DILevel.MainProcess;
+            Startup.Init(level);
             if (IsMainProcess)
             {
                 AllowStart = DeviceSecurityCheckUtil.IsSupported(
                     enableEmulator: _ThisAssembly.Debuggable,
                     allowXposed: true,
                     allowRoot: true);
-            }
-
-            var level = DILevel.Min;
-            if (IsMainProcess) level = DILevel.MainProcess;
-            Startup.Init(level);
-
-            if (IsMainProcess)
-            {
                 XEVersionTracking.Track();
             }
 

@@ -83,6 +83,15 @@ namespace System.Application.UI.Adapters
 
         public virtual View? ItemLongClickView => null;
     }
+
+    public static partial class RecycleViewAdapterHelper
+    {
+        public static View? GetView<TViewModel>(this ItemClickEventArgs<TViewModel> eventArgs)
+        {
+            if (eventArgs is PlatformItemClickEventArgs<TViewModel> eventArgs_) return eventArgs_.View;
+            return null;
+        }
+    }
 }
 
 // ReSharper disable once CheckNamespace

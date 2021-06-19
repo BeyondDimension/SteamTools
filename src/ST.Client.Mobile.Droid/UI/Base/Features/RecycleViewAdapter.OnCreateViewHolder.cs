@@ -50,11 +50,7 @@ namespace System.Application.UI.Adapters
             return holder;
         }
     }
-}
 
-// ReSharper disable once CheckNamespace
-namespace System.Application.UI.Adapters.Internals
-{
     public static partial class RecycleViewAdapterHelper
     {
         public static TViewHolder CreateViewHolder<TViewHolder>(View itemView)

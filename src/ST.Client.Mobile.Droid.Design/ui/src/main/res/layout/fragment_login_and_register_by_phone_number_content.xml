@@ -9,6 +9,13 @@
     android:paddingTop="@dimen/fast_login_or_register_margin"
     android:paddingBottom="@dimen/fast_login_or_register_margin">
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/content_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="ivLogo,tbPhoneNumber,tbSmsCode,btnSendSms,btnSubmit,tvAgreementAndPrivacy"
+        xamarin:managedType="AndroidX.ConstraintLayout.Widget.Group" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivLogo"
         android:layout_width="160dp"

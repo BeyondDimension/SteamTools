@@ -6,6 +6,7 @@ using Xamarin.Essentials;
 using MainThread = System.Application.MainThreadDesktop;
 #endif
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
     public partial class

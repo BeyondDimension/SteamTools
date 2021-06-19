@@ -85,7 +85,8 @@ namespace System.Application.Security
                     ExitCode.IsVirtualApk => SR.ExitCode_IsVirtualApk,
                     ExitCode.IsRoot => SR.ExitCode_IsRoot,
                     ExitCode.IsXposedExists => SR.ExitCode_IsXposedExists,
-                    _ => null,
+                    ExitCode.IsCompatiblePC or ExitCode.IsEmulator => SR.ExitCode_IsEmulator,
+                    _ => $"Incompatible device error {(int)code}",
                 };
                 if (str != null)
                 {
@@ -150,7 +151,7 @@ namespace System.Application.Security
         static bool GetIsEmulator()
         {
             // 参考 https://github.com/gingo/android-emulator-detector/blob/master/EmulatorDetectorProject/EmulatorDetector/src/main/java/net/skoumal/emulatordetector/EmulatorDetector.java
-            return _() || DeviceInfo.DeviceType == DeviceType.Virtual;
+            return DeviceInfo.DeviceType == DeviceType.Virtual || _();
             static bool contains(string l, string r)
             {
                 return l.Contains(r, StringComparison.OrdinalIgnoreCase);
@@ -257,7 +258,8 @@ namespace System.Application.Security
                         {
 #pragma warning disable CS8604 // 可能的 null 引用参数。
                             if (contains(opengl, "Bluestacks") ||
-                                contains(opengl, "Translator")
+                                contains(opengl, "Translator") ||
+                                contains(opengl, "youwave")
                             )
 #pragma warning restore CS8604 // 可能的 null 引用参数。
                                 newRating += 10;

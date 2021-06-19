@@ -6,7 +6,8 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 
-namespace System.Application
+// ReSharper disable once CheckNamespace
+namespace System
 {
     public static class HandleWindowExtensions
     {

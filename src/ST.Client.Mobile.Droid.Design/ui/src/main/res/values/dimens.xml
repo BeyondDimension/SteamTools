@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fast_login_or_register_margin">22dp</dimen>
+    <dimen name="fast_login_or_register_margin_subtract_compat_padding">17dp</dimen>
     <dimen name="user_profile_vertical_margin">24dp</dimen>
     <dimen name="user_profile_avater_nickname_vertical_space">16dp</dimen>
     <dimen name="avater_border_width">1px</dimen>
