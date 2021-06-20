@@ -1098,6 +1098,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 浏览安装文件夹 的本地化字符串。
+        /// </summary>
+        public static string GameList_OpenFolder {
+            get {
+                return ResourceManager.GetString("GameList_OpenFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam Card Exchange 的本地化字符串。
         /// </summary>
         public static string GameList_OpenSteamCardUrl {

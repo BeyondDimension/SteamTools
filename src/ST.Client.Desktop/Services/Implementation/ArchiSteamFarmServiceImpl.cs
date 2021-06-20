@@ -93,6 +93,7 @@ namespace System.Application.Services.Implementation
 
             if (IsArchiSteamFarmExists)
             {
+                //IPC默认地址
                 IPCUrl = "http://127.0.0.1:1242";
             }
         }

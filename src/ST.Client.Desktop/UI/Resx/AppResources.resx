@@ -465,6 +465,9 @@
   <data name="GameList_OnlyInstalled" xml:space="preserve">
     <value>仅显示已安装的游戏</value>
   </data>
+  <data name="GameList_OpenFolder" xml:space="preserve">
+    <value>浏览安装文件夹</value>
+  </data>
   <data name="GameList_OpenSteamCardUrl" xml:space="preserve">
     <value>Steam Card Exchange</value>
   </data>
