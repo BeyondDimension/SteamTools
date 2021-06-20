@@ -27,7 +27,7 @@ namespace System.Application.UI.Fragments
         {
             base.OnCreateView(view);
 
-            binding!.tvAgreementAndPrivacy.MovementMethod = LinkMovementMethod.Instance;
+            binding!.tvAgreementAndPrivacy.SetLinkMovementMethod();
 
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {

@@ -100,15 +100,24 @@ namespace System.Application.UI.ViewModels
             {
                 this.RaiseAndSetIfChanged(ref _TimeLimit, value);
                 this.RaisePropertyChanged(nameof(IsUnTimeLimit));
+#if __MOBILE__
+                OnIsUnTimeLimitChanged?.Invoke();
+#endif
             }
         }
 
-        string _BtnSendSmsCodeText = AppResources.User_GetSMSCode;
+        public static string DefaultBtnSendSmsCodeText => AppResources.User_GetSMSCode;
+
+        string _BtnSendSmsCodeText = DefaultBtnSendSmsCodeText;
         public string BtnSendSmsCodeText
         {
             get => _BtnSendSmsCodeText;
             set => this.RaiseAndSetIfChanged(ref _BtnSendSmsCodeText, value);
         }
+
+#if __MOBILE__
+        public Action? OnIsUnTimeLimitChanged { get; set; }
+#endif
 
         public bool IsUnTimeLimit => TimeLimit != SMSInterval;
 
@@ -191,7 +200,7 @@ namespace System.Application.UI.ViewModels
 
         async Task SendSmsAsync()
         {
-            if (this.TimeStart())
+            if (this.StartSendSmsTimer())
             {
                 var request = new SendSmsRequest
                 {
@@ -199,9 +208,6 @@ namespace System.Application.UI.ViewModels
                     Type = SmsCodeType.LoginOrRegister,
                 };
 
-#if DEBUG
-                var response =
-#endif
                 await this.SendSms(request);
             }
         }

@@ -75,6 +75,9 @@
     <Compile Include="..\Common.ClientLib.Droid\Extensions\DimenUnitConverterExtensions.cs">
       <LinkBase>Extensions</LinkBase>
     </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\TextViewExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
     <AndroidResource Include="Resources\values\strings_.xml" />
     <Compile Remove="UI\Views.Controls\**" />
     <EmbeddedResource Remove="UI\Views.Controls\**" />

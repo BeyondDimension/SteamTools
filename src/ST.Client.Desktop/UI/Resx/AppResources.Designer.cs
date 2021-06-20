@@ -2422,6 +2422,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 下一步 的本地化字符串。
+        /// </summary>
+        public static string NextStep {
+            get {
+                return ResourceManager.GetString("NextStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 昵称 的本地化字符串。
         /// </summary>
         public static string NickName {

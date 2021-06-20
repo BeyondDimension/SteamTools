@@ -99,7 +99,7 @@ namespace System.Application.UI.ViewModels
 
         public async void SendSms()
         {
-            if (this.TimeStart())
+            if (this.StartSendSmsTimer())
             {
                 var request = new SendSmsRequest
                 {

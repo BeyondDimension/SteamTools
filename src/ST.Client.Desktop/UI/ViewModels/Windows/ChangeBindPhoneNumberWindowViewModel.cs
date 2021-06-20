@@ -142,7 +142,7 @@ namespace System.Application.UI.ViewModels
             var sendSmsUIViewModel = SendSmsUIViewModel;
             if (sendSmsUIViewModel == null) return;
 
-            if (sendSmsUIViewModel.TimeStart())
+            if (sendSmsUIViewModel.StartSendSmsTimer())
             {
                 var request = _CurrentStep switch
                 {

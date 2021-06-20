@@ -28,52 +28,61 @@ namespace System.Application.UI.ViewModels
             Action? TbSmsCodeFocus { get; }
         }
 
-        public static bool TimeStart(this IViewModel i)
+        public static bool StartSendSmsTimer(this IViewModel i)
         {
             if (i.IsUnTimeLimit) return false;
 
+            bool SetBtnSendSmsCodeText(int timeLimit)
+            {
+                if (timeLimit <= 0)
+                {
+                    i.TimeLimit = SMSInterval;
+                    i.BtnSendSmsCodeText = AppResources.User_GetSMSCode;
+                    return false;
+                }
+                else
+                {
+                    i.TimeLimit = timeLimit;
+                    i.BtnSendSmsCodeText = AppResources.User_LoginCodeTimeLimitTip.Format(i.TimeLimit);
+                    return true;
+                }
+            }
+
             i.CTS?.Cancel();
             i.CTS = new();
-            Task.Run(async () =>
+            var token = i.CTS.Token.Register(() =>
             {
-                bool b;
-                do
+                if (!i.Disposed)
                 {
-                    bool SetBtnSendSmsCodeText()
+                    SetBtnSendSmsCodeText(0);
+                }
+            }).Token;
+            try
+            {
+                Task.Run(async () =>
+                {
+                    bool b;
+                    do
                     {
-                        if (i.TimeLimit <= 0)
-                        {
-                            i.TimeLimit = SMSInterval;
-                            i.BtnSendSmsCodeText = AppResources.User_GetSMSCode;
-                            return false;
-                        }
-                        else
-                        {
-                            i.BtnSendSmsCodeText = AppResources.User_LoginCodeTimeLimitTip.Format(i.TimeLimit);
-                            return true;
-                        }
-                    }
-
-                    i.TimeLimit--;
-                    b = SetBtnSendSmsCodeText();
+                        var timeLimit = i.TimeLimit - 1;
+                        b = SetBtnSendSmsCodeText(timeLimit);
 #if DEBUG
-                    //Toast.Show($"TimeLimit: {i.TimeLimit}");
+                        //Toast.Show($"TimeLimit: {i.TimeLimit}");
 #endif
-                    try
-                    {
-                        if (b) await Task.Delay(1000, i.CTS.Token);
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        if (!i.Disposed)
+                        try
                         {
-                            i.TimeLimit = 0;
-                            SetBtnSendSmsCodeText();
+                            if (b) await Task.Delay(1000, token);
                         }
-                        break;
-                    }
-                } while (b);
-            });
+                        catch (OperationCanceledException)
+                        {
+                            break;
+                        }
+                    } while (b);
+                }, token);
+            }
+            catch (OperationCanceledException)
+            {
+            }
 
             return true;
         }

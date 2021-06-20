@@ -909,6 +909,9 @@
   <data name="My" xml:space="preserve">
     <value>我的</value>
   </data>
+  <data name="NextStep" xml:space="preserve">
+    <value>下一步</value>
+  </data>
   <data name="NickName" xml:space="preserve">
     <value>昵称</value>
   </data>
