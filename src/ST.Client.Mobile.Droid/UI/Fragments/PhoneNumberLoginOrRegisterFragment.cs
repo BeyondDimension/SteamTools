@@ -30,6 +30,7 @@ namespace System.Application.UI.Fragments
 
             binding!.tvAgreementAndPrivacy.SetLinkMovementMethod();
 
+            // https://developer.android.google.cn/reference/android/widget/TextView.html#protected-methods
             binding!.tbPhoneNumber.SetRawInputType(InputTypes.ClassPhone);
             binding!.tbPhoneNumber.SetDigitsKeyListener();
             binding!.tbPhoneNumber.AddFilters(new InputFilterLengthFilter(InputLengthConstants.Current.PhoneNumber));

@@ -3,6 +3,7 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Properties;
 using System.Reactive;
+using System.Runtime.InteropServices;
 using System.Windows;
 using static System.Application.Services.CloudService.Constants;
 
@@ -50,7 +51,25 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<Unit, Unit> DelAccountCommand { get; }
 
-        public string VersionDisplay => ThisAssembly.VersionDisplay + (Environment.Is64BitProcess ? " (x64)" : " (x32)");
+        static string GetOS() => DI.Platform switch
+        {
+            Platform.Windows => "Windows",
+            Platform.Linux => "Linux",
+            Platform.Android => "Android",
+            Platform.Apple => DI.DeviceIdiom switch
+            {
+                DeviceIdiom.Phone => "iOS",
+                DeviceIdiom.Tablet => "iPadOS",
+                DeviceIdiom.Desktop => "macOS",
+                DeviceIdiom.TV => "tvOS",
+                DeviceIdiom.Watch => "watchOS",
+                _ => string.Empty,
+            },
+            Platform.UWP => "UWP",
+            _ => string.Empty,
+        };
+
+        public string VersionDisplay => $"{ThisAssembly.VersionDisplay} for {GetOS()} ({RuntimeInformation.ProcessArchitecture})";
 
         public string LabelVersionDisplay => ThisAssembly.IsBetaRelease ? "Beta Version:" : "Current Version:";
 

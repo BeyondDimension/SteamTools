@@ -106,7 +106,7 @@
         <StackPanel Orientation="Horizontal">
           <TextBlock Classes="Header light"
                      Margin="0,0,6,0"
-                     Text="Development:"
+                     Text="Developers:"
                      VerticalAlignment="Center"/>
           <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
                           CommandParameter="{x:Static vm:AboutPageViewModel.RmbadminLink}">
