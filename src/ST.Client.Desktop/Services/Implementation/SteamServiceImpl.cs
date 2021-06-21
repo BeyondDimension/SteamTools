@@ -189,14 +189,44 @@ namespace System.Application.Services.Implementation
             }
             return users;
         }
-        public bool UpdateAuthorizedDeviceList(AuthorizedDevice model)
+        public bool UpdateAuthorizedDeviceList(IEnumerable<AuthorizedDevice> model)
         {
+            var authorizeds = new List<AuthorizedDevice>();
             try
             {
                 if (!string.IsNullOrWhiteSpace(ConfigVdfPath) && File.Exists(ConfigVdfPath))
                 {
-                    VdfHelper.UpdateValueByReplace(ConfigVdfPath, model.OriginVdfString.ThrowIsNull(nameof(model.OriginVdfString)), model.CurrentVdfString);
-                    return true;
+                    dynamic v = VdfHelper.Read(ConfigVdfPath);
+                    var authorizedDevice = v.Value.AuthorizedDevice;
+                    if (authorizedDevice != null)
+                    { 
+                        foreach (var item in authorizedDevice)
+                        {
+                            try
+                            {
+                                var i = item.Value;
+                                authorizeds.Add(new AuthorizedDevice(item.ToString())
+                                { 
+                                    SteamId3_Int = Convert.ToInt64(item.Key.ToString()),
+                                    Timeused = Convert.ToInt64(i.timeused.ToString()),
+                                    Description = i.description.ToString(),
+                                    Tokenid = i.tokenid.ToString(),
+                                }); 
+                            }
+                            catch (Exception e)
+                            {
+                                Log.Error(TAG, e, "GetAuthorizedDeviceList Fail(0).");
+                            }
+                        }
+                        var oldStr = $"\t{{\n{string.Join("\n", authorizeds.Select(x => x.CurrentVdfString))}\n\t}}".TrimEnd("\n");
+                        //authorizedDevice.Select(x => x.ToString());
+                        var newStr = $"\t{{\n{string.Join("\n", model.OrderBy(x => x.Index).Select(x => x.CurrentVdfString))}\n\t}}".TrimEnd("\n");
+                        VdfHelper.UpdateValueByReplaceNoPattern(ConfigVdfPath, oldStr, newStr);
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
                 }
             }
             catch (Exception e)
@@ -235,6 +265,7 @@ namespace System.Application.Services.Implementation
                     var authorizedDevice = v.Value.AuthorizedDevice;
                     if (authorizedDevice != null)
                     {
+                        var index=0;
                         foreach (var item in authorizedDevice)
                         {
                             try
@@ -242,11 +273,13 @@ namespace System.Application.Services.Implementation
                                 var i = item.Value;
                                 authorizeds.Add(new AuthorizedDevice(item.ToString())
                                 {
+                                    Index= index,
                                     SteamId3_Int = Convert.ToInt64(item.Key.ToString()),
                                     Timeused = Convert.ToInt64(i.timeused.ToString()),
                                     Description = i.description.ToString(),
                                     Tokenid = i.tokenid.ToString(),
                                 });
+                                index++;
                             }
                             catch (Exception e)
                             {

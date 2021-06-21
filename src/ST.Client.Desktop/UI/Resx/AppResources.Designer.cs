@@ -142,6 +142,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 家庭共享库管理 的本地化字符串。
+        /// </summary>
+        public static string AccountChange_Title {
+            get {
+                return ResourceManager.GetString("AccountChange_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 描述 的本地化字符串。
         /// </summary>
         public static string Achievement_Description {
@@ -806,6 +815,15 @@ namespace System.Application.UI.Resx {
         public static string DoNotUpdate {
             get {
                 return ResourceManager.GetString("DoNotUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 下移 的本地化字符串。
+        /// </summary>
+        public static string Dow {
+            get {
+                return ResourceManager.GetString("Dow", resourceCulture);
             }
         }
         
@@ -3233,6 +3251,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 置顶 的本地化字符串。
+        /// </summary>
+        public static string Top {
+            get {
+                return ResourceManager.GetString("Top", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 未绑定 的本地化字符串。
         /// </summary>
         public static string Unbound {
@@ -3265,6 +3292,15 @@ namespace System.Application.UI.Resx {
         public static string UnsavedEditingWillBeDiscarded {
             get {
                 return ResourceManager.GetString("UnsavedEditingWillBeDiscarded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 上移 的本地化字符串。
+        /// </summary>
+        public static string Up {
+            get {
+                return ResourceManager.GetString("Up", resourceCulture);
             }
         }
         

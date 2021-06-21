@@ -23,7 +23,7 @@ namespace System.Application.UI.ViewModels
         readonly ISteamworksWebApiService webApiService = DI.Get<ISteamworksWebApiService>();
         public ShareManageViewModel() : base()
         {
-            Title = ThisAssembly.AssemblyTrademark + " q| " + AppResources.GameList_HideGameManger;
+            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.AccountChange_Title;
             this.WhenAnyValue(x => x.AuthorizedList)
                 .Subscribe(s => this.RaisePropertyChanged(nameof(IsAuthorizedListEmpty)));
 
@@ -31,7 +31,7 @@ namespace System.Application.UI.ViewModels
             _AuthorizedSourceList
              .Connect()
              .ObserveOn(RxApp.MainThreadScheduler)
-             .Sort(SortExpressionComparer<AuthorizedDevice>.Descending(x => x.Timeused))
+             .Sort(SortExpressionComparer<AuthorizedDevice>.Ascending(x => x.Index))
              .Bind(out _AuthorizedList)
              .Subscribe();
 
@@ -47,12 +47,12 @@ namespace System.Application.UI.ViewModels
         private ReadOnlyObservableCollection<AuthorizedDevice>? _AuthorizedList;
         public ReadOnlyObservableCollection<AuthorizedDevice>? AuthorizedList => _AuthorizedList;
 
-        public SourceCache< AuthorizedDevice, long> _AuthorizedSourceList;
+        public SourceCache<AuthorizedDevice, long> _AuthorizedSourceList;
         public SourceCache<AuthorizedDevice, long> AuthorizedSourceList
         {
             get => _AuthorizedSourceList;
             set => this.RaiseAndSetIfChanged(ref _AuthorizedSourceList, value);
-        } 
+        }
         //private string? _SearchText;
         //public string? SearchText
         //{
@@ -66,38 +66,57 @@ namespace System.Application.UI.ViewModels
 
             var userlist = steamService.GetRememberUserList();
             var id = string.Empty;
-            foreach (var item in steamService.GetAuthorizedDeviceList())
-            { 
-                var user = userlist.FirstOrDefault(x => x.SteamId3_Int == item.SteamId3_Int);
-                item.SteamNickName = user?.SteamNickName;
+            var allList = steamService.GetAuthorizedDeviceList();
+            int count = allList.Count - 1;
+            foreach (var item in allList)
+            {
+                var temp = userlist.FirstOrDefault(x => x.SteamId3_Int == item.SteamId3_Int);
+                item.SteamNickName = temp?.SteamNickName;
                 item.ShowName = item.SteamNickName + $"({item.SteamId64_Int})";
-                item.AccountName = user?.AccountName;
-                list.Add( item);
+                item.AccountName = temp?.AccountName;
+                item.First = item.Index == 0;
+                item.End = item.Index == count;
+                list.Add(item);
             }
             if (list.Count == 0)
                 IsAuthorizedListEmpty = true;
             else
                 IsAuthorizedListEmpty = false;
-            _AuthorizedSourceList.AddOrUpdate(list); 
+            _AuthorizedSourceList.AddOrUpdate(list);
             _AuthorizedSourceList.Refresh();
             Refresh_Cash().ConfigureAwait(false);
         }
-        public async Task Refresh_Cash() {
+        public async Task Refresh_Cash()
+        {
 
             var accountRemarks = Serializable.Clone<IReadOnlyDictionary<long, string?>?>(SteamAccountSettings.AccountRemarks.Value);
-            foreach (var user in _AuthorizedSourceList.Items)
+        
+            foreach (var item in _AuthorizedSourceList.Items)
             {
                 string? remark = null;
-                var temp = await webApiService.GetUserInfo(user.SteamId64_Int);
-                accountRemarks?.TryGetValue(user.SteamId64_Int, out remark);
-                user.Remark = remark;
-                user.SteamID = temp.SteamID;
-                user.OnlineState = temp.OnlineState;
-                user.SteamNickName = temp.SteamNickName;
-                user.AvatarIcon = temp.AvatarIcon;
-                user.AvatarMedium = temp.AvatarMedium;
-                user.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
+                var temp = await webApiService.GetUserInfo(item.SteamId64_Int);
+                accountRemarks?.TryGetValue(item.SteamId64_Int, out remark);
+                item.Remark = remark;
+                item.SteamID = temp.SteamID;
+                item.OnlineState = temp.OnlineState;
+                item.SteamNickName = temp.SteamNickName;
+                item.AvatarIcon = temp.AvatarIcon;
+                item.AvatarMedium = temp.AvatarMedium;
+                item.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
             }
+            _AuthorizedSourceList.Refresh();
+            foreach (var item in _AuthorizedSourceList.Items)
+            {
+                item.MiniProfile = await webApiService.GetUserMiniProfile(item.SteamId3_Int);
+                var miniProfile = item.MiniProfile;
+                if (miniProfile != null)
+                {
+                    if (!string.IsNullOrEmpty(miniProfile.AnimatedAvatar))
+                        item.AvatarStream = httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
+                    //miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
+                }
+            }
+
             _AuthorizedSourceList.Refresh();
         }
         public void SteamId_Click(AuthorizedDevice user)
@@ -109,11 +128,42 @@ namespace System.Application.UI.ViewModels
 
         }
 
-        
-        public void SetActivity_Click(AuthorizedDevice item)
+        public void SetFirstButton_Click(AuthorizedDevice item)
         {
-            steamService.UpdateAuthorizedDeviceList(item);
-            Refresh_Click(); 
+            item.Index = 1;
+            Sort(item, true);
+        }
+        public void UpButton_Click(AuthorizedDevice item)
+        {
+            Sort(item, true);
+        }
+        public void DowButton_Click(AuthorizedDevice item)
+        {
+            Sort(item, false);
+        }
+        public void Sort(AuthorizedDevice item, bool up)
+        {
+            var index = item.Index;
+            int count = _AuthorizedSourceList.Count - 1;
+            if (up ? item.Index != 0 : item.Index != count)
+            {
+                _AuthorizedSourceList.AddOrUpdate(_AuthorizedSourceList.Items.Select(x =>
+                {
+                    if (up ? x.Index == index - 1 : x.Index == index + 1)
+                        x.Index = up ? x.Index + 1 : x.Index - 1;
+                    if (x.SteamId3_Int == item.SteamId3_Int)
+                        x.Index = up ? item.Index - 1 : item.Index + 1;
+
+                    x.First = x.Index == 0;
+                    x.End = x.Index == count;
+                    return x;
+                }).ToList());
+            }
+        }
+        public void SetActivity_Click()
+        {
+            if (_AuthorizedList != null)
+                steamService.UpdateAuthorizedDeviceList(_AuthorizedList);
         }
     }
 }

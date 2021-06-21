@@ -29,6 +29,12 @@
                  ToolTip.Tip="{ReflectionBinding Path=Res.RefreshList,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <MenuItem.Header>
           <PathIcon Data="{StaticResource RefreshDrawing}" Width="14"></PathIcon>
+        </MenuItem.Header> 
+      </MenuItem>
+      <MenuItem Width="50" Command="{ReflectionBinding SetActivity_Click}"
+               ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_SaveApply,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <MenuItem.Header>
+          <PathIcon Data="{StaticResource SaveDrawing}" Width="14"></PathIcon>
         </MenuItem.Header>
       </MenuItem>
     </Menu>
@@ -48,7 +54,7 @@
         <ItemsRepeater.ItemTemplate>
           <DataTemplate>
             <Border x:Name="card"
-                    Classes="paper" Background="{DynamicResource ThemeBrushKey}" Margin="10"  > 
+                    Classes="paper" Background="{DynamicResource ThemeBrushKey}" Margin="5"  > 
               <i:Interaction.Behaviors>
                 <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{ReflectionBinding #card}">
                   <ia:ChangePropertyAction TargetObject="{ReflectionBinding #delete_btn}" PropertyName="IsVisible" Value="True"/>
@@ -71,10 +77,11 @@
                   <gif:Image2
                          Width="92"
                          AutoStart="true"
-                         Stretch="Uniform"
+                         Stretch="UniformToFill"
+                         StretchDirection="Both"
                          Source="{Binding AvatarStream^}">
-                  </gif:Image2>
-                  <Image Width="92" Stretch="Uniform" IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
+                  </gif:Image2> 
+                  <Image Width="92" Stretch="UniformToFill" IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
                          Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg">
                   </Image>
                   <!--<gif:Image2 Width="184" Height="184" 
@@ -87,7 +94,7 @@
                   <StackPanel>
                     <DockPanel LastChildFill="True">
                       <Ellipse VerticalAlignment="Center"
-                 HorizontalAlignment="Center" x:Name="circle" Margin="2 0 5 0" Height="10" Width="10" StrokeThickness="0" ToolTip.Tip="{Binding OnlineState}">
+                 HorizontalAlignment="Center" x:Name="circle" Margin="2 -5 5 0" Height="10" Width="10" StrokeThickness="0" ToolTip.Tip="{Binding OnlineState}">
                         <i:Interaction.Behaviors>
                           <ia:DataTriggerBehavior Binding="{Binding OnlineState}" ComparisonCondition="Equal" Value="online">
                             <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#08D969"/>
@@ -118,24 +125,12 @@
                                                     </controls:ScrollingTextBlock>-->
                         <!--<TextBlock Text=")"></TextBlock>-->
                         <!--<PathIcon Data="{StaticResource EditDrawing}" Width="10" Height="10"></PathIcon>-->
-                        <TextBox VerticalAlignment="Center"
-                             VerticalContentAlignment="Center"
-                             Padding="15 0 15 0"
+                        <controls:ScrollingTextBlock  
+                             Padding="10 0 10 0"
                              FontSize="14"
-                             Watermark="{ReflectionBinding Path=Res.UserChange_EditRemark,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                             ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_EditRemark,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                             Text="{Binding Remark,Mode=TwoWay}"
-                             Classes="readonlybox"
+                             Text="{Binding Remark,Mode=TwoWay}" 
                              Foreground="{DynamicResource InactiveForegroundBrushKey}">
-                          <TextBox.InnerRightContent>
-                            <PathIcon Data="{StaticResource EditDrawing}"
-                                      Width="10" Height="10"
-                                      Opacity="0.8"
-                                      VerticalAlignment="Center" HorizontalAlignment="Left"
-                                      Margin="0"
-                                      IsVisible="{Binding Remark,Converter={StaticResource IsNullConverter}}"/>
-                          </TextBox.InnerRightContent>
-                        </TextBox>
+                        </controls:ScrollingTextBlock>
                       </WrapPanel>
 
                     </DockPanel>
@@ -170,6 +165,60 @@
                       </PathIcon>
                     </Button>
                   </Panel>
+                  <WrapPanel Grid.Row="1" Orientation="Horizontal">
+                    <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                      <Button Classes="flatbutton" Cursor="Hand"
+                              x:Name="firstBtn"
+                              HorizontalAlignment="Stretch" MaxWidth="200"
+                              Command="{ReflectionBinding #u.DataContext.SetFirstButton_Click}"
+                              CommandParameter="{Binding}">
+                        <i:Interaction.Behaviors>
+                          <ia:DataTriggerBehavior Binding="{Binding First}" ComparisonCondition="Equal" Value="True">
+                            <ia:ChangePropertyAction TargetObject="{ReflectionBinding #firstBtn}" PropertyName="IsEnabled" Value="False"/>
+                          </ia:DataTriggerBehavior>
+                          <ia:DataTriggerBehavior Binding="{Binding First}" ComparisonCondition="Equal" Value="False">
+                            <ia:ChangePropertyAction TargetObject="{ReflectionBinding #firstBtn}" PropertyName="IsEnabled" Value="True"/>
+                          </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                        <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Top,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
+                      </Button>
+                    </Border>
+                    <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                      
+                      <Button Classes="flatbutton" Cursor="Hand" 
+                              x:Name="upBtn"
+                              HorizontalAlignment="Stretch" MaxWidth="200" 
+                              Command="{ReflectionBinding #u.DataContext.UpButton_Click}" 
+                              CommandParameter="{Binding}">
+                        <i:Interaction.Behaviors>
+                          <ia:DataTriggerBehavior Binding="{Binding First}" ComparisonCondition="Equal" Value="True">
+                            <ia:ChangePropertyAction TargetObject="{ReflectionBinding #upBtn}" PropertyName="IsEnabled" Value="False"/>
+                          </ia:DataTriggerBehavior>
+                          <ia:DataTriggerBehavior Binding="{Binding First}" ComparisonCondition="Equal" Value="False">
+                            <ia:ChangePropertyAction TargetObject="{ReflectionBinding #upBtn}" PropertyName="IsEnabled" Value="True"/>
+                          </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                        <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Up,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
+                      </Button>
+                    </Border>
+                    <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness="0 .66 0 0" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                      <Button Classes="flatbutton" Cursor="Hand" MaxWidth="250" 
+                              HorizontalAlignment="Stretch" 
+                                x:Name="dowBtn"
+                              Command="{ReflectionBinding #u.DataContext.DowButton_Click}" 
+                              CommandParameter="{Binding}">
+                        <i:Interaction.Behaviors>
+                          <ia:DataTriggerBehavior Binding="{Binding End}" ComparisonCondition="Equal" Value="True">
+                            <ia:ChangePropertyAction TargetObject="{ReflectionBinding #dowBtn}" PropertyName="IsEnabled" Value="False"/>
+                          </ia:DataTriggerBehavior>
+                          <ia:DataTriggerBehavior Binding="{Binding End}" ComparisonCondition="Equal" Value="False">
+                            <ia:ChangePropertyAction TargetObject="{ReflectionBinding #dowBtn}" PropertyName="IsEnabled" Value="True"/>
+                          </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                        <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Dow,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
+                      </Button>
+                    </Border>
+                  </WrapPanel>
                 </Grid>
               </Grid>
             </Border>

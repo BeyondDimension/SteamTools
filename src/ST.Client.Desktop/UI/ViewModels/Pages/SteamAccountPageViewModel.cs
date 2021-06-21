@@ -48,8 +48,8 @@ namespace System.Application.UI.ViewModels
                         new MenuItemViewModel(nameof(AppResources.UserChange_LoginNewAccount))
                             { IconKey="SteamDrawing", Command=LoginAccountCommand },
                         new MenuItemViewModel (),
-                          new MenuItemViewModel(nameof(AppResources.GameList_HideGameManger)){
-                      IconKey ="EyeHideDrawing", Command = ShareManageCommand },
+                          new MenuItemViewModel(nameof(AppResources.AccountChange_Title)){
+                      IconKey ="ChannelShareDrawing", Command = ShareManageCommand },
                         new MenuItemViewModel (nameof(AppResources.Refresh))
                             { IconKey="RefreshDrawing" , Command = RefreshCommand},
                 //    }

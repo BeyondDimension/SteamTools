@@ -15,6 +15,9 @@ namespace System.Application.Models
             OriginVdfString = vdfString;
         }
         public string ProfileUrl => string.Format(STEAM_PROFILES_URL, SteamId64_Int);
+        public bool First { get; set; }
+        public bool End { get; set; }
+        public int Index { get; set; }
         public long SteamId3_Int { get; set; }
         public long SteamId64_Int => UndefinedId + SteamId3_Int;
         private string? _OnlineState;
@@ -34,6 +37,8 @@ namespace System.Application.Models
         }
         public string? SteamID { get; set; }
         public string? ShowName { get; set; }
+        public SteamMiniProfile? MiniProfile { get; set; }
+        
         public string? SteamNickName { get; set; }
         /// <summary>
         /// 用户名
@@ -61,9 +66,9 @@ namespace System.Application.Models
 
         public string? OriginVdfString { get; set; }
         public string CurrentVdfString =>
-           "\"" + SteamId3_Int + "\"\n{\n" +
-           "\t\t\"timeused\"\t\t\"" + Timeused + "\"\n" +
-           "\t\t\"description\"\t\t\"" + Description + "\"\n" +
-           "\t\t\"tokenid\"\t\t\"" + Tokenid + "\"\n";
+           "\t\t\"" + SteamId3_Int + "\"\n\t\t{\n" +
+           "\t\t\t\"timeused\"\t\t\"" + Timeused + "\"\n" +
+           "\t\t\t\"description\"\t\t\"" + Description + "\"\n" +
+           "\t\t\t\"tokenid\"\t\t\"" + Tokenid + "\"\n\t\t}";
     }
 }

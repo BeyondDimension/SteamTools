@@ -71,7 +71,7 @@ namespace System.Application.Services
         /// <returns></returns>
         List<SteamUser> GetRememberUserList();
 
-        bool UpdateAuthorizedDeviceList(AuthorizedDevice list);
+        bool UpdateAuthorizedDeviceList(IEnumerable<AuthorizedDevice> list);
         bool RemoveAuthorizedDeviceList(AuthorizedDevice list);
         /// <summary>
         /// 获取所有当前PC共享授权信息
