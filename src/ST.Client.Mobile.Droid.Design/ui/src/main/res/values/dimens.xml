@@ -11,4 +11,6 @@
     <dimen name="textbox_height">56dp</dimen>
     <dimen name="textbox_padding">10dp</dimen>
     <dimen name="input_font_size">18sp</dimen>
+    <dimen name="logo_size">160dp</dimen>
+    <dimen name="preference_buttons_space_min">8dp</dimen>
 </resources>

@@ -16,15 +16,15 @@ namespace System.Application.UI.ViewModels
         public ArchiSteamFarmPlusPageViewModel()
         {
             IconKey = nameof(ArchiSteamFarmPlusPageViewModel).Replace("ViewModel", "Svg");
-
-            WebUrl = asfSerivce.GetArchiSteamFarmIPCUrl();
         }
 
-        private string? _WebUrl;
-        public string? WebUrl
+        public string? WebUrl => asfSerivce.IPCUrl;
+
+        private string? _CommandString;
+        public string? CommandString
         {
-            get => _WebUrl;
-            set => this.RaiseAndSetIfChanged(ref _WebUrl, value);
+            get => _CommandString;
+            set => this.RaiseAndSetIfChanged(ref _CommandString, value);
         }
 
         public void RunOrStopASF()
@@ -38,5 +38,6 @@ namespace System.Application.UI.ViewModels
                 asfSerivce.RunArchiSteamFarm();
             }
         }
+
     }
 }

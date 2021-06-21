@@ -18,8 +18,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivLogo"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="@dimen/logo_size"
+        android:layout_height="@dimen/logo_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -2,8 +2,8 @@
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
     android:id="@+id/toolbar"
-    android:layout_width="match_parent"
     style="@style/Widget.MaterialComponents.Toolbar"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xamarin:managedType="AndroidX.AppCompat.Widget.Toolbar">
 

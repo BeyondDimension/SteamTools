@@ -418,10 +418,10 @@ namespace System.Application.Services.Implementation
                     return false;
                 }
             }
-            else
-            {
-                SetupCertificate();
-            }
+            //else
+            //{
+            //    SetupCertificate();
+            //}
 
             if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
 

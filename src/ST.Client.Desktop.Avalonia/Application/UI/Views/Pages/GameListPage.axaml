@@ -274,8 +274,18 @@
                                   Header="{ReflectionBinding Path=Res.GameList_SetCustomImage,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                   Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
                                   CommandParameter="{Binding}" />-->
+                      <MenuItem
+                                Header="{ReflectionBinding Path=Res.GameList_OpenFolder,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                Command="{ReflectionBinding #u.DataContext.OpenFolder}"
+                                CommandParameter="{Binding}"
+                                IsVisible="{Binding IsInstalled}">
+                        <MenuItem.Icon>
+                          <PathIcon Data="{StaticResource FolderOpenDrawing}" Width="14"></PathIcon>
+                        </MenuItem.Icon>
+                      </MenuItem>
 
                       <MenuItem Header="-"></MenuItem>
+
                       <MenuItem
                                 Header="{ReflectionBinding Path=Res.GameList_OpenStoreUrl,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.OpenAppStoreUrl}"
@@ -316,10 +326,12 @@
                     <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png" Stretch="UniformToFill" IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}">
                     </Image>
                     <TextBlock
+                        Margin="5 0"
                         Text="{Binding DisplayName}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         TextWrapping="WrapWithOverflow"
+                        TextAlignment="Center"
                         FontSize="20"
                         Foreground="{DynamicResource HighlightForegroundBrushKey}"
                         IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>

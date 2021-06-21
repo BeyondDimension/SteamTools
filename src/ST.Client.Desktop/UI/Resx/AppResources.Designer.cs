@@ -558,6 +558,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 网络修复 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_NetworkFix {
+            get {
+                return ResourceManager.GetString("CommunityFix_NetworkFix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 没有选择任何加速服务 的本地化字符串。
         /// </summary>
         public static string CommunityFix_NoSelectAcceleration {
@@ -828,6 +837,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 正在下载：{0}% 的本地化字符串。
+        /// </summary>
+        public static string Downloading {
+            get {
+                return ResourceManager.GetString("Downloading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 编辑 的本地化字符串。
         /// </summary>
         public static string Edit {
@@ -1085,6 +1103,15 @@ namespace System.Application.UI.Resx {
         public static string GameList_OnlyInstalled {
             get {
                 return ResourceManager.GetString("GameList_OnlyInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 浏览安装文件夹 的本地化字符串。
+        /// </summary>
+        public static string GameList_OpenFolder {
+            get {
+                return ResourceManager.GetString("GameList_OpenFolder", resourceCulture);
             }
         }
         
@@ -2418,6 +2445,15 @@ namespace System.Application.UI.Resx {
         public static string My {
             get {
                 return ResourceManager.GetString("My", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 下一步 的本地化字符串。
+        /// </summary>
+        public static string NextStep {
+            get {
+                return ResourceManager.GetString("NextStep", resourceCulture);
             }
         }
         

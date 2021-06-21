@@ -1,10 +1,10 @@
-﻿using Android.Graphics;
+using Android.Graphics;
 using Android.Text;
 using Android.Text.Method;
 using Android.Views;
 using Android.Widget;
 using AndroidX.Annotations;
-using AndroidX.Emoji.Text;
+//using AndroidX.Emoji.Text;
 using System;
 using System.Common;
 using System.Linq;
@@ -18,17 +18,17 @@ namespace System
     /// </summary>
     public static class TextViewExtensions
     {
-        /// <summary>
-        /// 设置 <see cref="TextView.Hint"/>，字符串中可能有 emoji 字符
-        /// <para>https://developer.android.google.cn/reference/android/widget/TextView#setHint(java.lang.CharSequence)</para>
-        /// </summary>
-        /// <param name="maybeEmojiStr">可能有 emoji 字符的字符串</param>
-        public static void SetHintByMaybeEmoji(this TextView textView, string maybeEmojiStr)
-        {
-            // https://developer.android.google.cn/guide/topics/ui/look-and-feel/emoji-compat#using-emojicompat-without-widgets
-            var processed = EmojiCompat.Get().ProcessFormatted(maybeEmojiStr.ToJavaString());
-            textView.HintFormatted = processed;
-        }
+        ///// <summary>
+        ///// 设置 <see cref="TextView.Hint"/>，字符串中可能有 emoji 字符
+        ///// <para>https://developer.android.google.cn/reference/android/widget/TextView#setHint(java.lang.CharSequence)</para>
+        ///// </summary>
+        ///// <param name="maybeEmojiStr">可能有 emoji 字符的字符串</param>
+        //public static void SetHintByMaybeEmoji(this TextView textView, string maybeEmojiStr)
+        //{
+        //    // https://developer.android.google.cn/guide/topics/ui/look-and-feel/emoji-compat#using-emojicompat-without-widgets
+        //    var processed = EmojiCompat.Get().ProcessFormatted(maybeEmojiStr.ToJavaString());
+        //    textView.HintFormatted = processed;
+        //}
 
         /// <summary>
         /// Sets the text color for all the states (normal, selected, focused) to be this color.
@@ -127,12 +127,13 @@ namespace System
         }
 
         /// <summary>
-        /// 设置输入框的类型(手机号码)
+        /// 设置仅能输入数字
         /// </summary>
         /// <param name="textView"></param>
-        public static void SetPhoneNumberType(this TextView textView)
+        /// <param name="accepted"></param>
+        public static void SetDigitsKeyListener(this TextView textView, string accepted = Constants.Digits)
         {
-            textView.KeyListener = DigitsKeyListener.GetInstance(accepted: Constants.Digits);
+            textView.KeyListener = DigitsKeyListener.GetInstance(accepted);
         }
     }
 }

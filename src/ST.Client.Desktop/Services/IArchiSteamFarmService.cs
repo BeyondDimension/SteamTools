@@ -11,9 +11,10 @@ namespace System.Application.Services
         public static IArchiSteamFarmService Instance => DI.Get<IArchiSteamFarmService>();
 
         public string? ArchiSteamFarmExePath { get; }
-        public string? ArchiSteamFarmConfigPath { get; }
+        public string? ArchiSteamFarmConfigDirPath { get; }
         public string? ArchiSteamFarmOutText { get; }
 
+        public string? IPCUrl { get; }
         public Process? Process { get; }
 
         public bool IsArchiSteamFarmExists { get; }
@@ -21,13 +22,12 @@ namespace System.Application.Services
         public bool IsArchiSteamFarmRuning { get; }
 
 
-
         void SetArchiSteamFarmExePath(string path);
-        string GetArchiSteamFarmIPCUrl();
 
         bool RunArchiSteamFarm();
         void StopArchiSteamFarm();
 
+        void WirteLineCommand(string command, bool useipc = false);
         void SetArchiSteamFarmConfig();
 
         void AddBot();

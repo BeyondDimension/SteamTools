@@ -27,6 +27,7 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> DeleteCertificateCommand { get; }
         public ReactiveCommand<Unit, Unit> OpenCertificateDirCommand { get; }
         public ReactiveCommand<Unit, Unit> EditHostsFileCommand { get; }
+        public ReactiveCommand<Unit, Unit> NetworkFixCommand { get; }
         public ReactiveCommand<Unit, Unit> AutoRunProxyCommand { get; }
         //public ReactiveCommand<Unit, Unit> EnableProxyScriptCommand { get; }
 
@@ -42,6 +43,7 @@ namespace System.Application.UI.ViewModels
             SetupCertificateCommand = ReactiveCommand.Create(SetupCertificate_OnClick);
             DeleteCertificateCommand = ReactiveCommand.Create(DeleteCertificate_OnClick);
             EditHostsFileCommand = ReactiveCommand.Create(EditHostsFile_OnClick);
+            NetworkFixCommand = ReactiveCommand.Create(EditHostsFile_OnClick);
             AutoRunProxyCommand = ReactiveCommand.Create(() =>
             {
                 AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value = !ProxySettings.ProgramStartupRunProxy.Value);
@@ -79,7 +81,9 @@ namespace System.Application.UI.ViewModels
                                 new MenuItemViewModel(nameof(AppResources.CommunityFix_OpenCertificateDir)){ IconKey="FolderOpenDrawing", Command=OpenCertificateDirCommand },
                             }
                         },
+                        new MenuItemViewModel (),
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_EditHostsFile)){ Command=EditHostsFileCommand,IconKey="DocumentEditDrawing" },
+                        //new MenuItemViewModel (nameof(AppResources.CommunityFix_NetworkFix)){ Command=NetworkFixCommand },
                 //    }
                 //},
             };

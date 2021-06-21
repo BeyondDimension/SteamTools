@@ -5,19 +5,33 @@ using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Properties;
 using System.Application.Services;
+using System.IO;
 
 namespace System.Application.UI.Views.Pages
 {
     public class ArchiSteamFarmPlusPage : ReactiveUserControl<ArchiSteamFarmPlusPageViewModel>
     {
+        readonly TextBox commandTextbox;
+
         public ArchiSteamFarmPlusPage()
         {
             InitializeComponent();
             var selectAsfPath = this.FindControl<Button>("selectAsfPath");
             selectAsfPath.Click += SelectAsfPath_Click;
+            commandTextbox = this.FindControl<TextBox>("CommandTextbox");
+            commandTextbox.KeyUp += CommandTextbox_KeyUp;
 
             //var console = this.FindControl<TextBox>("console");
             //console.SelectionStart = 999;
+        }
+
+        private void CommandTextbox_KeyUp(object? sender, Avalonia.Input.KeyEventArgs e)
+        {
+            if (e.Key == Avalonia.Input.Key.Enter && !string.IsNullOrEmpty(commandTextbox.Text))
+            {
+                IArchiSteamFarmService.Instance.WirteLineCommand(commandTextbox.Text);
+                commandTextbox.Text = "";
+            }
         }
 
         private async void SelectAsfPath_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -31,6 +45,12 @@ namespace System.Application.UI.Views.Pages
                 Title = ThisAssembly.AssemblyTrademark,
                 AllowMultiple = false,
             };
+
+            if (IArchiSteamFarmService.Instance.IsArchiSteamFarmExists)
+            {
+                fileDialog.Directory = Path.GetDirectoryName(IArchiSteamFarmService.Instance.ArchiSteamFarmExePath);
+            }
+
             var result = await fileDialog.ShowAsync(IDesktopAvaloniaAppService.Instance.MainWindow);
             if (result.Any_Nullable())
             {

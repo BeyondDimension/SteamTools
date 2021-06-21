@@ -17,7 +17,7 @@ namespace System.Application.UI.ViewModels
         {
             Title = AppResources.My;
 
-            preferenceButtons = new ObservableCollection<PreferenceButtonViewModel>
+            preferenceButtons = new()
             {
                 PreferenceButtonViewModel.Create(PreferenceButton.EditProfile, this),
                 PreferenceButtonViewModel.Create(PreferenceButton.BindPhoneNumber, this),

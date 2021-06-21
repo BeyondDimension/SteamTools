@@ -285,6 +285,9 @@
   <data name="CommunityFix_MenuName" xml:space="preserve">
     <value>加速设置</value>
   </data>
+  <data name="CommunityFix_NetworkFix" xml:space="preserve">
+    <value>网络修复</value>
+  </data>
   <data name="CommunityFix_NoSelectAcceleration" xml:space="preserve">
     <value>没有选择任何加速服务</value>
   </data>
@@ -368,6 +371,9 @@
   </data>
   <data name="Download" xml:space="preserve">
     <value>下载</value>
+  </data>
+  <data name="Downloading" xml:space="preserve">
+    <value>正在下载：{0}%</value>
   </data>
   <data name="Download_ScriptError" xml:space="preserve">
     <value>脚本下载错误请重试。</value>
@@ -461,6 +467,9 @@
   </data>
   <data name="GameList_OnlyInstalled" xml:space="preserve">
     <value>仅显示已安装的游戏</value>
+  </data>
+  <data name="GameList_OpenFolder" xml:space="preserve">
+    <value>浏览安装文件夹</value>
   </data>
   <data name="GameList_OpenSteamCardUrl" xml:space="preserve">
     <value>Steam Card Exchange</value>
@@ -908,6 +917,9 @@
   </data>
   <data name="My" xml:space="preserve">
     <value>我的</value>
+  </data>
+  <data name="NextStep" xml:space="preserve">
+    <value>下一步</value>
   </data>
   <data name="NickName" xml:space="preserve">
     <value>昵称</value>

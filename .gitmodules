@@ -19,3 +19,6 @@
 [submodule "references/WinAuth"]
 	path = references/WinAuth
 	url = https://github.com/SteamTools-Team/WinAuth
+[submodule "references/ArchiSteamFarm"]
+	path = references/ArchiSteamFarm
+	url = https://github.com/SteamTools-Team/ArchiSteamFarm.git

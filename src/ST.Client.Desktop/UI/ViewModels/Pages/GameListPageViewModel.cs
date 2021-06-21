@@ -248,6 +248,12 @@ namespace System.Application.UI.ViewModels
             });
         }
 
+        public void OpenFolder(SteamApp app)
+        {
+            if (!string.IsNullOrEmpty(app.InstalledDir))
+                IDesktopPlatformService.Instance.OpenFolder(app.InstalledDir);
+        }
+
         public void OpenAppStoreUrl(SteamApp app)
         {
             BrowserOpen(string.Format(SteamApiUrls.STEAMSTORE_APP_URL, app.AppId));
