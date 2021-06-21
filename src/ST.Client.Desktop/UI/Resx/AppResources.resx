@@ -285,6 +285,9 @@
   <data name="CommunityFix_MenuName" xml:space="preserve">
     <value>加速设置</value>
   </data>
+  <data name="CommunityFix_NetworkFix" xml:space="preserve">
+    <value>网络修复</value>
+  </data>
   <data name="CommunityFix_NoSelectAcceleration" xml:space="preserve">
     <value>没有选择任何加速服务</value>
   </data>

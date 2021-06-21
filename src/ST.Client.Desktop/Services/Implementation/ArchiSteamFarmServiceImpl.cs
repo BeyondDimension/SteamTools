@@ -5,7 +5,10 @@ using System.Application.UI.Resx;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace System.Application.Services.Implementation
@@ -96,6 +99,14 @@ namespace System.Application.Services.Implementation
                 //IPC默认地址
                 IPCUrl = "http://127.0.0.1:1242";
             }
+
+            this.WhenAnyValue(x => x.ArchiSteamFarmExePath)
+                .Subscribe(_ =>
+                {
+                    this.RaisePropertyChanged(nameof(IsArchiSteamFarmExists));
+                    this.RaisePropertyChanged(nameof(ArchiSteamFarmVersion));
+                    this.RaisePropertyChanged(nameof(ArchiSteamFarmConfigDirPath));
+                });
         }
 
         public void SetArchiSteamFarmExePath(string path)
@@ -174,11 +185,11 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        private void IPCCommand(string command)
+        private async void IPCCommand(string command)
         {
             if (IsArchiSteamFarmRuning && !string.IsNullOrEmpty(command))
             {
-                //httpService.GetAsync("");
+
             }
         }
 
@@ -246,6 +257,10 @@ namespace System.Application.Services.Implementation
                 if (releaseModel != null && IsNewVerison)
                 {
                     binaryAsset = releaseModel.assets.FirstOrDefault(asset => !string.IsNullOrEmpty(asset.name) && asset.name!.Equals(targetFile, StringComparison.OrdinalIgnoreCase));
+                }
+                else
+                {
+                    return;
                 }
             }
             else

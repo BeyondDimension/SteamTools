@@ -13,9 +13,10 @@ namespace System
 			[CallerFilePath] string callerFilePath = "",
 			[CallerLineNumber] int callerLineNumber = 0)
 		{
-			return task.ContinueWith(
-				x => TaskLog.Raise(new TaskLog(callerMemberName, callerFilePath, callerLineNumber, x.Exception)),
-				TaskContinuationOptions.OnlyOnFaulted);
+            task.ContinueWith(
+                   x => TaskLog.Raise(new TaskLog(callerMemberName, callerFilePath, callerLineNumber, x.Exception)),
+                   TaskContinuationOptions.OnlyOnFaulted).ConfigureAwait(false);
+            return task;
 		}
 
 		public static void ForgetAndDispose(
@@ -26,7 +27,7 @@ namespace System
 		{
 			task.ContinueWith(
 				x => TaskLog.Raise(new TaskLog(callerMemberName, callerFilePath, callerLineNumber, x.Exception)),
-				TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s=>s.Dispose());
+				TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s=>s.Dispose()).ConfigureAwait(false);
 		}
 
 		public static Task WhenAll(this IEnumerable<Task> tasks)

@@ -55,9 +55,17 @@
         <controls:WebView3 Url="{Binding WebUrl}" IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsArchiSteamFarmRuning}"/>
       </Panel>
     </TabItem>
+
     <TabItem Header="Bot配置">
 
+      <ScrollViewer>
+        <ItemsRepeater>
+
+        </ItemsRepeater>
+      </ScrollViewer>
+
     </TabItem>
+
     <TabItem Header="ASF配置">
       <StackPanel Spacing="20">
         <StackPanel.Styles>
@@ -79,11 +87,11 @@
           </Style>
         </StackPanel.Styles>
 
-        <DockPanel>
-          <TextBlock Text="ASF可执行文件路径：" DockPanel.Dock="Left"/>
-          <controls:ScrollingTextBlock x:Name="asfPath" Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}" DockPanel.Dock="Right" IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=!IsArchiSteamFarmExists,Mode=OneWay}"/>
-          <controls:ScrollingTextBlock  Text="{ReflectionBinding Path=Res.ASF_ExeNoExists,Source={x:Static resx:R.Current},Mode=OneWay}" DockPanel.Dock="Right"
-           IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsArchiSteamFarmExists,Mode=OneWay}"/>
+        <WrapPanel>
+          <TextBlock Text="ASF可执行文件路径："/>
+          <controls:ScrollingTextBlock x:Name="asfPath" Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}" DockPanel.Dock="Right" IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsArchiSteamFarmExists,Mode=OneWay}"/>
+          <controls:ScrollingTextBlock  Text="{ReflectionBinding Path=Res.ASF_ExeNoExists,Source={x:Static resx:R.Current},Mode=OneWay}"
+           IsVisible="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=!IsArchiSteamFarmExists,Mode=OneWay}"/>
           <!--<i:Interaction.Behaviors>
             <ia:DataTriggerBehavior Binding="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsArchiSteamFarmExists,Mode=OneWay}" ComparisonCondition="Equal" Value="True">
               <ia:ChangePropertyAction TargetObject="{ReflectionBinding #asfPath}" PropertyName="Text" Value="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}"/>
@@ -92,7 +100,7 @@
               <ia:ChangePropertyAction TargetObject="{ReflectionBinding #asfPath}" PropertyName="Text" Value="{ReflectionBinding Path=Res.ASF_ExeNoExists,Source={x:Static resx:R.Current},Mode=OneWay}"/>
             </ia:DataTriggerBehavior>
           </i:Interaction.Behaviors>-->
-        </DockPanel>
+        </WrapPanel>
 
         <StackPanel Orientation="Horizontal" Spacing="10">
           <Button x:Name="selectAsfPath" Content="选择路径" Width="150" HorizontalContentAlignment="Center"></Button>
@@ -100,8 +108,12 @@
         </StackPanel>
 
         <StackPanel Spacing="10">
-          <TextBlock Text="当前 ArchiSteamFarm 版本 :  v5.0.1" VerticalAlignment="Center"></TextBlock>
-          <TextBlock Text="最新 ArchiSteamFarm 版本 :  v5.0.2" VerticalAlignment="Center"></TextBlock>
+          <WrapPanel>
+            <TextBlock Text="当前 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
+            <TextBlock Text="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=ArchiSteamFarmVersion}" VerticalAlignment="Center"></TextBlock>
+          </WrapPanel>
+          <!--<TextBlock Text="最新 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
+          <TextBlock Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>-->
         </StackPanel>
 
         <Separator Classes="Separator"></Separator>
@@ -123,7 +135,7 @@
 
         <StackPanel Orientation="Vertical" Spacing="8">
           <TextBlock Text="设置IPC服务密码"/>
-          <TextBox Watermark="输入密码"></TextBox>
+          <TextBox Watermark="输入密码" PasswordChar="*" Classes="revealPasswordButton" UseFloatingWatermark="True"></TextBox>
         </StackPanel>
 
         <Separator Classes="Separator"></Separator>

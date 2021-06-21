@@ -5,6 +5,7 @@ using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Properties;
 using System.Application.Services;
+using System.IO;
 
 namespace System.Application.UI.Views.Pages
 {
@@ -44,6 +45,12 @@ namespace System.Application.UI.Views.Pages
                 Title = ThisAssembly.AssemblyTrademark,
                 AllowMultiple = false,
             };
+
+            if (IArchiSteamFarmService.Instance.IsArchiSteamFarmExists)
+            {
+                fileDialog.Directory = Path.GetDirectoryName(IArchiSteamFarmService.Instance.ArchiSteamFarmExePath);
+            }
+
             var result = await fileDialog.ShowAsync(IDesktopAvaloniaAppService.Instance.MainWindow);
             if (result.Any_Nullable())
             {
