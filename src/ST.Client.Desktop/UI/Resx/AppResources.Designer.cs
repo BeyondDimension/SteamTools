@@ -432,6 +432,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 Bug 反馈 的本地化字符串。
+        /// </summary>
+        public static string BugFeedback {
+            get {
+                return ResourceManager.GetString("BugFeedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 取消 的本地化字符串。
         /// </summary>
         public static string Cancel {
@@ -2503,6 +2512,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 产品官网 的本地化字符串。
+        /// </summary>
+        public static string ProductOfficialWebsite {
+            get {
+                return ResourceManager.GetString("ProductOfficialWebsite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 恢复代码 的本地化字符串。
         /// </summary>
         public static string RecoveryCode {
@@ -2967,6 +2985,15 @@ namespace System.Application.UI.Resx {
         public static string SMSCode {
             get {
                 return ResourceManager.GetString("SMSCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 源码仓库 的本地化字符串。
+        /// </summary>
+        public static string SourceRepository {
+            get {
+                return ResourceManager.GetString("SourceRepository", resourceCulture);
             }
         }
         

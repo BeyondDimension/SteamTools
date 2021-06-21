@@ -2,14 +2,18 @@ using Android.Views;
 using Binding;
 using ReactiveUI;
 using System.Application.UI.ViewModels;
-using TViewHolder = System.Application.UI.Adapters.MyPreferenceButtonViewHolder;
-using TViewModel = System.Application.UI.ViewModels.MyPageViewModel.PreferenceButtonViewModel;
+using System.Collections.ObjectModel;
 
 namespace System.Application.UI.Adapters
 {
-    internal sealed class MyPreferenceButtonAdapter : BaseReactiveRecycleViewAdapter<TViewHolder, TViewModel>
+    internal sealed class LargePreferenceButtonAdapter<TViewModel, TId> : BaseReactiveRecycleViewAdapter<LargePreferenceButtonViewHolder<TViewModel, TId>, TViewModel>
+        where TViewModel : RIdTitleIconViewModel<TId, ResIcon>
     {
-        public MyPreferenceButtonAdapter(MyPageViewModel viewModel) : base(viewModel.PreferenceButtons)
+        public LargePreferenceButtonAdapter(ObservableCollection<TViewModel> collection) : base(collection)
+        {
+        }
+
+        public LargePreferenceButtonAdapter(ReadOnlyObservableCollection<TViewModel> collection) : base(collection)
         {
         }
 
@@ -19,11 +23,12 @@ namespace System.Application.UI.Adapters
         }
     }
 
-    internal sealed class MyPreferenceButtonViewHolder : BaseReactiveViewHolder<TViewModel>
+    internal sealed class LargePreferenceButtonViewHolder<TViewModel, TId> : BaseReactiveViewHolder<TViewModel>
+         where TViewModel : RIdTitleIconViewModel<TId, ResIcon>
     {
         readonly layout_preference_large_button binding;
 
-        public MyPreferenceButtonViewHolder(View itemView) : base(itemView)
+        public LargePreferenceButtonViewHolder(View itemView) : base(itemView)
         {
             binding = new(itemView);
         }

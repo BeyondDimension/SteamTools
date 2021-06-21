@@ -223,10 +223,10 @@ namespace System.Application.UI.ViewModels
             switch (parameter)
             {
                 case Agreement:
-                    parameter = "https://steampp.net/AgreementBox";
+                    parameter = UrlConstants.OfficialWebsite_Box_Agreement;
                     break;
                 case Privacy:
-                    parameter = "https://steampp.net/PrivacyBox";
+                    parameter = UrlConstants.OfficialWebsite_Box_Privacy;
                     break;
             }
 #if __MOBILE__

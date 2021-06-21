@@ -3,23 +3,17 @@ using Android.Views;
 using AndroidX.RecyclerView.Widget;
 using Binding;
 using ReactiveUI;
-using System.Application.Mvvm;
 using System.Application.Services;
 using System.Application.UI.Activities;
 using System.Application.UI.Adapters;
 using System.Application.UI.ViewModels;
-using System.Collections.Generic;
-using System.Reactive.Disposables;
 using static System.Application.UI.ViewModels.MyPageViewModel;
 
 namespace System.Application.UI.Fragments
 {
     [Register(JavaPackageConstants.Fragments + nameof(MyFragment))]
-    internal sealed class MyFragment : BaseFragment<fragment_my, MyPageViewModel>, IDisposableHolder
+    internal sealed class MyFragment : BaseFragment<fragment_my, MyPageViewModel>
     {
-        readonly CompositeDisposable disposables = new();
-        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
-
         protected override int? LayoutResource => Resource.Layout.fragment_my;
 
         public override void OnCreateView(View view)
@@ -34,7 +28,7 @@ namespace System.Application.UI.Fragments
 
             SetOnClickListener(binding!.layoutUser);
 
-            var adapter = new MyPreferenceButtonAdapter(ViewModel!);
+            var adapter = new LargePreferenceButtonAdapter<PreferenceButtonViewModel, PreferenceButton>(ViewModel!.PreferenceButtons);
             adapter.ItemClick += (_, e) =>
             {
                 if (e.Current.Authentication && !UserService.Current.IsAuthenticated)
@@ -58,12 +52,6 @@ namespace System.Application.UI.Fragments
             binding.rvPreferenceButtons.SetLayoutManager(layout);
             binding.rvPreferenceButtons.AddItemDecoration(new VerticalItemViewGroupDecoration(binding.rvPreferenceButtons.PaddingTop));
             binding.rvPreferenceButtons.SetAdapter(adapter);
-        }
-
-        public override void OnDestroyView()
-        {
-            base.OnDestroyView();
-            disposables.Dispose();
         }
 
         protected override bool OnClick(View view)

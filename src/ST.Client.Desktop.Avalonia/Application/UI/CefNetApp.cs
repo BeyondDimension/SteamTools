@@ -251,7 +251,7 @@ navigator.__proto__ = newProto;
             return theme switch
             {
                 AppTheme.FollowingSystem => GetThemeStringByFollowingSystem(),
-                _ => theme.ToString(),
+                _ => theme.ToString2(),
             };
             static string GetThemeStringByFollowingSystem()
             {
@@ -267,8 +267,8 @@ navigator.__proto__ = newProto;
                 {
                     goto dark;
                 }
-                return "auto";
-            dark: return AppTheme.Dark.ToString();
+                return AppTheme.FollowingSystem.ToString2();
+            dark: return AppTheme.Dark.ToString2();
             }
         }
     }

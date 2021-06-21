@@ -1,26 +1,19 @@
 using Android.Runtime;
-using Android.Text.Method;
 using Android.Views;
 using AndroidX.RecyclerView.Widget;
 using Binding;
 using ReactiveUI;
-using System.Application.Mvvm;
 using System.Application.UI.Activities;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
-using System.Collections.Generic;
-using System.Reactive.Disposables;
 using static System.Application.UI.ViewModels.LoginOrRegisterPageViewModel;
 
 namespace System.Application.UI.Fragments
 {
     [Register(JavaPackageConstants.Fragments + nameof(FastLoginOrRegisterFragment))]
-    internal sealed class FastLoginOrRegisterFragment : BaseFragment<fragment_login_and_register_by_fast, LoginOrRegisterPageViewModel>, IDisposableHolder
+    internal sealed class FastLoginOrRegisterFragment : BaseFragment<fragment_login_and_register_by_fast, LoginOrRegisterPageViewModel>
     {
-        readonly CompositeDisposable disposables = new();
-        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
-
         protected override int? LayoutResource => Resource.Layout.fragment_login_and_register_by_fast;
 
         public override void OnCreateView(View view)

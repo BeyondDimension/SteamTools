@@ -238,7 +238,7 @@ namespace System.Application.UI.Views.Windows
                     }
                     else if (IsHttpUrl(x))
                     {
-                        if (x.StartsWith("https://steampp.net", StringComparison.OrdinalIgnoreCase))
+                        if (x.StartsWith(UrlConstants.OfficialWebsite, StringComparison.OrdinalIgnoreCase))
                             x = string.Format(
                                 x + "?theme={0}&language={1}",
                                 CefNetApp.GetTheme(),

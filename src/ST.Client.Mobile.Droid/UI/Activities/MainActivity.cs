@@ -7,10 +7,7 @@ using AndroidX.Navigation.UI;
 using Binding;
 using Java.Lang;
 using ReactiveUI;
-using System.Application.Mvvm;
 using System.Application.UI.ViewModels;
-using System.Collections.Generic;
-using System.Reactive.Disposables;
 
 namespace System.Application.UI.Activities
 {
@@ -18,11 +15,8 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class MainActivity : BaseActivity<activity_main>, IDisposableHolder, IReadOnlyViewFor<MyPageViewModel>
+    internal sealed class MainActivity : BaseActivity<activity_main>, IReadOnlyViewFor<MyPageViewModel>
     {
-        readonly CompositeDisposable disposables = new();
-        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
-
         protected override int? LayoutResource => Resource.Layout.activity_main;
 
         protected override bool BackToHome => true;
@@ -75,7 +69,6 @@ namespace System.Application.UI.Activities
         {
             base.OnDestroy();
             navController = null;
-            disposables.Dispose();
         }
     }
 }
