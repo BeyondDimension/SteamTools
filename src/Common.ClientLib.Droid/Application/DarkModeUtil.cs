@@ -1,7 +1,7 @@
-﻿using Android.Content;
+using Android.Content;
 using Android.Content.Res;
-using Android.OS;
-using AndroidApplication = Android.App.Application;
+//using Android.OS;
+//using AndroidApplication = Android.App.Application;
 
 namespace System.Application
 {
@@ -38,16 +38,16 @@ namespace System.Application
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        static bool IsDarkMode(Context context)
+        public static bool IsDarkMode(Context context)
         {
             var isNight = IsNight(context);
             return isNight.HasValue && isNight.Value;
         }
 
-        /// <summary>
-        /// 是否正在安卓Q中使用深色主题(Dark)
-        /// </summary>
-        public static bool IsDarkModeQ
-            => Build.VERSION.SdkInt >= BuildVersionCodes.Q && IsDarkMode(AndroidApplication.Context);
+        ///// <summary>
+        ///// 是否正在安卓Q中使用深色主题(Dark)
+        ///// </summary>
+        //public static bool IsDarkModeQ
+        //    => Build.VERSION.SdkInt >= BuildVersionCodes.Q && IsDarkMode(AndroidApplication.Context);
     }
 }

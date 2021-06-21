@@ -73,7 +73,7 @@ namespace System.Application.Services
 #endif
         }
 
-        public async void DelAccount()
+        public async Task DelAccountAsync()
         {
             if (!IsAuthenticated) return;
             var msg = AppResources.Success_.Format(AppResources.DelAccount);

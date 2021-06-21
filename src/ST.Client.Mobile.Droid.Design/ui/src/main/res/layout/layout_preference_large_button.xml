@@ -20,8 +20,8 @@
             android:id="@+id/ivIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
             app:tint="@color/icon_background"
             tools:src="@drawable/baseline_account_box_black_24"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />

@@ -1,114 +1,39 @@
-using ReactiveUI;
-using System.Application.Services;
-using System.Application.UI.Resx;
-using System.Properties;
-using System.Reactive;
-using System.Runtime.InteropServices;
-using System.Windows;
-using static System.Application.Services.CloudService.Constants;
-
 namespace System.Application.UI.ViewModels
 {
-    public class AboutPageViewModel : TabItemViewModel
+    partial class AboutPageViewModel : TabItemViewModel
     {
         public static AboutPageViewModel Instance { get; } = new();
 
         public override string Name
         {
-            get => AppResources.About;
-            protected set { throw new NotImplementedException(); }
-        }
-
-        public AboutPageViewModel()
-        {
-            IconKey = nameof(AboutPageViewModel).Replace("ViewModel", "Svg");
-
-            OpenBrowserCommand = ReactiveCommand.Create<string>(BrowserOpen);
-
-            CopyLinkCommand = ReactiveCommand.Create<string>(IDesktopAppService.Instance.SetClipboardText);
-
-            CheckUpdateCommand = ReactiveCommand.CreateFromTask(async () =>
-            {
-                await IAppUpdateService.Instance.CheckUpdateAsync(showIsExistUpdateFalse: true);
-            });
-
-            DelAccountCommand = ReactiveCommand.CreateFromTask(async () =>
-            {
-                if (!UserService.Current.IsAuthenticated) return;
-                var r = await MessageBoxCompat.ShowAsync(AppResources.DelAccountTips, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
-                if (r == MessageBoxResultCompat.OK)
-                {
-                    UserService.Current.DelAccount();
-                }
-            });
-        }
-
-        public ReactiveCommand<Unit, Unit> CheckUpdateCommand { get; }
-
-        public ReactiveCommand<string, Unit> OpenBrowserCommand { get; }
-
-        public ReactiveCommand<string, Unit> CopyLinkCommand { get; }
-
-        public ReactiveCommand<Unit, Unit> DelAccountCommand { get; }
-
-        static string GetOS() => DI.Platform switch
-        {
-            Platform.Windows => "Windows",
-            Platform.Linux => "Linux",
-            Platform.Android => "Android",
-            Platform.Apple => DI.DeviceIdiom switch
-            {
-                DeviceIdiom.Phone => "iOS",
-                DeviceIdiom.Tablet => "iPadOS",
-                DeviceIdiom.Desktop => "macOS",
-                DeviceIdiom.TV => "tvOS",
-                DeviceIdiom.Watch => "watchOS",
-                _ => string.Empty,
-            },
-            Platform.UWP => "UWP",
-            _ => string.Empty,
-        };
-
-        public string VersionDisplay => $"{ThisAssembly.VersionDisplay} for {GetOS()} ({RuntimeInformation.ProcessArchitecture})";
-
-        public string LabelVersionDisplay => ThisAssembly.IsBetaRelease ? "Beta Version:" : "Current Version:";
-
-        public string Copyright
-        {
-            get
-            {
-                // https://www.w3cschool.cn/html/html-copyright.html
-                int startYear = 2020, thisYear = 2021;
-                var nowYear = DateTime.Now.Year;
-                if (nowYear < thisYear) nowYear = thisYear;
-                return $"© {startYear}{(nowYear == startYear ? startYear : "-" + nowYear)} {ThisAssembly.AssemblyCompany}. All Rights Reserved.";
-            }
+            get => TitleName;
+            protected set { throw new NotSupportedException(); }
         }
 
         public static string RmbadminSteamLink => SteamApiUrls.MY_PROFILE_URL;
 
-        public static string RmbadminLink => "https://github.com/rmbadmin";
+        public static string RmbadminLink => UrlConstants.GitHub_User_Rmbadmin;
 
-        public static string AigioLLink => "https://github.com/AigioL";
+        public static string AigioLLink => UrlConstants.GitHub_User_AigioL;
 
-        public static string MossimosLink => "https://github.com/Mossimos";
+        public static string MossimosLink => UrlConstants.GitHub_User_Mossimos;
 
-        public static string CliencerLink => "https://space.bilibili.com/30031316";
+        public static string CliencerLink => UrlConstants.BILI_User_Cliencer;
 
-        public static string PrivacyLink => "https://steampp.net/privacy";
+        public static string PrivacyLink => UrlConstants.OfficialWebsite_Privacy;
 
-        public static string AgreementLink => "https://steampp.net/agreement";
+        public static string AgreementLink => UrlConstants.OfficialWebsite_Agreement;
 
-        public static string OfficialLink => "https://steampp.net";
+        public static string OfficialLink => UrlConstants.OfficialWebsite;
 
-        public static string SourceCodeLink => "https://github.com/rmbadmin/SteamTools";
+        public static string SourceCodeLink => UrlConstants.GitHub_Repository;
 
-        public static string UserSupportLink => "https://steampp.net/contact";
+        public static string UserSupportLink => UrlConstants.OfficialWebsite_Contact;
 
-        public static string BugReportLink => "https://github.com/rmbadmin/SteamTools/issues";
+        public static string BugReportLink => UrlConstants.GitHub_Issues;
 
-        public static string FAQLink => "https://steampp.net/faq";
+        public static string FAQLink => UrlConstants.OfficialWebsite_Faq;
 
-        public static string LicenseLink => "https://github.com/rmbadmin/SteamTools/blob/develop/LICENSE";
+        public static string LicenseLink => UrlConstants.License_GPLv3;
     }
 }

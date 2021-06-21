@@ -64,6 +64,12 @@
       <LinkBase>Services\Implementation</LinkBase>
     </Compile>
     <Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.TryAddFontManager.cs"/>
+    <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Pages\About\AboutPageViewModel.shared.cs">
+      <Link>UI\ViewModels\AboutPageViewModel.shared.cs</Link>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop\Models\Enum\AppTheme.cs">
+      <LinkBase>Models\Enum</LinkBase>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

@@ -10,13 +10,10 @@ using AndroidX.Navigation.UI;
 using Binding;
 using Microsoft.Identity.Client;
 using ReactiveUI;
-using System.Application.Mvvm;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
-using System.Reactive.Disposables;
 using System.Text;
-using JObject = Java.Lang.Object;
 
 namespace System.Application.UI.Activities
 {
@@ -24,11 +21,8 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
           LaunchMode = LaunchMode.SingleTask,
           ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class LoginOrRegisterActivity : BaseActivity<activity_login_or_register, LoginOrRegisterPageViewModel>, IDisposableHolder
+    internal sealed class LoginOrRegisterActivity : BaseActivity<activity_login_or_register, LoginOrRegisterPageViewModel>
     {
-        readonly CompositeDisposable disposables = new();
-        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
-
         protected override int? LayoutResource => Resource.Layout.activity_login_or_register;
 
         static readonly Dictionary<int, Func<string>> title_strings = new()
@@ -73,15 +67,14 @@ namespace System.Application.UI.Activities
             AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
         }
 
-        public static SpannableString CreateAgreementAndPrivacy(LoginOrRegisterPageViewModel viewModel)
+        public static SpannableString CreateAgreementAndPrivacy(LoginOrRegisterPageViewModel viewModel) => MainApplication.CreateSpannableString(list =>
         {
             int length;
-            var linkTextIndexs = new List<(JObject what, int start, int end, SpanTypes flags)>();
             StringBuilder str = new(AppResources.User_RegisterAgreed);
             str.Append(" ");
             length = str.Length;
             str.Append(AppResources.User_Agreement);
-            linkTextIndexs.Add((new HyperlinkClickableSpan(_ =>
+            list.Add((new HyperlinkClickableSpan(_ =>
             {
                 viewModel.OpenHyperlink.Invoke(LoginOrRegisterPageViewModel.Agreement);
             }), length, str.Length, SpanTypes.ExclusiveExclusive));
@@ -90,17 +83,11 @@ namespace System.Application.UI.Activities
             str.Append(" ");
             length = str.Length;
             str.Append(AppResources.User_Privacy);
-            linkTextIndexs.Add((new HyperlinkClickableSpan(_ =>
+            list.Add((new HyperlinkClickableSpan(_ =>
             {
                 viewModel.OpenHyperlink.Invoke(LoginOrRegisterPageViewModel.Privacy);
             }), length, str.Length, SpanTypes.ExclusiveExclusive));
-
-            SpannableString spannable = new(str.ToString());
-            foreach (var (what, start, end, flags) in linkTextIndexs)
-            {
-                spannable.SetSpan(what, start, end, flags);
-            }
-            return spannable;
-        }
+            return str;
+        });
     }
 }

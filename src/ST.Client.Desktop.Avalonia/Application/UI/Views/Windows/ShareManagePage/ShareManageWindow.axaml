@@ -20,7 +20,7 @@
         x:DataType="vm:ShareManageViewModel"
         x:CompileBindings="True">
   <Panel>
-    <controls:TitleBar></controls:TitleBar> 
+    <controls:TitleBar></controls:TitleBar>
     <Menu
                Margin="0 0 145 0" Height="30"
                HorizontalAlignment="Right"
@@ -104,16 +104,16 @@
                           </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                       </Ellipse>
-                      <controls:ScrollingTextBlock x:Name="nickname" 
-                                                   Text="{Binding SteamNickName}" 
-                                                   FontSize="20" 
-                                                   Foreground="{DynamicResource HighlightForegroundBrushKey}" 
-                                                   Cursor="Hand" 
+                      <controls:ScrollingTextBlock x:Name="nickname"
+                                                   Text="{Binding SteamNickName}"
+                                                   FontSize="20"
+                                                   Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                                                   Cursor="Hand"
                                                    ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
                         <i:Interaction.Behaviors>
-                          <ia:EventTriggerBehavior EventName="Tapped" 
+                          <ia:EventTriggerBehavior EventName="Tapped"
                                                    SourceObject="{ReflectionBinding #nickname}">
-                            <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SteamId_Click}" 
+                            <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SteamId_Click}"
                                                     CommandParameter="{Binding}"/>
                           </ia:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
@@ -226,6 +226,6 @@
         </ItemsRepeater.ItemTemplate>
       </ItemsRepeater>
     </ScrollViewer>
- 
-</Panel>
+
+  </Panel>
 </Window>

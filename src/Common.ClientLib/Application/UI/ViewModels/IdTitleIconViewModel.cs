@@ -4,6 +4,8 @@ namespace System.Application.UI.ViewModels
 {
     public abstract class IdTitleIconViewModel<TId, TIcon> : ReactiveObject
     {
+        protected virtual bool IgnoreIcon { get; }
+
         protected TId? id;
         /// <summary>
         /// 唯一键
@@ -15,7 +17,7 @@ namespace System.Application.UI.ViewModels
             {
                 if (this.RaiseAndSetIfChanged2(ref id, value)) return;
                 Title = GetTitleById(value);
-                Icon = GetIconById(value);
+                if (!IgnoreIcon) Icon = GetIconById(value);
                 OnIdChanged(value);
             }
         }

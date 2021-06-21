@@ -82,6 +82,7 @@
     <Compile Remove="UI\Views.Controls\**" />
     <EmbeddedResource Remove="UI\Views.Controls\**" />
     <None Remove="UI\Views.Controls\**" />
+    <Compile Include="..\Common.ClientLib.Droid\Application\DarkModeUtil.cs" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
@@ -337,6 +338,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_verified_user_black_24.png">
     <Link>Resources\drawable-xxxhdpi\baseline_verified_user_black_24.png</Link>
     </AndroidResource>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_about.xml">
+    <Link>Resources\layout\activity_about.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_login_or_register.xml">
     <Link>Resources\layout\activity_login_or_register.xml</Link>
     </AndroidBoundLayout>
@@ -372,6 +376,9 @@
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_preference_large_button.xml">
     <Link>Resources\layout\layout_preference_large_button.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_preference_small_button.xml">
+    <Link>Resources\layout\layout_preference_small_button.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\shared_loading.xml">
     <Link>Resources\layout\shared_loading.xml</Link>
@@ -468,6 +475,7 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
 
 
 

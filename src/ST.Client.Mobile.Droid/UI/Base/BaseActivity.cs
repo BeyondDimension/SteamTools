@@ -5,7 +5,10 @@ using Android.Views;
 using AndroidX.AppCompat.App;
 using ReactiveUI;
 using ReactiveUI.AndroidX;
+using System.Application.Mvvm;
 using System.Application.UI.ViewModels;
+using System.Collections.Generic;
+using System.Reactive.Disposables;
 using XEPlatform = Xamarin.Essentials.Platform;
 
 // ReSharper disable once CheckNamespace
@@ -54,8 +57,12 @@ namespace System.Application.UI.Activities
     }
 
     /// <inheritdoc cref="BaseActivity"/>
-    public abstract partial class BaseActivity<TViewBinding> : BaseActivity where TViewBinding : class
+    public abstract partial class BaseActivity<TViewBinding> : BaseActivity, IDisposableHolder
+        where TViewBinding : class
     {
+        readonly CompositeDisposable disposables = new();
+        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
+
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -65,6 +72,7 @@ namespace System.Application.UI.Activities
         protected override void OnDestroy()
         {
             base.OnDestroy();
+            disposables.Dispose();
             binding = null;
         }
     }
@@ -81,9 +89,13 @@ namespace System.Application.UI.Activities
     /// </summary>
     /// <typeparam name="TViewBinding"></typeparam>
     /// <typeparam name="TViewModel"></typeparam>
-    public abstract partial class BaseActivity<TViewBinding, TViewModel> : ReactiveAppCompatActivity<TViewModel>, IReadOnlyViewFor<TViewModel> where TViewBinding : class
+    public abstract partial class BaseActivity<TViewBinding, TViewModel> : ReactiveAppCompatActivity<TViewModel>, IReadOnlyViewFor<TViewModel>, IDisposableHolder
+        where TViewBinding : class
         where TViewModel : ViewModelBase
     {
+        readonly CompositeDisposable disposables = new();
+        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
+
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -113,6 +125,7 @@ namespace System.Application.UI.Activities
             ClearOnClickListener();
             if (navController != null) navController = null;
             base.OnDestroy();
+            disposables.Dispose();
             binding = null;
         }
     }

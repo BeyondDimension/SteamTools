@@ -18,7 +18,7 @@ namespace System.Application.UI.Views.Pages
 
             webView = this.FindControl<WebView3>(nameof(webView));
             webView.Url = string.Format(
-                "https://steampp.net/changelogbox?theme={0}&language={1}",
+                UrlConstants.OfficialWebsite_Box_Changelog_,
                 CefNetApp.GetTheme(),
                 R.Language);
         }

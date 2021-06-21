@@ -245,6 +245,9 @@
   <data name="Btn_Text_Continue" xml:space="preserve">
     <value>继续</value>
   </data>
+  <data name="BugFeedback" xml:space="preserve">
+    <value>Bug 反馈</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
@@ -942,6 +945,9 @@
   <data name="PleaseSelect" xml:space="preserve">
     <value>请选择</value>
   </data>
+  <data name="ProductOfficialWebsite" xml:space="preserve">
+    <value>产品官网</value>
+  </data>
   <data name="RecoveryCode" xml:space="preserve">
     <value>恢复代码</value>
   </data>
@@ -1098,6 +1104,9 @@
   </data>
   <data name="SMSCode" xml:space="preserve">
     <value>短信验证代码</value>
+  </data>
+  <data name="SourceRepository" xml:space="preserve">
+    <value>源码仓库</value>
   </data>
   <data name="StartUpdate" xml:space="preserve">
     <value>开始更新</value>

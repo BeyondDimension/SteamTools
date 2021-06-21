@@ -1,9 +1,10 @@
 using Android.OS;
 using Android.Views;
 using ReactiveUI.AndroidX;
-using System.Application;
 using System.Application.Mvvm;
 using System.Application.UI.ViewModels;
+using System.Collections.Generic;
+using System.Reactive.Disposables;
 using Fragment = AndroidX.Fragment.App.Fragment;
 
 // ReSharper disable once CheckNamespace
@@ -37,7 +38,7 @@ namespace System.Application.UI.Fragments
         public override void OnDestroyView()
         {
             ClearOnClickListener();
-            base.OnDestroy();
+            base.OnDestroyView();
         }
     }
 
@@ -64,10 +65,13 @@ namespace System.Application.UI.Fragments
     /// </summary>
     /// <typeparam name="TViewBinding"></typeparam>
     /// <typeparam name="TViewModel"></typeparam>
-    public abstract partial class BaseFragment<TViewBinding, TViewModel> : ReactiveFragment<TViewModel>, ReactiveUI.IReadOnlyViewFor<TViewModel>
+    public abstract partial class BaseFragment<TViewBinding, TViewModel> : ReactiveFragment<TViewModel>, ReactiveUI.IReadOnlyViewFor<TViewModel>, IDisposableHolder
         where TViewBinding : class
         where TViewModel : ViewModelBase
     {
+        readonly CompositeDisposable disposables = new();
+        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = BaseFragment.CreateView(LayoutResource, inflater, container);
@@ -81,7 +85,8 @@ namespace System.Application.UI.Fragments
         public override void OnDestroyView()
         {
             ClearOnClickListener();
-            base.OnDestroy();
+            base.OnDestroyView();
+            disposables.Dispose();
             binding = null;
         }
     }

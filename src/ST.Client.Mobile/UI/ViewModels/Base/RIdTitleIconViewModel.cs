@@ -61,4 +61,11 @@ namespace System.Application.UI.ViewModels
             GC.SuppressFinalize(this);
         }
     }
+
+    public abstract class RIdTitleViewModel<TId> : RIdTitleIconViewModel<TId, byte>
+    {
+        protected sealed override bool IgnoreIcon => true;
+
+        protected sealed override byte GetIconById(TId? id) => default;
+    }
 }

@@ -600,7 +600,7 @@ namespace System.Application.Services.Implementation
         /// <summary>
         /// 在应用商店中打开
         /// </summary>
-        protected virtual void OpenInAppStore() => BrowserOpen("https://steampp.net/");
+        protected virtual void OpenInAppStore() => BrowserOpen(UrlConstants.OfficialWebsite);
 
         void StartUpdate()
         {

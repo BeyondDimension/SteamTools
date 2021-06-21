@@ -5,22 +5,16 @@ using Android.Views.InputMethods;
 using Android.Widget;
 using Binding;
 using ReactiveUI;
-using System.Application.Mvvm;
 using System.Application.Services;
 using System.Application.UI.Activities;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
-using System.Collections.Generic;
-using System.Reactive.Disposables;
 
 namespace System.Application.UI.Fragments
 {
     [Register(JavaPackageConstants.Fragments + nameof(PhoneNumberLoginOrRegisterFragment))]
-    internal sealed class PhoneNumberLoginOrRegisterFragment : BaseFragment<fragment_login_and_register_by_phone_number, LoginOrRegisterPageViewModel>, IDisposableHolder, TextView.IOnEditorActionListener
+    internal sealed class PhoneNumberLoginOrRegisterFragment : BaseFragment<fragment_login_and_register_by_phone_number, LoginOrRegisterPageViewModel>, TextView.IOnEditorActionListener
     {
-        readonly CompositeDisposable disposables = new();
-        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
-
         protected override int? LayoutResource => Resource.Layout.fragment_login_and_register_by_phone_number;
 
         public override void OnCreateView(View view)

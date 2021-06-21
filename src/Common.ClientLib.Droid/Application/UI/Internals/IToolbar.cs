@@ -1,4 +1,4 @@
-﻿using AndroidX.AppCompat.App;
+using AndroidX.AppCompat.App;
 using AndroidX.AppCompat.Widget;
 using System.Application.UI.Internals;
 using System.Common;

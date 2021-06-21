@@ -9,11 +9,10 @@
 
     <include layout="@layout/shared_toolbar" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/grey_window_background"
-        android:fillViewport="true">
+        android:background="@color/grey_window_background">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/preference_buttons_space_min"
                 android:textColor="@color/text_primary"
+                android:textColorLink="@color/text_link"
                 android:textSize="14sp"
                 tools:text="Developers: @软妹币玩家 - @AigioL - @Mossimos"
                 xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
@@ -65,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/preference_buttons_space_min"
                 android:textColor="@color/text_primary"
+                android:textColorLink="@color/text_link"
                 android:textSize="14sp"
                 tools:text="Business Cooperation Contact: @Cliencer克总"
                 xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
@@ -75,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/preference_buttons_space_min"
                 android:textColor="@color/text_primary"
+                android:textColorLink="@color/text_link"
                 android:textSize="14sp"
                 tools:text="This open source software is licensed with GPLv3 License"
                 xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
@@ -87,52 +89,29 @@
                 android:paddingTop="@dimen/preference_buttons_space_min"
                 android:paddingBottom="@dimen/preference_buttons_space_min"
                 tools:itemCount="9"
-                tools:listitem="@layout/layout_preference_large_button"
+                tools:listitem="@layout/layout_preference_small_button"
                 xamarin:managedType="AndroidX.RecyclerView.Widget.RecyclerView" />
 
-            <!--检查更新-->
-            <!--更新日志-->
-            <!--常见问题疑难解答-->
-            <!--开放源代码许可-->
-            <!--源码仓库-->
-            <!--产品官网-->
-            <!--联系我们-->
-            <!--Bug反馈-->
-            <!--账号注销-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAgreementAndPrivacy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textColorLink="@color/text_link"
+                android:textSize="14sp"
+                tools:text="用户协议   |   隐私政策"
+                xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvAgreementAndPrivacy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_primary"
-                        android:textSize="14sp"
-                        tools:text="用户协议   |   隐私政策"
-                        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvCopyright"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/preference_buttons_space_min"
-                        android:layout_marginBottom="@dimen/preference_buttons_space_min"
-                        android:textColor="@color/text_primary"
-                        android:textSize="12sp"
-                        tools:text="© 2020-2021 长沙次元超越科技有限公司. All Rights Reserved."
-                        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
-
-                </LinearLayout>
-            </RelativeLayout>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvCopyright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/preference_buttons_space_min"
+                android:layout_marginBottom="@dimen/preference_buttons_space_min"
+                android:textColor="@color/text_primary"
+                android:textSize="12sp"
+                tools:text="© 2020-2021 长沙次元超越科技有限公司. All Rights Reserved."
+                xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>
