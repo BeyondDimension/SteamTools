@@ -17,6 +17,7 @@ namespace System.Application
         ScriptStore,
         HideApp,
         IdleApp,
+        ShareManage,
         ChangeBindPhoneNumber,
         UserProfile,
         NewVersion,

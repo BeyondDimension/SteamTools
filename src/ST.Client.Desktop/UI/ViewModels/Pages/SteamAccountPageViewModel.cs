@@ -38,6 +38,7 @@ namespace System.Application.UI.ViewModels
             LoginAccountCommand = ReactiveCommand.Create(LoginNewSteamAccount);
             RefreshCommand = ReactiveCommand.Create(Initialize);
 
+            ShareManageCommand = ReactiveCommand.Create(OpenShareManageWindow);
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
                 //new MenuItemViewModel(nameof(AppResources.More))
@@ -47,6 +48,8 @@ namespace System.Application.UI.ViewModels
                         new MenuItemViewModel(nameof(AppResources.UserChange_LoginNewAccount))
                             { IconKey="SteamDrawing", Command=LoginAccountCommand },
                         new MenuItemViewModel (),
+                          new MenuItemViewModel(nameof(AppResources.GameList_HideGameManger)){
+                      IconKey ="EyeHideDrawing", Command = ShareManageCommand },
                         new MenuItemViewModel (nameof(AppResources.Refresh))
                             { IconKey="RefreshDrawing" , Command = RefreshCommand},
                 //    }
@@ -66,6 +69,11 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<Unit, Unit> LoginAccountCommand { get; }
         public ReactiveCommand<Unit, Unit> RefreshCommand { get; }
+        public ReactiveCommand<Unit, Unit> ShareManageCommand { get; }
+        public void OpenShareManageWindow()
+        {
+            IShowWindowService.Instance.Show(CustomWindow.ShareManage, new ShareManageViewModel(), string.Empty, ResizeModeCompat.CanResize);
+        }
 
         /// <summary>
         /// steam记住的用户列表

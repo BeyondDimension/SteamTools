@@ -42,7 +42,7 @@ namespace System.Application.Services.Implementation
         readonly IDesktopPlatformService platformService;
         readonly string? mSteamDirPath;
         readonly string? mSteamProgramPath;
-        readonly string[] steamProcess = new[] { "steam","steam_osx", "steamservice", "steamwebhelper" };
+        readonly string[] steamProcess = new[] { "steam", "steam_osx", "steamservice", "steamwebhelper" };
         readonly Lazy<IHttpService> _http = new(() => DI.Get<IHttpService>());
         IHttpService Http => _http.Value;
 
@@ -189,7 +189,40 @@ namespace System.Application.Services.Implementation
             }
             return users;
         }
-
+        public bool UpdateAuthorizedDeviceList(AuthorizedDevice model)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(ConfigVdfPath) && File.Exists(ConfigVdfPath))
+                {
+                    VdfHelper.UpdateValueByReplace(ConfigVdfPath, model.OriginVdfString.ThrowIsNull(nameof(model.OriginVdfString)), model.CurrentVdfString);
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e, "UpdateAuthorizedDeviceList Fail(0).");
+                return false;
+            }
+            return false;
+        }
+        public bool RemoveAuthorizedDeviceList(AuthorizedDevice model)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(ConfigVdfPath) && File.Exists(ConfigVdfPath))
+                {
+                    VdfHelper.DeleteValueByKey(ConfigVdfPath, model.OriginVdfString.ThrowIsNull(nameof(model.OriginVdfString)));
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e, "RemoveAuthorizedDeviceList Fail(0).");
+                return false;
+            }
+            return false;
+        }
         public List<AuthorizedDevice> GetAuthorizedDeviceList()
         {
             var authorizeds = new List<AuthorizedDevice>();
@@ -199,7 +232,7 @@ namespace System.Application.Services.Implementation
                 {
                     // 注意：动态类型在移动端受限，且运行时可能抛出异常
                     dynamic v = VdfHelper.Read(ConfigVdfPath);
-                    var authorizedDevice = v.Value.AuthorizedDevice.Value;
+                    var authorizedDevice = v.Value.AuthorizedDevice;
                     if (authorizedDevice != null)
                     {
                         foreach (var item in authorizedDevice)
@@ -207,12 +240,12 @@ namespace System.Application.Services.Implementation
                             try
                             {
                                 var i = item.Value;
-                                authorizeds.Add(new AuthorizedDevice()
+                                authorizeds.Add(new AuthorizedDevice(item.ToString())
                                 {
-                                    SteamId3 = item.Key,
-                                    Timeused = i.timeused,
-                                    Description = i.description,
-                                    Tokenid = i.tokenid,
+                                    SteamId3_Int = Convert.ToInt64(item.Key.ToString()),
+                                    Timeused = Convert.ToInt64(i.timeused.ToString()),
+                                    Description = i.description.ToString(),
+                                    Tokenid = i.tokenid.ToString(),
                                 });
                             }
                             catch (Exception e)
