@@ -1,12 +1,13 @@
 using System.Application.Models;
 using System.Diagnostics;
 using System.IO;
+using System.Windows;
 
 namespace System.Application.Services.Implementation
 {
     internal sealed partial class LinuxDesktopPlatformServiceImpl : IDesktopPlatformService
     {
-        public void SetResizeMode(IntPtr hWnd, int value)
+        public void SetResizeMode(IntPtr hWnd, ResizeModeCompat value)
         {
         }
 

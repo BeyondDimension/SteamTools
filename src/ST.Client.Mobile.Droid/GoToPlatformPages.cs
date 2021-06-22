@@ -45,5 +45,86 @@ namespace System.Application
 
         public static void StartActivity<TActivity>(this Fragment fragment) where TActivity : Activity
             => StartActivity(fragment, typeof(TActivity));
+
+        const string KEY_ViewModel = "ByteArrayViewModel";
+        static void StartActivity(this Activity activity, Type activityType, byte[] viewModel)
+        {
+            var intent = new Intent(activity, activityType);
+            intent.PutExtra(KEY_ViewModel, viewModel);
+            activity.StartActivity(intent);
+        }
+
+        public static TViewModel? GetViewModel<TViewModel>(this Activity activity)
+        {
+            var intent = activity.Intent;
+            if (intent != null)
+            {
+                var byteArray = intent.GetByteArrayExtra(KEY_ViewModel);
+                if (byteArray != null)
+                {
+                    try
+                    {
+                        var value = Serializable.DMP<TViewModel>(byteArray);
+                        return value;
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+            return default;
+        }
+
+        public static void StartActivity(Activity activity, Type activityType, object viewModel, Type? viewModelType = null)
+        {
+            viewModelType ??= viewModel.GetType();
+            var viewModel_ = Serializable.SMP(viewModelType, viewModel);
+            StartActivity(activity, activityType, viewModel_);
+        }
+
+        public static void StartActivity(Fragment fragment, Type activityType, object viewModel, Type? viewModelType = null)
+        {
+            var activity = fragment.Activity;
+            if (activity == null) return;
+            StartActivity(activity, activityType, viewModel, viewModelType);
+        }
+
+        public static void StartActivity<TActivity>(Activity activity, object viewModel, Type? viewModelType = null)
+        {
+            StartActivity(activity, typeof(TActivity), viewModel, viewModelType);
+        }
+
+        public static void StartActivity<TActivity>(Fragment fragment, object viewModel, Type? viewModelType = null)
+        {
+            var activity = fragment.Activity;
+            if (activity == null) return;
+            StartActivity<TActivity>(activity, viewModel, viewModelType);
+        }
+
+        public static void StartActivity<TViewModel>(Activity activity, Type activityType, TViewModel viewModel)
+        {
+            var viewModel_ = Serializable.SMP(viewModel);
+            StartActivity(activity, activityType, viewModel_);
+        }
+
+        public static void StartActivity<TViewModel>(Fragment fragment, Type activityType, TViewModel viewModel)
+        {
+            var activity = fragment.Activity;
+            if (activity == null) return;
+            StartActivity(activity, activityType, viewModel);
+        }
+
+        public static void StartActivity<TActivity, TViewModel>(Activity activity, TViewModel viewModel)
+        {
+            StartActivity(activity, typeof(TActivity), viewModel);
+        }
+
+        public static void StartActivity<TActivity, TViewModel>(Fragment fragment, TViewModel viewModel)
+        {
+            var activity = fragment.Activity;
+            if (activity == null) return;
+            StartActivity<TActivity, TViewModel>(activity, viewModel);
+        }
     }
 }

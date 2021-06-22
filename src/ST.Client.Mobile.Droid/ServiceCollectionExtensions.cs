@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Http;
+using Microsoft.Extensions.Http;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Net.Http;

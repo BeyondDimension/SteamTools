@@ -1,6 +1,9 @@
 using System.Application.UI.ViewModels;
 using System.Threading.Tasks;
 using System.Windows;
+#if __MOBILE__
+using WindowViewModel = System.Application.UI.ViewModels.PageViewModel;
+#endif
 
 namespace System.Application.Services
 {
@@ -67,8 +70,10 @@ namespace System.Application.Services
             bool isDialog = true);
 
 
+#if !__MOBILE__
         void CloseWindow(WindowViewModel vm);
         void HideWindow(WindowViewModel vm);
         void ShowWindow(WindowViewModel vm);
+#endif
     }
 }

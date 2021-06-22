@@ -5,13 +5,18 @@ namespace System.Application
     /// </summary>
     public enum CustomWindow
     {
+#if !__MOBILE__
         LoginOrRegister,
+#endif
         MessageBox,
+#if !__MOBILE__
         AddAuth,
         ShowAuth,
         AuthTrade,
         EncryptionAuth,
+#endif
         Password,
+#if !__MOBILE__
         TaskBar,
         ExportAuth,
         ScriptStore,
@@ -23,5 +28,6 @@ namespace System.Application
         NewVersion,
         WebView3,
         BindPhoneNumber,
+#endif
     }
 }

@@ -83,6 +83,7 @@
     <EmbeddedResource Remove="UI\Views.Controls\**" />
     <None Remove="UI\Views.Controls\**" />
     <Compile Include="..\Common.ClientLib.Droid\Application\DarkModeUtil.cs" />
+    <Compile Include="..\ST.Client.Desktop.Avalonia\ServiceCollectionExtensions.AddShowWindowService.cs" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
@@ -347,6 +348,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_main.xml">
     <Link>Resources\layout\activity_main.xml</Link>
     </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_textblock.xml">
+    <Link>Resources\layout\activity_textblock.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_community_fix.xml">
     <Link>Resources\layout\fragment_community_fix.xml</Link>
     </AndroidBoundLayout>
@@ -385,6 +389,9 @@
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\shared_toolbar.xml">
     <Link>Resources\layout\shared_toolbar.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\textbox_password.xml">
+    <Link>Resources\layout\textbox_password.xml</Link>
     </AndroidBoundLayout>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\bottom_nav_menu.xml">
     <Link>Resources\menu\bottom_nav_menu.xml</Link>
@@ -475,6 +482,8 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
+
 
 
 

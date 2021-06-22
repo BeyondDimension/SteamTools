@@ -42,15 +42,11 @@ namespace System.Application.UI.ViewModels
             DelAccountCommand = ReactiveCommand.CreateFromTask(async () =>
             {
                 if (!UserService.Current.IsAuthenticated) return;
-#if !__MOBILE__
                 var r = await MessageBoxCompat.ShowAsync(AppResources.DelAccountTips, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
                 if (r == MessageBoxResultCompat.OK)
                 {
                     await UserService.Current.DelAccountAsync();
                 }
-#else
-                throw new NotImplementedException();
-#endif
             });
 
 #if __MOBILE__

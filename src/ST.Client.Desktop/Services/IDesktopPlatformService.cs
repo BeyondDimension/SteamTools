@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Versioning;
 using System.Security.Cryptography;
-using ResizeMode = System.Int32;
+using System.Windows;
 
 namespace System.Application.Services
 {
@@ -14,7 +14,7 @@ namespace System.Application.Services
 
         public static IDesktopPlatformService Instance => DI.Get<IDesktopPlatformService>();
 
-        void SetResizeMode(IntPtr hWnd, ResizeMode value);
+        void SetResizeMode(IntPtr hWnd, ResizeModeCompat value);
 
         /// <summary>
         /// 获取一个正在运行的进程的命令行参数。
@@ -152,11 +152,6 @@ namespace System.Application.Services
         void SetCurrentUser(string userName);
 
         #endregion
-
-        public const ResizeMode ResizeMode_NoResize = 0;
-        public const ResizeMode ResizeMode_CanMinimize = 1;
-        public const ResizeMode ResizeMode_CanResize = 2;
-        public const ResizeMode ResizeMode_CanResizeWithGrip = 3;
 
         #region MachineUniqueIdentifier
 

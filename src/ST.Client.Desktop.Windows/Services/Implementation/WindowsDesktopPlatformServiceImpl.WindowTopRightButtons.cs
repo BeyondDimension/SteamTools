@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using System.Windows;
 
 namespace System.Application.Services.Implementation
 {
@@ -85,16 +86,16 @@ namespace System.Application.Services.Implementation
             _ = SetWindowLong(hWnd, GWL_STYLE, GetWindowLong(hWnd, GWL_STYLE) & ~WS_MAXIMIZEBOX);
         }
 
-        public void SetResizeMode(IntPtr hWnd, int value)
+        public void SetResizeMode(IntPtr hWnd, ResizeModeCompat value)
         {
             switch (value)
             {
-                case IDesktopPlatformService.ResizeMode_NoResize:
+                case ResizeModeCompat.NoResize:
                     _ = DeleteMenu(GetSystemMenu(hWnd, false), SC_MAXIMIZE, MF_BYCOMMAND);
                     _ = DeleteMenu(GetSystemMenu(hWnd, false), SC_MINIMIZE, MF_BYCOMMAND);
                     HideMinimizeAndMaximizeButtons(hWnd);
                     break;
-                case IDesktopPlatformService.ResizeMode_CanMinimize:
+                case ResizeModeCompat.CanMinimize:
                     _ = DeleteMenu(GetSystemMenu(hWnd, false), SC_MAXIMIZE, MF_BYCOMMAND);
                     DisableMaximizeButton(hWnd);
                     break;

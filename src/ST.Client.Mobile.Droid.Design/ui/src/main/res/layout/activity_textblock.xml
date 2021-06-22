@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/shared_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:textColor="@color/text_primary"
+            android:textIsSelectable="true"
+            tools:text="Ahead-of-time compiler.\n\nSimilar to JIT, this compiler also translates IL to machine code. In contrast to JIT compilation, AOT compilation happens before the application is executed and is usually performed on a different machine. Because AOT tool chains don't compile at run time, they don't have to minimize time spent compiling. That means they can spend more time optimizing. Since the context of AOT is the entire application, the AOT compiler also performs cross-module linking and whole-program analysis, which means that all references are followed and a single executable is produced.\n\nSee CoreRT and .NET Native.\n\nASP.NET\n\nThe original ASP.NET implementation that ships with the .NET Framework, also known as ASP.NET 4.x.\n\nSometimes ASP.NET is an umbrella term that refers to both the original ASP.NET and ASP.NET Core. The meaning that the term carries in any given instance is determined by context. Refer to ASP.NET 4.x when you want to make it clear that you're not using ASP.NET to mean both implementations.\n\nSee ASP.NET documentation.\n\nASP.NET Core\n\nA cross-platform, high-performance, open-source implementation of ASP.NET.\n\nSee ASP.NET Core documentation.CLR\n\nCommon Language Runtime.\n\nThe exact meaning depends on the context. Common Language Runtime usually refers to the runtime of .NET Framework or the runtime of .NET 5 (and .NET Core) and later versions.\n\nA CLR handles memory allocation and management. A CLR is also a virtual machine that not only executes apps but also generates and compiles code on-the-fly using a JIT compiler.\n\nThe CLR implementation for .NET Framework is Windows only.\n\n
+The CLR implementation for .NET 5 and later versions (also known as the Core CLR) is built from the same code base as the .NET Framework CLR. Originally, the Core CLR was the runtime of Silverlight and was designed to run on multiple platforms, specifically Windows and OS X. It's still a cross-platform runtime, now including support for many Linux distributions.\n\nSee also runtime.\n\nCore CLR\n\nThe Common Language Runtime for .NET 5 (and .NET Core) and later versions.\n\nSee CLR.\n\nCoreRT\n\n
+In contrast to the CLR, CoreRT is not a virtual machine, which means it doesn't include the facilities to generate and run code on-the-fly because it doesn't include a JIT. It does, however, include the GC and the ability for run-time type identification (RTTI) and reflection. However, its type system is designed so that metadata for reflection isn't required. Not requiring metadata enables having an AOT tool chain that can link away superfluous metadata and (more importantly) identify code that the app doesn't use. CoreRT is in development.\n\nSee Intro to CoreRT and .NET Runtime Lab."
+            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+    </ScrollView>
+</LinearLayout>

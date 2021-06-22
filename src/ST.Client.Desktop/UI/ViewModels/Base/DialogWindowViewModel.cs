@@ -1,4 +1,7 @@
-﻿using System.Windows.Input;
+using System.Windows.Input;
+#if __MOBILE__
+using WindowViewModel = System.Application.UI.ViewModels.PageViewModel;
+#endif
 
 namespace System.Application.UI.ViewModels
 {

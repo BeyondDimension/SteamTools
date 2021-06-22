@@ -175,7 +175,7 @@ namespace System.Application
 
                 // 添加主线程助手(MainThreadDesktop)
                 services.AddMainThreadPlatformService();
-
+#endif
                 #region MessageBox
 
                 /* System.Windows.MessageBox 在 WPF 库中，仅支持 Win 平台
@@ -203,7 +203,6 @@ namespace System.Application
 #endif
 
                 #endregion
-#endif
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.GUI");
 #endif

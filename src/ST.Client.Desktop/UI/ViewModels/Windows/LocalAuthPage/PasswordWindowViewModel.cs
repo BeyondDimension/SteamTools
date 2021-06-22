@@ -1,11 +1,11 @@
-using Newtonsoft.Json.Linq;
 using ReactiveUI;
-using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
-using System.Properties;
 using System.Threading.Tasks;
 using System.Windows;
+#if __MOBILE__
+using WindowViewModel = System.Application.UI.ViewModels.PageViewModel;
+#endif
 
 namespace System.Application.UI.ViewModels
 {
@@ -23,7 +23,6 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _Password, value);
         }
 
-
         public static async Task<string?> ShowPasswordDialog()
         {
             var vm = new PasswordWindowViewModel();
@@ -31,12 +30,25 @@ namespace System.Application.UI.ViewModels
             return vm.Password;
         }
 
-
-        public void Ok()
+        /// <summary>
+        /// 输入内容验证
+        /// </summary>
+        /// <returns></returns>
+        public bool InputValidator()
         {
             if (string.IsNullOrWhiteSpace(Password))
             {
                 Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
+                return false;
+            }
+            return true;
+        }
+
+#if !__MOBILE__
+        public void Ok()
+        {
+            if (!InputValidator())
+            {
                 return;
             }
             this.Close();
@@ -47,5 +59,6 @@ namespace System.Application.UI.ViewModels
             Password = string.Empty;
             this.Close();
         }
+#endif
     }
 }
