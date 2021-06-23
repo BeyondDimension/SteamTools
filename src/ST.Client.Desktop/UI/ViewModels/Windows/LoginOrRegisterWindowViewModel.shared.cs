@@ -37,12 +37,6 @@ namespace System.Application.UI.ViewModels
 #endif
                 AppResources.LoginAndRegister;
 
-#if !__MOBILE__
-            FastLogin = ReactiveCommand.CreateFromTask<FastLoginChannel>(async channel =>
-            {
-                await FastLoginOrRegisterAsync(Close, channel);
-            });
-#endif
             ChooseChannel = ReactiveCommand.CreateFromTask<string>(async channel =>
             {
                 if (Enum.TryParse<FastLoginChannel>(channel, out var channel_))
@@ -74,7 +68,9 @@ namespace System.Application.UI.ViewModels
                 FastLoginChannelViewModel.Create(nameof(FastLoginChannel.Apple), this),
                 FastLoginChannelViewModel.Create(nameof(FastLoginChannel.QQ), this),
 #endif
+#if __MOBILE__
                 FastLoginChannelViewModel.Create(FastLoginChannelViewModel.PhoneNumber, this),
+#endif
             };
         }
 
@@ -245,23 +241,6 @@ namespace System.Application.UI.ViewModels
             }
 #endif
         }
-
-#if !__MOBILE__
-        [Obsolete("use ChooseChannel")]
-        public ICommand FastLogin { get; }
-
-        [Obsolete("use FastLoginChannels")]
-        public string[] Channels { get; } = new[]
-        {
-            nameof(FastLoginChannel.Steam),
-            nameof(FastLoginChannel.Xbox),
-#if DEBUG
-            nameof(FastLoginChannel.Apple),
-            nameof(FastLoginChannel.QQ),
-#endif
-            FastLoginChannelViewModel.PhoneNumber,
-        };
-#endif
 
         /// <summary>
         /// 选择快速登录渠道点击命令，参数类型为 <see cref="FastLoginChannelViewModel"/>.Id

@@ -138,7 +138,7 @@
               </ItemsControl.Styles>
               <ItemsControl.ItemTemplate>
                 <DataTemplate x:CompileBindings="False">
-                  <Button Command="{Binding #u.DataContext.FastLogin}" CommandParameter="{Binding,Mode=OneWay}" MinHeight="50" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Margin="0 5" Background="{StaticResource ThemeBrushKey}">
+                  <Button Command="{Binding #u.DataContext.ChooseChannel}" CommandParameter="{Binding Id,Mode=OneWay}" MinHeight="50" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Margin="0 5" Background="{StaticResource ThemeBrushKey}">
                     <DockPanel x:Name="FastLoginChannelItem">
                       <!--<i:Interaction.Behaviors>
                         <ia:EventTriggerBehavior EventName="Tapped"
@@ -149,23 +149,24 @@
                       </i:Interaction.Behaviors>-->
                       <Panel DockPanel.Dock="Left" Margin="5 0 0 0">
                         <PathIcon Data="{StaticResource SteamDrawing}"
-                                  IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Steam}" />
+                                  IsVisible="{Binding Id,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Steam}" />
                         <PathIcon Data="{StaticResource QQ}"
-                                  IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=QQ}" />
+                                  IsVisible="{Binding Id,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=QQ}" />
                         <PathIcon Data="{StaticResource Xbox}"
-                                  IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Xbox}" />
+                                  IsVisible="{Binding Id,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Xbox}" />
                         <PathIcon Data="{StaticResource Apple}"
-                                  IsVisible="{Binding,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Apple}" />
+                                  IsVisible="{Binding Id,Mode=OneWay,Converter={StaticResource StringEqualsConverter},ConverterParameter=Apple}" />
                       </Panel>
                       <Panel DockPanel.Dock="Right" Margin="10 0 0 0">
-                        <TextBlock VerticalAlignment="Center" Tag="{Binding,Mode=OneWay}">
+                        <!--<TextBlock VerticalAlignment="Center" Tag="{Binding Id,Mode=OneWay}">
                           <TextBlock.Text>
                             <MultiBinding x:CompileBindings="False" Converter="{StaticResource StringFormatConverter}" Mode="OneWay">
                               <Binding Path="Res.User_UseFastLoginChannel_" Source="{x:Static resx:R.Current}"/>
                               <Binding Path="$self.Tag" />
                             </MultiBinding>
                           </TextBlock.Text>
-                        </TextBlock>
+                        </TextBlock>-->
+                        <TextBlock VerticalAlignment="Center" Text="{Binding Title,Mode=OneWay}" />
                       </Panel>
                     </DockPanel>
                   </Button>
