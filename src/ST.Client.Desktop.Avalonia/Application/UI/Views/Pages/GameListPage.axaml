@@ -136,7 +136,7 @@
               PlacementTarget="typebutton"
               HorizontalOffset="-1.5"
               IsLightDismissEnabled="True">
-            <Border Background="{DynamicResource BackgroundBrushKey}"
+            <Border Background="{DynamicResource MenuFlyoutPresenterBackground}"
                     Classes="dialog"
                     Width="{Binding $parent.Width}" Height="200">
               <ScrollViewer Padding="10 5">
