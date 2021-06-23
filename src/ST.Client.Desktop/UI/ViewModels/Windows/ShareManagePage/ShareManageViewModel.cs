@@ -13,6 +13,8 @@ using System.Linq;
 using System.Properties;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
 {
@@ -90,7 +92,7 @@ namespace System.Application.UI.ViewModels
         {
 
             var accountRemarks = Serializable.Clone<IReadOnlyDictionary<long, string?>?>(SteamAccountSettings.AccountRemarks.Value);
-        
+
             foreach (var item in _AuthorizedSourceList.Items)
             {
                 string? remark = null;
@@ -98,12 +100,14 @@ namespace System.Application.UI.ViewModels
                 accountRemarks?.TryGetValue(item.SteamId64_Int, out remark);
                 item.Remark = remark;
                 item.SteamID = temp.SteamID;
-                item.OnlineState = temp.OnlineState;
-                item.SteamNickName = temp.SteamNickName;
+                item.OnlineState = temp.OnlineState?? "offline";
+                item.SteamNickName = temp.SteamNickName ?? item.AccountName ?? item.SteamId3_Int.ToString();
                 item.AvatarIcon = temp.AvatarIcon;
                 item.AvatarMedium = temp.AvatarMedium;
                 item.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
             }
+
+            _AuthorizedSourceList.AddOrUpdate(_AuthorizedSourceList.Items);
             _AuthorizedSourceList.Refresh();
             foreach (var item in _AuthorizedSourceList.Items)
             {
@@ -116,18 +120,19 @@ namespace System.Application.UI.ViewModels
                     //miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
                 }
             }
-
+            _AuthorizedSourceList.AddOrUpdate(_AuthorizedSourceList.Items);
             _AuthorizedSourceList.Refresh();
         }
-        public void SteamId_Click(AuthorizedDevice user)
+        public void OpenUserProfileUrl(AuthorizedDevice user)
         {
-
+            BrowserOpen(user.ProfileUrl);
         }
-        public void DeleteButton_Click(AuthorizedDevice user)
+          public void About_Click()
         {
-
+            var result = MessageBoxCompat.ShowAsync(@AppResources.AccountChange_ShareManageAboutTips, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OK).ContinueWith(async (s) =>
+            { 
+            }); 
         }
-
         public void SetFirstButton_Click(AuthorizedDevice item)
         {
             item.Index = 1;
@@ -164,6 +169,14 @@ namespace System.Application.UI.ViewModels
         {
             if (_AuthorizedList != null)
                 steamService.UpdateAuthorizedDeviceList(_AuthorizedList);
+            var result = MessageBoxCompat.ShowAsync(@AppResources.AccountChange_RestartSteam, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
+            {
+                if (s.Result == MessageBoxResultCompat.OK)
+                {
+                    steamService.TryKillSteamProcess();
+                    steamService.StartSteam();
+                }
+            });
         }
     }
 }

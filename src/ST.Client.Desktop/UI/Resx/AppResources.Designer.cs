@@ -142,6 +142,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 修改的数据生效需要重启Steam是否需要重启Steam。 的本地化字符串。
+        /// </summary>
+        public static string AccountChange_RestartSteam {
+            get {
+                return ResourceManager.GetString("AccountChange_RestartSteam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 置顶的为当前首选家庭共享库，适用于特殊场景。 的本地化字符串。
+        /// </summary>
+        public static string AccountChange_ShareManageAboutTips {
+            get {
+                return ResourceManager.GetString("AccountChange_ShareManageAboutTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 家庭共享库管理 的本地化字符串。
         /// </summary>
         public static string AccountChange_Title {
@@ -1598,6 +1616,15 @@ namespace System.Application.UI.Resx {
         public static string Import {
             get {
                 return ResourceManager.GetString("Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加载中 的本地化字符串。
+        /// </summary>
+        public static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
             }
         }
         

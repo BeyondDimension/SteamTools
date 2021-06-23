@@ -25,6 +25,12 @@
                Margin="0 0 145 0" Height="30"
                HorizontalAlignment="Right"
                VerticalAlignment="Top">
+        <MenuItem Width="50" Command="{ReflectionBinding About_Click}"
+                 ToolTip.Tip="{ReflectionBinding Path=Res.About,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <MenuItem.Header>
+          <PathIcon Data="{StaticResource AboutPageSvg}" Width="14"></PathIcon>
+        </MenuItem.Header> 
+      </MenuItem>
       <MenuItem Width="50" Command="{ReflectionBinding Refresh_Click}"
                  ToolTip.Tip="{ReflectionBinding Path=Res.RefreshList,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <MenuItem.Header>
@@ -93,6 +99,11 @@
                 <Panel Grid.Column="1" Margin="10 5">
                   <StackPanel>
                     <DockPanel LastChildFill="True">
+                      <controls:ProgressRing IsIndeterminate="True"
+                                              ToolTip.Tip="{ReflectionBinding Path=Res.Loading,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                             HorizontalAlignment="Stretch" Height="30"
+                                             Width="30"
+                                            IsVisible="{Binding SteamNickName,Converter={StaticResource IsNullConverter}}"/>
                       <Ellipse VerticalAlignment="Center"
                  HorizontalAlignment="Center" x:Name="circle" Margin="2 -5 5 0" Height="10" Width="10" StrokeThickness="0" ToolTip.Tip="{Binding OnlineState}">
                         <i:Interaction.Behaviors>
@@ -109,11 +120,11 @@
                                                    FontSize="20"
                                                    Foreground="{DynamicResource HighlightForegroundBrushKey}"
                                                    Cursor="Hand"
-                                                   ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                                                   ToolTip.Tip="{ReflectionBinding Path=Res.Top,Mode=OneWay,Source={x:Static resx:R.Current}}">
                         <i:Interaction.Behaviors>
                           <ia:EventTriggerBehavior EventName="Tapped"
                                                    SourceObject="{ReflectionBinding #nickname}">
-                            <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SteamId_Click}"
+                            <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SetFirstButton_Click}"
                                                     CommandParameter="{Binding}"/>
                           </ia:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
@@ -166,7 +177,8 @@
                     </Button>
                   </Panel>
                   <WrapPanel Grid.Row="1" Orientation="Horizontal">
-                    <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" 
+                            ToolTip.Tip="{ReflectionBinding Path=Res.Top,Mode=OneWay,Source={x:Static resx:R.Current}}">
                       <Button Classes="flatbutton" Cursor="Hand"
                               x:Name="firstBtn"
                               HorizontalAlignment="Stretch" MaxWidth="200"
@@ -183,7 +195,8 @@
                         <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Top,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
                       </Button>
                     </Border>
-                    <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" 
+                            ToolTip.Tip="{ReflectionBinding Path=Res.Up,Mode=OneWay,Source={x:Static resx:R.Current}}">
                       
                       <Button Classes="flatbutton" Cursor="Hand" 
                               x:Name="upBtn"
@@ -201,10 +214,11 @@
                         <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Up,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
                       </Button>
                     </Border>
-                    <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness="0 .66 0 0" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness="0 .66 0 0" 
+                            ToolTip.Tip="{ReflectionBinding Path=Res.Dow,Mode=OneWay,Source={x:Static resx:R.Current}}">
                       <Button Classes="flatbutton" Cursor="Hand" MaxWidth="250" 
                               HorizontalAlignment="Stretch" 
-                                x:Name="dowBtn"
+                              x:Name="dowBtn"
                               Command="{ReflectionBinding #u.DataContext.DowButton_Click}" 
                               CommandParameter="{Binding}">
                         <i:Interaction.Behaviors>

@@ -144,6 +144,12 @@
   <data name="About_UpdateLog" xml:space="preserve">
     <value>更新日志</value>
   </data>
+  <data name="AccountChange_RestartSteam" xml:space="preserve">
+    <value>修改的数据生效需要重启Steam是否需要重启Steam。</value>
+  </data>
+  <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
+    <value>置顶的为当前首选家庭共享库，适用于特殊场景。</value>
+  </data>
   <data name="AccountChange_Title" xml:space="preserve">
     <value>家庭共享库管理</value>
   </data>
@@ -632,6 +638,9 @@
   </data>
   <data name="Import" xml:space="preserve">
     <value>导入</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>加载中</value>
   </data>
   <data name="LocalAuth" xml:space="preserve">
     <value>本地令牌</value>
