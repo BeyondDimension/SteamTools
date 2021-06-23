@@ -76,12 +76,12 @@
                Width="250"
                HorizontalOffset="-205"
                IsLightDismissEnabled="True">
-          <Border Background="{DynamicResource ThemeBrushKey}"
+          <Border Background="{DynamicResource MenuFlyoutPresenterBackground}"
                      HorizontalAlignment="Stretch"
                      CornerRadius="{DynamicResource OverlayCornerRadius}">
             <StackPanel>
               <Panel x:Name="UserMenu" Width="300" Margin="0 20">
-                <StackPanel Spacing="10">
+                <StackPanel>
                   <Image Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=100}"
                          Stretch="Uniform"
                          Height="100" Width="100"
@@ -92,13 +92,14 @@
                   </Image>
                   <TextBlock
                     Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+                    Margin="0 10 0 0"
                     FontSize="14"
                     HorizontalAlignment="Center"
                     Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
                 </StackPanel>
               </Panel>
-              <ListBox SelectionMode="Single" Classes="metro"
-                       Background="{DynamicResource ThemeBrushKey}">
+              <Separator Classes="Separator"></Separator>
+              <ListBox SelectionMode="Single" Classes="metro" Background="Transparent">
                 <ListBox.Styles>
                   <Style Selector="Button">
                     <Setter Property="Width" Value="{Binding #UserMenu.Width}"></Setter>

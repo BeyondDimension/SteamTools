@@ -7,12 +7,13 @@ using System.Application.Models;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows;
 
 namespace System.Application.Services.Implementation
 {
     internal sealed partial class MacDesktopPlatformServiceImpl : IDesktopPlatformService
     {
-        public void SetResizeMode(IntPtr hWnd, int value)
+        public void SetResizeMode(IntPtr hWnd, ResizeModeCompat value)
         {
         }
 
@@ -29,7 +30,7 @@ namespace System.Application.Services.Implementation
                 Arguments = $"-a \"{name}\" \"{filePath}\"",
             };
             pInfo.UseShellExecute = true;
-            var p = Process.Start(pInfo); 
+            var p = Process.Start(pInfo);
             if (p == null) throw new FileNotFoundException(name);
             p.Close();
         }

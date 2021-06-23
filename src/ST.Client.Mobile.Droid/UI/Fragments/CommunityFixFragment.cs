@@ -2,6 +2,8 @@ using Android.Runtime;
 using Android.Views;
 using Binding;
 using System.Application.UI.Resx;
+using System.Properties;
+using System.Windows;
 
 namespace System.Application.UI.Fragments
 {
@@ -10,11 +12,14 @@ namespace System.Application.UI.Fragments
     {
         protected override int? LayoutResource => Resource.Layout.fragment_community_fix;
 
-        public override void OnCreateView(View view)
+        public override async void OnCreateView(View view)
         {
             base.OnCreateView(view);
             binding!.textView.Text = GetType().Name.TrimEnd("Fragment") + Environment.NewLine + AppResources.UnderConstruction;
             binding!.textView.Gravity = GravityFlags.Center;
+
+            var r = await MessageBoxCompat.ShowAsync(AppResources.DelAccountTips, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
+            Toast.Show(r.ToString());
         }
     }
 }

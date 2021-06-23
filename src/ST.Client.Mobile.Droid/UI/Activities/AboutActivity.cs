@@ -86,7 +86,11 @@ namespace System.Application.UI.Activities
                             R.Language));
                         break;
                     case PreferenceButton.开放源代码许可:
-                        throw new NotImplementedException();
+                        TextBlockActivity.StartActivity(this, new TextBlockViewModel
+                        {
+                            Title = AppResources.About_OpenSource,
+                            ContentSource = TextBlockViewModel.ContentSourceEnum.OpenSourceLibrary,
+                        });
                         break;
                     case PreferenceButton.源码仓库:
                         new MaterialAlertDialogBuilder(this).SetItems(SourceRepositories, (_, e) => BrowserOpenByDialogClick(e, value => value switch
