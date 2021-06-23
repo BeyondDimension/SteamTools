@@ -14,7 +14,6 @@ namespace System.Application.Services.Implementation
         public void Start()
         {
 
-            await Init(args).ConfigureAwait(false);
         }
     }
 }
