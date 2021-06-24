@@ -24,7 +24,8 @@ namespace System.Application.Services.Implementation
         bool IPlatformService.AdminShell(string shell)
         {
             var edithost = new NSAppleScript($"do shell script \"'${shell}'\" with administrator privileges");
-            return edithost.Compiled;
+            var state = edithost.CompileAndReturnError(out var error); 
+            return state;
             //var pInfo = new ProcessStartInfo
             //{
             //    FileName = "sudo",
