@@ -11,7 +11,7 @@
 [![GitHub Fork](https://img.shields.io/github/forks/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/network/members)
 ![GitHub Repo size](https://img.shields.io/github/repo-size/rmbadmin/SteamTools?style=flat-square&color=3cb371)
 [![GitHub Repo Languages](https://img.shields.io/github/languages/top/SteamTools-Team/SteamTools?style=flat-square)](https://github.com/SteamTools-Team/SteamTools/search?l=c%23)
-[![NET 6.0](https://img.shields.io/badge/dotnet-6.0-purple.svg?style=flat-square&color=512bd4)](https://devblogs.microsoft.com/dotnet/announcing-net-6-preview-4)
+[![NET 6.0](https://img.shields.io/badge/dotnet-6.0-purple.svg?style=flat-square&color=512bd4)](https://devblogs.microsoft.com/dotnet/announcing-net-6-preview-5)
 [![C# 9.0](https://img.shields.io/badge/c%23-9.0-brightgreen.svg?style=flat-square&color=6da86a)](https://docs.microsoft.com/zh-cn/dotnet/csharp/whats-new/csharp-9)
 
 [![Desktop UI](https://img.shields.io/badge/ui@desktop-AvaloniaUI-purple.svg?style=flat-square&color=8c45ab)](https://github.com/AvaloniaUI/Avalonia)
@@ -50,7 +50,7 @@
 <!--发布配置SelfContained=true时会自动打包VC++相关程序集-->
 <!--先决条件 Microsoft Visual C++ 2015-2019 Redistributable [64 位](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 位](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
 ## 🖥 系统要求
-- 桌面端(仅支持 64 位)
+- 桌面端(仅支持 X64 和 ARM64)
 	- Windows 10 1607+ / Windows Server 版本 1903+ / Windows Server 2019 / Windows Server 2016
 	- Windows 8.1 / Windows Server 2012 R2
 	- Windows 7 SP1 [ESU](https://docs.microsoft.com/zh-cn/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
@@ -69,9 +69,9 @@
 		- Red Hat Enterprise Linux 7+
 		- SUSE Enterprise Linux (SLES) 12 SP2+
 		- Ubuntu 20.10, 20.04, 18.04, 16.04
-- 移动端(仅支持 ARM64 或 ARM32)
-	- Android 5.0+
-	- iOS 10.0+
+- 移动端
+	- Android 5.0+ (仅支持 [ARM64/arm64-v8a](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#arm64-v8a) 和 [ARM/armeabiv-v7a](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#v7a))
+	- iOS 10.0+ (仅支持 ARM64)
 
 ## ⛔ 不受支持的操作系统
 - Windows 8

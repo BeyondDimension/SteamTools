@@ -11,7 +11,7 @@
 [![GitHub Fork](https://img.shields.io/github/forks/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/network/members)
 ![GitHub Repo size](https://img.shields.io/github/repo-size/rmbadmin/SteamTools?style=flat-square&color=3cb371)
 [![GitHub Repo Languages](https://img.shields.io/github/languages/top/SteamTools-Team/SteamTools?style=flat-square)](https://github.com/SteamTools-Team/SteamTools/search?l=c%23)
-[![NET 6.0](https://img.shields.io/badge/dotnet-6.0-purple.svg?style=flat-square&color=512bd4)](https://devblogs.microsoft.com/dotnet/announcing-net-6-preview-4)
+[![NET 6.0](https://img.shields.io/badge/dotnet-6.0-purple.svg?style=flat-square&color=512bd4)](https://devblogs.microsoft.com/dotnet/announcing-net-6-preview-5)
 [![C# 9.0](https://img.shields.io/badge/c%23-9.0-green.svg?style=flat-square&color=6da86a)](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9)
 
 [![Desktop UI](https://img.shields.io/badge/ui@desktop-AvaloniaUI-purple.svg?style=flat-square&color=8c45ab)](https://github.com/AvaloniaUI/Avalonia)
@@ -41,7 +41,7 @@ English | [简体中文](./README.md)
 
 <!--Prerequisites Microsoft Visual C++ 2015-2019 Redistributable [64 bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 bit](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
 ## 🖥 Supported Operating Systems
-- Desktop(Only 64 bit is supported)
+- Desktop(Only X64 and ARM64 are supported)
 	- Windows 10 1607+ / Windows Server, version 1909+ / Windows Server 2019 / Windows Server 2016
 	- Windows 8.1 / Windows Server 2012 R2
 	- Windows 7 SP1 [ESU](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
@@ -60,9 +60,9 @@ English | [简体中文](./README.md)
 		- Red Hat Enterprise Linux 7+
 		- SUSE Enterprise Linux (SLES) 12 SP2+
 		- Ubuntu 20.10, 20.04, 18.04, 16.04
-- Mobile(Only ARM64 or ARM32 are supported)
-	- Android 5.0+
-	- iOS 10.0+
+- Mobile
+	- Android 5.0+ (Only [ARM64/arm64-v8a](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#arm64-v8a) and [ARM/armeabiv-v7a](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#v7a) are supported)
+	- iOS 10.0+ (ARM64 only)
 
 ## ⛔ Unsupported Operating System
 - Windows 8
