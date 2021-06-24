@@ -1,0 +1,42 @@
+{
+  "solution": {
+    "path": "SteamToolsV2+.sln",
+    "projects": [
+      "src\\Common.AreaLib\\Common.AreaLib.csproj",
+      "src\\Common.ClientLib\\Common.ClientLib.csproj",
+      "src\\Common.ClientLib.Droid\\Common.ClientLib.Droid.csproj",
+      "src\\Common.ClientLib.iOS\\Common.ClientLib.iOS.csproj",
+      "src\\Common.CoreLib\\Common.CoreLib.csproj",
+      "src\\Repositories.sqlite-net-pcl\\Repositories.sqlite-net-pcl.csproj",
+      "references\\WinAuth\\Authenticator\\Authenticator.csproj",
+      "references\\AvaloniaGif\\AvaloniaGif\\AvaloniaGif.csproj",
+      "references\\CefNet\\CefNet.Avalonia\\CefNet.Avalonia.csproj",
+      "references\\AvaloniaGif\\LibAPNG\\LibAPNG.csproj",
+      "references\\SteamAchievementManager\\SAM.API\\SAM.API.csproj",
+      "references\\Steam4NET\\Steam4NET\\Steam4NET.csproj",
+      "references\\Titanium-Web-Proxy\\src\\Titanium.Web.Proxy\\Titanium.Web.Proxy.csproj",
+      "references\\ArchiSteamFarm\\ArchiSteamFarm\\ArchiSteamFarm.Library.csproj",
+      "tests\\Common.UnitTest\\Common.UnitTest.csproj",
+      "tests\\Common.UnitTest.Droid\\Common.UnitTest.Droid.csproj",
+      "tests\\Common.UnitTest.Droid.App\\Common.UnitTest.Droid.App.csproj",
+      "tests\\ST.Client.UnitTest\\ST.Client.UnitTest.csproj",
+      "tests\\ST.Client.Desktop.UnitTest\\ST.Client.Desktop.UnitTest.csproj",
+      "src\\ST\\ST.csproj",
+      "src\\ST.Client\\ST.Client.csproj",
+      "src\\ST.Client.Desktop\\ST.Client.Desktop.csproj",
+      "src\\ST.Client.Desktop.Avalonia\\ST.Client.Desktop.Avalonia.csproj",
+      "src\\ST.Client.Desktop.Linux\\ST.Client.Desktop.Linux.csproj",
+      "src\\ST.Client.Mobile\\ST.Client.Mobile.csproj",
+      "src\\ST.Client.Mobile.Droid\\ST.Client.Mobile.Droid.csproj",
+      "src\\ST.Client.Mobile.iOS\\ST.Client.Mobile.iOS.csproj",
+      "src\\ST.Services.CloudService.Models\\ST.Services.CloudService.Models.csproj",
+      "src\\ST.Services.CloudService.ViewModels\\ST.Services.CloudService.ViewModels.csproj",
+      "src\\ST.Services.CloudService\\ST.Services.CloudService.csproj",
+      "src\\ST.Tools.AreaImport\\ST.Tools.AreaImport.csproj",
+      "src\\ST.Tools.MinifyStaticSites\\ST.Tools.MinifyStaticSites.csproj",
+      "src\\ST.Tools.OpenSourceLibraryList\\ST.Tools.OpenSourceLibraryList.csproj",
+      "src\\ST.Tools.Translate\\ST.Tools.Translate.csproj",
+      "src\\ST.Tools.AndroidResourceLink\\ST.Tools.AndroidResourceLink.csproj"
+    ]
+  }
+}
