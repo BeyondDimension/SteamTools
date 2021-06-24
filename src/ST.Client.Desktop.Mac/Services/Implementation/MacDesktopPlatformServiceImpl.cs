@@ -21,19 +21,18 @@ namespace System.Application.Services.Implementation
         {
             return string.Empty;
         }
-        public void Install() {
-            if (DI.Platform == Platform.Apple)
-            { 
-                NSAppleScript 
-                //var pInfo = new ProcessStartInfo
-                //{
-                //    FileName = "sudo",
-                //    Arguments = $"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain {filePath}",
-                //};
-                //pInfo.UseShellExecute = true;
-                //var p = Process.Start(pInfo);
-                //p.Close();
-            }
+        bool IDesktopPlatformService.AdminShell(string shell)
+        {
+            var edithost = new NSAppleScript($"do shell script \"'${shell}'\" with administrator privileges");
+            return edithost.Compiled;
+            //var pInfo = new ProcessStartInfo
+            //{
+            //    FileName = "sudo",
+            //    Arguments = $"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain {filePath}",
+            //};
+            //pInfo.UseShellExecute = true;
+            //var p = Process.Start(pInfo);
+            //p.Close(); 
         }
         void IDesktopPlatformService.StartProcess(string name, string filePath)
         {
@@ -80,7 +79,7 @@ namespace System.Application.Services.Implementation
         }
 
         public void OpenFolder(string dirPath)
-        { 
+        {
 
         }
 
