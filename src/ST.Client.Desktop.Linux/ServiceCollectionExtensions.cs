@@ -13,7 +13,9 @@ namespace Microsoft.Extensions.DependencyInjection
             if (DI.Platform == Platform.Linux)
             {
                 services.AddSingleton<IHttpPlatformHelper, PlatformHttpPlatformHelper>();
-                services.AddSingleton<IDesktopPlatformService, LinuxDesktopPlatformServiceImpl>();
+                services.AddSingleton<LinuxDesktopPlatformServiceImpl>();
+                services.AddSingleton<IPlatformService>(s => s.GetRequiredService<LinuxDesktopPlatformServiceImpl>());
+                services.AddSingleton<IDesktopPlatformService>(s => s.GetRequiredService<LinuxDesktopPlatformServiceImpl>());
             }
             else
             {
