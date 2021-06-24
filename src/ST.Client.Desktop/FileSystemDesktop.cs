@@ -9,7 +9,7 @@ namespace System.Application
     /// 适用于桌面端的文件系统帮助类，参考 Xamarin.Essentials.FileSystem
     /// <para><see cref="https://docs.microsoft.com/zh-cn/xamarin/essentials/file-system-helpers?tabs=uwp"/></para>
     /// </summary>
-    public class FileSystemDesktop
+    public static class FileSystemDesktop
     {
         public const string AppDataDirName = "AppData";
         public const string CacheDirName = "Cache";
@@ -19,6 +19,13 @@ namespace System.Application
         /// </summary>
         public static void InitFileSystem()
         {
+#if !NET35
+            if (DI.Platform == Platform.Apple)
+            {
+                throw new PlatformNotSupportedException("use FileSystemDesktopMac");
+            }
+#endif
+
             //var appDataRootPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             //if (string.IsNullOrWhiteSpace(appDataRootPath))
             //{
@@ -44,6 +51,7 @@ namespace System.Application
             string GetCacheDirectory() => cachePath;
         }
 
+#if DEBUG
         /// <inheritdoc cref="Xamarin.Essentials.FileSystem.AppDataDirectory"/>
         [Obsolete("use IOPath.AppDataDirectory", true)]
         public static string AppDataDirectory => IOPath.AppDataDirectory;
@@ -51,5 +59,6 @@ namespace System.Application
         /// <inheritdoc cref="Xamarin.Essentials.FileSystem.CacheDirectory"/>
         [Obsolete("use IOPath.CacheDirectory", true)]
         public static string CacheDirectory => IOPath.CacheDirectory;
+#endif
     }
 }

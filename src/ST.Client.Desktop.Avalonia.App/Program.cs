@@ -25,7 +25,11 @@ namespace System.Application.UI
 #if WINDOWS_DESKTOP_BRIDGE
             if (!DesktopBridgeHelper2.Init()) return 0;
 #elif !__MOBILE__
+#if MAC
+            FileSystemDesktopMac.InitFileSystem();
+#else
             FileSystemDesktop.InitFileSystem();
+#endif
 #endif
 #if StartupTrace
             StartupTrace.Restart();
