@@ -321,9 +321,9 @@ namespace System.Application.Services.Implementation
             proxyServer.CertificateManager.TrustRootCertificate();
 
             proxyServer.CertificateManager.EnsureRootCertificate();
-            if (DI.Platform == Platform.Apple)
+            if (DI.IsmacOS)
             {
-                //DI.Get<IDesktopPlatformService>().AdminShell($"sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain {filePath}");
+                IPlatformService.Instance.AdminShell($"sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain {filePath}");
             }
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }

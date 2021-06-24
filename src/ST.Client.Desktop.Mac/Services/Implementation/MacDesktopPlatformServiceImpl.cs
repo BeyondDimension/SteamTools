@@ -21,7 +21,7 @@ namespace System.Application.Services.Implementation
         {
             return string.Empty;
         }
-        bool IDesktopPlatformService.AdminShell(string shell)
+        bool IPlatformService.AdminShell(string shell)
         {
             var edithost = new NSAppleScript($"do shell script \"'${shell}'\" with administrator privileges");
             return edithost.Compiled;

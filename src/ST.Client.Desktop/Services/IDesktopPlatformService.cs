@@ -46,7 +46,6 @@ namespace System.Application.Services
         void OpenProcess(string name, string arguments) => Process.Start(name, arguments);
 
         void OpenProcess(string name) => Process.Start(name);
-        bool AdminShell(string name);
         /// <summary>
         /// 使用文本阅读器打开文件
         /// </summary>
