@@ -20,7 +20,9 @@ namespace Microsoft.Extensions.DependencyInjection
             if (DI.Platform == Platform.Windows)
             {
                 services.AddSingleton<IHttpPlatformHelper, PlatformHttpPlatformHelper>();
-                services.AddSingleton<IDesktopPlatformService, WindowsDesktopPlatformServiceImpl>();
+                services.AddSingleton<WindowsDesktopPlatformServiceImpl>();
+                services.AddSingleton<IPlatformService>(s => s.GetRequiredService<WindowsDesktopPlatformServiceImpl>());
+                services.AddSingleton<IDesktopPlatformService>(s => s.GetRequiredService<WindowsDesktopPlatformServiceImpl>());
                 if (hasSteam)
                 {
                     services.AddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();

@@ -8,11 +8,11 @@ using System.Windows;
 
 namespace System.Application.Services
 {
-    public interface IDesktopPlatformService
+    public interface IDesktopPlatformService : IPlatformService
     {
-        protected const string TAG = "DesktopPlatformS";
+        protected new const string TAG = "DesktopPlatformS";
 
-        public static IDesktopPlatformService Instance => DI.Get<IDesktopPlatformService>();
+        public new static IDesktopPlatformService Instance => DI.Get<IDesktopPlatformService>();
 
         void SetResizeMode(IntPtr hWnd, ResizeModeCompat value);
 

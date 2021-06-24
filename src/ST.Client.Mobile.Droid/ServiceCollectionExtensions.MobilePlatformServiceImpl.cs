@@ -13,7 +13,9 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddMobilePlatformService(this IServiceCollection services)
         {
-            services.AddSingleton<IMobilePlatformService, MobilePlatformServiceImpl>();
+            services.AddSingleton<MobilePlatformServiceImpl>();
+            services.AddSingleton<IPlatformService>(s => s.GetRequiredService<MobilePlatformServiceImpl>());
+            services.AddSingleton<IMobilePlatformService>(s => s.GetRequiredService<MobilePlatformServiceImpl>());
             return services;
         }
     }

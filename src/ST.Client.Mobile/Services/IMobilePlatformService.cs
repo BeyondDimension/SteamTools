@@ -1,10 +1,10 @@
 namespace System.Application.Services
 {
-    public interface IMobilePlatformService
+    public interface IMobilePlatformService : IPlatformService
     {
-        protected const string TAG = "MobilePlatformS";
+        protected new const string TAG = "MobilePlatformS";
 
-        public static IMobilePlatformService Instance => DI.Get<IMobilePlatformService>();
+        public new static IMobilePlatformService Instance => DI.Get<IMobilePlatformService>();
 
         /// <summary>
         /// 获取当前平台 UI Host

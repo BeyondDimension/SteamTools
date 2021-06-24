@@ -15,7 +15,9 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 services.AddSingleton<IHttpPlatformHelper, PlatformHttpPlatformHelper>();
                 services.AddSingleton<AppDelegate>();
-                services.AddSingleton<IDesktopPlatformService, MacDesktopPlatformServiceImpl>();
+                services.AddSingleton<MacDesktopPlatformServiceImpl>();
+                services.AddSingleton<IPlatformService>(s => s.GetRequiredService<MacDesktopPlatformServiceImpl>());
+                services.AddSingleton<IDesktopPlatformService>(s => s.GetRequiredService<MacDesktopPlatformServiceImpl>());
                 services.AddSingleton<ISystemJumpListService, SystemJumpListServiceImpl>();
             }
             else

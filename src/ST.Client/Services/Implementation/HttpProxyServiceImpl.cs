@@ -618,7 +618,7 @@ namespace System.Application.Services.Implementation
                 return false;
             if (certificate2.NotAfter <= DateTime.Now)
                 return false;
-            using var store = new X509Store(DI.Platform==Platform.Apple ? StoreName.My:StoreName.Root, StoreLocation.CurrentUser);
+            using var store = new X509Store(DI.Platform == Platform.Apple ? StoreName.My : StoreName.Root, StoreLocation.CurrentUser);
             store.Open(OpenFlags.MaxAllowed);
             return store.Certificates.Contains(certificate2);
         }
