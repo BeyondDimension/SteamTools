@@ -21,7 +21,20 @@ namespace System.Application.Services.Implementation
         {
             return string.Empty;
         }
-
+        public void Install() {
+            if (DI.Platform == Platform.Apple)
+            { 
+                NSAppleScript 
+                //var pInfo = new ProcessStartInfo
+                //{
+                //    FileName = "sudo",
+                //    Arguments = $"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain {filePath}",
+                //};
+                //pInfo.UseShellExecute = true;
+                //var p = Process.Start(pInfo);
+                //p.Close();
+            }
+        }
         void IDesktopPlatformService.StartProcess(string name, string filePath)
         {
             var pInfo = new ProcessStartInfo
@@ -67,7 +80,7 @@ namespace System.Application.Services.Implementation
         }
 
         public void OpenFolder(string dirPath)
-        {
+        { 
 
         }
 
