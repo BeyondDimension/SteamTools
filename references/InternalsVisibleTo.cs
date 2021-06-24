@@ -1,0 +1,6 @@
+using System.Runtime.CompilerServices;
+using static System.Properties.ThisAssembly;
+
+[assembly: InternalsVisibleTo("System.Application.SteamTools.Client" + PublicKey)]
+[assembly: InternalsVisibleTo("System.Application.SteamTools.Client.Mobile" + PublicKey)]
+[assembly: InternalsVisibleTo("System.Application.SteamTools.Client.Desktop" + PublicKey)]
