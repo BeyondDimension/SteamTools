@@ -41,11 +41,11 @@ jobs:
       
     - name: dotnet restore SteamToolsV2+.Linux.sln
       if: matrix.os == 'ubuntu-latest'
-      run: dotnet restore ./SteamToolsV2+.Linux.sln
+      run: dotnet restore ./SteamToolsV2+.Linux.slnf
       
     - name: dotnet restore SteamToolsV2+.Mac.sln
       if: matrix.os == 'macOS-latest'
-      run: dotnet restore ./SteamToolsV2+.Mac.sln
+      run: dotnet restore ./SteamToolsV2+.Mac.slnf
       
     - name: dotnet AvaloniaApp build
       run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Desktop.Avalonia.App.csproj
