@@ -25,6 +25,8 @@
                 android:layout_width="@dimen/logo_size"
                 android:layout_height="@dimen/logo_size"
                 android:layout_marginTop="26dp"
+                android:clickable="true"
+                android:focusable="true"
                 app:srcCompat="@drawable/logo"
                 xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 

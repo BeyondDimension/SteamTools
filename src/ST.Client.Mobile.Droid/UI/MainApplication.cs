@@ -53,6 +53,7 @@ namespace System.Application.UI
                     enableEmulator: _ThisAssembly.Debuggable,
                     allowXposed: true,
                     allowRoot: true);
+                AndroidROM.Initialize();
                 XEVersionTracking.Track();
             }
 

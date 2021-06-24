@@ -19,7 +19,7 @@ namespace System.Application.UI.ViewModels
 
             preferenceButtons = new()
             {
-                PreferenceButtonViewModel.Create(PreferenceButton.EditProfile, this),
+                PreferenceButtonViewModel.Create(PreferenceButton.UserProfile, this),
                 PreferenceButtonViewModel.Create(PreferenceButton.BindPhoneNumber, this),
                 PreferenceButtonViewModel.Create(PreferenceButton.Settings, this, 1),
                 PreferenceButtonViewModel.Create(PreferenceButton.About, this, 1),
@@ -98,7 +98,7 @@ namespace System.Application.UI.ViewModels
         /// </summary>
         public enum PreferenceButton
         {
-            EditProfile = 1,
+            UserProfile = 1,
             BindPhoneNumber,
             ChangePhoneNumber,
             Settings,
@@ -120,7 +120,7 @@ namespace System.Application.UI.ViewModels
             {
                 var title = id switch
                 {
-                    PreferenceButton.EditProfile => AppResources.User_EditProfile,
+                    PreferenceButton.UserProfile => AppResources.UserProfile,
                     PreferenceButton.BindPhoneNumber => AppResources.User_BindPhoneNum,
                     PreferenceButton.ChangePhoneNumber => AppResources.User_ChangePhoneNum,
                     PreferenceButton.Settings => AppResources.Settings,
@@ -134,7 +134,7 @@ namespace System.Application.UI.ViewModels
             {
                 var icon = id switch
                 {
-                    PreferenceButton.EditProfile => ResIcon.baseline_account_box_black_24,
+                    PreferenceButton.UserProfile => ResIcon.baseline_account_box_black_24,
                     PreferenceButton.BindPhoneNumber => ResIcon.baseline_phone_black_24,
                     PreferenceButton.ChangePhoneNumber => ResIcon.baseline_phone_black_24,
                     PreferenceButton.Settings => ResIcon.baseline_settings_black_24,
@@ -160,7 +160,7 @@ namespace System.Application.UI.ViewModels
             [Obsolete("未登录时不隐藏选项，点击相关选项跳转登录", true)]
             public static void RemoveAuthorized(ICollection<PreferenceButtonViewModel> collection, IDisposableHolder vm)
             {
-                var removeArray = collection.Where(x => IsPhoneNumber(x.Id) || x.Id == PreferenceButton.EditProfile).ToArray();
+                var removeArray = collection.Where(x => IsPhoneNumber(x.Id) || x.Id == PreferenceButton.UserProfile).ToArray();
                 Array.ForEach(removeArray, x =>
                 {
                     collection.Remove(x);
@@ -196,7 +196,7 @@ namespace System.Application.UI.ViewModels
             {
                 var r = id switch
                 {
-                    PreferenceButton.EditProfile or
+                    PreferenceButton.UserProfile or
                     PreferenceButton.BindPhoneNumber or
                     PreferenceButton.ChangePhoneNumber => true,
                     _ => false,

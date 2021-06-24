@@ -1,7 +1,8 @@
-﻿using Android.OS;
+using Android.OS;
 using Java.Lang;
 using System.Collections.Generic;
 using System.Linq;
+using StringBuilder = System.Text.StringBuilder;
 
 namespace System
 {
@@ -40,6 +41,15 @@ namespace System
             {
                 if (HasVersionString) return $"{Type} {VersionString}";
                 return Type.ToString();
+            }
+
+            public void ToString(StringBuilder b)
+            {
+                if (HasVersionString)
+                {
+                    b.AppendFormat("{0} {1}", Type, VersionString);
+                }
+                if (Type != AndroidROMType.Unknown) b.Append(Type.ToString());
             }
 
             public static Info Unknown { get; } = new Info(AndroidROMType.Unknown, null);

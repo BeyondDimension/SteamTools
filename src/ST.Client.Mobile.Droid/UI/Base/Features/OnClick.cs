@@ -60,7 +60,7 @@ namespace System.Application.UI.Activities
         /// 控件的点击事件
         /// </summary>
         /// <param name="view"></param>
-        protected virtual void OnClick(View? view)
+        protected virtual void OnClick(View view)
         {
         }
 

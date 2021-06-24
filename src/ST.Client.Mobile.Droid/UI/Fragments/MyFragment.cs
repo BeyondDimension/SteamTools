@@ -39,7 +39,7 @@ namespace System.Application.UI.Fragments
 
                 var activityType = e.Current.Id switch
                 {
-                    PreferenceButton.EditProfile => typeof(EditProfileActivity),
+                    PreferenceButton.UserProfile => typeof(UserProfileActivity),
                     PreferenceButton.BindPhoneNumber => typeof(BindPhoneNumberActivity),
                     PreferenceButton.ChangePhoneNumber => typeof(ChangePhoneNumberActivity),
                     PreferenceButton.Settings => typeof(SettingsActivity),

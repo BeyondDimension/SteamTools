@@ -19,7 +19,7 @@ namespace System.Application.Security
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        static bool IsCompatiblePC(Context context)
+        public static bool IsCompatiblePC(Context context)
         {
             const string ARC_DEVICE_PATTERN = ".+_cheets|cheets_.+";
             var device = Build.Device;

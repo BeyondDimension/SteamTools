@@ -2,9 +2,9 @@
   <!--<Project Sdk="MSBuild.Sdk.Extras">-->
 
   <PropertyGroup>
-    <!--<TargetFramework>net6.0-macos</TargetFramework>-->
+    <TargetFramework>net6.0-macos</TargetFramework>
     <!--<TargetFrameworks>Xamarin.Mac20;net5.0</TargetFrameworks>-->
-    <TargetFramework>net6.0</TargetFramework>
+    <!--<TargetFramework>net6.0</TargetFramework>-->
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Desktop.Mac</AssemblyName>
   </PropertyGroup>
@@ -20,7 +20,7 @@
     </AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>-->
 
-  <PropertyGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) ">
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) OR $(TargetFramework.EndsWith('-macos'))">
     <DefineConstants>XAMARIN_MAC;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
@@ -47,9 +47,9 @@
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) ">
-    <PackageReference Include="nor0x.AppCenter" Version="4.1.0.1-XMAC" />
-    <PackageReference Include="nor0x.AppCenter.Analytics" Version="4.1.0.1-XMAC" />
-    <PackageReference Include="nor0x.AppCenter.Crashes" Version="4.1.0.1-XMAC" />
+    <PackageReference Include="nor0x.AppCenter" Version="4.2.0-XMAC" />
+    <PackageReference Include="nor0x.AppCenter.Analytics" Version="4.2.0-XMAC" />
+    <PackageReference Include="nor0x.AppCenter.Crashes" Version="4.2.0-XMAC" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) OR $(TargetFramework.StartsWith('net5'))  OR $(TargetFramework.EndsWith('net6.0')) ">

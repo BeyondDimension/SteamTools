@@ -41,11 +41,13 @@ namespace System.Application.Services.Implementation
                 Action<AlertDialog>? CreateMessageBoxDialogWindow(MaterialAlertDialogBuilder b)
                 {
                     SetConfirmButton(b);
-                    SetCancelButton(b);
+                    var isCancelcBtn = false;
                     if (viewModel is MessageBoxWindowViewModel viewModel_mb)
                     {
                         b.SetMessage(viewModel_mb.Content);
+                        isCancelcBtn = viewModel_mb.IsCancelcBtn;
                     }
+                    if (isCancelcBtn) SetCancelButton(b);
                     return null;
                 }
                 Action<AlertDialog>? CreatePasswordDialogWindow(MaterialAlertDialogBuilder b)
