@@ -56,21 +56,21 @@
 	- Windows 7 SP1 [ESU](https://docs.microsoft.com/zh-cn/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
 		- 先决条件
 		- KB3063858 [64 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47442) / [32 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47409)
-	- macOS 10.13 High Sierra 或更高版本
+	- macOS 10.14 Mojave 或更高版本
 	- Linux 发行版
 		- Arch Linux
-		- Alpine Linux 3.11+
+		- Alpine Linux 3.13+
 		- CentOS 7+
-		- Debian 9+
+		- Debian 10+
 		- Deepin 20.1 / UOS 20
 		- Fedora 32+
 		- Linux Mint 18+
 		- openSUSE 15+
 		- Red Hat Enterprise Linux 7+
 		- SUSE Enterprise Linux (SLES) 12 SP2+
-		- Ubuntu 20.10, 20.04, 18.04, 16.04
+		- Ubuntu 16.04, 18.04, 20.04+
 - 移动端
-	- Android 5.0+ (仅支持 [ARM64/arm64-v8a](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#arm64-v8a) 和 [ARM/armeabiv-v7a](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#v7a))
+	- Android 5.0/API 21+ (仅支持 [arm64-v8a](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#arm64-v8a) 和 [armeabiv-v7a](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#v7a))
 	- iOS 10.0+ (仅支持 ARM64)
 
 ## ⛔ 不受支持的操作系统

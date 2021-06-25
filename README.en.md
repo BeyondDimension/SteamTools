@@ -47,21 +47,21 @@ English | [简体中文](./README.md)
 	- Windows 7 SP1 [ESU](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
 		- Prerequisites
 		- KB3063858 [64 bit](https://www.microsoft.com/download/details.aspx?id=47442) / [32 bit](https://www.microsoft.com/download/details.aspx?id=47409)
-	- macOS 10.13 High Sierra Or Higher
+	- macOS 10.14 Mojave Or Higher
 	- Linux Distribution
 		- Arch Linux
-		- Alpine Linux 3.11+
+		- Alpine Linux 3.13+
 		- CentOS 7+
-		- Debian 9+
+		- Debian 10+
 		- Deepin 20.1 / UOS 20
 		- Fedora 32+
 		- Linux Mint 18+
 		- openSUSE 15+
 		- Red Hat Enterprise Linux 7+
 		- SUSE Enterprise Linux (SLES) 12 SP2+
-		- Ubuntu 20.10, 20.04, 18.04, 16.04
+		- Ubuntu 16.04, 18.04, 20.04+
 - Mobile
-	- Android 5.0+ (Only [ARM64/arm64-v8a](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#arm64-v8a) and [ARM/armeabiv-v7a](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#v7a) are supported)
+	- Android 5.0/API 21+ (Only [arm64-v8a](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#arm64-v8a) and [armeabiv-v7a](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#v7a) are supported)
 	- iOS 10.0+ (ARM64 only)
 
 ## ⛔ Unsupported Operating System
