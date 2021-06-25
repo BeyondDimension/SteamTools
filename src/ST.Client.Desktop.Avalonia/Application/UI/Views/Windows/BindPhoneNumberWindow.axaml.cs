@@ -44,12 +44,18 @@ namespace System.Application.UI.Views.Windows
             if (DataContext is BindPhoneNumberWindowViewModel vm)
             {
                 vm.Close = Close;
+                vm.TbPhoneNumberFocus = TbPhoneNumber.Focus;
+                vm.TbSmsCodeFocus = TbSmsCode.Focus;
             }
         }
 
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+            if (DataContext is BindPhoneNumberWindowViewModel vm)
+            {
+                vm.RemoveAllDelegate();
+            }
             if (DataContext is IDisposable disposable)
             {
                 disposable.Dispose();

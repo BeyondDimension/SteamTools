@@ -123,6 +123,12 @@
   <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
     <value>登录凭证失效，请重新登录</value>
   </data>
+  <data name="ClientError_" xml:space="preserve">
+    <value>客户端错误 {0}</value>
+  </data>
+  <data name="ClientError__" xml:space="preserve">
+    <value>客户端错误 {0} - {1}</value>
+  </data>
   <data name="IsNotOfficialChannelPackageWarning" xml:space="preserve">
     <value>当前运行的程序不是来自官方渠道</value>
   </data>

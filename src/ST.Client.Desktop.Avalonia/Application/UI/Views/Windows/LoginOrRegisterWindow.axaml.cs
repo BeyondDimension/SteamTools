@@ -56,6 +56,10 @@ namespace System.Application.UI.Views.Windows
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+            if (DataContext is LoginOrRegisterWindowViewModel vm)
+            {
+                vm.RemoveAllDelegate();
+            }
             if (DataContext is IDisposable disposable)
             {
                 disposable.Dispose();

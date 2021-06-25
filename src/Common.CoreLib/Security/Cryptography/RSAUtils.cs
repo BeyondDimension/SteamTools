@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 
@@ -137,10 +137,43 @@ namespace System.Security.Cryptography
 
         #endregion
 
+        #region Padding
+
         /// <summary>
         /// RSA 填充，不可更改此值！
         /// </summary>
+        [Obsolete]
         internal static RSAEncryptionPadding Padding => RSAEncryptionPadding.OaepSHA256;
+
+        public static RSAEncryptionPadding CreateOaep(string oaepHashAlgorithmName)
+        {
+            try
+            {
+                var hashAlgorithm = new HashAlgorithmName(oaepHashAlgorithmName);
+                return RSAEncryptionPadding.CreateOaep(hashAlgorithm);
+            }
+            catch
+            {
+                return Padding;
+            }
+        }
+
+        public static RSAEncryptionPadding DefaultPadding
+        {
+            get
+            {
+                if (DI.IsRunningOnMono)
+                {
+                    return RSAEncryptionPadding.OaepSHA1;
+                }
+                else
+                {
+                    return RSAEncryptionPadding.OaepSHA256;
+                }
+            }
+        }
+
+        #endregion
 
         #region 加密(Encrypt)
 
@@ -150,6 +183,7 @@ namespace System.Security.Cryptography
         /// <param name="rsa"></param>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Obsolete()]
         public static byte[] Encrypt(this RSA rsa, byte[] data) => rsa.Encrypt(data, Padding);
 
         /// <summary>
@@ -157,11 +191,13 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="rsa"></param>
         /// <param name="data"></param>
+        /// <param name="padding"></param>
         /// <returns></returns>
-        public static byte[]? Encrypt_Nullable(this RSA rsa, byte[]? data)
+        public static byte[]? Encrypt_Nullable(this RSA rsa, byte[]? data, RSAEncryptionPadding? padding = null)
         {
             if (data == default) return default;
-            return Encrypt(rsa, data);
+            padding ??= DefaultPadding;
+            return rsa.Encrypt(data, padding);
         }
 
         /// <summary>
@@ -169,11 +205,13 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="rsa"></param>
         /// <param name="text"></param>
+        /// <param name="padding"></param>
         /// <returns></returns>
-        public static byte[] EncryptToByteArray(this RSA rsa, string text)
+        public static byte[] EncryptToByteArray(this RSA rsa, string text, RSAEncryptionPadding? padding = null)
         {
             var data = Encoding.UTF8.GetBytes(text);
-            return Encrypt(rsa, data);
+            padding ??= DefaultPadding;
+            return rsa.Encrypt(data, padding);
         }
 
         /// <summary>
@@ -181,11 +219,12 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="rsa"></param>
         /// <param name="text"></param>
+        /// <param name="padding"></param>
         /// <returns></returns>
-        public static byte[]? EncryptToByteArray_Nullable(this RSA rsa, string? text)
+        public static byte[]? EncryptToByteArray_Nullable(this RSA rsa, string? text, RSAEncryptionPadding? padding = null)
         {
             if (text == default) return default;
-            return EncryptToByteArray(rsa, text);
+            return EncryptToByteArray(rsa, text, padding);
         }
 
         /// <summary>
@@ -193,10 +232,11 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="rsa"></param>
         /// <param name="text"></param>
+        /// <param name="padding"></param>
         /// <returns></returns>
-        public static string Encrypt(this RSA rsa, string text)
+        public static string Encrypt(this RSA rsa, string text, RSAEncryptionPadding? padding = null)
         {
-            var bytes = EncryptToByteArray(rsa, text);
+            var bytes = EncryptToByteArray(rsa, text, padding);
             return bytes.Base64UrlEncode();
         }
 
@@ -205,11 +245,12 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="rsa"></param>
         /// <param name="text"></param>
+        /// <param name="padding"></param>
         /// <returns></returns>
-        public static string? Encrypt_Nullable(this RSA rsa, string? text)
+        public static string? Encrypt_Nullable(this RSA rsa, string? text, RSAEncryptionPadding? padding = null)
         {
             if (text == default) return default;
-            return Encrypt(rsa, text);
+            return Encrypt(rsa, text, padding);
         }
 
         /// <summary>
@@ -217,10 +258,11 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="rsa"></param>
         /// <param name="data"></param>
+        /// <param name="padding"></param>
         /// <returns></returns>
-        public static string EncryptToString(this RSA rsa, byte[] data)
+        public static string EncryptToString(this RSA rsa, byte[] data, RSAEncryptionPadding? padding = null)
         {
-            var bytes = Encrypt(rsa, data);
+            var bytes = rsa.Encrypt(data, padding);
             return bytes.Base64UrlEncode();
         }
 
@@ -229,11 +271,12 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="rsa"></param>
         /// <param name="data"></param>
+        /// <param name="padding"></param>
         /// <returns></returns>
-        public static string? EncryptToString_Nullable(this RSA rsa, byte[]? data)
+        public static string? EncryptToString_Nullable(this RSA rsa, byte[]? data, RSAEncryptionPadding? padding = null)
         {
             if (data == default) return default;
-            return EncryptToString(rsa, data);
+            return EncryptToString(rsa, data, padding);
         }
 
         #endregion
@@ -246,6 +289,7 @@ namespace System.Security.Cryptography
         /// <param name="rsa"></param>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Obsolete]
         public static byte[] Decrypt(this RSA rsa, byte[] data) => rsa.Decrypt(data, Padding);
 
         /// <summary>
@@ -253,11 +297,13 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="rsa"></param>
         /// <param name="data"></param>
+        /// <param name="padding"></param>
         /// <returns></returns>
-        public static byte[]? Decrypt_Nullable(this RSA rsa, byte[]? data)
+        public static byte[]? Decrypt_Nullable(this RSA rsa, byte[]? data, RSAEncryptionPadding? padding = null)
         {
             if (data == default) return default;
-            return Decrypt(rsa, data);
+            padding ??= DefaultPadding;
+            return rsa.Decrypt(data, padding);
         }
 
         /// <summary>
@@ -265,11 +311,13 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="rsa"></param>
         /// <param name="text"></param>
+        /// <param name="padding"></param>
         /// <returns></returns>
-        public static byte[] DecryptToByteArray(this RSA rsa, string text)
+        public static byte[] DecryptToByteArray(this RSA rsa, string text, RSAEncryptionPadding? padding = null)
         {
             var bytes = text.Base64UrlDecodeToByteArray();
-            return Decrypt(rsa, bytes);
+            padding ??= DefaultPadding;
+            return rsa.Decrypt(bytes, padding);
         }
 
         /// <summary>
@@ -277,11 +325,12 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="rsa"></param>
         /// <param name="text"></param>
+        /// <param name="padding"></param>
         /// <returns></returns>
-        public static byte[]? DecryptToByteArray_Nullable(this RSA rsa, string? text)
+        public static byte[]? DecryptToByteArray_Nullable(this RSA rsa, string? text, RSAEncryptionPadding? padding = null)
         {
             if (text == default) return default;
-            return DecryptToByteArray(rsa, text);
+            return DecryptToByteArray(rsa, text, padding);
         }
 
         /// <summary>
@@ -289,10 +338,12 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="rsa"></param>
         /// <param name="data"></param>
+        /// <param name="padding"></param>
         /// <returns></returns>
-        public static string DecryptToString(this RSA rsa, byte[] data)
+        public static string DecryptToString(this RSA rsa, byte[] data, RSAEncryptionPadding? padding = null)
         {
-            var bytes = Decrypt(rsa, data);
+            padding ??= DefaultPadding;
+            var bytes = rsa.Decrypt(data, padding);
             return Encoding.UTF8.GetString(bytes);
         }
 
@@ -301,11 +352,12 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="rsa"></param>
         /// <param name="data"></param>
+        /// <param name="padding"></param>
         /// <returns></returns>
-        public static string? DecryptToString_Nullable(this RSA rsa, byte[]? data)
+        public static string? DecryptToString_Nullable(this RSA rsa, byte[]? data, RSAEncryptionPadding? padding = null)
         {
             if (data == default) return default;
-            return DecryptToString(rsa, data);
+            return DecryptToString(rsa, data, padding);
         }
 
         /// <summary>
@@ -313,10 +365,11 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="rsa"></param>
         /// <param name="text"></param>
+        /// <param name="padding"></param>
         /// <returns></returns>
-        public static string Decrypt(this RSA rsa, string text)
+        public static string Decrypt(this RSA rsa, string text, RSAEncryptionPadding? padding = null)
         {
-            var result = DecryptToByteArray(rsa, text);
+            var result = DecryptToByteArray(rsa, text, padding);
             return Encoding.UTF8.GetString(result);
         }
 
@@ -325,11 +378,12 @@ namespace System.Security.Cryptography
         /// </summary>
         /// <param name="rsa"></param>
         /// <param name="text"></param>
+        /// <param name="padding"></param>
         /// <returns></returns>
-        public static string? Decrypt_Nullable(this RSA rsa, string? text)
+        public static string? Decrypt_Nullable(this RSA rsa, string? text, RSAEncryptionPadding? padding = null)
         {
             if (text == default) return default;
-            return Decrypt(rsa, text);
+            return Decrypt(rsa, text, padding);
         }
 
         #endregion

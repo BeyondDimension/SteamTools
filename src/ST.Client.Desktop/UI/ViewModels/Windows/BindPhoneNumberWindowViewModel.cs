@@ -89,7 +89,7 @@ namespace System.Application.UI.ViewModels
             IsLoading = false;
         }
 
-        public Action? Close { get; set; }
+        public new Action? Close { get; set; }
 
         public Action? TbPhoneNumberFocus { get; set; }
 
@@ -97,22 +97,11 @@ namespace System.Application.UI.ViewModels
 
         public CancellationTokenSource? CTS { get; set; }
 
-        public async void SendSms()
+        public async void SendSms() => await this.SendSmsAsync(() => new()
         {
-            if (this.StartSendSmsTimer())
-            {
-                var request = new SendSmsRequest
-                {
-                    PhoneNumber = PhoneNumber,
-                    Type = SmsCodeType.BindPhoneNumber,
-                };
-
-#if DEBUG
-                var response =
-#endif
-                await this.SendSms(request);
-            }
-        }
+            PhoneNumber = PhoneNumber,
+            Type = SmsCodeType.BindPhoneNumber,
+        });
 
         protected override void Dispose(bool disposing)
         {
@@ -121,6 +110,14 @@ namespace System.Application.UI.ViewModels
                 CTS?.Cancel();
             }
             base.Dispose(disposing);
+        }
+
+        /// <inheritdoc cref="SendSmsUIHelper.RemoveAllDelegate(SendSmsUIHelper.IViewModel)"/>
+        public void RemoveAllDelegate()
+        {
+            Close = null;
+            SendSmsUIHelper.IViewModel i = this;
+            i.RemoveAllDelegate();
         }
     }
 }

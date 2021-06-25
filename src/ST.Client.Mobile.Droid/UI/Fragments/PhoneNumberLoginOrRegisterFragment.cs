@@ -20,6 +20,12 @@ namespace System.Application.UI.Fragments
         public override void OnCreateView(View view)
         {
             base.OnCreateView(view);
+
+            binding!.tbPhoneNumber.TextChanged += (_, _)
+                => ViewModel!.PhoneNumber = binding!.tbPhoneNumber.Text;
+            binding!.tbSmsCode.TextChanged += (_, _)
+                => ViewModel!.SmsCode = binding!.tbSmsCode.Text;
+
             OnCreateViewAsync();
 
             binding!.tvAgreementAndPrivacy.SetLinkMovementMethod();
@@ -57,26 +63,26 @@ namespace System.Application.UI.Fragments
                 binding.loading.Visibility = value ? ViewStates.Visible : ViewStates.Gone;
                 binding.content_group.Visibility = !value ? ViewStates.Visible : ViewStates.Gone;
             }).AddTo(this);
-            //ViewModel!.WhenAnyValue(x => x.IsUnTimeLimit).Subscribe(value =>
-            //{
-            //    if (binding == null) return;
-            //    //var p0 = ViewModel!.IsUnTimeLimit;
-            //    //var p1 = ViewModel.TimeLimit;
-            //    var enabled = !value;
-            //    if (binding.btnSendSms.Enabled != enabled)
-            //    {
-            //        binding.btnSendSms.Enabled = enabled;
-            //    }
-            //}).AddTo(this);
-            ViewModel!.OnIsUnTimeLimitChanged = () =>
+            ViewModel!.WhenAnyValue(x => x.IsUnTimeLimit).Subscribe(value =>
             {
                 if (binding == null) return;
-                var enabled = !ViewModel.IsUnTimeLimit;
+                //var p0 = ViewModel!.IsUnTimeLimit;
+                //var p1 = ViewModel.TimeLimit;
+                var enabled = !value;
                 if (binding.btnSendSms.Enabled != enabled)
                 {
                     binding.btnSendSms.Enabled = enabled;
                 }
-            };
+            }).AddTo(this);
+            //ViewModel!.OnIsUnTimeLimitChanged = () =>
+            //{
+            //    if (binding == null) return;
+            //    var enabled = !ViewModel.IsUnTimeLimit;
+            //    if (binding.btnSendSms.Enabled != enabled)
+            //    {
+            //        binding.btnSendSms.Enabled = enabled;
+            //    }
+            //};
             ViewModel!.WhenAnyValue(x => x.BtnSendSmsCodeText).Subscribe(value =>
             {
                 if (binding == null) return;
@@ -107,9 +113,7 @@ namespace System.Application.UI.Fragments
         {
             base.OnDestroyView();
 
-            ViewModel!.TbPhoneNumberFocus = null;
-            ViewModel!.TbSmsCodeFocus = null;
-            ViewModel!.OnIsUnTimeLimitChanged = null;
+            ViewModel?.RemoveAllDelegate();
         }
 
         protected override bool OnClick(View view)

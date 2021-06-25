@@ -96,9 +96,9 @@ namespace System.Application.UI.ViewModels
             {
                 this.RaiseAndSetIfChanged(ref _TimeLimit, value);
                 this.RaisePropertyChanged(nameof(IsUnTimeLimit));
-#if __MOBILE__
-                OnIsUnTimeLimitChanged?.Invoke();
-#endif
+//#if __MOBILE__
+//                OnIsUnTimeLimitChanged?.Invoke();
+//#endif
             }
         }
 
@@ -111,9 +111,9 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _BtnSendSmsCodeText, value);
         }
 
-#if __MOBILE__
-        public Action? OnIsUnTimeLimitChanged { get; set; }
-#endif
+//#if __MOBILE__
+//        public Action? OnIsUnTimeLimitChanged { get; set; }
+//#endif
 
         public bool IsUnTimeLimit => TimeLimit != SMSInterval;
 
@@ -184,7 +184,7 @@ namespace System.Application.UI.ViewModels
         }
 #endif
 
-        public Action? Close { get; set; }
+        public new Action? Close { get; set; }
 
         public Action? TbPhoneNumberFocus { get; set; }
 
@@ -194,19 +194,11 @@ namespace System.Application.UI.ViewModels
 
         public ICommand SendSms { get; }
 
-        async Task SendSmsAsync()
+        async Task SendSmsAsync() => await this.SendSmsAsync(() => new()
         {
-            if (this.StartSendSmsTimer())
-            {
-                var request = new SendSmsRequest
-                {
-                    PhoneNumber = PhoneNumber,
-                    Type = SmsCodeType.LoginOrRegister,
-                };
-
-                await this.SendSms(request);
-            }
-        }
+            PhoneNumber = PhoneNumber,
+            Type = SmsCodeType.LoginOrRegister,
+        });
 
         public ICommand OpenHyperlink { get; }
 
@@ -345,6 +337,14 @@ namespace System.Application.UI.ViewModels
                 r.OnBind(vm);
                 return r;
             }
+        }
+
+        /// <inheritdoc cref="SendSmsUIHelper.RemoveAllDelegate(SendSmsUIHelper.IViewModel)"/>
+        public void RemoveAllDelegate()
+        {
+            Close = null;
+            SendSmsUIHelper.IViewModel i = this;
+            i.RemoveAllDelegate();
         }
     }
 }
