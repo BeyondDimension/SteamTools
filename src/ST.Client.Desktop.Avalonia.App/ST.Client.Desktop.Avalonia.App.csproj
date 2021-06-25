@@ -91,9 +91,9 @@
     <ProjectReference Include="..\ST.Client.Desktop.Console.App\ST.Client.Desktop.Console.App.csproj" />
   </ItemGroup>
 
-    <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-        <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Desktop.Windows.csproj" />
-    </ItemGroup>
+  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+    <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Desktop.Windows.csproj" />
+  </ItemGroup>
 
   <!--<ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) And $(DefineConstants.Contains(`PUBLISH`)) ">
     <PackageReference Include="System.Reactive" Version="5.0.0.1-exclude-winforms"/>
@@ -137,12 +137,12 @@
       <Link>Steam++.VisualElementsManifest.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\Resources\AppIcon\VisualElements_150.png">
-      <Link>Assets\VisualElements_150.png</Link>
+    <None Include="..\..\Resources\AppIcon\VisualElements\SteamPlusPlus.70x70.contrast-standard_scale-180.png">
+      <Link>Assets\SteamPlusPlus.70x70.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\Resources\AppIcon\VisualElements_70.png">
-      <Link>Assets\VisualElements_70.png</Link>
+    <None Include="..\..\Resources\AppIcon\VisualElements\SteamPlusPlus.150x150.contrast-standard_scale-180.png">
+      <Link>Assets\SteamPlusPlus.150x150.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

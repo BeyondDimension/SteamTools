@@ -3,6 +3,7 @@ using Avalonia.Threading;
 using System.Application.Services;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.Threading.Tasks;
 using System.Windows;
 using AvaloniaApplication = Avalonia.Application;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
@@ -161,7 +162,7 @@ namespace System.Application.UI
                 var unlock_achievement = new Command("app", "打开成就解锁窗口");
                 unlock_achievement.AddOption(new Option<int>("-id", "指定一个Steam游戏Id"));
                 unlock_achievement.AddOption(new Option<bool>("-silence", "挂运行服务，不加载窗口，内存占用更小"));
-                unlock_achievement.Handler = CommandHandler.Create((int id, bool silence) =>
+                unlock_achievement.Handler = CommandHandler.Create(async (int id, bool silence) =>
                 {
                     try
                     {
@@ -176,9 +177,8 @@ namespace System.Application.UI
                         {
                             initStartup(DILevel.Steam);
                             SteamConnectService.Current.Initialize(id);
-                            var day = 86400000;
-                            while (true)
-                                Threading.Thread.Sleep(day);
+                            TaskCompletionSource tcs = new();
+                            await tcs.Task;
                         }
                     }
                     catch (Exception ex)

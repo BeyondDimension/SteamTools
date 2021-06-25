@@ -1,8 +1,8 @@
 <Application xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
   <VisualElements
       ShowNameOnSquare150x150Logo='on'
-      Square150x150Logo='Assets\VisualElements_150.png'
-      Square70x70Logo='Assets\VisualElements_70.png'
+      Square150x150Logo='Assets\SteamPlusPlus.150x150.png'
+      Square70x70Logo='Assets\SteamPlusPlus.70x70.png'
       ForegroundText='light'
       BackgroundColor='#000000'/>
 </Application>
