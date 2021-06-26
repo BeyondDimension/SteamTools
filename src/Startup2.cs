@@ -320,6 +320,9 @@ namespace System.Application
 
                 // ASF Service
                 services.AddArchiSteamFarmService();
+
+                // ASF Service
+                services.AddASFService();
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.Steam");
 #endif

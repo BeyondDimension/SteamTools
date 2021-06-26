@@ -409,7 +409,7 @@ namespace System.Application.Services
 
             AuthService.AddOrUpdateSaveAuthenticators(new GAPAuthenticatorDTO
             {
-                Name = name,
+                Name = string.IsNullOrEmpty(name) ? "Steam (" + auth.AccountName + ")" : name,
                 Value = auth,
             }, isLocal, password);
             return true;

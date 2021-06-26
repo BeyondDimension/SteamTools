@@ -6,7 +6,7 @@ namespace System.Application.UI.ViewModels
 {
     public class ArchiSteamFarmPlusPageViewModel : TabItemViewModel
     {
-        readonly IArchiSteamFarmService asfSerivce = DI.Get<IArchiSteamFarmService>();
+        readonly IASFService asfSerivce = DI.Get<IASFService>();
         public override string Name
         {
             get => AppResources.ArchiSteamFarmPlus;
@@ -29,14 +29,16 @@ namespace System.Application.UI.ViewModels
 
         public void RunOrStopASF()
         {
-            if (asfSerivce.IsArchiSteamFarmRuning)
-            {
-                asfSerivce.StopArchiSteamFarm();
-            }
-            else
-            {
-                asfSerivce.RunArchiSteamFarm();
-            }
+            //if (asfSerivce.IsArchiSteamFarmRuning)
+            //{
+            //    asfSerivce.StopArchiSteamFarm();
+            //}
+            //else
+            //{
+            //    asfSerivce.RunArchiSteamFarm();
+            //}
+
+            IArchiSteamFarmService.Instance.Start();
         }
 
     }

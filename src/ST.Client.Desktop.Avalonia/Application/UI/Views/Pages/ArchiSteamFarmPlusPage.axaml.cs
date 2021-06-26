@@ -29,7 +29,7 @@ namespace System.Application.UI.Views.Pages
         {
             if (e.Key == Avalonia.Input.Key.Enter && !string.IsNullOrEmpty(commandTextbox.Text))
             {
-                IArchiSteamFarmService.Instance.WirteLineCommand(commandTextbox.Text);
+                IASFService.Instance.WirteLineCommand(commandTextbox.Text);
                 commandTextbox.Text = "";
             }
         }
@@ -46,15 +46,15 @@ namespace System.Application.UI.Views.Pages
                 AllowMultiple = false,
             };
 
-            if (IArchiSteamFarmService.Instance.IsArchiSteamFarmExists)
+            if (IASFService.Instance.IsArchiSteamFarmExists)
             {
-                fileDialog.Directory = Path.GetDirectoryName(IArchiSteamFarmService.Instance.ArchiSteamFarmExePath);
+                fileDialog.Directory = Path.GetDirectoryName(IASFService.Instance.ArchiSteamFarmExePath);
             }
 
             var result = await fileDialog.ShowAsync(IDesktopAvaloniaAppService.Instance.MainWindow);
             if (result.Any_Nullable())
             {
-                IArchiSteamFarmService.Instance.SetArchiSteamFarmExePath(result[0]);
+                IASFService.Instance.SetArchiSteamFarmExePath(result[0]);
             }
         }
 

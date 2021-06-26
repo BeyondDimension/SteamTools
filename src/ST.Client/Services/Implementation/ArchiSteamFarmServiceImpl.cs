@@ -4,16 +4,18 @@ using System.Text;
 
 namespace System.Application.Services.Implementation
 {
-    public class ArchiSteamFarmServiceImpl
+    public class ArchiSteamFarmServiceImpl : IArchiSteamFarmService
     {
-        public void Init() 
+        public async void Start(string[]? args = null)
         {
-
-        }
-
-        public void Start()
-        {
-
+            try
+            {
+                await ArchiSteamFarm.Program.Init(args).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                Toast.Show(ex.Message);
+            }
         }
     }
 }

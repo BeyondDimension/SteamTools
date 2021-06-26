@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace System.Application.Services.Implementation
 {
-    internal sealed class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarmService
+    internal sealed class ASFServiceImpl : ReactiveObject, IASFService
     {
         readonly IDesktopPlatformService platformService;
         readonly IHttpService httpService;
@@ -81,7 +81,7 @@ namespace System.Application.Services.Implementation
             private set => this.RaiseAndSetIfChanged(ref _IPCUrl, value);
         }
 
-        public ArchiSteamFarmServiceImpl(IDesktopPlatformService platform, IHttpService http, ICloudServiceClient client)
+        public ASFServiceImpl(IDesktopPlatformService platform, IHttpService http, ICloudServiceClient client)
         {
             clientService = client;
             platformService = platform;

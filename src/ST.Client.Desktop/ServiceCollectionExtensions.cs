@@ -116,9 +116,9 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AddArchiSteamFarmService(this IServiceCollection services)
+        public static IServiceCollection AddASFService(this IServiceCollection services)
         {
-            services.AddSingleton<IArchiSteamFarmService, ArchiSteamFarmServiceImpl>();
+            services.AddSingleton<IASFService, ASFServiceImpl>();
             return services;
         }
     }
