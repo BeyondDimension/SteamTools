@@ -247,8 +247,13 @@ namespace System.Application.UI.ViewModels
         public static IReadOnlyList<IArea> Group2 => mGroup2.Value;
     }
 
+    partial class
 #if !__MOBILE__
-    partial class UserProfileWindowViewModel : AreaUIHelper.IViewModelField
+        UserProfileWindowViewModel
+#else
+        UserProfilePageViewModel
+#endif
+    : AreaUIHelper.IViewModelField
     {
         IReadOnlyList<IArea>? _AreaItems2;
         public IReadOnlyList<IArea>? AreaItems2
@@ -335,5 +340,4 @@ namespace System.Application.UI.ViewModels
             set => _AreaNotVisible4 = value;
         }
     }
-#endif
 }

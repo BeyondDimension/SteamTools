@@ -129,4 +129,7 @@
   <data name="Not_Installed_KB3063858" xml:space="preserve">
     <value>Due to the lack of necessary patch KB3063858 in the operating system, the program cannot run. Do you want to open the download address with a browser and install it manually?</value>
   </data>
+  <data name="ThisAppOnlySupport64BitOS" xml:space="preserve">
+    <value>This application only supports 64-bit operating systems</value>
+  </data>
 </root>

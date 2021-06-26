@@ -129,4 +129,7 @@
   <data name="Not_Installed_KB3063858" xml:space="preserve">
     <value>作業系統中缺少必要的補丁 KB3063858 導致程式無法運行，是否使用瀏覽器打開下載地址並手動安裝？</value>
   </data>
+  <data name="ThisAppOnlySupport64BitOS" xml:space="preserve">
+    <value>此應用僅支持 64 位操作系統</value>
+  </data>
 </root>

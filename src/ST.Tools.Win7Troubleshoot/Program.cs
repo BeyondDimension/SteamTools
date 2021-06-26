@@ -29,6 +29,8 @@ namespace System
         internal static readonly Process currentProcess = Process.GetCurrentProcess();
         internal static string thisFilePath = "";
         internal static string appFilePath = "";
+        internal const string binDirName = "bin";
+        internal const string win7MarkName = ".win7";
 
         /// <summary>
         /// 在浏览器中打开补丁KB3063858的下载地址

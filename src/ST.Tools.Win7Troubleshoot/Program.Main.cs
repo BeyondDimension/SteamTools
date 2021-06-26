@@ -1,5 +1,7 @@
-﻿using System;
+using System;
 using System.Application;
+using System.Diagnostics;
+using System.IO;
 using System.Properties;
 using System.Threading;
 using System.Windows.Forms;
@@ -15,9 +17,42 @@ var t = new Thread(() =>
             if (Environment.OSVersion.Platform != PlatformID.Win32NT)
                 throw new PlatformNotSupportedException();
 
-            FileSystemDesktop.InitFileSystem();
+            if (!EnvironmentEx.Is64BitOperatingSystem)
+            {
+                MessageBox.Show(
+                    SR.ThisAppOnlySupport64BitOS,
+                    SR.Error,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
 
             thisFilePath = currentProcess.MainModule.FileName;
+            var thisFileName = Path.GetFileName(thisFilePath);
+            var thisDirPath = Path.GetDirectoryName(thisFilePath);
+            var binFilePath = Path.Combine(Path.Combine(thisDirPath, binDirName), thisFileName);
+            if (File.Exists(binFilePath))
+            {
+                Process.Start(binFilePath);
+                return;
+            }
+            if (!thisFileName.ToLower().Contains(win7MarkName.ToLower()))
+            {
+                var thisParentDir = new DirectoryInfo(thisDirPath).Parent;
+                var thisParentDirName = thisParentDir.Name;
+                if (thisParentDirName.Equals(binDirName, StringComparison.OrdinalIgnoreCase))
+                {
+                    appFilePath = Path.Combine(thisParentDir.FullName, thisFileName);
+                    if (File.Exists(appFilePath))
+                    {
+                        Process.Start(appFilePath);
+                        return;
+                    }
+                }
+            }
+
+            FileSystemDesktop.InitFileSystem();
+
             //if (args.Length == 2 && string.Equals(args[0], "-start", StringComparison.OrdinalIgnoreCase) && string.Equals(args[1], "setup", StringComparison.OrdinalIgnoreCase)) // -start setup
             //{
             //    var fileName = $"setup.{(EnvironmentEx.Is64BitOperatingSystem ? "x64" : "x86")}.exe";
@@ -26,7 +61,7 @@ var t = new Thread(() =>
             //}
             //else
             //{
-            appFilePath = thisFilePath.Replace(".win7", string.Empty, StringComparison.OrdinalIgnoreCase);
+            appFilePath = thisFilePath.Replace(win7MarkName, string.Empty, StringComparison.OrdinalIgnoreCase);
             //}
 
             var isQuickStart = QuickStart(out var writeQuickStart);
