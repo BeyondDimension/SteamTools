@@ -26,6 +26,7 @@ namespace System.Application.UI
             if (!DesktopBridgeHelper2.Init()) return 0;
 #elif !__MOBILE__
 #if MAC
+            AppDelegateHelper.Init(args);
             FileSystemDesktopMac.InitFileSystem();
 #else
             FileSystemDesktop.InitFileSystem();

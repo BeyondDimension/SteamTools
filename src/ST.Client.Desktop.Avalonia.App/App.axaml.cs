@@ -207,9 +207,9 @@ namespace System.Application.UI
             // 在UI预览中，ApplicationLifetime 为 null
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-#if MAC
-                AppDelegate.Init();
-#endif
+//#if MAC
+//                AppDelegate.Init();
+//#endif
 
                 if (Program.IsMainProcess)
                 {

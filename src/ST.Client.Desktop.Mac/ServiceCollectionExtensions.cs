@@ -14,7 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
             if (DI.Platform == Platform.Apple)
             {
                 services.AddSingleton<IHttpPlatformHelper, PlatformHttpPlatformHelper>();
-                services.AddSingleton<AppDelegate>();
+                services.AddSingleton(AppDelegateHelper.Instance!);
                 services.AddSingleton<MacDesktopPlatformServiceImpl>();
                 services.AddSingleton<IPlatformService>(s => s.GetRequiredService<MacDesktopPlatformServiceImpl>());
                 services.AddSingleton<IDesktopPlatformService>(s => s.GetRequiredService<MacDesktopPlatformServiceImpl>());
