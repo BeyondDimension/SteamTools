@@ -180,7 +180,7 @@ namespace Avalonia.Controls
         }
 
         protected bool _isOpenWindow;
-        private void FluentWindow_Opened(object? sender, EventArgs e)
+        protected virtual void FluentWindow_Opened(object? sender, EventArgs e)
         {
             _isOpenWindow = true;
             if (this.DataContext is WindowViewModel vm)

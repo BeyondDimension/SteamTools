@@ -2,12 +2,13 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
 using CefNet.Avalonia;
 using System.Application.UI.Views.Controls;
 
 namespace System.Application.UI.Views.Pages
 {
-    public class DebugWebViewPage : UserControl, IDisposable
+    public class DebugWebViewPage : ReactiveUserControl<DebugWebViewPage>, IDisposable
     {
         readonly WebView3 webView;
         readonly TextBox urlTextBox;

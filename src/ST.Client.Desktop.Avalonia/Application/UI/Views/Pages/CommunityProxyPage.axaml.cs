@@ -4,11 +4,12 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Selection;
 using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
 using System.Application.UI.ViewModels;
 
 namespace System.Application.UI.Views.Pages
 {
-    public class CommunityProxyPage : UserControl
+    public class CommunityProxyPage : ReactiveUserControl<CommunityProxyPageViewModel>
     {
         //private ListBox _items;
         //private IScrollable _scroll;

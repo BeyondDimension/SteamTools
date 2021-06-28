@@ -27,9 +27,25 @@ namespace System.Application.UI.Views
                 _isOpenWindow = false;
                 e.Cancel = true;
                 Hide();
+
+                if (this.ViewModel is not null)
+                    foreach (var tab in this.ViewModel.TabItems)
+                    {
+                        tab.Deactivation();
+                    }
             }
 #endif
             base.OnClosed(e);
+        }
+
+        protected override void FluentWindow_Opened(object? sender, EventArgs e)
+        {
+            if (this.ViewModel is not null)
+                foreach (var tab in this.ViewModel.TabItems)
+                {
+                    tab.Activation();
+                }
+            base.FluentWindow_Opened(sender, e);
         }
 
         private void InitializeComponent()

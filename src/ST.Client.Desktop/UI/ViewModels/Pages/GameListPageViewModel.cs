@@ -150,7 +150,7 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> HideAppCommand { get; }
         public ReactiveCommand<Unit, Unit> IdleAppCommand { get; }
 
-        internal override void Activation()
+        public override void Activation()
         {
             if (IsFirstActivation)
             {

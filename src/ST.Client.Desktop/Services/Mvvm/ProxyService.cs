@@ -86,8 +86,10 @@ namespace System.Application.Services
             }
         }
 
-        private DateTime _AccelerateTime;
-        public DateTime AccelerateTime
+        private DateTimeOffset _StartAccelerateTime;
+
+        private DateTimeOffset _AccelerateTime;
+        public DateTimeOffset AccelerateTime
         {
             get => _AccelerateTime;
             set
@@ -99,6 +101,7 @@ namespace System.Application.Services
                 }
             }
         }
+
 
         public bool IsEnableScript
         {
@@ -224,7 +227,8 @@ namespace System.Application.Services
                                     }
                                 }
                             }
-                            StartTiming();
+                            _StartAccelerateTime = DateTimeOffset.Now;
+                            StartTimer();
                             Toast.Show(AppResources.CommunityFix_StartProxySuccess);
                         }
                         else
@@ -235,6 +239,7 @@ namespace System.Application.Services
                     else
                     {
                         httpProxyService.StopProxy();
+                        StopTimer();
                         void OnStopRemoveHostsByTag()
                         {
                             var needClear = IHostsFileService.Instance.ContainsHostsByTag();
@@ -416,18 +421,21 @@ namespace System.Application.Services
             }
         }
 
-        public void StartTiming()
+        private Timer timer;
+
+        public void StartTimer()
         {
-            AccelerateTime = new();
-            Task.Run(() =>
+            AccelerateTime = new DateTimeOffset().Add((DateTimeOffset.Now - _StartAccelerateTime));
+            timer = new Timer((state) =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                while (ProxyStatus)
-                {
-                    AccelerateTime = AccelerateTime.AddSeconds(1);
-                    Thread.Sleep(1000);
-                }
-            });
+                AccelerateTime = AccelerateTime.AddSeconds(1);
+            }, nameof(AccelerateTime), 1000, 1000);
+        }
+
+        public void StopTimer()
+        {
+            timer.Dispose();
         }
 
         public static void OnExitRestoreHosts()

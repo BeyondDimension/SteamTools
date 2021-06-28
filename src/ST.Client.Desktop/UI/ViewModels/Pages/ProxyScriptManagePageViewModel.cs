@@ -23,7 +23,7 @@ namespace System.Application.UI.ViewModels
             protected set { throw new NotImplementedException(); }
         }
 
-        internal override void Activation()
+        public override void Activation()
         {
             if (IsFirstActivation)
                 if (ProxySettings.IsAutoCheckScriptUpdate)
