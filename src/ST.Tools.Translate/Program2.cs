@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.CommandLine;
 using System.Linq;
@@ -6,6 +7,11 @@ using static System.Constants;
 
 try
 {
+    DI.Init(s =>
+    {
+        s.AddHttpClient();
+    });
+
     var rootCommand = new RootCommand(Title);
 
     var commands = Assembly.GetExecutingAssembly().GetTypes()

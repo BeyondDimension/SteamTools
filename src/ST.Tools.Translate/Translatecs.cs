@@ -1,4 +1,4 @@
-﻿// https://github.com/MicrosoftTranslator/Text-Translation-API-V3-C-Sharp/blob/master/Translate.cs
+// https://github.com/MicrosoftTranslator/Text-Translation-API-V3-C-Sharp/blob/master/Translate.cs
 using Newtonsoft.Json;
 using System.IO;
 using System.Net.Http;
@@ -61,7 +61,7 @@ namespace System
 
     public class Translatecs
     {
-        public static TranslatecsSettings Settings { private get; set; }
+        public static TranslatecsSettings Settings { internal get; set; }
 
         //const string region_var = "TRANSLATOR_SERVICE_REGION";
         static /*readonly*/ string region => Settings.Region;

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>Steam++.Translate</AssemblyName>
+    <AssemblyName>t</AssemblyName>
     <RootNamespace>System</RootNamespace>
     <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
   </PropertyGroup>

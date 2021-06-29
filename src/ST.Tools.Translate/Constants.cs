@@ -1,5 +1,9 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static System.ProjectPathUtil;
 
 namespace System
 {
@@ -20,18 +24,19 @@ namespace System
 
         public const string All = "all";
         public const char Separator = '-';
-        public const string Key = "键(Key)";
-        public const int KeyWidth = 30;
-        public const string Value = "值(Value)";
-        public const int ValueWidth = 40;
-        public const string Author = "作者(Author)";
-        public const string MachineTranslation = "机翻(Machine Translation)";
-        public const string HumanTranslation = "人工翻译(Human Translation)";
-        public const string MachineProofread = "机翻校对(Machine Proofread)";
+        public const string ColumnHeaderKey = "键(Key)";
+        public const int KeyWidth = 30 * 256;
+        public const string ColumnHeaderValue = "值(Value)";
+        public const int ValueWidth = 80 * 256;
+        public const string ColumnHeaderAuthor = "作者(Author)";
+        public const string AuthorKey = "Author";
+        public const string MicrosoftTranslator = "MicrosoftTranslator";
+        public const string ColumnHeaderMachineTranslation = "机翻(Machine Translation)";
+        public const string ColumnHeaderHumanTranslation = "人工翻译(Human Translation)";
+        public const string ColumnHeaderMachineProofread = "机翻校对(Machine Proofread)";
         public const string ResxDesc = "指定 resx 文件路径或项目名";
         public const string LangDesc = "指定要生成的语言，多选或单选，使用分号分割，all 表示全选";
 
-        const string AreaLib = "Common.AreaLib";
         const string ClientLibDroid = "Common.ClientLib.Droid";
         const string CoreLib = "Common.CoreLib";
         const string ST = "ST";
@@ -45,7 +50,6 @@ namespace System
         /// </summary>
         public static readonly string[] resxs = new[]
         {
-            AreaLib,
             ClientLibDroid,
             CoreLib,
             ST,
@@ -71,6 +75,8 @@ namespace System
             _ => throw new ArgumentOutOfRangeException(nameof(lang), lang, null),
         };
 
+        static string GetResxFilePathCore(params string[] dirs) => Path.Combine(projPath, "src") + Path.DirectorySeparatorChar + string.Join(Path.DirectorySeparatorChar, dirs);
+
         /// <summary>
         /// 根据[有 resx 文件的项目名]获取文件路径
         /// </summary>
@@ -78,14 +84,13 @@ namespace System
         /// <returns></returns>
         public static string GetResxFilePath(string resx) => resx switch
         {
-            AreaLib => "",
-            ClientLibDroid => "",
-            CoreLib => "",
-            ST => "",
-            STClient => "",
-            STClientDesktop => "",
-            STClientDesktop_AppResources => "",
-            STServicesCloudServiceModels => "",
+            ClientLibDroid => GetResxFilePathCore(new[] { resx, "Application", "Properties", "SR.resx" }),
+            CoreLib => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
+            ST => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
+            STClient => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
+            STClientDesktop => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
+            STClientDesktop_AppResources => GetResxFilePathCore(new[] { STClientDesktop, "UI", "Resx", "AppResources.resx" }),
+            STServicesCloudServiceModels => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
             _ => throw new ArgumentOutOfRangeException(nameof(resx), resx, null),
         };
 
@@ -95,7 +100,7 @@ namespace System
         /// <param name="args"></param>
         /// <param name="handler"></param>
         /// <returns></returns>
-        public static bool Validate((string resx, string lang) args, Action<(string resxFilePath, string lang)> handler)
+        public static async Task<bool> ValidateAsync((string resx, string lang) args, Func<(string resxFilePath, string lang), Task> handler)
         {
             if (string.IsNullOrWhiteSpace(args.resx))
             {
@@ -114,16 +119,16 @@ namespace System
                 {
                     args.resx = GetResxFilePath(resx);
                 }
-            }
-            if (!args.resx.EndsWith(".resx", StringComparison.OrdinalIgnoreCase))
-            {
-                Console.WriteLine("resx path incorrect.");
-                return false;
-            }
-            if (!File.Exists(args.resx))
-            {
-                Console.WriteLine("resx path not found.");
-                return false;
+                if (!args.resx.EndsWith(".resx", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("resx path incorrect.");
+                    return false;
+                }
+                if (!File.Exists(args.resx))
+                {
+                    Console.WriteLine("resx path not found.");
+                    return false;
+                }
             }
             if (string.IsNullOrWhiteSpace(args.lang))
             {
@@ -154,12 +159,12 @@ namespace System
                     {
                         foreach (var lang in langs)
                         {
-                            handler((resxFilePath, lang));
+                            await handler((GetResxFilePath(resxFilePath), lang));
                         }
                     }
                     else
                     {
-                        handler((resxFilePath, args.lang));
+                        await handler((GetResxFilePath(resxFilePath), args.lang));
                     }
                 }
             }
@@ -169,15 +174,140 @@ namespace System
                 {
                     foreach (var lang in langs)
                     {
-                        handler((args.resx, lang));
+                        await handler((args.resx, lang));
                     }
                 }
                 else
                 {
-                    handler((args.resx, args.lang));
+                    await handler((args.resx, args.lang));
                 }
             }
             return true;
+        }
+
+        const string DataXmlStart = "<data name=\"";
+        const string DataXmlEnd = "\" xml:space=\"preserve\">";
+        const string ValueXmlStart = "<value>";
+        const string ValueXmlEnd = "</value>";
+        const string CommentXmlStart = "<comment>";
+        const string CommentXmlEnd = "</comment>";
+
+        public static void AddOrReplace<TKey, TValue>(IDictionary<TKey, TValue> dict, TKey key, TValue value)
+        {
+            if (dict.ContainsKey(key))
+            {
+                dict[key] = value;
+            }
+            else
+            {
+                dict.Add(key, value);
+            }
+        }
+
+        static readonly string[] IgnoreKeys = new[]
+        {
+            "ProgramUpdateCmd_",
+            "VacFixCmd",
+        };
+
+        public static Dictionary<string, string> Deserialize(string comment)
+        {
+            if (string.IsNullOrWhiteSpace(comment))
+            {
+                return new Dictionary<string, string>
+                {
+                    { AuthorKey, MicrosoftTranslator },
+                };
+            }
+            else
+            {
+                var array = comment.Split(new char[] { '；', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                var dict = array.Select(x => x.Split('=', StringSplitOptions.RemoveEmptyEntries).Take(2).ToArray()).Where(x => x.Length == 2).ToDictionary(x => x[0], x => x[1]);
+                if (!dict.ContainsKey(AuthorKey))
+                {
+                    dict.Add(AuthorKey, MicrosoftTranslator);
+                }
+                return dict;
+            }
+        }
+
+        public static (StringBuilder start, StringBuilder end, Dictionary<string, (string value, string comment)> dict) GetResxDict(
+            string resxFilePath,
+            string[]? ignoreKeys = null,
+            bool ignoreStringBuilder = false)
+        {
+            ignoreKeys ??= IgnoreKeys;
+            Dictionary<string, (string value, string comment)> dict = new();
+            using var sr = File.OpenText(resxFilePath);
+            StringBuilder? start = ignoreStringBuilder ? null : new();
+            StringBuilder? end = ignoreStringBuilder ? null : new();
+            string? line;
+            string? key = null, value = "", comment = "";
+            int lineNum = 0;
+            StringBuilder? sb = start;
+            do
+            {
+                lineNum++;
+                line = sr.ReadLine();
+                if (line == null) break;
+                var lineTrim = line.Trim();
+                if (key != null)
+                {
+                    if (lineTrim.StartsWith(ValueXmlStart) && lineTrim.EndsWith(ValueXmlEnd))
+                    {
+                        value = line.Substring(ValueXmlStart, ValueXmlEnd);
+                        AddOrReplace(dict, key, (value, comment));
+                        continue;
+                    }
+                    else if (lineTrim.StartsWith(CommentXmlStart) && lineTrim.EndsWith(CommentXmlEnd))
+                    {
+                        comment = line.Substring(CommentXmlStart, CommentXmlEnd);
+                        AddOrReplace(dict, key, (value, comment));
+                        continue;
+                    }
+                }
+                if (lineTrim.StartsWith(DataXmlStart) && lineTrim.EndsWith(DataXmlEnd))
+                {
+                    key = lineTrim.Substring(DataXmlStart, DataXmlEnd);
+                    if (ignoreKeys.Contains(key))
+                    {
+                        key = null;
+                        goto while_end;
+                    }
+                    sb = end;
+                    continue;
+                }
+            while_end: sb?.AppendLine(line);
+            } while (true);
+            return (start!, end!, dict);
+        }
+
+        public const string to_ = "&to=";
+        public const string route = "https://api.translator.azure.cn/translate?api-version=3.0&from=zh-Hans";
+        public static void ReadAzureTranslationKey()
+        {
+            if (Translatecs.Settings != null) return;
+            var azure_translation_key = Path.Combine(projPath, "azure-translation-key.pfx");
+            if (!File.Exists(azure_translation_key)) throw new FileNotFoundException(azure_translation_key);
+            var text = File.ReadAllText(azure_translation_key);
+            var items = text.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            if (items.Length != 3) throw new ArgumentOutOfRangeException();
+            Translatecs.Settings = new TranslatecsSettings()
+            {
+                Key = items[0],
+                Endpoint = items[1],
+                Region = items[2],
+            };
+        }
+
+        public static string GetXlsxFilePath(string resxFilePathLang, string lang)
+        {
+            var path_r = Path.GetRelativePath(projPath, resxFilePathLang);
+            var fileName = path_r.Replace(Path.DirectorySeparatorChar, '_');
+            var dirPath = Path.Combine(AppContext.BaseDirectory, "Xlsx", lang);
+            IOPath.DirCreateByNotExists(dirPath);
+            var excelFilePath = Path.Combine(dirPath, fileName + ".xlsx");
+            return excelFilePath;
         }
     }
 }
