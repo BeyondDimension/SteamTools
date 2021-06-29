@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.ProjectPathUtil;
+using R = System.Properties.Resources;
 
 namespace System
 {
@@ -13,13 +14,16 @@ namespace System
 
         /// <summary>
         /// 支持的语言区域名
+        /// <para>https://docs.microsoft.com/zh-cn/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c</para>
         /// </summary>
         public static readonly string[] langs = new[] {
-            "zh-Hant",
-            "en",
-            "ko",
-            "ja",
-            "ru",
+            "zh-Hant", // 繁体中文(Traditional Chinese)
+            "en", // 英语(English)
+            "ko", // 韩语(Koreana)
+            "ja", // 日语(Japanese)
+            "ru", // 俄语(Russian)
+            "es", // 西班牙语(Spanish)
+            "it", // 意大利语(Italian)
         };
 
         public const string All = "all";
@@ -44,6 +48,7 @@ namespace System
         const string STClientDesktop = "ST.Client.Desktop";
         const string STClientDesktop_AppResources = "ST.Client.Desktop[AppResources]";
         const string STServicesCloudServiceModels = "ST.Services.CloudService.Models";
+        const string STToolsWin7Troubleshoot = "ST.Tools.Win7Troubleshoot";
 
         /// <summary>
         /// 有 resx 文件的项目名
@@ -57,22 +62,7 @@ namespace System
             STClientDesktop,
             STClientDesktop_AppResources,
             STServicesCloudServiceModels,
-        };
-
-        /// <summary>
-        /// 根据[支持的语言区域名]获取表头
-        /// </summary>
-        /// <param name="lang"></param>
-        /// <returns></returns>
-        public static string GetHeaderName(string lang) => lang switch
-        {
-            "zh-Hans" => "[zh-Hans]简体中文(Simplified Chinese)",
-            "zh-Hant" => "[zh-Hant]繁体中文(Traditional Chinese)",
-            "en" => "[en]英语(English)",
-            "ko" => "[ko]韩语(Koreana)",
-            "ja" => "[ja]日语(Japanese)",
-            "ru" => "[ru]俄语(Russian)",
-            _ => throw new ArgumentOutOfRangeException(nameof(lang), lang, null),
+            STToolsWin7Troubleshoot,
         };
 
         static string GetResxFilePathCore(params string[] dirs) => Path.Combine(projPath, "src") + Path.DirectorySeparatorChar + string.Join(Path.DirectorySeparatorChar, dirs);
@@ -91,6 +81,7 @@ namespace System
             STClientDesktop => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
             STClientDesktop_AppResources => GetResxFilePathCore(new[] { STClientDesktop, "UI", "Resx", "AppResources.resx" }),
             STServicesCloudServiceModels => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
+            STToolsWin7Troubleshoot => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
             _ => throw new ArgumentOutOfRangeException(nameof(resx), resx, null),
         };
 
@@ -308,6 +299,14 @@ namespace System
             IOPath.DirCreateByNotExists(dirPath);
             var excelFilePath = Path.Combine(dirPath, fileName + ".xlsx");
             return excelFilePath;
+        }
+
+        public static void ResxFileLangCreateByNotExists(string resxFilePathLang)
+        {
+            if (!File.Exists(resxFilePathLang))
+            {
+                File.WriteAllText(resxFilePathLang, R.Resx);
+            }
         }
     }
 }

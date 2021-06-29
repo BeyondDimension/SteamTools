@@ -37,6 +37,8 @@ namespace System.Application.UI.Resx
                 { "ko", "Koreana" },
                 { "ja", "Japanese" },
                 { "ru", "Russian" },
+                { "es", "Spanish" },
+                { "it", "Italian" },
             }.ToList();
             SteamLanguages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
@@ -47,6 +49,8 @@ namespace System.Application.UI.Resx
                 { "ko", "koreana" },
                 { "ja", "japanese" },
                 { "ru", "russian" },
+                { "es", "spanish" },
+                { "it", "italian" },
             };
             AppResources.Culture = DefaultCurrentUICulture;
         }

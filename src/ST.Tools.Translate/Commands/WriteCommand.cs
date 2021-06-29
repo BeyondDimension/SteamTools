@@ -31,11 +31,7 @@ namespace System.Commands
         static async Task WriteXlsxAsync((string resxFilePath, string lang) args)
         {
             var resxFilePathLang = args.resxFilePath.TrimEnd(".resx", StringComparison.OrdinalIgnoreCase) + $".{args.lang}.resx";
-            if (!File.Exists(resxFilePathLang))
-            {
-                Console.WriteLine($"Error: resx file not found, path: {resxFilePathLang}");
-                return;
-            }
+            ResxFileLangCreateByNotExists(resxFilePathLang);
 
             var resxFileDict = GetResxDict(args.resxFilePath, ignoreStringBuilder: true);
             if (!resxFileDict.dict.Any())
