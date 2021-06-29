@@ -4,24 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ArchiSteamFarm.Core;
+using ArchiSteamFarm.Storage;
+using ArchiSteamFarm.NLog.Targets;
 using ArchiSteamFarm.Steam;
+using NLog;
 
 namespace System.Application.Services.Implementation
 {
     public class ArchiSteamFarmServiceImpl : IArchiSteamFarmService
     {
-        public Func<string, Task<string?>>? GetConsoleWirteFunc { get; set; }
+        public Action<string>? GetConsoleWirteFunc { get; set; }
 
         public async void Start(string[]? args = null)
         {
             try
             {
                 await ArchiSteamFarm.Program.Init(args).ConfigureAwait(false);
+
+                InitHistoryLogger();
             }
             catch (Exception ex)
             {
                 Toast.Show(ex.Message);
             }
+        }
+
+        private void InitHistoryLogger()
+        {
+            ArchiSteamFarm.NLog.Logging.InitHistoryLogger();
+
+            HistoryTarget? historyTarget = LogManager.Configuration.AllTargets.OfType<HistoryTarget>().FirstOrDefault();
+
+            if (historyTarget != null)
+                historyTarget.NewHistoryEntry += (object? sender, HistoryTarget.NewHistoryEntryArgs newHistoryEntryArgs) =>
+                {
+                    GetConsoleWirteFunc?.Invoke(newHistoryEntryArgs.Message);
+                };
         }
 
         /// <summary>
@@ -57,15 +75,24 @@ namespace System.Application.Services.Implementation
             return Bot.BotsReadOnly;
         }
 
-
         /// <summary>
         /// 设置并保存bot
         /// </summary>
         /// <returns></returns>
-        public void SetBot(string botName)
+        public void SaveBot(string botName)
         {
 
         }
 
+        public GlobalConfig? GetGlobalConfig()
+        {
+            return ASF.GlobalConfig;
+        }
+
+
+        public void SaveGlobalConfig(GlobalConfig config)
+        {
+
+        }
     }
 }
