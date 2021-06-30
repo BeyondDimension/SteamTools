@@ -159,6 +159,7 @@ namespace Avalonia.Controls
                         SystemDecorations = SystemDecorations.Full;
                         //TransparencyLevelHint = WindowTransparencyLevel.Blur;
                     }
+
                 });
 
             if (isSaveStatus)

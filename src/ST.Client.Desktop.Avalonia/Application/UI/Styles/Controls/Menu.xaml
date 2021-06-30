@@ -1,34 +1,34 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
+<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:conv="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
         xmlns:sys="clr-namespace:System;assembly=netstandard">
-    <Design.PreviewWith>
-        <Border Padding="20" Background="Green" Height="200" VerticalAlignment="Top">
-            <Menu>
-                <MenuItem Header="Test1">
-                    <MenuItem Header="Test1">
-                        <MenuItem Header="Test1">
-                            <MenuItem Header="Test1"></MenuItem>
-                        </MenuItem>
-                    </MenuItem>
-                    <MenuItem Header="Test1">
-                        <MenuItem Header="Test1"></MenuItem>
-                    </MenuItem>
-                </MenuItem>
-                <MenuItem Header="Test1">
-                    <MenuItem Header="Test1"></MenuItem>
-                </MenuItem>
-                <MenuItem Header="Test1">
-                    <MenuItem Header="Test1"></MenuItem>
-                </MenuItem>
-                <MenuItem Header="Test1"></MenuItem>
-            </Menu>
-        </Border>
-    </Design.PreviewWith>
-    <Styles.Resources>
-    </Styles.Resources>
+  <Design.PreviewWith>
+    <Border Padding="20" Background="Green" Height="200" VerticalAlignment="Top">
+      <Menu>
+        <MenuItem Header="Test1">
+          <MenuItem Header="Test1">
+            <MenuItem Header="Test1">
+              <MenuItem Header="Test1"></MenuItem>
+            </MenuItem>
+          </MenuItem>
+          <MenuItem Header="Test1">
+            <MenuItem Header="Test1"></MenuItem>
+          </MenuItem>
+        </MenuItem>
+        <MenuItem Header="Test1">
+          <MenuItem Header="Test1"></MenuItem>
+        </MenuItem>
+        <MenuItem Header="Test1">
+          <MenuItem Header="Test1"></MenuItem>
+        </MenuItem>
+        <MenuItem Header="Test1"></MenuItem>
+      </Menu>
+    </Border>
+  </Design.PreviewWith>
+  <Styles.Resources>
+  </Styles.Resources>
 
-    <!--<Style Selector="Menu.BindMenu MenuItem">
+  <!--<Style Selector="Menu.BindMenu MenuItem">
         <Setter Property="Icon">
             <Setter.Value>
                 <Template>
@@ -45,25 +45,26 @@
         <Setter Property="Command" Value="{Binding Command}"/>
         <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
     </Style>-->
-    
-    <Style Selector="MenuItem.BindItem MenuItem">
-        <Setter Property="Icon">
-            <Setter.Value>
-                <Template>
-                    <PathIcon
-                        Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"
-                        Width="14" VerticalAlignment="Center">
-                    </PathIcon>
-                </Template>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Header" Value="{Binding Header,Mode=OneWay}"/>
-        <Setter Property="Items" Value="{Binding Items,Mode=OneWay}"/>
-        <Setter Property="Command" Value="{Binding Command}"/>
-        <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
-    </Style>
 
-    <!--<Style Selector="Menu > MenuItem">
+  <Style Selector="MenuItem.BindItem MenuItem">
+    <Setter Property="Icon">
+      <Setter.Value>
+        <Template>
+          <PathIcon
+              Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"
+              Width="14" VerticalAlignment="Center">
+          </PathIcon>
+        </Template>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ToolTip.Tip" Value="{Binding ToolTip,Mode=OneWay}"/>
+    <Setter Property="Header" Value="{Binding Header,Mode=OneWay}"/>
+    <Setter Property="Items" Value="{Binding Items,Mode=OneWay}"/>
+    <Setter Property="Command" Value="{Binding Command}"/>
+    <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
+  </Style>
+
+  <!--<Style Selector="Menu > MenuItem">
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="PART_LayoutRoot"

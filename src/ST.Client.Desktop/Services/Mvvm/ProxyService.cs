@@ -591,5 +591,19 @@ namespace System.Application.Services
                 }
             }
         }
+
+        public void FixNetwork()
+        {
+            ProxyService.OnExitRestoreHosts();
+
+
+            if (DI.Platform == Platform.Windows)
+            {
+                httpProxyService.StopProxy();
+                System.Diagnostics.Process.Start("cmd.exe", "netsh winsock reset");
+            }
+
+            Toast.Show("修复网络完成");
+        }
     }
 }

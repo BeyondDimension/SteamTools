@@ -22,6 +22,8 @@ namespace System.Application.UI.ViewModels
 
         public string? Header => string.IsNullOrEmpty(name) ? "-" : AppResources.ResourceManager.GetString(name, AppResources.Culture);
 
+        public string? ToolTip => string.IsNullOrEmpty(name) ? null : AppResources.ResourceManager.GetString(name + "Tip", AppResources.Culture);
+
         public ICommand? Command { get; set; }
         public object? CommandParameter { get; set; }
 
