@@ -194,6 +194,7 @@ namespace System.Application.Services.Implementation
                     }
                     if (fileInfo.Exists)
                         fileInfo.Delete();
+                    model.Content = scriptContent.ToString();
                     using (var stream = fileInfo.CreateText())
                     {
                         stream.Write(scriptContent);
