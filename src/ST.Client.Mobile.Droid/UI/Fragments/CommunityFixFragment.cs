@@ -12,14 +12,11 @@ namespace System.Application.UI.Fragments
     {
         protected override int? LayoutResource => Resource.Layout.fragment_community_fix;
 
-        public override async void OnCreateView(View view)
+        public override void OnCreateView(View view)
         {
             base.OnCreateView(view);
             binding!.textView.Text = GetType().Name.TrimEnd("Fragment") + Environment.NewLine + AppResources.UnderConstruction;
             binding!.textView.Gravity = GravityFlags.Center;
-
-            var r = await MessageBoxCompat.ShowAsync(AppResources.DelAccountTips, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
-            Toast.Show(r.ToString());
         }
     }
 }

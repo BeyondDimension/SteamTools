@@ -27,8 +27,14 @@ namespace System.Application
             }
             catch
             {
-
             }
+        }
+
+        public static string GetAuthority(Context context)
+        {
+            var packageName = context.ApplicationContext!.PackageName;
+            var value = packageName + ".fileProvider";
+            return value;
         }
 
         /// <summary>
@@ -41,9 +47,7 @@ namespace System.Application
         {
             file ??= new JFile(Path.GetTempFileName());
             // https://github.com/xamarin/Essentials/blob/1.5.3.2/Xamarin.Essentials/Types/FileProvider.android.cs
-            var imageUri = FileProvider.GetUriForFile(activity,
-                activity.ApplicationContext().PackageName + ".fileProvider",
-                file);
+            var imageUri = FileProvider.GetUriForFile(activity, GetAuthority(activity), file);
 #if DEBUG
             Android.Util.Log.Debug(nameof(Activity), $"StartCameraForResult imageUri: {imageUri}");
 #endif

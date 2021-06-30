@@ -11,14 +11,11 @@ namespace System.Application.UI.Fragments
     {
         protected override int? LayoutResource => Resource.Layout.fragment_game_list;
 
-        public override async void OnCreateView(View view)
+        public override void OnCreateView(View view)
         {
             base.OnCreateView(view);
             binding!.textView.Text = GetType().Name.TrimEnd("Fragment") + Environment.NewLine + AppResources.UnderConstruction;
             binding!.textView.Gravity = GravityFlags.Center;
-
-            var text = await PasswordWindowViewModel.ShowPasswordDialog();
-            Toast.Show(string.IsNullOrWhiteSpace(text) ? "IsNullOrWhiteSpace" : text!);
         }
     }
 }

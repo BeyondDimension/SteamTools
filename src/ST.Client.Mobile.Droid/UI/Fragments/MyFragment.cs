@@ -6,7 +6,9 @@ using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.Activities;
 using System.Application.UI.Adapters;
+using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using System.Windows;
 using static System.Application.UI.ViewModels.MyPageViewModel;
 
 namespace System.Application.UI.Fragments
@@ -37,6 +39,20 @@ namespace System.Application.UI.Fragments
                     return;
                 }
 
+                var isUnderConstruction = e.Current.Id switch
+                {
+                    PreferenceButton.UserProfile or
+                    PreferenceButton.BindPhoneNumber or
+                    PreferenceButton.ChangePhoneNumber or
+                    PreferenceButton.Settings => true,
+                    _ => false,
+                };
+                if (isUnderConstruction)
+                {
+                    ShowUnderConstructionTips();
+                    return;
+                }
+
                 var activityType = e.Current.Id switch
                 {
                     PreferenceButton.UserProfile => typeof(UserProfileActivity),
@@ -58,7 +74,13 @@ namespace System.Application.UI.Fragments
         {
             if (view.Id == Resource.Id.layoutUser)
             {
+#if !DEBUG
+                ShowUnderConstructionTips();
+                return true;
+#endif
+
                 this.StartActivity<LoginOrRegisterActivity>();
+                return true;
             }
             //else if (view.Id == Resource.Id.???)
             //{
@@ -66,5 +88,6 @@ namespace System.Application.UI.Fragments
 
             return base.OnClick(view);
         }
+        static async void ShowUnderConstructionTips() => await MessageBoxCompat.ShowAsync(AppResources.UnderConstruction, "", MessageBoxButtonCompat.OK);
     }
 }

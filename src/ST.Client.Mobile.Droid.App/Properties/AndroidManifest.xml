@@ -16,6 +16,22 @@
         <data android:scheme="msauth" android:host="net.steampp.app" android:path="/4SrCEIfuM++ddKXQh34fqEsxXsI=" />
       </intent-filter>
     </activity>
+    <activity
+      android:name="com.tencent.tauth.AuthActivity"
+      android:noHistory="true"
+      android:launchMode="singleTask" >
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="tencent101953775" />
+      </intent-filter>
+    </activity>
+    <activity
+           android:name="com.tencent.connect.common.AssistActivity"
+           android:configChanges="orientation|keyboardHidden"
+           android:screenOrientation="behind"
+    android:theme="@android:style/Theme.Translucent.NoTitleBar" />
   </application>
   <!-- Required for API Level 30 to make sure the app can detect browsers and other apps where communication is needed.-->
   <!--https://developer.android.com/training/basics/intents/package-visibility-use-cases-->

@@ -14,4 +14,6 @@
     <dimen name="input_font_size_min">16sp</dimen>
     <dimen name="logo_size">160dp</dimen>
     <dimen name="preference_buttons_space_min">8dp</dimen>
+    <dimen name="gap_space">16dp</dimen>
+    <dimen name="gap_space_min">8dp</dimen>
 </resources>

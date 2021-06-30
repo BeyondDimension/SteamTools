@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gap_space"
+        android:layout_marginTop="@dimen/gap_space"
+        android:layout_marginEnd="@dimen/gap_space_min"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="令牌自定义名称称称称称称称称称称称称称称称称称称称称称称"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap_space"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        tools:text="_ _ _ _ _ _"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="@dimen/gap_space_min"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/tvName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvName"
+        app:srcCompat="@drawable/baseline_close_black_24"
+        app:tint="@color/icon_background"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/gap_space_min"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSeeValue" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnEditName"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/gap_space_min"
+        android:layout_marginTop="@dimen/gap_space"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvValue"
+        app:srcCompat="@drawable/baseline_edit_black_24"
+        app:tint="@color/icon_background"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnSeeValue"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/gap_space_min"
+        android:layout_marginTop="@dimen/gap_space"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toEndOf="@+id/btnEditName"
+        app:layout_constraintTop_toBottomOf="@+id/tvValue"
+        app:srcCompat="@drawable/baseline_visibility_off_black_24"
+        app:tint="@color/icon_background"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnConfirmTrade"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/gap_space_min"
+        android:layout_marginTop="@dimen/gap_space"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toEndOf="@+id/btnSeeValue"
+        app:layout_constraintTop_toBottomOf="@+id/tvValue"
+        app:srcCompat="@drawable/baseline_checklist_black_24"
+        app:tint="@color/icon_background"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnSeeDetail"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/gap_space_min"
+        android:layout_marginTop="@dimen/gap_space"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toEndOf="@+id/btnConfirmTrade"
+        app:layout_constraintTop_toBottomOf="@+id/tvValue"
+        app:srcCompat="@drawable/baseline_description_black_24"
+        app:tint="@color/icon_background"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnCopy"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="@dimen/gap_space"
+        android:layout_marginEnd="@dimen/gap_space_min"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvValue"
+        app:srcCompat="@drawable/baseline_content_copy_black_24"
+        app:tint="@color/icon_background"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

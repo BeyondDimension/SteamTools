@@ -8,12 +8,15 @@ using Android.Text.Style;
 using AndroidX.Navigation.Fragment;
 using AndroidX.Navigation.UI;
 using Binding;
+using Com.Tencent.Tauth;
 using Microsoft.Identity.Client;
+using Org.Json;
 using ReactiveUI;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Text;
+using JObject = Java.Lang.Object;
 
 namespace System.Application.UI.Activities
 {
@@ -21,7 +24,7 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
           LaunchMode = LaunchMode.SingleTask,
           ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class LoginOrRegisterActivity : BaseActivity<activity_login_or_register, LoginOrRegisterPageViewModel>
+    internal sealed class LoginOrRegisterActivity : BaseActivity<activity_login_or_register, LoginOrRegisterPageViewModel>, LoginOrRegisterPageViewModel.IPlatformUIHost, IUiListener
     {
         protected override int? LayoutResource => Resource.Layout.activity_login_or_register;
 
@@ -31,9 +34,12 @@ namespace System.Application.UI.Activities
             { Resource.Id.navigation_login_or_register_phone_number, () => AppResources.User_PhoneLogin },
         };
 
+        Tencent? tencent;
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            tencent = TencentOpenApiSDK.GetTencent(this);
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
 
@@ -59,9 +65,22 @@ namespace System.Application.UI.Activities
             }).AddTo(this);
         }
 
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            tencent = null;
+        }
+
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent? data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
+
+            var resultCode_ = (int)resultCode;
+            if (requestCode == Com.Tencent.Connect.Common.Constants.RequestLogin)
+            {
+                Tencent.OnActivityResultData(requestCode, resultCode_, data, this);
+                return;
+            }
 
             // Return control to MSAL
             AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
@@ -89,5 +108,26 @@ namespace System.Application.UI.Activities
             }), length, str.Length, SpanTypes.ExclusiveExclusive));
             return str;
         });
+
+        void LoginOrRegisterPageViewModel.IPlatformUIHost.QQLogin() => tencent!.LoginServerSide(this);
+
+        void IUiListener.OnCancel()
+        {
+        }
+
+        void IUiListener.OnComplete(JObject? p0)
+        {
+            if (p0 != null && p0 is JSONObject jsonObj)
+            {
+                var jsonStr = jsonObj.ToString();
+                Toast.Show(jsonStr);
+            }
+        }
+
+        void IUiListener.OnError(UiError? p0) => p0.ShowError();
+
+        void IUiListener.OnWarning(int p0)
+        {
+        }
     }
 }

@@ -25,7 +25,13 @@ namespace System.Application.UI.ViewModels
         byte[]? userInfoValue;
         UserInfoDTO? userInfoSource;
         readonly IUserManager userManager;
-        public UserProfileWindowViewModel() : base()
+        public
+#if __MOBILE__
+        UserProfilePageViewModel
+#else
+        UserProfileWindowViewModel
+#endif
+            () : base()
         {
             Title =
 #if !__MOBILE__
@@ -55,7 +61,13 @@ namespace System.Application.UI.ViewModels
                     var currentUserInfoValue = Serializable.SMP(userInfoSource);
                     IsModify = !Enumerable.SequenceEqual(userInfoValue, currentUserInfoValue);
                 }
-                void SubscribeFormItem<T>(Expression<Func<UserProfileWindowViewModel, T>> expression, Action<T> onNext) => this.WhenAnyValue(expression).Subscribe(value => SubscribeOnNext(value, onNext)).AddTo(this);
+                void SubscribeFormItem<T>(Expression<Func<
+#if __MOBILE__
+        UserProfilePageViewModel
+#else
+        UserProfileWindowViewModel
+#endif
+                    , T>> expression, Action<T> onNext) => this.WhenAnyValue(expression).Subscribe(value => SubscribeOnNext(value, onNext)).AddTo(this);
                 SubscribeFormItem(x => x.NickName, x => userInfoSource.NickName = x ?? string.Empty);
                 SubscribeFormItem(x => x.Gender, x => userInfoSource.Gender = x);
                 SubscribeFormItem(x => x.BirthDate, x => userInfoSource.SetBirthDate(x));

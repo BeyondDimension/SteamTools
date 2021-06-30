@@ -27,6 +27,13 @@ namespace System.Application
             }
         }
 
+        public static string GetAuthority(Context context)
+        {
+            var packageName = context.ApplicationContext!.PackageName;
+            var value = packageName + ".fileProvider";
+            return value;
+        }
+
         public static void StartActivity(this Activity activity, Type activityType)
         {
             var intent = new Intent(activity, activityType);
@@ -69,7 +76,6 @@ namespace System.Application
                     }
                     catch
                     {
-
                     }
                 }
             }
