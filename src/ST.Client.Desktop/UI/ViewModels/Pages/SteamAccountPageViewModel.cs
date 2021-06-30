@@ -84,7 +84,7 @@ namespace System.Application.UI.ViewModels
 
         public bool IsUserEmpty => !SteamUsers.Any_Nullable();
 
-        internal async override void Initialize()
+        public async override void Initialize()
         {
             var list = steamService.GetRememberUserList();
 

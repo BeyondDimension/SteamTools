@@ -90,9 +90,27 @@ namespace System.Application.UI.ViewModels
 
             AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value);
         }
+        public override void Activation()
+        {
+            if (ProxyService.Current.ProxyStatus)
+            {
+                ProxyService.Current.StartTimer();
+            }
 
+            base.Activation();
+        }
 
-        internal async override void Initialize()
+        public override void Deactivation()
+        {
+            if (ProxyService.Current.ProxyStatus)
+            {
+                ProxyService.Current.StopTimer();
+            }
+
+            base.Deactivation();
+        }
+
+        public async override void Initialize()
         {
             await Task.CompletedTask;
         }

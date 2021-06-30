@@ -85,6 +85,7 @@ namespace System.Application.UI
                 appInstance?.Dispose();
                 // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
                 LogManager.Shutdown();
+                ArchiSteamFarm.LogManager.Shutdown();
             }
 
             static void HandleGlobalException(Exception ex, string name, bool? isTerminating = null)

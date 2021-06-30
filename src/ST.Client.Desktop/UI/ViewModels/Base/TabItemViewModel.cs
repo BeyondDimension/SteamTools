@@ -70,7 +70,7 @@ namespace System.Application.UI.ViewModels
             });
         }
 
-        internal async virtual void Initialize()
+        public async virtual void Initialize()
         {
             await Task.CompletedTask;
         }

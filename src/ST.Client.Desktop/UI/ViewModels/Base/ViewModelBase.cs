@@ -58,7 +58,7 @@ namespace System.Application.UI.ViewModels
         }
 
         protected bool IsFirstActivation = true;
-        internal async virtual void Activation()
+        public async virtual void Activation()
         {
             if (IsFirstActivation)
             {
@@ -67,7 +67,7 @@ namespace System.Application.UI.ViewModels
             await Task.CompletedTask;
         }
 
-        internal async virtual void Deactivation()
+        public async virtual void Deactivation()
         {
             await Task.CompletedTask;
         }

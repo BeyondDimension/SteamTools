@@ -101,7 +101,7 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<Unit, Unit> ExportAuthCommand { get; }
 
-        internal async override void Activation()
+        public async override void Activation()
         {
             SourceAuthCount = await AuthService.Current.GetRealAuthenticatorCount();
             //if (IsFirstActivation)

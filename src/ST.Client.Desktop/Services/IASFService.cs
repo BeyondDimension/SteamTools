@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace System.Application.Services
 {
-    public interface IArchiSteamFarmService
+    public interface IASFService
     {
-        public static IArchiSteamFarmService Instance => DI.Get<IArchiSteamFarmService>();
+        public static IASFService Instance => DI.Get<IASFService>();
 
         public string? ArchiSteamFarmExePath { get; }
         public string? ArchiSteamFarmConfigDirPath { get; }
