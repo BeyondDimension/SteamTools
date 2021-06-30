@@ -8,8 +8,9 @@ namespace System.Application.Services
 {
     public interface IArchiSteamFarmService
     {
-        public static IArchiSteamFarmService Instance => DI.Get<IArchiSteamFarmService>();
+        static IArchiSteamFarmService Instance => DI.Get<IArchiSteamFarmService>();
 
+        static Action? InitCoreLoggers { protected get; set; }
 
         /// <summary>
         /// 启动ASF

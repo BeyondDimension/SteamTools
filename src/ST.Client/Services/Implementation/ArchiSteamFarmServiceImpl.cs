@@ -19,9 +19,11 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                await ArchiSteamFarm.Program.Init(args).ConfigureAwait(false);
+                IArchiSteamFarmService.InitCoreLoggers?.Invoke();
 
                 InitHistoryLogger();
+
+                await ArchiSteamFarm.Program.Init(args).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
