@@ -262,6 +262,10 @@ namespace System.Application.Services
                 default:
                     return;
             }
+            if (user.AvatarUrl != null && user.AvatarUrl.ContainsKey(channel))
+            {
+                user.AvatarUrl.Remove(channel);
+            }
             await userManager.SetCurrentUserInfoAsync(user, true);
             await RefreshUserAsync(user);
         }
@@ -286,12 +290,36 @@ namespace System.Application.Services
                     break;
                 case FastLoginChannel.QQ:
                     user.QQNickName = rsp.User?.QQNickName;
+                    if (string.IsNullOrEmpty(user.NickName)) user.NickName = user.QQNickName ?? "";
                     break;
                 case FastLoginChannel.Apple:
                     user.AppleAccountEmail = rsp.User?.AppleAccountEmail;
                     break;
                 default:
                     return;
+            }
+            if (rsp.User != null)
+            {
+                if (!string.IsNullOrEmpty(rsp.User.NickName) && string.IsNullOrEmpty(user.NickName)) user.NickName = rsp.User.NickName;
+                if (rsp.User.Gender != default && user.Gender != rsp.User.Gender) user.Gender = rsp.User.Gender;
+                if (rsp.User.AvatarUrl != null && rsp.User.AvatarUrl.ContainsKey(channel))
+                {
+                    if (user.AvatarUrl == null)
+                    {
+                        user.AvatarUrl = new()
+                        {
+                            { channel, rsp.User.AvatarUrl[channel] }
+                        };
+                    }
+                    else if (user.AvatarUrl.ContainsKey(channel))
+                    {
+                        user.AvatarUrl[channel] = rsp.User.AvatarUrl[channel];
+                    }
+                    else
+                    {
+                        user.AvatarUrl.Add(channel, rsp.User.AvatarUrl[channel]);
+                    }
+                }
             }
             await userManager.SetCurrentUserInfoAsync(user, true);
             await RefreshUserAsync(user);

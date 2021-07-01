@@ -73,8 +73,6 @@ namespace System.Application.UI.Activities
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent? data)
         {
-            base.OnActivityResult(requestCode, resultCode, data);
-
             var resultCode_ = (int)resultCode;
             if (requestCode == Com.Tencent.Connect.Common.Constants.RequestLogin)
             {
@@ -84,6 +82,8 @@ namespace System.Application.UI.Activities
 
             // Return control to MSAL
             AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
+
+            base.OnActivityResult(requestCode, resultCode, data);
         }
 
         public static SpannableString CreateAgreementAndPrivacy(LoginOrRegisterPageViewModel viewModel) => MainApplication.CreateSpannableString(list =>

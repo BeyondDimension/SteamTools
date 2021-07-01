@@ -2,6 +2,18 @@ namespace System.Application
 {
     /// <summary>
     /// 快速登录渠道
+    /// <list type="bullet">
+    /// <item>AuthenticationController.ExternalLogin/ExternalLoginCallback</item>
+    /// <item>UserManager.LoginSharedAsync</item>
+    /// <item>UserManager.CreateAccountAsync</item>
+    /// <item>UserManager.BindAccountAsync</item>
+    /// <item>UserManager.FindByXAccountIdAsync</item>
+    /// <item>UserManager.UnbundleAccountAsync</item>
+    /// <item>IAccountDeleteRecordDbContext.DbSet_XUserTokens</item>
+    /// <item>ApplicationDbContext.DbSet_XUserTokens/X_Accounts</item>
+    /// <item>AccountDeleteRecord</item>
+    /// <item>AccountDeleteRecordRepository.DeleteAccount</item>
+    /// </list>
     /// </summary>
     public enum FastLoginChannel
     {

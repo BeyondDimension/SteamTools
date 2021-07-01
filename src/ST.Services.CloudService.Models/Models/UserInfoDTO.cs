@@ -9,6 +9,7 @@ using MPObject = MessagePack.MessagePackObjectAttribute;
 using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
+using System.Collections.Generic;
 using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 
 namespace System.Application.Models
@@ -192,6 +193,23 @@ namespace System.Application.Models
             set => this.RaiseAndSetIfChanged(ref _QQNickName, value);
         }
         string? _QQNickName;
+#else
+        { get; set; }
+#endif
+
+        /// <summary>
+        /// 通过快速登录获取的头像URL
+        /// </summary>
+        [MPKey(18)]
+        [N_JsonProperty("18")]
+        [S_JsonProperty("18")]
+        public Dictionary<FastLoginChannel, string>? AvatarUrl
+#if MVVM_VM
+        {
+            get => _AvatarUrl;
+            set => this.RaiseAndSetIfChanged(ref _AvatarUrl, value);
+        }
+        Dictionary<FastLoginChannel, string>? _AvatarUrl;
 #else
         { get; set; }
 #endif
