@@ -1,4 +1,4 @@
-﻿// https://github.com/xamarin/Essentials/blob/1.6.1/Xamarin.Essentials/SecureStorage/SecureStorage.uwp.cs
+// https://github.com/xamarin/Essentials/blob/1.6.1/Xamarin.Essentials/SecureStorage/SecureStorage.uwp.cs
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
@@ -30,7 +30,13 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public async Task<byte[]> ProtectAsync(byte[] data)
+        // https://appcenter.ms/orgs/BeyondDimension/apps/Steam/crashes/errors/842356268u/overview
+        // System.Runtime.InteropServices.COMException: 无法在设置线程模式后对其加以更改。 (0x80010106 (RPC_E_CHANGED_MODE))
+
+        public Task<byte[]> ProtectAsync(byte[] data)
+            => MainThreadDesktop.InvokeOnMainThreadAsync(() => ProtectCoreAsync(data));
+
+        static async Task<byte[]> ProtectCoreAsync(byte[] data)
         {
             // LOCAL=user and LOCAL=machine do not require enterprise auth capability
             var provider = GetDataProtectionProvider("LOCAL=user");
@@ -42,7 +48,10 @@ namespace System.Application.Services.Implementation
             return encBytes;
         }
 
-        public async Task<byte[]> UnprotectAsync(byte[] data)
+        public Task<byte[]> UnprotectAsync(byte[] data)
+            => MainThreadDesktop.InvokeOnMainThreadAsync(() => UnprotectCoreAsync(data));
+
+        static async Task<byte[]> UnprotectCoreAsync(byte[] data)
         {
             var provider = GetDataProtectionProvider();
 

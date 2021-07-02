@@ -12,7 +12,6 @@ using System.Linq;
 using System.Net;
 using System.Properties;
 using System.Reactive.Linq;
-using System.Security;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -101,7 +100,6 @@ namespace System.Application.Services
                 }
             }
         }
-
 
         public bool IsEnableScript
         {
@@ -364,21 +362,27 @@ namespace System.Application.Services
 
         private void LoadOrSaveLocalAccelerate()
         {
+            // https://appcenter.ms/orgs/BeyondDimension/apps/Steam/crashes/errors/1815188879u/overview
+            // FileStreamHelpers.ValidateFileHandle (SafeFileHandle fileHandle, String path, Boolean useAsyncIO)
+            // System.Private.CoreLib.dll:token 0x6005b56+0x, line 27
+            // System.IO.IOException: IO_SharingViolation_File, \AppData\LOCAL_ACCELERATE.json
             var filepath = Path.Combine(IOPath.AppDataDirectory, "LOCAL_ACCELERATE.json");
-            var file = new FileInfo(filepath);
             if (ProxyDomains.Items.Any_Nullable())
             {
-                using var stream = file.Open(FileMode.Create, FileAccess.Write);
-                using var writer = new StreamWriter(stream, Encoding.UTF8);
-                var content = Serializable.SJSON_Original(ProxyDomains.Items);
-                writer.Write(content);
-                writer.Flush();
+                if (IOPath.TryOpen(filepath, FileMode.Create, FileAccess.Write, FileShare.Read, out var fileStream, out var _))
+                {
+                    using var stream = fileStream;
+                    using var writer = new StreamWriter(stream, Encoding.UTF8);
+                    var content = Serializable.SJSON_Original(ProxyDomains.Items);
+                    writer.Write(content);
+                    writer.Flush();
+                }
             }
             else
             {
-                if (file.Exists)
+                if (File.Exists(filepath) && IOPath.TryOpenRead(filepath, out var fileStream, out var _))
                 {
-                    using var stream = file.Open(FileMode.Open, FileAccess.Read);
+                    using var stream = fileStream;
                     ProxyDomains.Clear();
                     using var reader = new StreamReader(stream, Encoding.UTF8);
                     var content = reader.ReadToEnd();
@@ -595,7 +599,6 @@ namespace System.Application.Services
         public void FixNetwork()
         {
             ProxyService.OnExitRestoreHosts();
-
 
             if (DI.Platform == Platform.Windows)
             {

@@ -486,10 +486,15 @@ namespace System.Application.Services
         {
             if (File.Exists(file))
             {
-                var bt = await File.ReadAllBytesAsync(file);
+                (bool success, byte[]? bt, Exception? ex) = await IOPath.TryReadAllBytesAsync(file);
+                if (!success)
+                {
+                    //Toast.Show($"Import authenticator file fail, exception: {ex}");
+                    return;
+                }
 
             Run:
-                var result = await repository.ImportAsync(exportPassword, bt);
+                var result = await repository.ImportAsync(exportPassword, bt!);
 
                 if (result.resultCode == IGameAccountPlatformAuthenticatorRepository.ImportResultCode.Success)
                 {
@@ -523,35 +528,46 @@ namespace System.Application.Services
 
         public void ImportSteamToolsV1Authenticator(string file, bool isLocal, string? password)
         {
-            var authString = File.ReadAllText(file).DecompressString();
-            if (!string.IsNullOrEmpty(authString))
+            if (IOPath.TryReadAllText(file, out var content, out var _))
             {
-                XmlReader reader = XmlReader.Create(new StringReader(authString));
-                reader.Read();
-                while (reader.EOF == false && reader.IsEmptyElement == true)
+                string authString;
+                try
                 {
-                    reader.Read();
+                    authString = content.DecompressString();
                 }
-                reader.MoveToContent();
-                while (reader.EOF == false)
+                catch
                 {
-                    if (reader.IsStartElement())
-                    {
-                        if (reader.Name == "Auth")
-                        {
-                            reader.Read();
-                        }
-                        if (reader.Name == "WinAuthAuthenticator")
-                        {
-                            var wa = new MyAuthenticator();
-                            wa.ReadXml(reader, null);
-                            AddOrUpdateSaveAuthenticators(wa, isLocal, password);
-                        }
-                    }
-                    else
+                    return;
+                }
+                if (!string.IsNullOrEmpty(authString))
+                {
+                    XmlReader reader = XmlReader.Create(new StringReader(authString));
+                    reader.Read();
+                    while (reader.EOF == false && reader.IsEmptyElement == true)
                     {
                         reader.Read();
-                        break;
+                    }
+                    reader.MoveToContent();
+                    while (reader.EOF == false)
+                    {
+                        if (reader.IsStartElement())
+                        {
+                            if (reader.Name == "Auth")
+                            {
+                                reader.Read();
+                            }
+                            if (reader.Name == "WinAuthAuthenticator")
+                            {
+                                var wa = new MyAuthenticator();
+                                wa.ReadXml(reader, null);
+                                AddOrUpdateSaveAuthenticators(wa, isLocal, password);
+                            }
+                        }
+                        else
+                        {
+                            reader.Read();
+                            break;
+                        }
                     }
                 }
             }

@@ -9,6 +9,7 @@ namespace ArchiSteamFarm
         static readonly Lazy<string> _AppDataDirectory = new(() =>
         {
             var path = Path.Combine(IOPath.AppDataDirectory, "ASF");
+            IOPath.DirCreateByNotExists(path);
             return path;
         });
 
@@ -58,6 +59,7 @@ namespace ArchiSteamFarm
         static readonly Lazy<string> _WebsiteDirectory = new(() =>
         {
             var path = Path.Combine(IOPath.BaseDirectory, "ASF-ui");
+            IOPath.DirCreateByNotExists(path);
             return path;
         });
 

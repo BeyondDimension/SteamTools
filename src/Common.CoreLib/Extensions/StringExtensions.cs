@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -225,6 +226,7 @@ namespace System
         /// </summary>
         /// <param name="text">The text.</param>
         /// <returns></returns>
+        [return: NotNullIfNotNull("text")]
         public static string? CompressString(this string? text)
         {
             if (string.IsNullOrEmpty(text)) return null;
@@ -251,6 +253,7 @@ namespace System
         /// </summary>
         /// <param name="compressedText">The compressed text.</param>
         /// <returns></returns>
+        [return: NotNullIfNotNull("compressedText")]
         public static string? DecompressString(this string? compressedText)
         {
             if (string.IsNullOrEmpty(compressedText)) return null;

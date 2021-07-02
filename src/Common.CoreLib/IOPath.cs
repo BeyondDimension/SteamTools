@@ -1,5 +1,9 @@
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 #if !NET35 && !NOT_XE
 using Xamarin.Essentials;
 #endif
@@ -265,12 +269,79 @@ namespace System
             return ioPath;
         }
 
+        static FileStream OpenReadCore(string filePath) => new(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+
+        [Obsolete("use TryOpenRead")]
         [return: NotNullIfNotNull("filePath")]
         public static FileStream? OpenRead(string? filePath)
         {
             if (filePath == null) return null;
-            var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+            var fileStream = OpenReadCore(filePath);
             return fileStream;
         }
+
+        static bool TryCall<T>(string? filePath, [NotNullWhen(true)] out T? t, out Exception? ex, Func<string, T> func) where T : class
+        {
+            ex = null;
+            t = null;
+            if (!string.IsNullOrWhiteSpace(filePath))
+            {
+                try
+                {
+                    t = func(filePath);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    ex = e;
+                }
+            }
+            return false;
+        }
+
+        public static bool TryOpenRead(string? filePath, [NotNullWhen(true)] out FileStream? fileStream, out Exception? ex) => TryCall(filePath, out fileStream, out ex, OpenReadCore);
+
+        public static bool TryOpen(string? filePath, FileMode mode, FileAccess access, FileShare share, [NotNullWhen(true)] out FileStream? fileStream, out Exception? ex) => TryCall(filePath, out fileStream, out ex, p => new(p, mode, access, share));
+
+        public static bool TryReadAllBytes(string? filePath, [NotNullWhen(true)] out byte[]? byteArray, out Exception? ex) => TryCall(filePath, out byteArray, out ex, File.ReadAllBytes);
+
+        public static bool TryReadAllText(string? filePath, [NotNullWhen(true)] out string? content, out Exception? ex) => TryCall(filePath, out content, out ex, File.ReadAllText);
+
+        public static bool TryReadAllText(string? filePath, Encoding encoding, [NotNullWhen(true)] out string? content, out Exception? ex) => TryCall(filePath, out content, out ex, p => File.ReadAllText(p, encoding));
+
+        public static bool TryReadAllLines(string? filePath, [NotNullWhen(true)] out string[]? lines, out Exception? ex) => TryCall(filePath, out lines, out ex, File.ReadAllLines);
+
+        public static bool TryReadAllLines(string? filePath, Encoding encoding, [NotNullWhen(true)] out string[]? lines, out Exception? ex) => TryCall(filePath, out lines, out ex, p => File.ReadAllLines(p, encoding));
+
+        public static bool TryReadAllLines(string? filePath, [NotNullWhen(true)] out IEnumerable<string>? lines, out Exception? ex) => TryCall(filePath, out lines, out ex, File.ReadLines);
+
+        public static bool TryReadAllLines(string? filePath, Encoding encoding, [NotNullWhen(true)] out IEnumerable<string>? lines, out Exception? ex) => TryCall(filePath, out lines, out ex, p => File.ReadLines(p, encoding));
+
+        static async Task<(bool success, T? byteArray, Exception? ex)> TryCallAsync<T>(string? filePath, CancellationToken cancellationToken, Func<string, CancellationToken, Task<T>> func) where T : class
+        {
+            if (!string.IsNullOrWhiteSpace(filePath))
+            {
+                try
+                {
+                    var t = await func(filePath, cancellationToken);
+                    return (true, t, null);
+                }
+                catch (Exception e)
+                {
+                    return (false, null, e);
+                }
+            }
+            return (false, null, null);
+        }
+
+        public static Task<(bool success, byte[]? byteArray, Exception? ex)> TryReadAllBytesAsync(string? filePath, CancellationToken cancellationToken = default) => TryCallAsync(filePath, cancellationToken, File.ReadAllBytesAsync);
+
+        public static Task<(bool success, string[]? lines, Exception? ex)> TryReadAllLinesAsync(string? filePath, CancellationToken cancellationToken = default) => TryCallAsync(filePath, cancellationToken, File.ReadAllLinesAsync);
+
+        public static Task<(bool success, string[]? lines, Exception? ex)> TryReadAllLinesAsync(string? filePath, Encoding encoding, CancellationToken cancellationToken = default) => TryCallAsync(filePath, cancellationToken, (p, tk) => File.ReadAllLinesAsync(p, encoding, tk));
+
+        public static Task<(bool success, string? content, Exception? ex)> TryReadAllTextAsync(string? filePath, CancellationToken cancellationToken = default) => TryCallAsync(filePath, cancellationToken, File.ReadAllTextAsync);
+
+        public static Task<(bool success, string? content, Exception? ex)> TryReadAllTextAsync(string? filePath, Encoding encoding, CancellationToken cancellationToken = default) => TryCallAsync(filePath, cancellationToken, (p, tk) => File.ReadAllTextAsync(p, encoding, tk));
     }
 }

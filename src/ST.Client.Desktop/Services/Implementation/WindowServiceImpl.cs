@@ -48,6 +48,7 @@ namespace System.Application.Services.Implementation
             catch (Exception ex)
             {
                 Log.Error("WindowService", ex, "Init WindowViewModel");
+                throw;
             }
         }
 
@@ -79,13 +80,23 @@ namespace System.Application.Services.Implementation
         /// </summary>
         public void ShowTaskBarWindow(int x = 0, int y = 0)
         {
-            if (!taskbarWindow.IsVisible)
+            try
             {
-                taskbarWindow.Show(x, y);
+                if (!taskbarWindow.IsVisible)
+                {
+                    taskbarWindow.Show(x, y);
+                }
+                else
+                {
+                    taskbarWindow.SetPosition(x, y);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                taskbarWindow.SetPosition(x, y);
+                // https://appcenter.ms/orgs/BeyondDimension/apps/Steam/crashes/errors/1377813613u/overview
+                Log.Error("WindowService", ex,
+                    "ShowTaskBarWindow, taskbarWindow: {0}", taskbarWindow?.ToString() ?? "null");
+                throw;
             }
         }
 

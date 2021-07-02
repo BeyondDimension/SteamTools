@@ -41,8 +41,6 @@ namespace System.Application.Entities
         /// 显示名称
         /// </summary>
         [Column("D4117D89")]
-        [SQLiteNotNull]
-        [NotNull, DisallowNull] // C# 8 not null
         public byte[]? Name { get; set; }
 
         /// <summary>

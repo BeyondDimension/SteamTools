@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -129,7 +129,7 @@ namespace System.Application.Models
 
         public void Sync() => AuthenticatorData.Value.Sync();
 
-        public bool ReadXml(XmlReader reader, string password)
+        public bool ReadXml(XmlReader reader, string? password)
         {
             bool changed = false;
 
