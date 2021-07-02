@@ -4,6 +4,7 @@
              xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
+             xmlns:AvalonEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -11,6 +12,16 @@
              x:Class="System.Application.UI.Views.Pages.DebugPage">
   <Grid RowDefinitions="*,Auto">
     <TextBox Grid.Row="0" Text="{Binding DebugString}" AcceptsReturn="True" />
+    <!--<AvalonEdit:TextEditor
+                       FontFamily="Cascadia Code"
+                       Background="Transparent"
+                       Margin="30"
+                       Foreground="White"
+                       SyntaxHighlighting="PowerShell"
+                       HorizontalScrollBarVisibility="Auto"
+                       VerticalScrollBarVisibility="Visible"
+                       FontWeight="Light"
+                       FontSize="18" />-->
     <StackPanel Grid.Row="1" Orientation="Horizontal">
       <Button Height="35" MinWidth="200" Content="Debug Button"
               Command="{Binding DebugButton_Click}" />

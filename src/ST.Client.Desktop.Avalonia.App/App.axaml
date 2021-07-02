@@ -22,7 +22,7 @@
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeAccent.xaml" />
     <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Controls.xaml" />
-    <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
+    <StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>
     <Style Selector="Window">
       <Setter Property="Icon" Value="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico"/>
     </Style>

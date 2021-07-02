@@ -11,9 +11,7 @@
     </Border>
   </Design.PreviewWith>
   <Styles.Resources>
-  </Styles.Resources>
-
-  <Styles.Resources>
+    <FontFamily x:Key="UnicodeFont">avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Fonts#WenQuanYi Micro Hei</FontFamily>
     <Thickness x:Key="TextControlBorderThemeThickness">0,0,0,2</Thickness>
     <Thickness x:Key="TextControlBorderThemeThicknessFocused">0,0,0,2</Thickness>
     <Thickness x:Key="TextControlThemePadding">15,10,15,8</Thickness>
@@ -83,7 +81,7 @@
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                         <TextPresenter Name="PART_TextPresenter"
-                                                    FontFamily="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Fonts#WenQuanYi Micro Hei"
+                                                    FontFamily="{StaticResource UnicodeFont}"
                                                     Text="{TemplateBinding Text, Mode=TwoWay}"
                                                     CaretIndex="{TemplateBinding CaretIndex}"
                                                     SelectionStart="{TemplateBinding SelectionStart}"

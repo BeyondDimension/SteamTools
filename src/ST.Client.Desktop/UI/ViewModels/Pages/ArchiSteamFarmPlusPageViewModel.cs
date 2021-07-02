@@ -6,7 +6,7 @@ namespace System.Application.UI.ViewModels
 {
     public class ArchiSteamFarmPlusPageViewModel : TabItemViewModel
     {
-        readonly IASFService asfSerivce = DI.Get<IASFService>();
+        readonly IArchiSteamFarmService asfSerivce = DI.Get<IArchiSteamFarmService>();
         public override string Name
         {
             get => AppResources.ArchiSteamFarmPlus;
@@ -18,7 +18,7 @@ namespace System.Application.UI.ViewModels
             IconKey = nameof(ArchiSteamFarmPlusPageViewModel).Replace("ViewModel", "Svg");
         }
 
-        public string? WebUrl => asfSerivce.IPCUrl;
+        public string? WebUrl => asfSerivce.GetIPCUrl();
 
         private string? _CommandString;
         public string? CommandString

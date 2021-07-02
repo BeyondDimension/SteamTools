@@ -8,6 +8,10 @@ using ArchiSteamFarm.Storage;
 using ArchiSteamFarm.NLog.Targets;
 using ArchiSteamFarm.Steam;
 using NLog;
+using System.IO;
+using ArchiSteamFarm;
+using Microsoft.Extensions.Configuration;
+using System.Net;
 
 namespace System.Application.Services.Implementation
 {
@@ -27,6 +31,11 @@ namespace System.Application.Services.Implementation
             {
                 Toast.Show(ex.Message);
             }
+        }
+
+        public async void Stop()
+        {
+            await ArchiSteamFarm.Program.InitShutdownSequence().ConfigureAwait(false);
         }
 
         private void InitHistoryLogger()
@@ -89,6 +98,36 @@ namespace System.Application.Services.Implementation
             return ASF.GlobalConfig;
         }
 
+        public string GetIPCUrl()
+        {
+            string absoluteConfigDirectory = Path.Combine(ASFPathHelper.AppDataDirectory, SharedInfo.ConfigDirectory);
+            string customConfigPath = Path.Combine(absoluteConfigDirectory, SharedInfo.IPCConfigFile);
+            if (File.Exists(customConfigPath))
+            {
+                var configRoot = new ConfigurationBuilder().SetBasePath(absoluteConfigDirectory).AddJsonFile(SharedInfo.IPCConfigFile, false, true).Build();
+                var urlSection = configRoot.GetSection("Url").Value;
+                try
+                {
+                    var url = new Uri(urlSection);
+                    if (IPAddress.Any.ToString() == url.Host)
+                    {
+                        return "http://" + IPAddress.Loopback + ":1242";
+                    }
+                    else
+                    {
+                        return url.AbsolutePath;
+                    }
+                }
+                catch
+                {
+                    return "http://" + IPAddress.Loopback + ":1242";
+                }
+            }
+            else
+            {
+                return "http://" + IPAddress.Loopback + ":1242";
+            }
+        }
 
         public void SaveGlobalConfig(GlobalConfig config)
         {

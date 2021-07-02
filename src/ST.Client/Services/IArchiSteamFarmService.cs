@@ -12,16 +12,26 @@ namespace System.Application.Services
 
         static Action? InitCoreLoggers { protected get; set; }
 
+        Action<string>? GetConsoleWirteFunc { get; set; }
+
         /// <summary>
         /// 启动ASF
         /// </summary>
         /// <param name="args"></param>
         void Start(string[]? args = null);
 
+        void Stop();
+
         /// <summary>
         /// 执行asf指令
         /// </summary>
         /// <param name="command"></param>
         Task<string?> ExecuteCommand(string command);
+
+        /// <summary>
+        /// 获取IPC地址
+        /// </summary>
+        /// <returns></returns>
+        string GetIPCUrl();
     }
 }

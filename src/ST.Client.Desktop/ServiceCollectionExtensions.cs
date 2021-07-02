@@ -110,16 +110,5 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IWindowService, WindowServiceImpl>();
             return services;
         }
-
-        /// <summary>
-        /// 添加 asf 功能
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddASFService(this IServiceCollection services)
-        {
-            services.AddSingleton<IASFService, ASFServiceImpl>();
-            return services;
-        }
     }
 }
