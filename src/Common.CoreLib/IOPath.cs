@@ -280,6 +280,7 @@ namespace System
             return fileStream;
         }
 
+#if !NET35
         static bool TryCall<T>(string? filePath, [NotNullWhen(true)] out T? t, out Exception? ex, Func<string, T> func) where T : class
         {
             ex = null;
@@ -343,5 +344,6 @@ namespace System
         public static Task<(bool success, string? content, Exception? ex)> TryReadAllTextAsync(string? filePath, CancellationToken cancellationToken = default) => TryCallAsync(filePath, cancellationToken, File.ReadAllTextAsync);
 
         public static Task<(bool success, string? content, Exception? ex)> TryReadAllTextAsync(string? filePath, Encoding encoding, CancellationToken cancellationToken = default) => TryCallAsync(filePath, cancellationToken, (p, tk) => File.ReadAllTextAsync(p, encoding, tk));
+#endif
     }
 }

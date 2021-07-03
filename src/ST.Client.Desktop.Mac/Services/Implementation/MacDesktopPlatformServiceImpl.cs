@@ -23,6 +23,9 @@ namespace System.Application.Services.Implementation
         }
         bool IPlatformService.AdminShell(string shell)
         {
+#if MONO_MAC
+            return false;
+#elif XAMARIN_MAC
             var edithost = new NSAppleScript($"do shell script \"'${shell}'\" with administrator privileges");
             var state = edithost.CompileAndReturnError(out var error); 
             return state;
@@ -34,6 +37,7 @@ namespace System.Application.Services.Implementation
             //pInfo.UseShellExecute = true;
             //var p = Process.Start(pInfo);
             //p.Close(); 
+#endif
         }
         void IDesktopPlatformService.StartProcess(string name, string filePath)
         {

@@ -2,9 +2,9 @@
   <!--<Project Sdk="MSBuild.Sdk.Extras">-->
 
   <PropertyGroup>
-    <TargetFramework>net6.0-macos</TargetFramework>
+    <!--<TargetFramework>net6.0-macos</TargetFramework>-->
     <!--<TargetFrameworks>Xamarin.Mac20;net5.0</TargetFrameworks>-->
-    <!--<TargetFramework>net6.0</TargetFramework>-->
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Desktop.Mac</AssemblyName>
   </PropertyGroup>
