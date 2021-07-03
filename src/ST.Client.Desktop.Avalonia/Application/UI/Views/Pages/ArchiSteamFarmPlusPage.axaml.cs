@@ -8,12 +8,13 @@ using System.Application.Services;
 using System.IO;
 using AvaloniaEdit;
 using AvaloniaEdit.Highlighting;
+using System.Application.UI.Views.Controls;
 
 namespace System.Application.UI.Views.Pages
 {
     public class ArchiSteamFarmPlusPage : ReactiveUserControl<ArchiSteamFarmPlusPageViewModel>
     {
-        private readonly TextEditor _textEditor;
+        private readonly ConsoleShell consoleShell;
 
         public ArchiSteamFarmPlusPage()
         {
@@ -23,18 +24,24 @@ namespace System.Application.UI.Views.Pages
             //commandTextbox = this.FindControl<TextBox>("CommandTextbox");
             //commandTextbox.KeyUp += CommandTextbox_KeyUp;
 
-            _textEditor = this.FindControl<TextEditor>("Editor");
-            //_textEditor.ShowLineNumbers = true;
+            //_textEditor = this.FindControl<TextEditor>("Editor");
+            ////_textEditor.ShowLineNumbers = true;
+
+            consoleShell = this.FindControl<ConsoleShell>("ConsoleLog");
 
             IArchiSteamFarmService.Instance.GetConsoleWirteFunc = (message) =>
             {
-                _textEditor.AppendText(message += Environment.NewLine);
+                MainThreadDesktop.BeginInvokeOnMainThread(() =>
+                {
+                    consoleShell.AppendLogText(message);
+                });
             };
 
             //_textEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("PowerShell");
             //_textEditor.TextArea.TextEntered += textEditor_TextArea_TextEntered;
             //_textEditor.TextArea.TextEntering += textEditor_TextArea_TextEntering;
             //_textEditor.TextArea.IndentationStrategy = new AvaloniaEdit.Indentation.CSharp.CSharpIndentationStrategy();
+
         }
 
         //private void CommandTextbox_KeyUp(object? sender, Avalonia.Input.KeyEventArgs e)

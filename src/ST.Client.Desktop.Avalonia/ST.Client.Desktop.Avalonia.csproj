@@ -58,4 +58,10 @@
         <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0014804-beta" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="Application\UI\Views\Controls\ConsoleShell.axaml.cs">
+        <DependentUpon>ConsoleShell.axaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

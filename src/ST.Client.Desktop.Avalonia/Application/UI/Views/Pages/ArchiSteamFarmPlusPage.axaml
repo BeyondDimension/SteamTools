@@ -33,16 +33,18 @@
                 HorizontalAlignment="Center"/>
         </StackPanel>-->
 
-      <AvalonEdit:TextEditor Name="Editor"
+      <!--<AvalonEdit:TextEditor Name="Editor"
                  FontFamily="{StaticResource UnicodeFont}"
-                 Background="Black"
+                 Background="{DynamicResource BackgroundColorKey}"
                  Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                 SyntaxHighlighting="PowerShell"
+                 SyntaxHighlighting="Json"
                  WordWrap="true"
                  HorizontalScrollBarVisibility="Disabled"
-                 VerticalScrollBarVisibility="Visible" />
+                 VerticalScrollBarVisibility="Visible" />-->
       <!--<TextBox x:Name="console" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Text="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=CommandText}"/>
           <TextBox x:Name="CommandTextbox" Grid.Row="1" Watermark="输入指令后按下Enter执行"/>-->
+      <controls:ConsoleShell x:Name="ConsoleLog">
+      </controls:ConsoleShell>
     </TabItem>
     <TabItem Header="ASF Web UI">
       <Panel>

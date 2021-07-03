@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="System.Application.UI.Views.Controls.ConsoleShell">
+  <UserControl.Styles>
+    <Style Selector="TextBox">
+      <Setter Property="FontSize" Value="16"></Setter>
+      <Setter Property="Padding" Value="0"></Setter>
+      <Setter Property="Margin" Value="0"></Setter>
+    </Style>
+  </UserControl.Styles>
+  <ScrollViewer
+    HorizontalScrollBarVisibility="Disabled"
+    VerticalScrollBarVisibility="Auto">
+    <Grid RowDefinitions="Auto,Auto">
+      <TextBox x:Name="LogTextbox"
+               Classes="readonlybox"
+               TextWrapping="Wrap"/>
+      <WrapPanel Grid.Row="1">
+        <TextBlock Text="> "
+                   VerticalAlignment="Center"
+                   FontSize="16"/>
+        <TextBox x:Name="CommandTextbox"
+                 Classes="readonlybox"
+                 IsReadOnly="False"
+                 VerticalContentAlignment="Center"
+                 VerticalAlignment="Center">
+        </TextBox>
+      </WrapPanel>
+    </Grid>
+  </ScrollViewer>
+</UserControl>
