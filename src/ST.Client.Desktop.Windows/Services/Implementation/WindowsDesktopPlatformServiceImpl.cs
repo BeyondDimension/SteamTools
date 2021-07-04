@@ -10,6 +10,8 @@ using System.Linq;
 using System.Management;
 using System.Reflection;
 using System.Runtime.Versioning;
+using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Threading;
 
 namespace System.Application.Services.Implementation
@@ -109,6 +111,11 @@ namespace System.Application.Services.Implementation
             // 开机启动使用 taskschd.msc 实现
             try
             {
+                var identity = WindowsIdentity.GetCurrent();
+                var hasSid = identity.User?.IsAccountSid() ?? false;
+                var userId = hasSid ? identity.User!.ToString() : identity.Name;
+                var tdName = hasSid ? userId : userId.Replace(Path.DirectorySeparatorChar, '_');
+                tdName = $"{name}_{{{tdName}}}";
                 if (isAutoStart)
                 {
                     using var td = TaskService.Instance.NewTask();
@@ -118,15 +125,16 @@ namespace System.Application.Services.Implementation
                     td.Settings.AllowHardTerminate = false;
                     td.Settings.StopIfGoingOnBatteries = false;
                     td.Settings.DisallowStartIfOnBatteries = false;
-                    td.Triggers.Add(new LogonTrigger());
+                    td.Triggers.Add(new LogonTrigger { UserId = userId });
                     td.Actions.Add(new ExecAction(AppHelper.ProgramName, "-clt c -silence", IOPath.BaseDirectory));
                     if (IsAdministrator)
                         td.Principal.RunLevel = TaskRunLevel.Highest;
-                    TaskService.Instance.RootFolder.RegisterTaskDefinition(name, td);
+                    TaskService.Instance.RootFolder.RegisterTaskDefinition(tdName, td);
                 }
                 else
                 {
-                    TaskService.Instance.RootFolder.DeleteTask(name);
+                    TaskService.Instance.RootFolder.DeleteTask(name, exceptionOnNotExists: false);
+                    TaskService.Instance.RootFolder.DeleteTask(tdName, exceptionOnNotExists: false);
                 }
             }
             catch (Exception e)
