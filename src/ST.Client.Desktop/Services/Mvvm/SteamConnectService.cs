@@ -5,6 +5,7 @@ using System.Application.Models.Settings;
 using System.Application.UI;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -49,8 +50,8 @@ namespace System.Application.Services
         #endregion
 
         #region 运行中的游戏列表
-        private IList<SteamApp> _RuningSteamApps = new List<SteamApp>();
-        public IList<SteamApp> RuningSteamApps
+        private ConcurrentDictionary<uint,SteamApp> _RuningSteamApps = new ConcurrentDictionary<uint,SteamApp>();
+        public ConcurrentDictionary<uint, SteamApp> RuningSteamApps
         {
             get => _RuningSteamApps;
             set
@@ -162,8 +163,10 @@ namespace System.Application.Services
             {
                 foreach (var item in GameLibrarySettings.AFKAppList.Value)
                 {
-                    if (RuningSteamApps.FirstOrDefault(x => x.AppId == item.Key) == null)
-                        RuningSteamApps.Add(new SteamApp
+
+                    RuningSteamApps.TryGetValue(item.Key, out var runState);
+                    if (runState == null)
+                        RuningSteamApps.TryAdd(item.Key, new SteamApp
                         {
                             AppId = item.Key,
                             Name = item.Value
@@ -171,7 +174,7 @@ namespace System.Application.Services
                 }
                 var t = new Task(() =>
                 {
-                    foreach (var item in RuningSteamApps)
+                    foreach (var item in RuningSteamApps.Values)
                     {
                         if (item.Process == null)
                             item.StartSteamAppProcess();
@@ -353,7 +356,7 @@ namespace System.Application.Services
 
         public void Dispose()
         {
-            foreach (var app in Current.RuningSteamApps)
+            foreach (var app in Current.RuningSteamApps.Values)
             {
                 if (app.Process != null)
                     if (!app.Process.HasExited)

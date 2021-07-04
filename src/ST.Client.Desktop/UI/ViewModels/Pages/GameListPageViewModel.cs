@@ -349,7 +349,7 @@ namespace System.Application.UI.ViewModels
                         {
                             Toast.Show(AppResources.GameList_RuningWait);
                             app.Process = Process.Start(AppHelper.ProgramPath, "-clt app -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
-                            SteamConnectService.Current.RuningSteamApps.Add(app);
+                            SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
                         }
                     });
 
