@@ -1,16 +1,15 @@
-using System.ApplicationModel;
 using Windows.ApplicationModel;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application
 {
-    static class DesktopBridgeHelper2
+    public static class DesktopBridgeHelper
     {
-        internal static bool Init()
+        public static bool Init(int min_os_build = 17763)
         {
             if (DI.Platform != Platform.Windows) return false;
             var osVer = Environment.OSVersion.Version;
-            if (osVer.Major != 10 || osVer.Build < 17763) return false;
+            if (osVer.Major != 10 || osVer.Build < min_os_build) return false;
             try
             {
                 if (string.IsNullOrWhiteSpace(Package.Current.Id.Name)) return false;
@@ -19,7 +18,7 @@ namespace System.Application
             {
                 return false;
             }
-            DesktopBridgeHelper.IsDesktopBridge = true;
+            DI.IsDesktopBridge = true;
             FileSystemDesktopBridge.InitFileSystem();
             return true;
         }

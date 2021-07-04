@@ -6,8 +6,6 @@
     <DefineConstants>UnitTest;Desktop_UnitTest;$(DefineConstants)</DefineConstants>
     <AssemblyName>System.Application.SteamTools.Client.Desktop.UnitTest</AssemblyName>
     <IsPackable>false</IsPackable>
-    <Platforms>AnyCPU;x86</Platforms>
-    <PlatformTarget>x86</PlatformTarget>
     <ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
   </PropertyGroup>
 
@@ -21,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\ST.Client.Desktop.Console.App\ST.Client.Desktop.Console.App.csproj" />
     <ProjectReference Include="..\..\src\ST.Client.Desktop\ST.Client.Desktop.csproj" />
     <ProjectReference Include="..\..\src\ST.Client\ST.Client.csproj" />
     <ProjectReference Include="..\..\src\Common.CoreLib\Common.CoreLib.csproj" />

@@ -10,7 +10,7 @@
     <DefineConstants>WINDOWS;WINDOWS_DESKTOP_BRIDGE;$(DefineConstants)</DefineConstants>
     <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
     <ApplicationManifest>..\ST.Client.Desktop.Avalonia.App\Properties\app.manifest</ApplicationManifest>
-    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <PublishSingleFile>false</PublishSingleFile>
     <!--目前裁剪存在问题，禁用-->
     <PublishTrimmed>false</PublishTrimmed>
@@ -94,5 +94,10 @@
 
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-release.pfx')">
     <EmbeddedResource Include="..\..\rsa-public-key-release.pfx" Link="Resources\E88CA4F9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="DesktopBridgeHelper2.cs" />
+    <Compile Remove="FileSystemDesktopBridge.cs" />
   </ItemGroup>
 </Project>

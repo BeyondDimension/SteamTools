@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 
 var t = new Thread(() =>
 {
@@ -19,13 +20,9 @@ var t = new Thread(() =>
     }
     else
     {
-#if DEBUG
-        LinkHelpers.Handle();
-        return;
-#else
         MessageBox.Show("Failed to start, main module not found.", nameof(MessageBoxIcon.Error));
-#endif
     }
+    Environment.Exit(0);
 });
 t.SetApartmentState(ApartmentState.STA);
 t.Start();

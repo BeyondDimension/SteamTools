@@ -23,7 +23,7 @@ namespace System.Application.UI
         static int Main(string[] args)
         {
 #if WINDOWS_DESKTOP_BRIDGE
-            if (!DesktopBridgeHelper2.Init()) return 0;
+            if (!DesktopBridgeHelper.Init()) return 0;
 #elif !__MOBILE__
 #if MAC
             AppDelegateHelper.Init(args);

@@ -43,6 +43,10 @@
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
+  <ItemGroup Condition=" $(DefineConstants.Contains(`WINDOWS_DESKTOP_BRIDGE`)) ">
+    <Compile Include="..\ST.Client.Desktop.Avalonia.App.Bridge\*.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <Compile Include="..\Startup2.cs" />
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">

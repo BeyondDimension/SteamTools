@@ -78,6 +78,17 @@ namespace System
         /// </summary>
         public static bool IsWindows10OrLater { get; }
 
+        static bool? _IsDesktopBridge;
+        public static bool IsDesktopBridge
+        {
+            get => _IsDesktopBridge ?? false;
+            set
+            {
+                if (_IsDesktopBridge.HasValue) throw new NotSupportedException();
+                _IsDesktopBridge = value;
+            }
+        }
+
         const string DesktopWindowTypeNames =
             "Avalonia.Controls.Window, Avalonia.Controls" +
             "\n" +

@@ -144,6 +144,7 @@ namespace System.Application.UI.Views.Windows
             }
         }
 
+        [Obsolete(LoginUsingSteamClientCookieObsolete)]
         async Task LoginUsingSteamClientCookiesAsync()
         {
             var (resultCode, cookies) = await Instance.GetLoginUsingSteamClientCookieCollectionAsync(runasInvoker: DI.Platform == Platform.Windows);
@@ -197,6 +198,7 @@ namespace System.Application.UI.Views.Windows
             }
         }
 
+        [Obsolete(LoginUsingSteamClientCookieObsolete)]
         async void GetLoginUsingSteamClientCookies()
         {
             await LoginUsingSteamClientCookiesAsync();
@@ -226,7 +228,7 @@ namespace System.Application.UI.Views.Windows
                         if (steamUser != null)
                         {
                             loginUsingSteamClientState = LoginUsingSteamClientState.Loading;
-                            GetLoginUsingSteamClientCookies();
+                            //GetLoginUsingSteamClientCookies();
                         }
                     }
                 }
