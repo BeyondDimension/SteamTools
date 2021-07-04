@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <AvaloniaXaml Remove="Windows.winmd\**" />
+    <Compile Remove="Windows.winmd\**" />
+    <EmbeddedResource Remove="Windows.winmd\**" />
+    <None Remove="Windows.winmd\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
@@ -26,7 +33,7 @@
     <PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.2.0" />
     <PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.2.0" />
     <PackageReference Include="JumpLists.Win32.Avalonia" Version="0.0.1" Aliases="JumpLists" />
-    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="1.2.6" />
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="1.3.0" />
     <PackageReference Include="TaskScheduler" Version="2.9.1" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
   </ItemGroup>
@@ -43,6 +50,12 @@
 
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-release.pfx')">
     <EmbeddedResource Include="..\..\appcenter-secret-release.pfx" Link="Resources\0794704F" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Windows.SDK.NET">
+      <HintPath>..\..\references\Microsoft.Windows.SDK.NET.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

@@ -262,6 +262,7 @@ namespace System.Security.Cryptography
         /// <returns></returns>
         public static string EncryptToString(this RSA rsa, byte[] data, RSAEncryptionPadding? padding = null)
         {
+            padding ??= DefaultPadding;
             var bytes = rsa.Encrypt(data, padding);
             return bytes.Base64UrlEncode();
         }

@@ -3,8 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 #if !NET35 && !NOT_XE
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 #endif
 

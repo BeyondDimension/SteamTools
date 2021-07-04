@@ -137,11 +137,11 @@
       <Link>Steam++.VisualElementsManifest.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\Resources\AppIcon\VisualElements\SteamPlusPlus.70x70.contrast-standard_scale-180.png">
+    <None Include="..\ST.Client.Desktop.Avalonia.App.Bridge.Package\Images\Square44x44Logo.scale-400.png">
       <Link>Assets\SteamPlusPlus.70x70.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\Resources\AppIcon\VisualElements\SteamPlusPlus.150x150.contrast-standard_scale-180.png">
+    <None Include="..\ST.Client.Desktop.Avalonia.App.Bridge.Package\Images\Square150x150Logo.scale-400.png">
       <Link>Assets\SteamPlusPlus.150x150.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -30,16 +30,13 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        // https://appcenter.ms/orgs/BeyondDimension/apps/Steam/crashes/errors/842356268u/overview
-        // System.Runtime.InteropServices.COMException: 无法在设置线程模式后对其加以更改。 (0x80010106 (RPC_E_CHANGED_MODE))
-
-        public Task<byte[]> ProtectAsync(byte[] data)
-            => MainThreadDesktop.InvokeOnMainThreadAsync(() => ProtectCoreAsync(data));
-
-        static async Task<byte[]> ProtectCoreAsync(byte[] data)
+        public async Task<byte[]> ProtectAsync(byte[] data)
         {
             // LOCAL=user and LOCAL=machine do not require enterprise auth capability
             var provider = GetDataProtectionProvider("LOCAL=user");
+
+            // https://appcenter.ms/orgs/BeyondDimension/apps/Steam/crashes/errors/842356268u/overview
+            // System.Runtime.InteropServices.COMException: 无法在设置线程模式后对其加以更改。 (0x80010106 (RPC_E_CHANGED_MODE))
 
             var buffer = await provider.ProtectAsync(data.AsBuffer());
 
@@ -48,10 +45,7 @@ namespace System.Application.Services.Implementation
             return encBytes;
         }
 
-        public Task<byte[]> UnprotectAsync(byte[] data)
-            => MainThreadDesktop.InvokeOnMainThreadAsync(() => UnprotectCoreAsync(data));
-
-        static async Task<byte[]> UnprotectCoreAsync(byte[] data)
+        public async Task<byte[]> UnprotectAsync(byte[] data)
         {
             var provider = GetDataProtectionProvider();
 

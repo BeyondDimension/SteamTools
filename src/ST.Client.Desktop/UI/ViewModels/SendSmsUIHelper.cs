@@ -32,9 +32,9 @@ namespace System.Application.UI.ViewModels
 
             Action? TbSmsCodeFocus { get; set; }
 
-//#if __MOBILE__
-//            Action? OnIsUnTimeLimitChanged { get; set; }
-//#endif
+            //#if __MOBILE__
+            //            Action? OnIsUnTimeLimitChanged { get; set; }
+            //#endif
         }
 
         public static async Task SendSmsAsync(this IViewModel i, Func<SendSmsRequest> request)
@@ -105,8 +105,6 @@ namespace System.Application.UI.ViewModels
 
             var client = ICloudServiceClient.Instance;
 
-            await Task.Delay(5000);
-
             var response = await client.AuthMessage.SendSms(request);
 
             if (!response.IsSuccess)
@@ -142,9 +140,9 @@ namespace System.Application.UI.ViewModels
         {
             i.TbPhoneNumberFocus = null;
             i.TbSmsCodeFocus = null;
-//#if __MOBILE__
-//            i.OnIsUnTimeLimitChanged = null;
-//#endif
+            //#if __MOBILE__
+            //            i.OnIsUnTimeLimitChanged = null;
+            //#endif
         }
     }
 }
