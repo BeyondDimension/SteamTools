@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!--<ProjectReference Include="..\..\src\ST.Client.Desktop.Console.App\ST.Client.Desktop.Console.App.csproj" />-->
     <ProjectReference Include="..\..\src\ST.Client.Desktop\ST.Client.Desktop.csproj" />
     <ProjectReference Include="..\..\src\ST.Client\ST.Client.csproj" />
     <ProjectReference Include="..\..\src\Common.CoreLib\Common.CoreLib.csproj" />
