@@ -12,6 +12,7 @@ using System.IO;
 using ArchiSteamFarm;
 using Microsoft.Extensions.Configuration;
 using System.Net;
+using ArchiSteamFarm.Steam.Storage;
 
 namespace System.Application.Services.Implementation
 {
@@ -88,9 +89,11 @@ namespace System.Application.Services.Implementation
         /// 设置并保存bot
         /// </summary>
         /// <returns></returns>
-        public void SaveBot(string botName)
+        public async void SaveBot(Bot bot)
         {
-
+            //var bot = Bot.GetBot(botName);
+            string filePath = Bot.GetFilePath(bot.BotName, Bot.EFileType.Config);
+            bool result = await BotConfig.Write(filePath, bot.BotConfig).ConfigureAwait(false);
         }
 
         public GlobalConfig? GetGlobalConfig()
@@ -100,6 +103,7 @@ namespace System.Application.Services.Implementation
 
         public string GetIPCUrl()
         {
+            var defaultUrl = "http://" + IPAddress.Loopback + ":1242";
             string absoluteConfigDirectory = Path.Combine(ASFPathHelper.AppDataDirectory, SharedInfo.ConfigDirectory);
             string customConfigPath = Path.Combine(absoluteConfigDirectory, SharedInfo.IPCConfigFile);
             if (File.Exists(customConfigPath))
@@ -111,7 +115,7 @@ namespace System.Application.Services.Implementation
                     var url = new Uri(urlSection);
                     if (IPAddress.Any.ToString() == url.Host)
                     {
-                        return "http://" + IPAddress.Loopback + ":1242";
+                        return defaultUrl;
                     }
                     else
                     {
@@ -120,18 +124,19 @@ namespace System.Application.Services.Implementation
                 }
                 catch
                 {
-                    return "http://" + IPAddress.Loopback + ":1242";
+                    return defaultUrl;
                 }
             }
             else
             {
-                return "http://" + IPAddress.Loopback + ":1242";
+                return defaultUrl;
             }
         }
 
-        public void SaveGlobalConfig(GlobalConfig config)
+        public async void SaveGlobalConfig(GlobalConfig config)
         {
-
+            string filePath = ASF.GetFilePath(ASF.EFileType.Config);
+            bool result = await GlobalConfig.Write(filePath, config).ConfigureAwait(false);
         }
     }
 }
