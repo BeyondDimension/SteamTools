@@ -7,6 +7,7 @@ using AndroidX.Navigation.UI;
 using Binding;
 using Java.Lang;
 using ReactiveUI;
+using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 
 namespace System.Application.UI.Activities
@@ -15,15 +16,21 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class MainActivity : BaseActivity<activity_main>, IReadOnlyViewFor<MyPageViewModel>
+    internal sealed class MainActivity : BaseActivity<activity_main>, IReadOnlyViewFor<MyPageViewModel>, IReadOnlyViewFor<LocalAuthPageViewModel>
     {
+        public static MainActivity? Instance { get; private set; }
+
         protected override int? LayoutResource => Resource.Layout.activity_main;
 
         protected override bool BackToHome => true;
 
         public MyPageViewModel MyPageViewModel { get; } = new();
 
+        public LocalAuthPageViewModel LocalAuthPageViewModel { get; } = new();
+
         MyPageViewModel? IReadOnlyViewFor<MyPageViewModel>.ViewModel => MyPageViewModel;
+
+        LocalAuthPageViewModel? IReadOnlyViewFor<LocalAuthPageViewModel>.ViewModel => LocalAuthPageViewModel;
 
         void SetBottomNavigationMenuTitle(int resId, ICharSequence value)
         {
@@ -59,14 +66,18 @@ namespace System.Application.UI.Activities
             NavigationUI.SetupActionBarWithNavController(this, navController, appBarConfiguration);
             NavigationUI.SetupWithNavController(binding!.nav_view, navController);
 
-            MyPageViewModel.WhenAnyValue(x => x.Title).Subscribe(value =>
+            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
-                SetSubPageTitle(Resource.Id.navigation_my, value);
+                SetSubPageTitle(Resource.Id.navigation_local_auth, LocalAuthPageViewModel.DisplayName);
+                SetSubPageTitle(Resource.Id.navigation_my, MyPageViewModel.DisplayName);
             }).AddTo(this);
+
+            Instance = this;
         }
 
         protected override void OnDestroy()
         {
+            Instance = null;
             base.OnDestroy();
             navController = null;
         }

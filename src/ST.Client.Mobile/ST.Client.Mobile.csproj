@@ -45,6 +45,9 @@
     <Compile Include="..\ST.Client.Desktop\Services\Mvvm\UserService.cs">
       <LinkBase>Services\Mvvm</LinkBase>
     </Compile>
+    <Compile Include="..\ST.Client.Desktop\Services\Mvvm\AuthService.cs">
+      <LinkBase>Services\Mvvm</LinkBase>
+    </Compile>
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Windows\LoginOrRegisterWindowViewModel.shared.cs">
       <LinkBase>UI\ViewModels</LinkBase>
     </Compile>
@@ -91,6 +94,12 @@
     </Compile>
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Windows\LocalAuthPage\PasswordWindowViewModel.cs">
       <LinkBase>UI\ViewModels</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Pages\LocalAuthPageViewModel.shared.cs">
+      <LinkBase>UI\ViewModels</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop\Models\MyAuthenticator.cs">
+      <LinkBase>Models</LinkBase>
     </Compile>
   </ItemGroup>
 

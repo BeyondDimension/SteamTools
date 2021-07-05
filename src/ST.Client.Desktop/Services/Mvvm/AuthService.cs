@@ -1,5 +1,4 @@
 using DynamicData;
-using DynamicData.Binding;
 using Newtonsoft.Json.Linq;
 using ReactiveUI;
 using System.Application.Models;
@@ -7,7 +6,6 @@ using System.Application.Repositories;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
@@ -15,7 +13,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
-using System.Windows;
 using System.Xml;
 using WinAuth;
 
@@ -278,7 +275,6 @@ namespace System.Application.Services
                         auth.CodeDigits = digits;
                     }
 
-
                     if (Enum.TryParse<GAPAuthenticatorValueDTO.HMACTypes>(query["algorithm"], true, out GAPAuthenticatorValueDTO.HMACTypes hmactype) == true)
                     {
                         auth.HMACType = hmactype;
@@ -301,12 +297,12 @@ namespace System.Application.Services
                     importedAuthenticator.Value = auth;
 
                     // sync
-                    ToastService.Current.Notify(AppResources.LocalAuth_AddAuthSyncTip);
+                    Toast.Show(AppResources.LocalAuth_AddAuthSyncTip);
                     importedAuthenticator.Value.Sync();
 
                     AuthService.AddOrUpdateSaveAuthenticators(importedAuthenticator, isLocal, password);
                 }
-                ToastService.Current.Notify(AppResources.LocalAuth_AddAuthSuccess);
+                Toast.Show(AppResources.LocalAuth_AddAuthSuccess);
             }
             catch (UriFormatException ex)
             {
@@ -503,7 +499,7 @@ namespace System.Application.Services
                         AddOrUpdateSaveAuthenticators(new MyAuthenticator(item), isLocal, password);
                     }
 
-                    ToastService.Current.Notify(AppResources.LocalAuth_AddAuthSuccess);
+                    Toast.Show(AppResources.LocalAuth_AddAuthSuccess);
                 }
                 else if (result.resultCode == IGameAccountPlatformAuthenticatorRepository.ImportResultCode.PartSuccess)
                 {

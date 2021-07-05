@@ -11,12 +11,12 @@ namespace System.Application.UI.ViewModels
     /// <summary>
     /// 我的页面视图模型
     /// </summary>
-    public class MyPageViewModel : PageViewModel
+    public class MyPageViewModel : ViewModelBase
     {
+        public static string DisplayName => AppResources.My;
+
         public MyPageViewModel()
         {
-            Title = AppResources.My;
-
             preferenceButtons = new()
             {
                 PreferenceButtonViewModel.Create(PreferenceButton.UserProfile, this),
