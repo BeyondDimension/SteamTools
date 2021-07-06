@@ -11,14 +11,16 @@ namespace System.Application
         MessageBox,
 #if !__MOBILE__
         AddAuth,
+#endif
         ShowAuth,
         AuthTrade,
         EncryptionAuth,
-#endif
         Password,
 #if !__MOBILE__
         TaskBar,
+#endif
         ExportAuth,
+#if !__MOBILE__
         ScriptStore,
         HideApp,
         IdleApp,
@@ -28,6 +30,9 @@ namespace System.Application
         NewVersion,
         WebView3,
         BindPhoneNumber,
+#endif
+#if __MOBILE__
+        TextBox,
 #endif
     }
 }

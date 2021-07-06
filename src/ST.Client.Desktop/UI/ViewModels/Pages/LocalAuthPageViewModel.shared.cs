@@ -162,36 +162,45 @@ namespace System.Application.UI.ViewModels
 
         public async void DeleteAuth(MyAuthenticator auth)
         {
-            var result = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
-            if (result.success)
+            var (success, _) = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
+            if (!success) return;
+            var r = await MessageBoxCompat.ShowAsync(@AppResources.LocalAuth_DeleteAuthTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
+            if (r == MessageBoxResultCompat.OK)
             {
-                var r = await MessageBoxCompat.ShowAsync(@AppResources.LocalAuth_DeleteAuthTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
-                if (r == MessageBoxResultCompat.OK)
-                {
-                    AuthService.DeleteSaveAuthenticators(auth);
-                }
+                AuthService.DeleteSaveAuthenticators(auth);
             }
         }
 
         public async void ShowSteamAuthData(MyAuthenticator auth)
         {
-            var result = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
-            if (result.success)
+            var (success, _) = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
+            if (!success) return;
+            switch (auth.AuthenticatorData.Platform)
             {
-                if (auth.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator)
-                {
-                    await IShowWindowService.Instance.Show(CustomWindow.ShowAuth, new ShowAuthWindowViewModel(auth), string.Empty, ResizeModeCompat.CanResize);
-                }
+                case GamePlatform.Steam:
+                    await IShowWindowService.Instance.Show(CustomWindow.ShowAuth,
+#if __MOBILE__
+                        new MyAuthenticatorWrapper(auth),
+#else
+                        new ShowAuthWindowViewModel(auth),
+#endif
+                        string.Empty, ResizeModeCompat.CanResize);
+                    break;
             }
         }
 
-#if !__MOBILE__
         public void ShowSteamAuthTrade(MyAuthenticator auth)
         {
             switch (auth.AuthenticatorData.Platform)
             {
                 case GamePlatform.Steam:
-                    IShowWindowService.Instance.Show(CustomWindow.AuthTrade, new AuthTradeWindowViewModel(auth), string.Empty, ResizeModeCompat.CanResize);
+                    IShowWindowService.Instance.Show(CustomWindow.AuthTrade,
+#if __MOBILE__
+                        new MyAuthenticatorWrapper(auth),
+#else
+                        new AuthTradeWindowViewModel(auth),
+#endif
+                        string.Empty, ResizeModeCompat.CanResize);
                     break;
             }
         }
@@ -200,7 +209,13 @@ namespace System.Application.UI.ViewModels
         {
             //if (await AuthService.Current.HasPasswordEncryptionShowPassWordWindow())
             //{
-            await IShowWindowService.Instance.Show(CustomWindow.EncryptionAuth, new EncryptionAuthWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+            await IShowWindowService.Instance.Show(CustomWindow.EncryptionAuth,
+#if __MOBILE__
+                (PageViewModel?)null,
+#else
+                new EncryptionAuthWindowViewModel(),
+#endif
+                string.Empty, ResizeModeCompat.CanResize);
             //}
         }
 
@@ -208,10 +223,15 @@ namespace System.Application.UI.ViewModels
         {
             //if (await AuthService.Current.HasPasswordEncryptionShowPassWordWindow())
             //{
-            await IShowWindowService.Instance.Show(CustomWindow.ExportAuth, new ExportAuthWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+            await IShowWindowService.Instance.Show(CustomWindow.ExportAuth,
+#if __MOBILE__
+                (PageViewModel?)null,
+#else
+                new ExportAuthWindowViewModel(),
+#endif
+                string.Empty, ResizeModeCompat.CanResize);
             //}
         }
-#endif
 
         public void UpMoveOrderById(MyAuthenticator auth)
         {

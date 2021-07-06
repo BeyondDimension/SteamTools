@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace System.Application.UI.ViewModels
 {
-    public class AddAuthWindowViewModel : WindowViewModel
+    partial class AddAuthWindowViewModel : WindowViewModel
     {
         readonly IHttpService httpService = DI.Get<IHttpService>();
         readonly IGameAccountPlatformAuthenticatorRepository repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
@@ -38,14 +38,13 @@ namespace System.Application.UI.ViewModels
                 {
                     AuthPassword = result.password;
                 }
-                else 
+                else
                 {
                     this.Close();
                 }
             }
             AuthIsLocal = repository.HasLocal(auths);
         }
-
 
         public string? AuthName { get; set; }
 
@@ -283,12 +282,11 @@ namespace System.Application.UI.ViewModels
                 ToastService.Current.Set();
                 s.Dispose();
             });
-
         }
 
         public void ImportWinAuth(string file)
         {
-            AuthService.Current.ImportWinAuthenticators(file,AuthIsLocal,AuthPassword);
+            AuthService.Current.ImportWinAuthenticators(file, AuthIsLocal, AuthPassword);
         }
 
         public void ImportSDA(string file)

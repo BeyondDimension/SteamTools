@@ -66,6 +66,10 @@ namespace System.Application.UI.ViewModels
             @string.AppendFormatLine("DefaultThreadCulture: {0}", CultureInfo.DefaultThreadCurrentCulture);
             @string.AppendFormatLine("DefaultThreadUICulture: {0}", CultureInfo.DefaultThreadCurrentUICulture);
 
+            @string.AppendFormatLine("BaseDirectory: {0}", IOPath.BaseDirectory);
+            @string.AppendFormatLine("AppDataDirectory: {0}", IOPath.AppDataDirectory);
+            @string.AppendFormatLine("CacheDirectory: {0}", IOPath.CacheDirectory);
+
             @string.AppendFormatLine("UserName: {0}", Environment.UserName);
             @string.AppendFormatLine("MachineName: {0}", Environment.MachineName);
             @string.AppendFormatLine("ApplicationData: {0}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));

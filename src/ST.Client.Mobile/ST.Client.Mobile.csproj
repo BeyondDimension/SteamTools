@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -49,10 +49,10 @@
       <LinkBase>Services\Mvvm</LinkBase>
     </Compile>
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Windows\LoginOrRegisterWindowViewModel.shared.cs">
-      <LinkBase>UI\ViewModels</LinkBase>
+      <LinkBase>UI\ViewModels\Windows</LinkBase>
     </Compile>
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Windows\UserProfileWindowViewModel.shared.cs">
-      <LinkBase>UI\ViewModels</LinkBase>
+      <LinkBase>UI\ViewModels\Windows</LinkBase>
     </Compile>
     <Compile Include="..\ST.Client.Desktop\Extensions\TaskExtensions.cs">
       <LinkBase>Extensions</LinkBase>
@@ -71,7 +71,7 @@
     </Compile>
     <Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.TryAddFontManager.cs" />
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Pages\About\AboutPageViewModel.shared.cs">
-      <Link>UI\ViewModels\AboutPageViewModel.shared.cs</Link>
+      <Link>UI\ViewModels\Pages\About\AboutPageViewModel.shared.cs</Link>
     </Compile>
     <Compile Include="..\ST.Client.Desktop\Models\Enum\AppTheme.cs">
       <LinkBase>Models\Enum</LinkBase>
@@ -87,19 +87,22 @@
     </Compile>
     <Compile Include="..\ST.Client.Desktop\CustomWindow.cs" />
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Windows\MessageBoxWindowViewModel.cs">
-      <LinkBase>UI\ViewModels</LinkBase>
+      <LinkBase>UI\ViewModels\Windows</LinkBase>
     </Compile>
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Base\DialogWindowViewModel.cs">
       <LinkBase>UI\ViewModels\Base</LinkBase>
     </Compile>
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Windows\LocalAuthPage\PasswordWindowViewModel.cs">
-      <LinkBase>UI\ViewModels</LinkBase>
+      <LinkBase>UI\ViewModels\Windows\LocalAuthPage</LinkBase>
     </Compile>
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Pages\LocalAuthPageViewModel.shared.cs">
-      <LinkBase>UI\ViewModels</LinkBase>
+      <LinkBase>UI\ViewModels\Pages</LinkBase>
     </Compile>
     <Compile Include="..\ST.Client.Desktop\Models\MyAuthenticator.cs">
       <LinkBase>Models</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Windows\LocalAuthPage\*.shared.cs">
+      <LinkBase>UI\ViewModels\Windows\LocalAuthPage</LinkBase>
     </Compile>
   </ItemGroup>
 

@@ -7,7 +7,7 @@ using System.Properties;
 
 namespace System.Application.UI.ViewModels
 {
-    public class ExportAuthWindowViewModel : WindowViewModel
+    partial class ExportAuthWindowViewModel : WindowViewModel
     {
         public ExportAuthWindowViewModel() : base()
         {

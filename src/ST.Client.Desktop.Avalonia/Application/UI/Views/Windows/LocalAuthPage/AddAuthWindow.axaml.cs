@@ -38,6 +38,7 @@ namespace System.Application.UI.Views.Windows
         private void SppV2Btn_Click(object? sender, RoutedEventArgs e)
         {
             var vm = this.DataContext as AddAuthWindowViewModel;
+            if (vm == null) return;
             var fileDialog = new OpenFileDialog
             {
                 Filters = new List<FileDialogFilter> {
@@ -60,6 +61,7 @@ namespace System.Application.UI.Views.Windows
         private void SppBtn_Click(object? sender, RoutedEventArgs e)
         {
             var vm = this.DataContext as AddAuthWindowViewModel;
+            if (vm == null) return;
             var fileDialog = new OpenFileDialog
             {
                 Filters = new List<FileDialogFilter> {
@@ -81,6 +83,7 @@ namespace System.Application.UI.Views.Windows
         private void SdaBtn_Click(object? sender, RoutedEventArgs e)
         {
             var vm = this.DataContext as AddAuthWindowViewModel;
+            if (vm == null) return;
             var fileDialog = new OpenFileDialog
             {
                 Filters = new List<FileDialogFilter> {
@@ -103,6 +106,7 @@ namespace System.Application.UI.Views.Windows
         private void WinAuthBtn_Click(object? sender, RoutedEventArgs e)
         {
             var vm = this.DataContext as AddAuthWindowViewModel;
+            if (vm == null) return;
             var fileDialog = new OpenFileDialog
             {
                 Filters = new List<FileDialogFilter> {

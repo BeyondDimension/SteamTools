@@ -1,11 +1,9 @@
 using DynamicData;
-using DynamicData.Binding;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Repositories;
 using System.Application.Services;
 using System.Application.UI.Resx;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Properties;
@@ -17,10 +15,10 @@ using WinAuth;
 
 namespace System.Application.UI.ViewModels
 {
-    public class AuthTradeWindowViewModel : WindowViewModel
+    partial class AuthTradeWindowViewModel : WindowViewModel
     {
-        private readonly MyAuthenticator MyAuthenticator;
-        private readonly GAPAuthenticatorValueDTO.SteamAuthenticator _Authenticator;
+        private readonly MyAuthenticator? MyAuthenticator;
+        private readonly GAPAuthenticatorValueDTO.SteamAuthenticator? _Authenticator;
 
         public AuthTradeWindowViewModel() : base()
         {
@@ -261,7 +259,7 @@ namespace System.Application.UI.ViewModels
             {
                 IsLoggedIn = false;
                 _Authenticator.SessionData = null;
-                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator,AuthIsLocal,AuthPassword);
+                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator, AuthIsLocal, AuthPassword);
             }
         }
 
@@ -328,7 +326,6 @@ namespace System.Application.UI.ViewModels
 
                     _ConfirmationsSourceList.Clear();
                     _ConfirmationsSourceList.AddRange(list);
-
 
                     // 获取新交易后保存
                     if (!string.IsNullOrEmpty(_Authenticator.SessionData))
@@ -436,7 +433,6 @@ namespace System.Application.UI.ViewModels
 
                 return true;
             }
-
             catch (WinAuthInvalidTradesResponseException ex)
             {
                 Log.Error(nameof(RejectTrade), ex, nameof(AuthTradeWindowViewModel));
@@ -478,7 +474,6 @@ namespace System.Application.UI.ViewModels
 
                 return true;
             }
-
             catch (WinAuthInvalidTradesResponseException ex)
             {
                 Log.Error(nameof(RejectTrade), ex, nameof(AuthTradeWindowViewModel));
@@ -642,6 +637,5 @@ namespace System.Application.UI.ViewModels
                 AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator, AuthIsLocal, AuthPassword);
             }
         }
-
     }
 }

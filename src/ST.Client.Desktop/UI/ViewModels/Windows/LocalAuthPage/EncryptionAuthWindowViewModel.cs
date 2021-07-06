@@ -8,7 +8,7 @@ using System.Properties;
 
 namespace System.Application.UI.ViewModels
 {
-    public class EncryptionAuthWindowViewModel : WindowViewModel
+    partial class EncryptionAuthWindowViewModel : WindowViewModel
     {
         private readonly IGameAccountPlatformAuthenticatorRepository repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
 

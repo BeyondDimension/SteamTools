@@ -9,7 +9,7 @@ using WindowViewModel = System.Application.UI.ViewModels.PageViewModel;
 
 namespace System.Application.UI.ViewModels
 {
-    public class PasswordWindowViewModel : WindowViewModel
+    public class PasswordWindowViewModel : WindowViewModel, ITextBoxWindowViewModel
     {
         public PasswordWindowViewModel() : base()
         {
@@ -23,6 +23,8 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _Password, value);
         }
 
+        string? ITextBoxWindowViewModel.Value { get => Password; set => Password = value; }
+
         public static async Task<string?> ShowPasswordDialog()
         {
             var vm = new PasswordWindowViewModel();
@@ -30,10 +32,6 @@ namespace System.Application.UI.ViewModels
             return vm.Password;
         }
 
-        /// <summary>
-        /// 输入内容验证
-        /// </summary>
-        /// <returns></returns>
         public bool InputValidator()
         {
             if (string.IsNullOrWhiteSpace(Password))
