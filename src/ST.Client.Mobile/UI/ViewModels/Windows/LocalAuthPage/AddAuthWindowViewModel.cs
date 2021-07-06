@@ -1,3 +1,4 @@
+using System.Properties;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -17,6 +18,10 @@ namespace System.Application.UI.ViewModels
                 {
                     action(result.FileName);
                 }
+            }
+            catch (PermissionException e)
+            {
+                Toast.Show(e.Message);
             }
             catch
             {
