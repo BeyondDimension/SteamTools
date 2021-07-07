@@ -19,7 +19,6 @@ namespace System.Application.UI.Fragments
     {
         protected override int? LayoutResource => Resource.Layout.fragment_local_auth;
 
-        IReadOnlyDictionary<int, ActionItem>? actionIds;
         IReadOnlyDictionary<ActionItem, FabWithLabelView>? speedDialDict;
 
         public override void OnCreateView(View view)
@@ -32,8 +31,10 @@ namespace System.Application.UI.Fragments
             binding.rvAuthenticators.SetAdapter(adapter);
 
             var actionItems = Enum2.GetAll<ActionItem>();
-            actionIds = actionItems.ToDictionary(ToIdRes, x => x);
-            speedDialDict = actionItems.ToDictionary(x => x, x => binding.speedDial.AddActionItem(new SpeedDialActionItem.Builder(ToIdRes(x), ToIconRes(x))
+            speedDialDict = actionItems.ToDictionary(x => x, x => binding.speedDial.AddActionItem(new SpeedDialActionItem.Builder(
+                //ToIdRes(x),
+                (int)x,
+                ToIconRes(x))
                     .SetLabel(ToString2(x))
                     .SetFabBackgroundColor(Context.GetColorCompat(Resource.Color.white))
                     .SetFabImageTintColor(new(Context.GetColorCompat(Resource.Color.fab_icon_background_min)))
@@ -53,7 +54,8 @@ namespace System.Application.UI.Fragments
         {
             if (binding != null && actionItem != null)
             {
-                var id = actionIds![actionItem.Id];
+                //var id = actionIds![actionItem.Id];
+                var id = (ActionItem)actionItem.Id;
                 if (id.IsDefined())
                 {
                     binding.speedDial.Close();
@@ -88,15 +90,15 @@ namespace System.Application.UI.Fragments
             _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
         };
 
-        public static int ToIdRes(ActionItem action) => action switch
-        {
-            ActionItem.Add => Resource.Id.fab_action1,
-            ActionItem.Encrypt => Resource.Id.fab_action2,
-            ActionItem.Export => Resource.Id.fab_action3,
-            ActionItem.Lock => Resource.Id.fab_action4,
-            ActionItem.Refresh => Resource.Id.fab_action5,
-            _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
-        };
+        //public static int ToIdRes(ActionItem action) => action switch
+        //{
+        //    ActionItem.Add => Resource.Id.fab_action1,
+        //    ActionItem.Encrypt => Resource.Id.fab_action2,
+        //    ActionItem.Export => Resource.Id.fab_action3,
+        //    ActionItem.Lock => Resource.Id.fab_action4,
+        //    ActionItem.Refresh => Resource.Id.fab_action5,
+        //    _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
+        //};
 
         bool SpeedDialView.IOnChangeListener.OnMainActionSelected() => false;
 
@@ -130,7 +132,6 @@ namespace System.Application.UI.Fragments
 
         public override void OnDestroyView()
         {
-            actionIds = null;
             speedDialDict = null;
             if (Activity is IOnBackPressedCallback callback)
             {
