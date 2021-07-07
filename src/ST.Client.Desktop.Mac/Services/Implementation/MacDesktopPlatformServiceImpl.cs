@@ -23,8 +23,18 @@ namespace System.Application.Services.Implementation
         }
         bool IPlatformService.AdminShell(string shell)
         {
+            var pInfo = new ProcessStartInfo
+            {
+                FileName = Path.Combine(IOPath.AppDataDirectory, $@"hello"),
+                Arguments = $"-t=1 -p=\"{shell}\"",
+            };
+            pInfo.UseShellExecute = true;
+            var p = Process.Start(pInfo);
+            if (p == null) throw new FileNotFoundException("Shell");
+            p.Close();
+            return true;
 #if MONO_MAC
-            return false;
+            //return false;
 #elif XAMARIN_MAC
             var edithost = new NSAppleScript($"do shell script \"'${shell}'\" with administrator privileges");
             var state = edithost.CompileAndReturnError(out var error); 
