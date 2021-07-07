@@ -1,6 +1,11 @@
+using ArchiSteamFarm.Steam;
+using DynamicData;
+using DynamicData.Binding;
 using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.Resx;
+using System.Collections.ObjectModel;
+using System.Reactive.Linq;
 
 namespace System.Application.UI.ViewModels
 {
@@ -16,6 +21,13 @@ namespace System.Application.UI.ViewModels
         public ArchiSteamFarmPlusPageViewModel()
         {
             IconKey = nameof(ArchiSteamFarmPlusPageViewModel).Replace("ViewModel", "Svg");
+
+            ASFService.Current.SteamBotsSourceList
+                      .Connect()
+                      .ObserveOn(RxApp.MainThreadScheduler)
+                      .Sort(SortExpressionComparer<Bot>.Descending(x => x.BotName))
+                      .Bind(out _SteamBots)
+                      .Subscribe();
         }
 
         public string? WebUrl => asfSerivce.GetIPCUrl();
@@ -26,6 +38,12 @@ namespace System.Application.UI.ViewModels
             get => _CommandString;
             set => this.RaiseAndSetIfChanged(ref _CommandString, value);
         }
+
+        /// <summary>
+        /// ASF bots
+        /// </summary>
+        private ReadOnlyObservableCollection<Bot> _SteamBots;
+        public ReadOnlyObservableCollection<Bot> SteamBots => _SteamBots;
 
         public void RunOrStopASF()
         {
