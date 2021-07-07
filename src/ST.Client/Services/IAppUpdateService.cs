@@ -9,9 +9,9 @@ namespace System.Application.Services
     /// </summary>
     public interface IAppUpdateService
     {
-        public static IAppUpdateService Instance => DI.Get<IAppUpdateService>();
+        static IAppUpdateService Instance => DI.Get<IAppUpdateService>();
 
-        public const float MaxProgressValue = 100f;
+        const float MaxProgressValue = 100f;
 
         /// <summary>
         /// 进度值

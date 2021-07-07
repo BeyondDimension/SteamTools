@@ -2,7 +2,6 @@ using DynamicData;
 using Newtonsoft.Json.Linq;
 using ReactiveUI;
 using System.Application.Models;
-using System.Application.Repositories;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
@@ -15,6 +14,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Xml;
 using WinAuth;
+using static System.Application.Models.GAPAuthenticatorValueDTO;
+using GAPRepository = System.Application.Repositories.IGameAccountPlatformAuthenticatorRepository;
 
 namespace System.Application.Services
 {
@@ -24,7 +25,7 @@ namespace System.Application.Services
         public static AuthService Current { get; } = new();
         #endregion
 
-        private readonly IGameAccountPlatformAuthenticatorRepository repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
+        private readonly GAPRepository repository = DI.Get<GAPRepository>();
 
         public SourceCache<MyAuthenticator, int> Authenticators { get; }
 
@@ -217,31 +218,31 @@ namespace System.Application.Services
                         {
                             throw new ApplicationException("Invalid serial for Battle.net Authenticator");
                         }
-                        auth = new GAPAuthenticatorValueDTO.BattleNetAuthenticator();
+                        auth = new BattleNetAuthenticator();
                         //char[] decoded = Base32.getInstance().Decode(secret).Select(c => Convert.ToChar(c)).ToArray(); // this is hex string values
                         //string hex = new string(decoded);
                         //((BattleNetAuthenticator)auth).SecretKey = Authenticator.StringToByteArray(hex);
 
-                        ((GAPAuthenticatorValueDTO.BattleNetAuthenticator)auth).SecretKey = WinAuthBase32.GetInstance().Decode(secret);
+                        ((BattleNetAuthenticator)auth).SecretKey = WinAuthBase32.GetInstance().Decode(secret);
 
-                        ((GAPAuthenticatorValueDTO.BattleNetAuthenticator)auth).Serial = serial;
+                        ((BattleNetAuthenticator)auth).Serial = serial;
 
                         issuer = string.Empty;
                     }
                     else if (string.Compare(issuer, "Steam", true) == 0)
                     {
-                        auth = new GAPAuthenticatorValueDTO.SteamAuthenticator();
-                        ((GAPAuthenticatorValueDTO.SteamAuthenticator)auth).SecretKey = WinAuthBase32.GetInstance().Decode(secret);
-                        ((GAPAuthenticatorValueDTO.SteamAuthenticator)auth).Serial = string.Empty;
-                        ((GAPAuthenticatorValueDTO.SteamAuthenticator)auth).DeviceId = query["deviceid"] ?? string.Empty;
-                        ((GAPAuthenticatorValueDTO.SteamAuthenticator)auth).SteamData = query["data"] ?? string.Empty;
+                        auth = new SteamAuthenticator();
+                        ((SteamAuthenticator)auth).SecretKey = WinAuthBase32.GetInstance().Decode(secret);
+                        ((SteamAuthenticator)auth).Serial = string.Empty;
+                        ((SteamAuthenticator)auth).DeviceId = query["deviceid"] ?? string.Empty;
+                        ((SteamAuthenticator)auth).SteamData = query["data"] ?? string.Empty;
                         issuer = string.Empty;
                     }
                     else if (uri.Host == "hotp")
                     {
-                        auth = new GAPAuthenticatorValueDTO.HOTPAuthenticator();
-                        ((GAPAuthenticatorValueDTO.HOTPAuthenticator)auth).SecretKey = WinAuthBase32.GetInstance().Decode(secret);
-                        ((GAPAuthenticatorValueDTO.HOTPAuthenticator)auth).Counter = int.Parse(counter);
+                        auth = new HOTPAuthenticator();
+                        ((HOTPAuthenticator)auth).SecretKey = WinAuthBase32.GetInstance().Decode(secret);
+                        ((HOTPAuthenticator)auth).Counter = int.Parse(counter);
 
                         if (string.IsNullOrEmpty(issuer) == false)
                         {
@@ -250,8 +251,8 @@ namespace System.Application.Services
                     }
                     else // if (string.Compare(issuer, "Google", true) == 0)
                     {
-                        auth = new GAPAuthenticatorValueDTO.GoogleAuthenticator();
-                        ((GAPAuthenticatorValueDTO.GoogleAuthenticator)auth).Enroll(secret);
+                        auth = new GoogleAuthenticator();
+                        ((GoogleAuthenticator)auth).Enroll(secret);
 
                         if (string.Compare(issuer, "Google", true) == 0)
                         {
@@ -275,7 +276,7 @@ namespace System.Application.Services
                         auth.CodeDigits = digits;
                     }
 
-                    if (Enum.TryParse<GAPAuthenticatorValueDTO.HMACTypes>(query["algorithm"], true, out GAPAuthenticatorValueDTO.HMACTypes hmactype) == true)
+                    if (Enum.TryParse(query["algorithm"], true, out HMACTypes hmactype) == true)
                     {
                         auth.HMACType = hmactype;
                     }
@@ -395,7 +396,7 @@ namespace System.Application.Services
                 return false;
             }
 
-            GAPAuthenticatorValueDTO.SteamAuthenticator auth = new GAPAuthenticatorValueDTO.SteamAuthenticator
+            SteamAuthenticator auth = new SteamAuthenticator
             {
                 SecretKey = secret,
                 Serial = serial,
@@ -435,7 +436,7 @@ namespace System.Application.Services
             sdaentry.json = data;
 
             //importSDAList.Items.Add(sdaentry);
-            GAPAuthenticatorValueDTO.SteamAuthenticator auth = new();
+            SteamAuthenticator auth = new();
             GAPAuthenticatorDTO winAuth = new();
             foreach (var prop in token.Root.Children().ToList())
             {
@@ -492,7 +493,7 @@ namespace System.Application.Services
             Run:
                 var result = await repository.ImportAsync(exportPassword, bt!);
 
-                if (result.resultCode == IGameAccountPlatformAuthenticatorRepository.ImportResultCode.Success)
+                if (result.resultCode == GAPRepository.ImportResultCode.Success)
                 {
                     foreach (var item in result.result)
                     {
@@ -501,7 +502,7 @@ namespace System.Application.Services
 
                     Toast.Show(AppResources.LocalAuth_AddAuthSuccess);
                 }
-                else if (result.resultCode == IGameAccountPlatformAuthenticatorRepository.ImportResultCode.PartSuccess)
+                else if (result.resultCode == GAPRepository.ImportResultCode.PartSuccess)
                 {
                     foreach (var item in result.result)
                     {
@@ -509,7 +510,7 @@ namespace System.Application.Services
                     }
                     Toast.Show(AppResources.LocalAuth_AddAuth_PartSuccess);
                 }
-                else if (result.resultCode == IGameAccountPlatformAuthenticatorRepository.ImportResultCode.SecondaryPasswordFail)
+                else if (result.resultCode == GAPRepository.ImportResultCode.SecondaryPasswordFail)
                 {
                     Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
                     exportPassword = await PasswordWindowViewModel.ShowPasswordDialog();
@@ -576,7 +577,7 @@ namespace System.Application.Services
 
         public static async void AddOrUpdateSaveAuthenticators(MyAuthenticator auth, bool isLocal, string? password)
         {
-            var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
+            var repository = DI.Get<GAPRepository>();
             await repository.InsertOrUpdateAsync(auth.AuthenticatorData, isLocal, password);
             if (Current.Authenticators.Items.Any(s => s.Id == auth.Id))
             {
@@ -589,7 +590,7 @@ namespace System.Application.Services
         {
             if (auths.Any_Nullable())
             {
-                var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
+                var repository = DI.Get<GAPRepository>();
                 var sources = await repository.GetAllSourceAsync();
                 if (!sources.Any_Nullable())
                 {
@@ -601,7 +602,7 @@ namespace System.Application.Services
                 else
                 {
                     var hasLocal = repository.HasLocal(sources);
-                    var result = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
+                    var result = await Current.HasPasswordEncryptionShowPassWordWindow();
                     var password = result.password;
                     foreach (var item in auths)
                     {
@@ -613,7 +614,7 @@ namespace System.Application.Services
 
         public static async void DeleteSaveAuthenticators(MyAuthenticator auth)
         {
-            var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
+            var repository = DI.Get<GAPRepository>();
             if (auth.AuthenticatorData.ServerId.HasValue)
             {
                 await repository.DeleteAsync(auth.AuthenticatorData.ServerId.Value);
@@ -622,13 +623,33 @@ namespace System.Application.Services
             Current.Authenticators.Remove(auth);
         }
 
+        bool _SavingEditNameAuthenticators;
+
         public async void SaveEditNameAuthenticators()
         {
+#if !__MOBILE__
+            await SaveEditNameAuthenticatorsAsync(false);
+#else
+            if (_SavingEditNameAuthenticators) return;
+            _SavingEditNameAuthenticators = true;
+            await SaveEditNameAuthenticatorsAsync(true);
+            _SavingEditNameAuthenticators = false;
+#endif
+        }
+
+        async Task SaveEditNameAuthenticatorsAsync(bool overlapName)
+        {
             var auths = Authenticators.Items.Where(x => x.Name != x.OriginName);
-            var hasLocal = await DI.Get<IGameAccountPlatformAuthenticatorRepository>().HasLocalAsync();
+            var isLocal = await DI.Get<GAPRepository>().HasLocalAsync();
 
             foreach (var auth in auths)
-                await repository.RenameAsync(auth.Id, auth.Name, hasLocal);
+            {
+                await repository.RenameAsync(auth.Id, auth.Name, isLocal);
+                if (overlapName)
+                {
+                    auth.OriginName = auth.Name;
+                }
+            }
         }
 
         public async void SwitchEncryptionAuthenticators(bool isLocal, string? password)

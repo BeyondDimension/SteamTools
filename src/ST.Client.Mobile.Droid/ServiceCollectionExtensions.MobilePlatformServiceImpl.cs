@@ -10,9 +10,14 @@ namespace Microsoft.Extensions.DependencyInjection
         /// 添加移动平台服务
         /// </summary>
         /// <param name="services"></param>
+        /// <param name="hasGUI"></param>
         /// <returns></returns>
-        public static IServiceCollection AddMobilePlatformService(this IServiceCollection services)
+        public static IServiceCollection AddMobilePlatformService(this IServiceCollection services, bool hasGUI)
         {
+            if (hasGUI)
+            {
+                services.AddSingleton<IBiometricService, PlatformBiometricServiceImpl>();
+            }
             services.AddSingleton<MobilePlatformServiceImpl>();
             services.AddSingleton<IPlatformService>(s => s.GetRequiredService<MobilePlatformServiceImpl>());
             services.AddSingleton<IMobilePlatformService>(s => s.GetRequiredService<MobilePlatformServiceImpl>());

@@ -15,6 +15,7 @@ using Binding;
 using Google.Android.Material.Dialog;
 using ReactiveUI;
 using System.Application.Security;
+using System.Application.Services;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
@@ -380,6 +381,9 @@ namespace System.Application.UI.Activities
                     b.AppendLine();
                     b.Append("[device.gl.extensions] ");
                     b.Append(GLES20.GlGetString(GLES20.GlExtensions) ?? "");
+                    b.AppendLine();
+                    b.Append("[device.biometric] ");
+                    b.Append(ToLowerString(IBiometricService.Instance.IsSupportedAsync().Result));
                     b.AppendLine();
                     var b_str = b.ToString();
                     MessageBoxCompat.Show(b_str, "");

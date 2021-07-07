@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="2.3.2" package="net.steampp.app" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="2.4.2" package="net.steampp.app" android:installLocation="auto">
   <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="30" />
-  <application android:label="@string/app_name" android:theme="@style/MainTheme" android:roundIcon="@mipmap/ic_launcher_round">
+  <application android:label="@string/app_name" android:theme="@style/MainTheme" android:roundIcon="@mipmap/ic_launcher_round" android:fullBackupContent="@xml/auto_backup_rules">
     <activity android:name="microsoft.identity.client.BrowserTabActivity" android:configChanges="orientation|screenSize">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
@@ -50,6 +50,14 @@
     <!-- https://developers.google.com/web/updates/2020/07/custom-tabs-android-11#detecting_browsers_that_support_custom_tabs -->
     <intent>
       <action android:name="android.support.customtabs.action.CustomTabsService" />
+    </intent>
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <data android:scheme="http"/>
+    </intent>
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <data android:scheme="https"/>
     </intent>
   </queries>
 </manifest>

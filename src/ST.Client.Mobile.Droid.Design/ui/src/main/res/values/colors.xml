@@ -16,4 +16,5 @@
     <color name="text_link">#007ffc</color>
     <color name="status_bar_color">#FFFFFFFF</color>
     <color name="icon_background">@color/black</color>
+    <color name="fab_icon_background_min">#747474</color>
 </resources>

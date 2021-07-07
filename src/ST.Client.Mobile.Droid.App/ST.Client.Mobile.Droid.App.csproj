@@ -102,6 +102,9 @@
       <Name>ST.Client.Mobile</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\auto_backup_rules.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Condition=" Exists('$(MSBuildProjectDirectory)\..\..\Xamarin.Android.KeyStore.props') " Project="..\..\Xamarin.Android.KeyStore.props" />
   <ProjectExtensions>

@@ -140,10 +140,10 @@ namespace System.Application
             var hasSteam = level.HasFlag(DILevel.Steam);
 #if !UI_DEMO && !__MOBILE__
             // 桌面平台服务 此项放在其他通用业务实现服务之前
-            services.AddDesktopPlatformService(hasSteam);
+            services.AddDesktopPlatformService(hasSteam, hasGUI);
 #endif
 #if __MOBILE__
-            services.AddMobilePlatformService();
+            services.AddMobilePlatformService(hasGUI);
 #endif
 #if StartupTrace
             StartupTrace.Restart("DI.ConfigureDemandServices.Calc");
@@ -203,6 +203,8 @@ namespace System.Application
 #endif
 
                 #endregion
+
+                services.TryAddBiometricService();
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.GUI");
 #endif

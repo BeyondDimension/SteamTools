@@ -9,7 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services, bool hasSteam)
+        public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services, bool hasSteam, bool hasGUI)
         {
             if (DI.Platform == Platform.Apple)
             {
