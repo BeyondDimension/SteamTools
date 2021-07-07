@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="UI\ViewModels\Pages\LocalAuthPageViewModel.shared.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
