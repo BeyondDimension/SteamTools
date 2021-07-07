@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,17 +6,28 @@ using ArchiSteamFarm.Core;
 using ArchiSteamFarm.Storage;
 using ArchiSteamFarm.NLog.Targets;
 using ArchiSteamFarm.Steam;
-using NLog;
 using System.IO;
 using ArchiSteamFarm;
 using Microsoft.Extensions.Configuration;
 using System.Net;
+using ArchiSteamFarm.Steam.Storage;
+using ArchiSteamFarm.Localization;
+using ReactiveUI;
 
 namespace System.Application.Services.Implementation
 {
-    public class ArchiSteamFarmServiceImpl : IArchiSteamFarmService
+    public class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarmService
     {
         public Action<string>? GetConsoleWirteFunc { get; set; }
+
+        public TaskCompletionSource<string>? ReadLineTask { get; set; }
+
+        bool _IsReadPasswordLine;
+        public bool IsReadPasswordLine
+        {
+            get => _IsReadPasswordLine;
+            set => this.RaiseAndSetIfChanged(ref _IsReadPasswordLine, value);
+        }
 
         public async void Start(string[]? args = null)
         {
@@ -25,6 +35,20 @@ namespace System.Application.Services.Implementation
             {
                 IArchiSteamFarmService.InitCoreLoggers?.Invoke();
                 InitHistoryLogger();
+
+                ArchiSteamFarm.NLog.Logging.GetUserInputFunc = async (bool isPassword) =>
+                {
+                    ReadLineTask = new();
+                    IsReadPasswordLine = isPassword;
+
+                    var result = await ReadLineTask.Task;
+
+                    if (IsReadPasswordLine)
+                        IsReadPasswordLine = false;
+                    ReadLineTask = null;
+                    return result;
+                };
+
                 await ArchiSteamFarm.Program.Init(args).ConfigureAwait(false);
             }
             catch (Exception ex)
@@ -61,12 +85,12 @@ namespace System.Application.Services.Implementation
 
             if (targetBot == null)
             {
+                ASF.ArchiLogger.LogGenericWarning(Strings.ErrorNoBotsDefined);
                 //Console.WriteLine(@"<< " + Strings.ErrorNoBotsDefined);
-
                 return null;
             }
-
             //Console.WriteLine(@"<> " + Strings.Executing);
+            ASF.ArchiLogger.LogGenericWarning(Strings.Executing);
 
             ulong steamOwnerID = ASF.GlobalConfig?.SteamOwnerID ?? ArchiSteamFarm.Storage.GlobalConfig.DefaultSteamOwnerID;
 
@@ -88,9 +112,11 @@ namespace System.Application.Services.Implementation
         /// 设置并保存bot
         /// </summary>
         /// <returns></returns>
-        public void SaveBot(string botName)
+        public async void SaveBot(Bot bot)
         {
-
+            //var bot = Bot.GetBot(botName);
+            string filePath = Bot.GetFilePath(bot.BotName, Bot.EFileType.Config);
+            bool result = await BotConfig.Write(filePath, bot.BotConfig).ConfigureAwait(false);
         }
 
         public GlobalConfig? GetGlobalConfig()
@@ -100,6 +126,7 @@ namespace System.Application.Services.Implementation
 
         public string GetIPCUrl()
         {
+            var defaultUrl = "http://" + IPAddress.Loopback + ":1242";
             string absoluteConfigDirectory = Path.Combine(ASFPathHelper.AppDataDirectory, SharedInfo.ConfigDirectory);
             string customConfigPath = Path.Combine(absoluteConfigDirectory, SharedInfo.IPCConfigFile);
             if (File.Exists(customConfigPath))
@@ -111,7 +138,7 @@ namespace System.Application.Services.Implementation
                     var url = new Uri(urlSection);
                     if (IPAddress.Any.ToString() == url.Host)
                     {
-                        return "http://" + IPAddress.Loopback + ":1242";
+                        return defaultUrl;
                     }
                     else
                     {
@@ -120,18 +147,31 @@ namespace System.Application.Services.Implementation
                 }
                 catch
                 {
-                    return "http://" + IPAddress.Loopback + ":1242";
+                    return defaultUrl;
                 }
             }
             else
             {
-                return "http://" + IPAddress.Loopback + ":1242";
+                return defaultUrl;
             }
         }
 
-        public void SaveGlobalConfig(GlobalConfig config)
+        public async void SaveGlobalConfig(GlobalConfig config)
         {
+            string filePath = ASF.GetFilePath(ASF.EFileType.Config);
+            bool result = await GlobalConfig.Write(filePath, config).ConfigureAwait(false);
+        }
 
+        public string GetAvatarUrl(Bot bot)
+        {
+            if (!string.IsNullOrEmpty(bot.AvatarHash))
+            {
+                return $"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{bot.AvatarHash.Substring(0, 2)}/{bot.AvatarHash}_full.jpg";
+            }
+            else
+            {
+                return "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg";
+            }
         }
     }
 }

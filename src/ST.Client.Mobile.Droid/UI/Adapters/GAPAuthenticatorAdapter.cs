@@ -1,11 +1,9 @@
 using Android.Views;
 using Binding;
 using ReactiveUI;
-using System.Application.UI.Activities;
 using System.Application.UI.ViewModels;
 using TViewHolder = System.Application.UI.Adapters.GAPAuthenticatorViewHolder;
 using TViewModel = System.Application.Models.MyAuthenticator;
-using XEPlatform = Xamarin.Essentials.Platform;
 
 namespace System.Application.UI.Adapters
 {
@@ -53,52 +51,57 @@ namespace System.Application.UI.Adapters
             }
         }
 
+        static async void EditName(TViewModel vm)
+        {
+            var value = await TextBoxWindowViewModel.ShowDialog(new()
+            {
+                Value = vm.Name,
+            });
+            vm.Name = value ?? string.Empty;
+        }
+
         void View.IOnClickListener.OnClick(View? view)
         {
             if (view == null) return;
+            var vm = ViewModel;
+            if (vm == null) return;
             if (view.Id == Resource.Id.btnEditName)
             {
+                EditName(vm);
             }
             else if (view.Id == Resource.Id.btnConfirmTrade)
             {
-                //GetDataContext(dataContext =>
-                //{
-                //    dataContext.ShowSteamAuthTrade(ViewModel!);
-                //});
-
-                switch (ViewModel!.AuthenticatorData.Platform)
+                GetDataContext(dataContext =>
                 {
-                    case GamePlatform.Steam:
-                        SteamAuthTradeActivity.StartActivity(XEPlatform.CurrentActivity, ViewModel!.Id);
-                        break;
-                }
+                    dataContext.ShowSteamAuthTrade(vm);
+                });
             }
             else if (view.Id == Resource.Id.btnCopy)
             {
                 GetDataContext(dataContext =>
                 {
-                    dataContext.CopyCodeCilp(ViewModel!);
+                    dataContext.CopyCodeCilp(vm);
                 });
             }
             else if (view.Id == Resource.Id.btnDelete)
             {
                 GetDataContext(dataContext =>
                 {
-                    dataContext.DeleteAuth(ViewModel!);
+                    dataContext.DeleteAuth(vm);
                 });
             }
             else if (view.Id == Resource.Id.btnSeeDetail)
             {
                 GetDataContext(dataContext =>
                 {
-                    dataContext.ShowSteamAuthData(ViewModel!);
+                    dataContext.ShowSteamAuthData(vm);
                 });
             }
             else if (view.Id == Resource.Id.btnSeeValue)
             {
                 GetDataContext(dataContext =>
                 {
-                    dataContext.ShowAuthCode(ViewModel!);
+                    dataContext.ShowAuthCode(vm);
                 });
             }
         }

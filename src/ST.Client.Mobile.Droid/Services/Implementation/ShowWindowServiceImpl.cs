@@ -1,13 +1,17 @@
 using Android.Content;
+using Android.Text;
 using Android.Views;
 using Binding;
 using Google.Android.Material.Dialog;
+using Google.Android.Material.TextField;
+using System.Application.Models;
+using System.Application.UI.Activities;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Threading.Tasks;
 using System.Windows;
+using static Xamarin.Essentials.Platform;
 using AlertDialog = AndroidX.AppCompat.App.AlertDialog;
-using XEPlatform = Xamarin.Essentials.Platform;
 
 namespace System.Application.Services.Implementation
 {
@@ -18,6 +22,31 @@ namespace System.Application.Services.Implementation
 
         Task<bool> PlatformShowWindow(CustomWindow customWindow, PageViewModel? viewModel = null, string title = "")
         {
+            switch (customWindow)
+            {
+                case CustomWindow.ShowAuth:
+                case CustomWindow.AuthTrade:
+                    if (viewModel is MyAuthenticatorWrapper viewModel_auth_w)
+                    {
+                        switch (customWindow)
+                        {
+                            case CustomWindow.ShowAuth:
+                                // Android Activity 传参需要序列化后再反序列化，不能直接传递
+                                // 所以此处传递 Id，在 Activity 中从关联的集合中根据 Id 取值
+                                SteamAuthDataActivity.StartActivity(CurrentActivity, viewModel_auth_w.Authenticator.Id);
+                                break;
+                            case CustomWindow.AuthTrade:
+                                SteamAuthTradeActivity.StartActivity(CurrentActivity, viewModel_auth_w.Authenticator.Id);
+                                break;
+                        }
+                    }
+                    return Task.FromResult(false);
+                case CustomWindow.EncryptionAuth:
+                    throw new NotImplementedException();
+                case CustomWindow.ExportAuth:
+                    throw new NotImplementedException();
+            }
+
             TaskCompletionSource<bool> tcs = new();
             try
             {
@@ -50,7 +79,7 @@ namespace System.Application.Services.Implementation
                     if (isCancelcBtn) SetCancelButton(b);
                     return null;
                 }
-                Action<AlertDialog>? CreatePasswordDialogWindow(MaterialAlertDialogBuilder b)
+                Action<AlertDialog>? CreateTextBoxPasswordDialogWindow(MaterialAlertDialogBuilder b, Action<textbox_password>? action = null)
                 {
                     // https://material.io/components/text-fields/android
                     // https://material.io/components/dialogs#specs
@@ -59,15 +88,15 @@ namespace System.Application.Services.Implementation
                     SetCancelButton(b);
                     var view = LayoutInflater.From(b.Context)!.Inflate(Resource.Layout.textbox_password, null, false)!;
                     var binding = new textbox_password(view);
-                    binding.layoutPassword.Hint = AppResources.LocalAuth_PasswordRequired1;
+                    action?.Invoke(binding);
                     b.SetView(view);
                     return d =>
                     {
                         d.GetButton((int)DialogButtonType.Positive).Click += (_, _) =>
                         {
-                            if (viewModel is PasswordWindowViewModel viewModel_p)
+                            if (viewModel is ITextBoxWindowViewModel viewModel_p)
                             {
-                                viewModel_p.Password = binding.tbPassword.Text;
+                                viewModel_p.Value = binding.tbPassword.Text;
                                 if (viewModel_p.InputValidator())
                                 {
                                     d.Dismiss();
@@ -77,18 +106,34 @@ namespace System.Application.Services.Implementation
                         };
                     };
                 }
+                Action<AlertDialog>? CreatePasswordDialogWindow(MaterialAlertDialogBuilder b) => CreateTextBoxPasswordDialogWindow(b, binding =>
+                {
+                    binding.layoutPassword.Hint = AppResources.LocalAuth_PasswordRequired1;
+                });
+                Action<AlertDialog>? CreateTextBoxDialogWindow(MaterialAlertDialogBuilder b) => CreateTextBoxPasswordDialogWindow(b, binding =>
+                {
+                    if (viewModel is TextBoxWindowViewModel viewModel_tb)
+                    {
+                        binding.layoutPassword.EndIconMode = TextInputLayout.EndIconClearText;
+                        binding.tbPassword.InputType = InputTypes.ClassText | InputTypes.TextVariationNormal;
+                        binding.layoutPassword.Hint = viewModel_tb.Placeholder;
+                        if (!string.IsNullOrEmpty(viewModel_tb.Value))
+                            binding.tbPassword.Text = viewModel_tb.Value;
+                    }
+                });
 
                 Func<MaterialAlertDialogBuilder, Action<AlertDialog>?> @delegate = customWindow switch
                 {
                     CustomWindow.MessageBox => CreateMessageBoxDialogWindow,
                     CustomWindow.Password => CreatePasswordDialogWindow,
+                    CustomWindow.TextBox => CreateTextBoxDialogWindow,
                     _ => throw new NotImplementedException(),
                 };
                 if (!string.IsNullOrEmpty(title) && viewModel != null)
                 {
                     viewModel.Title = title;
                 }
-                var builder = new MaterialAlertDialogBuilder(XEPlatform.CurrentActivity);
+                var builder = new MaterialAlertDialogBuilder(CurrentActivity);
                 if (!string.IsNullOrWhiteSpace(viewModel?.Title))
                 {
                     builder.SetTitle(viewModel!.Title);

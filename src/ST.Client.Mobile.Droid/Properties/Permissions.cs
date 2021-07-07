@@ -1,4 +1,4 @@
-﻿using Android.App;
+using Android.App;
 using static Android.Manifest.Permission;
 
 #region Base
@@ -6,7 +6,7 @@ using static Android.Manifest.Permission;
 [assembly: UsesPermission(Internet)] // android.permission.INTERNET
 #endregion
 
-#region XE.Connectivity // https://docs.microsoft.com/zh-cn/xamarin/essentials/connectivity?context=xamarin%2Fandroid&tabs=android
+#region Xamarin.Essentials.Connectivity // https://docs.microsoft.com/zh-cn/xamarin/essentials/connectivity?context=xamarin%2Fandroid&tabs=android
 // 允许应用程序访问有关网络的信息。
 [assembly: UsesPermission(AccessNetworkState)] // android.permission.ACCESS_NETWORK_STATE
 #endregion
@@ -16,4 +16,8 @@ using static Android.Manifest.Permission;
 [assembly: UsesPermission(ReadPhoneState, MaxSdkVersion = 25)] // android.permission.READ_PHONE_STATE
 // 允许读取设备的电话号码。
 [assembly: UsesPermission(ReadPhoneNumbers)] // android.permission.READ_PHONE_NUMBERS
+#endregion
+
+#region Xamarin.Essentials.FilePicker https://docs.microsoft.com/zh-cn/xamarin/essentials/file-picker?context=xamarin%2Fandroid&tabs=android
+[assembly: UsesPermission(ReadExternalStorage)]
 #endregion

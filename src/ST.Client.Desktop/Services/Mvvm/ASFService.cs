@@ -1,3 +1,5 @@
+using ArchiSteamFarm.Steam;
+using DynamicData;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,8 @@ namespace System.Application.Services
         public static ASFService Current { get; } = new();
         #endregion
 
+        private readonly IArchiSteamFarmService archiSteamFarmService = IArchiSteamFarmService.Instance;
+
         bool _IPCUrl;
         public bool IPCUrl
         {
@@ -26,6 +30,20 @@ namespace System.Application.Services
             get => _CommandText;
             set => this.RaiseAndSetIfChanged(ref _CommandText, value);
         }
+
+        public SourceCache<Bot, string> SteamBotsSourceList;
+
+
+        public ASFService()
+        {
+            SteamBotsSourceList = new SourceCache<Bot, string>(t => t.BotName);
+
+
+            var bots = archiSteamFarmService.GetReadOnlyAllBots();
+            if (bots.Any_Nullable())
+                SteamBotsSourceList.AddOrUpdate(bots!.Values);
+        }
+
 
     }
 }

@@ -12,20 +12,20 @@ namespace System.Application.UI.Views.Controls
         public const string InputIndicator = "> ";
         public const string OutputIndicator = "< ";
 
-        ///// <summary>
-        ///// Defines the <see cref="LogTexts"/> property.
-        ///// </summary>
-        //public static readonly StyledProperty<IEnumerable?> LogTextsProperty =
-        //    AvaloniaProperty.Register<AvaloniaShell, IEnumerable?>(nameof(LogTexts), null);
+        /// <summary>
+        /// Defines the <see cref="LogTexts"/> property.
+        /// </summary>
+        public static readonly StyledProperty<bool> IsMaskProperty =
+            AvaloniaProperty.Register<ConsoleShell, bool>(nameof(IsMask), false);
 
-        ///// <summary>
-        ///// 输出日志字符串集合
-        ///// </summary>
-        //public IEnumerable? LogTexts
-        //{
-        //    get => GetValue(LogTextsProperty);
-        //    set => SetValue(LogTextsProperty, value);
-        //}
+        /// <summary>
+        /// 隐藏指令内容（用于密码输入）
+        /// </summary>
+        public bool IsMask
+        {
+            get => GetValue(IsMaskProperty);
+            set => SetValue(IsMaskProperty, value);
+        }
 
         public StringBuilder LogText { get; set; } = new StringBuilder();
 
@@ -35,26 +35,40 @@ namespace System.Application.UI.Views.Controls
         /// </summary>
         public event EventHandler<CommandEventArgs>? CommandSubmit;
 
-
         private TextBox commandTextbox;
         private TextBox logTextbox;
+        private ScrollViewer consoleScroll;
 
         public ConsoleShell()
         {
             InitializeComponent();
 
             logTextbox = this.FindControl<TextBox>("LogTextbox");
-
+            consoleScroll = this.FindControl<ScrollViewer>("ConsoleScroll");
             commandTextbox = this.FindControl<TextBox>("CommandTextbox");
             commandTextbox.KeyUp += CommandTextbox_KeyUp;
 
-            //this.WhenAnyValue(x=>x.LogTexts)
-            //    .Subscribe(x=>x.);
+            this.logTextbox.GetObservable(TextBox.TextProperty)
+                  .Subscribe(x =>
+                  {
+                      if (this.logTextbox.IsVisible = !string.IsNullOrEmpty(x))
+                      {
+                          //if (x.EndsWith(Environment.NewLine))
+                          //{
+                          //    x = x.Remove(x.Length);
+                          //}
+                          consoleScroll.ScrollToEnd();
+                          //consoleScroll.Offset = new Vector(double.NegativeInfinity, consoleScroll.Viewport.Height);
+                      }
+                  });
+
+            this.GetObservable(IsMaskProperty)
+                  .Subscribe(x => commandTextbox.PasswordChar = x ? '*' : default);
         }
 
         private void CommandTextbox_KeyUp(object? sender, Avalonia.Input.KeyEventArgs e)
         {
-            if (e.Key == Avalonia.Input.Key.Enter)
+            if (e.Key == Avalonia.Input.Key.Enter && !string.IsNullOrEmpty(commandTextbox.Text))
             {
                 OnCommandSubmit(commandTextbox.Text);
                 commandTextbox.Text = string.Empty;
@@ -69,17 +83,14 @@ namespace System.Application.UI.Views.Controls
                 {
                     _commandSubmitArgs = new CommandEventArgs();
                 }
-                else
-                {
-                    _commandSubmitArgs.Command = command;
-                }
+                _commandSubmitArgs.Command = command;
                 CommandSubmit(this, _commandSubmitArgs);
             }
         }
 
         public void AppendLogText(string text)
         {
-            LogText.AppendLine(OutputIndicator + text);
+            LogText.AppendLine(text);
             logTextbox.Text = LogText.ToString();
         }
 

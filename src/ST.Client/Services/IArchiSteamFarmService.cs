@@ -1,4 +1,6 @@
+using ArchiSteamFarm.Steam;
 using ReactiveUI;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -13,6 +15,10 @@ namespace System.Application.Services
         static Action? InitCoreLoggers { protected get; set; }
 
         Action<string>? GetConsoleWirteFunc { get; set; }
+
+        TaskCompletionSource<string>? ReadLineTask { get; }
+
+        bool IsReadPasswordLine { get; }
 
         /// <summary>
         /// 启动ASF
@@ -33,5 +39,11 @@ namespace System.Application.Services
         /// </summary>
         /// <returns></returns>
         string GetIPCUrl();
+
+        /// <summary>
+        /// 获取bot只读集合
+        /// </summary>
+        /// <returns></returns>
+        IReadOnlyDictionary<string, Bot>? GetReadOnlyAllBots();
     }
 }
