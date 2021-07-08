@@ -14,8 +14,10 @@ namespace Microsoft.Extensions.DependencyInjection
         /// 添加桌面平台服务
         /// </summary>
         /// <param name="services"></param>
+        /// <param name="hasSteam"></param>
+        /// <param name="hasGUI"></param>
         /// <returns></returns>
-        public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services, bool hasSteam)
+        public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services, bool hasSteam, bool hasGUI)
         {
             if (DI.Platform == Platform.Windows)
             {
@@ -26,6 +28,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 if (hasSteam)
                 {
                     services.AddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();
+                }
+                if (hasGUI)
+                {
+                    services.AddSingleton<IBiometricService, PlatformBiometricServiceImpl>();
                 }
                 services.AddSingleton<WindowsProtectedData>();
                 services.AddSingleton<IProtectedData>(s => s.GetRequiredService<WindowsProtectedData>());

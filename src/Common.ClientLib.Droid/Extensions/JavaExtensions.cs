@@ -25,7 +25,7 @@ namespace System
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public static bool HasFile(this JFile file) => file != null && file.IsFile && file.Exists();
+        public static bool HasFile(this JFile? file) => file != null && file.IsFile && file.Exists();
 
         public static string GetJavaEnumName(this JEnum @enum)
         {

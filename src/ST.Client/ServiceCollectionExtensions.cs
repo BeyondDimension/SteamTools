@@ -9,7 +9,7 @@ using System.Application.Services.Implementation;
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class IdentityServiceCollectionExtensions
+    public static partial class IdentityServiceCollectionExtensions
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {

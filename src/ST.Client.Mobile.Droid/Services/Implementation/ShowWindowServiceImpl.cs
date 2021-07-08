@@ -41,10 +41,19 @@ namespace System.Application.Services.Implementation
                         }
                     }
                     return Task.FromResult(false);
-                case CustomWindow.EncryptionAuth:
-                    throw new NotImplementedException();
-                case CustomWindow.ExportAuth:
-                    throw new NotImplementedException();
+            }
+
+            var activityType = customWindow switch
+            {
+                CustomWindow.AddAuth => typeof(AddAuthActivity),
+                CustomWindow.ExportAuth => typeof(ExportAuthActivity),
+                CustomWindow.EncryptionAuth => typeof(EncryptionAuthActivity),
+                _ => null,
+            };
+            if (activityType != null)
+            {
+                CurrentActivity.StartActivity(activityType);
+                return Task.FromResult(false);
             }
 
             TaskCompletionSource<bool> tcs = new();

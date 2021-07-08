@@ -16,4 +16,5 @@
     <dimen name="preference_buttons_space_min">8dp</dimen>
     <dimen name="gap_space">16dp</dimen>
     <dimen name="gap_space_min">8dp</dimen>
+    <dimen name="text_field_outlined_top_space_height">5dp</dimen>
 </resources>

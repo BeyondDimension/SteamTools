@@ -3,7 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        Width="600" Height="450"
+        Width="800" Height="600"
         x:Class="System.Application.UI.Views.Windows.ShowAuthWindow"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
@@ -51,7 +51,7 @@
         </StackPanel>
 
         <TextBlock Text="SteamGuard："></TextBlock>
-        <TextBox BorderThickness="0" Text="{Binding SteamData,Mode=OneTime}" IsReadOnly="True" Height="150" AcceptsReturn="True" TextWrapping="Wrap" MaxWidth="{ReflectionBinding $parent.MaxWidth}"></TextBox>
+        <TextBox BorderThickness="0" Text="{Binding SteamDataIndented,Mode=OneTime}" IsReadOnly="True" Height="300" AcceptsReturn="True" TextWrapping="Wrap" MaxWidth="{ReflectionBinding $parent.MaxWidth}"></TextBox>
       </StackPanel>
     </ScrollViewer>
   </Panel>

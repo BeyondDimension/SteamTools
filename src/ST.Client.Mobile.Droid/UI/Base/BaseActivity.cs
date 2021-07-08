@@ -40,6 +40,10 @@ namespace System.Application.UI.Activities
 
         public override void OnBackPressed()
         {
+            if (HandleOnBackPressed?.Invoke() ?? false)
+            {
+                return;
+            }
             if (BackToHome)
             {
                 GoToPlatformPages.MockHomePressed(this);
@@ -112,6 +116,10 @@ namespace System.Application.UI.Activities
 
         public override void OnBackPressed()
         {
+            if (HandleOnBackPressed?.Invoke() ?? false)
+            {
+                return;
+            }
             if (BackToHome)
             {
                 GoToPlatformPages.MockHomePressed(this);

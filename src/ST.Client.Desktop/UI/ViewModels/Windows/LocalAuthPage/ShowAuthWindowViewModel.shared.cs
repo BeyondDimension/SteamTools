@@ -8,9 +8,7 @@ namespace System.Application.UI.ViewModels
     {
         public static string DisplayName => AppResources.LocalAuth_AuthData;
 
-#if !__MOBILE__
         private readonly GAPAuthenticatorValueDTO.SteamAuthenticator? _Authenticator;
-#endif
 
         public ShowAuthWindowViewModel() : base()
         {
@@ -26,12 +24,12 @@ namespace System.Application.UI.ViewModels
 #if __MOBILE__
             MyAuthenticator = auth;
 #endif
-#if !__MOBILE__
             if (auth.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator authenticator)
             {
                 _Authenticator = authenticator;
             }
-#endif
         }
+
+        public string? SteamDataIndented => Serializable.GetIndented(_Authenticator?.SteamData);
     }
 }
