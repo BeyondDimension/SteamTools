@@ -663,11 +663,20 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_about.xml">
     <Link>Resources\layout\activity_about.xml</Link>
     </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_encryption_auth.xml">
+    <Link>Resources\layout\activity_encryption_auth.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_export_auth.xml">
+    <Link>Resources\layout\activity_export_auth.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_login_or_register.xml">
     <Link>Resources\layout\activity_login_or_register.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_main.xml">
     <Link>Resources\layout\activity_main.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_steam_auth_data.xml">
+    <Link>Resources\layout\activity_steam_auth_data.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_textblock.xml">
     <Link>Resources\layout\activity_textblock.xml</Link>
@@ -725,6 +734,9 @@
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_preference_small_button.xml">
     <Link>Resources\layout\layout_preference_small_button.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\shared_divider.xml">
+    <Link>Resources\layout\shared_divider.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\shared_loading.xml">
     <Link>Resources\layout\shared_loading.xml</Link>
@@ -824,6 +836,7 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
 
 
 

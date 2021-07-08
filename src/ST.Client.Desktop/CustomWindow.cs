@@ -9,9 +9,7 @@ namespace System.Application
         LoginOrRegister,
 #endif
         MessageBox,
-#if !__MOBILE__
         AddAuth,
-#endif
         ShowAuth,
         AuthTrade,
         EncryptionAuth,

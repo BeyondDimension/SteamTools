@@ -284,7 +284,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/text_field_outlined_top_space_height"
         android:checkedButton="@+id/rbGender0"
         android:orientation="horizontal"
         android:paddingStart="10dp"

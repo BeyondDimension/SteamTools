@@ -31,10 +31,7 @@ namespace System.Application.UI.Fragments
             binding.rvAuthenticators.SetAdapter(adapter);
 
             var actionItems = Enum2.GetAll<ActionItem>();
-            speedDialDict = actionItems.ToDictionary(x => x, x => binding.speedDial.AddActionItem(new SpeedDialActionItem.Builder(
-                //ToIdRes(x),
-                (int)x,
-                ToIconRes(x))
+            speedDialDict = actionItems.ToDictionary(x => x, x => binding.speedDial.AddActionItem(new SpeedDialActionItem.Builder((int)x, ToIconRes(x))
                     .SetLabel(ToString2(x))
                     .SetFabBackgroundColor(Context.GetColorCompat(Resource.Color.white))
                     .SetFabImageTintColor(new(Context.GetColorCompat(Resource.Color.fab_icon_background_min)))
@@ -54,23 +51,26 @@ namespace System.Application.UI.Fragments
         {
             if (binding != null && actionItem != null)
             {
-                //var id = actionIds![actionItem.Id];
                 var id = (ActionItem)actionItem.Id;
                 if (id.IsDefined())
                 {
                     binding.speedDial.Close();
-                    Toast.Show(id.ToString());
                     switch (id)
                     {
                         case ActionItem.Add:
+                            ViewModel!.AddAuthCommand.Invoke();
                             break;
                         case ActionItem.Encrypt:
+                            ViewModel!.EncryptionAuthCommand.Invoke();
                             break;
                         case ActionItem.Export:
+                            ViewModel!.ExportAuthCommand.Invoke();
                             break;
                         case ActionItem.Lock:
+                            ViewModel!.LockCommand.Invoke();
                             break;
                         case ActionItem.Refresh:
+                            ViewModel!.RefreshAuthCommand.Invoke();
                             break;
                     }
                     return true;
@@ -89,16 +89,6 @@ namespace System.Application.UI.Fragments
             ActionItem.Refresh => Resource.Drawable.baseline_refresh_black_24,
             _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
         };
-
-        //public static int ToIdRes(ActionItem action) => action switch
-        //{
-        //    ActionItem.Add => Resource.Id.fab_action1,
-        //    ActionItem.Encrypt => Resource.Id.fab_action2,
-        //    ActionItem.Export => Resource.Id.fab_action3,
-        //    ActionItem.Lock => Resource.Id.fab_action4,
-        //    ActionItem.Refresh => Resource.Id.fab_action5,
-        //    _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
-        //};
 
         bool SpeedDialView.IOnChangeListener.OnMainActionSelected() => false;
 

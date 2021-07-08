@@ -10,11 +10,11 @@ namespace System.Application.Services
     {
         protected const string TAG = "HttpService";
 
-        public static IHttpService Instance => DI.Get<IHttpService>();
+        static IHttpService Instance => DI.Get<IHttpService>();
 
-        public JsonSerializer Serializer { get; }
-        public IHttpClientFactory Factory { get; }
-        public IHttpPlatformHelper PlatformHelper { get; }
+        JsonSerializer Serializer { get; }
+        IHttpClientFactory Factory { get; }
+        IHttpPlatformHelper PlatformHelper { get; }
 
         Task<T?> SendAsync<T>(
             string? requestUri,

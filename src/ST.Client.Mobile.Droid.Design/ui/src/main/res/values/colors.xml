@@ -17,4 +17,5 @@
     <color name="status_bar_color">#FFFFFFFF</color>
     <color name="icon_background">@color/black</color>
     <color name="fab_icon_background_min">#747474</color>
+    <color name="bg_divider">#1F000000</color>
 </resources>

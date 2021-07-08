@@ -28,14 +28,10 @@ namespace System.Application.UI.ViewModels
             IconKey = nameof(LocalAuthPageViewModel).Replace("ViewModel", "Svg");
 #endif
 
-#if !__MOBILE__
             AddAuthCommand = ReactiveCommand.Create(AddAuthMenu_Click);
-#endif
             RefreshAuthCommand = ReactiveCommand.Create(() => AuthService.Current.Initialize(true));
-#if !__MOBILE__
             EncryptionAuthCommand = ReactiveCommand.Create(ShowEncryptionAuthWindow);
             ExportAuthCommand = ReactiveCommand.Create(ShowExportAuthAuthWindow);
-#endif
             LockCommand = ReactiveCommand.Create(async () =>
             {
                 var result = await AuthService.Current.HasPasswordEncryption();
@@ -95,6 +91,12 @@ namespace System.Application.UI.ViewModels
 
         public int SourceAuthCount { get; set; }
 
+        public ReactiveCommand<Unit, Unit> AddAuthCommand { get; }
+
+        public ReactiveCommand<Unit, Unit> EncryptionAuthCommand { get; }
+
+        public ReactiveCommand<Unit, Unit> ExportAuthCommand { get; }
+
         public ReactiveCommand<Unit, Task> LockCommand { get; }
 
         public ReactiveCommand<Unit, Unit> RefreshAuthCommand { get; }
@@ -113,13 +115,11 @@ namespace System.Application.UI.ViewModels
             AuthService.Current.Initialize();
         }
 
-#if !__MOBILE__
         void AddAuthMenu_Click()
         {
-            if (!AppSettings.IsOfficialChannelPackage) return;
+            if (DI.DeviceIdiom == DeviceIdiom.Desktop && !AppSettings.IsOfficialChannelPackage) return;
             IShowWindowService.Instance.Show<AddAuthWindowViewModel>(CustomWindow.AddAuth);
         }
-#endif
 
         public void ShowAuthCode(MyAuthenticator auth)
         {
@@ -205,7 +205,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public async void ShowEncryptionAuthWindow()
+        async void ShowEncryptionAuthWindow()
         {
             //if (await AuthService.Current.HasPasswordEncryptionShowPassWordWindow())
             //{
@@ -219,7 +219,7 @@ namespace System.Application.UI.ViewModels
             //}
         }
 
-        public async void ShowExportAuthAuthWindow()
+        async void ShowExportAuthAuthWindow()
         {
             //if (await AuthService.Current.HasPasswordEncryptionShowPassWordWindow())
             //{

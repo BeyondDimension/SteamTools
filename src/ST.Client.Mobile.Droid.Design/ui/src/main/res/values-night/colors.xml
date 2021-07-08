@@ -8,4 +8,5 @@
     <color name="text_link">#0089ff</color>
     <color name="status_bar_color">#141414</color>
     <color name="icon_background">@color/white</color>
+    <color name="bg_divider">#1FFFFFFF</color>
 </resources>

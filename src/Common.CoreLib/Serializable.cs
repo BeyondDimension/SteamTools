@@ -269,6 +269,44 @@ namespace System
         #endregion
 
         /// <summary>
+        /// 将 Json 字符串格式化缩减后输出
+        /// </summary>
+        /// <param name="jsonStr"></param>
+        /// <param name="implType"></param>
+        /// <returns></returns>
+        [return: NotNullIfNotNull("jsonStr")]
+        public static string? GetIndented(string? jsonStr, JsonImplType implType = JsonImplType.SystemTextJson)
+        {
+            if (!string.IsNullOrWhiteSpace(jsonStr))
+            {
+                try
+                {
+                    switch (implType)
+                    {
+                        case JsonImplType.SystemTextJson:
+                            var jsonDoc = JsonDocument.Parse(jsonStr);
+                            return SJsonSerializer.Serialize(jsonDoc, jsonDoc.GetType(), new SJsonSerializerOptions()
+                            {
+                                WriteIndented = true,
+                            });
+                        default:
+#if NOT_NJSON
+                            throw new NotSupportedException();
+#else
+                            var jsonObj = Newtonsoft.Json.Linq.JObject.Parse(jsonStr);
+                            return SerializeObject(jsonObj, Formatting.Indented);
+#endif
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+            return jsonStr;
+        }
+
+        /// <summary>
         /// 使用 MessagePack 序列化将对象克隆一份新的对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
