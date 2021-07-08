@@ -25,8 +25,8 @@ namespace System.Application.Services.Implementation
         {
             var pInfo = new ProcessStartInfo
             {
-                FileName = Path.Combine(IOPath.AppDataDirectory, $@"hello"),
-                Arguments = $"-t=1 -p=\"{shell}\"",
+                FileName = "open",
+                Arguments = $"{Path.Combine(IOPath.AppDataDirectory, $@"hello")} -t=1 -p=\"{shell}\"",
             };
             pInfo.UseShellExecute = true;
             var p = Process.Start(pInfo);
