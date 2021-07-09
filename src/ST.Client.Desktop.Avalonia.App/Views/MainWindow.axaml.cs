@@ -42,9 +42,9 @@ namespace System.Application.UI.Views
         {
             if (this.ViewModel is not null)
                 foreach (var tab in this.ViewModel.TabItems)
-                {
-                    tab.Activation();
-                }
+                    if (tab.IsDeactivation)
+                        tab.Activation();
+
             base.FluentWindow_Opened(sender, e);
         }
 

@@ -29,7 +29,7 @@ namespace System.Application.Services.Implementation
             set => this.RaiseAndSetIfChanged(ref _IsReadPasswordLine, value);
         }
 
-        public async void Start(string[]? args = null)
+        public async Task Start(string[]? args = null)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace System.Application.Services.Implementation
 
                 ArchiSteamFarm.NLog.Logging.GetUserInputFunc = async (bool isPassword) =>
                 {
-                    ReadLineTask = new();
+                    ReadLineTask = new(TaskCreationOptions.AttachedToParent);
                     IsReadPasswordLine = isPassword;
 
                     var result = await ReadLineTask.Task;
@@ -49,7 +49,7 @@ namespace System.Application.Services.Implementation
                     return result;
                 };
 
-                await ArchiSteamFarm.Program.Init(args).ConfigureAwait(false);
+                await ArchiSteamFarm.Program.Init(args);
             }
             catch (Exception ex)
             {
@@ -57,9 +57,9 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public async void Stop()
+        public async Task Stop()
         {
-            await ArchiSteamFarm.Program.InitShutdownSequence().ConfigureAwait(false);
+            await ArchiSteamFarm.Program.InitShutdownSequence();
         }
 
         private void InitHistoryLogger()
@@ -94,7 +94,7 @@ namespace System.Application.Services.Implementation
 
             ulong steamOwnerID = ASF.GlobalConfig?.SteamOwnerID ?? ArchiSteamFarm.Storage.GlobalConfig.DefaultSteamOwnerID;
 
-            string? response = await targetBot.Commands.Response(steamOwnerID, command!).ConfigureAwait(false);
+            string? response = await targetBot.Commands.Response(steamOwnerID, command!);
 
             return response;
         }
