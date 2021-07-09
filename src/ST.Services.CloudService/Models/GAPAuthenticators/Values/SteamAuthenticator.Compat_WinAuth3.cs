@@ -1,4 +1,4 @@
-﻿/*
+/*
 * Copyright (C) 2015 Colin Mackie.
 * This software is distributed under the terms of the GNU General Public License.
 *
@@ -232,7 +232,8 @@ namespace System.Application.Models
                     return true;
                 });
                 // call the server
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                var request = WebRequest.CreateHttp(url);
                 request.Method = method;
                 request.Accept = "text/javascript, text/html, application/xml, text/xml, */*";
                 request.ServicePoint.Expect100Continue = false;
