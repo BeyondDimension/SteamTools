@@ -4,10 +4,10 @@ using MonoMac.Foundation;
 using Foundation;
 #endif
 using System.Application.Models;
+using System.Application.UI.Resx;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace System.Application.Services.Implementation
@@ -22,42 +22,48 @@ namespace System.Application.Services.Implementation
         {
             return string.Empty;
         }
-        async Task<bool> IPlatformService.AdminShell(string shell)
+        bool IPlatformService.AdminShell(string shell)
         {
-
-            var file = new FileInfo(Path.Combine(IOPath.AppDataDirectory, $@"sudoShell.sh"));
-            int index = 0;
-            if (file.Exists)
-                file.Delete();
-            var vm = new UI.ViewModels.PasswordWindowViewModel();
-            await IShowWindowService.Instance.ShowDialog(CustomWindow.Password, vm, string.Empty, ResizeModeCompat.CanResize);
-            var scriptContent = new Text.StringBuilder();
-            scriptContent.AppendLine($"echo \"{vm.Password}\" | sudo -S {shell}");
-            using (var stream = file.CreateText())
+            Threading.Tasks.Task.Run(async () =>
             {
-                stream.Write(scriptContent);
-                stream.Flush();
-                stream.Dispose();
-            }
-            var pInfo = new ProcessStartInfo
-            {
-                FileName = $"/bin/bash",
-                Arguments = file.FullName
-            };
-            pInfo.UseShellExecute = true;
-            //pInfo.UseShellExecute = true;
-            var p = Process.Start(pInfo);
-            if (p == null) throw new FileNotFoundException("Shell");
-            p.Close();
-            p.Exited += (object? _, EventArgs _) =>
-            {
+                var file = new FileInfo(Path.Combine(IOPath.AppDataDirectory, $@"sudoShell.js"));
+                int index = 0;
                 if (file.Exists)
                     file.Delete();
-                if (p.ExitCode != 0)
-                    IPlatformService.Instance.AdminShell(shell);
-            };
-            if (file.Exists)
-                file.Delete();
+                var vm = new UI.ViewModels.PasswordWindowViewModel();
+                vm.SetTitle = AppResources.MacSudoPasswordTips;
+                await IShowWindowService.Instance.ShowDialog(CustomWindow.Password, vm, string.Empty, ResizeModeCompat.CanResize);
+                var scriptContent = new Text.StringBuilder();
+                scriptContent.AppendLine($"#!/bin/bash -e");
+                scriptContent.AppendLine($"echo \"{vm.Password}\" | sudo -S {shell} | exit");
+                using (var stream = file.CreateText())
+                {
+                    stream.Write(scriptContent);
+                    stream.Flush();
+                    stream.Dispose();
+                }
+                var pInfo = new ProcessStartInfo
+                {
+                    FileName = $"/bin/bash",
+                    Arguments = file.FullName
+                };
+                //pInfo.UseShellExecute = true;
+                var p = Process.Start(pInfo);
+                if (p == null) throw new FileNotFoundException("Shell");
+                p.Close(); 
+                p.Exited += (object? _, EventArgs _) =>
+                {
+
+                    if (p.ExitCode != 0)
+                        IPlatformService.Instance.AdminShell(shell);
+                    else {
+                        if (file.Exists)
+                            file.Delete();
+                    }
+                };
+                if (file.Exists)
+                    file.Delete();
+            }).ContinueWith(s => s.Dispose());
             return true;
 #if MONO_MAC
             //return false;

@@ -2458,6 +2458,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 请输入系统密码进行操作 的本地化字符串。
+        /// </summary>
+        public static string MacSudoPasswordTips {
+            get {
+                return ResourceManager.GetString("MacSudoPasswordTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 修改 的本地化字符串。
         /// </summary>
         public static string Modify {

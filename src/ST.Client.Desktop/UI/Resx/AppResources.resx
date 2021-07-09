@@ -921,6 +921,9 @@
   <data name="Logout" xml:space="preserve">
     <value>注销登录</value>
   </data>
+  <data name="MacSudoPasswordTips" xml:space="preserve">
+    <value>请输入系统密码进行操作</value>
+  </data>
   <data name="Modify" xml:space="preserve">
     <value>修改</value>
   </data>
