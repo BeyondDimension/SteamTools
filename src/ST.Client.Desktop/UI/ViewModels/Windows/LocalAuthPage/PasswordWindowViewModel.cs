@@ -21,14 +21,7 @@ namespace System.Application.UI.ViewModels
         {
             get => _Password;
             set => this.RaiseAndSetIfChanged(ref _Password, value);
-        }
-        public string? SetTitle
-        {
-            get => Title;
-            set {
-                Title = value??"";
-            }
-        }
+        } 
 
         string? ITextBoxWindowViewModel.Value { get => Password; set => Password = value; }
 

@@ -27,11 +27,10 @@ namespace System.Application.Services.Implementation
             Threading.Tasks.Task.Run(async () =>
             {
                 var file = new FileInfo(Path.Combine(IOPath.AppDataDirectory, $@"sudoShell.js"));
-                int index = 0;
                 if (file.Exists)
                     file.Delete();
                 var vm = new UI.ViewModels.PasswordWindowViewModel();
-                vm.SetTitle = AppResources.MacSudoPasswordTips;
+                vm.Title = AppResources.MacSudoPasswordTips;
                 await IShowWindowService.Instance.ShowDialog(CustomWindow.Password, vm, string.Empty, ResizeModeCompat.CanResize);
                 var scriptContent = new Text.StringBuilder();
                 scriptContent.AppendLine($"#!/bin/bash -e");

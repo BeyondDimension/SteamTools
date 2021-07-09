@@ -337,7 +337,9 @@ namespace System.Application.Services.Implementation
                 Toast.Show(SR.CreateCertificateFaild);
                 return false;
             }
+
             var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer");
+            try {
             proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(filePath);
 
             proxyServer.CertificateManager.TrustRootCertificate();
@@ -347,6 +349,10 @@ namespace System.Application.Services.Implementation
             {
                 //安装证书
                 IPlatformService.Instance.AdminShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain {filePath}");
+                }
+            }
+            catch (Exception e) {
+                Log.Error("CerError", e,"证书安装失败");
             }
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
