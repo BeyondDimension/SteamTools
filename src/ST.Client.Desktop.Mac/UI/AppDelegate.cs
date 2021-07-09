@@ -70,7 +70,7 @@ namespace System.Application.UI
             {
                 isInitialized = true;
                 NSApplication.Init();
-                NSApplication.Main(args);
+                //NSApplication.Main(args);
                 Instance = new();
                 NSApplication.SharedApplication.Delegate = Instance;
             }
