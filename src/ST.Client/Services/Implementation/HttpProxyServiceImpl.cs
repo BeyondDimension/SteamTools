@@ -345,7 +345,8 @@ namespace System.Application.Services.Implementation
             proxyServer.CertificateManager.EnsureRootCertificate();
             if (DI.IsmacOS)
             {
-                IPlatformService.Instance.AdminShell(filePath);
+                //安装证书
+                IPlatformService.Instance.AdminShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain {filePath}");
             }
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }

@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace System.Application.Services
 {
     public interface IPlatformService
@@ -6,6 +8,6 @@ namespace System.Application.Services
 
         public static IPlatformService Instance => DI.Get<IPlatformService>();
 
-        bool AdminShell(string str) => throw new PlatformNotSupportedException();
+       Task< bool> AdminShell(string str) => throw new PlatformNotSupportedException();
     }
 }
