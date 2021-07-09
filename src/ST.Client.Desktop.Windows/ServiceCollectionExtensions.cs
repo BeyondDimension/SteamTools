@@ -2,7 +2,6 @@ using System;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Net.Http;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 
 // ReSharper disable once CheckNamespace
