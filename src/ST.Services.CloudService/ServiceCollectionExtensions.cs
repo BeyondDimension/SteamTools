@@ -2,7 +2,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Application.Services;
 using System.Application.Services.CloudService;
-using System.Net;
 using System.Net.Http;
 using System.Properties;
 
@@ -16,35 +15,31 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="services"></param>
+        /// <param name="config"></param>
         /// <param name="useMock"></param>
         /// <returns></returns>
         public static IServiceCollection TryAddCloudServiceClient<T>(
             this IServiceCollection services,
+            Action<HttpClient>? config = null,
+            Func<HttpMessageHandler>? configureHandler = null,
             bool useMock = false)
             where T : CloudServiceClientBase
         {
-            services.AddHttpClient(CloudServiceClientBase.ClientName_, (s, c) =>
+            var b = services.AddHttpClient(CloudServiceClientBase.ClientName_, (s, c) =>
             {
                 var sc = s.GetRequiredService<CloudServiceClientBase>();
                 c.Timeout = GeneralHttpClientFactory.DefaultTimeout;
                 c.BaseAddress = new Uri(sc.ApiBaseUrl);
                 c.DefaultRequestHeaders.UserAgent.ParseAdd(sc.UserAgent);
                 c.DefaultRequestHeaders.Add(Constants.Headers.Request.AppVersion, sc.Settings.AppVersionStr);
-#if NETCOREAPP3_0_OR_GREATER
-                c.DefaultRequestVersion = HttpVersion.Version20;
-#endif
-#if NET5_0_OR_GREATER
-                c.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact;
-#endif
-            })
-#if NETCOREAPP2_1_OR_GREATER
-                .ConfigurePrimaryHttpMessageHandler(() => new SocketsHttpHandler
-                {
-                    UseCookies = false,
-                    AutomaticDecompression = DecompressionMethods.GZip,
-                })
-#endif
-                ;
+                config?.Invoke(c);
+            });
+
+            if (configureHandler != null)
+            {
+                b.ConfigurePrimaryHttpMessageHandler(configureHandler);
+            }
+
             services.TryAddSingleton<T>();
             services.TryAddSingleton<CloudServiceClientBase>(s => s.GetRequiredService<T>());
             services.TryAddSingleton<IApiConnectionPlatformHelper>(s => s.GetRequiredService<T>());

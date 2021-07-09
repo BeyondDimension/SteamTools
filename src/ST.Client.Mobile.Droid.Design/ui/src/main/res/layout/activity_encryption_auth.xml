@@ -34,12 +34,13 @@
                 tools:text="强烈建议使用密码保护你的令牌，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但你的令牌数据会有被盗取的风险。"
                 xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
-
             <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/swEncryption"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="@color/text_primary"
-                tools:text="自定义密码保护" />
+                tools:text="自定义密码保护"
+                xamarin:managedType="Google.Android.Material.SwitchMaterial.SwitchMaterial" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvEncryptionDesc"

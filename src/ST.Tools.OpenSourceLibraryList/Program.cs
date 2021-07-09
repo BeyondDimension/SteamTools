@@ -1,4 +1,4 @@
-﻿using MessagePack;
+using MessagePack;
 using Octokit;
 using System.Application.Models;
 using System.Collections.Generic;
@@ -108,6 +108,7 @@ namespace System
                                                     {
                                                         licenseline_ = licenseline_[start_del_1.Length..];
                                                     }
+                                                    licenseline_ = licenseline_.Trim();
                                                     if (string.IsNullOrWhiteSpace(item.Copyright))
                                                     {
                                                         item.Copyright = licenseline_;

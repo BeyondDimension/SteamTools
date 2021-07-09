@@ -26,7 +26,9 @@ using System.IO;
 using static System.Application.AppClientAttribute;
 using System.Net;
 using System.Diagnostics;
+using System.Net.Http;
 #if __ANDROID__
+using Xamarin.Android.Net;
 using Program = System.Application.UI.MainApplication;
 #elif __IOS__
 using Program = System.Application.UI.AppDelegate;
@@ -267,7 +269,31 @@ namespace System.Application
                 services.TryAddModelValidator();
 
                 // 添加服务端API调用
-                services.TryAddCloudServiceClient<CloudServiceClient>();
+                services.TryAddCloudServiceClient<CloudServiceClient>(c =>
+                {
+#if NETCOREAPP3_0_OR_GREATER
+                    c.DefaultRequestVersion = HttpVersion.Version20;
+#endif
+#if NET5_0_OR_GREATER
+                    c.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact;
+#endif
+                }, configureHandler:
+#if NETCOREAPP2_1_OR_GREATER
+                () => new SocketsHttpHandler
+                {
+                    UseCookies = false,
+                    AutomaticDecompression = DecompressionMethods.GZip,
+                }
+#elif __ANDROID__
+                () => new AndroidClientHandler
+                {
+                    UseCookies = false,
+                    AutomaticDecompression = DecompressionMethods.GZip,
+                }
+#else
+            null
+#endif
+            );
 
                 services.AddAutoMapper();
 

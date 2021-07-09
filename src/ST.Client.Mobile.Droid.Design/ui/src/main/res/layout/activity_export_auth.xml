@@ -57,7 +57,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="@color/text_primary"
-                tools:text="是否需要导出带加密的数据" />
+                tools:text="是否需要导出带加密的数据"
+                xamarin:managedType="Google.Android.Material.SwitchMaterial.SwitchMaterial" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvExportEncryptionDesc"
