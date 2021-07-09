@@ -27,7 +27,7 @@ namespace System.Application.UI
 #elif !__MOBILE__
 #if MAC
             AppDelegateHelper.Init(args);
-            FileSystemDesktopMac.InitFileSystem();
+            //FileSystemDesktopMac.InitFileSystem();
 #else
             FileSystemDesktop.InitFileSystem();
 #endif
