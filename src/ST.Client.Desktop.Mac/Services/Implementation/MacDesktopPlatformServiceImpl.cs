@@ -5,9 +5,12 @@ using Foundation;
 #endif
 using System.Application.Models;
 using System.Application.UI.Resx;
+using System.Application.UI.ViewModels;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace System.Application.Services.Implementation
@@ -22,50 +25,51 @@ namespace System.Application.Services.Implementation
         {
             return string.Empty;
         }
-        bool IPlatformService.AdminShell(string shell)
-        {
-            Threading.Tasks.Task.Run(async () =>
-            {
-                var file = new FileInfo(Path.Combine(IOPath.AppDataDirectory, $@"sudoShell.js"));
-                if (file.Exists)
-                    file.Delete();
-                var vm = new UI.ViewModels.PasswordWindowViewModel();
-                vm.Title = AppResources.MacSudoPasswordTips;
-                await IShowWindowService.Instance.ShowDialog(CustomWindow.Password, vm, string.Empty, ResizeModeCompat.CanResize);
-                var scriptContent = new Text.StringBuilder();
-                scriptContent.AppendLine($"#!/bin/bash -e");
-                scriptContent.AppendLine($"echo \"{vm.Password}\" | sudo -S {shell} | exit");
-                using (var stream = file.CreateText())
-                {
-                    stream.Write(scriptContent);
-                    stream.Flush();
-                    stream.Dispose();
-                }
-                var pInfo = new ProcessStartInfo
-                {
-                    FileName = $"/bin/bash",
-                    Arguments = file.FullName
-                };
-                //pInfo.UseShellExecute = true;
-                var p = Process.Start(pInfo);
-                if (p == null) throw new FileNotFoundException("Shell");
-                p.Close(); 
-                p.Exited += (object? _, EventArgs _) =>
-                {
 
-                    if (p.ExitCode != 0)
-                        IPlatformService.Instance.AdminShell(shell);
-                    else {
-                        if (file.Exists)
-                            file.Delete();
-                    }
-                };
-                if (file.Exists)
-                    file.Delete();
-            }).ContinueWith(s => s.Dispose());
-            return true;
+        async Task IPlatformService.AdminShellAsync(string shell)
+        {
+            var file = new FileInfo(Path.Combine(IOPath.AppDataDirectory, $@"sudoShell.sh"));
+
+            if (file.Exists)
+                file.Delete();
+            var vm = new PasswordWindowViewModel
+            {
+                Title = AppResources.MacSudoPasswordTips
+            };
+            await IShowWindowService.Instance.ShowDialog(CustomWindow.Password, vm, string.Empty, ResizeModeCompat.CanResize);
+            var scriptContent = new StringBuilder();
+            scriptContent.AppendLine($"#!/bin/bash -e");
+            scriptContent.AppendLine($"echo \"{vm.Password}\" | sudo -S \"{shell}\"");
+            using (var stream = file.CreateText())
+            {
+                stream.Write(scriptContent);
+                stream.Flush();
+                stream.Dispose();
+            }
+            var pInfo = new ProcessStartInfo
+            {
+                FileName = $"/bin/bash",
+                Arguments = file.FullName
+            };
+            //pInfo.UseShellExecute = true;
+            var p = Process.Start(pInfo);
+            if (p == null) throw new FileNotFoundException("Shell");
+            p.Close();
+            p.Exited += (object? _, EventArgs _) =>
+            {
+                if (p.ExitCode != 0)
+                {
+                    ((IPlatformService)this).AdminShell(shell);
+                }
+                else
+                {
+                    if (file.Exists)
+                        file.Delete();
+                }
+            };
+            if (file.Exists)
+                file.Delete();
 #if MONO_MAC
-            //return false;
 #elif XAMARIN_MAC
             var edithost = new NSAppleScript($"do shell script \"'${shell}'\" with administrator privileges");
             var state = edithost.CompileAndReturnError(out var error); 

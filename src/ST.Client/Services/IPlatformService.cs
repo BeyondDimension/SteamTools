@@ -8,6 +8,8 @@ namespace System.Application.Services
 
         public static IPlatformService Instance => DI.Get<IPlatformService>();
 
-        bool AdminShell(string str) => throw new PlatformNotSupportedException();
+        async void AdminShell(string str) => await AdminShellAsync(str);
+
+        Task AdminShellAsync(string str) => throw new PlatformNotSupportedException();
     }
 }
