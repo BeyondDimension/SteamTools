@@ -137,10 +137,7 @@ namespace System.Application.UI
 #endif
             var windowService = IWindowService.Instance;
             windowService.Init();
-            DI.Get<IDesktopPlatformService>().SetSystemSessionEnding(() =>
-            {
-                compositeDisposable.Dispose();
-            });
+            DI.Get<IDesktopPlatformService>().SetSystemSessionEnding(compositeDisposable.Dispose);
 #if StartupTrace
             StartupTrace.Restart("WindowService.Init");
 #endif
@@ -173,7 +170,7 @@ namespace System.Application.UI
                     compositeDisposable.Add(ProxyService.Current.Dispose);
                     compositeDisposable.Add(AuthService.Current.SaveEditNameAuthenticators);
                     compositeDisposable.Add(SteamConnectService.Current.Dispose);
-                    //compositeDisposable.Add(IArchiSteamFarmService.Instance.Stop);
+                    compositeDisposable.Add(ASFService.Current.StopASF);
                     if (GeneralSettings.IsStartupAppMinimized.Value)
                     {
                         Program.IsMinimize = true;
@@ -207,9 +204,9 @@ namespace System.Application.UI
             // 在UI预览中，ApplicationLifetime 为 null
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-//#if MAC
-//                AppDelegate.Init();
-//#endif
+                //#if MAC
+                //                AppDelegate.Init();
+                //#endif
 
                 if (Program.IsMainProcess)
                 {

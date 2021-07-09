@@ -24,9 +24,9 @@ namespace System.Application.Services
         /// 启动ASF
         /// </summary>
         /// <param name="args"></param>
-        void Start(string[]? args = null);
+        Task Start(string[]? args = null);
 
-        void Stop();
+        Task Stop();
 
         /// <summary>
         /// 执行asf指令

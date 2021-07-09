@@ -12,6 +12,7 @@ namespace System.Application.UI.ViewModels
     public class ArchiSteamFarmPlusPageViewModel : TabItemViewModel
     {
         readonly IArchiSteamFarmService asfSerivce = DI.Get<IArchiSteamFarmService>();
+
         public override string Name
         {
             get => AppResources.ArchiSteamFarmPlus;
@@ -21,6 +22,7 @@ namespace System.Application.UI.ViewModels
         public ArchiSteamFarmPlusPageViewModel()
         {
             IconKey = nameof(ArchiSteamFarmPlusPageViewModel).Replace("ViewModel", "Svg");
+
 
             ASFService.Current.SteamBotsSourceList
                       .Connect()
@@ -32,13 +34,6 @@ namespace System.Application.UI.ViewModels
 
         public string? WebUrl => asfSerivce.GetIPCUrl();
 
-        private string? _CommandString;
-        public string? CommandString
-        {
-            get => _CommandString;
-            set => this.RaiseAndSetIfChanged(ref _CommandString, value);
-        }
-
         /// <summary>
         /// ASF bots
         /// </summary>
@@ -47,15 +42,6 @@ namespace System.Application.UI.ViewModels
 
         public void RunOrStopASF()
         {
-            //if (asfSerivce.IsArchiSteamFarmRuning)
-            //{
-            //    asfSerivce.StopArchiSteamFarm();
-            //}
-            //else
-            //{
-            //    asfSerivce.RunArchiSteamFarm();
-            //}
-
             IArchiSteamFarmService.Instance.Start();
         }
 

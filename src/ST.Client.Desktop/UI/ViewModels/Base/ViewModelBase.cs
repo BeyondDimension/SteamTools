@@ -57,18 +57,23 @@ namespace System.Application.UI.ViewModels
             Disposed = true;
         }
 
-        protected bool IsFirstActivation = true;
+        public bool IsFirstActivation = true;
+
+        public bool IsDeactivation = false;
+
         public async virtual void Activation()
         {
             if (IsFirstActivation)
             {
                 IsFirstActivation = false;
             }
+            IsDeactivation = false;
             await Task.CompletedTask;
         }
 
         public async virtual void Deactivation()
         {
+            IsDeactivation = true;
             await Task.CompletedTask;
         }
     }

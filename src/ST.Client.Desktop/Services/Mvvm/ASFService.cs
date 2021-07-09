@@ -38,6 +38,12 @@ namespace System.Application.Services
         {
             SteamBotsSourceList = new SourceCache<Bot, string>(t => t.BotName);
 
+            InitASF();
+        }
+
+        public async void InitASF()
+        {
+            await IArchiSteamFarmService.Instance.Start();
 
             var bots = archiSteamFarmService.GetReadOnlyAllBots();
             if (bots.Any_Nullable())
@@ -45,5 +51,9 @@ namespace System.Application.Services
         }
 
 
+        public async void StopASF()
+        {
+            await IArchiSteamFarmService.Instance.Stop();
+        }
     }
 }

@@ -44,30 +44,6 @@ namespace System.Application.UI.Views.Pages
         }
 
 
-        private async void SelectAsfPath_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
-        {
-            //var fileDialog = new OpenFileDialog
-            //{
-            //    Filters = new List<FileDialogFilter> {
-            //        new FileDialogFilter { Name = "Exe Files", Extensions = new List<string> { "exe" } },
-            //        new FileDialogFilter { Name = "All Files", Extensions = new List<string> { "*" } },
-            //    },
-            //    Title = ThisAssembly.AssemblyTrademark,
-            //    AllowMultiple = false,
-            //};
-
-            //if (IASFService.Instance.IsArchiSteamFarmExists)
-            //{
-            //    fileDialog.Directory = Path.GetDirectoryName(IASFService.Instance.ArchiSteamFarmExePath);
-            //}
-
-            //var result = await fileDialog.ShowAsync(IDesktopAvaloniaAppService.Instance.MainWindow);
-            //if (result.Any_Nullable())
-            //{
-            //    IASFService.Instance.SetArchiSteamFarmExePath(result[0]);
-            //}
-        }
-
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);

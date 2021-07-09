@@ -1,0 +1,131 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:ccl_service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
+             xmlns:gif="using:AvaloniaGif"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             x:Name="u"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:ArchiSteamFarmPlusPageViewModel"
+             x:CompileBindings="True"
+             x:Class="System.Application.UI.Views.Pages.ASF_BotPage">
+  <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto"
+                Padding="{StaticResource ScrollMargin}">
+    <ItemsRepeater Items="{CompiledBinding SteamBots}">
+      <ItemsRepeater.Layout>
+        <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
+                                       MaximumRowsOrColumns="6" />-->
+        <StackLayout Orientation="Vertical" Spacing="20"></StackLayout>
+      </ItemsRepeater.Layout>
+      <ItemsRepeater.ItemTemplate>
+        <DataTemplate>
+          <Border x:Name="card"
+                  Classes="paper" Background="{DynamicResource ThemeBrushKey}">
+            <!--<Border.Background>
+                <SolidColorBrush Color="{DynamicResource ThemeColorKey}"
+                                 Opacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"/>
+              </Border.Background>-->
+            <Grid Height="184"
+                  ColumnDefinitions="Auto,*,Auto">
+              <Panel x:Name="avatar" Cursor="Hand"
+                       ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OpenUserUrl,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                <!--OpenUserProfileUrl-->
+                <i:Interaction.Behaviors>
+                  <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #avatar}">
+                    <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.OpenUserProfileUrl}" CommandParameter="{Binding}"/>
+                  </ia:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+                <!--<gif:Image2
+                           Width="184"
+                           AutoStart="true"
+                           Stretch="Uniform"
+                           Source="{Binding AvatarStream^}">
+                    </gif:Image2>
+                    <Image Width="184" Stretch="Uniform" IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
+                           Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg">
+                    </Image>-->
+                <!--<gif:Image2 Width="184" Height="184" 
+                                            AutoStart="true"
+                                            Source="{Binding MiniProfile.AvatarFrameStream^}"
+                                            Stretch="Uniform" 
+                                            IsVisible="{Binding MiniProfile.AvatarFrameStream^,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>-->
+              </Panel>
+              <Panel Grid.Column="1" Margin="10 5">
+                <StackPanel>
+                  <DockPanel LastChildFill="True">
+                    <Ellipse VerticalAlignment="Center"
+               HorizontalAlignment="Center" x:Name="circle" Margin="5 0 12 0" Height="10" Width="10" StrokeThickness="0" ToolTip.Tip="{Binding KeepRunning}">
+                      <i:Interaction.Behaviors>
+                        <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="online">
+                          <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#08D969"/>
+                        </ia:DataTriggerBehavior>
+                        <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="offline">
+                          <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#adadad"/>
+                        </ia:DataTriggerBehavior>
+                      </i:Interaction.Behaviors>
+                    </Ellipse>
+                    <controls:ScrollingTextBlock x:Name="nickname" Text="{Binding BotName}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                      <i:Interaction.Behaviors>
+                        <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #nickname}">
+                          <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}"/>
+                        </ia:EventTriggerBehavior>
+                      </i:Interaction.Behaviors>
+                    </controls:ScrollingTextBlock>
+                    <!--<WrapPanel VerticalAlignment="Center" IsVisible="{Binding Remark,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">-->
+                    <WrapPanel VerticalAlignment="Center">
+                      <TextBlock Text="("></TextBlock>
+                      <controls:ScrollingTextBlock Text="{Binding Nickname}">
+                      </controls:ScrollingTextBlock>
+                      <TextBlock Text=")"></TextBlock>
+                    </WrapPanel>
+                  </DockPanel>
+
+                  <!--<WrapPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding AccountName}" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                        <TextBlock Text="(" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                        <TextBox Text="{Binding SteamId64,Mode=OneWay}" FontSize="14" Classes="readonlybox" Padding="0" Foreground="{DynamicResource InactiveForegroundBrushKey}" IsReadOnly="True"></TextBox>
+                        <TextBlock Text=")" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                      </WrapPanel>-->
+                </StackPanel>
+
+                <!--<WrapPanel VerticalAlignment="Bottom" Orientation="Horizontal">
+                      <PathIcon Data="{StaticResource ClockDrawing}" Width="16" VerticalAlignment="Center" Margin="5 0" Foreground="{DynamicResource InactiveForegroundBrushKey}">
+                      </PathIcon>
+                      <TextBlock Text="{Binding LastLoginTime,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                    </WrapPanel>-->
+
+              </Panel>
+              <Grid Grid.Column="3" RowDefinitions="*,Auto">
+                <Panel>
+                  <Button Classes="flatbutton" IsVisible="False" x:Name="delete_btn" Background="Transparent" Cursor="Hand" HorizontalAlignment="Right" Margin="0,0,0,121" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}" CommandParameter="{Binding}">
+                    <PathIcon Width="12" Data="{DynamicResource CloseDrawing}">
+                    </PathIcon>
+                  </Button>
+                </Panel>
+                <WrapPanel Grid.Row="1" Orientation="Horizontal">
+                  <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <Button Classes="flatbutton" Cursor="Hand" HorizontalAlignment="Stretch" MaxWidth="200" Command="{ReflectionBinding #u.DataContext.OfflineModeButton_Click}" CommandParameter="{Binding}">
+                      <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
+                    </Button>
+                  </Border>
+                  <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness="0 .66 0 0" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <Button Classes="flatbutton" Cursor="Hand" MaxWidth="250" HorizontalAlignment="Stretch" Command="{ReflectionBinding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}">
+                      <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.UserChange_BtnText,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
+                    </Button>
+                  </Border>
+                </WrapPanel>
+              </Grid>
+            </Grid>
+          </Border>
+        </DataTemplate>
+      </ItemsRepeater.ItemTemplate>
+    </ItemsRepeater>
+  </ScrollViewer>
+</UserControl>
