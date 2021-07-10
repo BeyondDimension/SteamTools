@@ -99,7 +99,7 @@
                                     <Panel x:Name="panel" MinWidth="100" Margin="20 0">
                                         <Border x:Name="card" Classes="paper" CornerRadius="0" Background="{DynamicResource ThemeBrushKey}">
                                             <Grid Width="{ReflectionBinding #panel.Width}"
-                                                  ColumnDefinitions="Auto,Auto,*,Auto">
+                                                  ColumnDefinitions="Auto,*,Auto">
                                                 <Panel>
                                                     <Image Width="128"
                                                            Height="128"
