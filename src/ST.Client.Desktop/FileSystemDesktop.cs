@@ -19,13 +19,6 @@ namespace System.Application
         /// </summary>
         public static void InitFileSystem()
         {
-#if !NET35
-            if (DI.Platform == Platform.Apple)
-            {
-                throw new PlatformNotSupportedException("use FileSystemDesktopMac");
-            }
-#endif
-
             //var appDataRootPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             //if (string.IsNullOrWhiteSpace(appDataRootPath))
             //{

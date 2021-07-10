@@ -705,6 +705,18 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth.xml">
     <Link>Resources\layout\fragment_local_auth.xml</Link>
     </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth_import_other.xml">
+    <Link>Resources\layout\fragment_local_auth_import_other.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth_import_steam_app.xml">
+    <Link>Resources\layout\fragment_local_auth_import_steam_app.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth_import_steam_plus_plus.xml">
+    <Link>Resources\layout\fragment_local_auth_import_steam_plus_plus.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth_import_steam_user.xml">
+    <Link>Resources\layout\fragment_local_auth_import_steam_user.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_login_and_register_by_fast.xml">
     <Link>Resources\layout\fragment_login_and_register_by_fast.xml</Link>
     </AndroidBoundLayout>
@@ -836,6 +848,7 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
 
 
 

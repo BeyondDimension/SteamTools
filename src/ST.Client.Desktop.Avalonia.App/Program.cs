@@ -28,6 +28,7 @@ namespace System.Application.UI
 #if MAC
             AppDelegateHelper.Init(args);
             //FileSystemDesktopMac.InitFileSystem();
+            FileSystemDesktop.InitFileSystem();
 #else
             FileSystemDesktop.InitFileSystem();
 #endif
