@@ -17,4 +17,7 @@
     <dimen name="gap_space">16dp</dimen>
     <dimen name="gap_space_min">8dp</dimen>
     <dimen name="text_field_outlined_top_space_height">5dp</dimen>
+    <dimen name="list_empty_tip_font_size">18sp</dimen>
+    <dimen name="list_header_title_font_size">16sp</dimen>
+    <dimen name="steam_user_login_logo_size">125dp</dimen>
 </resources>
