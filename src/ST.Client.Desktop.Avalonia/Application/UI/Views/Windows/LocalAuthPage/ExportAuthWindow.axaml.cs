@@ -37,7 +37,7 @@ namespace System.Application.UI.Views.Windows
                     new FileDialogFilter { Name = "All Files", Extensions = new List<string> { "*" } },
                 },
                 Title = ThisAssembly.AssemblyTrademark,
-                InitialFileName = "Steam++  Authenticator " + DateTime.Now.ToString("yyyy-MM-dd") + ".mpo",
+                InitialFileName = ExportAuthWindowViewModel.DefaultExportAuthFileName,
             };
             var result = await fileDialog.ShowAsync(IDesktopAvaloniaAppService.Instance.MainWindow);
 

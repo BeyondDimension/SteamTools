@@ -31,5 +31,9 @@ namespace System.Application.UI.ViewModels
         }
 
         public string? SteamDataIndented => Serializable.GetIndented(_Authenticator?.SteamData);
+
+        public string? RecoveryCode => _Authenticator?.RecoveryCode;
+
+        public string? DeviceId => _Authenticator?.DeviceId;
     }
 }

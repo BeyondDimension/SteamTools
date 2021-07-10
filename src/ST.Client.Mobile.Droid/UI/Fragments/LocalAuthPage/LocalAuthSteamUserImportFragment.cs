@@ -24,6 +24,25 @@ namespace System.Application.UI.Fragments
                 binding.tvLoginTip.Text = Steam_UserLoginTip;
             }).AddTo(this);
 
+            binding!.tbSteamUserName.TextChanged += (_, _) =>
+            {
+                ViewModel!.UserName = binding.tbSteamUserName.Text;
+            };
+            binding!.tbSteamPassword.TextChanged += (_, _) =>
+            {
+                ViewModel!.Password = binding.tbSteamPassword.Text;
+            };
+
+            ViewModel!.WhenAnyValue(x => x.LoginSteamLoadingText).Subscribe(value =>
+            {
+                if (binding == null) return;
+                var isNotLoading = string.IsNullOrWhiteSpace(value);
+                var loadingState = isNotLoading ? ViewStates.Gone : ViewStates.Visible;
+                var contentState = !isNotLoading ? ViewStates.Gone : ViewStates.Visible;
+                binding.layoutLoading.Visibility = loadingState;
+                binding.layoutContent.Visibility = contentState;
+            }).AddTo(this);
+
             SetOnClickListener(binding!.btnLogin);
         }
 
