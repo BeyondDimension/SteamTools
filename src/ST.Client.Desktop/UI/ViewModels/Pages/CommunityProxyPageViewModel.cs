@@ -35,6 +35,7 @@ namespace System.Application.UI.ViewModels
         //public MenuItemViewModel EnableProxyScript { get; }
 
         public ReactiveCommand<Unit, Unit> RefreshCommand { get; }
+        public ReactiveCommand<Unit, Unit> TrustCerCommand { get; }
 
         public CommunityProxyPageViewModel()
         {
@@ -44,6 +45,7 @@ namespace System.Application.UI.ViewModels
             DeleteCertificateCommand = ReactiveCommand.Create(DeleteCertificate_OnClick);
             EditHostsFileCommand = ReactiveCommand.Create(EditHostsFile_OnClick);
             NetworkFixCommand = ReactiveCommand.Create(ProxyService.Current.FixNetwork);
+            TrustCerCommand = ReactiveCommand.Create(TrustCer_OnClick);
             AutoRunProxyCommand = ReactiveCommand.Create(() =>
             {
                 AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value = !ProxySettings.ProgramStartupRunProxy.Value);
@@ -81,7 +83,11 @@ namespace System.Application.UI.ViewModels
                                 new MenuItemViewModel(nameof(AppResources.CommunityFix_OpenCertificateDir)){ IconKey="FolderOpenDrawing", Command=OpenCertificateDirCommand },
                             }
                         },
-                        new MenuItemViewModel (),
+#if MAC
+                         new MenuItemViewModel (nameof(AppResources.Refresh))
+                            { IconKey="RefreshDrawing" , Command = TrustCerCommand},
+#endif
+                new MenuItemViewModel (),
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_EditHostsFile)){ Command=EditHostsFileCommand,IconKey="DocumentEditDrawing" },
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_NetworkFix)){ Command=NetworkFixCommand },
                 //    }
@@ -89,6 +95,9 @@ namespace System.Application.UI.ViewModels
             };
 
             AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value);
+        }
+        public void TrustCer_OnClick() {
+            DI.Get<IHttpProxyService>().TrustCer();
         }
         public override void Activation()
         {

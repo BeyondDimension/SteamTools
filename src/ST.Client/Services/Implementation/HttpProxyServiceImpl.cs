@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Properties;
 using System.Security.Cryptography;
@@ -322,7 +323,10 @@ namespace System.Application.Services.Implementation
             // set e.clientCertificate to override
             return Task.CompletedTask;
         }
-
+        public void TrustCer() {
+            var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer");
+            IPlatformService.Instance.AdminShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain {filePath}", true);
+        }
         public bool SetupCertificate()
         {
             // 此代理使用的本地信任根证书
@@ -339,18 +343,19 @@ namespace System.Application.Services.Implementation
             }
 
             var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer");
-         
+
             proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(filePath);
-
-            proxyServer.CertificateManager.TrustRootCertificate();
-
+            try
+            {
+                proxyServer.CertificateManager.TrustRootCertificate();
+            }
+            catch { }
             proxyServer.CertificateManager.EnsureRootCertificate();
             if (DI.IsmacOS)
             {
-                //安装证书
-                IPlatformService.Instance.AdminShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain {filePath}");
-              
-            } 
+                TrustCer(); 
+
+            }
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
 
@@ -487,9 +492,29 @@ namespace System.Application.Services.Implementation
 
                 if (IsWindowsProxy)
                 {
-                    proxyServer.SetAsSystemHttpProxy(explicitProxyEndPoint);
-                    proxyServer.SetAsSystemHttpsProxy(explicitProxyEndPoint);
+                    if (DI.Platform == Platform.Windows)
+                    {
+                        proxyServer.SetAsSystemHttpProxy(explicitProxyEndPoint);
+                        proxyServer.SetAsSystemHttpsProxy(explicitProxyEndPoint);
+                    }
+                    else if (DI.IsmacOS)
+                    {
+                        var stringList = IPlatformService.Instance.GetMacNetworksetup();
+                        var shellContent = new StringBuilder();
+                        foreach (var item in stringList)
+                        {
+                            if (item.Trim().Length > 0) { 
+                                shellContent.AppendLine($"networksetup -setwebproxy '{item}' 'http://{explicitProxyEndPoint.IpAddress}' {explicitProxyEndPoint.Port}");
+                                shellContent.AppendLine($"networksetup -setwebproxystate '{item}' on");
+                                shellContent.AppendLine($"networksetup -setsecurewebproxy '{item}' 'https://{explicitProxyEndPoint.IpAddress}' {explicitProxyEndPoint.Port}");
+                                shellContent.AppendLine($"networksetup -setsecurewebproxystate '{item}' on");
+                            }
+                        }
+                        IPlatformService.Instance.AdminShell(shellContent.ToString(), false);
+
+                    }
                 }
+
             }
             catch (Exception ex)
             {
@@ -570,7 +595,21 @@ namespace System.Application.Services.Implementation
             }
             return Task.CompletedTask;
         }
+        public void StopMacProxy()
+        {
+            var stringList = IPlatformService.Instance.GetMacNetworksetup();
+            var shellContent = new StringBuilder();
+            foreach (var item in stringList)
+            {
+                if (item.Trim().Length > 0)
+                {
+                    shellContent.AppendLine($"networksetup -setwebproxystate '{item}' off");
+                    shellContent.AppendLine($"networksetup -setsecurewebproxystate '{item}' off");
+                }
+            }
+            IPlatformService.Instance.AdminShell(shellContent.ToString(), false);
 
+        }
         public void StopProxy()
         {
             if (proxyServer.ProxyRunning)
@@ -579,7 +618,12 @@ namespace System.Application.Services.Implementation
                 proxyServer.BeforeResponse -= OnResponse;
                 proxyServer.ServerCertificateValidationCallback -= OnCertificateValidation;
                 proxyServer.ClientCertificateSelectionCallback -= OnCertificateSelection;
+                if (DI.IsmacOS)
+                {
+                    StopMacProxy();
+                }
                 proxyServer.Stop();
+
             }
             try
             {
@@ -639,6 +683,10 @@ namespace System.Application.Services.Implementation
         {
             if (proxyServer.ProxyRunning)
             {
+                if (DI.IsmacOS)
+                {
+                    StopMacProxy();
+                }
                 proxyServer.Stop();
             }
             proxyServer.Dispose();

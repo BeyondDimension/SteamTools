@@ -2458,7 +2458,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 请输入系统密码进行操作 的本地化字符串。
+        ///   查找类似 请输入系统密码信任证书。右上角设置手动信任 的本地化字符串。
         /// </summary>
         public static string MacSudoPasswordTips {
             get {

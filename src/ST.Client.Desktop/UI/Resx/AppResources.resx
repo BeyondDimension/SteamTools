@@ -922,7 +922,7 @@
     <value>注销登录</value>
   </data>
   <data name="MacSudoPasswordTips" xml:space="preserve">
-    <value>请输入系统密码进行操作</value>
+    <value>请输入系统密码信任证书。右上角设置手动信任</value>
   </data>
   <data name="Modify" xml:space="preserve">
     <value>修改</value>

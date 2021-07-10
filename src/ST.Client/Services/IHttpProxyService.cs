@@ -20,7 +20,7 @@ namespace System.Application.Services
     public interface IHttpProxyService
     {
         public bool IsCertificate { get; }
-
+        public void TrustCer();
         public IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
 
         public IReadOnlyCollection<ScriptDTO>? Scripts { get; set; }

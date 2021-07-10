@@ -8,8 +8,9 @@ namespace System.Application.Services
 
         public static IPlatformService Instance => DI.Get<IPlatformService>();
 
-        async void AdminShell(string str) => await AdminShellAsync(str);
+        string[] GetMacNetworksetup() => throw new PlatformNotSupportedException();
+        async void AdminShell(string str,bool admin=false) => await AdminShellAsync(str,admin);
 
-        Task AdminShellAsync(string str) => throw new PlatformNotSupportedException();
+        ValueTask AdminShellAsync(string str, bool admin = false) => throw new PlatformNotSupportedException();
     }
 }

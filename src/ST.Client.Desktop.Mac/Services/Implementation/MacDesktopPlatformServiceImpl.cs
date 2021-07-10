@@ -25,50 +25,97 @@ namespace System.Application.Services.Implementation
         {
             return string.Empty;
         }
-
-        async Task IPlatformService.AdminShellAsync(string shell)
+        string[] IPlatformService.GetMacNetworksetup()
         {
-            var file = new FileInfo(Path.Combine(IOPath.AppDataDirectory, $@"sudoShell.sh"));
+            using (var p = new Process())
+            {
+                p.StartInfo.FileName = "networksetup";
+                p.StartInfo.Arguments = "-listallnetworkservices";
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.Start();
+                var ret = p.StandardOutput.ReadToEnd().Replace("An asterisk (*) denotes that a network service is disabled.", "");
+                p.Kill();
+                return ret.Split("\n");
+            }
+        }
+        async ValueTask IPlatformService.AdminShellAsync(string shell, bool admin = false)
+        {
+            var file = new FileInfo(Path.Combine(IOPath.AppDataDirectory, $@"{(admin?"sudo":"")}shell.sh"));
 
             if (file.Exists)
                 file.Delete();
-            var vm = new PasswordWindowViewModel
-            {
-                Title = AppResources.MacSudoPasswordTips
-            };
-            await IShowWindowService.Instance.ShowDialog(CustomWindow.Password, vm, string.Empty, ResizeModeCompat.CanResize);
+          
             var scriptContent = new StringBuilder();
             scriptContent.AppendLine($"#!/bin/bash -e");
-            scriptContent.AppendLine($"echo \"{vm.Password}\" | sudo -S \"{shell}\"");
+            if (admin)
+            {
+                var vm = new PasswordWindowViewModel
+                {
+                    Title = AppResources.MacSudoPasswordTips
+                };
+                await IShowWindowService.Instance.ShowDialog(CustomWindow.Password, vm, string.Empty, ResizeModeCompat.CanResize);
+                scriptContent.AppendLine($"echo \"{vm.Password}\" | sudo -S {shell}");
+            }
+            else {
+                scriptContent.AppendLine(shell);
+            }
             using (var stream = file.CreateText())
             {
                 stream.Write(scriptContent);
                 stream.Flush();
                 stream.Dispose();
             }
-            var pInfo = new ProcessStartInfo
+            using (var p=new Process())
             {
-                FileName = $"/bin/bash",
-                Arguments = file.FullName
-            };
-            //pInfo.UseShellExecute = true;
-            var p = Process.Start(pInfo);
-            if (p == null) throw new FileNotFoundException("Shell");
-            p.Close();
-            p.Exited += (object? _, EventArgs _) =>
-            {
-                if (p.ExitCode != 0)
-                {
-                    ((IPlatformService)this).AdminShell(shell);
-                }
-                else
+                p.StartInfo.FileName = "/bin/bash";
+                p.StartInfo.Arguments = file.FullName;
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.Exited += (object? _, EventArgs _) =>
                 {
                     if (file.Exists)
                         file.Delete();
-                }
-            };
-            if (file.Exists)
-                file.Delete();
+                    if (p.ExitCode != 0)
+                    {
+                        ((IPlatformService)this).AdminShell(shell);
+                    } 
+                };
+                p.Start(); 
+                var ret = p.StandardOutput.ReadToEnd(); 
+                p.Kill();
+                if (file.Exists)
+                    file.Delete();
+            }
+            //var pInfo = new ProcessStartInfo
+            //{
+            //    FileName = "/bin/bash",
+            //    Arguments = $"{file.FullName}"
+            //};
+            ////var pInfo = new ProcessStartInfo
+            ////{
+            ////    FileName = Path.Combine(IOPath.AppDataDirectory, $@"sudoShell"),
+            ////    Arguments = $"-p '{file.FullName}'"
+            ////};
+            //pInfo.UseShellExecute = false;
+            //var p = Process.Start(pInfo);
+
+            //if (p == null) throw new FileNotFoundException("Shell");
+            //p.Exited += (object? _, EventArgs _) =>
+            //{
+            //    if (p.ExitCode != 0)
+            //    {
+            //        ((IPlatformService)this).AdminShell(shell);
+            //    }
+            //    else
+            //    {
+            //        if (file.Exists)
+            //            file.Delete();
+            //    }
+            //}; 
+            //p.Close();
+            //if (file.Exists)
+            //    file.Delete();
 #if MONO_MAC
 #elif XAMARIN_MAC
             var edithost = new NSAppleScript($"do shell script \"'${shell}'\" with administrator privileges");
@@ -102,8 +149,7 @@ namespace System.Application.Services.Implementation
         {
             var pInfo = new ProcessStartInfo
             {
-                FileName = "open",
-                Arguments = $"{name}",
+                FileName = name
             };
             pInfo.UseShellExecute = true;
             var p = Process.Start(pInfo);
@@ -115,8 +161,8 @@ namespace System.Application.Services.Implementation
         {
             var pInfo = new ProcessStartInfo
             {
-                FileName = "open",
-                Arguments = $"{name} \"{arguments}\"",
+                FileName = name ,
+                Arguments = $"\"{arguments}\"",
             };
             pInfo.UseShellExecute = true;
             var p = Process.Start(pInfo);
@@ -162,9 +208,8 @@ namespace System.Application.Services.Implementation
         public string? GetSteamProgramPath()
         {
             var value = string.Format(
-                 "{0}{1}{0}Applications{0}Steam.app",
-                 Path.DirectorySeparatorChar,
-                Environment.UserName);
+                 "{0}Applications{0}Steam.app{0}Contents{0}MacOS{0}steam_osx",
+                 Path.DirectorySeparatorChar);
             return value;
         }
 
