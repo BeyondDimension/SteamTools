@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/shared_toolbar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvWinAuthImport"
+                style="@style/TextAppearance.AppCompat.Widget.Switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/abc_action_button_min_height_material"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                tools:text="WinAuth导入"
+                xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvWinAuthImportTip"
+                style="@style/TextAppearance.AppCompat.Widget.Switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/abc_action_button_min_height_material"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                tools:text="WinAuth是Windows的便携式开放源代码身份验证器，它提供基于计数器或基于时间的RFC 6238身份验证器和常见的实现。导入方法：从WinAuth导出txt文件之后在此选择从WinAuth导出的txt文件进行导入。"
+                xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnWinAuthImport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:textAllCaps="false"
+                tools:text="选择*.txt文件导入"
+                xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSDAImport"
+                style="@style/TextAppearance.AppCompat.Widget.Switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/abc_action_button_min_height_material"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                tools:text="Steam Desktop Auth导入"
+                xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSDAImportTip"
+                style="@style/TextAppearance.AppCompat.Widget.Switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/abc_action_button_min_height_material"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                tools:text="Steam的移动身份验证器应用程序的桌面实现。导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件，请先移除密码在导入)"
+                xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSDAImport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:textAllCaps="false"
+                tools:text="选择*.maFile文件导入"
+                xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

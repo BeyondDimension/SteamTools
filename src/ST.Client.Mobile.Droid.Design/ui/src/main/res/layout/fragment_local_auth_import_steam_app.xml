@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/shared_toolbar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:endIconMode="clear_text"
+                tools:hint="令牌自定义名称"
+                xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tbName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSteamUUIDTip"
+                style="@style/TextAppearance.AppCompat.Widget.Switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:gravity="center_vertical"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                tools:text="在shared_prefs文件夹中，粘贴'steam_uuid.xml'的uuidKey"
+                xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutSteamUUIDKey"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:endIconMode="clear_text"
+                xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tbSteamUUIDKey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSteamGuardTip"
+                style="@style/TextAppearance.AppCompat.Widget.Switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:gravity="center_vertical"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                tools:text="在files文件夹中，打开'SteamGuard-NNNNNNNN'文件，粘贴文件的全部内容"
+                xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutGuard"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:endIconMode="clear_text"
+                xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tbGuard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnImport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:textAllCaps="false"
+                tools:text="确认导入"
+                xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvImportTip"
+                style="@style/TextAppearance.AppCompat.Widget.Switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/abc_action_button_min_height_material"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                tools:text="您可以在已root的Android设备中导入您的SteamGuard身份验证器路径：  /data/data/com.valvesoftware.android.steam.community然后将以下两个文件的内容复制到下面的对应输入框中"
+                xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
