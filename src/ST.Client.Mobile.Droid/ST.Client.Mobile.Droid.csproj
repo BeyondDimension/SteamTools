@@ -678,6 +678,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_steam_auth_data.xml">
     <Link>Resources\layout\activity_steam_auth_data.xml</Link>
     </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_steam_auth_trade.xml">
+    <Link>Resources\layout\activity_steam_auth_trade.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_textblock.xml">
     <Link>Resources\layout\activity_textblock.xml</Link>
     </AndroidBoundLayout>
@@ -737,6 +740,12 @@
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_gap_authenticator_content.xml">
     <Link>Resources\layout\layout_card_gap_authenticator_content.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_steam_auth_trade_confirmation.xml">
+    <Link>Resources\layout\layout_card_steam_auth_trade_confirmation.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_steam_auth_trade_confirmation_content.xml">
+    <Link>Resources\layout\layout_card_steam_auth_trade_confirmation_content.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_login_and_register_by_fast_channel.xml">
     <Link>Resources\layout\layout_login_and_register_by_fast_channel.xml</Link>
@@ -848,6 +857,7 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
 
 
 
