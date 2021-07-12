@@ -38,7 +38,7 @@ namespace System.Application.Services
         {
             SteamBotsSourceList = new SourceCache<Bot, string>(t => t.BotName);
 
-            InitASF();
+            //InitASF();
         }
 
         public async void InitASF()

@@ -118,7 +118,7 @@ namespace System.Application.UI.ViewModels
         void AddAuthMenu_Click()
         {
             if (DI.DeviceIdiom == DeviceIdiom.Desktop && !AppSettings.IsOfficialChannelPackage) return;
-            IShowWindowService.Instance.Show<AddAuthWindowViewModel>(CustomWindow.AddAuth);
+            IShowWindowService.Instance.Show<AddAuthWindowViewModel>(CustomWindow.AddAuth,resizeMode:ResizeModeCompat.CanResize);
         }
 
         public void ShowAuthCode(MyAuthenticator auth)
