@@ -53,12 +53,13 @@
     <TabControl Classes="flat">
       <TabItem Header="ASF控制台">
         <controls:ConsoleShell x:Name="ConsoleLog" Margin="20 0"
+                               LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"
                                IsMask="{ReflectionBinding Source={x:Static ccl_service:IArchiSteamFarmService.Instance},Path=IsReadPasswordLine}">
         </controls:ConsoleShell>
       </TabItem>
       <TabItem Header="ASF Web UI">
         <Panel Margin="20 0">
-          <StackPanel Spacing="20" IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=!IsArchiSteamFarmRuning}"
+          <StackPanel Spacing="20"
                   VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
               <Ellipse Height="6" Width="6"  Fill="#FF4F58" Margin="0 0 5 0" VerticalAlignment="Center"/>
@@ -72,7 +73,7 @@
                   HorizontalAlignment="Center"/>
           </StackPanel>
 
-          <!--<controls:WebView3 Url="{Binding WebUrl}" IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=IsArchiSteamFarmRuning}"/>-->
+          <controls:WebView3 Url="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=IPCUrl}"/>
         </Panel>
       </TabItem>
 

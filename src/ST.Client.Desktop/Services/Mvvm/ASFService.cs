@@ -17,37 +17,55 @@ namespace System.Application.Services
 
         private readonly IArchiSteamFarmService archiSteamFarmService = IArchiSteamFarmService.Instance;
 
-        bool _IPCUrl;
-        public bool IPCUrl
+        string _IPCUrl;
+        public string IPCUrl
         {
             get => _IPCUrl;
             set => this.RaiseAndSetIfChanged(ref _IPCUrl, value);
         }
 
-        string? _CommandText;
-        public string? CommandText
+        string? _ConsoleLogText;
+        public string? ConsoleLogText
         {
-            get => _CommandText;
-            set => this.RaiseAndSetIfChanged(ref _CommandText, value);
+            get => _ConsoleLogText;
+            set => this.RaiseAndSetIfChanged(ref _ConsoleLogText, value);
         }
 
         public SourceCache<Bot, string> SteamBotsSourceList;
-
 
         public ASFService()
         {
             SteamBotsSourceList = new SourceCache<Bot, string>(t => t.BotName);
 
-            //InitASF();
+            InitASF();
         }
+
 
         public async void InitASF()
         {
+            IArchiSteamFarmService.Instance.GetConsoleWirteFunc = (message) =>
+            {
+                if (!string.IsNullOrEmpty(ConsoleLogText))
+                {
+                    var lines = ConsoleLogText.Split(Environment.NewLine, StringSplitOptions.None).ToList();
+                    if (lines.Count >= 200)
+                    {
+                        lines.RemoveAt(0);
+                        lines.Add(message);
+                        ConsoleLogText = string.Join(Environment.NewLine, lines);
+                        return;
+                    }
+                }
+                ConsoleLogText += Environment.NewLine + message;
+            };
+
             await IArchiSteamFarmService.Instance.Start();
 
             var bots = archiSteamFarmService.GetReadOnlyAllBots();
             if (bots.Any_Nullable())
                 SteamBotsSourceList.AddOrUpdate(bots!.Values);
+
+            IPCUrl = archiSteamFarmService.GetIPCUrl();
         }
 
 

@@ -10,6 +10,8 @@
       <Setter Property="Padding" Value="0"></Setter>
       <Setter Property="Margin" Value="0"></Setter>
       <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+      <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"></Setter>
+      <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"></Setter>
     </Style>
 
     <Style Selector="TextBox /template/ TextBlock#PART_BorderElement">
@@ -23,8 +25,7 @@
       <Grid RowDefinitions="Auto,Auto">
         <TextBox x:Name="LogTextbox"
                  Classes="readonlybox"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                 IsReadOnly="True"
                  TextWrapping="Wrap"/>
         <DockPanel Grid.Row="1">
           <TextBlock Text=">"
@@ -36,8 +37,6 @@
           <TextBox x:Name="CommandTextbox"
                    Classes="readonlybox"
                    IsReadOnly="False"
-                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
                    TextWrapping="WrapWithOverflow"
                    VerticalAlignment="Center">
           </TextBox>
