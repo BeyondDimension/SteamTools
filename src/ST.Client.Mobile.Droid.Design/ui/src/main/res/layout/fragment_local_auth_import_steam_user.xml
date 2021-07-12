@@ -30,6 +30,7 @@
                 android:paddingBottom="@dimen/activity_vertical_margin">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivSteamLogo"
                     android:layout_width="@dimen/steam_user_login_logo_size"
                     android:layout_height="@dimen/steam_user_login_logo_size"
                     android:layout_gravity="center_horizontal"
@@ -75,8 +76,110 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivCaptchaImage"
+                    android:layout_width="206dp"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    tools:background="@color/icon_background"
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutCaptcha"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    app:endIconMode="clear_text"
+                    tools:hint="输入图中验证码"
+                    xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tbCaptcha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutEmailAuth"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    app:endIconMode="clear_text"
+                    tools:hint="邮箱验证代码"
+                    xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tbEmailAuth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutSMSCode"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    app:endIconMode="clear_text"
+                    tools:hint="短信验证代码"
+                    xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tbSMSCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivSuccess"
+                    android:layout_width="@dimen/steam_user_login_logo_size"
+                    android:layout_height="@dimen/steam_user_login_logo_size"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/baseline_check_circle"
+                    app:tint="?colorSecondary"
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutRevocationCode"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    tools:hint="恢复代码"
+                    xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tbRevocationCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbRecoveryCodeRemember"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    tools:checked="true"
+                    tools:text="我已经写下了我的恢复代码" />
+
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnLogin"
+                    android:id="@+id/btnSubmit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -93,11 +196,58 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:gravity="center_vertical"
-                    android:minHeight="@dimen/abc_action_button_min_height_material"
                     android:textAllCaps="false"
                     android:textColor="@color/text_primary"
                     tools:text="登录Steam账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易15天冷却期。
 (如果没有开Steam社区加速会导致无法登录成功)"
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvEmailDomain"
+                    style="@style/TextAppearance.AppCompat.Widget.Switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:gravity="center_vertical"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    tools:text="EmailDomain"
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvEmailCodeTip"
+                    style="@style/TextAppearance.AppCompat.Widget.Switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:gravity="center_vertical"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    tools:text="请输入发送到您电子邮件地址的代码，以批准从新设备进行访问。"
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvSMSCodeTip"
+                    style="@style/TextAppearance.AppCompat.Widget.Switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:gravity="center_vertical"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    tools:text="请输入发送到您手机的短信验证代码。"
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvRecoveryCodeRememberTip"
+                    style="@style/TextAppearance.AppCompat.Widget.Switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:gravity="center_vertical"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    tools:text="您的身份验证器已被添加到您的Steam账户上并已经成功导入Steam++。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。"
                     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
             </LinearLayout>
 

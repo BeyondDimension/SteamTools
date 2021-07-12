@@ -168,6 +168,8 @@
 * [MSBuild.Sdk.Extras](https://github.com/novotnyllc/MSBuildSdkExtras)
 * [Xamarin.Essentials](https://github.com/xamarin/essentials)
 * [Open Source Components for Xamarin](https://github.com/xamarin/XamarinComponents)
+* [Picasso](https://github.com/square/picasso)
+* [OkHttp](https://github.com/square/okhttp)
 * [Material Components for Android](https://github.com/material-components/material-components-android)
 * [AndroidX for Xamarin.Android](https://github.com/xamarin/AndroidX)
 * [Android Jetpack](https://github.com/androidx/androidx)

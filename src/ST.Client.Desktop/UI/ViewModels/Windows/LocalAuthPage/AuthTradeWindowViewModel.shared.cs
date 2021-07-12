@@ -335,10 +335,12 @@ namespace System.Application.UI.ViewModels
                     //Toast.Show(AppResources.LocalAuth_AuthTrade_GetTip);
                     var list = steam.GetConfirmations();
 
+#if !__MOBILE__
                     Parallel.ForEach(list, confirmation =>
                     {
                         confirmation.ImageStream = IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
                     });
+#endif
 
                     _ConfirmationsSourceList.Clear();
                     _ConfirmationsSourceList.AddRange(list);
@@ -365,10 +367,12 @@ namespace System.Application.UI.ViewModels
                         steam.Refresh();
                         var list = steam.GetConfirmations();
 
+#if !__MOBILE__
                         Parallel.ForEach(list, confirmation =>
                         {
                             confirmation.ImageStream = IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
                         });
+#endif
 
                         _ConfirmationsSourceList.Clear();
                         _ConfirmationsSourceList.AddRange(list);

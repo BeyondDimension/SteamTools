@@ -354,8 +354,7 @@ namespace System.Application.Services.Implementation
                 get_image_pipeline.TryAdd(channelType, new ConcurrentDictionary<string, Task<string?>>());
             }
 
-            var dirPath = Path.Combine(IOPath.CacheDirectory, "Images", channelType);
-            IOPath.DirCreateByNotExists(dirPath);
+            var dirPath = GetImagesCacheDirectory(channelType);
             var fileName = Hashs.String.SHA256(requestUri) + FileEx.ImageSource;
             var localCacheFilePath = Path.Combine(dirPath, fileName);
 

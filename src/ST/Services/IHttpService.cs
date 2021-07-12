@@ -70,6 +70,16 @@ namespace System.Application.Services
         /// <returns></returns>
         [Obsolete]
         Task<Stream?> GetImageStreamAsync(string requestUri, CancellationToken cancellationToken = default);
+
+        static string GetImagesCacheDirectory(string? channelType)
+        {
+            const string dirName = "Images";
+            var dirPath = string.IsNullOrWhiteSpace(channelType) ?
+                Path.Combine(IOPath.CacheDirectory, dirName, channelType) :
+                Path.Combine(IOPath.CacheDirectory, dirName);
+            IOPath.DirCreateByNotExists(dirPath);
+            return dirPath;
+        }
     }
 
 #if DEBUG
