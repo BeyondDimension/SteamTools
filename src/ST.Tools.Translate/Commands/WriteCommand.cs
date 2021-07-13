@@ -98,6 +98,10 @@ namespace System.Commands
             cell.SetCellValue(ColumnHeaderAuthor);
             sheet.SetColumnWidth(4, ValueWidth);
 
+            cell = row.CreateCell(5);
+            cell.SetCellValue(ColumnHeaderComment);
+            sheet.SetColumnWidth(5, ValueWidth);
+
             foreach (var item in resxFileDict.dict)
             {
                 row = sheet.CreateRow(index++);
@@ -118,6 +122,13 @@ namespace System.Commands
 
                 cell = row.CreateCell(4);
                 cell.SetCellValue(author);
+
+                var sourceCommentData = Deserialize(resxFileDict.dict[item.Key].comment);
+                if (sourceCommentData.ContainsKey(CommentKey))
+                {
+                    cell = row.CreateCell(5);
+                    cell.SetCellValue(sourceCommentData[CommentKey]);
+                }
             }
 
             workbook.Write(fs);

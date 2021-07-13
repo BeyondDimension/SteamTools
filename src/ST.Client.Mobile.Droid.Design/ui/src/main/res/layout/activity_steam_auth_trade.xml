@@ -63,6 +63,92 @@
                 android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin">
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivSteamLogo"
+                    android:layout_width="@dimen/steam_user_login_logo_size"
+                    android:layout_height="@dimen/steam_user_login_logo_size"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/icon_steam_24"
+                    app:tint="@color/icon_background"
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutSteamUserName"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:endIconMode="clear_text"
+                    tools:hint="Steam用户名"
+                    xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tbSteamUserName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutSteamPassword"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:endIconMode="password_toggle"
+                    tools:hint="Steam密码"
+                    xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tbSteamPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivCaptchaImage"
+                    android:layout_width="206dp"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    tools:background="@color/icon_background"
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutCaptcha"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    app:endIconMode="clear_text"
+                    tools:hint="输入图中验证码"
+                    xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tbCaptcha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:textAllCaps="false"
+                    tools:text="登 录"
+                    xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -82,7 +168,6 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvLoading"
                     android:layout_width="wrap_content"
-
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:textAllCaps="false"

@@ -95,7 +95,7 @@ namespace System.Application.UI.Fragments
             return false; // false will close it without animation
         }
 
-        public static int ToIconRes(ActionItem action) => action switch
+        static int ToIconRes(ActionItem action) => action switch
         {
             ActionItem.Add => Resource.Drawable.baseline_add_black_24,
             ActionItem.Encrypt => Resource.Drawable.baseline_enhanced_encryption_black_24,

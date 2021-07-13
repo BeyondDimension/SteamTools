@@ -36,14 +36,12 @@ namespace System.Application.UI.Activities
             binding!.tvSteamGuardLabel.Text = "SteamGuard：";
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
-                if (binding != null)
-                {
-                    binding.tvRecoveryCode.Text = RecoveryCode;
-                    binding.tvRecoveryCodeTip2.Text = LocalAuth_ShowSteamAuthTip2;
-                    binding.tvRecoveryCodeLabel.Text = RecoveryCode + "：";
-                    binding.tvRecoveryCodeTip1.Text = LocalAuth_ShowSteamAuthTip1;
-                    binding.tvUUIDLabel.Text = LocalAuth_SteamUUID;
-                }
+                if (binding == null) return;
+                binding.tvRecoveryCode.Text = RecoveryCode;
+                binding.tvRecoveryCodeTip2.Text = LocalAuth_ShowSteamAuthTip2;
+                binding.tvRecoveryCodeLabel.Text = RecoveryCode + "：";
+                binding.tvRecoveryCodeTip1.Text = LocalAuth_ShowSteamAuthTip1;
+                binding.tvUUIDLabel.Text = LocalAuth_SteamUUID;
             }).AddTo(this);
 
             binding.tbRecoveryCode.Text = ViewModel.RecoveryCode;

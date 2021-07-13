@@ -199,8 +199,9 @@ namespace WinAuth
             public bool IsNew { get; set; }
             public string Image { get; set; } = string.Empty;
 
-            private Task<string?> _ImageStream;
-            public Task<string?> ImageStream
+            private Task<string?>? _ImageStream;
+            [Obsolete("use httpUrl in Mobile")]
+            public Task<string?>? ImageStream
             {
                 get => _ImageStream;
                 set => this.RaiseAndSetIfChanged(ref _ImageStream, value);

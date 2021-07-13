@@ -78,6 +78,9 @@
     <Compile Include="..\Common.ClientLib.Droid\Extensions\TextViewExtensions.cs">
       <LinkBase>Extensions</LinkBase>
     </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\EditTextExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
     <Compile Include="..\Common.ClientLib.Droid\Extensions\ViewPagerExtensions.cs">
       <LinkBase>Extensions</LinkBase>
     </Compile>
@@ -122,6 +125,7 @@
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.3.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.3.0" />
     <PackageReference Include="ReactiveUI.AndroidX" Version="14.1.1" />
+    <PackageReference Include="Square.OkHttp3" Version="4.9.1" />
     <PackageReference Include="Square.Picasso" Version="2.71828.0" />
     <PackageReference Include="TencentOpenApiSDK.Android" Version="3.5.4.11" />
     <PackageReference Include="XAB.FloatingActionButtonSpeedDial" Version="3.2.0" />
@@ -192,6 +196,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_checklist_black_24.xml">
     <Link>Resources\drawable\baseline_checklist_black_24.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_check_circle.xml">
+    <Link>Resources\drawable\baseline_check_circle.xml</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_close_black_24.xml">
     <Link>Resources\drawable\baseline_close_black_24.xml</Link>
@@ -858,6 +865,7 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
 
 
 

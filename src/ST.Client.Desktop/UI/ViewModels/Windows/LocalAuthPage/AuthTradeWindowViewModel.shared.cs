@@ -184,7 +184,7 @@ namespace System.Application.UI.ViewModels
 
         private readonly ReadOnlyObservableCollection<WinAuthSteamClient.Confirmation>? _Confirmations;
         private readonly SourceList<WinAuthSteamClient.Confirmation> _ConfirmationsSourceList;
-        public ReadOnlyObservableCollection<WinAuthSteamClient.Confirmation>? Confirmations => _Confirmations;
+        public ReadOnlyObservableCollection<WinAuthSteamClient.Confirmation> Confirmations => _Confirmations ?? throw new ArgumentNullException(nameof(_Confirmations));
 
         private bool _IsLoading;
         public bool IsLoading
@@ -396,6 +396,7 @@ namespace System.Application.UI.ViewModels
         {
             OperationTrade(true, trade);
         }
+
         public void CancelTrade_Click(WinAuthSteamClient.Confirmation trade)
         {
             OperationTrade(false, trade);

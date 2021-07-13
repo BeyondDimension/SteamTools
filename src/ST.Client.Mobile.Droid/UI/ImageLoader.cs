@@ -37,8 +37,13 @@ namespace System.Application.UI
         }
 
         public static void SetImageSource(this ImageView imageView,
-            Stream stream)
+            Stream? stream)
         {
+            if (stream == null)
+            {
+                imageView.SetImageDrawable(null);
+                return;
+            }
             try
             {
                 var bitmap = BitmapFactory.DecodeStream(stream);
@@ -51,18 +56,31 @@ namespace System.Application.UI
         }
 
         public static void SetImageSource(this ImageView imageView,
-            string requestUri,
+            string? requestUri,
             int targetSize = 0,
+            int targetResId = 0,
             ScaleType? scaleType = default)
         {
+            if (string.IsNullOrWhiteSpace(requestUri))
+            {
+                imageView.SetImageDrawable(null);
+                return;
+            }
             try
             {
                 var requestCreator = Picasso.Load(requestUri);
+                var useCenterCropDefault = false;
                 if (targetSize > 0)
                 {
                     requestCreator.Resize(targetSize, targetSize);
+                    useCenterCropDefault = true;
                 }
-                if (scaleType == ScaleType.CenterCrop)
+                else if (targetResId > 0)
+                {
+                    requestCreator.ResizeDimen(targetResId, targetResId);
+                    useCenterCropDefault = true;
+                }
+                if (scaleType == ScaleType.CenterCrop || (useCenterCropDefault && scaleType == default))
                 {
                     requestCreator.CenterCrop();
                 }
