@@ -325,7 +325,7 @@ namespace System.Application.Services.Implementation
         }
         public void TrustCer() {
             var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer");
-            IPlatformService.Instance.AdminShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain {filePath}", true);
+            IPlatformService.Instance.AdminShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain \"{filePath}\"", true);
         }
         public bool SetupCertificate()
         {
@@ -503,7 +503,9 @@ namespace System.Application.Services.Implementation
                         var shellContent = new StringBuilder();
                         foreach (var item in stringList)
                         {
-                            if (item.Trim().Length > 0) { 
+                            if (item.Trim().Length > 0) {
+                                //shellContent.AppendLine($"networksetup -setsocksfirewallproxy '{item}' '{explicitProxyEndPoint.IpAddress}' {explicitProxyEndPoint.Port}");
+                                //shellContent.AppendLine($"networksetup -setsocksfirewallproxystate '{item}' on");
                                 shellContent.AppendLine($"networksetup -setwebproxy '{item}' 'http://{explicitProxyEndPoint.IpAddress}' {explicitProxyEndPoint.Port}");
                                 shellContent.AppendLine($"networksetup -setwebproxystate '{item}' on");
                                 shellContent.AppendLine($"networksetup -setsecurewebproxy '{item}' 'https://{explicitProxyEndPoint.IpAddress}' {explicitProxyEndPoint.Port}");
@@ -602,7 +604,8 @@ namespace System.Application.Services.Implementation
             foreach (var item in stringList)
             {
                 if (item.Trim().Length > 0)
-                {
+                { 
+                    //shellContent.AppendLine($"networksetup -setsocksfirewallproxystate '{item}' off");
                     shellContent.AppendLine($"networksetup -setwebproxystate '{item}' off");
                     shellContent.AppendLine($"networksetup -setsecurewebproxystate '{item}' off");
                 }

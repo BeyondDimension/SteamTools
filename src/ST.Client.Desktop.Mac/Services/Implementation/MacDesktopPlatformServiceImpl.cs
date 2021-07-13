@@ -35,7 +35,7 @@ namespace System.Application.Services.Implementation
                 p.StartInfo.RedirectStandardOutput = true;
                 p.Start();
                 var ret = p.StandardOutput.ReadToEnd().Replace("An asterisk (*) denotes that a network service is disabled.", "");
-                p.Kill();
+                p.Kill(); 
                 return ret.Split("\n");
             }
         }
@@ -45,9 +45,7 @@ namespace System.Application.Services.Implementation
 
             if (file.Exists)
                 file.Delete();
-          
             var scriptContent = new StringBuilder();
-            scriptContent.AppendLine($"#!/bin/bash -e");
             if (admin)
             {
                 var vm = new PasswordWindowViewModel
@@ -64,12 +62,12 @@ namespace System.Application.Services.Implementation
             {
                 stream.Write(scriptContent);
                 stream.Flush();
-                stream.Dispose();
+                stream.Close();
             }
             using (var p=new Process())
             {
                 p.StartInfo.FileName = "/bin/bash";
-                p.StartInfo.Arguments = file.FullName;
+                p.StartInfo.Arguments =$"\"{file.FullName}\"";
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;
                 p.Exited += (object? _, EventArgs _) =>
@@ -82,8 +80,8 @@ namespace System.Application.Services.Implementation
                     } 
                 };
                 p.Start(); 
-                var ret = p.StandardOutput.ReadToEnd(); 
-                p.Kill();
+                var ret = p.StandardOutput.ReadToEnd();  
+                p.Kill(); 
                 if (file.Exists)
                     file.Delete();
             }

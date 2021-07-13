@@ -14,9 +14,13 @@ namespace System.Application.UI
                 {
                     MaxGpuResourceSizeBytes = 8096000,
                 })
+            .With(new AvaloniaNativePlatformOptions
+            {
+                UseGpu = !DI.IsmacOS
+            })
                 .With(new Win32PlatformOptions
                 {
-                    AllowEglInitialization = true,
+                    AllowEglInitialization = !DI.IsmacOS,
                 })
                 .LogToTrace()
                 .UseReactiveUI();
