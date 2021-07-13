@@ -675,6 +675,9 @@ namespace System.Application.Services
                     Toast.Show(AppResources.LocalAuth_ProtectionAuth_PathError);
                     return;
                 }
+
+                IOPath.FileIfExistsItDelete(filePath);
+
                 var bt = await repository.ExportAsync(isLocal, password, Authenticators.Items.Select(s => s.AuthenticatorData));
 
                 await File.WriteAllBytesAsync(filePath, bt);

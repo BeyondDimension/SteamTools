@@ -13,10 +13,22 @@ namespace System.Application.UI.Views.Controls
         public const string OutputIndicator = "< ";
 
         /// <summary>
-        /// Defines the <see cref="LogTexts"/> property.
+        /// Defines the <see cref="IsMask"/> property.
         /// </summary>
         public static readonly StyledProperty<bool> IsMaskProperty =
             AvaloniaProperty.Register<ConsoleShell, bool>(nameof(IsMask), false);
+
+        /// <summary>
+        /// Defines the <see cref="LogText"/> property.
+        /// </summary>
+        public static readonly StyledProperty<string> LogTextProperty =
+            AvaloniaProperty.Register<ConsoleShell, string>(nameof(IsMask), string.Empty);
+
+        /// <summary>
+        /// Defines the <see cref="MaxLine"/> property.
+        /// </summary>
+        public static readonly StyledProperty<int> MaxLineProperty =
+            AvaloniaProperty.Register<ConsoleShell, int>(nameof(IsMask), 300);
 
         /// <summary>
         /// 隐藏指令内容（用于密码输入）
@@ -27,7 +39,23 @@ namespace System.Application.UI.Views.Controls
             set => SetValue(IsMaskProperty, value);
         }
 
-        public StringBuilder LogText { get; set; } = new StringBuilder();
+        /// <summary>
+        /// 历史日志内容
+        /// </summary>
+        public string LogText
+        {
+            get => GetValue(LogTextProperty);
+            set => SetValue(LogTextProperty, value);
+        }
+
+        /// <summary>
+        /// 最大日志行数
+        /// </summary>
+        public int MaxLine
+        {
+            get => GetValue(MaxLineProperty);
+            set => SetValue(MaxLineProperty, value);
+        }
 
         private CommandEventArgs? _commandSubmitArgs;
         /// <summary>
@@ -53,10 +81,6 @@ namespace System.Application.UI.Views.Controls
                   {
                       if (this.logTextbox.IsVisible = !string.IsNullOrEmpty(x))
                       {
-                          //if (x.EndsWith(Environment.NewLine))
-                          //{
-                          //    x = x.Remove(x.Length);
-                          //}
                           consoleScroll.ScrollToEnd();
                           //consoleScroll.Offset = new Vector(double.NegativeInfinity, consoleScroll.Viewport.Height);
                       }
@@ -64,6 +88,10 @@ namespace System.Application.UI.Views.Controls
 
             this.GetObservable(IsMaskProperty)
                   .Subscribe(x => commandTextbox.PasswordChar = x ? '*' : default);
+
+            this.GetObservable(LogTextProperty)
+                  .Subscribe(x => 
+                  logTextbox.Text = x);
         }
 
         private void CommandTextbox_KeyUp(object? sender, Avalonia.Input.KeyEventArgs e)
@@ -90,8 +118,7 @@ namespace System.Application.UI.Views.Controls
 
         public void AppendLogText(string text)
         {
-            LogText.AppendLine(text);
-            logTextbox.Text = LogText.ToString();
+            LogText += text;
         }
 
         private void InitializeComponent()

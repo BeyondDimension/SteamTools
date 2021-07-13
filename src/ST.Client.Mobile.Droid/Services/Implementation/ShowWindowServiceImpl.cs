@@ -188,5 +188,7 @@ namespace System.Application.Services.Implementation
         {
             await PlatformShowWindow(customWindow, viewModel, title);
         }
+
+        public void Pop() => CurrentActivity?.OnBackPressed();
     }
 }

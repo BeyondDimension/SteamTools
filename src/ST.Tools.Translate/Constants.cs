@@ -34,6 +34,8 @@ namespace System
         public const int ValueWidth = 80 * 256;
         public const string ColumnHeaderAuthor = "作者(Author)";
         public const string AuthorKey = "Author";
+        public const string ColumnHeaderComment = "注释(Comment)";
+        public const string CommentKey = "Comment";
         public const string MicrosoftTranslator = "MicrosoftTranslator";
         public const string ColumnHeaderMachineTranslation = "机翻(Machine Translation)";
         public const string ColumnHeaderHumanTranslation = "人工翻译(Human Translation)";

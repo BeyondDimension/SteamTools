@@ -1,3 +1,4 @@
+using ReactiveUI;
 using System.Properties;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -27,6 +28,13 @@ namespace System.Application.UI.ViewModels
             {
                 // The user canceled or something went wrong
             }
+        }
+
+        private string? _LoginSteamLoadingText;
+        public string? LoginSteamLoadingText
+        {
+            get => _LoginSteamLoadingText;
+            set => this.RaiseAndSetIfChanged(ref _LoginSteamLoadingText, value);
         }
     }
 }

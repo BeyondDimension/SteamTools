@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/shared_toolbar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingTop="?attr/actionBarSize">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/grey_window_background">
+
+            <LinearLayout
+                android:id="@+id/layoutContentConfirmations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvConfirmConutMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/list_header_title_font_size"
+                    tools:text="当前没有任何需要处理的交易报价"
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvConfirmations"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/layout_card_steam_auth_trade_confirmation"
+                    xamarin:managedType="AndroidX.RecyclerView.Widget.RecyclerView" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutContentSteamLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivSteamLogo"
+                    android:layout_width="@dimen/steam_user_login_logo_size"
+                    android:layout_height="@dimen/steam_user_login_logo_size"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/icon_steam_24"
+                    app:tint="@color/icon_background"
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutSteamUserName"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:endIconMode="clear_text"
+                    tools:hint="Steam用户名"
+                    xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tbSteamUserName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutSteamPassword"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:endIconMode="password_toggle"
+                    tools:hint="Steam密码"
+                    xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tbSteamPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivCaptchaImage"
+                    android:layout_width="206dp"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    tools:background="@color/icon_background"
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutCaptcha"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    app:endIconMode="clear_text"
+                    tools:hint="输入图中验证码"
+                    xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tbCaptcha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:textAllCaps="false"
+                    tools:text="登 录"
+                    xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutLoading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin">
+
+                <include layout="@layout/shared_loading" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="20sp"
+                    tools:text="正在获取最新的交易报价信息..."
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+            </LinearLayout>
+        </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end">
+
+        <com.leinardi.android.speeddial.SpeedDialView
+            android:id="@+id/speedDial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:sdMainFabClosedSrc="@drawable/baseline_settings_black_24" />
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

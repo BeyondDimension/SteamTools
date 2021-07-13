@@ -20,14 +20,6 @@ namespace System.Application.UI.Views.Pages
 
             consoleShell = this.FindControl<ConsoleShell>("ConsoleLog");
 
-            IArchiSteamFarmService.Instance.GetConsoleWirteFunc = (message) =>
-            {
-                MainThreadDesktop.BeginInvokeOnMainThread(() =>
-                {
-                    consoleShell.AppendLogText(message);
-                });
-            };
-
             consoleShell.CommandSubmit += ConsoleShell_CommandSubmit;
         }
 

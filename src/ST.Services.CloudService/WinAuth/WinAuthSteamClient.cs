@@ -199,8 +199,9 @@ namespace WinAuth
             public bool IsNew { get; set; }
             public string Image { get; set; } = string.Empty;
 
-            private Task<string?> _ImageStream;
-            public Task<string?> ImageStream
+            private Task<string?>? _ImageStream;
+            [Obsolete("use httpUrl in Mobile")]
+            public Task<string?>? ImageStream
             {
                 get => _ImageStream;
                 set => this.RaiseAndSetIfChanged(ref _ImageStream, value);
@@ -494,7 +495,7 @@ namespace WinAuth
         /// <param name="captchaId"></param>
         /// <param name="captchaText"></param>
         /// <returns>true if successful</returns>
-        [Obsolete("use LoginAsync")]
+        //[Obsolete("use LoginAsync")]
         public bool Login(string username, string password, string? captchaId = null, string? captchaText = null, string? language = null)
         {
             // clear error
@@ -653,7 +654,7 @@ namespace WinAuth
         /// <summary>
         /// Logout of the current session
         /// </summary>
-        [Obsolete("use LogoutAsync")]
+        //[Obsolete("use LogoutAsync")]
         public void Logout()
         {
             if (string.IsNullOrEmpty(Session.OAuthToken) == false)
@@ -676,7 +677,7 @@ namespace WinAuth
         /// Refresh the login session cookies from the OAuth code
         /// </summary>
         /// <returns>true if successful</returns>
-        [Obsolete("use RefreshAsync")]
+        //[Obsolete("use RefreshAsync")]
         public bool Refresh()
         {
             try
@@ -730,7 +731,7 @@ namespace WinAuth
         /// Perform a UMQ login
         /// </summary>
         /// <returns></returns>
-        [Obsolete("use UmqLoginAsync")]
+        //[Obsolete("use UmqLoginAsync")]
         bool UmqLogin()
         {
             if (IsLoggedIn() == false)
@@ -932,7 +933,7 @@ namespace WinAuth
         /// Get the current trade Confirmations
         /// </summary>
         /// <returns>list of Confirmation objects</returns>
-        [Obsolete("use GetConfirmationsAsync")]
+        //[Obsolete("use GetConfirmationsAsync")]
         public List<Confirmation> GetConfirmations()
         {
             long servertime = (CurrentTime + Authenticator.ServerTimeDiff) / 1000L;
@@ -1039,7 +1040,7 @@ namespace WinAuth
         /// </summary>
         /// <param name="trade">trade Confirmation</param>
         /// <returns>html string of details</returns>
-        [Obsolete("use GetConfirmationDetailsAsync")]
+        //[Obsolete("use GetConfirmationDetailsAsync")]
         public string GetConfirmationDetails(Confirmation trade)
         {
             // build details URL
@@ -1072,7 +1073,7 @@ namespace WinAuth
         /// <param name="key">key for trade</param>
         /// <param name="accept">true to accept, false to reject</param>
         /// <returns>true if successful</returns>
-        [Obsolete("use ConfirmTradeAsync")]
+        //[Obsolete("use ConfirmTradeAsync")]
         public bool ConfirmTrade(string id, string key, bool accept)
         {
             if (string.IsNullOrEmpty(Session.OAuthToken) == true)
@@ -1185,7 +1186,7 @@ namespace WinAuth
         /// <param name="formdata">optional form data</param>
         /// <param name="headers">optional headers</param>
         /// <returns>array of returned data</returns>
-        [Obsolete("use SendAsync")]
+        //[Obsolete("use SendAsync")]
         public byte[] GetData(string url, string? method = null, NameValueCollection? formdata = null, NameValueCollection? headers = null)
         {
             return Request(url, method ?? "GET", formdata, headers);
@@ -1199,7 +1200,7 @@ namespace WinAuth
         /// <param name="formdata">optional form data</param>
         /// <param name="headers">optional headers</param>
         /// <returns>string of returned data</returns>
-        [Obsolete("use SendAsync")]
+        //[Obsolete("use SendAsync")]
         public string GetString(string url, string method = null, NameValueCollection formdata = null, NameValueCollection headers = null)
         {
             byte[] data = Request(url, method ?? "GET", formdata, headers);
@@ -1221,7 +1222,7 @@ namespace WinAuth
         /// <param name="formdata">optional form data</param>
         /// <param name="headers">optional headers</param>
         /// <returns>returned data</returns>
-        [Obsolete("use SendAsync")]
+        //[Obsolete("use SendAsync")]
         protected byte[]? Request(string url, string method, NameValueCollection? data, NameValueCollection? headers)
         {
             byte[]? responsedata;
@@ -1239,7 +1240,7 @@ namespace WinAuth
             return responsedata;
         }
 
-        [Obsolete("use SendAsync")]
+        //[Obsolete("use SendAsync")]
         byte[]? Request(string url, string method, NameValueCollection? data, NameValueCollection? headers, bool enableForward)
         {
             // ensure only one request per account at a time

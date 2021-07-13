@@ -277,7 +277,7 @@
   </data>
   <data name="CommunityFix_AlreadyProxy" xml:space="preserve">
     <value>已加速  </value>
-    <comment>末尾带空格</comment>
+    <comment>Comment=末尾带空格;</comment>
   </data>
   <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
     <value>程序启动时自动启动加速</value>
@@ -692,7 +692,7 @@
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmTip" xml:space="preserve">
     <value>正在{0}所有交易中...</value>
-    <comment>同意 or 取消</comment>
+    <comment>Comment=同意 or 取消;</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
     <value>您没有权限查看确认信息. 是否启用了 'community-generated content' in Family View?</value>
@@ -712,7 +712,7 @@
   <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
     <value>这将{0}您当前所有的交易报价。
 确定要继续吗?</value>
-    <comment>同意 or 取消</comment>
+    <comment>Comment=同意 or 取消;</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
     <value>当前没有任何交易</value>
@@ -774,8 +774,17 @@
   <data name="LocalAuth_MenuName" xml:space="preserve">
     <value>编辑令牌</value>
   </data>
+  <data name="TopRightCorner" xml:space="preserve">
+    <value>右上角</value>
+  </data>
+  <data name="BottomRightCorner" xml:space="preserve">
+    <value>右下角</value>
+  </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
     <value>你还没有导入任何令牌哦，可以在右上角小齿轮图标处新增令牌。</value>
+  </data>
+  <data name="LocalAuth_NoAuthTip_" xml:space="preserve">
+    <value>你还没有导入任何令牌哦，可以在{0}小齿轮图标处新增令牌。</value>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
     <value>其它软件导入</value>
@@ -1052,7 +1061,7 @@
   </data>
   <data name="SelectFileImport" xml:space="preserve">
     <value>选择{0}文件导入</value>
-    <comment>*.txt</comment>
+    <comment>Comment=*.txt;</comment>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
@@ -1307,7 +1316,7 @@
   </data>
   <data name="User_ChangePhoneNum" xml:space="preserve">
     <value>换绑手机</value>
-    <comment>修改手机号</comment>
+    <comment>Comment=修改手机号;</comment>
   </data>
   <data name="User_EditProfile" xml:space="preserve">
     <value>编辑资料</value>
@@ -1329,7 +1338,7 @@
   </data>
   <data name="User_LoginCodeTimeLimitTip" xml:space="preserve">
     <value>重新获取({0})</value>
-    <comment>短信验证码倒计时</comment>
+    <comment>Comment=短信验证码倒计时;</comment>
   </data>
   <data name="User_LoginError" xml:space="preserve">
     <value>账号或密码错误</value>

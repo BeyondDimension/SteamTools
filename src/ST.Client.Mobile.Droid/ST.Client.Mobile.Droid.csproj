@@ -78,6 +78,9 @@
     <Compile Include="..\Common.ClientLib.Droid\Extensions\TextViewExtensions.cs">
       <LinkBase>Extensions</LinkBase>
     </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\EditTextExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
     <Compile Include="..\Common.ClientLib.Droid\Extensions\ViewPagerExtensions.cs">
       <LinkBase>Extensions</LinkBase>
     </Compile>
@@ -122,6 +125,8 @@
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.3.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.3.0" />
     <PackageReference Include="ReactiveUI.AndroidX" Version="14.1.1" />
+    <PackageReference Include="Square.OkHttp3" Version="4.9.1" />
+    <PackageReference Include="Square.Picasso" Version="2.71828.0" />
     <PackageReference Include="TencentOpenApiSDK.Android" Version="3.5.4.11" />
     <PackageReference Include="XAB.FloatingActionButtonSpeedDial" Version="3.2.0" />
     <PackageReference Include="Xamarin.AndroidX.Activity" Version="1.2.3" />
@@ -133,7 +138,7 @@
     <!--dependencies implementation-->
     <PackageReference Include="de.hdodenhof.circleimageview" Version="3.1.0" />
     <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.3.0" />
-    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.3.0.1" />
+    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.4.0" />
     <PackageReference Include="Xamarin.AndroidX.ConstraintLayout" Version="2.0.4.2" />
     <PackageReference Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.3.5" />
     <PackageReference Include="Xamarin.AndroidX.Navigation.UI" Version="2.3.5" />
@@ -191,6 +196,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_checklist_black_24.xml">
     <Link>Resources\drawable\baseline_checklist_black_24.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_check_circle.xml">
+    <Link>Resources\drawable\baseline_check_circle.xml</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_close_black_24.xml">
     <Link>Resources\drawable\baseline_close_black_24.xml</Link>
@@ -678,6 +686,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_steam_auth_data.xml">
     <Link>Resources\layout\activity_steam_auth_data.xml</Link>
     </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_steam_auth_trade.xml">
+    <Link>Resources\layout\activity_steam_auth_trade.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_textblock.xml">
     <Link>Resources\layout\activity_textblock.xml</Link>
     </AndroidBoundLayout>
@@ -737,6 +748,12 @@
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_gap_authenticator_content.xml">
     <Link>Resources\layout\layout_card_gap_authenticator_content.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_steam_auth_trade_confirmation.xml">
+    <Link>Resources\layout\layout_card_steam_auth_trade_confirmation.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_steam_auth_trade_confirmation_content.xml">
+    <Link>Resources\layout\layout_card_steam_auth_trade_confirmation_content.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_login_and_register_by_fast_channel.xml">
     <Link>Resources\layout\layout_login_and_register_by_fast_channel.xml</Link>
@@ -848,6 +865,8 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
+
 
 
 

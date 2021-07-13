@@ -55,6 +55,7 @@ namespace System.Application.UI
                     allowRoot: true);
                 AndroidROM.Initialize();
                 XEVersionTracking.Track();
+                ImageLoader.Init(this);
             }
 
 #if DEBUG

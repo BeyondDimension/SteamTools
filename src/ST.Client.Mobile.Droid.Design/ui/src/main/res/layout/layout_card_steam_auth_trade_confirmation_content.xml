@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivImage"
+        android:layout_width="@dimen/steam_auth__trade_confirmation_img_size"
+        android:layout_height="@dimen/steam_auth__trade_confirmation_img_size"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@color/icon_background"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:textAllCaps="false"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/ivImage"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="出售 - XX Y 号武器箱"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTraded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAllCaps="false"
+        android:textAppearance="?attr/textAppearanceBody2"
+        android:textColor="@color/text_secondary"
+        app:layout_constraintStart_toStartOf="@+id/tvDetails"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetails"
+        tools:text="￥x.xx（￥y.yy）"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvWhen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:textAppearance="?attr/textAppearanceBody2"
+        android:textColor="@color/text_secondary"
+        app:layout_constraintStart_toStartOf="@+id/tvDetails"
+        app:layout_constraintTop_toBottomOf="@+id/tvTraded"
+        tools:text="z 小时以前"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCancelTrade"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivImage"
+        tools:text="取消交易"
+        xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnConfirmTrade"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCancelTrade"
+        app:layout_constraintEnd_toStartOf="@+id/btnCancelTrade"
+        tools:text="确认交易"
+        xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

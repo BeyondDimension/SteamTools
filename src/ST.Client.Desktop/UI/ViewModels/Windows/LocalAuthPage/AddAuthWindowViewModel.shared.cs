@@ -44,9 +44,7 @@ namespace System.Application.UI.ViewModels
                 }
                 else
                 {
-#if !__MOBILE__
                     this.Close();
-#endif
                 }
             }
             AuthIsLocal = repository.HasLocal(auths);
@@ -208,10 +206,14 @@ namespace System.Application.UI.ViewModels
             {
 #if !__MOBILE__
                 ToastService.Current.Set(AppResources.Logining);
+#else
+                LoginSteamLoadingText = AppResources.Logining;
 #endif
                 result = _SteamAuthenticator.Enroll(_Enroll);
 #if !__MOBILE__
                 ToastService.Current.Set();
+#else
+                LoginSteamLoadingText = null;
 #endif
 
                 if (result == false)
@@ -291,6 +293,8 @@ namespace System.Application.UI.ViewModels
                 _IsLogining = false;
 #if !__MOBILE__
                 ToastService.Current.Set();
+#else
+                LoginSteamLoadingText = null;
 #endif
                 s.Dispose();
             });

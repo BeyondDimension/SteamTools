@@ -4,12 +4,15 @@ using Android.Views;
 using AndroidX.RecyclerView.Widget;
 using Binding;
 using Com.Leinardi.Android.Speeddial;
+using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.Activities;
 using System.Application.UI.Adapters;
+using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
+using static System.Application.UI.Resx.AppResources;
 using static System.Application.UI.ViewModels.LocalAuthPageViewModel;
 
 namespace System.Application.UI.Fragments
@@ -24,6 +27,18 @@ namespace System.Application.UI.Fragments
         public override void OnCreateView(View view)
         {
             base.OnCreateView(view);
+
+            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            {
+                if (binding == null) return;
+                binding.tvEmptyTip.Text = LocalAuth_NoAuthTip_.Format(BottomRightCorner);
+            }).AddTo(this);
+
+            ViewModel!.WhenAnyValue(x => x.IsAuthenticatorsEmpty).Subscribe(value =>
+            {
+                if (binding == null) return;
+                binding.tvEmptyTip.Visibility = value ? ViewStates.Visible : ViewStates.Gone;
+            }).AddTo(this);
 
             var adapter = new GAPAuthenticatorAdapter(ViewModel!);
             var layout = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
@@ -80,7 +95,7 @@ namespace System.Application.UI.Fragments
             return false; // false will close it without animation
         }
 
-        public static int ToIconRes(ActionItem action) => action switch
+        static int ToIconRes(ActionItem action) => action switch
         {
             ActionItem.Add => Resource.Drawable.baseline_add_black_24,
             ActionItem.Encrypt => Resource.Drawable.baseline_enhanced_encryption_black_24,

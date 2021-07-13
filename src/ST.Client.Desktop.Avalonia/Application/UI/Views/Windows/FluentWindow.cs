@@ -165,7 +165,8 @@ namespace Avalonia.Controls
             if (isSaveStatus)
             {
                 this.Opened += FluentWindow_Opened;
-                this.PositionChanged += FluentWindow_PositionChanged;
+                if (this.CanResize)
+                    this.PositionChanged += FluentWindow_PositionChanged;
             }
         }
 

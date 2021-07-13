@@ -66,5 +66,7 @@ namespace System
         public const string MSIX_Bundle = ".msixbundle";
 
         public const string AppInstaller = ".appinstaller";
+
+        public const string MPO = ".mpo";
     }
 }

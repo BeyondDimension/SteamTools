@@ -74,6 +74,8 @@ namespace System.Application.Services
         void CloseWindow(WindowViewModel vm);
         void HideWindow(WindowViewModel vm);
         void ShowWindow(WindowViewModel vm);
+#else
+        void Pop();
 #endif
     }
 }

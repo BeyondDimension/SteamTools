@@ -2,11 +2,9 @@ namespace System.Application.UI.ViewModels
 {
     partial class ShowAuthWindowViewModel : WindowViewModel
     {
-        public string? RecoveryCode => _Authenticator?.RecoveryCode;
-
+#if DEBUG
         [Obsolete("use SteamDataIndented")]
         public string? SteamData => _Authenticator?.SteamData;
-
-        public string? DeviceId => _Authenticator?.DeviceId;
+#endif
     }
 }
