@@ -1427,4 +1427,7 @@
   <data name="Welcome" xml:space="preserve">
     <value>起始页</value>
   </data>
+  <data name="CommunityFix_CertificateTrust" xml:space="preserve">
+    <value>信任证书</value>
+  </data>
 </root>

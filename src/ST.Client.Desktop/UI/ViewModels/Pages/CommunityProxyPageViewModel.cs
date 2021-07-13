@@ -83,17 +83,15 @@ namespace System.Application.UI.ViewModels
                                 new MenuItemViewModel(nameof(AppResources.CommunityFix_OpenCertificateDir)){ IconKey="FolderOpenDrawing", Command=OpenCertificateDirCommand },
                             }
                         },
-#if MAC
-                         new MenuItemViewModel (nameof(AppResources.Refresh))
-                            { IconKey="RefreshDrawing" , Command = TrustCerCommand},
-#endif
-                new MenuItemViewModel (),
+                         new MenuItemViewModel (),
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_EditHostsFile)){ Command=EditHostsFileCommand,IconKey="DocumentEditDrawing" },
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_NetworkFix)){ Command=NetworkFixCommand },
                 //    }
                 //},
             };
-
+            if (DI.IsmacOS) {
+                MenuItems.Add(new MenuItemViewModel(nameof(AppResources.CommunityFix_CertificateTrust)) { IconKey = "RefreshDrawing", Command = TrustCerCommand });
+            }
             AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value);
         }
         public void TrustCer_OnClick() {

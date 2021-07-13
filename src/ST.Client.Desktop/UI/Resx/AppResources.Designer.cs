@@ -567,6 +567,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 信任证书 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_CertificateTrust {
+            get {
+                return ResourceManager.GetString("CommunityFix_CertificateTrust", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 移除证书 的本地化字符串。
         /// </summary>
         public static string CommunityFix_DeleteCertificate {
