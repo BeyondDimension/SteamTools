@@ -1,10 +1,5 @@
 using ReactiveUI;
 using System.Runtime.Serialization;
-#if __MOBILE__
-using Xamarin.Essentials;
-#else
-using MainThread = System.Application.MainThreadDesktop;
-#endif
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -25,14 +20,12 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref title, value);
         }
 
-#if __MOBILE__
-        [Obsolete("use Xamarin.Essentials.MainThread.BeginInvokeOnMainThread")]
-#else
-        [Obsolete("use System.Application.MainThreadDesktop.BeginInvokeOnMainThread")]
-#endif
+#if DEBUG
+        [Obsolete("use System.Application.MainThread2.BeginInvokeOnMainThread", true)]
         protected void InvokeOnUIDispatcher(Action action)
         {
-            MainThread.BeginInvokeOnMainThread(action);
+            MainThread2.BeginInvokeOnMainThread(action);
         }
+#endif
     }
 }

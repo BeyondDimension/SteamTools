@@ -19,6 +19,7 @@ using System.Application.Services;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using Xamarin.Essentials;
@@ -384,6 +385,21 @@ namespace System.Application.UI.Activities
                     b.AppendLine();
                     b.Append("[device.biometric] ");
                     b.Append(ToLowerString(IBiometricService.Instance.IsSupportedAsync().Result));
+                    b.AppendLine();
+                    b.Append("[xamarin.essentials.supported] ");
+                    static bool? GetXamarinEssentialsIsSupported()
+                    {
+                        try
+                        {
+                            if (typeof(MainThread2).Assembly.GetType("System.Application.XamarinEssentials").GetProperty("IsSupported", BindingFlags.Public | BindingFlags.Static).GetValue(null) is bool b)
+                                return b;
+                        }
+                        catch
+                        {
+                        }
+                        return null;
+                    }
+                    b.Append(ToLowerString(GetXamarinEssentialsIsSupported()));
                     b.AppendLine();
                     var b_str = b.ToString();
                     MessageBoxCompat.Show(b_str, "");

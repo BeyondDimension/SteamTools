@@ -100,7 +100,7 @@ namespace System.Application.UI.ViewModels
                         catch
                         {
                         }
-                        MainThreadDesktop.BeginInvokeOnMainThread(() =>
+                        MainThread2.BeginInvokeOnMainThread(() =>
                         {
                             IdleGameList.Clear();
                             RunState = false;
@@ -131,7 +131,7 @@ namespace System.Application.UI.ViewModels
                                 runState.Process?.Kill();
                                 SteamConnectService.Current.RuningSteamApps.TryRemove(app.AppId, out runState);
                             }
-                            MainThreadDesktop.BeginInvokeOnMainThread(() =>
+                            MainThread2.BeginInvokeOnMainThread(() =>
                             {
                                 IdleGameList.Remove(app);
                                 ChangeRunTxt();

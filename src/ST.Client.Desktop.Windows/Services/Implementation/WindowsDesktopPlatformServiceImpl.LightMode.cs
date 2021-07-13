@@ -69,7 +69,7 @@ namespace System.Application.Services.Implementation
                             if (value.HasValue)
                             {
                                 var theme_value = value.Value ? AppTheme.Light : AppTheme.Dark;
-                                MainThreadDesktop.BeginInvokeOnMainThread(() =>
+                                MainThread2.BeginInvokeOnMainThread(() =>
                                 {
                                     AppHelper.Current.SetThemeNotChangeValue(theme_value);
                                 });

@@ -51,7 +51,7 @@ namespace System.Application.UI.ViewModels
                     {
                         if (isBind)
                         {
-                            await MainThreadDesktop.InvokeOnMainThreadAsync(async () =>
+                            await MainThread2.InvokeOnMainThreadAsync(async () =>
                             {
                                 await UserService.Current.BindAccountAfterUpdateAsync(channel, response.Content!);
                                 vm?.Close?.Invoke();
@@ -62,7 +62,7 @@ namespace System.Application.UI.ViewModels
                         else
                         {
                             await conn_helper.OnLoginedAsync(response.Content!, response.Content!);
-                            await MainThreadDesktop.InvokeOnMainThreadAsync(async () =>
+                            await MainThread2.InvokeOnMainThreadAsync(async () =>
                             {
                                 await SuccessAsync(response.Content!, vm?.Close);
                             });
@@ -70,7 +70,7 @@ namespace System.Application.UI.ViewModels
                     }
                     else
                     {
-                        MainThreadDesktop.BeginInvokeOnMainThread(() =>
+                        MainThread2.BeginInvokeOnMainThread(() =>
                         {
                             vm?.Close?.Invoke();
                             conn_helper.ShowResponseErrorMessage(response);

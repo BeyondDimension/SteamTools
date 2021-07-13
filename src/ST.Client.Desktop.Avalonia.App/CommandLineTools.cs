@@ -74,7 +74,7 @@ namespace System.Application.UI
                                 var app = App.Instance;
                                 if (app != null)
                                 {
-                                    MainThreadDesktop.BeginInvokeOnMainThread(app.RestoreMainWindow);
+                                    MainThread2.BeginInvokeOnMainThread(app.RestoreMainWindow);
                                 }
                             }
                         };

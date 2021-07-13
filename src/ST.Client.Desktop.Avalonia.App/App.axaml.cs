@@ -438,7 +438,7 @@ namespace System.Application.UI
         {
             if (AvaloniaApplication.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                MainThreadDesktop.BeginInvokeOnMainThread(() =>
+                MainThread2.BeginInvokeOnMainThread(() =>
                 {
                     desktop.Shutdown(exitCode);
                 });
