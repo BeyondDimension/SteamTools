@@ -1,6 +1,8 @@
 #if MONO_MAC
+using MonoMac.AppKit;
 using MonoMac.Foundation;
 #elif XAMARIN_MAC
+using AppKit;
 using Foundation;
 #endif
 using System.Application.Models;
@@ -25,23 +27,23 @@ namespace System.Application.Services.Implementation
         {
             return string.Empty;
         }
+
         string[] IPlatformService.GetMacNetworksetup()
         {
-            using (var p = new Process())
-            {
-                p.StartInfo.FileName = "networksetup";
-                p.StartInfo.Arguments = "-listallnetworkservices";
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.Start();
-                var ret = p.StandardOutput.ReadToEnd().Replace("An asterisk (*) denotes that a network service is disabled.", "");
-                p.Kill(); 
-                return ret.Split("\n");
-            }
+            using var p = new Process();
+            p.StartInfo.FileName = "networksetup";
+            p.StartInfo.Arguments = "-listallnetworkservices";
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.Start();
+            var ret = p.StandardOutput.ReadToEnd().Replace("An asterisk (*) denotes that a network service is disabled.", "");
+            p.Kill();
+            return ret.Split("\n");
         }
-        async ValueTask IPlatformService.AdminShellAsync(string shell, bool admin = false)
+
+        async ValueTask IPlatformService.AdminShellAsync(string shell, bool admin)
         {
-            var file = new FileInfo(Path.Combine(IOPath.AppDataDirectory, $@"{(admin?"sudo":"")}shell.sh"));
+            var file = new FileInfo(Path.Combine(IOPath.AppDataDirectory, $@"{(admin ? "sudo" : "")}shell.sh"));
 
             if (file.Exists)
                 file.Delete();
@@ -55,7 +57,8 @@ namespace System.Application.Services.Implementation
                 await IShowWindowService.Instance.ShowDialog(CustomWindow.Password, vm, string.Empty, ResizeModeCompat.CanResize);
                 scriptContent.AppendLine($"echo \"{vm.Password}\" | sudo -S {shell}");
             }
-            else {
+            else
+            {
                 scriptContent.AppendLine(shell);
             }
             using (var stream = file.CreateText())
@@ -64,27 +67,25 @@ namespace System.Application.Services.Implementation
                 stream.Flush();
                 stream.Close();
             }
-            using (var p=new Process())
+            using var p = new Process();
+            p.StartInfo.FileName = "/bin/bash";
+            p.StartInfo.Arguments = $"\"{file.FullName}\"";
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.Exited += (object? _, EventArgs _) =>
             {
-                p.StartInfo.FileName = "/bin/bash";
-                p.StartInfo.Arguments =$"\"{file.FullName}\"";
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.Exited += (object? _, EventArgs _) =>
-                {
-                    if (file.Exists)
-                        file.Delete();
-                    if (p.ExitCode != 0)
-                    {
-                        ((IPlatformService)this).AdminShell(shell);
-                    } 
-                };
-                p.Start(); 
-                var ret = p.StandardOutput.ReadToEnd();  
-                p.Kill(); 
                 if (file.Exists)
                     file.Delete();
-            }
+                if (p.ExitCode != 0)
+                {
+                    ((IPlatformService)this).AdminShell(shell);
+                }
+            };
+            p.Start();
+            var ret = p.StandardOutput.ReadToEnd();
+            p.Kill();
+            if (file.Exists)
+                file.Delete();
             //var pInfo = new ProcessStartInfo
             //{
             //    FileName = "/bin/bash",
@@ -129,8 +130,18 @@ namespace System.Application.Services.Implementation
             //p.Close(); 
 #endif
         }
+
+        public static void OpenFile(string appName, string filePath) => NSWorkspace.SharedWorkspace.OpenFile(filePath, appName);
+
         void IDesktopPlatformService.StartProcess(string name, string filePath)
         {
+            //if (name == TextEdit || name == VSC)
+            //{
+            //    // https://developer.apple.com/documentation/appkit/nsworkspace
+            //    OpenFile(filePath, name);
+            //    return;
+            //}
+
             var pInfo = new ProcessStartInfo
             {
                 FileName = "open",
@@ -141,7 +152,6 @@ namespace System.Application.Services.Implementation
             if (p == null) throw new FileNotFoundException(name);
             p.Close();
         }
-
 
         void IDesktopPlatformService.OpenProcess(string name)
         {
@@ -159,7 +169,7 @@ namespace System.Application.Services.Implementation
         {
             var pInfo = new ProcessStartInfo
             {
-                FileName = name ,
+                FileName = name,
                 Arguments = $"\"{arguments}\"",
             };
             pInfo.UseShellExecute = true;
@@ -167,6 +177,7 @@ namespace System.Application.Services.Implementation
             if (p == null) throw new FileNotFoundException(name);
             p.Close();
         }
+
         public void SetSystemSessionEnding(Action action)
         {
 
@@ -177,18 +188,15 @@ namespace System.Application.Services.Implementation
 
         }
 
-        public string? GetFileName(TextReaderProvider provider)
+        const string TextEdit = "TextEdit";
+        const string VSC = "Visual Studio Code";
+
+        public string? GetFileName(TextReaderProvider provider) => provider switch
         {
-            switch (provider)
-            {
-                case TextReaderProvider.VSCode:
-                    return "Visual Studio Code";
-                case TextReaderProvider.Notepad:
-                    return "TextEdit";
-                default:
-                    return null;
-            }
-        }
+            TextReaderProvider.VSCode => VSC,
+            TextReaderProvider.Notepad => TextEdit,
+            _ => null,
+        };
 
         public void SetBootAutoStart(bool isAutoStart, string name)
         {

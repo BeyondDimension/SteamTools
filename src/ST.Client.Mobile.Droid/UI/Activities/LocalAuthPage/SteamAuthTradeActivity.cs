@@ -48,6 +48,7 @@ namespace System.Application.UI.Activities
             var adapter = new SteamAuthTradeConfirmationAdapter(ViewModel);
             var layout = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
             binding!.rvConfirmations.SetLayoutManager(layout);
+            binding.rvConfirmations.AddItemDecoration(new VerticalItemViewDecoration(Resources!.GetDimensionPixelSize(Resource.Dimension.activity_vertical_margin)));
             binding.rvConfirmations.SetAdapter(adapter);
 
             var actionItems = Enum2.GetAll<ActionItem>();
