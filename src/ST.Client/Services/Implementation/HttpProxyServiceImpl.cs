@@ -506,9 +506,9 @@ namespace System.Application.Services.Implementation
                             if (item.Trim().Length > 0) {
                                 //shellContent.AppendLine($"networksetup -setsocksfirewallproxy '{item}' '{explicitProxyEndPoint.IpAddress}' {explicitProxyEndPoint.Port}");
                                 //shellContent.AppendLine($"networksetup -setsocksfirewallproxystate '{item}' on");
-                                shellContent.AppendLine($"networksetup -setwebproxy '{item}' 'http://{explicitProxyEndPoint.IpAddress}' {explicitProxyEndPoint.Port}");
+                                shellContent.AppendLine($"networksetup -setwebproxy '{item}' '127.0.0.1' {explicitProxyEndPoint.Port}");
                                 shellContent.AppendLine($"networksetup -setwebproxystate '{item}' on");
-                                shellContent.AppendLine($"networksetup -setsecurewebproxy '{item}' 'https://{explicitProxyEndPoint.IpAddress}' {explicitProxyEndPoint.Port}");
+                                shellContent.AppendLine($"networksetup -setsecurewebproxy '{item}' '127.0.0.1' {explicitProxyEndPoint.Port}");
                                 shellContent.AppendLine($"networksetup -setsecurewebproxystate '{item}' on");
                             }
                         }
