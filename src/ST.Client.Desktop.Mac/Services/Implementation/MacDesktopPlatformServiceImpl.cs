@@ -50,12 +50,14 @@ namespace System.Application.Services.Implementation
             var scriptContent = new StringBuilder();
             if (admin)
             {
-                var vm = new PasswordWindowViewModel
+                TextBoxWindowViewModel vm = new()
                 {
-                    Title = AppResources.MacSudoPasswordTips
+                    Title = AppResources.MacSudoPasswordTips,
+                    InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
+                    Description = shell,
                 };
-                await IShowWindowService.Instance.ShowDialog(CustomWindow.Password, vm, string.Empty, ResizeModeCompat.CanResize);
-                scriptContent.AppendLine($"echo \"{vm.Password}\" | sudo -S {shell}");
+                await TextBoxWindowViewModel.ShowDialogAsync(vm);
+                scriptContent.AppendLine($"echo \"{vm.Value}\" | sudo -S {shell}");
             }
             else
             {
