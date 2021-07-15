@@ -31,9 +31,10 @@
 | Steam++_linux_x64_v2.5.0.deb  | SHA256 |
 | Steam++_macos_x64_v2.5.0.dmg  | SHA256 |
 | Steam++_macos_arm64_v2.5.0.dmg  | SHA256 |
-| Steam++_android_v2.5.0.apk  | SHA256 |
-| Steam++_android_arm64_v2.5.0.apk  | SHA256 |
-| Steam++_android_arm_v2.5.0.apk  | SHA256 |
+| net.steampp.app-Signed.apk  | SHA256 |
+| net.steampp.app-arm64-v8a-Signed.apk  | SHA256 |
+| net.steampp.app-armeabi-v7a-Signed.apk  | SHA256 |
+| net.steampp.app-x86_64-Signed.apk  | SHA256 |
 
 ***
 

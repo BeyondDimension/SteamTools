@@ -86,7 +86,7 @@ namespace System.Application.UI.Activities
             base.OnActivityResult(requestCode, resultCode, data);
         }
 
-        public static SpannableString CreateAgreementAndPrivacy(LoginOrRegisterPageViewModel viewModel) => MainApplication.CreateSpannableString(list =>
+        public static SpannableString CreateAgreementAndPrivacy(LoginOrRegisterPageViewModel viewModel) => RichTextHelper.CreateSpannableString(list =>
         {
             int length;
             StringBuilder str = new(AppResources.User_RegisterAgreed);

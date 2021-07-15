@@ -420,7 +420,7 @@ namespace System.Application.UI.Activities
             return spannable;
         }
 
-        static SpannableString CreateDevelopers() => MainApplication.CreateSpannableString(list =>
+        static SpannableString CreateDevelopers() => RichTextHelper.CreateSpannableString(list =>
         {
             int length;
             StringBuilder str = new(Developers_0);
@@ -447,7 +447,7 @@ namespace System.Application.UI.Activities
             return str;
         });
 
-        static SpannableString CreateBusinessCooperationContact() => MainApplication.CreateSpannableString(list =>
+        static SpannableString CreateBusinessCooperationContact() => RichTextHelper.CreateSpannableString(list =>
         {
             int length;
             StringBuilder str = new(BusinessCooperationContact_0);
@@ -460,7 +460,7 @@ namespace System.Application.UI.Activities
             return str;
         });
 
-        static SpannableString CreateAgreementAndPrivacy() => MainApplication.CreateSpannableString(list =>
+        static SpannableString CreateAgreementAndPrivacy() => RichTextHelper.CreateSpannableString(list =>
         {
             int length;
             StringBuilder str = new();
@@ -480,7 +480,7 @@ namespace System.Application.UI.Activities
             return str;
         });
 
-        static SpannableString CreateOpenSourceLicensed() => MainApplication.CreateSpannableString(list =>
+        static SpannableString CreateOpenSourceLicensed() => RichTextHelper.CreateSpannableString(list =>
         {
             int length;
             StringBuilder str = new(OpenSourceLicensed_0);

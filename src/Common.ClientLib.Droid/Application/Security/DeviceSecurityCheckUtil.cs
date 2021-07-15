@@ -1,3 +1,4 @@
+using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
@@ -46,58 +47,73 @@ namespace System.Application.Security
             return false;
         }
 
-        /// <summary>
-        /// 当前设备是否经过了安全检查
-        /// </summary>
-        /// <param name="enableEmulator"></param>
-        /// <returns></returns>
-        public static bool IsSupported(bool enableEmulator, bool allowXposed = false, bool allowRoot = false)
+        static string GetString(this ExitCode code) => code switch
+        {
+            ExitCode.IsVirtualApk => SR.ExitCode_IsVirtualApk,
+            ExitCode.IsRoot => SR.ExitCode_IsRoot,
+            ExitCode.IsXposedExists => SR.ExitCode_IsXposedExists,
+            ExitCode.IsCompatiblePC or ExitCode.IsEmulator => SR.ExitCode_IsEmulator,
+            _ => $"Incompatible device error {(int)code}",
+        };
+
+        static ExitCode exitCode;
+        public static void Init(bool enableEmulator, bool allowXposed = false, bool allowRoot = false)
         {
             if (!enableEmulator && IsEmulator)
-                return Exit(ExitCode.IsEmulator);
+            {
+                exitCode = ExitCode.IsEmulator;
+                return;
+            }
 
             if (!enableEmulator && SecurityCheckUtil.CheckIsDebuggerConnected())
-                return Exit(ExitCode.IsDebuggerConnected);
+            {
+                exitCode = ExitCode.IsDebuggerConnected;
+                return;
+            }
 
             if (!allowXposed && SecurityCheckUtil.IsXposedExists())
-                return Exit(ExitCode.IsXposedExists);
+            {
+                exitCode = ExitCode.IsXposedExists;
+                return;
+            }
 
             if (!enableEmulator && !allowRoot && SecurityCheckUtil.IsRoot())
-                return Exit(ExitCode.IsRoot);
+            {
+                exitCode = ExitCode.IsRoot;
+                return;
+            }
 
             var context = AndroidApplication.Context;
 
             if (!enableEmulator && SecurityCheckUtil.CheckIsDebugVersion(context))
-                return Exit(ExitCode.IsDebugVersion);
+            {
+                exitCode = ExitCode.IsDebugVersion;
+                return;
+            }
 
             if (IsCompatiblePC(context))
-                return Exit(ExitCode.IsCompatiblePC);
+            {
+                exitCode = ExitCode.IsCompatiblePC;
+                return;
+            }
 
             if (VirtualApkCheckUtil.Check(context))
-                return Exit(ExitCode.IsVirtualApk);
-
-            return true;
-
-            static bool Exit(ExitCode code)
             {
-                var str = code switch
-                {
-                    ExitCode.IsVirtualApk => SR.ExitCode_IsVirtualApk,
-                    ExitCode.IsRoot => SR.ExitCode_IsRoot,
-                    ExitCode.IsXposedExists => SR.ExitCode_IsXposedExists,
-                    ExitCode.IsCompatiblePC or ExitCode.IsEmulator => SR.ExitCode_IsEmulator,
-                    _ => $"Incompatible device error {(int)code}",
-                };
-                if (str != null)
-                {
-                    Toast.Show(str, ToastLength.Long);
-                }
-                else
-                {
-                    Log.Error("Security", "exit code: {0}", (int)code);
-                }
+                exitCode = ExitCode.IsVirtualApk;
+                return;
+            }
+        }
+
+        public static bool IsAllowStart(Activity activity)
+        {
+            if (exitCode != default)
+            {
+                Log.Error("Security", "exit code: {0}", (int)exitCode);
+                Toast.Show(GetString(exitCode), ToastLength.Long);
+                activity.Finish();
                 return false;
             }
+            return true;
         }
 
         enum ExitCode

@@ -6,6 +6,7 @@ using AndroidX.AppCompat.App;
 using ReactiveUI;
 using ReactiveUI.AndroidX;
 using System.Application.Mvvm;
+using System.Application.Security;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
@@ -28,7 +29,7 @@ namespace System.Application.UI.Activities
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            if (!MainApplication.IsAllowStart(this)) return;
+            if (!DeviceSecurityCheckUtil.IsAllowStart(this)) return;
             SetContentView(this, LayoutResource);
         }
 
@@ -103,7 +104,7 @@ namespace System.Application.UI.Activities
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            if (!MainApplication.IsAllowStart(this)) return;
+            if (!DeviceSecurityCheckUtil.IsAllowStart(this)) return;
             BaseActivity.SetContentView(this, LayoutResource);
             OnCreateViewBinding();
         }
