@@ -82,7 +82,8 @@ namespace System.Application.UI.Activities
                 switch (e.Current.Id)
                 {
                     case PreferenceButton.检查更新:
-                        ViewModel!.CheckUpdateCommand.Invoke();
+                        MainApplication.ShowUnderConstructionTips();
+                        //ViewModel!.CheckUpdateCommand.Invoke();
                         break;
                     case PreferenceButton.更新日志:
                         BrowserOpen(string.Format(

@@ -36,11 +36,15 @@ namespace System.Application.UI.Activities
                 return;
             }
 
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
             ViewModel = new(vm);
             ViewModel.AddTo(this);
 
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
+                Title = DisplayName;
                 if (binding == null) return;
                 binding.tvConfirmConutMessage.Text = ViewModel.ConfirmationsConutMessage;
             }).AddTo(this);

@@ -25,6 +25,9 @@ namespace System.Application.UI.Activities
         {
             base.OnCreate(savedInstanceState);
 
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
             var externalPath = GetExternalFilesDir(null)?.CanonicalPath;
             if (string.IsNullOrWhiteSpace(externalPath) || !Directory.Exists(externalPath))
             {
@@ -38,6 +41,7 @@ namespace System.Application.UI.Activities
 
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
+                Title = TitleName;
                 if (binding != null)
                 {
                     binding.tvExportFilePathLabel.Text = LocalAuth_ExportAuth_ExportPath + "：";

@@ -20,6 +20,8 @@ namespace System.Application.UI.ViewModels
         private readonly MyAuthenticator MyAuthenticator;
         private readonly GAPAuthenticatorValueDTO.SteamAuthenticator _Authenticator;
 
+        public static string DisplayName => AppResources.LocalAuth_SteamAuthTrade;
+
         public AuthTradeWindowViewModel() => throw new NotSupportedException();
 
         public AuthTradeWindowViewModel(MyAuthenticator auth) : base()
@@ -42,7 +44,7 @@ namespace System.Application.UI.ViewModels
 #if !__MOBILE__
                 ThisAssembly.AssemblyTrademark + " | " +
 #endif
-                AppResources.LocalAuth_SteamAuthTrade;
+                DisplayName;
             _ConfirmationsSourceList = new SourceList<WinAuthSteamClient.Confirmation>();
 
             _ConfirmationsSourceList

@@ -7,13 +7,15 @@ namespace System.Application.UI.ViewModels
 {
     public partial class ExportAuthWindowViewModel
     {
+        public static string TitleName => AppResources.LocalAuth_ExportAuth;
+
         public ExportAuthWindowViewModel() : base()
         {
             Title =
 #if !__MOBILE__
                 ThisAssembly.AssemblyTrademark + " | " +
 #endif
-                AppResources.LocalAuth_ExportAuth;
+                TitleName;
         }
 
         private bool _IsPasswordEncrypt;

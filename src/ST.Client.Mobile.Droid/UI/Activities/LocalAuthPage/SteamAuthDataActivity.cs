@@ -30,12 +30,16 @@ namespace System.Application.UI.Activities
                 return;
             }
 
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
             ViewModel = new(vm);
             ViewModel.AddTo(this);
 
             binding!.tvSteamGuardLabel.Text = "SteamGuard：";
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
+                Title = ShowAuthWindowViewModel.DisplayName;
                 if (binding == null) return;
                 binding.tvRecoveryCode.Text = RecoveryCode;
                 binding.tvRecoveryCodeTip2.Text = LocalAuth_ShowSteamAuthTip2;

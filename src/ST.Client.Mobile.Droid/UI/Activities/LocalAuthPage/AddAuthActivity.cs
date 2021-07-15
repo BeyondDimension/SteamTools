@@ -3,8 +3,12 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Binding;
+using Google.Android.Material.Tabs;
+using ReactiveUI;
 using System.Application.UI.Adapters;
 using System.Application.UI.Fragments;
+using System.Application.UI.Resx;
+using System.Application.UI.ViewModels;
 using static System.Application.UI.Resx.AppResources;
 using Fragment = AndroidX.Fragment.App.Fragment;
 
@@ -14,7 +18,7 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class AddAuthActivity : BaseActivity<activity_toolbar_tablayout_viewpager2>, ViewPagerWithTabLayoutAdapter.IHost
+    internal sealed class AddAuthActivity : BaseActivity<activity_toolbar_tablayout_viewpager2, AddAuthWindowViewModel>, ViewPagerWithTabLayoutAdapter.IHost
     {
         protected override int? LayoutResource => Resource.Layout.activity_toolbar_tablayout_viewpager2;
 
@@ -22,8 +26,20 @@ namespace System.Application.UI.Activities
         {
             base.OnCreate(savedInstanceState);
 
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
+            ViewModel = new();
+            ViewModel.AddTo(this);
+
+            binding.tab_layout.TabMode = TabLayout.ModeScrollable;
             var adapter = new ViewPagerWithTabLayoutAdapter(this, this);
             binding!.pager.SetupWithTabLayout(binding!.tab_layout, adapter);
+
+            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            {
+                Title = AddAuthWindowViewModel.TitleName;
+            }).AddTo(this);
         }
 
         int ViewPagerAdapter.IHost.ItemCount => 4;

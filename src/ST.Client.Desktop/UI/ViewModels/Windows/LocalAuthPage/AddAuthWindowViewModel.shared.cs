@@ -16,13 +16,15 @@ namespace System.Application.UI.ViewModels
         readonly IHttpService httpService = DI.Get<IHttpService>();
         readonly IGameAccountPlatformAuthenticatorRepository repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
 
+        public static string TitleName => AppResources.LocalAuth_AddAuth;
+
         public AddAuthWindowViewModel() : base()
         {
             Title =
 #if !__MOBILE__
                 ThisAssembly.AssemblyTrademark + " | " +
 #endif
-                AppResources.LocalAuth_AddAuth;
+                TitleName;
             Initialize();
         }
 

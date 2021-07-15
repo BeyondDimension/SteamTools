@@ -98,7 +98,6 @@ namespace System.Application.UI.Fragments
                 binding.layoutRevocationCode.Visibility = state;
                 binding.tvRecoveryCodeRememberTip.Visibility = state;
                 binding.btnSubmit.Visibility = state_reverse;
-
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.LoginSteamLoadingText).Subscribe(value =>
             {

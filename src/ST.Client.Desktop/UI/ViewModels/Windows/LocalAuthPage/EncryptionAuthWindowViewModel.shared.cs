@@ -10,13 +10,15 @@ namespace System.Application.UI.ViewModels
     {
         private readonly IGameAccountPlatformAuthenticatorRepository repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
 
+        public static string TitleName => AppResources.LocalAuth_ProtectionAuth;
+
         public EncryptionAuthWindowViewModel() : base()
         {
             Title =
 #if !__MOBILE__
                 ThisAssembly.AssemblyTrademark + " | " +
 #endif
-                AppResources.LocalAuth_ProtectionAuth;
+                TitleName;
             Initialize();
         }
 
