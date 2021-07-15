@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="@+id/tvName"
         app:srcCompat="@drawable/baseline_close_black_24"
         app:tint="@color/icon_background"
-        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageButton" />
 
     <Space
         android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvValue"
         app:srcCompat="@drawable/baseline_edit_black_24"
         app:tint="@color/icon_background"
-        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageButton" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnSeeValue"
@@ -80,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvValue"
         app:srcCompat="@drawable/baseline_visibility_off_black_24"
         app:tint="@color/icon_background"
-        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageButton" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnConfirmTrade"
@@ -93,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvValue"
         app:srcCompat="@drawable/baseline_checklist_black_24"
         app:tint="@color/icon_background"
-        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageButton" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnSeeDetail"
@@ -106,7 +106,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvValue"
         app:srcCompat="@drawable/baseline_description_black_24"
         app:tint="@color/icon_background"
-        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageButton" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnCopy"
@@ -119,6 +119,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tvValue"
         app:srcCompat="@drawable/baseline_content_copy_black_24"
         app:tint="@color/icon_background"
-        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

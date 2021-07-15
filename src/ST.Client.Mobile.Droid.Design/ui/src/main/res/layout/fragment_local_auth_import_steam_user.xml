@@ -37,7 +37,7 @@
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
                     app:srcCompat="@drawable/icon_steam_24"
                     app:tint="@color/icon_background"
-                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutSteamUserName"
@@ -83,7 +83,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     tools:background="@color/icon_background"
-                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutCaptcha"
@@ -150,7 +150,7 @@
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
                     app:srcCompat="@drawable/baseline_check_circle"
                     app:tint="?colorSecondary"
-                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutRevocationCode"

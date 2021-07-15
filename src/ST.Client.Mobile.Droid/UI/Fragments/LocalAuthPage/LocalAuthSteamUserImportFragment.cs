@@ -33,7 +33,24 @@ namespace System.Application.UI.Fragments
             {
                 ViewModel!.Password = binding.tbSteamPassword.Text;
             };
+            binding!.tbCaptcha.TextChanged += (_, _) =>
+            {
+                ViewModel!.CaptchaText = binding.tbCaptcha.Text;
+            };
+            binding!.tbEmailAuth.TextChanged += (_, _) =>
+            {
+                ViewModel!.EmailAuthText = binding.tbEmailAuth.Text;
+            };
+            binding!.tbSMSCode.TextChanged += (_, _) =>
+            {
+                ViewModel!.ActivationCode = binding.tbSMSCode.Text;
+            };
 
+            ViewModel!.WhenAnyValue(x => x.RevocationCode).Subscribe(value =>
+            {
+                if (binding == null) return;
+                binding.tbRevocationCode.Text = value;
+            }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.RequiresLogin).Subscribe(value =>
             {
                 if (binding == null) return;
@@ -49,6 +66,7 @@ namespace System.Application.UI.Fragments
                 var state = value == null ? ViewStates.Gone : ViewStates.Visible;
                 binding.ivCaptchaImage.Visibility = state;
                 binding.layoutCaptcha.Visibility = state;
+                binding.ivCaptchaImage.SetImageSource(value);
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.EmailDomain).Subscribe(value =>
             {
