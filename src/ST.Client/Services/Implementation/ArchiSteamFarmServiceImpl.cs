@@ -29,6 +29,8 @@ namespace System.Application.Services.Implementation
             set => this.RaiseAndSetIfChanged(ref _IsReadPasswordLine, value);
         }
 
+        public DateTimeOffset? StartTime { get; set; }
+
         public async Task Start(string[]? args = null)
         {
             try
@@ -50,6 +52,7 @@ namespace System.Application.Services.Implementation
                 };
 
                 await ArchiSteamFarm.Program.Init(args);
+                StartTime = DateTimeOffset.Now;
             }
             catch (Exception ex)
             {
@@ -60,6 +63,7 @@ namespace System.Application.Services.Implementation
         public async Task Stop()
         {
             await ArchiSteamFarm.Program.InitShutdownSequence();
+            StartTime = null;
         }
 
         private void InitHistoryLogger()

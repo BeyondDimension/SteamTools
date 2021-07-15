@@ -33,13 +33,14 @@ namespace System.Application.Services
 
         public SourceCache<Bot, string> SteamBotsSourceList;
 
+        public bool IsASFRuning => archiSteamFarmService.StartTime != null;
+
         public ASFService()
         {
             SteamBotsSourceList = new SourceCache<Bot, string>(t => t.BotName);
 
             InitASF();
         }
-
 
         public async void InitASF()
         {
@@ -61,17 +62,27 @@ namespace System.Application.Services
 
             await IArchiSteamFarmService.Instance.Start();
 
-            var bots = archiSteamFarmService.GetReadOnlyAllBots();
-            if (bots.Any_Nullable())
-                SteamBotsSourceList.AddOrUpdate(bots!.Values);
+            RefreshBots();
 
             IPCUrl = archiSteamFarmService.GetIPCUrl();
-        }
 
+            this.RaisePropertyChanged(nameof(IsASFRuning));
+        }
 
         public async void StopASF()
         {
             await IArchiSteamFarmService.Instance.Stop();
+
+            this.RaisePropertyChanged(nameof(IsASFRuning));
+        }
+
+        public void RefreshBots()
+        {
+            SteamBotsSourceList.Clear();
+
+            var bots = archiSteamFarmService.GetReadOnlyAllBots();
+            if (bots.Any_Nullable())
+                SteamBotsSourceList.AddOrUpdate(bots!.Values);
         }
     }
 }
