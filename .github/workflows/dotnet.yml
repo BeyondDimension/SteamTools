@@ -22,7 +22,7 @@ jobs:
     - name: Setup .NET 6
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.100-preview.5.21302.13
+        dotnet-version: 6.0.100-preview.6.21355.2
 
     - name: Install macOS SDK(macOS)
       if: matrix.os == 'macOS-latest'
