@@ -44,18 +44,18 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="0.10.999-cibuild0014927-beta" />
+        <PackageReference Include="Avalonia" Version="0.10.999-cibuild0015045-beta" />
         <!--<PackageReference Include="Avalonia.AvaloniaEdit" Version="0.10.4" />-->
-        <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0014927-beta" />
-        <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.999-cibuild0014927-beta" />
-        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0014927-beta" />
-        <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.6.3" />
+        <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0015045-beta" />
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.999-cibuild0015045-beta" />
+        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0015045-beta" />
+        <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.6.9" />
         <PackageReference Include="CefNet.Avalonia" Version="90.6.21124.1851" />
         <PackageReference Include="LibVLCSharp.Avalonia" Version="3.5.1" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)'=='Debug'">
-        <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0014927-beta" />
+        <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0015045-beta" />
     </ItemGroup>
 
 </Project>
