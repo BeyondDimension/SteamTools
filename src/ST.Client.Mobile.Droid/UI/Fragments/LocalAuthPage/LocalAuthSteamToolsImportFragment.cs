@@ -30,16 +30,12 @@ namespace System.Application.UI.Fragments
         {
             if (view.Id == Resource.Id.btnImportV1)
             {
-                async void OnBtnImportV1Click()
-                     => await FilePickAsync(ViewModel!.ImportSteamPlusPlusV1);
-                OnBtnImportV1Click();
+                ViewModel!.SppBtn_Click.Invoke();
                 return true;
             }
             else if (view.Id == Resource.Id.btnImportV2)
             {
-                async void OnBtnImportV2Click()
-                     => await FilePickAsync(ViewModel!.ImportSteamPlusPlusV2);
-                OnBtnImportV2Click();
+                ViewModel!.SppV2Btn_Click.Invoke();
                 return true;
             }
             return base.OnClick(view);

@@ -177,6 +177,8 @@ namespace System.Application
 
                 // 添加主线程助手(MainThreadDesktop)
                 services.AddMainThreadPlatformService();
+
+                services.TryAddFilePickerPlatformService();
 #endif
                 #region MessageBox
 

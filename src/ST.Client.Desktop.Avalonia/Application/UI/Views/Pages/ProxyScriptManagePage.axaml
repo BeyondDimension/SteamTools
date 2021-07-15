@@ -27,7 +27,7 @@
                         VerticalAlignment="Center"></ToggleSwitch>
 
           <controls:ProgressRing IsIndeterminate="True" ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30" IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=IsLoading,Mode=OneWay}" />
-          <Button IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=!IsLoading,Mode=OneWay}" Background="Transparent" Cursor="Hand" Click="AddNewScriptButton_Click"
+          <Button IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=!IsLoading,Mode=OneWay}" Background="Transparent" Cursor="Hand" Command="{Binding AddNewScriptButton_Click}"
                    ToolTip.Tip="{ReflectionBinding Path=Res.Import,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <PathIcon Width="16"  Data="{StaticResource AddDrawing}" />
           </Button>

@@ -45,7 +45,7 @@
                      TextTrimming="CharacterEllipsis"
                      ToolTip.Tip="{Binding Path}" VerticalAlignment="Center"></TextBlock>
 
-          <Button x:Name="SelectPathButton" Grid.Column="2" Content="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_SelectPath,Source={x:Static resx:R.Current},Mode=OneWay}" HorizontalAlignment="Right"/>
+          <Button x:Name="SelectPathButton" Command="{Binding SelectPathButton_Click}" Grid.Column="2" Content="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_SelectPath,Source={x:Static resx:R.Current},Mode=OneWay}" HorizontalAlignment="Right"/>
         </Grid>
         <Separator Classes="Separator"></Separator>
 

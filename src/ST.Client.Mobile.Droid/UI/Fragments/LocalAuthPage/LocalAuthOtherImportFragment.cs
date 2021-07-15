@@ -34,16 +34,12 @@ namespace System.Application.UI.Fragments
         {
             if (view.Id == Resource.Id.btnWinAuthImport)
             {
-                async void OnBtnWinAuthImportClick()
-                    => await FilePickAsync(ViewModel!.ImportWinAuth);
-                OnBtnWinAuthImportClick();
+                ViewModel!.WinAuthBtn_Click.Invoke();
                 return true;
             }
             else if (view.Id == Resource.Id.btnSDAImport)
             {
-                async void OnBtnSDAImportClick()
-                    => await FilePickAsync(ViewModel!.ImportSDA);
-                OnBtnSDAImportClick();
+                ViewModel!.SdaBtn_Click.Invoke();
                 return true;
             }
             return base.OnClick(view);
