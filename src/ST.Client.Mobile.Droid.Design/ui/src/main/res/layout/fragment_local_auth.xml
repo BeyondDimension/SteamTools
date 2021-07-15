@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never"
+        android:paddingBottom="@dimen/fab_full_height"
         tools:itemCount="5"
         tools:listitem="@layout/layout_card_gap_authenticator"
         xamarin:managedType="AndroidX.RecyclerView.Widget.RecyclerView" />

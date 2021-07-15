@@ -21,4 +21,5 @@
     <dimen name="list_header_title_font_size">16sp</dimen>
     <dimen name="steam_user_login_logo_size">125dp</dimen>
     <dimen name="steam_auth__trade_confirmation_img_size">80dp</dimen>
+    <dimen name="fab_full_height">88dp</dimen>
 </resources>

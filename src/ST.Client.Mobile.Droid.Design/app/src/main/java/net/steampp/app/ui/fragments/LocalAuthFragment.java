@@ -12,23 +12,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import net.steampp.app.ui.databinding.FragmentLocalAuthBinding;
+import net.steampp.app.design.R;
 import net.steampp.app.ui.viewmodels.LocalAuthViewModel;
 
 public class LocalAuthFragment extends Fragment {
 
     private LocalAuthViewModel viewModel;
-    private FragmentLocalAuthBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         viewModel =
                 new ViewModelProvider(this).get(LocalAuthViewModel.class);
 
-        binding = FragmentLocalAuthBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View root = inflater.inflate(R.layout.fragment_local_auth_test, container, false);
 
-        final TextView textView = binding.textView;
+        final TextView textView = root.findViewById(R.id.textView);
         viewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -36,11 +34,5 @@ public class LocalAuthFragment extends Fragment {
             }
         });
         return root;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 }

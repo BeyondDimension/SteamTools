@@ -94,10 +94,10 @@ namespace System.Application.UI.Activities
 
         static int ToIconRes(ActionItem action) => action switch
         {
-            ActionItem.ConfirmAll => Resource.Drawable.baseline_add_black_24,
-            ActionItem.CancelAll => Resource.Drawable.baseline_enhanced_encryption_black_24,
+            ActionItem.ConfirmAll => Resource.Drawable.baseline_check_black_24,
+            ActionItem.CancelAll => Resource.Drawable.baseline_close_black_24,
             ActionItem.Refresh => Resource.Drawable.baseline_refresh_black_24,
-            ActionItem.Logout => Resource.Drawable.baseline_save_alt_black_24,
+            ActionItem.Logout => Resource.Drawable.baseline_logout_black_24,
             _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
         };
 

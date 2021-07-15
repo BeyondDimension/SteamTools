@@ -3,7 +3,7 @@
     package="net.steampp.app.design">
 
     <application
-        android:name=".ui.MainApplication"
+        android:name="net.steampp.app.ui.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,12 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/MainTheme">
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name="net.steampp.app.ui.activities.MainActivity"
             android:configChanges="screenSize|orientation|keyboard|keyboardHidden|screenLayout|smallestScreenSize"
             android:label="@string/app_name"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ui.activities.SplashActivity"
+            android:name="net.steampp.app.ui.activities.SplashActivity"
             android:configChanges="screenSize|orientation|keyboard|keyboardHidden|screenLayout|smallestScreenSize"
             android:label="@string/app_name"
             android:launchMode="singleTask"
