@@ -8,6 +8,10 @@ namespace System.Application.Models
 {
     public class MyAuthenticator : ReactiveObject
     {
+#if __MOBILE__
+        public const string HideCurrentCodeString = "_ _ _ _ _ _";
+#endif
+
         public MyAuthenticator()
         {
         }

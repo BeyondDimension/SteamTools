@@ -21,7 +21,7 @@ namespace System.Application.UI.Activities
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            if (!DeviceSecurityCheckUtil.IsAllowStart(this)) return;
+            //if (!DeviceSecurityCheckUtil.IsAllowStart(this)) return;
             this.StartActivity<MainActivity>();
         }
 

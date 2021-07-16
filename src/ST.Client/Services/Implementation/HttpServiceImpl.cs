@@ -38,7 +38,7 @@ namespace System.Application.Services.Implementation
         async Task<T?> SendAsync<T>(
             bool isCheckHttpUrl,
             string? requestUri,
-            HttpRequestMessage request,
+            Func<HttpRequestMessage> requestFactory,
             string? accept,
             bool enableForward,
             CancellationToken cancellationToken,
@@ -46,10 +46,12 @@ namespace System.Application.Services.Implementation
             Action<HttpResponseMessage>? handlerResponseByIsNotSuccessStatusCode = null,
             string? clientName = null) where T : notnull
         {
+            HttpRequestMessage? request = null;
             HttpResponseMessage? response = null;
-            bool notDispose = false;
+            bool notDisposeResponse = false;
             try
             {
+                request = requestFactory();
                 requestUri ??= request.RequestUri.ToString();
 
                 if (!isCheckHttpUrl && !IsHttpUrl(requestUri)) return default;
@@ -64,7 +66,7 @@ namespace System.Application.Services.Implementation
                     }
                     catch (Exception e)
                     {
-                        logger.LogWarning(e, "CloudService Forward Fail.");
+                        logger.LogWarning(e, "CloudService Forward Fail, requestUri: {0}", requestUri);
                         response = null;
                     }
                 }
@@ -72,6 +74,8 @@ namespace System.Application.Services.Implementation
                 if (response == null)
                 {
                     var client = CreateClient(clientName);
+                    request.Dispose();
+                    request = requestFactory();
                     response = await client.SendAsync(request,
                       HttpCompletionOption.ResponseHeadersRead,
                       cancellationToken).ConfigureAwait(false);
@@ -94,7 +98,7 @@ namespace System.Application.Services.Implementation
                         }
                         else if (rspContentClrType == typeof(Stream))
                         {
-                            notDispose = true;
+                            notDisposeResponse = true;
                             return (T)(object)await response.Content.ReadAsStreamAsync();
                         }
                         var mime = response.Content.Headers.ContentType?.MediaType ?? accept;
@@ -133,13 +137,13 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
-                logger.LogWarning(e, "SendAsync Fail.");
+                logger.LogWarning(e, "SendAsync Fail, requestUri: {0}", requestUri);
             }
             finally
             {
-                if (!notDispose)
+                request?.Dispose();
+                if (!notDisposeResponse)
                 {
-                    request.Dispose();
                     response?.Dispose();
                 }
             }
@@ -148,7 +152,7 @@ namespace System.Application.Services.Implementation
 
         public Task<T?> SendAsync<T>(
             string? requestUri,
-            HttpRequestMessage request,
+            Func<HttpRequestMessage> requestFactory,
             string? accept,
             bool enableForward,
             CancellationToken cancellationToken,
@@ -159,7 +163,7 @@ namespace System.Application.Services.Implementation
             return SendAsync<T>(
                 isCheckHttpUrl: false,
                 requestUri,
-                request,
+                requestFactory,
                 accept,
                 enableForward,
                 cancellationToken,
@@ -175,14 +179,17 @@ namespace System.Application.Services.Implementation
             string? cookie = null) where T : notnull
         {
             if (!IsHttpUrl(requestUri)) return Task.FromResult(default(T?));
-            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
-            if (cookie != null)
+            return SendAsync<T>(isCheckHttpUrl: true, requestUri, () =>
             {
-                request.Headers.Add("Cookie", cookie);
-            }
-            request.Headers.Accept.ParseAdd(accept);
-            request.Headers.UserAgent.ParseAdd(http_helper.UserAgent);
-            return SendAsync<T>(isCheckHttpUrl: true, requestUri, request, accept, true, cancellationToken);
+                var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+                if (cookie != null)
+                {
+                    request.Headers.Add("Cookie", cookie);
+                }
+                request.Headers.Accept.ParseAdd(accept);
+                request.Headers.UserAgent.ParseAdd(http_helper.UserAgent);
+                return request;
+            }, accept, true, cancellationToken);
         }
 
         async Task<string?> GetImageAsync_(

@@ -49,8 +49,8 @@
       <LinkBase>Diagnostics</LinkBase>
     </Compile>
     <Compile Include="..\Common.ClientLib.Droid\SystemProperties.cs" />
-    <Compile Include="..\Common.ClientLib.Droid\AndroidROMType.cs" />
-    <Compile Include="..\Common.ClientLib.Droid\AndroidROM.cs" />
+    <!--<Compile Include="..\Common.ClientLib.Droid\AndroidROMType.cs" />-->
+    <!--<Compile Include="..\Common.ClientLib.Droid\AndroidROM.cs" />-->
     <Compile Include="..\Common.ClientLib.Droid\ServiceCollectionExtensions.cs">
       <Link>ServiceCollectionExtensions.Link.cs</Link>
     </Compile>
@@ -95,7 +95,7 @@
     <EmbeddedResource Remove="UI\Views.Controls\**" />
     <None Remove="UI\Views.Controls\**" />
     <Compile Include="..\Common.ClientLib.Droid\Application\DarkModeUtil.cs" />
-    <Compile Include="..\Common.ClientLib.Droid\Application\ScreenCompatUtil.cs" />
+    <!--<Compile Include="..\Common.ClientLib.Droid\Application\ScreenCompatUtil.cs" />-->
     <Compile Include="..\ST.Client.Desktop.Avalonia\ServiceCollectionExtensions.AddShowWindowService.cs" />
     <Compile Include="..\TencentOpenApiSDK.cs" />
   </ItemGroup>

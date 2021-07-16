@@ -29,7 +29,7 @@ namespace System.Application.UI.Activities
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            if (!DeviceSecurityCheckUtil.IsAllowStart(this)) return;
+            //if (!DeviceSecurityCheckUtil.IsAllowStart(this)) return;
             SetContentView(this, LayoutResource);
         }
 
@@ -104,7 +104,7 @@ namespace System.Application.UI.Activities
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            if (!DeviceSecurityCheckUtil.IsAllowStart(this)) return;
+            //if (!DeviceSecurityCheckUtil.IsAllowStart(this)) return;
             BaseActivity.SetContentView(this, LayoutResource);
             OnCreateViewBinding();
         }

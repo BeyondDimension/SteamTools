@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
-    tools:layout_margin="16dp">
+    tools:layout_marginBottom="16dp">
 
     <include layout="@layout/layout_card_gap_authenticator_content" />
 

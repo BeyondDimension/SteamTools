@@ -91,21 +91,24 @@ namespace System.Application.Services.Implementation
                     e.Ok(body ?? "500", headrs);
                     return;
                 case "POST":
-                    var requestStream = new StreamWriter(new MemoryStream());
                     try
                     {
                         if (e.HttpClient.Request.ContentLength > 0)
                         {
-                            requestStream.Write(e.HttpClient.Request.BodyString);
-
-                            var send = new HttpRequestMessage
+                            var conext = await IHttpService.Instance.SendAsync<string>(url, () =>
                             {
-                                Method = HttpMethod.Post,
-                                Content = new StreamContent(requestStream.BaseStream),
-                            };
-                            send.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(e.HttpClient.Request.ContentType);
-                            send.Content.Headers.ContentLength = e.HttpClient.Request.BodyString.Length;
-                            var conext = await IHttpService.Instance.SendAsync<string>(url, send, null, false, new CancellationToken());
+                                var requestStream = new StreamWriter(new MemoryStream());
+                                requestStream.Write(e.HttpClient.Request.BodyString);
+
+                                var send = new HttpRequestMessage
+                                {
+                                    Method = HttpMethod.Post,
+                                    Content = new StreamContent(requestStream.BaseStream),
+                                };
+                                send.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(e.HttpClient.Request.ContentType);
+                                send.Content.Headers.ContentLength = e.HttpClient.Request.BodyString.Length;
+                                return send;
+                            }, null, false, new CancellationToken());
                             e.Ok(conext ?? "500", headrs);
                         }
                         else
@@ -323,7 +326,8 @@ namespace System.Application.Services.Implementation
             // set e.clientCertificate to override
             return Task.CompletedTask;
         }
-        public void TrustCer() {
+        public void TrustCer()
+        {
             var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer");
             IPlatformService.Instance.AdminShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain \"{filePath}\"", true);
         }
@@ -353,7 +357,7 @@ namespace System.Application.Services.Implementation
             proxyServer.CertificateManager.EnsureRootCertificate();
             if (DI.IsmacOS)
             {
-                TrustCer(); 
+                TrustCer();
 
             }
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
@@ -503,7 +507,8 @@ namespace System.Application.Services.Implementation
                         var shellContent = new StringBuilder();
                         foreach (var item in stringList)
                         {
-                            if (item.Trim().Length > 0) {
+                            if (item.Trim().Length > 0)
+                            {
                                 //shellContent.AppendLine($"networksetup -setsocksfirewallproxy '{item}' '{explicitProxyEndPoint.IpAddress}' {explicitProxyEndPoint.Port}");
                                 //shellContent.AppendLine($"networksetup -setsocksfirewallproxystate '{item}' on");
                                 shellContent.AppendLine($"networksetup -setwebproxy '{item}' '127.0.0.1' {explicitProxyEndPoint.Port}");
@@ -604,7 +609,7 @@ namespace System.Application.Services.Implementation
             foreach (var item in stringList)
             {
                 if (item.Trim().Length > 0)
-                { 
+                {
                     //shellContent.AppendLine($"networksetup -setsocksfirewallproxystate '{item}' off");
                     shellContent.AppendLine($"networksetup -setwebproxystate '{item}' off");
                     shellContent.AppendLine($"networksetup -setsecurewebproxystate '{item}' off");

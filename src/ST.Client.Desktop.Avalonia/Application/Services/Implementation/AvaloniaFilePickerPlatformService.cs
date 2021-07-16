@@ -36,7 +36,7 @@ namespace System.Application.Services.Implementation
                     {
                         new FileDialogFilter
                         {
-                            Extensions = extensions.Select(x => x.TrimStart('.')).ToList(),
+                            Extensions = FormatExtensions(extensions, trimLeadingPeriod: true),
                         },
                     };
                 }

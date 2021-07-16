@@ -34,6 +34,17 @@ namespace System.Application.UI.Adapters
         public override void OnBind()
         {
             base.OnBind();
+            ViewModel!.WhenAnyValue(x => x.IsShowCode).Subscribe(value =>
+            {
+                binding.tvValue.Text = value ? ViewModel!.CurrentCode : TViewModel.HideCurrentCodeString;
+            }).AddTo(this);
+            ViewModel.WhenAnyValue(x => x.CurrentCode).Subscribe(value =>
+            {
+                if (ViewModel!.IsShowCode)
+                {
+                    binding.tvValue.Text = value;
+                }
+            }).AddTo(this);
             binding.btnEditName.SetOnClickListener(this);
             binding.btnConfirmTrade.SetOnClickListener(this);
             binding.btnCopy.SetOnClickListener(this);

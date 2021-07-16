@@ -18,4 +18,5 @@
     <color name="icon_background">@color/black</color>
     <color name="fab_icon_background_min">#747474</color>
     <color name="bg_divider">#1F000000</color>
+    <color name="grey">#C4C4C6</color>
 </resources>

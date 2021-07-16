@@ -1,6 +1,5 @@
 using Avalonia;
 using Avalonia.ReactiveUI;
-using System.Diagnostics;
 
 namespace System.Application.UI
 {
@@ -14,13 +13,13 @@ namespace System.Application.UI
                 {
                     MaxGpuResourceSizeBytes = 8096000,
                 })
-            .With(new AvaloniaNativePlatformOptions
-            {
-                UseGpu = !DI.IsmacOS
-            })
+                //.With(new AvaloniaNativePlatformOptions
+                //{
+                //    UseGpu = !DI.IsmacOS
+                //})
                 .With(new Win32PlatformOptions
                 {
-                    AllowEglInitialization = !DI.IsmacOS,
+                    AllowEglInitialization = true /*!DI.IsmacOS*/,
                 })
                 .LogToTrace()
                 .UseReactiveUI();

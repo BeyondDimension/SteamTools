@@ -73,7 +73,7 @@ namespace System.Application.UI.Fragments
             if (view.Id == Resource.Id.layoutUser)
             {
 #if !DEBUG
-                ShowUnderConstructionTips();
+                MainApplication.ShowUnderConstructionTips();
                 return true;
 #endif
 

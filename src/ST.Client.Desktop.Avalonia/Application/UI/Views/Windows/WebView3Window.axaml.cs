@@ -144,72 +144,72 @@ namespace System.Application.UI.Views.Windows
             }
         }
 
-        [Obsolete(LoginUsingSteamClientCookieObsolete)]
-        async Task LoginUsingSteamClientCookiesAsync()
-        {
-            var (resultCode, cookies) = await Instance.GetLoginUsingSteamClientCookieCollectionAsync(runasInvoker: DI.Platform == Platform.Windows);
-            if (resultCode == LoginUsingSteamClientResultCode.Success && cookies != null)
-            {
-                var manager = CefRequestContext.GetGlobalContext().GetCookieManager(null);
-                foreach (Cookie item in cookies)
-                {
-                    if (item.Domain.Equals(url_store_steampowered_, StringComparison.OrdinalIgnoreCase))
-                    {
-                        item.Domain = url_steamcommunity_;
-                    }
-                    var cookie = item.GetCefNetCookie();
-                    var setCookieResult = await manager.SetCookieAsync(url_steamcommunity_checkclientautologin, cookie);
-                    if (item.Name == "steamLoginSecure" && setCookieResult)
-                    {
-                        loginUsingSteamClientState = LoginUsingSteamClientState.Success;
-                    }
-                }
-                foreach (Cookie item in cookies)
-                {
-                    var cookie = item.GetCefNetCookie();
-                    await manager.SetCookieAsync(url_store_steampowered_checkclientautologin, cookie);
-                }
-            }
-            else
-            {
-                resultCode = resultCode ==
-                    LoginUsingSteamClientResultCode.Success ?
-                    LoginUsingSteamClientResultCode.EmptyOrNull :
-                    resultCode;
-            }
-            if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
-            {
-                loginUsingSteamClientState = LoginUsingSteamClientState.None;
-                resultCode = resultCode ==
-                    LoginUsingSteamClientResultCode.Success ?
-                    LoginUsingSteamClientResultCode.MissingCookieSteamLoginSecure :
-                    resultCode;
-            }
-            if (resultCode != LoginUsingSteamClientResultCode.Success)
-            {
-                if (resultCode == LoginUsingSteamClientResultCode.CantConnSteamCommunity)
-                {
-                    await WebViewLoadingTimeoutAsync();
-                }
-                else
-                {
-                    Toast.Show(AppResources.GetLoginUsingSteamClientCookiesFail_.Format((int)resultCode));
-                }
-            }
-        }
+        //[Obsolete(LoginUsingSteamClientCookieObsolete)]
+        //async Task LoginUsingSteamClientCookiesAsync()
+        //{
+        //    var (resultCode, cookies) = await Instance.GetLoginUsingSteamClientCookieCollectionAsync(runasInvoker: DI.Platform == Platform.Windows);
+        //    if (resultCode == LoginUsingSteamClientResultCode.Success && cookies != null)
+        //    {
+        //        var manager = CefRequestContext.GetGlobalContext().GetCookieManager(null);
+        //        foreach (Cookie item in cookies)
+        //        {
+        //            if (item.Domain.Equals(url_store_steampowered_, StringComparison.OrdinalIgnoreCase))
+        //            {
+        //                item.Domain = url_steamcommunity_;
+        //            }
+        //            var cookie = item.GetCefNetCookie();
+        //            var setCookieResult = await manager.SetCookieAsync(url_steamcommunity_checkclientautologin, cookie);
+        //            if (item.Name == "steamLoginSecure" && setCookieResult)
+        //            {
+        //                loginUsingSteamClientState = LoginUsingSteamClientState.Success;
+        //            }
+        //        }
+        //        foreach (Cookie item in cookies)
+        //        {
+        //            var cookie = item.GetCefNetCookie();
+        //            await manager.SetCookieAsync(url_store_steampowered_checkclientautologin, cookie);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        resultCode = resultCode ==
+        //            LoginUsingSteamClientResultCode.Success ?
+        //            LoginUsingSteamClientResultCode.EmptyOrNull :
+        //            resultCode;
+        //    }
+        //    //if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
+        //    //{
+        //    //    loginUsingSteamClientState = LoginUsingSteamClientState.None;
+        //    //    resultCode = resultCode ==
+        //    //        LoginUsingSteamClientResultCode.Success ?
+        //    //        LoginUsingSteamClientResultCode.MissingCookieSteamLoginSecure :
+        //    //        resultCode;
+        //    //}
+        //    if (resultCode != LoginUsingSteamClientResultCode.Success)
+        //    {
+        //        if (resultCode == LoginUsingSteamClientResultCode.CantConnSteamCommunity)
+        //        {
+        //            await WebViewLoadingTimeoutAsync();
+        //        }
+        //        else
+        //        {
+        //            Toast.Show(AppResources.GetLoginUsingSteamClientCookiesFail_.Format((int)resultCode));
+        //        }
+        //    }
+        //}
 
-        [Obsolete(LoginUsingSteamClientCookieObsolete)]
-        async void GetLoginUsingSteamClientCookies()
-        {
-            await LoginUsingSteamClientCookiesAsync();
-            if (loginUsingSteamClientState == LoginUsingSteamClientState.Success
-                && webView.Browser.BrowserObject != null)
-            {
-                webView.Browser.Reload();
-            }
-        }
+        //[Obsolete(LoginUsingSteamClientCookieObsolete)]
+        //async void GetLoginUsingSteamClientCookies()
+        //{
+        //    await LoginUsingSteamClientCookiesAsync();
+        //    if (loginUsingSteamClientState == LoginUsingSteamClientState.Success
+        //        && webView.Browser.BrowserObject != null)
+        //    {
+        //        webView.Browser.Reload();
+        //    }
+        //}
 
-        static LoginUsingSteamClientState loginUsingSteamClientState;
+        //static LoginUsingSteamClientState loginUsingSteamClientState;
         protected override void OnDataContextChanged(EventArgs e)
         {
             base.OnDataContextChanged(e);
@@ -222,15 +222,15 @@ namespace System.Application.UI.Views.Windows
                 }
                 if (vm.UseLoginUsingSteamClient)
                 {
-                    if (loginUsingSteamClientState == LoginUsingSteamClientState.None)
-                    {
-                        var steamUser = SteamConnectService.Current.CurrentSteamUser;
-                        if (steamUser != null)
-                        {
-                            loginUsingSteamClientState = LoginUsingSteamClientState.Loading;
-                            //GetLoginUsingSteamClientCookies();
-                        }
-                    }
+                    //if (loginUsingSteamClientState == LoginUsingSteamClientState.None)
+                    //{
+                    //    var steamUser = SteamConnectService.Current.CurrentSteamUser;
+                    //    if (steamUser != null)
+                    //    {
+                    //        loginUsingSteamClientState = LoginUsingSteamClientState.Loading;
+                    //        //GetLoginUsingSteamClientCookies();
+                    //    }
+                    //}
                 }
                 vm.WhenAnyValue(x => x.Url).WhereNotNull().Subscribe(x =>
                 {
@@ -256,14 +256,14 @@ namespace System.Application.UI.Views.Windows
             }
         }
 
-        protected override void OnOpened(EventArgs e)
-        {
-            base.OnOpened(e);
-            if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
-            {
-                Toast.Show(AppResources.GetLoginUsingSteamClientCookies);
-            }
-        }
+        //protected override void OnOpened(EventArgs e)
+        //{
+        //    base.OnOpened(e);
+        //    //if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
+        //    //{
+        //    //    Toast.Show(AppResources.GetLoginUsingSteamClientCookies);
+        //    //}
+        //}
 
         void WebView_DocumentTitleChanged(object? sender, DocumentTitleChangedEventArgs e)
         {
@@ -295,10 +295,10 @@ namespace System.Application.UI.Views.Windows
                 if (disposing)
                 {
                     // TODO: 释放托管状态(托管对象)
-                    if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
-                    {
-                        loginUsingSteamClientState = LoginUsingSteamClientState.None;
-                    }
+                    //if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
+                    //{
+                    //    loginUsingSteamClientState = LoginUsingSteamClientState.None;
+                    //}
                     if (webView != null)
                     {
                         cts?.Cancel();

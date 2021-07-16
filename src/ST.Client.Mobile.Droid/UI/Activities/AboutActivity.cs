@@ -181,9 +181,9 @@ namespace System.Application.UI.Activities
                         VirtualApkCheckUtil.GetCheckResult(AndroidApplication.Context, b);
                         b.AppendLine();
                     }
-                    b.Append("[rom.ver] ");
-                    AndroidROM.Current.ToString(b);
-                    b.AppendLine();
+                    //b.Append("[rom.ver] ");
+                    //AndroidROM.Current.ToString(b);
+                    //b.AppendLine();
                     b.Append("[webview.ver] ");
                     GetWebViewImplementationVersionDisplayString(b);
                     b.AppendLine();
@@ -310,15 +310,15 @@ namespace System.Application.UI.Activities
                         }
                         return string.Empty;
                     }
-                    b.Append("[screen.notch] ");
-                    b.Append(ToLowerString(ScreenCompatUtil.IsNotch(this)));
-                    b.AppendLine();
-                    b.Append("[screen.notch.hide] ");
-                    b.Append(ToLowerString(ScreenCompatUtil.IsHideNotch(this)));
-                    b.AppendLine();
-                    b.Append("[screen.full.gestures] ");
-                    b.Append(ToLowerString(ScreenCompatUtil.IsFullScreenGesture(this)));
-                    b.AppendLine();
+                    //b.Append("[screen.notch] ");
+                    //b.Append(ToLowerString(ScreenCompatUtil.IsNotch(this)));
+                    //b.AppendLine();
+                    //b.Append("[screen.notch.hide] ");
+                    //b.Append(ToLowerString(ScreenCompatUtil.IsHideNotch(this)));
+                    //b.AppendLine();
+                    //b.Append("[screen.full.gestures] ");
+                    //b.Append(ToLowerString(ScreenCompatUtil.IsFullScreenGesture(this)));
+                    //b.AppendLine();
                     static string GetJavaSystemGetProperty(string propertyKey)
                     {
                         try
@@ -363,15 +363,15 @@ namespace System.Application.UI.Activities
                     b.Append("[device.tags] ");
                     b.Append(Build.Tags ?? "");
                     b.AppendLine();
-                    if (_ThisAssembly.Debuggable)
-                    {
-                        b.Append("[device.arc] ");
-                        b.Append(ToLowerString(DeviceSecurityCheckUtil.IsCompatiblePC(this)));
-                        b.AppendLine();
-                        b.Append("[device.emulator] ");
-                        b.Append(ToLowerString(DeviceSecurityCheckUtil.IsEmulator));
-                        b.AppendLine();
-                    }
+                    //if (_ThisAssembly.Debuggable)
+                    //{
+                    //    b.Append("[device.arc] ");
+                    //    b.Append(ToLowerString(DeviceSecurityCheckUtil.IsCompatiblePC(this)));
+                    //    b.AppendLine();
+                    //    b.Append("[device.emulator] ");
+                    //    b.Append(ToLowerString(DeviceSecurityCheckUtil.IsEmulator));
+                    //    b.AppendLine();
+                    //}
                     b.Append("[device.gl.renderer] ");
                     b.Append(GLES20.GlGetString(GLES20.GlRenderer) ?? "");
                     b.AppendLine();

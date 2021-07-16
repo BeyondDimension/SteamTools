@@ -43,6 +43,7 @@ namespace System.Application.UI.Fragments
             var adapter = new GAPAuthenticatorAdapter(ViewModel!);
             var layout = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
             binding!.rvAuthenticators.SetLayoutManager(layout);
+            binding.rvAuthenticators.AddItemDecoration(new VerticalItemViewDecoration(Resources!.GetDimensionPixelSize(Resource.Dimension.activity_vertical_margin)));
             binding.rvAuthenticators.SetAdapter(adapter);
 
             var actionItems = Enum2.GetAll<ActionItem>();

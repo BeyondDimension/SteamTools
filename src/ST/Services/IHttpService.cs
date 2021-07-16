@@ -18,7 +18,7 @@ namespace System.Application.Services
 
         Task<T?> SendAsync<T>(
             string? requestUri,
-            HttpRequestMessage request,
+            Func<HttpRequestMessage> requestFactory,
             string? accept,
             bool enableForward,
             CancellationToken cancellationToken,

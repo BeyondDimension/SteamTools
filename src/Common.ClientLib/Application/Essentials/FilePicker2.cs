@@ -45,9 +45,16 @@ namespace System.Application
                     o.FileTypes = fileTypes;
                 }
                 var result = await PickAsync(o);
-                if (result != null)
+                if (!string.IsNullOrEmpty(result?.FullPath))
                 {
-                    action(result.FullPath);
+                    try
+                    {
+                        action(result.FullPath);
+                    }
+                    catch (Exception e)
+                    {
+                        Toast.Show(e.Message);
+                    }
                 }
             }
             catch (PermissionException e)
@@ -74,9 +81,16 @@ namespace System.Application
                     o.FileTypes = fileTypes;
                 }
                 var result = await PickAsync(o);
-                if (result != null)
+                if (!string.IsNullOrEmpty(result?.FullPath))
                 {
-                    await func(result.FullPath);
+                    try
+                    {
+                        await func(result.FullPath);
+                    }
+                    catch (Exception e)
+                    {
+                        Toast.Show(e.Message);
+                    }
                 }
             }
             catch (PermissionException e)
@@ -120,9 +134,16 @@ namespace System.Application
                     o.FileTypes = fileTypes;
                 }
                 var result = await PickMultipleAsync(o);
-                if (result != null)
+                if (result != null && result.Any())
                 {
-                    action(result.Select(x => x.FullPath));
+                    try
+                    {
+                        action(result.Select(x => x.FullPath));
+                    }
+                    catch (Exception e)
+                    {
+                        Toast.Show(e.Message);
+                    }
                 }
             }
             catch (PermissionException e)
@@ -149,9 +170,16 @@ namespace System.Application
                     o.FileTypes = fileTypes;
                 }
                 var result = await PickMultipleAsync(o);
-                if (result != null)
+                if (result != null && result.Any())
                 {
-                    await func(result.Select(x => x.FullPath));
+                    try
+                    {
+                        await func(result.Select(x => x.FullPath));
+                    }
+                    catch (Exception e)
+                    {
+                        Toast.Show(e.Message);
+                    }
                 }
             }
             catch (PermissionException e)

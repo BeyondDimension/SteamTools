@@ -1,8 +1,8 @@
 using Android.App;
 using Android.Runtime;
-using System.Application.Security;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using System.Diagnostics;
 using System.Windows;
 using Xamarin.Essentials;
 using _ThisAssembly = System.Properties.ThisAssembly;
@@ -27,6 +27,10 @@ namespace System.Application.UI
         {
             base.OnCreate();
 
+#if DEBUG
+            var stopwatch = Stopwatch.StartNew();
+#endif
+
             VisualStudioAppCenterSDK.Init();
 
             XEFileProvider.TemporaryLocation = FileProviderLocation.Internal;
@@ -45,17 +49,12 @@ namespace System.Application.UI
             Startup.Init(level);
             if (IsMainProcess)
             {
-                DeviceSecurityCheckUtil.Init(
-                    enableEmulator: _ThisAssembly.Debuggable,
-                    allowXposed: true,
-                    allowRoot: true);
-                AndroidROM.Initialize();
                 XEVersionTracking.Track();
                 ImageLoader.Init(this);
             }
 
 #if DEBUG
-            Log.Debug("Application", "OnCreate Complete.");
+            Log.Debug("Application", $"OnCreate Complete({stopwatch.ElapsedMilliseconds}ms).");
 #endif
         }
 
