@@ -6,9 +6,7 @@ using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.Activities;
 using System.Application.UI.Adapters;
-using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
-using System.Windows;
 using static System.Application.UI.ViewModels.MyPageViewModel;
 
 namespace System.Application.UI.Fragments
@@ -49,7 +47,7 @@ namespace System.Application.UI.Fragments
                 };
                 if (isUnderConstruction)
                 {
-                    ShowUnderConstructionTips();
+                    MainApplication.ShowUnderConstructionTips();
                     return;
                 }
 
@@ -88,6 +86,5 @@ namespace System.Application.UI.Fragments
 
             return base.OnClick(view);
         }
-        static async void ShowUnderConstructionTips() => await MessageBoxCompat.ShowAsync(AppResources.UnderConstruction, "", MessageBoxButtonCompat.OK);
     }
 }

@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Root", "_Root", "{66839CD8
 		nuget.config = nuget.config
 		README.en.md = README.en.md
 		README.md = README.md
+		release-template.md = release-template.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0_Common", "0_Common", "{83186945-EC14-4B3F-8C6F-B205AA184CA4}"

@@ -42,8 +42,10 @@ namespace System.Application.UI.ViewModels
 
         public void RunOrStopASF()
         {
-            IArchiSteamFarmService.Instance.Start();
+            if (!ASFService.Current.IsASFRuning)
+                ASFService.Current.InitASF();
+            else
+                ASFService.Current.StopASF();
         }
-
     }
 }

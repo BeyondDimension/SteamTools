@@ -72,5 +72,9 @@ namespace System
         public const string MSIX_Bundle = "application/msixbundle";
 
         public const string AppInstaller = "application/appinstaller";
+
+        public const string VideoAll = "video/*";
+
+        public const string PDF = "application/pdf";
     }
 }

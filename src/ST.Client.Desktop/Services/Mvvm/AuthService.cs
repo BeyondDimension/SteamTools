@@ -42,7 +42,7 @@ namespace System.Application.Services
             List<IGAPAuthenticatorDTO> list;
             if (hasPassword)
             {
-                var password = await PasswordWindowViewModel.ShowPasswordDialog();
+                var password = await TextBoxWindowViewModel.ShowDialogByPresetAsync(TextBoxWindowViewModel.PresetType.LocalAuth_PasswordRequired);
                 if (string.IsNullOrEmpty(password))
                 {
                     return;
@@ -103,7 +103,7 @@ namespace System.Application.Services
             var hasPassword = repository.HasSecondaryPassword(auth);
             if (hasPassword)
             {
-                var password = await PasswordWindowViewModel.ShowPasswordDialog();
+                var password = await TextBoxWindowViewModel.ShowDialogByPresetAsync(TextBoxWindowViewModel.PresetType.LocalAuth_PasswordRequired);
                 var list = await repository.ConvertToList(new[] { auth }, password);
                 if (list.Any_Nullable())
                 {
@@ -513,7 +513,7 @@ namespace System.Application.Services
                 else if (result.resultCode == GAPRepository.ImportResultCode.SecondaryPasswordFail)
                 {
                     Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
-                    exportPassword = await PasswordWindowViewModel.ShowPasswordDialog();
+                    exportPassword = await TextBoxWindowViewModel.ShowDialogByPresetAsync(TextBoxWindowViewModel.PresetType.LocalAuth_PasswordRequired);
                     goto Run;
                 }
                 else

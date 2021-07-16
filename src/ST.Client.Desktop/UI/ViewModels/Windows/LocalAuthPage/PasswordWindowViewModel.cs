@@ -1,3 +1,4 @@
+#if DEBUG
 using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.Resx;
@@ -9,6 +10,7 @@ using WindowViewModel = System.Application.UI.ViewModels.PageViewModel;
 
 namespace System.Application.UI.ViewModels
 {
+    [Obsolete("use TextBoxWindowViewModel")]
     public class PasswordWindowViewModel : WindowViewModel, ITextBoxWindowViewModel
     {
         public PasswordWindowViewModel() : base()
@@ -21,15 +23,18 @@ namespace System.Application.UI.ViewModels
         {
             get => _Password;
             set => this.RaiseAndSetIfChanged(ref _Password, value);
-        } 
+        }
 
         string? ITextBoxWindowViewModel.Value { get => Password; set => Password = value; }
 
+        [Obsolete("use TextBoxWindowViewModel.ShowDialogAsync(TextBoxType.LocalAuth_PasswordRequired)")]
         public static async Task<string?> ShowPasswordDialog()
         {
-            var vm = new PasswordWindowViewModel();
-            await IShowWindowService.Instance.ShowDialog(CustomWindow.Password, vm, string.Empty, ResizeModeCompat.CanResize);
-            return vm.Password;
+            return await TextBoxWindowViewModel.ShowDialogByPresetAsync(TextBoxWindowViewModel.PresetType.LocalAuth_PasswordRequired);
+
+            //var vm = new PasswordWindowViewModel();
+            //await IShowWindowService.Instance.ShowDialog(CustomWindow.Password, vm, string.Empty, ResizeModeCompat.CanResize);
+            //return vm.Password;
         }
 
         public bool InputValidator()
@@ -60,3 +65,4 @@ namespace System.Application.UI.ViewModels
 #endif
     }
 }
+#endif

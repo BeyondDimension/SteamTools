@@ -12,11 +12,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using WinAuth;
-#if __MOBILE__
-using MainThreadCompat = Xamarin.Essentials.MainThread;
-#else
-using MainThreadCompat = System.Application.MainThreadDesktop;
-#endif
 
 namespace System.Application.UI.ViewModels
 {
@@ -24,6 +19,8 @@ namespace System.Application.UI.ViewModels
     {
         private readonly MyAuthenticator MyAuthenticator;
         private readonly GAPAuthenticatorValueDTO.SteamAuthenticator _Authenticator;
+
+        public static string DisplayName => AppResources.LocalAuth_SteamAuthTrade;
 
         public AuthTradeWindowViewModel() => throw new NotSupportedException();
 
@@ -47,7 +44,7 @@ namespace System.Application.UI.ViewModels
 #if !__MOBILE__
                 ThisAssembly.AssemblyTrademark + " | " +
 #endif
-                AppResources.LocalAuth_SteamAuthTrade;
+                DisplayName;
             _ConfirmationsSourceList = new SourceList<WinAuthSteamClient.Confirmation>();
 
             _ConfirmationsSourceList
@@ -415,7 +412,7 @@ namespace System.Application.UI.ViewModels
                 if (result)
                 {
                     Toast.Show($"{(accept ? AppResources.Agree : AppResources.Cancel)}{trade.Details}");
-                    MainThreadCompat.BeginInvokeOnMainThread(() =>
+                    MainThread2.BeginInvokeOnMainThread(() =>
                     {
                         trade.IsOperate = accept ? 1 : 2;
                         RefreshConfirmationsList();
@@ -587,7 +584,7 @@ namespace System.Application.UI.ViewModels
                     {
                         return;
                     }
-                    await MainThreadCompat.InvokeOnMainThreadAsync(() =>
+                    await MainThread2.InvokeOnMainThreadAsync(() =>
                     {
                         item.IsOperate = 1;
                         //Confirmations.Remove(trades[i]);
@@ -644,7 +641,7 @@ namespace System.Application.UI.ViewModels
                     {
                         break;
                     }
-                    await MainThreadCompat.InvokeOnMainThreadAsync(() =>
+                    await MainThread2.InvokeOnMainThreadAsync(() =>
                     {
                         item.IsOperate = 2;
                         //Confirmations.Remove(tradeIds[i]);

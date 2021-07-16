@@ -23,11 +23,15 @@ namespace System.Application.UI.Activities
         {
             base.OnCreate(savedInstanceState);
 
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
             ViewModel = new();
             ViewModel.AddTo(this);
 
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
+                Title = EncryptionAuthWindowViewModel.TitleName;
                 if (binding != null)
                 {
                     binding.tvProtectionAuthInfo.Text = LocalAuth_ProtectionAuth_Info;

@@ -15,6 +15,8 @@ namespace System
 
         public const string JPG = ".jpg";
 
+        public const string JPEG = ".jpeg";
+
         public const string PNG = ".png";
 
         public const string ICO = ".ico";
@@ -68,5 +70,19 @@ namespace System
         public const string AppInstaller = ".appinstaller";
 
         public const string MPO = ".mpo";
+
+        public static string Clean(string extension, bool trimLeadingPeriod = false)
+        {
+            if (string.IsNullOrWhiteSpace(extension))
+                return string.Empty;
+
+            extension = extension.TrimStart('*');
+            extension = extension.TrimStart('.');
+
+            if (!trimLeadingPeriod)
+                extension = "." + extension;
+
+            return extension;
+        }
     }
 }

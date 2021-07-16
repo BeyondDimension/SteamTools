@@ -19,6 +19,7 @@ using System.Application.Services;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using Xamarin.Essentials;
@@ -81,7 +82,8 @@ namespace System.Application.UI.Activities
                 switch (e.Current.Id)
                 {
                     case PreferenceButton.检查更新:
-                        ViewModel!.CheckUpdateCommand.Invoke();
+                        MainApplication.ShowUnderConstructionTips();
+                        //ViewModel!.CheckUpdateCommand.Invoke();
                         break;
                     case PreferenceButton.更新日志:
                         BrowserOpen(string.Format(
@@ -385,6 +387,21 @@ namespace System.Application.UI.Activities
                     b.Append("[device.biometric] ");
                     b.Append(ToLowerString(IBiometricService.Instance.IsSupportedAsync().Result));
                     b.AppendLine();
+                    b.Append("[xamarin.essentials.supported] ");
+                    static bool? GetXamarinEssentialsIsSupported()
+                    {
+                        try
+                        {
+                            if (typeof(MainThread2).Assembly.GetType("System.Application.XamarinEssentials").GetProperty("IsSupported", BindingFlags.Public | BindingFlags.Static).GetValue(null) is bool b)
+                                return b;
+                        }
+                        catch
+                        {
+                        }
+                        return null;
+                    }
+                    b.Append(ToLowerString(GetXamarinEssentialsIsSupported()));
+                    b.AppendLine();
                     var b_str = b.ToString();
                     MessageBoxCompat.Show(b_str, "");
                 }
@@ -404,7 +421,7 @@ namespace System.Application.UI.Activities
             return spannable;
         }
 
-        static SpannableString CreateDevelopers() => MainApplication.CreateSpannableString(list =>
+        static SpannableString CreateDevelopers() => RichTextHelper.CreateSpannableString(list =>
         {
             int length;
             StringBuilder str = new(Developers_0);
@@ -431,7 +448,7 @@ namespace System.Application.UI.Activities
             return str;
         });
 
-        static SpannableString CreateBusinessCooperationContact() => MainApplication.CreateSpannableString(list =>
+        static SpannableString CreateBusinessCooperationContact() => RichTextHelper.CreateSpannableString(list =>
         {
             int length;
             StringBuilder str = new(BusinessCooperationContact_0);
@@ -444,7 +461,7 @@ namespace System.Application.UI.Activities
             return str;
         });
 
-        static SpannableString CreateAgreementAndPrivacy() => MainApplication.CreateSpannableString(list =>
+        static SpannableString CreateAgreementAndPrivacy() => RichTextHelper.CreateSpannableString(list =>
         {
             int length;
             StringBuilder str = new();
@@ -464,7 +481,7 @@ namespace System.Application.UI.Activities
             return str;
         });
 
-        static SpannableString CreateOpenSourceLicensed() => MainApplication.CreateSpannableString(list =>
+        static SpannableString CreateOpenSourceLicensed() => RichTextHelper.CreateSpannableString(list =>
         {
             int length;
             StringBuilder str = new(OpenSourceLicensed_0);

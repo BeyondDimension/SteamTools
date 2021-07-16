@@ -14,7 +14,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@color/icon_background"
+        tools:src="@color/grey_background"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
     <androidx.appcompat.widget.AppCompatTextView

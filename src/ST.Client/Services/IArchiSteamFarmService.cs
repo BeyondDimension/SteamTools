@@ -20,6 +20,8 @@ namespace System.Application.Services
 
         bool IsReadPasswordLine { get; }
 
+        DateTimeOffset? StartTime { get; }
+
         /// <summary>
         /// 启动ASF
         /// </summary>

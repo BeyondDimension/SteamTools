@@ -36,11 +36,15 @@ namespace System.Application.UI.Activities
                 return;
             }
 
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
             ViewModel = new(vm);
             ViewModel.AddTo(this);
 
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
+                Title = DisplayName;
                 if (binding == null) return;
                 binding.tvConfirmConutMessage.Text = ViewModel.ConfirmationsConutMessage;
             }).AddTo(this);
@@ -48,6 +52,7 @@ namespace System.Application.UI.Activities
             var adapter = new SteamAuthTradeConfirmationAdapter(ViewModel);
             var layout = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
             binding!.rvConfirmations.SetLayoutManager(layout);
+            binding.rvConfirmations.AddItemDecoration(new VerticalItemViewDecoration(Resources!.GetDimensionPixelSize(Resource.Dimension.activity_vertical_margin)));
             binding.rvConfirmations.SetAdapter(adapter);
 
             var actionItems = Enum2.GetAll<ActionItem>();
@@ -93,10 +98,10 @@ namespace System.Application.UI.Activities
 
         static int ToIconRes(ActionItem action) => action switch
         {
-            ActionItem.ConfirmAll => Resource.Drawable.baseline_add_black_24,
-            ActionItem.CancelAll => Resource.Drawable.baseline_enhanced_encryption_black_24,
+            ActionItem.ConfirmAll => Resource.Drawable.baseline_check_black_24,
+            ActionItem.CancelAll => Resource.Drawable.baseline_close_black_24,
             ActionItem.Refresh => Resource.Drawable.baseline_refresh_black_24,
-            ActionItem.Logout => Resource.Drawable.baseline_save_alt_black_24,
+            ActionItem.Logout => Resource.Drawable.baseline_logout_black_24,
             _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
         };
 

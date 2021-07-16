@@ -122,9 +122,9 @@
         <Panel Margin="10">
           <StackPanel Spacing="20" HorizontalAlignment="Center" VerticalAlignment="Center">
             <!--<TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SteamToolsV1Import,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Center"></TextBlock>-->
-            <Button Content="{ReflectionBinding Path=Res.LocalAuth_SteamToolsV1Import,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.dat}" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ImportSteamToolsBtn"></Button>
+            <Button Content="{ReflectionBinding Path=Res.LocalAuth_SteamToolsV1Import,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.dat}" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ImportSteamToolsBtn" Command="{Binding SppBtn_Click}"></Button>
 
-            <Button Content="{ReflectionBinding Path=Res.LocalAuth_SteamToolsV2Import,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.mpo}" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ImportSteamToolsV2Btn"></Button>
+            <Button Content="{ReflectionBinding Path=Res.LocalAuth_SteamToolsV2Import,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.mpo}" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ImportSteamToolsV2Btn" Command="{Binding SppV2Btn_Click}"></Button>
           </StackPanel>
         </Panel>
       </TabItem>
@@ -135,7 +135,7 @@
             <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_WinAuthTip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="WrapWithOverflow"></TextBlock>
 
             <Panel IsVisible="{Binding ElementName=WinAuthImport,Path=IsChecked}">
-              <Button x:Name="ImportWinAuthBtn" Content="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.txt}"></Button>
+              <Button x:Name="ImportWinAuthBtn" Content="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.txt}" Command="{Binding WinAuthBtn_Click}"></Button>
             </Panel>
           </StackPanel>
 
@@ -144,7 +144,7 @@
             <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_SDATip,Mode=OneWay,Source={x:Static resx:R.Current}}" TextWrapping="WrapWithOverflow"></TextBlock>
 
             <Panel IsVisible="{Binding ElementName=SdaImport,Path=IsChecked}">
-              <Button x:Name="ImportSDABtn" Content="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.maFile}"></Button>
+              <Button x:Name="ImportSDABtn" Content="{ReflectionBinding Path=Res.SelectFileImport,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=*.maFile}"  Command="{Binding SdaBtn_Click}"></Button>
             </Panel>
           </StackPanel>
 

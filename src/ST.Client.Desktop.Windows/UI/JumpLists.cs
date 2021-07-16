@@ -63,7 +63,7 @@ namespace System.Application.UI
                 jumpList1.JumpItems.Add(task);
                 if (isRecent)
                     JumpList.AddToRecentCategory(task);
-                MainThreadDesktop.BeginInvokeOnMainThread(() => jumpList1.Apply());
+                MainThread2.BeginInvokeOnMainThread(() => jumpList1.Apply());
             }
         }
 
@@ -74,7 +74,7 @@ namespace System.Application.UI
             if (jumpList1 != null)
             {
                 JumpList.AddToRecentCategory(task);
-                MainThreadDesktop.BeginInvokeOnMainThread(() => jumpList1.Apply());
+                MainThread2.BeginInvokeOnMainThread(() => jumpList1.Apply());
             }
         }
 

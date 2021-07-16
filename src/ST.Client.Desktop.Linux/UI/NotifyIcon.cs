@@ -1,5 +1,6 @@
-﻿using System.Threading;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using EtoFormsApplication = Eto.Forms.Application;
 using EtoPlatform = Eto.Platform;
 
@@ -76,7 +77,7 @@ namespace System.Application.UI
 
         public void Remove()
         {
-            MainThreadDesktop.BeginInvokeOnMainThread(() =>
+            MainThread2.BeginInvokeOnMainThread(() =>
             {
                 lti?._tray?.Hide();
                 canTok?.Cancel();
@@ -88,7 +89,7 @@ namespace System.Application.UI
             if (!string.IsNullOrEmpty(IconPath) && !string.IsNullOrEmpty(ToolTipText) && ContextMenu != null)
             {
                 canTok = new CancellationTokenSource();
-                MainThreadDesktop.BeginInvokeOnMainThread(() =>
+                MainThread2.BeginInvokeOnMainThread(() =>
                 {
                     // Because of the way that Linux works this needs to run on its own Thread.
                     TrayIconTask = Task.Factory.StartNew(() =>
@@ -98,7 +99,7 @@ namespace System.Application.UI
                             new LinuxTrayIcon<TContextMenu>(ToolTipText, IconPath, ContextMenu));
                     }
                , canTok.Token, TaskCreationOptions.AttachedToParent, TaskScheduler.Default);
-                }, MainThreadDesktop.DispatcherPriority.MaxValue, true);
+                }, DispatcherPriorityCompat.MaxValue);
             }
         }
     }

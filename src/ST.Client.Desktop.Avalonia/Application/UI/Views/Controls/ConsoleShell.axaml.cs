@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
 using System.Collections.ObjectModel;
@@ -90,7 +91,7 @@ namespace System.Application.UI.Views.Controls
                   .Subscribe(x => commandTextbox.PasswordChar = x ? '*' : default);
 
             this.GetObservable(LogTextProperty)
-                  .Subscribe(x => 
+                  .Subscribe(x =>
                   logTextbox.Text = x);
         }
 
@@ -124,6 +125,16 @@ namespace System.Application.UI.Views.Controls
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        protected override void OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)
+        {
+            base.OnAttachedToLogicalTree(e);
+
+            if (!string.IsNullOrEmpty(LogText))
+            {
+                consoleScroll.ScrollToEnd();
+            }
         }
     }
 

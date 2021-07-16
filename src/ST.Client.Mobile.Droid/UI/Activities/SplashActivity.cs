@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using AndroidX.AppCompat.App;
+using System.Application.Security;
 
 namespace System.Application.UI.Activities
 {
@@ -20,7 +21,7 @@ namespace System.Application.UI.Activities
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            if (!MainApplication.IsAllowStart(this)) return;
+            if (!DeviceSecurityCheckUtil.IsAllowStart(this)) return;
             this.StartActivity<MainActivity>();
         }
 

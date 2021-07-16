@@ -15,8 +15,9 @@
 15. 新增 创意工坊划词翻译脚本
 16. 修复 挂时长运行中列表移除游戏时引发的闪退
 17. 改进 一些~~待定~~语言的翻译文本
-18. 修复了一些已知问题
-19. Android 版与 macOS 版现已开启 Beta 测试，可从官网上下载
+18. 新增 意大利语支持
+19. 修复了一些已知问题
+20. Android 版与 macOS 版现已开启 Beta 测试，可从官网上下载
 
 |  File   | Checksum (SHA256)  |
 |  ----  | ----  |
@@ -30,9 +31,10 @@
 | Steam++_linux_x64_v2.5.0.deb  | SHA256 |
 | Steam++_macos_x64_v2.5.0.dmg  | SHA256 |
 | Steam++_macos_arm64_v2.5.0.dmg  | SHA256 |
-| Steam++_android_v2.5.0.apk  | SHA256 |
-| Steam++_android_arm64_v2.5.0.apk  | SHA256 |
-| Steam++_android_arm_v2.5.0.apk  | SHA256 |
+| net.steampp.app-Signed.apk  | SHA256 |
+| net.steampp.app-arm64-v8a-Signed.apk  | SHA256 |
+| net.steampp.app-armeabi-v7a-Signed.apk  | SHA256 |
+| net.steampp.app-x86_64-Signed.apk  | SHA256 |
 
 ***
 

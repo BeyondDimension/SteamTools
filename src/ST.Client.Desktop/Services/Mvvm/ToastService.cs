@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
@@ -71,7 +71,7 @@ namespace System.Application.Services
         }
         public void Set(string message)
         {
-            MainThreadDesktop.BeginInvokeOnMainThread(() => Message = message);
+            MainThread2.BeginInvokeOnMainThread(() => Message = message);
         }
 
         public void Notify(string message)

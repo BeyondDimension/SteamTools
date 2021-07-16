@@ -3,11 +3,15 @@ using System.Application.Models;
 using System.Application.Repositories;
 using System.Application.Services;
 using System.Application.UI.Resx;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Properties;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using Xamarin.Essentials;
+using static System.Application.FilePicker2;
 
 namespace System.Application.UI.ViewModels
 {
@@ -16,13 +20,71 @@ namespace System.Application.UI.ViewModels
         readonly IHttpService httpService = DI.Get<IHttpService>();
         readonly IGameAccountPlatformAuthenticatorRepository repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
 
+        public static string TitleName => AppResources.LocalAuth_AddAuth;
+
         public AddAuthWindowViewModel() : base()
         {
             Title =
 #if !__MOBILE__
                 ThisAssembly.AssemblyTrademark + " | " +
 #endif
-                AppResources.LocalAuth_AddAuth;
+                TitleName;
+
+            SppV2Btn_Click = ReactiveCommand.CreateFromTask(async () =>
+            {
+                FilePickerFileType? fileTypes = DI.DeviceIdiom switch
+                {
+                    DeviceIdiom.Desktop => new FilePickerFilter(new (string, IEnumerable<string>)[] {
+                        ("MsgPack Files", new[] { "mpo" }),
+                        ("Data Files", new[] { "dat" }),
+                        ("All Files", new[] { "*" }),
+                    }),
+                    _ => null,
+                };
+                await PickAsync(ImportSteamPlusPlusV2, fileTypes);
+            });
+            SppBtn_Click = ReactiveCommand.CreateFromTask(async () =>
+            {
+                FilePickerFileType? fileTypes = DI.DeviceIdiom switch
+                {
+                    DeviceIdiom.Desktop => new FilePickerFilter(new (string, IEnumerable<string>)[] {
+                        ("Data Files", new[] { "dat" }),
+                        ("All Files", new[] { "*" }),
+                    }),
+                    _ => null,
+                };
+                await PickAsync(ImportSteamPlusPlusV1, fileTypes);
+            });
+            SdaBtn_Click = ReactiveCommand.CreateFromTask(async () =>
+            {
+                FilePickerFileType? fileTypes = DI.DeviceIdiom switch
+                {
+                    DeviceIdiom.Desktop => new FilePickerFilter(new (string, IEnumerable<string>)[] {
+                        ("MaFile Files", new[] { "maFile" }),
+                        ("JSON Files", new[] { "json" }),
+                        ("All Files", new[] { "*" }),
+                    }),
+                    _ => null,
+                };
+                await PickAsync(ImportSDA, fileTypes);
+            });
+            WinAuthBtn_Click = ReactiveCommand.CreateFromTask(async () =>
+            {
+                FilePickerFileType? fileTypes = DI.DeviceIdiom switch
+                {
+                    DeviceIdiom.Desktop => new FilePickerFilter(new (string, IEnumerable<string>)[] {
+                        ("Text Files", new[] { "txt" }),
+                        ("All Files", new[] { "*" }),
+                    }),
+                    _ => DI.Platform switch
+                    {
+                        Platform.Android => new GeneralFilePickerFileType(new[] { MediaTypeNames.TXT }),
+                        _ => null,
+                    },
+                };
+                await PickAsync(ImportWinAuth, fileTypes);
+            });
+
             Initialize();
         }
 
@@ -319,5 +381,10 @@ namespace System.Application.UI.ViewModels
         {
             AuthService.Current.ImportAuthenticatorFile(file, AuthIsLocal, AuthPassword);
         }
+
+        public ICommand SppV2Btn_Click { get; }
+        public ICommand SppBtn_Click { get; }
+        public ICommand SdaBtn_Click { get; }
+        public ICommand WinAuthBtn_Click { get; }
     }
 }

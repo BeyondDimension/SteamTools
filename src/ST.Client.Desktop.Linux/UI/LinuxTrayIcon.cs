@@ -1,4 +1,4 @@
-﻿using Eto.Drawing;
+using Eto.Drawing;
 using Eto.Forms;
 
 namespace System.Application.UI
@@ -19,7 +19,7 @@ namespace System.Application.UI
         /// <param name="menu"></param>
         public LinuxTrayIcon(string tooTip, string iconPath, TContextMenu menu)
         {
-            MainThreadDesktop.BeginInvokeOnMainThread(() =>
+            MainThread2.BeginInvokeOnMainThread(() =>
             {
                 var ctxMnu = new ContextMenu();
 
@@ -32,7 +32,7 @@ namespace System.Application.UI
                         Text = item.header,
                         Command = new Command((s, e) =>
                         {
-                            MainThreadDesktop.BeginInvokeOnMainThread(() =>
+                            MainThread2.BeginInvokeOnMainThread(() =>
                             {
                                 item.activated();
                             });

@@ -131,6 +131,7 @@
     <PackageReference Include="XAB.FloatingActionButtonSpeedDial" Version="3.2.0" />
     <PackageReference Include="Xamarin.AndroidX.Activity" Version="1.2.3" />
     <PackageReference Include="Xamarin.AndroidX.Biometric" Version="1.1.0.3" />
+    <PackageReference Include="Xamarin.AndroidX.ExifInterface" Version="1.3.2.2" />
     <PackageReference Include="Xamarin.AndroidX.Fragment" Version="1.3.5" />
     <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.8" />
     <PackageReference Include="Xamarin.AndroidX.Legacy.Support.Core.UI" Version="1.0.0.8" />
@@ -197,6 +198,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_checklist_black_24.xml">
     <Link>Resources\drawable\baseline_checklist_black_24.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_check_black_24.xml">
+    <Link>Resources\drawable\baseline_check_black_24.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_check_circle.xml">
     <Link>Resources\drawable\baseline_check_circle.xml</Link>
     </AndroidResource>
@@ -227,8 +231,14 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_lock_open_black_24.xml">
     <Link>Resources\drawable\baseline_lock_open_black_24.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_logout_black_24.xml">
+    <Link>Resources\drawable\baseline_logout_black_24.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_male_black_24.xml">
     <Link>Resources\drawable\baseline_male_black_24.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_more_horiz_black_24.xml">
+    <Link>Resources\drawable\baseline_more_horiz_black_24.xml</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_person_black_24.xml">
     <Link>Resources\drawable\baseline_person_black_24.xml</Link>
@@ -302,6 +312,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_checklist_black_24.png">
     <Link>Resources\drawable-hdpi\baseline_checklist_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_check_black_24.png">
+    <Link>Resources\drawable-hdpi\baseline_check_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_close_black_24.png">
     <Link>Resources\drawable-hdpi\baseline_close_black_24.png</Link>
     </AndroidResource>
@@ -329,8 +342,14 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_lock_open_black_24.png">
     <Link>Resources\drawable-hdpi\baseline_lock_open_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_logout_black_24.png">
+    <Link>Resources\drawable-hdpi\baseline_logout_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_male_black_24.png">
     <Link>Resources\drawable-hdpi\baseline_male_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_more_horiz_black_24.png">
+    <Link>Resources\drawable-hdpi\baseline_more_horiz_black_24.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_person_black_24.png">
     <Link>Resources\drawable-hdpi\baseline_person_black_24.png</Link>
@@ -377,6 +396,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_checklist_black_24.png">
     <Link>Resources\drawable-mdpi\baseline_checklist_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_check_black_24.png">
+    <Link>Resources\drawable-mdpi\baseline_check_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_close_black_24.png">
     <Link>Resources\drawable-mdpi\baseline_close_black_24.png</Link>
     </AndroidResource>
@@ -404,8 +426,14 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_lock_open_black_24.png">
     <Link>Resources\drawable-mdpi\baseline_lock_open_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_logout_black_24.png">
+    <Link>Resources\drawable-mdpi\baseline_logout_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_male_black_24.png">
     <Link>Resources\drawable-mdpi\baseline_male_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_more_horiz_black_24.png">
+    <Link>Resources\drawable-mdpi\baseline_more_horiz_black_24.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_person_black_24.png">
     <Link>Resources\drawable-mdpi\baseline_person_black_24.png</Link>
@@ -452,6 +480,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_checklist_black_24.png">
     <Link>Resources\drawable-xhdpi\baseline_checklist_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_check_black_24.png">
+    <Link>Resources\drawable-xhdpi\baseline_check_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_close_black_24.png">
     <Link>Resources\drawable-xhdpi\baseline_close_black_24.png</Link>
     </AndroidResource>
@@ -479,8 +510,14 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_lock_open_black_24.png">
     <Link>Resources\drawable-xhdpi\baseline_lock_open_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_logout_black_24.png">
+    <Link>Resources\drawable-xhdpi\baseline_logout_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_male_black_24.png">
     <Link>Resources\drawable-xhdpi\baseline_male_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_more_horiz_black_24.png">
+    <Link>Resources\drawable-xhdpi\baseline_more_horiz_black_24.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_person_black_24.png">
     <Link>Resources\drawable-xhdpi\baseline_person_black_24.png</Link>
@@ -527,6 +564,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_checklist_black_24.png">
     <Link>Resources\drawable-xxhdpi\baseline_checklist_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_check_black_24.png">
+    <Link>Resources\drawable-xxhdpi\baseline_check_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_close_black_24.png">
     <Link>Resources\drawable-xxhdpi\baseline_close_black_24.png</Link>
     </AndroidResource>
@@ -554,8 +594,14 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_lock_open_black_24.png">
     <Link>Resources\drawable-xxhdpi\baseline_lock_open_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_logout_black_24.png">
+    <Link>Resources\drawable-xxhdpi\baseline_logout_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_male_black_24.png">
     <Link>Resources\drawable-xxhdpi\baseline_male_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_more_horiz_black_24.png">
+    <Link>Resources\drawable-xxhdpi\baseline_more_horiz_black_24.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_person_black_24.png">
     <Link>Resources\drawable-xxhdpi\baseline_person_black_24.png</Link>
@@ -608,6 +654,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_checklist_black_24.png">
     <Link>Resources\drawable-xxxhdpi\baseline_checklist_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_check_black_24.png">
+    <Link>Resources\drawable-xxxhdpi\baseline_check_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_close_black_24.png">
     <Link>Resources\drawable-xxxhdpi\baseline_close_black_24.png</Link>
     </AndroidResource>
@@ -635,8 +684,14 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_lock_open_black_24.png">
     <Link>Resources\drawable-xxxhdpi\baseline_lock_open_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_logout_black_24.png">
+    <Link>Resources\drawable-xxxhdpi\baseline_logout_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_male_black_24.png">
     <Link>Resources\drawable-xxxhdpi\baseline_male_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_more_horiz_black_24.png">
+    <Link>Resources\drawable-xxxhdpi\baseline_more_horiz_black_24.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_person_black_24.png">
     <Link>Resources\drawable-xxxhdpi\baseline_person_black_24.png</Link>
@@ -865,6 +920,8 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
+
 
 
 

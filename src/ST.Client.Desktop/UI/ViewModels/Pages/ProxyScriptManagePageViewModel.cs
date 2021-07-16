@@ -5,6 +5,7 @@ using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Application.Services;
 using System.Application.UI.Resx;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,8 @@ using System.Properties;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
+using System.Windows.Input;
+using Xamarin.Essentials;
 
 namespace System.Application.UI.ViewModels
 {
@@ -72,6 +75,19 @@ namespace System.Application.UI.ViewModels
             OnlySteamBrowserCommand = ReactiveCommand.Create(() =>
             {
                 OnlySteamBrowser?.CheckmarkChange(ProxyService.Current.IsOnlyWorkSteamBrowser = !ProxyService.Current.IsOnlyWorkSteamBrowser);
+            });
+            AddNewScriptButton_Click = ReactiveCommand.CreateFromTask(async () =>
+            {
+                FilePickerFileType? fileTypes = DI.DeviceIdiom switch
+                {
+                    DeviceIdiom.Desktop => new FilePicker2.FilePickerFilter(new (string, IEnumerable<string>)[] {
+                        ("JavaScript Files", new[] { "js" }),
+                        ("Text Files", new[] { "txt" }),
+                        ("All Files", new[] { "*" }),
+                    }),
+                    _ => null,
+                };
+                await FilePicker2.PickAsync(ProxyService.Current.AddNewScript, fileTypes);
             });
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
@@ -235,5 +251,7 @@ namespace System.Application.UI.ViewModels
                 IShowWindowService.Instance.Show(CustomWindow.ScriptStore, new ScriptStoreWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
             }
         }
+
+        public ICommand AddNewScriptButton_Click { get; }
     }
 }

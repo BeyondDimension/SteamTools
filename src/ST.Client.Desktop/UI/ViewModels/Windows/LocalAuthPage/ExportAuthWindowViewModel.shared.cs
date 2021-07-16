@@ -1,19 +1,41 @@
 using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.Resx;
+using System.Collections.Generic;
 using System.Properties;
+using Xamarin.Essentials;
+using static System.Application.FilePicker2;
 
 namespace System.Application.UI.ViewModels
 {
     public partial class ExportAuthWindowViewModel
     {
+        public static string TitleName => AppResources.LocalAuth_ExportAuth;
+
         public ExportAuthWindowViewModel() : base()
         {
             Title =
 #if !__MOBILE__
                 ThisAssembly.AssemblyTrademark + " | " +
 #endif
-                AppResources.LocalAuth_ExportAuth;
+                TitleName;
+
+#if !__MOBILE__
+            SelectPathButton_Click = ReactiveCommand.CreateFromTask(async () =>
+            {
+                var result = await SaveAsync(new SaveOptions
+                {
+                    FileTypes = new FilePickerFilter(new (string, IEnumerable<string>)[] {
+                        ("MsgPack Files", new[] { "mpo" }),
+                        ("Data Files", new[] { "dat" }),
+                        ("All Files", new[] { "*" }),
+                    }),
+                    InitialFileName = DefaultExportAuthFileName,
+                    PickerTitle = ThisAssembly.AssemblyTrademark,
+                });
+                Path = result?.FullPath;
+            });
+#endif
         }
 
         private bool _IsPasswordEncrypt;

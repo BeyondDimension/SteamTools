@@ -6,7 +6,7 @@ using System.Application.UI.ViewModels;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class PasswordWindow : FluentWindow<PasswordWindowViewModel>
+    public class PasswordWindow : FluentWindow<TextBoxWindowViewModel>
     {
         public PasswordWindow() : base(false)
         {

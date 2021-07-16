@@ -62,7 +62,7 @@ namespace System.Application.UI.Adapters
             if (view == null) return;
             var vm = ViewModel;
             if (vm == null) return;
-            if (view.Id == Resource.Id.btnConfirmTrade)
+            if (view.Id == Resource.Id.btnCancelTrade)
             {
                 GetDataContext(dataContext =>
                 {

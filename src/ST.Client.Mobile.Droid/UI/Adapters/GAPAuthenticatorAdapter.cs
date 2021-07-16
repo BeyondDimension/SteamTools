@@ -53,7 +53,7 @@ namespace System.Application.UI.Adapters
 
         static async void EditName(TViewModel vm)
         {
-            var value = await TextBoxWindowViewModel.ShowDialog(new()
+            var value = await TextBoxWindowViewModel.ShowDialogAsync(new()
             {
                 Value = vm.Name,
             });

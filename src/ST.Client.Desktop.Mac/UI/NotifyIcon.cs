@@ -1,9 +1,10 @@
-﻿#if MONO_MAC
+#if MONO_MAC
 using MonoMac.AppKit;
 #elif XAMARIN_MAC
 using AppKit;
 #endif
 using System.Diagnostics.CodeAnalysis;
+using System.Windows.Threading;
 
 namespace System.Application.UI
 {
@@ -117,8 +118,8 @@ namespace System.Application.UI
 
         public NotifyIcon()
         {
-            MainThreadDesktop.BeginInvokeOnMainThread(Init,
-                MainThreadDesktop.DispatcherPriority.MaxValue, true);
+            MainThread2.BeginInvokeOnMainThread(Init,
+                DispatcherPriorityCompat.MaxValue);
         }
     }
 }

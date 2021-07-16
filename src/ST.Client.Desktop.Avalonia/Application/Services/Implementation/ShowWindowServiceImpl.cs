@@ -60,7 +60,7 @@ namespace System.Application.Services.Implementation
             ResizeModeCompat resizeMode,
             bool isParent = true,
             Action<DialogWindowViewModel>? actionDialogWindowViewModel = null)
-            => MainThreadDesktop.InvokeOnMainThreadAsync(async () =>
+            => MainThread2.InvokeOnMainThreadAsync(async () =>
             {
                 var windowType = GetWindowType(customWindow);
                 if (IsSingletonWindow(customWindow) && TryShowSingletonWindow(windowType))

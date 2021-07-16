@@ -46,7 +46,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:overScrollMode="never"
-                    tools:itemCount="3"
+                    android:paddingBottom="@dimen/fab_full_height"
+                    tools:itemCount="4"
                     tools:listitem="@layout/layout_card_steam_auth_trade_confirmation"
                     xamarin:managedType="AndroidX.RecyclerView.Widget.RecyclerView" />
             </LinearLayout>
@@ -71,7 +72,7 @@
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
                     app:srcCompat="@drawable/icon_steam_24"
                     app:tint="@color/icon_background"
-                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutSteamUserName"
@@ -116,8 +117,8 @@
                     android:layout_height="37dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
-                    tools:background="@color/icon_background"
-                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+                    tools:background="@color/grey_background"
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutCaptcha"

@@ -1,5 +1,6 @@
 using Android.Content;
 using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.Widget;
 using Square.Picasso;
 using System.Application.Services;
@@ -68,25 +69,25 @@ namespace System.Application.UI
             }
             try
             {
-                var requestCreator = Picasso.Load(requestUri);
+                var requestCreator = Picasso.Load(requestUri).Placeholder(new ColorDrawable(new((imageView.Context ?? Android.App.Application.Context).GetColorCompat(Resource.Color.grey_background))));
                 var useCenterCropDefault = false;
                 if (targetSize > 0)
                 {
-                    requestCreator.Resize(targetSize, targetSize);
+                    requestCreator = requestCreator.Resize(targetSize, targetSize);
                     useCenterCropDefault = true;
                 }
                 else if (targetResId > 0)
                 {
-                    requestCreator.ResizeDimen(targetResId, targetResId);
+                    requestCreator = requestCreator.ResizeDimen(targetResId, targetResId);
                     useCenterCropDefault = true;
                 }
                 if (scaleType == ScaleType.CenterCrop || (useCenterCropDefault && scaleType == default))
                 {
-                    requestCreator.CenterCrop();
+                    requestCreator = requestCreator.CenterCrop();
                 }
                 else if (scaleType == ScaleType.CenterInside)
                 {
-                    requestCreator.CenterInside();
+                    requestCreator = requestCreator.CenterInside();
                 }
                 requestCreator.Into(imageView);
             }

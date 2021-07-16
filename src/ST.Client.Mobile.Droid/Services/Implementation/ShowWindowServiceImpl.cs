@@ -88,8 +88,9 @@ namespace System.Application.Services.Implementation
                     if (isCancelcBtn) SetCancelButton(b);
                     return null;
                 }
-                Action<AlertDialog>? CreateTextBoxPasswordDialogWindow(MaterialAlertDialogBuilder b, Action<textbox_password>? action = null)
+                Action<AlertDialog>? CreateTextBoxDialogWindowCore(MaterialAlertDialogBuilder b, Action<textbox_password, TextBoxWindowViewModel>? action = null)
                 {
+                    if (viewModel is not TextBoxWindowViewModel viewModel_tb) throw new NotSupportedException();
                     // https://material.io/components/text-fields/android
                     // https://material.io/components/dialogs#specs
                     IDialogInterfaceOnClickListener? listener = null;
@@ -97,7 +98,8 @@ namespace System.Application.Services.Implementation
                     SetCancelButton(b);
                     var view = LayoutInflater.From(b.Context)!.Inflate(Resource.Layout.textbox_password, null, false)!;
                     var binding = new textbox_password(view);
-                    action?.Invoke(binding);
+                    binding.layoutPassword.Hint = viewModel_tb.Placeholder;
+                    action?.Invoke(binding, viewModel_tb);
                     b.SetView(view);
                     return d =>
                     {
@@ -115,20 +117,13 @@ namespace System.Application.Services.Implementation
                         };
                     };
                 }
-                Action<AlertDialog>? CreatePasswordDialogWindow(MaterialAlertDialogBuilder b) => CreateTextBoxPasswordDialogWindow(b, binding =>
+                Action<AlertDialog>? CreatePasswordDialogWindow(MaterialAlertDialogBuilder b) => CreateTextBoxDialogWindowCore(b);
+                Action<AlertDialog>? CreateTextBoxDialogWindow(MaterialAlertDialogBuilder b) => CreateTextBoxDialogWindowCore(b, static (binding, viewModel) =>
                 {
-                    binding.layoutPassword.Hint = AppResources.LocalAuth_PasswordRequired1;
-                });
-                Action<AlertDialog>? CreateTextBoxDialogWindow(MaterialAlertDialogBuilder b) => CreateTextBoxPasswordDialogWindow(b, binding =>
-                {
-                    if (viewModel is TextBoxWindowViewModel viewModel_tb)
-                    {
-                        binding.layoutPassword.EndIconMode = TextInputLayout.EndIconClearText;
-                        binding.tbPassword.InputType = InputTypes.ClassText | InputTypes.TextVariationNormal;
-                        binding.layoutPassword.Hint = viewModel_tb.Placeholder;
-                        if (!string.IsNullOrEmpty(viewModel_tb.Value))
-                            binding.tbPassword.Text = viewModel_tb.Value;
-                    }
+                    binding.layoutPassword.EndIconMode = TextInputLayout.EndIconClearText;
+                    binding.tbPassword.InputType = InputTypes.ClassText | InputTypes.TextVariationNormal;
+                    if (!string.IsNullOrEmpty(viewModel.Value))
+                        binding.tbPassword.Text = viewModel.Value;
                 });
 
                 Func<MaterialAlertDialogBuilder, Action<AlertDialog>?> @delegate = customWindow switch

@@ -24,6 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<WindowsDesktopPlatformServiceImpl>();
                 services.AddSingleton<IPlatformService>(s => s.GetRequiredService<WindowsDesktopPlatformServiceImpl>());
                 services.AddSingleton<IDesktopPlatformService>(s => s.GetRequiredService<WindowsDesktopPlatformServiceImpl>());
+                services.AddSingleton<IEmailPlatformService>(s => s.GetRequiredService<WindowsDesktopPlatformServiceImpl>());
                 if (hasSteam)
                 {
                     services.AddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();

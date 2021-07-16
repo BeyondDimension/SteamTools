@@ -22,6 +22,9 @@
     <Compile Include="..\ST.Client.Mobile\UI\ResIcon.cs">
       <LinkBase>UI</LinkBase>
     </Compile>
+    <Compile Include="..\ST.Client.Mobile\UI\ViewModels\Windows\TextBoxWindowViewModel.cs">
+      <LinkBase>UI\ViewModels\Windows</LinkBase>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

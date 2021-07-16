@@ -6,6 +6,7 @@ using System.Properties;
 using System.Reactive;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Input;
 //#if __MOBILE__
 //using Xamarin.Essentials;
 //#endif
@@ -124,5 +125,15 @@ namespace System.Application.UI.ViewModels
                 return $"© {startYear}{(nowYear == startYear ? startYear : "-" + nowYear)} {ThisAssembly.AssemblyCompany}. All Rights Reserved.";
             }
         }
+
+        public ICommand ContributorsCommand { get; } = ReactiveCommand.CreateFromTask<string?>(async (p, _) =>
+        {
+            switch (p)
+            {
+                case "沙中金":
+                    await Email2.ComposeAsync(new() { To = new() { "sanextraction@gmail.com" } });
+                    break;
+            }
+        });
     }
 }

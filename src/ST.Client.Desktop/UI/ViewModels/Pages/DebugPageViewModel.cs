@@ -44,12 +44,38 @@ namespace System.Application.UI.ViewModels
 
         public void DebugButton_Click()
         {
+            //TestTextBoxWindow(0);
+
             //DebugButton_Click1();
             Parallel.For(0, 10, (_, _) =>
             {
                 DebugButton_Click1();
                 //Task.Run(DebugButton_Click1);
             });
+        }
+
+        static async void TestTextBoxWindow(int state)
+        {
+            string? value = null;
+            switch (state)
+            {
+                case 0:
+                    TextBoxWindowViewModel vm = new()
+                    {
+                        Title = AppResources.MacSudoPasswordTips,
+                        InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
+                        Description = "TestDescription",
+                    };
+                    value = await TextBoxWindowViewModel.ShowDialogAsync(vm);
+                    break;
+                case 1:
+                    value = await TextBoxWindowViewModel.ShowDialogByPresetAsync(TextBoxWindowViewModel.PresetType.LocalAuth_PasswordRequired);
+                    break;
+            }
+            if (!string.IsNullOrEmpty(value))
+            {
+                Toast.Show(value);
+            }
         }
 
         public async void DebugButton_Click1()

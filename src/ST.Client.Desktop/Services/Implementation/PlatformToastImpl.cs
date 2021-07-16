@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace System.Application.Services.Implementation
 {
@@ -8,9 +8,9 @@ namespace System.Application.Services.Implementation
         {
         }
 
-        protected override bool IsMainThread => MainThreadDesktop.IsMainThread;
+        protected override bool IsMainThread => MainThread2.IsMainThread;
 
-        protected override void BeginInvokeOnMainThread(Action action) => MainThreadDesktop.BeginInvokeOnMainThread(action);
+        protected override void BeginInvokeOnMainThread(Action action) => MainThread2.BeginInvokeOnMainThread(action);
 
         protected override void PlatformShow(string text, int duration)
         {
