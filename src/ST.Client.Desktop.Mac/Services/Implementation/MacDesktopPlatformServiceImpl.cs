@@ -54,7 +54,7 @@ namespace System.Application.Services.Implementation
                 {
                     Title = AppResources.MacSudoPasswordTips,
                     InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
-                    Description = shell,
+                    Description = $"sudo {shell}",
                 };
                 await TextBoxWindowViewModel.ShowDialogAsync(vm);
                 scriptContent.AppendLine($"echo \"{vm.Value}\" | sudo -S {shell}");
