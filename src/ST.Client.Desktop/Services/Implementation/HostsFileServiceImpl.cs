@@ -105,6 +105,16 @@ namespace System.Application.Services.Implementation
                         return false;
                     }
                 }
+
+                if (DI.IsmacOS)
+                {
+                    var editPath = Path.Combine(IOPath.CacheDirectory, "hosts");
+                    var editInfo = new FileInfo(editPath);
+                    if (editInfo.Exists)
+                        editInfo.Delete();
+                    fileInfo.CopyTo(editPath);
+                    fileInfo = new FileInfo(editPath);
+                }
                 if (checkMaxLength)
                 {
                     if (fileInfo.Length > MaxFileLength)

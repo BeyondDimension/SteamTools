@@ -213,14 +213,19 @@ namespace System.Application.Services
                                             return (IPAddress.Loopback.ToString(), host);
                                         });
                                     }).Where(w => !string.IsNullOrEmpty(w.Item1));
-                                    if (DI.Platform == Platform.Windows)
+                                    
+                                    if (DI.Platform == Platform.Windows||DI.IsmacOS)
                                     {
                                         var r = IHostsFileService.Instance.UpdateHosts(hosts);
+                                      
                                         if (r.ResultType != OperationResultType.Success)
                                         {
                                             Toast.Show(SR.OperationHostsError_.Format(r.Message));
                                             httpProxyService.StopProxy();
                                             return;
+                                        }else  if (DI.IsmacOS)
+                                        {
+                                            IPlatformService.Instance.AdminShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{IDesktopPlatformService.Instance.HostsFilePath}\"", true);
                                         }
                                     }
                                 }
@@ -244,10 +249,15 @@ namespace System.Application.Services
                             if (needClear)
                             {
                                 var r = IHostsFileService.Instance.RemoveHostsByTag();
+                               
                                 if (r.ResultType != OperationResultType.Success)
                                 {
                                     Toast.Show(SR.OperationHostsError_.Format(r.Message));
                                     //return;
+                                }
+                                else if (DI.IsmacOS)
+                                {
+                                    IPlatformService.Instance.AdminShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{IDesktopPlatformService.Instance.HostsFilePath}\"", true);
                                 }
                             }
                         }
