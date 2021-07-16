@@ -87,7 +87,7 @@ namespace System.Application.UI.ViewModels
 #else
                 CustomWindow.TextBox
 #endif
-                , vm, string.Empty, ResizeModeCompat.CanResize);
+                , vm, string.Empty, ResizeModeCompat.NoResize);
             return vm.Value;
         }
 

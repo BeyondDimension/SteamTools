@@ -42,31 +42,33 @@
                     <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.OpenUserProfileUrl}" CommandParameter="{Binding}"/>
                   </ia:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
-                <!--<gif:Image2
+                <gif:Image2
                            Width="184"
                            AutoStart="true"
                            Stretch="Uniform"
-                           Source="{Binding AvatarStream^}">
-                    </gif:Image2>
-                    <Image Width="184" Stretch="Uniform" IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
-                           Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg">
-                    </Image>-->
-                <!--<gif:Image2 Width="184" Height="184" 
-                                            AutoStart="true"
-                                            Source="{Binding MiniProfile.AvatarFrameStream^}"
-                                            Stretch="Uniform" 
-                                            IsVisible="{Binding MiniProfile.AvatarFrameStream^,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>-->
+                           Source="{Binding AvatarUrl}">
+                </gif:Image2>
+                <!--<Image Width="184" Stretch="Uniform" IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
+                       Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg">
+                </Image>-->
               </Panel>
               <Panel Grid.Column="1" Margin="10 5">
                 <StackPanel>
                   <WrapPanel>
-                    <Ellipse VerticalAlignment="Center"
-               HorizontalAlignment="Center" x:Name="circle" Margin="5 0 12 0" Height="10" Width="10" StrokeThickness="0" ToolTip.Tip="{Binding KeepRunning}">
+                    <Ellipse
+                             x:Name="circle"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             Margin="5 0 12 0"
+                             Height="10"
+                             Width="10"
+                             StrokeThickness="0"
+                             ToolTip.Tip="{Binding KeepRunning}">
                       <i:Interaction.Behaviors>
-                        <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="online">
+                        <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="True">
                           <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#08D969"/>
                         </ia:DataTriggerBehavior>
-                        <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="offline">
+                        <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="False">
                           <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#adadad"/>
                         </ia:DataTriggerBehavior>
                       </i:Interaction.Behaviors>
@@ -100,26 +102,9 @@
                     </WrapPanel>-->
 
               </Panel>
-              <Grid Grid.Column="3" RowDefinitions="*,Auto">
-                <Panel>
-                  <Button Classes="flatbutton" IsVisible="False" x:Name="delete_btn" Background="Transparent" Cursor="Hand" HorizontalAlignment="Right" Margin="0,0,0,121" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}" CommandParameter="{Binding}">
-                    <PathIcon Width="12" Data="{DynamicResource CloseDrawing}">
-                    </PathIcon>
-                  </Button>
-                </Panel>
-                <WrapPanel Grid.Row="1" Orientation="Horizontal">
-                  <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                    <Button Classes="flatbutton" Cursor="Hand" HorizontalAlignment="Stretch" MaxWidth="200" Command="{ReflectionBinding #u.DataContext.OfflineModeButton_Click}" CommandParameter="{Binding}">
-                      <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
-                    </Button>
-                  </Border>
-                  <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness="0 .66 0 0" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                    <Button Classes="flatbutton" Cursor="Hand" MaxWidth="250" HorizontalAlignment="Stretch" Command="{ReflectionBinding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}">
-                      <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.UserChange_BtnText,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
-                    </Button>
-                  </Border>
-                </WrapPanel>
-              </Grid>
+              <ItemsRepeater>
+
+              </ItemsRepeater>
             </Grid>
           </Border>
         </DataTemplate>

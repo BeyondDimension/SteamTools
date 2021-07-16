@@ -87,14 +87,15 @@ namespace System.Application.Services.Implementation
         {
             Bot? targetBot = Bot.Bots?.OrderBy(bot => bot.Key, Bot.BotsComparer).Select(bot => bot.Value).FirstOrDefault();
 
+            ASF.ArchiLogger.LogGenericInfo(command);
+
             if (targetBot == null)
             {
                 ASF.ArchiLogger.LogGenericWarning(Strings.ErrorNoBotsDefined);
-                //Console.WriteLine(@"<< " + Strings.ErrorNoBotsDefined);
                 return null;
             }
-            //Console.WriteLine(@"<> " + Strings.Executing);
-            ASF.ArchiLogger.LogGenericWarning(Strings.Executing);
+
+            ASF.ArchiLogger.LogGenericInfo(Strings.Executing);
 
             ulong steamOwnerID = ASF.GlobalConfig?.SteamOwnerID ?? ArchiSteamFarm.Storage.GlobalConfig.DefaultSteamOwnerID;
 
@@ -109,7 +110,13 @@ namespace System.Application.Services.Implementation
         /// <returns></returns>
         public IReadOnlyDictionary<string, Bot>? GetReadOnlyAllBots()
         {
-            return Bot.BotsReadOnly;
+            var bots = Bot.Bots;
+            if (bots is not null)
+                foreach (var bot in bots.Values)
+                {
+                    bot.AvatarUrl = GetAvatarUrl(bot);
+                }
+            return bots;
         }
 
         /// <summary>
