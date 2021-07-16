@@ -45,12 +45,12 @@ namespace System.Application.UI.Adapters
                     binding.tvValue.Text = value;
                 }
             }).AddTo(this);
-            binding.btnEditName.SetOnClickListener(this);
-            binding.btnConfirmTrade.SetOnClickListener(this);
-            binding.btnCopy.SetOnClickListener(this);
-            binding.btnDelete.SetOnClickListener(this);
-            binding.btnSeeDetail.SetOnClickListener(this);
-            binding.btnSeeValue.SetOnClickListener(this);
+            //binding.btnEditName.SetOnClickListener(this);
+            //binding.btnConfirmTrade.SetOnClickListener(this);
+            //binding.btnCopy.SetOnClickListener(this);
+            //binding.btnDelete.SetOnClickListener(this);
+            //binding.btnSeeDetail.SetOnClickListener(this);
+            //binding.btnSeeValue.SetOnClickListener(this);
         }
 
         void GetDataContext(Action<LocalAuthPageViewModel> action)
@@ -76,45 +76,45 @@ namespace System.Application.UI.Adapters
             if (view == null) return;
             var vm = ViewModel;
             if (vm == null) return;
-            if (view.Id == Resource.Id.btnEditName)
-            {
-                EditName(vm);
-            }
-            else if (view.Id == Resource.Id.btnConfirmTrade)
-            {
-                GetDataContext(dataContext =>
-                {
-                    dataContext.ShowSteamAuthTrade(vm);
-                });
-            }
-            else if (view.Id == Resource.Id.btnCopy)
-            {
-                GetDataContext(dataContext =>
-                {
-                    dataContext.CopyCodeCilp(vm);
-                });
-            }
-            else if (view.Id == Resource.Id.btnDelete)
-            {
-                GetDataContext(dataContext =>
-                {
-                    dataContext.DeleteAuth(vm);
-                });
-            }
-            else if (view.Id == Resource.Id.btnSeeDetail)
-            {
-                GetDataContext(dataContext =>
-                {
-                    dataContext.ShowSteamAuthData(vm);
-                });
-            }
-            else if (view.Id == Resource.Id.btnSeeValue)
-            {
-                GetDataContext(dataContext =>
-                {
-                    dataContext.ShowAuthCode(vm);
-                });
-            }
+            //if (view.Id == Resource.Id.btnEditName)
+            //{
+            //    EditName(vm);
+            //}
+            //else if (view.Id == Resource.Id.btnConfirmTrade)
+            //{
+            //    GetDataContext(dataContext =>
+            //    {
+            //        dataContext.ShowSteamAuthTrade(vm);
+            //    });
+            //}
+            //else if (view.Id == Resource.Id.btnCopy)
+            //{
+            //    GetDataContext(dataContext =>
+            //    {
+            //        dataContext.CopyCodeCilp(vm);
+            //    });
+            //}
+            //else if (view.Id == Resource.Id.btnDelete)
+            //{
+            //    GetDataContext(dataContext =>
+            //    {
+            //        dataContext.DeleteAuth(vm);
+            //    });
+            //}
+            //else if (view.Id == Resource.Id.btnSeeDetail)
+            //{
+            //    GetDataContext(dataContext =>
+            //    {
+            //        dataContext.ShowSteamAuthData(vm);
+            //    });
+            //}
+            //else if (view.Id == Resource.Id.btnSeeValue)
+            //{
+            //    GetDataContext(dataContext =>
+            //    {
+            //        dataContext.ShowAuthCode(vm);
+            //    });
+            //}
         }
     }
 }

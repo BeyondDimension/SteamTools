@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Properties;
 using System.Security.Cryptography;
@@ -97,17 +96,16 @@ namespace System.Application.Services.Implementation
                         {
                             var conext = await IHttpService.Instance.SendAsync<string>(url, () =>
                             {
-                                var requestStream = new StreamWriter(new MemoryStream());
-                                requestStream.Write(e.HttpClient.Request.BodyString);
-
-                                var send = new HttpRequestMessage
+                                using var sw = new MemoryStream().GetStreamWriterWithLeaveOpen();
+                                sw.Write(e.HttpClient.Request.BodyString);
+                                var req = new HttpRequestMessage
                                 {
                                     Method = HttpMethod.Post,
-                                    Content = new StreamContent(requestStream.BaseStream),
+                                    Content = new StreamContent(sw.BaseStream),
                                 };
-                                send.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(e.HttpClient.Request.ContentType);
-                                send.Content.Headers.ContentLength = e.HttpClient.Request.BodyString.Length;
-                                return send;
+                                req.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(e.HttpClient.Request.ContentType);
+                                req.Content.Headers.ContentLength = e.HttpClient.Request.BodyString.Length;
+                                return req;
                             }, null, false, new CancellationToken());
                             e.Ok(conext ?? "500", headrs);
                         }
@@ -358,7 +356,6 @@ namespace System.Application.Services.Implementation
             if (DI.IsmacOS)
             {
                 TrustCer();
-
             }
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
@@ -518,10 +515,8 @@ namespace System.Application.Services.Implementation
                             }
                         }
                         IPlatformService.Instance.AdminShell(shellContent.ToString(), false);
-
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -616,7 +611,6 @@ namespace System.Application.Services.Implementation
                 }
             }
             IPlatformService.Instance.AdminShell(shellContent.ToString(), false);
-
         }
         public void StopProxy()
         {
@@ -631,7 +625,6 @@ namespace System.Application.Services.Implementation
                     StopMacProxy();
                 }
                 proxyServer.Stop();
-
             }
             try
             {

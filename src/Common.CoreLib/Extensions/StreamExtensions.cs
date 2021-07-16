@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -88,6 +88,27 @@ namespace System
         public static string ReadStringUnicode(this Stream stream)
         {
             return stream.ReadStringInternalDynamic(Encoding.UTF8, '\0');
+        }
+
+        static readonly Lazy<Encoding> _UTF8NoBOM = new(() => new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true));
+
+        internal static Encoding UTF8NoBOM => _UTF8NoBOM.Value;
+
+        const int DefaultBufferSize = 1024;
+
+        public static StreamWriter GetStreamWriterWithLeaveOpen(this Stream stream)
+        {
+            try
+            {
+                // https://docs.microsoft.com/zh-cn/dotnet/api/system.io.streamwriter.-ctor?view=net-5.0#System_IO_StreamWriter__ctor_System_IO_Stream_System_Text_Encoding_System_Int32_System_Boolean_
+                // https://github.com/dotnet/corefx/blob/master/src/Common/src/CoreLib/System/IO/StreamWriter.cs#L94
+                StreamWriter sw = new(stream, null, -1, leaveOpen: true);
+                return sw;
+            }
+            catch (Exception e) when (e is ArgumentNullException || e is ArgumentOutOfRangeException)
+            {
+                return new(stream, UTF8NoBOM, DefaultBufferSize, leaveOpen: true);
+            }
         }
     }
 }
