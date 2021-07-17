@@ -39,7 +39,10 @@ namespace System.Application.UI
             {
                 var f = DI.Get<INotifyIcon<TContextMenu>.IUIFrameworkHelper>();
 
-                _item.Image = NSImage.FromStream(f.OpenAsset(new Uri(IconPath)));
+                if (!string.IsNullOrWhiteSpace(IconPath))
+                {
+                    _item.Image = NSImage.FromStream(f.OpenAsset(new Uri(IconPath)));
+                }
                 _item.ToolTip = ToolTipText;
                 if (StatusBarItem.Menu == null)
                 {

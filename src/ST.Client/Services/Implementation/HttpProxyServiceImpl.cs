@@ -96,7 +96,7 @@ namespace System.Application.Services.Implementation
                         {
                             var conext = await IHttpService.Instance.SendAsync<string>(url, () =>
                             {
-                                using var sw = new MemoryStream().GetStreamWriterWithLeaveOpen();
+                                using var sw = new MemoryStream().GetWriter(leaveOpen: true);
                                 sw.Write(e.HttpClient.Request.BodyString);
                                 var req = new HttpRequestMessage
                                 {

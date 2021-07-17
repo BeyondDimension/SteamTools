@@ -34,15 +34,10 @@ namespace System
         /// <returns></returns>
         public static bool RemoveTo<T>(this T disposable, IDisposableHolder vm) where T : IDisposable
         {
-            if (vm == null)
+            if (vm?.CompositeDisposable == null)
             {
                 disposable.Dispose();
                 return true;
-            }
-
-            if (vm.CompositeDisposable == null)
-            {
-                throw new ArgumentNullException(nameof(IDisposableHolder.CompositeDisposable));
             }
 
             var r = vm.CompositeDisposable.Remove(disposable);

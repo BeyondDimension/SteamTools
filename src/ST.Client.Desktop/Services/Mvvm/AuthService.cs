@@ -632,7 +632,9 @@ namespace System.Application.Services
 #else
             if (_SavingEditNameAuthenticators) return;
             _SavingEditNameAuthenticators = true;
+
             await SaveEditNameAuthenticatorsAsync(true);
+
             _SavingEditNameAuthenticators = false;
 #endif
         }

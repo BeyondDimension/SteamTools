@@ -40,7 +40,7 @@ namespace System.Application.UI.Fragments
                 binding.tvEmptyTip.Visibility = value ? ViewStates.Visible : ViewStates.Gone;
             }).AddTo(this);
 
-            var adapter = new GAPAuthenticatorAdapter(ViewModel!);
+            var adapter = new GAPAuthenticatorAdapter(this, ViewModel!);
             var layout = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
             binding!.rvAuthenticators.SetLayoutManager(layout);
             binding.rvAuthenticators.AddItemDecoration(new VerticalItemViewDecoration(Resources!.GetDimensionPixelSize(Resource.Dimension.activity_vertical_margin)));
@@ -57,11 +57,11 @@ namespace System.Application.UI.Fragments
             binding.speedDial.SetOnChangeListener(this);
         }
 
-        public override void OnStop()
-        {
-            base.OnStop();
-            AuthService.Current.SaveEditNameAuthenticators();
-        }
+        //public override void OnStop()
+        //{
+        //    base.OnStop();
+        //    AuthService.Current.SaveEditNameAuthenticators();
+        //}
 
         bool SpeedDialView.IOnActionSelectedListener.OnActionSelected(SpeedDialActionItem actionItem)
         {

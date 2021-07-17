@@ -1,6 +1,10 @@
 using ReactiveUI;
+using System.Application.Mvvm;
+using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Xml;
 using WinAuth;
 
@@ -9,7 +13,28 @@ namespace System.Application.Models
     public class MyAuthenticator : ReactiveObject
     {
 #if __MOBILE__
-        public const string HideCurrentCodeString = "_ _ _ _ _ _";
+        public static string CodeFormat(string? code)
+        {
+            if (string.IsNullOrEmpty(code))
+            {
+                return string.Empty;
+            }
+            var c3 = code.Length / 3;
+            if (code.Length % 3 == 0 && c3 > 1)
+            {
+                var list = code.ToCharArray().ToList();
+                for (int i = 1; i < c3; i++)
+                {
+                    list.Insert(i * 3, ' ');
+                }
+                return new string(list.ToArray());
+            }
+            else
+            {
+                var arr = code.ToCharArray();
+                return string.Join(' ', arr);
+            }
+        }
 #endif
 
         public MyAuthenticator()
@@ -91,6 +116,7 @@ namespace System.Application.Models
             }
         }
 
+#if !__MOBILE__
         private bool _IsShowCode;
         public bool IsShowCode
         {
@@ -104,6 +130,7 @@ namespace System.Application.Models
                 this.RaisePropertyChanged();
             }
         }
+#endif
 
         private int _CodeCountdown;
         public int CodeCountdown
@@ -254,6 +281,66 @@ namespace System.Application.Models
 
         public static List<MyAuthenticator> Get(IEnumerable<IGAPAuthenticatorDTO> items)
             => items.Select(x => new MyAuthenticator(x)).ToList();
+
+#if __MOBILE__
+        /// <summary>
+        /// 开始自动刷新一次性密码代码
+        /// </summary>
+        /// <param name="token"></param>
+        void StartAutoRefreshCode(CancellationToken token)
+        {
+
+        }
+
+        /// <summary>
+        /// 停止当前自动刷新一次性密码代码
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="noSetNull"></param>
+        public static void StopAutoRefreshCode(IAutoRefreshCode i, bool noSetNull = false)
+        {
+            if (i.AutoRefreshCode != null)
+            {
+                i.AutoRefreshCode.Dispose();
+                i.AutoRefreshCode.RemoveTo(i);
+                if (!noSetNull) i.AutoRefreshCode = null;
+            }
+        }
+
+        /// <summary>
+        /// 开始自动刷新一次性密码代码
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="noStop"></param>
+        public static void StartAutoRefreshCode(IAutoRefreshCode i, bool noStop = false)
+        {
+            if (!noStop) StopAutoRefreshCode(i, noSetNull: true);
+            i.AutoRefreshCode = new();
+            i.AutoRefreshCode.AddTo(i);
+            i.ViewModel!.StartAutoRefreshCode(i.AutoRefreshCode.Token);
+        }
+
+        /// <summary>
+        /// 自动刷新一次性密码代码
+        /// </summary>
+        public interface IAutoRefreshCode : IDisposableHolder, IReadOnlyViewFor<MyAuthenticator>
+        {
+            CancellationTokenSource? AutoRefreshCode { get; set; }
+        }
+#endif
+
+        /// <summary>
+        /// 编辑令牌自定义名称，仅修改VM对象，需调用 <see cref="Services.AuthService.SaveEditNameAuthenticators"/> 保存到本地数据库中
+        /// </summary>
+        /// <returns></returns>
+        public async Task EditNameAsync()
+        {
+            var value = await TextBoxWindowViewModel.ShowDialogAsync(new()
+            {
+                Value = Name,
+            });
+            Name = value ?? string.Empty;
+        }
     }
 
     public class ImportedSDAEntry

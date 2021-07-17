@@ -96,18 +96,25 @@ namespace System
 
         const int DefaultBufferSize = 1024;
 
-        public static StreamWriter GetStreamWriterWithLeaveOpen(this Stream stream)
+        public static StreamWriter GetWriter(this Stream stream, Encoding? encoding = null, int bufferSize = -1, bool leaveOpen = false)
         {
             try
             {
                 // https://docs.microsoft.com/zh-cn/dotnet/api/system.io.streamwriter.-ctor?view=net-5.0#System_IO_StreamWriter__ctor_System_IO_Stream_System_Text_Encoding_System_Int32_System_Boolean_
                 // https://github.com/dotnet/corefx/blob/master/src/Common/src/CoreLib/System/IO/StreamWriter.cs#L94
-                StreamWriter sw = new(stream, null, -1, leaveOpen: true);
-                return sw;
+                return new(stream, encoding, bufferSize, leaveOpen);
             }
             catch (Exception e) when (e is ArgumentNullException || e is ArgumentOutOfRangeException)
             {
-                return new(stream, UTF8NoBOM, DefaultBufferSize, leaveOpen: true);
+                if (encoding == null)
+                {
+                    encoding = UTF8NoBOM;
+                }
+                if (bufferSize == -1)
+                {
+                    bufferSize = DefaultBufferSize;
+                }
+                return new(stream, encoding, bufferSize, leaveOpen);
             }
         }
     }

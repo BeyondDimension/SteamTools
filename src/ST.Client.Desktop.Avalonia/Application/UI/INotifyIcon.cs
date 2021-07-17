@@ -1,4 +1,4 @@
-﻿using Avalonia;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Platform;
 using System.IO;
@@ -7,7 +7,7 @@ namespace System.Application.UI
 {
     public interface INotifyIcon : INotifyIcon<ContextMenu>
     {
-        public static INotifyIcon Instance => DI.Get<INotifyIcon>();
+        static INotifyIcon Instance => DI.Get<INotifyIcon>();
 
         internal sealed class UIFrameworkHelper : IUIFrameworkHelper
         {

@@ -118,9 +118,10 @@ namespace System.Application.UI.ViewModels
         void AddAuthMenu_Click()
         {
             if (DI.DeviceIdiom == DeviceIdiom.Desktop && !AppSettings.IsOfficialChannelPackage) return;
-            IShowWindowService.Instance.Show<AddAuthWindowViewModel>(CustomWindow.AddAuth,resizeMode:ResizeModeCompat.CanResize);
+            IShowWindowService.Instance.Show<AddAuthWindowViewModel>(CustomWindow.AddAuth, resizeMode: ResizeModeCompat.CanResize);
         }
 
+#if !__MOBILE__
         public void ShowAuthCode(MyAuthenticator auth)
         {
             if (auth.IsShowCode == false)
@@ -144,6 +145,7 @@ namespace System.Application.UI.ViewModels
                 }).ContinueWith(s => s.Dispose());
             }
         }
+#endif
 
 #if __MOBILE__
         async void SetClipboardText(string s) => await XEClipboard.SetTextAsync(s);
