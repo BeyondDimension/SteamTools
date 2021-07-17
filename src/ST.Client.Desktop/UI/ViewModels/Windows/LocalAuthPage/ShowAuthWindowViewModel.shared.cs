@@ -38,7 +38,11 @@ namespace System.Application.UI.ViewModels
 
         bool IExplicitHasValue.ExplicitHasValue()
         {
-            return MyAuthenticator != null && _Authenticator != null;
+            return
+#if __MOBILE__
+                MyAuthenticator != null &&
+#endif
+                _Authenticator != null;
         }
     }
 }

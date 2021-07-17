@@ -36,27 +36,31 @@ namespace System.Application.UI.Fragments
             {
                 if (binding == null) return;
                 binding.tvEmptyTip.Text = LocalAuth_NoAuthTip_.Format(BottomRightCorner);
+                binding.tvLoading.Text = LocalAuth_Loading;
             }).AddTo(this);
 
             ViewModel!.WhenAnyValue(x => x.IsAuthenticatorsEmpty).Subscribe(value =>
             {
                 if (binding == null) return;
-                ViewStates state, state_reverse, fab_state;
+                ViewStates state, state_reverse, fab_state, loading_state;
                 if (ViewModel!.IsFirstActivation)
                 {
                     state = ViewStates.Gone;
                     state_reverse = ViewStates.Gone;
                     fab_state = ViewStates.Gone;
+                    loading_state = ViewStates.Visible;
                 }
                 else
                 {
                     state = value ? ViewStates.Visible : ViewStates.Gone;
                     state_reverse = !value ? ViewStates.Visible : ViewStates.Gone;
                     fab_state = ViewStates.Visible;
+                    loading_state = ViewStates.Gone;
                 }
                 binding.tvEmptyTip.Visibility = state;
                 binding.rvAuthenticators.Visibility = state_reverse;
                 binding.speedDial.Visibility = fab_state;
+                binding.layoutLoading.Visibility = loading_state;
             }).AddTo(this);
 
             var adapter = new GAPAuthenticatorAdapter(this, ViewModel!);
