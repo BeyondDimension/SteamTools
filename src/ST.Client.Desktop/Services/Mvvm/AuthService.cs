@@ -1,6 +1,7 @@
 using DynamicData;
 using Newtonsoft.Json.Linq;
 using ReactiveUI;
+using System.Application.Entities;
 using System.Application.Models;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
@@ -29,6 +30,8 @@ namespace System.Application.Services
 
         public SourceCache<MyAuthenticator, int> Authenticators { get; }
 
+        public GAPRepository Repository => repository;
+
         public AuthService()
         {
             Authenticators = new SourceCache<MyAuthenticator, int>(t => t.Id);
@@ -37,6 +40,11 @@ namespace System.Application.Services
         public async Task InitializeAsync(bool isSync = false)
         {
             var auths = await repository.GetAllSourceAsync();
+            await InitializeAsync(auths, isSync);
+        }
+
+        public async Task InitializeAsync(GameAccountPlatformAuthenticator[] auths, bool isSync = false)
+        {
             var hasPassword = repository.HasSecondaryPassword(auths);
             List<IGAPAuthenticatorDTO> list;
             if (hasPassword)
@@ -123,6 +131,7 @@ namespace System.Application.Services
             }
         }
 
+        [Obsolete]
         public async Task<int> GetRealAuthenticatorCount()
         {
             var auths = await repository.GetAllSourceAsync();

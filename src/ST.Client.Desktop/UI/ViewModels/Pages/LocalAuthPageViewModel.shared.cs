@@ -103,13 +103,14 @@ namespace System.Application.UI.ViewModels
 
         public async override void Activation()
         {
-            SourceAuthCount = await AuthService.Current.GetRealAuthenticatorCount();
+            var auths = await AuthService.Current.Repository.GetAllSourceAsync();
+            SourceAuthCount = auths.Count();
             //if (IsFirstActivation)
             if (IsAuthenticatorsEmptyAndHasPassword)
             {
                 await Task.Run(async () =>
                 {
-                    await AuthService.Current.InitializeAsync();
+                    await AuthService.Current.InitializeAsync(auths);
                 });
             }
             base.Activation();
