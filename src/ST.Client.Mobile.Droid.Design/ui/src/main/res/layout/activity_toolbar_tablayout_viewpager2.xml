@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@color/grey_window_background"
         xamarin:managedType="AndroidX.ViewPager2.Widget.ViewPager2" />
 
 </LinearLayout>

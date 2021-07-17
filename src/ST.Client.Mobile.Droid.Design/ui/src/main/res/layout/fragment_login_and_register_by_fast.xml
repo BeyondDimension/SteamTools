@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
     android:layout_width="match_parent"
@@ -48,4 +48,4 @@
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

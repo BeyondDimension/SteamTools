@@ -1,5 +1,6 @@
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
 using AndroidX.AppCompat.App;
@@ -123,6 +124,38 @@ namespace System
         {
             activity.SetSupportActionBar(toolbar);
             toolbar.NavigationClick += (_, _) => activity.OnBackPressed();
+        }
+
+        /// <summary>
+        /// 设置是否禁止截屏
+        /// </summary>
+        /// <param name="activity"></param>
+        /// <param name="value"></param>
+        public static void SetWindowSecure(this Activity activity, bool value)
+        {
+            if (activity.Window?.Attributes == null) return;
+            if (value)
+            {
+                if (activity.Window.Attributes.Flags.HasFlag(WindowManagerFlags.Secure))
+                {
+                    return;
+                }
+                else
+                {
+                    activity.Window.AddFlags(WindowManagerFlags.Secure);
+                }
+            }
+            else
+            {
+                if (activity.Window.Attributes.Flags.HasFlag(WindowManagerFlags.Secure))
+                {
+                    activity.Window.ClearFlags(WindowManagerFlags.Secure);
+                }
+                else
+                {
+                    return;
+                }
+            }
         }
     }
 }

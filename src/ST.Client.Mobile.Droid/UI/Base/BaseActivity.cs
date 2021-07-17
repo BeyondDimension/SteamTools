@@ -6,7 +6,6 @@ using AndroidX.AppCompat.App;
 using ReactiveUI;
 using ReactiveUI.AndroidX;
 using System.Application.Mvvm;
-using System.Application.Security;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
@@ -107,6 +106,12 @@ namespace System.Application.UI.Activities
             //if (!DeviceSecurityCheckUtil.IsAllowStart(this)) return;
             BaseActivity.SetContentView(this, LayoutResource);
             OnCreateViewBinding();
+            this.SetViewModel(OnCreateViewModel());
+        }
+
+        protected virtual TViewModel? OnCreateViewModel()
+        {
+            return null;
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
@@ -136,6 +141,31 @@ namespace System.Application.UI.Activities
             base.OnDestroy();
             disposables.Dispose();
             binding = null;
+        }
+    }
+}
+
+// ReSharper disable once CheckNamespace
+namespace System
+{
+    public static partial class BaseUIExtensions
+    {
+        public static void SetViewModel<TViewModel>(this IViewFor<TViewModel> view, TViewModel? viewModel = null, bool ignoreDisposableHolder = false) where TViewModel : class
+        {
+            viewModel ??= Activator.CreateInstance<TViewModel>();
+            if (!ignoreDisposableHolder && viewModel is IDisposable d)
+            {
+                if (view is not IDisposableHolder dh)
+                {
+                    throw new InvalidOperationException("view must implement IDisposableHolder.");
+                }
+                d.AddTo(dh);
+            }
+            view.ViewModel = viewModel;
+
+            // This WhenActivated block calls ViewModel's WhenActivated
+            // block if the ViewModel implements IActivatableViewModel.
+            view.WhenActivated(disposables => { });
         }
     }
 }

@@ -30,9 +30,7 @@ namespace System.Application.UI.Views
 
                 if (this.ViewModel is not null)
                     foreach (var tab in this.ViewModel.TabItems)
-                    {
                         tab.Deactivation();
-                    }
             }
 #endif
             base.OnClosed(e);

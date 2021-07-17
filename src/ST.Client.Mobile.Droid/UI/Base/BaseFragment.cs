@@ -1,5 +1,6 @@
 using Android.OS;
 using Android.Views;
+using ReactiveUI;
 using ReactiveUI.AndroidX;
 using System.Application.Mvvm;
 using System.Application.UI.ViewModels;
@@ -65,19 +66,36 @@ namespace System.Application.UI.Fragments
     /// </summary>
     /// <typeparam name="TViewBinding"></typeparam>
     /// <typeparam name="TViewModel"></typeparam>
-    public abstract partial class BaseFragment<TViewBinding, TViewModel> : ReactiveFragment<TViewModel>, ReactiveUI.IReadOnlyViewFor<TViewModel>, IDisposableHolder
+    public abstract partial class BaseFragment<TViewBinding, TViewModel> : ReactiveUI.AndroidX.ReactiveFragment<TViewModel>, IReadOnlyViewFor<TViewModel>, IDisposableHolder
         where TViewBinding : class
         where TViewModel : ViewModelBase
     {
         readonly CompositeDisposable disposables = new();
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
 
+        protected virtual TViewModel? OnCreateViewModel()
+        {
+            return null;
+        }
+
+        //protected bool UseGetViewModelByActivity => false;
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = BaseFragment.CreateView(LayoutResource, inflater, container);
             if (view == null)
                 return base.OnCreateView(inflater, container, savedInstanceState);
-            ViewModel = this.GetViewModel<TViewModel>();
+            var ignoreDisposableHolder = false;
+            var viewModel = OnCreateViewModel();
+            //if (UseGetViewModelByActivity && viewModel == null)
+            //{
+            //    viewModel = this.GetViewModelByActivity<TViewModel>();
+            //    if (viewModel != null)
+            //    {
+            //        ignoreDisposableHolder = true;
+            //    }
+            //}
+            this.SetViewModel(viewModel, ignoreDisposableHolder);
             OnCreateView(view);
             return view;
         }
@@ -97,29 +115,20 @@ namespace System
 {
     public static partial class BaseUIExtensions
     {
-        public static TViewModel GetViewModel<TViewModel>(this Fragment fragment)
-            where TViewModel : class, IDisposable
-        {
-            if (fragment.Activity is ReactiveUI.IReadOnlyViewFor<TViewModel> rvf && rvf.ViewModel != null)
-            {
-                return rvf.ViewModel;
-            }
+        //public static TViewModel? GetViewModelByActivity<TViewModel>(this Fragment fragment)
+        //   where TViewModel : class, IDisposable
+        //{
+        //    if (fragment.Activity is IReadOnlyViewFor<TViewModel> rvf && rvf.ViewModel != null)
+        //    {
+        //        return rvf.ViewModel;
+        //    }
 
-            if (fragment.Activity is ReactiveUI.IViewFor<TViewModel> vf && vf.ViewModel != null)
-            {
-                return vf.ViewModel;
-            }
+        //    if (fragment.Activity is IViewFor<TViewModel> vf && vf.ViewModel != null)
+        //    {
+        //        return vf.ViewModel;
+        //    }
 
-            if (fragment is IDisposableHolder dh)
-            {
-                TViewModel r = Activator.CreateInstance<TViewModel>();
-                r.AddTo(dh);
-                return r;
-            }
-            else
-            {
-                throw new InvalidOperationException("fragment must implement IDisposableHolder.");
-            }
-        }
+        //    return null;
+        //}
     }
 }

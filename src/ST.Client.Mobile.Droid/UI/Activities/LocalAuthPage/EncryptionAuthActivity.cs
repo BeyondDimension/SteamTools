@@ -26,9 +26,6 @@ namespace System.Application.UI.Activities
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            ViewModel = new();
-            ViewModel.AddTo(this);
-
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
                 Title = EncryptionAuthWindowViewModel.TitleName;

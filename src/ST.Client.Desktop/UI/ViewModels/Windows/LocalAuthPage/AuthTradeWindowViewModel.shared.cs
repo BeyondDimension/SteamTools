@@ -15,29 +15,15 @@ using WinAuth;
 
 namespace System.Application.UI.ViewModels
 {
-    public partial class AuthTradeWindowViewModel
+    public partial class AuthTradeWindowViewModel : IExplicitHasValue
     {
-        private readonly MyAuthenticator MyAuthenticator;
-        private readonly GAPAuthenticatorValueDTO.SteamAuthenticator _Authenticator;
+        private readonly MyAuthenticator? MyAuthenticator;
+        private readonly GAPAuthenticatorValueDTO.SteamAuthenticator? _Authenticator;
 
         public static string DisplayName => AppResources.LocalAuth_SteamAuthTrade;
 
-        public AuthTradeWindowViewModel() => throw new NotSupportedException();
-
-        public AuthTradeWindowViewModel(MyAuthenticator auth) : base()
+        public AuthTradeWindowViewModel() : base()
         {
-            MyAuthenticator = auth;
-            if (MyAuthenticator.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator authenticator)
-            {
-                _Authenticator = authenticator;
-                UserName = _Authenticator.AccountName;
-            }
-            else
-            {
-                //非Steam令牌无法弹出确认交易框
-                throw new NotSupportedException("Authenticator is not SteamAuthenticator");
-            }
-
             Refresh_Click();
 
             Title =
@@ -59,6 +45,21 @@ namespace System.Application.UI.ViewModels
                });
 
             Initialize();
+        }
+
+        public AuthTradeWindowViewModel(MyAuthenticator? auth) : this()
+        {
+            MyAuthenticator = auth;
+            if (MyAuthenticator?.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator authenticator)
+            {
+                _Authenticator = authenticator;
+                UserName = _Authenticator.AccountName;
+            }
+            else
+            {
+                //非Steam令牌无法弹出确认交易框
+                throw new NotSupportedException("Authenticator is not SteamAuthenticator");
+            }
         }
 
         private string? AuthPassword;
@@ -154,7 +155,7 @@ namespace System.Application.UI.ViewModels
 
         public bool IsLoggedIn
         {
-            get => _Authenticator.GetClient().IsLoggedIn();
+            get => _Authenticator!.GetClient().IsLoggedIn();
             set
             {
                 this.RaisePropertyChanged();
@@ -162,7 +163,7 @@ namespace System.Application.UI.ViewModels
         }
         public bool IsRequiresCaptcha
         {
-            get => _Authenticator.GetClient().RequiresCaptcha;
+            get => _Authenticator!.GetClient().RequiresCaptcha;
             set
             {
                 this.RaisePropertyChanged();
@@ -223,7 +224,7 @@ namespace System.Application.UI.ViewModels
         {
             if (CodeImageChar?.Trim().Length > 0)
             {
-                Process(_Authenticator.GetClient().CaptchaId, CodeImageChar);
+                Process(_Authenticator!.GetClient().CaptchaId, CodeImageChar);
             }
             else
             {
@@ -257,14 +258,14 @@ namespace System.Application.UI.ViewModels
 
         public void Logout_Click()
         {
-            var steam = _Authenticator.GetClient();
+            var steam = _Authenticator!.GetClient();
             steam.Logout();
 
             if (string.IsNullOrEmpty(_Authenticator.SessionData) == false)
             {
                 IsLoggedIn = false;
                 _Authenticator.SessionData = null;
-                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator, AuthIsLocal, AuthPassword);
+                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
             }
         }
 
@@ -276,7 +277,7 @@ namespace System.Application.UI.ViewModels
             {
                 Thread.CurrentThread.IsBackground = true;
                 IsLoading = true;
-                var steam = _Authenticator.GetClient();
+                var steam = _Authenticator!.GetClient();
                 if (!IsLoggedIn)
                 {
                     IsLoading = false;
@@ -286,7 +287,7 @@ namespace System.Application.UI.ViewModels
                     LoadingText = AppResources.Logining;
 #endif
                     //Toast.Show(AppResources.Logining);
-                    var loginResult = steam.Login(UserName, Password, captchaId, codeChar, R.GetCurrentCultureSteamLanguageName());
+                    var loginResult = steam.Login(UserName!, Password!, captchaId, codeChar, R.GetCurrentCultureSteamLanguageName());
 #if __MOBILE__
                     LoadingText = null;
 #endif
@@ -324,7 +325,7 @@ namespace System.Application.UI.ViewModels
                     Toast.Show(AppResources.User_LoiginSuccess);
                     IsLoggedIn = true;
                     _Authenticator.SessionData = RememberMe ? steam.Session.ToString() : null;
-                    AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator, AuthIsLocal, AuthPassword);
+                    AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
                 }
                 try
                 {
@@ -345,7 +346,7 @@ namespace System.Application.UI.ViewModels
                     // 获取新交易后保存
                     if (!string.IsNullOrEmpty(_Authenticator.SessionData))
                     {
-                        AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator, AuthIsLocal, AuthPassword);
+                        AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
                     }
                     IsLoading = false;
                 }
@@ -440,7 +441,7 @@ namespace System.Application.UI.ViewModels
 
                 var result = await Task.Run<bool>(() =>
                 {
-                    return _Authenticator.GetClient().ConfirmTrade(trade.Id, trade.Key, true);
+                    return _Authenticator!.GetClient().ConfirmTrade(trade.Id, trade.Key, true);
                 });
                 if (result == false)
                 {
@@ -481,7 +482,7 @@ namespace System.Application.UI.ViewModels
                 }
                 var result = await Task.Run<bool>(() =>
                 {
-                    return _Authenticator.GetClient().ConfirmTrade(trade.Id, trade.Key, false);
+                    return _Authenticator!.GetClient().ConfirmTrade(trade.Id, trade.Key, false);
                 });
                 if (result == false)
                 {
@@ -606,7 +607,7 @@ namespace System.Application.UI.ViewModels
                 LoadingText = null;
 #endif
                 Toast.Show(AppResources.LocalAuth_AuthTrade_ConfirmSuccess);
-                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator, AuthIsLocal, AuthPassword);
+                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
             }
         }
 
@@ -663,8 +664,13 @@ namespace System.Application.UI.ViewModels
                 LoadingText = null;
 #endif
                 Toast.Show(AppResources.LocalAuth_AuthTrade_ConfirmCancel);
-                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator, AuthIsLocal, AuthPassword);
+                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
             }
+        }
+
+        bool IExplicitHasValue.ExplicitHasValue()
+        {
+            return MyAuthenticator != null && _Authenticator != null;
         }
     }
 }

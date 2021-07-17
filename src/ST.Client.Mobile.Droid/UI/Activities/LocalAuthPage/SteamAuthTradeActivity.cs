@@ -25,12 +25,17 @@ namespace System.Application.UI.Activities
 
         IReadOnlyDictionary<ActionItem, FabWithLabelView>? speedDialDict;
 
+        protected override AuthTradeWindowViewModel? OnCreateViewModel()
+        {
+            var vm = LocalAuthPageViewModel.Current.Authenticators?.FirstOrDefault(x => x.Id == this.GetViewModel<ushort>());
+            return new(vm);
+        }
+
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            var vm = MainActivity.Instance?.LocalAuthPageViewModel.Authenticators.FirstOrDefault(x => x.Id == this.GetViewModel<ushort>());
-            if (vm == null)
+            if (!ViewModel.HasValue())
             {
                 Finish();
                 return;
@@ -38,9 +43,6 @@ namespace System.Application.UI.Activities
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-
-            ViewModel = new(vm);
-            ViewModel.AddTo(this);
 
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {

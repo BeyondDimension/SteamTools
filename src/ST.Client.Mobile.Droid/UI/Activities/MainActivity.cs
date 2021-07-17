@@ -16,21 +16,11 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class MainActivity : BaseActivity<activity_main>, IReadOnlyViewFor<MyPageViewModel>, IReadOnlyViewFor<LocalAuthPageViewModel>
+    internal sealed class MainActivity : BaseActivity<activity_main>
     {
-        public static MainActivity? Instance { get; private set; }
-
         protected override int? LayoutResource => Resource.Layout.activity_main;
 
         protected override bool BackToHome => true;
-
-        public MyPageViewModel MyPageViewModel { get; } = new();
-
-        public LocalAuthPageViewModel LocalAuthPageViewModel { get; } = new();
-
-        MyPageViewModel? IReadOnlyViewFor<MyPageViewModel>.ViewModel => MyPageViewModel;
-
-        LocalAuthPageViewModel? IReadOnlyViewFor<LocalAuthPageViewModel>.ViewModel => LocalAuthPageViewModel;
 
         void SetBottomNavigationMenuTitle(int resId, ICharSequence value)
         {
@@ -54,8 +44,6 @@ namespace System.Application.UI.Activities
 
             SetSupportActionBar(binding!.toolbar);
 
-            MyPageViewModel.AddTo(this);
-
             var appBarConfiguration = new AppBarConfiguration.Builder(
                 Resource.Id.navigation_local_auth,
                 Resource.Id.navigation_community_fix,
@@ -71,13 +59,10 @@ namespace System.Application.UI.Activities
                 SetSubPageTitle(Resource.Id.navigation_local_auth, LocalAuthPageViewModel.DisplayName);
                 SetSubPageTitle(Resource.Id.navigation_my, MyPageViewModel.DisplayName);
             }).AddTo(this);
-
-            Instance = this;
         }
 
         protected override void OnDestroy()
         {
-            Instance = null;
             base.OnDestroy();
             navController = null;
         }

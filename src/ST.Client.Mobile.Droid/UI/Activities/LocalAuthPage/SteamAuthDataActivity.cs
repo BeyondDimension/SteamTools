@@ -19,22 +19,26 @@ namespace System.Application.UI.Activities
     {
         protected override int? LayoutResource => Resource.Layout.activity_steam_auth_data;
 
+        protected override ShowAuthWindowViewModel? OnCreateViewModel()
+        {
+            var vm = LocalAuthPageViewModel.Current.Authenticators?.FirstOrDefault(x => x.Id == this.GetViewModel<ushort>());
+            return new(vm);
+        }
+
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            var vm = MainActivity.Instance?.LocalAuthPageViewModel.Authenticators.FirstOrDefault(x => x.Id == this.GetViewModel<ushort>());
-            if (vm == null)
+            if (!ViewModel.HasValue())
             {
                 Finish();
                 return;
             }
 
+            this.SetWindowSecure(true);
+
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-
-            ViewModel = new(vm);
-            ViewModel.AddTo(this);
 
             binding!.tvSteamGuardLabel.Text = "SteamGuard：";
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
@@ -48,8 +52,11 @@ namespace System.Application.UI.Activities
                 binding.tvUUIDLabel.Text = LocalAuth_SteamUUID;
             }).AddTo(this);
 
-            binding.tbRecoveryCode.Text = ViewModel.RecoveryCode;
+            binding.tbRecoveryCode.SetReadOnly();
+            binding.tbRecoveryCode.Text = ViewModel!.RecoveryCode;
+            binding.tbUUID.SetReadOnly();
             binding.tbUUID.Text = ViewModel.DeviceId;
+            binding.tbSteamGuard.SetReadOnly();
             binding.tbSteamGuard.Text = ViewModel.SteamDataIndented;
         }
 

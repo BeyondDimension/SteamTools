@@ -179,6 +179,19 @@
           <TextBlock Classes="LinkSeparatorPadding" Text="-" />
           <TextBlock Text="English Translation" />
         </StackPanel>
+        <StackPanel Orientation="Horizontal">
+          <TextBlock Classes="Header light"
+                     Margin="0,0,6,0"
+                     Opacity="0"
+                     Text="Contributors:"
+                     VerticalAlignment="Center"/>
+          <Button Classes="plain" Command="{Binding ContributorsCommand}"
+                          CommandParameter="EspRoy">
+            <TextBlock Text="EspRoy" Classes="Hyperlink" />
+          </Button>
+          <TextBlock Classes="LinkSeparatorPadding" Text="-" />
+          <TextBlock Text="Spanish Translation" />
+        </StackPanel>
 
         <!--<WrapPanel>
           <gif:Image2 Width="500" Height="300" Stretch="UniformToFill" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/gg.gif"></gif:Image2>

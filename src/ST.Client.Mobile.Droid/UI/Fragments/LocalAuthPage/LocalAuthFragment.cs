@@ -5,7 +5,6 @@ using AndroidX.RecyclerView.Widget;
 using Binding;
 using Com.Leinardi.Android.Speeddial;
 using ReactiveUI;
-using System.Application.Services;
 using System.Application.UI.Activities;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
@@ -24,9 +23,14 @@ namespace System.Application.UI.Fragments
 
         IReadOnlyDictionary<ActionItem, FabWithLabelView>? speedDialDict;
 
+        protected override LocalAuthPageViewModel? OnCreateViewModel() => Current;
+
         public override void OnCreateView(View view)
         {
             base.OnCreateView(view);
+
+            // This WhenActivated block calls ViewModel's WhenActivated
+            // block if the ViewModel implements IActivatableViewModel.
 
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
@@ -37,13 +41,32 @@ namespace System.Application.UI.Fragments
             ViewModel!.WhenAnyValue(x => x.IsAuthenticatorsEmpty).Subscribe(value =>
             {
                 if (binding == null) return;
-                binding.tvEmptyTip.Visibility = value ? ViewStates.Visible : ViewStates.Gone;
+                ViewStates state, state_reverse, fab_state;
+                if (ViewModel!.IsFirstActivation)
+                {
+                    state = ViewStates.Gone;
+                    state_reverse = ViewStates.Gone;
+                    fab_state = ViewStates.Gone;
+                }
+                else
+                {
+                    state = value ? ViewStates.Visible : ViewStates.Gone;
+                    state_reverse = !value ? ViewStates.Visible : ViewStates.Gone;
+                    fab_state = ViewStates.Visible;
+                }
+                binding.tvEmptyTip.Visibility = state;
+                binding.rvAuthenticators.Visibility = state_reverse;
+                binding.speedDial.Visibility = fab_state;
             }).AddTo(this);
 
             var adapter = new GAPAuthenticatorAdapter(this, ViewModel!);
+            adapter.ItemClick += (_, e) =>
+            {
+                SteamAuthDataActivity.StartActivity(Activity, e.Current.Id);
+            };
             var layout = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
             binding!.rvAuthenticators.SetLayoutManager(layout);
-            binding.rvAuthenticators.AddItemDecoration(new VerticalItemViewDecoration(Resources!.GetDimensionPixelSize(Resource.Dimension.activity_vertical_margin)));
+            binding.rvAuthenticators.AddItemDecoration(VerticalItemViewDecoration2.Get(Context, Resource.Dimension.activity_vertical_margin, Resource.Dimension.fab_full_height));
             binding.rvAuthenticators.SetAdapter(adapter);
 
             var actionItems = Enum2.GetAll<ActionItem>();
@@ -62,6 +85,18 @@ namespace System.Application.UI.Fragments
         //    base.OnStop();
         //    AuthService.Current.SaveEditNameAuthenticators();
         //}
+
+        public override void OnResume()
+        {
+            base.OnResume();
+            Activity.SetWindowSecure(true);
+        }
+
+        public override void OnPause()
+        {
+            base.OnPause();
+            Activity.SetWindowSecure(false);
+        }
 
         bool SpeedDialView.IOnActionSelectedListener.OnActionSelected(SpeedDialActionItem actionItem)
         {

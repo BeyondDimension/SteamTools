@@ -22,10 +22,9 @@ namespace Avalonia.Controls
             //if (DI.Platform == System.Platform.Windows)
             //{
             ExtendClientAreaToDecorationsHint = true;
-            //ExtendClientAreaTitleBarHeightHint = -1;
-
+            ExtendClientAreaTitleBarHeightHint = -1;
             //}
-            //SystemDecorations = SystemDecorations.BorderOnly;
+            SystemDecorations = SystemDecorations.Full;
             TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
 
             if (DI.Platform == System.Platform.Windows)
@@ -111,7 +110,7 @@ namespace Avalonia.Controls
                 ExtendClientAreaChromeHints =
                 ExtendClientAreaChromeHints.PreferSystemChrome;
             }
-            else if (DI.Platform == System.Platform.Apple)
+            else if (DI.IsmacOS)
             {
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.PreferSystemChrome;
@@ -159,7 +158,6 @@ namespace Avalonia.Controls
                         SystemDecorations = SystemDecorations.Full;
                         //TransparencyLevelHint = WindowTransparencyLevel.Blur;
                     }
-
                 });
 
             if (isSaveStatus)
@@ -224,7 +222,7 @@ namespace Avalonia.Controls
                 ExtendClientAreaChromeHints =
                 ExtendClientAreaChromeHints.PreferSystemChrome;
             }
-            else if (DI.Platform == System.Platform.Apple)
+            else if (DI.IsmacOS)
             {
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.PreferSystemChrome;
