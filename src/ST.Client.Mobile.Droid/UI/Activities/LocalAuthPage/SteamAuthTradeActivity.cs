@@ -48,10 +48,10 @@ namespace System.Application.UI.Activities
             {
                 Title = DisplayName;
                 if (binding == null) return;
-                binding.tvConfirmConutMessage.Text = ViewModel.ConfirmationsConutMessage;
+                binding.tvConfirmConutMessage.Text = ViewModel!.ConfirmationsConutMessage;
             }).AddTo(this);
 
-            var adapter = new SteamAuthTradeConfirmationAdapter(ViewModel);
+            var adapter = new SteamAuthTradeConfirmationAdapter(ViewModel!);
             var layout = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
             binding!.rvConfirmations.SetLayoutManager(layout);
             binding.rvConfirmations.AddItemDecoration(new VerticalItemViewDecoration(Resources!.GetDimensionPixelSize(Resource.Dimension.activity_vertical_margin)));

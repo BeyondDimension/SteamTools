@@ -98,6 +98,8 @@ namespace System.Application.Services.Implementation
                     SetCancelButton(b);
                     var view = LayoutInflater.From(b.Context)!.Inflate(Resource.Layout.textbox_password, null, false)!;
                     var binding = new textbox_password(view);
+                    if (!string.IsNullOrEmpty(viewModel_tb.Value))
+                        binding.tbPassword.Text = viewModel_tb.Value;
                     binding.layoutPassword.Hint = viewModel_tb.Placeholder;
                     action?.Invoke(binding, viewModel_tb);
                     b.SetView(view);
@@ -117,19 +119,25 @@ namespace System.Application.Services.Implementation
                         };
                     };
                 }
-                Action<AlertDialog>? CreatePasswordDialogWindow(MaterialAlertDialogBuilder b) => CreateTextBoxDialogWindowCore(b);
                 Action<AlertDialog>? CreateTextBoxDialogWindow(MaterialAlertDialogBuilder b) => CreateTextBoxDialogWindowCore(b, static (binding, viewModel) =>
                 {
-                    binding.layoutPassword.EndIconMode = TextInputLayout.EndIconClearText;
-                    binding.tbPassword.InputType = InputTypes.ClassText | InputTypes.TextVariationNormal;
-                    if (!string.IsNullOrEmpty(viewModel.Value))
-                        binding.tbPassword.Text = viewModel.Value;
+                    switch (viewModel.InputType)
+                    {
+                        case TextBoxWindowViewModel.TextBoxInputType.TextBox:
+                            binding.layoutPassword.EndIconMode = TextInputLayout.EndIconClearText;
+                            binding.tbPassword.InputType = InputTypes.ClassText | InputTypes.TextVariationNormal;
+                            break;
+                        case TextBoxWindowViewModel.TextBoxInputType.ReadOnlyText:
+                            binding.layoutPassword.EndIconMode = TextInputLayout.EndIconNone;
+                            binding.tbPassword.InputType = InputTypes.ClassText | InputTypes.TextVariationNormal;
+                            binding.tbPassword.SetReadOnly();
+                            break;
+                    }
                 });
 
                 Func<MaterialAlertDialogBuilder, Action<AlertDialog>?> @delegate = customWindow switch
                 {
                     CustomWindow.MessageBox => CreateMessageBoxDialogWindow,
-                    CustomWindow.Password => CreatePasswordDialogWindow,
                     CustomWindow.TextBox => CreateTextBoxDialogWindow,
                     _ => throw new NotImplementedException(),
                 };

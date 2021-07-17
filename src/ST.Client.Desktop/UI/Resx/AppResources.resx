@@ -1208,9 +1208,6 @@
     <value>登录Steam账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易15天冷却期。
 (如果没有开Steam社区加速会导致无法登录成功)</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="Success_" xml:space="preserve">
     <value>{0}成功</value>
   </data>
@@ -1429,5 +1426,8 @@
   </data>
   <data name="CommunityFix_CertificateTrust" xml:space="preserve">
     <value>信任证书</value>
+  </data>
+  <data name="LocalAuth_Loading" xml:space="preserve">
+    <value>正在加载令牌数据...</value>
   </data>
 </root>

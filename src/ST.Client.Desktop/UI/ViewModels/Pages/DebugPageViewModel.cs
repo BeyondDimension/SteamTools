@@ -44,7 +44,7 @@ namespace System.Application.UI.ViewModels
 
         public void DebugButton_Click()
         {
-            //TestTextBoxWindow(0);
+            TestTextBoxWindow(0);
 
             //DebugButton_Click1();
             Parallel.For(0, 10, (_, _) =>

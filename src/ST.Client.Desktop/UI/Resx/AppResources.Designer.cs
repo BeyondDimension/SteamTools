@@ -2017,6 +2017,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 正在加载令牌数据... 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_Loading {
+            get {
+                return ResourceManager.GetString("LocalAuth_Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 没有设置密码无法锁定令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_LockError {
@@ -3310,15 +3319,6 @@ namespace System.Application.UI.Resx {
         public static string SteamAppType_Video {
             get {
                 return ResourceManager.GetString("SteamAppType_Video", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似  的本地化字符串。
-        /// </summary>
-        public static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

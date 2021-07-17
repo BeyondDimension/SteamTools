@@ -7,6 +7,32 @@
     android:layout_height="match_parent"
     android:background="@color/grey_window_background">
 
+    <LinearLayout
+        android:id="@+id/layoutLoading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
+
+        <include layout="@layout/shared_loading" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
+            tools:text="正在加载令牌数据..."
+            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+    </LinearLayout>
+
     <View
         android:id="@+id/clearFocus"
         android:layout_width="1px"

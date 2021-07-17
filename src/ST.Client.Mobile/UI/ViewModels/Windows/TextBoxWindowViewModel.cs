@@ -82,11 +82,7 @@ namespace System.Application.UI.ViewModels
         {
             vm ??= new TextBoxWindowViewModel();
             await IShowWindowService.Instance.ShowDialog(
-//#if !__MOBILE__
-//                CustomWindow.Password
-//#else
                 CustomWindow.TextBox
-//#endif
                 , vm, string.Empty, ResizeModeCompat.NoResize);
             return vm.Value;
         }
