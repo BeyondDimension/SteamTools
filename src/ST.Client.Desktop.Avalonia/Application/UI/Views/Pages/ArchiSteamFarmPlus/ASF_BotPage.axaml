@@ -11,7 +11,9 @@
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              x:Name="u"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
              x:DataType="vm:ArchiSteamFarmPlusPageViewModel"
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.ASF_BotPage">
@@ -55,24 +57,6 @@
               <Panel Grid.Column="1" Margin="10 5">
                 <StackPanel>
                   <WrapPanel>
-                    <Ellipse
-                             x:Name="circle"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Center"
-                             Margin="5 0 12 0"
-                             Height="10"
-                             Width="10"
-                             StrokeThickness="0"
-                             ToolTip.Tip="{Binding KeepRunning}">
-                      <i:Interaction.Behaviors>
-                        <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="True">
-                          <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#08D969"/>
-                        </ia:DataTriggerBehavior>
-                        <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="False">
-                          <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#adadad"/>
-                        </ia:DataTriggerBehavior>
-                      </i:Interaction.Behaviors>
-                    </Ellipse>
                     <controls:ScrollingTextBlock x:Name="nickname" Text="{Binding BotName}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
                       <i:Interaction.Behaviors>
                         <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #nickname}">
@@ -87,6 +71,24 @@
                       </controls:ScrollingTextBlock>
                       <TextBlock Text=")"></TextBlock>
                     </WrapPanel>
+                    <Ellipse
+                            x:Name="circle"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Margin="5 0 12 0"
+                            Height="10"
+                            Width="10"
+                            StrokeThickness="0"
+                            ToolTip.Tip="{Binding KeepRunning}">
+                      <i:Interaction.Behaviors>
+                        <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="True">
+                          <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#08D969"/>
+                        </ia:DataTriggerBehavior>
+                        <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="False">
+                          <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#adadad"/>
+                        </ia:DataTriggerBehavior>
+                      </i:Interaction.Behaviors>
+                    </Ellipse>
                   </WrapPanel>
 
                   <WrapPanel Orientation="Horizontal">
