@@ -57,6 +57,8 @@ namespace System.Application.Services.Implementation
                     Description = $"sudo {shell}",
                 };
                 await TextBoxWindowViewModel.ShowDialogAsync(vm);
+                if (vm.Value.Any_Nullable())
+                    return;
                 scriptContent.AppendLine($"echo \"{vm.Value}\" | sudo -S {shell}");
             }
             else
@@ -119,9 +121,9 @@ namespace System.Application.Services.Implementation
             //    file.Delete();
 #if MONO_MAC
 #elif XAMARIN_MAC
-            var edithost = new NSAppleScript($"do shell script \"'${shell}'\" with administrator privileges");
-            var state = edithost.CompileAndReturnError(out var error); 
-            return state;
+            //var edithost = new NSAppleScript($"do shell script \"'${shell}'\" with administrator privileges");
+            //var state = edithost.CompileAndReturnError(out var error); 
+            //return state;
             //var pInfo = new ProcessStartInfo
             //{
             //    FileName = "sudo",
