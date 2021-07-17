@@ -34,11 +34,10 @@ namespace System.Application.Services
             Authenticators = new SourceCache<MyAuthenticator, int>(t => t.Id);
         }
 
-        public async void Initialize(bool isSync = false)
+        public async Task InitializeAsync(bool isSync = false)
         {
             var auths = await repository.GetAllSourceAsync();
             var hasPassword = repository.HasSecondaryPassword(auths);
-            //var list = await repository.ConvertToList(auths);
             List<IGAPAuthenticatorDTO> list;
             if (hasPassword)
             {
@@ -55,19 +54,24 @@ namespace System.Application.Services
             }
             if (list.Any_Nullable())
             {
-                Authenticators.AddOrUpdate(list.Select(s => new MyAuthenticator(s)));
+                var authenticators = list.Select(s => new MyAuthenticator(s));
 
-                if (isSync)
+                MainThread2.BeginInvokeOnMainThread(() =>
                 {
-                    Task.Run(() =>
+                    Authenticators.AddOrUpdate(authenticators);
+
+                    if (isSync)
                     {
-                        foreach (var item in Authenticators.Items)
-                            item.Sync();
-                        //ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
-                    }).ForgetAndDispose();
-                }
-                //else
-                //    ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
+                        Task.Run(() =>
+                        {
+                            foreach (var item in Authenticators.Items)
+                                item.Sync();
+                            //ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
+                        }).ForgetAndDispose();
+                    }
+                    //else
+                    //    ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
+                });
             }
             else if (auths.Any_Nullable() && !list.Any_Nullable())
             {

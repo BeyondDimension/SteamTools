@@ -29,7 +29,7 @@ namespace System.Application.UI.ViewModels
 #endif
 
             AddAuthCommand = ReactiveCommand.Create(AddAuthMenu_Click);
-            RefreshAuthCommand = ReactiveCommand.Create(() => AuthService.Current.Initialize(true));
+            RefreshAuthCommand = ReactiveCommand.CreateFromTask(() => AuthService.Current.InitializeAsync(true));
             EncryptionAuthCommand = ReactiveCommand.Create(ShowEncryptionAuthWindow);
             ExportAuthCommand = ReactiveCommand.Create(ShowExportAuthAuthWindow);
             LockCommand = ReactiveCommand.Create(async () =>
@@ -106,14 +106,21 @@ namespace System.Application.UI.ViewModels
             SourceAuthCount = await AuthService.Current.GetRealAuthenticatorCount();
             //if (IsFirstActivation)
             if (IsAuthenticatorsEmptyAndHasPassword)
-                AuthService.Current.Initialize();
+            {
+                await Task.Run(async () =>
+                {
+                    await AuthService.Current.InitializeAsync();
+                });
+            }
             base.Activation();
         }
 
-        public void Refreshing()
+#if !__MOBILE__
+        public async void Refreshing()
         {
-            AuthService.Current.Initialize();
+            await AuthService.Current.InitializeAsync();
         }
+#endif
 
         void AddAuthMenu_Click()
         {

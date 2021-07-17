@@ -61,20 +61,18 @@ namespace System.Application.UI.ViewModels
 
         public bool IsDeactivation = false;
 
-        public async virtual void Activation()
+        public virtual void Activation()
         {
             if (IsFirstActivation)
             {
                 IsFirstActivation = false;
             }
             IsDeactivation = false;
-            await Task.CompletedTask;
         }
 
-        public async virtual void Deactivation()
+        public virtual void Deactivation()
         {
             IsDeactivation = true;
-            await Task.CompletedTask;
         }
     }
 
