@@ -255,7 +255,7 @@ namespace System.Application.Services
                                     Toast.Show(SR.OperationHostsError_.Format(r.Message));
                                     //return;
                                 }
-                                else if (DI.IsmacOS)
+                                else if (DI.IsmacOS&& !ProxySettings.EnableWindowsProxy.Value)
                                 {
                                     IPlatformService.Instance.AdminShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{IDesktopPlatformService.Instance.HostsFilePath}\"", true);
                                 }
