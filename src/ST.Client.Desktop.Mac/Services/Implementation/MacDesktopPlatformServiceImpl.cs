@@ -57,7 +57,7 @@ namespace System.Application.Services.Implementation
                     Description = $"sudo {shell}",
                 };
                 await TextBoxWindowViewModel.ShowDialogAsync(vm);
-                if (vm.Value.Any_Nullable())
+                if (string.IsNullOrWhiteSpace(vm.Value))
                     return;
                 scriptContent.AppendLine($"echo \"{vm.Value}\" | sudo -S {shell}");
             }
