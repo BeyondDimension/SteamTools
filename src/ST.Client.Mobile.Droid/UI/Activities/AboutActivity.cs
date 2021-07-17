@@ -46,16 +46,13 @@ namespace System.Application.UI.Activities
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            ViewModel = new();
-            ViewModel.AddTo(this);
-
             binding!.tvDevelopers.SetLinkMovementMethod();
             binding!.tvBusinessCooperationContact.SetLinkMovementMethod();
             binding!.tvOpenSourceLicensed.SetLinkMovementMethod();
             binding!.tvAgreementAndPrivacy.SetLinkMovementMethod();
 
             binding!.tvTitle.TextFormatted = CreateTitle();
-            binding!.tvVersion.Text = $"{ViewModel.LabelVersionDisplay} {ViewModel.VersionDisplay}";
+            binding!.tvVersion.Text = $"{ViewModel!.LabelVersionDisplay} {ViewModel.VersionDisplay}";
             binding!.tvDevelopers.TextFormatted = CreateDevelopers();
             binding!.tvBusinessCooperationContact.TextFormatted = CreateBusinessCooperationContact();
             binding!.tvOpenSourceLicensed.TextFormatted = CreateOpenSourceLicensed();

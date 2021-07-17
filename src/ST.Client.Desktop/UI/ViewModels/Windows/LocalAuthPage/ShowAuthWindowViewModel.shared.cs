@@ -4,7 +4,7 @@ using System.Properties;
 
 namespace System.Application.UI.ViewModels
 {
-    public partial class ShowAuthWindowViewModel
+    public partial class ShowAuthWindowViewModel : IExplicitHasValue
     {
         public static string DisplayName => AppResources.LocalAuth_AuthData;
 
@@ -19,12 +19,12 @@ namespace System.Application.UI.ViewModels
                 DisplayName;
         }
 
-        public ShowAuthWindowViewModel(MyAuthenticator auth) : this()
+        public ShowAuthWindowViewModel(MyAuthenticator? auth) : this()
         {
 #if __MOBILE__
             MyAuthenticator = auth;
 #endif
-            if (auth.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator authenticator)
+            if (auth?.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator authenticator)
             {
                 _Authenticator = authenticator;
             }
@@ -35,5 +35,10 @@ namespace System.Application.UI.ViewModels
         public string? RecoveryCode => _Authenticator?.RecoveryCode;
 
         public string? DeviceId => _Authenticator?.DeviceId;
+
+        bool IExplicitHasValue.ExplicitHasValue()
+        {
+            return MyAuthenticator != null && _Authenticator != null;
+        }
     }
 }

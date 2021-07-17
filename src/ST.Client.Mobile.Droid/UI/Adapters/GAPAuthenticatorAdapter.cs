@@ -10,16 +10,16 @@ using TViewModel = System.Application.Models.MyAuthenticator;
 
 namespace System.Application.UI.Adapters
 {
-    internal sealed class GAPAuthenticatorAdapter : BaseReactiveRecycleViewAdapter<TViewHolder, TViewModel>/*, IReadOnlyViewFor<LocalAuthPageViewModel>*/, ILifecycleOwner
+    internal sealed class GAPAuthenticatorAdapter : BaseReactiveRecycleViewAdapter<TViewHolder, TViewModel>, IReadOnlyViewFor<LocalAuthPageViewModel>, ILifecycleOwner
     {
-        //public LocalAuthPageViewModel ViewModel { get; }
+        public LocalAuthPageViewModel ViewModel { get; }
 
         public readonly ILifecycleOwner lifecycleOwner;
         Lifecycle ILifecycleOwner.Lifecycle => lifecycleOwner.Lifecycle;
 
         public GAPAuthenticatorAdapter(ILifecycleOwner lifecycleOwner, LocalAuthPageViewModel viewModel) : base(viewModel.Authenticators)
         {
-            //ViewModel = viewModel;
+            ViewModel = viewModel;
             this.lifecycleOwner = lifecycleOwner;
         }
 
@@ -29,7 +29,7 @@ namespace System.Application.UI.Adapters
         }
     }
 
-    internal sealed class GAPAuthenticatorViewHolder : BaseReactiveViewHolder<TViewModel>/*, View.IOnClickListener*/, ILifecycleObserver, TViewModel.IAutoRefreshCode
+    internal sealed class GAPAuthenticatorViewHolder : BaseReactiveViewHolder<TViewModel>, View.IOnClickListener, ILifecycleObserver, TViewModel.IAutoRefreshCode
     {
         readonly layout_card_gap_authenticator binding;
 
@@ -37,10 +37,6 @@ namespace System.Application.UI.Adapters
 
         public GAPAuthenticatorViewHolder(View itemView) : base(itemView)
         {
-            if (BindingAdapter is not ILifecycleOwner lifecycleOwner)
-                throw new NotSupportedException(
-                    "BindingAdapter is not implements AndroidX.Lifecycle。ILifecycleOwner.");
-            lifecycleOwner.Lifecycle.AddObserver(this);
             binding = new(itemView);
         }
 
@@ -63,12 +59,23 @@ namespace System.Application.UI.Adapters
 
         public override void OnBind()
         {
+            if (BindingAdapter is not ILifecycleOwner lifecycleOwner)
+                throw new NotSupportedException(
+                    "BindingAdapter is not implements AndroidX.Lifecycle。ILifecycleOwner.");
+            lifecycleOwner.Lifecycle.RemoveObserver(this);
             base.OnBind();
+
+            lifecycleOwner.Lifecycle.AddObserver(this);
             TViewModel.StartAutoRefreshCode(this);
             ViewModel.WhenAnyValue(x => x.CurrentCode).Subscribe(value =>
             {
                 binding.tvValue.Text = TViewModel.CodeFormat(value);
             }).AddTo(this);
+            ViewModel.WhenAnyValue(x => x.Name).Subscribe(value =>
+            {
+                binding.tvName.Text = string.IsNullOrEmpty(value) ? BindingAdapterPosition.ToString("000") : value;
+            }).AddTo(this);
+            binding.tvValue.SetOnClickListener(this);
             //binding.btnEditName.SetOnClickListener(this);
             //binding.btnConfirmTrade.SetOnClickListener(this);
             //binding.btnCopy.SetOnClickListener(this);
@@ -77,59 +84,66 @@ namespace System.Application.UI.Adapters
             //binding.btnSeeValue.SetOnClickListener(this);
         }
 
-        //void GetDataContext(Action<LocalAuthPageViewModel> action)
-        //{
-        //    if (BindingAdapter is IReadOnlyViewFor<LocalAuthPageViewModel> vf
-        //        && vf.ViewModel != null)
-        //    {
-        //        action(vf.ViewModel);
-        //    }
-        //}
+        void GetDataContext(Action<LocalAuthPageViewModel> action)
+        {
+            if (BindingAdapter is IReadOnlyViewFor<LocalAuthPageViewModel> vf
+                && vf.ViewModel != null)
+            {
+                action(vf.ViewModel);
+            }
+        }
 
-        //void View.IOnClickListener.OnClick(View? view)
-        //{
-        //    if (view == null) return;
-        //    var vm = ViewModel;
-        //    if (vm == null) return;
-        //    //if (view.Id == Resource.Id.btnEditName)
-        //    //{
-        //    //    await vm.EditNameAsync();
-        //    //}
-        //    //else if (view.Id == Resource.Id.btnConfirmTrade)
-        //    //{
-        //    //    GetDataContext(dataContext =>
-        //    //    {
-        //    //        dataContext.ShowSteamAuthTrade(vm);
-        //    //    });
-        //    //}
-        //    //else if (view.Id == Resource.Id.btnCopy)
-        //    //{
-        //    //    GetDataContext(dataContext =>
-        //    //    {
-        //    //        dataContext.CopyCodeCilp(vm);
-        //    //    });
-        //    //}
-        //    //else if (view.Id == Resource.Id.btnDelete)
-        //    //{
-        //    //    GetDataContext(dataContext =>
-        //    //    {
-        //    //        dataContext.DeleteAuth(vm);
-        //    //    });
-        //    //}
-        //    //else if (view.Id == Resource.Id.btnSeeDetail)
-        //    //{
-        //    //    GetDataContext(dataContext =>
-        //    //    {
-        //    //        dataContext.ShowSteamAuthData(vm);
-        //    //    });
-        //    //}
-        //    //else if (view.Id == Resource.Id.btnSeeValue)
-        //    //{
-        //    //    GetDataContext(dataContext =>
-        //    //    {
-        //    //        dataContext.ShowAuthCode(vm);
-        //    //    });
-        //    //}
-        //}
+        void View.IOnClickListener.OnClick(View? view)
+        {
+            if (view == null) return;
+            var vm = ViewModel;
+            if (vm == null) return;
+            if (view.Id == Resource.Id.tvValue)
+            {
+                GetDataContext(dataContext =>
+                {
+                    dataContext.CopyCodeCilp(vm);
+                });
+            }
+            //else if (view.Id == Resource.Id.btnEditName)
+            //{
+            //    await vm.EditNameAsync();
+            //}
+            //else if (view.Id == Resource.Id.btnConfirmTrade)
+            //{
+            //    GetDataContext(dataContext =>
+            //    {
+            //        dataContext.ShowSteamAuthTrade(vm);
+            //    });
+            //}
+            //else if (view.Id == Resource.Id.btnCopy)
+            //{
+            //    GetDataContext(dataContext =>
+            //    {
+            //        dataContext.CopyCodeCilp(vm);
+            //    });
+            //}
+            //else if (view.Id == Resource.Id.btnDelete)
+            //{
+            //    GetDataContext(dataContext =>
+            //    {
+            //        dataContext.DeleteAuth(vm);
+            //    });
+            //}
+            //else if (view.Id == Resource.Id.btnSeeDetail)
+            //{
+            //    GetDataContext(dataContext =>
+            //    {
+            //        dataContext.ShowSteamAuthData(vm);
+            //    });
+            //}
+            //else if (view.Id == Resource.Id.btnSeeValue)
+            //{
+            //    GetDataContext(dataContext =>
+            //    {
+            //        dataContext.ShowAuthCode(vm);
+            //    });
+            //}
+        }
     }
 }

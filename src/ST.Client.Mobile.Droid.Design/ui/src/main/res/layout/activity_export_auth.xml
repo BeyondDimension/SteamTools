@@ -12,12 +12,13 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="?attr/actionBarSize">
+        android:background="@color/grey_window_background"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:orientation="vertical"
             android:paddingStart="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
@@ -52,11 +53,10 @@
                     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
             </LinearLayout>
 
-
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swExportEncryption"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:textColor="@color/text_primary"
                 tools:text="是否需要导出带加密的数据"
                 xamarin:managedType="Google.Android.Material.SwitchMaterial.SwitchMaterial" />

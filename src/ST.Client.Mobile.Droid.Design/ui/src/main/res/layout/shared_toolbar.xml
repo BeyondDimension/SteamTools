@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
-    android:id="@+id/toolbar"
-    style="@style/Widget.MaterialComponents.Toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xamarin:managedType="AndroidX.AppCompat.Widget.Toolbar">
+    android:background="?attr/controlBackground"
+    android:elevation="0dp"
+    android:stateListAnimator="@null">
 
-</androidx.appcompat.widget.Toolbar>
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:title="Title"
+        xamarin:managedType="Google.Android.Material.AppBar.MaterialToolbar" />
+</com.google.android.material.appbar.AppBarLayout>

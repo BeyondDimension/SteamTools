@@ -25,9 +25,6 @@ namespace System.Application.UI.Activities
         {
             base.OnCreate(savedInstanceState);
 
-            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-
             var externalPath = GetExternalFilesDir(null)?.CanonicalPath;
             if (string.IsNullOrWhiteSpace(externalPath) || !Directory.Exists(externalPath))
             {
@@ -36,8 +33,8 @@ namespace System.Application.UI.Activities
                 return;
             }
 
-            ViewModel = new();
-            ViewModel.AddTo(this);
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {

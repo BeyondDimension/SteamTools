@@ -22,5 +22,7 @@ namespace System.Application.UI.ViewModels
             ActionItem.Refresh => AppResources.Refresh,
             _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
         };
+
+        public static LocalAuthPageViewModel Current { get; } = new();
     }
 }

@@ -291,6 +291,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\mdi_rocket_black_24.xml">
     <Link>Resources\drawable\mdi_rocket_black_24.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\outline_chevron_right_black_24.xml">
+    <Link>Resources\drawable\outline_chevron_right_black_24.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\splash_screen.xml">
     <Link>Resources\drawable\splash_screen.xml</Link>
     </AndroidResource>
@@ -381,6 +384,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_visibility_off_black_24.png">
     <Link>Resources\drawable-hdpi\baseline_visibility_off_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\outline_chevron_right_black_24.png">
+    <Link>Resources\drawable-hdpi\outline_chevron_right_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\avater_default.png">
     <Link>Resources\drawable-mdpi\avater_default.png</Link>
     </AndroidResource>
@@ -465,6 +471,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_visibility_off_black_24.png">
     <Link>Resources\drawable-mdpi\baseline_visibility_off_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\outline_chevron_right_black_24.png">
+    <Link>Resources\drawable-mdpi\outline_chevron_right_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\avater_default.png">
     <Link>Resources\drawable-xhdpi\avater_default.png</Link>
     </AndroidResource>
@@ -548,6 +557,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_visibility_off_black_24.png">
     <Link>Resources\drawable-xhdpi\baseline_visibility_off_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\outline_chevron_right_black_24.png">
+    <Link>Resources\drawable-xhdpi\outline_chevron_right_black_24.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\avater_default.png">
     <Link>Resources\drawable-xxhdpi\avater_default.png</Link>
@@ -636,6 +648,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\logo.png">
     <Link>Resources\drawable-xxhdpi\logo.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\outline_chevron_right_black_24.png">
+    <Link>Resources\drawable-xxhdpi\outline_chevron_right_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\splash_logo.png">
     <Link>Resources\drawable-xxhdpi\splash_logo.png</Link>
     </AndroidResource>
@@ -722,6 +737,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_visibility_off_black_24.png">
     <Link>Resources\drawable-xxxhdpi\baseline_visibility_off_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\outline_chevron_right_black_24.png">
+    <Link>Resources\drawable-xxxhdpi\outline_chevron_right_black_24.png</Link>
     </AndroidResource>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_about.xml">
     <Link>Resources\layout\activity_about.xml</Link>
@@ -920,6 +938,7 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
 
 
 

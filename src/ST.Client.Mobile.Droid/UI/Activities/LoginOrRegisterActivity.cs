@@ -34,6 +34,11 @@ namespace System.Application.UI.Activities
             { Resource.Id.navigation_login_or_register_phone_number, () => AppResources.User_PhoneLogin },
         };
 
+        protected override LoginOrRegisterPageViewModel? OnCreateViewModel()
+        {
+            return new() { Close = Finish };
+        }
+
         Tencent? tencent;
         protected override void OnCreate(Bundle? savedInstanceState)
         {
@@ -42,9 +47,6 @@ namespace System.Application.UI.Activities
             tencent = TencentOpenApiSDK.GetTencent(this);
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
-
-            ViewModel = new() { Close = Finish };
-            ViewModel.AddTo(this);
 
             var appBarConfiguration = new AppBarConfiguration.Builder(Resource.Id.navigation_login_or_register_fast).Build();
             navController = ((NavHostFragment)SupportFragmentManager.FindFragmentById(Resource.Id.nav_host_fragment)).NavController;
