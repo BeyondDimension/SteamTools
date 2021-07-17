@@ -22,6 +22,7 @@ namespace System.Application.UI
             set
             {
                 _item = value;
+                _item.DoubleClick += (s, e) => DoubleClick?.Invoke(s, e);
                 UpdateMenu();
             }
         }
@@ -53,16 +54,15 @@ namespace System.Application.UI
                     StatusBarItem.Menu.RemoveAllItems();
                 }
 
-                if (_menu == null) throw new ArgumentNullException(nameof(_menu));
-
-                f.ForEachMenuItems(_menu, item =>
+                if (_menu != null)
                 {
-                    NSMenuItem menuItem = new NSMenuItem(item.header);
-                    menuItem.Activated += (_, _) => { item.activated(); };
-                    StatusBarItem.Menu.AddItem(menuItem);
-                });
-
-                StatusBarItem.DoubleClick += (s, e) => { DoubleClick?.Invoke(this, new EventArgs()); };
+                    f.ForEachMenuItems(_menu, item =>
+                    {
+                        NSMenuItem menuItem = new NSMenuItem(item.header);
+                        menuItem.Activated += (_, _) => { item.activated(); };
+                        StatusBarItem.Menu.AddItem(menuItem);
+                    });
+                }
             }
         }
 
