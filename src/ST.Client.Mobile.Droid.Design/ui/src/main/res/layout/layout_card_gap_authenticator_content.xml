@@ -25,7 +25,7 @@
         tools:text="令牌自定义名称一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.github.wwluo14.nospacetextview.NoSpaceTextView
         android:id="@+id/tvValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,11 +34,11 @@
         android:focusable="true"
         android:fontFamily="sans-serif-light"
         android:textAppearance="?attr/textAppearanceHeadline6"
-        android:textSize="34sp"
+        android:textSize="33sp"
         app:layout_constraintStart_toStartOf="@+id/tvName"
         app:layout_constraintTop_toBottomOf="@+id/tvName"
         tools:text="1 2 3 4 5 6"
-        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+        xamarin:managedType="System.Application.UI.Views.Controls.NoSpaceTextView" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivMore"
@@ -58,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/gap_space_min"
+        android:layout_marginBottom="0.6dp"
         app:indicatorColor="?colorPrimary"
         app:indicatorSize="28dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvValue"
@@ -71,7 +72,7 @@
         tools:progress="25"
         xamarin:managedType="Google.Android.Material.ProgressIndicator.CircularProgressIndicator" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.github.wwluo14.nospacetextview.NoSpaceTextView
         android:id="@+id/tvProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -80,7 +81,7 @@
         app:layout_constraintStart_toStartOf="@+id/progress"
         app:layout_constraintTop_toTopOf="@+id/progress"
         tools:text="12"
-        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+        xamarin:managedType="System.Application.UI.Views.Controls.NoSpaceTextView" />
 
     <Space
         android:layout_width="wrap_content"

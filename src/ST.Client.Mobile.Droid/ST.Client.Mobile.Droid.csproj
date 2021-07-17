@@ -98,6 +98,7 @@
     <!--<Compile Include="..\Common.ClientLib.Droid\Application\ScreenCompatUtil.cs" />-->
     <Compile Include="..\ST.Client.Desktop.Avalonia\ServiceCollectionExtensions.AddShowWindowService.cs" />
     <Compile Include="..\TencentOpenApiSDK.cs" />
+    <Compile Include="UI\Views.Controls\NoSpaceTextView.cs" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
