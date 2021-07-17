@@ -36,7 +36,6 @@ namespace System.Application.Services
 
         void ShowWindowNoParent(Window window)
         {
-            var owner = GetActiveWindow();
             window.Show();
         }
 

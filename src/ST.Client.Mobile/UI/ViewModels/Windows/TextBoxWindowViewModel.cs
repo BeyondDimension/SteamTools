@@ -82,11 +82,11 @@ namespace System.Application.UI.ViewModels
         {
             vm ??= new TextBoxWindowViewModel();
             await IShowWindowService.Instance.ShowDialog(
-#if !__MOBILE__
-                CustomWindow.Password
-#else
+//#if !__MOBILE__
+//                CustomWindow.Password
+//#else
                 CustomWindow.TextBox
-#endif
+//#endif
                 , vm, string.Empty, ResizeModeCompat.NoResize);
             return vm.Value;
         }
@@ -111,6 +111,7 @@ namespace System.Application.UI.ViewModels
         {
             TextBox,
             Password,
+            ReadOnlyText,
         }
 
         public enum PresetType

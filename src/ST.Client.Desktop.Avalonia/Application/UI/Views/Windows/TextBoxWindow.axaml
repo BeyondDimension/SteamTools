@@ -6,7 +6,7 @@
         MinWidth="450" MinHeight="100"
         SizeToContent="WidthAndHeight"
         MaxWidth="900"
-        x:Class="System.Application.UI.Views.Windows.PasswordWindow"
+        x:Class="System.Application.UI.Views.Windows.TextBoxWindow"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
@@ -15,6 +15,7 @@
         Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"
         Title="{Binding Title}"
+        x:Name="u"
         CanResize="False"
         x:DataType="vm:TextBoxWindowViewModel"
         x:CompileBindings="True">
@@ -23,15 +24,20 @@
     <Border Padding="10" Grid.Row="2">
       <StackPanel Spacing="10">
         <!--<TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_PasswordRequired,Source={x:Static resx:R.Current},Mode=OneWay}" Classes="h4"></TextBlock>-->
-        <TextBox Watermark="{Binding Placeholder}"
+        <TextBox x:Name="PasswordBox"
+                 MaxWidth="{ReflectionBinding #u.MaxWidth}"
+                 Watermark="{Binding Placeholder}"
                  VerticalAlignment="Stretch"
                  HorizontalAlignment="Stretch"
-                 Text="{Binding Value}" PasswordChar="*" Classes="revealPasswordButton" />
-        <TextBox
+                 Text="{Binding Value}" 
+                 PasswordChar="*" 
+                 Classes="revealPasswordButton" />
+        <TextBox x:Name="DescriptionBox" 
+                 MaxWidth="{ReflectionBinding #u.MaxWidth}"
                  IsVisible="{Binding Description,Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                  Text="{Binding Description}"
                  Classes="readonlybox"
-                 TextWrapping="WrapWithOverflow"
+                 TextWrapping="Wrap"
                  HorizontalAlignment="Stretch"
                  VerticalAlignment="Stretch"
                  IsReadOnly="True" />

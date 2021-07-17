@@ -58,4 +58,10 @@
         <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0015045-beta" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="Application\UI\Views\Windows\TextBoxWindow.axaml.cs">
+        <DependentUpon>TextBoxWindow.axaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

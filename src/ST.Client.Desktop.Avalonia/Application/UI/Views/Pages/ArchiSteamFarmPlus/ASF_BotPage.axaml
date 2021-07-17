@@ -90,7 +90,9 @@
                   </WrapPanel>
 
                   <WrapPanel Orientation="Horizontal">
-                    <!--<TextBlock Text="{Binding AccountName}" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>-->
+                    <!--<TextBlock 
+                               Text="{Binding AccountName}" 
+                               FontSize="16"/>-->
                   </WrapPanel>
                 </StackPanel>
 

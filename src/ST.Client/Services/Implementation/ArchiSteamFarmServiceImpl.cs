@@ -31,27 +31,42 @@ namespace System.Application.Services.Implementation
 
         public DateTimeOffset? StartTime { get; set; }
 
+        private bool isFirstStart = true;
+
         public async Task Start(string[]? args = null)
         {
             try
             {
-                IArchiSteamFarmService.InitCoreLoggers?.Invoke();
-                InitHistoryLogger();
-
-                ArchiSteamFarm.NLog.Logging.GetUserInputFunc = async (bool isPassword) =>
+                if (isFirstStart)
                 {
-                    ReadLineTask = new(TaskCreationOptions.AttachedToParent);
-                    IsReadPasswordLine = isPassword;
+                    IArchiSteamFarmService.InitCoreLoggers?.Invoke();
+                    InitHistoryLogger();
 
-                    var result = await ReadLineTask.Task;
+                    ArchiSteamFarm.NLog.Logging.GetUserInputFunc = async (bool isPassword) =>
+                    {
+                        ReadLineTask = new(TaskCreationOptions.AttachedToParent);
+                        IsReadPasswordLine = isPassword;
 
-                    if (IsReadPasswordLine)
-                        IsReadPasswordLine = false;
-                    ReadLineTask = null;
-                    return result;
-                };
+                        var result = await ReadLineTask.Task;
 
-                await ArchiSteamFarm.Program.Init(args);
+                        if (IsReadPasswordLine)
+                            IsReadPasswordLine = false;
+                        ReadLineTask = null;
+                        return result;
+                    };
+
+                    await ArchiSteamFarm.Program.Init(args).ConfigureAwait(false);
+                    isFirstStart = false;
+                }
+                else
+                {
+                    if (!await ArchiSteamFarm.Program.InitCore(args).ConfigureAwait(false) ||
+                        !await ArchiSteamFarm.Program.InitASF().ConfigureAwait(false))
+                    {
+                        await Stop().ConfigureAwait(false);
+                    }
+                }
+
                 StartTime = DateTimeOffset.Now;
             }
             catch (Exception ex)

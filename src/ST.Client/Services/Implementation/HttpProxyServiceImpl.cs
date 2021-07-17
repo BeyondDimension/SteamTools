@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Properties;
 using System.Security.Cryptography;
@@ -90,23 +91,21 @@ namespace System.Application.Services.Implementation
                     e.Ok(body ?? "500", headrs);
                     return;
                 case "POST":
+                    var requestStream = new StreamWriter(new MemoryStream());
                     try
                     {
                         if (e.HttpClient.Request.ContentLength > 0)
                         {
-                            var conext = await IHttpService.Instance.SendAsync<string>(url, () =>
+                            requestStream.Write(e.HttpClient.Request.BodyString);
+
+                            var send = new HttpRequestMessage
                             {
-                                using var sw = new MemoryStream().GetWriter(leaveOpen: true);
-                                sw.Write(e.HttpClient.Request.BodyString);
-                                var req = new HttpRequestMessage
-                                {
-                                    Method = HttpMethod.Post,
-                                    Content = new StreamContent(sw.BaseStream),
-                                };
-                                req.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(e.HttpClient.Request.ContentType);
-                                req.Content.Headers.ContentLength = e.HttpClient.Request.BodyString.Length;
-                                return req;
-                            }, null, false, new CancellationToken());
+                                Method = HttpMethod.Post,
+                                Content = new StreamContent(requestStream.BaseStream),
+                            };
+                            send.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(e.HttpClient.Request.ContentType);
+                            send.Content.Headers.ContentLength = e.HttpClient.Request.BodyString.Length;
+                            var conext = await IHttpService.Instance.SendAsync<string>(url, send, null, false, new CancellationToken());
                             e.Ok(conext ?? "500", headrs);
                         }
                         else
@@ -356,6 +355,7 @@ namespace System.Application.Services.Implementation
             if (DI.IsmacOS)
             {
                 TrustCer();
+
             }
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
@@ -515,8 +515,10 @@ namespace System.Application.Services.Implementation
                             }
                         }
                         IPlatformService.Instance.AdminShell(shellContent.ToString(), false);
+
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -611,6 +613,7 @@ namespace System.Application.Services.Implementation
                 }
             }
             IPlatformService.Instance.AdminShell(shellContent.ToString(), false);
+
         }
         public void StopProxy()
         {
@@ -625,6 +628,7 @@ namespace System.Application.Services.Implementation
                     StopMacProxy();
                 }
                 proxyServer.Stop();
+
             }
             try
             {

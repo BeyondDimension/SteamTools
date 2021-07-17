@@ -13,7 +13,7 @@ namespace System.Application
         ShowAuth,
         AuthTrade,
         EncryptionAuth,
-        Password,
+        TextBox,
 #if !__MOBILE__
         TaskBar,
 #endif
@@ -28,9 +28,6 @@ namespace System.Application
         NewVersion,
         WebView3,
         BindPhoneNumber,
-#endif
-#if __MOBILE__
-        TextBox,
 #endif
     }
 }
