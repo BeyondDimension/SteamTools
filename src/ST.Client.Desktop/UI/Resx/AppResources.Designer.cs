@@ -675,7 +675,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Windows系统代理模式 的本地化字符串。
+        ///   查找类似 系统代理模式 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyMode_WinSystem {
             get {

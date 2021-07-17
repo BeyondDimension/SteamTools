@@ -322,7 +322,7 @@
     <value>修改Hosts文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机443端口未被使用。</value>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
-    <value>Windows系统代理模式</value>
+    <value>系统代理模式</value>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
     <value>设置Windows系统代理来监听请求，不需要占用443端口，会全局代理本机所有流量，如果你使用Hosts方式没有问题，那就不需要使用此模式。</value>
