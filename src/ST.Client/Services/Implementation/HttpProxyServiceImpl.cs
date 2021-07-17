@@ -91,21 +91,23 @@ namespace System.Application.Services.Implementation
                     e.Ok(body ?? "500", headrs);
                     return;
                 case "POST":
-                    var requestStream = new StreamWriter(new MemoryStream());
                     try
                     {
                         if (e.HttpClient.Request.ContentLength > 0)
                         {
-                            requestStream.Write(e.HttpClient.Request.BodyString);
-
-                            var send = new HttpRequestMessage
+                            var conext = await IHttpService.Instance.SendAsync<string>(url, () =>
                             {
-                                Method = HttpMethod.Post,
-                                Content = new StreamContent(requestStream.BaseStream),
-                            };
-                            send.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(e.HttpClient.Request.ContentType);
-                            send.Content.Headers.ContentLength = e.HttpClient.Request.BodyString.Length;
-                            var conext = await IHttpService.Instance.SendAsync<string>(url, send, null, false, new CancellationToken());
+                                using var sw = new MemoryStream().GetWriter(leaveOpen: true);
+                                sw.Write(e.HttpClient.Request.BodyString);
+                                var req = new HttpRequestMessage
+                                {
+                                    Method = HttpMethod.Post,
+                                    Content = new StreamContent(sw.BaseStream),
+                                };
+                                req.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(e.HttpClient.Request.ContentType);
+                                req.Content.Headers.ContentLength = e.HttpClient.Request.BodyString.Length;
+                                return req;
+                            }, null, false, new CancellationToken());
                             e.Ok(conext ?? "500", headrs);
                         }
                         else
