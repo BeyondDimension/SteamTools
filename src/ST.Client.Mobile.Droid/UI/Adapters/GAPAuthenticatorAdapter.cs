@@ -10,16 +10,16 @@ using TViewModel = System.Application.Models.MyAuthenticator;
 
 namespace System.Application.UI.Adapters
 {
-    internal sealed class GAPAuthenticatorAdapter : BaseReactiveRecycleViewAdapter<TViewHolder, TViewModel>, IReadOnlyViewFor<LocalAuthPageViewModel>, ILifecycleOwner
+    internal sealed class GAPAuthenticatorAdapter : BaseReactiveRecycleViewAdapter<TViewHolder, TViewModel>, /*IReadOnlyViewFor<LocalAuthPageViewModel>,*/ ILifecycleOwner
     {
-        public LocalAuthPageViewModel ViewModel { get; }
+        //public LocalAuthPageViewModel ViewModel { get; }
 
         public readonly ILifecycleOwner lifecycleOwner;
         Lifecycle ILifecycleOwner.Lifecycle => lifecycleOwner.Lifecycle;
 
         public GAPAuthenticatorAdapter(ILifecycleOwner lifecycleOwner, LocalAuthPageViewModel viewModel) : base(viewModel.Authenticators)
         {
-            ViewModel = viewModel;
+            //ViewModel = viewModel;
             this.lifecycleOwner = lifecycleOwner;
         }
 
@@ -84,14 +84,14 @@ namespace System.Application.UI.Adapters
             //binding.btnSeeValue.SetOnClickListener(this);
         }
 
-        void GetDataContext(Action<LocalAuthPageViewModel> action)
-        {
-            if (BindingAdapter is IReadOnlyViewFor<LocalAuthPageViewModel> vf
-                && vf.ViewModel != null)
-            {
-                action(vf.ViewModel);
-            }
-        }
+        //void GetDataContext(Action<LocalAuthPageViewModel> action)
+        //{
+        //    if (BindingAdapter is IReadOnlyViewFor<LocalAuthPageViewModel> vf
+        //        && vf.ViewModel != null)
+        //    {
+        //        action(vf.ViewModel);
+        //    }
+        //}
 
         void View.IOnClickListener.OnClick(View? view)
         {
@@ -100,10 +100,7 @@ namespace System.Application.UI.Adapters
             if (vm == null) return;
             if (view.Id == Resource.Id.tvValue)
             {
-                GetDataContext(dataContext =>
-                {
-                    dataContext.CopyCodeCilp(vm);
-                });
+                vm.CopyCodeCilp();
             }
             //else if (view.Id == Resource.Id.btnEditName)
             //{

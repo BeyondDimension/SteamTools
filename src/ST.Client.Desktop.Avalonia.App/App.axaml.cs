@@ -25,6 +25,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Application.UI.Views.Windows;
 using System.Application.Services.Implementation;
+using System.Threading.Tasks;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
@@ -359,7 +360,19 @@ namespace System.Application.UI
             RestoreMainWindow();
         }
 
-        public async void SetClipboardText(string? s) => await Current.Clipboard.SetTextAsync(s ?? string.Empty);
+        Task IClipboardPlatformService.PlatformSetTextAsync(string text) => Current.Clipboard.SetTextAsync(text);
+
+        Task<string> IClipboardPlatformService.PlatformGetTextAsync() => Current.Clipboard.GetTextAsync();
+
+        bool IClipboardPlatformService.PlatformHasText
+        {
+            get
+            {
+                Func<Task<string>> func = () => Current.Clipboard.GetTextAsync();
+                var value = func.RunSync();
+                return !string.IsNullOrEmpty(value);
+            }
+        }
 
         Window? mMainWindow;
 

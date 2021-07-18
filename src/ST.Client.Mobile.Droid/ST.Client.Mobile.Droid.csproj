@@ -745,6 +745,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_about.xml">
     <Link>Resources\layout\activity_about.xml</Link>
     </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_detail_auth.xml">
+    <Link>Resources\layout\activity_detail_auth.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_encryption_auth.xml">
     <Link>Resources\layout\activity_encryption_auth.xml</Link>
     </AndroidBoundLayout>
@@ -939,6 +942,7 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
 
 
 

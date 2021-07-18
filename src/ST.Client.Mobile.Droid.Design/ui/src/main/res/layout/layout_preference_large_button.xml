@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:layout_height="@dimen/preference_button_height_large"
     android:background="?android:windowBackground"
     android:clickable="true"
     android:focusable="true"
@@ -31,7 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/text_primary"
-            android:textSize="18sp"
+
+            android:textSize="@dimen/preference_button_font_size"
             tools:text="@string/edit_profile"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 

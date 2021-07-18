@@ -66,7 +66,7 @@ namespace System.Application.UI.Fragments
             var adapter = new GAPAuthenticatorAdapter(this, ViewModel!);
             adapter.ItemClick += (_, e) =>
             {
-                SteamAuthDataActivity.StartActivity(Activity, e.Current.Id);
+                AuthDetailActivity.StartActivity(Activity, e.Current.Id);
             };
             var layout = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
             binding!.rvAuthenticators.SetLayoutManager(layout);

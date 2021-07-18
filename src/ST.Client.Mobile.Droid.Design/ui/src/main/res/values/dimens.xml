@@ -22,4 +22,12 @@
     <dimen name="steam_user_login_logo_size">125dp</dimen>
     <dimen name="steam_auth__trade_confirmation_img_size">80dp</dimen>
     <dimen name="fab_full_height">88dp</dimen>
+    <dimen name="border_width">1px</dimen>
+    <dimen name="auth_progress_indicator_size">28dp</dimen>
+    <dimen name="auth_progress_track_corner_radius">2dp</dimen>
+    <dimen name="auth_progress_track_thickness">3dp</dimen>
+    <dimen name="auth_value_font_size">33sp</dimen>
+    <dimen name="preference_button_height_large">56dp</dimen>
+    <dimen name="preference_button_font_size">18sp</dimen>
+    <dimen name="preference_button_height_small">52dp</dimen>
 </resources>

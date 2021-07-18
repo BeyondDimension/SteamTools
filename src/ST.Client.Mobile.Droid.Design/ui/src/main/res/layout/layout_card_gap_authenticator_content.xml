@@ -8,6 +8,13 @@
 
     <!--参考 MS Authenticator-->
 
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/activity_vertical_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvValue" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvName"
         android:layout_width="0dp"
@@ -24,21 +31,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="令牌自定义名称一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
-
-    <com.github.wwluo14.nospacetextview.NoSpaceTextView
-        android:id="@+id/tvValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/gap_space"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="sans-serif-light"
-        android:textAppearance="?attr/textAppearanceHeadline6"
-        android:textSize="33sp"
-        app:layout_constraintStart_toStartOf="@+id/tvName"
-        app:layout_constraintTop_toBottomOf="@+id/tvName"
-        tools:text="1 2 3 4 5 6"
-        xamarin:managedType="System.Application.UI.Views.Controls.NoSpaceTextView" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivMore"
@@ -60,15 +52,15 @@
         android:layout_marginStart="@dimen/gap_space_min"
         android:layout_marginBottom="0.6dp"
         app:indicatorColor="?colorPrimary"
-        app:indicatorSize="28dp"
+        app:indicatorSize="@dimen/auth_progress_indicator_size"
         app:layout_constraintBottom_toBottomOf="@+id/tvValue"
         app:layout_constraintEnd_toStartOf="@+id/ivMore"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tvValue"
         app:layout_constraintTop_toTopOf="@+id/tvValue"
         app:trackColor="?colorSecondary"
-        app:trackCornerRadius="2dp"
-        app:trackThickness="3dp"
+        app:trackCornerRadius="@dimen/auth_progress_track_corner_radius"
+        app:trackThickness="@dimen/auth_progress_track_thickness"
         tools:progress="25"
         xamarin:managedType="Google.Android.Material.ProgressIndicator.CircularProgressIndicator" />
 
@@ -83,11 +75,19 @@
         tools:text="12"
         xamarin:managedType="System.Application.UI.Views.Controls.NoSpaceTextView" />
 
-    <Space
+    <com.github.wwluo14.nospacetextview.NoSpaceTextView
+        android:id="@+id/tvValue"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/activity_vertical_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvValue" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap_space"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="sans-serif-light"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:textSize="@dimen/auth_value_font_size"
+        app:layout_constraintStart_toStartOf="@+id/tvName"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        tools:text="1 2 3 4 5 6"
+        xamarin:managedType="System.Application.UI.Views.Controls.NoSpaceTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

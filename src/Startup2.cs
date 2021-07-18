@@ -27,6 +27,7 @@ using static System.Application.AppClientAttribute;
 using System.Net;
 using System.Diagnostics;
 using System.Net.Http;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 #if __ANDROID__
 using Xamarin.Android.Net;
 using Program = System.Application.UI.MainApplication;
@@ -171,6 +172,7 @@ namespace System.Application
 #else
                 services.AddSingleton<IDesktopAppService>(s => App.Instance);
                 services.AddSingleton<IDesktopAvaloniaAppService>(s => App.Instance);
+                services.TryAddSingleton<IClipboardPlatformService>(s => s.GetRequiredService<IDesktopAppService>());
 
                 // 添加管理主窗口服务
                 services.AddWindowService();

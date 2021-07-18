@@ -28,11 +28,7 @@ namespace System.Application.UI.ViewModels
 
             //#if !__MOBILE__
             //            CopyLinkCommand =
-            //#if __MOBILE__
-            //                ReactiveCommand.CreateFromTask<string>(Clipboard.SetTextAsync);
-            //#else
-            //                ReactiveCommand.Create<string>(IDesktopAppService.Instance.SetClipboardText);
-            //#endif
+            //                ReactiveCommand.CreateFromTask<string>(Clipboard2.SetTextAsync);
             //#endif
 
             CheckUpdateCommand = ReactiveCommand.CreateFromTask(async () =>

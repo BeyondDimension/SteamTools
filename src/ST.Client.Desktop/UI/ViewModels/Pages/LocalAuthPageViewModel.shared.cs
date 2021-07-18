@@ -12,9 +12,6 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-#if __MOBILE__
-using XEClipboard = Xamarin.Essentials.Clipboard;
-#endif
 
 namespace System.Application.UI.ViewModels
 {
@@ -104,7 +101,7 @@ namespace System.Application.UI.ViewModels
         public async override void Activation()
         {
             var auths = await AuthService.Current.Repository.GetAllSourceAsync();
-            SourceAuthCount = auths.Count();
+            SourceAuthCount = auths.Length;
             //if (IsFirstActivation)
             if (IsAuthenticatorsEmptyAndHasPassword)
             {
@@ -155,20 +152,7 @@ namespace System.Application.UI.ViewModels
         }
 #endif
 
-#if __MOBILE__
-        async void SetClipboardText(string s) => await XEClipboard.SetTextAsync(s);
-#endif
-
-        public void CopyCodeCilp(MyAuthenticator auth)
-        {
-            var s = auth.CurrentCode;
-#if __MOBILE__
-            SetClipboardText(s);
-#else
-            DI.Get<IDesktopAppService>().SetClipboardText(s);
-#endif
-            Toast.Show(AppResources.LocalAuth_CopyAuthTip + auth.Name);
-        }
+        public void CopyCodeCilp(MyAuthenticator auth) => auth.CopyCodeCilp();
 
         public async void DeleteAuth(MyAuthenticator auth)
         {

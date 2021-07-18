@@ -1,5 +1,7 @@
 using ReactiveUI;
 using System.Application.Mvvm;
+using System.Application.Services;
+using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -340,6 +342,12 @@ namespace System.Application.Models
                 Value = Name,
             });
             Name = value ?? string.Empty;
+        }
+
+        public void CopyCodeCilp()
+        {
+            Clipboard2.SetText(CurrentCode);
+            Toast.Show(AppResources.LocalAuth_CopyAuthTip + Name);
         }
     }
 

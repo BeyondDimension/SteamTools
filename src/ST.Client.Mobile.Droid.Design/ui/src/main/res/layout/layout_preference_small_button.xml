@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
     android:layout_width="match_parent"
-    android:layout_height="52dp"
+    android:layout_height="@dimen/preference_button_height_small"
     android:background="?android:windowBackground"
     android:clickable="true"
     android:focusable="true"
