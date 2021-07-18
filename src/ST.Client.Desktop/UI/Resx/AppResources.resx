@@ -1430,4 +1430,22 @@
   <data name="LocalAuth_Loading" xml:space="preserve">
     <value>正在加载令牌数据...</value>
   </data>
+  <data name="LocalAuth_Code" xml:space="preserve">
+    <value>一次性密码代码</value>
+  </data>
+  <data name="LocalAuth_Code_Desc" xml:space="preserve">
+    <value>可以使用此应用生成的一次性密码代码来验证登录</value>
+  </data>
+  <data name="LocalAuth_Code_Title" xml:space="preserve">
+    <value>已启用一次性密码</value>
+  </data>
+  <data name="EditName" xml:space="preserve">
+    <value>修改名称</value>
+  </data>
+  <data name="SeeData" xml:space="preserve">
+    <value>查看数据</value>
+  </data>
+  <data name="LocalAuth_Delete" xml:space="preserve">
+    <value>删除令牌</value>
+  </data>
 </root>

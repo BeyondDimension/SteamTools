@@ -69,7 +69,8 @@
                 android:paddingStart="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin">
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                xamarin:managedType="AndroidX.ConstraintLayout.Widget.ConstraintLayout">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvValueTitle"
@@ -113,6 +114,7 @@
                     android:id="@+id/tvValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap_space_min"
                     android:clickable="true"
                     android:focusable="true"
                     android:fontFamily="sans-serif-light"
@@ -150,8 +152,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/baseline_edit_black_24"
                         app:tint="@color/icon_background"
-                        tools:src="@drawable/baseline_edit_black_24"
                         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -208,8 +210,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/baseline_checklist_black_24"
                         app:tint="@color/icon_background"
-                        tools:src="@drawable/baseline_checklist_black_24"
                         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -266,8 +268,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/baseline_description_black_24"
                         app:tint="@color/icon_background"
-                        tools:src="@drawable/baseline_description_black_24"
                         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -324,8 +326,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/baseline_close_black_24"
                         app:tint="@color/icon_background"
-                        tools:src="@drawable/baseline_close_black_24"
                         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
                     <androidx.appcompat.widget.AppCompatTextView

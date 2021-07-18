@@ -1,3 +1,4 @@
+using Android.App;
 using Android.Content;
 using Android.Text;
 using Android.Views;
@@ -98,13 +99,25 @@ namespace System.Application.Services.Implementation
                     SetCancelButton(b);
                     var view = LayoutInflater.From(b.Context)!.Inflate(Resource.Layout.textbox_password, null, false)!;
                     var binding = new textbox_password(view);
+                    var selectionIndex = 0;
                     if (!string.IsNullOrEmpty(viewModel_tb.Value))
+                    {
                         binding.tbPassword.Text = viewModel_tb.Value;
+                        selectionIndex = viewModel_tb.Value!.Length;
+                    }
                     binding.layoutPassword.Hint = viewModel_tb.Placeholder;
                     action?.Invoke(binding, viewModel_tb);
                     b.SetView(view);
                     return d =>
                     {
+                        if (binding.tbPassword.KeyListener != null)
+                        {
+                            CurrentActivity.ShowSoftInput(binding.tbPassword, inOnCreate: true);
+                            if (selectionIndex > 0)
+                            {
+                                binding.tbPassword.SetSelection(selectionIndex);
+                            }
+                        }
                         d.GetButton((int)DialogButtonType.Positive).Click += (_, _) =>
                         {
                             if (viewModel is ITextBoxWindowViewModel viewModel_p)
@@ -152,6 +165,7 @@ namespace System.Application.Services.Implementation
                 }
                 var dialog_delegate = @delegate(builder);
                 dialog = builder.Create();
+                dialog.SetCanceledOnTouchOutside(false);
                 dialog.CancelEvent += (_, _) =>
                 {
                     tcs.TrySetResult(false);

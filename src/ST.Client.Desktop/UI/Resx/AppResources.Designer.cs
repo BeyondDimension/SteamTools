@@ -918,6 +918,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 修改名称 的本地化字符串。
+        /// </summary>
+        public static string EditName {
+            get {
+                return ResourceManager.GetString("EditName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 邮箱 的本地化字符串。
         /// </summary>
         public static string Email {
@@ -1882,6 +1891,33 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 一次性密码代码 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_Code {
+            get {
+                return ResourceManager.GetString("LocalAuth_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 可以使用此应用生成的一次性密码代码来验证登录 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_Code_Desc {
+            get {
+                return ResourceManager.GetString("LocalAuth_Code_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已启用一次性密码 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_Code_Title {
+            get {
+                return ResourceManager.GetString("LocalAuth_Code_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 复制令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_Copy {
@@ -1896,6 +1932,15 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_CopyAuthTip {
             get {
                 return ResourceManager.GetString("LocalAuth_CopyAuthTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 删除令牌 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_Delete {
+            get {
+                return ResourceManager.GetString("LocalAuth_Delete", resourceCulture);
             }
         }
         
@@ -2877,6 +2922,15 @@ namespace System.Application.UI.Resx {
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 查看数据 的本地化字符串。
+        /// </summary>
+        public static string SeeData {
+            get {
+                return ResourceManager.GetString("SeeData", resourceCulture);
             }
         }
         

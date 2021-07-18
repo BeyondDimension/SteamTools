@@ -340,6 +340,7 @@ namespace System.Application.Models
             var value = await TextBoxWindowViewModel.ShowDialogAsync(new()
             {
                 Value = Name,
+                Title = AppResources.EditName,
             });
             Name = value ?? string.Empty;
         }

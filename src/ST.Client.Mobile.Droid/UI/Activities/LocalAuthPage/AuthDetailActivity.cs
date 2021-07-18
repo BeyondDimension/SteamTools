@@ -6,9 +6,12 @@ using Android.Views;
 using Binding;
 using ReactiveUI;
 using System.Application.Models;
+using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Linq;
 using System.Threading;
+using static System.Application.UI.Resx.AppResources;
+using TViewModel = System.Application.Models.MyAuthenticator;
 
 namespace System.Application.UI.Activities
 {
@@ -16,11 +19,11 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class AuthDetailActivity : BaseActivity<activity_detail_auth, MyAuthenticatorWrapper>, MyAuthenticator.IAutoRefreshCode, IReadOnlyViewFor<MyAuthenticator>
+    internal sealed class AuthDetailActivity : BaseActivity<activity_detail_auth, MyAuthenticatorWrapper>, TViewModel.IAutoRefreshCode, IReadOnlyViewFor<TViewModel>
     {
         public CancellationTokenSource? AutoRefreshCode { get; set; }
 
-        MyAuthenticator IReadOnlyViewFor<MyAuthenticator>.ViewModel => ViewModel!;
+        TViewModel IReadOnlyViewFor<TViewModel>.ViewModel => ViewModel!;
 
         protected override int? LayoutResource => Resource.Layout.activity_detail_auth;
 
@@ -40,9 +43,28 @@ namespace System.Application.UI.Activities
                 return;
             }
 
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
             ViewModel!.Authenticator.WhenAnyValue(x => x.Name).Subscribe(value =>
             {
                 Title = value;
+            }).AddTo(this);
+            ViewModel.Authenticator.WhenAnyValue(x => x.CurrentCode).Subscribe(value =>
+            {
+                binding.tvValue.Text = TViewModel.CodeFormat(value);
+            }).AddTo(this);
+
+            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            {
+                if (binding == null) return;
+                binding.tvInfoTitle.Text = LocalAuth_Code_Title;
+                binding.tvInfoDesc.Text = LocalAuth_Code_Desc;
+                binding.tvValueTitle.Text = LocalAuth_Code;
+                binding.tvTitleEditName.Text = EditName;
+                binding.tvTitleConfirmTrade.Text = LocalAuth_AuthTrade;
+                binding.tvTitleSeeData.Text = SeeData;
+                binding.tvTitleDelete.Text = LocalAuth_Delete;
             }).AddTo(this);
 
             SetOnClickListener(binding!.layoutValue,
@@ -55,7 +77,7 @@ namespace System.Application.UI.Activities
         protected override void OnPause()
         {
             base.OnPause();
-            MyAuthenticator.StopAutoRefreshCode(this);
+            TViewModel.StopAutoRefreshCode(this);
         }
 
         protected override void OnResume()
@@ -63,7 +85,7 @@ namespace System.Application.UI.Activities
             base.OnResume();
             if (AutoRefreshCode == null)
             {
-                MyAuthenticator.StartAutoRefreshCode(this, noStop: true);
+                TViewModel.StartAutoRefreshCode(this, noStop: true);
             }
         }
 

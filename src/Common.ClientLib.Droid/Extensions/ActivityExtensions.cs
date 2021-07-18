@@ -7,6 +7,8 @@ using AndroidX.AppCompat.App;
 using AndroidX.Fragment.App;
 using AndroidX.Navigation.Fragment;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
@@ -43,20 +45,22 @@ namespace System
         /// <param name="activity"></param>
         /// <param name="editText"></param>
         /// <param name="inOnCreate">是否在<see cref="Activity.OnCreate(Android.OS.Bundle?)"/>中调用</param>
-        public static void ShowSoftInput(this Activity activity, EditText editText, bool inOnCreate = false)
+        public static async void ShowSoftInput(this Activity activity, EditText editText, bool inOnCreate = false)
         {
             var imm = activity.GetSystemService<InputMethodManager>();
             if (imm != null)
             {
                 if (inOnCreate)
                 {
+                    const int millisecondsDelay = 99;
                     if (activity.Window != null)
                     {
-                        activity.Window.DecorView.PostDelayed(ShowSoftInput, 100);
+                        activity.Window.DecorView.PostDelayed(ShowSoftInput, millisecondsDelay);
                     }
                     else
                     {
-                        new Handler().PostDelayed(ShowSoftInput, 100);
+                        await Task.Delay(millisecondsDelay);
+                        MainThread.BeginInvokeOnMainThread(ShowSoftInput);
                     }
                 }
                 else
