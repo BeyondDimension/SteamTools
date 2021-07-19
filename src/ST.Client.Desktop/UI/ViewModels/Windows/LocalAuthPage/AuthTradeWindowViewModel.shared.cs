@@ -24,8 +24,6 @@ namespace System.Application.UI.ViewModels
 
         public AuthTradeWindowViewModel() : base()
         {
-            Refresh_Click();
-
             Title =
 #if !__MOBILE__
                 ThisAssembly.AssemblyTrademark + " | " +
@@ -60,6 +58,8 @@ namespace System.Application.UI.ViewModels
                 //非Steam令牌无法弹出确认交易框
                 throw new NotSupportedException("Authenticator is not SteamAuthenticator");
             }
+
+            Refresh_Click();
         }
 
         private string? AuthPassword;
@@ -68,10 +68,10 @@ namespace System.Application.UI.ViewModels
         private async void Initialize()
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
-            var result = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
-            if (result.success)
+            var (success, password) = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
+            if (success)
             {
-                AuthPassword = result.password;
+                AuthPassword = password;
             }
             else
             {
@@ -155,7 +155,7 @@ namespace System.Application.UI.ViewModels
 
         public bool IsLoggedIn
         {
-            get => _Authenticator!.GetClient().IsLoggedIn();
+            get => _Authenticator?.GetClient().IsLoggedIn() ?? false;
             set
             {
                 this.RaisePropertyChanged();
@@ -271,13 +271,13 @@ namespace System.Application.UI.ViewModels
 
         private void Process(string? captchaId = null, string? codeChar = null)
         {
-            if (IsLoading)
+            if (IsLoading || _Authenticator == null)
                 return;
             Task.Run(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
                 IsLoading = true;
-                var steam = _Authenticator!.GetClient();
+                var steam = _Authenticator.GetClient();
                 if (!IsLoggedIn)
                 {
                     IsLoading = false;

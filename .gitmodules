@@ -22,3 +22,6 @@
 [submodule "references/ArchiSteamFarm"]
 	path = references/ArchiSteamFarm
 	url = https://github.com/SteamTools-Team/ArchiSteamFarm.git
+[submodule "references/sqlite-net"]
+	path = references/sqlite-net
+	url = https://github.com/SteamTools-Team/sqlite-net.git

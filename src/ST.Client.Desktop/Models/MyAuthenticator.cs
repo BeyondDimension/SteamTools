@@ -332,7 +332,7 @@ namespace System.Application.Models
 #endif
 
         /// <summary>
-        /// 编辑令牌自定义名称，仅修改VM对象，需调用 <see cref="Services.AuthService.SaveEditNameAuthenticators"/> 保存到本地数据库中
+        /// 编辑令牌自定义名称
         /// </summary>
         /// <returns></returns>
         public async Task EditNameAsync()
@@ -343,6 +343,7 @@ namespace System.Application.Models
                 Title = AppResources.EditName,
             });
             Name = value ?? string.Empty;
+            await AuthService.Current.SaveEditNameByAuthenticatorAsync(this);
         }
 
         public void CopyCodeCilp()

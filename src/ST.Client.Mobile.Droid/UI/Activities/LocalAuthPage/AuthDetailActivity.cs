@@ -110,7 +110,10 @@ namespace System.Application.UI.Activities
             }
             else if (view.Id == Resource.Id.layoutDelete)
             {
-                LocalAuthPageViewModel.Current.DeleteAuth(ViewModel!.Authenticator);
+                LocalAuthPageViewModel.Current.DeleteAuthCore(ViewModel!.Authenticator, () =>
+                {
+                    Finish();
+                });
             }
         }
 

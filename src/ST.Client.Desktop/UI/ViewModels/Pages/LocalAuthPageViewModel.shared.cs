@@ -154,7 +154,11 @@ namespace System.Application.UI.ViewModels
 
         public void CopyCodeCilp(MyAuthenticator auth) => auth.CopyCodeCilp();
 
-        public async void DeleteAuth(MyAuthenticator auth)
+#if !__MOBILE__
+        public void DeleteAuth(MyAuthenticator auth) => DeleteAuthCore(auth);
+#endif
+
+        public async void DeleteAuthCore(MyAuthenticator auth, Action? okAction = null)
         {
             var (success, _) = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
             if (!success) return;
@@ -162,6 +166,7 @@ namespace System.Application.UI.ViewModels
             if (r == MessageBoxResultCompat.OK)
             {
                 AuthService.DeleteSaveAuthenticators(auth);
+                okAction?.Invoke();
             }
         }
 

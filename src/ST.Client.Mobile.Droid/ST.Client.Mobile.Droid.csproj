@@ -148,6 +148,10 @@
     <PackageReference Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.9" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+    <PackageReference Include="LeakCanaryBinding" Version="1.5.1.1" />
+  </ItemGroup>
+
   <ItemGroup>
     <!--<ProjectReference Include="..\ST.Client.Mobile.Droid.Resources\ST.Client.Mobile.Droid.Resources.csproj" />-->
     <ProjectReference Include="..\ST.Client.Mobile\ST.Client.Mobile.csproj" />

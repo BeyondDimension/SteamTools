@@ -11,6 +11,9 @@ using AppTheme = System.Application.Models.AppTheme;
 using XEFileProvider = Xamarin.Essentials.FileProvider;
 using XEPlatform = Xamarin.Essentials.Platform;
 using XEVersionTracking = Xamarin.Essentials.VersionTracking;
+#if DEBUG
+using Square.LeakCanary;
+#endif
 
 namespace System.Application.UI
 {
@@ -23,11 +26,28 @@ namespace System.Application.UI
             ViewModelBase.IsInDesignMode = false;
         }
 
+#if DEBUG
+        RefWatcher? _refWatcher;
+
+        void SetupLeakCanary()
+        {
+            // “A small leak will sink a great ship.” - Benjamin Franklin
+            if (LeakCanaryXamarin.IsInAnalyzerProcess(this))
+            {
+                // This process is dedicated to LeakCanary for heap analysis.
+                // You should not init your app in this process.
+                return;
+            }
+            _refWatcher = LeakCanaryXamarin.Install(this);
+        }
+#endif
+
         public override void OnCreate()
         {
             base.OnCreate();
 
 #if DEBUG
+            SetupLeakCanary();
             var stopwatch = Stopwatch.StartNew();
 #endif
 

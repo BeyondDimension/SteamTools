@@ -54,9 +54,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.Windows.SDK.NET">
-      <HintPath>..\..\references\Microsoft.Windows.SDK.NET.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.Windows.SDK.NET" HintPath="..\..\references\Microsoft.Windows.SDK.NET.dll" />
   </ItemGroup>
 
   <ItemGroup>

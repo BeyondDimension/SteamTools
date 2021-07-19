@@ -636,23 +636,9 @@ namespace System.Application.Services
             Current.Authenticators.Remove(auth);
         }
 
-        bool _SavingEditNameAuthenticators;
-
-        public async void SaveEditNameAuthenticators()
-        {
 #if !__MOBILE__
-            await SaveEditNameAuthenticatorsAsync(false);
-#else
-            if (_SavingEditNameAuthenticators) return;
-            _SavingEditNameAuthenticators = true;
-
-            await SaveEditNameAuthenticatorsAsync(true);
-
-            _SavingEditNameAuthenticators = false;
-#endif
-        }
-
-        async Task SaveEditNameAuthenticatorsAsync(bool overlapName)
+        [Obsolete("use MyAuthenticator.EditNameAsync")]
+        public async void SaveEditNameAuthenticators()
         {
             var auths = Authenticators.Items.Where(x => x.Name != x.OriginName);
             var isLocal = await DI.Get<GAPRepository>().HasLocalAsync();
@@ -660,11 +646,15 @@ namespace System.Application.Services
             foreach (var auth in auths)
             {
                 await repository.RenameAsync(auth.Id, auth.Name, isLocal);
-                if (overlapName)
-                {
-                    auth.OriginName = auth.Name;
-                }
             }
+        }
+#endif
+
+        public async Task SaveEditNameByAuthenticatorAsync(MyAuthenticator auth)
+        {
+            var isLocal = await DI.Get<GAPRepository>().HasLocalAsync();
+            await repository.RenameAsync(auth.Id, auth.Name, isLocal);
+            auth.OriginName = auth.Name;
         }
 
         public async void SwitchEncryptionAuthenticators(bool isLocal, string? password)
