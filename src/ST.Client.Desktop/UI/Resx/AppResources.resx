@@ -1448,4 +1448,10 @@
   <data name="LocalAuth_Delete" xml:space="preserve">
     <value>删除令牌</value>
   </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>已取消</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>已确认</value>
+  </data>
 </root>

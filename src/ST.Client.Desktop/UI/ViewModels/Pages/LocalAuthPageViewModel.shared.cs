@@ -3,6 +3,7 @@ using DynamicData.Binding;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Repositories;
+using System.Application.Security;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.ObjectModel;
@@ -122,7 +123,7 @@ namespace System.Application.UI.ViewModels
 
         void AddAuthMenu_Click()
         {
-            if (DI.DeviceIdiom == DeviceIdiom.Desktop && !AppSettings.IsOfficialChannelPackage) return;
+            if (!IsNotOfficialChannelPackageDetectionHelper.Check()) return;
             IShowWindowService.Instance.Show<AddAuthWindowViewModel>(CustomWindow.AddAuth, resizeMode: ResizeModeCompat.CanResize);
         }
 

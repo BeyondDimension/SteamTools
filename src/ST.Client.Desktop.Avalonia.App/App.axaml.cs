@@ -26,10 +26,10 @@ using System.Runtime.InteropServices;
 using System.Application.UI.Views.Windows;
 using System.Application.Services.Implementation;
 using System.Threading.Tasks;
+using System.Application.Security;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
-using APIConst = System.Application.Services.CloudService.Constants;
 
 [assembly: Guid("82cda250-48a2-48ad-ab03-5cda873ef80c")]
 namespace System.Application.UI
@@ -194,13 +194,6 @@ namespace System.Application.UI
 
         public ContextMenu? NotifyIconContextMenu { get; private set; }
 
-        static void IsNotOfficialChannelPackageWarning()
-        {
-            var text = APIConst.IsNotOfficialChannelPackageWarning;
-            var title = AppResources.Warning;
-            MessageBoxCompat.Show(text, title, MessageBoxButtonCompat.OK, MessageBoxImageCompat.Warning);
-        }
-
         public override void OnFrameworkInitializationCompleted()
         {
             // 在UI预览中，ApplicationLifetime 为 null
@@ -277,10 +270,7 @@ namespace System.Application.UI
                     JumpLists.Init();
 #endif
 
-                    if (!AppSettings.IsOfficialChannelPackage)
-                    {
-                        IsNotOfficialChannelPackageWarning();
-                    }
+                    IsNotOfficialChannelPackageDetectionHelper.Check();
                 }
 
                 desktop.MainWindow =

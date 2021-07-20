@@ -486,6 +486,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 已取消 的本地化字符串。
+        /// </summary>
+        public static string Cancelled {
+            get {
+                return ResourceManager.GetString("Cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 检查更新 的本地化字符串。
         /// </summary>
         public static string CheckUpdate {
@@ -779,6 +788,15 @@ namespace System.Application.UI.Resx {
         public static string Confirm {
             get {
                 return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已确认 的本地化字符串。
+        /// </summary>
+        public static string Confirmed {
+            get {
+                return ResourceManager.GetString("Confirmed", resourceCulture);
             }
         }
         

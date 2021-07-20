@@ -57,12 +57,26 @@
         tools:text="z 小时以前"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvOperate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/gap_space_min"
+        android:textAllCaps="false"
+        android:textColor="@color/text_primary"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCancelTrade"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btnCancelTrade"
+        app:layout_constraintTop_toBottomOf="@+id/ivImage"
+        tools:text="已确认"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCancelTrade"
         style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/gap_space_min"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivImage"

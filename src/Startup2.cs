@@ -31,6 +31,8 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 #if __ANDROID__
 using Xamarin.Android.Net;
 using Program = System.Application.UI.MainApplication;
+using System.Application.UI.Resx;
+using System.Windows;
 #elif __IOS__
 using Program = System.Application.UI.AppDelegate;
 #endif

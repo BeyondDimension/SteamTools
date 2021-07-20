@@ -1,9 +1,11 @@
 using Android.Views;
 using Binding;
 using ReactiveUI;
+using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using TViewHolder = System.Application.UI.Adapters.SteamAuthTradeConfirmationViewHolder;
 using TViewModel = WinAuth.WinAuthSteamClient.Confirmation;
+using static System.Application.UI.Resx.AppResources;
 
 namespace System.Application.UI.Adapters
 {
@@ -40,11 +42,49 @@ namespace System.Application.UI.Adapters
             }
         }
 
+        void SetOperateText(int isOperate)
+        {
+            var text = isOperate switch
+            {
+                1 => Confirmed,
+                2 => Cancelled,
+                _ => string.Empty,
+            };
+            binding.tvOperate.Text = text;
+        }
+
+        void SetOperatePanel(int isOperate)
+        {
+            var state = isOperate switch
+            {
+                1 or 2 => ViewStates.Invisible,
+                _ => ViewStates.Visible,
+            };
+            binding.btnCancelTrade.Visibility = state;
+            binding.btnConfirmTrade.Visibility = state;
+            binding.tvOperate.Visibility = state == ViewStates.Visible ? ViewStates.Gone : ViewStates.Visible;
+        }
+
         public override void OnBind()
         {
             base.OnBind();
+
+            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            {
+                binding.btnCancelTrade.Text = LocalAuth_AuthTrade_Cancel;
+                binding.btnConfirmTrade.Text = LocalAuth_AuthTrade_Confirm;
+                SetOperateText(ViewModel!.IsOperate);
+            }).AddTo(this);
+
             binding.btnCancelTrade.SetOnClickListener(this);
             binding.btnConfirmTrade.SetOnClickListener(this);
+
+            ViewModel.WhenAnyValue(x => x.IsOperate)
+                .Subscribe(value =>
+                {
+                    SetOperateText(value);
+                    SetOperatePanel(value);
+                }).AddTo(this);
             ViewModel.WhenAnyValue(x => x.Image)
                 .Subscribe(value => binding.ivImage.SetImageSource(value,
                     targetResId: Resource.Dimension.steam_auth__trade_confirmation_img_size))
@@ -55,6 +95,12 @@ namespace System.Application.UI.Adapters
                 .Subscribe(value => binding.tvTraded.Text = value).AddTo(this);
             ViewModel.WhenAnyValue(x => x.When)
                 .Subscribe(value => binding.tvWhen.Text = value).AddTo(this);
+            ViewModel.WhenAnyValue(x => x.ButtonEnable)
+                .Subscribe(value =>
+                {
+                    binding.btnCancelTrade.Enabled = value;
+                    binding.btnConfirmTrade.Enabled = value;
+                }).AddTo(this);
         }
 
         void View.IOnClickListener.OnClick(View? view)

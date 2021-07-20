@@ -18,6 +18,12 @@
             android:layout_height="match_parent"
             android:background="@color/grey_window_background">
 
+            <View
+                android:id="@+id/clearFocus"
+                android:layout_width="1px"
+                android:layout_height="1px"
+                android:focusableInTouchMode="true" />
+
             <LinearLayout
                 android:id="@+id/layoutContentConfirmations"
                 android:layout_width="match_parent"
@@ -110,12 +116,19 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbStreamRememberMe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:checked="true"
+                    tools:text="记住登录状态"
+                    xamarin:managedType="Google.Android.Material.CheckBox.MaterialCheckBox" />
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivCaptchaImage"
                     android:layout_width="206dp"
                     android:layout_height="37dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     tools:background="@color/grey_background"
                     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
@@ -139,7 +152,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnSubmit"
+                    android:id="@+id/btnLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -149,6 +162,17 @@
                     tools:text="登 录"
                     xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvSteamTradeLoginTip"
+                    style="@style/TextAppearance.AppCompat.Widget.Switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:gravity="center_vertical"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    tools:text="确认交易需要登录Steam，程序不会记录你的密码，只会在本地保存登录的状态。"
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
             </LinearLayout>
 
             <LinearLayout

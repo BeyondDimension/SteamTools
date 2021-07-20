@@ -36,24 +36,27 @@ namespace AndroidX.RecyclerView.Widget
         }
     }
 
+    /// <inheritdoc cref="VerticalItemViewDecoration"/>
     public sealed class VerticalItemViewDecoration2 : RecyclerView.ItemDecoration
     {
         readonly int height;
         readonly int paddingBottom;
+        readonly bool noTop;
 
         public bool PaddingBottomWithHeight { get; set; }
 
-        public VerticalItemViewDecoration2(int height, int paddingBottom)
+        public VerticalItemViewDecoration2(int height, int paddingBottom, bool noTop = false)
         {
             this.height = height;
             this.paddingBottom = paddingBottom;
+            this.noTop = noTop;
         }
 
-        public static VerticalItemViewDecoration2 Get(Context context, [IdRes] int heightResId, [IdRes] int paddingBottomResId)
+        public static VerticalItemViewDecoration2 Get(Context context, [IdRes] int heightResId, [IdRes] int paddingBottomResId, bool noTop = false)
         {
             var height = context.Resources!.GetDimensionPixelSize(heightResId);
             var paddingBottom = context.Resources!.GetDimensionPixelSize(paddingBottomResId);
-            return new(height, paddingBottom);
+            return new(height, paddingBottom, noTop);
         }
 
         public override void GetItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state)
@@ -71,7 +74,7 @@ namespace AndroidX.RecyclerView.Widget
                 }
                 else if (position == 0)
                 {
-                    outRect.Top = height;
+                    if (!noTop) outRect.Top = height;
                 }
                 if (position < viewModels.ViewModels.Count - 1)
                 {

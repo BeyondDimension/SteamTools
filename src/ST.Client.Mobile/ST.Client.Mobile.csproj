@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -34,6 +34,9 @@
     </Compile>
     <Compile Include="..\ST.Client.Desktop\Mvvm\*.cs">
       <LinkBase>Mvvm</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop\Security\IsNotOfficialChannelPackageDetectionHelper.cs">
+      <LinkBase>Security</LinkBase>
     </Compile>
     <Compile Remove="..\ST.Client.Desktop\Mvvm\CompositeDisposable.cs" />
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\AreaUIHelper.cs">
