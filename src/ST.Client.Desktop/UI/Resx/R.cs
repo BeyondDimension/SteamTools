@@ -1,13 +1,15 @@
 using ReactiveUI;
 using System.Application.Services;
+using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
+using AppRes = System.Application.UI.Resx.AppResources;
 #if __MOBILE__
-using R_Res_TYPE = System.Byte;
+using Res = System.Byte;
 #else
-using R_Res_TYPE = System.Application.UI.Resx.AppResources;
+using Res = System.Application.UI.Resx.AppResources;
 #endif
 
 namespace System.Application.UI.Resx
@@ -21,9 +23,9 @@ namespace System.Application.UI.Resx
         static readonly Lazy<IReadOnlyCollection<KeyValuePair<string, string>>> mFonts = new(() => IFontManager.Instance.GetFonts());
         public static IReadOnlyCollection<KeyValuePair<string, string>> Fonts => mFonts.Value;
 
-        public R_Res_TYPE Res { get; set; } = new();
+        public Res Res { get; set; } = new();
 
-        public static CultureInfo DefaultCurrentUICulture { get; }
+        public static CultureInfo DefaultCurrentUICulture { get; private set; }
 
         static R()
         {
@@ -52,7 +54,7 @@ namespace System.Application.UI.Resx
                 { "es", "spanish" },
                 { "it", "italian" },
             };
-            AppResources.Culture = DefaultCurrentUICulture;
+            AppRes.Culture = DefaultCurrentUICulture;
         }
 
         static bool IsMatch(CultureInfo cultureInfo, string cultureName)
@@ -71,27 +73,37 @@ namespace System.Application.UI.Resx
             }
         }
 
+        public static void ChangeAutoLanguage(CultureInfo? cultureInfo = null)
+        {
+#if !__MOBILE__
+            if (!string.IsNullOrWhiteSpace(SettingsPageViewModel.Instance.SelectLanguage.Key)) return;
+#endif
+            cultureInfo ??= CultureInfo.CurrentUICulture;
+            DefaultCurrentUICulture = cultureInfo;
+            ChangeLanguage(cultureInfo.Name);
+        }
+
         /// <summary>
         /// 更改语言
         /// </summary>
         /// <param name="cultureName"></param>
         public static void ChangeLanguage(string? cultureName)
         {
-            if (cultureName == null || IsMatch(AppResources.Culture, cultureName)) return;
-            AppResources.Culture = string.IsNullOrWhiteSpace(cultureName) ?
+            if (cultureName == null || IsMatch(AppRes.Culture, cultureName)) return;
+            AppRes.Culture = string.IsNullOrWhiteSpace(cultureName) ?
                 DefaultCurrentUICulture :
                 CultureInfo.GetCultureInfo(Languages.SingleOrDefault(x => x.Key == cultureName).Key);
-            CultureInfo.CurrentUICulture = AppResources.Culture;
-            CultureInfo.DefaultThreadCurrentUICulture = AppResources.Culture;
-            CultureInfo.CurrentCulture = AppResources.Culture;
-            CultureInfo.DefaultThreadCurrentCulture = AppResources.Culture;
+            CultureInfo.CurrentUICulture = AppRes.Culture;
+            CultureInfo.DefaultThreadCurrentUICulture = AppRes.Culture;
+            CultureInfo.CurrentCulture = AppRes.Culture;
+            CultureInfo.DefaultThreadCurrentCulture = AppRes.Culture;
             mAcceptLanguage = GetAcceptLanguageCore();
             mLanguage = GetLanguageCore();
             Current.Res =
 #if __MOBILE__
                 ++Current.Res;
 #else
-                new AppResources();
+                new();
 #endif
             Current.RaisePropertyChanged(nameof(Res));
         }
@@ -182,6 +194,6 @@ namespace System.Application.UI.Resx
             }
         }
 
-        public static CultureInfo Culture => AppResources.Culture ?? DefaultCurrentUICulture;
+        public static CultureInfo Culture => AppRes.Culture ?? DefaultCurrentUICulture;
     }
 }

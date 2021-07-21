@@ -37,8 +37,7 @@ namespace System.Application.UI.Activities
 
             this.SetWindowSecure(true);
 
-            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
             binding!.tvSteamGuardLabel.Text = "SteamGuard：";
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>

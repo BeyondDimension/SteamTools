@@ -26,8 +26,7 @@ namespace System.Application.UI.Activities
         {
             base.OnCreate(savedInstanceState);
 
-            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
             binding.tab_layout.TabMode = TabLayout.ModeScrollable;
             var adapter = new ViewPagerWithTabLayoutAdapter(this, this);

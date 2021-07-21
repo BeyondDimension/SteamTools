@@ -29,14 +29,12 @@ namespace System.Application.UI.Fragments
         {
             base.OnCreateView(view);
 
-            // This WhenActivated block calls ViewModel's WhenActivated
-            // block if the ViewModel implements IActivatableViewModel.
-
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
                 if (binding == null) return;
                 binding.tvEmptyTip.Text = LocalAuth_NoAuthTip_.Format(BottomRightCorner);
                 binding.tvLoading.Text = LocalAuth_Loading;
+                speedDialDict.ReplaceLabels(ToString2);
             }).AddTo(this);
 
             ViewModel!.WhenAnyValue(x => x.IsAuthenticatorsEmpty).Subscribe(value =>

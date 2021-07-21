@@ -23,6 +23,7 @@ namespace System.Application.UI.Activities
             base.OnCreate(savedInstanceState);
             //if (!DeviceSecurityCheckUtil.IsAllowStart(this)) return;
             this.StartActivity<MainActivity>();
+            OverridePendingTransition(Resource.Animation.abc_fade_in, Resource.Animation.abc_fade_out);
         }
 
         public override void OnBackPressed()

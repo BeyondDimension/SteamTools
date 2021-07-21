@@ -33,8 +33,7 @@ namespace System.Application.UI.Activities
                 return;
             }
 
-            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {

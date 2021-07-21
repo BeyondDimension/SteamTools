@@ -5,10 +5,10 @@ using Android.Runtime;
 using AndroidX.Navigation;
 using AndroidX.Navigation.UI;
 using Binding;
-using Java.Lang;
 using ReactiveUI;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using CharSequence = Java.Lang.ICharSequence;
 
 namespace System.Application.UI.Activities
 {
@@ -22,7 +22,7 @@ namespace System.Application.UI.Activities
 
         protected override bool BackToHome => true;
 
-        void SetBottomNavigationMenuTitle(int resId, ICharSequence value)
+        void SetBottomNavigationMenuTitle(int resId, CharSequence value)
         {
             if (binding == null) return;
             var menu = binding.nav_view.Menu;
@@ -51,14 +51,15 @@ namespace System.Application.UI.Activities
                 Resource.Id.navigation_my)
                 .Build();
             navController = Navigation.FindNavController(this, Resource.Id.nav_host_fragment_activity_main);
-            NavigationUI.SetupActionBarWithNavController(this, navController, appBarConfiguration);
-            NavigationUI.SetupWithNavController(binding!.nav_view, navController);
 
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
                 SetSubPageTitle(Resource.Id.navigation_local_auth, LocalAuthPageViewModel.DisplayName);
                 SetSubPageTitle(Resource.Id.navigation_my, MyPageViewModel.DisplayName);
             }).AddTo(this);
+
+            NavigationUI.SetupActionBarWithNavController(this, navController, appBarConfiguration);
+            NavigationUI.SetupWithNavController(binding!.nav_view, navController);
         }
 
         protected override void OnDestroy()

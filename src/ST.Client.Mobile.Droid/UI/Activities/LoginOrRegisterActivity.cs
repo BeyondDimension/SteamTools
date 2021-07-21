@@ -46,7 +46,7 @@ namespace System.Application.UI.Activities
 
             tencent = TencentOpenApiSDK.GetTencent(this);
 
-            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
             var appBarConfiguration = new AppBarConfiguration.Builder(Resource.Id.navigation_login_or_register_fast).Build();
             navController = ((NavHostFragment)SupportFragmentManager.FindFragmentById(Resource.Id.nav_host_fragment)).NavController;

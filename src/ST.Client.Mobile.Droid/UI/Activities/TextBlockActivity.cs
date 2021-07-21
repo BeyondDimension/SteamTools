@@ -27,8 +27,8 @@ namespace System.Application.UI.Activities
                 return;
             }
 
-            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
+
             if (!string.IsNullOrWhiteSpace(vm.Title)) Title = vm.Title;
 
             if (!string.IsNullOrWhiteSpace(vm.Content)) binding!.tvContent.Text = vm.Content;

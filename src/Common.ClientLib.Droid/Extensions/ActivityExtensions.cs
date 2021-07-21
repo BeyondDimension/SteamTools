@@ -124,10 +124,11 @@ namespace System
 
 #endif
 
-        public static void SetSupportActionBarWithNavigationClick(this AppCompatActivity activity, Toolbar toolbar)
+        public static void SetSupportActionBarWithNavigationClick(this AppCompatActivity activity, Toolbar toolbar, bool displayHomeAsUpEnabled = false)
         {
             activity.SetSupportActionBar(toolbar);
             toolbar.NavigationClick += (_, _) => activity.OnBackPressed();
+            if (displayHomeAsUpEnabled) activity.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
         }
 
         /// <summary>

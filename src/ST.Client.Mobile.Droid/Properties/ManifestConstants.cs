@@ -11,6 +11,8 @@ namespace System.Application
             ConfigChanges.Keyboard |
             ConfigChanges.KeyboardHidden |
             ConfigChanges.ScreenLayout |
+            ConfigChanges.Locale |
+            ConfigChanges.LayoutDirection |
             ConfigChanges.SmallestScreenSize;
 
         public const string MainTheme = "@style/MainTheme";

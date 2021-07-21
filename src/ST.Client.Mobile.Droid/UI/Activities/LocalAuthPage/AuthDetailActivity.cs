@@ -43,8 +43,7 @@ namespace System.Application.UI.Activities
                 return;
             }
 
-            this.SetSupportActionBarWithNavigationClick(binding!.toolbar);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
             ViewModel!.Authenticator.WhenAnyValue(x => x.Name).Subscribe(value =>
             {
