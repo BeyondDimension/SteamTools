@@ -25,17 +25,17 @@
 | Steam++_win_x64_v2.5.0.7z  | SHA256 |
 | Steam++_win_x64_v2.5.0.exe  | SHA256 |
 | Steam++_win_x64_v2.5.0.msix  | SHA256 |
-|
+| | |
 | Steam++_win_arm64_v2.5.0.7z  | SHA256 |
 | Steam++_win_arm64_v2.5.0.exe  | SHA256 |
 | Steam++_win_arm64_v2.5.0.msix  | SHA256 |
-|
+| | |
 | Steam++_linux_x64_v2.5.0.7z  | SHA256 |
 | Steam++_linux_x64_v2.5.0.deb  | SHA256 |
-|
+| | |
 | Steam++_macos_x64_v2.5.0.dmg  | SHA256 |
 | Steam++_macos_arm64_v2.5.0.dmg  | SHA256 |
-|
+| | |
 | Steam++_android_arm64_v8a_v2.5.0.apk  | SHA256 |
 | Steam++_android_armeabi_v7a_v2.5.0.apk  | SHA256 |
 

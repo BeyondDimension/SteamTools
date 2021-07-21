@@ -285,13 +285,55 @@ namespace System.Application.Models
             => items.Select(x => new MyAuthenticator(x)).ToList();
 
 #if __MOBILE__
+        private int _AutoRefreshCodeTimingMax = TimingCycle;
+        public int AutoRefreshCodeTimingMax
+        {
+            get => _AutoRefreshCodeTimingMax;
+            set => this.RaiseAndSetIfChanged(ref _AutoRefreshCodeTimingMax, value);
+        }
+
+        private int _AutoRefreshCodeTimingCurrent;
+        public int AutoRefreshCodeTimingCurrent
+        {
+            get => _AutoRefreshCodeTimingCurrent;
+            set => this.RaiseAndSetIfChanged(ref _AutoRefreshCodeTimingCurrent, value);
+        }
+
+        const int TimingCycle = 15;
+
         /// <summary>
         /// 开始自动刷新一次性密码代码
         /// </summary>
         /// <param name="token"></param>
-        void StartAutoRefreshCode(CancellationToken token)
+        async void StartAutoRefreshCode(CancellationToken token)
         {
+            try
+            {
+                await Task.Run(async () =>
+                {
+                    var value = TimingCycle;
+                    while (true)
+                    {
+                        if (value-- <= 0)
+                        {
+                            value = TimingCycle;
+                            // RefreshCode
+                        }
+#if DEBUG
+                        Log.Debug("AutoRefreshCode", "while({1}), name: {0}", Name, value);
+#endif
+                        await MainThread2.InvokeOnMainThreadAsync(() =>
+                        {
+                            AutoRefreshCodeTimingCurrent = value;
+                        });
+                        await Task.Delay(1000, token);
+                    }
+                });
+            }
+            catch (OperationCanceledException)
+            {
 
+            }
         }
 
         /// <summary>
@@ -303,9 +345,13 @@ namespace System.Application.Models
         {
             if (i.AutoRefreshCode != null)
             {
+                i.AutoRefreshCode.Cancel();
                 i.AutoRefreshCode.Dispose();
                 i.AutoRefreshCode.RemoveTo(i);
                 if (!noSetNull) i.AutoRefreshCode = null;
+#if DEBUG
+                Log.Debug("AutoRefreshCode", "Stop, name: {0}", i.ViewModel?.Name);
+#endif
             }
         }
 
@@ -320,6 +366,9 @@ namespace System.Application.Models
             i.AutoRefreshCode = new();
             i.AutoRefreshCode.AddTo(i);
             i.ViewModel!.StartAutoRefreshCode(i.AutoRefreshCode.Token);
+#if DEBUG
+            Log.Debug("AutoRefreshCode", "Start, name: {0}", i.ViewModel?.Name);
+#endif
         }
 
         /// <summary>

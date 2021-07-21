@@ -52,6 +52,7 @@
         android:layout_marginStart="@dimen/gap_space_min"
         android:layout_marginBottom="0.6dp"
         app:indicatorColor="?colorPrimary"
+        app:indicatorDirectionCircular="counterclockwise"
         app:indicatorSize="@dimen/auth_progress_indicator_size"
         app:layout_constraintBottom_toBottomOf="@+id/tvValue"
         app:layout_constraintEnd_toStartOf="@+id/ivMore"

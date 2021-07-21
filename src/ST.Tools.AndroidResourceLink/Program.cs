@@ -33,7 +33,7 @@ foreach (var file in files)
     link = "Resources" + include.Substring(link.Length, include.Length - link.Length);
     var tag = link.Contains("\\layout") /*&& !link.Contains("\\shared_") && !link.Contains("_content.xml")*/ ? "AndroidBoundLayout" : "AndroidResource";
     sb.AppendFormat("    <{1} Include=\"{0}\">", include, tag).AppendLine()
-        .AppendFormat("    <Link>{0}</Link>", link).AppendLine()
+        .AppendFormat("      <Link>{0}</Link>", link).AppendLine()
         .AppendFormat("    </{0}>", tag).AppendLine();
 }
 sb.AppendLine("  </ItemGroup>");

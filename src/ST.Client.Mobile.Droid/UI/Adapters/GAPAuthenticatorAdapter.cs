@@ -63,10 +63,11 @@ namespace System.Application.UI.Adapters
                 throw new NotSupportedException(
                     "BindingAdapter is not implements AndroidX.Lifecycle。ILifecycleOwner.");
             lifecycleOwner.Lifecycle.RemoveObserver(this);
+            TViewModel.StopAutoRefreshCode(this);
+
             base.OnBind();
 
             lifecycleOwner.Lifecycle.AddObserver(this);
-            TViewModel.StartAutoRefreshCode(this);
             ViewModel.WhenAnyValue(x => x.CurrentCode).Subscribe(value =>
             {
                 binding.tvValue.Text = TViewModel.CodeFormat(value);
@@ -74,6 +75,15 @@ namespace System.Application.UI.Adapters
             ViewModel.WhenAnyValue(x => x.Name).Subscribe(value =>
             {
                 binding.tvName.Text = string.IsNullOrEmpty(value) ? BindingAdapterPosition.ToString("000") : value;
+            }).AddTo(this);
+            ViewModel.WhenAnyValue(x => x.AutoRefreshCodeTimingMax).Subscribe(value =>
+            {
+                binding.progress.Max = value;
+            }).AddTo(this);
+            ViewModel.WhenAnyValue(x => x.AutoRefreshCodeTimingCurrent).Subscribe(value =>
+            {
+                binding.progress.Progress = value;
+                binding.tvProgress.Text = value.ToString();
             }).AddTo(this);
             binding.tvValue.SetOnClickListener(this);
             //binding.btnEditName.SetOnClickListener(this);
