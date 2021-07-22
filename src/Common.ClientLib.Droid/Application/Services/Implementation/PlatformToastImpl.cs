@@ -1,9 +1,9 @@
-﻿using Android.OS;
+using Android.OS;
 using Microsoft.Extensions.DependencyInjection;
-using AndroidApplication = Android.App.Application;
 using AndroidToast = Android.Widget.Toast;
 using AndroidToastLength = Android.Widget.ToastLength;
 using JException = Java.Lang.Exception;
+using XEPlatform = Xamarin.Essentials.Platform;
 
 namespace System.Application.Services.Implementation
 {
@@ -20,7 +20,7 @@ namespace System.Application.Services.Implementation
 
         protected override void PlatformShow(string text, int duration)
         {
-            var context = AndroidApplication.Context;
+            var context = XEPlatform.CurrentActivity;
             var duration2 = (AndroidToastLength)duration;
 
             // https://blog.csdn.net/android157/article/details/80267737

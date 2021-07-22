@@ -1,6 +1,10 @@
 using Android.Content;
+using Android.Graphics.Drawables;
+using Android.OS;
 using Android.Runtime;
+using Android.Util;
 using Android.Views;
+using AndroidX.AppCompat.View.Menu;
 using AndroidX.RecyclerView.Widget;
 using Binding;
 using Com.Leinardi.Android.Speeddial;
@@ -25,16 +29,58 @@ namespace System.Application.UI.Fragments
 
         protected override LocalAuthPageViewModel? OnCreateViewModel() => Current;
 
+        public override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+            HasOptionsMenu = true;
+        }
+
+        MenuBuilder? menuBuilder;
+        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
+        {
+            inflater.Inflate(Resource.Menu.local_auth_toolbar_menu, menu);
+            menuBuilder = menu.SetOptionalIconsVisible();
+            if (menuBuilder != null)
+            {
+                SetMenuTitle();
+            }
+        }
+
+        void SetMenuTitle()
+        {
+            if (menuBuilder == null) return;
+            for (int i = 0; i < menuBuilder.Size(); i++)
+            {
+                var item = menuBuilder.GetItem(i);
+                var actionItem = MenuIdResToEnum(item.ItemId);
+                if (actionItem.IsDefined())
+                {
+                    item.SetTitle(ToString2(actionItem));
+                }
+            }
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            var actionItem = MenuIdResToEnum(item.ItemId);
+            if (actionItem.IsDefined())
+            {
+                MenuItemClick(actionItem);
+                return true;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
+
         public override void OnCreateView(View view)
         {
             base.OnCreateView(view);
-
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
                 if (binding == null) return;
                 binding.tvEmptyTip.Text = LocalAuth_NoAuthTip_.Format(BottomRightCorner);
                 binding.tvLoading.Text = LocalAuth_Loading;
                 speedDialDict.ReplaceLabels(ToString2);
+                SetMenuTitle();
             }).AddTo(this);
 
             void OnAuthenticatorsChanged(bool isAuthenticatorsEmpty, bool isFirstActivation)
@@ -107,6 +153,28 @@ namespace System.Application.UI.Fragments
             Activity.SetWindowSecure(false);
         }
 
+        void MenuItemClick(ActionItem id)
+        {
+            switch (id)
+            {
+                case ActionItem.Add:
+                    ViewModel!.AddAuthCommand.Invoke();
+                    break;
+                case ActionItem.Encrypt:
+                    ViewModel!.EncryptionAuthCommand.Invoke();
+                    break;
+                case ActionItem.Export:
+                    ViewModel!.ExportAuthCommand.Invoke();
+                    break;
+                case ActionItem.Lock:
+                    ViewModel!.LockCommand.Invoke();
+                    break;
+                case ActionItem.Refresh:
+                    ViewModel!.RefreshAuthCommand.Invoke();
+                    break;
+            }
+        }
+
         bool SpeedDialView.IOnActionSelectedListener.OnActionSelected(SpeedDialActionItem actionItem)
         {
             if (binding != null && actionItem != null)
@@ -115,24 +183,7 @@ namespace System.Application.UI.Fragments
                 if (id.IsDefined())
                 {
                     binding.speedDial.Close();
-                    switch (id)
-                    {
-                        case ActionItem.Add:
-                            ViewModel!.AddAuthCommand.Invoke();
-                            break;
-                        case ActionItem.Encrypt:
-                            ViewModel!.EncryptionAuthCommand.Invoke();
-                            break;
-                        case ActionItem.Export:
-                            ViewModel!.ExportAuthCommand.Invoke();
-                            break;
-                        case ActionItem.Lock:
-                            ViewModel!.LockCommand.Invoke();
-                            break;
-                        case ActionItem.Refresh:
-                            ViewModel!.RefreshAuthCommand.Invoke();
-                            break;
-                    }
+                    MenuItemClick(id);
                     return true;
                 }
             }
@@ -149,6 +200,27 @@ namespace System.Application.UI.Fragments
             ActionItem.Refresh => Resource.Drawable.baseline_refresh_black_24,
             _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
         };
+
+        static ActionItem MenuIdResToEnum(int resId)
+        {
+            if (resId == Resource.Id.menu_add)
+            {
+                return ActionItem.Add;
+            }
+            else if (resId == Resource.Id.menu_encrypt)
+            {
+                return ActionItem.Encrypt;
+            }
+            else if (resId == Resource.Id.menu_export)
+            {
+                return ActionItem.Export;
+            }
+            else if (resId == Resource.Id.menu_lock)
+            {
+                return ActionItem.Lock;
+            }
+            return default;
+        }
 
         bool SpeedDialView.IOnChangeListener.OnMainActionSelected() => false;
 
@@ -187,6 +259,7 @@ namespace System.Application.UI.Fragments
             {
                 callback.HandleOnBackPressed = null;
             }
+            menuBuilder = null;
             base.OnDestroyView();
         }
     }

@@ -51,11 +51,11 @@ namespace System.Application.UI.Activities
                 binding.tvUUIDLabel.Text = LocalAuth_SteamUUID;
             }).AddTo(this);
 
-            binding.tbRecoveryCode.SetReadOnly();
+            //binding.tbRecoveryCode.SetReadOnly();
             binding.tbRecoveryCode.Text = ViewModel!.RecoveryCode;
-            binding.tbUUID.SetReadOnly();
+            //binding.tbUUID.SetReadOnly();
             binding.tbUUID.Text = ViewModel.DeviceId;
-            binding.tbSteamGuard.SetReadOnly();
+            //binding.tbSteamGuard.SetReadOnly();
             binding.tbSteamGuard.Text = ViewModel.SteamDataIndented;
         }
 

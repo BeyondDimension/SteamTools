@@ -110,6 +110,33 @@ namespace System
             return null;
         }
 
+        [return: MaybeNull]
+        public static TFragment GetNavigationFragment<TFragment>(
+           this FragmentActivity activity)
+           where TFragment : Fragment
+        {
+            var fragments = activity.SupportFragmentManager.Fragments;
+            if (fragments != null)
+            {
+                foreach (var fragment in fragments)
+                {
+                    if (fragment is NavHostFragment navHostFragment)
+                    {
+                        var fragments2 = navHostFragment
+                            .ChildFragmentManager.Fragments;
+                        foreach (var fragment1 in fragments2)
+                        {
+                            if (fragment1 is TFragment t)
+                            {
+                                return t;
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
         #endregion
 
         public static bool HasValue(this Activity? activity)

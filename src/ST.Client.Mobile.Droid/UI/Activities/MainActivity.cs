@@ -2,6 +2,7 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using Android.Views;
 using AndroidX.Navigation;
 using AndroidX.Navigation.UI;
 using Binding;

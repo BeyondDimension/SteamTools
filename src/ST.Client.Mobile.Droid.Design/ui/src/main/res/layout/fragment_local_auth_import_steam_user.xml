@@ -168,6 +168,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:buttonTint="?colorPrimary"
                 tools:checked="true"
                 tools:text="我已经写下了我的恢复代码"
                 xamarin:managedType="Google.Android.Material.CheckBox.MaterialCheckBox" />

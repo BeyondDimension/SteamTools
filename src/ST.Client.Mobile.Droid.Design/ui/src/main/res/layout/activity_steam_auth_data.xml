@@ -29,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:textAllCaps="false"
                 android:textColor="@color/text_primary"
                 android:textSize="24sp"
                 tools:text="恢复代码"
@@ -50,49 +51,40 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/abc_action_button_min_height_material"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvRecoveryCodeLabel"
-                    style="@style/TextAppearance.AppCompat.Widget.Switch"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/text_field_outlined_top_space_height"
                     android:gravity="center_vertical"
+                    android:textAllCaps="false"
                     android:textColor="@color/text_primary"
                     tools:text="恢复代码："
                     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layoutRecoveryCode"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tbRecoveryCode"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:endIconMode="password_toggle"
-                    xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tbRecoveryCode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        tools:text="******"
-                        xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_textbox"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/gap_space_min"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textIsSelectable="true"
+                    tools:text="ABCDEF"
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
             </LinearLayout>
 
             <include layout="@layout/shared_divider" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvRecoveryCodeTip1"
-                style="@style/TextAppearance.AppCompat.Widget.Switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:minHeight="@dimen/abc_action_button_min_height_material"
-                android:paddingBottom="8dp"
+                android:paddingBottom="2dp"
                 android:textAllCaps="false"
                 android:textColor="@color/text_primary"
                 tools:text="Steam身份验证器的完整数据，可在导入不同软件时使用："
@@ -101,37 +93,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/abc_action_button_min_height_material"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvUUIDLabel"
-                    style="@style/TextAppearance.AppCompat.Widget.Switch"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/text_field_outlined_top_space_height"
                     android:gravity="center_vertical"
                     android:textAllCaps="false"
                     android:textColor="@color/text_primary"
                     tools:text="设备ID(uuid)："
                     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layoutUUID"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tbUUID"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tbUUID"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        tools:text="android:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxy"
-                        xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_textbox"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/gap_space_min"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textIsSelectable="true"
+                    android:textSize="12sp"
+                    tools:text="android:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxy"
+                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
             </LinearLayout>
 
             <include layout="@layout/shared_divider" />
@@ -148,22 +134,19 @@
                 tools:text="SteamGuard："
                 xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layoutSteamGuard"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tbSteamGuard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tbSteamGuard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    tools:text="{''shared_secret'':''xxxxxxxxxxxxxxxxxxxxxxxxxxxx'',''serial_number'':''xxxxxxxxxxxxxxxxxxxx'',''revocation_code'':''xxxxxx'',''uri'':''xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'',''server_time'':''xxxxxxxxxx'',''account_name'':''xxxxxxxx'',''token_gid'':''xxxxxxxxxxxxxxxx'',''identity_secret'':''xxxxxxxxxxxxxxxxxxxxxxxxxxxx'',''secret_1'':''xxxxxxxxxxxxxxxxxxxxxxxxxxxx'',''status'':65535,''steamid'':''xxxxxxxxxxxxxxxxx'',''steamguard_scheme'':''x''}"
-                    xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/text_field_outlined_top_space_height"
+                android:background="@drawable/bg_textbox"
+                android:gravity="center_vertical"
+                android:padding="@dimen/gap_space_min"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:textIsSelectable="true"
+                tools:text="{''shared_secret'':''xxxxxxxxxxxxxxxxxxxxxxxxxxxx'',''serial_number'':''xxxxxxxxxxxxxxxxxxxx'',''revocation_code'':''xxxxxx'',''uri'':''xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'',''server_time'':''xxxxxxxxxx'',''account_name'':''xxxxxxxx'',''token_gid'':''xxxxxxxxxxxxxxxx'',''identity_secret'':''xxxxxxxxxxxxxxxxxxxxxxxxxxxx'',''secret_1'':''xxxxxxxxxxxxxxxxxxxxxxxxxxxx'',''status'':65535,''steamid'':''xxxxxxxxxxxxxxxxx'',''steamguard_scheme'':''x''}"
+                xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

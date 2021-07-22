@@ -65,7 +65,7 @@ namespace System.Application.UI.Activities
                 var state_reverse = !value ? ViewStates.Gone : ViewStates.Visible;
                 binding.layoutContentSteamLogin.Visibility = state;
                 binding.layoutContentConfirmations.Visibility = state_reverse;
-                binding.speedDial.Visibility = state_reverse;
+                binding.speedDial.Visibility = state;
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.IsRequiresCaptcha).Subscribe(value =>
             {

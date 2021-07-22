@@ -54,6 +54,9 @@
     <Compile Include="..\Common.ClientLib.Droid\ServiceCollectionExtensions.cs">
       <Link>ServiceCollectionExtensions.Link.cs</Link>
     </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\MenuExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
     <Compile Include="..\Common.ClientLib.Droid\Extensions\ContextExtensions.cs">
       <LinkBase>Extensions</LinkBase>
     </Compile>
@@ -859,6 +862,9 @@
     </AndroidBoundLayout>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\bottom_nav_menu.xml">
       <Link>Resources\menu\bottom_nav_menu.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\local_auth_toolbar_menu.xml">
+      <Link>Resources\menu\local_auth_toolbar_menu.xml</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-anydpi-v26\ic_launcher.xml">
       <Link>Resources\mipmap-anydpi-v26\ic_launcher.xml</Link>

@@ -12,7 +12,6 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    app:trackColor="?colorSecondary"
     app:trackCornerRadius="4dp"
     app:trackThickness="8dp"
     xamarin:managedType="Google.Android.Material.ProgressIndicator.CircularProgressIndicator" />

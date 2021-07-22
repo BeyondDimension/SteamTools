@@ -11,6 +11,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
         android:fillViewport="true">
 
         <FrameLayout
@@ -120,6 +121,7 @@
                     android:id="@+id/cbStreamRememberMe"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:buttonTint="?colorPrimary"
                     tools:checked="true"
                     tools:text="记住登录状态"
                     xamarin:managedType="Google.Android.Material.CheckBox.MaterialCheckBox" />

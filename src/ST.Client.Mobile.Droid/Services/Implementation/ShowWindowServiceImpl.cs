@@ -1,4 +1,3 @@
-using Android.App;
 using Android.Content;
 using Android.Text;
 using Android.Views;
@@ -11,6 +10,7 @@ using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Threading.Tasks;
 using System.Windows;
+using Xamarin.Essentials;
 using static Xamarin.Essentials.Platform;
 using AlertDialog = AndroidX.AppCompat.App.AlertDialog;
 
@@ -21,7 +21,12 @@ namespace System.Application.Services.Implementation
         static string PositiveButtonText => AppResources.Confirm;
         static string NegativeButtonText => AppResources.Cancel;
 
-        Task<bool> PlatformShowWindow(CustomWindow customWindow, PageViewModel? viewModel = null, string title = "")
+        async Task<bool> PlatformShowWindow(CustomWindow customWindow, PageViewModel? viewModel = null, string title = "") => await MainThread.InvokeOnMainThreadAsync(async () =>
+        {
+            return await PlatformShowWindowCore(customWindow, viewModel, title);
+        });
+
+        Task<bool> PlatformShowWindowCore(CustomWindow customWindow, PageViewModel? viewModel = null, string title = "")
         {
             switch (customWindow)
             {
