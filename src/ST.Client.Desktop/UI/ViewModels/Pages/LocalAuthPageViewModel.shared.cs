@@ -139,7 +139,8 @@ namespace System.Application.UI.ViewModels
                 {
                     while (auth.IsShowCode)
                     {
-                        auth.CurrentCode = string.Empty;
+                        //auth.CurrentCode = string.Empty;
+                        auth.RefreshCode();
                         auth.CodeCountdown -= 5;
                         if (auth.CodeCountdown == 0)
                         {

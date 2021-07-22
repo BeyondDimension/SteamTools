@@ -76,7 +76,7 @@ namespace System.Application.UI.Adapters
             {
                 binding.tvName.Text = string.IsNullOrEmpty(value) ? BindingAdapterPosition.ToString("000") : value;
             }).AddTo(this);
-            ViewModel.WhenAnyValue(x => x.AutoRefreshCodeTimingMax).Subscribe(value =>
+            ViewModel.WhenAnyValue(x => x.Period).Subscribe(value =>
             {
                 binding.progress.Max = value;
             }).AddTo(this);

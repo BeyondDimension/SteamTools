@@ -53,7 +53,7 @@ namespace System.Application.UI.Activities
             {
                 binding.tvValue.Text = TViewModel.CodeFormat(value);
             }).AddTo(this);
-            ViewModel.Authenticator.WhenAnyValue(x => x.AutoRefreshCodeTimingMax).Subscribe(value =>
+            ViewModel.Authenticator.WhenAnyValue(x => x.Period).Subscribe(value =>
             {
                 binding.progress.Max = value;
             }).AddTo(this);

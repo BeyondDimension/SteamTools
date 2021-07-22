@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2011 Colin Mackie.
  * This software is distributed under the terms of the GNU General Public License.
  *

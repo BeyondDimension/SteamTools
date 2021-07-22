@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using WinAuth;
+using static System.Application.Models.GAPAuthenticatorValueDTO;
 
 namespace System.Application.Models
 {
@@ -148,16 +149,50 @@ namespace System.Application.Models
             }
         }
 
+        string _CurrentCode = string.Empty;
+        string? _CurrentCodeCache;
+
+        string GetCurrentCode() => AuthenticatorData.Value.CurrentCode;
+
         public string CurrentCode
         {
             get
             {
-                return AuthenticatorData.Value.CurrentCode;
+                if (_CurrentCodeCache == null)
+                {
+                    _CurrentCode = GetCurrentCode();
+                    return _CurrentCode;
+                }
+                else
+                {
+                    var r = _CurrentCodeCache;
+                    _CurrentCodeCache = null;
+                    return r;
+                }
             }
             set
             {
-                this.RaisePropertyChanged();
+                this.RaiseAndSetIfChanged(ref _CurrentCode, value);
             }
+        }
+
+        public string CurrentCodeCache
+        {
+            set => _CurrentCodeCache = value;
+        }
+
+        public string? GetNextCode()
+        {
+            var value = GetCurrentCode();
+            if (value != _CurrentCode) return value;
+            return null;
+        }
+
+        public void RefreshCode(string? value = null)
+        {
+            value ??= GetCurrentCode();
+            CurrentCodeCache = value;
+            CurrentCode = value;
         }
 
         public void Sync() => AuthenticatorData.Value.Sync();
@@ -285,12 +320,6 @@ namespace System.Application.Models
             => items.Select(x => new MyAuthenticator(x)).ToList();
 
 #if __MOBILE__
-        private int _AutoRefreshCodeTimingMax = TimingCycle;
-        public int AutoRefreshCodeTimingMax
-        {
-            get => _AutoRefreshCodeTimingMax;
-            set => this.RaiseAndSetIfChanged(ref _AutoRefreshCodeTimingMax, value);
-        }
 
         private int _AutoRefreshCodeTimingCurrent;
         public int AutoRefreshCodeTimingCurrent
@@ -299,7 +328,14 @@ namespace System.Application.Models
             set => this.RaiseAndSetIfChanged(ref _AutoRefreshCodeTimingCurrent, value);
         }
 
-        const int TimingCycle = 15;
+        int TimingCycle
+        {
+            get
+            {
+                var value = AuthenticatorData.Value.ServerTime % Convert.ToInt64(TimeSpan.FromSeconds(Period).TotalMilliseconds);
+                return Period - Convert.ToInt32(TimeSpan.FromMilliseconds(value).TotalSeconds);
+            }
+        }
 
         /// <summary>
         /// 开始自动刷新一次性密码代码
@@ -314,17 +350,32 @@ namespace System.Application.Models
                     var value = TimingCycle;
                     while (true)
                     {
-                        if (value-- <= 0)
+                        var isZero = value-- <= 0;
+                        if (isZero)
                         {
-                            value = TimingCycle;
-                            // RefreshCode
+                            value = Period;
                         }
 #if DEBUG
                         Log.Debug("AutoRefreshCode", "while({1}), name: {0}", Name, value);
 #endif
+                        token.ThrowIfCancellationRequested();
+                        string? code = null;
+                        if (isZero)
+                        {
+                            while (true)
+                            {
+                                code = GetNextCode();
+                                if (code != null) break;
+                                await Task.Delay(100, token);
+                            }
+                        }
                         await MainThread2.InvokeOnMainThreadAsync(() =>
                         {
                             AutoRefreshCodeTimingCurrent = value;
+                            if (isZero)
+                            {
+                                RefreshCode(code);
+                            }
                         });
                         await Task.Delay(1000, token);
                     }
