@@ -43,8 +43,13 @@ namespace System.Application.Services
             await InitializeAsync(auths, isSync);
         }
 
-        public async Task InitializeAsync(GameAccountPlatformAuthenticator[] auths, bool isSync = false)
+        public async Task InitializeAsync(GameAccountPlatformAuthenticator[] auths, bool isSync = false, Action? emptyAction = null)
         {
+            if (!auths.Any_Nullable())
+            {
+                emptyAction?.Invoke();
+                return;
+            }
             var hasPassword = repository.HasSecondaryPassword(auths);
             List<IGAPAuthenticatorDTO> list;
             if (hasPassword)
@@ -81,7 +86,7 @@ namespace System.Application.Services
                     //    ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
                 });
             }
-            else if (auths.Any_Nullable() && !list.Any_Nullable())
+            else
             {
                 Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordError);
             }

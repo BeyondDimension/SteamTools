@@ -37,11 +37,11 @@ namespace System.Application.UI.Fragments
                 speedDialDict.ReplaceLabels(ToString2);
             }).AddTo(this);
 
-            ViewModel!.WhenAnyValue(x => x.IsAuthenticatorsEmpty).Subscribe(value =>
+            void OnAuthenticatorsChanged(bool isAuthenticatorsEmpty, bool isFirstActivation)
             {
                 if (binding == null) return;
                 ViewStates state, state_reverse, fab_state, loading_state;
-                if (ViewModel!.IsFirstActivation)
+                if (isFirstActivation)
                 {
                     state = ViewStates.Gone;
                     state_reverse = ViewStates.Gone;
@@ -50,8 +50,8 @@ namespace System.Application.UI.Fragments
                 }
                 else
                 {
-                    state = value ? ViewStates.Visible : ViewStates.Gone;
-                    state_reverse = !value ? ViewStates.Visible : ViewStates.Gone;
+                    state = isAuthenticatorsEmpty ? ViewStates.Visible : ViewStates.Gone;
+                    state_reverse = !isAuthenticatorsEmpty ? ViewStates.Visible : ViewStates.Gone;
                     fab_state = ViewStates.Visible;
                     loading_state = ViewStates.Gone;
                 }
@@ -59,7 +59,14 @@ namespace System.Application.UI.Fragments
                 binding.rvAuthenticators.Visibility = state_reverse;
                 binding.speedDial.Visibility = fab_state;
                 binding.layoutLoading.Visibility = loading_state;
-            }).AddTo(this);
+            }
+
+            ViewModel!.WhenAnyValue(x => x.IsAuthenticatorsEmpty)
+                .Subscribe(x => OnAuthenticatorsChanged(x, ViewModel!.IsFirstActivation))
+                .AddTo(this);
+            ViewModel!.WhenAnyValue(x => x.IsFirstLoadedAuthenticatorsEmpty)
+                .Subscribe(x => OnAuthenticatorsChanged(ViewModel!.IsAuthenticatorsEmpty, x))
+                .AddTo(this);
 
             var adapter = new GAPAuthenticatorAdapter(this, ViewModel!);
             adapter.ItemClick += (_, e) =>

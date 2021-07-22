@@ -99,6 +99,15 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<Unit, Unit> RefreshAuthCommand { get; }
 
+#if __MOBILE__
+        private bool _IsFirstLoadedAuthenticatorsEmpty;
+        public bool IsFirstLoadedAuthenticatorsEmpty
+        {
+            get => _IsFirstLoadedAuthenticatorsEmpty;
+            set => this.RaiseAndSetIfChanged(ref _IsFirstLoadedAuthenticatorsEmpty, value);
+        }
+#endif
+
         public async override void Activation()
         {
             var auths = await AuthService.Current.Repository.GetAllSourceAsync();
@@ -108,7 +117,14 @@ namespace System.Application.UI.ViewModels
             {
                 await Task.Run(async () =>
                 {
-                    await AuthService.Current.InitializeAsync(auths);
+                    await AuthService.Current.InitializeAsync(auths
+#if __MOBILE__
+                        , emptyAction: () =>
+                        {
+                            IsFirstLoadedAuthenticatorsEmpty = true;
+                        }
+#endif
+                    );
                 });
             }
             base.Activation();
