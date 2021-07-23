@@ -7,14 +7,21 @@
         android:title="@string/local_auth" />
 
     <item
+        android:id="@+id/navigation_asf_plus"
+        android:icon="@drawable/icon_asf_24"
+        android:title="ASF Plus" />
+
+    <item
         android:id="@+id/navigation_community_fix"
         android:icon="@drawable/mdi_rocket_black_24"
-        android:title="@string/community_fix" />
+        android:title="@string/community_fix"
+        android:visible="false" />
 
     <item
         android:id="@+id/navigation_game_list"
         android:icon="@drawable/baseline_sports_esports_black_24"
-        android:title="@string/game_list" />
+        android:title="@string/game_list"
+        android:visible="false" />
 
     <item
         android:id="@+id/navigation_my"

@@ -27,7 +27,16 @@ namespace System.Application.UI.ViewModels
 #endif
 
             AddAuthCommand = ReactiveCommand.Create(AddAuthMenu_Click);
-            RefreshAuthCommand = ReactiveCommand.CreateFromTask(() => AuthService.Current.InitializeAsync(true));
+            RefreshAuthCommand = ReactiveCommand.CreateFromTask(async () =>
+            {
+#if __MOBILE__
+                IsRefreshing = true;
+#endif
+                await AuthService.Current.InitializeAsync(true);
+#if __MOBILE__
+                IsRefreshing = false;
+#endif
+            });
             EncryptionAuthCommand = ReactiveCommand.Create(ShowEncryptionAuthWindow);
             ExportAuthCommand = ReactiveCommand.Create(ShowExportAuthAuthWindow);
             LockCommand = ReactiveCommand.Create(async () =>
@@ -101,10 +110,23 @@ namespace System.Application.UI.ViewModels
 
 #if __MOBILE__
         private bool _IsFirstLoadedAuthenticatorsEmpty;
+        /// <summary>
+        /// 是否第一次加载完成时令牌集合数据为空
+        /// </summary>
         public bool IsFirstLoadedAuthenticatorsEmpty
         {
             get => _IsFirstLoadedAuthenticatorsEmpty;
             set => this.RaiseAndSetIfChanged(ref _IsFirstLoadedAuthenticatorsEmpty, value);
+        }
+
+        private bool _IsRefreshing;
+        /// <summary>
+        /// 是否正在刷新中
+        /// </summary>
+        public bool IsRefreshing
+        {
+            get => _IsRefreshing;
+            set => this.RaiseAndSetIfChanged(ref _IsRefreshing, value);
         }
 #endif
 

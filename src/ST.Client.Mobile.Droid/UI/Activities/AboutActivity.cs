@@ -49,6 +49,7 @@ namespace System.Application.UI.Activities
             binding!.tvBusinessCooperationContact.SetLinkMovementMethod();
             binding!.tvOpenSourceLicensed.SetLinkMovementMethod();
             binding!.tvAgreementAndPrivacy.SetLinkMovementMethod();
+            binding!.tvContributors.SetLinkMovementMethod();
 
             binding!.tvTitle.TextFormatted = CreateTitle();
             binding!.tvVersion.Text = $"{ViewModel!.LabelVersionDisplay} {ViewModel.VersionDisplay}";
@@ -56,6 +57,7 @@ namespace System.Application.UI.Activities
             binding!.tvBusinessCooperationContact.TextFormatted = CreateBusinessCooperationContact();
             binding!.tvOpenSourceLicensed.TextFormatted = CreateOpenSourceLicensed();
             binding!.tvCopyright.Text = ViewModel.Copyright;
+            binding!.tvContributors.TextFormatted = CreateContributors();
 
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
@@ -487,6 +489,36 @@ namespace System.Application.UI.Activities
             {
                 BrowserOpen(UrlConstants.License_GPLv3);
             }), length, str.Length, SpanTypes.ExclusiveExclusive));
+            return str;
+        });
+
+        SpannableString CreateContributors() => RichTextHelper.CreateSpannableString(list =>
+        {
+            int length;
+            StringBuilder str = new(Contributors_0);
+            str.AppendLine();
+            var i = 1;
+            foreach (var item in contributors_translations)
+            {
+                length = str.Length;
+                str.Append(item.Key);
+                list.Add((new HyperlinkClickableSpan(_ =>
+                {
+                    ViewModel!.ContributorsCommand.Invoke(item.Key);
+                }), length, str.Length, SpanTypes.ExclusiveExclusive));
+                str.Append(Separator);
+                str.Append(item.Value);
+                str.Append(" ");
+                if (i == contributors_translations.Count)
+                {
+                    str.Append(Translation);
+                }
+                else
+                {
+                    str.AppendLine(Translation);
+                }
+                i++;
+            }
             return str;
         });
     }

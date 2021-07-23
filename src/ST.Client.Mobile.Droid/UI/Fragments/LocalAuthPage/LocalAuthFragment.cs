@@ -1,31 +1,26 @@
-using Android.Content;
-using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
-using Android.Util;
 using Android.Views;
 using AndroidX.AppCompat.View.Menu;
 using AndroidX.RecyclerView.Widget;
+using AndroidX.SwipeRefreshLayout.Widget;
 using Binding;
-using Com.Leinardi.Android.Speeddial;
 using ReactiveUI;
 using System.Application.UI.Activities;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
-using System.Collections.Generic;
-using System.Linq;
 using static System.Application.UI.Resx.AppResources;
 using static System.Application.UI.ViewModels.LocalAuthPageViewModel;
 
 namespace System.Application.UI.Fragments
 {
     [Register(JavaPackageConstants.Fragments + nameof(LocalAuthFragment))]
-    internal sealed class LocalAuthFragment : BaseFragment<fragment_local_auth, LocalAuthPageViewModel>, SpeedDialView.IOnActionSelectedListener, SpeedDialView.IOnChangeListener
+    internal sealed class LocalAuthFragment : BaseFragment<fragment_local_auth, LocalAuthPageViewModel>/*, SpeedDialView.IOnActionSelectedListener, SpeedDialView.IOnChangeListener*/, SwipeRefreshLayout.IOnRefreshListener
     {
         protected override int? LayoutResource => Resource.Layout.fragment_local_auth;
 
-        IReadOnlyDictionary<ActionItem, FabWithLabelView>? speedDialDict;
+        //IReadOnlyDictionary<ActionItem, FabWithLabelView>? speedDialDict;
 
         protected override LocalAuthPageViewModel? OnCreateViewModel() => Current;
 
@@ -79,7 +74,7 @@ namespace System.Application.UI.Fragments
                 if (binding == null) return;
                 binding.tvEmptyTip.Text = LocalAuth_NoAuthTip_.Format(BottomRightCorner);
                 binding.tvLoading.Text = LocalAuth_Loading;
-                speedDialDict.ReplaceLabels(ToString2);
+                //speedDialDict.ReplaceLabels(ToString2);
                 SetMenuTitle();
             }).AddTo(this);
 
@@ -103,7 +98,7 @@ namespace System.Application.UI.Fragments
                 }
                 binding.tvEmptyTip.Visibility = state;
                 binding.rvAuthenticators.Visibility = state_reverse;
-                binding.speedDial.Visibility = fab_state;
+                //binding.speedDial.Visibility = fab_state;
                 binding.layoutLoading.Visibility = loading_state;
             }
 
@@ -111,7 +106,20 @@ namespace System.Application.UI.Fragments
                 .Subscribe(x => OnAuthenticatorsChanged(x, ViewModel!.IsFirstActivation))
                 .AddTo(this);
             ViewModel!.WhenAnyValue(x => x.IsFirstLoadedAuthenticatorsEmpty)
-                .Subscribe(x => OnAuthenticatorsChanged(ViewModel!.IsAuthenticatorsEmpty, x))
+                .Subscribe(x =>
+                {
+                    if (!x) return;
+                    OnAuthenticatorsChanged(ViewModel!.IsAuthenticatorsEmpty, x);
+                })
+                .AddTo(this);
+            ViewModel!.WhenAnyValue(x => x.IsRefreshing)
+                .Subscribe(x =>
+                {
+                    if (binding == null) return;
+                    if (x) return;
+                    if (!binding.swipeRefreshLayout.Refreshing) return;
+                    binding.swipeRefreshLayout.Refreshing = false;
+                })
                 .AddTo(this);
 
             var adapter = new GAPAuthenticatorAdapter(this, ViewModel!);
@@ -121,18 +129,21 @@ namespace System.Application.UI.Fragments
             };
             var layout = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
             binding!.rvAuthenticators.SetLayoutManager(layout);
-            binding.rvAuthenticators.AddItemDecoration(VerticalItemViewDecoration2.Get(Context, Resource.Dimension.activity_vertical_margin, Resource.Dimension.fab_full_height));
+            binding.rvAuthenticators.AddItemDecoration(VerticalItemViewDecoration2.Get(Context, Resource.Dimension.activity_vertical_margin/*, Resource.Dimension.fab_full_height*/));
             binding.rvAuthenticators.SetAdapter(adapter);
 
-            var actionItems = Enum2.GetAll<ActionItem>();
-            speedDialDict = actionItems.ToDictionary(x => x, x => binding.speedDial.AddActionItem(new SpeedDialActionItem.Builder((int)x, ToIconRes(x))
-                    .SetLabel(ToString2(x))
-                    .SetFabBackgroundColor(Context.GetColorCompat(Resource.Color.white))
-                    .SetFabImageTintColor(new(Context.GetColorCompat(Resource.Color.fab_icon_background_min)))
-                    .Create()));
+            //var actionItems = Enum2.GetAll<ActionItem>();
+            //speedDialDict = actionItems.ToDictionary(x => x, x => binding.speedDial.AddActionItem(new SpeedDialActionItem.Builder((int)x, ToIconRes(x))
+            //        .SetLabel(ToString2(x))
+            //        .SetFabBackgroundColor(Context.GetColorCompat(Resource.Color.white))
+            //        .SetFabImageTintColor(new(Context.GetColorCompat(Resource.Color.fab_icon_background_min)))
+            //        .Create()));
 
-            binding.speedDial.SetOnActionSelectedListener(this);
-            binding.speedDial.SetOnChangeListener(this);
+            //binding.speedDial.SetOnActionSelectedListener(this);
+            //binding.speedDial.SetOnChangeListener(this);
+
+            binding.swipeRefreshLayout.InitDefaultStyles();
+            binding.swipeRefreshLayout.SetOnRefreshListener(this);
         }
 
         //public override void OnStop()
@@ -175,21 +186,21 @@ namespace System.Application.UI.Fragments
             }
         }
 
-        bool SpeedDialView.IOnActionSelectedListener.OnActionSelected(SpeedDialActionItem actionItem)
-        {
-            if (binding != null && actionItem != null)
-            {
-                var id = (ActionItem)actionItem.Id;
-                if (id.IsDefined())
-                {
-                    binding.speedDial.Close();
-                    MenuItemClick(id);
-                    return true;
-                }
-            }
+        //bool SpeedDialView.IOnActionSelectedListener.OnActionSelected(SpeedDialActionItem actionItem)
+        //{
+        //    if (binding != null && actionItem != null)
+        //    {
+        //        var id = (ActionItem)actionItem.Id;
+        //        if (id.IsDefined())
+        //        {
+        //            binding.speedDial.Close();
+        //            MenuItemClick(id);
+        //            return true;
+        //        }
+        //    }
 
-            return false; // false will close it without animation
-        }
+        //    return false; // false will close it without animation
+        //}
 
         static int ToIconRes(ActionItem action) => action switch
         {
@@ -222,45 +233,50 @@ namespace System.Application.UI.Fragments
             return default;
         }
 
-        bool SpeedDialView.IOnChangeListener.OnMainActionSelected() => false;
+        //bool SpeedDialView.IOnChangeListener.OnMainActionSelected() => false;
 
-        void SpeedDialView.IOnChangeListener.OnToggleChanged(bool isOpen)
-        {
-            if (isOpen)
-            {
-                binding!.clearFocus.RequestFocus();
-                //var firstFab = speedDialDict?.FirstOrDefault().Value?.Fab;
-                //if (firstFab?.IsFocused ?? false)
-                //{
-                //    // 第一个元素默认有焦点，去掉焦点
-                //    firstFab.ClearFocus();
-                //}
-            }
-            if (Activity is IOnBackPressedCallback callback)
-            {
-                callback.HandleOnBackPressed = isOpen ? HandleOnBackPressed : null;
-            }
-        }
+        //void SpeedDialView.IOnChangeListener.OnToggleChanged(bool isOpen)
+        //{
+        //    if (isOpen)
+        //    {
+        //        binding!.clearFocus.RequestFocus();
+        //        //var firstFab = speedDialDict?.FirstOrDefault().Value?.Fab;
+        //        //if (firstFab?.IsFocused ?? false)
+        //        //{
+        //        //    // 第一个元素默认有焦点，去掉焦点
+        //        //    firstFab.ClearFocus();
+        //        //}
+        //    }
+        //    if (Activity is IOnBackPressedCallback callback)
+        //    {
+        //        callback.HandleOnBackPressed = isOpen ? HandleOnBackPressed : null;
+        //    }
+        //}
 
-        bool HandleOnBackPressed()
-        {
-            if (binding?.speedDial.IsOpen ?? false)
-            {
-                binding.speedDial.Close();
-                return true;
-            }
-            return false;
-        }
+        //bool HandleOnBackPressed()
+        //{
+        //    if (binding?.speedDial.IsOpen ?? false)
+        //    {
+        //        binding.speedDial.Close();
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
         public override void OnDestroyView()
         {
-            speedDialDict = null;
-            if (Activity is IOnBackPressedCallback callback)
-            {
-                callback.HandleOnBackPressed = null;
-            }
+            //speedDialDict = null;
+            //if (Activity is IOnBackPressedCallback callback)
+            //{
+            //    callback.HandleOnBackPressed = null;
+            //}
             menuBuilder = null;
             base.OnDestroyView();
+        }
+
+        void SwipeRefreshLayout.IOnRefreshListener.OnRefresh()
+        {
+            MenuItemClick(ActionItem.Refresh);
         }
     }
 }

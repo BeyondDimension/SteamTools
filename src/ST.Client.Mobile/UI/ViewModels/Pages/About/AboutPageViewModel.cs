@@ -87,6 +87,7 @@ namespace System.Application.UI.ViewModels
         public const string Title_0 = "Steam++ Tools ";
         public const string Title_1 = "2.0";
         public const string Developers_0 = "Developers: ";
+        public const string Contributors_0 = "Contributors: ";
         public const string Separator = " - ";
         public const string Separator2 = "   |   ";
         public const string At_Rmbadmin = "@软妹币玩家";
@@ -98,5 +99,13 @@ namespace System.Application.UI.ViewModels
         public const string OpenSourceLicensed_1 = "GPLv3 License";
         const string _ThemeAccentBrushKey = "#FF0078D7";
         public static readonly Color ThemeAccentBrushKey = ColorConverters.FromHex(_ThemeAccentBrushKey);
+        public const string Translation = "Translation";
+
+        public static readonly IReadOnlyDictionary<string, string> contributors_translations = new Dictionary<string, string>
+        {
+            { Zhengye, "Italian" },
+            { 沙中金, "English" },
+            { EspRoy, "Spanish" },
+        };
     }
 }

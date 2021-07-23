@@ -33,22 +33,30 @@
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
     </LinearLayout>
 
-    <View
-        android:id="@+id/clearFocus"
-        android:layout_width="1px"
-        android:layout_height="1px"
-        android:focusableInTouchMode="true" />
+    <!--    <View-->
+    <!--        android:id="@+id/clearFocus"-->
+    <!--        android:layout_width="1px"-->
+    <!--        android:layout_height="1px"-->
+    <!--        android:focusableInTouchMode="true" />-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAuthenticators"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        tools:itemCount="5"
-        tools:listitem="@layout/layout_card_gap_authenticator"
-        xamarin:managedType="AndroidX.RecyclerView.Widget.RecyclerView" />
+        app:swipeRefreshLayoutProgressSpinnerBackgroundColor="?colorPrimary"
+        xamarin:managedType="AndroidX.SwipeRefreshLayout.Widget.SwipeRefreshLayout">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAuthenticators"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            tools:itemCount="5"
+            tools:listitem="@layout/layout_card_gap_authenticator"
+            xamarin:managedType="AndroidX.RecyclerView.Widget.RecyclerView" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvEmptyTip"
@@ -65,16 +73,16 @@
         tools:text="你还没有导入任何令牌哦，可以在右上角小齿轮图标处新增令牌。"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end">
+    <!--    <ScrollView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="bottom|end">-->
 
-        <com.leinardi.android.speeddial.SpeedDialView
-            android:id="@+id/speedDial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:sdMainFabClosedSrc="@drawable/baseline_settings_black_24" />
-    </ScrollView>
+    <!--        <com.leinardi.android.speeddial.SpeedDialView-->
+    <!--            android:id="@+id/speedDial"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            app:sdMainFabClosedSrc="@drawable/baseline_settings_black_24" />-->
+    <!--    </ScrollView>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

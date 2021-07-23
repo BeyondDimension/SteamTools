@@ -47,6 +47,7 @@ namespace System.Application.UI.Activities
 
             var appBarConfiguration = new AppBarConfiguration.Builder(
                 Resource.Id.navigation_local_auth,
+                Resource.Id.navigation_asf_plus,
                 Resource.Id.navigation_community_fix,
                 Resource.Id.navigation_game_list,
                 Resource.Id.navigation_my)

@@ -134,19 +134,6 @@
           </Button>
         </StackPanel>
 
-        <WrapPanel>
-          <TextBlock Margin=" 0 0 6 -0.5"
-                     VerticalAlignment="Center"
-                     Text="This open source software is licensed with " />
-          <StackPanel Orientation="Horizontal" Spacing="5" Margin="2">
-            <Button Classes="plain"
-                    Command="{Binding OpenBrowserCommand}"
-                    CommandParameter="{x:Static vm:AboutPageViewModel.LicenseLink}">
-              <TextBlock Text="GPLv3 License" Classes="Hyperlink" />
-            </Button>
-          </StackPanel>
-        </WrapPanel>
-
         <StackPanel Orientation="Horizontal">
           <TextBlock Classes="Header light"
                      Margin="0,0,6,0"
@@ -192,6 +179,19 @@
           <TextBlock Classes="LinkSeparatorPadding" Text="-" />
           <TextBlock Text="Spanish Translation" />
         </StackPanel>
+
+        <WrapPanel>
+          <TextBlock Margin=" 0 0 6 -0.5"
+                     VerticalAlignment="Center"
+                     Text="This open source software is licensed with " />
+          <StackPanel Orientation="Horizontal" Spacing="5" Margin="2">
+            <Button Classes="plain"
+                    Command="{Binding OpenBrowserCommand}"
+                    CommandParameter="{x:Static vm:AboutPageViewModel.LicenseLink}">
+              <TextBlock Text="GPLv3 License" Classes="Hyperlink" />
+            </Button>
+          </StackPanel>
+        </WrapPanel>
 
         <!--<WrapPanel>
           <gif:Image2 Width="500" Height="300" Stretch="UniformToFill" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/gg.gif"></gif:Image2>

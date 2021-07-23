@@ -73,6 +73,19 @@
                 xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvContributors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/preference_buttons_space_min"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="@dimen/preference_buttons_space_min"
+                android:textColor="@color/text_primary"
+                android:textColorLink="@color/text_link"
+                android:textSize="14sp"
+                tools:text="Contributors:\n XXXXX - YYYYY Translation\n XXXXX - YYYYY Translation\n XXXXX - YYYYY Translation\n XXXXX - YYYYY Translation\n XXXXX - YYYYY Translation\n XXXXX - YYYYY Translation"
+                xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvOpenSourceLicensed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

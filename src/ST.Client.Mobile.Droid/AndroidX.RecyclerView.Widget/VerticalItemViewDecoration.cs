@@ -52,10 +52,10 @@ namespace AndroidX.RecyclerView.Widget
             this.noTop = noTop;
         }
 
-        public static VerticalItemViewDecoration2 Get(Context context, [IdRes] int heightResId, [IdRes] int paddingBottomResId, bool noTop = false)
+        public static VerticalItemViewDecoration2 Get(Context context, [IdRes] int heightResId, [IdRes] int paddingBottomResId = default, bool noTop = default)
         {
             var height = context.Resources!.GetDimensionPixelSize(heightResId);
-            var paddingBottom = context.Resources!.GetDimensionPixelSize(paddingBottomResId);
+            var paddingBottom = paddingBottomResId != default ? context.Resources!.GetDimensionPixelSize(paddingBottomResId) : default;
             return new(height, paddingBottom, noTop);
         }
 
