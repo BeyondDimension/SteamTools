@@ -864,6 +864,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\textbox_password.xml">
       <Link>Resources\layout\textbox_password.xml</Link>
     </AndroidBoundLayout>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\auth_trade_toolbar_menu.xml">
+      <Link>Resources\menu\auth_trade_toolbar_menu.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\bottom_nav_menu.xml">
       <Link>Resources\menu\bottom_nav_menu.xml</Link>
     </AndroidResource>
@@ -956,4 +959,5 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
 

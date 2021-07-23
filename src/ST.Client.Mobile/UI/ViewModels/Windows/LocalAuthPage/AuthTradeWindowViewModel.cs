@@ -20,6 +20,25 @@ namespace System.Application.UI.ViewModels
             Logout,
         }
 
+        public void MenuItemClick(ActionItem id)
+        {
+            switch (id)
+            {
+                case ActionItem.ConfirmAll:
+                    ConfirmAllButton_Click();
+                    break;
+                case ActionItem.CancelAll:
+                    CancelAllButton_Click();
+                    break;
+                case ActionItem.Refresh:
+                    Refresh_Click();
+                    break;
+                case ActionItem.Logout:
+                    Logout_Click();
+                    break;
+            }
+        }
+
         public static string ToString2(ActionItem action) => action switch
         {
             ActionItem.ConfirmAll => AppResources.LocalAuth_AuthTrade_ConfirmAll,

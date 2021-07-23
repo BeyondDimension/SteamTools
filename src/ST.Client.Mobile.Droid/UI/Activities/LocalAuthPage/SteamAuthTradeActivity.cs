@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using AndroidX.RecyclerView.Widget;
+using AndroidX.SwipeRefreshLayout.Widget;
 using Binding;
 using Com.Leinardi.Android.Speeddial;
 using ReactiveUI;
@@ -21,7 +22,7 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class SteamAuthTradeActivity : BaseActivity<activity_steam_auth_trade, AuthTradeWindowViewModel>, SpeedDialView.IOnActionSelectedListener, SpeedDialView.IOnChangeListener
+    internal sealed class SteamAuthTradeActivity : BaseActivity<activity_steam_auth_trade, AuthTradeWindowViewModel>, SpeedDialView.IOnActionSelectedListener, SpeedDialView.IOnChangeListener, SwipeRefreshLayout.IOnRefreshListener
     {
         protected override int? LayoutResource => Resource.Layout.activity_steam_auth_trade;
 
@@ -49,6 +50,8 @@ namespace System.Application.UI.Activities
             {
                 Title = DisplayName;
                 if (binding == null) return;
+                binding.layoutSteamUserName.Hint = Steam_User;
+                binding.layoutSteamPassword.Hint = Steam_Password;
                 binding.tvConfirmConutMessage.Text = ViewModel!.ConfirmationsConutMessage;
                 binding.cbStreamRememberMe.Text = User_Rememberme;
                 binding.tbCaptcha.Text = Steam_ImageCodeTip;
@@ -56,6 +59,7 @@ namespace System.Application.UI.Activities
                 binding.tvSteamTradeLoginTip.Text = LocalAuth_SteamTradeLoginTip;
                 binding.tvLoading.Text = LocalAuth_AuthTrade_GetTip;
                 speedDialDict.ReplaceLabels(ToString2);
+                //SetMenuTitle();
             }).AddTo(this);
 
             ViewModel!.WhenAnyValue(x => x.IsLoggedIn).Subscribe(value =>
@@ -65,7 +69,7 @@ namespace System.Application.UI.Activities
                 var state_reverse = !value ? ViewStates.Gone : ViewStates.Visible;
                 binding.layoutContentSteamLogin.Visibility = state;
                 binding.layoutContentConfirmations.Visibility = state_reverse;
-                binding.speedDial.Visibility = state;
+                //binding.speedDial.Visibility = state;
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.IsRequiresCaptcha).Subscribe(value =>
             {
@@ -91,6 +95,11 @@ namespace System.Application.UI.Activities
                 binding.layoutContentConfirmations.Visibility = value || !ViewModel!.IsLoggedIn ? ViewStates.Gone : ViewStates.Visible;
                 binding.layoutContentSteamLogin.Visibility = value || ViewModel!.IsLoggedIn ? ViewStates.Gone : ViewStates.Visible;
                 binding.layoutLoading.Visibility = state;
+
+                if (!value && binding.swipeRefreshLayout.Refreshing)
+                {
+                    binding.swipeRefreshLayout.Refreshing = false;
+                }
             }).AddTo(this);
 
             binding!.tbSteamUserName.TextChanged += (_, _) =>
@@ -116,7 +125,7 @@ namespace System.Application.UI.Activities
             binding.rvConfirmations.AddItemDecoration(VerticalItemViewDecoration2.Get(this, Resource.Dimension.activity_vertical_margin, Resource.Dimension.fab_full_height, noTop: true));
             binding.rvConfirmations.SetAdapter(adapter);
 
-            var actionItems = Enum2.GetAll<ActionItem>();
+            var actionItems = Enum2.GetAll<ActionItem>().Where(x => x != ActionItem.Refresh);
             speedDialDict = actionItems.ToDictionary(x => x, x => binding.speedDial.AddActionItem(new SpeedDialActionItem.Builder((int)x, ToIconRes(x))
                     .SetLabel(ToString2(x))
                     .SetFabBackgroundColor(this.GetColorCompat(Resource.Color.white))
@@ -126,8 +135,25 @@ namespace System.Application.UI.Activities
             binding.speedDial.SetOnActionSelectedListener(this);
             binding.speedDial.SetOnChangeListener(this);
 
+            binding.swipeRefreshLayout.InitDefaultStyles();
+            binding.swipeRefreshLayout.SetOnRefreshListener(this);
+
             SetOnClickListener(binding.btnLogin);
         }
+
+        //MenuBuilder? menuBuilder;
+        //public override bool OnCreateOptionsMenu(IMenu? menu)
+        //{
+        //    MenuInflater.Inflate(Resource.Menu.auth_trade_toolbar_menu, menu);
+        //    menuBuilder = menu.SetOptionalIconsVisible();
+        //    if (menuBuilder != null)
+        //    {
+        //        SetMenuTitle();
+        //    }
+        //    return true;
+        //}
+
+        //void SetMenuTitle() => menuBuilder.SetMenuTitle(ToString2, MenuIdResToEnum);
 
         protected override void OnClick(View view)
         {
@@ -146,21 +172,7 @@ namespace System.Application.UI.Activities
                 if (id.IsDefined())
                 {
                     binding.speedDial.Close();
-                    switch (id)
-                    {
-                        case ActionItem.ConfirmAll:
-                            ViewModel!.ConfirmAllButton_Click();
-                            break;
-                        case ActionItem.CancelAll:
-                            ViewModel!.CancelAllButton_Click();
-                            break;
-                        case ActionItem.Refresh:
-                            ViewModel!.Refresh_Click();
-                            break;
-                        case ActionItem.Logout:
-                            ViewModel!.Logout_Click();
-                            break;
-                    }
+                    ViewModel!.MenuItemClick(id);
                     return true;
                 }
             }
@@ -199,10 +211,32 @@ namespace System.Application.UI.Activities
             GoToPlatformPages.StartActivity<SteamAuthTradeActivity, ushort>(activity, authId);
         }
 
+        static ActionItem MenuIdResToEnum(int resId)
+        {
+            if (resId == Resource.Id.menu_confirm_all)
+            {
+                return ActionItem.ConfirmAll;
+            }
+            else if (resId == Resource.Id.menu_cancel_all)
+            {
+                return ActionItem.CancelAll;
+            }
+            else if (resId == Resource.Id.menu_logout)
+            {
+                return ActionItem.Logout;
+            }
+            return default;
+        }
+
         protected override void OnDestroy()
         {
             speedDialDict = null;
             base.OnDestroy();
+        }
+
+        void SwipeRefreshLayout.IOnRefreshListener.OnRefresh()
+        {
+            ViewModel!.MenuItemClick(ActionItem.Refresh);
         }
     }
 }

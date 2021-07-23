@@ -43,7 +43,6 @@
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:swipeRefreshLayoutProgressSpinnerBackgroundColor="?colorPrimary"
         xamarin:managedType="AndroidX.SwipeRefreshLayout.Widget.SwipeRefreshLayout">
 
         <androidx.recyclerview.widget.RecyclerView

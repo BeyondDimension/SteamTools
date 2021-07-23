@@ -25,38 +25,46 @@
                 android:layout_height="1px"
                 android:focusableInTouchMode="true" />
 
-            <LinearLayout
-                android:id="@+id/layoutContentConfirmations"
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin">
+                xamarin:managedType="AndroidX.SwipeRefreshLayout.Widget.SwipeRefreshLayout">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvConfirmConutMessage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:textAllCaps="false"
-                    android:textColor="@color/text_primary"
-                    android:textSize="@dimen/list_header_title_font_size"
-                    tools:text="当前没有任何需要处理的交易报价"
-                    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvConfirmations"
+                <LinearLayout
+                    android:id="@+id/layoutContentConfirmations"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:overScrollMode="never"
-                    android:paddingBottom="@dimen/fab_full_height"
-                    tools:itemCount="4"
-                    tools:listitem="@layout/layout_card_steam_auth_trade_confirmation"
-                    xamarin:managedType="AndroidX.RecyclerView.Widget.RecyclerView" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:paddingBottom="@dimen/activity_vertical_margin">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvConfirmConutMessage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:textAllCaps="false"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/list_header_title_font_size"
+                        tools:text="当前没有任何需要处理的交易报价"
+                        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvConfirmations"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:overScrollMode="never"
+                        android:paddingBottom="@dimen/fab_full_height"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/layout_card_steam_auth_trade_confirmation"
+                        xamarin:managedType="AndroidX.RecyclerView.Widget.RecyclerView" />
+                </LinearLayout>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
             <LinearLayout
                 android:id="@+id/layoutContentSteamLogin"
@@ -214,6 +222,6 @@
             android:id="@+id/speedDial"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:sdMainFabClosedSrc="@drawable/baseline_settings_black_24" />
+            app:sdMainFabClosedSrc="@drawable/baseline_more_horiz_black_24" />
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

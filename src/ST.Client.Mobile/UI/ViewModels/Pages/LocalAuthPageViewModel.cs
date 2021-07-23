@@ -23,6 +23,28 @@ namespace System.Application.UI.ViewModels
             _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
         };
 
+        public void MenuItemClick(ActionItem id)
+        {
+            switch (id)
+            {
+                case ActionItem.Add:
+                    AddAuthCommand.Invoke();
+                    break;
+                case ActionItem.Encrypt:
+                    EncryptionAuthCommand.Invoke();
+                    break;
+                case ActionItem.Export:
+                    ExportAuthCommand.Invoke();
+                    break;
+                case ActionItem.Lock:
+                    LockCommand.Invoke();
+                    break;
+                case ActionItem.Refresh:
+                    RefreshAuthCommand.Invoke();
+                    break;
+            }
+        }
+
         public static LocalAuthPageViewModel Current { get; } = new();
     }
 }

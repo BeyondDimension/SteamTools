@@ -41,26 +41,14 @@ namespace System.Application.UI.Fragments
             }
         }
 
-        void SetMenuTitle()
-        {
-            if (menuBuilder == null) return;
-            for (int i = 0; i < menuBuilder.Size(); i++)
-            {
-                var item = menuBuilder.GetItem(i);
-                var actionItem = MenuIdResToEnum(item.ItemId);
-                if (actionItem.IsDefined())
-                {
-                    item.SetTitle(ToString2(actionItem));
-                }
-            }
-        }
+        void SetMenuTitle() => menuBuilder.SetMenuTitle(ToString2, MenuIdResToEnum);
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             var actionItem = MenuIdResToEnum(item.ItemId);
             if (actionItem.IsDefined())
             {
-                MenuItemClick(actionItem);
+                ViewModel!.MenuItemClick(actionItem);
                 return true;
             }
             return base.OnOptionsItemSelected(item);
@@ -164,28 +152,6 @@ namespace System.Application.UI.Fragments
             Activity.SetWindowSecure(false);
         }
 
-        void MenuItemClick(ActionItem id)
-        {
-            switch (id)
-            {
-                case ActionItem.Add:
-                    ViewModel!.AddAuthCommand.Invoke();
-                    break;
-                case ActionItem.Encrypt:
-                    ViewModel!.EncryptionAuthCommand.Invoke();
-                    break;
-                case ActionItem.Export:
-                    ViewModel!.ExportAuthCommand.Invoke();
-                    break;
-                case ActionItem.Lock:
-                    ViewModel!.LockCommand.Invoke();
-                    break;
-                case ActionItem.Refresh:
-                    ViewModel!.RefreshAuthCommand.Invoke();
-                    break;
-            }
-        }
-
         //bool SpeedDialView.IOnActionSelectedListener.OnActionSelected(SpeedDialActionItem actionItem)
         //{
         //    if (binding != null && actionItem != null)
@@ -194,7 +160,7 @@ namespace System.Application.UI.Fragments
         //        if (id.IsDefined())
         //        {
         //            binding.speedDial.Close();
-        //            MenuItemClick(id);
+        //            ViewModel!.MenuItemClick(id);
         //            return true;
         //        }
         //    }
@@ -202,15 +168,15 @@ namespace System.Application.UI.Fragments
         //    return false; // false will close it without animation
         //}
 
-        static int ToIconRes(ActionItem action) => action switch
-        {
-            ActionItem.Add => Resource.Drawable.baseline_add_black_24,
-            ActionItem.Encrypt => Resource.Drawable.baseline_enhanced_encryption_black_24,
-            ActionItem.Export => Resource.Drawable.baseline_save_alt_black_24,
-            ActionItem.Lock => Resource.Drawable.baseline_lock_open_black_24,
-            ActionItem.Refresh => Resource.Drawable.baseline_refresh_black_24,
-            _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
-        };
+        //static int ToIconRes(ActionItem action) => action switch
+        //{
+        //    ActionItem.Add => Resource.Drawable.baseline_add_black_24,
+        //    ActionItem.Encrypt => Resource.Drawable.baseline_enhanced_encryption_black_24,
+        //    ActionItem.Export => Resource.Drawable.baseline_save_alt_black_24,
+        //    ActionItem.Lock => Resource.Drawable.baseline_lock_open_black_24,
+        //    ActionItem.Refresh => Resource.Drawable.baseline_refresh_black_24,
+        //    _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
+        //};
 
         static ActionItem MenuIdResToEnum(int resId)
         {
@@ -276,7 +242,7 @@ namespace System.Application.UI.Fragments
 
         void SwipeRefreshLayout.IOnRefreshListener.OnRefresh()
         {
-            MenuItemClick(ActionItem.Refresh);
+            ViewModel!.MenuItemClick(ActionItem.Refresh);
         }
     }
 }
