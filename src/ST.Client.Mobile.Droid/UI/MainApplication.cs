@@ -18,7 +18,12 @@ using Square.LeakCanary;
 namespace System.Application.UI
 {
     [Register(JavaPackageConstants.UI + nameof(MainApplication))]
-    [Application(Debuggable = _ThisAssembly.Debuggable)]
+    [Application(
+        Debuggable = _ThisAssembly.Debuggable,
+        Label = "@string/app_name",
+        Theme = "@style/MainTheme",
+        Icon = "@mipmap/ic_launcher",
+        RoundIcon = "@mipmap/ic_launcher_round")]
     public sealed class MainApplication : AndroidApplication
     {
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)

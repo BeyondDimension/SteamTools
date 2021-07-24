@@ -43,13 +43,8 @@ namespace System.Application.Services
             await InitializeAsync(auths, isSync);
         }
 
-        public async Task InitializeAsync(GameAccountPlatformAuthenticator[] auths, bool isSync = false, Action? emptyAction = null)
+        public async Task InitializeAsync(GameAccountPlatformAuthenticator[] auths, bool isSync = false)
         {
-            if (!auths.Any_Nullable())
-            {
-                emptyAction?.Invoke();
-                return;
-            }
             var hasPassword = repository.HasSecondaryPassword(auths);
             List<IGAPAuthenticatorDTO> list;
             if (hasPassword)

@@ -97,7 +97,7 @@ namespace System.Application.UI.Fragments
                 .Subscribe(x =>
                 {
                     if (!x) return;
-                    OnAuthenticatorsChanged(ViewModel!.IsAuthenticatorsEmpty, x);
+                    OnAuthenticatorsChanged(ViewModel!.IsAuthenticatorsEmpty, false);
                 })
                 .AddTo(this);
             ViewModel!.WhenAnyValue(x => x.IsRefreshing)
@@ -143,7 +143,7 @@ namespace System.Application.UI.Fragments
         public override void OnResume()
         {
             base.OnResume();
-            if (MainApplication.AllowScreenshots)
+            if (!MainApplication.AllowScreenshots)
             {
                 Activity.SetWindowSecure(true);
             }

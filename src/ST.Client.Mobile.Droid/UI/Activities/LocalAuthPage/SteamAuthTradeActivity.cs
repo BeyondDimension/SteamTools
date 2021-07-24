@@ -58,6 +58,8 @@ namespace System.Application.UI.Activities
                 binding.tvSteamTradeLoginTip.Text = LocalAuth_SteamTradeLoginTip;
                 binding.tvLoading.Text = LocalAuth_AuthTrade_GetTip;
                 //speedDialDict.ReplaceLabels(ToString2);
+                binding.btnCancelTrade.Text = LocalAuth_AuthTrade_Cancel;
+                binding.btnConfirmTrade.Text = LocalAuth_AuthTrade_Confirm;
                 SetMenuTitle();
             }).AddTo(this);
 
@@ -68,6 +70,7 @@ namespace System.Application.UI.Activities
                 var state_reverse = !value ? ViewStates.Gone : ViewStates.Visible;
                 binding.layoutContentSteamLogin.Visibility = state;
                 binding.layoutContentConfirmations.Visibility = state_reverse;
+                binding.layoutActions.Visibility = state;
                 //binding.speedDial.Visibility = state;
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.IsRequiresCaptcha).Subscribe(value =>

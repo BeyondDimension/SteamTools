@@ -37,6 +37,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 app:endIconMode="clear_text"
                 tools:hint="Steam用户名"
                 xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">

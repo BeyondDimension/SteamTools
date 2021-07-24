@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
+using Xamarin.Essentials;
+using ZXing;
 using ZXing.Mobile;
 using ZXingResult = ZXing.Result;
 
@@ -20,7 +24,31 @@ namespace System
             scanner.BottomText = "Wait for the barcode to automatically scan!";
 
             //Start scanning
-            var result = await scanner.Scan();
+            var result = await scanner.Scan(new()
+            {
+                // https://github.com/Redth/ZXing.Net.Mobile/issues/808#issuecomment-835089415
+                PossibleFormats = new List<BarcodeFormat>() { BarcodeFormat.QR_CODE },
+                CameraResolutionSelector = new((List<CameraResolution> availableResolutions) =>
+                {
+                    CameraResolution? result = null;
+
+                    double aspectTolerance = 0.1;
+                    var displayOrientationHeight = DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait ? DeviceDisplay.MainDisplayInfo.Height : DeviceDisplay.MainDisplayInfo.Width;
+                    var displayOrientationWidth = DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait ? DeviceDisplay.MainDisplayInfo.Width : DeviceDisplay.MainDisplayInfo.Height;
+
+                    var targetRatio = displayOrientationHeight / displayOrientationWidth;
+                    var targetHeight = displayOrientationHeight;
+                    var minDiff = double.MaxValue;
+
+                    foreach (var r in availableResolutions.Where(r => Math.Abs(((double)r.Width / r.Height) - targetRatio) < aspectTolerance))
+                    {
+                        if (Math.Abs(r.Height - targetHeight) < minDiff)
+                            minDiff = Math.Abs(r.Height - targetHeight);
+                        result = r;
+                    }
+                    return result;
+                })
+            });
             if (result == null) return;
 
             handleScanResult(result);

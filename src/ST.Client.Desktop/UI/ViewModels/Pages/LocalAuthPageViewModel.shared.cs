@@ -94,7 +94,10 @@ namespace System.Application.UI.ViewModels
 
         public bool IsAuthenticatorsEmpty => !AuthService.Current.Authenticators.Items.Any_Nullable();
 
-        public bool IsAuthenticatorsEmptyAndHasPassword => SourceAuthCount > 0 && IsAuthenticatorsEmpty == true;
+        [Obsolete("use IsAuthenticatorsEmptyButHasSourceAuths")] // AndHasPassword ???
+        public bool IsAuthenticatorsEmptyAndHasPassword => SourceAuthCount > 0 && IsAuthenticatorsEmpty;
+
+        public bool IsAuthenticatorsEmptyButHasSourceAuths => SourceAuthCount > 0 && IsAuthenticatorsEmpty;
 
         public int SourceAuthCount { get; set; }
 
@@ -135,20 +138,19 @@ namespace System.Application.UI.ViewModels
             var auths = await AuthService.Current.Repository.GetAllSourceAsync();
             SourceAuthCount = auths.Length;
             //if (IsFirstActivation)
-            if (IsAuthenticatorsEmptyAndHasPassword)
+            if (IsAuthenticatorsEmptyButHasSourceAuths)
             {
                 await Task.Run(async () =>
                 {
-                    await AuthService.Current.InitializeAsync(auths
-#if __MOBILE__
-                        , emptyAction: () =>
-                        {
-                            IsFirstLoadedAuthenticatorsEmpty = true;
-                        }
-#endif
-                    );
+                    await AuthService.Current.InitializeAsync(auths);
                 });
             }
+#if __MOBILE__
+            else
+            {
+                IsFirstLoadedAuthenticatorsEmpty = true;
+            }
+#endif
             base.Activation();
         }
 

@@ -35,7 +35,7 @@ namespace System.Application.UI.Activities
                 return;
             }
 
-            if (MainApplication.AllowScreenshots)
+            if (!MainApplication.AllowScreenshots)
             {
                 this.SetWindowSecure(true);
             }
