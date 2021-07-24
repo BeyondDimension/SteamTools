@@ -42,6 +42,10 @@ namespace System.Application.UI.ViewModels
                    this.RaisePropertyChanged(nameof(ConfirmationsConutMessage));
                });
 
+#if __MOBILE__
+            RegisterSelectAllObservable();
+#endif
+
             Initialize();
         }
 
@@ -256,16 +260,20 @@ namespace System.Application.UI.ViewModels
                 _ConfirmationsSourceList.AddRange(items);
         }
 
-        public void Logout_Click()
+        public async void Logout_Click()
         {
-            var steam = _Authenticator!.GetClient();
-            steam.Logout();
-
-            if (string.IsNullOrEmpty(_Authenticator.SessionData) == false)
+            var r = await MessageBoxCompat.ShowAsync(AppResources.LocalAuth_LogoutTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
+            if (r == MessageBoxResultCompat.OK)
             {
-                IsLoggedIn = false;
-                _Authenticator.SessionData = null;
-                AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
+                var steam = _Authenticator!.GetClient();
+                steam.Logout();
+
+                if (string.IsNullOrEmpty(_Authenticator.SessionData) == false)
+                {
+                    IsLoggedIn = false;
+                    _Authenticator.SessionData = null;
+                    AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
+                }
             }
         }
 
@@ -573,7 +581,7 @@ namespace System.Application.UI.ViewModels
                         return;
                     }
 
-                    if (item.IsOperate != 0)
+                    if (item.IsOperate != 0 || item.NotChecked)
                     {
                         continue;
                     }
@@ -630,7 +638,7 @@ namespace System.Application.UI.ViewModels
                         break;
                     }
 
-                    if (item.IsOperate != 0)
+                    if (item.IsOperate != 0 || item.NotChecked)
                     {
                         continue;
                     }

@@ -35,7 +35,10 @@ namespace System.Application.UI.Activities
                 return;
             }
 
-            this.SetWindowSecure(true);
+            if (MainApplication.AllowScreenshots)
+            {
+                this.SetWindowSecure(true);
+            }
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 

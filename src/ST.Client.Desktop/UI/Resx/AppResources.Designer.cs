@@ -1665,6 +1665,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 文件导入 的本地化字符串。
+        /// </summary>
+        public static string ImportByFilePicker {
+            get {
+                return ResourceManager.GetString("ImportByFilePicker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 扫码导入 的本地化字符串。
+        /// </summary>
+        public static string ImportByQRCode {
+            get {
+                return ResourceManager.GetString("ImportByQRCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 加载中 的本地化字符串。
         /// </summary>
         public static string Loading {
@@ -2094,6 +2112,15 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_LockError {
             get {
                 return ResourceManager.GetString("LocalAuth_LockError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定要注销登录当前令牌？ 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_LogoutTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_LogoutTip", resourceCulture);
             }
         }
         
@@ -2953,6 +2980,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 全选({0}/{1}) 的本地化字符串。
+        /// </summary>
+        public static string SelectAllText_ {
+            get {
+                return ResourceManager.GetString("SelectAllText_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 选择{0}文件导入 的本地化字符串。
         /// </summary>
         public static string SelectFileImport {
@@ -3773,7 +3809,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 确定要退出 Steam++? 的本地化字符串。
+        ///   查找类似 确定要登出 Steam++? 的本地化字符串。
         /// </summary>
         public static string User_SignOutTip {
             get {

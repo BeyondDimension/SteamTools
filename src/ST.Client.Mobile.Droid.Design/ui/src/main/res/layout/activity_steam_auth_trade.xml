@@ -19,11 +19,11 @@
             android:layout_height="match_parent"
             android:background="@color/grey_window_background">
 
-            <View
-                android:id="@+id/clearFocus"
-                android:layout_width="1px"
-                android:layout_height="1px"
-                android:focusableInTouchMode="true" />
+            <!--            <View-->
+            <!--                android:id="@+id/clearFocus"-->
+            <!--                android:layout_width="1px"-->
+            <!--                android:layout_height="1px"-->
+            <!--                android:focusableInTouchMode="true" />-->
 
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -76,7 +76,8 @@
                 android:paddingStart="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin">
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:visibility="gone">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivSteamLogo"
@@ -213,15 +214,63 @@
         </FrameLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end">
+    <LinearLayout
+        android:id="@+id/layoutActions"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab_height"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin">
 
-        <com.leinardi.android.speeddial.SpeedDialView
-            android:id="@+id/speedDial"
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cbSelectAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:sdMainFabClosedSrc="@drawable/baseline_more_horiz_black_24" />
-    </ScrollView>
+            android:layout_marginStart="@dimen/checkbox_reduce_space"
+            android:buttonTint="?colorPrimary"
+            tools:checked="true"
+            tools:text="全选(0/255)"
+            xamarin:managedType="Google.Android.Material.CheckBox.MaterialCheckBox" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancelTrade"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/gap_space_min"
+            android:paddingLeft="@dimen/gap_space_min"
+            android:paddingRight="@dimen/gap_space_min"
+            android:textAllCaps="false"
+            tools:text="取消交易"
+            xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConfirmTrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/gap_space_min"
+            android:paddingRight="@dimen/gap_space_min"
+            android:textAllCaps="false"
+            tools:text="确认交易"
+            xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+    </LinearLayout>
+
+    <!--    <ScrollView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="bottom|end">-->
+
+    <!--        <com.leinardi.android.speeddial.SpeedDialView-->
+    <!--            android:id="@+id/speedDial"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            app:sdMainFabClosedSrc="@drawable/baseline_more_horiz_black_24" />-->
+    <!--    </ScrollView>-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

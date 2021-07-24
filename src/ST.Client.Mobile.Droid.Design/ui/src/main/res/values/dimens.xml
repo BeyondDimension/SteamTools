@@ -30,4 +30,8 @@
     <dimen name="preference_button_height_large">56dp</dimen>
     <dimen name="preference_button_font_size">18sp</dimen>
     <dimen name="preference_button_height_small">52dp</dimen>
+    <dimen name="tab_height">48dp</dimen>
+    <dimen name="checkbox_reduce_space">-7dp</dimen>
+    <dimen name="checkbox_width">25dp</dimen>
+    <dimen name="checkbox_height">18dp</dimen>
 </resources>

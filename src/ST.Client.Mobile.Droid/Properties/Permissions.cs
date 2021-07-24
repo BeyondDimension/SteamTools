@@ -6,7 +6,7 @@ using static Android.Manifest.Permission;
 [assembly: UsesPermission(Internet)] // android.permission.INTERNET
 #endregion
 
-#region Xamarin.Essentials.Connectivity // https://docs.microsoft.com/zh-cn/xamarin/essentials/connectivity?context=xamarin%2Fandroid&tabs=android
+#region Xamarin.Essentials.Connectivity https://docs.microsoft.com/zh-cn/xamarin/essentials/connectivity?context=xamarin%2Fandroid&tabs=android
 // 允许应用程序访问有关网络的信息。
 [assembly: UsesPermission(AccessNetworkState)] // android.permission.ACCESS_NETWORK_STATE
 #endregion
@@ -20,4 +20,9 @@ using static Android.Manifest.Permission;
 
 #region Xamarin.Essentials.FilePicker https://docs.microsoft.com/zh-cn/xamarin/essentials/file-picker?context=xamarin%2Fandroid&tabs=android
 [assembly: UsesPermission(ReadExternalStorage)]
+#endregion
+#region ZXing.Net.Mobile https://github.com/Redth/ZXing.Net.Mobile/blob/master/Samples/Sample.Android/Properties/AndroidManifest.xml
+[assembly: UsesPermission(Vibrate)] // android.permission.VIBRATE
+[assembly: UsesPermission(Flashlight)] // android.permission.FLASHLIGHT
+[assembly: UsesPermission(Camera)] // android.permission.CAMERA
 #endregion

@@ -17,10 +17,47 @@
         android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/activity_vertical_margin">
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvQRCode"
+            style="@style/TextAppearance.AppCompat.Widget.Switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="24sp"
+            tools:text="扫码导入"
+            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnImportV2ByQRCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:textAllCaps="false"
+            tools:text="导入Steam++ V2版本的导出的令牌数据"
+            xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvFilePicker"
+            style="@style/TextAppearance.AppCompat.Widget.Switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:gravity="center_vertical"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="24sp"
+            tools:text="文件导入"
+            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnImportV1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:textAllCaps="false"

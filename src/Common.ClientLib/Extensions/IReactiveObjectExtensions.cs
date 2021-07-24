@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using ReactiveUI;
 
 // ReSharper disable once CheckNamespace
 namespace ReactiveUI
@@ -12,7 +11,7 @@ namespace ReactiveUI
             this TObj reactiveObject,
             ref TRet backingField,
             TRet newValue,
-            [CallerMemberName] string propertyName = null) where TObj : IReactiveObject
+            [CallerMemberName] string? propertyName = null) where TObj : IReactiveObject
         {
             if (propertyName == null)
             {

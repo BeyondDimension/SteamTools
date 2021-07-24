@@ -3,15 +3,14 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using AndroidX.AppCompat.View.Menu;
 using AndroidX.RecyclerView.Widget;
 using AndroidX.SwipeRefreshLayout.Widget;
 using Binding;
-using Com.Leinardi.Android.Speeddial;
 using ReactiveUI;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
-using System.Collections.Generic;
 using System.Linq;
 using static System.Application.UI.Resx.AppResources;
 using static System.Application.UI.ViewModels.AuthTradeWindowViewModel;
@@ -22,11 +21,11 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class SteamAuthTradeActivity : BaseActivity<activity_steam_auth_trade, AuthTradeWindowViewModel>, SpeedDialView.IOnActionSelectedListener, SpeedDialView.IOnChangeListener, SwipeRefreshLayout.IOnRefreshListener
+    internal sealed class SteamAuthTradeActivity : BaseActivity<activity_steam_auth_trade, AuthTradeWindowViewModel>/*, SpeedDialView.IOnActionSelectedListener, SpeedDialView.IOnChangeListener*/, SwipeRefreshLayout.IOnRefreshListener
     {
         protected override int? LayoutResource => Resource.Layout.activity_steam_auth_trade;
 
-        IReadOnlyDictionary<ActionItem, FabWithLabelView>? speedDialDict;
+        //IReadOnlyDictionary<ActionItem, FabWithLabelView>? speedDialDict;
 
         protected override AuthTradeWindowViewModel? OnCreateViewModel()
         {
@@ -58,8 +57,8 @@ namespace System.Application.UI.Activities
                 binding.btnLogin.Text = Login;
                 binding.tvSteamTradeLoginTip.Text = LocalAuth_SteamTradeLoginTip;
                 binding.tvLoading.Text = LocalAuth_AuthTrade_GetTip;
-                speedDialDict.ReplaceLabels(ToString2);
-                //SetMenuTitle();
+                //speedDialDict.ReplaceLabels(ToString2);
+                SetMenuTitle();
             }).AddTo(this);
 
             ViewModel!.WhenAnyValue(x => x.IsLoggedIn).Subscribe(value =>
@@ -101,6 +100,16 @@ namespace System.Application.UI.Activities
                     binding.swipeRefreshLayout.Refreshing = false;
                 }
             }).AddTo(this);
+            ViewModel!.WhenAnyValue(x => x.UnselectAll).Subscribe(value =>
+            {
+                if (binding == null) return;
+                binding.cbSelectAll.Checked = !value;
+            }).AddTo(this);
+            ViewModel!.WhenAnyValue(x => x.SelectAllText).Subscribe(value =>
+            {
+                if (binding == null) return;
+                binding.cbSelectAll.Text = value;
+            }).AddTo(this);
 
             binding!.tbSteamUserName.TextChanged += (_, _) =>
             {
@@ -125,35 +134,35 @@ namespace System.Application.UI.Activities
             binding.rvConfirmations.AddItemDecoration(VerticalItemViewDecoration2.Get(this, Resource.Dimension.activity_vertical_margin, Resource.Dimension.fab_full_height, noTop: true));
             binding.rvConfirmations.SetAdapter(adapter);
 
-            var actionItems = Enum2.GetAll<ActionItem>().Where(x => x != ActionItem.Refresh);
-            speedDialDict = actionItems.ToDictionary(x => x, x => binding.speedDial.AddActionItem(new SpeedDialActionItem.Builder((int)x, ToIconRes(x))
-                    .SetLabel(ToString2(x))
-                    .SetFabBackgroundColor(this.GetColorCompat(Resource.Color.white))
-                    .SetFabImageTintColor(new(this.GetColorCompat(Resource.Color.fab_icon_background_min)))
-                    .Create()));
+            //var actionItems = Enum2.GetAll<ActionItem>().Where(x => x != ActionItem.Refresh);
+            //speedDialDict = actionItems.ToDictionary(x => x, x => binding.speedDial.AddActionItem(new SpeedDialActionItem.Builder((int)x, ToIconRes(x))
+            //        .SetLabel(ToString2(x))
+            //        .SetFabBackgroundColor(this.GetColorCompat(Resource.Color.white))
+            //        .SetFabImageTintColor(new(this.GetColorCompat(Resource.Color.fab_icon_background_min)))
+            //        .Create()));
 
-            binding.speedDial.SetOnActionSelectedListener(this);
-            binding.speedDial.SetOnChangeListener(this);
+            //binding.speedDial.SetOnActionSelectedListener(this);
+            //binding.speedDial.SetOnChangeListener(this);
 
             binding.swipeRefreshLayout.InitDefaultStyles();
             binding.swipeRefreshLayout.SetOnRefreshListener(this);
 
-            SetOnClickListener(binding.btnLogin);
+            SetOnClickListener(binding.btnLogin, binding.btnCancelTrade, binding.btnConfirmTrade);
         }
 
-        //MenuBuilder? menuBuilder;
-        //public override bool OnCreateOptionsMenu(IMenu? menu)
-        //{
-        //    MenuInflater.Inflate(Resource.Menu.auth_trade_toolbar_menu, menu);
-        //    menuBuilder = menu.SetOptionalIconsVisible();
-        //    if (menuBuilder != null)
-        //    {
-        //        SetMenuTitle();
-        //    }
-        //    return true;
-        //}
+        MenuBuilder? menuBuilder;
+        public override bool OnCreateOptionsMenu(IMenu? menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.auth_trade_toolbar_menu, menu);
+            menuBuilder = menu.SetOptionalIconsVisible();
+            if (menuBuilder != null)
+            {
+                SetMenuTitle();
+            }
+            return true;
+        }
 
-        //void SetMenuTitle() => menuBuilder.SetMenuTitle(ToString2, MenuIdResToEnum);
+        void SetMenuTitle() => menuBuilder.SetMenuTitle(ToString2, MenuIdResToEnum);
 
         protected override void OnClick(View view)
         {
@@ -162,40 +171,48 @@ namespace System.Application.UI.Activities
             {
                 ViewModel!.LoginButton_Click();
             }
-        }
-
-        bool SpeedDialView.IOnActionSelectedListener.OnActionSelected(SpeedDialActionItem actionItem)
-        {
-            if (binding != null && actionItem != null)
+            else if (view.Id == Resource.Id.btnCancelTrade)
             {
-                var id = (ActionItem)actionItem.Id;
-                if (id.IsDefined())
-                {
-                    binding.speedDial.Close();
-                    ViewModel!.MenuItemClick(id);
-                    return true;
-                }
+                ViewModel!.MenuItemClick(ActionItem.CancelAll);
             }
-
-            return false; // false will close it without animation
-        }
-
-        bool SpeedDialView.IOnChangeListener.OnMainActionSelected() => false;
-
-        void SpeedDialView.IOnChangeListener.OnToggleChanged(bool isOpen)
-        {
-            if (isOpen)
+            else if (view.Id == Resource.Id.btnConfirmTrade)
             {
-                binding!.clearFocus.RequestFocus();
-                //var firstFab = speedDialDict?.FirstOrDefault().Value?.Fab;
-                //if (firstFab?.IsFocused ?? false)
-                //{
-                //    // 第一个元素默认有焦点，去掉焦点
-                //    firstFab.ClearFocus();
-                //}
+                ViewModel!.MenuItemClick(ActionItem.ConfirmAll);
             }
-            HandleOnBackPressed = isOpen ? HandleOnBackPressed : null;
         }
+
+        //bool SpeedDialView.IOnActionSelectedListener.OnActionSelected(SpeedDialActionItem actionItem)
+        //{
+        //    if (binding != null && actionItem != null)
+        //    {
+        //        var id = (ActionItem)actionItem.Id;
+        //        if (id.IsDefined())
+        //        {
+        //            binding.speedDial.Close();
+        //            ViewModel!.MenuItemClick(id);
+        //            return true;
+        //        }
+        //    }
+
+        //    return false; // false will close it without animation
+        //}
+
+        //bool SpeedDialView.IOnChangeListener.OnMainActionSelected() => false;
+
+        //void SpeedDialView.IOnChangeListener.OnToggleChanged(bool isOpen)
+        //{
+        //    if (isOpen)
+        //    {
+        //        binding!.clearFocus.RequestFocus();
+        //        //var firstFab = speedDialDict?.FirstOrDefault().Value?.Fab;
+        //        //if (firstFab?.IsFocused ?? false)
+        //        //{
+        //        //    // 第一个元素默认有焦点，去掉焦点
+        //        //    firstFab.ClearFocus();
+        //        //}
+        //    }
+        //    HandleOnBackPressed = isOpen ? HandleOnBackPressed : null;
+        //}
 
         static int ToIconRes(ActionItem action) => action switch
         {
@@ -213,15 +230,16 @@ namespace System.Application.UI.Activities
 
         static ActionItem MenuIdResToEnum(int resId)
         {
-            if (resId == Resource.Id.menu_confirm_all)
-            {
-                return ActionItem.ConfirmAll;
-            }
-            else if (resId == Resource.Id.menu_cancel_all)
-            {
-                return ActionItem.CancelAll;
-            }
-            else if (resId == Resource.Id.menu_logout)
+            //if (resId == Resource.Id.menu_confirm_all)
+            //{
+            //    return ActionItem.ConfirmAll;
+            //}
+            //else if (resId == Resource.Id.menu_cancel_all)
+            //{
+            //    return ActionItem.CancelAll;
+            //}
+            //else
+            if (resId == Resource.Id.menu_logout)
             {
                 return ActionItem.Logout;
             }
@@ -230,7 +248,7 @@ namespace System.Application.UI.Activities
 
         protected override void OnDestroy()
         {
-            speedDialDict = null;
+            //speedDialDict = null;
             base.OnDestroy();
         }
 

@@ -415,6 +415,11 @@ namespace System.Application.UI.ViewModels
             AuthService.Current.ImportAuthenticatorFile(file, AuthIsLocal, AuthPassword);
         }
 
+        public void ImportSteamPlusPlusV2(byte[] bytes)
+        {
+            AuthService.Current.ImportAuthenticatorFile(bytes, AuthIsLocal, AuthPassword);
+        }
+
         public ICommand SppV2Btn_Click { get; }
         public ICommand SppBtn_Click { get; }
         public ICommand SdaBtn_Click { get; }

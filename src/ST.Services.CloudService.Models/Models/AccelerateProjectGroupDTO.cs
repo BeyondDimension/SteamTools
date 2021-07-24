@@ -93,8 +93,7 @@ namespace System.Application.Models
         [MPKey(0)]
         [N_JsonProperty("0")]
         [S_JsonProperty("0")]
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? Name { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// 当前组中所有的加速项目集合
@@ -102,7 +101,6 @@ namespace System.Application.Models
         [MPKey(1)]
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]
-        [NotNull, DisallowNull] // C# 8 not null
         public List<AccelerateProjectDTO>? Items
 #if MVVM_VM
         {
@@ -158,9 +156,12 @@ namespace System.Application.Models
             {
                 mThreeStateEnable = value;
                 Enable = mThreeStateEnable == true;
-                foreach (var item in this.Items)
+                if (Items != null)
                 {
-                    item.Enable = Enable;
+                    foreach (var item in Items)
+                    {
+                        item.Enable = Enable;
+                    }
                 }
                 this.RaisePropertyChanged();
             }

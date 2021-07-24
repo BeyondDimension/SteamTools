@@ -60,7 +60,7 @@ namespace System.Application.UI.Fragments
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
                 if (binding == null) return;
-                binding.tvEmptyTip.Text = LocalAuth_NoAuthTip_.Format(BottomRightCorner);
+                binding.tvEmptyTip.Text = LocalAuth_NoAuthTip_.Format(TopRightCorner/*BottomRightCorner*/);
                 binding.tvLoading.Text = LocalAuth_Loading;
                 //speedDialDict.ReplaceLabels(ToString2);
                 SetMenuTitle();
@@ -69,19 +69,19 @@ namespace System.Application.UI.Fragments
             void OnAuthenticatorsChanged(bool isAuthenticatorsEmpty, bool isFirstActivation)
             {
                 if (binding == null) return;
-                ViewStates state, state_reverse, fab_state, loading_state;
+                ViewStates state, state_reverse, /*fab_state,*/ loading_state;
                 if (isFirstActivation)
                 {
                     state = ViewStates.Gone;
                     state_reverse = ViewStates.Gone;
-                    fab_state = ViewStates.Gone;
+                    //fab_state = ViewStates.Gone;
                     loading_state = ViewStates.Visible;
                 }
                 else
                 {
                     state = isAuthenticatorsEmpty ? ViewStates.Visible : ViewStates.Gone;
                     state_reverse = !isAuthenticatorsEmpty ? ViewStates.Visible : ViewStates.Gone;
-                    fab_state = ViewStates.Visible;
+                    //fab_state = ViewStates.Visible;
                     loading_state = ViewStates.Gone;
                 }
                 binding.tvEmptyTip.Visibility = state;
@@ -143,7 +143,10 @@ namespace System.Application.UI.Fragments
         public override void OnResume()
         {
             base.OnResume();
-            Activity.SetWindowSecure(true);
+            if (MainApplication.AllowScreenshots)
+            {
+                Activity.SetWindowSecure(true);
+            }
         }
 
         public override void OnPause()

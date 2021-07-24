@@ -494,6 +494,41 @@ namespace System.Application.Services
             return true;
         }
 
+        /// <inheritdoc cref="ImportAuthenticatorFile(string, bool, string?, string?)"/>
+        public async void ImportAuthenticatorFile(byte[] bt, bool isLocal, string? password, string? exportPassword = null)
+        {
+        Run:
+            var result = await repository.ImportAsync(exportPassword, bt!);
+
+            if (result.resultCode == GAPRepository.ImportResultCode.Success)
+            {
+                foreach (var item in result.result)
+                {
+                    AddOrUpdateSaveAuthenticators(new MyAuthenticator(item), isLocal, password);
+                }
+
+                Toast.Show(AppResources.LocalAuth_AddAuthSuccess);
+            }
+            else if (result.resultCode == GAPRepository.ImportResultCode.PartSuccess)
+            {
+                foreach (var item in result.result)
+                {
+                    AddOrUpdateSaveAuthenticators(new MyAuthenticator(item), isLocal, password);
+                }
+                Toast.Show(AppResources.LocalAuth_AddAuth_PartSuccess);
+            }
+            else if (result.resultCode == GAPRepository.ImportResultCode.SecondaryPasswordFail)
+            {
+                Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
+                exportPassword = await TextBoxWindowViewModel.ShowDialogByPresetAsync(TextBoxWindowViewModel.PresetType.LocalAuth_PasswordRequired);
+                goto Run;
+            }
+            else
+            {
+                Toast.Show(string.Format(AppResources.LocalAuth_ExportAuth_Error, result.resultCode));
+            }
+        }
+
         /// <summary>
         /// 导入Steam++导出的令牌数据文件 V2
         /// </summary>
@@ -507,38 +542,8 @@ namespace System.Application.Services
                     //Toast.Show($"Import authenticator file fail, exception: {ex}");
                     return;
                 }
-
-            Run:
-                var result = await repository.ImportAsync(exportPassword, bt!);
-
-                if (result.resultCode == GAPRepository.ImportResultCode.Success)
-                {
-                    foreach (var item in result.result)
-                    {
-                        AddOrUpdateSaveAuthenticators(new MyAuthenticator(item), isLocal, password);
-                    }
-
-                    Toast.Show(AppResources.LocalAuth_AddAuthSuccess);
-                }
-                else if (result.resultCode == GAPRepository.ImportResultCode.PartSuccess)
-                {
-                    foreach (var item in result.result)
-                    {
-                        AddOrUpdateSaveAuthenticators(new MyAuthenticator(item), isLocal, password);
-                    }
-                    Toast.Show(AppResources.LocalAuth_AddAuth_PartSuccess);
-                }
-                else if (result.resultCode == GAPRepository.ImportResultCode.SecondaryPasswordFail)
-                {
-                    Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
-                    exportPassword = await TextBoxWindowViewModel.ShowDialogByPresetAsync(TextBoxWindowViewModel.PresetType.LocalAuth_PasswordRequired);
-                    goto Run;
-                }
-                else
-                {
-                    Toast.Show(string.Format(AppResources.LocalAuth_ExportAuth_Error, result.resultCode));
-                }
-            };
+                ImportAuthenticatorFile(bt, isLocal, password, exportPassword);
+            }
         }
 
         public void ImportSteamToolsV1Authenticator(string file, bool isLocal, string? password)

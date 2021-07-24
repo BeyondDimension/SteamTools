@@ -221,6 +221,16 @@ namespace WinAuth
                 set => this.RaiseAndSetIfChanged(ref _IsOperate, value);
             }
 
+            private bool _NotChecked;
+            /// <summary>
+            /// 未勾选
+            /// </summary>
+            public bool NotChecked
+            {
+                get => _NotChecked;
+                set => this.RaiseAndSetIfChanged(ref _NotChecked, value);
+            }
+
             public string Details { get; set; } = string.Empty;
             public string Traded { get; set; } = string.Empty;
             public string When { get; set; } = string.Empty;

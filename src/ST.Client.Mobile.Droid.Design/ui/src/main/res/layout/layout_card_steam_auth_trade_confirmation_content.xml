@@ -57,42 +57,95 @@
         tools:text="z 小时以前"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
+    <Space
+        android:id="@+id/space_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/activity_vertical_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivImage" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvOperate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/gap_space_min"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:textAllCaps="false"
         android:textColor="@color/text_primary"
-        app:layout_constraintBottom_toBottomOf="@+id/btnCancelTrade"
+        app:layout_constraintBottom_toTopOf="@+id/space_bottom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/btnCancelTrade"
-        app:layout_constraintTop_toBottomOf="@+id/ivImage"
         tools:text="已确认"
+        tools:visibility="gone"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCancelTrade"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/gap_space_min"
-        android:textAllCaps="false"
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="@dimen/checkbox_width"
+        android:layout_height="@dimen/checkbox_height"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:buttonTint="?colorPrimary"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintBottom_toTopOf="@+id/space_bottom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivImage"
-        tools:text="取消交易"
-        xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+        tools:checked="true"
+        tools:text=""
+        xamarin:managedType="Google.Android.Material.CheckBox.MaterialCheckBox" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnConfirmTrade"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="@+id/btnCancelTrade"
-        app:layout_constraintEnd_toStartOf="@+id/btnCancelTrade"
-        tools:text="确认交易"
-        xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        app:layout_constraintGuide_begin="@dimen/activity_horizontal_margin" />-->
+
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        app:layout_constraintGuide_begin="34dp"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/checkbox" />-->
+
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        app:layout_constraintGuide_begin="50dp" />-->
+
+    <!--    <androidx.appcompat.widget.AppCompatTextView-->
+    <!--        android:id="@+id/tvOperate"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginEnd="@dimen/gap_space_min"-->
+    <!--        android:textAllCaps="false"-->
+    <!--        android:textColor="@color/text_primary"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/btnCancelTrade"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/btnCancelTrade"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/ivImage"-->
+    <!--        tools:text="已确认"-->
+    <!--        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />-->
+
+    <!--    <com.google.android.material.button.MaterialButton-->
+    <!--        android:id="@+id/btnCancelTrade"-->
+    <!--        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginEnd="@dimen/gap_space_min"-->
+    <!--        android:textAllCaps="false"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/ivImage"-->
+    <!--        tools:text="取消交易"-->
+    <!--        xamarin:managedType="Google.Android.Material.Button.MaterialButton" />-->
+
+    <!--    <com.google.android.material.button.MaterialButton-->
+    <!--        android:id="@+id/btnConfirmTrade"-->
+    <!--        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginEnd="8dp"-->
+    <!--        android:textAllCaps="false"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/btnCancelTrade"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/btnCancelTrade"-->
+    <!--        tools:text="确认交易"-->
+    <!--        xamarin:managedType="Google.Android.Material.Button.MaterialButton" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -93,5 +93,10 @@ namespace System.Application.UI
         }
 
         public static async void ShowUnderConstructionTips() => await MessageBoxCompat.ShowAsync(AppResources.UnderConstruction, "", MessageBoxButtonCompat.OK);
+
+        /// <summary>
+        /// 是否允许截图
+        /// </summary>
+        public static bool AllowScreenshots => _ThisAssembly.IsBetaRelease;
     }
 }

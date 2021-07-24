@@ -42,18 +42,18 @@ namespace System.Application.UI.Activities
 
         Fragment ViewPagerAdapter.IHost.CreateFragment(int position) => position switch
         {
-            0 => new LocalAuthSteamUserImportFragment(),
+            2 => new LocalAuthSteamUserImportFragment(),
             1 => new LocalAuthSteamAppImportFragment(),
-            2 => new LocalAuthSteamToolsImportFragment(),
+            0 => new LocalAuthSteamToolsImportFragment(),
             3 => new LocalAuthOtherImportFragment(),
             _ => throw new ArgumentOutOfRangeException(nameof(position), position.ToString()),
         };
 
         string ViewPagerWithTabLayoutAdapter.IHost.GetPageTitle(int position) => position switch
         {
-            0 => LocalAuth_SteamUserImport,
+            2 => LocalAuth_SteamUserImport,
             1 => LocalAuth_SteamAppImport,
-            2 => LocalAuth_SteamToolsImport,
+            0 => LocalAuth_SteamToolsImport,
             3 => LocalAuth_OtherImport,
             _ => throw new ArgumentOutOfRangeException(nameof(position), position.ToString()),
         };
