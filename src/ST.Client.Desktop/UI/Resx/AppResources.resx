@@ -1466,4 +1466,10 @@
   <data name="LocalAuth_LogoutTip" xml:space="preserve">
     <value>确定要注销登录当前令牌？</value>
   </data>
+  <data name="LocalAuth_ExportAuth_ToQRCode" xml:space="preserve">
+    <value>导出为二维码</value>
+  </data>
+  <data name="AuthLocal_ExportToQRCodeTooLongErrorTip" xml:space="preserve">
+    <value>数据长度超出二维码最大值，请尝试其他导出方式或单个导出</value>
+  </data>
 </root>

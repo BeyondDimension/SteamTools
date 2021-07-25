@@ -1,9 +1,11 @@
+using QRCoder.Exceptions;
 using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
+using System.IO;
 using System.Properties;
-using Xamarin.Essentials;
+using System.Threading.Tasks;
 using static System.Application.FilePicker2;
 
 namespace System.Application.UI.ViewModels
@@ -73,10 +75,45 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _Path, value);
         }
 
-        public async void ExportAuth()
+        private Stream? _QRCode;
+        /// <summary>
+        /// 当前导出的二维码图像数据流
+        /// </summary>
+        public Stream? QRCode
         {
-            var result = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
-            if (!result.success)
+            get => _QRCode;
+            set
+            {
+                var oldValue = _QRCode;
+                if (this.RaiseAndSetIfChanged2(ref _QRCode, value)) return;
+                oldValue?.Dispose();
+            }
+        }
+
+        private bool _IsExportQRCode;
+        /// <summary>
+        /// 是否启用导出为二维码
+        /// </summary>
+        public bool IsExportQRCode
+        {
+            get => _IsExportQRCode;
+            set => this.RaiseAndSetIfChanged(ref _IsExportQRCode, value);
+        }
+
+        private bool _IsExporting;
+        /// <summary>
+        /// 是否正在导出中
+        /// </summary>
+        public bool IsExporting
+        {
+            get => _IsExporting;
+            set => this.RaiseAndSetIfChanged(ref _IsExporting, value);
+        }
+
+        async Task ExportAuthCore(Func<bool, string?, Task> func)
+        {
+            var (success, _) = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
+            if (!success)
             {
                 this.Close();
             }
@@ -100,13 +137,68 @@ namespace System.Application.UI.ViewModels
                 VerifyPassword = null;
             }
 
-            AuthService.Current.ExportAuthenticators(Path, IsOnlyCurrentComputerEncrypt, VerifyPassword);
+            await func(IsOnlyCurrentComputerEncrypt, VerifyPassword);
+        }
+
+        public async void ExportAuth()
+        {
+            IsExporting = true;
+
+            if (IsExportQRCode)
+            {
+                await ExportAuthToQRCodeAsync();
+            }
+            else
+            {
+                await ExportAuthToFileAsync();
+            }
+
+            IsExporting = false;
+        }
+
+        async Task ExportAuthToFileAsync() => await ExportAuthCore((isLocal, password) =>
+        {
+            AuthService.Current.ExportAuthenticators(Path, isLocal, password);
 
             this.Close();
 
             Toast.Show(string.Format(AppResources.LocalAuth_ExportAuth_ExportSuccess, Path));
+
+            return Task.CompletedTask;
+        });
+
+        async Task ExportAuthToQRCodeAsync() => await ExportAuthCore(async (isLocal, password) =>
+        {
+            var bytes = await AuthService.Current.GetExportAuthenticatorsAsync(isLocal, password);
+            QRCode = await Task.Run(() => CreateQRCode(bytes));
+        });
+
+        static Stream? CreateQRCode(byte[] bytes)
+        {
+            try
+            {
+                return QRCodeHelper.Create(bytes);
+            }
+            catch (DataTooLongException)
+            {
+                Toast.Show(AppResources.AuthLocal_ExportToQRCodeTooLongErrorTip);
+            }
+            catch (Exception e)
+            {
+                Toast.Show(e.ToString());
+            }
+            return null;
         }
 
         public static string DefaultExportAuthFileName => "Steam++  Authenticator " + DateTime.Now.ToString(DateTimeFormat.Date) + FileEx.MPO;
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _QRCode?.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

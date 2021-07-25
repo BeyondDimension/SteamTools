@@ -33,20 +33,24 @@ namespace System.Application.UI.Activities
                 return;
             }
 
+            if (!MainApplication.AllowScreenshots)
+            {
+                this.SetWindowSecure(true);
+            }
+
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
                 Title = TitleName;
-                if (binding != null)
-                {
-                    binding.tvExportFilePathLabel.Text = LocalAuth_ExportAuth_ExportPath + "：";
-                    binding.swExportEncryption.Text = LocalAuth_ExportAuth_EncryptionExport;
-                    binding.tvExportEncryptionDesc.Text = LocalAuth_ExportAuth_ExportPassword;
-                    binding.layoutPassword.Hint = LocalAuth_ProtectionAuth_Password;
-                    binding.layoutPassword2.Hint = LocalAuth_ProtectionAuth_VerifyPassword;
-                    binding.btnExport.Text = LocalAuth_ExportAuth_ConfirmExport;
-                }
+                if (binding == null) return;
+                binding.tvExportFilePathLabel.Text = LocalAuth_ExportAuth_ExportPath + "：";
+                binding.swExportEncryption.Text = LocalAuth_ExportAuth_EncryptionExport;
+                binding.tvExportEncryptionDesc.Text = LocalAuth_ExportAuth_ExportPassword;
+                binding.layoutPassword.Hint = LocalAuth_ProtectionAuth_Password;
+                binding.layoutPassword2.Hint = LocalAuth_ProtectionAuth_VerifyPassword;
+                binding.btnExport.Text = LocalAuth_ExportAuth_ConfirmExport;
+                binding.swExportQRCode.Text = LocalAuth_ExportAuth_ToQRCode;
             }).AddTo(this);
 
             ViewModel!.WhenAnyValue(x => x.IsPasswordEncrypt).Subscribe(value =>
@@ -60,6 +64,22 @@ namespace System.Application.UI.Activities
                 if (binding == null) return;
                 binding.tvExportFilePathValue.Text = value;
             }).AddTo(this);
+            ViewModel!.WhenAnyValue(x => x.IsExportQRCode).Subscribe(value =>
+            {
+                if (binding == null) return;
+                binding.layoutExportFilePath.Visibility = value ? ViewStates.Invisible : ViewStates.Visible;
+            }).AddTo(this);
+            ViewModel!.WhenAnyValue(x => x.QRCode).Subscribe(value =>
+            {
+                if (binding == null) return;
+                binding.ivQRCode.Visibility = value == null ? ViewStates.Gone : ViewStates.Visible;
+                binding.ivQRCode.SetImageSource(value);
+            }).AddTo(this);
+            ViewModel!.WhenAnyValue(x => x.IsExporting).Subscribe(value =>
+            {
+                if (binding == null) return;
+                binding.btnExport.Enabled = !value;
+            }).AddTo(this);
 
             binding!.swExportEncryption.CheckedChange += (_, e) =>
             {
@@ -72,6 +92,10 @@ namespace System.Application.UI.Activities
             binding.tbPassword2.TextChanged += (_, _) =>
             {
                 ViewModel!.VerifyPassword = binding.tbPassword2.Text;
+            };
+            binding!.swExportQRCode.CheckedChange += (_, e) =>
+            {
+                ViewModel!.IsExportQRCode = e.IsChecked;
             };
 
             SetOnClickListener(binding.btnExport);

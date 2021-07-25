@@ -432,6 +432,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 数据长度超出二维码最大值，请尝试其他导出方式或单个导出 的本地化字符串。
+        /// </summary>
+        public static string AuthLocal_ExportToQRCodeTooLongErrorTip {
+            get {
+                return ResourceManager.GetString("AuthLocal_ExportToQRCodeTooLongErrorTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 绑定 的本地化字符串。
         /// </summary>
         public static string Bind {
@@ -2076,6 +2085,15 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_ExportAuth_SelectPath {
             get {
                 return ResourceManager.GetString("LocalAuth_ExportAuth_SelectPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导出为二维码 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ExportAuth_ToQRCode {
+            get {
+                return ResourceManager.GetString("LocalAuth_ExportAuth_ToQRCode", resourceCulture);
             }
         }
         

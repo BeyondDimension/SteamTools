@@ -82,7 +82,7 @@ namespace AndroidX.RecyclerView.Widget
                 }
                 else
                 {
-                    outRect.Bottom = PaddingBottomWithHeight ? paddingBottom + height : paddingBottom;
+                    outRect.Bottom = PaddingBottomWithHeight ? paddingBottom + height : (paddingBottom == 0 ? height : paddingBottom);
                 }
             }
         }

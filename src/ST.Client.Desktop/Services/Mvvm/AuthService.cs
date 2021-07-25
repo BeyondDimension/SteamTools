@@ -676,6 +676,12 @@ namespace System.Application.Services
             Toast.Show(AppResources.LocalAuth_ProtectionAuth_Success);
         }
 
+        public async Task<byte[]> GetExportAuthenticatorsAsync(bool isLocal, string? password = null)
+        {
+            var bt = await repository.ExportAsync(isLocal, password, Authenticators.Items.Select(s => s.AuthenticatorData));
+            return bt;
+        }
+
         public async void ExportAuthenticators(string? filePath, bool isLocal, string? password = null)
         {
             try
@@ -688,7 +694,7 @@ namespace System.Application.Services
 
                 IOPath.FileIfExistsItDelete(filePath);
 
-                var bt = await repository.ExportAsync(isLocal, password, Authenticators.Items.Select(s => s.AuthenticatorData));
+                var bt = await GetExportAuthenticatorsAsync(isLocal, password);
 
                 await File.WriteAllBytesAsync(filePath, bt);
             }
