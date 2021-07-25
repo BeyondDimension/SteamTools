@@ -27,6 +27,9 @@
     <Compile Include="..\Common.CoreLib\Extensions\StringExtensions.cs">
       <Link>Extensions\StringExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\Common.CoreLib\Extensions\ByteArrayExtensions.cs">
+      <Link>Extensions\ByteArrayExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\..\resources\ProjectPathUtil.cs">
       <Link>ProjectPathUtil.cs</Link>
     </Compile>

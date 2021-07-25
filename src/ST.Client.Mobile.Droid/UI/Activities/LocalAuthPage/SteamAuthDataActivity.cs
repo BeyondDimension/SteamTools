@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Runtime;
 using Binding;
 using ReactiveUI;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace System.Application.UI.Activities
 
         protected override ShowAuthWindowViewModel? OnCreateViewModel()
         {
-            var vm = LocalAuthPageViewModel.Current.Authenticators?.FirstOrDefault(x => x.Id == this.GetViewModel<ushort>());
+            var vm = AuthService.Current.Authenticators.Items.FirstOrDefault(x => x.Id == this.GetViewModel<ushort>());
             return new(vm);
         }
 

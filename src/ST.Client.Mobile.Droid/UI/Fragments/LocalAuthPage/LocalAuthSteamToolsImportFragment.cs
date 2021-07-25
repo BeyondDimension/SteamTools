@@ -51,7 +51,7 @@ namespace System.Application.UI.Fragments
                 scanner.StartScan(x =>
                 {
                     if (!x.RawBytes.Any_Nullable()) return;
-                    ViewModel!.ImportSteamPlusPlusV2(x.RawBytes);
+                    ViewModel!.ImportSteamPlusPlusV2(x.RawBytes!);
                 });
                 return true;
             }

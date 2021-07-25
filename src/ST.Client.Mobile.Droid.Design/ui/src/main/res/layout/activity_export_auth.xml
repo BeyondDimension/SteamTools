@@ -30,7 +30,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/abc_action_button_min_height_material"
                 xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
             <LinearLayout

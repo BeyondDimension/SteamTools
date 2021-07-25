@@ -21,6 +21,12 @@ namespace System.Application.UI.Activities
     {
         protected override int? LayoutResource => Resource.Layout.activity_export_auth;
 
+        protected override ExportAuthWindowViewModel? OnCreateViewModel()
+        {
+            var selectId = this.GetViewModel<ushort>();
+            return new() { SelectId = selectId };
+        }
+
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -42,7 +48,7 @@ namespace System.Application.UI.Activities
 
             R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
-                Title = TitleName;
+                Title = ViewModel!.Title;
                 if (binding == null) return;
                 binding.tvExportFilePathLabel.Text = LocalAuth_ExportAuth_ExportPath + "：";
                 binding.swExportEncryption.Text = LocalAuth_ExportAuth_EncryptionExport;
@@ -56,8 +62,8 @@ namespace System.Application.UI.Activities
             ViewModel!.WhenAnyValue(x => x.IsPasswordEncrypt).Subscribe(value =>
             {
                 if (binding == null) return;
-                binding.layoutPassword.Enabled = value;
-                binding.layoutPassword2.Enabled = value;
+                binding.layoutPassword.Enabled = value && !ViewModel!.IsExportQRCode;
+                binding.layoutPassword2.Enabled = value && !ViewModel!.IsExportQRCode;
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.Path).Subscribe(value =>
             {
@@ -67,12 +73,17 @@ namespace System.Application.UI.Activities
             ViewModel!.WhenAnyValue(x => x.IsExportQRCode).Subscribe(value =>
             {
                 if (binding == null) return;
-                binding.layoutExportFilePath.Visibility = value ? ViewStates.Invisible : ViewStates.Visible;
+                binding.layoutExportFilePath.Visibility = value ? (ViewModel!.QRCode == null ? ViewStates.Invisible : ViewStates.Gone) : ViewStates.Visible;
+                binding.swExportEncryption.Enabled = !value;
+                binding.layoutPassword.Enabled = ViewModel!.IsPasswordEncrypt && !value;
+                binding.layoutPassword2.Enabled = ViewModel!.IsPasswordEncrypt && !value;
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.QRCode).Subscribe(value =>
             {
                 if (binding == null) return;
-                binding.ivQRCode.Visibility = value == null ? ViewStates.Gone : ViewStates.Visible;
+                var hasValue = value != null;
+                if (hasValue) binding.layoutExportFilePath.Visibility = ViewStates.Gone;
+                binding.ivQRCode.Visibility = !hasValue ? ViewStates.Gone : ViewStates.Visible;
                 binding.ivQRCode.SetImageSource(value);
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.IsExporting).Subscribe(value =>
@@ -100,7 +111,7 @@ namespace System.Application.UI.Activities
 
             SetOnClickListener(binding.btnExport);
 
-            ViewModel!.Path = Path.Combine(externalPath, DefaultExportAuthDirName, DefaultExportAuthFileName);
+            ViewModel!.Path = Path.Combine(externalPath, DefaultExportAuthDirName, ViewModel!.DefaultExportAuthFileName);
         }
 
         protected override void OnClick(View view)
@@ -111,6 +122,11 @@ namespace System.Application.UI.Activities
                 return;
             }
             base.OnClick(view);
+        }
+
+        public static void StartActivity(Activity activity, ushort authId)
+        {
+            GoToPlatformPages.StartActivity<ExportAuthActivity, ushort>(activity, authId);
         }
     }
 }

@@ -1,26 +1,78 @@
-using QRCoder.Exceptions;
 using ReactiveUI;
+using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Properties;
 using System.Threading.Tasks;
 using static System.Application.FilePicker2;
+using WinAuth;
 
 namespace System.Application.UI.ViewModels
 {
     public partial class ExportAuthWindowViewModel
     {
-        public static string TitleName => AppResources.LocalAuth_ExportAuth;
-
-        public ExportAuthWindowViewModel() : base()
+        public new string Title
         {
-            Title =
+            get
+            {
+                var title =
+
 #if !__MOBILE__
                 ThisAssembly.AssemblyTrademark + " | " +
 #endif
-                TitleName;
+                AppResources.LocalAuth_ExportAuth;
+                var mark = SelectAuthenticatorMark;
+                if (mark != default)
+                {
+                    title = $"{title}({mark})";
+                }
+                return title;
+            }
+        }
+
+        /// <summary>
+        /// 选中Id，当此值有效时，仅导出此值对应的令牌
+        /// </summary>
+        public ushort SelectId { get; set; }
+
+        /// <summary>
+        /// 当前选中令牌
+        /// </summary>
+        MyAuthenticator? SelectAuthenticator
+        {
+            get
+            {
+                if (SelectId != default)
+                {
+                    var vm = AuthService.Current.Authenticators.Items.FirstOrDefault(x => x.Id == SelectId);
+                    return vm;
+                }
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 当前选中令牌唯一显示名称
+        /// </summary>
+        string? SelectAuthenticatorMark
+        {
+            get
+            {
+                var authenticator = SelectAuthenticator;
+                if (authenticator != default)
+                {
+                    return (string.IsNullOrEmpty(authenticator.Name) ? authenticator.Id.ToString() : authenticator.Name);
+                }
+                return null;
+            }
+        }
+
+        public ExportAuthWindowViewModel() : base()
+        {
+            base.Title = Title;
 
 #if !__MOBILE__
             SelectPathButton_Click = ReactiveCommand.CreateFromTask(async () =>
@@ -110,7 +162,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsExporting, value);
         }
 
-        async Task ExportAuthCore(Func<bool, string?, Task> func)
+        async Task ExportAuthCore(Func<Task> func, bool ignorePath = false, bool ignorePassword = false)
         {
             var (success, _) = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
             if (!success)
@@ -118,26 +170,29 @@ namespace System.Application.UI.ViewModels
                 this.Close();
             }
 
-            if (string.IsNullOrEmpty(Path))
+            if (!ignorePath && string.IsNullOrEmpty(Path))
             {
                 Toast.Show(AppResources.LocalAuth_ProtectionAuth_PathError);
                 return;
             }
 
-            if (IsPasswordEncrypt)
+            if (!ignorePassword)
             {
-                if (string.IsNullOrWhiteSpace(VerifyPassword) && VerifyPassword != Password)
+                if (IsPasswordEncrypt)
                 {
-                    Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
-                    return;
+                    if (string.IsNullOrWhiteSpace(VerifyPassword) && VerifyPassword != Password)
+                    {
+                        Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
+                        return;
+                    }
+                }
+                else
+                {
+                    VerifyPassword = null;
                 }
             }
-            else
-            {
-                VerifyPassword = null;
-            }
 
-            await func(IsOnlyCurrentComputerEncrypt, VerifyPassword);
+            await func();
         }
 
         public async void ExportAuth()
@@ -156,9 +211,18 @@ namespace System.Application.UI.ViewModels
             IsExporting = false;
         }
 
-        async Task ExportAuthToFileAsync() => await ExportAuthCore((isLocal, password) =>
+        Func<MyAuthenticator, bool>? Filter
         {
-            AuthService.Current.ExportAuthenticators(Path, isLocal, password);
+            get
+            {
+                if (SelectId == default) return null;
+                return x => x.Id == SelectId;
+            }
+        }
+
+        async Task ExportAuthToFileAsync() => await ExportAuthCore(() =>
+        {
+            AuthService.Current.ExportAuthenticators(Path, IsOnlyCurrentComputerEncrypt, VerifyPassword, Filter);
 
             this.Close();
 
@@ -167,30 +231,46 @@ namespace System.Application.UI.ViewModels
             return Task.CompletedTask;
         });
 
-        async Task ExportAuthToQRCodeAsync() => await ExportAuthCore(async (isLocal, password) =>
+        async Task ExportAuthToQRCodeAsync() => await ExportAuthCore(async () =>
         {
-            var bytes = await AuthService.Current.GetExportAuthenticatorsAsync(isLocal, password);
-            QRCode = await Task.Run(() => CreateQRCode(bytes));
-        });
+            var datas = AuthService.Current.GetExportSourceAuthenticators(Filter);
+            QRCode = await Task.Run(() =>
+            {
+                var urls = datas.Select(x => x.ToUrl()).ToArray();
+                var bytes = Serializable.SMP(urls);
+                //var bytes_compress_gzip = bytes.CompressByteArray();
+                var bytes_compress_br = bytes.CompressByteArrayByBrotli();
+                return CreateQRCode(bytes_compress_br);
+            });
+        }, ignorePath: true, ignorePassword: true);
 
         static Stream? CreateQRCode(byte[] bytes)
         {
-            try
+            (var result, var stream, var e) = QRCodeHelper.Create(bytes);
+            switch (result)
             {
-                return QRCodeHelper.Create(bytes);
+                case QRCodeHelper.QRCodeCreateResult.DataTooLong:
+                    Toast.Show(AppResources.AuthLocal_ExportToQRCodeTooLongErrorTip);
+                    break;
+                case QRCodeHelper.QRCodeCreateResult.Exception:
+                    Toast.Show(e!.ToString());
+                    break;
             }
-            catch (DataTooLongException)
-            {
-                Toast.Show(AppResources.AuthLocal_ExportToQRCodeTooLongErrorTip);
-            }
-            catch (Exception e)
-            {
-                Toast.Show(e.ToString());
-            }
-            return null;
+            return stream;
         }
 
-        public static string DefaultExportAuthFileName => "Steam++  Authenticator " + DateTime.Now.ToString(DateTimeFormat.Date) + FileEx.MPO;
+        /// <summary>
+        /// 默认导出文件名
+        /// </summary>
+        public string DefaultExportAuthFileName
+        {
+            get
+            {
+                var mark = SelectAuthenticatorMark;
+                var markIsNull = mark == default;
+                return $"Steam++  Authenticator{(markIsNull ? "s" : default)} {(markIsNull ? default : $"({mark}) ")}{DateTime.Now.ToString(DateTimeFormat.Date)}{FileEx.MPO}";
+            }
+        }
 
         protected override void Dispose(bool disposing)
         {

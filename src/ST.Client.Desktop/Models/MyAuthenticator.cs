@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using WinAuth;
-using static System.Application.Models.GAPAuthenticatorValueDTO;
 
 namespace System.Application.Models
 {
@@ -78,7 +77,6 @@ namespace System.Application.Models
                 this.RaisePropertyChanged();
             }
         }
-
 
         public int Index
         {
@@ -300,7 +298,6 @@ namespace System.Application.Models
                             AuthenticatorData.Value.ServerTimeDiff = reader.ReadElementContentAsLong();
                             break;
 
-
                         default:
                             reader.Skip();
                             break;
@@ -383,7 +380,6 @@ namespace System.Application.Models
             }
             catch (OperationCanceledException)
             {
-
             }
         }
 

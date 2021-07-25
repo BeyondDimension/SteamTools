@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using static System.Application.FilePicker2;
+using static System.Application.Repositories.IGameAccountPlatformAuthenticatorRepository;
 
 namespace System.Application.UI.ViewModels
 {
@@ -395,29 +396,41 @@ namespace System.Application.UI.ViewModels
             });
         }
 
-        public void ImportWinAuth(string file)
+        public void ImportWinAuth(string filePath)
         {
-            AuthService.Current.ImportWinAuthenticators(file, AuthIsLocal, AuthPassword);
+            AuthService.Current.ImportWinAuthenticators(filePath, AuthIsLocal, AuthPassword);
         }
 
-        public void ImportSDA(string file)
+        public void ImportSDA(string filePath)
         {
-            AuthService.Current.ImportSDAFile(file, AuthIsLocal, AuthPassword);
+            AuthService.Current.ImportSDAFile(filePath, AuthIsLocal, AuthPassword);
         }
 
-        public void ImportSteamPlusPlusV1(string file)
+        public void ImportSteamPlusPlusV1(string filePath)
         {
-            AuthService.Current.ImportSteamToolsV1Authenticator(file, AuthIsLocal, AuthPassword);
+            AuthService.Current.ImportSteamToolsV1Authenticator(filePath, AuthIsLocal, AuthPassword);
         }
 
-        public void ImportSteamPlusPlusV2(string file)
+        public void ImportSteamPlusPlusV2(string filePath)
         {
-            AuthService.Current.ImportAuthenticatorFile(file, AuthIsLocal, AuthPassword);
+            AuthService.Current.ImportAuthenticatorFile(filePath, AuthIsLocal, AuthPassword);
         }
 
         public void ImportSteamPlusPlusV2(byte[] bytes)
         {
-            AuthService.Current.ImportAuthenticatorFile(bytes, AuthIsLocal, AuthPassword);
+            try
+            {
+                var bytes_decompress_br = bytes.DecompressByteArrayByBrotli();
+                var urls = Serializable.DMP<string[]>(bytes_decompress_br);
+                if (urls != null)
+                {
+                    AuthService.Current.ImportWinAuthenticators(urls, AuthIsLocal, AuthPassword);
+                }
+            }
+            catch
+            {
+                Toast.Show(string.Format(AppResources.LocalAuth_ExportAuth_Error, ImportResultCode.IncorrectFormat));
+            }
         }
 
         public ICommand SppV2Btn_Click { get; }

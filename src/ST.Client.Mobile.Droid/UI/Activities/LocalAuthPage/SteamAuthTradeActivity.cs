@@ -8,6 +8,7 @@ using AndroidX.RecyclerView.Widget;
 using AndroidX.SwipeRefreshLayout.Widget;
 using Binding;
 using ReactiveUI;
+using System.Application.Services;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
@@ -29,7 +30,7 @@ namespace System.Application.UI.Activities
 
         protected override AuthTradeWindowViewModel? OnCreateViewModel()
         {
-            var vm = LocalAuthPageViewModel.Current.Authenticators?.FirstOrDefault(x => x.Id == this.GetViewModel<ushort>());
+            var vm = AuthService.Current.Authenticators.Items.FirstOrDefault(x => x.Id == this.GetViewModel<ushort>());
             return new(vm);
         }
 

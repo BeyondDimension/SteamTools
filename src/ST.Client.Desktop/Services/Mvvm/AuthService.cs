@@ -28,13 +28,13 @@ namespace System.Application.Services
 
         private readonly GAPRepository repository = DI.Get<GAPRepository>();
 
-        public SourceCache<MyAuthenticator, int> Authenticators { get; }
+        public SourceCache<MyAuthenticator, ushort> Authenticators { get; }
 
         public GAPRepository Repository => repository;
 
         public AuthService()
         {
-            Authenticators = new SourceCache<MyAuthenticator, int>(t => t.Id);
+            Authenticators = new(t => t.Id);
         }
 
         public async Task InitializeAsync(bool isSync = false)
@@ -138,29 +138,17 @@ namespace System.Application.Services
             return auths.Count();
         }
 
-        /// <summary>
-        /// WinAuth令牌导入
-        /// </summary>
-        public void ImportWinAuthenticators(string file, bool isLocal, string? password)
+        /// <inheritdoc cref="ImportAuthenticatorFile(string, bool, string?, string?)"/>
+        public void ImportWinAuthenticators(IEnumerable<string> urls, bool isLocal, string? password)
         {
-            StringBuilder lines = new StringBuilder();
-            bool retry;
-            do
-            {
-                retry = false;
-                lines.Length = 0;
-                // read a plain text file
-                lines.Append(File.ReadAllText(file));
-            } while (retry);
-
             int linenumber = 0;
             try
             {
-                using var sr = new StringReader(lines.ToString());
                 string? line;
-                while ((line = sr.ReadLine()) != null)
+                foreach (var url in urls)
                 {
                     linenumber++;
+                    line = url;
 
                     // ignore blank lines or comments
                     line = line.Trim();
@@ -318,14 +306,43 @@ namespace System.Application.Services
                 }
                 Toast.Show(AppResources.LocalAuth_AddAuthSuccess);
             }
-            catch (UriFormatException ex)
+            catch (UriFormatException)
             {
-                throw new UriFormatException(string.Format("Invalid authenticator at line {0}", linenumber), ex);
+                Toast.Show(string.Format("UriFormatException Invalid authenticator at line {0}", linenumber));
             }
             catch (Exception ex)
             {
-                throw new Exception(string.Format("Error importing at line {0}", ex.Message), ex);
+                Toast.Show(string.Format("Error importing at line {0}", ex.Message));
             }
+        }
+
+        static IEnumerable<string> ReadUrlsByFilePath(string filePath)
+        {
+            StringBuilder lines = new();
+            bool retry;
+            do
+            {
+                retry = false;
+                lines.Length = 0;
+                // read a plain text file
+                lines.Append(File.ReadAllText(filePath));
+            } while (retry);
+
+            using var sr = new StringReader(lines.ToString());
+            string? line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                yield return line;
+            }
+        }
+
+        /// <summary>
+        /// WinAuth令牌导入
+        /// </summary>
+        public void ImportWinAuthenticators(string filePath, bool isLocal, string? password)
+        {
+            var urls = ReadUrlsByFilePath(filePath);
+            ImportWinAuthenticators(urls, isLocal, password);
         }
 
         /// <summary>
@@ -676,13 +693,21 @@ namespace System.Application.Services
             Toast.Show(AppResources.LocalAuth_ProtectionAuth_Success);
         }
 
-        public async Task<byte[]> GetExportAuthenticatorsAsync(bool isLocal, string? password = null)
+        public IEnumerable<IGAPAuthenticatorDTO> GetExportSourceAuthenticators(Func<MyAuthenticator, bool>? predicateWhere = null)
         {
-            var bt = await repository.ExportAsync(isLocal, password, Authenticators.Items.Select(s => s.AuthenticatorData));
+            var items = Authenticators.Items;
+            if (predicateWhere != null) items = items.Where(predicateWhere);
+            return items.Select(s => s.AuthenticatorData);
+        }
+
+        public async Task<byte[]> GetExportAuthenticatorsAsync(bool isLocal, string? password = null, Func<MyAuthenticator, bool>? predicateWhere = null)
+        {
+            var items = GetExportSourceAuthenticators(predicateWhere);
+            var bt = await repository.ExportAsync(isLocal, password, items);
             return bt;
         }
 
-        public async void ExportAuthenticators(string? filePath, bool isLocal, string? password = null)
+        public async void ExportAuthenticators(string? filePath, bool isLocal, string? password = null, Func<MyAuthenticator, bool>? predicateWhere = null)
         {
             try
             {
@@ -694,7 +719,7 @@ namespace System.Application.Services
 
                 IOPath.FileIfExistsItDelete(filePath);
 
-                var bt = await GetExportAuthenticatorsAsync(isLocal, password);
+                var bt = await GetExportAuthenticatorsAsync(isLocal, password, predicateWhere);
 
                 await File.WriteAllBytesAsync(filePath, bt);
             }
