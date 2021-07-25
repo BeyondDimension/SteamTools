@@ -35,13 +35,15 @@
             </Style>
           </StackPanel.Styles>
 
-          <Button Background="Transparent" IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=!IsASFRuning}"
+          <Button Background="Transparent" 
+                  IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=!IsASFRuning}"
                   Cursor="Hand"
                   ToolTip.Tip="启动ASF" Command="{ReflectionBinding RunOrStopASF}">
             <PathIcon Data="{StaticResource PlayCircleDrawing}" />
           </Button>
 
-          <Button Background="Transparent" IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=IsASFRuning}"
+          <Button Background="Transparent" 
+                  IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=IsASFRuning}"
                   Cursor="Hand"
                   ToolTip.Tip="停止ASF" Command="{ReflectionBinding RunOrStopASF}">
             <PathIcon Data="{StaticResource PauseCircleDrawing}" />
@@ -49,9 +51,17 @@
 
           <Button Background="Transparent"
                   Cursor="Hand"
-                  ToolTip.Tip="停止ASF" Command="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=RefreshBots}">
+                  ToolTip.Tip="新增Bot" 
+                  Command="{ReflectionBinding ShowAddBotWindow}">
+            <PathIcon Data="{StaticResource AddDrawing}" />
+          </Button>
+
+          <Button Background="Transparent"
+                  Cursor="Hand"
+                  ToolTip.Tip="刷新">
             <PathIcon Data="{StaticResource RefreshDrawing}" />
           </Button>
+          
         </StackPanel>
       </DockPanel>
     </Border>
@@ -88,78 +98,7 @@
       </TabItem>
 
       <TabItem Header="ASF配置">
-        <StackPanel Spacing="20" Margin="20 0">
-          <StackPanel.Styles>
-            <Style Selector="TextBlock">
-              <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
-              <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
-            </Style>
-            <Style Selector="DockPanel > TextBlock">
-              <Setter Property="Margin" Value="0 0 20 0" />
-              <Setter Property="VerticalAlignment" Value="Center" />
-              <Setter Property="(DockPanel.Dock)"  Value="Left" />
-            </Style>
-            <Style Selector="DockPanel > ToggleSwitch">
-              <Setter Property="Margin" Value="0 0 -12 0" />
-              <Setter Property="HorizontalAlignment" Value="Right" />
-              <Setter Property="VerticalAlignment" Value="Center" />
-              <Setter Property="OnContent" Value="{x:Null}" />
-              <Setter Property="OffContent" Value="{x:Null}" />
-            </Style>
-          </StackPanel.Styles>
-
-          <WrapPanel>
-            <TextBlock Text="ASF可执行文件路径："/>
-            <controls:ScrollingTextBlock x:Name="asfPath" Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}" DockPanel.Dock="Right"/>
-            <controls:ScrollingTextBlock  Text="{ReflectionBinding Path=Res.ASF_ExeNoExists,Source={x:Static resx:R.Current},Mode=OneWay}"/>
-            <!--<i:Interaction.Behaviors>
-            <ia:DataTriggerBehavior Binding="{ReflectionBinding Source={x:Static service:IASFService.Instance},Path=IsArchiSteamFarmExists,Mode=OneWay}" ComparisonCondition="Equal" Value="True">
-              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #asfPath}" PropertyName="Text" Value="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}"/>
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Binding="{ReflectionBinding Source={x:Static service:IASFService.Instance},Path=IsArchiSteamFarmExists,Mode=OneWay}" ComparisonCondition="Equal" Value="False">
-              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #asfPath}" PropertyName="Text" Value="{ReflectionBinding Path=Res.ASF_ExeNoExists,Source={x:Static resx:R.Current},Mode=OneWay}"/>
-            </ia:DataTriggerBehavior>
-          </i:Interaction.Behaviors>-->
-          </WrapPanel>
-
-          <StackPanel Orientation="Horizontal" Spacing="10">
-            <Button x:Name="selectAsfPath" Content="选择路径" Width="150" HorizontalContentAlignment="Center"></Button>
-            <Button Content="下载ASF" Width="150" HorizontalContentAlignment="Center"></Button>
-          </StackPanel>
-
-          <StackPanel Spacing="10">
-            <WrapPanel>
-              <TextBlock Text="当前 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
-              <TextBlock Text="" VerticalAlignment="Center"></TextBlock>
-            </WrapPanel>
-            <!--<TextBlock Text="最新 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
-          <TextBlock Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>-->
-          </StackPanel>
-
-          <Separator Classes="Separator"></Separator>
-
-          <DockPanel>
-            <TextBlock Text="程序启动时自动运行ASF"/>
-            <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:ASFSettings.AutoRunArchiSteamFarm},Path=Value,Mode=TwoWay}" />
-          </DockPanel>
-
-          <DockPanel>
-            <TextBlock Text="ASF自动更新"/>
-            <ToggleSwitch />
-          </DockPanel>
-
-          <DockPanel>
-            <TextBlock Text="启用IPC"/>
-            <ToggleSwitch />
-          </DockPanel>
-
-          <StackPanel Orientation="Vertical" Spacing="8">
-            <TextBlock Text="设置IPC服务密码"/>
-            <TextBox Watermark="输入密码" PasswordChar="*" Classes="revealPasswordButton" UseFloatingWatermark="True"></TextBox>
-          </StackPanel>
-
-          <Separator Classes="Separator"></Separator>
-        </StackPanel>
+        <pages:ASF_GlobalConfigPage/>
       </TabItem>
     </TabControl>
   </DockPanel>

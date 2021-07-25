@@ -18,8 +18,8 @@
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.ASF_BotPage">
   <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
-                VerticalScrollBarVisibility="Auto"
-                Padding="{StaticResource ScrollMargin}">
+            VerticalScrollBarVisibility="Auto"
+            Padding="{StaticResource ScrollMargin}">
     <ItemsRepeater Items="{CompiledBinding SteamBots}">
       <ItemsRepeater.Layout>
         <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
@@ -55,7 +55,7 @@
                 </Image>-->
               </Panel>
               <Panel Grid.Column="1" Margin="10 5">
-                <StackPanel>
+                <StackPanel Spacing="8">
                   <WrapPanel>
                     <controls:ScrollingTextBlock x:Name="nickname" Text="{Binding BotName}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
                       <i:Interaction.Behaviors>
@@ -65,7 +65,8 @@
                       </i:Interaction.Behaviors>
                     </controls:ScrollingTextBlock>
                     <!--<WrapPanel VerticalAlignment="Center" IsVisible="{Binding Remark,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">-->
-                    <WrapPanel VerticalAlignment="Center">
+                    <WrapPanel VerticalAlignment="Center"
+                               IsVisible="{Binding Nickname,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
                       <TextBlock Text="("></TextBlock>
                       <controls:ScrollingTextBlock Text="{Binding Nickname}">
                       </controls:ScrollingTextBlock>
@@ -91,11 +92,45 @@
                     </Ellipse>
                   </WrapPanel>
 
+                  <StackPanel
+                              Orientation="Horizontal"
+                              Spacing="8"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center">
+                    <StackPanel.Styles>
+                      <Style Selector="PathIcon">
+                        <Setter Property="Width" Value="20"></Setter>
+                        <Setter Property="Height" Value="20"></Setter>
+                      </Style>
+                    </StackPanel.Styles>
+
+                    <Button Background="Transparent"
+                            Cursor="Hand"
+                            ToolTip.Tip="启用bot" >
+                      <PathIcon Data="{StaticResource PlayCircleDrawing}" />
+                    </Button>
+                  </StackPanel>
+
                   <WrapPanel Orientation="Horizontal">
-                    <!--<TextBlock 
-                               Text="{Binding AccountName}" 
-                               FontSize="16"/>-->
+                    <TextBlock
+                               Text="正在挂卡"
+                               FontSize="16"/>
                   </WrapPanel>
+
+                  <ItemsRepeater>
+                    <ItemsRepeater.Layout>
+                      <StackLayout Orientation="Horizontal" Spacing="10">
+                      </StackLayout>
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.ItemTemplate>
+                      <DataTemplate>
+                        <gif:Image2
+                                Width="184"
+                                AutoStart="true"
+                                Stretch="Uniform"/>
+                      </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                  </ItemsRepeater>
                 </StackPanel>
 
                 <!--<WrapPanel VerticalAlignment="Bottom" Orientation="Horizontal">
@@ -104,11 +139,7 @@
                       <TextBlock Text="{Binding LastLoginTime,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource InactiveF
                       oregroundBrushKey}"/>
                     </WrapPanel>-->
-
               </Panel>
-              <ItemsRepeater>
-
-              </ItemsRepeater>
             </Grid>
           </Border>
         </DataTemplate>

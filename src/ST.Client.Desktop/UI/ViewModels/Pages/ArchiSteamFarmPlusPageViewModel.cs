@@ -6,6 +6,7 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
+using System.Windows;
 
 namespace System.Application.UI.ViewModels
 {
@@ -46,6 +47,12 @@ namespace System.Application.UI.ViewModels
                 ASFService.Current.InitASF();
             else
                 ASFService.Current.StopASF();
+        }
+
+
+        public void ShowAddBotWindow()
+        {
+            IShowWindowService.Instance.Show(CustomWindow.ASF_AddBot, new ASF_AddBotWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
         }
     }
 }

@@ -28,6 +28,7 @@ namespace System.Application
         NewVersion,
         WebView3,
         BindPhoneNumber,
+        ASF_AddBot,
 #endif
     }
 }

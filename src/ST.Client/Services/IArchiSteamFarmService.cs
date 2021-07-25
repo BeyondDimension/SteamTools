@@ -1,4 +1,5 @@
 using ArchiSteamFarm.Steam;
+using ArchiSteamFarm.Storage;
 using ReactiveUI;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -47,5 +48,7 @@ namespace System.Application.Services
         /// </summary>
         /// <returns></returns>
         IReadOnlyDictionary<string, Bot>? GetReadOnlyAllBots();
+
+        GlobalConfig? GetGlobalConfig();
     }
 }

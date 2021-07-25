@@ -5,6 +5,7 @@ using Avalonia.Markup.Xaml;
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace System.Application.UI.Views.Controls
 {
@@ -77,22 +78,25 @@ namespace System.Application.UI.Views.Controls
             commandTextbox = this.FindControl<TextBox>("CommandTextbox");
             commandTextbox.KeyUp += CommandTextbox_KeyUp;
 
-            this.logTextbox.GetObservable(TextBox.TextProperty)
-                  .Subscribe(x =>
-                  {
-                      if (this.logTextbox.IsVisible = !string.IsNullOrEmpty(x))
-                      {
-                          consoleScroll.ScrollToEnd();
-                          //consoleScroll.Offset = new Vector(double.NegativeInfinity, consoleScroll.Viewport.Height);
-                      }
-                  });
+            //this.logTextbox.GetObservable(TextBox.TextProperty)
+            //      .Subscribe(x =>
+            //      {
+            //          if (this.logTextbox.IsVisible = !string.IsNullOrEmpty(x))
+            //          {
+            //              consoleScroll.ScrollToEnd();
+            //              //consoleScroll.Offset = new Vector(double.NegativeInfinity, consoleScroll.Viewport.Height);
+            //          }
+            //      });
 
             this.GetObservable(IsMaskProperty)
                   .Subscribe(x => commandTextbox.PasswordChar = x ? '*' : default);
 
             this.GetObservable(LogTextProperty)
                   .Subscribe(x =>
-                  logTextbox.Text = x);
+                  {
+                      logTextbox.Text = x;
+                      consoleScroll.ScrollToEnd();
+                  });
         }
 
         private void CommandTextbox_KeyUp(object? sender, Avalonia.Input.KeyEventArgs e)

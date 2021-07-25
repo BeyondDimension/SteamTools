@@ -18,7 +18,8 @@
         x:CompileBindings="True"
         Title="{Binding Title}">
   <Panel>
-    <DockPanel HorizontalAlignment="Stretch">
+    <controls:TitleBar></controls:TitleBar>
+    <!--<DockPanel HorizontalAlignment="Stretch">
       <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="95">
         <ExperimentalAcrylicBorder.Material>
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
@@ -33,8 +34,8 @@
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
       </ExperimentalAcrylicBorder>
-    </DockPanel>
-    <TabControl Margin="0 20 0 0">
+    </DockPanel>-->
+    <TabControl Margin="0 10 0 0">
       <TabItem Header="{ReflectionBinding Path=Res.LocalAuth_SteamUserImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <Panel>
           <Grid IsVisible="{Binding RequiresLogin}" RowDefinitions="Auto,*,Auto" Margin="10">

@@ -1,18 +1,16 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
 using System.Application.UI.ViewModels;
 
-namespace System.Application.UI.Views.Windows
+namespace System.Application.UI.Views.Pages
 {
-    public class EditAppInfoWindow : FluentWindow<ASF_AddBotWindowViewModel>
+    public partial class ASF_GlobalConfigPage : ReactiveUserControl<ArchiSteamFarmPlusPageViewModel>
     {
-        public EditAppInfoWindow() : base()
+        public ASF_GlobalConfigPage()
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
         }
 
         private void InitializeComponent()

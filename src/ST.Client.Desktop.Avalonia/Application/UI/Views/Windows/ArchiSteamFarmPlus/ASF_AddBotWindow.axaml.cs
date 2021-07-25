@@ -5,9 +5,9 @@ using System.Application.UI.ViewModels;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class EditAppInfoWindow : FluentWindow<ASF_AddBotWindowViewModel>
+    public class ASF_AddBotWindow : FluentWindow<ASF_AddBotWindowViewModel>
     {
-        public EditAppInfoWindow() : base()
+        public ASF_AddBotWindow() : base()
         {
             InitializeComponent();
 #if DEBUG

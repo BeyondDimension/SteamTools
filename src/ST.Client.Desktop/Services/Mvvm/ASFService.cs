@@ -1,4 +1,5 @@
 using ArchiSteamFarm.Steam;
+using ArchiSteamFarm.Storage;
 using DynamicData;
 using ReactiveUI;
 using System;
@@ -34,6 +35,13 @@ namespace System.Application.Services
         public SourceCache<Bot, string> SteamBotsSourceList;
 
         public bool IsASFRuning => archiSteamFarmService.StartTime != null;
+
+        GlobalConfig? _GlobalConfig;
+        public GlobalConfig? GlobalConfig
+        {
+            get => _GlobalConfig;
+            set => this.RaiseAndSetIfChanged(ref _GlobalConfig, value);
+        }
 
         public ASFService()
         {
@@ -83,6 +91,11 @@ namespace System.Application.Services
             var bots = archiSteamFarmService.GetReadOnlyAllBots();
             if (bots.Any_Nullable())
                 SteamBotsSourceList.AddOrUpdate(bots!.Values);
+        }
+
+        public void RefreshConfig()
+        {
+            GlobalConfig = archiSteamFarmService.GetGlobalConfig();
         }
     }
 }
