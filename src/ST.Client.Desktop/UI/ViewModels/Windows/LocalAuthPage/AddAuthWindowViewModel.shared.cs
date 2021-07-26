@@ -6,12 +6,14 @@ using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Linq;
 using System.Properties;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using static System.Application.FilePicker2;
+using static System.Application.Models.GAPAuthenticatorDTO;
 using static System.Application.Repositories.IGameAccountPlatformAuthenticatorRepository;
 
 namespace System.Application.UI.ViewModels
@@ -421,9 +423,10 @@ namespace System.Application.UI.ViewModels
             try
             {
                 var bytes_decompress_br = bytes.DecompressByteArrayByBrotli();
-                var urls = Serializable.DMP<string[]>(bytes_decompress_br);
-                if (urls != null)
+                var dtos = Serializable.DMP<LightweightExportDTO[]>(bytes_decompress_br);
+                if (dtos.Any_Nullable())
                 {
+                    var urls = dtos.Select(x => x.ToString());
                     AuthService.Current.ImportWinAuthenticators(urls, AuthIsLocal, AuthPassword);
                 }
             }

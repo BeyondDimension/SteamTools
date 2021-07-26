@@ -162,7 +162,7 @@ namespace System.Application.Services
                     var qm = line.IndexOf("?");
                     if (hash != -1 && hash < qm)
                     {
-                        line = $"{line.Substring(0, hash)}%23{line.Substring(hash + 1)}";
+                        line = $"{line.Substring(0, hash)}%23{line[(hash + 1)..]}";
                     }
 
                     // parse and validate URI
@@ -181,25 +181,25 @@ namespace System.Application.Services
 
                     // get the label and optional issuer
                     string issuer = string.Empty;
-                    string label = (string.IsNullOrEmpty(uri.LocalPath) == false ? uri.LocalPath.Substring(1) : string.Empty); // skip past initial /
+                    string label = string.IsNullOrEmpty(uri.LocalPath) == false ? uri.LocalPath[1..] : string.Empty; // skip past initial /
                     int p = label.IndexOf(":");
                     if (p != -1)
                     {
                         issuer = label.Substring(0, p);
-                        label = label.Substring(p + 1);
+                        label = label[(p + 1)..];
                     }
                     // + aren't decoded
                     label = label.Replace("+", " ");
 
                     var query = HttpUtility.ParseQueryString(uri.Query);
                     string secret = query["secret"];
-                    if (string.IsNullOrEmpty(secret) == true)
+                    if (string.IsNullOrEmpty(secret))
                     {
                         throw new ApplicationException("Authenticator does not contain secret");
                     }
 
                     string counter = query["counter"];
-                    if (uri.Host == "hotp" && string.IsNullOrEmpty(counter) == true)
+                    if (uri.Host == "hotp" && string.IsNullOrEmpty(counter))
                     {
                         throw new ApplicationException("HOTP authenticator should have a counter");
                     }
@@ -210,7 +210,7 @@ namespace System.Application.Services
                     if (string.Compare(issuer, "BattleNet", true) == 0)
                     {
                         string serial = query["serial"];
-                        if (string.IsNullOrEmpty(serial) == true)
+                        if (string.IsNullOrEmpty(serial))
                         {
                             throw new ApplicationException("Battle.net Authenticator does not have a serial");
                         }
@@ -245,7 +245,7 @@ namespace System.Application.Services
                         ((HOTPAuthenticator)auth).SecretKey = WinAuthBase32.GetInstance().Decode(secret);
                         ((HOTPAuthenticator)auth).Counter = int.Parse(counter);
 
-                        if (string.IsNullOrEmpty(issuer) == false)
+                        if (!string.IsNullOrEmpty(issuer))
                         {
                             auth.Issuer = issuer;
                         }
@@ -259,7 +259,7 @@ namespace System.Application.Services
                         {
                             issuer = string.Empty;
                         }
-                        else if (string.IsNullOrEmpty(issuer) == false)
+                        else if (!string.IsNullOrEmpty(issuer))
                         {
                             auth.Issuer = issuer;
                         }

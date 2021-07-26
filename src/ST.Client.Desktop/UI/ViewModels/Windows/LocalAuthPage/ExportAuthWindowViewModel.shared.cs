@@ -236,10 +236,15 @@ namespace System.Application.UI.ViewModels
             var datas = AuthService.Current.GetExportSourceAuthenticators(Filter);
             QRCode = await Task.Run(() =>
             {
-                var urls = datas.Select(x => x.ToUrl()).ToArray();
-                var bytes = Serializable.SMP(urls);
-                //var bytes_compress_gzip = bytes.CompressByteArray();
+                var dtos = datas.Select(x => x.ToLightweightExportDTO()).ToArray();
+                var bytes = Serializable.SMP(dtos);
+#if DEBUG
+                var bytes_compress_gzip = bytes.CompressByteArray();
+#endif
                 var bytes_compress_br = bytes.CompressByteArrayByBrotli();
+#if DEBUG
+                Toast.Show($"bytesLength, source: {bytes.Length}, gzip: {bytes_compress_gzip.Length}, br: {bytes_compress_br.Length}");
+#endif
                 return CreateQRCode(bytes_compress_br);
             });
         }, ignorePath: true, ignorePassword: true);
