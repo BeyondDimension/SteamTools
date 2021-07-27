@@ -20,6 +20,7 @@ namespace System.Application.UI
                 .With(new Win32PlatformOptions
                 {
                     AllowEglInitialization = true /*!DI.IsmacOS*/,
+                    UseWindowsUIComposition = true
                 })
                 .LogToTrace()
                 .UseReactiveUI();

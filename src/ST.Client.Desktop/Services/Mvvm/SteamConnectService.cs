@@ -32,7 +32,7 @@ namespace System.Application.Services
             SteamApps = new SourceCache<SteamApp, uint>(t => t.AppId);
             //HideApps = new SourceCache<SteamHideApps, uint>(t => t.AppId);
         }
-        public  int SteamAFKMaxCount = 32;
+        public int SteamAFKMaxCount = 32;
 
         #region Steam游戏列表
         public SourceCache<SteamApp, uint> SteamApps { get; }
@@ -50,7 +50,7 @@ namespace System.Application.Services
         #endregion
 
         #region 运行中的游戏列表
-        private ConcurrentDictionary<uint,SteamApp> _RuningSteamApps = new ConcurrentDictionary<uint,SteamApp>();
+        private ConcurrentDictionary<uint, SteamApp> _RuningSteamApps = new ConcurrentDictionary<uint, SteamApp>();
         public ConcurrentDictionary<uint, SteamApp> RuningSteamApps
         {
             get => _RuningSteamApps;
@@ -120,7 +120,7 @@ namespace System.Application.Services
         #endregion
 
         #region 是否已经释放SteamClient
-        private bool _IsDisposedClient;
+        private bool _IsDisposedClient = true;
         public bool IsDisposedClient
         {
             get => _IsDisposedClient;
@@ -153,7 +153,7 @@ namespace System.Application.Services
             get => GameLibrarySettings.IsAutoAFKApps.Value;
             set
             {
-                GameLibrarySettings.IsAutoAFKApps.Value = value; 
+                GameLibrarySettings.IsAutoAFKApps.Value = value;
                 this.RaisePropertyChanged(nameof(IsAutoAFKApps));
             }
         }
@@ -198,8 +198,9 @@ namespace System.Application.Services
                     {
                         if (SteamTool.IsRunningSteamProcess)
                         {
-                            if (!IsConnectToSteam)
+                            if (!IsConnectToSteam && IsDisposedClient)
                             {
+                                IsDisposedClient = false;
                                 if (ApiService.Initialize())
                                 {
                                     var id = ApiService.GetSteamId64();
@@ -224,7 +225,6 @@ namespace System.Application.Services
                                     if (SteamApps.Items.Any())
                                     {
                                         LoadGames(ApiService.OwnsApps(await ISteamService.Instance.GetAppInfos()));
-
                                     }
                                     //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
                                     //await mainViewModel.SteamAppPage.Initialize();
@@ -318,8 +318,9 @@ namespace System.Application.Services
                         {
                             while (true)
                             {
-                                if (SteamTool.IsRunningSteamProcess)
+                                if (SteamTool.IsRunningSteamProcess && IsDisposedClient)
                                 {
+                                    IsDisposedClient = false;
                                     if (ApiService.Initialize())
                                     {
                                         SteamApps.Clear();

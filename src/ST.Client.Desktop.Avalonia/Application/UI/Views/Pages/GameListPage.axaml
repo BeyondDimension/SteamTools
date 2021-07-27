@@ -117,60 +117,59 @@
              ToolTip.Tip="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <PathIcon Data="{StaticResource TopSpeedDrawing}" />
           </Button>
-          <ToggleButton x:Name="typebutton"
+          <Button
                         VerticalAlignment="Center"
-                        Width="200" Height="35"
-                        IsChecked="{Binding IsOpenFilter,Mode=TwoWay}">
-            <DockPanel>
-              <TextBlock VerticalAlignment="Center" Text="{Binding TypeFilterString}" TextTrimming="CharacterEllipsis"/>
-              <PathIcon VerticalAlignment="Center"
-                        HorizontalAlignment="Right"
-                        Data="{StaticResource ChevronDownDrawing}"
-                        Width="16"></PathIcon>
-            </DockPanel>
-          </ToggleButton>
-          <Popup
-              IsOpen="{Binding IsOpenFilter,Mode=TwoWay, FallbackValue=False}"
-              StaysOpen="False" Width="200"
-              PlacementMode="Bottom"
-              PlacementTarget="typebutton"
-              HorizontalOffset="-1.5"
-              IsLightDismissEnabled="True">
-            <Border Background="{DynamicResource MenuFlyoutPresenterBackground}"
-                    Classes="dialog"
-                    Width="{Binding $parent.Width}" Height="200">
-              <ScrollViewer Padding="10 5">
-                <ItemsControl Items="{Binding AppTypeFiltres}">
-                  <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                      <DockPanel>
-                        <CheckBox IsChecked="{Binding Enable,Mode=TwoWay}"
-                                  VerticalAlignment="Center">
-                          <WrapPanel>
-                            <WrapPanel.Styles>
-                              <Style Selector="TextBlock.count">
-                                <Setter Property="VerticalAlignment" Value="Center"></Setter>
-                                <Setter Property="FontSize" Value="12"></Setter>
-                                <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}"></Setter>
-                              </Style>
-                            </WrapPanel.Styles>
-                            <TextBlock Text="{Binding Name_Localiza}"
-                              VerticalAlignment="Center"/>
-                            <TextBlock Margin="5 0 0 0" Text="(" Classes="count"/>
-                            <TextBlock Classes="count"
-                                       Text="{Binding Count}"/>
-                            <TextBlock Classes="count" Text=")"/>
-                          </WrapPanel>
-                        </CheckBox>
-                      </DockPanel>
-                    </DataTemplate>
-                  </ItemsControl.ItemTemplate>
-                </ItemsControl>
-              </ScrollViewer>
-            </Border>
-          </Popup>
+                        Width="200" Height="35">
+            <Button.Content>
+              <DockPanel>
+                <TextBlock VerticalAlignment="Center" Text="{Binding TypeFilterString}" TextTrimming="CharacterEllipsis"/>
+                <PathIcon VerticalAlignment="Center"
+                          HorizontalAlignment="Right"
+                          Data="{StaticResource ChevronDownDrawing}"
+                          Width="16"></PathIcon>
+              </DockPanel>
+            </Button.Content>
+            <Button.Styles>
+              <Style Selector="FlyoutPresenter">
+                <Setter Property="Padding" Value="0" />
+              </Style>
+            </Button.Styles>
+            <Button.Flyout>
+              <Flyout Placement="Bottom">
+                <Border Width="{Binding $parent.Width}" Height="200">
+                  <ScrollViewer Padding="10 5">
+                    <ItemsControl Items="{Binding AppTypeFiltres}">
+                      <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                          <DockPanel>
+                            <CheckBox IsChecked="{Binding Enable,Mode=TwoWay}"
+                                      VerticalAlignment="Center">
+                              <WrapPanel>
+                                <WrapPanel.Styles>
+                                  <Style Selector="TextBlock.count">
+                                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                                    <Setter Property="FontSize" Value="12"></Setter>
+                                    <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}"></Setter>
+                                  </Style>
+                                </WrapPanel.Styles>
+                                <TextBlock Text="{Binding Name_Localiza}"
+                                  VerticalAlignment="Center"/>
+                                <TextBlock Margin="5 0 0 0" Text="(" Classes="count"/>
+                                <TextBlock Classes="count"
+                                           Text="{Binding Count}"/>
+                                <TextBlock Classes="count" Text=")"/>
+                              </WrapPanel>
+                            </CheckBox>
+                          </DockPanel>
+                        </DataTemplate>
+                      </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                  </ScrollViewer>
+                </Border>
+              </Flyout>
+            </Button.Flyout>
+          </Button>
         </StackPanel>
-
 
         <StackPanel
                     Orientation="Horizontal"

@@ -17,5 +17,12 @@ namespace System.Application.UI.ViewModels
             get => _IsCancelcBtn;
             set => this.RaiseAndSetIfChanged(ref _IsCancelcBtn, value);
         }
+
+        private bool _RememberChoose;
+        public bool RememberChoose
+        {
+            get => _RememberChoose;
+            set => this.RaiseAndSetIfChanged(ref _RememberChoose, value);
+        }
     }
 }

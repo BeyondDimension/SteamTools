@@ -52,22 +52,10 @@
         <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.6.10" />
         <PackageReference Include="CefNet.Avalonia" Version="90.6.21124.1851" />
         <PackageReference Include="LibVLCSharp.Avalonia" Version="3.5.1" />
+        <!--<PackageReference Include="FluentAvaloniaUI" Version="1.1.0" />-->
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)'=='Debug'">
         <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0015092-beta" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="Application\UI\Views\Pages\ArchiSteamFarmPlus\ASF_GlobalConfigPage.axaml.cs">
-        <DependentUpon>ASF_GlobalConfigPage.axaml</DependentUpon>
-      </Compile>
-      <Compile Update="Application\UI\Views\Windows\ArchiSteamFarmPlus\ASF_AddBotWindow.axaml.cs">
-        <DependentUpon>ASF_AddBotWindow.axaml</DependentUpon>
-      </Compile>
-      <Compile Update="Application\UI\Views\Windows\TextBoxWindow.axaml.cs">
-        <DependentUpon>TextBoxWindow.axaml</DependentUpon>
-      </Compile>
-    </ItemGroup>
-
 </Project>

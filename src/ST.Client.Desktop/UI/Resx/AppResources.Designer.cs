@@ -2791,6 +2791,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 记住我的选择下次不再询问 的本地化字符串。
+        /// </summary>
+        public static string RememberChooseNotToAskAgain {
+            get {
+                return ResourceManager.GetString("RememberChooseNotToAskAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 保存修改 的本地化字符串。
         /// </summary>
         public static string SaveChanges {

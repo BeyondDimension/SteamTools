@@ -78,6 +78,12 @@ namespace System.Application.Models.Settings
             = new SerializableProperty<Dictionary<string, WindowSizePosition>>(GetKey(), Providers.Local, new Dictionary<string, WindowSizePosition>()) { AutoSave = false };
 #endif
 
+        /// <summary>
+        /// 记住不再提示的窗口
+        /// </summary>
+        public static SerializableProperty<Dictionary<string, bool>> MessageBoxRememberChooseKeys { get; }
+            = new SerializableProperty<Dictionary<string, bool>>(GetKey(), Providers.Local, new Dictionary<string, bool>()) { AutoSave = false };
+
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
             return nameof(UISettings) + "." + propertyName;

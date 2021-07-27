@@ -19,7 +19,7 @@ namespace System.Windows
 
         /// <inheritdoc cref="IMessageBoxCompatService.ShowAsync(string, string, MessageBoxButtonCompat, MessageBoxImageCompat?)"/>
         public static async Task<MessageBoxResultCompat> ShowAsync(
-            string messageBoxText, string caption, MessageBoxButtonCompat button, MessageBoxImageCompat? icon = null)
+            string messageBoxText, string caption, MessageBoxButtonCompat button, MessageBoxImageCompat? icon = null, MessageBoxRememberChooseCompat rememberChooseKey = MessageBoxRememberChooseCompat.Undefined)
         {
             if (mbcs.Value != null)
             {
@@ -34,6 +34,11 @@ namespace System.Windows
 
             var r = await IShowWindowService.Instance.ShowDialog(
                 CustomWindow.MessageBox, viewModel, caption, ResizeModeCompat.NoResize);
+
+            if (r && rememberChooseKey != MessageBoxRememberChooseCompat.Undefined)
+            {
+
+            }
 
             return r ? MessageBoxResultCompat.OK : MessageBoxResultCompat.Cancel;
         }
@@ -58,4 +63,5 @@ namespace System.Windows
             Show(messageBoxText, caption, button, icon);
         }
     }
+
 }

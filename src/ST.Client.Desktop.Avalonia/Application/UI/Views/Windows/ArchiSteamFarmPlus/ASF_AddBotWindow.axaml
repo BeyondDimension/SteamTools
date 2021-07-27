@@ -27,7 +27,8 @@
               <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
             <Style Selector="DockPanel > Label">
-              <Setter Property="Margin" Value="0 0 20 0" />
+              <Setter Property="Padding" Value="0" />
+              <Setter Property="Margin" Value="0 0 0 5" />
               <Setter Property="VerticalAlignment" Value="Center" />
               <Setter Property="(DockPanel.Dock)" Value="Top"></Setter>
             </Style>
@@ -87,7 +88,7 @@
 
               <DockPanel>
                 <Label Content="SteamUserPermissions" ></Label>
-                <TextBox></TextBox>
+                <controls:ItemsSelector/>
               </DockPanel>
             </StackPanel>
           </Expander>
