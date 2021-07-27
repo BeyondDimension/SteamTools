@@ -13,62 +13,71 @@ namespace System.Application.Models.Settings
     {
         static GeneralSettings()
         {
+#if !__MOBILE__
             WindowsStartupAutoRun.ValueChanged += WindowsStartupAutoRun_ValueChanged;
             //CreateDesktopShortcut.ValueChanged += CreateDesktopShortcut_ValueChanged;
+#endif
         }
 
-        private static void WindowsStartupAutoRun_ValueChanged(object sender, ValueChangedEventArgs<bool> e)
+#if !__MOBILE__
+        private static void WindowsStartupAutoRun_ValueChanged(object? sender, ValueChangedEventArgs<bool> e)
         {
             DI.Get<IDesktopPlatformService>().SetBootAutoStart(e.NewValue, ThisAssembly.AssemblyTrademark);
         }
 
+        public static void InitWindowsStartupAutoRun()
+        {
+            WindowsStartupAutoRun_ValueChanged(null, new(default, WindowsStartupAutoRun.Value));
+        }
+
         /// <summary>
-        /// ³ÌĞòÊÇ·ñ¿ª»ú×ÔÆô¶¯
+        /// ç¨‹åºæ˜¯å¦å¼€æœºè‡ªå¯åŠ¨
         /// </summary>
         public static SerializableProperty<bool> WindowsStartupAutoRun { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };
 
         ///// <summary>
-        ///// ´´½¨×ÀÃæ¿ì½İ·½Ê½
+        ///// åˆ›å»ºæ¡Œé¢å¿«æ·æ–¹å¼
         ///// </summary>
         //public static SerializableProperty<bool> CreateDesktopShortcut { get; }
         //    = new SerializableProperty<bool>(GetKey(), Providers.Roaming, false) { AutoSave = true };
 
         /// <summary>
-        /// ³ÌĞòÆô¶¯Ê±×îĞ¡»¯
+        /// ç¨‹åºå¯åŠ¨æ—¶æœ€å°åŒ–
         /// </summary>
         public static SerializableProperty<bool> IsStartupAppMinimized { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };
 
         /// <summary>
-        /// ÊÇ·ñÏÔÊ¾ÆğÊ¼Ò³
+        /// æ˜¯å¦æ˜¾ç¤ºèµ·å§‹é¡µ
         /// </summary>
         public static SerializableProperty<bool> IsShowStartPage { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, true) { AutoSave = true };
 
         /// <summary>
-        /// ÆôÓÃÓÎÏ·ÁĞ±í±¾µØ»º´æ
+        /// å¯ç”¨æ¸¸æˆåˆ—è¡¨æœ¬åœ°ç¼“å­˜
         /// </summary>
         public static SerializableProperty<bool> IsSteamAppListLocalCache { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, true) { AutoSave = true };
+#endif
 
         /// <summary>
-        /// ×Ô¶¯¼ì²é¸üĞÂ
+        /// è‡ªåŠ¨æ£€æŸ¥æ›´æ–°
         /// </summary>
         public static SerializableProperty<bool> IsAutoCheckUpdate { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, true) { AutoSave = true };
 
         /// <summary>
-        /// ÆôÓÃ´íÎóÈÕÖ¾¼ÇÂ¼
+        /// å¯ç”¨é”™è¯¯æ—¥å¿—è®°å½•
         /// </summary>
         public static SerializableProperty<bool> IsEnableLogRecord { get; }
             = new SerializableProperty<bool>(GetKey(), Providers.Local, false) { AutoSave = true };
 
         /// <summary>
-        /// ÓÃ»§ÉèÖÃµÄÎÄ±¾ÔÄ¶ÁÆ÷Ìá¹©ÉÌ£¬¸ù¾İÆ½Ì¨Öµ²»Í¬£¬Öµ¸ñÊ½Îª Ã¶¾Ù×Ö·û´® »ò ³ÌĞòÂ·¾¶
+        /// ç”¨æˆ·è®¾ç½®çš„æ–‡æœ¬é˜…è¯»å™¨æä¾›å•†ï¼Œæ ¹æ®å¹³å°å€¼ä¸åŒï¼Œå€¼æ ¼å¼ä¸º æšä¸¾å­—ç¬¦ä¸² æˆ– ç¨‹åºè·¯å¾„
         /// </summary>
-        public static SerializableProperty<IReadOnlyDictionary<Platform, string>?> TextReaderProvider { get; }
-                = new SerializableProperty<IReadOnlyDictionary<Platform, string>?>(GetKey(), Providers.Local, null) { AutoSave = true };
+        public static SerializableProperty<IReadOnlyDictionary<Platform, string>> TextReaderProvider { get; }
+                = new SerializableProperty<IReadOnlyDictionary<Platform, string>>(GetKey(), Providers.Local, null) { AutoSave = true };
 
         private static string GetKey([CallerMemberName] string propertyName = "")
         {

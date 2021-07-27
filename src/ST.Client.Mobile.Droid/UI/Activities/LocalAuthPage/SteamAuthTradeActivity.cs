@@ -34,6 +34,12 @@ namespace System.Application.UI.Activities
             return new(vm);
         }
 
+        void SetLogoutMenuVisible(bool visible)
+        {
+            var menu_logout = menuBuilder?.FindItem(Resource.Id.menu_logout);
+            if (menu_logout != default) menu_logout.SetVisible(visible);
+        }
+
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -71,8 +77,9 @@ namespace System.Application.UI.Activities
                 var state_reverse = !value ? ViewStates.Gone : ViewStates.Visible;
                 binding.layoutContentSteamLogin.Visibility = state;
                 binding.layoutContentConfirmations.Visibility = state_reverse;
-                binding.layoutActions.Visibility = state;
+                binding.layoutActions.Visibility = state_reverse;
                 //binding.speedDial.Visibility = state;
+                SetLogoutMenuVisible(value);
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.IsRequiresCaptcha).Subscribe(value =>
             {
@@ -162,6 +169,7 @@ namespace System.Application.UI.Activities
             if (menuBuilder != null)
             {
                 SetMenuTitle();
+                SetLogoutMenuVisible(ViewModel!.IsLoggedIn);
             }
             return true;
         }

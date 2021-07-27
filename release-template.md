@@ -14,30 +14,45 @@
 14. 修复 任务栏位于顶部时托盘菜单位置不正确
 15. 新增 创意工坊划词翻译脚本
 16. 修复 挂时长运行中列表移除游戏时引发的闪退
-17. 改进 一些~~待定~~语言的翻译文本
+17. 改进 部分语言的翻译文本
 18. 新增 意大利语支持
 19. 新增 西班牙语支持
-20. 修复了一些已知问题
-21. Android 版与 macOS 版现已开启 Beta 测试，可从官网上下载
+20. 移除 CEF 模块，现使用系统浏览器进行快速登录
+21. 改进 自动更新机制
+22. 改进 新增守护进程，当程序闪退时将自动重启
+23. 改进 开机自启动现仅对当前用户生效
+24. Android/macOS/Linux 版现已开启 Beta/Alpha 测试，可从 GitHub/Gitee 上下载
 
-|  File   | Checksum (SHA256)  |
-|  ----  | ----  |
-| Steam++_win_x64_v2.5.0.7z  | SHA256 |
-| Steam++_win_x64_v2.5.0.exe  | SHA256 |
-| Steam++_win_x64_v2.5.0.msix  | SHA256 |
+|  RuntimeIdentifier  |  Available  |  Edition  |
+|  ----  |  ----  |  ----  |
+| win-x64  | ✅ | |
+| osx-x64  | ✅ | β |
+| linux-x64  | ✅ | α |
+| android-arm64  | ✅ | β |
+| android-arm  | ✅ | β |
+| win-arm64  | ❌ | |
+| osx-arm64  | ❌ | |
+| linux-arm64  | ❌ | |
+| ios-arm64  | ❌ |  |
+
+|  File  | Checksum (SHA256)  |
+|  ----  |  ----  |
+| Steam++_win_x64_v2.4.9.7z  | SHA256 |
+| Steam++_win_x64_v2.4.9.exe  | SHA256 |
+| Steam++_win_x64_v2.4.9.msix  | SHA256 |
 | | |
-| Steam++_win_arm64_v2.5.0.7z  | SHA256 |
-| Steam++_win_arm64_v2.5.0.exe  | SHA256 |
-| Steam++_win_arm64_v2.5.0.msix  | SHA256 |
+| Steam++_win_arm64_v2.4.9.7z  | SHA256 |
+| Steam++_win_arm64_v2.4.9.exe  | SHA256 |
+| Steam++_win_arm64_v2.4.9.msix  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.5.0.7z  | SHA256 |
-| Steam++_linux_x64_v2.5.0.deb  | SHA256 |
+| Steam++_linux_x64_v2.4.9.7z  | SHA256 |
+| Steam++_linux_x64_v2.4.9.deb  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.5.0.dmg  | SHA256 |
-| Steam++_macos_arm64_v2.5.0.dmg  | SHA256 |
+| Steam++_macos_x64_v2.4.9.dmg  | SHA256 |
+| Steam++_macos_arm64_v2.4.9.dmg  | SHA256 |
 | | |
-| Steam++_android_arm64_v8a_v2.5.0.apk  | SHA256 |
-| Steam++_android_armeabi_v7a_v2.5.0.apk  | SHA256 |
+| Steam++_android_arm64_v8a_v2.4.9.apk  | SHA256 |
+| Steam++_android_armeabi_v7a_v2.4.9.apk  | SHA256 |
 
 ***
 

@@ -68,10 +68,10 @@ namespace System.Application.Services.Implementation
 
             var fileResults = await fileDialog.ShowAsync(IDesktopAvaloniaAppService.Instance.MainWindow);
 
-            return fileResults.Select(x => new FileResult(x));
+            return fileResults.Any_Nullable() ? fileResults.Select(x => new FileResult(x)) : Array.Empty<FileResult>();
         }
 
-        async Task<FileResult> ISaveFileDialogService.PlatformSaveAsync(FilePicker2.SaveOptions? options)
+        async Task<FileResult?> ISaveFileDialogService.PlatformSaveAsync(FilePicker2.SaveOptions? options)
         {
             SaveFileDialog fileDialog = new();
             if (options != default)
@@ -96,7 +96,7 @@ namespace System.Application.Services.Implementation
 
             var fileResult = await fileDialog.ShowAsync(IDesktopAvaloniaAppService.Instance.MainWindow);
 
-            return new FileResult(fileResult);
+            return string.IsNullOrEmpty(fileResult) ? null : new FileResult(fileResult);
         }
     }
 }

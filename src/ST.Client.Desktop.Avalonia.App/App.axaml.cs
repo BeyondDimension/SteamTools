@@ -153,6 +153,7 @@ namespace System.Application.UI
 #endif
             UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
+            GeneralSettings.InitWindowsStartupAutoRun();
 #if StartupTrace
             StartupTrace.Restart("UISettings.Subscribe");
 #endif

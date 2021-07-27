@@ -35,6 +35,9 @@
     <Compile Include="..\ST.Client.Desktop\Mvvm\*.cs">
       <LinkBase>Mvvm</LinkBase>
     </Compile>
+    <Compile Include="..\ST.Client.Desktop\Serialization\*.cs">
+      <LinkBase>Serialization</LinkBase>
+    </Compile>
     <Compile Include="..\ST.Client.Desktop\Security\IsNotOfficialChannelPackageDetectionHelper.cs">
       <LinkBase>Security</LinkBase>
     </Compile>
@@ -78,6 +81,15 @@
     </Compile>
     <Compile Include="..\ST.Client.Desktop\Models\Enum\AppTheme.cs">
       <LinkBase>Models\Enum</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop\Models\Settings\SettingsHost.cs">
+      <LinkBase>Models\Settings</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop\Models\Settings\UISettings.cs">
+      <LinkBase>Models\Settings</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop\Models\Settings\GeneralSettings.cs">
+      <LinkBase>Models\Settings</LinkBase>
     </Compile>
     <Compile Include="..\ST.Client.Desktop\MessageBox\*.cs">
       <LinkBase>MessageBox</LinkBase>

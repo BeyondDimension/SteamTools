@@ -16,17 +16,17 @@ namespace System.Application.Models.Settings
             //Theme.ValueChanged += Theme_ValueChanged;
         }
 
-        private static void Theme_ValueChanged(object sender, ValueChangedEventArgs<short> e)
-        {
-            if (e.NewValue != e.OldValue)
-            {
-                var value = (AppTheme)e.NewValue;
-                if (value.IsDefined())
-                {
-                    AppHelper.Current.Theme = value;
-                }
-            }
-        }
+        //private static void Theme_ValueChanged(object sender, ValueChangedEventArgs<short> e)
+        //{
+        //    if (e.NewValue != e.OldValue)
+        //    {
+        //        var value = (AppTheme)e.NewValue;
+        //        if (value.IsDefined())
+        //        {
+        //            AppHelper.Current.Theme = value;
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// 主题
@@ -40,6 +40,7 @@ namespace System.Application.Models.Settings
         public static SerializableProperty<string> Language { get; }
             = new SerializableProperty<string>(GetKey(), Providers.Local, "") { AutoSave = true };
 
+#if !__MOBILE__
         /// <summary>
         /// 字体
         /// </summary>
@@ -75,6 +76,7 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<Dictionary<string, WindowSizePosition>> WindowSizePositions { get; }
             = new SerializableProperty<Dictionary<string, WindowSizePosition>>(GetKey(), Providers.Local, new Dictionary<string, WindowSizePosition>()) { AutoSave = false };
+#endif
 
         private static string GetKey([CallerMemberName] string propertyName = "")
         {

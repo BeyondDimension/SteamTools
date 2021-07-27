@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Application.Serialization;
 using System.Application.Services;
 using System.Collections.Generic;
@@ -27,7 +27,7 @@ namespace System.Application.Models.Settings
         ///  如果没有缓存，根据<see cref="create" />创建它
         /// </summary>
         /// <returns></returns>
-        protected SerializableProperty<T> Cache<T>(Func<string, SerializableProperty<T>> create, [CallerMemberName] string propertyName = "")
+        protected SerializableProperty<T> Cache<T>(Func<string, SerializableProperty<T>> create, [CallerMemberName] string propertyName = "") where T : notnull
         {
             var key = CategoryName + "." + propertyName;
 
@@ -79,7 +79,7 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static T Instance<T>() where T : SettingsHost, new()
         {
-            return instances.TryGetValue(typeof(T), out SettingsHost host) ? (T)host : new T();
+            return instances.TryGetValue(typeof(T), out var host) ? (T)host : new T();
         }
     }
 

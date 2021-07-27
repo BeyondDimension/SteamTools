@@ -108,7 +108,7 @@ namespace System.Application.UI.ViewModels
 
         public string VersionDisplay => $"{ThisAssembly.VersionDisplay} for {GetOS()} ({RuntimeInformation.ProcessArchitecture})";
 
-        public string LabelVersionDisplay => ThisAssembly.IsBetaRelease ? "Beta Version:" : "Current Version:";
+        public string LabelVersionDisplay => ThisAssembly.IsAlphaRelease ? "Alpha Version:" : (ThisAssembly.IsBetaRelease ? "Beta Version:" : "Current Version:");
 
         public string Copyright
         {

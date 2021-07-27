@@ -51,11 +51,22 @@
 <!--先决条件 Microsoft Visual C++ 2015-2019 Redistributable [64 位](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 位](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
 ## 🖥 系统要求
 - 桌面端(仅支持 X64 和 ARM64)
-	- Windows 10 1607+ / Windows Server 版本 1903+ / Windows Server 2019 / Windows Server 2016
-	- Windows 8.1 / Windows Server 2012 R2
+	- Windows 10/Windows Server 版本 20H2
+	- Windows 10/Windows Server 版本 2004
+	- Windows 10/Windows Server 版本 1909
+	- Windows 10/Windows Server 版本 1903
+	- Windows 10 版本 1809
+	- Windows 10 版本 1803
+	- Windows 10 版本 1709
+	- Windows 10 版本 1607
+	- Windows 8.1
 	- Windows 7 SP1 [ESU](https://docs.microsoft.com/zh-cn/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
 		- 先决条件
 		- KB3063858 [64 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47442) / [32 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47409)
+	- Windows Server 2019
+	- Windows Server 2016
+	- Windows Server 2012 R2
+	- Windows Server 2012
 	- macOS 10.14 Mojave 或更高版本
 	- Linux 发行版
 		- Arch Linux
@@ -76,8 +87,8 @@
 ## ⛔ 不受支持的操作系统
 - Windows 8
 	- [由于微软官方对该产品的支持已结束](https://docs.microsoft.com/zh-cn/lifecycle/products/windows-8)，故本程序无法在此操作系统上运行，[建议升级到 Windows 8.1](https://support.microsoft.com/zh-cn/windows/%E4%BB%8E-windows-8-%E6%9B%B4%E6%96%B0%E5%88%B0-windows-8-1-17fc54a7-a465-6b5a-c1a0-34140afd0669)
-- Windows Server 2012 / 2008 R2 SP1
-	- 仅可使用 1.X 版本，2.X 开始不受支持，建议升级到 **Windows Server 2012 R2** 或更高版本
+- Windows Server 2008 R2 SP1
+	- 仅可使用 1.X 版本，2.X 开始不受支持，建议升级到更高版本
 - 无桌面 GUI 的 Windows Server / Linux 版本
 
 ## 🌏 路线图
@@ -87,7 +98,7 @@
 [Visual Studio 2019 版本 16.10 或更高版本](https://visualstudio.microsoft.com/zh-hans/vs/) 或 [JetBrains Rider](https://www.jetbrains.com/rider/) 或 ~~[Visual Studio for Mac](https://visualstudio.microsoft.com/zh-hans/vs/mac/)~~ 或 ~~[Visual Studio Code](https://code.visualstudio.com/)~~
 - 系统要求
 	- [Windows 10 版本 2004 或更高版本：家庭版、专业版、教育版和企业版（不支持 LTSC 和 Windows 10 S，在较早的操作系统上可能不受支持）](https://docs.microsoft.com/zh-cn/visualstudio/releases/2019/system-requirements)
-	- [macOS 10.13 High Sierra 或更高版本](https://docs.microsoft.com/zh-cn/visualstudio/productinfo/vs2019-system-requirements-mac)
+	- [macOS 10.14 Mojave 或更高版本](https://docs.microsoft.com/zh-cn/visualstudio/productinfo/vs2019-system-requirements-mac)
 - 工作负载
 	- Web 和云
 		- ASP.NET 和 Web 开发

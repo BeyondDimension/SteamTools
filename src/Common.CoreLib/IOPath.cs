@@ -180,18 +180,20 @@ namespace System
 #if !NET35
         #region BaseDirectory
 
-        static readonly Lazy<string> _BaseDirectory = new(() =>
-        {
-            var value = AppContext.BaseDirectory;
-            var value2 = new DirectoryInfo(value);
-            if (value2.Parent != null && string.Equals(value2.Name, "Bin", StringComparison.OrdinalIgnoreCase))
-            {
-                value = value2.Parent.FullName;
-            }
-            return value;
-        });
+        //static readonly Lazy<string> _BaseDirectory = new(() =>
+        //{
+        //    var value = AppContext.BaseDirectory;
+        //    var value2 = new DirectoryInfo(value);
+        //    if (value2.Parent != null && string.Equals(value2.Name, "Bin", StringComparison.OrdinalIgnoreCase))
+        //    {
+        //        value = value2.Parent.FullName;
+        //    }
+        //    return value;
+        //});
 
-        public static string BaseDirectory => _BaseDirectory.Value;
+        public static string BaseDirectory =>
+            //_BaseDirectory.Value;
+            AppContext.BaseDirectory;
 
         #endregion
 #endif

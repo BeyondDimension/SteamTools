@@ -102,6 +102,6 @@ namespace System.Application.UI
         /// <summary>
         /// 是否允许截图
         /// </summary>
-        public static bool AllowScreenshots => _ThisAssembly.IsBetaRelease;
+        public static bool AllowScreenshots => _ThisAssembly.IsAlphaRelease || _ThisAssembly.IsBetaRelease;
     }
 }

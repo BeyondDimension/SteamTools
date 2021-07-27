@@ -4,7 +4,6 @@ using System.Application.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
-using System.Runtime.ExceptionServices;
 using AvaloniaApplication = Avalonia.Application;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
@@ -19,7 +18,6 @@ namespace System.Application.UI
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
         [STAThread]
-        [HandleProcessCorruptedStateExceptions]
         static int Main(string[] args)
         {
 #if WINDOWS_DESKTOP_BRIDGE

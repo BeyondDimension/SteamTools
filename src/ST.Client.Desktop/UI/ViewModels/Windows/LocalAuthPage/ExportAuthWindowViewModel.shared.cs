@@ -211,14 +211,39 @@ namespace System.Application.UI.ViewModels
             IsExporting = false;
         }
 
-        Func<MyAuthenticator, bool>? Filter
+        static Func<MyAuthenticator, bool>? GetFilter(ushort selectId)
         {
-            get
-            {
-                if (SelectId == default) return null;
-                return x => x.Id == SelectId;
-            }
+            if (selectId == default) return null;
+            return x => x.Id == selectId;
         }
+
+        Func<MyAuthenticator, bool>? Filter => GetFilter(SelectId);
+
+        static async Task<Stream?> GetQRCodeAsync(Func<MyAuthenticator, bool>? filter)
+        {
+            var datas = AuthService.Current.GetExportSourceAuthenticators(filter);
+            var qrCode = await Task.Run(() =>
+             {
+                 var dtos = datas.Select(x => x.ToLightweightExportDTO()).ToArray();
+                 var bytes = Serializable.SMP(dtos);
+#if DEBUG
+                var bytes_compress_gzip = bytes.CompressByteArray();
+#endif
+                 var bytes_compress_br = bytes.CompressByteArrayByBrotli();
+#if DEBUG
+                Toast.Show($"bytesLength, source: {bytes.Length}, gzip: {bytes_compress_gzip.Length}, br: {bytes_compress_br.Length}");
+#endif
+                 return CreateQRCode(bytes_compress_br);
+             });
+            return qrCode;
+        }
+
+        /// <summary>
+        /// 根据令牌 Id 生成二维码
+        /// </summary>
+        /// <param name="selectId"></param>
+        /// <returns></returns>
+        public static Task<Stream?> GetQRCodeAsync(ushort selectId) => GetQRCodeAsync(GetFilter(selectId));
 
         async Task ExportAuthToFileAsync() => await ExportAuthCore(() =>
         {
@@ -231,23 +256,7 @@ namespace System.Application.UI.ViewModels
             return Task.CompletedTask;
         });
 
-        async Task ExportAuthToQRCodeAsync() => await ExportAuthCore(async () =>
-        {
-            var datas = AuthService.Current.GetExportSourceAuthenticators(Filter);
-            QRCode = await Task.Run(() =>
-            {
-                var dtos = datas.Select(x => x.ToLightweightExportDTO()).ToArray();
-                var bytes = Serializable.SMP(dtos);
-#if DEBUG
-                var bytes_compress_gzip = bytes.CompressByteArray();
-#endif
-                var bytes_compress_br = bytes.CompressByteArrayByBrotli();
-#if DEBUG
-                Toast.Show($"bytesLength, source: {bytes.Length}, gzip: {bytes_compress_gzip.Length}, br: {bytes_compress_br.Length}");
-#endif
-                return CreateQRCode(bytes_compress_br);
-            });
-        }, ignorePath: true, ignorePassword: true);
+        async Task ExportAuthToQRCodeAsync() => await ExportAuthCore(async () => QRCode = await GetQRCodeAsync(Filter), ignorePath: true, ignorePassword: true);
 
         static Stream? CreateQRCode(byte[] bytes)
         {

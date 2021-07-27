@@ -51,7 +51,7 @@ namespace System.Application.Services
 
         public interface ISaveFileDialogService : IServiceBase
         {
-            Task<FileResult> PlatformSaveAsync(SaveOptions? options);
+            Task<FileResult?> PlatformSaveAsync(SaveOptions? options);
 
             static ISaveFileDialogService? Instance => DI.Get_Nullable<ISaveFileDialogService>();
         }

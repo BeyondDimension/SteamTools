@@ -42,11 +42,22 @@ English | [简体中文](./README.md)
 <!--Prerequisites Microsoft Visual C++ 2015-2019 Redistributable [64 bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 bit](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
 ## 🖥 Supported Operating Systems
 - Desktop(Only X64 and ARM64 are supported)
-	- Windows 10 1607+ / Windows Server, version 1909+ / Windows Server 2019 / Windows Server 2016
+	- Windows 10 / Windows Server, Version 20H2
+	- Windows 10 / Windows Server, Version 2004
+	- Windows 10 / Windows Server, Version 1909
+	- Windows 10 / Windows Server, Version 1903
+	- Windows 10, Version 1809
+	- Windows 10, Version 1803
+	- Windows 10, Version 1709
+	- Windows 10, Version 1607
 	- Windows 8.1 / Windows Server 2012 R2
 	- Windows 7 SP1 [ESU](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
 		- Prerequisites
 		- KB3063858 [64 bit](https://www.microsoft.com/download/details.aspx?id=47442) / [32 bit](https://www.microsoft.com/download/details.aspx?id=47409)
+	- Windows Server 2019
+	- Windows Server 2016
+	- Windows Server 2012 R2
+	- Windows Server 2012
 	- macOS 10.14 Mojave Or Higher
 	- Linux Distribution
 		- Arch Linux
@@ -67,8 +78,8 @@ English | [简体中文](./README.md)
 ## ⛔ Unsupported Operating System
 - Windows 8
 	- [Due to Microsoft's official support for the product has ended](https://docs.microsoft.com/lifecycle/products/windows-8), so this program cannot run on this operating system, [It is recommended to upgrade to Windows 8.1](https://support.microsoft.com/windows/update-to-windows-8-1-from-windows-8-17fc54a7-a465-6b5a-c1a0-34140afd0669)
-- Windows Server 2012 / 2008 R2 SP1
-	- Only version 1.X is available, and version 2.X is not supported. It is recommended to upgrade to **Windows Server 2012 R2** or higher
+- Windows Server 2008 R2 SP1
+	- Only version 1.x is available, 2.x is not supported at first, and it is recommended to upgrade to a higher version
 - Windows Server / Linux version without desktop GUI
 
 ## 🌏 Roadmap
@@ -78,7 +89,7 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 [Visual Studio 2019 Version 16.10 Or Higher](https://visualstudio.microsoft.com/vs/) Or [JetBrains Rider](https://www.jetbrains.com/rider/) Or ~~[Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/)~~ Or ~~[Visual Studio Code](https://code.visualstudio.com/)~~
 - Supported Operating Systems
 	- [Windows 10 version 2004 or higher: Home, Professional, Education, and Enterprise (LTSC and S are not supported)](https://docs.microsoft.com/en-us/visualstudio/releases/2019/system-requirements)
-	- [macOS 10.13 High Sierra Or Higher](https://docs.microsoft.com/en-us/visualstudio/productinfo/vs2019-system-requirements-mac)
+	- [macOS 10.14 Mojave Or Higher](https://docs.microsoft.com/en-us/visualstudio/productinfo/vs2019-system-requirements-mac)
 - Workload
 	- Web and Cloud
 		- ASP.NET and Web Development

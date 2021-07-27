@@ -2,15 +2,6 @@ namespace System.Properties
 {
     public static partial class ThisAssembly
     {
-#if NETSTANDARD2_1 || NETCOREAPP2_1_OR_GREATER
-        static readonly Lazy<string> mVersionDisplay = new(() =>
-        {
-            Version version = new(Version);
-            return $"{version.ToString(3)}{(IsBetaRelease ? " β" : "")}{(version.Revision <= 0 ? "" : " rev." + version.Revision)}";
-        });
-        public static string VersionDisplay => mVersionDisplay.Value;
-#endif
-
         /// <summary>
         /// 定义程序集清单的产品名自定义属性
         /// </summary>
@@ -54,10 +45,5 @@ true
 false
 #endif
             ;
-
-#if NETSTANDARD2_1 || NETCOREAPP2_1_OR_GREATER
-        static readonly Lazy<bool> mIsBetaRelease = new(() => InfoVersion.Contains("beta", StringComparison.OrdinalIgnoreCase));
-        public static bool IsBetaRelease => mIsBetaRelease.Value;
-#endif
     }
 }
