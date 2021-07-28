@@ -1,16 +1,12 @@
-using System;
 using System.Application.Serialization;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace System.Application.Models.Settings
 {
-    public static class GameLibrarySettings
+    public sealed class GameLibrarySettings : SettingsHost2<GameLibrarySettings>
     {
-        public static readonly Lazy<ReadOnlyCollection<uint>> DefaultIgnoreList = new(new ReadOnlyCollection<uint>(new List<uint>
+        public static readonly Lazy<ReadOnlyCollection<uint>> DefaultIgnoreList = new(new ReadOnlyCollection<uint>(new uint[]
         {
             5,
             7,
@@ -162,23 +158,18 @@ namespace System.Application.Models.Settings
         /// 隐藏的游戏列表
         /// </summary>
         public static SerializableProperty<Dictionary<uint, string?>> HideGameList { get; }
-            = new SerializableProperty<Dictionary<uint, string?>>(GetKey(), Providers.Local, new Dictionary<uint, string?>()) { AutoSave = true };
+            = GetProperty(defaultValue: new Dictionary<uint, string?>(), autoSave: true);
 
         /// <summary>
         /// 挂时长游戏列表
         /// </summary>
         public static SerializableProperty<Dictionary<uint, string?>> AFKAppList { get; }
-            = new SerializableProperty<Dictionary<uint, string?>>(GetKey(), Providers.Local, new Dictionary<uint, string?>()) { AutoSave = true };
+            = GetProperty(defaultValue: new Dictionary<uint, string?>(), autoSave: true);
 
         /// <summary>
         /// 启用自动挂机
         /// </summary>
         public static SerializableProperty<bool> IsAutoAFKApps { get; }
-            = new SerializableProperty<bool>(GetKey(), Providers.Local, true) { AutoSave = true };
-
-        private static string GetKey([CallerMemberName] string propertyName = "")
-        {
-            return nameof(GameLibrarySettings) + "." + propertyName;
-        }
+            = GetProperty(defaultValue: true, autoSave: true);
     }
 }

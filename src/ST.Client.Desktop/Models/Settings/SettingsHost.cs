@@ -31,7 +31,7 @@ namespace System.Application.Models.Settings
         {
             var key = CategoryName + "." + propertyName;
 
-            if (cachedProperties.TryGetValue(key, out object obj) && obj is SerializableProperty<T> property1)
+            if (cachedProperties.TryGetValue(key, out var obj) && obj is SerializableProperty<T> property1)
                 return property1;
 
             var property = create(key);
@@ -83,7 +83,7 @@ namespace System.Application.Models.Settings
         }
     }
 
-    public class Providers
+    public static class Providers
     {
         public static string LocalFilePath => Path.Combine(IOPath.AppDataDirectory, SettingsHost.ConfigName);
 

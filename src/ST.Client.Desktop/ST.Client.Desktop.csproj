@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Settings\**" />
+    <EmbeddedResource Remove="Models\Settings\**" />
+    <None Remove="Models\Settings\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
