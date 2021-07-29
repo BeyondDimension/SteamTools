@@ -362,11 +362,7 @@ namespace System.Application.UI.ViewModels
 
         public void AppGridReSize()
         {
-            //var back = SteamConnectService.Current.SteamApps.Items;
-            //SteamConnectService.Current.SteamApps.Clear();
             UISettings.AppGridSize.Value = UISettings.AppGridSize.Value == 200 ? 150 : 200;
-            SteamConnectService.Current.SteamApps.Refresh();
-            //SteamConnectService.Current.RefreshGamesList();
         }
     }
 }

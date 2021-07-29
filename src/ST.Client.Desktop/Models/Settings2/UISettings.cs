@@ -1,4 +1,6 @@
+using DynamicData;
 using System.Application.Serialization;
+using System.Application.Services;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 
@@ -9,6 +11,12 @@ namespace System.Application.Models.Settings
         static UISettings()
         {
             //Theme.ValueChanged += Theme_ValueChanged;
+            AppGridSize.ValueChanged += AppGridSize_ValueChanged;
+        }
+
+        private static void AppGridSize_ValueChanged(object? sender, ValueChangedEventArgs<int> e)
+        {
+            SteamConnectService.Current.SteamApps.Refresh();
         }
 
         //private static void Theme_ValueChanged(object sender, ValueChangedEventArgs<short> e)

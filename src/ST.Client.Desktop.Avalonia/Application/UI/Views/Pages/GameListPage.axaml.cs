@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using System.Application.UI.ViewModels;
@@ -11,6 +12,22 @@ namespace System.Application.UI.Views.Pages
         public GameListPage()
         {
             InitializeComponent();
+
+            var apps = this.FindControl<ItemsRepeater>("Apps");
+            apps.PointerPressed += App_PointerPressed;
+        }
+
+        private void App_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+        {
+            if (e.Source is Control c)
+            {
+                var border = c.FindParentControl<Border>("AppAvater");
+                if (border is not null)
+                {
+                    var flyout = FlyoutBase.GetAttachedFlyout(border);
+                    flyout?.ShowAt(border, true);
+                }
+            }
         }
 
         private void InitializeComponent()

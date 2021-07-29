@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
 using System.Application.Services;
@@ -9,6 +10,8 @@ namespace System.Application.UI.Views.Windows
 {
     public partial class TaskBarWindow : Window
     {
+        private bool IsPointerOverSubMenu = false;
+
         public TaskBarWindow()
         {
             InitializeComponent();
@@ -24,14 +27,47 @@ namespace System.Application.UI.Views.Windows
 
             this.Opened += Window_Opened;
             this.LostFocus += Window_LostFocus;
+
+            //var localbtn = this.FindControl<Button>("LocalMenu");
+
+            //if (localbtn != null)
+            //{
+            //    localbtn.PointerEnter += MenuButton_PointerEnter;
+            //    //localbtn.PointerLeave += MenuButton_PointerLeave;
+            //}
 #if DEBUG
             this.AttachDevTools();
 #endif
         }
 
+        private void MenuButton_PointerLeave(object? sender, Avalonia.Input.PointerEventArgs e)
+        {
+            if (sender is Control c)
+            {
+                var flyout = FlyoutBase.GetAttachedFlyout(c);
+                flyout?.Hide();
+                IsPointerOverSubMenu = false;
+            }
+        }
+
+        private void MenuButton_PointerEnter(object? sender, Avalonia.Input.PointerEventArgs e)
+        {
+            if (sender is Control c && !IsPointerOverSubMenu)
+            {
+                var flyout = FlyoutBase.GetAttachedFlyout(c);
+                if (flyout is not null)
+                {
+                    flyout.ShowAt(c);
+                    IsPointerOverSubMenu = flyout.IsOpen;
+                    flyout.Closed += (sender, e) => IsPointerOverSubMenu = flyout.IsOpen;
+                    c.Focus();
+                }
+            }
+        }
+
         private void Window_LostFocus(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            if (!this.IsPointerOver)
+            if (!this.IsPointerOver && !IsPointerOverSubMenu)
             {
                 if (this.DataContext is TaskBarWindowViewModel vm)
                 {
@@ -73,7 +109,6 @@ namespace System.Application.UI.Views.Windows
 
             DI.Get<ISystemWindowApiService>().SetActiveWindow(new Models.HandleWindow { Handle = this.PlatformImpl.Handle.Handle });
         }
-
 
         private void InitializeComponent()
         {

@@ -38,6 +38,11 @@
         <Style Selector="Separator">
           <Setter Property="Margin" Value="8 0"></Setter>
         </Style>
+
+        <Style Selector="Button.MenuButton">
+          <Setter Property="Command" Value="{Binding MenuClickCommand}"></Setter>
+          <Setter Property="CommandParameter" Value="{ReflectionBinding $self.Content}"></Setter>
+        </Style>
       </StackPanel.Styles>
 
       <DockPanel Margin="0 8 0 0">
@@ -57,15 +62,39 @@
       </DockPanel>
       <Separator Classes="Separator"/>
       <StackPanel>
-        <Button Content="{ReflectionBinding Path=Res.CommunityFix,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
-        <Button Content="{ReflectionBinding Path=Res.ScriptConfig,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
-        <Button Content="{ReflectionBinding Path=Res.UserFastChange,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
-        <Button Content="{ReflectionBinding Path=Res.GameList,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
-        <Button Content="{ReflectionBinding Path=Res.LocalAuth,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
+        <Button Content="{ReflectionBinding Path=Res.CommunityFix,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Classes="MenuButton"></Button>
+        <Button Content="{ReflectionBinding Path=Res.ScriptConfig,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Classes="MenuButton"></Button>
+        <Button Content="{ReflectionBinding Path=Res.UserFastChange,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Classes="MenuButton"></Button>
+        <Button Content="{ReflectionBinding Path=Res.GameList,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Classes="MenuButton"></Button>
+        <Button Content="{ReflectionBinding Path=Res.LocalAuth,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Classes="MenuButton"
+                x:Name="LocalMenu">
+          <FlyoutBase.AttachedFlyout>
+            <MenuFlyout Placement="RightEdgeAlignedTop" ShowMode="TransientWithDismissOnPointerMoveAway">
+              <MenuItem Header="Item 1">
+                <MenuItem Header="Subitem 1" />
+                <MenuItem Header="Subitem 2" />
+                <MenuItem Header="Subitem 3" />
+                <MenuItem Header="Subitem 4" />
+                <MenuItem Header="Subitem 5" />
+              </MenuItem>
+              <MenuItem Header="Item 2" InputGesture="Ctrl+A" />
+              <MenuItem Header="Item 3" />
+              <MenuItem Header="Item 4" />
+              <MenuItem Header="Item 5" />
+              <MenuItem Header="Item 6" />
+            </MenuFlyout>
+          </FlyoutBase.AttachedFlyout>
+        </Button>
       </StackPanel>
       <Separator Classes="Separator"/>
       <StackPanel>
-        <Button Content="{ReflectionBinding Path=Res.About,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="{ReflectionBinding $self.Content}"></Button>
+        <Button Content="{ReflectionBinding Path=Res.About,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Classes="MenuButton"></Button>
         <Button Content="{ReflectionBinding Path=Res.Exit,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="Exit"></Button>
       </StackPanel>
     </StackPanel>
