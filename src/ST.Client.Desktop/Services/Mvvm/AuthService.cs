@@ -64,22 +64,22 @@ namespace System.Application.Services
             {
                 var authenticators = list.Select(s => new MyAuthenticator(s));
 
-                MainThread2.BeginInvokeOnMainThread(() =>
+                //MainThread2.BeginInvokeOnMainThread(() =>
+                //{
+                Authenticators.Clear();
+                Authenticators.AddOrUpdate(authenticators);
+                if (isSync)
                 {
-                    Authenticators.AddOrUpdate(authenticators);
-
-                    if (isSync)
+                    Task.Run(() =>
                     {
-                        Task.Run(() =>
-                        {
-                            foreach (var item in Authenticators.Items)
-                                item.Sync();
-                            //ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
-                        }).ForgetAndDispose();
-                    }
-                    //else
-                    //    ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
-                });
+                        foreach (var item in Authenticators.Items)
+                            item.Sync();
+                        //ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
+                    }).ForgetAndDispose();
+                }
+                //else
+                //    ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
+                //});
             }
             else
             {

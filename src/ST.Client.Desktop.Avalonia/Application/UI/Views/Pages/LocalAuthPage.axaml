@@ -146,9 +146,28 @@
                                                 <PathIcon Data="{DynamicResource CloudDrawing}" Width="20"></PathIcon>
                                             </Button>-->
 
-                    <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowSteamAuthData}" CommandParameter="{Binding}"
+                    <Button Cursor="Hand"
+                            Classes="flatbutton"
+                            Command="{ReflectionBinding #u.DataContext.ShowSteamAuthData}"
+                            CommandParameter="{Binding}"
                             ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_ShowAuthInfo,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                       <PathIcon Data="{DynamicResource SlideSearchDrawing}" Width="20"></PathIcon>
+                    </Button>
+
+                    <Button Cursor="Hand"
+                            Classes="flatbutton"
+                            ToolTip.Tip="查看二维码" >
+                      <Button.Content>
+                        <PathIcon Data="{DynamicResource QRCodeDrawing}" Width="20"></PathIcon>
+                      </Button.Content>
+                      <Button.Flyout>
+                        <Flyout>
+                          <Image
+                                 Width="200"
+                                 Height="200"
+                                 Source="{Binding QrCodeStream^,Converter={StaticResource BitmapAssetValueConverter},Mode=OneWay}"/>
+                        </Flyout>
+                      </Button.Flyout>
                     </Button>
                   </StackPanel>
 

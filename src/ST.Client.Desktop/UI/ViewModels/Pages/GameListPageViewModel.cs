@@ -273,15 +273,15 @@ namespace System.Application.UI.ViewModels
         {
             try
             {
-                if (GameLibrarySettings.AFKAppList.Value?.Count >= SteamConnectService.Current.SteamAFKMaxCount)
+                if (GameLibrarySettings.AFKAppList.Value?.Count >= SteamConnectService.SteamAFKMaxCount)
                 {
-                    var result = MessageBoxCompat.ShowAsync(AppResources.GameList_AddAFKAppsMaxCountTips.Format(SteamConnectService.Current.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OK);
+                    var result = MessageBoxCompat.ShowAsync(AppResources.GameList_AddAFKAppsMaxCountTips.Format(SteamConnectService.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OK);
                 }
                 else
                 {
-                    if (GameLibrarySettings.AFKAppList.Value?.Count == SteamConnectService.Current.SteamAFKMaxCount - 2)
+                    if (GameLibrarySettings.AFKAppList.Value?.Count == SteamConnectService.SteamAFKMaxCount - 2)
                     {
-                        var result = MessageBoxCompat.ShowAsync(AppResources.GameList_AddAFKAppsWarningCountTips.Format(SteamConnectService.Current.SteamAFKMaxCount, SteamConnectService.Current.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+                        var result = MessageBoxCompat.ShowAsync(AppResources.GameList_AddAFKAppsWarningCountTips.Format(SteamConnectService.SteamAFKMaxCount, SteamConnectService.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
                         {
                             if (s.Result == MessageBoxResultCompat.OK)
                             {

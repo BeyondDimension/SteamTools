@@ -1,9 +1,11 @@
 using ReactiveUI;
 using System.Application.Mvvm;
 using System.Application.Services;
+using System.Application.UI;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -151,6 +153,8 @@ namespace System.Application.Models
         string? _CurrentCodeCache;
 
         string GetCurrentCode() => AuthenticatorData.Value.CurrentCode;
+
+        public Task<Stream?> QrCodeStream => GetQrCodeStream();
 
         public string CurrentCode
         {
@@ -426,6 +430,33 @@ namespace System.Application.Models
             CancellationTokenSource? AutoRefreshCode { get; set; }
         }
 #endif
+
+        public async Task<Stream?> GetQrCodeStream()
+        {
+            var qrCode = await Task.Run(() =>
+            {
+                var bytes = Serializable.SMP(new[] { this.AuthenticatorData.ToLightweightExportDTO() });
+#if DEBUG
+                var bytes_compress_gzip = bytes.CompressByteArray();
+#endif
+                var bytes_compress_br = bytes.CompressByteArrayByBrotli();
+#if DEBUG
+                Toast.Show($"bytesLength, source: {bytes.Length}, gzip: {bytes_compress_gzip.Length}, br: {bytes_compress_br.Length}");
+#endif
+                (var result, var stream, var e) = QRCodeHelper.Create(bytes);
+                switch (result)
+                {
+                    case QRCodeHelper.QRCodeCreateResult.DataTooLong:
+                        Toast.Show(AppResources.AuthLocal_ExportToQRCodeTooLongErrorTip);
+                        break;
+                    case QRCodeHelper.QRCodeCreateResult.Exception:
+                        Toast.Show(e!.ToString());
+                        break;
+                }
+                return stream;
+            });
+            return qrCode;
+        }
 
         /// <summary>
         /// 编辑令牌自定义名称
