@@ -13,6 +13,7 @@ using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Linq;
+using System.Reactive.Linq;
 using static System.Application.UI.Resx.AppResources;
 using static System.Application.UI.ViewModels.AuthTradeWindowViewModel;
 
@@ -52,25 +53,24 @@ namespace System.Application.UI.Activities
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 Title = DisplayName;
                 if (binding == null) return;
                 binding.layoutSteamUserName.Hint = Steam_User;
                 binding.layoutSteamPassword.Hint = Steam_Password;
+                binding.layoutCaptcha.Hint = Steam_ImageCodeTip;
                 binding.tvConfirmConutMessage.Text = ViewModel!.ConfirmationsConutMessage;
                 binding.cbStreamRememberMe.Text = User_Rememberme;
-                binding.tbCaptcha.Text = Steam_ImageCodeTip;
                 binding.btnLogin.Text = Login;
                 binding.tvSteamTradeLoginTip.Text = LocalAuth_SteamTradeLoginTip;
-                binding.tvLoading.Text = LocalAuth_AuthTrade_GetTip;
                 //speedDialDict.ReplaceLabels(ToString2);
                 binding.btnCancelTrade.Text = LocalAuth_AuthTrade_Cancel;
                 binding.btnConfirmTrade.Text = LocalAuth_AuthTrade_Confirm;
                 SetMenuTitle();
             }).AddTo(this);
 
-            ViewModel!.WhenAnyValue(x => x.IsLoggedIn).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.IsLoggedIn).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 var state = value ? ViewStates.Gone : ViewStates.Visible;
@@ -81,29 +81,30 @@ namespace System.Application.UI.Activities
                 //binding.speedDial.Visibility = state;
                 SetLogoutMenuVisible(value);
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.IsRequiresCaptcha).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.IsRequiresCaptcha).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 var state = !value ? ViewStates.Gone : ViewStates.Visible;
                 binding.ivCaptchaImage.Visibility = state;
                 binding.layoutCaptcha.Visibility = state;
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.CodeImage).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.CodeImage).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 binding.ivCaptchaImage.SetImageSource(value);
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.ConfirmationsConutMessage).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.ConfirmationsConutMessage).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 binding.tvConfirmConutMessage.Text = value;
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.IsLoading).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.IsLoading).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
+                var ismain = MainThread2.IsMainThread;
                 var state = !value ? ViewStates.Gone : ViewStates.Visible;
-                binding.layoutContentConfirmations.Visibility = value || !ViewModel!.IsLoggedIn ? ViewStates.Gone : ViewStates.Visible;
-                binding.layoutContentSteamLogin.Visibility = value || ViewModel!.IsLoggedIn ? ViewStates.Gone : ViewStates.Visible;
+                binding.layoutContentConfirmations.Visibility = (value || !ViewModel!.IsLoggedIn) ? ViewStates.Gone : ViewStates.Visible;
+                binding.layoutContentSteamLogin.Visibility = (value || ViewModel!.IsLoggedIn) ? ViewStates.Gone : ViewStates.Visible;
                 binding.layoutLoading.Visibility = state;
 
                 if (!value && binding.swipeRefreshLayout.Refreshing)
@@ -111,15 +112,20 @@ namespace System.Application.UI.Activities
                     binding.swipeRefreshLayout.Refreshing = false;
                 }
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.UnselectAll).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.UnselectAll).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 binding.cbSelectAll.Checked = !value;
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.SelectAllText).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.SelectAllText).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 binding.cbSelectAll.Text = value;
+            }).AddTo(this);
+            ViewModel!.WhenAnyValue(x => x.LoadingText).SubscribeInMainThread(value =>
+            {
+                if (binding == null) return;
+                binding.tvLoading.Text = value;
             }).AddTo(this);
 
             binding!.tbSteamUserName.TextChanged += (_, _) =>

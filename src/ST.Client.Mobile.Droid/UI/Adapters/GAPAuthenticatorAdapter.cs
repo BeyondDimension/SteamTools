@@ -68,19 +68,19 @@ namespace System.Application.UI.Adapters
             base.OnBind();
 
             lifecycleOwner.Lifecycle.AddObserver(this);
-            ViewModel.WhenAnyValue(x => x.CurrentCode).Subscribe(value =>
+            ViewModel.WhenAnyValue(x => x.CurrentCode).SubscribeInMainThread(value =>
             {
                 binding.tvValue.Text = TViewModel.CodeFormat(value);
             }).AddTo(this);
-            ViewModel.WhenAnyValue(x => x.Name).Subscribe(value =>
+            ViewModel.WhenAnyValue(x => x.Name).SubscribeInMainThread(value =>
             {
                 binding.tvName.Text = string.IsNullOrEmpty(value) ? BindingAdapterPosition.ToString("000") : value;
             }).AddTo(this);
-            ViewModel.WhenAnyValue(x => x.Period).Subscribe(value =>
+            ViewModel.WhenAnyValue(x => x.Period).SubscribeInMainThread(value =>
             {
                 binding.progress.Max = value;
             }).AddTo(this);
-            ViewModel.WhenAnyValue(x => x.AutoRefreshCodeTimingCurrent).Subscribe(value =>
+            ViewModel.WhenAnyValue(x => x.AutoRefreshCodeTimingCurrent).SubscribeInMainThread(value =>
             {
                 binding.progress.Progress = value;
                 binding.tvProgress.Text = value.ToString();

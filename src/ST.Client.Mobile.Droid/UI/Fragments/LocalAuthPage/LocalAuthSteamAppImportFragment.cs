@@ -15,7 +15,7 @@ namespace System.Application.UI.Fragments
         {
             base.OnCreateView(view);
 
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 if (binding == null) return;
                 binding.layoutName.Hint = LocalAuth_AuthName;

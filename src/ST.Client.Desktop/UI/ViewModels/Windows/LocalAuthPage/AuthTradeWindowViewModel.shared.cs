@@ -226,21 +226,21 @@ namespace System.Application.UI.ViewModels
 
         public void LoginButton_Click()
         {
-            if (CodeImageChar?.Trim().Length > 0)
+            if (!string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrWhiteSpace(Password))
             {
-                Process(_Authenticator!.GetClient().CaptchaId, CodeImageChar);
-            }
-            else
-            {
-                if (UserName?.Trim().Length > 0 || Password?.Trim().Length > 0)
+                if (!string.IsNullOrWhiteSpace(CodeImageChar))
                 {
-                    Process();
+                    Process(_Authenticator!.GetClient().CaptchaId, CodeImageChar);
                 }
                 else
                 {
-                    Toast.Show(AppResources.User_LoginError_Null);
-                    return;
+                    Process();
                 }
+            }
+            else
+            {
+                Toast.Show(AppResources.User_LoginError_Null);
+                return;
             }
         }
 
@@ -288,8 +288,8 @@ namespace System.Application.UI.ViewModels
                 var steam = _Authenticator.GetClient();
                 if (!IsLoggedIn)
                 {
-                    IsLoading = false;
 #if !__MOBILE__
+                    IsLoading = false;
                     ToastService.Current.Set(AppResources.Logining);
 #else
                     LoadingText = AppResources.Logining;
@@ -338,6 +338,9 @@ namespace System.Application.UI.ViewModels
                 try
                 {
                     IsLoading = true;
+#if __MOBILE__
+                    LoadingText = AppResources.LocalAuth_AuthTrade_GetTip;
+#endif
                     //Toast.Show(AppResources.LocalAuth_AuthTrade_GetTip);
                     var list = steam.GetConfirmations();
 

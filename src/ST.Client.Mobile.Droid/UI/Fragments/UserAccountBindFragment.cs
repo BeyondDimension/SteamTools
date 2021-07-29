@@ -35,7 +35,7 @@ namespace System.Application.UI.Fragments
             var btnAccountBinds = new[] { binding!.btnAccountBindSteam, binding.btnAccountBindMicrosoft, binding.btnAccountBindApple, binding.btnAccountBindQQ, };
             var tbAccountBinds = new[] { binding.tbAccountBindSteam, binding.tbAccountBindMicrosoft, binding.tbAccountBindApple, binding.tbAccountBindQQ, };
 
-            UserService.Current.WhenAnyValue(x => x.HasPhoneNumber).Subscribe(value =>
+            UserService.Current.WhenAnyValue(x => x.HasPhoneNumber).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 foreach (var item in btnAccountBinds)
@@ -44,7 +44,7 @@ namespace System.Application.UI.Fragments
                 }
             }).AddTo(this);
 
-            UserService.Current.WhenAnyValue(x => x.User).Subscribe(value =>
+            UserService.Current.WhenAnyValue(x => x.User).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 foreach (var item in tbAccountBinds)
@@ -53,7 +53,7 @@ namespace System.Application.UI.Fragments
                 }
             }).AddTo(this);
 
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 if (binding == null) return;
                 foreach (var item in tbAccountBinds)

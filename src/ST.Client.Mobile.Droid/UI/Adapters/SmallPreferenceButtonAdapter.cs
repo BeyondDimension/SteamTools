@@ -37,7 +37,7 @@ namespace System.Application.UI.Adapters
         {
             base.OnBind();
 
-            ViewModel!.WhenAnyValue(x => x.Title).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.Title).SubscribeInMainThread(value =>
             {
                 binding.tvTitle.Text = value;
             }).AddTo(this);

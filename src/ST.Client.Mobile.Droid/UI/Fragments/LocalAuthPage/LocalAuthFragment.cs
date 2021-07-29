@@ -57,7 +57,7 @@ namespace System.Application.UI.Fragments
         public override void OnCreateView(View view)
         {
             base.OnCreateView(view);
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 if (binding == null) return;
                 binding.tvEmptyTip.Text = LocalAuth_NoAuthTip_.Format(TopRightCorner/*BottomRightCorner*/);
@@ -91,17 +91,17 @@ namespace System.Application.UI.Fragments
             }
 
             ViewModel!.WhenAnyValue(x => x.IsAuthenticatorsEmpty)
-                .Subscribe(x => OnAuthenticatorsChanged(x, ViewModel!.IsFirstActivation))
+                .SubscribeInMainThread(x => OnAuthenticatorsChanged(x, ViewModel!.IsFirstActivation))
                 .AddTo(this);
             ViewModel!.WhenAnyValue(x => x.IsFirstLoadedAuthenticatorsEmpty)
-                .Subscribe(x =>
+                .SubscribeInMainThread(x =>
                 {
                     if (!x) return;
                     OnAuthenticatorsChanged(ViewModel!.IsAuthenticatorsEmpty, false);
                 })
                 .AddTo(this);
             ViewModel!.WhenAnyValue(x => x.IsRefreshing)
-                .Subscribe(x =>
+                .SubscribeInMainThread(x =>
                 {
                     if (binding == null) return;
                     if (x) return;

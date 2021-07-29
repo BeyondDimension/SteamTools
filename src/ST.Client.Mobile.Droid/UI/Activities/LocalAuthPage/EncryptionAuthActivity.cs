@@ -25,7 +25,7 @@ namespace System.Application.UI.Activities
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 Title = EncryptionAuthWindowViewModel.TitleName;
                 if (binding != null)
@@ -39,7 +39,7 @@ namespace System.Application.UI.Activities
                 }
             }).AddTo(this);
 
-            ViewModel!.WhenAnyValue(x => x.IsPasswordEncrypt).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.IsPasswordEncrypt).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 binding.layoutPassword.Enabled = value;

@@ -61,7 +61,7 @@ namespace System.Application.UI.ViewModels
             get => _UnselectAll;
             set
             {
-                if (this.RaiseAndSetIfChanged2(ref _UnselectAll, value)) return;
+                if (this.RaiseAndSetIfChangedReturnIsNotChange(ref _UnselectAll, value)) return;
                 foreach (var item in Confirmations)
                 {
                     item.NotChecked = value;

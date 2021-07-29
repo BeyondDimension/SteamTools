@@ -43,7 +43,7 @@ namespace System.Application.UI.Fragments
             binding!.tbSmsCode.ImeOptions = ImeAction.Done;
             binding!.tbSmsCode.SetOnEditorActionListener(this);
 
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 if (binding == null) return;
                 binding.tbPhoneNumber.Hint = AppResources.User_Phone;
@@ -57,13 +57,13 @@ namespace System.Application.UI.Fragments
                     binding.btnSendSms.Text = LoginOrRegisterPageViewModel.DefaultBtnSendSmsCodeText;
                 }
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.IsLoading).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.IsLoading).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 binding.loading.Visibility = value ? ViewStates.Visible : ViewStates.Gone;
                 binding.content_group.Visibility = !value ? ViewStates.Visible : ViewStates.Gone;
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.IsUnTimeLimit).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.IsUnTimeLimit).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 //var p0 = ViewModel!.IsUnTimeLimit;
@@ -83,7 +83,7 @@ namespace System.Application.UI.Fragments
             //        binding.btnSendSms.Enabled = enabled;
             //    }
             //};
-            ViewModel!.WhenAnyValue(x => x.BtnSendSmsCodeText).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.BtnSendSmsCodeText).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 binding.btnSendSms.Text = value;

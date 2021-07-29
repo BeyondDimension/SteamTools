@@ -15,7 +15,7 @@ namespace System.Application.UI.Fragments
         {
             base.OnCreateView(view);
 
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 if (binding == null) return;
                 binding.layoutSteamUserName.Hint = Steam_User;
@@ -46,12 +46,12 @@ namespace System.Application.UI.Fragments
                 ViewModel!.ActivationCode = binding.tbSMSCode.Text;
             };
 
-            ViewModel!.WhenAnyValue(x => x.RevocationCode).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.RevocationCode).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 binding.tbRevocationCode.Text = value;
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.RequiresLogin).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.RequiresLogin).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 var state = !value ? ViewStates.Gone : ViewStates.Visible;
@@ -60,7 +60,7 @@ namespace System.Application.UI.Fragments
                 binding.layoutSteamPassword.Visibility = state;
                 binding.btnSubmit.Text = Login;
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.CaptchaImage).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.CaptchaImage).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 var state = value == null ? ViewStates.Gone : ViewStates.Visible;
@@ -68,7 +68,7 @@ namespace System.Application.UI.Fragments
                 binding.layoutCaptcha.Visibility = state;
                 binding.ivCaptchaImage.SetImageSource(value);
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.EmailDomain).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.EmailDomain).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 var value_ = value == null;
@@ -79,7 +79,7 @@ namespace System.Application.UI.Fragments
                 binding.tvEmailCodeTip.Visibility = state;
                 if (!value_) binding.btnSubmit.Text = Continue;
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.RequiresActivation).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.RequiresActivation).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 var state = !value ? ViewStates.Gone : ViewStates.Visible;
@@ -89,7 +89,7 @@ namespace System.Application.UI.Fragments
                 binding.tvSMSCodeTip.Visibility = state;
                 if (value) binding.btnSubmit.Text = Continue;
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.RequiresActivation).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.RequiresActivation).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 var state = !value ? ViewStates.Gone : ViewStates.Visible;
@@ -99,7 +99,7 @@ namespace System.Application.UI.Fragments
                 binding.tvRecoveryCodeRememberTip.Visibility = state;
                 binding.btnSubmit.Visibility = state_reverse;
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.LoginSteamLoadingText).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.LoginSteamLoadingText).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 var isNotLoading = string.IsNullOrWhiteSpace(value);

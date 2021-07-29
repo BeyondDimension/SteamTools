@@ -59,7 +59,7 @@ namespace System.Application.UI.Activities
             binding!.tvCopyright.Text = ViewModel.Copyright;
             binding!.tvContributors.TextFormatted = CreateContributors();
 
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 Title = ViewModel.Title;
                 binding!.tvAgreementAndPrivacy.TextFormatted = CreateAgreementAndPrivacy();
@@ -173,6 +173,8 @@ namespace System.Application.UI.Activities
 #pragma warning restore CS0618 // 类型或成员已过时
                     }
                     b.AppendLine();
+                    b.Append("[app.starttime] ");
+                    b.AppendLine(MainApplication.ElapsedMilliseconds + "ms");
                     if (_ThisAssembly.Debuggable)
                     {
                         b.Append("[app.multi] ");

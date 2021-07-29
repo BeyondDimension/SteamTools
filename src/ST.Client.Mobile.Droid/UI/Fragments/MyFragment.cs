@@ -20,7 +20,7 @@ namespace System.Application.UI.Fragments
         {
             base.OnCreateView(view);
 
-            ViewModel!.WhenAnyValue(x => x.NickName).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.NickName).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 binding.tvNickName.Text = value;

@@ -53,8 +53,8 @@ namespace System.Application.UI
 
 #if DEBUG
             SetupLeakCanary();
-            var stopwatch = Stopwatch.StartNew();
 #endif
+            var stopwatch = Stopwatch.StartNew();
 
             VisualStudioAppCenterSDK.Init();
 
@@ -78,10 +78,14 @@ namespace System.Application.UI
                 ImageLoader.Init(this);
             }
 
+            stopwatch.Stop();
+            ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
 #if DEBUG
-            Log.Debug("Application", $"OnCreate Complete({stopwatch.ElapsedMilliseconds}ms).");
+            Log.Warn("Application", $"OnCreate Complete({stopwatch.ElapsedMilliseconds}ms");
 #endif
         }
+
+        public static long ElapsedMilliseconds { get; private set; }
 
         /// <summary>
         /// 当前是否是主进程

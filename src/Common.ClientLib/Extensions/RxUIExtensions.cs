@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Reactive.Linq;
 using System.Runtime.CompilerServices;
 
 // ReSharper disable once CheckNamespace
 namespace ReactiveUI
 {
-    public static class IReactiveObjectExtensions
+    public static class RxUIExtensions
     {
-        public static bool RaiseAndSetIfChanged2<TObj, TRet>(
+        public static bool RaiseAndSetIfChangedReturnIsNotChange<TObj, TRet>(
             this TObj reactiveObject,
             ref TRet backingField,
             TRet newValue,
@@ -22,13 +23,15 @@ namespace ReactiveUI
 
             if (r)
             {
-                return true;
+                return true; // value Equals
             }
 
             reactiveObject.RaisingPropertyChanging(propertyName);
             backingField = newValue;
             reactiveObject.RaisingPropertyChanged(propertyName);
-            return false;
+            return false; // value Changed
         }
+
+        public static IDisposable SubscribeInMainThread<T>(this IObservable<T> source, Action<T> onNext) => source.ObserveOn(RxApp.MainThreadScheduler).Subscribe(onNext);
     }
 }

@@ -54,7 +54,7 @@ namespace System.Application.UI.Activities
                 .Build();
             navController = Navigation.FindNavController(this, Resource.Id.nav_host_fragment_activity_main);
 
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 SetSubPageTitle(Resource.Id.navigation_local_auth, LocalAuthPageViewModel.DisplayName);
                 SetSubPageTitle(Resource.Id.navigation_my, MyPageViewModel.DisplayName);

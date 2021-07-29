@@ -137,7 +137,7 @@ namespace System.Application.UI.ViewModels
             set
             {
                 var oldValue = _QRCode;
-                if (this.RaiseAndSetIfChanged2(ref _QRCode, value)) return;
+                if (this.RaiseAndSetIfChangedReturnIsNotChange(ref _QRCode, value)) return;
                 oldValue?.Dispose();
             }
         }

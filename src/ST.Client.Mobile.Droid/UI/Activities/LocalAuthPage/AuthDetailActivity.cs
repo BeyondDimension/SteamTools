@@ -46,25 +46,25 @@ namespace System.Application.UI.Activities
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
-            ViewModel!.Authenticator.WhenAnyValue(x => x.Name).Subscribe(value =>
+            ViewModel!.Authenticator.WhenAnyValue(x => x.Name).SubscribeInMainThread(value =>
             {
                 Title = value;
             }).AddTo(this);
-            ViewModel.Authenticator.WhenAnyValue(x => x.CurrentCode).Subscribe(value =>
+            ViewModel.Authenticator.WhenAnyValue(x => x.CurrentCode).SubscribeInMainThread(value =>
             {
                 binding.tvValue.Text = TViewModel.CodeFormat(value);
             }).AddTo(this);
-            ViewModel.Authenticator.WhenAnyValue(x => x.Period).Subscribe(value =>
+            ViewModel.Authenticator.WhenAnyValue(x => x.Period).SubscribeInMainThread(value =>
             {
                 binding.progress.Max = value;
             }).AddTo(this);
-            ViewModel.Authenticator.WhenAnyValue(x => x.AutoRefreshCodeTimingCurrent).Subscribe(value =>
+            ViewModel.Authenticator.WhenAnyValue(x => x.AutoRefreshCodeTimingCurrent).SubscribeInMainThread(value =>
             {
                 binding.progress.Progress = value;
                 binding.tvProgress.Text = value.ToString();
             }).AddTo(this);
 
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 if (binding == null) return;
                 binding.tvInfoTitle.Text = LocalAuth_Code_Title;

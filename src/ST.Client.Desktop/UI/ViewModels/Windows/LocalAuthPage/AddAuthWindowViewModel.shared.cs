@@ -282,19 +282,13 @@ namespace System.Application.UI.ViewModels
 #if !__MOBILE__
                 ToastService.Current.Set(AppResources.Logining);
 #else
-                MainThread2.BeginInvokeOnMainThread(() =>
-                {
-                    LoginSteamLoadingText = AppResources.Logining;
-                });
+                LoginSteamLoadingText = AppResources.Logining;
 #endif
                 result = _SteamAuthenticator.Enroll(_Enroll);
 #if !__MOBILE__
                 ToastService.Current.Set();
 #else
-                MainThread2.BeginInvokeOnMainThread(() =>
-                {
-                    LoginSteamLoadingText = null;
-                });
+                LoginSteamLoadingText = null;
 #endif
 
                 if (!result)
@@ -314,50 +308,38 @@ namespace System.Application.UI.ViewModels
 
                     if (_Enroll.RequiresCaptcha == true)
                     {
-                        MainThread2.BeginInvokeOnMainThread(() =>
-                        {
-                            CaptchaText = null;
-                            CaptchaImage = null;
-                        });
+                        CaptchaText = null;
+                        CaptchaImage = null;
                         using var web = new WebClient();
                         var bt = web.DownloadData(_Enroll.CaptchaUrl);
                         using var stream = new MemoryStream(bt);
-                        MainThread2.BeginInvokeOnMainThread(() =>
-                        {
-                            CaptchaImage = stream;
-                        });
+                        CaptchaImage = stream;
                         return;
                     }
 
                     if (_Enroll.RequiresEmailAuth == true)
                     {
-                        MainThread2.BeginInvokeOnMainThread(() =>
-                        {
-                            RequiresLogin = false;
-                            CaptchaText = null;
-                            CaptchaImage = null;
-                            EmailDomain = string.IsNullOrEmpty(_Enroll.EmailDomain) == false ? "***@" + _Enroll.EmailDomain : string.Empty;
-                        });
+                        RequiresLogin = false;
+                        CaptchaText = null;
+                        CaptchaImage = null;
+                        EmailDomain = string.IsNullOrEmpty(_Enroll.EmailDomain) == false ? "***@" + _Enroll.EmailDomain : string.Empty;
                         return;
                     }
 
                     if (_Enroll.RequiresActivation == true)
                     {
-                        MainThread2.BeginInvokeOnMainThread(() =>
+                        EmailDomain = null;
+                        _Enroll.Error = null;
+                        RequiresLogin = false;
+
+                        AuthService.AddOrUpdateSaveAuthenticators(new GAPAuthenticatorDTO
                         {
-                            EmailDomain = null;
-                            _Enroll.Error = null;
-                            RequiresLogin = false;
+                            Name = nameof(GamePlatform.Steam) + "(" + UserName + ")",
+                            Value = _SteamAuthenticator
+                        }, AuthIsLocal, AuthPassword);
 
-                            AuthService.AddOrUpdateSaveAuthenticators(new GAPAuthenticatorDTO
-                            {
-                                Name = nameof(GamePlatform.Steam) + "(" + UserName + ")",
-                                Value = _SteamAuthenticator
-                            }, AuthIsLocal, AuthPassword);
-
-                            RequiresActivation = true;
-                            RevocationCode = _Enroll.RevocationCode;
-                        });
+                        RequiresActivation = true;
+                        RevocationCode = _Enroll.RevocationCode;
                         return;
                     }
 
@@ -374,11 +356,8 @@ namespace System.Application.UI.ViewModels
                     MessageBoxCompat.Show(_Enroll.Error!);
                     return;
                 }
-                MainThread2.BeginInvokeOnMainThread(() =>
-                {
-                    RequiresActivation = false;
-                    RequiresAdd = true;
-                });
+                RequiresActivation = false;
+                RequiresAdd = true;
             }).ContinueWith(s =>
             {
                 Log.Error(nameof(AddAuthWindowViewModel), s.Exception, nameof(LoginSteamImport));
@@ -389,10 +368,7 @@ namespace System.Application.UI.ViewModels
 #if !__MOBILE__
                 ToastService.Current.Set();
 #else
-                MainThread2.BeginInvokeOnMainThread(() =>
-                {
-                    LoginSteamLoadingText = null;
-                });
+                LoginSteamLoadingText = null;
 #endif
                 s.Dispose();
             });

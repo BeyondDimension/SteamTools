@@ -44,7 +44,7 @@ namespace System.Application.UI.Activities
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
             binding!.tvSteamGuardLabel.Text = "SteamGuard：";
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 Title = ShowAuthWindowViewModel.DisplayName;
                 if (binding == null) return;

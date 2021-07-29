@@ -52,7 +52,7 @@ namespace System.Application.UI.Activities
             navController = ((NavHostFragment)SupportFragmentManager.FindFragmentById(Resource.Id.nav_host_fragment)).NavController;
             NavigationUI.SetupActionBarWithNavController(this, navController, appBarConfiguration);
 
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 var currentDestinationId = navController.CurrentDestination.Id;
                 foreach (var item in title_strings)

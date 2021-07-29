@@ -22,7 +22,7 @@ namespace System.Application.UI.Fragments
 
             binding!.tvAgreementAndPrivacy.SetLinkMovementMethod();
 
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 if (binding != null)
                 {

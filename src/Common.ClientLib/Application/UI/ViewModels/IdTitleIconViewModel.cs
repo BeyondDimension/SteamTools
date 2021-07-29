@@ -15,7 +15,7 @@ namespace System.Application.UI.ViewModels
             get => id;
             set
             {
-                if (this.RaiseAndSetIfChanged2(ref id, value)) return;
+                if (this.RaiseAndSetIfChangedReturnIsNotChange(ref id, value)) return;
                 Title = GetTitleById(value);
                 if (!IgnoreIcon) Icon = GetIconById(value);
                 OnIdChanged(value);

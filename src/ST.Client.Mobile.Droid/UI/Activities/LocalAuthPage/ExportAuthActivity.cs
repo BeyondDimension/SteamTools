@@ -46,7 +46,7 @@ namespace System.Application.UI.Activities
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 Title = ViewModel!.Title;
                 if (binding == null) return;
@@ -59,18 +59,18 @@ namespace System.Application.UI.Activities
                 binding.swExportQRCode.Text = LocalAuth_ExportAuth_ToQRCode;
             }).AddTo(this);
 
-            ViewModel!.WhenAnyValue(x => x.IsPasswordEncrypt).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.IsPasswordEncrypt).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 binding.layoutPassword.Enabled = value && !ViewModel!.IsExportQRCode;
                 binding.layoutPassword2.Enabled = value && !ViewModel!.IsExportQRCode;
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.Path).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.Path).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 binding.tvExportFilePathValue.Text = value;
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.IsExportQRCode).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.IsExportQRCode).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 binding.layoutExportFilePath.Visibility = value ? (ViewModel!.QRCode == null ? ViewStates.Invisible : ViewStates.Gone) : ViewStates.Visible;
@@ -78,7 +78,7 @@ namespace System.Application.UI.Activities
                 binding.layoutPassword.Enabled = ViewModel!.IsPasswordEncrypt && !value;
                 binding.layoutPassword2.Enabled = ViewModel!.IsPasswordEncrypt && !value;
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.QRCode).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.QRCode).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 var hasValue = value != null;
@@ -86,7 +86,7 @@ namespace System.Application.UI.Activities
                 binding.ivQRCode.Visibility = !hasValue ? ViewStates.Gone : ViewStates.Visible;
                 binding.ivQRCode.SetImageSource(value);
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.IsExporting).Subscribe(value =>
+            ViewModel!.WhenAnyValue(x => x.IsExporting).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 binding.btnExport.Enabled = !value;

@@ -70,7 +70,7 @@ namespace System.Application.UI.Adapters
         {
             base.OnBind();
 
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
+            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 //binding.btnCancelTrade.Text = LocalAuth_AuthTrade_Cancel;
                 //binding.btnConfirmTrade.Text = LocalAuth_AuthTrade_Confirm;
@@ -81,25 +81,25 @@ namespace System.Application.UI.Adapters
             //binding.btnConfirmTrade.SetOnClickListener(this);
 
             ViewModel.WhenAnyValue(x => x.IsOperate)
-                .Subscribe(value =>
+                .SubscribeInMainThread(value =>
                 {
                     SetOperateText(value);
                     SetOperatePanel(value);
                 }).AddTo(this);
             ViewModel.WhenAnyValue(x => x.Image)
-                .Subscribe(value => binding.ivImage.SetImageSource(value,
+                .SubscribeInMainThread(value => binding.ivImage.SetImageSource(value,
                     targetResId: Resource.Dimension.steam_auth__trade_confirmation_img_size))
                         .AddTo(this);
             ViewModel.WhenAnyValue(x => x.Details)
-                .Subscribe(value => binding.tvDetails.Text = value).AddTo(this);
+                .SubscribeInMainThread(value => binding.tvDetails.Text = value).AddTo(this);
             ViewModel.WhenAnyValue(x => x.Traded)
-                .Subscribe(value => binding.tvTraded.Text = value).AddTo(this);
+                .SubscribeInMainThread(value => binding.tvTraded.Text = value).AddTo(this);
             ViewModel.WhenAnyValue(x => x.When)
-                .Subscribe(value => binding.tvWhen.Text = value).AddTo(this);
+                .SubscribeInMainThread(value => binding.tvWhen.Text = value).AddTo(this);
             ViewModel.WhenAnyValue(x => x.NotChecked)
-                .Subscribe(value => binding.checkbox.Checked = !value).AddTo(this);
+                .SubscribeInMainThread(value => binding.checkbox.Checked = !value).AddTo(this);
             //ViewModel.WhenAnyValue(x => x.ButtonEnable)
-            //    .Subscribe(value =>
+            //    .SubscribeInMainThread(value =>
             //    {
             //        binding.btnCancelTrade.Enabled = value;
             //        binding.btnConfirmTrade.Enabled = value;
