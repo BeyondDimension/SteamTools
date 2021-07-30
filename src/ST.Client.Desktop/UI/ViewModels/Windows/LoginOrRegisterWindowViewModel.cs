@@ -15,13 +15,13 @@ namespace System.Application.UI.ViewModels
     partial class LoginOrRegisterWindowViewModel : WindowViewModel
     {
         ServerWebSocket server;
-        public override  void Activation()
+        public override void Activation()
         {
             if (IsFirstActivation)
             {
                 server = new ServerWebSocket("127.0.0.1", 9910);
                 server.OnClientReceived += handle;
-                server.Start(); 
+                server.Start();
             }
             base.Activation();
         }
@@ -48,11 +48,11 @@ namespace System.Application.UI.ViewModels
                 if (IsBind)
                 {
                     await MainThread2.InvokeOnMainThreadAsync(async () =>
-                            {
-                                await UserService.Current.BindAccountAfterUpdateAsync(Channel, response.Content!);
-                                var msg = AppResources.Success_.Format(AppResources.User_AccountBind);
-                                Toast.Show(msg);
-                            });
+                    {
+                        await UserService.Current.BindAccountAfterUpdateAsync(Channel, response.Content!);
+                        var msg = AppResources.Success_.Format(AppResources.User_AccountBind);
+                        Toast.Show(msg);
+                    });
                 }
                 else
                 {

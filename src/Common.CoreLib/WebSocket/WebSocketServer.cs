@@ -68,7 +68,7 @@ namespace System.Net.WebSocket
                             OnDisconnected = OnClientDisconnected
                         }; 
                         tokenSource.Token.Register(() => { client.Dispose(); });
-                        await client.StartAsync(tokenSource.Token);
+                        await client.StartAsync();
                     }, tokenSource.Token);
                 }
             }

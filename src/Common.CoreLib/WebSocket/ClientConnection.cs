@@ -49,7 +49,7 @@ namespace System.Net.WebSocket
         ///  启动连接且尝试握手
         /// </summary>
         /// <returns>Task</returns>
-        internal async Task StartAsync(CancellationToken cancellationToken)
+        internal async Task StartAsync()
         {
             try
             {
@@ -62,7 +62,7 @@ namespace System.Net.WebSocket
                 State = SocketState.Open;
                 if (OnConnected != null)
                     await OnConnected!.Invoke(new ConnectedEventArgs(this));
-                await Task.Run(() => ReadAsync(), cancellationToken); 
+                await ReadAsync();
             }
             catch (SocketException e)
             {
