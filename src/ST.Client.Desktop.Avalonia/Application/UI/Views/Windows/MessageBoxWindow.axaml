@@ -52,6 +52,7 @@
     <DockPanel Grid.Row="3"
                Margin="10,0,10,0">
       <CheckBox
+                IsVisible="{Binding IsShowRememberChoose}"
                 Margin="10 0 0 0"
                 IsChecked="{Binding RememberChoose}"
                 Content="{ReflectionBinding Path=Res.RememberChooseNotToAskAgain,Mode=OneWay,Source={x:Static resx:R.Current}}"/>

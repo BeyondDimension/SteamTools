@@ -186,7 +186,10 @@
                     Spacing="15"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center">
-          <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{CompiledBinding SearchText,Mode=TwoWay}" VerticalAlignment="Center"
+          <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                   Text="{CompiledBinding SearchText,Mode=TwoWay}"
+                   VerticalAlignment="Center"
+                   Background="Transparent"
                    Width="300"
                    MinWidth="200">
             <TextBox.InnerLeftContent>
@@ -221,7 +224,10 @@
          Text="{ReflectionBinding Path=Res.GameList_IsEmpty,Mode=OneWay,Source={x:Static resx:R.Current}}"
          TextWrapping="WrapWithOverflow"
          VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-      <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="0 0 0 10">
+      <ScrollViewer
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto"
+            Padding="0 0 0 10">
         <ItemsRepeater x:Name="Apps" Items="{Binding SteamApps}">
           <ItemsRepeater.Layout>
             <UniformGridLayout ItemsJustification="SpaceEvenly"
@@ -233,10 +239,10 @@
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>
               <StackPanel Spacing="8">
-                <Border DockPanel.Dock="Top" 
+                <Border DockPanel.Dock="Top"
                         Cursor="Hand"
                         x:Name="AppAvater"
-                        Classes="paper" 
+                        Classes="paper"
                         Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">
                   <FlyoutBase.AttachedFlyout>
                     <MenuFlyout Placement="Auto">

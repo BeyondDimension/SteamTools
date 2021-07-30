@@ -144,7 +144,6 @@ namespace System.Application.UI.ViewModels
                     }
                 }
             });
-
         }
 
         public void ChangeRunTxt(bool title = false)
@@ -153,7 +152,7 @@ namespace System.Application.UI.ViewModels
             RuningCountTxt = AppResources.GameList_RuningCount.Format(count, IdleGameList.Count);
             RunState = count > 0;
             if (title)
-                Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_IdleGamesManger + AppResources.GameList_ListCount.Format(IdleGameList.Count, SteamConnectService.Current.SteamAFKMaxCount);
+                Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_IdleGamesManger + AppResources.GameList_ListCount.Format(IdleGameList.Count, SteamConnectService.SteamAFKMaxCount);
         }
         public void RunOrStopAllButton_Click()
         {

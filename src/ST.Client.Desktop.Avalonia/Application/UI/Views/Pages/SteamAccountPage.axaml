@@ -20,7 +20,7 @@
                VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
     <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
                    VerticalScrollBarVisibility="Auto"
-                   Padding="{StaticResource ScrollMargin}">
+                   Padding="0 0 0 10">
       <ItemsRepeater Items="{CompiledBinding SteamUsers}">
         <ItemsRepeater.Layout>
           <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
@@ -29,8 +29,10 @@
         </ItemsRepeater.Layout>
         <ItemsRepeater.ItemTemplate>
           <DataTemplate>
-            <Border x:Name="card"
-                    Classes="paper" Background="{DynamicResource ThemeBrushKey}">
+            <Border x:Name="card" 
+                    Margin="20 0"
+                    Classes="paper" 
+                    Background="{DynamicResource ThemeBrushKey}">
               <!--<Border.Background>
                 <SolidColorBrush Color="{DynamicResource ThemeColorKey}"
                                  Opacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"/>

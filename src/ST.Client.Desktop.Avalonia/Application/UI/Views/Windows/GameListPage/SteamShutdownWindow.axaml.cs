@@ -5,9 +5,9 @@ using System.Application.UI.ViewModels;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class EditAppInfoWindow : FluentWindow<EditAppInfoWindowViewModel>
+    public class SteamShutdownWindow : FluentWindow<SteamShutdownWindowViewModel>
     {
-        public EditAppInfoWindow() : base()
+        public SteamShutdownWindow() : base()
         {
             InitializeComponent();
 #if DEBUG

@@ -35,14 +35,14 @@
             </Style>
           </StackPanel.Styles>
 
-          <Button Background="Transparent" 
+          <Button Background="Transparent"
                   IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=!IsASFRuning}"
                   Cursor="Hand"
                   ToolTip.Tip="启动ASF" Command="{ReflectionBinding RunOrStopASF}">
             <PathIcon Data="{StaticResource PlayCircleDrawing}" />
           </Button>
 
-          <Button Background="Transparent" 
+          <Button Background="Transparent"
                   IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=IsASFRuning}"
                   Cursor="Hand"
                   ToolTip.Tip="停止ASF" Command="{ReflectionBinding RunOrStopASF}">
@@ -51,7 +51,7 @@
 
           <Button Background="Transparent"
                   Cursor="Hand"
-                  ToolTip.Tip="新增Bot" 
+                  ToolTip.Tip="新增Bot"
                   Command="{ReflectionBinding ShowAddBotWindow}">
             <PathIcon Data="{StaticResource AddDrawing}" />
           </Button>
@@ -61,7 +61,13 @@
                   ToolTip.Tip="刷新">
             <PathIcon Data="{StaticResource RefreshDrawing}" />
           </Button>
-          
+
+          <Button Background="Transparent"
+                   Cursor="Hand"
+                   ToolTip.Tip="Web UI控制台">
+            <PathIcon Data="{StaticResource GlobeSearchDrawing}" />
+          </Button>
+
         </StackPanel>
       </DockPanel>
     </Border>

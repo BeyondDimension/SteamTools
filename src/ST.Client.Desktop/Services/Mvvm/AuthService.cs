@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using ReactiveUI;
 using System.Application.Entities;
 using System.Application.Models;
+using System.Application.UI;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
@@ -64,22 +65,22 @@ namespace System.Application.Services
             {
                 var authenticators = list.Select(s => new MyAuthenticator(s));
 
-                MainThread2.BeginInvokeOnMainThread(() =>
+                //MainThread2.BeginInvokeOnMainThread(() =>
+                //{
+                Authenticators.Clear();
+                Authenticators.AddOrUpdate(authenticators);
+                if (isSync)
                 {
-                    Authenticators.AddOrUpdate(authenticators);
-
-                    if (isSync)
+                    Task.Run(() =>
                     {
-                        Task.Run(() =>
-                        {
-                            foreach (var item in Authenticators.Items)
-                                item.Sync();
-                            //ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
-                        }).ForgetAndDispose();
-                    }
-                    //else
-                    //    ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
-                });
+                        foreach (var item in Authenticators.Items)
+                            item.Sync();
+                        //ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
+                    }).ForgetAndDispose();
+                }
+                //else
+                //    ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
+                //});
             }
             else
             {
@@ -728,6 +729,40 @@ namespace System.Application.Services
                 Log.Error(nameof(AuthService), ex, nameof(ExportAuthenticators));
                 Toast.Show(ex.Message);
             }
+        }
+
+        public static async Task<Stream?> GetQrCodeStreamAsync(IEnumerable<IGAPAuthenticatorDTO> datas)
+        {
+            var qrCode = await Task.Run(() =>
+            {
+                var dtos = datas.Select(x => x.ToLightweightExportDTO()).ToArray();
+                var bytes = Serializable.SMP(dtos);
+#if DEBUG
+                var bytes_compress_gzip = bytes.CompressByteArray();
+#endif
+                var bytes_compress_br = bytes.CompressByteArrayByBrotli();
+#if DEBUG
+                Toast.Show($"bytesLength, source: {bytes.Length}, gzip: {bytes_compress_gzip.Length}, br: {bytes_compress_br.Length}");
+#endif
+                (var result, var stream, var e) = QRCodeHelper.Create(bytes);
+                switch (result)
+                {
+                    case QRCodeHelper.QRCodeCreateResult.DataTooLong:
+                        Toast.Show(AppResources.AuthLocal_ExportToQRCodeTooLongErrorTip);
+                        break;
+                    case QRCodeHelper.QRCodeCreateResult.Exception:
+                        Toast.Show(e!.ToString());
+                        break;
+                }
+                return stream;
+            });
+            return qrCode;
+        }
+
+        public static Task<Stream?> GetQrCodeStreamAsync(params IGAPAuthenticatorDTO[] datas)
+        {
+            IEnumerable<IGAPAuthenticatorDTO> datas_ = datas;
+            return GetQrCodeStreamAsync(datas_);
         }
     }
 }

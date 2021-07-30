@@ -26,17 +26,24 @@
         TextWrapping="WrapWithOverflow"></TextBlock>
     </StackPanel>-->
 
-    <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="40 0 40 10">
+    <ScrollViewer  HorizontalScrollBarVisibility="Disabled" 
+                   VerticalScrollBarVisibility="Auto" 
+                   Padding="20 0 20 10">
       <ItemsRepeater Items="{Binding Authenticators,Mode=OneWay}">
         <ItemsRepeater.Layout>
           <UniformGridLayout ItemsJustification="SpaceAround"
-                             MinRowSpacing="20"  MaximumRowsOrColumns="8"/>
+                             MinRowSpacing="20"  
+                             MaximumRowsOrColumns="8"/>
           <!--<WrapLayout HorizontalSpacing="40"
                       VerticalSpacing="20" Orientation="Horizontal"></WrapLayout>-->
         </ItemsRepeater.Layout>
         <ItemsRepeater.ItemTemplate>
           <DataTemplate>
-            <Border x:Name="panel" Classes="paper" Width="250" Height="250" Background="{DynamicResource ThemeBrushKey}">
+            <Border x:Name="panel" 
+                    Classes="paper" 
+                    Width="250" 
+                    Height="250" 
+                    Background="{DynamicResource ThemeBrushKey}">
               <Border.ContextMenu>
                 <ContextMenu>
                   <MenuItem
@@ -146,9 +153,28 @@
                                                 <PathIcon Data="{DynamicResource CloudDrawing}" Width="20"></PathIcon>
                                             </Button>-->
 
-                    <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowSteamAuthData}" CommandParameter="{Binding}"
+                    <Button Cursor="Hand"
+                            Classes="flatbutton"
+                            Command="{ReflectionBinding #u.DataContext.ShowSteamAuthData}"
+                            CommandParameter="{Binding}"
                             ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_ShowAuthInfo,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                       <PathIcon Data="{DynamicResource SlideSearchDrawing}" Width="20"></PathIcon>
+                    </Button>
+
+                    <Button Cursor="Hand"
+                            Classes="flatbutton"
+                            ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_ToQRCode,Mode=OneWay,Source={x:Static resx:R.Current}}" >
+                      <Button.Content>
+                        <PathIcon Data="{DynamicResource QRCodeDrawing}" Width="20"></PathIcon>
+                      </Button.Content>
+                      <Button.Flyout>
+                        <Flyout>
+                          <Image
+                                 Width="200"
+                                 Height="200"
+                                 Source="{Binding QrCodeStream^,Converter={StaticResource BitmapAssetValueConverter},Mode=OneWay}"/>
+                        </Flyout>
+                      </Button.Flyout>
                     </Button>
                   </StackPanel>
 

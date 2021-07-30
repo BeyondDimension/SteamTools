@@ -10,6 +10,7 @@ using Android.Text.Style;
 using Android.Util;
 using Android.Views;
 using Android.Webkit;
+using AndroidX.Annotations;
 using AndroidX.RecyclerView.Widget;
 using Binding;
 using Google.Android.Material.Dialog;
@@ -49,7 +50,7 @@ namespace System.Application.UI.Activities
             binding!.tvBusinessCooperationContact.SetLinkMovementMethod();
             binding!.tvOpenSourceLicensed.SetLinkMovementMethod();
             binding!.tvAgreementAndPrivacy.SetLinkMovementMethod();
-            binding!.tvContributors.SetLinkMovementMethod();
+            //binding!.tvContributors.SetLinkMovementMethod();
 
             binding!.tvTitle.TextFormatted = CreateTitle();
             binding!.tvVersion.Text = $"{ViewModel!.LabelVersionDisplay} {ViewModel.VersionDisplay}";
@@ -57,7 +58,7 @@ namespace System.Application.UI.Activities
             binding!.tvBusinessCooperationContact.TextFormatted = CreateBusinessCooperationContact();
             binding!.tvOpenSourceLicensed.TextFormatted = CreateOpenSourceLicensed();
             binding!.tvCopyright.Text = ViewModel.Copyright;
-            binding!.tvContributors.TextFormatted = CreateContributors();
+            //binding!.tvContributors.TextFormatted = CreateContributors();
 
             R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
@@ -127,10 +128,19 @@ namespace System.Application.UI.Activities
                     case PreferenceButton.账号注销:
                         ViewModel!.DelAccountCommand.Invoke();
                         break;
+                    case PreferenceButton.社区翻译:
+                        TextBlockActivity.StartActivity(this, new TextBlockViewModel
+                        {
+                            Title = nameof(PreferenceButton.社区翻译),
+                            ContentSource = TextBlockViewModel.ContentSourceEnum.Translators,
+                            FontSizeResId = Resource.Dimension.translators_font_size,
+                        });
+                        break;
                 }
             };
             var layout = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
             binding.rvPreferenceButtons.SetLayoutManager(layout);
+            binding.rvPreferenceButtons.AddItemDecoration(new PreferenceButtonItemDecoration(this, Resource.Dimension.preference_buttons_space_min));
             binding.rvPreferenceButtons.SetAdapter(adapter);
 
             SetOnClickListener(binding.ivLogo);
@@ -494,34 +504,50 @@ namespace System.Application.UI.Activities
             return str;
         });
 
-        SpannableString CreateContributors() => RichTextHelper.CreateSpannableString(list =>
+        //SpannableString CreateContributors() => RichTextHelper.CreateSpannableString(list =>
+        //{
+        //    int length;
+        //    StringBuilder str = new(Contributors_0);
+        //    str.AppendLine();
+        //    var i = 1;
+        //    foreach (var item in contributors_translations)
+        //    {
+        //        length = str.Length;
+        //        str.Append(item.Key);
+        //        list.Add((new HyperlinkClickableSpan(_ =>
+        //        {
+        //            ViewModel!.ContributorsCommand.Invoke(item.Key);
+        //        }), length, str.Length, SpanTypes.ExclusiveExclusive));
+        //        str.Append(Separator);
+        //        str.Append(item.Value);
+        //        str.Append(" ");
+        //        if (i == contributors_translations.Count)
+        //        {
+        //            str.Append(Translation);
+        //        }
+        //        else
+        //        {
+        //            str.AppendLine(Translation);
+        //        }
+        //        i++;
+        //    }
+        //    return str;
+        //});
+
+        sealed class PreferenceButtonItemDecoration : TopItemDecoration<PreferenceButtonViewModel>
         {
-            int length;
-            StringBuilder str = new(Contributors_0);
-            str.AppendLine();
-            var i = 1;
-            foreach (var item in contributors_translations)
+            public PreferenceButtonItemDecoration(int top) : base(top)
             {
-                length = str.Length;
-                str.Append(item.Key);
-                list.Add((new HyperlinkClickableSpan(_ =>
-                {
-                    ViewModel!.ContributorsCommand.Invoke(item.Key);
-                }), length, str.Length, SpanTypes.ExclusiveExclusive));
-                str.Append(Separator);
-                str.Append(item.Value);
-                str.Append(" ");
-                if (i == contributors_translations.Count)
-                {
-                    str.Append(Translation);
-                }
-                else
-                {
-                    str.AppendLine(Translation);
-                }
-                i++;
             }
-            return str;
-        });
+
+            public PreferenceButtonItemDecoration(Context context, [IdRes] int topResId) : base(context, topResId)
+            {
+            }
+
+            protected override bool IsHeader(PreferenceButtonViewModel viewModel)
+            {
+                return IsHeaderPreferenceButton(viewModel.Id);
+            }
+        }
     }
 }

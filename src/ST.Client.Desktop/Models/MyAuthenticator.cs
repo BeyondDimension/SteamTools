@@ -1,9 +1,11 @@
 using ReactiveUI;
 using System.Application.Mvvm;
 using System.Application.Services;
+using System.Application.UI;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -151,6 +153,8 @@ namespace System.Application.Models
         string? _CurrentCodeCache;
 
         string GetCurrentCode() => AuthenticatorData.Value.CurrentCode;
+
+        public Task<Stream?> QrCodeStream => GetQrCodeStream();
 
         public string CurrentCode
         {
@@ -426,6 +430,8 @@ namespace System.Application.Models
             CancellationTokenSource? AutoRefreshCode { get; set; }
         }
 #endif
+
+        public Task<Stream?> GetQrCodeStream() => AuthService.GetQrCodeStreamAsync(AuthenticatorData);
 
         /// <summary>
         /// 编辑令牌自定义名称

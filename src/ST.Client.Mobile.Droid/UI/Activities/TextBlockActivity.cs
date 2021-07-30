@@ -2,6 +2,7 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using Android.Util;
 using Binding;
 using System.Application.Models;
 using System.Application.UI.ViewModels;
@@ -35,8 +36,14 @@ namespace System.Application.UI.Activities
             else if (vm.ContentSource != default) binding!.tvContent.Text = vm.ContentSource switch
             {
                 TextBlockViewModel.ContentSourceEnum.OpenSourceLibrary => OpenSourceLibrary.StringValues,
+                TextBlockViewModel.ContentSourceEnum.Translators => AboutPageViewModel.TextTranslators,
                 _ => string.Empty,
             };
+
+            if (vm.FontSizeResId.HasValue)
+            {
+                binding!.tvContent.SetTextSize(ComplexUnitType.Px, Resources!.GetDimension(vm.FontSizeResId.Value));
+            }
         }
 
         public static void StartActivity(Activity activity, TextBlockViewModel viewModel)

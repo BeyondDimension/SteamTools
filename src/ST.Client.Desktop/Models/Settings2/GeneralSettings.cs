@@ -74,5 +74,11 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<IReadOnlyDictionary<Platform, string>> TextReaderProvider { get; }
             = GetProperty(defaultValue: (IReadOnlyDictionary<Platform, string>?)null, autoSave: true);
+
+        /// <summary>
+        /// 下载更新渠道
+        /// </summary>
+        public static SerializableProperty<UpdateChannelType> UpdateChannel { get; }
+            = GetProperty(defaultValue: (UpdateChannelType)default, autoSave: true);
     }
 }

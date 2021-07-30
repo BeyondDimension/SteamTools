@@ -115,6 +115,7 @@ namespace System.Application.UI.ViewModels
 
             HideAppCommand = ReactiveCommand.Create(OpenHideAppWindow);
             IdleAppCommand = ReactiveCommand.Create(OpenIdleAppWindow);
+            SteamShutdownCommand = ReactiveCommand.Create(OpenSteamShutdownAppWindow);
 
             EnableAFKAutoUpdateCommand = ReactiveCommand.Create(() =>
             {
@@ -130,6 +131,8 @@ namespace System.Application.UI.ViewModels
                       IconKey ="EyeHideDrawing", Command = HideAppCommand },
                   new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)){
                       IconKey ="TopSpeedDrawing", Command = IdleAppCommand },
+                  new MenuItemViewModel (nameof(AppResources.GameList_SteamShutdown)){
+                      IconKey ="ClockArrowDownloadDrawing", Command = SteamShutdownCommand },
             };
 
             AFKAutoUpdate?.CheckmarkChange(SteamConnectService.Current.IsAutoAFKApps);
@@ -137,6 +140,7 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> EnableAFKAutoUpdateCommand { get; }
 
         public MenuItemViewModel? AFKAutoUpdate { get; }
+
         public void OpenHideAppWindow()
         {
             IShowWindowService.Instance.Show(CustomWindow.HideApp, new HideAppWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
@@ -147,8 +151,14 @@ namespace System.Application.UI.ViewModels
             IShowWindowService.Instance.Show(CustomWindow.IdleApp, new IdleAppWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
         }
 
+        public void OpenSteamShutdownAppWindow()
+        {
+            IShowWindowService.Instance.Show(CustomWindow.SteamShutdown, new IdleAppWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+        }
+
         public ReactiveCommand<Unit, Unit> HideAppCommand { get; }
         public ReactiveCommand<Unit, Unit> IdleAppCommand { get; }
+        public ReactiveCommand<Unit, Unit> SteamShutdownCommand { get; }
 
         public override void Activation()
         {
@@ -273,15 +283,15 @@ namespace System.Application.UI.ViewModels
         {
             try
             {
-                if (GameLibrarySettings.AFKAppList.Value?.Count >= SteamConnectService.Current.SteamAFKMaxCount)
+                if (GameLibrarySettings.AFKAppList.Value?.Count >= SteamConnectService.SteamAFKMaxCount)
                 {
-                    var result = MessageBoxCompat.ShowAsync(AppResources.GameList_AddAFKAppsMaxCountTips.Format(SteamConnectService.Current.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OK);
+                    var result = MessageBoxCompat.ShowAsync(AppResources.GameList_AddAFKAppsMaxCountTips.Format(SteamConnectService.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OK);
                 }
                 else
                 {
-                    if (GameLibrarySettings.AFKAppList.Value?.Count == SteamConnectService.Current.SteamAFKMaxCount - 2)
+                    if (GameLibrarySettings.AFKAppList.Value?.Count == SteamConnectService.SteamAFKMaxCount - 2)
                     {
-                        var result = MessageBoxCompat.ShowAsync(AppResources.GameList_AddAFKAppsWarningCountTips.Format(SteamConnectService.Current.SteamAFKMaxCount, SteamConnectService.Current.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+                        var result = MessageBoxCompat.ShowAsync(AppResources.GameList_AddAFKAppsWarningCountTips.Format(SteamConnectService.SteamAFKMaxCount, SteamConnectService.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
                         {
                             if (s.Result == MessageBoxResultCompat.OK)
                             {
@@ -332,7 +342,7 @@ namespace System.Application.UI.ViewModels
                 Toast.Show(e.ToString());
             }
         }
-        public void UnlockAchievement_Click(SteamApp app)
+        public async void UnlockAchievement_Click(SteamApp app)
         {
             if (!ISteamService.Instance.IsRunningSteamProcess)
             {
@@ -343,16 +353,14 @@ namespace System.Application.UI.ViewModels
             {
                 case SteamAppType.Application:
                 case SteamAppType.Game:
-                    var result = MessageBoxCompat.ShowAsync(AppResources.Achievement_RiskWarning, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+                    var result = await MessageBoxCompat.ShowAsync(AppResources.Achievement_RiskWarning, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel,
+                        rememberChooseKey: MessageBoxRememberChooseCompat.UnLockAchievement);
+                    if (result == MessageBoxResultCompat.OK)
                     {
-                        if (s.Result == MessageBoxResultCompat.OK)
-                        {
-                            Toast.Show(AppResources.GameList_RuningWait);
-                            app.Process = Process.Start(AppHelper.ProgramPath, "-clt app -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
-                            SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
-                        }
-                    });
-
+                        Toast.Show(AppResources.GameList_RuningWait);
+                        app.Process = Process.Start(AppHelper.ProgramPath, "-clt app -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
+                        SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
+                    }
                     break;
                 default:
                     Toast.Show(AppResources.GameList_Unsupport);

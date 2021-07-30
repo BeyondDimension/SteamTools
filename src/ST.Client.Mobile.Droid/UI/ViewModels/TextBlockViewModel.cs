@@ -15,10 +15,14 @@ namespace System.Application.UI.ViewModels
         [MPKey(2)]
         public ContentSourceEnum ContentSource { get; set; }
 
+        [MPKey(3)]
+        public int? FontSizeResId { get; set; }
+
         public enum ContentSourceEnum
         {
             None,
             OpenSourceLibrary,
+            Translators,
         }
     }
 }

@@ -10,11 +10,11 @@ namespace AndroidX.RecyclerView.Widget
     /// <summary>
     /// 列表组项的垂直间距
     /// </summary>
-    public sealed class VerticalItemViewGroupDecoration : RecyclerView.ItemDecoration
+    public sealed class VerticalGroupItemDecoration : RecyclerView.ItemDecoration
     {
         readonly int height;
 
-        public VerticalItemViewGroupDecoration(int height)
+        public VerticalGroupItemDecoration(int height)
         {
             this.height = height;
         }

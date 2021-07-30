@@ -8,7 +8,6 @@ using System.Linq;
 using System.Properties;
 using System.Threading.Tasks;
 using static System.Application.FilePicker2;
-using WinAuth;
 
 namespace System.Application.UI.ViewModels
 {
@@ -222,20 +221,7 @@ namespace System.Application.UI.ViewModels
         static async Task<Stream?> GetQRCodeAsync(Func<MyAuthenticator, bool>? filter)
         {
             var datas = AuthService.Current.GetExportSourceAuthenticators(filter);
-            var qrCode = await Task.Run(() =>
-             {
-                 var dtos = datas.Select(x => x.ToLightweightExportDTO()).ToArray();
-                 var bytes = Serializable.SMP(dtos);
-#if DEBUG
-                var bytes_compress_gzip = bytes.CompressByteArray();
-#endif
-                 var bytes_compress_br = bytes.CompressByteArrayByBrotli();
-#if DEBUG
-                Toast.Show($"bytesLength, source: {bytes.Length}, gzip: {bytes_compress_gzip.Length}, br: {bytes_compress_br.Length}");
-#endif
-                 return CreateQRCode(bytes_compress_br);
-             });
-            return qrCode;
+            return await AuthService.GetQrCodeStreamAsync(datas);
         }
 
         /// <summary>
@@ -257,21 +243,6 @@ namespace System.Application.UI.ViewModels
         });
 
         async Task ExportAuthToQRCodeAsync() => await ExportAuthCore(async () => QRCode = await GetQRCodeAsync(Filter), ignorePath: true, ignorePassword: true);
-
-        static Stream? CreateQRCode(byte[] bytes)
-        {
-            (var result, var stream, var e) = QRCodeHelper.Create(bytes);
-            switch (result)
-            {
-                case QRCodeHelper.QRCodeCreateResult.DataTooLong:
-                    Toast.Show(AppResources.AuthLocal_ExportToQRCodeTooLongErrorTip);
-                    break;
-                case QRCodeHelper.QRCodeCreateResult.Exception:
-                    Toast.Show(e!.ToString());
-                    break;
-            }
-            return stream;
-        }
 
         /// <summary>
         /// 默认导出文件名

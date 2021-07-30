@@ -47,17 +47,8 @@ namespace System.Application.UI.ViewModels
             });
 
 #if __MOBILE__
-            preferenceButtons = new()
-            {
-                PreferenceButtonViewModel.Create(PreferenceButton.检查更新, this),
-                PreferenceButtonViewModel.Create(PreferenceButton.更新日志, this),
-                PreferenceButtonViewModel.Create(PreferenceButton.常见问题疑难解答, this),
-                PreferenceButtonViewModel.Create(PreferenceButton.开放源代码许可, this),
-                PreferenceButtonViewModel.Create(PreferenceButton.源码仓库, this),
-                PreferenceButtonViewModel.Create(PreferenceButton.产品官网, this),
-                PreferenceButtonViewModel.Create(PreferenceButton.联系我们, this),
-                PreferenceButtonViewModel.Create(PreferenceButton.Bug反馈, this),
-            };
+
+            preferenceButtons = new(Enum2.GetAll<PreferenceButton>().Select(x => PreferenceButtonViewModel.Create(x, this)));
 
             UserService.Current.WhenAnyValue(x => x.User).Subscribe(value =>
             {
@@ -126,17 +117,17 @@ namespace System.Application.UI.ViewModels
         const string 沙中金 = "沙中金";
         const string EspRoy = "EspRoy";
 
-        public ICommand ContributorsCommand { get; } = ReactiveCommand.CreateFromTask<string?>(async (p, _) =>
-        {
-            switch (p)
-            {
-                case 沙中金:
-                    await Email2.ComposeAsync(new() { To = new() { "sanextraction@gmail.com" } });
-                    break;
-                case EspRoy:
-                    await Email2.ComposeAsync(new() { To = new() { "645030899@qq.com" } });
-                    break;
-            }
-        });
+        //public ICommand ContributorsCommand { get; } = ReactiveCommand.CreateFromTask<string?>(async (p, _) =>
+        //{
+        //    switch (p)
+        //    {
+        //        case 沙中金:
+        //            await Email2.ComposeAsync(new() { To = new() { "sanextraction@gmail.com" } });
+        //            break;
+        //        case EspRoy:
+        //            await Email2.ComposeAsync(new() { To = new() { "645030899@qq.com" } });
+        //            break;
+        //    }
+        //});
     }
 }

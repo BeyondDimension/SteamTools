@@ -58,4 +58,10 @@
     <ItemGroup Condition="'$(Configuration)'=='Debug'">
         <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0015092-beta" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Application\UI\Views\Windows\GameListPage\SteamShutdownWindow.axaml.cs">
+        <DependentUpon>SteamShutdownWindow.axaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

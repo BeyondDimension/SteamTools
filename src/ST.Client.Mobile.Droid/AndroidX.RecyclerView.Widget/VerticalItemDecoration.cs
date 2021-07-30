@@ -10,11 +10,11 @@ namespace AndroidX.RecyclerView.Widget
     /// <summary>
     /// 列表项的垂直间距
     /// </summary>
-    public sealed class VerticalItemViewDecoration : RecyclerView.ItemDecoration
+    public sealed class VerticalItemDecoration : RecyclerView.ItemDecoration
     {
         readonly int height;
 
-        public VerticalItemViewDecoration(int height)
+        public VerticalItemDecoration(int height)
         {
             this.height = height;
         }
@@ -36,8 +36,8 @@ namespace AndroidX.RecyclerView.Widget
         }
     }
 
-    /// <inheritdoc cref="VerticalItemViewDecoration"/>
-    public sealed class VerticalItemViewDecoration2 : RecyclerView.ItemDecoration
+    /// <inheritdoc cref="VerticalItemDecoration"/>
+    public sealed class VerticalItemDecoration2 : RecyclerView.ItemDecoration
     {
         readonly int height;
         readonly int paddingBottom;
@@ -45,14 +45,14 @@ namespace AndroidX.RecyclerView.Widget
 
         public bool PaddingBottomWithHeight { get; set; }
 
-        public VerticalItemViewDecoration2(int height, int paddingBottom, bool noTop = false)
+        public VerticalItemDecoration2(int height, int paddingBottom, bool noTop = false)
         {
             this.height = height;
             this.paddingBottom = paddingBottom;
             this.noTop = noTop;
         }
 
-        public static VerticalItemViewDecoration2 Get(Context context, [IdRes] int heightResId, [IdRes] int paddingBottomResId = default, bool noTop = default)
+        public static VerticalItemDecoration2 Get(Context context, [IdRes] int heightResId, [IdRes] int paddingBottomResId = default, bool noTop = default)
         {
             var height = context.Resources!.GetDimensionPixelSize(heightResId);
             var paddingBottom = paddingBottomResId != default ? context.Resources!.GetDimensionPixelSize(paddingBottomResId) : default;

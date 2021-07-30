@@ -26,27 +26,15 @@ namespace System.Application.Services
         //private readonly ISteamworksWebApiService SteamworksWebApiService = ISteamworksWebApiService.Instance;
         //private readonly ISteamDbWebApiService steamDbApiService = ISteamDbWebApiService.Instance;
         private readonly ISteamService SteamTool = ISteamService.Instance;
+        public const int SteamAFKMaxCount = 32;
 
         public SteamConnectService()
         {
             SteamApps = new SourceCache<SteamApp, uint>(t => t.AppId);
-            //HideApps = new SourceCache<SteamHideApps, uint>(t => t.AppId);
         }
-        public int SteamAFKMaxCount = 32;
 
         #region Steam游戏列表
         public SourceCache<SteamApp, uint> SteamApps { get; }
-        //private SourceCache<SteamHideApps, uint> _HideApps;
-        //public SourceCache<SteamHideApps, uint> HideApps
-        //{
-        //    get => _HideApps;
-        //    set
-        //    {
-        //        ProxySettings.HideGameList.Value = value.Items;
-        //        ProxySettings.HideGameList.RaiseValueChanged();
-        //        _HideApps = value;
-        //    }
-        //}
         #endregion
 
         #region 运行中的游戏列表
