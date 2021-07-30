@@ -19,17 +19,20 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvDetails"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:textAllCaps="false"
         android:textAppearance="?attr/textAppearanceHeadline6"
         android:textColor="@color/text_primary"
-        android:textSize="18sp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/ivImage"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="出售 - XX Y 号武器箱"
+        tools:text="出售 - XX Y 号武器箱 （ABCDEFG）"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -40,6 +43,7 @@
         android:textAllCaps="false"
         android:textAppearance="?attr/textAppearanceBody2"
         android:textColor="@color/text_secondary"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/tvDetails"
         app:layout_constraintTop_toBottomOf="@+id/tvDetails"
         tools:text="￥x.xx（￥y.yy）"
@@ -52,6 +56,7 @@
         android:textAllCaps="false"
         android:textAppearance="?attr/textAppearanceBody2"
         android:textColor="@color/text_secondary"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/tvDetails"
         app:layout_constraintTop_toBottomOf="@+id/tvTraded"
         tools:text="z 小时以前"

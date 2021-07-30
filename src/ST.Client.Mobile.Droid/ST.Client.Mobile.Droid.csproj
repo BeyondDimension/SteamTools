@@ -772,6 +772,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_main.xml">
       <Link>Resources\layout\activity_main.xml</Link>
     </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_settings.xml">
+      <Link>Resources\layout\activity_settings.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_steam_auth_data.xml">
       <Link>Resources\layout\activity_steam_auth_data.xml</Link>
     </AndroidBoundLayout>
@@ -960,5 +963,6 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
 
 

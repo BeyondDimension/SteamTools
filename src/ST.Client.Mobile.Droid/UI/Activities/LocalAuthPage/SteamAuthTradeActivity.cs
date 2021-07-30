@@ -35,10 +35,15 @@ namespace System.Application.UI.Activities
             return new(vm);
         }
 
-        void SetLogoutMenuVisible(bool visible)
+        void SetIsLoggedInMenuVisible(bool visible)
         {
-            var menu_logout = menuBuilder?.FindItem(Resource.Id.menu_logout);
-            if (menu_logout != default) menu_logout.SetVisible(visible);
+            if (menuBuilder == null) return;
+            var menus = new[] { Resource.Id.menu_logout, Resource.Id.menu_refresh, };
+            foreach (var menuId in menus)
+            {
+                var menu = menuBuilder.FindItem(menuId);
+                if (menu != default) menu.SetVisible(visible);
+            }
         }
 
         protected override void OnCreate(Bundle? savedInstanceState)
@@ -79,7 +84,7 @@ namespace System.Application.UI.Activities
                 binding.layoutContentConfirmations.Visibility = state_reverse;
                 binding.layoutActions.Visibility = state_reverse;
                 //binding.speedDial.Visibility = state;
-                SetLogoutMenuVisible(value);
+                SetIsLoggedInMenuVisible(value);
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.IsRequiresCaptcha).SubscribeInMainThread(value =>
             {
@@ -105,11 +110,7 @@ namespace System.Application.UI.Activities
                 binding.layoutContentConfirmations.Visibility = (value || !ViewModel!.IsLoggedIn) ? ViewStates.Gone : ViewStates.Visible;
                 binding.layoutContentSteamLogin.Visibility = (value || ViewModel!.IsLoggedIn) ? ViewStates.Gone : ViewStates.Visible;
                 binding.layoutLoading.Visibility = state;
-
-                if (!value && binding.swipeRefreshLayout.Refreshing)
-                {
-                    binding.swipeRefreshLayout.Refreshing = false;
-                }
+                binding.swipeRefreshLayout.Refreshing = value;
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.UnselectAll).SubscribeInMainThread(value =>
             {
@@ -174,12 +175,23 @@ namespace System.Application.UI.Activities
             if (menuBuilder != null)
             {
                 SetMenuTitle();
-                SetLogoutMenuVisible(ViewModel!.IsLoggedIn);
+                SetIsLoggedInMenuVisible(ViewModel!.IsLoggedIn);
             }
             return true;
         }
 
         void SetMenuTitle() => menuBuilder.SetMenuTitle(ToString2, MenuIdResToEnum);
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            var actionItem = MenuIdResToEnum(item.ItemId);
+            if (actionItem.IsDefined())
+            {
+                ViewModel!.MenuItemClick(actionItem);
+                return true;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
 
         protected override void OnClick(View view)
         {
@@ -259,6 +271,10 @@ namespace System.Application.UI.Activities
             if (resId == Resource.Id.menu_logout)
             {
                 return ActionItem.Logout;
+            }
+            else if (resId == Resource.Id.menu_refresh)
+            {
+                return ActionItem.Refresh;
             }
             return default;
         }

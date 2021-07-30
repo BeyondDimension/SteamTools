@@ -31,11 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/text_primary"
-
             android:textSize="@dimen/preference_button_font_size"
             tools:text="@string/edit_profile"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
-
     </LinearLayout>
-
 </FrameLayout>
