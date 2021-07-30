@@ -162,17 +162,16 @@ namespace System.Application.UI.ViewModels
 
             if (response.IsSuccess)
             {
-                await SuccessAsync(response.Content!, Close);
+                await SuccessAsync(response.Content!);
                 return;
             }
 
             IsLoading = false;
         }
 
-        static async Task SuccessAsync(LoginOrRegisterResponse rsp, Action? close)
+        static async Task SuccessAsync(LoginOrRegisterResponse rsp)
         {
             await UserService.Current.RefreshUserAsync();
-            close?.Invoke();
             var msg = AppResources.Success_.Format((rsp?.IsLoginOrRegister ?? false) ? AppResources.User_Login : AppResources.User_Register);
             Toast.Show(msg);
         }
