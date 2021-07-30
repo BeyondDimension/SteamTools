@@ -141,8 +141,12 @@
           HorizontalAlignment="Stretch" IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus,Mode=OneWay}">
       <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0 10 0 0" Spacing="10">
         <WrapPanel>
-          <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AlreadyProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="26" VerticalAlignment="Center"></TextBlock>
-          <TextBlock FontSize="26" Text="{Binding AccelerateTime,Source={x:Static service:ProxyService.Current},StringFormat={}{0:HH:mm:ss}}" VerticalAlignment="Center"></TextBlock>
+          <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AlreadyProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                     FontSize="26" 
+                     Margin="0 0 10 0"
+                     VerticalAlignment="Center"></TextBlock>
+          <TextBlock FontSize="26" 
+                     Text="{Binding AccelerateTime,Source={x:Static service:ProxyService.Current},StringFormat={}{0:HH:mm:ss}}" VerticalAlignment="Center"></TextBlock>
         </WrapPanel>
         <WrapPanel HorizontalAlignment="Center">
           <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyModeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="14"/>

@@ -23,6 +23,7 @@
     <ItemGroup>
         <None Remove="Application\UI\Assets\Fonts\WenQuanYiMicroHei-01.ttf" />
         <None Remove="Application\UI\Assets\movecross.png" />
+        <None Remove="Application\UI\Styles\Controls\DateTimePicker.xaml" />
     </ItemGroup>
 
     <ItemGroup>
@@ -57,6 +58,12 @@
 
     <ItemGroup Condition="'$(Configuration)'=='Debug'">
         <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0015162-beta" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaResource Update="Application\UI\Styles\Controls\DateTimePicker.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </AvaloniaResource>
     </ItemGroup>
 
     <ItemGroup>
