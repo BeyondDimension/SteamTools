@@ -133,53 +133,7 @@
             <TextBlock Text="@Cliencer克总" Classes="Hyperlink" />
           </Button>
         </StackPanel>
-
-        <StackPanel Orientation="Horizontal">
-          <TextBlock Classes="Header light"
-                     Margin="0,0,6,0"
-                     Text="Contributors:"
-                     VerticalAlignment="Center"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-          <TextBlock Classes="Header light"
-                     Margin="0,0,6,0"
-                     Opacity="0"
-                     Text="Contributors:"
-                     VerticalAlignment="Center"/>
-          <Button Classes="plain" Command="{Binding ContributorsCommand}"
-                          CommandParameter="Zhengye">
-            <TextBlock Text="Zhengye" Classes="Hyperlink" />
-          </Button>
-          <TextBlock Classes="LinkSeparatorPadding" Text="-" />
-          <TextBlock Text="Italian Translation" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-          <TextBlock Classes="Header light"
-                     Margin="0,0,6,0"
-                     Opacity="0"
-                     Text="Contributors:"
-                     VerticalAlignment="Center"/>
-          <Button Classes="plain" Command="{Binding ContributorsCommand}"
-                          CommandParameter="沙中金">
-            <TextBlock Text="沙中金" Classes="Hyperlink" />
-          </Button>
-          <TextBlock Classes="LinkSeparatorPadding" Text="-" />
-          <TextBlock Text="English Translation" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-          <TextBlock Classes="Header light"
-                     Margin="0,0,6,0"
-                     Opacity="0"
-                     Text="Contributors:"
-                     VerticalAlignment="Center"/>
-          <Button Classes="plain" Command="{Binding ContributorsCommand}"
-                          CommandParameter="EspRoy">
-            <TextBlock Text="EspRoy" Classes="Hyperlink" />
-          </Button>
-          <TextBlock Classes="LinkSeparatorPadding" Text="-" />
-          <TextBlock Text="Spanish Translation" />
-        </StackPanel>
-
+        
         <WrapPanel>
           <TextBlock Margin=" 0 0 6 -0.5"
                      VerticalAlignment="Center"
@@ -192,6 +146,23 @@
             </Button>
           </StackPanel>
         </WrapPanel>
+        
+        <TextBox Classes="readonlybox" 
+                 Padding="0"
+                 TextWrapping="Wrap">
+          <TextBox.Text>
+Translators:
+    English Translation:
+    沙中金
+
+    Spanish Translation:
+    EspRoy
+
+    Italian Translation:
+    Zhengye
+    
+          </TextBox.Text>
+        </TextBox>
 
         <!--<WrapPanel>
           <gif:Image2 Width="500" Height="300" Stretch="UniformToFill" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/gg.gif"></gif:Image2>
