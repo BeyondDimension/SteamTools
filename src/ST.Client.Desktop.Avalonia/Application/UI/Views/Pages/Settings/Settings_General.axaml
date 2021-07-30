@@ -22,6 +22,11 @@
           <Setter Property="VerticalAlignment" Value="Center" />
           <Setter Property="Margin" Value="5 0" />
         </Style>
+        <Style Selector="DockPanel > WrapPanel">
+          <Setter Property="Margin" Value="0 0 20 0" />
+          <Setter Property="VerticalAlignment" Value="Center" />
+          <Setter Property="(DockPanel.Dock)"  Value="Left" />
+        </Style>
         <Style Selector="DockPanel > TextBlock">
           <Setter Property="Margin" Value="0 0 20 0" />
           <Setter Property="VerticalAlignment" Value="Center" />
