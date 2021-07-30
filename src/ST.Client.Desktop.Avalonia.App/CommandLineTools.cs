@@ -122,10 +122,13 @@ namespace System.Application.UI
                 rootCommand.AddCommand(main);
 
                 // -clt devtools
+                // -clt devtools -disable_gpu
                 var devtools = new Command("devtools");
-                devtools.Handler = CommandHandler.Create(() =>
+                devtools.AddOption(new Option<bool>("-disable_gpu", "禁用 GPU 硬件加速"));
+                devtools.Handler = CommandHandler.Create((bool disable_gpu) =>
                 {
                     AppHelper.EnableDevtools = true;
+                    AppHelper.DisableGPU = disable_gpu;
                     MainHandlerByCLT_(onInitStartuped: () =>
                     {
                         AppHelper.LoggerMinLevel = LogLevel.Debug;

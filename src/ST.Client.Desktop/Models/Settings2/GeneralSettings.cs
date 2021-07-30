@@ -63,6 +63,7 @@ namespace System.Application.Models.Settings
         public static SerializableProperty<bool> IsAutoCheckUpdate { get; }
             = GetProperty(defaultValue: true, autoSave: true);
 
+#if !__MOBILE__
         /// <summary>
         /// 启用错误日志记录
         /// </summary>
@@ -74,6 +75,7 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<IReadOnlyDictionary<Platform, string>> TextReaderProvider { get; }
             = GetProperty(defaultValue: (IReadOnlyDictionary<Platform, string>?)null, autoSave: true);
+#endif
 
         /// <summary>
         /// 下载更新渠道
@@ -81,10 +83,12 @@ namespace System.Application.Models.Settings
         public static SerializableProperty<UpdateChannelType> UpdateChannel { get; }
             = GetProperty(defaultValue: (UpdateChannelType)default, autoSave: true);
 
+#if !__MOBILE__
         /// <summary>
         /// 使用硬件加速
         /// </summary>
         public static SerializableProperty<bool> UseGPURendering { get; }
             = GetProperty(defaultValue: true, autoSave: true);
+#endif
     }
 }

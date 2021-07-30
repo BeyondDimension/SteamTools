@@ -41,8 +41,7 @@ namespace System.Application.UI.Fragments
                 {
                     PreferenceButton.UserProfile or
                     PreferenceButton.BindPhoneNumber or
-                    PreferenceButton.ChangePhoneNumber or
-                    PreferenceButton.Settings => true,
+                    PreferenceButton.ChangePhoneNumber => true,
                     _ => false,
                 };
                 if (isUnderConstruction)

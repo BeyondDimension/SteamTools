@@ -32,6 +32,7 @@
                 xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
             <FrameLayout
+                android:id="@+id/layoutRootUISettingsLanguage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/preference_button_height_large"
                 android:background="?android:windowBackground"
@@ -50,17 +51,19 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/activity_horizontal_margin"
                         android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        app:srcCompat="@drawable/baseline_language_black_24"
                         app:tint="@color/icon_background"
-                        tools:src="@drawable/baseline_account_box_black_24"
                         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/layoutUISettingsLanguage"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvUISettingsLanguage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/text_primary"
@@ -69,6 +72,7 @@
                             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvUISettingsLanguageValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/text_secondary"
@@ -79,6 +83,7 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/layoutRootUISettingsTheme"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/preference_button_height_large"
                 android:background="?android:windowBackground"
@@ -97,17 +102,19 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/activity_horizontal_margin"
                         android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        app:srcCompat="@drawable/baseline_dark_mode_black_24"
                         app:tint="@color/icon_background"
-                        tools:src="@drawable/baseline_account_box_black_24"
                         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/layoutUISettingsTheme"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvUISettingsTheme"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/text_primary"
@@ -116,6 +123,7 @@
                             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvUISettingsThemeValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/text_secondary"
@@ -138,6 +146,7 @@
                 xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
             <FrameLayout
+                android:id="@+id/layoutRootGeneralSettingsIsAutoCheckUpdate"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/preference_button_height_large"
                 android:background="?android:windowBackground"
@@ -156,31 +165,19 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/activity_horizontal_margin"
                         android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        app:srcCompat="@drawable/baseline_update_black_24"
                         app:tint="@color/icon_background"
-                        tools:src="@drawable/baseline_account_box_black_24"
                         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
-                    <LinearLayout
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvGeneralSettingsIsAutoCheckUpdate"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/text_primary"
-                            android:textSize="16sp"
-                            tools:text="启动时检查更新"
-                            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/text_secondary"
-                            tools:text="启动时自动检查新版本"
-                            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
-                    </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"
+                        tools:text="启动时自动检查更新"
+                        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
                     <Space
                         android:layout_width="0dp"
@@ -188,15 +185,170 @@
                         android:layout_weight="1" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/swGeneralSettingsIsAutoCheckUpdate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="@dimen/activity_horizontal_margin"
                         android:clickable="false"
                         android:focusable="false"
-                        tools:checked="true" />
+                        tools:checked="true"
+                        xamarin:managedType="Google.Android.Material.SwitchMaterial.SwitchMaterial" />
                 </LinearLayout>
             </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/layoutRootGeneralSettingsUpdateChannel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/preference_button_height_large"
+                android:background="?android:windowBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        app:srcCompat="@drawable/baseline_cloud_download_black_24"
+                        app:tint="@color/icon_background"
+                        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutGeneralSettingsUpdateChannel"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvGeneralSettingsUpdateChannel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_primary"
+                            android:textSize="16sp"
+                            tools:text="下载更新渠道"
+                            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvGeneralSettingsUpdateChannelValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_secondary"
+                            tools:text="Auto"
+                            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/layoutRootOSAppDetailsSettings"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/preference_button_height_large"
+                android:background="?android:windowBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        app:srcCompat="@drawable/baseline_settings_applications_black_24"
+                        app:tint="@color/icon_background"
+                        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvOSAppDetailsSettings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_primary"
+                            android:textSize="16sp"
+                            tools:text="应用详情(系统设置)"
+                            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="APPLICATION_DETAILS_SETTINGS"
+                            android:textColor="@color/text_secondary"
+                            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/layoutRootOSAppNotificationSettings"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/preference_button_height_large"
+                android:background="?android:windowBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        app:srcCompat="@drawable/baseline_notifications_black_24"
+                        app:tint="@color/icon_background"
+                        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvOSAppNotificationSettings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_primary"
+                            android:textSize="16sp"
+                            tools:text="应用通知(系统设置)"
+                            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="APP_NOTIFICATION_SETTINGS"
+                            android:textColor="@color/text_secondary"
+                            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="@dimen/activity_vertical_margin" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

@@ -76,6 +76,9 @@
       <LinkBase>Services\Implementation</LinkBase>
     </Compile>
     <Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.TryAddFontManager.cs" />
+    <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Pages\Settings\SettingsPageViewModel.cs">
+      <Link>UI\ViewModels\Pages\Settings\SettingsPageViewModel.cs</Link>
+    </Compile>
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Pages\About\AboutPageViewModel.shared.cs">
       <Link>UI\ViewModels\Pages\About\AboutPageViewModel.shared.cs</Link>
     </Compile>

@@ -3070,6 +3070,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 应用详情(系统设置) 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_AppDetailsSettings {
+            get {
+                return ResourceManager.GetString("Settings_General_AppDetailsSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 应用通知(系统设置) 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_AppNotificationSettings {
+            get {
+                return ResourceManager.GetString("Settings_General_AppNotificationSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 启动时自动检查更新 的本地化字符串。
         /// </summary>
         public static string Settings_General_AutoCheckUpdate {
@@ -3093,6 +3111,15 @@ namespace System.Application.UI.Resx {
         public static string Settings_General_StartAutoRun {
             get {
                 return ResourceManager.GetString("Settings_General_StartAutoRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 下载更新渠道 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_UpdateChannel {
+            get {
+                return ResourceManager.GetString("Settings_General_UpdateChannel", resourceCulture);
             }
         }
         

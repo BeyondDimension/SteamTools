@@ -1490,4 +1490,13 @@
   <data name="Settings_RestartEffective" xml:space="preserve">
     <value>*需重启生效</value>
   </data>
+  <data name="Settings_General_UpdateChannel" xml:space="preserve">
+    <value>下载更新渠道</value>
+  </data>
+  <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
+    <value>应用详情(系统设置)</value>
+  </data>
+  <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
+    <value>应用通知(系统设置)</value>
+  </data>
 </root>

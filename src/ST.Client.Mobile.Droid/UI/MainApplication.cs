@@ -11,6 +11,8 @@ using AppTheme = System.Application.Models.AppTheme;
 using XEFileProvider = Xamarin.Essentials.FileProvider;
 using XEPlatform = Xamarin.Essentials.Platform;
 using XEVersionTracking = Xamarin.Essentials.VersionTracking;
+using System.Application.Models.Settings;
+using AndroidX.AppCompat.App;
 #if DEBUG
 using Square.LeakCanary;
 #endif
@@ -76,7 +78,20 @@ namespace System.Application.UI
             {
                 XEVersionTracking.Track();
                 ImageLoader.Init(this);
+                UISettings.Theme.Subscribe(x =>
+                {
+                    var defaultNightMode = (AppTheme)x switch
+                    {
+                        AppTheme.FollowingSystem => AppCompatDelegate.ModeNightFollowSystem,
+                        AppTheme.Light => AppCompatDelegate.ModeNightNo,
+                        AppTheme.Dark => AppCompatDelegate.ModeNightYes,
+                        _ => (int?)null,
+                    };
+                    if (!defaultNightMode.HasValue) return;
+                    AppCompatDelegate.DefaultNightMode = defaultNightMode.Value;
+                });
             }
+            UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
 
             stopwatch.Stop();
             ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;

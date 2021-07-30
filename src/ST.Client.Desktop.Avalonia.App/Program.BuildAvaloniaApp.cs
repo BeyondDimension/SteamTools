@@ -18,7 +18,7 @@ namespace System.Application.UI
                 })
                 .With(new AvaloniaNativePlatformOptions
                 {
-                    UseGpu = GeneralSettings.UseGPURendering.Value
+                    UseGpu = AppHelper.DisableGPU ? false : GeneralSettings.UseGPURendering.Value
                 })
                 .With(new Win32PlatformOptions
                 {
