@@ -28,7 +28,6 @@ namespace System.Application.Services
         {
             ProxyDomains = new SourceList<AccelerateProjectGroupDTO>();
             ProxyScripts = new SourceList<ScriptDTO>();
-            httpProxyService.CertificateEngine = Titanium.Web.Proxy.Network.CertificateEngine.BouncyCastle;
 
             this.ProxyDomains
                      .Connect()

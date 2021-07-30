@@ -39,7 +39,7 @@ namespace System.Application.Services.Implementation
 
         public string CertificateName { get; set; } = ThisAssembly.AssemblyProduct;
 
-        public CertificateEngine CertificateEngine { get; set; }
+        public CertificateEngine CertificateEngine { get; set; } = CertificateEngine.BouncyCastle;
 
         public int ProxyPort { get; set; } = 26501;
 
@@ -325,11 +325,13 @@ namespace System.Application.Services.Implementation
             // set e.clientCertificate to override
             return Task.CompletedTask;
         }
+
         public void TrustCer()
         {
             var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer");
             IPlatformService.Instance.AdminShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain \"{filePath}\"", true);
         }
+
         public bool SetupCertificate()
         {
             // 此代理使用的本地信任根证书
@@ -357,7 +359,6 @@ namespace System.Application.Services.Implementation
             if (DI.IsmacOS)
             {
                 TrustCer();
-
             }
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
@@ -682,7 +683,7 @@ namespace System.Application.Services.Implementation
             if (certificate2.NotAfter <= DateTime.Now)
                 return false;
             using var store = new X509Store(DI.Platform == Platform.Apple ? StoreName.My : StoreName.Root, StoreLocation.CurrentUser);
-            store.Open(OpenFlags.MaxAllowed);
+            store.Open(OpenFlags.ReadOnly);
             return store.Certificates.Contains(certificate2);
         }
 
