@@ -42,8 +42,19 @@ namespace System.Application.UI.ViewModels
         {
         }
 
+        //async void TestHttp()
+        //{
+        //    var task1 = IHttpService.Instance.GetAsync<string>("https://developers.google.com/android");
+        //    var task2 = IHttpService.Instance.GetAsync<string>("https://developer.android.google.cn/");
+        //    var str = await Task.WhenAny(task1, task2);
+        //    DebugString = str.Result ?? string.Empty;
+        //}
+
         public void DebugButton_Click()
         {
+            //TestHttp();
+            //return;
+
             TestTextBoxWindow(0);
 
             //DebugButton_Click1();

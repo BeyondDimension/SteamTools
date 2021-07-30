@@ -13,13 +13,18 @@ namespace System.Application.Models.Settings
         static UISettings()
         {
             //Theme.ValueChanged += Theme_ValueChanged;
+#if !__MOBILE__
             AppGridSize.ValueChanged += AppGridSize_ValueChanged;
+#endif
         }
 
+
+#if !__MOBILE__
         private static void AppGridSize_ValueChanged(object? sender, ValueChangedEventArgs<int> e)
         {
             SteamConnectService.Current.SteamApps.Refresh();
         }
+#endif
 
         //private static void Theme_ValueChanged(object sender, ValueChangedEventArgs<short> e)
         //{

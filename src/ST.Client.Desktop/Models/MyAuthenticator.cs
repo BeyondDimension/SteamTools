@@ -431,32 +431,7 @@ namespace System.Application.Models
         }
 #endif
 
-        public async Task<Stream?> GetQrCodeStream()
-        {
-            var qrCode = await Task.Run(() =>
-            {
-                var bytes = Serializable.SMP(new[] { this.AuthenticatorData.ToLightweightExportDTO() });
-#if DEBUG
-                var bytes_compress_gzip = bytes.CompressByteArray();
-#endif
-                var bytes_compress_br = bytes.CompressByteArrayByBrotli();
-#if DEBUG
-                Toast.Show($"bytesLength, source: {bytes.Length}, gzip: {bytes_compress_gzip.Length}, br: {bytes_compress_br.Length}");
-#endif
-                (var result, var stream, var e) = QRCodeHelper.Create(bytes);
-                switch (result)
-                {
-                    case QRCodeHelper.QRCodeCreateResult.DataTooLong:
-                        Toast.Show(AppResources.AuthLocal_ExportToQRCodeTooLongErrorTip);
-                        break;
-                    case QRCodeHelper.QRCodeCreateResult.Exception:
-                        Toast.Show(e!.ToString());
-                        break;
-                }
-                return stream;
-            });
-            return qrCode;
-        }
+        public Task<Stream?> GetQrCodeStream() => AuthService.GetQrCodeStreamAsync(AuthenticatorData);
 
         /// <summary>
         /// 编辑令牌自定义名称
