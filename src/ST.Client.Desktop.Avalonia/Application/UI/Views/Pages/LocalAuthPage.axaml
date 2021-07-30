@@ -26,23 +26,23 @@
         TextWrapping="WrapWithOverflow"></TextBlock>
     </StackPanel>-->
 
-    <ScrollViewer  HorizontalScrollBarVisibility="Disabled" 
-                   VerticalScrollBarVisibility="Auto" 
+    <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
+                   VerticalScrollBarVisibility="Auto"
                    Padding="20 0 20 10">
       <ItemsRepeater Items="{Binding Authenticators,Mode=OneWay}">
         <ItemsRepeater.Layout>
           <UniformGridLayout ItemsJustification="SpaceAround"
-                             MinRowSpacing="20"  
+                             MinRowSpacing="20"
                              MaximumRowsOrColumns="8"/>
           <!--<WrapLayout HorizontalSpacing="40"
                       VerticalSpacing="20" Orientation="Horizontal"></WrapLayout>-->
         </ItemsRepeater.Layout>
         <ItemsRepeater.ItemTemplate>
           <DataTemplate>
-            <Border x:Name="panel" 
-                    Classes="paper" 
-                    Width="250" 
-                    Height="250" 
+            <Border x:Name="panel"
+                    Classes="paper"
+                    Width="250"
+                    Height="250"
                     Background="{DynamicResource ThemeBrushKey}">
               <Border.ContextMenu>
                 <ContextMenu>

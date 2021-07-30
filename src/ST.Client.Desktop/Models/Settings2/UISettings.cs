@@ -93,5 +93,12 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<List<MessageBoxRememberChooseCompat>> DoNotShowMessageBoxs { get; }
             = GetProperty(defaultValue: new List<MessageBoxRememberChooseCompat>(), autoSave: false);
+       
+
+        /// <summary>
+        /// Steam账号备注替换名称显示
+        /// </summary>
+        public static SerializableProperty<bool> SteamAccountRemarkReplaceName { get; }
+            = GetProperty(defaultValue: false, autoSave: true);
     }
 }

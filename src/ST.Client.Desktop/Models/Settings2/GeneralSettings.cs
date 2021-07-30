@@ -80,5 +80,11 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<UpdateChannelType> UpdateChannel { get; }
             = GetProperty(defaultValue: (UpdateChannelType)default, autoSave: true);
+
+        /// <summary>
+        /// 使用硬件加速
+        /// </summary>
+        public static SerializableProperty<bool> UseGPURendering { get; }
+            = GetProperty(defaultValue: true, autoSave: true);
     }
 }
