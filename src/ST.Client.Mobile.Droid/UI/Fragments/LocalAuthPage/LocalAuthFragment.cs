@@ -117,7 +117,7 @@ namespace System.Application.UI.Fragments
             };
             var layout = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
             binding!.rvAuthenticators.SetLayoutManager(layout);
-            binding.rvAuthenticators.AddItemDecoration(VerticalItemViewDecoration2.Get(Context, Resource.Dimension.activity_vertical_margin/*, Resource.Dimension.fab_full_height*/));
+            binding.rvAuthenticators.AddItemDecoration(VerticalItemDecoration2.Get(Context, Resource.Dimension.activity_vertical_margin/*, Resource.Dimension.fab_full_height*/));
             binding.rvAuthenticators.SetAdapter(adapter);
 
             //var actionItems = Enum2.GetAll<ActionItem>();

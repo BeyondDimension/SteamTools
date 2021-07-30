@@ -147,7 +147,7 @@ namespace System.Application.UI.Activities
             var adapter = new SteamAuthTradeConfirmationAdapter(ViewModel!);
             var layout = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
             binding!.rvConfirmations.SetLayoutManager(layout);
-            binding.rvConfirmations.AddItemDecoration(VerticalItemViewDecoration2.Get(this, Resource.Dimension.activity_vertical_margin, Resource.Dimension.fab_full_height, noTop: true));
+            binding.rvConfirmations.AddItemDecoration(VerticalItemDecoration2.Get(this, Resource.Dimension.activity_vertical_margin, Resource.Dimension.fab_full_height, noTop: true));
             binding.rvConfirmations.SetAdapter(adapter);
 
             //var actionItems = Enum2.GetAll<ActionItem>().Where(x => x != ActionItem.Refresh);

@@ -86,12 +86,12 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<ConcurrentDictionary<string, WindowSizePosition>> WindowSizePositions { get; }
             = GetProperty(defaultValue: new ConcurrentDictionary<string, WindowSizePosition>(), autoSave: false);
+#endif
 
         /// <summary>
         /// 不再提示的消息框数组
         /// </summary>
         public static SerializableProperty<List<MessageBoxRememberChooseCompat>> DoNotShowMessageBoxs { get; }
             = GetProperty(defaultValue: new List<MessageBoxRememberChooseCompat>(), autoSave: false);
-#endif
     }
 }

@@ -46,7 +46,7 @@ namespace System.Application.UI.Fragments
             };
             var layout = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
             binding.rvFastLoginChannels.SetLayoutManager(layout);
-            binding.rvFastLoginChannels.AddItemDecoration(new VerticalItemViewDecoration(Context.Resources!.GetDimensionPixelSize(Resource.Dimension.fast_login_or_register_margin_subtract_compat_padding)));
+            binding.rvFastLoginChannels.AddItemDecoration(new VerticalItemDecoration(Context.Resources!.GetDimensionPixelSize(Resource.Dimension.fast_login_or_register_margin_subtract_compat_padding)));
             binding.rvFastLoginChannels.SetAdapter(adapter);
         }
 

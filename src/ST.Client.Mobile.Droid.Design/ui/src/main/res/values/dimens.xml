@@ -12,7 +12,7 @@
     <dimen name="textbox_padding">10dp</dimen>
     <dimen name="input_font_size">18sp</dimen>
     <dimen name="input_font_size_min">16sp</dimen>
-    <dimen name="logo_size">160dp</dimen>
+    <dimen name="logo_size">140dp</dimen>
     <dimen name="preference_buttons_space_min">8dp</dimen>
     <dimen name="gap_space">16dp</dimen>
     <dimen name="gap_space_min">8dp</dimen>
@@ -34,4 +34,5 @@
     <dimen name="checkbox_reduce_space">-7dp</dimen>
     <dimen name="checkbox_width">25dp</dimen>
     <dimen name="checkbox_height">18dp</dimen>
+    <dimen name="translators_font_size">18sp</dimen>
 </resources>

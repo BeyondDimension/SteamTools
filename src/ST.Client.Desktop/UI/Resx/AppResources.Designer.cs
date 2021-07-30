@@ -3494,6 +3494,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 社区翻译 的本地化字符串。
+        /// </summary>
+        public static string Translators {
+            get {
+                return ResourceManager.GetString("Translators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 未绑定 的本地化字符串。
         /// </summary>
         public static string Unbound {
