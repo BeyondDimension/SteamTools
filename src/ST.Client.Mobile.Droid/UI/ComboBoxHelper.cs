@@ -49,8 +49,7 @@ namespace System.Application.UI
             // Set button as the list popup's anchor
             listPopupWindow.AnchorView = anchorView;
 
-            var items_ = items.ToJavaObjectList();
-            var adapter = new ArrayAdapter(context, Resource.Layout.list_popup_window_item, items_);
+            var adapter = new ArrayAdapter(context, Resource.Layout.list_popup_window_item, items);
             listPopupWindow.SetAdapter(adapter);
 
             ListPopupWindowWrapper wrapper = new(items, listPopupWindow, adapter, click);

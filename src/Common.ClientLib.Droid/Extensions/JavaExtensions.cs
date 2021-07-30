@@ -96,8 +96,6 @@ namespace System
         public static JString? ToJavaString_Nullable(this string? s)
             => s == null ? null : new JString(s);
 
-        public static JavaList<JString> ToJavaObjectList(this IEnumerable<string> strings) => new(strings.Select(x => x.ToJavaString()));
-
         /// <summary>
         /// Java中的SubString函数实现
         /// </summary>
