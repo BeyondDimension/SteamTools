@@ -29,6 +29,7 @@ namespace System.Application
         WebView3,
         BindPhoneNumber,
         ASF_AddBot,
+        SteamShutdown,
 #endif
     }
 }

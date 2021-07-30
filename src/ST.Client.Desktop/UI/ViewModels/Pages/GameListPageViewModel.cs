@@ -115,6 +115,7 @@ namespace System.Application.UI.ViewModels
 
             HideAppCommand = ReactiveCommand.Create(OpenHideAppWindow);
             IdleAppCommand = ReactiveCommand.Create(OpenIdleAppWindow);
+            SteamShutdownCommand = ReactiveCommand.Create(OpenSteamShutdownAppWindow);
 
             EnableAFKAutoUpdateCommand = ReactiveCommand.Create(() =>
             {
@@ -130,6 +131,8 @@ namespace System.Application.UI.ViewModels
                       IconKey ="EyeHideDrawing", Command = HideAppCommand },
                   new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)){
                       IconKey ="TopSpeedDrawing", Command = IdleAppCommand },
+                  new MenuItemViewModel (nameof(AppResources.GameList_SteamShutdown)){
+                      IconKey ="ClockArrowDownloadDrawing", Command = SteamShutdownCommand },
             };
 
             AFKAutoUpdate?.CheckmarkChange(SteamConnectService.Current.IsAutoAFKApps);
@@ -137,6 +140,7 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> EnableAFKAutoUpdateCommand { get; }
 
         public MenuItemViewModel? AFKAutoUpdate { get; }
+
         public void OpenHideAppWindow()
         {
             IShowWindowService.Instance.Show(CustomWindow.HideApp, new HideAppWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
@@ -147,8 +151,14 @@ namespace System.Application.UI.ViewModels
             IShowWindowService.Instance.Show(CustomWindow.IdleApp, new IdleAppWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
         }
 
+        public void OpenSteamShutdownAppWindow()
+        {
+            IShowWindowService.Instance.Show(CustomWindow.SteamShutdown, new IdleAppWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+        }
+
         public ReactiveCommand<Unit, Unit> HideAppCommand { get; }
         public ReactiveCommand<Unit, Unit> IdleAppCommand { get; }
+        public ReactiveCommand<Unit, Unit> SteamShutdownCommand { get; }
 
         public override void Activation()
         {

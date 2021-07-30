@@ -1475,6 +1475,9 @@
   <data name="RememberChooseNotToAskAgain" xml:space="preserve">
     <value>记住我的选择下次不再询问</value>
   </data>
+    <data name="GameList_SteamShutdown" xml:space="preserve">
+    <value>Steam下载完成定时关机</value>
+  </data>
   <data name="Translators" xml:space="preserve">
     <value>社区翻译</value>
   </data>

@@ -58,7 +58,13 @@
                  VerticalAlignment="Center"
                  HorizontalAlignment="Right"
                  Foreground="{DynamicResource HighlightForegroundBrushKey}"></Button>-->
-        <Border DockPanel.Dock="Bottom" Grid.Column="1" Grid.Row="1" Classes="paper" Margin="10" Padding="20 0" Background="{DynamicResource ThemeBrushKey}">
+        <Border DockPanel.Dock="Bottom" 
+                Grid.Column="1" 
+                Grid.Row="1" 
+                Classes="paper" 
+                Margin="10" 
+                Padding="20 0" 
+                Background="{DynamicResource ThemeBrushKey}">
           <!--<DockPanel Margin="0 10">
             -->
           <!--<CheckBox MinWidth="20"

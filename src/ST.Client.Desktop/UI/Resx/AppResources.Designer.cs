@@ -1377,6 +1377,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 Steam下载完成定时关机 的本地化字符串。
+        /// </summary>
+        public static string GameList_SteamShutdown {
+            get {
+                return ResourceManager.GetString("GameList_SteamShutdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 全部暂停 的本地化字符串。
         /// </summary>
         public static string GameList_StopBtn {

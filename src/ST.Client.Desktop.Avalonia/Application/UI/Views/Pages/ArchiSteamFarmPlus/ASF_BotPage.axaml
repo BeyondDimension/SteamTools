@@ -19,7 +19,7 @@
              x:Class="System.Application.UI.Views.Pages.ASF_BotPage">
   <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
             VerticalScrollBarVisibility="Auto"
-            Padding="{StaticResource ScrollMargin}">
+            Padding="0 0 0 10">
     <ItemsRepeater Items="{CompiledBinding SteamBots}">
       <ItemsRepeater.Layout>
         <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
@@ -29,7 +29,9 @@
       <ItemsRepeater.ItemTemplate>
         <DataTemplate>
           <Border x:Name="card"
-                  Classes="paper" Background="{DynamicResource ThemeBrushKey}">
+                  Margin="10 0"
+                  Classes="paper"
+                  Background="{DynamicResource ThemeBrushKey}">
             <!--<Border.Background>
                 <SolidColorBrush Color="{DynamicResource ThemeColorKey}"
                                  Opacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"/>

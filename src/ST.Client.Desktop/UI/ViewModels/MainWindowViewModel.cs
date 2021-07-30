@@ -107,8 +107,8 @@ namespace System.Application.UI.ViewModels
         public void Initialize()
         {
             Threading.Thread.CurrentThread.IsBackground = true;
-            Task.Run(ProxyService.Current.Initialize).ForgetAndDispose();
-            Task.Run(SteamConnectService.Current.Initialize).ForgetAndDispose();
+            ProxyService.Current.Initialize();
+            SteamConnectService.Current.Initialize();
 
             if (!IsInitialized)
             {

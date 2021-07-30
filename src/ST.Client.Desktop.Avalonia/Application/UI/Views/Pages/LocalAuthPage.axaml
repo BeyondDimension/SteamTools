@@ -26,17 +26,24 @@
         TextWrapping="WrapWithOverflow"></TextBlock>
     </StackPanel>-->
 
-    <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="40 0 40 10">
+    <ScrollViewer  HorizontalScrollBarVisibility="Disabled" 
+                   VerticalScrollBarVisibility="Auto" 
+                   Padding="20 0 20 10">
       <ItemsRepeater Items="{Binding Authenticators,Mode=OneWay}">
         <ItemsRepeater.Layout>
           <UniformGridLayout ItemsJustification="SpaceAround"
-                             MinRowSpacing="20"  MaximumRowsOrColumns="8"/>
+                             MinRowSpacing="20"  
+                             MaximumRowsOrColumns="8"/>
           <!--<WrapLayout HorizontalSpacing="40"
                       VerticalSpacing="20" Orientation="Horizontal"></WrapLayout>-->
         </ItemsRepeater.Layout>
         <ItemsRepeater.ItemTemplate>
           <DataTemplate>
-            <Border x:Name="panel" Classes="paper" Width="250" Height="250" Background="{DynamicResource ThemeBrushKey}">
+            <Border x:Name="panel" 
+                    Classes="paper" 
+                    Width="250" 
+                    Height="250" 
+                    Background="{DynamicResource ThemeBrushKey}">
               <Border.ContextMenu>
                 <ContextMenu>
                   <MenuItem
@@ -156,7 +163,7 @@
 
                     <Button Cursor="Hand"
                             Classes="flatbutton"
-                            ToolTip.Tip="查看二维码" >
+                            ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_ToQRCode,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                       <Button.Content>
                         <PathIcon Data="{DynamicResource QRCodeDrawing}" Width="20"></PathIcon>
                       </Button.Content>
