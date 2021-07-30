@@ -5,11 +5,12 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.WebSocket.EventArgs;
+using System.Net.WebSocket.EventArgs;
+using System.Threading;
 
-namespace System.WebSocket
+namespace System.Net.WebSocket
 {
-    public sealed class ClientConnection
+    public sealed class ClientConnection : IDisposable
     {
         private static int entities = 0;
 
@@ -48,7 +49,7 @@ namespace System.WebSocket
         ///  启动连接且尝试握手
         /// </summary>
         /// <returns>Task</returns>
-        internal async Task StartAsync()
+        internal async Task StartAsync(CancellationToken cancellationToken)
         {
             try
             {
@@ -61,7 +62,7 @@ namespace System.WebSocket
                 State = SocketState.Open;
                 if (OnConnected != null)
                     await OnConnected!.Invoke(new ConnectedEventArgs(this));
-                await ReadAsync();
+                await Task.Run(() => ReadAsync(), cancellationToken); 
             }
             catch (SocketException e)
             {
@@ -81,6 +82,7 @@ namespace System.WebSocket
             State = SocketState.Closed;
             if (OnDisconnected != null)
                 await OnDisconnected!.Invoke(new DisconnectedEventArgs(this, reason));
+            Dispose();
         }
 
         /// <summary>
@@ -160,5 +162,10 @@ namespace System.WebSocket
             await stream.FlushAsync();
         }
 
+        public void Dispose()
+        {
+            tcp.Close();
+            tcp.Dispose();
+        }
     }
 }

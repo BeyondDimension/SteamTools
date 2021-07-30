@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace System.WebSocket.EventArgs
+namespace System.Net.WebSocket.EventArgs
 {
     /// <summary>
     /// 离线消息

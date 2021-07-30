@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace System.WebSocket.EventArgs
+namespace System.Net.WebSocket.EventArgs
 {
     /// <summary>
     /// 从客户端发送的数据

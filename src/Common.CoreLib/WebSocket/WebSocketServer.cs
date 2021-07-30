@@ -4,11 +4,12 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using System.WebSocket.EventArgs;
+using System.Net.WebSocket.EventArgs;
+using System.Threading;
 
-namespace System.WebSocket
+namespace System.Net.WebSocket
 {
-    public class WebSocketServer : IDisposable
+    public class ServerWebSocket : IDisposable
     {
         private readonly TcpListener listener;
         private readonly IPAddress ip;
@@ -28,43 +29,59 @@ namespace System.WebSocket
         /// </summary>
         public event Func<DisconnectedEventArgs, Task> OnClientDisconnected;
 
-        public WebSocketServer(string host, int port)
+        public ServerWebSocket(string host, int port)
         {
             if (!IPAddress.TryParse(host, out ip))
                 throw new ArgumentException("Invalid IP address");
 
             listener = new(ip, port);
-        } 
+        }
+        public CancellationTokenSource tokenSource;
+
         /// <summary>
         /// 启动服务
         /// </summary>
         /// <returns>Task</returns>
+        public void Start()
+        {
+            tokenSource = new CancellationTokenSource();
+            _ = Task.Run(async () =>
+              {
+                  await StartAsync();
+              }, tokenSource.Token);
+        }
         public async Task StartAsync()
         {
             listener.Start();
             RunState = true;
-            while (RunState)
+            try
             {
-                TcpClient tcp = await listener.AcceptTcpClientAsync();
-                _ = Task.Run(async () =>
+                while (RunState)
                 {
-                    ClientConnection client = new(tcp)
+                    TcpClient tcp = await Task.Run(() => listener.AcceptTcpClientAsync(), tokenSource.Token);// await listener.AcceptTcpClientAsync();
+                    _ = Task.Run(async () =>
                     {
-                        OnConnected = OnClientConnected,
-                        OnReceived = OnClientReceived,
-                        OnDisconnected = OnClientDisconnected
-                    };
-
-                    await client.StartAsync();
-                });
+                        ClientConnection client = new (tcp)
+                        {
+                            OnConnected = OnClientConnected,
+                            OnReceived = OnClientReceived,
+                            OnDisconnected = OnClientDisconnected
+                        }; 
+                        tokenSource.Token.Register(() => { client.Dispose(); });
+                        await client.StartAsync(tokenSource.Token);
+                    }, tokenSource.Token);
+                }
+            }
+            finally
+            {
+                listener.Stop();
             }
         }
 
         public void Dispose()
         {
-            listener.Stop();
             RunState = false;
-            RunState = false;
+            tokenSource.Cancel();
         }
     }
 }

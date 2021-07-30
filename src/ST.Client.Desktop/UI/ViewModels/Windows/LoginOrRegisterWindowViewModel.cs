@@ -6,21 +6,22 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.WebSocket;
-using System.WebSocket.EventArgs;
+using System.Net.WebSocket;
+using System.Net.WebSocket.EventArgs;
 using System.Windows;
 
 namespace System.Application.UI.ViewModels
 {
     partial class LoginOrRegisterWindowViewModel : WindowViewModel
     {
-        public override async void Activation()
+        ServerWebSocket server;
+        public override  void Activation()
         {
             if (IsFirstActivation)
             {
-                var server = new WebSocketServer("127.0.0.1", 9910);
+                server = new ServerWebSocket("127.0.0.1", 9910);
                 server.OnClientReceived += handle;
-                await server.StartAsync();
+                server.Start(); 
             }
             base.Activation();
         }
@@ -28,6 +29,9 @@ namespace System.Application.UI.ViewModels
         public static FastLoginChannel Channel { get; set; }
         public async Task handle(ReceivedEventArgs msg)
         {
+            if (msg.Message == "Exit")
+                server.Dispose();
+            MessageBoxCompat.Show(msg.Message);
             var response = ApiResponse.Deserialize<LoginOrRegisterResponse>(Encoding.UTF8.GetBytes(msg.Message));
             var retResponse = new LoginWebSocket();
             if (response.IsSuccess && response.Content == null)

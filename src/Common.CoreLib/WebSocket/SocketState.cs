@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace System.WebSocket
+namespace System.Net.WebSocket
 {
     public enum SocketState
     {

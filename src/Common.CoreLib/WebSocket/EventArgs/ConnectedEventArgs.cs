@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace System.WebSocket.EventArgs
+namespace System.Net.WebSocket.EventArgs
 {
   public  class ConnectedEventArgs
     {
