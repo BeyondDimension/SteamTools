@@ -152,13 +152,14 @@
                  TextWrapping="Wrap">
           <TextBox.Text>
 Translators:
-    English Translation:
+
+    English:
     沙中金
 
-    Spanish Translation:
+    Spanish:
     EspRoy
 
-    Italian Translation:
+    Italian:
     Zhengye
     
           </TextBox.Text>

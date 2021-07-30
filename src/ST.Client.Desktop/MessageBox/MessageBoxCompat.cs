@@ -1,4 +1,5 @@
 using System.Application;
+using System.Application.Models.Settings;
 using System.Application.Services;
 using System.Application.UI.ViewModels;
 using System.Properties;
@@ -26,18 +27,29 @@ namespace System.Windows
                 return await mbcs.Value.ShowAsync(messageBoxText, caption, button, icon);
             }
 
+            var isDoNotShow = rememberChooseKey != MessageBoxRememberChooseCompat.Undefined;
+
+            if (isDoNotShow &&
+                UISettings.DoNotShowMessageBoxs.Value?.Contains(rememberChooseKey) == true)
+            {
+                return MessageBoxResultCompat.OK;
+            }
+
             var viewModel = new MessageBoxWindowViewModel
             {
                 Content = messageBoxText,
                 IsCancelcBtn = button == MessageBoxButtonCompat.OKCancel,
+                IsShowRememberChoose = isDoNotShow,
             };
 
             var r = await IShowWindowService.Instance.ShowDialog(
                 CustomWindow.MessageBox, viewModel, caption, ResizeModeCompat.NoResize);
 
-            if (r && rememberChooseKey != MessageBoxRememberChooseCompat.Undefined)
+            if (r && viewModel.RememberChoose && isDoNotShow)
             {
-
+                if (UISettings.DoNotShowMessageBoxs.Value?.Contains(rememberChooseKey) == false)
+                    UISettings.DoNotShowMessageBoxs.Value?.Add(rememberChooseKey);
+                UISettings.DoNotShowMessageBoxs.RaiseValueChanged();
             }
 
             return r ? MessageBoxResultCompat.OK : MessageBoxResultCompat.Cancel;

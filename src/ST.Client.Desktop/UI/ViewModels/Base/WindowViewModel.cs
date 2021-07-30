@@ -70,7 +70,7 @@ namespace System.Application.UI.ViewModels
                      else if (UISettings.WindowSizePositions.Value!.ContainsKey(name))
                          UISettings.WindowSizePositions.Value[name] = _SizePosition;
                      else
-                         UISettings.WindowSizePositions.Value.Add(name, _SizePosition);
+                         UISettings.WindowSizePositions.Value.TryAdd(name, _SizePosition);
                      UISettings.WindowSizePositions.RaiseValueChanged();
                  });
         }

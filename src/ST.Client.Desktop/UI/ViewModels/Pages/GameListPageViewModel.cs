@@ -332,7 +332,7 @@ namespace System.Application.UI.ViewModels
                 Toast.Show(e.ToString());
             }
         }
-        public void UnlockAchievement_Click(SteamApp app)
+        public async void UnlockAchievement_Click(SteamApp app)
         {
             if (!ISteamService.Instance.IsRunningSteamProcess)
             {
@@ -343,16 +343,14 @@ namespace System.Application.UI.ViewModels
             {
                 case SteamAppType.Application:
                 case SteamAppType.Game:
-                    var result = MessageBoxCompat.ShowAsync(AppResources.Achievement_RiskWarning, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+                    var result = await MessageBoxCompat.ShowAsync(AppResources.Achievement_RiskWarning, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel,
+                        rememberChooseKey: MessageBoxRememberChooseCompat.UnLockAchievement);
+                    if (result == MessageBoxResultCompat.OK)
                     {
-                        if (s.Result == MessageBoxResultCompat.OK)
-                        {
-                            Toast.Show(AppResources.GameList_RuningWait);
-                            app.Process = Process.Start(AppHelper.ProgramPath, "-clt app -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
-                            SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
-                        }
-                    });
-
+                        Toast.Show(AppResources.GameList_RuningWait);
+                        app.Process = Process.Start(AppHelper.ProgramPath, "-clt app -id " + app.AppId.ToString(CultureInfo.InvariantCulture));
+                        SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
+                    }
                     break;
                 default:
                     Toast.Show(AppResources.GameList_Unsupport);

@@ -2,7 +2,9 @@ using DynamicData;
 using System.Application.Serialization;
 using System.Application.Services;
 using System.Application.UI.ViewModels;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace System.Application.Models.Settings
 {
@@ -75,10 +77,16 @@ namespace System.Application.Models.Settings
             = GetProperty(defaultValue: 150, autoSave: true);
 
         /// <summary>
-        /// 所有窗口位置记忆集合
+        /// 所有窗口位置记忆字典集合
         /// </summary>
-        public static SerializableProperty<Dictionary<string, WindowSizePosition>> WindowSizePositions { get; }
-            = GetProperty(defaultValue: new Dictionary<string, WindowSizePosition>(), autoSave: false);
+        public static SerializableProperty<ConcurrentDictionary<string, WindowSizePosition>> WindowSizePositions { get; }
+            = GetProperty(defaultValue: new ConcurrentDictionary<string, WindowSizePosition>(), autoSave: false);
+
+        /// <summary>
+        /// 不再提示的消息框数组
+        /// </summary>
+        public static SerializableProperty<List<MessageBoxRememberChooseCompat>> DoNotShowMessageBoxs { get; }
+            = GetProperty(defaultValue: new List<MessageBoxRememberChooseCompat>(), autoSave: false);
 #endif
     }
 }
