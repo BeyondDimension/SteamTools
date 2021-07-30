@@ -101,7 +101,6 @@ namespace System.Application.UI.Activities
             ViewModel!.WhenAnyValue(x => x.IsLoading).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
-                var ismain = MainThread2.IsMainThread;
                 var state = !value ? ViewStates.Gone : ViewStates.Visible;
                 binding.layoutContentConfirmations.Visibility = (value || !ViewModel!.IsLoggedIn) ? ViewStates.Gone : ViewStates.Visible;
                 binding.layoutContentSteamLogin.Visibility = (value || ViewModel!.IsLoggedIn) ? ViewStates.Gone : ViewStates.Visible;
