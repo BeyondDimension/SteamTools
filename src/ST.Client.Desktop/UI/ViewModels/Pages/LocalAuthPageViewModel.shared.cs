@@ -287,6 +287,7 @@ namespace System.Application.UI.ViewModels
         async void MoveOrderById(MyAuthenticator auth, bool upOrDown)
         {
             var row = await DI.Get<IGameAccountPlatformAuthenticatorRepository>().MoveOrderByIdAsync(AuthService.Current.Authenticators.Items.Select(x => x.AuthenticatorData).ToList(), auth.Id, upOrDown);
+            await AuthService.Current.InitializeAsync(false);
         }
     }
 }
