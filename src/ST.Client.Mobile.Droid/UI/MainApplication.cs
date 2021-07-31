@@ -60,6 +60,8 @@ namespace System.Application.UI
 
             AppHelper.InitLogDir();
 
+            Startup.InitGlobalExceptionHandler();
+
             VisualStudioAppCenterSDK.Init();
 
             XEFileProvider.TemporaryLocation = FileProviderLocation.Internal;

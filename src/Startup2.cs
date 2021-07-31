@@ -43,7 +43,7 @@ using _ThisAssembly = System.Properties.ThisAssembly;
 
 namespace System.Application
 {
-    static class Startup
+    static partial class Startup
     {
         static bool isInitialized;
 

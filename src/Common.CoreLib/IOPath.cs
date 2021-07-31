@@ -240,14 +240,14 @@ namespace System
         /// <summary>
         /// 判断路径是否为[文件夹(Dir)]
         /// </summary>
-        /// <param name="IOPath"></param>
+        /// <param name="path"></param>
         /// <returns></returns>
-        public static bool IsDirectory(string IOPath)
+        public static bool IsDirectory(string path)
         {
 #if NET35
             throw new PlatformNotSupportedException();
 #else
-            var attr = File.GetAttributes(IOPath);
+            var attr = File.GetAttributes(path);
             return attr.HasFlag(FileAttributes.Directory);
 #endif
         }
@@ -257,21 +257,21 @@ namespace System
         /// <para>如果传入的参数为[文件(File)]路径，则返回当前所在[文件夹(Dir)]路径</para>
         /// <para>如果传入的参数为[文件夹(Dir)]路径，则直接返回参数</para>
         /// </summary>
-        /// <param name="IOPath"></param>
+        /// <param name="path"></param>
         /// <returns></returns>
-        public static string GetDirectoryPath(string IOPath)
+        public static string GetDirectoryPath(string path)
         {
             try
             {
-                if (!IsDirectory(IOPath))
+                if (!IsDirectory(path))
                 {
-                    return Path.GetDirectoryName(IOPath) ?? string.Empty;
+                    return Path.GetDirectoryName(path) ?? string.Empty;
                 }
             }
             catch
             {
             }
-            return IOPath;
+            return path;
         }
 
         static FileStream OpenReadCore(string filePath) => new(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);

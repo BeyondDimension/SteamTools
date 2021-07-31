@@ -14,7 +14,7 @@ namespace System.Properties
                     case Platform.Linux:
                         return Version + alpha;
                     case Platform.Android:
-                        return Version + beta;
+                        return Version + alpha;
                     case Platform.Apple:
                         switch (DI.DeviceIdiom)
                         {

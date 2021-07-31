@@ -47,7 +47,7 @@ namespace System.Application
         {
             var assembly = typeof(VisualStudioAppCenterSDK).Assembly;
             const string namespacePrefix = "System.Application.Resources.";
-            Stream? func(string x) => assembly.GetManifestResourceStream(x);
+            Stream? func(string x) => assembly!.GetManifestResourceStream(x);
             var r = GetResValue(func,
 #if XAMARIN_MAC || MONO_MAC || MAC
                     "appcenter-secret-mac",
