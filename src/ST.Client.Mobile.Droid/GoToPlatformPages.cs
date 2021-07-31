@@ -2,8 +2,8 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using AndroidX.Core.Content;
+using AndroidUri = Android.Net.Uri;
 using Fragment = AndroidX.Fragment.App.Fragment;
-using AUri = Android.Net.Uri;
 using JFile = Java.IO.File;
 using Settings = Android.Provider.Settings;
 
@@ -138,24 +138,26 @@ namespace System.Application
             StartActivity<TActivity, TViewModel>(activity, viewModel);
         }
 
-        public static void InstallApk(Context context, JFile apkFile)
+        public static void OpenFile(Context context, JFile apkFile, string mime)
         {
             var sdkInt = (int)Build.VERSION.SdkInt;
             var intent = new Intent(Intent.ActionView);
-            AUri apkUri;
-            if (sdkInt >= (int)BuildVersionCodes.N) // 7.0开始要用新的API！
+            AndroidUri apkUri;
+            if (sdkInt >= (int)BuildVersionCodes.N) // 7.0 FileProvider
             {
                 apkUri = FileProvider.GetUriForFile(context, GetAuthority(context), apkFile);
                 intent.AddFlags(ActivityFlags.GrantReadUriPermission); // FLAG_GRANT_READ_URI_PERMISSION 添加这一句表示对目标应用临时授权该Uri所代表的文件
             }
             else
             {
-                apkUri = AUri.FromFile(apkFile)!;
+                apkUri = AndroidUri.FromFile(apkFile)!;
             }
-            intent.SetDataAndType(apkUri, MediaTypeNames.APK);
+            intent.SetDataAndType(apkUri, mime);
             intent.AddFlags(ActivityFlags.NewTask);
             context.StartActivity(intent);
         }
+
+        public static void InstallApk(Context context, JFile apkFile) => OpenFile(context, apkFile, MediaTypeNames.APK);
 
         public static void InstallApk(Context context, string apkFilePath)
         {
@@ -194,7 +196,7 @@ namespace System.Application
             {
                 intent.SetAction(Settings.ActionApplicationDetailsSettings);
                 intent.AddCategory(Intent.CategoryDefault);
-                intent.SetData(AUri.FromParts("package", context.PackageName, null));
+                intent.SetData(AndroidUri.FromParts("package", context.PackageName, null));
             }
             else if (sdkInt <= 8)
             {

@@ -11,9 +11,6 @@ namespace System.Application
     /// </summary>
     public static class FileSystemDesktop
     {
-        public const string AppDataDirName = "AppData";
-        public const string CacheDirName = "Cache";
-
         /// <summary>
         /// 初始化文件系统
         /// </summary>
@@ -35,8 +32,8 @@ namespace System.Application
                 IOPath.BaseDirectory;
 #endif
 
-            var appDataPath = Path.Combine(appDataRootPath, AppDataDirName);
-            var cachePath = Path.Combine(appDataRootPath, CacheDirName);
+            var appDataPath = Path.Combine(appDataRootPath, IOPath.DirName_AppData);
+            var cachePath = Path.Combine(appDataRootPath, IOPath.DirName_Cache);
             IOPath.DirCreateByNotExists(appDataPath);
             IOPath.DirCreateByNotExists(cachePath);
             IOPath.InitFileSystem(GetAppDataDirectory, GetCacheDirectory);

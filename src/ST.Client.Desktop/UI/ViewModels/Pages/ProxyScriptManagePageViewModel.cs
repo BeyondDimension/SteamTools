@@ -175,22 +175,21 @@ namespace System.Application.UI.ViewModels
 
         public void EditScriptItemButton(ScriptDTO script)
         {
-
             var url = Path.Combine(IOPath.AppDataDirectory, script.FilePath);
             var fileInfo = new FileInfo(url);
             if (fileInfo.Exists)
             {
-                DI.Get<IDesktopPlatformService>().OpenFileByTextReader(url);
+                IPlatformService.Instance.OpenFileByTextReader(url);
                 var result = MessageBoxCompat.ShowAsync(@AppResources.Script_EditTxt, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
                 {
                     if (s.Result == MessageBoxResultCompat.OK)
                     {
-                        var item = await DI.Get<IScriptManagerService>().AddScriptAsync(url, script, build: script.IsBuild, order: script.Order, ignoreCache: true);
-                        if (item.state)
+                        var (state, model, msg) = await DI.Get<IScriptManagerService>().AddScriptAsync(url, script, build: script.IsBuild, order: script.Order, ignoreCache: true);
+                        if (state)
                         {
-                            if (ProxyService.Current.ProxyScripts.Items.Any() && item.model != null)
+                            if (ProxyService.Current.ProxyScripts.Items.Any() && model != null)
                             {
-                                ProxyService.Current.ProxyScripts.Replace(script, item.model);
+                                ProxyService.Current.ProxyScripts.Replace(script, model);
                                 Toast.Show(AppResources.Success_.Format(AppResources.Script_Edit));
                             }
                         }
@@ -241,7 +240,7 @@ namespace System.Application.UI.ViewModels
                 var result = await MessageBoxCompat.ShowAsync(@AppResources.ScriptShop_NoLogin, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
                 if (result == MessageBoxResultCompat.OK)
                 {
-                 await   IShowWindowService.Instance.Show(CustomWindow.LoginOrRegister, new LoginOrRegisterWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+                    await IShowWindowService.Instance.Show(CustomWindow.LoginOrRegister, new LoginOrRegisterWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
                 }
             }
             else

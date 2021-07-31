@@ -11,6 +11,7 @@ namespace System.Application.UI
 {
     static partial class Program
     {
+        static Logger? logger;
         static readonly HashSet<Exception> exceptions = new();
         static readonly object lock_global_ex_log = new();
 
@@ -39,12 +40,12 @@ namespace System.Application.UI
             IsMainProcess = args.Length == 0;
             IsCLTProcess = !IsMainProcess && args.FirstOrDefault() == "-clt";
 
-            var logDirPath = InitLogDir();
+            AppHelper.InitLogDir();
 #if StartupTrace
             StartupTrace.Restart("InitLogDir");
 #endif
 
-            void InitCefNetApp() => CefNetApp.Init(logDirPath, args);
+            void InitCefNetApp() => CefNetApp.Init(AppHelper.LogDirPath, args);
             void InitAvaloniaApp() => BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
             void InitStartup(DILevel level) => Startup.Init(level);
             logger = LogManager.GetCurrentClassLogger();

@@ -104,6 +104,9 @@ namespace System
 
         #region FileSystem
 
+        public const string DirName_AppData = "AppData";
+        public const string DirName_Cache = "Cache";
+
         static Func<string>? getAppDataDirectory;
         static Func<string>? getCacheDirectory;
 
@@ -125,7 +128,7 @@ namespace System
                 {
                     if (DI.DeviceIdiom == DeviceIdiom.Desktop)
                     {
-                        var r = Path.Combine(BaseDirectory, "AppData");
+                        var r = Path.Combine(BaseDirectory, DirName_AppData);
                         DirCreateByNotExists(r);
                         return r;
                     }
@@ -153,7 +156,7 @@ namespace System
                 {
                     if (DI.DeviceIdiom == DeviceIdiom.Desktop)
                     {
-                        var r = Path.Combine(BaseDirectory, "Cache");
+                        var r = Path.Combine(BaseDirectory, DirName_Cache);
                         DirCreateByNotExists(r);
                         return r;
                     }
@@ -237,14 +240,14 @@ namespace System
         /// <summary>
         /// 判断路径是否为[文件夹(Dir)]
         /// </summary>
-        /// <param name="ioPath"></param>
+        /// <param name="IOPath"></param>
         /// <returns></returns>
-        public static bool IsDirectory(string ioPath)
+        public static bool IsDirectory(string IOPath)
         {
 #if NET35
             throw new PlatformNotSupportedException();
 #else
-            var attr = File.GetAttributes(ioPath);
+            var attr = File.GetAttributes(IOPath);
             return attr.HasFlag(FileAttributes.Directory);
 #endif
         }
@@ -254,21 +257,21 @@ namespace System
         /// <para>如果传入的参数为[文件(File)]路径，则返回当前所在[文件夹(Dir)]路径</para>
         /// <para>如果传入的参数为[文件夹(Dir)]路径，则直接返回参数</para>
         /// </summary>
-        /// <param name="ioPath"></param>
+        /// <param name="IOPath"></param>
         /// <returns></returns>
-        public static string GetDirectoryPath(string ioPath)
+        public static string GetDirectoryPath(string IOPath)
         {
             try
             {
-                if (!IsDirectory(ioPath))
+                if (!IsDirectory(IOPath))
                 {
-                    return Path.GetDirectoryName(ioPath) ?? string.Empty;
+                    return Path.GetDirectoryName(IOPath) ?? string.Empty;
                 }
             }
             catch
             {
             }
-            return ioPath;
+            return IOPath;
         }
 
         static FileStream OpenReadCore(string filePath) => new(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);

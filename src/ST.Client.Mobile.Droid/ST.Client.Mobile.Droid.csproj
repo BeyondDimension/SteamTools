@@ -54,6 +54,9 @@
     <Compile Include="..\Common.ClientLib.Droid\ServiceCollectionExtensions.cs">
       <Link>ServiceCollectionExtensions.Link.cs</Link>
     </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\UriExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
     <Compile Include="..\Common.ClientLib.Droid\Extensions\MenuExtensions.cs">
       <LinkBase>Extensions</LinkBase>
     </Compile>
@@ -102,6 +105,7 @@
     <Compile Include="..\ST.Client.Desktop.Avalonia\ServiceCollectionExtensions.AddShowWindowService.cs" />
     <Compile Include="..\TencentOpenApiSDK.cs" />
     <Compile Include="UI\Views.Controls\NoSpaceTextView.cs" />
+    <Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.AddGeneralLogging.cs" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
@@ -238,6 +242,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_female_black_24.xml">
       <Link>Resources\drawable\baseline_female_black_24.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_folder_black_24.xml">
+      <Link>Resources\drawable\baseline_folder_black_24.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_info_black_24.xml">
       <Link>Resources\drawable\baseline_info_black_24.xml</Link>
     </AndroidResource>
@@ -373,6 +380,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_female_black_24.png">
       <Link>Resources\drawable-hdpi\baseline_female_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_folder_black_24.png">
+      <Link>Resources\drawable-hdpi\baseline_folder_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_info_black_24.png">
       <Link>Resources\drawable-hdpi\baseline_info_black_24.png</Link>
     </AndroidResource>
@@ -477,6 +487,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_female_black_24.png">
       <Link>Resources\drawable-mdpi\baseline_female_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_folder_black_24.png">
+      <Link>Resources\drawable-mdpi\baseline_folder_black_24.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_info_black_24.png">
       <Link>Resources\drawable-mdpi\baseline_info_black_24.png</Link>
@@ -583,6 +596,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_female_black_24.png">
       <Link>Resources\drawable-xhdpi\baseline_female_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_folder_black_24.png">
+      <Link>Resources\drawable-xhdpi\baseline_folder_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_info_black_24.png">
       <Link>Resources\drawable-xhdpi\baseline_info_black_24.png</Link>
     </AndroidResource>
@@ -687,6 +703,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_female_black_24.png">
       <Link>Resources\drawable-xxhdpi\baseline_female_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_folder_black_24.png">
+      <Link>Resources\drawable-xxhdpi\baseline_folder_black_24.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_info_black_24.png">
       <Link>Resources\drawable-xxhdpi\baseline_info_black_24.png</Link>
@@ -799,6 +818,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_female_black_24.png">
       <Link>Resources\drawable-xxxhdpi\baseline_female_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_folder_black_24.png">
+      <Link>Resources\drawable-xxxhdpi\baseline_folder_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_info_black_24.png">
       <Link>Resources\drawable-xxxhdpi\baseline_info_black_24.png</Link>
     </AndroidResource>
@@ -870,6 +892,9 @@
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_encryption_auth.xml">
       <Link>Resources\layout\activity_encryption_auth.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_explorer.xml">
+      <Link>Resources\layout\activity_explorer.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_export_auth.xml">
       <Link>Resources\layout\activity_export_auth.xml</Link>
@@ -954,6 +979,9 @@
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_steam_auth_trade_confirmation_content.xml">
       <Link>Resources\layout\layout_card_steam_auth_trade_confirmation_content.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_file_or_dir.xml">
+      <Link>Resources\layout\layout_file_or_dir.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_login_and_register_by_fast_channel.xml">
       <Link>Resources\layout\layout_login_and_register_by_fast_channel.xml</Link>
@@ -1074,6 +1102,8 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
+
 
 
 

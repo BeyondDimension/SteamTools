@@ -127,6 +127,9 @@ namespace System.Application.UI.Activities
                             FontSizeResId = Resource.Dimension.translators_font_size,
                         });
                         break;
+                    case PreferenceButton.浏览基目录:
+                        this.StartActivity<ExplorerActivity>();
+                        break;
                 }
             };
             var layout = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);

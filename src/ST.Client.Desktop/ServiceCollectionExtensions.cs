@@ -19,22 +19,6 @@ namespace Microsoft.Extensions.DependencyInjection
             => PlatformToastImpl.TryAddToast(services);
 
         /// <summary>
-        /// 添加桌面端日志实现
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddDesktopLogging(this IServiceCollection services)
-        {
-            var (minLevel, cfg) = AppHelper.Configure();
-            services.AddLogging(cfg);
-            services.Configure<LoggerFilterOptions>(o =>
-            {
-                o.MinLevel = minLevel;
-            });
-            return services;
-        }
-
-        /// <summary>
         /// 添加 hosts 文件助手服务
         /// </summary>
         /// <param name="services"></param>

@@ -1499,4 +1499,7 @@
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
     <value>应用通知(系统设置)</value>
   </data>
+  <data name="BrowseBaseDirectory" xml:space="preserve">
+    <value>浏览基目录</value>
+  </data>
 </root>

@@ -58,6 +58,8 @@ namespace System.Application.UI
 #endif
             var stopwatch = Stopwatch.StartNew();
 
+            AppHelper.InitLogDir();
+
             VisualStudioAppCenterSDK.Init();
 
             XEFileProvider.TemporaryLocation = FileProviderLocation.Internal;

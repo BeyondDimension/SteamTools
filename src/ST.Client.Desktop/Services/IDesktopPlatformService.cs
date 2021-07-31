@@ -46,11 +46,8 @@ namespace System.Application.Services
         void OpenProcess(string name, string arguments) => Process.Start(name, arguments);
 
         void OpenProcess(string name) => Process.Start(name);
-        /// <summary>
-        /// 使用文本阅读器打开文件
-        /// </summary>
-        /// <param name="filePath"></param>
-        void OpenFileByTextReader(string filePath)
+
+        void IPlatformService.OpenFileByTextReader(string filePath)
         {
             TextReaderProvider? userProvider = null;
             var p = GeneralSettings.TextReaderProvider.Value;

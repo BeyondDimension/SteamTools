@@ -69,6 +69,9 @@
     <!--<Compile Include="..\ST.Client.Desktop.Avalonia\Application\Converters\StringFormatConverter.cs">
       <LinkBase>Converters</LinkBase>
     </Compile>-->
+    <Compile Include="..\ST.Client.Desktop\UI\AppHelper.Logger.cs">
+      <LinkBase>UI</LinkBase>
+    </Compile>
     <Compile Include="..\ST.Client.Desktop\Services\IFontManager.cs">
       <LinkBase>Services</LinkBase>
     </Compile>

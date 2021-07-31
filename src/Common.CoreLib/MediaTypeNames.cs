@@ -76,5 +76,7 @@ namespace System
         public const string VideoAll = "video/*";
 
         public const string PDF = "application/pdf";
+
+        public const string All = "*/*";
     }
 }

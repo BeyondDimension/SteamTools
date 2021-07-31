@@ -3,9 +3,12 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Util;
+using AndroidX.Core.Net;
 using Binding;
 using System.Application.Models;
 using System.Application.UI.ViewModels;
+using System.IO;
+using static Android.Content.Intent;
 
 namespace System.Application.UI.Activities
 {
@@ -13,6 +16,7 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
       LaunchMode = LaunchMode.SingleTask,
       ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
+    [IntentFilter(new[] { ActionView }, Categories = new[] { CategoryDefault }, DataMimeType = MediaTypeNames.TXT)]
     internal sealed class TextBlockActivity : BaseActivity<activity_textblock>
     {
         protected override int? LayoutResource => Resource.Layout.activity_textblock;
@@ -22,6 +26,27 @@ namespace System.Application.UI.Activities
             base.OnCreate(savedInstanceState);
 
             var vm = this.GetViewModel<TextBlockViewModel>();
+            if (vm == null)
+            {
+                if (Intent?.Action == ActionView && Intent.Data != null)
+                {
+                    try
+                    {
+                        var filePath = Intent.Data.EnsurePhysicalPath();
+                        var fileContent = File.ReadAllText(filePath);
+                        vm = new TextBlockViewModel
+                        {
+                            Title = Path.GetFileName(filePath),
+                            Content = fileContent,
+                        };
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error(nameof(TextBlockActivity), nameof(OnCreate), e);
+                    }
+                }
+            }
+
             if (vm == null)
             {
                 Finish();

@@ -98,13 +98,7 @@ namespace System.Application
         static void ConfigureRequiredServices(IServiceCollection services)
         {
             // 添加日志实现
-#if __ANDROID__
-            services.AddClientLogging();
-#elif __IOS__
-            services.AddLogging(cfg => cfg.AddProvider(NullLoggerProvider.Instance));
-#else
-            services.AddDesktopLogging();
-#endif
+            services.AddGeneralLogging();
 #if __MOBILE__
             // 添加运行时权限
             services.TryAddPermissions();
