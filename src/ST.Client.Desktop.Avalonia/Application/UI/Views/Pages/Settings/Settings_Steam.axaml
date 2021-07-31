@@ -48,9 +48,13 @@
             <Separator Classes="Separator"/>
 
             <StackPanel Spacing="10">
-                <TextBlock Text= "{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static resx:R.Current}}" />
-                <TextBox Watermark="{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamStratParameter},Path=Value, Mode=TwoWay}"
-                         MinHeight="150" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
+                <!--<TextBlock Text= "{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static resx:R.Current}}" />-->
+                <TextBox Watermark="{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                         UseFloatingWatermark="True"
+                         Text="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamStratParameter},Path=Value, Mode=TwoWay}"
+                         MinHeight="150" 
+                         AcceptsReturn="True" 
+                         TextWrapping="Wrap"></TextBox>
             </StackPanel>
 
             <Separator Classes="Separator"/>
