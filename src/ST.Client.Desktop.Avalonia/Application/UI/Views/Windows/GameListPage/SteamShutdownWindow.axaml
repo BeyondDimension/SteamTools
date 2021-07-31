@@ -17,12 +17,13 @@
         x:CompileBindings="True">
   <Panel>
     <controls:TitleBar></controls:TitleBar>
-    <Border
-            Classes="paper" 
-            Background="{DynamicResource ThemeBrushKey}"
-            Padding="10" 
-            Margin="20 30 20 0">
-      <DockPanel>
+    <DockPanel>
+      <Border
+        Classes="paper"
+        DockPanel.Dock="Top"
+        Background="{DynamicResource ThemeBrushKey}"
+        Padding="10"
+        Margin="20 40 20 0">
         <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Left">
           <Button
                    Background="Transparent"
@@ -30,7 +31,10 @@
             <PathIcon Width="16" Height="16" Data="{DynamicResource PauseCircleDrawing}"/>
           </Button>
         </StackPanel>
-      </DockPanel>
-    </Border>
+      </Border>
+      <Panel DockPanel.Dock="Bottom">
+
+      </Panel>
+    </DockPanel>
   </Panel>
 </Window>

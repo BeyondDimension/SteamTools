@@ -1,8 +1,11 @@
 using Android.Runtime;
+using System.Collections.Generic;
 using System.Common;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using JClass = Java.Lang.Class;
+using JObject = Java.Lang.Object;
 using JEnum = Java.Lang.Enum;
 using JFile = Java.IO.File;
 using JString = Java.Lang.String;

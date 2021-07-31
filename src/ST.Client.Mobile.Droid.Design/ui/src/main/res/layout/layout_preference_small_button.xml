@@ -21,5 +21,4 @@
         android:textSize="17sp"
         tools:text="检查更新"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
-
 </FrameLayout>

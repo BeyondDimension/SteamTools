@@ -16,6 +16,8 @@ namespace System.Application.UI
     {
         public static bool EnableDevtools { get; set; } = ThisAssembly.Debuggable;
 
+        public static bool DisableGPU { get; set; }
+
         public static bool IsSystemWebViewAvailable { get; set; }
 
         public static Action? Initialized { get; set; }

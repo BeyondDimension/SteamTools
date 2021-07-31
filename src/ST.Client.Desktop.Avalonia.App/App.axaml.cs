@@ -136,7 +136,7 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("App.SetP");
 #endif
-            SettingsHost.Load();
+            //SettingsHost.Load();
             var windowService = IWindowService.Instance;
             windowService.Init();
             DI.Get<IDesktopPlatformService>().SetSystemSessionEnding(compositeDisposable.Dispose);

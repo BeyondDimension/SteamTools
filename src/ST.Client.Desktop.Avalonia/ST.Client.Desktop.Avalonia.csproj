@@ -23,6 +23,7 @@
     <ItemGroup>
         <None Remove="Application\UI\Assets\Fonts\WenQuanYiMicroHei-01.ttf" />
         <None Remove="Application\UI\Assets\movecross.png" />
+        <None Remove="Application\UI\Styles\Controls\DateTimePicker.xaml" />
     </ItemGroup>
 
     <ItemGroup>
@@ -44,11 +45,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="0.10.999-cibuild0015092-beta" />
+        <PackageReference Include="Avalonia" Version="0.10.999-cibuild0015162-beta" />
         <!--<PackageReference Include="Avalonia.AvaloniaEdit" Version="0.10.4" />-->
-        <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0015092-beta" />
-        <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.999-cibuild0015092-beta" />
-        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0015092-beta" />
+        <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0015162-beta" />
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.999-cibuild0015162-beta" />
+        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0015162-beta" />
         <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.6.10" />
         <PackageReference Include="CefNet.Avalonia" Version="90.6.21124.1851" />
         <PackageReference Include="LibVLCSharp.Avalonia" Version="3.5.1" />
@@ -56,7 +57,13 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)'=='Debug'">
-        <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0015092-beta" />
+        <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0015162-beta" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaResource Update="Application\UI\Styles\Controls\DateTimePicker.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </AvaloniaResource>
     </ItemGroup>
 
     <ItemGroup>

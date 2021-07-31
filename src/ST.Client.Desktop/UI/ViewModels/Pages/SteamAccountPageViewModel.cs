@@ -41,19 +41,15 @@ namespace System.Application.UI.ViewModels
             ShareManageCommand = ReactiveCommand.Create(OpenShareManageWindow);
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
-                //new MenuItemViewModel(nameof(AppResources.More))
-                //{
-                //    Items = new[]
-                //    {
-                        new MenuItemViewModel(nameof(AppResources.UserChange_LoginNewAccount))
-                            { IconKey="SteamDrawing", Command=LoginAccountCommand },
-                        new MenuItemViewModel (),
-                          new MenuItemViewModel(nameof(AppResources.AccountChange_Title)){
-                      IconKey ="ChannelShareDrawing", Command = ShareManageCommand },
-                        new MenuItemViewModel (nameof(AppResources.Refresh))
+                new MenuItemViewModel (nameof(AppResources.Refresh))
                             { IconKey="RefreshDrawing" , Command = RefreshCommand},
-                //    }
-                //},
+                new MenuItemViewModel (),
+                new MenuItemViewModel(nameof(AppResources.UserChange_LoginNewAccount))
+                            { IconKey="SteamDrawing", Command=LoginAccountCommand },
+                new MenuItemViewModel(nameof(AppResources.AccountChange_Title)){
+                      IconKey ="ChannelShareDrawing", Command = ShareManageCommand },
+                new MenuItemViewModel(nameof(AppResources.UserChange_RemarkReplaceName)){
+                      IconKey ="EditDrawing", Command = ShareManageCommand },
             };
 
             _SteamUsersSourceList = new SourceCache<SteamUser, long>(t => t.SteamId64);
@@ -61,8 +57,7 @@ namespace System.Application.UI.ViewModels
             _SteamUsersSourceList
               .Connect()
               .ObserveOn(RxApp.MainThreadScheduler)
-              .Sort(SortExpressionComparer<SteamUser>.Descending(x => x.LastLoginTime
-              ))
+              .Sort(SortExpressionComparer<SteamUser>.Descending(x => x.LastLoginTime))
               .Bind(out _SteamUsers)
               .Subscribe();
         }

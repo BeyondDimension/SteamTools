@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
@@ -14,6 +14,8 @@ namespace System
         /// <typeparam name="TEnum"></typeparam>
         /// <returns></returns>
         public static TEnum[] GetAll<TEnum>() where TEnum : Enum => (TEnum[])Enum.GetValues(typeof(TEnum));
+
+        public static string[] GetAllStrings<TEnum>() where TEnum : Enum => GetAll<TEnum>().Select(x => x.ToString()).ToArray();
 
         /// <summary>
         /// 将 Flags 枚举进行拆分

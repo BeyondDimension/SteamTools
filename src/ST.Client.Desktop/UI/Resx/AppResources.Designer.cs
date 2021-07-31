@@ -3070,6 +3070,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 应用详情(系统设置) 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_AppDetailsSettings {
+            get {
+                return ResourceManager.GetString("Settings_General_AppDetailsSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 应用通知(系统设置) 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_AppNotificationSettings {
+            get {
+                return ResourceManager.GetString("Settings_General_AppNotificationSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 启动时自动检查更新 的本地化字符串。
         /// </summary>
         public static string Settings_General_AutoCheckUpdate {
@@ -3097,11 +3115,38 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 下载更新渠道 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_UpdateChannel {
+            get {
+                return ResourceManager.GetString("Settings_General_UpdateChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 使用硬件加速 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_UseGPURendering {
+            get {
+                return ResourceManager.GetString("Settings_General_UseGPURendering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 语言 的本地化字符串。
         /// </summary>
         public static string Settings_Language {
             get {
                 return ResourceManager.GetString("Settings_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 *需重启生效 的本地化字符串。
+        /// </summary>
+        public static string Settings_RestartEffective {
+            get {
+                return ResourceManager.GetString("Settings_RestartEffective", resourceCulture);
             }
         }
         
@@ -4058,6 +4103,15 @@ namespace System.Application.UI.Resx {
         public static string UserChange_RecentLogin {
             get {
                 return ResourceManager.GetString("UserChange_RecentLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 使用备注替换昵称显示 的本地化字符串。
+        /// </summary>
+        public static string UserChange_RemarkReplaceName {
+            get {
+                return ResourceManager.GetString("UserChange_RemarkReplaceName", resourceCulture);
             }
         }
         

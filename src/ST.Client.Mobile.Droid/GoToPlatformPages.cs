@@ -1,6 +1,11 @@
 using Android.App;
 using Android.Content;
+using Android.OS;
+using AndroidX.Core.Content;
 using Fragment = AndroidX.Fragment.App.Fragment;
+using AUri = Android.Net.Uri;
+using JFile = Java.IO.File;
+using Settings = Android.Provider.Settings;
 
 namespace System.Application
 {
@@ -131,6 +136,119 @@ namespace System.Application
             var activity = fragment.Activity;
             if (activity == null) return;
             StartActivity<TActivity, TViewModel>(activity, viewModel);
+        }
+
+        public static void InstallApk(Context context, JFile apkFile)
+        {
+            var sdkInt = (int)Build.VERSION.SdkInt;
+            var intent = new Intent(Intent.ActionView);
+            AUri apkUri;
+            if (sdkInt >= (int)BuildVersionCodes.N) // 7.0开始要用新的API！
+            {
+                apkUri = FileProvider.GetUriForFile(context, GetAuthority(context), apkFile);
+                intent.AddFlags(ActivityFlags.GrantReadUriPermission); // FLAG_GRANT_READ_URI_PERMISSION 添加这一句表示对目标应用临时授权该Uri所代表的文件
+            }
+            else
+            {
+                apkUri = AUri.FromFile(apkFile)!;
+            }
+            intent.SetDataAndType(apkUri, MediaTypeNames.APK);
+            intent.AddFlags(ActivityFlags.NewTask);
+            context.StartActivity(intent);
+        }
+
+        public static void InstallApk(Context context, string apkFilePath)
+        {
+            JFile apkFile = new(apkFilePath);
+            InstallApk(context, apkFile);
+        }
+
+        static void StartNewTaskActivity(Context context, string action)
+        {
+            var intent = new Intent(action);
+            intent.AddFlags(ActivityFlags.NewTask);
+            context.StartActivity(intent);
+        }
+
+        public static void SystemSettings(Context context) => StartNewTaskActivity(context, Settings.ActionSettings);
+
+        public static void AppDetailsSettings(Context context)
+        {
+            try
+            {
+                var intent = new Intent();
+                intent.AddFlags(ActivityFlags.NewTask);
+                AppDetailsSettings(context, intent);
+                context.StartActivity(intent);
+            }
+            catch
+            {
+                SystemSettings(context);
+            }
+        }
+
+        static void AppDetailsSettings(Context context, Intent intent, int? sdkInt_ = null)
+        {
+            var sdkInt = sdkInt_ ?? (int)Build.VERSION.SdkInt;
+            if (sdkInt >= 9)
+            {
+                intent.SetAction(Settings.ActionApplicationDetailsSettings);
+                intent.AddCategory(Intent.CategoryDefault);
+                intent.SetData(AUri.FromParts("package", context.PackageName, null));
+            }
+            else if (sdkInt <= 8)
+            {
+                intent.SetAction(Intent.ActionView);
+                intent.SetClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
+                intent.PutExtra("com.android.settings.ApplicationPkgName", context.PackageName);
+            }
+            else
+            {
+                throw new PlatformNotSupportedException();
+            }
+        }
+
+        public static void NotificationSettings(Context context)
+        {
+            // https://blog.csdn.net/LikeBoke/article/details/83929711
+            // https://www.jianshu.com/p/1e27efb1dcac
+            var isAppDetailsSettings = false;
+            try
+            {
+                var intent = new Intent();
+                var sdkInt = (int)Build.VERSION.SdkInt;
+                if (sdkInt >= (int)BuildVersionCodes.O) // >=8.0
+                {
+                    // APP通知设置详情
+                    intent.SetAction(Settings.ActionAppNotificationSettings); // ACTION_APP_NOTIFICATION_SETTINGS
+                    intent.PutExtra(Settings.ExtraAppPackage, context.PackageName);
+                    intent.PutExtra(Settings.ExtraChannelId, context.ApplicationInfo!.Uid);
+                }
+                else if (sdkInt >= (int)BuildVersionCodes.Lollipop && sdkInt < (int)BuildVersionCodes.O) // >=5.0 && <8.0
+                {
+                    // APP通知设置详情
+                    intent.SetAction(Settings.ActionAppNotificationSettings); // ACTION_APP_NOTIFICATION_SETTINGS
+                    intent.PutExtra("app_package", context.PackageName);
+                    intent.PutExtra("app_uid", context.ApplicationInfo!.Uid);
+                }
+                else
+                {
+                    isAppDetailsSettings = true;
+                    AppDetailsSettings(context, intent, sdkInt);
+                }
+                context.StartActivity(intent);
+            }
+            catch
+            {
+                if (isAppDetailsSettings)
+                {
+                    SystemSettings(context);
+                }
+                else
+                {
+                    AppDetailsSettings(context);
+                }
+            }
         }
     }
 }

@@ -18,11 +18,17 @@
     <!--        tools:title="取消所有交易" />-->
 
     <item
+        android:id="@+id/menu_refresh"
+        android:icon="@drawable/baseline_refresh_black_24"
+        android:title=""
+        app:iconTint="@color/icon_background"
+        tools:title="刷新" />
+
+    <item
         android:id="@+id/menu_logout"
         android:icon="@drawable/baseline_logout_black_24"
         android:title=""
         app:iconTint="@color/icon_background"
-        app:showAsAction="always"
         tools:title="注销登录" />
 
 </menu>

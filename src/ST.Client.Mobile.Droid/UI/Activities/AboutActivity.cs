@@ -13,7 +13,6 @@ using Android.Webkit;
 using AndroidX.Annotations;
 using AndroidX.RecyclerView.Widget;
 using Binding;
-using Google.Android.Material.Dialog;
 using ReactiveUI;
 using System.Application.Security;
 using System.Application.Services;
@@ -63,17 +62,9 @@ namespace System.Application.UI.Activities
             R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 Title = ViewModel.Title;
-                binding!.tvAgreementAndPrivacy.TextFormatted = CreateAgreementAndPrivacy();
+                if (binding == null) return;
+                binding.tvAgreementAndPrivacy.TextFormatted = CreateAgreementAndPrivacy();
             }).AddTo(this);
-
-            static void BrowserOpenByDialogClick(DialogClickEventArgs e, Func<string, string?> func)
-            {
-                if (e.Which >= 0 && e.Which < SourceRepositories.Length)
-                {
-                    var value = func(SourceRepositories[e.Which]);
-                    if (value != default) BrowserOpen(value);
-                }
-            }
 
             var adapter = new SmallPreferenceButtonAdapter<PreferenceButtonViewModel, PreferenceButton>(ViewModel!.PreferenceButtons);
             adapter.ItemClick += (_, e) =>
@@ -104,12 +95,12 @@ namespace System.Application.UI.Activities
                         });
                         break;
                     case PreferenceButton.源码仓库:
-                        new MaterialAlertDialogBuilder(this).SetItems(SourceRepositories, (_, e) => BrowserOpenByDialogClick(e, value => value switch
+                        ComboBoxHelper.Dialog(this, SourceRepositories, x => BrowserOpen(x switch
                         {
                             GitHub => UrlConstants.GitHub_Repository,
                             Gitee => UrlConstants.Gitee_Repository,
                             _ => default,
-                        })).Show();
+                        }));
                         break;
                     case PreferenceButton.产品官网:
                         BrowserOpen(UrlConstants.OfficialWebsite);
@@ -118,12 +109,12 @@ namespace System.Application.UI.Activities
                         BrowserOpen(UrlConstants.OfficialWebsite_Contact);
                         break;
                     case PreferenceButton.Bug反馈:
-                        new MaterialAlertDialogBuilder(this).SetItems(SourceRepositories, (_, e) => BrowserOpenByDialogClick(e, value => value switch
+                        ComboBoxHelper.Dialog(this, SourceRepositories, x => BrowserOpen(x switch
                         {
                             GitHub => UrlConstants.GitHub_Issues,
                             Gitee => UrlConstants.Gitee_Issues,
                             _ => default,
-                        })).Show();
+                        }));
                         break;
                     case PreferenceButton.账号注销:
                         ViewModel!.DelAccountCommand.Invoke();

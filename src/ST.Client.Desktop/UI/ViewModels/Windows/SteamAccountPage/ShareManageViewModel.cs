@@ -23,9 +23,11 @@ namespace System.Application.UI.ViewModels
         readonly ISteamService steamService = DI.Get<ISteamService>();
         readonly IHttpService httpService = DI.Get<IHttpService>();
         readonly ISteamworksWebApiService webApiService = DI.Get<ISteamworksWebApiService>();
+
         public ShareManageViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.AccountChange_Title;
+
             this.WhenAnyValue(x => x.AuthorizedList)
                 .Subscribe(s => this.RaisePropertyChanged(nameof(IsAuthorizedListEmpty)));
 
@@ -39,35 +41,19 @@ namespace System.Application.UI.ViewModels
 
             Refresh_Click();
         }
-        public bool _IsAuthorizedListEmpty;
-        public bool IsAuthorizedListEmpty
-        {
-            get => _IsAuthorizedListEmpty;
-            set => this.RaiseAndSetIfChanged(ref _IsAuthorizedListEmpty, value);
-        }
+
+        public bool IsAuthorizedListEmpty => !AuthorizedList.Any_Nullable();
 
         private ReadOnlyObservableCollection<AuthorizedDevice>? _AuthorizedList;
         public ReadOnlyObservableCollection<AuthorizedDevice>? AuthorizedList => _AuthorizedList;
 
-        public SourceCache<AuthorizedDevice, long> _AuthorizedSourceList;
-        public SourceCache<AuthorizedDevice, long> AuthorizedSourceList
-        {
-            get => _AuthorizedSourceList;
-            set => this.RaiseAndSetIfChanged(ref _AuthorizedSourceList, value);
-        }
-        //private string? _SearchText;
-        //public string? SearchText
-        //{
-        //    get => _SearchText;
-        //    set => this.RaiseAndSetIfChanged(ref _SearchText, value);
-        //}
+        private SourceCache<AuthorizedDevice, long> _AuthorizedSourceList;
 
         public void Refresh_Click()
         {
             var list = new List<AuthorizedDevice>();
 
             var userlist = steamService.GetRememberUserList();
-            var id = string.Empty;
             var allList = steamService.GetAuthorizedDeviceList();
             int count = allList.Count - 1;
             foreach (var item in allList)
@@ -80,12 +66,10 @@ namespace System.Application.UI.ViewModels
                 item.End = item.Index == count;
                 list.Add(item);
             }
-            if (list.Count == 0)
-                IsAuthorizedListEmpty = true;
-            else
-                IsAuthorizedListEmpty = false;
+            _AuthorizedSourceList.Clear();
             _AuthorizedSourceList.AddOrUpdate(list);
-            _AuthorizedSourceList.Refresh();
+            //_AuthorizedSourceList.Refresh();
+
             Refresh_Cash().ConfigureAwait(false);
         }
         public async Task Refresh_Cash()
@@ -100,7 +84,6 @@ namespace System.Application.UI.ViewModels
                 accountRemarks?.TryGetValue(item.SteamId64_Int, out remark);
                 item.Remark = remark;
                 item.SteamID = temp.SteamID;
-                item.OnlineState = temp.OnlineState?? "offline";
                 item.SteamNickName = temp.SteamNickName ?? item.AccountName ?? item.SteamId3_Int.ToString();
                 item.AvatarIcon = temp.AvatarIcon;
                 item.AvatarMedium = temp.AvatarMedium;
@@ -123,29 +106,33 @@ namespace System.Application.UI.ViewModels
             _AuthorizedSourceList.AddOrUpdate(_AuthorizedSourceList.Items);
             _AuthorizedSourceList.Refresh();
         }
+
         public void OpenUserProfileUrl(AuthorizedDevice user)
         {
             BrowserOpen(user.ProfileUrl);
         }
-          public void About_Click()
+
+        public void About_Click()
         {
-            var result = MessageBoxCompat.ShowAsync(@AppResources.AccountChange_ShareManageAboutTips, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OK).ContinueWith(async (s) =>
-            { 
-            }); 
+            var result = MessageBoxCompat.ShowAsync(@AppResources.AccountChange_ShareManageAboutTips, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OK);
         }
+
         public void SetFirstButton_Click(AuthorizedDevice item)
         {
             item.Index = 1;
             Sort(item, true);
         }
+
         public void UpButton_Click(AuthorizedDevice item)
         {
             Sort(item, true);
         }
+
         public void DowButton_Click(AuthorizedDevice item)
         {
             Sort(item, false);
         }
+
         public void Sort(AuthorizedDevice item, bool up)
         {
             var index = item.Index;
@@ -165,18 +152,17 @@ namespace System.Application.UI.ViewModels
                 }).ToList());
             }
         }
-        public void SetActivity_Click()
+
+        public async void SetActivity_Click()
         {
             if (_AuthorizedList != null)
                 steamService.UpdateAuthorizedDeviceList(_AuthorizedList);
-            var result = MessageBoxCompat.ShowAsync(@AppResources.AccountChange_RestartSteam, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
+            var result = await MessageBoxCompat.ShowAsync(@AppResources.AccountChange_RestartSteam, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
+            if (result == MessageBoxResultCompat.OK)
             {
-                if (s.Result == MessageBoxResultCompat.OK)
-                {
-                    steamService.TryKillSteamProcess();
-                    steamService.StartSteam();
-                }
-            });
+                steamService.TryKillSteamProcess();
+                steamService.StartSteam();
+            }
         }
     }
 }
