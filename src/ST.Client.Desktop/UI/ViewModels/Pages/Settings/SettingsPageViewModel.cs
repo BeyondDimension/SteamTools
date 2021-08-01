@@ -41,6 +41,13 @@ namespace System.Application.UI.ViewModels
             get => _SelectFont;
             set => this.RaiseAndSetIfChanged(ref _SelectFont, value);
         }
+
+        IReadOnlyCollection<UpdateChannelType>? _UpdateChannels;
+        public IReadOnlyCollection<UpdateChannelType>? UpdateChannels
+        {
+            get => _UpdateChannels;
+            set => this.RaiseAndSetIfChanged(ref _UpdateChannels, value);
+        }
 #endif
 
         public SettingsPageViewModel()
@@ -57,6 +64,9 @@ namespace System.Application.UI.ViewModels
             SelectFont = R.Fonts.FirstOrDefault(x => x.Value == UISettings.FontName.Value);
             this.WhenValueChanged(x => x.SelectFont, false)
                   .Subscribe(x => UISettings.FontName.Value = x.Value);
+
+
+            UpdateChannels = Enum.GetValues<UpdateChannelType>();
 #endif
         }
 
@@ -68,5 +78,8 @@ namespace System.Application.UI.ViewModels
             AppResources.Settings_UI_Dark,
         };
 #endif
+
+
+
     }
 }

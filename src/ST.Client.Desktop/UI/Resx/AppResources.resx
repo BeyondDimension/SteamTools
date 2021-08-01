@@ -1076,7 +1076,7 @@
     <value>通用设置</value>
   </data>
   <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
-    <value>启动时自动检查更新</value>
+    <value>自动检查更新</value>
   </data>
   <data name="Settings_General_RuningMinimize" xml:space="preserve">
     <value>启动时最小化到托盘</value>

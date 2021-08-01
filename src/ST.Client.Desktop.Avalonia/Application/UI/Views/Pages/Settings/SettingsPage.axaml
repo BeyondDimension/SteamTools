@@ -9,21 +9,21 @@
              x:Class="System.Application.UI.Views.Pages.SettingsPage">
   <TabControl Classes="flat" Padding="{StaticResource PageMargin2}">
     <TabItem Header="{ReflectionBinding Path=Res.Settings_UI,Mode=OneWay,Source={x:Static resx:R.Current}}">
-      <pages:Settings_UI x:DataType="vm:SettingsPageViewModel">
+      <pages:Settings_UI x:DataType="vm:SettingsPageViewModel" x:CompileBindings="True">
         <pages:Settings_UI.DataContext>
           <vm:SettingsPageViewModel/>
         </pages:Settings_UI.DataContext>
       </pages:Settings_UI>
     </TabItem>
     <TabItem Header="{ReflectionBinding Path=Res.Settings_General,Mode=OneWay,Source={x:Static resx:R.Current}}">
-      <pages:Settings_General x:DataType="vm:SettingsPageViewModel">
+      <pages:Settings_General x:DataType="vm:SettingsPageViewModel" x:CompileBindings="True">
         <pages:Settings_General.DataContext>
           <vm:SettingsPageViewModel/>
         </pages:Settings_General.DataContext>
       </pages:Settings_General>
     </TabItem>
     <TabItem Header="{ReflectionBinding Path=Res.Settings_Steam,Mode=OneWay,Source={x:Static resx:R.Current}}">
-      <pages:Settings_Steam x:DataType="vm:SettingsPageViewModel">
+      <pages:Settings_Steam x:DataType="vm:SettingsPageViewModel" x:CompileBindings="True">
         <pages:Settings_Steam.DataContext>
           <vm:SettingsPageViewModel/>
         </pages:Settings_Steam.DataContext>
