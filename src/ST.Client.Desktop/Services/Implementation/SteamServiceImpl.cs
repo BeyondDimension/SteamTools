@@ -417,8 +417,8 @@ namespace System.Application.Services.Implementation
                         {
                             if (app.AppId > 0)
                             {
-                                if (GameLibrarySettings.DefaultIgnoreList.Value.Contains(app.AppId))
-                                    continue;
+                                //if (GameLibrarySettings.DefaultIgnoreList.Value.Contains(app.AppId))
+                                //    continue;
                                 if (GameLibrarySettings.HideGameList.Value!.ContainsKey(app.AppId))
                                     continue;
                                 //if (app.ParentId > 0)
