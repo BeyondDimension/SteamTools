@@ -15,11 +15,12 @@ namespace System.Application.UI.ViewModels
     partial class LoginOrRegisterWindowViewModel : WindowViewModel
     {
         ServerWebSocket server;
+        static int port;
         public override void Activation()
         {
             if (IsFirstActivation)
             {
-                server = new ServerWebSocket("127.0.0.1", 9910);
+                server = new ServerWebSocket("127.0.0.1",out port);
                 server.OnClientReceived += handle;
                 server.Start();
             }
@@ -28,9 +29,7 @@ namespace System.Application.UI.ViewModels
         public static bool IsBind { get; set; } = false;
         public static FastLoginChannel Channel { get; set; }
         public async Task handle(ReceivedEventArgs msg)
-        {
-            if (msg.Message == "Exit")
-                server.Dispose();
+        { 
             MessageBoxCompat.Show(msg.Message);
             var response = ApiResponse.Deserialize<LoginOrRegisterResponse>(Encoding.UTF8.GetBytes(msg.Message));
             var retResponse = new LoginWebSocket();
@@ -52,7 +51,7 @@ namespace System.Application.UI.ViewModels
                         await UserService.Current.BindAccountAfterUpdateAsync(Channel, response.Content!);
                         var msg = AppResources.Success_.Format(AppResources.User_AccountBind);
                         Toast.Show(msg);
-                    });
+                    }); 
                 }
                 else
                 {
@@ -61,8 +60,9 @@ namespace System.Application.UI.ViewModels
                     {
                         await SuccessAsync(response.Content!);
                     });
-                }
-
+                } 
+                //登录完成释放
+                server.Dispose();
             }
             else
             {
@@ -76,15 +76,17 @@ namespace System.Application.UI.ViewModels
         }
         internal static async Task FastLoginOrRegisterAsync(Action? close = null, FastLoginChannel channel = FastLoginChannel.Steam, bool isBind = false)
         {
-            var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
-            //var urlExternalLoginCallback = apiBaseUrl + "/ExternalLoginCallback";
+            var apiBaseUrl = UrlConstants.OfficialWebsite;// ICloudServiceClient.Instance.ApiBaseUrl;
             var url = apiBaseUrl +
                  (channel == FastLoginChannel.Steam ?
-                 "/ExternalLogin" : $"/ExternalLogin/{(int)channel}") + "?websocket=true" +
+                 "/login.html" : $"/login.html/{(int)channel}") + $"?websocket=true&port={port}" +
                  (isBind ? "&isBind=true" : string.Empty);
             IsBind = isBind;
             Channel = channel;
             Services.CloudService.Constants.BrowserOpen(url);
+
+           
+
             //if (!AppHelper.IsSystemWebViewAvailable) return;
             //var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
             //var urlExternalLoginCallback = apiBaseUrl + "/ExternalLoginCallback";

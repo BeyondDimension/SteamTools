@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.WebSocket.EventArgs;
 using System.Threading;
+using System.Net.NetworkInformation;
 
 namespace System.Net.WebSocket
 {
@@ -28,7 +29,31 @@ namespace System.Net.WebSocket
         ///  断开
         /// </summary>
         public event Func<DisconnectedEventArgs, Task> OnClientDisconnected;
-
+        internal static bool IsPortOccupedFun(int port)
+        {
+            IPGlobalProperties iproperties = IPGlobalProperties.GetIPGlobalProperties();
+            IPEndPoint[] ipEndPoints = iproperties.GetActiveTcpListeners();
+            foreach (var item in ipEndPoints)
+            {
+                if (item.Port == port)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public ServerWebSocket(string host, out int port)
+        {
+            if (!IPAddress.TryParse(host, out ip))
+                throw new ArgumentException("Invalid IP address");
+            var random = new Random();
+            port = random.Next(10000, 25564);
+            while (!IsPortOccupedFun(port))
+            {
+                port = random.Next(10000, 25564);
+            }
+            listener = new(ip, port);
+        }
         public ServerWebSocket(string host, int port)
         {
             if (!IPAddress.TryParse(host, out ip))
@@ -61,12 +86,12 @@ namespace System.Net.WebSocket
                     TcpClient tcp = await Task.Run(() => listener.AcceptTcpClientAsync(), tokenSource.Token);// await listener.AcceptTcpClientAsync();
                     _ = Task.Run(async () =>
                     {
-                        ClientConnection client = new (tcp)
+                        ClientConnection client = new(tcp)
                         {
                             OnConnected = OnClientConnected,
                             OnReceived = OnClientReceived,
                             OnDisconnected = OnClientDisconnected
-                        }; 
+                        };
                         tokenSource.Token.Register(() => { client.Dispose(); });
                         await client.StartAsync();
                     }, tokenSource.Token);
