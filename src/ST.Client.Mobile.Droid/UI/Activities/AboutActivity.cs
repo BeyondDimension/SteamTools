@@ -132,7 +132,7 @@ namespace System.Application.UI.Activities
                         break;
                 }
             };
-            var layout = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
+            var layout = new LinearLayoutManager2(this, LinearLayoutManager.Vertical, false);
             binding.rvPreferenceButtons.SetLayoutManager(layout);
             binding.rvPreferenceButtons.AddItemDecoration(new PreferenceButtonItemDecoration(this, Resource.Dimension.preference_buttons_space_min));
             binding.rvPreferenceButtons.SetAdapter(adapter);

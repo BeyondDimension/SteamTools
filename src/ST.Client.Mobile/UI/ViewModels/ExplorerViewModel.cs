@@ -41,10 +41,7 @@ namespace System.Application.UI.ViewModels
                     }
                 }
                 Title = title;
-                foreach (var item in PathInfos.ToArray())
-                {
-                    PathInfos.Remove(item);
-                }
+                PathInfos.Clear();
                 if (string.IsNullOrEmpty(_CurrentPath))
                 {
                     PathInfos.AddRange(GetRootPathInfoViewModels<List<PathInfoViewModel>>());

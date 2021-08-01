@@ -89,7 +89,7 @@ namespace System.Application.UI.Adapters
     /// <typeparam name="TViewHolder"></typeparam>
     /// <typeparam name="TViewModel"></typeparam>
     /// <typeparam name="TViewType"></typeparam>
-    public abstract partial class BaseReactiveRecycleViewAdapter<TViewHolder, TViewModel, TViewType> : ReactiveRecyclerViewAdapter<TViewModel>, IReadOnlyViewModels<TViewModel>
+    public abstract partial class BaseReactiveRecycleViewAdapter<TViewHolder, TViewModel, TViewType> : ReactiveRecyclerViewAdapter2<TViewModel>, IReadOnlyViewModels<TViewModel>
         where TViewHolder : BaseReactiveViewHolder<TViewModel>
         where TViewModel : class, IReactiveObject
         where TViewType : struct, IConvertible
@@ -109,6 +109,11 @@ namespace System.Application.UI.Adapters
         {
             viewModels = collection;
         }
+
+        public BaseReactiveRecycleViewAdapter(IList<TViewModel> viewModels, ISourceList<TViewModel> sourceList) : base(sourceList)
+        {
+            this.viewModels = viewModels;
+        }
     }
 
     /// <inheritdoc cref="BaseReactiveRecycleViewAdapter{TViewHolder, TViewModel, TViewType}"/>
@@ -122,6 +127,11 @@ namespace System.Application.UI.Adapters
 
         public BaseReactiveRecycleViewAdapter(ReadOnlyObservableCollection<TViewModel> collection) : base(collection)
         {
+        }
+
+        public BaseReactiveRecycleViewAdapter(IList<TViewModel> viewModels, ISourceList<TViewModel> sourceList) : base(viewModels, sourceList)
+        {
+
         }
     }
 }

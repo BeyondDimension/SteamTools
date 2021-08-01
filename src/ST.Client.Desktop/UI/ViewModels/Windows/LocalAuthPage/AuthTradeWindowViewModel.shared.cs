@@ -185,8 +185,10 @@ namespace System.Application.UI.ViewModels
         private CancellationTokenSource? CancelCancelAll;
 
         private readonly ReadOnlyObservableCollection<WinAuthSteamClient.Confirmation>? _Confirmations;
-        private readonly SourceList<WinAuthSteamClient.Confirmation> _ConfirmationsSourceList;
         public ReadOnlyObservableCollection<WinAuthSteamClient.Confirmation> Confirmations => _Confirmations ?? throw new ArgumentNullException(nameof(_Confirmations));
+
+        private readonly SourceList<WinAuthSteamClient.Confirmation> _ConfirmationsSourceList;
+        public SourceList<WinAuthSteamClient.Confirmation> ConfirmationsSourceList => _ConfirmationsSourceList;
 
         private bool _IsLoading;
         public bool IsLoading

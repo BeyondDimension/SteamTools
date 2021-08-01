@@ -13,7 +13,7 @@ namespace System.Application.UI.Adapters
     {
         //public AuthTradeWindowViewModel ViewModel { get; }
 
-        public SteamAuthTradeConfirmationAdapter(AuthTradeWindowViewModel viewModel) : base(viewModel.Confirmations)
+        public SteamAuthTradeConfirmationAdapter(AuthTradeWindowViewModel viewModel) : base(viewModel.Confirmations, viewModel.ConfirmationsSourceList)
         {
             //ViewModel = viewModel;
         }
