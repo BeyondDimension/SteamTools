@@ -90,6 +90,9 @@ namespace System.Application.Models
             [MPKey(3)]
             public string? FileIdOrUrl { get; set; }
 
+            [MPKey(4)]
+            public UpdateChannelType DownloadChannelType { get; set; }
+
             bool IExplicitHasValue.ExplicitHasValue()
             {
                 return !string.IsNullOrWhiteSpace(SHA256) &&

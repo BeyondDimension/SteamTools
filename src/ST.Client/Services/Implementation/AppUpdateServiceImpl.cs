@@ -48,7 +48,10 @@ namespace System.Application.Services.Implementation
         {
             get
             {
-                if (DI.IsDesktopBridge || DI.IsiOSOriPadOSOrwatchOS)
+                if (DI.IsDesktopBridge ||
+                    DI.IsiOSOriPadOSOrwatchOS ||
+                    DI.Platform == Platform.Linux ||
+                    DI.IsmacOS)
                 {
                     return false;
                 }
@@ -400,14 +403,14 @@ namespace System.Application.Services.Implementation
                     {
                         if (isAndroid)
                         {
-                            download = newVersionInfo.Downloads.FirstOrDefault(x => x.DownloadType == AppDownloadType.Install);
+                            download = GetByDownloadChannelSettings(newVersionInfo.Downloads.Where(x => x.DownloadType == AppDownloadType.Install));
                         }
                         else if (isDesktop)
                         {
-                            download = newVersionInfo.Downloads.FirstOrDefault(x => x.DownloadType == AppDownloadType.Compressed_7z);
+                            download = GetByDownloadChannelSettings(newVersionInfo.Downloads.Where(x => x.DownloadType == AppDownloadType.Compressed_7z));
                             if (download == null)
                             {
-                                download = newVersionInfo.Downloads.FirstOrDefault(x => x.DownloadType == AppDownloadType.Compressed_GZip);
+                                download = GetByDownloadChannelSettings(newVersionInfo.Downloads.Where(x => x.DownloadType == AppDownloadType.Compressed_GZip));
                             }
                         }
                         else
@@ -573,5 +576,7 @@ namespace System.Application.Services.Implementation
                 OpenInAppStore();
             }
         }
+
+        protected abstract AppVersionDTO.Download? GetByDownloadChannelSettings(IEnumerable<AppVersionDTO.Download> downloads);
     }
 }

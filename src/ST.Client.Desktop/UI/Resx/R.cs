@@ -165,30 +165,17 @@ namespace System.Application.UI.Resx
         static string GetLanguageCore()
         {
             var culture = Culture;
-            if (IsMatch(culture, "zh-Hans"))
+            foreach (var item in Languages)
             {
-                return "zh-Hans";
+                if (!string.IsNullOrWhiteSpace(item.Key))
+                {
+                    if (IsMatch(culture, item.Key))
+                    {
+                        return item.Key;
+                    }
+                }
             }
-            else if (IsMatch(culture, "zh-Hant"))
-            {
-                return "zh-Hant";
-            }
-            else if (IsMatch(culture, "ko"))
-            {
-                return "ko";
-            }
-            else if (IsMatch(culture, "ja"))
-            {
-                return "ja";
-            }
-            else if (IsMatch(culture, "ru"))
-            {
-                return "ru";
-            }
-            else
-            {
-                return "en";
-            }
+            return "en";
         }
 
         public static string Language

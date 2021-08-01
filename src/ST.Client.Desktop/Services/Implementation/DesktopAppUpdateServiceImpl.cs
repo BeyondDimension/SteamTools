@@ -10,7 +10,7 @@ using static System.Application.Services.IAppUpdateService;
 
 namespace System.Application.Services.Implementation
 {
-    public abstract class DesktopAppUpdateServiceImpl : AppUpdateServiceImpl
+    public abstract partial class DesktopAppUpdateServiceImpl : AppUpdateServiceImpl
     {
         public DesktopAppUpdateServiceImpl(IToast toast, ICloudServiceClient client, IOptions<AppSettings> options) : base(toast, client, options)
         {

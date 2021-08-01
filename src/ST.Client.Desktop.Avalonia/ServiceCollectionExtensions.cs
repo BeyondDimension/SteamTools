@@ -29,17 +29,6 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
-        /// 添加应用程序更新服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddAppUpdateService(this IServiceCollection services)
-        {
-            services.AddSingleton<IAppUpdateService, AvaloniaDesktopAppUpdateServiceImpl>();
-            return services;
-        }
-
-        /// <summary>
         /// 添加托盘图标
         /// </summary>
         /// <typeparam name="TNotifyIcon"></typeparam>

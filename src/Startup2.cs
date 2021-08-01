@@ -353,14 +353,6 @@ namespace System.Application
 #endif
             }
 #if !CONSOLEAPP
-            if (hasMainProcessRequired)
-            {
-                // 应用程序更新服务
-                services.AddAppUpdateService();
-#if StartupTrace
-                StartupTrace.Restart("DI.ConfigureDemandServices.AppUpdateService");
-#endif
-            }
             if (HasNotifyIcon)
             {
                 // 托盘图标
@@ -375,6 +367,16 @@ namespace System.Application
 #endif
             }
 #endif
+#endif
+#if !CONSOLEAPP
+            if (hasMainProcessRequired)
+            {
+                // 应用程序更新服务
+                services.AddAppUpdateService();
+#if StartupTrace
+                StartupTrace.Restart("DI.ConfigureDemandServices.AppUpdateService");
+#endif
+            }
 #endif
         }
 
