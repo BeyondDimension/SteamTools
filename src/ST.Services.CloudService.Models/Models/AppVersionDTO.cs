@@ -88,12 +88,11 @@ namespace System.Application.Models
             public long Length { get; set; }
 
             [MPKey(3)]
-            public string? FileId { get; set; }
+            public string? FileIdOrUrl { get; set; }
 
             bool IExplicitHasValue.ExplicitHasValue()
             {
                 return !string.IsNullOrWhiteSpace(SHA256) &&
-                    !string.IsNullOrWhiteSpace(FileId) &&
                     Length > 0;
             }
         }

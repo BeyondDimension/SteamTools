@@ -172,6 +172,7 @@
 * [ZXing.Net](https://github.com/micjahn/ZXing.Net)
 * [ZXing.Net.Mobile](https://github.com/Redth/ZXing.Net.Mobile)
 * [QRCoder](https://github.com/codebude/QRCoder)
+* [SharpCompress](https://github.com/adamhathcock/sharpcompress)
 * [React](https://github.com/facebook/react)
 * [Ant Design](https://github.com/ant-design/ant-design)
 * [Ant Design Blazor](https://github.com/ant-design-blazor/ant-design-blazor)

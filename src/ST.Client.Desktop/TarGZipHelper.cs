@@ -1,8 +1,9 @@
-﻿using ICSharpCode.SharpZipLib.GZip;
+using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace System.Application
@@ -75,23 +76,45 @@ namespace System.Application
             // https://github.com/icsharpcode/SharpZipLib/blob/v1.3.1/src/ICSharpCode.SharpZipLib/Zip/Compression/Streams/InflaterInputStream.cs#L542
             float length = fs.Length;
             var isFinish = false;
+            CancellationTokenSource? cts = null;
             async void ProgressMonitor()
             {
-                while (!isFinish)
+                try
                 {
-                    var value = fs.Position / length * maxProgress;
-                    progress.Report(value);
-                    await Task.Delay(200);
+                    while (!isFinish)
+                    {
+                        var value = fs.Position / length * maxProgress;
+                        progress!.Report(value);
+                        await Task.Delay(200, cts.Token);
+                    }
+                }
+                catch (OperationCanceledException)
+                {
                 }
             }
             Directory.CreateDirectory(dirPath);
             using var s = new GZipInputStream(fs);
             using var archive = TarArchive.CreateInputTarArchive(s, Encoding.UTF8);
             if (progressMessage != null) archive.ProgressMessageEvent += progressMessage;
-            if (progress != null) Task.Factory.StartNew(ProgressMonitor);
+            var hasProgress = progress != null;
+            if (hasProgress)
+            {
+                cts = new();
+                try
+                {
+                    Task.Factory.StartNew(ProgressMonitor, cts.Token);
+                }
+                catch (OperationCanceledException)
+                {
+                }
+            }
             archive.ExtractContents(dirPath);
             isFinish = true;
-            progress?.Report(maxProgress);
+            if (hasProgress)
+            {
+                cts!.Cancel();
+                progress!.Report(maxProgress);
+            }
             return true;
         }
     }

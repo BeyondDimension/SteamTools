@@ -3151,7 +3151,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 *需重启生效 的本地化字符串。
+        ///   查找类似 *需重启软件后生效 的本地化字符串。
         /// </summary>
         public static string Settings_RestartEffective {
             get {

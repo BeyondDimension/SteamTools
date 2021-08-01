@@ -4,6 +4,7 @@ using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Properties;
 using System.Reactive.Linq;
 using AppRes = System.Application.UI.Resx.AppResources;
 #if __MOBILE__
@@ -30,7 +31,7 @@ namespace System.Application.UI.Resx
         static R()
         {
             DefaultCurrentUICulture = CultureInfo.CurrentUICulture;
-            Languages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            var languagesDict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { "", "Auto" },
                 { "zh-Hans", "Chinese(Simplified)" },
@@ -39,9 +40,17 @@ namespace System.Application.UI.Resx
                 { "ko", "Koreana" },
                 { "ja", "Japanese" },
                 { "ru", "Russian" },
-                //{ "es", "Spanish" },
-                //{ "it", "Italian" },
-            }.ToList();
+                { "es", "Spanish" },
+                { "it", "Italian" },
+            };
+#if !DEBUG
+            if (new Version(ThisAssembly.Version) < new Version(2, 5))
+            {
+                languagesDict.Remove("es");
+                languagesDict.Remove("it");
+            }
+#endif
+            Languages = languagesDict.ToList();
             SteamLanguages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { "zh-CN", "schinese" },

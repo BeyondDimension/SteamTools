@@ -23,7 +23,7 @@ namespace System.Application.Services.Implementation
         /// </summary>
         protected abstract void OnExit();
 
-        protected override void OverwriteUpgrade(string value, bool isIncrement)
+        protected override void OverwriteUpgrade(string value, bool isIncrement, AppDownloadType downloadType)
         {
             if (isIncrement) // 增量更新
             {
@@ -38,7 +38,19 @@ namespace System.Application.Services.Implementation
                     Directory.Delete(dirPath, true);
                 }
 
-                if (TarGZipHelper.Unpack(value, dirPath, progress: new Progress<float>(OnReportDecompressing), maxProgress: MaxProgressValue))
+                var isOK = downloadType switch
+                {
+                    AppDownloadType.Compressed_GZip
+                        => TarGZipHelper.Unpack(value, dirPath,
+                            progress: new Progress<float>(OnReportDecompressing),
+                            maxProgress: MaxProgressValue),
+                    AppDownloadType.Compressed_7z
+                        => SevenZipHelper.Unpack(value, dirPath,
+                            progress: new Progress<float>(OnReportDecompressing),
+                            maxProgress: MaxProgressValue),
+                    _ => throw new NotSupportedException(),
+                };
+                if (isOK)
                 {
                     OnReport(MaxProgressValue);
                     IOPath.FileTryDelete(value);

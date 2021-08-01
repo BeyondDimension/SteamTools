@@ -1488,7 +1488,7 @@
     <value>使用硬件加速</value>
   </data>
   <data name="Settings_RestartEffective" xml:space="preserve">
-    <value>*需重启生效</value>
+    <value>*需重启软件后生效</value>
   </data>
   <data name="Settings_General_UpdateChannel" xml:space="preserve">
     <value>下载更新渠道</value>
