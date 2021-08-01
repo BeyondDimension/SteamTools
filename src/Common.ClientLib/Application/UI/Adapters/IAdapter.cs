@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace System.Application.UI.Adapters
@@ -19,7 +20,7 @@ namespace System.Application.UI.Adapters
         public static IReadOnlyList<TViewModel> AsReadOnly(IList<TViewModel> viewModels)
         {
             if (viewModels is IReadOnlyList<TViewModel> viewModels_) return viewModels_;
-            return viewModels.ToArray();
+            return new ReadOnlyCollection<TViewModel>(viewModels);
         }
 
         /// <summary>

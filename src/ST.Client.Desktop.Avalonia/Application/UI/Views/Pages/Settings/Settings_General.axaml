@@ -51,10 +51,21 @@
         <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsStartupAppMinimized},Path=Value, Mode=TwoWay}"/>
       </DockPanel>
 
+      <Separator Classes="Separator"/>
+
       <DockPanel>
         <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_AutoCheckUpdate,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsAutoCheckUpdate},Path=Value, Mode=TwoWay}"/>
       </DockPanel>
+
+      <StackPanel Orientation="Vertical" Spacing="10">
+        <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UpdateChannel,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+        <ComboBox x:Name="Themes"
+                  Items="{Binding UpdateChannels}"
+                  SelectedItem="{Binding Source={x:Static ms:GeneralSettings.UpdateChannel},Path=Value, Mode=TwoWay}"
+                  HorizontalAlignment="Stretch">
+        </ComboBox>
+      </StackPanel>
 
       <Separator Classes="Separator"/>
 
@@ -64,7 +75,7 @@
           <TextBlock Classes="prompt"
                      Text="{ReflectionBinding Path=Res.Settings_RestartEffective,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
         </WrapPanel>
-        
+
         <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.UseGPURendering},Path=Value, Mode=TwoWay}"/>
       </DockPanel>
     </StackPanel>

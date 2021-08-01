@@ -186,17 +186,19 @@ namespace System
         //static readonly Lazy<string> _BaseDirectory = new(() =>
         //{
         //    var value = AppContext.BaseDirectory;
-        //    var value2 = new DirectoryInfo(value);
-        //    if (value2.Parent != null && string.Equals(value2.Name, "Bin", StringComparison.OrdinalIgnoreCase))
+        //    if (DI.Platform == Platform.Windows)
         //    {
-        //        value = value2.Parent.FullName;
+        //        var value2 = new DirectoryInfo(value);
+        //        if (value2.Parent != null && string.Equals(value2.Name, "Bin", StringComparison.OrdinalIgnoreCase))
+        //        {
+        //            value = value2.Parent.FullName;
+        //        }
         //    }
         //    return value;
         //});
 
-        public static string BaseDirectory =>
-            //_BaseDirectory.Value;
-            AppContext.BaseDirectory;
+        public static string BaseDirectory => AppContext.BaseDirectory;
+        /*_BaseDirectory.Value;*/
 
         #endregion
 #endif

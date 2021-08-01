@@ -61,7 +61,7 @@ namespace System.Application.UI.Fragments
                 };
                 if (activityType != null) this.StartActivity(activityType);
             };
-            var layout = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
+            var layout = new LinearLayoutManager2(Context, LinearLayoutManager.Vertical, false);
             binding.rvPreferenceButtons.SetLayoutManager(layout);
             binding.rvPreferenceButtons.AddItemDecoration(new VerticalGroupItemDecoration(binding.rvPreferenceButtons.PaddingTop));
             binding.rvPreferenceButtons.SetAdapter(adapter);

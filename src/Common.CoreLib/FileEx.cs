@@ -51,6 +51,8 @@ namespace System
 
         public const string TAR_GZ = ".tgz";
 
+        public const string TAR_BR = ".tbr";
+
         public const string BIN = ".bin";
 
         public const string APNG = ".apng";
