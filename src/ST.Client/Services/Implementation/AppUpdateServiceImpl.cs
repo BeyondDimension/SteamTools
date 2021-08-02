@@ -253,7 +253,7 @@ namespace System.Application.Services.Implementation
             {
                 if (newVersionInfo!.DisableAutomateUpdate)
                 {
-                    Fail(SR.UpdateFail);
+                    OpenInAppStore();
                     goto end;
                 }
 

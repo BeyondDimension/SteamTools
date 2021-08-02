@@ -11,7 +11,7 @@ namespace System.Application
         Install,
 
         /// <summary>
-        /// 压缩包(GZip)
+        /// 压缩包(Tar/GZip)
         /// </summary>
         Compressed_GZip,
 
@@ -19,5 +19,10 @@ namespace System.Application
         /// 压缩包(7z)
         /// </summary>
         Compressed_7z,
+
+        /// <summary>
+        /// 压缩包(Tar/Brotli)
+        /// </summary>
+        Compressed_Br,
     }
 }

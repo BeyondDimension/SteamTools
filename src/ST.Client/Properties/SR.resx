@@ -209,9 +209,6 @@
   <data name="UpdateEnumOutOfRange" xml:space="preserve">
     <value>下载更新包失败，请打开官网手动更新</value>
   </data>
-  <data name="UpdateFail" xml:space="preserve">
-    <value>更新失败，请打开官网手动更新</value>
-  </data>
   <data name="UpdatePackVerificationFail" xml:space="preserve">
     <value>文件校验失败，请打开官网手动更新</value>
   </data>
