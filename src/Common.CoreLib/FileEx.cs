@@ -59,6 +59,8 @@ namespace System
 
         public const string EXE = ".exe";
 
+        public const string DMG = ".dmg";
+
         public const string _7Z = ".7z";
 
         public const string APPX = ".appx";

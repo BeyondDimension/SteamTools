@@ -7,7 +7,7 @@ using XEPlatform = Xamarin.Essentials.Platform;
 
 namespace System.Application.Services.Implementation
 {
-    internal sealed class MobileAppUpdateServiceImpl : AppUpdateServiceImpl
+    internal sealed partial class MobileAppUpdateServiceImpl : AppUpdateServiceImpl
     {
         public MobileAppUpdateServiceImpl(IToast toast, ICloudServiceClient client, IOptions<AppSettings> options) : base(toast, client, options)
         {
