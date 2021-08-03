@@ -80,7 +80,7 @@ namespace System.Application.UI.ViewModels
 #if DEBUG
                 true;
 #else
-                new Version(ThisAssembly.Version) < new Version(2, 5);
+                new Version(ThisAssembly.Version) >= new Version(2, 5);
 #endif
 
             if (isVersion_2_5_OR_GREATER)

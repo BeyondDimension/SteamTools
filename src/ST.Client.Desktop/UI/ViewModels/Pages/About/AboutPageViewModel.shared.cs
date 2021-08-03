@@ -81,7 +81,7 @@ namespace System.Application.UI.ViewModels
 
         static string GetOS() => DI.Platform switch
         {
-            Platform.Windows => "Windows",
+            Platform.Windows => DI.IsDesktopBridge ? "Windows Desktop Bridge" : "Windows",
             Platform.Linux => "Linux",
             Platform.Android => "Android",
             Platform.Apple => DI.DeviceIdiom switch

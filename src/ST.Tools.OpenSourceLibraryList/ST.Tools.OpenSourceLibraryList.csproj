@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MessagePack" Version="2.2.85" />
+    <PackageReference Include="MessagePack" Version="2.3.75" />
     <PackageReference Include="Octokit" Version="0.50.0" />
   </ItemGroup>
 

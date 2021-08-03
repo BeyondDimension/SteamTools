@@ -154,18 +154,18 @@ namespace System.Application.UI
 
         public const string LogDirName = "Logs";
 
-        public static void InitLogDir(string? alias = null) 
+        public static void InitLogDir(string? alias = null)
         {
             if (!string.IsNullOrEmpty(LogDirPath)) return;
 
-            LogUnderCache =
-
-#if WINDOWS_DESKTOP_BRIDGE || MAC || __MOBILE__
-                true
-#else
-                false
-#endif
-                ;
+            var devicePlatform = DI.Platform;
+            LogUnderCache = devicePlatform switch
+            {
+                Platform.Windows => DI.IsDesktopBridge,
+                Platform.Linux => false,
+                Platform.Android or Platform.Apple or Platform.UWP => true,
+                _ => throw new ArgumentOutOfRangeException(nameof(devicePlatform), devicePlatform, null),
+            };
 
             var logDirPath = Path.Combine(LogUnderCache ?
                 IOPath.CacheDirectory :

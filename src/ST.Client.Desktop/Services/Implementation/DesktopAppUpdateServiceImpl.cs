@@ -12,6 +12,8 @@ namespace System.Application.Services.Implementation
 {
     public abstract partial class DesktopAppUpdateServiceImpl : AppUpdateServiceImpl
     {
+        const string MicrosoftStoreProtocolLink = "ms-windows-store://pdp/?productid=9MTCFHS560NG";
+
         public DesktopAppUpdateServiceImpl(IToast toast, ICloudServiceClient client, IOptions<AppSettings> options) : base(toast, client, options)
         {
         }
@@ -87,6 +89,22 @@ namespace System.Application.Services.Implementation
                 p.StartInfo.CreateNoWindow = !ThisAssembly.Debuggable; // 不显示程序窗口
                 p.StartInfo.Verb = "runas"; // 管理员权限运行
                 p.Start(); // 启动程序
+            }
+        }
+
+        protected override void OpenInAppStore()
+        {
+            if (DI.IsDesktopBridge)
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = MicrosoftStoreProtocolLink,
+                    UseShellExecute = true,
+                });
+            }
+            else
+            {
+                base.OpenInAppStore();
             }
         }
     }
