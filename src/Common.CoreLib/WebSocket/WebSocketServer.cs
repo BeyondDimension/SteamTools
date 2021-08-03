@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Net.WebSocket.EventArgs;
 using System.Threading;
 using System.Net.NetworkInformation;
-
+using System.Linq;
 namespace System.Net.WebSocket
 {
     public class ServerWebSocket : IDisposable
@@ -33,14 +33,7 @@ namespace System.Net.WebSocket
         {
             IPGlobalProperties iproperties = IPGlobalProperties.GetIPGlobalProperties();
             IPEndPoint[] ipEndPoints = iproperties.GetActiveTcpListeners();
-            foreach (var item in ipEndPoints)
-            {
-                if (item.Port == port)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return ipEndPoints.Any(x => x.Port == port);
         }
         public ServerWebSocket(string host, out int port)
         {

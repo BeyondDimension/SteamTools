@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Net.WebSocket;
 using System.Net.WebSocket.EventArgs;
 using System.Windows;
+using System.Security.Cryptography;
 
 namespace System.Application.UI.ViewModels
 {
@@ -76,19 +77,22 @@ namespace System.Application.UI.ViewModels
         }
         internal static async Task FastLoginOrRegisterAsync(Action? close = null, FastLoginChannel channel = FastLoginChannel.Steam, bool isBind = false)
         {
-            var apiBaseUrl = UrlConstants.OfficialWebsite;// ICloudServiceClient.Instance.ApiBaseUrl;
+            var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
+            var apiBaseUrl = "https://127.0.0.1"; //ICloudServiceClient.Instance.ApiBaseUrl;
+            var skey_bytes = AESUtils.Create().ToParamsByteArray();
+            var skey_str = conn_helper.RSA.EncryptToString(skey_bytes);
             var url = apiBaseUrl +
                  (channel == FastLoginChannel.Steam ?
-                 "/login.html" : $"/login.html/{(int)channel}") + $"?websocket=true&port={port}" +
+                 "/ExternalLoginDetection" : $"/ExternalLoginDetection/{(int)channel}") + $"?websocket=true&port={port}&sKey={skey_str}" +
                  (isBind ? "&isBind=true" : string.Empty);
             IsBind = isBind;
             Channel = channel;
             Services.CloudService.Constants.BrowserOpen(url);
 
-           
+
 
             //if (!AppHelper.IsSystemWebViewAvailable) return;
-            //var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
+            ////var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
             //var urlExternalLoginCallback = apiBaseUrl + "/ExternalLoginCallback";
             //WebView3WindowViewModel? vm = null;
             //vm = new WebView3WindowViewModel
