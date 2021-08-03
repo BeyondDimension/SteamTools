@@ -28,7 +28,6 @@ namespace System.Application.Services.CloudService
         readonly IApiConnectionPlatformHelper conn_helper;
         readonly Lazy<JsonSerializer> jsonSerializer = new(() => new JsonSerializer());
         readonly IModelValidator validator;
-        readonly RSAEncryptionPadding? padding;
 
         public ApiConnection(
             ILogger logger,
@@ -40,11 +39,6 @@ namespace System.Application.Services.CloudService
             this.conn_helper = conn_helper;
             this.http_helper = http_helper;
             this.validator = validator;
-            padding = DI.Platform switch
-            {
-                Platform.Android => RSAEncryptionPadding.OaepSHA1,
-                _ => null,
-            };
         }
 
         async ValueTask<JWTEntity?> SetRequestHeaderAuthorization(HttpRequestMessage request)
@@ -559,9 +553,10 @@ namespace System.Application.Services.CloudService
                 if (isSecurity)
                 {
                     var skey_bytes = aes.ThrowIsNull(nameof(aes)).ToParamsByteArray();
+                    var padding = RSAUtils.DefaultPadding;
                     var skey_str = conn_helper.RSA.EncryptToString(skey_bytes, padding);
                     request.Headers.Add(SecurityKey, skey_str);
-                    request.Headers.Add(SecurityKeyPadding, padding?.OaepHashAlgorithm.ToString() ?? string.Empty);
+                    request.Headers.Add(SecurityKeyPadding, padding.OaepHashAlgorithm.ToString() ?? string.Empty);
                 }
 
                 JWTEntity? jwt = null;

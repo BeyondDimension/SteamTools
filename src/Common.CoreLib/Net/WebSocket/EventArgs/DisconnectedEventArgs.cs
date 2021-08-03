@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace System.Net.WebSocket.EventArgs
+namespace System.Net.WebSocket
 {
     /// <summary>
     /// 离线消息

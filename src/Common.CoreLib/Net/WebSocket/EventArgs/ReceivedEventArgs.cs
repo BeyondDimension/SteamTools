@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace System.Net.WebSocket.EventArgs
+namespace System.Net.WebSocket
 {
     /// <summary>
     /// 从客户端发送的数据
@@ -10,12 +6,12 @@ namespace System.Net.WebSocket.EventArgs
     public readonly struct ReceivedEventArgs
     {
         /// <summary>
-        ///  客户端连接
+        /// 客户端连接
         /// </summary>
         public ClientConnection Client { get; }
 
         /// <summary>
-        ///  数据
+        /// 数据
         /// </summary>
         public string Message { get; }
 

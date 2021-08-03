@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Security.Cryptography;
@@ -16,7 +14,7 @@ namespace System.Net.WebSocket
 
         private static readonly Regex getRegex = new("^GET");
         private static readonly Regex keyRegex = new("Sec-WebSocket-Key: (.*)");
-         
+
         internal static async Task<bool> TryHandshakeAsync(TcpClient tcp)
         {
             Socket socket = tcp.Client;
@@ -82,6 +80,7 @@ namespace System.Net.WebSocket
             message = Encoding.UTF8.GetString(decoded);
             return true;
         }
+
         internal static byte[] EncodeMessage(string message)
         {
             byte[] messageBytes = Encoding.UTF8.GetBytes(message);
@@ -96,6 +95,7 @@ namespace System.Net.WebSocket
             messageBytes.CopyTo(bytes, 2);
             return bytes;
         }
+
         internal static byte[] BuildCloseFrame()
         {
             return new byte[] { 0b_1000_1000, 0b_0000_0000 };

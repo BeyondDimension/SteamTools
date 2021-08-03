@@ -86,7 +86,7 @@ namespace System.Application.UI.ViewModels
             {
                 if (Enum.TryParse<FastLoginChannel>(channel_, out var channel))
                 {
-                    await OnBindFastLoginClickAsync(channel);
+                    await this.StartLRBAsync(channel);
                 }
             });
             OnUnbundleFastLoginClick = ReactiveCommand.CreateFromTask<string>(async channel_ =>
@@ -161,7 +161,7 @@ namespace System.Application.UI.ViewModels
             IsLoading = false;
         }
 
-        public new Action? Close { private get; set; }
+        public new Action? Close { get; set; }
 
         bool _IsLoading;
         public bool IsLoading
@@ -199,11 +199,6 @@ namespace System.Application.UI.ViewModels
         /// 解绑用于快速登录的第三方账号 按钮点击
         /// </summary>
         public ICommand OnUnbundleFastLoginClick { get; }
-
-        static async Task OnBindFastLoginClickAsync(FastLoginChannel channel)
-        {
-            await LoginOrRegisterWindowViewModel.FastLoginOrRegisterAsync(null, channel, isBind: true);
-        }
 
         async Task OnUnbundleFastLoginClickAsync(FastLoginChannel channel)
         {

@@ -39,6 +39,11 @@ namespace System.Application.Models
         [S_JsonProperty("3")]
         public string? PhoneNumber { get; set; }
 
+        [MPKey(4)]
+        [N_JsonProperty("4")]
+        [S_JsonProperty("4")]
+        public FastLoginChannel? FastLRBChannel { get; set; }
+
         bool IExplicitHasValue.ExplicitHasValue()
         {
             var hasToken = AuthToken != null;

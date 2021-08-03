@@ -45,6 +45,9 @@
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\AreaUIHelper.cs">
       <LinkBase>UI\ViewModels</LinkBase>
     </Compile>
+    <Compile Include="..\ST.Client.Desktop\UI\ViewModels\FastLRBHelper.cs">
+      <LinkBase>UI\ViewModels</LinkBase>
+    </Compile>
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\SendSmsUIHelper.cs">
       <LinkBase>UI\ViewModels</LinkBase>
     </Compile>

@@ -32,8 +32,10 @@ namespace System
         /// <param name="disposable"></param>
         /// <param name="vm"></param>
         /// <returns></returns>
-        public static bool RemoveTo<T>(this T disposable, IDisposableHolder vm) where T : IDisposable
+        public static bool RemoveTo<T>(this T? disposable, IDisposableHolder vm) where T : IDisposable
         {
+            if (disposable == null) return true;
+
             if (vm?.CompositeDisposable == null)
             {
                 disposable.Dispose();

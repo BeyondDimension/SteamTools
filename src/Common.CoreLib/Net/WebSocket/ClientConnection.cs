@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Net.WebSocket.EventArgs;
-using System.Threading;
 
 namespace System.Net.WebSocket
 {
@@ -17,9 +11,9 @@ namespace System.Net.WebSocket
         private readonly TcpClient tcp;
         private readonly NetworkStream stream;
 
-        internal Func<ConnectedEventArgs, Task> OnConnected;
-        internal Func<ReceivedEventArgs, Task> OnReceived;
-        internal Func<DisconnectedEventArgs, Task> OnDisconnected;
+        internal Func<ConnectedEventArgs, Task>? OnConnected;
+        internal Func<ReceivedEventArgs, Task>? OnReceived;
+        internal Func<DisconnectedEventArgs, Task>? OnDisconnected;
 
         /// <summary>
         /// 连接ID
@@ -32,6 +26,7 @@ namespace System.Net.WebSocket
         public SocketState State { get; private set; } = SocketState.Connecting;
 
         public EndPoint Local { get; }
+
         public EndPoint Remote { get; }
 
         internal ClientConnection(TcpClient tcp)
@@ -46,7 +41,7 @@ namespace System.Net.WebSocket
         }
 
         /// <summary>
-        ///  启动连接且尝试握手
+        /// 启动连接且尝试握手
         /// </summary>
         /// <returns>Task</returns>
         internal async Task StartAsync()
@@ -71,7 +66,7 @@ namespace System.Net.WebSocket
         }
 
         /// <summary>
-        ///   关闭客户端连接
+        /// 关闭客户端连接
         /// </summary>
         /// <param name="reason">关闭连接的原因</param>
         /// <returns>Task</returns>
@@ -132,11 +127,11 @@ namespace System.Net.WebSocket
                 await stream.WriteAsync(bytes.AsMemory(0, bytes.Length));
                 await stream.FlushAsync();
             }
-            catch(Exception e) {Log.Error("SendMsgError",e,"发送消息失败"); throw; }
+            catch (Exception e) { Log.Error("SendMsgError", e, "发送消息失败"); throw; }
         }
 
         /// <summary>
-        ///     Writes a string to the socket stream
+        /// Writes a string to the socket stream
         /// </summary>
         /// <param name="text">The string to write</param>
         /// <returns>Task</returns>
@@ -152,7 +147,7 @@ namespace System.Net.WebSocket
         }
 
         /// <summary>
-        ///     Sends a payload to the client
+        /// Sends a payload to the client
         /// </summary>
         /// <param name="bytes">The payload</param>
         /// <returns>Task</returns>

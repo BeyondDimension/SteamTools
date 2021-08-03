@@ -24,7 +24,7 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
           LaunchMode = LaunchMode.SingleTask,
           ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class LoginOrRegisterActivity : BaseActivity<activity_login_or_register, LoginOrRegisterPageViewModel>, LoginOrRegisterPageViewModel.IPlatformUIHost, IUiListener
+    internal sealed class LoginOrRegisterActivity : BaseActivity<activity_login_or_register, LoginOrRegisterPageViewModel>, FastLRBHelper.IPlatformUIHost, IUiListener
     {
         protected override int? LayoutResource => Resource.Layout.activity_login_or_register;
 
@@ -111,7 +111,7 @@ namespace System.Application.UI.Activities
             return str;
         });
 
-        void LoginOrRegisterPageViewModel.IPlatformUIHost.QQLogin() => tencent!.LoginServerSide(this);
+        void FastLRBHelper.IPlatformUIHost.QQLogin() => tencent!.LoginServerSide(this);
 
         void IUiListener.OnCancel()
         {

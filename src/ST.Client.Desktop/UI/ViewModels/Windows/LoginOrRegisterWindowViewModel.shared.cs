@@ -37,15 +37,15 @@ namespace System.Application.UI.ViewModels
 #endif
                 AppResources.LoginAndRegister;
 
-            ChooseChannel = ReactiveCommand.CreateFromTask<string>(async channel =>
+            ChooseChannel = ReactiveCommand.CreateFromTask<string>(async channel_ =>
             {
-                if (Enum.TryParse<FastLoginChannel>(channel, out var channel_))
+                if (Enum.TryParse<FastLoginChannel>(channel_, out var channel))
                 {
-                    await FastLoginOrRegisterAsync(Close, channel_);
+                    await this.StartLRBAsync(channel);
                 }
                 else
                 {
-                    switch (channel)
+                    switch (channel_)
                     {
                         case FastLoginChannelViewModel.PhoneNumber:
                             await GoToLoginOrRegisterByPhoneNumberAsync();
@@ -96,9 +96,9 @@ namespace System.Application.UI.ViewModels
             {
                 this.RaiseAndSetIfChanged(ref _TimeLimit, value);
                 this.RaisePropertyChanged(nameof(IsUnTimeLimit));
-//#if __MOBILE__
-//                OnIsUnTimeLimitChanged?.Invoke();
-//#endif
+                //#if __MOBILE__
+                //                OnIsUnTimeLimitChanged?.Invoke();
+                //#endif
             }
         }
 
@@ -111,9 +111,9 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _BtnSendSmsCodeText, value);
         }
 
-//#if __MOBILE__
-//        public Action? OnIsUnTimeLimitChanged { get; set; }
-//#endif
+        //#if __MOBILE__
+        //        public Action? OnIsUnTimeLimitChanged { get; set; }
+        //#endif
 
         public bool IsUnTimeLimit => TimeLimit != SMSInterval;
 
@@ -169,7 +169,7 @@ namespace System.Application.UI.ViewModels
             IsLoading = false;
         }
 
-        static async Task SuccessAsync(LoginOrRegisterResponse rsp)
+        public static async Task SuccessAsync(LoginOrRegisterResponse rsp)
         {
             await UserService.Current.RefreshUserAsync();
             var msg = AppResources.Success_.Format((rsp?.IsLoginOrRegister ?? false) ? AppResources.User_Login : AppResources.User_Register);
