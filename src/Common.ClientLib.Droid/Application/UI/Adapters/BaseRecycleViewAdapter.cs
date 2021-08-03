@@ -46,7 +46,7 @@ namespace System.Application.UI.Adapters
 
         protected virtual ItemClickEventArgs<TViewModel>? GetItemClickEventArgs(View view, TViewHolder holder, View.LongClickEventArgs? longClickEventArgs = null)
         {
-            var position = holder.BindingAdapterPosition;
+            var position = holder.AdapterPosition;
             if (position < 0 || position >= ViewModels.Count) return null;
             var current = ViewModels[position];
             return new PlatformItemClickEventArgs<TViewModel>(view, position, current, longClickEventArgs);

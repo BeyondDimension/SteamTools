@@ -1,4 +1,4 @@
-﻿using Android.Content.PM;
+using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -28,12 +28,12 @@ namespace System.Application.UI.Activities
             {
                 // 如果此处抛异常，绑定 xxx BottomNavigationView xx XML，解决方案：清理项目，重新生成
                 SetContentView(LayoutResource.Value);
-                var isDarkModeQ = DarkModeUtil.IsDarkModeQ;
-                if (isDarkModeQ)
-                {
-                    // 安卓10深色模式，使用全局浅色状态栏
-                    StatusBarUtil.SetWindowLightStatusBar(this, false);
-                }
+                //var isDarkModeQ = DarkModeUtil.IsDarkModeQ;
+                //if (isDarkModeQ)
+                //{
+                //    // 安卓10深色模式，使用全局浅色状态栏
+                //    StatusBarUtil.SetWindowLightStatusBar(this, false);
+                //}
                 ViewBinding();
                 BindingToolbar();
                 BindingBtnBack();

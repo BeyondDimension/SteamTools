@@ -10,7 +10,6 @@
       "src\\Repositories.sqlite-net-pcl\\Repositories.sqlite-net-pcl.csproj",
       "references\\WinAuth\\Authenticator\\Authenticator.csproj",
       "references\\AvaloniaGif\\AvaloniaGif\\AvaloniaGif.csproj",
-      "references\\CefNet\\CefNet.Avalonia\\CefNet.Avalonia.csproj",
       "references\\AvaloniaGif\\LibAPNG\\LibAPNG.csproj",
       "references\\SteamAchievementManager\\SAM.API\\SAM.API.csproj",
       "references\\Steam4NET\\Steam4NET\\Steam4NET.csproj",
