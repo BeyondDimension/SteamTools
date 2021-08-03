@@ -41,7 +41,7 @@ namespace System.Net.WebSocket
                 throw new ArgumentException("Invalid IP address");
             var random = new Random();
             port = random.Next(10000, 25564);
-            while (!IsPortOccupedFun(port))
+            while (IsPortOccupedFun(port))
             {
                 port = random.Next(10000, 25564);
             }
