@@ -11,8 +11,8 @@ jobs:
     runs-on: ${{ matrix.os }}    
     strategy:
       matrix:
-        os: [ windows-latest, macOS-latest, ubuntu-latest ]
-#        os: [ windows-latest ]
+#        os: [ windows-latest, macOS-latest, ubuntu-latest ]
+        os: [ windows-latest ]
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET 5
