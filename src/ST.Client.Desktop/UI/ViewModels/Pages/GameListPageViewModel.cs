@@ -153,7 +153,7 @@ namespace System.Application.UI.ViewModels
 
         public void OpenSteamShutdownAppWindow()
         {
-            IShowWindowService.Instance.Show(CustomWindow.SteamShutdown, new IdleAppWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+            IShowWindowService.Instance.Show(CustomWindow.SteamShutdown, new SteamShutdownWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
         }
 
         public ReactiveCommand<Unit, Unit> HideAppCommand { get; }

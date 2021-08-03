@@ -1502,4 +1502,21 @@
   <data name="BrowseBaseDirectory" xml:space="preserve">
     <value>浏览基目录</value>
   </data>
+  <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
+    <value>打开{0}文件夹</value>
+    <comment>{0}文件夹名称</comment>
+  </data>
+  <data name="Settings_General_CacheSize" xml:space="preserve">
+    <value>缓存文件已占用 {0}</value>
+    <comment>{0}占用体积大小</comment>
+  </data>
+  <data name="Settings_General_ClearCache" xml:space="preserve">
+    <value>清理缓存文件</value>
+  </data>
+  <data name="Settings_General_StorageSpace" xml:space="preserve">
+    <value>存储空间</value>
+  </data>
+  <data name="Settings_General_Calcing" xml:space="preserve">
+    <value>计算中...</value>
+  </data>
 </root>

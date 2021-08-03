@@ -352,5 +352,49 @@ namespace System
 
         public static Task<(bool success, string? content, Exception? ex)> TryReadAllTextAsync(string? filePath, Encoding encoding, CancellationToken cancellationToken = default) => TryCallAsync(filePath, cancellationToken, (p, tk) => File.ReadAllTextAsync(p, encoding, tk));
 #endif
+
+        /// <summary>
+        /// 获取文件的大小
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns>单位 字节</returns>
+        public static double GetFileSize(string filePath)
+        {
+            //定义一个FileInfo对象，是指与filePath所指向的文件相关联，以获取其大小
+            FileInfo fileInfo = new FileInfo(filePath);
+            return fileInfo.Length;
+        }
+
+        /// <summary>
+        /// 获取指定路径的大小
+        /// </summary>
+        /// <param name="dirPath">路径</param>
+        /// <returns>单位 字节</returns>
+        public static double GetDirectoryLength(string dirPath)
+        {
+            double len = 0;
+            //判断该路径是否存在（是否为文件夹）
+            if (!Directory.Exists(dirPath))
+            {
+                //查询文件的大小
+                len = GetFileSize(dirPath);
+            }
+            else
+            {
+                //定义一个DirectoryInfo对象
+                DirectoryInfo di = new DirectoryInfo(dirPath);
+                //通过GetFiles方法，获取di目录中的所有文件的大小
+                foreach (FileInfo fi in di.GetFiles())
+                {
+                    len += fi.Length;
+                }
+                //获取di中所有的文件夹，并存到一个新的对象数组中，以进行递归
+                foreach (var dir in di.GetDirectories())
+                {
+                    len += GetDirectoryLength(dir.FullName);
+                }
+            }
+            return len;
+        }
     }
 }

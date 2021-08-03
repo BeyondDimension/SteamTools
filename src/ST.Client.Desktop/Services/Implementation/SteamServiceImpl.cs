@@ -199,19 +199,19 @@ namespace System.Application.Services.Implementation
                     dynamic v = VdfHelper.Read(ConfigVdfPath);
                     var authorizedDevice = v.Value.AuthorizedDevice;
                     if (authorizedDevice != null)
-                    { 
+                    {
                         foreach (var item in authorizedDevice)
                         {
                             try
                             {
                                 var i = item.Value;
                                 authorizeds.Add(new AuthorizedDevice(item.ToString())
-                                { 
+                                {
                                     SteamId3_Int = Convert.ToInt64(item.Key.ToString()),
                                     Timeused = Convert.ToInt64(i.timeused.ToString()),
                                     Description = i.description.ToString(),
                                     Tokenid = i.tokenid.ToString(),
-                                }); 
+                                });
                             }
                             catch (Exception e)
                             {
@@ -224,7 +224,8 @@ namespace System.Application.Services.Implementation
                         VdfHelper.UpdateValueByReplaceNoPattern(ConfigVdfPath, oldStr, newStr);
                         return true;
                     }
-                    else {
+                    else
+                    {
                         return false;
                     }
                 }
@@ -265,7 +266,7 @@ namespace System.Application.Services.Implementation
                     var authorizedDevice = v.Value.AuthorizedDevice;
                     if (authorizedDevice != null)
                     {
-                        var index=0;
+                        var index = 0;
                         foreach (var item in authorizedDevice)
                         {
                             try
@@ -273,7 +274,7 @@ namespace System.Application.Services.Implementation
                                 var i = item.Value;
                                 authorizeds.Add(new AuthorizedDevice(item.ToString())
                                 {
-                                    Index= index,
+                                    Index = index,
                                     SteamId3_Int = Convert.ToInt64(item.Key.ToString()),
                                     Timeused = Convert.ToInt64(i.timeused.ToString()),
                                     Description = i.description.ToString(),
@@ -792,5 +793,200 @@ namespace System.Application.Services.Implementation
         }
 
         #endregion
+
+
+        private string[] GetLibraryPaths()
+        {
+            if (string.IsNullOrEmpty(SteamDirPath) || !Directory.Exists(SteamDirPath))
+            {
+                return null;
+            }
+
+            List<string> paths = new List<string>()
+                {
+                    Path.Combine(SteamDirPath, "SteamApps")
+                };
+
+            string libraryFoldersPath = Path.Combine(SteamDirPath, "SteamApps", "libraryfolders.vdf");
+
+            dynamic v = VdfHelper.Read(libraryFoldersPath);
+
+            for (int i = 1; ; i++)
+            {
+                dynamic pathNode = v[i.ToString()];
+
+                if (pathNode == null) break;
+
+                if (pathNode.Type != JTokenType.String)
+                {
+                    // New format
+                    // Valve introduced a new format for the "libraryfolders.vdf" file
+                    // In the new format, the node "1" not only contains a single value (the path),
+                    // but multiple values: path, label, mounted, contentid
+
+                    // If a library folder is removed in the Steam settings, the path persists, but its 'mounted' value is set to 0 (disabled)
+                    // We consider only the value '1' as that the path is actually enabled.
+                    if (pathNode["mounted"].ToString() != "1")
+                        continue;
+                    pathNode = pathNode["path"];
+                }
+
+                string path = Path.Combine(pathNode.ToString(), "SteamApps");
+
+                if (Directory.Exists(path))
+                    paths.Add(path);
+            }
+
+            return paths.ToArray();
+        }
+
+        public SteamApp? FileToAppInfo(string filename)
+        {
+            string[] content = File.ReadAllLines(filename);
+            // Skip if file contains only NULL bytes (this can happen sometimes, example: download crashes, resulting in a corrupted file)
+            if (content.Length == 1 && string.IsNullOrWhiteSpace(content[0].TrimStart('\0'))) return null;
+
+            dynamic v = VdfHelper.Read(filename);
+
+            if (v == null)
+            {
+                Toast.Show(
+                    $"{filename}{Environment.NewLine}contains unexpected content.{Environment.NewLine}This game will be ignored.");
+                return null;
+            }
+
+            SteamApp newInfo = new SteamApp
+            {
+                AppId = uint.Parse((v.appid ?? v.appID ?? v.AppID).ToString()),
+                Name = v.name ?? v.installdir,
+                State = int.Parse(v.StateFlags.ToString())
+            };
+
+            return newInfo;
+        }
+
+        /// <summary>
+        /// 获取正在下载的SteamApp列表
+        /// </summary>
+        public List<SteamApp> GetDownloadingAppList()
+        {
+            string[] libraryPaths = GetLibraryPaths();
+            if (libraryPaths.Length == 0)
+            {
+                Toast.Show("No game library found." + Environment.NewLine + "This might appear if Steam has been installed on this machine but was uninstalled.");
+            }
+
+            var appInfos = new List<SteamApp>();
+
+            foreach (string path in libraryPaths)
+            {
+                DirectoryInfo di = new DirectoryInfo(path);
+
+                foreach (FileInfo fileInfo in di.EnumerateFiles("*.acf"))
+                {
+                    // Skip if file is empty
+                    if (fileInfo.Length == 0) continue;
+
+                    SteamApp? ai = FileToAppInfo(fileInfo.FullName);
+                    if (ai == null) continue;
+
+                    appInfos.Add(ai);
+                }
+            }
+
+            return appInfos.OrderBy(x => x.Name).ToList();
+        }
+
+        private uint IdFromAcfFilename(string filename)
+        {
+            string filenameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
+
+            int loc = filenameWithoutExtension.IndexOf('_');
+            return uint.Parse(filenameWithoutExtension.Substring(loc + 1));
+        }
+
+        /// <summary>
+        /// 监听Steam下载
+        /// </summary>
+        public void InitWatchSteamDownloading(Action<uint> changedAction, Action<uint> deleteAction)
+        {
+            string[] libraryPaths = GetLibraryPaths();
+            if (libraryPaths.Length == 0)
+            {
+                Toast.Show("No game library found." + Environment.NewLine + "This might appear if Steam has been installed on this machine but was uninstalled.");
+            }
+
+            foreach (string libraryFolder in libraryPaths)
+            {
+                var fsw = new FileSystemWatcher(libraryFolder, "*.acf");
+                fsw.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.CreationTime;
+                fsw.Changed += Fsw_Changed;
+                fsw.Deleted += Fsw_Deleted;
+                fsw.EnableRaisingEvents = true;
+
+            }
+
+            void Fsw_Deleted(object sender, FileSystemEventArgs e)
+            {
+                uint id = IdFromAcfFilename(e.FullPath);
+
+                //SteamApp info = Apps.FirstOrDefault(x => x.ID == id);
+                //if (info == null) return;
+
+                //var eventArgs = new AppInfoEventArgs(info);
+                deleteAction.Invoke(id);
+            }
+
+            void Fsw_Changed(object sender, FileSystemEventArgs e)
+            {
+                dynamic? v = null;
+                try
+                {
+                    // This is necessary because sometimes the file is still accessed by steam, so let's wait for 10 ms and try again.
+                    // Maximum 5 times
+                    int counter = 1;
+                    do
+                    {
+                        try
+                        {
+                            v = VdfHelper.Read(e.FullPath);
+                            break;
+                        }
+                        catch (IOException)
+                        {
+                            System.Threading.Thread.Sleep(50);
+                        }
+                    }
+                    while (counter++ <= 5);
+                }
+                catch
+                {
+                    return;
+                }
+
+                // Shouldn't happen, but might occur if Steam holds the acf file too long
+                if (v == null) return;
+
+                // Search for changed app, if null it's a new app
+                //SteamApp info = Apps.FirstOrDefault(x => x.ID == newID);
+                changedAction.Invoke((v.appid ?? v.appID ?? v.AppID));
+
+                //if (info != null) // Download state changed
+                //{
+                //    eventArgs = new AppInfoChangedEventArgs(info, info.State);
+                //    // Only update existing AppInfo
+                //    info.State = int.Parse(v.StateFlags.ToString());
+                //}
+                //else // New download started
+                //{
+                //    // Add new AppInfo
+                //    info = JsonToAppInfo(newJson);
+                //    Apps.Add(info);
+                //    eventArgs = new AppInfoChangedEventArgs(info, -1);
+                //}
+
+                //OnAppInfoChanged(info, eventArgs);
+            }
+        }
     }
 }

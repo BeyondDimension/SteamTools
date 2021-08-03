@@ -78,6 +78,35 @@
 
         <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.UseGPURendering},Path=Value, Mode=TwoWay}"/>
       </DockPanel>
+
+      <Separator Classes="Separator"/>
+
+      <StackPanel Orientation="Vertical" Spacing="10">
+        <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_StorageSpace,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+
+        <StackPanel
+                    Orientation="Horizontal"
+                    Spacing="10">
+          <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=AppData}"
+                  Command="{ReflectionBinding OpenFolder}"
+                  CommandParameter="AppData"/>
+          <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=Cache}"
+                  Command="{ReflectionBinding OpenFolder}"
+                  CommandParameter="Cache"/>
+          <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=Logs}"
+                  Command="{ReflectionBinding OpenFolder}"
+                  CommandParameter="Logs"/>
+        </StackPanel>
+
+        <WrapPanel>
+          <TextBlock x:Name="CacheSize" VerticalAlignment="Center"/>
+          <!--<Button VerticalContentAlignment="Center"
+                  VerticalAlignment="Center"
+                  Margin="10 0 0 0"
+                  Content="{ReflectionBinding Path=Res.Settings_General_ClearCache,Mode=OneWay,Source={x:Static resx:R.Current}}"/>-->
+        </WrapPanel>
+      </StackPanel>
+
     </StackPanel>
   </ScrollViewer>
 </UserControl>
