@@ -194,7 +194,7 @@ namespace System.Application.UI.ViewModels
                 $"port={vm.ServerWebSocketListenerPort}&" +
                 $"sKey={skey_str}&" +
                 $"sKeyPadding={padding.OaepHashAlgorithm}&" +
-                $"Version={csc.Settings.AppVersionStr}" +
+                $"version={csc.Settings.AppVersionStr}" +
                 $"isBind={vm.IsBind}";
             BrowserOpen(url);
         }

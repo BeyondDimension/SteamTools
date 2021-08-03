@@ -145,7 +145,7 @@ namespace System.Security.Cryptography
         [Obsolete("use DefaultPadding")]
         internal static RSAEncryptionPadding Padding => RSAEncryptionPadding.OaepSHA256;
 
-        public static RSAEncryptionPadding GetPaddingByOaepHashAlgorithmName(string oaepHashAlgorithmName)
+        public static RSAEncryptionPadding GetPaddingByOaepHashAlgorithmName(string? oaepHashAlgorithmName)
         {
             if (!string.IsNullOrWhiteSpace(oaepHashAlgorithmName))
             {
