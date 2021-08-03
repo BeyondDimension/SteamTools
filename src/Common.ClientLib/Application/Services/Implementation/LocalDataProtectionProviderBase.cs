@@ -35,7 +35,7 @@ namespace System.Application.Services.Implementation
                 (var key, var iv) = MachineSecretKey;
                 // https://github.com/dotnet/runtime/issues/42214#issuecomment-698495584
                 // AES CFB in Windows 7 catch Internal.Cryptography.CryptoThrowHelper+WindowsCryptographicException: Unknown error (0xc10000bb)
-                // AES CEF in Android catch
+                // AES CFB in Android catch CryptographicException: Bad PKCS7 padding. Invalid length
                 var mode = DI.Platform switch
                 {
                     Platform.Android => CipherMode.CBC,
