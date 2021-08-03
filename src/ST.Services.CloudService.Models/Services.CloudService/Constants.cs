@@ -19,6 +19,7 @@ namespace System.Application.Services.CloudService
             {
                 public const string AppVersion = "App-Version";
                 public const string SecurityKey = "App-SKey";
+                public const string SecurityKeyPadding = "App-SKey-Padding";
             }
 
             public static class Response
