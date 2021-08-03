@@ -145,17 +145,20 @@ namespace System.Security.Cryptography
         [Obsolete]
         internal static RSAEncryptionPadding Padding => RSAEncryptionPadding.OaepSHA256;
 
-        public static RSAEncryptionPadding CreateOaep(string oaepHashAlgorithmName)
+        public static RSAEncryptionPadding GetPaddingByOaepHashAlgorithmName(string oaepHashAlgorithmName)
         {
-            try
+            if (!string.IsNullOrWhiteSpace(oaepHashAlgorithmName))
             {
-                var hashAlgorithm = new HashAlgorithmName(oaepHashAlgorithmName);
-                return RSAEncryptionPadding.CreateOaep(hashAlgorithm);
+                try
+                {
+                    var hashAlgorithm = new HashAlgorithmName(oaepHashAlgorithmName);
+                    return RSAEncryptionPadding.CreateOaep(hashAlgorithm);
+                }
+                catch
+                {
+                }
             }
-            catch
-            {
-                return Padding;
-            }
+            return Padding;
         }
 
         public static RSAEncryptionPadding DefaultPadding

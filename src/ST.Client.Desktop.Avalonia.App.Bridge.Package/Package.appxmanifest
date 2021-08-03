@@ -9,7 +9,7 @@
   <Identity
     Name="4651ED44255E.47979655102CE"
     Publisher="CN=A90E406B-B2D3-4A23-B061-0FA1D65C4F66"
-    Version="2.5.0.0" />
+    Version="2.4.9.0" />
 
   <Properties>
     <DisplayName>Steam++</DisplayName>
@@ -50,7 +50,7 @@
         <uap:LockScreen BadgeLogo="Images\BadgeLogo.png" Notification="badgeAndTileText"/>
       </uap:VisualElements>
       <Extensions>
-        <desktop:Extension xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" Category="windows.fullTrustProcess" Executable="Bin\Steam++.exe" />
+        <desktop:Extension xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" Category="windows.fullTrustProcess" Executable="Launcher\Steam++.Launcher.exe" />
       </Extensions>
     </Application>
   </Applications>

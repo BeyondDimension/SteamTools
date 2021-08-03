@@ -59,41 +59,41 @@
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <GenerateTestArtifacts>False</GenerateTestArtifacts>
-    <AppxBundlePlatforms>arm64</AppxBundlePlatforms>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
-    <EntryPointProjectUniqueName>..\ST.Client.Desktop.Avalonia.App.Bridge\Bin.csproj</EntryPointProjectUniqueName>
+    <EntryPointProjectUniqueName>..\ST.Client.Desktop.Avalonia.App.Bridge.Package.RefLauncher\Launcher\Launcher.csproj</EntryPointProjectUniqueName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -164,6 +164,9 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.20348.19" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ST.Client.Desktop.Avalonia.App.Bridge.Package.RefLauncher\Launcher\Launcher.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <!--<ItemGroup Condition="'$(Platform)'=='x64'">-->
     <Content Include="..\..\..\CEF\win-x64\locales\zh-CN.pak">
       <Link>Bin\CEF\win-x64\locales\zh-CN.pak</Link>
@@ -222,11 +225,57 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ST.Client.Desktop.Avalonia.App.Bridge\Bin.csproj">
-      <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
-      <TrustLevel>Full</TrustLevel>
-      <PublishProfile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Properties\PublishProfiles\win10-x64.pubxml</PublishProfile>
-    </ProjectReference>
+  <!--ST.Tools.DesktopBridgeLink(Release-x64)-->
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\aspnetcorev2_inprocess.dll">
+      <Link>aspnetcorev2_inprocess.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\av_libglesv2.dll">
+      <Link>av_libglesv2.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\clrcompression.dll">
+      <Link>clrcompression.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\clrjit.dll">
+      <Link>clrjit.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\coreclr.dll">
+      <Link>coreclr.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\e_sqlite3.dll">
+      <Link>e_sqlite3.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\libHarfBuzzSharp.dll">
+      <Link>libHarfBuzzSharp.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\libSkiaSharp.dll">
+      <Link>libSkiaSharp.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\mscordaccore.dll">
+      <Link>mscordaccore.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\SQLite-net.pdb">
+      <Link>SQLite-net.pdb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\Steam++.exe">
+      <Link>Steam++.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\WinRT.Host.dll">
+      <Link>WinRT.Host.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
+  <!--ST.Tools.DesktopBridgeLink(Release-x64)-->
 </Project>
+

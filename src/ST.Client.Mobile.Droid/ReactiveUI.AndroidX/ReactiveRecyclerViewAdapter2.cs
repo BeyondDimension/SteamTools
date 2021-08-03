@@ -40,7 +40,6 @@ namespace ReactiveUI.AndroidX
 
             _inner = _list
                             .Connect()
-                            .ObserveOn(RxApp.MainThreadScheduler)
                             .ForEachChange(UpdateBindings)
                             .Subscribe();
         }
@@ -108,13 +107,15 @@ namespace ReactiveUI.AndroidX
                     NotifyItemChanged(change.Item.CurrentIndex);
                     break;
                 case ListChangeReason.AddRange:
-                    NotifyItemRangeInserted(change.Range.Index, change.Range.Count);
+                    NotifyItemRangeInserted(GetPositionStart(change), change.Range.Count);
                     break;
                 case ListChangeReason.RemoveRange:
                 case ListChangeReason.Clear:
-                    NotifyItemRangeRemoved(change.Range.Index, change.Range.Count);
+                    NotifyItemRangeRemoved(GetPositionStart(change), change.Range.Count);
                     break;
             }
         }
+
+        private static int GetPositionStart(Change<TViewModel> change) => change.Range.Index < 0 ? 0 : change.Range.Index;
     }
 }

@@ -10,7 +10,7 @@
     <DefineConstants>SIGN_ASSEMBLY;$(DefineConstants)</DefineConstants>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\..\Unicorn.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>$(MSBuildProjectDirectory)\..\..\Unicorn.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   
   <PropertyGroup Condition=" '$(Configuration)'=='Release' ">

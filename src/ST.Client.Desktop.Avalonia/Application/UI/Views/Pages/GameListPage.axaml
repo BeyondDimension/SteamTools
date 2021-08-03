@@ -70,7 +70,7 @@
                Header="筛选"
                ExpandDirection="Down"
                Margin="20 0 20 10">-->
-    <Border Padding="10" DockPanel.Dock="Top" Margin="20 0 20 10">
+    <Border DockPanel.Dock="Top" Margin="20 0 20 10">
       <DockPanel>
         <StackPanel
             Orientation="Horizontal"
@@ -83,50 +83,7 @@
               <Setter Property="Height" Value="20"></Setter>
             </Style>
           </StackPanel.Styles>
-          <!--<Button Background="Transparent"
-                                Cursor="Hand"
-                                ToolTip.Tip="添加未拥有的游戏">
-            <PathIcon Data="{StaticResource AddDrawing}" />
-          </Button>-->
-          <Button Background="Transparent"
-                  Command="{ReflectionBinding RefreshGamesList,Source={x:Static service:SteamConnectService.Current},Mode=OneWay}"
-                  Cursor="Hand"
-                  ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RefreshGamesList,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <PathIcon Data="{StaticResource RefreshDrawing}" />
-          </Button>
-          <ToggleButton Background="Transparent"
-                        Cursor="Hand"
-                        IsChecked="{Binding IsInstalledFilter,Mode=TwoWay}"
-                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_OnlyInstalled,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <PathIcon Data="{StaticResource PlayCircleDrawing}" />
-          </ToggleButton>
-          <!--<ToggleButton Background="Transparent"
-                                      Cursor="Hand"
-                                      ToolTip.Tip="仅显示来源于家庭共享的游戏">
-                            <PathIcon Data="{StaticResource ChannelShareDrawing}" />
-                        </ToggleButton>-->
-          <Button x:Name="gridSize" Background="Transparent"
-                  Cursor="Hand"
-                  ToolTip.Tip="{ReflectionBinding Path=Res.GameList_ResizeAppLogo,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <Button.Content>
-              <PathIcon Data="{StaticResource GridDrawing}" />
-            </Button.Content>
-            <Button.Flyout>
-              <Flyout Placement="Bottom">
-                <Slider Value="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=TwoWay}"
-                        Minimum="50"
-                        Maximum="200"
-                        Ticks="50,100,150,200"
-                        Width="200" />
-              </Flyout>
-            </Button.Flyout>
-          </Button>
-          <Button Background="Transparent"
-             Cursor="Hand"
-             Command="{ReflectionBinding OpenIdleAppWindow}"
-             ToolTip.Tip="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <PathIcon Data="{StaticResource TopSpeedDrawing}" />
-          </Button>
+
           <Button
                         VerticalAlignment="Center"
                         Width="200" Height="35">
@@ -179,8 +136,52 @@
               </Flyout>
             </Button.Flyout>
           </Button>
-        </StackPanel>
 
+          <!--<Button Background="Transparent"
+                                Cursor="Hand"
+                                ToolTip.Tip="添加未拥有的游戏">
+            <PathIcon Data="{StaticResource AddDrawing}" />
+          </Button>-->
+          <Button Background="Transparent"
+                  Command="{ReflectionBinding RefreshGamesList,Source={x:Static service:SteamConnectService.Current},Mode=OneWay}"
+                  Cursor="Hand"
+                  ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RefreshGamesList,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <PathIcon Data="{StaticResource RefreshDrawing}" />
+          </Button>
+          <ToggleButton Background="Transparent"
+                        Cursor="Hand"
+                        IsChecked="{Binding IsInstalledFilter,Mode=TwoWay}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_OnlyInstalled,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <PathIcon Data="{StaticResource PlayCircleDrawing}" />
+          </ToggleButton>
+          <!--<ToggleButton Background="Transparent"
+                                      Cursor="Hand"
+                                      ToolTip.Tip="仅显示来源于家庭共享的游戏">
+                            <PathIcon Data="{StaticResource ChannelShareDrawing}" />
+                        </ToggleButton>-->
+          <Button x:Name="gridSize" Background="Transparent"
+                  Cursor="Hand"
+                  ToolTip.Tip="{ReflectionBinding Path=Res.GameList_ResizeAppLogo,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <Button.Content>
+              <PathIcon Data="{StaticResource GridDrawing}" />
+            </Button.Content>
+            <Button.Flyout>
+              <Flyout Placement="Bottom">
+                <Slider Value="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=TwoWay}"
+                        Minimum="50"
+                        Maximum="200"
+                        Ticks="50,100,150,200"
+                        Width="200" />
+              </Flyout>
+            </Button.Flyout>
+          </Button>
+          <Button Background="Transparent"
+             Cursor="Hand"
+             Command="{ReflectionBinding OpenIdleAppWindow}"
+             ToolTip.Tip="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <PathIcon Data="{StaticResource TopSpeedDrawing}" />
+          </Button>
+        </StackPanel>
         <StackPanel
                     Orientation="Horizontal"
                     Spacing="15"
@@ -190,8 +191,8 @@
                    Text="{CompiledBinding SearchText,Mode=TwoWay}"
                    VerticalAlignment="Center"
                    Background="Transparent"
-                   Width="300"
-                   MinWidth="200">
+                   Width="250"
+                   MinWidth="150">
             <TextBox.InnerLeftContent>
               <PathIcon Data="{StaticResource SearchDrawing}"
                         Width="18" Height="18"

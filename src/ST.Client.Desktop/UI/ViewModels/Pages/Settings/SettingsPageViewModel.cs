@@ -1,8 +1,10 @@
 using DynamicData.Binding;
 using ReactiveUI;
 using System.Application.Models.Settings;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 
@@ -79,7 +81,21 @@ namespace System.Application.UI.ViewModels
         };
 #endif
 
-
+        public void OpenFolder(string tag)
+        {
+            switch (tag)
+            {
+                case "AppData":
+                    DI.Get<IDesktopPlatformService>().OpenFolder(IOPath.AppDataDirectory);
+                    break;
+                case "Cache":
+                    DI.Get<IDesktopPlatformService>().OpenFolder(IOPath.CacheDirectory);
+                    break;
+                case "Logs":
+                    DI.Get<IDesktopPlatformService>().OpenFolder(Path.Combine(IOPath.BaseDirectory, "Logs"));
+                    break;
+            }
+        }
 
     }
 }

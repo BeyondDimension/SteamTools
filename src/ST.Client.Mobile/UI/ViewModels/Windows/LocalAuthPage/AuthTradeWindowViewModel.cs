@@ -64,6 +64,7 @@ namespace System.Application.UI.ViewModels
                 if (this.RaiseAndSetIfChangedReturnIsNotChange(ref _UnselectAll, value)) return;
                 foreach (var item in Confirmations)
                 {
+                    if (item.IsOperate != 0) continue;
                     item.NotChecked = value;
                 }
             }
@@ -89,8 +90,8 @@ namespace System.Application.UI.ViewModels
                 .ToCollection()
                 .Select(x =>
                 {
-                    var select_count = x.Count(y => !y.NotChecked);
-                    return (select_count, count: x.Count);
+                    var select_count = x.Count(y => y.IsOperate == 0 && !y.NotChecked);
+                    return (select_count, count: x.Count(y => y.IsOperate == 0));
                 })
                 .Subscribe(x =>
                 {

@@ -144,8 +144,17 @@ namespace System.Application.UI.Activities
             {
                 ViewModel!.CodeImageChar = binding.tbCaptcha.Text;
             };
+            binding.cbSelectAll.CheckedChange += (_, e) =>
+            {
+                ViewModel!.UnselectAll = !e.IsChecked;
+            };
 
             var adapter = new SteamAuthTradeConfirmationAdapter(ViewModel!);
+            adapter.ItemClick += (_, e) =>
+            {
+                if (e.Current.IsOperate != 0) return;
+                e.Current.NotChecked = !e.Current.NotChecked;
+            };
             var layout = new LinearLayoutManager2(this, LinearLayoutManager.Vertical, false);
             binding!.rvConfirmations.SetLayoutManager(layout);
             binding.rvConfirmations.AddItemDecoration(VerticalItemDecoration2.Get(this, Resource.Dimension.activity_vertical_margin, Resource.Dimension.fab_full_height, noTop: true));

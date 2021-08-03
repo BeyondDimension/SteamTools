@@ -3106,6 +3106,42 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 打开{0}文件夹 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_BrowseCustomFolder {
+            get {
+                return ResourceManager.GetString("Settings_General_BrowseCustomFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 缓存文件已占用 {0} 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_CacheSize {
+            get {
+                return ResourceManager.GetString("Settings_General_CacheSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 计算中... 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_Calcing {
+            get {
+                return ResourceManager.GetString("Settings_General_Calcing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 清理缓存文件 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_ClearCache {
+            get {
+                return ResourceManager.GetString("Settings_General_ClearCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 启动时最小化到托盘 的本地化字符串。
         /// </summary>
         public static string Settings_General_RuningMinimize {
@@ -3120,6 +3156,15 @@ namespace System.Application.UI.Resx {
         public static string Settings_General_StartAutoRun {
             get {
                 return ResourceManager.GetString("Settings_General_StartAutoRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 存储空间 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_StorageSpace {
+            get {
+                return ResourceManager.GetString("Settings_General_StorageSpace", resourceCulture);
             }
         }
         
@@ -3151,7 +3196,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 *需重启生效 的本地化字符串。
+        ///   查找类似 *需重启软件后生效 的本地化字符串。
         /// </summary>
         public static string Settings_RestartEffective {
             get {
