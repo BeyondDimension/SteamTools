@@ -142,7 +142,7 @@ namespace System.Security.Cryptography
         /// <summary>
         /// RSA 填充，不可更改此值！
         /// </summary>
-        [Obsolete]
+        [Obsolete("use DefaultPadding")]
         internal static RSAEncryptionPadding Padding => RSAEncryptionPadding.OaepSHA256;
 
         public static RSAEncryptionPadding GetPaddingByOaepHashAlgorithmName(string oaepHashAlgorithmName)
@@ -161,20 +161,11 @@ namespace System.Security.Cryptography
             return Padding;
         }
 
-        public static RSAEncryptionPadding DefaultPadding
+        public static RSAEncryptionPadding DefaultPadding => DI.Platform switch
         {
-            get
-            {
-                if (DI.IsRunningOnMono)
-                {
-                    return RSAEncryptionPadding.OaepSHA1;
-                }
-                else
-                {
-                    return RSAEncryptionPadding.OaepSHA256;
-                }
-            }
-        }
+            Platform.Android => RSAEncryptionPadding.OaepSHA1,
+            _ => RSAEncryptionPadding.OaepSHA256,
+        };
 
         #endregion
 
