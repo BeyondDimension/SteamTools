@@ -98,8 +98,8 @@ namespace System.Net.WebSocket
 
         public void Dispose()
         {
-            RunState = false;
             tokenSource.Cancel();
+            RunState = false;
         }
     }
 }

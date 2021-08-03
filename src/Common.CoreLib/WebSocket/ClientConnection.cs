@@ -132,7 +132,7 @@ namespace System.Net.WebSocket
                 await stream.WriteAsync(bytes.AsMemory(0, bytes.Length));
                 await stream.FlushAsync();
             }
-            catch { throw; }
+            catch(Exception e) {Log.Error("SendMsgError",e,"发送消息失败"); throw; }
         }
 
         /// <summary>

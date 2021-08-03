@@ -15,24 +15,24 @@ namespace System.Application.UI.ViewModels
 {
     partial class LoginOrRegisterWindowViewModel : WindowViewModel
     {
-        ServerWebSocket server;
+        ServerWebSocket? server;
         static int port;
+        static Aes? aes;
         public override void Activation()
         {
             if (IsFirstActivation)
             {
-                server = new ServerWebSocket("127.0.0.1",out port);
-                server.OnClientReceived += handle;
+                server = new ServerWebSocket("127.0.0.1", out port);
+                server.OnClientReceived += Handle;
                 server.Start();
             }
             base.Activation();
         }
         public static bool IsBind { get; set; } = false;
         public static FastLoginChannel Channel { get; set; }
-        public async Task handle(ReceivedEventArgs msg)
+        public async Task Handle(ReceivedEventArgs msg)
         { 
-            MessageBoxCompat.Show(msg.Message);
-            var response = ApiResponse.Deserialize<LoginOrRegisterResponse>(Encoding.UTF8.GetBytes(msg.Message));
+            var response = ApiResponse.Deserialize<LoginOrRegisterResponse>(aes.Decrypt(msg.Message.Base64UrlDecodeToByteArray()));
             var retResponse = new LoginWebSocket();
             if (response.IsSuccess && response.Content == null)
             {
@@ -52,7 +52,8 @@ namespace System.Application.UI.ViewModels
                         await UserService.Current.BindAccountAfterUpdateAsync(Channel, response.Content!);
                         var msg = AppResources.Success_.Format(AppResources.User_AccountBind);
                         Toast.Show(msg);
-                    }); 
+                        Close?.Invoke();
+                    });
                 }
                 else
                 {
@@ -60,10 +61,13 @@ namespace System.Application.UI.ViewModels
                     await MainThread2.InvokeOnMainThreadAsync(async () =>
                     {
                         await SuccessAsync(response.Content!);
+                        Close?.Invoke();
                     });
-                } 
+                }
+                await msg.Client.WriteAsync(retResponse);
                 //登录完成释放
-                server.Dispose();
+                server!.Dispose();
+                return;
             }
             else
             {
@@ -75,15 +79,18 @@ namespace System.Application.UI.ViewModels
             await msg.Client.WriteAsync(retResponse);
 
         }
-        internal static async Task FastLoginOrRegisterAsync(Action? close = null, FastLoginChannel channel = FastLoginChannel.Steam, bool isBind = false)
+        internal static Task FastLoginOrRegisterAsync(Action? close = null, FastLoginChannel channel = FastLoginChannel.Steam, bool isBind = false)
         {
             var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
-            var apiBaseUrl = "https://127.0.0.1"; //ICloudServiceClient.Instance.ApiBaseUrl;
-            var skey_bytes = AESUtils.Create().ToParamsByteArray();
+            var apiBaseUrl = "https://127.0.0.1:28110"; //ICloudServiceClient.Instance.ApiBaseUrl;
+            if (aes == null)
+                aes = AESUtils.Create();
+            var skey_bytes = aes.ToParamsByteArray();
             var skey_str = conn_helper.RSA.EncryptToString(skey_bytes);
+            var sc = DI.Get<CloudServiceClientBase>();
             var url = apiBaseUrl +
                  (channel == FastLoginChannel.Steam ?
-                 "/ExternalLoginDetection" : $"/ExternalLoginDetection/{(int)channel}") + $"?websocket=true&port={port}&sKey={skey_str}" +
+                 "/ExternalLoginDetection" : $"/ExternalLoginDetection/{(int)channel}") + $"?websocket=true&port={port}&sKey={skey_str}&Version={sc.Settings.AppVersionStr}" +
                  (isBind ? "&isBind=true" : string.Empty);
             IsBind = isBind;
             Channel = channel;
