@@ -81,21 +81,19 @@ namespace System.Application.UI.ViewModels
         };
 #endif
 
+#if !__MOBILE__
         public void OpenFolder(string tag)
         {
-            switch (tag)
+            var path = tag switch
             {
-                case "AppData":
-                    DI.Get<IDesktopPlatformService>().OpenFolder(IOPath.AppDataDirectory);
-                    break;
-                case "Cache":
-                    DI.Get<IDesktopPlatformService>().OpenFolder(IOPath.CacheDirectory);
-                    break;
-                case "Logs":
-                    DI.Get<IDesktopPlatformService>().OpenFolder(Path.Combine(IOPath.BaseDirectory, "Logs"));
-                    break;
-            }
+                IOPath.DirName_AppData => IOPath.AppDataDirectory,
+                IOPath.DirName_Cache => IOPath.CacheDirectory,
+                AppHelper.LogDirName => AppHelper.LogDirPath,
+                _ => null,
+            };
+            if (path != null) IDesktopPlatformService.Instance.OpenFolder(path);
         }
+#endif
 
     }
 }
