@@ -1,3 +1,4 @@
+using System.Runtime.Versioning;
 using Windows.ApplicationModel;
 
 // ReSharper disable once CheckNamespace
@@ -5,6 +6,7 @@ namespace System.Application
 {
     public static class DesktopBridgeHelper
     {
+        [SupportedOSPlatform("Windows10.0.10240.0")]
         public static bool Init(int min_os_build = 17763)
         {
             if (DI.Platform != Platform.Windows) return false;

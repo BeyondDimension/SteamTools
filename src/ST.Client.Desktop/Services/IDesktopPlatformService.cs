@@ -126,6 +126,8 @@ namespace System.Application.Services
         /// <returns></returns>
         string? GetFileName(TextReaderProvider provider);
 
+        const string SystemBootRunArguments = "-clt c -silence";
+
         /// <summary>
         /// 设置开机自启动
         /// </summary>
