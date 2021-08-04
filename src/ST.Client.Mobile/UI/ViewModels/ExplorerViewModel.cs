@@ -9,18 +9,6 @@ namespace System.Application.UI.ViewModels
 {
     public class ExplorerViewModel : ViewModelBase
     {
-        const double unit = 1024d;
-        static readonly string[] units = new[] { "B", "KB", "MB", "GB", "TB" };
-        public static string GetSize(double length)
-        {
-            for (int i = 0; i < units.Length; i++)
-            {
-                if (i > 0) length /= unit;
-                if (length < unit) return $"{length:0.00} {units[i]}";
-            }
-            return $"{length:0.00} {units.Last()}";
-        }
-
         string _CurrentPath = string.Empty;
         public string CurrentPath
         {
@@ -74,7 +62,7 @@ namespace System.Application.UI.ViewModels
                 if (fileSystemInfo is FileInfo fileInfo)
                 {
                     IsDirectory = false;
-                    var fileSize = GetSize(fileInfo.Length);
+                    var fileSize = IOPath.GetSizeString(fileInfo.Length);
                     Desc = $"Size: {fileSize}{Desc}";
                 }
                 else if (fileSystemInfo is DirectoryInfo dirInfo)

@@ -212,17 +212,18 @@ namespace System.Application.Services
                                             return (IPAddress.Loopback.ToString(), host);
                                         });
                                     }).Where(w => !string.IsNullOrEmpty(w.Item1));
-                                    
-                                    if (DI.Platform == Platform.Windows||DI.IsmacOS)
+
+                                    if (DI.Platform == Platform.Windows || DI.IsmacOS)
                                     {
                                         var r = IHostsFileService.Instance.UpdateHosts(hosts);
-                                      
+
                                         if (r.ResultType != OperationResultType.Success)
                                         {
                                             Toast.Show(SR.OperationHostsError_.Format(r.Message));
                                             httpProxyService.StopProxy();
                                             return;
-                                        }else  if (DI.IsmacOS)
+                                        }
+                                        else if (DI.IsmacOS)
                                         {
                                             IPlatformService.Instance.AdminShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{IDesktopPlatformService.Instance.HostsFilePath}\"", true);
                                         }
@@ -248,13 +249,13 @@ namespace System.Application.Services
                             if (needClear)
                             {
                                 var r = IHostsFileService.Instance.RemoveHostsByTag();
-                               
+
                                 if (r.ResultType != OperationResultType.Success)
                                 {
                                     Toast.Show(SR.OperationHostsError_.Format(r.Message));
                                     //return;
                                 }
-                                else if (DI.IsmacOS&& !ProxySettings.EnableWindowsProxy.Value)
+                                else if (DI.IsmacOS && !ProxySettings.EnableWindowsProxy.Value)
                                 {
                                     IPlatformService.Instance.AdminShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{IDesktopPlatformService.Instance.HostsFilePath}\"", true);
                                 }
@@ -453,7 +454,7 @@ namespace System.Application.Services
 
         public static void OnExitRestoreHosts()
         {
-            var needClear = IHostsFileService.Instance.ContainsHostsByTag();
+            var needClear = DI.Get_Nullable<IHostsFileService>()?.ContainsHostsByTag() ?? false;
             if (needClear)
             {
                 IHostsFileService.OnExitRestoreHosts();

@@ -169,59 +169,59 @@
   <ItemGroup>
     <!--<ItemGroup Condition="'$(Platform)'=='x64'">-->
     <Content Include="..\..\..\CEF\win-x64\locales\zh-CN.pak">
-      <Link>Bin\CEF\win-x64\locales\zh-CN.pak</Link>
+      <Link>CEF\win-x64\locales\zh-CN.pak</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\CEF\win-x64\swiftshader\libEGL.dll">
-      <Link>Bin\CEF\win-x64\swiftshader\libEGL.dll</Link>
+      <Link>CEF\win-x64\swiftshader\libEGL.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\CEF\win-x64\swiftshader\libGLESv2.dll">
-      <Link>Bin\CEF\win-x64\swiftshader\libGLESv2.dll</Link>
+      <Link>CEF\win-x64\swiftshader\libGLESv2.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\CEF\win-x64\chrome_100_percent.pak">
-      <Link>Bin\CEF\win-x64\chrome_100_percent.pak</Link>
+      <Link>CEF\win-x64\chrome_100_percent.pak</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\CEF\win-x64\chrome_200_percent.pak">
-      <Link>Bin\CEF\win-x64\chrome_200_percent.pak</Link>
+      <Link>CEF\win-x64\chrome_200_percent.pak</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\CEF\win-x64\chrome_elf.dll">
-      <Link>Bin\CEF\win-x64\chrome_elf.dll</Link>
+      <Link>CEF\win-x64\chrome_elf.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\CEF\win-x64\d3dcompiler_47.dll">
-      <Link>Bin\CEF\win-x64\d3dcompiler_47.dll</Link>
+      <Link>CEF\win-x64\d3dcompiler_47.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\CEF\win-x64\icudtl.dat">
-      <Link>Bin\CEF\win-x64\icudtl.dat</Link>
+      <Link>CEF\win-x64\icudtl.dat</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\CEF\win-x64\libcef.dll">
-      <Link>Bin\CEF\win-x64\libcef.dll</Link>
+      <Link>CEF\win-x64\libcef.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\CEF\win-x64\libEGL.dll">
-      <Link>Bin\CEF\win-x64\libEGL.dll</Link>
+      <Link>CEF\win-x64\libEGL.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\CEF\win-x64\libGLESv2.dll">
-      <Link>Bin\CEF\win-x64\libGLESv2.dll</Link>
+      <Link>CEF\win-x64\libGLESv2.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\CEF\win-x64\resources.pak">
-      <Link>Bin\CEF\win-x64\resources.pak</Link>
+      <Link>CEF\win-x64\resources.pak</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\CEF\win-x64\snapshot_blob.bin">
-      <Link>Bin\CEF\win-x64\snapshot_blob.bin</Link>
+      <Link>CEF\win-x64\snapshot_blob.bin</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\CEF\win-x64\v8_context_snapshot.bin">
-      <Link>Bin\CEF\win-x64\v8_context_snapshot.bin</Link>
+      <Link>CEF\win-x64\v8_context_snapshot.bin</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -261,10 +261,6 @@
     </Content>
     <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\mscordaccore.dll">
       <Link>mscordaccore.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\SQLite-net.pdb">
-      <Link>SQLite-net.pdb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\Steam++.exe">

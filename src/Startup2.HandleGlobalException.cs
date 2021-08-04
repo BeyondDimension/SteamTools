@@ -58,7 +58,7 @@ namespace System.Application
 #if !__MOBILE__
             try
             {
-                DI.Get<IHttpProxyService>().StopProxy();
+                DI.Get_Nullable<IHttpProxyService>()?.StopProxy();
                 ProxyService.OnExitRestoreHosts();
             }
             catch (Exception ex_restore_hosts)

@@ -18,16 +18,6 @@ namespace System.Application.Services.Implementation
             throw new ArgumentOutOfRangeException(nameof(customWindow), customWindow, null);
         }
 
-        //static Type GetWindowType(CustomWindow customWindow) => customWindow switch
-        //{
-        //    CustomWindow.MessageBox => typeof(MessageBoxWindow),
-        //    CustomWindow.LoginOrRegister => typeof(LoginOrRegisterWindow),
-        //    CustomWindow.AddAuth => typeof(AddAuthWindow),
-        //    CustomWindow.ShowAuth => typeof(ShowAuthWindow),
-        //    CustomWindow.AuthTrade => typeof(AuthTradeWindow),
-        //    _ => throw new ArgumentOutOfRangeException(nameof(customWindow), customWindow, null),
-        //};
-
         static bool IsSingletonWindow(CustomWindow customWindow) => customWindow switch
         {
             CustomWindow.TaskBar or

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
 {
@@ -82,6 +83,8 @@ namespace System.Application.UI.ViewModels
 #endif
 
 #if !__MOBILE__
+        const double clickInterval = 3d;
+        readonly Dictionary<string, DateTime> clickTimeRecord = new();
         public void OpenFolder(string tag)
         {
             var path = tag switch
@@ -91,9 +94,36 @@ namespace System.Application.UI.ViewModels
                 AppHelper.LogDirName => AppHelper.LogDirPath,
                 _ => null,
             };
-            if (path != null) IDesktopPlatformService.Instance.OpenFolder(path);
+            if (path != null)
+            {
+                var hasKey = clickTimeRecord.TryGetValue(path, out var dt);
+                var now = DateTime.Now;
+                if (hasKey && (now - dt).TotalSeconds <= clickInterval) return;
+                IDesktopPlatformService.Instance.OpenFolder(path);
+                if (!clickTimeRecord.TryAdd(path, now)) clickTimeRecord[path] = now;
+            }
         }
 #endif
 
+        /// <summary>
+        /// 开始计算缓存文件夹大小
+        /// </summary>
+        /// <param name="isStartCacheSizeCalc"></param>
+        /// <param name="action"></param>
+        public static void StartCacheSizeCalc(ref bool isStartCacheSizeCalc, Action<string> action)
+        {
+            if (isStartCacheSizeCalc) return;
+            isStartCacheSizeCalc = true;
+            action(AppResources.Settings_General_Calcing);
+            Task.Run(async () =>
+            {
+                var length = IOPath.GetDirectorySize(IOPath.CacheDirectory);
+                var lenString = IOPath.GetSizeString(length);
+                await MainThread2.InvokeOnMainThreadAsync(() =>
+                {
+                    action(AppResources.Settings_General_CacheSize.Format(lenString));
+                });
+            });
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 #if !NET35 && !NOT_XE
@@ -360,8 +361,8 @@ namespace System
         /// <returns>单位 字节</returns>
         public static double GetFileSize(string filePath)
         {
-            //定义一个FileInfo对象，是指与filePath所指向的文件相关联，以获取其大小
-            FileInfo fileInfo = new FileInfo(filePath);
+            // 定义一个FileInfo对象，是指与filePath所指向的文件相关联，以获取其大小
+            FileInfo fileInfo = new(filePath);
             return fileInfo.Length;
         }
 
@@ -370,31 +371,37 @@ namespace System
         /// </summary>
         /// <param name="dirPath">路径</param>
         /// <returns>单位 字节</returns>
-        public static double GetDirectoryLength(string dirPath)
+        public static double GetDirectorySize(string dirPath)
         {
             double len = 0;
-            //判断该路径是否存在（是否为文件夹）
-            if (!Directory.Exists(dirPath))
+            // 判断该路径是否存在（是否为文件夹）
+            if (!IsDirectory(dirPath))
             {
                 //查询文件的大小
                 len = GetFileSize(dirPath);
             }
             else
             {
-                //定义一个DirectoryInfo对象
-                DirectoryInfo di = new DirectoryInfo(dirPath);
-                //通过GetFiles方法，获取di目录中的所有文件的大小
-                foreach (FileInfo fi in di.GetFiles())
-                {
-                    len += fi.Length;
-                }
-                //获取di中所有的文件夹，并存到一个新的对象数组中，以进行递归
-                foreach (var dir in di.GetDirectories())
-                {
-                    len += GetDirectoryLength(dir.FullName);
-                }
+                // 定义一个DirectoryInfo对象
+                DirectoryInfo di = new(dirPath);
+                // 通过GetFiles方法，获取di目录中的所有文件的大小
+                len += di.GetFiles().Sum(x => x.Length);
+                // 获取di中所有的文件夹，并存到一个新的对象数组中，以进行递归
+                len += di.GetDirectories().Sum(x => GetDirectorySize(x.FullName));
             }
             return len;
+        }
+
+        const double unit = 1024d;
+        static readonly string[] units = new[] { "B", "KB", "MB", "GB", "TB" };
+        public static string GetSizeString(double length)
+        {
+            for (int i = 0; i < units.Length; i++)
+            {
+                if (i > 0) length /= unit;
+                if (length < unit) return $"{length:0.00} {units[i]}";
+            }
+            return $"{length:0.00} {units.Last()}";
         }
     }
 }

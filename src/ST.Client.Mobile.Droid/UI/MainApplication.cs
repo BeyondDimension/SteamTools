@@ -52,7 +52,6 @@ namespace System.Application.UI
         public override void OnCreate()
         {
             base.OnCreate();
-
 #if DEBUG
             SetupLeakCanary();
 #endif
@@ -96,6 +95,8 @@ namespace System.Application.UI
                 });
             }
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
+
+            Startup.OnStartup(IsMainProcess);
 
             stopwatch.Stop();
             ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;

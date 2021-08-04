@@ -67,17 +67,33 @@ namespace System.Application.Services.Implementation
             }
         }
 
+        const string explorer = "explorer.exe";
+        static string Explorer => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), explorer);
+
         /// <summary>
         /// 使用资源管理器打开某个路径
         /// </summary>
         /// <param name="dirPath"></param>
         public void OpenFolder(string dirPath)
         {
-            if (File.Exists(dirPath))
+            if (IOPath.IsDirectory(dirPath))
             {
-                Process.Start("explorer.exe", "/select," + dirPath);
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = Explorer,
+                    Arguments = $"\"{dirPath}\"",
+                    UseShellExecute = false,
+                });
             }
-            Process.Start("explorer.exe", dirPath);
+            else
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = Explorer,
+                    Arguments = $"/select,\"{dirPath}\"",
+                    UseShellExecute = false,
+                });
+            }
         }
 
         public string? GetFileName(TextReaderProvider provider)

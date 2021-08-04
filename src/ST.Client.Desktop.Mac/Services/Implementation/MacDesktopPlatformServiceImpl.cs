@@ -189,7 +189,14 @@ namespace System.Application.Services.Implementation
 
         public void OpenFolder(string dirPath)
         {
-
+            if (IOPath.IsDirectory(dirPath))
+            {
+                NSWorkspace.SharedWorkspace.SelectFile(null, dirPath);
+            }
+            else
+            {
+                NSWorkspace.SharedWorkspace.ActivateFileViewer(new[] { new NSUrl(dirPath, isDir: false) });
+            }
         }
 
         const string TextEdit = "TextEdit";

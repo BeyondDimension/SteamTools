@@ -459,15 +459,6 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 浏览基目录 的本地化字符串。
-        /// </summary>
-        public static string BrowseBaseDirectory {
-            get {
-                return ResourceManager.GetString("BrowseBaseDirectory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 完成 的本地化字符串。
         /// </summary>
         public static string Btn_Text_Complete {

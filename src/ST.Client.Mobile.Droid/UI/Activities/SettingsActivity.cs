@@ -31,6 +31,7 @@ namespace System.Application.UI.Activities
         void SetUpdateChannelText() => binding!.tvGeneralSettingsUpdateChannelValue.Text = GeneralSettings.UpdateChannel.Value.ToString();
         void SetThemeText() => binding!.tvUISettingsThemeValue.Text = ((AppTheme)UISettings.Theme.Value).ToString();
 
+        bool isStartCacheSizeCalc;
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -47,6 +48,7 @@ namespace System.Application.UI.Activities
                 binding.tvGeneralSettings.Text = Settings_General;
                 binding.tvGeneralSettingsIsAutoCheckUpdate.Text = Settings_General_AutoCheckUpdate;
                 binding.tvGeneralSettingsUpdateChannel.Text = Settings_General_UpdateChannel;
+                binding.tvGeneralSettingsStorageSpace.Text = Settings_General_StorageSpace;
                 binding.tvOSAppDetailsSettings.Text = Settings_General_AppDetailsSettings;
                 binding.tvOSAppNotificationSettings.Text = Settings_General_AppNotificationSettings;
                 if (comboBoxs.TryGetValue(binding.layoutRootUISettingsTheme, out var comboBoxUISettingsTheme))
@@ -87,12 +89,19 @@ namespace System.Application.UI.Activities
             SetOnClickListener(comboBoxs.Keys);
             SetOnClickListener(
                 binding.layoutRootGeneralSettingsIsAutoCheckUpdate,
+                binding.layoutRootGeneralSettingsStorageSpace,
                 binding.layoutRootOSAppDetailsSettings,
                 binding.layoutRootOSAppNotificationSettings);
 
             SetIsAutoCheckUpdateChecked();
             SetUpdateChannelText();
             SetThemeText();
+
+            SettingsPageViewModel.StartCacheSizeCalc(ref isStartCacheSizeCalc, x =>
+            {
+                if (binding == null) return;
+                binding.tvGeneralSettingsStorageSpaceValue.Text = x;
+            });
         }
 
         protected override void OnClick(View view)
@@ -118,6 +127,10 @@ namespace System.Application.UI.Activities
             {
                 GeneralSettings.IsAutoCheckUpdate.Value = !GeneralSettings.IsAutoCheckUpdate.Value;
                 SetIsAutoCheckUpdateChecked();
+            }
+            else if (view.Id == Resource.Id.layoutRootGeneralSettingsStorageSpace)
+            {
+                this.StartActivity<ExplorerActivity>();
             }
 
             base.OnClick(view);

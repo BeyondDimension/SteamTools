@@ -3,7 +3,9 @@ using Android.OS;
 #endif
 using Microsoft.Extensions.Options;
 using System.Application.Models;
+using System.Windows;
 using XEPlatform = Xamarin.Essentials.Platform;
+using static System.Application.UI.Resx.AppResources;
 
 namespace System.Application.Services.Implementation
 {
@@ -20,10 +22,13 @@ namespace System.Application.Services.Implementation
             Xamarin.Essentials.DeviceInfo.Version;
 #endif
 
-        protected override void OnExistNewVersion()
+        protected override async void OnExistNewVersion()
         {
-            // 底部弹出窗实现 UI
-            throw new NotImplementedException("TODO");
+            var result = await MessageBoxCompat.ShowAsync(NewVersionInfoDesc, UpdateContent, MessageBoxButtonCompat.OKCancel);
+            if (result == MessageBoxResultCompat.OK)
+            {
+                StartUpdateCommand.Invoke();
+            }
         }
 
         protected override void OverwriteUpgrade(string value, bool isIncrement, AppDownloadType downloadType = AppDownloadType.Install)

@@ -34,7 +34,6 @@ namespace System.Application.UI.ViewModels
             源码仓库,
             产品官网,
             开放源代码许可,
-            浏览基目录,
 
             账号注销,
         }
@@ -68,7 +67,6 @@ namespace System.Application.UI.ViewModels
                     PreferenceButton.Bug反馈 => AppResources.BugFeedback,
                     PreferenceButton.账号注销 => AppResources.DelAccount,
                     PreferenceButton.社区翻译 => AppResources.Translators,
-                    PreferenceButton.浏览基目录 => AppResources.BrowseBaseDirectory,
                     _ => id.ToString(),
                 };
                 return title;

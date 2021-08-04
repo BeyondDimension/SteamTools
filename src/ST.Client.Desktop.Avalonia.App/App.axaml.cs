@@ -308,17 +308,13 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("Desktop_Startup.AppHelper.Initialized?");
 #endif
+            Startup.OnStartup(Program.IsMainProcess);
+#if StartupTrace
             if (Program.IsMainProcess)
             {
-                Startup.ActiveUserPost(ActiveUserType.OnStartup);
-                if (GeneralSettings.IsAutoCheckUpdate.Value)
-                {
-                    IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
-                }
-#if StartupTrace
                 StartupTrace.Restart("Desktop_Startup.MainProcess");
-#endif
             }
+#endif
 
             var startupToastIntercept = DI.Get_Nullable<StartupToastIntercept>();
             if (startupToastIntercept != null)

@@ -1,4 +1,4 @@
-﻿namespace System.Application.Services
+namespace System.Application.Services
 {
     /// <summary>
     /// 通知栏服务
@@ -28,7 +28,7 @@
             TNotificationType notificationType,
             bool autoCancel = true,
             string? title = default,
-            TEntrance entrance = default);
+            TEntrance? entrance = default);
 
         /// <summary>
         /// 取消通知

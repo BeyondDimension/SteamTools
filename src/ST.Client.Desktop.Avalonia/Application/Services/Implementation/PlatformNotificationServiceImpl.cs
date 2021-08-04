@@ -1,4 +1,4 @@
-﻿using System.Properties;
+using System.Properties;
 
 namespace System.Application.Services.Implementation
 {

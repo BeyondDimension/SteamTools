@@ -28,6 +28,7 @@ using System.Net;
 using System.Diagnostics;
 using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Application.Models.Settings;
 #if __ANDROID__
 using Xamarin.Android.Net;
 using Program = System.Application.UI.MainApplication;
@@ -639,6 +640,18 @@ namespace System.Application
             }
         }
 #endif
+
+        public static void OnStartup(bool isMainProcess)
+        {
+            if (isMainProcess)
+            {
+                ActiveUserPost(ActiveUserType.OnStartup);
+                if (GeneralSettings.IsAutoCheckUpdate.Value)
+                {
+                    IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
+                }
+            }
+        }
     }
 
 #if StartupTrace

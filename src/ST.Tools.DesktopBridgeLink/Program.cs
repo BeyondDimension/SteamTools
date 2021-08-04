@@ -67,7 +67,8 @@ if (Directory.Exists(bridge_app_path) && Directory.Exists(bridge_console_path))
     {
         foreach (var file in files)
         {
-            if (Path.GetExtension(file).Equals(".xml", StringComparison.OrdinalIgnoreCase))
+            if (Path.GetExtension(file).Equals(".xml", StringComparison.OrdinalIgnoreCase) ||
+                Path.GetExtension(file).Equals(".pdb", StringComparison.OrdinalIgnoreCase))
             {
                 continue;
             }

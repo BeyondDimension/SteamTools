@@ -249,6 +249,57 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/layoutRootGeneralSettingsStorageSpace"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/preference_button_height_large"
+                android:background="?android:windowBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        app:srcCompat="@drawable/baseline_folder_black_24"
+                        app:tint="@color/icon_background"
+                        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutGeneralSettingsStorageSpace"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvGeneralSettingsStorageSpace"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_primary"
+                            android:textSize="16sp"
+                            tools:text="存储空间"
+                            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvGeneralSettingsStorageSpaceValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_secondary"
+                            tools:text="缓存文件已占用 xx.xx KB"
+                            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
                 android:id="@+id/layoutRootOSAppDetailsSettings"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/preference_button_height_large"
