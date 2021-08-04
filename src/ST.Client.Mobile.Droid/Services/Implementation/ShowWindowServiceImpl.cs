@@ -1,3 +1,4 @@
+using Android.App;
 using Android.Content;
 using Android.Text;
 using Android.Views;
@@ -21,12 +22,16 @@ namespace System.Application.Services.Implementation
         static string PositiveButtonText => AppResources.Confirm;
         static string NegativeButtonText => AppResources.Cancel;
 
-        async Task<bool> PlatformShowWindow(CustomWindow customWindow, PageViewModel? viewModel = null, string title = "") => await MainThread.InvokeOnMainThreadAsync(async () =>
+        async Task<bool> PlatformShowWindow(CustomWindow customWindow, PageViewModel? viewModel = null, string title = "")
         {
-            return await PlatformShowWindowCore(customWindow, viewModel, title);
-        });
+            var currentActivity = await WaitForActivityAsync();
+            return await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                return await PlatformShowWindowCore(currentActivity, customWindow, viewModel, title);
+            });
+        }
 
-        Task<bool> PlatformShowWindowCore(CustomWindow customWindow, PageViewModel? viewModel = null, string title = "")
+        Task<bool> PlatformShowWindowCore(Activity currentActivity, CustomWindow customWindow, PageViewModel? viewModel = null, string title = "")
         {
             switch (customWindow)
             {
@@ -39,10 +44,10 @@ namespace System.Application.Services.Implementation
                             case CustomWindow.ShowAuth:
                                 // Android Activity 传参需要序列化后再反序列化，不能直接传递
                                 // 所以此处传递 Id，在 Activity 中从关联的集合中根据 Id 取值
-                                SteamAuthDataActivity.StartActivity(CurrentActivity, viewModel_auth_w.Authenticator.Id);
+                                SteamAuthDataActivity.StartActivity(currentActivity, viewModel_auth_w.Authenticator.Id);
                                 break;
                             case CustomWindow.AuthTrade:
-                                SteamAuthTradeActivity.StartActivity(CurrentActivity, viewModel_auth_w.Authenticator.Id);
+                                SteamAuthTradeActivity.StartActivity(currentActivity, viewModel_auth_w.Authenticator.Id);
                                 break;
                         }
                     }
@@ -58,7 +63,7 @@ namespace System.Application.Services.Implementation
             };
             if (activityType != null)
             {
-                CurrentActivity.StartActivity(activityType);
+                currentActivity.StartActivity(activityType);
                 return Task.FromResult(false);
             }
 
@@ -117,7 +122,7 @@ namespace System.Application.Services.Implementation
                     {
                         if (binding.tbPassword.KeyListener != null)
                         {
-                            CurrentActivity.ShowSoftInput(binding.tbPassword, inOnCreate: true);
+                            currentActivity.ShowSoftInput(binding.tbPassword, inOnCreate: true);
                             if (selectionIndex > 0)
                             {
                                 binding.tbPassword.SetSelection(selectionIndex);
@@ -163,7 +168,7 @@ namespace System.Application.Services.Implementation
                 {
                     viewModel.Title = title;
                 }
-                var builder = new MaterialAlertDialogBuilder(CurrentActivity);
+                var builder = new MaterialAlertDialogBuilder(currentActivity);
                 if (!string.IsNullOrWhiteSpace(viewModel?.Title))
                 {
                     builder.SetTitle(viewModel!.Title);
