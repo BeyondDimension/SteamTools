@@ -7,7 +7,12 @@ namespace System.Application.Security
 {
     public static class IsNotOfficialChannelPackageDetectionHelper
     {
-        public static bool Check()
+        /// <summary>
+        /// <see cref="AppSettings.IsOfficialChannelPackage"/>
+        /// </summary>
+        /// <param name="showMessageBox"></param>
+        /// <returns></returns>
+        public static bool Check(bool showMessageBox = true)
         {
             var value = AppSettings.IsOfficialChannelPackage;
             if (!value)
@@ -18,7 +23,7 @@ namespace System.Application.Security
                     var title = AppResources.Warning;
                     MessageBoxCompat.Show(text, title, MessageBoxButtonCompat.OK, MessageBoxImageCompat.Warning);
                 }
-                IsNotOfficialChannelPackageWarning();
+                if (showMessageBox) IsNotOfficialChannelPackageWarning();
             }
             return value;
         }

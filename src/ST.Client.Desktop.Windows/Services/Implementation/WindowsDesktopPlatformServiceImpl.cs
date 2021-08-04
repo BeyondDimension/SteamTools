@@ -124,6 +124,9 @@ namespace System.Application.Services.Implementation
 
         public void SetBootAutoStart(bool isAutoStart, string name)
         {
+            global::Windows.ApplicationModel.AppInstance.GetActivatedEventArgs()
+            global::Windows.UI.ap
+            //global::Windows.ApplicationModel.app
             // 开机启动使用 taskschd.msc 实现
             try
             {

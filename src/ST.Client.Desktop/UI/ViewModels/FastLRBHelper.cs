@@ -178,7 +178,7 @@ namespace System.Application.UI.ViewModels
                 vm.ServerWebSocketListenerPort = port;
                 vm.ServerWebSocket.OnClientReceived += e => vm.OnClientReceived(e);
             }
-            await vm.ServerWebSocket.StartAsync();
+            vm.ServerWebSocket.Start();
             var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
             var apiBaseUrl = "https://127.0.0.1:28110"; //ICloudServiceClient.Instance.ApiBaseUrl;
             vm.TempAes.RemoveTo(vm);

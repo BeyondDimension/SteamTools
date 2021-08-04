@@ -57,10 +57,11 @@ namespace System.Application.Services.Implementation
                 {
                     return;
                 }
-                var window = (Window)Activator.CreateInstance(windowType);
+                var window = (Window?)Activator.CreateInstance(windowType);
+                if (window == null) return;
                 if (viewModel == null && typeWindowViewModel != typeof(object))
                 {
-                    viewModel = (WindowViewModel)Activator.CreateInstance(typeWindowViewModel);
+                    viewModel = (WindowViewModel?)Activator.CreateInstance(typeWindowViewModel);
                 }
                 if (!string.IsNullOrEmpty(title) && viewModel != null)
                 {
@@ -92,14 +93,14 @@ namespace System.Application.Services.Implementation
                     }
                     if (viewModel == null)
                     {
-                        void Window_DataContextChanged(object _, EventArgs __)
+                        void Window_DataContextChanged(object? _, EventArgs __)
                         {
                             if (window.DataContext is DialogWindowViewModel dialogWindowViewModel)
                             {
                                 BindingDialogWindowViewModel(window, dialogWindowViewModel, actionDialogWindowViewModel);
                             }
                         }
-                        void Window_Closed(object _, EventArgs __)
+                        void Window_Closed(object? _, EventArgs __)
                         {
                             window.DataContextChanged -= Window_DataContextChanged;
                             window.Closed -= Window_Closed;
@@ -113,16 +114,24 @@ namespace System.Application.Services.Implementation
                     }
                 }
                 if (viewModel != null) window.DataContext = viewModel;
-                if (isDialog)
+                try
                 {
-                    await IDesktopAvaloniaAppService.Instance.ShowDialogWindow(window);
-                }
-                else
-                {
-                    if (isParent)
-                        IDesktopAvaloniaAppService.Instance.ShowWindow(window);
+                    if (isDialog)
+                    {
+                        await IDesktopAvaloniaAppService.Instance.ShowDialogWindow(window);
+                    }
                     else
-                        IDesktopAvaloniaAppService.Instance.ShowWindowNoParent(window);
+                    {
+                        if (isParent)
+                            IDesktopAvaloniaAppService.Instance.ShowWindow(window);
+                        else
+                            IDesktopAvaloniaAppService.Instance.ShowWindowNoParent(window);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Log.Error(nameof(ShowWindowServiceImpl), e,
+                        "Show fail, windowType: {0}", window?.GetType().Name);
                 }
             });
 
@@ -173,17 +182,41 @@ namespace System.Application.Services.Implementation
 
         public void CloseWindow(WindowViewModel vm)
         {
-            IDesktopAvaloniaAppService.Instance.CloseWindow(vm);
+            try
+            {
+                IDesktopAvaloniaAppService.Instance.CloseWindow(vm);
+            }
+            catch (Exception e)
+            {
+                Log.Error(nameof(ShowWindowServiceImpl), e,
+                    "CloseWindow fail, vmType: {0}", vm.GetType().Name);
+            }
         }
 
         public void HideWindow(WindowViewModel vm)
         {
-            IDesktopAvaloniaAppService.Instance.HideWindow(vm);
+            try
+            {
+                IDesktopAvaloniaAppService.Instance.HideWindow(vm);
+            }
+            catch (Exception e)
+            {
+                Log.Error(nameof(ShowWindowServiceImpl), e,
+                    "HideWindow fail, vmType: {0}", vm.GetType().Name);
+            }
         }
 
         public void ShowWindow(WindowViewModel vm)
         {
-            IDesktopAvaloniaAppService.Instance.ShowWindowNoParent(vm);
+            try
+            {
+                IDesktopAvaloniaAppService.Instance.ShowWindowNoParent(vm);
+            }
+            catch (Exception e)
+            {
+                Log.Error(nameof(ShowWindowServiceImpl), e,
+                    "ShowWindowNoParent fail, vmType: {0}", vm.GetType().Name);
+            }
         }
     }
 }

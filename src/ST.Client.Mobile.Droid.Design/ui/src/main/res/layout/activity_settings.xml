@@ -373,7 +373,7 @@
                         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:orientation="vertical">
@@ -394,6 +394,22 @@
                             android:textColor="@color/text_secondary"
                             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
                     </LinearLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/swOSAppNotificationSettings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:clickable="false"
+                        android:focusable="false"
+                        tools:checked="true"
+                        xamarin:managedType="Google.Android.Material.SwitchMaterial.SwitchMaterial" />
                 </LinearLayout>
             </FrameLayout>
 

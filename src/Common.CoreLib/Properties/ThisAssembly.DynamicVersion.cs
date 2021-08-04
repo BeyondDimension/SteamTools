@@ -11,6 +11,8 @@ namespace System.Properties
             {
                 switch (DI.Platform)
                 {
+                    case Platform.Windows:
+                        return DI.IsDesktopBridge ? Version + alpha : Version;
                     case Platform.Linux:
                         return Version + alpha;
                     case Platform.Android:

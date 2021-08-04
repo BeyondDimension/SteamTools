@@ -52,11 +52,19 @@ namespace System.Net.WebSocket
 
         readonly CancellationTokenSource tokenSource = new();
 
-        private bool isStarted;
-        public async Task StartAsync()
+        bool isStarted;
+        public void Start()
         {
             if (isStarted) return;
             isStarted = true;
+            Task.Factory.StartNew(StartCore,
+                tokenSource.Token,
+                TaskCreationOptions.LongRunning,
+                TaskScheduler.Default);
+        }
+
+        async void StartCore()
+        {
             listener.Start();
             RunState = true;
             try

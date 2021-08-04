@@ -25,13 +25,36 @@ namespace System.Application.Services
         async Task ShowDialogWindow(Window window)
         {
             var owner = GetActiveWindow();
-            await window.ShowDialog(owner);
+            if (owner != null)
+            {
+                try
+                {
+                    await window.ShowDialog(owner);
+                    return;
+                }
+                catch (InvalidOperationException)
+                {
+                }
+            }
+            window.Show();
         }
 
         void ShowWindow(Window window)
         {
             var owner = GetActiveWindow();
-            window.Show(owner);
+            if (owner != null)
+            {
+                try
+                {
+                    window.Show(owner);
+                    return;
+                }
+                catch (InvalidOperationException)
+                {
+                }
+
+            }
+            window.Show();
         }
 
         void ShowWindowNoParent(Window window)

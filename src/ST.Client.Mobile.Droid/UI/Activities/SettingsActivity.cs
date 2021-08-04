@@ -7,6 +7,7 @@ using Binding;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Models.Settings;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
@@ -102,6 +103,12 @@ namespace System.Application.UI.Activities
                 if (binding == null) return;
                 binding.tvGeneralSettingsStorageSpaceValue.Text = x;
             });
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            binding!.swOSAppNotificationSettings.Enabled = INotificationService.Instance.AreNotificationsEnabled();
         }
 
         protected override void OnClick(View view)

@@ -295,11 +295,17 @@ namespace System.Application.UI
 
         void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
         {
+
+            var isOfficialChannelPackage = IsNotOfficialChannelPackageDetectionHelper.Check(Program.IsMainProcess);
+
 #if StartupTrace
             StartupTrace.Restart("Desktop_Startup.Start");
 #endif
 #if WINDOWS
-            VisualStudioAppCenterSDK.Init();
+            if (isOfficialChannelPackage)
+            {
+                VisualStudioAppCenterSDK.Init();
+            }
 #endif
 #if StartupTrace
             StartupTrace.Restart("AppCenterSDK.Init");

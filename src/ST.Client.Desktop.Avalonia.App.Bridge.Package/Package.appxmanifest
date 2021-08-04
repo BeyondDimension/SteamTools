@@ -4,6 +4,7 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
   IgnorableNamespaces="uap rescap">
 
   <Identity
@@ -50,7 +51,10 @@
         <uap:LockScreen BadgeLogo="Images\BadgeLogo.png" Notification="badgeAndTileText"/>
       </uap:VisualElements>
       <Extensions>
-        <desktop:Extension xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" Category="windows.fullTrustProcess" Executable="Launcher\Steam++.Launcher.exe" />
+        <desktop:Extension Category="windows.fullTrustProcess" Executable="Launcher\Steam++.Launcher.exe" />
+        <desktop:Extension Category="windows.startupTask" Executable="Launcher\Steam++.Launcher.exe" EntryPoint="Windows.FullTrustApplication">
+          <desktop:StartupTask TaskId="BootAutoStartTask" Enabled="true" DisplayName="Steam++ System Boot Run" />
+        </desktop:Extension>
       </Extensions>
     </Application>
   </Applications>
