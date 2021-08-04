@@ -71,6 +71,7 @@ namespace System.Net.WebSocket
             {
                 while (RunState)
                 {
+                    try { 
                     TcpClient tcp = await Task.Run(() => listener.AcceptTcpClientAsync(), tokenSource.Token);// await listener.AcceptTcpClientAsync();
                     _ = Task.Run(async () =>
                     {
@@ -83,6 +84,8 @@ namespace System.Net.WebSocket
                         tokenSource.Token.Register(() => { client.Dispose(); });
                         await client.StartAsync();
                     }, tokenSource.Token);
+                    }
+                    catch { }
                 }
             }
             finally
