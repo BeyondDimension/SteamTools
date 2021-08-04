@@ -72,7 +72,7 @@
                         OffContent=""
                         HorizontalAlignment="Right"
                         Margin="5 0 0 5"
-                        IsChecked="{Binding Source={x:Static service:SteamConnectService.Current},Path=IsAutoAFKApps}"
+                        IsChecked="{ReflectionBinding Source={x:Static ms:GameLibrarySettings.IsAutoAFKApps},Path=Value}"
                         ToolTip.Tip="{ReflectionBinding Path=Res.GameList_AutoAFK,Mode=OneWay,Source={x:Static resx:R.Current}}"
                         VerticalAlignment="Center">
           </ToggleSwitch>

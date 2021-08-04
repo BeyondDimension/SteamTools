@@ -105,10 +105,11 @@ namespace System.Application.Services
                 }
             }
         }
-        #endregion
 
-        #region 是否已经释放SteamClient
         private bool _IsDisposedClient = true;
+        /// <summary>
+        /// 是否已经释放SteamClient
+        /// </summary>
         public bool IsDisposedClient
         {
             get => _IsDisposedClient;
@@ -136,22 +137,13 @@ namespace System.Application.Services
                 }
             }
         }
-        public bool IsAutoAFKApps
-        {
-            get => GameLibrarySettings.IsAutoAFKApps.Value;
-            set
-            {
-                GameLibrarySettings.IsAutoAFKApps.Value = value;
-                this.RaisePropertyChanged(nameof(IsAutoAFKApps));
-            }
-        }
+
         public void RunAFKApps()
         {
             if (GameLibrarySettings.AFKAppList.Value?.Count > 0)
             {
                 foreach (var item in GameLibrarySettings.AFKAppList.Value)
                 {
-
                     RuningSteamApps.TryGetValue(item.Key, out var runState);
                     if (runState == null)
                         RuningSteamApps.TryAdd(item.Key, new SteamApp
@@ -177,7 +169,7 @@ namespace System.Application.Services
             if (!SteamTool.IsRunningSteamProcess && SteamSettings.IsAutoRunSteam.Value)
                 SteamTool.StartSteam(SteamSettings.SteamStratParameter.Value);
 
-            var t = new Task(async () =>
+            Task.Factory.StartNew(async () =>
             {
                 Thread.CurrentThread.IsBackground = true;
                 try
@@ -206,10 +198,10 @@ namespace System.Application.Services
                                     CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
 
-                                    if (IsAutoAFKApps)
+                                    #region 初始化需要steam启动才能使用的功能
+                                    if (GameLibrarySettings.IsAutoAFKApps.Value)
                                         RunAFKApps();
 
-                                    #region 初始化需要steam启动才能使用的功能
                                     if (SteamApps.Items.Any())
                                     {
                                         LoadGames(ApiService.OwnsApps(await ISteamService.Instance.GetAppInfos()));
@@ -234,13 +226,10 @@ namespace System.Application.Services
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(nameof(SteamConnectService), ex, "Task LongRunning");
+                    Log.Error(nameof(SteamConnectService), ex, "SteamConnect Task LongRunning");
                     ToastService.Current.Notify(ex.Message);
                 }
-            }, TaskCreationOptions.LongRunning);
-
-            //t.Forget();
-            t.Start();
+            }, TaskCreationOptions.LongRunning).ConfigureAwait(false);
         }
 
         public bool Initialize(int appid)
@@ -256,7 +245,7 @@ namespace System.Application.Services
         {
             SteamApps.Clear();
             if (apps.Any_Nullable())
-                SteamApps.AddOrUpdate(apps);
+                SteamApps.AddOrUpdate(apps!);
         }
 
         public async void InitializeGameList()
@@ -267,29 +256,10 @@ namespace System.Application.Services
             IsLoadingGameList = false;
         }
 
-        //        public void UpdateGamesImage()
-        //        {
-        //#if DEBUG
-        //            if (BuildConfig.IsDebuggerAttached)
-        //            {
-        //                return;
-        //            }
-        //#endif
-        //            //if (SteamApps.Items.Any())
-        //            //{
-        //            //    Parallel.ForEach(SteamApps.Items, new ParallelOptions
-        //            //    {
-        //            //        MaxDegreeOfParallelism = (Environment.ProcessorCount / 2) + 1
-        //            //    }, async app =>
-        //            //    {
-        //            //        await ISteamService.Instance.LoadAppImageAsync(app);
-        //            //        //app.LibraryLogoStream = await IHttpService.Instance.GetImageAsync(app.LibraryLogoUrl, ImageChannelType.SteamGames);
-        //            //        //app.LibraryHeaderStream = await IHttpService.Instance.GetImageAsync(app.LibraryHeaderUrl, ImageChannelType.SteamGames);
-        //            //        //app.LibraryNameStream = await IHttpService.Instance.GetImageAsync(app.LibraryNameUrl, ImageChannelType.SteamGames);
-        //            //        //app.HeaderLogoStream = await IHttpService.Instance.GetImageAsync(app.HeaderLogoUrl, ImageChannelType.SteamGames);
-        //            //    });
-        //            //}
-        //        }
+        public async void InitializeDownloadGameList()
+        {
+
+        }
 
         private bool _IsRefreshing;
         public /*async*/ void RefreshGamesList()
@@ -299,7 +269,7 @@ namespace System.Application.Services
                 _IsRefreshing = true;
                 if (SteamTool.IsRunningSteamProcess)
                 {
-                    var t = new Task(() =>
+                    Task.Factory.StartNew(() =>
                     {
                         Thread.CurrentThread.IsBackground = true;
                         try
@@ -331,8 +301,7 @@ namespace System.Application.Services
                             Log.Error(nameof(SteamConnectService), ex, "Task RefreshGamesList");
                             ToastService.Current.Notify(ex.Message);
                         }
-                    }, TaskCreationOptions.LongRunning);
-                    t.Start();
+                    }, TaskCreationOptions.DenyChildAttach | TaskCreationOptions.PreferFairness).Forget().ConfigureAwait(false);
                 }
                 else
                 {

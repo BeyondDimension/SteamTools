@@ -270,8 +270,6 @@ namespace System.Application.UI
 #if WINDOWS
                     JumpLists.Init();
 #endif
-
-                    IsNotOfficialChannelPackageDetectionHelper.Check();
                 }
 
                 desktop.MainWindow =
@@ -301,6 +299,7 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("Desktop_Startup.Start");
 #endif
+            IsNotOfficialChannelPackageDetectionHelper.Check();
 #if WINDOWS
             if (isOfficialChannelPackage)
             {

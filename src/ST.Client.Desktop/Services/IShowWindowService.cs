@@ -57,7 +57,8 @@ namespace System.Application.Services
             TWindowViewModel? viewModel = null,
             string title = "",
             ResizeModeCompat resizeMode = ResizeModeCompat.NoResize,
-            bool isDialog = true)
+            bool isDialog = true,
+            bool isParent = true)
             where TWindowViewModel : WindowViewModel, new();
 
 

@@ -119,7 +119,7 @@ namespace System.Application.UI.ViewModels
 
             EnableAFKAutoUpdateCommand = ReactiveCommand.Create(() =>
             {
-                AFKAutoUpdate?.CheckmarkChange(SteamConnectService.Current.IsAutoAFKApps = !SteamConnectService.Current.IsAutoAFKApps);
+                AFKAutoUpdate?.CheckmarkChange(GameLibrarySettings.IsAutoAFKApps.Value = !GameLibrarySettings.IsAutoAFKApps.Value);
             });
 
             MenuItems = new ObservableCollection<MenuItemViewModel>()
@@ -135,7 +135,7 @@ namespace System.Application.UI.ViewModels
                       IconKey ="ClockArrowDownloadDrawing", Command = SteamShutdownCommand },
             };
 
-            AFKAutoUpdate?.CheckmarkChange(SteamConnectService.Current.IsAutoAFKApps);
+            AFKAutoUpdate?.CheckmarkChange(GameLibrarySettings.IsAutoAFKApps.Value);
         }
         public ReactiveCommand<Unit, Unit> EnableAFKAutoUpdateCommand { get; }
 
