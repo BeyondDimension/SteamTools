@@ -1516,4 +1516,7 @@
   <data name="Settings_General_Calcing" xml:space="preserve">
     <value>计算中...</value>
   </data>
+  <data name="SetBootAutoStartTrueFail_" xml:space="preserve">
+    <value>启用开机自启动失败，原因: {0}</value>
+  </data>
 </root>

@@ -3034,6 +3034,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 启用开机自启动失败，原因: {0} 的本地化字符串。
+        /// </summary>
+        public static string SetBootAutoStartTrueFail_ {
+            get {
+                return ResourceManager.GetString("SetBootAutoStartTrueFail_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 设置 的本地化字符串。
         /// </summary>
         public static string Settings {

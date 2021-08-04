@@ -3,16 +3,15 @@ using Microsoft.Win32;
 using Microsoft.Win32.TaskScheduler;
 using System.Application.Models;
 using System.Application.UI;
+using System.Application.UI.Resx;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
-using System.Reflection;
 using System.Runtime.Versioning;
-using System.Security.Cryptography;
 using System.Security.Principal;
-using System.Threading;
+using Windows.ApplicationModel;
 
 namespace System.Application.Services.Implementation
 {
@@ -122,44 +121,76 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public void SetBootAutoStart(bool isAutoStart, string name)
+        /// <summary>
+        /// UWP 的开机自启 TaskId，在 Package.appxmanifest 中设定
+        /// </summary>
+        const string BootAutoStartTaskId = "BootAutoStartTask";
+
+        public async void SetBootAutoStart(bool isAutoStart, string name)
         {
-            //global::Windows.ApplicationModel.AppInstance.GetActivatedEventArgs()
-            //global::Windows.UI.ap
-            //global::Windows.ApplicationModel.app
-            // 开机启动使用 taskschd.msc 实现
-            try
+            if (DI.IsDesktopBridge)
             {
-                var identity = WindowsIdentity.GetCurrent();
-                var hasSid = identity.User?.IsAccountSid() ?? false;
-                var userId = hasSid ? identity.User!.ToString() : identity.Name;
-                var tdName = hasSid ? userId : userId.Replace(Path.DirectorySeparatorChar, '_');
-                tdName = $"{name}_{{{tdName}}}";
+                // https://blogs.windows.com/windowsdeveloper/2017/08/01/configure-app-start-log/
+                // https://blog.csdn.net/lh275985651/article/details/109360162
+                // https://www.cnblogs.com/wpinfo/p/uwp_auto_startup.html
+                // 还需要通过 global::Windows.ApplicationModel.AppInstance.GetActivatedEventArgs() 判断为自启时最小化，不能通过参数启动
+                var startupTask = await StartupTask.GetAsync(BootAutoStartTaskId);
                 if (isAutoStart)
                 {
-                    using var td = TaskService.Instance.NewTask();
-                    td.RegistrationInfo.Description = name + " System Boot Run";
-                    td.Settings.Priority = ProcessPriorityClass.Normal;
-                    td.Settings.ExecutionTimeLimit = new TimeSpan(0);
-                    td.Settings.AllowHardTerminate = false;
-                    td.Settings.StopIfGoingOnBatteries = false;
-                    td.Settings.DisallowStartIfOnBatteries = false;
-                    td.Triggers.Add(new LogonTrigger { UserId = userId });
-                    td.Actions.Add(new ExecAction(AppHelper.ProgramName, "-clt c -silence", IOPath.BaseDirectory));
-                    if (IsAdministrator)
-                        td.Principal.RunLevel = TaskRunLevel.Highest;
-                    TaskService.Instance.RootFolder.RegisterTaskDefinition(tdName, td);
+                    var startupTaskState = startupTask.State;
+                    if (startupTask.State == StartupTaskState.Disabled)
+                    {
+                        startupTaskState = await startupTask.RequestEnableAsync();
+                    }
+                    if (startupTaskState != StartupTaskState.Enabled &&
+                        startupTaskState != StartupTaskState.EnabledByPolicy)
+                    {
+                        Toast.Show(AppResources.SetBootAutoStartTrueFail_.Format(startupTaskState));
+                    }
                 }
                 else
                 {
-                    TaskService.Instance.RootFolder.DeleteTask(name, exceptionOnNotExists: false);
-                    TaskService.Instance.RootFolder.DeleteTask(tdName, exceptionOnNotExists: false);
+                    startupTask.Disable();
                 }
             }
-            catch (Exception e)
+            else
             {
-                Log.Error(TAG, e,
-                    "SetBootAutoStart Fail, isAutoStart: {0}, name: {1}.", isAutoStart, name);
+                // 开机启动使用 taskschd.msc 实现
+                try
+                {
+                    var identity = WindowsIdentity.GetCurrent();
+                    var hasSid = identity.User?.IsAccountSid() ?? false;
+                    var userId = hasSid ? identity.User!.ToString() : identity.Name;
+                    var tdName = hasSid ? userId : userId.Replace(Path.DirectorySeparatorChar, '_');
+                    tdName = $"{name}_{{{tdName}}}";
+                    if (isAutoStart)
+                    {
+                        using var td = TaskService.Instance.NewTask();
+                        td.RegistrationInfo.Description = name + " System Boot Run";
+                        td.Settings.Priority = ProcessPriorityClass.Normal;
+                        td.Settings.ExecutionTimeLimit = new TimeSpan(0);
+                        td.Settings.AllowHardTerminate = false;
+                        td.Settings.StopIfGoingOnBatteries = false;
+                        td.Settings.DisallowStartIfOnBatteries = false;
+                        td.Triggers.Add(new LogonTrigger { UserId = userId });
+                        td.Actions.Add(new ExecAction(AppHelper.ProgramName,
+                            IDesktopPlatformService.SystemBootRunArguments,
+                            IOPath.BaseDirectory));
+                        if (IsAdministrator)
+                            td.Principal.RunLevel = TaskRunLevel.Highest;
+                        TaskService.Instance.RootFolder.RegisterTaskDefinition(tdName, td);
+                    }
+                    else
+                    {
+                        TaskService.Instance.RootFolder.DeleteTask(name, exceptionOnNotExists: false);
+                        TaskService.Instance.RootFolder.DeleteTask(tdName, exceptionOnNotExists: false);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Log.Error(TAG, e,
+                        "SetBootAutoStart Fail, isAutoStart: {0}, name: {1}.", isAutoStart, name);
+                }
             }
         }
 
@@ -249,7 +280,6 @@ namespace System.Application.Services.Implementation
             }
             catch
             {
-
             }
             return default;
         }
