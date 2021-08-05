@@ -17,10 +17,18 @@ namespace System.Application.Services.Implementation
 
         public void Cancel(NotificationType notificationType)
         {
+            if (DI.Platform == Platform.Windows)
+            {
+                INotifyIcon.Instance.HideBalloonTip();
+            }
         }
 
         public void CancelAll()
         {
+            if (DI.Platform == Platform.Windows)
+            {
+                INotifyIcon.Instance.HideBalloonTip();
+            }
         }
 
         public void Notify(string text, NotificationType notificationType, bool autoCancel, string? title, Entrance entrance)

@@ -135,7 +135,6 @@ namespace System
             /// </summary>
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
             public string szInfo;
-            public int uVersion;
             public int uTimeoutOrVersion;
             /// <summary>
             /// String containing a title for a balloon ToolTip. This title appears in boldface
@@ -152,7 +151,7 @@ namespace System
             /// flag is set, this icon is used as the balloon icon.<br/>
             /// If this member is NULL, the legacy behavior is carried out.
             /// </summary>
-            public IntPtr CustomBalloonIconHandle;
+            //public IntPtr CustomBalloonIconHandle;
         }
 
         public enum NIM : uint

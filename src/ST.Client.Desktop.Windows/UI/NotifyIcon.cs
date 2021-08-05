@@ -140,7 +140,7 @@ namespace System.Application.UI
                 uFlags = NIF.TIP | NIF.MESSAGE,
                 uCallbackMessage = (int)UnmanagedMethods.CustomWindowsMessage.WM_TRAYMOUSE,
                 hIcon = IntPtr.Zero,
-                uVersion = 2000,
+                uTimeoutOrVersion = 0,
                 szTip = ToolTipText,
             };
         }
@@ -162,6 +162,7 @@ namespace System.Application.UI
             {
                 iconData.uFlags |= NIF.ICON;
                 iconData.hIcon = _icon.Handle;
+                iconData.szTip = ToolTipText;
 
                 if (!_iconAdded)
                 {
@@ -307,7 +308,7 @@ namespace System.Application.UI
             iconData.szInfo = message ?? string.Empty;
             iconData.szInfoTitle = title ?? string.Empty;
             iconData.uFlags = NIF.INFO | NIF.ICON;
-            iconData.CustomBalloonIconHandle = balloonIconHandle;
+            //iconData.CustomBalloonIconHandle = balloonIconHandle;
             iconData.dwInfoFlags = flags;
 
             var result = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.MODIFY, iconData);
