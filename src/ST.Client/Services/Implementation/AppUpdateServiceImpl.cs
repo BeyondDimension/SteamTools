@@ -211,7 +211,7 @@ namespace System.Application.Services.Implementation
         protected void OnReportCalcHashing(float value) => OnReport(value, SR.CalcHashing_.Format(MathF.Round(value, 2)));
         protected void OnReportDecompressing(float value) => OnReport(value, SR.Decompressing_.Format(MathF.Round(value, 2)));
         protected void OnReport(float value = 0f) => OnReport(value, string.Empty);
-        protected void OnReport(float value, string str)
+        protected virtual void OnReport(float value, string str)
         {
             ProgressValue = value;
             ProgressString = str;

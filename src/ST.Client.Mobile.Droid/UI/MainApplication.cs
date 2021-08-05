@@ -13,6 +13,8 @@ using XEPlatform = Xamarin.Essentials.Platform;
 using XEVersionTracking = Xamarin.Essentials.VersionTracking;
 using System.Application.Models.Settings;
 using AndroidX.AppCompat.App;
+using System.Application.Services;
+using System.Application.Services.Implementation;
 #if DEBUG
 using Square.LeakCanary;
 #endif
@@ -79,6 +81,10 @@ namespace System.Application.UI
             Startup.Init(level);
             if (IsMainProcess)
             {
+                if (INotificationService.Instance is PlatformNotificationServiceImpl notification)
+                {
+                    notification.InitNotificationChannels(this);
+                }
                 XEVersionTracking.Track();
                 ImageLoader.Init(this);
                 UISettings.Theme.Subscribe(x =>
