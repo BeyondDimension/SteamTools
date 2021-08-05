@@ -26,7 +26,6 @@ namespace System.Application.Services.Implementation
         {
             title ??= ThisAssembly.AssemblyTrademark;
             // 调用托盘显示通知
-            throw new NotImplementedException(title);
         }
 
         public Progress<float> NotifyDownload(string text, NotificationType notificationType, string? title)

@@ -1,4 +1,4 @@
-﻿// Copyright (c) The Avalonia Project. All rights reserved.
+// Copyright (c) The Avalonia Project. All rights reserved.
 // Licensed under the MIT license. See licence.md file in the project root for full license information.
 
 // Slightly modified and extended version for the use in SQRLDotNetClientUI
@@ -19,7 +19,7 @@ namespace System
         public static extern IntPtr LoadImage(IntPtr hinst, string lpszName, uint uType, int cxDesired, int cyDesired, uint fuLoad);
 
         [DllImport("shell32", CharSet = CharSet.Auto)]
-        public static extern int Shell_NotifyIcon(NIM dwMessage, NOTIFYICONDATA lpData);
+        public static extern int Shell_NotifyIcon(NIM dwMessage, [In] ref NOTIFYICONDATA lpData);
 
         [DllImport("user32.dll")]
         public static extern void PostQuitMessage(int nExitCode);
@@ -132,6 +132,46 @@ namespace System
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
             public string szInfoTitle;
             public NIIF dwInfoFlags;
+            /// <summary>
+            /// String with the text for a balloon ToolTip. It can have a maximum of 255 characters.
+            /// To remove the ToolTip, set the NIF_INFO flag in uFlags and set szInfo to an empty string.
+            /// </summary>
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+            public string BalloonText;
+            /// <summary>
+            /// String containing a title for a balloon ToolTip. This title appears in boldface
+            /// above the text. It can have a maximum of 63 characters.
+            /// </summary>
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
+            public string BalloonTitle;
+            /// <summary>
+            /// Mainly used to set the version when <see cref="WinApi.Shell_NotifyIcon"/> is invoked
+            /// with <see cref="NotifyCommand.SetVersion"/>. However, for legacy operations,
+            /// the same member is also used to set timeouts for balloon ToolTips.
+            /// </summary>
+            public uint VersionOrTimeout;
+            /// <summary>
+            /// Adds an icon to a balloon ToolTip, which is placed to the left of the title. If the
+            /// <see cref="BalloonTitle"/> member is zero-length, the icon is not shown.
+            /// </summary>
+            public BalloonFlags BalloonFlags;
+
+            /// <summary>
+            /// Windows XP (Shell32.dll version 6.0) and later.<br/>
+            /// - Windows 7 and later: A registered GUID that identifies the icon.
+            ///   This value overrides uID and is the recommended method of identifying the icon.<br/>
+            /// - Windows XP through Windows Vista: Reserved.
+            /// </summary>
+            public Guid TaskbarIconGuid;
+
+            /// <summary>
+            /// Windows Vista (Shell32.dll version 6.0.6) and later. The handle of a customized
+            /// balloon icon provided by the application that should be used independently
+            /// of the tray icon. If this member is non-NULL and the <see cref="TaskbarNotification.Interop.BalloonFlags.User"/>
+            /// flag is set, this icon is used as the balloon icon.<br/>
+            /// If this member is NULL, the legacy behavior is carried out.
+            /// </summary>
+            public IntPtr CustomBalloonIconHandle;
         }
 
         public enum NIM : uint
@@ -2101,6 +2141,65 @@ namespace System
             [MarshalAs(UnmanagedType.LPWStr)]
             public string pszSpec;
         }
+    }
+
+    /// <summary>
+    /// Flags that define the icon that is shown on a balloon
+    /// tooltip.
+    /// </summary>
+    public enum BalloonFlags
+    {
+        /// <summary>
+        /// No icon is displayed.
+        /// </summary>
+        None = 0x00,
+
+        /// <summary>
+        /// An information icon is displayed.
+        /// </summary>
+        Info = 0x01,
+
+        /// <summary>
+        /// A warning icon is displayed.
+        /// </summary>
+        Warning = 0x02,
+
+        /// <summary>
+        /// An error icon is displayed.
+        /// </summary>
+        Error = 0x03,
+
+        /// <summary>
+        /// Windows XP Service Pack 2 (SP2) and later.
+        /// Use a custom icon as the title icon.
+        /// </summary>
+        User = 0x04,
+
+        /// <summary>
+        /// Windows XP (Shell32.dll version 6.0) and later.
+        /// Do not play the associated sound. Applies only to balloon ToolTips.
+        /// </summary>
+        NoSound = 0x10,
+
+        /// <summary>
+        /// Windows Vista (Shell32.dll version 6.0.6) and later. The large version
+        /// of the icon should be used as the balloon icon. This corresponds to the
+        /// icon with dimensions SM_CXICON x SM_CYICON. If this flag is not set,
+        /// the icon with dimensions XM_CXSMICON x SM_CYSMICON is used.<br/>
+        /// - This flag can be used with all stock icons.<br/>
+        /// - Applications that use older customized icons (NIIF_USER with hIcon) must
+        ///   provide a new SM_CXICON x SM_CYICON version in the tray icon (hIcon). These
+        ///   icons are scaled down when they are displayed in the System Tray or
+        ///   System Control Area (SCA).<br/>
+        /// - New customized icons (NIIF_USER with hBalloonIcon) must supply an
+        ///   SM_CXICON x SM_CYICON version in the supplied icon (hBalloonIcon).
+        /// </summary>
+        LargeIcon = 0x20,
+
+        /// <summary>
+        /// Windows 7 and later.
+        /// </summary>
+        RespectQuietTime = 0x80
     }
 
     [Flags]

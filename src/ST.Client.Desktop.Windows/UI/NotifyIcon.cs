@@ -20,6 +20,11 @@ namespace System.Application.UI
         string _toolTipText = string.Empty;
         bool _visible = false;
         bool _doubleClick = false;
+        /// <summary>
+        /// Represents the current icon data.
+        /// </summary>
+        private UnmanagedMethods.NOTIFYICONDATA iconData;
+
 
         public event EventHandler<EventArgs>? Click;
         public event EventHandler<EventArgs>? DoubleClick;
@@ -131,6 +136,15 @@ namespace System.Application.UI
 
         ~NotifyIcon()
         {
+            iconData = new UnmanagedMethods.NOTIFYICONDATA()
+            {
+                hWnd = _window.Handle,
+                uID = _uID,
+                uFlags = UnmanagedMethods.NIF.TIP | UnmanagedMethods.NIF.MESSAGE,
+                uCallbackMessage = (int)UnmanagedMethods.CustomWindowsMessage.WM_TRAYMOUSE,
+                hIcon = IntPtr.Zero,
+                szTip = ToolTipText
+            };
             UpdateIcon(remove: true);
         }
 
@@ -141,15 +155,6 @@ namespace System.Application.UI
         void UpdateIcon(bool remove = false)
         {
             if (_window == null) throw new ArgumentNullException(nameof(_window));
-            UnmanagedMethods.NOTIFYICONDATA iconData = new UnmanagedMethods.NOTIFYICONDATA()
-            {
-                hWnd = _window.Handle,
-                uID = _uID,
-                uFlags = UnmanagedMethods.NIF.TIP | UnmanagedMethods.NIF.MESSAGE,
-                uCallbackMessage = (int)UnmanagedMethods.CustomWindowsMessage.WM_TRAYMOUSE,
-                hIcon = IntPtr.Zero,
-                szTip = ToolTipText
-            };
 
             if (!remove && _icon != null && Visible)
             {
@@ -158,17 +163,17 @@ namespace System.Application.UI
 
                 if (!_iconAdded)
                 {
-                    _ = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.ADD, iconData);
+                    _ = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.ADD,ref iconData);
                     _iconAdded = true;
                 }
                 else
                 {
-                    _ = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.MODIFY, iconData);
+                    _ = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.MODIFY,ref iconData);
                 }
             }
             else
             {
-                _ = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.DELETE, iconData);
+                _ = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.DELETE,ref iconData);
                 _iconAdded = false;
             }
         }
@@ -240,6 +245,37 @@ namespace System.Application.UI
                     contextItemLookup[commandId]();
                 }
             }
+        }
+
+        public void ShowBalloonTip(string title, string message, BalloonFlags flags, IntPtr balloonIconHandle)
+        {
+             iconData = new UnmanagedMethods.NOTIFYICONDATA()
+            {
+                hWnd = _window.Handle,
+                uID = _uID,
+                uFlags = UnmanagedMethods.NIF.TIP | UnmanagedMethods.NIF.MESSAGE,
+                uCallbackMessage = (int)UnmanagedMethods.CustomWindowsMessage.WM_TRAYMOUSE,
+                hIcon = IntPtr.Zero,
+                szTip = ToolTipText
+            };
+
+            iconData.BalloonText = message ?? string.Empty;
+            iconData.BalloonTitle = title ?? string.Empty;
+
+            iconData.BalloonFlags = flags;
+            iconData.CustomBalloonIconHandle = balloonIconHandle;
+
+            UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.MODIFY,ref iconData);
+        }
+
+        /// <summary>
+        /// Hides a balloon ToolTip, if any is displayed.
+        /// </summary>
+        public void HideBalloonTip()
+        {
+            // reset balloon by just setting the info to an empty string
+            iconData.BalloonText = iconData.BalloonTitle = string.Empty;
+            UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.MODIFY, ref iconData);
         }
 
         /// <summary>
