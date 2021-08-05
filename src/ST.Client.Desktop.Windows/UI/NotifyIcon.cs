@@ -132,19 +132,21 @@ namespace System.Application.UI
             {
                 _window = new NotifyIconWindow(this);
             }
-        }
 
-        ~NotifyIcon()
-        {
             iconData = new UnmanagedMethods.NOTIFYICONDATA()
             {
                 hWnd = _window.Handle,
                 uID = _uID,
-                uFlags = UnmanagedMethods.NIF.TIP | UnmanagedMethods.NIF.MESSAGE,
+                uFlags = NIF.TIP | NIF.MESSAGE,
                 uCallbackMessage = (int)UnmanagedMethods.CustomWindowsMessage.WM_TRAYMOUSE,
                 hIcon = IntPtr.Zero,
-                szTip = ToolTipText
+                uVersion = 2000,
+                szTip = ToolTipText,
             };
+        }
+
+        ~NotifyIcon()
+        {
             UpdateIcon(remove: true);
         }
 
@@ -158,22 +160,22 @@ namespace System.Application.UI
 
             if (!remove && _icon != null && Visible)
             {
-                iconData.uFlags |= UnmanagedMethods.NIF.ICON;
+                iconData.uFlags |= NIF.ICON;
                 iconData.hIcon = _icon.Handle;
 
                 if (!_iconAdded)
                 {
-                    _ = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.ADD,ref iconData);
+                    _ = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.ADD, iconData);
                     _iconAdded = true;
                 }
                 else
                 {
-                    _ = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.MODIFY,ref iconData);
+                    _ = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.MODIFY, iconData);
                 }
             }
             else
             {
-                _ = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.DELETE,ref iconData);
+                _ = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.DELETE, iconData);
                 _iconAdded = false;
             }
         }
@@ -247,25 +249,68 @@ namespace System.Application.UI
             }
         }
 
-        public void ShowBalloonTip(string title, string message, BalloonFlags flags, IntPtr balloonIconHandle)
+        /// <summary>
+        /// Displays a balloon tip with the specified title,
+        /// text, and icon in the taskbar for the specified time period.
+        /// </summary>
+        /// <param name="title">The title to display on the balloon tip.</param>
+        /// <param name="message">The text to display on the balloon tip.</param>
+        public void ShowBalloonTip(string title, string message, NIIF flags)
         {
-             iconData = new UnmanagedMethods.NOTIFYICONDATA()
+            ShowBalloonTip(title, message, flags, IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Displays a balloon tip with the specified title,
+        /// text, and icon in the taskbar for the specified time period.
+        /// </summary>
+        /// <param name="title">The title to display on the balloon tip.</param>
+        /// <param name="message">The text to display on the balloon tip.</param>
+        public void ShowBalloonTip(string title, string message)
+        {
+            ShowBalloonTip(title, message, NIIF.NONE, IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Displays a balloon tip with the specified title,
+        /// text, and a custom icon in the taskbar for the specified time period.
+        /// </summary>
+        /// <param name="title">The title to display on the balloon tip.</param>
+        /// <param name="message">The text to display on the balloon tip.</param>
+        /// <param name="customIcon">A custom icon.</param>
+        /// <param name="largeIcon">True to allow large icons (Windows Vista and later).</param>
+        /// <exception cref="ArgumentNullException">If <paramref name="customIcon"/>
+        /// is a null reference.</exception>
+        public void ShowBalloonTip(string title, string message, Icon customIcon, bool largeIcon = false)
+        {
+            if (customIcon == null) throw new ArgumentNullException(nameof(customIcon));
+            var flags = NIIF.USER;
+            if (largeIcon)
             {
-                hWnd = _window.Handle,
-                uID = _uID,
-                uFlags = UnmanagedMethods.NIF.TIP | UnmanagedMethods.NIF.MESSAGE,
-                uCallbackMessage = (int)UnmanagedMethods.CustomWindowsMessage.WM_TRAYMOUSE,
-                hIcon = IntPtr.Zero,
-                szTip = ToolTipText
-            };
+                // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
+                flags |= NIIF.LARGE_ICON;
+            }
+            ShowBalloonTip(title, message, flags, customIcon.Handle);
+        }
 
-            iconData.BalloonText = message ?? string.Empty;
-            iconData.BalloonTitle = title ?? string.Empty;
-
-            iconData.BalloonFlags = flags;
+        /// <summary>
+        /// Invokes <see cref="UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM, ref UnmanagedMethods.NOTIFYICONDATA)"/> in order to display
+        /// a given balloon ToolTip.
+        /// </summary>
+        /// <param name="title">The title to display on the balloon tip.</param>
+        /// <param name="message">The text to display on the balloon tip.</param>
+        /// <param name="flags">Indicates what icon to use.</param>
+        /// <param name="balloonIconHandle">A handle to a custom icon, if any, or
+        /// <see cref="IntPtr.Zero"/>.</param>
+        public void ShowBalloonTip(string title, string message, NIIF flags, IntPtr balloonIconHandle)
+        {
+            iconData.szInfo = message ?? string.Empty;
+            iconData.szInfoTitle = title ?? string.Empty;
+            iconData.uFlags = NIF.INFO | NIF.ICON;
             iconData.CustomBalloonIconHandle = balloonIconHandle;
+            iconData.dwInfoFlags = flags;
 
-            UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.MODIFY,ref iconData);
+            var result = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.MODIFY, iconData);
         }
 
         /// <summary>
@@ -274,8 +319,8 @@ namespace System.Application.UI
         public void HideBalloonTip()
         {
             // reset balloon by just setting the info to an empty string
-            iconData.BalloonText = iconData.BalloonTitle = string.Empty;
-            UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.MODIFY, ref iconData);
+            iconData.szInfo = iconData.szInfoTitle = string.Empty;
+            UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.MODIFY, iconData);
         }
 
         /// <summary>

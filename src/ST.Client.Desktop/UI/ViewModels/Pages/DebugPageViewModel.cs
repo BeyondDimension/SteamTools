@@ -277,8 +277,8 @@ namespace System.Application.UI.ViewModels
             //                FileShareTest();
             //            }
             //#endif
-
-            ShowDialogButton_Click1();
+            INotificationService.Instance.Notify("测试Test🎆🎇→→", NotificationType.Announcement);
+            //ShowDialogButton_Click1();
         }
 
 #if DEBUG

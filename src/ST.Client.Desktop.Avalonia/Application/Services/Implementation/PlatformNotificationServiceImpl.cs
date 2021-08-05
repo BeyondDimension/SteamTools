@@ -1,3 +1,4 @@
+using System.Application.UI;
 using System.Properties;
 
 namespace System.Application.Services.Implementation
@@ -25,8 +26,12 @@ namespace System.Application.Services.Implementation
         public void Notify(string text, NotificationType notificationType, bool autoCancel, string? title, Entrance entrance)
         {
             title ??= ThisAssembly.AssemblyTrademark;
+
             // 调用托盘显示通知
-            throw new NotImplementedException(title);
+            if (DI.Platform == Platform.Windows)
+            {
+                INotifyIcon.Instance.ShowBalloonTip(title, text);
+            }
         }
 
         public Progress<float> NotifyDownload(string text, NotificationType notificationType, string? title)
