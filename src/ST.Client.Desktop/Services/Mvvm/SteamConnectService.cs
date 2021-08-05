@@ -199,9 +199,18 @@ namespace System.Application.Services
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
 
                                     #region 初始化需要steam启动才能使用的功能
-                                    if (GameLibrarySettings.IsAutoAFKApps.Value)
-                                        RunAFKApps();
+                                    if (SteamSettings.IsEnableSteamLaunchNotification.Value)
+                                    {
+                                        INotificationService.Instance.Notify($"{AppResources.Steam_CheckStarted}({(IsSteamChinaLauncher ? AppResources.Steam_SteamChina : AppResources.Steam_SteamWorld)}){Environment.NewLine}{Environment.NewLine}{AppResources.Steam_CurrentUser}{CurrentSteamUser.SteamNickName}{Environment.NewLine}{AppResources.Steam_CurrentIPCountry}{CurrentSteamUser.IPCountry}", NotificationType.Announcement);
+                                    }
 
+
+                                    if (GameLibrarySettings.IsAutoAFKApps.Value)
+                                    {
+                                        RunAFKApps();
+                                    }
+
+                                    //仅在有游戏数据情况下加载登录用户的游戏
                                     if (SteamApps.Items.Any())
                                     {
                                         LoadGames(ApiService.OwnsApps(await ISteamService.Instance.GetAppInfos()));

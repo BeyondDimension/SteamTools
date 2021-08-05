@@ -278,7 +278,7 @@ namespace System.Application.UI.ViewModels
             //            }
             //#endif
             INotificationService.Instance.Notify("测试Test🎆🎇→→", NotificationType.Announcement);
-            //ShowDialogButton_Click1();
+            ShowDialogButton_Click1();
         }
 
 #if DEBUG
