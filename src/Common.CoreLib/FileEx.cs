@@ -75,6 +75,8 @@ namespace System
 
         public const string MPO = ".mpo";
 
+        public const string DownloadCache = ".download_cache";
+
         public static string Clean(string extension, bool trimLeadingPeriod = false)
         {
             if (string.IsNullOrWhiteSpace(extension))

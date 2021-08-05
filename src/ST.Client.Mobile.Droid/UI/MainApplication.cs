@@ -86,6 +86,11 @@ namespace System.Application.UI
                     notification.InitNotificationChannels(this);
                 }
                 XEVersionTracking.Track();
+                if (XEVersionTracking.IsFirstLaunchForCurrentVersion)
+                {
+                    // 当前版本第一次启动时，清除存放升级包缓存文件夹的目录
+                    IAppUpdateService.ClearAllPackCacheDir();
+                }
                 ImageLoader.Init(this);
                 UISettings.Theme.Subscribe(x =>
                 {

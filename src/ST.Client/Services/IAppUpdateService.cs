@@ -1,4 +1,6 @@
 using System.Application.Models;
+using System.IO;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -12,6 +14,11 @@ namespace System.Application.Services
         static IAppUpdateService Instance => DI.Get<IAppUpdateService>();
 
         const float MaxProgressValue = 100f;
+
+        /// <summary>
+        /// 升级包存放文件夹名称
+        /// </summary>
+        const string PackDirName = "UpgradePackages";
 
         /// <summary>
         /// 进度值
@@ -57,6 +64,67 @@ namespace System.Application.Services
         Task CheckUpdateAsync(bool force = false, bool showIsExistUpdateFalse = true);
 
         ICommand StartUpdateCommand { get; }
+
+        /// <summary>
+        /// 根据新版本信息获取升级包路径名
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        protected static string GetPackName(AppVersionDTO m, bool isDirOrFile) => $"{m.Version}@{Hashs.String.Crc32(m.Id.ToByteArray())}{(isDirOrFile ? "" : $"{FileEx.TAR_GZ}")}";
+
+        /// <summary>
+        /// 获取存放升级包缓存文件夹的目录
+        /// </summary>
+        /// <param name="onNotExistsCreateDirectory">当目录不存在时是否创建目录</param>
+        /// <param name="exists">目录是否存在</param>
+        /// <returns></returns>
+        protected static string GetPackCacheDirPath(bool onNotExistsCreateDirectory, out bool exists)
+        {
+            var dirPath = Path.Combine(IOPath.CacheDirectory, PackDirName);
+            exists = Directory.Exists(dirPath);
+            if (!exists && onNotExistsCreateDirectory)
+            {
+                Directory.CreateDirectory(dirPath);
+
+            }
+            return dirPath;
+        }
+
+        /// <summary>
+        /// 获取存放升级包缓存文件夹的目录
+        /// </summary>
+        /// <param name="clear">是否需要清理之前的缓存</param>
+        /// <returns></returns>
+        protected static string GetPackCacheDirPath(bool clear)
+        {
+            var dirPath = GetPackCacheDirPath(true, out var exists);
+            if (exists && clear)
+            {
+                var files = Directory.GetFiles(dirPath, "*" + FileEx.DownloadCache);
+                foreach (var item in files)
+                {
+                    IOPath.FileTryDelete(item);
+                }
+            }
+            return dirPath;
+        }
+
+        /// <summary>
+        /// 清理存放升级包缓存文件夹的目录
+        /// </summary>
+        /// <returns></returns>
+        static void ClearAllPackCacheDir()
+        {
+            var dirPath = GetPackCacheDirPath(true, out var exists);
+            if (exists)
+            {
+                var files = Directory.GetFiles(dirPath);
+                foreach (var item in files)
+                {
+                    IOPath.FileTryDelete(item);
+                }
+            }
+        }
     }
 
 #if DEBUG
