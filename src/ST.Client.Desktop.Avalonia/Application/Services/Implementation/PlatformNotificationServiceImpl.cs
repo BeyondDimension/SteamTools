@@ -42,7 +42,7 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public Progress<float> NotifyDownload(string text, NotificationType notificationType, string? title)
+        public Progress<float> NotifyDownload(Func<string> text, NotificationType notificationType, string? title)
         {
             // 桌面端不支持带进度的通知，下载新版本改用桌面端的窗口进度条控件，由更新服务桌面端版实现
             //title ??= ThisAssembly.AssemblyTrademark;
