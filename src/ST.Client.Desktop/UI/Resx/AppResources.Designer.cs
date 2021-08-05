@@ -3223,7 +3223,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 当Steam客户端登录时通知我 的本地化字符串。
+        ///   查找类似 当Steam客户端登录时弹出通知 的本地化字符串。
         /// </summary>
         public static string Settings_Steam_CheckSteamRuningNotification {
             get {

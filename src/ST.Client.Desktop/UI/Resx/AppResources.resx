@@ -1520,7 +1520,7 @@
     <value>启用开机自启动失败，原因: {0}</value>
   </data>
   <data name="Settings_Steam_CheckSteamRuningNotification" xml:space="preserve">
-    <value>当Steam客户端登录时通知我</value>
+    <value>当Steam客户端登录时弹出通知</value>
   </data>
   <data name="Steam_CheckStarted" xml:space="preserve">
     <value>检测到启动：</value>
