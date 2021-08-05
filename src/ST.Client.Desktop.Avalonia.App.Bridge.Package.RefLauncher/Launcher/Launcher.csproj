@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
     <ApplicationManifest>..\..\ST.Client.Desktop.Avalonia.App\Properties\app.manifest</ApplicationManifest>
     <AssemblyName>Steam++.Launcher</AssemblyName>
     <RootNamespace>System</RootNamespace>
@@ -31,5 +31,14 @@
     <Compile Include="..\..\Common.CoreLib\Properties\ThisAssembly.Version.cs">
       <Link>Properties\ThisAssembly.Version.cs</Link>
     </Compile>
+    <Compile Include="..\..\ST.Client.Desktop\Services\IDesktopPlatformService.SystemBootRunArguments.cs">
+      <Link>Application\Services\IDesktopPlatformService.SystemBootRunArguments.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />
+    <PackageReference Include="System.Runtime.WindowsRuntime" Version="4.7.0" />
+    <PackageReference Include="System.Runtime.WindowsRuntime.UI.Xaml" Version="4.7.0" />
   </ItemGroup>
 </Project>
