@@ -147,43 +147,6 @@ namespace System.Application.Services.Implementation
             isCheckUpdateing = false;
         }
 
-        /// <summary>
-        /// 升级包存放文件夹名称
-        /// </summary>
-        const string PackDirName = "UpgradePackages";
-
-        public const string FileExDownloadCache = ".download_cache";
-
-        /// <summary>
-        /// 根据新版本信息获取升级包路径名
-        /// </summary>
-        /// <param name="m"></param>
-        /// <returns></returns>
-        static string GetPackName(AppVersionDTO m, bool isDirOrFile) => $"{m.Version}@{Hashs.String.Crc32(m.Id.ToByteArray())}{(isDirOrFile ? "" : $"{FileEx.TAR_GZ}")}";
-
-        /// <summary>
-        /// 获取存放升级包缓存文件夹的目录
-        /// </summary>
-        /// <param name="clear">是否需要清理之前的缓存</param>
-        /// <returns></returns>
-        static string GetPackCacheDirPath(bool clear)
-        {
-            var dirPath = Path.Combine(IOPath.CacheDirectory, PackDirName);
-            if (!Directory.Exists(dirPath))
-            {
-                Directory.CreateDirectory(dirPath);
-            }
-            else if (clear)
-            {
-                var files = Directory.GetFiles(dirPath, "*" + FileExDownloadCache);
-                foreach (var item in files)
-                {
-                    IOPath.FileTryDelete(item);
-                }
-            }
-            return dirPath;
-        }
-
         static bool isDownloading;
 
         /// <summary>
@@ -211,7 +174,7 @@ namespace System.Application.Services.Implementation
         protected void OnReportCalcHashing(float value) => OnReport(value, SR.CalcHashing_.Format(MathF.Round(value, 2)));
         protected void OnReportDecompressing(float value) => OnReport(value, SR.Decompressing_.Format(MathF.Round(value, 2)));
         protected void OnReport(float value = 0f) => OnReport(value, string.Empty);
-        protected void OnReport(float value, string str)
+        protected virtual void OnReport(float value, string str)
         {
             ProgressValue = value;
             ProgressString = str;
@@ -362,7 +325,7 @@ namespace System.Application.Services.Implementation
                         #endregion
 
                         #region 下载文件，并加入 hashFiles 中
-                        var cacheFileDownloadPath = downloadPath + FileExDownloadCache;
+                        var cacheFileDownloadPath = downloadPath + FileEx.DownloadCache;
                         var requestUri = GetSingleFileUrl(item.FileId!);
 
                         var rsp = await client.Download(
@@ -505,7 +468,7 @@ namespace System.Application.Services.Implementation
                             requestUri = GetSingleFileUrl(download.FileIdOrUrl!);
                         }
 
-                        var cacheFilePath = packFilePath + FileExDownloadCache;
+                        var cacheFilePath = packFilePath + FileEx.DownloadCache;
                         OnReportDownloading(0f);
                         var rsp = await client.Download(
                             isAnonymous: true,

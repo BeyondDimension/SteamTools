@@ -57,9 +57,9 @@ namespace System.Application.Models.Settings
             = GetProperty(defaultValue: false, autoSave: true);
 
         /// <summary>
-        /// 检测到Steam启动时弹出消息通知
+        /// 检测到Steam登录时弹出消息通知
         /// </summary>
         public static SerializableProperty<bool> IsEnableSteamLaunchNotification { get; }
-            = GetProperty(defaultValue: false, autoSave: true);
+            = GetProperty(defaultValue: true, autoSave: true);
     }
 }

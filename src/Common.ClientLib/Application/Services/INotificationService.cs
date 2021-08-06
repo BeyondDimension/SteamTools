@@ -45,7 +45,7 @@ namespace System.Application.Services
         /// 下载进度通知
         /// </summary>
         Progress<float> NotifyDownload(
-            string text,
+            Func<string> text,
             TNotificationType notificationType,
             string? title = default);
     }

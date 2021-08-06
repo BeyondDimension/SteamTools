@@ -211,6 +211,7 @@ namespace System.Application.UI
                         #region NotifyIcon
 
                         var notifyIcon = INotifyIcon.Instance;
+                        notifyIcon.Visible = true;
                         notifyIcon.ToolTipText = ThisAssembly.AssemblyTrademark;
                         switch (DI.Platform)
                         {
@@ -255,8 +256,6 @@ namespace System.Application.UI
                             .Select(x => new MenuItem { Header = x.Key, Command = x.Value }).ToList();
                         notifyIcon.ContextMenu = NotifyIconContextMenu;
 #endif
-
-                        notifyIcon.Visible = true;
                         notifyIcon.Click += NotifyIcon_Click;
                         notifyIcon.DoubleClick += NotifyIcon_Click;
                         compositeDisposable.Add(() =>
@@ -270,8 +269,6 @@ namespace System.Application.UI
 #if WINDOWS
                     JumpLists.Init();
 #endif
-
-                    IsNotOfficialChannelPackageDetectionHelper.Check();
                 }
 
                 desktop.MainWindow =
@@ -301,6 +298,7 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("Desktop_Startup.Start");
 #endif
+            IsNotOfficialChannelPackageDetectionHelper.Check();
 #if WINDOWS
             if (isOfficialChannelPackage)
             {

@@ -6,13 +6,16 @@ using System.Application.Models;
 using System.Windows;
 using XEPlatform = Xamarin.Essentials.Platform;
 using static System.Application.UI.Resx.AppResources;
+using static System.Application.Services.IAppUpdateService;
 
 namespace System.Application.Services.Implementation
 {
     internal sealed partial class MobileAppUpdateServiceImpl : AppUpdateServiceImpl
     {
-        public MobileAppUpdateServiceImpl(IToast toast, ICloudServiceClient client, IOptions<AppSettings> options) : base(toast, client, options)
+        readonly INotificationService notification;
+        public MobileAppUpdateServiceImpl(INotificationService notification, IToast toast, ICloudServiceClient client, IOptions<AppSettings> options) : base(toast, client, options)
         {
+            this.notification = notification;
         }
 
         protected override Version OSVersion =>
@@ -45,6 +48,27 @@ namespace System.Application.Services.Implementation
 #else
             throw new NotImplementedException();
 #endif
+        }
+
+        IProgress<float>? progress;
+        protected override void OnReport(float value, string str)
+        {
+            base.OnReport(value, str);
+            if (value == 0)
+            {
+                progress?.Report(MaxProgressValue);
+                progress = notification.NotifyDownload(() => ProgressString,
+                    NotificationType.NewVersionDownloadProgress);
+            }
+            else if (value == MaxProgressValue)
+            {
+                progress?.Report(MaxProgressValue);
+                progress = null;
+            }
+            else
+            {
+                progress?.Report(value);
+            }
         }
     }
 }

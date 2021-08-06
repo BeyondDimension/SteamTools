@@ -159,12 +159,13 @@ namespace System.Application.Services.Implementation
             TWindowViewModel? viewModel = null,
             string title = "",
             ResizeModeCompat resizeMode = ResizeModeCompat.NoResize,
-            bool isDialog = true)
+            bool isDialog = true,
+            bool isParent = true)
             where TWindowViewModel : WindowViewModel, new()
         {
             DialogWindowViewModel? dialogWindowViewModel = null;
             await Show(typeof(TWindowViewModel), isDialog, customWindow,
-                title, viewModel, resizeMode, true, dwvm =>
+                title, viewModel, resizeMode, isParent, dwvm =>
             {
                 dialogWindowViewModel = dwvm;
             });

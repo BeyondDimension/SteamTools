@@ -362,7 +362,7 @@ namespace System.Application.Services.Implementation
                                     var jspath = await DI.Get<IScriptManagerService>().DownloadScript(basicsInfo.Content.UpdateLink);
                                     if (jspath.state)
                                     {
-                                        var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path,item, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
+                                        var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, item, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
                                         if (build.state && build.model?.Content != null)
                                             item.Content = build.model!.Content;
                                     }
@@ -394,7 +394,7 @@ namespace System.Application.Services.Implementation
                 try
                 {
                     var md5 = Hashs.String.MD5(scriptInfo);
-                    var cachePath = Path.Combine(IOPath.CacheDirectory, TAG, $"{md5}{AppUpdateServiceImpl.FileExDownloadCache}");
+                    var cachePath = Path.Combine(IOPath.CacheDirectory, TAG, md5 + FileEx.DownloadCache);
                     var fileInfo = new FileInfo(cachePath);
                     if (!fileInfo.Directory.Exists)
                     {

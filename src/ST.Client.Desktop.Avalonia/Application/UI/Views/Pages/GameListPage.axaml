@@ -239,7 +239,7 @@
           </ItemsRepeater.Layout>
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>
-              <StackPanel Spacing="8">
+              <StackPanel Spacing="5">
                 <Border DockPanel.Dock="Top"
                         Cursor="Hand"
                         x:Name="AppAvater"

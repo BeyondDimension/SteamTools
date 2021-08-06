@@ -1519,4 +1519,22 @@
   <data name="SetBootAutoStartTrueFail_" xml:space="preserve">
     <value>启用开机自启动失败，原因: {0}</value>
   </data>
+  <data name="Settings_Steam_CheckSteamRuningNotification" xml:space="preserve">
+    <value>当Steam客户端登录时弹出通知</value>
+  </data>
+  <data name="Steam_CheckStarted" xml:space="preserve">
+    <value>检测到启动：</value>
+  </data>
+  <data name="Steam_CurrentIPCountry" xml:space="preserve">
+    <value>Steam客户端登录区域：</value>
+  </data>
+  <data name="Steam_CurrentUser" xml:space="preserve">
+    <value>Steam登录用户：</value>
+  </data>
+  <data name="Steam_SteamChina" xml:space="preserve">
+    <value>Steam国服</value>
+  </data>
+  <data name="Steam_SteamWorld" xml:space="preserve">
+    <value>Steam国际服</value>
+  </data>
 </root>

@@ -1,4 +1,4 @@
-﻿using System.Application.Properties;
+using System.Application.Properties;
 using System.Application.Services;
 
 namespace System.Application

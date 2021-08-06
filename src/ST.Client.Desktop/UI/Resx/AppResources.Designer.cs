@@ -3223,6 +3223,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 当Steam客户端登录时弹出通知 的本地化字符串。
+        /// </summary>
+        public static string Settings_Steam_CheckSteamRuningNotification {
+            get {
+                return ResourceManager.GetString("Settings_Steam_CheckSteamRuningNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam启动时不检查更新 的本地化字符串。
         /// </summary>
         public static string Settings_Steam_NotCheckUpdate {
@@ -3340,6 +3349,33 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 检测到启动： 的本地化字符串。
+        /// </summary>
+        public static string Steam_CheckStarted {
+            get {
+                return ResourceManager.GetString("Steam_CheckStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam客户端登录区域： 的本地化字符串。
+        /// </summary>
+        public static string Steam_CurrentIPCountry {
+            get {
+                return ResourceManager.GetString("Steam_CurrentIPCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam登录用户： 的本地化字符串。
+        /// </summary>
+        public static string Steam_CurrentUser {
+            get {
+                return ResourceManager.GetString("Steam_CurrentUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 输入图中验证码 的本地化字符串。
         /// </summary>
         public static string Steam_ImageCodeTip {
@@ -3354,6 +3390,24 @@ namespace System.Application.UI.Resx {
         public static string Steam_Password {
             get {
                 return ResourceManager.GetString("Steam_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam国服 的本地化字符串。
+        /// </summary>
+        public static string Steam_SteamChina {
+            get {
+                return ResourceManager.GetString("Steam_SteamChina", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam国际服 的本地化字符串。
+        /// </summary>
+        public static string Steam_SteamWorld {
+            get {
+                return ResourceManager.GetString("Steam_SteamWorld", resourceCulture);
             }
         }
         

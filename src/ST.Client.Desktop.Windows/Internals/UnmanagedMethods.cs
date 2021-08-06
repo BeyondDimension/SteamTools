@@ -1,4 +1,4 @@
-﻿// Copyright (c) The Avalonia Project. All rights reserved.
+// Copyright (c) The Avalonia Project. All rights reserved.
 // Licensed under the MIT license. See licence.md file in the project root for full license information.
 
 // Slightly modified and extended version for the use in SQRLDotNetClientUI
@@ -18,8 +18,11 @@ namespace System
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr LoadImage(IntPtr hinst, string lpszName, uint uType, int cxDesired, int cyDesired, uint fuLoad);
 
-        [DllImport("shell32", CharSet = CharSet.Auto)]
-        public static extern int Shell_NotifyIcon(NIM dwMessage, NOTIFYICONDATA lpData);
+        /// <summary>
+        /// Creates, updates or deletes the taskbar icon.
+        /// </summary>
+        [DllImport("shell32", CharSet = CharSet.Unicode)]
+        public static extern bool Shell_NotifyIcon(NIM cmd, NOTIFYICONDATA data);
 
         [DllImport("user32.dll")]
         public static extern void PostQuitMessage(int nExitCode);
@@ -113,7 +116,7 @@ namespace System
             public uint dwTime;
         }
 
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public class NOTIFYICONDATA
         {
             public int cbSize = Marshal.SizeOf<NOTIFYICONDATA>();
@@ -126,12 +129,29 @@ namespace System
             public string szTip;
             public int dwState = 0;
             public int dwStateMask = 0;
+            /// <summary>
+            /// String with the text for a balloon ToolTip. It can have a maximum of 255 characters.
+            /// To remove the ToolTip, set the NIF_INFO flag in uFlags and set szInfo to an empty string.
+            /// </summary>
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
             public string szInfo;
             public int uTimeoutOrVersion;
+            /// <summary>
+            /// String containing a title for a balloon ToolTip. This title appears in boldface
+            /// above the text. It can have a maximum of 63 characters.
+            /// </summary>
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
             public string szInfoTitle;
             public NIIF dwInfoFlags;
+
+            /// <summary>
+            /// Windows Vista (Shell32.dll version 6.0.6) and later. The handle of a customized
+            /// balloon icon provided by the application that should be used independently
+            /// of the tray icon. If this member is non-NULL and the <see cref="NIIF.USER"/>
+            /// flag is set, this icon is used as the balloon icon.<br/>
+            /// If this member is NULL, the legacy behavior is carried out.
+            /// </summary>
+            //public IntPtr CustomBalloonIconHandle;
         }
 
         public enum NIM : uint
@@ -141,33 +161,6 @@ namespace System
             DELETE = 0x00000002,
             SETFOCUS = 0x00000003,
             SETVERSION = 0x00000004
-        }
-
-        [Flags]
-        public enum NIF : uint
-        {
-            MESSAGE = 0x00000001,
-            ICON = 0x00000002,
-            TIP = 0x00000004,
-            STATE = 0x00000008,
-            INFO = 0x00000010,
-            GUID = 0x00000020,
-            REALTIME = 0x00000040,
-            SHOWTIP = 0x00000080
-        }
-
-        [Flags]
-        public enum NIIF : uint
-        {
-            NONE = 0x00000000,
-            INFO = 0x00000001,
-            WARNING = 0x00000002,
-            ERROR = 0x00000003,
-            USER = 0x00000004,
-            ICON_MASK = 0x0000000F,
-            NOSOUND = 0x00000010,
-            LARGE_ICON = 0x00000020,
-            RESPECT_QUIET_TIME = 0x00000080
         }
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
@@ -2101,6 +2094,33 @@ namespace System
             [MarshalAs(UnmanagedType.LPWStr)]
             public string pszSpec;
         }
+    }
+
+    [Flags]
+    public enum NIF : uint
+    {
+        MESSAGE = 0x00000001,
+        ICON = 0x00000002,
+        TIP = 0x00000004,
+        STATE = 0x00000008,
+        INFO = 0x00000010,
+        GUID = 0x00000020,
+        REALTIME = 0x00000040,
+        SHOWTIP = 0x00000080
+    }
+
+    [Flags]
+    public enum NIIF : uint
+    {
+        NONE = 0x00000000,
+        INFO = 0x00000001,
+        WARNING = 0x00000002,
+        ERROR = 0x00000003,
+        USER = 0x00000004,
+        ICON_MASK = 0x0000000F,
+        NOSOUND = 0x00000010,
+        LARGE_ICON = 0x00000020,
+        RESPECT_QUIET_TIME = 0x00000080
     }
 
     [Flags]

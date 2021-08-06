@@ -53,11 +53,26 @@ namespace System.Application.UI
         /// </summary>
         event EventHandler<EventArgs> RightClick;
 
+
         public interface IUIFrameworkHelper
         {
             Stream OpenAsset(Uri uri);
 
             void ForEachMenuItems(TContextMenu menu, Action<(object menuItem, string header, Action activated)> action);
         }
+
+        /// <summary>
+        /// Displays a balloon tip with the specified title,
+        /// text, and icon in the taskbar for the specified time period.
+        /// </summary>
+        /// <param name="title">The title to display on the balloon tip.</param>
+        /// <param name="message">The text to display on the balloon tip.</param>
+        /// <param name="flags">A symbol that indicates the severity.</param>
+        void ShowBalloonTip(string title, string message);
+
+        /// <summary>
+        /// Hides a balloon ToolTip, if any is displayed.
+        /// </summary>
+        void HideBalloonTip();
     }
 }

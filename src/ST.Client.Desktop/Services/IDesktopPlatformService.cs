@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace System.Application.Services
 {
-    public interface IDesktopPlatformService : IPlatformService
+    public partial interface IDesktopPlatformService : IPlatformService
     {
         protected new const string TAG = "DesktopPlatformS";
 
@@ -126,8 +126,6 @@ namespace System.Application.Services
         /// <returns></returns>
         string? GetFileName(TextReaderProvider provider);
 
-        const string SystemBootRunArguments = "-clt c -silence";
-
         /// <summary>
         /// 设置开机自启动
         /// </summary>
@@ -231,7 +229,6 @@ namespace System.Application.Services
 
         void FixFluentWindowStyleOnWin7(IntPtr hWnd)
         {
-
         }
     }
 }

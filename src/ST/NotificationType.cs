@@ -1,4 +1,4 @@
-﻿namespace System.Application
+namespace System.Application
 {
     /// <summary>
     /// 通知类型
@@ -17,7 +17,7 @@
     ///   </item>
     /// </list>
     /// <para>添加新的枚举常量注意事项：</para>
-    /// <para>(客户端)如果要显示在设备的通知栏上，则需要在<see cref="NotificationType_Channel_EnumExtensions.GetChannel(NotificationType)"/>中添加对应渠道</para>
+    /// <para>(客户端)如果要显示在设备的通知栏上，则需要在 src\ST.Client\Extensions\NotificationType_Channel_EnumExtensions.cs 中添加或指定已有渠道</para>
     /// </summary>
     public enum NotificationType
     {

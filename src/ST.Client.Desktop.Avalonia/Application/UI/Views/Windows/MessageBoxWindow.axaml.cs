@@ -31,6 +31,13 @@ namespace System.Application.UI.Views.Windows
             AvaloniaXamlLoader.Load(this);
         }
 
+        protected override void OnOpened(EventArgs e)
+        {
+            base.OnOpened(e);
+            this.Topmost = true;
+            this.Topmost = false;
+        }
+
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
