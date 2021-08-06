@@ -180,7 +180,13 @@ namespace System.Application.UI.ViewModels
             }
             vm.ServerWebSocket.Start();
             var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
-            var apiBaseUrl = "https://127.0.0.1:28110"; //ICloudServiceClient.Instance.ApiBaseUrl;
+            var apiBaseUrl =
+#if DEBUG
+           "https://127.0.0.1:28110";
+#else
+ICloudServiceClient.Instance.ApiBaseUrl;
+#endif
+
             vm.TempAes.RemoveTo(vm);
             vm.TempAes = AESUtils.Create();
             vm.TempAes.AddTo(vm);
