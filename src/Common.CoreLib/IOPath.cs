@@ -184,22 +184,25 @@ namespace System
 #if !NET35
         #region BaseDirectory
 
-        //static readonly Lazy<string> _BaseDirectory = new(() =>
-        //{
-        //    var value = AppContext.BaseDirectory;
-        //    if (DI.Platform == Platform.Windows)
-        //    {
-        //        var value2 = new DirectoryInfo(value);
-        //        if (value2.Parent != null && string.Equals(value2.Name, "Bin", StringComparison.OrdinalIgnoreCase))
-        //        {
-        //            value = value2.Parent.FullName;
-        //        }
-        //    }
-        //    return value;
-        //});
+        public const string DirName_Bin = "Bin";
 
-        public static string BaseDirectory => AppContext.BaseDirectory;
-        /*_BaseDirectory.Value;*/
+        static readonly Lazy<string> _BaseDirectory = new(() =>
+        {
+            var value = AppContext.BaseDirectory;
+            if (DI.Platform == Platform.Windows && !DI.IsDesktopBridge) // 启用将发布 Host 入口点重定向到 Bin 目录中时重定向基目录
+            {
+                var value2 = new DirectoryInfo(value);
+                if (value2.Parent != null && string.Equals(value2.Name, DirName_Bin, StringComparison.OrdinalIgnoreCase))
+                {
+                    value = value2.Parent.FullName;
+                }
+            }
+            return value;
+        });
+
+        public static string BaseDirectory =>
+        //AppContext.BaseDirectory;
+        _BaseDirectory.Value;
 
         #endregion
 #endif

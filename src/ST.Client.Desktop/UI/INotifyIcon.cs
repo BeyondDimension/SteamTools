@@ -68,11 +68,17 @@ namespace System.Application.UI
         /// <param name="title">The title to display on the balloon tip.</param>
         /// <param name="message">The text to display on the balloon tip.</param>
         /// <param name="flags">A symbol that indicates the severity.</param>
-        void ShowBalloonTip(string title, string message);
+        void ShowBalloonTip(string title, string message)
+        {
+
+        }
 
         /// <summary>
         /// Hides a balloon ToolTip, if any is displayed.
         /// </summary>
-        void HideBalloonTip();
+        void HideBalloonTip()
+        {
+
+        }
     }
 }
