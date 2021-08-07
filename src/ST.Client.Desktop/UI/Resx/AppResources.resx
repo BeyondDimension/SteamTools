@@ -264,7 +264,7 @@
     <value>云同步</value>
   </data>
   <data name="CommunityFix" xml:space="preserve">
-    <value>社区加速</value>
+    <value>网络加速</value>
   </data>
   <data name="CommunityFix_Acceleration" xml:space="preserve">
     <value>一键加速</value>
@@ -1206,7 +1206,7 @@
   </data>
   <data name="Steam_UserLoginTip" xml:space="preserve">
     <value>登录Steam账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易15天冷却期。
-(如果没有开Steam社区加速会导致无法登录成功)</value>
+(如果没有开Steam网络加速会导致无法登录成功)</value>
   </data>
   <data name="Success_" xml:space="preserve">
     <value>{0}成功</value>
@@ -1401,7 +1401,7 @@
     <value>Steam 快速登录</value>
   </data>
   <data name="User_SteamFastLoginTimeoutErrorMessage" xml:space="preserve">
-    <value>连接到 Steam 社区超时，请检查是否开启社区加速。</value>
+    <value>连接到 Steam 社区超时，请检查是否开启网络加速。</value>
   </data>
   <data name="User_SteamLogoTip" xml:space="preserve">
     <value>点击跳转到快速登录窗口</value>

@@ -522,7 +522,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 社区加速 的本地化字符串。
+        ///   查找类似 网络加速 的本地化字符串。
         /// </summary>
         public static string CommunityFix {
             get {
@@ -3422,7 +3422,7 @@ namespace System.Application.UI.Resx {
         
         /// <summary>
         ///   查找类似 登录Steam账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易15天冷却期。
-        ///(如果没有开Steam社区加速会导致无法登录成功) 的本地化字符串。
+        ///(如果没有开Steam网络加速会导致无法登录成功) 的本地化字符串。
         /// </summary>
         public static string Steam_UserLoginTip {
             get {
@@ -4052,7 +4052,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 连接到 Steam 社区超时，请检查是否开启社区加速。 的本地化字符串。
+        ///   查找类似 连接到 Steam 社区超时，请检查是否开启网络加速。 的本地化字符串。
         /// </summary>
         public static string User_SteamFastLoginTimeoutErrorMessage {
             get {
