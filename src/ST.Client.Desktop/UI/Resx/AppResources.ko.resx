@@ -387,9 +387,6 @@
   <data name="About_Contactus" xml:space="preserve">
     <value>저희에게 연락하십시오</value>
   </data>
-  <data name="AchievementManage" xml:space="preserve">
-    <value>도전 과제 관리</value>
-  </data>
   <data name="Achievement_Description" xml:space="preserve">
     <value>설명입니다</value>
   </data>
@@ -995,9 +992,6 @@
   </data>
   <data name="About_UpdateHistory" xml:space="preserve">
     <value>레코드를 업데이트합니다</value>
-  </data>
-  <data name="AchievementManage" xml:space="preserve">
-    <value>도전 과제 관리</value>
   </data>
   <data name="Achievement_Description" xml:space="preserve">
     <value>설명입니다</value>

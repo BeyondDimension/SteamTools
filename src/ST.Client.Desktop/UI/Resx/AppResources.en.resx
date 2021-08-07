@@ -396,9 +396,6 @@
   <data name="About_Contactus" xml:space="preserve">
     <value>Contact us</value>
   </data>
-  <data name="AchievementManage" xml:space="preserve">
-    <value>Achievement management</value>
-  </data>
   <data name="Achievement_Description" xml:space="preserve">
     <value>description</value>
   </data>
@@ -1001,9 +998,6 @@
   </data>
   <data name="About_UpdateHistory" xml:space="preserve">
     <value>Update the record</value>
-  </data>
-  <data name="AchievementManage" xml:space="preserve">
-    <value>Achievement management</value>
   </data>
   <data name="Achievement_Description" xml:space="preserve">
     <value>description</value>

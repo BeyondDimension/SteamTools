@@ -393,9 +393,6 @@
   <data name="About_Contactus" xml:space="preserve">
     <value>聯繫我們</value>
   </data>
-  <data name="AchievementManage" xml:space="preserve">
-    <value>成就管理</value>
-  </data>
   <data name="Achievement_Description" xml:space="preserve">
     <value>描述</value>
   </data>

@@ -7,9 +7,14 @@
 - [中西文混排](https://design.teambition.com/doc/mixed)  
 
 ## 命令示例
-- 将 resx 文件导出为 xlsx
+- 将 resx 文件导出为 xlsx 文件
     <pre>t write-xlsx -resx all -lang all // 导出所有的 resx, 与所有支持的语言</pre>
     <pre>t write-xlsx -resx all -lang en // 导出所有的 resx，语言仅 English</pre>
+- 使用机翻校对 xlsx 文件(将译文机翻回原文进行审阅)
+    <pre>t proofread-xlsx -resx all -lang all // 校对所有的 xlsx, 与所有支持的语言</pre>
+    <pre>t proofread-xlsx -resx all -lang en // 校对所有的 xlsx，语言仅 English</pre>
+- 将 xlsx 文件导入到 resx 文件
+
 
 ## Language Id
 - [Windows Language Code Identifier (LCID) Reference](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c)

@@ -88,7 +88,7 @@ namespace System.Application.UI.ViewModels
 
         public AchievementWindowViewModel(int appid) : base()
         {
-            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.AchievementManage;
+            Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.Achievement_Manage;
 
             SteamConnectService.Current.Initialize(appid);
 
