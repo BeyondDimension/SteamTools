@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using static System.Constants;
+using static System.Utils;
 
 namespace System.Commands
 {
@@ -37,17 +38,18 @@ namespace System.Commands
             command.AddCommand(write_xlsx);
         }
 
-        static async Task WriteXlsxAsync((string resxFilePath, string lang) args)
+        static async Task<IList<string>?> WriteXlsxAsync((string resxFilePath, string lang) args)
         {
             List<string> messages = new();
-            var resxFilePathLang = args.resxFilePath.TrimEnd(".resx", StringComparison.OrdinalIgnoreCase) + $".{args.lang}.resx";
+
+            var resxFilePathLang = GetResxFilePathLang(args);
             ResxFileLangCreateByNotExists(resxFilePathLang);
 
             var resxFileDict = GetResxDict(args.resxFilePath, ignoreStringBuilder: true);
             if (!resxFileDict.dict.Any())
             {
                 Console.WriteLine($"Error: resx file not any value, path: {args.resxFilePath}");
-                return;
+                return messages;
             }
 
             IReadOnlyDictionary<string, (string value, string comment)>? tempXlsxDict = null;
@@ -57,7 +59,7 @@ namespace System.Commands
                 var tempXlsxFilePath = Path.Combine(ProjectPathUtil.projPath, "..", "Translates", tempXlsxValue.fileName);
                 if (File.Exists(tempXlsxFilePath))
                 {
-                    tempXlsxDict = Utils.ReadXlsx(resxFileDict.dict, tempXlsxFilePath, tempXlsxValue.author, out var message_read_temp_xlsx);
+                    tempXlsxDict = ReadXlsx(resxFileDict.dict, tempXlsxFilePath, tempXlsxValue.author, out var message_read_temp_xlsx);
                     messages.AddRange(message_read_temp_xlsx);
                 }
             }
@@ -66,7 +68,7 @@ namespace System.Commands
             if (resxFileDictLang.dict.Count > resxFileDict.dict.Count) // 译文不能比原文多
             {
                 Console.WriteLine($"Error: resx file lang count incorrect, path: {resxFilePathLang}");
-                return;
+                return messages;
             }
 
             if (tempXlsxDict != null)
@@ -190,10 +192,7 @@ namespace System.Commands
 
             workbook.Write(fs);
 
-            Console.WriteLine($"OK, path: {excelFilePath}");
-            if (messages.Any())
-                foreach (var message in messages)
-                    Console.WriteLine(message);
+            return messages;
         }
     }
 }

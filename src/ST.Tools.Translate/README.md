@@ -1,4 +1,4 @@
-# 客户端文本翻译命令行工具(Command Line Tools/CLT)
+# Resx 翻译命令行工具(Resx Translation Command Line Tools/RTCLT)
 
 ## 文案指南/中西文混排
 - [B 类产品文案指南](https://zhuanlan.zhihu.com/p/351739115)  
@@ -13,6 +13,7 @@
 
 ## Language Id
 - [Windows Language Code Identifier (LCID) Reference](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c)
+- [Steamworks 文献库 > 商店状态 > 本地化和语言](https://partner.steamgames.com/doc/store/localization#supported_languages)
 - [R.cs](https://github.com/SteamTools-Team/SteamTools/blob/develop/src/ST.Client.Desktop/UI/Resx/R.cs#L37-L44)
 
 |  Language  |  Id  |
