@@ -1341,7 +1341,7 @@
     <value>账号或密码错误</value>
   </data>
   <data name="User_LoginError_Auth" xml:space="preserve">
-    <value>无效令牌：您确定登录的是您当前令牌的账号？</value>
+    <value>无效令牌：当前令牌账号与已登录账号不匹配</value>
   </data>
   <data name="User_LoginError_CodeImage" xml:space="preserve">
     <value>请输入图片验证码</value>

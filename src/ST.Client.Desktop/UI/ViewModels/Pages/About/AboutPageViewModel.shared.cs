@@ -122,10 +122,10 @@ namespace System.Application.UI.ViewModels
         //    switch (p)
         //    {
         //        case 沙中金:
-        //            await Email2.ComposeAsync(new() { To = new() { "sanextraction@gmail.com" } });
+        //            await Email2.ComposeAsync(new() { To = new() { "" } });
         //            break;
         //        case EspRoy:
-        //            await Email2.ComposeAsync(new() { To = new() { "645030899@qq.com" } });
+        //            await Email2.ComposeAsync(new() { To = new() { "" } });
         //            break;
         //    }
         //});

@@ -166,8 +166,8 @@
   <ItemGroup>
     <ProjectReference Include="..\ST.Client.Desktop.Avalonia.App.Bridge.Package.RefLauncher\Launcher\Launcher.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <!--<ItemGroup Condition="'$(Platform)'=='x64'">-->
+  <!--<ItemGroup>
+    --><!--<ItemGroup Condition="'$(Platform)'=='x64'">--><!--
     <Content Include="..\..\..\CEF\win-x64\locales\zh-CN.pak">
       <Link>CEF\win-x64\locales\zh-CN.pak</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -224,7 +224,7 @@
       <Link>CEF\win-x64\v8_context_snapshot.bin</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
+  </ItemGroup>-->
   <!--ST.Tools.DesktopBridgeLink(Release-x64)-->
   <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\aspnetcorev2_inprocess.dll">

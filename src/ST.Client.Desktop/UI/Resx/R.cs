@@ -34,22 +34,15 @@ namespace System.Application.UI.Resx
             var languagesDict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { "", "Auto" },
-                { "zh-Hans", "Chinese(Simplified)" },
-                { "zh-Hant", "Chinese(Traditional)" },
+                { "zh-Hans", "Chinese (Simplified)" },
+                { "zh-Hant", "Chinese (Traditional)" },
                 { "en", "English" },
-                { "ko", "Koreana" },
+                { "ko", "Korean" },
                 { "ja", "Japanese" },
                 { "ru", "Russian" },
                 { "es", "Spanish" },
                 { "it", "Italian" },
             };
-#if !DEBUG
-            if (new Version(ThisAssembly.Version) < new Version(2, 5))
-            {
-                languagesDict.Remove("es");
-                languagesDict.Remove("it");
-            }
-#endif
             Languages = languagesDict.ToList();
             SteamLanguages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {

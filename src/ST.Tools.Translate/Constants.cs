@@ -185,7 +185,7 @@ namespace System
         const string CommentXmlStart = "<comment>";
         const string CommentXmlEnd = "</comment>";
 
-        public static void AddOrReplace<TKey, TValue>(IDictionary<TKey, TValue> dict, TKey key, TValue value)
+        public static void AddOrReplace<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue value)
         {
             if (dict.ContainsKey(key))
             {
@@ -203,6 +203,13 @@ namespace System
             "VacFixCmd",
         };
 
+        public static void AddOrReplace<TKey, TValue>(this IDictionary<TKey, TValue> dict, KeyValuePair<TKey, TValue> item) => AddOrReplace(dict, item.Key, item.Value);
+
+        public static string Serialize(Dictionary<string, string> dict)
+        {
+            return string.Join(';', dict.Select(x => $"{x.Key}={x.Value}"));
+        }
+
         public static Dictionary<string, string> Deserialize(string comment)
         {
             if (string.IsNullOrWhiteSpace(comment))
@@ -214,8 +221,16 @@ namespace System
             }
             else
             {
+                if (!comment.Contains(';') && !comment.Contains('；') && !comment.Contains('='))
+                {
+                    return new Dictionary<string, string>
+                    {
+                        { CommentKey, comment },
+                        { AuthorKey, string.Empty },
+                    };
+                }
                 var array = comment.Split(new char[] { '；', ';' }, StringSplitOptions.RemoveEmptyEntries);
-                var dict = array.Select(x => x.Split('=', StringSplitOptions.RemoveEmptyEntries).Take(2).ToArray()).Where(x => x.Length == 2).ToDictionary(x => x[0], x => x[1]);
+                var dict = array.Select(x => x.Split('=', StringSplitOptions.RemoveEmptyEntries).ToArray()).Where(x => x.Length == 2).ToDictionary(x => x[0], x => x[1]);
                 if (!dict.ContainsKey(AuthorKey))
                 {
                     dict.Add(AuthorKey, MicrosoftTranslator);
@@ -235,7 +250,7 @@ namespace System
             StringBuilder? start = ignoreStringBuilder ? null : new();
             StringBuilder? end = ignoreStringBuilder ? null : new();
             string? line;
-            string? key = null, value = "", comment = "";
+            string? key = null, value = string.Empty, comment = string.Empty;
             int lineNum = 0;
             StringBuilder? sb = start;
             do
@@ -261,6 +276,8 @@ namespace System
                 }
                 if (lineTrim.StartsWith(DataXmlStart) && lineTrim.EndsWith(DataXmlEnd))
                 {
+                    comment = string.Empty;
+                    value = string.Empty;
                     key = lineTrim.Substring(DataXmlStart, DataXmlEnd);
                     if (ignoreKeys.Contains(key))
                     {
