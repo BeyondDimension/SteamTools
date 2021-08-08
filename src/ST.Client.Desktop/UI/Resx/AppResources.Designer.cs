@@ -2791,7 +2791,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 记住我的选择下次不再询问 的本地化字符串。
+        ///   查找类似 不再提醒 的本地化字符串。
         /// </summary>
         public static string RememberChooseNotToAskAgain {
             get {
