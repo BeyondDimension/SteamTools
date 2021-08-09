@@ -4106,6 +4106,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 我们已使用您的系统浏览器打开快速登陆窗口，请进入该页面并登陆。保持该窗口打开 的本地化字符串。
+        /// </summary>
+        public static string User_WaitFastLoginTip {
+            get {
+                return ResourceManager.GetString("User_WaitFastLoginTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 一键登录Steam 的本地化字符串。
         /// </summary>
         public static string UserChange_BtnText {

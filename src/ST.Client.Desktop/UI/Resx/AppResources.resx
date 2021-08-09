@@ -1537,4 +1537,7 @@
   <data name="Steam_SteamWorld" xml:space="preserve">
     <value>Steam国际服</value>
   </data>
+  <data name="User_WaitFastLoginTip" xml:space="preserve">
+    <value>我们已使用您的系统浏览器打开快速登陆窗口，请进入该页面并登陆。保持该窗口打开</value>
+  </data>
 </root>

@@ -41,6 +41,7 @@ namespace System.Application.UI.ViewModels
             {
                 if (Enum.TryParse<FastLoginChannel>(channel_, out var channel))
                 {
+                    ChangeLoginState(3);
                     await this.StartLRBAsync(channel);
                 }
                 else
@@ -72,8 +73,7 @@ namespace System.Application.UI.ViewModels
                 FastLoginChannelViewModel.Create(FastLoginChannelViewModel.PhoneNumber, this),
 #endif
             };
-        }
-
+        } 
         private string? _PhoneNumber;
         public string? PhoneNumber
         {
@@ -125,6 +125,12 @@ namespace System.Application.UI.ViewModels
             get => _IsLoading;
             set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
         }
+        bool _IsFastLogin;
+        public bool IsFastLogin
+        {
+            get => _IsFastLogin;
+            set => this.RaiseAndSetIfChanged(ref _IsFastLogin, value);
+        }
 
         const short _LoginStateDefault = 2;
         short _LoginState = _LoginStateDefault;
@@ -173,15 +179,15 @@ namespace System.Application.UI.ViewModels
         {
             await UserService.Current.RefreshUserAsync();
             var msg = AppResources.Success_.Format((rsp?.IsLoginOrRegister ?? false) ? AppResources.User_Login : AppResources.User_Register);
-            Toast.Show(msg);
+            Toast.Show(msg); 
         }
 
-#if !__MOBILE__
+//#if !__MOBILE__
         public void ChangeLoginState(short state)
         {
             LoginState = state;
         }
-#endif
+//#endif
 
         public new Action? Close { get; set; }
 

@@ -98,7 +98,7 @@ namespace System.Application.UI.ViewModels
                     await conn_helper.OnLoginedAsync(response.Content!, response.Content!);
                     await MainThread2.InvokeOnMainThreadAsync(async () =>
                     {
-                        await LRViewModel.SuccessAsync(response.Content!);
+                        await LRViewModel.SuccessAsync(response.Content!); 
                         vm.Close?.Invoke();
                     });
                 }

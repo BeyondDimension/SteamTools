@@ -9,5 +9,6 @@ namespace System.Application.UI.ViewModels
             LoginState = 1;
             return Task.CompletedTask;
         }
+       
     }
 }
