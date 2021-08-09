@@ -24,14 +24,14 @@ namespace System.Commands
             var proofread_xlsx = new Command("proofread-xlsx", "校对 xlsx")
             {
                 Handler = CommandHandler.Create((string resx, string lang)
-                    => ValidateAsync((resx, lang), ProofreadXlsxAsync)),
+                    => ValidateAsync<CommandArguments>((resx, lang), ProofreadXlsxAsync)),
             };
             proofread_xlsx.AddOption(new Option<string>("-resx", ResxDesc));
             proofread_xlsx.AddOption(new Option<string>("-lang", LangDesc));
             command.AddCommand(proofread_xlsx);
         }
 
-        static async Task<IList<string>?> ProofreadXlsxAsync((string resxFilePath, string lang) args)
+        static async Task<IList<string>?> ProofreadXlsxAsync(CommandArguments args)
         {
             List<string> messages = new();
 
@@ -99,7 +99,7 @@ namespace System.Commands
                 if (EnableAzureTranslation)
                 {
                     var translationResults = await Translatecs.TranslateTextAsync(url, value);
-                    var translationResult = translationResults.First(x => x != null).Translations.First(x => x.To.Equals(args.lang, StringComparison.OrdinalIgnoreCase));
+                    var translationResult = translationResults.First(x => x != null).Translations.First(x => x.To.Equals("zh-Hans", StringComparison.OrdinalIgnoreCase));
                     value_translation = translationResult.Text;
                 }
                 else

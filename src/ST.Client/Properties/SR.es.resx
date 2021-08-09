@@ -117,4 +117,124 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppName" xml:space="preserve">
+    <value>Vapor++</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CalcHashing3_" xml:space="preserve">
+    <value>Comprobación ({1}/{2}): {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CalcHashing_" xml:space="preserve">
+    <value>Comprobación: {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CreateCertificateFaild" xml:space="preserve">
+    <value>No se pudo crear el certificado</value>
+    <comment>Comment=Fail;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Decompressing_" xml:space="preserve">
+    <value>Descompresión: {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Downloading3_" xml:space="preserve">
+    <value>Descarga ({1}/{2}): {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Downloading_" xml:space="preserve">
+    <value>Descarga: {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadUpdateFail" xml:space="preserve">
+    <value>Error en la descarga del paquete de actualización, inténtelo de nuevo más tarde</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="IsExistUpdateFalse" xml:space="preserve">
+    <value>Actualmente es la última versión</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewVersionUpdate" xml:space="preserve">
+    <value>Se actualiza la nueva versión</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewVersionUpdateTitle_" xml:space="preserve">
+    <value>Se actualiza la versión de la versión de Steam-v{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_BusinessPlatform" xml:space="preserve">
+    <value>Notificación inmediata cuando se realiza un nuevo anuncio.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
+    <value>Notificación de la barra de progreso de descarga al descargar una nueva versión.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_BusinessPlatform" xml:space="preserve">
+    <value>Notificaciones de plataforma empresarial</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
+    <value>.. \Resources\OpenSourceLibraryList.mpo; System.Byte[], mscorlib, versión = 4.0.0.0, referencia cultural = neutral, PublicKeyToken = b77a5c561934e089</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_BuildDownloadError" xml:space="preserve">
+    <value>Error de descarga de dependencia de script: {0} {1}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_BuildError" xml:space="preserve">
+    <value>Error de enlace de script: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_CacheDeleteError" xml:space="preserve">
+    <value>Error al eliminar el archivo de caché: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_DeleteError" xml:space="preserve">
+    <value>Error al eliminar</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_DeleteSuccess" xml:space="preserve">
+    <value>La eliminación se realizó correctamente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_FileDeleteError" xml:space="preserve">
+    <value>Error al eliminar el archivo: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_FileRepeat" xml:space="preserve">
+    <value>El script se repite</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_NoFile" xml:space="preserve">
+    <value>Script: falta {0} archivo y se elimina</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_NoFileDeleteError" xml:space="preserve">
+    <value>Script: {0} falta el archivo, la eliminación no puede intentar eliminar manualmente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_NoKey" xml:space="preserve">
+    <value>Excepción de programa La clave principal está vacía</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_ReadFileError" xml:space="preserve">
+    <value>Excepción de lectura de script Compruebe la sintaxis de los errores: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_SaveDBError" xml:space="preserve">
+    <value>Se ha producido un error al guardar los datos</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_SaveDbSuccess" xml:space="preserve">
+    <value>La adición fue exitosa</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateEnumOutOfRange" xml:space="preserve">
+    <value>No se pudo descargar el paquete de actualización, abra el sitio web oficial para actualizar manualmente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackVerificationFail" xml:space="preserve">
+    <value>Error en la verificación de archivos, abra la actualización del manual del sitio web oficial</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

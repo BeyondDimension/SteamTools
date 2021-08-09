@@ -112,24 +112,29 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Error" xml:space="preserve">
     <value>오류</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotSupportedPlatformError" xml:space="preserve">
     <value>운영 체제에는 Windows 7 SP1 이상이 필요합니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotSupportedWin8PlatformError" xml:space="preserve">
     <value>Windows 8에 대한 Microsoft의 공식 지원이 종료되었으므로이 프로그램은이 운영 체제에서 실행할 수 없습니다. Windows 8.1 또는 Windows 10으로 업그레이드하는 것이 좋습니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Not_Installed_KB3063858" xml:space="preserve">
     <value>운영 체제에 필요한 패치 KB3063858이 누락되어 프로그램을 실행할 수 없습니다. 브라우저를 사용하여 다운로드 링크를 열고 수동으로 설치 하시겠습니까?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ThisAppOnlySupport64BitOS" xml:space="preserve">
     <value>이 앱은 64 비트 운영 체제 만 지원합니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

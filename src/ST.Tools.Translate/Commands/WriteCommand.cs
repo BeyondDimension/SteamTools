@@ -16,7 +16,7 @@ namespace System.Commands
     /// </summary>
     static class WriteCommand
     {
-        public static bool EnableAzureTranslation { get; private set; } = true;
+        public static bool EnableAzureTranslation { get; private set; } = false;
 
         readonly static Dictionary<string, (string fileName, string author)> tempXlsxPairs = new()
         {
@@ -30,15 +30,16 @@ namespace System.Commands
             // t write-xlsx -resx all -lang all
             var write_xlsx = new Command("write-xlsx", "读取 resx 写入 xlsx")
             {
-                Handler = CommandHandler.Create((string resx, string lang)
-                    => ValidateAsync((resx, lang), WriteXlsxAsync)),
+                Handler = CommandHandler.Create((string resx, string lang, bool only_machine)
+                    => ValidateAsync<CommandArguments>((resx, lang, only_machine), WriteXlsxAsync)),
             };
             write_xlsx.AddOption(new Option<string>("-resx", ResxDesc));
             write_xlsx.AddOption(new Option<string>("-lang", LangDesc));
+            write_xlsx.AddOption(new Option<bool>("-only-machine", "是否仅导出机翻或未翻译的值"));
             command.AddCommand(write_xlsx);
         }
 
-        static async Task<IList<string>?> WriteXlsxAsync((string resxFilePath, string lang) args)
+        static async Task<IList<string>?> WriteXlsxAsync(CommandArguments args)
         {
             List<string> messages = new();
 
@@ -53,7 +54,7 @@ namespace System.Commands
             }
 
             IReadOnlyDictionary<string, (string value, string comment)>? tempXlsxDict = null;
-            if (tempXlsxPairs.ContainsKey(args.lang))
+            if (!args.only_machine && tempXlsxPairs.ContainsKey(args.lang))
             {
                 var tempXlsxValue = tempXlsxPairs[args.lang];
                 var tempXlsxFilePath = Path.Combine(ProjectPathUtil.projPath, "..", "Translates", tempXlsxValue.fileName);
@@ -69,6 +70,22 @@ namespace System.Commands
             {
                 Console.WriteLine($"Error: resx file lang count incorrect, path: {resxFilePathLang}");
                 return messages;
+            }
+
+            if (args.only_machine)
+            {
+                var query = from m in resxFileDictLang.dict
+                            let comment = Deserialize(m.Value.comment)
+                            let hasAuthorKey = comment.ContainsKey(AuthorKey)
+                            where (hasAuthorKey &&
+                                comment[AuthorKey] != MicrosoftTranslator) || !hasAuthorKey
+                            select m.Key;
+                var keys = query.ToArray();
+                foreach (var key in keys)
+                {
+                    resxFileDictLang.dict.Remove(key);
+                    resxFileDict.dict.Remove(key);
+                }
             }
 
             if (tempXlsxDict != null)
@@ -193,6 +210,20 @@ namespace System.Commands
             workbook.Write(fs);
 
             return messages;
+        }
+
+        class CommandArguments : System.CommandArguments
+        {
+#pragma warning disable IDE1006 // 命名样式
+            public bool only_machine { get; set; }
+#pragma warning restore IDE1006 // 命名样式
+
+            public static implicit operator CommandArguments(ValueTuple<string, string, bool> value)
+            {
+                var r = Get<CommandArguments>(value.Item1, value.Item2);
+                r.only_machine = value.Item3;
+                return r;
+            }
         }
     }
 }

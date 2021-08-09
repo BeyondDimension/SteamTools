@@ -22,20 +22,20 @@ namespace System.Commands
             var read_xlsx = new Command("read-xlsx", "读取 xlsx 写入 resx")
             {
                 Handler = CommandHandler.Create((string resx, string lang)
-                    => ValidateAsync((resx, lang), ReadXlsxAsync)),
+                    => ValidateAsync<CommandArguments>((resx, lang), ReadXlsxAsync)),
             };
             read_xlsx.AddOption(new Option<string>("-resx", ResxDesc));
             read_xlsx.AddOption(new Option<string>("-lang", LangDesc));
             command.AddCommand(read_xlsx);
         }
 
-        static Task<IList<string>?> ReadXlsxAsync((string resxFilePath, string lang) args)
+        static Task<IList<string>?> ReadXlsxAsync(CommandArguments args)
         {
             var messages = ReadXlsx(args);
             return Task.FromResult(messages);
         }
 
-        static IList<string>? ReadXlsx((string resxFilePath, string lang) args)
+        static IList<string>? ReadXlsx(CommandArguments args)
         {
             List<string> messages = new();
 
@@ -56,12 +56,17 @@ namespace System.Commands
                 cell = row.GetCell(0);
             } while (!cell.StringCellValue.Contains(ColumnHeaderKey));
 
-            int index_cell_value = -1, index_cell_author = -1, index_cell_comment = -1;
+            int index_cell_value = -1, index_cell_author = -1,
+                index_cell_comment = -1, index_cell_value_machine = -1;
             while (true) // 定位 Value Cell Index
             {
                 var cellnum = index_cell++;
                 cell = row.GetCell(cellnum);
                 if (cell == null) break;
+                if (cell.StringCellValue.Contains(ColumnHeaderMachineTranslation))
+                {
+                    index_cell_value_machine = cellnum;
+                }
                 if (cell.StringCellValue.Contains(ColumnHeaderHumanTranslation))
                 {
                     index_cell_value = cellnum;
@@ -84,10 +89,12 @@ namespace System.Commands
                 if (row == null) break;
                 var keyCell = row.GetCell(0);
                 var valueCell = row.GetCell(index_cell_value);
+                var valueMachineCell = index_cell_value_machine != -1 ?
+                    row.GetCell(index_cell_value_machine) : null;
                 var commentCell = row.GetCell(index_cell_comment);
                 var authorCell = row.GetCell(index_cell_author);
                 var key = keyCell.StringCellValue;
-                var value = valueCell.StringCellValue;
+                var value = (valueCell ?? valueMachineCell)?.StringCellValue;
                 var comment = commentCell.StringCellValue;
                 var author = authorCell.StringCellValue;
                 if (!string.IsNullOrWhiteSpace(value))

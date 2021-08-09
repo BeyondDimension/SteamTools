@@ -118,42 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
-    <value>Атрибут файла доступен только для чтения, модификация не удалась</value>
-  </data>
-  <data name="FileSizeTooLarge" xml:space="preserve">
-    <value>Слишком большой размер файла</value>
-  </data>
-  <data name="OperationHostsError_" xml:space="preserve">
-    <value>Ошибка операции hosts {0}</value>
-  </data>
-  <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Steam++ заменяется и обновляется ...</value>
-  </data>
-  <data name="SteamInstallPathNotFound" xml:space="preserve">
-    <value>Не удалось найти путь установки Steam</value>
-  </data>
-  <data name="UpdateUnpackFail" xml:space="preserve">
-    <value>Не удалось распаковать пакет обновления, откройте официальный веб-сайт, чтобы обновить его вручную.</value>
-  </data>
-  <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
     <value>Свойства файла доступен только для чтения, и изменение завершается неудачей</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileSizeTooLarge" xml:space="preserve">
     <value>Размер файла слишком большой</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileUnauthorized" xml:space="preserve">
     <value>Доступ к файлам отклоняется без разрешений</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OperationHostsError_" xml:space="preserve">
     <value>Ошибка действия hosts {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
     <value>В обновлении замены Steam++ ...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamInstallPathNotFound" xml:space="preserve">
     <value>Не удалось найти путь установки Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
     <value>Пакет обновления не удалось распаковки, пожалуйста, откройте официальный сайт для обновления вручную</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

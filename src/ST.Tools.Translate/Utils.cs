@@ -40,7 +40,7 @@ namespace System
         /// <param name="args"></param>
         /// <param name="handler"></param>
         /// <returns></returns>
-        public static async Task<bool> ValidateAsync((string resx, string lang) args, Func<(string resxFilePath, string lang), Task<IList<string>?>> handler)
+        public static async Task<bool> ValidateAsync<TCommandArguments>(TCommandArguments args, Func<TCommandArguments, Task<IList<string>?>> handler) where TCommandArguments : CommandArguments
         {
             if (string.IsNullOrWhiteSpace(args.resx))
             {
@@ -100,13 +100,16 @@ namespace System
                     {
                         foreach (var lang in langs)
                         {
-                            var messages = await handler((GetResxFilePath(resxFilePath), lang));
+                            args.resxFilePath = GetResxFilePath(resxFilePath);
+                            args.lang = lang;
+                            var messages = await handler(args);
                             if (messages.Any_Nullable()) messages_all.AddRange(messages!);
                         }
                     }
                     else
                     {
-                        var messages = await handler((GetResxFilePath(resxFilePath), args.lang));
+                        args.resxFilePath = GetResxFilePath(resxFilePath);
+                        var messages = await handler(args);
                         if (messages.Any_Nullable()) messages_all.AddRange(messages!);
                     }
                 }
@@ -117,13 +120,16 @@ namespace System
                 {
                     foreach (var lang in langs)
                     {
-                        var messages = await handler((args.resx, lang));
+                        args.resxFilePath = args.resx;
+                        args.lang = lang;
+                        var messages = await handler(args);
                         if (messages.Any_Nullable()) messages_all.AddRange(messages!);
                     }
                 }
                 else
                 {
-                    var messages = await handler((args.resx, args.lang));
+                    args.resxFilePath = args.resx;
+                    var messages = await handler(args);
                     if (messages.Any_Nullable()) messages_all.AddRange(messages!);
                 }
             }
@@ -280,7 +286,7 @@ namespace System
             }
         }
 
-        public static string GetResxFilePathLang((string resxFilePath, string lang) args)
+        public static string GetResxFilePathLang(CommandArguments args)
         {
             var resxFilePathLang = args.resxFilePath.TrimEnd(".resx", StringComparison.OrdinalIgnoreCase) + $".{args.lang}.resx";
             return resxFilePathLang;

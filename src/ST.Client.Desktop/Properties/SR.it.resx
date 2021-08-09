@@ -117,4 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
+    <value>La proprietà del file è di sola lettura e la modifica non riesce</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileSizeTooLarge" xml:space="preserve">
+    <value>Le dimensioni del file sono troppo grandi</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileUnauthorized" xml:space="preserve">
+    <value>L&apos;accesso ai file è stato negato senza autorizzazione</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OperationHostsError_" xml:space="preserve">
+    <value>L&apos;azione ospita l&apos;{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProgramUpdateEcho" xml:space="preserve">
+    <value>Steam?aggiornamento sostitutivo...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamInstallPathNotFound" xml:space="preserve">
+    <value>Impossibile trovare il percorso di installazione di Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateUnpackFail" xml:space="preserve">
+    <value>Il pacchetto di aggiornamento decomprime non è riuscito, aprire il sito Web ufficiale per aggiornare manualmente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>
