@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -119,20 +119,34 @@
   </resheader>
   <data name="ApiResponseCode_AppObsolete" xml:space="preserve">
     <value>客戶端已過時，請升級新版本</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
     <value>登錄憑證失效，請重新登錄</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ClientError_" xml:space="preserve">
+    <value>用戶端錯誤 {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ClientError__" xml:space="preserve">
+    <value>用戶端錯誤 {0} - {1}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsNotOfficialChannelPackageWarning" xml:space="preserve">
     <value>當前運行的程序不是來自官方渠道</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NetworkConnectionInterruption" xml:space="preserve">
     <value>網絡連接中斷</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ServerError_" xml:space="preserve">
     <value>服務端錯誤 {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ServerError__" xml:space="preserve">
     <value>服務端錯誤 {0} - {1}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

@@ -153,9 +153,6 @@
   <data name="AccountChange_Title" xml:space="preserve">
     <value>家庭共享库管理</value>
   </data>
-  <data name="AchievementManage" xml:space="preserve">
-    <value>成就管理</value>
-  </data>
   <data name="Achievement_Description" xml:space="preserve">
     <value>描述</value>
   </data>

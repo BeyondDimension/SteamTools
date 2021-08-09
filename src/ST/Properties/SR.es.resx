@@ -117,4 +117,100 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
+    <value>Error del lado del servicio {0} : las credenciales de inicio de sesión no son válidas, vuelva a iniciar sesión</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="BindFail_UserIsNotNull" xml:space="preserve">
+    <value>Error en el enlace y esta cuenta ha sido enlazada por otro usuario</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserIsBanErrorMessage" xml:space="preserve">
+    <value>Se ha bloqueado el número de cuenta</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="内容值不能为空或不正确" xml:space="preserve">
+    <value>El valor del contenido no puede estar vacío o ser incorrecto</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="当前手机号今日发送短信数量超过最大上限" xml:space="preserve">
+    <value>El número de adquisiciones de código de verificación ha alcanzado el límite de hoy Oh, inténtalo de nuevo mañana</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="当前手机号发送短信过于频繁" xml:space="preserve">
+    <value>La operación es un poco frecuente Oh, inténtalo de nuevo en un minuto</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="当前手机号码不存在" xml:space="preserve">
+    <value>El número de teléfono móvil actual no existe</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="手机号码已存在" xml:space="preserve">
+    <value>Este número de teléfono celular ha sido utilizado</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="手机号码已存在_换绑手机" xml:space="preserve">
+    <value>Este número de teléfono celular ha sido enlazado</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="手机号码已存在_注册" xml:space="preserve">
+    <value>Este número de teléfono celular ha sido registrado</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="新手机号不能与旧手机号一样" xml:space="preserve">
+    <value>El nuevo número de teléfono no puede ser el mismo que el número de teléfono anterior</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="昵称最大长度不能超过_" xml:space="preserve">
+    <value>La longitud máxima de un apodo no puede exceder {0} palabras</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="用户不存在" xml:space="preserve">
+    <value>El usuario no existe</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="短信服务故障" xml:space="preserve">
+    <value>Error del lado del servicio 5001 - Servicio SMS</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="短信验证码不正确" xml:space="preserve">
+    <value>El código de verificación SMS es incorrecto</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="请输入手机号码哦" xml:space="preserve">
+    <value>Introduce tu número de teléfono móvil</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="请输入昵称" xml:space="preserve">
+    <value>Introduce tu apodo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="请输入正确的手机号码哦" xml:space="preserve">
+    <value>Introduce el número de teléfono móvil correcto</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="请输入正确的邀请码哦" xml:space="preserve">
+    <value>Introduce el código de invitación correcto</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="请输入短信验证码哦" xml:space="preserve">
+    <value>Introduce el código de verificación por SMS</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="请输入邀请码哦" xml:space="preserve">
+    <value>Introduce el código de invitación</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="请选择头像" xml:space="preserve">
+    <value>Selecciona un avatar</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="验证码不正确" xml:space="preserve">
+    <value>El código de verificación es incorrecto</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="验证码已过期或不存在" xml:space="preserve">
+    <value>El código de verificación es incorrecto o ha caducado</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

@@ -117,19 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ExitCode_IsVirtualApk" xml:space="preserve">
-    <value>이 앱은 다중 켜기를 지원하지 않습니다</value>
-  </data>
-  <data name="ExitCode_IsXposedExists" xml:space="preserve">
-    <value>이 앱은 Xposed 프레임워크가 설치된 장치에서 실행할 수 없습니다</value>
+  <data name="ExitCode_IsEmulator" xml:space="preserve">
+    <value>이 앱은 에뮬레이터에서 실행을 지원하지 않습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExitCode_IsRoot" xml:space="preserve">
     <value>이 앱은 ROOT 권한이 있는 장치에서 실행할 수 없습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExitCode_IsVirtualApk" xml:space="preserve">
     <value>이 앱은 다중 켜기를 지원하지 않습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExitCode_IsXposedExists" xml:space="preserve">
     <value>이 앱은 Xposed 프레임워크가 설치된 장치에서 실행할 수 없습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

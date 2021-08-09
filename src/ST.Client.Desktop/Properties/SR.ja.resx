@@ -119,23 +119,30 @@
   </resheader>
   <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
     <value>ファイルの属性が読み取り専用のため、修正に失敗</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileSizeTooLarge" xml:space="preserve">
     <value>ファイルサイズが大きすぎる</value>
-  </data>
-  <data name="OperationHostsError_" xml:space="preserve">
-    <value>操作 hosts エラー｛0｝</value>
-  </data>
-  <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Steam++ は交換およびアップグレードされています...</value>
-  </data>
-  <data name="SteamInstallPathNotFound" xml:space="preserve">
-    <value>Steamインストールパスが見つかりませんでした</value>
-  </data>
-  <data name="UpdateUnpackFail" xml:space="preserve">
-    <value>更新パッケージの解凍に失敗しました。公式Webサイトを開いて手動で更新してください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileUnauthorized" xml:space="preserve">
     <value>ファイル アクセスが拒否され、アクセス許可がありません</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OperationHostsError_" xml:space="preserve">
+    <value>操作 hosts エラー｛0｝</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProgramUpdateEcho" xml:space="preserve">
+    <value>Steam++ は交換およびアップグレードされています...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamInstallPathNotFound" xml:space="preserve">
+    <value>Steamインストールパスが見つかりませんでした</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateUnpackFail" xml:space="preserve">
+    <value>更新パッケージの解凍に失敗しました。公式Webサイトを開いて手動で更新してください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

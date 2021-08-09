@@ -744,7 +744,7 @@ namespace System.Application.Services
 #if DEBUG
                 Toast.Show($"bytesLength, source: {bytes.Length}, gzip: {bytes_compress_gzip.Length}, br: {bytes_compress_br.Length}");
 #endif
-                (var result, var stream, var e) = QRCodeHelper.Create(bytes);
+                (var result, var stream, var e) = QRCodeHelper.Create(bytes_compress_br);
                 switch (result)
                 {
                     case QRCodeHelper.QRCodeCreateResult.DataTooLong:

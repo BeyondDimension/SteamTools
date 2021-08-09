@@ -112,24 +112,29 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Error" xml:space="preserve">
     <value>ミス</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotSupportedPlatformError" xml:space="preserve">
     <value>オペレーティングシステムはWindows 7 SP1以上</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotSupportedWin8PlatformError" xml:space="preserve">
     <value>Windows 8はマイクロソフトの公式サポートが終了しているため、このプログラムは動作しませんので、Windows 8.1またはWindows 10へのアップグレードをお勧めします。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Not_Installed_KB3063858" xml:space="preserve">
     <value>必要なパッチであるKB3063858がOS上に存在しないためにプログラムが動作しないのですが、ブラウザでダウンロードアドレスを開き、手動でインストールしましたか？</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ThisAppOnlySupport64BitOS" xml:space="preserve">
     <value>このアプリケーションは、64ビットのオペレーティングシステムにのみ対応しています。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

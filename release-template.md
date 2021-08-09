@@ -23,6 +23,7 @@
 23. 新增 意大利语支持
 24. 新增 西班牙语支持
 25. Android/macOS/Linux 版现已开启 Beta/Alpha 测试，可从 GitHub/Gitee 上下载
+26. 现已通过 Desktop Bridge 转制为 UWP 上架 Microsoft Store 
 
 ***
 

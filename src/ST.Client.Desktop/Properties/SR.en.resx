@@ -118,63 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
-    <value>File attribute is read-only, modification failed</value>
-  </data>
-  <data name="FileSizeTooLarge" xml:space="preserve">
-    <value>File size too large</value>
-  </data>
-  <data name="OperationHostsError_" xml:space="preserve">
-    <value>Operation hosts error {0}</value>
-  </data>
-  <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Steam++ is upgrading...</value>
-  </data>
-  <data name="SteamInstallPathNotFound" xml:space="preserve">
-    <value>Could not find Steam installation path</value>
-  </data>
-  <data name="UpdateUnpackFail" xml:space="preserve">
-    <value>Failed to decompress the update package, please open the official website to update manually</value>
-  </data>
-  <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
     <value>The file property is read-only and the modification fails</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileSizeTooLarge" xml:space="preserve">
     <value>The file size is too large</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileUnauthorized" xml:space="preserve">
     <value>File access was denied without permission</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OperationHostsError_" xml:space="preserve">
     <value>Action hosts error {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
     <value>Steam?replacement upgrade...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamInstallPathNotFound" xml:space="preserve">
     <value>The Steam installation path could not be found</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
     <value>The update package unzip failed, please open the official website to manually update</value>
-  </data>
-  <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
-    <value>The file property is read-only and the modification fails</value>
-  </data>
-  <data name="FileSizeTooLarge" xml:space="preserve">
-    <value>The file size is too large</value>
-  </data>
-  <data name="FileUnauthorized" xml:space="preserve">
-    <value>File access was denied without permission</value>
-  </data>
-  <data name="OperationHostsError_" xml:space="preserve">
-    <value>Action hosts error {0}</value>
-  </data>
-  <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Steam?replacement upgrade...</value>
-  </data>
-  <data name="SteamInstallPathNotFound" xml:space="preserve">
-    <value>The Steam installation path could not be found</value>
-  </data>
-  <data name="UpdateUnpackFail" xml:space="preserve">
-    <value>The update package unzip failed, please open the official website to manually update</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

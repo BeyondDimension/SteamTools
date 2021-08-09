@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using static System.Constants;
+using static System.Utils;
 
 namespace System.Commands
 {
@@ -15,7 +16,7 @@ namespace System.Commands
     /// </summary>
     static class WriteCommand
     {
-        public static bool EnableAzureTranslation { get; private set; }
+        public static bool EnableAzureTranslation { get; private set; } = false;
 
         readonly static Dictionary<string, (string fileName, string author)> tempXlsxPairs = new()
         {
@@ -29,35 +30,37 @@ namespace System.Commands
             // t write-xlsx -resx all -lang all
             var write_xlsx = new Command("write-xlsx", "读取 resx 写入 xlsx")
             {
-                Handler = CommandHandler.Create((string resx, string lang)
-                    => ValidateAsync((resx, lang), WriteXlsxAsync)),
+                Handler = CommandHandler.Create((string resx, string lang, bool only_machine)
+                    => ValidateAsync<CommandArguments>((resx, lang, only_machine), WriteXlsxAsync)),
             };
             write_xlsx.AddOption(new Option<string>("-resx", ResxDesc));
             write_xlsx.AddOption(new Option<string>("-lang", LangDesc));
+            write_xlsx.AddOption(new Option<bool>("-only-machine", "是否仅导出机翻或未翻译的值"));
             command.AddCommand(write_xlsx);
         }
 
-        static async Task WriteXlsxAsync((string resxFilePath, string lang) args)
+        static async Task<IList<string>?> WriteXlsxAsync(CommandArguments args)
         {
             List<string> messages = new();
-            var resxFilePathLang = args.resxFilePath.TrimEnd(".resx", StringComparison.OrdinalIgnoreCase) + $".{args.lang}.resx";
+
+            var resxFilePathLang = GetResxFilePathLang(args);
             ResxFileLangCreateByNotExists(resxFilePathLang);
 
             var resxFileDict = GetResxDict(args.resxFilePath, ignoreStringBuilder: true);
             if (!resxFileDict.dict.Any())
             {
                 Console.WriteLine($"Error: resx file not any value, path: {args.resxFilePath}");
-                return;
+                return messages;
             }
 
             IReadOnlyDictionary<string, (string value, string comment)>? tempXlsxDict = null;
-            if (tempXlsxPairs.ContainsKey(args.lang))
+            if (!args.only_machine && tempXlsxPairs.ContainsKey(args.lang))
             {
                 var tempXlsxValue = tempXlsxPairs[args.lang];
                 var tempXlsxFilePath = Path.Combine(ProjectPathUtil.projPath, "..", "Translates", tempXlsxValue.fileName);
                 if (File.Exists(tempXlsxFilePath))
                 {
-                    tempXlsxDict = Utils.ReadXlsx(resxFileDict.dict, tempXlsxFilePath, tempXlsxValue.author, out var message_read_temp_xlsx);
+                    tempXlsxDict = ReadXlsx(resxFileDict.dict, tempXlsxFilePath, tempXlsxValue.author, out var message_read_temp_xlsx);
                     messages.AddRange(message_read_temp_xlsx);
                 }
             }
@@ -66,7 +69,23 @@ namespace System.Commands
             if (resxFileDictLang.dict.Count > resxFileDict.dict.Count) // 译文不能比原文多
             {
                 Console.WriteLine($"Error: resx file lang count incorrect, path: {resxFilePathLang}");
-                return;
+                return messages;
+            }
+
+            if (args.only_machine)
+            {
+                var query = from m in resxFileDictLang.dict
+                            let comment = Deserialize(m.Value.comment)
+                            let hasAuthorKey = comment.ContainsKey(AuthorKey)
+                            where (hasAuthorKey &&
+                                comment[AuthorKey] != MicrosoftTranslator) || !hasAuthorKey
+                            select m.Key;
+                var keys = query.ToArray();
+                foreach (var key in keys)
+                {
+                    resxFileDictLang.dict.Remove(key);
+                    resxFileDict.dict.Remove(key);
+                }
             }
 
             if (tempXlsxDict != null)
@@ -190,10 +209,21 @@ namespace System.Commands
 
             workbook.Write(fs);
 
-            Console.WriteLine($"OK, path: {excelFilePath}");
-            if (messages.Any())
-                foreach (var message in messages)
-                    Console.WriteLine(message);
+            return messages;
+        }
+
+        class CommandArguments : System.CommandArguments
+        {
+#pragma warning disable IDE1006 // 命名样式
+            public bool only_machine { get; set; }
+#pragma warning restore IDE1006 // 命名样式
+
+            public static implicit operator CommandArguments(ValueTuple<string, string, bool> value)
+            {
+                var r = Get<CommandArguments>(value.Item1, value.Item2);
+                r.only_machine = value.Item3;
+                return r;
+            }
         }
     }
 }

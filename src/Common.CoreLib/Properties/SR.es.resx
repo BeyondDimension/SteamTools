@@ -117,4 +117,92 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Age_" xml:space="preserve">
+    <value>{0} años</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DayOfWeek_L0" xml:space="preserve">
+    <value>Domingo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DayOfWeek_L1" xml:space="preserve">
+    <value>Lunes</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DayOfWeek_L2" xml:space="preserve">
+    <value>Martes</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DayOfWeek_L3" xml:space="preserve">
+    <value>Miércoles</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DayOfWeek_L4" xml:space="preserve">
+    <value>Jueves</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DayOfWeek_L5" xml:space="preserve">
+    <value>Viernes</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DayOfWeek_L6" xml:space="preserve">
+    <value>Sábado</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DayOfWeek_S0" xml:space="preserve">
+    <value>Domingo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DayOfWeek_S1" xml:space="preserve">
+    <value>Lunes</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DayOfWeek_S2" xml:space="preserve">
+    <value>Martes</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DayOfWeek_S3" xml:space="preserve">
+    <value>Miércoles</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DayOfWeek_S4" xml:space="preserve">
+    <value>Jueves</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DayOfWeek_S5" xml:space="preserve">
+    <value>Viernes</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DayOfWeek_S6" xml:space="preserve">
+    <value>Sábado</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>mujer</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="He" xml:space="preserve">
+    <value>él</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>hombre</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotSupported_FixedSizeCollection" xml:space="preserve">
+    <value>La colección era de un tamaño fijo.</value>
+    <comment>Comment=https://github.com/dotnet/runtime/blob/v5.0.0-rc.1.20451.14/src/libraries/System.Private.CoreLib/src/Resources/Strings.resx#L2893;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="She" xml:space="preserve">
+    <value>ella</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Desconocido</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UnsupportedPhoneNumberSegment_" xml:space="preserve">
+    <value>Segmento de número de teléfono móvil no compatible ({0})</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

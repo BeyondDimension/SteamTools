@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -112,24 +112,29 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotSupportedPlatformError" xml:space="preserve">
     <value>The minimum requirement of operating system is Windows 7 SP1</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotSupportedWin8PlatformError" xml:space="preserve">
-    <value>Because Microsoft's official support for Windows 8 has ended, this program cannot run on this operating system. It is recommended to upgrade to Windows 8.1 or Windows 10</value>
+    <value>Because Microsoft&apos;s official support for Windows 8 has ended, this program cannot run on this operating system. It is recommended to upgrade to Windows 8.1 or Windows 10</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Not_Installed_KB3063858" xml:space="preserve">
     <value>Due to the lack of necessary patch KB3063858 in the operating system, the program cannot run. Do you want to open the download address with a browser and install it manually?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ThisAppOnlySupport64BitOS" xml:space="preserve">
     <value>This application only supports 64-bit operating systems</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

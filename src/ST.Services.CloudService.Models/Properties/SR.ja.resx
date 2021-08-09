@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -119,20 +119,34 @@
   </resheader>
   <data name="ApiResponseCode_AppObsolete" xml:space="preserve">
     <value>クライアントが古いので、新しいバージョンにアップグレードしてください。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
     <value>ログイン資格情報が無効です。もう一度ログインしてください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ClientError_" xml:space="preserve">
+    <value>クライアント エラー {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ClientError__" xml:space="preserve">
+    <value>クライアント エラー {0} - {1}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsNotOfficialChannelPackageWarning" xml:space="preserve">
     <value>現在実行中のプログラムは公式チャンネルのものではありません</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NetworkConnectionInterruption" xml:space="preserve">
     <value>ネットワーク接続が失われました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ServerError_" xml:space="preserve">
     <value>サーバーエラー {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ServerError__" xml:space="preserve">
     <value>サーバーエラー {0} - {1}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

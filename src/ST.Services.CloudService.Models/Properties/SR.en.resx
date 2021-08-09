@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -119,20 +119,34 @@
   </resheader>
   <data name="ApiResponseCode_AppObsolete" xml:space="preserve">
     <value>Client is out of date, please upgrade to new version</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
     <value>Login credentials are invalid, please log in again</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ClientError_" xml:space="preserve">
+    <value>Client error {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ClientError__" xml:space="preserve">
+    <value>Client Error {0} - {1}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsNotOfficialChannelPackageWarning" xml:space="preserve">
     <value>The program currently running is not from the official channel</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NetworkConnectionInterruption" xml:space="preserve">
     <value>Network connection lost</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ServerError_" xml:space="preserve">
     <value>Server error {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ServerError__" xml:space="preserve">
     <value>Server error {0} - {1}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

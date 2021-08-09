@@ -402,7 +402,7 @@ namespace System.Application.UI.ViewModels
                 var dtos = Serializable.DMP<LightweightExportDTO[]>(bytes_decompress_br);
                 if (dtos.Any_Nullable())
                 {
-                    var urls = dtos.Select(x => x.ToString());
+                    var urls = dtos!.Select(x => x.ToString());
                     AuthService.Current.ImportWinAuthenticators(urls, AuthIsLocal, AuthPassword);
                 }
             }

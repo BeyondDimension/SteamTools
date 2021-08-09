@@ -117,4 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ExitCode_IsEmulator" xml:space="preserve">
+    <value>Questa app non supporta l&apos;esecuzione nell&apos;emulatore</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ExitCode_IsRoot" xml:space="preserve">
+    <value>Questa app non supporta l&apos;esecuzione su dispositivi con autorizzazioni ROOT</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ExitCode_IsVirtualApk" xml:space="preserve">
+    <value>Questa app non supporta più apertura</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ExitCode_IsXposedExists" xml:space="preserve">
+    <value>Questa app non supporta l&apos;esecuzione su dispositivi con framework Xposed</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

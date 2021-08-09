@@ -117,4 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Error" xml:space="preserve">
+    <value>error</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotSupportedPlatformError" xml:space="preserve">
+    <value>El sistema operativo requiere un mínimo de Windows 7 SP1</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotSupportedWin8PlatformError" xml:space="preserve">
+    <value>Debido a que el soporte oficial de Microsoft para Windows 8 ha finalizado, este programa no se puede ejecutar en este sistema operativo y se recomienda actualizar a Windows 8.1 o Windows 10</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Not_Installed_KB3063858" xml:space="preserve">
+    <value>La falta de parches necesarios en el sistema operativo KB3063858 hace que el programa no se ejecute, ¿utiliza un navegador para abrir la dirección de descarga e instalarla manualmente?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ThisAppOnlySupport64BitOS" xml:space="preserve">
+    <value>Esta aplicación solo admite sistemas operativos de 64 bits</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

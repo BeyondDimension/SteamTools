@@ -63,11 +63,11 @@ namespace System.Application.UI.ViewModels
 
             fastLoginChannels = new()
             {
+                FastLoginChannelViewModel.Create(nameof(FastLoginChannel.QQ), this),
                 FastLoginChannelViewModel.Create(nameof(FastLoginChannel.Steam), this),
                 FastLoginChannelViewModel.Create(nameof(FastLoginChannel.Xbox), this),
 #if DEBUG
                 FastLoginChannelViewModel.Create(nameof(FastLoginChannel.Apple), this),
-                FastLoginChannelViewModel.Create(nameof(FastLoginChannel.QQ), this),
 #endif
 #if __MOBILE__
                 FastLoginChannelViewModel.Create(FastLoginChannelViewModel.PhoneNumber, this),

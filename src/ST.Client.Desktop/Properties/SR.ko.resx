@@ -118,42 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
-    <value>파일 속성이 읽기 전용이므로 수정하지 못했습니다</value>
-  </data>
-  <data name="FileSizeTooLarge" xml:space="preserve">
-    <value>파일 크기가 너무 큽니다</value>
-  </data>
-  <data name="OperationHostsError_" xml:space="preserve">
-    <value>hosts 오류 {0}</value>
-  </data>
-  <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Steam++ 가 교체 및 업그레이드 중입니다 ...</value>
-  </data>
-  <data name="SteamInstallPathNotFound" xml:space="preserve">
-    <value>Steam 설치 경로를 찾을 수 없습니다</value>
-  </data>
-  <data name="UpdateUnpackFail" xml:space="preserve">
-    <value>업데이트 패키지의 압축을 풀지 못했습니다. 공식 웹 사이트를 열어 수동으로 업데이트하세요.</value>
-  </data>
-  <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
     <value>파일 속성이 읽기 전용이며 수정에 실패했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileSizeTooLarge" xml:space="preserve">
     <value>파일 크기가 너무 큽니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileUnauthorized" xml:space="preserve">
     <value>파일 액세스가 거부되고 권한이 없습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OperationHostsError_" xml:space="preserve">
     <value>작업 hosts 오류 {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
     <value>Steam++ 교체 업그레이드 중...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamInstallPathNotFound" xml:space="preserve">
     <value>Steam 설치 경로를 찾을 수 없습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
     <value>업데이트 패키지 압축을 풀지 못했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>
