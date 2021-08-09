@@ -14,6 +14,8 @@
     <pre>t proofread-xlsx -resx all -lang all // 校对所有的 xlsx, 与所有支持的语言</pre>
     <pre>t proofread-xlsx -resx all -lang en // 校对所有的 xlsx，语言仅 English</pre>
 - 将 xlsx 文件导入到 resx 文件
+    <pre>t read-xlsx -resx all -lang all // 导入所有的 xlsx, 与所有支持的语言</pre>
+    <pre>t read-xlsx -resx all -lang en // 导入所有的 xlsx，语言仅 English</pre>
 
 
 ## Language Id

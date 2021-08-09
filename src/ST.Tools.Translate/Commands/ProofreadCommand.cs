@@ -1,12 +1,10 @@
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
-using System;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using static System.Constants;
 using static System.Utils;
@@ -18,7 +16,7 @@ namespace System.Commands
     /// </summary>
     static class ProofreadCommand
     {
-        public static bool EnableAzureTranslation { get; }
+        public static bool EnableAzureTranslation { get; } = true;
 
         public static void Add(RootCommand command)
         {

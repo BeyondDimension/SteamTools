@@ -3,6 +3,7 @@ using NPOI.XSSF.UserModel;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Constants;
@@ -215,12 +216,14 @@ namespace System
                     if (lineTrim.StartsWith(ValueXmlStart) && lineTrim.EndsWith(ValueXmlEnd))
                     {
                         value = line.Substring(ValueXmlStart, ValueXmlEnd);
+                        value = Unescape(value);
                         AddOrReplace(dict, key, (value, comment));
                         continue;
                     }
                     else if (lineTrim.StartsWith(CommentXmlStart) && lineTrim.EndsWith(CommentXmlEnd))
                     {
                         comment = line.Substring(CommentXmlStart, CommentXmlEnd);
+                        comment = Unescape(comment);
                         AddOrReplace(dict, key, (value, comment));
                         continue;
                     }
@@ -374,5 +377,9 @@ namespace System
 
             return dict.Any() ? dict : null;
         }
+
+        public static string Escape(string str) => SecurityElement.Escape(str) ?? string.Empty;
+
+        public static string Unescape(string str) => new SecurityElement(string.Empty, str).Text ?? string.Empty;
     }
 }
