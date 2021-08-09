@@ -105,6 +105,13 @@
                   Margin="10 0 0 0"
                   Content="{ReflectionBinding Path=Res.Settings_General_ClearCache,Mode=OneWay,Source={x:Static resx:R.Current}}"/>-->
         </WrapPanel>
+        <WrapPanel>
+          <TextBlock x:Name="LogSize" VerticalAlignment="Center"/>
+          <!--<Button VerticalContentAlignment="Center"
+                  VerticalAlignment="Center"
+                  Margin="10 0 0 0"
+                  Content="{ReflectionBinding Path=Res.Settings_General_ClearCache,Mode=OneWay,Source={x:Static resx:R.Current}}"/>-->
+        </WrapPanel>
       </StackPanel>
 
     </StackPanel>

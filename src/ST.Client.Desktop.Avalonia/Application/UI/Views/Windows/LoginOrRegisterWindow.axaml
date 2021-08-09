@@ -55,7 +55,7 @@
             <ia:ChangePropertyAction TargetObject="{ReflectionBinding #WaitLogin}" PropertyName="IsVisible" Value="False"/>
             <ia:ChangePropertyAction TargetObject="{ReflectionBinding #LoginType}" PropertyName="IsVisible" Value="True"/>
           </ia:DataTriggerBehavior>
-         <ia:DataTriggerBehavior Binding="{Binding LoginState}" ComparisonCondition="Equal" Value="3">
+          <ia:DataTriggerBehavior Binding="{Binding LoginState}" ComparisonCondition="Equal" Value="3">
             <ia:ChangePropertyAction TargetObject="{ReflectionBinding #SteamLogin}" PropertyName="IsVisible" Value="False"/>
             <ia:ChangePropertyAction TargetObject="{ReflectionBinding #PhoneLogin}" PropertyName="IsVisible" Value="False"/>
             <ia:ChangePropertyAction TargetObject="{ReflectionBinding #FastLogin}" PropertyName="IsVisible" Value="False"/>
@@ -151,7 +151,13 @@
               </ItemsControl.Styles>
               <ItemsControl.ItemTemplate>
                 <DataTemplate x:CompileBindings="False">
-                  <Button Command="{Binding #u.DataContext.ChooseChannel}" CommandParameter="{Binding Id,Mode=OneWay}" MinHeight="50" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Margin="0 5" Background="{StaticResource ThemeBrushKey}">
+                  <Button Command="{Binding #u.DataContext.ChooseChannel}"
+                          CommandParameter="{Binding Id,Mode=OneWay}"
+                          MinHeight="50"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Left"
+                          Margin="0 5"
+                          Background="{StaticResource ThemeBrushKey}">
                     <DockPanel x:Name="FastLoginChannelItem">
                       <!--<i:Interaction.Behaviors>
                         <ia:EventTriggerBehavior EventName="Tapped"
@@ -185,57 +191,50 @@
                   </Button>
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
-              <!--<ListBoxItem>
-                <DockPanel>
-                  <Panel DockPanel.Dock="Left">
-                    <PathIcon Data="{StaticResource QQ}"></PathIcon>
-                  </Panel>
-                  <Panel DockPanel.Dock="Right" Margin="10 0 0 0">
-                    <TextBlock Text="{ReflectionBinding Path=Res.User_QQLogin,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
-                  </Panel>
-                </DockPanel>
-              </ListBoxItem>
-              <ListBoxItem>
-                <DockPanel>
-                  <Panel DockPanel.Dock="Left">
-                    <PathIcon Data="{StaticResource Microsoft}"></PathIcon>
-                  </Panel>
-                  <Panel DockPanel.Dock="Right" Margin="10 0 0 0">
-                    <TextBlock Text="{ReflectionBinding Path=Res.User_MicroSoftLogin,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
-                  </Panel>
-                </DockPanel>
-              </ListBoxItem>
-              <ListBoxItem>
-                <DockPanel>
-                  <Panel DockPanel.Dock="Left">
-                    <PathIcon Data="{StaticResource Apple}" VerticalAlignment="Center"></PathIcon>
-                  </Panel>
-                  <Panel DockPanel.Dock="Right" Margin="10 0 0 0">
-                    <TextBlock Text="{ReflectionBinding Path=Res.User_AppleLogin,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
-                  </Panel>
-                </DockPanel>
-              </ListBoxItem>-->
             </ItemsControl>
           </StackPanel>
-          
+
           <StackPanel x:Name="WaitLogin"  Spacing="8">
-            <TextBlock TextWrapping="WrapWithOverflow" Text="{ReflectionBinding Path=Res.User_WaitFastLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-           <controls:ProgressRing IsIndeterminate="True"  Margin="0 40 0 40"
-                               Width="100" Height="100">
-          </controls:ProgressRing>
-            
-          <Button Classes="plain" Margin="0 0 0 10"
-                  HorizontalContentAlignment="Center"
-                    Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                  Command="{ReflectionBinding ChangeLoginState}" CommandParameter="2">
-          </Button>
-          
+            <TextBlock TextWrapping="WrapWithOverflow"
+                       Text="{ReflectionBinding Path=Res.User_WaitFastLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <controls:ProgressRing IsIndeterminate="True"
+                                   Margin="0 40 0 40"
+                                   Width="100"
+                                   Height="100">
+            </controls:ProgressRing>
+
+            <WrapPanel HorizontalAlignment="Center" Margin="0 0 0 50">
+              <Button Classes="plain"
+                      Margin="5 0"
+                      HorizontalContentAlignment="Center"
+                      Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Command="{ReflectionBinding ChangeLoginState}"
+                      CommandParameter="2"/>
+              <Button Classes="plain"
+                      Margin="5 0"
+                      HorizontalContentAlignment="Center"
+                      Content="{ReflectionBinding Path=Res.Retry,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Command="{Binding ChooseChannel}"
+                      CommandParameter="{Binding CurrentSelectChannel}"/>
+            </WrapPanel>
+
           </StackPanel>
+
           <WrapPanel HorizontalAlignment="Center" Margin="2 0 6 0">
             <TextBlock Text="{ReflectionBinding Path=Res.User_RegisterAgreed,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="12"/>
-            <Button FontSize="12" Classes="Hyperlink" Margin="5,0" Content="{ReflectionBinding Path=Res.User_Agreement,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{ReflectionBinding OpenHyperlink}" CommandParameter="Agreement"/>
+            <Button FontSize="12"
+                    Classes="Hyperlink"
+                    Margin="5,0"
+                    Content="{ReflectionBinding Path=Res.User_Agreement,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                    Command="{ReflectionBinding OpenHyperlink}"
+                    CommandParameter="Agreement"/>
             <TextBlock FontSize="12" Text="{ReflectionBinding Path=Res.And,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-            <Button FontSize="12" Classes="Hyperlink" Margin="5,0" Content="{ReflectionBinding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{ReflectionBinding OpenHyperlink}" CommandParameter="Privacy"/>
+            <Button FontSize="12"
+                    Classes="Hyperlink"
+                    Margin="5,0"
+                    Content="{ReflectionBinding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                    Command="{ReflectionBinding OpenHyperlink}"
+                    CommandParameter="Privacy"/>
           </WrapPanel>
         </StackPanel>
 
@@ -266,8 +265,8 @@
           </Button>
           <Separator Classes="Separator" Height="{ReflectionBinding $parent.Height}" Width="0.88"></Separator>-->
           <Button Classes="plain"
-         HorizontalContentAlignment="Center"
-         Command="{ReflectionBinding ChangeLoginState}" CommandParameter="2">
+                  HorizontalContentAlignment="Center"
+                  Command="{ReflectionBinding ChangeLoginState}" CommandParameter="2">
             <TextBlock Text="{ReflectionBinding Path=Res.User_FastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
           </Button>
           <Separator Classes="Separator" Height="{ReflectionBinding $parent.Height}" Width="0.88"></Separator>

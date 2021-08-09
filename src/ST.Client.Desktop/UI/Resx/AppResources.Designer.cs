@@ -513,7 +513,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 网络加速 的本地化字符串。
+        ///   查找类似 社区加速 的本地化字符串。
         /// </summary>
         public static string CommunityFix {
             get {
@@ -2800,6 +2800,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 重试 的本地化字符串。
+        /// </summary>
+        public static string Retry {
+            get {
+                return ResourceManager.GetString("Retry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 保存修改 的本地化字符串。
         /// </summary>
         public static string SaveChanges {
@@ -3129,6 +3138,15 @@ namespace System.Application.UI.Resx {
         public static string Settings_General_ClearCache {
             get {
                 return ResourceManager.GetString("Settings_General_ClearCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 日志文件已占用 {0} 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_LogSize {
+            get {
+                return ResourceManager.GetString("Settings_General_LogSize", resourceCulture);
             }
         }
         
@@ -3863,7 +3881,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 无效令牌：当前令牌账号与已登录账号不匹配 的本地化字符串。
+        ///   查找类似 无效令牌：您确定登录的是您当前令牌的账号？ 的本地化字符串。
         /// </summary>
         public static string User_LoginError_Auth {
             get {
@@ -4043,7 +4061,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 连接到 Steam 社区超时，请检查是否开启网络加速。 的本地化字符串。
+        ///   查找类似 连接到 Steam 社区超时，请检查是否开启社区加速。 的本地化字符串。
         /// </summary>
         public static string User_SteamFastLoginTimeoutErrorMessage {
             get {

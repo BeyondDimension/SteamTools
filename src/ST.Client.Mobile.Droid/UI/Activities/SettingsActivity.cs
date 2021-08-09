@@ -98,7 +98,7 @@ namespace System.Application.UI.Activities
             SetUpdateChannelText();
             SetThemeText();
 
-            SettingsPageViewModel.StartCacheSizeCalc(ref isStartCacheSizeCalc, x =>
+            SettingsPageViewModel.StartCacheSizeCalc(ref isStartCacheSizeCalc, AppResources.Settings_General_CacheSize,x =>
             {
                 if (binding == null) return;
                 binding.tvGeneralSettingsStorageSpaceValue.Text = x;

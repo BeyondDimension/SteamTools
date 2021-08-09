@@ -106,23 +106,35 @@ namespace System.Application.UI.ViewModels
 #endif
 
         /// <summary>
-        /// 开始计算缓存文件夹大小
+        /// 开始计算指定文件夹大小
         /// </summary>
         /// <param name="isStartCacheSizeCalc"></param>
         /// <param name="action"></param>
-        public static void StartCacheSizeCalc(ref bool isStartCacheSizeCalc, Action<string> action)
+        public static void StartCacheSizeCalc(ref bool isStartCacheSizeCalc, string SizeFormat, Action<string> action)
         {
             if (isStartCacheSizeCalc) return;
             isStartCacheSizeCalc = true;
             action(AppResources.Settings_General_Calcing);
             Task.Run(async () =>
             {
-                var length = IOPath.GetDirectorySize(IOPath.CacheDirectory);
-                var lenString = IOPath.GetSizeString(length);
-                await MainThread2.InvokeOnMainThreadAsync(() =>
+                if (SizeFormat == AppResources.Settings_General_CacheSize)
                 {
-                    action(AppResources.Settings_General_CacheSize.Format(lenString));
-                });
+                    var length = IOPath.GetDirectorySize(IOPath.CacheDirectory);
+                    var lenString = IOPath.GetSizeString(length);
+                    await MainThread2.InvokeOnMainThreadAsync(() =>
+                    {
+                        action(SizeFormat.Format(lenString));
+                    });
+                }
+                else if (SizeFormat == AppResources.Settings_General_LogSize)
+                {
+                    var length = IOPath.GetDirectorySize(AppHelper.LogDirPath);
+                    var lenString = IOPath.GetSizeString(length);
+                    await MainThread2.InvokeOnMainThreadAsync(() =>
+                    {
+                        action(SizeFormat.Format(lenString));
+                    });
+                }
             });
         }
     }
