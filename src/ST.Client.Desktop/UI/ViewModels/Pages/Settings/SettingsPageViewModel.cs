@@ -109,33 +109,38 @@ namespace System.Application.UI.ViewModels
         /// 开始计算指定文件夹大小
         /// </summary>
         /// <param name="isStartCacheSizeCalc"></param>
+        /// <param name="sizeFormat"></param>
         /// <param name="action"></param>
-        public static void StartCacheSizeCalc(ref bool isStartCacheSizeCalc, string SizeFormat, Action<string> action)
+        public static void StartCacheSizeCalc(ref bool isStartCacheSizeCalc, string sizeFormat, Action<string> action)
         {
             if (isStartCacheSizeCalc) return;
             isStartCacheSizeCalc = true;
             action(AppResources.Settings_General_Calcing);
-            Task.Run(async () =>
+            string? dirPath;
+            if (sizeFormat == AppResources.Settings_General_CacheSize)
             {
-                if (SizeFormat == AppResources.Settings_General_CacheSize)
+                dirPath = IOPath.CacheDirectory;
+            }
+            else if (sizeFormat == AppResources.Settings_General_LogSize)
+            {
+                dirPath = AppHelper.LogDirPath;
+            }
+            else
+            {
+                dirPath = null;
+            }
+            if (dirPath != null)
+            {
+                Task.Run(async () =>
                 {
-                    var length = IOPath.GetDirectorySize(IOPath.CacheDirectory);
+                    var length = IOPath.GetDirectorySize(dirPath);
                     var lenString = IOPath.GetSizeString(length);
                     await MainThread2.InvokeOnMainThreadAsync(() =>
                     {
-                        action(SizeFormat.Format(lenString));
+                        action(sizeFormat.Format(lenString));
                     });
-                }
-                else if (SizeFormat == AppResources.Settings_General_LogSize)
-                {
-                    var length = IOPath.GetDirectorySize(AppHelper.LogDirPath);
-                    var lenString = IOPath.GetSizeString(length);
-                    await MainThread2.InvokeOnMainThreadAsync(() =>
-                    {
-                        action(SizeFormat.Format(lenString));
-                    });
-                }
-            });
+                });
+            }
         }
     }
 }

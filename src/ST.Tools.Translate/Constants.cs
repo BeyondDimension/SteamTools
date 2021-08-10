@@ -34,6 +34,7 @@ namespace System
         public const string ColumnHeaderMachineProofread = "机翻校对(Machine Proofread)";
         public const string ResxDesc = "指定 resx 文件路径或项目名";
         public const string LangDesc = "指定要生成的语言，多选或单选，使用分号分割，all 表示全选";
+        public const string OriginalTextKey = "OriginalText";
 
         public const string ClientLibDroid = "Common.ClientLib.Droid";
         public const string CoreLib = "Common.CoreLib";

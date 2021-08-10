@@ -53,7 +53,7 @@ namespace System.Commands
                 return messages;
             }
 
-            IReadOnlyDictionary<string, (string value, string comment)>? tempXlsxDict = null;
+            IReadOnlyDictionary<string, (string value, Dictionary<string, string> comment)>? tempXlsxDict = null;
             if (!args.only_machine && tempXlsxPairs.ContainsKey(args.lang))
             {
                 var tempXlsxValue = tempXlsxPairs[args.lang];
@@ -75,7 +75,7 @@ namespace System.Commands
             if (args.only_machine)
             {
                 var query = from m in resxFileDictLang.dict
-                            let comment = Deserialize(m.Value.comment)
+                            let comment = m.Value.comment
                             let hasAuthorKey = comment.ContainsKey(AuthorKey)
                             where (hasAuthorKey &&
                                 comment[AuthorKey] != MicrosoftTranslator) || !hasAuthorKey
@@ -130,7 +130,12 @@ namespace System.Commands
                         var translationResult = translationResults.First(x => x != null).Translations.First(x => x.To.Equals(args.lang, StringComparison.OrdinalIgnoreCase));
                         value = translationResult.Text;
                     }
-                    resxFileDictLang.dict.AddOrReplace(originalText.Key, (value, EnableAzureTranslation ? string.Empty : AuthorKey + "="));
+                    var comment = EnableAzureTranslation ? Deserialize(string.Empty) : new Dictionary<string, string>
+                    {
+                        { CommentKey, string.Empty },
+                        { AuthorKey, string.Empty },
+                    };
+                    resxFileDictLang.dict.AddOrReplace(originalText.Key, (value, comment));
                 }
             }
 
@@ -178,7 +183,7 @@ namespace System.Commands
                 cell.SetCellValue(item.Value.value);
 
                 var langValue = resxFileDictLang.dict[item.Key];
-                var commentData = Deserialize(langValue.comment);
+                var commentData = langValue.comment;
                 var author = commentData[AuthorKey];
                 var valueCellNum = author == MicrosoftTranslator ? 2 : 3;
 
@@ -197,7 +202,7 @@ namespace System.Commands
                 }
                 else
                 {
-                    var sourceCommentData = Deserialize(resxFileDict.dict[item.Key].comment);
+                    var sourceCommentData = resxFileDict.dict[item.Key].comment;
                     if (sourceCommentData.ContainsKey(CommentKey) &&
                         !string.IsNullOrWhiteSpace(sourceCommentData[CommentKey]))
                     {

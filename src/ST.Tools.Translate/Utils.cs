@@ -188,7 +188,7 @@ namespace System
                     };
                 }
                 var array = comment.Split(new char[] { '；', ';' }, StringSplitOptions.RemoveEmptyEntries);
-                var dict = array.Select(x => x.Split('=', StringSplitOptions.RemoveEmptyEntries).ToArray()).Where(x => x.Length == 2).ToDictionary(x => x[0], x => x[1]);
+                var dict = array.Select(x => x.Split('=').ToArray()).Where(x => x.Length == 2).ToDictionary(x => x[0], x => x[1]);
                 if (!dict.ContainsKey(AuthorKey))
                 {
                     dict.Add(AuthorKey, MicrosoftTranslator);
@@ -197,13 +197,13 @@ namespace System
             }
         }
 
-        public static (StringBuilder start, StringBuilder end, Dictionary<string, (string value, string comment)> dict) GetResxDict(
+        public static (StringBuilder start, StringBuilder end, Dictionary<string, (string value, Dictionary<string, string> comment)> dict) GetResxDict(
             string resxFilePath,
             string[]? ignoreKeys = null,
             bool ignoreStringBuilder = false)
         {
             ignoreKeys ??= IgnoreKeys;
-            Dictionary<string, (string value, string comment)> dict = new();
+            Dictionary<string, (string value, Dictionary<string, string> comment)> dict = new();
             using var sr = File.OpenText(resxFilePath);
             StringBuilder? start = ignoreStringBuilder ? null : new();
             StringBuilder? end = ignoreStringBuilder ? null : new();
@@ -223,14 +223,14 @@ namespace System
                     {
                         value = line.Substring(ValueXmlStart, ValueXmlEnd);
                         value = Unescape(value);
-                        AddOrReplace(dict, key, (value, comment));
+                        AddOrReplace(dict, key, (value, Deserialize(comment)));
                         continue;
                     }
                     else if (lineTrim.StartsWith(CommentXmlStart) && lineTrim.EndsWith(CommentXmlEnd))
                     {
                         comment = line.Substring(CommentXmlStart, CommentXmlEnd);
                         comment = Unescape(comment);
-                        AddOrReplace(dict, key, (value, comment));
+                        AddOrReplace(dict, key, (value, Deserialize(comment)));
                         continue;
                     }
                 }
@@ -299,7 +299,7 @@ namespace System
         /// <param name="filePath">文件路径</param>
         /// <param name="messages">错误消息</param>
         /// <returns></returns>
-        public static IReadOnlyDictionary<string, (string value, string comment)>? ReadXlsx(IReadOnlyDictionary<string, (string value, string comment)>? originalDict, string filePath, string author, out IList<string> messages)
+        public static IReadOnlyDictionary<string, (string value, Dictionary<string, string> comment)>? ReadXlsx(IReadOnlyDictionary<string, (string value, Dictionary<string, string> comment)>? originalDict, string filePath, string author, out IList<string> messages)
         {
             messages = new List<string>();
             using var fs = File.OpenRead(filePath);
@@ -341,7 +341,7 @@ namespace System
             }
             if (index_cell_value == -1 && index_cell_original == -1) return null;
 
-            Dictionary<string, (string value, string comment)> dict = new();
+            Dictionary<string, (string value, Dictionary<string, string> comment)> dict = new();
             while (true) // 循环 Body 区域
             {
                 row = sheet.GetRow(index_row++);
@@ -371,14 +371,17 @@ namespace System
                 }
 
                 var comment = commentCell?.StringCellValue ?? string.Empty;
+                var comment_dict = new Dictionary<string, string>
+                {
+                    { CommentKey, comment },
+                    { AuthorKey, string.Empty },
+                };
                 if (!string.IsNullOrEmpty(author))
                 {
-                    var comment2 = Deserialize(comment);
-                    comment2.AddOrReplace(AuthorKey, author);
-                    comment = Serialize(comment2);
+                    comment_dict.AddOrReplace(AuthorKey, author);
                 }
 
-                dict.AddOrReplace(key, (value, comment));
+                dict.AddOrReplace(key, (value, comment_dict));
             }
 
             return dict.Any() ? dict : null;

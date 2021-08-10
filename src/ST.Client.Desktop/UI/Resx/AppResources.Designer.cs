@@ -513,7 +513,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 社区加速 的本地化字符串。
+        ///   查找类似 网络加速 的本地化字符串。
         /// </summary>
         public static string CommunityFix {
             get {
@@ -3881,7 +3881,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 无效令牌：您确定登录的是您当前令牌的账号？ 的本地化字符串。
+        ///   查找类似 无效令牌：当前令牌账号与已登录账号不匹配 的本地化字符串。
         /// </summary>
         public static string User_LoginError_Auth {
             get {
@@ -4061,7 +4061,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 连接到 Steam 社区超时，请检查是否开启社区加速。 的本地化字符串。
+        ///   查找类似 连接到 Steam 社区超时，请检查是否开启网络加速。 的本地化字符串。
         /// </summary>
         public static string User_SteamFastLoginTimeoutErrorMessage {
             get {
