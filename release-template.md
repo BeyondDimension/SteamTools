@@ -22,13 +22,13 @@
 22. 改进 部分语言的翻译文本
 23. 新增 意大利语支持
 24. 新增 西班牙语支持
-25. Android/macOS/Linux 版现已开启 Beta/Alpha 测试，可从 GitHub/Gitee 上下载
-26. 现已通过 Desktop Bridge 转制为 UWP 上架 Microsoft Store 
+25. 修复 本地令牌上移下移功能不正确
+26. Android/macOS/Linux 版现已开启 Beta/Alpha 测试，可从 GitHub/Gitee 上下载
+27. 现已通过 Desktop Bridge 转制为 UWP 上架 Microsoft Store 
 
 ***
 
 1. 新增 ASF Plus 本地挂卡
-2. 修复 本地令牌上移下移功能不正确
 3. 改进 新增守护进程，当程序闪退时将自动重启
 
 |  RuntimeIdentifier  |  Available  |  Edition  |
