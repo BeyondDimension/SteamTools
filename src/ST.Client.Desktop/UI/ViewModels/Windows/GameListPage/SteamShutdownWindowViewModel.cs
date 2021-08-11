@@ -1,7 +1,9 @@
 using DynamicData;
+using DynamicData.Binding;
 using Newtonsoft.Json.Linq;
 using ReactiveUI;
 using System.Application.Models;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.ObjectModel;
 using System.Properties;
@@ -15,20 +17,16 @@ namespace System.Application.UI.ViewModels
         {
             Title = ThisAssembly.AssemblyTrademark + " | " + AppResources.GameList_SteamShutdown;
 
-            _DownloadingAppSourceList = new SourceList<SteamApp>();
-
-            _DownloadingAppSourceList
+            SteamConnectService.Current.DownloadApps
                .Connect()
                .ObserveOn(RxApp.MainThreadScheduler)
-               //.Sort(SortExpressionComparer<SteamApp>.Descending(x => x.))
+               .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.AppId).ThenByDescending(x => x.SizeOnDisk))
                .Bind(out _DownloadingApps)
                .Subscribe();
         }
 
         private readonly ReadOnlyObservableCollection<SteamApp>? _DownloadingApps;
         public ReadOnlyObservableCollection<SteamApp>? DownloadingApps => _DownloadingApps;
-
-        private readonly SourceList<SteamApp> _DownloadingAppSourceList;
 
     }
 }

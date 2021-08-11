@@ -357,6 +357,20 @@
                         FontSize="20"
                         Foreground="{DynamicResource HighlightForegroundBrushKey}"
                         IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
+                    <Border IsVisible="{Binding IsInstalled}"
+                            Margin="15 0 15 -5"
+                            CornerRadius="3"
+                            Classes="paper"
+                            Background="#3D4450"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom">
+                      <TextBlock Text="{Binding SizeOnDisk,Converter={StaticResource SizeConverter}}"
+                                 TextWrapping="Wrap"
+                                 Margin="10 3"
+                                 HorizontalAlignment="Center"
+                                 TextAlignment="Center"
+                                 FontSize="12"/>
+                    </Border>
                   </Panel>
                 </Border>
 

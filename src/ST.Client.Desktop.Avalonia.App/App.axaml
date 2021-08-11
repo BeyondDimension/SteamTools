@@ -13,6 +13,7 @@
     <converters:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
     <converters:GenderEnumValueConverter x:Key="GenderEnumValueConverter" />
     <converters:StringFormatConverter x:Key="StringFormatConverter" />
+    <converters:SizeConverter x:Key="SizeConverter" />
   </Application.Resources>
   <Application.Styles>
     <FluentTheme Mode="Dark" />

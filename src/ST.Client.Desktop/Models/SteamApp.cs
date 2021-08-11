@@ -51,7 +51,7 @@ namespace System.Application.Models
         public uint AppId { get; set; }
 
         //public bool IsInstalled { get; set; }
-        public bool IsInstalled => !string.IsNullOrEmpty(InstalledDir);
+        public bool IsInstalled => IsBitSet(State, 2);
 
         public string? InstalledDir { get; set; }
 
