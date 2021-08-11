@@ -42,7 +42,6 @@ namespace System.Application.UI.ViewModels
                 {
                     return true;
                 }
-
                 return false;
             };
         }
@@ -131,8 +130,8 @@ namespace System.Application.UI.ViewModels
                       IconKey ="EyeHideDrawing", Command = HideAppCommand },
                   new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)){
                       IconKey ="TopSpeedDrawing", Command = IdleAppCommand },
-                  new MenuItemViewModel (nameof(AppResources.GameList_SteamShutdown)){
-                      IconKey ="ClockArrowDownloadDrawing", Command = SteamShutdownCommand },
+                  //new MenuItemViewModel (nameof(AppResources.GameList_SteamShutdown)){
+                  //    IconKey ="ClockArrowDownloadDrawing", Command = SteamShutdownCommand },
             };
 
             AFKAutoUpdate?.CheckmarkChange(GameLibrarySettings.IsAutoAFKApps.Value);

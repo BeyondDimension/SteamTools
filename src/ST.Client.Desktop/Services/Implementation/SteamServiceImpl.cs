@@ -929,7 +929,6 @@ namespace System.Application.Services.Implementation
                 fsw.Changed += Fsw_Changed;
                 fsw.Deleted += Fsw_Deleted;
                 fsw.EnableRaisingEvents = true;
-
             }
 
             void Fsw_Deleted(object sender, FileSystemEventArgs e)

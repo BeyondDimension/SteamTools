@@ -24,13 +24,20 @@
         Background="{DynamicResource ThemeBrushKey}"
         Padding="10"
         Margin="20 40 20 0">
-        <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Left">
-          <Button
-                   Background="Transparent"
-                   Cursor="Hand">
-            <PathIcon Width="16" Height="16" Data="{DynamicResource PauseCircleDrawing}"/>
-          </Button>
-        </StackPanel>
+        <DockPanel>
+          <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Left">
+            <TextBlock Text="启用下载监控" VerticalAlignment="Center"></TextBlock>
+            <ToggleSwitch OnContent="" OffContent="" VerticalAlignment="Center"></ToggleSwitch>
+
+            <TextBlock Text="选中游戏下载完成后执行" VerticalAlignment="Center"></TextBlock>
+            <ComboBox PlaceholderText="睡眠" VerticalAlignment="Center"></ComboBox>
+
+          </StackPanel>
+
+          <CheckBox HorizontalAlignment="Right" 
+                    Content="全部选中" 
+                    VerticalAlignment="Center"></CheckBox>
+        </DockPanel>
       </Border>
       <Panel DockPanel.Dock="Bottom">
         <ScrollViewer Padding="0 10">
@@ -59,10 +66,11 @@
 
                     <WrapPanel Grid.Column="2"
                                 VerticalAlignment="Center">
-                      <TextBlock Text="{Binding LastUpdated,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
+                      <!--<TextBlock Text="{Binding LastUpdated,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
                                  FontSize="16"
                                  VerticalAlignment="Center"
-                                 Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                                 Foreground="{DynamicResource InactiveForegroundBrushKey}"/>-->
+                      <CheckBox></CheckBox>
                     </WrapPanel>
                   </Grid>
                 </Border>

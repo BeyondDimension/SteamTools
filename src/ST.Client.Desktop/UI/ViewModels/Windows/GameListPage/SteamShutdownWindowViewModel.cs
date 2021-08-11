@@ -19,6 +19,7 @@ namespace System.Application.UI.ViewModels
 
             SteamConnectService.Current.DownloadApps
                .Connect()
+               .Filter(p => p.IsDownloading)
                .ObserveOn(RxApp.MainThreadScheduler)
                .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.AppId).ThenByDescending(x => x.SizeOnDisk))
                .Bind(out _DownloadingApps)

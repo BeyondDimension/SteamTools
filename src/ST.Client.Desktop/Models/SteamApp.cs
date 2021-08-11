@@ -325,6 +325,7 @@ namespace System.Application.Models
 
             /* Counting from zero and starting from the right
              * Bit 1 indicates if a download is running
+             * Bit 3 indicates if a preloaded game download 
              * Bit 2 indicates if a game is installed
              * Bit 9 indicates if the download has been stopped by the user. The download will not happen, so don't wait for it.
              * Bit 10 (or maybe Bit 5) indicates if a DLC is downloaded for a game

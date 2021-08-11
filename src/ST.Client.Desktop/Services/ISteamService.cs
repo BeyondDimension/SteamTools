@@ -137,8 +137,13 @@ namespace System.Application.Services
         }
 
         /// <summary>
-        /// 获取正在下载的SteamApp列表
+        /// 获取已安装的SteamApp列表(包括正在下载的项)
         /// </summary>
         List<SteamApp> GetDownloadingAppList();
+
+        /// <summary>
+        /// 监听Steam下载
+        /// </summary>
+        void InitWatchSteamDownloading(Action<uint> changedAction, Action<uint> deleteAction);
     }
 }

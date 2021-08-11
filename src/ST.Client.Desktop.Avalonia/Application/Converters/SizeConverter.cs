@@ -11,27 +11,34 @@ namespace System.Application.Converters
         {
             if (double.TryParse(value.ToString(), out double b))
             {
-                if (b > SizeUnit)
+                if (b > 0)
                 {
-                    var kb = b / SizeUnit;
-                    if (kb > SizeUnit)
+                    if (b > SizeUnit)
                     {
-                        var mb = kb / SizeUnit;
-                        if (mb > SizeUnit)
+                        var kb = b / SizeUnit;
+                        if (kb > SizeUnit)
                         {
-                            var gb = mb / SizeUnit;
-                            if (gb > SizeUnit)
+                            var mb = kb / SizeUnit;
+                            if (mb > SizeUnit)
                             {
-                                var tb = gb / SizeUnit;
-                                return tb.ToString("###,###.##") + " TB";
+                                var gb = mb / SizeUnit;
+                                if (gb > SizeUnit)
+                                {
+                                    var tb = gb / SizeUnit;
+                                    return tb.ToString("###,###.##") + " TB";
+                                }
+                                return gb.ToString("###,###.##") + " GB";
                             }
-                            return gb.ToString("###,###.##") + " GB";
+                            return mb.ToString("###,###.##") + " MB";
                         }
-                        return mb.ToString("###,###.##") + " MB";
+                        return kb.ToString("###,###.##") + " KB";
                     }
-                    return kb.ToString("###,###.##") + " KB";
+                    return b.ToString("###,###.##") + " B";
                 }
-                return b.ToString("###,###.##") + " B";
+                else 
+                {
+                    return "0 B";
+                }
             }
             return value;
         }
