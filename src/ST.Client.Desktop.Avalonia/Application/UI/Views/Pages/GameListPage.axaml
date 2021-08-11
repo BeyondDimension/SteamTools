@@ -365,6 +365,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom">
                       <TextBlock Text="{Binding SizeOnDisk,Converter={StaticResource SizeConverter}}"
+                                 Foreground="{DynamicResource HighlightForegroundBrushKey}"
                                  TextWrapping="Wrap"
                                  Margin="10 3"
                                  HorizontalAlignment="Center"
