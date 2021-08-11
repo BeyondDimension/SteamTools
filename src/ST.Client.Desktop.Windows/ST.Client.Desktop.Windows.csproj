@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('net6')) ">
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0-preview.5.21301.5" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0-preview.7.21377.19" />
   </ItemGroup>
 
   <ItemGroup>
