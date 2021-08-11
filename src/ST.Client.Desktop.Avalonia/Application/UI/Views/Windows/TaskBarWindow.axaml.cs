@@ -2,13 +2,14 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
 using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.ViewModels;
 
 namespace System.Application.UI.Views.Windows
 {
-    public partial class TaskBarWindow : Window
+    public partial class TaskBarWindow : ReactiveWindow<TaskBarWindowViewModel>
     {
         private bool IsPointerOverSubMenu = false;
 
