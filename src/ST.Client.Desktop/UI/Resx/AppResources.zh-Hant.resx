@@ -1969,4 +1969,16 @@
     <value>Steam國際服</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="Settings_General_LogSize" xml:space="preserve">
+    <value>記錄檔已佔用 {0}</value>
+    <comment>Comment={0}占用体积大小;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_WaitFastLoginTip" xml:space="preserve">
+    <value>我們已使用您的系統瀏覽器打開快速登陸視窗，請進入該頁面並登陸。 保持該窗口打開</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>重試</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

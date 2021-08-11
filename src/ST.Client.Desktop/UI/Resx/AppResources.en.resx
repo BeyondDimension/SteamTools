@@ -1973,4 +1973,16 @@
     <value>Steam International Service</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="Settings_General_LogSize" xml:space="preserve">
+    <value>Log files are occupied {0}</value>
+    <comment>Comment={0}占用体积大小;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_WaitFastLoginTip" xml:space="preserve">
+    <value>We have opened the quick login window using your system browser, please go to this page and log in. Keep the window open</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>retry</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

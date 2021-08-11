@@ -1969,4 +1969,16 @@
     <value>스팀 인터내셔널웨어</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="Settings_General_LogSize" xml:space="preserve">
+    <value>로그 파일이 이미 {0}</value>
+    <comment>Comment={0}占用体积大小;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_WaitFastLoginTip" xml:space="preserve">
+    <value>시스템 브라우저를 사용하여 빠른 로그인 창을 열수 있습니다. 창을 열어 두십시오</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>다시 시도하십시오</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

@@ -1974,4 +1974,16 @@ Sicuro di voler continuare?</value>
     <value>Servizio internazionale steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="Settings_General_LogSize" xml:space="preserve">
+    <value>I file di registro sono occupati {0}</value>
+    <comment>Comment={0}占用体积大小;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_WaitFastLoginTip" xml:space="preserve">
+    <value>Abbiamo aperto la finestra di accesso rapido utilizzando il browser di sistema, vai a questa pagina e accedi. Tenere aperta la finestra</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>ripetere</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

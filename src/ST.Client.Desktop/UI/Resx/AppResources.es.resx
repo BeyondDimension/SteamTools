@@ -1974,4 +1974,16 @@
     <value>Servicio Internacional steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="Settings_General_LogSize" xml:space="preserve">
+    <value>Los archivos de registro están ocupados {0}</value>
+    <comment>Comment={0}占用体积大小;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_WaitFastLoginTip" xml:space="preserve">
+    <value>Hemos abierto la ventana de inicio de sesión rápido utilizando el navegador de su sistema, por favor vaya a esta página e inicie sesión. Mantener la ventana abierta</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>reintentar</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

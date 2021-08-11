@@ -82,7 +82,7 @@ namespace System.Commands
             }
             if (index_cell_value == -1 || index_cell_author == -1 || index_cell_comment == -1) return messages;
 
-            Dictionary<string, (string value, string comment)> dict = new();
+            Dictionary<string, (string value, Dictionary<string, string> comment)> dict = new();
             while (true) // 循环 Body 区域
             {
                 row = sheet.GetRow(index_row++);
@@ -104,9 +104,14 @@ namespace System.Commands
                         { CommentKey, comment },
                         { AuthorKey, author },
                     };
-                    var commentStr = Serialize(commentDict);
-                    dict.Add(key, (value, commentStr));
+                    dict.Add(key, (value, commentDict));
                 }
+            }
+
+            var resxFileDictLangDict = GetResxDict(resxFilePathLang, ignoreStringBuilder: true).dict;
+            foreach (var item in dict)
+            {
+                resxFileDictLangDict.AddOrReplace(item);
             }
 
             var template = Properties.Resources.Resx;
@@ -119,13 +124,14 @@ namespace System.Commands
             }
 
             var sb = new StringBuilder(template.Substring(0, rootEndIndex));
-            foreach (var item in dict)
+            foreach (var item in resxFileDictLangDict)
             {
                 sb.AppendFormatLine("  <data name=\"{0}\" xml:space=\"preserve\">", item.Key);
                 sb.AppendFormatLine("    <value>{0}</value>", Escape(item.Value.value));
-                if (!string.IsNullOrWhiteSpace(item.Value.comment))
+                var commentStr = Serialize(item.Value.comment);
+                if (!string.IsNullOrWhiteSpace(commentStr))
                 {
-                    sb.AppendFormatLine("    <comment>{0}</comment>", Escape(item.Value.comment));
+                    sb.AppendFormatLine("    <comment>{0}</comment>", Escape(commentStr));
                 }
                 sb.AppendLine("  </data>");
             }

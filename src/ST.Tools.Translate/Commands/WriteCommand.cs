@@ -16,7 +16,7 @@ namespace System.Commands
     /// </summary>
     static class WriteCommand
     {
-        public static bool EnableAzureTranslation { get; private set; } = false;
+        public static bool EnableAzureTranslation { get; private set; } = true;
 
         readonly static Dictionary<string, (string fileName, string author)> tempXlsxPairs = new()
         {
