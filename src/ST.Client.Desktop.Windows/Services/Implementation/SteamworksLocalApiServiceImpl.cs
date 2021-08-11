@@ -84,12 +84,11 @@ namespace System.Application.Services.Implementation
                     ////Logo = GetAppData(s.AppId, "logo"),
                     //InstalledDir = GetAppInstallDir(s.AppId),
                     //IsInstalled = IsAppInstalled(s.AppId)
-
-                    s.IsInstalled = IsAppInstalled(s.AppId);
+                    //s.IsInstalled = IsAppInstalled(s.AppId);
                     s.Type = Enum.TryParse<SteamAppType>(GetAppData(s.AppId, "type"), true, out var result) ? result : SteamAppType.Unknown;
                     s.InstalledDir = GetAppInstallDir(s.AppId);
                     return s;
-                });
+                }).ToList();
         }
 
         public string GetAppData(uint appid, string key)

@@ -50,7 +50,8 @@ namespace System.Application.Models
 
         public uint AppId { get; set; }
 
-        public bool IsInstalled { get; set; }
+        //public bool IsInstalled { get; set; }
+        public bool IsInstalled => !string.IsNullOrEmpty(InstalledDir);
 
         public string? InstalledDir { get; set; }
 
@@ -92,6 +93,33 @@ namespace System.Application.Models
         public SteamAppType Type { get; set; }
 
         public uint ParentId { get; set; }
+
+        public long lastUpdatedTicks;
+        /// <summary>
+        /// 最后更新日期
+        /// </summary>
+        public DateTime LastUpdated { get; set; }
+
+        /// <summary>
+        /// 占用硬盘字节大小
+        /// </summary>
+        public long SizeOnDisk { get; set; }
+
+        /// <summary>
+        /// 最后运行用户SteamId64
+        /// </summary>
+        public long LastOwner { get; set; }
+
+        /// <summary>
+        /// 下载字节数
+        /// </summary>
+        public long BytesToDownload { get; set; }
+
+        /// <summary>
+        /// 已下载字节数 
+        /// </summary>
+        public long BytesDownloaded { get; set; }
+
 
         public IList<uint> ChildApp { get; set; } = new List<uint>();
 
@@ -218,13 +246,16 @@ namespace System.Application.Models
                 app._changeNumber = binaryReader.ReadUInt32();
                 app._properties = binaryReader.ReadPropertyTable();
                 var nodes = new string[3] { NodeAppInfo, NodeCommon, string.Empty };
-                var installpath = app._properties.GetPropertyValue<string>("", new string[]
-                {
-                    NodeAppInfo,
-                    "config",
-                    "installdir"
-                 });
-                app.InstalledDir = Path.Combine(Services.ISteamService.Instance.SteamDirPath, "steamapps", NodeCommon, installpath);
+                //var installpath = app._properties.GetPropertyValue<string>(null, new string[]
+                //{
+                //    NodeAppInfo,
+                //    "config",
+                //    "installdir"
+                // });
+                //if (!string.IsNullOrEmpty(installpath))
+                //{
+                //    app.InstalledDir = Path.Combine(Services.ISteamService.Instance.SteamDirPath, "steamapps", NodeCommon, installpath);
+                //}
 
                 nodes[2] = NodeParentId;
                 app.ParentId = (uint)app._properties.GetPropertyValue<int>(0, nodes);
@@ -279,6 +310,7 @@ namespace System.Application.Models
             }
             return app;
         }
+
         private static bool IsBitSet(int b, int pos)
         {
             return (b & (1 << pos)) != 0;

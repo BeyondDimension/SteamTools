@@ -1,3 +1,4 @@
+using Gameloop.Vdf.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Application.Models;
@@ -813,23 +814,21 @@ namespace System.Application.Services.Implementation
 
             for (int i = 1; ; i++)
             {
-                dynamic pathNode = v[i.ToString()];
+                dynamic pathNode = v.Value[i.ToString()];
 
                 if (pathNode == null) break;
 
-                if (pathNode.Type != JTokenType.String)
-                {
-                    // New format
-                    // Valve introduced a new format for the "libraryfolders.vdf" file
-                    // In the new format, the node "1" not only contains a single value (the path),
-                    // but multiple values: path, label, mounted, contentid
 
-                    // If a library folder is removed in the Steam settings, the path persists, but its 'mounted' value is set to 0 (disabled)
-                    // We consider only the value '1' as that the path is actually enabled.
-                    if (pathNode["mounted"].ToString() != "1")
-                        continue;
-                    pathNode = pathNode["path"];
-                }
+                // New format
+                // Valve introduced a new format for the "libraryfolders.vdf" file
+                // In the new format, the node "1" not only contains a single value (the path),
+                // but multiple values: path, label, mounted, contentid
+
+                // If a library folder is removed in the Steam settings, the path persists, but its 'mounted' value is set to 0 (disabled)
+                // We consider only the value '1' as that the path is actually enabled.
+                if (pathNode["mounted"] != null && pathNode["mounted"].ToString() != "1")
+                    continue;
+                pathNode = pathNode["path"];
 
                 string path = Path.Combine(pathNode.ToString(), "SteamApps");
 
@@ -848,20 +847,27 @@ namespace System.Application.Services.Implementation
 
             dynamic v = VdfHelper.Read(filename);
 
-            if (v == null)
+            if (v.Value == null)
             {
                 Toast.Show(
                     $"{filename}{Environment.NewLine}contains unexpected content.{Environment.NewLine}This game will be ignored.");
                 return null;
             }
+            v = v.Value;
 
             SteamApp newInfo = new SteamApp
             {
                 AppId = uint.Parse((v.appid ?? v.appID ?? v.AppID).ToString()),
-                Name = v.name ?? v.installdir,
-                State = int.Parse(v.StateFlags.ToString())
+                Name = v.name.ToString() ?? v.installdir.ToString(),
+                InstalledDir = Path.Combine(Path.GetDirectoryName(filename), "common", v.installdir.ToString()),
+                State = int.Parse(v.StateFlags.ToString()),
+                SizeOnDisk = long.Parse(v.SizeOnDisk.ToString()),
+                LastOwner = long.Parse(v.LastOwner.ToString()),
+                BytesToDownload = long.Parse(v.BytesToDownload.ToString()),
+                BytesDownloaded = long.Parse(v.BytesDownloaded.ToString()),
+                lastUpdatedTicks = long.Parse(v.LastUpdated.ToString()),
             };
-
+            newInfo.LastUpdated = newInfo.lastUpdatedTicks.ToDateTimeS();
             return newInfo;
         }
 

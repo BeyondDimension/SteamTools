@@ -135,5 +135,10 @@ namespace System.Application.Services
             MissingCookieSteamLoginSecure,
             EmptyOrNull,
         }
+
+        /// <summary>
+        /// 获取正在下载的SteamApp列表
+        /// </summary>
+        List<SteamApp> GetDownloadingAppList();
     }
 }
