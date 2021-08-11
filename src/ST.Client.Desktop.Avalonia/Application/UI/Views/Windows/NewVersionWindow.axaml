@@ -17,23 +17,27 @@
         WindowStartupLocation="CenterScreen"
         ShowInTaskbar="True"
         SizeToContent="WidthAndHeight"
-        Padding="0" Background="Transparent"
+        Padding="0"
+        Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"
         CanResize="False"
         Title="{ReflectionBinding Path=NewVersionInfoTitle,Mode=OneWay,Source={x:Static ccl_services:IAppUpdateService.Instance}}">
   <Grid RowDefinitions="1,30,*,Auto,Auto,1">
     <controls:TitleBar Grid.RowSpan="5"/>
     <StackPanel Margin="12 10 12 0" Grid.Row="2" x:Name="content">
-      <DockPanel>
-        <TextBlock Text="{ReflectionBinding Path=Res.UpdateContent,Mode=OneWay,Source={x:Static resx:R.Current}}" DockPanel.Dock="Top" Margin="0,0,0,8" FontSize="19"/>
-        <TextBlock Text="{ReflectionBinding Path=NewVersionInfoDesc,Mode=OneWay,Source={x:Static ccl_services:IAppUpdateService.Instance}}"
-                   MaxWidth="596"
-                   Margin="12,0"
-                   FontSize="15"
-                   HorizontalAlignment="Left"
-                   TextWrapping="WrapWithOverflow"
-                   VerticalAlignment="Center"/>
-      </DockPanel>
+      <ScrollViewer MinHeight="400">
+        <StackPanel Spacing="8">
+          <TextBlock Text="{ReflectionBinding Path=Res.UpdateContent,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                     FontSize="19"/>
+          <TextBlock Text="{ReflectionBinding Path=NewVersionInfoDesc,Mode=OneWay,Source={x:Static ccl_services:IAppUpdateService.Instance}}"
+                     MaxWidth="596"
+                     Margin="12,0"
+                     FontSize="15"
+                     HorizontalAlignment="Left"
+                     TextWrapping="WrapWithOverflow"
+                     VerticalAlignment="Center"/>
+        </StackPanel>
+      </ScrollViewer>
       <Border Margin="0 11 0 11">
         <Separator Classes="Separator"/>
       </Border>
