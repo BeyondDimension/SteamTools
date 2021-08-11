@@ -79,7 +79,7 @@ namespace System.Application.Services.Implementation
                             dialogWindowViewModel.OK = ReactiveCommand.Create(() =>
                             {
                                 dialogWindowViewModel.DialogResult = true;
-                                if (dialogWindowViewModel.CanClose())
+                                if (dialogWindowViewModel.OnOKClickCanClose())
                                 {
                                     window.Close();
                                 }
@@ -90,10 +90,7 @@ namespace System.Application.Services.Implementation
                             dialogWindowViewModel.Cancel = ReactiveCommand.Create(() =>
                             {
                                 dialogWindowViewModel.DialogResult = false;
-                                if (dialogWindowViewModel.CanClose())
-                                {
-                                    window.Close();
-                                }
+                                window.Close();
                             });
                         }
                     }

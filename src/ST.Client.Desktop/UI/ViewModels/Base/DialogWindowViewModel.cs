@@ -14,19 +14,16 @@ namespace System.Application.UI.ViewModels
         public ICommand? Cancel { get; set; }
 
         /// <summary>
-        /// 当前是否可以关闭窗口
+        /// 当点击确定时是否可以关闭窗口
         /// </summary>
         /// <returns></returns>
-        public virtual bool CanClose()
+        public virtual bool OnOKClickCanClose()
         {
-            if (this is ITextBoxWindowViewModel viewModel_p)
+            if (this is ITextBoxWindowViewModel viewModel_tb)
             {
-                if (DialogResult)
+                if (!viewModel_tb.InputValidator()) // 文本框弹窗输入验证不通过时不能关闭
                 {
-                    if (!viewModel_p.InputValidator()) // 文本框弹窗输入验证不通过时不能关闭
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
             return true;

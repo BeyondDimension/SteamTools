@@ -130,10 +130,10 @@ namespace System.Application.Services.Implementation
                         }
                         d.GetButton((int)DialogButtonType.Positive).Click += (_, _) =>
                         {
-                            if (viewModel is ITextBoxWindowViewModel viewModel_p)
+                            if (viewModel is ITextBoxWindowViewModel viewModel_tb)
                             {
-                                viewModel_p.Value = binding.tbPassword.Text;
-                                if (viewModel_p.InputValidator())
+                                viewModel_tb.Value = binding.tbPassword.Text;
+                                if (viewModel_tb.InputValidator())
                                 {
                                     d.Dismiss();
                                     tcs.TrySetResult(true);
