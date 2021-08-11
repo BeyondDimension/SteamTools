@@ -24,13 +24,13 @@ jobs:
       with:
         dotnet-version: 6.0.100-preview.7.21379.14
 
-    - name: Install macOS SDK(macOS)
-      if: matrix.os == 'macOS-latest'
-      run: sudo dotnet workload install microsoft-macos-sdk-full
+#    - name: Install macOS SDK(macOS)
+#      if: matrix.os == 'macOS-latest'
+#      run: sudo dotnet workload install microsoft-macos-sdk-full
       
-    - name: Install macOS SDK(Windows)
-      if: matrix.os == 'windows-latest'
-      run: dotnet workload install microsoft-macos-sdk-full
+#    - name: Install macOS SDK(Windows)
+#      if: matrix.os == 'windows-latest'
+#      run: dotnet workload install microsoft-macos-sdk-full
 
     - name: Checkout repository
       uses: actions/checkout@v2
