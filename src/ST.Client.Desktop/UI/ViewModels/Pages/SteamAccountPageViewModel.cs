@@ -48,8 +48,8 @@ namespace System.Application.UI.ViewModels
                             { IconKey="SteamDrawing", Command=LoginAccountCommand },
                 new MenuItemViewModel(nameof(AppResources.AccountChange_Title)){
                       IconKey ="ChannelShareDrawing", Command = ShareManageCommand },
-                new MenuItemViewModel(nameof(AppResources.UserChange_RemarkReplaceName)){
-                      IconKey ="EditDrawing", Command = ShareManageCommand },
+                //new MenuItemViewModel(nameof(AppResources.UserChange_RemarkReplaceName)){
+                //      IconKey ="EditDrawing", Command = ShareManageCommand },
             };
 
             _SteamUsersSourceList = new SourceCache<SteamUser, long>(t => t.SteamId64);

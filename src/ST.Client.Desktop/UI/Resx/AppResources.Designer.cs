@@ -151,7 +151,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 置顶的为当前首选家庭共享库，适用于特殊场景。 的本地化字符串。
+        ///   查找类似 调整当前设备上共享的Steam账号优先级顺序，用于解决想玩账号B的共享却一直使用的是账号A的共享这种问题，从上到下的排序为共享库使用的优先级顺序，调整后保存重启Steam生效。 的本地化字符串。
         /// </summary>
         public static string AccountChange_ShareManageAboutTips {
             get {
@@ -3881,7 +3881,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 无效令牌：当前令牌账号与已登录账号不匹配 的本地化字符串。
+        ///   查找类似 当前令牌账号与已登录账号不匹配 的本地化字符串。
         /// </summary>
         public static string User_LoginError_Auth {
             get {
@@ -4061,7 +4061,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 连接到 Steam 社区超时，请检查是否开启网络加速。 的本地化字符串。
+        ///   查找类似 连接到 Steam 社区超时，请检查是否开启Steam社区网络加速。 的本地化字符串。
         /// </summary>
         public static string User_SteamFastLoginTimeoutErrorMessage {
             get {

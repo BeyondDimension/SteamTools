@@ -148,7 +148,7 @@
     <value>修改的数据生效需要重启Steam是否需要重启Steam。</value>
   </data>
   <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
-    <value>置顶的为当前首选家庭共享库，适用于特殊场景。</value>
+    <value>调整当前设备上共享的Steam账号优先级顺序，用于解决想玩账号B的共享却一直使用的是账号A的共享这种问题，从上到下的排序为共享库使用的优先级顺序，调整后保存重启Steam生效。</value>
   </data>
   <data name="AccountChange_Title" xml:space="preserve">
     <value>家庭共享库管理</value>
@@ -260,7 +260,7 @@
   <data name="CloudSync" xml:space="preserve">
     <value>云同步</value>
   </data>
-    <data name="CommunityFix" xml:space="preserve">
+  <data name="CommunityFix" xml:space="preserve">
     <value>网络加速</value>
   </data>
   <data name="CommunityFix_Acceleration" xml:space="preserve">
@@ -1247,7 +1247,7 @@
   <data name="UserChange_DeleteUser" xml:space="preserve">
     <value>删除此账号数据</value>
   </data>
-    <data name="UserChange_DeleteUserDataTip" xml:space="preserve">
+  <data name="UserChange_DeleteUserDataTip" xml:space="preserve">
     <value>是否也要同时删除此账户在本地的 Steam 缓存数据(包括此账号游戏的配置文件及创意工坊文件)。</value>
   </data>
   <data name="UserChange_DeleteUserTip" xml:space="preserve">
@@ -1337,7 +1337,7 @@
   <data name="User_LoginError" xml:space="preserve">
     <value>账号或密码错误</value>
   </data>
-    <data name="User_LoginError_Auth" xml:space="preserve">
+  <data name="User_LoginError_Auth" xml:space="preserve">
     <value>当前令牌账号与已登录账号不匹配</value>
   </data>
   <data name="User_LoginError_CodeImage" xml:space="preserve">
@@ -1397,7 +1397,7 @@
   <data name="User_SteamFastLogin" xml:space="preserve">
     <value>Steam 快速登录</value>
   </data>
-    <data name="User_SteamFastLoginTimeoutErrorMessage" xml:space="preserve">
+  <data name="User_SteamFastLoginTimeoutErrorMessage" xml:space="preserve">
     <value>连接到 Steam 社区超时，请检查是否开启Steam社区网络加速。</value>
   </data>
   <data name="User_SteamLogoTip" xml:space="preserve">
