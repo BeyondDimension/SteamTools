@@ -222,9 +222,10 @@
       </StackPanel>
 
       <TextBlock IsVisible="{Binding IsSteamAppsEmpty}"
-         Text="{ReflectionBinding Path=Res.GameList_IsEmpty,Mode=OneWay,Source={x:Static resx:R.Current}}"
-         TextWrapping="WrapWithOverflow"
-         VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                 Text="{ReflectionBinding Path=Res.GameList_IsEmpty,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                 TextWrapping="WrapWithOverflow"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"/>
       <ScrollViewer
             HorizontalScrollBarVisibility="Disabled"
             VerticalScrollBarVisibility="Auto"
@@ -232,7 +233,7 @@
         <ItemsRepeater x:Name="Apps" Items="{Binding SteamApps}">
           <ItemsRepeater.Layout>
             <UniformGridLayout ItemsJustification="SpaceEvenly"
-                               MinRowSpacing="5"
+                               MinRowSpacing="10"
                                MinColumnSpacing="10"
                                MaximumRowsOrColumns="10"
                                ItemsStretch="Fill" />
@@ -374,9 +375,15 @@
                     </Border>
                   </Panel>
                 </Border>
-
-                <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding DisplayName}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}" Text="{Binding AppId}" FontSize="10" Foreground="{DynamicResource InactiveForegroundBrushKey}" />
+                <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}"
+                                             Text="{Binding DisplayName}"
+                                             FontSize="12"
+                                             FontWeight="Bold"
+                                             Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}"
+                                             Text="{Binding AppId}"
+                                             FontSize="10"
+                                             Foreground="{DynamicResource InactiveForegroundBrushKey}" />
               </StackPanel>
             </DataTemplate>
           </ItemsRepeater.ItemTemplate>
