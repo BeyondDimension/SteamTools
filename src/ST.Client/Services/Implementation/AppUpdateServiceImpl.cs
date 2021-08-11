@@ -100,6 +100,7 @@ namespace System.Application.Services.Implementation
                 if (NewVersionInfo.HasValue())
                 {
                     OnExistNewVersion();
+                    return;
                 }
                 else
                 {

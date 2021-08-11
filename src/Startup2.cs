@@ -433,7 +433,7 @@ namespace System.Application
                             {
                                 var url = CSConst.Prefix_HTTPS + "localhost:5001";
                                 var request = WebRequest.CreateHttp(url);
-                                request.Timeout = 888;
+                                request.Timeout = 1888;
                                 request.GetResponse();
                                 s.ApiBaseUrl = url;
                                 return;

@@ -78,5 +78,7 @@ namespace System
         public const string PDF = "application/pdf";
 
         public const string All = "*/*";
+
+        public const string _7Z = "application/x-7z-compressed";
     }
 }
