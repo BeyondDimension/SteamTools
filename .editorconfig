@@ -17,7 +17,7 @@ charset = utf-8
 [Makefile]
 indent_style = tab
 
-[*.{js,json,xaml,axaml}]
+[*.{js,json,xaml,axaml,xml,resx,resw,csproj,wapproj,appxmanifest}]
 indent_style = space
 indent_size = 2
 
