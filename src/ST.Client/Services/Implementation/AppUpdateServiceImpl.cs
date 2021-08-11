@@ -79,7 +79,7 @@ namespace System.Application.Services.Implementation
             {
                 var value = NewVersionInfo?.Description;
                 if (string.IsNullOrWhiteSpace(value)) return string.Empty;
-                var lines = value.Split(';', StringSplitOptions.RemoveEmptyEntries);
+                var lines = value.Split(';');
                 return string.Join(Environment.NewLine, lines);
             }
         }

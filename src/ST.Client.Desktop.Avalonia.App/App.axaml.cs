@@ -292,7 +292,6 @@ namespace System.Application.UI
 
         void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
         {
-
             var isOfficialChannelPackage = IsNotOfficialChannelPackageDetectionHelper.Check(Program.IsMainProcess);
 
 #if StartupTrace
@@ -455,7 +454,7 @@ namespace System.Application.UI
         void IDesktopAppService.Shutdown() => Shutdown();
 
         bool IDesktopAppService.IsCefInitComplete => false;
-            //CefNetApp.InitState == CefNetAppInitState.Complete;
+        //CefNetApp.InitState == CefNetAppInitState.Complete;
 
         #region IDisposable members
 
