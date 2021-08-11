@@ -6,6 +6,7 @@ using System.Application.Repositories;
 using System.Application.Security;
 using System.Application.Services;
 using System.Application.UI.Resx;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Properties;
@@ -286,7 +287,8 @@ namespace System.Application.UI.ViewModels
 
         async void MoveOrderById(MyAuthenticator auth, bool upOrDown)
         {
-            var row = await DI.Get<IGameAccountPlatformAuthenticatorRepository>().MoveOrderByIdAsync(AuthService.Current.Authenticators.Items.Select(x => x.AuthenticatorData).ToList(), auth.Id, upOrDown);
+            var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
+            var row = await repository.MoveOrderByItemAsync(x => x.AuthenticatorData, _Authenticators, auth, upOrDown);
             await AuthService.Current.InitializeAsync(false);
         }
     }

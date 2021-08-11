@@ -1,3 +1,4 @@
+using DynamicData;
 using System.Application.Columns;
 using System.Application.Entities;
 using System.Application.Models;
@@ -386,23 +387,22 @@ namespace System.Application.Repositories.Implementation
             //return 0;
         }
 
-        public async Task<int> MoveOrderByIndexAsync(IList<IGAPAuthenticatorDTO> items, int index, bool upOrDown)
+        public async Task<int> MoveOrderByIndexAsync<T>(Func<T, IGAPAuthenticatorDTO> convert, IReadOnlyList<T> items, int index, bool upOrDown)
         {
             var item = items[index];
             var item2Index = upOrDown ? index - 1 : index + 1;
             if (item2Index > -1 && item2Index < items.Count)
             {
                 var item2 = items[item2Index];
-                var orderIndex = GetOrder(item);
-                var orderIndex2 = GetOrder(item2);
-                item.Index = orderIndex2;
-                item2.Index = orderIndex;
-                //var r = await UpdateIndexByItemAsync(item);
-                //r += await UpdateIndexByItemAsync(item2);
-                //return r;
+                var itemC = convert(item);
+                var itemC2 = convert(item2);
+                var orderIndex = GetOrder(itemC);
+                var orderIndex2 = GetOrder(itemC2);
+                itemC.Index = orderIndex2;
+                itemC2.Index = orderIndex;
                 var r = await Task.WhenAll(
-                    UpdateIndexByItemAsync(item),
-                    UpdateIndexByItemAsync(item2));
+                    UpdateIndexByItemAsync(itemC),
+                    UpdateIndexByItemAsync(itemC2));
                 return r.Sum();
             }
             return 0;

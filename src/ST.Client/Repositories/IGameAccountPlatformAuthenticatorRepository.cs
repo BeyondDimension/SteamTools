@@ -1,3 +1,4 @@
+using DynamicData;
 using System.Application.Entities;
 using System.Application.Models;
 using System.Collections.Generic;
@@ -184,39 +185,21 @@ namespace System.Application.Repositories
         /// <summary>
         /// 移动排序值，上移或下移，返回受影响的行数
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="convert"></param>
         /// <param name="items"></param>
         /// <param name="index"></param>
         /// <param name="upOrDown"></param>
         /// <returns></returns>
-        Task<int> MoveOrderByIndexAsync(IList<IGAPAuthenticatorDTO> items, int index, bool upOrDown);
+        Task<int> MoveOrderByIndexAsync<T>(Func<T, IGAPAuthenticatorDTO> convert, IReadOnlyList<T> items, int index, bool upOrDown);
 
-        /// <inheritdoc cref="MoveOrderByIndexAsync(IList{IGAPAuthenticatorDTO}, int, bool)"/>
-        async Task<int> MoveOrderByItemAsync(IList<IGAPAuthenticatorDTO> items, IGAPAuthenticatorDTO item, bool upOrDown)
+        /// <inheritdoc cref="MoveOrderByIndexAsync{T}(Func{T, IGAPAuthenticatorDTO}, IReadOnlyList{T}, int, bool)"/>
+        async Task<int> MoveOrderByItemAsync<T>(Func<T, IGAPAuthenticatorDTO> convert, IReadOnlyList<T> items, T item, bool upOrDown)
         {
             var index = items.IndexOf(item);
             if (index > -1)
             {
-                return await MoveOrderByIndexAsync(items, index, upOrDown);
-            }
-            return 0;
-        }
-
-        /// <inheritdoc cref="MoveOrderByIndexAsync(IList{IGAPAuthenticatorDTO}, int, bool)"/>
-        async Task<int> MoveOrderByIdAsync(IList<IGAPAuthenticatorDTO> items, int id, bool upOrDown)
-        {
-            var index = -1;
-            for (int i = 0; i < items.Count; i++)
-            {
-                var item = items[i];
-                if (item.Id == id)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            if (index > -1)
-            {
-                return await MoveOrderByIndexAsync(items, index, upOrDown);
+                return await MoveOrderByIndexAsync<T>(convert, items, index, upOrDown);
             }
             return 0;
         }

@@ -43,9 +43,11 @@ namespace System.Application.Models
 
         public MyAuthenticator()
         {
+            AuthenticatorData = new GAPAuthenticatorDTO();
+            OriginName = string.Empty;
         }
 
-        public MyAuthenticator(IGAPAuthenticatorDTO data) : this()
+        public MyAuthenticator(IGAPAuthenticatorDTO data)
         {
             AuthenticatorData = data;
             OriginName = AuthenticatorData.Name;
@@ -207,8 +209,7 @@ namespace System.Application.Models
             //{
             //    Id = id;
             //}
-            AuthenticatorData = new GAPAuthenticatorDTO();
-            string authenticatorType = reader.GetAttribute("type");
+            var authenticatorType = reader.GetAttribute("type");
             switch (authenticatorType)
             {
                 case "WinAuth.SteamAuthenticator":
