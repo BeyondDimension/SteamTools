@@ -60,7 +60,7 @@ namespace System.Application.UI
             string? requestUri,
             int targetSize = 0,
             int targetResId = 0,
-            ScaleType? scaleType = default)
+            ScaleType scaleType = default)
         {
             if (string.IsNullOrWhiteSpace(requestUri))
             {
