@@ -67,7 +67,8 @@ namespace System.Application.Services.Implementation
                 {
                     viewModel.Title = title;
                 }
-                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                if (!isParent)
+                    window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 window.SetResizeMode(resizeMode);
                 if (typeof(DialogWindowViewModel).IsAssignableFrom(typeWindowViewModel))
                 {
