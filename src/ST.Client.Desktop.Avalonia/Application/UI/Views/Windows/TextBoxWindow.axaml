@@ -49,6 +49,6 @@
       </StackPanel>
     </Border>
     <!--Toast-->
-    <controls:ToastMessage Grid.Row="3"/>
+    <controls:ToastMessage Grid.RowSpan="5"/>
   </Grid>
 </Window>
