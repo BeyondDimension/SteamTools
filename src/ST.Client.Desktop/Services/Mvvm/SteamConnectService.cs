@@ -174,9 +174,9 @@ namespace System.Application.Services
             Task.Factory.StartNew(async () =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                try
+                while (true)
                 {
-                    while (true)
+                    try
                     {
                         if (SteamTool.IsRunningSteamProcess)
                         {
@@ -221,8 +221,6 @@ namespace System.Application.Services
                                     //await mainViewModel.SteamAppPage.Initialize();
                                     //await mainViewModel.AccountPage.Initialize(id);
                                     #endregion
-
-                                    DisposeSteamClient();
                                 }
                             }
                         }
@@ -234,11 +232,18 @@ namespace System.Application.Services
                         }
                         Thread.Sleep(2000);
                     }
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(nameof(SteamConnectService), ex, "SteamConnect Task LongRunning");
-                    ToastService.Current.Notify(ex.Message);
+                    catch (Exception ex)
+                    {
+                        Log.Error(nameof(SteamConnectService), ex, "SteamConnect Task LongRunning");
+                        ToastService.Current.Notify(ex.Message);
+                    }
+                    finally
+                    {
+                        if (!IsDisposedClient)
+                        {
+                            DisposeSteamClient();
+                        }
+                    }
                 }
             }, TaskCreationOptions.LongRunning).ConfigureAwait(false);
         }
