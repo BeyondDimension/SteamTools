@@ -235,18 +235,6 @@
       <Link>av_libglesv2.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\clrcompression.dll">
-      <Link>clrcompression.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\clrjit.dll">
-      <Link>clrjit.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\coreclr.dll">
-      <Link>coreclr.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\e_sqlite3.dll">
       <Link>e_sqlite3.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -257,10 +245,6 @@
     </Content>
     <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\libSkiaSharp.dll">
       <Link>libSkiaSharp.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\mscordaccore.dll">
-      <Link>mscordaccore.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\Steam++.exe">
@@ -274,4 +258,5 @@
   </ItemGroup>
   <!--ST.Tools.DesktopBridgeLink(Release-x64)-->
 </Project>
+
 
