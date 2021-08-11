@@ -56,18 +56,19 @@
                   Items="{Binding Mode=OneWay,Source={x:Static resx:R.Fonts}}"
                   SelectedItem="{Binding SelectFont}"
                   HorizontalAlignment="Stretch"
-                  MaxDropDownHeight="450">
+                  AutoScrollToSelectedItem="True"
+                  MaxDropDownHeight="400">
           <ComboBox.ItemTemplate>
             <DataTemplate>
               <TextBlock Text="{Binding Key,Mode=OneWay}"
-                         FontFamily="{Binding Value,Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"></TextBlock>
+                         FontFamily="{Binding Value,Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"/>
             </DataTemplate>
           </ComboBox.ItemTemplate>
         </ComboBox>
       </StackPanel>
-      
+
       <Separator Classes="Separator"/>
-      
+
       <StackPanel Orientation="Vertical" Spacing="8">
         <TextBlock Text="{ReflectionBinding Path=Res.Settings_UI_AcrylicTransparency,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         <Slider Value="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=TwoWay}" Minimum="0" Maximum="1.0"></Slider>

@@ -31,10 +31,12 @@ namespace System.Application.Services
         public SteamConnectService()
         {
             SteamApps = new SourceCache<SteamApp, uint>(t => t.AppId);
+            DownloadApps = new SourceCache<SteamApp, uint>(t => t.AppId);
         }
 
         #region Steam游戏列表
         public SourceCache<SteamApp, uint> SteamApps { get; }
+        public SourceCache<SteamApp, uint> DownloadApps { get; }
         #endregion
 
         #region 运行中的游戏列表

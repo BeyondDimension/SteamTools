@@ -19,20 +19,20 @@
         x:DataType="vm:AchievementWindowViewModel"
         x:CompileBindings="True"
         WindowStartupLocation="CenterScreen">
-    <Window.Styles>
-        <Style Selector="TabControl.flat">
-            <Setter Property="Margin" Value="0 20 0 0"></Setter>
-        </Style>
-        <Style Selector="TabControl.flat /template/ ItemsPresenter">
-            <Setter Property="Margin" Value="0,0,0,0"></Setter>
-        </Style>
-        <Style Selector="TabControl.flat /template/ ContentPresenter">
-            <Setter Property="Margin" Value="0,4,0,0"></Setter>
-        </Style>
-    </Window.Styles>
-    <Panel HorizontalAlignment="Stretch">
-      <controls:TitleBar></controls:TitleBar>
-        <!--<DockPanel HorizontalAlignment="Stretch">
+  <Window.Styles>
+    <Style Selector="TabControl.flat">
+      <Setter Property="Margin" Value="0 20 0 0"></Setter>
+    </Style>
+    <Style Selector="TabControl.flat /template/ ItemsPresenter">
+      <Setter Property="Margin" Value="0,0,0,0"></Setter>
+    </Style>
+    <Style Selector="TabControl.flat /template/ ContentPresenter">
+      <Setter Property="Margin" Value="0,4,0,0"></Setter>
+    </Style>
+  </Window.Styles>
+  <Panel HorizontalAlignment="Stretch">
+    <controls:TitleBar></controls:TitleBar>
+    <!--<DockPanel HorizontalAlignment="Stretch">
             <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="80">
                 <ExperimentalAcrylicBorder.Material>
                     <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
@@ -48,30 +48,30 @@
                 </ExperimentalAcrylicBorder.Material>
             </ExperimentalAcrylicBorder>
         </DockPanel>-->
-        <!--Header-->
-        <Menu
-                   Margin="0 0 145 0" Height="30"
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Top">
-            <MenuItem Width="50" Command="{ReflectionBinding RefreshStats_Click}"
-                      ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_RefreshTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <MenuItem.Header>
-                    <PathIcon Data="{StaticResource RefreshDrawing}" Width="14"></PathIcon>
-                </MenuItem.Header>
-            </MenuItem>
-            <MenuItem Width="50" Command="{ReflectionBinding ResetAllStats_Click}"
-                      ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_ResetTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <MenuItem.Header>
-                    <PathIcon Data="{StaticResource ResetDrawing}" Width="14"></PathIcon>
-                </MenuItem.Header>
-            </MenuItem>
-            <MenuItem Width="50" Command="{ReflectionBinding SaveChange_Click}"
-                      ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_StoreTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <MenuItem.Header>
-                    <PathIcon Data="{StaticResource SaveDrawing}" Width="14"></PathIcon>
-                </MenuItem.Header>
-            </MenuItem>
-            <!--<Button Command="{ReflectionBinding save}">
+    <!--Header-->
+    <Menu
+               Margin="0 0 145 0" Height="30"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Top">
+      <MenuItem Width="50" Command="{ReflectionBinding RefreshStats_Click}"
+                ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_RefreshTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <MenuItem.Header>
+          <PathIcon Data="{StaticResource RefreshDrawing}" Width="14"></PathIcon>
+        </MenuItem.Header>
+      </MenuItem>
+      <MenuItem Width="50" Command="{ReflectionBinding ResetAllStats_Click}"
+                ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_ResetTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <MenuItem.Header>
+          <PathIcon Data="{StaticResource ResetDrawing}" Width="14"></PathIcon>
+        </MenuItem.Header>
+      </MenuItem>
+      <MenuItem Width="50" Command="{ReflectionBinding SaveChange_Click}"
+                ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_StoreTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <MenuItem.Header>
+          <PathIcon Data="{StaticResource SaveDrawing}" Width="14"></PathIcon>
+        </MenuItem.Header>
+      </MenuItem>
+      <!--<Button Command="{ReflectionBinding save}">
                 <PathIcon Data="{StaticResource RefreshDrawing}"
                           Width="18" Height="18"/>
             </Button>
@@ -83,128 +83,127 @@
                 <PathIcon Data="{StaticResource SaveDrawing}"
                           Width="18" Height="18"/>
             </Button>-->
-        </Menu>
+    </Menu>
+    <TextBox ZIndex="2"
+              Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}"
+              Text="{Binding SearchText,Mode=TwoWay}"
+              Margin="0 35 10 0"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Top"
+              MinWidth="300">
+      <TextBox.InnerLeftContent>
+        <PathIcon Data="{StaticResource SearchDrawing}"
+                  Width="18" Height="18"
+                  Opacity="0.8"
+                  VerticalAlignment="Top" HorizontalAlignment="Left"
+                  Margin="15,10,0,0" />
+      </TextBox.InnerLeftContent>
+    </TextBox>
 
-        <TextBox ZIndex="2"
-            Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}"
-            Text="{Binding SearchText,Mode=TwoWay}"
-            Margin="0 35 10 0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            MinWidth="300">
-            <TextBox.InnerLeftContent>
-                <PathIcon Data="{StaticResource SearchDrawing}"
-                          Width="18" Height="18"
-                          Opacity="0.8"
-                          VerticalAlignment="Top" HorizontalAlignment="Left"
-                          Margin="15,10,0,0" />
-            </TextBox.InnerLeftContent>
-        </TextBox>
+    <TabControl Classes="flat" ZIndex="1">
+      <TabItem Header="{ReflectionBinding Path=Res.Achievement_Unlock,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <DataGrid Items="{Binding Achievements}" IsReadOnly="True">
+          <DataGrid.Columns>
+            <!--CheckBox-->
+            <DataGridTemplateColumn
+                                Width="58">
+              <DataGridTemplateColumn.Header>
+                <CheckBox Classes="onlyCheckBox"
+                          IsChecked="{ReflectionBinding #u.DataContext.IsCheckAll,Mode=TwoWay}"
+                          VerticalAlignment="Center"
+                          Margin="8 0 0 0"></CheckBox>
+              </DataGridTemplateColumn.Header>
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate x:DataType="models:AchievementInfo">
+                  <CheckBox Classes="onlyCheckBox"
+                          IsChecked="{Binding IsChecked,Mode=TwoWay}"
+                          VerticalAlignment="Center"
+                          Margin="-5 0 0 0"
+                          HorizontalAlignment="Center"
+                          HorizontalContentAlignment="Center">
+                  </CheckBox>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
 
-        <TabControl Classes="flat" ZIndex="1">
-            <TabItem Header="{ReflectionBinding Path=Res.Achievement_Unlock,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <DataGrid Items="{Binding Achievements}" IsReadOnly="True">
-                    <DataGrid.Columns>
-                        <!--CheckBox-->
-                        <DataGridTemplateColumn
-                                            Width="58">
-                            <DataGridTemplateColumn.Header>
-                                <CheckBox Classes="onlyCheckBox"
-                                          IsChecked="{ReflectionBinding #u.DataContext.IsCheckAll,Mode=TwoWay}"
-                                          VerticalAlignment="Center"
-                                          Margin="8 0 0 0"></CheckBox>
-                            </DataGridTemplateColumn.Header>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate x:DataType="models:AchievementInfo">
-                                    <CheckBox Classes="onlyCheckBox"
-                                            IsChecked="{Binding IsChecked,Mode=TwoWay}"
-                                            VerticalAlignment="Center"
-                                            Margin="-5 0 0 0"
-                                            HorizontalAlignment="Center"
-                                            HorizontalContentAlignment="Center">
-                                    </CheckBox>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+            <!-- Image -->
+            <DataGridTemplateColumn
+                                    Width="84" CanUserSort="True" SortMemberPath="IsChecked">
+              <DataGridTemplateColumn.Header>
+                <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Achievement_Icon,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+              </DataGridTemplateColumn.Header>
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate x:DataType="models:AchievementInfo">
+                  <Image Source="{Binding IconStream^,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=64}"
+                         Margin="-8 0 0 0"
+                         Width="64" Height="64" Stretch="UniformToFill">
+                  </Image>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
 
-                        <!-- Image -->
-                        <DataGridTemplateColumn
-                                                Width="84" CanUserSort="True" SortMemberPath="IsChecked">
-                            <DataGridTemplateColumn.Header>
-                                <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Achievement_Icon,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                            </DataGridTemplateColumn.Header>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate x:DataType="models:AchievementInfo">
-                                    <Image Source="{Binding IconStream^,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=64}"
-                                           Margin="-8 0 0 0"
-                                           Width="64" Height="64" Stretch="UniformToFill">
-                                    </Image>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+            <!--Name-->
+            <DataGridTemplateColumn
+                                Width="*"  CanUserSort="True" SortMemberPath="Name">
+              <DataGridTemplateColumn.Header>
+                <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Achievement_Name,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+              </DataGridTemplateColumn.Header>
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate x:DataType="models:AchievementInfo">
+                  <WrapPanel Margin="10 0">
+                    <TextBlock Text="{ReflectionBinding Path=Res.Achievement_IsProtection,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                               IsVisible="{Binding IsProtection}"
+                               VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Vertical" Spacing="5" VerticalAlignment="Center">
+                      <controls:ScrollingTextBlock Text="{Binding Name}"/>
+                      <TextBlock Text="{Binding UnlockTime,StringFormat={x:Static resx:AppResources.Achievement_TimeFormat}}"
+                                 FontSize="{StaticResource FontSizeH8}"
+                                 IsVisible="{Binding IsAchieved}"/>
+                    </StackPanel>
+                  </WrapPanel>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
 
-                        <!--Name-->
-                        <DataGridTemplateColumn
-                                            Width="*"  CanUserSort="True" SortMemberPath="Name">
-                            <DataGridTemplateColumn.Header>
-                                <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Achievement_Name,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                            </DataGridTemplateColumn.Header>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate x:DataType="models:AchievementInfo">
-                                    <WrapPanel Margin="10 0">
-                                        <TextBlock Text="{ReflectionBinding Path=Res.Achievement_IsProtection,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                                   IsVisible="{Binding IsProtection}"
-                                                   VerticalAlignment="Center"/>
-                                        <StackPanel Orientation="Vertical" Spacing="5" VerticalAlignment="Center">
-                                            <controls:ScrollingTextBlock Text="{Binding Name}"/>
-                                            <TextBlock Text="{Binding UnlockTime,StringFormat={x:Static resx:AppResources.Achievement_TimeFormat}}"
-                                                       FontSize="{StaticResource FontSizeH8}"
-                                                       IsVisible="{Binding IsAchieved}"/>
-                                        </StackPanel>
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+            <!--Description-->
+            <DataGridTemplateColumn
+                                Width="2*" CanUserSort="True" SortMemberPath="Description">
+              <DataGridTemplateColumn.Header>
+                <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Achievement_Description,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+              </DataGridTemplateColumn.Header>
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate x:DataType="models:AchievementInfo">
+                  <TextBlock Text="{Binding Description}"
+                             VerticalAlignment="Center"
+                             TextWrapping="WrapWithOverflow"></TextBlock>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
 
-                        <!--Description-->
-                        <DataGridTemplateColumn
-                                            Width="2*" CanUserSort="True" SortMemberPath="Description">
-                            <DataGridTemplateColumn.Header>
-                                <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Achievement_Description,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                            </DataGridTemplateColumn.Header>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate x:DataType="models:AchievementInfo">
-                                    <TextBlock Text="{Binding Description}"
-                                               VerticalAlignment="Center"
-                                               TextWrapping="WrapWithOverflow"></TextBlock>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+          </DataGrid.Columns>
+        </DataGrid>
+      </TabItem>
+      <TabItem Header="{ReflectionBinding Path=Res.Achievement_StatsEdit,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <DataGrid Items="{Binding Statistics}" IsReadOnly="False">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Id" x:DataType="models:StatInfo"
+                                Binding="{Binding Id}" Width="2*" IsReadOnly="True" />
+            <DataGridTextColumn Header="Name"
+                                x:DataType="models:StatInfo"
+                                Binding="{Binding DisplayName}"
+                                IsReadOnly="True"
+                                Width="2*" />
+            <DataGridTextColumn Header="Value"
+                                x:DataType="models:StatInfo" Binding="{Binding Value,Mode=TwoWay}" Width="*"  IsReadOnly="False" />
+            <DataGridTextColumn Header="Extra" CanUserSort="True"
+                                SortMemberPath="Extra"
+                                x:DataType="models:StatInfo" Binding="{Binding Extra}" Width="*"  IsReadOnly="True" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </TabItem>
+    </TabControl>
 
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
-            <TabItem Header="{ReflectionBinding Path=Res.Achievement_StatsEdit,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <DataGrid Items="{Binding Statistics}" IsReadOnly="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" x:DataType="models:StatInfo"
-                                            Binding="{Binding Id}" Width="2*" IsReadOnly="True" />
-                        <DataGridTextColumn Header="Name"
-                                            x:DataType="models:StatInfo"
-                                            Binding="{Binding DisplayName}"
-                                            IsReadOnly="True"
-                                            Width="2*" />
-                        <DataGridTextColumn Header="Value"
-                                            x:DataType="models:StatInfo" Binding="{Binding Value,Mode=TwoWay}" Width="*"  IsReadOnly="False" />
-                        <DataGridTextColumn Header="Extra" CanUserSort="True"
-                                            SortMemberPath="Extra"
-                                            x:DataType="models:StatInfo" Binding="{Binding Extra}" Width="*"  IsReadOnly="True" />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
-        </TabControl>
-
-        <!--Toast-->
-        <controls:ToastMessage  ZIndex="99"/>
-    </Panel>
+    <!--Toast-->
+    <controls:ToastMessage  ZIndex="99"/>
+  </Panel>
 </Window>

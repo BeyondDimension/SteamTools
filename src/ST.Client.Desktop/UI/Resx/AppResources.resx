@@ -260,7 +260,7 @@
   <data name="CloudSync" xml:space="preserve">
     <value>云同步</value>
   </data>
-  <data name="CommunityFix" xml:space="preserve">
+    <data name="CommunityFix" xml:space="preserve">
     <value>网络加速</value>
   </data>
   <data name="CommunityFix_Acceleration" xml:space="preserve">
@@ -1247,8 +1247,8 @@
   <data name="UserChange_DeleteUser" xml:space="preserve">
     <value>删除此账号数据</value>
   </data>
-  <data name="UserChange_DeleteUserDataTip" xml:space="preserve">
-    <value>是否也要同时删除此账户在本地的 Steam 缓存数据。</value>
+    <data name="UserChange_DeleteUserDataTip" xml:space="preserve">
+    <value>是否也要同时删除此账户在本地的 Steam 缓存数据(包括此账号游戏的配置文件及创意工坊文件)。</value>
   </data>
   <data name="UserChange_DeleteUserTip" xml:space="preserve">
     <value>确定要删除这条本地记录帐户吗？</value>
@@ -1337,8 +1337,8 @@
   <data name="User_LoginError" xml:space="preserve">
     <value>账号或密码错误</value>
   </data>
-  <data name="User_LoginError_Auth" xml:space="preserve">
-    <value>无效令牌：当前令牌账号与已登录账号不匹配</value>
+    <data name="User_LoginError_Auth" xml:space="preserve">
+    <value>当前令牌账号与已登录账号不匹配</value>
   </data>
   <data name="User_LoginError_CodeImage" xml:space="preserve">
     <value>请输入图片验证码</value>
@@ -1397,8 +1397,8 @@
   <data name="User_SteamFastLogin" xml:space="preserve">
     <value>Steam 快速登录</value>
   </data>
-  <data name="User_SteamFastLoginTimeoutErrorMessage" xml:space="preserve">
-    <value>连接到 Steam 社区超时，请检查是否开启网络加速。</value>
+    <data name="User_SteamFastLoginTimeoutErrorMessage" xml:space="preserve">
+    <value>连接到 Steam 社区超时，请检查是否开启Steam社区网络加速。</value>
   </data>
   <data name="User_SteamLogoTip" xml:space="preserve">
     <value>点击跳转到快速登录窗口</value>

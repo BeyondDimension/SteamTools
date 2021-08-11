@@ -176,6 +176,7 @@
     </Setter>
   </Style>
   
+  
   <Style Selector="TextBox.readonlybox">
     <Setter Property="Background" Value="Transparent"/>
     <Setter Property="BorderBrush" Value="Transparent"/>

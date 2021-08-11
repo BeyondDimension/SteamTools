@@ -20,7 +20,7 @@
           <Setter Property="FontSize" Value="12" />
           <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}" />
           <Setter Property="VerticalAlignment" Value="Center" />
-          <Setter Property="Margin" Value="5 0" />
+          <Setter Property="Margin" Value="10 0" />
         </Style>
         <Style Selector="DockPanel > WrapPanel">
           <Setter Property="Margin" Value="0 0 20 0" />

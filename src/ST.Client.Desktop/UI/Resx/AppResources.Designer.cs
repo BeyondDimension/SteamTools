@@ -4151,7 +4151,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 是否也要同时删除此账户在本地的 Steam 缓存数据。 的本地化字符串。
+        ///   查找类似 是否也要同时删除此账户在本地的 Steam 缓存数据(包括此账号游戏的配置文件及创意工坊文件)。 的本地化字符串。
         /// </summary>
         public static string UserChange_DeleteUserDataTip {
             get {
