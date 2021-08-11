@@ -1,7 +1,5 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using CefNet;
-using CefNet.Avalonia;
 using System.Application.UI.Resx;
 using System.Application.UI.Views.Controls;
 

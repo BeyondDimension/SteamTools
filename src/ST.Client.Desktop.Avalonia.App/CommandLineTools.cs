@@ -22,8 +22,8 @@ namespace System.Application.UI
         {
             public static int Run(string[] args,
                 Action<DILevel> initStartup,
-                Action initUIApp,
-                Action initCef)
+                Action initUIApp/*,*/
+                /*Action initCef*/)
             {
                 if (args.Length == 0) args = new[] { "-h" };
 
@@ -79,13 +79,13 @@ namespace System.Application.UI
                             }
                         };
                     }
-#if StartupTrace
-                    StartupTrace.Restart("ApplicationInstance");
-#endif
-                    initCef();
-#if StartupTrace
-                    StartupTrace.Restart("InitCefNetApp");
-#endif
+//#if StartupTrace
+//                    StartupTrace.Restart("ApplicationInstance");
+//#endif
+//                    initCef();
+//#if StartupTrace
+//                    StartupTrace.Restart("InitCefNetApp");
+//#endif
                     if (IsMainProcess)
                     {
                         initUIApp();

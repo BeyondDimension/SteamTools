@@ -21,6 +21,34 @@
     </ItemGroup>
 
     <ItemGroup>
+      <AvaloniaResource Remove="CefSharp\**" />
+      <AvaloniaXaml Remove="CefSharp\**" />
+      <Compile Remove="CefSharp\**" />
+      <EmbeddedResource Remove="CefSharp\**" />
+      <None Remove="CefSharp\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaXaml Remove="Application\UI\Views\Controls\WebView3.axaml" />
+      <AvaloniaXaml Remove="Application\UI\Views\Pages\About\About_ChangeLog.axaml" />
+      <AvaloniaXaml Remove="Application\UI\Views\Pages\About\About_FAQPage.axaml" />
+      <AvaloniaXaml Remove="Application\UI\Views\Pages\DebugWebViewPage.axaml" />
+      <AvaloniaXaml Remove="Application\UI\Views\Windows\WebView3Window.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Application\UI\CefNetApp.cs" />
+      <Compile Remove="Application\UI\Views\Controls\WebView3.axaml.cs" />
+      <Compile Remove="Application\UI\Views\Controls\WebViewBase.cs" />
+      <Compile Remove="Application\UI\Views\Pages\About\About_Changelog.axaml.cs" />
+      <Compile Remove="Application\UI\Views\Pages\About\About_FAQPage.axaml.cs" />
+      <Compile Remove="Application\UI\Views\Pages\DebugWebViewPage.axaml.cs" />
+      <Compile Remove="Application\UI\Views\Windows\WebView3Window.axaml.cs" />
+      <Compile Remove="Extensions\CookieExtensions.cs" />
+      <Compile Remove="Extensions\WebViewExtensions.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <None Remove="Application\UI\Assets\Fonts\WenQuanYiMicroHei-01.ttf" />
         <None Remove="Application\UI\Assets\movecross.png" />
         <None Remove="Application\UI\Styles\Controls\DateTimePicker.xaml" />
@@ -51,7 +79,7 @@
         <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.999-cibuild0015267-beta" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0015267-beta" />
         <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.6.10" />
-        <PackageReference Include="CefNet.Avalonia" Version="90.6.21124.1851" />
+        <!--<PackageReference Include="CefNet.Avalonia" Version="90.6.21124.1851" />-->
         <!--<PackageReference Include="LibVLCSharp.Avalonia" Version="3.5.1" />-->
         <!--<PackageReference Include="FluentAvaloniaUI" Version="1.1.1" />-->
     </ItemGroup>

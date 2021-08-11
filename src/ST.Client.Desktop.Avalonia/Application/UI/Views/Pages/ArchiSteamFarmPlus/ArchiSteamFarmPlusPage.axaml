@@ -95,7 +95,7 @@
                   HorizontalAlignment="Center"/>
           </StackPanel>-->
 
-          <controls:WebView3 Url="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=IPCUrl}"/>
+          <!--<controls:WebView3 Url="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=IPCUrl}"/>-->
         </Panel>
       </TabItem>
 

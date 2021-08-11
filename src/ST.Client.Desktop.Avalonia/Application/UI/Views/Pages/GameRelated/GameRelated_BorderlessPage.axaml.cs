@@ -2,7 +2,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
-using CefNet;
 using System.Application.UI.Resx;
 using System.Application.UI.Views.Controls;
 

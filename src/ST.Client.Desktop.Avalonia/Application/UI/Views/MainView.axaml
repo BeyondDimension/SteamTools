@@ -156,9 +156,9 @@
                         Margin="0 22 0 0"
                         Classes="NavBar">
       <TabControl.DataTemplates>
-        <DataTemplate DataType="vm:DebugWebViewPageViewModel">
+        <!--<DataTemplate DataType="vm:DebugWebViewPageViewModel">
           <pages:DebugWebViewPage/>
-        </DataTemplate>
+        </DataTemplate>-->
         <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
           <pages:ProxyScriptManagePage/>
         </DataTemplate>

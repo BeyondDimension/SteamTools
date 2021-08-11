@@ -206,7 +206,7 @@ namespace System.Application.Services.Implementation
             await PlatformShowWindow(customWindow, viewModel, title);
         }
 
-        public async Task<bool> ShowDialog<TWindowViewModel>(CustomWindow customWindow, TWindowViewModel? viewModel = null, string title = "", ResizeModeCompat resizeMode = default, bool isDialog = true) where TWindowViewModel : PageViewModel, new()
+        public async Task<bool> ShowDialog<TWindowViewModel>(CustomWindow customWindow, TWindowViewModel? viewModel = null, string title = "", ResizeModeCompat resizeMode = default, bool isDialog = true, bool isParent = true) where TWindowViewModel : PageViewModel, new()
         {
             return await PlatformShowWindow(customWindow, viewModel, title);
         }

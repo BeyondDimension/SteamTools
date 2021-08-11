@@ -57,7 +57,7 @@ namespace System.Application.UI
             StartupTrace.Restart("InitLogDir");
 #endif
 
-            void InitCefNetApp() => CefNetApp.Init(AppHelper.LogDirPath, args);
+            //void InitCefNetApp() => CefNetApp.Init(AppHelper.LogDirPath, args);
             void InitAvaloniaApp() => BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
             void InitStartup(DILevel level) => Startup.Init(level);
             Startup.InitGlobalExceptionHandler();
@@ -73,7 +73,7 @@ namespace System.Application.UI
                 {
                     args_clt = new[] { command_main };
                 }
-                return CommandLineTools.Run(args_clt, InitStartup, InitAvaloniaApp, InitCefNetApp);
+                return CommandLineTools.Run(args_clt, InitStartup, InitAvaloniaApp/*, InitCefNetApp*/);
             }
             catch (Exception ex)
             {
