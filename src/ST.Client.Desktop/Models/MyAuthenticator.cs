@@ -444,7 +444,9 @@ namespace System.Application.Models
                 Value = Name,
                 Title = AppResources.EditName,
             });
-            Name = value ?? string.Empty;
+            if (value == null)
+                return;
+            Name = value;
             await AuthService.Current.SaveEditNameByAuthenticatorAsync(this);
         }
 

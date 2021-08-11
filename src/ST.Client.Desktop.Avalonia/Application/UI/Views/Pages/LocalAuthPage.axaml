@@ -88,24 +88,28 @@
               </i:Interaction.Behaviors>
               <Grid RowDefinitions="30,165,Auto">
                 <DockPanel VerticalAlignment="Center">
-                  <TextBox VerticalAlignment="Center"
-                                   VerticalContentAlignment="Center"
-                                   ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthName,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                   Text="{Binding Name,Mode=TwoWay}"
-                                   Classes="readonlybox"
-                                   DockPanel.Dock="Left"
-                                   Padding="10,5"
-                                   FontSize="16"
-                                   Foreground="{DynamicResource HighlightForegroundBrushKey}">
-                    <TextBox.InnerRightContent>
+                  <WrapPanel>
+                    <TextBlock VerticalAlignment="Center"
+                                 Text="{Binding Name,Mode=TwoWay}"
+                                 DockPanel.Dock="Left"
+                                 Padding="10,5"
+                                 FontSize="16"
+                                 Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                    <Button Command="{ReflectionBinding EditNameAsync}"
+                            Cursor="Hand"
+                            Classes="plain"
+                            ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthName,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center">
                       <PathIcon Data="{StaticResource EditDrawing}"
-                                Width="10" Height="10"
-                                Opacity="0.8"
-                                VerticalAlignment="Center" HorizontalAlignment="Left"
-                                Margin="0">
+                              Width="10" Height="10"
+                              Opacity="0.8"
+                              VerticalAlignment="Center" HorizontalAlignment="Left"
+                              Margin="0">
                       </PathIcon>
-                    </TextBox.InnerRightContent>
-                  </TextBox>
+                    </Button>
+                  </WrapPanel>
+
                   <Button DockPanel.Dock="Right" x:Name="delete_btn" Classes="flatbutton" IsVisible="False" Background="Transparent" HorizontalAlignment="Right" Cursor="Hand" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
                           Command="{ReflectionBinding #u.DataContext.DeleteAuth}" CommandParameter="{Binding}">
                     <PathIcon Data="{DynamicResource CloseDrawing}" Width="12"></PathIcon>

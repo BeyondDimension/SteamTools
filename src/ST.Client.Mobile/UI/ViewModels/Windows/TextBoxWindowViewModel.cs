@@ -74,17 +74,19 @@ namespace System.Application.UI.ViewModels
         }
 
         /// <summary>
-        /// 显示弹窗
+        /// 显示弹窗，点击取消按钮回返回NULL
         /// </summary>
         /// <param name="vm"></param>
         /// <returns></returns>
         public static async Task<string?> ShowDialogAsync(TextBoxWindowViewModel? vm = null)
         {
             vm ??= new TextBoxWindowViewModel();
-            await IShowWindowService.Instance.ShowDialog(
+            var r = await IShowWindowService.Instance.ShowDialog(
                 CustomWindow.TextBox
                 , vm, string.Empty, ResizeModeCompat.NoResize);
-            return vm.Value;
+            if (r)
+                return vm.Value ?? string.Empty;
+            return null;
         }
 
         /// <inheritdoc cref="ShowDialogAsync(TextBoxWindowViewModel?)"/>
